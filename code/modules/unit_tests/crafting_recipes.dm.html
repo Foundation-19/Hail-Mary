@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;modules&#x2F;unit_tests&#x2F;crafting_recipes.dm.txt - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+</header>
+<main>
+<h1>code/modules/unit_tests/crafting_recipes.dm.txt 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/unit_tests/crafting_recipes.dm.txt">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;unit_tests&#x2F;crafting_recipes.dm.txt"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><td colspan="2"><pre><code>/datum/unit_test/crafting_recipes/Run()
+	for(var/i in GLOB.crafting_recipes)
+		var/datum/crafting_recipe/R = i
+		if(!R.subcategory)
+			Fail(&quot;Invalid subcategory on [R] ([R.type]).&quot;)
+		if(!R.category &amp;&amp; (R.cateogry != CAT_NONE))
+			Fail(&quot;Invalid category on [R] ([R.type])&quot;)
+</code></pre></td></tr></table></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

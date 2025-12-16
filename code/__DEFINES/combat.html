@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;combat.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/combat.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/combat.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAGS_DEFAULT">COMBAT_FLAGS_DEFAULT</a></th><td>Default combat flags for those affected by sprinting (combat mode has been made into its own component)</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAGS_SPRINT_EXEMPT">COMBAT_FLAGS_SPRINT_EXEMPT</a></th><td>Default combat flags for everyone else (so literally everyone but humans).</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_SPRINT_TOGGLED">COMBAT_FLAG_SPRINT_TOGGLED</a></th><td>The user wants sprint mode on</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_SPRINT_ACTIVE">COMBAT_FLAG_SPRINT_ACTIVE</a></th><td>Sprint is currently active</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_ATTEMPTING_CRAWL">COMBAT_FLAG_ATTEMPTING_CRAWL</a></th><td>Currently attempting to crawl under someone</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_HARD_STAMCRIT">COMBAT_FLAG_HARD_STAMCRIT</a></th><td>Currently stamcritted</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_RESISTING_REST">COMBAT_FLAG_RESISTING_REST</a></th><td>Currently attempting to resist up from the ground</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_INTENTIONALLY_RESTING">COMBAT_FLAG_INTENTIONALLY_RESTING</a></th><td>Intentionally resting</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_SOFT_STAMCRIT">COMBAT_FLAG_SOFT_STAMCRIT</a></th><td>Currently stamcritted but not as violently</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_SPRINT_FORCED">COMBAT_FLAG_SPRINT_FORCED</a></th><td>Force sprint mode on at all times, overrides everything including sprint disable traits.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_PARRY_CAPABLE">COMBAT_FLAG_PARRY_CAPABLE</a></th><td>This mob is capable of using the active parrying system.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_BLOCK_CAPABLE">COMBAT_FLAG_BLOCK_CAPABLE</a></th><td>This mob is capable of using the active blocking system.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_UNARMED_PARRY">COMBAT_FLAG_UNARMED_PARRY</a></th><td>This mob is capable of unarmed parrying</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_ACTIVE_BLOCKING">COMBAT_FLAG_ACTIVE_BLOCKING</a></th><td>This mob is currently actively blocking</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/COMBAT_FLAG_ACTIVE_BLOCK_STARTING">COMBAT_FLAG_ACTIVE_BLOCK_STARTING</a></th><td>This mob is currently starting an active block</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAMINA_NEAR_SOFTCRIT">STAMINA_NEAR_SOFTCRIT</a></th><td>Threshold over which attacks start being hindered.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAMINA_SOFTCRIT">STAMINA_SOFTCRIT</a></th><td>softcrit for stamina damage. prevents standing up, some actions that cost stamina, etc, but doesn't force a rest or stop movement</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAMINA_NEAR_CRIT">STAMINA_NEAR_CRIT</a></th><td>sanity cap to prevent stamina actions (that are still performable) from sending you into crit.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAMINA_CRIT">STAMINA_CRIT</a></th><td>crit for stamina damage. forces a rest, and stops movement until stamina goes back to stamina softcrit</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAMINA_SOFTCRIT_TRADITIONAL">STAMINA_SOFTCRIT_TRADITIONAL</a></th><td>same as STAMINA_SOFTCRIT except for the more traditional health calculations</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAMINA_CRIT_TRADITIONAL">STAMINA_CRIT_TRADITIONAL</a></th><td>ditto, but for STAMINA_CRIT</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SHOVE_STAGGER_DURATION">SHOVE_STAGGER_DURATION</a></th><td>how long they're staggered for</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SHOVE_OFFBALANCE_DURATION">SHOVE_OFFBALANCE_DURATION</a></th><td>how long they're off balance for</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SUPPRESSED_QUIET">SUPPRESSED_QUIET</a></th><td>standard suppressed</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SUPPRESSED_VERY">SUPPRESSED_VERY</a></th><td>no message</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAM_CRIT_ITEM_ATTACK_PENALTY">STAM_CRIT_ITEM_ATTACK_PENALTY</a></th><td>Multiplier of the (STAMINA_NEAR_CRIT - user current stamina loss) : (STAMINA_NEAR_CRIT - STAMINA_SOFTCRIT) ratio used in damage penalties when stam soft-critted.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAM_CRIT_ITEM_ATTACK_DELAY">STAM_CRIT_ITEM_ATTACK_DELAY</a></th><td>changeNext_move penalty multiplier of the above.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/LYING_DAMAGE_PENALTY">LYING_DAMAGE_PENALTY</a></th><td>Damage penalty when fighting prone.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/STAM_CRIT_GUN_DELAY">STAM_CRIT_GUN_DELAY</a></th><td>Added delay when firing guns stam-softcritted. Summed with a hardset CLICK_CD_RANGE delay, similar to STAM_CRIT_DAMAGE_DELAY otherwise.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/FEEBLE_ATTACK_MSG_THRESHOLD">FEEBLE_ATTACK_MSG_THRESHOLD</a></th><td>should the current-attack-damage be lower than the item force multiplied by this value,
+a &quot;inefficiently&quot; prefix will be added to the message.</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_ALL_SIMPLEMOBS">SE_ALL_SIMPLEMOBS</a></th><td>Supereffective typegroups
+ALL simplemobs</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_HOSTILE_SIMPLEMOBS">SE_HOSTILE_SIMPLEMOBS</a></th><td>All simple_animal/hostile</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_ANIMALS">SE_ANIMALS</a></th><td>All animal-like critters</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_ROBOTS">SE_ROBOTS</a></th><td>All robot-like critters</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_HUMANLIKE">SE_HUMANLIKE</a></th><td>All human-like critters (not players)</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_INSECTS">SE_INSECTS</a></th><td>All insect-like critters</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_PLAYERS">SE_PLAYERS</a></th><td>Anything with a ckey (characters, mobs, etc)</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SE_NO_LAZARUS">SE_NO_LAZARUS</a></th><td>Ignore critters that have been lazarused</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_SPEED_BASE">BULLET_SPEED_BASE</a></th><td>Bullet speed defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ARROW_SPEED_BASE">ARROW_SPEED_BASE</a></th><td>Arrow speed defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_MATCH_MULT_DAMAGE">BULLET_MATCH_MULT_DAMAGE</a></th><td>Bullet damage modifier defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_MATCH_MULT_SPEED">BULLET_MATCH_MULT_SPEED</a></th><td>Bullet speed modifier defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_MATCH_MULT_WOUND">BULLET_MATCH_MULT_WOUND</a></th><td>Bullet wounding modifier defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_MATCH_MULT_RECOIL">BULLET_MATCH_MULT_RECOIL</a></th><td>Bullet recoil modifier defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/RUBBERY_DAMAGE_MULT">RUBBERY_DAMAGE_MULT</a></th><td>Rubber bullet lethal damage multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/RUBBERY_RECOIL_MULT">RUBBERY_RECOIL_MULT</a></th><td>Rubber bullet recoil multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_PISTOL_22">BULLET_DAMAGE_PISTOL_22</a></th><td>Bullet damage defines
+.22 LR</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_FALLOFF">BULLET_FALLOFF</a></th><td>Bullet damage falloff per tile defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_FALLOFF_START">BULLET_FALLOFF_START</a></th><td>Bullet damage falloff starting distance defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT">BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT</a></th><td>Bullet damage falloff default defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_FALLOFF_MIN_DAMAGE">BULLET_FALLOFF_MIN_DAMAGE</a></th><td>Minimum bullet damage that falloff can take it to</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SHOTGUN_PELLET_BASE">SHOTGUN_PELLET_BASE</a></th><td>Shotgun pellet count defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SHOTGUN_SPREAD_BASE">SHOTGUN_SPREAD_BASE</a></th><td>Shotgun pellet spread defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_SPREAD_BASE">BULLET_SPREAD_BASE</a></th><td>Bullet spread modifier defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_SPREAD_MATCH">BULLET_SPREAD_MATCH</a></th><td>Bullet spread modifier defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_WOUND_FALLOFF_PISTOL_LIGHT">BULLET_WOUND_FALLOFF_PISTOL_LIGHT</a></th><td>Bullet wound falloff defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_NAKED_RUBBERY_WOUND_MULT">BULLET_NAKED_RUBBERY_WOUND_MULT</a></th><td>If you're naked, more wounds</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_ACID">BULLET_DAMAGE_ACID</a></th><td>Bullet ammo type multiplier defines
+Acid ammo</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_FIRE">BULLET_DAMAGE_FIRE</a></th><td>Fire ammo</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_SHOCK">BULLET_DAMAGE_SHOCK</a></th><td>Shock ammo</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_MICROSHRAPNEL">BULLET_DAMAGE_MICROSHRAPNEL</a></th><td>Microshapnel ammo</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_EXPLOSIVE">BULLET_DAMAGE_EXPLOSIVE</a></th><td>Explosive ammo</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/BULLET_DAMAGE_POISON">BULLET_DAMAGE_POISON</a></th><td>Poison ammo</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_FIREMODE_SEMIAUTO">GUN_FIREMODE_SEMIAUTO</a></th><td>Gun Firemodes</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_RECOIL_MAX_SPREAD">GUN_RECOIL_MAX_SPREAD</a></th><td>Max spread recoil can add</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/SAWEDOFF_RECOIL_MULT">SAWEDOFF_RECOIL_MULT</a></th><td>Sawed-off recoil modifier</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/HOBO_RECOIL_MULT">HOBO_RECOIL_MULT</a></th><td>Hobogun recoil modifier</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_RECOIL_NONE">GUN_RECOIL_NONE</a></th><td>Gun recoil modifier per shot defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_RECOIL_TIMEOUT_BASE">GUN_RECOIL_TIMEOUT_BASE</a></th><td>Gun recoil timeout Base</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_RECOIL_TIMEOUT_INSTANT">GUN_RECOIL_TIMEOUT_INSTANT</a></th><td>Gun recoil timeout modifiers</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_SPREAD_NONE">GUN_SPREAD_NONE</a></th><td>Gun spread modifiers</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_AIMING_TIME">GUN_AIMING_TIME</a></th><td>Time after you draw a gun that you're able to shoot it</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_DRAW_QUICK">GUN_DRAW_QUICK</a></th><td>Gun draw time modifiers</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_ONE_HAND_AKIMBO">GUN_ONE_HAND_AKIMBO</a></th><td>Gun weapon weight</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_EXTRA_DAMAGE_0">GUN_EXTRA_DAMAGE_0</a></th><td>Gun bullet damage base
+Multiplies the gun's projectile damage</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_LESS_DAMAGE_T1">GUN_LESS_DAMAGE_T1</a></th><td>Also multiplies the gun's projectile damage, but so it does less damage</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MELEE_FORCE_BASE">GUN_MELEE_FORCE_BASE</a></th><td>Gun melee force base</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MELEE_FORCE_PISTOL_LIGHT">GUN_MELEE_FORCE_PISTOL_LIGHT</a></th><td>Gun weapon weight</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_SLOWDOWN_NONE">GUN_SLOWDOWN_NONE</a></th><td>Gun slowdown</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_COCK_BASE">GUN_COCK_BASE</a></th><td>Cock length
+Delay between cocking your gun</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_RIFLEMAN_REFIRE_DELAY_MULT">GUN_RIFLEMAN_REFIRE_DELAY_MULT</a></th><td>Refire speed multiplier for manual action guns, cus we no longer care about your cock length</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_AUTOPUMP_REFIRE_DELAY_MULT">GUN_AUTOPUMP_REFIRE_DELAY_MULT</a></th><td>Refire speed multiplier for manual action guns if you're not a pr0 and click-to-cycle it</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_FIRE_DELAY_BASE">GUN_FIRE_DELAY_BASE</a></th><td>Gun fire delay Base</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_FIRE_DELAY_FASTEST">GUN_FIRE_DELAY_FASTEST</a></th><td>Gun fire delay modifiers</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_AUTOFIRE_DELAY_BASE">GUN_AUTOFIRE_DELAY_BASE</a></th><td>Gun autofire delay Base</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_AUTOFIRE_DELAY_FASTEST">GUN_AUTOFIRE_DELAY_FASTEST</a></th><td>Gun fire delay modifiers</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_BURSTFIRE_DELAY_BASE">GUN_BURSTFIRE_DELAY_BASE</a></th><td>Gun burstfire delay Base</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_BURSTFIRE_DELAY_FASTEST">GUN_BURSTFIRE_DELAY_FASTEST</a></th><td>Gun fire delay modifiers</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_PRECISION">ZONE_WEIGHT_PRECISION</a></th><td>Bullet zone favoring defines
+High accuracy, generally goes where you mean to put it, for precision rifles and such</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_SEMI_AUTO">ZONE_WEIGHT_SEMI_AUTO</a></th><td>Typical accuracy, based a bit on range</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_AUTOMATIC">ZONE_WEIGHT_AUTOMATIC</a></th><td>Heavily weights limbs after its effective distance</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_SHOTGUN">ZONE_WEIGHT_SHOTGUN</a></th><td>Always weights limbs heavily</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_GUNS_CHOICE">ZONE_WEIGHT_GUNS_CHOICE</a></th><td>Always defers to the gun's setting, defaults to semi-auto if not defined</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_FALLOFF_SEMI_AUTO">ZONE_WEIGHT_FALLOFF_SEMI_AUTO</a></th><td>Typical accuracy falloff</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_FALLOFF_AUTOMATIC">ZONE_WEIGHT_FALLOFF_AUTOMATIC</a></th><td>Zone accuracy falls off quickly</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_FALLOFF_SHOTGUN">ZONE_WEIGHT_FALLOFF_SHOTGUN</a></th><td>You're hitting limbs most of the time</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_LIST_DEFAULT">ZONE_WEIGHT_LIST_DEFAULT</a></th><td>Default zone weight list</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_LIST_PRECISION">ZONE_WEIGHT_LIST_PRECISION</a></th><td>Precision zone weight list</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_LIST_AUTOMATIC">ZONE_WEIGHT_LIST_AUTOMATIC</a></th><td>Autofire zone weight list</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/ZONE_WEIGHT_LIST_SHOTGUN">ZONE_WEIGHT_LIST_SHOTGUN</a></th><td>Pellet zone weight list</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/AFFECTED_BY_FAST_PUMP">AFFECTED_BY_FAST_PUMP</a></th><td>Gun skill flags
+Gun is affected by rifleman skill</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/AFFECTED_BY_AUTO_PUMP">AFFECTED_BY_AUTO_PUMP</a></th><td>If you autopump this gun, it'll have a debuff to its refire rate till you fire again</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_AUTO_PUMPED">GUN_AUTO_PUMPED</a></th><td>Gun cooldown mod flags
+Gun is slower to refire if you autopump it (without fast pump)</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_EJECTOR_RIGHT">GUN_EJECTOR_RIGHT</a></th><td>Gun handedness defines -- for picking which direction to toss casings</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_CHANCE">GUN_MF_CHANCE</a></th><td>Gun misfire actions</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_HURTS_YOU">GUN_MF_HURTS_YOU</a></th><td>Gun does damage when it misfires
+Gun hurts you define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_HURTS_YOU_DAMAGE_LOW">GUN_MF_HURTS_YOU_DAMAGE_LOW</a></th><td>Gun hurts you low damage define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_HURTS_YOU_DAMAGE_HIGH">GUN_MF_HURTS_YOU_DAMAGE_HIGH</a></th><td>Gun hurts you high damage define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_HURTS_YOU_DAMAGE_TYPE">GUN_MF_HURTS_YOU_DAMAGE_TYPE</a></th><td>Gun hurts you with this type of damage define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MISFIRE_HURTS_USER">GUN_MISFIRE_HURTS_USER</a></th><td>Varied minimum list</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_YEET">GUN_MF_YEET</a></th><td>Gun yeets itself out of your hand when it misfires
+Gun yeets define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MISFIRE_THROWS_GUN">GUN_MISFIRE_THROWS_GUN</a></th><td>Gun yeets the gun entry</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_DUMP">GUN_MF_DUMP</a></th><td>Gun dumps out its ammo
+Gun dump define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MF_DUMP_THROW">GUN_MF_DUMP_THROW</a></th><td>Gun dump throw it define</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_MISFIRE_UNLOADS_GUN">GUN_MISFIRE_UNLOADS_GUN</a></th><td>Gun dump the gun entry</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_HOLD_IT_RIGHT_MESSAGE_ANTISPAM_TIME">GUN_HOLD_IT_RIGHT_MESSAGE_ANTISPAM_TIME</a></th><td>cooldown for being spammed with messages you're holding the stupid gun wrong</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/GUN_SHOOT_MESSAGE_ANTISPAM_TIME">GUN_SHOOT_MESSAGE_ANTISPAM_TIME</a></th><td>cooldown for being spammed with messages that you shot the gun</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/PUNCH_DAMAGE_LOW">PUNCH_DAMAGE_LOW</a></th><td>Unarmed Damage Defines</td></tr>
+        <tr><th><a href="code/__DEFINES/combat.html#define/FLINTLOCK_PISTOL_RELOAD_TIME">FLINTLOCK_PISTOL_RELOAD_TIME</a></th><td>Musket defines</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/AFFECTED_BY_AUTO_PUMP"><aside class="declaration">#define </aside>AFFECTED_BY_AUTO_PUMP
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1266">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1266"/></a>
+    </h3>
+    <p>If you autopump this gun, it'll have a debuff to its refire rate till you fire again</p><h3 id="define/AFFECTED_BY_FAST_PUMP"><aside class="declaration">#define </aside>AFFECTED_BY_FAST_PUMP
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1264">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1264"/></a>
+    </h3>
+    <p>Gun skill flags
+Gun is affected by rifleman skill</p><h3 id="define/ARROW_SPEED_BASE"><aside class="declaration">#define </aside>ARROW_SPEED_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L362">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 362"/></a>
+    </h3>
+    <p>Arrow speed defines</p><h3 id="define/BULLET_DAMAGE_ACID"><aside class="declaration">#define </aside>BULLET_DAMAGE_ACID
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L943">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 943"/></a>
+    </h3>
+    <p>Bullet ammo type multiplier defines
+Acid ammo</p><h3 id="define/BULLET_DAMAGE_EXPLOSIVE"><aside class="declaration">#define </aside>BULLET_DAMAGE_EXPLOSIVE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L967">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 967"/></a>
+    </h3>
+    <p>Explosive ammo</p><h3 id="define/BULLET_DAMAGE_FIRE"><aside class="declaration">#define </aside>BULLET_DAMAGE_FIRE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L949">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 949"/></a>
+    </h3>
+    <p>Fire ammo</p><h3 id="define/BULLET_DAMAGE_MICROSHRAPNEL"><aside class="declaration">#define </aside>BULLET_DAMAGE_MICROSHRAPNEL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L961">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 961"/></a>
+    </h3>
+    <p>Microshapnel ammo</p><h3 id="define/BULLET_DAMAGE_PISTOL_22"><aside class="declaration">#define </aside>BULLET_DAMAGE_PISTOL_22
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L392">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 392"/></a>
+    </h3>
+    <p>Bullet damage defines
+.22 LR</p><h3 id="define/BULLET_DAMAGE_POISON"><aside class="declaration">#define </aside>BULLET_DAMAGE_POISON
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L973">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 973"/></a>
+    </h3>
+    <p>Poison ammo</p><h3 id="define/BULLET_DAMAGE_SHOCK"><aside class="declaration">#define </aside>BULLET_DAMAGE_SHOCK
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L955">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 955"/></a>
+    </h3>
+    <p>Shock ammo</p><h3 id="define/BULLET_FALLOFF"><aside class="declaration">#define </aside>BULLET_FALLOFF
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L877">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 877"/></a>
+    </h3>
+    <p>Bullet damage falloff per tile defines</p><h3 id="define/BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT"><aside class="declaration">#define </aside>BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L899">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 899"/></a>
+    </h3>
+    <p>Bullet damage falloff default defines</p><h3 id="define/BULLET_FALLOFF_MIN_DAMAGE"><aside class="declaration">#define </aside>BULLET_FALLOFF_MIN_DAMAGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L909">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 909"/></a>
+    </h3>
+    <p>Minimum bullet damage that falloff can take it to</p><h3 id="define/BULLET_FALLOFF_START"><aside class="declaration">#define </aside>BULLET_FALLOFF_START
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L888">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 888"/></a>
+    </h3>
+    <p>Bullet damage falloff starting distance defines</p><h3 id="define/BULLET_MATCH_MULT_DAMAGE"><aside class="declaration">#define </aside>BULLET_MATCH_MULT_DAMAGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L365">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 365"/></a>
+    </h3>
+    <p>Bullet damage modifier defines</p><h3 id="define/BULLET_MATCH_MULT_RECOIL"><aside class="declaration">#define </aside>BULLET_MATCH_MULT_RECOIL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L380">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 380"/></a>
+    </h3>
+    <p>Bullet recoil modifier defines</p><h3 id="define/BULLET_MATCH_MULT_SPEED"><aside class="declaration">#define </aside>BULLET_MATCH_MULT_SPEED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L370">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 370"/></a>
+    </h3>
+    <p>Bullet speed modifier defines</p><h3 id="define/BULLET_MATCH_MULT_WOUND"><aside class="declaration">#define </aside>BULLET_MATCH_MULT_WOUND
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L375">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 375"/></a>
+    </h3>
+    <p>Bullet wounding modifier defines</p><h3 id="define/BULLET_NAKED_RUBBERY_WOUND_MULT"><aside class="declaration">#define </aside>BULLET_NAKED_RUBBERY_WOUND_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L938">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 938"/></a>
+    </h3>
+    <p>If you're naked, more wounds</p><h3 id="define/BULLET_SPEED_BASE"><aside class="declaration">#define </aside>BULLET_SPEED_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L359">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 359"/></a>
+    </h3>
+    <p>Bullet speed defines</p><h3 id="define/BULLET_SPREAD_BASE"><aside class="declaration">#define </aside>BULLET_SPREAD_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L920">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 920"/></a>
+    </h3>
+    <p>Bullet spread modifier defines</p><h3 id="define/BULLET_SPREAD_MATCH"><aside class="declaration">#define </aside>BULLET_SPREAD_MATCH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L923">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 923"/></a>
+    </h3>
+    <p>Bullet spread modifier defines</p><h3 id="define/BULLET_WOUND_FALLOFF_PISTOL_LIGHT"><aside class="declaration">#define </aside>BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L928">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 928"/></a>
+    </h3>
+    <p>Bullet wound falloff defines</p><h3 id="define/COMBAT_FLAGS_DEFAULT"><aside class="declaration">#define </aside>COMBAT_FLAGS_DEFAULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 39"/></a>
+    </h3>
+    <p>Default combat flags for those affected by sprinting (combat mode has been made into its own component)</p><h3 id="define/COMBAT_FLAGS_SPRINT_EXEMPT"><aside class="declaration">#define </aside>COMBAT_FLAGS_SPRINT_EXEMPT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 41"/></a>
+    </h3>
+    <p>Default combat flags for everyone else (so literally everyone but humans).</p><h3 id="define/COMBAT_FLAG_ACTIVE_BLOCKING"><aside class="declaration">#define </aside>COMBAT_FLAG_ACTIVE_BLOCKING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 66"/></a>
+    </h3>
+    <p>This mob is currently actively blocking</p><h3 id="define/COMBAT_FLAG_ACTIVE_BLOCK_STARTING"><aside class="declaration">#define </aside>COMBAT_FLAG_ACTIVE_BLOCK_STARTING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 68"/></a>
+    </h3>
+    <p>This mob is currently starting an active block</p><h3 id="define/COMBAT_FLAG_ATTEMPTING_CRAWL"><aside class="declaration">#define </aside>COMBAT_FLAG_ATTEMPTING_CRAWL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 48"/></a>
+    </h3>
+    <p>Currently attempting to crawl under someone</p><h3 id="define/COMBAT_FLAG_BLOCK_CAPABLE"><aside class="declaration">#define </aside>COMBAT_FLAG_BLOCK_CAPABLE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 62"/></a>
+    </h3>
+    <p>This mob is capable of using the active blocking system.</p><h3 id="define/COMBAT_FLAG_HARD_STAMCRIT"><aside class="declaration">#define </aside>COMBAT_FLAG_HARD_STAMCRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 50"/></a>
+    </h3>
+    <p>Currently stamcritted</p><h3 id="define/COMBAT_FLAG_INTENTIONALLY_RESTING"><aside class="declaration">#define </aside>COMBAT_FLAG_INTENTIONALLY_RESTING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 54"/></a>
+    </h3>
+    <p>Intentionally resting</p><h3 id="define/COMBAT_FLAG_PARRY_CAPABLE"><aside class="declaration">#define </aside>COMBAT_FLAG_PARRY_CAPABLE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 60"/></a>
+    </h3>
+    <p>This mob is capable of using the active parrying system.</p><h3 id="define/COMBAT_FLAG_RESISTING_REST"><aside class="declaration">#define </aside>COMBAT_FLAG_RESISTING_REST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 52"/></a>
+    </h3>
+    <p>Currently attempting to resist up from the ground</p><h3 id="define/COMBAT_FLAG_SOFT_STAMCRIT"><aside class="declaration">#define </aside>COMBAT_FLAG_SOFT_STAMCRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 56"/></a>
+    </h3>
+    <p>Currently stamcritted but not as violently</p><h3 id="define/COMBAT_FLAG_SPRINT_ACTIVE"><aside class="declaration">#define </aside>COMBAT_FLAG_SPRINT_ACTIVE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 46"/></a>
+    </h3>
+    <p>Sprint is currently active</p><h3 id="define/COMBAT_FLAG_SPRINT_FORCED"><aside class="declaration">#define </aside>COMBAT_FLAG_SPRINT_FORCED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 58"/></a>
+    </h3>
+    <p>Force sprint mode on at all times, overrides everything including sprint disable traits.</p><h3 id="define/COMBAT_FLAG_SPRINT_TOGGLED"><aside class="declaration">#define </aside>COMBAT_FLAG_SPRINT_TOGGLED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 44"/></a>
+    </h3>
+    <p>The user wants sprint mode on</p><h3 id="define/COMBAT_FLAG_UNARMED_PARRY"><aside class="declaration">#define </aside>COMBAT_FLAG_UNARMED_PARRY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 64"/></a>
+    </h3>
+    <p>This mob is capable of unarmed parrying</p><h3 id="define/FEEBLE_ATTACK_MSG_THRESHOLD"><aside class="declaration">#define </aside>FEEBLE_ATTACK_MSG_THRESHOLD
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L303">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 303"/></a>
+    </h3>
+    <p>should the current-attack-damage be lower than the item force multiplied by this value,
+a &quot;inefficiently&quot; prefix will be added to the message.</p><h3 id="define/FLINTLOCK_PISTOL_RELOAD_TIME"><aside class="declaration">#define </aside>FLINTLOCK_PISTOL_RELOAD_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1368">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1368"/></a>
+    </h3>
+    <p>Musket defines</p><h3 id="define/GUN_AIMING_TIME"><aside class="declaration">#define </aside>GUN_AIMING_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1045">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1045"/></a>
+    </h3>
+    <p>Time after you draw a gun that you're able to shoot it</p><h3 id="define/GUN_AUTOFIRE_DELAY_BASE"><aside class="declaration">#define </aside>GUN_AUTOFIRE_DELAY_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1189">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1189"/></a>
+    </h3>
+    <p>Gun autofire delay Base</p><h3 id="define/GUN_AUTOFIRE_DELAY_FASTEST"><aside class="declaration">#define </aside>GUN_AUTOFIRE_DELAY_FASTEST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1192">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1192"/></a>
+    </h3>
+    <p>Gun fire delay modifiers</p><h3 id="define/GUN_AUTOPUMP_REFIRE_DELAY_MULT"><aside class="declaration">#define </aside>GUN_AUTOPUMP_REFIRE_DELAY_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1123"/></a>
+    </h3>
+    <p>Refire speed multiplier for manual action guns if you're not a pr0 and click-to-cycle it</p><h3 id="define/GUN_AUTO_PUMPED"><aside class="declaration">#define </aside>GUN_AUTO_PUMPED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1270">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1270"/></a>
+    </h3>
+    <p>Gun cooldown mod flags
+Gun is slower to refire if you autopump it (without fast pump)</p><h3 id="define/GUN_BURSTFIRE_DELAY_BASE"><aside class="declaration">#define </aside>GUN_BURSTFIRE_DELAY_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1200"/></a>
+    </h3>
+    <p>Gun burstfire delay Base</p><h3 id="define/GUN_BURSTFIRE_DELAY_FASTEST"><aside class="declaration">#define </aside>GUN_BURSTFIRE_DELAY_FASTEST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1203">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1203"/></a>
+    </h3>
+    <p>Gun fire delay modifiers</p><h3 id="define/GUN_COCK_BASE"><aside class="declaration">#define </aside>GUN_COCK_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1109"/></a>
+    </h3>
+    <p>Cock length
+Delay between cocking your gun</p><h3 id="define/GUN_DRAW_QUICK"><aside class="declaration">#define </aside>GUN_DRAW_QUICK
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1048">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1048"/></a>
+    </h3>
+    <p>Gun draw time modifiers</p><h3 id="define/GUN_EJECTOR_RIGHT"><aside class="declaration">#define </aside>GUN_EJECTOR_RIGHT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1273">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1273"/></a>
+    </h3>
+    <p>Gun handedness defines -- for picking which direction to toss casings</p><h3 id="define/GUN_EXTRA_DAMAGE_0"><aside class="declaration">#define </aside>GUN_EXTRA_DAMAGE_0
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1059">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1059"/></a>
+    </h3>
+    <p>Gun bullet damage base
+Multiplies the gun's projectile damage</p><h3 id="define/GUN_FIREMODE_SEMIAUTO"><aside class="declaration">#define </aside>GUN_FIREMODE_SEMIAUTO
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L983">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 983"/></a>
+    </h3>
+    <p>Gun Firemodes</p><h3 id="define/GUN_FIRE_DELAY_BASE"><aside class="declaration">#define </aside>GUN_FIRE_DELAY_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1178">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1178"/></a>
+    </h3>
+    <p>Gun fire delay Base</p><h3 id="define/GUN_FIRE_DELAY_FASTEST"><aside class="declaration">#define </aside>GUN_FIRE_DELAY_FASTEST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1181">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1181"/></a>
+    </h3>
+    <p>Gun fire delay modifiers</p><h3 id="define/GUN_HOLD_IT_RIGHT_MESSAGE_ANTISPAM_TIME"><aside class="declaration">#define </aside>GUN_HOLD_IT_RIGHT_MESSAGE_ANTISPAM_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1314">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1314"/></a>
+    </h3>
+    <p>cooldown for being spammed with messages you're holding the stupid gun wrong</p><h3 id="define/GUN_LESS_DAMAGE_T1"><aside class="declaration">#define </aside>GUN_LESS_DAMAGE_T1
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1067">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1067"/></a>
+    </h3>
+    <p>Also multiplies the gun's projectile damage, but so it does less damage</p><h3 id="define/GUN_MELEE_FORCE_BASE"><aside class="declaration">#define </aside>GUN_MELEE_FORCE_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1075">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1075"/></a>
+    </h3>
+    <p>Gun melee force base</p><h3 id="define/GUN_MELEE_FORCE_PISTOL_LIGHT"><aside class="declaration">#define </aside>GUN_MELEE_FORCE_PISTOL_LIGHT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1078">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1078"/></a>
+    </h3>
+    <p>Gun weapon weight</p><h3 id="define/GUN_MF_CHANCE"><aside class="declaration">#define </aside>GUN_MF_CHANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1278">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1278"/></a>
+    </h3>
+    <p>Gun misfire actions</p><h3 id="define/GUN_MF_DUMP"><aside class="declaration">#define </aside>GUN_MF_DUMP
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1305">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1305"/></a>
+    </h3>
+    <p>Gun dumps out its ammo
+Gun dump define</p><h3 id="define/GUN_MF_DUMP_THROW"><aside class="declaration">#define </aside>GUN_MF_DUMP_THROW
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1307">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1307"/></a>
+    </h3>
+    <p>Gun dump throw it define</p><h3 id="define/GUN_MF_HURTS_YOU"><aside class="declaration">#define </aside>GUN_MF_HURTS_YOU
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1282">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1282"/></a>
+    </h3>
+    <p>Gun does damage when it misfires
+Gun hurts you define</p><h3 id="define/GUN_MF_HURTS_YOU_DAMAGE_HIGH"><aside class="declaration">#define </aside>GUN_MF_HURTS_YOU_DAMAGE_HIGH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1286">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1286"/></a>
+    </h3>
+    <p>Gun hurts you high damage define</p><h3 id="define/GUN_MF_HURTS_YOU_DAMAGE_LOW"><aside class="declaration">#define </aside>GUN_MF_HURTS_YOU_DAMAGE_LOW
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1284">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1284"/></a>
+    </h3>
+    <p>Gun hurts you low damage define</p><h3 id="define/GUN_MF_HURTS_YOU_DAMAGE_TYPE"><aside class="declaration">#define </aside>GUN_MF_HURTS_YOU_DAMAGE_TYPE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1288">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1288"/></a>
+    </h3>
+    <p>Gun hurts you with this type of damage define</p><h3 id="define/GUN_MF_YEET"><aside class="declaration">#define </aside>GUN_MF_YEET
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1298">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1298"/></a>
+    </h3>
+    <p>Gun yeets itself out of your hand when it misfires
+Gun yeets define</p><h3 id="define/GUN_MISFIRE_HURTS_USER"><aside class="declaration">#define </aside>GUN_MISFIRE_HURTS_USER
+            <aside>(chance, dmg_low, dmg_high, dmg_type)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1290">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1290"/></a>
+    </h3>
+    <p>Varied minimum list</p><h3 id="define/GUN_MISFIRE_THROWS_GUN"><aside class="declaration">#define </aside>GUN_MISFIRE_THROWS_GUN
+            <aside>(chance)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1300">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1300"/></a>
+    </h3>
+    <p>Gun yeets the gun entry</p><h3 id="define/GUN_MISFIRE_UNLOADS_GUN"><aside class="declaration">#define </aside>GUN_MISFIRE_UNLOADS_GUN
+            <aside>(chance, throw_chance)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1309">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1309"/></a>
+    </h3>
+    <p>Gun dump the gun entry</p><h3 id="define/GUN_ONE_HAND_AKIMBO"><aside class="declaration">#define </aside>GUN_ONE_HAND_AKIMBO
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1053">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1053"/></a>
+    </h3>
+    <p>Gun weapon weight</p><h3 id="define/GUN_RECOIL_MAX_SPREAD"><aside class="declaration">#define </aside>GUN_RECOIL_MAX_SPREAD
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L988">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 988"/></a>
+    </h3>
+    <p>Max spread recoil can add</p><h3 id="define/GUN_RECOIL_NONE"><aside class="declaration">#define </aside>GUN_RECOIL_NONE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1006">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1006"/></a>
+    </h3>
+    <p>Gun recoil modifier per shot defines</p><h3 id="define/GUN_RECOIL_TIMEOUT_BASE"><aside class="declaration">#define </aside>GUN_RECOIL_TIMEOUT_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1029">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1029"/></a>
+    </h3>
+    <p>Gun recoil timeout Base</p><h3 id="define/GUN_RECOIL_TIMEOUT_INSTANT"><aside class="declaration">#define </aside>GUN_RECOIL_TIMEOUT_INSTANT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1032">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1032"/></a>
+    </h3>
+    <p>Gun recoil timeout modifiers</p><h3 id="define/GUN_RIFLEMAN_REFIRE_DELAY_MULT"><aside class="declaration">#define </aside>GUN_RIFLEMAN_REFIRE_DELAY_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1120">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1120"/></a>
+    </h3>
+    <p>Refire speed multiplier for manual action guns, cus we no longer care about your cock length</p><h3 id="define/GUN_SHOOT_MESSAGE_ANTISPAM_TIME"><aside class="declaration">#define </aside>GUN_SHOOT_MESSAGE_ANTISPAM_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1317">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1317"/></a>
+    </h3>
+    <p>cooldown for being spammed with messages that you shot the gun</p><h3 id="define/GUN_SLOWDOWN_NONE"><aside class="declaration">#define </aside>GUN_SLOWDOWN_NONE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1086">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1086"/></a>
+    </h3>
+    <p>Gun slowdown</p><h3 id="define/GUN_SPREAD_NONE"><aside class="declaration">#define </aside>GUN_SPREAD_NONE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1039">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1039"/></a>
+    </h3>
+    <p>Gun spread modifiers</p><h3 id="define/HOBO_RECOIL_MULT"><aside class="declaration">#define </aside>HOBO_RECOIL_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L994">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 994"/></a>
+    </h3>
+    <p>Hobogun recoil modifier</p><h3 id="define/LYING_DAMAGE_PENALTY"><aside class="declaration">#define </aside>LYING_DAMAGE_PENALTY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L289">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 289"/></a>
+    </h3>
+    <p>Damage penalty when fighting prone.</p><h3 id="define/PUNCH_DAMAGE_LOW"><aside class="declaration">#define </aside>PUNCH_DAMAGE_LOW
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1320">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1320"/></a>
+    </h3>
+    <p>Unarmed Damage Defines</p><h3 id="define/RUBBERY_DAMAGE_MULT"><aside class="declaration">#define </aside>RUBBERY_DAMAGE_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L385">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 385"/></a>
+    </h3>
+    <p>Rubber bullet lethal damage multiplier</p><h3 id="define/RUBBERY_RECOIL_MULT"><aside class="declaration">#define </aside>RUBBERY_RECOIL_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L388">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 388"/></a>
+    </h3>
+    <p>Rubber bullet recoil multiplier</p><h3 id="define/SAWEDOFF_RECOIL_MULT"><aside class="declaration">#define </aside>SAWEDOFF_RECOIL_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L991">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 991"/></a>
+    </h3>
+    <p>Sawed-off recoil modifier</p><h3 id="define/SE_ALL_SIMPLEMOBS"><aside class="declaration">#define </aside>SE_ALL_SIMPLEMOBS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L338">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 338"/></a>
+    </h3>
+    <p>Supereffective typegroups
+ALL simplemobs</p><h3 id="define/SE_ANIMALS"><aside class="declaration">#define </aside>SE_ANIMALS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L342">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 342"/></a>
+    </h3>
+    <p>All animal-like critters</p><h3 id="define/SE_HOSTILE_SIMPLEMOBS"><aside class="declaration">#define </aside>SE_HOSTILE_SIMPLEMOBS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L340">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 340"/></a>
+    </h3>
+    <p>All simple_animal/hostile</p><h3 id="define/SE_HUMANLIKE"><aside class="declaration">#define </aside>SE_HUMANLIKE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L346">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 346"/></a>
+    </h3>
+    <p>All human-like critters (not players)</p><h3 id="define/SE_INSECTS"><aside class="declaration">#define </aside>SE_INSECTS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L348">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 348"/></a>
+    </h3>
+    <p>All insect-like critters</p><h3 id="define/SE_NO_LAZARUS"><aside class="declaration">#define </aside>SE_NO_LAZARUS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L352">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 352"/></a>
+    </h3>
+    <p>Ignore critters that have been lazarused</p><h3 id="define/SE_PLAYERS"><aside class="declaration">#define </aside>SE_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L350">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 350"/></a>
+    </h3>
+    <p>Anything with a ckey (characters, mobs, etc)</p><h3 id="define/SE_ROBOTS"><aside class="declaration">#define </aside>SE_ROBOTS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L344">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 344"/></a>
+    </h3>
+    <p>All robot-like critters</p><h3 id="define/SHOTGUN_PELLET_BASE"><aside class="declaration">#define </aside>SHOTGUN_PELLET_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L912">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 912"/></a>
+    </h3>
+    <p>Shotgun pellet count defines</p><h3 id="define/SHOTGUN_SPREAD_BASE"><aside class="declaration">#define </aside>SHOTGUN_SPREAD_BASE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L916">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 916"/></a>
+    </h3>
+    <p>Shotgun pellet spread defines</p><h3 id="define/SHOVE_OFFBALANCE_DURATION"><aside class="declaration">#define </aside>SHOVE_OFFBALANCE_DURATION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 165"/></a>
+    </h3>
+    <p>how long they're off balance for</p><h3 id="define/SHOVE_STAGGER_DURATION"><aside class="declaration">#define </aside>SHOVE_STAGGER_DURATION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L163">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 163"/></a>
+    </h3>
+    <p>how long they're staggered for</p><h3 id="define/STAMINA_CRIT"><aside class="declaration">#define </aside>STAMINA_CRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L87">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 87"/></a>
+    </h3>
+    <p>crit for stamina damage. forces a rest, and stops movement until stamina goes back to stamina softcrit</p><h3 id="define/STAMINA_CRIT_TRADITIONAL"><aside class="declaration">#define </aside>STAMINA_CRIT_TRADITIONAL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 91"/></a>
+    </h3>
+    <p>ditto, but for STAMINA_CRIT</p><h3 id="define/STAMINA_NEAR_CRIT"><aside class="declaration">#define </aside>STAMINA_NEAR_CRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 85"/></a>
+    </h3>
+    <p>sanity cap to prevent stamina actions (that are still performable) from sending you into crit.</p><h3 id="define/STAMINA_NEAR_SOFTCRIT"><aside class="declaration">#define </aside>STAMINA_NEAR_SOFTCRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 81"/></a>
+    </h3>
+    <p>Threshold over which attacks start being hindered.</p><h3 id="define/STAMINA_SOFTCRIT"><aside class="declaration">#define </aside>STAMINA_SOFTCRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 83"/></a>
+    </h3>
+    <p>softcrit for stamina damage. prevents standing up, some actions that cost stamina, etc, but doesn't force a rest or stop movement</p><h3 id="define/STAMINA_SOFTCRIT_TRADITIONAL"><aside class="declaration">#define </aside>STAMINA_SOFTCRIT_TRADITIONAL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 89"/></a>
+    </h3>
+    <p>same as STAMINA_SOFTCRIT except for the more traditional health calculations</p><h3 id="define/STAM_CRIT_GUN_DELAY"><aside class="declaration">#define </aside>STAM_CRIT_GUN_DELAY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L291">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 291"/></a>
+    </h3>
+    <p>Added delay when firing guns stam-softcritted. Summed with a hardset CLICK_CD_RANGE delay, similar to STAM_CRIT_DAMAGE_DELAY otherwise.</p><h3 id="define/STAM_CRIT_ITEM_ATTACK_DELAY"><aside class="declaration">#define </aside>STAM_CRIT_ITEM_ATTACK_DELAY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L287">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 287"/></a>
+    </h3>
+    <p>changeNext_move penalty multiplier of the above.</p><h3 id="define/STAM_CRIT_ITEM_ATTACK_PENALTY"><aside class="declaration">#define </aside>STAM_CRIT_ITEM_ATTACK_PENALTY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L285">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 285"/></a>
+    </h3>
+    <p>Multiplier of the (STAMINA_NEAR_CRIT - user current stamina loss) : (STAMINA_NEAR_CRIT - STAMINA_SOFTCRIT) ratio used in damage penalties when stam soft-critted.</p><h3 id="define/SUPPRESSED_QUIET"><aside class="declaration">#define </aside>SUPPRESSED_QUIET
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L203">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 203"/></a>
+    </h3>
+    <p>standard suppressed</p><h3 id="define/SUPPRESSED_VERY"><aside class="declaration">#define </aside>SUPPRESSED_VERY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 204"/></a>
+    </h3>
+    <p>no message</p><h3 id="define/ZONE_WEIGHT_AUTOMATIC"><aside class="declaration">#define </aside>ZONE_WEIGHT_AUTOMATIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1216">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1216"/></a>
+    </h3>
+    <p>Heavily weights limbs after its effective distance</p><h3 id="define/ZONE_WEIGHT_FALLOFF_AUTOMATIC"><aside class="declaration">#define </aside>ZONE_WEIGHT_FALLOFF_AUTOMATIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1225">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1225"/></a>
+    </h3>
+    <p>Zone accuracy falls off quickly</p><h3 id="define/ZONE_WEIGHT_FALLOFF_SEMI_AUTO"><aside class="declaration">#define </aside>ZONE_WEIGHT_FALLOFF_SEMI_AUTO
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1223">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1223"/></a>
+    </h3>
+    <p>Typical accuracy falloff</p><h3 id="define/ZONE_WEIGHT_FALLOFF_SHOTGUN"><aside class="declaration">#define </aside>ZONE_WEIGHT_FALLOFF_SHOTGUN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1227">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1227"/></a>
+    </h3>
+    <p>You're hitting limbs most of the time</p><h3 id="define/ZONE_WEIGHT_GUNS_CHOICE"><aside class="declaration">#define </aside>ZONE_WEIGHT_GUNS_CHOICE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1220">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1220"/></a>
+    </h3>
+    <p>Always defers to the gun's setting, defaults to semi-auto if not defined</p><h3 id="define/ZONE_WEIGHT_LIST_AUTOMATIC"><aside class="declaration">#define </aside>ZONE_WEIGHT_LIST_AUTOMATIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1246">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1246"/></a>
+    </h3>
+    <p>Autofire zone weight list</p><h3 id="define/ZONE_WEIGHT_LIST_DEFAULT"><aside class="declaration">#define </aside>ZONE_WEIGHT_LIST_DEFAULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1230">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1230"/></a>
+    </h3>
+    <p>Default zone weight list</p><h3 id="define/ZONE_WEIGHT_LIST_PRECISION"><aside class="declaration">#define </aside>ZONE_WEIGHT_LIST_PRECISION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1238">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1238"/></a>
+    </h3>
+    <p>Precision zone weight list</p><h3 id="define/ZONE_WEIGHT_LIST_SHOTGUN"><aside class="declaration">#define </aside>ZONE_WEIGHT_LIST_SHOTGUN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1254">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1254"/></a>
+    </h3>
+    <p>Pellet zone weight list</p><h3 id="define/ZONE_WEIGHT_PRECISION"><aside class="declaration">#define </aside>ZONE_WEIGHT_PRECISION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1212">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1212"/></a>
+    </h3>
+    <p>Bullet zone favoring defines
+High accuracy, generally goes where you mean to put it, for precision rifles and such</p><h3 id="define/ZONE_WEIGHT_SEMI_AUTO"><aside class="declaration">#define </aside>ZONE_WEIGHT_SEMI_AUTO
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1214">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1214"/></a>
+    </h3>
+    <p>Typical accuracy, based a bit on range</p><h3 id="define/ZONE_WEIGHT_SHOTGUN"><aside class="declaration">#define </aside>ZONE_WEIGHT_SHOTGUN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/combat.dm#L1218">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;combat.dm 1218"/></a>
+    </h3>
+    <p>Always weights limbs heavily</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

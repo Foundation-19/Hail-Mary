@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;_helpers.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/_helpers.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/_helpers.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/_helpers.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;_helpers.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/_helpers.html#define/GET_DIST_EUCLIDEAN">GET_DIST_EUCLIDEAN</a></th><td>Returns the euclidean distance between two objects.</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/GET_DIST_EUCLIDEAN"><aside class="declaration">#define </aside>GET_DIST_EUCLIDEAN
+            <aside>(source, target)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/_helpers.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;_helpers.dm 10"/></a>
+    </h3>
+    <p>Returns the euclidean distance between two objects.</p>
+<p>Only works for turfs and things whose loc is a turf, this needs to be checked for proper results.
+Things inside backpacks and other containers can have their x and y values set to zero.</p>
+<p>This is useful because get_dist() makes no differentiation between cardinal and diagonal moves, but this one does.
+A major difference is that this will result in rational numbers, while get_dist() will only produce integers.</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

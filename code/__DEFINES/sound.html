@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;sound.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/sound.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/sound.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_RANGE">SOUND_RANGE</a></th><td>Default range of a sound.</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SHORT_RANGE_SOUND_EXTRARANGE">SHORT_RANGE_SOUND_EXTRARANGE</a></th><td>default extra range for sounds considered to be quieter</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SILENCED_SOUND_EXTRARANGE">SILENCED_SOUND_EXTRARANGE</a></th><td>The range deducted from sound range for things that are considered silent / sneaky</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_DEFAULT_FALLOFF_DISTANCE">SOUND_DEFAULT_FALLOFF_DISTANCE</a></th><td>Percentage of sound's range where no falloff is applied</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_FALLOFF_EXPONENT">SOUND_FALLOFF_EXPONENT</a></th><td>The default exponent of sound falloff</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_DISTANCE">SOUND_DISTANCE</a></th><td>A simple define that'll set the max range of a sound to a number, without any funky minus stuff -- 0 means the originator's tile, 1 means adjacent, etc</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/MOB_CASING">MOB_CASING</a></th><td>Varied casing define</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/MOB_CASING_LIST">MOB_CASING_LIST</a></th><td>Varied casing list</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/MOB_CASING_ENTRY">MOB_CASING_ENTRY</a></th><td>Varied casing they can shoot, weighted chance to do the thing too</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_FREQ_NORMALIZED">SOUND_FREQ_NORMALIZED</a></th><td>Converts -100 to 100 into 33000 to 55000, for use in pitching up and down sounds without memorizing wacky numbers
+Special thanks to fuzlet for doing the maths for me</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_VARY">SOUND_VARY</a></th><td>Used for mobs, to just use a random pitch</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/AMBIENCE_COOLDOWN">AMBIENCE_COOLDOWN</a></th><td>Ambience defines</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SOUND_NORMAL_TO_DISTANT_COEFF">SOUND_NORMAL_TO_DISTANT_COEFF</a></th><td>Sound properties! bunch of defines~
+Mostly for gunfire~
+Coeff for when the distant sound should start playing, so it doesnt go right from BANG BANG to putter putter</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/PISTOL_LIGHT_VOLUME">PISTOL_LIGHT_VOLUME</a></th><td>Typical sound property values
+Volumes</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SILENCED_VOLUME_MULTIPLIER">SILENCED_VOLUME_MULTIPLIER</a></th><td>Silenced volume multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/SILENCED_GUN_RANGE">SILENCED_GUN_RANGE</a></th><td>Silenced range</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/PISTOL_LIGHT_RANGE">PISTOL_LIGHT_RANGE</a></th><td>Normal distances</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/PISTOL_LIGHT_RANGE_DISTANT">PISTOL_LIGHT_RANGE_DISTANT</a></th><td>distant distances</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/PISTOL_LIGHT_DISTANT_SOUND">PISTOL_LIGHT_DISTANT_SOUND</a></th><td>surprise its the whole map
+distant sounds</td></tr>
+        <tr><th><a href="code/__DEFINES/sound.html#define/CSP_INDEX_SOUND_OUT">CSP_INDEX_SOUND_OUT</a></th><td>gun sound indexes</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/AMBIENCE_COOLDOWN"><aside class="declaration">#define </aside>AMBIENCE_COOLDOWN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 106"/></a>
+    </h3>
+    <p>Ambience defines</p><h3 id="define/CSP_INDEX_SOUND_OUT"><aside class="declaration">#define </aside>CSP_INDEX_SOUND_OUT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L390">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 390"/></a>
+    </h3>
+    <p>gun sound indexes</p><h3 id="define/MOB_CASING"><aside class="declaration">#define </aside>MOB_CASING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 36"/></a>
+    </h3>
+    <p>Varied casing define</p><h3 id="define/MOB_CASING_ENTRY"><aside class="declaration">#define </aside>MOB_CASING_ENTRY
+            <aside>(proj, chance)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 40"/></a>
+    </h3>
+    <p>Varied casing they can shoot, weighted chance to do the thing too</p><h3 id="define/MOB_CASING_LIST"><aside class="declaration">#define </aside>MOB_CASING_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 38"/></a>
+    </h3>
+    <p>Varied casing list</p><h3 id="define/PISTOL_LIGHT_DISTANT_SOUND"><aside class="declaration">#define </aside>PISTOL_LIGHT_DISTANT_SOUND
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L355">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 355"/></a>
+    </h3>
+    <p>surprise its the whole map
+distant sounds</p><h3 id="define/PISTOL_LIGHT_RANGE"><aside class="declaration">#define </aside>PISTOL_LIGHT_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L328">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 328"/></a>
+    </h3>
+    <p>Normal distances</p><h3 id="define/PISTOL_LIGHT_RANGE_DISTANT"><aside class="declaration">#define </aside>PISTOL_LIGHT_RANGE_DISTANT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L341">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 341"/></a>
+    </h3>
+    <p>distant distances</p><h3 id="define/PISTOL_LIGHT_VOLUME"><aside class="declaration">#define </aside>PISTOL_LIGHT_VOLUME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L309">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 309"/></a>
+    </h3>
+    <p>Typical sound property values
+Volumes</p><h3 id="define/SHORT_RANGE_SOUND_EXTRARANGE"><aside class="declaration">#define </aside>SHORT_RANGE_SOUND_EXTRARANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 25"/></a>
+    </h3>
+    <p>default extra range for sounds considered to be quieter</p><h3 id="define/SILENCED_GUN_RANGE"><aside class="declaration">#define </aside>SILENCED_GUN_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L325">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 325"/></a>
+    </h3>
+    <p>Silenced range</p><h3 id="define/SILENCED_SOUND_EXTRARANGE"><aside class="declaration">#define </aside>SILENCED_SOUND_EXTRARANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 27"/></a>
+    </h3>
+    <p>The range deducted from sound range for things that are considered silent / sneaky</p><h3 id="define/SILENCED_VOLUME_MULTIPLIER"><aside class="declaration">#define </aside>SILENCED_VOLUME_MULTIPLIER
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L322">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 322"/></a>
+    </h3>
+    <p>Silenced volume multiplier</p><h3 id="define/SOUND_DEFAULT_FALLOFF_DISTANCE"><aside class="declaration">#define </aside>SOUND_DEFAULT_FALLOFF_DISTANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 29"/></a>
+    </h3>
+    <p>Percentage of sound's range where no falloff is applied</p><h3 id="define/SOUND_DISTANCE"><aside class="declaration">#define </aside>SOUND_DISTANCE
+            <aside>(x)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 33"/></a>
+    </h3>
+    <p>A simple define that'll set the max range of a sound to a number, without any funky minus stuff -- 0 means the originator's tile, 1 means adjacent, etc</p><h3 id="define/SOUND_FALLOFF_EXPONENT"><aside class="declaration">#define </aside>SOUND_FALLOFF_EXPONENT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 31"/></a>
+    </h3>
+    <p>The default exponent of sound falloff</p><h3 id="define/SOUND_FREQ_NORMALIZED"><aside class="declaration">#define </aside>SOUND_FREQ_NORMALIZED
+            <aside>(x, vary_low, vary_high)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 44"/></a>
+    </h3>
+    <p>Converts -100 to 100 into 33000 to 55000, for use in pitching up and down sounds without memorizing wacky numbers
+Special thanks to fuzlet for doing the maths for me</p><h3 id="define/SOUND_NORMAL_TO_DISTANT_COEFF"><aside class="declaration">#define </aside>SOUND_NORMAL_TO_DISTANT_COEFF
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L279">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 279"/></a>
+    </h3>
+    <p>Sound properties! bunch of defines~
+Mostly for gunfire~
+Coeff for when the distant sound should start playing, so it doesnt go right from BANG BANG to putter putter</p><h3 id="define/SOUND_RANGE"><aside class="declaration">#define </aside>SOUND_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 22"/></a>
+    </h3>
+    <p>Default range of a sound.</p><h3 id="define/SOUND_VARY"><aside class="declaration">#define </aside>SOUND_VARY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/sound.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;sound.dm 47"/></a>
+    </h3>
+    <p>Used for mobs, to just use a random pitch</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

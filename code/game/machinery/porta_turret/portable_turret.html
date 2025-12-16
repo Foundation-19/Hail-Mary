@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/game/machinery/porta_turret/portable_turret.html#define">Define Details</a></header>
+<main>
+<h1>code/game/machinery/porta_turret/portable_turret.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_SLEEP_MODE">TURRET_SLEEP_MODE</a></th><td>Turret is napping and passively scanning the environment at its own pace</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_ALERT_MODE">TURRET_ALERT_MODE</a></th><td>Turret is in Alert Mode and actively shooting a visible target</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_CAUTION_MODE">TURRET_CAUTION_MODE</a></th><td>Turret is in Caution Mode and actively shooting the last place a target was</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_EVASION_MODE">TURRET_EVASION_MODE</a></th><td>Turret is in Evasion Mode and actively passively (loudly) scanning the environment for targets</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_PROCESS_OFF">TURRET_PROCESS_OFF</a></th><td>Turret procesing is OFF</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_PROCESS_MACHINE">TURRET_PROCESS_MACHINE</a></th><td>Turret processing is MACHINE</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_PROCESS_FAST">TURRET_PROCESS_FAST</a></th><td>Turret processing is FAST</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_REACTION">TF_SHOOT_REACTION</a></th><td>The turret becomes angy at whoever shoots it, regardless of other settings</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_WEAPONS">TF_SHOOT_WEAPONS</a></th><td>The turret only shoots people with unauthorized weapons (basically everyone) (currently unused)</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_EVERYTHING">TF_SHOOT_EVERYTHING</a></th><td>The turret shoots everything that can be broken. Seriously. (currently unused)</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_PLAYERS">TF_SHOOT_PLAYERS</a></th><td>The turret shoots at players</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_WILDLIFE">TF_SHOOT_WILDLIFE</a></th><td>The turret shoots at wildlife (ghouls, geckos, etc)</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_RAIDERS">TF_SHOOT_RAIDERS</a></th><td>The turret shoots raiders</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_SHOOT_ROBOTS">TF_SHOOT_ROBOTS</a></th><td>The turret shoots robots (gutsies, handies)</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_IGNORE_FACTION">TF_IGNORE_FACTION</a></th><td>Turret ignores faction checks and treats everything is allowed to shoot as hostile</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_USE_LASER_POINTER">TF_USE_LASER_POINTER</a></th><td>Turret shines a laser at its target</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TF_BE_REALLY_LOUD">TF_BE_REALLY_LOUD</a></th><td>Turret stays quiet</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_DEFAULT_UTILITY">TURRET_DEFAULT_UTILITY</a></th><td>Default utility flags</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_DEFAULT_TARGET_FLAGS">TURRET_DEFAULT_TARGET_FLAGS</a></th><td>Default turret targets</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_RAIDER_OWNED_FLAGS">TURRET_RAIDER_OWNED_FLAGS</a></th><td>Default turret targets - raider owned turret</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_ROBOT_OWNED_FLAGS">TURRET_ROBOT_OWNED_FLAGS</a></th><td>Default turret targets - robot owned turret</td></tr>
+        <tr><th><a href="code/game/machinery/porta_turret/portable_turret.html#define/TURRET_PLAYER_OWNED_FLAGS">TURRET_PLAYER_OWNED_FLAGS</a></th><td>Default turret targets - player-domestic turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13</th><td>Generic 9mm hates-everything turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_22lr</th><td>.22LR turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_22lr/raider</th><td>.22LR turret - raider</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_22lr/robot</th><td>.22LR turret - robot</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_22lr/burstfire</th><td>.22LR burst turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_22lr/burstfire/raider</th><td>.22LR burst turret - raider</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_22lr/burstfire/robot</th><td>.22LR burst turret - robot</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_9mm</th><td>9mm turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_9mm/raider</th><td>9mm turret that loves raiders</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_9mm/robot</th><td>9mm turret that loves robots</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_9mm/burstfire</th><td>Burstfire 9mm turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_9mm/burstfire/raider</th><td>9mm turret that loves raiders</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_9mm/burstfire/robot</th><td>9mm turret that loves robots</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_556</th><td>5.56mm turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_556/raider</th><td>5.56mm turret that loves raiders</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_556/robot</th><td>556 turret that loves robots</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_556/burstfire</th><td>Burstfire 5.56mm turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_556/burstfire/raider</th><td>burstfire 5.56mm turret that loves raiders</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_556/burstfire/robot</th><td>556 turret that loves robots</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_shotgun</th><td>shotgun turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_shotgun/robot</th><td>556 turret that loves robots</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_shotgun/burstfire</th><td>burst shotgun turret</td></tr>
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a>/f13/turret_shotgun/burstfire/robot</th><td>556 turret that loves robots</td></tr>
+        <tr><th><a href="obj&#x2F;machinery&#x2F;porta_turret&#x2F;f13&#x2F;eastwood.html">&#x2F;obj&#x2F;machinery&#x2F;porta_turret&#x2F;f13&#x2F;eastwood</a></th><td>Eastwood's Friendliest Autogun
+needs ammo~</td></tr>
+        <tr><th><a href="obj&#x2F;item&#x2F;turret_box.html">&#x2F;obj&#x2F;item&#x2F;turret_box</a></th><td>A packed up turrent</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/TF_BE_REALLY_LOUD"><aside class="declaration">#define </aside>TF_BE_REALLY_LOUD
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 48"/></a>
+    </h3>
+    <p>Turret stays quiet</p><h3 id="define/TF_IGNORE_FACTION"><aside class="declaration">#define </aside>TF_IGNORE_FACTION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 44"/></a>
+    </h3>
+    <p>Turret ignores faction checks and treats everything is allowed to shoot as hostile</p><h3 id="define/TF_SHOOT_EVERYTHING"><aside class="declaration">#define </aside>TF_SHOOT_EVERYTHING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 34"/></a>
+    </h3>
+    <p>The turret shoots everything that can be broken. Seriously. (currently unused)</p><h3 id="define/TF_SHOOT_PLAYERS"><aside class="declaration">#define </aside>TF_SHOOT_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 36"/></a>
+    </h3>
+    <p>The turret shoots at players</p><h3 id="define/TF_SHOOT_RAIDERS"><aside class="declaration">#define </aside>TF_SHOOT_RAIDERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 40"/></a>
+    </h3>
+    <p>The turret shoots raiders</p><h3 id="define/TF_SHOOT_REACTION"><aside class="declaration">#define </aside>TF_SHOOT_REACTION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 30"/></a>
+    </h3>
+    <p>The turret becomes angy at whoever shoots it, regardless of other settings</p><h3 id="define/TF_SHOOT_ROBOTS"><aside class="declaration">#define </aside>TF_SHOOT_ROBOTS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 42"/></a>
+    </h3>
+    <p>The turret shoots robots (gutsies, handies)</p><h3 id="define/TF_SHOOT_WEAPONS"><aside class="declaration">#define </aside>TF_SHOOT_WEAPONS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 32"/></a>
+    </h3>
+    <p>The turret only shoots people with unauthorized weapons (basically everyone) (currently unused)</p><h3 id="define/TF_SHOOT_WILDLIFE"><aside class="declaration">#define </aside>TF_SHOOT_WILDLIFE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 38"/></a>
+    </h3>
+    <p>The turret shoots at wildlife (ghouls, geckos, etc)</p><h3 id="define/TF_USE_LASER_POINTER"><aside class="declaration">#define </aside>TF_USE_LASER_POINTER
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 46"/></a>
+    </h3>
+    <p>Turret shines a laser at its target</p><h3 id="define/TURRET_ALERT_MODE"><aside class="declaration">#define </aside>TURRET_ALERT_MODE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 16"/></a>
+    </h3>
+    <p>Turret is in Alert Mode and actively shooting a visible target</p><h3 id="define/TURRET_CAUTION_MODE"><aside class="declaration">#define </aside>TURRET_CAUTION_MODE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 18"/></a>
+    </h3>
+    <p>Turret is in Caution Mode and actively shooting the last place a target was</p><h3 id="define/TURRET_DEFAULT_TARGET_FLAGS"><aside class="declaration">#define </aside>TURRET_DEFAULT_TARGET_FLAGS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 52"/></a>
+    </h3>
+    <p>Default turret targets</p><h3 id="define/TURRET_DEFAULT_UTILITY"><aside class="declaration">#define </aside>TURRET_DEFAULT_UTILITY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 50"/></a>
+    </h3>
+    <p>Default utility flags</p><h3 id="define/TURRET_EVASION_MODE"><aside class="declaration">#define </aside>TURRET_EVASION_MODE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 20"/></a>
+    </h3>
+    <p>Turret is in Evasion Mode and actively passively (loudly) scanning the environment for targets</p><h3 id="define/TURRET_PLAYER_OWNED_FLAGS"><aside class="declaration">#define </aside>TURRET_PLAYER_OWNED_FLAGS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 58"/></a>
+    </h3>
+    <p>Default turret targets - player-domestic turret</p><h3 id="define/TURRET_PROCESS_FAST"><aside class="declaration">#define </aside>TURRET_PROCESS_FAST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 27"/></a>
+    </h3>
+    <p>Turret processing is FAST</p><h3 id="define/TURRET_PROCESS_MACHINE"><aside class="declaration">#define </aside>TURRET_PROCESS_MACHINE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 25"/></a>
+    </h3>
+    <p>Turret processing is MACHINE</p><h3 id="define/TURRET_PROCESS_OFF"><aside class="declaration">#define </aside>TURRET_PROCESS_OFF
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 23"/></a>
+    </h3>
+    <p>Turret procesing is OFF</p><h3 id="define/TURRET_RAIDER_OWNED_FLAGS"><aside class="declaration">#define </aside>TURRET_RAIDER_OWNED_FLAGS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 54"/></a>
+    </h3>
+    <p>Default turret targets - raider owned turret</p><h3 id="define/TURRET_ROBOT_OWNED_FLAGS"><aside class="declaration">#define </aside>TURRET_ROBOT_OWNED_FLAGS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 56"/></a>
+    </h3>
+    <p>Default turret targets - robot owned turret</p><h3 id="define/TURRET_SLEEP_MODE"><aside class="declaration">#define </aside>TURRET_SLEEP_MODE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 14"/></a>
+    </h3>
+    <p>Turret is napping and passively scanning the environment at its own pace</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

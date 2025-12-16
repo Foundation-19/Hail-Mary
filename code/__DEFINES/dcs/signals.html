@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/dcs/signals.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/dcs/signals.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_NEW_Z">COMSIG_GLOB_NEW_Z</a></th><td>from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_VAR_EDIT">COMSIG_GLOB_VAR_EDIT</a></th><td>called after a successful var edit somewhere in the world: (list/args)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_EXPLOSION">COMSIG_GLOB_EXPLOSION</a></th><td>called after an explosion happened : (epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_MOB_LOGIN">COMSIG_GLOB_MOB_LOGIN</a></th><td>called after when a mob/login() finishes: (mob)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_MOB_CREATED">COMSIG_GLOB_MOB_CREATED</a></th><td>mob was created somewhere : (mob)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_MOB_DEATH">COMSIG_GLOB_MOB_DEATH</a></th><td>mob died somewhere : (mob , gibbed)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_LIVING_SAY_SPECIAL">COMSIG_GLOB_LIVING_SAY_SPECIAL</a></th><td>global living say plug - use sparingly: (mob/speaker , message)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_GLOB_PLAY_CINEMATIC">COMSIG_GLOB_PLAY_CINEMATIC</a></th><td>called by datum/cinematic/play() : (datum/cinematic/new_cinematic)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_SUN_MOVED">COMSIG_SUN_MOVED</a></th><td>from SSsun when the sun changes position : (azimuth)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_COMPONENT_ADDED">COMSIG_COMPONENT_ADDED</a></th><td>when a component is added to a datum: (/datum/component)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_COMPONENT_REMOVING">COMSIG_COMPONENT_REMOVING</a></th><td>before a component is removed from a datum because of RemoveComponent: (/datum/component)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PARENT_PREQDELETED">COMSIG_PARENT_PREQDELETED</a></th><td>before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PARENT_QDELETING">COMSIG_PARENT_QDELETING</a></th><td>just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_TOPIC">COMSIG_TOPIC</a></th><td>generic topic handler (usr, href_list)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ELEMENT_ATTACH">COMSIG_ELEMENT_ATTACH</a></th><td>fires on the target datum when an element is attached to it (/datum/element)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ELEMENT_DETACH">COMSIG_ELEMENT_DETACH</a></th><td>fires on the target datum when an element is attached to it  (/datum/element)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_COMPONENT_UNREGISTER_PARENT">COMSIG_COMPONENT_UNREGISTER_PARENT</a></th><td>sent to the component itself when unregistered from a parent</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_COMPONENT_REGISTER_PARENT">COMSIG_COMPONENT_REGISTER_PARENT</a></th><td>sent to the component itself when registered to a parent</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_SUBSYSTEM_POST_INITIALIZE">COMSIG_SUBSYSTEM_POST_INITIALIZE</a></th><td>Subsystem signals
+From base of datum/controller/subsystem/Initialize: (start_timeofday)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_GET_EXAMINE_NAME">COMSIG_ATOM_GET_EXAMINE_NAME</a></th><td>from base of atom/get_examine_name(): (/mob, list/overrides)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PARENT_EXAMINE_MORE">COMSIG_PARENT_EXAMINE_MORE</a></th><td>from base of atom/examine_more(): (/mob)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_EX_ACT">COMSIG_ATOM_EX_ACT</a></th><td>from base of atom/ex_act(): (severity, target)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_EMP_ACT">COMSIG_ATOM_EMP_ACT</a></th><td>from base of atom/emp_act(): (severity)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_FIRE_ACT">COMSIG_ATOM_FIRE_ACT</a></th><td>from base of atom/fire_act(): (exposed_temperature, exposed_volume)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_BULLET_ACT">COMSIG_ATOM_BULLET_ACT</a></th><td>from base of atom/bullet_act(): (/obj/projectile, def_zone)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_CHECKPARTS">COMSIG_ATOM_CHECKPARTS</a></th><td>from base of atom/CheckParts(): (list/parts_list, datum/crafting_recipe/R)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_USED_IN_CRAFT">COMSIG_ATOM_USED_IN_CRAFT</a></th><td>from base of atom/CheckParts(): (atom/movable/new_craft) - The atom has just been used in a crafting recipe and has been moved inside new_craft.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_BLOB_ACT">COMSIG_ATOM_BLOB_ACT</a></th><td>from base of atom/blob_act(): (/obj/structure/blob)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_ACID_ACT">COMSIG_ATOM_ACID_ACT</a></th><td>from base of atom/acid_act(): (acidpwr, acid_volume)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_EMAG_ACT">COMSIG_ATOM_EMAG_ACT</a></th><td>from base of atom/emag_act(): (/mob/user)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_RAD_ACT">COMSIG_ATOM_RAD_ACT</a></th><td>from base of atom/rad_act(intensity)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_NARSIE_ACT">COMSIG_ATOM_NARSIE_ACT</a></th><td>from base of atom/narsie_act(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_RATVAR_ACT">COMSIG_ATOM_RATVAR_ACT</a></th><td>from base of atom/ratvar_act(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_RCD_ACT">COMSIG_ATOM_RCD_ACT</a></th><td>from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SING_PULL">COMSIG_ATOM_SING_PULL</a></th><td>from base of atom/singularity_pull(): (S, current_size)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_BSA_BEAM">COMSIG_ATOM_BSA_BEAM</a></th><td>from obj/machinery/bsa/full/proc/fire(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_DIR_CHANGE">COMSIG_ATOM_DIR_CHANGE</a></th><td>from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_CONTENTS_DEL">COMSIG_ATOM_CONTENTS_DEL</a></th><td>from base of atom/handle_atom_del(): (atom/deleted)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_HAS_GRAVITY">COMSIG_ATOM_HAS_GRAVITY</a></th><td>from base of atom/has_gravity(): (turf/location, list/forced_gravities)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_RAD_PROBE">COMSIG_ATOM_RAD_PROBE</a></th><td>from proc/get_rad_contents(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_RAD_CONTAMINATING">COMSIG_ATOM_RAD_CONTAMINATING</a></th><td>from base of datum/radiation_wave/radiate(): (strength)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_RAD_WAVE_PASSING">COMSIG_ATOM_RAD_WAVE_PASSING</a></th><td>from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_GET_LOCS">COMSIG_ATOM_GET_LOCS</a></th><td>from internal loop in the base of /atom/movable/proc/get_locs(): (list/locs)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_LIGHT">COMSIG_ATOM_SET_LIGHT</a></th><td>from base of [atom/proc/set_light]: (l_range, l_power, l_color, l_on)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMPONENT_BLOCK_LIGHT_UPDATE">COMPONENT_BLOCK_LIGHT_UPDATE</a></th><td>Blocks [/atom/proc/set_light], <a href="atom.html#proc/set_light_power" title="/atom">/atom/proc/set_light_power</a>, <a href="atom.html#proc/set_light_range" title="/atom">/atom/proc/set_light_range</a>, <a href="atom.html#proc/set_light_color" title="/atom">/atom/proc/set_light_color</a>, <a href="atom.html#proc/set_light_on" title="/atom">/atom/proc/set_light_on</a>, and <a href="atom.html#proc/set_light_flags" title="/atom">/atom/proc/set_light_flags</a>.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_LIGHT_POWER">COMSIG_ATOM_SET_LIGHT_POWER</a></th><td>Called right before the atom changes the value of light_power to a different one, from base <a href="atom.html#proc/set_light_power" title="/atom">atom/proc/set_light_power</a>: (new_power)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_UPDATE_LIGHT_POWER">COMSIG_ATOM_UPDATE_LIGHT_POWER</a></th><td>Called right after the atom changes the value of light_power to a different one, from base of <a href="atom.html#proc/set_light_power" title="/atom">/atom/proc/set_light_power</a>: (old_power)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_LIGHT_RANGE">COMSIG_ATOM_SET_LIGHT_RANGE</a></th><td>Called right before the atom changes the value of light_range to a different one, from base <a href="atom.html#proc/set_light_range" title="/atom">atom/proc/set_light_range</a>: (new_range)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_UPDATE_LIGHT_RANGE">COMSIG_ATOM_UPDATE_LIGHT_RANGE</a></th><td>Called right after the atom changes the value of light_range to a different one, from base of <a href="atom.html#proc/set_light_range" title="/atom">/atom/proc/set_light_range</a>: (old_range)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_LIGHT_COLOR">COMSIG_ATOM_SET_LIGHT_COLOR</a></th><td>Called right before the atom changes the value of light_color to a different one, from base <a href="atom.html#proc/set_light_color" title="/atom">atom/proc/set_light_color</a>: (new_color)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_UPDATE_LIGHT_COLOR">COMSIG_ATOM_UPDATE_LIGHT_COLOR</a></th><td>Called right after the atom changes the value of light_color to a different one, from base of <a href="atom.html#proc/set_light_color" title="/atom">/atom/proc/set_light_color</a>: (old_color)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_LIGHT_ON">COMSIG_ATOM_SET_LIGHT_ON</a></th><td>Called right before the atom changes the value of light_on to a different one, from base <a href="atom.html#proc/set_light_on" title="/atom">atom/proc/set_light_on</a>: (new_value)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_UPDATE_LIGHT_ON">COMSIG_ATOM_UPDATE_LIGHT_ON</a></th><td>Called right after the atom changes the value of light_on to a different one, from base of <a href="atom.html#proc/set_light_on" title="/atom">/atom/proc/set_light_on</a>: (old_value)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_LIGHT_FLAGS">COMSIG_ATOM_SET_LIGHT_FLAGS</a></th><td>Called right before the atom changes the value of light_flags to a different one, from base <a href="atom.html#proc/set_light_flags" title="/atom">atom/proc/set_light_flags</a>: (new_flags)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_UPDATE_LIGHT_FLAGS">COMSIG_ATOM_UPDATE_LIGHT_FLAGS</a></th><td>Called right after the atom changes the value of light_flags to a different one, from base of <a href="atom.html#proc/set_light_flags" title="/atom">/atom/proc/set_light_flags</a>: (old_flags)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_ORBIT_BEGIN">COMSIG_ATOM_ORBIT_BEGIN</a></th><td>called when an atom starts orbiting another atom: (atom)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_ORBIT_STOP">COMSIG_ATOM_ORBIT_STOP</a></th><td>called when an atom stops orbiting another atom: (atom)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_SET_OPACITY">COMSIG_ATOM_SET_OPACITY</a></th><td>from base of atom/set_opacity(): (new_opacity)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_LICKED">COMSIG_ATOM_LICKED</a></th><td>Called when you lick an object</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_LICK_RETURN">COMSIG_LICK_RETURN</a></th><td>Called by something licked to return a signal to the thing licking to let the thing lick it even if it shouldnt be licked</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_MOB_STATCHANGE">COMSIG_MOB_STATCHANGE</a></th><td>from base of mob/set_stat(): (new_stat)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_MOB_EYECONTACT">COMSIG_MOB_EYECONTACT</a></th><td>from /mob/living/handle_eye_contact(): (mob/living/other_mob)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_BLOCK_EYECONTACT">COMSIG_BLOCK_EYECONTACT</a></th><td>return this if you want to block printing this message to this person, if you want to print your own (does not affect the other person's message)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_MOB_ALTCLICKON">COMSIG_MOB_ALTCLICKON</a></th><td>from base of mob/AltClickOn(): (atom/A)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_MOB_CLIENT_PRE_MOVE">COMSIG_MOB_CLIENT_PRE_MOVE</a></th><td>From base of /client/Move(): (list/move_args)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE">COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE</a></th><td>Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/MOVE_ARG_NEW_LOC">MOVE_ARG_NEW_LOC</a></th><td>The argument of move_args which corresponds to the loc we're moving to</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/MOVE_ARG_DIRECTION">MOVE_ARG_DIRECTION</a></th><td>The arugment of move_args which dictates our movement direction</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_MOB_CLIENT_MOVED">COMSIG_MOB_CLIENT_MOVED</a></th><td>From base of /client/Move()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_CARBON_ATTACH_LIMB">COMSIG_CARBON_ATTACH_LIMB</a></th><td>from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ITEM_CLICKED">COMSIG_ITEM_CLICKED</a></th><td>Item was clicked on</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_BUTTON_CLICK">COMSIG_BUTTON_CLICK</a></th><td>button click do thing to thing</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_BUTTON_UPDATE">COMSIG_BUTTON_UPDATE</a></th><td>used to update the button with certain things</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_CELL_CHECK_CHARGE">COMSIG_CELL_CHECK_CHARGE</a></th><td>Something is asked for the charge of their cell</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ITEM_DISABLE_EMBED">COMSIG_ITEM_DISABLE_EMBED</a></th><td>from <a href="obj/item.html#proc/disableEmbedding" title="/obj/item">/obj/item/proc/disableEmbedding</a>:</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_EFFECT_MINE_TRIGGERED">COMSIG_EFFECT_MINE_TRIGGERED</a></th><td>from [/obj/effect/mine/proc/triggermine]:</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ITEM_MINE_TRIGGERED">COMSIG_ITEM_MINE_TRIGGERED</a></th><td>from [/obj/item/mine/proc/triggermine]:</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PROJECTILE_SELF_ON_HIT">COMSIG_PROJECTILE_SELF_ON_HIT</a></th><td>from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle, hit_limb)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PROJECTILE_ON_HIT">COMSIG_PROJECTILE_ON_HIT</a></th><td>from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle, hit_limb)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PROJECTILE_FIRE">COMSIG_PROJECTILE_FIRE</a></th><td>from the base of /obj/item/projectile/proc/fire(): ()</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PROJECTILE_PREHIT">COMSIG_PROJECTILE_PREHIT</a></th><td>sent to targets during the process_hit proc of projectiles</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_TURF_IS_WET">COMSIG_TURF_IS_WET</a></th><td>Component Specific Signals</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_ATOM_PERSONA_CORE_INSERTED">COMSIG_ATOM_PERSONA_CORE_INSERTED</a></th><td>persona core signals</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_TOGGLE_VOREMODE">COMSIG_VORE_TOGGLE_VOREMODE</a></th><td>When they look back and see that some fuckin nerd componentized vore, will they be proud? or rightfully confused why someone would spend their time on this?
+I know one thing for sure though, and that is that I won't regret any second of it
+Vore signals</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_ABSORBED_STATE">COMSIG_VORE_ABSORBED_STATE</a></th><td>returns/sets the component's absorbtion state. pass a TRUE/FALSE in its args to set a new state, leave null just to read it</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_DEVOUR_ATOM">COMSIG_VORE_DEVOUR_ATOM</a></th><td>Vores an atom</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_ATOM_DEVOURED">COMSIG_VORE_ATOM_DEVOURED</a></th><td>Sent by a belly to an atom when it enters a belly</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_ATOM_DIGESTED">COMSIG_VORE_ATOM_DIGESTED</a></th><td>Sent by a belly to an atom when it gets digested -- basically digest_act, but in signal form</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_GET_BELLIES">COMSIG_VORE_GET_BELLIES</a></th><td>sets a list to a list of a mob's bellies
+DOES NOT RETURN ANYTHING USEFUL! Abuses the fact that list vars are just references, or something
+check out COMSIG_TRY_STORAGE_RETURN_INVENTORY, its pretty neat
+pass TRUE to make it associated by name</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_HAS_BELLIES">COMSIG_VORE_HAS_BELLIES</a></th><td>returns if we have any bellies</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_SET_SELECTED_BELLY">COMSIG_VORE_SET_SELECTED_BELLY</a></th><td>Takes in a belly, and sets our active one to it</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_VERIFY_BELLY">COMSIG_VORE_VERIFY_BELLY</a></th><td>Takes in a belly, and returns if that belly is one of ours</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_SWAP_BELLY_INDEX">COMSIG_VORE_SWAP_BELLY_INDEX</a></th><td>Takes in a belly, and returns if that belly is one of ours</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_BELLY_EXPEL_SPECIFIC">COMSIG_BELLY_EXPEL_SPECIFIC</a></th><td>Expels a mob from a belly</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_EXPEL_ALL">COMSIG_VORE_EXPEL_ALL</a></th><td>Expels all mobs from a belly</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_EXPEL_MOB_OOC">COMSIG_VORE_EXPEL_MOB_OOC</a></th><td>Calls an OOC eject</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_ADD_BELLY">COMSIG_VORE_ADD_BELLY</a></th><td>Adds a belly to the mob and component</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_REMOVE_BELLY">COMSIG_VORE_REMOVE_BELLY</a></th><td>Removes a belly from the mob and component</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_STOP_SOUNDS">COMSIG_VORE_STOP_SOUNDS</a></th><td>Makes the squishing stop!!!</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_SNIFF_LIVING">COMSIG_VORE_SNIFF_LIVING</a></th><td>Gives living_sniffer a description of the componentholder's scent</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_AUTO_EMOTE">COMSIG_VORE_AUTO_EMOTE</a></th><td>Makes bellies autoemote</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_UPDATE_PANEL">COMSIG_VORE_UPDATE_PANEL</a></th><td>Updates the vore panel</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_SAVE_PREFS">COMSIG_VORE_SAVE_PREFS</a></th><td>Saves a mob's voreprefs</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_LOAD_PREFS">COMSIG_VORE_LOAD_PREFS</a></th><td>Loads a mob's voreprefs</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_DO_VORE">COMSIG_VORE_DO_VORE</a></th><td>Calls the mob's vore_attack and starts the process of sticking thing A into thing B</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_DETERMINE_VORE">COMSIG_VORE_DETERMINE_VORE</a></th><td>Tries to figure out who or what we want to eat</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_DETERMINE_FEED">COMSIG_VORE_DETERMINE_FEED</a></th><td>Tries to figure out who is feeding who</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_CAN_EAT">COMSIG_VORE_CAN_EAT</a></th><td>Returns if the componentholder is in any shape to eat someone. null means YES, as does TRUE. FALSE means NO here!</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_CAN_BE_EATEN">COMSIG_VORE_CAN_BE_EATEN</a></th><td>Returns if the componentholder/thing is in any shape to be eaten. null means YES, as does TRUE. FALSE means NO here!</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_CAN_BE_FED_PREY">COMSIG_VORE_CAN_BE_FED_PREY</a></th><td>Returns if the componentholder/thing is in any shape to be vorefed to someone. null means YES, as does TRUE. FALSE means NO here!</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_HAS_VORED_PREY">COMSIG_VORE_HAS_VORED_PREY</a></th><td>Returns if the componentholder's belly contains any mobs</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_HAS_VORED_ITEMS">COMSIG_VORE_HAS_VORED_ITEMS</a></th><td>Returns if the componentholder's belly contains any items</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_VORE_OCCURED">COMSIG_VORE_VORE_OCCURED</a></th><td>Tells the componentholder that vore has occured, and to do whatever it needs to do, like update their icon</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_RECALCULATE_SLOWDOWN">COMSIG_VORE_RECALCULATE_SLOWDOWN</a></th><td>Tells the componentholder that vore has occured, and to do whatever it needs to do, like update their slows</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_DO_MESSAGE">COMSIG_VORE_DO_MESSAGE</a></th><td>Tells the componentholder to have a certain belly do a certain emote</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_VORE_CHECK_EDIBILITY">COMSIG_VORE_CHECK_EDIBILITY</a></th><td>Asks if the componentholder can eat a certain item</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals.html#define/COMSIG_BELLY_HANDLE_TRASH">COMSIG_BELLY_HANDLE_TRASH</a></th><td>Vore defines specifically for a belly
+Tells the belly trash happened</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/COMPONENT_BLOCK_LIGHT_UPDATE"><aside class="declaration">#define </aside>COMPONENT_BLOCK_LIGHT_UPDATE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L146">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 146"/></a>
+    </h3>
+    <p>Blocks [/atom/proc/set_light], <a href="atom.html#proc/set_light_power" title="/atom">/atom/proc/set_light_power</a>, <a href="atom.html#proc/set_light_range" title="/atom">/atom/proc/set_light_range</a>, <a href="atom.html#proc/set_light_color" title="/atom">/atom/proc/set_light_color</a>, <a href="atom.html#proc/set_light_on" title="/atom">/atom/proc/set_light_on</a>, and <a href="atom.html#proc/set_light_flags" title="/atom">/atom/proc/set_light_flags</a>.</p><h3 id="define/COMSIG_ATOM_ACID_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_ACID_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L96">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 96"/></a>
+    </h3>
+    <p>from base of atom/acid_act(): (acidpwr, acid_volume)</p><h3 id="define/COMSIG_ATOM_BLOB_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_BLOB_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L94">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 94"/></a>
+    </h3>
+    <p>from base of atom/blob_act(): (/obj/structure/blob)</p><h3 id="define/COMSIG_ATOM_BSA_BEAM"><aside class="declaration">#define </aside>COMSIG_ATOM_BSA_BEAM
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 110"/></a>
+    </h3>
+    <p>from obj/machinery/bsa/full/proc/fire(): ()</p><h3 id="define/COMSIG_ATOM_BULLET_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_BULLET_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 88"/></a>
+    </h3>
+    <p>from base of atom/bullet_act(): (/obj/projectile, def_zone)</p><h3 id="define/COMSIG_ATOM_CHECKPARTS"><aside class="declaration">#define </aside>COMSIG_ATOM_CHECKPARTS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L90">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 90"/></a>
+    </h3>
+    <p>from base of atom/CheckParts(): (list/parts_list, datum/crafting_recipe/R)</p><h3 id="define/COMSIG_ATOM_CONTENTS_DEL"><aside class="declaration">#define </aside>COMSIG_ATOM_CONTENTS_DEL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L115">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 115"/></a>
+    </h3>
+    <p>from base of atom/handle_atom_del(): (atom/deleted)</p><h3 id="define/COMSIG_ATOM_DIR_CHANGE"><aside class="declaration">#define </aside>COMSIG_ATOM_DIR_CHANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 113"/></a>
+    </h3>
+    <p>from base of atom/setDir(): (old_dir, new_dir). Called before the direction changes.</p><h3 id="define/COMSIG_ATOM_EMAG_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_EMAG_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 98"/></a>
+    </h3>
+    <p>from base of atom/emag_act(): (/mob/user)</p><h3 id="define/COMSIG_ATOM_EMP_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_EMP_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 84"/></a>
+    </h3>
+    <p>from base of atom/emp_act(): (severity)</p><h3 id="define/COMSIG_ATOM_EX_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_EX_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 82"/></a>
+    </h3>
+    <p>from base of atom/ex_act(): (severity, target)</p><h3 id="define/COMSIG_ATOM_FIRE_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_FIRE_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 86"/></a>
+    </h3>
+    <p>from base of atom/fire_act(): (exposed_temperature, exposed_volume)</p><h3 id="define/COMSIG_ATOM_GET_EXAMINE_NAME"><aside class="declaration">#define </aside>COMSIG_ATOM_GET_EXAMINE_NAME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L69">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 69"/></a>
+    </h3>
+    <p>from base of atom/get_examine_name(): (/mob, list/overrides)</p><h3 id="define/COMSIG_ATOM_GET_LOCS"><aside class="declaration">#define </aside>COMSIG_ATOM_GET_LOCS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L128">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 128"/></a>
+    </h3>
+    <p>from internal loop in the base of /atom/movable/proc/get_locs(): (list/locs)</p><h3 id="define/COMSIG_ATOM_HAS_GRAVITY"><aside class="declaration">#define </aside>COMSIG_ATOM_HAS_GRAVITY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 117"/></a>
+    </h3>
+    <p>from base of atom/has_gravity(): (turf/location, list/forced_gravities)</p><h3 id="define/COMSIG_ATOM_LICKED"><aside class="declaration">#define </aside>COMSIG_ATOM_LICKED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L178">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 178"/></a>
+    </h3>
+    <p>Called when you lick an object</p><h3 id="define/COMSIG_ATOM_NARSIE_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_NARSIE_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 102"/></a>
+    </h3>
+    <p>from base of atom/narsie_act(): ()</p><h3 id="define/COMSIG_ATOM_ORBIT_BEGIN"><aside class="declaration">#define </aside>COMSIG_ATOM_ORBIT_BEGIN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L171">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 171"/></a>
+    </h3>
+    <p>called when an atom starts orbiting another atom: (atom)</p><h3 id="define/COMSIG_ATOM_ORBIT_STOP"><aside class="declaration">#define </aside>COMSIG_ATOM_ORBIT_STOP
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 173"/></a>
+    </h3>
+    <p>called when an atom stops orbiting another atom: (atom)</p><h3 id="define/COMSIG_ATOM_PERSONA_CORE_INSERTED"><aside class="declaration">#define </aside>COMSIG_ATOM_PERSONA_CORE_INSERTED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L583">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 583"/></a>
+    </h3>
+    <p>persona core signals</p><h3 id="define/COMSIG_ATOM_RAD_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_RAD_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L100">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 100"/></a>
+    </h3>
+    <p>from base of atom/rad_act(intensity)</p><h3 id="define/COMSIG_ATOM_RAD_CONTAMINATING"><aside class="declaration">#define </aside>COMSIG_ATOM_RAD_CONTAMINATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L122">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 122"/></a>
+    </h3>
+    <p>from base of datum/radiation_wave/radiate(): (strength)</p><h3 id="define/COMSIG_ATOM_RAD_PROBE"><aside class="declaration">#define </aside>COMSIG_ATOM_RAD_PROBE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L119">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 119"/></a>
+    </h3>
+    <p>from proc/get_rad_contents(): ()</p><h3 id="define/COMSIG_ATOM_RAD_WAVE_PASSING"><aside class="declaration">#define </aside>COMSIG_ATOM_RAD_WAVE_PASSING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 125"/></a>
+    </h3>
+    <p>from base of datum/radiation_wave/check_obstructions(): (datum/radiation_wave, width)</p><h3 id="define/COMSIG_ATOM_RATVAR_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_RATVAR_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 104"/></a>
+    </h3>
+    <p>from base of atom/ratvar_act(): ()</p><h3 id="define/COMSIG_ATOM_RCD_ACT"><aside class="declaration">#define </aside>COMSIG_ATOM_RCD_ACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 106"/></a>
+    </h3>
+    <p>from base of atom/rcd_act(): (/mob, /obj/item/construction/rcd, passed_mode)</p><h3 id="define/COMSIG_ATOM_SET_LIGHT"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_LIGHT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L144">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 144"/></a>
+    </h3>
+    <p>from base of [atom/proc/set_light]: (l_range, l_power, l_color, l_on)</p><h3 id="define/COMSIG_ATOM_SET_LIGHT_COLOR"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_LIGHT_COLOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L156">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 156"/></a>
+    </h3>
+    <p>Called right before the atom changes the value of light_color to a different one, from base <a href="atom.html#proc/set_light_color" title="/atom">atom/proc/set_light_color</a>: (new_color)</p><h3 id="define/COMSIG_ATOM_SET_LIGHT_FLAGS"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_LIGHT_FLAGS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L164">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 164"/></a>
+    </h3>
+    <p>Called right before the atom changes the value of light_flags to a different one, from base <a href="atom.html#proc/set_light_flags" title="/atom">atom/proc/set_light_flags</a>: (new_flags)</p><h3 id="define/COMSIG_ATOM_SET_LIGHT_ON"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_LIGHT_ON
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 160"/></a>
+    </h3>
+    <p>Called right before the atom changes the value of light_on to a different one, from base <a href="atom.html#proc/set_light_on" title="/atom">atom/proc/set_light_on</a>: (new_value)</p><h3 id="define/COMSIG_ATOM_SET_LIGHT_POWER"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_LIGHT_POWER
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 148"/></a>
+    </h3>
+    <p>Called right before the atom changes the value of light_power to a different one, from base <a href="atom.html#proc/set_light_power" title="/atom">atom/proc/set_light_power</a>: (new_power)</p><h3 id="define/COMSIG_ATOM_SET_LIGHT_RANGE"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_LIGHT_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L152">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 152"/></a>
+    </h3>
+    <p>Called right before the atom changes the value of light_range to a different one, from base <a href="atom.html#proc/set_light_range" title="/atom">atom/proc/set_light_range</a>: (new_range)</p><h3 id="define/COMSIG_ATOM_SET_OPACITY"><aside class="declaration">#define </aside>COMSIG_ATOM_SET_OPACITY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 175"/></a>
+    </h3>
+    <p>from base of atom/set_opacity(): (new_opacity)</p><h3 id="define/COMSIG_ATOM_SING_PULL"><aside class="declaration">#define </aside>COMSIG_ATOM_SING_PULL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 108"/></a>
+    </h3>
+    <p>from base of atom/singularity_pull(): (S, current_size)</p><h3 id="define/COMSIG_ATOM_UPDATE_LIGHT_COLOR"><aside class="declaration">#define </aside>COMSIG_ATOM_UPDATE_LIGHT_COLOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L158">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 158"/></a>
+    </h3>
+    <p>Called right after the atom changes the value of light_color to a different one, from base of <a href="atom.html#proc/set_light_color" title="/atom">/atom/proc/set_light_color</a>: (old_color)</p><h3 id="define/COMSIG_ATOM_UPDATE_LIGHT_FLAGS"><aside class="declaration">#define </aside>COMSIG_ATOM_UPDATE_LIGHT_FLAGS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L166">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 166"/></a>
+    </h3>
+    <p>Called right after the atom changes the value of light_flags to a different one, from base of <a href="atom.html#proc/set_light_flags" title="/atom">/atom/proc/set_light_flags</a>: (old_flags)</p><h3 id="define/COMSIG_ATOM_UPDATE_LIGHT_ON"><aside class="declaration">#define </aside>COMSIG_ATOM_UPDATE_LIGHT_ON
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 162"/></a>
+    </h3>
+    <p>Called right after the atom changes the value of light_on to a different one, from base of <a href="atom.html#proc/set_light_on" title="/atom">/atom/proc/set_light_on</a>: (old_value)</p><h3 id="define/COMSIG_ATOM_UPDATE_LIGHT_POWER"><aside class="declaration">#define </aside>COMSIG_ATOM_UPDATE_LIGHT_POWER
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L150">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 150"/></a>
+    </h3>
+    <p>Called right after the atom changes the value of light_power to a different one, from base of <a href="atom.html#proc/set_light_power" title="/atom">/atom/proc/set_light_power</a>: (old_power)</p><h3 id="define/COMSIG_ATOM_UPDATE_LIGHT_RANGE"><aside class="declaration">#define </aside>COMSIG_ATOM_UPDATE_LIGHT_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L154">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 154"/></a>
+    </h3>
+    <p>Called right after the atom changes the value of light_range to a different one, from base of <a href="atom.html#proc/set_light_range" title="/atom">/atom/proc/set_light_range</a>: (old_range)</p><h3 id="define/COMSIG_ATOM_USED_IN_CRAFT"><aside class="declaration">#define </aside>COMSIG_ATOM_USED_IN_CRAFT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 92"/></a>
+    </h3>
+    <p>from base of atom/CheckParts(): (atom/movable/new_craft) - The atom has just been used in a crafting recipe and has been moved inside new_craft.</p><h3 id="define/COMSIG_BELLY_EXPEL_SPECIFIC"><aside class="declaration">#define </aside>COMSIG_BELLY_EXPEL_SPECIFIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L616">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 616"/></a>
+    </h3>
+    <p>Expels a mob from a belly</p><h3 id="define/COMSIG_BELLY_HANDLE_TRASH"><aside class="declaration">#define </aside>COMSIG_BELLY_HANDLE_TRASH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L664">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 664"/></a>
+    </h3>
+    <p>Vore defines specifically for a belly
+Tells the belly trash happened</p><h3 id="define/COMSIG_BLOCK_EYECONTACT"><aside class="declaration">#define </aside>COMSIG_BLOCK_EYECONTACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L254">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 254"/></a>
+    </h3>
+    <p>return this if you want to block printing this message to this person, if you want to print your own (does not affect the other person's message)</p><h3 id="define/COMSIG_BUTTON_CLICK"><aside class="declaration">#define </aside>COMSIG_BUTTON_CLICK
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L392">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 392"/></a>
+    </h3>
+    <p>button click do thing to thing</p><h3 id="define/COMSIG_BUTTON_UPDATE"><aside class="declaration">#define </aside>COMSIG_BUTTON_UPDATE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L394">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 394"/></a>
+    </h3>
+    <p>used to update the button with certain things</p><h3 id="define/COMSIG_CARBON_ATTACH_LIMB"><aside class="declaration">#define </aside>COMSIG_CARBON_ATTACH_LIMB
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L342">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 342"/></a>
+    </h3>
+    <p>from base of /obj/item/bodypart/proc/attach_limb(): (new_limb, special) allows you to fail limb attachment</p><h3 id="define/COMSIG_CELL_CHECK_CHARGE"><aside class="declaration">#define </aside>COMSIG_CELL_CHECK_CHARGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L405">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 405"/></a>
+    </h3>
+    <p>Something is asked for the charge of their cell</p><h3 id="define/COMSIG_COMPONENT_ADDED"><aside class="declaration">#define </aside>COMSIG_COMPONENT_ADDED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 35"/></a>
+    </h3>
+    <p>when a component is added to a datum: (/datum/component)</p><h3 id="define/COMSIG_COMPONENT_REGISTER_PARENT"><aside class="declaration">#define </aside>COMSIG_COMPONENT_REGISTER_PARENT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 53"/></a>
+    </h3>
+    <p>sent to the component itself when registered to a parent</p><h3 id="define/COMSIG_COMPONENT_REMOVING"><aside class="declaration">#define </aside>COMSIG_COMPONENT_REMOVING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 37"/></a>
+    </h3>
+    <p>before a component is removed from a datum because of RemoveComponent: (/datum/component)</p><h3 id="define/COMSIG_COMPONENT_UNREGISTER_PARENT"><aside class="declaration">#define </aside>COMSIG_COMPONENT_UNREGISTER_PARENT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 51"/></a>
+    </h3>
+    <p>sent to the component itself when unregistered from a parent</p><h3 id="define/COMSIG_EFFECT_MINE_TRIGGERED"><aside class="declaration">#define </aside>COMSIG_EFFECT_MINE_TRIGGERED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L427">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 427"/></a>
+    </h3>
+    <p>from [/obj/effect/mine/proc/triggermine]:</p><h3 id="define/COMSIG_ELEMENT_ATTACH"><aside class="declaration">#define </aside>COMSIG_ELEMENT_ATTACH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 46"/></a>
+    </h3>
+    <p>fires on the target datum when an element is attached to it (/datum/element)</p><h3 id="define/COMSIG_ELEMENT_DETACH"><aside class="declaration">#define </aside>COMSIG_ELEMENT_DETACH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 48"/></a>
+    </h3>
+    <p>fires on the target datum when an element is attached to it  (/datum/element)</p><h3 id="define/COMSIG_GLOB_EXPLOSION"><aside class="declaration">#define </aside>COMSIG_GLOB_EXPLOSION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 13"/></a>
+    </h3>
+    <p>called after an explosion happened : (epicenter, devastation_range, heavy_impact_range, light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)</p><h3 id="define/COMSIG_GLOB_LIVING_SAY_SPECIAL"><aside class="declaration">#define </aside>COMSIG_GLOB_LIVING_SAY_SPECIAL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 21"/></a>
+    </h3>
+    <p>global living say plug - use sparingly: (mob/speaker , message)</p><h3 id="define/COMSIG_GLOB_MOB_CREATED"><aside class="declaration">#define </aside>COMSIG_GLOB_MOB_CREATED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 17"/></a>
+    </h3>
+    <p>mob was created somewhere : (mob)</p><h3 id="define/COMSIG_GLOB_MOB_DEATH"><aside class="declaration">#define </aside>COMSIG_GLOB_MOB_DEATH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 19"/></a>
+    </h3>
+    <p>mob died somewhere : (mob , gibbed)</p><h3 id="define/COMSIG_GLOB_MOB_LOGIN"><aside class="declaration">#define </aside>COMSIG_GLOB_MOB_LOGIN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 15"/></a>
+    </h3>
+    <p>called after when a mob/login() finishes: (mob)</p><h3 id="define/COMSIG_GLOB_NEW_Z"><aside class="declaration">#define </aside>COMSIG_GLOB_NEW_Z
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 9"/></a>
+    </h3>
+    <p>from base of datum/controller/subsystem/mapping/proc/add_new_zlevel(): (list/args)</p><h3 id="define/COMSIG_GLOB_PLAY_CINEMATIC"><aside class="declaration">#define </aside>COMSIG_GLOB_PLAY_CINEMATIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 23"/></a>
+    </h3>
+    <p>called by datum/cinematic/play() : (datum/cinematic/new_cinematic)</p><h3 id="define/COMSIG_GLOB_VAR_EDIT"><aside class="declaration">#define </aside>COMSIG_GLOB_VAR_EDIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 11"/></a>
+    </h3>
+    <p>called after a successful var edit somewhere in the world: (list/args)</p><h3 id="define/COMSIG_ITEM_CLICKED"><aside class="declaration">#define </aside>COMSIG_ITEM_CLICKED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L390">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 390"/></a>
+    </h3>
+    <p>Item was clicked on</p><h3 id="define/COMSIG_ITEM_DISABLE_EMBED"><aside class="declaration">#define </aside>COMSIG_ITEM_DISABLE_EMBED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L426">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 426"/></a>
+    </h3>
+    <p>from <a href="obj/item.html#proc/disableEmbedding" title="/obj/item">/obj/item/proc/disableEmbedding</a>:</p><h3 id="define/COMSIG_ITEM_MINE_TRIGGERED"><aside class="declaration">#define </aside>COMSIG_ITEM_MINE_TRIGGERED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L430">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 430"/></a>
+    </h3>
+    <p>from [/obj/item/mine/proc/triggermine]:</p><h3 id="define/COMSIG_LICK_RETURN"><aside class="declaration">#define </aside>COMSIG_LICK_RETURN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L180">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 180"/></a>
+    </h3>
+    <p>Called by something licked to return a signal to the thing licking to let the thing lick it even if it shouldnt be licked</p><h3 id="define/COMSIG_MOB_ALTCLICKON"><aside class="declaration">#define </aside>COMSIG_MOB_ALTCLICKON
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L279">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 279"/></a>
+    </h3>
+    <p>from base of mob/AltClickOn(): (atom/A)</p><h3 id="define/COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE"><aside class="declaration">#define </aside>COMSIG_MOB_CLIENT_BLOCK_PRE_MOVE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L290">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 290"/></a>
+    </h3>
+    <p>Should always match COMPONENT_MOVABLE_BLOCK_PRE_MOVE as these are interchangeable and used to block movement.</p><h3 id="define/COMSIG_MOB_CLIENT_MOVED"><aside class="declaration">#define </aside>COMSIG_MOB_CLIENT_MOVED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L296">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 296"/></a>
+    </h3>
+    <p>From base of /client/Move()</p><h3 id="define/COMSIG_MOB_CLIENT_PRE_MOVE"><aside class="declaration">#define </aside>COMSIG_MOB_CLIENT_PRE_MOVE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L288">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 288"/></a>
+    </h3>
+    <p>From base of /client/Move(): (list/move_args)</p><h3 id="define/COMSIG_MOB_EYECONTACT"><aside class="declaration">#define </aside>COMSIG_MOB_EYECONTACT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L252">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 252"/></a>
+    </h3>
+    <p>from /mob/living/handle_eye_contact(): (mob/living/other_mob)</p><h3 id="define/COMSIG_MOB_STATCHANGE"><aside class="declaration">#define </aside>COMSIG_MOB_STATCHANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L231">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 231"/></a>
+    </h3>
+    <p>from base of mob/set_stat(): (new_stat)</p><h3 id="define/COMSIG_PARENT_EXAMINE_MORE"><aside class="declaration">#define </aside>COMSIG_PARENT_EXAMINE_MORE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 70"/></a>
+    </h3>
+    <p>from base of atom/examine_more(): (/mob)</p><h3 id="define/COMSIG_PARENT_PREQDELETED"><aside class="declaration">#define </aside>COMSIG_PARENT_PREQDELETED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 39"/></a>
+    </h3>
+    <p>before a datum's Destroy() is called: (force), returning a nonzero value will cancel the qdel operation</p><h3 id="define/COMSIG_PARENT_QDELETING"><aside class="declaration">#define </aside>COMSIG_PARENT_QDELETING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 41"/></a>
+    </h3>
+    <p>just before a datum's Destroy() is called: (force), at this point none of the other components chose to interrupt qdel and Destroy will be called</p><h3 id="define/COMSIG_PROJECTILE_FIRE"><aside class="declaration">#define </aside>COMSIG_PROJECTILE_FIRE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L466">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 466"/></a>
+    </h3>
+    <p>from the base of /obj/item/projectile/proc/fire(): ()</p><h3 id="define/COMSIG_PROJECTILE_ON_HIT"><aside class="declaration">#define </aside>COMSIG_PROJECTILE_ON_HIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L464">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 464"/></a>
+    </h3>
+    <p>from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle, hit_limb)</p><h3 id="define/COMSIG_PROJECTILE_PREHIT"><aside class="declaration">#define </aside>COMSIG_PROJECTILE_PREHIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L469">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 469"/></a>
+    </h3>
+    <p>sent to targets during the process_hit proc of projectiles</p><h3 id="define/COMSIG_PROJECTILE_SELF_ON_HIT"><aside class="declaration">#define </aside>COMSIG_PROJECTILE_SELF_ON_HIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L463">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 463"/></a>
+    </h3>
+    <p>from base of /obj/item/projectile/proc/on_hit(): (atom/movable/firer, atom/target, Angle, hit_limb)</p><h3 id="define/COMSIG_SUBSYSTEM_POST_INITIALIZE"><aside class="declaration">#define </aside>COMSIG_SUBSYSTEM_POST_INITIALIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 56"/></a>
+    </h3>
+    <p>Subsystem signals
+From base of datum/controller/subsystem/Initialize: (start_timeofday)</p><h3 id="define/COMSIG_SUN_MOVED"><aside class="declaration">#define </aside>COMSIG_SUN_MOVED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 30"/></a>
+    </h3>
+    <p>from SSsun when the sun changes position : (azimuth)</p><h3 id="define/COMSIG_TOPIC"><aside class="declaration">#define </aside>COMSIG_TOPIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 43"/></a>
+    </h3>
+    <p>generic topic handler (usr, href_list)</p><h3 id="define/COMSIG_TURF_IS_WET"><aside class="declaration">#define </aside>COMSIG_TURF_IS_WET
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L491">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 491"/></a>
+    </h3>
+    <p>Component Specific Signals</p><h3 id="define/COMSIG_VORE_ABSORBED_STATE"><aside class="declaration">#define </aside>COMSIG_VORE_ABSORBED_STATE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L595">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 595"/></a>
+    </h3>
+    <p>returns/sets the component's absorbtion state. pass a TRUE/FALSE in its args to set a new state, leave null just to read it</p><h3 id="define/COMSIG_VORE_ADD_BELLY"><aside class="declaration">#define </aside>COMSIG_VORE_ADD_BELLY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L622">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 622"/></a>
+    </h3>
+    <p>Adds a belly to the mob and component</p><h3 id="define/COMSIG_VORE_ATOM_DEVOURED"><aside class="declaration">#define </aside>COMSIG_VORE_ATOM_DEVOURED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L599">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 599"/></a>
+    </h3>
+    <p>Sent by a belly to an atom when it enters a belly</p><h3 id="define/COMSIG_VORE_ATOM_DIGESTED"><aside class="declaration">#define </aside>COMSIG_VORE_ATOM_DIGESTED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L601">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 601"/></a>
+    </h3>
+    <p>Sent by a belly to an atom when it gets digested -- basically digest_act, but in signal form</p><h3 id="define/COMSIG_VORE_AUTO_EMOTE"><aside class="declaration">#define </aside>COMSIG_VORE_AUTO_EMOTE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L630">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 630"/></a>
+    </h3>
+    <p>Makes bellies autoemote</p><h3 id="define/COMSIG_VORE_CAN_BE_EATEN"><aside class="declaration">#define </aside>COMSIG_VORE_CAN_BE_EATEN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L646">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 646"/></a>
+    </h3>
+    <p>Returns if the componentholder/thing is in any shape to be eaten. null means YES, as does TRUE. FALSE means NO here!</p><h3 id="define/COMSIG_VORE_CAN_BE_FED_PREY"><aside class="declaration">#define </aside>COMSIG_VORE_CAN_BE_FED_PREY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L648">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 648"/></a>
+    </h3>
+    <p>Returns if the componentholder/thing is in any shape to be vorefed to someone. null means YES, as does TRUE. FALSE means NO here!</p><h3 id="define/COMSIG_VORE_CAN_EAT"><aside class="declaration">#define </aside>COMSIG_VORE_CAN_EAT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L644">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 644"/></a>
+    </h3>
+    <p>Returns if the componentholder is in any shape to eat someone. null means YES, as does TRUE. FALSE means NO here!</p><h3 id="define/COMSIG_VORE_CHECK_EDIBILITY"><aside class="declaration">#define </aside>COMSIG_VORE_CHECK_EDIBILITY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L660">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 660"/></a>
+    </h3>
+    <p>Asks if the componentholder can eat a certain item</p><h3 id="define/COMSIG_VORE_DETERMINE_FEED"><aside class="declaration">#define </aside>COMSIG_VORE_DETERMINE_FEED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L642">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 642"/></a>
+    </h3>
+    <p>Tries to figure out who is feeding who</p><h3 id="define/COMSIG_VORE_DETERMINE_VORE"><aside class="declaration">#define </aside>COMSIG_VORE_DETERMINE_VORE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L640">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 640"/></a>
+    </h3>
+    <p>Tries to figure out who or what we want to eat</p><h3 id="define/COMSIG_VORE_DEVOUR_ATOM"><aside class="declaration">#define </aside>COMSIG_VORE_DEVOUR_ATOM
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L597">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 597"/></a>
+    </h3>
+    <p>Vores an atom</p><h3 id="define/COMSIG_VORE_DO_MESSAGE"><aside class="declaration">#define </aside>COMSIG_VORE_DO_MESSAGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L658">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 658"/></a>
+    </h3>
+    <p>Tells the componentholder to have a certain belly do a certain emote</p><h3 id="define/COMSIG_VORE_DO_VORE"><aside class="declaration">#define </aside>COMSIG_VORE_DO_VORE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L638">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 638"/></a>
+    </h3>
+    <p>Calls the mob's vore_attack and starts the process of sticking thing A into thing B</p><h3 id="define/COMSIG_VORE_EXPEL_ALL"><aside class="declaration">#define </aside>COMSIG_VORE_EXPEL_ALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L618">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 618"/></a>
+    </h3>
+    <p>Expels all mobs from a belly</p><h3 id="define/COMSIG_VORE_EXPEL_MOB_OOC"><aside class="declaration">#define </aside>COMSIG_VORE_EXPEL_MOB_OOC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L620">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 620"/></a>
+    </h3>
+    <p>Calls an OOC eject</p><h3 id="define/COMSIG_VORE_GET_BELLIES"><aside class="declaration">#define </aside>COMSIG_VORE_GET_BELLIES
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L606">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 606"/></a>
+    </h3>
+    <p>sets a list to a list of a mob's bellies
+DOES NOT RETURN ANYTHING USEFUL! Abuses the fact that list vars are just references, or something
+check out COMSIG_TRY_STORAGE_RETURN_INVENTORY, its pretty neat
+pass TRUE to make it associated by name</p><h3 id="define/COMSIG_VORE_HAS_BELLIES"><aside class="declaration">#define </aside>COMSIG_VORE_HAS_BELLIES
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L608">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 608"/></a>
+    </h3>
+    <p>returns if we have any bellies</p><h3 id="define/COMSIG_VORE_HAS_VORED_ITEMS"><aside class="declaration">#define </aside>COMSIG_VORE_HAS_VORED_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L652">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 652"/></a>
+    </h3>
+    <p>Returns if the componentholder's belly contains any items</p><h3 id="define/COMSIG_VORE_HAS_VORED_PREY"><aside class="declaration">#define </aside>COMSIG_VORE_HAS_VORED_PREY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L650">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 650"/></a>
+    </h3>
+    <p>Returns if the componentholder's belly contains any mobs</p><h3 id="define/COMSIG_VORE_LOAD_PREFS"><aside class="declaration">#define </aside>COMSIG_VORE_LOAD_PREFS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L636">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 636"/></a>
+    </h3>
+    <p>Loads a mob's voreprefs</p><h3 id="define/COMSIG_VORE_RECALCULATE_SLOWDOWN"><aside class="declaration">#define </aside>COMSIG_VORE_RECALCULATE_SLOWDOWN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L656">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 656"/></a>
+    </h3>
+    <p>Tells the componentholder that vore has occured, and to do whatever it needs to do, like update their slows</p><h3 id="define/COMSIG_VORE_REMOVE_BELLY"><aside class="declaration">#define </aside>COMSIG_VORE_REMOVE_BELLY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L624">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 624"/></a>
+    </h3>
+    <p>Removes a belly from the mob and component</p><h3 id="define/COMSIG_VORE_SAVE_PREFS"><aside class="declaration">#define </aside>COMSIG_VORE_SAVE_PREFS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L634">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 634"/></a>
+    </h3>
+    <p>Saves a mob's voreprefs</p><h3 id="define/COMSIG_VORE_SET_SELECTED_BELLY"><aside class="declaration">#define </aside>COMSIG_VORE_SET_SELECTED_BELLY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L610">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 610"/></a>
+    </h3>
+    <p>Takes in a belly, and sets our active one to it</p><h3 id="define/COMSIG_VORE_SNIFF_LIVING"><aside class="declaration">#define </aside>COMSIG_VORE_SNIFF_LIVING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L628">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 628"/></a>
+    </h3>
+    <p>Gives living_sniffer a description of the componentholder's scent</p><h3 id="define/COMSIG_VORE_STOP_SOUNDS"><aside class="declaration">#define </aside>COMSIG_VORE_STOP_SOUNDS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L626">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 626"/></a>
+    </h3>
+    <p>Makes the squishing stop!!!</p><h3 id="define/COMSIG_VORE_SWAP_BELLY_INDEX"><aside class="declaration">#define </aside>COMSIG_VORE_SWAP_BELLY_INDEX
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L614">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 614"/></a>
+    </h3>
+    <p>Takes in a belly, and returns if that belly is one of ours</p><h3 id="define/COMSIG_VORE_TOGGLE_VOREMODE"><aside class="declaration">#define </aside>COMSIG_VORE_TOGGLE_VOREMODE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L589">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 589"/></a>
+    </h3>
+    <p>When they look back and see that some fuckin nerd componentized vore, will they be proud? or rightfully confused why someone would spend their time on this?
+I know one thing for sure though, and that is that I won't regret any second of it
+Vore signals</p><h3 id="define/COMSIG_VORE_UPDATE_PANEL"><aside class="declaration">#define </aside>COMSIG_VORE_UPDATE_PANEL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L632">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 632"/></a>
+    </h3>
+    <p>Updates the vore panel</p><h3 id="define/COMSIG_VORE_VERIFY_BELLY"><aside class="declaration">#define </aside>COMSIG_VORE_VERIFY_BELLY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L612">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 612"/></a>
+    </h3>
+    <p>Takes in a belly, and returns if that belly is one of ours</p><h3 id="define/COMSIG_VORE_VORE_OCCURED"><aside class="declaration">#define </aside>COMSIG_VORE_VORE_OCCURED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L654">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 654"/></a>
+    </h3>
+    <p>Tells the componentholder that vore has occured, and to do whatever it needs to do, like update their icon</p><h3 id="define/MOVE_ARG_DIRECTION"><aside class="declaration">#define </aside>MOVE_ARG_DIRECTION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L294">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 294"/></a>
+    </h3>
+    <p>The arugment of move_args which dictates our movement direction</p><h3 id="define/MOVE_ARG_NEW_LOC"><aside class="declaration">#define </aside>MOVE_ARG_NEW_LOC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals.dm#L292">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals.dm 292"/></a>
+    </h3>
+    <p>The argument of move_args which corresponds to the loc we're moving to</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

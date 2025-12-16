@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;ammo_sound_properties - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/ammo_sound_properties.html#var">Var Details</a> - <a href="datum/ammo_sound_properties.html#proc">Proc Details</a></header>
+<main>
+<h1>ammo_sound_properties <aside>/<a href="datum.html">datum</a>/<a href="datum/ammo_sound_properties.html">ammo_sound_properties</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 19"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/category">category</a></th><td>its entry on the casing_sound_properties list, usually something like CSP_PISTOL_LIGHT. Check out code__DEFINES\sound.dm for more~</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/distance_close">distance_close</a></th><td>How far away still plays the shoot sound?</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/distance_silenced">distance_silenced</a></th><td>How far away can this be heard if the gun shooting it is silenced?</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/distant_sound">distant_sound</a></th><td>The sound it makes when outside of the close distance</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/ignore_walls">ignore_walls</a></th><td>does the sound ignore walls? yes, yes it does. unless its silenced, then no</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/override_gun_sound">override_gun_sound</a></th><td>Override the gun's normal sound. currently unused</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/shoot_sound">shoot_sound</a></th><td>the sound the casing makes if the gun shooting it wants it</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/shoot_sound_silenced">shoot_sound_silenced</a></th><td>the sound the casing makes if the gun shooting it wants it, and is silenced</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/vary">vary</a></th><td>Should the sound vary in pitch? Usually shouldnt</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/volume">volume</a></th><td>How loud is it?</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#var/volume_silenced">volume_silenced</a></th><td>How quiet is it?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#proc/set_up_sound_datums">set_up_sound_datums</a></th><td>First one to exist makes everyone else exist</td></tr>
+            <tr><th><a href="datum/ammo_sound_properties.html#proc/shootlist">shootlist</a></th><td>returns a list of vars</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/category"><aside class="declaration">var </aside>category
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 21"/></a></h3>
+        <p>its entry on the casing_sound_properties list, usually something like CSP_PISTOL_LIGHT. Check out code__DEFINES\sound.dm for more~</p><h3 id="var/distance_close"><aside class="declaration">var </aside>distance_close
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 27"/></a></h3>
+        <p>How far away still plays the shoot sound?</p><h3 id="var/distance_silenced"><aside class="declaration">var </aside>distance_silenced
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 29"/></a></h3>
+        <p>How far away can this be heard if the gun shooting it is silenced?</p><h3 id="var/distant_sound"><aside class="declaration">var </aside>distant_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 31"/></a></h3>
+        <p>The sound it makes when outside of the close distance</p><h3 id="var/ignore_walls"><aside class="declaration">var </aside>ignore_walls
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 39"/></a></h3>
+        <p>does the sound ignore walls? yes, yes it does. unless its silenced, then no</p><h3 id="var/override_gun_sound"><aside class="declaration">var </aside>override_gun_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 41"/></a></h3>
+        <p>Override the gun's normal sound. currently unused</p><h3 id="var/shoot_sound"><aside class="declaration">var </aside>shoot_sound
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 23"/></a></h3>
+        <p>the sound the casing makes if the gun shooting it wants it</p><h3 id="var/shoot_sound_silenced"><aside class="declaration">var </aside>shoot_sound_silenced
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 25"/></a></h3>
+        <p>the sound the casing makes if the gun shooting it wants it, and is silenced</p><h3 id="var/vary"><aside class="declaration">var </aside>vary
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 33"/></a></h3>
+        <p>Should the sound vary in pitch? Usually shouldnt</p><h3 id="var/volume"><aside class="declaration">var </aside>volume
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 35"/></a></h3>
+        <p>How loud is it?</p><h3 id="var/volume_silenced"><aside class="declaration">var </aside>volume_silenced
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 37"/></a></h3>
+        <p>How quiet is it?</p><h2 id="proc">Proc Details</h2><h3 id="proc/set_up_sound_datums"><aside class="declaration">proc </aside>set_up_sound_datums<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 49"/></a></aside>
+        </h3>
+        <p>First one to exist makes everyone else exist</p><h3 id="proc/shootlist"><aside class="declaration">proc </aside>shootlist<aside>(silenced) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/ammo_casing_gun_sound_properties.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;ammo_casing_gun_sound_properties.dm 58"/></a></aside>
+        </h3>
+        <p>returns a list of vars</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

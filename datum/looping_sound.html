@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;looping_sound - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/looping_sound.html#var">Var Details</a> - <a href="datum/looping_sound.html#proc">Proc Details</a></header>
+<main>
+<h1>looping_sound <aside>/<a href="datum.html">datum</a>/<a href="datum/looping_sound.html">looping_sound</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/looping_sounds/_looping_sound.dm#L14">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;looping_sounds&#x2F;_looping_sound.dm 14"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/looping_sound.html#var/vary_direction">vary_direction</a></th><td>Makes direct sounds emulate coming from other directions</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/looping_sound.html#proc/get_sound">get_sound</a></th><td>Converts SOUND_LOOP_ENTRY('sound/file.ogg', length, weight) to list('sound/file.ogg', length) and returns that</td></tr>
+            <tr><th><a href="datum/looping_sound.html#proc/play">play</a></th><td>takes in list('sound/file.ogg', mid_length) and plays the file and ques up another in mid_length deciseconds</td></tr>
+            <tr><th><a href="datum/looping_sound.html#proc/stop">stop</a></th><td>*Kill kills the timer, even if things are still in the output atoms list
+This is crucial for things like microwaves and weather, as they'll always have something in their list, and otherwise it'll NEVER stop playing
+Areas use output_atoms differently, as a list of players to play the sound to. If we stop it as normal and kill it, itll stop playing to all mobs who were listening!
+To sum up: If the output_atoms are <em>playing</em> the sound, kill should = true
+If the output_atoms are <em>listening</em> to the sound, kill should = false</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/vary_direction"><aside class="declaration">var </aside>vary_direction
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/looping_sounds/_looping_sound.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;looping_sounds&#x2F;_looping_sound.dm 26"/></a></h3>
+        <p>Makes direct sounds emulate coming from other directions</p><h2 id="proc">Proc Details</h2><h3 id="proc/get_sound"><aside class="declaration">proc </aside>get_sound<aside>(starttime, _mid_sounds) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/looping_sounds/_looping_sound.dm#L127">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;looping_sounds&#x2F;_looping_sound.dm 127"/></a></aside>
+        </h3>
+        <p>Converts SOUND_LOOP_ENTRY('sound/file.ogg', length, weight) to list('sound/file.ogg', length) and returns that</p><h3 id="proc/play"><aside class="declaration">proc </aside>play<aside>(/list/sound_list) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/looping_sounds/_looping_sound.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;looping_sounds&#x2F;_looping_sound.dm 102"/></a></aside>
+        </h3>
+        <p>takes in list('sound/file.ogg', mid_length) and plays the file and ques up another in mid_length deciseconds</p><h3 id="proc/stop"><aside class="declaration">proc </aside>stop<aside>(/<a href="atom.html">atom</a>/remove_thing, kill) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/looping_sounds/_looping_sound.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;looping_sounds&#x2F;_looping_sound.dm 66"/></a></aside>
+        </h3>
+        <p>*Kill kills the timer, even if things are still in the output atoms list
+This is crucial for things like microwaves and weather, as they'll always have something in their list, and otherwise it'll NEVER stop playing
+Areas use output_atoms differently, as a list of players to play the sound to. If we stop it as normal and kill it, itll stop playing to all mobs who were listening!
+To sum up: If the output_atoms are <em>playing</em> the sound, kill should = true
+If the output_atoms are <em>listening</em> to the sound, kill should = false</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

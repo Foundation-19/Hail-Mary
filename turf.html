@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;turf - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="turf.html#var">Var Details</a> - <a href="turf.html#proc">Proc Details</a></header>
+<main>
+<h1>turf <aside>/<a href="turf.html">turf</a></aside><aside> inherits /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="turf.html#var/base_opacity">base_opacity</a></th><td>The turf's opacity were there no opacity sources.</td></tr>
+            <tr><th><a href="turf.html#var/border_neighbors">border_neighbors</a></th><td>If neighbor to affected turfs, which neighbors. Uses smoothing adjacencies values.</td></tr>
+            <tr><th><a href="turf.html#var/directional_opacity">directional_opacity</a></th><td>Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.</td></tr>
+            <tr><th><a href="turf.html#var/dynamic_lumcount">dynamic_lumcount</a></th><td>Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.</td></tr>
+            <tr><th><a href="turf.html#var/opacity_sources">opacity_sources</a></th><td>Lazylist of movable atoms providing opacity sources.</td></tr>
+            <tr><th><a href="turf.html#var/sunlight_state">sunlight_state</a></th><td>Wether this turf is affected by sunlight, neighbor to turfs that are, or neither.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="turf.html#proc/add_opacity_source">add_opacity_source</a></th><td>Proc to add movable sources of opacity on the turf and let it handle lighting code.</td></tr>
+            <tr><th><a href="turf.html#proc/attack_cross">attack_cross</a></th><td>Checks whether an attack from the given attacker can enter this turf.
+This expects a cardinal direction, and makes no check for it.</td></tr>
+            <tr><th><a href="turf.html#proc/consider_pressure_difference">consider_pressure_difference</a></th><td>SPACEWIND</td></tr>
+            <tr><th><a href="turf.html#proc/fromShuttleMove">fromShuttleMove</a></th><td>Base procs</td></tr>
+            <tr><th><a href="turf.html#proc/get_lumcount">get_lumcount</a></th><td>Returns the luminosity scale of the turf, a float beween 0 and 1.</td></tr>
+            <tr><th><a href="turf.html#proc/handle_sunlight_state_change">handle_sunlight_state_change</a></th><td>Handles the cases of sunlight_state changing during ChangeTurf()</td></tr>
+            <tr><th><a href="turf.html#proc/move_cross">move_cross</a></th><td>Checks whether this turf can be entered by the given mover.
+This expects a cardinal direction, and makes no check for it.</td></tr>
+            <tr><th><a href="turf.html#proc/move_uncross">move_uncross</a></th><td>Checks whether this turf can be left from the given direction.
+This expects a cardinal direction, and makes no check for it.</td></tr>
+            <tr><th><a href="turf.html#proc/process_cell">process_cell</a></th><td>SIMULATION</td></tr>
+            <tr><th><a href="turf.html#proc/recalculate_directional_opacity">recalculate_directional_opacity</a></th><td>Calculate on which directions this turfs block view.</td></tr>
+            <tr><th><a href="turf.html#proc/remove_opacity_source">remove_opacity_source</a></th><td>Proc to remove movable sources of opacity on the turf and let it handle lighting code.</td></tr>
+            <tr><th><a href="turf.html#proc/setup_sunlight_source">setup_sunlight_source</a></th><td>Proc to initialize sunlight source turfs and affect non-source neighbors.</td></tr>
+            <tr><th><a href="turf.html#proc/smooth_sunlight_border">smooth_sunlight_border</a></th><td>Scans neighbors for sunlight sources and sets up the proper object to handle it.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/base_opacity"><aside class="declaration">var </aside>base_opacity
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 49"/></a></h3>
+        <p>The turf's opacity were there no opacity sources.</p><h3 id="var/border_neighbors"><aside class="declaration">var </aside>border_neighbors
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 32"/></a></h3>
+        <p>If neighbor to affected turfs, which neighbors. Uses smoothing adjacencies values.</p><h3 id="var/directional_opacity"><aside class="declaration">var </aside>directional_opacity
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 47"/></a></h3>
+        <p>Which directions does this turf block the vision of, taking into account both the turf's opacity and the movable opacity_sources.</p><h3 id="var/dynamic_lumcount"><aside class="declaration">var </aside>dynamic_lumcount
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 44"/></a></h3>
+        <p>Lumcount added by sources other than lighting datum objects, such as the overlay lighting component.</p><h3 id="var/opacity_sources"><aside class="declaration">var </aside>opacity_sources
+            <aside>&ndash; /list/atom/movable</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 54"/></a></h3>
+        <p>Lazylist of movable atoms providing opacity sources.</p><h3 id="var/sunlight_state"><aside class="declaration">var </aside>sunlight_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/turfs/turf.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;turfs&#x2F;turf.dm 30"/></a></h3>
+        <p>Wether this turf is affected by sunlight, neighbor to turfs that are, or neither.</p><h2 id="proc">Proc Details</h2><h3 id="proc/add_opacity_source"><aside class="declaration">proc </aside>add_opacity_source<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/new_source) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_turf.dm#L109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_turf.dm 109"/></a></aside>
+        </h3>
+        <p>Proc to add movable sources of opacity on the turf and let it handle lighting code.</p><h3 id="proc/attack_cross"><aside class="declaration">proc </aside>attack_cross<aside>(border_dir) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/adjacent.dm#L143">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;adjacent.dm 143"/></a></aside>
+        </h3>
+        <p>Checks whether an attack from the given attacker can enter this turf.
+This expects a cardinal direction, and makes no check for it.</p><h3 id="proc/consider_pressure_difference"><aside class="declaration">proc </aside>consider_pressure_difference<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/atmospherics/environmental/LINDA_turf_tile.dm#L230">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;atmospherics&#x2F;environmental&#x2F;LINDA_turf_tile.dm 230"/></a></aside>
+        </h3>
+        <p>SPACEWIND</p><h3 id="proc/fromShuttleMove"><aside class="declaration">proc </aside>fromShuttleMove<aside>(/<a href="turf.html">turf</a>/newT, move_mode) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/shuttle/on_move.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;on_move.dm 9"/></a></aside>
+        </h3>
+        <p>Base procs</p><h3 id="proc/get_lumcount"><aside class="declaration">proc </aside>get_lumcount<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_turf.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_turf.dm 63"/></a></aside>
+        </h3>
+        <p>Returns the luminosity scale of the turf, a float beween 0 and 1.</p><h3 id="proc/handle_sunlight_state_change"><aside class="declaration">proc </aside>handle_sunlight_state_change<aside>(old_sunlight_state) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/controllers/subsystem/nightcycle.dm#L253">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;nightcycle.dm 253"/></a></aside>
+        </h3>
+        <p>Handles the cases of sunlight_state changing during ChangeTurf()</p><h3 id="proc/move_cross"><aside class="declaration">proc </aside>move_cross<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/mover, border_dir) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/adjacent.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;adjacent.dm 129"/></a></aside>
+        </h3>
+        <p>Checks whether this turf can be entered by the given mover.
+This expects a cardinal direction, and makes no check for it.</p><h3 id="proc/move_uncross"><aside class="declaration">proc </aside>move_uncross<aside>(border_dir) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/adjacent.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;adjacent.dm 114"/></a></aside>
+        </h3>
+        <p>Checks whether this turf can be left from the given direction.
+This expects a cardinal direction, and makes no check for it.</p><h3 id="proc/process_cell"><aside class="declaration">proc </aside>process_cell<aside>(fire_count) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/atmospherics/environmental/LINDA_turf_tile.dm#L203">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;atmospherics&#x2F;environmental&#x2F;LINDA_turf_tile.dm 203"/></a></aside>
+        </h3>
+        <p>SIMULATION</p><h3 id="proc/recalculate_directional_opacity"><aside class="declaration">proc </aside>recalculate_directional_opacity<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_turf.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_turf.dm 125"/></a></aside>
+        </h3>
+        <p>Calculate on which directions this turfs block view.</p><h3 id="proc/remove_opacity_source"><aside class="declaration">proc </aside>remove_opacity_source<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/old_source) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_turf.dm#L117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_turf.dm 117"/></a></aside>
+        </h3>
+        <p>Proc to remove movable sources of opacity on the turf and let it handle lighting code.</p><h3 id="proc/setup_sunlight_source"><aside class="declaration">proc </aside>setup_sunlight_source<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/controllers/subsystem/nightcycle.dm#L188">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;nightcycle.dm 188"/></a></aside>
+        </h3>
+        <p>Proc to initialize sunlight source turfs and affect non-source neighbors.</p><h3 id="proc/smooth_sunlight_border"><aside class="declaration">proc </aside>smooth_sunlight_border<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/controllers/subsystem/nightcycle.dm#L215">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;nightcycle.dm 215"/></a></aside>
+        </h3>
+        <p>Scans neighbors for sunlight sources and sets up the proper object to handle it.</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;atom - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="atom.html#var">Var Details</a> - <a href="atom.html#proc">Proc Details</a></header>
+<main>
+<h1>atom <aside>/<a href="atom.html">atom</a></aside><aside> inherits /<a href="datum.html">datum</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__HELPERS/icon_smoothing.dm#L422">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;icon_smoothing.dm 422"/></a></h1>
+
+<p>OLD SMOOTH SYSTEM</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="atom.html#var/attack_hand_is_action">attack_hand_is_action</a></th><td>Should we set last action for attack hand? This implies that attack_hands to this atom should flush to clickdelay buffers instead of discarding.</td></tr>
+            <tr><th><a href="atom.html#var/attack_hand_speed">attack_hand_speed</a></th><td>Amount of time to check for from a mob's last attack to allow an attack_hand().</td></tr>
+            <tr><th><a href="atom.html#var/attack_hand_unwieldlyness">attack_hand_unwieldlyness</a></th><td>Amount of time to hard stagger (no clicking at all) the mob post attack_hand(). Lower = better</td></tr>
+            <tr><th><a href="atom.html#var/chat_color">chat_color</a></th><td>Last color calculated for the the chatmessage overlays</td></tr>
+            <tr><th><a href="atom.html#var/chat_color_darkened">chat_color_darkened</a></th><td>A luminescence-shifted value of the last color calculated for chatmessage overlays</td></tr>
+            <tr><th><a href="atom.html#var/chat_color_name">chat_color_name</a></th><td>Last name used to calculate a color for the chatmessage overlays</td></tr>
+            <tr><th><a href="atom.html#var/custom_materials">custom_materials</a></th><td>The custom materials this atom is made of, used by a lot of things like furniture, walls, and floors (if I finish the functionality, that is.)
+The list referenced by this var can be shared by multiple objects and should not be directly modified. Instead, use <a href="atom.html#proc/set_custom_materials" title="/atom">set_custom_materials</a>.</td></tr>
+            <tr><th><a href="atom.html#var/generic_canpass">generic_canpass</a></th><td>If false makes <a href="atom.html#proc/CanPass" title="/atom">CanPass</a> call <a href="atom/movable.html#proc/CanPassThrough" title="/atom/movable">CanPassThrough</a> on this type instead of using default behaviour</td></tr>
+            <tr><th><a href="atom.html#var/light">light</a></th><td>Our light source. Don't fuck with this directly unless you have a good reason!</td></tr>
+            <tr><th><a href="atom.html#var/light_color">light_color</a></th><td>Hexadecimal RGB string representing the colour of the light. White by default.</td></tr>
+            <tr><th><a href="atom.html#var/light_flags">light_flags</a></th><td>Bitflags to determine lighting-related atom properties.</td></tr>
+            <tr><th><a href="atom.html#var/light_on">light_on</a></th><td>Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.</td></tr>
+            <tr><th><a href="atom.html#var/light_power">light_power</a></th><td>Intensity of the light. The stronger, the less shadows you will see on the lit area.</td></tr>
+            <tr><th><a href="atom.html#var/light_range">light_range</a></th><td>Range of the light in tiles. Zero means no light.</td></tr>
+            <tr><th><a href="atom.html#var/light_sources">light_sources</a></th><td>Any light sources that are &quot;inside&quot; of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.</td></tr>
+            <tr><th><a href="atom.html#var/light_system">light_system</a></th><td>Light systems, both shouldn't be active at the same time.</td></tr>
+            <tr><th><a href="atom.html#var/managed_overlays">managed_overlays</a></th><td>overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc</td></tr>
+            <tr><th><a href="atom.html#var/material_flags">material_flags</a></th><td>Bitfield for how the atom handles materials.</td></tr>
+            <tr><th><a href="atom.html#var/material_modifier">material_modifier</a></th><td>Modifier that raises/lowers the effect of the amount of a material, prevents small and easy to get items from being death machines.</td></tr>
+            <tr><th><a href="atom.html#var/pass_flags_self">pass_flags_self</a></th><td>pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.</td></tr>
+            <tr><th><a href="atom.html#var/ricochet_chance_mod">ricochet_chance_mod</a></th><td>When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this</td></tr>
+            <tr><th><a href="atom.html#var/ricochet_damage_mod">ricochet_damage_mod</a></th><td>When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom</td></tr>
+            <tr><th><a href="atom.html#var/targeted_by">targeted_by</a></th><td>Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()</td></tr>
+            <tr><th><a href="atom.html#var/tastes">tastes</a></th><td>What does this creature taste like?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="atom.html#proc/AltClickNoInteract">AltClickNoInteract</a></th><td>Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction</td></tr>
+            <tr><th><a href="atom.html#proc/CanAllowThrough">CanAllowThrough</a></th><td>Returns true or false to allow the mover to move through src</td></tr>
+            <tr><th><a href="atom.html#proc/CanPass">CanPass</a></th><td>Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.</td></tr>
+            <tr><th><a href="atom.html#proc/Entered">Entered</a></th><td>An atom has entered this atom's contents</td></tr>
+            <tr><th><a href="atom.html#proc/Exit">Exit</a></th><td>An atom is attempting to exit this atom's contents</td></tr>
+            <tr><th><a href="atom.html#proc/Exited">Exited</a></th><td>An atom has exited this atom's contents</td></tr>
+            <tr><th><a href="atom.html#proc/LateInitialize">LateInitialize</a></th><td>Sends a signal that the new atom <code>src</code>, has been created at <code>loc</code></td></tr>
+            <tr><th><a href="atom.html#proc/Topic">Topic</a></th><td>Passes Stat Browser Panel clicks to the game and calls client click on an atom</td></tr>
+            <tr><th><a href="atom.html#proc/audible_message">audible_message</a></th><td>Show a message to all mobs in earshot of this atom</td></tr>
+            <tr><th><a href="atom.html#proc/check_projectile_ricochet">check_projectile_ricochet</a></th><td>Checks if a projectile should ricochet off of us. Projectiles get final say.
+[__DEFINES/projectiles.dm] for return values.</td></tr>
+            <tr><th><a href="atom.html#proc/connect_to_shuttle">connect_to_shuttle</a></th><td>Called after a shuttle is loaded <strong>from map template initially</strong>.</td></tr>
+            <tr><th><a href="atom.html#proc/do_cardinal_reach">do_cardinal_reach</a></th><td>Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.</td></tr>
+            <tr><th><a href="atom.html#proc/do_ordinal_reach">do_ordinal_reach</a></th><td>Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.</td></tr>
+            <tr><th><a href="atom.html#proc/do_sloping_reach">do_sloping_reach</a></th><td>Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.</td></tr>
+            <tr><th><a href="atom.html#proc/euclidian_reach">euclidian_reach</a></th><td>The ranged version of Adjacent().
+Uses euclidian distances for diagonal movements.
+Can be repurposed for usage of other euclidian ranges.
+Returns the last reachable turf encountered.</td></tr>
+            <tr><th><a href="atom.html#proc/examine_more">examine_more</a></th><td>Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_TIME (default 1.5 seconds)</td></tr>
+            <tr><th><a href="atom.html#proc/get_examine_string">get_examine_string</a></th><td>Generate the full examine string of this atom (including icon for goonchat)</td></tr>
+            <tr><th><a href="atom.html#proc/has_gravity">has_gravity</a></th><td>Returns true if this atom has gravity for the passed in turf</td></tr>
+            <tr><th><a href="atom.html#proc/mat_update_desc">mat_update_desc</a></th><td>This proc is called when a material updates an object's description</td></tr>
+            <tr><th><a href="atom.html#proc/prepare_huds">prepare_huds</a></th><td>Prepare, or re-prepare</td></tr>
+            <tr><th><a href="atom.html#proc/runechat_prefs_check">runechat_prefs_check</a></th><td>Returns the client runechat visible messages preference according to the message type.</td></tr>
+            <tr><th><a href="atom.html#proc/rust_heretic_act">rust_heretic_act</a></th><td>Causes effects when the atom gets hit by a rust effect from heretics</td></tr>
+            <tr><th><a href="atom.html#proc/set_custom_materials">set_custom_materials</a></th><td>Sets the custom materials for an item.</td></tr>
+            <tr><th><a href="atom.html#proc/set_light_color">set_light_color</a></th><td>Setter for the light color of this atom.</td></tr>
+            <tr><th><a href="atom.html#proc/set_light_flags">set_light_flags</a></th><td>Setter for the light flags of this atom.</td></tr>
+            <tr><th><a href="atom.html#proc/set_light_on">set_light_on</a></th><td>Setter for whether or not this atom's light is on.</td></tr>
+            <tr><th><a href="atom.html#proc/set_light_power">set_light_power</a></th><td>Setter for the light power of this atom.</td></tr>
+            <tr><th><a href="atom.html#proc/set_light_range">set_light_range</a></th><td>Setter for the light range of this atom.</td></tr>
+            <tr><th><a href="atom.html#proc/set_opacity">set_opacity</a></th><td>Updates the atom's opacity value.</td></tr>
+            <tr><th><a href="atom.html#proc/shuttleRotate">shuttleRotate</a></th><td>Base proc</td></tr>
+            <tr><th><a href="atom.html#proc/update_icon">update_icon</a></th><td>Updates the icon of the atom</td></tr>
+            <tr><th><a href="atom.html#proc/update_icon_state">update_icon_state</a></th><td>Updates the icon state of the atom</td></tr>
+            <tr><th><a href="atom.html#proc/update_overlays">update_overlays</a></th><td>Updates the overlays of the atom</td></tr>
+            <tr><th><a href="atom.html#proc/visible_message">visible_message</a></th><td>Generate a visible message from this atom</td></tr>
+            <tr><th><a href="atom.html#proc/vv_edit_var">vv_edit_var</a></th><td>call back when a var is edited on this atom</td></tr>
+            <tr><th><a href="atom.html#proc/zap_act">zap_act</a></th><td>Respond to a electric bolt action on our item</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/attack_hand_is_action"><aside class="declaration">var </aside>attack_hand_is_action
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L171">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 171"/></a></h3>
+        <p>Should we set last action for attack hand? This implies that attack_hands to this atom should flush to clickdelay buffers instead of discarding.</p><h3 id="var/attack_hand_speed"><aside class="declaration">var </aside>attack_hand_speed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L167">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 167"/></a></h3>
+        <p>Amount of time to check for from a mob's last attack to allow an attack_hand().</p><h3 id="var/attack_hand_unwieldlyness"><aside class="declaration">var </aside>attack_hand_unwieldlyness
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L169">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 169"/></a></h3>
+        <p>Amount of time to hard stagger (no clicking at all) the mob post attack_hand(). Lower = better</p><h3 id="var/chat_color"><aside class="declaration">var </aside>chat_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 89"/></a></h3>
+        <p>Last color calculated for the the chatmessage overlays</p><h3 id="var/chat_color_darkened"><aside class="declaration">var </aside>chat_color_darkened
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 91"/></a></h3>
+        <p>A luminescence-shifted value of the last color calculated for chatmessage overlays</p><h3 id="var/chat_color_name"><aside class="declaration">var </aside>chat_color_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L87">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 87"/></a></h3>
+        <p>Last name used to calculate a color for the chatmessage overlays</p><h3 id="var/custom_materials"><aside class="declaration">var </aside>custom_materials
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 55"/></a></h3>
+        <p>The custom materials this atom is made of, used by a lot of things like furniture, walls, and floors (if I finish the functionality, that is.)
+The list referenced by this var can be shared by multiple objects and should not be directly modified. Instead, use <a href="atom.html#proc/set_custom_materials" title="/atom">set_custom_materials</a>.</p><h3 id="var/generic_canpass"><aside class="declaration">var </aside>generic_canpass
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L96">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 96"/></a></h3>
+        <p>If false makes <a href="atom.html#proc/CanPass" title="/atom">CanPass</a> call <a href="atom/movable.html#proc/CanPassThrough" title="/atom/movable">CanPassThrough</a> on this type instead of using default behaviour</p><h3 id="var/light"><aside class="declaration">var </aside>light
+            <aside>&ndash; /tmp/<a href="datum.html">datum</a>/light_source</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 82"/></a></h3>
+        <p>Our light source. Don't fuck with this directly unless you have a good reason!</p><h3 id="var/light_color"><aside class="declaration">var </aside>light_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 76"/></a></h3>
+        <p>Hexadecimal RGB string representing the colour of the light. White by default.</p><h3 id="var/light_flags"><aside class="declaration">var </aside>light_flags
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 80"/></a></h3>
+        <p>Bitflags to determine lighting-related atom properties.</p><h3 id="var/light_on"><aside class="declaration">var </aside>light_on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L78">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 78"/></a></h3>
+        <p>Boolean variable for toggleable lights. Has no effect without the proper light_system, light_range and light_power values.</p><h3 id="var/light_power"><aside class="declaration">var </aside>light_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 74"/></a></h3>
+        <p>Intensity of the light. The stronger, the less shadows you will see on the lit area.</p><h3 id="var/light_range"><aside class="declaration">var </aside>light_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 72"/></a></h3>
+        <p>Range of the light in tiles. Zero means no light.</p><h3 id="var/light_sources"><aside class="declaration">var </aside>light_sources
+            <aside>&ndash; /tmp/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 84"/></a></h3>
+        <p>Any light sources that are &quot;inside&quot; of us, for example, if src here was a mob that's carrying a flashlight, that flashlight's light source would be part of this list.</p><h3 id="var/light_system"><aside class="declaration">var </aside>light_system
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 70"/></a></h3>
+        <p>Light systems, both shouldn't be active at the same time.</p><h3 id="var/managed_overlays"><aside class="declaration">var </aside>managed_overlays
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 38"/></a></h3>
+        <p>overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc</p><h3 id="var/material_flags"><aside class="declaration">var </aside>material_flags
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 57"/></a></h3>
+        <p>Bitfield for how the atom handles materials.</p><h3 id="var/material_modifier"><aside class="declaration">var </aside>material_modifier
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 59"/></a></h3>
+        <p>Modifier that raises/lowers the effect of the amount of a material, prevents small and easy to get items from being death machines.</p><h3 id="var/pass_flags_self"><aside class="declaration">var </aside>pass_flags_self
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 8"/></a></h3>
+        <p>pass_flags that we are. If any of this matches a pass_flag on a moving thing, by default, we let them through.</p><h3 id="var/ricochet_chance_mod"><aside class="declaration">var </aside>ricochet_chance_mod
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 18"/></a></h3>
+        <p>When a projectile tries to ricochet off this atom, the projectile ricochet chance is multiplied by this</p><h3 id="var/ricochet_damage_mod"><aside class="declaration">var </aside>ricochet_damage_mod
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 20"/></a></h3>
+        <p>When a projectile ricochets off this atom, it deals the normal damage * this modifier to this atom</p><h3 id="var/targeted_by"><aside class="declaration">var </aside>targeted_by
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L94">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 94"/></a></h3>
+        <p>Mobs that are currently do_after'ing this atom, to be cleared from on Destroy()</p><h3 id="var/tastes"><aside class="declaration">var </aside>tastes
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 99"/></a></h3>
+        <p>What does this creature taste like?</p><h2 id="proc">Proc Details</h2><h3 id="proc/AltClickNoInteract"><aside class="declaration">proc </aside>AltClickNoInteract<aside>(/<a href="mob.html">mob</a>/user, /<a href="atom.html">atom</a>/A) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/click.dm#L295">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;click.dm 295"/></a></aside>
+        </h3>
+        <p>Use this instead of [/mob/proc/AltClickOn] where you only want turf content listing without additional atom alt-click interaction</p><h3 id="proc/CanAllowThrough"><aside class="declaration">proc </aside>CanAllowThrough<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/mover, border_dir) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L214">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 214"/></a></aside>
+        </h3>
+        <p>Returns true or false to allow the mover to move through src</p><h3 id="proc/CanPass"><aside class="declaration">proc </aside>CanPass<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/mover, border_dir) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L205">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 205"/></a></aside>
+        </h3>
+        <p>Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.</p><h3 id="proc/Entered"><aside class="declaration">proc </aside>Entered<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/arrived, /<a href="atom.html">atom</a>/old_loc, /list/atom/old_locs) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L942">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 942"/></a></aside>
+        </h3>
+        <p>An atom has entered this atom's contents</p>
+<p>Default behaviour is to send the <a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_ENTERED" title="COMSIG_ATOM_ENTERED">COMSIG_ATOM_ENTERED</a></p><h3 id="proc/Exit"><aside class="declaration">proc </aside>Exit<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/leaving, direction) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L951">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 951"/></a></aside>
+        </h3>
+        <p>An atom is attempting to exit this atom's contents</p>
+<p>Default behaviour is to send the <a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_EXIT" title="COMSIG_ATOM_EXIT">COMSIG_ATOM_EXIT</a></p><h3 id="proc/Exited"><aside class="declaration">proc </aside>Exited<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/gone, direction) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L965">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 965"/></a></aside>
+        </h3>
+        <p>An atom has exited this atom's contents</p>
+<p>Default behaviour is to send the <a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_EXITED" title="COMSIG_ATOM_EXITED">COMSIG_ATOM_EXITED</a></p><h3 id="proc/LateInitialize"><aside class="declaration">proc </aside>LateInitialize<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L154">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 154"/></a></aside>
+        </h3>
+        <p>Sends a signal that the new atom <code>src</code>, has been created at <code>loc</code></p><h3 id="proc/Topic"><aside class="parent"><a title="/datum" href="datum.html#proc/Topic">&uarr;</a></aside>Topic<aside>(href, /list/href_list) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L1267">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 1267"/></a></aside>
+        </h3>
+        <p>Passes Stat Browser Panel clicks to the game and calls client click on an atom</p><h3 id="proc/audible_message"><aside class="declaration">proc </aside>audible_message<aside>(message, deaf_message, hearing_distance, self_message, ignored_mobs, audible_message_flags, pref_check) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L216">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 216"/></a></aside>
+        </h3>
+        <p>Show a message to all mobs in earshot of this atom</p>
+<p>Use for objects performing audible actions</p>
+<p>vars:</p>
+<ul>
+<li>message is the message output to anyone who can hear.</li>
+<li>deaf_message (optional) is what deaf people will see.</li>
+<li>hearing_distance (optional) is the range, how many tiles away the message can be heard.</li>
+<li>ignored_mobs (optional) doesn't show any message to any given mob in the list.</li>
+</ul><h3 id="proc/check_projectile_ricochet"><aside class="declaration">proc </aside>check_projectile_ricochet<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/projectile.html">projectile</a>/P) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 185"/></a></aside>
+        </h3>
+        <p>Checks if a projectile should ricochet off of us. Projectiles get final say.
+[__DEFINES/projectiles.dm] for return values.</p><h3 id="proc/connect_to_shuttle"><aside class="declaration">proc </aside>connect_to_shuttle<aside>(/<a href="obj.html">obj</a>/<a href="obj/docking_port.html">docking_port</a>/<a href="obj/docking_port/mobile.html">mobile</a>/port, /<a href="obj.html">obj</a>/<a href="obj/docking_port.html">docking_port</a>/stationary/dock, idnum, override) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L1031">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 1031"/></a></aside>
+        </h3>
+        <p>Called after a shuttle is loaded <strong>from map template initially</strong>.</p>
+<p>@params</p>
+<ul>
+<li>port - Mobile port/shuttle</li>
+<li>dock - Stationary dock the shuttle's at</li>
+<li>idnum - ID number of the shuttle</li>
+</ul><h3 id="proc/do_cardinal_reach"><aside class="declaration">proc </aside>do_cardinal_reach<aside>(/<a href="atom.html">atom</a>/target, movement_dir, reach, reach_type) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm 160"/></a></aside>
+        </h3>
+        <p>Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.</p><h3 id="proc/do_ordinal_reach"><aside class="declaration">proc </aside>do_ordinal_reach<aside>(/<a href="atom.html">atom</a>/target, movement_dir, reach, reach_type) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm#L178">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm 178"/></a></aside>
+        </h3>
+        <p>Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.</p><h3 id="proc/do_sloping_reach"><aside class="declaration">proc </aside>do_sloping_reach<aside>(/<a href="atom.html">atom</a>/target, movement_dir, reach, reach_type, dir_angle) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm#L230">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm 230"/></a></aside>
+        </h3>
+        <p>Avoid calling this directly unless you also guarantee the safety checks euclidian_reach() does.</p><h3 id="proc/euclidian_reach"><aside class="declaration">proc </aside>euclidian_reach<aside>(/<a href="atom.html">atom</a>/target, reach, reach_type) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm#L93">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm 93"/></a></aside>
+        </h3>
+        <p>The ranged version of Adjacent().
+Uses euclidian distances for diagonal movements.
+Can be repurposed for usage of other euclidian ranges.
+Returns the last reachable turf encountered.</p><h3 id="proc/examine_more"><aside class="declaration">proc </aside>examine_more<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L447">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 447"/></a></aside>
+        </h3>
+        <p>Called when a mob examines (shift click or verb) this atom twice (or more) within EXAMINE_MORE_TIME (default 1.5 seconds)</p>
+<p>This is where you can put extra information on something that may be superfluous or not important in critical gameplay
+moments, while allowing people to manually double-examine to take a closer look</p>
+<p>Produces a signal <a href="code/__DEFINES/dcs/signals.html#define/COMSIG_PARENT_EXAMINE_MORE" title="COMSIG_PARENT_EXAMINE_MORE">COMSIG_PARENT_EXAMINE_MORE</a></p><h3 id="proc/get_examine_string"><aside class="declaration">proc </aside>get_examine_string<aside>(/<a href="mob.html">mob</a>/user, thats) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L402">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 402"/></a></aside>
+        </h3>
+        <p>Generate the full examine string of this atom (including icon for goonchat)</p><h3 id="proc/has_gravity"><aside class="declaration">proc </aside>has_gravity<aside>(/<a href="turf.html">turf</a>/T) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L1226">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 1226"/></a></aside>
+        </h3>
+        <p>Returns true if this atom has gravity for the passed in turf</p>
+<p>Sends signals COMSIG_ATOM_HAS_GRAVITY and COMSIG_TURF_HAS_GRAVITY, both can force gravity with
+the forced gravity var</p>
+<p>Gravity situations:</p>
+<ul>
+<li>No gravity if you're not in a turf</li>
+<li>No gravity if this atom is in is a space turf</li>
+<li>Gravity if the area it's in always has gravity</li>
+<li>Gravity if there's a gravity generator on the z level</li>
+<li>Gravity if the Z level has an SSMappingTrait for ZTRAIT_GRAVITY</li>
+<li>otherwise no gravity</li>
+</ul><h3 id="proc/mat_update_desc"><aside class="declaration">proc </aside>mat_update_desc<aside>(/<a href="datum.html">datum</a>/<a href="datum/material.html">material</a>/mat) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/materials/_material.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;materials&#x2F;_material.dm 68"/></a></aside>
+        </h3>
+        <p>This proc is called when a material updates an object's description</p><h3 id="proc/prepare_huds"><aside class="declaration">proc </aside>prepare_huds<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 53"/></a></aside>
+        </h3>
+        <p>Prepare, or re-prepare</p><h3 id="proc/runechat_prefs_check"><aside class="declaration">proc </aside>runechat_prefs_check<aside>(/<a href="mob.html">mob</a>/target, visible_message_flags) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L266">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 266"/></a></aside>
+        </h3>
+        <p>Returns the client runechat visible messages preference according to the message type.</p><h3 id="proc/rust_heretic_act"><aside class="declaration">proc </aside>rust_heretic_act<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L1263">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 1263"/></a></aside>
+        </h3>
+        <p>Causes effects when the atom gets hit by a rust effect from heretics</p>
+<p>Override this if you want custom behaviour in whatever gets hit by the rust</p><h3 id="proc/set_custom_materials"><aside class="declaration">proc </aside>set_custom_materials<aside>(/list/materials, multiplier) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L1195">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 1195"/></a></aside>
+        </h3>
+        <p>Sets the custom materials for an item.</p><h3 id="proc/set_light_color"><aside class="declaration">proc </aside>set_light_color<aside>(new_color) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_atom.dm#L126">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_atom.dm 126"/></a></aside>
+        </h3>
+        <p>Setter for the light color of this atom.</p><h3 id="proc/set_light_flags"><aside class="declaration">proc </aside>set_light_flags<aside>(new_value) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_atom.dm#L146">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_atom.dm 146"/></a></aside>
+        </h3>
+        <p>Setter for the light flags of this atom.</p><h3 id="proc/set_light_on"><aside class="declaration">proc </aside>set_light_on<aside>(new_value) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_atom.dm#L136">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_atom.dm 136"/></a></aside>
+        </h3>
+        <p>Setter for whether or not this atom's light is on.</p><h3 id="proc/set_light_power"><aside class="declaration">proc </aside>set_light_power<aside>(new_power) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_atom.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_atom.dm 106"/></a></aside>
+        </h3>
+        <p>Setter for the light power of this atom.</p><h3 id="proc/set_light_range"><aside class="declaration">proc </aside>set_light_range<aside>(new_range) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_atom.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_atom.dm 116"/></a></aside>
+        </h3>
+        <p>Setter for the light range of this atom.</p><h3 id="proc/set_opacity"><aside class="declaration">proc </aside>set_opacity<aside>(new_opacity) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/lighting/lighting_atom.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;lighting&#x2F;lighting_atom.dm 62"/></a></aside>
+        </h3>
+        <p>Updates the atom's opacity value.</p>
+<p>This exists to act as a hook for associated behavior.
+It notifies (potentially) affected light sources so they can update (if needed).</p><h3 id="proc/shuttleRotate"><aside class="declaration">proc </aside>shuttleRotate<aside>(rotation, params) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/shuttle/shuttle_rotate.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;shuttle_rotate.dm 9"/></a></aside>
+        </h3>
+        <p>Base proc</p><h3 id="proc/update_icon"><aside class="declaration">proc </aside>update_icon<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L454">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 454"/></a></aside>
+        </h3>
+        <p>Updates the icon of the atom</p><h3 id="proc/update_icon_state"><aside class="declaration">proc </aside>update_icon_state<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L476">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 476"/></a></aside>
+        </h3>
+        <p>Updates the icon state of the atom</p><h3 id="proc/update_overlays"><aside class="declaration">proc </aside>update_overlays<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L479">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 479"/></a></aside>
+        </h3>
+        <p>Updates the overlays of the atom</p><h3 id="proc/visible_message"><aside class="declaration">proc </aside>visible_message<aside>(message, self_message, blind_message, vision_distance, ignored_mobs, /<a href="mob.html">mob</a>/target, target_message, visible_message_flags, pref_check) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L142">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 142"/></a></aside>
+        </h3>
+        <p>Generate a visible message from this atom</p>
+<p>Show a message to all player mobs who sees this atom</p>
+<p>Show a message to the src mob (if the src is a mob)</p>
+<p>Use for atoms performing visible actions</p>
+<p>message is output to anyone who can see, e.g. &quot;The [src] does something!&quot;</p>
+<p>Vars:</p>
+<ul>
+<li>self_message (optional) is what the src mob sees e.g. &quot;You do something!&quot;</li>
+<li>blind_message (optional) is what blind people will hear e.g. &quot;You hear something!&quot;</li>
+<li>vision_distance (optional) define how many tiles away the message can be seen.</li>
+<li>ignored_mobs (optional) doesn't show any message to any given mob in the list.</li>
+<li>target (optional) is the other mob involved with the visible message. For example, the attacker in many combat messages.</li>
+<li>target_message (optional) is what the target mob will see e.g. &quot;[src] does something to you!&quot;</li>
+</ul><h3 id="proc/vv_edit_var">vv_edit_var<aside>(var_name, var_value) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L823">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 823"/></a></aside>
+        </h3>
+        <p>call back when a var is edited on this atom</p>
+<p>Can be used to implement special handling of vars</p>
+<p>At the atom level, if you edit a var named &quot;color&quot; it will add the atom colour with
+admin level priority to the atom colours list</p>
+<p>Also, if GLOB.Debug2 is FALSE, it sets the <a href="code/__DEFINES/_flags/_flags.html#define/ADMIN_SPAWNED_1" title="ADMIN_SPAWNED_1">ADMIN_SPAWNED_1</a> flag on [flags_1][/atom/var/flags_1], which signifies
+the object has been admin edited</p><h3 id="proc/zap_act"><aside class="declaration">proc </aside>zap_act<aside>(power, zap_flags, shocked_targets) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms.dm#L698">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms.dm 698"/></a></aside>
+        </h3>
+        <p>Respond to a electric bolt action on our item</p>
+<p>Default behaviour is to return, we define here to allow for cleaner code later on</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item&#x2F;gun&#x2F;ballistic - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item/gun/ballistic.html#var">Var Details</a> - <a href="obj/item/gun/ballistic.html#proc">Proc Details</a></header>
+<main>
+<h1>ballistic <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gun.html">gun</a>/<a href="obj/item/gun/ballistic.html">ballistic</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#var/allowed_mags">allowed_mags</a></th><td>List of mags accepted by the gun
+defaults to a typecache of mag_type
+Dont set this, its handled by Init()</td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#var/disallowed_mags">disallowed_mags</a></th><td>List of mags not accepted by the gun</td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#var/handedness">handedness</a></th><td>Which direction do the casings fly out?</td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#var/magazine">magazine</a></th><td>Loaded magazine</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#proc/chamber_round">chamber_round</a></th><td>If the chamber is empty, take a round from the magazine and put it in there
+If the chamber is not empty, or theres no magazine, do nothing</td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#proc/eject_magazine">eject_magazine</a></th><td>obj/item/gun/ballistic/AltClick(mob/living/user)</td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#proc/process_chamber">process_chamber</a></th><td>Ejects whatever's chambered, and attempts to load a new one from the magazine
+chamber_round wont load another one if something's still in the chamber
+this is how bolt-action guns require pumping</td></tr>
+            <tr><th><a href="obj/item/gun/ballistic.html#proc/shoot_with_empty_chamber">shoot_with_empty_chamber</a></th><td>Pump if click with empty thing</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/allowed_mags"><aside class="declaration">var </aside>allowed_mags
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 13"/></a></h3>
+        <p>List of mags accepted by the gun
+defaults to a typecache of mag_type
+Dont set this, its handled by Init()</p><h3 id="var/disallowed_mags"><aside class="declaration">var </aside>disallowed_mags
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 15"/></a></h3>
+        <p>List of mags not accepted by the gun</p><h3 id="var/handedness"><aside class="declaration">var </aside>handedness
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 23"/></a></h3>
+        <p>Which direction do the casings fly out?</p><h3 id="var/magazine"><aside class="declaration">var </aside>magazine
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/ammo_box.html">ammo_box</a>/magazine</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 17"/></a></h3>
+        <p>Loaded magazine</p><h2 id="proc">Proc Details</h2><h3 id="proc/chamber_round"><aside class="declaration">proc </aside>chamber_round<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 68"/></a></aside>
+        </h3>
+        <p>If the chamber is empty, take a round from the magazine and put it in there
+If the chamber is not empty, or theres no magazine, do nothing</p><h3 id="proc/eject_magazine"><aside class="declaration">proc </aside>eject_magazine<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, is_enbloc, put_it_in_their_hand, sounds_and_words) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L233">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 233"/></a></aside>
+        </h3>
+        <p>obj/item/gun/ballistic/AltClick(mob/living/user)</p><h3 id="proc/process_chamber">process_chamber<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, soft_eject) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 57"/></a></aside>
+        </h3>
+        <p>Ejects whatever's chambered, and attempts to load a new one from the magazine
+chamber_round wont load another one if something's still in the chamber
+this is how bolt-action guns require pumping</p><h3 id="proc/shoot_with_empty_chamber">shoot_with_empty_chamber<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, pointblank, /<a href="mob.html">mob</a>/pbtarget, message, stam_cost) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic.dm#L255">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic.dm 255"/></a></aside>
+        </h3>
+        <p>Pump if click with empty thing</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

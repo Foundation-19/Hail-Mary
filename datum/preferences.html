@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;preferences - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/preferences.html#var">Var Details</a> - <a href="datum/preferences.html#proc">Proc Details</a></header>
+<main>
+<h1>preferences <aside>/<a href="datum.html">datum</a>/<a href="datum/preferences.html">preferences</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 7"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/preferences.html#var/gear_points">gear_points</a></th><td>loadout stuff</td></tr>
+            <tr><th><a href="datum/preferences.html#var/key_bindings">key_bindings</a></th><td>Custom Keybindings</td></tr>
+            <tr><th><a href="datum/preferences.html#var/matchmaking_prefs">matchmaking_prefs</a></th><td>Associative list: matchmaking_prefs<a href="datum.html" title="/datum">/datum/matchmaking_pref subtype</a> -&gt; number of desired matches</td></tr>
+            <tr><th><a href="datum/preferences.html#var/medical_records">medical_records</a></th><td>Medical record note section</td></tr>
+            <tr><th><a href="datum/preferences.html#var/modless_key_bindings">modless_key_bindings</a></th><td>List with a key string associated to a list of keybindings. Unlike key_bindings, this one operates on raw key, allowing for binding a key that triggers regardless of if a modifier is depressed as long as the raw key is sent.</td></tr>
+            <tr><th><a href="datum/preferences.html#var/persistent_scars">persistent_scars</a></th><td>If we have persistent scars enabled</td></tr>
+            <tr><th><a href="datum/preferences.html#var/scars_index">scars_index</a></th><td>Which of the 5 persistent scar slots we randomly roll to load for this round, if enabled. Actually rolled in [/datum/preferences/proc/load_character(slot)]</td></tr>
+            <tr><th><a href="datum/preferences.html#var/scars_list">scars_list</a></th><td>We have 5 slots for persistent scars, if enabled we pick a random one to load (empty by default) and scars at the end of the shift if we survived as our original person</td></tr>
+            <tr><th><a href="datum/preferences.html#var/security_records">security_records</a></th><td>Security record note section</td></tr>
+            <tr><th><a href="datum/preferences.html#var/see_rc_emotes">see_rc_emotes</a></th><td>Whether emotes will be displayed on runechat. Requires chat_on_map to have effect. Boolean.</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/preferences.html#proc/force_reset_keybindings_direct">force_reset_keybindings_direct</a></th><td>Does the actual reset</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/gear_points"><aside class="declaration">var </aside>gear_points
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 183"/></a></h3>
+        <p>loadout stuff</p><h3 id="var/key_bindings"><aside class="declaration">var </aside>key_bindings
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 57"/></a></h3>
+        <p>Custom Keybindings</p><h3 id="var/matchmaking_prefs"><aside class="declaration">var </aside>matchmaking_prefs
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L217">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 217"/></a></h3>
+        <p>Associative list: matchmaking_prefs<a href="datum.html" title="/datum">/datum/matchmaking_pref subtype</a> -&gt; number of desired matches</p><h3 id="var/medical_records"><aside class="declaration">var </aside>medical_records
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 125"/></a></h3>
+        <p>Medical record note section</p><h3 id="var/modless_key_bindings"><aside class="declaration">var </aside>modless_key_bindings
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 59"/></a></h3>
+        <p>List with a key string associated to a list of keybindings. Unlike key_bindings, this one operates on raw key, allowing for binding a key that triggers regardless of if a modifier is depressed as long as the raw key is sent.</p><h3 id="var/persistent_scars"><aside class="declaration">var </aside>persistent_scars
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 200"/></a></h3>
+        <p>If we have persistent scars enabled</p><h3 id="var/scars_index"><aside class="declaration">var </aside>scars_index
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 204"/></a></h3>
+        <p>Which of the 5 persistent scar slots we randomly roll to load for this round, if enabled. Actually rolled in [/datum/preferences/proc/load_character(slot)]</p><h3 id="var/scars_list"><aside class="declaration">var </aside>scars_list
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L202">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 202"/></a></h3>
+        <p>We have 5 slots for persistent scars, if enabled we pick a random one to load (empty by default) and scars at the end of the shift if we survived as our original person</p><h3 id="var/security_records"><aside class="declaration">var </aside>security_records
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 123"/></a></h3>
+        <p>Security record note section</p><h3 id="var/see_rc_emotes"><aside class="declaration">var </aside>see_rc_emotes
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 54"/></a></h3>
+        <p>Whether emotes will be displayed on runechat. Requires chat_on_map to have effect. Boolean.</p><h2 id="proc">Proc Details</h2><h3 id="proc/force_reset_keybindings_direct"><aside class="declaration">proc </aside>force_reset_keybindings_direct<aside>(hotkeys) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/client/preferences.dm#L2351">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;client&#x2F;preferences.dm 2351"/></a></aside>
+        </h3>
+        <p>Does the actual reset</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

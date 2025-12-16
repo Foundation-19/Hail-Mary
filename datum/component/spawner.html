@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;component&#x2F;spawner - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/component/spawner.html#var">Var Details</a> - <a href="datum/component/spawner.html#proc">Proc Details</a></header>
+<main>
+<h1>spawner <aside>/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/<a href="datum/component/spawner.html">spawner</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/coverable_by_dense_things">coverable_by_dense_things</a></th><td>spawner can be covered by dense things</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/covering_object">covering_object</a></th><td>Is something covering us?</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/delay_start">delay_start</a></th><td>Dont start spawning just yet</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/faction">faction</a></th><td>Override the mob's faction with this!</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/infinite">infinite</a></th><td>If not infinite, we delete our parent when we hit max_mobs.</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/max_mobs">max_mobs</a></th><td>How many mobs can be attached to this spawner at once</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/overpopulation_range">overpopulation_range</a></th><td>Range to check for other mobs to see if there's too many around</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/randomizer_difficulty">randomizer_difficulty</a></th><td>Which difficulties to pick from - its a bitfield!</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/randomizer_kind">randomizer_kind</a></th><td>Which spawner list to pick from</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/randomizer_tag">randomizer_tag</a></th><td>The ID of our randomizer, so all spawners with this ID will spawn from the same list. Leave null to skip global randomization for this thing</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/range">range</a></th><td>The minimum distance to a client before we can start spawning mobs.</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/spawn_sound">spawn_sound</a></th><td>sound to play when the thing spawns a thing</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/spawn_text">spawn_text</a></th><td>verb for when the thing comes out of the thing</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/spawn_time">spawn_time</a></th><td>Time between spawns</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/spawned_mobs">spawned_mobs</a></th><td>List of mobs that we spawned that currently exist</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/special_mobs">special_mobs</a></th><td>List of 'special' mobs to spawn
+Format: list(special_mob_datum)</td></tr>
+            <tr><th><a href="datum/component/spawner.html#var/swarm_size">swarm_size</a></th><td>Number of mobs to spawn at once, for swarms</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/add_nest_to_global_list">add_nest_to_global_list</a></th><td>Is our tag not in the global mob spawner thing?
+Takes an entry from our global list and uses it to make our fancy nest!</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/apply_nest_from_global_list">apply_nest_from_global_list</a></th><td>Takes an entry from our global list and uses it to make our fancy nest!</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/can_spawn_mob">can_spawn_mob</a></th><td>Basic checks to see if we can spawn something</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/check_spawned_mobs">check_spawned_mobs</a></th><td>Check the spawned mob list, prune dead mobs, return TRUE if it isnt full</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/density_check">density_check</a></th><td>If we're dense, or spawned on something dense, ignore density forever</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/has_mobs_left">has_mobs_left</a></th><td>Do we have any mobs left?</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/has_spawner">has_spawner</a></th><td>If anything asks if we have a spawner, we say yes.</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/should_destroy_spawner">should_destroy_spawner</a></th><td>Should the spawner be destroyed?</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/spawn_mob">spawn_mob</a></th><td>spawn the mob(s)</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/spawn_mob_special">spawn_mob_special</a></th><td>Accounts for anything dense, which includes mobs, mechs, lockers, etc
+spawns a mob, then immediately tries to self-destruct</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/start_spawning">start_spawning</a></th><td>Something told us to restart spawning</td></tr>
+            <tr><th><a href="datum/component/spawner.html#proc/unbirth_mob">unbirth_mob</a></th><td>Is passed a mob via the signal, and will attempt to despawn the mob and store it in the spawner.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/coverable_by_dense_things"><aside class="declaration">var </aside>coverable_by_dense_things
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 33"/></a></h3>
+        <p>spawner can be covered by dense things</p><h3 id="var/covering_object"><aside class="declaration">var </aside>covering_object
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 37"/></a></h3>
+        <p>Is something covering us?</p><h3 id="var/delay_start"><aside class="declaration">var </aside>delay_start
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 35"/></a></h3>
+        <p>Dont start spawning just yet</p><h3 id="var/faction"><aside class="declaration">var </aside>faction
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 19"/></a></h3>
+        <p>Override the mob's faction with this!</p><h3 id="var/infinite"><aside class="declaration">var </aside>infinite
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 21"/></a></h3>
+        <p>If not infinite, we delete our parent when we hit max_mobs.</p><h3 id="var/max_mobs"><aside class="declaration">var </aside>max_mobs
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 11"/></a></h3>
+        <p>How many mobs can be attached to this spawner at once</p><h3 id="var/overpopulation_range"><aside class="declaration">var </aside>overpopulation_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 23"/></a></h3>
+        <p>Range to check for other mobs to see if there's too many around</p><h3 id="var/randomizer_difficulty"><aside class="declaration">var </aside>randomizer_difficulty
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 31"/></a></h3>
+        <p>Which difficulties to pick from - its a bitfield!</p><h3 id="var/randomizer_kind"><aside class="declaration">var </aside>randomizer_kind
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 29"/></a></h3>
+        <p>Which spawner list to pick from</p><h3 id="var/randomizer_tag"><aside class="declaration">var </aside>randomizer_tag
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 27"/></a></h3>
+        <p>The ID of our randomizer, so all spawners with this ID will spawn from the same list. Leave null to skip global randomization for this thing</p><h3 id="var/range"><aside class="declaration">var </aside>range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 17"/></a></h3>
+        <p>The minimum distance to a client before we can start spawning mobs.</p><h3 id="var/spawn_sound"><aside class="declaration">var </aside>spawn_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 15"/></a></h3>
+        <p>sound to play when the thing spawns a thing</p><h3 id="var/spawn_text"><aside class="declaration">var </aside>spawn_text
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 13"/></a></h3>
+        <p>verb for when the thing comes out of the thing</p><h3 id="var/spawn_time"><aside class="declaration">var </aside>spawn_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 7"/></a></h3>
+        <p>Time between spawns</p><h3 id="var/spawned_mobs"><aside class="declaration">var </aside>spawned_mobs
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 9"/></a></h3>
+        <p>List of mobs that we spawned that currently exist</p><h3 id="var/special_mobs"><aside class="declaration">var </aside>special_mobs
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 5"/></a></h3>
+        <p>List of 'special' mobs to spawn
+Format: list(special_mob_datum)</p><h3 id="var/swarm_size"><aside class="declaration">var </aside>swarm_size
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 25"/></a></h3>
+        <p>Number of mobs to spawn at once, for swarms</p><h2 id="proc">Proc Details</h2><h3 id="proc/add_nest_to_global_list"><aside class="declaration">proc </aside>add_nest_to_global_list<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L260">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 260"/></a></aside>
+        </h3>
+        <p>Is our tag not in the global mob spawner thing?
+Takes an entry from our global list and uses it to make our fancy nest!</p><h3 id="proc/apply_nest_from_global_list"><aside class="declaration">proc </aside>apply_nest_from_global_list<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L277">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 277"/></a></aside>
+        </h3>
+        <p>Takes an entry from our global list and uses it to make our fancy nest!</p><h3 id="proc/can_spawn_mob"><aside class="declaration">proc </aside>can_spawn_mob<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 173"/></a></aside>
+        </h3>
+        <p>Basic checks to see if we can spawn something</p><h3 id="proc/check_spawned_mobs"><aside class="declaration">proc </aside>check_spawned_mobs<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L159">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 159"/></a></aside>
+        </h3>
+        <p>Check the spawned mob list, prune dead mobs, return TRUE if it isnt full</p><h3 id="proc/density_check"><aside class="declaration">proc </aside>density_check<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L134">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 134"/></a></aside>
+        </h3>
+        <p>If we're dense, or spawned on something dense, ignore density forever</p><h3 id="proc/has_mobs_left"><aside class="declaration">proc </aside>has_mobs_left<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L145">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 145"/></a></aside>
+        </h3>
+        <p>Do we have any mobs left?</p><h3 id="proc/has_spawner"><aside class="declaration">proc </aside>has_spawner<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L340">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 340"/></a></aside>
+        </h3>
+        <p>If anything asks if we have a spawner, we say yes.</p><h3 id="proc/should_destroy_spawner"><aside class="declaration">proc </aside>should_destroy_spawner<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L149">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 149"/></a></aside>
+        </h3>
+        <p>Should the spawner be destroyed?</p><h3 id="proc/spawn_mob"><aside class="declaration">proc </aside>spawn_mob<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L214">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 214"/></a></aside>
+        </h3>
+        <p>spawn the mob(s)</p><h3 id="proc/spawn_mob_special"><aside class="declaration">proc </aside>spawn_mob_special<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L208">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 208"/></a></aside>
+        </h3>
+        <p>Accounts for anything dense, which includes mobs, mechs, lockers, etc
+spawns a mob, then immediately tries to self-destruct</p><h3 id="proc/start_spawning"><aside class="declaration">proc </aside>start_spawning<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L115">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 115"/></a></aside>
+        </h3>
+        <p>Something told us to restart spawning</p><h3 id="proc/unbirth_mob"><aside class="declaration">proc </aside>unbirth_mob<aside>(/<a href="datum.html">datum</a>/source, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/simple_animal.html">simple_animal</a>/despawn_me) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/spawner.dm#L316">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;spawner.dm 316"/></a></aside>
+        </h3>
+        <p>Is passed a mob via the signal, and will attempt to despawn the mob and store it in the spawner.</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

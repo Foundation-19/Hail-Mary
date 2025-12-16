@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/random_mob_spawner.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/random_mob_spawner.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_GHOUL">MOB_SPAWNER_GHOUL</a></th><td>uwu~
+Mob spawner kind IDs</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_EASY">MOB_SPAWNER_EASY</a></th><td>Mob difficulties</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_LIST_MOBS">MOB_SPAWNER_LIST_MOBS</a></th><td>Mob spawner internal categories</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_GLOBAL_LIST_KIND">MOB_SPAWNER_GLOBAL_LIST_KIND</a></th><td>Mob spawner global list slots</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_TIME_LONGEST">MOB_SPAWNER_TIME_LONGEST</a></th><td>Mob spawner times</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_ICONSTATE_DEFAULT">MOB_SPAWNER_ICONSTATE_DEFAULT</a></th><td>Mob spawner icon_states</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_SOUND_DEFAULT">MOB_SPAWNER_SOUND_DEFAULT</a></th><td>Mob spawner spawn sound</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_KIND_ALL">MOB_SPAWNER_KIND_ALL</a></th><td>Mob spawner randomizer list keys</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_KIND_ROBOT_LOW">MOB_SPAWNER_KIND_ROBOT_LOW</a></th><td>robots</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_KIND_TRASH">MOB_SPAWNER_KIND_TRASH</a></th><td>mostly for dungeons</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_KIND_ANIMALS_TRASH">MOB_SPAWNER_KIND_ANIMALS_TRASH</a></th><td>random-ass animals and mutated wierd shit</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_KIND_SWAMPLIFE_TRASH">MOB_SPAWNER_KIND_SWAMPLIFE_TRASH</a></th><td>swampy wildlife</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_KIND_RAIDER_LOW">MOB_SPAWNER_KIND_RAIDER_LOW</a></th><td>random-ass humanoids, mostly just raiders tbh</td></tr>
+        <tr><th><a href="code/__DEFINES/random_mob_spawner.html#define/MOB_SPAWNER_DIFFICULTY_EASY">MOB_SPAWNER_DIFFICULTY_EASY</a></th><td>Mob spawner difficulty bitflags</td></tr>
+        <tr><th><a href="datum&#x2F;random_mob_spawner_group.html">&#x2F;datum&#x2F;random_mob_spawner_group</a></th><td>Datumized!</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all</th><td>Every mob we can spawn</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/robot_low</th><td>low level robots
+high level bots</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all_trash</th><td>all trash mobs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all_low</th><td>all low tier mobs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all_mid</th><td>all mid tier mobs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all_high</th><td>all high tier mobs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all_higher</th><td>all higher tier mobs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/all_death</th><td>all death tier mobs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/raider_low</th><td>low level raiders</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/raider_high</th><td>High level raiders</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/animal_trash</th><td>trash animals (like raccoons)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/animal_low</th><td>Low tier animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/animal_mid</th><td>Mid tier animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/animal_high</th><td>High tier animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/animal_higher</th><td>Higher tier animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/animal_death</th><td>Super deadly animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/swamp_trash</th><td>Trash swamp animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/swamp_all</th><td>Low tier swamp animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/swamp_mid</th><td>Mid tier swamp animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/swamp_high</th><td>High tier swamp animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/swamp_higher</th><td>Higher tier swamp animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/swamp_death</th><td>Death tier swamp animals</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner_group.html">random_mob_spawner_group</a>/debug</th><td>Debug thing (its full of bugs (get it?))</td></tr>
+        <tr><th><a href="datum&#x2F;random_mob_spawner.html">&#x2F;datum&#x2F;random_mob_spawner</a></th><td>Datumized!</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/ghoul</th><td>Ghouls</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/mirelurk</th><td>Mirelurks</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/deathclaw</th><td>Deathclaws</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/hellpig</th><td>Hellpigs my love</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/roach</th><td>Roachie~</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/gecko</th><td>Geckos (that arent bold)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/bloatfly</th><td>Bloatfly (Dan in an airplane)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/bloatfly_and_gecko</th><td>Bloatfly and gecko nest (they're friends turns out)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/molerat</th><td>Molerats</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/cazador</th><td>Cazadores</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/scorpion</th><td>Scorpins!</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/ant</th><td>Ant</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/nightstalker</th><td>Nightstalker hissawoo</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/robot_domestic</th><td>Domestic robots (Handies, protectrons, eyebots, and the odd robobrain)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/robot_security</th><td>Security robots (Securitrons, protectrons, eyebots, and the odd robobrain)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/robot_military</th><td>Military robots (Securitrons, protectrons, eyebots, and the odd robobrain)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/supermutant</th><td>Supermutants</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/supermutant_and_centaur</th><td>supermutants and centaurs (the gruesome twosome)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/centaur</th><td>centaurs</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/raider_melee</th><td>melee raiders</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/raider_ranged</th><td>ranged raiders (rangeders?)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/raider_mixed</th><td>mixed raiders (ranged / melee)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/tunneller</th><td>Tunnelers (formerly CHUDs)</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/spore_carrier</th><td>spore carriers</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/yaoguai</th><td>yaoguai mcbeevis</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/wolf</th><td>wolf doggos</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/wannamingo</th><td>alien wannamingos</td></tr>
+        <tr><th>/<a href="datum.html">datum</a>/<a href="datum/random_mob_spawner.html">random_mob_spawner</a>/debug</th><td>debug</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/MOB_SPAWNER_DIFFICULTY_EASY"><aside class="declaration">#define </aside>MOB_SPAWNER_DIFFICULTY_EASY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 106"/></a>
+    </h3>
+    <p>Mob spawner difficulty bitflags</p><h3 id="define/MOB_SPAWNER_EASY"><aside class="declaration">#define </aside>MOB_SPAWNER_EASY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 33"/></a>
+    </h3>
+    <p>Mob difficulties</p><h3 id="define/MOB_SPAWNER_GHOUL"><aside class="declaration">#define </aside>MOB_SPAWNER_GHOUL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 2"/></a>
+    </h3>
+    <p>uwu~
+Mob spawner kind IDs</p><h3 id="define/MOB_SPAWNER_GLOBAL_LIST_KIND"><aside class="declaration">#define </aside>MOB_SPAWNER_GLOBAL_LIST_KIND
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 47"/></a>
+    </h3>
+    <p>Mob spawner global list slots</p><h3 id="define/MOB_SPAWNER_ICONSTATE_DEFAULT"><aside class="declaration">#define </aside>MOB_SPAWNER_ICONSTATE_DEFAULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 60"/></a>
+    </h3>
+    <p>Mob spawner icon_states</p><h3 id="define/MOB_SPAWNER_KIND_ALL"><aside class="declaration">#define </aside>MOB_SPAWNER_KIND_ALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L69">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 69"/></a>
+    </h3>
+    <p>Mob spawner randomizer list keys</p><h3 id="define/MOB_SPAWNER_KIND_ANIMALS_TRASH"><aside class="declaration">#define </aside>MOB_SPAWNER_KIND_ANIMALS_TRASH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 84"/></a>
+    </h3>
+    <p>random-ass animals and mutated wierd shit</p><h3 id="define/MOB_SPAWNER_KIND_RAIDER_LOW"><aside class="declaration">#define </aside>MOB_SPAWNER_KIND_RAIDER_LOW
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 102"/></a>
+    </h3>
+    <p>random-ass humanoids, mostly just raiders tbh</p><h3 id="define/MOB_SPAWNER_KIND_ROBOT_LOW"><aside class="declaration">#define </aside>MOB_SPAWNER_KIND_ROBOT_LOW
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 72"/></a>
+    </h3>
+    <p>robots</p><h3 id="define/MOB_SPAWNER_KIND_SWAMPLIFE_TRASH"><aside class="declaration">#define </aside>MOB_SPAWNER_KIND_SWAMPLIFE_TRASH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 92"/></a>
+    </h3>
+    <p>swampy wildlife</p><h3 id="define/MOB_SPAWNER_KIND_TRASH"><aside class="declaration">#define </aside>MOB_SPAWNER_KIND_TRASH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 76"/></a>
+    </h3>
+    <p>mostly for dungeons</p><h3 id="define/MOB_SPAWNER_LIST_MOBS"><aside class="declaration">#define </aside>MOB_SPAWNER_LIST_MOBS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 38"/></a>
+    </h3>
+    <p>Mob spawner internal categories</p><h3 id="define/MOB_SPAWNER_SOUND_DEFAULT"><aside class="declaration">#define </aside>MOB_SPAWNER_SOUND_DEFAULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 65"/></a>
+    </h3>
+    <p>Mob spawner spawn sound</p><h3 id="define/MOB_SPAWNER_TIME_LONGEST"><aside class="declaration">#define </aside>MOB_SPAWNER_TIME_LONGEST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 51"/></a>
+    </h3>
+    <p>Mob spawner times</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

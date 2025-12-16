@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/dcs/signals/signals_atom_main.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_ENTERED">COMSIG_ATOM_ENTERED</a></th><td>from base of atom/Entered(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_ABSTRACT_ENTERED">COMSIG_ATOM_ABSTRACT_ENTERED</a></th><td>from base of atom/movable/Moved(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_ENTERING">COMSIG_ATOM_ENTERING</a></th><td>Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/old_loc, list/atom/old_locs)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_EXIT">COMSIG_ATOM_EXIT</a></th><td>from base of atom/Exit(): (/atom/movable/leaving, direction)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_EXITED">COMSIG_ATOM_EXITED</a></th><td>from base of atom/Exited(): (atom/movable/gone, direction)</td></tr>
+        <tr><th><a href="code/__DEFINES/dcs/signals/signals_atom_main.html#define/COMSIG_ATOM_ABSTRACT_EXITED">COMSIG_ATOM_ABSTRACT_EXITED</a></th><td>from base of atom/movable/Moved(): (atom/movable/gone, direction)</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/COMSIG_ATOM_ABSTRACT_ENTERED"><aside class="declaration">#define </aside>COMSIG_ATOM_ABSTRACT_ENTERED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm 4"/></a>
+    </h3>
+    <p>from base of atom/movable/Moved(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)</p><h3 id="define/COMSIG_ATOM_ABSTRACT_EXITED"><aside class="declaration">#define </aside>COMSIG_ATOM_ABSTRACT_EXITED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm 13"/></a>
+    </h3>
+    <p>from base of atom/movable/Moved(): (atom/movable/gone, direction)</p><h3 id="define/COMSIG_ATOM_ENTERED"><aside class="declaration">#define </aside>COMSIG_ATOM_ENTERED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm 2"/></a>
+    </h3>
+    <p>from base of atom/Entered(): (atom/movable/arrived, atom/old_loc, list/atom/old_locs)</p><h3 id="define/COMSIG_ATOM_ENTERING"><aside class="declaration">#define </aside>COMSIG_ATOM_ENTERING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm 6"/></a>
+    </h3>
+    <p>Sent from the atom that just Entered src. From base of atom/Entered(): (/atom/destination, atom/old_loc, list/atom/old_locs)</p><h3 id="define/COMSIG_ATOM_EXIT"><aside class="declaration">#define </aside>COMSIG_ATOM_EXIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm 8"/></a>
+    </h3>
+    <p>from base of atom/Exit(): (/atom/movable/leaving, direction)</p><h3 id="define/COMSIG_ATOM_EXITED"><aside class="declaration">#define </aside>COMSIG_ATOM_EXITED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/dcs/signals/signals_atom_main.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;dcs&#x2F;signals&#x2F;signals_atom_main.dm 11"/></a>
+    </h3>
+    <p>from base of atom/Exited(): (atom/movable/gone, direction)</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

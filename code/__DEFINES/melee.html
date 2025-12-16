@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;melee.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/melee.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/melee.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/melee.html#define/FALLBACK_FORCE">FALLBACK_FORCE</a></th><td>Melee item defines
+Base forces!</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_TOOL_SMALL">WEAPON_FORCE_TOOL_SMALL</a></th><td>A small, generic tool</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_TOOL_LARGE">WEAPON_FORCE_TOOL_LARGE</a></th><td>A large, generic tool</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_AXE_TOOL">WEAPON_FORCE_AXE_TOOL</a></th><td>An axe designed as a tool</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_AXE_SMALL">WEAPON_FORCE_AXE_SMALL</a></th><td>A small hatchet</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_AXE_LARGE">WEAPON_FORCE_AXE_LARGE</a></th><td>A big axe</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_AXE_TWOHAND_MULT">WEAPON_AXE_TWOHAND_MULT</a></th><td>Two-handed axe multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_SLASH_TOOL">WEAPON_FORCE_SLASH_TOOL</a></th><td>A cutting thing designed as a tool (wirecutters)</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_SLASH_SMALL">WEAPON_FORCE_SLASH_SMALL</a></th><td>A small knife</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_SLASH_LARGE">WEAPON_FORCE_SLASH_LARGE</a></th><td>A large blade</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_SLASH_TWOHAND_MULT">WEAPON_SLASH_TWOHAND_MULT</a></th><td>Two-handed blade multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_SLASH_WOUND_ADD">WEAPON_SLASH_WOUND_ADD</a></th><td>Slash wound addition</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_PIERCE_TOOL">WEAPON_FORCE_PIERCE_TOOL</a></th><td>A pointed thing designed as a tool (screwdriver)</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_PIERCE_SMALL">WEAPON_FORCE_PIERCE_SMALL</a></th><td>A small dagger</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_PIERCE_LARGE">WEAPON_FORCE_PIERCE_LARGE</a></th><td>A long spear</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_PIERCE_TWOHAND_MULT">WEAPON_PIERCE_TWOHAND_MULT</a></th><td>Two-handed blade multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_BLUNT_TOOL">WEAPON_FORCE_BLUNT_TOOL</a></th><td>A blunt thing designed as a tool (wrench)</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_BLUNT_SMALL">WEAPON_FORCE_BLUNT_SMALL</a></th><td>A small baton</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_BLUNT_LARGE">WEAPON_FORCE_BLUNT_LARGE</a></th><td>A huge club</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_BLUNT_TWOHAND_MULT">WEAPON_BLUNT_TWOHAND_MULT</a></th><td>Two-handed blade multiplier</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_BLUNT_WOUND_ADD">WEAPON_BLUNT_WOUND_ADD</a></th><td>Blunt wound addition</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WEAPON_FORCE_SMALL_TOOL">WEAPON_FORCE_SMALL_TOOL</a></th><td>Weapon baseplate values</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/THROWING_PATHETIC">THROWING_PATHETIC</a></th><td>Thrown forces</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/MELEE_SPEED_FASTEST">MELEE_SPEED_FASTEST</a></th><td>Melee attack speed</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/PIERCING_MINOR">PIERCING_MINOR</a></th><td>Melee armor piercing</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/WOUNDING_MALUS_SHALLOW">WOUNDING_MALUS_SHALLOW</a></th><td>Melee wound bonuses</td></tr>
+        <tr><th><a href="code/__DEFINES/melee.html#define/THROWRANGE_BAD">THROWRANGE_BAD</a></th><td>Throwing distances</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/FALLBACK_FORCE"><aside class="declaration">#define </aside>FALLBACK_FORCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L18">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 18"/></a>
+    </h3>
+    <p>Melee item defines
+Base forces!</p><h3 id="define/MELEE_SPEED_FASTEST"><aside class="declaration">#define </aside>MELEE_SPEED_FASTEST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 88"/></a>
+    </h3>
+    <p>Melee attack speed</p><h3 id="define/PIERCING_MINOR"><aside class="declaration">#define </aside>PIERCING_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L96">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 96"/></a>
+    </h3>
+    <p>Melee armor piercing</p><h3 id="define/THROWING_PATHETIC"><aside class="declaration">#define </aside>THROWING_PATHETIC
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 80"/></a>
+    </h3>
+    <p>Thrown forces</p><h3 id="define/THROWRANGE_BAD"><aside class="declaration">#define </aside>THROWRANGE_BAD
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 109"/></a>
+    </h3>
+    <p>Throwing distances</p><h3 id="define/WEAPON_AXE_TWOHAND_MULT"><aside class="declaration">#define </aside>WEAPON_AXE_TWOHAND_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 31"/></a>
+    </h3>
+    <p>Two-handed axe multiplier</p><h3 id="define/WEAPON_BLUNT_TWOHAND_MULT"><aside class="declaration">#define </aside>WEAPON_BLUNT_TWOHAND_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 60"/></a>
+    </h3>
+    <p>Two-handed blade multiplier</p><h3 id="define/WEAPON_BLUNT_WOUND_ADD"><aside class="declaration">#define </aside>WEAPON_BLUNT_WOUND_ADD
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 62"/></a>
+    </h3>
+    <p>Blunt wound addition</p><h3 id="define/WEAPON_FORCE_AXE_LARGE"><aside class="declaration">#define </aside>WEAPON_FORCE_AXE_LARGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 29"/></a>
+    </h3>
+    <p>A big axe</p><h3 id="define/WEAPON_FORCE_AXE_SMALL"><aside class="declaration">#define </aside>WEAPON_FORCE_AXE_SMALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 27"/></a>
+    </h3>
+    <p>A small hatchet</p><h3 id="define/WEAPON_FORCE_AXE_TOOL"><aside class="declaration">#define </aside>WEAPON_FORCE_AXE_TOOL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 25"/></a>
+    </h3>
+    <p>An axe designed as a tool</p><h3 id="define/WEAPON_FORCE_BLUNT_LARGE"><aside class="declaration">#define </aside>WEAPON_FORCE_BLUNT_LARGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 58"/></a>
+    </h3>
+    <p>A huge club</p><h3 id="define/WEAPON_FORCE_BLUNT_SMALL"><aside class="declaration">#define </aside>WEAPON_FORCE_BLUNT_SMALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 56"/></a>
+    </h3>
+    <p>A small baton</p><h3 id="define/WEAPON_FORCE_BLUNT_TOOL"><aside class="declaration">#define </aside>WEAPON_FORCE_BLUNT_TOOL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 54"/></a>
+    </h3>
+    <p>A blunt thing designed as a tool (wrench)</p><h3 id="define/WEAPON_FORCE_PIERCE_LARGE"><aside class="declaration">#define </aside>WEAPON_FORCE_PIERCE_LARGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 49"/></a>
+    </h3>
+    <p>A long spear</p><h3 id="define/WEAPON_FORCE_PIERCE_SMALL"><aside class="declaration">#define </aside>WEAPON_FORCE_PIERCE_SMALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 47"/></a>
+    </h3>
+    <p>A small dagger</p><h3 id="define/WEAPON_FORCE_PIERCE_TOOL"><aside class="declaration">#define </aside>WEAPON_FORCE_PIERCE_TOOL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 45"/></a>
+    </h3>
+    <p>A pointed thing designed as a tool (screwdriver)</p><h3 id="define/WEAPON_FORCE_SLASH_LARGE"><aside class="declaration">#define </aside>WEAPON_FORCE_SLASH_LARGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 38"/></a>
+    </h3>
+    <p>A large blade</p><h3 id="define/WEAPON_FORCE_SLASH_SMALL"><aside class="declaration">#define </aside>WEAPON_FORCE_SLASH_SMALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 36"/></a>
+    </h3>
+    <p>A small knife</p><h3 id="define/WEAPON_FORCE_SLASH_TOOL"><aside class="declaration">#define </aside>WEAPON_FORCE_SLASH_TOOL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 34"/></a>
+    </h3>
+    <p>A cutting thing designed as a tool (wirecutters)</p><h3 id="define/WEAPON_FORCE_SMALL_TOOL"><aside class="declaration">#define </aside>WEAPON_FORCE_SMALL_TOOL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 66"/></a>
+    </h3>
+    <p>Weapon baseplate values</p><h3 id="define/WEAPON_FORCE_TOOL_LARGE"><aside class="declaration">#define </aside>WEAPON_FORCE_TOOL_LARGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 22"/></a>
+    </h3>
+    <p>A large, generic tool</p><h3 id="define/WEAPON_FORCE_TOOL_SMALL"><aside class="declaration">#define </aside>WEAPON_FORCE_TOOL_SMALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 20"/></a>
+    </h3>
+    <p>A small, generic tool</p><h3 id="define/WEAPON_PIERCE_TWOHAND_MULT"><aside class="declaration">#define </aside>WEAPON_PIERCE_TWOHAND_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 51"/></a>
+    </h3>
+    <p>Two-handed blade multiplier</p><h3 id="define/WEAPON_SLASH_TWOHAND_MULT"><aside class="declaration">#define </aside>WEAPON_SLASH_TWOHAND_MULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 40"/></a>
+    </h3>
+    <p>Two-handed blade multiplier</p><h3 id="define/WEAPON_SLASH_WOUND_ADD"><aside class="declaration">#define </aside>WEAPON_SLASH_WOUND_ADD
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L42">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 42"/></a>
+    </h3>
+    <p>Slash wound addition</p><h3 id="define/WOUNDING_MALUS_SHALLOW"><aside class="declaration">#define </aside>WOUNDING_MALUS_SHALLOW
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/melee.dm#L101">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;melee.dm 101"/></a>
+    </h3>
+    <p>Melee wound bonuses</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

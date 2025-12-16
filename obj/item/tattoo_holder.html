@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item&#x2F;tattoo_holder - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item/tattoo_holder.html#var">Var Details</a> - <a href="obj/item/tattoo_holder.html#proc">Proc Details</a></header>
+<main>
+<h1>tattoo_holder <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/tattoo_holder.html">tattoo_holder</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L195">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 195"/></a></h1>
+
+<p>A tattoo <em>thing</em></p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#var/customizableness">customizableness</a></th><td>Lets you apply the thing itself to a limb. Mostly for temporary tattoos</td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#var/inherit_tat_name_n_desc">inherit_tat_name_n_desc</a></th><td>Makes its name and desc resemble the loaded tat</td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#var/loaded_tat">loaded_tat</a></th><td>our tattoo template</td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#var/self_apply">self_apply</a></th><td>can be applied just by using it on yourself</td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#var/uses_left">uses_left</a></th><td>how many times left can this thing be used? UNLIMITED_TATTOO for infinite uses</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#proc/abort">abort</a></th><td>reset</td></tr>
+            <tr><th><a href="obj/item/tattoo_holder.html#proc/start_apply_tattoo">start_apply_tattoo</a></th><td>it puts the tattoo on its skin, it does a good job (at duplicating code)</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/customizableness"><aside class="declaration">var </aside>customizableness
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L204">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 204"/></a></h3>
+        <p>Lets you apply the thing itself to a limb. Mostly for temporary tattoos</p><h3 id="var/inherit_tat_name_n_desc"><aside class="declaration">var </aside>inherit_tat_name_n_desc
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L206">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 206"/></a></h3>
+        <p>Makes its name and desc resemble the loaded tat</p><h3 id="var/loaded_tat"><aside class="declaration">var </aside>loaded_tat
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/tattoo.html">tattoo</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L202">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 202"/></a></h3>
+        <p>our tattoo template</p><h3 id="var/self_apply"><aside class="declaration">var </aside>self_apply
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L208">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 208"/></a></h3>
+        <p>can be applied just by using it on yourself</p><h3 id="var/uses_left"><aside class="declaration">var </aside>uses_left
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L210">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 210"/></a></h3>
+        <p>how many times left can this thing be used? UNLIMITED_TATTOO for infinite uses</p><h2 id="proc">Proc Details</h2><h3 id="proc/abort"><aside class="declaration">proc </aside>abort<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/victim, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L374">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 374"/></a></aside>
+        </h3>
+        <p>reset</p><h3 id="proc/start_apply_tattoo"><aside class="declaration">proc </aside>start_apply_tattoo<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/victim, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L283">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 283"/></a></aside>
+        </h3>
+        <p>it puts the tattoo on its skin, it does a good job (at duplicating code)</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

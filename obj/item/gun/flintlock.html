@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item&#x2F;gun&#x2F;flintlock - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item/gun/flintlock.html#proc">Proc Details</a></header>
+<main>
+<h1>flintlock <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gun.html">gun</a>/<a href="obj/item/gun/flintlock.html">flintlock</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/cock">cock</a></th><td>Sets cocked to TRUE, and plays a ka-ta-click noise</td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/fire_at_cursor">fire_at_cursor</a></th><td>shoots whatever's under the user's cursor. or the user's direction if the cursor's params are null</td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/load_casing">load_casing</a></th><td>Forcemoves bluuet into the gun, and sets its chambered to the bluuet</td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/load_from_box">load_from_box</a></th><td>Scans the box, takes a casing if possible</td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/pre_fire">pre_fire</a></th><td>Plays a click-sound, then a half-second later, shoots whatever's under the user's cursor. or the mob's direction if the cursor's params are null</td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/uncock">uncock</a></th><td>Sets cocked to FALSE, and plays a ka-ta-click noise</td></tr>
+            <tr><th><a href="obj/item/gun/flintlock.html#proc/unload">unload</a></th><td>Ejects chambered into the user's hands, and sets chambered to null, and sets cocked to FALSE, and plays a ka-ta-click noise, and updates the icon, and returns TRUE</td></tr></table><h2 id="proc">Proc Details</h2><h3 id="proc/cock"><aside class="declaration">proc </aside>cock<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 117"/></a></aside>
+        </h3>
+        <p>Sets cocked to TRUE, and plays a ka-ta-click noise</p><h3 id="proc/fire_at_cursor"><aside class="declaration">proc </aside>fire_at_cursor<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 160"/></a></aside>
+        </h3>
+        <p>shoots whatever's under the user's cursor. or the user's direction if the cursor's params are null</p><h3 id="proc/load_casing"><aside class="declaration">proc </aside>load_casing<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/ammo_casing.html">ammo_casing</a>/bluuet) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 71"/></a></aside>
+        </h3>
+        <p>Forcemoves bluuet into the gun, and sets its chambered to the bluuet</p><h3 id="proc/load_from_box"><aside class="declaration">proc </aside>load_from_box<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/ammo_box.html">ammo_box</a>/bawx) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 48"/></a></aside>
+        </h3>
+        <p>Scans the box, takes a casing if possible</p><h3 id="proc/pre_fire">pre_fire<aside>(/<a href="mob.html">mob</a>/user, /<a href="atom.html">atom</a>/target, params, zone_override, stam_cost, message) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L141">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 141"/></a></aside>
+        </h3>
+        <p>Plays a click-sound, then a half-second later, shoots whatever's under the user's cursor. or the mob's direction if the cursor's params are null</p><h3 id="proc/uncock"><aside class="declaration">proc </aside>uncock<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 129"/></a></aside>
+        </h3>
+        <p>Sets cocked to FALSE, and plays a ka-ta-click noise</p><h3 id="proc/unload"><aside class="declaration">proc </aside>unload<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/guns/ballistic/flintlock.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;guns&#x2F;ballistic&#x2F;flintlock.dm 99"/></a></aside>
+        </h3>
+        <p>Ejects chambered into the user's hands, and sets chambered to null, and sets cocked to FALSE, and plays a ka-ta-click noise, and updates the icon, and returns TRUE</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;area - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="area.html#var">Var Details</a> - <a href="area.html#proc">Proc Details</a></header>
+<main>
+<h1>area <aside>/<a href="area.html">area</a></aside><aside> inherits /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 10"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="area.html#var/always_unpowered">always_unpowered</a></th><td>This gets overridden to 1 for space in area/Initialize().</td></tr>
+            <tr><th><a href="area.html#var/ambience_area">ambience_area</a></th><td>Sound loop datums full of ambient sounds to play, refer to code\datums\looping_sounds\ambient_sounds.dm!</td></tr>
+            <tr><th><a href="area.html#var/ambientmusic">ambientmusic</a></th><td>List of music to play. FORMAT: AREA_MUSIC('sound/file.ogg, sound length)</td></tr>
+            <tr><th><a href="area.html#var/ambientsounds">ambientsounds</a></th><td>List of sounds to play. FORMAT: list(AREA_SOUND('sound/misc/sadtrombone.ogg', 3.9 SECONDS), AREA_MUSIC('sound/misc/sadtrombone.ogg', 3.9 SECONDS)) has a cooldown of 3 seconds between each play, but you can have sounds play for longer if you want</td></tr>
+            <tr><th><a href="area.html#var/areasize">areasize</a></th><td>Size of the area in open turfs, only calculated for indoors areas.</td></tr>
+            <tr><th><a href="area.html#var/blob_allowed">blob_allowed</a></th><td>if blobs can spawn there and if it counts towards their score.</td></tr>
+            <tr><th><a href="area.html#var/clockwork_warp_allowed">clockwork_warp_allowed</a></th><td>whether servants can warp into this area from Reebe</td></tr>
+            <tr><th><a href="area.html#var/clockwork_warp_fail">clockwork_warp_fail</a></th><td>Message to display when the clockwork warp fails</td></tr>
+            <tr><th><a href="area.html#var/considered_hull_exterior">considered_hull_exterior</a></th><td>Considered space for hull shielding</td></tr>
+            <tr><th><a href="area.html#var/flora_allowed">flora_allowed</a></th><td>If flora are allowed to spawn in this area randomly through tunnel generation</td></tr>
+            <tr><th><a href="area.html#var/hidden">hidden</a></th><td>Hides area from player Teleport function.</td></tr>
+            <tr><th><a href="area.html#var/map_name">map_name</a></th><td>Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.</td></tr>
+            <tr><th><a href="area.html#var/megafauna_spawn_allowed">megafauna_spawn_allowed</a></th><td>If megafauna can be spawned by natural random generation</td></tr>
+            <tr><th><a href="area.html#var/minimap_color">minimap_color</a></th><td>Color on minimaps, if it's null (which is default) it makes one at random.</td></tr>
+            <tr><th><a href="area.html#var/mob_spawn_allowed">mob_spawn_allowed</a></th><td>if mobs can be spawned by natural random generation</td></tr>
+            <tr><th><a href="area.html#var/noteleport">noteleport</a></th><td>Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)</td></tr>
+            <tr><th><a href="area.html#var/outdoors">outdoors</a></th><td>For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)</td></tr>
+            <tr><th><a href="area.html#var/rads_per_second">rads_per_second</a></th><td>How much radiation to give to every player in this area, per tick</td></tr>
+            <tr><th><a href="area.html#var/safe">safe</a></th><td>Is the area teleport-safe: no space / radiation / aggresive mobs / other dangers</td></tr>
+            <tr><th><a href="area.html#var/sound_environment">sound_environment</a></th><td>Used to decide what kind of reverb the area makes sound have</td></tr>
+            <tr><th><a href="area.html#var/sub_areas">sub_areas</a></th><td>These two vars allow for multiple unique areas to be linked to a master area
+and share some functionalities such as APC powernet nodes, fire alarms etc, without sacrificing
+their own flags, statuses, variables and more snowflakes.
+Friendly reminder: no map edited areas.</td></tr>
+            <tr><th><a href="area.html#var/tunnel_allowed">tunnel_allowed</a></th><td>If mining tunnel generation is allowed in this area</td></tr>
+            <tr><th><a href="area.html#var/unique">unique</a></th><td>If false, loading multiple maps with this area type will create multiple instances.</td></tr>
+            <tr><th><a href="area.html#var/valid_malf_hack">valid_malf_hack</a></th><td>malf ais can hack this</td></tr>
+            <tr><th><a href="area.html#var/valid_territory">valid_territory</a></th><td>If it's valid territory for gangs/cults to summon</td></tr>
+            <tr><th><a href="area.html#var/weather_tags">weather_tags</a></th><td>What weathers affect this area? If null, no weathers happen here, shrimple as</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="area.html#proc/initialize_weather_list">initialize_weather_list</a></th><td>First one to use a sound loop initializes it
+Adds the area to a list for weather to read when picking areas for weather</td></tr>
+            <tr><th><a href="area.html#proc/remove_from_weather_list">remove_from_weather_list</a></th><td>unAdds the area to a list for weather to read when picking areas for weather</td></tr>
+            <tr><th><a href="area.html#proc/update_beauty">update_beauty</a></th><td>Divides total beauty in the room by roomsize to allow us to get an average beauty per tile.</td></tr>
+            <tr><th><a href="area.html#proc/update_icon_state">update_icon_state</a></th><td>Update the icon state of the area</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/always_unpowered"><aside class="declaration">var </aside>always_unpowered
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 58"/></a></h3>
+        <p>This gets overridden to 1 for space in area/Initialize().</p><h3 id="var/ambience_area"><aside class="declaration">var </aside>ambience_area
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L114">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 114"/></a></h3>
+        <p>Sound loop datums full of ambient sounds to play, refer to code\datums\looping_sounds\ambient_sounds.dm!</p><h3 id="var/ambientmusic"><aside class="declaration">var </aside>ambientmusic
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L100">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 100"/></a></h3>
+        <p>List of music to play. FORMAT: AREA_MUSIC('sound/file.ogg, sound length)</p><h3 id="var/ambientsounds"><aside class="declaration">var </aside>ambientsounds
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 107"/></a></h3>
+        <p>List of sounds to play. FORMAT: list(AREA_SOUND('sound/misc/sadtrombone.ogg', 3.9 SECONDS), AREA_MUSIC('sound/misc/sadtrombone.ogg', 3.9 SECONDS)) has a cooldown of 3 seconds between each play, but you can have sounds play for longer if you want</p><h3 id="var/areasize"><aside class="declaration">var </aside>areasize
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L67">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 67"/></a></h3>
+        <p>Size of the area in open turfs, only calculated for indoors areas.</p><h3 id="var/blob_allowed"><aside class="declaration">var </aside>blob_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L28">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 28"/></a></h3>
+        <p>if blobs can spawn there and if it counts towards their score.</p><h3 id="var/clockwork_warp_allowed"><aside class="declaration">var </aside>clockwork_warp_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 30"/></a></h3>
+        <p>whether servants can warp into this area from Reebe</p><h3 id="var/clockwork_warp_fail"><aside class="declaration">var </aside>clockwork_warp_fail
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 32"/></a></h3>
+        <p>Message to display when the clockwork warp fails</p><h3 id="var/considered_hull_exterior"><aside class="declaration">var </aside>considered_hull_exterior
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 44"/></a></h3>
+        <p>Considered space for hull shielding</p><h3 id="var/flora_allowed"><aside class="declaration">var </aside>flora_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 37"/></a></h3>
+        <p>If flora are allowed to spawn in this area randomly through tunnel generation</p><h3 id="var/hidden"><aside class="declaration">var </aside>hidden
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 84"/></a></h3>
+        <p>Hides area from player Teleport function.</p><h3 id="var/map_name"><aside class="declaration">var </aside>map_name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 21"/></a></h3>
+        <p>Set in New(); preserves the name set by the map maker, even if renamed by the Blueprints.</p><h3 id="var/megafauna_spawn_allowed"><aside class="declaration">var </aside>megafauna_spawn_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 41"/></a></h3>
+        <p>If megafauna can be spawned by natural random generation</p><h3 id="var/minimap_color"><aside class="declaration">var </aside>minimap_color
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L128">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 128"/></a></h3>
+        <p>Color on minimaps, if it's null (which is default) it makes one at random.</p><h3 id="var/mob_spawn_allowed"><aside class="declaration">var </aside>mob_spawn_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 39"/></a></h3>
+        <p>if mobs can be spawned by natural random generation</p><h3 id="var/noteleport"><aside class="declaration">var </aside>noteleport
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 82"/></a></h3>
+        <p>Are you forbidden from teleporting to the area? (centcom, mobs, wizard, hand teleporter)</p><h3 id="var/outdoors"><aside class="declaration">var </aside>outdoors
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 61"/></a></h3>
+        <p>For space, the asteroid, lavaland, etc. Used with blueprints to determine if we are adding a new area (vs editing a station room)</p><h3 id="var/rads_per_second"><aside class="declaration">var </aside>rads_per_second
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L149">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 149"/></a></h3>
+        <p>How much radiation to give to every player in this area, per tick</p><h3 id="var/safe"><aside class="declaration">var </aside>safe
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 86"/></a></h3>
+        <p>Is the area teleport-safe: no space / radiation / aggresive mobs / other dangers</p><h3 id="var/sound_environment"><aside class="declaration">var </aside>sound_environment
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L142">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 142"/></a></h3>
+        <p>Used to decide what kind of reverb the area makes sound have</p><h3 id="var/sub_areas"><aside class="declaration">var </aside>sub_areas
+            <aside>&ndash; /list/area</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L136">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 136"/></a></h3>
+        <p>These two vars allow for multiple unique areas to be linked to a master area
+and share some functionalities such as APC powernet nodes, fire alarms etc, without sacrificing
+their own flags, statuses, variables and more snowflakes.
+Friendly reminder: no map edited areas.</p><h3 id="var/tunnel_allowed"><aside class="declaration">var </aside>tunnel_allowed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 35"/></a></h3>
+        <p>If mining tunnel generation is allowed in this area</p><h3 id="var/unique"><aside class="declaration">var </aside>unique
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 88"/></a></h3>
+        <p>If false, loading multiple maps with this area type will create multiple instances.</p><h3 id="var/valid_malf_hack"><aside class="declaration">var </aside>valid_malf_hack
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 26"/></a></h3>
+        <p>malf ais can hack this</p><h3 id="var/valid_territory"><aside class="declaration">var </aside>valid_territory
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L24">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 24"/></a></h3>
+        <p>If it's valid territory for gangs/cults to summon</p><h3 id="var/weather_tags"><aside class="declaration">var </aside>weather_tags
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 64"/></a></h3>
+        <p>What weathers affect this area? If null, no weathers happen here, shrimple as</p><h2 id="proc">Proc Details</h2><h3 id="proc/initialize_weather_list"><aside class="declaration">proc </aside>initialize_weather_list<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L304">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 304"/></a></aside>
+        </h3>
+        <p>First one to use a sound loop initializes it
+Adds the area to a list for weather to read when picking areas for weather</p><h3 id="proc/remove_from_weather_list"><aside class="declaration">proc </aside>remove_from_weather_list<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L313">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 313"/></a></aside>
+        </h3>
+        <p>unAdds the area to a list for weather to read when picking areas for weather</p><h3 id="proc/update_beauty"><aside class="declaration">proc </aside>update_beauty<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L660">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 660"/></a></aside>
+        </h3>
+        <p>Divides total beauty in the room by roomsize to allow us to get an average beauty per tile.</p><h3 id="proc/update_icon_state"><aside class="parent"><a title="/atom" href="atom.html#proc/update_icon_state">&uarr;</a></aside>update_icon_state<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L495">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 495"/></a></aside>
+        </h3>
+        <p>Update the icon state of the area</p>
+<p>Im not sure what the heck this does, somethign to do with weather being able to set icon
+states on areas?? where the heck would that even display?</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

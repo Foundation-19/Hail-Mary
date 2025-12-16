@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="mob/living/simple_animal/hostile.html#var">Var Details</a> - <a href="mob/living/simple_animal/hostile.html#proc">Proc Details</a></header>
+<main>
+<h1>hostile <aside>/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/simple_animal.html">simple_animal</a>/<a href="mob/living/simple_animal/hostile.html">hostile</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/active_emp_flags">active_emp_flags</a></th><td>What emp effects are active?</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/alternate_attack_prob">alternate_attack_prob</a></th><td>Probability it'll do some other kind of melee attack, like a knockback hit.</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/auto_fire_delay">auto_fire_delay</a></th><td>How long to wait between shots?</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/despawns_when_lonely">despawns_when_lonely</a></th><td>Does this mob un-itself if nobody's on the Z level?</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/emp_flags">emp_flags</a></th><td>What happens when this mob is EMP'd?</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/is_low_health">is_low_health</a></th><td>Has the mob done its Low Health thing?</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/lonely_timer_id">lonely_timer_id</a></th><td>timer for despawning when lonely</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/low_health_threshold">low_health_threshold</a></th><td>At what percent of their health does the mob change states? Like, get ANGY on low-health or something. set to 0 or FALSE to disable
+Is a decimal, 0 through 1. 0.5 means half health, 0.25 is quarter health, etc</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/minimum_distance">minimum_distance</a></th><td>Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/move_to_delay">move_to_delay</a></th><td>Deciseconds between moves for automated movement. m2d 3 = standard, less is fast, more is slower.</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/retreat_distance">retreat_distance</a></th><td>If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/smoke">smoke</a></th><td>Smoke!</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/sound_after_shooting">sound_after_shooting</a></th><td>Play a sound after they shoot?</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#var/sound_after_shooting_delay">sound_after_shooting_delay</a></th><td>How long after shooting should it play?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/AICanContinue">AICanContinue</a></th><td>AI Status</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/AlternateAttackingTarget">AlternateAttackingTarget</a></th><td>Does an extra <em>thing</em> when attacking. Return TRUE to not do the standard attack</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/Goto">Goto</a></th><td>roll to randomize this thing... if its an option</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/ListTargets">ListTargets</a></th><td>HOSTILE MOB TARGETTING AND AGGRESSION</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/death">death</a></th><td>END HOSTILE MOB TARGETTING AND AGGRESSION</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/emp_effect">emp_effect</a></th><td>EMP intensity tends to be 20-40</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/make_high_health">make_high_health</a></th><td>Override this with what should happen when going from low health to high health</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/make_low_health">make_low_health</a></th><td>Override this with what should happen when going from high health to low health</td></tr>
+            <tr><th><a href="mob/living/simple_animal/hostile.html#proc/unbirth_self">unbirth_self</a></th><td>return to monke-- stuffs a mob into their own special nest</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/active_emp_flags"><aside class="declaration">var </aside>active_emp_flags
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 51"/></a></h3>
+        <p>What emp effects are active?</p><h3 id="var/alternate_attack_prob"><aside class="declaration">var </aside>alternate_attack_prob
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 102"/></a></h3>
+        <p>Probability it'll do some other kind of melee attack, like a knockback hit.</p><h3 id="var/auto_fire_delay"><aside class="declaration">var </aside>auto_fire_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 21"/></a></h3>
+        <p>How long to wait between shots?</p><h3 id="var/despawns_when_lonely"><aside class="declaration">var </aside>despawns_when_lonely
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 109"/></a></h3>
+        <p>Does this mob un-itself if nobody's on the Z level?</p><h3 id="var/emp_flags"><aside class="declaration">var </aside>emp_flags
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 49"/></a></h3>
+        <p>What happens when this mob is EMP'd?</p><h3 id="var/is_low_health"><aside class="declaration">var </aside>is_low_health
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 107"/></a></h3>
+        <p>Has the mob done its Low Health thing?</p><h3 id="var/lonely_timer_id"><aside class="declaration">var </aside>lonely_timer_id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 113"/></a></h3>
+        <p>timer for despawning when lonely</p><h3 id="var/low_health_threshold"><aside class="declaration">var </aside>low_health_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L105">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 105"/></a></h3>
+        <p>At what percent of their health does the mob change states? Like, get ANGY on low-health or something. set to 0 or FALSE to disable
+Is a decimal, 0 through 1. 0.5 means half health, 0.25 is quarter health, etc</p><h3 id="var/minimum_distance"><aside class="declaration">var </aside>minimum_distance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 72"/></a></h3>
+        <p>Minimum approach distance, so ranged mobs chase targets down, but still keep their distance set in tiles to the target, set higher to make mobs keep distance</p><h3 id="var/move_to_delay"><aside class="declaration">var </aside>move_to_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 41"/></a></h3>
+        <p>Deciseconds between moves for automated movement. m2d 3 = standard, less is fast, more is slower.</p><h3 id="var/retreat_distance"><aside class="declaration">var </aside>retreat_distance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 70"/></a></h3>
+        <p>If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.</p><h3 id="var/smoke"><aside class="declaration">var </aside>smoke
+            <aside>&ndash; /<a href="datum.html">datum</a>/effect_system/smoke_spread/bad</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 53"/></a></h3>
+        <p>Smoke!</p><h3 id="var/sound_after_shooting"><aside class="declaration">var </aside>sound_after_shooting
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 25"/></a></h3>
+        <p>Play a sound after they shoot?</p><h3 id="var/sound_after_shooting_delay"><aside class="declaration">var </aside>sound_after_shooting_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 27"/></a></h3>
+        <p>How long after shooting should it play?</p><h2 id="proc">Proc Details</h2><h3 id="proc/AICanContinue"><aside class="declaration">proc </aside>AICanContinue<aside>(/list/possible_targets) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L735">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 735"/></a></aside>
+        </h3>
+        <p>AI Status</p><h3 id="proc/AlternateAttackingTarget"><aside class="declaration">proc </aside>AlternateAttackingTarget<aside>(/<a href="atom.html">atom</a>/the_target) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L533">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 533"/></a></aside>
+        </h3>
+        <p>Does an extra <em>thing</em> when attacking. Return TRUE to not do the standard attack</p><h3 id="proc/Goto"><aside class="declaration">proc </aside>Goto<aside>(target, delay, minimum_distance) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L499">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 499"/></a></aside>
+        </h3>
+        <p>roll to randomize this thing... if its an option</p><h3 id="proc/ListTargets"><aside class="declaration">proc </aside>ListTargets<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L286">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 286"/></a></aside>
+        </h3>
+        <p>HOSTILE MOB TARGETTING AND AGGRESSION</p><h3 id="proc/death">death<aside>(gibbed) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L562">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 562"/></a></aside>
+        </h3>
+        <p>END HOSTILE MOB TARGETTING AND AGGRESSION</p><h3 id="proc/emp_effect"><aside class="declaration">proc </aside>emp_effect<aside>(intensity) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L859">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 859"/></a></aside>
+        </h3>
+        <p>EMP intensity tends to be 20-40</p><h3 id="proc/make_high_health"><aside class="declaration">proc </aside>make_high_health<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L161">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 161"/></a></aside>
+        </h3>
+        <p>Override this with what should happen when going from low health to high health</p><h3 id="proc/make_low_health"><aside class="declaration">proc </aside>make_low_health<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 165"/></a></aside>
+        </h3>
+        <p>Override this with what should happen when going from high health to low health</p><h3 id="proc/unbirth_self"><aside class="declaration">proc </aside>unbirth_self<aside>(forced) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/hostile/hostile.dm#L828">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;hostile&#x2F;hostile.dm 828"/></a></aside>
+        </h3>
+        <p>return to monke-- stuffs a mob into their own special nest</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

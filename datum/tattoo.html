@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;tattoo - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/tattoo.html#var">Var Details</a> - <a href="datum/tattoo.html#proc">Proc Details</a></header>
+<main>
+<h1>tattoo <aside>/<a href="datum.html">datum</a>/<a href="datum/tattoo.html">tattoo</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 9"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/tattoo.html#var/default_bodypart">default_bodypart</a></th><td>just to make job-related tattoo jobs easier, only checked if its a tat that's part of a loadout or job outfit!</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/default_spot">default_spot</a></th><td>just to make job-related tattoo jobs easier, only checked if its a tat that's part of a loadout or job outfit!</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/desc">desc</a></th><td>Description of the tat, flavor text, etc. Make it start lowercased!</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/extra_desc">extra_desc</a></th><td>Optional, extra desc stuff</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/extra_private">extra_private</a></th><td>Is the tattoo really really private? Like, hidden and needs to be nekked to show up? Maybe an old embarassing tat you keep under your hat</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/fade_time">fade_time</a></th><td>how long does the temporary tattoo last between fade cycles? total life will be around 3-4 times this. if null, its permanent</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/fadedness">fadedness</a></th><td>how faded is the tattoo? for temporary tats</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/name">name</a></th><td>Name of the tat</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/owner_limb">owner_limb</a></th><td>the owning limb</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/tat_access">tat_access</a></th><td>Optional, access related to the tat</td></tr>
+            <tr><th><a href="datum/tattoo.html#var/tat_location">tat_location</a></th><td>Where on the body part is the tat?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/tattoo.html#proc/invade_privacy">invade_privacy</a></th><td>Is the tattoo somewhere really private? So you dont examine someone in power armor and find FOXYGRANDMA above their ass
+A really in-depth check through a person's privates to see if their relevant bits are, in fact, visible</td></tr>
+            <tr><th><a href="datum/tattoo.html#proc/is_it_visible">is_it_visible</a></th><td>Is the tattoo visible?</td></tr>
+            <tr><th><a href="datum/tattoo.html#proc/location2words">location2words</a></th><td>takes in the tat's location, outputs words about their location
+person is the person the tat is allegedly on, cus we dont <em>really</em> keep track ourselves</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/default_bodypart"><aside class="declaration">var </aside>default_bodypart
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 29"/></a></h3>
+        <p>just to make job-related tattoo jobs easier, only checked if its a tat that's part of a loadout or job outfit!</p><h3 id="var/default_spot"><aside class="declaration">var </aside>default_spot
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 31"/></a></h3>
+        <p>just to make job-related tattoo jobs easier, only checked if its a tat that's part of a loadout or job outfit!</p><h3 id="var/desc"><aside class="declaration">var </aside>desc
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 13"/></a></h3>
+        <p>Description of the tat, flavor text, etc. Make it start lowercased!</p><h3 id="var/extra_desc"><aside class="declaration">var </aside>extra_desc
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 19"/></a></h3>
+        <p>Optional, extra desc stuff</p><h3 id="var/extra_private"><aside class="declaration">var </aside>extra_private
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 23"/></a></h3>
+        <p>Is the tattoo really really private? Like, hidden and needs to be nekked to show up? Maybe an old embarassing tat you keep under your hat</p><h3 id="var/fade_time"><aside class="declaration">var </aside>fade_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 27"/></a></h3>
+        <p>how long does the temporary tattoo last between fade cycles? total life will be around 3-4 times this. if null, its permanent</p><h3 id="var/fadedness"><aside class="declaration">var </aside>fadedness
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 25"/></a></h3>
+        <p>how faded is the tattoo? for temporary tats</p><h3 id="var/name"><aside class="declaration">var </aside>name
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 11"/></a></h3>
+        <p>Name of the tat</p><h3 id="var/owner_limb"><aside class="declaration">var </aside>owner_limb
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 17"/></a></h3>
+        <p>the owning limb</p><h3 id="var/tat_access"><aside class="declaration">var </aside>tat_access
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 15"/></a></h3>
+        <p>Optional, access related to the tat</p><h3 id="var/tat_location"><aside class="declaration">var </aside>tat_location
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 21"/></a></h3>
+        <p>Where on the body part is the tat?</p><h2 id="proc">Proc Details</h2><h3 id="proc/invade_privacy"><aside class="declaration">proc </aside>invade_privacy<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 88"/></a></aside>
+        </h3>
+        <p>Is the tattoo somewhere really private? So you dont examine someone in power armor and find FOXYGRANDMA above their ass
+A really in-depth check through a person's privates to see if their relevant bits are, in fact, visible</p><h3 id="proc/is_it_visible"><aside class="declaration">proc </aside>is_it_visible<aside>(/<a href="mob.html">mob</a>/viewer) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 57"/></a></aside>
+        </h3>
+        <p>Is the tattoo visible?</p><h3 id="proc/location2words"><aside class="declaration">proc </aside>location2words<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/tattoo.dm#L121">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;tattoo.dm 121"/></a></aside>
+        </h3>
+        <p>takes in the tat's location, outputs words about their location
+person is the person the tat is allegedly on, cus we dont <em>really</em> keep track ourselves</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

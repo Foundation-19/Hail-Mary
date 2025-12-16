@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item&#x2F;gun - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item/gun.html#var">Var Details</a> - <a href="obj/item/gun.html#proc">Proc Details</a></header>
+<main>
+<h1>gun <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gun.html">gun</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L22">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 22"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/item/gun.html#var/added_spread">added_spread</a></th><td>Gun's inherent inaccuracy, basically the minimum spread</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/autofire_shot_delay">autofire_shot_delay</a></th><td>Time between individual shots when firing full-auto.</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/burst_shot_delay">burst_shot_delay</a></th><td>The time between shots in burst.</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/burst_size">burst_size</a></th><td>the following is controlled almost entirely by the firemode, changing it here wouldnt do anything meaningful
+Weapon is burst fire if this is above 1</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/busy_action">busy_action</a></th><td>Used in gun-in-mouth execution/suicide and similar, while TRUE nothing should work on this like firing or modification and so on and so forth.</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/can_circuit">can_circuit</a></th><td>can we be put in a circuit</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/can_emitter">can_emitter</a></th><td>can we be put in an emitter</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/can_turret">can_turret</a></th><td>can we be put into a turret</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/cock_delay">cock_delay</a></th><td>Time that much pass between cocking your gun, if it supports it</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/cooldown_delay_mods">cooldown_delay_mods</a></th><td>What kind of temporary refire delay modifiers do we have?</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/draw_time">draw_time</a></th><td>Time it takes between drawing the gun and shooting the gun</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/extra_speed">extra_speed</a></th><td>Adds this speed to the bullet, in pixels per second</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/fire_delay">fire_delay</a></th><td>The time between firing actions, this means between bursts if this is burst weapon. The reason this is 0 is because you are still, by default, limited by clickdelay.</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/firing">firing</a></th><td>Currently firing, whether or not it's a burst or not.</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/gun_accuracy_zone_type">gun_accuracy_zone_type</a></th><td>How should this gun prefer to weight what limbs they hit</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/gun_skill_check">gun_skill_check</a></th><td>What kind of traits should this gun be affected by</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/hold_it_right_message_antispam">hold_it_right_message_antispam</a></th><td>Cooldown between times the gun will tell you you're holding it wrong, 1 second cus its not super duper important</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/last_fire">last_fire</a></th><td>Last world.time this was fired</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/misfire_possibilities">misfire_possibilities</a></th><td>What kind of misfires can this thing do? Check out combat.dm for details</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/prefered_power">prefered_power</a></th><td>What power of cartridge does this gun prefer? Mostly used for hoboguns that explode</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/required_int_to_fire">required_int_to_fire</a></th><td>Minimum S.P.E.C.I.A.L. Intelligence stat required for using this gun</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/shoot_message_antispam">shoot_message_antispam</a></th><td>Cooldown between times the gun will tell you it shot, 0.5 seconds cus its not super duper important</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/use_casing_sounds">use_casing_sounds</a></th><td>Does the gun use the bullet's sounds, instead of its own?</td></tr>
+            <tr><th><a href="obj/item/gun.html#var/weapon_weight">weapon_weight</a></th><td>used for inaccuracy and wielding requirements/penalties</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/gun_firing_special_stat_check">gun_firing_special_stat_check</a></th><td>INTELLIGENCE</td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/hurt_the_holder">hurt_the_holder</a></th><td>&quot;The Shitgun misfires,&quot;
+Everyone gets to hear how shitty your gun is</td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/misfire_act">misfire_act</a></th><td>your stupid gun shits itself</td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/misfire_yeet_gun">misfire_yeet_gun</a></th><td>subtypes that do everything differnt suuuuuuuck</td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/set_gun_light">set_gun_light</a></th><td>Swaps the gun's seclight, dropping the old seclight if it has not been qdel'd.</td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/update_firemode_hud">update_firemode_hud</a></th><td>prefiltering</td></tr>
+            <tr><th><a href="obj/item/gun.html#proc/very_unsafe_set_firemode">very_unsafe_set_firemode</a></th><td>Set firemode , but without a refresh_upgrades at the start</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/added_spread"><aside class="declaration">var </aside>added_spread
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 140"/></a></h3>
+        <p>Gun's inherent inaccuracy, basically the minimum spread</p><h3 id="var/autofire_shot_delay"><aside class="declaration">var </aside>autofire_shot_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 71"/></a></h3>
+        <p>Time between individual shots when firing full-auto.</p><h3 id="var/burst_shot_delay"><aside class="declaration">var </aside>burst_shot_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L67">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 67"/></a></h3>
+        <p>The time between shots in burst.</p><h3 id="var/burst_size"><aside class="declaration">var </aside>burst_size
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 65"/></a></h3>
+        <p>the following is controlled almost entirely by the firemode, changing it here wouldnt do anything meaningful
+Weapon is burst fire if this is above 1</p><h3 id="var/busy_action"><aside class="declaration">var </aside>busy_action
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 79"/></a></h3>
+        <p>Used in gun-in-mouth execution/suicide and similar, while TRUE nothing should work on this like firing or modification and so on and so forth.</p><h3 id="var/can_circuit"><aside class="declaration">var </aside>can_circuit
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 59"/></a></h3>
+        <p>can we be put in a circuit</p><h3 id="var/can_emitter"><aside class="declaration">var </aside>can_emitter
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 61"/></a></h3>
+        <p>can we be put in an emitter</p><h3 id="var/can_turret"><aside class="declaration">var </aside>can_turret
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 57"/></a></h3>
+        <p>can we be put into a turret</p><h3 id="var/cock_delay"><aside class="declaration">var </aside>cock_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 137"/></a></h3>
+        <p>Time that much pass between cocking your gun, if it supports it</p><h3 id="var/cooldown_delay_mods"><aside class="declaration">var </aside>cooldown_delay_mods
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L167">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 167"/></a></h3>
+        <p>What kind of temporary refire delay modifiers do we have?</p><h3 id="var/draw_time"><aside class="declaration">var </aside>draw_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 43"/></a></h3>
+        <p>Time it takes between drawing the gun and shooting the gun</p><h3 id="var/extra_speed"><aside class="declaration">var </aside>extra_speed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 83"/></a></h3>
+        <p>Adds this speed to the bullet, in pixels per second</p><h3 id="var/fire_delay"><aside class="declaration">var </aside>fire_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L69">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 69"/></a></h3>
+        <p>The time between firing actions, this means between bursts if this is burst weapon. The reason this is 0 is because you are still, by default, limited by clickdelay.</p><h3 id="var/firing"><aside class="declaration">var </aside>firing
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L77">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 77"/></a></h3>
+        <p>Currently firing, whether or not it's a burst or not.</p><h3 id="var/gun_accuracy_zone_type"><aside class="declaration">var </aside>gun_accuracy_zone_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L163">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 163"/></a></h3>
+        <p>How should this gun prefer to weight what limbs they hit</p><h3 id="var/gun_skill_check"><aside class="declaration">var </aside>gun_skill_check
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 165"/></a></h3>
+        <p>What kind of traits should this gun be affected by</p><h3 id="var/hold_it_right_message_antispam"><aside class="declaration">var </aside>hold_it_right_message_antispam
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 175"/></a></h3>
+        <p>Cooldown between times the gun will tell you you're holding it wrong, 1 second cus its not super duper important</p><h3 id="var/last_fire"><aside class="declaration">var </aside>last_fire
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L75">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 75"/></a></h3>
+        <p>Last world.time this was fired</p><h3 id="var/misfire_possibilities"><aside class="declaration">var </aside>misfire_possibilities
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L169">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 169"/></a></h3>
+        <p>What kind of misfires can this thing do? Check out combat.dm for details</p><h3 id="var/prefered_power"><aside class="declaration">var </aside>prefered_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L171">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 171"/></a></h3>
+        <p>What power of cartridge does this gun prefer? Mostly used for hoboguns that explode</p><h3 id="var/required_int_to_fire"><aside class="declaration">var </aside>required_int_to_fire
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L179">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 179"/></a></h3>
+        <p>Minimum S.P.E.C.I.A.L. Intelligence stat required for using this gun</p><h3 id="var/shoot_message_antispam"><aside class="declaration">var </aside>shoot_message_antispam
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L177">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 177"/></a></h3>
+        <p>Cooldown between times the gun will tell you it shot, 0.5 seconds cus its not super duper important</p><h3 id="var/use_casing_sounds"><aside class="declaration">var </aside>use_casing_sounds
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 173"/></a></h3>
+        <p>Does the gun use the bullet's sounds, instead of its own?</p><h3 id="var/weapon_weight"><aside class="declaration">var </aside>weapon_weight
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 81"/></a></h3>
+        <p>used for inaccuracy and wielding requirements/penalties</p><h2 id="proc">Proc Details</h2><h3 id="proc/gun_firing_special_stat_check"><aside class="declaration">proc </aside>gun_firing_special_stat_check<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/special_stats.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;special_stats.dm 185"/></a></aside>
+        </h3>
+        <p>INTELLIGENCE</p><h3 id="proc/hurt_the_holder"><aside class="declaration">proc </aside>hurt_the_holder<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/user, extra_hurt, dmg_divisor) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L1476">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 1476"/></a></aside>
+        </h3>
+        <p>&quot;The Shitgun misfires,&quot;
+Everyone gets to hear how shitty your gun is</p><h3 id="proc/misfire_act"><aside class="declaration">proc </aside>misfire_act<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L1336">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 1336"/></a></aside>
+        </h3>
+        <p>your stupid gun shits itself</p><h3 id="proc/misfire_yeet_gun"><aside class="declaration">proc </aside>misfire_yeet_gun<aside>(/<a href="mob.html">mob</a>/user, throw_harder) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L1558">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 1558"/></a></aside>
+        </h3>
+        <p>subtypes that do everything differnt suuuuuuuck</p><h3 id="proc/set_gun_light"><aside class="declaration">proc </aside>set_gun_light<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/flashlight/seclite/new_light) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L690">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 690"/></a></aside>
+        </h3>
+        <p>Swaps the gun's seclight, dropping the old seclight if it has not been qdel'd.</p>
+<p>Returns the former gun_light that has now been replaced by this proc.
+Arguments:</p>
+<ul>
+<li>new_light - The new light to attach to the weapon. Can be null, which will mean the old light is removed with no replacement.</li>
+</ul><h3 id="proc/update_firemode_hud"><aside class="declaration">proc </aside>update_firemode_hud<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L237">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 237"/></a></aside>
+        </h3>
+        <p>prefiltering</p><h3 id="proc/very_unsafe_set_firemode"><aside class="declaration">proc </aside>very_unsafe_set_firemode<aside>(index) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/projectiles/gun.dm#L1050">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;projectiles&#x2F;gun.dm 1050"/></a></aside>
+        </h3>
+        <p>Set firemode , but without a refresh_upgrades at the start</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

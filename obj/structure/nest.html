@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;structure&#x2F;nest - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/structure/nest.html#var">Var Details</a></header>
+<main>
+<h1>nest <aside>/<a href="obj.html">obj</a>/<a href="obj/structure/nest.html">structure/nest</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L4">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 4"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/coverable">coverable</a></th><td>Can be boarded up</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/coverable_by_dense_things">coverable_by_dense_things</a></th><td>spawner can be covered by dense things</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/covered">covered</a></th><td>Currently boarded up</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/covertype">covertype</a></th><td>Object boarding this thing up?</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/delay_start">delay_start</a></th><td>hold off on spawning, gotta set it up first</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/infinite">infinite</a></th><td>Its infinite!</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/made_loot">made_loot</a></th><td>Did this thing make loot? If so, dont drop more stuff</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/max_mobs">max_mobs</a></th><td>max mobs that can be alive and nearby before it refuses to spawn more</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/overpopulation_range">overpopulation_range</a></th><td>Range to check for other mobs to see if there's too many around</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/radius">radius</a></th><td>A player must be within this range for it to actually spawn</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/randomizer_difficulty">randomizer_difficulty</a></th><td>Which difficulties to pick from - its a bitfield!</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/randomizer_kind">randomizer_kind</a></th><td>Which spawner list to pick from</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/randomizer_tag">randomizer_tag</a></th><td>The ID of our randomizer, so all spawners with this ID will spawn from the same list. Leave null to skip global randomization for this thing</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/spawn_text">spawn_text</a></th><td>verb for when a mob comes out</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/spawn_time">spawn_time</a></th><td>Time between spawns</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/spawned_by_ckey">spawned_by_ckey</a></th><td>If a playermob spawns this, keep track of it</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/spawnsound">spawnsound</a></th><td>Sound to play when a thing spawns</td></tr>
+            <tr><th><a href="obj/structure/nest.html#var/swarm_size">swarm_size</a></th><td>Number of mobs to spawn per cycle, for swarms!</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/coverable"><aside class="declaration">var </aside>coverable
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L16">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 16"/></a></h3>
+        <p>Can be boarded up</p><h3 id="var/coverable_by_dense_things"><aside class="declaration">var </aside>coverable_by_dense_things
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L18">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 18"/></a></h3>
+        <p>spawner can be covered by dense things</p><h3 id="var/covered"><aside class="declaration">var </aside>covered
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L20">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 20"/></a></h3>
+        <p>Currently boarded up</p><h3 id="var/covertype"><aside class="declaration">var </aside>covertype
+            <aside>&ndash; /<a href="obj.html">obj</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L22">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 22"/></a></h3>
+        <p>Object boarding this thing up?</p><h3 id="var/delay_start"><aside class="declaration">var </aside>delay_start
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L48">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 48"/></a></h3>
+        <p>hold off on spawning, gotta set it up first</p><h3 id="var/infinite"><aside class="declaration">var </aside>infinite
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L36">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 36"/></a></h3>
+        <p>Its infinite!</p><h3 id="var/made_loot"><aside class="declaration">var </aside>made_loot
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L24">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 24"/></a></h3>
+        <p>Did this thing make loot? If so, dont drop more stuff</p><h3 id="var/max_mobs"><aside class="declaration">var </aside>max_mobs
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L30">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 30"/></a></h3>
+        <p>max mobs that can be alive and nearby before it refuses to spawn more</p><h3 id="var/overpopulation_range"><aside class="declaration">var </aside>overpopulation_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L28">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 28"/></a></h3>
+        <p>Range to check for other mobs to see if there's too many around</p><h3 id="var/radius"><aside class="declaration">var </aside>radius
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L32">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 32"/></a></h3>
+        <p>A player must be within this range for it to actually spawn</p><h3 id="var/randomizer_difficulty"><aside class="declaration">var </aside>randomizer_difficulty
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L44">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 44"/></a></h3>
+        <p>Which difficulties to pick from - its a bitfield!</p><h3 id="var/randomizer_kind"><aside class="declaration">var </aside>randomizer_kind
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L42">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 42"/></a></h3>
+        <p>Which spawner list to pick from</p><h3 id="var/randomizer_tag"><aside class="declaration">var </aside>randomizer_tag
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L40">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 40"/></a></h3>
+        <p>The ID of our randomizer, so all spawners with this ID will spawn from the same list. Leave null to skip global randomization for this thing</p><h3 id="var/spawn_text"><aside class="declaration">var </aside>spawn_text
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L26">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 26"/></a></h3>
+        <p>verb for when a mob comes out</p><h3 id="var/spawn_time"><aside class="declaration">var </aside>spawn_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L14">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 14"/></a></h3>
+        <p>Time between spawns</p><h3 id="var/spawned_by_ckey"><aside class="declaration">var </aside>spawned_by_ckey
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L46">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 46"/></a></h3>
+        <p>If a playermob spawns this, keep track of it</p><h3 id="var/spawnsound"><aside class="declaration">var </aside>spawnsound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L34">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 34"/></a></h3>
+        <p>Sound to play when a thing spawns</p><h3 id="var/swarm_size"><aside class="declaration">var </aside>swarm_size
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/fallout/obj/structures/mob_spawners.dm#L38">
+        <img src="git.png" width="16" height="16" title="fallout&#x2F;obj&#x2F;structures&#x2F;mob_spawners.dm 38"/></a></h3>
+        <p>Number of mobs to spawn per cycle, for swarms!</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

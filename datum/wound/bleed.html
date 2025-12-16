@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;wound&#x2F;bleed - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/wound/bleed.html#var">Var Details</a> - <a href="datum/wound/bleed.html#proc">Proc Details</a></header>
+<main>
+<h1>bleed <aside>/<a href="datum.html">datum</a>/<a href="datum/wound.html">wound</a>/<a href="datum/wound/bleed.html">bleed</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 5"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/clot_rate">clot_rate</a></th><td>How much the wound stops bleeding per tick. Typically slow, but can be sped up with sutures and such</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/demotes_to">demotes_to</a></th><td>Once wound integrity goes below 0, we demote it to this type of wound. If there's none, we're all better</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/highest_scar">highest_scar</a></th><td>A bad system I'm using to track the worst scar we earned (since we can demote, we want the biggest our wound has been, not what it was when it was cured (probably moderate))</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/initial_flow">initial_flow</a></th><td>How much blood we start losing when this wound is first applied</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/internal_bleeding_chance">internal_bleeding_chance</a></th><td>When hit on this bodypart, we have this chance of losing some blood + the incoming damage</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/internal_bleeding_coefficient">internal_bleeding_coefficient</a></th><td>If we let off blood when hit, the max blood lost is this * the incoming damage</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/low_blood_multiplier">low_blood_multiplier</a></th><td>How much to scale the bleeding if the owner's blood is below low_blood_threshold</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/low_blood_threshold">low_blood_threshold</a></th><td>If our owner's blood level is below this, we'll multiply blood loss by low_blood_multiplier</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/minimum_flow">minimum_flow</a></th><td>The lowest that this wound will naturally bleed, before multipliers</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/promotes_to">promotes_to</a></th><td>If wound integrity goes above its max, we promote it to this type of wound. If there's none, just make it worse</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#var/stopped_by_bandage">stopped_by_bandage</a></th><td>Do bandages fully stop this wound's bleeding?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/apply_wound">apply_wound</a></th><td>apply_wound() is used once a wound type is instantiated to assign it to a bodypart, and actually come into play.
+Somewhat different for bleed wounds. First makes a generic wound based on either slash or pierce
+Then runs Handle Damage to set the actual wounding values and do all the loud splortch stuff</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/check_damage">check_damage</a></th><td>Compares an input limb severity to our current severity, and outputs</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/get_limb_bleed_severity">get_limb_bleed_severity</a></th><td>Returns the limb's target wound severity</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/handle_damage">handle_damage</a></th><td>Update the wound's stats to the apropriate values</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/las_cauterize">las_cauterize</a></th><td>Someone is trying to cauterize a wound with a fucking lasergun - unused for now, doesnt work</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/lick_wounds">lick_wounds</a></th><td>If someone is licking at their wounds cus they're a cat and that works</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/reduce_bloodflow">reduce_bloodflow</a></th><td>calculates how much the wound should be ensmallening</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/suture">suture</a></th><td>If someone is using a suture to close this cut - unused for now, handled by various other mechanics</td></tr>
+            <tr><th><a href="datum/wound/bleed.html#proc/tool_cauterize">tool_cauterize</a></th><td>If someone is using either a cautery tool or something with heat to cauterize this cut</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/clot_rate"><aside class="declaration">var </aside>clot_rate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 19"/></a></h3>
+        <p>How much the wound stops bleeding per tick. Typically slow, but can be sped up with sutures and such</p><h3 id="var/demotes_to"><aside class="declaration">var </aside>demotes_to
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 25"/></a></h3>
+        <p>Once wound integrity goes below 0, we demote it to this type of wound. If there's none, we're all better</p><h3 id="var/highest_scar"><aside class="declaration">var </aside>highest_scar
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/scar.html">scar</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 29"/></a></h3>
+        <p>A bad system I'm using to track the worst scar we earned (since we can demote, we want the biggest our wound has been, not what it was when it was cured (probably moderate))</p><h3 id="var/initial_flow"><aside class="declaration">var </aside>initial_flow
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 15"/></a></h3>
+        <p>How much blood we start losing when this wound is first applied</p><h3 id="var/internal_bleeding_chance"><aside class="declaration">var </aside>internal_bleeding_chance
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L31">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 31"/></a></h3>
+        <p>When hit on this bodypart, we have this chance of losing some blood + the incoming damage</p><h3 id="var/internal_bleeding_coefficient"><aside class="declaration">var </aside>internal_bleeding_coefficient
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 33"/></a></h3>
+        <p>If we let off blood when hit, the max blood lost is this * the incoming damage</p><h3 id="var/low_blood_multiplier"><aside class="declaration">var </aside>low_blood_multiplier
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 21"/></a></h3>
+        <p>How much to scale the bleeding if the owner's blood is below low_blood_threshold</p><h3 id="var/low_blood_threshold"><aside class="declaration">var </aside>low_blood_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 23"/></a></h3>
+        <p>If our owner's blood level is below this, we'll multiply blood loss by low_blood_multiplier</p><h3 id="var/minimum_flow"><aside class="declaration">var </aside>minimum_flow
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 17"/></a></h3>
+        <p>The lowest that this wound will naturally bleed, before multipliers</p><h3 id="var/promotes_to"><aside class="declaration">var </aside>promotes_to
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 27"/></a></h3>
+        <p>If wound integrity goes above its max, we promote it to this type of wound. If there's none, just make it worse</p><h3 id="var/stopped_by_bandage"><aside class="declaration">var </aside>stopped_by_bandage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L35">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 35"/></a></h3>
+        <p>Do bandages fully stop this wound's bleeding?</p><h2 id="proc">Proc Details</h2><h3 id="proc/apply_wound"><aside class="parent"><a title="/datum/wound" href="datum/wound.html#proc/apply_wound">&uarr;</a></aside>apply_wound<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/bodypart.html">bodypart</a>/L, silent, /<a href="datum.html">datum</a>/<a href="datum/wound.html">wound</a>/old_wound, smited) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 52"/></a></aside>
+        </h3>
+        <p>apply_wound() is used once a wound type is instantiated to assign it to a bodypart, and actually come into play.
+Somewhat different for bleed wounds. First makes a generic wound based on either slash or pierce
+Then runs Handle Damage to set the actual wounding values and do all the loud splortch stuff</p>
+<p>if there's already a wound of this type, nothing happens and this instance of the wound is deleted</p>
+<p>Arguments:</p>
+<ul>
+<li>L: The bodypart we're wounding, we don't care about the person, we can get them through the limb</li>
+<li>silent: Not actually necessary I don't think, was originally used for demoting wounds so they wouldn't make new messages, but I believe old_wound took over that, I may remove this shortly</li>
+<li>old_wound: unused</li>
+<li>smited: unused</li>
+</ul><h3 id="proc/check_damage"><aside class="declaration">proc </aside>check_damage<aside>(limb_severity) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L112">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 112"/></a></aside>
+        </h3>
+        <p>Compares an input limb severity to our current severity, and outputs</p><h3 id="proc/get_limb_bleed_severity"><aside class="declaration">proc </aside>get_limb_bleed_severity<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 98"/></a></aside>
+        </h3>
+        <p>Returns the limb's target wound severity</p><h3 id="proc/handle_damage"><aside class="declaration">proc </aside>handle_damage<aside>(silent, can_promote, force_wound, can_reopen, healing) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 84"/></a></aside>
+        </h3>
+        <p>Update the wound's stats to the apropriate values</p><h3 id="proc/las_cauterize"><aside class="declaration">proc </aside>las_cauterize<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gun.html">gun</a>/<a href="obj/item/gun/energy.html">energy</a>/laser/lasgun, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L342">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 342"/></a></aside>
+        </h3>
+        <p>Someone is trying to cauterize a wound with a fucking lasergun - unused for now, doesnt work</p><h3 id="proc/lick_wounds"><aside class="declaration">proc </aside>lick_wounds<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L397">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 397"/></a></aside>
+        </h3>
+        <p>If someone is licking at their wounds cus they're a cat and that works</p><h3 id="proc/reduce_bloodflow"><aside class="declaration">proc </aside>reduce_bloodflow<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L266">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 266"/></a></aside>
+        </h3>
+        <p>calculates how much the wound should be ensmallening</p><h3 id="proc/suture"><aside class="declaration">proc </aside>suture<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/stack.html">stack</a>/<a href="obj/item/stack/medical.html">medical</a>/suture/I, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L357">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 357"/></a></aside>
+        </h3>
+        <p>If someone is using a suture to close this cut - unused for now, handled by various other mechanics</p><h3 id="proc/tool_cauterize"><aside class="declaration">proc </aside>tool_cauterize<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/wounds/bleed.dm#L375">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;wounds&#x2F;bleed.dm 375"/></a></aside>
+        </h3>
+        <p>If someone is using either a cautery tool or something with heat to cauterize this cut</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

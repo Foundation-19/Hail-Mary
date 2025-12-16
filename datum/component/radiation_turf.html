@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;component&#x2F;radiation_turf - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/component/radiation_turf.html#var">Var Details</a> - <a href="datum/component/radiation_turf.html#proc">Proc Details</a></header>
+<main>
+<h1>radiation_turf <aside>/<a href="datum.html">datum</a>/<a href="datum/component.html">component</a>/<a href="datum/component/radiation_turf.html">radiation_turf</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L1">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 1"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#var/our_coordinates">our_coordinates</a></th><td>our coordinates, for when our parent disappears and we need to latch on to something</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#var/radioactive_things">radioactive_things</a></th><td>refs to puddles that supposedly make this tile radioactive, used for tile-changes
+list(&quot;[0x4206900]&quot; = /obj/item/thing) - double check!</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#var/rads">rads</a></th><td>rads per 2 seconds</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#var/thingtoggle">thingtoggle</a></th><td>debug thing, makes flashing happen</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#proc/UnregisterFromParent">UnregisterFromParent</a></th><td>tells the radiation subsys (that really does all the work) to remove this tile from its radlist</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#proc/check_puddles">check_puddles</a></th><td>Checks if our puddles still exist</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#proc/im_still_here">im_still_here</a></th><td>so the SSradturf can periodically check if the shitload of coordinates its remembering are still radioactive</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#proc/on_turf_change">on_turf_change</a></th><td>Tell the radiation system that we're gonna die, put another component at whatever's gonna be here</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#proc/ping_rads">ping_rads</a></th><td>debug shit</td></tr>
+            <tr><th><a href="datum/component/radiation_turf.html#proc/update_rads">update_rads</a></th><td>Alter the tile's radiation up or down.
+Also assume that if something added rads, its either new or changed a bit
+And if it goes down, assume the thing was destroyed. either way, check if everything's okay</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/our_coordinates"><aside class="declaration">var </aside>our_coordinates
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 8"/></a></h3>
+        <p>our coordinates, for when our parent disappears and we need to latch on to something</p><h3 id="var/radioactive_things"><aside class="declaration">var </aside>radioactive_things
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L6">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 6"/></a></h3>
+        <p>refs to puddles that supposedly make this tile radioactive, used for tile-changes
+list(&quot;[0x4206900]&quot; = /obj/item/thing) - double check!</p><h3 id="var/rads"><aside class="declaration">var </aside>rads
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 3"/></a></h3>
+        <p>rads per 2 seconds</p><h3 id="var/thingtoggle"><aside class="declaration">var </aside>thingtoggle
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 10"/></a></h3>
+        <p>debug thing, makes flashing happen</p><h2 id="proc">Proc Details</h2><h3 id="proc/UnregisterFromParent"><aside class="parent"><a title="/datum/component" href="datum/component.html#proc/UnregisterFromParent">&uarr;</a></aside>UnregisterFromParent<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 92"/></a></aside>
+        </h3>
+        <p>tells the radiation subsys (that really does all the work) to remove this tile from its radlist</p><h3 id="proc/check_puddles"><aside class="declaration">proc </aside>check_puddles<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 70"/></a></aside>
+        </h3>
+        <p>Checks if our puddles still exist</p><h3 id="proc/im_still_here"><aside class="declaration">proc </aside>im_still_here<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 88"/></a></aside>
+        </h3>
+        <p>so the SSradturf can periodically check if the shitload of coordinates its remembering are still radioactive</p><h3 id="proc/on_turf_change"><aside class="declaration">proc </aside>on_turf_change<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 98"/></a></aside>
+        </h3>
+        <p>Tell the radiation system that we're gonna die, put another component at whatever's gonna be here</p><h3 id="proc/ping_rads"><aside class="declaration">proc </aside>ping_rads<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 104"/></a></aside>
+        </h3>
+        <p>debug shit</p><h3 id="proc/update_rads"><aside class="declaration">proc </aside>update_rads<aside>(/<a href="turf.html">turf</a>/the_turf, rad_change, reff, typee) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/radiation_turf.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;radiation_turf.dm 55"/></a></aside>
+        </h3>
+        <p>Alter the tile's radiation up or down.
+Also assume that if something added rads, its either new or changed a bit
+And if it goes down, assume the thing was destroyed. either way, check if everything's okay</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

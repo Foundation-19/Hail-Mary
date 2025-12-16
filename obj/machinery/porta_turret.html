@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;machinery&#x2F;porta_turret - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/machinery/porta_turret.html#var">Var Details</a> - <a href="obj/machinery/porta_turret.html#proc">Proc Details</a></header>
+<main>
+<h1>porta_turret <aside>/<a href="obj.html">obj</a>/<a href="obj/machinery/porta_turret.html">machinery/porta_turret</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 60"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/active_scanning">active_scanning</a></th><td>We're in caution mode and beeping every time we scan for something</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/activity_state">activity_state</a></th><td>What state are we in?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/always_up">always_up</a></th><td>Will stay active</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/am_currently_shooting">am_currently_shooting</a></th><td>Are we shooting?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/awake">awake</a></th><td>Are we awake?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/base">base</a></th><td>For turrets inside other objects</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/base_icon_state">base_icon_state</a></th><td>Base turret icon state</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/burst_count">burst_count</a></th><td>Number of shots in a burst</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/burst_delay">burst_delay</a></th><td>Delay between burst shots</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/casing_type_lethal">casing_type_lethal</a></th><td>The bullet we'll use when we try to shoot. This will override the stun and lethal projectile!</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/casing_type_stun">casing_type_stun</a></th><td>The bullet we'll use when we try to shoot. This will override the stun and lethal projectile!</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/caution_burst_max">caution_burst_max</a></th><td>Number of bursts to make in caution mode</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/caution_bursts_left">caution_bursts_left</a></th><td>Number of bursts left to make in caution mode</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/controllock">controllock</a></th><td>If the turret responds to control panels</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/cover">cover</a></th><td>The cover that is covering this turret</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/cp">cp</a></th><td>Linked turret control panel of the turret</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/dropped_loot">dropped_loot</a></th><td>did we already drop our loot?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/faction">faction</a></th><td>Same faction mobs will never be shot at, no matter the other settings</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/gun_charge">gun_charge</a></th><td>The charge of the gun when retrieved from wreckage</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/has_cover">has_cover</a></th><td>Hides the cover</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/installation">installation</a></th><td>The type of weapon installed by default</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/interrupt_sound">interrupt_sound</a></th><td>Noise it makes when it gets interrupted by someone hitting it</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/last_target">last_target</a></th><td>The last target we had, so we can shoot while still trying to scan</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/last_target_turf">last_target_turf</a></th><td>For when we can't see our last target, shoot where they were. Kinda obsess on it, too</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/lethal_projectile">lethal_projectile</a></th><td>Lethal mode projectile type</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/lethal_projectile_sound">lethal_projectile_sound</a></th><td>Sound of lethal projectile</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/locked">locked</a></th><td>If the turret's behaviour control access is locked</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/manual_control">manual_control</a></th><td>If the turret is manually controlled</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/maximum_valid_stat">maximum_valid_stat</a></th><td>Only try to shoot people at this STAT or lower</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/mode">mode</a></th><td>In which mode is turret in, stun or lethal</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/on">on</a></th><td>Determines if the turret is on</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/power_channel">power_channel</a></th><td>Only people with Security access</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/prefire_delay">prefire_delay</a></th><td>Minimum time between shots</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/processing_state">processing_state</a></th><td>What processing state are we in?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/quit_action">quit_action</a></th><td>Action button holder for quitting manual control</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/raised">raised</a></th><td>If the turret cover is &quot;open&quot; and the turret is raised</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/raising">raising</a></th><td>If the turret is currently opening or closing its cover</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/remote_controller">remote_controller</a></th><td>Mob that is remotely controlling the turret</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/reqpower">reqpower</a></th><td>Power needed per shot</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/scan_ping_max">scan_ping_max</a></th><td>Number of &quot;I scanned&quot; beeps to make</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/scan_ping_sound">scan_ping_sound</a></th><td>Noise it makes when it scans for targets while interested</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/scan_pings_left">scan_pings_left</a></th><td>Number of &quot;I scanned&quot; beeps left to make</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/scan_range">scan_range</a></th><td>Scan range of the turret for locating targets</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/scan_rate">scan_rate</a></th><td>Rate the turret will scan for targets</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/shot_delay">shot_delay</a></th><td>Minimum time between shots</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/shot_spread">shot_spread</a></th><td>Inaccuracy in degrees</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/shot_stagger">shot_stagger</a></th><td>MISSING:</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/sleep_sound">sleep_sound</a></th><td>Noise it makes when it gets bored and goes to sleep</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/spark_system">spark_system</a></th><td>The spark system, used for generating... sparks?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/stored_gun">stored_gun</a></th><td>What stored gun is in the turret</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/stun_projectile">stun_projectile</a></th><td>Stun mode projectile type</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/stun_projectile_sound">stun_projectile_sound</a></th><td>Sound of stun projectile</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/target_sound">target_sound</a></th><td>Noise it makes when it sees someone it doesnt like</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/toggle_action">toggle_action</a></th><td>Action button holder for switching between turret modes when manually controlling</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_flags">turret_flags</a></th><td>Turret flags about who is turret allowed to shoot</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_laser_pointer_antispam">turret_laser_pointer_antispam</a></th><td>Time between being told there's a laser there</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_pointer_icon">turret_pointer_icon</a></th><td>The laserpointer the turret uses' icon</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_pointer_state">turret_pointer_state</a></th><td>The laserpointer the turret uses</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_prefire_delay">turret_prefire_delay</a></th><td>Cooldown for shooting</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_refire_delay">turret_refire_delay</a></th><td>Cooldown for shooting</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/turret_scan_cooldown">turret_scan_cooldown</a></th><td>Time between scanning for targets</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/wakeup_sound">wakeup_sound</a></th><td>Noise it makes when something activates it</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#var/wall_turret_direction">wall_turret_direction</a></th><td>The turret will try to shoot from a turf in that direction when in a wall</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/assess_perp">assess_perp</a></th><td>Unused (would pretty much always return true, cus everyone's armed)</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/can_see_target">can_see_target</a></th><td>cant shoot whats invisible
+Ignore dying targets
+If it cares about faction, and the thing's your faction, skip it
+If its got a client, add it
+If if its an animal (or ghoul), add it
+If if its a raider, or some kind of vaguely intelligent humanlike, add it
+If if its a robot, add it
+Can we see the target?</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/change_activity_state">change_activity_state</a></th><td>Changes our mode to another, and does a thing</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/clear_cooldowns">clear_cooldowns</a></th><td>Clears the cooldowns =3</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/clear_targets">clear_targets</a></th><td>clears our targets</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/drop_loot">drop_loot</a></th><td>dumps loot all over the place</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/enter_alert_mode">enter_alert_mode</a></th><td>Enter alert mode!</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/enter_caution_mode">enter_caution_mode</a></th><td>caution mode is mostly handled elsewhere</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/enter_evasion_mode">enter_evasion_mode</a></th><td>Set up the beeps</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/enter_sleep_mode">enter_sleep_mode</a></th><td>telll everyone we're going to sleep</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/in_faction">in_faction</a></th><td>Checks if the target is in the turret's faction</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/interrupt_and_set_to_alert">interrupt_and_set_to_alert</a></th><td>We dont have a target, look for targets. If we just got out of shooting, beep while scanning for a while
+We can see our target, start blasting
+We lost sight of our target, shoot where we last saw them
+Interrupts our current mode, and sets it to alert
+For when something hits it and it needs to retaliate</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/interrupt_and_set_to_evasion">interrupt_and_set_to_evasion</a></th><td>Interrupts our current mode, and sets it to evasion
+For when our target is downed</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/open_fire_on_target">open_fire_on_target</a></th><td>Read our stored weakref targets, pick if we're aiming at the mob or their last turf
+then pass that to start_shooting to start shooting at it
+If passed a target, it'll try to shoot at that target. Mainly used for direct control</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/record_target_weakref">record_target_weakref</a></th><td>Records our target's weakref, and their turf's weakref
+Defaults to whatever's being targetttttttttttttttttted</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/scan_for_targets">scan_for_targets</a></th><td>Scans for targets. If we're in evasion mode, also beep</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/shine_laser_pointer">shine_laser_pointer</a></th><td>Points a laser at something
+Kinda ignores line of sight</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/shoot_at_target">shoot_at_target</a></th><td>Fires one shot at the target -- but only if they're okay
+typically only fed a turf, so if nyou're gonna ncheck for nmobs, locate them on the turf</td></tr>
+            <tr><th><a href="obj/machinery/porta_turret.html#proc/turf_has_valid_target">turf_has_valid_target</a></th><td>Checks if someone on the turf is okay to shoot
+Returns true if someone in the turf is alive and well
+Also returns true if nobody's on the turf
+otherwise it returns false and interrupts the shooting loop
+oh yeah it returns the mob on the turf if it finds a shootable one
+and the turf if nobody's on the turf
+basically throw a corpse at the dot to make it think ur dead</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/active_scanning"><aside class="declaration">var </aside>active_scanning
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L163">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 163"/></a></h3>
+        <p>We're in caution mode and beeping every time we scan for something</p><h3 id="var/activity_state"><aside class="declaration">var </aside>activity_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L197">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 197"/></a></h3>
+        <p>What state are we in?</p><h3 id="var/always_up"><aside class="declaration">var </aside>always_up
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 109"/></a></h3>
+        <p>Will stay active</p><h3 id="var/am_currently_shooting"><aside class="declaration">var </aside>am_currently_shooting
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L193">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 193"/></a></h3>
+        <p>Are we shooting?</p><h3 id="var/awake"><aside class="declaration">var </aside>awake
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L177">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 177"/></a></h3>
+        <p>Are we awake?</p><h3 id="var/base"><aside class="declaration">var </aside>base
+            <aside>&ndash; /<a href="atom.html">atom</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 81"/></a></h3>
+        <p>For turrets inside other objects</p><h3 id="var/base_icon_state"><aside class="declaration">var </aside>base_icon_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L77">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 77"/></a></h3>
+        <p>Base turret icon state</p><h3 id="var/burst_count"><aside class="declaration">var </aside>burst_count
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 183"/></a></h3>
+        <p>Number of shots in a burst</p><h3 id="var/burst_delay"><aside class="declaration">var </aside>burst_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 185"/></a></h3>
+        <p>Delay between burst shots</p><h3 id="var/casing_type_lethal"><aside class="declaration">var </aside>casing_type_lethal
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/ammo_casing.html">ammo_casing</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L189">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 189"/></a></h3>
+        <p>The bullet we'll use when we try to shoot. This will override the stun and lethal projectile!</p><h3 id="var/casing_type_stun"><aside class="declaration">var </aside>casing_type_stun
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/ammo_casing.html">ammo_casing</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L191">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 191"/></a></h3>
+        <p>The bullet we'll use when we try to shoot. This will override the stun and lethal projectile!</p><h3 id="var/caution_burst_max"><aside class="declaration">var </aside>caution_burst_max
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L159">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 159"/></a></h3>
+        <p>Number of bursts to make in caution mode</p><h3 id="var/caution_bursts_left"><aside class="declaration">var </aside>caution_bursts_left
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L161">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 161"/></a></h3>
+        <p>Number of bursts left to make in caution mode</p><h3 id="var/controllock"><aside class="declaration">var </aside>controllock
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L89">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 89"/></a></h3>
+        <p>If the turret responds to control panels</p><h3 id="var/cover"><aside class="declaration">var </aside>cover
+            <aside>&ndash; /<a href="obj.html">obj</a>/machinery/porta_turret_cover</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 113"/></a></h3>
+        <p>The cover that is covering this turret</p><h3 id="var/cp"><aside class="declaration">var </aside>cp
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/machinery/turretid.html">machinery/turretid</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 123"/></a></h3>
+        <p>Linked turret control panel of the turret</p><h3 id="var/dropped_loot"><aside class="declaration">var </aside>dropped_loot
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L195">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 195"/></a></h3>
+        <p>did we already drop our loot?</p><h3 id="var/faction"><aside class="declaration">var </aside>faction
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L119">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 119"/></a></h3>
+        <p>Same faction mobs will never be shot at, no matter the other settings</p><h3 id="var/gun_charge"><aside class="declaration">var </aside>gun_charge
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L95">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 95"/></a></h3>
+        <p>The charge of the gun when retrieved from wreckage</p><h3 id="var/has_cover"><aside class="declaration">var </aside>has_cover
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L111">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 111"/></a></h3>
+        <p>Hides the cover</p><h3 id="var/installation"><aside class="declaration">var </aside>installation
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 91"/></a></h3>
+        <p>The type of weapon installed by default</p><h3 id="var/interrupt_sound"><aside class="declaration">var </aside>interrupt_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 175"/></a></h3>
+        <p>Noise it makes when it gets interrupted by someone hitting it</p><h3 id="var/last_target"><aside class="declaration">var </aside>last_target
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L179">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 179"/></a></h3>
+        <p>The last target we had, so we can shoot while still trying to scan</p><h3 id="var/last_target_turf"><aside class="declaration">var </aside>last_target_turf
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L181">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 181"/></a></h3>
+        <p>For when we can't see our last target, shoot where they were. Kinda obsess on it, too</p><h3 id="var/lethal_projectile"><aside class="declaration">var </aside>lethal_projectile
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L103">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 103"/></a></h3>
+        <p>Lethal mode projectile type</p><h3 id="var/lethal_projectile_sound"><aside class="declaration">var </aside>lethal_projectile_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L105">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 105"/></a></h3>
+        <p>Sound of lethal projectile</p><h3 id="var/locked"><aside class="declaration">var </aside>locked
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L87">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 87"/></a></h3>
+        <p>If the turret's behaviour control access is locked</p><h3 id="var/manual_control"><aside class="declaration">var </aside>manual_control
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L127">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 127"/></a></h3>
+        <p>If the turret is manually controlled</p><h3 id="var/maximum_valid_stat"><aside class="declaration">var </aside>maximum_valid_stat
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 137"/></a></h3>
+        <p>Only try to shoot people at this STAT or lower</p><h3 id="var/mode"><aside class="declaration">var </aside>mode
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 97"/></a></h3>
+        <p>In which mode is turret in, stun or lethal</p><h3 id="var/on"><aside class="declaration">var </aside>on
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 117"/></a></h3>
+        <p>Determines if the turret is on</p><h3 id="var/power_channel">power_channel
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 72"/></a></h3>
+        <p>Only people with Security access</p><h3 id="var/prefire_delay"><aside class="declaration">var </aside>prefire_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L149">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 149"/></a></h3>
+        <p>Minimum time between shots</p><h3 id="var/processing_state"><aside class="declaration">var </aside>processing_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L199">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 199"/></a></h3>
+        <p>What processing state are we in?</p><h3 id="var/quit_action"><aside class="declaration">var </aside>quit_action
+            <aside>&ndash; /<a href="datum.html">datum</a>/action/turret_quit</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 129"/></a></h3>
+        <p>Action button holder for quitting manual control</p><h3 id="var/raised"><aside class="declaration">var </aside>raised
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 83"/></a></h3>
+        <p>If the turret cover is &quot;open&quot; and the turret is raised</p><h3 id="var/raising"><aside class="declaration">var </aside>raising
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L85">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 85"/></a></h3>
+        <p>If the turret is currently opening or closing its cover</p><h3 id="var/remote_controller"><aside class="declaration">var </aside>remote_controller
+            <aside>&ndash; /<a href="mob.html">mob</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L133">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 133"/></a></h3>
+        <p>Mob that is remotely controlling the turret</p><h3 id="var/reqpower"><aside class="declaration">var </aside>reqpower
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 107"/></a></h3>
+        <p>Power needed per shot</p><h3 id="var/scan_ping_max"><aside class="declaration">var </aside>scan_ping_max
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L153">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 153"/></a></h3>
+        <p>Number of &quot;I scanned&quot; beeps to make</p><h3 id="var/scan_ping_sound"><aside class="declaration">var </aside>scan_ping_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L169">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 169"/></a></h3>
+        <p>Noise it makes when it scans for targets while interested</p><h3 id="var/scan_pings_left"><aside class="declaration">var </aside>scan_pings_left
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L155">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 155"/></a></h3>
+        <p>Number of &quot;I scanned&quot; beeps left to make</p><h3 id="var/scan_range"><aside class="declaration">var </aside>scan_range
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 79"/></a></h3>
+        <p>Scan range of the turret for locating targets</p><h3 id="var/scan_rate"><aside class="declaration">var </aside>scan_rate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L157">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 157"/></a></h3>
+        <p>Rate the turret will scan for targets</p><h3 id="var/shot_delay"><aside class="declaration">var </aside>shot_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L145">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 145"/></a></h3>
+        <p>Minimum time between shots</p><h3 id="var/shot_spread"><aside class="declaration">var </aside>shot_spread
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L187">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 187"/></a></h3>
+        <p>Inaccuracy in degrees</p><h3 id="var/shot_stagger"><aside class="declaration">var </aside>shot_stagger
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L135">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 135"/></a></h3>
+        <p>MISSING:</p><h3 id="var/sleep_sound"><aside class="declaration">var </aside>sleep_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 173"/></a></h3>
+        <p>Noise it makes when it gets bored and goes to sleep</p><h3 id="var/spark_system"><aside class="declaration">var </aside>spark_system
+            <aside>&ndash; /<a href="datum.html">datum</a>/effect_system/spark_spread</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L121">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 121"/></a></h3>
+        <p>The spark system, used for generating... sparks?</p><h3 id="var/stored_gun"><aside class="declaration">var </aside>stored_gun
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/gun.html">gun</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L93">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 93"/></a></h3>
+        <p>What stored gun is in the turret</p><h3 id="var/stun_projectile"><aside class="declaration">var </aside>stun_projectile
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 99"/></a></h3>
+        <p>Stun mode projectile type</p><h3 id="var/stun_projectile_sound"><aside class="declaration">var </aside>stun_projectile_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L101">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 101"/></a></h3>
+        <p>Sound of stun projectile</p><h3 id="var/target_sound"><aside class="declaration">var </aside>target_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L167">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 167"/></a></h3>
+        <p>Noise it makes when it sees someone it doesnt like</p><h3 id="var/toggle_action"><aside class="declaration">var </aside>toggle_action
+            <aside>&ndash; /<a href="datum.html">datum</a>/action/turret_toggle</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L131">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 131"/></a></h3>
+        <p>Action button holder for switching between turret modes when manually controlling</p><h3 id="var/turret_flags"><aside class="declaration">var </aside>turret_flags
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L115">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 115"/></a></h3>
+        <p>Turret flags about who is turret allowed to shoot</p><h3 id="var/turret_laser_pointer_antispam"><aside class="declaration">var </aside>turret_laser_pointer_antispam
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L143">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 143"/></a></h3>
+        <p>Time between being told there's a laser there</p><h3 id="var/turret_pointer_icon"><aside class="declaration">var </aside>turret_pointer_icon
+            <aside>&ndash; /icon</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L139">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 139"/></a></h3>
+        <p>The laserpointer the turret uses' icon</p><h3 id="var/turret_pointer_state"><aside class="declaration">var </aside>turret_pointer_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L141">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 141"/></a></h3>
+        <p>The laserpointer the turret uses</p><h3 id="var/turret_prefire_delay"><aside class="declaration">var </aside>turret_prefire_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L151">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 151"/></a></h3>
+        <p>Cooldown for shooting</p><h3 id="var/turret_refire_delay"><aside class="declaration">var </aside>turret_refire_delay
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L147">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 147"/></a></h3>
+        <p>Cooldown for shooting</p><h3 id="var/turret_scan_cooldown"><aside class="declaration">var </aside>turret_scan_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 165"/></a></h3>
+        <p>Time between scanning for targets</p><h3 id="var/wakeup_sound"><aside class="declaration">var </aside>wakeup_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L171">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 171"/></a></h3>
+        <p>Noise it makes when something activates it</p><h3 id="var/wall_turret_direction"><aside class="declaration">var </aside>wall_turret_direction
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 125"/></a></h3>
+        <p>The turret will try to shoot from a turf in that direction when in a wall</p><h2 id="proc">Proc Details</h2><h3 id="proc/assess_perp"><aside class="declaration">proc </aside>assess_perp<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/<a href="mob/living/carbon/human.html">human</a>/perp) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L802">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 802"/></a></aside>
+        </h3>
+        <p>Unused (would pretty much always return true, cus everyone's armed)</p><h3 id="proc/can_see_target"><aside class="declaration">proc </aside>can_see_target<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L692">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 692"/></a></aside>
+        </h3>
+        <p>cant shoot whats invisible
+Ignore dying targets
+If it cares about faction, and the thing's your faction, skip it
+If its got a client, add it
+If if its an animal (or ghoul), add it
+If if its a raider, or some kind of vaguely intelligent humanlike, add it
+If if its a robot, add it
+Can we see the target?</p><h3 id="proc/change_activity_state"><aside class="declaration">proc </aside>change_activity_state<aside>(new_state, force_it) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L612">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 612"/></a></aside>
+        </h3>
+        <p>Changes our mode to another, and does a thing</p><h3 id="proc/clear_cooldowns"><aside class="declaration">proc </aside>clear_cooldowns<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L628">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 628"/></a></aside>
+        </h3>
+        <p>Clears the cooldowns =3</p><h3 id="proc/clear_targets"><aside class="declaration">proc </aside>clear_targets<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L746">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 746"/></a></aside>
+        </h3>
+        <p>clears our targets</p><h3 id="proc/drop_loot"><aside class="declaration">proc </aside>drop_loot<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L504">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 504"/></a></aside>
+        </h3>
+        <p>dumps loot all over the place</p><h3 id="proc/enter_alert_mode"><aside class="declaration">proc </aside>enter_alert_mode<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L704">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 704"/></a></aside>
+        </h3>
+        <p>Enter alert mode!</p><h3 id="proc/enter_caution_mode"><aside class="declaration">proc </aside>enter_caution_mode<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L721">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 721"/></a></aside>
+        </h3>
+        <p>caution mode is mostly handled elsewhere</p><h3 id="proc/enter_evasion_mode"><aside class="declaration">proc </aside>enter_evasion_mode<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L726">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 726"/></a></aside>
+        </h3>
+        <p>Set up the beeps</p><h3 id="proc/enter_sleep_mode"><aside class="declaration">proc </aside>enter_sleep_mode<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L735">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 735"/></a></aside>
+        </h3>
+        <p>telll everyone we're going to sleep</p><h3 id="proc/in_faction"><aside class="declaration">proc </aside>in_faction<aside>(/<a href="mob.html">mob</a>/target) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L823">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 823"/></a></aside>
+        </h3>
+        <p>Checks if the target is in the turret's faction</p><h3 id="proc/interrupt_and_set_to_alert"><aside class="declaration">proc </aside>interrupt_and_set_to_alert<aside>(/<a href="atom.html">atom</a>/assailant) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L595">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 595"/></a></aside>
+        </h3>
+        <p>We dont have a target, look for targets. If we just got out of shooting, beep while scanning for a while
+We can see our target, start blasting
+We lost sight of our target, shoot where we last saw them
+Interrupts our current mode, and sets it to alert
+For when something hits it and it needs to retaliate</p><h3 id="proc/interrupt_and_set_to_evasion"><aside class="declaration">proc </aside>interrupt_and_set_to_evasion<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L607">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 607"/></a></aside>
+        </h3>
+        <p>Interrupts our current mode, and sets it to evasion
+For when our target is downed</p><h3 id="proc/open_fire_on_target"><aside class="declaration">proc </aside>open_fire_on_target<aside>(/<a href="atom.html">atom</a>/forced_target) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L844">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 844"/></a></aside>
+        </h3>
+        <p>Read our stored weakref targets, pick if we're aiming at the mob or their last turf
+then pass that to start_shooting to start shooting at it
+If passed a target, it'll try to shoot at that target. Mainly used for direct control</p><h3 id="proc/record_target_weakref"><aside class="declaration">proc </aside>record_target_weakref<aside>(/<a href="atom.html">atom</a>/new_target, just_turf) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L831">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 831"/></a></aside>
+        </h3>
+        <p>Records our target's weakref, and their turf's weakref
+Defaults to whatever's being targetttttttttttttttttted</p><h3 id="proc/scan_for_targets"><aside class="declaration">proc </aside>scan_for_targets<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L635">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 635"/></a></aside>
+        </h3>
+        <p>Scans for targets. If we're in evasion mode, also beep</p><h3 id="proc/shine_laser_pointer"><aside class="declaration">proc </aside>shine_laser_pointer<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L752">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 752"/></a></aside>
+        </h3>
+        <p>Points a laser at something
+Kinda ignores line of sight</p><h3 id="proc/shoot_at_target"><aside class="declaration">proc </aside>shoot_at_target<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/target, /<a href="turf.html">turf</a>/our_turf) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L900">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 900"/></a></aside>
+        </h3>
+        <p>Fires one shot at the target -- but only if they're okay
+typically only fed a turf, so if nyou're gonna ncheck for nmobs, locate them on the turf</p><h3 id="proc/turf_has_valid_target"><aside class="declaration">proc </aside>turf_has_valid_target<aside>(/<a href="turf.html">turf</a>/the_turf) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/porta_turret/portable_turret.dm#L973">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;porta_turret&#x2F;portable_turret.dm 973"/></a></aside>
+        </h3>
+        <p>Checks if someone on the turf is okay to shoot
+Returns true if someone in the turf is alive and well
+Also returns true if nobody's on the turf
+otherwise it returns false and interrupts the shooting loop
+oh yeah it returns the mob on the turf if it finds a shootable one
+and the turf if nobody's on the turf
+basically throw a corpse at the dot to make it think ur dead</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

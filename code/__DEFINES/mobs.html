@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;mobs.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/mobs.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/mobs.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_NORMAL">BLOOD_VOLUME_NORMAL</a></th><td>Normal baseline blood volume</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_SAFE">BLOOD_VOLUME_SAFE</a></th><td>The amount blood typically regenerates to on its own</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_SYMPTOMS_WARN">BLOOD_VOLUME_SYMPTOMS_WARN</a></th><td>First stage of bloodloss, mostly warnings</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_SYMPTOMS_MINOR">BLOOD_VOLUME_SYMPTOMS_MINOR</a></th><td>Second stage of bloodloss, minor harmless symptoms</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_SYMPTOMS_ANNOYING">BLOOD_VOLUME_SYMPTOMS_ANNOYING</a></th><td>Third stage of bloodloss, annoying, but not particularly disabling, symptoms</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_SYMPTOMS_DEBILITATING">BLOOD_VOLUME_SYMPTOMS_DEBILITATING</a></th><td>Fourth stage of bloodloss, worst symptoms begin, combat sucks</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_SYMPTOMS_WORST">BLOOD_VOLUME_SYMPTOMS_WORST</a></th><td>Fifth stage of bloodloss, absolutely disabling, combat is impossible, rip~</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_DEATH">BLOOD_VOLUME_DEATH</a></th><td>Okay die now</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_EXPANDER_MAX">BLOOD_VOLUME_EXPANDER_MAX</a></th><td>Max level blood stretchers can bring your blood up to</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_PER_TICK">BLOOD_REFILL_PER_TICK</a></th><td>Max level blood will regenerate naturally with nutrition</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_MAX">BLOOD_REFILL_NUTRITION_MAX</a></th><td>Max level blood will regenerate naturally with nutrition</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_UNIT_NUTRITION_COST">BLOOD_UNIT_NUTRITION_COST</a></th><td>Nutrition cost for one unit of blood</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_FAT">BLOOD_REFILL_NUTRITION_FAT</a></th><td>Nutrition spent for being stuffed/fat</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_FULL">BLOOD_REFILL_NUTRITION_FULL</a></th><td>Nutrition spent for being full</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_WELL_FED">BLOOD_REFILL_NUTRITION_WELL_FED</a></th><td>Nutrition spent for being well fed</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_FED">BLOOD_REFILL_NUTRITION_FED</a></th><td>Nutrition spent for being fed</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_HUNGRY">BLOOD_REFILL_NUTRITION_HUNGRY</a></th><td>Nutrition spent for being hungie</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_REFILL_NUTRITION_STARVING">BLOOD_REFILL_NUTRITION_STARVING</a></th><td>Nutrition spent for being starving</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_VOLUME_LOSS_FLOOR">BLOOD_VOLUME_LOSS_FLOOR</a></th><td>Lowest amount normal bleeding can take you</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_OXYLOSS_CAP_MINOR">BLOOD_LOSS_OXYLOSS_CAP_MINOR</a></th><td>Cap for oxyloss in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_DIZZINESS_CAP_MINOR">BLOOD_LOSS_DIZZINESS_CAP_MINOR</a></th><td>Cap for dizziness in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_CONFUSION_CAP_MINOR">BLOOD_LOSS_CONFUSION_CAP_MINOR</a></th><td>Cap for confusion in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_BLUR_CAP_MINOR">BLOOD_LOSS_BLUR_CAP_MINOR</a></th><td>Cap for blurriness in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_STAMLOSS_CAP_MINOR">BLOOD_LOSS_STAMLOSS_CAP_MINOR</a></th><td>Cap for stamloss in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_BUFFER_MULT_MINOR">BLOOD_LOSS_SPRINT_BUFFER_MULT_MINOR</a></th><td>Multiplier sprint buffer in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_REGEN_MULT_MINOR">BLOOD_LOSS_SPRINT_REGEN_MULT_MINOR</a></th><td>How fast the sprint buffer regens in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_COST_MULT_MINOR">BLOOD_LOSS_SPRINT_COST_MULT_MINOR</a></th><td>How much sprinting a tile costs in minor blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_CHANCE_MINOR">BLOOD_LOSS_KNOCKDOWN_CHANCE_MINOR</a></th><td>Chance for a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_LENGTH_MINOR">BLOOD_LOSS_KNOCKDOWN_LENGTH_MINOR</a></th><td>Length of a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SLOWDOWN_MINOR">BLOOD_LOSS_SLOWDOWN_MINOR</a></th><td>Slowdown applied in this level of bloodloss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_OXYLOSS_CAP_ANNOYING">BLOOD_LOSS_OXYLOSS_CAP_ANNOYING</a></th><td>Cap for oxyloss in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_DIZZINESS_CAP_ANNOYING">BLOOD_LOSS_DIZZINESS_CAP_ANNOYING</a></th><td>Cap for dizziness in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_CONFUSION_CAP_ANNOYING">BLOOD_LOSS_CONFUSION_CAP_ANNOYING</a></th><td>Cap for confusion in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_BLUR_CAP_ANNOYING">BLOOD_LOSS_BLUR_CAP_ANNOYING</a></th><td>Cap for blurriness in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_STAMLOSS_CAP_ANNOYING">BLOOD_LOSS_STAMLOSS_CAP_ANNOYING</a></th><td>Cap for stamloss in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_BUFFER_MULT_ANNOYING">BLOOD_LOSS_SPRINT_BUFFER_MULT_ANNOYING</a></th><td>Multiplier sprint buffer in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_REGEN_MULT_ANNOYING">BLOOD_LOSS_SPRINT_REGEN_MULT_ANNOYING</a></th><td>How fast the sprint buffer regens in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_COST_MULT_ANNOYING">BLOOD_LOSS_SPRINT_COST_MULT_ANNOYING</a></th><td>How much sprinting a tile costs in annoying blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_CHANCE_ANNOYING">BLOOD_LOSS_KNOCKDOWN_CHANCE_ANNOYING</a></th><td>Chance for a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_LENGTH_ANNOYING">BLOOD_LOSS_KNOCKDOWN_LENGTH_ANNOYING</a></th><td>Length of a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SLOWDOWN_ANNOYING">BLOOD_LOSS_SLOWDOWN_ANNOYING</a></th><td>Slowdown applied in this level of bloodloss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_OXYLOSS_CAP_DEBILITATING">BLOOD_LOSS_OXYLOSS_CAP_DEBILITATING</a></th><td>Cap for oxyloss in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_DIZZINESS_CAP_DEBILITATING">BLOOD_LOSS_DIZZINESS_CAP_DEBILITATING</a></th><td>Cap for dizziness in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_CONFUSION_CAP_DEBILITATING">BLOOD_LOSS_CONFUSION_CAP_DEBILITATING</a></th><td>Cap for confusion in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_BLUR_CAP_DEBILITATING">BLOOD_LOSS_BLUR_CAP_DEBILITATING</a></th><td>Cap for blurriness in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_STAMLOSS_CAP_DEBILITATING">BLOOD_LOSS_STAMLOSS_CAP_DEBILITATING</a></th><td>Cap for stamloss in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_BUFFER_MULT_DEBILITATING">BLOOD_LOSS_SPRINT_BUFFER_MULT_DEBILITATING</a></th><td>Multiplier sprint buffer in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_REGEN_MULT_DEBILITATING">BLOOD_LOSS_SPRINT_REGEN_MULT_DEBILITATING</a></th><td>How fast the sprint buffer regens in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_COST_MULT_DEBILITATING">BLOOD_LOSS_SPRINT_COST_MULT_DEBILITATING</a></th><td>How much sprinting a tile costs in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_CHANCE_DEBILITATING">BLOOD_LOSS_KNOCKDOWN_CHANCE_DEBILITATING</a></th><td>Chance for a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_LENGTH_DEBILITATING">BLOOD_LOSS_KNOCKDOWN_LENGTH_DEBILITATING</a></th><td>Length of a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SLOWDOWN_DEBILITATING">BLOOD_LOSS_SLOWDOWN_DEBILITATING</a></th><td>Slowdown applied in this level of bloodloss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_OXYLOSS_CAP_WORST">BLOOD_LOSS_OXYLOSS_CAP_WORST</a></th><td>Cap for oxyloss in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_DIZZINESS_CAP_WORST">BLOOD_LOSS_DIZZINESS_CAP_WORST</a></th><td>Cap for dizziness in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_CONFUSION_CAP_WORST">BLOOD_LOSS_CONFUSION_CAP_WORST</a></th><td>Cap for confusion in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_BLUR_CAP_WORST">BLOOD_LOSS_BLUR_CAP_WORST</a></th><td>Cap for blurriness in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_STAMLOSS_CAP_WORST">BLOOD_LOSS_STAMLOSS_CAP_WORST</a></th><td>Cap for stamloss in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_BUFFER_MULT_WORST">BLOOD_LOSS_SPRINT_BUFFER_MULT_WORST</a></th><td>Multiplier sprint buffer in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_REGEN_MULT_WORST">BLOOD_LOSS_SPRINT_REGEN_MULT_WORST</a></th><td>How fast the sprint buffer regens in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SPRINT_COST_MULT_WORST">BLOOD_LOSS_SPRINT_COST_MULT_WORST</a></th><td>How much sprinting a tile costs in worst blood loss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_CHANCE_WORST">BLOOD_LOSS_KNOCKDOWN_CHANCE_WORST</a></th><td>Chance for a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_KNOCKDOWN_LENGTH_WORST">BLOOD_LOSS_KNOCKDOWN_LENGTH_WORST</a></th><td>Length of a random knockdown</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_SLOWDOWN_WORST">BLOOD_LOSS_SLOWDOWN_WORST</a></th><td>Slowdown applied in this level of bloodloss</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_LOSS_OXYLOSS_UNCONSCIOUS">BLOOD_LOSS_OXYLOSS_UNCONSCIOUS</a></th><td>Oxyloss when you actually go unconscious</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_ANEMIA_MESSAGE_WARN">BLOOD_ANEMIA_MESSAGE_WARN</a></th><td>Defines for getting the right anemia message
+Warning message</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_ANEMIA_MESSAGE_MINOR">BLOOD_ANEMIA_MESSAGE_MINOR</a></th><td>Minor. Blood loss. Detected.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_ANEMIA_MESSAGE_ANNOYING">BLOOD_ANEMIA_MESSAGE_ANNOYING</a></th><td>Annoying anemia level message</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_ANEMIA_MESSAGE_DEBILITATING">BLOOD_ANEMIA_MESSAGE_DEBILITATING</a></th><td>Minor. Blood loss. Detected.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BLOOD_ANEMIA_MESSAGE_WORST">BLOOD_ANEMIA_MESSAGE_WORST</a></th><td>Annoying anemia level message</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SHOCK_NOGLOVES">SHOCK_NOGLOVES</a></th><td>Flags used by the flags parameter of electrocute act.
+Makes it so that the shock doesn't take gloves into account.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SHOCK_TESLA">SHOCK_TESLA</a></th><td>Used when the shock is from a tesla bolt.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SHOCK_ILLUSION">SHOCK_ILLUSION</a></th><td>Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SHOCK_NOSTUN">SHOCK_NOSTUN</a></th><td>The shock doesn't stun.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/FOV_90_DEGREES">FOV_90_DEGREES</a></th><td>Field of vision defines.</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/EYE_CONTACT_RANGE">EYE_CONTACT_RANGE</a></th><td>How far away you can be to make eye contact with someone while examining</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/EXAMINE_MORE_TIME">EXAMINE_MORE_TIME</a></th><td>If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SPAWN_MEGAFAUNA">SPAWN_MEGAFAUNA</a></th><td>Define for spawning megafauna instead of a mob for cave gen</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_NAME_LIST">MOB_VARIED_NAME_LIST</a></th><td>Mob variation defines
+Varied mob name</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_NAME_LIST">MOB_NAME_LIST</a></th><td>Varied name</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_NAME_GLOBAL_LIST">MOB_VARIED_NAME_GLOBAL_LIST</a></th><td>Use either the above or this one, not both!!! (this one takes priority if you do tho)
+Varied mob name, using global name lists!</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_NAME_FROM_GLOBAL_LIST">MOB_NAME_FROM_GLOBAL_LIST</a></th><td>Varied name, with global shit</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_NAME_RANDOM_MALE">MOB_NAME_RANDOM_MALE</a></th><td>Random name special keys</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_RANDOM_NAME">MOB_RANDOM_NAME</a></th><td>use this for random pool names, please. Multiples are usable!</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_COLOR">MOB_VARIED_COLOR</a></th><td>Varied mob color holder</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_COLOR_MIN">MOB_VARIED_COLOR_MIN</a></th><td>Varied mob color min</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_COLOR_MAX">MOB_VARIED_COLOR_MAX</a></th><td>Varied mob color max</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_COLOR_VARIATION">MOB_COLOR_VARIATION</a></th><td>Varied mob color value setter upper - first 3 numbers are the LOWEST R, G, B values, second 3 numbers are the HIGHEST R, G, B values</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_VIEW_RANGE">MOB_VARIED_VIEW_RANGE</a></th><td>Varied view range define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VIEW_RANGE_LIST">MOB_VIEW_RANGE_LIST</a></th><td>Varied view ranges</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_AGGRO_RANGE">MOB_VARIED_AGGRO_RANGE</a></th><td>Varied aggro range define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_AGGRO_RANGE_LIST">MOB_AGGRO_RANGE_LIST</a></th><td>Varied aggro ranges</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_SPEED">MOB_VARIED_SPEED</a></th><td>Varied speed define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_SPEED_CHANCE">MOB_VARIED_SPEED_CHANCE</a></th><td>Varied speed chance define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_SPEED_LIST">MOB_SPEED_LIST</a></th><td>Varied speed list</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_SPEED_CHANGE_PER_TURN_CHANCE">MOB_SPEED_CHANGE_PER_TURN_CHANCE</a></th><td>Varied speed list chance</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_VARIED_HEALTH">MOB_VARIED_HEALTH</a></th><td>Varied health define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_HEALTH_LIST">MOB_HEALTH_LIST</a></th><td>Varied health list</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_RETREAT_DISTANCE">MOB_RETREAT_DISTANCE</a></th><td>Varied retreat define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_RETREAT_DISTANCE_CHANCE">MOB_RETREAT_DISTANCE_CHANCE</a></th><td>Varied retreat define chance</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_RETREAT_DISTANCE_LIST">MOB_RETREAT_DISTANCE_LIST</a></th><td>Varied retreat list</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE">MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE</a></th><td>Varied retreat list chance</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_MINIMUM_DISTANCE">MOB_MINIMUM_DISTANCE</a></th><td>Varied minimum define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_MINIMUM_DISTANCE_CHANCE">MOB_MINIMUM_DISTANCE_CHANCE</a></th><td>Varied minimum define chance</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_MINIMUM_DISTANCE_LIST">MOB_MINIMUM_DISTANCE_LIST</a></th><td>Varied minimum list</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE">MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE</a></th><td>Varied minimum list chance</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_PROJECTILE">MOB_PROJECTILE</a></th><td>Varied projectile define</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_PROJECTILE_LIST">MOB_PROJECTILE_LIST</a></th><td>Varied projectile list</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_PROJECTILE_ENTRY">MOB_PROJECTILE_ENTRY</a></th><td>Varied projectiles they can shoot, weighted chance to do the thing too</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_EMP_STUN">MOB_EMP_STUN</a></th><td>Mob EMP reaction flags
+For mobs that react to EMP to do something other than take a little damage
+Mob gets stunned for a moment</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_EMP_BERSERK">MOB_EMP_BERSERK</a></th><td>Mob goes berserk for a moment</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_EMP_DAMAGE">MOB_EMP_DAMAGE</a></th><td>Mob takes damage</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_EMP_SCRAMBLE">MOB_EMP_SCRAMBLE</a></th><td>Mob gets their combat setting scrambled</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/ATTACK_MESSAGE_ANTISPAM_TIME">ATTACK_MESSAGE_ANTISPAM_TIME</a></th><td>cooldown for being spammed with projectile messages</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SIMPLE_MOB_DING_COOLDOWN">SIMPLE_MOB_DING_COOLDOWN</a></th><td>cooldown for making the DING</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/BIG_MOB_MIN_PLAYERS">BIG_MOB_MIN_PLAYERS</a></th><td>living players needed to jump into big mobs</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MED_MOB_MIN_PLAYERS">MED_MOB_MIN_PLAYERS</a></th><td>living players needed to jump into medium mobs</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SMALL_MOB_MIN_PLAYERS">SMALL_MOB_MIN_PLAYERS</a></th><td>living players needed to jump into medium mobs</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_POWER_FULL_MIN_PLAYERS">MOB_POWER_FULL_MIN_PLAYERS</a></th><td>living players needed to activate full mob ability powers</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_POWER_SOME_MIN_PLAYERS">MOB_POWER_SOME_MIN_PLAYERS</a></th><td>living players needed to activate limited mob ability powers</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/MOB_LOOT_ALL">MOB_LOOT_ALL</a></th><td>Drop everything in the mob loot list</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/SIMPLEMOB_NO_STAMCRIT">SIMPLEMOB_NO_STAMCRIT</a></th><td>Simple mob cannot be stamcrit</td></tr>
+        <tr><th><a href="code/__DEFINES/mobs.html#define/TATTOO_VISIBILITY_RANGE">TATTOO_VISIBILITY_RANGE</a></th><td>Max distance you can see tats</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/ATTACK_MESSAGE_ANTISPAM_TIME"><aside class="declaration">#define </aside>ATTACK_MESSAGE_ANTISPAM_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L606">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 606"/></a>
+    </h3>
+    <p>cooldown for being spammed with projectile messages</p><h3 id="define/BIG_MOB_MIN_PLAYERS"><aside class="declaration">#define </aside>BIG_MOB_MIN_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L611">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 611"/></a>
+    </h3>
+    <p>living players needed to jump into big mobs</p><h3 id="define/BLOOD_ANEMIA_MESSAGE_ANNOYING"><aside class="declaration">#define </aside>BLOOD_ANEMIA_MESSAGE_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L163">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 163"/></a>
+    </h3>
+    <p>Annoying anemia level message</p><h3 id="define/BLOOD_ANEMIA_MESSAGE_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_ANEMIA_MESSAGE_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L165">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 165"/></a>
+    </h3>
+    <p>Minor. Blood loss. Detected.</p><h3 id="define/BLOOD_ANEMIA_MESSAGE_MINOR"><aside class="declaration">#define </aside>BLOOD_ANEMIA_MESSAGE_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L161">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 161"/></a>
+    </h3>
+    <p>Minor. Blood loss. Detected.</p><h3 id="define/BLOOD_ANEMIA_MESSAGE_WARN"><aside class="declaration">#define </aside>BLOOD_ANEMIA_MESSAGE_WARN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L159">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 159"/></a>
+    </h3>
+    <p>Defines for getting the right anemia message
+Warning message</p><h3 id="define/BLOOD_ANEMIA_MESSAGE_WORST"><aside class="declaration">#define </aside>BLOOD_ANEMIA_MESSAGE_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L167">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 167"/></a>
+    </h3>
+    <p>Annoying anemia level message</p><h3 id="define/BLOOD_LOSS_BLUR_CAP_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_BLUR_CAP_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 92"/></a>
+    </h3>
+    <p>Cap for blurriness in annoying blood loss</p><h3 id="define/BLOOD_LOSS_BLUR_CAP_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_BLUR_CAP_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L115">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 115"/></a>
+    </h3>
+    <p>Cap for blurriness in worst blood loss</p><h3 id="define/BLOOD_LOSS_BLUR_CAP_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_BLUR_CAP_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L69">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 69"/></a>
+    </h3>
+    <p>Cap for blurriness in minor blood loss</p><h3 id="define/BLOOD_LOSS_BLUR_CAP_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_BLUR_CAP_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L138">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 138"/></a>
+    </h3>
+    <p>Cap for blurriness in worst blood loss</p><h3 id="define/BLOOD_LOSS_CONFUSION_CAP_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_CONFUSION_CAP_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L90">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 90"/></a>
+    </h3>
+    <p>Cap for confusion in annoying blood loss</p><h3 id="define/BLOOD_LOSS_CONFUSION_CAP_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_CONFUSION_CAP_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 113"/></a>
+    </h3>
+    <p>Cap for confusion in worst blood loss</p><h3 id="define/BLOOD_LOSS_CONFUSION_CAP_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_CONFUSION_CAP_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L67">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 67"/></a>
+    </h3>
+    <p>Cap for confusion in minor blood loss</p><h3 id="define/BLOOD_LOSS_CONFUSION_CAP_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_CONFUSION_CAP_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L136">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 136"/></a>
+    </h3>
+    <p>Cap for confusion in worst blood loss</p><h3 id="define/BLOOD_LOSS_DIZZINESS_CAP_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_DIZZINESS_CAP_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 88"/></a>
+    </h3>
+    <p>Cap for dizziness in annoying blood loss</p><h3 id="define/BLOOD_LOSS_DIZZINESS_CAP_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_DIZZINESS_CAP_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L111">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 111"/></a>
+    </h3>
+    <p>Cap for dizziness in worst blood loss</p><h3 id="define/BLOOD_LOSS_DIZZINESS_CAP_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_DIZZINESS_CAP_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 65"/></a>
+    </h3>
+    <p>Cap for dizziness in minor blood loss</p><h3 id="define/BLOOD_LOSS_DIZZINESS_CAP_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_DIZZINESS_CAP_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L134">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 134"/></a>
+    </h3>
+    <p>Cap for dizziness in worst blood loss</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_CHANCE_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_CHANCE_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L102">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 102"/></a>
+    </h3>
+    <p>Chance for a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_CHANCE_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_CHANCE_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 125"/></a>
+    </h3>
+    <p>Chance for a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_CHANCE_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_CHANCE_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 79"/></a>
+    </h3>
+    <p>Chance for a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_CHANCE_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_CHANCE_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 148"/></a>
+    </h3>
+    <p>Chance for a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_LENGTH_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_LENGTH_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L104">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 104"/></a>
+    </h3>
+    <p>Length of a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_LENGTH_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_LENGTH_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L127">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 127"/></a>
+    </h3>
+    <p>Length of a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_LENGTH_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_LENGTH_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L81">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 81"/></a>
+    </h3>
+    <p>Length of a random knockdown</p><h3 id="define/BLOOD_LOSS_KNOCKDOWN_LENGTH_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_KNOCKDOWN_LENGTH_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L150">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 150"/></a>
+    </h3>
+    <p>Length of a random knockdown</p><h3 id="define/BLOOD_LOSS_OXYLOSS_CAP_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_OXYLOSS_CAP_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 86"/></a>
+    </h3>
+    <p>Cap for oxyloss in annoying blood loss</p><h3 id="define/BLOOD_LOSS_OXYLOSS_CAP_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_OXYLOSS_CAP_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L109">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 109"/></a>
+    </h3>
+    <p>Cap for oxyloss in worst blood loss</p><h3 id="define/BLOOD_LOSS_OXYLOSS_CAP_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_OXYLOSS_CAP_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 63"/></a>
+    </h3>
+    <p>Cap for oxyloss in minor blood loss</p><h3 id="define/BLOOD_LOSS_OXYLOSS_CAP_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_OXYLOSS_CAP_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L132">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 132"/></a>
+    </h3>
+    <p>Cap for oxyloss in worst blood loss</p><h3 id="define/BLOOD_LOSS_OXYLOSS_UNCONSCIOUS"><aside class="declaration">#define </aside>BLOOD_LOSS_OXYLOSS_UNCONSCIOUS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L155">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 155"/></a>
+    </h3>
+    <p>Oxyloss when you actually go unconscious</p><h3 id="define/BLOOD_LOSS_SLOWDOWN_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_SLOWDOWN_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L106">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 106"/></a>
+    </h3>
+    <p>Slowdown applied in this level of bloodloss</p><h3 id="define/BLOOD_LOSS_SLOWDOWN_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_SLOWDOWN_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 129"/></a>
+    </h3>
+    <p>Slowdown applied in this level of bloodloss</p><h3 id="define/BLOOD_LOSS_SLOWDOWN_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_SLOWDOWN_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 83"/></a>
+    </h3>
+    <p>Slowdown applied in this level of bloodloss</p><h3 id="define/BLOOD_LOSS_SLOWDOWN_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_SLOWDOWN_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L152">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 152"/></a>
+    </h3>
+    <p>Slowdown applied in this level of bloodloss</p><h3 id="define/BLOOD_LOSS_SPRINT_BUFFER_MULT_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_BUFFER_MULT_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L96">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 96"/></a>
+    </h3>
+    <p>Multiplier sprint buffer in annoying blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_BUFFER_MULT_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_BUFFER_MULT_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L119">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 119"/></a>
+    </h3>
+    <p>Multiplier sprint buffer in worst blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_BUFFER_MULT_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_BUFFER_MULT_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L73">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 73"/></a>
+    </h3>
+    <p>Multiplier sprint buffer in minor blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_BUFFER_MULT_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_BUFFER_MULT_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L142">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 142"/></a>
+    </h3>
+    <p>Multiplier sprint buffer in worst blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_COST_MULT_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_COST_MULT_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L100">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 100"/></a>
+    </h3>
+    <p>How much sprinting a tile costs in annoying blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_COST_MULT_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_COST_MULT_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 123"/></a>
+    </h3>
+    <p>How much sprinting a tile costs in worst blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_COST_MULT_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_COST_MULT_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L77">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 77"/></a>
+    </h3>
+    <p>How much sprinting a tile costs in minor blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_COST_MULT_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_COST_MULT_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L146">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 146"/></a>
+    </h3>
+    <p>How much sprinting a tile costs in worst blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_REGEN_MULT_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_REGEN_MULT_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L98">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 98"/></a>
+    </h3>
+    <p>How fast the sprint buffer regens in annoying blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_REGEN_MULT_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_REGEN_MULT_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L121">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 121"/></a>
+    </h3>
+    <p>How fast the sprint buffer regens in worst blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_REGEN_MULT_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_REGEN_MULT_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L75">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 75"/></a>
+    </h3>
+    <p>How fast the sprint buffer regens in minor blood loss</p><h3 id="define/BLOOD_LOSS_SPRINT_REGEN_MULT_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_SPRINT_REGEN_MULT_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L144">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 144"/></a>
+    </h3>
+    <p>How fast the sprint buffer regens in worst blood loss</p><h3 id="define/BLOOD_LOSS_STAMLOSS_CAP_ANNOYING"><aside class="declaration">#define </aside>BLOOD_LOSS_STAMLOSS_CAP_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L94">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 94"/></a>
+    </h3>
+    <p>Cap for stamloss in annoying blood loss</p><h3 id="define/BLOOD_LOSS_STAMLOSS_CAP_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_LOSS_STAMLOSS_CAP_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L117">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 117"/></a>
+    </h3>
+    <p>Cap for stamloss in worst blood loss</p><h3 id="define/BLOOD_LOSS_STAMLOSS_CAP_MINOR"><aside class="declaration">#define </aside>BLOOD_LOSS_STAMLOSS_CAP_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 71"/></a>
+    </h3>
+    <p>Cap for stamloss in minor blood loss</p><h3 id="define/BLOOD_LOSS_STAMLOSS_CAP_WORST"><aside class="declaration">#define </aside>BLOOD_LOSS_STAMLOSS_CAP_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 140"/></a>
+    </h3>
+    <p>Cap for stamloss in worst blood loss</p><h3 id="define/BLOOD_REFILL_NUTRITION_FAT"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_FAT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 47"/></a>
+    </h3>
+    <p>Nutrition spent for being stuffed/fat</p><h3 id="define/BLOOD_REFILL_NUTRITION_FED"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_FED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 53"/></a>
+    </h3>
+    <p>Nutrition spent for being fed</p><h3 id="define/BLOOD_REFILL_NUTRITION_FULL"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_FULL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 49"/></a>
+    </h3>
+    <p>Nutrition spent for being full</p><h3 id="define/BLOOD_REFILL_NUTRITION_HUNGRY"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_HUNGRY
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 55"/></a>
+    </h3>
+    <p>Nutrition spent for being hungie</p><h3 id="define/BLOOD_REFILL_NUTRITION_MAX"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_MAX
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 43"/></a>
+    </h3>
+    <p>Max level blood will regenerate naturally with nutrition</p><h3 id="define/BLOOD_REFILL_NUTRITION_STARVING"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_STARVING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L57">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 57"/></a>
+    </h3>
+    <p>Nutrition spent for being starving</p><h3 id="define/BLOOD_REFILL_NUTRITION_WELL_FED"><aside class="declaration">#define </aside>BLOOD_REFILL_NUTRITION_WELL_FED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 51"/></a>
+    </h3>
+    <p>Nutrition spent for being well fed</p><h3 id="define/BLOOD_REFILL_PER_TICK"><aside class="declaration">#define </aside>BLOOD_REFILL_PER_TICK
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 40"/></a>
+    </h3>
+    <p>Max level blood will regenerate naturally with nutrition</p><h3 id="define/BLOOD_UNIT_NUTRITION_COST"><aside class="declaration">#define </aside>BLOOD_UNIT_NUTRITION_COST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 45"/></a>
+    </h3>
+    <p>Nutrition cost for one unit of blood</p><h3 id="define/BLOOD_VOLUME_DEATH"><aside class="declaration">#define </aside>BLOOD_VOLUME_DEATH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L29">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 29"/></a>
+    </h3>
+    <p>Okay die now</p><h3 id="define/BLOOD_VOLUME_EXPANDER_MAX"><aside class="declaration">#define </aside>BLOOD_VOLUME_EXPANDER_MAX
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 37"/></a>
+    </h3>
+    <p>Max level blood stretchers can bring your blood up to</p><h3 id="define/BLOOD_VOLUME_LOSS_FLOOR"><aside class="declaration">#define </aside>BLOOD_VOLUME_LOSS_FLOOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 60"/></a>
+    </h3>
+    <p>Lowest amount normal bleeding can take you</p><h3 id="define/BLOOD_VOLUME_NORMAL"><aside class="declaration">#define </aside>BLOOD_VOLUME_NORMAL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 15"/></a>
+    </h3>
+    <p>Normal baseline blood volume</p><h3 id="define/BLOOD_VOLUME_SAFE"><aside class="declaration">#define </aside>BLOOD_VOLUME_SAFE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L17">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 17"/></a>
+    </h3>
+    <p>The amount blood typically regenerates to on its own</p><h3 id="define/BLOOD_VOLUME_SYMPTOMS_ANNOYING"><aside class="declaration">#define </aside>BLOOD_VOLUME_SYMPTOMS_ANNOYING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 23"/></a>
+    </h3>
+    <p>Third stage of bloodloss, annoying, but not particularly disabling, symptoms</p><h3 id="define/BLOOD_VOLUME_SYMPTOMS_DEBILITATING"><aside class="declaration">#define </aside>BLOOD_VOLUME_SYMPTOMS_DEBILITATING
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 25"/></a>
+    </h3>
+    <p>Fourth stage of bloodloss, worst symptoms begin, combat sucks</p><h3 id="define/BLOOD_VOLUME_SYMPTOMS_MINOR"><aside class="declaration">#define </aside>BLOOD_VOLUME_SYMPTOMS_MINOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 21"/></a>
+    </h3>
+    <p>Second stage of bloodloss, minor harmless symptoms</p><h3 id="define/BLOOD_VOLUME_SYMPTOMS_WARN"><aside class="declaration">#define </aside>BLOOD_VOLUME_SYMPTOMS_WARN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 19"/></a>
+    </h3>
+    <p>First stage of bloodloss, mostly warnings</p><h3 id="define/BLOOD_VOLUME_SYMPTOMS_WORST"><aside class="declaration">#define </aside>BLOOD_VOLUME_SYMPTOMS_WORST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 27"/></a>
+    </h3>
+    <p>Fifth stage of bloodloss, absolutely disabling, combat is impossible, rip~</p><h3 id="define/EXAMINE_MORE_TIME"><aside class="declaration">#define </aside>EXAMINE_MORE_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L493">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 493"/></a>
+    </h3>
+    <p>If you examine the same atom twice in this timeframe, we call examine_more() instead of examine()</p><h3 id="define/EYE_CONTACT_RANGE"><aside class="declaration">#define </aside>EYE_CONTACT_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L490">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 490"/></a>
+    </h3>
+    <p>How far away you can be to make eye contact with someone while examining</p><h3 id="define/FOV_90_DEGREES"><aside class="declaration">#define </aside>FOV_90_DEGREES
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L485">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 485"/></a>
+    </h3>
+    <p>Field of vision defines.</p><h3 id="define/MED_MOB_MIN_PLAYERS"><aside class="declaration">#define </aside>MED_MOB_MIN_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L613">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 613"/></a>
+    </h3>
+    <p>living players needed to jump into medium mobs</p><h3 id="define/MOB_AGGRO_RANGE_LIST"><aside class="declaration">#define </aside>MOB_AGGRO_RANGE_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L552">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 552"/></a>
+    </h3>
+    <p>Varied aggro ranges</p><h3 id="define/MOB_COLOR_VARIATION"><aside class="declaration">#define </aside>MOB_COLOR_VARIATION
+            <aside>(R1, G1, B1, R2, B2, G2)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L542">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 542"/></a>
+    </h3>
+    <p>Varied mob color value setter upper - first 3 numbers are the LOWEST R, G, B values, second 3 numbers are the HIGHEST R, G, B values</p><h3 id="define/MOB_EMP_BERSERK"><aside class="declaration">#define </aside>MOB_EMP_BERSERK
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L599">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 599"/></a>
+    </h3>
+    <p>Mob goes berserk for a moment</p><h3 id="define/MOB_EMP_DAMAGE"><aside class="declaration">#define </aside>MOB_EMP_DAMAGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L601">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 601"/></a>
+    </h3>
+    <p>Mob takes damage</p><h3 id="define/MOB_EMP_SCRAMBLE"><aside class="declaration">#define </aside>MOB_EMP_SCRAMBLE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L603">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 603"/></a>
+    </h3>
+    <p>Mob gets their combat setting scrambled</p><h3 id="define/MOB_EMP_STUN"><aside class="declaration">#define </aside>MOB_EMP_STUN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L597">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 597"/></a>
+    </h3>
+    <p>Mob EMP reaction flags
+For mobs that react to EMP to do something other than take a little damage
+Mob gets stunned for a moment</p><h3 id="define/MOB_HEALTH_LIST"><aside class="declaration">#define </aside>MOB_HEALTH_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L566">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 566"/></a>
+    </h3>
+    <p>Varied health list</p><h3 id="define/MOB_LOOT_ALL"><aside class="declaration">#define </aside>MOB_LOOT_ALL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L622">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 622"/></a>
+    </h3>
+    <p>Drop everything in the mob loot list</p><h3 id="define/MOB_MINIMUM_DISTANCE"><aside class="declaration">#define </aside>MOB_MINIMUM_DISTANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L578">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 578"/></a>
+    </h3>
+    <p>Varied minimum define</p><h3 id="define/MOB_MINIMUM_DISTANCE_CHANCE"><aside class="declaration">#define </aside>MOB_MINIMUM_DISTANCE_CHANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L580">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 580"/></a>
+    </h3>
+    <p>Varied minimum define chance</p><h3 id="define/MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE"><aside class="declaration">#define </aside>MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE
+            <aside>(x)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L584">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 584"/></a>
+    </h3>
+    <p>Varied minimum list chance</p><h3 id="define/MOB_MINIMUM_DISTANCE_LIST"><aside class="declaration">#define </aside>MOB_MINIMUM_DISTANCE_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L582">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 582"/></a>
+    </h3>
+    <p>Varied minimum list</p><h3 id="define/MOB_NAME_FROM_GLOBAL_LIST"><aside class="declaration">#define </aside>MOB_NAME_FROM_GLOBAL_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L521">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 521"/></a>
+    </h3>
+    <p>Varied name, with global shit</p><h3 id="define/MOB_NAME_LIST"><aside class="declaration">#define </aside>MOB_NAME_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L515">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 515"/></a>
+    </h3>
+    <p>Varied name</p><h3 id="define/MOB_NAME_RANDOM_MALE"><aside class="declaration">#define </aside>MOB_NAME_RANDOM_MALE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L524">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 524"/></a>
+    </h3>
+    <p>Random name special keys</p><h3 id="define/MOB_POWER_FULL_MIN_PLAYERS"><aside class="declaration">#define </aside>MOB_POWER_FULL_MIN_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L617">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 617"/></a>
+    </h3>
+    <p>living players needed to activate full mob ability powers</p><h3 id="define/MOB_POWER_SOME_MIN_PLAYERS"><aside class="declaration">#define </aside>MOB_POWER_SOME_MIN_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L619">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 619"/></a>
+    </h3>
+    <p>living players needed to activate limited mob ability powers</p><h3 id="define/MOB_PROJECTILE"><aside class="declaration">#define </aside>MOB_PROJECTILE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L587">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 587"/></a>
+    </h3>
+    <p>Varied projectile define</p><h3 id="define/MOB_PROJECTILE_ENTRY"><aside class="declaration">#define </aside>MOB_PROJECTILE_ENTRY
+            <aside>(proj, chance)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L591">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 591"/></a>
+    </h3>
+    <p>Varied projectiles they can shoot, weighted chance to do the thing too</p><h3 id="define/MOB_PROJECTILE_LIST"><aside class="declaration">#define </aside>MOB_PROJECTILE_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L589">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 589"/></a>
+    </h3>
+    <p>Varied projectile list</p><h3 id="define/MOB_RANDOM_NAME"><aside class="declaration">#define </aside>MOB_RANDOM_NAME
+            <aside>(key, count)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L533">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 533"/></a>
+    </h3>
+    <p>use this for random pool names, please. Multiples are usable!</p><h3 id="define/MOB_RETREAT_DISTANCE"><aside class="declaration">#define </aside>MOB_RETREAT_DISTANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L569">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 569"/></a>
+    </h3>
+    <p>Varied retreat define</p><h3 id="define/MOB_RETREAT_DISTANCE_CHANCE"><aside class="declaration">#define </aside>MOB_RETREAT_DISTANCE_CHANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L571">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 571"/></a>
+    </h3>
+    <p>Varied retreat define chance</p><h3 id="define/MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE"><aside class="declaration">#define </aside>MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE
+            <aside>(x)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L575">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 575"/></a>
+    </h3>
+    <p>Varied retreat list chance</p><h3 id="define/MOB_RETREAT_DISTANCE_LIST"><aside class="declaration">#define </aside>MOB_RETREAT_DISTANCE_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L573">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 573"/></a>
+    </h3>
+    <p>Varied retreat list</p><h3 id="define/MOB_SPEED_CHANGE_PER_TURN_CHANCE"><aside class="declaration">#define </aside>MOB_SPEED_CHANGE_PER_TURN_CHANCE
+            <aside>(x)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L561">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 561"/></a>
+    </h3>
+    <p>Varied speed list chance</p><h3 id="define/MOB_SPEED_LIST"><aside class="declaration">#define </aside>MOB_SPEED_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L559">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 559"/></a>
+    </h3>
+    <p>Varied speed list</p><h3 id="define/MOB_VARIED_AGGRO_RANGE"><aside class="declaration">#define </aside>MOB_VARIED_AGGRO_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L550">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 550"/></a>
+    </h3>
+    <p>Varied aggro range define</p><h3 id="define/MOB_VARIED_COLOR"><aside class="declaration">#define </aside>MOB_VARIED_COLOR
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L536">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 536"/></a>
+    </h3>
+    <p>Varied mob color holder</p><h3 id="define/MOB_VARIED_COLOR_MAX"><aside class="declaration">#define </aside>MOB_VARIED_COLOR_MAX
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L540">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 540"/></a>
+    </h3>
+    <p>Varied mob color max</p><h3 id="define/MOB_VARIED_COLOR_MIN"><aside class="declaration">#define </aside>MOB_VARIED_COLOR_MIN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L538">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 538"/></a>
+    </h3>
+    <p>Varied mob color min</p><h3 id="define/MOB_VARIED_HEALTH"><aside class="declaration">#define </aside>MOB_VARIED_HEALTH
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L564">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 564"/></a>
+    </h3>
+    <p>Varied health define</p><h3 id="define/MOB_VARIED_NAME_GLOBAL_LIST"><aside class="declaration">#define </aside>MOB_VARIED_NAME_GLOBAL_LIST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L519">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 519"/></a>
+    </h3>
+    <p>Use either the above or this one, not both!!! (this one takes priority if you do tho)
+Varied mob name, using global name lists!</p><h3 id="define/MOB_VARIED_NAME_LIST"><aside class="declaration">#define </aside>MOB_VARIED_NAME_LIST
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L513">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 513"/></a>
+    </h3>
+    <p>Mob variation defines
+Varied mob name</p><h3 id="define/MOB_VARIED_SPEED"><aside class="declaration">#define </aside>MOB_VARIED_SPEED
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L555">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 555"/></a>
+    </h3>
+    <p>Varied speed define</p><h3 id="define/MOB_VARIED_SPEED_CHANCE"><aside class="declaration">#define </aside>MOB_VARIED_SPEED_CHANCE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L557">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 557"/></a>
+    </h3>
+    <p>Varied speed chance define</p><h3 id="define/MOB_VARIED_VIEW_RANGE"><aside class="declaration">#define </aside>MOB_VARIED_VIEW_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L545">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 545"/></a>
+    </h3>
+    <p>Varied view range define</p><h3 id="define/MOB_VIEW_RANGE_LIST"><aside class="declaration">#define </aside>MOB_VIEW_RANGE_LIST
+            <aside>(x ...)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L547">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 547"/></a>
+    </h3>
+    <p>Varied view ranges</p><h3 id="define/SHOCK_ILLUSION"><aside class="declaration">#define </aside>SHOCK_ILLUSION
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L399">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 399"/></a>
+    </h3>
+    <p>Used when an illusion shocks something. Makes the shock deal stamina damage and not trigger certain secondary effects.</p><h3 id="define/SHOCK_NOGLOVES"><aside class="declaration">#define </aside>SHOCK_NOGLOVES
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L395">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 395"/></a>
+    </h3>
+    <p>Flags used by the flags parameter of electrocute act.
+Makes it so that the shock doesn't take gloves into account.</p><h3 id="define/SHOCK_NOSTUN"><aside class="declaration">#define </aside>SHOCK_NOSTUN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L401">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 401"/></a>
+    </h3>
+    <p>The shock doesn't stun.</p><h3 id="define/SHOCK_TESLA"><aside class="declaration">#define </aside>SHOCK_TESLA
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L397">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 397"/></a>
+    </h3>
+    <p>Used when the shock is from a tesla bolt.</p><h3 id="define/SIMPLEMOB_NO_STAMCRIT"><aside class="declaration">#define </aside>SIMPLEMOB_NO_STAMCRIT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L625">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 625"/></a>
+    </h3>
+    <p>Simple mob cannot be stamcrit</p><h3 id="define/SIMPLE_MOB_DING_COOLDOWN"><aside class="declaration">#define </aside>SIMPLE_MOB_DING_COOLDOWN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L608">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 608"/></a>
+    </h3>
+    <p>cooldown for making the DING</p><h3 id="define/SMALL_MOB_MIN_PLAYERS"><aside class="declaration">#define </aside>SMALL_MOB_MIN_PLAYERS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L615">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 615"/></a>
+    </h3>
+    <p>living players needed to jump into medium mobs</p><h3 id="define/SPAWN_MEGAFAUNA"><aside class="declaration">#define </aside>SPAWN_MEGAFAUNA
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L505">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 505"/></a>
+    </h3>
+    <p>Define for spawning megafauna instead of a mob for cave gen</p><h3 id="define/TATTOO_VISIBILITY_RANGE"><aside class="declaration">#define </aside>TATTOO_VISIBILITY_RANGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/mobs.dm#L628">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;mobs.dm 628"/></a>
+    </h3>
+    <p>Max distance you can see tats</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

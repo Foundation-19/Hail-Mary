@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;obj&#x2F;item&#x2F;stack&#x2F;medical - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="obj/item/stack/medical.html#var">Var Details</a> - <a href="obj/item/stack/medical.html#proc">Proc Details</a></header>
+<main>
+<h1>medical <aside>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/stack.html">stack</a>/<a href="obj/item/stack/medical.html">medical</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 16"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/bandage_power">bandage_power</a></th><td>How much of an effect does the bandage have on wound healing?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/bandage_staunch">bandage_staunch</a></th><td>How much of an effect does the bandage have on slowing bloodloss?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/can_heal_critters">can_heal_critters</a></th><td>Can this heal critters?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/covering_hitpoints">covering_hitpoints</a></th><td>Bandages have a number of hits it can sustain before falling apart. this is that number</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/covering_lifespan">covering_lifespan</a></th><td>How long this bandage should last on someone before falling apart</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/end_sound">end_sound</a></th><td>Sound to play on end</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/flesh_regeneration">flesh_regeneration</a></th><td>How much we add to flesh_healing for burn wounds on application</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/heal_brute">heal_brute</a></th><td>How much brute we heal per application</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/heal_burn">heal_burn</a></th><td>How much burn we heal per application</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/heal_mobs">heal_mobs</a></th><td>How much to heal simplemobs</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/heal_per_tick">heal_per_tick</a></th><td>How much this covering will heal over its healing time</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/hurt_brute">hurt_brute</a></th><td>How much brute we hurt per application</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/infinite_uses">infinite_uses</a></th><td>Infinite?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/is_bandage">is_bandage</a></th><td>Is this a bandage?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/is_healing">is_healing</a></th><td>We have an active do_after, dont superstack healing things</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/is_salve">is_salve</a></th><td>Is this a salve?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/is_suture">is_suture</a></th><td>Is this a suture?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/max_bandage_healing">max_bandage_healing</a></th><td>Bandages will only help with wounds under this amount of bleed_dam on a limb</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/needed_trait">needed_trait</a></th><td>trait needed to use this at full speed and effectiveness. Accepts TRAIT_SURGERY_LOW, TRAIT_SURGERY_MID, TRAIT_SURGERY_HIGH</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/sanitization">sanitization</a></th><td>How much sanitization to apply to burns on application</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/start_sound">start_sound</a></th><td>Sound to play on use</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/suture_power">suture_power</a></th><td>How much of an effect does the suture have on wound healing?</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/told_owner_its_out_of_juice">told_owner_its_out_of_juice</a></th><td>How much of the healing should be applied per cycle
+Told our wearer that we're out of healstuffs</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/unskilled_effectiveness_mult">unskilled_effectiveness_mult</a></th><td>Effectiveness penalty multiplier if they dont have the trait</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#var/unskilled_speed_mult">unskilled_speed_mult</a></th><td>Time penalty multiplier if they dont have the trait</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#proc/check_bodypart">check_bodypart</a></th><td>Checks the limb for things we can do to it
+Returns a string if the limb is certainly not suitable for healing
+Returns a bitfield if the limb can be healed
+Returns 0 if the limb just doesnt need healing</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#proc/get_delay_time">get_delay_time</a></th><td>returns how long it should take to use this thing</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#proc/heal_critter">heal_critter</a></th><td>Okay we can reasonably assume this limb is okay to try and treat</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#proc/is_skilled_enough">is_skilled_enough</a></th><td>now we start doing 'healy' things!
+Returns if the user is skilled enough to use this thing effectively (unused, currently)</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#proc/pick_a_bodypart">pick_a_bodypart</a></th><td>Returns a bodypart and a bitfield in a list with the first valid bodypart we can work on
+Returns just a number (FALSE) if nothing is found</td></tr>
+            <tr><th><a href="obj/item/stack/medical.html#proc/post_heal_effects">post_heal_effects</a></th><td>Override this proc for special post heal effects.</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/bandage_power"><aside class="declaration">var </aside>bandage_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 62"/></a></h3>
+        <p>How much of an effect does the bandage have on wound healing?</p><h3 id="var/bandage_staunch"><aside class="declaration">var </aside>bandage_staunch
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 64"/></a></h3>
+        <p>How much of an effect does the bandage have on slowing bloodloss?</p><h3 id="var/can_heal_critters"><aside class="declaration">var </aside>can_heal_critters
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 72"/></a></h3>
+        <p>Can this heal critters?</p><h3 id="var/covering_hitpoints"><aside class="declaration">var </aside>covering_hitpoints
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 32"/></a></h3>
+        <p>Bandages have a number of hits it can sustain before falling apart. this is that number</p><h3 id="var/covering_lifespan"><aside class="declaration">var </aside>covering_lifespan
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 74"/></a></h3>
+        <p>How long this bandage should last on someone before falling apart</p><h3 id="var/end_sound"><aside class="declaration">var </aside>end_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 88"/></a></h3>
+        <p>Sound to play on end</p><h3 id="var/flesh_regeneration"><aside class="declaration">var </aside>flesh_regeneration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L70">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 70"/></a></h3>
+        <p>How much we add to flesh_healing for burn wounds on application</p><h3 id="var/heal_brute"><aside class="declaration">var </aside>heal_brute
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 48"/></a></h3>
+        <p>How much brute we heal per application</p><h3 id="var/heal_burn"><aside class="declaration">var </aside>heal_burn
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L50">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 50"/></a></h3>
+        <p>How much burn we heal per application</p><h3 id="var/heal_mobs"><aside class="declaration">var </aside>heal_mobs
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 52"/></a></h3>
+        <p>How much to heal simplemobs</p><h3 id="var/heal_per_tick"><aside class="declaration">var </aside>heal_per_tick
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 76"/></a></h3>
+        <p>How much this covering will heal over its healing time</p><h3 id="var/hurt_brute"><aside class="declaration">var </aside>hurt_brute
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 46"/></a></h3>
+        <p>How much brute we hurt per application</p><h3 id="var/infinite_uses"><aside class="declaration">var </aside>infinite_uses
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 82"/></a></h3>
+        <p>Infinite?</p><h3 id="var/is_bandage"><aside class="declaration">var </aside>is_bandage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L54">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 54"/></a></h3>
+        <p>Is this a bandage?</p><h3 id="var/is_healing"><aside class="declaration">var </aside>is_healing
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 34"/></a></h3>
+        <p>We have an active do_after, dont superstack healing things</p><h3 id="var/is_salve"><aside class="declaration">var </aside>is_salve
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 58"/></a></h3>
+        <p>Is this a salve?</p><h3 id="var/is_suture"><aside class="declaration">var </aside>is_suture
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 56"/></a></h3>
+        <p>Is this a suture?</p><h3 id="var/max_bandage_healing"><aside class="declaration">var </aside>max_bandage_healing
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 66"/></a></h3>
+        <p>Bandages will only help with wounds under this amount of bleed_dam on a limb</p><h3 id="var/needed_trait"><aside class="declaration">var </aside>needed_trait
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L36">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 36"/></a></h3>
+        <p>trait needed to use this at full speed and effectiveness. Accepts TRAIT_SURGERY_LOW, TRAIT_SURGERY_MID, TRAIT_SURGERY_HIGH</p><h3 id="var/sanitization"><aside class="declaration">var </aside>sanitization
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L68">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 68"/></a></h3>
+        <p>How much sanitization to apply to burns on application</p><h3 id="var/start_sound"><aside class="declaration">var </aside>start_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 84"/></a></h3>
+        <p>Sound to play on use</p><h3 id="var/suture_power"><aside class="declaration">var </aside>suture_power
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 60"/></a></h3>
+        <p>How much of an effect does the suture have on wound healing?</p><h3 id="var/told_owner_its_out_of_juice"><aside class="declaration">var </aside>told_owner_its_out_of_juice
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L80">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 80"/></a></h3>
+        <p>How much of the healing should be applied per cycle
+Told our wearer that we're out of healstuffs</p><h3 id="var/unskilled_effectiveness_mult"><aside class="declaration">var </aside>unskilled_effectiveness_mult
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L40">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 40"/></a></h3>
+        <p>Effectiveness penalty multiplier if they dont have the trait</p><h3 id="var/unskilled_speed_mult"><aside class="declaration">var </aside>unskilled_speed_mult
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 38"/></a></h3>
+        <p>Time penalty multiplier if they dont have the trait</p><h2 id="proc">Proc Details</h2><h3 id="proc/check_bodypart"><aside class="declaration">proc </aside>check_bodypart<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/user, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/C, /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/<a href="obj/item/bodypart.html">bodypart</a>/target_bodypart, output_message) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L147">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 147"/></a></aside>
+        </h3>
+        <p>Checks the limb for things we can do to it
+Returns a string if the limb is certainly not suitable for healing
+Returns a bitfield if the limb can be healed
+Returns 0 if the limb just doesnt need healing</p><h3 id="proc/get_delay_time"><aside class="declaration">proc </aside>get_delay_time<aside>(/<a href="mob.html">mob</a>/user, /<a href="mob.html">mob</a>/target, is_skilled) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L293">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 293"/></a></aside>
+        </h3>
+        <p>returns how long it should take to use this thing</p><h3 id="proc/heal_critter"><aside class="declaration">proc </aside>heal_critter<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/M, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L178">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 178"/></a></aside>
+        </h3>
+        <p>Okay we can reasonably assume this limb is okay to try and treat</p><h3 id="proc/is_skilled_enough"><aside class="declaration">proc </aside>is_skilled_enough<aside>(/<a href="mob.html">mob</a>/user, /<a href="mob.html">mob</a>/target) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L265">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 265"/></a></aside>
+        </h3>
+        <p>now we start doing 'healy' things!
+Returns if the user is skilled enough to use this thing effectively (unused, currently)</p><h3 id="proc/pick_a_bodypart"><aside class="declaration">proc </aside>pick_a_bodypart<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/C, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 110"/></a></aside>
+        </h3>
+        <p>Returns a bodypart and a bitfield in a list with the first valid bodypart we can work on
+Returns just a number (FALSE) if nothing is found</p><h3 id="proc/post_heal_effects"><aside class="declaration">proc </aside>post_heal_effects<aside>(amount_healed, /<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/carbon.html">carbon</a>/healed_mob, /<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/medical.dm#L374">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;medical.dm 374"/></a></aside>
+        </h3>
+        <p>Override this proc for special post heal effects.</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

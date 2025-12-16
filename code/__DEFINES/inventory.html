@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;__DEFINES&#x2F;inventory.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/__DEFINES/inventory.html#define">Define Details</a></header>
+<main>
+<h1>code/__DEFINES/inventory.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/__DEFINES/inventory.html#define/AFK_THEFT_MAX_MESSAGES">AFK_THEFT_MAX_MESSAGES</a></th><td>How many messages you can remember while logged out before you stop remembering new ones</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/AFK_THEFT_FORGET_DETAILS_TIME">AFK_THEFT_FORGET_DETAILS_TIME</a></th><td>If someone logs back in and there are entries older than this, just tell them they can't remember who it was or when</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/AFK_THEFT_NAME">AFK_THEFT_NAME</a></th><td>The index of the entry in 'afk_thefts' with the person's visible name at the time</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/AFK_THEFT_MESSAGE">AFK_THEFT_MESSAGE</a></th><td>The index of the entry in 'afk_thefts' with the text</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/AFK_THEFT_TIME">AFK_THEFT_TIME</a></th><td>The index of the entry in 'afk_thefts' with the time it happened</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_DEFAULT">STORAGE_ROWS_DEFAULT</a></th><td>Number of rows volume storage should have</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_TINY_POCKET_MAX_ITEMS">STORAGE_TINY_POCKET_MAX_ITEMS</a></th><td>How many items total fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_TINY_POCKET_MAX_SIZE">STORAGE_TINY_POCKET_MAX_SIZE</a></th><td>How big a thing can fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_TINY_POCKET_MAX_TOTAL_SPACE">STORAGE_TINY_POCKET_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SMALL_POCKET_MAX_ITEMS">STORAGE_SMALL_POCKET_MAX_ITEMS</a></th><td>How many items total fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SMALL_POCKET_MAX_SIZE">STORAGE_SMALL_POCKET_MAX_SIZE</a></th><td>How big a thing can fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SMALL_POCKET_MAX_TOTAL_SPACE">STORAGE_SMALL_POCKET_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NORMAL_POCKET_MAX_ITEMS">STORAGE_NORMAL_POCKET_MAX_ITEMS</a></th><td>How many items total fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NORMAL_POCKET_MAX_SIZE">STORAGE_NORMAL_POCKET_MAX_SIZE</a></th><td>How big a thing can fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NORMAL_POCKET_MAX_TOTAL_SPACE">STORAGE_NORMAL_POCKET_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BULKY_POCKET_MAX_ITEMS">STORAGE_BULKY_POCKET_MAX_ITEMS</a></th><td>How many items total fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BULKY_POCKET_MAX_SIZE">STORAGE_BULKY_POCKET_MAX_SIZE</a></th><td>How big a thing can fit in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BULKY_POCKET_MAX_TOTAL_SPACE">STORAGE_BULKY_POCKET_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a pocket</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_SPECIALIZED_MAX_ITEMS">STORAGE_BELT_SPECIALIZED_MAX_ITEMS</a></th><td>How many items total fit in a specialized belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_SPECIALIZED_MAX_SIZE">STORAGE_BELT_SPECIALIZED_MAX_SIZE</a></th><td>How big a thing can fit in a specialized belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_SPECIALIZED_MAX_TOTAL_SPACE">STORAGE_BELT_SPECIALIZED_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a specialized belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_GENERIC_MAX_ITEMS">STORAGE_BELT_GENERIC_MAX_ITEMS</a></th><td>How many items total fit in a generic belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_GENERIC_MAX_SIZE">STORAGE_BELT_GENERIC_MAX_SIZE</a></th><td>How big a thing can fit in a generic belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_GENERIC_MAX_TOTAL_SPACE">STORAGE_BELT_GENERIC_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a generic belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_HOLSTER_MAX_ITEMS">STORAGE_BELT_HOLSTER_MAX_ITEMS</a></th><td>How many items total fit in a holster belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_HOLSTER_MAX_SIZE">STORAGE_BELT_HOLSTER_MAX_SIZE</a></th><td>How big a thing can fit in a holster belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BELT_HOLSTER_MAX_TOTAL_SPACE">STORAGE_BELT_HOLSTER_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a holster belt</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_SPECIALIZED_MAX_ITEMS">STORAGE_NECKPRON_SPECIALIZED_MAX_ITEMS</a></th><td>How many items total fit in a specialized neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_SPECIALIZED_MAX_SIZE">STORAGE_NECKPRON_SPECIALIZED_MAX_SIZE</a></th><td>How big a thing can fit in a specialized neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_SPECIALIZED_MAX_TOTAL_SPACE">STORAGE_NECKPRON_SPECIALIZED_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a specialized neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_GENERIC_MAX_ITEMS">STORAGE_NECKPRON_GENERIC_MAX_ITEMS</a></th><td>How many items total fit in a generic neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_GENERIC_MAX_SIZE">STORAGE_NECKPRON_GENERIC_MAX_SIZE</a></th><td>How big a thing can fit in a generic neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_GENERIC_MAX_TOTAL_SPACE">STORAGE_NECKPRON_GENERIC_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a generic neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_HOLSTER_MAX_ITEMS">STORAGE_NECKPRON_HOLSTER_MAX_ITEMS</a></th><td>How many items total fit in a holster neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_HOLSTER_MAX_SIZE">STORAGE_NECKPRON_HOLSTER_MAX_SIZE</a></th><td>How big a thing can fit in a holster neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_NECKPRON_HOLSTER_MAX_TOTAL_SPACE">STORAGE_NECKPRON_HOLSTER_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a holster neckpron</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_SPECIALIZED_MAX_ITEMS">STORAGE_SUIT_SPECIALIZED_MAX_ITEMS</a></th><td>How many items total fit in a specialized suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_SPECIALIZED_MAX_SIZE">STORAGE_SUIT_SPECIALIZED_MAX_SIZE</a></th><td>How big a thing can fit in a specialized suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_SPECIALIZED_MAX_TOTAL_SPACE">STORAGE_SUIT_SPECIALIZED_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a specialized suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_GENERIC_MAX_ITEMS">STORAGE_SUIT_GENERIC_MAX_ITEMS</a></th><td>How many items total fit in a generic suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_GENERIC_MAX_SIZE">STORAGE_SUIT_GENERIC_MAX_SIZE</a></th><td>How big a thing can fit in a generic suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_GENERIC_MAX_TOTAL_SPACE">STORAGE_SUIT_GENERIC_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a generic suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_JACKET_MAX_ITEMS">STORAGE_SUIT_JACKET_MAX_ITEMS</a></th><td>How many items total fit in a jacket suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_JACKET_MAX_SIZE">STORAGE_SUIT_JACKET_MAX_SIZE</a></th><td>How big a thing can fit in a jacket suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_JACKET_MAX_TOTAL_SPACE">STORAGE_SUIT_JACKET_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a jacket suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_DUSTER_MAX_ITEMS">STORAGE_SUIT_DUSTER_MAX_ITEMS</a></th><td>How many items total fit in a duster suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_DUSTER_MAX_SIZE">STORAGE_SUIT_DUSTER_MAX_SIZE</a></th><td>How big a thing can fit in a duster suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_DUSTER_MAX_TOTAL_SPACE">STORAGE_SUIT_DUSTER_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a duster suit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_DUSTER_ARMOR_MAX_ITEMS">STORAGE_SUIT_DUSTER_ARMOR_MAX_ITEMS</a></th><td>How many items total fit in a duster armor</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_DUSTER_ARMOR_MAX_SIZE">STORAGE_SUIT_DUSTER_ARMOR_MAX_SIZE</a></th><td>How big a thing can fit in a duster armor</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SUIT_DUSTER_ARMOR_MAX_TOTAL_SPACE">STORAGE_SUIT_DUSTER_ARMOR_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a duster armor</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BAG_MAX_ITEMS">STORAGE_BAG_MAX_ITEMS</a></th><td>How many items total fit in a bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BAG_MAX_SIZE">STORAGE_BAG_MAX_SIZE</a></th><td>How big a thing can fit in a bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BAG_MAX_TOTAL_SPACE">STORAGE_BAG_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SALVAGE_BAG_MAX_ITEMS">STORAGE_SALVAGE_BAG_MAX_ITEMS</a></th><td>How many items fit in a salvage bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SALVAGE_BAG_MAX_SIZE">STORAGE_SALVAGE_BAG_MAX_SIZE</a></th><td>How big a thing can fit in a bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_SALVAGE_BAG_MAX_TOTAL_SPACE">STORAGE_SALVAGE_BAG_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_TRASH_BAG_MAX_ITEMS">STORAGE_TRASH_BAG_MAX_ITEMS</a></th><td>How many items total fit in a trash bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_TRASH_BAG_MAX_SIZE">STORAGE_TRASH_BAG_MAX_SIZE</a></th><td>How big a thing can fit in a trash bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_TRASH_BAG_MAX_TOTAL_SPACE">STORAGE_TRASH_BAG_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a trash bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BIG_TRASH_BAG_MAX_ITEMS">STORAGE_BIG_TRASH_BAG_MAX_ITEMS</a></th><td>How many items total fit in a big trash bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BIG_TRASH_BAG_MAX_SIZE">STORAGE_BIG_TRASH_BAG_MAX_SIZE</a></th><td>How big a thing can fit in a trash bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BIG_TRASH_BAG_MAX_TOTAL_SPACE">STORAGE_BIG_TRASH_BAG_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a trash bag thing</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_CASING_BAG_MAX_ITEMS">STORAGE_CASING_BAG_MAX_ITEMS</a></th><td>How many items total fit in a casing bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_CASING_BAG_MAX_SIZE">STORAGE_CASING_BAG_MAX_SIZE</a></th><td>How big a thing can fit in a casing bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_CASING_BAG_MAX_TOTAL_SPACE">STORAGE_CASING_BAG_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a casing bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_MAX_ITEMS">STORAGE_QUIVER_MAX_ITEMS</a></th><td>How many items total fit in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_MAX_SIZE">STORAGE_QUIVER_MAX_SIZE</a></th><td>How big a thing can fit in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_TOTAL_SPACE">STORAGE_QUIVER_TOTAL_SPACE</a></th><td>How much volume fits in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_LIGHT_MAX_ITEMS">STORAGE_QUIVER_LIGHT_MAX_ITEMS</a></th><td>How many items total fit in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_LIGHT_MAX_SIZE">STORAGE_QUIVER_LIGHT_MAX_SIZE</a></th><td>How big a thing can fit in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_LIGHT_TOTAL_SPACE">STORAGE_QUIVER_LIGHT_TOTAL_SPACE</a></th><td>How much volume fits in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_HEAVY_MAX_ITEMS">STORAGE_QUIVER_HEAVY_MAX_ITEMS</a></th><td>How many items total fit in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_HEAVY_MAX_SIZE">STORAGE_QUIVER_HEAVY_MAX_SIZE</a></th><td>How big a thing can fit in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_QUIVER_HEAVY_TOTAL_SPACE">STORAGE_QUIVER_HEAVY_TOTAL_SPACE</a></th><td>How much volume fits in a casing quiver</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_PRODUCE_BAG_MAX_ITEMS">STORAGE_PRODUCE_BAG_MAX_ITEMS</a></th><td>How many items total fit in a produce bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_PRODUCE_BAG_MAX_SIZE">STORAGE_PRODUCE_BAG_MAX_SIZE</a></th><td>How big a thing can fit in a produce bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE">STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a produce bag</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_DEFAULT_MAX_ITEMS">STORAGE_BOX_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a box</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_DEFAULT_MAX_SIZE">STORAGE_BOX_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a box</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_DEFAULT_MAX_TOTAL_SPACE">STORAGE_BOX_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a box</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BIG_BOX_DEFAULT_MAX_ITEMS">STORAGE_BIG_BOX_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a bigbox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BIG_BOX_DEFAULT_MAX_SIZE">STORAGE_BIG_BOX_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a bigbox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BIG_BOX_DEFAULT_MAX_TOTAL_SPACE">STORAGE_BIG_BOX_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a bigbox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_BIGBOX">STORAGE_ROWS_BIGBOX</a></th><td>How many rows in a bigbox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_HUGE_BOX_DEFAULT_MAX_ITEMS">STORAGE_HUGE_BOX_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a hugebox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_HUGE_BOX_DEFAULT_MAX_SIZE">STORAGE_HUGE_BOX_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a hugebox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_HUGE_BOX_DEFAULT_MAX_TOTAL_SPACE">STORAGE_HUGE_BOX_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a hugebox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_HUGEBOX">STORAGE_ROWS_HUGEBOX</a></th><td>How many rows in a hugebox</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_GENERIC_DEFAULT_MAX_ITEMS">STORAGE_BOX_SURVIVAL_GENERIC_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a generic survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_GENERIC_MAX_SIZE">STORAGE_BOX_SURVIVAL_GENERIC_MAX_SIZE</a></th><td>How big a thing can fit in a generic survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_GENERIC_MAX_TOTAL_SPACE">STORAGE_BOX_SURVIVAL_GENERIC_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a generic survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_SPECIALIZED_DEFAULT_MAX_ITEMS">STORAGE_BOX_SURVIVAL_SPECIALIZED_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a specialized survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_SIZE">STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_SIZE</a></th><td>How big a thing can fit in a specialized survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_TOTAL_SPACE">STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a specialized survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_TRIPLE_DEFAULT_MAX_ITEMS">STORAGE_BOX_SURVIVAL_TRIPLE_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a triple survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_TRIPLE_MAX_SIZE">STORAGE_BOX_SURVIVAL_TRIPLE_MAX_SIZE</a></th><td>How big a thing can fit in a triple survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BOX_SURVIVAL_TRIPLE_MAX_TOTAL_SPACE">STORAGE_BOX_SURVIVAL_TRIPLE_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a triple survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_SURVIVAL_TRIPLE">STORAGE_ROWS_SURVIVAL_TRIPLE</a></th><td>How many rows in a triple survival kit</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BACKPACK_DEFAULT_MAX_ITEMS">STORAGE_BACKPACK_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a backpack</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BACKPACK_DEFAULT_MAX_SIZE">STORAGE_BACKPACK_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a backpack</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BACKPACK_DEFAULT_MAX_TOTAL_SPACE">STORAGE_BACKPACK_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a backpack</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_BACKPACK">STORAGE_ROWS_BACKPACK</a></th><td>How many rows in a backpack</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/DUFFELBAG_SLOWDOWN">DUFFELBAG_SLOWDOWN</a></th><td>Duffel slowdown</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_DUFFEL_DEFAULT_MAX_ITEMS">STORAGE_DUFFEL_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a duffel</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_DUFFEL_DEFAULT_MAX_SIZE">STORAGE_DUFFEL_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a duffel</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_DUFFEL_DEFAULT_MAX_TOTAL_SPACE">STORAGE_DUFFEL_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a duffel</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_DUFFEL">STORAGE_ROWS_DUFFEL</a></th><td>How many rows in a duffel</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_DUFFEL_SCAV_DEFAULT_MAX_ITEMS">STORAGE_DUFFEL_SCAV_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a duffel scav</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_DUFFEL_SCAV_DEFAULT_MAX_SIZE">STORAGE_DUFFEL_SCAV_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a duffel scav</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_DUFFEL_SCAV_DEFAULT_MAX_TOTAL_SPACE">STORAGE_DUFFEL_SCAV_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a duffel scav</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_ROWS_DUFFEL_SCAV">STORAGE_ROWS_DUFFEL_SCAV</a></th><td>How many rows in a duffel scav</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_WALLET_DEFAULT_MAX_ITEMS">STORAGE_WALLET_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a box</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_WALLET_DEFAULT_MAX_SIZE">STORAGE_WALLET_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a wallet</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_WALLET_DEFAULT_MAX_TOTAL_SPACE">STORAGE_WALLET_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a wallet</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BRAHMIN_DEFAULT_MAX_ITEMS">STORAGE_BRAHMIN_DEFAULT_MAX_ITEMS</a></th><td>How many items total fit in a brahmin</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BRAHMIN_DEFAULT_MAX_SIZE">STORAGE_BRAHMIN_DEFAULT_MAX_SIZE</a></th><td>How big a thing can fit in a brahmin</td></tr>
+        <tr><th><a href="code/__DEFINES/inventory.html#define/STORAGE_BRAHMIN_DEFAULT_MAX_TOTAL_SPACE">STORAGE_BRAHMIN_DEFAULT_MAX_TOTAL_SPACE</a></th><td>How much volume fits in a brahmin</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/AFK_THEFT_FORGET_DETAILS_TIME"><aside class="declaration">#define </aside>AFK_THEFT_FORGET_DETAILS_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L162">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 162"/></a>
+    </h3>
+    <p>If someone logs back in and there are entries older than this, just tell them they can't remember who it was or when</p><h3 id="define/AFK_THEFT_MAX_MESSAGES"><aside class="declaration">#define </aside>AFK_THEFT_MAX_MESSAGES
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 160"/></a>
+    </h3>
+    <p>How many messages you can remember while logged out before you stop remembering new ones</p><h3 id="define/AFK_THEFT_MESSAGE"><aside class="declaration">#define </aside>AFK_THEFT_MESSAGE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L166">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 166"/></a>
+    </h3>
+    <p>The index of the entry in 'afk_thefts' with the text</p><h3 id="define/AFK_THEFT_NAME"><aside class="declaration">#define </aside>AFK_THEFT_NAME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L164">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 164"/></a>
+    </h3>
+    <p>The index of the entry in 'afk_thefts' with the person's visible name at the time</p><h3 id="define/AFK_THEFT_TIME"><aside class="declaration">#define </aside>AFK_THEFT_TIME
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L168">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 168"/></a>
+    </h3>
+    <p>The index of the entry in 'afk_thefts' with the time it happened</p><h3 id="define/DUFFELBAG_SLOWDOWN"><aside class="declaration">#define </aside>DUFFELBAG_SLOWDOWN
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L941">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 941"/></a>
+    </h3>
+    <p>Duffel slowdown</p><h3 id="define/STORAGE_BACKPACK_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BACKPACK_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L932">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 932"/></a>
+    </h3>
+    <p>How many items total fit in a backpack</p><h3 id="define/STORAGE_BACKPACK_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BACKPACK_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L934">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 934"/></a>
+    </h3>
+    <p>How big a thing can fit in a backpack</p><h3 id="define/STORAGE_BACKPACK_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BACKPACK_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L936">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 936"/></a>
+    </h3>
+    <p>How much volume fits in a backpack</p><h3 id="define/STORAGE_BAG_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BAG_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L809">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 809"/></a>
+    </h3>
+    <p>How many items total fit in a bag thing</p><h3 id="define/STORAGE_BAG_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BAG_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L811">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 811"/></a>
+    </h3>
+    <p>How big a thing can fit in a bag thing</p><h3 id="define/STORAGE_BAG_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BAG_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L813">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 813"/></a>
+    </h3>
+    <p>How much volume fits in a bag thing</p><h3 id="define/STORAGE_BELT_GENERIC_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BELT_GENERIC_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L727">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 727"/></a>
+    </h3>
+    <p>How many items total fit in a generic belt</p><h3 id="define/STORAGE_BELT_GENERIC_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BELT_GENERIC_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L729">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 729"/></a>
+    </h3>
+    <p>How big a thing can fit in a generic belt</p><h3 id="define/STORAGE_BELT_GENERIC_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BELT_GENERIC_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L731">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 731"/></a>
+    </h3>
+    <p>How much volume fits in a generic belt</p><h3 id="define/STORAGE_BELT_HOLSTER_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BELT_HOLSTER_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L734">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 734"/></a>
+    </h3>
+    <p>How many items total fit in a holster belt</p><h3 id="define/STORAGE_BELT_HOLSTER_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BELT_HOLSTER_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L736">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 736"/></a>
+    </h3>
+    <p>How big a thing can fit in a holster belt</p><h3 id="define/STORAGE_BELT_HOLSTER_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BELT_HOLSTER_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L738">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 738"/></a>
+    </h3>
+    <p>How much volume fits in a holster belt</p><h3 id="define/STORAGE_BELT_SPECIALIZED_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BELT_SPECIALIZED_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L720">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 720"/></a>
+    </h3>
+    <p>How many items total fit in a specialized belt</p><h3 id="define/STORAGE_BELT_SPECIALIZED_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BELT_SPECIALIZED_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L722">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 722"/></a>
+    </h3>
+    <p>How big a thing can fit in a specialized belt</p><h3 id="define/STORAGE_BELT_SPECIALIZED_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BELT_SPECIALIZED_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L724">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 724"/></a>
+    </h3>
+    <p>How much volume fits in a specialized belt</p><h3 id="define/STORAGE_BIG_BOX_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BIG_BOX_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L883">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 883"/></a>
+    </h3>
+    <p>How many items total fit in a bigbox</p><h3 id="define/STORAGE_BIG_BOX_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BIG_BOX_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L885">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 885"/></a>
+    </h3>
+    <p>How big a thing can fit in a bigbox</p><h3 id="define/STORAGE_BIG_BOX_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BIG_BOX_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L887">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 887"/></a>
+    </h3>
+    <p>How much volume fits in a bigbox</p><h3 id="define/STORAGE_BIG_TRASH_BAG_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BIG_TRASH_BAG_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L830">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 830"/></a>
+    </h3>
+    <p>How many items total fit in a big trash bag thing</p><h3 id="define/STORAGE_BIG_TRASH_BAG_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BIG_TRASH_BAG_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L832">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 832"/></a>
+    </h3>
+    <p>How big a thing can fit in a trash bag thing</p><h3 id="define/STORAGE_BIG_TRASH_BAG_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BIG_TRASH_BAG_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L834">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 834"/></a>
+    </h3>
+    <p>How much volume fits in a trash bag thing</p><h3 id="define/STORAGE_BOX_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BOX_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L876">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 876"/></a>
+    </h3>
+    <p>How many items total fit in a box</p><h3 id="define/STORAGE_BOX_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BOX_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L878">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 878"/></a>
+    </h3>
+    <p>How big a thing can fit in a box</p><h3 id="define/STORAGE_BOX_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BOX_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L880">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 880"/></a>
+    </h3>
+    <p>How much volume fits in a box</p><h3 id="define/STORAGE_BOX_SURVIVAL_GENERIC_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_GENERIC_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L905">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 905"/></a>
+    </h3>
+    <p>How many items total fit in a generic survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_GENERIC_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_GENERIC_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L907">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 907"/></a>
+    </h3>
+    <p>How big a thing can fit in a generic survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_GENERIC_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_GENERIC_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L909">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 909"/></a>
+    </h3>
+    <p>How much volume fits in a generic survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_SPECIALIZED_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_SPECIALIZED_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L912">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 912"/></a>
+    </h3>
+    <p>How many items total fit in a specialized survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L914">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 914"/></a>
+    </h3>
+    <p>How big a thing can fit in a specialized survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_SPECIALIZED_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L916">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 916"/></a>
+    </h3>
+    <p>How much volume fits in a specialized survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_TRIPLE_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_TRIPLE_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L919">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 919"/></a>
+    </h3>
+    <p>How many items total fit in a triple survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_TRIPLE_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_TRIPLE_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L921">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 921"/></a>
+    </h3>
+    <p>How big a thing can fit in a triple survival kit</p><h3 id="define/STORAGE_BOX_SURVIVAL_TRIPLE_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BOX_SURVIVAL_TRIPLE_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L923">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 923"/></a>
+    </h3>
+    <p>How much volume fits in a triple survival kit</p><h3 id="define/STORAGE_BRAHMIN_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BRAHMIN_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L978">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 978"/></a>
+    </h3>
+    <p>How many items total fit in a brahmin</p><h3 id="define/STORAGE_BRAHMIN_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BRAHMIN_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L980">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 980"/></a>
+    </h3>
+    <p>How big a thing can fit in a brahmin</p><h3 id="define/STORAGE_BRAHMIN_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BRAHMIN_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L982">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 982"/></a>
+    </h3>
+    <p>How much volume fits in a brahmin</p><h3 id="define/STORAGE_BULKY_POCKET_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_BULKY_POCKET_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L708">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 708"/></a>
+    </h3>
+    <p>How many items total fit in a pocket</p><h3 id="define/STORAGE_BULKY_POCKET_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_BULKY_POCKET_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L710">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 710"/></a>
+    </h3>
+    <p>How big a thing can fit in a pocket</p><h3 id="define/STORAGE_BULKY_POCKET_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_BULKY_POCKET_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L712">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 712"/></a>
+    </h3>
+    <p>How much volume fits in a pocket</p><h3 id="define/STORAGE_CASING_BAG_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_CASING_BAG_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L837">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 837"/></a>
+    </h3>
+    <p>How many items total fit in a casing bag</p><h3 id="define/STORAGE_CASING_BAG_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_CASING_BAG_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L839">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 839"/></a>
+    </h3>
+    <p>How big a thing can fit in a casing bag</p><h3 id="define/STORAGE_CASING_BAG_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_CASING_BAG_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L841">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 841"/></a>
+    </h3>
+    <p>How much volume fits in a casing bag</p><h3 id="define/STORAGE_DUFFEL_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_DUFFEL_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L945">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 945"/></a>
+    </h3>
+    <p>How many items total fit in a duffel</p><h3 id="define/STORAGE_DUFFEL_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_DUFFEL_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L947">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 947"/></a>
+    </h3>
+    <p>How big a thing can fit in a duffel</p><h3 id="define/STORAGE_DUFFEL_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_DUFFEL_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L949">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 949"/></a>
+    </h3>
+    <p>How much volume fits in a duffel</p><h3 id="define/STORAGE_DUFFEL_SCAV_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_DUFFEL_SCAV_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L954">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 954"/></a>
+    </h3>
+    <p>How many items total fit in a duffel scav</p><h3 id="define/STORAGE_DUFFEL_SCAV_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_DUFFEL_SCAV_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L956">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 956"/></a>
+    </h3>
+    <p>How big a thing can fit in a duffel scav</p><h3 id="define/STORAGE_DUFFEL_SCAV_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_DUFFEL_SCAV_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L958">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 958"/></a>
+    </h3>
+    <p>How much volume fits in a duffel scav</p><h3 id="define/STORAGE_HUGE_BOX_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_HUGE_BOX_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L892">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 892"/></a>
+    </h3>
+    <p>How many items total fit in a hugebox</p><h3 id="define/STORAGE_HUGE_BOX_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_HUGE_BOX_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L894">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 894"/></a>
+    </h3>
+    <p>How big a thing can fit in a hugebox</p><h3 id="define/STORAGE_HUGE_BOX_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_HUGE_BOX_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L896">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 896"/></a>
+    </h3>
+    <p>How much volume fits in a hugebox</p><h3 id="define/STORAGE_NECKPRON_GENERIC_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_NECKPRON_GENERIC_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L752">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 752"/></a>
+    </h3>
+    <p>How many items total fit in a generic neckpron</p><h3 id="define/STORAGE_NECKPRON_GENERIC_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_NECKPRON_GENERIC_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L754">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 754"/></a>
+    </h3>
+    <p>How big a thing can fit in a generic neckpron</p><h3 id="define/STORAGE_NECKPRON_GENERIC_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_NECKPRON_GENERIC_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L756">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 756"/></a>
+    </h3>
+    <p>How much volume fits in a generic neckpron</p><h3 id="define/STORAGE_NECKPRON_HOLSTER_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_NECKPRON_HOLSTER_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L759">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 759"/></a>
+    </h3>
+    <p>How many items total fit in a holster neckpron</p><h3 id="define/STORAGE_NECKPRON_HOLSTER_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_NECKPRON_HOLSTER_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L761">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 761"/></a>
+    </h3>
+    <p>How big a thing can fit in a holster neckpron</p><h3 id="define/STORAGE_NECKPRON_HOLSTER_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_NECKPRON_HOLSTER_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L763">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 763"/></a>
+    </h3>
+    <p>How much volume fits in a holster neckpron</p><h3 id="define/STORAGE_NECKPRON_SPECIALIZED_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_NECKPRON_SPECIALIZED_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L745">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 745"/></a>
+    </h3>
+    <p>How many items total fit in a specialized neckpron</p><h3 id="define/STORAGE_NECKPRON_SPECIALIZED_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_NECKPRON_SPECIALIZED_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L747">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 747"/></a>
+    </h3>
+    <p>How big a thing can fit in a specialized neckpron</p><h3 id="define/STORAGE_NECKPRON_SPECIALIZED_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_NECKPRON_SPECIALIZED_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L749">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 749"/></a>
+    </h3>
+    <p>How much volume fits in a specialized neckpron</p><h3 id="define/STORAGE_NORMAL_POCKET_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_NORMAL_POCKET_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L701">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 701"/></a>
+    </h3>
+    <p>How many items total fit in a pocket</p><h3 id="define/STORAGE_NORMAL_POCKET_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_NORMAL_POCKET_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L703">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 703"/></a>
+    </h3>
+    <p>How big a thing can fit in a pocket</p><h3 id="define/STORAGE_NORMAL_POCKET_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_NORMAL_POCKET_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L705">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 705"/></a>
+    </h3>
+    <p>How much volume fits in a pocket</p><h3 id="define/STORAGE_PRODUCE_BAG_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_PRODUCE_BAG_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L865">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 865"/></a>
+    </h3>
+    <p>How many items total fit in a produce bag</p><h3 id="define/STORAGE_PRODUCE_BAG_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_PRODUCE_BAG_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L867">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 867"/></a>
+    </h3>
+    <p>How big a thing can fit in a produce bag</p><h3 id="define/STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_PRODUCE_BAG_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L869">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 869"/></a>
+    </h3>
+    <p>How much volume fits in a produce bag</p><h3 id="define/STORAGE_QUIVER_HEAVY_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_QUIVER_HEAVY_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L858">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 858"/></a>
+    </h3>
+    <p>How many items total fit in a casing quiver</p><h3 id="define/STORAGE_QUIVER_HEAVY_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_QUIVER_HEAVY_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L860">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 860"/></a>
+    </h3>
+    <p>How big a thing can fit in a casing quiver</p><h3 id="define/STORAGE_QUIVER_HEAVY_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_QUIVER_HEAVY_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L862">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 862"/></a>
+    </h3>
+    <p>How much volume fits in a casing quiver</p><h3 id="define/STORAGE_QUIVER_LIGHT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_QUIVER_LIGHT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L851">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 851"/></a>
+    </h3>
+    <p>How many items total fit in a casing quiver</p><h3 id="define/STORAGE_QUIVER_LIGHT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_QUIVER_LIGHT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L853">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 853"/></a>
+    </h3>
+    <p>How big a thing can fit in a casing quiver</p><h3 id="define/STORAGE_QUIVER_LIGHT_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_QUIVER_LIGHT_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L855">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 855"/></a>
+    </h3>
+    <p>How much volume fits in a casing quiver</p><h3 id="define/STORAGE_QUIVER_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_QUIVER_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L844">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 844"/></a>
+    </h3>
+    <p>How many items total fit in a casing quiver</p><h3 id="define/STORAGE_QUIVER_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_QUIVER_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L846">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 846"/></a>
+    </h3>
+    <p>How big a thing can fit in a casing quiver</p><h3 id="define/STORAGE_QUIVER_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_QUIVER_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L848">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 848"/></a>
+    </h3>
+    <p>How much volume fits in a casing quiver</p><h3 id="define/STORAGE_ROWS_BACKPACK"><aside class="declaration">#define </aside>STORAGE_ROWS_BACKPACK
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L938">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 938"/></a>
+    </h3>
+    <p>How many rows in a backpack</p><h3 id="define/STORAGE_ROWS_BIGBOX"><aside class="declaration">#define </aside>STORAGE_ROWS_BIGBOX
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L889">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 889"/></a>
+    </h3>
+    <p>How many rows in a bigbox</p><h3 id="define/STORAGE_ROWS_DEFAULT"><aside class="declaration">#define </aside>STORAGE_ROWS_DEFAULT
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L680">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 680"/></a>
+    </h3>
+    <p>Number of rows volume storage should have</p><h3 id="define/STORAGE_ROWS_DUFFEL"><aside class="declaration">#define </aside>STORAGE_ROWS_DUFFEL
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L951">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 951"/></a>
+    </h3>
+    <p>How many rows in a duffel</p><h3 id="define/STORAGE_ROWS_DUFFEL_SCAV"><aside class="declaration">#define </aside>STORAGE_ROWS_DUFFEL_SCAV
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L960">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 960"/></a>
+    </h3>
+    <p>How many rows in a duffel scav</p><h3 id="define/STORAGE_ROWS_HUGEBOX"><aside class="declaration">#define </aside>STORAGE_ROWS_HUGEBOX
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L898">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 898"/></a>
+    </h3>
+    <p>How many rows in a hugebox</p><h3 id="define/STORAGE_ROWS_SURVIVAL_TRIPLE"><aside class="declaration">#define </aside>STORAGE_ROWS_SURVIVAL_TRIPLE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L925">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 925"/></a>
+    </h3>
+    <p>How many rows in a triple survival kit</p><h3 id="define/STORAGE_SALVAGE_BAG_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SALVAGE_BAG_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L816">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 816"/></a>
+    </h3>
+    <p>How many items fit in a salvage bag</p><h3 id="define/STORAGE_SALVAGE_BAG_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SALVAGE_BAG_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L818">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 818"/></a>
+    </h3>
+    <p>How big a thing can fit in a bag thing</p><h3 id="define/STORAGE_SALVAGE_BAG_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SALVAGE_BAG_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L820">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 820"/></a>
+    </h3>
+    <p>How much volume fits in a bag thing</p><h3 id="define/STORAGE_SMALL_POCKET_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SMALL_POCKET_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L694">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 694"/></a>
+    </h3>
+    <p>How many items total fit in a pocket</p><h3 id="define/STORAGE_SMALL_POCKET_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SMALL_POCKET_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L696">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 696"/></a>
+    </h3>
+    <p>How big a thing can fit in a pocket</p><h3 id="define/STORAGE_SMALL_POCKET_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SMALL_POCKET_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L698">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 698"/></a>
+    </h3>
+    <p>How much volume fits in a pocket</p><h3 id="define/STORAGE_SUIT_DUSTER_ARMOR_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SUIT_DUSTER_ARMOR_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L798">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 798"/></a>
+    </h3>
+    <p>How many items total fit in a duster armor</p><h3 id="define/STORAGE_SUIT_DUSTER_ARMOR_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SUIT_DUSTER_ARMOR_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L800">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 800"/></a>
+    </h3>
+    <p>How big a thing can fit in a duster armor</p><h3 id="define/STORAGE_SUIT_DUSTER_ARMOR_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SUIT_DUSTER_ARMOR_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L802">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 802"/></a>
+    </h3>
+    <p>How much volume fits in a duster armor</p><h3 id="define/STORAGE_SUIT_DUSTER_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SUIT_DUSTER_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L791">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 791"/></a>
+    </h3>
+    <p>How many items total fit in a duster suit</p><h3 id="define/STORAGE_SUIT_DUSTER_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SUIT_DUSTER_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L793">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 793"/></a>
+    </h3>
+    <p>How big a thing can fit in a duster suit</p><h3 id="define/STORAGE_SUIT_DUSTER_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SUIT_DUSTER_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L795">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 795"/></a>
+    </h3>
+    <p>How much volume fits in a duster suit</p><h3 id="define/STORAGE_SUIT_GENERIC_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SUIT_GENERIC_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L777">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 777"/></a>
+    </h3>
+    <p>How many items total fit in a generic suit</p><h3 id="define/STORAGE_SUIT_GENERIC_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SUIT_GENERIC_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L779">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 779"/></a>
+    </h3>
+    <p>How big a thing can fit in a generic suit</p><h3 id="define/STORAGE_SUIT_GENERIC_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SUIT_GENERIC_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L781">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 781"/></a>
+    </h3>
+    <p>How much volume fits in a generic suit</p><h3 id="define/STORAGE_SUIT_JACKET_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SUIT_JACKET_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L784">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 784"/></a>
+    </h3>
+    <p>How many items total fit in a jacket suit</p><h3 id="define/STORAGE_SUIT_JACKET_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SUIT_JACKET_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L786">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 786"/></a>
+    </h3>
+    <p>How big a thing can fit in a jacket suit</p><h3 id="define/STORAGE_SUIT_JACKET_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SUIT_JACKET_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L788">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 788"/></a>
+    </h3>
+    <p>How much volume fits in a jacket suit</p><h3 id="define/STORAGE_SUIT_SPECIALIZED_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_SUIT_SPECIALIZED_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L770">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 770"/></a>
+    </h3>
+    <p>How many items total fit in a specialized suit</p><h3 id="define/STORAGE_SUIT_SPECIALIZED_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_SUIT_SPECIALIZED_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L772">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 772"/></a>
+    </h3>
+    <p>How big a thing can fit in a specialized suit</p><h3 id="define/STORAGE_SUIT_SPECIALIZED_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_SUIT_SPECIALIZED_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L774">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 774"/></a>
+    </h3>
+    <p>How much volume fits in a specialized suit</p><h3 id="define/STORAGE_TINY_POCKET_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_TINY_POCKET_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L687">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 687"/></a>
+    </h3>
+    <p>How many items total fit in a pocket</p><h3 id="define/STORAGE_TINY_POCKET_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_TINY_POCKET_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L689">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 689"/></a>
+    </h3>
+    <p>How big a thing can fit in a pocket</p><h3 id="define/STORAGE_TINY_POCKET_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_TINY_POCKET_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L691">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 691"/></a>
+    </h3>
+    <p>How much volume fits in a pocket</p><h3 id="define/STORAGE_TRASH_BAG_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_TRASH_BAG_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L823">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 823"/></a>
+    </h3>
+    <p>How many items total fit in a trash bag thing</p><h3 id="define/STORAGE_TRASH_BAG_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_TRASH_BAG_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L825">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 825"/></a>
+    </h3>
+    <p>How big a thing can fit in a trash bag thing</p><h3 id="define/STORAGE_TRASH_BAG_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_TRASH_BAG_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L827">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 827"/></a>
+    </h3>
+    <p>How much volume fits in a trash bag thing</p><h3 id="define/STORAGE_WALLET_DEFAULT_MAX_ITEMS"><aside class="declaration">#define </aside>STORAGE_WALLET_DEFAULT_MAX_ITEMS
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L967">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 967"/></a>
+    </h3>
+    <p>How many items total fit in a box</p><h3 id="define/STORAGE_WALLET_DEFAULT_MAX_SIZE"><aside class="declaration">#define </aside>STORAGE_WALLET_DEFAULT_MAX_SIZE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L969">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 969"/></a>
+    </h3>
+    <p>How big a thing can fit in a wallet</p><h3 id="define/STORAGE_WALLET_DEFAULT_MAX_TOTAL_SPACE"><aside class="declaration">#define </aside>STORAGE_WALLET_DEFAULT_MAX_TOTAL_SPACE
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L971">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 971"/></a>
+    </h3>
+    <p>How much volume fits in a wallet</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

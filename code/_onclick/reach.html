@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;_onclick&#x2F;reach.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="code/_onclick/reach.html#define">Define Details</a></header>
+<main>
+<h1>code/_onclick/reach.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th><a href="code/_onclick/reach.html#define/REACH_CHECK">REACH_CHECK</a></th><td>This has grown increasinly complicated, but it boils down to there having two kinds of checks.
+REACH_CLICK will just heck for the ability to click through every step of the way.
+REACH_MOVE will check for the ability to move.
+REACH_ATTACK will check for the ability to move each step of the way until the last step, where it will check for the ability to click.</td></tr>
+        <tr><th><a href="code/_onclick/reach.html#define/SIN_COS_45">SIN_COS_45</a></th><td>We start where the line between the center of our tile and that of the target touches the edge.
+Think of the first quadrant of a circle inscribed on a square.
+As we travel through the circle we project a shadow on the square.
+We travel from 0 to 90 degrees (from coordinate 17 to 32).
+At 45 degrees and beyond the shadow is already at its maximum value in the square, reaching and staying at coordinate 32.
+We could use <code>min(15, tan((dir_angle % 90)) * 15)</code> and <code>min(15, tan(90 - (dir_angle % 90)) * 15)</code>, but this is simpler.</td></tr></table><h2 id="define">Define Details</h2>
+<h3 id="define/REACH_CHECK"><aside class="declaration">#define </aside>REACH_CHECK
+            <aside>(return_var, reach_type, turf_source, turf_target, source_dir, target_dir, mover, ultimate_target_turf)</aside>
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm#L135">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm 135"/></a>
+    </h3>
+    <p>This has grown increasinly complicated, but it boils down to there having two kinds of checks.
+REACH_CLICK will just heck for the ability to click through every step of the way.
+REACH_MOVE will check for the ability to move.
+REACH_ATTACK will check for the ability to move each step of the way until the last step, where it will check for the ability to click.</p><h3 id="define/SIN_COS_45"><aside class="declaration">#define </aside>SIN_COS_45
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/reach.dm#L273">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;reach.dm 273"/></a>
+    </h3>
+    <p>We start where the line between the center of our tile and that of the target touches the edge.
+Think of the first quadrant of a circle inscribed on a square.
+As we travel through the circle we project a shadow on the square.
+We travel from 0 to 90 degrees (from coordinate 17 to 32).
+At 45 degrees and beyond the shadow is already at its maximum value in the square, reaching and staying at coordinate 32.
+We could use <code>min(15, tan((dir_angle % 90)) * 15)</code> and <code>min(15, tan(90 - (dir_angle % 90)) * 15)</code>, but this is simpler.</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

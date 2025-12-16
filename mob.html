@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;mob - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="mob.html#var">Var Details</a> - <a href="mob.html#proc">Proc Details</a></header>
+<main>
+<h1>mob <aside>/<a href="mob.html">mob</a></aside><aside> inherits /<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 9"/></a></h1>
+
+<p>CLICKDELAY HANDLING SYSTEM
+How this works is mobs can never do actions until their next_action is at or below world.time, but things can specify extra cooldown
+to check for either from the time of last_action or from the end of next_action.</p>
+<p>Clickdelay should always be checked via [CheckActionCooldown()], never manually!</p><table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="mob.html#var/LAssailant">LAssailant</a></th><td>The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)</td></tr>
+            <tr><th><a href="mob.html#var/action_cooldown_adjust">action_cooldown_adjust</a></th><td>Simple modification variable added to amount on adjust and on checking time since last action using [CheckActionCooldown()].
+This should only be manually modified via addition.</td></tr>
+            <tr><th><a href="mob.html#var/action_cooldown_mod">action_cooldown_mod</a></th><td>Simple modification variable multiplied to next action modifier on adjust and on checking time since last action using [CheckActionCooldown()].
+This should only be manually modified using multipliers.</td></tr>
+            <tr><th><a href="mob.html#var/armor_message_antispam">armor_message_antispam</a></th><td>Cooldown between times your mob can post that their armor's done something interesting by an attack
+Includes bounces, dinks, impacts, etc</td></tr>
+            <tr><th><a href="mob.html#var/cached_multiplicative_slowdown">cached_multiplicative_slowdown</a></th><td>The calculated mob speed slowdown based on the modifiers list</td></tr>
+            <tr><th><a href="mob.html#var/damage_threshold_penetration_mob">damage_threshold_penetration_mob</a></th><td>How much DT does the mob ignore?</td></tr>
+            <tr><th><a href="mob.html#var/deathsound">deathsound</a></th><td>The sound made on death</td></tr>
+            <tr><th><a href="mob.html#var/do_afters">do_afters</a></th><td>For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time</td></tr>
+            <tr><th><a href="mob.html#var/focus">focus</a></th><td>What receives our keyboard input. src by default.</td></tr>
+            <tr><th><a href="mob.html#var/is_tilted">is_tilted</a></th><td>Pixel Tilting, ported from splurt and modified. Props to whoever made it.</td></tr>
+            <tr><th><a href="mob.html#var/last_action">last_action</a></th><td>Generic clickdelay variable. Marks down the last world.time we did something that should cause or impact generic clickdelay. This should be directly set or set using [DelayNextAction()]. This should only be checked using [CheckActionCooldown()].</td></tr>
+            <tr><th><a href="mob.html#var/last_action_immediate">last_action_immediate</a></th><td>The difference between the above and this is this is set immediately before even the pre-attack begins to ensure clickdelay is respected.
+Then, it is flushed or discarded using [FlushLastAttack()] or [DiscardLastAttack()] respectively.</td></tr>
+            <tr><th><a href="mob.html#var/mob_transforming">mob_transforming</a></th><td>Whether or not the mob is currently being transformed into another mob or into another state of being. This will prevent it from moving or doing realistically anything.
+Don't you DARE use this for a cheap way to ensure someone is stunned in your code.</td></tr>
+            <tr><th><a href="mob.html#var/movespeed_mod_immunities">movespeed_mod_immunities</a></th><td>List of movement speed modifiers ignored by this mob. List -&gt; List (id) -&gt; List (sources)</td></tr>
+            <tr><th><a href="mob.html#var/movespeed_modification">movespeed_modification</a></th><td>List of movement speed modifiers applying to this mob</td></tr>
+            <tr><th><a href="mob.html#var/next_action">next_action</a></th><td>Generic clickdelay variable. Next world.time we should be able to do something that respects generic clickdelay. This should be set using [DelayNextAction()] This should only be checked using [CheckActionCooldown()].</td></tr>
+            <tr><th><a href="mob.html#var/next_action_immediate">next_action_immediate</a></th><td>Ditto</td></tr>
+            <tr><th><a href="mob.html#var/next_resist">next_resist</a></th><td>Minimum world time for another resist. This should only be checked using [CheckResistCooldown()].</td></tr>
+            <tr><th><a href="mob.html#var/previous_job">previous_job</a></th><td>Used for tracking what a ghost's last job was</td></tr>
+            <tr><th><a href="mob.html#var/projectile_message_antispam">projectile_message_antispam</a></th><td>Cooldown between times your mob can post that they were hit by a projectile, 0.5 seconds
+Includes bounces, dinks, impacts, etc</td></tr>
+            <tr><th><a href="mob.html#var/reach">reach</a></th><td>D&amp;D-like reach: how far in tiles is considered adjacent to this mob. Euclidean distance.</td></tr>
+            <tr><th><a href="mob.html#var/resist_cooldown">resist_cooldown</a></th><td>How long we should wait before allowing another resist. This should only be manually modified using multipliers.</td></tr>
+            <tr><th><a href="mob.html#var/sound_environment_override">sound_environment_override</a></th><td>Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)</td></tr>
+            <tr><th><a href="mob.html#var/tgui_open_uis">tgui_open_uis</a></th><td>global</td></tr>
+            <tr><th><a href="mob.html#var/typing_indicator_current">typing_indicator_current</a></th><td>Current state of our typing indicator. Used for cut overlay, DO NOT RUNTIME ASSIGN OTHER THAN FROM SHOW/CLEAR. Used to absolutely ensure we do not get stuck overlays.</td></tr>
+            <tr><th><a href="mob.html#var/typing_indicator_enabled">typing_indicator_enabled</a></th><td>////TYPING INDICATORS///////
+Set to true if we want to show typing indicators.</td></tr>
+            <tr><th><a href="mob.html#var/typing_indicator_state">typing_indicator_state</a></th><td>Default icon_state of our typing indicator. Currently only supports paths (because anything else is, as of time of typing this, unnecesary.</td></tr>
+            <tr><th><a href="mob.html#var/typing_indicator_timerid">typing_indicator_timerid</a></th><td>The timer that will remove our indicator for early aborts (like when an user finishes their message)</td></tr>
+            <tr><th><a href="mob.html#var/unarmed_attack_speed">unarmed_attack_speed</a></th><td>Default clickdelay for an UnarmedAttack() that successfully passes. Respects action_cooldown_mod.</td></tr>
+            <tr><th><a href="mob.html#var/updating_glide_size">updating_glide_size</a></th><td>Whether the mob is updating glide size when movespeed updates or not</td></tr>
+            <tr><th><a href="mob.html#var/waddle_amount">waddle_amount</a></th><td>All 3 must be set, otherwise the mob wont be given a waddle component
+How much should the mob wobble around?</td></tr>
+            <tr><th><a href="mob.html#var/waddle_side_time">waddle_side_time</a></th><td>How long is a sideways bob for wobbling?</td></tr>
+            <tr><th><a href="mob.html#var/waddle_up_time">waddle_up_time</a></th><td>How long is an upward bob for wobbling?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="mob.html#proc/CheckActionCooldown">CheckActionCooldown</a></th><td>Checks if we can do another action.
+Returns TRUE if we can and FALSE if we cannot.</td></tr>
+            <tr><th><a href="mob.html#proc/CheckResistCooldown">CheckResistCooldown</a></th><td>Checks if we can resist again.</td></tr>
+            <tr><th><a href="mob.html#proc/CommonClickOn">CommonClickOn</a></th><td>Common mob click code</td></tr>
+            <tr><th><a href="mob.html#proc/DelayNextAction">DelayNextAction</a></th><td>Applies a delay to next_action before we can do our next action.</td></tr>
+            <tr><th><a href="mob.html#proc/DiscardCurrentAction">DiscardCurrentAction</a></th><td>Discards last_action and next_action</td></tr>
+            <tr><th><a href="mob.html#proc/Dizzy">Dizzy</a></th><td>Set the dizzyness of a mob to a passed in amount</td></tr>
+            <tr><th><a href="mob.html#proc/EstimatedNextActionTime">EstimatedNextActionTime</a></th><td>Get estimated time of next attack.</td></tr>
+            <tr><th><a href="mob.html#proc/FlushCurrentAction">FlushCurrentAction</a></th><td>Flushes last_action and next_action</td></tr>
+            <tr><th><a href="mob.html#proc/GetActionCooldownAdjust">GetActionCooldownAdjust</a></th><td>Gets action_cooldown_adjust</td></tr>
+            <tr><th><a href="mob.html#proc/GetActionCooldownMod">GetActionCooldownMod</a></th><td>Gets action_cooldown_mod.</td></tr>
+            <tr><th><a href="mob.html#proc/IsThrowDelayed">IsThrowDelayed</a></th><td>THROW DELAY</td></tr>
+            <tr><th><a href="mob.html#proc/IsWeaponDrawDelayed">IsWeaponDrawDelayed</a></th><td>FIRE DELAY</td></tr>
+            <tr><th><a href="mob.html#proc/Jitter">Jitter</a></th><td>Set the jitter of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/MarkResistTime">MarkResistTime</a></th><td>Mark the last resist as now.</td></tr>
+            <tr><th><a href="mob.html#proc/Process_Spacemove">Process_Spacemove</a></th><td>Handles mob/living movement in space (or no gravity)</td></tr>
+            <tr><th><a href="mob.html#proc/SetNextAction">SetNextAction</a></th><td>Sets our next action to. The difference is DelayNextAction cannot reduce next_action under any circumstances while this can.</td></tr>
+            <tr><th><a href="mob.html#proc/add_movespeed_modifier">add_movespeed_modifier</a></th><td>Add a move speed modifier to a mob. If a variable subtype is passed in as the first argument, it will make a new datum. If ID conflicts, it will overwrite the old ID.</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_blindness">adjust_blindness</a></th><td>Adjust a mobs blindness by an amount</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_blurriness">adjust_blurriness</a></th><td>Adjust the current blurriness of the mobs vision by amount</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_bodytemperature">adjust_bodytemperature</a></th><td>Adjust the body temperature of a mob, with min/max settings</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_disgust">adjust_disgust</a></th><td>Adjust the disgust level of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_drugginess">adjust_drugginess</a></th><td>Adjust the drugginess of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/adjust_nutrition">adjust_nutrition</a></th><td>Adjust the nutrition of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/alert_timeout">alert_timeout</a></th><td></td></tr>
+            <tr><th><a href="mob.html#proc/attempt_resist_grab">attempt_resist_grab</a></th><td>Proc to resist a grab. moving_resist is TRUE if this began by someone attempting to move. Return FALSE if still grabbed/failed to break out. Use this instead of resist_grab() directly.</td></tr>
+            <tr><th><a href="mob.html#proc/audible_message">audible_message</a></th><td>Show a message to all mobs in earshot of this one</td></tr>
+            <tr><th><a href="mob.html#proc/blind_eyes">blind_eyes</a></th><td>Sets a mob's blindness to an amount if it was not above it already, similar to how status effects work</td></tr>
+            <tr><th><a href="mob.html#proc/blur_eyes">blur_eyes</a></th><td>Make the mobs vision blurry</td></tr>
+            <tr><th><a href="mob.html#proc/check_obscured_slots">check_obscured_slots</a></th><td>Checks for slots that are currently obscured by other garments.</td></tr>
+            <tr><th><a href="mob.html#proc/clear_important_client_contents">clear_important_client_contents</a></th><td>Clears the clients channel of this mob</td></tr>
+            <tr><th><a href="mob.html#proc/clear_typing_indicator">clear_typing_indicator</a></th><td>Removes typing indicator.</td></tr>
+            <tr><th><a href="mob.html#proc/create_chat_message">create_chat_message</a></th><td>Creates a message overlay at a defined location for a given speaker</td></tr>
+            <tr><th><a href="mob.html#proc/display_typing_indicator">display_typing_indicator</a></th><td>Displays typing indicator.
+@param timeout_override - Sets how long until this will disappear on its own without the user finishing their message or logging out. Defaults to src.typing_indicator_timeout
+@param state_override - Sets the state that we will fetch. Defaults to src.get_typing_indicator_icon_state()
+@param force - shows even if src.typing_indcator_enabled is FALSE.</td></tr>
+            <tr><th><a href="mob.html#proc/emote_for_ghost_sight">emote_for_ghost_sight</a></th><td>Sends the given emote message for all ghosts with ghost sight enabled, excluding close enough to listen normally.</td></tr>
+            <tr><th><a href="mob.html#proc/enable_client_mobs_in_contents">enable_client_mobs_in_contents</a></th><td>propogates ourselves through our nested contents, similar to other important_recursive_contents procs
+main difference is that client contents need to possibly duplicate recursive contents for the clients mob AND its eye</td></tr>
+            <tr><th><a href="mob.html#proc/equipped_speed_mods">equipped_speed_mods</a></th><td>Gets the combined speed modification of all worn items
+Except base mob type doesnt really wear items</td></tr>
+            <tr><th><a href="mob.html#proc/examinate">examinate</a></th><td>Examine a mob</td></tr>
+            <tr><th><a href="mob.html#proc/generate_special_examine_text">generate_special_examine_text</a></th><td>misc examine procs</td></tr>
+            <tr><th><a href="mob.html#proc/generate_typing_indicator">generate_typing_indicator</a></th><td>Generates the mutable appearance for typing indicator. Should prevent stuck overlays.</td></tr>
+            <tr><th><a href="mob.html#proc/get_active_hand">get_active_hand</a></th><td>Get the bodypart for whatever hand we have active, Only relevant for carbons</td></tr>
+            <tr><th><a href="mob.html#proc/get_config_multiplicative_speed">get_config_multiplicative_speed</a></th><td>Get the global config movespeed of a mob by type</td></tr>
+            <tr><th><a href="mob.html#proc/get_indicator_overlay">get_indicator_overlay</a></th><td>Fetches the typing indicator we'll use from GLOB.typing_indicator_overlays</td></tr>
+            <tr><th><a href="mob.html#proc/get_luck_critfail_chance">get_luck_critfail_chance</a></th><td>Chance to drop a gun or hit yourself in melee</td></tr>
+            <tr><th><a href="mob.html#proc/get_luck_loot_amt_multiplier">get_luck_loot_amt_multiplier</a></th><td>LUCK
+Currently affects only money from trashpiles</td></tr>
+            <tr><th><a href="mob.html#proc/get_movespeed_modifier_datum">get_movespeed_modifier_datum</a></th><td>Gets the movespeed modifier datum of a modifier on a mob. Returns null if not found.
+DANGER: IT IS UP TO THE PERSON USING THIS TO MAKE SURE THE MODIFIER IS NOT MODIFIED IF IT HAPPENS TO BE GLOBAL/CACHED.</td></tr>
+            <tr><th><a href="mob.html#proc/get_movespeed_modifiers">get_movespeed_modifiers</a></th><td>Get the move speed modifiers list of the mob</td></tr>
+            <tr><th><a href="mob.html#proc/get_proc_holders">get_proc_holders</a></th><td>Gets all relevant proc holders for the browser statpenl</td></tr>
+            <tr><th><a href="mob.html#proc/get_spacemove_backup">get_spacemove_backup</a></th><td>Finds a target near a mob that is viable for pushing off when moving.
+Takes the intended movement direction as input, alongside if the context is checking if we're allowed to continue drifting</td></tr>
+            <tr><th><a href="mob.html#proc/get_spells_for_statpanel">get_spells_for_statpanel</a></th><td>Convert a list of spells into a displyable list for the statpanel</td></tr>
+            <tr><th><a href="mob.html#proc/get_status_tab_items">get_status_tab_items</a></th><td>Adds this list to the output to the stat browser</td></tr>
+            <tr><th><a href="mob.html#proc/get_typing_indicator_icon_state">get_typing_indicator_icon_state</a></th><td>Gets the state we will use for typing indicators. Defaults to src.typing_indicator_state</td></tr>
+            <tr><th><a href="mob.html#proc/handle_eye_contact">handle_eye_contact</a></th><td>handle_eye_contact() is called when we examine() something. If we examine an alive mob with a mind who has examined us in the last second within 5 tiles, we make eye contact!</td></tr>
+            <tr><th><a href="mob.html#proc/has_movespeed_modifier">has_movespeed_modifier</a></th><td>Is there a movespeed modifier for this mob</td></tr>
+            <tr><th><a href="mob.html#proc/onShuttleMove">onShuttleMove</a></th><td>Mob move procs</td></tr>
+            <tr><th><a href="mob.html#proc/on_item_dropped">on_item_dropped</a></th><td>Mostly called by doUnEquip()
+Like item dropped() on mob side.</td></tr>
+            <tr><th><a href="mob.html#proc/remove_movespeed_modifier">remove_movespeed_modifier</a></th><td>Remove a move speed modifier from a mob, whether static or variable.</td></tr>
+            <tr><th><a href="mob.html#proc/setGrabState">setGrabState</a></th><td>Updates the grab state of the mob and updates movespeed</td></tr>
+            <tr><th><a href="mob.html#proc/set_blindness">set_blindness</a></th><td>Force set the blindness of a mob to some level</td></tr>
+            <tr><th><a href="mob.html#proc/set_blurriness">set_blurriness</a></th><td>Set the mobs blurriness of vision to an amount</td></tr>
+            <tr><th><a href="mob.html#proc/set_disgust">set_disgust</a></th><td>Set the disgust level of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/set_dizziness">set_dizziness</a></th><td>FOrce set the dizzyness of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/set_drugginess">set_drugginess</a></th><td>Set the drugginess of a mob</td></tr>
+            <tr><th><a href="mob.html#proc/set_nutrition">set_nutrition</a></th><td>Force set the mob nutrition</td></tr>
+            <tr><th><a href="mob.html#proc/set_species">set_species</a></th><td>DNA MOB-PROCS</td></tr>
+            <tr><th><a href="mob.html#proc/shared_ui_interaction">shared_ui_interaction</a></th><td>public</td></tr>
+            <tr><th><a href="mob.html#proc/shuttleRotate">shuttleRotate</a></th><td>Mob rotate procs</td></tr>
+            <tr><th><a href="mob.html#proc/total_multiplicative_slowdown">total_multiplicative_slowdown</a></th><td>Calculate the total slowdown of all movespeed modifiers</td></tr>
+            <tr><th><a href="mob.html#proc/update_blindness">update_blindness</a></th><td>proc that adds and removes blindness overlays when necessary</td></tr>
+            <tr><th><a href="mob.html#proc/update_config_movespeed">update_config_movespeed</a></th><td>Set or update the global movespeed config on a mob</td></tr>
+            <tr><th><a href="mob.html#proc/update_movespeed">update_movespeed</a></th><td>Go through the list of movespeed modifiers and calculate a final movespeed. ANY ADD/REMOVE DONE IN UPDATE_MOVESPEED MUST HAVE THE UPDATE ARGUMENT SET AS FALSE!</td></tr>
+            <tr><th><a href="mob.html#proc/visible_message">visible_message</a></th><td>Adds the functionality to self_message.</td></tr>
+            <tr><th><a href="mob.html#proc/vv_edit_var">vv_edit_var</a></th><td>Handles the special case of editing the movement var</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/LAssailant"><aside class="declaration">var </aside>LAssailant
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 107"/></a></h3>
+        <p>The last mob/living/carbon to push/drag/grab this mob (mostly used by slimes friend recognition)</p><h3 id="var/action_cooldown_adjust"><aside class="declaration">var </aside>action_cooldown_adjust
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L33">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 33"/></a></h3>
+        <p>Simple modification variable added to amount on adjust and on checking time since last action using [CheckActionCooldown()].
+This should only be manually modified via addition.</p><h3 id="var/action_cooldown_mod"><aside class="declaration">var </aside>action_cooldown_mod
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 30"/></a></h3>
+        <p>Simple modification variable multiplied to next action modifier on adjust and on checking time since last action using [CheckActionCooldown()].
+This should only be manually modified using multipliers.</p><h3 id="var/armor_message_antispam"><aside class="declaration">var </aside>armor_message_antispam
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L196">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 196"/></a></h3>
+        <p>Cooldown between times your mob can post that their armor's done something interesting by an attack
+Includes bounces, dinks, impacts, etc</p><h3 id="var/cached_multiplicative_slowdown"><aside class="declaration">var </aside>cached_multiplicative_slowdown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 63"/></a></h3>
+        <p>The calculated mob speed slowdown based on the modifiers list</p><h3 id="var/damage_threshold_penetration_mob"><aside class="declaration">var </aside>damage_threshold_penetration_mob
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L188">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 188"/></a></h3>
+        <p>How much DT does the mob ignore?</p><h3 id="var/deathsound"><aside class="declaration">var </aside>deathsound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L128">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 128"/></a></h3>
+        <p>The sound made on death</p>
+<p>leave null for no sound. used for *deathgasp</p><h3 id="var/do_afters"><aside class="declaration">var </aside>do_afters
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 137"/></a></h3>
+        <p>For storing what do_after's someone has, in case we want to restrict them to only one of a certain do_after at a time</p><h3 id="var/focus"><aside class="declaration">var </aside>focus
+            <aside>&ndash; /<a href="datum.html">datum</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 21"/></a></h3>
+        <p>What receives our keyboard input. src by default.</p><h3 id="var/is_tilted"><aside class="declaration">var </aside>is_tilted
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L56">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 56"/></a></h3>
+        <p>Pixel Tilting, ported from splurt and modified. Props to whoever made it.</p><h3 id="var/last_action"><aside class="declaration">var </aside>last_action
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 15"/></a></h3>
+        <p>Generic clickdelay variable. Marks down the last world.time we did something that should cause or impact generic clickdelay. This should be directly set or set using [DelayNextAction()]. This should only be checked using [CheckActionCooldown()].</p><h3 id="var/last_action_immediate"><aside class="declaration">var </aside>last_action_immediate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 21"/></a></h3>
+        <p>The difference between the above and this is this is set immediately before even the pre-attack begins to ensure clickdelay is respected.
+Then, it is flushed or discarded using [FlushLastAttack()] or [DiscardLastAttack()] respectively.</p><h3 id="var/mob_transforming"><aside class="declaration">var </aside>mob_transforming
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L46">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 46"/></a></h3>
+        <p>Whether or not the mob is currently being transformed into another mob or into another state of being. This will prevent it from moving or doing realistically anything.
+Don't you DARE use this for a cheap way to ensure someone is stunned in your code.</p><h3 id="var/movespeed_mod_immunities"><aside class="declaration">var </aside>movespeed_mod_immunities
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 61"/></a></h3>
+        <p>List of movement speed modifiers ignored by this mob. List -&gt; List (id) -&gt; List (sources)</p><h3 id="var/movespeed_modification"><aside class="declaration">var </aside>movespeed_modification
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 59"/></a></h3>
+        <p>List of movement speed modifiers applying to this mob</p><h3 id="var/next_action"><aside class="declaration">var </aside>next_action
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 23"/></a></h3>
+        <p>Generic clickdelay variable. Next world.time we should be able to do something that respects generic clickdelay. This should be set using [DelayNextAction()] This should only be checked using [CheckActionCooldown()].</p><h3 id="var/next_action_immediate"><aside class="declaration">var </aside>next_action_immediate
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 25"/></a></h3>
+        <p>Ditto</p><h3 id="var/next_resist"><aside class="declaration">var </aside>next_resist
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 45"/></a></h3>
+        <p>Minimum world time for another resist. This should only be checked using [CheckResistCooldown()].</p><h3 id="var/previous_job"><aside class="declaration">var </aside>previous_job
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 185"/></a></h3>
+        <p>Used for tracking what a ghost's last job was</p><h3 id="var/projectile_message_antispam"><aside class="declaration">var </aside>projectile_message_antispam
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L192">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 192"/></a></h3>
+        <p>Cooldown between times your mob can post that they were hit by a projectile, 0.5 seconds
+Includes bounces, dinks, impacts, etc</p><h3 id="var/reach"><aside class="declaration">var </aside>reach
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L182">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 182"/></a></h3>
+        <p>D&amp;D-like reach: how far in tiles is considered adjacent to this mob. Euclidean distance.</p><h3 id="var/resist_cooldown"><aside class="declaration">var </aside>resist_cooldown
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L43">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 43"/></a></h3>
+        <p>How long we should wait before allowing another resist. This should only be manually modified using multipliers.</p><h3 id="var/sound_environment_override"><aside class="declaration">var </aside>sound_environment_override
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L167">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 167"/></a></h3>
+        <p>Override for sound_environments. If this is set the user will always hear a specific type of reverb (Instead of the area defined reverb)</p><h3 id="var/tgui_open_uis"><aside class="declaration">var </aside>tgui_open_uis
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/external.dm#L125">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;external.dm 125"/></a></h3>
+        <p>global</p>
+<p>Tracks open UIs for a user.</p><h3 id="var/typing_indicator_current"><aside class="declaration">var </aside>typing_indicator_current
+            <aside>&ndash; /mutable_appearance</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L177">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 177"/></a></h3>
+        <p>Current state of our typing indicator. Used for cut overlay, DO NOT RUNTIME ASSIGN OTHER THAN FROM SHOW/CLEAR. Used to absolutely ensure we do not get stuck overlays.</p><h3 id="var/typing_indicator_enabled"><aside class="declaration">var </aside>typing_indicator_enabled
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L171">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 171"/></a></h3>
+        <p>////TYPING INDICATORS///////
+Set to true if we want to show typing indicators.</p><h3 id="var/typing_indicator_state"><aside class="declaration">var </aside>typing_indicator_state
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 173"/></a></h3>
+        <p>Default icon_state of our typing indicator. Currently only supports paths (because anything else is, as of time of typing this, unnecesary.</p><h3 id="var/typing_indicator_timerid"><aside class="declaration">var </aside>typing_indicator_timerid
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L175">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 175"/></a></h3>
+        <p>The timer that will remove our indicator for early aborts (like when an user finishes their message)</p><h3 id="var/unarmed_attack_speed"><aside class="declaration">var </aside>unarmed_attack_speed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 27"/></a></h3>
+        <p>Default clickdelay for an UnarmedAttack() that successfully passes. Respects action_cooldown_mod.</p><h3 id="var/updating_glide_size"><aside class="declaration">var </aside>updating_glide_size
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L164">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 164"/></a></h3>
+        <p>Whether the mob is updating glide size when movespeed updates or not</p><h3 id="var/waddle_amount"><aside class="declaration">var </aside>waddle_amount
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 200"/></a></h3>
+        <p>All 3 must be set, otherwise the mob wont be given a waddle component
+How much should the mob wobble around?</p><h3 id="var/waddle_side_time"><aside class="declaration">var </aside>waddle_side_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_helpers.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_helpers.dm 4"/></a></h3>
+        <p>How long is a sideways bob for wobbling?</p><h3 id="var/waddle_up_time"><aside class="declaration">var </aside>waddle_up_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_defines.dm#L202">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_defines.dm 202"/></a></h3>
+        <p>How long is an upward bob for wobbling?</p><h2 id="proc">Proc Details</h2><h3 id="proc/CheckActionCooldown"><aside class="declaration">proc </aside>CheckActionCooldown<aside>(cooldown, from_next_action, ignore_mod, ignore_next_action, immediate) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 113"/></a></aside>
+        </h3>
+        <p>Checks if we can do another action.
+Returns TRUE if we can and FALSE if we cannot.</p>
+<p>@params</p>
+<ul>
+<li>cooldown - Time required since last action. Defaults to 0.5</li>
+<li>from_next_action - Defaults to FALSE. Should we check from the tail end of next_action instead of last_action?</li>
+<li>ignore_mod - Defaults to FALSE. Ignore all adjusts and multipliers. Do not use this unless you know what you are doing and have a good reason.</li>
+<li>ignore_next_action - Defaults to FALSE. Ignore next_action and only care about cooldown param and everything else. Generally unused.</li>
+<li>immediate - Defaults to FALSE. Checks last action using immediate, used on the head end of an attack. This is to prevent colliding attacks in case of sleep. Not that you should sleep() in an attack but.. y'know.</li>
+</ul><h3 id="proc/CheckResistCooldown"><aside class="declaration">proc </aside>CheckResistCooldown<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 148"/></a></aside>
+        </h3>
+        <p>Checks if we can resist again.</p><h3 id="proc/CommonClickOn"><aside class="declaration">proc </aside>CommonClickOn<aside>(/<a href="atom.html">atom</a>/A, params) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/click.dm#L26">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;click.dm 26"/></a></aside>
+        </h3>
+        <p>Common mob click code</p><h3 id="proc/DelayNextAction"><aside class="declaration">proc </aside>DelayNextAction<aside>(amount, ignore_mod, considered_action, immediate, flush) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L59">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 59"/></a></aside>
+        </h3>
+        <p>Applies a delay to next_action before we can do our next action.</p>
+<p>@params</p>
+<ul>
+<li>amount - Amount to delay by</li>
+<li>ignore_mod - ignores next action adjust and mult</li>
+<li>considered_action - Defaults to TRUE - If TRUE, sets last_action to world.time.</li>
+<li>immediate - defaults to TRUE - if TRUE, writes to cached/last_attack_immediate instead of last_attack. This ensures it can't collide with any delay checks in the actual attack.</li>
+<li>flush - defaults to FALSE - Use this while using this proc outside of clickcode to ensure everything is set properly. This should never be set to TRUE if this is called from clickcode.</li>
+</ul><h3 id="proc/DiscardCurrentAction"><aside class="declaration">proc </aside>DiscardCurrentAction<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 140"/></a></aside>
+        </h3>
+        <p>Discards last_action and next_action</p><h3 id="proc/Dizzy"><aside class="declaration">proc </aside>Dizzy<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 15"/></a></aside>
+        </h3>
+        <p>Set the dizzyness of a mob to a passed in amount</p>
+<p>Except if dizziness is already higher in which case it does nothing</p><h3 id="proc/EstimatedNextActionTime"><aside class="declaration">proc </aside>EstimatedNextActionTime<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 76"/></a></aside>
+        </h3>
+        <p>Get estimated time of next attack.</p><h3 id="proc/FlushCurrentAction"><aside class="declaration">proc </aside>FlushCurrentAction<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L132">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 132"/></a></aside>
+        </h3>
+        <p>Flushes last_action and next_action</p><h3 id="proc/GetActionCooldownAdjust"><aside class="declaration">proc </aside>GetActionCooldownAdjust<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L126">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 126"/></a></aside>
+        </h3>
+        <p>Gets action_cooldown_adjust</p><h3 id="proc/GetActionCooldownMod"><aside class="declaration">proc </aside>GetActionCooldownMod<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L120">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 120"/></a></aside>
+        </h3>
+        <p>Gets action_cooldown_mod.</p><h3 id="proc/IsThrowDelayed"><aside class="declaration">proc </aside>IsThrowDelayed<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L134">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 134"/></a></aside>
+        </h3>
+        <p>THROW DELAY</p><h3 id="proc/IsWeaponDrawDelayed"><aside class="declaration">proc </aside>IsWeaponDrawDelayed<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L129">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 129"/></a></aside>
+        </h3>
+        <p>FIRE DELAY</p><h3 id="proc/Jitter"><aside class="declaration">proc </aside>Jitter<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 7"/></a></aside>
+        </h3>
+        <p>Set the jitter of a mob</p><h3 id="proc/MarkResistTime"><aside class="declaration">proc </aside>MarkResistTime<aside>(extra_cooldown, override) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L158">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 158"/></a></aside>
+        </h3>
+        <p>Mark the last resist as now.</p>
+<p>@params</p>
+<ul>
+<li>extra_cooldown - Extra cooldown to apply to next_resist. Defaults to this mob's resist_cooldown.</li>
+<li>override - Defaults to FALSE - if TRUE, extra_cooldown will replace the old next_resist even if the old is longer.</li>
+</ul><h3 id="proc/Process_Spacemove"><aside class="parent"><a title="/atom/movable" href="atom/movable.html#proc/Process_Spacemove">&uarr;</a></aside>Process_Spacemove<aside>(movement_dir, continuous_move) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_movement.dm#L230">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 230"/></a></aside>
+        </h3>
+        <p>Handles mob/living movement in space (or no gravity)</p>
+<p>Called by /client/Move()</p>
+<p>return TRUE for movement or FALSE for none</p>
+<p>You can move in space if you have a spacewalk ability</p><h3 id="proc/SetNextAction"><aside class="declaration">proc </aside>SetNextAction<aside>(amount, ignore_mod, considered_action, immediate, flush) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/clickdelay.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;clickdelay.dm 88"/></a></aside>
+        </h3>
+        <p>Sets our next action to. The difference is DelayNextAction cannot reduce next_action under any circumstances while this can.</p><h3 id="proc/add_movespeed_modifier"><aside class="declaration">proc </aside>add_movespeed_modifier<aside>(/<a href="datum.html">datum</a>/<a href="datum/movespeed_modifier.html">movespeed_modifier</a>/type_or_datum, update) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L91">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 91"/></a></aside>
+        </h3>
+        <p>Add a move speed modifier to a mob. If a variable subtype is passed in as the first argument, it will make a new datum. If ID conflicts, it will overwrite the old ID.</p><h3 id="proc/adjust_blindness"><aside class="declaration">proc </aside>adjust_blindness<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 37"/></a></aside>
+        </h3>
+        <p>Adjust a mobs blindness by an amount</p>
+<p>Will apply the blind alerts if needed</p><h3 id="proc/adjust_blurriness"><aside class="declaration">proc </aside>adjust_blurriness<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 74"/></a></aside>
+        </h3>
+        <p>Adjust the current blurriness of the mobs vision by amount</p><h3 id="proc/adjust_bodytemperature"><aside class="declaration">proc </aside>adjust_bodytemperature<aside>(amount, min_temp, max_temp) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 123"/></a></aside>
+        </h3>
+        <p>Adjust the body temperature of a mob, with min/max settings</p><h3 id="proc/adjust_disgust"><aside class="declaration">proc </aside>adjust_disgust<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L115">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 115"/></a></aside>
+        </h3>
+        <p>Adjust the disgust level of a mob</p><h3 id="proc/adjust_drugginess"><aside class="declaration">proc </aside>adjust_drugginess<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 107"/></a></aside>
+        </h3>
+        <p>Adjust the drugginess of a mob</p><h3 id="proc/adjust_nutrition"><aside class="declaration">proc </aside>adjust_nutrition<aside>(change, max) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L1103">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1103"/></a></aside>
+        </h3>
+        <p>Adjust the nutrition of a mob</p><h3 id="proc/alert_timeout"><aside class="declaration">proc </aside>alert_timeout<aside>(/<a href="obj.html">obj</a>/<a href="obj/screen.html">screen</a>/alert/alert, category) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_onclick/hud/alert.dm#L72">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_onclick&#x2F;hud&#x2F;alert.dm 72"/></a></aside>
+        </h3>
+        <ul>
+<li>Proc to create or update an alert. Returns the alert if the alert is new or updated, 0 if it was thrown already</li>
+<li>category is a text string. Each mob may only have one alert per category; the previous one will be replaced</li>
+<li>path is a type path of the actual alert type to throw</li>
+<li>severity is an optional number that will be placed at the end of the icon_state for this alert</li>
+<li>For example, high pressure's icon_state is &quot;highpressure&quot; and can be serverity 1 or 2 to get &quot;highpressure1&quot; or &quot;highpressure2&quot;</li>
+<li>new_master is optional and sets the alert's icon state to &quot;template&quot; in the ui_style icons with the master as an overlay.</li>
+<li>Clicks are forwarded to master</li>
+<li>Override makes it so the alert is not replaced until cleared by a clear_alert with clear_override, and it's used for hallucinations.</li>
+</ul><h3 id="proc/attempt_resist_grab"><aside class="declaration">proc </aside>attempt_resist_grab<aside>(moving_resist, forced, log) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/living.dm#L876">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;living.dm 876"/></a></aside>
+        </h3>
+        <p>Proc to resist a grab. moving_resist is TRUE if this began by someone attempting to move. Return FALSE if still grabbed/failed to break out. Use this instead of resist_grab() directly.</p><h3 id="proc/audible_message"><aside class="parent"><a title="/atom" href="atom.html#proc/audible_message">&uarr;</a></aside>audible_message<aside>(message, deaf_message, hearing_distance, self_message, /list/ignored_mobs, audible_message_flags, pref_check) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L259">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 259"/></a></aside>
+        </h3>
+        <p>Show a message to all mobs in earshot of this one</p>
+<p>This would be for audible actions by the src mob</p>
+<p>vars:</p>
+<ul>
+<li>message is the message output to anyone who can hear.</li>
+<li>self_message (optional) is what the src mob hears.</li>
+<li>deaf_message (optional) is what deaf people will see.</li>
+<li>hearing_distance (optional) is the range, how many tiles away the message can be heard.</li>
+<li>ignored_mobs (optional) doesn't show any message to any given mob in the list.</li>
+</ul><h3 id="proc/blind_eyes"><aside class="declaration">proc </aside>blind_eyes<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L25">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 25"/></a></aside>
+        </h3>
+        <p>Sets a mob's blindness to an amount if it was not above it already, similar to how status effects work</p><h3 id="proc/blur_eyes"><aside class="declaration">proc </aside>blur_eyes<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L66">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 66"/></a></aside>
+        </h3>
+        <p>Make the mobs vision blurry</p><h3 id="proc/check_obscured_slots"><aside class="declaration">proc </aside>check_obscured_slots<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L312">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 312"/></a></aside>
+        </h3>
+        <p>Checks for slots that are currently obscured by other garments.</p><h3 id="proc/clear_important_client_contents"><aside class="declaration">proc </aside>clear_important_client_contents<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms_movement.dm#L413">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movement.dm 413"/></a></aside>
+        </h3>
+        <p>Clears the clients channel of this mob</p><h3 id="proc/clear_typing_indicator"><aside class="declaration">proc </aside>clear_typing_indicator<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/typing_indicator.dm#L44">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 44"/></a></aside>
+        </h3>
+        <p>Removes typing indicator.</p><h3 id="proc/create_chat_message"><aside class="declaration">proc </aside>create_chat_message<aside>(/<a href="atom.html">atom</a>/<a href="atom/movable.html">movable</a>/speaker, /<a href="datum.html">datum</a>/language/message_language, raw_message, /list/spans, runechat_flags) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/chatmessage.dm#L194">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;chatmessage.dm 194"/></a></aside>
+        </h3>
+        <p>Creates a message overlay at a defined location for a given speaker</p>
+<p>Arguments:</p>
+<ul>
+<li>speaker - The atom who is saying this message</li>
+<li>message_language - The language that the message is said in</li>
+<li>raw_message - The text content of the message</li>
+<li>spans - Additional classes to be added to the message</li>
+</ul><h3 id="proc/display_typing_indicator"><aside class="declaration">proc </aside>display_typing_indicator<aside>(timeout_override, state_override, force) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/typing_indicator.dm#L34">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 34"/></a></aside>
+        </h3>
+        <p>Displays typing indicator.
+@param timeout_override - Sets how long until this will disappear on its own without the user finishing their message or logging out. Defaults to src.typing_indicator_timeout
+@param state_override - Sets the state that we will fetch. Defaults to src.get_typing_indicator_icon_state()
+@param force - shows even if src.typing_indcator_enabled is FALSE.</p><h3 id="proc/emote_for_ghost_sight"><aside class="declaration">proc </aside>emote_for_ghost_sight<aside>(message, admin_only, message_range) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/emotes.dm#L100">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;emotes.dm 100"/></a></aside>
+        </h3>
+        <p>Sends the given emote message for all ghosts with ghost sight enabled, excluding close enough to listen normally.</p><h3 id="proc/enable_client_mobs_in_contents"><aside class="declaration">proc </aside>enable_client_mobs_in_contents<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/atoms_movement.dm#L399">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;atoms_movement.dm 399"/></a></aside>
+        </h3>
+        <p>propogates ourselves through our nested contents, similar to other important_recursive_contents procs
+main difference is that client contents need to possibly duplicate recursive contents for the clients mob AND its eye</p><h3 id="proc/equipped_speed_mods"><aside class="declaration">proc </aside>equipped_speed_mods<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L1139">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1139"/></a></aside>
+        </h3>
+        <p>Gets the combined speed modification of all worn items
+Except base mob type doesnt really wear items</p><h3 id="proc/examinate"><aside class="declaration">verb </aside>examinate<aside>(/<a href="atom.html">atom</a>/A) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L365">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 365"/></a></aside>
+        </h3>
+        <p>Examine a mob</p>
+<p>mob verbs are faster than object verbs. See
+<a href="https://secure.byond.com/forum/?post=1326139&amp;page=2#comment8198716">this byond forum post</a>
+for why this isn't atom/verb/examine()</p><h3 id="proc/generate_special_examine_text"><aside class="declaration">proc </aside>generate_special_examine_text<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/special_stats.dm#L258">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;special_stats.dm 258"/></a></aside>
+        </h3>
+        <p>misc examine procs</p><h3 id="proc/generate_typing_indicator"><aside class="declaration">proc </aside>generate_typing_indicator<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/typing_indicator.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 19"/></a></aside>
+        </h3>
+        <p>Generates the mutable appearance for typing indicator. Should prevent stuck overlays.</p><h3 id="proc/get_active_hand"><aside class="declaration">proc </aside>get_active_hand<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/surgery/bodyparts/helpers.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;surgery&#x2F;bodyparts&#x2F;helpers.dm 15"/></a></aside>
+        </h3>
+        <p>Get the bodypart for whatever hand we have active, Only relevant for carbons</p><h3 id="proc/get_config_multiplicative_speed"><aside class="declaration">proc </aside>get_config_multiplicative_speed<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L199">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 199"/></a></aside>
+        </h3>
+        <p>Get the global config movespeed of a mob by type</p><h3 id="proc/get_indicator_overlay"><aside class="declaration">proc </aside>get_indicator_overlay<aside>(state) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/typing_indicator.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 5"/></a></aside>
+        </h3>
+        <p>Fetches the typing indicator we'll use from GLOB.typing_indicator_overlays</p><h3 id="proc/get_luck_critfail_chance"><aside class="declaration">proc </aside>get_luck_critfail_chance<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/special_stats.dm#L245">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;special_stats.dm 245"/></a></aside>
+        </h3>
+        <p>Chance to drop a gun or hit yourself in melee</p><h3 id="proc/get_luck_loot_amt_multiplier"><aside class="declaration">proc </aside>get_luck_loot_amt_multiplier<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/special_stats.dm#L219">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;special_stats.dm 219"/></a></aside>
+        </h3>
+        <p>LUCK
+Currently affects only money from trashpiles</p><h3 id="proc/get_movespeed_modifier_datum"><aside class="declaration">proc </aside>get_movespeed_modifier_datum<aside>(id) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L262">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 262"/></a></aside>
+        </h3>
+        <p>Gets the movespeed modifier datum of a modifier on a mob. Returns null if not found.
+DANGER: IT IS UP TO THE PERSON USING THIS TO MAKE SURE THE MODIFIER IS NOT MODIFIED IF IT HAPPENS TO BE GLOBAL/CACHED.</p><h3 id="proc/get_movespeed_modifiers"><aside class="declaration">proc </aside>get_movespeed_modifiers<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L246">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 246"/></a></aside>
+        </h3>
+        <p>Get the move speed modifiers list of the mob</p><h3 id="proc/get_proc_holders"><aside class="declaration">proc </aside>get_proc_holders<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L684">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 684"/></a></aside>
+        </h3>
+        <p>Gets all relevant proc holders for the browser statpenl</p><h3 id="proc/get_spacemove_backup">get_spacemove_backup<aside>(moving_direction, continuous_move) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob_movement.dm#L257">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob_movement.dm 257"/></a></aside>
+        </h3>
+        <p>Finds a target near a mob that is viable for pushing off when moving.
+Takes the intended movement direction as input, alongside if the context is checking if we're allowed to continue drifting</p><h3 id="proc/get_spells_for_statpanel"><aside class="declaration">proc </aside>get_spells_for_statpanel<aside>(/list/spells) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L695">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 695"/></a></aside>
+        </h3>
+        <p>Convert a list of spells into a displyable list for the statpanel</p>
+<p>Shows charge and other important info</p><h3 id="proc/get_status_tab_items"><aside class="declaration">proc </aside>get_status_tab_items<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L680">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 680"/></a></aside>
+        </h3>
+        <p>Adds this list to the output to the stat browser</p><h3 id="proc/get_typing_indicator_icon_state"><aside class="declaration">proc </aside>get_typing_indicator_icon_state<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/typing_indicator.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 15"/></a></aside>
+        </h3>
+        <p>Gets the state we will use for typing indicators. Defaults to src.typing_indicator_state</p><h3 id="proc/handle_eye_contact"><aside class="declaration">proc </aside>handle_eye_contact<aside>(/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/examined_mob) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L412">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 412"/></a></aside>
+        </h3>
+        <p>handle_eye_contact() is called when we examine() something. If we examine an alive mob with a mind who has examined us in the last second within 5 tiles, we make eye contact!</p>
+<p>Note that if either party has their face obscured, the other won't get the notice about the eye contact
+Also note that examine_more() doesn't proc this or extend the timer, just because it's simpler this way and doesn't lose much.
+The nice part about relying on examining is that we don't bother checking visibility, because we already know they were both visible to each other within the last second, and the one who triggers it is currently seeing them</p><h3 id="proc/has_movespeed_modifier"><aside class="declaration">proc </aside>has_movespeed_modifier<aside>(/<a href="datum.html">datum</a>/<a href="datum/movespeed_modifier.html">movespeed_modifier</a>/datum_type_id) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 183"/></a></aside>
+        </h3>
+        <p>Is there a movespeed modifier for this mob</p><h3 id="proc/onShuttleMove">onShuttleMove<aside>(/<a href="turf.html">turf</a>/newT, /<a href="turf.html">turf</a>/oldT, /list/movement_force, move_dir, /<a href="obj.html">obj</a>/<a href="obj/docking_port.html">docking_port</a>/stationary/old_dock, /<a href="obj.html">obj</a>/<a href="obj/docking_port.html">docking_port</a>/<a href="obj/docking_port/mobile.html">mobile</a>/moving_dock) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/shuttle/on_move.dm#L300">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;on_move.dm 300"/></a></aside>
+        </h3>
+        <p>Mob move procs</p><h3 id="proc/on_item_dropped"><aside class="declaration">proc </aside>on_item_dropped<aside>(/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/I) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L1157">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1157"/></a></aside>
+        </h3>
+        <p>Mostly called by doUnEquip()
+Like item dropped() on mob side.</p><h3 id="proc/remove_movespeed_modifier"><aside class="declaration">proc </aside>remove_movespeed_modifier<aside>(/<a href="datum.html">datum</a>/<a href="datum/movespeed_modifier.html">movespeed_modifier</a>/type_id_datum, update) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 110"/></a></aside>
+        </h3>
+        <p>Remove a move speed modifier from a mob, whether static or variable.</p><h3 id="proc/setGrabState"><aside class="parent"><a title="/atom/movable" href="atom/movable.html#proc/setGrabState">&uarr;</a></aside>setGrabState<aside>(newstate) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L1118">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1118"/></a></aside>
+        </h3>
+        <p>Updates the grab state of the mob and updates movespeed</p><h3 id="proc/set_blindness"><aside class="declaration">proc </aside>set_blindness<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 45"/></a></aside>
+        </h3>
+        <p>Force set the blindness of a mob to some level</p><h3 id="proc/set_blurriness"><aside class="declaration">proc </aside>set_blurriness<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 79"/></a></aside>
+        </h3>
+        <p>Set the mobs blurriness of vision to an amount</p><h3 id="proc/set_disgust"><aside class="declaration">proc </aside>set_disgust<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L119">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 119"/></a></aside>
+        </h3>
+        <p>Set the disgust level of a mob</p><h3 id="proc/set_dizziness"><aside class="declaration">proc </aside>set_dizziness<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L19">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 19"/></a></aside>
+        </h3>
+        <p>FOrce set the dizzyness of a mob</p><h3 id="proc/set_drugginess"><aside class="declaration">proc </aside>set_drugginess<aside>(amount) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L111">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 111"/></a></aside>
+        </h3>
+        <p>Set the drugginess of a mob</p><h3 id="proc/set_nutrition"><aside class="declaration">proc </aside>set_nutrition<aside>(change) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L1107">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 1107"/></a></aside>
+        </h3>
+        <p>Force set the mob nutrition</p><h3 id="proc/set_species"><aside class="declaration">proc </aside>set_species<aside>(/<a href="datum.html">datum</a>/<a href="datum/species.html">species</a>/mrace, icon_update) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/dna.dm#L321">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;dna.dm 321"/></a></aside>
+        </h3>
+        <p>DNA MOB-PROCS</p><h3 id="proc/shared_ui_interaction"><aside class="declaration">proc </aside>shared_ui_interaction<aside>(src_object) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states.dm 62"/></a></aside>
+        </h3>
+        <p>public</p>
+<p>Standard interaction/sanity checks. Different mob types may have overrides.</p>
+<p>return UI_state The state of the UI.</p><h3 id="proc/shuttleRotate"><aside class="parent"><a title="/atom" href="atom.html#proc/shuttleRotate">&uarr;</a></aside>shuttleRotate<aside>(rotation, params) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/shuttle/shuttle_rotate.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;shuttle&#x2F;shuttle_rotate.dm 37"/></a></aside>
+        </h3>
+        <p>Mob rotate procs</p><h3 id="proc/total_multiplicative_slowdown"><aside class="declaration">proc </aside>total_multiplicative_slowdown<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L252">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 252"/></a></aside>
+        </h3>
+        <p>Calculate the total slowdown of all movespeed modifiers</p><h3 id="proc/update_blindness"><aside class="declaration">proc </aside>update_blindness<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/status_procs.dm#L52">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;status_procs.dm 52"/></a></aside>
+        </h3>
+        <p>proc that adds and removes blindness overlays when necessary</p><h3 id="proc/update_config_movespeed"><aside class="declaration">proc </aside>update_config_movespeed<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L194">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 194"/></a></aside>
+        </h3>
+        <p>Set or update the global movespeed config on a mob</p><h3 id="proc/update_movespeed"><aside class="declaration">proc </aside>update_movespeed<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L206">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 206"/></a></aside>
+        </h3>
+        <p>Go through the list of movespeed modifiers and calculate a final movespeed. ANY ADD/REMOVE DONE IN UPDATE_MOVESPEED MUST HAVE THE UPDATE ARGUMENT SET AS FALSE!</p><h3 id="proc/visible_message"><aside class="parent"><a title="/atom" href="atom.html#proc/visible_message">&uarr;</a></aside>visible_message<aside>(message, self_message, blind_message, vision_distance, /list/ignored_mobs, /<a href="mob.html">mob</a>/target, target_message, visible_message_flags, pref_check) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/mob.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;mob.dm 200"/></a></aside>
+        </h3>
+        <p>Adds the functionality to self_message.</p><h3 id="proc/vv_edit_var"><aside class="parent"><a title="/atom" href="atom.html#proc/vv_edit_var">&uarr;</a></aside>vv_edit_var<aside>(var_name, var_value) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/movespeed/_movespeed_modifier.dm#L166">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;movespeed&#x2F;_movespeed_modifier.dm 166"/></a></aside>
+        </h3>
+        <p>Handles the special case of editing the movement var</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>code&#x2F;modules&#x2F;vehicles&#x2F;scooter.dm - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+</header>
+<main>
+<h1>code/modules/vehicles/scooter.dm 
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/vehicles/scooter.dm">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;vehicles&#x2F;scooter.dm"/></a></h1>
+
+<table class="summary" cellspacing="0">
+        <tr><th>/<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/scooter_frame</th><td>obj/vehicle/ridden/scooter/skateboard
+Whether the board is currently grinding
+Stores the time of the last crash plus a short cooldown, affects availability and outcome of certain actions
+Stores the default icon state
+The handheld item counterpart for the board
+Stamina drain multiplier
+obj/vehicle/ridden/scooter/skateboard/Initialize()
+obj/vehicle/ridden/scooter/skateboard/Destroy()
+obj/vehicle/ridden/scooter/skateboard/relaymove()
+obj/vehicle/ridden/scooter/skateboard/generate_actions()
+obj/vehicle/ridden/scooter/skateboard/post_buckle_mob(mob/living/M)//allows skateboards to be non-dense but still allows 2 skateboarders to collide with each other
+obj/vehicle/ridden/scooter/skateboard/post_unbuckle_mob(mob/living/M)
+/	if(!has_buckled_mobs())
+obj/vehicle/ridden/scooter/skateboard/Bump(atom/A)
+var/mob/living/H = buckled_mobs[1]
+Moves the vehicle forward and if it lands on a table, repeats
+obj/vehicle/ridden/scooter/skateboard/proc/grind()
+obj/vehicle/ridden/scooter/skateboard/MouseDrop(atom/over_object)
+obj/vehicle/ridden/scooter/skateboard/pro
+obj/vehicle/ridden/scooter/skateboard/hoverboard/
+obj/vehicle/ridden/scooter/skateboard/hoverboard/screwdriver_act(mob/living/user, obj/item/I)
+obj/vehicle/ridden/scooter/skateboard/hoverboard/attackby(obj/item/I, mob/user, params)
+obj/vehicle/ridden/scooter/skateboard/hoverboard/admin</td></tr></table></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

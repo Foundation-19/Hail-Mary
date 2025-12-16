@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;datum&#x2F;controller&#x2F;global_vars - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="datum/controller/global_vars.html#var">Var Details</a></header>
+<main>
+<h1>global_vars <aside>/<a href="datum.html">datum</a>/<a href="datum/controller/global_vars.html">controller/global_vars</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/controllers/globals.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;globals.dm 3"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/GPS_list">GPS_list</a></th><td>Global GPS_list. All  GPS components get saved in here for easy reference.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/NCR_req_terminal">NCR_req_terminal</a></th><td>Message Terminal</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/WALLITEMS">WALLITEMS</a></th><td>Checks if that loc and dir has an item on the wall</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/acid_overlay">acid_overlay</a></th><td>ACID</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/adamantine_recipes">adamantine_recipes</a></th><td>Others</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/admin_state">admin_state</a></th><td>tgui state: admin_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/all_armor_types">all_armor_types</a></th><td>All armor types</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/always_state">always_state</a></th><td>tgui state: always_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/ammobelt_allowed">ammobelt_allowed</a></th><td>Things allowed in a bandolier</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/area_sound_loops">area_sound_loops</a></th><td>so we dont have to initialize a sound loop datum for every fucking area in the game
+might have the sound effect that everyone hears the same sound at once, hopefully</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/area_weather_list">area_weather_list</a></th><td>List of weather tags and their respective areas</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/areas_by_type">areas_by_type</a></th><td>An association from typepath to area instance. Only includes areas with <code>unique</code> set.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/armor_token_operation_legend">armor_token_operation_legend</a></th><td>Should the modifier MULTiply or ADD the value?</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/conscious_state">conscious_state</a></th><td>tgui state: conscious_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/contained_state">contained_state</a></th><td>tgui state: contained_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/damage_threshold_valid_types">damage_threshold_valid_types</a></th><td>Damages DT is effective with</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/deep_inventory_state">deep_inventory_state</a></th><td>tgui state: deep_inventory_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/default_all_armor_slot_allowed">default_all_armor_slot_allowed</a></th><td>things every armor can hold in their slot</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/default_state">default_state</a></th><td>tgui state: default_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/energyweapon_crafting">energyweapon_crafting</a></th><td>datum/crafting_recipe/tribal/bonetalisman, //broken item, unneeded</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/gateway_destinations">gateway_destinations</a></th><td>List of possible gateway destinations.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/glide_size_multiplier">glide_size_multiplier</a></th><td>Compensating for time dialation</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/gunbelt_allowed">gunbelt_allowed</a></th><td>Things allowed in a holster (more of a secbelt)</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/hands_state">hands_state</a></th><td>tgui state: hands_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/holster_disallowed">holster_disallowed</a></th><td>Not so little bitty ammo thingies</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/human_adjacent_state">human_adjacent_state</a></th><td>tgui state: human_adjacent_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/inventory_state">inventory_state</a></th><td>tgui state: inventory_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/knifebelt_allowed">knifebelt_allowed</a></th><td>Things allowed in a scabbard</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/language_menu_state">language_menu_state</a></th><td>tgui state: language_menu_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/mafia_bad_signup">mafia_bad_signup</a></th><td>list of ghosts who want to play mafia that have since disconnected. They are kept in the lobby, but not counted for starting a game.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/mafia_game">mafia_game</a></th><td>the current global mafia game running.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/mafia_signup">mafia_signup</a></th><td>list of ghosts who want to play mafia, every time someone enters the list it checks to see if enough are in</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/marker_beacon_colors">marker_beacon_colors</a></th><td>Marker Beacons</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/medibelt_allowed">medibelt_allowed</a></th><td>Things allowed in a medibelt</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/mob_spawner_random_index">mob_spawner_random_index</a></th><td>Global list of random mob spawners, to coordinate them all
+format: &quot;spawner_key&quot; = list(MOB_SPAWNER_GLOBAL_LIST_KIND = MOB_SPAWNER_GHOUL, MOB_SPAWNER_GLOBAL_LIST_DIFFICULTY = MOB_SPAWNER_DIFFICULTIES)</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/new_player_state">new_player_state</a></th><td>tgui state: new_player_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/not_incapacitated_state">not_incapacitated_state</a></th><td>tgui state: not_incapacitated_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/not_incapacitated_turf_state">not_incapacitated_turf_state</a></th><td>tgui state: not_incapacitated_turf_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/notcontained_state">notcontained_state</a></th><td>tgui state: notcontained_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/observer_state">observer_state</a></th><td>tgui state: observer_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/physical_obscured_state">physical_obscured_state</a></th><td>tgui state: physical_obscured_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/physical_state">physical_state</a></th><td>tgui state: physical_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/picture_log_directory">picture_log_directory</a></th><td>Picture logging</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/pipe_rifle_valid_calibers">pipe_rifle_valid_calibers</a></th><td>internal_tick_usage is updated every tick by extools</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/pred_vore_sounds">pred_vore_sounds</a></th><td>vore sound channels are in <a href="code/__DEFINES/sound.html" title="code\__DEFINES\sound.dm">code__DEFINES\sound.dm</a></td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/rad_puddle_debug">rad_puddle_debug</a></th><td>Makes people scream and shout a number when irradiated</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/random_zlevels_generated">random_zlevels_generated</a></th><td>Away missions, VR, random z levels stuff.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/reality_smash_track">reality_smash_track</a></th><td>We want reality_smash_tracker to exist only once and be accesable from anywhere.</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/req_console_assistance">req_console_assistance</a></th><td>Requests Console</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/self_state">self_state</a></th><td>tgui state: self_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/small_ammo_types">small_ammo_types</a></th><td>Little bitty ammo thingies</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/stat_panel_verbs">stat_panel_verbs</a></th><td>Bare minimum required verbs for stat panel operation</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/tattoo_locations">tattoo_locations</a></th><td>Lookup table for what locations there are on limbs for tats
+Kept general, you aim for a limb, and then choose the sub-location
+TRUE means its free for people to use, FALSE means it can only be applied via outfitting</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/the_gateway">the_gateway</a></th><td>Station home gateway</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/toolbelt_allowed">toolbelt_allowed</a></th><td>Things allowed in a toolbelt</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/trait_name_map">trait_name_map</a></th><td>value -&gt; trait name, generated on use from trait_by_type global</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/typing_indicator_overlays">typing_indicator_overlays</a></th><td>state = overlay/image/object/type/whatever add_overlay will accept</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/ui_vorepanel_state">ui_vorepanel_state</a></th><td>tgui state: vorepanel_state</td></tr>
+            <tr><th><a href="datum/controller/global_vars.html#var/z_state">z_state</a></th><td>tgui state: z_state</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/GPS_list"><aside class="declaration">var </aside>GPS_list
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/components/gps.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;components&#x2F;gps.dm 2"/></a></h3>
+        <p>Global GPS_list. All  GPS components get saved in here for easy reference.</p><h3 id="var/NCR_req_terminal"><aside class="declaration">var </aside>NCR_req_terminal
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/msgterminal.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;msgterminal.dm 4"/></a></h3>
+        <p>Message Terminal</p>
+<p>Ported and condensed version of requests_console.dm using existing telecomms setup.</p><h3 id="var/WALLITEMS"><aside class="declaration">var </aside>WALLITEMS
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__HELPERS/unsorted.dm#L683">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__HELPERS&#x2F;unsorted.dm 683"/></a></h3>
+        <p>Checks if that loc and dir has an item on the wall</p><h3 id="var/acid_overlay"><aside class="declaration">var </aside>acid_overlay
+            <aside>&ndash; /static/mutable_appearance</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/obj_defense.dm#L189">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;obj_defense.dm 189"/></a></h3>
+        <p>ACID</p><h3 id="var/adamantine_recipes"><aside class="declaration">var </aside>adamantine_recipes
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/objects/items/stacks/sheets/mineral.dm#L384">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;objects&#x2F;items&#x2F;stacks&#x2F;sheets&#x2F;mineral.dm 384"/></a></h3>
+        <p>Others</p><h3 id="var/admin_state"><aside class="declaration">var </aside>admin_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/admin_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/admin.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;admin.dm 12"/></a></h3>
+        <p>tgui state: admin_state</p>
+<p>Checks that the user is an admin, end-of-story.</p><h3 id="var/all_armor_types"><aside class="declaration">var </aside>all_armor_types
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/armor.dm#L995">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;armor.dm 995"/></a></h3>
+        <p>All armor types</p><h3 id="var/always_state"><aside class="declaration">var </aside>always_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/always_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/always.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;always.dm 12"/></a></h3>
+        <p>tgui state: always_state</p>
+<p>Always grants the user UI_INTERACTIVE. Period.</p><h3 id="var/ammobelt_allowed"><aside class="declaration">var </aside>ammobelt_allowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L510">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 510"/></a></h3>
+        <p>Things allowed in a bandolier</p><h3 id="var/area_sound_loops"><aside class="declaration">var </aside>area_sound_loops
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L5">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 5"/></a></h3>
+        <p>so we dont have to initialize a sound loop datum for every fucking area in the game
+might have the sound effect that everyone hears the same sound at once, hopefully</p><h3 id="var/area_weather_list"><aside class="declaration">var </aside>area_weather_list
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/area/areas.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;area&#x2F;areas.dm 8"/></a></h3>
+        <p>List of weather tags and their respective areas</p><h3 id="var/areas_by_type"><aside class="declaration">var </aside>areas_by_type
+            <aside>&ndash; /static/list/area</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_globalvars/lists/mapping.dm#L48">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;lists&#x2F;mapping.dm 48"/></a></h3>
+        <p>An association from typepath to area instance. Only includes areas with <code>unique</code> set.</p><h3 id="var/armor_token_operation_legend"><aside class="declaration">var </aside>armor_token_operation_legend
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/armor.dm#L870">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;armor.dm 870"/></a></h3>
+        <p>Should the modifier MULTiply or ADD the value?</p><h3 id="var/conscious_state"><aside class="declaration">var </aside>conscious_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/conscious_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/conscious.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;conscious.dm 12"/></a></h3>
+        <p>tgui state: conscious_state</p>
+<p>Only checks if the user is conscious.</p><h3 id="var/contained_state"><aside class="declaration">var </aside>contained_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/contained_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/contained.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;contained.dm 12"/></a></h3>
+        <p>tgui state: contained_state</p>
+<p>Checks that the user is inside the src_object.</p><h3 id="var/damage_threshold_valid_types"><aside class="declaration">var </aside>damage_threshold_valid_types
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/armor.dm#L992">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;armor.dm 992"/></a></h3>
+        <p>Damages DT is effective with</p><h3 id="var/deep_inventory_state"><aside class="declaration">var </aside>deep_inventory_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/deep_inventory_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/deep_inventory.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;deep_inventory.dm 13"/></a></h3>
+        <p>tgui state: deep_inventory_state</p>
+<p>Checks that the src_object is in the user's deep
+(backpack, box, toolbox, etc) inventory.</p><h3 id="var/default_all_armor_slot_allowed"><aside class="declaration">var </aside>default_all_armor_slot_allowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L301">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 301"/></a></h3>
+        <p>things every armor can hold in their slot</p><h3 id="var/default_state"><aside class="declaration">var </aside>default_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/default</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/default.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;default.dm 13"/></a></h3>
+        <p>tgui state: default_state</p>
+<p>Checks a number of things -- mostly physical distance for humans
+and view for robots.</p><h3 id="var/energyweapon_crafting"><aside class="declaration">var </aside>energyweapon_crafting
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/datums/traits/good.dm#L83">
+        <img src="git.png" width="16" height="16" title="code&#x2F;datums&#x2F;traits&#x2F;good.dm 83"/></a></h3>
+        <p>datum/crafting_recipe/tribal/bonetalisman, //broken item, unneeded</p><h3 id="var/gateway_destinations"><aside class="declaration">var </aside>gateway_destinations
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/awaymissions/gateway.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;awaymissions&#x2F;gateway.dm 4"/></a></h3>
+        <p>List of possible gateway destinations.</p><h3 id="var/glide_size_multiplier"><aside class="declaration">var </aside>glide_size_multiplier
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/movement.dm#L8">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;movement.dm 8"/></a></h3>
+        <p>Compensating for time dialation</p><h3 id="var/gunbelt_allowed"><aside class="declaration">var </aside>gunbelt_allowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L484">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 484"/></a></h3>
+        <p>Things allowed in a holster (more of a secbelt)</p><h3 id="var/hands_state"><aside class="declaration">var </aside>hands_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/hands_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/hands.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;hands.dm 12"/></a></h3>
+        <p>tgui state: hands_state</p>
+<p>Checks that the src_object is in the user's hands.</p><h3 id="var/holster_disallowed"><aside class="declaration">var </aside>holster_disallowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 200"/></a></h3>
+        <p>Not so little bitty ammo thingies</p><h3 id="var/human_adjacent_state"><aside class="declaration">var </aside>human_adjacent_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/human_adjacent_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/human_adjacent.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;human_adjacent.dm 13"/></a></h3>
+        <p>tgui state: human_adjacent_state</p>
+<p>In addition to default checks, only allows interaction for a
+human adjacent user.</p><h3 id="var/inventory_state"><aside class="declaration">var </aside>inventory_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/inventory_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/inventory.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;inventory.dm 13"/></a></h3>
+        <p>tgui state: inventory_state</p>
+<p>Checks that the src_object is in the user's top-level
+(hand, ear, pocket, belt, etc) inventory.</p><h3 id="var/knifebelt_allowed"><aside class="declaration">var </aside>knifebelt_allowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L535">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 535"/></a></h3>
+        <p>Things allowed in a scabbard</p><h3 id="var/language_menu_state"><aside class="declaration">var </aside>language_menu_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/language_menu</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/language_menu.dm#L10">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;language_menu.dm 10"/></a></h3>
+        <p>tgui state: language_menu_state</p><h3 id="var/mafia_bad_signup"><aside class="declaration">var </aside>mafia_bad_signup
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mafia/_defines.dm#L63">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mafia&#x2F;_defines.dm 63"/></a></h3>
+        <p>list of ghosts who want to play mafia that have since disconnected. They are kept in the lobby, but not counted for starting a game.</p><h3 id="var/mafia_game"><aside class="declaration">var </aside>mafia_game
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mafia/_defines.dm#L65">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mafia&#x2F;_defines.dm 65"/></a></h3>
+        <p>the current global mafia game running.</p><h3 id="var/mafia_signup"><aside class="declaration">var </aside>mafia_signup
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mafia/_defines.dm#L61">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mafia&#x2F;_defines.dm 61"/></a></h3>
+        <p>list of ghosts who want to play mafia, every time someone enters the list it checks to see if enough are in</p><h3 id="var/marker_beacon_colors"><aside class="declaration">var </aside>marker_beacon_colors
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mining/equipment/marker_beacons.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mining&#x2F;equipment&#x2F;marker_beacons.dm 2"/></a></h3>
+        <p>Marker Beacons</p><h3 id="var/medibelt_allowed"><aside class="declaration">var </aside>medibelt_allowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L421">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 421"/></a></h3>
+        <p>Things allowed in a medibelt</p><h3 id="var/mob_spawner_random_index"><aside class="declaration">var </aside>mob_spawner_random_index
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/random_mob_spawner.dm#L112">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;random_mob_spawner.dm 112"/></a></h3>
+        <p>Global list of random mob spawners, to coordinate them all
+format: &quot;spawner_key&quot; = list(MOB_SPAWNER_GLOBAL_LIST_KIND = MOB_SPAWNER_GHOUL, MOB_SPAWNER_GLOBAL_LIST_DIFFICULTY = MOB_SPAWNER_DIFFICULTIES)</p><h3 id="var/new_player_state"><aside class="declaration">var </aside>new_player_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/new_player_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/new_player.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;new_player.dm 7"/></a></h3>
+        <p>tgui state: new_player_state</p>
+<p>Checks that the user is a new_player, or if user is an admin</p><h3 id="var/not_incapacitated_state"><aside class="declaration">var </aside>not_incapacitated_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/not_incapacitated_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/not_incapacitated.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;not_incapacitated.dm 12"/></a></h3>
+        <p>tgui state: not_incapacitated_state</p>
+<p>Checks that the user isn't incapacitated</p><h3 id="var/not_incapacitated_turf_state"><aside class="declaration">var </aside>not_incapacitated_turf_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/not_incapacitated_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/not_incapacitated.dm#L20">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;not_incapacitated.dm 20"/></a></h3>
+        <p>tgui state: not_incapacitated_turf_state</p>
+<p>Checks that the user isn't incapacitated and that their loc is a turf</p><h3 id="var/notcontained_state"><aside class="declaration">var </aside>notcontained_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/notcontained_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/notcontained.dm#L13">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;notcontained.dm 13"/></a></h3>
+        <p>tgui state: notcontained_state</p>
+<p>Checks that the user is not inside src_object, and then makes the
+default checks.</p><h3 id="var/observer_state"><aside class="declaration">var </aside>observer_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/observer_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/observer.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;observer.dm 12"/></a></h3>
+        <p>tgui state: observer_state</p>
+<p>Checks that the user is an observer/ghost.</p><h3 id="var/physical_obscured_state"><aside class="declaration">var </aside>physical_obscured_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/physical_obscured_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/physical.dm#L38">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;physical.dm 38"/></a></h3>
+        <p>tgui state: physical_obscured_state</p>
+<p>Short-circuits the default state to only check physical distance, being in view doesn't matter</p><h3 id="var/physical_state"><aside class="declaration">var </aside>physical_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/physical</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/physical.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;physical.dm 12"/></a></h3>
+        <p>tgui state: physical_state</p>
+<p>Short-circuits the default state to only check physical distance.</p><h3 id="var/picture_log_directory"><aside class="declaration">var </aside>picture_log_directory
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_globalvars/logging.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;logging.dm 76"/></a></h3>
+        <p>Picture logging</p><h3 id="var/pipe_rifle_valid_calibers"><aside class="declaration">var </aside>pipe_rifle_valid_calibers
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/ammo.dm#L101">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;ammo.dm 101"/></a></h3>
+        <p>internal_tick_usage is updated every tick by extools</p><h3 id="var/pred_vore_sounds"><aside class="declaration">var </aside>pred_vore_sounds
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/voreconstants.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;voreconstants.dm 97"/></a></h3>
+        <p>vore sound channels are in <a href="code/__DEFINES/sound.html" title="code\__DEFINES\sound.dm">code__DEFINES\sound.dm</a></p><h3 id="var/rad_puddle_debug"><aside class="declaration">var </aside>rad_puddle_debug
+            <aside>&ndash; /static</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/controllers/subsystem/radturf.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;controllers&#x2F;subsystem&#x2F;radturf.dm 3"/></a></h3>
+        <p>Makes people scream and shout a number when irradiated</p><h3 id="var/random_zlevels_generated"><aside class="declaration">var </aside>random_zlevels_generated
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_globalvars/lists/mapping.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;lists&#x2F;mapping.dm 55"/></a></h3>
+        <p>Away missions, VR, random z levels stuff.</p><h3 id="var/reality_smash_track"><aside class="declaration">var </aside>reality_smash_track
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/reality_smash_tracker.html">reality_smash_tracker</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_globalvars/game_modes.dm#L16">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;game_modes.dm 16"/></a></h3>
+        <p>We want reality_smash_tracker to exist only once and be accesable from anywhere.</p><h3 id="var/req_console_assistance"><aside class="declaration">var </aside>req_console_assistance
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/game/machinery/requests_console.dm#L4">
+        <img src="git.png" width="16" height="16" title="code&#x2F;game&#x2F;machinery&#x2F;requests_console.dm 4"/></a></h3>
+        <p>Requests Console</p>
+<p>Originally written by errorage, updated by: Carn, needs more work though. I just added some security fixes</p><h3 id="var/self_state"><aside class="declaration">var </aside>self_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/self_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/self.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;self.dm 12"/></a></h3>
+        <p>tgui state: self_state</p>
+<p>Only checks that the user and src_object are the same.</p><h3 id="var/small_ammo_types"><aside class="declaration">var </aside>small_ammo_types
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L173">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 173"/></a></h3>
+        <p>Little bitty ammo thingies</p><h3 id="var/stat_panel_verbs"><aside class="declaration">var </aside>stat_panel_verbs
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/statpanel.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;statpanel.dm 2"/></a></h3>
+        <p>Bare minimum required verbs for stat panel operation</p><h3 id="var/tattoo_locations"><aside class="declaration">var </aside>tattoo_locations
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/tattoo_defines.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;tattoo_defines.dm 76"/></a></h3>
+        <p>Lookup table for what locations there are on limbs for tats
+Kept general, you aim for a limb, and then choose the sub-location
+TRUE means its free for people to use, FALSE means it can only be applied via outfitting</p><h3 id="var/the_gateway"><aside class="declaration">var </aside>the_gateway
+            <aside>&ndash; /static/<a href="obj.html">obj</a>/<a href="obj/machinery/gateway.html">machinery/gateway</a>/centerstation</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/awaymissions/gateway.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;awaymissions&#x2F;gateway.dm 2"/></a></h3>
+        <p>Station home gateway</p><h3 id="var/toolbelt_allowed"><aside class="declaration">var </aside>toolbelt_allowed
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/__DEFINES/inventory.dm#L322">
+        <img src="git.png" width="16" height="16" title="code&#x2F;__DEFINES&#x2F;inventory.dm 322"/></a></h3>
+        <p>Things allowed in a toolbelt</p><h3 id="var/trait_name_map"><aside class="declaration">var </aside>trait_name_map
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/_globalvars/traits.dm#L155">
+        <img src="git.png" width="16" height="16" title="code&#x2F;_globalvars&#x2F;traits.dm 155"/></a></h3>
+        <p>value -&gt; trait name, generated on use from trait_by_type global</p><h3 id="var/typing_indicator_overlays"><aside class="declaration">var </aside>typing_indicator_overlays
+            <aside>&ndash; /static/list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/typing_indicator.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;typing_indicator.dm 2"/></a></h3>
+        <p>state = overlay/image/object/type/whatever add_overlay will accept</p><h3 id="var/ui_vorepanel_state"><aside class="declaration">var </aside>ui_vorepanel_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/vorepanel_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/vore_panel_state.dm#L7">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;vore_panel_state.dm 7"/></a></h3>
+        <p>tgui state: vorepanel_state</p>
+<p>Only checks that the user and src_object are the same.</p><h3 id="var/z_state"><aside class="declaration">var </aside>z_state
+            <aside>&ndash; /static/<a href="datum.html">datum</a>/<a href="datum/ui_state.html">ui_state</a>/z_state</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/tgui/states/zlevel.dm#L12">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;tgui&#x2F;states&#x2F;zlevel.dm 12"/></a></h3>
+        <p>tgui state: z_state</p>
+<p>Only checks that the Z-level of the user and src_object are the same.</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>

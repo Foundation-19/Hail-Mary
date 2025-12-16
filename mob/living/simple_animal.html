@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <base href="../../" />
+    <link rel="stylesheet" href="dmdoc.css" />
+    <title>&#x2F;mob&#x2F;living&#x2F;simple_animal - &#x2F;tg&#x2F; Station 13</title>
+</head>
+<body>
+<header>
+    <a href="index.html">&#x2F;tg&#x2F; Station 13</a> -
+    <a href="index.html#modules">Modules</a> -
+    <a href="index.html#types">Types</a>
+ &mdash; <a href="mob/living/simple_animal.html#var">Var Details</a> - <a href="mob/living/simple_animal.html#proc">Proc Details</a></header>
+<main>
+<h1>simple_animal <aside>/<a href="mob.html">mob</a>/<a href="mob/living.html">living</a>/<a href="mob/living/simple_animal.html">simple_animal</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L3">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 3"/></a></h1>
+
+<table class="summary" cellspacing="0"><tr><td colspan="2"><h2>Vars</h2></td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/AIStatus">AIStatus</a></th><td>The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players).</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/access_card">access_card</a></th><td>Innate access uses an internal ID card.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/animal_species">animal_species</a></th><td>Sorry, no spider+corgi buttbabies.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/armour_penetration">armour_penetration</a></th><td>How much armour they ignore, as a flat reduction from the targets armour value.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/atmos_requirements">atmos_requirements</a></th><td>Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/attack_verb_continuous">attack_verb_continuous</a></th><td>Attacking verb in present continuous tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/attack_verb_simple">attack_verb_simple</a></th><td>Attacking verb in present simple tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/attacked_sound">attacked_sound</a></th><td>Played when someone punches the creature.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/blood_volume">blood_volume</a></th><td>How much blud it has for bloodsucking</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/buffed">buffed</a></th><td>In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to TRUE, so we have something to check against.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/can_ghost_into">can_ghost_into</a></th><td>Can ghosts just hop into one of these guys?</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/can_have_ai">can_have_ai</a></th><td>once we have become sentient, we can never go back.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/childtype">childtype</a></th><td>Hot simple_animal baby making vars.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/damage_coeff">damage_coeff</a></th><td>1 for full damage , 0 for none , -1 for 1:1 heal from that source.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/death_sound">death_sound</a></th><td>The sound played on death.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/del_on_death">del_on_death</a></th><td>causes mob to be deleted on death, useful for mobs that spawn lootable corpses.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/desc_important">desc_important</a></th><td>Important info of the mob</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/desc_short">desc_short</a></th><td>Short desc of the mob</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/dextrous">dextrous</a></th><td>If the creature has, and can use, hands.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/emote_hear">emote_hear</a></th><td>Hearable emotes</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/emote_see">emote_see</a></th><td>Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/environment_smash">environment_smash</a></th><td>Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/footstep_type">footstep_type</a></th><td>What kind of footstep this mob should have. Null if it shouldn't have any.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/force_threshold">force_threshold</a></th><td>Mob damage threshold, subtracted from incoming damage</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/friendly_verb_continuous">friendly_verb_continuous</a></th><td>Attacking, but without damage, verb in present continuous tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/friendly_verb_simple">friendly_verb_simple</a></th><td>Attacking, but without damage, verb in present simple tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/ghost_cooldown_time">ghost_cooldown_time</a></th><td>Timeout between dying or ghosting in this mob and going back into another mob</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/ghost_mob_id">ghost_mob_id</a></th><td>The class of mob this is, for purposes of per-mob ghost cooldowns</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/gold_core_spawnable">gold_core_spawnable</a></th><td>If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/healable">healable</a></th><td>Healable by medical stacks? Defaults to yes.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/icon_dead">icon_dead</a></th><td>icon when the animal is dead. Don't use animated icons for this.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/icon_gib">icon_gib</a></th><td>We only try to show a gibbing animation if this exists.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/lazarused">lazarused</a></th><td>has the mob been lazarused?</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/lazarused_by">lazarused_by</a></th><td>Who lazarused this mob?</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/loot">loot</a></th><td>list of things spawned at mob's loc when it dies.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/loot_amount_random">loot_amount_random</a></th><td>Drop a random number, 1 through loot_drop_amount? only applicable if loot_drop_amount is a number</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/loot_drop_amount">loot_drop_amount</a></th><td>How do we handle the loot list? Should be either MOB_LOOT_ALL or a number. If its a number, use an associated weighted list for <code>loot</code>!</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/melee_damage_lower">melee_damage_lower</a></th><td>LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/melee_damage_type">melee_damage_type</a></th><td>Damage type of a simple mob's melee attack, should it do damage.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/minbodytemp">minbodytemp</a></th><td>Temperature effect.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/mob_armor">mob_armor</a></th><td>mob's inherent armor</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/mob_armor_description">mob_armor_description</a></th><td>Description line for their armor, cached nice and sweet</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/mob_armor_tokens">mob_armor_tokens</a></th><td>Additional armor modifiers that are applied to the actual armor value</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/my_z">my_z</a></th><td>I don't want to confuse this with client registered_z.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/obj_damage">obj_damage</a></th><td>How much damage this simple animal does to objects, if any.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/pop_required_to_jump_into">pop_required_to_jump_into</a></th><td>required pop to hop into this thing</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/response_disarm_continuous">response_disarm_continuous</a></th><td>Disarm-intent verb in present continuous tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/response_disarm_simple">response_disarm_simple</a></th><td>Disarm-intent verb in present simple tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/response_harm_continuous">response_harm_continuous</a></th><td>Harm-intent verb in present continuous tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/response_harm_simple">response_harm_simple</a></th><td>Harm-intent verb in present simple tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/response_help_continuous">response_help_continuous</a></th><td>When someone interacts with the simple animal.
+Help-intent verb in present continuous tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/response_help_simple">response_help_simple</a></th><td>Help-intent verb in present simple tense.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/sentience_type">sentience_type</a></th><td>Sentience type, for slime potions.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/shouldwakeup">shouldwakeup</a></th><td>convenience var for forcibly waking up an idling AI on next check.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/sound_pitch">sound_pitch</a></th><td>set to a value between -100 and 100 to change the mob's pitch. Set to 0 for default pitch</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/speak_emote">speak_emote</a></th><td>Emotes while speaking IE: Ian [emote], [text] -- Ian barks, &quot;WOOF!&quot;. Spoken text is generated from the speak variable.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/speed">speed</a></th><td>LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster.
+Breaks everything, makes player controlled mobs wayyyyy tooo slow</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/stamcrit_duration">stamcrit_duration</a></th><td>They are stamcritted for this long when stamcrit</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/stamcrit_threshold">stamcrit_threshold</a></th><td>When the mob has this much stamina damage, put them in stamcrit. set to SIMPLEMOB_NO_STAMCRIT</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/stop_automated_movement">stop_automated_movement</a></th><td>Use this to temporarely stop random movement or to if you write special movement code for animals.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/stop_automated_movement_when_pulled">stop_automated_movement_when_pulled</a></th><td>When set to 1 this stops the animal from moving when someone is pulling it.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/tame">tame</a></th><td>Domestication.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/unsuitable_atmos_damage">unsuitable_atmos_damage</a></th><td>This damage is taken when atmos doesn't fit all the requirements above.</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/variation_list">variation_list</a></th><td>Sets up mob diversity</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/vary_pitches">vary_pitches</a></th><td>How much will the pitch vary? first is how much lower it can go, second is how high it can go. from -100 to 100. please make the first number smaller than the second</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#var/wander">wander</a></th><td>Does the mob wander around when idle?</td></tr><tr><td colspan="2"><h2>Procs</h2></td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#proc/attack_ghost">attack_ghost</a></th><td>WARNING: DUPLICATED CODE, MAKE BETTER
+End duplicated code</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#proc/blind_eyes">blind_eyes</a></th><td>Melee
+Bullet
+Laser
+plasma
+dt</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#proc/make_ghostable">make_ghostable</a></th><td>If user is set, the mob will be told to be loyal to that mob</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#proc/set_ghost_timeout">set_ghost_timeout</a></th><td>Player left the mob's body</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#proc/setup_mob_armor_description">setup_mob_armor_description</a></th><td>compiles the mob's armor description</td></tr>
+            <tr><th><a href="mob/living/simple_animal.html#proc/setup_mob_armor_values">setup_mob_armor_values</a></th><td>AAA DUPLICATED CODE FROM OBJ.DM</td></tr></table>
+    <h2 id="var">Var Details</h2><h3 id="var/AIStatus"><aside class="declaration">var </aside>AIStatus
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L152">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 152"/></a></h3>
+        <p>The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players).</p><h3 id="var/access_card"><aside class="declaration">var </aside>access_card
+            <aside>&ndash; /<a href="obj.html">obj</a>/<a href="obj/item.html">item</a>/card/id</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L119">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 119"/></a></h3>
+        <p>Innate access uses an internal ID card.</p><h3 id="var/animal_species"><aside class="declaration">var </aside>animal_species
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L116">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 116"/></a></h3>
+        <p>Sorry, no spider+corgi buttbabies.</p><h3 id="var/armour_penetration"><aside class="declaration">var </aside>armour_penetration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L84">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 84"/></a></h3>
+        <p>How much armour they ignore, as a flat reduction from the targets armour value.</p><h3 id="var/atmos_requirements"><aside class="declaration">var </aside>atmos_requirements
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L74">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 74"/></a></h3>
+        <p>Atmos effect - Yes, you can make creatures that require plasma or co2 to survive. N2O is a trace gas and handled separately, hence why it isn't here. It'd be hard to add it. Hard and me don't mix (Yes, yes make all the dick jokes you want with that.) - Errorage</p><h3 id="var/attack_verb_continuous"><aside class="declaration">var </aside>attack_verb_continuous
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L90">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 90"/></a></h3>
+        <p>Attacking verb in present continuous tense.</p><h3 id="var/attack_verb_simple"><aside class="declaration">var </aside>attack_verb_simple
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L92">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 92"/></a></h3>
+        <p>Attacking verb in present simple tense.</p><h3 id="var/attacked_sound"><aside class="declaration">var </aside>attacked_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L145">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 145"/></a></h3>
+        <p>Played when someone punches the creature.</p><h3 id="var/blood_volume">blood_volume
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L15">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 15"/></a></h3>
+        <p>How much blud it has for bloodsucking</p><h3 id="var/buffed"><aside class="declaration">var </aside>buffed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L121">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 121"/></a></h3>
+        <p>In the event that you want to have a buffing effect on the mob, but don't want it to stack with other effects, any outside force that applies a buff to a simple mob should at least set this to TRUE, so we have something to check against.</p><h3 id="var/can_ghost_into"><aside class="declaration">var </aside>can_ghost_into
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L179">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 179"/></a></h3>
+        <p>Can ghosts just hop into one of these guys?</p><h3 id="var/can_have_ai"><aside class="declaration">var </aside>can_have_ai
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L154">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 154"/></a></h3>
+        <p>once we have become sentient, we can never go back.</p><h3 id="var/childtype"><aside class="declaration">var </aside>childtype
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L113">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 113"/></a></h3>
+        <p>Hot simple_animal baby making vars.</p><h3 id="var/damage_coeff"><aside class="declaration">var </aside>damage_coeff
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L88">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 88"/></a></h3>
+        <p>1 for full damage , 0 for none , -1 for 1:1 heal from that source.</p><h3 id="var/death_sound"><aside class="declaration">var </aside>death_sound
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L140">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 140"/></a></h3>
+        <p>The sound played on death.</p><h3 id="var/del_on_death"><aside class="declaration">var </aside>del_on_death
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L137">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 137"/></a></h3>
+        <p>causes mob to be deleted on death, useful for mobs that spawn lootable corpses.</p><h3 id="var/desc_important"><aside class="declaration">var </aside>desc_important
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L187">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 187"/></a></h3>
+        <p>Important info of the mob</p><h3 id="var/desc_short"><aside class="declaration">var </aside>desc_short
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L185">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 185"/></a></h3>
+        <p>Short desc of the mob</p><h3 id="var/dextrous"><aside class="declaration">var </aside>dextrous
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L148">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 148"/></a></h3>
+        <p>If the creature has, and can use, hands.</p><h3 id="var/emote_hear"><aside class="declaration">var </aside>emote_hear
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L30">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 30"/></a></h3>
+        <p>Hearable emotes</p><h3 id="var/emote_see"><aside class="declaration">var </aside>emote_see
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L32">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 32"/></a></h3>
+        <p>Unlike speak_emote, the list of things in this variable only show by themselves with no spoken text. IE: Ian barks, Ian yaps.</p><h3 id="var/environment_smash"><aside class="declaration">var </aside>environment_smash
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L99">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 99"/></a></h3>
+        <p>Set to 1 to allow breaking of crates,lockers,racks,tables; 2 for walls; 3 for Rwalls.</p><h3 id="var/footstep_type"><aside class="declaration">var </aside>footstep_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L166">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 166"/></a></h3>
+        <p>What kind of footstep this mob should have. Null if it shouldn't have any.</p><h3 id="var/force_threshold"><aside class="declaration">var </aside>force_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L58">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 58"/></a></h3>
+        <p>Mob damage threshold, subtracted from incoming damage</p><h3 id="var/friendly_verb_continuous"><aside class="declaration">var </aside>friendly_verb_continuous
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L95">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 95"/></a></h3>
+        <p>Attacking, but without damage, verb in present continuous tense.</p><h3 id="var/friendly_verb_simple"><aside class="declaration">var </aside>friendly_verb_simple
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L97">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 97"/></a></h3>
+        <p>Attacking, but without damage, verb in present simple tense.</p><h3 id="var/ghost_cooldown_time"><aside class="declaration">var </aside>ghost_cooldown_time
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L183">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 183"/></a></h3>
+        <p>Timeout between dying or ghosting in this mob and going back into another mob</p><h3 id="var/ghost_mob_id"><aside class="declaration">var </aside>ghost_mob_id
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L181">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 181"/></a></h3>
+        <p>The class of mob this is, for purposes of per-mob ghost cooldowns</p><h3 id="var/gold_core_spawnable"><aside class="declaration">var </aside>gold_core_spawnable
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L123">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 123"/></a></h3>
+        <p>If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood.</p><h3 id="var/healable"><aside class="declaration">var </aside>healable
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L71">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 71"/></a></h3>
+        <p>Healable by medical stacks? Defaults to yes.</p><h3 id="var/icon_dead"><aside class="declaration">var </aside>icon_dead
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L21">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 21"/></a></h3>
+        <p>icon when the animal is dead. Don't use animated icons for this.</p><h3 id="var/icon_gib"><aside class="declaration">var </aside>icon_gib
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L23">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 23"/></a></h3>
+        <p>We only try to show a gibbing animation if this exists.</p><h3 id="var/lazarused"><aside class="declaration">var </aside>lazarused
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L196">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 196"/></a></h3>
+        <p>has the mob been lazarused?</p><h3 id="var/lazarused_by"><aside class="declaration">var </aside>lazarused_by
+            <aside>&ndash; /<a href="datum.html">datum</a>/<a href="datum/weakref.html">weakref</a></aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L198">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 198"/></a></h3>
+        <p>Who lazarused this mob?</p><h3 id="var/loot"><aside class="declaration">var </aside>loot
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L131">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 131"/></a></h3>
+        <p>list of things spawned at mob's loc when it dies.</p><h3 id="var/loot_amount_random"><aside class="declaration">var </aside>loot_amount_random
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L135">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 135"/></a></h3>
+        <p>Drop a random number, 1 through loot_drop_amount? only applicable if loot_drop_amount is a number</p><h3 id="var/loot_drop_amount"><aside class="declaration">var </aside>loot_drop_amount
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L133">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 133"/></a></h3>
+        <p>How do we handle the loot list? Should be either MOB_LOOT_ALL or a number. If its a number, use an associated weighted list for <code>loot</code>!</p><h3 id="var/melee_damage_lower"><aside class="declaration">var </aside>melee_damage_lower
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L79">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 79"/></a></h3>
+        <p>LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly.</p><h3 id="var/melee_damage_type"><aside class="declaration">var </aside>melee_damage_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L86">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 86"/></a></h3>
+        <p>Damage type of a simple mob's melee attack, should it do damage.</p><h3 id="var/minbodytemp"><aside class="declaration">var </aside>minbodytemp
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L67">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 67"/></a></h3>
+        <p>Temperature effect.</p><h3 id="var/mob_armor"><aside class="declaration">var </aside>mob_armor
+            <aside>&ndash; /<a href="datum.html">datum</a>/armor</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L60">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 60"/></a></h3>
+        <p>mob's inherent armor</p><h3 id="var/mob_armor_description"><aside class="declaration">var </aside>mob_armor_description
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L64">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 64"/></a></h3>
+        <p>Description line for their armor, cached nice and sweet</p><h3 id="var/mob_armor_tokens"><aside class="declaration">var </aside>mob_armor_tokens
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L62">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 62"/></a></h3>
+        <p>Additional armor modifiers that are applied to the actual armor value</p><h3 id="var/my_z"><aside class="declaration">var </aside>my_z
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L163">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 163"/></a></h3>
+        <p>I don't want to confuse this with client registered_z.</p><h3 id="var/obj_damage"><aside class="declaration">var </aside>obj_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L82">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 82"/></a></h3>
+        <p>How much damage this simple animal does to objects, if any.</p><h3 id="var/pop_required_to_jump_into"><aside class="declaration">var </aside>pop_required_to_jump_into
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L200">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 200"/></a></h3>
+        <p>required pop to hop into this thing</p><h3 id="var/response_disarm_continuous"><aside class="declaration">var </aside>response_disarm_continuous
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L49">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 49"/></a></h3>
+        <p>Disarm-intent verb in present continuous tense.</p><h3 id="var/response_disarm_simple"><aside class="declaration">var </aside>response_disarm_simple
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L51">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 51"/></a></h3>
+        <p>Disarm-intent verb in present simple tense.</p><h3 id="var/response_harm_continuous"><aside class="declaration">var </aside>response_harm_continuous
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L53">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 53"/></a></h3>
+        <p>Harm-intent verb in present continuous tense.</p><h3 id="var/response_harm_simple"><aside class="declaration">var </aside>response_harm_simple
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L55">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 55"/></a></h3>
+        <p>Harm-intent verb in present simple tense.</p><h3 id="var/response_help_continuous"><aside class="declaration">var </aside>response_help_continuous
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L45">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 45"/></a></h3>
+        <p>When someone interacts with the simple animal.
+Help-intent verb in present continuous tense.</p><h3 id="var/response_help_simple"><aside class="declaration">var </aside>response_help_simple
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L47">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 47"/></a></h3>
+        <p>Help-intent verb in present simple tense.</p><h3 id="var/sentience_type"><aside class="declaration">var </aside>sentience_type
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L128">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 128"/></a></h3>
+        <p>Sentience type, for slime potions.</p><h3 id="var/shouldwakeup"><aside class="declaration">var </aside>shouldwakeup
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L157">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 157"/></a></h3>
+        <p>convenience var for forcibly waking up an idling AI on next check.</p><h3 id="var/sound_pitch"><aside class="declaration">var </aside>sound_pitch
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L108">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 108"/></a></h3>
+        <p>set to a value between -100 and 100 to change the mob's pitch. Set to 0 for default pitch</p><h3 id="var/speak_emote"><aside class="declaration">var </aside>speak_emote
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L27">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 27"/></a></h3>
+        <p>Emotes while speaking IE: Ian [emote], [text] -- Ian barks, &quot;WOOF!&quot;. Spoken text is generated from the speak variable.</p><h3 id="var/speed"><aside class="declaration">var </aside>speed
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L103">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 103"/></a></h3>
+        <p>LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster.
+Breaks everything, makes player controlled mobs wayyyyy tooo slow</p><h3 id="var/stamcrit_duration"><aside class="declaration">var </aside>stamcrit_duration
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L11">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 11"/></a></h3>
+        <p>They are stamcritted for this long when stamcrit</p><h3 id="var/stamcrit_threshold"><aside class="declaration">var </aside>stamcrit_threshold
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L9">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 9"/></a></h3>
+        <p>When the mob has this much stamina damage, put them in stamcrit. set to SIMPLEMOB_NO_STAMCRIT</p><h3 id="var/stop_automated_movement"><aside class="declaration">var </aside>stop_automated_movement
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L37">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 37"/></a></h3>
+        <p>Use this to temporarely stop random movement or to if you write special movement code for animals.</p><h3 id="var/stop_automated_movement_when_pulled"><aside class="declaration">var </aside>stop_automated_movement_when_pulled
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L41">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 41"/></a></h3>
+        <p>When set to 1 this stops the animal from moving when someone is pulling it.</p><h3 id="var/tame"><aside class="declaration">var </aside>tame
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L160">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 160"/></a></h3>
+        <p>Domestication.</p><h3 id="var/unsuitable_atmos_damage"><aside class="declaration">var </aside>unsuitable_atmos_damage
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L76">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 76"/></a></h3>
+        <p>This damage is taken when atmos doesn't fit all the requirements above.</p><h3 id="var/variation_list"><aside class="declaration">var </aside>variation_list
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L194">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 194"/></a></h3>
+        <p>Sets up mob diversity</p><h3 id="var/vary_pitches"><aside class="declaration">var </aside>vary_pitches
+            <aside>&ndash; /list</aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L110">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 110"/></a></h3>
+        <p>How much will the pitch vary? first is how much lower it can go, second is how high it can go. from -100 to 100. please make the first number smaller than the second</p><h3 id="var/wander"><aside class="declaration">var </aside>wander
+            <aside>&ndash; </aside>
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L39">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 39"/></a></h3>
+        <p>Does the mob wander around when idle?</p><h2 id="proc">Proc Details</h2><h3 id="proc/attack_ghost">attack_ghost<aside>(/<a href="mob.html">mob</a>/user, latejoinercalling) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L237">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 237"/></a></aside>
+        </h3>
+        <p>WARNING: DUPLICATED CODE, MAKE BETTER
+End duplicated code</p><h3 id="proc/blind_eyes"><aside class="parent"><a title="/mob" href="mob.html#proc/blind_eyes">&uarr;</a></aside>blind_eyes<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/status_procs.dm#L2">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;status_procs.dm 2"/></a></aside>
+        </h3>
+        <p>Melee
+Bullet
+Laser
+plasma
+dt</p><h3 id="proc/make_ghostable"><aside class="declaration">proc </aside>make_ghostable<aside>(/<a href="mob.html">mob</a>/user) 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L373">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 373"/></a></aside>
+        </h3>
+        <p>If user is set, the mob will be told to be loyal to that mob</p><h3 id="proc/set_ghost_timeout"><aside class="declaration">proc </aside>set_ghost_timeout<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L390">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 390"/></a></aside>
+        </h3>
+        <p>Player left the mob's body</p><h3 id="proc/setup_mob_armor_description"><aside class="declaration">proc </aside>setup_mob_armor_description<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L1093">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 1093"/></a></aside>
+        </h3>
+        <p>compiles the mob's armor description</p><h3 id="proc/setup_mob_armor_values"><aside class="declaration">proc </aside>setup_mob_armor_values<aside>() 
+        
+    
+            <a href="https://github.com/Foundation-19/Hail-Mary/blob/37012da5a51b4ac56fffa08b0dabe4222c949290/code/modules/mob/living/simple_animal/simple_animal.dm#L1074">
+        <img src="git.png" width="16" height="16" title="code&#x2F;modules&#x2F;mob&#x2F;living&#x2F;simple_animal&#x2F;simple_animal.dm 1074"/></a></aside>
+        </h3>
+        <p>AAA DUPLICATED CODE FROM OBJ.DM</p></main>
+<footer>
+    hailmary.dme
+    <a href="https://github.com/Foundation-19/Hail-Mary/tree/37012da5a51b4ac56fffa08b0dabe4222c949290">37012da</a>
+        (master) &mdash; <a href="https://github.com/SpaceManiac/SpacemanDMM/blob/master/src/dmdoc/README.md">dmdoc 1.4.1</a></footer>
+</body>
+</html>
