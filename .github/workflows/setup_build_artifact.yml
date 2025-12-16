@@ -1,3 +1,5 @@
+name: Setup Build Artifact
+
 on:
   workflow_call:
     inputs:
