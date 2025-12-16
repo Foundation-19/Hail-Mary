@@ -394,3 +394,34 @@ LINEN BINS
 	sheet_types = list(/obj/item/bedsheet, /obj/item/bedsheet/blue, /obj/item/bedsheet/green, /obj/item/bedsheet/orange, \
 						/obj/item/bedsheet/purple, /obj/item/bedsheet/red, /obj/item/bedsheet/yellow, /obj/item/bedsheet/brown, \
 						/obj/item/bedsheet/black)
+
+/obj/item/blanket/rug
+	name = "rug"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "tribaldecoration3"
+	plane = FLOOR_PLANE
+	layer = OPEN_DOOR_LAYER
+
+/obj/item/blanket/rug/blue
+	name = "rug"
+	icon_state = "tribaldecoration4"
+
+/obj/item/blanket/tapestry
+	name = "tapestry"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "tribaldecoration2"
+	plane = GAME_PLANE
+	layer = VEHICLE_LAYER
+
+/obj/item/blanket/ruined
+	name = "ruined bedding"
+	desc = "The kind of bedding preferred by wild animals."
+	icon = 'icons/fallout/objects/decals.dmi'
+	icon_state = "skin"
+	layer = OBJ_LAYER
+
+/obj/item/blanket/enclave
+	name = "Flag of the United States"
+	desc = "A torn, dark blue banner emblazoned with the letter E. Dear old friends, remember Navarro."
+	icon = 'icons/obj/ritas.dmi'
+	icon_state = "enclave_flag"

@@ -833,6 +833,26 @@
 	waterlevel = 0
 //	nutrilevel = 0
 
+/obj/machinery/hydroponics/soil/eightieshydro
+	name = "hydroponics tray"
+	desc = "A makeshift hydroponics tray."
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "hydrotray2"
+	density = TRUE
+	pixel_z = 0
+
+/obj/machinery/hydroponics/soil/flat
+	icon = 'icons/fallout/turfs/dirt.dmi'
+	icon_state = "dirtfull"
+	plane = FLOOR_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+	pixel_z = 0
+
+/obj/machinery/hydroponics/soil/flat/dark
+	name = "soil"
+	icon = 'icons/fallout/turfs/ground.dmi'
+	icon_state = "dirtfull"
+
 /obj/machinery/hydroponics/soil/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'><b>Alt-Click</b> to empty the tray's nutrients.</span>"

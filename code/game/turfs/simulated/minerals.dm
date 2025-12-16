@@ -248,6 +248,11 @@
 		/turf/closed/mineral/silver = 6, /turf/closed/mineral/plasma = 15, /turf/closed/mineral/iron = 40, /turf/closed/mineral/lead = 30, /turf/closed/mineral/limestone = 20,
 		/*/turf/closed/mineral/gibtonite = 2, *//turf/closed/mineral/bscrystal = 1, /turf/closed/mineral/indestructible = 50) //fortuna edit, indestructible rocks added to chance list
 
+/turf/closed/mineral/random/low_chance/underground/abovemob
+	name = "rock"
+	layer = EDGED_TURF_LAYER
+	mineralChance = 0
+
 /turf/closed/mineral/random/low_chance/earth_like
 	icon_state = "rock_lowchance_oxy"
 	turf_type = /turf/open/floor/plating/asteroid

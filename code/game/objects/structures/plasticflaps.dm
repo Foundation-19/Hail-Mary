@@ -109,3 +109,53 @@
 	. = ..()
 	if (oldloc)
 		oldloc.air_update_turf(1)
+
+/obj/structure/plasticflaps/narrowcrevice
+	name = "narrow crevice"
+	desc = "There's just enough room to crawl under the rock here."
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "narrowcrevice"
+	resistance_flags = INDESTRUCTIBLE
+	flags_1 = NODECONSTRUCT_1
+	opacity = TRUE
+
+/obj/structure/plasticflaps/narrowcrevice/Initialize()
+	. = ..()
+	alpha = 0
+	SSvis_overlays.add_vis_overlay(src, icon, icon_state, MOB_LOWER_LAYER, plane, dir, add_appearance_flags = RESET_ALPHA) //you see mobs under it, but you hit them like they are above it
+
+/obj/structure/plasticflaps/narrowcrevice/screwdriver_act(mob/living/user, obj/item/W)
+	return
+
+/obj/structure/plasticflaps/narrowcrevice/wirecutter_act(mob/living/user, obj/item/W)
+	return
+
+/obj/structure/plasticflaps/tarp
+	name = "tarp"
+	desc = "A small tarp tent with enough room to lie under."
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "vertarpaulin"
+	resistance_flags = INDESTRUCTIBLE
+	flags_1 = NODECONSTRUCT_1
+
+/obj/structure/plasticflaps/tarp/Initialize()
+	. = ..()
+	alpha = 0
+	SSvis_overlays.add_vis_overlay(src, icon, icon_state, MOB_LOWER_LAYER, plane, dir, add_appearance_flags = RESET_ALPHA) //you see mobs under it, but you hit them like they are above it
+
+/obj/structure/plasticflaps/tarp/screwdriver_act(mob/living/user, obj/item/W)
+	return
+
+/obj/structure/plasticflaps/tarp/wirecutter_act(mob/living/user, obj/item/W)
+	if(!anchored)
+		user.visible_message(span_warning("[user] cuts apart [src]."), span_notice("You start to cut apart [src]."), "You hear cutting.")
+		if(W.use_tool(src, user, 50, volume=100))
+			if(anchored)
+				return TRUE
+			to_chat(user, span_notice("You cut apart [src]."))
+			var/obj/item/stack/sheet/plastic/five/P = new(loc)
+			P.add_fingerprint(user)
+			qdel(src)
+			return TRUE
+		else
+			return TRUE
