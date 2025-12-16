@@ -58,7 +58,7 @@ GLOBAL_LIST_INIT(metalparts_recipes, list(\
 	name = "high quality metal parts"
 	icon_state = "sheet-goodparts"
 	singular_name = "high quality metal part"
-	custom_materials = list(/datum/material/titanium = 10000)
+	custom_materials = list(/datum/material/titanium = 8000, /datum/material/silver = 2000)
 	flags_1 = CONDUCT_1
 	merge_type = /obj/item/stack/crafting/goodparts
 
