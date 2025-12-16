@@ -256,6 +256,36 @@
 	material_flags = MATERIAL_ADD_PREFIX | MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	buildstack = null //No buildstack, so generate from mat datums
 
+/obj/structure/table/wood/greyscale/nosmooth
+	name = "wooden table"
+	smooth = SMOOTH_FALSE
+
+/obj/structure/table/wood/greyscale/varnished
+	name = "wooden table"
+	color = "#665240"
+
+/obj/structure/table/wood/greyscale/red
+	name = "wooden table"
+	color = "#7a5647"
+
+/obj/structure/table/wood/ruined
+	name = "ruined table"
+	desc = "Do not apply fire to this. Rumour says it burns easily."
+	icon = 'icons/fallout/objects/furniture/junk.dmi'
+	icon_state = "junk_table"
+	smooth = SMOOTH_FALSE
+
+/obj/structure/table/wood/ruined/bench
+	name = "ruined table"
+	icon_state = "junk_bench"
+
+/obj/structure/table/wood/crate
+	name = "improvised table"
+	desc = "Do not apply fire to this. Rumour says it burns easily."
+	icon = 'icons/obj/crates.dmi'
+	icon_state = "largecrate"
+	smooth = SMOOTH_FALSE
+
 ///Table on wheels
 /obj/structure/table/rolling
 	name = "Rolling table"
@@ -297,6 +327,15 @@
 		if(!AM.Move(loc))
 			RemoveItemFromTable(AM, AM.loc)
 	return TRUE
+
+
+/obj/structure/table/round
+	name = "table"
+	desc = "A round piece of metal standing on four metal legs. It can not move."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "nv_metal_round"
+	pixel_y = -2
+	smooth = SMOOTH_FALSE
 
 /*
  * Glass tables

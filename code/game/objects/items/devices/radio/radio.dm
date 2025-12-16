@@ -653,3 +653,14 @@ GLOBAL_LIST_INIT(banned_outlaw_freqs, list(FREQ_COMMON, 1488))
 	. = ..()
 	if(GLOB.outlaw_frequency)
 		. += "Scratched into the bottom is a note, \"Don't forget, we're tuned to <span class='boldnotice'>[GLOB.outlaw_frequency * 0.1]</span>!\""
+
+/obj/item/radio/loudspeaker
+	name = "speaker"
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "intercom_loudspeaker"
+	desc = "a speaker for concerts and political rallies."
+	freerange = TRUE
+	frequency = FREQ_VAULT
+	prison_radio = TRUE
+	canhear_range = 5
+	w_class = WEIGHT_CLASS_NORMAL

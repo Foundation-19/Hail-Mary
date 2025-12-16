@@ -74,3 +74,72 @@
 	desc = "A destroyed or deactivated eyebot. Best not stick around to see if it's still functioning."
 	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
 	icon_state = "eyebot_d"
+
+/obj/effect/decal/remains/skulls
+	name = "decoration"
+	desc = "A string of skulls."
+	icon = 'icons/fallout/objects/decals.dmi'
+	icon_state = "skulls"
+	drop_amount = 1
+	plane = GAME_PLANE
+	layer = OBJ_LAYER
+
+/obj/effect/decal/remains/cloth
+	name = "decoration"
+	desc = "A simple cloth decoration."
+	icon = 'icons/fallout/objects/decals.dmi'
+	icon_state = "skin"
+	drop_amount = 1
+	plane = GAME_PLANE
+	layer = OBJ_LAYER
+	debris_result = list(/obj/item/stack/sheet/cloth)
+
+/obj/effect/decal/remains/hay
+	name = "hay bale"
+	desc = "You'd need eight stomachs to eat that."
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "haybale"
+	drop_amount = 2
+	plane = GAME_PLANE
+	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	debris_result = list(/obj/item/stack/sheet/hay/five)
+
+/obj/effect/decal/remains/bottles
+	name = "pile of bottles"
+	desc = "Someone's evening fun."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "bottles1"
+	drop_amount = 2
+	plane = GAME_PLANE
+	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	debris_result = list(/obj/item/reagent_containers/food/drinks/beer)
+
+/obj/effect/decal/remains/cans
+	name = "pile of cans"
+	desc = "Someone's evening fun."
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "cans1"
+	drop_amount = 1
+	plane = GAME_PLANE
+	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	debris_result = list(/obj/item/reagent_containers/food/drinks/soda_cans/sodawater)
+
+/obj/effect/decal/remains/nest
+	name = "animal nest"
+	desc = "There seems to be some eggs inside."
+	icon = 'icons/misc/Pit.dmi'
+	icon_state = "pit"
+	drop_amount = 3
+	plane = GAME_PLANE
+	layer = PROJECTILE_HIT_THRESHHOLD_LAYER
+	debris_result = list(/obj/item/reagent_containers/food/snacks/egg)
+
+/obj/effect/decal/remains/rock
+	name = "rock"
+	desc = "You see nothing out of the ordinary."
+	icon = 'icons/obj/flora/rocks.dmi'
+	icon_state = "basalt1"
+	drop_amount = 3
+	plane = GAME_PLANE
+	layer = OBJ_LAYER
+	debris_result = list(/obj/item/stack/sheet/mineral/limestone)

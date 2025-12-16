@@ -30,6 +30,8 @@
 	icon_state = "dark"
 /turf/open/floor/plasteel/dark/corner
 	icon_state = "darkcorner"
+/turf/open/floor/plasteel/dark/lit
+	sunlight_state = SUNLIGHT_SOURCE
 
 
 
@@ -291,11 +293,18 @@
 
 /turf/open/floor/plasteel/showroomfloor
 	icon_state = "showroomfloor"
+/turf/open/floor/plasteel/showroomfloor/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
 
 /turf/open/floor/plasteel/floorgrime
 	icon_state = "floorgrime"
 /turf/open/floor/plasteel/airless/floorgrime
 	icon_state = "floorgrime"
+/turf/open/floor/plasteel/floorgrime/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/solarpanel
 	icon_state = "solarpanel"
@@ -315,6 +324,9 @@
 	icon_state = "freezerfloor"
 /turf/open/floor/plasteel/freezer/airless
 	initial_gas_mix = "TEMP=2.7"
+/turf/open/floor/plasteel/freezer/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/bar
 	icon_state = "bar"
@@ -324,6 +336,18 @@
 
 /turf/open/floor/plasteel/grimy
 	icon_state = "grimy"
+
+/turf/open/floor/plasteel/grimy/lit
+	icon_state = "grimy"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/plasteel/casino
+	icon = 'icons/fallout/turfs/floors.dmi'
+	icon_state = "casino"
+
+/turf/open/floor/plasteel/casino/lit
+	icon_state = "casino"
+	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/cafeteria
 	icon_state = "cafeteria"
@@ -405,6 +429,10 @@
 	icon_state = "alienvault"
 /turf/open/floor/plasteel/rockvault/sandstone
 	icon_state = "sandstonevault"
+/turf/open/floor/plasteel/rockvault/lit
+	name = "floor"
+	icon_state = "rockvault"
+	sunlight_state = SUNLIGHT_SOURCE
 
 
 /turf/open/floor/plasteel/elevatorshaft

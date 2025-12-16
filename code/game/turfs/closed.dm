@@ -166,6 +166,31 @@
 	icon = 'icons/fallout/turfs/mining.dmi' //fortuna edit. fixing icon path.
 	icon_state = "rock"
 
+/turf/closed/indestructible/rock/lowerplane
+	name = "dense rock"
+	plane = FLOOR_PLANE
+
+/turf/closed/indestructible/rock/smoothing
+	name = "dense rock"
+	var/smooth_icon = 'icons/turf/smoothrocks.dmi'
+	canSmoothWith = null
+	smooth = SMOOTH_MORE|SMOOTH_BORDER
+	plane = GAME_PLANE
+
+/turf/closed/indestructible/rock/smoothing/abovemob
+	name = "dense rock"
+	layer = EDGED_TURF_LAYER
+
+/turf/closed/indestructible/rock/smoothing/Initialize()
+	if (!canSmoothWith)
+		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)
+	var/matrix/M = new
+	M.Translate(-4, -4)
+	transform = M
+	icon = smooth_icon
+	. = ..()
+
+
 /turf/closed/indestructible/f13vaultrusted
 	name = "rusty vault wall"
 	desc = "A rusty chunk of metal used to separate rooms."
@@ -174,6 +199,18 @@
 	baseturfs = /turf/open/floor/plating
 	smooth = SMOOTH_TRUE
 	canSmoothWith = list(/turf/closed/wall,/turf/closed/wall/r_wall,/obj/structure/falsewall,/obj/structure/falsewall/brass,/obj/structure/falsewall/reinforced,/turf/closed/wall/rust,/turf/closed/wall/r_wall/rust,/turf/closed/wall/clockwork,/turf/closed/indestructible/f13vaultrusted)
+
+/turf/closed/indestructible/tunnel
+	name = "rusty vault wall"
+	desc = "A rusty chunk of metal used to separate rooms."
+	icon = 'icons/fallout/turfs/walls/tunnel.dmi'
+	icon_state = "tunnel0"
+
+/turf/closed/indestructible/vaultblue
+	name = "wall"
+	desc = "A rusty chunk of metal used to separate rooms."
+	icon = 'icons/fallout/turfs/walls/vault_reinforced.dmi'
+	icon_state = "vaultrwall0"
 
 /turf/closed/indestructible/rock/snow
 	name = "mountainside"
@@ -258,3 +295,183 @@
 	icon = 'icons/turf/walls.dmi'
 	icon_state = "ice"
 	canSmoothWith = list(/turf/closed/indestructible/rock/glacierrock/blue)
+
+//CM's ice rock sprites
+/turf/closed/indestructible/rock/ice_rock
+	name = "Icy rock"
+	icon = 'icons/turf/walls/rockwall.dmi'
+
+/turf/closed/indestructible/rock/ice_rock/single
+	icon_state = "single"
+
+/turf/closed/indestructible/rock/ice_rock/singlePart
+	icon_state = "single_part"
+
+/turf/closed/indestructible/rock/ice_rock/singleT
+	icon_state = "single_tshape"
+
+/turf/closed/indestructible/rock/ice_rock/singleEnd
+	icon_state = "single_ends"
+
+/turf/closed/indestructible/rock/ice_rock/fourway
+	icon_state = "4-way"
+
+/turf/closed/indestructible/rock/ice_rock/corners
+	icon_state = "full_corners"
+
+/turf/closed/indestructible/invisible
+	name = "nothing"
+	desc = "You see nothing. Out of the ordinary."
+	icon = 'icons/fallout/turfs/mining.dmi'
+	icon_state = "rock"
+	invisibility = INVISIBILITY_ABSTRACT
+
+/turf/closed/indestructible/rock/edge
+	name = "desert"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "hills4"
+	opacity = TRUE
+
+/turf/closed/indestructible/rock/edge/hills
+	name = "desert"
+	icon_state = "hills"
+
+/turf/closed/indestructible/rock/edge/hills/one
+	name = "desert"
+	dir = NORTH
+
+/turf/closed/indestructible/rock/edge/hills/two
+	name = "desert"
+	dir = EAST
+
+/turf/closed/indestructible/rock/edge/hills/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/closed/indestructible/rock/edge/hills/four
+	name = "desert"
+	dir = WEST
+
+/turf/closed/indestructible/rock/edge/hills/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/closed/indestructible/rock/edge/hills/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/closed/indestructible/rock/edge/hills/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/closed/indestructible/rock/edge/hills/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/closed/indestructible/rock/edge/hillstwo
+	name = "desert"
+	icon_state = "hills2"
+
+/turf/closed/indestructible/rock/edge/hillstwo/one
+	name = "desert"
+	dir = NORTH
+
+/turf/closed/indestructible/rock/edge/hillstwo/two
+	name = "desert"
+	dir = EAST
+
+/turf/closed/indestructible/rock/edge/hillstwo/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/closed/indestructible/rock/edge/hillstwo/four
+	name = "desert"
+	dir = WEST
+
+/turf/closed/indestructible/rock/edge/hillstwo/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/closed/indestructible/rock/edge/hillstwo/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/closed/indestructible/rock/edge/hillstwo/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/closed/indestructible/rock/edge/hillstwo/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/closed/indestructible/rock/edge/hillsthree
+	name = "desert"
+	icon_state = "hills3"
+
+/turf/closed/indestructible/rock/edge/hillsthree/one
+	name = "desert"
+	dir = NORTH
+
+/turf/closed/indestructible/rock/edge/hillsthree/two
+	name = "desert"
+	dir = EAST
+
+/turf/closed/indestructible/rock/edge/hillsthree/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/closed/indestructible/rock/edge/hillsthree/four
+	name = "desert"
+	dir = WEST
+
+/turf/closed/indestructible/rock/edge/hillsthree/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/closed/indestructible/rock/edge/hillsthree/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/closed/indestructible/rock/edge/hillsthree/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/closed/indestructible/rock/edge/hillsthree/eight
+	name = "desert"
+	dir = SOUTHWEST
+
+/turf/closed/indestructible/rock/edge/hillsfour
+	name = "desert"
+	icon_state = "hills4"
+
+/turf/closed/indestructible/rock/edge/hillsfour/one
+	name = "desert"
+	dir = NORTH
+
+/turf/closed/indestructible/rock/edge/hillsfour/two
+	name = "desert"
+	dir = EAST
+
+/turf/closed/indestructible/rock/edge/hillsfour/three
+	name = "desert"
+	dir = SOUTH
+
+/turf/closed/indestructible/rock/edge/hillsfour/four
+	name = "desert"
+	dir = WEST
+
+/turf/closed/indestructible/rock/edge/hillsfour/five
+	name = "desert"
+	dir = NORTHWEST
+
+/turf/closed/indestructible/rock/edge/hillsfour/six
+	name = "desert"
+	dir = NORTHEAST
+
+/turf/closed/indestructible/rock/edge/hillsfour/seven
+	name = "desert"
+	dir = SOUTHEAST
+
+/turf/closed/indestructible/rock/edge/hillsfour/eight
+	name = "desert"
+	dir = SOUTHWEST
