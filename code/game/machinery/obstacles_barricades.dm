@@ -369,6 +369,25 @@
 	max_integrity = 400
 	proj_pass_rate = 90
 	pass_flags = PASSGRILLE //Feed the prisoners, or not.
+	var/deconstruction = TRUE
+
+/obj/structure/barricade/bars/attackby(obj/item/W, mob/user, params)
+    . = ..()
+
+    if(W.tool_behaviour != TOOL_WELDER)
+        return
+
+    if(!W.tool_start_check(user))
+        return
+
+    to_chat(user, span_notice("You start cutting apart the [src]."))
+    playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
+
+    if(W.use_tool(src, user, 100, volume = 50))
+        new /obj/item/stack/rods(loc, 2)
+        qdel(src)
+
+    return TRUE
 
 /*
 /obj/structure/barricade/sandbags

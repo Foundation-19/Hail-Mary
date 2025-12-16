@@ -124,6 +124,9 @@
 		investigate_log("had its contents examined by [user] as a ghost.", INVESTIGATE_GHOST)
 
 /obj/structure/closetundense/CanPass(atom/movable/mover, border_dir)
+	. = ..() // capture parent result FIRST
+	if(!.)
+		return FALSE
 	if(wall_mounted)
 		return TRUE
 	return !density

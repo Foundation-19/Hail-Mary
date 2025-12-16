@@ -2101,12 +2101,12 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	blocked_direction = list()
 
 /turf/open/indestructible/ground/outside/fakeelevation/CanPass(atom/movable/mover, border_dir)
-    if(istype(mover) && (mover.pass_flags & PASSTABLE))
-        return !density
-    if(istype(mover) && (mover.dir in blocked_direction))
-        return density
-    else
-        return TRUE
+	. = ..()  // ALWAYS capture parent first
+	if(istype(mover) && (mover.pass_flags & PASSTABLE))
+		return !density
+	if(istype(mover) && (mover.dir in blocked_direction))
+		return density
+	return TRUE
 
 /turf/open/indestructible/ground/outside/fakeelevation/wendoverwillsafecorner
 	name = "desert"

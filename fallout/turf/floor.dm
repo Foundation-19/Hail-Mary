@@ -99,9 +99,10 @@
 	var/blocked_dir = list(NORTH, EAST, NORTHEAST)
 
 /turf/open/floor/f13/paintwall/CanPass(atom/movable/mover, border_dir)
-    if(istype(mover) && (mover.pass_flags & PASSTABLE))
-        return !density
-    if(istype(mover) && (mover.dir in blocked_dir))
-        return density
-    else
-        return TRUE
+	. = ..()  // capture parent result FIRST
+	if(istype(mover) && (mover.pass_flags & PASSTABLE))
+		return !density
+	if(istype(mover) && (mover.dir in blocked_dir))
+		return density
+	return TRUE
+
