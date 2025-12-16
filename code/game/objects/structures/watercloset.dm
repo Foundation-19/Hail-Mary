@@ -820,3 +820,42 @@
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1)
 		if(BURN)
 			playsound(loc, 'sound/items/welder.ogg', 80, 1)
+
+/obj/structure/curtain/lowerlayer
+	layer = TABLE_LAYER
+
+/obj/structure/curtain/lowerlayer/update_icon_state()
+	if(!open)
+		icon_state = "closed"
+		layer = TABLE_LAYER
+		density = FALSE
+		open = FALSE
+		set_opacity(TRUE)
+
+	else
+		icon_state = "open"
+		layer = TABLE_LAYER
+		density = FALSE
+		open = TRUE
+		set_opacity(FALSE)
+
+/obj/structure/curtain/stage
+	name = "stage curtain"
+	desc = "Contains less than 1% mercury."
+	icon = 'icons/obj/watercloset.dmi'
+	icon_state = "fancy_open"
+
+/obj/structure/curtain/stage/update_icon_state()
+	if(!open)
+		icon_state = "fancy_closed"
+		layer = WALL_OBJ_LAYER
+		density = FALSE
+		open = FALSE
+		set_opacity(TRUE)
+
+	else
+		icon_state = "fancy_open"
+		layer = SIGN_LAYER
+		density = FALSE
+		open = TRUE
+		set_opacity(FALSE)

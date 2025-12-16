@@ -666,3 +666,21 @@
 	name = "fridge"
 	desc = "Old fridge without power."
 	icon_state = "fridger"
+
+/obj/structure/closet/locker/poddoor
+	name = "pod door"
+	desc = "A sci fi looking pod door."
+	icon = 'icons/obj/supplypods.dmi'
+	icon_state = "bluespacepodrear2"
+	layer = WALL_OBJ_LAYER
+	flags_1 = NODECONSTRUCT_1
+	anchored = TRUE
+	pixel_x = -14
+	pixel_y = -5
+
+/obj/structure/closet/locker/poddoor/update_icon()
+	. = ..()
+	if(!opened)
+		layer = WALL_OBJ_LAYER
+	else
+		layer = WALL_OBJ_LAYER
