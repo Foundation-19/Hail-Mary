@@ -32,7 +32,9 @@ GLOBAL_LIST(topic_status_cache)
 
 	InitTgs()
 
-	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+	if(!config || !config.loaded)
+		if(config)
+			config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 	load_admins()
 	load_mentors()
 

@@ -595,7 +595,15 @@ function init_verbs(c, v) {
 			draw_verbs(current_tab);
 		}
 	}
-	SendTabsToByond();
+	// In BYOND 516 with Chromium/WebView2, delay SendTabsToByond to ensure bridge is ready
+	// This prevents tabs from becoming empty during lobby/reconnect scenarios
+	if (window.BLINK !== null) {
+		setTimeout(function() {
+			SendTabsToByond();
+		}, 100);
+	} else {
+		SendTabsToByond();
+	}
 }
 
 function SendTabsToByond(){

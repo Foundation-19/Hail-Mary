@@ -13,7 +13,7 @@ SUBSYSTEM_DEF(statpanels)
 	if (!resumed)
 		var/datum/map_config/cached = SSmapping.next_map_config
 		var/list/global_data = list(
-			"Map: [SSmapping.config?.map_name || "Loading..."]",
+			"Map: [SSmapping.stat_map_name || "Loading..."]",
 			cached ? "Next Map: [cached.map_name]" : null,
 			"Round ID: [GLOB.round_id ? GLOB.round_id : "NULL"]",
 			"Server Time: [time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]",
@@ -33,12 +33,12 @@ SUBSYSTEM_DEF(statpanels)
 	while(length(currentrun))
 		var/client/target = currentrun[length(currentrun)]
 		currentrun.len--
-		if(!target.statbrowser_ready)
-			continue
-		if(target.stat_tab == "Status")
-			var/ping_str = url_encode("Ping: [round(target.lastping, 1)]ms (Average: [round(target.avgping, 1)]ms)")
-			var/other_str = url_encode(json_encode(target.mob.get_status_tab_items()))
-			target << output("[encoded_global_data];[ping_str];[other_str]", "statbrowser:update")
+		// Send map/server data to ALL clients (cheap operation)
+		// Only send expensive per-mob data when viewing Status tab
+		var/ping_str = url_encode("Ping: [round(target.lastping, 1)]ms (Average: [round(target.avgping, 1)]ms)")
+		var/other_str = target.stat_tab == "Status" ? url_encode(json_encode(target.mob.get_status_tab_items())) : url_encode(json_encode(list()))
+		target << output("[encoded_global_data];[ping_str];[other_str]", "statbrowser:update")
+		
 		if(!target.holder)
 			target << output("", "statbrowser:remove_admin_tabs")
 		else
