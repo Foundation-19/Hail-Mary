@@ -210,6 +210,25 @@
 	icon_state = "map-overspace"
 	fixed_underlay = list("space"=1)
 
+/turf/closed/wall/mineral/titanium/transparent
+	icon_state = "map-shuttle"
+	opacity = 0
+
+/turf/closed/wall/mineral/titanium/transparentundense
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "airplanetwo"
+	opacity = 0
+	density = FALSE
+	smooth = SMOOTH_FALSE
+
+/turf/closed/wall/mineral/titanium/overspace
+	icon_state = "map-overspace"
+	fixed_underlay = list("space"=1)
+
+/turf/closed/wall/mineral/titanium/selectivesmooth
+	icon_state = "map-shuttle"
+	canSmoothWith = list(/turf/closed/wall/mineral/titanium,/obj/structure/falsewall/titanium)
+
 //sub-type to be used for interior shuttle walls
 //won't get an underlay of the destination turf on shuttle move
 /turf/closed/wall/mineral/titanium/interior/copyTurf(turf/T)

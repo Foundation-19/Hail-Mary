@@ -42,3 +42,67 @@
 		make_plating()
 		playsound(src, C.usesound, 80, 1)
 		return
+
+/turf/open/floor/f13/lit
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/green
+	icon_state = "hydrofloor"
+
+/turf/open/floor/f13/green/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/blue
+	icon_state = "darkdirty"
+
+/turf/open/floor/f13/blue/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/red
+	icon_state = "reddirtyfull"
+
+/turf/open/floor/f13/red/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/yellow
+	icon_state = "yellowdirtyfull"
+
+/turf/open/floor/f13/yellow/lit
+	name = "floor"
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/dark
+	name = "floor"
+	icon_state = "darkyellowfull"
+
+/turf/open/floor/f13/dark/lit
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/rusty
+	icon_state = "floorrusty"
+
+/turf/open/floor/f13/rusty/lit
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/floor/f13/paintwall
+	name = "paint wall"
+	icon = 'icons/fallout/turfs/walls/tunnel.dmi'
+	icon_state = "tunnel0"
+	icon_type_smooth = "tunnel"
+	opacity = TRUE
+	smooth = SMOOTH_OLD
+	sunlight_state = SUNLIGHT_SOURCE
+	canSmoothWith = list(/turf/open/floor/f13/paintwall)
+	var/blocked_dir = list(NORTH, EAST, NORTHEAST)
+
+/turf/open/floor/f13/paintwall/CanPass(atom/movable/mover, border_dir)
+	. = ..()  // capture parent result FIRST
+	if(istype(mover) && (mover.pass_flags & PASSTABLE))
+		return !density
+	if(istype(mover) && (mover.dir in blocked_dir))
+		return density
+	return TRUE
+

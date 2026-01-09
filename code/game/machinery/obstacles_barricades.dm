@@ -369,6 +369,25 @@
 	max_integrity = 400
 	proj_pass_rate = 90
 	pass_flags = PASSGRILLE //Feed the prisoners, or not.
+	var/deconstruction = TRUE
+
+/obj/structure/barricade/bars/attackby(obj/item/W, mob/user, params)
+    . = ..()
+
+    if(W.tool_behaviour != TOOL_WELDER)
+        return
+
+    if(!W.tool_start_check(user))
+        return
+
+    to_chat(user, span_notice("You start cutting apart the [src]."))
+    playsound(src.loc, 'sound/items/welder.ogg', 50, 1)
+
+    if(W.use_tool(src, user, 100, volume = 50))
+        new /obj/item/stack/rods(loc, 2)
+        qdel(src)
+
+    return TRUE
 
 /*
 /obj/structure/barricade/sandbags
@@ -523,6 +542,41 @@
 	name = "decayed locker"
 	desc = "Broken, rusted junk."
 	icon_state = "junk_locker"
+
+/obj/structure/junk/locker/gray
+	name = "decayed locker"
+	icon = 'icons/fallout/objects/furniture/closet.dmi'
+	icon_state = "gray"
+	density = FALSE
+
+/obj/structure/junk/foundation
+	name = "foundation"
+	icon = 'icons/obj/smooth_structures/catwalk.dmi'
+	icon_state = "straight"
+	density = FALSE
+	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	layer = VEHICLE_OVERLAY_LAYER
+	flags_1 = NODECONSTRUCT_1
+
+/obj/structure/junk/pipe
+	name = "pipe"
+	icon = 'icons/obj/atmospherics/pipes/simple.dmi'
+	icon_state = "pipe11-2"
+	density = FALSE
+
+/obj/structure/junk/disposalpipe
+	name = "pipe"
+	icon = 'icons/obj/atmospherics/pipes/disposal.dmi'
+	icon_state = "pipe"
+
+/obj/structure/junk/ladder
+	name = "ladder"
+	icon = 'icons/obj/structures.dmi'
+	icon_state = "ladder10"
+	density = FALSE
+	layer = ON_EDGED_TURF_LAYER
+	resistance_flags = FIRE_PROOF | ACID_PROOF | UNACIDABLE | FREEZE_PROOF | INDESTRUCTIBLE
 
 /obj/structure/junk/cabinet
 	name = "old rotting furniture"

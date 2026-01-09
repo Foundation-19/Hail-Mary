@@ -24,6 +24,147 @@
 	else
 		. = ..()
 
+/obj/structure/flora/grass/saltlake
+	icon = 'icons/fallout/objects/wendover.dmi'
+	desc = "Some dry, virtually dead grass."
+	icon_state = "grass"
+
+/obj/structure/flora/grass/saltlake/attackby(obj/item/W, mob/user, params) //we dont use /weapon any more
+	if(W.sharpness && W.force > 0 && !(NODECONSTRUCT_1 in flags_1))
+		to_chat(user, "You begin to harvest [src]...")
+		if(do_after(user, 100/W.force, target = user))
+			to_chat(user, span_notice("You've collected [src]"))
+			var/obj/item/stack/sheet/hay/H = user.get_inactive_held_item()
+			if(istype(H))
+				H.add(1)
+			else
+				new /obj/item/stack/sheet/hay/(get_turf(src))
+			qdel(src)
+			return 1
+	else
+		. = ..()
+
+/obj/structure/flora/grass/whitelegvine
+	icon = 'icons/effects/spacevines.dmi'
+	desc = "A heap of vines."
+	icon_state = "Hvy1"
+
+/obj/structure/flora/grass/whitelegvine/attackby(obj/item/W, mob/user, params) //we dont use /weapon any more
+	if(W.sharpness && W.force > 0 && !(NODECONSTRUCT_1 in flags_1))
+		to_chat(user, "You begin to harvest [src]...")
+		if(do_after(user, 100/W.force, target = user))
+			to_chat(user, span_notice("You've collected [src]"))
+			var/obj/item/stack/sheet/hay/H = user.get_inactive_held_item()
+			if(istype(H))
+				H.add(1)
+			else
+				new /obj/item/stack/sheet/hay/(get_turf(src))
+			qdel(src)
+			return 1
+	else
+		. = ..()
+
+/obj/structure/flora/grass/saltlakesparse
+	name = "grass"
+	icon = 'icons/obj/flora/ausflora.dmi'
+	desc = "Some dry, virtually dead grass."
+	icon_state = "sparsegrass_1"
+
+/obj/structure/flora/grass/saltlakesparse/bunchone
+	name = "grass"
+	pixel_y = 1
+
+/obj/structure/flora/grass/saltlakesparse/two
+	name = "grass"
+	icon_state = "sparsegrass_2"
+
+/obj/structure/flora/grass/saltlakesparse/three
+	name = "grass"
+	icon_state = "sparsegrass_3"
+
+/obj/structure/flora/grass/saltlakesparse/four
+	name = "grass"
+	icon_state = "fullgrass_1"
+
+/obj/structure/flora/grass/saltlakesparse/five
+	name = "grass"
+	icon_state = "fullgrass_2"
+
+/obj/structure/flora/grass/saltlakesparse/six
+	name = "grass"
+	icon_state = "fullgrass_3"
+
+/obj/structure/flora/grass/saltlake/attackby(obj/item/W, mob/user, params) //we dont use /weapon any more
+	if(W.sharpness && W.force > 0 && !(NODECONSTRUCT_1 in flags_1))
+		to_chat(user, "You begin to harvest [src]...")
+		if(do_after(user, 100/W.force, target = user))
+			to_chat(user, span_notice("You've collected [src]"))
+			var/obj/item/stack/sheet/hay/H = user.get_inactive_held_item()
+			if(istype(H))
+				H.add(1)
+			else
+				new /obj/item/stack/sheet/hay/(get_turf(src))
+			qdel(src)
+			return 1
+	else
+		. = ..()
+
+/obj/structure/flora/grass/drygrass
+	icon = 'icons/fallout/flora/flora.dmi'
+	desc = "Some dry, virtually dead grass."
+
+/obj/structure/flora/grass/drygrass/eight
+	name = "grass"
+	icon_state = "tall_grass_8"
+
+/obj/structure/flora/grass/drygrass/eight/bunchone
+	name = "grass"
+	pixel_y = 3
+
+/obj/structure/flora/grass/drygrass/seven
+	name = "grass"
+	icon_state = "tall_grass_7"
+
+/obj/structure/flora/grass/drygrass/seven/bunchone
+	name = "grass"
+	pixel_x = 6
+	pixel_y = -5
+
+/obj/structure/flora/grass/drygrass/seven/bunchtwo
+	name = "grass"
+	pixel_x = -8
+	pixel_y = -6
+
+/obj/structure/flora/grass/drygrass/seven/bunchthree
+	name = "grass"
+	pixel_x = -10
+	pixel_y = -7
+
+/obj/structure/flora/grass/drygrass/seven/bunchfour
+	name = "grass"
+	pixel_x = 6
+	pixel_y = -6
+
+/obj/structure/flora/grass/drygrass/six
+	name = "grass"
+	icon_state = "tall_grass_6"
+
+/obj/structure/flora/grass/drygrass/attackby(obj/item/W, mob/user, params) //we dont use /weapon any more
+	if(W.sharpness && W.force > 0 && !(NODECONSTRUCT_1 in flags_1))
+		to_chat(user, "You begin to harvest [src]...")
+		if(do_after(user, 100/W.force, target = user))
+			to_chat(user, span_notice("You've collected [src]"))
+			var/obj/item/stack/sheet/hay/H = user.get_inactive_held_item()
+			if(istype(H))
+				H.add(1)
+			else
+				new /obj/item/stack/sheet/hay/(get_turf(src))
+			qdel(src)
+			return 1
+	else
+		. = ..()
+
+
 /obj/structure/flora/tree/wasteland
 	name = "dead tree"
 	desc = "It's a tree. Useful for combustion and/or construction."
@@ -38,6 +179,35 @@
 	icon_state = "deadtree_[rand(1,6)]"
 	AddComponent(/datum/component/largetransparency, y_offset = 1)
 
+/obj/structure/flora/tree/toppledpowerline
+	name = "toppled power line"
+	desc = "It's a power line. Useful source of wood in the desert. This one seems to have fallen over."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "toppledpowerline"
+	density = FALSE
+	layer = LATTICE_LAYER
+	pixel_x = 16
+	bound_width = 96
+	log_amount = 4
+	obj_integrity = 100
+	max_integrity = 100
+
+/obj/structure/flora/tree/powerline
+	name = "power line"
+	desc = "It's a power line. Useful source of wood in the desert."
+	icon = 'icons/obj/Ritas.dmi'
+	icon_state = "powerline"
+	layer = LATTICE_LAYER
+	log_amount = 4
+	obj_integrity = 100
+	max_integrity = 100
+
+/obj/structure/flora/tree/powerline/Initialize()
+	. = ..()
+	AddComponent(/datum/component/largetransparency, y_offset = 1)
+	if(CHRISTMAS in SSevents.holidays)
+		if(prob(30))
+			icon_state = "powerline"
 
 /obj/structure/flora/wasteplant
 	name = "wasteland plant"

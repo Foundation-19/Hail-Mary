@@ -272,6 +272,12 @@
 	climbable = TRUE
 	proj_pass_rate = 80
 
+/obj/structure/fence/wooden/side
+	icon = 'icons/obj/fence.dmi'
+	icon_state = "post_wood"
+	cuttable = FALSE
+	dir = EAST
+
 /obj/structure/fence/end/wooden
 	icon = 'icons/obj/fence.dmi'
 	icon_state = "end_wood"

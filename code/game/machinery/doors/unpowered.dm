@@ -218,3 +218,164 @@
 		if("closing")
 			playsound(src,'sound/machines/door_close.ogg',40,1)
 			flick("secure_bos_closing", src)
+
+/obj/machinery/door/unpowered/uspsdoor
+	name = "secure door"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "glass"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	visible = FALSE
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/uspsdoor/update_icon()
+	if(density)
+		icon_state = "glass"
+	else
+		icon_state = "glassopen"
+
+/obj/machinery/door/unpowered/uspsdoor/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("glassopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("glassclosing", src)
+
+/obj/machinery/door/unpowered/uspsdoortwo
+	name = "secure door"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "brokenglass"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	visible = FALSE
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/uspsdoortwo/update_icon()
+	if(density)
+		icon_state = "brokenglass"
+	else
+		icon_state = "brokenglassopen"
+
+/obj/machinery/door/unpowered/uspsdoortwo/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("brokenglassopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("brokenglassclosing", src)
+
+
+/obj/machinery/door/unpowered/uspsdoorthree
+	name = "secure door"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "dirtyglass"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	visible = FALSE
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/uspsdoorthree/update_icon()
+	if(density)
+		icon_state = "dirtyglass"
+	else
+		icon_state = "dirtyglassopen"
+
+/obj/machinery/door/unpowered/uspsdoorthree/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("dirtyglassopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("dirtyglassclosing", src)
+
+/obj/machinery/door/unpowered/latterdaysaints // a door with transparency for a specific part of the map's visuals
+	name = "temple door"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "houseclean"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	visible = FALSE
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/latterdaysaints/update_icon()
+	if(density)
+		icon_state = "houseclean"
+	else
+		icon_state = "housecleanopen"
+
+/obj/machinery/door/unpowered/latterdaysaints/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("housecleanopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("housecleanclosing", src)
+
+/obj/machinery/door/unpowered/house
+	name = "white door"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "houseclean"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/house/update_icon()
+	if(density)
+		icon_state = "houseclean"
+	else
+		icon_state = "housecleanopen"
+
+/obj/machinery/door/unpowered/house/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("housecleanopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("housecleanclosing", src)
+
+/obj/machinery/door/unpowered/employeedoor
+	name = "employees only"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "metal"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	opacity = TRUE
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/employeedoor/update_icon()
+	if(density)
+		icon_state = "metal"
+	else
+		icon_state = "metalopen"
+
+/obj/machinery/door/unpowered/employeedoor/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("metalopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("metalclosing", src)
+
+/obj/machinery/door/unpowered/montegobay
+	name = "employees only"
+	desc = "Door with a built-in lock. Can't be padlocked."
+	icon_state = "room"
+	assemblytype = /obj/item/stack/sheet/mineral/wood/five
+	opacity = TRUE
+	explosion_block = TRUE
+
+/obj/machinery/door/unpowered/montegobay/update_icon()
+	if(density)
+		icon_state = "room"
+	else
+		icon_state = "roomopen"
+
+/obj/machinery/door/unpowered/montegobay/do_animate(animation)
+	switch(animation)
+		if("opening")
+			playsound(src,'sound/machines/door_open.ogg',40,1)
+			flick("roomopening", src)
+		if("closing")
+			playsound(src,'sound/machines/door_close.ogg',40,1)
+			flick("roomclosing", src)
