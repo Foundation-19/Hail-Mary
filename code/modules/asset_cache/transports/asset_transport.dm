@@ -86,6 +86,8 @@
 				client = M.client
 			else //no stacktrace because this will mainly happen because the client went away
 				return
+		else if(!client)
+			return
 		else
 			CRASH("Invalid argument: client: `[client]`")
 	if (!islist(asset_list))

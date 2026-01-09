@@ -34,4 +34,5 @@ GLOBAL_LIST_EMPTY(auxtools_initialized)
 	}\
 
 /proc/enable_debugging()
-	CRASH("Auxtools not found")
+	// Debug server initialization is now handled in world.New() with proper error handling
+	return
