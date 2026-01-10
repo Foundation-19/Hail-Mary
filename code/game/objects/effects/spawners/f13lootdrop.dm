@@ -380,7 +380,10 @@
 				/obj/effect/spawner/bundle/f13/armor/t45b_salvaged,
 				/obj/effect/spawner/bundle/f13/armor/riot,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2,
-				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark
+				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark,
+				/obj/effect/spawner/bundle/f13/armor/excavator,
+				/obj/effect/spawner/bundle/f13/armor/hotrodpa,
+				/obj/effect/spawner/bundle/f13/armor/combatduster,
 				)
 
 /obj/effect/spawner/lootdrop/f13/armor/tier4PA // TIER 4 ARMOR WITH PA
@@ -447,6 +450,7 @@
 	loot = list(
 				/obj/effect/spawner/bundle/f13/armor/t45d,
 				/obj/effect/spawner/bundle/f13/armor/t51b,
+				/obj/effect/spawner/bundle/f13/armor/t60,
 				)
 
 /obj/effect/spawner/bundle/f13/armor/t45d
@@ -477,11 +481,34 @@
 				/obj/item/clothing/head/helmet/f13/power_armor/x02helmet,
 				)
 
+/obj/effect/spawner/bundle/f13/armor/tesla
+	name = "tesla power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/tesla,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/tesla,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/hellfire
+	name = "hellfire power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/hellfire,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire,
+				)
+
 /obj/effect/spawner/bundle/f13/armor/t60
 	name = "t60 power armor spawner"
 	items = list(
 				/obj/item/clothing/suit/armor/power_armor/t60,
 				/obj/item/clothing/head/helmet/f13/power_armor/t60,
+				)
+
+/obj/effect/spawner/lootdrop/f13/armor/tier6 //TIER 6 ARMOR, this should only be used in events or put behind max pop faction effort dungeons, think having to kill a super mutant behemoth or multiple big chew chew's.
+	name = "tier 6 armor"
+	loot = list(
+				/obj/effect/spawner/bundle/f13/armor/t60,
+				/obj/effect/spawner/bundle/f13/armor/hellfire,
+				/obj/effect/spawner/bundle/f13/armor/x02,
+				/obj/effect/spawner/bundle/f13/armor/tesla,
 				)
 
 
