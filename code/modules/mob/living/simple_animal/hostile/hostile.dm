@@ -355,6 +355,8 @@
 /mob/living/simple_animal/hostile/CanAttack(atom/the_target)//Can we actually attack a possible target?
 	if(!the_target || the_target.type == /atom/movable/lighting_object || isturf(the_target)) // bail out on invalids
 		return FALSE
+	if(!loc) // Don't attack if we have no location (being deleted/moved)
+		return FALSE
 
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		var/mob/M = the_target
@@ -816,7 +818,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del), override = TRUE)
 
 /mob/living/simple_animal/hostile/proc/queue_unbirth()
 	SSidlenpcpool.add_to_culling(src)

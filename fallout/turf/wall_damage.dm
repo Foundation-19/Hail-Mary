@@ -35,7 +35,7 @@
 		damage_overlays[i] = img
 
 /turf/closed/wall/attackby(obj/item/W, mob/user, params)
-	var/holdHardness = hardness	 // Holds wall hardness before anything changes the src.
+	var/holdHardness = initial(hardness) || 70	 // Holds wall hardness before anything changes the src, defaults to 70
 	var/holdUnbreakable = unbreakable	 // Holds wall unbreakable state before anything changes the src.
 	. = ..()
 	if(!.)

@@ -317,6 +317,8 @@
 /obj/item/clothing/neck/mantle/legion/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	if(!STR)
+		return
 	STR.max_items = 1
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(

@@ -52,7 +52,8 @@
 /obj/item/gun/energy/emp_act(severity)
 	. = ..()
 	if(!(. & EMP_PROTECT_CONTENTS))
-		cell.use(round(cell.charge * severity/100))
+		if(cell)
+			cell.use(round(cell.charge * severity/100))
 		chambered = null //we empty the chamber
 		recharge_newshot() //and try to charge a new shot
 		update_icon()

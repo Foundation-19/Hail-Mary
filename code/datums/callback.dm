@@ -126,7 +126,11 @@
 	if(datum_flags & DF_VAR_EDITED)
 		return WrapAdminProcCall(object, delegate, calling_arguments)
 	if (object == GLOBAL_PROC)
+		if(!delegate)
+			return null
 		return call(delegate)(arglist(calling_arguments))
+	if(!object || !delegate)
+		return null
 	return call(object, delegate)(arglist(calling_arguments))
 
 /**

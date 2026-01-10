@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(callbacks)
 /proc/process_atmos_callbacks()
 	SScallbacks.can_fire = 0
 	SScallbacks.flags |= SS_NO_FIRE
-	CRASH("Auxtools not found! Callback subsystem shutting itself off.")
+	return FALSE // Auxtools not available, disable callbacks
 
 /datum/controller/subsystem/callbacks/fire()
 

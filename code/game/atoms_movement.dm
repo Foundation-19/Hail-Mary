@@ -454,7 +454,7 @@
 	if(destination)
 		. = doMove(destination)
 	else
-		CRASH("No valid destination passed into forceMove")
+		. = doMove(null)  // Move to nullspace if no valid destination
 
 /atom/movable/proc/moveToNullspace()
 	return doMove(null)
@@ -481,7 +481,8 @@
 				oldloc.Exited(src, movement_dir)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, movement_dir)
-			destination.Entered(src, oldloc)
+			if(destination)
+				destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
 				destarea.Entered(src, old_area)
 

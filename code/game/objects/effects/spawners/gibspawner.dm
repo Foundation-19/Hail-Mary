@@ -33,7 +33,7 @@
 	var/body_coloring = ""
 	if(source_mob)
 		if(!issilicon(source_mob))
-			dna_to_add = blood_dna || source_mob.get_blood_dna_list() //ez pz
+			dna_to_add = (islist(blood_dna) ? blood_dna : null) || source_mob.get_blood_dna_list() //ez pz
 		if(ishuman(source_mob))
 			var/mob/living/carbon/human/H = source_mob
 			if(H.dna.species.use_skintones)

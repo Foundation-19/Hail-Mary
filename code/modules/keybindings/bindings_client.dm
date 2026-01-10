@@ -102,10 +102,14 @@
 		var/datum/keybinding/kb = GLOB.keybindings_by_name[kb_name]
 		if(kb.can_use(src) && kb.up(src))
 			break
-	holder?.key_up(_key, src)
-	mob.focus?.key_up(_key, src)
+	if(holder)
+		holder.key_up(_key, src)
+	if(mob?.focus)
+		mob.focus.key_up(_key, src)
 
 // Called every game tick
 /client/keyLoop()
-	holder?.keyLoop(src)
-	mob.focus?.keyLoop(src)
+	if(holder)
+		holder.keyLoop(src)
+	if(mob?.focus)
+		mob.focus.keyLoop(src)

@@ -339,14 +339,18 @@
  */
 /datum/component/storage/proc/volumetric_ui()
 	var/atom/real_location = real_location()
+	if(!real_location)
+		return FALSE
 	return (storage_flags & STORAGE_LIMIT_VOLUME) && (length(real_location.contents) <= MAXIMUM_VOLUMETRIC_ITEMS) && !display_numerical_stacking
 
 /**
  * Gets the ui item objects to ui_hide.
  */
 /datum/component/storage/proc/get_ui_item_objects_hide(mob/M)
+	var/atom/real_location = real_location()
+	if(!real_location)
+		return list()
 	if(!volumetric_ui() || M.client?.prefs?.no_tetris_storage)
-		var/atom/real_location = real_location()
 		return real_location.contents
 	else
 		. = list()

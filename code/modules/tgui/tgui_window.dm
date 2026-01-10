@@ -89,6 +89,8 @@
 	// Inject custom HTML
 	html = replacetextEx(html, "<!-- tgui:html -->\n", inline_html)
 	// Open the window
+	if(!client)
+		return
 	client << browse(html, "window=[id];[options]")
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
