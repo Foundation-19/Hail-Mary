@@ -509,7 +509,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
-	if(client && client.player_details)
+	if(client)
 		if(!islist(client.player_details.logging[smessage_type]))
 			client.player_details.logging[smessage_type] = list()
 

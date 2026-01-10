@@ -221,11 +221,7 @@ SUBSYSTEM_DEF(vote)
 		var/least_vote = 100000
 		var/least_voted = 1
 		for(var/i in 1 to cur_choices.len)
-			if(i > cur_choices.len)
-				break
 			var/option = cur_choices[i]
-			if(!option)
-				continue
 			if(cur_choices["[option]"] > voted.len/2)
 				return list("[option]")
 			else if(cur_choices["[option]"] < least_vote && !("[option]" in already_lost_runoff))
@@ -254,7 +250,7 @@ SUBSYSTEM_DEF(vote)
 		calculate_majority_judgement_vote(vote_title_text) // nothing uses this at the moment
 	var/list/winners = vote_system == INSTANT_RUNOFF_VOTING ? get_runoff_results() : get_result()
 	var/was_roundtype_vote = mode == "roundtype" || mode == "dynamic"
-	if(winners && winners.len > 0)
+	if(winners.len > 0)
 		if(was_roundtype_vote)
 			stored_gamemode_votes = list()
 		if(display_votes & SHOW_RESULTS)

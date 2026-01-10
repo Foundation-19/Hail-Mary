@@ -193,8 +193,6 @@
 
 	var/button_number = 0
 	var/list/cview = getviewsize(client.view)
-	if(!cview || cview.len < 1)
-		return  // Fallback if view size calculation fails
 	var/supportedcolumns = cview[1]-2
 
 	if(hud_used.action_buttons_hidden)

@@ -777,7 +777,7 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 			return "white"
 
 /proc/params2turf(scr_loc, turf/origin, client/C)
-	if(!scr_loc || !origin)
+	if(!scr_loc)
 		return null
 	var/tX = splittext(scr_loc, ",")
 	var/tY = splittext(tX[2], ":")

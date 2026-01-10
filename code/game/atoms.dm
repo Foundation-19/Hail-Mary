@@ -563,8 +563,6 @@
 
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna, list/datum/disease/diseases)
-	if(!blood_dna)
-		return FALSE
 	LAZYINITLIST(blood_DNA)
 
 	var/old_length = blood_DNA.len

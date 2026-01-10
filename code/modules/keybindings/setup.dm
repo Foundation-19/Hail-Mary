@@ -24,8 +24,6 @@
 
 // removes all the existing macros
 /client/proc/erase_all_macros(datum/preferences/prefs_override = prefs)
-	if(!src)  // Check if client is still valid
-		return
 	var/erase_output = ""
 	var/list/set_text = list()
 	if(!prefs_override)

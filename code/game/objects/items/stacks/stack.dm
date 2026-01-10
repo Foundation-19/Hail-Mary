@@ -429,14 +429,11 @@
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
 	if(QDELETED(target_stack))
-		// Target stack is queued for deletion - cannot merge into it, return early
-		return 0
+		CRASH("Stack merge attempted on qdeleted target stack.")
 	if(QDELETED(src))
-		// Source stack is queued for deletion - cannot merge from it, return early
-		return 0
+		CRASH("Stack merge attempted on qdeleted source stack.")
 	if(target_stack == src)
-		// Cannot merge a stack into itself
-		return 0
+		CRASH("Stack attempted to merge into itself.")
 
 	var/transfer = get_amount()
 	if(target_stack.is_cyborg)
