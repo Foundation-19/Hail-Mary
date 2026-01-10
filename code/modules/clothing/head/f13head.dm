@@ -535,7 +535,7 @@
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T1)
 
 /obj/item/clothing/head/helmet/f13/power_armor/advanced/tesla
-	name = "hellfire power armor"
+	name = "tesla power armor"
 	desc = "It's an advanced power armor MK1 helmet, typically used by the Enclave. It looks somewhat threatening, this one has been improved with some coils and extra batteries."
 	icon_state = "tesla"
 	item_state = "tesla"
