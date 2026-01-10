@@ -72,12 +72,14 @@
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 		UnregisterSignal(user, COMSIG_ATOM_DIR_CHANGE)
 		listeningTo = null
-	user.visible_message(span_notice("[user] lowers [src]."), span_notice("You lower [src]."))
-	item_state = "binoculars"
-	user.regenerate_icons()
-	if(user && user.client && user == usr)
+	if(user)
+		user.visible_message(span_notice("[user] lowers [src]."), span_notice("You lower [src]."))
+		item_state = "binoculars"
 		user.regenerate_icons()
-		var/client/C = user.client
-		C.change_view(CONFIG_GET(string/default_view))
-		user.client.pixel_x = 0
-		user.client.pixel_y = 0
+		if(user.client && user == usr)
+			user.regenerate_icons()
+			var/client/C = user.client
+			C.change_view(CONFIG_GET(string/default_view))
+			if(user.client)
+				user.client.pixel_x = 0
+				user.client.pixel_y = 0
