@@ -22,6 +22,10 @@ map baltimore
     disabled
 endmap
 
+map mexico
+    voteweight 1
+endmap
+
 map tipton
     voteweight 1
 endmap

@@ -183,7 +183,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	icon_state = "Cyborg"
 
 /obj/effect/landmark/start/ai
-	name = "AI"
+	name = "Vault 44 God AI"
 	icon_state = "AI"
 	delete_after_roundstart = FALSE
 	var/primary_ai = TRUE
@@ -720,32 +720,36 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 // Vault
 
+/obj/effect/landmark/start/f13/ai
+	name = "Vault-Tec God AI"
+	icon_state = "Overseer"
+
 /obj/effect/landmark/start/f13/overseer
 	name = "Overseer"
 	icon_state = "Overseer"
 
 /obj/effect/landmark/start/f13/vaultheadofsecurity
-	name = "Chief of Security"
+	name = "Vault 44 Master Warrior"
 	icon_state = "Chief of Security"
 
 /obj/effect/landmark/start/f13/vaultdoctor
-	name = "Vault-tec Doctor"
+	name = "Vault 44 Shaman"
 	icon_state = "Vault-tec Doctor"
 
 /obj/effect/landmark/start/f13/vaultscientist
-	name = "Vault-tec Scientist"
+	name = "Vault 44 Scientist"
 	icon_state = "Vault-tec Scientist"
 
 /obj/effect/landmark/start/f13/vaultsecurityofficer
-	name = "Vault-tec Security"
+	name = "Vault 44 Warriors"
 	icon_state = "Vault-tec Security"
 
 /obj/effect/landmark/start/f13/vaultengineer
-	name = "Vault-tec Engineer"
+	name = "Vault 44 Engineer"
 	icon_state = "Vault-tec Engineer"
 
 /obj/effect/landmark/start/f13/vaultdweller
-	name = "Vault Dweller"
+	name = "Vault 44 Dweller"
 	icon_state = "Vault Dweller"
 
 // Eastwood
@@ -1031,4 +1035,40 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Locust Point Priest"
 	icon_state = "Banker"
 
+/obj/effect/landmark/start/f13/f13legionsubject
+	name = "Legion Subject"
+	icon_state = "Legionary"
 
+/obj/effect/landmark/start/f13/f13governor
+	name = "Legion Governor of Ostia"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13legionshopkeeper
+	name = "Ostia Shopkeeper"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13legionradiohost
+	name = "Ostia Radio Host"
+	icon_state = "Legionary"
+
+/obj/effect/landmark/start/f13/f13rebelsoldier
+	name = "Captured Outlaw"
+	icon_state = "ussgt"
+
+/obj/effect/landmark/start/f13/f13rebelcaptain
+	name = "Ironwave Raider Captain"
+	icon_state = "ussgt"
+
+/obj/effect/landmark/start/f13/f13rebel
+	name = "Ironwave Den Doctor"
+	icon_state = "ussgt"
+
+/*
+/obj/effect/landmark/start/f13/f13rebelcitizen
+	name = "Ironwave Den Settlers"
+	icon_state = "ussgt"
+*/
+
+/obj/effect/landmark/start/f13/f13rebelguard
+	name = "Ironwave Raider"
+	icon_state = "ussgt"
