@@ -1157,6 +1157,7 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	desc = "Developed in early 2077 after the Anchorage Reclamation, the T-60 series of power armor was designed to eventually replace the T-51b as the pinnacle of powered armor technology in the U.S. military arsenal."
 	icon_state = "t60powerarmor"
 	item_state = "t60powerarmor"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 30)
 	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t60
 

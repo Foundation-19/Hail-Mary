@@ -3482,6 +3482,19 @@
 	item_state = "advpowerarmor1"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
 
+/obj/item/clothing/suit/armor/power_armor/advanced/hellfire
+	name = "hellfire power armor"
+	desc = "An advanced suit of armor typically used by higher ranking members of the Enclave."
+	icon_state = "hellfire"
+	item_state = "hellfire"
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T1)
+
+/obj/item/clothing/suit/armor/power_armor/advanced/tesla
+	name = "tesla power armor"
+	desc = "An already incredibly advanced suit of armor enhanced further with tesla coils and electricity churning through it making it stronger."
+	icon_state = "tesla"
+	item_state = "tesla"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 //Peacekeeper armor adjust as needed
 /obj/item/clothing/suit/armor/power_armor/advanced/x02
