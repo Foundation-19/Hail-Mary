@@ -287,10 +287,15 @@
 
 //delete all equipment without dropping anything
 /mob/living/carbon/human/proc/delete_equipment()
+	// Batch delete equipment to avoid individual qdel overhead
+	var/list/to_delete = list()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
-		qdel(slot)
+		to_delete += slot
 	for(var/obj/item/I in held_items)
-		qdel(I)
+		to_delete += I
+	
+	// Delete in batches to reduce GC pressure
+	QDEL_LIST(to_delete)
 
 /mob/living/carbon/human/proc/smart_equipbag() // take most recent item out of bag or place held item in bag
 	if(incapacitated())
