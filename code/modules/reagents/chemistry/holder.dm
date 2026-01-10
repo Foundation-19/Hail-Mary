@@ -179,7 +179,8 @@
 	var/list/cached_reagents = reagent_list
 	if(!target || !total_volume)
 		return
-	if(amount < 0)
+	// Guard against negative or near-zero amounts (floating point precision)
+	if(amount <= 0.0001)
 		return
 
 	var/datum/reagents/R

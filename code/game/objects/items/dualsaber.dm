@@ -44,7 +44,7 @@
 	can_block_directions = BLOCK_DIR_NORTH | BLOCK_DIR_NORTHEAST | BLOCK_DIR_NORTHWEST | BLOCK_DIR_WEST | BLOCK_DIR_EAST
 	block_damage_absorption = 2
 	block_damage_multiplier = 0.15
-	block_damage_multiplier_override = list(
+	block_damage_multiplier_override = alist(
 		ATTACK_TYPE_MELEE = 0.25
 	)
 	block_start_delay = 0		// instantaneous block

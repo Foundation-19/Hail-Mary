@@ -269,6 +269,8 @@
 	key = "scissors"
 
 /datum/emote/living/carbon/human/rockpaperscissors/run_emote(mob/living/carbon/human/user, params)
+	if(!ishuman(user)) //only humans can play rock paper scissors
+		return
 	if(!(user in GLOB.rockpaperscissors_players)) //no using the emote again while already playing!
 		. = ..()
 		user.beginRockPaperScissors(key)

@@ -29,6 +29,8 @@
  * Works for reach using euclidian distances (cardinal and diagonal moves are not the same)
  */
 /atom/movable/proc/can_reach(atom/ultimate_target, depth = INVENTORY_DEPTH, reach = 1)
+	if(!ultimate_target)
+		return 0
 	if(!isturf(loc) || reach < 1)
 		return has_direct_access_to(ultimate_target, depth)
 

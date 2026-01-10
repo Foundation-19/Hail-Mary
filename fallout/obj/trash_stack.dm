@@ -48,9 +48,10 @@
 			//	var/obj/item/bonusitem = new itemtypebonus(ST)
 			//	if(istype(bonusitem))
 			//		bonusitem.from_trash = TRUE
-			if(istype(newthing))
+			if(istype(newthing, /obj/item))
 				var/obj/item/newitem = newthing
-				newitem?.from_trash = TRUE // Fixes some objects not having the "from_trash" var
+				if("from_trash" in newitem.vars)
+					newitem.from_trash = TRUE // Fixes some objects not having the "from_trash" var
 				if(isgun(newitem))
 					var/obj/item/gun/trash_gun = newitem
 					var/prob_trash = 80

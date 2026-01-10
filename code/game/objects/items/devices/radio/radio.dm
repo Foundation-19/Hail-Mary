@@ -441,6 +441,8 @@
 		return
 
 /obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
+	if(!user)
+		return
 	music_name = name_of_music
 	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
 	if(user.client)

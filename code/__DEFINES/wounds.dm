@@ -61,7 +61,7 @@
 #define CANT_WOUND -100
 
 // list in order of highest severity to lowest
-GLOBAL_LIST_INIT(global_wound_types, list(
+GLOBAL_LIST_INIT(global_wound_types, alist(
 	WOUND_BLUNT = list(
 		/datum/wound/blunt/critical,
 		/datum/wound/blunt/severe,
@@ -77,14 +77,14 @@ GLOBAL_LIST_INIT(global_wound_types, list(
 	))
 
 // List of slash wounds by severity
-GLOBAL_LIST_INIT(global_slash_wound_severities, list(
+GLOBAL_LIST_INIT(global_slash_wound_severities, alist(
 	WOUND_SEVERITY_MODERATE = /datum/wound/bleed/slash/moderate,
 	WOUND_SEVERITY_SEVERE = /datum/wound/bleed/slash/severe,
 	WOUND_SEVERITY_CRITICAL = /datum/wound/bleed/slash/critical
 	))
 
 // List of pierce wounds by severity
-GLOBAL_LIST_INIT(global_pierce_wound_severities, list(
+GLOBAL_LIST_INIT(global_pierce_wound_severities, alist(
 	WOUND_SEVERITY_MODERATE = /datum/wound/bleed/pierce/moderate,
 	WOUND_SEVERITY_SEVERE = /datum/wound/bleed/pierce/severe,
 	WOUND_SEVERITY_CRITICAL = /datum/wound/bleed/pierce/critical

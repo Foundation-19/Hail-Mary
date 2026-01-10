@@ -64,6 +64,8 @@ There are several things that need to be remembered:
 
 //HAIR OVERLAY
 /mob/living/carbon/human/update_hair()
+	if(!dna?.species)
+		return
 	dna.species.handle_hair(src)
 
 //used when putting/removing clothes that hide certain mutant body parts to just update those and not update the whole body.

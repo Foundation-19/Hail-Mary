@@ -13,14 +13,27 @@
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 
+	// Prioritize critical cleanup, defer expensive operations
+	QDEL_LIST(stomach_contents)  // Small list, do immediately
+	QDEL_NULL(dna)               // Critical for memory
+	remove_from_all_data_huds()  // Important for UI cleanup
+	GLOB.carbon_list -= src      // Remove from global list immediately
+	
+	// Defer expensive bodypart cleanup to next tick to prevent GC lag
+	if(LAZYLEN(bodyparts))
+		addtimer(CALLBACK(src, PROC_REF(defer_bodypart_cleanup)), 0, TIMER_DELETE_ME)
+	else
+		QDEL_LIST(bodyparts)
+	
+	// Cleanup organ and implant lists (smaller, less expensive)
 	QDEL_LIST(internal_organs)
-	QDEL_LIST(stomach_contents)
-	QDEL_LIST(bodyparts)
 	QDEL_LIST(implants)
-	hand_bodyparts = null		//Just references out bodyparts, don't need to delete twice.
-	remove_from_all_data_huds()
-	QDEL_NULL(dna)
-	GLOB.carbon_list -= src
+	hand_bodyparts = null  // Just references our bodyparts, don't need to delete twice.
+
+/mob/living/carbon/proc/defer_bodypart_cleanup()
+	// Called on next tick to avoid GC spike
+	if(bodyparts)
+		QDEL_LIST(bodyparts)
 
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(user in src.stomach_contents)

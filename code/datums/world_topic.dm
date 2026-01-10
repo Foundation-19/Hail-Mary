@@ -158,7 +158,8 @@
 
 /datum/world_topic/status/Run(list/input, addr)
 	if(!key_valid) //If we have a key, then it's safe to trust that this isn't a malicious packet. Also prevents the extra info from leaking
-		if(GLOB.topic_status_lastcache >= world.time)
+		// Gate cache on safe status - only serve if map init is complete
+		if(SSmapping.is_safe_for_status() && GLOB.topic_status_lastcache >= world.time)
 			return GLOB.topic_status_cache
 		GLOB.topic_status_lastcache = world.time + 5
 	. = list()
@@ -180,7 +181,11 @@
 	.["admins"] = presentmins.len + afkmins.len //equivalent to the info gotten from adminwho
 	.["gamestate"] = SSticker.current_state
 
-	.["map_name"] = SSmapping.config?.map_name || "Loading..."
+	// Only set map_name to actual value if init is safe; otherwise "Loading..."
+	if(SSmapping.is_safe_for_status())
+		.["map_name"] = SSmapping.stat_map_name
+	else
+		.["map_name"] = "Loading..."
 
 	if(key_valid)
 		.["active_players"] = get_active_player_count()
@@ -221,7 +226,11 @@
 	.["admins"] = presentmins.len + afkmins.len //equivalent to the info gotten from adminwho
 	.["security_level"] = "[NUM2SECLEVEL(GLOB.security_level)]"
 	.["round_duration"] = WORLDTIME2TEXT("hh:mm:ss")
-	.["map"] = SSmapping.config.map_name
+	// Gate map_name on safe status
+	if(SSmapping.is_safe_for_status())
+		.["map"] = SSmapping.stat_map_name
+	else
+		.["map"] = "Loading..."
 	return json_encode(.)
 
 /datum/world_topic/jsonplayers

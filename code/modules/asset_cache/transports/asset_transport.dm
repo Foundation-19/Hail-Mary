@@ -86,6 +86,8 @@
 				client = M.client
 			else //no stacktrace because this will mainly happen because the client went away
 				return
+		else if(!client)
+			return
 		else
 			CRASH("Invalid argument: client: `[client]`")
 	if (!islist(asset_list))
@@ -130,9 +132,12 @@
 			if (!keep_local_name)
 				new_asset_name = "asset.[ACI.hash][ACI.ext]"
 			log_asset("Sending asset `[asset_name]` to client `[client]` as `[new_asset_name]`")
+			if(!client)
+				continue
 			client << browse_rsc(ACI.resource, new_asset_name)
 
-			client.sent_assets[new_asset_name] = ACI.hash
+			if(client.sent_assets)
+				client.sent_assets[new_asset_name] = ACI.hash
 
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
 		return TRUE

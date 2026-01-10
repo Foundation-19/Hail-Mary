@@ -88,7 +88,7 @@
 #endif
 
 // 515 Linux fcopy crash guard (safe no-op elsewhere)
-#if DM_VERSION == 515
+#if DM_VERSION >= 515
 /world/proc/__fcopy(Src, Dst)
 	if (istext(Src) && !fexists(Src))
 		return 0
