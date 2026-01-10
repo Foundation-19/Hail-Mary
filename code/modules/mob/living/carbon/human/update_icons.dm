@@ -74,6 +74,8 @@ There are several things that need to be remembered:
 
 
 /mob/living/carbon/human/update_body()
+	if(!dna || !dna.species)
+		return
 	remove_overlay(BODY_LAYER)
 	dna.species.handle_body(src)
 	..()

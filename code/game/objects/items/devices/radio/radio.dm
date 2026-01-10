@@ -472,7 +472,7 @@
 	if(music_toggle == 1) //Music player is on
 		if(istype(src, /obj/item/radio/headset))
 			var/mob/living/carbon/wearer = radio_holder
-			if(!(wearer.ears == src)) //only want headsets to play music if they're equipped
+			if(!wearer || !(wearer.ears == src)) //only want headsets to play music if they're equipped
 				return
 		stopmusic(radio_holder) //stop the previously playing song to make way for the new one
 		addtimer(CALLBACK(src, PROC_REF(avoiding_a_sleep), radio_holder, music_filepath, name_of_music, music_volume), 10)

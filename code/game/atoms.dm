@@ -128,7 +128,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
+		return INITIALIZE_HINT_QDEL
 	flags_1 |= INITIALIZED_1
 
 	if(loc)
