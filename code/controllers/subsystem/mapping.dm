@@ -29,6 +29,7 @@ SUBSYSTEM_DEF(mapping)
 
 	var/list/areas_in_z = list()
 
+	var/is_initialized = FALSE				//Set to TRUE only after Initialize() completes and all config is valid
 	var/loading_ruins = FALSE
 	var/list/turf/unused_turfs = list()				//Not actually unused turfs they're unused but reserved for use for whatever requests them. "[zlevel_of_turf]" = list(turfs)
 	var/list/datum/turf_reservations		//list of turf reservations
@@ -53,6 +54,14 @@ SUBSYSTEM_DEF(mapping)
 	var/obfuscation_next_id = 1
 	/// "secret" key
 	var/obfuscation_secret
+
+/**
+ * Checks if it's safe to serve status-related data to clients.
+ * Used by HTTP status topic and live statpanel to gate data delivery.
+ * Single source of truth for "is map initialization complete and valid?"
+ */
+/datum/controller/subsystem/mapping/proc/is_safe_for_status()
+	return (is_initialized && config && config.map_name && config.map_name != "")
 
 //dlete dis once #39770 is resolved
 /datum/controller/subsystem/mapping/proc/HACK_LoadMapConfig()
@@ -82,6 +91,12 @@ SUBSYSTEM_DEF(mapping)
 	GLOB.announcertype = (config.announcertype == "standard" ? (prob(1) ? "medibot" : "classic") : config.announcertype)
 	loadWorld()
 	repopulate_sorted_areas()
+	
+	// Initialize verbs for all connected clients right after map loads
+	for(var/client/C in GLOB.clients)
+		if(C.mob)
+			C.init_verbs()
+	
 	process_teleport_locs()			//Sets up the wizard teleport locations
 	preloadTemplates()
 #ifndef LOWMEMORYMODE
@@ -141,6 +156,20 @@ SUBSYSTEM_DEF(mapping)
 	setup_map_transitions()
 	generate_station_area_list()
 	initialize_reserved_level(transit.z_value)
+	
+	//CRITICAL: Mark as initialized ONLY after all setup is 100% complete
+	// This gates status panel data delivery and prevents race conditions
+	stat_map_name = config.map_name	//Update the live tracker
+	is_initialized = TRUE
+	
+	//Clear any stale cache from HTTP status topic
+	GLOB.topic_status_cache = null
+	GLOB.topic_status_lastcache = 0
+	
+	//Push fresh status data to all connected clients immediately
+	if(SSstatpanels)
+		SSstatpanels.fire()
+	
 	return ..()
 
 /*	Nuke threats, for making the blue tiles on the station go RED

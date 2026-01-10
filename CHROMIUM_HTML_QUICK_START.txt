@@ -1,0 +1,81 @@
+/**
+ * QUICK START GUIDE: Chromium HTML Compatibility
+ * 
+ * Problem: Old Trident browser stripped whitespace. New Chromium preserves it.
+ * Solution: Use html_clean() on HTML before displaying.
+ * 
+ * ===========================================================================
+ * QUICK FIX (Just add one function call):
+ * ===========================================================================
+ * 
+ * BEFORE:
+ *   var/dat = {" 
+ *     <h1>My Panel</h1>
+ *     <p>Content</p>
+ *   "}
+ *   usr << browse(dat, "window=name")
+ * 
+ * AFTER:
+ *   var/dat = {" 
+ *     <h1>My Panel</h1>
+ *     <p>Content</p>
+ *   "}
+ *   usr << browse(html_clean(dat), "window=name")
+ * 
+ * ===========================================================================
+ * FOR BROWSER DATUM (Also just add one function call):
+ * ===========================================================================
+ * 
+ * BEFORE:
+ *   var/datum/browser/popup = new(usr, "id", "Title", 700, 500)
+ *   popup.set_content(my_html_content)
+ *   popup.open()
+ * 
+ * AFTER:
+ *   var/datum/browser/popup = new(usr, "id", "Title", 700, 500)
+ *   popup.set_content(html_clean(my_html_content))  // <-- Add this line
+ *   popup.open()
+ * 
+ * ===========================================================================
+ * FOR LIST BUILDING (Best Practice - no whitespace issue):
+ * ===========================================================================
+ * 
+ * This is the PREFERRED way (already Chromium-safe):
+ *   var/list/dat = list()
+ *   dat += "<h1>My Panel</h1>"
+ *   dat += "<p>Content</p>"
+ *   usr << browse(dat.Join(), "window=name")
+ * 
+ * This pattern doesn't embed whitespace, so it's always safe.
+ * 
+ * ===========================================================================
+ * TESTING:
+ * ===========================================================================
+ * 
+ * - Open the browser panel
+ * - View the HTML source (right-click > View Source)
+ * - Check that there are NO literal tabs or extra newlines at the start of lines
+ * - Everything should be on continuous lines
+ * 
+ * BEFORE FIX:
+ *   <center><h1>My Panel</h1>
+ *   \t<p>Content</p>    <-- These tabs will SHOW in Chromium
+ * 
+ * AFTER FIX:
+ *   <center><h1>My Panel</h1><p>Content</p>   <-- No tabs!
+ * 
+ * ===========================================================================
+ * GUIDELINES FOR NEW CODE:
+ * ===========================================================================
+ * 
+ * Use the list + .Join() pattern for new HTML-building code:
+ * - Avoids the problem entirely
+ * - Clearer intent
+ * - Slightly better performance
+ * 
+ * For existing code with indented {" ... "} blocks:
+ * - Just wrap with html_clean() - no refactoring needed
+ * - Once working, can be gradually migrated to list pattern
+ * 
+ * ===========================================================================
+ */

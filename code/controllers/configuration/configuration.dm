@@ -2,6 +2,7 @@
 	name = "Configuration"
 
 	var/directory = "config"
+	var/loaded = FALSE
 
 	var/warned_deprecated_configs = FALSE
 	var/hiding_entries_by_type = TRUE	//Set for readability, admins can set this to FALSE if they want to debug it
@@ -204,6 +205,8 @@
 
 /// Your typical GET but returns a config.
 /datum/controller/configuration/proc/GetEntryDatum(entry_type)
+	if(!entries_by_type)
+		return null
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)
@@ -217,6 +220,8 @@
 	return E
 
 /datum/controller/configuration/proc/Get(entry_type)
+	if(!entries_by_type)
+		return null
 	var/datum/config_entry/E = entry_type
 	var/entry_is_abstract = initial(E.abstract_type) == entry_type
 	if(entry_is_abstract)

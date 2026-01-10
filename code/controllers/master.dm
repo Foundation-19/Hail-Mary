@@ -74,10 +74,21 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 	var/static/current_ticklimit = TICK_LIMIT_RUNNING
 
 /datum/controller/master/New()
+	// PHASE 1: Master initialization
+	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
+	if (Master != src)
+		if (istype(Master)) //If there is an existing MC take over his stuff and delete it
+			Recover()
+			qdel(Master)
+			Master = src
+		else
+			Master = src
+
+	// PHASE 2: Config system initialization and entries registered
 	if(!config)
 		config = new
-	// Highlander-style: there can only be one! Kill off the old and replace it with the new.
 
+	// PHASE 3: Random seed established
 	if(!random_seed)
 		#ifdef UNIT_TESTS
 		random_seed = 29051994
@@ -86,33 +97,43 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 		#endif
 		rand_seed(random_seed)
 
+	// PHASE 4: Subsystem skeleton created (all subsystems instantiated)
 	var/list/_subsystems = list()
 	subsystems = _subsystems
-	if (Master != src)
-		if (istype(Master)) //If there is an existing MC take over his stuff and delete it
-			Recover()
-			qdel(Master)
-			Master = src
-		else
-			//Code used for first master on game boot or if existing master got deleted
-			Master = src
-			var/list/subsytem_types = subtypesof(/datum/controller/subsystem)
-			sortTim(subsytem_types, GLOBAL_PROC_REF(cmp_subsystem_init))
-			//Find any abandoned subsystem from the previous master (if there was any)
-			var/list/existing_subsystems = list()
-			for(var/global_var in global.vars)
-				if (istype(global.vars[global_var], /datum/controller/subsystem))
-					existing_subsystems += global.vars[global_var]
-			//Either init a new SS or if an existing one was found use that
-			for(var/I in subsytem_types)
-				var/datum/controller/subsystem/existing_subsystem = locate(I) in existing_subsystems
-				if (istype(existing_subsystem))
-					_subsystems += existing_subsystem
-				else
-					_subsystems += new I
+	if (Master == src) //Only do this on first master creation
+		var/list/subsytem_types = subtypesof(/datum/controller/subsystem)
+		sortTim(subsytem_types, GLOBAL_PROC_REF(cmp_subsystem_init))
+		//Find any abandoned subsystem from the previous master (if there was any)
+		var/list/existing_subsystems = list()
+		for(var/global_var in global.vars)
+			if (istype(global.vars[global_var], /datum/controller/subsystem))
+				existing_subsystems += global.vars[global_var]
+		//Either init a new SS or if an existing one was found use that
+		for(var/I in subsytem_types)
+			var/datum/controller/subsystem/existing_subsystem = locate(I) in existing_subsystems
+			if (istype(existing_subsystem))
+				_subsystems += existing_subsystem
+			else
+				_subsystems += new I
 
+	// PHASE 5: Critical subsystem globals assigned
+	// These must be assigned before GLOB.Initialize() is called
+	if(!SSatoms)
+		SSatoms = locate(/datum/controller/subsystem/atoms)
+	if(!SSassets)
+		SSassets = locate(/datum/controller/subsystem/assets)
+	if(!SSoverlays)
+		SSoverlays = locate(/datum/controller/subsystem/overlays) in _subsystems
+
+	// PHASE 6: Global variables initialized (NOW SAFE - subsystems exist)
 	if(!GLOB)
 		new /datum/controller/global_vars
+	if(GLOB && !GLOB.initialized)
+		GLOB.Initialize()
+	
+	log_world("CONFIG: Config object and entries registered.")
+	log_world("ASSETS: Pre-load critical assets phase complete.")
+	log_world("MASTER: Initialization complete. Ready for world setup.")
 
 /datum/controller/master/Destroy()
 	..()
