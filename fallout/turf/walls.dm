@@ -348,6 +348,10 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_state = "matrix"
 	var/in_use = FALSE
 
+/turf/closed/indestructible/f13/matrix/dirt
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "dirt"
+
 /turf/closed/indestructible/f13/matrix/saltflats
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
@@ -367,6 +371,14 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/indestructible/f13/matrix/sidewalk
 	icon = 'icons/fallout/turfs/sidewalk.dmi'
 	icon_state = "horizontalbottomborderbottom0"
+
+/turf/closed/indestructible/f13/matrix/subway
+	icon = 'icons/fallout/turfs/ground.dmi'
+	icon_state = "railsnone"
+
+/turf/closed/indestructible/f13/matrix/gravel
+	icon = 'modular_BD2/general/icons/tileset_gravel.dmi'
+	icon_state = "gravel"
 
 /turf/closed/indestructible/f13/matrix/MouseDrop_T(atom/dropping, mob/user)
 	. = ..()
