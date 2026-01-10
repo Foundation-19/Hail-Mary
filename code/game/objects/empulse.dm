@@ -4,6 +4,9 @@
 
 	if(!isturf(epicenter))
 		epicenter = get_turf(epicenter.loc)
+	
+	if(!epicenter)
+		return
 
 	var/max_distance = max(round((power/7)^0.7), 1)
 

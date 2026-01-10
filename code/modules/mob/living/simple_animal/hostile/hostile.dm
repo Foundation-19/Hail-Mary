@@ -818,7 +818,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del), override = TRUE)
 
 /mob/living/simple_animal/hostile/proc/queue_unbirth()
 	SSidlenpcpool.add_to_culling(src)

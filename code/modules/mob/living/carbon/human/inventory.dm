@@ -290,9 +290,12 @@
 	// Batch delete equipment to avoid individual qdel overhead
 	var/list/to_delete = list()
 	for(var/slot in get_all_slots())//order matters, dependant slots go first
-		to_delete += slot
+		var/obj/item/I = get_item_by_slot(slot)
+		if(I)
+			to_delete += I
 	for(var/obj/item/I in held_items)
-		to_delete += I
+		if(I)
+			to_delete += I
 	
 	// Delete in batches to reduce GC pressure
 	QDEL_LIST(to_delete)

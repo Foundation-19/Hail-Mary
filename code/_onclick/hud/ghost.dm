@@ -34,6 +34,8 @@
 
 /obj/screen/ghost/teleport/Click()
 	var/mob/dead/observer/G = usr
+	if(!G || !istype(G, /mob/dead/observer))
+		return
 	G.dead_tele()
 
 /obj/screen/ghost/spawners

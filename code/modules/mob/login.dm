@@ -38,14 +38,15 @@
 	update_mouse_pointer()
 	if(client)
 		client.view_size?.resetToDefault()
-		if(client.player_details && istype(client.player_details))
-			if(client.player_details.player_actions.len)
+		if(client?.player_details && istype(client.player_details))
+			if(client.player_details.player_actions?.len)
 				for(var/datum/action/A in client.player_details.player_actions)
 					A.Grant(src)
 
-			for(var/foo in client.player_details.post_login_callbacks)
-				var/datum/callback/CB = foo
-				CB.Invoke()
+			if(client.player_details.post_login_callbacks?.len)
+				for(var/foo in client.player_details.post_login_callbacks)
+					var/datum/callback/CB = foo
+					CB.Invoke()
 
 	mind?.hide_ckey = client?.prefs?.hide_ckey
 
