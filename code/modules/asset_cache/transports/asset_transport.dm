@@ -136,15 +136,15 @@
 				continue
 			client << browse_rsc(ACI.resource, new_asset_name)
 
-			if(client.sent_assets)
+			if(client && client.sent_assets)
+				// Track this asset as sent to prevent resending it on future connection attempts
 				client.sent_assets[new_asset_name] = ACI.hash
 
+		// Schedule client-side asset cache update after all assets are queued for sending
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, asset_cache_update_json)), 1 SECONDS, TIMER_UNIQUE|TIMER_OVERRIDE)
-		return TRUE
-	return FALSE
+		return TRUE  // Assets were sent successfully
+	return FALSE  // No assets were sent (unreceived list was empty)
 
-
-/// Precache files without clogging up the browse() queue, used for passively sending files on connection start.
 /datum/asset_transport/proc/send_assets_slow(client/client, list/files, filerate = 3)
 	var/startingfilerate = filerate
 	for (var/file in files)
