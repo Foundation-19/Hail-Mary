@@ -13,6 +13,7 @@
 	desc = "A thin, light salt sheet of plant mater. Used in sushi recipes,"
 	icon_state = "sea_weed"
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 2)
+	custom_food_type = /obj/item/reagent_containers/food/snacks/customizable/sushi
 	tastes = list("plants" = 2, "salt" = 1)
 	foodtype = VEGETABLES
 
@@ -24,7 +25,7 @@
 //trash = /obj/item/trash/tuna_used //I dont know if I like this idea - A Masked Cat
 	list_reagents = list(/datum/reagent/consumable/sodiumchloride = 5, /datum/reagent/mercury = 2)
 	tastes = list("tuna" = 15, "mercury" = 1, "salt" = 3)
-	foodtype = MEAT
+	foodtype = VEGETABLES
 
 //////////////////////////Sushi/////////////////////////////////
 /obj/item/reagent_containers/food/snacks/sushie_basic
