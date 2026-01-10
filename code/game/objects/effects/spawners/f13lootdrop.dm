@@ -463,6 +463,27 @@
 				/obj/item/clothing/head/helmet/f13/power_armor/t51b,
 				)
 
+/obj/effect/spawner/bundle/f13/armor/excavator
+	name = "excavator power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/excavator,
+				/obj/item/clothing/head/helmet/f13/power_armor/excavator,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/x02
+	name = "x02 power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/x02,
+				/obj/item/clothing/head/helmet/f13/power_armor/x02helmet,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/t60
+	name = "t60 power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/t60,
+				/obj/item/clothing/head/helmet/f13/power_armor/t60,
+				)
+
 
 /obj/effect/spawner/lootdrop/f13/armor/random
 	name = "random armor loot"
