@@ -237,8 +237,10 @@
 /obj/item/reagent_containers/food/snacks/customizable/sushi
 	name = "sushi"
 	desc = "A roll of customized sushi."
-	ingMax = 8
+	ingMax = 6
 	slice_path = /obj/item/reagent_containers/food/snacks/sushislice/custom
+	slices_num = 6
+	icon = 'icons/obj/food/food.dmi'
 	icon_state = "vegetariansushiroll"
 	foodtype = VEGETABLES
 
