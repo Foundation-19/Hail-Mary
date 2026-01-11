@@ -267,6 +267,8 @@
 				var/datum/reagent/RGNT
 				while(amt > 0)
 					var/obj/item/reagent_containers/RC = locate() in surroundings
+					if(!RC)
+						continue main_loop
 					RG = RC.reagents.get_reagent(A)
 					if(RG)
 						if(!locate(RG.type) in Deletion)

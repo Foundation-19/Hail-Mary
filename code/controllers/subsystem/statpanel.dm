@@ -142,7 +142,10 @@ SUBSYSTEM_DEF(statpanels)
 						else
 							turfitems[++turfitems.len] = list("[turf_content.name]", REF(turf_content))
 					turfitems = url_encode(json_encode(turfitems))
-					target << output("[turfitems];", "statbrowser:update_listedturf")
+					// Only send if contents changed to prevent constant flashing
+					if(!target.last_turf_items_encoded || target.last_turf_items_encoded != turfitems)
+						target.last_turf_items_encoded = turfitems
+						target << output("[turfitems];", "statbrowser:update_listedturf")
 		if(MC_TICK_CHECK)
 			return
 
