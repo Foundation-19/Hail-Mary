@@ -53,9 +53,33 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
 /mob/living/carbon/human/Destroy()
+	// Pre-clear critical references before parent destruction
+	// This prevents GC lag from reference chains holding up deletion
+	
+	// 1. Unregister signals early to prevent listener callbacks
+	UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT)
+	
+	// 2. Clear physiology immediately (small object, non-expensive)
 	QDEL_NULL(physiology)
+	
+	// 3. Remove from global human list immediately
 	GLOB.human_list -= src
+	
+	// 4. Defer client screen cleanup to next tick (can be expensive with many screens)
+	if(client && client.screen && client.screen.len)
+		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
+	
+	// 5. Call parent Destroy() which handles carbon/living cleanup
+	// This includes deferred bodypart cleanup, organ/implant deletion, signal cleanup
 	return ..()
+
+/mob/living/carbon/human/proc/defer_screen_cleanup()
+	// Called next tick to avoid GC spike from screen deletion
+	// Clears all screen objects attached to this mob's client
+	if(!src || QDELETED(src) || !client)
+		return
+	if(client.screen && client.screen.len)
+		QDEL_LIST(client.screen)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...

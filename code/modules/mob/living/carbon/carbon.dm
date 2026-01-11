@@ -13,27 +13,61 @@
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 
-	// Prioritize critical cleanup, defer expensive operations
-	QDEL_LIST(stomach_contents)  // Small list, do immediately
-	QDEL_NULL(dna)               // Critical for memory
-	remove_from_all_data_huds()  // Important for UI cleanup
-	GLOB.carbon_list -= src      // Remove from global list immediately
+	// Prioritize critical cleanup, defer expensive operations to prevent GC lag cascade
 	
-	// Defer expensive bodypart cleanup to next tick to prevent GC lag
+	// 1. Immediate critical cleanup (small objects, essential for correctness)
+	if(stomach_contents && stomach_contents.len)
+		QDEL_LIST(stomach_contents)  // Small list, immediate deletion
+	QDEL_NULL(dna)                   // Critical for memory, must happen now
+	GLOB.carbon_list -= src          // Remove from global list immediately
+	
+	// 2. UI cleanup (important but deferrable)
 	if(LAZYLEN(bodyparts))
-		addtimer(CALLBACK(src, PROC_REF(defer_bodypart_cleanup)), 0, TIMER_DELETE_ME)
-	else
+		// Defer expensive bodypart cleanup to next tick to prevent GC lag
+		addtimer(CALLBACK(src, PROC_REF(defer_expensive_cleanup)), 0, TIMER_DELETE_ME)
+	
+	// 3. Data HUD cleanup (can be deferred to smooth GC)
+	addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 1, TIMER_DELETE_ME)  // Defer slightly longer
+	
+	hand_bodyparts = null  // Just references our bodyparts, don't need to delete twice
+
+/mob/living/carbon/proc/defer_expensive_cleanup()
+	// Called on next tick to avoid GC spike
+	// Handles expensive deletion chains
+	if(!src || QDELETED(src))
+		return
+	
+	if(bodyparts && bodyparts.len)
 		QDEL_LIST(bodyparts)
 	
-	// Cleanup organ and implant lists (smaller, less expensive)
-	QDEL_LIST(internal_organs)
-	QDEL_LIST(implants)
-	hand_bodyparts = null  // Just references our bodyparts, don't need to delete twice.
+	// Defer organ/implant cleanup further (most expensive part of mob deletion)
+	// Only schedule if source is still valid
+	if(!QDELETED(src))
+		if(internal_organs && internal_organs.len)
+			addtimer(CALLBACK(src, PROC_REF(defer_organ_cleanup)), 0, TIMER_DELETE_ME)
+		
+		if(implants && implants.len)
+			addtimer(CALLBACK(src, PROC_REF(defer_implant_cleanup)), 1, TIMER_DELETE_ME)
 
-/mob/living/carbon/proc/defer_bodypart_cleanup()
-	// Called on next tick to avoid GC spike
-	if(bodyparts)
-		QDEL_LIST(bodyparts)
+/mob/living/carbon/proc/defer_organ_cleanup()
+	// Deferred organ deletion (organs have complex signal networks)
+	if(!src || QDELETED(src))
+		return
+	if(internal_organs && internal_organs.len)
+		QDEL_LIST(internal_organs)
+
+/mob/living/carbon/proc/defer_implant_cleanup()
+	// Deferred implant deletion
+	if(!src || QDELETED(src))
+		return
+	if(implants && implants.len)
+		QDEL_LIST(implants)
+
+/mob/living/carbon/proc/defer_hud_cleanup()
+	// Deferred HUD cleanup
+	if(!src || QDELETED(src))
+		return
+	remove_from_all_data_huds()
 
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(user in src.stomach_contents)
@@ -41,7 +75,7 @@
 			if(prob(25))
 				audible_message(span_warning("You hear something rumbling inside [src]'s stomach..."), \
 							span_warning("You hear something rumbling."), 4,\
-							  span_userdanger("Something is rumbling inside your stomach!"))
+							span_userdanger("Something is rumbling inside your stomach!"))
 			var/obj/item/I = user.get_active_held_item()
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)

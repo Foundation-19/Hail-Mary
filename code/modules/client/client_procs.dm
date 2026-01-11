@@ -543,6 +543,10 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	if(mentor_datum)
+		qdel(mentor_datum)
+		mentor_datum = null
+	GLOB.mentors -= src
 	// seen_messages = null
 	Master.UpdateTickRate()
 	. = ..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
@@ -1071,7 +1075,8 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 	generate_clickcatcher()
 	if(!actualview)
 		actualview = getviewsize(view)
-	void.UpdateGreed(actualview[1],actualview[2])
+	if(actualview && actualview.len >= 2)
+		void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/AnnouncePR(announcement)
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)
