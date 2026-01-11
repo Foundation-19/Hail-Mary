@@ -428,6 +428,9 @@
 /obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
+	if(!target_stack)
+		// Target stack is null - cannot merge into it, return early
+		return 0
 	if(QDELETED(target_stack))
 		// Target stack is queued for deletion - cannot merge into it, return early
 		return 0
@@ -448,7 +451,7 @@
 	target_stack.copy_evidences(src)
 	use(transfer, transfer = TRUE, check = FALSE)
 	target_stack.add(transfer)
-	if(target_stack.mats_per_unit != mats_per_unit) // We get the average value of mats_per_unit between two stacks getting merged
+	if(target_stack.mats_per_unit != mats_per_unit && target_stack.amount > 0) // We get the average value of mats_per_unit between two stacks getting merged
 		var/list/temp_mats_list = list() // mats_per_unit is passed by ref into this coil, and that same ref is used in other places. If we didn't make a new list here we'd end up contaminating those other places, which leads to batshit behavior
 		for(var/mat_type in target_stack.mats_per_unit)
 			temp_mats_list[mat_type] = (target_stack.mats_per_unit[mat_type] * (target_stack.amount - transfer) + mats_per_unit[mat_type] * transfer) / target_stack.amount

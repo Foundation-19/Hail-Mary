@@ -421,6 +421,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Re-enter Corpse"
 	if(!client)
 		return
+	if(!ckey)
+		to_chat(src, span_warning("You have no ckey to transfer."))
+		return
 	if(!mind || QDELETED(mind.current))
 		to_chat(src, span_warning("You have no body."))
 		return

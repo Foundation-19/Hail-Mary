@@ -197,6 +197,9 @@
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/T = reagent
 		var/transfer_amount = T.volume * part
+		// Guard against floating point precision errors producing tiny negative numbers
+		if(transfer_amount <= 0)
+			continue
 		if(preserve_data)
 			trans_data = copy_data(T)
 			post_copy_data(T)

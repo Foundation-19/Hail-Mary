@@ -562,6 +562,10 @@
 	if(spread_override)
 		setAngle(Angle + rand(-spread_override, spread_override))
 	var/turf/starting = get_turf(src)
+	if(!starting)
+		stack_trace("WARNING: Projectile [type] fired without a valid location!")
+		qdel(src)
+		return
 	if(original)
 		if(starting.z > original?.z)
 			starting  = SSmapping.get_turf_below(starting)
@@ -789,7 +793,7 @@
 	trajectory_ignore_forcemove = FALSE
 	starting = get_turf(source)
 	original = target
-	if(targloc || !params)
+	if(targloc && !params)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
 		setAngle(get_projectile_angle(src, targloc) + spread)

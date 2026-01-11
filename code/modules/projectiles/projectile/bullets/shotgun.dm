@@ -408,6 +408,7 @@
 	light_range = 1.5
 	light_power = 0.3
 	light_color = "#FF7F01"
+	pixels_per_second = TILES_TO_PIXELS(20)
 
 /obj/item/projectile/bullet/seed
 	damage = 6
