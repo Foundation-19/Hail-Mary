@@ -145,8 +145,8 @@ Medical Doctor
 	title = "Vault 44 Shaman"
 	flag = F13DOCTOR
 	department_head = list("Overseer")
-	total_positions = 2 //was 5-4
-	spawn_positions = 2
+	total_positions = 1 //was 5-4
+	spawn_positions = 1
 	forbids = "The Vault forbids: Disobeying the God AI. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."
 	enforces = "The Vault expects: Contributing to Vault society. Adherence to Vault-tec Corporate Regulations. Participation in special projects, as ordered by the God AI."
 	description = "You answer directly to the God AI. You are tasked with providing medical care to Vault Dwellers and ensuring the medical well-being of everyone in the Vault."

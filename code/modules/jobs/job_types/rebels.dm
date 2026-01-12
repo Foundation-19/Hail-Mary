@@ -47,7 +47,7 @@
 	total_positions = 5
 	spawn_positions = 5
 	display_order = JOB_DISPLAY_ORDER_F13REBELSOLDIER
-	description = "Well damnit. You go caught by the legion forces. Now you are at their mercy. Before ? You were a warrior. Rebel, NCR, Legion renegade... Now, you must survive."
+	description = "Well damn it. You go caught by the legion forces. Now you are at their mercy. Before ? You were a warrior. Rebel, NCR, Legion renegade... Now, you must survive."
 	supervisors = "No one, but you may try to flee toward the rebels or the vault."
 	outfit = /datum/outfit/job/CaesarsLegion/slave
 
@@ -93,8 +93,8 @@
 /datum/job/rebels/medic
 	title = "Ironwave Den Doctor"
 	flag = F13REBELMEDIC
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELMEDIC
 	description = "Your diploma isn't reconized anywhere else. Good thing the Den doesn't care. Your job is to heal people of the carrier."
@@ -166,7 +166,7 @@
 // 
 
 /datum/job/rebels/captain
-	title = "Ironwave Raider Captain"
+	title = "Ironwave Den Captain"
 	flag = F13REBELCAPTAIN
 	total_positions = 1
 	spawn_positions = 1
@@ -181,7 +181,7 @@
 		)
 
 /datum/outfit/job/rebels/captain
-	name = "Ironwave Rebel Captain"
+	name = "Ironwave Den Captain"
 	jobtype = /datum/job/enclave/enclavecpt
 
 	suit_store = /obj/item/gun/ballistic/automatic/fnfal
@@ -231,8 +231,8 @@
 /datum/job/rebels/guard
 	title = "Ironwave Raider"
 	flag = F13REBELGUARD
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 2
+	spawn_positions = 2
 	access = list(ACCESS_ENCLAVE)
 	display_order = JOB_DISPLAY_ORDER_F13REBELGUARD
 	description = "You are part of the dedicated warriors and that works on the USS Emminant domain. You defend the den, follow the orders of you captain, and kick some ass."
@@ -466,13 +466,13 @@
 	ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 
-/*
+
 //Rebel Citizen  
 /datum/job/rebels/citizen
 	title = "Ironwave Den Settlers"
 	flag = F13REBELCITIZEN
-	total_positions = -1
-	spawn_positions = -1
+	total_positions = 5
+	spawn_positions = 5
 	display_order = JOB_DISPLAY_ORDER_F13REBELCITIZEN
 	description = "When the legion arrived, you fled, and started living in the only place safe enough arround, the Ironwave carrier. You are not a fighter, but can defend this Den."
 	supervisors = "The captain, the armed forced."
@@ -653,4 +653,4 @@
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-*/
+
