@@ -22,12 +22,15 @@
 	name = "fieldscribe suit"
 	desc = "A suit that protects against the weather, and looks stylish, but not much else."
 	icon_state = "fieldscribe"
+	armor = ARMOR_VALUE_LIGHT //Default robes value
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1)
 
 /obj/item/clothing/suit/toggle/labcoat/scribecoat
 	name = "fieldscribe coat"
-	desc = "A heavy-duty coat and chestrig fitted with tons of pockets for every scribe's storage needs."
+	desc = "A heavy-duty coat and chestrig fitted with tons of pockets. Ballistic weave and ceramic inserts are included to substantially increase Field Scribe survival rates"
 	icon_state = "scribecoat"
+	armor = ARMOR_VALUE_MEDIUM //desc (in bigiron_suits) says its fitted with Ballistic weave and ceramic so i suppose it should be medium armor?
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT //medium armor slowdown
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1)
 
 /obj/item/clothing/suit/cyborg_suit
