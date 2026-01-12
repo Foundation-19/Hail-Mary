@@ -38479,6 +38479,10 @@
 /obj/machinery/grill,
 /turf/open/indestructible/ground/inside/dirt/stamped/outside,
 /area/f13/wasteland)
+"jyb" = (
+/obj/structure/wreck/trash/machinepiletwo,
+/turf/open/indestructible/ground/outside/sidewalk,
+/area/f13/city)
 "jyh" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -50519,6 +50523,7 @@
 /area/f13/building/powered)
 "omI" = (
 /obj/machinery/light/small,
+/obj/structure/wreck/trash/machinepiletwo,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/city)
 "omP" = (
@@ -100330,7 +100335,7 @@ mHp
 hAf
 jdA
 iyl
-jkB
+jyb
 uKF
 jIr
 ueV
