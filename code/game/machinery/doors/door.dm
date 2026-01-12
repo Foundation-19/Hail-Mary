@@ -464,8 +464,6 @@
 		close()
 
 /obj/machinery/door/proc/autoclose_in(wait)
-	if(QDELETED(src))
-		return
 	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /obj/machinery/door/proc/requiresID()

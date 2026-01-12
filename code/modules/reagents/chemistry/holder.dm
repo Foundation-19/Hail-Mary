@@ -990,17 +990,9 @@
 	if(!isnum(amount))
 		return FALSE
 
-	if(!IS_FINITE(amount))
+	if(amount < 0 || !IS_FINITE(amount))
 		stack_trace("invalid number passed to remove_reagent [amount]")
 		return FALSE
-	
-	// Clamp very small negative values from floating-point rounding errors to zero
-	if(amount < 0)
-		if(amount > -0.0001)  // Very small negative value likely from rounding
-			amount = 0
-		else
-			stack_trace("invalid number passed to remove_reagent [amount]")
-			return FALSE
 
 	var/list/cached_reagents = reagent_list
 

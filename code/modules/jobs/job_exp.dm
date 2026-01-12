@@ -283,10 +283,7 @@ GLOBAL_PROTECT(exp_to_update)
 		list("ckey" = ckey)
 	)
 
-	if(!flags_read)
-		return FALSE
-
-	if(!flags_read.Execute(async = TRUE))
+	if(!flags_read || !flags_read.Execute(async = TRUE))
 		qdel(flags_read)
 		return FALSE
 

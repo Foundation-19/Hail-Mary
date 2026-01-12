@@ -49,8 +49,6 @@
 
 	if(current_tab == LOADOUT_TAB)
 		//give it its loadout if not on the appearance tab
-		mannequin.delete_equipment()
-		mannequin.regenerate_icons()
 		SSjob.equip_loadout(parent.mob, mannequin, FALSE, bypass_prereqs = TRUE, can_drop = FALSE)
 	else
 		if(previewJob && equip_job)

@@ -2108,9 +2108,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			var/toggle = text2num(href_list["toggle_gear"])
 			if(!toggle && has_loadout_gear(loadout_slot, "[G.type]"))//toggling off and the item effectively is in chosen gear)
 				remove_gear_from_loadout(loadout_slot, "[G.type]")
-				save_preferences()
-				ShowChoices(user)
-				return
 			else if(toggle && !(has_loadout_gear(loadout_slot, "[G.type]")))
 				/*
 				if(!is_loadout_slot_available(G.category))
@@ -2126,9 +2123,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 						loadout_data["SAVE_[loadout_slot]"] += list(new_loadout_data) //double packed because it does the union of the CONTENTS of the lists
 					else
 						loadout_data["SAVE_[loadout_slot]"] = list(new_loadout_data) //double packed because you somehow had no save slot in your loadout?
-					save_preferences()
-					ShowChoices(user)
-					return
 
 		if(href_list["loadout_color"] || href_list["loadout_rename"] || href_list["loadout_redescribe"])
 		//if the gear doesn't exist, or they don't have it, ignore the request
