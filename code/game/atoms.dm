@@ -568,6 +568,8 @@
 	LAZYINITLIST(blood_DNA)
 
 	var/old_length = blood_DNA.len
+	if(!islist(blood_dna))
+		return FALSE
 	blood_DNA |= blood_dna
 	if(blood_DNA.len > old_length)
 		. = TRUE
