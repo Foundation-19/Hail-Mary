@@ -106,6 +106,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
 	var/turf/W = new path(src)
+	// Ensure the new turf's changing_turf flag is reset after creation
+	W.changing_turf = FALSE
 
 	for(var/i in transferring_comps)
 		W.TakeComponent(i)
@@ -225,7 +227,7 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			newT = ChangeTurf(fake_turf_type, null, flags)
 			newT.assemble_baseturfs(initial(fake_turf_type.baseturfs)) // The baseturfs list is created like roundstart
 			if(!length(newT.baseturfs))
-				newT.baseturfs = list(baseturfs)
+				newT.baseturfs = list(newT.baseturfs)
 			newT.baseturfs -= GLOB.blacklisted_automated_baseturfs
 			newT.baseturfs.Insert(1, old_baseturfs) // The old baseturfs are put underneath
 			return newT
@@ -233,6 +235,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 			baseturfs = list(baseturfs)
 		if(!istype(src, /turf/closed))
 			baseturfs += type
+		if(!length(new_baseturfs))
+			new_baseturfs = list(new_baseturfs)
 		baseturfs += new_baseturfs
 		return ChangeTurf(fake_turf_type, null, flags)
 	if(!length(baseturfs))
@@ -244,6 +248,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		change_type = new_baseturfs[new_baseturfs.len]
 		new_baseturfs.len--
 		if(new_baseturfs.len)
+			if(!length(baseturfs))
+				baseturfs = list(baseturfs)
 			baseturfs += new_baseturfs
 	else
 		change_type = new_baseturfs

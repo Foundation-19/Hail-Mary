@@ -554,6 +554,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
+/mob/dead/observer/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
+	. = ..()
+	// Update the client's eye position when the observer moves
+	// This ensures audio distance calculations use the correct listener position
+	if(client && client.eye == src)
+		client.eye = src
+
+/mob/dead/observer/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = TRUE)
+	. = ..()
+	// When crossing z-levels, resync the client eye to ensure proper audio tracking
+	if(client && client.eye == src)
+		client.eye = src
+
 /mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
 	. = ..()
 	//restart our floating animation after orbit is done.
