@@ -36666,17 +36666,6 @@
 	icon_state = "verticalinnermain0"
 	},
 /area/f13/wasteland)
-"iME" = (
-/obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbrokenvertical"
-	},
-/obj/structure/curtain{
-	color = "#845f58"
-	},
-/obj/structure/barricade/wooden/planks/pregame,
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/city)
 "iMM" = (
 /obj/structure/chair/comfy/plywood{
 	dir = 8
@@ -38490,16 +38479,6 @@
 /obj/machinery/grill,
 /turf/open/indestructible/ground/inside/dirt/stamped/outside,
 /area/f13/wasteland)
-"jyb" = (
-/obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowvertical"
-	},
-/obj/structure/curtain{
-	color = "#845f58"
-	},
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/city)
 "jyh" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -60200,6 +60179,7 @@
 /area/f13/wasteland)
 "shH" = (
 /obj/effect/decal/cleanable/blood/drip,
+/obj/item/melee/onehanded/club,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright1"
 	},
@@ -107540,10 +107520,10 @@ xvy
 xvy
 xvy
 xvy
-iME
-iME
-jyb
-jyb
+xvy
+xvy
+xvy
+xvy
 xvy
 mBa
 pkp
