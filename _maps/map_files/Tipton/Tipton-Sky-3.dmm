@@ -5394,10 +5394,6 @@
 /obj/structure/closet/anchored,
 /obj/item/clothing/suit/toggle/labcoat/scribecoat,
 /obj/item/clothing/suit/toggle/labcoat/scribecoat,
-/obj/item/clothing/suit/toggle/labcoat/scribecoat,
-/obj/item/clothing/suit/toggle/labcoat/scribecoat,
-/obj/item/clothing/suit/toggle/labcoat/fieldscribe,
-/obj/item/clothing/suit/toggle/labcoat/fieldscribe,
 /obj/item/clothing/suit/toggle/labcoat/fieldscribe,
 /obj/item/clothing/suit/toggle/labcoat/fieldscribe,
 /turf/open/floor/f13{
