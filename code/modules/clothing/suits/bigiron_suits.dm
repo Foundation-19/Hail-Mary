@@ -1877,7 +1877,7 @@
 	icon_state = "atlanticguard"
 	item_state = "atlanticguard"
 
-/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+/obj/item/clothing/suit/armor/medium/duster/minutemen
 	name = "minutemen coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
 	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
