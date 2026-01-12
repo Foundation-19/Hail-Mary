@@ -441,6 +441,8 @@
 		return
 
 /obj/item/radio/proc/avoiding_a_sleep(mob/living/user, music_filepath, name_of_music, music_volume)
+	if(!user)
+		return
 	music_name = name_of_music
 	to_chat(user, "<span class='robot'><b>[src]</b> beeps into your ears, 'Now playing: <i>[music_name]</i>.' </span>")
 	if(user.client)
@@ -616,10 +618,10 @@
 	canhear_range = 2
 	w_class = WEIGHT_CLASS_NORMAL
 
-GLOBAL_VAR_INIT(redwater_frequency, null)
-GLOBAL_LIST_INIT(banned_redwater_freqs, list(FREQ_COMMON, 1488))
+GLOBAL_VAR_INIT(outlaw_frequency, null)
+GLOBAL_LIST_INIT(banned_outlaw_freqs, list(FREQ_COMMON, 1488))
 
-/obj/item/radio/redwater
+/obj/item/radio/outlaw
 	name = "handheld transceiver"
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
@@ -631,25 +633,36 @@ GLOBAL_LIST_INIT(banned_redwater_freqs, list(FREQ_COMMON, 1488))
 
 
 
-/obj/item/radio/redwater/Initialize()
+/obj/item/radio/outlaw/Initialize()
 	. = ..()
-	setup_redwater_frequency()
-	set_frequency(GLOB.redwater_frequency)
+	setup_outlaw_frequency()
+	set_frequency(GLOB.outlaw_frequency)
 	color = "#5c5c5c"
 
-/obj/item/radio/redwater/proc/setup_redwater_frequency(mob/user)
-	if(GLOB.redwater_frequency > 1)
+/obj/item/radio/outlaw/proc/setup_outlaw_frequency(mob/user)
+	if(GLOB.outlaw_frequency > 1)
 		return // already setup!
 	var/frequency_ok = FALSE
 	var/tries_left = 5
 	while(!frequency_ok)
-		GLOB.redwater_frequency = rand(MIN_FREQ, MAX_FREQ)
-		if(GLOB.redwater_frequency in GLOB.banned_redwater_freqs)
+		GLOB.outlaw_frequency = rand(MIN_FREQ, MAX_FREQ)
+		if(GLOB.outlaw_frequency in GLOB.banned_outlaw_freqs)
 			if(tries_left-- > 0)
 				continue
 		frequency_ok = TRUE
 
-/obj/item/radio/redwater/examine(mob/user)
+/obj/item/radio/outlaw/examine(mob/user)
 	. = ..()
-	if(GLOB.redwater_frequency)
-		. += "Scratched into the bottom is a note, \"Don't forget, we're tuned to <span class='boldnotice'>[GLOB.redwater_frequency * 0.1]</span>!\""
+	if(GLOB.outlaw_frequency)
+		. += "Scratched into the bottom is a note, \"Don't forget, we're tuned to <span class='boldnotice'>[GLOB.outlaw_frequency * 0.1]</span>!\""
+
+/obj/item/radio/loudspeaker
+	name = "speaker"
+	icon = 'icons/obj/radio.dmi'
+	icon_state = "intercom_loudspeaker"
+	desc = "a speaker for concerts and political rallies."
+	freerange = TRUE
+	frequency = FREQ_VAULT
+	prison_radio = TRUE
+	canhear_range = 5
+	w_class = WEIGHT_CLASS_NORMAL

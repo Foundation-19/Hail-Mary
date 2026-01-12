@@ -46,7 +46,7 @@
 	light_range = 9
 	var/deflect_chance = 10 //chance to deflect the incoming projectiles, hits, or lesser the effect of ex_act.
 	armor = ARMOR_VALUE_HEAVY
-	var/list/facing_modifiers = list(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
+	var/list/facing_modifiers = alist(FRONT_ARMOUR = 1.5, SIDE_ARMOUR = 1, BACK_ARMOUR = 0.5)
 	//var/obj/item/stock_parts/cell/cell
 	var/obj/item/reagent_containers/fuel_tank/fuel_holder
 	var/state = 0
@@ -67,6 +67,7 @@
 	var/can_be_locked = FALSE //Whether the mech can be DNA-locked or not.
 	var/stepcooldown = 3
 	var/last_trigger = 0 //Last time step sounded.
+	var/canmove = TRUE
 
 	var/bumpsmash = 0 //Whether or not the mech destroys walls by running into it.
 	//inner atmos
@@ -82,6 +83,23 @@
 	var/max_temperature = 25000
 	var/internal_damage_threshold = 50 //health percentage below which internal damage is possible
 	var/internal_damage = 0 //contains bitflags
+	// FRONT, LEFT , RIGHT, BACK
+	/// List of internal components per direction , will cause increased mech damge incase of mech AP and block shots from hitting the driver
+	// internal list should be list[ref] = list(hitChance, hitMult, APthreshold)
+	var/list/directional_comps = list(
+		list(
+			list(100,2, 30)
+		),
+		list(
+			list(30,2, 30)
+		),
+		list(
+			list(30,2, 30)
+		),
+		list(
+			list(5,2, 30)
+		)
+	)
 
 	var/list/operation_req_access = list()//required access level for mecha operation
 	var/list/internals_req_access = list()//REQUIRED ACCESS LEVEL TO OPEN CELL COMPARTMENT
@@ -907,7 +925,7 @@
 			if(C.dna.unique_enzymes==dna_lock)
 				passed = TRUE
 		if (!passed)
-			to_chat(user, "<span class='warning'>Access denied. [name] is secured with a DNA lock.</span>")
+			to_chat(user, "<span class='warning'>Access denied. The [name] is secured with a DNA lock.</span>")
 			log_append_to_last("Permission denied.")
 			return
 	if(!operation_allowed(user))

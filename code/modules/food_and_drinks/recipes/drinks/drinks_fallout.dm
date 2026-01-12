@@ -166,6 +166,11 @@
 	results = list(/datum/reagent/consumable/ethanol/nukaxtreme = 1)
 	required_reagents = list(/datum/reagent/consumable/nuka_cola = 5, /datum/reagent/consumable/ethanol/nukaquantum = 5, /datum/reagent/consumable/nukagrape = 5)
 
+/datum/chemical_reaction/nukastrawberry
+	name = "Nuka Strawberry"
+	id = "nukastrawberry"
+	results = list(/datum/reagent/consumable/nukastrawberry = 2)
+	required_reagents = list(/datum/reagent/consumable/nuka_cola = 1, /datum/reagent/consumable/strawberryjuice = 1)
 
 /// Vim! from Fallout 4: Far Harbor
 

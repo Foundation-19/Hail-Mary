@@ -82,6 +82,10 @@
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/structure/car/rubbish1alt
+	icon_state = "car_rubish12"
+	layer = ABOVE_MOB_LAYER
+
 /obj/structure/car/rubbish2
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
@@ -92,15 +96,23 @@
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
 
+/obj/structure/car/rubbish2alt
+	icon_state = "car_rubish22"
+	layer = ABOVE_MOB_LAYER
+
 /obj/structure/car/rubbish3
 	name = "pre-War rubbish"
-	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
+	desc = "A rusty pre-War automobile carcass.<br>This car might be repairable."
 	icon = 'icons/fallout/objects/structures/rubish.dmi'
 	icon_state = "car_rubish3"
 	anchored = 1
 	density = 1
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/car/rubbish3alt
+	icon_state = "car_rubish32"
+	layer = ABOVE_MOB_LAYER
 
 /obj/structure/car/rubbish4
 	name = "pre-War rubbish"
@@ -111,6 +123,174 @@
 	density = 1
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/car/rubbish5
+	icon_state = "car_rubish5"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish6
+	icon_state = "car_rubish6"
+	bound_width = 32
+	bound_height = 32
+	layer = WALL_OBJ_LAYER
+
+/obj/structure/car/rubbish7
+	icon_state = "car_rubish7"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish8
+	icon_state = "notsorubbish"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish9_1
+	icon_state = "rubbish_lights"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish9_2
+	icon_state = "rubbish_lights2"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish10
+	icon = 'icons/fallout/objects/structures/car_light.dmi'
+	icon_state = "rubbish10"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish11
+	icon_state = "rubbish11"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/rubbish_lights
+	icon = 'icons/fallout/objects/structures/car_light.dmi'
+	icon_state = "rubbish_lights"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/derelict
+	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon_state = "derelict"
+	bound_height = 32
+	pixel_y = -4
+	layer = LATTICE_LAYER
+
+/obj/structure/car/derelict/alt
+	icon_state = "derelict2"
+
+/obj/structure/car/motoryclevert
+	name = "pre-War rubbish"
+	desc = "A rusty pre-War automobile carcass.<br>This motorcycle is damaged beyond repair."
+	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon_state = "bike_rust_med_no_wheels"
+	bound_height = 32
+	bound_width = 32
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/motoryclevert/light
+	icon_state = "rust_light_no_wheels"
+
+/obj/structure/car/motoryclevert/green
+	icon_state = "bike_no_wheels"
+
+/obj/structure/car/motoryclevert/med
+	icon_state = "bike_rust_med_no_wheels"
+
+/obj/structure/car/motoryclehor
+	name = "pre-War rubbish"
+	desc = "A rusty pre-War automobile carcass.<br>This motorcycle is damaged beyond repair."
+	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon_state = "rust_light_no_wheels"
+	bound_height = 32
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/motoryclehor/light
+	icon_state = "rust_light_no_wheels"
+
+/obj/structure/car/motoryclehor/green
+	icon_state = "bike_no_wheels"
+
+/obj/structure/car/motoryclehor/med
+	icon_state = "bike_rust_med_no_wheels"
+
+/obj/structure/car/totaledbuggy
+	name = "totaled buggy"
+	desc = "A totaled buggy."
+	icon = 'icons/fallout/vehicles/centeredsmaller.dmi'
+	icon_state = "junk_red"
+	layer = ABOVE_MOB_LAYER
+
+/obj/structure/car/totaledbuggy/dune
+	icon_state = "junk_dune"
+
+/obj/structure/car/totaledbuggy/olive
+	icon_state = "junk_olive"
+
+/obj/structure/car/totaledbuggy/hot
+	icon_state = "junk_hot"
+
+/obj/structure/car/junk
+	desc = "Old pre-war junk, salvageable for parts with a welder."
+	bound_width = 32
+	bound_height = 32
+
+/obj/structure/car/junk/pod
+	name = "Empty Protectron Pod"
+	icon = 'icons/mob/nest_new.dmi'
+	icon_state = "scanner_modified"
+
+/obj/structure/car/junk/generator
+	name = "generator"
+	icon = 'icons/obj/machines/gravity_generator.dmi'
+	icon_state = "fix2_6"
+
+/obj/structure/car/junk/generator/alt
+	icon_state = "fix2_4"
+
+/obj/structure/car/junk/emitter
+	name = "Prototype Emitter"
+	icon = 'icons/obj/turrets.dmi'
+	icon_state = "protoemitter"
+
+/obj/structure/car/junk/focuser
+	name = "Particle Focusing EM Lens"
+	icon = 'icons/obj/machines/particle_accelerator.dmi'
+	icon_state = "power_box"
+
+/obj/structure/car/junk/smes
+	name = "broken electrical equipment"
+	icon = 'icons/obj/power.dmi'
+	icon_state = "smes"
+
+/obj/structure/car/junk/computer
+	name = "strange device"
+	icon = 'icons/obj/computer.dmi'
+	icon_state = "lunar"
+
+/obj/structure/car/junk/atm
+	name = "strange device"
+	icon = 'icons/obj/money_machine.dmi'
+	icon_state = "bogdanoff"
+
+/obj/structure/car/junk/airfilt
+	name = "air filtration system"
+	icon = 'icons/fallout/turfs/walls/subway.dmi'
+	icon_state = "subwaytopmiddlealt"
+	density = FALSE
+	layer = LATTICE_LAYER
+	pixel_y = 29
+
+/obj/structure/car/junk/panel
+	name = "pipe panel"
+	icon = 'icons/fallout/objects/structures/wallmounts.dmi'
+	icon_state = "pipes_1"
+	density = FALSE
+	layer = LATTICE_LAYER
+	pixel_y = 32
+
+/obj/structure/car/junk/xray
+	name = "film viewer"
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "xray"
+	density = FALSE
+	layer = LATTICE_LAYER
+	pixel_y = 32
 
 
 /obj/structure/debris/v1

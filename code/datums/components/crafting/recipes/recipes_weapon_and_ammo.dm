@@ -345,6 +345,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+
 /*
 /datum/crafting_recipe/c38boxincin
 	name = ".38 incendiary-tipped ammo box"
@@ -359,6 +360,7 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 */
+
 /datum/crafting_recipe/c10mmincin
 	name = "10mm incendiary-tipped ammo box"
 	result = /obj/item/ammo_box/c10mm/fire
@@ -451,7 +453,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-
+/*
 /datum/crafting_recipe/a556shrap
 	name = "5.56mm micro-shrapnel ammo box"
 	result = /obj/item/ammo_box/a556/microshrapnel
@@ -464,7 +466,7 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-/*
+*/
 /datum/crafting_recipe/a556uranium
 	name = "5.56mm uranium-tipped ammo box"
 	result = /obj/item/ammo_box/a556/uraniumtipped
@@ -478,11 +480,10 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
-/*
+
 /datum/crafting_recipe/a762boxirr
 	name = "7.62 U-235 ammo box"
-	result = /obj/item/ammo_box/a762box/uraniumtipped
+	result = /obj/item/ammo_box/a308box/uraniumtipped
 	reqs = list(/obj/item/stack/crafting/metalparts = 1,
 	/obj/item/stack/sheet/mineral/titanium = 1,
 	/obj/item/stack/sheet/prewar = 1,
@@ -493,11 +494,10 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
 /*
 /datum/crafting_recipe/a762boxshrap
 	name = "7.62mm micro-shrapnel ammo box"
-	result = /obj/item/ammo_box/a762box/microshrapnel
+	result = /obj/item/ammo_box/a308box/microshrapnel
 	reqs = list(/obj/item/stack/crafting/metalparts = 1,
 	/obj/item/stack/sheet/prewar = 2,
 	/obj/item/stack/sheet/mineral/titanium = 1,
@@ -508,7 +508,6 @@
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 */
-/*
 /datum/crafting_recipe/a50MGboxuranium
 	name = "12.7mm U-235 ammo box"
 	result = /obj/item/ammo_box/a50MGbox/uraniumtipped
@@ -522,7 +521,6 @@
 	time = 5
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
-*/
 
 /datum/crafting_recipe/a50MGboxcontaminated
 	name = "12.7mm contaminated ammo box"
@@ -2212,6 +2210,20 @@ Not implemented due to balance at the moment
 				)
 	tools = list(TOOL_WORKBENCH)
 	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_AMMO
+	always_available = FALSE
+
+//48 Round 10mm Drum Magazine
+/datum/crafting_recipe/drum10mm
+	name = "SMG Drum Magazine (10mm)"
+	result = /obj/item/ammo_box/magazine/m10mm/adv/drum/empty
+	reqs = list(/obj/item/stack/sheet/metal = 20,
+				/obj/item/stack/crafting/goodparts = 3,
+				/obj/item/stack/sheet/plastic = 2,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 80
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
 	always_available = FALSE

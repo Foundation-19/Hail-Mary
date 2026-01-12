@@ -16,7 +16,7 @@
 	if(set_dir_on_move)
 		setDir(direction)
 
-	var/is_multi_tile_object = bound_width > 32 || bound_height > 32
+	var/is_multi_tile_object = bound_width > 64 || bound_height > 64
 
 	var/list/old_locs
 	if(is_multi_tile_object && isturf(loc))
@@ -454,7 +454,7 @@
 	if(destination)
 		. = doMove(destination)
 	else
-		CRASH("No valid destination passed into forceMove")
+		. = doMove(null)  // Move to nullspace if no valid destination
 
 /atom/movable/proc/moveToNullspace()
 	return doMove(null)
@@ -481,7 +481,8 @@
 				oldloc.Exited(src, movement_dir)
 				if(old_area && old_area != destarea)
 					old_area.Exited(src, movement_dir)
-			destination.Entered(src, oldloc)
+			if(destination)
+				destination.Entered(src, oldloc)
 			if(destarea && old_area != destarea)
 				destarea.Entered(src, old_area)
 

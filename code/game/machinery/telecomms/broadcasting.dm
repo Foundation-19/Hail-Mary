@@ -108,6 +108,8 @@
 	src.frequency = frequency
 	src.language = language
 	virt = speaker
+	if(!speaker)
+		return
 	var/datum/language/lang_instance = GLOB.language_datum_instances[language]
 	data = list(
 		"name" = speaker.name,

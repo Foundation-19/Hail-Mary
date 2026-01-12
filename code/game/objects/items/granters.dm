@@ -524,6 +524,15 @@
 		name = "empty scroll"
 		icon_state = "blankscroll"
 
+/obj/item/book/granter/martial/wrestling
+	martial = /datum/martial_art/wrestling
+	name = "pro wrestling magazine"
+	martialname = "wrestling"
+	desc = "A magazine detailing various grapples, holds, suplexes and elbow drops. Oooh yeah, brother."
+	greet = "<span class='sciradio'>You have mastered the power of pro wrestling. Use the buttons at the top of your screen to harm others, grab to initiate a move.</span>"
+	remarks = list("Drop the leg...", "Cream of the crop...", "Hell yeah brother...", "The Macho Man is gonna...", "Warrior nation...", "One two three...")
+
+
 /obj/item/book/granter/martial/plasma_fist
 	martial = /datum/martial_art/plasma_fist
 	name = "frayed scroll"
@@ -657,7 +666,7 @@
 	icon_state = "gab4"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended)
+	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended, /datum/crafting_recipe/drum10mm)
 
 /obj/item/book/granter/crafting_recipe/scav_one
 	name = "SCAV! Issue 1"

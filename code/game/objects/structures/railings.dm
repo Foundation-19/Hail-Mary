@@ -126,6 +126,23 @@
 	if(anchored == checked_anchored)
 		return TRUE
 
+/// TG Sprites
+
+/obj/structure/railing/tg
+	icon = 'icons/fallout/structures/railings.dmi'
+	icon_state = "railing"
+	layer = ABOVE_MOB_LAYER
+	plane = MOB_PLANE
+
+/obj/structure/railing/tg/corner
+	icon_state = "railing_corner"
+
+/obj/structure/railing/tg/corner/end
+	icon_state = "railing_end"
+
+/obj/structure/railing/tg/corner/end/flip
+	icon_state = "railing_end_flip"
+
 /////////////
 // RAILING //
 /////////////
@@ -159,6 +176,36 @@
 	base_opacity = FALSE
 	can_hold_padlock = TRUE
 
+/obj/structure/railing/corrugated
+	name = "fence"
+	desc = "Marks property and prevents accidents."
+	icon = 'icons/obj/fence.dmi'
+	icon_state = "corrugatedfence"
+	layer = BELOW_OBJ_LAYER
+
+/obj/structure/railing/corrugated/two
+	name = "fence"
+	icon_state = "corrugatedfence2"
+
+/obj/structure/railing/corrugated/three
+	name = "fence"
+	icon_state = "corrugatedfence3"
+
+/obj/structure/railing/corrugated/four
+	name = "fence"
+	icon_state = "corrugatedfence4"
+
+/obj/structure/railing/corrugated/five
+	name = "fence"
+	icon_state = "corrugatedfence5"
+
+/obj/structure/railing/corrugated/six
+	name = "fence"
+	icon_state = "corrugatedfence6"
+
+/obj/structure/railing/corrugated/Initialize()
+	. = ..()
+	ini_dir = dir
 
 //Yellow rail
 /obj/structure/railing/handrail
@@ -232,3 +279,14 @@
 
 /obj/structure/railing/dancing_pole/top
 	icon_state = "pole_t"
+
+/obj/structure/railing/ridiculousattentiontodetail
+	name = "railing"
+	icon_state = "stairrailing"
+	var/mutable_appearance/railingoverlay
+
+/obj/structure/railing/ridiculousattentiontodetail/Initialize()
+	. = ..()
+	ini_dir = dir
+	railingoverlay = mutable_appearance(icon, "[icon_state]overlay", ABOVE_ALL_MOB_LAYER)
+	add_overlay(railingoverlay)

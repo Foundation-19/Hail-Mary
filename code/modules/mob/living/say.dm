@@ -295,13 +295,24 @@
 	return 1
 
 /mob/living/proc/get_key(message)
+	if(!message || !length(message))
+		return null
 	var/key = message[1]
 	if(key in GLOB.department_radio_prefixes)
-		return lowertext(message[1 + length(key)])
+		var/index = 1 + length(key)
+		if(index > length(message))
+			return null
+		return lowertext(message[index])
+	return null
 
 /mob/living/proc/get_message_language(message)
+	if(!message || !length(message))
+		return null
 	if(message[1] == ",")
-		var/key = message[1 + length(message[1])]
+		var/index = 1 + length(message[1])
+		if(index > length(message))
+			return null
+		var/key = message[index]
 		for(var/ld in GLOB.all_languages)
 			var/datum/language/LD = ld
 			if(initial(LD.key) == key)

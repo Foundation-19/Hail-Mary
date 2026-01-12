@@ -45,8 +45,17 @@ if (window.__windowId__ === '[' + 'tgui:windowId' + ']') {
       : null;
   })();
 
+  // Blink engine version
+  Byond.BLINK = (function () {
+    var groups = navigator.userAgent.match(/Chrome\/(\d+)\./);
+    var majorVersion = groups && groups[1];
+    return majorVersion
+      ? parseInt(majorVersion, 10)
+      : null;
+  })();
+
   // Basic checks to detect whether this page runs in BYOND
-  var isByond = (tridentVersion !== null || window.cef_to_byond)
+  var isByond = (tridentVersion !== null || Byond.BLINK !== null || window.cef_to_byond)
     && location.hostname === '127.0.0.1'
 //As of BYOND 515 the path doesn't seem to include tmp dir anymore if you're trying to open tgui in external browser and looking why it doesn't work
   //  && location.pathname.indexOf('/tmp') === 0
@@ -135,6 +144,22 @@ if (window.__windowId__ === '[' + 'tgui:windowId' + ']') {
 
   Byond.topic = function (params) {
     return Byond.call('', params);
+  };
+
+  Byond.sendMessage = function (type, payload) {
+    var message = typeof type === 'string'
+      ? { type: type, payload: payload }
+      : type;
+    // JSON-encode the payload
+    if (message.payload !== null && message.payload !== undefined) {
+      message.payload = JSON.stringify(message.payload);
+    }
+    // Append an identifying header
+    assign(message, {
+      tgui: 1,
+      window_id: window.__windowId__,
+    });
+    Byond.topic(message);
   };
 
   Byond.command = function (command) {
@@ -390,11 +415,12 @@ window.__updateQueue__ = [];
 window.update = function (message) {
   window.__updateQueue__.push(message);
 };
-Byond.topic({
-  tgui: 1,
-  window_id: window.__windowId__,
-  type: 'ready',
-});
+
+// Send ready message with a small delay to ensure BYOND bridge is ready
+// In BYOND 516 with Chromium/WebView2, immediate calls may fail
+setTimeout(function () {
+  Byond.sendMessage('ready');
+}, 100);
 
 // Necessary polyfill to make Webpack code splitting work on IE8
 if (!Function.prototype.bind) (function () {

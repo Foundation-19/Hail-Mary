@@ -41,6 +41,21 @@
 	girder_type = 0
 	canSmoothWith = list(/turf/closed/wall/f13/wood, /turf/closed/wall)
 
+/turf/closed/wall/f13/woodalt
+	name = "wooden wall"
+	desc = "A traditional wooden wall."
+	icon = 'icons/turf/walls/wood_wall.dmi'
+	icon_state = "wood"
+	icon_type_smooth = "wood"
+	hardness = 60
+	smooth = SMOOTH_TRUE
+	unbreakable = 0
+	baseturfs = /turf/open/floor/plating/wooden
+	sheet_type = /obj/item/stack/sheet/mineral/wood
+	sheet_amount = 2
+	girder_type = 0
+	canSmoothWith = list(/turf/closed/wall/f13/wood, /turf/closed/wall, /turf/closed/wall/f13/woodalt)
+
 /turf/closed/wall/f13/wood/house
 	name = "house wall"
 	desc = "A weathered pre-War house wall."
@@ -50,7 +65,10 @@
 	hardness = 50
 	var/broken = FALSE
 	var/clean = FALSE
-	canSmoothWith = list(/turf/closed/wall/f13/wood/house, /turf/closed/wall/f13/wood/house/broken, /turf/closed/wall, /turf/closed/wall/f13/wood/house/clean, /turf/closed/wall/f13/wood/house/clean/broken)
+	canSmoothWith = list(/turf/closed/wall/f13/wood/house, /turf/closed/wall/f13/wood/house/broken, /turf/closed/wall, /turf/closed/wall/f13/wood/house/clean, /turf/closed/wall/f13/wood/house/clean/broken, /turf/closed/wall/f13/wood/house/shack)
+
+/turf/closed/wall/f13/wood/house/shack
+	name = "shack wall"
 
 /turf/closed/wall/f13/wood/house/broken
 	desc = "A broken weathered pre-War house wall."
@@ -163,6 +181,10 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall/f13/store, /turf/closed/wall/f13/store/constructed, /turf/closed/wall,)
 
+/turf/closed/wall/f13/store/concretewall
+	name = "concrete wall"
+	canSmoothWith = list(/turf/closed/wall/f13/store, /turf/closed/wall/f13/store/constructed, /turf/closed/wall, /turf/closed/indestructible/f13/obsidian, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/f13/store/concretewall)
+
 /turf/closed/wall/f13/tentwall
 	name = "tent wall"
 	desc = "The walls of a portable tent."
@@ -213,8 +235,8 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_type_smooth = "scrapro"
 
 /turf/closed/wall/f13/supermart
-	name = "supermart wall"
-	desc = "A pre-War supermart wall made of reinforced concrete."
+	name = "concrete wall"
+	desc = "A pre-War concrete wall made of reinforced concrete."
 	icon = 'icons/turf/walls/f13superstore.dmi'
 	icon_state = "supermart"
 	icon_type_smooth = "supermart"
@@ -225,7 +247,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	//	disasemblable = 0
 	girder_type = 0
 	sheet_type = null
-	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall,)
+	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/mineral/concrete/blastproof/moresmooth, /turf/closed/wall/mineral/concrete/blastproof/storewall, /turf/closed/indestructible/f13/supermart, /obj/structure/falsewall/concrete, /turf/closed/indestructible/f13/vaultwall/notvaultwall, /turf/closed/indestructible/f13/vaultwall, /turf/closed/indestructible/f13/supermart)
 
 /turf/closed/wall/f13/tunnel
 	name = "utility tunnel wall"
@@ -326,6 +348,26 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_state = "matrix"
 	var/in_use = FALSE
 
+/turf/closed/indestructible/f13/matrix/saltflats
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow"
+
+/turf/closed/indestructible/f13/matrix/desert
+	icon = 'icons/fallout/turfs/ground.dmi'
+	icon_state = "wasteland"
+
+/turf/closed/indestructible/f13/matrix/wendover
+	icon = 'icons/fallout/objects/wendover.dmi'
+	icon_state = "gravelsiding"
+
+/turf/closed/indestructible/f13/matrix/asphalt
+	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon_state = "verticalleftborderright1"
+
+/turf/closed/indestructible/f13/matrix/sidewalk
+	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon_state = "horizontalbottomborderbottom0"
+
 /turf/closed/indestructible/f13/matrix/MouseDrop_T(atom/dropping, mob/user)
 	. = ..()
 	if(!isliving(user) || user.incapacitated())
@@ -384,6 +426,45 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/indestructible/f13/obsidian/New()
 	..()
 	icon_state = "rock[rand(1,6)]"
+
+/turf/closed/indestructible/f13/harshrock //Just like that one game studio that worked on the original game, or that block in Minecraft!
+	name = "cliff"
+	desc = "Harsh desert rock tempered by the scorching wasteland."
+	icon = 'icons/fallout/turfs/mining.dmi'
+	icon_state = "harshrock"
+	layer = EDGED_TURF_LAYER
+
+/turf/closed/indestructible/f13/vaultwall
+	name = "vault wall"
+	desc = "No matter what you do with this rock, there's not even a scratch left on its surface.<br><font color='#7e0707'>You shall not pass!!!</font>"
+	icon = 'icons/turf/walls/f13superstore.dmi'
+	icon_state = "supermart"
+	icon_type_smooth = "supermart"
+	// plane = GAME_PLANE
+	// layer = LATTICE_LAYER
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/closed/indestructible/f13/vaultwall)
+	plane = GAME_PLANE
+
+/turf/closed/indestructible/f13/vaultwall/notvaultwall
+	name = "wall"
+	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/mineral/concrete/blastproof/moresmooth, /turf/closed/wall/mineral/concrete/blastproof/storewall, /turf/closed/indestructible/f13/supermart, /obj/structure/falsewall/concrete, /turf/closed/indestructible/f13/vaultwall/notvaultwall, /turf/closed/indestructible/f13/vaultwall, /turf/closed/indestructible/f13/supermart)
+
+
+/turf/closed/indestructible/f13/supermart
+	name = "concrete wall"
+	desc = "No matter what you do with this rock, there's not even a scratch left on its surface.<br><font color='#7e0707'>You shall not pass!!!</font>"
+	icon = 'icons/turf/walls/f13superstore.dmi'
+	icon_state = "supermart"
+	icon_type_smooth = "supermart"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/closed/indestructible/f13/vaultwall, /turf/closed/wall/mineral/concrete, /turf/closed/indestructible/f13/supermart)
+
+/turf/closed/indestructible/f13/vaultwall/fakeshutter
+	name = "shutter"
+	icon = 'icons/obj/doors/shutters.dmi'
+	icon_state = "closed"
+	smooth = SMOOTH_FALSE
 
 //Splashscreen
 /*

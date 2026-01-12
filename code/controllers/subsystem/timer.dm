@@ -25,6 +25,8 @@ SUBSYSTEM_DEF(timer)
 
 	/// Queue used for storing timers that do not fit into the current buckets
 	var/list/datum/timedevent/second_queue = list()
+	/// Queue for timers created before SStimer initialization (BYOND 516 early initialization workaround)
+	var/list/datum/timedevent/early_timers = list()
 	/// A hashlist dictionary used for storing unique timers
 	var/list/hashes = list()
 	/// world.time of the first entry in the bucket list, effectively the 'start time' of the current buckets
@@ -56,6 +58,13 @@ SUBSYSTEM_DEF(timer)
 	bucket_list.len = BUCKET_LEN
 	head_offset = world.time
 	bucket_resolution = world.tick_lag
+
+/datum/controller/subsystem/timer/Initialize()
+	// Process queued timers from early initialization (BYOND 516 workaround)
+	for(var/datum/timedevent/timer in early_timers)
+		timer.bucketJoin()
+	early_timers.Cut()
+	return ..()
 
 /datum/controller/subsystem/timer/stat_entry(msg)
 	msg = "B:[bucket_count] P:[length(second_queue)] H:[length(hashes)] C:[length(clienttime_timers)] S:[length(timer_id_dict)] RST:[bucket_reset_count]"
@@ -507,6 +516,12 @@ SUBSYSTEM_DEF(timer)
 
 	if (bucket_joined)
 		stack_trace("Bucket already joined! [name]")
+
+	// BYOND 516 early initialization workaround: queue timers created before SStimer is ready
+	if(!timer_subsystem)
+		bucket_joined = TRUE  // Mark as joined to prevent re-attempts
+		LAZYADD(SStimer.early_timers, src)
+		return
 
 	// Check if this timed event should be diverted to the client time bucket, or the secondary queue
 	var/list/L

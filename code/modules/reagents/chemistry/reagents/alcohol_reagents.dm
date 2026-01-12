@@ -16,6 +16,7 @@
 	pH = 7.33
 	value = REAGENT_VALUE_VERY_COMMON //don't bother tweaking all drinks values, way too many can easily be done roundstart or with an upgraded dispenser.
 	synth_metabolism_use_human = TRUE
+	thirst_factor = THIRST_FACTOR * 6 // Less than water
 
 /*
 Boozepwr Chart
@@ -374,6 +375,17 @@ All effects don't start immediately, but rather get worse over time; the rate is
 	if(prob(10) && !HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
 		M.hallucination += 4 //Reference to the urban myth
 	..()
+
+/datum/reagent/consumable/ethanol/cerveza
+	name = "Cerveza Cristal"
+	description = "Unique, Great and Ours"
+	color = rgb(255, 253, 150)
+	boozepwr = 25
+	taste_description = "advertisement"
+	glass_icon_state = "beerglass"
+	glass_name = "glass of cerveza cristal"
+	glass_desc = "A fine drink originally from norte chico commonwealths."
+	shot_glass_icon_state = "shotglassgreen"
 
 /datum/reagent/consumable/ethanol/hooch
 	name = "Hooch"

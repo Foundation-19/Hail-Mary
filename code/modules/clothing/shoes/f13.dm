@@ -189,13 +189,6 @@
 	item_state = "khan_boots"
 	var/boottoggled = FALSE
 
-/obj/item/clothing/shoes/f13/military/khan/Goji
-	name = "steel-tipped Snakeskin Loafers"
-	desc = "A pair of Snakeskin Loafers reinforced with metal toe caps."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	icon_state = "Gojishoes"
-	item_state = "Gojishoes"
-
 /obj/item/clothing/shoes/f13/military/khan/AltClick(mob/user)
 	. = ..()
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -331,6 +324,21 @@
 /obj/item/clothing/shoes/f13/tribal_sandals
 	icon_state = "tribaltreads"
 	icon_state = "tribaltreads"
+
+/obj/item/clothing/shoes/f13/highheels
+	name = "high heels"
+	desc = "Keep your head, heels and standards high."
+	icon_state = "fancyheels"
+	item_state = "fancyheels"
+
+/obj/item/clothing/shoes/f13/whitelegshoes
+	desc = "Hardened by years of barefoot walking, impervious to glass traps."
+	icon_state = "whitelegs"
+	item_state = "whitelegs"
+
+/obj/item/clothing/shoes/f13/whitelegshoes/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
 
 	//Minutemens
 

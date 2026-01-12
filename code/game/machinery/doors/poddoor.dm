@@ -124,6 +124,12 @@
 	name = "combustion chamber vent"
 	id = INCINERATOR_SYNDICATELAVA_AUXVENT
 
+/obj/machinery/door/poddoor/owbdungeon
+	icon_state = "closed"
+	opacity = FALSE
+	layer = SHUTTER_LAYER
+	closingLayer = SHUTTER_LAYER
+
 /obj/machinery/door/poddoor/Bumped(atom/movable/AM)
 	if(density)
 		return 0

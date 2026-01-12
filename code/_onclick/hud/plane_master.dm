@@ -56,7 +56,7 @@
 	appearance_flags = PLANE_MASTER
 
 /obj/screen/plane_master/wall/backdrop(mob/mymob)
-	if(mymob?.client?.prefs.ambientocclusion)
+	if(mymob?.client?.prefs?.ambientocclusion)
 		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(4, "#04080FAA"))
 	else
 		remove_filter("ambient_occlusion")
@@ -71,7 +71,7 @@
 	add_filter("vision_cone", 100, list(type="alpha", render_source=FIELD_OF_VISION_RENDER_TARGET, flags=MASK_INVERSE))
 
 /obj/screen/plane_master/above_wall/backdrop(mob/mymob)
-	if(mymob?.client?.prefs.ambientocclusion)
+	if(mymob?.client?.prefs?.ambientocclusion)
 		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(3, "#04080F64"))
 	else
 		remove_filter("ambient_occlusion")
@@ -88,7 +88,7 @@
 	add_filter("vision_cone", 100, list(type="alpha", render_source=FIELD_OF_VISION_RENDER_TARGET, flags=MASK_INVERSE))
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
-	if(mymob?.client?.prefs.ambientocclusion)
+	if(mymob?.client?.prefs?.ambientocclusion)
 		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(4, "#04080FAA"))
 	else
 		remove_filter("ambient_occlusion")

@@ -317,6 +317,8 @@
 /obj/item/clothing/neck/mantle/legion/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	if(!STR)
+		return
 	STR.max_items = 1
 	STR.max_w_class = WEIGHT_CLASS_NORMAL
 	STR.can_hold = typecacheof(list(
@@ -1219,41 +1221,6 @@ added to end of campfire/attackby
 	icon_state = "gravel_diagonal"
 
 // -------------- SONORA TILESET STUFF ----------------- 
-
-/obj/effect/overlay/desert/sonora/edge
-	icon = 'modular_BD2/general/icons/tileset_sonora.dmi'
-	icon_state = "desertedge"
-
-/obj/effect/overlay/desert/sonora/edge/corner
-	icon_state = "desertcorner"
-
-/obj/effect/overlay/desert/sonora/edge/fade
-	icon_state = "desertfade"
-
-/turf/open/indestructible/ground/outside/desert/sonora
-	icon = 'modular_BD2/general/icons/tileset_sonora.dmi'
-	icon_state = "desertsmooth"
-	slowdown = 0.3
-	footstep = FOOTSTEP_LOOSE_SAND
-	barefootstep = FOOTSTEP_LOOSE_SAND
-	clawfootstep = FOOTSTEP_LOOSE_SAND
-
-/turf/open/indestructible/ground/outside/desert/sonora/Initialize()
-	. = ..()
-	icon_state = "desertsmooth[rand(1,8)]"
-
-/turf/open/indestructible/ground/outside/desert/sonora/coarse
-	icon_state = "desertcoarse1"
-	slowdown = 0.4
-
-/turf/open/indestructible/ground/outside/desert/sonora/coarse/Initialize()
-	. = ..()
-	icon_state = "desertcoarse[rand(1,16)]"
-
-/turf/open/indestructible/ground/outside/desert/sonora/rough
-	icon_state = "desertcracked1"
-	slowdown = 0.6
-
 
 /turf/open/floor/f13/wood/outside // outside platform with sunlight
 	sunlight_state = SUNLIGHT_SOURCE

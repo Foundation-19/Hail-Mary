@@ -284,8 +284,7 @@ Works together with spawning an observer, noted above.
 		if (!(client.prefs.chat_toggles & CHAT_OOC))
 			client.prefs.chat_toggles ^= CHAT_OOC
 	transfer_ckey(ghost, FALSE)
-	if(!QDELETED(ghost))
-		ghost.client.init_verbs()
+	// Removed early init_verbs() call - verbs will be initialized after Login() in BYOND 516
 	if(memorize_job)
 		ghost.previous_job = memorize_job
 	if(penalize)
@@ -762,7 +761,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	dat += "<h4>Crew Manifest</h4>"
 	dat += GLOB.data_core.get_manifest_dr()
 
-	src << browse(dat, "window=manifest;size=387x420;can_close=1")
+	src << browse(HTML_SKELETON(dat), "window=manifest;size=387x420;can_close=1")
 
 //this is called when a ghost is drag clicked to something.
 /mob/dead/observer/MouseDrop(atom/over)

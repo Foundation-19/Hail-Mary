@@ -72,6 +72,7 @@
 		"bos", 
 		"enclave", 
 		"town", 
+		"commerce", 
 		"legion", 
 		"ranger", 
 		"khans", 

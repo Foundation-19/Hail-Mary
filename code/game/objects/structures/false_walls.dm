@@ -299,6 +299,16 @@
 	icon_state = "wall"
 	walltype = /turf/closed/wall/rust
 
+/obj/structure/falsewall/concrete
+	name = "concrete wall"
+	desc = "A pre-War supermart that has been coated with plastic to reduce cracking from overpressure."
+	icon = 'icons/turf/walls/f13superstore.dmi'
+	icon_state = "supermart"
+	mineral = /obj/item/stack/rods
+	mineral_amount = 5
+	walltype = /turf/closed/wall/mineral/concrete
+	canSmoothWith = list(/obj/structure/falsewall/concrete, /turf/closed/wall/mineral/concrete, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/mineral/concrete/blastproof/moresmooth, /turf/closed/indestructible/f13/supermart)
+
 /obj/structure/falsewall/abductor
 	name = "poylmer wall" //Fortuna edit: alien alloy -> polymer
 	desc = "A wall with polymer alloy plating."

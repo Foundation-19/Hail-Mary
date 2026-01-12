@@ -106,6 +106,7 @@
  * WOUNDS: 12.5
  * WNAKED: 9
  */
+/*
 /obj/item/projectile/bullet/a556/microshrapnel
 	name = "5.56 microshrapnel bullet"
 	damage = BULLET_DAMAGE_RIFLE_223 * BULLET_DAMAGE_MICROSHRAPNEL
@@ -133,7 +134,7 @@
 		embed_chance_turf_mod=100,
 		projectile_payload = /obj/item/shrapnel/bullet/a556/microshrapnel
 		)
-
+*/
 /* 5.56 simple
  * DAMAGE: 25
  * STAMIN: 5
@@ -155,13 +156,13 @@
 	pixels_per_second = BULLET_SPEED_RIFLE_223_HANDLOAD * 0.5
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
-/*
+
 /obj/item/projectile/bullet/a556/uraniumtipped
 	name = "5.56 uranium-tipped bullet"
-	damage = -9
+	damage = 16
 	armour_penetration = 0
 	irradiate = 300
-*/
+
 
 //////////////////////
 // 4.73 MM CASELESS //
@@ -254,13 +255,13 @@
 		M.adjust_fire_stacks(fire_stacks)
 		M.IgniteMob()
 
-/*
+
 /obj/item/projectile/bullet/a473/uraniumtipped
 	name = "4.73 U-235 bullet"
-	damage = -2
+	damage = 10
 	armour_penetration = 0.3
 	irradiate = 300
-*/
+
 
 /* 4.73 dumdum
  * DAMAGE: 31.25 * 2 vs mobs
@@ -633,6 +634,7 @@
  * WOUNDS: 12
  * WNAKED: 9
  */
+/*
 /obj/item/projectile/bullet/a308/microshrapnel
 	name = ".308 microshrapnel bullet"
 	damage = BULLET_DAMAGE_RIFLE_308 * BULLET_DAMAGE_MICROSHRAPNEL
@@ -649,7 +651,7 @@
 
 	embed_falloff_tile = BULLET_WOUND_FALLOFF_RIFLE_LIGHT
 	embedding = list(embed_chance=12, fall_chance=1, jostle_chance=1, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.3, pain_mult=5, jostle_pain_mult=6, rip_time=10, embed_chance_turf_mod=100, projectile_payload = /obj/item/shrapnel/bullet/a762/microshrapnel)
-
+*/
 /* 7.62mm simple
  * DAMAGE: 45
  * STAMIN: 45
@@ -660,13 +662,13 @@
 /obj/item/projectile/bullet/a762/sport/simple //for simple mobs, separate to allow balancing
 	name = ".308 bullet"
 
-/*
-/obj/item/projectile/bullet/a762/uraniumtipped
+
+/obj/item/projectile/bullet/a308/uraniumtipped
 	name = "7.62 uranium-tipped bullet"
-	damage = -10
+	damage = 35
 	armour_penetration = 0
-	irradiate = 300
-*/
+	irradiate = 500
+
 /* .30-06
 	60 base damage
 */
@@ -904,13 +906,13 @@
 	zone_accuracy_type = ZONE_WEIGHT_PRECISION // Rubbers go where you want
 	movement_type = FLYING | UNSTOPPABLE
 
-/*
+
 /obj/item/projectile/bullet/a50MG/uraniumtipped
 	name = "12.7mm uranium-tipped bullet"
-	damage = -15
+	damage = 83
 	armour_penetration = 0.2
 	irradiate = 500
-*/
+
 
 /* .50MG poison
  * DAMAGE: 30

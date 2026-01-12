@@ -236,6 +236,7 @@
 /obj/item/reagent_containers/food/snacks/meatball
 	name = "meatball"
 	desc = "MAMA MIA DAS A SPICY"
+	icon = 'icons/obj/food/meat.dmi'
 	icon_state = "meatball"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/nutriment/vitamin = 1)
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 1)

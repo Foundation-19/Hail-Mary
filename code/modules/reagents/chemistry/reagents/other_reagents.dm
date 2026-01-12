@@ -14,6 +14,7 @@
 	pH = 7.4
 	ghoulfriendly = TRUE
 	synth_metabolism_use_human = TRUE
+	thirst_factor = THIRST_FACTOR * 10 // I mean, why not? Emergency ration!
 
 // FEED ME,SEYMOUR!
 /datum/reagent/blood/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
@@ -155,6 +156,7 @@
 	taste_description = "oil"
 	color = BLOOD_COLOR_SYNTHETIC // rgb: 11, 7, 48
 	value = REAGENT_VALUE_NONE
+	thirst_factor = THIRST_FACTOR * 5 // Not a good water substance
 
 /datum/reagent/blood/jellyblood
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null, "bloodcolor" = BLOOD_COLOR_SLIME, "blood_type"="GEL","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null)
@@ -172,6 +174,7 @@
 	taste_description = "sap" //Like tree sap?
 	pH = 7.45
 	value = REAGENT_VALUE_NONE
+	thirst_factor = THIRST_FACTOR * 12
 
 /datum/reagent/blood/jellyblood/on_mob_life(mob/living/carbon/M)
 	if(prob(10))
@@ -193,6 +196,7 @@
 	data = list("donor"=null,"viruses"=null,"blood_DNA"=null, "bloodcolor" = BLOOD_COLOR_HUMAN, "blood_type"= "O+","resistances"=null,"trace_chem"=null,"mind"=null,"ckey"=null,"gender"=null,"real_name"=null,"cloneable"=null,"factions"=null)
 	pH = 7.45
 	ghoulfriendly = TRUE
+	thirst_factor = THIRST_FACTOR * 7 // In case you are REALLY out of options...
 
 /datum/reagent/liquidgibs/xeno
 	name = "Liquid xeno gibs"
@@ -244,15 +248,16 @@
 		src.data |= data.Copy()
 
 /datum/reagent/water
-	name = "Water"
+	name = "Water (Impure)"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen."
-	color = "#AAAAAA77" // rgb: 170, 170, 170, 77 (alpha)
-	taste_description = "water"
+	color = "#867f7577" 
+	taste_description = "dirty water"
 	overdose_threshold = 150 //Imagine drinking a gallon of water
 	var/cooling_temperature = 2
+	thirst_factor = THIRST_FACTOR * 15	// 11.25 per 5 units; 112.5 per 50; 562.5 per 250
 	glass_icon_state = "glass_clear"
 	glass_name = "glass of water"
-	glass_desc = "The father of all refreshments."
+	glass_desc = "The father of all refreshments. A bit unclean."
 	shot_glass_icon_state = "shotglassclear"
 	ghoulfriendly = TRUE
 	synth_metabolism_use_human = TRUE
@@ -261,6 +266,7 @@
 	. = ..()
 	if(M.blood_volume)
 		M.blood_volume += 0.1 // water is good for you!
+		M.radiation += 0.5 //Its also good for radiation !
 
 /*
  *	Water reaction to turf
@@ -341,13 +347,16 @@
 	color = "#5E6566AA" // Charcoal is in it, so kinda looking weird?
 	taste_description = "purity" // Why did you eat it anyway?
 	value = REAGENT_VALUE_RARE // Difficult to make
+	thirst_factor = THIRST_FACTOR * 3 // Let's pretend you didn't have ANY source of water nearby
+	can_synth = FALSE
 
 /datum/reagent/water/purified
 	name = "Purified Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen. This one has been purified from radiation."
-	color = "#C3DBDA66" // It's cleaner, kek
+	color = "#e5ffff9e" // It's cleaner, kek
 	taste_description = "clean water"
 	value = REAGENT_VALUE_AMAZING
+	thirst_factor = THIRST_FACTOR * 30 // 22.5 per 5 units; 225 per 50; 1125 per 250
 	can_synth = FALSE
 
 /datum/reagent/water/purified/on_mob_life(mob/living/carbon/M) // Pure water is very, very healthy
@@ -376,6 +385,7 @@
 	glass_name = "glass of holy water"
 	glass_desc = "A glass of holy water."
 	pH = 7.5 //God is alkaline
+	thirst_factor = THIRST_FACTOR * 18 // Cool water
 
 	// Holy water. Mostly the same as water, it also heals the plant a little with the power of the spirits. Also ALSO increases instability.
 /datum/reagent/water/holywater/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)

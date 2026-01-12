@@ -691,6 +691,17 @@
 	new /obj/effect/decal/cleanable/ash(get_turf(user))
 	qdel(src)
 
+/obj/item/book/book_of_babelf13
+	name = "Dialects of the Great Basin"
+	desc = "An introduction to the languages spoken by the various tribes of Nevada and Utah."
+	icon = 'icons/obj/library.dmi'
+	icon_state = "book1"
+	w_class = 2
+
+/obj/item/book/book_of_babelf13/attack_self(mob/user)
+	to_chat(user, "You brush up on your conversational Great Basinese.")
+	user.grant_language(/datum/language/tribal)
+	qdel(src)
 
 //Potion of Flight
 /obj/item/reagent_containers/glass/bottle/potion

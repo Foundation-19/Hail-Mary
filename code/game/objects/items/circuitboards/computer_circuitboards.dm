@@ -75,6 +75,18 @@
 	name = "Brotherhood of Steel ID Console (Computer Board)"
 	build_path = /obj/machinery/computer/card/bos
 
+/obj/item/circuitboard/computer/card/town
+	name = "Town ID Console (Computer Board)"
+	build_path = /obj/machinery/computer/card/town
+
+/obj/item/circuitboard/computer/card/town/sheriff
+	name = "Town Sheriff ID Console (Computer Board)"
+	build_path = /obj/machinery/computer/card/town/sheriff
+
+/obj/item/circuitboard/computer/card/town/locust
+	name = "Locust town ID Console (Computer Board)"
+	build_path = /obj/machinery/computer/card/town/locust
+
 /obj/item/circuitboard/computer/card/minor
 	name = "Department Management Console (Computer Board)"
 	build_path = /obj/machinery/computer/card/minor
@@ -450,3 +462,27 @@
 /obj/item/circuitboard/computer/bos
 	name = "Brotherhood Monitor (Computer Board)"
 	build_path = /obj/machinery/computer/security/bos
+
+/obj/item/circuitboard/computer/enclave_control
+	name = "Enclave Bunker Elevator Control (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle/enclaveelevator
+
+/obj/item/circuitboard/computer/intrepid_control
+	name = "Intrepid Mining Elevator Control (Computer board)"
+	build_path = /obj/machinery/computer/shuttle/intrepid_elevator
+
+/obj/item/circuitboard/computer/ghoulsubway_control
+	name = "Second Street Subway Control (Computer board)"
+	build_path = /obj/machinery/computer/shuttle/ghoul_subway
+
+/obj/item/circuitboard/computer/raidersubway_control
+	name = "Third Street Subway Control (Computer board)"
+	build_path = /obj/machinery/computer/shuttle/raider_subway
+
+/obj/item/circuitboard/computer/bishop_control
+	name = "Bishop Elevator Control (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle/bishopelevator
+
+/obj/item/circuitboard/computer/penthouse_control
+	name = "Bishop Elevator Control (Computer Board)"
+	build_path = /obj/machinery/computer/shuttle/penthouse_elevator

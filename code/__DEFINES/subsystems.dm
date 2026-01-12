@@ -61,7 +61,8 @@
 	..();\
 	if(!(flags_1 & INITIALIZED_1)) {\
 		args[1] = TRUE;\
-		SSatoms.InitAtom(src, args);\
+		if(SSatoms)\
+			SSatoms.InitAtom(src, args);\
 	}\
 }
 

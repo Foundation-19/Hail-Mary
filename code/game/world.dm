@@ -13,8 +13,12 @@ GLOBAL_LIST(topic_status_cache)
 /world/New()
 	var/debug_server = world.GetConfig("env", "AUXTOOLS_DEBUG_DLL")
 	if(debug_server)
-		LIBCALL("debug_server.dll", "auxtools_init")() //! FIXME515 hacky solution till auxtools and sdmm come out with support ~Tsuru
-		enable_debugging()
+		if(fexists("debug_server.dll"))
+			try
+				LIBCALL("debug_server.dll", "auxtools_init")() //! FIXME515 hacky solution till auxtools and sdmm come out with support ~Tsuru
+				enable_debugging()
+			catch(var/exception/e)
+				log_world("Failed to initialize debug_server.dll: [e]")
 	//AUXTOOLS_CHECK(AUXMOS)
 #ifdef EXTOOLS_REFERENCE_TRACKING
 	enable_reference_tracking()
@@ -32,7 +36,9 @@ GLOBAL_LIST(topic_status_cache)
 
 	InitTgs()
 
-	config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
+	if(!config || !config.loaded)
+		if(config)
+			config.Load(params[OVERRIDE_CONFIG_DIRECTORY_PARAMETER])
 	load_admins()
 	load_mentors()
 
