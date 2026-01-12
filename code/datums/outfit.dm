@@ -55,8 +55,8 @@
 				vars[a] = pickweight(vars[a])
 				all_types += vars[a]
 			else
-				// For preview mode, pick the first (default) option from the list
-				all_types += vars[a][1]
+				// For preview mode, don't equip anything from lists - they should be empty/null
+				vars[a] = null
 		else if(vars[a])
 			all_possible_types += vars[a]
 			all_types += vars[a]
@@ -72,6 +72,10 @@
 
 /datum/outfit/proc/equip(mob/living/carbon/human/H, visualsOnly = FALSE, client/preference_source)
 	pre_equip(H, visualsOnly, preference_source)
+
+	// In visualization mode, completely clear all equipment first
+	if(visualsOnly)
+		H.delete_equipment()
 
 	//Start with uniform,suit,backpack for additional slots
 	if(uniform)
@@ -151,6 +155,10 @@
 		HS.ToggleHelmet()
 
 	post_equip(H, visualsOnly, preference_source)
+
+	if(visualsOnly)
+		// Update character appearance after all equipment changes
+		COMPILE_OVERLAYS(H)
 
 	if(!visualsOnly)
 		apply_fingerprints(H)
