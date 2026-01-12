@@ -53,25 +53,23 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
 /mob/living/carbon/human/Destroy()
-	// Pre-clear critical references before parent destruction
-	// This prevents GC lag from reference chains holding up deletion
+	// CRITICAL: Call parent FIRST to properly clean up all signals and components
+	// This allows the component system to properly disconnect listeners
+	// Doing this before parent breaks the ECS cleanup chain
+	var/result = ..()
 	
-	// 1. Unregister signals early to prevent listener callbacks
-	UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT)
-	
-	// 2. Clear physiology immediately (small object, non-expensive)
-	QDEL_NULL(physiology)
-	
-	// 3. Remove from global human list immediately
+	// Post-cleanup: Clear human-specific references after parent cleanup
+	// 1. Remove from global human list
 	GLOB.human_list -= src
 	
-	// 4. Defer client screen cleanup to next tick (can be expensive with many screens)
+	// 2. Clear physiology (small object, non-expensive)
+	QDEL_NULL(physiology)
+	
+	// 3. Defer client screen cleanup to next tick (can be expensive with many screens)
 	if(client && client.screen && client.screen.len)
 		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
 	
-	// 5. Call parent Destroy() which handles carbon/living cleanup
-	// This includes deferred bodypart cleanup, organ/implant deletion, signal cleanup
-	return ..()
+	return result
 
 /mob/living/carbon/human/proc/defer_screen_cleanup()
 	// Called next tick to avoid GC spike from screen deletion

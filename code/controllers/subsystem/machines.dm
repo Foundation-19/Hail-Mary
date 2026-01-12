@@ -32,20 +32,20 @@ SUBSYSTEM_DEF(machines)
 	if (!resumed)
 		for(var/datum/powernet/Powernet in powernets)
 			Powernet.reset() //reset the power state.
-		src.currentrun = processing.Copy()
-
-	//cache for sanic speed (lists are references anyways)
-	var/list/currentrun = src.currentrun
+		// Swap lists to avoid Copy() overhead: currentrun becomes processing, start fresh list
+		src.currentrun = processing
+		processing = list()
 
 	var/seconds = wait * 0.1
+	var/list/currentrun = src.currentrun
 	while(currentrun.len)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
 		if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
 			if(thing.use_power)
 				thing.auto_use_power() //add back the power state
+			processing += thing
 		else
-			processing -= thing
 			if (!QDELETED(thing))
 				thing.datum_flags &= ~DF_ISPROCESSING
 		if (MC_TICK_CHECK)

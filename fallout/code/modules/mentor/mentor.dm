@@ -27,6 +27,17 @@ GLOBAL_PROTECT(mentor_href_token)
 		if(!check_rights_for(owner, R_ADMIN,0)) // don't add admins to mentor list.
 			GLOB.mentors += owner
 
+/datum/mentors/Destroy()
+	if(owner)
+		owner.mentor_datum = null
+	if(target)
+		GLOB.mentor_datums -= target
+	if(owner in GLOB.mentors)
+		GLOB.mentors -= owner
+	owner = null
+	following = null
+	return ..()
+
 /datum/mentors/proc/CheckMentorHREF(href, href_list)
 	var/auth = href_list["mentor_token"]
 	. = auth && (auth == href_token || auth == GLOB.mentor_href_token)

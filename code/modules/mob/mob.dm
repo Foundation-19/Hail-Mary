@@ -802,7 +802,7 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	if((SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP))
 		return FALSE
 	if(istype(new_item,/obj/item/twohanded/offhand))
-		held_item.attempt_wield(src)
+		new_item?.attempt_wield(src)
 	return TRUE
 
 /mob/proc/activate_hand(selhand)

@@ -229,8 +229,14 @@
 			recipes_list = srl.recipes
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = round(text2num(href_list["multiplier"]))
-		if(!multiplier || multiplier < 1 || !IS_FINITE(multiplier)) //href exploit protection
-			stack_trace("Invalid multiplier value in stack creation [multiplier], [usr] is likely attempting an exploit")
+		
+		// Validate multiplier is in acceptable range
+		var/max_multiplier = round(get_amount() / R.req_amount)
+		if(R.max_res_amount > 1)
+			max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
+		
+		if(!multiplier || multiplier < 1 || multiplier > max_multiplier || !IS_FINITE(multiplier))
+			log_admin("[key_name(usr)] attempted stack exploit with invalid multiplier: [multiplier] (max: [max_multiplier])")
 			return
 		if(!building_checks(R, multiplier))
 			return

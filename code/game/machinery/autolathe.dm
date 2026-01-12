@@ -181,8 +181,8 @@
 				return
 
 			var/multiplier = text2num(href_list["multiplier"])
-			if(!multiplier || !IS_FINITE(multiplier))
-				stack_trace("Invalid multiplier value in stack creation [multiplier], [usr] is likely attempting an exploit")
+			if(!multiplier || multiplier < 1 || !IS_FINITE(multiplier))
+				log_admin("[key_name(usr)] attempted autolathe exploit with invalid multiplier: [multiplier]")
 				return
 			var/is_stack = ispath(being_built.build_path, /obj/item/stack)
 

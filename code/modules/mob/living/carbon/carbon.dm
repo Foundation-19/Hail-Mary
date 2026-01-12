@@ -13,58 +13,35 @@
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 
-	// Prioritize critical cleanup, defer expensive operations to prevent GC lag cascade
+	// Post-parent cleanup: Delete all contents now that parent has properly disconnected signals
+	// The parent Destroy() chain has already cleaned up the signal/component system
 	
-	// 1. Immediate critical cleanup (small objects, essential for correctness)
-	if(stomach_contents && stomach_contents.len)
-		QDEL_LIST(stomach_contents)  // Small list, immediate deletion
-	QDEL_NULL(dna)                   // Critical for memory, must happen now
-	GLOB.carbon_list -= src          // Remove from global list immediately
-	
-	// 2. UI cleanup (important but deferrable)
-	if(LAZYLEN(bodyparts))
-		// Defer expensive bodypart cleanup to next tick to prevent GC lag
-		addtimer(CALLBACK(src, PROC_REF(defer_expensive_cleanup)), 0, TIMER_DELETE_ME)
-	
-	// 3. Data HUD cleanup (can be deferred to smooth GC)
-	addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 1, TIMER_DELETE_ME)  // Defer slightly longer
-	
-	hand_bodyparts = null  // Just references our bodyparts, don't need to delete twice
-
-/mob/living/carbon/proc/defer_expensive_cleanup()
-	// Called on next tick to avoid GC spike
-	// Handles expensive deletion chains
-	if(!src || QDELETED(src))
-		return
-	
-	if(bodyparts && bodyparts.len)
-		QDEL_LIST(bodyparts)
-	
-	// Defer organ/implant cleanup further (most expensive part of mob deletion)
-	// Only schedule if source is still valid
-	if(!QDELETED(src))
-		if(internal_organs && internal_organs.len)
-			addtimer(CALLBACK(src, PROC_REF(defer_organ_cleanup)), 0, TIMER_DELETE_ME)
-		
-		if(implants && implants.len)
-			addtimer(CALLBACK(src, PROC_REF(defer_implant_cleanup)), 1, TIMER_DELETE_ME)
-
-/mob/living/carbon/proc/defer_organ_cleanup()
-	// Deferred organ deletion (organs have complex signal networks)
-	if(!src || QDELETED(src))
-		return
+	// 1. Delete organ/implant content (their signal networks are already disconnected by parent)
 	if(internal_organs && internal_organs.len)
 		QDEL_LIST(internal_organs)
-
-/mob/living/carbon/proc/defer_implant_cleanup()
-	// Deferred implant deletion
-	if(!src || QDELETED(src))
-		return
+	
 	if(implants && implants.len)
 		QDEL_LIST(implants)
+	
+	// 2. Delete bodyparts
+	if(LAZYLEN(bodyparts))
+		QDEL_LIST(bodyparts)
+	
+	// 3. Delete stomach contents
+	if(stomach_contents && stomach_contents.len)
+		QDEL_LIST(stomach_contents)
+	
+	// 4. Clear critical references immediately
+	QDEL_NULL(dna)
+	GLOB.carbon_list -= src
+	hand_bodyparts = null
+	
+	// 5. Defer only UI/HUD cleanup to next tick (non-critical, prevents tiny spikes)
+	if(client)
+		addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 0, TIMER_DELETE_ME)
 
 /mob/living/carbon/proc/defer_hud_cleanup()
-	// Deferred HUD cleanup
+	// Deferred HUD cleanup (non-critical, can smooth GC)
 	if(!src || QDELETED(src))
 		return
 	remove_from_all_data_huds()
