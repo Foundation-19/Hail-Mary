@@ -10,7 +10,7 @@
 
 /obj/item/clothing/mask/facehugger
 	name = "alien"
-	desc = "It has some sort of a tube at the end of its tail."
+	desc = "It has some sort of a tube at the end of its tail. This one seems neutered, whew."
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "facehugger"
 	item_state = "facehugger"
@@ -22,10 +22,10 @@
 	layer = MOB_LAYER
 	max_integrity = 100
 
-	var/stat = CONSCIOUS //UNCONSCIOUS is the idle state in this case
+	var/stat = UNCONSCIOUS //UNCONSCIOUS is the idle state in this case
 
-	var/sterile = FALSE
-	var/real = TRUE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
+	var/sterile = TRUE
+	var/real = FALSE //0 for the toy, 1 for real. Sure I could istype, but fuck that.
 	var/strength = 5
 
 	var/attached = 0
