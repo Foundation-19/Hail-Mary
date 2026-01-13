@@ -1,12 +1,12 @@
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-2 dmg in melee for each level above/below 5 ST
-	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PR
-	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth for each level above/below 5 END
-	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + moodlets
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-1.1 dmg in melee for each level above/below 5 ST, certain guns can be STR locked
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth and increased poison and rad resistance for each level above/below 5 END
+	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets when they examine you
 	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
 	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
-	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Currently nothing
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to hit yourself if it's 3 or below
 
 /mob/proc/get_top_level_mob()
 	if(istype(src.loc,/mob)&&src.loc!=src)
@@ -57,6 +57,12 @@ proc/get_top_level_mob(mob/S)
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
+/obj/item/gun/proc/gun_firing_str_check(mob/living/user)
+	if(user.special_s >= required_str_to_fire)
+		return TRUE
+	to_chat(user, span_warning("You're too weak to use this properly."))
+	return FALSE
+
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
@@ -71,29 +77,8 @@ proc/get_top_level_mob(mob/S)
 	maxHealth = initial(maxHealth) + ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 5)
 	health = maxHealth
 
-/datum/species/proc/get_special_burn_resist_multiplier(mob/living/user)
-	switch(user.special_e)
-		if(1)
-			return 2
-		if(2)
-			return 1.75
-		if(3)
-			return 1.5
-		if(4)
-			return 1.25
-		if(5)
-			return 1
-		if(6)
-			return 0.9
-		if(7)
-			return 0.8
-		if(8)
-			return 0.7
-		if(9)
-			return 0.6
-		if(10)
-			return 0.5
-	return 1
+/mob/living/proc/get_special_rad_resist_multiplier()
+	return ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1 + 1)
 
 /mob/living/proc/get_special_poison_resist_multiplier()
 	switch(special_e)
@@ -132,18 +117,12 @@ proc/get_top_level_mob(mob/S)
 
 
 /mob/proc/initialize_charisma_traits(mob/living/carbon/user)
-	if(HAS_TRAIT_FROM(user, TRAIT_SAY_STUTTERING, "charisma"))
-		REMOVE_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
-	if(HAS_TRAIT_FROM(user, TRAIT_SAY_LISPING, "charisma"))
-		REMOVE_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
-	switch(special_c)
-		if(3)
-			ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
-		if(2)
-			ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
-		if(1)
-			ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
-			ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+	REMOVE_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+	REMOVE_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+	if(special_c == 3 || special_c == 1)
+		ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
+	if(special_c <= 2)
+		ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
 
 /mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
@@ -182,10 +161,10 @@ proc/get_top_level_mob(mob/S)
 
 /// INTELLIGENCE
 
-/obj/item/gun/proc/gun_firing_special_stat_check(mob/living/user)
+/obj/item/gun/proc/gun_firing_int_check(mob/living/user)
 	if(user.special_i >= required_int_to_fire)
 		return TRUE
-	to_chat(user, "How do you use this thing?!")
+	to_chat(user, span_warning("You have no idea how to use this."))
 	return FALSE
 
 /datum/component/personal_crafting/proc/special_crafting_check(mob/living/user)
@@ -223,7 +202,7 @@ proc/get_top_level_mob(mob/S)
 		if(2)
 			return 0.625
 		if(3)
-			return 0.750
+			return 0.75
 		if(4)
 			return 0.875
 		if(5)
@@ -240,19 +219,16 @@ proc/get_top_level_mob(mob/S)
 			return 1.5
 	return 1
 
-
 /// Chance to drop a gun or hit yourself in melee
 /mob/proc/get_luck_critfail_chance()
 	switch(special_l)
 		if(1)
-			return 10
+			return 6
 		if(2)
-			return 4
+			return 3
 		if(3)
 			return 1
 	return 0
-
-
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()

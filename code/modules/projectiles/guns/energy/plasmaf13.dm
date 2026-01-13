@@ -115,6 +115,7 @@
 	equipsound = 'sound/f13weapons/equipsounds/plasequip.ogg'
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
+	required_int_to_fire = 4
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
 	)
