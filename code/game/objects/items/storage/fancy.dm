@@ -452,7 +452,7 @@
 	desc = "A jar for containing pickles."
 	spawn_type = /obj/item/reagent_containers/food/snacks/pickle
 
-/obj/item/storage/fancy/pickle_jar/ComponentInitialize()
+/obj/item/storage/fancy/pickles_jar/ComponentInitialize()
 	. = ..()
 	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
 	STR.max_items = 5
