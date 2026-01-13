@@ -1187,7 +1187,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
 	dat += "<font size='1'>Endurance affects your maximum health & resistance to radiation and poisons.<i></i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
-	dat += "<font size='1'><i>Charisma determines your character's examine text.</i></font><br>"
+	dat += "<font size='1'><i>Charisma determines your character's examine text and ability to speak coherently.</i></font><br>"
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
 	dat += "<font size='1'><i>Intelligence is necessary for being able to craft various recipes, as well as the operation of some energy weapons.</i></font><br>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
