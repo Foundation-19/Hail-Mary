@@ -78,7 +78,7 @@ proc/get_top_level_mob(mob/S)
 	health = maxHealth
 
 /mob/living/proc/get_special_rad_resist_multiplier()
-	return ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1 + 1)
+	return ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * -0.1 + 1)
 
 /mob/living/proc/get_special_poison_resist_multiplier()
 	switch(special_e)
