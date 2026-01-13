@@ -2,7 +2,7 @@
 /obj/item/fishy
 	name = "parent fish"
 	desc = "debug, report to Jake"
-	icon = 'icons/obj/fish/fish_items.dmi'
+	icon = 'icons/obj/fish/fish.dmi'
 	//the type of meat it drops
 	var/meat_type
 	//the max primary meat it drops
@@ -110,7 +110,7 @@
 /obj/item/fishyegg
 	name = "parent fish egg"
 	desc = "debug, report to coders (or jake) if you see this."
-	icon = 'icons/obj/fish/fish_items.dmi'
+	icon = 'icons/obj/fish/fish.dmi'
 	grind_results = list(/datum/reagent/nutracid = 1)
 
 /obj/item/fishyegg/carp

@@ -3350,7 +3350,7 @@
 /area/f13/building/powered)
 "dbE" = (
 /obj/machinery/door/unpowered/securedoor{
-	req_access_txt = "135";
+	req_access_txt = "283";
 	name = "Mayor's Office"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -4298,11 +4298,15 @@
 /area/f13/wasteland/cold)
 "dUM" = (
 /obj/structure/bed/dogbed,
-/mob/living/simple_animal/hostile/wolf/playable/sheepdog{
-	name = "Tom"
-	},
 /obj/structure/sign/poster/prewar/poster71{
 	pixel_x = -32
+	},
+/mob/living/simple_animal/hostile/gecko/big{
+	faction = list("neutral","Town","Followers");
+	desc = "A large mutated reptile with golden hide, sharp teeth and a kind-natured attitude. These creatures are rare up here - it seems it's seeking out warmth.";
+	name = "gickles";
+	color = "#fcba03";
+	butcher_results = list(/mob/living/simple_animal/hostile/gecko=2)
 	},
 /turf/open/floor/wood_worn,
 /area/f13/holiday)
@@ -4312,6 +4316,7 @@
 /turf/open/floor/plasteel/f13,
 /area/f13/village)
 "dVl" = (
+/obj/effect/landmark/start/f13/shopkeeper,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
@@ -11551,7 +11556,7 @@
 /area/f13/building/powered)
 "kLV" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "284";
+	req_access_txt = "28";
 	name = "radio station"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
@@ -18311,6 +18316,10 @@
 	baseturfs = /turf/open/water/river/notdeep
 	},
 /area/f13/wasteland/cold)
+"rcl" = (
+/obj/effect/landmark/start/f13/shopkeeper,
+/turf/open/floor/wood_common,
+/area/f13/holiday)
 "rcO" = (
 /turf/closed/mineral/snowmountain,
 /area/f13/building/powered)
@@ -20469,7 +20478,7 @@
 	id = "bankvault";
 	name = "bank vault button";
 	pixel_y = -32;
-	req_one_access_txt = "135"
+	req_one_access_txt = "283"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/holiday)
@@ -22250,7 +22259,7 @@
 /area/f13/wasteland/cold)
 "uLw" = (
 /obj/machinery/door/unpowered/securedoor{
-	req_access_txt = "135"
+	req_access_txt = "283"
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
@@ -74322,7 +74331,7 @@ cNW
 vKt
 jgZ
 dVl
-ijl
+rcl
 rot
 kQn
 jgZ
