@@ -6143,6 +6143,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"azE" = (
+/obj/structure/wreck/trash/four_barrels,
+/turf/open/indestructible/ground/outside/sidewalk,
+/area/f13/wasteland)
 "azF" = (
 /obj/structure/rack,
 /turf/open/floor/f13/wood,
@@ -26366,6 +26370,18 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"eNa" = (
+/obj/structure/rack,
+/obj/item/radio/headset/headset_town,
+/obj/item/radio/headset/headset_town,
+/obj/item/radio/headset/headset_town,
+/obj/item/radio/headset/headset_town,
+/obj/item/radio/headset/headset_town,
+/turf/open/floor/f13{
+	dir = 10;
+	icon_state = "redmark"
+	},
+/area/f13/city)
 "eNj" = (
 /obj/structure/sign/poster/ncr/keep_to_myself{
 	pixel_x = 32
@@ -37212,6 +37228,14 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"iZh" = (
+/obj/effect/turf_decal{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain0"
+	},
+/area/f13/wasteland)
 "iZj" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -37309,6 +37333,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/building/museum)
+"jaG" = (
+/obj/structure/wreck/trash/two_barrels,
+/turf/open/indestructible/ground/outside/sidewalk,
+/area/f13/wasteland)
 "jaV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack,
@@ -42910,14 +42938,6 @@
 	icon_state = "rampdowntop"
 	},
 /area/f13/building/museum)
-"luw" = (
-/obj/effect/turf_decal{
-	dir = 8
-	},
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalinnermain0"
-	},
-/area/f13/wasteland)
 "luD" = (
 /obj/effect/turf_decal/shadow,
 /turf/open/indestructible/ground/inside/dirt/stamped/outside/sand{
@@ -43919,11 +43939,10 @@
 /area/f13/building/mall)
 "lPd" = (
 /obj/structure/rack,
-/obj/item/radio/headset/headset_town,
-/obj/item/radio/headset/headset_town,
-/obj/item/radio/headset/headset_town,
-/obj/item/radio/headset/headset_town,
-/obj/item/radio/headset/headset_town,
+/obj/item/card/id/dogtag/town,
+/obj/item/card/id/dogtag/town,
+/obj/item/card/id/dogtag/town,
+/obj/item/card/id/dogtag/town,
 /turf/open/floor/f13{
 	dir = 10;
 	icon_state = "redmark"
@@ -47243,13 +47262,6 @@
 	dir = 8
 	},
 /area/f13/building)
-"nbH" = (
-/obj/structure/wreck/trash/three_barrels{
-	pixel_y = 17
-	},
-/obj/structure/wreck/trash/four_barrels,
-/turf/open/indestructible/ground/outside/sidewalk,
-/area/f13/wasteland)
 "nbM" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_3"
@@ -50492,7 +50504,10 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "orG" = (
-/obj/structure/wreck/trash/two_barrels,
+/obj/structure/wreck/trash/three_barrels{
+	pixel_y = 17
+	},
+/obj/structure/wreck/trash/four_barrels,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
 "orI" = (
@@ -54972,10 +54987,6 @@
 	name = "concrete wall"
 	},
 /area/f13/city)
-"qbe" = (
-/obj/structure/wreck/trash/four_barrels,
-/turf/open/indestructible/ground/outside/sidewalk,
-/area/f13/wasteland)
 "qbp" = (
 /obj/machinery/door/unpowered/securedoor/legion,
 /turf/open/indestructible/ground/outside/graveldirt,
@@ -70719,17 +70730,6 @@
 	icon_state = "horizontalbottomborderbottom0"
 	},
 /area/f13/wasteland)
-"wEm" = (
-/obj/structure/rack,
-/obj/item/card/id/dogtag/town,
-/obj/item/card/id/dogtag/town,
-/obj/item/card/id/dogtag/town,
-/obj/item/card/id/dogtag/town,
-/turf/open/floor/f13{
-	dir = 10;
-	icon_state = "redmark"
-	},
-/area/f13/city)
 "wEp" = (
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/f13/wood,
@@ -97805,7 +97805,7 @@ igF
 hEG
 uJZ
 kls
-lPd
+eNa
 clv
 hRC
 ybs
@@ -98062,7 +98062,7 @@ ayn
 hEG
 dDO
 aky
-wEm
+lPd
 oeE
 psq
 ope
@@ -101398,7 +101398,7 @@ seX
 ilI
 xsv
 mHp
-luw
+iZh
 eLR
 ctP
 nhA
@@ -106792,9 +106792,9 @@ xvy
 lBP
 fjb
 qlR
-nbH
 orG
-qbe
+jaG
+azE
 rnd
 ean
 jUd
@@ -107834,7 +107834,7 @@ uLb
 rnX
 blf
 lAA
-uNJ
+qmG
 uNJ
 igF
 hEG
@@ -108091,7 +108091,7 @@ bdP
 blf
 blf
 lAA
-uNJ
+qmG
 uNJ
 igF
 tsz
@@ -109635,7 +109635,7 @@ qHy
 wNx
 uNJ
 uNJ
-igF
+qmG
 hEG
 xLy
 gar
@@ -109891,8 +109891,8 @@ rnX
 qHy
 qHy
 uNJ
-uNJ
-igF
+hDy
+qmG
 hEG
 xLy
 xLy
@@ -110148,8 +110148,8 @@ blf
 qHy
 qHy
 uNJ
-uNJ
-igF
+hDy
+srN
 vPF
 xLy
 rFD
