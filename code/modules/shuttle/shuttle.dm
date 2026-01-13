@@ -129,17 +129,24 @@
 //Debug proc used to highlight bounding area
 /obj/docking_port/proc/highlight(_color)
 	var/list/L = return_coords()
+	if(!L || L.len < 4)
+		return
 	var/turf/T0 = locate(L[1],L[2],z)
 	var/turf/T1 = locate(L[3],L[4],z)
+	if(!T0 || !T1)
+		return
 	for(var/turf/T in block(T0,T1))
-		T.color = _color
-		LAZYINITLIST(T.atom_colours)
-		T.maptext = null
+		if(T)
+			T.color = _color
+			LAZYINITLIST(T.atom_colours)
+			T.maptext = null
 	if(_color)
 		var/turf/T = locate(L[1], L[2], z)
-		T.color = "#0f0"
+		if(T)
+			T.color = "#0f0"
 		T = locate(L[3], L[4], z)
-		T.color = "#00f"
+		if(T)
+			T.color = "#00f"
 #endif
 
 //return first-found touching dockingport

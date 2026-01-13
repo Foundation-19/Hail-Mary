@@ -33,6 +33,10 @@
 	. = ..()
 
 /mob/dead/new_player/Destroy()
+	// Clean up mind reference to break garbage collection cycles
+	if(mind)
+		mind.current = null
+		mind = null
 	return ..()
 
 /mob/dead/new_player/prepare_huds()

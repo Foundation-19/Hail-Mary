@@ -39,9 +39,31 @@
 		var/datum/hud/hud = owner.hud_used
 		hud.show_hud(hud.hud_version)
 
+/datum/component/mood/UnregisterFromParent()
+	// Unregister all signals to break circular references
+	UnregisterSignal(parent, list(
+		COMSIG_ADD_MOOD_EVENT,
+		COMSIG_CLEAR_MOOD_EVENT,
+		COMSIG_MODIFY_SANITY,
+		COMSIG_LIVING_REVIVE,
+		COMSIG_MOB_HUD_CREATED,
+		COMSIG_MOB_DEATH
+	))
+	return ..()
+
 /datum/component/mood/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	unmodify_hud()
+	// Clean up all mood events (TIMER_UNIQUE timers are auto-cancelled on destroy)
+	for(var/i in mood_events)
+		var/datum/mood_event/event = mood_events[i]
+		if(event)
+			qdel(event)
+	mood_events = null
+	// Clean up skill modifiers - just null them since component is being destroyed
+	// The skill modifier cleanup will happen when the parent mob is destroyed
+	malus = null
+	bonus = null
 	return ..()
 
 /datum/component/mood/proc/stop_processing()
@@ -100,6 +122,8 @@
 	shown_mood = 0
 	for(var/i in mood_events)
 		var/datum/mood_event/event = mood_events[i]
+		if(!event || !isnum(event.mood_change))
+			continue
 		mood += event.mood_change
 		if(!event.hidden)
 			shown_mood += event.mood_change
@@ -295,12 +319,17 @@
 	RegisterSignal(screen_obj, COMSIG_CLICK, PROC_REF(hud_click))
 
 /datum/component/mood/proc/unmodify_hud(datum/source)
-	if(!screen_obj || !parent)
+	if(!parent)
 		return
 	var/mob/living/owner = parent
 	var/datum/hud/hud = owner.hud_used
-	if(hud && hud.infodisplay)
-		hud.infodisplay -= screen_obj
+	if(hud)
+		UnregisterSignal(hud, COMSIG_PARENT_QDELETING)
+		if(hud.infodisplay && screen_obj)
+			hud.infodisplay -= screen_obj
+	// Also unregister click signal from screen_obj
+	if(screen_obj)
+		UnregisterSignal(screen_obj, COMSIG_CLICK)
 	QDEL_NULL(screen_obj)
 
 /datum/component/mood/proc/hud_click(datum/source, location, control, params, mob/user)

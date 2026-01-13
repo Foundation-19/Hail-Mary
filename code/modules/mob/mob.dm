@@ -7,6 +7,13 @@
 	focus = null
 	LAssailant = null
 	movespeed_modification = null
+	// Clear mind reference to break circular references
+	if(mind)
+		mind.current = null
+		mind = null
+	// Clear held items list
+	held_items = null
+	// Clear observers perspective references
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers && observers.len)

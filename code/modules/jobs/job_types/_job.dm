@@ -400,7 +400,7 @@
 		ADD_TRAIT(H, TRAIT_PA_WEAR, src)
 
 	//Fortuna edit start. radio management
-	if(J.faction && ears)
+	if(J && J.faction && ears)
 		var/obj/item/radio/T = H.get_item_by_slot(SLOT_EARS)
 		if(istype(T) && T.factionized)
 			T.linked_mob = H

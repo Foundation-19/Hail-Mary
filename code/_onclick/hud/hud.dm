@@ -83,8 +83,25 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 		instance.backdrop(mymob)
 
 /datum/hud/Destroy()
-	if(mymob.hud_used == src)
+	if(mymob && mymob.hud_used == src)
 		mymob.hud_used = null
+
+	// Critical: Remove all screen objects from client.screen before deleting them
+	// This breaks the reference cycle and allows GC to clean them up properly
+	if(mymob && mymob.client && mymob.client.screen)
+		mymob.client.screen -= static_inventory
+		mymob.client.screen -= toggleable_inventory
+		mymob.client.screen -= hotkeybuttons
+		mymob.client.screen -= infodisplay
+		mymob.client.screen -= screenoverlays
+		if(hide_actions_toggle)
+			mymob.client.screen -= hide_actions_toggle
+		for(var/slot in inv_slots)
+			if(inv_slots[slot])
+				mymob.client.screen -= inv_slots[slot]
+		for(var/hand in hand_slots)
+			if(hand_slots[hand])
+				mymob.client.screen -= hand_slots[hand]
 
 	QDEL_NULL(hide_actions_toggle)
 	QDEL_NULL(module_store_icon)
@@ -111,6 +128,7 @@ GLOBAL_LIST_INIT(available_ui_styles, list(
 	alien_queen_finder = null
 
 	QDEL_LIST_ASSOC_VAL(plane_masters)
+	plane_masters.Cut()
 	QDEL_LIST(screenoverlays)
 	mymob = null
 

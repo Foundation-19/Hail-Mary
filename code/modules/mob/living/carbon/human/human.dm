@@ -62,10 +62,19 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	// 1. Remove from global human list
 	GLOB.human_list -= src
 	
-	// 2. Clear physiology (small object, non-expensive)
+	// 2. Clear all worn/equipped item references (dogtags, ID cards, equipment)
+	wear_suit = null
+	w_uniform = null
+	belt = null
+	wear_id = null
+	r_store = null
+	l_store = null
+	s_store = null
+	
+	// 3. Clear physiology (small object, non-expensive)
 	QDEL_NULL(physiology)
 	
-	// 3. Defer client screen cleanup to next tick (can be expensive with many screens)
+	// 4. Defer client screen cleanup to next tick (can be expensive with many screens)
 	if(client && client.screen && client.screen.len)
 		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
 	

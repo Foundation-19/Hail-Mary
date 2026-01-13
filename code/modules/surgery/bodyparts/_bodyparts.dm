@@ -129,6 +129,7 @@
 	if(owner)
 		owner.bodyparts -= src
 		owner = null
+	original_owner = null  // Clear circular reference from mobs keeping original_owner reference
 	if(current_gauze)
 		qdel(current_gauze)
 	if(current_suture)
