@@ -799,16 +799,24 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 /mob/proc/swap_hand()
 	var/obj/item/held_item = get_active_held_item()
 	var/obj/item/new_item = get_inactive_held_item()
-	if((SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP))
-		return FALSE
-	// If currently wielded item is two-handed, unwield it
+	
+	// Unwield any two-handed items and drop their offhand placeholders BEFORE attempting swap
 	if(held_item)
 		var/datum/component/two_handed/th = held_item.GetComponent(/datum/component/two_handed)
 		if(th?.wielded)
-			th.unwield(src)
-	// If item being swapped to is a two-handed offhand, wield it
-	if(istype(new_item,/obj/item/twohanded/offhand))
-		new_item?.attempt_wield(src)
+			th.unwield(src, show_message=FALSE)
+	
+	if(new_item)
+		var/datum/component/two_handed/th_new = new_item.GetComponent(/datum/component/two_handed)
+		if(th_new?.wielded)
+			th_new.unwield(src, show_message=FALSE)
+		// Also drop the item itself if it's an offhand placeholder
+		if(istype(new_item, /obj/item/twohanded/offhand))
+			dropItemToGround(new_item, force=TRUE)
+	
+	if((SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP))
+		return FALSE
+	
 	return TRUE
 
 /mob/proc/activate_hand(selhand)

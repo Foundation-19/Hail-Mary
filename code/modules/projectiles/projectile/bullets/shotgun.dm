@@ -410,6 +410,11 @@
 	light_color = "#FF7F01"
 	pixels_per_second = TILES_TO_PIXELS(20)
 
+/obj/item/projectile/bullet/scattershot/Initialize(mapload)
+	. = ..()
+	// High-speed mecha projectile needs larger pixel increments to avoid "took too long" errors
+	set_pixel_increment_amount(TILES_TO_PIXELS(2))
+
 /obj/item/projectile/bullet/seed
 	damage = 6
 	stamina = 1
