@@ -208,9 +208,9 @@
 /obj/item/reagent_containers/hypospray/medipen/stimpak/cheap
 	name = "cheap stimpak"
 	desc = "A homemade, handheld delivery system for medicine, used to heal minor physical damage to the body."
-	amount_per_transfer_from_this = 13
-	volume = 13
-	list_reagents = list(/datum/reagent/medicine/stimpak = 10, /datum/reagent/medicine/healing_powder = 1, /datum/reagent/medicine/bicaridine = 1, /datum/reagent/medicine/kelotane = 1)
+	amount_per_transfer_from_this = 8
+	volume = 8
+	list_reagents = list(/datum/reagent/medicine/stimpak = 4, /datum/reagent/medicine/healing_powder = 2, /datum/reagent/medicine/bicaridine = 2, /datum/reagent/medicine/kelotane = 1)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak
 	name = "epipak"
