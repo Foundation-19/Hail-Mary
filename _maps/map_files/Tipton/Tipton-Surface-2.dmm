@@ -46636,6 +46636,7 @@
 	dir = 1;
 	pixel_y = 12
 	},
+/obj/machinery/workbench/forge,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "pks" = (
@@ -68335,10 +68336,6 @@
 /obj/effect/landmark/start/f13/deputy,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
-"wmB" = (
-/obj/machinery/workbench/forge,
-/turf/open/floor/wood_common,
-/area/f13/legioncamp)
 "wmC" = (
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt,
@@ -156407,7 +156404,7 @@ fyb
 cIs
 puZ
 vBT
-wmB
+tPw
 skW
 ngl
 piq
@@ -156921,7 +156918,7 @@ oWE
 hNt
 puZ
 vBT
-tPw
+skW
 skW
 skW
 skW
