@@ -9848,7 +9848,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/caves)
 "fXO" = (
-/obj/structure/table/wood/club,
+/obj/structure/table/wood/fancy,
 /turf/open/floor/plating/rust,
 /area/f13/caves)
 "fXU" = (
@@ -11313,12 +11313,12 @@
 /turf/open/water,
 /area/f13/tunnel)
 "hkT" = (
-/obj/structure/vault_door/old{
-	icon_state = "oldclosing";
-	density = 0
+/obj/structure/vaultdoor{
+	icon_state = "open";
+	name = "demo vault door"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "floorrustysolid"
+	name = "metal plating"
 	},
 /area/f13/caves)
 "hlw" = (
@@ -21204,7 +21204,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/caves)
 "qoD" = (
-/obj/structure/table/wood/club,
+/obj/structure/table/wood/fancy,
 /obj/machinery/light/small/broken,
 /turf/open/floor/plating/rust,
 /area/f13/caves)
@@ -22645,7 +22645,7 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "rIl" = (
-/obj/structure/table/wood/club,
+/obj/structure/table/wood/fancy,
 /turf/open/floor/carpet/red,
 /area/f13/caves)
 "rIy" = (
@@ -27755,7 +27755,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/caves)
 "wiI" = (
-/obj/structure/table/wood/club,
+/obj/structure/table/wood/fancy,
 /obj/item/paper{
 	icon_state = "scrap_bloodied";
 	info = "WE ARE ON STRIKE ! WE REQUEST PAYMENT!!!!"
@@ -28493,7 +28493,7 @@
 /turf/open/floor/mineral/plastitanium,
 /area/f13/caves)
 "wTa" = (
-/obj/structure/table/wood/club,
+/obj/structure/table/wood/fancy,
 /obj/machinery/light/small,
 /turf/open/floor/plating/rust,
 /area/f13/caves)
@@ -56909,7 +56909,7 @@ sof
 sof
 sof
 sof
-sof
+hkT
 mPH
 mPH
 mPH
@@ -57165,7 +57165,7 @@ mPz
 nDH
 nwV
 nDH
-hkT
+nDH
 nDH
 fPp
 nDH

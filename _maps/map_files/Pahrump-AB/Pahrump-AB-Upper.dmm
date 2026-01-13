@@ -2411,11 +2411,11 @@
 /turf/closed/wall/r_wall/rust,
 /area/f13/building/massfusion)
 "dpn" = (
-/obj/structure/table/wood/club,
 /obj/machinery/computer/terminal{
 	dir = 4;
 	termtag = "Security"
 	},
+/obj/structure/table,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/city)
 "dpP" = (
@@ -2843,7 +2843,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/brotherhood)
 "dZG" = (
-/obj/structure/table/wood/club,
+/obj/structure/table/round,
 /obj/machinery/light/small{
 	dir = 1
 	},
@@ -11217,6 +11217,7 @@
 "qqU" = (
 /obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/trophy/bronze_cup,
+/obj/item/radio/headset/headset_town/mayor,
 /turf/open/floor/carpet/royalblack,
 /area/f13/city)
 "qsA" = (
@@ -12180,6 +12181,11 @@
 /area/f13/ncr)
 "rYQ" = (
 /obj/structure/closet/cabinet,
+/obj/item/radio/headset/headset_town/lawman,
+/obj/item/radio/headset/headset_town/lawman,
+/obj/item/radio/headset/headset_town/lawman,
+/obj/item/radio/headset/headset_town/lawman,
+/obj/item/radio/headset/headset_town/lawman,
 /turf/open/floor/carpet/red,
 /area/f13/city)
 "rZx" = (
@@ -13436,10 +13442,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/f13/city)
-"tyU" = (
-/obj/structure/table/wood/club,
-/turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/city)
 "tyV" = (
 /obj/structure/chair/booth{
 	icon_state = "booth_west_north"
@@ -13543,6 +13545,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/radio/headset/headset_town/commerce,
+/obj/item/radio/headset/headset_town/commerce,
 /turf/open/floor/carpet/red,
 /area/f13/city)
 "tHr" = (
@@ -47571,18 +47575,18 @@ oez
 oez
 oez
 oez
-lcs
-lcs
-lcs
-lcs
-lcs
-lcs
-lcs
 oez
-lcs
-lcs
-lcs
-lcs
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
 oez
 oez
 oez
@@ -47828,18 +47832,18 @@ woa
 woa
 oez
 oez
-lcs
-lcs
-lcs
-lcs
-lcs
-lcs
-lcs
 oez
-lcs
-lcs
-lcs
-lcs
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
 oez
 oez
 oez
@@ -48085,18 +48089,18 @@ nXR
 woa
 oez
 oez
-lcs
-lcs
-lcs
-lcs
-lcs
-lcs
-lcs
 oez
-lcs
-lcs
-lcs
-lcs
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
+oez
 oez
 oez
 oez
@@ -48106,7 +48110,7 @@ oez
 oez
 wIP
 dpn
-tyU
+vTD
 fyo
 oGu
 xQG
@@ -48348,12 +48352,12 @@ woa
 woa
 woa
 lcs
-lcs
 oez
-lcs
-lcs
-lcs
-lcs
+oez
+oez
+oez
+oez
+oez
 oez
 oez
 oez
