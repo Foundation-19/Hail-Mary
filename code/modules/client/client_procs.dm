@@ -1058,7 +1058,8 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 	view = new_size
 	var/list/actualview = getviewsize(view)
 	apply_clickcatcher(actualview)
-	mob.reload_fullscreen()
+	if(mob)
+		mob.reload_fullscreen()
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()

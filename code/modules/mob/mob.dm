@@ -801,6 +801,12 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 	var/obj/item/new_item = get_inactive_held_item()
 	if((SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP))
 		return FALSE
+	// If currently wielded item is two-handed, unwield it
+	if(held_item)
+		var/datum/component/two_handed/th = held_item.GetComponent(/datum/component/two_handed)
+		if(th?.wielded)
+			th.unwield(src)
+	// If item being swapped to is a two-handed offhand, wield it
 	if(istype(new_item,/obj/item/twohanded/offhand))
 		new_item?.attempt_wield(src)
 	return TRUE

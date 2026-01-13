@@ -156,7 +156,7 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
-	if(!src)
+	if(!src || !prefs)
 		return -1
 	var/datum/db_query/exp_read = SSdbcore.NewQuery(
 		"SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = :ckey",
@@ -275,7 +275,7 @@ GLOBAL_PROTECT(exp_to_update)
 /client/proc/set_db_player_flags()
 	if(!SSdbcore.Connect())
 		return FALSE
-	if(!src)
+	if(!src || !prefs)
 		return FALSE
 
 	var/datum/db_query/flags_read = SSdbcore.NewQuery(
@@ -285,6 +285,17 @@ GLOBAL_PROTECT(exp_to_update)
 
 	if(!flags_read)
 		return FALSE
+
+	if(!flags_read.Execute(async = TRUE))
+		qdel(flags_read)
+		return FALSE
+
+	if(flags_read.NextRow())
+		prefs.db_flags = text2num(flags_read.item[1])
+	else if(isnull(prefs.db_flags))
+		prefs.db_flags = 0	//This PROBABLY won't happen, but better safe than sorry.
+	qdel(flags_read)
+	return TRUE
 
 	if(!flags_read.Execute(async = TRUE))
 		qdel(flags_read)

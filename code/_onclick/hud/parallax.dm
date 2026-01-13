@@ -19,6 +19,8 @@
 
 	C.screen |= (C.parallax_layers)
 	var/obj/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
+	if(!PM)
+		return
 	if(screenmob != mymob)
 		C.screen -= locate(/obj/screen/plane_master/parallax_white) in C.screen
 		C.screen += PM
@@ -34,8 +36,14 @@
 /datum/hud/proc/remove_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
+	if(!C)
+		return
 	C.screen -= (C.parallax_layers_cached)
+	if(!screenmob.hud_used)
+		return
 	var/obj/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
+	if(!PM)
+		return
 	if(screenmob != mymob)
 		C.screen -= locate(/obj/screen/plane_master/parallax_white) in C.screen
 		C.screen += PM

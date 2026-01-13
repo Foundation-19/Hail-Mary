@@ -32,6 +32,8 @@
 /datum/tgui_window/New(client/client, id, pooled = FALSE)
 	src.id = id
 	src.client = client
+	if(!src.client.tgui_windows)
+		src.client.tgui_windows = list()
 	src.client.tgui_windows[id] = src
 	src.pooled = pooled
 	if(pooled)
