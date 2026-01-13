@@ -63,14 +63,12 @@
 	name = "Captured NCR"
 	head = /obj/item/clothing/head/f13/ncr/standard
 	r_pocket = /obj/item/storage/box/ration/menu_ten
-	l_pocket = /obj/item/melee/onehanded/knife/hunting
 	uniform = /obj/item/clothing/under/f13/ncr
 
 
 /datum/outfit/loadout/capturedranger
 	name = "Captured ranger"
 	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat
-
 
 /datum/outfit/loadout/capturedraider
 	name = "Captured ranger"

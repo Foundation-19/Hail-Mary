@@ -514,7 +514,7 @@
 	},
 /area/f13/wasteland)
 "aCd" = (
-/obj/mecha/working/normalvehicle/buggy/legion/loaded,
+/obj/mecha/working/normalvehicle/buggy/legion,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	color = "#e4e4e4"
 	},
@@ -1842,7 +1842,6 @@
 /obj/structure/bed/mattress{
 	icon_state = "mattress5"
 	},
-/obj/effect/landmark/start/f13/f13rebelsoldier,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
 "bHV" = (
@@ -6088,6 +6087,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
+"fxH" = (
+/obj/structure/bed/mattress{
+	icon_state = "mattress5"
+	},
+/obj/effect/landmark/start/f13/slave,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/legion)
 "fxZ" = (
 /obj/structure/stone_tile/block,
 /obj/structure/fence/wooden{
@@ -6517,6 +6523,10 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/building)
+"fRa" = (
+/obj/effect/landmark/start/f13/slave,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/legion)
 "fRd" = (
 /obj/structure/flora/rock/pile/largejungle,
 /turf/open/indestructible/ground/inside/mountain,
@@ -7255,6 +7265,7 @@
 /area/f13/wasteland)
 "gAu" = (
 /obj/item/trash/f13/dog,
+/obj/effect/landmark/start/f13/slave,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
 "gBb" = (
@@ -9320,6 +9331,7 @@
 	pixel_y = -25;
 	id = "Garage Tent"
 	},
+/obj/mecha/working/normalvehicle/truckcaravan,
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
@@ -13919,6 +13931,10 @@
 /obj/structure/bookcase,
 /turf/open/floor/wood_common,
 /area/f13/city)
+"mVx" = (
+/obj/effect/landmark/start/f13/f13rebelsoldier,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/legion)
 "mVD" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken3"
@@ -19825,9 +19841,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "sxJ" = (
-/obj/mecha/working/normalvehicle/truckcaravan/loaded{
-	dir = 4
-	},
+/obj/mecha/working/normalvehicle/truckcaravan,
 /turf/open/indestructible/ground/outside/dirt/dark{
 	icon_state = "dirtfull_dark"
 	},
@@ -22008,6 +22022,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/enclave)
+"uyi" = (
+/obj/structure/bed/mattress{
+	icon_state = "mattress2";
+	pixel_y = 5
+	},
+/obj/effect/landmark/start/f13/f13rebelsoldier,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/legion)
 "uzc" = (
 /obj/structure/stone_tile/block,
 /obj/structure/fence/wooden{
@@ -24738,6 +24760,8 @@
 /obj/item/reagent_containers/jerrycan,
 /obj/item/reagent_containers/jerrycan,
 /obj/item/reagent_containers/fuel_tank/upgraded,
+/obj/item/mecha_parts/mecha_equipment/trunk,
+/obj/item/mecha_parts/mecha_equipment/trunk,
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "xrb" = (
@@ -49550,7 +49574,7 @@ qBu
 sFR
 sxJ
 axH
-sxJ
+sFR
 iCc
 qyr
 mmA
@@ -57591,7 +57615,7 @@ vhp
 xyJ
 jGU
 gAu
-fwj
+fRa
 kMY
 nEm
 wsb
@@ -57792,8 +57816,8 @@ bjl
 mOC
 lZh
 fwj
-fwj
-fwj
+fRa
+fRa
 tcq
 wsb
 wsb
@@ -57992,10 +58016,10 @@ hyf
 bjl
 bjl
 kSL
+mVx
+mVx
 fwj
-fwj
-fwj
-jGU
+fxH
 vhp
 yfl
 nwR
@@ -58194,7 +58218,7 @@ uPA
 uPA
 isN
 kSL
-kFZ
+uyi
 lZh
 kFZ
 bHR

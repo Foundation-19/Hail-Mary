@@ -6357,7 +6357,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
 "Fr" = (
-/obj/mecha/working/normalvehicle/vertibird/balloon/loaded,
+/obj/mecha/working/normalvehicle/vertibird/balloon,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
 "Fu" = (
@@ -47548,7 +47548,7 @@ oD
 oD
 Ht
 Eu
-Fr
+Eu
 dL
 Bo
 qq

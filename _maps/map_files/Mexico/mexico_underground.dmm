@@ -12228,6 +12228,7 @@
 /obj/effect/spawner/lootdrop/f13/armor/tier4,
 /obj/effect/spawner/lootdrop/f13/armor/tier4,
 /obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
 "aTX" = (
@@ -13560,6 +13561,10 @@
 /obj/structure/table/wood/junk,
 /obj/effect/spawner/lootdrop/food,
 /turf/open/indestructible/ground/inside/subway,
+/area/f13/citycaves)
+"aYF" = (
+/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
 "aYG" = (
 /obj/effect/turf_decal/shadow{
@@ -17419,6 +17424,13 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"vxW" = (
+/obj/effect/overlay/junk/oldpipes,
+/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
+/turf/open/floor/f13{
+	icon_state = "greenrustyfull"
+	},
+/area/f13/citycaves)
 "vAd" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/indestructible/ground/inside/mountain,
@@ -17714,6 +17726,11 @@
 "xIP" = (
 /turf/open/floor/plating/rust,
 /area/f13/vault/overseer)
+"xNk" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
+/turf/open/floor/plating/tunnel,
+/area/f13/citycaves)
 "xPU" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/vault/science)
@@ -23326,7 +23343,7 @@ ayD
 aYV
 abw
 aaW
-aYV
+aYF
 aCC
 acp
 ayQ
@@ -30573,7 +30590,7 @@ ayQ
 ayQ
 acp
 aIO
-ajt
+xNk
 aiS
 aVQ
 aJF
@@ -46428,7 +46445,7 @@ asD
 ate
 amF
 afu
-asD
+vxW
 aAu
 asD
 aER
