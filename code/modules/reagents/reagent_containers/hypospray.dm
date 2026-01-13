@@ -169,7 +169,7 @@
 	desc = "A handheld delivery system for medicine, used to rapidly heal physical damage to the body."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "hypo_stimpak"
-	syringe_self_delay = 10 //Double the time of powder
+	syringe_self_delay = 5 //Used to be double the time of powder at 10
 	custom_price = PRICE_STIMPAK
 	volume = 26
 	amount_per_transfer_from_this = 26
@@ -205,6 +205,12 @@
 	volume = 26
 	list_reagents = list(/datum/reagent/medicine/fake_stimpak = 26)
 */
+/obj/item/reagent_containers/hypospray/medipen/stimpak/cheap
+	name = "cheap stimpak"
+	desc = "A homemade, handheld delivery system for medicine, used to heal minor physical damage to the body."
+	amount_per_transfer_from_this = 13
+	volume = 13
+	list_reagents = list(/datum/reagent/medicine/stimpak = 10, /datum/reagent/medicine/healing_powder = 1, /datum/reagent/medicine/bicaridine = 1, /datum/reagent/medicine/kelotane = 1)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak
 	name = "epipak"
