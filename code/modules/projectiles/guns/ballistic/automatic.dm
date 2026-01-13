@@ -2222,7 +2222,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_recoil = CARBINE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/burst/five/fast,
+		/datum/firemode/automatic/rpm200,
 		/datum/firemode/semi_auto
 	)
 
