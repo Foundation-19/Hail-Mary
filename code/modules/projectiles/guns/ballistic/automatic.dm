@@ -528,7 +528,7 @@
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,
-		/datum/firemode/burst/three/fast,
+		/datum/firemode/burst/three/slow,
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = TRUE
@@ -1897,7 +1897,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/burst/two/fastest,
+		/datum/firemode/automatic/rpm200,
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
@@ -1927,7 +1927,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(3.4)
 	init_firemodes = list(
-		/datum/firemode/burst/five/slow
+		/datum/firemode/automatic/rpm200
 	)
 
 	can_suppress = FALSE
@@ -2135,7 +2135,7 @@
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm300,
-		/datum/firemode/burst/two/fast
+		/datum/firemode/burst/two/slow
 	)
 	zoomable = TRUE
 	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
@@ -2351,7 +2351,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/burst/three/fastest,
+		/datum/firemode/burst/three/slow,
 		/datum/firemode/semi_auto
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
