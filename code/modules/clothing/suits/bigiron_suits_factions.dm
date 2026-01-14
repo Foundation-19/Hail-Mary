@@ -492,6 +492,12 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
 
+/obj/item/clothing/suit/armor/rangercombat/shocktrooper
+	name = "shocktrooper combat armor"
+	desc = "An old marine shocktrooper suit from before the war, still good as new."
+	icon_state = "shocktrooper"
+	item_state = "shocktrooper"
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 
 //All of the armor below is mostly unused
 
@@ -1160,6 +1166,13 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 30)
 	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t60
+
+/obj/item/clothing/suit/armor/power_armor/t60/tesla
+	name = "T-60a tesla power armor"
+	desc = "Developed in early 2077 after the Anchorage Reclamation, the T-60 series of power armor was designed to eventually replace the T-51b as the pinnacle of powered armor technology in the U.S. military arsenal, this one appears to be enhanced with jurry rigged tesla coils"
+	icon_state = "t60tesla"
+	item_state = "t60tesla"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1)
 
 /obj/item/clothing/suit/armor/power_armor/t60/pineapple
 	name = "degraded T-60a power armor"

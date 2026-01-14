@@ -528,18 +528,32 @@
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
 
 /obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire
-	name = "hellfire power armor"
+	name = "hellfire power armor helmet"
 	desc = "A deep black helmet of Enclave-manufactured heavy power armor with yellow ballistic glass, based on pre-war designs such as the T-51 and improving off of data gathered by post-war designs such as the X-01. Most commonly fielded on the East Coast, no other helmet rivals it's strength."
 	icon_state = "hellfirehelm"
 	item_state = "hellfirehelm"
-	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_FIRE_T3)
 
-/obj/item/clothing/head/helmet/f13/power_armor/advanced/tesla
-	name = "tesla power armor"
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/super_advanced_pa
+	name = "super advanced power armor helmet"
+	desc = "The helm to a set of super advanced power armor, there is motivational stickers on the inside."
+	icon_state = "superadvanced"
+	item_state = "superadvanced"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3,)
+
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/ultracite
+	name = "ultracite power armor helmet"
+	desc = "A deep blue helmet with orange tinted goggles left over from the advanced PA helmet that this PA was built off of"
+	icon_state = "ultracitepa_helm"
+	item_state = "ultracitepa_helm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T1)
+
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/tesla
+	name = "tesla power armor helmet"
 	desc = "It's an advanced power armor MK1 helmet, typically used by the Enclave. It looks somewhat threatening, this one has been improved with some coils and extra batteries."
 	icon_state = "tesla"
 	item_state = "tesla"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T3)
 
 //Part of the peacekeeper enclave stuff, adjust values as needed.
 /obj/item/clothing/head/helmet/f13/power_armor/x02helmet

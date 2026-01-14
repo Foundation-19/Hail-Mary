@@ -3487,14 +3487,28 @@
 	desc = "An advanced suit of armor typically used by higher ranking members of the Enclave."
 	icon_state = "hellfire"
 	item_state = "hellfire"
-	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_FIRE_T3)
 
-/obj/item/clothing/suit/armor/power_armor/advanced/tesla
+/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/super_advanced_pa//I cannot in good concious put this in the T6 spawner
+	name = "super advanced power armor"
+	desc = "A suit of power armor made by somebody who has access to technology that could easily render the barren wasteland a lush fertile jungle, and yet said technology is used for war, because war, war never changes."
+	icon_state = "superadvanced"
+	item_state = "superadvanced"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3)
+
+/obj/item/clothing/suit/armor/power_armor/advanced/ultracite
+	name = "ultracite power armor"
+	desc = "An advanced suit of armor made out of space age alloys, this suit was made after the bombs fell by replacing most of the protective plating from the advanced power armor MK2 with something better, ultracite."
+	icon_state = "ultracitepa"
+	item_state = "ultracitepa"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T1)
+
+/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/tesla
 	name = "tesla power armor"
 	desc = "An already incredibly advanced suit of armor enhanced further with tesla coils and electricity churning through it making it stronger."
 	icon_state = "tesla"
 	item_state = "tesla"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T3)
 
 //Peacekeeper armor adjust as needed
 /obj/item/clothing/suit/armor/power_armor/advanced/x02
