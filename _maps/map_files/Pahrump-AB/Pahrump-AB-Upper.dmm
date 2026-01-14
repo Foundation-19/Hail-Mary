@@ -2548,9 +2548,12 @@
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
 "dFR" = (
-/obj/effect/decal/cleanable/blood/old,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/brotherhood/leisure)
+/obj/machinery/button/door{
+	id = "bosgarage3";
+	name = "steel garage button"
+	},
+/turf/closed/wall/r_wall/rust,
+/area/f13/brotherhood/rnd)
 "dGM" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -2753,6 +2756,10 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/plasteel/f13/vault_floor/blue/side,
 /area/f13/building/hospital)
+"dXa" = (
+/obj/structure/chair/office/dark,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "dXb" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plasteel/f13/vault_floor/blue/side{
@@ -7502,8 +7509,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/wasteland)
 "llO" = (
-/obj/structure/fluff/railing{
-	dir = 5
+/obj/machinery/door/poddoor/shutters/old{
+	id = "bosgarage3";
+	name = "Brotherhood Hanger"
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
@@ -7945,13 +7953,8 @@
 	},
 /area/f13/building/hospital)
 "lZo" = (
-/obj/structure/fluff/railing{
-	dir = 9
-	},
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
-/turf/open/transparent/openspace,
+/obj/machinery/door/unpowered/secure_bos,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
 "lZx" = (
 /obj/machinery/light{
@@ -8579,13 +8582,8 @@
 	},
 /area/f13/wasteland)
 "mUo" = (
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
-/obj/structure/fluff/railing/corner{
-	dir = 4
-	},
-/turf/open/transparent/openspace,
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/wasteland)
 "mUM" = (
 /obj/structure/window/fulltile/house{
@@ -12046,8 +12044,8 @@
 /turf/open/floor/wood_common,
 /area/f13/wasteland)
 "sfd" = (
-/obj/structure/safe{
-	pixel_x = 2
+/obj/item/storage/money_stack{
+	pixel_x = 7
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -13101,6 +13099,14 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
+"tup" = (
+/obj/machinery/button/door{
+	id = "bosgarage2";
+	name = "steel garage button"
+	},
+/obj/structure/table/wood,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "tvg" = (
 /obj/structure/simple_door/metal/store,
 /obj/effect/decal/cleanable/dirt{
@@ -13306,6 +13312,10 @@
 /obj/structure/table,
 /obj/machinery/light/small{
 	dir = 1
+	},
+/obj/item/ship_in_a_bottle{
+	pixel_x = -5;
+	pixel_y = 5
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood/dorms)
@@ -15017,6 +15027,11 @@
 /obj/structure/barricade/wooden,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"wBk" = (
+/obj/structure/table/wood,
+/obj/item/binoculars,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/wasteland)
 "wBZ" = (
 /turf/open/floor/plating/rust,
 /area/f13/wasteland)
@@ -15277,14 +15292,8 @@
 /turf/open/floor/wood_common,
 /area/f13/building)
 "wYQ" = (
-/obj/structure/fluff/railing/corner{
-	dir = 4
-	},
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
-/turf/open/transparent/openspace,
-/area/f13/wasteland)
+/turf/closed/wall/r_wall,
+/area/f13/caves)
 "wZp" = (
 /obj/structure/chair/sofa/right{
 	dir = 8
@@ -15939,6 +15948,15 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/city)
+"ycr" = (
+/obj/structure/fluff/railing/corner{
+	dir = 4
+	},
+/obj/structure/fluff/railing{
+	dir = 5
+	},
+/turf/open/transparent/openspace,
+/area/f13/wasteland)
 "ygG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13{
@@ -44318,10 +44336,10 @@ skV
 skV
 qAC
 skV
-vLb
-vLb
-vLb
-vLb
+laB
+laB
+laB
+laB
 vLb
 oez
 oez
@@ -45848,11 +45866,11 @@ vLb
 vLb
 vLb
 vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+laB
+laB
+laB
+laB
+laB
 skV
 rch
 dJF
@@ -46101,11 +46119,11 @@ laB
 vLb
 vLb
 vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+laB
+laB
+laB
+laB
+laB
 vtr
 vtr
 vtr
@@ -46358,7 +46376,7 @@ laB
 vLb
 vLb
 vLb
-vLb
+laB
 gjI
 gjI
 gjI
@@ -46383,8 +46401,8 @@ wiU
 xbO
 nwd
 vtr
-vLb
-vLb
+laB
+laB
 vLb
 vLb
 vLb
@@ -46614,8 +46632,8 @@ laB
 laB
 vLb
 vLb
-vLb
-vLb
+laB
+laB
 gjI
 fAi
 cVg
@@ -46641,7 +46659,7 @@ oSI
 vtr
 vtr
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -46872,7 +46890,7 @@ laB
 vLb
 vLb
 vLb
-vLb
+laB
 gjI
 tkz
 rmX
@@ -46898,7 +46916,7 @@ dSy
 leY
 tpf
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -47126,10 +47144,10 @@ laB
 "}
 (122,1,1) = {"
 laB
-vLb
-vLb
-vLb
-vLb
+laB
+laB
+laB
+laB
 gjI
 ktn
 ktn
@@ -47155,12 +47173,12 @@ rAg
 rkY
 ssv
 kfr
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+laB
+laB
+laB
+laB
+laB
+laB
 vLb
 vLb
 vLb
@@ -47417,7 +47435,7 @@ vtr
 jFC
 vtr
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -47674,7 +47692,7 @@ jlF
 rkY
 dnQ
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -47931,7 +47949,7 @@ hUo
 rkY
 hUo
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -48188,7 +48206,7 @@ lza
 rkY
 cLZ
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -48445,7 +48463,7 @@ rkY
 rkY
 rkY
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -49216,7 +49234,7 @@ vtr
 boN
 vtr
 vtr
-vLb
+laB
 vLb
 vLb
 vLb
@@ -49463,17 +49481,17 @@ eyh
 jpy
 nXy
 nXy
+nXy
 cgC
 mLm
-dFR
 kgy
+wmf
+wmf
+wmf
 wmf
 oWA
 ans
-vLb
-vLb
-vLb
-vLb
+laB
 vLb
 vLb
 vLb
@@ -49720,17 +49738,17 @@ cyC
 nXy
 nXy
 nXy
+nXy
 ate
 rHT
 wmf
 wmf
 wmf
 wmf
+wmf
+wmf
 ans
-vLb
-vLb
-vLb
-vLb
+laB
 vLb
 vLb
 vLb
@@ -49977,17 +49995,17 @@ nXy
 nXy
 nXy
 nXy
+nXy
 gDR
 kgy
 wmf
 wmf
 wmf
 wmf
+wmf
+wmf
 ans
-vLb
-vLb
-vLb
-vLb
+laB
 vLb
 vLb
 vLb
@@ -50234,16 +50252,16 @@ cyC
 nXy
 nXy
 nXy
+nXy
 jwI
 rHT
 wmf
-kgy
-eMR
+wmf
+wmf
+wmf
+wmf
 wmf
 ans
-vLb
-vLb
-vLb
 vLb
 vLb
 vLb
@@ -50491,16 +50509,16 @@ eyh
 jpy
 nXy
 nXy
+nXy
 lij
-hBF
+rHT
 wmf
 wmf
 wmf
-dDW
+wmf
+wmf
+wmf
 ans
-vLb
-vLb
-vLb
 vLb
 vLb
 vLb
@@ -50750,15 +50768,15 @@ gow
 ans
 ans
 ans
+rHT
+kgy
+eMR
+wmf
+wmf
+wmf
+wmf
 ans
-ans
-ans
-ans
-ans
-vLb
-vLb
-vLb
-vLb
+laB
 vLb
 vLb
 vLb
@@ -51007,15 +51025,15 @@ sdI
 bau
 gnD
 ans
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+hBF
+wmf
+wmf
+wmf
+wmf
+wmf
+dDW
+ans
+laB
 vLb
 vLb
 vLb
@@ -51264,15 +51282,15 @@ sdI
 sdI
 sdI
 ans
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+ans
+ans
+ans
+ans
+ans
+ans
+ans
+ans
+laB
 vLb
 vLb
 vLb
@@ -51522,14 +51540,14 @@ fQu
 sdI
 xuo
 vLb
+laB
+laB
+laB
+laB
 vLb
 vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+laB
+laB
 vLb
 vLb
 vLb
@@ -52292,7 +52310,7 @@ iMK
 wkk
 rgD
 ans
-vLb
+laB
 vLb
 vLb
 vLb
@@ -52549,7 +52567,7 @@ khv
 okF
 rgD
 ans
-vLb
+laB
 vLb
 vLb
 vLb
@@ -52806,7 +52824,7 @@ pUB
 ans
 ans
 ans
-vLb
+laB
 vLb
 vLb
 vLb
@@ -53058,12 +53076,12 @@ oez
 oez
 vLb
 vLb
+laB
+laB
+laB
 vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+laB
+laB
 vLb
 vLb
 vLb
@@ -57175,9 +57193,9 @@ uKh
 uKh
 vLb
 vLb
-vLb
-vLb
-vLb
+wYQ
+wYQ
+wYQ
 vLb
 vLb
 vLb
@@ -57432,9 +57450,9 @@ jpC
 uKh
 vLb
 vLb
-vLb
-vLb
-vLb
+tae
+lZo
+tae
 vLb
 vLb
 vLb
@@ -57690,7 +57708,7 @@ uKh
 uKh
 uKh
 tae
-tae
+ymf
 tae
 tae
 vLb
@@ -57947,7 +57965,7 @@ tfd
 jpC
 uKh
 tae
-lZo
+llO
 tfd
 tfd
 hzU
@@ -58201,10 +58219,10 @@ oez
 oez
 oez
 oez
-ioD
+aQK
 uKh
 hyC
-mUo
+llO
 oez
 oez
 oez
@@ -58458,10 +58476,10 @@ oez
 oez
 oez
 oez
-ioD
+oez
 uKh
 uKh
-jxl
+llO
 oez
 oez
 oez
@@ -58700,7 +58718,7 @@ ciQ
 wLY
 ciQ
 ciQ
-tFU
+dFR
 oez
 oez
 oez
@@ -58715,10 +58733,10 @@ oez
 oez
 oez
 oez
-ioD
+oez
 uKh
 uKh
-jxl
+llO
 oez
 oez
 oez
@@ -58972,10 +58990,10 @@ oez
 oez
 oez
 oez
-ioD
+ahs
 uKh
 hyC
-wYQ
+llO
 oez
 oez
 oez
@@ -59212,8 +59230,8 @@ ciQ
 ciQ
 ciQ
 igk
-vLb
-vLb
+laB
+laB
 oez
 oez
 oez
@@ -59469,7 +59487,7 @@ wLY
 ciQ
 ciQ
 igk
-vLb
+laB
 vLb
 vLb
 oez
@@ -59487,13 +59505,13 @@ vLb
 vLb
 vLb
 vLb
-vLb
+tup
 tae
+ymf
 tae
-tae
-tae
-jxl
-oez
+wBk
+ycr
+fra
 oez
 oez
 oez
@@ -59726,31 +59744,31 @@ igk
 igk
 igk
 igk
-vLb
-vLb
-vLb
-vLb
-oez
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+laB
 vLb
 vLb
 vLb
 oez
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+vLb
+tae
+lZo
+tae
+dXa
+mUo
+jxl
 oez
 oez
 oez
@@ -59976,6 +59994,14 @@ laB
 "}
 (172,1,1) = {"
 laB
+laB
+laB
+laB
+laB
+laB
+laB
+laB
+laB
 vLb
 vLb
 vLb
@@ -59994,17 +60020,9 @@ vLb
 vLb
 vLb
 vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
-vLb
+wYQ
+wYQ
+wYQ
 vLb
 vLb
 vLb

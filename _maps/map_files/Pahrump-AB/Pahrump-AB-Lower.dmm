@@ -10208,6 +10208,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/caves)
+"grA" = (
+/obj/structure/table/reinforced,
+/obj/item/pickaxe/plasteel,
+/obj/item/storage/bag/ore,
+/obj/item/clothing/glasses/meson,
+/obj/item/mining_scanner,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "grQ" = (
 /obj/machinery/vending/medical,
 /obj/effect/decal/cleanable/dirt{
@@ -18831,6 +18839,14 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/tunnel)
+"oqN" = (
+/obj/structure/table/reinforced,
+/obj/item/pickaxe/drill,
+/obj/item/storage/bag/ore,
+/obj/item/clothing/glasses/meson,
+/obj/item/mining_scanner,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "ory" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -21093,6 +21109,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
+"qsX" = (
+/obj/structure/ladder/unbreakable{
+	height = 1;
+	id = "BoS Mine"
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "qsY" = (
 /turf/open/floor/wood_common,
 /area/f13/caves)
@@ -26623,6 +26646,10 @@
 /obj/structure/chair/bench,
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/caves)
+"vAP" = (
+/obj/machinery/mineral/ore_redemption,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "vBc" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
@@ -27584,6 +27611,15 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier2,
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
+"wuw" = (
+/mob/living/simple_animal/hostile/handy/protectron{
+	faction = list("BOS");
+	name = "minebot";
+	health = 80;
+	desc = "A pre-war security robot armed with deadly lasers, this one has a brotherhood of steel sticker on it and it looks pretty roughed up."
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "wuy" = (
 /obj/item/pickaxe,
 /turf/open/indestructible/ground/inside/mountain,
@@ -86184,7 +86220,7 @@ xwF
 aae
 aae
 xwF
-xwF
+aaB
 xwF
 xwF
 xwF
@@ -86440,9 +86476,9 @@ aae
 xwF
 aak
 aak
-xwF
-xwF
-xwF
+vov
+aaB
+aaB
 xwF
 xwF
 aak
@@ -86695,11 +86731,11 @@ aae
 xwF
 aae
 xwF
-aae
-aae
-xwF
-aae
-xwF
+mRt
+mRt
+vov
+aaB
+aaB
 xwF
 xwF
 xwF
@@ -86952,12 +86988,12 @@ aae
 xwF
 aak
 xwF
-aae
-aae
-xwF
-aak
-aae
-xwF
+mRt
+grA
+aaB
+aaB
+wuw
+aaB
 xwF
 xwF
 xwF
@@ -87209,12 +87245,12 @@ aak
 xwF
 aak
 xwF
-aak
-aak
-xwF
-aae
-aak
-xwF
+mRt
+oqN
+aaB
+qsX
+aaB
+aaB
 aae
 xwF
 xwF
@@ -87466,12 +87502,12 @@ aak
 xwF
 aae
 xwF
-aak
-aak
-xwF
-aae
-aae
-xwF
+mRt
+oqN
+aaB
+aaB
+aaB
+mRt
 aak
 aae
 xwF
@@ -87723,12 +87759,12 @@ aae
 xwF
 aae
 xwF
-aae
-aae
-xwF
-aak
-aae
-xwF
+mRt
+mRt
+aaB
+vAP
+aaB
+mRt
 aae
 aak
 aae
@@ -87981,11 +88017,11 @@ xwF
 aae
 xwF
 aae
-aae
-xwF
-aak
-aak
-xwF
+mRt
+mRt
+mRt
+mRt
+mRt
 aae
 aae
 aak
