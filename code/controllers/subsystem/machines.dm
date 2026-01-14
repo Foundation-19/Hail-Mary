@@ -9,6 +9,12 @@ SUBSYSTEM_DEF(machines)
 
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
+	// Rebuild processing list to ensure all machines are in good state
+	var/list/machines_to_process = list()
+	for(var/obj/machinery/M in GLOB.machines)
+		if(M && !QDELETED(M))
+			machines_to_process += M
+	processing = machines_to_process
 	fire()
 	return ..()
 
@@ -32,24 +38,23 @@ SUBSYSTEM_DEF(machines)
 	if (!resumed)
 		for(var/datum/powernet/Powernet in powernets)
 			Powernet.reset() //reset the power state.
-		// Swap lists to avoid Copy() overhead: currentrun becomes processing, start fresh list
-		src.currentrun = processing
-		processing = list()
+		src.currentrun = processing.Copy()
+
+	//cache for sanic speed (lists are references anyways)
+	var/list/currentrun = src.currentrun
 
 	var/seconds = wait * 0.1
-	var/list/currentrun = src.currentrun
+	
 	while(currentrun.len)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
 		if(!QDELETED(thing) && thing.process(seconds) != PROCESS_KILL)
 			if(thing.use_power)
 				thing.auto_use_power() //add back the power state
-			processing += thing
 		else
+			processing -= thing
 			if (!QDELETED(thing))
 				thing.datum_flags &= ~DF_ISPROCESSING
-		if (MC_TICK_CHECK)
-			return
 
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
 	for(var/A in cables)

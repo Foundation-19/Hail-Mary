@@ -202,8 +202,10 @@
 
 /mob/living/simple_animal/hostile/toggle_ai(togglestatus)
 	. = ..()
+	if(QDELETED(src))
+		return
 	if(consider_despawning())
-		if(!lonely_timer_id)
+		if(!lonely_timer_id && !QDELETED(src))
 			lonely_timer_id = addtimer(CALLBACK(src, PROC_REF(queue_unbirth)), 30 SECONDS, TIMER_STOPPABLE)
 	else
 		if(lonely_timer_id)

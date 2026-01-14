@@ -13,6 +13,7 @@
 	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	circuit = /obj/item/circuitboard/machine/emitter
+	speed_process = TRUE
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 10

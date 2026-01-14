@@ -11,9 +11,13 @@
 	if(mind)
 		mind.current = null
 		mind = null
-	// Clear held items list
+	// Clear held items by destroying them BEFORE parent cleanup
+	// This prevents item cleanup from trying to re-add items during component destruction
+	if(held_items && held_items.len)
+		QDEL_LIST(held_items)
 	held_items = null
 	// Clear client screen objects to prevent GC leaks
+	// Do this BEFORE parent to prevent components from adding new screens
 	if(client && client.screen && client.screen.len)
 		QDEL_LIST(client.screen)
 	// Clear observers perspective references

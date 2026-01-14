@@ -25,11 +25,11 @@
 /datum/tgs_chat_command/irccheck/Run(datum/tgs_chat_user/sender, params)
 	var/rtod = REALTIMEOFDAY
 	if(rtod - last_irc_check < IRC_STATUS_THROTTLE)
-		return
+		return new /datum/tgs_message_content()
 	last_irc_check = rtod
 	var/server = CONFIG_GET(string/server)
 	var/message = "[GLOB.round_id ? "Round #[GLOB.round_id]: " : ""][GLOB.clients.len] players on [SSmapping.config.map_name]; Round [SSticker.HasRoundStarted() ? (SSticker.IsRoundInProgress() ? "Active" : "Finishing") : "Starting"] -- [server ? server : "[world.internet_address]:[world.port]"]"
-	return message
+	return new /datum/tgs_message_content(message)
 	//CIT CHANGE obfuscates the gamemode for TGS bot commands on discord by removing Mode:[GLOB.master_mode]
 /datum/tgs_chat_command/ahelp
 	name = "ahelp"

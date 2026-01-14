@@ -53,25 +53,26 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
 /mob/living/carbon/human/Destroy()
-	// CRITICAL: Call parent FIRST to properly clean up all signals and components
-	// This allows the component system to properly disconnect listeners
-	// Doing this before parent breaks the ECS cleanup chain
-	var/result = ..()
-	
-	// Post-cleanup: Clear human-specific references after parent cleanup
-	// 1. Remove from global human list
+	// CRITICAL: Pre-cleanup - Remove from global human list and cleanup items BEFORE parent
+	// This prevents components from trying to re-add items during their destruction
 	GLOB.human_list -= src
 	
-	// 2. Clear all worn/equipped item references (dogtags, ID cards, equipment)
-	wear_suit = null
-	w_uniform = null
-	belt = null
-	wear_id = null
-	r_store = null
-	l_store = null
-	s_store = null
+	// Pre-cleanup: Destroy all worn/equipped items BEFORE parent destroy
+	// This prevents storage components from trying to return items to the mob
+	QDEL_NULL(wear_suit)
+	QDEL_NULL(w_uniform)
+	QDEL_NULL(belt)
+	QDEL_NULL(wear_id)
+	QDEL_NULL(r_store)
+	QDEL_NULL(l_store)
+	QDEL_NULL(s_store)
 	
-	// 3. Clear physiology (small object, non-expensive)
+	// Call parent AFTER item cleanup to properly clean up all signals and components
+	// This allows the component system to properly disconnect listeners
+	// since items they might reference are already gone
+	var/result = ..()
+	
+	// Post-cleanup: Clear physiology after parent cleanup (it's small and non-expensive)
 	QDEL_NULL(physiology)
 	
 	// 4. Defer client screen cleanup to next tick (can be expensive with many screens)
