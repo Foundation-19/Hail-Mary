@@ -1541,3 +1541,21 @@ list(/obj/item/stack/sheet/metal = 20,
 							/obj/item/book/granter/crafting_recipe/blueprint/trapper,
 							)
 		new randomgun(src)
+
+/obj/item/storage/box/bos/headknight
+	name = "Head Knights Blueprints"
+	desc = "A box used by the BoS to store Blueprints. This one seems Important."
+
+/obj/item/storage/box/bos/headknight/PopulateContents()
+	for(var/i in 1 to 3)
+		var/randomgun = pick(
+							/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver,
+							/obj/item/book/granter/crafting_recipe/blueprint/r82,
+							/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
+							/obj/item/book/granter/crafting_recipe/blueprint/deagle,
+							/obj/item/book/granter/crafting_recipe/blueprint/trapper,
+							/obj/item/book/granter/crafting_recipe/blueprint/armalite,
+							/obj/item/book/granter/trait/explosives_advanced,
+
+							)
+		new randomgun(src)

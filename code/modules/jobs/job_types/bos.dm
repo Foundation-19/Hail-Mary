@@ -246,7 +246,7 @@ Paladin Commander
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
-	suit_store = /obj/item/shield/riot/bullet_proof 
+	suit_store = /obj/item/gun/energy/laser/aer12
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
@@ -255,7 +255,7 @@ Paladin Commander
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 5,
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
-
+		/obj/item/stock_parts/cell/ammo/mfc = 3
 		)
 
 /*
@@ -291,7 +291,7 @@ Proctor
 	total_positions = 0
 	spawn_positions = 0
 	description = "You are the foremost experienced scribe remaining in this bunker. Your role is to ensure the safekeeping and proper usage of technology within the Brotherhood. You are also the lead medical expert in this Chapter. Delegate your tasks to your Scribes."
-	supervisors = "the Elders"
+	supervisors = "the Elders or the Paladin Commander if he is present."
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_HEADSCRIBE
 	outfit = /datum/outfit/job/bos/f13headscribe
@@ -346,8 +346,8 @@ Proctor
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
-		/obj/item/ammo_box/magazine/m9mm = 2
+		/obj/item/storage/box/gun/energy/wornaep7 = 1,
+		/obj/item/stock_parts/cell/ammo/ec = 2
 		)
 
 /datum/outfit/loadout/hsstand
@@ -375,7 +375,7 @@ Knight-Captain
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
-	supervisors = "The Paladin Commander"
+	supervisors = "The Elders or the Paladin Commander if he is present."
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
@@ -411,7 +411,7 @@ Knight-Captain
 	gunsmith_three = TRUE
 	gunsmith_four = TRUE
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
-	suit_store = /obj/item/gun/energy/laser/aer12
+	suit_store = /obj/item/gun/energy/laser/aer9
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
 	l_pocket = /obj/item/storage/belt/sabre/heavy
@@ -423,6 +423,8 @@ Knight-Captain
 		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
+		/obj/item/storage/box/bos/headknight = 1,
+
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -483,7 +485,11 @@ Star Paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
+		/obj/item/stock_parts/cell/ammo/mfc = 5,
+		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
 	)
 /*
 /datum/outfit/loadout/spaladina
@@ -557,16 +563,17 @@ Paladin
 	name =	"Paladin"
 	jobtype =	/datum/job/bos/f13paladin
 	suit =	/obj/item/clothing/suit/armor/power_armor/t45d/bos
-	suit_store = /obj/item/gun/energy/laser/aer12
+	suit_store = /obj/item/gun/energy/laser/aer9
 	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	uniform =	/obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
 	mask =	/obj/item/clothing/mask/gas/sechailer
 	neck =	/obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
+		/obj/item/stock_parts/cell/ammo/mfc = 5,
+		/obj/item/melee/powered/ripper/prewar = 1,
 	)
 /*
 /datum/outfit/loadout/paladina
@@ -595,7 +602,7 @@ Senior Scribe
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the bunker's seniormost medical and scientific expert in the bunker, sans the Proctor themselves. You are trained in both medicine and engineering, while also having extensive studies of the old world to assist in pinpointing what technology would be useful to the Brotherhood and its interests."
-	supervisors = "the Proctor"
+	supervisors = "Head Scribe, Paladins, Sarge and Head Knights Paladin and Commander."
 	display_order = JOB_DISPLAY_ORDER_SENIORSCRIBE
 	outfit = /datum/outfit/job/bos/f13seniorscribe
 	exp_requirements = 1200
@@ -658,7 +665,7 @@ Scribe
 	total_positions = 2
 	spawn_positions = 2
 	description = "You answer to senior members, tasked with researching and reverse-engineering recovered technologies from the old world, while maintaining the brotherhoods scientific archives. You may also be given a trainee to assign duties to."
-	supervisors = "the Head and Senior Scribe"
+	supervisors = "the Head and Senior Scribe, Knights, Paladins and ultimately the Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_SCRIBE
 	outfit = /datum/outfit/job/bos/f13scribe
 	exp_requirements = 30
@@ -739,7 +746,7 @@ Knight Sarge
 	total_positions = 2
 	spawn_positions = 2
 	description = " You are the Knight Sergeant of the Brotherhood Of Steel Expeditionary force, your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
-	supervisors = "the Knight-Captain and Paladin Commander"
+	supervisors = "the Head Scribe, Knight-Captain and Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
 	outfit = /datum/outfit/job/bos/f13knightsarge
 	exp_requirements = 1440
@@ -779,7 +786,7 @@ Knight Sarge
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
 
 /datum/outfit/job/bos/f13knightsarge
-	name = "Senior Knight"
+	name = "KnightSarge"
 	jobtype = /datum/job/bos/f13knightsarge
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
 	suit_store = /obj/item/gun/energy/laser/aer9
@@ -915,7 +922,7 @@ Knight
 	total_positions = 5
 	spawn_positions = 5
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
-	supervisors = "the Head and Knight-Sergeant"
+	supervisors = "the Head and Knight-Sergeant, Senior and Head Scribes, Paladins and ultimately the Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
 	outfit = /datum/outfit/job/bos/f13knight
 	exp_requirements = 300
@@ -1002,7 +1009,7 @@ Initiate
 	total_positions = 5
 	spawn_positions = 5
 	description = "Either recently inducted or born into the Brotherhood, you have since proven yourself worthy of assignment to the Chapter. You are to assist your superiors and receive training how they deem fit. You are NEVER allowed to leave the bunker without the direct supervision of a superior; doing so may result in exile."
-	supervisors = "the Scribes, Knights, or Paladins"
+	supervisors = "the Scribes, Knights and Paladins"
 	display_order = JOB_DISPLAY_ORDER_INITIATE
 	outfit = /datum/outfit/job/bos/f13initiate
 	exp_requirements = 0
