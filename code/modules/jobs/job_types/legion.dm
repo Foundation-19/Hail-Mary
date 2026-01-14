@@ -229,6 +229,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 	if(H.mind)
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
@@ -407,6 +408,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 
 /datum/outfit/job/CaesarsLegion/Legionnaire/f13decanvet
 	name = "Legion Veteran Decanus"
@@ -772,6 +774,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		return
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
 	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 
 
 
@@ -816,6 +819,17 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/gun_upgrade/scope/watchman = 1,
 		)
 
+/datum/outfit/loadout/expsaboteur
+	name = "Saboteur"
+	glasses = /obj/item/clothing/glasses/sunglasses/big
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/mk23
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m45/socom = 3,
+		/obj/item/gun_upgrade/muzzle/silencer
+		/obj/item/bottlecap_mine = 1,
+		/obj/item/restraints/legcuffs/bola/tactical = 1,
+		/obj/item/grenade/plastic/x4 = 2,
+		)
 
 
 
@@ -926,6 +940,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/datum/outfit/loadout/primelancer,	// Gladius, Buckler, Bola.
 		/datum/outfit/loadout/primeclang,	// Bumper Sword, Firebomb
 		/datum/outfit/loadout/primebrave,	// Sledgehammer, Throwing spears
+		/datum/outfit/loadout/primerifle,	// Captured NCR rifle, maybe special version in the future
 		)
 
 	matchmaking_allowed = list(
@@ -984,6 +999,16 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/storage/backpack/spearquiver = 1,
 		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
 		)
+
+/datum/outfit/loadout/primerifle
+	name = "Gunner"
+	suit_store = /obj/item/gun/ballistic/automatic/service
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m556/rifle = 3,
+		/obj/item/melee/onehanded/knife/bayonet = 1,
+		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
+		)
+
 
 // RECRUIT
 
