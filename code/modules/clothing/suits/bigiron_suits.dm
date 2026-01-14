@@ -3480,7 +3480,12 @@
 	desc = "An advanced suit of armor typically used by the Enclave.<br>It is composed of lightweight metal alloys, reinforced with ceramic castings at key stress points.<br>Additionally, like the T-51b power armor, it includes a recycling system that can convert human waste into drinkable water, and an air conditioning system for its user's comfort."
 	icon_state = "advpowerarmor1"
 	item_state = "advpowerarmor1"
-	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50, "DT" = 7)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tier_desc = ARMOR_CLOTHING_PA
+	clothing_flags = CUSHIONED_ARMOR
+	stiffness = MEDIUM_STIFFNESS
+	deflect_damage = 20
 
 /obj/item/clothing/suit/armor/power_armor/advanced/hellfire
 	name = "hellfire power armor"
@@ -3509,7 +3514,8 @@
 	desc = "An already incredibly advanced suit of armor enhanced further with tesla coils and electricity churning through it making it stronger."
 	icon_state = "tesla"
 	item_state = "tesla"
-	armor = list("melee" = 83, "bullet" = 83, "laser" = 83, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50, "DT" = 7)
+	armor = list("melee" = 83, "bullet" = 83, "laser" = 83, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	deflect_damage = 21
 
 //Peacekeeper armor adjust as needed
 /obj/item/clothing/suit/armor/power_armor/advanced/x02
