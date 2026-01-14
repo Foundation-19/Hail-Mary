@@ -484,8 +484,8 @@
 /obj/effect/spawner/bundle/f13/armor/tesla
 	name = "tesla power armor spawner"
 	items = list(
-				/obj/item/clothing/suit/armor/power_armor/advanced/tesla,
-				/obj/item/clothing/head/helmet/f13/power_armor/advanced/tesla,
+				/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/tesla,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/tesla,
 				)
 
 /obj/effect/spawner/bundle/f13/armor/hellfire
