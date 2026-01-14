@@ -424,6 +424,10 @@ Knight-Captain
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/storage/box/bos/headknight = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
 
 		)
 /*
@@ -486,10 +490,6 @@ Star Paladin
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5,
-		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
 	)
 /*
 /datum/outfit/loadout/spaladina
