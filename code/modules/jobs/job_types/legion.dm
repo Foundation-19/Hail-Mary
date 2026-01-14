@@ -757,6 +757,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	loadout_options = list(	// ALL: .45 Revolver, Machete
 		/datum/outfit/loadout/expambusher,	// Greasegun, Bottlecap mine
 		/datum/outfit/loadout/expsniper,	// SKS + Scope, Smokebomb
+		/datum/outfit/loadout/expsaboteur,	// Silenced pistol, C4 charges for raids, mine
 		)
 
 	matchmaking_allowed = list(
