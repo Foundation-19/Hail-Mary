@@ -1040,8 +1040,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/marksman = 1,
+/*		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/marksman = 1, */
+		/obj/item/book/granter/crafting_recipe/blueprint/service = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
 		/obj/item/book/granter/trait/techno = 1,
 		)
