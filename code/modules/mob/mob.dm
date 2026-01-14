@@ -13,6 +13,9 @@
 		mind = null
 	// Clear held items list
 	held_items = null
+	// Clear client screen objects to prevent GC leaks
+	if(client && client.screen && client.screen.len)
+		QDEL_LIST(client.screen)
 	// Clear observers perspective references
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)

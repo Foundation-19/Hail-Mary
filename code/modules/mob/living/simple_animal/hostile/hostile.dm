@@ -127,6 +127,10 @@
 	GiveTarget(null)
 	if(smoke)
 		QDEL_NULL(smoke)
+	// Clean up lonely timer if active
+	if(lonely_timer_id)
+		deltimer(lonely_timer_id)
+		lonely_timer_id = null
 	return ..()
 
 /mob/living/simple_animal/hostile/BiologicalLife(seconds, times_fired)

@@ -511,7 +511,8 @@
 
 /obj/item/radio/dropped(mob/user)
 	..()
-	addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
+	if(!QDELETED(src))
+		addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
 
 /obj/item/radio/proc/droppedStopMusic(mob/user)
 	var/i

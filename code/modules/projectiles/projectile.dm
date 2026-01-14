@@ -694,6 +694,8 @@
 	var/old_px = pixel_x
 	var/old_py = pixel_y
 	for(var/i in 1 to times)
+		if(QDELETED(src) || !trajectory || !loc)
+			return
 		// HOMING START - Too expensive to proccall at this point.
 		if(homing_target)
 			// No datum/points, too expensive.
@@ -726,7 +728,8 @@
 					if(!T)
 						break  // Target turf became null, stop moving
 					CRASH("[type] took too long (allowed: [CEILING(pixel_increment_amount/world.icon_size,1)*10] moves) to get to its location.")
-				step_towards(src, T)
+				if(!step_towards(src, T))
+					break  // Projectile blocked or can't move, stop trying
 				if(QDELETED(src) || pixel_move_interrupted)		// this doesn't take into account with pixel_move_interrupted the portion of the move cut off by any forcemoves, but we're opting to ignore that for now
 				// the reason is the entire point of moving to pixel speed rather than tile speed is smoothness, which will be crucial when pixel movement is done in the future
 				// reverting back to tile is more or less the only way of fixing this issue.
@@ -737,7 +740,7 @@
 			if(QDELETED(src))
 				return
 			pixels_range_leftover -= world.icon_size
-	if(!hitscanning && !forcemoved)
+	if(!hitscanning && !forcemoved && trajectory && loc)
 		var/traj_px = round(trajectory.return_px(), 1)
 		var/traj_py = round(trajectory.return_py(), 1)
 		if(allow_animation && (pixel_increment_amount * times > MINIMUM_PIXELS_TO_ANIMATE))

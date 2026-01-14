@@ -37,6 +37,11 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	// Clear quirks to break circular references with mind
+	if(roundstart_quirks && roundstart_quirks.len)
+		for(var/datum/quirk/quirk in roundstart_quirks)
+			qdel(quirk)
+		roundstart_quirks = null
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	if(buckled)

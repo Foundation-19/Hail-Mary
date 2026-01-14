@@ -219,27 +219,27 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 		assemble_baseturfs()
 	if(fake_turf_type)
 		if(!new_baseturfs) // If no baseturfs list then we want to create one from the turf type
-			if(!length(baseturfs))
+			if(!islist(baseturfs))
 				baseturfs = list(baseturfs)
 			var/list/old_baseturfs = baseturfs.Copy()
 			if(!istype(src, /turf/closed))
 				old_baseturfs += type
 			newT = ChangeTurf(fake_turf_type, null, flags)
 			newT.assemble_baseturfs(initial(fake_turf_type.baseturfs)) // The baseturfs list is created like roundstart
-			if(!length(newT.baseturfs))
+			if(!islist(newT.baseturfs))
 				newT.baseturfs = list(newT.baseturfs)
 			newT.baseturfs -= GLOB.blacklisted_automated_baseturfs
 			newT.baseturfs.Insert(1, old_baseturfs) // The old baseturfs are put underneath
 			return newT
-		if(!length(baseturfs))
+		if(!islist(baseturfs))
 			baseturfs = list(baseturfs)
 		if(!istype(src, /turf/closed))
 			baseturfs += type
-		if(!length(new_baseturfs))
+		if(!islist(new_baseturfs))
 			new_baseturfs = list(new_baseturfs)
 		baseturfs += new_baseturfs
 		return ChangeTurf(fake_turf_type, null, flags)
-	if(!length(baseturfs))
+	if(!islist(baseturfs))
 		baseturfs = list(baseturfs)
 	if(!istype(src, /turf/closed))
 		baseturfs += type
