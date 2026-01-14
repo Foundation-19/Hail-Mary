@@ -206,10 +206,10 @@
 	list_reagents = list(/datum/reagent/medicine/fake_stimpak = 26)
 */
 /obj/item/reagent_containers/hypospray/medipen/stimpak/cheap
-	name = "cheap stimpak"
-	desc = "A homemade, handheld delivery system for medicine, used to heal minor physical damage to the body."
-	amount_per_transfer_from_this = 8
-	volume = 8
+	name = "homemade stimpak"
+	desc = "A handheld delivery system for medicine made of broc flower & xander root, used to heal minor physical damage to the body."
+	amount_per_transfer_from_this = 9
+	volume = 9
 	list_reagents = list(/datum/reagent/medicine/stimpak = 4, /datum/reagent/medicine/healing_powder = 2, /datum/reagent/medicine/bicaridine = 2, /datum/reagent/medicine/kelotane = 1)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak
