@@ -6897,13 +6897,6 @@
 	icon_state = "horizontalinnermain2"
 	},
 /area/f13/building/powered)
-"cnC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/shopkeeper,
-/turf/open/floor/f13{
-	icon_state = "yellowdirtyfull"
-	},
-/area/f13/holiday)
 "cnE" = (
 /obj/structure/table/reinforced,
 /turf/open/indestructible/ground/inside/mountain,
@@ -10770,6 +10763,11 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"dBd" = (
+/turf/closed/indestructible/f13/matrix/asphalt{
+	icon_state = "horizontaltopborderbottom2"
+	},
+/area/f13/tunnel)
 "dBq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -23218,13 +23216,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ambientlighting/building/d)
-"hJV" = (
-/obj/effect/landmark/start/f13/shopkeeper,
-/turf/open/floor/f13{
-	dir = 1;
-	icon_state = "yellowsiding"
-	},
-/area/f13/holiday)
 "hKf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/start/f13/ncrcombatmedic,
@@ -31185,6 +31176,11 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/village)
+"knR" = (
+/turf/closed/indestructible/f13/matrix/sidewalk{
+	icon_state = "horizontaltopbordertop0"
+	},
+/area/f13/tunnel)
 "koi" = (
 /turf/open/floor/wood_fancy,
 /area/f13/ncr/powered)
@@ -35297,6 +35293,7 @@
 /area/f13/wasteland/cold)
 "lFS" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/shopkeeper,
 /turf/open/floor/f13,
 /area/f13/holiday)
 "lFT" = (
@@ -36905,6 +36902,7 @@
 "mfH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rug/big/rug_rubber,
+/obj/effect/landmark/start/f13/shopkeeper,
 /turf/open/floor/f13,
 /area/f13/holiday)
 "mfL" = (
@@ -50188,6 +50186,11 @@
 	icon_state = "common_dark-broken5"
 	},
 /area/f13/holiday)
+"quG" = (
+/turf/closed/indestructible/f13/matrix/asphalt{
+	icon_state = "horizontalinnermain2"
+	},
+/area/f13/tunnel)
 "quK" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -63354,7 +63357,7 @@
 /area/f13/wasteland/powered)
 "uKd" = (
 /obj/structure/table/wood/settler,
-/obj/item/traumapack,
+/obj/item/storage/firstaid/bandagekit,
 /turf/open/floor/f13,
 /area/f13/holiday)
 "uKe" = (
@@ -71593,6 +71596,9 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/village)
+"xsv" = (
+/turf/closed/indestructible/f13/matrix/sidewalk,
+/area/f13/tunnel)
 "xsw" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -74533,16 +74539,16 @@ uHd
 uHd
 uHd
 tnk
-mYh
-mYh
-mYh
-mYh
-mYh
-mYh
-mYh
-mYh
-mYh
-mYh
+knR
+dBd
+quG
+quG
+quG
+quG
+quG
+quG
+quG
+xsv
 tnk
 aHr
 aHr
@@ -124034,7 +124040,7 @@ rFe
 rFe
 mFe
 aug
-cnC
+fEW
 qqt
 spW
 lFS
@@ -124550,7 +124556,7 @@ iwK
 lxS
 cMv
 wRn
-hJV
+tfI
 uKd
 pjb
 iwK
