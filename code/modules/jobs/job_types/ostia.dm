@@ -1,4 +1,4 @@
-/datum/job/CaesarsLegiontown
+/datum/job/ostia
 	faction = FACTION_LEGIONTOWN
 	total_positions = 0
 	spawn_positions = 0
@@ -6,7 +6,7 @@
 
 	forbids = "The Legion forbids: Using drugs such as stimpacks. Subject are allowed to drink alcohol, depending of who is in charge. Ostia aren't fans of ghouls. Slaves carrying weapons. Killing Legion members in secret, only if according to law and in public is it acceptable, only if a Decanus, Centurion, or Governor accept it. You are to respect your fellow subjects."
 
-/datum/job/CaesarsLegiontown/subject
+/datum/job/ostia/subject
 	title = "Legion Subject"
 	flag = F13OSTIASUBJECT
 	department_flag = OSTIA
@@ -16,7 +16,7 @@
 	supervisors = "You obey the Governor, and the legion military, whom you are also loyal to."
 	display_order = JOB_DISPLAY_ORDER_F13OSTIASUBJECT 
 	exp_requirements = 0
-	outfit = /datum/outfit/job/CaesarsLegiontown/subject
+	outfit = /datum/outfit/job/ostia/subject
 
 	loadout_options = list(
 		/datum/outfit/loadout/subjectoflegion,
@@ -36,15 +36,15 @@
 	access = list(ACCESS_LEGION, ACCESS_BAR, ACCESS_TOWN)
 	minimal_access = list(ACCESS_LEGION, ACCESS_BAR, ACCESS_TOWN)
 
-/datum/outfit/job/CaesarsLegiontown/subject/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ostia/subject/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_MARS_TEACH, src)
 
-/datum/outfit/job/CaesarsLegiontown/subject
+/datum/outfit/job/ostia/subject
 	name = "Legion Subject"
-	jobtype = /datum/outfit/job/CaesarsLegiontown/subject
+	jobtype = /datum/outfit/job/ostia/subject
 	id = /obj/item/card/id/dogtag/legimmune
 	uniform = /obj/item/clothing/under/civ/roman_centurion
 	shoes =	/obj/item/clothing/shoes/roman
@@ -89,7 +89,7 @@
 		/obj/item/lighter = 1,
 		)
 
-/datum/job/CaesarsLegiontown/governor
+/datum/job/ostia/governor
 	title = "Legion Governor of Ostia"
 	flag = F13OSTIAGOVERNOR
 	total_positions = 1
@@ -98,7 +98,7 @@
 	supervisors = "You have authority over non military matters."
 	display_order = JOB_DISPLAY_ORDER_F13OSTIAGOVERNOR
 	exp_requirements = 0
-	outfit = /datum/outfit/job/CaesarsLegiontown/governor
+	outfit = /datum/outfit/job/ostia/governor
 
 	loadout_options = list(
 		/datum/outfit/loadout/legionhero,
@@ -108,7 +108,7 @@
 	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
 
-/datum/outfit/job/CaesarsLegiontown/governor
+/datum/outfit/job/ostia/governor
 	id = /obj/item/card/id/dogtag/legion/centurion
 	ears = /obj/item/radio/headset/headset_legion
 	neck = /obj/item/storage/belt/holster
@@ -153,7 +153,7 @@
 		/obj/item/clothing/glasses/sunglasses/big = 1,
 		)
 
-/datum/outfit/job/CaesarsLegiontown/governor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ostia/governor/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -166,7 +166,7 @@
 
 //Shopkeep
 
-/datum/job/CaesarsLegiontown/legionshopkeeper
+/datum/job/ostia/legionshopkeeper
 	title = "Ostia Shopkeeper"
 	flag = F13OSTIASHOPKEEP
 	department_flag = OSTIA
@@ -178,7 +178,7 @@
 	selection_color = "#dcba97"
 	exp_requirements = 0
 	display_order = JOB_DISPLAY_ORDER_F13OSTIASHOPKEEP
-	outfit = /datum/outfit/job/CaesarsLegiontown/legionshopkeeper
+	outfit = /datum/outfit/job/ostia/legionshopkeeper
 	
 	access = list(ACCESS_LEGION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
 	minimal_access = list(ACCESS_LEGION, ACCESS_TOWN_MERCH, ACCESS_TOWN)
@@ -192,9 +192,9 @@
 		),
 	)
 
-/datum/outfit/job/CaesarsLegiontown/legionshopkeeper
+/datum/outfit/job/ostia/legionshopkeeper
 	name = "Ostia Shopkeeper"
-	jobtype = /datum/job/CaesarsLegiontown/legionshopkeeper
+	jobtype = /datum/job/ostia/legionshopkeeper
 	id = /obj/item/card/id/dogtag/legimmune
 	ears = /obj/item/radio/headset/headset_legion
 	belt = /obj/item/kit_spawner/townie
@@ -219,7 +219,7 @@
 		/obj/item/lighter = 1,
 		)
 
-/datum/outfit/job/CaesarsLegiontown/legionshopkeeper/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ostia/legionshopkeeper/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -249,14 +249,14 @@
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/super_capacitor)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ultra_micro_laser)
 
-/datum/outfit/job/CaesarsLegiontown/legionshopkeeper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ostia/legionshopkeeper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 //
 // RADIO HOST
 // 
-/datum/job/CaesarsLegiontown/legionradiohost
+/datum/job/ostia/legionradiohost
 	title = "Ostia Radio Host"
 	flag = F13OSTIARADIOHOST
 	display_order = JOB_DISPLAY_ORDER_F13OSTIARADIOHOST
@@ -273,7 +273,7 @@
 	access = list(ACCESS_LEGION, ACCESS_TOWN_CIV)
 	minimal_access = list(ACCESS_LEGION, ACCESS_TOWN_CIV)
 
-/datum/outfit/job/CaesarsLegiontown/legionradiohost
+/datum/outfit/job/ostia/legionradiohost
 	name = "Ostia Radio Host"
 	jobtype = /datum/job/eastwood/f13radio_host
 	id = /obj/item/card/id/dogtag/town
