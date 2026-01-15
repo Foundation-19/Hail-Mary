@@ -1547,11 +1547,11 @@ list(/obj/item/stack/sheet/metal = 20,
 	desc = "A box used by the BoS to store Blueprints. This one seems Important."
 
 /obj/item/storage/box/bos/knightcaptain/PopulateContents()
-	for(var/i in 1 to 3)
+	for(var/i in 1 to 4)
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver,
 							/obj/item/book/granter/crafting_recipe/blueprint/r82,
-							/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
+							/obj/item/book/granter/crafting_recipe/blueprint/neostead,
 							/obj/item/book/granter/crafting_recipe/blueprint/deagle,
 							/obj/item/book/granter/crafting_recipe/blueprint/trapper,
 							/obj/item/book/granter/crafting_recipe/blueprint/armalite,
