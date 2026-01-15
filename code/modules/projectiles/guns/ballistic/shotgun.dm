@@ -250,7 +250,7 @@
 	desc = "A traditional hunting shotgun with wood furniture and a four-shell capacity underneath."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "hunting_shotgun"
-	item_state = "hunting_shotgun"
+	item_state = "shotgunpump"
 	icon_prefix = "shotgunpump"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 	weapon_class = WEAPON_CLASS_RIFLE
