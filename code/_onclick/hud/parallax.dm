@@ -44,6 +44,8 @@
 	if(!C)
 		return
 	C.screen -= (C.parallax_layers_cached)
+	QDEL_LIST(C.parallax_layers_cached)
+	C.parallax_layers_cached = null
 	if(!screenmob.hud_used)
 		return
 	var/obj/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
@@ -105,6 +107,8 @@
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
+			if(!L)
+				continue
 			L.icon_state = initial(L.icon_state)
 			L.update_o(C.view)
 			var/T = PARALLAX_LOOP_TIME / L.speed
@@ -128,6 +132,8 @@
 	if(!skip_windups)
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
+			if(!L)
+				continue
 
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if (isnull(shortesttimer))
@@ -156,6 +162,8 @@
 	C.parallax_animate_timer = FALSE
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
+		if (!L)
+			continue
 		if (!new_parallax_movedir)
 			animate(L)
 			continue
@@ -173,6 +181,8 @@
 
 /datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
+	if(!C)
+		return
 	var/turf/posobj = get_turf(C.eye)
 	if(!posobj)
 		return

@@ -89,7 +89,11 @@
 			to_chat(src, span_boldannounce("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
 			ghostize()
 			stack_trace("Borg MMI lacked a brainmob")
-		mmi = null
+	// Clean up MMI reference - breaking circular chain for GC
+	if(mmi)
+		if(mmi.brainmob)
+			mmi.brainmob.container = null
+		QDEL_NULL(mmi)
 	//CITADEL EDIT: Cyborgs drop encryption keys on destroy
 	if(istype(radio) && istype(radio.keyslot))
 		radio.keyslot.forceMove(T)

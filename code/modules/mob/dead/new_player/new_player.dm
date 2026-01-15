@@ -632,8 +632,13 @@
 		if(QDELETED(src))
 			return
 	if(frn)
+		if(!client)
+			return
 		client.prefs.random_character()
 		client.prefs.real_name = client.prefs.pref_species.random_name(gender,1)
+	if(!client)
+		qdel(H)
+		return
 	var/cur_scar_index = client.prefs.scars_index
 	if(client.prefs.persistent_scars && client.prefs.scars_list["[cur_scar_index]"])
 		var/scar_string = client.prefs.scars_list["[cur_scar_index]"]

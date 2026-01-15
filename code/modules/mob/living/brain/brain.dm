@@ -37,6 +37,10 @@
 			mind.current = null
 			mind.active = FALSE		//No one's using it anymore.
 		ghostize()		//Ghostize checks for key so nothing else is necessary.
+	// Clean up MMI reference to break circular chain
+	if(container && istype(container, /obj/item/mmi))
+		var/obj/item/mmi/M = container
+		M.brainmob = null
 	container = null
 	return ..()
 

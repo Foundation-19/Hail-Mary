@@ -566,10 +566,10 @@
 		stack_trace("WARNING: Projectile [type] fired without a valid location!")
 		qdel(src)
 		return
-	if(original)
-		if(starting.z > original?.z)
+	if(original && isatom(original))
+		if(starting.z > original.z)
 			starting  = SSmapping.get_turf_below(starting)
-		if(starting.z < original?.z)
+		if(starting.z < original.z)
 			starting  = SSmapping.get_turf_above(starting)
 	if(isnull(Angle))	//Try to resolve through offsets if there's no angle set.
 		if(isnull(xo) || isnull(yo))
