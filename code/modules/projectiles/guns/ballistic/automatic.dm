@@ -580,7 +580,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_T1
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm300,
 		/datum/firemode/semi_auto/faster
 	)
 	silenced = TRUE
@@ -607,7 +607,7 @@
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
+		/datum/firemode/automatic/rpm400,
 		/datum/firemode/semi_auto/fast
 	)
 	scope_state = "AEP7_scope"
@@ -1378,8 +1378,8 @@
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	weapon_weight = GUN_TWO_HAND_ONLY
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
@@ -2134,8 +2134,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
-		/datum/firemode/burst/two/slow
+		/datum/firemode/automatic/rpm200,
 	)
 	zoomable = TRUE
 	fire_sound = 'sound/f13weapons/bozar_fire.ogg'
@@ -2351,7 +2350,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/burst/three/slow,
+		/datum/firemode/burst/five/slow,
 		/datum/firemode/semi_auto
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -2359,9 +2358,9 @@
 
 //worn g11
 
-/obj/item/gun/ballistic/automatic/g11/tox
-	name = "Tox's G11M"
-	desc = "A unique G11. With a built in scope and semi-automatic only option, this G11 was bought and repurposed by a wealthy felid named Tox Mckit. Etched on the reciever is a lovely motif of moths and felines surrounding one singular feline under a full moon. On the scope is a engraving that says 'To the sands we stride on'"
+/obj/item/gun/ballistic/automatic/g11/worn
+	name = "Worn G11"
+	desc = "With a built in scope and semi-automatic only option, this G11 was unfortunately acquired and 'repurposed' by a gunsmith who botched the job. Etched on the reciever is a crude attempt at a peace sign, go figure."
 	icon_state = "g11"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/m473
@@ -2376,7 +2375,7 @@
 		/datum/firemode/semi_auto
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
-	can_scope = FALSE
+	can_scope = TRUE
 	zoom_factor = 1
 /* * * * * * * * * * *
  * WT-550 Carbine

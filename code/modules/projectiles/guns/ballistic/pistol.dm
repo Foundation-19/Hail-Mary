@@ -383,6 +383,7 @@
 		/datum/firemode/semi_auto/fast
 	)
 
+/*
 // Tox's C96. slightly less damage for a 9mm pistol, but bigger magazine and better recoil
 /obj/item/gun/ballistic/automatic/pistol/type17/c96auto/tox
 	name = "Tox's C96"
@@ -390,7 +391,7 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
 	)
-
+*/
 /* * * * * * * * * * *
  * Sig P220
  * Light Mediumer pistol
