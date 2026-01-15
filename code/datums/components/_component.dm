@@ -302,14 +302,22 @@
 		var/datum/C = target
 		if(!C.signal_enabled)
 			return NONE
+		if(!C.signal_procs?[src])
+			return NONE
 		var/proctype = C.signal_procs[src][sigtype]
+		if(!proctype)
+			return NONE
 		return NONE | CallAsync(C, proctype, arguments)
 	. = NONE
 	for(var/I in target)
 		var/datum/C = I
 		if(!C.signal_enabled)
 			continue
+		if(!C.signal_procs?[src])
+			continue
 		var/proctype = C.signal_procs[src][sigtype]
+		if(!proctype)
+			continue
 		. |= CallAsync(C, proctype, arguments)
 
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
