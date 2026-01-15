@@ -232,7 +232,9 @@
 	show_to(O)
 
 /obj/item/book/proc/show_to(mob/user)
-	user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
+    var/book_header = "<h3>Penned by <i>[author]</i></h3><hr>"
+    var/full_content = HTML_SKELETON_TITLE("[title] - [author]", book_header + "[dat]")
+    user << browse(full_content, "window=book[window_size != null ? ";size=[window_size]" : ""]")
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen))
