@@ -381,8 +381,6 @@
 				/obj/effect/spawner/bundle/f13/armor/riot,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark,
-				/obj/effect/spawner/bundle/f13/armor/excavator,
-				/obj/effect/spawner/bundle/f13/armor/hotrodpa,
 				/obj/effect/spawner/bundle/f13/armor/combatduster,
 				)
 
@@ -391,6 +389,8 @@
 	loot = list(
 				/obj/effect/spawner/bundle/f13/armor/t45d,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2,
+				/obj/effect/spawner/bundle/f13/armor/excavator,
+				/obj/effect/spawner/bundle/f13/armor/hotrodpa,
 				/obj/effect/spawner/bundle/f13/armor/shocktrooper,
 				)
 
