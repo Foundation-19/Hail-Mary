@@ -56,17 +56,26 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	// CRITICAL: Pre-cleanup - Remove from global human list and cleanup items BEFORE parent
 	// This prevents components from trying to re-add items during their destruction
 	GLOB.human_list -= src
-	
+
 	// Pre-cleanup: Destroy all worn/equipped items BEFORE parent destroy
 	// This prevents storage components from trying to return items to the mob
-	QDEL_NULL(wear_suit)
-	QDEL_NULL(w_uniform)
-	QDEL_NULL(belt)
-	QDEL_NULL(wear_id)
-	QDEL_NULL(r_store)
-	QDEL_NULL(l_store)
-	QDEL_NULL(s_store)
-	
+	// Explicitly qdel all items in all equipment slots to guarantee deletion
+	if(wear_suit) qdel(wear_suit)
+	if(w_uniform) qdel(w_uniform)
+	if(belt) qdel(belt)
+	if(wear_id) qdel(wear_id)
+	if(r_store) qdel(r_store)
+	if(l_store) qdel(l_store)
+	if(s_store) qdel(s_store)
+	if(back) qdel(back)
+	if(head) qdel(head)
+	if(wear_mask) qdel(wear_mask)
+	if(wear_neck) qdel(wear_neck)
+	if(glasses) qdel(glasses)
+	if(ears) qdel(ears)
+	if(gloves) qdel(gloves)
+	if(shoes) qdel(shoes)
+
 	// Call parent AFTER item cleanup to properly clean up all signals and components
 	// This allows the component system to properly disconnect listeners
 	// since items they might reference are already gone

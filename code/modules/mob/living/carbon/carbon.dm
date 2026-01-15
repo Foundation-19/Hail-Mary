@@ -40,6 +40,11 @@
 	if(client)
 		addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 0, TIMER_DELETE_ME)
 
+	// 6. Delete equipped items in belt, backpack, pocket, and other slots
+	for(var/obj/item/I in get_equipped_items(TRUE))
+		if(I)
+			qdel(I)
+
 /mob/living/carbon/proc/defer_hud_cleanup()
 	// Deferred HUD cleanup (non-critical, can smooth GC)
 	if(!src || QDELETED(src))
