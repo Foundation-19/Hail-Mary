@@ -94,6 +94,16 @@
 		if(mmi.brainmob)
 			mmi.brainmob.container = null
 		QDEL_NULL(mmi)
+	// Null out references for GC
+	cell = null
+	wires = null
+	radio = null
+	module = null
+	builtInCamera = null
+	aicamera = null
+	spark_system = null
+	robot_modules_background = null
+	equippable_hats = null
 	//CITADEL EDIT: Cyborgs drop encryption keys on destroy
 	if(istype(radio) && istype(radio.keyslot))
 		radio.keyslot.forceMove(T)

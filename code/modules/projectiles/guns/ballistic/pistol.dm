@@ -27,6 +27,16 @@
 		/datum/firemode/semi_auto/fast
 	)
 
+// Improve GC by nulling out references
+/obj/item/gun/ballistic/automatic/pistol/Destroy()
+	mag_type = null
+	disallowed_mags = null
+	init_firemodes = null
+	fire_sound = null
+	suppressor_state = null
+	// Null out other custom references if needed
+	return ..()
+
 /obj/item/gun/ballistic/automatic/pistol/no_mag
 	spawnwithmagazine = FALSE
 

@@ -73,6 +73,14 @@
 	px_y = 0
 	stam_heal_tick = STAM_RECOVERY_LIMB
 
+	// Improve GC by nulling out references
+/obj/item/bodypart/l_arm/Destroy()
+	owner = null
+	aux_icons = null
+	attack_verb = null
+	// Null out other custom references if needed
+	return ..()
+
 /obj/item/bodypart/l_arm/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_ARM))
 		return BODYPART_DISABLED_PARALYSIS
@@ -136,6 +144,14 @@
 	stam_heal_tick = STAM_RECOVERY_LIMB
 	max_stamina_damage = 50
 
+	// Improve GC by nulling out references
+/obj/item/bodypart/r_arm/Destroy()
+	owner = null
+	aux_icons = null
+	attack_verb = null
+	// Null out other custom references if needed
+	return ..()
+
 /obj/item/bodypart/r_arm/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
 		return BODYPART_DISABLED_PARALYSIS
@@ -196,6 +212,14 @@
 	stam_heal_tick = STAM_RECOVERY_LIMB
 	max_stamina_damage = 50
 
+	// Improve GC by nulling out references
+/obj/item/bodypart/l_leg/Destroy()
+	owner = null
+	aux_icons = null
+	attack_verb = null
+	// Null out other custom references if needed
+	return ..()
+
 /obj/item/bodypart/l_leg/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))
 		return BODYPART_DISABLED_PARALYSIS
@@ -252,6 +276,14 @@
 	px_y = 12
 	max_stamina_damage = 50
 	stam_heal_tick = STAM_RECOVERY_LIMB
+
+	// Improve GC by nulling out references
+/obj/item/bodypart/r_leg/Destroy()
+	owner = null
+	aux_icons = null
+	attack_verb = null
+	// Null out other custom references if needed
+	return ..()
 
 /obj/item/bodypart/r_leg/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_LEG))

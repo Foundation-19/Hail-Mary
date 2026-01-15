@@ -127,7 +127,12 @@
 
 /obj/structure/spider/spiderling/Destroy()
 	// Remove from swarming component to break parent references
-	RemoveElement(/datum/component/swarming)
+	RemoveComponentByType(/datum/component/swarming)
+	entry_vent = null
+	grow_as = null
+	directive = null
+	faction = null
+	// Null out other custom references if needed
 	new/obj/item/reagent_containers/food/snacks/spiderling(get_turf(src))
 	. = ..()
 

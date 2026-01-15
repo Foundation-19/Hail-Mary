@@ -38,6 +38,12 @@
 			mind.active = FALSE		//No one's using it anymore.
 		ghostize()		//Ghostize checks for key so nothing else is necessary.
 	// Clean up MMI reference to break circular chain
+	container = null
+	stored_dna = null
+	mind = null
+	possible_a_intents = null
+	speech_span = null
+	// Null out other custom references if needed
 	if(container && istype(container, /obj/item/mmi))
 		var/obj/item/mmi/M = container
 		M.brainmob = null
