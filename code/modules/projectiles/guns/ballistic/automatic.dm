@@ -2643,6 +2643,8 @@
 	name = "\improper M72 gauss rifle"
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "gaussf2"
 	item_state = "gaussrifle"
 	slot_flags = ITEM_SLOT_BACK
