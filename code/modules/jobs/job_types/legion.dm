@@ -941,7 +941,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/datum/outfit/loadout/primelancer,	// Gladius, Buckler, Bola.
 		/datum/outfit/loadout/primeclang,	// Bumper Sword, Firebomb
 		/datum/outfit/loadout/primebrave,	// Sledgehammer, Throwing spears
-		/datum/outfit/loadout/primerifle,	// Captured NCR rifle, maybe special version in the future
 		)
 
 	matchmaking_allowed = list(
@@ -998,15 +997,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	suit_store = /obj/item/twohanded/sledgehammer/simple
 	backpack_contents = list(
 		/obj/item/storage/backpack/spearquiver = 1,
-		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
-		)
-
-/datum/outfit/loadout/primerifle
-	name = "Gunner"
-	suit_store = /obj/item/gun/ballistic/automatic/service
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle = 3,
-		/obj/item/melee/onehanded/knife/bayonet = 1,
 		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
 		)
 
