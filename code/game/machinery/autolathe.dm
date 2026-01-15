@@ -74,6 +74,9 @@
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
+	QDEL_NULL(stored_research)  // Clean up techweb datum
+	QDEL_NULL(being_built)      // Clear current design
+	QDEL_LIST(matching_designs) // Clear design list
 	return ..()
 
 /obj/machinery/autolathe/ui_interact(mob/user)

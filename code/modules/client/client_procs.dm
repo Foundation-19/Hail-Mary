@@ -637,6 +637,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	if(CONFIG_GET(flag/age_verification)) //setup age verification
 		if(!set_db_player_flags())
 			message_admins(usr, span_danger("ERROR: Unable to read player flags from database. Please check logs."))
+			qdel(query_client_in_db)
 			return
 		else
 			var/dbflags = prefs.db_flags

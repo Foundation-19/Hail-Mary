@@ -198,6 +198,8 @@
 
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
+		if(!L)
+			continue
 		L.update_status(mymob)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)

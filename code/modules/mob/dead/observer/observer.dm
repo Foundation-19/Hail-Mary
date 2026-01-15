@@ -168,6 +168,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	QDEL_NULL(orbit_menu)
 	QDEL_NULL(spawners_menu)
+
+	// Clean up client screen objects to prevent orphaned UI elements
+	if(client)
+		QDEL_LIST(client.screen)
+		client.screen = null
+
 	return ..()
 
 /mob/dead/CanAllowThrough(atom/movable/mover, border_dir)

@@ -162,7 +162,7 @@ GLOBAL_PROTECT(exp_to_update)
 		"SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
-	if(!exp_read || !exp_read.Execute(async = TRUE))
+	if(!exp_read || !exp_read.Execute(async = FALSE))
 		qdel(exp_read)
 		return -1
 	var/list/play_records = list()
@@ -286,7 +286,7 @@ GLOBAL_PROTECT(exp_to_update)
 	if(!flags_read)
 		return FALSE
 
-	if(!flags_read.Execute(async = TRUE))
+	if(!flags_read.Execute(async = FALSE))
 		qdel(flags_read)
 		return FALSE
 

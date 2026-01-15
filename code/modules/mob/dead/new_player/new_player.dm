@@ -37,6 +37,12 @@
 	if(mind)
 		mind.current = null
 		mind = null
+
+	// Clean up client screen objects to prevent orphaned UI elements
+	if(client)
+		QDEL_LIST(client.screen)
+		client.screen = null
+
 	return ..()
 
 /mob/dead/new_player/prepare_huds()
@@ -520,7 +526,8 @@
 		humanc = character	//Let's retypecast the var to be human,
 
 	if(humanc)	//These procs all expect humans
-		GLOB.data_core.manifest_inject(humanc, humanc.client, humanc.client.prefs)
+		if(humanc.client)
+			GLOB.data_core.manifest_inject(humanc, humanc.client, humanc.client.prefs)
 		if(SSshuttle.arrivals)
 			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
 		else
@@ -552,8 +559,9 @@
 						SSticker.mode.make_antag_chance(humanc)
 
 	if(humanc && CONFIG_GET(flag/roundstart_traits))
-		SSquirks.AssignQuirks(humanc, humanc.client, TRUE, FALSE, job, FALSE)
-	if(humanc.client && humanc.ckey == "tk420634")
+		if(humanc.client)
+			SSquirks.AssignQuirks(humanc, humanc.client, TRUE, FALSE, job, FALSE)
+	if(humanc && humanc.client && humanc.ckey == "tk420634")
 		humanc.client.deadmin()
 
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
