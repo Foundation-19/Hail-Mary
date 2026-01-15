@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(statpanels)
 	while(length(currentrun))
 		var/client/target = currentrun[length(currentrun)]
 		currentrun.len--
+		if(!target)
+			continue
 		// Send map/server data to ALL clients (cheap operation)
 		// Only send expensive per-mob data when viewing Status tab
 		var/ping_str = url_encode("Ping: [round(target.lastping, 1)]ms (Average: [round(target.avgping, 1)]ms)")
