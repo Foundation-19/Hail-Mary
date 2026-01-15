@@ -2349,6 +2349,8 @@
 /obj/item/gun/ballistic/automatic/g11
 	name = "G11"
 	desc = "This experimental gun fires a caseless cartridge consisting of a block of propellant with a bullet buried inside. The weight and space savings allows for a very high magazine capacity. Chambered in 4.73mm."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "g11"
 	item_state = "h&kg11"
 	mag_type = /obj/item/ammo_box/magazine/m473
