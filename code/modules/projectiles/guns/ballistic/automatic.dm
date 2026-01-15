@@ -520,6 +520,8 @@
 /obj/item/gun/ballistic/automatic/smg/p90
 	name = "FN P90c"
 	desc = "The Fabrique Nationale P90c was just coming into use at the time of the war. The weapon's bullpup layout, and compact design, make it easy to control. The durable P90c is prized for its reliability, and high firepower in a ruggedly-compact package. Chambered in 10mm."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "p90"
 	item_state = "m90"
 	mag_type = /obj/item/ammo_box/magazine/m10mm_p90
