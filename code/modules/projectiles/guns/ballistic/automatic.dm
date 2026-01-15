@@ -1379,7 +1379,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
