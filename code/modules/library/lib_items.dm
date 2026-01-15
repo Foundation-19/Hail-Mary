@@ -232,9 +232,11 @@
 	show_to(O)
 
 /obj/item/book/proc/show_to(mob/user)
-    var/book_header = "<h3>Penned by <i>[author]</i></h3><hr>"
-    var/full_content = HTML_SKELETON_TITLE("[title] - [author]", book_header + "[dat]")
-    user << browse(full_content, "window=book[window_size != null ? ";size=[window_size]" : ""]")
+	// Fixes BYOND 516+ book display (requires WebView2)
+	// Wraps legacy <TT> content in HTML5 skeleton for Chromium compatibility
+	var/book_header = "<h3>Penned by <i>[author]</i></h3><hr>"
+	var/full_content = HTML_SKELETON_TITLE("[title] - [author]", book_header + "[dat]")
+	user << browse(full_content, "window=book[window_size != null ? ";size=[window_size]" : ""]")
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen))
