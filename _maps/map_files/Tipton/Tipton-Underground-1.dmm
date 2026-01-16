@@ -15803,8 +15803,10 @@
 /area/f13/sewer/powered)
 "lRe" = (
 /obj/effect/decal/cleanable/blood/gibs/human,
-/mob/living/simple_animal/hostile/chinese,
 /obj/item/smithing/shovelhead,
+/mob/living/simple_animal/hostile/chinese{
+	faction = list("raider")
+	},
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelrusty"
 	},
@@ -18009,9 +18011,11 @@
 /area/f13/sewer/powered)
 "nyC" = (
 /obj/effect/decal/cleanable/blood/gibs/human/body,
-/mob/living/simple_animal/hostile/chinese,
 /obj/effect/decal/cleanable/glass,
 /obj/effect/spawner/lootdrop/f13/alcoholspawner/empty,
+/mob/living/simple_animal/hostile/chinese{
+	faction = list("raider")
+	},
 /turf/open/floor/f13/red,
 /area/f13/bunker)
 "nyY" = (
@@ -20163,7 +20167,9 @@
 /obj/structure/chair/wood{
 	dir = 8
 	},
-/mob/living/simple_animal/hostile/chinese/ranged,
+/mob/living/simple_animal/hostile/chinese/ranged{
+	faction = list("raider")
+	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/carpet/green,
 /area/f13/bunker)
@@ -27130,8 +27136,10 @@
 	},
 /area/f13/bunker/bunkernine)
 "upK" = (
-/mob/living/simple_animal/hostile/chinese,
 /obj/effect/spawner/lootdrop/f13/alcoholspawner/empty,
+/mob/living/simple_animal/hostile/chinese{
+	faction = list("raider")
+	},
 /turf/open/floor/f13/red,
 /area/f13/bunker)
 "upO" = (
