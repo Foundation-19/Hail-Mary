@@ -1403,13 +1403,13 @@
 /obj/item/gun/ballistic/automatic/marksman/worn
 	name = "battle-worn marksman carbine"
 	desc = "A marksman carbine built off the AR platform chambered in 5.56x45. Seen heavy usage in pre-war conflicts. This particular model is a civilian version and is semi-auto only. This one seems worn with time..."
-	icon_state = "marksman_rifle"
+	icon_state = "marksman_carbine"
 	item_state = "marksman"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = RIFLE_RECOIL(1.4)
 	init_firemodes = list(
 		/datum/firemode/semi_auto
@@ -1776,7 +1776,7 @@
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
-	init_recoil = RIFLE_RECOIL(0.9)
+	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm250,
 		/datum/firemode/semi_auto
@@ -2351,7 +2351,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/burst/three/slow,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
