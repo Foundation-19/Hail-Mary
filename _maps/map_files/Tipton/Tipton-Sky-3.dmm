@@ -139,8 +139,7 @@
 /area/f13/building)
 "agh" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/structure/barricade/tentclothedge{
 	pixel_y = -3;
@@ -174,8 +173,7 @@
 /area/f13/legioncamp)
 "ahO" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -774,8 +772,7 @@
 /area/f13/holiday)
 "aPX" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/structure/closet/crate,
 /obj/effect/spawner/lootdrop/trash,
@@ -830,30 +827,12 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building/powered)
-"aSr" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold/power)
 "aSL" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/landmark/start/f13/recleg,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
-"aTs" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/wasteland/cold)
 "aTu" = (
 /obj/structure/bookcase{
 	icon_state = "book-5"
@@ -925,13 +904,6 @@
 "aXb" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/building/powered)
-"aXn" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/wasteland/cold)
 "aXO" = (
 /obj/structure/barricade/wooden/strong,
 /turf/closed/wall/f13/store,
@@ -1004,12 +976,10 @@
 /area/f13/building/powered)
 "bbr" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
@@ -1242,8 +1212,7 @@
 /area/f13/building/powered)
 "bmK" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/cold/power)
@@ -1281,8 +1250,7 @@
 	density = 0
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
@@ -1410,8 +1378,7 @@
 /area/f13/holiday)
 "buz" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -1622,13 +1589,6 @@
 	baseturfs = /turf/open/water/river/notdeep
 	},
 /area/f13/wasteland/cold)
-"bGV" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
 "bHe" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 1
@@ -1766,9 +1726,7 @@
 "bNT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side{
 	dir = 1
 	},
@@ -2076,8 +2034,7 @@
 /area/f13/building)
 "cfl" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -2465,8 +2422,7 @@
 /area/f13/building)
 "crf" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/decal/cleanable/dirt{
@@ -2549,8 +2505,7 @@
 /area/f13/building/powered)
 "cvv" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/machinery/hydroponics/soil,
 /obj/structure/flora/wasteplant/wild_broc,
@@ -2777,8 +2732,7 @@
 /area/f13/building/powered)
 "cDP" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/floor/plating/f13/outside/roof,
@@ -2883,13 +2837,6 @@
 /obj/machinery/light/small,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"cHM" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/wasteland/cold)
 "cHT" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet,
@@ -2951,13 +2898,6 @@
 	icon_state = "housewood1-broken"
 	},
 /area/f13/building/powered)
-"cKQ" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/brotherhood/powered)
 "cLo" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -3219,8 +3159,7 @@
 /area/f13/brotherhood/powered)
 "cXz" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -3619,13 +3558,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/holiday)
-"dnm" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold/power)
 "dnL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_worn{
@@ -3679,13 +3611,6 @@
 	icon_state = "bar"
 	},
 /area/f13/holiday)
-"dqB" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
 "dqP" = (
 /turf/open/floor/carpet,
 /area/f13/ncr/powered)
@@ -3895,8 +3820,7 @@
 /area/f13/building)
 "dCH" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/building/powered)
@@ -3965,8 +3889,7 @@
 /area/f13/legioncamp)
 "dEM" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
@@ -4169,13 +4092,6 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/building/powered)
-"dNO" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
 "dOr" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -4284,13 +4200,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building/powered)
-"dUE" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/building)
 "dUI" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housebase1-broken"
@@ -4442,8 +4351,7 @@
 /area/f13/building/powered)
 "eeo" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
@@ -4477,13 +4385,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/building/powered)
-"efy" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
 "egz" = (
 /obj/structure/bookshelf{
 	icon_state = "book-3"
@@ -4622,9 +4523,9 @@
 /area/f13/holiday)
 "emb" = (
 /obj/structure/table/wood,
-/obj/item/paper_bin,
-/obj/item/pen/fountain,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paper_bin/rust,
+/obj/item/pen/fountain,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
 "eml" = (
@@ -4894,13 +4795,6 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/holiday)
-"ewh" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/metal,
-/area/f13/wasteland/cold)
 "ews" = (
 /obj/structure/dresser,
 /turf/open/floor/f13/wood,
@@ -5022,8 +4916,7 @@
 /area/f13/building/powered)
 "eEl" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
@@ -5092,13 +4985,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/brotherhood/powered)
-"eIe" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/wasteland/cold)
 "eIj" = (
 /obj/structure/chair/sofa/corp/left,
 /obj/effect/decal/cleanable/dirt{
@@ -5275,8 +5161,7 @@
 /area/f13/holiday)
 "eOt" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof/wood,
@@ -5476,8 +5361,7 @@
 /area/f13/village)
 "fbo" = (
 /obj/structure/chair/f13chair2{
-	dir = 4;
-	icon_state = "f13chair2"
+	dir = 4
 	},
 /turf/open/floor/f13{
 	icon_state = "darkrusty"
@@ -5733,13 +5617,6 @@
 /obj/item/book/manual/wiki/cit/chemistry,
 /turf/open/floor/wood_wide,
 /area/f13/building/powered)
-"fkn" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
 "flK" = (
 /obj/structure/simple_door/tentflap_cloth,
 /turf/open/floor/plating/dirt,
@@ -5857,8 +5734,7 @@
 /area/f13/building/powered)
 "frt" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -5880,8 +5756,7 @@
 /area/f13/legioncamp)
 "frJ" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/destructible/tribal_torch/wall/lit,
@@ -5972,12 +5847,10 @@
 /area/f13/wasteland/cold)
 "ftU" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
@@ -6347,8 +6220,7 @@
 /area/f13/wasteland/cold)
 "fMi" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/wasteland/cold)
@@ -6648,8 +6520,7 @@
 /area/f13/wasteland/cold)
 "gbZ" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
@@ -6876,13 +6747,6 @@
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
-"gnh" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
 "gnl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -6961,8 +6825,7 @@
 /area/f13/building/powered)
 "gss" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
@@ -7042,15 +6905,6 @@
 /obj/effect/spawner/lootdrop/f13/seedspawner,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"gwc" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
-	},
-/turf/open/indestructible/ground/outside/sidewalk{
-	icon_state = "verticaloutermain0"
-	},
-/area/f13/wasteland/cold/power)
 "gwq" = (
 /obj/structure/toilet{
 	dir = 4;
@@ -7077,8 +6931,7 @@
 /area/f13/building/powered)
 "gwL" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
@@ -7148,8 +7001,7 @@
 /area/f13/building/powered)
 "gBQ" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/structure/railing{
 	color = "#A47449";
@@ -7302,12 +7154,10 @@
 /area/f13/holiday)
 "gHx" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
@@ -7399,13 +7249,6 @@
 	},
 /turf/open/floor/plating,
 /area/f13/village)
-"gKB" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/wasteland/cold)
 "gLh" = (
 /obj/structure/table/wood,
 /obj/item/pda,
@@ -7414,12 +7257,10 @@
 /area/f13/legioncamp)
 "gMf" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -7611,8 +7452,7 @@
 "gZa" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/toilet{
-	dir = 8;
-	icon_state = "toilet00"
+	dir = 8
 	},
 /turf/open/floor/f13{
 	icon_state = "bar"
@@ -7675,13 +7515,6 @@
 /obj/effect/turf_decal/bot,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/powered)
-"hdH" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/building)
 "hdO" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/dresser,
@@ -7690,8 +7523,7 @@
 /area/f13/building)
 "hez" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /mob/living/simple_animal/hostile/stalker{
 	faction = list("raider")
@@ -7726,8 +7558,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
@@ -7844,8 +7675,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
@@ -8203,8 +8033,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/wasteland/cold)
@@ -8257,9 +8086,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
 "hES" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /turf/open/floor/plating/dirt,
 /area/f13/legioncamp)
 "hET" = (
@@ -8500,16 +8327,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"hQR" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 9
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold/power)
 "hQV" = (
 /obj/structure/fluff/hedge/opaque{
 	opacity = 0
@@ -8586,9 +8403,7 @@
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
 "hXq" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "hXD" = (
@@ -8882,13 +8697,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
-"ilC" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
 "imo" = (
 /obj/structure/bed/wooden,
 /obj/item/bedsheet/syndie,
@@ -9350,8 +9158,7 @@
 /area/f13/holiday)
 "iHf" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -9480,8 +9287,7 @@
 /area/f13/village)
 "iMu" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/structure/fence/wooden{
 	dir = 4;
@@ -9550,9 +9356,7 @@
 /obj/structure/curtain{
 	color = "#845f58"
 	},
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side,
 /area/f13/legioncamp)
@@ -10002,8 +9806,7 @@
 /area/f13/building/powered)
 "joa" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/cold/power)
@@ -10065,13 +9868,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/powered)
-"jsT" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
 "jti" = (
 /turf/open/indestructible/ground/outside/snow{
 	icon_state = "snow3"
@@ -10100,8 +9896,7 @@
 /area/f13/ncr/powered)
 "jvx" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
+	dir = 4
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
@@ -10234,8 +10029,7 @@
 	pixel_y = 25
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold)
@@ -10329,13 +10123,6 @@
 	icon_state = "housewood1-broken"
 	},
 /area/f13/building/powered)
-"jFJ" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold/power)
 "jFS" = (
 /obj/item/twohanded/required/kirbyplants/random,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -10543,8 +10330,7 @@
 /area/f13/holiday)
 "jNc" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/cold/power)
@@ -10854,8 +10640,7 @@
 /area/f13/holiday)
 "kdn" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/structure/reagent_dispensers/compostbin,
 /obj/structure/destructible/tribal_torch/wall/lit,
@@ -10968,8 +10753,7 @@
 /area/f13/building)
 "klj" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
+	dir = 4
 	},
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
@@ -11174,12 +10958,10 @@
 /area/f13/legioncamp)
 "kuX" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/wasteland/cold)
@@ -11333,8 +11115,7 @@
 /area/f13/building/powered)
 "kEy" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -11449,8 +11230,7 @@
 /area/f13/building/powered)
 "kIj" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/structure/fence/wooden,
 /turf/open/floor/plating/f13/outside/roof/wood/old,
@@ -11504,8 +11284,7 @@
 /area/f13/holiday)
 "kJj" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/machinery/hydroponics/soil,
 /turf/open/floor/plating/dirt,
@@ -11577,12 +11356,10 @@
 /area/f13/building)
 "kNo" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -11662,8 +11439,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -11717,8 +11493,7 @@
 /area/f13/building)
 "kTt" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
@@ -11830,8 +11605,7 @@
 /area/f13/building)
 "kYi" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
+	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -11925,13 +11699,6 @@
 /obj/item/clothing/shoes/f13/rag,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"lcF" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
 "ldB" = (
 /obj/structure/railing/tg{
 	dir = 4;
@@ -11944,15 +11711,13 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
 "ldL" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	icon_state = "wooden_chair_settler"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -12042,8 +11807,7 @@
 /area/f13/building/powered)
 "lhZ" = (
 /obj/structure/toilet{
-	dir = 8;
-	icon_state = "toilet00"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13{
@@ -12160,8 +11924,7 @@
 /area/f13/building/powered)
 "lnl" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain0"
@@ -12229,8 +11992,7 @@
 /area/f13/holiday)
 "lrd" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
+	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/wasteland/cold/power)
@@ -12296,8 +12058,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -12360,9 +12121,7 @@
 	},
 /area/f13/building/powered)
 "luC" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /obj/structure/curtain{
 	color = "#845f58"
 	},
@@ -12479,8 +12238,7 @@
 	dir = 9
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -12517,8 +12275,7 @@
 /area/f13/wasteland/cold)
 "lBD" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/wasteland/cold)
@@ -12874,8 +12631,7 @@
 	pixel_y = 21
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
@@ -13284,8 +13040,7 @@
 /area/f13/tunnel)
 "mnO" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -13295,9 +13050,7 @@
 "mop" = (
 /obj/structure/sink{
 	dir = 4;
-	icon_state = "sink";
-	pixel_x = 10;
-	pixel_y = 0
+	pixel_x = 10
 	},
 /obj/structure/mirror{
 	pixel_x = 27
@@ -13318,8 +13071,7 @@
 /area/f13/building/powered)
 "moU" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/indestructible/ground/outside/gravel,
@@ -13409,8 +13161,7 @@
 /area/f13/building/powered)
 "mwv" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	icon_state = "wooden_chair_settler"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -13728,8 +13479,7 @@
 /area/f13/legioncamp)
 "mKf" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/gravel,
@@ -14033,8 +13783,7 @@
 /area/f13/wasteland)
 "mYg" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -14055,13 +13804,6 @@
 	icon_state = "greendirtyfull"
 	},
 /area/f13/building/powered)
-"mYY" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
 "mZd" = (
 /obj/structure/sink/puddle,
 /turf/open/indestructible/ground/outside/snow,
@@ -14072,8 +13814,7 @@
 /area/f13/legioncamp)
 "mZo" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain0"
@@ -14098,8 +13839,7 @@
 /area/f13/building/powered)
 "ncL" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
@@ -14109,8 +13849,7 @@
 /area/f13/wasteland/cold)
 "nda" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof,
@@ -14185,8 +13924,7 @@
 /area/f13/tunnel)
 "nhX" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /mob/living/simple_animal/hostile/stalker{
 	faction = list("raider")
@@ -14363,8 +14101,7 @@
 	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -14459,8 +14196,7 @@
 "nvt" = (
 /obj/structure/fence/end/wooden,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
@@ -14958,8 +14694,7 @@
 /area/f13/brotherhood/powered)
 "nSD" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -14995,8 +14730,7 @@
 /area/f13/village)
 "nUz" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/decal/cleanable/dirt,
@@ -15079,8 +14813,7 @@
 /area/f13/building/powered)
 "nZV" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/structure/chair/wood{
 	dir = 4
@@ -15155,8 +14888,7 @@
 /area/f13/building)
 "oeB" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
@@ -15645,8 +15377,7 @@
 /area/f13/tunnel)
 "oBK" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
@@ -15741,8 +15472,7 @@
 /area/f13/building/powered)
 "oHD" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -15976,16 +15706,6 @@
 	icon_state = "bar"
 	},
 /area/f13/holiday)
-"oST" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 9
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold/power)
 "oTG" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
@@ -16007,8 +15727,7 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
@@ -16034,8 +15753,7 @@
 /area/f13/building/powered)
 "oWh" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -16091,15 +15809,12 @@
 /area/f13/holiday)
 "oZI" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
 "oZR" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
@@ -16317,10 +16032,10 @@
 /area/f13/building)
 "pma" = (
 /obj/structure/table/wood/fancy/black,
-/obj/item/paper_bin,
-/obj/item/pen/fountain,
 /obj/effect/overlay/darkwoodfancyedge,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/paper_bin/rust,
+/obj/item/pen/fountain,
 /turf/open/floor/wood_worn,
 /area/f13/holiday)
 "pmK" = (
@@ -16340,8 +16055,7 @@
 /area/f13/building/powered)
 "pnx" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plating/f13/outside/roof/wood,
@@ -16971,8 +16685,7 @@
 /area/f13/building)
 "pTo" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	icon_state = "wooden_chair_settler"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plating/f13/outside/roof,
@@ -17068,8 +16781,7 @@
 /area/f13/legioncamp)
 "pZt" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
@@ -17084,8 +16796,7 @@
 /area/f13/village)
 "qaf" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -17100,9 +16811,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "qbk" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /obj/structure/curtain{
 	color = "#845f58"
 	},
@@ -17289,12 +16998,10 @@
 /area/f13/holiday)
 "qjb" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /mob/living/simple_animal/hostile/raider,
 /turf/open/floor/plating/dirt,
@@ -17578,8 +17285,7 @@
 "quJ" = (
 /obj/structure/fence/wooden,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
@@ -17791,8 +17497,7 @@
 "qAS" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/cold)
@@ -17801,8 +17506,7 @@
 	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building)
@@ -17927,8 +17631,7 @@
 /area/f13/brotherhood/powered)
 "qIv" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/powered)
@@ -18182,21 +17885,10 @@
 /obj/structure/barricade/sandbags,
 /obj/structure/table/wood/junk,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold)
-"qWb" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 9
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
 "qWy" = (
 /obj/structure/simple_door/room/dirty,
@@ -18825,8 +18517,7 @@
 /area/f13/building/powered)
 "rDn" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/powered)
@@ -19175,13 +18866,6 @@
 /obj/structure/chair/stool/bar,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
-"rXr" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/wasteland/cold)
 "rXP" = (
 /obj/structure/table,
 /obj/item/pda,
@@ -19316,13 +19000,6 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
-"sdG" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/wasteland/cold)
 "sdX" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -19487,9 +19164,7 @@
 	},
 /area/f13/building)
 "skE" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "skL" = (
@@ -19670,12 +19345,10 @@
 /area/f13/village)
 "svd" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/structure/simple_door/repaired,
 /turf/open/floor/plating/f13/outside/roof,
@@ -19717,13 +19390,6 @@
 "sxA" = (
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
-"sxW" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/wasteland/cold)
 "syr" = (
 /obj/structure/sink{
 	dir = 1;
@@ -19775,8 +19441,7 @@
 /area/f13/building/powered)
 "szv" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/powered)
@@ -20005,8 +19670,7 @@
 /area/f13/building/powered)
 "sII" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -20137,16 +19801,6 @@
 /obj/machinery/workbench,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"sRv" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/wasteland/cold/power)
 "sRI" = (
 /obj/item/paint/black{
 	pixel_y = 13;
@@ -20494,12 +20148,10 @@
 /area/f13/building)
 "tjn" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -21152,16 +20804,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/wasteland/cold)
-"tOz" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 4
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/brotherhood/powered)
 "tOA" = (
 /obj/structure/bed/old{
 	pixel_y = 11
@@ -21230,8 +20872,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
@@ -21288,9 +20929,7 @@
 	},
 /area/f13/holiday)
 "tUE" = (
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
@@ -21397,8 +21036,7 @@
 	pixel_y = 15
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
@@ -21457,8 +21095,7 @@
 /area/f13/wasteland/cold/power)
 "udF" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	icon_state = "wooden_chair_settler"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -21471,8 +21108,7 @@
 /area/f13/holiday)
 "uee" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -21555,13 +21191,6 @@
 "uiK" = (
 /turf/open/floor/carpet/arcade,
 /area/f13/village)
-"uiT" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/wasteland/cold)
 "uiU" = (
 /obj/structure/chair/f13chair1{
 	dir = 1
@@ -21791,8 +21420,7 @@
 /area/f13/wasteland)
 "usE" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -22092,8 +21720,7 @@
 /area/f13/building/powered)
 "uEE" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -22155,8 +21782,7 @@
 /area/f13/holiday)
 "uGm" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
+	dir = 5
 	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
@@ -22589,13 +22215,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/building)
-"vab" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/wasteland/cold)
 "vaf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13{
@@ -22774,8 +22393,7 @@
 	dir = 5
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/wasteland/cold)
@@ -22803,17 +22421,6 @@
 	baseturfs = /turf/open/water/river/notdeep
 	},
 /area/f13/holiday)
-"vmo" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5;
-	icon_state = "snow_corner"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
 "vnY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/f13/wood{
@@ -22851,8 +22458,7 @@
 	pixel_y = -8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 4
@@ -22934,13 +22540,6 @@
 /obj/structure/barricade/wooden/planks,
 /turf/closed/wall/f13/sunset/brick_small_light,
 /area/f13/building/powered)
-"vuj" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/plating/f13/outside/roof,
-/area/f13/building)
 "vuo" = (
 /obj/effect/decal/cleanable/vomit/old{
 	pixel_x = 8;
@@ -23358,12 +22957,10 @@
 /area/f13/tunnel)
 "vQp" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -23481,8 +23078,7 @@
 /area/f13/village)
 "vWM" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /obj/structure/table/wood,
@@ -23849,15 +23445,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common,
 /area/f13/building/powered)
-"wpL" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
-	},
-/turf/open/floor/f13/wood{
-	baseturfs = /turf/open/water/river/notdeep
-	},
-/area/f13/wasteland/cold)
 "wqp" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -23987,8 +23574,7 @@
 /area/f13/building/powered)
 "wyb" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/brotherhood/powered)
@@ -23996,9 +23582,7 @@
 /obj/structure/curtain{
 	color = "#845f58"
 	},
-/obj/machinery/door/unpowered/secure_legion{
-	req_access_txt = "123"
-	},
+/obj/machinery/door/unpowered/secure_legion,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side,
 /area/f13/legioncamp)
 "wyp" = (
@@ -24246,8 +23830,7 @@
 /area/f13/village)
 "wLv" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /obj/effect/turf_decal/stripes{
 	dir = 4
@@ -24283,8 +23866,7 @@
 /area/f13/legioncamp)
 "wMS" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 10;
-	icon_state = "snow_corner"
+	dir = 10
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain0"
@@ -24706,8 +24288,7 @@
 "xfP" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 1;
-	icon_state = "snow_corner"
+	dir = 1
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold/power)
@@ -24756,8 +24337,7 @@
 /area/f13/holiday)
 "xkm" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
+	dir = 6
 	},
 /obj/structure/table/wood,
 /turf/open/floor/plating/f13/outside/roof/wood,
@@ -25705,8 +25285,7 @@
 /area/f13/building/powered)
 "yag" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 8;
-	icon_state = "snow_corner"
+	dir = 8
 	},
 /obj/effect/landmark/start/f13/settler,
 /turf/open/indestructible/ground/outside/gravel,
@@ -25729,8 +25308,7 @@
 /area/f13/wasteland/cold)
 "ybl" = (
 /obj/effect/turf_decal/weather/snow/corner{
-	dir = 4;
-	icon_state = "snow_corner"
+	dir = 4
 	},
 /turf/open/floor/f13/wood{
 	baseturfs = /turf/open/water/river/notdeep
@@ -25810,16 +25388,6 @@
 	color = "#d9cdb9"
 	},
 /area/f13/village)
-"yfm" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 6;
-	icon_state = "snow_corner"
-	},
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 10
-	},
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/wasteland/cold)
 "yfv" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress5";
@@ -40557,7 +40125,7 @@ vfn
 vfn
 mIt
 rVT
-qWb
+wWv
 kUh
 ncO
 jlz
@@ -41811,14 +41379,14 @@ vfn
 vfn
 vfn
 boS
-eIe
+vNf
 rVT
 rVT
 rVT
 kuX
 rVT
 rVT
-sdG
+did
 crv
 xnD
 toA
@@ -42077,7 +41645,7 @@ iid
 mSs
 rIR
 rVT
-sdG
+did
 kKu
 kKu
 toA
@@ -42260,7 +41828,7 @@ rVT
 rVT
 lUf
 iII
-fkn
+qHb
 rVT
 mSs
 rVT
@@ -42513,10 +42081,10 @@ rVT
 kUh
 rVT
 lUf
-mYY
-mYY
+qrf
+qrf
 iII
-fkn
+qHb
 rVT
 rVT
 ncO
@@ -42853,7 +42421,7 @@ uCz
 pfD
 cju
 dnM
-dqB
+tUf
 rVT
 bKZ
 geW
@@ -43024,7 +42592,7 @@ kUh
 mSs
 kUh
 lUf
-mYY
+qrf
 bKL
 bKL
 bKL
@@ -43109,7 +42677,7 @@ vfn
 uCz
 kea
 dfI
-dqB
+tUf
 rVT
 rVT
 bKZ
@@ -43279,9 +42847,9 @@ rVT
 aDZ
 rVT
 lUf
-mYY
+qrf
 bKL
-fkn
+qHb
 rVT
 qGC
 gng
@@ -43365,7 +42933,7 @@ vfn
 vfn
 uCz
 kea
-dqB
+tUf
 rVT
 rVT
 rVT
@@ -43534,9 +43102,9 @@ rVT
 mSs
 rVT
 lUf
-mYY
+qrf
 bKL
-fkn
+qHb
 kUh
 rVT
 rVT
@@ -43791,7 +43359,7 @@ ncO
 rVT
 lUf
 bKL
-fkn
+qHb
 rVT
 ncO
 rVT
@@ -43879,7 +43447,7 @@ ffj
 iBj
 ptA
 dnM
-bGV
+jib
 rVT
 iid
 rVT
@@ -44132,12 +43700,12 @@ qUL
 uVk
 gNJ
 kea
-jsT
-jsT
+rjq
+rjq
 ptA
 dnM
 dnM
-bGV
+jib
 rVT
 rVT
 len
@@ -44645,7 +44213,7 @@ fUb
 mMS
 mMS
 nnj
-dqB
+tUf
 iid
 qAo
 dnM
@@ -45928,9 +45496,9 @@ erL
 toA
 toA
 crv
-sxW
+rAU
 rVT
-sdG
+did
 kKu
 kKu
 gNJ
@@ -45945,8 +45513,8 @@ vfn
 vfn
 vxv
 fvw
-cHM
-cHM
+lYG
+lYG
 xpb
 fDz
 aXb
@@ -46183,12 +45751,12 @@ rVT
 cVH
 crv
 crv
-sxW
+rAU
 rVT
 rVT
 rVT
 rVT
-sdG
+did
 tsW
 fDz
 fDz
@@ -46446,10 +46014,10 @@ rVT
 rVT
 wAN
 gwL
-sdG
+did
 kKu
 kKu
-sxW
+rAU
 rVT
 rVT
 wZn
@@ -46704,7 +46272,7 @@ baf
 rVT
 rVT
 rVT
-sdG
+did
 uag
 rVT
 wAN
@@ -50566,7 +50134,7 @@ jxl
 toA
 jCj
 rVT
-sdG
+did
 toA
 toA
 nwO
@@ -65902,7 +65470,7 @@ gbo
 gbo
 pzy
 rVT
-ilC
+hwH
 kea
 rdj
 lWq
@@ -69744,7 +69312,7 @@ vfn
 vfn
 vfn
 vxv
-aXn
+ecv
 rVT
 rVT
 rVT
@@ -69760,7 +69328,7 @@ toA
 vxv
 toA
 cjB
-aTs
+crv
 toA
 toA
 toA
@@ -70009,7 +69577,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 vxv
 gbo
 gbo
@@ -70276,7 +69844,7 @@ ecv
 rVT
 rVT
 rVT
-vab
+tFI
 vxv
 toA
 toA
@@ -70524,7 +70092,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 wlg
 wlg
 toA
@@ -70533,7 +70101,7 @@ rVT
 rVT
 rVT
 rVT
-uiT
+wZn
 toA
 toA
 vxv
@@ -70781,7 +70349,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 vfn
 vfn
 toA
@@ -70966,7 +70534,7 @@ xEi
 oEu
 fBS
 adl
-yfm
+ftU
 owT
 uLP
 dMo
@@ -71033,7 +70601,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 lYG
 lYG
 lYG
@@ -71230,7 +70798,7 @@ fgq
 ucg
 wfa
 bGT
-wpL
+kxF
 lSL
 qYi
 vfn
@@ -71479,7 +71047,7 @@ wlp
 wlp
 xEi
 vUK
-gKB
+bpk
 lik
 xEi
 dEM
@@ -71546,7 +71114,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 vxv
 vfn
 vfn
@@ -72059,7 +71627,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 vxv
 vxv
 vfn
@@ -72316,7 +71884,7 @@ rVT
 rVT
 rVT
 rVT
-vab
+tFI
 vxv
 vxv
 vfn
@@ -73362,7 +72930,7 @@ uTw
 rVT
 sbB
 baf
-uiT
+wZn
 toA
 vfn
 vfn
@@ -73619,7 +73187,7 @@ rVT
 xEi
 rVT
 rVT
-uiT
+wZn
 toA
 vfn
 vfn
@@ -74048,7 +73616,7 @@ pJO
 wlp
 wlp
 xEi
-gKB
+bpk
 eqH
 aDZ
 tSj
@@ -74936,7 +74504,7 @@ iOj
 vfn
 vfn
 geW
-ewh
+cMU
 geW
 lBD
 rVT
@@ -75334,7 +74902,7 @@ wlp
 wlp
 wlp
 mGR
-gKB
+bpk
 uyu
 kQW
 rVT
@@ -75407,7 +74975,7 @@ mRE
 uNF
 aQx
 rVT
-qWb
+wWv
 sbB
 rVT
 rVT
@@ -75665,7 +75233,7 @@ cMm
 xcJ
 aDZ
 nhX
-lcF
+lSO
 aDZ
 rVT
 rVT
@@ -76436,8 +76004,8 @@ kkT
 trg
 rVT
 rVT
-efy
-lcF
+vJZ
+lSO
 tvS
 trg
 wnF
@@ -76951,8 +76519,8 @@ trg
 trg
 trg
 trg
-efy
-lcF
+vJZ
+lSO
 trg
 imC
 mRE
@@ -77981,16 +77549,16 @@ mRE
 mRE
 pie
 sst
-fkn
+qHb
 rVT
 rVT
 xEi
-efy
+vJZ
 cjN
 bKL
 iII
 bKL
-fkn
+qHb
 vDh
 uCz
 vfn
@@ -78243,7 +77811,7 @@ uTw
 rVT
 aDZ
 rVT
-vmo
+tQS
 xEi
 ctm
 rVT
@@ -78265,7 +77833,7 @@ uTw
 vfn
 vfn
 vfn
-eIe
+vNf
 rVT
 rVT
 rVT
@@ -78502,7 +78070,7 @@ rVT
 rVT
 aDZ
 lUf
-fkn
+qHb
 rVT
 xEi
 rVT
@@ -78751,7 +78319,7 @@ bQC
 trg
 trg
 lUf
-fkn
+qHb
 rVT
 aDZ
 xEi
@@ -79007,14 +78575,14 @@ xcJ
 trg
 trg
 lUf
-fkn
+qHb
 rVT
 rVT
 uTw
 rVT
 rVT
 lUf
-fkn
+qHb
 rVT
 rVT
 aDZ
@@ -79520,21 +79088,21 @@ pSz
 mRE
 wnF
 pie
-fkn
+qHb
 rVT
 rVT
 rVT
 rVT
 rVT
 daK
-vmo
+tQS
 rVT
 rVT
 rVT
 uTw
 rVT
 xEi
-qWb
+wWv
 uCz
 pJO
 vfn
@@ -79781,7 +79349,7 @@ rVT
 rVT
 rVT
 lUf
-mYY
+qrf
 kdn
 trg
 trg
@@ -81684,7 +81252,7 @@ bZw
 bZw
 bZw
 jti
-hQR
+vpb
 sII
 sII
 uEE
@@ -81942,7 +81510,7 @@ bZw
 bZw
 bZw
 bZw
-jFJ
+xqs
 xwk
 xwk
 sII
@@ -82200,7 +81768,7 @@ lze
 bZw
 bZw
 bZw
-jFJ
+xqs
 lOZ
 lOZ
 lOZ
@@ -82462,7 +82030,7 @@ bZw
 bZw
 bZw
 bZw
-sRv
+ejE
 bZw
 bZw
 bZw
@@ -82967,12 +82535,12 @@ oEb
 oEb
 bZw
 bZw
-jFJ
-dnm
+xqs
+dzp
 bZw
 bZw
 bZw
-jFJ
+xqs
 uEE
 bZw
 bZw
@@ -83145,11 +82713,11 @@ jlz
 vxv
 vxv
 vxv
-aXn
+ecv
 rVT
 rVT
 rVT
-vab
+tFI
 vfn
 vfn
 vfn
@@ -83230,7 +82798,7 @@ bZw
 bZw
 bZw
 jti
-jFJ
+xqs
 uEE
 bZw
 bZw
@@ -83406,7 +82974,7 @@ rVT
 rVT
 yaI
 rVT
-vab
+tFI
 vfn
 vfn
 vfn
@@ -83488,7 +83056,7 @@ bZw
 bZw
 jti
 bZw
-aSr
+ltw
 bZw
 bZw
 bZw
@@ -83673,10 +83241,10 @@ vfn
 xUS
 rVT
 hwH
-dqB
+tUf
 rVT
 rVT
-gnh
+bKZ
 vfn
 vfn
 vfn
@@ -84006,7 +83574,7 @@ bZw
 xZa
 bZw
 bZw
-aSr
+ltw
 bZw
 bZw
 pJO
@@ -84185,8 +83753,8 @@ vfn
 vfn
 vfn
 dnM
-dNO
-bGV
+bQi
+jib
 rVT
 qAo
 dnM
@@ -84444,7 +84012,7 @@ vfn
 dnM
 dnM
 dnM
-dNO
+bQi
 dnM
 dnM
 dnM
@@ -84514,10 +84082,10 @@ oEb
 oEb
 bZw
 bZw
-jFJ
+xqs
 xwk
 xwk
-dnm
+dzp
 bZw
 bZw
 bZw
@@ -84690,9 +84258,9 @@ vfn
 vfn
 vxv
 vxv
-aXn
+ecv
 rVT
-rXr
+xxX
 vxv
 vfn
 vfn
@@ -84773,7 +84341,7 @@ bZw
 bZw
 bZw
 mYg
-dnm
+dzp
 bZw
 bZw
 bZw
@@ -84950,7 +84518,7 @@ aHm
 rVT
 rVT
 rVT
-vab
+tFI
 vfn
 vfn
 vfn
@@ -85029,7 +84597,7 @@ oEb
 bZw
 bZw
 bZw
-aSr
+ltw
 bZw
 bZw
 bZw
@@ -85207,7 +84775,7 @@ aHm
 rVT
 rVT
 rVT
-rXr
+xxX
 vxv
 vxv
 vfn
@@ -85461,11 +85029,11 @@ vfn
 vfn
 vxv
 vxv
-eIe
+vNf
 rVT
 rVT
 rVT
-vab
+tFI
 vxv
 vfn
 vfn
@@ -85545,10 +85113,10 @@ bZw
 xZa
 bZw
 bZw
-aSr
+ltw
 bZw
 xSj
-dnm
+dzp
 bZw
 bZw
 pJO
@@ -85803,8 +85371,8 @@ bZw
 bZw
 bZw
 bZw
-oST
-dnm
+gkD
+dzp
 bZw
 bZw
 bZw
@@ -85976,8 +85544,8 @@ vfn
 vxv
 vxv
 toA
-cHM
-cHM
+lYG
+lYG
 toA
 toA
 vfn
@@ -86490,10 +86058,10 @@ vfn
 vfn
 vxv
 vxv
-aXn
+ecv
 rVT
 rVT
-uiT
+wZn
 vxv
 aLn
 aLn
@@ -87063,7 +86631,7 @@ oEb
 oEb
 xCZ
 bZw
-gwc
+bvs
 bMn
 cZM
 cZM
@@ -87078,14 +86646,14 @@ oEb
 oEb
 oEb
 bZw
-jFJ
+xqs
 xwk
 xwk
 gMf
 bZw
 bZw
-oST
-dnm
+gkD
+dzp
 bZw
 xqs
 xwk
@@ -87336,7 +86904,7 @@ oEb
 oEb
 bZw
 bZw
-jFJ
+xqs
 cdO
 bZw
 bZw
@@ -87346,7 +86914,7 @@ bZw
 bZw
 bZw
 xqs
-dnm
+dzp
 bZw
 bZw
 bZw
@@ -87519,7 +87087,7 @@ vfn
 vxv
 toA
 toA
-aXn
+ecv
 pXJ
 rEe
 fYC
@@ -87594,7 +87162,7 @@ oEb
 bZw
 bZw
 bZw
-aSr
+ltw
 bZw
 bZw
 jti
@@ -87775,7 +87343,7 @@ vfn
 vfn
 vxv
 toA
-aXn
+ecv
 rVT
 cBN
 rEe
@@ -88289,7 +87857,7 @@ vfn
 vfn
 vxv
 vxv
-eIe
+vNf
 rVT
 aLn
 mcz
@@ -88547,7 +88115,7 @@ vfn
 vxv
 vxv
 vxv
-eIe
+vNf
 aLn
 mcz
 mcz
@@ -89829,7 +89397,7 @@ dnM
 dnM
 xUS
 rVT
-ilC
+hwH
 dnM
 dnM
 vfn
@@ -90082,10 +89650,10 @@ vfn
 dnM
 dnM
 dnM
-jsT
+rjq
 dnM
 dnM
-bGV
+jib
 rVT
 bKZ
 dnM
@@ -90340,10 +89908,10 @@ dnM
 dnM
 xUS
 rVT
-ilC
-jsT
+hwH
+rjq
 dnM
-dNO
+bQi
 dnM
 dnM
 vfn
@@ -90599,7 +90167,7 @@ xUS
 rVT
 rVT
 rVT
-ilC
+hwH
 dnM
 dnM
 dnM
@@ -90853,11 +90421,11 @@ vfn
 vfn
 dnM
 dnM
-bGV
+jib
 rVT
 rVT
 rVT
-ilC
+hwH
 dnM
 vfn
 vfn
@@ -91436,7 +91004,7 @@ oEb
 bZw
 bZw
 xSj
-dnm
+dzp
 bZw
 bZw
 bZw
@@ -91625,7 +91193,7 @@ vfn
 dnM
 dnM
 dnM
-bGV
+jib
 rVT
 rVT
 qAo
@@ -91703,7 +91271,7 @@ sII
 gMf
 bZw
 xqs
-dnm
+dzp
 bZw
 oEb
 oEb
@@ -91883,8 +91451,8 @@ vfn
 dnM
 dnM
 dnM
-dNO
-dNO
+bQi
+bQi
 dnM
 dnM
 vfn
@@ -91956,7 +91524,7 @@ bZw
 bZw
 bZw
 xqs
-dnm
+dzp
 bZw
 bZw
 bZw
@@ -92227,7 +91795,7 @@ xwk
 sII
 sII
 lOZ
-dnm
+dzp
 bZw
 bZw
 xSj
@@ -92482,10 +92050,10 @@ oEb
 oEb
 xwk
 xwk
-dnm
+dzp
 bZw
 bZw
-oST
+gkD
 sII
 xwk
 xwk
@@ -93754,7 +93322,7 @@ uEE
 bZw
 bZw
 mYg
-dnm
+dzp
 bZw
 bZw
 bZw
@@ -94887,7 +94455,7 @@ rFL
 trg
 iCz
 djZ
-hdH
+evZ
 oTG
 jyl
 oTG
@@ -95134,7 +94702,7 @@ rFL
 rFL
 rFL
 gbZ
-dUE
+jRV
 djZ
 djZ
 oMp
@@ -95142,10 +94710,10 @@ ldE
 oTG
 rFL
 oTG
-vuj
+kXY
 djZ
 djZ
-hdH
+evZ
 oTG
 rFL
 rFL
@@ -95826,7 +95394,7 @@ cRX
 sfr
 cRX
 cRX
-cKQ
+iFZ
 qNK
 oEb
 oEb
@@ -96084,7 +95652,7 @@ ffV
 nSD
 cRX
 cRX
-tOz
+ffV
 oEb
 oEb
 bGA
