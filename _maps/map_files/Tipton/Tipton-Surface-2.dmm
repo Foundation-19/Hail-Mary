@@ -22791,10 +22791,7 @@
 /area/f13/wasteland/powered)
 "hBs" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/table,
-/obj/item/card/id/dogtag/legimmune,
-/obj/item/card/id/dogtag/legimmune,
-/obj/item/card/id/dogtag/legimmune,
+/obj/machinery/computer/card/legion,
 /turf/open/floor/carpet,
 /area/f13/legioncamp)
 "hBL" = (
@@ -34953,6 +34950,10 @@
 	can_be_unanchored = 1
 	},
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/encryptionkey/headset_legion,
+/obj/item/encryptionkey/headset_legion,
+/obj/item/encryptionkey/headset_legion,
+/obj/item/encryptionkey/headset_legion,
 /turf/open/floor/carpet,
 /area/f13/legioncamp)
 "lzq" = (
@@ -40062,10 +40063,8 @@
 	},
 /area/f13/legioncamp)
 "ngl" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 8
-	},
-/turf/open/floor/carpet/red,
+/obj/machinery/workbench,
+/turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "ngy" = (
 /obj/structure/bookcase,
@@ -46633,11 +46632,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/green/white/side,
 /area/f13/building/powered)
 "pkq" = (
-/obj/machinery/workbench,
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
 	pixel_y = 12
 	},
+/obj/machinery/workbench/forge,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "pks" = (
@@ -47854,10 +47853,10 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "pGu" = (
-/obj/machinery/workbench/forge,
 /obj/structure/decoration/legion/chains2{
 	pixel_y = 26
 	},
+/obj/structure/rack,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "pGF" = (
@@ -55238,15 +55237,13 @@
 "sca" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table,
-/obj/item/encryptionkey/headset_legion,
-/obj/item/encryptionkey/headset_legion,
-/obj/item/encryptionkey/headset_legion,
-/obj/item/encryptionkey/headset_legion,
-/obj/item/encryptionkey/headset_legion,
 /obj/machinery/light{
 	dir = 1;
 	flickering = 1
 	},
+/obj/item/card/id/dogtag/legimmune,
+/obj/item/card/id/dogtag/legimmune,
+/obj/item/card/id/dogtag/legimmune,
 /turf/open/floor/carpet,
 /area/f13/legioncamp)
 "scl" = (
@@ -59444,6 +59441,7 @@
 	pixel_y = 12
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "tvc" = (
@@ -156154,10 +156152,10 @@ vBT
 vBT
 vBT
 vBT
-ngl
+vBT
 ydT
 ydT
-lEk
+ydT
 dOC
 obF
 cwS
@@ -156406,15 +156404,15 @@ fyb
 cIs
 puZ
 vBT
+tPw
+skW
+ngl
 piq
-skW
-skW
 otv
 vBT
 ydT
 gwz
 gwz
-lEk
 cwS
 lSv
 gwz
@@ -156667,11 +156665,11 @@ pkq
 skW
 skW
 skW
+skW
 qth
 ydT
 gwz
 ydT
-lEk
 cwS
 pbK
 xqt
@@ -156920,7 +156918,8 @@ oWE
 hNt
 puZ
 vBT
-tPw
+skW
+skW
 skW
 skW
 vsv
@@ -156928,7 +156927,6 @@ kFu
 mme
 whQ
 gwz
-ydT
 rsW
 rJV
 xQF
@@ -157180,12 +157178,12 @@ vBT
 kFu
 skW
 skW
+skW
 ieA
 kFu
 tOW
 whQ
 gwz
-ydT
 dkm
 gYF
 mLl
@@ -157437,12 +157435,12 @@ kFu
 cNr
 aSK
 skW
+skW
 aeX
 kFu
 tOW
 cvO
 cbH
-ydT
 dkm
 gqR
 lRD
@@ -157694,12 +157692,12 @@ kFu
 pGu
 skW
 skW
+skW
 dMN
 kFu
 tOW
 cvO
 gwz
-ydT
 qSo
 aEz
 xry
@@ -157951,12 +157949,12 @@ kFu
 tuZ
 skW
 skW
+skW
 dNC
 kFu
 xby
 cvO
 gwz
-ydT
 dkm
 xjd
 fBf
@@ -158208,12 +158206,12 @@ kFu
 dAG
 skW
 skW
+skW
 qzz
 kFu
 kFu
 ydT
 ydT
-gwz
 dkm
 kua
 kua
@@ -158467,10 +158465,10 @@ skW
 skW
 skW
 skW
+skW
 qth
 gwz
 ydT
-gwz
 eWZ
 uIZ
 uIZ
@@ -158723,10 +158721,10 @@ jPU
 skW
 exZ
 skW
+skW
 fSW
 kFu
 vmF
-ydT
 ydT
 whQ
 cwS
@@ -158980,11 +158978,11 @@ snU
 skW
 abB
 skW
+skW
 kij
 kFu
 icv
-whQ
-ydT
+gwz
 okA
 qRN
 pbK
@@ -159236,12 +159234,12 @@ kFu
 fJA
 skW
 mmm
+skW
 efW
 tBK
 kFu
 icv
-tNE
-ydT
+pbK
 whQ
 dOC
 qRN
@@ -159495,10 +159493,10 @@ kFu
 kFu
 kFu
 kFu
+kFu
 rTU
 qul
 gwz
-ydT
 gwz
 whQ
 tNE

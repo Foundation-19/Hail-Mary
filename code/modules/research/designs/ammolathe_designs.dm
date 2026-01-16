@@ -400,14 +400,14 @@
 	build_path = /obj/item/ammo_box/m5mmbox
 	category = list("initial", "Basic Ammo")
 
-
+/*
 /datum/design/ammolathe/magnumshot
 	name = "magnum buckshot shotgun box"
 	id = "magnumshot"
 	materials = list(/datum/material/iron = 50000, /datum/material/blackpowder = 15000)
 	build_path = /obj/item/ammo_box/shotgun/magnum
 	category = list("initial", "Advanced Ammo")
-
+*/
 /datum/design/ammolathe/slugshot
 	name = "slug shotgun box"
 	id = "slugshot"

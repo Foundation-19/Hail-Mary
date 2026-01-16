@@ -987,8 +987,8 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	title = "Recruit Legionnaire"
 	flag = F13RECRUITLEG
 	display_order = JOB_DISPLAY_ORDER_RECRUITLEG
-	total_positions = 6
-	spawn_positions = 6
+	total_positions = -1
+	spawn_positions = -1
 	description = "You have recently come of age or been inducted into Caesar's Legion. You have absolutely no training, and are expected to follow every whim of the Decanii and your Centurion. Respect the soldiers of higher rank."
 	supervisors = "the Decani and Centurion."
 	display_order = JOB_DISPLAY_ORDER_RECRUITLEG
