@@ -355,23 +355,28 @@
 
 	for(var/v in matching_designs)
 		var/datum/design/D = v
+		if(!D)
+			continue
+		// Defensive: check D.name and D.id before use
+		var/dname = (D.name ? D.name : "<i>Unknown</i>")
+		var/did = (D.id ? D.id : "")
 		if(disabled || !can_build(D))
-			dat += span_linkOff("[D.name]")
+			dat += span_linkOff("[dname]")
 		else
-			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
+			dat += "<a href='?src=[REF(src)];make=[did];multiplier=1'>[dname]</a>"
 
-		if(ispath(D.build_path, /obj/item/stack))
+		if(D.build_path && ispath(D.build_path, /obj/item/stack))
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/max_multiplier
-			for(var/datum/material/mat in D.materials)
-				max_multiplier = min(D.maxstack, round(materials.get_material_amount(mat)/D.materials[mat]))
+			if(D.materials)
+				for(var/datum/material/mat in D.materials)
+					max_multiplier = min(D.maxstack, round(materials.get_material_amount(mat)/D.materials[mat]))
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
-
 		dat += "[get_design_cost(D)]<br>"
 
 	dat += "</div>"
@@ -388,7 +393,9 @@
 	return dat
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
-	if(D.make_reagents.len)
+	if(!D)
+		return FALSE
+	if(D.make_reagents && D.make_reagents.len)
 		return FALSE
 
 	var/coeff = (ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff)
@@ -766,6 +773,8 @@
 	return dat
 
 /obj/machinery/autolathe/ammo/can_build(datum/design/D, amount = 1)
+	if(!D || !D.category)
+		return FALSE
 	if("Handloaded Ammo" in D.category)
 		return ..()
 	if("Handmade Magazines" in D.category)

@@ -647,6 +647,7 @@ use_mob_overlay_icon: if FALSE, it will always use the default_icon_file even if
 	var/static/list/leg_day = typecacheof(list(/obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg))
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
+		if(!BP) continue
 		if(BP.status == BODYPART_ORGANIC)
 			. += "-organic"
 		else

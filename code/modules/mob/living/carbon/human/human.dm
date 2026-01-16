@@ -7,7 +7,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian_m"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
-	var/saved_underwear = ""//saves their underwear so it can be toggled later
+	var/saved_underwear = "" //saves their underwear so it can be toggled later
 	var/saved_undershirt = ""
 	var/saved_socks = ""
 	var/hidden_underwear = FALSE
@@ -53,41 +53,34 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
 /mob/living/carbon/human/Destroy()
-	// CRITICAL: Pre-cleanup - Remove from global human list and cleanup items BEFORE parent
-	// This prevents components from trying to re-add items during their destruction
 	GLOB.human_list -= src
 
-	// Pre-cleanup: Destroy all worn/equipped items BEFORE parent destroy
-	// This prevents storage components from trying to return items to the mob
-	// Explicitly qdel all items in all equipment slots to guarantee deletion
-	if(wear_suit) qdel(wear_suit)
-	if(w_uniform) qdel(w_uniform)
-	if(belt) qdel(belt)
-	if(wear_id) qdel(wear_id)
-	if(r_store) qdel(r_store)
-	if(l_store) qdel(l_store)
-	if(s_store) qdel(s_store)
-	if(back) qdel(back)
-	if(head) qdel(head)
-	if(wear_mask) qdel(wear_mask)
-	if(wear_neck) qdel(wear_neck)
-	if(glasses) qdel(glasses)
-	if(ears) qdel(ears)
-	if(gloves) qdel(gloves)
-	if(shoes) qdel(shoes)
+	for(var/atom/movable/A in contents)
+		qdel(A)
 
-	// Call parent AFTER item cleanup to properly clean up all signals and components
-	// This allows the component system to properly disconnect listeners
-	// since items they might reference are already gone
+	wear_suit = null
+	w_uniform = null
+	belt = null
+	wear_id = null
+	r_store = null
+	l_store = null
+	s_store = null
+	back = null
+	head = null
+	wear_mask = null
+	wear_neck = null
+	glasses = null
+	ears = null
+	gloves = null
+	shoes = null
+
 	var/result = ..()
-	
-	// Post-cleanup: Clear physiology after parent cleanup (it's small and non-expensive)
+
 	QDEL_NULL(physiology)
-	
-	// 4. Defer client screen cleanup to next tick (can be expensive with many screens)
+
 	if(client && client.screen && client.screen.len)
 		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
-	
+
 	return result
 
 /mob/living/carbon/human/proc/defer_screen_cleanup()

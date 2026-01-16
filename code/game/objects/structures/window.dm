@@ -396,7 +396,7 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 	return TRUE
 
 
-/obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, armour_penetration = 0, atom/attacked_by)
+/obj/structure/window/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	. = ..()
 	if(.) //received damage
 		update_nearby_icons()

@@ -718,7 +718,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/not_digitigrade = TRUE
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/O = X
-		if(!O.use_digitigrade)
+		if(!O || !O.use_digitigrade)
 			continue
 		not_digitigrade = FALSE
 		if(!(DIGITIGRADE in species_traits)) //Someone cut off a digitigrade leg and tacked it on

@@ -105,6 +105,8 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	changing_turf = TRUE
 	qdel(src)	//Just get the side effects and call Destroy
+	if(!ispath(path))
+		CRASH("ChangeTurf called with a non-type path: [path] (type: [islist(path) ? "list" : (ispath(path) ? "type" : "other")])")
 	var/turf/W = new path(src)
 	// Ensure the new turf's changing_turf flag is reset after creation
 	W.changing_turf = FALSE

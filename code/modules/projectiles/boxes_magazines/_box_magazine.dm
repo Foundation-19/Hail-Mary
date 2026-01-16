@@ -368,6 +368,6 @@
 		stored_ammo -= ammo
 
 /obj/item/ammo_box/magazine/handle_atom_del(atom/A)
-	if(stored_ammo)
+	if(islist(stored_ammo))
 		stored_ammo -= A
 	update_icon()
