@@ -181,3 +181,9 @@
 	desc = "Contains all the paper you'll ever need, in duplicate!"
 	icon_state = "paper_bin_carbon"
 	papertype = /obj/item/paper/carbon
+
+/obj/item/paper_bin/rust
+	name = "old paper bin"
+	desc = "Contains all the paper you'll never need. That one seems really old."
+	icon_state = "paper_bin1_rust"
+	papertype = /obj/item/paper/rust
