@@ -370,6 +370,17 @@
 /obj/item/paper/crumpled/muddy
 	icon_state = "scrap_mud"
 
+/obj/item/paper/rust
+	name = "old paper"
+	icon_state = "paper_rust"
+
+/obj/item/paper/crumpled/rust
+	name = "old paper scrap"
+	icon_state = "scrap_rust"
+
+/obj/item/paper/crumpled/bloody/rust
+	icon_state = "scrap_bloodied_rust"
+
 #undef MAX_PAPER_LENGTH
 #undef MAX_PAPER_STAMPS
 #undef MAX_PAPER_STAMPS_OVERLAYS
