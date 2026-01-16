@@ -420,7 +420,6 @@ Knight-Captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/storage/box/bos/knightcaptain = 1,
