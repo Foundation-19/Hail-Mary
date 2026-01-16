@@ -271,6 +271,7 @@ ATTACHMENTS
 /obj/item/gun/ballistic/Destroy()
 	if(magazine)
 		QDEL_NULL(magazine)
+	magazine = null
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)

@@ -10,40 +10,40 @@
 	add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 
 /mob/living/carbon/Destroy()
-	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
-	. =  ..()
+	. = ..()
 
-	// Post-parent cleanup: Delete all contents now that parent has properly disconnected signals
-	// The parent Destroy() chain has already cleaned up the signal/component system
-	
-	// 1. Delete organ/implant content (their signal networks are already disconnected by parent)
-	if(internal_organs && internal_organs.len)
-		QDEL_LIST(internal_organs)
-	
-	if(implants && implants.len)
-		QDEL_LIST(implants)
-	
-	// 2. Delete bodyparts
-	if(LAZYLEN(bodyparts))
-		QDEL_LIST(bodyparts)
-	
-	// 3. Delete stomach contents
-	if(stomach_contents && stomach_contents.len)
-		QDEL_LIST(stomach_contents)
-	
-	// 4. Clear critical references immediately
-	QDEL_NULL(dna)
+	// Remove from globals early
 	GLOB.carbon_list -= src
+
+	// Delete carbon-owned datums
+	if(internal_organs)
+		QDEL_LIST(internal_organs)
+		internal_organs = null
+
+	if(implants)
+		QDEL_LIST(implants)
+		implants = null
+
+	if(bodyparts)
+		QDEL_LIST(bodyparts)
+		bodyparts = null
+
+	if(stomach_contents)
+		QDEL_LIST(stomach_contents)
+		stomach_contents = null
+
+	QDEL_NULL(dna)
 	hand_bodyparts = null
-	
-	// 5. Defer only UI/HUD cleanup to next tick (non-critical, prevents tiny spikes)
+
+	// Unequip items, DO NOT qdel them
+	for(var/obj/item/I in get_equipped_items(TRUE))
+		if(I)
+			I.forceMove(loc)
+
+	// Defer HUD cleanup only
 	if(client)
 		addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 0, TIMER_DELETE_ME)
 
-	// 6. Delete equipped items in belt, backpack, pocket, and other slots
-	for(var/obj/item/I in get_equipped_items(TRUE))
-		if(I)
-			qdel(I)
 
 /mob/living/carbon/proc/defer_hud_cleanup()
 	// Deferred HUD cleanup (non-critical, can smooth GC)
