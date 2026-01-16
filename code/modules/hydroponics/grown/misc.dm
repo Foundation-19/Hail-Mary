@@ -330,7 +330,7 @@
 		return
 
 /obj/item/reagent_containers/food/snacks/grown/coconut/attackby(obj/item/W, mob/user, params)
-
+/*
 	//DEFUSING NADE LOGIC
 	if (W.tool_behaviour == TOOL_WIRECUTTER && fused)
 		user.show_message(span_notice("You cut the fuse!"), MSG_VISUAL)
@@ -369,7 +369,7 @@
 			desc = "A makeshift bomb made out of a coconut. You estimate the fuse is long enough for 5 seconds."
 			name = "coconut bomb"
 			return
-
+*/
 	//ADDING STRAW LOGIC
 	if (istype(W,/obj/item/stack/sheet/mineral/bamboo) && opened && !straw && fused)
 		user.show_message(span_notice("You add a bamboo straw to the coconut!"), 1)
