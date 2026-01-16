@@ -755,7 +755,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	exp_requirements = 150
 
 	loadout_options = list(	// ALL: .45 Revolver, Machete
-		/datum/outfit/loadout/expambusher,	// Greasegun, Bottlecap mine
+		/datum/outfit/loadout/expambusher,	// Shotgun, Bottlecap mine
 		/datum/outfit/loadout/expsniper,	// SKS + Scope, Smokebomb
 		/datum/outfit/loadout/expsaboteur,	// Silenced pistol, C4 charges for raids, mine
 		)
@@ -802,10 +802,10 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/outfit/loadout/expambusher
 	name = "Ambusher"
 	glasses = /obj/item/clothing/glasses/sunglasses/big
-	suit_store = /obj/item/gun/ballistic/automatic/smg/greasegun
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever
 	backpack_contents = list(
 		/obj/item/bottlecap_mine = 1,
-		/obj/item/ammo_box/magazine/greasegun = 2,
+		/obj/item/ammo_box/shotgun/buck = 2,
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/restraints/legcuffs/bola/tactical = 1,
 		)
