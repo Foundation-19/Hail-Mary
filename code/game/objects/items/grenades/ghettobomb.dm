@@ -1,3 +1,8 @@
+// Global tracking for spam protection
+GLOBAL_VAR_INIT(active_explosion_spam, 0)
+GLOBAL_VAR_INIT(last_explosion_spam_time, 0)
+GLOBAL_LIST_INIT(recent_primers, list())
+
 // HOMEMADE BOMB TEMPLATE
 /obj/item/grenade/homemade
 	name = "home-made bomb template "
@@ -26,9 +31,54 @@
 	else
 		range = pick(2,2,2,3,3,3,4)
 
+/obj/item/grenade/homemade/Destroy()
+	if(active)
+		GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	return ..()
+
 /obj/item/grenade/homemade/examine(mob/user)
 	. = ..()
 	. += "You can't tell when it will explode!"
+
+// Spam protection in preprime
+/obj/item/grenade/homemade/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)
+	// Global limit check
+	if(GLOB.active_explosion_spam >= 30)
+		if(msg && user)
+			to_chat(user, span_warning("[src] fizzles out - too many explosives active!"))
+		return
+	
+	// Per-player spam protection
+	if(user && user.ckey)
+		var/player_key = user.ckey
+		var/player_count = 0
+		var/recent_time = world.time - 10 SECONDS
+		
+		for(var/entry in GLOB.recent_primers)
+			var/list/data = GLOB.recent_primers[entry]
+			if(data["time"] < recent_time)
+				GLOB.recent_primers -= entry
+			else if(data["ckey"] == player_key)
+				player_count++
+		
+		if(player_count >= 5)
+			to_chat(user, span_warning("You're setting off explosives too quickly!"))
+			return
+		
+		GLOB.recent_primers["[user.ckey]_[world.time]"] = list("ckey" = player_key, "time" = world.time)
+	
+	// Spam detection
+	if(world.time - GLOB.last_explosion_spam_time < 0.5 SECONDS)
+		if(prob(40))
+			if(msg && user)
+				to_chat(user, span_warning("[src] fails to ignite properly!"))
+			return
+	
+	// Increment counter
+	GLOB.active_explosion_spam++
+	GLOB.last_explosion_spam_time = world.time
+	
+	return ..()
 
 
 ////////////////////
@@ -53,13 +103,20 @@
 
 /obj/item/grenade/homemade/coffeepotbomb/preprime(mob/user, delayoverride, msg = TRUE, volume = 60)
 	. = ..()
-	if(soundloop)
+	if(. && soundloop) // Only start sound if preprime succeeded
 		soundloop.start()
 
 /obj/item/grenade/homemade/coffeepotbomb/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return
 	. = ..()
 	update_mob()
-	explosion(src.loc, 1, 2, 2, 3, 0, flame_range = 1)
+	
+	// Decrement counter
+	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	
+	// Queue explosion instead of immediate
+	SSexplosion_spam.queue_explosion(src.loc, 1, 2, 2, 3, flame_range = 1, source = src)
 	qdel(src)
 
 
@@ -73,10 +130,17 @@
 	icon_state = "firebomb"
 	item_state = "ied"
 
-/obj/item/grenade/homemade/firebomb/prime(mob/living/lanced_by) //Blowing that can up obsolete
+/obj/item/grenade/homemade/firebomb/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return
 	. = ..()
 	update_mob()
-	explosion(src.loc,-1,-1,2, flame_range = 4)	// small explosion, plus a very large fireball.
+	
+	// Decrement counter
+	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	
+	// Queue explosion
+	SSexplosion_spam.queue_explosion(src.loc, -1, -1, 2, flame_range = 4, source = src)
 	qdel(src)
 
 
@@ -150,7 +214,9 @@
 		item_state = initial(item_state) + "_active"
 		if(isGlass)
 			return
-		addtimer(CALLBACK(src, PROC_REF(splash_and_boom)), 5 SECONDS)
+		// ADDED: Safety check before addtimer
+		if(!QDELETED(src))
+			addtimer(CALLBACK(src, PROC_REF(splash_and_boom)), 5 SECONDS)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/proc/make_boom()
 	var/boomsize
@@ -164,7 +230,8 @@
 			extra_boom = 1
 		boomsize = accelerants[reagent_in_bottle.type] * (reagent_in_bottle.volume / volume)
 	if(boomsize >= 1 || extra_boom)
-		explosion(get_turf(src),-1, -1, extra_boom, flame_range = (boomsize + extra_boom))
+		// Queue explosion instead of immediate
+		SSexplosion_spam.queue_explosion(get_turf(src), -1, -1, extra_boom, flame_range = (boomsize + extra_boom), source = src)
 
 /obj/item/reagent_containers/food/drinks/bottle/molotov/proc/splash_and_boom()
 	if(QDELETED(src) || !active || isnull(loc))

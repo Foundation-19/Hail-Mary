@@ -30,6 +30,8 @@
  * required id string A unique window identifier.
  */
 /datum/tgui_window/New(client/client, id, pooled = FALSE)
+	if(!client || !id)
+		CRASH("[src] called with invalid client ([client]) or id ([id])")
 	src.id = id
 	src.client = client
 	if(!src.client.tgui_windows)
