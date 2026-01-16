@@ -423,7 +423,7 @@ Knight-Captain
 		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
-		/obj/item/storage/box/bos/headknight = 1,
+		/obj/item/storage/box/bos/knightcaptain = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
