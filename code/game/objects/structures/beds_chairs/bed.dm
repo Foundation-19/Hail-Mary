@@ -116,6 +116,7 @@
 
 /obj/structure/bed/roller/rusty
 	name = "rusty roller bed"
+	desc = "This one is a bit dusty, with dried bloodstains visible on it, and its wheels and metal parts are rusted quite badly, but it still performs its function."
 	icon = 'icons/obj/rust_rollerbed.dmi'
 	icon_state = "down"	
 	anchored = FALSE
