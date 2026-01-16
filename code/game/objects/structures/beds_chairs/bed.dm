@@ -114,6 +114,14 @@
 	var/foldabletype = /obj/item/roller
 	use_directionals = FALSE
 
+/obj/structure/bed/roller/rusty
+	name = "rusty roller bed"
+	icon = 'icons/obj/rust_rollerbed.dmi'
+	icon_state = "down"	
+	anchored = FALSE
+	resistance_flags = NONE
+	use_directionals = FALSE
+
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller/robo))
 		var/obj/item/roller/robo/R = W
