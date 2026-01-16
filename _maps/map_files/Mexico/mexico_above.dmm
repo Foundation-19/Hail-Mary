@@ -2960,7 +2960,9 @@
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
 "oR" = (
-/obj/structure/simple_door/bunker,
+/obj/machinery/door/unpowered/secure_steeldoor{
+	req_access_txt = "134"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	sunlight_state = 1;
 	name = "deck"
@@ -3433,6 +3435,9 @@
 /obj/structure/fence/wooden{
 	dir = 4;
 	pixel_y = 8
+	},
+/obj/structure/railing/handrail/legion/underlayer{
+	pixel_y = 24
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland)
@@ -4006,9 +4011,7 @@
 /turf/open/floor/plating/rust,
 /area/f13/enclave)
 "tS" = (
-/obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "134"
-	},
+/obj/structure/simple_door/repaired,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	sunlight_state = 1;
 	name = "deck"
@@ -8311,14 +8314,12 @@
 /turf/open/floor/wood_fancy,
 /area/f13/legioncamp)
 "Pn" = (
-/obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "134"
-	},
 /obj/structure/fluff/railing{
 	dir = 4;
 	color = "#A47449";
 	layer = 5
 	},
+/obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	sunlight_state = 1;
 	name = "deck"

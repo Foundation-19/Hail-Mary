@@ -792,16 +792,6 @@
 	},
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
-"aLu" = (
-/obj/machinery/door/poddoor/shutters/old/preopen{
-	name = "Enclave Naval dock strong shutters";
-	id = "Enclave22"
-	},
-/turf/open/floor/f13/wood{
-	sunlight_state = 1;
-	name = "Wooden docks"
-	},
-/area/f13/wasteland)
 "aLw" = (
 /obj/structure/railing{
 	color = "#A47449"
@@ -5183,15 +5173,14 @@
 /turf/closed/mineral/random/low_chance,
 /area/f13/underground/cave)
 "eQQ" = (
-/obj/machinery/door/poddoor/shutters/old/preopen{
-	name = "Enclave Naval dock strong shutters";
-	id = "Enclave2"
+/obj/structure/barricade/wooden/strong,
+/obj/structure/barricade/bars{
+	max_integrity = 800;
+	name = "strong metal bars";
+	obj_integrity = 800
 	},
-/turf/open/floor/f13/wood{
-	sunlight_state = 1;
-	name = "Wooden docks"
-	},
-/area/f13/enclave)
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/wasteland)
 "eQR" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood1";
@@ -6676,13 +6665,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/underground/cave)
-"fWv" = (
-/obj/machinery/door/poddoor/shutters/old/preopen{
-	name = "Enclave Naval dock strong shutters";
-	id = "Enclave1"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
 "fXd" = (
 /obj/item/radio/intercom{
 	frequency = 1363;
@@ -7067,7 +7049,7 @@
 	id = "Maingate2";
 	name = "Gatehouse shutters"
 	},
-/turf/open/floor/f13/wood,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
 "grs" = (
 /obj/effect/decal/cleanable/blood{
@@ -7106,13 +7088,7 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/legioncamp)
 "gsr" = (
-/obj/effect/turf_decal/loading_area/white{
-	dir = 8
-	},
-/obj/machinery/door/poddoor/shutters/old/preopen{
-	name = "Enclave Naval dock strong shutters";
-	id = "Enclave11"
-	},
+/obj/structure/simple_door/bunker,
 /turf/open/floor/engine,
 /area/f13/enclave)
 "gsw" = (
@@ -10637,13 +10613,11 @@
 /turf/open/floor/carpet/red,
 /area/f13/legioncamp)
 "jPx" = (
-/obj/effect/turf_decal/delivery/red,
-/obj/machinery/door/poddoor/shutters/old/preopen{
-	name = "Enclave Naval dock strong shutters";
-	id = "Enclave11"
+/obj/structure/railing/wood/post/underlayer{
+	pixel_x = -18
 	},
-/turf/open/floor/engine,
-/area/f13/enclave)
+/turf/open/water/shore,
+/area/f13/wasteland)
 "jPC" = (
 /obj/structure/barricade/tentleatheredge{
 	pixel_y = -4
@@ -15162,7 +15136,7 @@
 	id = "Maingate2";
 	name = "Gatehouse shutters"
 	},
-/turf/open/floor/f13/wood,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
 "obT" = (
 /obj/structure/chair/f13foldupchair{
@@ -18395,7 +18369,7 @@
 	name = "strong metal bars";
 	obj_integrity = 800
 	},
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
 "riL" = (
 /obj/machinery/light/small{
@@ -19060,22 +19034,9 @@
 /turf/open/floor/wood_common,
 /area/f13/city)
 "rJA" = (
-/obj/machinery/button/door{
-	pixel_x = 25;
-	name = "Enclave door button";
-	id = "Enclave2";
-	req_access_txt = "134";
-	pixel_y = -5
-	},
-/obj/machinery/button/door{
-	pixel_x = 25;
-	name = "Enclave door button";
-	id = "Enclave1";
-	req_access_txt = "134";
-	pixel_y = 5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
+/obj/structure/flora/chomp/tall_boulder,
+/turf/open/water/shore,
+/area/f13/wasteland)
 "rJE" = (
 /obj/structure/closet/crate/wicker,
 /turf/open/floor/plasteel/f13/stone/rugged,
@@ -20675,9 +20636,8 @@
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
 "tfJ" = (
-/obj/structure/simple_door/bunker/glass,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/enclave)
+/turf/open/water/shore,
+/area/f13/wasteland)
 "tfP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -22948,7 +22908,8 @@
 	name = "strong metal bars";
 	obj_integrity = 800
 	},
-/turf/open/indestructible/ground/outside/desert,
+/obj/structure/barricade/wooden/strong,
+/turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legion)
 "vvq" = (
 /obj/structure/flora/grass/wasteland{
@@ -25876,23 +25837,6 @@
 /obj/item/stealthboy,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/farmhouse)
-"ykq" = (
-/obj/machinery/button/door{
-	pixel_x = -22;
-	name = "Enclave door button";
-	id = "Enclave22";
-	req_access_txt = "134";
-	pixel_y = -5
-	},
-/obj/machinery/button/door{
-	pixel_x = -21;
-	name = "Enclave door button";
-	id = "Enclave11";
-	req_access_txt = "134";
-	pixel_y = 5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/enclave)
 "yku" = (
 /obj/structure/wreck/trash/three_barrels{
 	layer = 3
@@ -27236,7 +27180,7 @@ tyB
 cvC
 xLr
 sTZ
-mos
+gsr
 sTZ
 sTZ
 sTZ
@@ -27997,11 +27941,11 @@ uTJ
 uTJ
 uTJ
 uTJ
-tfJ
+lYI
 oBN
 oBN
 oBN
-tfJ
+lYI
 uTJ
 uTJ
 lYI
@@ -28808,8 +28752,8 @@ uTJ
 lYI
 uTJ
 uTJ
-fWv
-fWv
+deG
+deG
 uTJ
 uTJ
 uTJ
@@ -29047,7 +28991,7 @@ rnB
 bww
 rnB
 adW
-ykq
+adW
 xfb
 sTZ
 adW
@@ -29219,7 +29163,7 @@ deG
 jwL
 deG
 deG
-rJA
+deG
 deG
 deG
 deG
@@ -29650,7 +29594,7 @@ lFz
 xQN
 rnB
 rnB
-jPx
+rnB
 xfb
 xfb
 rnB
@@ -29852,7 +29796,7 @@ qjP
 xQN
 xVN
 xfb
-gsr
+xVN
 xVN
 xVN
 vwe
@@ -30227,8 +30171,8 @@ uwe
 uwe
 uwe
 sTZ
-eQQ
-eQQ
+qQj
+qQj
 sTZ
 sTZ
 uwe
@@ -30257,8 +30201,8 @@ aBY
 aBY
 aBY
 ooJ
-aLu
-aLu
+aLm
+aLm
 ooJ
 aBY
 aBY
@@ -44687,9 +44631,9 @@ uwe
 uwe
 uwe
 uwe
-aBY
-aBY
-nBg
+tfJ
+tfJ
+jPx
 aLm
 aLm
 mDt
@@ -44890,8 +44834,8 @@ uwe
 uwe
 uwe
 hZE
-aBY
-aBY
+tfJ
+tfJ
 aLm
 aLm
 jkg
@@ -45092,8 +45036,8 @@ uwe
 uwe
 uwe
 uwe
-suV
-aBY
+rJA
+tfJ
 aLm
 aLm
 mDt
@@ -53362,7 +53306,7 @@ eQA
 eQA
 eQA
 eQA
-vOI
+eQQ
 riE
 gqv
 gqv
@@ -53564,7 +53508,7 @@ eQA
 eQA
 nMa
 nMa
-vOI
+eQQ
 vvd
 rRY
 prI
@@ -55997,7 +55941,7 @@ wdd
 pYa
 lOz
 bjl
-iPA
+yfl
 yfl
 nwR
 nwR
@@ -58021,7 +57965,7 @@ mVx
 fwj
 fxH
 vhp
-yfl
+iPA
 nwR
 yfl
 wsb
@@ -62876,7 +62820,7 @@ hoR
 pZt
 pZt
 fAq
-kCU
+mXR
 kCU
 kCU
 kCU
