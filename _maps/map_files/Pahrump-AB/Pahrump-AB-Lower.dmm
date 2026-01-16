@@ -6,7 +6,10 @@
 /turf/closed/wall/f13/tunnel,
 /area/f13/tunnel)
 "aac" = (
-/turf/closed/indestructible/f13/matrix,
+/obj/structure/fluff/rails{
+	dir = 1
+	},
+/turf/closed/indestructible/f13/matrix/subway,
 /area/f13/tunnel)
 "aae" = (
 /turf/closed/mineral/random/low_chance,
@@ -9069,6 +9072,13 @@
 	icon_state = "darkdirtysolid"
 	},
 /area/f13/tunnel)
+"fgv" = (
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "riverwater_motion";
+	sunlight_state = 0
+	},
+/area/f13/tunnel)
 "fgM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -9976,7 +9986,13 @@
 	},
 /area/f13/building/massfusion)
 "ghQ" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "rampdownbottom";
+	sunlight_state = 0;
+	dir = 8;
+	color = "#A47449"
+	},
 /area/f13/enclave)
 "ghW" = (
 /obj/machinery/light/small,
@@ -12242,6 +12258,16 @@
 /obj/structure/flora/wasteplant/wild_fungus,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"ilQ" = (
+/obj/structure/handrail/g_central{
+	pixel_y = -16
+	},
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "greenrustyfull";
+	sunlight_state = 0
+	},
+/area/f13/tunnel)
 "ima" = (
 /obj/structure/closet/cabinet,
 /obj/machinery/light{
@@ -18018,7 +18044,10 @@
 	},
 /area/f13/building/massfusion)
 "nDW" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/ground.dmi';
+	icon_state = "housewood1"
+	},
 /area/f13/ncr)
 "nEt" = (
 /obj/structure/barricade/tentclothedge,
@@ -19673,6 +19702,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/building)
+"pcL" = (
+/turf/closed/indestructible/f13/matrix/subway,
+/area/f13/tunnel)
 "pde" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -22058,6 +22090,15 @@
 /obj/machinery/chem_master/advanced,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/caves)
+"roy" = (
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "rampdownbottom";
+	sunlight_state = 0;
+	dir = 1;
+	color = "#A47449"
+	},
+/area/f13/city)
 "rph" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -24722,7 +24763,13 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/building/hospital)
 "tPe" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "rampdownbottom";
+	sunlight_state = 0;
+	dir = 8;
+	color = "#A47449"
+	},
 /area/f13/den)
 "tPy" = (
 /obj/structure/barricade/wooden/strong,
@@ -25602,6 +25649,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker)
+"uEY" = (
+/obj/structure/flora/grass/coyote/thirteen,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "rampdownbottom";
+	sunlight_state = 0;
+	color = "#A47449"
+	},
+/area/f13/den)
 "uEZ" = (
 /obj/structure/grille,
 /obj/structure/window/reinforced/fulltile,
@@ -25886,6 +25942,15 @@
 /mob/living/simple_animal/hostile/supermutant/legendary,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
+"uTT" = (
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "rampdownbottom";
+	sunlight_state = 0;
+	dir = 4;
+	color = "#A47449"
+	},
+/area/f13/den)
 "uUt" = (
 /obj/structure/spider/stickyweb,
 /obj/structure/table/wood,
@@ -28368,7 +28433,12 @@
 	},
 /area/f13/tunnel)
 "xhE" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "rampdownbottom";
+	sunlight_state = 0;
+	color = "#A47449"
+	},
 /area/f13/city)
 "xih" = (
 /obj/structure/table/reinforced,
@@ -50548,7 +50618,7 @@ gGV
 gGV
 bOr
 bCt
-xhE
+roy
 dQp
 awC
 iCR
@@ -50805,7 +50875,7 @@ gGV
 gGV
 bOr
 bCt
-xhE
+roy
 wZK
 wZK
 bOT
@@ -52197,13 +52267,13 @@ aae
 aae
 aae
 aae
-aae
-aae
-aak
-aae
-aak
-aae
-aae
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aak
 aak
 aae
@@ -52455,11 +52525,11 @@ aaa
 aaa
 aaa
 aaa
-aaa
-aaa
-aaa
-aaa
-aaa
+ajU
+ajU
+ajU
+ajU
+ajU
 aaa
 aaa
 aaa
@@ -61626,7 +61696,7 @@ kKt
 eJS
 xXv
 bCt
-aac
+pcL
 aah
 qES
 aah
@@ -61726,7 +61796,7 @@ aah
 aah
 aah
 aah
-aac
+pcL
 aaa
 "}
 (126,1,1) = {"
@@ -62140,7 +62210,7 @@ kKt
 eJS
 sTJ
 bCt
-aac
+pcL
 aah
 aah
 aah
@@ -62240,7 +62310,7 @@ aah
 aah
 lTv
 aah
-aac
+pcL
 aaa
 "}
 (128,1,1) = {"
@@ -62397,7 +62467,7 @@ kKt
 eJS
 eJS
 bCt
-aac
+pcL
 aah
 aah
 aah
@@ -62497,7 +62567,7 @@ aah
 aah
 aah
 aah
-aac
+pcL
 aaa
 "}
 (129,1,1) = {"
@@ -62654,7 +62724,7 @@ kKt
 eJS
 brR
 bCt
-aac
+pcL
 aah
 aah
 aah
@@ -62754,7 +62824,7 @@ aah
 aah
 aah
 aah
-aac
+pcL
 aaa
 "}
 (130,1,1) = {"
@@ -63168,7 +63238,7 @@ sdV
 uJr
 uJr
 bCt
-aac
+pcL
 aah
 qET
 aah
@@ -63268,7 +63338,7 @@ aah
 aah
 aah
 aah
-aac
+pcL
 aaa
 "}
 (132,1,1) = {"
@@ -63674,7 +63744,7 @@ xWV
 xWV
 xWV
 xWV
-tPe
+uTT
 xWV
 xWV
 bPN
@@ -63933,7 +64003,7 @@ gmr
 xWV
 xWV
 xWV
-vyF
+uEY
 nCn
 sdV
 uJr
@@ -77394,7 +77464,7 @@ bsC
 bsC
 bsC
 bsC
-aac
+fgv
 bsC
 bsC
 aae
@@ -80355,8 +80425,8 @@ aaB
 aae
 aae
 bsC
-aac
-aac
+ilQ
+fgv
 bsC
 aae
 aae

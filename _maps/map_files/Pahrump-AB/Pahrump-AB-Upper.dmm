@@ -6493,7 +6493,10 @@
 	},
 /area/f13/building)
 "jOR" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/obj/doors/airlocks/hatch/centcom.dmi';
+	icon_state = "closed"
+	},
 /area/f13/brotherhood)
 "jPD" = (
 /obj/structure/barricade/wooden,
@@ -9967,7 +9970,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood)
 "oOo" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/obj/stairs.dmi';
+	icon_state = "stairs";
+	dir = 8
+	},
 /area/f13/city)
 "oOp" = (
 /obj/structure/simple_door/wood,
