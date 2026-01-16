@@ -122,6 +122,7 @@
 	anchored = FALSE
 	resistance_flags = NONE
 	use_directionals = FALSE
+	foldabletype = /obj/item/roller/rusty
 
 /obj/structure/bed/roller/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/roller/robo))
@@ -179,6 +180,12 @@
 	icon_state = "folded"
 	w_class = WEIGHT_CLASS_NORMAL // No more excuses, stop getting blood everywhere
 
+/obj/item/roller/rusty
+	name = "rusty roller bed"
+	desc = "A collapsed rusty roller bed that can be carried around."
+	icon = 'icons/obj/rust_rollerbed.dmi'
+	icon_state = "folded"
+
 /obj/item/roller/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/roller/robo))
 		var/obj/item/roller/robo/R = I
@@ -206,6 +213,11 @@
 	var/obj/structure/bed/roller/R = new /obj/structure/bed/roller(location)
 	R.add_fingerprint(user)
 	qdel(src)
+
+/obj/item/roller/rusty/deploy_roller(mob/user, atom/location)
+		var/obj/structure/bed/roller/rusty/R = new /obj/structure/bed/roller/rusty(location)
+		R.add_fingerprint(user)
+		qdel(src)
 
 /obj/item/roller/robo //ROLLER ROBO DA!
 	name = "roller bed dock"
