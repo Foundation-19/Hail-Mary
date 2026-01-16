@@ -108,7 +108,12 @@
 
 /obj/item/paper/update_icon_state()
 	if(info && show_written_words)
-		icon_state = "[initial(icon_state)]_words"
+		if(istype(src, /obj/item/paper/rust))
+			icon_state = initial(icon_state) + "_words"  // "paper_rust_words"
+		else
+			icon_state = "[initial(icon_state)]_words"
+	else
+		icon_state = initial(icon_state)
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
