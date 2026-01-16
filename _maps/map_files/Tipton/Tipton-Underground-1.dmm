@@ -4424,7 +4424,7 @@
 	},
 /area/f13/bunker)
 "doU" = (
-/obj/effect/spawner/lootdrop/f13/weapon/melee/random_mid,
+/obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelrusty"
 	},
