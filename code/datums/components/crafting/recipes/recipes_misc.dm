@@ -767,9 +767,9 @@
 	always_available = FALSE
 
 /datum/crafting_recipe/bos_rca_convert
-	name = "Converted Combat Armor"
-	result = /obj/item/clothing/suit/armor/medium/combat/brotherhood/initiate/mk2
-	reqs = list(/obj/item/clothing/suit/armor/medium/combat = 1,
+	name = "Converted Reinforced Combat Armor"
+	result = /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood
+	reqs = list(/obj/item/clothing/suit/armor/medium/combat/mk2 = 1,
 				/obj/item/stack/sheet/metal = 20,
 				/obj/item/stack/crafting/goodparts = 5,
 				/obj/item/stack/crafting/metalparts = 10)
@@ -779,8 +779,8 @@
 	always_available = FALSE
 
 /datum/crafting_recipe/bos_rca_helm_convert
-	name = "Converted Combat Armor Helmet"
-	result = /obj/item/clothing/head/helmet/f13/combat/brotherhood/initiate/mk2
+	name = "Converted Reinforced Combat Armor Helmet"
+	result = /obj/item/clothing/head/helmet/f13/combat/mk2/brotherhood
 	reqs = list(/obj/item/clothing/suit/armor/medium/combat/mk2 = 1,
 				/obj/item/stack/sheet/metal = 30,
 				/obj/item/stack/crafting/goodparts = 5,
