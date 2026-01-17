@@ -748,8 +748,8 @@
 	name = "Converted Combat Armor"
 	result = /obj/item/clothing/suit/armor/medium/combat/brotherhood
 	reqs = list(/obj/item/clothing/suit/armor/medium/combat = 1,
-				/obj/item/stack/sheet/metal = 20,
-				/obj/item/stack/crafting/metalparts = 10)
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 1)
 	time = 30
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
@@ -759,8 +759,8 @@
 	name = "Converted Combat Armor Helmet"
 	result = /obj/item/clothing/head/helmet/f13/combat/brotherhood
 	reqs = list(/obj/item/clothing/head/helmet/f13/combat = 1,
-				/obj/item/stack/sheet/metal = 20,
-				/obj/item/stack/crafting/metalparts = 10)
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 1)
 	time = 30
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
@@ -770,9 +770,9 @@
 	name = "Converted Reinforced Combat Armor"
 	result = /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood
 	reqs = list(/obj/item/clothing/suit/armor/medium/combat/mk2 = 1,
-				/obj/item/stack/sheet/metal = 20,
-				/obj/item/stack/crafting/goodparts = 5,
-				/obj/item/stack/crafting/metalparts = 10)
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/goodparts = 1,
+				/obj/item/stack/crafting/metalparts = 1)
 	time = 30
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
@@ -782,9 +782,9 @@
 	name = "Converted Reinforced Combat Armor Helmet"
 	result = /obj/item/clothing/head/helmet/f13/combat/mk2/brotherhood
 	reqs = list(/obj/item/clothing/suit/armor/medium/combat/mk2 = 1,
-				/obj/item/stack/sheet/metal = 30,
-				/obj/item/stack/crafting/goodparts = 5,
-				/obj/item/stack/crafting/metalparts = 10)
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/goodparts = 1,
+				/obj/item/stack/crafting/metalparts = 1)
 	time = 30
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
@@ -794,9 +794,9 @@
 	name = "Converted Broken Riot Armor"
 	result = /obj/item/clothing/suit/armor/heavy/riot/bos
 	reqs = list(/obj/item/clothing/suit/armor/heavy/riot/combat = 1,
-				/obj/item/stack/sheet/metal = 40,
-				/obj/item/stack/crafting/goodparts = 10,
-				/obj/item/stack/crafting/metalparts = 20)
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/goodparts = 1,
+				/obj/item/stack/crafting/metalparts = 1)
 	time = 30
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
@@ -806,9 +806,9 @@
 	name = "Converted Broken Riot Helmet"
 	result = /obj/item/clothing/head/helmet/f13/combat/rangerbroken/bos
 	reqs = list(/obj/item/clothing/head/helmet/f13/combat/rangerbroken = 1,
-				/obj/item/stack/sheet/metal = 40,
-				/obj/item/stack/crafting/goodparts = 10,
-				/obj/item/stack/crafting/metalparts = 20)
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/goodparts = 1,
+				/obj/item/stack/crafting/metalparts = 1)
 	time = 30
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
