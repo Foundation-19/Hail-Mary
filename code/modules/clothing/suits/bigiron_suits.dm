@@ -1129,14 +1129,6 @@
 	icon_state = "maxson_battlecoat"
 	item_state = "maxson_battlecoat"
 
-/obj/item/clothing/suit/armor/light/duster/herbertranger //Armor wise, it's reskinned raider armor.
-	name = "weathered desert ranger armor"
-	desc = "A set of pre-unification desert ranger armor, made using parts of what was once USMC riot armor. It looks as if it has been worn for decades; the coat has become discoloured from years under the Mojave sun and has multiple tears and bullet holes in its leather. The armor plating itself seems to be in relatively good shape, though it could do with some maintenance."
-	body_parts_covered = CHEST|GROIN|LEGS|ARMS
-	icon_state = "usmc_riot_gear"
-	item_state = "usmc_riot_gear"
-	body_parts_hidden = CHEST|ARMS
-
 /obj/item/clothing/suit/armor/light/duster/marlowsuit //Raider armour reskin.
 	name = "Marlow gang overcoat"
 	desc = "A heavy raw buckskin overcoat littered with aged bullet holes and frays from regular wear-and-tear."
@@ -2216,6 +2208,8 @@
 	icon_state = "shank_follower"
 	item_state = "shank_follower"
 
+
+
 //////////////////////
 //// COMBAT ARMOR ////
 //////////////////////
@@ -2604,6 +2598,14 @@
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_MORE_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2)
 
+/// Reskinned Raider Armor
+/obj/item/clothing/suit/armor/medium/raider/herbertranger
+	name = "weathered desert ranger armor"
+	desc = "A set of pre-unification desert ranger armor, made using parts of what was once USMC riot armor. It looks as if it has been worn for decades; the coat has become discoloured from years under the Mojave sun and has multiple tears and bullet holes in its leather. The armor plating itself seems to be in relatively good shape, though it could do with some maintenance."
+	body_parts_covered = CHEST|GROIN|LEGS|ARMS
+	icon_state = "usmc_riot_gear"
+	item_state = "usmc_riot_gear"
+	body_parts_hidden = CHEST|ARMS
 
 ///////////
 // HEAVY //
