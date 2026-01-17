@@ -2422,19 +2422,19 @@
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/senior
 	name = "brotherhood senior knight armor"
-	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Senior Knights. It bears a silver stripe."
+	desc = "A reinforced combat armor set made by the Brotherhood of Steel, standard issue for all Senior Knights. It bears a silver stripe."
 	icon_state = "brotherhood_armor_senior"
 	item_state = "brotherhood_armor_senior"
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/sarge
 	name = "brotherhood Knight Sarge Armor"
-	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Knight Sarge. It bears a silver stripe."
+	desc = "A reinforced combat armor set made by the Brotherhood of Steel, standard issue for all Knight Sarge. It bears a silver stripe."
 	icon_state = "brotherhood_armor_senior"
 	item_state = "brotherhood_armor_senior"
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/captain
 	name = "brotherhood head knight armor"
-	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Head Knights. It bears golden embroidery."
+	desc = "A reinforced combat armor set made by the Brotherhood of Steel, standard issue for all Head Knights. It bears golden embroidery."
 	icon_state = "brotherhood_armor_captain"
 	item_state = "brotherhood_armor_captain"
 
