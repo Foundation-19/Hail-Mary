@@ -355,15 +355,13 @@
 
 	for(var/v in matching_designs)
 		var/datum/design/D = v
-		if(!D)
+		if(!D || !D.id)  // Skip if design is null or has no ID
 			continue
-		// Defensive: check D.name and D.id before use
-		var/dname = (D.name ? D.name : "<i>Unknown</i>")
-		var/did = (D.id ? D.id : "")
+		
 		if(disabled || !can_build(D))
-			dat += span_linkOff("[dname]")
+			dat += span_linkOff("[D.name]")
 		else
-			dat += "<a href='?src=[REF(src)];make=[did];multiplier=1'>[dname]</a>"
+			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
 
 		if(D.build_path && ispath(D.build_path, /obj/item/stack))
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
@@ -381,7 +379,6 @@
 
 	dat += "</div>"
 	return dat
-
 /obj/machinery/autolathe/proc/materials_printout()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/dat = "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
