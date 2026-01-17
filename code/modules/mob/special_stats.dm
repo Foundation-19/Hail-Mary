@@ -58,7 +58,7 @@ proc/get_top_level_mob(mob/S)
 	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
 /obj/item/gun/proc/gun_firing_str_check(mob/living/user)
-	if(user.special_s >= SPECIAL_MIN_STR_FIRING_REQUIREMENT) // if your special is below SPECIAL_MIN_STR_FIRING_REQUIREMENT, you cant fire
+	if(user.special_s >= required_str_to_fire) // if your special is below required_str_to_fire , you cant fire
 		return TRUE
 	to_chat(user, span_warning("You're too weak to pull a trigger.")) // phrase at chat, if you cant fire gun
 	return FALSE

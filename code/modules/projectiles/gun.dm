@@ -177,6 +177,8 @@ ATTACHMENTS
 	COOLDOWN_DECLARE(shoot_message_antispam)
 	/// Minimum S.P.E.C.I.A.L. Intelligence stat required for using this gun
 	var/required_int_to_fire = 0
+	/// Minimum S.P.E.C.I.A.L. Strength stat required for using this gun
+	var/required_str_to_fire = 2
 
 /obj/item/gun/Initialize()
 	if(!recoil_dat && islist(init_recoil))
