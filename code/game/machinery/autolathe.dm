@@ -770,7 +770,9 @@
 	return dat
 
 /obj/machinery/autolathe/ammo/can_build(datum/design/D, amount = 1)
-	if(!D || !D.category)
+	if(!D)
+		return FALSE
+	if(!islist(D.category))  // Changed from !D.category
 		return FALSE
 	if("Handloaded Ammo" in D.category)
 		return ..()
@@ -780,58 +782,45 @@
 		if(simple == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Simple Magazines" in D.category)
 		if(simple == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Basic Ammo" in D.category)
 		if(basic == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Basic Magazines" in D.category)
 		if(basic == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Intermediate Ammo" in D.category)
 		if(intermediate == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Intermediate Magazines" in D.category)
 		if(intermediate == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Advanced Ammo" in D.category)
 		if(advanced == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Advanced Magazines" in D.category)
 		if(advanced == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
+
+	// Default fallback for designs not in any of the above categories
+	return ..()
 
 /obj/machinery/autolathe/ammo/on_deconstruction()
 	..()
