@@ -28062,7 +28062,6 @@
 "fzD" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/medical,
-/obj/item/reagent_containers/blood/radaway,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
@@ -68697,6 +68696,7 @@
 "wkP" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/gun/ballistic/shotgun/hunting,
+/obj/item/melee/powered/ripper,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
