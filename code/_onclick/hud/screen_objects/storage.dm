@@ -34,6 +34,8 @@
 
 /obj/screen/storage/close/Click()
 	var/datum/component/storage/S = master
+	if(!S)
+		return
 	S.close(usr)
 	return TRUE
 

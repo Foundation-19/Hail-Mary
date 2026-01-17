@@ -509,7 +509,7 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 	// Cannot use the list as a map if the key is a number, so we stringify it (thank you BYOND)
 	var/smessage_type = num2text(message_type)
 
-	if(client)
+	if(client && client.player_details)
 		if(!islist(client.player_details.logging[smessage_type]))
 			client.player_details.logging[smessage_type] = list()
 
@@ -535,9 +535,15 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 
 	var/list/timestamped_message = list("\[[TIME_STAMP("hh:mm:ss", FALSE)]\] [key_name(src)] [loc_name(src)] (Event #[LAZYLEN(logging[smessage_type])])" = colored_message)
 
+	if(!logging)
+		logging = list()
+	if(!logging[smessage_type])
+		logging[smessage_type] = list()
 	logging[smessage_type] += timestamped_message
 
-	if(client)
+	if(client && client.player_details && client.player_details.logging)
+		if(!client.player_details.logging[smessage_type])
+			client.player_details.logging[smessage_type] = list()
 		client.player_details.logging[smessage_type] += timestamped_message
 
 	..()

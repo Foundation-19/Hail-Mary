@@ -69,11 +69,17 @@
 	return //we use a different hud
 
 /mob/living/silicon/Destroy()
-	radio = null
-	aicamera = null
-	QDEL_NULL(builtInCamera)
-	GLOB.silicon_mobs -= src
-	return ..()
+    // Owned subsystems
+    if(builtInCamera)
+        QDEL_NULL(builtInCamera)
+    if(aicamera)
+        QDEL_NULL(aicamera)
+
+    // Remove from global list
+    if(GLOB.silicon_mobs)
+        GLOB.silicon_mobs -= src
+
+    return ..()
 
 /mob/living/silicon/contents_explosion(severity, target)
 	return

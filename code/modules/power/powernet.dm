@@ -6,7 +6,7 @@
 	var/number					// unique id
 	var/list/cables = list()	// all cables & junctions
 	var/list/nodes = list()		// all connected machines
-
+	var/list/smes_nodes = list()	// cached SMES machines for quick access
 	var/load = 0				// the current load on the powernet, increased by each machine at processing
 	var/newavail = 0			// what available power was gathered last tick, then becomes...
 	var/avail = 0				//...the current available power in the powernet
@@ -26,6 +26,7 @@
 	for(var/obj/machinery/power/M in nodes)
 		nodes -= M
 		M.powernet = null
+	smes_nodes.Cut()
 
 	SSmachines.powernets -= src
 	return ..()
@@ -58,6 +59,7 @@
 //Warning : this proc DON'T check if the machine exists
 /datum/powernet/proc/remove_machine(obj/machinery/power/M)
 	nodes -=M
+	smes_nodes -= M
 	M.powernet = null
 	if(is_empty())//the powernet is now empty...
 		qdel(src)///... delete it
@@ -73,6 +75,8 @@
 			M.disconnect_from_network()//..remove it
 	M.powernet = src
 	nodes[M] = M
+	if(istype(M, /obj/machinery/power/smes))
+		smes_nodes[M] = M
 
 //handles the power changes in the powernet
 //called every ticks by the powernet controller
@@ -80,8 +84,8 @@
 	//see if there's a surplus of power remaining in the powernet and stores unused power in the SMES
 	netexcess = avail - load
 
-	if(netexcess > 100 && nodes && nodes.len)		// if there was excess power last cycle
-		for(var/obj/machinery/power/smes/S in nodes)	// find the SMESes in the network
+	if(netexcess > 100 && smes_nodes.len)		// if there was excess power last cycle
+		for(var/obj/machinery/power/smes/S in smes_nodes)	// restore power to SMESes in the network
 			S.restore()				// and restore some of the power that was used
 
 	// update power consoles

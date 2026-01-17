@@ -17,7 +17,8 @@
 	var/damage = damage_roll(A,D)
 	switch(rand(1,8))
 		if(1)
-			D.help_shake_act(A)
+			if(istype(D, /mob/living/carbon/human))
+				D.help_shake_act(A)
 			atk_verb = "helped"
 		if(2)
 			A.emote("cry")
