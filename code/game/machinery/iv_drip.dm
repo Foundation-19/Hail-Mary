@@ -261,6 +261,7 @@
 	name = "\improper old IV drip"
 	desc = "An old and rusty IV drip with an infusion pump that can both drain blood into and inject liquids from attached containers. Blood packs are processed at an accelerated rate. Alt-Click to change the transfer rate."
 	icon_state = "iv_drip_rust"
+	var/speed_mult = 0.4 // multi for doing rust IV drip worse, its 40% from normal one
 
 /obj/machinery/iv_drip/rust/update_icon_state()
 	if(attached)
@@ -273,6 +274,50 @@
 			icon_state = "injectidle_rust"
 		else
 			icon_state = "donateidle_rust"
+
+/obj/machinery/iv_drip/rust/process()
+	if(!attached)
+		return PROCESS_KILL
+
+	if(!(get_dist(src, attached) <= 1 && isturf(attached.loc)))
+		to_chat(attached, span_userdanger("The IV drip needle is ripped out of you!"))
+		attached.apply_damage(3, BRUTE, pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
+		attached = null
+		update_icon()
+		return PROCESS_KILL
+
+	if(beaker)
+		// Give blood
+		if(mode)
+			if(beaker.reagents.total_volume)
+				var/transfer_amount = 5 * speed_mult
+				if (dripfeed)
+					transfer_amount = 1 * speed_mult
+				if(istype(beaker, /obj/item/reagent_containers/blood))
+					// speed up transfer on blood packs
+					transfer_amount *= 2
+				var/fraction = min(transfer_amount/beaker.reagents.total_volume, 1) //the fraction that is transfered of the total volume
+				beaker.reagents.reaction(attached, INJECT, fraction, FALSE) //make reagents reacts, but don't spam messages
+				beaker.reagents.trans_to(attached, transfer_amount)
+				update_icon()
+
+		// Take blood
+		else
+			var/amount = beaker.reagents.maximum_volume - beaker.reagents.total_volume
+			amount = min(amount, 4 * speed_mult)
+			// If the beaker is full, ping
+			if(!amount)
+				if(prob(5))
+					visible_message("[src] pings.")
+					playsound(loc, 'sound/machines/beep.ogg', 50, 1)
+				return
+
+			// If the human is losing too much blood, beep.
+			if(attached.get_blood(FALSE) < ((BLOOD_VOLUME_SAFE*attached.blood_ratio) && prob(5) && ishuman(attached))) //really couldn't care less about monkeys
+				visible_message("[src] beeps loudly.")
+				playsound(loc, 'sound/machines/twobeep.ogg', 50, 1)
+			attached.transfer_blood_to(beaker, amount)
+			update_icon()
 
 #undef IV_TAKING
 #undef IV_INJECTING
