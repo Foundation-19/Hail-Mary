@@ -551,7 +551,7 @@ ATTACHMENTS
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", stam_cost = 0)
 	add_fingerprint(user)
 
-	if(!gun_firing_special_stat_check(user)) //S.P.E.C.I.A.L.
+	if(!gun_firing_special_stat_check(user) || !gun_firing_str_check(user)) //S.P.E.C.I.A.L.
 		return
 	if(on_cooldown(user))
 		return
