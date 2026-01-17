@@ -67,18 +67,39 @@ GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/gun/flintlock_laser))
 
 GLOBAL_LIST_INIT(former_tribal_recipes, list(
-	///datum/crafting_recipe/tribal/bonetalisman, //broken item, unneeded
-	/datum/crafting_recipe/spearfisher,
-	/datum/crafting_recipe/bitterdrink,
-	/datum/crafting_recipe/bitterdrink5,
-	/datum/crafting_recipe/healpoultice,
-	/datum/crafting_recipe/healpoultice5,
-	//datum/crafting_recipe/redpotion,
-	//datum/crafting_recipe/bluepotion,
-	//datum/crafting_recipe/greenpotion,
-	/datum/crafting_recipe/food/pemmican,
-	/datum/crafting_recipe/tribal/bonebag,
-	/datum/crafting_recipe/warpaint))
+<<<<<<< Updated upstream
+	/datum/crafting_recipe/tribal/bonetalisman, 
+    //datum/crafting_recipe/tribal_pa, 
+    //datum/crafting_recipe/tribal_pa_helmet,
+    //datum/crafting_recipe/tribal_combat_armor,
+    //datum/crafting_recipe/tribal_combat_armor_helmet,
+    //datum/crafting_recipe/tribal_r_combat_armor,
+    //datum/crafting_recipe/tribal_r_combat_armor_helmet,
+    /datum/crafting_recipe/tribalwar/chitinarmor,
+    /datum/crafting_recipe/tribalwar/lightcloak,
+    /datum/crafting_recipe/warmace,
+    /datum/crafting_recipe/tribalwar/lighttribe,
+    /datum/crafting_recipe/tribalwar/heavytribe,
+    /datum/crafting_recipe/tribalwar/legendaryclawcloak,
+    /datum/crafting_recipe/tribalwar/deathclawspear,
+    /datum/crafting_recipe/warpaint,
+    /datum/crafting_recipe/tribalradio,
+    /datum/crafting_recipe/tribalwar/goliathcloak,
+    /datum/crafting_recipe/tribalwar/warclub,
+    /datum/crafting_recipe/tribalwar/bonespear,
+    /datum/crafting_recipe/tribalwar/bonecodpiece,
+    /datum/crafting_recipe/tribalwar/bracers,
+    /datum/crafting_recipe/spearfisher,
+    /datum/crafting_recipe/bitterdrink,
+    /datum/crafting_recipe/bitterdrink5,
+    /datum/crafting_recipe/healpoultice,
+    /datum/crafting_recipe/healpoultice5,
+    //datum/crafting_recipe/redpotion,
+    //datum/crafting_recipe/bluepotion,
+    //datum/crafting_recipe/greenpotion,
+    /datum/crafting_recipe/food/pemmican,
+    /datum/crafting_recipe/tribal/bonebag))
+>>>>>>> Stashed changes
 
 GLOBAL_LIST_INIT(energyweapon_crafting, list(
 	/datum/crafting_recipe/aer9_hotwired))
