@@ -126,8 +126,13 @@
 	attack_hand_is_action = TRUE
 
 /obj/structure/spider/spiderling/Destroy()
-	new/obj/item/reagent_containers/food/snacks/spiderling(get_turf(src))
-	. = ..()
+	// Break parent references
+	RemoveComponentByType(/datum/component/swarming)
+	entry_vent = null
+	grow_as = null
+	directive = null
+	faction = null
+	return ..()
 
 /obj/structure/spider/spiderling/Initialize()
 	. = ..()

@@ -31,7 +31,7 @@
 
 	var/list/dna_to_add //find the dna to pass to the spawned gibs. do note this can be null if the mob doesn't have blood. add_blood_DNA() has built in null handling.
 	var/body_coloring = ""
-	if(source_mob)
+	if(source_mob && isliving(source_mob))
 		if(!issilicon(source_mob))
 			dna_to_add = (islist(blood_dna) ? blood_dna : null) || source_mob.get_blood_dna_list() //ez pz
 		if(ishuman(source_mob))

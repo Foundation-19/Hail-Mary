@@ -33,6 +33,8 @@ SUBSYSTEM_DEF(statpanels)
 	while(length(currentrun))
 		var/client/target = currentrun[length(currentrun)]
 		currentrun.len--
+		if(!target)
+			continue
 		// Send map/server data to ALL clients (cheap operation)
 		// Only send expensive per-mob data when viewing Status tab
 		var/ping_str = url_encode("Ping: [round(target.lastping, 1)]ms (Average: [round(target.avgping, 1)]ms)")
@@ -142,7 +144,10 @@ SUBSYSTEM_DEF(statpanels)
 						else
 							turfitems[++turfitems.len] = list("[turf_content.name]", REF(turf_content))
 					turfitems = url_encode(json_encode(turfitems))
-					target << output("[turfitems];", "statbrowser:update_listedturf")
+					// Only send if contents changed to prevent constant flashing
+					if(!target.last_turf_items_encoded || target.last_turf_items_encoded != turfitems)
+						target.last_turf_items_encoded = turfitems
+						target << output("[turfitems];", "statbrowser:update_listedturf")
 		if(MC_TICK_CHECK)
 			return
 

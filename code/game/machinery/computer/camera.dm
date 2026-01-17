@@ -166,7 +166,6 @@
 			stack_trace("Camera in a cameranet has no camera network")
 			continue
 		if(!(islist(C.network)))
-			stack_trace("Camera in a cameranet has a non-list camera network")
 			continue
 		var/list/tempnetwork = C.network & network
 		if(tempnetwork.len)

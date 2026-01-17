@@ -74,42 +74,56 @@
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
-	var/atom/T = drop_location()//To hopefully prevent run time errors.
-	if(mmi && mind)//Safety for when a cyborg gets dust()ed. Or there is no MMI inside.
+
+	var/atom/T = drop_location()  // Drop location for movable items
+
+	if(client)
+		client.mob = null
+
+	// Handle mind + MMI transfer safely
+	if(mmi && mind)
 		if(T)
 			mmi.forceMove(T)
+
 		if(mmi.brainmob)
 			if(mmi.brainmob.stat == DEAD)
 				mmi.brainmob.set_stat(CONSCIOUS)
 				GLOB.dead_mob_list -= mmi.brainmob
 				GLOB.alive_mob_list += mmi.brainmob
+
 			mind.transfer_to(mmi.brainmob)
 			mmi.update_icon()
 		else
-			to_chat(src, span_boldannounce("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report so we can fix this bug."))
+			to_chat(src, span_boldannounce("Oops! Something went very wrong, your MMI was unable to receive your mind. You have been ghosted. Please make a bug report."))
 			ghostize()
 			stack_trace("Borg MMI lacked a brainmob")
-		mmi = null
-	//CITADEL EDIT: Cyborgs drop encryption keys on destroy
-	if(istype(radio) && istype(radio.keyslot))
-		radio.keyslot.forceMove(T)
-		radio.keyslot = null
-	//END CITADEL EDIT
+
+	if(mind && mind.current == src)
+		mind.current = null
+
+	cell = null
+	wires = null
+	radio = null
+	module = null
+	builtInCamera = null
+	aicamera = null
+	spark_system = null
+	robot_modules_background = null
+	equippable_hats = null
+
 	if(connected_ai)
 		set_connected_ai(null)
+
 	if(shell)
 		GLOB.available_ai_shells -= src
-	else
-		if(T && istype(radio) && istype(radio.keyslot))
-			radio.keyslot.forceMove(T)
-			radio.keyslot = null
-	qdel(wires)
-	qdel(module)
-	qdel(eye_lights)
-	wires = null
-	module = null
-	eye_lights = null
-	cell = null
+
+	GLOB.silicon_mobs -= src
+
+	// Critical GC steps
+	UnregisterSignal(src)
+	RemoveComponentByType(/datum/component/swarming)
+
+	loc = null
 	return ..()
 
 /mob/living/silicon/robot/proc/pick_module()

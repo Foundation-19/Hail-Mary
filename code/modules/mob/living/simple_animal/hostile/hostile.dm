@@ -127,6 +127,10 @@
 	GiveTarget(null)
 	if(smoke)
 		QDEL_NULL(smoke)
+	// Clean up lonely timer if active
+	if(lonely_timer_id)
+		deltimer(lonely_timer_id)
+		lonely_timer_id = null
 	return ..()
 
 /mob/living/simple_animal/hostile/BiologicalLife(seconds, times_fired)
@@ -198,8 +202,10 @@
 
 /mob/living/simple_animal/hostile/toggle_ai(togglestatus)
 	. = ..()
+	if(QDELETED(src))
+		return
 	if(consider_despawning())
-		if(!lonely_timer_id)
+		if(!lonely_timer_id && !QDELETED(src))
 			lonely_timer_id = addtimer(CALLBACK(src, PROC_REF(queue_unbirth)), 30 SECONDS, TIMER_STOPPABLE)
 	else
 		if(lonely_timer_id)
