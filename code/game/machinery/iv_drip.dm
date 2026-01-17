@@ -257,5 +257,22 @@
 	qdel(src)
 	return TRUE
 
+/obj/machinery/iv_drip/rust
+	name = "\improper old IV drip"
+	desc = "An old and rusty IV drip with an infusion pump that can both drain blood into and inject liquids from attached containers. Blood packs are processed at an accelerated rate. Alt-Click to change the transfer rate."
+	icon_state = "iv_drip_rust"
+
+/obj/machinery/iv_drip/rust/update_icon_state()
+	if(attached)
+		if(mode)
+			icon_state = "injecting_rust"
+		else
+			icon_state = "donating_rust"
+	else
+		if(mode)
+			icon_state = "injectidle_rust"
+		else
+			icon_state = "donateidle_rust"
+
 #undef IV_TAKING
 #undef IV_INJECTING
