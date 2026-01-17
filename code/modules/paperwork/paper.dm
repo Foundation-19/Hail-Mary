@@ -92,11 +92,15 @@
 	update_icon_state()
 
 /obj/item/paper/proc/parsemarkdown(text, mob/user)
+	// Don't re-process if already has HTML tags
+    if(findtext(text, "<"))
+        return text
+
     // Replace %s or %sign with the user's name
     var/regex/sign_regex = new(@"%s(?:ign)?(?:\s|$)?", "gi")
     if(user && user.real_name)
         text = sign_regex.Replace(text, "<b><span style='font-family: Times New Roman;'>[user.real_name]</span></b>")
-    
+
     // Add any other markdown processing here
     return text
 
@@ -250,6 +254,7 @@
 	.["paper_color"] = !color || color == "white" ? "#FFFFFF" : color
 	.["paper_state"] = icon_state
 	.["stamps"] = stamps
+	.["field_counter"] = field_counter
 
 
 /obj/item/paper/ui_data(mob/user)
@@ -257,7 +262,7 @@
 	data["edit_usr"] = user.real_name
 	data["field_counter"] = field_counter
 	data["form_fields"] = form_fields
-	data["processed_text"] = parsemarkdown(info, usr)
+	data["raw_text"] = info
 	
 	var/obj/O = user.get_active_held_item()
 	if(istype(O, /obj/item/toy/crayon))
@@ -331,18 +336,34 @@
 			var/paper_len = length(in_paper)
 			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
-			if(paper_len > MAX_PAPER_LENGTH)
-				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len-MAX_PAPER_LENGTH]")
-			if(paper_len == 0)
-				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+			// Update field counter
+			if(params["field_counter"])
+				field_counter = text2num(params["field_counter"])
+
+			// Get the fields data if provided and merge with existing
+			if(params["fields"])
+				if(!form_fields)
+					form_fields = list()
+				// Merge new field values with existing ones
+				for(var/field_id in params["fields"])
+					form_fields[field_id] = params["fields"][field_id]
+
+			if(paper_len == 0 && !params["fields"])
+				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anything!"))
 			else
 				log_paper("[key_name(ui.user)] writing to paper [name]")
-				if(info != in_paper)
-					to_chat(ui.user, "You have added to your paper masterpiece!");
-					info = in_paper
-					update_static_data(usr, ui)
-
-			update_icon()
+				
+				// Only append new text if there is any
+				if(paper_len > 0)
+					info += "\n" + in_paper
+					to_chat(ui.user, "You have added to your paper masterpiece!")
+				
+				// If only fields were filled, still save
+				if(params["fields"])
+					to_chat(ui.user, "You have filled in the form!")
+				
+				update_static_data(usr, ui)
+				update_icon()
 			. = TRUE
 
 /**
