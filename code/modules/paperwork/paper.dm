@@ -4,7 +4,7 @@
  *
  * lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
  */
-#define MAX_PAPER_LENGTH 5000
+#define MAX_PAPER_LENGTH 9000
 #define MAX_PAPER_STAMPS 30		// Too low?
 #define MAX_PAPER_STAMPS_OVERLAYS 4
 #define MODE_READING 0
@@ -90,6 +90,15 @@
 	form_fields = null
 	field_counter = 0
 	update_icon_state()
+
+/obj/item/paper/proc/parsemarkdown(text, mob/user)
+    // Replace %s or %sign with the user's name
+    var/regex/sign_regex = new(@"%s(?:ign)?(?:\s|$)?", "gi")
+    if(user && user.real_name)
+        text = sign_regex.Replace(text, "<b><span style='font-family: Times New Roman;'>[user.real_name]</span></b>")
+    
+    // Add any other markdown processing here
+    return text
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -237,15 +246,19 @@
 /obj/item/paper/ui_static_data(mob/user)
 	. = list()
 	.["text"] = info
-	.["max_length"] = MAX_PAPER_LENGTH
-	.["paper_color"] = !color || color == "white" ? "#FFFFFF" : color	// color might not be set
-	.["paper_state"] = icon_state	/// TODO: show the sheet will bloodied or crinkling?
+	.["max_length"] = MAX_PAPER_LENGTH  // Send the actual limit
+	.["paper_color"] = !color || color == "white" ? "#FFFFFF" : color
+	.["paper_state"] = icon_state
 	.["stamps"] = stamps
-
 
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
+	data["edit_usr"] = user.real_name
+	data["field_counter"] = field_counter
+	data["form_fields"] = form_fields
+	data["processed_text"] = parsemarkdown(info, usr)
+	
 	var/obj/O = user.get_active_held_item()
 	if(istype(O, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/PEN = O
@@ -278,8 +291,6 @@
 		data["is_crayon"] = FALSE
 		data["stamp_icon_state"] = "FAKE"
 		data["stamp_class"] = "FAKE"
-	data["field_counter"] = field_counter
-	data["form_fields"] = form_fields
 
 	return data
 
@@ -321,10 +332,6 @@
 			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
 			if(paper_len > MAX_PAPER_LENGTH)
-				// Side note, the only way we should get here is if
-				// the javascript was modified, somehow, outside of
-				// byond.  but right now we are logging it as
-				// the generated html might get beyond this limit
 				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len-MAX_PAPER_LENGTH]")
 			if(paper_len == 0)
 				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
@@ -333,8 +340,7 @@
 				if(info != in_paper)
 					to_chat(ui.user, "You have added to your paper masterpiece!");
 					info = in_paper
-					update_static_data(usr,ui)
-
+					update_static_data(usr, ui)
 
 			update_icon()
 			. = TRUE
