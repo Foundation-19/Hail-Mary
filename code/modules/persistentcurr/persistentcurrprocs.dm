@@ -60,7 +60,11 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/target = input(src,"Choose account","MetaMoney",null) as null|anything in sortList(targets)
+	if(!target)
+		return
 	var/client/notlist = targets[target]
+	if(!notlist)
+		return
 	var/amount = getMoney(notlist.ckey)
 	to_chat(src, "[targets[target]] has [amount] MetaMoneys(tm)")
 
@@ -82,10 +86,17 @@
 		else
 			targets["(No Mob) - [T]"] = T
 	var/target = input(src,"Choose account","MetaMoney",null) as null|anything in sortList(targets)
+	if(!target)
+		return
 	var/amount = input(src, "Choose amount", "Amount",null) as message|null
+	if(!amount)
+		return
 	amount = sanitize_integer(amount, -100000, 100000, initial(amount))
-	message_admins("MetaMoney(tm) adjusted for targets[target] by [amount]")
-	adjustMoney(targets[target], text2num(amount))
+	var/client/target_client = targets[target]
+	if(!target_client)
+		return
+	message_admins("MetaMoney(tm) adjusted for [targets[target]] by [amount]")
+	adjustMoney(target_client.ckey, text2num(amount))
 
 /client/proc/adjustMoney(ckey, amount)
 	if(!usr.client)

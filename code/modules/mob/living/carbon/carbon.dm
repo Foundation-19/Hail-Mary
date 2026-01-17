@@ -10,30 +10,46 @@
 	add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
 
 /mob/living/carbon/Destroy()
-	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
-	. =  ..()
+	. = ..()
 
-	// Prioritize critical cleanup, defer expensive operations
-	QDEL_LIST(stomach_contents)  // Small list, do immediately
-	QDEL_NULL(dna)               // Critical for memory
-	remove_from_all_data_huds()  // Important for UI cleanup
-	GLOB.carbon_list -= src      // Remove from global list immediately
-	
-	// Defer expensive bodypart cleanup to next tick to prevent GC lag
-	if(LAZYLEN(bodyparts))
-		addtimer(CALLBACK(src, PROC_REF(defer_bodypart_cleanup)), 0, TIMER_DELETE_ME)
-	else
-		QDEL_LIST(bodyparts)
-	
-	// Cleanup organ and implant lists (smaller, less expensive)
-	QDEL_LIST(internal_organs)
-	QDEL_LIST(implants)
-	hand_bodyparts = null  // Just references our bodyparts, don't need to delete twice.
+	// Remove from globals early
+	GLOB.carbon_list -= src
 
-/mob/living/carbon/proc/defer_bodypart_cleanup()
-	// Called on next tick to avoid GC spike
+	// Delete carbon-owned datums
+	if(internal_organs)
+		QDEL_LIST(internal_organs)
+		internal_organs = null
+
+	if(implants)
+		QDEL_LIST(implants)
+		implants = null
+
 	if(bodyparts)
 		QDEL_LIST(bodyparts)
+		bodyparts = null
+
+	if(stomach_contents)
+		QDEL_LIST(stomach_contents)
+		stomach_contents = null
+
+	QDEL_NULL(dna)
+	hand_bodyparts = null
+
+	// Unequip items, DO NOT qdel them
+	for(var/obj/item/I in get_equipped_items(TRUE))
+		if(I)
+			I.forceMove(loc)
+
+	// Defer HUD cleanup only
+	if(client)
+		addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 0, TIMER_DELETE_ME)
+
+
+/mob/living/carbon/proc/defer_hud_cleanup()
+	// Deferred HUD cleanup (non-critical, can smooth GC)
+	if(!src || QDELETED(src))
+		return
+	remove_from_all_data_huds()
 
 /mob/living/carbon/relaymove(mob/user, direction)
 	if(user in src.stomach_contents)
@@ -41,7 +57,7 @@
 			if(prob(25))
 				audible_message(span_warning("You hear something rumbling inside [src]'s stomach..."), \
 							span_warning("You hear something rumbling."), 4,\
-							  span_userdanger("Something is rumbling inside your stomach!"))
+							span_userdanger("Something is rumbling inside your stomach!"))
 			var/obj/item/I = user.get_active_held_item()
 			if(I && I.force)
 				var/d = rand(round(I.force / 4), I.force)

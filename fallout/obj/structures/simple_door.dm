@@ -110,6 +110,8 @@
 		Close()
 
 /obj/structure/simple_door/proc/autoclose_in(wait)
+	if(QDELETED(src))
+		return
 	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 /* can crowbar off a lock, to force a door open. This is overriden in airlock so shouldnt be an issue */
