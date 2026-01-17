@@ -314,6 +314,49 @@
 			</body>
 			</html>"}
 
+/obj/item/book/manual/chemistry
+	name = "Chemistry Textbook"
+	icon_state ="chemistrybook"
+	author = "Nanotrasen"
+	title = "Chemistry Textbook"
+	dat = {"<html>
+    <head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
+    </head>
+    <body>
+    Home Chemistry Manual<br>
+    3rd Edition - 2056<br>
+    For Rural Households<br><br>
+    
+    <b>Energy Tonic:</b><br>
+    Lizard glands (3) - crush fine<br>
+    Soak 48hrs in vinegar<br>
+    Strain thru cheesecloth<br>
+    Boil to 1/3 volume<br>
+    Dose: 5ml. Lasts 20min.<br><br>
+    
+    <b>Radiation Cleanser:</b><br>
+    Tincture iodine (10ml)<br>
+    Table salt (1 tbsp)<br>
+    Hardwood ash (2 tbsp)<br>
+    Mix cold water. Drink 50ml.<br><br>
+    
+    <b>Speed Formula:</b><br>
+    Ephedrine herb (1oz dried)<br>
+    Sulfuric acid (3 drops)<br>
+    Heat gently til clear<br>
+    10 drops = 1 dose<br><br>
+    
+    <b>Household Tips:</b><br>
+    • Use only glass or tin<br>
+    • Test small dose first<br>
+    • Store cool, dark place<br>
+    • Vinegar > urine (less smell)<br><br>
+    
+    Questions to Pharmacist Ellis<br>
+    </body>
+    </html>"}
+
 // Wiki books that are linked to the configured wiki link.
 
 // A book that links to the wiki
