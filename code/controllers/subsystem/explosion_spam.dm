@@ -24,10 +24,9 @@ SUBSYSTEM_DEF(explosion_spam)
 		var/datum/queued_explosion/E = queued_explosions[1]
 		queued_explosions.Cut(1, 2)
 		
-		if(QDELETED(E.source))
-			qdel(E)
-			continue
-			
+		if(E.source && QDELETED(E.source))
+			E.source = null
+
 		// Execute the explosion
 		if(spam_mode)
 			// Reduced effects during spam

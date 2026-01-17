@@ -1,4 +1,4 @@
-// Global tracking for spam protection
+// NOTE: Add these to your global variables file (usually code/__DEFINES/globals.dm or similar):
 GLOBAL_VAR_INIT(active_explosion_spam, 0)
 GLOBAL_VAR_INIT(last_explosion_spam_time, 0)
 GLOBAL_LIST_INIT(recent_primers, list())
@@ -107,16 +107,20 @@ GLOBAL_LIST_INIT(recent_primers, list())
 		soundloop.start()
 
 /obj/item/grenade/homemade/coffeepotbomb/prime(mob/living/lanced_by)
-	if(QDELETED(src))
+	if(QDELETED(src)) 
 		return
+
 	. = ..()
 	update_mob()
 	
 	// Decrement counter
 	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
 	
+	// Store location before deletion
+	var/turf/epicenter = get_turf(src)
+	
 	// Queue explosion instead of immediate
-	SSexplosion_spam.queue_explosion(src.loc, 1, 2, 2, 3, flame_range = 1, source = src)
+	SSexplosion_spam.queue_explosion(epicenter, 1, 2, 2, 3, flame_range = 1, source = null)
 	qdel(src)
 
 
@@ -131,7 +135,7 @@ GLOBAL_LIST_INIT(recent_primers, list())
 	item_state = "ied"
 
 /obj/item/grenade/homemade/firebomb/prime(mob/living/lanced_by)
-	if(QDELETED(src))
+	if(QDELETED(src)) // ADDED: Safety check
 		return
 	. = ..()
 	update_mob()
@@ -139,8 +143,11 @@ GLOBAL_LIST_INIT(recent_primers, list())
 	// Decrement counter
 	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
 	
+	// Store location before deletion
+	var/turf/epicenter = get_turf(src)
+	
 	// Queue explosion
-	SSexplosion_spam.queue_explosion(src.loc, -1, -1, 2, flame_range = 4, source = src)
+	SSexplosion_spam.queue_explosion(epicenter, -1, -1, 2, flame_range = 4, source = null)
 	qdel(src)
 
 
