@@ -54,8 +54,9 @@
 	var/mob/living/simple_animal/hostile/mimic/M = loc
 	M.say(pick("Whooee! Time for a hootenanny!", "Rough 'em up boys!", "Yeehaw! Freedom at last!", "Y'all about to get a good old fashioned spanking!"))
 
-/obj/item/clothing/head/hattip/proc/handle_speech(datum/source, mob/speech_args)
-	var/message = speech_args[SPEECH_MESSAGE]
+/obj/item/clothing/head/hattip/proc/handle_speech(datum/source, speech_args)
+	var/list/args_list = speech_args
+	var/message = args_list[SPEECH_MESSAGE]
 	var/mob/living/carbon/C = get_wearer()//user
 	var/obj/item/organ/tongue/T = C.getorganslot(ORGAN_SLOT_TONGUE)
 	if (T.name == "fluffy tongue")
@@ -63,14 +64,14 @@
 			message += "\" and tips their hat. \"swpy's sappin' my chem dispwencer uwu!!"
 		else
 			message += "\" and tips their hat. \"[pick("weehaw!", "bwoy howdy.", "dawn tuutin'.", "weww don't that beat aww.", "whoooowee, wouwd ya wook at that!", "whoooowee! makin' bwacon!", "cweam gwavy!", "yippekeeyah-heeyapeeah-kwayoh!", "mwove 'em uut!", "gwiddy up!")]"
-		speech_args[SPEECH_MESSAGE] = trim(message)
+		args_list[SPEECH_MESSAGE] = trim(message)
 		return
 	if(prob(0.01))
 		message += "\" and tips their hat. \"Spy's sappin' my chem dispenser!"//How did I not think of this earlier
 		message_admins("I really appreciate all the hard work you put into adminning citadel, I hope you're all having a good day and I hope this hidden and rare message_admins brightens up your day.")
 	else
 		message += "\" and tips their hat. \"[pick("Yeehaw!", "Boy howdy.", "Darn tootin'.", "Well don't that beat all.", "Whoooowee, would ya look at that!", "Whoooowee! Makin' bacon!", "Cream Gravy!", "Yippekeeyah-heeyapeeah-kayoh!", "Move 'em out!", "Giddy up!")]"
-	speech_args[SPEECH_MESSAGE] = trim(message)
+	args_list[SPEECH_MESSAGE] = trim(message)
 
 /obj/item/clothing/head/hattip/proc/get_wearer()
 	return loc

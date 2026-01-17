@@ -16,7 +16,7 @@
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	var/datum/hud/hud = null // A reference to the owner HUD, if any.
 
-/obj/screen/take_damage(atom/attacked_by)
+/obj/screen/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	return
 
 /obj/screen/Destroy()

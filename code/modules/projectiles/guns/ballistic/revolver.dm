@@ -51,7 +51,7 @@
 	if(!magazine)
 		return FALSE
 	var/num_unloaded = 0
-	var/obj/item/ammo_box/magazine/ammo_mag = magazine.stored_ammo
+	var/list/ammo_mag = magazine.stored_ammo
 	for(var/index in 1 to LAZYLEN(ammo_mag))
 		if(!istype(ammo_mag[index], /obj/item/ammo_casing))
 			continue

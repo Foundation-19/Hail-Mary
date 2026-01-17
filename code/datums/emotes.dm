@@ -103,6 +103,8 @@
 			continue
 		if(!ghost.client || isnewplayer(ghost))
 			continue
+		if(!ghost.client.prefs)
+			continue
 		if(!(ghost.client.prefs.chat_toggles & CHAT_GHOSTSIGHT))
 			continue
 		if(admin_only && !check_rights_for(ghost.client, R_ADMIN))
