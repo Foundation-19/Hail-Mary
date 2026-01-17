@@ -67,7 +67,6 @@ GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/gun/flintlock_laser))
 
 GLOBAL_LIST_INIT(former_tribal_recipes, list(
-<<<<<<< Updated upstream
 	/datum/crafting_recipe/tribal/bonetalisman, 
     //datum/crafting_recipe/tribal_pa, 
     //datum/crafting_recipe/tribal_pa_helmet,
@@ -94,12 +93,12 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
     /datum/crafting_recipe/bitterdrink5,
     /datum/crafting_recipe/healpoultice,
     /datum/crafting_recipe/healpoultice5,
-    //datum/crafting_recipe/redpotion,
+	//datum/crafting_recipe/redpotion,
     //datum/crafting_recipe/bluepotion,
     //datum/crafting_recipe/greenpotion,
     /datum/crafting_recipe/food/pemmican,
     /datum/crafting_recipe/tribal/bonebag))
->>>>>>> Stashed changes
+
 
 GLOBAL_LIST_INIT(energyweapon_crafting, list(
 	/datum/crafting_recipe/aer9_hotwired))
