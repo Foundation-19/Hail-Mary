@@ -593,13 +593,13 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/iron_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
-/*
+	H.dna.species.punchdamage = max(H.dna.species.punchdamage, METAL_FIST_DAMAGE_MIN)
+	H.dna.species.punchdamage += IRON_FIST_PUNCH_DAMAGE
+
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
-	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even MORE."
-	value = 2
+	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even more."
+	value = 3
 	mob_trait = TRAIT_STEELFIST
 	gain_text = span_notice("Your fists feel MASSIVELY furious!")
 	lose_text = span_danger("Your fists feel calm again, what a relief.")
@@ -607,9 +607,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/steel_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
-*/
+	H.dna.species.punchdamage = max(H.dna.species.punchdamage, METAL_FIST_DAMAGE_MIN)
+	H.dna.species.punchdamage += STEEL_FIST_PUNCH_DAMAGE
 
 /datum/quirk/light_step
 	name = "Glass Walker"
@@ -996,15 +995,6 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	desc = "Sometimes you hit so hard you're pretty sure they stop being human!"
 	value = 4
 	mob_trait = TRAIT_KI_VAMPIRE
-	gain_text = span_notice("They are already dead.")
-	lose_text = span_danger("Your fists no longer feel so powerful.")
-	locked =  FALSE
-
-/datum/quirk/surestrike
-	name = "Sure Strike"
-	desc = "Your technique for punching has been perfected! Your punches always do MAX damage!"
-	value = 4
-	mob_trait = TRAIT_PERFECT_ATTACKER
 	gain_text = span_notice("They are already dead.")
 	lose_text = span_danger("Your fists no longer feel so powerful.")
 	locked =  FALSE

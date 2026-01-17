@@ -7,8 +7,7 @@
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
 	speedmod = -0.5
 	siemens_coeff = 0
-	punchdamagelow = 20
-	punchdamagehigh = 30
+	punchdamage = 22
 	armor = 5
 	use_skintones = 0
 	sexes = 0

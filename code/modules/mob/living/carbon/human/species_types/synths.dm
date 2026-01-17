@@ -23,9 +23,7 @@
 	name = "Military Synth"
 	id = "military_synth"
 	armor = 25
-	punchdamagelow = 10
-	punchdamagehigh = 19
-	punchstunthreshold = 14
+	punchdamage = 15
 	disguise_fail_health = 50
 
 /datum/species/synth/on_species_gain(mob/living/carbon/human/H, datum/species/old_species)

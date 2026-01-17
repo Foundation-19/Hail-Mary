@@ -702,37 +702,10 @@ obj/item/melee/onehanded/knife/switchblade
 
 /obj/item/melee/unarmed/equipped(mob/user, slot)
 	. = ..()
-	var/mob/living/carbon/human/H = user
 	if(unarmed_adjusted)
 		mob_overlay_icon = righthand_file
 	if(!unarmed_adjusted)
 		mob_overlay_icon = lefthand_file
-	if(ishuman(user) && slot == SLOT_GLOVES)
-		ADD_TRAIT(user, TRAIT_UNARMED_WEAPON, "glove")
-		if(HAS_TRAIT(user, TRAIT_UNARMED_WEAPON))
-			H.dna.species.punchdamagehigh += force //Work around for turbo bad code here. Makes this correctly stack with your base damage. No longer makes ghouls the kings of melee.
-			H.dna.species.punchdamagelow += force
-			H.dna.species.attack_sound = hitsound
-			if(sharpness == SHARP_POINTY || sharpness ==  SHARP_EDGED)
-				H.dna.species.attack_verb = pick("slash","slice","rip","tear","cut","dice")
-			if(sharpness == SHARP_NONE)
-				H.dna.species.attack_verb = pick("punch","jab","whack")
-	if(ishuman(user) && slot != SLOT_GLOVES && !H.gloves)
-		REMOVE_TRAIT(user, TRAIT_UNARMED_WEAPON, "glove")
-		if(!HAS_TRAIT(user, TRAIT_UNARMED_WEAPON)) //removing your funny trait shouldn't make your fists infinitely stack damage.
-			H.dna.species.punchdamagehigh = 10
-			H.dna.species.punchdamagelow = 1
-		if(HAS_TRAIT(user, TRAIT_IRONFIST))
-			H.dna.species.punchdamagehigh = 10
-			H.dna.species.punchdamagelow = 4
-		if(HAS_TRAIT(user, TRAIT_STEELFIST))
-			H.dna.species.punchdamagehigh = 12
-			H.dna.species.punchdamagelow = 6
-		if(HAS_TRAIT(user, TRAIT_FEV)) //Holy shit that Supermutant had a powerfist!
-			H.dna.species.punchdamagehigh = 16
-			H.dna.species.punchdamagelow = 10
-		H.dna.species.attack_sound = 'sound/weapons/punch1.ogg'
-		H.dna.species.attack_verb = "punch"
 
 /obj/item/melee/unarmed/examine(mob/user)
 	. = ..()
@@ -761,7 +734,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "brass"
 	item_state = "brass"
 	attack_verb = list("punched", "jabbed", "whacked")
-	force = 26
+	force = 20
 	custom_materials = list(/datum/material/iron = 2000)
 
 // Spiked knuckles	Keywords: Damage 28
@@ -772,7 +745,7 @@ obj/item/melee/onehanded/knife/switchblade
 	item_state = "spiked"
 	sharpness = SHARP_POINTY
 	armour_penetration = 0.1
-	force = 28
+	force = 22
 
 // Sappers			Keywords: Damage 27
 /obj/item/melee/unarmed/sappers
@@ -781,7 +754,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "sapper"
 	item_state = "sapper"
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 27
+	force = 21
 
 /obj/item/melee/unarmed/sappers/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -799,7 +772,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "sapper_dual"
 	item_state = "sapper_dual"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 27
+	force = 21
 	attack_speed = CLICK_CD_MELEE * 0.6
 
 /obj/item/melee/unarmed/sappers/dual/attack(mob/living/M, mob/living/user)
@@ -826,7 +799,7 @@ obj/item/melee/onehanded/knife/switchblade
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	sharpness = SHARP_POINTY
-	force = 33
+	force = 27
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 // Dual Tiger claws		Keywords: Damage 33, Pointy, Fast
@@ -841,7 +814,7 @@ obj/item/melee/onehanded/knife/switchblade
 	w_class = WEIGHT_CLASS_BULKY
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	sharpness = SHARP_POINTY
-	force = 35
+	force = 29
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_speed = CLICK_CD_MELEE * 0.6
 
@@ -861,7 +834,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "lacerator"
 	item_state = "lacerator"
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 29
+	force = 23
 	armour_penetration = 0 //my brother in christ it is razor blades on tape
 	bare_wound_bonus = 5
 	sharpness = SHARP_EDGED
@@ -878,7 +851,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "lacerator_dual"
 	item_state = "lacerator_dual"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 29
+	force = 23
 	armour_penetration = 0 //my brother in christ it is razor blades on tape
 	bare_wound_bonus = 5
 	sharpness = SHARP_EDGED
@@ -902,7 +875,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "mace_glove"
 	item_state = "mace_glove"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 9
+	force = 6
 	sharpness = SHARP_NONE
 
 // Dual Mace Glove		Keywords: Damage 15, Fast
@@ -915,7 +888,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "mace_glove_dual"
 	item_state = "mace_glove_dual"
 	w_class = WEIGHT_CLASS_BULKY
-	force = 12
+	force = 10
 	sharpness = SHARP_NONE
 	attack_speed = CLICK_CD_MELEE * 0.6
 
@@ -931,10 +904,10 @@ obj/item/melee/onehanded/knife/switchblade
 // Punch Dagger		Keywords: Damage 24, Pointy
 /obj/item/melee/unarmed/punchdagger
 	name = "punch dagger"
-	desc = "A dagger designed to be gripped in the user�s fist with the blade protruding between the middle and ring fingers, to increase the penetration of a punch."
+	desc = "A dagger designed to be gripped in the user's fist with the blade protruding between the middle and ring fingers, to increase the penetration of a punch."
 	icon_state = "punch_dagger"
 	item_state = "punch_dagger"
-	force = 24
+	force = 18
 	armour_penetration = 0.1
 	sharpness = SHARP_POINTY
 	attack_verb = list("stabbed", "sliced", "pierced", "diced", "cut")
@@ -955,7 +928,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	item_state = "deathclaw_g"
 	slot_flags = ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 35
+	force = 29
 	armour_penetration = 0.15
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
@@ -972,7 +945,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	item_state = "deathclaw_g_dual"
 	slot_flags = ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_BULKY
-	force = 35
+	force = 29
 	armour_penetration = 0.2
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
@@ -996,7 +969,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	item_state = "deathclaw_g"
 	slot_flags = ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_NORMAL
-	force = 23
+	force = 17
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -1019,7 +992,7 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	item_state = "deathclaw_g_dual"
 	slot_flags = ITEM_SLOT_GLOVES
 	w_class = WEIGHT_CLASS_BULKY
-	force = 23
+	force = 17
 	sharpness = SHARP_EDGED
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'

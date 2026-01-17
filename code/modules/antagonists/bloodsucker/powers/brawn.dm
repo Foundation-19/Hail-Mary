@@ -66,7 +66,7 @@
 	// Target Type: Mob
 	if(isliving(target))
 		var/mob/living/carbon/user_C = user
-		var/hitStrength = user_C.dna.species.punchdamagehigh * 1.4 + 15
+		var/hitStrength = user_C.dna.species.punchdamage * 1.4 + 20
 		// Knockdown!
 		var/powerlevel = min(5, 1 + level_current)
 		if(rand(5 + powerlevel) >= 5)

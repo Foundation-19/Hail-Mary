@@ -16,6 +16,7 @@
 #define LOADOUT_CAT_LAWMAN "Law Weapons"
 #define LOADOUT_CAT_MELEE_ONE "One Handed Melee"
 #define LOADOUT_CAT_MELEE_TWO "Two Handed Melee"
+#define LOADOUT_CAT_UNARMED "Unarmed Weapons"
 #define LOADOUT_CAT_PISTOL "Pistols"
 #define LOADOUT_CAT_REVOLVER "Revolvers"
 #define LOADOUT_CAT_LONGGUN "Long Guns"
@@ -32,8 +33,8 @@
 #define LOADOUT_CAT_SINISTER "Sinister Tools"
 #define LOADOUT_CAT_OTHER "Other Things"
 
-#define LOADOUT_ROOT_ENTRIES list(LOADOUT_CAT_MELEE_ONE, LOADOUT_CAT_MELEE_TWO, LOADOUT_CAT_PISTOL, LOADOUT_CAT_REVOLVER, LOADOUT_CAT_LONGGUN, LOADOUT_CAT_HOBO, LOADOUT_CAT_MISC, LOADOUT_CAT_BOW, LOADOUT_CAT_ENERGY, LOADOUT_CAT_NULLROD, LOADOUT_CAT_SHIELD, LOADOUT_FLAG_TOOL_WASTER, LOADOUT_CAT_MUSKET)
-#define LOADOUT_ALL_ENTRIES list(LOADOUT_CAT_PREMIUM, LOADOUT_CAT_LAWMAN, LOADOUT_CAT_MELEE_ONE, LOADOUT_CAT_MELEE_TWO, LOADOUT_CAT_PISTOL, LOADOUT_CAT_REVOLVER, LOADOUT_CAT_LONGGUN, LOADOUT_CAT_HOBO, LOADOUT_CAT_MISC, LOADOUT_CAT_BOW, LOADOUT_CAT_ENERGY, LOADOUT_CAT_NULLROD, LOADOUT_CAT_SHIELD, LOADOUT_CAT_WORKER, LOADOUT_CAT_ADVENTURE, LOADOUT_CAT_MEDICAL, LOADOUT_CAT_SINISTER, LOADOUT_CAT_OTHER, LOADOUT_CAT_MUSKET)
+#define LOADOUT_ROOT_ENTRIES list(LOADOUT_CAT_MELEE_ONE, LOADOUT_CAT_MELEE_TWO, LOADOUT_CAT_UNARMED, LOADOUT_CAT_PISTOL, LOADOUT_CAT_REVOLVER, LOADOUT_CAT_LONGGUN, LOADOUT_CAT_HOBO, LOADOUT_CAT_MISC, LOADOUT_CAT_BOW, LOADOUT_CAT_ENERGY, LOADOUT_CAT_NULLROD, LOADOUT_CAT_SHIELD, LOADOUT_FLAG_TOOL_WASTER, LOADOUT_CAT_MUSKET)
+#define LOADOUT_ALL_ENTRIES list(LOADOUT_CAT_PREMIUM, LOADOUT_CAT_LAWMAN, LOADOUT_CAT_MELEE_ONE, LOADOUT_CAT_MELEE_TWO, LOADOUT_CAT_UNARMED, LOADOUT_CAT_PISTOL, LOADOUT_CAT_REVOLVER, LOADOUT_CAT_LONGGUN, LOADOUT_CAT_HOBO, LOADOUT_CAT_MISC, LOADOUT_CAT_BOW, LOADOUT_CAT_ENERGY, LOADOUT_CAT_NULLROD, LOADOUT_CAT_SHIELD, LOADOUT_CAT_WORKER, LOADOUT_CAT_ADVENTURE, LOADOUT_CAT_MEDICAL, LOADOUT_CAT_SINISTER, LOADOUT_CAT_OTHER, LOADOUT_CAT_MUSKET)
 
 GLOBAL_LIST_EMPTY(loadout_datums)
 GLOBAL_LIST_EMPTY(loadout_boxes)
@@ -779,6 +780,53 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/storage/box/gun/melee/brass/PopulateContents()
 	new /obj/item/melee/unarmed/brass(src)
+
+/obj/item/storage/box/gun/melee/spiked
+
+	name = "spiked knuckles case"
+
+/obj/item/storage/box/gun/melee/spiked/PopulateContents()
+	new /obj/item/melee/unarmed/brass/spiked(src)
+
+/obj/item/storage/box/gun/melee/sappers
+
+	name = "sappers case"
+
+/obj/item/storage/box/gun/melee/sappers/PopulateContents()
+	new /obj/item/melee/unarmed/sappers(src)
+
+/obj/item/storage/box/gun/melee/dualsappers
+	name = "dual sappers case"
+
+/obj/item/storage/box/gun/melee/dualsappers/PopulateContents()
+	new /obj/item/melee/unarmed/sappers/dual(src)
+
+/obj/item/storage/box/gun/melee/punchdagger
+
+	name = "punch dagger case"
+
+/obj/item/storage/box/gun/melee/punchdagger/PopulateContents()
+	new /obj/item/melee/unarmed/punchdagger(src)
+
+/obj/item/storage/box/gun/melee/lacerator
+
+	name = "lacerator case"
+
+/obj/item/storage/box/gun/melee/lacerator/PopulateContents()
+	new /obj/item/melee/unarmed/lacerator(src)
+
+/obj/item/storage/box/gun/melee/dualmaceglove
+
+	name = "mace gloves case"
+
+/obj/item/storage/box/gun/melee/dualmaceglove/PopulateContents()
+	new /obj/item/melee/unarmed/maceglove/dual(src)
+
+/obj/item/storage/box/gun/melee/tigerclaw
+	name = "tiger claw case"
+
+/obj/item/storage/box/gun/melee/tigerclaw/PopulateContents()
+	new /obj/item/melee/unarmed/tigerclaw/dual(src)
 
 /obj/item/storage/box/gun/melee/fryingpan //because YES
 	name = "frying pan case" //a deadly weapon, keep it in its case
@@ -1852,8 +1900,50 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 /datum/loadout_box/brass
 	entry_tag = "Brass Knuckles"
 	entry_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL | LOADOUT_FLAG_LAWMAN
-	entry_class = LOADOUT_CAT_MISC
+	entry_class = LOADOUT_CAT_UNARMED
 	spawn_thing = /obj/item/storage/box/gun/melee/brass
+
+/datum/loadout_box/spiked
+	entry_tag = "Spiked Knuckles"
+	entry_flags = LOADOUT_FLAG_WASTER
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/spiked
+
+/datum/loadout_box/sappers
+	entry_tag = "Sappers"
+	entry_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_LAWMAN
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/sappers
+
+/datum/loadout_box/dualsappers
+	entry_tag = "Dual Sappers"
+	entry_flags = LOADOUT_FLAG_LAWMAN
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/dualsappers
+
+/datum/loadout_box/punchdagger
+	entry_tag = "Punch Dagger"
+	entry_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/punchdagger
+
+/datum/loadout_box/lacerator
+	entry_tag = "Lacerator"
+	entry_flags = LOADOUT_FLAG_WASTER | LOADOUT_FLAG_TRIBAL
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/lacerator
+
+/datum/loadout_box/dualmaceglove
+	entry_tag = "Dual Mace Gloves"
+	entry_flags = LOADOUT_FLAG_WASTER
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/dualmaceglove
+
+/datum/loadout_box/dualtigerclaw
+	entry_tag = "Dual Tiger Claws"
+	entry_flags = LOADOUT_FLAG_LAWMAN | LOADOUT_FLAG_PREMIUM
+	entry_class = LOADOUT_CAT_UNARMED
+	spawn_thing = /obj/item/storage/box/gun/melee/tigerclaw
 
 /datum/loadout_box/fryingpan
 	entry_tag = "Frying Pan"

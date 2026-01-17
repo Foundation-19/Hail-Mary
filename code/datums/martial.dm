@@ -35,7 +35,7 @@
 
 /datum/martial_art/proc/basic_hit(mob/living/carbon/human/A,mob/living/carbon/human/D)
 
-	var/damage = rand(A.dna.species.punchdamagelow, A.dna.species.punchdamagehigh)
+	var/damage = A.dna.species.punchdamage
 
 	var/atk_verb = A.dna.species.attack_verb
 	if(D.lying)
@@ -68,15 +68,6 @@
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 
 	add_logs(A, D, "punched")
-
-	if((D.stat != DEAD) && damage >= A.dna.species.punchstunthreshold)
-		D.visible_message(span_danger("[A] has knocked [D] down!!"), \
-								span_userdanger("[A] has knocked [D] down!"))
-		D.apply_effect(40, EFFECT_KNOCKDOWN, armor_block)
-		D.forcesay(GLOB.hit_appends)
-	else if(D.lying)
-		D.forcesay(GLOB.hit_appends)
-	return 1
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H,make_temporary=0)
 	if(!istype(H) || !H.mind)

@@ -807,8 +807,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 
 /datum/quirk/noodle_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = 0
-	H.dna.species.punchdamagehigh = 0
+	H.dna.species.punchdamage = 0
 
 /datum/quirk/gentle
 	name = "Melee - Gentle"

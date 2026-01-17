@@ -167,7 +167,6 @@
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 	var/damage = damage_roll(A,D)
-	var/stunthreshold = A.dna.species.punchstunthreshold
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
 		D.visible_message(span_danger("[A] reprimands [D]!"), \
 					span_userdanger("You're slapped by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
@@ -184,10 +183,6 @@
 		playsound(D, 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 		D.apply_damage(damage*2 + 20, STAMINA, affecting, armor_block)
 		log_combat(A, D, "stomped nonlethally")
-	if(damage >= stunthreshold)
-		D.visible_message(span_warning("[D] sputters and recoils in pain!"), span_userdanger("You recoil in pain as you are jabbed in a nerve!"))
-		D.drop_all_held_items()
-
 	return TRUE
 
 //Krav Maga Gloves

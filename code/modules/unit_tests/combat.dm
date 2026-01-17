@@ -2,9 +2,6 @@
 	var/mob/living/carbon/human/puncher = allocate(/mob/living/carbon/human)
 	var/mob/living/carbon/human/victim = allocate(/mob/living/carbon/human)
 
-	// Avoid all randomness in tests
-	ADD_TRAIT(puncher, TRAIT_PERFECT_ATTACKER, INNATE_TRAIT)
-
 	puncher.a_intent_change(INTENT_HARM)
 	victim.attack_hand(puncher)
 

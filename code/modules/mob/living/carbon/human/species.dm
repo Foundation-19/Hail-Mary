@@ -62,9 +62,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/coldmod = 1		// multiplier for cold damage
 	var/heatmod = 1		// multiplier for heat damage
 	var/stunmod = 1		// multiplier for stun duration
-	var/punchdamagelow = 1       //lowest possible punch damage. if this is set to 0, punches will always miss
-	var/punchdamagehigh = 10      //highest possible punch damage
-	var/punchstunthreshold = 10//damage at which punches from this race will stun //yes it should be to the attacked race but it's not useful that way even if it's logical
+	var/punchdamage = 5     // base damage of unarmed strikes
 	var/siemens_coeff = 1 //base electrocution coefficient
 	var/damage_overlay_type = "human" //what kind of damage overlays (if any) appear on our species when wounded?
 	var/fixed_mut_color = "" //to use MUTCOLOR with a fixed color that's independent of dna.feature["mcolor"]
@@ -1460,6 +1458,28 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		var/atk_verb = user.dna.species.attack_verb
 		if(!(target.mobility_flags & MOBILITY_STAND))
 			atk_verb = ATTACK_EFFECT_KICK
+	
+		var/atk_sound = user.dna.species.attack_sound
+		var/damage = user.dna.species.punchdamage
+		var/punchedstam = target.getStaminaLoss()
+		var/punchedbrute = target.getBruteLoss()
+		var/armour_penetration = 0
+		var/sapper_damage = 0
+
+		var/possible_unarmed_weapon = user.gloves
+		if(istype(possible_unarmed_weapon, /obj/item/melee/unarmed))
+			var/obj/item/melee/unarmed/unarmed_weapon = possible_unarmed_weapon
+			damage += unarmed_weapon.force
+			atk_sound = unarmed_weapon.hitsound
+			if(unarmed_weapon.sharpness == SHARP_POINTY || unarmed_weapon.sharpness ==  SHARP_EDGED)
+				atk_verb = pick("slash","slice","rip","tear","cut","dice")
+			if(unarmed_weapon.sharpness == SHARP_NONE)
+				atk_verb = pick("punch","jab","whack")
+			armour_penetration = unarmed_weapon.armour_penetration
+			if(istype(unarmed_weapon, /obj/item/melee/unarmed/sappers))
+				sapper_damage = damage * 0.25
+				if(istype(unarmed_weapon, /obj/item/melee/unarmed/sappers/dual))
+					sapper_damage += 3
 
 		switch(atk_verb)
 			if(ATTACK_EFFECT_KICK)
@@ -1471,13 +1491,16 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			else
 				user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
 
-		var/damage = rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
-		if(HAS_TRAIT(user, TRAIT_PERFECT_ATTACKER)) // unit test no-miss trait
-			damage = user.dna.species.punchdamagehigh
-		var/punchedstam = target.getStaminaLoss()
-		var/punchedbrute = target.getBruteLoss()
+		if(HAS_TRAIT(user, TRAIT_BUFFOUT_BUFF))
+			damage *= 1.25
 
-		damage += calc_unarmed_dam_mod_from_special(user) // S.P.E.C.I.A.L.
+		if(HAS_TRAIT(user, TRAIT_FEV))
+			damage *= 1.35
+
+		if(HAS_TRAIT(user, TRAIT_GHOULMELEE))
+			damage *= 0.75
+
+		damage += user.calc_unarmed_dam_mod_from_special() // S.P.E.C.I.A.L.
 
 		//CITADEL CHANGES - makes resting and disabled combat mode reduce punch damage, makes being out of combat mode result in you taking more damage
 		//if(!SEND_SIGNAL(target, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
@@ -1502,9 +1525,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			return FALSE
 
 
-		var/armor_block = target.run_armor_check(affecting, "melee")
+		var/armor_block = target.run_armor_check(affecting, "melee", armour_penetration = armour_penetration)
 
-		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
+		playsound(target.loc, atk_sound, 25, 1, -1)
 
 		target.visible_message(span_danger("[user] [atk_verb]s [target]!"), \
 					span_userdanger("[user] [atk_verb]s you!"), null, COMBAT_MESSAGE_RANGE, null, \
@@ -1523,11 +1546,12 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			log_combat(user, target, "kicked")
 		else//other attacks deal full raw damage + 2x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
-			target.apply_damage(damage*2, STAMINA, affecting, armor_block)
+			target.apply_damage(damage * 1.5, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
+		target.apply_damage(sapper_damage, STAMINA, affecting, armor_block)
 
-		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
-			if((punchedstam > 50) && prob(punchedstam*0.5)) //If our punch victim has been hit above the threshold, and they have more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage
+		if((target.stat != DEAD))
+			if((punchedstam > 60) && prob(punchedstam*0.5)) //If our punch victim has more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage
 
 				target.visible_message(span_danger("[user] knocks [target] down!"), \
 								span_userdanger("You're knocked down by [user]!"),

@@ -102,7 +102,6 @@
 
 /datum/martial_art/the_rising_bass/proc/shoulderFlip(mob/living/carbon/human/A, mob/living/carbon/human/D)
 	var/damage = damage_roll(A,D)
-	var/stunthreshold = A.dna.species.punchstunthreshold
 	var/turf/H = get_step(A, get_dir(D,A))
 	var/L = checkfordensity(H,D) ? H : A.loc
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
@@ -112,8 +111,6 @@
 	D.emote("scream")
 	D.apply_damage(damage + 10, BRUTE, BODY_ZONE_CHEST)
 	D.apply_damage(damage + 10, BRUTE, BODY_ZONE_HEAD)
-	if(damage >= stunthreshold)
-		D.Sleeping(60)
 	D.DefaultCombatKnockdown(300, override_hardstun = 1, override_stamdmg = 50)
 	D.forceMove(L)
 	log_combat(A, D, "shoulder flipped (Rising Bass)")
@@ -169,20 +166,12 @@
 	if(check_streak(A,D))
 		return TRUE
 	var/damage = damage_roll(A,D)
-	var/stunthreshold = A.dna.species.punchstunthreshold
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	if(CHECK_MOBILITY(D, MOBILITY_STAND) && damage >= stunthreshold)
-		D.visible_message(span_danger("[A] trips [D]!"), \
-					span_userdanger("You're tripped by [A]!"), span_hear("You hear something thump against the floor!"), COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, span_danger("You trip [D]!"))
-		D.DefaultCombatKnockdown(10, override_hardstun = 0.01, override_stamdmg = damage)
-		D.Dizzy(damage)
-	else
-		D.visible_message(span_danger("[A] jabs [D] in the stomach!"), \
-					span_userdanger("You're jabbed in the stomach by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
-		to_chat(A, span_danger("You jab [D] in the stomach!"))
-		D.apply_damage(damage*2 + 10, STAMINA)
-		D.disgust = min(damage, 20)
+	D.visible_message(span_danger("[A] jabs [D] in the stomach!"), \
+				span_userdanger("You're jabbed in the stomach by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+	to_chat(A, span_danger("You jab [D] in the stomach!"))
+	D.apply_damage(damage*2 + 10, STAMINA)
+	D.disgust = min(damage, 20)
 	playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	return TRUE
 

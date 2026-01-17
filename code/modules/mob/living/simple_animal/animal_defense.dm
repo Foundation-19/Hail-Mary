@@ -39,12 +39,32 @@
 				return
 			if(attacker_style && attacker_style.harm_act(M,src))
 				return TRUE
+			var/damage = M.dna.species.punchdamage
+			var/attack_type = M.dna?.species.attack_type
+
+			var/possible_unarmed_weapon = M.gloves
+			if(istype(possible_unarmed_weapon, /obj/item/melee/unarmed))
+				var/obj/item/melee/unarmed/unarmed_weapon = possible_unarmed_weapon
+				damage += unarmed_weapon.force
+				attack_type = unarmed_weapon.damtype
+
+			if(HAS_TRAIT(M, TRAIT_BUFFOUT_BUFF))
+				damage *= 1.25
+
+			if(HAS_TRAIT(M, TRAIT_FEV))
+				damage *= 1.35
+
+			if(HAS_TRAIT(M, TRAIT_GHOULMELEE))
+				damage *= 0.75
+
+			damage += M.calc_unarmed_dam_mod_from_special() // S.P.E.C.I.A.L.
+			
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
 			visible_message(span_danger("[M] [response_harm_continuous] [src]!"),\
 							span_userdanger("[M] [response_harm_continuous] you!"), null, COMBAT_MESSAGE_RANGE, null, \
 							M, span_danger("You [response_harm_simple] [src]!"))
 			playsound(loc, attacked_sound, 25, 1, -1)
-			attack_threshold_check(M.dna?.species.punchdamagehigh, M.dna?.species.attack_type, "melee")
+			attack_threshold_check(damage, attack_type, "melee")
 			log_combat(M, src, "attacked")
 			updatehealth()
 			return TRUE
