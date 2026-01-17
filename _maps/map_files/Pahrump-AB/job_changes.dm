@@ -28,6 +28,5 @@ MAP_REMOVE_JOB(enclave)
 MAP_REMOVE_JOB(rebels)
 MAP_REMOVE_JOB(ostia)
 MAP_REMOVE_JOB(khan)
-MAP_REMOVE_JOB(outlaw)
 MAP_REMOVE_JOB(vault)
 
