@@ -256,6 +256,7 @@ Paladin Commander
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3
+
 		)
 
 /*
@@ -348,6 +349,7 @@ Proctor
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/storage/box/gun/energy/wornaep7 = 1,
 		/obj/item/stock_parts/cell/ammo/ec = 2
+
 		)
 
 /datum/outfit/loadout/hsstand
@@ -426,7 +428,7 @@ Knight-Captain
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
+		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1
 
 		)
 /*
@@ -572,7 +574,8 @@ Paladin
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 6,
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 5,
-		/obj/item/melee/powered/ripper/prewar = 1,
+		/obj/item/melee/powered/ripper/prewar = 1
+		
 	)
 /*
 /datum/outfit/loadout/paladina
