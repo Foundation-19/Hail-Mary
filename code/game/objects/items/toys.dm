@@ -984,9 +984,13 @@
 /obj/item/toy/cards/cardhand/proc/update_sprite()
 	cut_overlays()
 	var/overlay_cards = currenthand.len
+	if(!overlay_cards)
+		return
 
 	var/k = overlay_cards == 2 ? 1 : overlay_cards - 2
 	for(var/i = k; i <= overlay_cards; i++)
+		if(i < 1 || i > currenthand.len)
+			continue
 		var/card_overlay = image(icon=src.icon,icon_state="sc_[currenthand[i]]_[deckstyle]",pixel_x=(1-i+k)*3,pixel_y=(1-i+k)*3)
 		add_overlay(card_overlay)
 

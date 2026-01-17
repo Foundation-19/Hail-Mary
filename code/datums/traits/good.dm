@@ -380,7 +380,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/technophreak/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
+		if(!H.mind.learned_recipes)
+			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.tier_three_parts
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.energyweapon_crafting
@@ -403,7 +405,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/gunsmith/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
+		if(!H.mind.learned_recipes)
+			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
 
 /datum/quirk/voracious

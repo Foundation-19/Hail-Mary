@@ -543,6 +543,10 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	if(movingmob != null)
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
+	if(mentor_datum)
+		qdel(mentor_datum)
+		mentor_datum = null
+	GLOB.mentors -= src
 	// seen_messages = null
 	Master.UpdateTickRate()
 	. = ..() //Even though we're going to be hard deleted there are still some things that want to know the destroy is happening
@@ -633,6 +637,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	if(CONFIG_GET(flag/age_verification)) //setup age verification
 		if(!set_db_player_flags())
 			message_admins(usr, span_danger("ERROR: Unable to read player flags from database. Please check logs."))
+			qdel(query_client_in_db)
 			return
 		else
 			var/dbflags = prefs.db_flags
@@ -1054,7 +1059,8 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 	view = new_size
 	var/list/actualview = getviewsize(view)
 	apply_clickcatcher(actualview)
-	mob.reload_fullscreen()
+	if(mob)
+		mob.reload_fullscreen()
 	if (isliving(mob))
 		var/mob/living/M = mob
 		M.update_damage_hud()
@@ -1071,7 +1077,8 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 	generate_clickcatcher()
 	if(!actualview)
 		actualview = getviewsize(view)
-	void.UpdateGreed(actualview[1],actualview[2])
+	if(actualview && actualview.len >= 2)
+		void.UpdateGreed(actualview[1],actualview[2])
 
 /client/proc/AnnouncePR(announcement)
 	if(prefs && prefs.chat_toggles & CHAT_PULLR)

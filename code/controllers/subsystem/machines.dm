@@ -9,6 +9,12 @@ SUBSYSTEM_DEF(machines)
 
 /datum/controller/subsystem/machines/Initialize()
 	makepowernets()
+	// Rebuild processing list to ensure all machines are in good state
+	var/list/machines_to_process = list()
+	for(var/obj/machinery/M in GLOB.machines)
+		if(M && !QDELETED(M))
+			machines_to_process += M
+	processing = machines_to_process
 	fire()
 	return ..()
 
@@ -38,6 +44,7 @@ SUBSYSTEM_DEF(machines)
 	var/list/currentrun = src.currentrun
 
 	var/seconds = wait * 0.1
+	
 	while(currentrun.len)
 		var/obj/machinery/thing = currentrun[currentrun.len]
 		currentrun.len--
@@ -48,8 +55,6 @@ SUBSYSTEM_DEF(machines)
 			processing -= thing
 			if (!QDELETED(thing))
 				thing.datum_flags &= ~DF_ISPROCESSING
-		if (MC_TICK_CHECK)
-			return
 
 /datum/controller/subsystem/machines/proc/setup_template_powernets(list/cables)
 	for(var/A in cables)
