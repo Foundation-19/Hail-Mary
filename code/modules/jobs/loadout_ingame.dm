@@ -62,6 +62,9 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
 
+/obj/item/loadout_token/Destroy()
+	// Null all references to break circular reference chains
+	return ..()
 
 /obj/item/loadout_token/attack_self(mob/user)
 	user.select_loadout()
@@ -103,6 +106,16 @@
 	//If they don't have a job they cant use this
 	return COMPONENT_INCOMPATIBLE
 
+/datum/component/loadout_selector/Destroy()
+	// Clean up references to break garbage collection cycles
+	selected_datum = null
+	loadout_options = null
+	data_names = null
+	preview_images = null
+	selected_items = null
+	token = null
+	return ..()
+
 //This completes loadout selection, spawns the selected outfit and cleans things up
 /datum/component/loadout_selector/proc/finish()
 	//First of all, safety checks
@@ -117,7 +130,7 @@
 	duffelkit.desc = "A duffelbag containing necessary equipment."
 	duffelkit.w_class = WEIGHT_CLASS_BULKY
 	selected_datum.spawn_at(duffelkit)
-	M.dropItemToGround(token)
+	QDEL_NULL(token)
 	M.put_in_hands(duffelkit)
 	M.disable_loadout_select()
 

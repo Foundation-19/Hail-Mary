@@ -65,7 +65,9 @@
 /turf/Initialize(mapload)
 	SHOULD_CALL_PARENT(FALSE)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
+		// Turf already initialized - return early to prevent redundant initialization
+		// This can occur during rapid turf changes or mapload operations
+		return INITIALIZE_HINT_QDEL
 	flags_1 |= INITIALIZED_1
 
 	// by default, vis_contents is inherited from the turf that was here before
