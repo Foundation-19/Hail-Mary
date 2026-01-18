@@ -529,10 +529,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 1750
 
 	loadout_options = list( // ALL: Binoculars, Bowie knife
-		/datum/outfit/loadout/vrclassic, // Sequoia
-		/datum/outfit/loadout/vrlite, // Brush
+		/datum/outfit/loadout/vrriflemen, // Brush
 		/datum/outfit/loadout/vrshotgunner, // Unique Lever-Action
-		/datum/outfit/loadout/vrcqc // 2 x .45 Long colt revolvers
+		/datum/outfit/loadout/vramr, // AMR
 		)
 
 	min_required_special = list(
@@ -554,6 +553,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	id = /obj/item/card/id/dogtag/ncrvetranger
 	uniform	= /obj/item/clothing/under/f13/ranger/vet
 	suit = /obj/item/clothing/suit/armor/rangercombat
+	suit_store = /obj/item/gun/ballistic/revolver/sequoia
 	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat
 	gloves = /obj/item/clothing/gloves/rifleman
 	shoes =	/obj/item/clothing/shoes/f13/military/leather
@@ -572,20 +572,20 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/grenade/smokebomb = 1
 		)
 
-/datum/outfit/loadout/vrclassic
-	name = "The Classic"
-	suit_store = /obj/item/gun/ballistic/revolver/sequoia
-	backpack_contents = list(
-		/obj/item/ammo_box/c4570box = 3,
-		/obj/item/ammo_box/c4570box/knockback = 1
-		)
-
-/datum/outfit/loadout/vrlite
+/datum/outfit/loadout/vrriflemen
 	name = "The Rifleman"
 	suit_store = /obj/item/gun/ballistic/rifle/repeater/brush
 	backpack_contents = list(
 		/obj/item/ammo_box/c4570 = 3,
 		/obj/item/book/granter/trait/rifleman = 1,
+		)
+
+/datum/outfit/loadout/vramr
+	name = "The Sniper"
+	suit_store = /obj/item/gun/ballistic/rifle/mag/antimateriel
+	backpack_contents = list(
+		/obj/item/storage/box/ration/ranger_dinner = 1,
+		/obj/item/ammo_box/magazine/amr = 2
 		)
 
 /datum/outfit/loadout/vrshotgunner
@@ -595,17 +595,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/shotgun/buck = 3,
 		/obj/item/ammo_box/shotgun/trainshot = 1
 		)
-
-/datum/outfit/loadout/vrcqc
-	name = "The Gunslinger"
-	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	backpack_contents = list(
-		/obj/item/book/granter/trait/gunslinger = 1,
-		/obj/item/gun/ballistic/revolver/revolver45/gunslinger = 2,
-		/obj/item/ammo_box/a45lcbox = 1,
-		/obj/item/lighter = 1
-		)
-
 
 // NCR Ranger
 
