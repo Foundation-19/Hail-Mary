@@ -480,11 +480,13 @@ export const PaperSheet = (props, context) => {
     add_sign,
     add_crayon,
     field_counter,
-    form_fields,  // Get form_fields from data
+    form_fields,
+    field_fonts,
+    field_colors,
   } = data;
 
   // Build the formatted text from the stored formatting arrays
-  const values = { text: "", field_counter: field_counter };  // Start with EMPTY text
+  const values = { text: "", field_counter: field_counter };
 
   if (add_text && add_text.length > 0) {
     // Process each saved text segment with its original formatting
@@ -497,7 +499,7 @@ export const PaperSheet = (props, context) => {
       const processing = createPreview(
         add_text[index],
         values.text,
-        false,  // Don't process fields yet
+        false,
         values.field_counter,
         used_color,
         used_font,
@@ -508,27 +510,59 @@ export const PaperSheet = (props, context) => {
       values.field_counter = processing.field_counter;
     }
 
-    // If we have saved form field data, inject it into the HTML
+    // If we have saved form field data, inject it with styling
     if (form_fields && Object.keys(form_fields).length > 0) {
-      // Replace input fields with their saved values
       for (const field_id in form_fields) {
         const field_value = form_fields[field_id];
-        // Find and replace the input field with a disabled version containing the saved value
+        const saved_font = field_fonts?.[field_id] || 'Verdana';
+        const saved_color = field_colors?.[field_id] || '#000000';
+
+        // More robust regex to find the input field
         const field_regex = new RegExp(
-          `<input[^>]*id="${field_id}"[^>]*>`,
+          `\\[<input[^>]*id="${field_id}"[^>]*>\\]`,
           'g'
         );
+
         values.text = values.text.replace(field_regex, (match) => {
-          // Create a disabled input with the saved value
-          return match
-            .replace(/value="[^"]*"/, `value="${field_value}"`)
-            .replace(/<input /, '<input disabled ');
+          // Parse the existing input tag
+          const inputMatch = match.match(/<input([^>]*)>/);
+          if (!inputMatch) return match;
+
+          let inputAttrs = inputMatch[1];
+
+          // Update or add the value attribute
+          if (inputAttrs.includes('value=')) {
+            inputAttrs = inputAttrs.replace(/value="[^"]*"/, `value="${field_value}"`);
+          } else {
+            inputAttrs += ` value="${field_value}"`;
+          }
+
+          // Update the style to include saved font and color
+          if (inputAttrs.includes('style=')) {
+            inputAttrs = inputAttrs.replace(
+              /style="([^"]*)"/,
+              (styleMatch, existingStyle) => {
+                // Remove existing color and font-family, then add new ones
+                let cleanStyle = existingStyle
+                  .replace(/color:[^;]*;?/g, '')
+                  .replace(/font-family:[^;]*;?/g, '')
+                  .replace(/font:[^;]*;?/g, '');
+                return `style="${cleanStyle};color:${saved_color};font-family:'${saved_font}';"`;
+              }
+            );
+          }
+
+          // Add disabled attribute
+          if (!inputAttrs.includes('disabled')) {
+            inputAttrs = ' disabled' + inputAttrs;
+          }
+
+          return `[<input${inputAttrs}>]`;
         });
       }
     }
 
   } else if (text && text.length > 0) {
-    // Fallback for old papers that don't have formatting arrays
     values.text = sanitizeText(text);
   }
 

@@ -62,6 +62,8 @@
 	/// This is an associated list
 	var/list/form_fields = list()
 	var/field_counter = 1
+	var/list/field_fonts = list()
+	var/list/field_colors = list()
 
 /obj/item/paper/Destroy()
 	stamps = null
@@ -82,8 +84,8 @@
 	N.update_icon_state()
 	N.stamps = stamps
 	N.stamped = stamped.Copy()
-	N.form_fields = form_fields.Copy()
-	N.field_counter = field_counter
+	N.field_fonts = field_fonts?.Copy()
+	N.field_colors = field_colors?.Copy()
 	if(add_text)
 		N.add_text = add_text.Copy()
 	if(add_font)
@@ -106,6 +108,8 @@
 	info = text
 	form_fields = null
 	field_counter = 0
+	field_fonts = list()
+	field_colors = list()
 	add_text = list()
 	add_font = list()
 	add_color = list()
@@ -176,6 +180,8 @@
 	info = ""
 	stamps = null
 	LAZYCLEARLIST(stamped)
+	field_fonts = list()
+	field_colors = list()
 	add_text = list()
 	add_font = list()
 	add_color = list()
@@ -292,6 +298,8 @@
 	.["add_sign"] = add_sign
 	.["add_crayon"] = add_crayon
 	.["form_fields"] = form_fields
+	.["field_fonts"] = field_fonts
+	.["field_colors"] = field_colors
 
 
 /obj/item/paper/ui_data(mob/user)
@@ -370,17 +378,28 @@
 		if("save")
 			var/in_paper = params["text"]
 			var/paper_len = length(in_paper)
-			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
 			// Update field counter
 			if(params["field_counter"])
 				field_counter = text2num(params["field_counter"])
 
-			// Get the fields data if provided
+			// Get the fields data if provided WITH STYLING
 			if(params["fields"])
 				if(!form_fields)
 					form_fields = list()
-				form_fields = params["fields"]
+				if(!field_fonts)
+					field_fonts = list()
+				if(!field_colors)
+					field_colors = list()
+			
+			var/list/fields_data = params["fields"]
+			var/pen_font = params["pen_font"]
+			var/pen_color = params["pen_color"]
+			
+			for(var/field_id in fields_data)
+				form_fields[field_id] = fields_data[field_id]
+				field_fonts[field_id] = pen_font
+				field_colors[field_id] = pen_color
 
 			if(paper_len == 0 && !params["fields"])
 				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anything!"))
@@ -394,11 +413,13 @@
 					if(!add_font) add_font = list()
 					if(!add_color) add_color = list()
 					if(!add_sign) add_sign = list()
+					if(!add_crayon) add_crayon = list()
 
 					add_text += in_paper
 					add_font += params["pen_font"]
 					add_color += params["pen_color"]
 					add_sign += ui.user.real_name
+					add_crayon += params["is_crayon"] ? TRUE : FALSE
 
 					to_chat(ui.user, "You have added to your paper masterpiece!")
 				
