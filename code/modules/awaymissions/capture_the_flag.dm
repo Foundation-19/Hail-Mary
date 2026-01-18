@@ -268,8 +268,7 @@
 	M.key = new_team_member.key
 	M.faction += team
 	M.equipOutfit(ctf_gear)
-	M.dna.species.punchdamagehigh = 25
-	M.dna.species.punchdamagelow = 25
+	M.dna.species.punchdamage = 25
 	M.AddElement(/datum/element/ghost_role_eligibility)
 	spawned_mobs += M
 

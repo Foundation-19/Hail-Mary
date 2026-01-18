@@ -57,8 +57,8 @@ proc/get_top_level_mob(mob/S)
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
-/datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
+/mob/living/proc/calc_unarmed_dam_mod_from_special()
+	return ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
 /// PERCEPTION
 

@@ -166,27 +166,15 @@
 	add_to_streak("D",D)
 	var/obj/item/I = null
 	var/damage = damage_roll(A,D)
-	var/stunthreshold = A.dna.species.punchstunthreshold
 	if(check_streak(A,D))
 		return TRUE
 	if(CHECK_MOBILITY(D, MOBILITY_MOVE) || !restraining)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		if(damage >= stunthreshold)	
-			I = D.get_active_held_item()
-			D.visible_message(span_warning("[A] strikes [D]'s jaw with their hand!"), \
-							span_userdanger("[A] strikes your jaw, disorienting you!"))
-			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-			D.drop_all_held_items()
-			D.Jitter(2)
-			D.Dizzy(damage)
-			D.apply_damage(damage*2 + 20, STAMINA)
-			D.apply_damage(damage*0.5, BRUTE)
-		else
-			D.visible_message(span_danger("[A] strikes [D] in the chest!"), \
-							span_userdanger("[A] strikes you in the chest!"))
-			playsound(D, 'sound/weapons/cqchit1.ogg', 25, 1, -1)
-			D.apply_damage(damage + 15, STAMINA)
-			D.apply_damage(damage*0.5, BRUTE)
+		D.visible_message(span_danger("[A] strikes [D] in the chest!"), \
+						span_userdanger("[A] strikes you in the chest!"))
+		playsound(D, 'sound/weapons/cqchit1.ogg', 25, 1, -1)
+		D.apply_damage(damage + 15, STAMINA)
+		D.apply_damage(damage*0.5, BRUTE)
 		log_combat(A, D, "disarmed (CQC)", "[I ? " grabbing \the [I]" : ""]")
 	if(restraining && A.pulling == D)
 		log_combat(A, D, "knocked out (Chokehold)(CQC)")

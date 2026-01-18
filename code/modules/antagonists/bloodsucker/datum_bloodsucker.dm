@@ -202,8 +202,7 @@
 		H.physiology.cold_mod = 0
 		H.physiology.stun_mod *= 0.5
 		H.physiology.siemens_coeff *= 0.75 	//base electrocution coefficient  1
-		S.punchdamagelow += 1       //lowest possible punch damage   0
-		S.punchdamagehigh += 1      //highest possible punch damage	 9
+		S.punchdamage += 1
 		if(istype(H) && owner.assigned_role == "Clown")
 			H.dna.remove_mutation(CLOWNMUT)
 			to_chat(H, "As a vampiric clown, you are no longer a danger to yourself. Your nature is subdued.")
@@ -317,8 +316,7 @@
 	if(ishuman(owner.current))
 		var/mob/living/carbon/human/H = owner.current
 		var/datum/species/S = H.dna.species
-		S.punchdamagelow += 0.5
-		S.punchdamagehigh += 0.5    // NOTE: This affects the hitting power of Brawn.
+		S.punchdamage += 0.5    // NOTE: This affects the hitting power of Brawn.
 	// More Health
 	owner.current.setMaxHealth(owner.current.maxHealth + 10)
 	// Vamp Stats
