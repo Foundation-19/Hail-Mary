@@ -1360,9 +1360,11 @@ Traitors and the like can also be revived with the previous role mostly intact.
 						if(shots_this_limb > shots_per_limb_per_rep)
 							break
 		if(ADMIN_PUNISHMENT_PICKLE)
-			target.turn_into_pickle()
+			if(isliving(target))
+				target.turn_into_pickle()
 		if(ADMIN_PUNISHMENT_FRY)
-			target.fry()
+			if(isliving(target))
+				target.fry()
 
 		if(ADMIN_PUNISHMENT_SHOES)
 			if(!iscarbon(target))

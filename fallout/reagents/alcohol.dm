@@ -259,11 +259,12 @@
 	//var/last_added = 0
 	//var/maximum_reachable = BLOOD_VOLUME_NORMAL - 10
 
-/datum/reagent/consumable/ethanol/brocbrew/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/ethanol/bloodwine/on_mob_life(mob/living/carbon/M)
 	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
 		M.blood_volume += (0.5*REAGENTS_EFFECT_MULTIPLIER)
 	..()
 	. = TRUE
+
 //nuka
 
 /datum/reagent/consumable/ethanol/nukadark

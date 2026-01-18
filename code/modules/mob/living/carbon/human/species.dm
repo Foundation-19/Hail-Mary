@@ -718,7 +718,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/not_digitigrade = TRUE
 	for(var/X in H.bodyparts)
 		var/obj/item/bodypart/O = X
-		if(!O.use_digitigrade)
+		if(!O || !O.use_digitigrade)
 			continue
 		not_digitigrade = FALSE
 		if(!(DIGITIGRADE in species_traits)) //Someone cut off a digitigrade leg and tacked it on
@@ -1496,8 +1496,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
 			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
-							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), null, COMBAT_MESSAGE_RANGE, null, \
-							user, span_warning("Your [atk_verb] misses [target]!"))
+							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), \
+							vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_warning("Your [atk_verb] misses [target]!"))
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
@@ -1507,8 +1507,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
 		target.visible_message(span_danger("[user] [atk_verb]s [target]!"), \
-					span_userdanger("[user] [atk_verb]s you!"), null, COMBAT_MESSAGE_RANGE, null, \
-					user, span_danger("You [atk_verb] [target]!"))
+					span_userdanger("[user] [atk_verb]s you!"), null, \
+					vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_danger("You [atk_verb] [target]!"))
 
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey

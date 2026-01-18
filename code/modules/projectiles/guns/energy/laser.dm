@@ -948,13 +948,6 @@
 /obj/item/gun/energy/minigun/attack_self(mob/living/user)
 	return
 
-/obj/item/gun/energy/minigun/dropped(mob/user)
-	. = ..()
-	if(ammo_pack)
-		ammo_pack.attach_gun(user)
-	else
-		qdel(src)
-
 /obj/item/gun/energy/minigun/afterattack(atom/target, mob/living/user, flag, params)
 	if(!ammo_pack || ammo_pack.loc != user)
 		to_chat(user, "You need the backpack power source to fire the gun!")
@@ -962,7 +955,8 @@
 
 /obj/item/gun/energy/minigun/dropped(mob/living/user)
 	. = ..()
-	ammo_pack.attach_gun(user)
+	if(ammo_pack)
+		ammo_pack.attach_gun(user)
 
 
 //// BETA /// Obsolete

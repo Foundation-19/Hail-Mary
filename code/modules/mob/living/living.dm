@@ -37,6 +37,11 @@
 				qdel(S)
 			else
 				S.be_replaced()
+	// Clear quirks to break circular references with mind
+	if(roundstart_quirks && roundstart_quirks.len)
+		for(var/datum/quirk/quirk in roundstart_quirks)
+			qdel(quirk)
+		roundstart_quirks = null
 	if(ranged_ability)
 		ranged_ability.remove_ranged_ability(src)
 	if(buckled)
@@ -474,6 +479,7 @@
 	if(client.eye != src && !istype(client.eye, /obj/mecha))
 		stop_looking()
 		return
+	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
 	var/turf/T = get_turf(src)
 	if(!istype(T, /turf/open/transparent/openspace))
 		var/turf/nt = get_step(T, dir)

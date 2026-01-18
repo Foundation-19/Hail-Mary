@@ -38,6 +38,18 @@
 	radio.broadcasting = 0 //researching radio mmis turned the robofabs into radios because this didnt start as 0.
 	laws.set_laws_config()
 
+/obj/item/mmi/Destroy()
+	if(brainmob)
+		brainmob.container = null
+		brainmob = null
+	if(radio)
+		qdel(radio)
+		radio = null
+	if(brain)
+		qdel(brain)
+		brain = null
+	return ..()
+
 /obj/item/mmi/attackby(obj/item/O, mob/user, params)
 	if(!user.CheckActionCooldown(CLICK_CD_MELEE))
 		return

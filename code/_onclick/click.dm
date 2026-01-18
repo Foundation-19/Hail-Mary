@@ -118,7 +118,7 @@
 			return
 
 	//Can't reach anything else in lockers or other weirdness
-	if(!loc.AllowClick())
+	if(!loc || !loc.AllowClick())
 		return
 
 	//Standard reach turf to turf or reaching inside storage
