@@ -151,8 +151,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 1900
 
 	loadout_options = list(
-		/datum/outfit/loadout/captainbackline,	// Deagle
-		/datum/outfit/loadout/captainfrontline, // AR Service Rifle
+		/datum/outfit/loadout/captainbackline,	// LMG
+		/datum/outfit/loadout/captainfrontline, // Special Super sledge.
 		)
 
 	min_required_special = list(
@@ -184,6 +184,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 	//	/obj/item/storage/bag/money/small/ncr = 1,
 		/obj/item/megaphone = 1,
+		/obj/item/gun/ballistic/automatic/pistol/deagle/elcapitan = 1,
+		/obj/item/ammo_box/magazine/m14mm = 3,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
 		/obj/item/lighter = 1,
@@ -192,26 +194,20 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		)
 
 /datum/outfit/loadout/captainbackline
-	name = "Lead from the Back"
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/deagle
+	name = "The Officer"
+	suit_store = /obj/item/gun/ballistic/automatic/r84
 	backpack_contents = list(
-		/obj/item/clothing/suit/armor/ncrarmor/captain/ncr_officer_coat = 1,
-		/obj/item/ammo_box/magazine/m44 = 3,
-		/obj/item/grenade/smokebomb = 2,
-		/obj/item/storage/box/ration/menu_two = 1,
-		/obj/item/melee/onehanded/knife/trench = 1
+		/obj/item/clothing/suit/armor/f13/ncrarmor/captain/ncr_officer_coat = 1,
+		/obj/item/ammo_box/magazine/lmg = 1,
+		/obj/item/storage/box/ration/menu_two = 1
 		)
 
 /datum/outfit/loadout/captainfrontline
-	name = "Lead from the Front"
-	suit_store = /obj/item/gun/ballistic/automatic/service
+	name = "The Law"
+	suit_store = /obj/item/twohanded/sledgehammer/rockethammer/courtmartial
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle = 3,
-		/obj/item/clothing/suit/armor/ncrarmor/captain = 1,
-		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
-		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
-		/obj/item/storage/box/ration/menu_eight = 1,
-		/obj/item/melee/onehanded/knife/trench = 1
+		/obj/item/clothing/suit/armor/f13/ncrarmor/captain/ncr_officer_coat = 1,
+		/obj/item/storage/box/ration/menu_eight = 1
 		)
 
 
