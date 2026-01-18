@@ -599,7 +599,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
 	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even more."
-	value = 3
+	value = 4
 	mob_trait = TRAIT_STEELFIST
 	gain_text = span_notice("Your fists feel MASSIVELY furious!")
 	lose_text = span_danger("Your fists feel calm again, what a relief.")

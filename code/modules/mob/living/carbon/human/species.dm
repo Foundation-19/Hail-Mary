@@ -1544,14 +1544,14 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			target.apply_damage(damage*1.5, attack_type, affecting, armor_block)
 			target.apply_damage(damage*0.5, STAMINA, affecting, armor_block)
 			log_combat(user, target, "kicked")
-		else//other attacks deal full raw damage + 2x in stamina damage
+		else//other attacks deal full raw damage + 1.5x in stamina damage
 			target.apply_damage(damage, attack_type, affecting, armor_block)
 			target.apply_damage(damage * 1.5, STAMINA, affecting, armor_block)
 			log_combat(user, target, "punched")
 		target.apply_damage(sapper_damage, STAMINA, affecting, armor_block)
 
 		if((target.stat != DEAD))
-			if((punchedstam > 60) && prob(punchedstam*0.5)) //If our punch victim has more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage
+			if((punchedstam > 50) && prob(punchedstam*0.5)) //If our punch victim has more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage
 
 				target.visible_message(span_danger("[user] knocks [target] down!"), \
 								span_userdanger("You're knocked down by [user]!"),
