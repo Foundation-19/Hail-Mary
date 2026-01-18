@@ -510,44 +510,68 @@ export const PaperSheet = (props, context) => {
       values.field_counter = processing.field_counter;
     }
 
-    // If we have saved form field data, inject it with styling
+    // If we have saved form field data, process and inject it with proper styling
     if (form_fields && Object.keys(form_fields).length > 0) {
       for (const field_id in form_fields) {
         const field_value = form_fields[field_id];
         const saved_font = field_fonts?.[field_id] || 'Verdana';
         const saved_color = field_colors?.[field_id] || '#000000';
 
-        // More robust regex to find the input field
+        // Find and replace the input field
         const field_regex = new RegExp(
           `\\[<input[^>]*id="${field_id}"[^>]*>\\]`,
           'g'
         );
 
         values.text = values.text.replace(field_regex, (match) => {
-          // Parse the existing input tag
+          // Parse the existing input tag to get its attributes
           const inputMatch = match.match(/<input([^>]*)>/);
           if (!inputMatch) return match;
 
           let inputAttrs = inputMatch[1];
 
-          // Update or add the value attribute
-          if (inputAttrs.includes('value=')) {
-            inputAttrs = inputAttrs.replace(/value="[^"]*"/, `value="${field_value}"`);
-          } else {
-            inputAttrs += ` value="${field_value}"`;
+          // Check if this is a signature field (%s or %sign)
+          const isSignature = field_value.match(sign_regex);
+
+          // Determine the display value and styling
+          let displayValue = field_value;
+          let finalFont = saved_font;
+          let isBold = false;
+
+          if (isSignature) {
+            // For signature fields, the value should be the signer's name
+            // This would have been stored when the field was filled
+            finalFont = "Times New Roman";
+            isBold = true;
           }
 
-          // Update the style to include saved font and color
+          // Sanitize and process HTML in the value
+          displayValue = sanitizeText(displayValue, []);
+
+          // Update the value attribute
+          if (inputAttrs.includes('value=')) {
+            inputAttrs = inputAttrs.replace(/value="[^"]*"/, `value="${displayValue}"`);
+          } else {
+            inputAttrs += ` value="${displayValue}"`;
+          }
+
+          // Update the style to include saved font, color, and bold if needed
           if (inputAttrs.includes('style=')) {
             inputAttrs = inputAttrs.replace(
               /style="([^"]*)"/,
               (styleMatch, existingStyle) => {
-                // Remove existing color and font-family, then add new ones
+                // Remove existing color, font-family, and font-weight
                 let cleanStyle = existingStyle
                   .replace(/color:[^;]*;?/g, '')
                   .replace(/font-family:[^;]*;?/g, '')
-                  .replace(/font:[^;]*;?/g, '');
-                return `style="${cleanStyle};color:${saved_color};font-family:'${saved_font}';"`;
+                  .replace(/font:[^;]*;?/g, '')
+                  .replace(/font-weight:[^;]*;?/g, '');
+
+                let newStyle = `${cleanStyle};color:${saved_color};font-family:'${finalFont}';`;
+                if (isBold) {
+                  newStyle += 'font-weight:bold;';
+                }
+                return `style="${newStyle}"`;
               }
             );
           }

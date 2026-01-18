@@ -396,9 +396,18 @@
 			var/pen_font = params["pen_font"]
 			var/pen_color = params["pen_color"]
 			
+			// Store each field's value AND its styling
 			for(var/field_id in fields_data)
-				form_fields[field_id] = fields_data[field_id]
-				field_fonts[field_id] = pen_font
+				var/field_value = fields_data[field_id]
+			
+				// Check if this is a signature field and replace %s with actual name
+				if(findtext(field_value, "%s") || findtext(field_value, "%sign"))
+					field_value = ui.user.real_name
+					field_fonts[field_id] = "Times New Roman"  // Signatures use Times New Roman
+				else
+					field_fonts[field_id] = pen_font
+			
+				form_fields[field_id] = field_value
 				field_colors[field_id] = pen_color
 
 			if(paper_len == 0 && !params["fields"])
