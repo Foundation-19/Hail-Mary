@@ -363,24 +363,27 @@ class PaperSheetEdit extends Component {
     }
   }
 
-  finalUpdate(new_text) {
-    const { act } = useBackend(this.context);
-    const final_processing = this.createPreviewFromData(new_text, true);
+finalUpdate(new_text) {
+  const { act, data } = useBackend(this.context);
+  const final_processing = this.createPreviewFromData(new_text, true);
 
-    act('save', {
-      text: new_text,
-      field_counter: final_processing.field_counter,
-      fields: final_processing.form_fields || {}
-    });
+  act('save', {
+    text: new_text,
+    field_counter: final_processing.field_counter,
+    fields: final_processing.form_fields || {},
+    pen_font: data.pen_font,
+    pen_color: data.pen_color,
+    is_crayon: data.is_crayon
+  });
 
-    this.setState(() => ({
-      textarea_text: '',
-      previewSelected: 'save',
-      combined_text: final_processing.text,
-      old_text: final_processing.text,
-      counter: final_processing.field_counter,
-    }));
-  }
+  this.setState(() => ({
+    textarea_text: '',
+    previewSelected: 'save',
+    combined_text: final_processing.text,
+    old_text: final_processing.text,
+    counter: final_processing.field_counter,
+  }));
+}
 
   render() {
     const { textColor, fontFamily, stamps, backgroundColor } = this.props;
@@ -475,61 +478,63 @@ export const PaperSheet = (props, context) => {
     add_font,
     add_color,
     add_sign,
+    add_crayon,
     field_counter,
+    form_fields,  // Get form_fields from data
   } = data;
 
-  const values = { text: text, field_counter: field_counter };
+  // Build the formatted text from the stored formatting arrays
+  const values = { text: "", field_counter: field_counter };  // Start with EMPTY text
 
-  // Process the text with fields for reading mode
-  if (edit_mode === 0) {
-    // For reading mode, we need to process the raw markdown into HTML
-    const processed = createPreview(
-      text,
-      "",
-      true,  // Enable field processing so fields render
-      field_counter || 0,
-      pen_color,
-      pen_font,
-      data.edit_usr || "Unknown",
-      false
-    );
-    values.text = processed.text;
-  } else if (add_text) {
-    // For edit/stamp mode with add_text
+  if (add_text && add_text.length > 0) {
+    // Process each saved text segment with its original formatting
     for (let index = 0; index < add_text.length; index++) {
       const used_color = add_color[index];
       const used_font = add_font[index];
       const used_sign = add_sign[index];
+      const is_crayon = add_crayon ? add_crayon[index] : false;
+
       const processing = createPreview(
         add_text[index],
         values.text,
-        false,
+        false,  // Don't process fields yet
         values.field_counter,
         used_color,
         used_font,
-        used_sign
+        used_sign,
+        is_crayon
       );
       values.text = processing.text;
       values.field_counter = processing.field_counter;
     }
-  } else {
-    // For edit/stamp mode without add_text
-    const processed = createPreview(
-      text,
-      "",
-      true,
-      field_counter || 0,
-      pen_color,
-      pen_font,
-      data.edit_usr || "Unknown",
-      false
-    );
-    values.text = processed.text;
+
+    // If we have saved form field data, inject it into the HTML
+    if (form_fields && Object.keys(form_fields).length > 0) {
+      // Replace input fields with their saved values
+      for (const field_id in form_fields) {
+        const field_value = form_fields[field_id];
+        // Find and replace the input field with a disabled version containing the saved value
+        const field_regex = new RegExp(
+          `<input[^>]*id="${field_id}"[^>]*>`,
+          'g'
+        );
+        values.text = values.text.replace(field_regex, (match) => {
+          // Create a disabled input with the saved value
+          return match
+            .replace(/value="[^"]*"/, `value="${field_value}"`)
+            .replace(/<input /, '<input disabled ');
+        });
+      }
+    }
+
+  } else if (text && text.length > 0) {
+    // Fallback for old papers that don't have formatting arrays
+    values.text = sanitizeText(text);
   }
 
   const stamp_list = !stamps ? [] : stamps;
 
-  const decide_mode = mode => {
+  const decide_mode = (mode) => {
     switch (mode) {
       case 0:  // Reading mode
         return (
@@ -543,17 +548,19 @@ export const PaperSheet = (props, context) => {
             textColor={pen_color}
             fontFamily={pen_font}
             stamps={stamp_list}
-            backgroundColor={paper_color} />
+            backgroundColor={paper_color}
+          />
         );
       case 2:  // Stamp mode
         return (
           <PaperSheetStamper
             value={values.text}
             stamps={stamp_list}
-            stamp_class={stamp_class} />
+            stamp_class={stamp_class}
+          />
         );
       default:
-        return "ERROR ERROR WE CANNOT BE HERE!!";
+        return 'ERROR ERROR WE CANNOT BE HERE!!';
     }
   };
 

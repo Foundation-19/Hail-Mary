@@ -44,6 +44,13 @@
 	var/info = ""
 	var/show_written_words = TRUE
 
+	/// Store arrays of formatting data parallel to text additions
+	var/list/add_text = list()
+	var/list/add_font = list()
+	var/list/add_color = list() 
+	var/list/add_sign = list()
+	var/list/add_crayon = list()
+
 	/// The (text for the) stamps on the paper.
 	var/list/stamps			/// Positioning for the stamp in tgui
 	var/list/stamped		/// Overlay info
@@ -77,6 +84,16 @@
 	N.stamped = stamped.Copy()
 	N.form_fields = form_fields.Copy()
 	N.field_counter = field_counter
+	if(add_text)
+		N.add_text = add_text.Copy()
+	if(add_font)
+		N.add_font = add_font.Copy()
+	if(add_color)
+		N.add_color = add_color.Copy()
+	if(add_sign)
+		N.add_sign = add_sign.Copy()
+	if(add_crayon)
+		N.add_crayon = add_crayon.Copy()
 	copy_overlays(N, TRUE)
 	return N
 
@@ -89,6 +106,11 @@
 	info = text
 	form_fields = null
 	field_counter = 0
+	add_text = list()
+	add_font = list()
+	add_color = list()
+	add_sign = list()
+	add_crayon = list()
 	update_icon_state()
 
 /obj/item/paper/proc/parsemarkdown(text, mob/user)
@@ -120,8 +142,12 @@
 	update_icon()
 
 /obj/item/paper/update_icon_state()
-	if(info && show_written_words)
+	// Check if we have any text in the formatting arrays
+	if(add_text && add_text.len > 0 && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
+	else if(info && show_written_words)  // Fallback for old papers
+		icon_state = "[initial(icon_state)]_words"
+	return ..()
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
@@ -150,6 +176,11 @@
 	info = ""
 	stamps = null
 	LAZYCLEARLIST(stamped)
+	add_text = list()
+	add_font = list()
+	add_color = list()
+	add_sign = list()
+	add_crayon = list()
 	cut_overlays()
 	update_icon_state()
 
@@ -255,13 +286,18 @@
 	.["paper_state"] = icon_state
 	.["stamps"] = stamps
 	.["field_counter"] = field_counter
+	.["add_text"] = add_text
+	.["add_font"] = add_font
+	.["add_color"] = add_color
+	.["add_sign"] = add_sign
+	.["add_crayon"] = add_crayon
+	.["form_fields"] = form_fields
 
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
 	data["edit_usr"] = user.real_name
 	data["field_counter"] = field_counter
-	data["form_fields"] = form_fields
 	data["raw_text"] = info
 	
 	var/obj/O = user.get_active_held_item()
@@ -340,13 +376,11 @@
 			if(params["field_counter"])
 				field_counter = text2num(params["field_counter"])
 
-			// Get the fields data if provided and merge with existing
+			// Get the fields data if provided
 			if(params["fields"])
 				if(!form_fields)
 					form_fields = list()
-				// Merge new field values with existing ones
-				for(var/field_id in params["fields"])
-					form_fields[field_id] = params["fields"][field_id]
+				form_fields = params["fields"]
 
 			if(paper_len == 0 && !params["fields"])
 				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anything!"))
@@ -355,7 +389,17 @@
 				
 				// Only append new text if there is any
 				if(paper_len > 0)
-					info += "\n" + in_paper
+					// Don't modify info anymore, it's not used for display
+					if(!add_text) add_text = list()
+					if(!add_font) add_font = list()
+					if(!add_color) add_color = list()
+					if(!add_sign) add_sign = list()
+
+					add_text += in_paper
+					add_font += params["pen_font"]
+					add_color += params["pen_color"]
+					add_sign += ui.user.real_name
+
 					to_chat(ui.user, "You have added to your paper masterpiece!")
 				
 				// If only fields were filled, still save
