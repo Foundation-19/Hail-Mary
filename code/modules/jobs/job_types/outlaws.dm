@@ -254,7 +254,7 @@
 		)
 
 /datum/outfit/loadout/raider_ncr
-	name = "Outlaw Ranger"
+	name = "NCR Deserter"
 	suit = /obj/item/clothing/suit/armor/medium/raider/combatduster
 	uniform = /obj/item/clothing/under/f13/raider_leather
 	id = /obj/item/card/id/rusted
