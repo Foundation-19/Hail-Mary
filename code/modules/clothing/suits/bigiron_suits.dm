@@ -2460,16 +2460,6 @@
 	icon_state = "brotherhood_armor_outcast"
 	item_state = "brotherhood_armor_outcast"
 
-/obj/item/clothing/suit/armor/medium/combat/brotherhood/exile
-	name = "modified Brotherhood armor"
-	desc = "A modified detoriated armor kit consisting of brotherhood combat armor and scrap metal."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
-	icon_state = "exile_bos"
-	item_state = "exile_bos"
-	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
-	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T1)
-
 /obj/item/clothing/suit/armor/medium/combat/tribal
 	name = "tribal combat armor"
 	desc = "An old military grade pre war combat armor, now decorated with sinew and the bones of the hunted for its new wearer."

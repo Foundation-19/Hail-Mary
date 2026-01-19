@@ -59,28 +59,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 //FOR BOTH SUITS AND ARMORS BELONGING TO FACTIONS
 //PLEASE PUT CUSTOM ARMORS IN f13armor.dm. All power armors are found in f13armor.dm.
 
-/obj/item/clothing/suit/armor/exile
-	name = "base faction exile armor"
-	desc = "this is for testing."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-
-/obj/item/clothing/suit/armor/exile/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
-
-/obj/item/clothing/suit/armor/exile/ncrexile
-	name = "modified NCR armor"
-	desc = "A modified detoriated armor kit consisting of NCR gear and scrap metal."
-	icon_state = "ncrexile"
-	item_state = "ncrexile"
-
-/obj/item/clothing/suit/armor/exile/legexile
-	name = "modified Legion armor"
-	desc = "A modified detoriated armor kit consisting of Legion gear and scrap metal."
-	icon_state = "legexile"
-	item_state = "legexile"
-
 //////////
 //LEGION//
 //////////
@@ -580,30 +558,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	item_state = "midwestpa" // PATREON SUPPORTER CUSTOM GEAR, DO NOT USE.
 	desc = "This set of power armor once belonged to the Midwestern branch of the Brotherhood of Steel, and now resides here. This particular one has gone through a chemical hardening process, increasing its armor capabilities." // PATREON SUPPORTER CUSTOM GEAR, DO NOT USE.
 
-/obj/item/clothing/suit/armor/exile/cust0m
-	name = "Lorica Iudicis"
-	desc = "A set of well maintained though still quite clearly worn armor consisting of a metal vest, a Centurion's shoulder pad, a pair of Centurion's arm guards and an incredibly large, perhaps even over-sized fur cloak. Upon basic examination, one can see that every piece of metal bar the buckles on the leather straps and whatever scratches and blemishes are yet to be retouched is masterfully decorated with silver, in complete contrast to the blackness of the cloak. Though only upon closer examination can the intricacies of the armor set be observed. The most obvious piece is the metal vest which has clearly been engraved, mostly decorationally besides the name 'Iudex Flammae' near the top. Though the engravings provide no tactical advantage whatsoever, the sharp geometric shapes accompanied by smooth, tastefully placed curves would catch the eye of even the most skeptical engraving enjoyer. As for the shoulder pad and arm guards, they hold the same engravings, and though they are recognizable as salvage, they still look incredibly beautiful yet simultaneously sturdy. Not much of the metal seems to exist on the back though that is only due to the fact that the incredibly thick, durable and flexible bear pelt that covers it would definitely provide ample protection. The pelt itself is absolutely covered in thick, almost jet black fur. One can tell from touch that the skin underneath is about as sturdy as skin gets. The pelt hangs across the wearer's back, held up by the neck and shoulders. This armor was competently made, and it shows."
-	icon_state = "exilecust0m"
-	item_state = "exilecust0m"
-	var/adjusted = FALSE
-
-/obj/item/clothing/suit/armor/exile/cust0m/verb/armor_adjust()
-	set name = "Adjust Armor"
-	set category = null
-	set src in usr
-
-	if(!adjusted)
-		adjusted = TRUE
-		icon_state = "exilecust0m_d"
-	else
-		adjusted = FALSE
-		icon_state = "exilecust0m"
-
-	if(ishuman(usr))
-		var/mob/living/carbon/human/H = usr
-		H.update_inv_w_uniform()
-		H.update_body()
-
 /obj/item/clothing/suit/armor/harpercoat
 	name = "outlaw coat"
 	desc = "An ugly looking combat duster"
@@ -663,7 +617,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "A durable muslin poncho. Tough enough to bear the elements and serve as handy blanket."
 	icon_state = "ranger_cloak"
 	item_state = "ranger_cloak"
-
 
 
 //THE GRAVEYARD
@@ -770,12 +723,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 ////////////
 // LEGION //
 ////////////
-
-/obj/item/clothing/suit/armor/medium/tribal/legion/legexile
-	name = "modified Legion armor"
-	desc = "A modified detoriated armor kit consisting of Legion gear and scrap metal."
-	icon_state = "legexile"
-	item_state = "legexile"
 
 /obj/item/clothing/suit/armor/medium/tribal/legion/forgemaster
 	name = "forgemaster armor"
@@ -897,6 +844,73 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	stiffness = MEDIUM_STIFFNESS
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_MORE_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_ENV_T1, ARMOR_MODIFIER_UP_DT_T3)
+
+// Outlaws / Exiles specific factions
+
+/obj/item/clothing/suit/armor/exile
+	name = "base faction exile armor"
+	desc = "this is for testing."
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+
+/obj/item/clothing/suit/armor/exile/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
+
+/obj/item/clothing/suit/armor/exile/ncrexile
+	name = "modified NCR armor"
+	desc = "A modified detoriated armor kit consisting of NCR gear and scrap metal."
+	icon_state = "ncrexile"
+	item_state = "ncrexile"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/exile/legexile
+	name = "modified Legion armor"
+	desc = "A modified detoriated armor kit consisting of Legion gear and scrap metal."
+	icon_state = "legexile"
+	item_state = "legexile"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tier_desc = ARMOR_CLOTHING_MEDIUM
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T2)
+
+/obj/item/clothing/suit/armor/exile/bosexile
+	name = "modified Brotherhood armor"
+	desc = "A modified detoriated armor kit consisting of brotherhood combat armor and scrap metal."
+	icon = 'icons/fallout/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon_state = "exile_bos"
+	item_state = "exile_bos"
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/exile/cust0m
+	name = "Lorica Iudicis"
+	desc = "A set of well maintained though still quite clearly worn armor consisting of a metal vest, a Centurion's shoulder pad, a pair of Centurion's arm guards and an incredibly large, perhaps even over-sized fur cloak. Upon basic examination, one can see that every piece of metal bar the buckles on the leather straps and whatever scratches and blemishes are yet to be retouched is masterfully decorated with silver, in complete contrast to the blackness of the cloak. Though only upon closer examination can the intricacies of the armor set be observed. The most obvious piece is the metal vest which has clearly been engraved, mostly decorationally besides the name 'Iudex Flammae' near the top. Though the engravings provide no tactical advantage whatsoever, the sharp geometric shapes accompanied by smooth, tastefully placed curves would catch the eye of even the most skeptical engraving enjoyer. As for the shoulder pad and arm guards, they hold the same engravings, and though they are recognizable as salvage, they still look incredibly beautiful yet simultaneously sturdy. Not much of the metal seems to exist on the back though that is only due to the fact that the incredibly thick, durable and flexible bear pelt that covers it would definitely provide ample protection. The pelt itself is absolutely covered in thick, almost jet black fur. One can tell from touch that the skin underneath is about as sturdy as skin gets. The pelt hangs across the wearer's back, held up by the neck and shoulders. This armor was competently made, and it shows."
+	icon_state = "exilecust0m"
+	item_state = "exilecust0m"
+	var/adjusted = FALSE
+
+/obj/item/clothing/suit/armor/exile/cust0m/verb/armor_adjust()
+	set name = "Adjust Armor"
+	set category = null
+	set src in usr
+
+	if(!adjusted)
+		adjusted = TRUE
+		icon_state = "exilecust0m_d"
+	else
+		adjusted = FALSE
+		icon_state = "exilecust0m"
+
+	if(ishuman(usr))
+		var/mob/living/carbon/human/H = usr
+		H.update_inv_w_uniform()
+		H.update_body()
+
 
 
 //Special Biosuit
