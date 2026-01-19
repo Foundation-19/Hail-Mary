@@ -363,9 +363,9 @@ class PaperSheetEdit extends Component {
     }
   }
 
-finalUpdate(new_text) {
-  const { act, data } = useBackend(this.context);
-  const final_processing = this.createPreviewFromData(new_text, true);
+  finalUpdate(new_text) {
+    const { act, data } = useBackend(this.context);
+    const final_processing = this.createPreviewFromData(new_text, true);
 
   act('save', {
     text: new_text,
