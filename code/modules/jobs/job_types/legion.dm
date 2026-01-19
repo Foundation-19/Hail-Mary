@@ -268,7 +268,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 
 /datum/outfit/loadout/rangerhunter
 	name = "Ranger-Hunter Centurion"
-	suit = /obj/item/clothing/suit/armor/f13/legion/rangercent
+	suit = /obj/item/clothing/suit/armor/legion/rangercent
 	head = /obj/item/clothing/head/helmet/f13/legion/rangercent
 	suit_store = /obj/item/gun/ballistic/rifle/mag/antimateriel
 	backpack_contents = list(
