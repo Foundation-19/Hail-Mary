@@ -226,6 +226,11 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	outfit = /datum/outfit/job/ncr/f13lieutenant
 	exp_requirements = 1250
 
+	loadout_options = list(
+		/datum/outfit/loadout/LTbackline,	// Commander's Coat
+		/datum/outfit/loadout/LTfrontline // Captain's Armor
+		)	
+	
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/ncr,
@@ -253,15 +258,30 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	ears = /obj/item/radio/headset/headset_ncr_com
 	suit = /obj/item/clothing/suit/armor/ncrarmor/lieutenant
 	r_pocket = /obj/item/binoculars
-	suit_store = /obj/item/gun/ballistic/automatic/service
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/bayonet = 1,
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
-	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
-		/obj/item/ammo_box/magazine/m556/rifle = 3,
+		/obj/item/storage/bag/money/small/ncrofficers = 1,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1
+		)
+
+/datum/outfit/loadout/LTfrontline
+	name = "The Frontline"
+	suit_store = /obj/item/gun/ballistic/automatic/m1garand/republicspride
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/garand308 = 3,
+		/obj/item/clothing/suit/armor/f13/ncrarmor/lieutenant = 1,
+		/obj/item/storage/box/ration/menu_two = 1
+		)
+
+/datum/outfit/loadout/LTbackline
+	name = "The Backline"
+	suit_store = /obj/item/twohanded/baseball/golfclub/ncr
+	backpack_contents = list(
+		/obj/item/clothing/suit/armor/f13/ncrarmor/lieutenant = 1,
+		/obj/item/storage/box/ration/menu_eight = 1
 		)
 
 /datum/outfit/job/ncr/f13lieutenant/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
