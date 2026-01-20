@@ -11,8 +11,8 @@ here's a tip, go search DEFINES/access.dm
 */
 
 // Headsets for everyone!!
-/datum/outfit/job/den
-	name = "Eastwood Default Template"
+/datum/outfit/job/denholiday
+	name = "Holiday Default Template"
 	ears = /obj/item/radio/headset/headset_town
 	id = /obj/item/card/id/dogtag/town
 	uniform = /obj/item/clothing/under/f13/settler
@@ -25,7 +25,7 @@ here's a tip, go search DEFINES/access.dm
 		/obj/item/melee/onehanded/knife/hunting = 1
 		)
 
-/datum/outfit/job/den/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -35,34 +35,32 @@ here's a tip, go search DEFINES/access.dm
 Mayor
 */
 
-/datum/job/eastwood
+/datum/job/holiday
 	exp_type = EXP_TYPE_EASTWOOD
 	faction = FACTION_EASTWOOD
 
-/datum/job/eastwood/f13mayor   // /obj/item/card/id/captains_spare for any elected mayors. - Blue
+/datum/job/holiday/f13mayor   // /obj/item/card/id/captains_spare for any elected mayors. - Blue
 	title = "Mayor"
-	flag = F13MAYOR
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYMAYOR
+	department_flag = DEP_HOLIDAY
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "Eastwood"
-	description = "You are the civil leader of the Town of Eastwood, but with the NCR being in control of taxes, and armed forces.\
-	 You were chosen by the people to represent and lead them, and defend their interess. You co-write the laws with the NCR Officials.\
-	 You are in a pickle, since the town is under the NCR, and you must cooperate (or not) with them."
-	enforces = "The Civilian gouvernement is made of yourself on top of the ladder, with NCR officers. Under you is the secretary, and under them is the Sheriff. The priest is often viewed as the forth head of town."
+	supervisors = "Holiday"
+	description = "You are the civil leader of the Town of Holiday. You were chosen by the people to represent and lead them from your manor. Your town is in a terse situation with the slaver town to the south, Redwater. While not at war, you will have to work to keep your people safe from their predations. The Tribals to the south east are also a nuisance but it's best not to provoke them needlessly. Do what's best for the town, and it's people. All while lining your pockets occasionally, of course."
+	enforces = "The Secretary is your stand-in replacement, and under this the Sheriff."
 	selection_color = "#d7b088"
 
 	exp_requirements = 600
 
-	outfit = /datum/outfit/job/den/f13mayor
+	outfit = /datum/outfit/job/denholiday/f13mayor
 	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
@@ -73,12 +71,11 @@ Mayor
 		/datum/outfit/loadout/highroller,
 		/datum/outfit/loadout/clinicdirector,
 		/datum/outfit/loadout/richman,
-		/datum/outfit/loadout/eastchief,
-		/datum/outfit/loadout/ncrally,
+		/datum/outfit/loadout/eastchief
 		)
 
 
-/datum/outfit/job/den/f13mayor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13mayor/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -92,9 +89,9 @@ Mayor
 	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
-/datum/outfit/job/den/f13mayor
+/datum/outfit/job/denholiday/f13mayor
 	name = "Mayor"
-	jobtype = /datum/job/eastwood/f13mayor
+	jobtype = /datum/job/holiday/f13mayor
 	id = /obj/item/card/id/silver/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -171,7 +168,7 @@ Mayor
 	)
 
 /datum/outfit/loadout/richman
-	name = "Nightstalker Of Eastwood"
+	name = "Nightstalker Of Holiday"
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/medium/duster/armoredcoat = 1,
 		/obj/item/stack/f13Cash/caps/twozerozero = 1,
@@ -190,35 +187,21 @@ Mayor
 		/obj/item/twohanded/sledgehammer/warmace = 1,
 		/obj/item/storage/box/medicine/poultice5 = 1
 	)
-
-/datum/outfit/loadout/ncrally
-	name = "NCR Ally"
-	backpack_contents = list(
-	/obj/item/clothing/under/f13/ncr_formal_uniform = 1,
-	/obj/item/clothing/under/f13/ncr_female_officer = 1,
-	/obj/item/gun/ballistic/automatic/pistol/deagle = 1,
-	/obj/item/ammo_box/magazine/m44 = 2,
-	/obj/item/clothing/shoes/laceup = 1,
-	/obj/item/clothing/mask/cigarette/pipe/cobpipe = 1
-	)
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13secretary
+/datum/job/holiday/f13secretary
 	title = "Secretary"
-	flag = F13SECRETARY
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYSECRETARY
+	department_flag = DEP_HOLIDAY
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "The Mayor"
-	description = "Even under NCR, The settlement of Eastwood is a busy place, and the Mayor often can't handle everything by themselves.\
-	 You are here to help them with anything and everything they require, and make sure the more trivial problems do not concern them.\
-	  You handle clerical work, hear complaints, and set meetings within the manor.\
-	  An efficient and smooth running town means a happy Mayor - just remember that if things go wrong, you're a convenient scapegoat."
-	enforces = "You are the stand-in leader of Eastwood if a Mayor does not exist. Then the Sheriff is third. Note that the priest may be fourth, and do not forget the NCR Officials."
+	description = "The settlement of Holiday is a busy place, and the Mayor often can't handle everything by themselves. You are here to help them with anything and everything they require, and make sure the more trivial problems do not concern them. You handle clerical work, hear complaints, and set meetings within the manor. An efficient and smooth running town means a happy Mayor - just remember that if things go wrong, you're a convenient scapegoat."
+	enforces = "You are the stand-in leader of Holiday if a Mayor does not exist."
 	selection_color = "#d7b088"
 	exp_requirements = 0
 
-	outfit = /datum/outfit/job/den/f13secretary
+	outfit = /datum/outfit/job/denholiday/f13secretary
 
 	loadout_options = list(
 	/datum/outfit/loadout/pr,
@@ -229,16 +212,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_CLINIC, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
-/datum/outfit/job/den/f13secretary
+/datum/outfit/job/denholiday/f13secretary
 	name = "Secretary"
-	jobtype = /datum/job/eastwood/f13secretary
+	jobtype = /datum/job/holiday/f13secretary
 	id = /obj/item/card/id/silver
 	belt = /obj/item/kit_spawner/townie/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
@@ -280,7 +263,7 @@ Mayor
 		/obj/item/stack/sheet/mineral/concrete/ten = 2
 		)
 
-/datum/outfit/job/den/f13secretary/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13secretary/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -302,23 +285,20 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13sheriff
+/datum/job/holiday/f13sheriff
 	title = "Sheriff"
-	flag = F13SHERIFF
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYSHERIFF
+	department_flag = DEP_HOLIDAY
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "The Mayor."
-	description = "You are the civil enforcer of Eastwood, keeping the settlement within firm control under the authority of the Mayor.\
-	 With your loyal patrolmen, you maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without.\
-	 While you can't exactly arrest NCR soldiers, that being the job of the NCR MP, you are here to warn them of any misbehavior.\
-	 Never leave Eastwood undefended, and don't let its people die out. Protect the Mayor too."
-	enforces = "You are the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
+	supervisors = "The Mayor"
+	description = "You are the civil enforcer of Holiday, keeping the settlement within firm control under the authority of the Mayor. With your loyal patrolmen, you maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Holiday undefended, and don't let its people die out. If this town falls, new conquerors don't tend to look kindly upon the old law."
+	enforces = "You are the stand-in leader of Holiday if a Mayor or Secretary does not exist."
 	selection_color = "#d7b088"
 	exp_requirements = 400
 
-	outfit = /datum/outfit/job/den/f13sheriff
+	outfit = /datum/outfit/job/denholiday/f13sheriff
 
 	loadout_options = list(
 	/datum/outfit/loadout/thelaw,
@@ -329,16 +309,16 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
-/datum/outfit/job/den/f13sheriff
+/datum/outfit/job/denholiday/f13sheriff
 	name = "Sheriff"
-	jobtype = /datum/job/eastwood/f13sheriff
+	jobtype = /datum/job/holiday/f13sheriff
 	id = /obj/item/card/id/dogtag/sheriff
 	ears = /obj/item/radio/headset/headset_town/lawman
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -383,7 +363,7 @@ Mayor
 		)
 
 
-/datum/outfit/job/den/f13sheriff/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13sheriff/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -397,19 +377,15 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13deputy
+/datum/job/holiday/f13deputy
 	title = "Deputy"
-	flag = F13DEPUTY
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYDEPUTY
+	department_flag = DEP_HOLIDAY
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "The Sheriff"
-	description = "Those NCR soldiers doesn't scare you, because your cause is just.\
-	 You are here keeping the settlement within firm control under the authority of the Mayor.\
-	 The sheriff is your direct superior, and you should expect to take your day-to-day orders from them.\
-	  Maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without.\
-	  While you can't arrest the NCR Soldiers, with a bit of luck the MPs will do their work. Protect the mayor at all cost."
-	enforces = "You may be elected temporary Sheriff if one does not exist. This may make you the stand-in leader of Eastwood if a Mayor, Secretary or even priest does not exist."
+	description = "You are a loyal protector of Holiday, keeping the settlement within firm control under the authority of the Mayor. The sheriff is your direct superior, and you should expect to take your day-to-day orders from them. Maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Holiday undefended, and don't let its people die out."
+	enforces = "You may be elected temporary Sheriff if one does not exist. This may make you the stand-in leader of Holiday if a Mayor or Secretary does not exist."
 	selection_color = "#dcba97"
 	exp_type = EXP_TYPE_EASTWOOD
 	exp_requirements = 0
@@ -421,21 +397,21 @@ Mayor
 	/datum/outfit/loadout/energy,
 	)
 
-	outfit = /datum/outfit/job/den/f13deputy
+	outfit = /datum/outfit/job/denholiday/f13deputy
 	access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC)
 	minimal_access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
-/datum/outfit/job/den/f13deputy
+/datum/outfit/job/denholiday/f13deputy
 	name = "Deputy"
-	jobtype = /datum/job/eastwood/f13deputy
+	jobtype = /datum/job/holiday/f13deputy
 	id = /obj/item/card/id/dogtag/deputy
 	ears = /obj/item/radio/headset/headset_town/lawman
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -467,7 +443,7 @@ Mayor
 		)
 
 /datum/outfit/loadout/police
-	name = "Eastwood PD"
+	name = "Holiday PD"
 	uniform = /obj/item/clothing/under/f13/police/officer
 	suit = /obj/item/clothing/suit/armor/heavy/vest/bulletproof
 	head = /obj/item/clothing/head/f13/town/officer
@@ -511,29 +487,27 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13farmer
+/datum/job/holiday/f13farmer
 	title = "Farmer"
-	flag = F13FARMER
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYFARMER
+	department_flag = DEP_HOLIDAY
 	total_positions = 4
 	spawn_positions = 4
-	supervisors = "Eastwood laws"
-	description = "Being a farmer in Eastwood is now a bit harder, since the NCR are putting their hands everywhere.\
-	 While working for Eastwood, the NCR might ask you to make them food for them.\
-	 Treat your town with respect and make sure to follow the laws in place, as your premium status may be revoked if you are considered a danger to the populace."
-	enforces = "Farming is a public service, and you are under control of local governance : The Mayorial office and/or NCR Officials - and you are expected to produce food."
+	supervisors = "Holiday laws"
+	description = "You are a farmer living in Holiday. Treat your town with respect and make sure to follow the laws in place, as your premium status may be revoked if you are considered a danger to the populace."
+	enforces = "Farming is a public service, and you are under control of local governance - and you are expected to produce food."
 	selection_color = "#dcba97"
 
-	outfit = /datum/outfit/job/den/f13farmer
+	outfit = /datum/outfit/job/denholiday/f13farmer
 
 	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood,
+			/datum/job/holiday,
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood,
+			/datum/job/holiday,
 		),
 	)
 
@@ -542,9 +516,9 @@ Mayor
 	/datum/outfit/loadout/pomologist,
 	/datum/outfit/loadout/zany,)
 
-/datum/outfit/job/den/f13farmer
+/datum/outfit/job/denholiday/f13farmer
 	name = "Farmer"
-	jobtype = /datum/job/eastwood/f13farmer
+	jobtype = /datum/job/holiday/f13farmer
 
 	id = /obj/item/card/id/dogtag/town
 
@@ -560,7 +534,7 @@ Mayor
 		/obj/item/ammo_box/magazine/m10mm/adv/simple=2)
 	shoes = 		/obj/item/clothing/shoes/workboots
 
-/datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/denholiday/f13settler/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
 		/obj/item/clothing/under/f13/settler, \
@@ -595,30 +569,27 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13prospector
+/datum/job/holiday/f13prospector
 	title = "Prospector"
-	flag = F13PROSPECTOR
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYPROSPECTOR
+	department_flag = DEP_HOLIDAY
 	total_positions = 4
 	spawn_positions = 4
 	supervisors = "The Mayor"
-	description = "Prospecting is a complicated business.\
-	Some call it scrounging or looting, but there is more to it than sifting through rubble - few can boast the valuable skills of mining and scavenging the ruins of fallen empires.\
-	 The settlement of Eastwood, and NCR understands the value of this, and you've found purpose within the city.\
-	  Sell the materials you find to the highest bidder - the local store may be particularly interested in metals, but the NCR migth also be a good buyer."
+	description = "Prospecting is a complicated business. Some call it scrounging or looting, but there is more to it than sifting through rubble - few can boast the valuable skills of mining and scavenging the ruins of fallen empires. The settlement of Holiday understands the value of this, and you've found purpose within their mines. Sell the materials you find to the highest bidder - the local store may be particularly interested in metals."
 	enforces = "Mining is a public service, and you are under control of local governance - but by default you are expected to work with private businesses and individual clients."
 	selection_color = "#dcba97"
 
-	outfit = /datum/outfit/job/den/f13prospector
+	outfit = /datum/outfit/job/denholiday/f13prospector
 
 	access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP, ACCESS_TOWN_MERCH)
 	minimal_access = list(ACCESS_BAR, ACCESS_MINING, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_PROSP, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood,
+			/datum/job/holiday,
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood,
+			/datum/job/holiday,
 		),
 	)
 
@@ -626,9 +597,9 @@ Mayor
 	/datum/outfit/loadout/engineer,
 	/datum/outfit/loadout/miner,)
 
-/datum/outfit/job/den/f13prospector
+/datum/outfit/job/denholiday/f13prospector
 	name = "Prospector"
-	jobtype = /datum/job/eastwood/f13prospector
+	jobtype = /datum/job/holiday/f13prospector
 
 	id = /obj/item/card/id/dogtag/town
 	backpack = /obj/item/storage/backpack/satchel/explorer
@@ -643,14 +614,14 @@ Mayor
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 2
 		)
 
-/datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/denholiday/f13settler/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
 		/obj/item/clothing/under/f13/machinist, \
 		/obj/item/clothing/under/f13/roving, \
 		/obj/item/clothing/under/f13/cowboyt)
 
-/datum/outfit/job/den/f13prospector/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13prospector/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -685,17 +656,15 @@ Mayor
 		)
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13dendoc
+/datum/job/holiday/f13dendoc
 	title = "Doctor"
-	flag = F13DENDOC
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYDENDOC
+	department_flag = DEP_HOLIDAY
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "The Mayor, The NCR Medical Officer"
-	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood.\
-	 Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart.\
-	  Make sure to turn a profit on your services, or the Mayor might reconsider your position, and if you're bad enough the NCR chief medical officer will order for your arrest !"
-	enforces = "Medicine is a public service, and you are under control of local governance, and the NCR chief medical officer - but remember public doesn't equate to free."
+	supervisors = "The Mayor"
+	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Holiday. Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position, if you're bad enough the sherrif might even kick you out!"
+	enforces = "Medicine is a public service, and you are under control of local governance - but remember public doesn't equate to free."
 	selection_color = "#dcba97"
 
 	loadout_options = list(
@@ -704,21 +673,21 @@ Mayor
 	/datum/outfit/loadout/mixer,
 	/datum/outfit/loadout/holidaydoc)
 
-	outfit = /datum/outfit/job/den/f13dendoc
+	outfit = /datum/outfit/job/denholiday/f13dendoc
 	access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_DOC, ACCESS_TOWN_SCIENCE)
 	minimal_access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_DOC, ACCESS_TOWN_SCIENCE)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
-/datum/outfit/job/den/f13dendoc
+/datum/outfit/job/denholiday/f13dendoc
 	name = "Doctor"
-	jobtype = /datum/job/eastwood/f13dendoc
+	jobtype = /datum/job/holiday/f13dendoc
 	chemwhiz = TRUE
 	ears = /obj/item/radio/headset/headset_town/medical
 	uniform = /obj/item/clothing/under/f13/medic
@@ -736,7 +705,7 @@ Mayor
 		/obj/item/storage/firstaid/regular,
 		/obj/item/clothing/accessory/armband/medblue
 		)
-/datum/outfit/job/den/f13dendoc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13dendoc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -794,18 +763,18 @@ Mayor
 		)
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13barkeep
+/datum/job/holiday/f13barkeep
 	title = "Barkeep"
-	flag = F13BARKEEP
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYBARKEEP
+	department_flag = DEP_HOLIDAY
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "the free market and Eastwood's Laws"
-	description = "As a proprietor of the bar, you are responsible for ensuring both NCR soldiers, citizens and travellers in Eastwood can get some food, drink and rest. Speak to the farmers for fresh produce!"
-	enforces = " The bar is a private business and you can decide who is welcome there. However, you are still subject to the overarching laws of Eastwood."
+	supervisors = "the free market and Holiday's Laws"
+	description = "As a proprietor of the bar, you are responsible for ensuring both citizens and travellers in Holiday can get some food, drink and rest. Speak to the farmers for fresh produce!"
+	enforces = " The bar is a private business and you can decide who is welcome there. However, you are still subject to the overarching laws of Holiday."
 	selection_color = "#dcba97"
 
-	outfit = /datum/outfit/job/den/f13barkeep
+	outfit = /datum/outfit/job/denholiday/f13barkeep
 
 	loadout_options = list(
 	/datum/outfit/loadout/rugged,
@@ -817,17 +786,17 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
 
-/datum/outfit/job/den/f13barkeep
+/datum/outfit/job/denholiday/f13barkeep
 	name = "Barkeep"
-	jobtype = /datum/job/eastwood/f13barkeep
+	jobtype = /datum/job/holiday/f13barkeep
 	uniform = /obj/item/clothing/under/f13/bartenderalt
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
@@ -879,17 +848,17 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/military/ncr
 
 /*--------------------------------------------------------------*/
-/datum/job/eastwood/f13settler
+/datum/job/holiday/f13settler
 	title = "Citizen"
-	flag = F13SETTLER
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYSETTLER
+	department_flag = DEP_HOLIDAY
 	total_positions = -1
 	spawn_positions =-1
-	supervisors = "Eastwood's laws"
-	description = "You are a citizen living in Eastwood. Now under the NCR, you are also technically a NCR citizen. Treat your town with respect and make sure to follow the laws in place, as your premium status may be revoked if you are considered a danger to the populace. One of the local businesses may have work if you require funds."
+	supervisors = "Holiday's laws"
+	description = "You are a citizen living in Holiday. Treat your town with respect and make sure to follow the laws in place, as your premium status may be revoked if you are considered a danger to the populace. One of the local businesses may have work if you require funds."
 	selection_color = "#dcba97"
 
-	outfit = /datum/outfit/job/den/f13settler
+	outfit = /datum/outfit/job/denholiday/f13settler
 
 	
 	loadout_options = list(
@@ -907,17 +876,17 @@ Mayor
 	minimal_access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
 
-/datum/outfit/job/den/f13settler
+/datum/outfit/job/denholiday/f13settler
 	name = "Citizen"
-	jobtype = /datum/job/eastwood/f13settler
+	jobtype = /datum/job/holiday/f13settler
 	belt = /obj/item/kit_spawner/townie
 	//suit_store = /obj/item/kit_spawner/tools //suit store not workin for some reason
 	id = /obj/item/card/id/dogtag/town
@@ -932,7 +901,7 @@ Mayor
 		///obj/item/melee/onehanded/knife/hunting = 1 //you already got a knife
 		)
 
-/datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/denholiday/f13settler/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	/*people generally find their own hats
 	head = pick(/obj/item/clothing/head/f13/ranger_hat/tan,
@@ -1102,32 +1071,32 @@ Mayor
 
 /*--------------------------------------------------------------*/
  
-/datum/job/eastwood/f13radio_host
+/datum/job/holiday/f13radio_host
 	title = "Radio Host"
-	flag = F13RADIOHOST
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYRADIOHOST
+	department_flag = DEP_HOLIDAY
 	total_positions = 2
 	spawn_positions = 2
-	supervisors = "Eastwood laws"
-	description = "You are the Radio Host of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
+	supervisors = "Holiday laws"
+	description = "You are the Radio Host of Holiday. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
 	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
 	selection_color = "#dcba97"
 
-	outfit = /datum/outfit/job/den/f13radio_host
+	outfit = /datum/outfit/job/denholiday/f13radio_host
 
 	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 	)
-/datum/outfit/job/den/f13radio_host
+/datum/outfit/job/denholiday/f13radio_host
 	name = "Radio Host"
-	jobtype = /datum/job/eastwood/f13radio_host
+	jobtype = /datum/job/holiday/f13radio_host
 	id = /obj/item/card/id/dogtag/town
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
@@ -1141,7 +1110,7 @@ Mayor
 		/obj/item/ammo_box/magazine/m10mm/adv/simple=2)
 	shoes = /obj/item/clothing/shoes/workboots
 
-/datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/denholiday/f13settler/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
 		/obj/item/clothing/under/f13/settler, \
@@ -1155,25 +1124,25 @@ Mayor
 --							Detective							--
 ----------------------------------------------------------------*/
 
-/datum/job/eastwood/f13detective
+/datum/job/holiday/f13detective
 	title = "Detective"
 	flag = F13DETECTIVE
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "paying clients and Eastwood's laws"
+	supervisors = "paying clients and Holiday's laws"
 	selection_color = "#dcba97"
-	outfit = /datum/outfit/job/eastwood/f13detective
+	outfit = /datum/outfit/job/holiday/f13detective
 
 	access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
 	minimal_access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/wasteland/f13wastelander,
-			/datum/job/eastwood/f13detective
+			/datum/job/holiday/f13detective
 		),
 		/datum/matchmaking_pref/rival = list(
 			/datum/job/wasteland/f13wastelander,
-			/datum/job/eastwood/f13detective
+			/datum/job/holiday/f13detective
 		),
 		/datum/matchmaking_pref/mentor = list(
 			/datum/job/wasteland/f13wastelander
@@ -1181,9 +1150,9 @@ Mayor
 	)
 
 
-/datum/outfit/job/eastwood/f13detective
+/datum/outfit/job/holiday/f13detective
 	name = "Detective"
-	jobtype = /datum/job/eastwood/f13detective
+	jobtype = /datum/job/holiday/f13detective
 	belt = /obj/item/kit_spawner/lawman
 	suit = /obj/item/clothing/suit/det_suit/grey
 	uniform = /obj/item/clothing/under/f13/detectivealt
@@ -1208,98 +1177,19 @@ Mayor
 
 /*--------------------------------------------------------------*/
 
-/datum/job/eastwood/f13banker
-	title = "NCR Tax Collector"
-	flag = F13BANKER
-	faction = FACTION_NCR
-	access = list(ACCESS_NCR)
-	minimal_access = list(ACCESS_NCR)
-	total_positions = 1
-	spawn_positions = 1
-	supervisors = "No one, NCR laws"
-	description = "You were send by the NCR to deal with the economical and political side of the settlement of Eastwood.\
-	You have a say over the tax rate and the laws, and must work with the mayor (or not) over taxe rate. This is a dangerous job, so make sure to be guarded. You can also serve as a banker."
-	enforces = "Your bank is a private business and you are not under direct control of local governance, but are subject to their laws."
-	selection_color = "#dcba97"
-	outfit = /datum/outfit/job/den/f13banker
 
-	loadout_options = list(
-	/datum/outfit/loadout/classy,
-	/datum/outfit/loadout/loanshark,
-	/datum/outfit/loadout/investor
-	)
-
-	access = list(ACCESS_BAR, ACCESS_MINT_VAULT)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINT_VAULT)
-
-/datum/outfit/job/den/f13banker
-	name = "Banker"
-	jobtype = /datum/job/eastwood/f13banker
-	belt = /obj/item/kit_spawner/lawman
-
-	uniform = /obj/item/clothing/under/lawyer/blacksuit
-	id = /obj/item/card/id/silver
-	ears = /obj/item/radio/headset/headset_town/commerce
-	shoes = /obj/item/clothing/shoes/f13/fancy
-	backpack = /obj/item/storage/backpack/satchel/leather
-	satchel = /obj/item/storage/backpack/satchel/leather
-	backpack_contents = list(
-		/obj/item/storage/pill_bottle/chem_tin/radx,
-		/obj/item/storage/wallet/stash/banker = 1)
-
-/datum/outfit/loadout/classy
-	name = "Classy"
-	head = /obj/item/clothing/head/collectable/tophat
-	glasses = /obj/item/clothing/glasses/monocle
-	uniform = /obj/item/clothing/under/suit_jacket/charcoal
-	suit = /obj/item/clothing/suit/armor/outfit/jacket/banker
-	gloves = /obj/item/clothing/gloves/color/white
-	shoes = /obj/item/clothing/shoes/laceup
-	backpack_contents = list(/obj/item/cane=1,
-		///obj/item/storage/belt/shoulderholster/ranger45 =1,
-		/obj/item/storage/fancy/cigarettes/cigpack_bigboss=1,
-		/obj/item/reagent_containers/food/drinks/bottle/whiskey=1,
-		/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass=1,
-		/obj/item/lighter/gold = 1
-		)
-
-/datum/outfit/loadout/loanshark
-	name = "Loanshark"
-	glasses = /obj/item/clothing/glasses/orange
-	mask = /obj/item/clothing/mask/cigarette/cigar
-	suit = /obj/item/clothing/suit/armor/outfit/vest
-	uniform = /obj/item/clothing/under/f13/sleazeball
-	shoes = /obj/item/clothing/shoes/sandal
-	backpack_contents = list(/obj/item/reagent_containers/food/drinks/bottle/whiskey=1,
-		/obj/item/storage/box/matches=1,
-		///obj/item/gun/ballistic/automatic/smg/mini_uzi=1,
-		/obj/item/instrument/violin/golden = 1
-		)
-
-/datum/outfit/loadout/investor
-	name = "Investor"
-	glasses = /obj/item/clothing/glasses/sunglasses
-	suit = /obj/item/clothing/suit/toggle/lawyer/black
-	uniform = /obj/item/clothing/under/f13/bennys
-	gloves = /obj/item/clothing/gloves/fingerless
-	shoes = /obj/item/clothing/shoes/laceup
-	backpack_contents = list(/obj/item/storage/fancy/cigarettes/cigpack_bigboss=1,
-		/obj/item/storage/box/matches=1,
-		/obj/item/blacksmith/ingot/gold = 1,
-		///obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever = 1
-		)
 /*--------------------------------------------------------------*/
 
 //The Quartermaster
-/datum/job/eastwood/f13quartermaster
+/datum/job/holiday/f13quartermaster
 	title = "Quartermaster"
-	flag = F13QUARTERMASTER
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYQUARTERMASTER
+	department_flag = DEP_HOLIDAY
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "the free market and Eastwood's laws"
+	supervisors = "the free market and Holiday's laws"
 	description = "You are the team leader for your various workers in the shop. Guide them as you see fit towards a profitable future."
-	enforces = "The Eastwood store is part of your workplace, but it is not your workplace alone. You should try to work with your team in order to turn a profit."
+	enforces = "The Holiday store is part of your workplace, but it is not your workplace alone. You should try to work with your team in order to turn a profit."
 	selection_color = "#dcba97"
 	exp_requirements = 0
 
@@ -1308,21 +1198,21 @@ Mayor
 	/datum/outfit/loadout/ballistic_master
 	)
 
-	outfit = /datum/outfit/job/den/f13quartermaster
+	outfit = /datum/outfit/job/denholiday/f13quartermaster
 	access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
-/datum/outfit/job/den/f13quartermaster
+/datum/outfit/job/denholiday/f13quartermaster
 	name = "Quartermaster"
-	jobtype = /datum/job/eastwood/f13quartermaster
+	jobtype = /datum/job/holiday/f13quartermaster
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
 	belt = /obj/item/kit_spawner/townie
@@ -1351,7 +1241,7 @@ Mayor
 		/obj/item/book/granter/crafting_recipe/blueprint/armalite = 1
 	)
 
-/datum/outfit/job/den/f13quartermaster/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13quartermaster/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -1381,21 +1271,21 @@ Mayor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/super_capacitor)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ultra_micro_laser)
 
-/datum/outfit/job/den/f13quartermaster/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13quartermaster/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 
 //The Trade Workers
-/datum/job/eastwood/f13shopkeeper
+/datum/job/holiday/f13shopkeeper
 	title = "Trade Worker"
-	flag = F13SHOPKEEPER
-	department_flag = DEP_EASTWOOD
+	flag = F13HOLIDAYSHOPKEEPER
+	department_flag = DEP_HOLIDAY
 	total_positions = 4
 	spawn_positions = 4
-	supervisors = "the free market and Eastwood's laws"
-	description = "You are one of the many workers who live in the city of Eastwood. Working with the town council you have rented out a space in the shop for you to make your living."
-	enforces = "The Eastwood store is part of your workplace, but it is not your workplace alone. You should try work with the other trade workers to try and turn a profit."
+	supervisors = "the free market and Holiday's laws"
+	description = "You are one of the many workers who live in the city of Holiday. Working with the town council you have rented out a space in the shop for you to make your living."
+	enforces = "The Holiday store is part of your workplace, but it is not your workplace alone. You should try work with the other trade workers to try and turn a profit."
 	selection_color = "#dcba97"
 	exp_requirements = 0
 
@@ -1405,21 +1295,21 @@ Mayor
 	/datum/outfit/loadout/jackofall_specialist
 	)
 
-	outfit = /datum/outfit/job/den/f13shopkeeper
+	outfit = /datum/outfit/job/denholiday/f13shopkeeper
 	access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		),
 		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
+			/datum/job/holiday
 		)
 	)
 
-/datum/outfit/job/den/f13shopkeeper
+/datum/outfit/job/denholiday/f13shopkeeper
 	name = "Shopkeeper"
-	jobtype = /datum/job/eastwood/f13shopkeeper
+	jobtype = /datum/job/holiday/f13shopkeeper
 	id = /obj/item/card/id/dogtag/town
 	ears = /obj/item/radio/headset/headset_town/commerce
 	belt = /obj/item/kit_spawner/townie
@@ -1455,7 +1345,7 @@ Mayor
 		/obj/item/book/granter/crafting_recipe/blueprint/uzi=1
 	)
 
-/datum/outfit/job/den/f13shopkeeper/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13shopkeeper/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -1485,60 +1375,9 @@ Mayor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/super_capacitor)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ultra_micro_laser)
 
-/datum/outfit/job/den/f13shopkeeper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/denholiday/f13shopkeeper/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 
 
-//pilot job, bare basics rn, but we can add as needed
-/datum/job/eastwood/f13pilot
-	title = "Vertibird Pilot"
-	flag = F13PILOT
-	department_flag = DEP_EASTWOOD
-	total_positions = 0
-	spawn_positions = 0
-	supervisors = "Eastwood's laws"
-	description = "You are a pilot, hired to drive the town's vertibird. Your job is to provide transport for people and aid in search and rescue. Don't forget to charge a fare."
-	selection_color = "#dcba97"
-
-	outfit = /datum/outfit/job/den/f13pilot
-
-	access = list(ACCESS_BAR, ACCESS_EVA)
-	minimal_access = list(ACCESS_BAR, ACCESS_EVA)
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/friend = list(
-			/datum/job/eastwood
-		),
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/eastwood
-		)
-	)
-
-
-/datum/outfit/job/den/f13pilot
-	name = "Vertibird Pilot"
-	jobtype = /datum/job/eastwood/f13pilot
-	belt = /obj/item/kit_spawner/townie
-	id = /obj/item/card/id/dogtag/town
-	uniform = /obj/item/clothing/under/f13/settler
-	shoes = /obj/item/clothing/shoes/jackboots
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	r_pocket = /obj/item/flashlight/flare
-	backpack_contents = list(
-		/obj/item/storage/pill_bottle/chem_tin/radx,
-		/obj/item/storage/wallet/stash/low = 1,
-		)
-
-/datum/outfit/job/den/f13pilot/pre_equip(mob/living/carbon/human/H)
-	. = ..()
-	uniform = pick(
-		/obj/item/clothing/under/f13/gentlesuit,
-		/obj/item/clothing/under/f13/formal,
-		/obj/item/clothing/under/f13/spring,
-		/obj/item/clothing/under/f13/relaxedwear,
-		/obj/item/clothing/under/f13/machinist,
-		/obj/item/clothing/under/f13/brahminf,
-		/obj/item/clothing/under/f13/cowboyb,
-		/obj/item/clothing/under/f13/cowboyg,
-		/obj/item/clothing/under/f13/cowboyt)
