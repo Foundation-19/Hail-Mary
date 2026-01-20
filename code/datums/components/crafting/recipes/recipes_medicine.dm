@@ -166,7 +166,7 @@
 
 /datum/crafting_recipe/hydra5
 	name = "Hydra (x5)"
-	result = /obj/item/reagent_containers/pill/patch/hydra
+	result = /obj/item/storage/box/medicine/hydra5
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/fungus = 15,
 				/obj/item/reagent_containers/food/snacks/grown/broc = 15)
 	time = 15
