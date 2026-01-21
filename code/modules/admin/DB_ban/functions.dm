@@ -365,6 +365,7 @@
 		return
 	qdel(query_unban)
 	message_admins("[key_name_admin(usr)] has lifted [p_key]'s ban.")
+	send2chat("[key_name_admin(usr)] has lifted [p_key]'s ban.", CONFIG_GET(string/discord_channel_banlogs))
 
 /client/proc/DB_ban_panel()
 	set category = "Admin"
