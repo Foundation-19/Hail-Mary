@@ -1769,7 +1769,7 @@
 /area/f13/tunnel)
 "bnT" = (
 /obj/structure/simple_door/dirtyglass,
-/turf/open/indestructible/ground/outside/desert,
+/turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/bunker)
 "boe" = (
 /obj/structure/junk/small/bed2,
@@ -5127,7 +5127,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/sewer/powered)
 "dRF" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix/subway,
 /area/f13/bunker)
 "dRV" = (
 /obj/structure/curtain{
@@ -10966,6 +10966,14 @@
 /obj/effect/landmark/start/f13/raider,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/den)
+"ils" = (
+/obj/structure/fluff/rails,
+/obj/structure/handrail/g_central{
+	dir = 1;
+	pixel_y = 23
+	},
+/turf/closed/indestructible/f13/matrix/subway,
+/area/f13/bunker)
 "ilu" = (
 /obj/structure/wreck/trash/bus_door,
 /turf/open/floor/plating/dirt/dark,
@@ -11677,6 +11685,9 @@
 /obj/structure/spacevine,
 /turf/closed/wall/f13/ruins,
 /area/f13/sewer/powered)
+"iMR" = (
+/turf/closed/indestructible/f13/matrix/saltflats,
+/area/f13/tunnel)
 "iMY" = (
 /obj/structure/filingcabinet,
 /obj/effect/decal/cleanable/dirt{
@@ -13839,6 +13850,13 @@
 /obj/item/rack_parts,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
+"kEH" = (
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "riverwater_motion";
+	sunlight_state = 0
+	},
+/area/f13/sewer/powered)
 "kEP" = (
 /obj/structure/fence{
 	dir = 1
@@ -16313,7 +16331,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel)
 "muS" = (
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/bunker)
 "mvg" = (
 /obj/structure/campfire/barrel,
@@ -17803,7 +17821,11 @@
 /area/f13/bunker/bunkernine)
 "nAO" = (
 /obj/structure/lattice/catwalk,
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "riverwater_motion";
+	sunlight_state = 0
+	},
 /area/f13/sewer/powered)
 "nAS" = (
 /obj/effect/decal/cleanable/dirt,
@@ -18552,7 +18574,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
 "ods" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix/subway,
 /area/f13/den)
 "odz" = (
 /obj/effect/decal/cleanable/dirt,
@@ -21194,6 +21216,10 @@
 "qjo" = (
 /turf/closed/wall/r_wall,
 /area/f13/tcoms)
+"qjw" = (
+/obj/effect/overlay/barbed,
+/turf/closed/indestructible/f13/matrix/subway,
+/area/f13/bunker)
 "qjL" = (
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /obj/structure/lattice/catwalk,
@@ -23026,7 +23052,7 @@
 	},
 /area/f13/sewer/powered)
 "rEV" = (
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/shack)
 "rFd" = (
 /obj/structure/flora/grass/jungle,
@@ -23525,6 +23551,12 @@
 "rZE" = (
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
+"rZZ" = (
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/fallout/turfs/floors.dmi';
+	icon_state = "greenfull"
+	},
+/area/f13/sewer/powered)
 "saj" = (
 /obj/structure/curtain{
 	color = "#845f58"
@@ -24693,6 +24725,9 @@
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
+"sRH" = (
+/turf/closed/indestructible/f13/matrix/subway,
+/area/f13/sewer/powered)
 "sSn" = (
 /obj/machinery/light/small{
 	brightness = 3;
@@ -25541,7 +25576,7 @@
 	},
 /area/f13/sewer/powered)
 "tzY" = (
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/tunnel)
 "tAE" = (
 /obj/structure/chair/bench,
@@ -25554,8 +25589,11 @@
 /turf/open/water,
 /area/f13/caves)
 "tBx" = (
-/obj/structure/simple_door/repaired,
-/turf/open/indestructible/ground/outside/desert,
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/barricade/wooden/planks/pregame,
+/turf/closed/indestructible/f13/matrix/subway,
 /area/f13/bunker)
 "tBT" = (
 /obj/item/storage/trash_stack{
@@ -25753,6 +25791,12 @@
 	icon_state = "yellowrustyfull"
 	},
 /area/f13/caves)
+"tGB" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/turf/closed/indestructible/f13/matrix/subway,
+/area/f13/bunker)
 "tGJ" = (
 /obj/machinery/mech_bay_recharge_port,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -26575,6 +26619,9 @@
 "ukw" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel,
+/area/f13/caves)
+"ukz" = (
+/turf/closed/indestructible/f13/matrix/subway,
 /area/f13/caves)
 "ukX" = (
 /mob/living/simple_animal/hostile/centaur,
@@ -27492,7 +27539,7 @@
 /area/f13/sewer/powered)
 "uOL" = (
 /obj/structure/noticeboard,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/tunnel)
 "uOQ" = (
 /obj/structure/table/wood,
@@ -28474,7 +28521,7 @@
 /area/f13/tunnel)
 "vwA" = (
 /obj/structure/mirror,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/shack)
 "vwB" = (
 /obj/item/storage/trash_stack{
@@ -32024,7 +32071,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/holiday)
 "xXm" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix{
+	icon = 'icons/turf/floors.dmi';
+	icon_state = "riverwater_motion";
+	sunlight_state = 0
+	},
 /area/f13/tunnel)
 "xXx" = (
 /obj/effect/decal/remains/human,
@@ -32814,10 +32865,10 @@ tYm
 tYm
 iBp
 xvl
-eMa
-eMa
-eMa
-eMa
+sRH
+sRH
+sRH
+sRH
 xvl
 iBp
 tYm
@@ -32907,7 +32958,7 @@ tYm
 tYm
 iBp
 klv
-eMa
+sRH
 nAO
 klv
 iBp
@@ -32923,7 +32974,7 @@ vKr
 vKr
 vKr
 iBp
-xXm
+iMR
 iBp
 jzZ
 jzZ
@@ -51506,7 +51557,7 @@ htC
 htC
 htC
 htC
-eMa
+sRH
 iBp
 "}
 (75,1,1) = {"
@@ -51763,7 +51814,7 @@ htC
 htC
 htC
 htC
-eMa
+sRH
 iBp
 "}
 (76,1,1) = {"
@@ -55422,7 +55473,7 @@ tYm
 tYm
 iBp
 iBp
-eMa
+xvl
 xvl
 xvl
 xvl
@@ -55679,7 +55730,7 @@ tYm
 tYm
 iBp
 iBp
-eMa
+sRH
 htC
 htC
 dRe
@@ -55936,7 +55987,7 @@ tYm
 tYm
 iBp
 iBp
-eMa
+sRH
 htC
 htC
 htC
@@ -56193,7 +56244,7 @@ tYm
 tYm
 iBp
 iBp
-eMa
+sRH
 htC
 htC
 htC
@@ -56450,7 +56501,7 @@ tYm
 tYm
 iBp
 iBp
-eMa
+sRH
 htC
 htC
 nZI
@@ -56707,7 +56758,7 @@ tYm
 tYm
 iBp
 iBp
-eMa
+xvl
 xvl
 xvl
 xvl
@@ -85559,8 +85610,8 @@ vKr
 vKr
 vKr
 iBp
-hbh
-hbh
+ukz
+ukz
 iBp
 vKr
 vKr
@@ -87742,7 +87793,7 @@ htC
 htC
 tFi
 htC
-eMa
+sRH
 iBp
 iBp
 "}
@@ -87999,7 +88050,7 @@ htC
 htC
 htC
 htC
-eMa
+sRH
 iBp
 iBp
 "}
@@ -88256,7 +88307,7 @@ htC
 htC
 nZI
 htC
-eMa
+sRH
 iBp
 iBp
 "}
@@ -112314,11 +112365,11 @@ rkH
 htC
 htC
 eAD
-htC
-htC
-eAD
-eAD
-htC
+udJ
+udJ
+udJ
+udJ
+udJ
 htC
 htC
 htC
@@ -112572,9 +112623,9 @@ udJ
 udJ
 udJ
 udJ
-udJ
-udJ
-udJ
+ods
+ods
+ods
 udJ
 udJ
 udJ
@@ -112828,10 +112879,10 @@ hlk
 hlk
 hlk
 hlk
-hlk
-ods
-ods
-ods
+udJ
+jvO
+jvO
+jvO
 udJ
 kEA
 swU
@@ -119588,7 +119639,7 @@ uNB
 uNB
 nyz
 nyz
-eMa
+rZZ
 iBp
 tYm
 wSI
@@ -119845,7 +119896,7 @@ rUl
 rUl
 rUl
 kOs
-eMa
+kEH
 iBp
 tYm
 wSI
@@ -120102,7 +120153,7 @@ rUl
 rUl
 rUl
 kOs
-eMa
+kEH
 iBp
 tYm
 wSI
@@ -120359,7 +120410,7 @@ nyz
 nyz
 nyz
 nyz
-eMa
+rZZ
 iBp
 tYm
 wSI
@@ -124746,7 +124797,7 @@ drh
 hss
 hss
 hss
-tBx
+vOo
 iBY
 iBY
 wSI
@@ -134925,21 +134976,21 @@ iBp
 dRF
 dRF
 dRF
+ils
+qjw
+tGB
 dRF
 dRF
+ils
 dRF
 dRF
+tBx
 dRF
 dRF
+ils
 dRF
 dRF
-dRF
-dRF
-dRF
-dRF
-dRF
-dRF
-dRF
+ils
 dRF
 dRF
 dRF

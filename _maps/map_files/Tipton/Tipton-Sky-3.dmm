@@ -1756,7 +1756,7 @@
 /obj/structure/spacevine{
 	name = "vines"
 	},
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/holiday)
 "bNL" = (
 /turf/open/floor/f13/wood{
@@ -4953,7 +4953,7 @@
 	dir = 4;
 	layer = 6.1
 	},
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/holiday)
 "exZ" = (
 /obj/structure/fence/wooden{
@@ -7912,9 +7912,6 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
-/area/f13/holiday)
-"hoY" = (
-/turf/closed/wall/mineral/wood,
 /area/f13/holiday)
 "hpb" = (
 /obj/effect/turf_decal/weather/snow/corner{
@@ -10881,7 +10878,7 @@
 "keq" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/legioncamp)
 "keO" = (
 /obj/structure/railing{
@@ -11519,7 +11516,7 @@
 "kKe" = (
 /obj/structure/barricade/wooden/strong,
 /obj/structure/barricade/bars,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/wasteland/cold)
 "kKu" = (
 /obj/effect/decal/cleanable/dirt,
@@ -12095,7 +12092,7 @@
 /turf/open/floor/wood_common,
 /area/f13/holiday)
 "liU" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix/gravel,
 /area/f13/underground/mountain)
 "lkD" = (
 /obj/machinery/hydroponics/soil,
@@ -13496,10 +13493,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/holiday)
-"mBP" = (
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/closed/wall/mineral/wood,
-/area/f13/legioncamp)
 "mCi" = (
 /obj/structure/sink{
 	dir = 1;
@@ -16514,7 +16507,7 @@
 /area/f13/wasteland/cold)
 "pxX" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/legioncamp)
 "pya" = (
 /obj/structure/weightmachine/stacklifter,
@@ -16585,11 +16578,9 @@
 /area/f13/building/powered)
 "pBl" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/old,
-/obj/structure/bed/old{
-	pixel_y = 14
+/turf/closed/indestructible/f13/matrix/slave{
+	icon_state = "despair_wood_dark"
 	},
-/turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "pBx" = (
 /obj/structure/fluff/hedge/opaque{
@@ -18216,9 +18207,6 @@
 "qYa" = (
 /turf/open/transparent/openspace,
 /area/f13/brotherhood/powered)
-"qYi" = (
-/turf/closed/wall/mineral/wood,
-/area/f13/wasteland/cold)
 "qYn" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/dirt{
@@ -18242,7 +18230,7 @@
 "qZU" = (
 /obj/structure/barricade/wooden/strong,
 /obj/structure/barricade/wooden/planks/pregame,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/wasteland/cold)
 "rat" = (
 /obj/structure/table,
@@ -18684,7 +18672,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/building/powered)
 "ruw" = (
-/turf/closed/indestructible/f13/matrix,
+/turf/closed/indestructible/f13/matrix/slave{
+	icon_state = "despair_wood_dark"
+	},
 /area/f13/legioncamp)
 "ruA" = (
 /obj/structure/chair/comfy/brown{
@@ -20072,7 +20062,9 @@
 	pixel_y = 4;
 	pixel_x = -11
 	},
-/turf/open/floor/wood_common,
+/turf/open/floor/wood_common{
+	icon_state = "common-broken4"
+	},
 /area/f13/legioncamp)
 "sNi" = (
 /obj/structure/barricade/wooden/planks/pregame,
@@ -21733,9 +21725,6 @@
 /obj/structure/railing,
 /turf/open/transparent/openspace,
 /area/f13/wasteland/cold)
-"upf" = (
-/turf/closed/wall/mineral/wood,
-/area/f13/legioncamp)
 "upp" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/sunset/brick_small_light,
@@ -24438,7 +24427,7 @@
 /obj/structure/decoration/rag{
 	icon_state = "skin"
 	},
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/wasteland/cold)
 "wTD" = (
 /mob/living/simple_animal/hostile/raider/junker/creator,
@@ -65074,11 +65063,11 @@ cCp
 vfn
 vfn
 vfn
-hoY
-hoY
-hoY
+pEV
+pEV
+pEV
 kQu
-hoY
+pEV
 qNl
 qNl
 qNl
@@ -65335,7 +65324,7 @@ qVo
 qVo
 vml
 vml
-hoY
+pEV
 vEC
 wKJ
 qNl
@@ -65595,7 +65584,7 @@ qVo
 kQu
 mRW
 aOZ
-hoY
+pEV
 vfn
 vfn
 vfn
@@ -65852,7 +65841,7 @@ sHt
 exS
 cHa
 jdR
-hoY
+pEV
 vfn
 vfn
 vfn
@@ -66106,9 +66095,9 @@ rJF
 bcn
 fVM
 qVo
-hoY
-hoY
-hoY
+pEV
+pEV
+pEV
 qNl
 vfn
 vfn
@@ -66360,8 +66349,8 @@ vfn
 vfn
 vfn
 exS
-hoY
-hoY
+pEV
+pEV
 bNK
 bNK
 qVo
@@ -66876,13 +66865,13 @@ vfn
 vfn
 vfn
 vfn
-hoY
+pEV
 iIw
 xYv
 jgw
 tUk
 qNl
-hoY
+pEV
 vfn
 vfn
 vfn
@@ -67133,14 +67122,14 @@ vfn
 vfn
 vfn
 vfn
-hoY
+pEV
 bNL
 fVM
 iNk
 dbH
 qNl
-hoY
-hoY
+pEV
+pEV
 vfn
 vfn
 vfn
@@ -67390,12 +67379,12 @@ vfn
 vfn
 vfn
 vfn
-hoY
+pEV
 kQu
-hoY
-hoY
+pEV
+pEV
 bNK
-hoY
+pEV
 qNl
 qNl
 qNl
@@ -67649,7 +67638,7 @@ ijA
 rbs
 fVM
 vml
-hoY
+pEV
 fDi
 eJq
 tCa
@@ -67914,7 +67903,7 @@ vml
 jgw
 qNl
 oGo
-qYi
+uCz
 vfn
 vfn
 jRE
@@ -68172,7 +68161,7 @@ lxC
 rwj
 oGo
 oGo
-qYi
+uCz
 vfn
 jRE
 hYI
@@ -68418,8 +68407,8 @@ wlg
 laJ
 ijA
 sUZ
-hoY
-hoY
+pEV
+pEV
 bNK
 bNK
 bNK
@@ -68428,7 +68417,7 @@ ufD
 ufD
 rwj
 vfn
-qYi
+uCz
 oGo
 oGo
 giC
@@ -70979,7 +70968,7 @@ rVT
 rVT
 rVT
 lTk
-qYi
+uCz
 vfn
 vfn
 vfn
@@ -71236,7 +71225,7 @@ wfa
 bGT
 wpL
 lSL
-qYi
+uCz
 vfn
 vfn
 vfn
@@ -71489,11 +71478,11 @@ xEi
 dEM
 mQk
 ogc
-qYi
-qYi
-qYi
-qYi
-qYi
+uCz
+uCz
+uCz
+uCz
+uCz
 vfn
 vfn
 vfn
@@ -101296,7 +101285,7 @@ pJO
 pJO
 pJO
 pJO
-jlz
+pJO
 jlz
 jlz
 jlz
@@ -101552,7 +101541,7 @@ ggS
 iwR
 iwR
 iwR
-pJO
+iwR
 pJO
 pJO
 pJO
@@ -101808,7 +101797,7 @@ pJO
 iwR
 iwR
 ruw
-iwR
+bgH
 iwR
 iwR
 iwR
@@ -104386,7 +104375,7 @@ iwR
 iwR
 iwR
 iGy
-mBP
+iGy
 eNt
 oxn
 hES
@@ -104643,7 +104632,7 @@ qsd
 bdF
 aMR
 kIV
-upf
+iwR
 pLo
 pLo
 aAh
@@ -105157,7 +105146,7 @@ oFa
 mZg
 xAV
 mZg
-upf
+iwR
 izt
 lGB
 aAh
@@ -105414,7 +105403,7 @@ oFa
 mZg
 xAV
 mZg
-mBP
+iGy
 kyD
 kyD
 kyD
@@ -106185,7 +106174,7 @@ oFa
 mZg
 oMx
 erF
-upf
+iwR
 kwB
 kqZ
 kqZ
@@ -106442,7 +106431,7 @@ oFa
 oFa
 oFa
 dvU
-upf
+iwR
 cgE
 kwB
 rUf
@@ -106689,7 +106678,7 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 uOT
 mZg
 oFa
@@ -106699,10 +106688,10 @@ jbG
 mZg
 oFa
 pFr
-upf
-upf
-upf
-upf
+iwR
+iwR
+iwR
+iwR
 lIE
 rWT
 kqZ
@@ -106946,20 +106935,20 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 wEC
 xAV
 xAV
 mZg
 mZg
-upf
+iwR
 tUE
-upf
-upf
-upf
+iwR
+iwR
+iwR
 kqZ
 pzU
-mBP
+iGy
 kwB
 vNU
 kqZ
@@ -107203,7 +107192,7 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 nOm
 mZg
 ikH
@@ -107216,7 +107205,7 @@ vgt
 nQs
 kqZ
 qke
-mBP
+iGy
 kqZ
 vNU
 kqZ
@@ -107460,13 +107449,13 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 fGG
 mZg
 rzD
 lQH
 wgs
-upf
+iwR
 uWO
 mDh
 bSL
@@ -107717,13 +107706,13 @@ wlp
 wlp
 pJO
 iwR
-upf
-mBP
+iwR
+iGy
 bNT
-upf
-upf
-upf
-upf
+iwR
+iwR
+iwR
+iwR
 jrf
 lTB
 uty
@@ -107974,13 +107963,13 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 xkA
 fmV
 qoL
 cOl
 yip
-upf
+iwR
 kqZ
 vNU
 fJe
@@ -108231,13 +108220,13 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 bEF
 fmV
 tww
 sem
 nfU
-upf
+iwR
 eHC
 vNU
 fJe
@@ -108488,13 +108477,13 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 pKX
 uzR
 xjh
 sem
 adL
-upf
+iwR
 mHk
 vNU
 fJe
@@ -108745,20 +108734,20 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 xcy
 qSI
 jNx
 sem
 eNj
-upf
+iwR
 gDt
 aiK
 kqZ
 qgg
 mSO
 ofB
-upf
+iwR
 qLO
 gcU
 uWO
@@ -109002,22 +108991,22 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 iot
 tww
 pBR
 pBR
 cIA
-upf
-upf
-upf
+iwR
+iwR
+iwR
 hkd
-upf
-upf
-upf
-upf
-upf
-upf
+iwR
+iwR
+iwR
+iwR
+iwR
+iwR
 qLO
 mZg
 kqZ
@@ -109259,7 +109248,7 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 fTj
 jNx
 jNx
@@ -109516,13 +109505,13 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 bLR
 sem
 xRK
 sem
 ezF
-upf
+iwR
 chW
 mZg
 mZg
@@ -109773,13 +109762,13 @@ wlp
 wlp
 pJO
 iwR
-upf
+iwR
 iwR
 iwR
 iNF
 wyd
-upf
-upf
+iwR
+iwR
 rat
 mZg
 kVg
@@ -110293,7 +110282,7 @@ qbk
 kqZ
 oFa
 phr
-upf
+iwR
 fnz
 mZg
 cCE
@@ -110549,8 +110538,8 @@ uWO
 luC
 kqZ
 oFa
-upf
-upf
+iwR
+iwR
 pfh
 qzT
 mZg
@@ -110559,7 +110548,7 @@ jbG
 xAV
 xAV
 wJV
-upf
+iwR
 hrm
 mZg
 oFa
@@ -110806,17 +110795,17 @@ uWO
 luC
 vNU
 oFa
-upf
-upf
+iwR
+iwR
 fJI
-upf
+iwR
 voK
 voK
-upf
+iwR
 voK
 voK
-upf
-upf
+iwR
+iwR
 kqZ
 mZg
 uWO
