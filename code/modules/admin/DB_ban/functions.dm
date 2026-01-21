@@ -159,6 +159,8 @@
 	message_admins(msg,1)
 	var/datum/admin_help/AH = admin_ticket_log(ckey, msg)
 
+	send2chat("[msg]", CONFIG_GET(string/discord_channel_banlogs))
+
 	if(announceinirc)
 		send2irc("BAN ALERT","[a_key] applied a [bantype_str] on [bankey]")
 
