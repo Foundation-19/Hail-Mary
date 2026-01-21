@@ -1268,14 +1268,18 @@ obj/item/clothing/head/f13/army/beret
 /obj/item/clothing/head/helmet/f13/combat/ncr
 	name = "NCR combat helmet"
 	desc = "An old military grade pre-war combat helmet, repainted to the colour scheme of the New California Republic."
-	icon_state = "ncr_helmet"
-	item_state = "ncr_helmet"
+	icon = 'icons/fallout/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "combat_helmet_ncr"
+	item_state = "combat_helmet_ncr"
 
 /obj/item/clothing/head/helmet/f13/combat/mk2/ncr
 	name = "reinforced NCR combat helmet"
 	desc = "An advanced pre-war titanium plated, ceramic coated, kevlar, padded helmet designed to withstand extreme punishment of all forms, repainted to the colour scheme of the New California Republic."
-	icon_state = "ncr_helmet_mk2"
-	item_state = "ncr_helmet_mk2"
+	icon = 'icons/fallout/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "combat_helmet_ncr_mk2"
+	item_state = "combat_helmet_ncr_mk2"
 
 /obj/item/clothing/head/beret/ncr/ncr_recon
 	name = "NCR First Recon beret"
