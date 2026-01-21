@@ -44,7 +44,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrgate)
-
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmor)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmetmk2)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmormk2)
 
 ///////////////////////
 /// Colonel - Admin ///
@@ -151,7 +154,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 1900
 
 	loadout_options = list(
-		/datum/outfit/loadout/captainbackline,	// Deagle
+		/datum/outfit/loadout/captainbackline,	// El Capitan
 		/datum/outfit/loadout/captainfrontline, // AR Service Rifle
 		)
 
@@ -193,10 +196,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 
 /datum/outfit/loadout/captainbackline
 	name = "Lead from the Back"
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/deagle
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/deagle/elcapitan = 1,
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/ncrarmor/captain/ncr_officer_coat = 1,
-		/obj/item/ammo_box/magazine/m44 = 3,
+		/obj/item/ammo_box/magazine/m14mm = 3,
 		/obj/item/grenade/smokebomb = 2,
 		/obj/item/storage/box/ration/menu_two = 1,
 		/obj/item/melee/onehanded/knife/trench = 1
@@ -207,9 +210,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	suit_store = /obj/item/gun/ballistic/automatic/service
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 3,
-		/obj/item/clothing/suit/armor/ncrarmor/captain = 1,
-		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
-		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
+		/obj/item/clothing/suit/armor/ncrarmor/captain = 1, 
 		/obj/item/storage/box/ration/menu_eight = 1,
 		/obj/item/melee/onehanded/knife/trench = 1
 		)
@@ -544,6 +545,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
@@ -633,6 +635,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		return
 	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
 
@@ -1041,7 +1044,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/marksman = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
 		/obj/item/book/granter/trait/techno = 1,
 		)
