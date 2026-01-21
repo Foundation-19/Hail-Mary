@@ -22,11 +22,20 @@ jobs:
           path: ~/SpacemanDMM
           key: ${{ runner.os }}-spacemandmm-${{ secrets.CACHE_PURGE_KEY }}
       - name: Install Tools
-        run: |
-          pip3 install setuptools
-          bash tools/ci/install_node.sh
-          bash tools/ci/install_spaceman_dmm.sh
-          tools/bootstrap/python -c ''
+        run: bash tools/ci/install_spaceman_dmm.sh
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+          cache: "pip"
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: "yarn"
+          cache-dependency-path: ./tgui/yarn.lock
+
+      - run: pip install -r tools/requirements.txt
       - name: Run Linters
         run: |
           bash tools/ci/check_filedirs.sh hailmary.dme
