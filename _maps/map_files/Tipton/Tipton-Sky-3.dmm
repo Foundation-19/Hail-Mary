@@ -269,6 +269,7 @@
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
+/obj/item/reagent_containers/food/condiment/enzyme,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "alU" = (
@@ -1873,6 +1874,12 @@
 /obj/item/reagent_containers/food/condiment/mayonnaise,
 /obj/item/reagent_containers/food/condiment/mustard,
 /obj/item/reagent_containers/food/condiment/ketchup,
+/obj/item/reagent_containers/food/condiment/peanut_butter,
+/obj/item/reagent_containers/food/condiment/quality_oil,
+/obj/item/reagent_containers/food/condiment/sugar,
+/obj/item/reagent_containers/food/condiment/cherryjelly,
+/obj/item/reagent_containers/food/condiment/bbqsauce,
+/obj/item/reagent_containers/food/condiment/honey,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
 "bSL" = (
@@ -16576,12 +16583,6 @@
 /obj/item/kitchen/knife/butcher,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
-"pBl" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/indestructible/f13/matrix/slave{
-	icon_state = "despair_wood_dark"
-	},
-/area/f13/legioncamp)
 "pBx" = (
 /obj/structure/fluff/hedge/opaque{
 	opacity = 0
@@ -18672,6 +18673,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/building/powered)
 "ruw" = (
+/obj/effect/decal/cleanable/dirt,
 /turf/closed/indestructible/f13/matrix/slave{
 	icon_state = "despair_wood_dark"
 	},
@@ -20057,7 +20059,6 @@
 /area/f13/wasteland/cold)
 "sMZ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/oldalt,
 /obj/effect/decal/cleanable/blood/old{
 	pixel_y = 4;
 	pixel_x = -11
@@ -23962,7 +23963,9 @@
 	pixel_x = 7;
 	pixel_y = 15
 	},
-/turf/open/floor/wood_common,
+/turf/closed/indestructible/f13/matrix/slave{
+	icon_state = "despair_wood_dark"
+	},
 /area/f13/legioncamp)
 "wwS" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker,
@@ -101797,7 +101800,7 @@ pJO
 iwR
 iwR
 ruw
-bgH
+tvm
 iwR
 iwR
 iwR
@@ -103601,7 +103604,7 @@ wjY
 uEf
 cwT
 jCE
-pBl
+uEf
 knC
 iwR
 nzf
