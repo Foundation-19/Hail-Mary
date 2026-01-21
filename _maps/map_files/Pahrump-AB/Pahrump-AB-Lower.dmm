@@ -14159,6 +14159,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/caves)
+"jYn" = (
+/obj/structure/ladder/unbreakable{
+	desc = "An extremely sturdy metal ladder. This one leads back up through the shattered ceiling plating.";
+	height = 2;
+	id = "undergroundcasino"
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/caves)
 "jYv" = (
 /obj/effect/spawner/lootdrop/f13/crafting,
 /turf/open/floor/plasteel/f13,
@@ -90378,7 +90386,7 @@ aaa
 hml
 aaB
 aaB
-aaB
+jYn
 hml
 aaB
 aaa
