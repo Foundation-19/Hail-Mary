@@ -1795,6 +1795,10 @@
 /area/f13/building/hospital)
 "cyu" = (
 /obj/structure/closet/locker,
+/obj/item/clothing/suit/toggle/labcoat/scribecoat,
+/obj/item/clothing/suit/toggle/labcoat/scribecoat,
+/obj/item/clothing/suit/toggle/labcoat/fieldscribe,
+/obj/item/clothing/suit/toggle/labcoat/fieldscribe,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/brotherhood/dorms)
 "cyC" = (
