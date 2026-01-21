@@ -67,63 +67,64 @@ jobs:
           python3 tools/ci/template_dm_generator.py
           tools/build/build dm -DCIBUILDING -DCITESTING -DALL_MAPS
 
-  auxmos:
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
-    name: Build Auxmos
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          repository: "Putnam3145/auxmos"
-          ref: "6be702ec36d8024bfb93b4277004a9a755f5e92e"
-          path: "auxmos"
+  # uncomment when they fix auxmos build
+  # auxmos:
+  #   if: "!contains(github.event.head_commit.message, '[ci skip]')"
+  #   name: Build Auxmos
+  #   runs-on: ubuntu-22.04
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
+  #       with:
+  #         repository: "Putnam3145/auxmos"
+  #         ref: "6be702ec36d8024bfb93b4277004a9a755f5e92e"
+  #         path: "auxmos"
 
-      - name: Cache cargo registry
-        uses: actions/cache@v4
-        with:
-          path: ~/.cargo/registry
-          key: auxmos-registry-${{ hashFiles('auxmos/Cargo.lock') }}
+  #     - name: Cache cargo registry
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cargo/registry
+  #         key: auxmos-registry-${{ hashFiles('auxmos/Cargo.lock') }}
 
-      - name: Cache cargo index
-        uses: actions/cache@v4
-        with:
-          path: ~/.cargo/git
-          key: auxmos-index-${{ hashFiles('auxmos/Cargo.lock') }}
+  #     - name: Cache cargo index
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: ~/.cargo/git
+  #         key: auxmos-index-${{ hashFiles('auxmos/Cargo.lock') }}
 
-      - name: Cache cargo build
-        id: auxmos-cache
-        uses: actions/cache@v4
-        with:
-          path: auxmos/target
-          key: auxmos-build-target-${{ hashFiles('auxmos/Cargo.lock') }}
+  #     - name: Cache cargo build
+  #       id: auxmos-cache
+  #       uses: actions/cache@v4
+  #       with:
+  #         path: auxmos/target
+  #         key: auxmos-build-target-${{ hashFiles('auxmos/Cargo.lock') }}
 
-      - name: Install Ubuntu Deps
-        if: steps.auxmos-cache.outputs.cache-hit != 'true'
-        run: |
-          sudo dpkg --add-architecture i386
-          sudo apt-get update
-          sudo apt install build-essential g++-multilib libc6-i386 libstdc++6:i386
+  #     - name: Install Ubuntu Deps
+  #       if: steps.auxmos-cache.outputs.cache-hit != 'true'
+  #       run: |
+  #         sudo dpkg --add-architecture i386
+  #         sudo apt-get update
+  #         sudo apt install build-essential g++-multilib libc6-i386 libstdc++6:i386
 
-      - uses: actions-rs/toolchain@v1
-        if: steps.auxmos-cache.outputs.cache-hit != 'true'
-        with:
-          profile: minimal
-          toolchain: ${{env.toolchain}}
-          target: ${{env.target}}
-          override: true
+  #     - uses: actions-rs/toolchain@v1
+  #       if: steps.auxmos-cache.outputs.cache-hit != 'true'
+  #       with:
+  #         profile: minimal
+  #         toolchain: ${{env.toolchain}}
+  #         target: ${{env.target}}
+  #         override: true
 
-      - name: Build
-        if: steps.auxmos-cache.outputs.cache-hit != 'true'
-        run: |
-          cargo build --manifest-path auxmos/Cargo.toml --target=${{env.target}} --release --verbose
-          ldd auxmos/target/${{env.target}}/release/libauxmos.so
+  #     - name: Build
+  #       if: steps.auxmos-cache.outputs.cache-hit != 'true'
+  #       run: |
+  #         cargo build --manifest-path auxmos/Cargo.toml --target=${{env.target}} --release --verbose
+  #         ldd auxmos/target/${{env.target}}/release/libauxmos.so
 
-      - name: Upload libauxmos artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: libauxmos
-          path: auxmos/target/${{env.target}}/release/libauxmos.so
+  #     - name: Upload libauxmos artifact
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: libauxmos
+  #         path: auxmos/target/${{env.target}}/release/libauxmos.so
 
   run_all_tests:
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
