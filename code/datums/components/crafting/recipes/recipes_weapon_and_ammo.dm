@@ -1073,6 +1073,19 @@
 	result = /obj/item/gun/ballistic/automatic/marksman
 	reqs = list(/obj/item/stack/sheet/metal = 10,
 				/obj/item/advanced_crafting_components/assembly = 1,
+				/obj/item/stack/crafting/goodparts = 5
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+/datum/crafting_recipe/marksmancarbine/worn
+	name = "Worn Marksman Carbine"
+	result = /obj/item/gun/ballistic/automatic/marksman/worn
+	reqs = list(/obj/item/stack/sheet/metal = 10,
+				/obj/item/advanced_crafting_components/assembly = 1,
 				/obj/item/stack/crafting/goodparts = 3
 				)
 	tools = list(TOOL_WORKBENCH)

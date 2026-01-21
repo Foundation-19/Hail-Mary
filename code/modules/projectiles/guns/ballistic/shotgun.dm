@@ -250,7 +250,7 @@
 	desc = "A traditional hunting shotgun with wood furniture and a four-shell capacity underneath."
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_state = "hunting_shotgun"
-	item_state = "hunting_shotgun"
+	item_state = "shotgunpump"
 	icon_prefix = "shotgunpump"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -611,8 +611,10 @@
 /obj/item/gun/ballistic/automatic/shotgun/pancor
 	name = "Pancor Jackhammer"
 	desc = "A drum-loaded, fully automatic shotgun. The pinnacle of turning things into swiss cheese."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "pancor"
-	item_state = "cshotgun1"
+	item_state = "pancor"
 	fire_sound = 'sound/f13weapons/repeater_fire.ogg'
 	mag_type = /obj/item/ammo_box/magazine/d12g
 	weapon_class = WEAPON_CLASS_RIFLE
