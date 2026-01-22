@@ -31,7 +31,56 @@
 	turnsound = 'sound/f13machines/vertibird_loop.ogg'
 	
 	
-	
+/obj/mecha/combat/combatvehicle/vertibird/MouseDrop_T(mob/M, mob/user)
+	if (!user.canUseTopic(src) || (user != M))
+		return
+	if(!ishuman(user)) // no silicons or drones in mechas.
+		return
+	if(!HAS_TRAIT(M, TRAIT_PILOT))
+		to_chat(usr, "... You don'know how to pilot.")
+		return
+	if (occupant)
+		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(dna_lock)
+		var/passed = FALSE
+		if(user.has_dna())
+			var/mob/living/carbon/C = user
+			if(C.dna.unique_enzymes==dna_lock)
+				passed = TRUE
+		if (!passed)
+			to_chat(user, "<span class='warning'>Access denied. The [name] is secured with a DNA lock.</span>")
+			log_append_to_last("Permission denied.")
+			return
+	if(!operation_allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(user.buckled)
+		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(user.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		return
+
+	visible_message("[user] starts to climb into [name].")
+
+	if(do_after(user, enter_delay, target = src))
+		if(obj_integrity <= 0)
+			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
+		else if(occupant)
+			to_chat(user, "<span class='danger'>[occupant] was faster! Try better next time, loser.</span>")
+		else if(user.buckled)
+			to_chat(user, "<span class='warning'>You can't enter the exosuit while buckled.</span>")
+		else if(user.has_buckled_mobs())
+			to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		else
+			moved_inside(user)
+	else
+		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
+	return
 
 /obj/structure/mecha_wreckage/vertibird
 	name = "\improper Vertibird Wreck"
@@ -385,6 +434,57 @@
 
 //pickuptruck bos AND Kiana
 
+/obj/mecha/combat/combatvehicle/pickuptruck/MouseDrop_T(mob/M, mob/user)
+	if (!user.canUseTopic(src) || (user != M))
+		return
+	if(!ishuman(user)) // no silicons or drones in mechas.
+		return
+	if(!HAS_TRAIT(M, TRAIT_CHAUFFEUR))
+		to_chat(usr, "... You don'know how to drive.")
+		return
+	if (occupant)
+		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(dna_lock)
+		var/passed = FALSE
+		if(user.has_dna())
+			var/mob/living/carbon/C = user
+			if(C.dna.unique_enzymes==dna_lock)
+				passed = TRUE
+		if (!passed)
+			to_chat(user, "<span class='warning'>Access denied. The [name] is secured with a DNA lock.</span>")
+			log_append_to_last("Permission denied.")
+			return
+	if(!operation_allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(user.buckled)
+		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(user.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		return
+
+	visible_message("[user] starts to climb into [name].")
+
+	if(do_after(user, enter_delay, target = src))
+		if(obj_integrity <= 0)
+			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
+		else if(occupant)
+			to_chat(user, "<span class='danger'>[occupant] was faster! Try better next time, loser.</span>")
+		else if(user.buckled)
+			to_chat(user, "<span class='warning'>You can't enter the exosuit while buckled.</span>")
+		else if(user.has_buckled_mobs())
+			to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		else
+			moved_inside(user)
+	else
+		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
+	return
+
 /obj/mecha/combat/combatvehicle/pickuptruck/bos/armed
 	name = "\improper BoS pickup truck with gunner"
 	desc = "A old vehicle, running on fuel. Its a modified brotherhood truck, with the addition of a laser rifle at the back, manned by Paladin Kiana Davberg. Consumes more fuel and is more fragile."
@@ -464,7 +564,56 @@
 	turnsound = 'sound/f13machines/buggy_loop.ogg'
 	wreckage = /obj/structure/mecha_wreckage/buggy
 	
-	
+/obj/mecha/combat/combatvehicle/buggy/MouseDrop_T(mob/M, mob/user)
+	if (!user.canUseTopic(src) || (user != M))
+		return
+	if(!ishuman(user)) // no silicons or drones in mechas.
+		return
+	if(!HAS_TRAIT(M, TRAIT_CHAUFFEUR))
+		to_chat(usr, "... You don'know how to drive.")
+		return
+	if (occupant)
+		to_chat(usr, "<span class='warning'>The [name] is already occupied!</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(dna_lock)
+		var/passed = FALSE
+		if(user.has_dna())
+			var/mob/living/carbon/C = user
+			if(C.dna.unique_enzymes==dna_lock)
+				passed = TRUE
+		if (!passed)
+			to_chat(user, "<span class='warning'>Access denied. The [name] is secured with a DNA lock.</span>")
+			log_append_to_last("Permission denied.")
+			return
+	if(!operation_allowed(user))
+		to_chat(user, "<span class='warning'>Access denied. Insufficient operation keycodes.</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(user.buckled)
+		to_chat(user, "<span class='warning'>You are currently buckled and cannot move.</span>")
+		log_append_to_last("Permission denied.")
+		return
+	if(user.has_buckled_mobs()) //mob attached to us
+		to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		return
+
+	visible_message("[user] starts to climb into [name].")
+
+	if(do_after(user, enter_delay, target = src))
+		if(obj_integrity <= 0)
+			to_chat(user, "<span class='warning'>You cannot get in the [name], it has been destroyed!</span>")
+		else if(occupant)
+			to_chat(user, "<span class='danger'>[occupant] was faster! Try better next time, loser.</span>")
+		else if(user.buckled)
+			to_chat(user, "<span class='warning'>You can't enter the exosuit while buckled.</span>")
+		else if(user.has_buckled_mobs())
+			to_chat(user, "<span class='warning'>You can't enter the exosuit with other creatures attached to you!</span>")
+		else
+			moved_inside(user)
+	else
+		to_chat(user, "<span class='warning'>You stop entering the exosuit!</span>")
+	return
 	
 
 /obj/mecha/combat/combatvehicle/buggy/rangerarmed/go_out()

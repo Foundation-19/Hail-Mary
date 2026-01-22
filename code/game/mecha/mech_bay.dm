@@ -139,7 +139,7 @@
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station
 	name = "Gas Station"
-	desc = "an old world Gasoline station, for comercial distribution of fue."
+	desc = "an old world Gasoline station, for comercial distribution of fuel."
 	density = TRUE
 	dir = NORTH
 	icon = 'icons/obj/objects.dmi';
@@ -216,7 +216,7 @@
 
 /obj/item/fuel_nozzle
 	name = "Gas Station fuel nuzzle"
-	desc = "an old world Gasoline station, for comercial distribution of fue."
+	desc = "An old world Gasoline station, for comercial distribution of fuel."
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "fuel_nozzle"
 	var/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/main_station = null
@@ -224,6 +224,7 @@
 	var/amount_per_transfer_from_this = 10
 	var/dispensing = FALSE
 	var/mob/holder = null
+	w_class = WEIGHT_CLASS_GIGANTIC
 
 /obj/item/fuel_nozzle/examine(mob/user)
 	. = ..()

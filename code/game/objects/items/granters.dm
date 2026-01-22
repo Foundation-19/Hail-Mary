@@ -1050,6 +1050,22 @@
 	traitname = "Power Armor"
 	remarks = list("Daily maintenance is essential, clean and repair your suit often.", "Don't let overconfidence kill you, you are not invincible.", "Mechanized infantry should always be supported by regular infantry.", "You move slowly, pay attention to your position relative to the enemy.", "You are always vulnerable to ambush, do not rest in the field.", "AP rounds will shred your suit, you are not invincible.")
 
+/obj/item/book/granter/trait/chauffeur
+	name = "Big Bill's Guide to Cars"
+	desc = "A guide to learn how to drive cars."
+	oneuse = TRUE
+	granted_trait = TRAIT_CHAUFFEUR
+	traitname = "Chauffeur"
+	remarks = list("Start the car.", "Keep your hands on the wheel.", "Press the pedal.", "Carefull when shifting!", "Respect the speed limit.", "Challenge pissing, huh ?",)
+
+/obj/item/book/granter/trait/pilot
+	name = "Vertibird Valkiries : The Balkan War"
+	desc = "A comic book, with a guide to learn how to fly vertibirds. And balloons."
+	oneuse = TRUE
+	granted_trait = TRAIT_PILOT
+	traitname = "Pilot"
+	remarks = list("You feel the need for speed.", "The transition between horizontal and vertical flight is tricky, rotor angle is key.", "Stalling is a risk", "Yo buddy, Still alive ?", "Watch out, the skys are yours.", "... Hold on, there is a page on baloons ?!",)
+
 /obj/item/book/granter/trait/explosives
 	name = "Industrial Society and Its Future"
 	desc = "This lengthy manifesto happens to contain a variety of valuable knowledge on how to craft explosives of all kinds."

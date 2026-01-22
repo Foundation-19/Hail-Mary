@@ -958,6 +958,24 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("The thought of barbed wire horrifies you.")
 	locked = FALSE
 
+/datum/quirk/pilot
+	name = "Pilot"
+	desc = "You know how to fly Vertibird (and balloons)."
+	value = 2
+	mob_trait = TRAIT_PILOT
+	gain_text = span_notice("You know how to fly Vertbirds.")
+	lose_text = span_danger("You know how to crash Vertibirds")
+	locked = FALSE
+
+/datum/quirk/chauffeur
+	name = "Chauffeur"
+	desc = "You know how to drive cars."
+	value = 1
+	mob_trait = TRAIT_CHAUFFEUR
+	gain_text = span_notice("You know how to drive cars.")
+	lose_text = span_danger("You forgot what car pedal does what.")
+	locked = FALSE
+
 /datum/quirk/quickercarry
 	name = "Quicker Carry"
 	desc = "You're real good at just scooping people up."
