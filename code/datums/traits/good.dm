@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	H.put_in_hands(spraycan)
 	H.equip_to_slot(spraycan, SLOT_IN_BACKPACK)
 	H.regenerate_icons()
-
+/*
 /datum/quirk/technophreak
 	name = "Technophreak"
 	desc = "You're skilled at breaking down old-war rubble more precisely, and therefore you gain more salvage from cars and piles than before. Your time with understanding complex technology also \
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		if(!H.mind.learned_recipes)
 			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
-
+*/
 /datum/quirk/voracious
 	name = "Bottomless Stomach"
 	desc = "Nothing gets between you and your food. You eat twice as fast as everyone else!"
@@ -490,7 +490,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You learn the secrets of butchering!")
 	lose_text = span_danger("You forget how to slaughter animals.")
 	locked = FALSE
-
+/*
 /datum/quirk/bigleagues
 	name = "Melee - Big Leagues"
 	desc = "Swing for the fences! You deal even more additional damage with melee weapons."
@@ -530,7 +530,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	if(H)
 		H.mind.learned_recipes -= GLOB.chemwhiz_recipes
 
-/*
+
 /datum/quirk/pa_wear
 	name = "Power Armor Training"
 	desc = "You've been around the wastes and have learned the wonders of wearing high tech armor from somewhere or something."
@@ -538,8 +538,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PA_WEAR
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
-	locked =  TRUE
-*/
+	locked = TRUE
+
 
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
@@ -588,6 +588,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.maxHealth += 20
 	H.health += 20
+*/
 
 /datum/quirk/iron_fist
 	name = "Fists of Iron"
@@ -602,7 +603,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
-
+/*
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
 	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even MORE."
@@ -616,7 +617,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
-
+*/
 
 /datum/quirk/light_step
 	name = "Glass Walker"
@@ -634,7 +635,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel yourself discovering the basics of the human body.")
 	lose_text = span_danger("You forget how to perform even the simplest surgery.")
 	locked = FALSE
-
+/*
 /datum/quirk/explosive_crafting
 	name = "Explosives Crafting"
 	desc = "You have strong feelings about the future of industrial society."
@@ -658,7 +659,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		H.mind.learned_recipes -= GLOB.basic_explosive_recipes
 		H.mind.learned_recipes -= GLOB.adv_explosive_recipes
 
-/*
+
 /datum/quirk/lick_heal
 	name = "Soothing Saliva"
 	desc = "Your saliva has a mild healing effect on burns and bruises. Use *lick to lick your injuries."
@@ -921,7 +922,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You've decided radiation just doesn't matter much.")
 	lose_text = span_danger("You no longer feel like you could roll around in a rad puddle for a while.")
 	locked =  FALSE
-*/
+
 
 /datum/quirk/radimmunesorta
 	name = "Radiation - Sorta Immune"
@@ -932,7 +933,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You no longer think you should hang out next to rad puddles.")
 	locked =  TRUE
 
-/*
+
 /datum/quirk/nohunger
 	name = "Does not Eat"
 	desc = "You don't need to eat to live, lucky you."
@@ -1034,7 +1035,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your aim is legendary, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
 	locked =  FALSE
-*/
+
 /datum/quirk/straightshooter
 	name = "Straight Shooter"
 	desc = "You're a better than average shot."
@@ -1043,7 +1044,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your aim is amazing, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
 	locked =  TRUE
-
+*/
 /datum/quirk/bowtrained
 	name = "Bow Trained"
 	desc = "You've trained quite a bit with bows of many types, and are pretty good with them for it."
