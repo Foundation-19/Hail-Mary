@@ -530,7 +530,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	if(H)
 		H.mind.learned_recipes -= GLOB.chemwhiz_recipes
 
-
+/*
 /datum/quirk/pa_wear
 	name = "Power Armor Training"
 	desc = "You've been around the wastes and have learned the wonders of wearing high tech armor from somewhere or something."
@@ -539,6 +539,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
 	locked =  TRUE
+*/
 
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
@@ -903,14 +904,14 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	locked =  FALSE
 
 /*
-/* /datum/quirk/radimmune
+/datum/quirk/radimmune
 	name = "Radiation - Immune"
 	desc = "Geiger Counters are for suckers."
 	value = 5
 	mob_trait = TRAIT_RADIMMUNE
 	gain_text = span_notice("You've decided radiation just doesn't matter.")
 	lose_text = span_danger("You no longer feel like you could probably live in a microwave while it's on.")
-	locked =  FALSE */
+	locked =  FALSE 
 
 /datum/quirk/radimmuneish
 	name = "Radiation - Mostly Immune"
