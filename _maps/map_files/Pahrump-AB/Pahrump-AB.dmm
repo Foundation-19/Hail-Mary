@@ -45464,11 +45464,6 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/wasteland)
 "mDZ" = (
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
-/obj/item/record_disk,
 /obj/structure/table/reinforced,
 /turf/open/floor/f13/wood,
 /area/f13/city)
@@ -65429,7 +65424,6 @@
 "uSz" = (
 /obj/structure/table/wood/fancy/black,
 /obj/structure/table/wood/fancy/black,
-/obj/machinery/radio_station,
 /turf/open/floor/carpet/royalblack,
 /area/f13/city)
 "uSY" = (
