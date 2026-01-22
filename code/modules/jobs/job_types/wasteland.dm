@@ -872,7 +872,6 @@
 	suit = /obj/item/clothing/suit/armor/light/tribal
 	head = /obj/item/clothing/head/helmet/f13/deathskull
 	backpack_contents = list(
-		/obj/item/twohanded/fireaxe/bmprsword = 1,
 		/obj/item/restraints/legcuffs/bola = 2,
 		/obj/item/reagent_containers/pill/healingpowder = 2,
 		/obj/item/stack/medical/gauze = 1,
@@ -886,7 +885,6 @@
 	mask = /obj/item/clothing/mask/facewrap
 	neck = /obj/item/clothing/neck/mantle/gray
 	backpack_contents = list(
-		/obj/item/twohanded/spear = 1,
 		/obj/item/reagent_containers/pill/healingpowder = 2,
 		/obj/item/book/granter/trait/tribaltraditions = 1
 		)
@@ -929,8 +927,6 @@
 	head = /obj/item/clothing/head/helmet/f13/wayfarer/antler
 	neck = /obj/item/clothing/neck/mantle/brown
 	backpack_contents = list(
-		/obj/item/gun/ballistic/bow/shortbow = 1,
-		/obj/item/storage/bag/tribe_quiver/full = 1,
 		/obj/item/binoculars = 1,
 		/obj/item/reagent_containers/pill/healingpowder = 2,
 		/obj/item/book/granter/trait/tribaltraditions = 1
