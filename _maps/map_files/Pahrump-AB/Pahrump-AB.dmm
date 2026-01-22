@@ -4945,7 +4945,7 @@
 	},
 /obj/item/storage/book/bible,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "avw" = (
 /obj/effect/turf_decal/stripes/white/line,
 /turf/open/indestructible/ground/outside/road{
@@ -19275,7 +19275,7 @@
 "cqo" = (
 /obj/effect/landmark/start/f13/preacher,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "cqq" = (
 /obj/structure/simple_door/tentflap_cloth{
 	pixel_y = -3
@@ -20812,7 +20812,7 @@
 "cUn" = (
 /obj/structure/chair/pew/left,
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "cUo" = (
 /obj/structure/car/rubbish3,
 /obj/effect/decal/cleanable/dirt,
@@ -23066,7 +23066,7 @@
 	lit = 1
 	},
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "dVp" = (
 /obj/structure/chair/f13chair2{
 	dir = 1
@@ -30699,10 +30699,8 @@
 /turf/closed/wall/f13/store,
 /area/f13/building/museum)
 "hlf" = (
-/obj/effect/landmark/start/f13/settler,
-/obj/structure/flora/grass/jungle,
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/city)
+/turf/closed/wall/f13/wood,
+/area/f13/chapel)
 "hlp" = (
 /obj/effect/spawner/lootdrop/ammo,
 /obj/effect/decal/cleanable/dirt,
@@ -30766,7 +30764,7 @@
 /obj/item/shovel,
 /obj/item/shovel,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "hmM" = (
 /obj/machinery/hydroponics/soil,
 /turf/open/indestructible/ground/outside/dirt{
@@ -31706,6 +31704,9 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"hMa" = (
+/turf/open/floor/f13/wood,
+/area/f13/chapel)
 "hMj" = (
 /obj/item/trash/popcorn,
 /obj/effect/decal/cleanable/dirt,
@@ -32708,7 +32709,7 @@
 /area/f13/wasteland)
 "ill" = (
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "ilm" = (
 /obj/effect/turf_decal/gravel_edge{
 	dir = 5
@@ -36823,7 +36824,7 @@
 "kaW" = (
 /obj/structure/fluff/railing,
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "kaZ" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier1,
@@ -37515,6 +37516,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"krX" = (
+/obj/effect/landmark/start/f13/settler,
+/turf/open/floor/f13/wood,
+/area/f13/bar)
 "ksl" = (
 /obj/structure/decoration/rag{
 	icon_state = "skin"
@@ -41416,7 +41421,7 @@
 "mbr" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "mbM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -48461,6 +48466,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/museum)
+"pbx" = (
+/obj/structure/simple_door/room,
+/turf/open/floor/f13/wood,
+/area/f13/chapel)
 "pce" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -48788,11 +48797,11 @@
 /obj/item/flashlight/lantern,
 /obj/item/flashlight/lantern,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "pkE" = (
 /obj/structure/chair/pew,
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "pkT" = (
 /obj/structure/railing{
 	dir = 8
@@ -52457,7 +52466,7 @@
 	lit = 1
 	},
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "qSH" = (
 /obj/structure/chair/folding{
 	dir = 1
@@ -53163,7 +53172,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "stagestairs2"
 	},
-/area/f13/city)
+/area/f13/chapel)
 "rkf" = (
 /obj/item/storage/trash_stack,
 /turf/open/floor/plasteel/f13{
@@ -57170,7 +57179,7 @@
 /obj/item/clothing/suit/armor/light/knight,
 /obj/item/clothing/head/helmet/f13/knighthelmet,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "tgy" = (
 /obj/item/wrench{
 	pixel_x = 11;
@@ -58568,7 +58577,7 @@
 "tKy" = (
 /obj/structure/closet/crate/bin/trash_fallout,
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "tKD" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -63741,7 +63750,7 @@
 	lit = 1
 	},
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "wdP" = (
 /obj/structure/rack{
 	pixel_x = -2
@@ -64326,7 +64335,7 @@
 "wrH" = (
 /obj/structure/chair/pew/right,
 /turf/open/floor/f13/wood,
-/area/f13/city)
+/area/f13/chapel)
 "wrJ" = (
 /obj/effect/decal/marking{
 	icon_state = "doublehorizontalright"
@@ -66355,7 +66364,7 @@
 /obj/structure/table/wood,
 /obj/item/candle/infinite,
 /turf/open/floor/wood_common,
-/area/f13/city)
+/area/f13/chapel)
 "xoI" = (
 /obj/structure/campfire,
 /turf/open/indestructible/ground/outside/ruins{
@@ -94864,7 +94873,7 @@ nIG
 bcB
 bcB
 fuT
-hlf
+ilL
 ilL
 geW
 wea
@@ -95124,19 +95133,19 @@ snJ
 bdB
 geW
 wea
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
 mbr
-xvy
-xvy
+hlf
+hlf
 aiO
 tpP
 aQZ
@@ -95380,20 +95389,20 @@ bcB
 iZh
 wea
 wea
-xvy
-xvy
+hlf
+hlf
 cUn
 cUn
 cUn
 cUn
-jeh
+hMa
 kaW
 ill
 qSB
-xvy
+hlf
 ill
 hmK
-xvy
+hlf
 aiO
 tpP
 aQZ
@@ -95636,21 +95645,21 @@ bcB
 bcB
 tNN
 wQk
-xvy
-xvy
+hlf
+hlf
 wdE
 pkE
 pkE
 pkE
 pkE
-jeh
+hMa
 kaW
 ill
 ill
 mbr
 ill
 pkp
-xvy
+hlf
 aiO
 tpP
 aQZ
@@ -95892,22 +95901,22 @@ pvg
 bcB
 bcB
 hqB
-xvy
-xvy
+hlf
+hlf
 tKy
-jeh
+hMa
 wrH
 wrH
 wrH
 wrH
-jeh
+hMa
 kaW
 ill
 ill
-xvy
+hlf
 ill
 tgs
-xvy
+hlf
 aiO
 tpP
 aQZ
@@ -96149,22 +96158,22 @@ pvg
 bcB
 bcB
 bcB
-sAz
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
+pbx
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
 rjV
 ill
 xox
-xvy
-xvy
-xvy
-xvy
+hlf
+hlf
+hlf
+hlf
 aiO
 tpP
 aQZ
@@ -96406,22 +96415,22 @@ oMm
 bcB
 bcB
 aUG
-xvy
+hlf
 wdE
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
 dVi
 avv
 cqo
 xox
-xvy
-aky
-aky
-aky
+hlf
+aiO
+aiO
+aiO
 aiO
 tpP
 aQZ
@@ -96663,20 +96672,20 @@ woQ
 bcB
 bcB
 bcB
-sAz
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
-jeh
+pbx
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
+hMa
 rjV
 ill
 xox
-xvy
-aky
+hlf
+aiO
 aOk
 aOk
 aOk
@@ -96920,20 +96929,20 @@ pCs
 bcB
 bcB
 shZ
-xvy
-xvy
+hlf
+hlf
 tKy
-jeh
+hMa
 cUn
 cUn
 cUn
 cUn
-jeh
+hMa
 kaW
 ill
 ill
-xvy
-aky
+hlf
+aiO
 aOk
 aOk
 aOk
@@ -97178,19 +97187,19 @@ bcB
 bcB
 tkg
 pfH
-xvy
-xvy
+hlf
+hlf
 wdE
 pkE
 pkE
 pkE
 pkE
-jeh
+hMa
 kaW
 ill
 ill
-xvy
-aky
+hlf
+aiO
 aOk
 aOk
 aOk
@@ -97436,18 +97445,18 @@ mws
 bdC
 grq
 grq
-xvy
-xvy
+hlf
+hlf
 wrH
 wrH
 wrH
 wrH
-jeh
+hMa
 kaW
 ill
 qSB
-xvy
-aky
+hlf
+aiO
 aOk
 aOk
 aOk
@@ -97694,17 +97703,17 @@ arl
 grq
 grq
 grq
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-xvy
-aky
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+hlf
+aiO
 aOk
 aOk
 aOk
@@ -97961,7 +97970,7 @@ qZU
 qZU
 qZU
 qZU
-aky
+aiO
 aOk
 aOk
 aOk
@@ -98218,7 +98227,7 @@ oYF
 oYF
 oYF
 qZU
-aky
+aiO
 aOk
 aOk
 aOk
@@ -106682,7 +106691,7 @@ lwn
 lwn
 lwn
 lwn
-lwn
+krX
 sKD
 seu
 seu
@@ -106939,7 +106948,7 @@ ndX
 vOL
 eIK
 lwn
-lwn
+krX
 sKD
 seu
 pfM
