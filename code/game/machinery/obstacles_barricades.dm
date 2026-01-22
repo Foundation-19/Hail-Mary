@@ -374,8 +374,8 @@
 /obj/structure/barricade/bars/attackby(obj/item/W, mob/user, params)
 	. = ..()
 
-    if(W.tool_behaviour != TOOL_WELDER)
-        return
+	if(W.tool_behaviour != TOOL_WELDER)
+		return
 
 	if(!W.tool_start_check(user))
 		return
