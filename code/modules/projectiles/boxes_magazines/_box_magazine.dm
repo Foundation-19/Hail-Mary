@@ -63,6 +63,13 @@
 			caliber += CALIBER_ANY // default to accepting any old caliber
 	update_icon()
 
+/obj/item/ammo_box/Destroy()
+	// Clean up all stored ammo casings to prevent garbage collection cycles
+	if(length(stored_ammo))
+		QDEL_LIST(stored_ammo)
+	stored_ammo = null
+	return ..()
+
 /obj/item/ammo_box/proc/get_round(keep = 0)
 	if (!stored_ammo.len)
 		return null
@@ -361,5 +368,6 @@
 		stored_ammo -= ammo
 
 /obj/item/ammo_box/magazine/handle_atom_del(atom/A)
-	stored_ammo -= A
+	if(islist(stored_ammo))
+		stored_ammo -= A
 	update_icon()

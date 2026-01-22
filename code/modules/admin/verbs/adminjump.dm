@@ -104,6 +104,10 @@
 		to_chat(src, "Only administrators may use this command.", confidential = TRUE)
 		return
 
+	if(!M)
+		to_chat(src, "No mob selected.", confidential = TRUE)
+		return
+
 	var/atom/loc = get_turf(usr)
 	log_admin("[key_name(usr)] teleported [key_name(M)] to [AREACOORD(loc)]")
 	var/msg = "[key_name_admin(usr)] teleported [ADMIN_LOOKUPFLW(M)] to [ADMIN_VERBOSEJMP(loc)]"

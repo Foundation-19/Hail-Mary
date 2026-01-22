@@ -1044,7 +1044,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
-		/obj/item/book/granter/trait/techno = 1,
+		/obj/item/book/granter/trait/techno = 1
 		)
 
 /datum/outfit/loadout/combatmedic

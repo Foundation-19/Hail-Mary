@@ -400,7 +400,6 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 		to_chat(user, span_warning("This mind has only recently departed. Wait at most two minutes before sending this character out of the round."))
 		return
 	user.visible_message(span_warning("[user] [departing_mob == user ? "is trying to leave the swamps!" : "is trying to send [departing_mob] away!"]"), span_notice("You [departing_mob == user ? "are trying to leave the swamps." : "are trying to send [departing_mob] away."]"))
-	icon_state = "matrix_going" // ALERT, WEE WOO
 	update_icon()
 	in_use = TRUE
 	if(!do_after(user, 50, target = src))

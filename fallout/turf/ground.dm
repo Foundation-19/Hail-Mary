@@ -880,15 +880,15 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	switch(severity)
 		if(4)
 			if(prob(5))
-				ChangeTurf(baseturfs)
+				ChangeTurf(islist(baseturfs) ? baseturfs[baseturfs.len] : baseturfs)
 		if(3)
 			if(prob(25))
-				ChangeTurf(baseturfs)
+				ChangeTurf(islist(baseturfs) ? baseturfs[baseturfs.len] : baseturfs)
 		if(2)
 			if(prob(50))
-				ChangeTurf(baseturfs)
+				ChangeTurf(islist(baseturfs) ? baseturfs[baseturfs.len] : baseturfs)
 		if(1)
-			ChangeTurf(baseturfs)
+			ChangeTurf(islist(baseturfs) ? baseturfs[baseturfs.len] : baseturfs)
 
 /////////////////////////////////////////////////////////
 

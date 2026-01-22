@@ -23,6 +23,10 @@
 		"has a damaged socket"
 	],
 
+	"slashmoderate": [
+		"has a faint cut"
+	],
+
 	"slashsevere": [
 		"has a noticeable cut"
 	],
