@@ -1075,8 +1075,8 @@ Mayor
 	title = "Radio Host"
 	flag = F13RADIOHOST
 	department_flag = DEP_EASTWOOD
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	supervisors = "Eastwood laws"
 	description = "You are the Radio Host of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
 	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
