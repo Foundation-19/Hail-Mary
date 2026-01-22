@@ -326,7 +326,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
-		/obj/item/binoculars,
+		/obj/item/binoculars = 1,
 		)
 
 /datum/outfit/loadout/sergeantrifleman
