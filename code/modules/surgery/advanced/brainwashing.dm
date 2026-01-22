@@ -16,13 +16,15 @@
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_HEAD)
 
-	requires_trait = "UNETHICAL_PRACTITIONER_BRAINWASHING"
+	general_skill_required = 6
 
 /datum/surgery/advanced/brainwashing/can_start(mob/user, mob/living/carbon/target, obj/item/tool)
 	if(!..())
 		return FALSE
 	var/obj/item/organ/brain/B = target.getorganslot(ORGAN_SLOT_BRAIN)
 	if(!B)
+		return FALSE
+	if(!HAS_TRAIT(user, TRAIT_BRAINWASH_SURGERY))
 		return FALSE
 	return TRUE
 /datum/surgery_step/brainwash
