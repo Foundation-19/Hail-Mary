@@ -22,8 +22,6 @@
 	user.adjustOxyLoss(200)
 	user.death(0)
 
-/obj/item/assembly/timer/proc/on_entered(var/atom/location, var/atom/mover, var/atom/oldloc, var/extra)
-	// No-op: Timer assemblies do not react to entering a turf
 	return
 
 /obj/item/assembly/timer/Initialize()
