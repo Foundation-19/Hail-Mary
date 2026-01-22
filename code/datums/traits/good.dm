@@ -367,7 +367,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
 	lose_text = span_danger("Old-War rubble suddenly seems less generous to you.")
-		locked = TRUE
+	locked = TRUE
 
 /datum/quirk/technophreak/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		if(!H.mind.learned_recipes)
 			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
-*/
+
 /datum/quirk/voracious
 	name = "Bottomless Stomach"
 	desc = "Nothing gets between you and your food. You eat twice as fast as everyone else!"
