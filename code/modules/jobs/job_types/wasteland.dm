@@ -852,7 +852,7 @@
 
 	id = null
 	ears = null
-	belt = 	belt = /obj/item/kit_spawner/tribal
+	belt = /obj/item/kit_spawner/tribal
 	uniform = /obj/item/clothing/under/f13/settler
 	shoes = /obj/item/clothing/shoes/sandal
 	gloves = /obj/item/clothing/gloves/f13/handwraps
