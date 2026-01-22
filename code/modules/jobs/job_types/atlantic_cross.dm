@@ -69,7 +69,6 @@ Administrator
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ultra_micro_laser)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
-	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
 
 /datum/outfit/job/atlantic/f13atlanticcap
@@ -141,8 +140,6 @@ Doctor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/phasic_scanning)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/super_capacitor)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ultra_micro_laser)
-	ADD_TRAIT(H, TRAIT_MEDICALGRADUATE, src)
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
 
