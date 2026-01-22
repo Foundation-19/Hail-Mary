@@ -1080,14 +1080,6 @@
 	dir = 8
 	},
 /area/f13/caves)
-"aXe" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "aXf" = (
 /obj/structure/simple_door/metal/ventilation,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -8928,6 +8920,14 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/enclave)
+"fdg" = (
+/obj/item/kirbyplants/random,
+/obj/machinery/light{
+	dir = 8;
+	pixel_y = -15
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "fdz" = (
 /obj/effect/decal/cleanable/glass{
 	pixel_x = 12
@@ -13169,6 +13169,17 @@
 /obj/machinery/light/small,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"jng" = (
+/obj/structure/kitchenspike_frame{
+	desc = "A robust, thick metal frame used to hold power armor upright during maintenance.";
+	name = "Power Armor Frame"
+	},
+/obj/item/clothing/suit/armor/power_armor/t45d/knightcaptain,
+/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos{
+	pixel_y = 7
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "jnp" = (
 /obj/effect/decal/waste{
 	pixel_x = 20;
@@ -14308,6 +14319,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/tunnel)
+"ksb" = (
+/obj/structure/chair/office/dark{
+	dir = 4
+	},
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "ksh" = (
 /obj/effect/decal/cleanable/cobweb,
 /obj/effect/decal/remains{
@@ -17127,17 +17146,6 @@
 /obj/item/trash/f13/rotten,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
-"mUT" = (
-/obj/structure/kitchenspike_frame{
-	desc = "A robust, thick metal frame used to hold power armor upright during maintenance.";
-	name = "Power Armor Frame"
-	},
-/obj/item/clothing/suit/armor/power_armor/t45d/knightcaptain,
-/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos{
-	pixel_y = 7
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "mVb" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/barber{
@@ -26330,14 +26338,6 @@
 /obj/structure/chair/bench,
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/caves)
-"vAL" = (
-/obj/item/kirbyplants/random,
-/obj/machinery/light{
-	dir = 8;
-	pixel_y = -15
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "vBc" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
@@ -27569,6 +27569,13 @@
 	icon_state = "tunnelrusty"
 	},
 /area/f13/tunnel)
+"wCS" = (
+/obj/machinery/door/airlock/grunge{
+	id_tag = "sentdorm";
+	name = "Paladin's Office"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "wDN" = (
 /obj/effect/decal/waste{
 	icon_state = "goo5"
@@ -28606,13 +28613,6 @@
 /obj/structure/simple_door/house,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/building/hospital)
-"xHx" = (
-/obj/machinery/door/airlock/grunge{
-	id_tag = "sentdorm";
-	name = "Paladin's Office"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "xHG" = (
 /obj/item/stack/ore/iron,
 /turf/open/indestructible/ground/inside/subway{
@@ -51607,7 +51607,7 @@ uJr
 uJr
 vub
 ede
-vAL
+fdg
 keR
 ede
 ede
@@ -53393,7 +53393,7 @@ bsC
 aaA
 ede
 mJb
-aXe
+ksb
 bOT
 bOT
 qKy
@@ -54948,7 +54948,7 @@ ede
 ede
 uxg
 uxg
-xHx
+wCS
 ede
 ede
 ede
@@ -56735,7 +56735,7 @@ aaA
 ede
 bBl
 ino
-mUT
+jng
 fix
 ede
 ede
