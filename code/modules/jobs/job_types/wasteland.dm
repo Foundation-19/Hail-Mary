@@ -832,7 +832,7 @@
 		/datum/crafting_recipe/tribalwar/warclub,
 		//datum/crafting_recipe/tribalwar/silverbow,
 		//datum/crafting_recipe/tribalwar/arrowbone,
-		//datum/crafting_recipe/tribalwar/bonespear,
+		/datum/crafting_recipe/tribalwar/bonespear,
 		/datum/crafting_recipe/tribalwar/bonecodpiece,
 		/datum/crafting_recipe/tribalwar/bracers,
 		/datum/crafting_recipe/tribal/bonetalisman,
@@ -852,18 +852,18 @@
 
 	id = null
 	ears = null
-	belt = /obj/item/melee/onehanded/knife/bone
+	belt = 	belt = /obj/item/kit_spawner/tribal
 	uniform = /obj/item/clothing/under/f13/settler
 	shoes = /obj/item/clothing/shoes/sandal
 	gloves = /obj/item/clothing/gloves/f13/handwraps
-	r_hand = /obj/item/book/granter/trait/selection/tribal
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	box = /obj/item/storage/survivalkit/tribal
 	box_two = /obj/item/storage/survivalkit/medical/tribal
 	backpack_contents = list(
 		/obj/item/reagent_containers/pill/healingpowder = 2,
-		/obj/item/flashlight/lantern = 1
+		/obj/item/flashlight/lantern = 1,
+		/obj/item/kit_spawner/tools,
 		)
 
 //Generic Tribals
