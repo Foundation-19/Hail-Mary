@@ -3414,15 +3414,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
-"emn" = (
-/obj/structure/decoration/rag,
-/obj/structure/decoration/rag{
-	icon_state = "skulls"
-	},
-/obj/structure/spacevine,
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/f13/wood,
-/area/f13/wasteland/cold)
 "emo" = (
 /obj/structure/simple_door/bunker,
 /obj/effect/decal/cleanable/dirt,
@@ -4530,10 +4521,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/royalblack,
 /area/f13/building)
-"fAu" = (
-/obj/structure/spacevine,
-/turf/closed/wall/f13/wood,
-/area/f13/wasteland/cold)
 "fAx" = (
 /obj/structure/table/wood,
 /obj/item/lighter/gold{
@@ -8689,18 +8676,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
-"kOH" = (
-/obj/structure/decoration/rag{
-	icon_state = "skin"
-	},
-/obj/structure/barricade/bars{
-	max_integrity = 800;
-	name = "strong metal bars";
-	obj_integrity = 800
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/closed/wall/f13/wood,
-/area/f13/wasteland/cold)
 "kOO" = (
 /obj/structure/barricade/tentclothedge,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -9575,12 +9550,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/legioncamp)
-"lXy" = (
-/obj/machinery/door/unpowered/securedoor{
-	req_access_txt = "273"
-	},
-/turf/open/transparent/openspace,
-/area/f13/wasteland/cold)
 "lXI" = (
 /obj/structure/fluff/hedge/opaque{
 	opacity = 0
@@ -12139,11 +12108,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/f13/building/powered)
-"poQ" = (
-/obj/structure/decoration/rag,
-/obj/structure/spacevine,
-/turf/closed/wall/f13/wood,
-/area/f13/wasteland/cold)
 "ppI" = (
 /obj/structure/table/reinforced,
 /obj/item/paper_bin{
@@ -17530,10 +17494,6 @@
 /obj/machinery/light,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/powered)
-"weu" = (
-/obj/structure/spacevine,
-/turf/open/transparent/openspace,
-/area/f13/wasteland/cold)
 "wew" = (
 /obj/machinery/light{
 	dir = 1
@@ -58496,7 +58456,7 @@ cYg
 twO
 vfn
 vfn
-emn
+vfn
 vfn
 vfn
 vfn
@@ -58753,12 +58713,12 @@ cYg
 twO
 vfn
 vfn
-poQ
 vfn
-uCz
-fAu
 vfn
-weu
+vfn
+vfn
+vfn
+vfn
 vfn
 vfn
 dnM
@@ -59010,10 +58970,10 @@ mRW
 twO
 vfn
 vfn
-uCz
 vfn
-tLh
-lFk
+vfn
+vfn
+vfn
 vfn
 vfn
 vfn
@@ -59267,7 +59227,7 @@ cYg
 twO
 vfn
 vfn
-kOH
+vfn
 vfn
 vfn
 vfn
@@ -59526,7 +59486,7 @@ vfn
 vfn
 vfn
 vfn
-lXy
+vfn
 vfn
 vfn
 vfn
