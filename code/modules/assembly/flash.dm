@@ -42,7 +42,6 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5)
 	if(holder)
 		holder.update_icon()
-	return
 
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
