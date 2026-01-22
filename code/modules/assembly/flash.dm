@@ -42,11 +42,11 @@
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 5)
 	if(holder)
 		holder.update_icon()
-
+/*
 /obj/item/assembly/flash/proc/on_entered(var/atom/location, var/atom/mover, var/atom/oldloc, var/extra)
 	// Dummy proc to prevent undefined proc runtime errors from async calls
 	return
-
+*/
 /obj/item/assembly/flash/proc/clown_check(mob/living/carbon/human/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		flash_carbon(user, user, 15, 0)
