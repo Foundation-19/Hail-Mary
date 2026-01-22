@@ -29,7 +29,7 @@
 	pass_flags = PASSTABLE | PASSMOB | PASSGRILLE
 	var/datum/action/cooldown/coffer
 	var/datum/action/cooldown/riot
-	can_ghost_into = TRUE
+	can_ghost_into = FALSE
 	desc_short = "King of the squeaks!"
 	///Number assigned to rats and mice, checked when determining infighting.
 
@@ -39,14 +39,16 @@
 	coffer.Grant(src)
 	riot = new /datum/action/cooldown/riot
 	riot.Grant(src)
-	INVOKE_ASYNC(src, PROC_REF(get_player))
+	// Disabled ghost role for Rat King
+	// INVOKE_ASYNC(src, PROC_REF(get_player))
 
-/mob/living/simple_animal/hostile/regalrat/proc/get_player()
-	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Royal Rat, cheesey be his crown?", ROLE_SENTIENCE, null, FALSE, 100, POLL_IGNORE_SENTIENCE_POTION)
-	if(LAZYLEN(candidates) && !mind)
-		var/mob/dead/observer/C = pick(candidates)
-		key = C.key
-		notify_ghosts("All rise for the rat king, ascendant to the throne in \the [get_area(src)].", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE)
+// Disabled: Rat King ghost role selection
+// /mob/living/simple_animal/hostile/regalrat/proc/get_player()
+// 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Royal Rat, cheesey be his crown?", ROLE_SENTIENCE, null, FALSE, 100, POLL_IGNORE_SENTIENCE_POTION)
+// 	if(LAZYLEN(candidates) && !mind)
+// 		var/mob/dead/observer/C = pick(candidates)
+// 		key = C.key
+// 		notify_ghosts("All rise for the rat king, ascendant to the throne in \the [get_area(src)].", source = src, action = NOTIFY_ORBIT, flashwindow = FALSE)
 
 /mob/living/simple_animal/hostile/regalrat/handle_automated_action()
 	if(prob(20))
@@ -194,9 +196,9 @@
 	mob_size = MOB_SIZE_TINY
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	faction = list("rat", "rat-friend")
-	can_ghost_into = TRUE
+	can_ghost_into = FALSE // Disabled ghost role for regular rats
 	desc_short = "Squeak!"
-	pop_required_to_jump_into = 0	
+	pop_required_to_jump_into = 0
 	var/is_smol = FALSE
 
 	variation_list = list(
@@ -305,7 +307,7 @@
 /mob/living/simple_animal/hostile/rat/become_the_mob(mob/user)
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/rat
 	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/rat
-	make_a_nest = /obj/effect/proc_holder/mob_common/make_nest/rat
+	make_a_nest = null // Disabled nest creation for regular rats
 	. = ..()
 
 /mob/living/simple_animal/hostile/rat/skitter/become_the_mob(mob/user)

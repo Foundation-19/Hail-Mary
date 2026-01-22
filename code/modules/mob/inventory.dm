@@ -101,6 +101,8 @@
 	return L
 
 /mob/proc/get_held_index_of_item(obj/item/I)
+	if(!held_items)
+		return 0
 	return held_items.Find(I)
 
 

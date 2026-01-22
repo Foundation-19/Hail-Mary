@@ -8,7 +8,7 @@
 	zone = check_zone(zone)
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/L = X
-		if(L.body_zone == zone)
+		if(L && L.body_zone == zone)
 			return L
 
 ///Get the bodypart for whatever hand we have active, Only relevant for carbons
@@ -83,12 +83,13 @@
 	. = 0
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/affecting = X
-		if(affecting.body_part == ARM_RIGHT)
-			if(!check_disabled || !affecting.disabled)
-				.++
-		if(affecting.body_part == ARM_LEFT)
-			if(!check_disabled || !affecting.disabled)
-				.++
+		if(affecting)
+			if(affecting.body_part == ARM_RIGHT)
+				if(!check_disabled || !affecting.disabled)
+					.++
+			if(affecting.body_part == ARM_LEFT)
+				if(!check_disabled || !affecting.disabled)
+					.++
 
 
 //sometimes we want to ignore that we don't have the required amount of arms.
@@ -106,12 +107,13 @@
 	. = 0
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/affecting = X
-		if(affecting.body_part == LEG_RIGHT)
-			if(!check_disabled || !affecting.disabled)
-				.++
-		if(affecting.body_part == LEG_LEFT)
-			if(!check_disabled || !affecting.disabled)
-				.++
+		if(affecting)
+			if(affecting.body_part == LEG_RIGHT)
+				if(!check_disabled || !affecting.disabled)
+					.++
+			if(affecting.body_part == LEG_LEFT)
+				if(!check_disabled || !affecting.disabled)
+					.++
 
 //sometimes we want to ignore that we don't have the required amount of legs.
 /mob/proc/get_leg_ignore()
@@ -263,6 +265,9 @@
 	. = L
 
 /mob/living/carbon/proc/Digitigrade_Leg_Swap(swap_back)
+
+	if(!islist(bodyparts) || !bodyparts.len)
+		return
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/O = X
 		if((O.body_part == LEG_LEFT || O.body_part == LEG_RIGHT) && ((!O.use_digitigrade && !swap_back) || (O.use_digitigrade && swap_back)))

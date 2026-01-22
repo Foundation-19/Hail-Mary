@@ -266,14 +266,18 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 	// Calculate desired pixel width using window size and aspect ratio
 	var/sizes = params2list(winget(src, "mainwindow.split;mapwindow", "size"))
-	var/map_size = splittext(sizes["mapwindow.size"], "x")
+	var/list/map_size = splittext(sizes["mapwindow.size"], "x")
+	if(length(map_size) < 2)
+		return
 	var/height = text2num(map_size[2])
 	var/desired_width = round(height * aspect_ratio)
 	if (text2num(map_size[1]) == desired_width)
 		// Nothing to do
 		return
 
-	var/split_size = splittext(sizes["mainwindow.split.size"], "x")
+	var/list/split_size = splittext(sizes["mainwindow.split.size"], "x")
+	if(length(split_size) < 1)
+		return
 	var/split_width = text2num(split_size[1])
 
 	// Calculate and apply a best estimate
@@ -285,7 +289,9 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	var/delta
 	for(var/safety in 1 to 10)
 		var/after_size = winget(src, "mapwindow", "size")
-		map_size = splittext(after_size, "x")
+		map_size = splittext(after_size, "x") // map_size already typed as /list above
+		if(length(map_size) < 1)
+			return
 		var/got_width = text2num(map_size[1])
 
 		if (got_width == desired_width)

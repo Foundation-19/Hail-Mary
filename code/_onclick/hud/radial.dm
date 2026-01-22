@@ -264,6 +264,7 @@ GLOBAL_LIST_EMPTY(radial_menus)
 /datum/radial_menu/proc/hide()
 	if(current_user)
 		current_user.images -= menu_holder
+		QDEL_NULL(menu_holder)
 
 /datum/radial_menu/proc/wait(atom/user, atom/anchor, require_near = FALSE)
 	while (current_user && !finished && !selected_choice)
@@ -277,10 +278,12 @@ GLOBAL_LIST_EMPTY(radial_menus)
 		stoplag(1)
 
 /datum/radial_menu/Destroy()
-	Reset()
 	hide()
+	Reset()
+	QDEL_LIST(elements)
+	QDEL_NULL(close_button)
 	QDEL_NULL(custom_check_callback)
-	. = ..()
+	return ..()
 
 /*
 	Presents radial menu to user anchored to anchor (or user if the anchor is currently in users screen)

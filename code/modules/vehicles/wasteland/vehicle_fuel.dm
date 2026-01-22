@@ -239,5 +239,7 @@
 	return used
 
 /obj/item/reagent_containers/fuel_tank/proc/percent()		// return % charge of cell
+	if(!volume)
+		return 0
 	return 100*reagents.total_volume/volume
 
