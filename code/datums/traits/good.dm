@@ -367,6 +367,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
 	lose_text = span_danger("Old-War rubble suddenly seems less generous to you.")
+		locked = TRUE
 
 /datum/quirk/technophreak/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -395,6 +396,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_WEAPONSMITH
 	gain_text = span_notice("You are adept at crafting makeshift weapons.")
 	lose_text = span_danger("You feel less adept at crafting makeshift weapons.")
+	locked = TRUE  
 
 /datum/quirk/gunsmith/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -409,7 +411,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		if(!H.mind.learned_recipes)
 			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
-
+*/
 /datum/quirk/voracious
 	name = "Bottomless Stomach"
 	desc = "Nothing gets between you and your food. You eat twice as fast as everyone else!"
@@ -496,7 +498,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_BIG_LEAGUES
 	gain_text = span_notice("You feel like swinging for the fences!")
 	lose_text = span_danger("You feel like bunting.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/littleleagues
 	name = "Melee - Little Leagues"
@@ -505,7 +507,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_LITTLE_LEAGUES
 	gain_text = span_notice("You feel like swinging for the outfield!")
 	lose_text = span_danger("You feel like skipping practice.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/chemwhiz
 	name = "Chem Whiz"
@@ -514,7 +516,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_CHEMWHIZ
 	gain_text = span_notice("The mysteries of chemistry are revealed to you.")
 	lose_text = span_danger("You forget how the periodic table works.")
-	locked =  FALSE
+	locked =  TRUE
 
 /datum/quirk/chemwhiz/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -536,8 +538,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PA_WEAR
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
-	locked = FALSE
-/*
+	locked =  TRUE
+
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
 	desc = "You've spent a lot of time wandering the wastes, and for your hard work you out pace most folks when travelling across them."
@@ -545,7 +547,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_HARD_YARDS
 	gain_text = span_notice("Rain or shine, nothing slows you down.")
 	lose_text = span_danger("You walk with a less sure gait, the ground seeming less firm somehow.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/soft_yards
 	name = "Mobility - Wasteland Wanderer"
@@ -554,8 +556,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_SOFT_YARDS
 	gain_text = span_notice("Rain or shine only slow you down a little.")
 	lose_text = span_danger("You walk with a less sure gait, the ground seeming less firm somehow.")
-	locked = FALSE
-*/
+	locked = TRUE
+
 /datum/quirk/lifegiver
 	name = "Health - Tough"
 	desc = "You embody wellness! Instantly gain +10 maximum Health."
@@ -564,7 +566,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel more healthy than usual.")
 	lose_text = span_danger("You feel less healthy than usual.")
 	medical_record_text = "Patient has higher capacity for injury."
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/lifegiver/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -579,7 +581,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel much more healthy than usual.")
 	lose_text = span_danger("You feel much less healthy than usual.")
 	medical_record_text = "Patient has much higher capacity for injury."
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/lifegiverplus/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -599,7 +601,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
-/*
+
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
 	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even MORE."
@@ -607,13 +609,13 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_STEELFIST
 	gain_text = span_notice("Your fists feel MASSIVELY furious!")
 	lose_text = span_danger("Your fists feel calm again, what a relief.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/steel_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
-*/
+
 
 /datum/quirk/light_step
 	name = "Glass Walker"
@@ -639,7 +641,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_EXPLOSIVE_CRAFTING
 	gain_text = span_notice("You feel like you can make a bomb out of anything.")
 	lose_text = span_danger("You feel okay with the advancement of technology.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/explosive_crafting/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -927,7 +929,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_50_RAD_RESIST
 	gain_text = span_notice("You've decided radiation only kind of matters.")
 	lose_text = span_danger("You no longer think you should hang out next to rad puddles.")
-	locked =  FALSE
+	locked =  TRUE
 
 /*
 /datum/quirk/nohunger
@@ -1039,7 +1041,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_NICE_SHOT
 	gain_text = span_notice("Your aim is amazing, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
-	locked =  FALSE
+	locked =  TRUE
 
 /datum/quirk/bowtrained
 	name = "Bow Trained"
@@ -1090,7 +1092,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	name = "Beast Master - Rats"
 	desc = "Whether by psychic means or otherwise, you've gained the ability to control the rats of the wasteland.\
 	<br>Taming will make them passive toward other players and tamed fauna (but also makes them a target for wild rats)."
-	value = 4
+	value = 3
 	mob_trait = TRAIT_BEASTMASTER_RAT
 	gain_text = span_notice("You feel like being a giant rat, that makes all of the rules!")
 	lose_text = span_danger("You've lost your rat crown...")
@@ -1124,7 +1126,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/critterfriend
 	name = "Beast Friend - Small Critters"
 	desc = "Roaches, young nightstalkers, and most types of geckos outright ignore you now."
-	value = 2
+	value = 3
 	mob_trait = TRAIT_BEASTFRIEND_SMALLCRITTER
 	gain_text = span_notice("Some (if not all) wasteland critters doesn't seem to mind you now!")
 	lose_text = span_danger("You feel critters of the wasteland wouldn't be so friendly with you anymore...")
