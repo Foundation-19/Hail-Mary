@@ -67,7 +67,6 @@ GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/gun/flintlock_laser))
 
 GLOBAL_LIST_INIT(former_tribal_recipes, list(
-	/datum/crafting_recipe/tribal/bonetalisman, 
     //datum/crafting_recipe/tribal_pa, 
     //datum/crafting_recipe/tribal_pa_helmet,
     //datum/crafting_recipe/tribal_combat_armor,
