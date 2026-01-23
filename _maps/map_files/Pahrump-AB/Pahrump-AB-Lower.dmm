@@ -24908,6 +24908,12 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/tunnel)
+"uuN" = (
+/obj/machinery/gear_painter{
+	pixel_y = 2
+	},
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "uvu" = (
 /obj/effect/decal/waste{
 	icon_state = "goo12"
@@ -26304,6 +26310,14 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/tunnel)
+"vLs" = (
+/obj/machinery/gear_painter{
+	pixel_y = 2
+	},
+/turf/open/floor/f13{
+	icon_state = "reddirtyfull"
+	},
+/area/f13/brotherhood)
 "vLv" = (
 /obj/effect/overlay/junk/oldpipes/vent{
 	dir = 4
@@ -51750,7 +51764,7 @@ aae
 aae
 aae
 aae
-aae
+uuN
 bFx
 aah
 aah
@@ -52810,7 +52824,7 @@ aaA
 ede
 ggp
 bOT
-bOT
+vLs
 bOT
 iLJ
 teF
