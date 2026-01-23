@@ -1138,6 +1138,8 @@
 /obj/effect/spawner/lootdrop/f13/blueprintMid,
 /obj/effect/spawner/lootdrop/f13/blueprintMid,
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
+/obj/effect/spawner/lootdrop/f13/blueprintMid,
 /turf/open/floor/carpet/blue,
 /area/f13/city)
 "caq" = (
@@ -1355,14 +1357,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/building/hospital)
-"cyQ" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/leather/five,
-/obj/item/stack/sheet/leather/five,
-/obj/item/stack/sheet/leather/five,
-/obj/item/stack/sheet/leather/five,
-/turf/open/floor/carpet/blue,
-/area/f13/city)
 "cyV" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -2218,6 +2212,13 @@
 /obj/effect/turf_decal/shadow/floor,
 /turf/open/floor/wood_fancy,
 /area/f13/legion)
+"edF" = (
+/obj/machinery/light,
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/wood/fifty,
+/obj/item/stack/sheet/mineral/wood/fifty,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "edN" = (
 /obj/machinery/hydroponics/soil/pot{
 	pixel_y = 10
@@ -3936,12 +3937,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
-"hvv" = (
-/obj/structure/rack,
-/obj/item/stack/sheet/plasteel/fifty,
-/obj/item/stack/sheet/plasteel/fifty,
-/turf/open/floor/carpet/blue,
-/area/f13/city)
 "hvE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -7016,12 +7011,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/white/side,
 /area/f13/wasteland)
-"mZW" = (
-/obj/machinery/gear_painter{
-	pixel_y = 2
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/ncr)
 "nbk" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -8094,6 +8083,14 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
+"oWR" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/leather/five,
+/obj/item/stack/sheet/leather/five,
+/obj/item/stack/sheet/leather/five,
+/obj/item/stack/sheet/leather/five,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "oWY" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood{
@@ -8412,6 +8409,11 @@
 /obj/structure/chair/sofa/corp/left,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/ncr)
+"pAF" = (
+/obj/structure/rack,
+/obj/item/stack/rods/fifty,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "pAS" = (
 /obj/structure/chair/office/dark{
 	dir = 8
@@ -8716,6 +8718,12 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/legion)
+"qgx" = (
+/obj/machinery/gear_painter{
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ncr)
 "qgz" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -8925,6 +8933,12 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/massfusion)
+"qEA" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/plasteel/fifty,
+/obj/item/stack/sheet/plasteel/fifty,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "qFA" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -9605,6 +9619,7 @@
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
 /obj/item/clothing/shoes/sneakers/orange,
+/obj/item/clothing/under/rank/prisoner/skirt,
 /turf/open/floor/plasteel/f13/vault_floor/red/side{
 	dir = 8
 	},
@@ -10617,11 +10632,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
-"tID" = (
-/obj/structure/rack,
-/obj/item/stack/rods/fifty,
-/turf/open/floor/carpet/blue,
-/area/f13/city)
 "tIM" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -12218,13 +12228,6 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/wasteland)
-"xfs" = (
-/obj/machinery/light,
-/obj/structure/rack,
-/obj/item/stack/sheet/mineral/wood/fifty,
-/obj/item/stack/sheet/mineral/wood/fifty,
-/turf/open/floor/carpet/blue,
-/area/f13/city)
 "xgY" = (
 /obj/structure/sink{
 	dir = 4;
@@ -17915,7 +17918,7 @@ ujK
 cqK
 cqK
 cqK
-mZW
+qgx
 rBR
 iqu
 rLB
@@ -38088,7 +38091,7 @@ kvJ
 kvJ
 jrJ
 cNR
-xfs
+edF
 kvJ
 kvJ
 arh
@@ -38345,7 +38348,7 @@ oez
 kvJ
 uiY
 cNR
-cyQ
+oWR
 kvJ
 oez
 arh
@@ -38602,7 +38605,7 @@ oez
 kvJ
 anv
 cNR
-tID
+pAF
 kvJ
 oez
 arh
@@ -38859,7 +38862,7 @@ oez
 kvJ
 jAm
 cNR
-hvv
+qEA
 kvJ
 oez
 arh
