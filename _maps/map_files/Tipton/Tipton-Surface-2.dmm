@@ -11802,7 +11802,7 @@
 	},
 /area/f13/building/powered)
 "evo" = (
-/obj/effect/landmark/start/f13/settler,
+/obj/effect/landmark/start/f13/f13holidaysettler,
 /turf/open/indestructible/ground/inside/subway{
 	name = "roughcast asphalt"
 	},
@@ -16610,7 +16610,7 @@
 	},
 /area/f13/building)
 "gnW" = (
-/obj/effect/landmark/start/f13/barkeep,
+/obj/effect/landmark/start/f13/f13holidaybarkeep,
 /turf/open/floor/plasteel/f13/vault_floor/misc/bar,
 /area/f13/holiday)
 "gob" = (
@@ -23567,6 +23567,10 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland/cold)
+"iSY" = (
+/obj/effect/landmark/start/f13/f13holidaydeputy,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/holiday)
 "iSZ" = (
 /obj/machinery/mineral/wasteland_vendor/attachments{
 	icon_state = "weapon_idle"
@@ -27223,6 +27227,7 @@
 	icon_state = "comfychair"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidayfarmer,
 /turf/open/floor/carpet,
 /area/f13/holiday)
 "kmt" = (
@@ -28893,8 +28898,9 @@
 	},
 /area/f13/ambientlighting/building/e)
 "kRc" = (
-/obj/effect/landmark/start/f13/deputy,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidayfarmer,
+/turf/open/floor/f13/wood,
 /area/f13/holiday)
 "kRF" = (
 /obj/effect/turf_decal/delivery,
@@ -29069,6 +29075,11 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
+"kUC" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidayprospector,
+/turf/open/floor/f13/wood,
+/area/f13/holiday)
 "kUD" = (
 /obj/structure/car/rubbish4,
 /turf/open/indestructible/ground/outside/snow{
@@ -41844,6 +41855,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidayfarmer,
 /turf/open/floor/carpet,
 /area/f13/holiday)
 "pKy" = (
@@ -59941,6 +59953,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/landmark/start/f13/secretary,
+/obj/effect/landmark/start/f13/f13holidaysecretary,
 /turf/open/floor/carpet/black,
 /area/f13/holiday)
 "wyg" = (
@@ -97832,9 +97845,9 @@ cAd
 vtV
 pVq
 utS
+iSY
 utS
-kRc
-utS
+iSY
 oGt
 iUo
 vtV
@@ -109904,7 +109917,7 @@ xvB
 mTy
 vtV
 nkL
-tJx
+kUC
 tJx
 tJx
 vtV
@@ -110677,7 +110690,7 @@ vtV
 tJx
 ikQ
 tJx
-nkL
+kUC
 vtV
 cAd
 cAd
@@ -112700,7 +112713,7 @@ flw
 baP
 byn
 tJx
-tJx
+kRc
 baP
 nLU
 nLU
