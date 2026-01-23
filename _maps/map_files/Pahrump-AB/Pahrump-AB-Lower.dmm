@@ -1719,19 +1719,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "bzP" = (
-/obj/item/radio/intercom{
-	desc = "Is there anyone on the other end? Who's in there?";
-	frequency = 1291;
-	name = "Mysterious Intercom";
-	pixel_x = 26;
-	pixel_y = -3
-	},
-/obj/structure/ladder/unbreakable{
-	id = "CHI1";
-	height = 1
-	},
+/obj/structure/timeddoor,
 /turf/open/floor/f13{
-	icon_state = "greendirtyfull"
+	icon_state = "whitegreenrustychess"
 	},
 /area/f13/caves)
 "bzQ" = (
@@ -2772,6 +2762,8 @@
 /area/f13/tunnel)
 "bKd" = (
 /obj/structure/safe,
+/obj/item/stack/f13Cash/random/high,
+/obj/item/stack/f13Cash/random/high,
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
 "bKe" = (
@@ -14094,6 +14086,10 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_high,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/caves)
+"jUp" = (
+/obj/structure/timeddoor,
+/turf/closed/indestructible/f13vaultrusted,
+/area/f13/caves)
 "jUt" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/wrench/crude,
@@ -16820,6 +16816,10 @@
 	pixel_x = 26;
 	pixel_y = -3
 	},
+/obj/structure/ladder/unbreakable{
+	id = "CHI1";
+	height = 1
+	},
 /turf/open/floor/f13{
 	icon_state = "greendirtyfull"
 	},
@@ -17696,6 +17696,7 @@
 /area/f13/tunnel)
 "npw" = (
 /obj/structure/junk/small/bed2,
+/obj/structure/timeddoor,
 /turf/open/floor/f13{
 	icon_state = "greendirtyfull"
 	},
@@ -17835,6 +17836,19 @@
 "nuB" = (
 /obj/structure/chair/sofa/right,
 /turf/open/indestructible/ground/inside/subway,
+/area/f13/caves)
+"nvw" = (
+/obj/item/radio/intercom{
+	desc = "Is there anyone on the other end? Who's in there?";
+	frequency = 1291;
+	name = "Mysterious Intercom";
+	pixel_x = 26;
+	pixel_y = -3
+	},
+/obj/structure/timeddoor,
+/turf/open/floor/f13{
+	icon_state = "greendirtyfull"
+	},
 /area/f13/caves)
 "nvA" = (
 /obj/effect/decal/cleanable/dirt{
@@ -66250,7 +66264,7 @@ aaa
 bCG
 qbc
 esN
-hKX
+bzP
 dgz
 bCG
 aaa
@@ -66506,8 +66520,8 @@ aae
 aaa
 tmV
 nXs
+nvw
 mwO
-bzP
 npw
 bCG
 aaa
@@ -66764,7 +66778,7 @@ aaa
 bCG
 bCG
 bCG
-bCG
+jUp
 bCG
 bCG
 aaa

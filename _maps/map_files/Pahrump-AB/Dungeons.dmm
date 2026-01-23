@@ -2042,14 +2042,6 @@
 /obj/structure/barricade/bars,
 /turf/open/floor/plating/tunnel,
 /area/f13/radiation)
-"bdM" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "floorgrime"
-	},
-/area/f13/building)
 "bel" = (
 /obj/machinery/disposal/deliveryChute{
 	dir = 8
@@ -5911,13 +5903,6 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/f13/wood,
 /area/f13/bunker)
-"dam" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "floorgrime"
-	},
-/area/f13/building)
 "daz" = (
 /obj/structure/rack,
 /obj/machinery/button/door{
@@ -17625,6 +17610,14 @@
 /obj/item/toy/plush/lizardplushie,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/vault)
+"iWl" = (
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier5,
+/turf/open/floor/plasteel/f13{
+	icon_state = "yellowdirtyfull"
+	},
+/area/f13/building)
 "iWD" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/carpet/green,
@@ -35085,6 +35078,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/vault)
+"rAx" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/turf/open/floor/plasteel/f13{
+	icon_state = "whitebluerustychess"
+	},
+/area/f13/building)
 "rAy" = (
 /obj/effect/decal/remains/human,
 /turf/open/indestructible/ground/inside/mountain,
@@ -35563,14 +35563,6 @@
 /obj/structure/dresser,
 /turf/open/floor/wood_common,
 /area/f13/building/hospital)
-"rON" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier5,
-/turf/open/floor/plasteel/f13{
-	icon_state = "yellowdirtyfull"
-	},
-/area/f13/building)
 "rOZ" = (
 /obj/structure/kitchenspike,
 /obj/effect/turf_decal/weather/snow/corner{
@@ -36589,13 +36581,6 @@
 /obj/machinery/vending/snack/random,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/vault)
-"spa" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "plating"
-	},
-/area/f13/building)
 "spn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -36691,6 +36676,13 @@
 /mob/living/simple_animal/hostile/vault/dweller/dweller3,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/vault)
+"ssk" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/turf/open/floor/plasteel/f13{
+	icon_state = "plating"
+	},
+/area/f13/building)
 "sst" = (
 /obj/structure/target_stake{
 	anchored = 1
@@ -38315,13 +38307,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/rnd)
-"tin" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "whitebluerustychess"
-	},
-/area/f13/building)
 "tir" = (
 /obj/machinery/smartfridge/bottlerack/lootshelf/brews,
 /obj/item/export/bottle/wine,
@@ -43177,6 +43162,13 @@
 	icon_state = "platingdmg2"
 	},
 /area/f13/bunker)
+"vDC" = (
+/obj/structure/table/wood,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/turf/open/floor/plasteel/f13{
+	icon_state = "floorgrime"
+	},
+/area/f13/building)
 "vDO" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -47732,6 +47724,14 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/carpet/green,
 /area/f13/casino)
+"yaX" = (
+/obj/structure/table/wood,
+/obj/effect/decal/cleanable/dirt/dust,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
+/turf/open/floor/plasteel/f13{
+	icon_state = "floorgrime"
+	},
+/area/f13/building)
 "yba" = (
 /obj/machinery/light/broken{
 	dir = 1
@@ -87891,7 +87891,7 @@ whv
 rvr
 ogg
 vcj
-spa
+ssk
 ard
 qCE
 rvr
@@ -88917,11 +88917,11 @@ whv
 whv
 whv
 rvr
-tin
+rAx
 fpk
 fpk
 vsu
-tin
+rAx
 rYD
 aPi
 kMO
@@ -89447,7 +89447,7 @@ aPi
 wZT
 rvr
 wYV
-rON
+iWl
 huc
 wwV
 azZ
@@ -89958,7 +89958,7 @@ rvr
 nHI
 aPi
 olB
-dam
+vDC
 rvr
 whv
 whv
@@ -91242,7 +91242,7 @@ aPi
 dcp
 rvr
 rvr
-dam
+vDC
 aPi
 aPi
 aPi
@@ -93285,7 +93285,7 @@ riy
 aPi
 gOr
 nBn
-bdM
+yaX
 mvO
 aPi
 rvr
@@ -93298,7 +93298,7 @@ aPi
 mTn
 rvr
 rvr
-dam
+vDC
 aPi
 aPi
 aPi
@@ -93791,7 +93791,7 @@ whv
 whv
 rvr
 rVk
-bdM
+yaX
 xZf
 puF
 qQS
