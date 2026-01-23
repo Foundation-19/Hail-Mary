@@ -63848,7 +63848,7 @@
 	name = "counter shutters";
 	pixel_y = 6;
 	pixel_x = -6;
-	req_access_txt = s
+	req_access_txt = "0"
 	},
 /obj/machinery/button/door{
 	id = "traderblast";

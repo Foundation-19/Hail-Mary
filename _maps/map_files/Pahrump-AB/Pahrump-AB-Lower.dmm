@@ -18666,7 +18666,7 @@
 /area/f13/tunnel)
 "otR" = (
 /obj/effect/landmark/start/f13/envoy,
-/turf/open/floor/carpet/black,
+/turf/open/floor/carpet,
 /area/f13/brotherhood)
 "otS" = (
 /obj/structure/barricade/wooden/strong,
@@ -21928,7 +21928,6 @@
 /obj/structure/closet/secure_closet/personal,
 /obj/item/clothing/under/syndicate/brotherhood,
 /obj/item/storage/belt/shoulderholster,
-/obj/item/clothing/head/helmet/f13/combat/brotherhood/senior,
 /obj/item/clothing/gloves/combat,
 /obj/item/clothing/shoes/combat/swat,
 /obj/item/storage/belt/military,
@@ -56726,7 +56725,7 @@ ede
 ede
 hUY
 hUY
-otR
+hUY
 hUY
 hUY
 ede
@@ -57754,7 +57753,7 @@ ede
 ede
 ylU
 efz
-efz
+otR
 fIe
 juq
 ede
