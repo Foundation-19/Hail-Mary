@@ -701,7 +701,7 @@
 
 /datum/crafting_recipe/bos_st45_convert
 	name = "Converted Salvaged T-45b Power Armor"
-	result = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/bos
+	result = /obj/item/clothing/suit/armor/power_armor/t45d/bos
 	reqs = list(/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b = 1,
 				/obj/item/stack/cable_coil = 15,
 				/obj/item/stack/crafting/electronicparts = 30,
