@@ -5263,10 +5263,10 @@
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/tcoms)
 "ciI" = (
-/obj/structure/timeddoor,
 /obj/structure/barricade/bars,
 /obj/structure/table,
 /obj/structure/barricade/wooden/planks,
+/obj/structure/timeddoor,
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"
 	},
@@ -26055,6 +26055,10 @@
 /obj/structure/barricade/wooden/strong,
 /turf/closed/indestructible/rock,
 /area/f13/caves)
+"vlF" = (
+/obj/structure/timeddoor,
+/turf/closed/wall/rust,
+/area/f13/tunnel)
 "vme" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 1
@@ -27808,10 +27812,10 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
 "wRB" = (
-/obj/structure/timeddoor,
 /obj/structure/simple_door/metal/barred,
 /obj/structure/barricade/wooden/planks,
 /obj/structure/barricade/wooden/planks,
+/obj/structure/timeddoor,
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"
 	},
@@ -77324,7 +77328,7 @@ aae
 aae
 bsC
 bKb
-bKb
+ofm
 xXE
 bsC
 aae
@@ -77836,11 +77840,11 @@ aae
 aae
 aae
 aaa
-bsC
+vlF
 ciI
 wRB
 ciI
-bsC
+vlF
 aaa
 aae
 aaB
