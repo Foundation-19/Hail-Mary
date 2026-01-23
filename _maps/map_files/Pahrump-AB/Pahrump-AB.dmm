@@ -31607,6 +31607,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"hGc" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "hGv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
@@ -32815,6 +32819,13 @@
 /obj/structure/flora/wasteplant/wild_broc,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"ikY" = (
+/obj/effect/turf_decal/gravel_edge{
+	dir = 5
+	},
+/obj/machinery/light/sign/kebab,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/city)
 "ile" = (
 /obj/effect/decal/marking{
 	icon_state = "dottedverticaldegraded"
@@ -37564,10 +37575,6 @@
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/wasteland)
-"kqK" = (
-/obj/machinery/light/small,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "krg" = (
 /obj/structure/fence/wooden{
 	dir = 4
@@ -93673,7 +93680,7 @@ aky
 woD
 bvW
 oYF
-kqK
+hGc
 aAV
 oYF
 oYF
@@ -101148,7 +101155,7 @@ jeh
 xvy
 xvy
 xeY
-nhy
+ikY
 bcB
 tNN
 dtZ
