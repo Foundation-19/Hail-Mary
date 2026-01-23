@@ -73,11 +73,11 @@
 	matching_designs = list()
 
 /obj/machinery/autolathe/Destroy()
-    QDEL_NULL(wires)
-    QDEL_NULL(stored_research)
-    being_built = null           // or just omit - it's likely already null
-    matching_designs = null      // clear references, don't delete contents
-    return ..()
+	QDEL_NULL(wires)
+	QDEL_NULL(stored_research)
+	being_built = null           // or just omit - it's likely already null
+	matching_designs = null      // clear references, don't delete contents
+	return ..()
 
 /obj/machinery/autolathe/ui_interact(mob/user)
 	if(isliving(user))
