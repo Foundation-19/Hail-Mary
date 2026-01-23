@@ -14271,6 +14271,7 @@
 /area/f13/bunker)
 "kqH" = (
 /obj/structure/table/wood,
+/obj/machinery/light/small,
 /turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "kqO" = (
@@ -52625,7 +52626,7 @@ ede
 mky
 ede
 ede
-fix
+hrh
 fix
 fix
 fix
@@ -52881,7 +52882,7 @@ teF
 fix
 fix
 fix
-fix
+nCn
 fix
 fix
 ewY

@@ -37564,6 +37564,10 @@
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/wasteland)
+"kqK" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood)
 "krg" = (
 /obj/structure/fence/wooden{
 	dir = 4
@@ -93669,7 +93673,7 @@ aky
 woD
 bvW
 oYF
-oYF
+kqK
 aAV
 oYF
 oYF
