@@ -72,12 +72,12 @@ Elder Envoy
 /datum/job/bos/f13envoy
 	title = "Elder Envoy"
 	flag = F13ENVOY
+	display_order = JOB_DISPLAY_ORDER_ENVOY
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
-	req_admin_notify = 1
 	exp_requirements = 3600
 
 	min_required_special = list(

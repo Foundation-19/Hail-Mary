@@ -27,4 +27,5 @@ MAP_REMOVE_JOB(f13minutemen)
 MAP_REMOVE_JOB(enclave)
 MAP_REMOVE_JOB(smutant_boss)
 MAP_REMOVE_JOB(smutant)
-MAP_REMOVE_JOB(f13envoy)
+
+// for future referance,  map remove job works via job path. e.g (eastwood/f13mayor) kills just the mayor, but (eastwood) will kill everything with eastwood at the start
