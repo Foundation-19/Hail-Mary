@@ -10883,10 +10883,8 @@
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
 /area/f13/building/hospital)
 "uxG" = (
-/obj/machinery/door/poddoor{
-	name = "Panic Room Blast Door";
-	id = "panicroom";
-	state_open = 1
+/obj/machinery/door/poddoor/preopen{
+	id = "panicroom"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
