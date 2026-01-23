@@ -119,16 +119,16 @@
 
 /obj/item/paper/proc/parsemarkdown(text, mob/user)
 	// Don't re-process if already has HTML tags
-    if(findtext(text, "<"))
-        return text
+	if(findtext(text, "<"))
+		return text
 
-    // Replace %s or %sign with the user's name
-    var/regex/sign_regex = new(@"%s(?:ign)?(?:\s|$)?", "gi")
-    if(user && user.real_name)
-        text = sign_regex.Replace(text, "<b><span style='font-family: Times New Roman;'>[user.real_name]</span></b>")
+	// Replace %s or %sign with the user's name
+	var/regex/sign_regex = new(@"%s(?:ign)?(?:\s|$)?", "gi")
+	if(user && user.real_name)
+		text = sign_regex.Replace(text, "<b><span style='font-family: Times New Roman;'>[user.real_name]</span></b>")
 
-    // Add any other markdown processing here
-    return text
+	// Add any other markdown processing here
+	return text
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
