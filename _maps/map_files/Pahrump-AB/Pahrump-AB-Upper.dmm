@@ -3905,6 +3905,11 @@
 /obj/item/storage/box/bodybags,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building/hospital)
+"hrH" = (
+/obj/structure/rack,
+/obj/item/stack/rods/fifty,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "hrQ" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/inside/mountain,
@@ -6838,6 +6843,14 @@
 /obj/structure/flora/grass/wasteland,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/building)
+"mOU" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/leather/five,
+/obj/item/stack/sheet/leather/five,
+/obj/item/stack/sheet/leather/five,
+/obj/item/stack/sheet/leather/five,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "mQC" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/barricade/wooden,
@@ -9508,6 +9521,13 @@
 	icon_state = "greenrustychess"
 	},
 /area/f13/building/massfusion)
+"rTW" = (
+/obj/machinery/light,
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/wood/fifty,
+/obj/item/stack/sheet/mineral/wood/fifty,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "rUG" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -9595,6 +9615,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
+"rZy" = (
+/obj/structure/rack,
+/obj/item/stack/sheet/plasteel/fifty,
+/obj/item/stack/sheet/plasteel/fifty,
+/turf/open/floor/carpet/blue,
+/area/f13/city)
 "rZU" = (
 /obj/structure/sign/poster/prewar/poster60,
 /turf/closed/wall/f13/store{
@@ -38056,7 +38082,7 @@ kvJ
 kvJ
 jrJ
 cNR
-chU
+rTW
 kvJ
 kvJ
 arh
@@ -38313,7 +38339,7 @@ oez
 kvJ
 uiY
 cNR
-cNR
+mOU
 kvJ
 oez
 arh
@@ -38570,7 +38596,7 @@ oez
 kvJ
 anv
 cNR
-cNR
+hrH
 kvJ
 oez
 arh
@@ -38827,7 +38853,7 @@ oez
 kvJ
 jAm
 cNR
-cNR
+rZy
 kvJ
 oez
 arh
@@ -42147,8 +42173,8 @@ uKh
 uKh
 uKh
 uKh
-uKh
-uKh
+ipP
+ipP
 uKh
 uKh
 uKh
@@ -42404,8 +42430,8 @@ ipP
 ipP
 ipP
 ipP
-uKh
-uKh
+ipP
+ipP
 uKh
 uKh
 uKh
@@ -42662,7 +42688,7 @@ ipP
 ipP
 ipP
 ipP
-uKh
+ipP
 uKh
 uKh
 uKh
@@ -42919,7 +42945,7 @@ rUG
 rUG
 rUG
 rUG
-tVm
+rUG
 tVm
 tVm
 tVm
@@ -43176,7 +43202,7 @@ dtb
 dtb
 dtb
 dtb
-oez
+dtb
 oez
 oez
 oez
@@ -43433,7 +43459,7 @@ dtb
 dtb
 dtb
 dtb
-oez
+dtb
 oez
 oez
 oez
