@@ -78,6 +78,7 @@ Elder Envoy
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
 	req_admin_notify = 1
+	exp_requirements = 3600
 
 	min_required_special = list(
 		"special_c" = 7,
