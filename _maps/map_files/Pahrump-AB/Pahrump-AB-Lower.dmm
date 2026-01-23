@@ -4051,12 +4051,14 @@
 	},
 /area/f13/bunker)
 "bPI" = (
-/obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/advcrafting,
-/obj/effect/spawner/lootdrop/f13/advcrafting,
-/obj/effect/spawner/lootdrop/f13/advcrafting,
-/obj/effect/spawner/lootdrop/f13/advcrafting,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/cell_charger{
+	pixel_y = 12
+	},
+/obj/machinery/recharger{
+	pixel_y = -1
+	},
+/obj/structure/table/reinforced,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
