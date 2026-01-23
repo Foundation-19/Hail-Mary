@@ -12083,6 +12083,11 @@
 	pixel_y = 11
 	},
 /obj/item/book/granter/trait/pa_wear,
+/obj/item/encryptionkey/headset_town/lawman,
+/obj/item/encryptionkey/headset_town/lawman,
+/obj/item/encryptionkey/headset_town/lawman,
+/obj/item/encryptionkey/headset_town/lawman,
+/obj/item/encryptionkey/headset_town/lawman,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "inu" = (
