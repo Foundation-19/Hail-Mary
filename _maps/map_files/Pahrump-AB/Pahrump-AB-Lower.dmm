@@ -680,10 +680,9 @@
 /obj/structure/guncase{
 	anchored = 1
 	},
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -1679,7 +1678,10 @@
 /area/f13/sewer)
 "bxU" = (
 /obj/effect/decal/remains/human,
-/obj/effect/spawner/lootdrop/f13/weapon/melee/tier5,
+/obj/item/clothing/under/f13/combat,
+/obj/item/clothing/gloves/combat,
+/obj/item/clothing/shoes/combat,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "byp" = (
@@ -1716,6 +1718,22 @@
 "bzD" = (
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
+"bzP" = (
+/obj/item/radio/intercom{
+	desc = "Is there anyone on the other end? Who's in there?";
+	frequency = 1291;
+	name = "Mysterious Intercom";
+	pixel_x = 26;
+	pixel_y = -3
+	},
+/obj/structure/ladder/unbreakable{
+	id = "CHI1";
+	height = 1
+	},
+/turf/open/floor/f13{
+	icon_state = "greendirtyfull"
+	},
+/area/f13/caves)
 "bzQ" = (
 /obj/effect/decal/remains/human,
 /obj/effect/decal/cleanable/blood/old{
@@ -4616,6 +4634,7 @@
 "bRY" = (
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/traitbooks,
 /turf/open/floor/f13/wood,
 /area/f13/sewer)
 "bRZ" = (
@@ -10592,6 +10611,7 @@
 	icon_state = "medicalcrate"
 	},
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
 	icon_state = "bluerustychess2"
@@ -11429,6 +11449,7 @@
 	icon_state = "medicalcrate"
 	},
 /obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
 	icon_state = "bluerustychess2"
@@ -12300,6 +12321,7 @@
 /area/f13/caves)
 "iof" = (
 /obj/structure/rack,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "iol" = (
@@ -13104,6 +13126,7 @@
 "iYT" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
 	icon_state = "bluerustychess2"
@@ -13282,6 +13305,7 @@
 "jhn" = (
 /obj/structure/table/wood/settler,
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/f13/wood,
 /area/f13/caves)
 "jiI" = (
@@ -21881,8 +21905,8 @@
 /area/f13/caves)
 "rjC" = (
 /obj/effect/mapping_helpers/airlock/locked,
-/obj/machinery/door/airlock/vault/derelict,
-/turf/open/indestructible/ground/outside/desert,
+/obj/machinery/door/airlock/grunge,
+/turf/open/floor/plating/tunnel,
 /area/f13/caves)
 "rjK" = (
 /obj/effect/decal/cleanable/dirt,
@@ -23999,7 +24023,7 @@
 /area/f13/building)
 "tlJ" = (
 /obj/structure/closet/crate/large,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier5,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
 "tmz" = (
@@ -26072,7 +26096,7 @@
 /obj/structure/table/reinforced,
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/spawner/bundle/f13/armor/combat,
+/obj/effect/spawner/lootdrop/f13/armor/tier4PA,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -66483,7 +66507,7 @@ aaa
 tmV
 nXs
 mwO
-mwO
+bzP
 npw
 bCG
 aaa
