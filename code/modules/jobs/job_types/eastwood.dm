@@ -991,7 +991,7 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/peltboots
 	backpack_contents = list(
 	/obj/item/gun/ballistic/rifle/hunting = 1,
-	/obj/item/ammo_box/a308 = 2,
+	/obj/item/ammo_box/a3006box = 2,
 	/obj/item/gun_upgrade/scope/watchman = 1,
 	/obj/item/fishingrod = 1,
 	/obj/item/binoculars = 1,
