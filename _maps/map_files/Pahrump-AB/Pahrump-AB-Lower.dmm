@@ -9843,24 +9843,6 @@
 /obj/structure/junk/locker,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/building/museum)
-"giL" = (
-/obj/structure/table/reinforced,
-/obj/structure/barricade/bars{
-	max_integrity = 800;
-	name = "strong metal bars";
-	obj_integrity = 800
-	},
-/obj/structure/barricade/bars{
-	max_integrity = 800;
-	name = "strong metal bars";
-	obj_integrity = 800
-	},
-/obj/machinery/door/poddoor/shutters/old{
-	id = "bosbaseintern";
-	max_integrity = 450
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "giS" = (
 /obj/item/crowbar,
 /turf/open/floor/f13{
@@ -11492,13 +11474,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/caves)
 "hGn" = (
-/obj/machinery/button/door{
-	id = "bosbaseintern";
-	name = "Emergency Shutters";
-	pixel_x = -24;
-	pixel_y = -8;
-	req_access_txt = "34"
-	},
 /obj/machinery/button/door{
 	id = "bosfrontgate";
 	name = "Brotherhood Gate";
@@ -51604,8 +51579,8 @@ ede
 aGi
 ede
 ede
-giL
-giL
+jqC
+jqC
 ede
 uJr
 uJr

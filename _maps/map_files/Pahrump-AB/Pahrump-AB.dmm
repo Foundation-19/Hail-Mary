@@ -21855,6 +21855,12 @@
 /obj/structure/junk/machinery,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
+"dsj" = (
+/obj/effect/landmark/observer_start,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermain0"
+	},
+/area/f13/city)
 "dsl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -27186,13 +27192,13 @@
 	name = "strong metal bars";
 	obj_integrity = 800
 	},
-/obj/machinery/door/poddoor/shutters{
-	id = "gateshutters";
-	name = "counter shutters"
-	},
 /obj/machinery/door/poddoor{
 	name = "Trader Lockdown Doors";
 	id = "traderblast"
+	},
+/obj/machinery/door/poddoor/shutters{
+	id = "countershutters";
+	name = "counter shutters"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
@@ -36118,6 +36124,13 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building/powered)
+"jHH" = (
+/obj/structure/flora/grass/wasteland{
+	icon_state = "tall_grass_3"
+	},
+/obj/effect/landmark/start/f13/shopkeeper,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "jHI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -41233,6 +41246,10 @@
 "lVH" = (
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
+"lVL" = (
+/obj/effect/landmark/start/f13/quartermaster,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "lVN" = (
 /obj/item/weldingtool/mini{
 	pixel_x = 2;
@@ -83762,7 +83779,7 @@ aOk
 mAk
 etg
 deN
-etg
+jHH
 aOk
 aOk
 aOk
@@ -90517,7 +90534,7 @@ vuk
 nuJ
 vuk
 blz
-vuk
+lVL
 vuk
 vuk
 mub
@@ -99234,7 +99251,7 @@ ied
 rlg
 mMz
 mMz
-mMz
+dsj
 rlg
 rlg
 rlg

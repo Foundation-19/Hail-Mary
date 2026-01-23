@@ -43,8 +43,8 @@ Mayor
 	title = "Mayor"
 	flag = F13MAYOR
 	department_flag = DEP_EASTWOOD
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "Eastwood"
 	description = "You are the civil leader of the Town of Eastwood. You were chosen by the people to represent and lead them from your manor. Your town is in a terse situation with the slaver town to the south, Redwater. While not at war, you will have to work to keep your people safe from their predations. The Tribals to the south east are also a nuisance but it's best not to provoke them needlessly. Do what's best for the town, and it's people. All while lining your pockets occasionally, of course."
 	enforces = "The Secretary is your stand-in replacement, and under this the Sheriff."
@@ -193,8 +193,8 @@ Mayor
 	title = "Secretary"
 	flag = F13SECRETARY
 	department_flag = DEP_EASTWOOD
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "The Mayor"
 	description = "The settlement of Eastwood is a busy place, and the Mayor often can't handle everything by themselves. You are here to help them with anything and everything they require, and make sure the more trivial problems do not concern them. You handle clerical work, hear complaints, and set meetings within the manor. An efficient and smooth running town means a happy Mayor - just remember that if things go wrong, you're a convenient scapegoat."
 	enforces = "You are the stand-in leader of Eastwood if a Mayor does not exist."
@@ -290,8 +290,8 @@ Mayor
 	flag = F13SHERIFF
 	department_flag = DEP_EASTWOOD
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "The Mayor"
 	description = "You are the civil enforcer of Eastwood, keeping the settlement within firm control under the authority of the Mayor. With your loyal patrolmen, you maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Eastwood undefended, and don't let its people die out. If this town falls, new conquerors don't tend to look kindly upon the old law."
 	enforces = "You are the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
@@ -381,8 +381,8 @@ Mayor
 	title = "Deputy"
 	flag = F13DEPUTY
 	department_flag = DEP_EASTWOOD
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "The Sheriff"
 	description = "You are a loyal protector of Eastwood, keeping the settlement within firm control under the authority of the Mayor. The sheriff is your direct superior, and you should expect to take your day-to-day orders from them. Maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Eastwood undefended, and don't let its people die out."
 	enforces = "You may be elected temporary Sheriff if one does not exist. This may make you the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
@@ -573,8 +573,8 @@ Mayor
 	title = "Prospector"
 	flag = F13PROSPECTOR
 	department_flag = DEP_EASTWOOD
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "The Mayor"
 	description = "Prospecting is a complicated business. Some call it scrounging or looting, but there is more to it than sifting through rubble - few can boast the valuable skills of mining and scavenging the ruins of fallen empires. The settlement of Eastwood understands the value of this, and you've found purpose within their mines. Sell the materials you find to the highest bidder - the local store may be particularly interested in metals."
 	enforces = "Mining is a public service, and you are under control of local governance - but by default you are expected to work with private businesses and individual clients."
@@ -660,8 +660,8 @@ Mayor
 	title = "Doctor"
 	flag = F13DENDOC
 	department_flag = DEP_EASTWOOD
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = 0
+	spawn_positions = 0
 	supervisors = "The Mayor"
 	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood. Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position, if you're bad enough the sherrif might even kick you out!"
 	enforces = "Medicine is a public service, and you are under control of local governance - but remember public doesn't equate to free."
