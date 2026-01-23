@@ -22479,10 +22479,11 @@
 "dGJ" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
-/obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
-/obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
-/obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
-/obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city)
 "dHj" = (
@@ -49681,7 +49682,7 @@
 /area/f13/wasteland)
 "pxe" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/f13/medical/vault/equipment,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/building)
 "pxq" = (
@@ -53011,6 +53012,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"qZd" = (
+/obj/structure/table/reinforced,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
+/obj/effect/spawner/lootdrop/f13/medical/vault/meds,
+/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
+/area/f13/building)
 "qZt" = (
 /obj/structure/simple_door/tentflap_leather,
 /turf/open/indestructible/ground/outside/dirt{
@@ -105636,7 +105643,7 @@ ubT
 ubT
 ubT
 vgm
-pxe
+qZd
 ocK
 ocK
 ocK
@@ -106150,7 +106157,7 @@ nja
 lPd
 nkU
 vgm
-pxe
+qZd
 ocK
 ocK
 ocK
