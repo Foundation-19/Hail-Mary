@@ -20509,6 +20509,13 @@
 /obj/structure/flora/ausbushes/ywflowers,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"cLS" = (
+/obj/structure/flora/grass/wasteland{
+	icon_state = "tall_grass_3"
+	},
+/obj/effect/landmark/start/f13/shopkeeper,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "cMG" = (
 /obj/structure/flora/tree/jungle,
 /turf/open/indestructible/ground/outside/dirt,
@@ -21855,12 +21862,6 @@
 /obj/structure/junk/machinery,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
-"dsj" = (
-/obj/effect/landmark/observer_start,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "verticalinnermain0"
-	},
-/area/f13/city)
 "dsl" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -28333,6 +28334,13 @@
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
+"glA" = (
+/obj/structure/chair/wood{
+	dir = 4
+	},
+/obj/effect/landmark/start/f13/settler,
+/turf/open/floor/f13/wood,
+/area/f13/bar)
 "glR" = (
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/f13/wood,
@@ -36124,13 +36132,6 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building/powered)
-"jHH" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_3"
-	},
-/obj/effect/landmark/start/f13/shopkeeper,
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland)
 "jHI" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -37429,6 +37430,13 @@
 	},
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/wasteland)
+"kqT" = (
+/obj/structure/table/reinforced,
+/obj/machinery/cell_charger{
+	pixel_y = 6
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "krg" = (
 /obj/structure/fence/wooden{
 	dir = 4
@@ -39426,6 +39434,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"ljk" = (
+/obj/effect/landmark/start/f13/settler,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "ljn" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -41246,10 +41258,6 @@
 "lVH" = (
 /turf/open/indestructible/ground/outside/water,
 /area/f13/wasteland)
-"lVL" = (
-/obj/effect/landmark/start/f13/quartermaster,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/city)
 "lVN" = (
 /obj/item/weldingtool/mini{
 	pixel_x = 2;
@@ -43794,6 +43802,12 @@
 /obj/effect/spawner/lootdrop/f13/crafting,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"naj" = (
+/obj/effect/landmark/observer_start,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "verticalinnermain0"
+	},
+/area/f13/city)
 "nar" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -50240,6 +50254,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"pMP" = (
+/obj/effect/landmark/start/f13/quartermaster,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/city)
 "pMQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/dirt/stamped/outside/sand{
@@ -83779,7 +83797,7 @@ aOk
 mAk
 etg
 deN
-jHH
+cLS
 aOk
 aOk
 aOk
@@ -90534,7 +90552,7 @@ vuk
 nuJ
 vuk
 blz
-lVL
+pMP
 vuk
 vuk
 mub
@@ -91560,7 +91578,7 @@ ntA
 aky
 aky
 aky
-eAO
+kqT
 vuk
 dWE
 ceg
@@ -99251,7 +99269,7 @@ ied
 rlg
 mMz
 mMz
-dsj
+naj
 rlg
 rlg
 rlg
@@ -101052,7 +101070,7 @@ gvN
 jeh
 jeh
 jeh
-jeh
+ljk
 jeh
 jeh
 xvy
@@ -106453,9 +106471,9 @@ bKh
 lwn
 lwn
 lwn
-tbP
-tbP
-tbP
+glA
+glA
+glA
 dIZ
 uAV
 aiO
