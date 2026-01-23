@@ -51,6 +51,8 @@
 		return 0
 	if(rank in GLOB.atlantic_positions) 
 		return 0
+	if(rank in GLOB.ranger_positions)
+		return 0
 /*	if(rank in GLOB.followers_positions) 
 		return 0*/
 	/*

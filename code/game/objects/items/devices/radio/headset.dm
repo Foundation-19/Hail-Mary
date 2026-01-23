@@ -325,7 +325,7 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "This is used by the New California Republic.\nTo access the NCR channel, use :w. \nTo access the Ranger channel, use :r. Protects ears from flashbangs."
 	icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_ranger
-	linked_faction = FACTION_NCR
+	linked_faction = FACTION_RANGER
 	factionized = TRUE
 
 /obj/item/radio/headset/headset_ranger/ComponentInitialize()
