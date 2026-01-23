@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	))
 
 GLOBAL_LIST_INIT(command_positions, list(
-	"Elder",
+	"Elder Envoy",
 	"Paladin Commander",
 	"Knight-Captain",
 	"Proctor", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
@@ -89,6 +89,7 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
+	"Elder Envoy",
 	"Sentinel",
 	"Paladin Commander",
 	"Knight-Captain",

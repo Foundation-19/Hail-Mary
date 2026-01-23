@@ -67,9 +67,10 @@
 		}
 	],
 	"minetype": "none",
+
 	"removed_jobs": [
-		"enclave.dm",
 		"atlantic_cross.dm",
+		"eastwood.dm",
 		"locust_point.dm",
 		"khan.dm"
 	]
