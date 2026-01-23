@@ -63,7 +63,32 @@
 	lay_web.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
-	QDEL_NULL(lay_web)
+	// Remove from global list FIRST
+	GLOB.spidermobs -= src
+	
+	// Clear ranged ability BEFORE clearing abilities list
+	if(ranged_ability)
+		ranged_ability.remove_ranged_ability(src)
+		ranged_ability = null
+	
+	// Clear ALL abilities
+	if(LAZYLEN(abilities))
+		for(var/obj/effect/proc_holder/ability in abilities)
+			// Clear the ability's action owner reference
+			if(ability.action && ability.action.owner == src)
+				ability.action.owner = null
+			qdel(ability)
+		abilities = null
+	
+	// Clear the lay_web action
+	if(lay_web)
+		lay_web.Remove(src)
+		qdel(lay_web)
+		lay_web = null
+	
+	// Clear directive
+	directive = null
+	
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
@@ -130,9 +155,33 @@
 	set_directive.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Destroy()
-	RemoveAbility(wrap)
-	QDEL_NULL(lay_eggs)
-	QDEL_NULL(set_directive)
+	// Clear cocoon target reference
+	cocoon_target = null
+	
+	// Remove wrap from abilities BEFORE deleting it
+	if(wrap)
+		if(abilities)
+			abilities -= wrap
+		
+		// Clear ranged ability if active
+		if(ranged_ability == wrap)
+			ranged_ability = null
+		
+		// Delete wrap (its Destroy will handle the action)
+		qdel(wrap)
+		wrap = null
+	
+	// Clear actions (these also have owner refs)
+	if(lay_eggs)
+		lay_eggs.Remove(src)
+		qdel(lay_eggs)
+		lay_eggs = null
+	
+	if(set_directive)
+		set_directive.Remove(src)
+		qdel(set_directive)
+		set_directive = null
+	
 	return ..()
 
 //hunters have the most poison and move the fastest, so they can find prey
@@ -213,7 +262,12 @@
 	letmetalkpls.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Destroy()
-	QDEL_NULL(letmetalkpls)
+	// Clear communication action
+	if(letmetalkpls)
+		letmetalkpls.Remove(src)
+		qdel(letmetalkpls)
+		letmetalkpls = null
+	
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/ice //spiders dont usually like tempatures of 140 kelvin who knew
@@ -388,6 +442,7 @@
 	name = "Wrap"
 	panel = "Spider"
 	active = FALSE
+	has_action = TRUE
 	datum/action/spell_action/action = null
 	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
 	ranged_mousepointer = 'icons/effects/wrap_target.dmi'
@@ -398,6 +453,21 @@
 /obj/effect/proc_holder/wrap/Initialize()
 	. = ..()
 	action = new(src)
+	
+/obj/effect/proc_holder/wrap/Destroy()
+	// Clear the action's owner reference FIRST
+	if(action)
+		if(action.owner)
+			action.Remove(action.owner)
+			action.owner = null
+		qdel(action)
+		action = null
+	
+	// Clear ranged ability references
+	if(ranged_ability_user)
+		ranged_ability_user = null
+	
+	return ..()
 
 /obj/effect/proc_holder/wrap/update_icon()
 	action.button_icon_state = "wrap_[active]"
@@ -500,10 +570,6 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()
 	GLOB.spidermobs[src] = TRUE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
-	GLOB.spidermobs -= src
-	return ..()
 
 /datum/action/innate/spider/comm
 	name = "Command"

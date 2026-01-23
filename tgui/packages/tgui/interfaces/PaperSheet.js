@@ -367,23 +367,23 @@ class PaperSheetEdit extends Component {
     const { act, data } = useBackend(this.context);
     const final_processing = this.createPreviewFromData(new_text, true);
 
-  act('save', {
-    text: new_text,
-    field_counter: final_processing.field_counter,
-    fields: final_processing.form_fields || {},
-    pen_font: data.pen_font,
-    pen_color: data.pen_color,
-    is_crayon: data.is_crayon
-  });
+    act('save', {
+      text: new_text,
+      field_counter: final_processing.field_counter,
+      fields: final_processing.form_fields || {},
+      pen_font: data.pen_font,
+      pen_color: data.pen_color,
+      is_crayon: data.is_crayon,
+    });
 
-  this.setState(() => ({
-    textarea_text: '',
-    previewSelected: 'save',
-    combined_text: final_processing.text,
-    old_text: final_processing.text,
-    counter: final_processing.field_counter,
-  }));
-}
+    this.setState(() => ({
+      textarea_text: '',
+      previewSelected: 'save',
+      combined_text: final_processing.text,
+      old_text: final_processing.text,
+      counter: final_processing.field_counter,
+    }));
+  }
 
   render() {
     const { textColor, fontFamily, stamps, backgroundColor } = this.props;
@@ -410,16 +410,15 @@ class PaperSheetEdit extends Component {
                   previewSelected: 'Preview',
                   textarea_text: this.state.textarea_text,
                   combined_text: this.createPreviewFromData(this.state.textarea_text).text,
-                }))
-              }>
+                }))}>
               Preview
             </Tabs.Tab>
             <Tabs.Tab
               key="marked_done"
               textColor={'black'}
               backgroundColor={
-                this.state.previewSelected === 'confirm' ? 'red' :
-                this.state.previewSelected === 'save' ? 'grey' : 'white'
+                this.state.previewSelected === 'confirm' ? 'red'
+                  : this.state.previewSelected === 'save' ? 'grey' : 'white'
               }
               selected={this.state.previewSelected === 'confirm' || this.state.previewSelected === 'save'}
               onClick={() => {
@@ -594,11 +593,11 @@ export const PaperSheet = (props, context) => {
 
   const decide_mode = (mode) => {
     switch (mode) {
-      case 0:  // Reading mode
+      case 0: // Reading mode
         return (
           <PaperSheetView value={values.text} stamps={stamp_list} readOnly />
         );
-      case 1:  // Edit mode
+      case 1: // Edit mode
         return (
           <PaperSheetEdit
             value={values.text}
@@ -609,7 +608,7 @@ export const PaperSheet = (props, context) => {
             backgroundColor={paper_color}
           />
         );
-      case 2:  // Stamp mode
+      case 2: // Stamp mode
         return (
           <PaperSheetStamper
             value={values.text}

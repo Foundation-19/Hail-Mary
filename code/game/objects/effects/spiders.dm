@@ -92,6 +92,17 @@
 	START_PROCESSING(SSobj, src)
 	. = ..()
 
+/obj/structure/spider/eggcluster/Destroy()
+	// Stop processing
+	STOP_PROCESSING(SSobj, src)
+	
+	// Clear references
+	poison_type = null
+	directive = null
+	faction = null
+	
+	return ..()
+
 /obj/structure/spider/eggcluster/process()
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
@@ -122,12 +133,23 @@
 	var/poison_type = "toxin"
 	var/poison_per_bite = 5
 	var/list/faction = list("spiders")
+	var/being_deleted = FALSE 
 	attack_hand_speed = CLICK_CD_MELEE
 	attack_hand_is_action = TRUE
 
 /obj/structure/spider/spiderling/Destroy()
-	// Break parent references
-	RemoveComponentByType(/datum/component/swarming)
+	// Set flag FIRST to stop all spawned procs
+	being_deleted = TRUE
+	
+	// CRITICAL: Stop processing
+	STOP_PROCESSING(SSobj, src)
+	
+	// Remove component
+	var/datum/component/swarming/swarm = GetComponent(/datum/component/swarming)
+	if(swarm)
+		qdel(swarm)
+	
+	// Clear references
 	entry_vent = null
 	grow_as = null
 	directive = null
@@ -172,6 +194,9 @@
 		return TRUE
 
 /obj/structure/spider/spiderling/process()
+	// Check if being deleted at the start
+	if(being_deleted)
+		return
 	if(travelling_in_vent)
 		if(isturf(loc))
 			travelling_in_vent = 0
@@ -191,10 +216,14 @@
 								span_italic("You hear something scampering through the ventilation ducts."))
 
 			spawn(rand(20,60))
+				if(being_deleted || QDELETED(src))  // <-- ADD THIS
+					return
 				forceMove(exit_vent)
 				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
 				spawn(travel_time)
-
+					// Check is here but too late
+					if(being_deleted || QDELETED(src))
+						return
 					if(!exit_vent || exit_vent.welded)
 						forceMove(entry_vent)
 						entry_vent = null
@@ -204,6 +233,8 @@
 						audible_message(span_italic("You hear something scampering through the ventilation ducts."))
 					sleep(travel_time)
 
+					if(being_deleted || QDELETED(src))
+						return
 					if(!exit_vent || exit_vent.welded)
 						forceMove(entry_vent)
 						entry_vent = null
