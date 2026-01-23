@@ -7,6 +7,70 @@
 	density = FALSE
 	max_integrity = 15
 
+// New procs to replace spawn() chains
+/obj/structure/spider/spiderling/proc/vent_travel_stage1(datum/weakref/ourref, obj/machinery/atmospherics/components/unary/vent_pump/exit_vent, obj/machinery/atmospherics/components/unary/vent_pump/start_vent)
+	var/obj/structure/spider/spiderling/us = ourref?.resolve()
+	if(!us || us.being_deleted || QDELETED(us))
+		return
+
+	us.forceMove(exit_vent)
+	var/travel_time = round(get_dist(us.loc, exit_vent.loc) / 2)
+
+	addtimer(CALLBACK(us, PROC_REF(vent_travel_stage2), ourref, exit_vent, start_vent, travel_time), travel_time)
+
+/obj/structure/spider/spiderling/proc/vent_travel_stage2(datum/weakref/ourref, obj/machinery/atmospherics/components/unary/vent_pump/exit_vent, obj/machinery/atmospherics/components/unary/vent_pump/start_vent, travel_time)
+	var/obj/structure/spider/spiderling/us = ourref?.resolve()
+	if(!us || us.being_deleted || QDELETED(us))
+		return
+
+	if(!exit_vent || exit_vent.welded)
+		if(start_vent && !QDELETED(start_vent))
+			us.forceMove(start_vent)
+		us.entry_vent = null
+		return
+	if(prob(50))
+		us.audible_message(span_italic("You hear something scampering through the ventilation ducts."))
+
+	addtimer(CALLBACK(us, PROC_REF(vent_travel_stage3), ourref, exit_vent, start_vent), travel_time)
+
+/obj/structure/spider/spiderling/proc/vent_travel_stage3(datum/weakref/ourref, obj/machinery/atmospherics/components/unary/vent_pump/exit_vent, obj/machinery/atmospherics/components/unary/vent_pump/start_vent)
+	var/obj/structure/spider/spiderling/us = ourref?.resolve()
+	if(!us || us.being_deleted || QDELETED(us))
+		return
+
+	if(!exit_vent || exit_vent.welded)
+		if(start_vent && !QDELETED(start_vent))
+			us.forceMove(start_vent)
+		us.entry_vent = null
+		return
+
+	us.forceMove(exit_vent.loc)
+	us.entry_vent = null
+	var/area/new_area = get_area(us.loc)
+	if(new_area)
+		new_area.Entered(us)
+
+/obj/structure/spider/spiderling/proc/grow_into_spider()
+	if(being_deleted || QDELETED(src))
+		return
+
+	if(!grow_as)
+		if(prob(3))
+			grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
+		else
+			grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
+
+	var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
+	S.poison_per_bite = poison_per_bite
+	S.poison_type = poison_type
+	S.faction = faction.Copy()
+	S.directive = directive
+
+	if(player_spiders)
+		S.playable_spider = TRUE
+		notify_ghosts("Spider [S.name] can be controlled", null, enter_link="<a href=?src=[REF(S)];activate=1>(Click to play)</a>", source=S, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER, ignore_dnr_observers = TRUE)
+
+	qdel(src)
 
 
 /obj/structure/spider/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -93,16 +157,15 @@
 	. = ..()
 
 /obj/structure/spider/eggcluster/Destroy()
-	// Stop processing
+	// Stop processing FIRST
 	STOP_PROCESSING(SSobj, src)
-	
-	// Clear references
+
+	// Clear all references
 	poison_type = null
 	directive = null
 	faction = null
 	
 	return ..()
-
 /obj/structure/spider/eggcluster/process()
 	amount_grown += rand(0,2)
 	if(amount_grown >= 100)
@@ -129,31 +192,42 @@
 	var/obj/machinery/atmospherics/components/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
-	var/directive = "" //Message from the mother
+	var/directive = ""
 	var/poison_type = "toxin"
 	var/poison_per_bite = 5
 	var/list/faction = list("spiders")
-	var/being_deleted = FALSE 
+	var/being_deleted = FALSE
+	// Track active callbacks so we can cancel them
+	var/list/active_callbacks = list()
 	attack_hand_speed = CLICK_CD_MELEE
 	attack_hand_is_action = TRUE
 
 /obj/structure/spider/spiderling/Destroy()
-	// Set flag FIRST to stop all spawned procs
+	// Set flag FIRST
 	being_deleted = TRUE
-	
-	// CRITICAL: Stop processing
+
+	// CRITICAL: Stop processing IMMEDIATELY
 	STOP_PROCESSING(SSobj, src)
-	
-	// Remove component
+
+	// Cancel ALL pending callbacks/spawns
+	for(var/datum/callback/CB in active_callbacks)
+		CB = null
+	active_callbacks = null
+
+	// Remove component BEFORE parent
 	var/datum/component/swarming/swarm = GetComponent(/datum/component/swarming)
 	if(swarm)
+		// Properly remove it first
+		swarm.UnregisterSignal(src, COMSIG_PARENT_QDELETING)
 		qdel(swarm)
-	
-	// Clear references
+
+	// Clear all references
 	entry_vent = null
 	grow_as = null
 	directive = null
 	faction = null
+	poison_type = null
+
 	return ..()
 
 /obj/structure/spider/spiderling/Initialize()
@@ -194,9 +268,11 @@
 		return TRUE
 
 /obj/structure/spider/spiderling/process()
-	// Check if being deleted at the start
-	if(being_deleted)
+	// ALWAYS check first
+	if(being_deleted || QDELETED(src))
+		STOP_PROCESSING(SSobj, src)
 		return
+
 	if(travelling_in_vent)
 		if(isturf(loc))
 			travelling_in_vent = 0
@@ -215,37 +291,9 @@
 				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
 								span_italic("You hear something scampering through the ventilation ducts."))
 
-			spawn(rand(20,60))
-				if(being_deleted || QDELETED(src))  // <-- ADD THIS
-					return
-				forceMove(exit_vent)
-				var/travel_time = round(get_dist(loc, exit_vent.loc) / 2)
-				spawn(travel_time)
-					// Check is here but too late
-					if(being_deleted || QDELETED(src))
-						return
-					if(!exit_vent || exit_vent.welded)
-						forceMove(entry_vent)
-						entry_vent = null
-						return
-
-					if(prob(50))
-						audible_message(span_italic("You hear something scampering through the ventilation ducts."))
-					sleep(travel_time)
-
-					if(being_deleted || QDELETED(src))
-						return
-					if(!exit_vent || exit_vent.welded)
-						forceMove(entry_vent)
-						entry_vent = null
-						return
-					forceMove(exit_vent.loc)
-					entry_vent = null
-					var/area/new_area = get_area(loc)
-					if(new_area)
-						new_area.Entered(src)
-	//=================
-
+			// FIXED: Use addtimer instead of spawn, with proper cleanup
+			var/ourref = WEAKREF(src)
+			addtimer(CALLBACK(src, PROC_REF(vent_travel_stage1), ourref, exit_vent, entry_vent), rand(20,60))
 	else if(prob(33))
 		var/list/nearby = oview(10, src)
 		if(nearby.len)
@@ -254,30 +302,16 @@
 			if(prob(40))
 				src.visible_message(span_notice("\The [src] skitters[pick(" away"," around","")]."))
 	else if(prob(10))
-		//ventcrawl!
 		for(var/obj/machinery/atmospherics/components/unary/vent_pump/v in view(7,src))
 			if(!v.welded)
 				entry_vent = v
 				walk_to(src, entry_vent, 1)
 				break
+
 	if(isturf(loc))
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
-			if(!grow_as)
-				if(prob(3))
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider/tarantula, /mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper, /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife)
-				else
-					grow_as = pick(/mob/living/simple_animal/hostile/poison/giant_spider, /mob/living/simple_animal/hostile/poison/giant_spider/hunter, /mob/living/simple_animal/hostile/poison/giant_spider/nurse)
-			var/mob/living/simple_animal/hostile/poison/giant_spider/S = new grow_as(src.loc)
-			S.poison_per_bite = poison_per_bite
-			S.poison_type = poison_type
-			S.faction = faction.Copy()
-			S.directive = directive
-			if(player_spiders)
-				S.playable_spider = TRUE
-				notify_ghosts("Spider [S.name] can be controlled", null, enter_link="<a href=?src=[REF(S)];activate=1>(Click to play)</a>", source=S, action=NOTIFY_ATTACK, ignore_key = POLL_IGNORE_SPIDER, ignore_dnr_observers = TRUE)
-			qdel(src)
-
+			grow_into_spider()
 
 
 /obj/structure/spider/cocoon

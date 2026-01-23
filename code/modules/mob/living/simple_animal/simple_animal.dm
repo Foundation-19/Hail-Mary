@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	can_ghost_into = TRUE
 	AddElement(/datum/element/ghost_role_eligibility, free_ghosting = TRUE, penalize_on_ghost = FALSE)
 	LAZYADD(GLOB.mob_spawners[initial(name)], src)
-	RegisterSignal(src, COMSIG_MOB_GHOSTIZE_FINAL, PROC_REF(set_ghost_timeout), override = TRUE)
+	RegisterSignal(src, COMSIG_MOB_GHOSTIZE_FINAL, PROC_REF(set_ghost_timeout))
 	if(istype(user))
 		lazarused = TRUE
 		lazarused_by = WEAKREF(user)

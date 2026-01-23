@@ -65,30 +65,37 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
 	// Remove from global list FIRST
 	GLOB.spidermobs -= src
-	
-	// Clear ranged ability BEFORE clearing abilities list
+
+	// Clear ranged ability reference without calling remove (which may try to access src)
 	if(ranged_ability)
-		ranged_ability.remove_ranged_ability(src)
+		if(ranged_ability.ranged_ability_user == src)
+			ranged_ability.ranged_ability_user = null
 		ranged_ability = null
-	
-	// Clear ALL abilities
+
+	// Clear ALL abilities with proper cleanup
 	if(LAZYLEN(abilities))
-		for(var/obj/effect/proc_holder/ability in abilities)
-			// Clear the ability's action owner reference
-			if(ability.action && ability.action.owner == src)
-				ability.action.owner = null
+		var/list/abilities_copy = abilities.Copy()
+		abilities = null // Clear the list first to break references
+
+		for(var/obj/effect/proc_holder/ability in abilities_copy)
+			// Clear cross-references
+			if(ability.ranged_ability_user == src)
+				ability.ranged_ability_user = null
+			if(ability.action)
+				if(ability.action.owner == src)
+					ability.action.owner = null
 			qdel(ability)
-		abilities = null
-	
+
 	// Clear the lay_web action
 	if(lay_web)
 		lay_web.Remove(src)
-		qdel(lay_web)
-		lay_web = null
-	
+		if(lay_web.owner == src)
+			lay_web.owner = null
+		QDEL_NULL(lay_web)
+
 	// Clear directive
 	directive = null
-	
+
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
@@ -157,31 +164,44 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Destroy()
 	// Clear cocoon target reference
 	cocoon_target = null
-	
-	// Remove wrap from abilities BEFORE deleting it
+
+	// CRITICAL FIX: Properly clean up wrap ability
 	if(wrap)
-		if(abilities)
-			abilities -= wrap
-		
-		// Clear ranged ability if active
+		// First remove it from our abilities list
+		abilities -= wrap
+
+		// If it's our ranged ability, clear that too
 		if(ranged_ability == wrap)
 			ranged_ability = null
-		
-		// Delete wrap (its Destroy will handle the action)
-		qdel(wrap)
-		wrap = null
-	
-	// Clear actions (these also have owner refs)
+
+		// Clear the wrap's reference to us
+		if(wrap.ranged_ability_user == src)
+			wrap.ranged_ability_user = null
+
+		// Clear action owner reference
+		if(wrap.action)
+			if(wrap.action.owner == src)
+				wrap.action.owner = null
+			// Remove action from our action list
+			if(wrap.action in actions)
+				actions -= wrap.action
+
+		// Now it's safe to delete
+		QDEL_NULL(wrap)
+
+	// Clear actions with proper cleanup
 	if(lay_eggs)
 		lay_eggs.Remove(src)
-		qdel(lay_eggs)
-		lay_eggs = null
-	
+		if(lay_eggs.owner == src)
+			lay_eggs.owner = null
+		QDEL_NULL(lay_eggs)
+
 	if(set_directive)
 		set_directive.Remove(src)
-		qdel(set_directive)
-		set_directive = null
-	
+		if(set_directive.owner == src)
+			set_directive.owner = null
+		QDEL_NULL(set_directive)
+
 	return ..()
 
 //hunters have the most poison and move the fastest, so they can find prey
@@ -265,9 +285,10 @@
 	// Clear communication action
 	if(letmetalkpls)
 		letmetalkpls.Remove(src)
-		qdel(letmetalkpls)
-		letmetalkpls = null
-	
+		if(letmetalkpls.owner == src)
+			letmetalkpls.owner = null
+		QDEL_NULL(letmetalkpls)
+
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/ice //spiders dont usually like tempatures of 140 kelvin who knew
@@ -453,20 +474,25 @@
 /obj/effect/proc_holder/wrap/Initialize()
 	. = ..()
 	action = new(src)
-	
+
 /obj/effect/proc_holder/wrap/Destroy()
-	// Clear the action's owner reference FIRST
+	// Clear ranged ability user FIRST before any other cleanup
+	if(ranged_ability_user)
+		// If we're the active ranged ability, remove ourselves properly
+		if(ranged_ability_user.ranged_ability == src)
+			ranged_ability_user.ranged_ability = null
+		ranged_ability_user = null
+
+	// Clear the action's owner reference BEFORE deleting
 	if(action)
 		if(action.owner)
-			action.Remove(action.owner)
+			// Remove from owner's action list
+			if(action.owner.actions)
+				action.owner.actions -= action
+			// Clear the reference
 			action.owner = null
 		qdel(action)
 		action = null
-	
-	// Clear ranged ability references
-	if(ranged_ability_user)
-		ranged_ability_user = null
-	
 	return ..()
 
 /obj/effect/proc_holder/wrap/update_icon()
@@ -509,6 +535,8 @@
 
 /obj/effect/proc_holder/wrap/on_lose(mob/living/carbon/user)
 	remove_ranged_ability()
+	// Don't set ranged_ability_user to null here - let Destroy() handle it
+	..()
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
