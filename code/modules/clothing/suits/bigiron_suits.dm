@@ -2913,6 +2913,9 @@
 	icon_state = "elite_riot"
 	item_state = "elite_riot"
 	icon = 'icons/obj/clothing/suits.dmi'
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor = ARMOR_VALUE_SALVAGE
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/heavy/riot/eliteweak
 	name = "worn elite riot gear"
