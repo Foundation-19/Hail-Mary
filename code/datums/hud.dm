@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(huds, alist(
 		return
 	if(!hudusers[M])
 		hudusers[M] = TRUE
-		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(remove_hud_from)) //both hud users and hud atoms use these signals
+		RegisterSignal(M, COMSIG_PARENT_QDELETING, PROC_REF(remove_hud_from), override = TRUE) //both hud users and hud atoms use these signals
 		if(next_time_allowed[M] > world.time)
 			if(!queued_to_see[M])
 				addtimer(CALLBACK(src, PROC_REF(show_hud_images_after_cooldown), M), next_time_allowed[M] - world.time)
@@ -115,7 +115,7 @@ GLOBAL_LIST_INIT(huds, alist(
 	hudatoms |= A
 	//Only register if not already registered (e.g., if mob is also a hud user)
 	if(!(A in hudusers))
-		RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_hud)) //both hud users and hud atoms use these signals
+		RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_hud), override = TRUE) //both hud users and hud atoms use these signals
 	for(var/mob/M in hudusers)
 		if(!queued_to_see[M])
 			add_to_single_hud(M, A)
