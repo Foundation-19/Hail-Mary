@@ -37,7 +37,8 @@ const createIDHeader = index => {
 };
 
 const field_regex = /\[(_+)\]/g;
-const field_tag_regex = /\[<input\s+(?!disabled)(.*?)\s+id="(?<id>paperfield_\d+)"(.*?)\/>\]/gm;
+const field_tag_regex
+  = /\[<input\s+(?!disabled)(.*?)\s+id="(?<id>paperfield_\d+)"(.*?)\/>\]/gm;
 const sign_regex = /%s(?:ign)?(?:\s|$)?/ig;
 
 const createInputField = (length, width, font, fontsize, color, id) => {
@@ -56,10 +57,20 @@ const createInputField = (length, width, font, fontsize, color, id) => {
 };
 
 const createFields = (txt, font, fontsize, color, counter) => {
-  const ret_text = txt.replace(field_regex, (match, p1, offset, string) => {
-    const width = textWidth(match, font, fontsize) + "px";
-    return createInputField(p1.length, width, font, fontsize, color, createIDHeader(counter++));
-  });
+  const ret_text = txt.replace(
+    field_regex,
+    (match, p1, offset, string) => {
+      const width = textWidth(match, font, fontsize) + "px";
+      return createInputField(
+        p1.length,
+        width,
+        font,
+        fontsize,
+        color,
+        createIDHeader(counter++)
+      );
+    }
+  );
   return { counter, text: ret_text };
 };
 
@@ -128,7 +139,10 @@ const checkAllFields = (txt, font, color, user_name, bold=false) => {
       const wrap = document.createElement('div');
       wrap.appendChild(target);
       values[id] = sanitized_text;
-      replace.push({ value: "[" + wrap.innerHTML + "]", raw_text: full_match });
+      replace.push({
+        value: "[" + wrap.innerHTML + "]",
+        raw_text: full_match,
+      });
     }
   }
   if (replace.length > 0) {
@@ -165,16 +179,33 @@ const createPreview = (
 
     const sanitized_text = sanitizeText(value, []);
     const signed_text = signDocument(sanitized_text, color, user_name);
-    const fielded_text = createFields(signed_text, font, 12, color, field_counter);
+    const fielded_text = createFields(
+      signed_text,
+      font,
+      12,
+      color,
+      field_counter
+    );
     const formatted_text = run_marked_default(fielded_text.text);
-    const fonted_text = setFontinText(formatted_text, font, color, is_crayon);
+    const fonted_text = setFontinText(
+      formatted_text,
+      font,
+      color,
+      is_crayon
+    );
 
     out.text += fonted_text;
     out.field_counter = fielded_text.counter;
   }
 
   if (do_fields) {
-    const final_processing = checkAllFields(out.text, font, color, user_name, is_crayon);
+    const final_processing = checkAllFields(
+      out.text,
+      font,
+      color,
+      user_name,
+      is_crayon
+    );
     out.text = final_processing.text;
     out.form_fields = final_processing.fields;
   }
@@ -208,10 +239,16 @@ const PaperSheetView = (props, context) => {
   const { value = "", stamps = [], backgroundColor, readOnly } = props;
   const stamp_list = stamps;
   const text_html = {
-    __html: '<span class="paper-text">' + setInputReadonly(value, readOnly) + '</span>',
+    __html: '<span class="paper-text">'
+      + setInputReadonly(value, readOnly)
+      + '</span>',
   };
   return (
-    <Box position="relative" backgroundColor={backgroundColor} width="100%" height="100%">
+    <Box
+      position="relative"
+      backgroundColor={backgroundColor}
+      width="100%"
+      height="100%">
       <Box
         className="Paper__Page"
         fillPositionedParent
@@ -220,7 +257,14 @@ const PaperSheetView = (props, context) => {
         dangerouslySetInnerHTML={text_html}
         p="10px" />
       {stamp_list.map((o, i) => (
-        <Stamp key={o[0] + i} image={{ sprite: o[0], x: o[1], y: o[2], rotate: o[3] }} />
+        <Stamp
+          key={o[0] + i}
+          image={{
+            sprite: o[0],
+            x: o[1],
+            y: o[2],
+            rotate: o[3],
+          }} />
       ))}
     </Box>
   );
@@ -264,16 +308,26 @@ class PaperSheetStamper extends Component {
       const stampHeight = stamp.clientHeight;
       const stampWidth = stamp.clientWidth;
 
-      const currentHeight = rotating ? this.state.y : e.pageY - windowRef.scrollTop - stampHeight;
-      const currentWidth = rotating ? this.state.x : e.pageX - (stampWidth / 2);
+      const currentHeight = rotating
+        ? this.state.y
+        : e.pageY - windowRef.scrollTop - stampHeight;
+      const currentWidth = rotating
+        ? this.state.x
+        : e.pageX - (stampWidth / 2);
 
       const widthMin = 0;
       const heightMin = 0;
       const widthMax = (windowRef.clientWidth) - (stampWidth);
-      const heightMax = (windowRef.clientHeight - windowRef.scrollTop) - (stampHeight);
+      const heightMax = (windowRef.clientHeight - windowRef.scrollTop)
+        - (stampHeight);
 
-      const radians = Math.atan2(e.pageX - currentWidth, e.pageY - currentHeight);
-      const rotate = rotating ? (radians * (180 / Math.PI) * -1) : this.state.rotate;
+      const radians = Math.atan2(
+        e.pageX - currentWidth,
+        e.pageY - currentHeight
+      );
+      const rotate = rotating
+        ? (radians * (180 / Math.PI) * -1)
+        : this.state.rotate;
 
       const pos = [
         clamp(currentWidth, widthMin, widthMax),
@@ -305,7 +359,10 @@ class PaperSheetStamper extends Component {
     };
     return (
       <>
-        <PaperSheetView readOnly value={value} stamps={stamp_list} />
+        <PaperSheetView
+          readOnly
+          value={value}
+          stamps={stamp_list} />
         <Stamp active_stamp opacity={0.5} image={current_pos} />
       </>
     );
@@ -349,14 +406,17 @@ class PaperSheetEdit extends Component {
         if (combined_length - maxLength >= value.length) {
           value = '';
         } else {
-          value = value.substr(0, value.length - (combined_length - maxLength));
+          value = value.substr(
+            0,
+            value.length - (combined_length - maxLength)
+          );
         }
         if (value === this.state.textarea_text) {
           return;
         }
       }
 
-      this.setState(() => ({
+      this.setState(prevState => ({
         textarea_text: value,
         combined_text: this.createPreviewFromData(value).text,
       }));
@@ -395,21 +455,33 @@ class PaperSheetEdit extends Component {
             <Tabs.Tab
               key="marked_edit"
               textColor={'black'}
-              backgroundColor={this.state.previewSelected === 'Edit' ? 'grey' : 'white'}
+              backgroundColor={
+                this.state.previewSelected === 'Edit'
+                  ? 'grey'
+                  : 'white'
+              }
               selected={this.state.previewSelected === 'Edit'}
-              onClick={() => this.setState({ previewSelected: 'Edit' })}>
+              onClick={() => this.setState({
+                previewSelected: 'Edit',
+              })}>
               Edit
             </Tabs.Tab>
             <Tabs.Tab
               key="marked_preview"
               textColor={'black'}
-              backgroundColor={this.state.previewSelected === 'Preview' ? 'grey' : 'white'}
+              backgroundColor={
+                this.state.previewSelected === 'Preview'
+                  ? 'grey'
+                  : 'white'
+              }
               selected={this.state.previewSelected === 'Preview'}
               onClick={() =>
-                this.setState(() => ({
+                this.setState(prevState => ({
                   previewSelected: 'Preview',
-                  textarea_text: this.state.textarea_text,
-                  combined_text: this.createPreviewFromData(this.state.textarea_text).text,
+                  textarea_text: prevState.textarea_text,
+                  combined_text: this.createPreviewFromData(
+                    prevState.textarea_text
+                  ).text,
                 }))}>
               Preview
             </Tabs.Tab>
@@ -418,23 +490,32 @@ class PaperSheetEdit extends Component {
               textColor={'black'}
               backgroundColor={
                 this.state.previewSelected === 'confirm' ? 'red'
-                  : this.state.previewSelected === 'save' ? 'grey' : 'white'
+                  : this.state.previewSelected === 'save'
+                    ? 'grey'
+                    : 'white'
               }
-              selected={this.state.previewSelected === 'confirm' || this.state.previewSelected === 'save'}
+              selected={
+                this.state.previewSelected === 'confirm'
+                || this.state.previewSelected === 'save'
+              }
               onClick={() => {
                 if (this.state.previewSelected === 'confirm') {
                   this.finalUpdate(this.state.textarea_text);
                 } else if (this.state.previewSelected === 'Edit') {
-                  this.setState(() => ({
+                  this.setState(prevState => ({
                     previewSelected: 'confirm',
-                    textarea_text: this.state.textarea_text,
-                    combined_text: this.createPreviewFromData(this.state.textarea_text).text,
+                    textarea_text: prevState.textarea_text,
+                    combined_text: this.createPreviewFromData(
+                      prevState.textarea_text
+                    ).text,
                   }));
                 } else {
                   this.setState({ previewSelected: 'confirm' });
                 }
               }}>
-              {this.state.previewSelected === 'confirm' ? 'Confirm' : 'Save'}
+              {this.state.previewSelected === 'confirm'
+                ? 'Confirm'
+                : 'Save'}
             </Tabs.Tab>
           </Tabs>
         </Flex.Item>
@@ -509,7 +590,8 @@ export const PaperSheet = (props, context) => {
       values.field_counter = processing.field_counter;
     }
 
-    // If we have saved form field data, process and inject it with proper styling
+    // If we have saved form field data, process and inject it
+    // with proper styling
     if (form_fields && Object.keys(form_fields).length > 0) {
       for (const field_id in form_fields) {
         const field_value = form_fields[field_id];
@@ -538,7 +620,8 @@ export const PaperSheet = (props, context) => {
           let isBold = false;
 
           if (isSignature) {
-            // For signature fields, the value should be the signer's name
+            // For signature fields, the value should be
+            // the signer's name
             // This would have been stored when the field was filled
             finalFont = "Times New Roman";
             isBold = true;
@@ -549,12 +632,16 @@ export const PaperSheet = (props, context) => {
 
           // Update the value attribute
           if (inputAttrs.includes('value=')) {
-            inputAttrs = inputAttrs.replace(/value="[^"]*"/, `value="${displayValue}"`);
+            inputAttrs = inputAttrs.replace(
+              /value="[^"]*"/,
+              `value="${displayValue}"`
+            );
           } else {
             inputAttrs += ` value="${displayValue}"`;
           }
 
-          // Update the style to include saved font, color, and bold if needed
+          // Update the style to include saved font, color,
+          // and bold if needed
           if (inputAttrs.includes('style=')) {
             inputAttrs = inputAttrs.replace(
               /style="([^"]*)"/,
@@ -566,7 +653,8 @@ export const PaperSheet = (props, context) => {
                   .replace(/font:[^;]*;?/g, '')
                   .replace(/font-weight:[^;]*;?/g, '');
 
-                let newStyle = `${cleanStyle};color:${saved_color};font-family:'${finalFont}';`;
+                let newStyle = `${cleanStyle};color:${saved_color};`
+                  + `font-family:'${finalFont}';`;
                 if (isBold) {
                   newStyle += 'font-weight:bold;';
                 }
@@ -595,7 +683,10 @@ export const PaperSheet = (props, context) => {
     switch (mode) {
       case 0: // Reading mode
         return (
-          <PaperSheetView value={values.text} stamps={stamp_list} readOnly />
+          <PaperSheetView
+            value={values.text}
+            stamps={stamp_list}
+            readOnly />
         );
       case 1: // Edit mode
         return (
