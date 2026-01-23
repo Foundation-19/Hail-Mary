@@ -9352,7 +9352,8 @@
 /area/f13/radiation)
 "fEL" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Elders Envoys Office"
+	name = "Elders Envoys Office";
+	req_access_txt = "120"
 	},
 /turf/open/floor/carpet/black,
 /area/f13/brotherhood)
@@ -23262,7 +23263,8 @@
 /area/f13/caves)
 "sOj" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Knight Captain's Office"
+	name = "Knight Captain's Office";
+	req_access_txt = "120"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -23846,7 +23848,8 @@
 /area/f13/caves)
 "tnh" = (
 /obj/machinery/door/airlock/grunge{
-	name = "Elders Envoys Office"
+	name = "Elders Envoys Office";
+	req_access_txt = "120"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -24566,7 +24569,8 @@
 "tVD" = (
 /obj/machinery/door/airlock/grunge{
 	id_tag = "sentdorm";
-	name = "Paladin Commanders Office"
+	name = "Paladin Commanders Office";
+	req_access_txt = "120"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -27556,7 +27560,8 @@
 "wCS" = (
 /obj/machinery/door/airlock/grunge{
 	id_tag = "sentdorm";
-	name = "Paladin's Office"
+	name = "Paladin's Office";
+	req_access_txt = "120"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
