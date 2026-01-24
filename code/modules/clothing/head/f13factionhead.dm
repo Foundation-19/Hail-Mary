@@ -781,6 +781,11 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flash_protect = 0
 	resistance_flags = null
 
+/obj/item/clothing/head/helmet/f13/ncr/rangercombat/shocktrooper
+	name = "shocktrooper combat helmet"
+	desc = "An old marine shocktrooper helmet from before the war, still good as new."
+	icon_state = "shocktrooper"
+	item_state = "shocktrooper"
 
 /obj/item/clothing/head/helmet/f13/rangercombat/eliteriot/reclaimed
 	name = "reclaimed desert ranger gear"
