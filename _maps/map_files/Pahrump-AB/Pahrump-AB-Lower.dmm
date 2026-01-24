@@ -1573,6 +1573,12 @@
 /obj/item/circuitboard/machine/chem_dispenser/drinks/beer,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer)
+"bvQ" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/caves)
 "bvU" = (
 /obj/structure/barricade/bars,
 /obj/structure/table,
@@ -4633,6 +4639,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer)
+"bSW" = (
+/obj/machinery/light/small,
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "bTc" = (
 /obj/structure/table{
 	layer = 2.9
@@ -6046,6 +6056,10 @@
 	icon_state = "tunnelchess"
 	},
 /area/f13/bunker)
+"cxP" = (
+/obj/machinery/light/small,
+/turf/closed/mineral/random/high_chance,
+/area/f13/caves)
 "cyi" = (
 /obj/structure/rack,
 /obj/item/reagent_containers/food/drinks/bottle/vodka/badminka,
@@ -6885,6 +6899,12 @@
 /obj/structure/wreck/trash/engine,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/tunnel)
+"dmw" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "dmT" = (
 /obj/machinery/chem_dispenser,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -10376,6 +10396,13 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
+"gFr" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/structure/ore_box,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/caves)
 "gFu" = (
 /obj/structure/table,
 /obj/structure/barricade/bars,
@@ -12703,6 +12730,12 @@
 	color = "#363636"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red,
+/area/f13/caves)
+"iRD" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/closed/mineral/random/high_chance,
 /area/f13/caves)
 "iRN" = (
 /obj/structure/rack,
@@ -18688,6 +18721,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
+"owM" = (
+/obj/machinery/light/small{
+	dir = 4
+	},
+/obj/structure/closet/crate/miningcar,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/caves)
 "owV" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -24627,6 +24667,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/water,
 /area/f13/bunker)
+"ueF" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "ueN" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
@@ -27984,6 +28030,10 @@
 /turf/open/floor/plasteel/darkred/side{
 	dir = 1
 	},
+/area/f13/caves)
+"xrd" = (
+/obj/structure/stairs/north,
+/turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "xsg" = (
 /obj/structure/cable{
@@ -60027,7 +60077,7 @@ aak
 aak
 aae
 aae
-aae
+adz
 aak
 aae
 aae
@@ -60283,10 +60333,10 @@ aae
 aae
 aae
 aae
+bXW
+adz
 aae
-aak
-aae
-aae
+adz
 aae
 aae
 aak
@@ -60540,10 +60590,10 @@ aae
 aae
 aae
 aae
-aae
-aak
-aae
-aae
+adz
+adz
+adz
+adz
 aae
 aak
 aae
@@ -60796,11 +60846,11 @@ aae
 aae
 aak
 aak
-aak
-aak
-aak
-aak
-aae
+iRD
+adz
+adz
+adz
+bvQ
 aak
 aae
 aae
@@ -61052,13 +61102,13 @@ aae
 aak
 aak
 aak
-aae
-aae
-aae
-aae
-aae
-aae
-aae
+bSW
+aaA
+aaA
+adz
+aaA
+aaA
+dmw
 aae
 aae
 aae
@@ -61307,18 +61357,18 @@ aae
 aae
 aak
 aak
+adz
+adz
+adz
+aaA
+gFr
+adz
+lSm
+aaA
 aae
-aae
-aak
-aak
-aak
-aak
-aae
-aae
-aae
-aae
-aae
-aae
+bXW
+adz
+adz
 aae
 aae
 aak
@@ -61565,17 +61615,17 @@ aae
 aak
 aae
 aae
-aae
-aae
-aae
-aae
-aak
-aae
-aae
-aae
-aae
-aae
-aae
+adz
+adz
+adz
+adz
+xrd
+adz
+adz
+adz
+adz
+adz
+adz
 aae
 aak
 aak
@@ -61820,18 +61870,18 @@ aak
 aae
 aae
 aak
+bXW
+adz
+adz
 aae
+aaA
+owM
+adz
+bvQ
+aaA
 aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
+bXW
+adz
 aae
 aae
 aak
@@ -62080,15 +62130,15 @@ aak
 aak
 aak
 aak
-aak
-aak
+cxP
+aaA
+aaA
+adz
+aaA
+aaA
+dmw
 aae
-aae
-aae
-aae
-aae
-aae
-aae
+adz
 aak
 aae
 aak
@@ -62338,14 +62388,14 @@ aak
 aak
 aae
 aae
+ueF
+aae
+adz
+aae
+ueF
 aae
 aae
-aae
-aae
-aae
-aae
-aae
-aae
+adz
 aak
 aae
 aak
@@ -62597,9 +62647,9 @@ aae
 aae
 aak
 aak
-aae
-aae
-aae
+adz
+adz
+adz
 aae
 aae
 aae
@@ -62854,9 +62904,9 @@ aak
 aak
 aae
 aae
-aak
-aae
-aae
+adz
+adz
+bXW
 aae
 aae
 aae
@@ -63109,10 +63159,10 @@ aak
 aae
 aae
 aae
+adz
 aae
-aae
-aae
-aae
+adz
+adz
 aae
 aae
 aae
@@ -63366,9 +63416,9 @@ aak
 aak
 aae
 aae
-aae
-aae
-aae
+adz
+adz
+adz
 aae
 aae
 aae
