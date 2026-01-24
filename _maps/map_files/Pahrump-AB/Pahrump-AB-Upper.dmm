@@ -3418,6 +3418,11 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/legion)
+"gtZ" = (
+/obj/structure/dresser,
+/obj/machinery/light/small,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "guf" = (
 /obj/machinery/light{
 	dir = 4
@@ -8861,6 +8866,10 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/radiation)
+"qtn" = (
+/obj/machinery/light/small,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "qtF" = (
 /obj/structure/railing{
 	dir = 4
@@ -48867,7 +48876,7 @@ lmX
 paR
 woa
 paR
-owx
+gtZ
 woa
 woa
 kPa
@@ -50666,7 +50675,7 @@ dtb
 woa
 nbL
 paR
-paR
+qtn
 woa
 woa
 woa
