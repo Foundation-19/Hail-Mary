@@ -1283,8 +1283,8 @@ obj/item/clothing/head/f13/army/beret
 	item_state = "ncr_helmet_mk2"
 
 /obj/item/clothing/head/beret/ncr/ncr_recon
-	name = "NCR First Recon beret"
-	desc = "A red beret, issued to members of NCR First Recon."
+	name = "NCR recon beret"
+	desc = "A red beret, issued to scouts of the NCRA's various reconnaissance battalions."
 	icon_state = "ncr_recon_beret"
 	item_state = "ncr_recon_beret"
 
