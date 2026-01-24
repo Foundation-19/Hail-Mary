@@ -902,8 +902,7 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/superhigh
 	name = "superhigh tier energy gun"
 	loot = list(/obj/effect/spawner/bundle/f13/multiplas = 25,
-				/obj/effect/spawner/bundle/f13/tribeam = 25,
-				/obj/item/gun/energy/laser/laer = 20
+				/obj/effect/spawner/bundle/f13/tribeam = 25
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/unique

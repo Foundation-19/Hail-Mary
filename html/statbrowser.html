@@ -451,9 +451,12 @@ function removePermanentTab(name) {
 }
 
 function checkStatusTab() {
-	for(var i=0; i < menu.children.length; i++)
-		if(!verb_tabs.includes(menu.children[i].id) && !permanent_tabs.includes(menu.children[i].id))
-			menu.removeChild(menu.children[i]);
+	// Iterate backwards to avoid skipping elements when removing
+	for(var i = menu.children.length - 1; i >= 0; i--) {
+		var child = menu.children[i];
+		if(child.id && !verb_tabs.includes(child.id) && !permanent_tabs.includes(child.id))
+			menu.removeChild(child);
+	}
 }
 
 function remove_verb(v) {

@@ -54,6 +54,9 @@
 
 /obj/machinery/camera/Initialize(mapload, obj/structure/camera_assembly/CA)
 	. = ..()
+	// Ensure network is always a list
+	if(!islist(network))
+		network = list("ss13")
 	for(var/i in network)
 		network -= i
 		network += lowertext(i)

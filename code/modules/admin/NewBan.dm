@@ -104,6 +104,12 @@ GLOBAL_PROTECT(Banlist)
 
 	var/bantimestamp
 	var/ban_ckey = ckey(key)
+	
+	if(!GLOB.Banlist)		// if Banlist cannot be located for some reason
+		LoadBans()		// try to load the bans
+		if(!GLOB.Banlist)	// uh oh, can't find bans!
+			return 0	// ABORT ABORT ABORT
+	
 	if (temp)
 		UpdateTime()
 		bantimestamp = GLOB.CMinutes + minutes

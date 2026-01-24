@@ -8259,8 +8259,8 @@
 /area/f13/ruins)
 "hEh" = (
 /obj/structure/rack/shelf_metal,
-/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen,
-/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen,
+/obj/item/clothing/suit/armor/medium/duster/minutemen,
+/obj/item/clothing/suit/armor/medium/duster/minutemen,
 /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen,
 /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen,
 /turf/open/floor/wood_wide/wood_wide_dark{
