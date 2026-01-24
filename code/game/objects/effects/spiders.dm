@@ -209,16 +209,10 @@
 	// CRITICAL: Stop processing IMMEDIATELY
 	STOP_PROCESSING(SSobj, src)
 
-	// Cancel ALL pending callbacks/spawns
-	for(var/datum/callback/CB in active_callbacks)
-		CB = null
-	active_callbacks = null
-
-	// Remove component BEFORE parent
+	// Remove component BEFORE clearing references
 	var/datum/component/swarming/swarm = GetComponent(/datum/component/swarming)
 	if(swarm)
-		// Properly remove it first
-		swarm.UnregisterSignal(src, COMSIG_PARENT_QDELETING)
+		// Let the component clean itself up properly
 		qdel(swarm)
 
 	// Clear all references
@@ -227,6 +221,7 @@
 	directive = null
 	faction = null
 	poison_type = null
+	active_callbacks = null
 
 	return ..()
 
@@ -291,8 +286,9 @@
 				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
 								span_italic("You hear something scampering through the ventilation ducts."))
 
-			// FIXED: Use addtimer instead of spawn, with proper cleanup
+			// Store weakref for callbacks to check
 			var/ourref = WEAKREF(src)
+			// Start the vent travel - callbacks will self-check if we're deleted
 			addtimer(CALLBACK(src, PROC_REF(vent_travel_stage1), ourref, exit_vent, entry_vent), rand(20,60))
 	else if(prob(33))
 		var/list/nearby = oview(10, src)
@@ -312,7 +308,6 @@
 		amount_grown += rand(0,2)
 		if(amount_grown >= 100)
 			grow_into_spider()
-
 
 /obj/structure/spider/cocoon
 	name = "cocoon"

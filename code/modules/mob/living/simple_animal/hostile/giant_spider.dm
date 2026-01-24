@@ -161,33 +161,14 @@
 	set_directive = new
 	set_directive.Grant(src)
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Destroy()
 	// Clear cocoon target reference
 	cocoon_target = null
 
-	// CRITICAL FIX: Properly clean up wrap ability
-	if(wrap)
-		// First remove it from our abilities list
-		abilities -= wrap
-
-		// If it's our ranged ability, clear that too
-		if(ranged_ability == wrap)
-			ranged_ability = null
-
-		// Clear the wrap's reference to us
-		if(wrap.ranged_ability_user == src)
-			wrap.ranged_ability_user = null
-
-		// Clear action owner reference
-		if(wrap.action)
-			if(wrap.action.owner == src)
-				wrap.action.owner = null
-			// Remove action from our action list
-			if(wrap.action in actions)
-				actions -= wrap.action
-
-		// Now it's safe to delete
-		QDEL_NULL(wrap)
+	// CRITICAL FIX: Do NOT qdel the wrap here - let parent handle it
+	// Just clear the reference to break the cycle
+	wrap = null
 
 	// Clear actions with proper cleanup
 	if(lay_eggs)
@@ -476,23 +457,35 @@
 	action = new(src)
 
 /obj/effect/proc_holder/wrap/Destroy()
-	// Clear ranged ability user FIRST before any other cleanup
+	// CRITICAL: Clear ALL references that might keep this alive
+	
+	// Clear from user's ranged ability AND click intercept
 	if(ranged_ability_user)
-		// If we're the active ranged ability, remove ourselves properly
+		// Remove from their abilities list
+		if(ranged_ability_user.abilities)
+			ranged_ability_user.abilities -= src
+		// If we're their active ranged ability, clear it
 		if(ranged_ability_user.ranged_ability == src)
 			ranged_ability_user.ranged_ability = null
+		// If we're their click intercept, clear it
+		if(ranged_ability_user.click_intercept == src)
+			ranged_ability_user.click_intercept = null
 		ranged_ability_user = null
 
-	// Clear the action's owner reference BEFORE deleting
+	// Clear the action completely
 	if(action)
+		// Remove from owner's action list
 		if(action.owner)
-			// Remove from owner's action list
 			if(action.owner.actions)
 				action.owner.actions -= action
-			// Clear the reference
 			action.owner = null
-		qdel(action)
-		action = null
+		// Delete the action
+		QDEL_NULL(action)
+
+	// Clear any other vars
+	active = FALSE
+	has_action = FALSE
+	
 	return ..()
 
 /obj/effect/proc_holder/wrap/update_icon()

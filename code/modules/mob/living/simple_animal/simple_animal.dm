@@ -343,70 +343,40 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		SSnpcpool.currentrun -= src
 	sever_link_to_nest()
 
-	// Properly clean up proc holders BEFORE calling parent
+	// CRITICAL FIX: Properly clean up ALL proc holders and abilities BEFORE calling parent
 	// This prevents circular references that block GC
 
-	// Clean up make_a_nest
-	if(make_a_nest)
-		// Remove from abilities list first
-		if(abilities)
-			abilities -= make_a_nest
-		// Clear cross-references
-		if(make_a_nest.ranged_ability_user == src)
-			make_a_nest.ranged_ability_user = null
-		if(make_a_nest.action)
-			if(make_a_nest.action.owner == src)
-				make_a_nest.action.owner = null
-			if(actions && (make_a_nest.action in actions))
-				actions -= make_a_nest.action
-		QDEL_NULL(make_a_nest)
+	// Clean up ALL abilities generically first (catches any we might have missed)
+	if(abilities && LAZYLEN(abilities))
+		var/list/abilities_copy = abilities.Copy()
+		abilities = null // Clear the list to break references
 
-	// Clean up unmake_a_nest
-	if(unmake_a_nest)
-		if(abilities)
-			abilities -= unmake_a_nest
-		if(unmake_a_nest.ranged_ability_user == src)
-			unmake_a_nest.ranged_ability_user = null
-		if(unmake_a_nest.action)
-			if(unmake_a_nest.action.owner == src)
-				unmake_a_nest.action.owner = null
-			if(actions && (unmake_a_nest.action in actions))
-				actions -= unmake_a_nest.action
-		QDEL_NULL(unmake_a_nest)
+		for(var/obj/effect/proc_holder/ability in abilities_copy)
+			// Clear cross-references
+			if(ability.ranged_ability_user == src)
+				ability.ranged_ability_user = null
+			if(ability.action)
+				if(ability.action.owner == src)
+					ability.action.owner = null
+				// Don't need to remove from actions list since we're clearing it below
+			qdel(ability)
 
-	// Clean up send_mobs
-	if(send_mobs)
-		if(abilities)
-			abilities -= send_mobs
-		if(send_mobs.ranged_ability_user == src)
-			send_mobs.ranged_ability_user = null
-		if(send_mobs.action)
-			if(send_mobs.action.owner == src)
-				send_mobs.action.owner = null
-			if(actions && (send_mobs.action in actions))
-				actions -= send_mobs.action
-		QDEL_NULL(send_mobs)
+	// Clean up ALL actions
+	if(actions && LAZYLEN(actions))
+		var/list/actions_copy = actions.Copy()
+		actions = null // Clear the list to break references
+		
+		for(var/datum/action/act in actions_copy)
+			if(act.owner == src)
+				act.owner = null
+			qdel(act)
 
-	// Clean up call_backup
-	if(call_backup)
-		if(abilities)
-			abilities -= call_backup
-		if(call_backup.ranged_ability_user == src)
-			call_backup.ranged_ability_user = null
-		if(call_backup.action)
-			if(call_backup.action.owner == src)
-				call_backup.action.owner = null
-			if(actions && (call_backup.action in actions))
-				actions -= call_backup.action
-		QDEL_NULL(call_backup)
-
-	// Clean up ghostme action
-	if(ghostme)
-		if(ghostme.owner == src)
-			ghostme.owner = null
-		if(actions && (ghostme in actions))
-			actions -= ghostme
-		QDEL_NULL(ghostme)
+	// Now clean up the specific references we keep
+	make_a_nest = null
+	unmake_a_nest = null
+	send_mobs = null
+	call_backup = null
+	ghostme = null
 
 	// Clean up mob spawner lists
 	LAZYREMOVE(GLOB.mob_spawners[initial(name)], src)
@@ -428,6 +398,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	QDEL_NULL(access_card)
 
 	return ..()
+
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(lazarused)
