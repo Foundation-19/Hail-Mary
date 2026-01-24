@@ -342,10 +342,73 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	if (SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
 		SSnpcpool.currentrun -= src
 	sever_link_to_nest()
+
+	// Properly clean up proc holders BEFORE calling parent
+	// This prevents circular references that block GC
+
+	// Clean up make_a_nest
 	if(make_a_nest)
+		// Remove from abilities list first
+		if(abilities)
+			abilities -= make_a_nest
+		// Clear cross-references
+		if(make_a_nest.ranged_ability_user == src)
+			make_a_nest.ranged_ability_user = null
+		if(make_a_nest.action)
+			if(make_a_nest.action.owner == src)
+				make_a_nest.action.owner = null
+			if(actions && (make_a_nest.action in actions))
+				actions -= make_a_nest.action
 		QDEL_NULL(make_a_nest)
+
+	// Clean up unmake_a_nest
 	if(unmake_a_nest)
+		if(abilities)
+			abilities -= unmake_a_nest
+		if(unmake_a_nest.ranged_ability_user == src)
+			unmake_a_nest.ranged_ability_user = null
+		if(unmake_a_nest.action)
+			if(unmake_a_nest.action.owner == src)
+				unmake_a_nest.action.owner = null
+			if(actions && (unmake_a_nest.action in actions))
+				actions -= unmake_a_nest.action
 		QDEL_NULL(unmake_a_nest)
+
+	// Clean up send_mobs
+	if(send_mobs)
+		if(abilities)
+			abilities -= send_mobs
+		if(send_mobs.ranged_ability_user == src)
+			send_mobs.ranged_ability_user = null
+		if(send_mobs.action)
+			if(send_mobs.action.owner == src)
+				send_mobs.action.owner = null
+			if(actions && (send_mobs.action in actions))
+				actions -= send_mobs.action
+		QDEL_NULL(send_mobs)
+
+	// Clean up call_backup
+	if(call_backup)
+		if(abilities)
+			abilities -= call_backup
+		if(call_backup.ranged_ability_user == src)
+			call_backup.ranged_ability_user = null
+		if(call_backup.action)
+			if(call_backup.action.owner == src)
+				call_backup.action.owner = null
+			if(actions && (call_backup.action in actions))
+				actions -= call_backup.action
+		QDEL_NULL(call_backup)
+
+	// Clean up ghostme action
+	if(ghostme)
+		if(ghostme.owner == src)
+			ghostme.owner = null
+		if(actions && (ghostme in actions))
+			actions -= ghostme
+		QDEL_NULL(ghostme)
+
+	// Clean up mob spawner lists
 	LAZYREMOVE(GLOB.mob_spawners[initial(name)], src)
 	if(!LAZYLEN(GLOB.mob_spawners[initial(name)]))
 		GLOB.mob_spawners -= initial(name)
@@ -353,7 +416,10 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		LAZYREMOVE(GLOB.mob_spawners["Tame [initial(name)]"], src)
 		if(!LAZYLEN(GLOB.mob_spawners["Tame [initial(name)]"]))
 			GLOB.mob_spawners -= "Tame [initial(name)]"
+
+	// Clear weakrefs
 	lazarused_by = null
+	nest = null
 
 	var/turf/T = get_turf(src)
 	if (T && AIStatus == AI_Z_OFF)
@@ -362,7 +428,6 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	QDEL_NULL(access_card)
 
 	return ..()
-
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(lazarused)
