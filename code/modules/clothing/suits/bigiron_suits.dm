@@ -1877,7 +1877,7 @@
 	icon_state = "atlanticguard"
 	item_state = "atlanticguard"
 
-/obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+/obj/item/clothing/suit/armor/medium/duster/minutemen
 	name = "minutemen coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
 	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
@@ -2923,6 +2923,9 @@
 	icon_state = "elite_riot"
 	item_state = "elite_riot"
 	icon = 'icons/obj/clothing/suits.dmi'
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor = ARMOR_VALUE_SALVAGE
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/heavy/riot/eliteweak
 	name = "worn elite riot gear"
@@ -3480,8 +3483,42 @@
 	desc = "An advanced suit of armor typically used by the Enclave.<br>It is composed of lightweight metal alloys, reinforced with ceramic castings at key stress points.<br>Additionally, like the T-51b power armor, it includes a recycling system that can convert human waste into drinkable water, and an air conditioning system for its user's comfort."
 	icon_state = "advpowerarmor1"
 	item_state = "advpowerarmor1"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor_tier_desc = ARMOR_CLOTHING_PA
+	clothing_flags = CUSHIONED_ARMOR
+	stiffness = MEDIUM_STIFFNESS
+	deflect_damage = 20
 
+/obj/item/clothing/suit/armor/power_armor/advanced/hellfire
+	name = "hellfire power armor"
+	desc = "An advanced suit of armor typically used by higher ranking members of the Enclave."
+	icon_state = "hellfire"
+	item_state = "hellfire"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 82, "energy" = 55, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
+
+/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/super_advanced_pa//made for admins, do not use.
+	name = "super advanced power armor"
+	desc = "A suit of power armor made by somebody who has access to technology that could easily render the barren wasteland a lush fertile jungle, and yet said technology is used for war, because war, war never changes."
+	icon_state = "superadvanced"
+	item_state = "superadvanced"
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
+	armor = list("melee" = 90, "bullet" = 90, "laser" = 90, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
+
+/obj/item/clothing/suit/armor/power_armor/advanced/ultracite
+	name = "ultracite power armor"
+	desc = "An advanced suit of armor made out of space age alloys, this suit was made after the bombs fell by replacing most of the protective plating from the advanced power armor MK2 with something better, ultracite."
+	icon_state = "ultracitepa"
+	item_state = "ultracitepa"
+	armor = list("melee" = 84, "bullet" = 84, "laser" = 65, "energy" = 20, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 50,)
+
+/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/tesla
+	name = "tesla power armor"
+	desc = "An already incredibly advanced suit of armor enhanced further with tesla coils and electricity churning through it making it stronger."
+	icon_state = "tesla"
+	item_state = "tesla"
+	armor = list("melee" = 83, "bullet" = 83, "laser" = 83, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	deflect_damage = 21
 
 //Peacekeeper armor adjust as needed
 /obj/item/clothing/suit/armor/power_armor/advanced/x02
@@ -3490,7 +3527,7 @@
 	icon_state = "advanced"
 	item_state = "advanced"
 	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/x02 // Oh the misery
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3, ARMOR_MODIFIER_UP_DT_T3)
+	armor = list("melee" = 81, "bullet" = 81, "laser" = 81, "energy" = 57, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 60,)
 
 /obj/item/clothing/suit/toggle/armor
 	// body_parts_covered = CHEST|GROIN

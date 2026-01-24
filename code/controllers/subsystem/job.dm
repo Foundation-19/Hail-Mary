@@ -704,7 +704,7 @@ SUBSYSTEM_DEF(job)
 	else
 		var/msg = "Unable to send mob [M] to late join!"
 		message_admins(msg)
-		CRASH(msg)
+		return FALSE
 
 #define DISPLACEABLE_SLOTS list(\
 	SLOT_BACK,\

@@ -975,7 +975,7 @@ Mayor
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	belt = /obj/item/storage/belt/army/assault
 	uniform = /obj/item/clothing/under/f13/minutemen
-	suit = /obj/item/clothing/suit/armor/medium/duster/trenchcoat/minutemen
+	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen
 	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen

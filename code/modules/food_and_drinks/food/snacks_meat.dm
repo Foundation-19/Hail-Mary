@@ -6,7 +6,7 @@
 /obj/item/reagent_containers/food/snacks/cubancarp
 	name = "\improper Cuban carp"
 	desc = "A sandwich that burns your tongue and then leaves it numb!"
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "cubancarp"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
 	bitesize = 3
@@ -16,7 +16,7 @@
 	foodtype = MEAT
 
 /obj/item/reagent_containers/food/snacks/fishmeat
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfillet"
 	bitesize = 6
 	filling_color = "#FA8072"
@@ -47,37 +47,37 @@
 /obj/item/reagent_containers/food/snacks/fishmeat/salmon/cooked
 	name = "cooked salmon fillet"
 	desc = "A gorgeously cooked salmon fillet that has a sear that is to die for."
-	icon = 'icons/obj/fish/seafood.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "smokedsalmon"
 
 /obj/item/reagent_containers/food/snacks/fishmeat/crawdad
 	name = "crawdad meat"
 	desc = "Raw crawdad meat that has been prepared."
-	icon = 'icons/obj/fish/food.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "raw_crawdad_meat"
 	cooked_type = /obj/item/reagent_containers/food/snacks/fishmeat/crawdad/cooked
 
 /obj/item/reagent_containers/food/snacks/fishmeat/crawdad/cooked
 	name = "cooked crawdad meat"
 	desc = "A deliciously cooked crawdad, all ready to consume."
-	icon = 'icons/obj/fish/food.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "crawdad_steamed_simple"
 
 /obj/item/reagent_containers/food/snacks/fishmeat/shrimp
 	name = "shrimp"
 	desc = "Shrimp that has been prepared to be eaten raw."
-	icon = 'icons/obj/fish/seafood.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimp_raw"
 	cooked_type = /obj/item/reagent_containers/food/snacks/fishmeat/shrimp/cooked
 
 /obj/item/reagent_containers/food/snacks/fishmeat/shrimp/cooked
 	name = "cooked shrimp"
 	desc = "Shrimp that has been prepared and then cooked."
-	icon = 'icons/obj/fish/seafood.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "shrimp_cooked"
 
 /obj/item/reagent_containers/food/snacks/fishing
-	icon = 'icons/obj/fish/food.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 
 /obj/item/reagent_containers/food/snacks/fishing/lobster_deluxe
 	name = "lobster deluxe"
@@ -100,7 +100,7 @@
 /obj/item/reagent_containers/food/snacks/fishfingers
 	name = "fish fingers"
 	desc = "A finger of fish."
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishfingers"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
@@ -112,7 +112,7 @@
 /obj/item/reagent_containers/food/snacks/fishandchips
 	name = "fish and chips"
 	desc = "I do say so myself chap."
-	icon = 'icons/obj/food/meat.dmi'
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fishandchips"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
@@ -123,6 +123,7 @@
 /obj/item/reagent_containers/food/snacks/fishfry
 	name = "fish fry"
 	desc = "All that and no bag of chips..."
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "fish_fry"
 	list_reagents = list (/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 3)
 	filling_color = "#ee7676"
@@ -161,6 +162,7 @@
 /obj/item/reagent_containers/food/snacks/sushi_adv
 	name = "funa nigiri"
 	desc = "A peace  of carp lightly placed on some rice."
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushie_adv"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6)
@@ -172,6 +174,7 @@
 /obj/item/reagent_containers/food/snacks/sushi_pro
 	name = "funa nigiri"
 	desc = "A well prepared peace  of the best of the carp fillet placed on rice. Looks fancy and fresh!"
+	icon = 'icons/obj/food/seafood.dmi'
 	icon_state = "sushie_pro"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/consumable/nutriment/vitamin = 2)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 6, /datum/reagent/consumable/nutriment/vitamin = 2)
