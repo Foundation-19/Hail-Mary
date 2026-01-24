@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	H.put_in_hands(spraycan)
 	H.equip_to_slot(spraycan, SLOT_IN_BACKPACK)
 	H.regenerate_icons()
-/*
+
 /datum/quirk/technophreak
 	name = "Technophreak"
 	desc = "You're skilled at breaking down old-war rubble more precisely, and therefore you gain more salvage from cars and piles than before. Your time with understanding complex technology also \
@@ -411,7 +411,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		if(!H.mind.learned_recipes)
 			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
-*/
+
 /datum/quirk/voracious
 	name = "Bottomless Stomach"
 	desc = "Nothing gets between you and your food. You eat twice as fast as everyone else!"
@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel like swinging for the outfield!")
 	lose_text = span_danger("You feel like skipping practice.")
 	locked = TRUE
-
+*/
 /datum/quirk/chemwhiz
 	name = "Chem Whiz"
 	desc = "You've been playing around with chemicals all your life. You know how to use chemistry machinery."
@@ -540,7 +540,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You forget how Power Armor works.")
 	locked = TRUE
 
-
+/*
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
 	desc = "You've spent a lot of time wandering the wastes, and for your hard work you out pace most folks when travelling across them."
@@ -635,7 +635,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel yourself discovering the basics of the human body.")
 	lose_text = span_danger("You forget how to perform even the simplest surgery.")
 	locked = FALSE
-/*
+
 /datum/quirk/explosive_crafting
 	name = "Explosives Crafting"
 	desc = "You have strong feelings about the future of industrial society."
@@ -659,7 +659,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		H.mind.learned_recipes -= GLOB.basic_explosive_recipes
 		H.mind.learned_recipes -= GLOB.adv_explosive_recipes
 
-
+/*
 /datum/quirk/lick_heal
 	name = "Soothing Saliva"
 	desc = "Your saliva has a mild healing effect on burns and bruises. Use *lick to lick your injuries."
