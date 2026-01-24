@@ -1050,14 +1050,6 @@
 	traitname = "Power Armor"
 	remarks = list("Daily maintenance is essential, clean and repair your suit often.", "Don't let overconfidence kill you, you are not invincible.", "Mechanized infantry should always be supported by regular infantry.", "You move slowly, pay attention to your position relative to the enemy.", "You are always vulnerable to ambush, do not rest in the field.", "AP rounds will shred your suit, you are not invincible.")
 
-/obj/item/book/granter/trait/chauffeur
-	name = "Big Bill's Guide to Cars"
-	desc = "A guide to learn how to drive cars."
-	oneuse = TRUE
-	granted_trait = TRAIT_CHAUFFEUR
-	traitname = "Chauffeur"
-	remarks = list("Start the car.", "Keep your hands on the wheel.", "Press the pedal.", "Carefull when shifting!", "Respect the speed limit.", "Challenge pissing, huh ?",)
-
 /obj/item/book/granter/trait/pilot
 	name = "Vertibird Valkiries : The Balkan War"
 	desc = "A comic book, with a guide to learn how to fly vertibirds. And balloons."

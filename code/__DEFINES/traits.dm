@@ -333,8 +333,6 @@
 #define TRAIT_EXPLOSIVE_CRAFTING "explosive_crafting" //can craft explosives and bombs
 #define TRAIT_ADVANCED_EXPLOSIVE_CRAFTING "advanced explosive crafting" //can craft almost all kinds of explosives
 #define TRAIT_PILOT 			"pilot" //For Vertibird use
-#define TRAIT_CHAUFFEUR 		"chauffeur" //For cars use. OHOH, IM FRENCH 
-
 /*
 #define TRAIT_HEAL_TONGUE "healing tongue"
 /// Lets your tongue apply awful bandages to limbs
