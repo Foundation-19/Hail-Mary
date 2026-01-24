@@ -29,7 +29,7 @@ MAP_REMOVE_JOB(eastwood/f13mayor)
 MAP_REMOVE_JOB(eastwood/f13secretary)
 MAP_REMOVE_JOB(eastwood/f13sheriff)
 MAP_REMOVE_JOB(eastwood/f13deputy)
-MAP_REMOVE_JOB(eastwood/f13prospector)
+/*MAP_REMOVE_JOB(eastwood/f13prospector)*/
 MAP_REMOVE_JOB(eastwood/f13dendoc)
 MAP_REMOVE_JOB(eastwood/f13detective)
 MAP_REMOVE_JOB(eastwood/f13banker)

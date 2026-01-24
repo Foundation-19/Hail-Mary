@@ -23271,6 +23271,10 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building/powered)
+"dYs" = (
+/obj/structure/simple_door/room,
+/turf/closed/wall/f13/wood,
+/area/f13/city)
 "dYE" = (
 /obj/machinery/light/small/broken{
 	dir = 1
@@ -30729,9 +30733,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
 "hhg" = (
-/obj/structure/table/wood/bar,
-/obj/machinery/microwave,
-/turf/open/floor/f13/wood,
+/turf/open/transparent/openspace,
 /area/f13/city)
 "hhk" = (
 /obj/structure/flora/ausbushes/reedbush,
@@ -34152,8 +34154,10 @@
 	},
 /area/f13/wasteland)
 "iIB" = (
-/obj/structure/table/wood/bar,
-/obj/item/paper_bin,
+/obj/structure/closet/locker,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
+/obj/item/storage/bag/ore,
 /turf/open/floor/f13/wood,
 /area/f13/city)
 "iIJ" = (
@@ -37832,7 +37836,10 @@
 	},
 /area/f13/building)
 "ktA" = (
-/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/machinery/mineral/ore_redemption,
+/obj/machinery/light/small{
+	dir = 4
+	},
 /turf/open/floor/f13/wood,
 /area/f13/city)
 "ktD" = (
@@ -57678,8 +57685,7 @@
 	},
 /area/f13/building/hospital)
 "thP" = (
-/obj/structure/closet/cabinet,
-/obj/item/clothing/under/f13/cowboyb,
+/obj/machinery/mineral/wasteland_vendor/mining,
 /turf/open/floor/f13/wood,
 /area/f13/city)
 "thW" = (
@@ -62600,10 +62606,12 @@
 	},
 /area/f13/wasteland)
 "vos" = (
-/obj/item/storage/trash_stack{
-	layer = 2
-	},
-/turf/open/indestructible/ground/outside/dirt,
+/obj/structure/closet/locker,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/obj/item/pickaxe,
+/turf/open/floor/f13/wood,
 /area/f13/city)
 "voA" = (
 /obj/structure/closet,
@@ -66881,6 +66889,10 @@
 	icon_state = "verticalinnermain1"
 	},
 /area/f13/wasteland)
+"xpq" = (
+/obj/effect/landmark/start/f13/prospector,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "xpy" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/head/helmet/gladiator,
@@ -100774,9 +100786,9 @@ ggO
 qZU
 iFh
 iFh
-iFh
 xvy
-sAz
+xvy
+xvy
 xvy
 iFh
 iFh
@@ -101031,11 +101043,11 @@ oYF
 hYt
 wea
 wea
+xvy
 vos
+iIB
 xvy
-jeh
-xvy
-xvy
+wea
 wea
 wea
 wea
@@ -101289,10 +101301,10 @@ qZU
 wea
 wea
 xvy
-xvy
 jeh
-ktA
+jeh
 xvy
+dYs
 xvy
 wea
 wea
@@ -101546,10 +101558,10 @@ qZU
 xcm
 wea
 xvy
-wPt
+xpq
+hhg
 jeh
 jeh
-cnG
 xvy
 wea
 aZw
@@ -101805,8 +101817,8 @@ wea
 xvy
 jeh
 jeh
-ihK
-iIB
+jeh
+jeh
 xvy
 jpO
 sAv
@@ -102061,9 +102073,9 @@ wea
 ilL
 xvy
 thP
-jeh
-jeh
-hhg
+ktA
+cnG
+cnG
 xvy
 wea
 wea
