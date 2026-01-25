@@ -16983,8 +16983,7 @@
 /obj/structure/table/wood/junk,
 /obj/item/reagent_containers/food/snacks/meat/steak/gecko,
 /obj/item/reagent_containers/food/snacks/meat/steak/gecko{
-	pixel_y = 13;
-	pixel_z = -5
+	pixel_y = 8
 	},
 /obj/item/reagent_containers/food/snacks/meat/steak/gecko{
 	pixel_y = 15;
