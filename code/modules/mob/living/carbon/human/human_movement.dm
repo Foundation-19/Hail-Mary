@@ -19,8 +19,8 @@
 	if(m_intent == MOVE_INTENT_WALK && HAS_TRAIT(src, TRAIT_SPEEDY_STEP))
 		. -= 1.25
 	if(HAS_TRAIT(src, TRAIT_SMUTANT))
-		. += 0.075
-	. += 1 // Universal human slowdown
+		. += 0
+	. += 0.7 // Universal human slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
