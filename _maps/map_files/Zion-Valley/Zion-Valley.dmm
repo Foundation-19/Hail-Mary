@@ -4549,10 +4549,6 @@
 /turf/open/floor/wood_common,
 /area/f13/building)
 "bhP" = (
-/obj/structure/chair{
-	dir = 1;
-	tag = "icon-chair (NORTH)"
-	},
 /obj/machinery/light/small{
 	dir = 4
 	},
@@ -5267,8 +5263,7 @@
 /area/f13/building)
 "bua" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -7252,13 +7247,6 @@
 	icon_state = "dirtfull"
 	},
 /area/f13/wasteland/badlands)
-"cav" = (
-/obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
-	},
-/turf/open/floor/wood_common,
-/area/f13/building)
 "caD" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 6
@@ -9634,9 +9622,7 @@
 /area/f13/building)
 "cKR" = (
 /obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbroken";
-	tag = "icon-housewindowbroken"
+	icon_state = "housewindowbroken"
 	},
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/f13{
@@ -10631,9 +10617,7 @@
 /area/f13/building)
 "cZF" = (
 /obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbroken";
-	tag = "icon-housewindowbroken"
+	icon_state = "housewindowbroken"
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/building)
@@ -13864,8 +13848,7 @@
 /area/f13/caves)
 "ebj" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -15791,8 +15774,7 @@
 /area/f13/building)
 "eJh" = (
 /obj/structure/chair/comfy{
-	dir = 8;
-	tag = "icon-comfychair (WEST)"
+	dir = 8
 	},
 /turf/open/floor/wood_common,
 /area/f13/building)
@@ -16868,8 +16850,7 @@
 /area/f13/building)
 "eXN" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirtcorner";
@@ -17631,8 +17612,7 @@
 "fiL" = (
 /obj/structure/flora/tree/tall{
 	icon_state = "tree_3";
-	pixel_y = -11;
-	tag = "icon-tree_3"
+	pixel_y = -11
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/wasteland/badlands)
@@ -26973,8 +26953,7 @@
 /area/f13/wasteland/bighorn)
 "hZq" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /obj/machinery/light/small,
 /turf/open/floor/wood_common,
@@ -27880,7 +27859,6 @@
 "inm" = (
 /obj/structure/simple_door/house{
 	icon_state = "room";
-	tag = "icon-room";
 	name = "Savannah Union Mining"
 	},
 /turf/open/floor/wood_common,
@@ -28063,8 +28041,7 @@
 	density = 0;
 	icon_state = "tree_3";
 	pixel_x = -29;
-	pixel_y = 17;
-	tag = "icon-tree_3"
+	pixel_y = 17
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -32736,8 +32713,7 @@
 /area/f13/building/mall)
 "jMn" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/wasteland/badlands)
@@ -33722,8 +33698,7 @@
 "kbv" = (
 /obj/structure/chair/stool{
 	dir = 8;
-	icon_state = "bench";
-	tag = "icon-bench (WEST)"
+	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/wasteland/badlands)
@@ -34555,8 +34530,7 @@
 "kot" = (
 /obj/structure/flora/tree/tall{
 	icon_state = "tree_3";
-	pixel_y = -11;
-	tag = "icon-tree_3"
+	pixel_y = -11
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -40743,8 +40717,7 @@
 /area/f13/ncr)
 "mjh" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -43469,8 +43442,7 @@
 /area/f13/building)
 "mXL" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /obj/effect/decal/remains/human,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
@@ -47617,9 +47589,7 @@
 "onY" = (
 /obj/structure/barricade/bars,
 /obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbroken";
-	tag = "icon-housewindowbroken"
+	icon_state = "housewindowbroken"
 	},
 /turf/open/floor/wood_common,
 /area/f13/building)
@@ -54609,8 +54579,7 @@
 /area/f13/wasteland/badlands)
 "qrS" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -57460,9 +57429,7 @@
 /area/f13/building)
 "rlX" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_3";
-	pixel_y = 12;
-	tag = "icon-tree_3"
+	pixel_y = 12
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/wasteland/badlands)
@@ -63020,15 +62987,6 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland/badlands)
-"sTt" = (
-/obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
-	},
-/turf/open/floor/f13{
-	icon_state = "tealwhdirtychess2"
-	},
-/area/f13/building)
 "sTA" = (
 /obj/item/electropack/shockcollar,
 /turf/open/indestructible/ground/outside/dirt,
@@ -64448,8 +64406,7 @@
 /area/f13/ncr)
 "tqC" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -65681,13 +65638,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"tJf" = (
-/obj/structure/chair{
-	dir = 1;
-	tag = "icon-chair (NORTH)"
-	},
-/turf/open/floor/wood_common,
-/area/f13/building)
 "tJm" = (
 /obj/effect/lamp_post/traffic_light/right,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -68976,9 +68926,7 @@
 /area/f13/caves)
 "uLb" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_3";
-	pixel_y = 12;
-	tag = "icon-tree_3"
+	pixel_y = 12
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt"
@@ -69243,8 +69191,7 @@
 /area/f13/building)
 "uOI" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirtfull"
@@ -71158,8 +71105,7 @@
 /area/f13/building)
 "vtV" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirtcorner";
@@ -72913,8 +72859,7 @@
 /area/f13/caves)
 "vTy" = (
 /obj/structure/chair/comfy{
-	dir = 4;
-	tag = "icon-comfychair (EAST)"
+	dir = 4
 	},
 /turf/open/floor/wood_common,
 /area/f13/building)
@@ -77964,8 +77909,7 @@
 "xuC" = (
 /obj/structure/flora/tree/tall{
 	icon_state = "tree_3";
-	pixel_y = -11;
-	tag = "icon-tree_3"
+	pixel_y = -11
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirtcorner";
@@ -108704,7 +108648,7 @@ tem
 jzA
 ipm
 ckj
-cav
+lDk
 wfe
 jqZ
 tRx
@@ -176816,7 +176760,7 @@ tAG
 wkg
 mei
 cIk
-sTt
+bfN
 rjp
 mei
 noz
@@ -196914,7 +196858,7 @@ hGv
 bhP
 wfe
 fKK
-tJf
+uMx
 jMt
 wfe
 taS

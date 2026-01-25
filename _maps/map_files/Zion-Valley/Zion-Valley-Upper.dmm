@@ -250,8 +250,7 @@
 /area/f13/building)
 "aaH" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	tag = "icon-wooden_chair_settler (NORTH)"
+	dir = 1
 	},
 /mob/living/simple_animal/hostile/raider/ranged{
 	name = "Plaintiff"
@@ -260,8 +259,7 @@
 /area/f13/building)
 "aaI" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	tag = "icon-wooden_chair_settler (NORTH)"
+	dir = 1
 	},
 /mob/living/simple_animal/hostile/raider/junker{
 	name = "Accused"
@@ -936,13 +934,6 @@
 	icon_state = "dark"
 	},
 /area/f13/building)
-"amg" = (
-/obj/structure/chair/wood{
-	dir = 1;
-	tag = "icon-wooden_chair_settler (NORTH)"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/building)
 "amj" = (
 /obj/structure/flora/rock/jungle,
 /obj/structure/flora/grass/jungle/b,
@@ -1175,9 +1166,7 @@
 /area/f13/building)
 "awr" = (
 /obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbroken";
-	tag = "icon-housewindowbroken"
+	icon_state = "housewindowbroken"
 	},
 /obj/structure/barricade/bars,
 /obj/structure/decoration/rag{
@@ -5934,8 +5923,7 @@
 /area/f13/tribe)
 "eta" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /obj/machinery/light/small{
 	dir = 1
@@ -6373,8 +6361,8 @@
 "eNd" = (
 /obj/structure/flora/tree/tall{
 	icon_state = "tree_3";
-	pixel_y = 12;
-	tag = "icon-tree_3"
+	pixel_x = -31;
+	pixel_y = -11
 	},
 /turf/open/indestructible/ground/outside/dirt/dark,
 /area/f13/wasteland)
@@ -7568,9 +7556,7 @@
 /area/f13/city/bighorn)
 "fPv" = (
 /obj/structure/window/fulltile/house{
-	dir = 2;
-	icon_state = "housewindowbroken";
-	tag = "icon-housewindowbroken"
+	icon_state = "housewindowbroken"
 	},
 /obj/structure/barricade/bars,
 /obj/structure/decoration/rag{
@@ -22378,8 +22364,7 @@
 /area/f13/wasteland/bighorn)
 "rGx" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /turf/open/floor/f13{
 	icon_state = "whitegreenrustychess"
@@ -29224,8 +29209,7 @@
 /area/f13/building/mall)
 "xgd" = (
 /obj/structure/toilet{
-	dir = 8;
-	tag = "icon-toilet00 (WEST)"
+	dir = 8
 	},
 /turf/open/floor/f13{
 	icon_state = "bluedirtychess2"
@@ -90328,7 +90312,7 @@ man
 bkH
 dXD
 jme
-amg
+kbZ
 vxx
 iMb
 vxx
@@ -92838,7 +92822,7 @@ bui
 gkF
 dSe
 jme
-amg
+kbZ
 qul
 dXD
 kNA
