@@ -2,6 +2,11 @@
 
 MAP_REMOVE_JOB(ncr)
 MAP_REMOVE_JOB(CaesarsLegion)
-MAP_REMOVE_JOB(eastwood) 
+MAP_REMOVE_JOB(eastwood)
+MAP_REMOVE_JOB(rebels)
+MAP_REMOVE_JOB(ostia)
 MAP_REMOVE_JOB(khan)
 MAP_REMOVE_JOB(outlaw)
+MAP_REMOVE_JOB(vault)
+MAP_REMOVE_JOB(rebels)
+MAP_REMOVE_JOB(ostia)

@@ -18,6 +18,10 @@ map pahrump-only
 	voteweight 1
 endmap
 
+map mexico
+    voteweight 1
+endmap
+
 map baltimore
     disabled
 endmap

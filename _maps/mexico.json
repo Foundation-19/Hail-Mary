@@ -1,11 +1,10 @@
 {
-	"map_name": "Central Pahrump",
-	"map_path": "map_files/Pahrump-AB",
+	"map_name": "Mexico",
+	"map_path": "/map_files/Mexico",
 	"map_file": [
-		"Dungeons.dmm",
-		"Pahrump-AB-Lower.dmm",
-		"Pahrump-AB.dmm",
-		"Pahrump-AB-Upper.dmm"
+		"mexico_surface.dmm",
+		"mexico_underground.dmm",
+		"mexico_above.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -16,27 +15,18 @@
 		"ferry": "ferry_fancy"
 	},
 	"traits":[
-		{
-			"Gravity": true,
-			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Up": 1,
-			"No Parallax": true,
-			"Linkage" : null,
-			"Name": "Dungeons"
-		},
 
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Dungeons": true,
 			"Up": 1,
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Lower Yuma",
-			"Force X": 1,
-			"Force Y": 1,
-			"Force Z": 0
+			"Name": "Surface",
+			"Force X": 2,
+			"Force Y": 2,
+			"Force Z": 1
 		},
 
 		{
@@ -47,37 +37,41 @@
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Yuma",
-			"Force X": 1,
-			"Force Y": 1,
-			"Force Z": 1
+			"Name": "Underground",
+			"Force X": 2,
+			"Force Y": 2,
+			"Force Z": 0
 		},
+
 
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/transparent/openspace",
+			"Up": 1,
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
 			"Above": true,
-			"Name": "Yuma - Upper",
-			"Force X": 1,
-			"Force Y": 1,
+			"Name": "Above",
+			"Force X": 2,
+			"Force Y": 2,
 			"Force Z": 2
 		}
+
 	],
 	"minetype": "none",
-	"removed_jobs": [
-		"enclave.dm",
-		"atlantic_cross.dm",
-		"locust_point.dm",
-		"ostia.dm",
-		"vault.dm",
+	"added_jobs": [
 		"rebels.dm",
-		"Redwater Resident",
-		"Redwater Watcher",
-		"Redwater Resident",
-		"outlaws.dm",
-		"khan.dm"
+		"ostia.dm",
+		"legion.dm",
+		"vault.dm"
+	],
+	"removed_jobs": [
+		"eastwood.dm",
+		"ncr.dm",
+		"enclave.dm",
+		"bos.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm"
 	]
 }

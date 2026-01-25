@@ -1,8 +1,8 @@
-/*
+
 AI
-*/
+
 /datum/job/ai
-	title = "AI"
+	title = "Vault 44 God AI"
 	flag = AI_JF
 	department_flag = VAULT
 	//
@@ -11,8 +11,7 @@ AI
 	selection_color = "#ccffcc"
 	supervisors = "your laws"
 	req_admin_notify = TRUE
-	minimal_player_age = 30
-	exp_requirements = 180
+	exp_requirements = 0
 	exp_type = EXP_TYPE_CREW
 	exp_type_department = EXP_TYPE_SILICON
 	display_order = JOB_DISPLAY_ORDER_AI
@@ -73,6 +72,8 @@ AI
 /datum/job/ai/config_check()
 	return CONFIG_GET(flag/allow_ai)
 
+
+
 /*
 Cyborg
 */
@@ -81,8 +82,8 @@ Cyborg
 	flag = F13CYBORG
 	department_flag = CYBORG
 	faction = FACTION_WASTELAND
-	total_positions = 5
-	spawn_positions = 1
+	total_positions = 3
+	spawn_positions = 3
 	selection_color = "#ddffdd"
 
 
@@ -103,9 +104,9 @@ Mr. Handy
 	flag = CYBORG
 	department_flag = ENGSEC
 	//
-	total_positions = 5
+	total_positions = 3
 	spawn_positions = 1
-	supervisors = "Your Creators"	//Nodrak
+	supervisors = "Your Creators, Vaut-Tec 44"	//Nodrak
 	selection_color = "#ddffdd"
 
 /datum/job/cyborg/equip(mob/living/carbon/human/H, visualsOnly = FALSE, announce = TRUE, latejoin = FALSE, datum/outfit/outfit_override = null, client/preference_source)

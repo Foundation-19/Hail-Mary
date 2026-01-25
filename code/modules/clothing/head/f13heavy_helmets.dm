@@ -70,6 +70,16 @@
 	slowdown = 0
 	resistance_flags = LAVA_PROOF | FIRE_PROOF
 
+//Vault Tech
+
+/obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/vault
+	name = "salvaged Vault-Tec Power Armor helmet"
+	desc = "Normaly used for vault construction, this is now the helmet of the Master Warrior."
+	icon_state = "vaultpahelm"
+	item_state = "vaultpahelm"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1)
+	color = "#e3d2c6"
+
 
 // T-45D
 /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45d

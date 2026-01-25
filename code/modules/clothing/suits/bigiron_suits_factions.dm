@@ -75,6 +75,12 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	icon_state = "ncrexile"
 	item_state = "ncrexile"
 
+/obj/item/clothing/suit/armor/exile/ncrexile/ironwave
+	name = "Ironwave armor"
+	desc = "A modified armor kit consisting of NCR gear and scrap metal."
+	icon_state = "ncrexile"
+	item_state = "ncrexile"
+
 /obj/item/clothing/suit/armor/exile/legexile
 	name = "modified Legion armor"
 	desc = "A modified detoriated armor kit consisting of Legion gear and scrap metal."
@@ -142,6 +148,20 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "Issued to slave masters to keep them cool during long hours of watching the slaves work in the sun."
 	icon_state = "legion-master"
 	item_state = "legion-master"
+
+/obj/item/clothing/suit/armor/legion/palacent/ostia
+	name = "Champion of Ostia Armor"
+	desc = "Once the armors of a Centurion, now the armor of a Governor, a civilian leader. The armor is made up of pieces of Power Armor and pre-war Riot Gear."
+	icon_state = "legion_gov"
+	item_state = "legion_gov"
+
+/obj/item/clothing/suit/armor/legion/centurion/praetorian 
+	name = "Trusted Praetorian Armor"
+	desc = "A token of the past. This armor worn by the Praetorian guard is now just a relic of they days served to protect caesar, now greatly rewarded."
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon_state = "legion_praetorian"
+	item_state = "legion_praetorian"
 
 /obj/item/clothing/suit/armor/legion/vet
 	name = "legion veteran armor"
@@ -1108,6 +1128,13 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	desc = "A captured set of T-45d power armor put into use by the NCR, it's been heavily modified and decorated with the head of a bear and intricate gold trimming. A two headed bear is scorched into the breastplate."
 	icon_state = "sierra"
 	item_state = "sierra"
+
+/obj/item/clothing/suit/armor/power_armor/vault
+	name = "salvaged Vault-Tec Power Armor"
+	desc = "Normaly used for vault construction, this is now the suit of the Master Warrior."
+	icon_state = "vaultpa"
+	item_state = "vaultpa"
+	color = "#e3d2c6"
 
 // Recipe Firesuit + metal chestplate + 50 welding fuel + 1 HQ + 1 plasteel
 /obj/item/clothing/suit/armor/heavy/metal/sulphite/old
