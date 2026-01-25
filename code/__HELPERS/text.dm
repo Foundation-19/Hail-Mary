@@ -84,7 +84,7 @@
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
 
 /proc/remove_html(t,limit=MAX_MESSAGE_LEN)
-	return copytext((sanitize(strip_html_complicated(t))),1,limit)
+	return copytext(strip_html_complicated(t))
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
