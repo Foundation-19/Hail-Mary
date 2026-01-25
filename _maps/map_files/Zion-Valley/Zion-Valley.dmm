@@ -10248,8 +10248,7 @@
 "cTu" = (
 /obj/structure/chair/stool{
 	dir = 4;
-	icon_state = "bench";
-	tag = "icon-bench (EAST)"
+	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/wasteland/badlands)
@@ -15389,9 +15388,7 @@
 /area/f13/wasteland)
 "eDa" = (
 /obj/structure/bed/wooden,
-/obj/item/bedsheet{
-	icon_state = "sheetbrown"
-	},
+/obj/item/bedsheet/brown,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken1"
 	},
@@ -41696,16 +41693,6 @@
 	icon_state = "dark"
 	},
 /area/f13/building)
-"mzh" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_3";
-	tag = "icon-tall_grass_3"
-	},
-/turf/open/indestructible/ground/outside/desert/harsh{
-	icon_state = "dirtcorner";
-	dir = 4
-	},
-/area/f13/wasteland/badlands)
 "mzi" = (
 /obj/machinery/workbench{
 	pixel_y = 4
@@ -48848,10 +48835,7 @@
 /area/f13/caves)
 "oIR" = (
 /obj/structure/bed,
-/obj/item/bedsheet{
-	icon_state = "sheetbrown";
-	tag = "icon-sheetbrown"
-	},
+/obj/item/bedsheet/brown,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken4"
 	},
@@ -78226,8 +78210,7 @@
 "xBG" = (
 /obj/structure/chair/stool{
 	dir = 4;
-	icon_state = "bench";
-	tag = "icon-bench (EAST)"
+	icon_state = "bench"
 	},
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/indestructible/ground/outside/gravel,
@@ -101510,7 +101493,7 @@ jqZ
 jqZ
 oVB
 dwH
-mzh
+pGR
 oVv
 oVv
 oVv
