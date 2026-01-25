@@ -20485,7 +20485,6 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
@@ -34302,7 +34301,6 @@
 "kle" = (
 /obj/structure/table,
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
@@ -37542,15 +37540,6 @@
 	icon_state = "innermaincornerinner - N"
 	},
 /area/f13/wasteland)
-"ljU" = (
-/obj/machinery/light/lamp_post/doubles/bent{
-	pixel_y = 1
-	},
-/turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
-	icon_state = "verticalleftborderleft0"
-	},
-/area/f13/wasteland)
 "lkb" = (
 /obj/structure/spacevine,
 /obj/structure/spacevine{
@@ -39039,7 +39028,6 @@
 "lIF" = (
 /obj/structure/wreck/trash/autoshaft,
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
@@ -44846,13 +44834,6 @@
 	icon_state = "horizontaltopborderbottom2right"
 	},
 /area/f13/wasteland/bighorn)
-"nvz" = (
-/obj/structure/car/rubbish2,
-/turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
-	icon_state = "verticalleftborderleft0"
-	},
-/area/f13/wasteland)
 "nvR" = (
 /obj/item/reagent_containers/food/drinks/beer,
 /turf/open/floor/plating/tunnel{
@@ -47950,7 +47931,6 @@
 	pixel_x = 5
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/bighorn)
@@ -49050,12 +49030,6 @@
 "oLE" = (
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt"
-	},
-/area/f13/wasteland)
-"oLF" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
-	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
 "oLO" = (
@@ -56055,7 +56029,6 @@
 "qON" = (
 /obj/machinery/light/lamp_post/doubles/bent,
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/bighorn)
@@ -67312,7 +67285,6 @@
 	pixel_y = 14
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
@@ -71066,13 +71038,6 @@
 	icon_state = "whiterustysolid"
 	},
 /area/f13/city/bighorn)
-"vth" = (
-/obj/effect/spawner/lootdrop/f13/junkspawners,
-/turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
-	icon_state = "verticalleftborderleft0"
-	},
-/area/f13/wasteland)
 "vtn" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -75863,8 +75828,7 @@
 	dir = 8
 	},
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -79875,7 +79839,6 @@
 	pixel_y = 18
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland/bighorn)
@@ -79907,12 +79870,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"ybO" = (
-/turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-verticalleftborderleft0";
-	icon_state = "verticalleftborderleft0"
-	},
-/area/f13/wasteland/bighorn)
 "ycc" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
@@ -103878,8 +103835,8 @@ qMi
 kLL
 rhO
 kHT
-oLF
-nvz
+gNl
+dTu
 oIX
 xZp
 jqZ
@@ -113026,11 +112983,11 @@ ulA
 ulA
 ejD
 ejG
-ljU
-oLF
-oLF
-oLF
-oLF
+snG
+gNl
+gNl
+gNl
+gNl
 kRC
 frN
 fbk
@@ -115213,8 +115170,8 @@ tpd
 hnn
 wgZ
 kle
-vth
-oLF
+kDP
+gNl
 ujX
 lIF
 dxO
@@ -134553,63 +134510,63 @@ ilc
 ilc
 tCs
 ejG
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 cCO
 oIh
 olS
@@ -135405,32 +135362,32 @@ ejG
 gNl
 gNl
 cCO
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 cCO
 rnp
 qlt
@@ -146047,27 +146004,27 @@ tsh
 jfl
 qlt
 ejG
-oLF
-ljU
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+snG
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 iKQ
 mcE
 qlt
@@ -148630,22 +148587,22 @@ dKq
 dKq
 tAG
 ejG
-ljU
+snG
 kHT
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 kHT
 kHT
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
 kHT
 kHT
 kHT
@@ -155687,12 +155644,12 @@ qiV
 kfA
 qiV
 uye
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 cCO
 jFX
 yjA
@@ -159707,8 +159664,8 @@ mei
 mei
 gaT
 gaT
-oLF
-oLF
+gNl
+gNl
 gaT
 tUW
 xTk
@@ -175111,7 +175068,7 @@ nQB
 nQB
 nQB
 nQB
-ybO
+wOK
 eaj
 vcK
 fqb
@@ -175119,7 +175076,7 @@ eaj
 eaj
 dqE
 kvX
-ybO
+wOK
 eaj
 eaj
 fqb
@@ -183175,7 +183132,7 @@ qvP
 nmx
 iyU
 fNX
-ybO
+wOK
 fNX
 bWU
 fsD
@@ -185159,33 +185116,33 @@ eaj
 eST
 dqE
 kvX
-ybO
+wOK
 vcK
 fqb
 fqb
 fqb
 eST
 imH
-ybO
+wOK
 ybl
-ybO
+wOK
 eaj
 fqb
 eST
-ybO
+wOK
 xEn
 xvn
 nmx
 faX
 cEL
-ybO
+wOK
 eaj
 eaj
 eaj
 eaj
 dqE
 kvX
-ybO
+wOK
 fqb
 eaj
 qWW
@@ -187668,9 +187625,9 @@ kvX
 eaj
 fqb
 eaj
-ybO
-ybO
-ybO
+wOK
+wOK
+wOK
 eaj
 fqb
 pIa
@@ -194770,23 +194727,23 @@ qlt
 qlt
 qlt
 ejG
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 cCO
 ejG
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 cCO
 kBr
 kBr
@@ -195201,10 +195158,10 @@ nmx
 mBW
 wVv
 kvX
-ybO
+wOK
 eaj
 uNR
-ybO
+wOK
 xEn
 jqZ
 jqZ
@@ -195255,18 +195212,18 @@ snG
 gNl
 gNl
 gNl
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 cCO
 qlt
 qlt
@@ -198751,14 +198708,14 @@ frN
 oYO
 dHw
 hzl
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
-oLF
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
+gNl
 mUt
 jGZ
 dHw
@@ -200711,8 +200668,8 @@ gtg
 gtg
 gtg
 jwW
-ybO
-ybO
+wOK
+wOK
 fqb
 eaj
 vcK
@@ -200722,8 +200679,8 @@ eaj
 eaj
 otQ
 eaj
-ybO
-ybO
+wOK
+wOK
 eaj
 eaj
 eaj
