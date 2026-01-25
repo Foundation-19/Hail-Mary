@@ -1,0 +1,83 @@
+{
+	"map_name": "Zion Valley",
+	"map_path": "map_files/Zion-Valley",
+	"map_file": [
+		"Zion-Valley-Dungeons.dmm",
+		"Zion-Valley-Lower.dmm",
+		"Zion-Valley.dmm",
+		"Zion-Valley-Upper.dmm"
+	],
+	"station_ruin_budget": 0,
+	"space_ruin_levels": 0,
+	"space_empty_levels": 0,
+	"shuttles": {
+		"cargo": "cargo_pahrump",
+		"emergency": "emergency_pahrump",
+		"ferry": "ferry_fancy"
+	},
+	"traits": [
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Up": 1,
+			"No Parallax": true,
+			"Linkage" : null,
+			"Name": "Dungeons"
+		},
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Dungeons": true,
+			"Up": 1,
+			"Down": 1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Lower Zion Valley",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 0
+		},
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Station": 1,
+			"Surface": true,
+			"Up": 1,
+			"Down": 1,
+			"No Parallax": true,
+			"Linkage": "Cross",
+			"Name": "Zion Valley",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 1
+		},
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/transparent/openspace",
+			"Down": 1,
+			"No Parallax": true,
+			"Linkage": "Cross",
+			"Above": true,
+			"Name": "Upper Zion Valley",
+			"Force X": 1,
+			"Force Y": 1,
+			"Force Z": 2
+		}
+	],
+	"minetype": "none",
+
+	"added_jobs":[
+		"bos.dm",
+		"ncr.dm",
+		"eastwood.dm",
+		"khan.dm",
+		"outlaw.dm"
+	],
+	"removed_jobs": [
+		"enclave.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm",
+		"mutants.dm",
+		"legion.dm"
+	]
+}
