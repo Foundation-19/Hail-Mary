@@ -18174,8 +18174,7 @@
 /area/f13/building)
 "fqZ" = (
 /obj/structure/chair/stool{
-	dir = 1;
-	icon_state = "bench"
+	dir = 1
 	},
 /turf/open/floor/f13{
 	icon_state = "bar"
@@ -22714,8 +22713,7 @@
 /area/f13/wasteland/ncr)
 "gKH" = (
 /obj/structure/chair/stool{
-	icon_state = "bench";
-	tag = "icon-bench"
+	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -22986,8 +22984,7 @@
 /area/f13/caves)
 "gPt" = (
 /obj/structure/chair/stool{
-	dir = 1;
-	icon_state = "bench"
+	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticaloutermain1"
@@ -27243,8 +27240,7 @@
 /area/f13/building/mall)
 "ieJ" = (
 /obj/structure/chair/stool{
-	icon_state = "bench";
-	tag = "icon-bench"
+	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirt";
@@ -39721,8 +39717,7 @@
 /area/f13/building)
 "lUf" = (
 /obj/structure/chair/stool{
-	icon_state = "bench";
-	tag = "icon-bench"
+	icon_state = "bench"
 	},
 /turf/open/floor/f13{
 	icon_state = "bar"
@@ -41924,9 +41919,7 @@
 /area/f13/building)
 "mCX" = (
 /obj/structure/chair/stool{
-	dir = 1;
-	icon_state = "bench";
-	tag = "icon-bench (NORTH)"
+	dir = 1
 	},
 /turf/open/indestructible/ground/outside/desert/harsh{
 	icon_state = "dirtfull"
@@ -56422,8 +56415,7 @@
 /area/f13/wasteland)
 "qVE" = (
 /obj/structure/chair/stool{
-	icon_state = "bench";
-	tag = "icon-bench"
+	icon_state = "bench"
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland)
@@ -64292,9 +64284,7 @@
 /area/f13/wasteland)
 "tpw" = (
 /obj/structure/chair/stool{
-	dir = 1;
-	icon_state = "bench";
-	tag = "icon-bench (NORTH)"
+	dir = 1
 	},
 /obj/effect/spawner/lootdrop/f13/armor/tier1,
 /obj/effect/decal/cleanable/ash,
@@ -65998,8 +65988,7 @@
 /area/f13/building/mall)
 "tOV" = (
 /obj/structure/chair/stool{
-	icon_state = "bench";
-	tag = "icon-bench"
+	icon_state = "bench"
 	},
 /obj/effect/turf_decal/weather/dirt{
 	dir = 9
@@ -70085,9 +70074,7 @@
 /area/f13/building)
 "vev" = (
 /obj/structure/chair/stool{
-	dir = 1;
-	icon_state = "bench";
-	tag = "icon-bench (NORTH)"
+	dir = 1
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/wasteland)
