@@ -20514,10 +20514,11 @@
 /turf/open/floor/carpet/royalblack,
 /area/f13/building)
 "gbW" = (
-/obj/structure/bed/mattress{
-	icon_state = "mattress6"
-	},
 /obj/item/reagent_containers/hypospray/medipen/stimpak,
+/obj/structure/bed/mattress{
+	icon_state = "mattress4";
+	pixel_y = -2
+	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/building)
 "gch" = (
@@ -62945,7 +62946,8 @@
 /area/f13/caves)
 "sTS" = (
 /obj/structure/bed/mattress{
-	icon_state = "mattress6"
+	icon_state = "mattress4";
+	pixel_y = -2
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/building)

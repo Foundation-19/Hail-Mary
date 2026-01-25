@@ -11,11 +11,11 @@
 	"space_ruin_levels": 0,
 	"space_empty_levels": 0,
 	"shuttles": {
-		"cargo": "cargo_pahrump",
+		"cargo":"cargo_pahrump",
 		"emergency": "emergency_pahrump",
 		"ferry": "ferry_fancy"
 	},
-	"traits": [
+	"traits":[
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
@@ -24,41 +24,43 @@
 			"Linkage" : null,
 			"Name": "Dungeons"
 		},
+
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
 			"Dungeons": true,
 			"Up": 1,
-			"Down": 1,
+			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Lower Zion Valley",
+			"Name": "Zion Valley - Lower",
 			"Force X": 1,
 			"Force Y": 1,
 			"Force Z": 0
 		},
+
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
 			"Station": 1,
-			"Surface": true,
 			"Up": 1,
-			"Down": 1,
+			"Down": -1,
 			"No Parallax": true,
-			"Linkage": "Cross",
+			"Linkage" : "Cross",
 			"Name": "Zion Valley",
 			"Force X": 1,
 			"Force Y": 1,
 			"Force Z": 1
 		},
+
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/transparent/openspace",
-			"Down": 1,
+			"Down": -1,
 			"No Parallax": true,
-			"Linkage": "Cross",
+			"Linkage" : "Cross",
 			"Above": true,
-			"Name": "Upper Zion Valley",
+			"Name": "Zion Valley - Upper",
 			"Force X": 1,
 			"Force Y": 1,
 			"Force Z": 2
