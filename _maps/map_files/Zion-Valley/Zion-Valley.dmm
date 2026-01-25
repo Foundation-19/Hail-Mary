@@ -3708,8 +3708,7 @@
 /area/f13/building/mall)
 "aVU" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 1;
@@ -3858,7 +3857,6 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -8310,8 +8308,7 @@
 /area/f13/building)
 "cpT" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt";
@@ -9126,8 +9123,7 @@
 	pixel_x = -1
 	},
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 5;
@@ -9142,8 +9138,7 @@
 /area/f13/building/mall)
 "cEX" = (
 /obj/structure/chair/wood{
-	dir = 1;
-	tag = "icon-wooden_chair_settler (NORTH)"
+	dir = 1
 	},
 /turf/open/floor/wood_common{
 	icon_state = "common-broken5"
@@ -9414,8 +9409,7 @@
 /area/f13/wasteland)
 "cIG" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -9851,8 +9845,7 @@
 /area/f13/caves)
 "cNd" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 5;
@@ -15999,7 +15992,6 @@
 	pixel_x = 5
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -16061,8 +16053,7 @@
 /area/f13/wasteland)
 "eNh" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
@@ -16512,7 +16503,6 @@
 /area/f13/city/bighorn)
 "eTa" = (
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -30351,7 +30341,6 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -34915,7 +34904,6 @@
 	pixel_y = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -35589,8 +35577,7 @@
 /area/f13/building)
 "kEl" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt";
@@ -35974,7 +35961,6 @@
 	pixel_x = 5
 	},
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -42442,7 +42428,6 @@
 /obj/structure/car/rubbish1,
 /obj/structure/closet/crate/secure/loot,
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -46915,7 +46900,6 @@
 "ofu" = (
 /obj/structure/stairs/west,
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -55529,8 +55513,7 @@
 /area/f13/building/mall)
 "qGx" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirtcorner"
@@ -58274,7 +58257,6 @@
 "rzt" = (
 /obj/structure/wreck/trash/four_barrels,
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -66802,8 +66784,7 @@
 /area/f13/building)
 "ubW" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 9;
@@ -67487,8 +67468,7 @@
 /area/f13/wasteland)
 "uoo" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt";
@@ -71971,8 +71951,7 @@
 	pixel_x = 2
 	},
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
@@ -72769,7 +72748,6 @@
 /area/f13/brotherhood/operations)
 "vSp" = (
 /turf/open/indestructible/ground/outside/sidewalk{
-	tag = "icon-outerborder (WEST)";
 	icon_state = "outerborder";
 	dir = 8
 	},
@@ -74871,8 +74849,7 @@
 /area/f13/building)
 "wBl" = (
 /obj/structure/fence{
-	icon_state = "post";
-	pixel_z = null
+	icon_state = "post"
 	},
 /obj/structure/fence/corner{
 	dir = 6
