@@ -5,7 +5,7 @@
 	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth and increased poison and rad resistance for each level above/below 5 END
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets when they examine you
 	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
-	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier per lvl below/above 5 AGI
 	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to hit yourself if it's 3 or below
 
 /mob/proc/get_top_level_mob()
@@ -188,9 +188,6 @@ proc/get_top_level_mob(mob/S)
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
 	return (1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1))
-
-/mob/proc/calc_movespeed_mod_from_special()
-	return -((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.03)
 
 /// LUCK
 

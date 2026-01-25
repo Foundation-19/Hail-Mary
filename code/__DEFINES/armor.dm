@@ -903,57 +903,62 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
 /*
  * Light Armor
  * Basically clothes, but more
+ * No slowdown - lore accurate
 */
-#define ARMOR_SLOWDOWN_LIGHT 0.2
+#define ARMOR_SLOWDOWN_LIGHT 0
 
 /*
  * Medium Armor
  * Substantial armor
+ * 7.5% slower - lore accurate
 */
-#define ARMOR_SLOWDOWN_MEDIUM 0.5
+#define ARMOR_SLOWDOWN_MEDIUM 0.075
 
 /*
  * Heavy Armor
  * Bulky suits of heavy armor
+ * 15% slower - lore accurate
 */
-#define ARMOR_SLOWDOWN_HEAVY 1
+#define ARMOR_SLOWDOWN_HEAVY 0.15
 
 /*
  * Salvaged Power Armor
  * Basically wearing a car
 */
-#define ARMOR_SLOWDOWN_SALVAGE 2
+#define ARMOR_SLOWDOWN_SALVAGE 1
 
 /*
+
+**We're moving away from more slowdown modifiers, as they get messy and ridiculous**
+
  * Power Armor
  * Basically driving a car
-*/
+
 #define ARMOR_SLOWDOWN_PA 1
 
 /* Armor slowdown modifiers
  * Multipliers to armor slowdown
- * * * * * * * * * * * */
 
-/*
  * Less armor slowdown, yay!
  * T1 - Slightly lighter materials, less clothes
  * T2 - Lightened materials, streamlined or something
  * T3 - Motorized or super ergonomic design
-*/
+
 #define ARMOR_SLOWDOWN_LESS_T1 0.9
 #define ARMOR_SLOWDOWN_LESS_T2 0.8
 #define ARMOR_SLOWDOWN_LESS_T3 0.7
 
-/*
+
  * More armor slowdown, ack!
  * T1 - Heavier clothing or padding
  * T2 - Substantial extra plating
  * T3 - Huge slabs of metal
-*/
+
 #define ARMOR_SLOWDOWN_MORE_T1 1.1
 #define ARMOR_SLOWDOWN_MORE_T2 1.25
 #define ARMOR_SLOWDOWN_MORE_T3 1.35
-
+*/
+*/
 /// Extra tag saying what armor tier this armor is, for description purposes
 #define ARMOR_CLOTHING_DESC "This is just a set of clothes, light and breezy, totally unencumbering. Also totally unprotected."
 

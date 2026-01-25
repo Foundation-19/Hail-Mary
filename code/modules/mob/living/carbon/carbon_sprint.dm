@@ -17,12 +17,13 @@
 	if(!client || !((client in sprint_bind.is_down) || (client in sprint_hold_bind.is_down))) // there are two keybinds, apparently
 		disable_intentional_sprint_mode()
 		return // if you're not holding it, you stop sprinting when you run out
+	var/stamina_modifier = calc_sprint_stamina_mod_from_special()
 	if(HAS_TRAIT(src, TRAIT_SPEED))
-		adjustStaminaLoss(tiles * sprint_stamina_cost * 0.5)
+		adjustStaminaLoss(tiles * sprint_stamina_cost * 0.5 * stamina_modifier)
 	if(HAS_TRAIT(src, TRAIT_SUPER_SPEED))
 		return
 	else
-		adjustStaminaLoss(tiles * sprint_stamina_cost)		//use stamina to cover deficit.
+		adjustStaminaLoss(tiles * sprint_stamina_cost * stamina_modifier)		//use stamina to cover deficit.
 
 /mob/living/carbon/proc/doSprintBufferRegen(updating = TRUE)
 	var/diff = world.time - sprint_buffer_regen_last
