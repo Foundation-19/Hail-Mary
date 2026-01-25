@@ -7,9 +7,9 @@
 		"Zion-Valley.dmm",
 		"Zion-Valley-Upper.dmm"
 	],
-	"station_ruin_budget": 0,
-	"space_ruin_levels": 0,
-	"space_empty_levels": 0,
+	"station_ruin_budget":0,
+	"space_ruin_levels":0,
+	"space_empty_levels":0,
 	"shuttles": {
 		"cargo":"cargo_pahrump",
 		"emergency": "emergency_pahrump",
@@ -22,7 +22,7 @@
 			"Up": 1,
 			"No Parallax": true,
 			"Linkage" : null,
-			"Name": "Dungeons"
+			"Name": "Zion-Valley-Dungeons"
 		},
 
 		{
@@ -38,7 +38,6 @@
 			"Force Y": 1,
 			"Force Z": 0
 		},
-
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
@@ -73,7 +72,7 @@
 		"ncr.dm",
 		"eastwood.dm",
 		"khan.dm",
-		"outlaw.dm"
+		"outlaws.dm"
 	],
 	"removed_jobs": [
 		"enclave.dm",
