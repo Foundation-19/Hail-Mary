@@ -38,7 +38,14 @@
 	if(rank in GLOB.vault_positions)
 		return 0
 	if(rank in GLOB.ncr_positions)
-		return 0
+		// Allow Corporal and below ranks
+		if(rank in list(
+					"NCR Rear Echelon",
+					"NCR Conscript",
+					"NCR Trooper", 
+					"NCR Corporal"))
+			return 1
+		return 0  // Block higher NCR ranks
 	if(rank in GLOB.wasteland_positions)
 		return 0
 	if(rank in GLOB.outlaw_positions) 

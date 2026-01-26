@@ -1177,8 +1177,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 /obj/item/proc/updateEmbedding()
 	if(!LAZYLEN(embedding))
-		return
+		// Clean up if no embedding data
+		RemoveElement(/datum/element/embed)
+		return FALSE
 
+	// Remove existing element before adding new one
+	// This prevents duplicate signal registration
+	RemoveElement(/datum/element/embed)
+	
 	AddElement(/datum/element/embed,\
 		embed_chance = (!isnull(embedding["embed_chance"]) ? embedding["embed_chance"] : EMBED_CHANCE),\
 		fall_chance = (!isnull(embedding["fall_chance"]) ? embedding["fall_chance"] : EMBEDDED_ITEM_FALLOUT),\

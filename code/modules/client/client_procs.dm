@@ -357,7 +357,9 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 
 	// Initialize tgui panel
 	tgui_panel.initialize()
-	src << browse(file('html/statbrowser.html'), "window=statbrowser")
+
+	// Initialize statbrowser properly
+	load_statbrowser()
 
 
 	if(alert_mob_dupe_login && !holder)
