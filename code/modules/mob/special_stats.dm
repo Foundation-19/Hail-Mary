@@ -187,15 +187,15 @@ proc/get_top_level_mob(mob/S)
 	return
 
 /mob/living/carbon/proc/calc_sprint_speed_mod_from_special()
-	// BURST SPEED - 60% faster than before
+	// BURST SPEED
 	var/base_sprint_boost = CONFIG_GET(number/movedelay/sprint_speed_increase)
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
 	var/speed_bonus
 	if(agi_diff > 0)
-		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.112)
+		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.1344) // Was 0.112, +20%
 	else
-		speed_bonus = base_sprint_boost + (agi_diff * 0.112)
+		speed_bonus = base_sprint_boost + (agi_diff * 0.1344) // Was 0.112, +20%
 	
 	// Apply armor penalties to sprint speed
 	var/armor_penalty = 0

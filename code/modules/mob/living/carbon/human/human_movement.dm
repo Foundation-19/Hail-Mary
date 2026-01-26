@@ -17,7 +17,7 @@
 		. -= 1.25
 	if(HAS_TRAIT(src, TRAIT_SMUTANT))
 		. += 0
-	. += 0.6 // Universal human slowdown
+	. += 0.7 // Universal human slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
