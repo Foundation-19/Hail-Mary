@@ -187,7 +187,7 @@ proc/get_top_level_mob(mob/S)
 	return
 
 /mob/living/carbon/proc/calc_sprint_speed_mod_from_special()
-	// BURST SPEED
+	// BURST SPEED - 60% faster than before
 	var/base_sprint_boost = CONFIG_GET(number/movedelay/sprint_speed_increase)
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
@@ -203,8 +203,12 @@ proc/get_top_level_mob(mob/S)
 		var/mob/living/carbon/human/H = src
 		if(istype(H.wear_suit))
 			var/obj/item/clothing/suit/armor = H.wear_suit
-			if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
-				armor_penalty = 0.3 // Heavy armor: 30% slower sprint
+			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+				armor_penalty = 0.60 // Salvaged PA: 60% slower sprint
+			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+				armor_penalty = 0.30 // Power Armor: 30% slower sprint
+			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+				armor_penalty = 0.30 // Heavy armor: 30% slower sprint
 			// Medium and light armor don't reduce sprint speed
 	
 	return speed_bonus - armor_penalty
@@ -225,7 +229,11 @@ proc/get_top_level_mob(mob/S)
 		var/mob/living/carbon/human/H = src
 		if(istype(H.wear_suit))
 			var/obj/item/clothing/suit/armor = H.wear_suit
-			if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+				armor_multiplier = 1.6 // Salvaged PA: 60% more drain
+			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+				armor_multiplier = 1.3 // Power Armor: 30% more drain
+			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
 				armor_multiplier = 1.3 // Heavy armor: 30% more drain
 			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
 				armor_multiplier = 1.15 // Medium armor: 15% more drain

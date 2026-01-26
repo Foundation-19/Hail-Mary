@@ -925,16 +925,15 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Salvaged Power Armor
  * Basically wearing a car
 */
-#define ARMOR_SLOWDOWN_SALVAGE 1
+#define ARMOR_SLOWDOWN_SALVAGE 0.3
 
+//* Power Armor
+//* Basically driving a car
+
+#define ARMOR_SLOWDOWN_PA 0.15
 /*
 
 **We're moving away from more slowdown modifiers, as they get messy and ridiculous**
-
- * Power Armor
- * Basically driving a car
-
-#define ARMOR_SLOWDOWN_PA 1
 
 /* Armor slowdown modifiers
  * Multipliers to armor slowdown

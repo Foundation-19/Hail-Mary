@@ -3021,7 +3021,7 @@
 	item_state = "tribal_power_armor"
 	// body_parts_covered = CHEST|GROIN|ARMS|LEGS
 	armor = ARMOR_VALUE_HEAVY
-	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_GLOBAL_MULT
 	color = "#b1a687"
 
 /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45d
@@ -3380,7 +3380,7 @@
 	icon_state = "t45bpowerarmor"
 	item_state = "t45bpowerarmor"
 	armor = ARMOR_VALUE_SALVAGE
-	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
 	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b
 
 /obj/item/clothing/suit/armor/power_armor/t45b/raider
@@ -3484,7 +3484,7 @@
 	icon_state = "advpowerarmor1"
 	item_state = "advpowerarmor1"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
-	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tier_desc = ARMOR_CLOTHING_PA
 	clothing_flags = CUSHIONED_ARMOR
 	stiffness = MEDIUM_STIFFNESS
@@ -3502,7 +3502,7 @@
 	desc = "A suit of power armor made by somebody who has access to technology that could easily render the barren wasteland a lush fertile jungle, and yet said technology is used for war, because war, war never changes."
 	icon_state = "superadvanced"
 	item_state = "superadvanced"
-	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = list("melee" = 90, "bullet" = 90, "laser" = 90, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
 
 /obj/item/clothing/suit/armor/power_armor/advanced/ultracite
