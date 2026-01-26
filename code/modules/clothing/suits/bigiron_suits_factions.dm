@@ -271,21 +271,21 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_DT_T3) // Legate OP
 
-/obj/item/clothing/suit/armor/medium/combat/legion // not craftable atm. Give armor if it becomes so.
+/obj/item/clothing/suit/armor/medium/combat/legion
 	name = "Legion combat armor"
 	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for Caesar's Legion."
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-	icon_state = "legion_combat"
-	item_state = "legion_combat"
+	icon_state = "combat_armor_legion"
+	item_state = "combat_armor_legion"
 
-/obj/item/clothing/suit/armor/medium/combat/mk2/legion // not craftable atm. Give armor if it becomes so.
+/obj/item/clothing/suit/armor/medium/combat/mk2/legion
 	name = "reinforced Legion combat armor"
+	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for Caesar's Legion."
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for Caesar's Legion."
-	icon_state = "legion_combat2"
-	item_state = "legion_combat2"
+	icon_state = "combat_armor_legion_mk2"
+	item_state = "combat_armor_legion_mk2"
 
 /obj/item/clothing/suit/armor/legion/vet/explorercanada
 	name = "custom explorer armor"
@@ -434,6 +434,19 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	item_state = "ncr_codressjack"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T4, ARMOR_MODIFIER_DOWN_LASER_T4)
 
+/obj/item/clothing/suit/armor/medium/combat/ncr
+	name = "NCR combat armor"
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for New California Republic."
+	icon_state = "combat_armor_ncr"
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/ncr
+	name = "reinforced NCR combat armor"
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for New California Republic."
+	icon_state = "combat_armor_ncr_mk2"
 
 //NCR Ranger
 /obj/item/clothing/suit/toggle/armor/rangerrecon
