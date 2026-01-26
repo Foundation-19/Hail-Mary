@@ -33,6 +33,16 @@
 	. = ..()
 
 /mob/dead/new_player/Destroy()
+	// Clean up mind reference to break garbage collection cycles
+	if(mind)
+		mind.current = null
+		mind = null
+
+	// Clean up client screen objects to prevent orphaned UI elements
+	if(client)
+		QDEL_LIST(client.screen)
+		client.screen = null
+
 	return ..()
 
 /mob/dead/new_player/prepare_huds()
@@ -492,6 +502,8 @@
 	SSjob.AssignRole(src, rank, 1)
 
 	var/mob/living/character = create_character(TRUE)	//creates the human and transfers vars and mind
+	if(!character)
+		return FALSE
 	var/equip = SSjob.EquipRank(character, rank, TRUE)
 	if(isliving(equip))	//Borgs get borged in the equip, so we need to make sure we handle the new mob.
 		character = equip
@@ -514,7 +526,8 @@
 		humanc = character	//Let's retypecast the var to be human,
 
 	if(humanc)	//These procs all expect humans
-		GLOB.data_core.manifest_inject(humanc, humanc.client, humanc.client.prefs)
+		if(humanc.client)
+			GLOB.data_core.manifest_inject(humanc, humanc.client, humanc.client.prefs)
 		if(SSshuttle.arrivals)
 			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
 		else
@@ -546,8 +559,9 @@
 						SSticker.mode.make_antag_chance(humanc)
 
 	if(humanc && CONFIG_GET(flag/roundstart_traits))
-		SSquirks.AssignQuirks(humanc, humanc.client, TRUE, FALSE, job, FALSE)
-	if(humanc.client && humanc.ckey == "tk420634")
+		if(humanc.client)
+			SSquirks.AssignQuirks(humanc, humanc.client, TRUE, FALSE, job, FALSE)
+	if(humanc && humanc.client && humanc.ckey == "tk420634")
 		humanc.client.deadmin()
 
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
@@ -618,8 +632,13 @@
 		if(QDELETED(src))
 			return
 	if(frn)
+		if(!client)
+			return
 		client.prefs.random_character()
 		client.prefs.real_name = client.prefs.pref_species.random_name(gender,1)
+	if(!client)
+		qdel(H)
+		return
 	var/cur_scar_index = client.prefs.scars_index
 	if(client.prefs.persistent_scars && client.prefs.scars_list["[cur_scar_index]"])
 		var/scar_string = client.prefs.scars_list["[cur_scar_index]"]

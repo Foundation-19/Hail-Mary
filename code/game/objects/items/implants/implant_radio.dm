@@ -9,6 +9,9 @@
 
 /obj/item/implant/radio/activate()
 	. = ..()
+	// Check if radio exists before trying to open UI
+	if(!radio)
+		return
 	// needs to be GLOB.deep_inventory_state otherwise it won't open
 	radio.ui_interact(usr, state = GLOB.deep_inventory_state)
 

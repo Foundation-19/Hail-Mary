@@ -26,6 +26,18 @@
 	..()
 	update_icon()
 
+// IMPORTANT: Also add this cleanup to robot_suit to prevent circular references
+/obj/item/robot_suit/Destroy()
+	// Clear all bodypart references
+	l_arm = null
+	r_arm = null
+	l_leg = null
+	r_leg = null
+	chest = null
+	head = null
+	forced_ai = null
+	return ..()
+
 /obj/item/robot_suit/prebuilt/New()
 	l_arm = new(src)
 	r_arm = new(src)

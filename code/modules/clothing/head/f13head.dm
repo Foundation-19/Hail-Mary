@@ -525,14 +525,37 @@
 	desc = "It's an advanced power armor MK1 helmet, typically used by the Enclave. It looks somewhat threatening."
 	icon_state = "advhelmet1"
 	item_state = "advhelmet1"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	deflect_damage = 20
 
 /obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire
-	name = "hellfire power armor"
+	name = "hellfire power armor helmet"
 	desc = "A deep black helmet of Enclave-manufactured heavy power armor with yellow ballistic glass, based on pre-war designs such as the T-51 and improving off of data gathered by post-war designs such as the X-01. Most commonly fielded on the East Coast, no other helmet rivals it's strength."
 	icon_state = "hellfirehelm"
 	item_state = "hellfirehelm"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 82, "energy" = 55, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
 
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/super_advanced_pa
+	name = "super advanced power armor helmet"
+	desc = "The helm to a set of super advanced power armor, there is motivational stickers on the inside."
+	icon_state = "superadvanced"
+	item_state = "superadvanced"
+	armor = list("melee" = 90, "bullet" = 90, "laser" = 90, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
+
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/ultracite
+	name = "ultracite power armor helmet"
+	desc = "A deep blue helmet with orange tinted goggles left over from the advanced PA helmet that this PA was built off of"
+	icon_state = "ultracitepa_helm"
+	item_state = "ultracitepa_helm"
+	armor = list("melee" = 84, "bullet" = 84, "laser" = 65, "energy" = 20, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 50,)
+
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/tesla
+	name = "tesla power armor helmet"
+	desc = "It's an advanced power armor MK1 helmet, typically used by the Enclave. It looks somewhat threatening, this one has been improved with some coils and extra batteries."
+	icon_state = "tesla"
+	item_state = "tesla"
+	armor = list("melee" = 83, "bullet" = 83, "laser" = 83, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	deflect_damage = 21
 
 //Part of the peacekeeper enclave stuff, adjust values as needed.
 /obj/item/clothing/head/helmet/f13/power_armor/x02helmet
@@ -541,7 +564,7 @@
 	icon_state = "advanced"
 	item_state = "advanced"
 	slowdown = 0.1
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3)
+	armor = list("melee" = 81, "bullet" = 81, "laser" = 81, "energy" = 57, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 60,)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/x02
 
@@ -756,7 +779,16 @@
 	color = "#999999"
 	dynamic_hair_suffix = ""
 
-
+/obj/item/clothing/head/helmet/f13/raider/herbertranger
+	name = "weathered desert ranger helmet"
+	icon_state = "modified_usmc_riot"
+	item_state = "modified_usmc_riot"
+	desc = "An ancient USMC riot helmet. This paticular piece retains the classic colouration of the legendary Desert Rangers, and looks as if it has been worn for decades; its night vision no longer seems to be functional. Scratched into the helmet is the sentence: 'Death to the Devils that simulate our freedom.'"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
 
 //Soft caps
 /obj/item/clothing/head/soft/f13
@@ -873,17 +905,6 @@
 	desc = "The hide of a deadly green gecko affixed over a reinforced legion helmet. Its ghastly appearance serves as an intimidating gesture to those who do not yet fear the Lizard King."
 	icon_state = "diohelmet"
 	item_state = "diohelmet"
-
-/obj/item/clothing/head/helmet/f13/herbertranger
-	name = "weathered desert ranger helmet"
-	icon_state = "modified_usmc_riot"
-	item_state = "modified_usmc_riot"
-	desc = "An ancient USMC riot helmet. This paticular piece retains the classic colouration of the legendary Desert Rangers, and looks as if it has been worn for decades; its night vision no longer seems to be functional. Scratched into the helmet is the sentence: 'Death to the Devils that simulate our freedom.'"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/marlowhat
 	name = "boss of the plains hat"

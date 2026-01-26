@@ -31,7 +31,7 @@
 /obj/item/clothing/head/throw_impact(atom/hit_atom, datum/thrownthing/thrownthing)
 	. = ..()
 	///if the thrown object's target zone isn't the head
-	if(thrownthing.target_zone != BODY_ZONE_HEAD)
+	if(!thrownthing || thrownthing.target_zone != BODY_ZONE_HEAD)
 		return
 	///ignore any hats with downsides when worn
 	if(clothing_flags & IGNORE_HAT_TOSS)

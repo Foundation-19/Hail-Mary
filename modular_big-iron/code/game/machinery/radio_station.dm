@@ -26,6 +26,7 @@
 	var/ready_to_delete = 0 //For Destroy()
 	var/brightness_on = 1
 	var/volume = 35 //the volume that music plays at
+	var/broadcast_in_progress = FALSE //Flag to prevent overlapping broadcasts
 
 /obj/machinery/radio_station/Initialize()
 	. = ..()
@@ -113,8 +114,13 @@
 
 	can_eject_disk = 0
 	cooldowntime = world.time + 500
-	for(var/obj/item/radio/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
-		R.playmusic(selectedtrack, selectedtrackname, volume)
+	
+	// If a broadcast is already in progress, stop it first
+	if(broadcast_in_progress)
+		INVOKE_ASYNC(src, PROC_REF(stop_radio_music_async))
+	
+	broadcast_in_progress = TRUE
+	INVOKE_ASYNC(src, PROC_REF(broadcast_music_async))
 
 	src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Now broadcasting: <i>[selectedtrackname]</i>' </span>")
 
@@ -126,12 +132,28 @@
 		stopRadioMusic()
 		return
 
+/obj/machinery/radio_station/proc/broadcast_music_async()
+	for(var/obj/item/radio/R in GLOB.radio_list) //Calls the playmusic() proc for every radio in radio_list (everyone)
+		if(R.music_toggle) // Only broadcast to radios that have music enabled
+			R.playmusic(selectedtrack, selectedtrackname, volume, skip_messaging = TRUE)
+		if(QDELETED(src))
+			break
+		stoplag()
+	broadcast_in_progress = FALSE
+
 
 /obj/machinery/radio_station/proc/stopRadioMusic()
+	INVOKE_ASYNC(src, PROC_REF(stop_radio_music_async))
+
+/obj/machinery/radio_station/proc/stop_radio_music_async()
 	var/i
 	for(i = 1; i <= GLOB.radio_list.len; i++) //This time it will stop the music for every radio listening to this radio station.
 		if(!istype(GLOB.radio_list[i], /obj/item/pda))
-			GLOB.radio_list[i].stopmusic(GLOB.radio_list[i].radio_holder, 3)
+			GLOB.radio_list[i].stopmusic(GLOB.radio_list[i].radio_holder, skip_messaging = TRUE)
+		if(QDELETED(src))
+			break
+		stoplag()
+	broadcast_in_progress = FALSE
 
 /obj/machinery/radio_station/Destroy()
 	stopRadioMusic()

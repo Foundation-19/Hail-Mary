@@ -108,6 +108,8 @@ SUBSYSTEM_DEF(jukeboxes)
 				continue
 			var/turf/juketurf = get_turf(jukebox)
 			var/turf/mturf = get_turf(M)
+			if(!juketurf || !mturf)
+				continue
 			if(juketurf.z == mturf.z)	//todo - expand this to work with mining planet z-levels when robust jukebox audio gets merged to master
 				song_played.status = SOUND_UPDATE
 			else if(juketurf.z == mturf.z -1)

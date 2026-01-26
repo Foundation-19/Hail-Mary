@@ -1,4 +1,6 @@
 /proc/getviewsize(view)
+	if(!view)
+		return list(7, 7)  // Default view size if null
 	var/viewX
 	var/viewY
 	if(isnum(view))
@@ -7,6 +9,8 @@
 		viewY = totalviewrange
 	else
 		var/list/viewrangelist = splittext(view,"x")
+		if(LAZYLEN(viewrangelist) < 2)
+			return list(7, 7)  // Default if parse fails
 		viewX = text2num(viewrangelist[1])
 		viewY = text2num(viewrangelist[2])
 	return list(viewX, viewY)

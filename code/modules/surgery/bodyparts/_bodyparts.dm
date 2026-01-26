@@ -129,6 +129,7 @@
 	if(owner)
 		owner.bodyparts -= src
 		owner = null
+	original_owner = null  // Clear circular reference from mobs keeping original_owner reference
 	if(current_gauze)
 		qdel(current_gauze)
 	if(current_suture)
@@ -666,7 +667,7 @@
 		C = owner
 		no_update = FALSE
 
-	if(HAS_TRAIT(C, TRAIT_HUSK) && (is_organic_limb() || render_like_organic))
+	if(C && HAS_TRAIT(C, TRAIT_HUSK) && (is_organic_limb() || render_like_organic))
 		species_id = "husk" //overrides species_id
 		dmg_overlay_type = "" //no damage overlay shown when husked
 		should_draw_gender = FALSE
@@ -678,7 +679,7 @@
 	if(no_update)
 		return
 
-	if(!animal_origin)
+	if(!animal_origin && C)
 		var/mob/living/carbon/human/H = C
 		color_src = FALSE
 

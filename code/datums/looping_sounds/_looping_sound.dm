@@ -78,6 +78,8 @@
 	timerid = null
 
 /datum/looping_sound/proc/sound_loop(starttime)
+	if(QDELETED(src))
+		return
 	if(max_loops && world.time >= starttime + ((mid_length + loop_delay) * max_loops))
 		stop(kill = TRUE)
 		return

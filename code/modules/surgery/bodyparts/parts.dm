@@ -136,6 +136,7 @@
 	stam_heal_tick = STAM_RECOVERY_LIMB
 	max_stamina_damage = 50
 
+
 /obj/item/bodypart/r_arm/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_R_ARM))
 		return BODYPART_DISABLED_PARALYSIS
@@ -195,6 +196,7 @@
 	px_y = 12
 	stam_heal_tick = STAM_RECOVERY_LIMB
 	max_stamina_damage = 50
+
 
 /obj/item/bodypart/l_leg/is_disabled()
 	if(HAS_TRAIT(owner, TRAIT_PARALYSIS_L_LEG))

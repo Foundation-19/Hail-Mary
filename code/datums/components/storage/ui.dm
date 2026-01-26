@@ -87,6 +87,11 @@
 	var/list/atom/contents = accessible_items()
 	// our volume
 	var/our_volume = get_max_volume()
+	
+	// Guard against zero volume to prevent division by zero
+	if(our_volume <= 0)
+		our_volume = 1
+	
 	/// Number of pixels in one line
 	var/horizontal_pixels = FLOOR((maxcolumns * world.icon_size) - (VOLUMETRIC_STORAGE_EDGE_PADDING * 2), our_volume)
 	/// the actual number of pixels in one line, not rounded to the nearest volume bit
