@@ -40,16 +40,23 @@
 ////////F13 Randomization Edit
 	var/list/all_types = list()
 	var/list/all_possible_types = list()
+	var/skip_randomization = FALSE  // Set to TRUE to prevent randomizing outfit slots (for previews)
 ///////////////////////////////////////////////////
 //Simple randomisation support. If any of the piece types is a list, a random item is picked from that list
 //Supports weighted selection too, optionally
-/datum/outfit/New()
+/datum/outfit/New(skip_randomization = FALSE)
+	src.skip_randomization = skip_randomization
 	for (var/a in ALL_OUTFIT_SLOTS)
 		if (islist(vars[a]))
 			contains_randomisation = TRUE
 			all_possible_types += vars[a]
-			vars[a] = pickweight(vars[a])
-			all_types += vars[a]
+			// Only randomize if we're not skipping randomization (i.e., not in preview mode)
+			if(!skip_randomization)
+				vars[a] = pickweight(vars[a])
+				all_types += vars[a]
+			else
+				// For preview mode, pick the first (default) option from the list
+				all_types += vars[a][1]
 		else if(vars[a])
 			all_possible_types += vars[a]
 			all_types += vars[a]

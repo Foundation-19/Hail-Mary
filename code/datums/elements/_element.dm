@@ -50,4 +50,5 @@
  */
 /datum/proc/_RemoveElement(list/arguments)
 	var/datum/element/ele = SSdcs.GetElement(arguments)
-	ele.Detach(src)
+	if(ele)
+		ele.Detach(src)

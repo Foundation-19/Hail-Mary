@@ -213,16 +213,21 @@ SUBSYSTEM_DEF(garbage)
 				var/type = D.type
 				var/datum/qdel_item/I = items[type]
 
-				log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --")
+				// Controller objects are expected to be hard-deleted via QDEL_HINT_HARDDEL_NOW, not gracefully
+				// garbage collected. Skip the warning to avoid cluttering TESTING logs. Other objects
+				// unable to be GC'd should be investigated for reference leaks.
+				if(type != /datum/controller && type != /datum/controller/master)
+					log_world("## TESTING: GC: -- \ref[D] | [type] was unable to be GC'd --")
 				var/detail = D.dump_harddel_info()
 				if(detail)
 					LAZYADD(I.extra_details, detail)
 				#ifdef TESTING
-				for(var/c in GLOB.admins) //Using testing() here would fill the logs with ADMIN_VV garbage
-					var/client/admin = c
-					if(!check_rights_for(admin, R_ADMIN))
-						continue
-					to_chat(admin, "## TESTING: GC: -- [ADMIN_VV(D)] | [type] was unable to be GC'd --")
+				if(type != /datum/controller && type != /datum/controller/master)
+					for(var/c in GLOB.admins) //Using testing() here would fill the logs with ADMIN_VV garbage
+						var/client/admin = c
+						if(!check_rights_for(admin, R_ADMIN))
+							continue
+						to_chat(admin, "## TESTING: GC: -- [ADMIN_VV(D)] | [type] was unable to be GC'd --")
 				#endif
 				I.failures++
 

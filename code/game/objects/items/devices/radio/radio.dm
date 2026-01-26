@@ -455,7 +455,7 @@
 	playsound(user, music_filepath, music_volume, channel = music_channel, extrarange = -15) //plays the music to the user
 	update_icon()
 
-/obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
+/obj/item/radio/proc/playmusic(music_filepath, name_of_music, music_volume, skip_messaging = FALSE) //Plays music at src using the filepath to the audio file. This proc is directly working with the bluespace radio station at radio_station.dm
 	radio_music_file = music_filepath
 
 	var/atom/loc_layer = loc
@@ -468,21 +468,33 @@
 		return
 	if(!istype(loc_layer, /mob/living)) //doesn't need to continue if not on a mob
 		return
+	if(!music_toggle) //Music player is off, skip this radio entirely
+		return
 
-	if(music_toggle == 1) //Music player is on
-		if(istype(src, /obj/item/radio/headset))
-			var/mob/living/carbon/wearer = radio_holder
-			if(!(wearer.ears == src)) //only want headsets to play music if they're equipped
-				return
-		stopmusic(radio_holder) //stop the previously playing song to make way for the new one
+	if(istype(src, /obj/item/radio/headset))
+		var/mob/living/carbon/wearer = radio_holder
+		if(!wearer || !(wearer.ears == src)) //only want headsets to play music if they're equipped
+			return
+	stopmusic(radio_holder, skip_messaging = skip_messaging) //stop the previously playing song to make way for the new one
+	if(skip_messaging)
+		// During broadcast, skip the timer and messaging overhead - just queue the sound directly
+		music_name = name_of_music
+		music_playing = TRUE
+		playsound(radio_holder, music_filepath, music_volume, channel = music_channel, extrarange = -15)
+		update_icon()
+	else
+		// Normal playback with full messaging
 		addtimer(CALLBACK(src, PROC_REF(avoiding_a_sleep), radio_holder, music_filepath, name_of_music, music_volume), 10)
 
-/obj/item/radio/proc/stopmusic(mob/living/user, music_turnoff_message_type)
-	if(music_playing)
-		music_playing = FALSE
+/obj/item/radio/proc/stopmusic(mob/living/user, music_turnoff_message_type, skip_messaging = FALSE)
+	if(!music_playing)
+		return
+	music_playing = FALSE
+	if(!skip_messaging)
 		update_icon()
-		playsound(user, null, channel = music_channel)
-		playsound(user, 'sound/machines/buzz-sigh.ogg', 50, channel = music_channel)
+		if(user)
+			playsound(user, null, channel = music_channel)
+			playsound(user, 'sound/machines/buzz-sigh.ogg', 50, channel = music_channel)
 		music_name = ""
 		switch(music_turnoff_message_type)
 			if(1)
@@ -491,11 +503,16 @@
 				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Music toggled off.' </span>") //Unused message
 			if(3)
 				src.audible_message("<span class='robot'><b>[src]</b> beeps, 'Signal interrupted.' </span>")
-		music_playing = FALSE
+	else
+		// During broadcast, still need to stop the sound channel
+		if(user)
+			playsound(user, null, channel = music_channel)
+		music_name = ""
 
 /obj/item/radio/dropped(mob/user)
 	..()
-	addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
+	if(!QDELETED(src))
+		addtimer(CALLBACK(src, PROC_REF(droppedStopMusic), user), 3)
 
 /obj/item/radio/proc/droppedStopMusic(mob/user)
 	var/i

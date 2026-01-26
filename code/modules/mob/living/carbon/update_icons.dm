@@ -75,7 +75,7 @@
 
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		if(BP.dmg_overlay_type)
+		if(BP && BP.dmg_overlay_type)
 			if(BP.brutestate)
 				damage_overlay.add_overlay("[BP.dmg_overlay_type]_[BP.body_zone]_[BP.brutestate]0")	//we're adding icon_states of the base image as overlays
 			if(BP.burnstate)
@@ -206,7 +206,8 @@
 
 	for(var/X in bodyparts)
 		var/obj/item/bodypart/BP = X
-		BP.update_limb()
+		if(BP)
+			BP.update_limb()
 
 	//LOAD ICONS
 	if(limb_icon_cache[icon_render_key])

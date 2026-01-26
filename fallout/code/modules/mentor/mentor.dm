@@ -27,6 +27,17 @@ GLOBAL_PROTECT(mentor_href_token)
 		if(!check_rights_for(owner, R_ADMIN,0)) // don't add admins to mentor list.
 			GLOB.mentors += owner
 
+/datum/mentors/Destroy()
+	if(owner)
+		owner.mentor_datum = null
+	if(target)
+		GLOB.mentor_datums -= target
+	if(owner in GLOB.mentors)
+		GLOB.mentors -= owner
+	owner = null
+	following = null
+	return ..()
+
 /datum/mentors/proc/CheckMentorHREF(href, href_list)
 	var/auth = href_list["mentor_token"]
 	. = auth && (auth == href_token || auth == GLOB.mentor_href_token)
@@ -80,10 +91,12 @@ GLOBAL_PROTECT(mentor_href_token)
 			return
 		var/datum/db_query/query_load_mentors = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("mentor")]")
 		if(!query_load_mentors.Execute())
+			qdel(query_load_mentors)
 			return
 		while(query_load_mentors.NextRow())
 			var/ckey = ckey(query_load_mentors.item[1])
 			new /datum/mentors(ckey)
+		qdel(query_load_mentors)
 
 // new client var: mentor_datum. Acts the same way holder does towards admin: it holds the mentor datum. if set, the guy's a mentor.
 /client

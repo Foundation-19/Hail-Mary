@@ -491,7 +491,7 @@
 
 		addtimer(CALLBACK(src, PROC_REF(toggle_on), TRUE), rand(60,600))
 
-/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, atom/attacked_by)
+/obj/machinery/porta_turret/take_damage(damage, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	. = ..()
 	if(. && obj_integrity > 0) //damage received
 		spark_system.start()
@@ -852,7 +852,10 @@
 		return
 	if(am_currently_shooting)
 		return TRUE
-	var/turf/target_turf = get_turf(activity_state == TURRET_CAUTION_MODE ? GET_WEAKREF(last_target_turf) : GET_WEAKREF(last_target))
+	var/atom/resolved_target = activity_state == TURRET_CAUTION_MODE ? GET_WEAKREF(last_target_turf) : GET_WEAKREF(last_target)
+	if(!resolved_target)
+		return FALSE
+	var/turf/target_turf = get_turf(resolved_target)
 	if(!istype(target_turf))
 		return FALSE
 	setDir(get_dir(base, target_turf)) //even if you can't shoot, follow the target
@@ -930,6 +933,8 @@
 
 	var/the_spread = rand(-shot_spread, shot_spread)
 	if(casing_type_lethal)
+		if(!casing_type_stun || !casing_type_lethal)
+			return FALSE
 		var/obj/item/ammo_casing/casing
 		if(mode == TURRET_STUN)
 			casing = new casing_type_stun(our_turf)
@@ -952,6 +957,8 @@
 			)
 		qdel(casing)
 	else
+		if(!stun_projectile || !lethal_projectile)
+			return FALSE
 		var/obj/item/projectile/turret_projectile
 		if(mode == TURRET_STUN)
 			turret_projectile = new stun_projectile(our_turf)

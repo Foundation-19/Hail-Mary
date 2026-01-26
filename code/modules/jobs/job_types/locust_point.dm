@@ -948,8 +948,8 @@ Mayor
 	title = "Minuteman"
 	flag = F13MINUTEMEN
 	faction = DEP_LOCUST
-	total_positions = 4
-	spawn_positions = 4
+	total_positions = 0
+	spawn_positions = 0
 	description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place."
 	supervisors = "minutemen superiors"
 

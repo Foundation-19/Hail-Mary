@@ -156,11 +156,13 @@ GLOBAL_PROTECT(exp_to_update)
 		return -1
 	if(!SSdbcore.Connect())
 		return -1
+	if(!src || !prefs)
+		return -1
 	var/datum/db_query/exp_read = SSdbcore.NewQuery(
 		"SELECT job, minutes FROM [format_table_name("role_time")] WHERE ckey = :ckey",
 		list("ckey" = ckey)
 	)
-	if(!exp_read.Execute(async = TRUE))
+	if(!exp_read || !exp_read.Execute(async = FALSE))
 		qdel(exp_read)
 		return -1
 	var/list/play_records = list()
@@ -273,13 +275,18 @@ GLOBAL_PROTECT(exp_to_update)
 /client/proc/set_db_player_flags()
 	if(!SSdbcore.Connect())
 		return FALSE
+	if(!src || !prefs)
+		return FALSE
 
 	var/datum/db_query/flags_read = SSdbcore.NewQuery(
 		"SELECT flags FROM [format_table_name("player")] WHERE ckey=:ckey",
 		list("ckey" = ckey)
 	)
 
-	if(!flags_read.Execute(async = TRUE))
+	if(!flags_read)
+		return FALSE
+
+	if(!flags_read.Execute(async = FALSE))
 		qdel(flags_read)
 		return FALSE
 

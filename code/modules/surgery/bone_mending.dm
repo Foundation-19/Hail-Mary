@@ -14,6 +14,8 @@
 /datum/surgery/repair_bone_hairline/can_start(mob/living/user, mob/living/carbon/target)
 	if(..())
 		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
+		if(!targeted_bodypart)
+			return FALSE
 		return(targeted_bodypart.get_wound_type(targetable_wound))
 
 
@@ -30,6 +32,8 @@
 /datum/surgery/repair_bone_compound/can_start(mob/living/user, mob/living/carbon/target)
 	if(..())
 		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
+		if(!targeted_bodypart)
+			return FALSE
 		return(targeted_bodypart.get_wound_type(targetable_wound))
 
 

@@ -3187,12 +3187,13 @@
 			if(response.body == "[]")
 				dat += "<center><b>0 bans detected for [ckey]</b></center>"
 			else
-				bans = json_decode(response["body"])
+				bans = json_decode(response.body)
 				if(!islist(bans))
 					dat += "<br>Invalid response from CentCom."
 				else
-					dat += "<center><b>[bans.len] ban\s detected for [ckey]</b></center>"
-					for(var/list/ban in bans)
+					var/list/bans_list = bans
+					dat += "<center><b>[bans_list.len] ban\s detected for [ckey]</b></center>"
+					for(var/list/ban in bans_list)
 						if(!islist(ban))
 							continue
 						dat += "<b>Server: </b> [sanitize(ban["sourceName"])]<br>"

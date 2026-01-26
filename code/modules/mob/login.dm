@@ -1,11 +1,13 @@
 /mob/Login()
 	GLOB.player_list |= src
-	lastKnownIP	= client.address
-	computer_id	= client.computer_id
+	if(client)
+		lastKnownIP	= client.address
+		computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
-	client.screen = list()				//remove hud items just in case
-	client.images = list()
+	if(client)
+		client.screen = list()				//remove hud items just in case
+		client.images = list()
 
 	if(!hud_used)
 		create_mob_hud()

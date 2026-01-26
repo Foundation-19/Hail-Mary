@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	if(!real_name)
 		real_name = name
 	if(!loc)
-		stack_trace("Simple animal being instantiated in nullspace")
+		return INITIALIZE_HINT_QDEL
 	update_simplemob_varspeed()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
@@ -374,7 +374,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	can_ghost_into = TRUE
 	AddElement(/datum/element/ghost_role_eligibility, free_ghosting = TRUE, penalize_on_ghost = FALSE)
 	LAZYADD(GLOB.mob_spawners[initial(name)], src)
-	RegisterSignal(src, COMSIG_MOB_GHOSTIZE_FINAL, PROC_REF(set_ghost_timeout))
+	RegisterSignal(src, COMSIG_MOB_GHOSTIZE_FINAL, PROC_REF(set_ghost_timeout), override = TRUE)
 	if(istype(user))
 		lazarused = TRUE
 		lazarused_by = WEAKREF(user)
@@ -790,6 +790,8 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	if(!dextrous)
 		return
 	if(!hand_index)
+		if(!held_items.len)
+			return
 		hand_index = (active_hand_index % held_items.len)+1
 	var/oindex = active_hand_index
 	active_hand_index = hand_index
@@ -1080,12 +1082,13 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		return // all done!
 	
 	for(var/list/token in mob_armor_tokens)
+		var/list/mob_armor_list = mob_armor
 		for(var/modifier in token)
 			switch(GLOB.armor_token_operation_legend[modifier])
 				if("MULT")
-					mob_armor[modifier] = round(mob_armor[modifier] * token[modifier], 1)
+					mob_armor_list[modifier] = round(mob_armor_list[modifier] * token[modifier], 1)
 				if("ADD")
-					mob_armor[modifier] = max(mob_armor[modifier] + token[modifier], 0)
+					mob_armor_list[modifier] = max(mob_armor_list[modifier] + token[modifier], 0)
 				else
 					continue
 

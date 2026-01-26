@@ -9,9 +9,67 @@
 	ex_light = 0
 	ex_flame = 0
 
+/obj/item/grenade/f13/Destroy()
+	if(active)
+		GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	return ..()
+
+// Override attack_self to add spam protection
+/obj/item/grenade/f13/attack_self(mob/user)
+	// Check global limit
+	if(GLOB.active_explosion_spam >= 30)
+		to_chat(user, span_warning("[src] fails to arm - too many explosives active!"))
+		return
+	
+	// Per-player spam protection
+	if(user && user.ckey)
+		var/player_key = user.ckey
+		var/player_count = 0
+		var/recent_time = world.time - 10 SECONDS
+		
+		for(var/entry in GLOB.recent_primers)
+			var/list/data = GLOB.recent_primers[entry]
+			if(data["time"] < recent_time)
+				GLOB.recent_primers -= entry
+			else if(data["ckey"] == player_key)
+				player_count++
+		
+		if(player_count >= 5)
+			to_chat(user, span_warning("You're arming explosives too quickly!"))
+			return
+		
+		GLOB.recent_primers["[user.ckey]_[world.time]"] = list("ckey" = player_key, "time" = world.time)
+	
+	// Spam detection
+	if(world.time - GLOB.last_explosion_spam_time < 0.5 SECONDS)
+		if(prob(40))
+			to_chat(user, span_warning("[src] fails to arm properly!"))
+			return
+	
+	// Increment counter and update time
+	GLOB.active_explosion_spam++
+	GLOB.last_explosion_spam_time = world.time
+	
+	// Call parent to actually arm
+	return ..()
+
 /obj/item/grenade/f13/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return
+	
 	. = ..()
 	update_mob()
+	
+	// Decrement counter
+	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	
+	// Store location before deletion
+	var/turf/epicenter = get_turf(src)
+	
+	// Queue explosion if there are any damage values
+	if(ex_dev || ex_heavy || ex_light || ex_flame)
+		SSexplosion_spam.queue_explosion(epicenter, ex_dev, ex_heavy, ex_light, flash = 0, flame_range = ex_flame, source = null)
+	
 	qdel(src)
 
 /obj/item/grenade/f13/stinger
@@ -55,10 +113,24 @@
 	var/rad_damage = 300
 
 /obj/item/grenade/f13/plasma/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return
+	
 	. = ..()
 	update_mob()
-	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
+	
+	// Decrement counter
+	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	
+	// Store location before deletion
+	var/turf/epicenter = get_turf(src)
+	
+	playsound(epicenter, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, 300)
+	
+	// Queue explosion
+	SSexplosion_spam.queue_explosion(epicenter, ex_dev, ex_heavy, ex_light, flash = 0, flame_range = ex_flame, source = null)
+	
 	qdel(src)
 
 /obj/item/grenade/f13/incendiary
@@ -76,17 +148,31 @@
 	var/range = 4
 
 /obj/item/grenade/f13/incendiary/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return
+	
 	. = ..()
 	update_mob()
-	for(var/turf/T in view(range,loc))
+	
+	// Decrement counter
+	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	
+	// Store location and do fire effects
+	var/turf/epicenter = get_turf(src)
+	
+	for(var/turf/T in view(range, epicenter))
 		if(isfloorturf(T))
 			var/turf/open/floor/F = T
-			F.hotspot_expose(700,50,1)
+			F.hotspot_expose(700, 50, 1)
 			for(var/mob/living/carbon/C in T)
 				C.adjust_fire_stacks(fire_stacks)
 				C.IgniteMob()
 				to_chat(C, span_userdanger("The incendiary grenade sets you ablaze!"))
 				C.emote("scream")
+	
+	// Queue explosion
+	SSexplosion_spam.queue_explosion(epicenter, ex_dev, ex_heavy, ex_light, flash = 0, flame_range = ex_flame, source = null)
+	
 	qdel(src)
 
 /obj/item/grenade/f13/radiation
@@ -101,10 +187,23 @@
 	shrapnel_radius = 6
 
 /obj/item/grenade/f13/radiation/prime(mob/living/lanced_by)
+	if(QDELETED(src))
+		return
+	
 	. = ..()
 	update_mob()
-	playsound(loc, 'sound/effects/empulse.ogg', 50, 1)
+	
+	// Decrement counter
+	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
+	
+	// Store location and do radiation
+	var/turf/epicenter = get_turf(src)
+	
+	playsound(epicenter, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, rad_damage)
+	
+	// These don't have normal explosions, so don't queue one
+	qdel(src)
 
 /obj/item/grenade/f13/dynamite
 	name = "stick of dynamite"
