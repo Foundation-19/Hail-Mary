@@ -191,30 +191,46 @@ proc/get_top_level_mob(mob/S)
 	var/base_sprint_boost = CONFIG_GET(number/movedelay/sprint_speed_increase)
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
+	var/speed_bonus
 	if(agi_diff > 0)
-		// Above 5: diminishing returns
-		// Agi 6: 0.9 + 0.112 = 1.012
-		// Agi 8: 0.9 + 0.195 = 1.095
-		// Agi 10: 0.9 + 0.250 = 1.150 (fuck it we ball)
-		return base_sprint_boost + (sqrt(agi_diff) * 0.112)
+		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.112)
 	else
-		// Below 5: full linear penalty
-		// Agi 4: 0.9 - 0.112 = 0.788
-		// Agi 1: 0.9 - 0.448 = 0.452
-		return base_sprint_boost + (agi_diff * 0.112)
+		speed_bonus = base_sprint_boost + (agi_diff * 0.112)
+	
+	// Apply armor penalties to sprint speed
+	var/armor_penalty = 0
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(istype(H.wear_suit))
+			var/obj/item/clothing/suit/armor = H.wear_suit
+			if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+				armor_penalty = 0.3 // Heavy armor: 30% slower sprint
+			// Medium and light armor don't reduce sprint speed
+	
+	return speed_bonus - armor_penalty
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
 	// HIGHER drain - short burst means burning through stamina faster
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
+	var/base_modifier
 	if(agi_diff > 0)
-		// Above 5: diminishing benefit
-		// Agi 10: (1 - 0.224) * 0.75 = 0.582 (still drains hard)
-		return (1 - (sqrt(agi_diff) * 0.1)) * 0.75 // Was 0.65
+		base_modifier = (1 - (sqrt(agi_diff) * 0.1)) * 0.75
 	else
-		// Below 5: full linear penalty
-		// Agi 1: (1 - (-0.4)) * 0.75 = 1.05 (heavy drain)
-		return (1 - (agi_diff * 0.1)) * 0.75 // Was 0.65
+		base_modifier = (1 - (agi_diff * 0.1)) * 0.75
+	
+	// Apply armor drain penalties
+	var/armor_multiplier = 1.0
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(istype(H.wear_suit))
+			var/obj/item/clothing/suit/armor = H.wear_suit
+			if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+				armor_multiplier = 1.3 // Heavy armor: 30% more drain
+			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+				armor_multiplier = 1.15 // Medium armor: 15% more drain
+	
+	return base_modifier * armor_multiplier
 
 /mob/living/carbon/initialize_special_agility()
 	var/base_regen = CONFIG_GET(number/movedelay/sprint_buffer_regen_per_ds)
