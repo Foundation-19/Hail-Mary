@@ -249,21 +249,21 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T3 * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_DT_T3) // Legate OP
 
-/obj/item/clothing/suit/armor/medium/combat/legion // not craftable atm. Give armor if it becomes so.
+/obj/item/clothing/suit/armor/medium/combat/legion
 	name = "Legion combat armor"
 	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for Caesar's Legion."
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-	icon_state = "legion_combat"
-	item_state = "legion_combat"
+	icon_state = "combat_armor_legion"
+	item_state = "combat_armor_legion"
 
-/obj/item/clothing/suit/armor/medium/combat/mk2/legion // not craftable atm. Give armor if it becomes so.
+/obj/item/clothing/suit/armor/medium/combat/mk2/legion
 	name = "reinforced Legion combat armor"
+	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for Caesar's Legion."
 	icon = 'icons/fallout/clothing/armored_medium.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for Caesar's Legion."
-	icon_state = "legion_combat2"
-	item_state = "legion_combat2"
+	icon_state = "combat_armor_legion_mk2"
+	item_state = "combat_armor_legion_mk2"
 
 /obj/item/clothing/suit/armor/legion/vet/explorercanada
 	name = "custom explorer armor"
@@ -412,6 +412,19 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	item_state = "ncr_codressjack"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T4, ARMOR_MODIFIER_DOWN_LASER_T4)
 
+/obj/item/clothing/suit/armor/medium/combat/ncr
+	name = "NCR combat armor"
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for New California Republic."
+	icon_state = "combat_armor_ncr"
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/ncr
+	name = "reinforced NCR combat armor"
+	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for New California Republic."
+	icon_state = "combat_armor_ncr_mk2"
 
 //NCR Ranger
 /obj/item/clothing/suit/toggle/armor/rangerrecon
@@ -470,6 +483,12 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 8)
 
+/obj/item/clothing/suit/armor/rangercombat/shocktrooper
+	name = "shocktrooper combat armor"
+	desc = "An old marine shocktrooper suit from before the war, still good as new."
+	icon_state = "shocktrooper"
+	item_state = "shocktrooper"
+	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_LESS_T1 * ARMOR_SLOWDOWN_GLOBAL_MULT
 
 //All of the armor below is mostly unused
 
@@ -1173,8 +1192,16 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	desc = "Developed in early 2077 after the Anchorage Reclamation, the T-60 series of power armor was designed to eventually replace the T-51b as the pinnacle of powered armor technology in the U.S. military arsenal."
 	icon_state = "t60powerarmor"
 	item_state = "t60powerarmor"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1)
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 30)
 	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t60
+
+/obj/item/clothing/suit/armor/power_armor/t60/tesla
+	name = "T-60a tesla power armor"
+	desc = "Developed in early 2077 after the Anchorage Reclamation, the T-60 series of power armor was designed to eventually replace the T-51b as the pinnacle of powered armor technology in the U.S. military arsenal, this one appears to be enhanced with jurry rigged tesla coils"
+	icon_state = "t60tesla"
+	item_state = "t60tesla"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1)
 
 /obj/item/clothing/suit/armor/power_armor/t60/pineapple
 	name = "degraded T-60a power armor"
