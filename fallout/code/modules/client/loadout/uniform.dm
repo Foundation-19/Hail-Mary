@@ -1249,7 +1249,7 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
 							"NCR Conscript",
 							"NCR Rear Echelon",
 						)
@@ -1281,7 +1281,7 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
 							"NCR Conscript",
 							"NCR Rear Echelon",
 						)
@@ -1302,7 +1302,7 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
 							"NCR Conscript",
 							"NCR Rear Echelon",
 						)
@@ -1323,7 +1323,7 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
 							"NCR Conscript",
 							"NCR Rear Echelon",
 						)
@@ -1344,7 +1344,7 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty,"
+							"NCR Off-Duty",
 							"NCR Conscript",
 							"NCR Rear Echelon",
 						)
