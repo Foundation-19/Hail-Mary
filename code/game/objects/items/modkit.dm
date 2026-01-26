@@ -83,13 +83,15 @@
 
 /obj/item/modkit/digger_helm
 	name = "salvaged riot armor modkit"
+	desc = "for medium raider armor"
 	target_items = list(/obj/item/clothing/suit/armor/medium/raider)
-	result_item = /obj/item/clothing/suit/armor/light/duster/herbertranger
+	result_item = /obj/item/clothing/suit/armor/medium/raider/herbertranger
 
 /obj/item/modkit/digger_vest
 	name = "salvaged riot helmet modkit"
+	desc = "for raider helmet"
 	target_items = list(/obj/item/clothing/head/helmet/f13/raider)
-	result_item = /obj/item/clothing/head/helmet/f13/herbertranger
+	result_item = /obj/item/clothing/head/helmet/f13/raider/herbertranger
 
 /obj/item/modkit/diohelmet
 	name = "galerum lacertarex"
