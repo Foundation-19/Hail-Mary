@@ -166,7 +166,7 @@
 
 /datum/crafting_recipe/hydra5
 	name = "Hydra (x5)"
-	result = /obj/item/reagent_containers/pill/patch/hydra
+	result = /obj/item/storage/box/medicine/hydra5
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/fungus = 15,
 				/obj/item/reagent_containers/food/snacks/grown/broc = 15)
 	time = 15
@@ -197,6 +197,17 @@
 	category = CAT_MEDICAL
 	always_available = TRUE
 */
+/datum/crafting_recipe/cheap_stimpak
+	name = "Cheap Stimpak"
+	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/cheap
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
+				/obj/item/reagent_containers/food/snacks/grown/xander = 1,
+				/obj/item/reagent_containers/syringe = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 10
+	category = CAT_MEDICAL
+	always_available = FALSE
+
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak

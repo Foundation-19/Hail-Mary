@@ -13,6 +13,7 @@
 	density = TRUE
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	circuit = /obj/item/circuitboard/machine/emitter
+	speed_process = TRUE
 
 	use_power = NO_POWER_USE
 	idle_power_usage = 10
@@ -205,6 +206,9 @@
 		sparks.start()
 	P.firer = user ? user : src
 	P.fired_from = src
+	// Defensive: ensure armour_penetration is always a number
+	if(!isnum(P.armour_penetration))
+		P.armour_penetration = 0
 	if(last_projectile_params)
 		P.p_x = last_projectile_params[2]
 		P.p_y = last_projectile_params[3]

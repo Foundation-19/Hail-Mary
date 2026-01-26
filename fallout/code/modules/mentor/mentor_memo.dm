@@ -73,9 +73,11 @@
 			qdel(query_memolist)
 			if(!memolist.len)
 				to_chat(src, "No memos found in database.")
+				qdel(query_memolist)
 				return
 			var/target_ckey = input(src, "Select whose memo to edit", "Select memo") as null|anything in memolist
 			if(!target_ckey)
+				qdel(query_memolist)
 				return
 			var/datum/db_query/query_memofind = SSdbcore.NewQuery(
 				"SELECT memotext FROM [format_table_name("mentor_memo")] WHERE ckey = :ckey",

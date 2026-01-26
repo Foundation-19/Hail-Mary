@@ -147,7 +147,7 @@
 		shutdown_core()
 
 
-/obj/machinery/am_shielding/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, atom/attacked_by)
+/obj/machinery/am_shielding/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	switch(damage_type)
 		if(BRUTE)
 			if(sound_effect)

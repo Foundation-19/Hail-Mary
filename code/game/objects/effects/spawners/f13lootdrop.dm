@@ -380,16 +380,18 @@
 				/obj/effect/spawner/bundle/f13/armor/t45b_salvaged,
 				/obj/effect/spawner/bundle/f13/armor/riot,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2,
-				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark
+				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark,
+				/obj/effect/spawner/bundle/f13/armor/combatduster,
 				)
 
 /obj/effect/spawner/lootdrop/f13/armor/tier4PA // TIER 4 ARMOR WITH PA
 	name = "tier 4 armor with possible PA"
 	loot = list(
 				/obj/effect/spawner/bundle/f13/armor/t45d,
-				/obj/effect/spawner/bundle/f13/armor/riot,
 				/obj/effect/spawner/bundle/f13/armor/combat/mk2,
-				/obj/effect/spawner/bundle/f13/armor/combat/mk2/dark
+				/obj/effect/spawner/bundle/f13/armor/excavator,
+				/obj/effect/spawner/bundle/f13/armor/hotrodpa,
+				/obj/effect/spawner/bundle/f13/armor/shocktrooper,
 				)
 
 /obj/effect/spawner/bundle/f13/armor/t45b_salvaged
@@ -447,6 +449,8 @@
 	loot = list(
 				/obj/effect/spawner/bundle/f13/armor/t45d,
 				/obj/effect/spawner/bundle/f13/armor/t51b,
+				/obj/effect/spawner/bundle/f13/armor/t60,
+				/obj/effect/spawner/bundle/f13/armor/eliteriot,
 				)
 
 /obj/effect/spawner/bundle/f13/armor/t45d
@@ -461,6 +465,86 @@
 	items = list(
 				/obj/item/clothing/suit/armor/power_armor/t51b,
 				/obj/item/clothing/head/helmet/f13/power_armor/t51b,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/excavator
+	name = "excavator power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/excavator,
+				/obj/item/clothing/head/helmet/f13/power_armor/excavator,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/x02
+	name = "x02 power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/x02,
+				/obj/item/clothing/head/helmet/f13/power_armor/x02helmet,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/tesla
+	name = "tesla power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/tesla,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/tesla,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/hellfire
+	name = "hellfire power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/hellfire,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/super_advanced_pa//Do not place this down on a map unless you want this to be a "whoever gets it first WINS"
+	name = "super advanced power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/hellfire/super_advanced_pa,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/super_advanced_pa,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/ultracite
+	name = "ultracite power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/advanced/ultracite,
+				/obj/item/clothing/head/helmet/f13/power_armor/advanced/ultracite,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/t60
+	name = "t60 power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/t60,
+				/obj/item/clothing/head/helmet/f13/power_armor/t60,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/t60tesla
+	name = "t60 tesla power armor spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/power_armor/t60/tesla,
+				/obj/item/clothing/head/helmet/f13/power_armor/t60,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/eliteriot
+	name = "elite riot gear spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/heavy/riot/elite,
+				/obj/item/clothing/head/helmet/f13/ncr/rangercombat/eliteriot,
+				)
+
+/obj/effect/spawner/bundle/f13/armor/shocktrooper
+	name = "shocktrooper gear spawner"
+	items = list(
+				/obj/item/clothing/suit/armor/rangercombat/shocktrooper,
+				/obj/item/clothing/head/helmet/f13/ncr/rangercombat/shocktrooper,
+				)
+
+/obj/effect/spawner/lootdrop/f13/armor/tier6 //TIER 6 ARMOR, this should only be used in events or put behind max pop faction effort dungeons, think having to kill a super mutant behemoth or multiple big chew chew's.
+	name = "tier 6 armor"
+	loot = list(
+				/obj/effect/spawner/bundle/f13/armor/hellfire,
+				/obj/effect/spawner/bundle/f13/armor/x02,
+				/obj/effect/spawner/bundle/f13/armor/tesla,
+				/obj/effect/spawner/bundle/f13/armor/ultracite,
+				/obj/effect/spawner/bundle/f13/armor/t60tesla, //womp womp you got bad rng
 				)
 
 
@@ -818,8 +902,7 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/superhigh
 	name = "superhigh tier energy gun"
 	loot = list(/obj/effect/spawner/bundle/f13/multiplas = 25,
-				/obj/effect/spawner/bundle/f13/tribeam = 25,
-				/obj/item/gun/energy/laser/laer = 20
+				/obj/effect/spawner/bundle/f13/tribeam = 25
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/unique

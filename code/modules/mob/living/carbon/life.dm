@@ -141,7 +141,7 @@
 
 	//CRIT
 	if(health <= HEALTH_THRESHOLD_FULLCRIT || !lungs || lungs.failed)
-		if(reagents.has_reagent(/datum/reagent/medicine/epinephrine) && lungs)
+		if(reagents && reagents.has_reagent(/datum/reagent/medicine/epinephrine) && lungs)
 			return
 		adjustOxyLoss(0.5)
 
