@@ -226,6 +226,12 @@
 	cost = 150
 	item_path = /obj/item/clothing/neck/necklace/dope
 
+/datum/gang_item/equipment/jammer
+	name = "Jammer"
+	id = "jammer"
+	cost = 200
+	item_path = /obj/item/jammer
+
 /datum/gang_item/equipment/c4
 	name = "C4 Explosive"
 	id = "c4"
