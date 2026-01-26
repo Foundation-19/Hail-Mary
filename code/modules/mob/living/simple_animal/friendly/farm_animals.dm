@@ -704,7 +704,6 @@
 	young_type = /mob/living/simple_animal/cow/brahmin/calf
 	var/obj/item/inventory_back
 	var/mob/living/carbon/human/current_rider
-	var/base_ride_move_delay = 0.5
 	footstep_type = FOOTSTEP_MOB_HOOF
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
@@ -727,61 +726,44 @@
 			to_chat(M, "<span class='warning'>Your [armor] is too heavy! You're crushing [src]!</span>")
 			M.visible_message("<span class='danger'>[M] attempts to mount [src] but their heavy armor crushes the poor creature!</span>")
 			
-			// Channel time before the animal dies
 			if(!do_after(M, 3 SECONDS, target = src))
-				return
+				return FALSE
 			
-			// Kill the animal
 			src.death()
-			
-			// Stun, knockdown, and damage the rider
 			M.Paralyze(4 SECONDS)
 			M.Knockdown(6 SECONDS)
 			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
 			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
 			to_chat(M, "<span class='userdanger'>[src] collapses under the weight of your armor, throwing you to the ground!</span>")
 			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-			return
+			return FALSE
 	
 	. = ..()
 	
-	// Store rider and update ride speed based on their agility
-	if(ishuman(M))
-		current_rider = M
-		update_ride_speed()
+	if(. && M)
+		M.pixel_x = 0
+		M.pixel_y = 6
+		if(ishuman(M))
+			current_rider = M
+			update_speed_with_agility()
 
 /mob/living/simple_animal/cow/brahmin/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
+	if(buckled_mob)
+		buckled_mob.pixel_x = 0
+		buckled_mob.pixel_y = 0
 	current_rider = null
-	
-	// Reset to base speed when rider dismounts
-	var/datum/component/riding/riding_component = GetComponent(/datum/component/riding)
-	if(riding_component)
-		riding_component.vehicle_move_delay = base_ride_move_delay
-	
 	return ..()
 
-/mob/living/simple_animal/cow/brahmin/proc/update_ride_speed()
-	if(!current_rider)
+/mob/living/simple_animal/cow/brahmin/proc/update_speed_with_agility()
+	if(!current_rider || !saddle)
 		return
 	
-	var/datum/component/riding/riding_component = GetComponent(/datum/component/riding)
-	if(!riding_component)
-		return
+	ride_move_delay = initial(ride_move_delay) + round(log(1.6, hunger), 0.2)
 	
-	// Calculate speed modifier based on rider's agility
-	var/agi_diff = current_rider.special_a - SPECIAL_DEFAULT_ATTR_VALUE
-	var/speed_modifier = 0
-	
-	if(agi_diff > 0)
-		// Diminishing returns for high agility
-		speed_modifier = sqrt(agi_diff) * 0.112
-	else
-		// Full linear penalty for low agility
-		speed_modifier = agi_diff * 0.112
-	
-	// Apply the speed modifier to vehicle_move_delay (lower is faster)
-	var/new_delay = base_ride_move_delay - speed_modifier
-	riding_component.vehicle_move_delay = max(0.1, new_delay)
+	var/datum/component/riding/D = GetComponent(/datum/component/riding)
+	if(D)
+		D.vehicle_move_delay = ride_move_delay
+
 
 /mob/living/simple_animal/cow/brahmin/molerat
 	name = "tamed molerat"
