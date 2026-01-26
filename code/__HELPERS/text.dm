@@ -50,6 +50,12 @@
 			index = findtext(t, char)
 	return t
 
+/// Complicatedly removes all html code, leaving plain text.
+/proc/strip_html_complicated(t)
+	var/static/regex/remove_html_regex = new("<\[^>\]*>", "g")
+	t = remove_html_regex.Replace(t, "")
+	return t
+
 //Removes a few problematic characters
 /proc/sanitize_simple(t,list/repl_chars = list("\n"="#","\t"="#"))
 	for(var/char in repl_chars)
@@ -76,6 +82,9 @@
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' after sanitize() calls byond's html_encode()
 /proc/strip_html(t,limit=MAX_MESSAGE_LEN)
 	return copytext((sanitize(strip_html_simple(t))),1,limit)
+
+/proc/remove_html(t,limit=MAX_MESSAGE_LEN)
+	return copytext(strip_html_complicated(t),1,limit)
 
 //Runs byond's sanitization proc along-side strip_html_simple
 //I believe strip_html_simple() is required to run first to prevent '<' from displaying as '&lt;' that html_encode() would cause
