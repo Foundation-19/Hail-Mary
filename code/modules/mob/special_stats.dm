@@ -5,7 +5,7 @@
 	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth and increased poison and rad resistance for each level above/below 5 END
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets when they examine you
 	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
-	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier per lvl below/above 5 AGI
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 tiles sprint buffer, +/- 10% sprint regen, +/- 0.05 sprint speed, +/- 10% sprint stamina usage per lvl below/above 5 AGI
 	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to hit yourself if it's 3 or below
 
 /mob/proc/get_top_level_mob()
@@ -186,9 +186,58 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/calc_sprint_stamina_mod_from_special()
 	return
 
-/mob/living/carbon/calc_sprint_stamina_mod_from_special()
-	return (1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1))
+/mob/living/carbon/proc/calc_sprint_speed_mod_from_special()
+	// BURST SPEED
+	var/base_sprint_boost = CONFIG_GET(number/movedelay/sprint_speed_increase)
+	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
+	
+	if(agi_diff > 0)
+		// Above 5: diminishing returns
+		// Agi 6: 0.9 + 0.112 = 1.012
+		// Agi 8: 0.9 + 0.195 = 1.095
+		// Agi 10: 0.9 + 0.250 = 1.150 (fuck it we ball)
+		return base_sprint_boost + (sqrt(agi_diff) * 0.112)
+	else
+		// Below 5: full linear penalty
+		// Agi 4: 0.9 - 0.112 = 0.788
+		// Agi 1: 0.9 - 0.448 = 0.452
+		return base_sprint_boost + (agi_diff * 0.112)
 
+/mob/living/carbon/calc_sprint_stamina_mod_from_special()
+	// HIGHER drain - short burst means burning through stamina faster
+	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
+	
+	if(agi_diff > 0)
+		// Above 5: diminishing benefit
+		// Agi 10: (1 - 0.224) * 0.75 = 0.582 (still drains hard)
+		return (1 - (sqrt(agi_diff) * 0.1)) * 0.75 // Was 0.65
+	else
+		// Below 5: full linear penalty
+		// Agi 1: (1 - (-0.4)) * 0.75 = 1.05 (heavy drain)
+		return (1 - (agi_diff * 0.1)) * 0.75 // Was 0.65
+
+/mob/living/carbon/initialize_special_agility()
+	var/base_regen = CONFIG_GET(number/movedelay/sprint_buffer_regen_per_ds)
+	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
+	
+	// MUCH SMALLER buffer - true short burst
+	if(agi_diff > 0)
+		// Agi 6: 5.6 + 0.3 = 5.9 tiles
+		// Agi 8: 5.6 + 0.52 = 6.12 tiles
+		// Agi 10: 5.6 + 0.67 = 6.27 tiles (~6 seconds)
+		sprint_buffer_max = 5.6 + (sqrt(agi_diff) * 0.3)
+	else
+		// Agi 4: 5.6 - 0.15 = 5.45 tiles (~3.9 sec)
+		// Agi 1: 5.6 - 0.6 = 5.0 tiles (~3.6 sec)
+		// Softer penalty - only loses 0.15 per point below 5
+		sprint_buffer_max = 5.6 + (agi_diff * 0.15)
+	sprint_buffer = sprint_buffer_max
+	
+	// SLOWER regen - need real downtime between bursts
+	if(agi_diff > 0)
+		sprint_buffer_regen_ds = base_regen * (1 + (sqrt(agi_diff) * 0.00625)) * 0.5
+	else
+		sprint_buffer_regen_ds = base_regen * (1 + (agi_diff * 0.00625)) * 0.5
 /// LUCK
 
 /// Currently affects only money from trashpiles
