@@ -2149,9 +2149,8 @@
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
 "cFq" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/radio_host,
-/turf/open/floor/wood_fancy/wood_fancy_dark,
+/obj/effect/landmark/start/f13/f13holidayshopkeeper,
+/turf/open/floor/f13/wood,
 /area/f13/holiday)
 "cFu" = (
 /obj/structure/chair/f13foldupchair{
@@ -3229,6 +3228,10 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/brotherhood/powered)
+"eay" = (
+/obj/effect/landmark/start/f13/f13holidayquartermaster,
+/turf/open/floor/f13/wood,
+/area/f13/holiday)
 "eaC" = (
 /obj/structure/fence{
 	dir = 4
@@ -6908,6 +6911,7 @@
 	pixel_y = 14
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidaydendoc,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/holiday)
 "iBj" = (
@@ -8802,7 +8806,6 @@
 /area/f13/brotherhood/powered)
 "kWe" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/dendoc,
 /obj/machinery/vending/coffee{
 	density = 0;
 	pixel_y = 24
@@ -11997,6 +12000,11 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
+"pfo" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidayradio_host,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/holiday)
 "pfD" = (
 /obj/item/flashlight/lantern{
 	pixel_y = 17;
@@ -16063,6 +16071,11 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/building/powered)
+"ujT" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/start/f13/f13holidaydendoc,
+/turf/open/floor/wood_mosaic/wood_mosaic_dark,
+/area/f13/holiday)
 "uli" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -16152,6 +16165,10 @@
 /obj/item/clothing/suit/armor/medium/combat/duster,
 /turf/open/floor/wood_wide,
 /area/f13/building/powered)
+"urf" = (
+/obj/effect/landmark/start/f13/f13holidaysheriff,
+/turf/open/floor/carpet/red,
+/area/f13/holiday)
 "urj" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -16437,6 +16454,7 @@
 /area/f13/building/powered)
 "uGj" = (
 /obj/structure/chair/sofa/left,
+/obj/effect/landmark/start/f13/f13holidayf13holidaymayor,
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
 "uGs" = (
@@ -16533,8 +16551,6 @@
 /turf/open/floor/wood_common,
 /area/f13/legioncamp)
 "uOJ" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/landmark/start/f13/dendoc,
 /obj/structure/sink/kitchen{
 	pixel_y = 24
 	},
@@ -51768,7 +51784,7 @@ wlp
 wlp
 pEV
 ycd
-wtq
+ujT
 eLb
 iRy
 iRy
@@ -52025,12 +52041,12 @@ wlp
 wlp
 pEV
 pHt
-wtq
+ujT
 pEV
 ewD
 iRy
 eLb
-wtq
+ujT
 mRn
 pEV
 wlp
@@ -54616,7 +54632,7 @@ wlp
 wlp
 wlp
 qNl
-fQe
+urf
 fQe
 fQe
 fQe
@@ -62578,12 +62594,12 @@ dnM
 dnM
 qNl
 kjM
-fsq
+eay
 fsq
 fsq
 qNl
-fsq
-kpP
+cFq
+cFq
 idd
 cYg
 cYg
@@ -62840,7 +62856,7 @@ qNl
 qNl
 qNl
 fLc
-kpP
+cFq
 qNl
 cYg
 cNz
@@ -65405,8 +65421,8 @@ dnM
 pEV
 dtU
 oHV
-cFq
 oHV
+pfo
 hVk
 pEV
 jlz
@@ -65662,8 +65678,8 @@ dnM
 aVw
 oHV
 oHV
-cFq
 oHV
+pfo
 rfD
 pEV
 jlz
