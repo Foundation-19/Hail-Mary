@@ -626,4 +626,4 @@ BODY_SIZE_SLOWDOWN_MULTIPLIER 0.25
 #USE_FIELD_OF_VISION
 
 ## Sets how many quirk points you get at the start
-QUIRK_POINTS 5
+QUIRK_POINTS 4
