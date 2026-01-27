@@ -74,9 +74,27 @@
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
-
 	var/atom/T = drop_location()  // Drop location for movable items
 
+	// CRITICAL: Remove from global lists FIRST to prevent any new references
+	if(shell)
+		GLOB.available_ai_shells -= src
+	GLOB.silicon_mobs -= src
+	
+	// Close any borgpanel UIs that might be open - these hold references
+	SStgui.close_uis(src)
+
+	// Disconnect from AI EARLY to break circular references
+	if(connected_ai)
+		set_connected_ai(null)
+	
+	// Clear laws datum reference - this can hold references
+	if(laws)
+		if(laws.owner == src)
+			laws.owner = null
+		laws = null
+
+	// Clear client reference early
 	if(client)
 		client.mob = null
 
@@ -98,33 +116,129 @@
 			ghostize()
 			stack_trace("Borg MMI lacked a brainmob")
 
+	// Clear mind reference
 	if(mind && mind.current == src)
 		mind.current = null
+	mind = null
 
-	cell = null
-	wires = null
-	radio = null
-	module = null
-	builtInCamera = null
-	aicamera = null
-	spark_system = null
-	robot_modules_background = null
-	equippable_hats = null
+	// IMPORTANT: Unbuckle any buckled mobs BEFORE anything else
+	// Buckled mobs hold references through the riding component
+	if(has_buckled_mobs())
+		unbuckle_all_mobs(force = TRUE)
 
-	if(connected_ai)
-		set_connected_ai(null)
-
-	if(shell)
-		GLOB.available_ai_shells -= src
-
-	GLOB.silicon_mobs -= src
-
-	// Critical GC steps
+	// Unregister ALL signals BEFORE clearing other references
 	UnregisterSignal(src)
+
+	// Clean up actions - these can hold references
+	for(var/datum/action/A in actions)
+		A.Remove(src)
+
+	// Clean up components EARLY - riding component especially holds references
+	RemoveElement(/datum/element/empprotection)
+	RemoveElement(/datum/element/cleaning)
+	RemoveComponentByType(/datum/component/riding)
 	RemoveComponentByType(/datum/component/swarming)
 
+	// Clean up effect systems
+	if(spark_system)
+		qdel(spark_system)
+	spark_system = null
+	
+	if(ion_trail)
+		qdel(ion_trail)
+	ion_trail = null
+
+	// Clean up wires - this is important as wires hold a reference to the holder
+	if(wires)
+		qdel(wires)
+	wires = null
+	
+	// Clean up radio
+	if(radio)
+		qdel(radio)
+	radio = null
+	
+	// Clean up module - important as it may hold item references
+	if(module)
+		// Move module out first to break the loc reference
+		if(module.loc == src)
+			module.forceMove(T)
+		qdel(module)
+	module = null
+	
+	// Clean up cameras
+	if(builtInCamera)
+		qdel(builtInCamera)
+	builtInCamera = null
+	
+	if(aicamera)
+		qdel(aicamera)
+	aicamera = null
+	
+	// Clean up UI elements
+	if(robot_modules_background)
+		qdel(robot_modules_background)
+	robot_modules_background = null
+	
+	thruster_button = null
+	lamp_button = null
+	hands = null
+
+	// Clean up HUD - this is critical as HUD can hold references
+	if(hud_used)
+		hud_used = null
+
+	// Clean up upgrades list - this could hold references
+	if(upgrades)
+		for(var/obj/item/borg/upgrade/U in upgrades)
+			if(U.loc == src)
+				U.forceMove(T)
+		upgrades.Cut()
+	upgrades = null
+
+	// Clear the cell reference (don't qdel, it's been moved or should be handled by robot_suit)
+	cell = null
+	
+	// IMPORTANT: Clean up robot_suit reference
+	// This is a major source of circular references
+	if(robot_suit)
+		// The robot_suit still has references to us, so we need to clear them
+		if(robot_suit.loc == src)
+			robot_suit.forceMove(T)
+		robot_suit = null
+	
+	// Clear lists - these can hold references
+	if(alarms)
+		for(var/cat in alarms)
+			alarms[cat] = null
+	alarms = null
+	
+	equippable_hats = null
+
+	// Clear other object references
+	hat = null
+	mainframe = null
+	mmi = null
+	
+	// Clear faction list reference
+	faction = null
+	
+	// Clear held items
+	for(var/obj/item/I in held_items)
+		held_items -= I
+	
+	// Clear any timers that might be running
+	deltimer(lamp_cooldown)
+	
+	// Clear any status effects or alerts
+	clear_alert("locked")
+	clear_alert("hacked")
+
+	// Set loc to null last
 	loc = null
+	
 	return ..()
+
 
 /mob/living/silicon/robot/proc/pick_module()
 	if(module.type != /obj/item/robot_module)
@@ -650,31 +764,43 @@
 
 	update_icons()
 
+// Fix the deconstruct proc to properly null the robot_suit reference
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
 	if (robot_suit)
 		robot_suit.forceMove(T)
-		robot_suit.l_leg.forceMove(T)
-		robot_suit.l_leg = null
-		robot_suit.r_leg.forceMove(T)
-		robot_suit.r_leg = null
-		new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
-		robot_suit.chest.forceMove(T)
-		robot_suit.chest.wired = 0
-		robot_suit.chest = null
-		robot_suit.l_arm.forceMove(T)
-		robot_suit.l_arm = null
-		robot_suit.r_arm.forceMove(T)
-		robot_suit.r_arm = null
-		robot_suit.head.forceMove(T)
-		robot_suit.head.flash1.forceMove(T)
-		robot_suit.head.flash1.burn_out()
-		robot_suit.head.flash1 = null
-		robot_suit.head.flash2.forceMove(T)
-		robot_suit.head.flash2.burn_out()
-		robot_suit.head.flash2 = null
-		robot_suit.head = null
+		if(robot_suit.chest && robot_suit.chest.wired)
+			new /obj/item/stack/cable_coil(T, robot_suit.chest.wired)
+			robot_suit.chest.wired = 0
+		// Properly break down the suit
+		if(robot_suit.l_leg)
+			robot_suit.l_leg.forceMove(T)
+			robot_suit.l_leg = null
+		if(robot_suit.r_leg)
+			robot_suit.r_leg.forceMove(T)
+			robot_suit.r_leg = null
+		if(robot_suit.chest)
+			robot_suit.chest.forceMove(T)
+			robot_suit.chest = null
+		if(robot_suit.l_arm)
+			robot_suit.l_arm.forceMove(T)
+			robot_suit.l_arm = null
+		if(robot_suit.r_arm)
+			robot_suit.r_arm.forceMove(T)
+			robot_suit.r_arm = null
+		if(robot_suit.head)
+			robot_suit.head.forceMove(T)
+			if(robot_suit.head.flash1)
+				robot_suit.head.flash1.forceMove(T)
+				robot_suit.head.flash1.burn_out()
+				robot_suit.head.flash1 = null
+			if(robot_suit.head.flash2)
+				robot_suit.head.flash2.forceMove(T)
+				robot_suit.head.flash2.burn_out()
+				robot_suit.head.flash2 = null
+			robot_suit.head = null
 		robot_suit.update_icon()
+		robot_suit = null
 	else
 		new /obj/item/robot_suit(T)
 		new /obj/item/bodypart/l_leg/robot(T)
@@ -688,10 +814,13 @@
 		for(b=0, b!=2, b++)
 			var/obj/item/assembly/flash/handheld/F = new /obj/item/assembly/flash/handheld(T)
 			F.burn_out()
-	if (cell) //Sanity check.
+	
+	if (cell) //Sanity check - this should have been moved already
 		cell.forceMove(T)
 		cell = null
+	
 	qdel(src)
+
 
 /mob/living/silicon/robot/modules
 	var/set_module = null
@@ -1038,24 +1167,31 @@
 	return TRUE
 
 
+// Fix undeploy to properly null references
 /mob/living/silicon/robot/proc/undeploy()
-
 	if(!deployed || !mind || !mainframe)
 		return
-	mainframe.redeploy_action.Grant(mainframe)
-	mainframe.redeploy_action.last_used_shell = src
-	mind.transfer_to(mainframe)
+	
+	var/mob/living/silicon/ai/old_mainframe = mainframe
+	
+	old_mainframe.redeploy_action.Grant(old_mainframe)
+	old_mainframe.redeploy_action.last_used_shell = src
+	mind.transfer_to(old_mainframe)
 	deployed = FALSE
-	mainframe.deployed_shell = null
+	old_mainframe.deployed_shell = null
 	undeployment_action.Remove(src)
+	
 	if(radio) //Return radio to normal
 		radio.recalculateChannels()
 	if(!QDELETED(builtInCamera))
 		builtInCamera.c_tag = real_name	//update the camera name too
+	
 	diag_hud_set_aishell()
-	mainframe.diag_hud_set_deployed()
-	if(mainframe.laws)
-		mainframe.laws.show_laws(mainframe) //Always remind the AI when switching
+	old_mainframe.diag_hud_set_deployed()
+	
+	if(old_mainframe.laws)
+		old_mainframe.laws.show_laws(old_mainframe) //Always remind the AI when switching
+	
 	mainframe = null
 
 /mob/living/silicon/robot/attack_ai(mob/user)
