@@ -193,23 +193,42 @@ proc/get_top_level_mob(mob/S)
 	
 	var/speed_bonus
 	if(agi_diff > 0)
-		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.1344) // Was 0.112, +20%
+		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.1344)
 	else
-		speed_bonus = base_sprint_boost + (agi_diff * 0.1344) // Was 0.112, +20%
+		speed_bonus = base_sprint_boost + (agi_diff * 0.1344)
 	
-	// Apply armor penalties to sprint speed
+	// Apply armor penalties to sprint speed with STRENGTH thresholds
+	// These penalties STACK with the existing armor slowdown system
 	var/armor_penalty = 0
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(istype(H.wear_suit))
 			var/obj/item/clothing/suit/armor = H.wear_suit
 			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-				armor_penalty = 0.60 // Salvaged PA: 60% slower sprint
+				armor_penalty = 0.60 // Base salvage penalty
+				// Additional 50% penalty if strength < 7
+				if(special_s < 7)
+					armor_penalty += 0.50
 			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
-				armor_penalty = 0.30 // Power Armor: 30% slower sprint
+				armor_penalty = 0.30 // Base PA penalty
+				// Additional 40% penalty if strength < 7
+				if(special_s < 7)
+					armor_penalty += 0.40
 			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
-				armor_penalty = 0.30 // Heavy armor: 30% slower sprint
-			// Medium and light armor don't reduce sprint speed
+				armor_penalty = 0.30 // Base heavy penalty
+				// Additional 40% penalty if strength < 7
+				if(special_s < 7)
+					armor_penalty += 0.40
+			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+				// No base penalty for medium
+				// 30% penalty if strength < 5
+				if(special_s < 5)
+					armor_penalty = 0.30
+			else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+				// No base penalty for light
+				// 30% penalty if strength < 3
+				if(special_s < 3)
+					armor_penalty = 0.30
 	
 	return speed_bonus - armor_penalty
 
