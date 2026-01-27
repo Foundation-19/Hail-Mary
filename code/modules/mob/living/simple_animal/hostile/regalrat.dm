@@ -42,6 +42,20 @@
 	// Disabled ghost role for Rat King
 	// INVOKE_ASYNC(src, PROC_REF(get_player))
 
+/mob/living/simple_animal/hostile/regalrat/Destroy()
+	// Remove from cheeserats list
+	SSmobs.cheeserats -= src
+	
+	// Clear action references
+	if(coffer)
+		coffer.Remove(src)
+		QDEL_NULL(coffer)
+	if(riot)
+		riot.Remove(src)
+		QDEL_NULL(riot)
+	
+	return ..()
+
 // Disabled: Rat King ghost role selection
 // /mob/living/simple_animal/hostile/regalrat/proc/get_player()
 // 	var/list/mob/dead/observer/candidates = pollGhostCandidates("Do you want to play as the Royal Rat, cheesey be his crown?", ROLE_SENTIENCE, null, FALSE, 100, POLL_IGNORE_SENTIENCE_POTION)
@@ -321,7 +335,15 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/rat/Destroy()
+	// Remove from global list FIRST
 	SSmobs.cheeserats -= src
+	
+	// Remove swarming component
+	RemoveComponentByType(/datum/component/swarming)
+	
+	// Remove mob holder element
+	RemoveElement(/datum/element/mob_holder)
+	
 	return ..()
 
 /mob/living/simple_animal/hostile/rat/examine(mob/user)
