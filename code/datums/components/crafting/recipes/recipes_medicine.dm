@@ -197,6 +197,17 @@
 	category = CAT_MEDICAL
 	always_available = TRUE
 */
+/datum/crafting_recipe/cheap_stimpak
+	name = "Cheap Stimpak"
+	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/cheap
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
+				/obj/item/reagent_containers/food/snacks/grown/xander = 1,
+				/obj/item/reagent_containers/syringe = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 10
+	category = CAT_MEDICAL
+	always_available = FALSE
+
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak

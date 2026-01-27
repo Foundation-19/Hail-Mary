@@ -151,7 +151,7 @@
 	throwforce = 4
 	item_state = "shovel"
 	w_class = WEIGHT_CLASS_NORMAL
-	custom_materials = list(/datum/material/iron=350)
+	custom_materials = list(/datum/material/iron=35)
 	attack_verb = list("bashed", "bludgeoned", "thrashed", "whacked")
 	sharpness = SHARP_EDGED
 

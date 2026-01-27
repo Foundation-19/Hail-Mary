@@ -47,6 +47,8 @@
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
 		owner = null
+	// Clean up linked alert to break circular reference chain
+	QDEL_NULL(linked_alert)
 	return ..()
 
 /datum/status_effect/process()

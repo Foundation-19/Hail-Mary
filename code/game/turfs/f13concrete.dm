@@ -188,6 +188,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 			C.use(3)
 			var/turf/T = get_turf(src)
 			T.PlaceOnTop(/turf/closed/wall/mineral/concrete/blastproof)
+			changing_turf = TRUE
 			qdel(src)
 		return
 	else if(istype(I, /obj/item/weldingtool))
@@ -197,6 +198,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 		if(I.use_tool(src, user, 60, volume=50))
 			user.visible_message("[user] welds the [src] apart.", "You start to weld the [src] apart...")
 			to_chat(user, span_notice("You weld the [src] apart."))
+			changing_turf = TRUE
 			qdel(src)
 			return
 	return ..()
@@ -215,6 +217,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 	desc = "A small concrete barricade. Could be turned into a concrete wall with some more concrete."
 	icon = 'icons/obj/fallout/concretebarricade.dmi'
 	icon_state = "concrete_barricade"
+	var/changing_turf = FALSE
 	obj_integrity = 450
 	max_integrity = 450 //170 integ stronger than sandbags.
 	proj_pass_rate = 20
@@ -233,6 +236,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 			C.use(2)
 			var/turf/T = get_turf(src)
 			T.PlaceOnTop(/turf/closed/wall/f13/store/constructed)
+			changing_turf = TRUE
 			qdel(src)
 		return
 	else if(istype(I, /obj/item/weldingtool))
@@ -242,6 +246,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 		if(I.use_tool(src, user, 60, volume=50))
 			user.visible_message("[user] welds the [src] apart.", "You start to weld the [src] apart...")
 			to_chat(user, span_notice("You weld the [src] apart."))
+			changing_turf = TRUE
 			qdel(src)
 			return
 

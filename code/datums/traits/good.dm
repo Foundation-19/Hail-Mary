@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(chemwhiz_recipes, list(
 	/datum/crafting_recipe/medx/chemistry,
 	/datum/crafting_recipe/stimpak/chemistry,
 	/datum/crafting_recipe/stimpak5/chemistry,
+	/datum/crafting_recipe/cheap_stimpak,
 	/datum/crafting_recipe/buffout,
 	/datum/crafting_recipe/steady))
 
@@ -380,7 +381,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/technophreak/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
+		if(!H.mind.learned_recipes)
+			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.tier_three_parts
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.energyweapon_crafting
@@ -403,7 +406,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 
 /datum/quirk/gunsmith/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
+		if(!H.mind.learned_recipes)
+			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
 
 /datum/quirk/voracious

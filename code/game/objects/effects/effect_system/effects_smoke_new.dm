@@ -98,11 +98,15 @@
 	INVOKE_ASYNC(src, PROC_REF(fade_out))
 	walk(src, driftdir, driftdelay, 32)
 	lifetime = rand(lifetime*0.5, lifetime*3)
-	QDEL_IN(src, lifetime)
+	addtimer(CALLBACK(src, PROC_REF(_cleanup)), lifetime, TIMER_DELETE_ME | TIMER_UNIQUE)
+
+/obj/effect/particle_effect/fancy_smoke/proc/_cleanup()
+	qdel(src)
 
 /obj/effect/particle_effect/fancy_smoke/Destroy()
-	. = ..()
+	deltimer(src)  // Kill any pending timers
 	STOP_PROCESSING(SSeffects, src)
+	return ..()
 
 /obj/effect/particle_effect/fancy_smoke/proc/fade_out()
 	var/rotation_dir = pick(-1, 1)

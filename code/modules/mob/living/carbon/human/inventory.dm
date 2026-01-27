@@ -274,7 +274,7 @@
 	var/datum/outfit/O = null
 
 	if(ispath(outfit))
-		O = new outfit
+		O = new outfit(visualsOnly)  // Pass visualsOnly to skip randomization in preview mode
 	else
 		O = outfit
 		if(!istype(O))

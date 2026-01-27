@@ -31,6 +31,7 @@
 	active = TRUE
 	locked = TRUE
 	state = 2
+	projectile_type = /obj/item/projectile/beam/emitter/hitscan
 
 /obj/machinery/power/emitter/energycannon/RefreshParts()
 	return

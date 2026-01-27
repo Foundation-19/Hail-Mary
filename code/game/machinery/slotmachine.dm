@@ -22,6 +22,7 @@
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 50
 	circuit = /obj/item/circuitboard/computer/slot_machine
+	speed_process = TRUE
 	var/money = DEFAULT_JACKPOT //How much money it has CONSUMED
 	var/plays = 0
 	var/working = FALSE

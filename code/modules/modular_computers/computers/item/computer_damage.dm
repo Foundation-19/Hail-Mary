@@ -1,4 +1,4 @@
-/obj/item/modular_computer/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, atom/attacked_by)
+/obj/item/modular_computer/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	. = ..()
 	var/component_probability = min(50, max(damage_amount*0.1, 1 - obj_integrity/max_integrity))
 	switch(damage_flag)
@@ -10,7 +10,7 @@
 		for(var/I in all_components)
 			var/obj/item/computer_hardware/H = all_components[I]
 			if(prob(component_probability))
-				H.take_damage(round(damage_amount*0.5), damage_type, damage_flag, 0)
+				H.take_damage(round(damage_amount*0.5), damage_type, damage_flag, sound_effect = 0)
 
 
 /obj/item/modular_computer/deconstruct(disassembled = TRUE)

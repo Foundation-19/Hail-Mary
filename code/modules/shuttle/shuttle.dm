@@ -50,7 +50,8 @@
 /obj/docking_port/has_gravity(turf/T)
 	return FALSE
 
-/obj/docking_port/take_damage(atom/attacked_by)
+// Override with full signature for dreamchecker compliance
+/obj/docking_port/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	return
 
 /obj/docking_port/singularity_pull()
@@ -129,17 +130,24 @@
 //Debug proc used to highlight bounding area
 /obj/docking_port/proc/highlight(_color)
 	var/list/L = return_coords()
+	if(!L || L.len < 4)
+		return
 	var/turf/T0 = locate(L[1],L[2],z)
 	var/turf/T1 = locate(L[3],L[4],z)
+	if(!T0 || !T1)
+		return
 	for(var/turf/T in block(T0,T1))
-		T.color = _color
-		LAZYINITLIST(T.atom_colours)
-		T.maptext = null
+		if(T)
+			T.color = _color
+			LAZYINITLIST(T.atom_colours)
+			T.maptext = null
 	if(_color)
 		var/turf/T = locate(L[1], L[2], z)
-		T.color = "#0f0"
+		if(T)
+			T.color = "#0f0"
 		T = locate(L[3], L[4], z)
-		T.color = "#00f"
+		if(T)
+			T.color = "#00f"
 #endif
 
 //return first-found touching dockingport

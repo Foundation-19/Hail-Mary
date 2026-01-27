@@ -316,9 +316,16 @@
 		remove_sword()
 
 /obj/item/shishkebabpack/proc/remove_sword()
+	// Check if sword exists before trying to access it
+	if(!sword || QDELETED(sword))
+		return
+	
+	// Check if sword is in a mob's inventory
 	if(ismob(sword.loc))
 		var/mob/M = sword.loc
 		M.temporarilyRemoveItemFromInventory(sword, TRUE)
+	
+	// Move sword back to backpack
 	sword.forceMove(src)
 
 /obj/item/shishkebabpack/Destroy()
@@ -346,8 +353,10 @@
 		return ..()
 
 /obj/item/shishkebabpack/dropped(mob/user)
-	..()
-	remove_sword()
+	. = ..()
+	// Only try to remove sword if we're not being deleted
+	if(!QDELETED(src))
+		remove_sword()
 
 // Shishkebab sword				Keywords: Damage 55 (fire), Tool welder
 /obj/item/weapon/melee/shishkebab //This should never exist without the backpack.

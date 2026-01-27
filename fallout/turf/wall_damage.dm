@@ -36,7 +36,9 @@
 
 /turf/closed/wall/attackby(obj/item/W, mob/user, params)
 	var/holdHardness = initial(hardness) || 70	 // Holds wall hardness before anything changes the src, defaults to 70
-	var/holdUnbreakable = unbreakable	 // Holds wall unbreakable state before anything changes the src.
+	var/holdUnbreakable = 0
+	if(istype(src, /turf/closed/wall))
+		holdUnbreakable = unbreakable	 // Holds wall unbreakable state before anything changes the src.
 	. = ..()
 	if(!.)
 		user.do_attack_animation(src)

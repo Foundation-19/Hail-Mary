@@ -63,7 +63,39 @@
 	lay_web.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
-	QDEL_NULL(lay_web)
+	// Remove from global list FIRST
+	GLOB.spidermobs -= src
+
+	// Clear ranged ability reference without calling remove (which may try to access src)
+	if(ranged_ability)
+		if(ranged_ability.ranged_ability_user == src)
+			ranged_ability.ranged_ability_user = null
+		ranged_ability = null
+
+	// Clear ALL abilities with proper cleanup
+	if(LAZYLEN(abilities))
+		var/list/abilities_copy = abilities.Copy()
+		abilities = null // Clear the list first to break references
+
+		for(var/obj/effect/proc_holder/ability in abilities_copy)
+			// Clear cross-references
+			if(ability.ranged_ability_user == src)
+				ability.ranged_ability_user = null
+			if(ability.action)
+				if(ability.action.owner == src)
+					ability.action.owner = null
+			qdel(ability)
+
+	// Clear the lay_web action
+	if(lay_web)
+		lay_web.Remove(src)
+		if(lay_web.owner == src)
+			lay_web.owner = null
+		QDEL_NULL(lay_web)
+
+	// Clear directive
+	directive = null
+
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/Topic(href, href_list)
@@ -129,10 +161,28 @@
 	set_directive = new
 	set_directive.Grant(src)
 
+
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/Destroy()
-	RemoveAbility(wrap)
-	QDEL_NULL(lay_eggs)
-	QDEL_NULL(set_directive)
+	// Clear cocoon target reference
+	cocoon_target = null
+
+	// CRITICAL FIX: Do NOT qdel the wrap here - let parent handle it
+	// Just clear the reference to break the cycle
+	wrap = null
+
+	// Clear actions with proper cleanup
+	if(lay_eggs)
+		lay_eggs.Remove(src)
+		if(lay_eggs.owner == src)
+			lay_eggs.owner = null
+		QDEL_NULL(lay_eggs)
+
+	if(set_directive)
+		set_directive.Remove(src)
+		if(set_directive.owner == src)
+			set_directive.owner = null
+		QDEL_NULL(set_directive)
+
 	return ..()
 
 //hunters have the most poison and move the fastest, so they can find prey
@@ -213,7 +263,13 @@
 	letmetalkpls.Grant(src)
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/midwife/Destroy()
-	QDEL_NULL(letmetalkpls)
+	// Clear communication action
+	if(letmetalkpls)
+		letmetalkpls.Remove(src)
+		if(letmetalkpls.owner == src)
+			letmetalkpls.owner = null
+		QDEL_NULL(letmetalkpls)
+
 	return ..()
 
 /mob/living/simple_animal/hostile/poison/giant_spider/ice //spiders dont usually like tempatures of 140 kelvin who knew
@@ -388,6 +444,7 @@
 	name = "Wrap"
 	panel = "Spider"
 	active = FALSE
+	has_action = TRUE
 	datum/action/spell_action/action = null
 	desc = "Wrap something or someone in a cocoon. If it's a living being, you'll also consume them, allowing you to lay eggs."
 	ranged_mousepointer = 'icons/effects/wrap_target.dmi'
@@ -398,6 +455,38 @@
 /obj/effect/proc_holder/wrap/Initialize()
 	. = ..()
 	action = new(src)
+
+/obj/effect/proc_holder/wrap/Destroy()
+	// CRITICAL: Clear ALL references that might keep this alive
+	
+	// Clear from user's ranged ability AND click intercept
+	if(ranged_ability_user)
+		// Remove from their abilities list
+		if(ranged_ability_user.abilities)
+			ranged_ability_user.abilities -= src
+		// If we're their active ranged ability, clear it
+		if(ranged_ability_user.ranged_ability == src)
+			ranged_ability_user.ranged_ability = null
+		// If we're their click intercept, clear it
+		if(ranged_ability_user.click_intercept == src)
+			ranged_ability_user.click_intercept = null
+		ranged_ability_user = null
+
+	// Clear the action completely
+	if(action)
+		// Remove from owner's action list
+		if(action.owner)
+			if(action.owner.actions)
+				action.owner.actions -= action
+			action.owner = null
+		// Delete the action
+		QDEL_NULL(action)
+
+	// Clear any other vars
+	active = FALSE
+	has_action = FALSE
+	
+	return ..()
 
 /obj/effect/proc_holder/wrap/update_icon()
 	action.button_icon_state = "wrap_[active]"
@@ -439,6 +528,8 @@
 
 /obj/effect/proc_holder/wrap/on_lose(mob/living/carbon/user)
 	remove_ranged_ability()
+	// Don't set ranged_ability_user to null here - let Destroy() handle it
+	..()
 
 /datum/action/innate/spider/lay_eggs
 	name = "Lay Eggs"
@@ -500,10 +591,6 @@
 /mob/living/simple_animal/hostile/poison/giant_spider/Login()
 	. = ..()
 	GLOB.spidermobs[src] = TRUE
-
-/mob/living/simple_animal/hostile/poison/giant_spider/Destroy()
-	GLOB.spidermobs -= src
-	return ..()
 
 /datum/action/innate/spider/comm
 	name = "Command"

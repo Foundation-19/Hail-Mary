@@ -29,9 +29,11 @@
 
 /datum/emote/living/carbon/clap/can_run_emote(mob/living/user, status_check, intentional)
 	. = ..()
+	if(!istype(user, /mob/living/carbon))
+		return FALSE
 	// Need hands to clap
 	if(!user.get_bodypart(BODY_ZONE_L_ARM) || !user.get_bodypart(BODY_ZONE_R_ARM))
-		return
+		return FALSE
 
 /datum/emote/living/carbon/gnarl
 	key = "gnarl"

@@ -411,18 +411,19 @@
 
 	if(occupant)
 		if(fuel_holder)
-			var/fuelamount = fuel_holder.reagents.total_volume/fuel_holder.volume
-			switch(fuelamount)
-				if(0.75 to INFINITY)
-					occupant.clear_alert("charge")
-				if(0.5 to 0.75)
-					occupant.throw_alert("charge", /obj/screen/alert/lowcell, 1)
-				if(0.25 to 0.5)
-					occupant.throw_alert("charge", /obj/screen/alert/lowcell, 2)
-				if(0.01 to 0.25)
-					occupant.throw_alert("charge", /obj/screen/alert/lowcell, 3)
-				else
-					occupant.throw_alert("charge", /obj/screen/alert/emptycell)
+			if(fuel_holder.volume > 0)
+				var/fuelamount = fuel_holder.reagents.total_volume/fuel_holder.volume
+				switch(fuelamount)
+					if(0.75 to INFINITY)
+						occupant.clear_alert("charge")
+					if(0.5 to 0.75)
+						occupant.throw_alert("charge", /obj/screen/alert/lowcell, 1)
+					if(0.25 to 0.5)
+						occupant.throw_alert("charge", /obj/screen/alert/lowcell, 2)
+					if(0.01 to 0.25)
+						occupant.throw_alert("charge", /obj/screen/alert/lowcell, 3)
+					else
+						occupant.throw_alert("charge", /obj/screen/alert/emptycell)
 
 		var/integrity = obj_integrity/max_integrity*100
 		switch(integrity)

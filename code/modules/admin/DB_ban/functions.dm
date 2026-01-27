@@ -159,6 +159,8 @@
 	message_admins(msg,1)
 	var/datum/admin_help/AH = admin_ticket_log(ckey, msg)
 
+	send2chat(remove_html(msg), CONFIG_GET(string/discord_channel_banlogs))
+
 	if(announceinirc)
 		send2irc("BAN ALERT","[a_key] applied a [bantype_str] on [bankey]")
 
@@ -363,6 +365,7 @@
 		return
 	qdel(query_unban)
 	message_admins("[key_name_admin(usr)] has lifted [p_key]'s ban.")
+	send2chat("[remove_html(key_name_admin(usr))] has lifted [p_key]'s ban.", CONFIG_GET(string/discord_channel_banlogs))
 
 /client/proc/DB_ban_panel()
 	set category = "Admin"

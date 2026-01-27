@@ -2,6 +2,8 @@
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
+	if (!C)
+		return
 	if (!apply_parallax_pref(viewmob)) //don't want shit computers to crash when specing someone with insane parallax, so use the viewer's pref
 		return
 
@@ -14,11 +16,16 @@
 
 	C.parallax_layers = C.parallax_layers_cached.Copy()
 
+	if (!islist(C.parallax_layers))
+		return
+
 	if (length(C.parallax_layers) > C.parallax_layers_max)
 		C.parallax_layers.len = C.parallax_layers_max
 
 	C.screen |= (C.parallax_layers)
 	var/obj/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
+	if(!PM)
+		return
 	if(screenmob != mymob)
 		C.screen -= locate(/obj/screen/plane_master/parallax_white) in C.screen
 		C.screen += PM
@@ -34,8 +41,16 @@
 /datum/hud/proc/remove_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
+	if(!C)
+		return
 	C.screen -= (C.parallax_layers_cached)
+	QDEL_LIST(C.parallax_layers_cached)
+	C.parallax_layers_cached = null
+	if(!screenmob.hud_used)
+		return
 	var/obj/screen/plane_master/PM = screenmob.hud_used.plane_masters["[PLANE_SPACE]"]
+	if(!PM)
+		return
 	if(screenmob != mymob)
 		C.screen -= locate(/obj/screen/plane_master/parallax_white) in C.screen
 		C.screen += PM
@@ -92,6 +107,8 @@
 		var/animate_time = 0
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
+			if(!L)
+				continue
 			L.icon_state = initial(L.icon_state)
 			L.update_o(C.view)
 			var/T = PARALLAX_LOOP_TIME / L.speed
@@ -115,6 +132,8 @@
 	if(!skip_windups)
 		for(var/thing in C.parallax_layers)
 			var/obj/screen/parallax_layer/L = thing
+			if(!L)
+				continue
 
 			var/T = PARALLAX_LOOP_TIME / L.speed
 			if (isnull(shortesttimer))
@@ -143,6 +162,8 @@
 	C.parallax_animate_timer = FALSE
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
+		if (!L)
+			continue
 		if (!new_parallax_movedir)
 			animate(L)
 			continue
@@ -160,6 +181,8 @@
 
 /datum/hud/proc/update_parallax()
 	var/client/C = mymob.client
+	if(!C)
+		return
 	var/turf/posobj = get_turf(C.eye)
 	if(!posobj)
 		return
@@ -190,6 +213,8 @@
 
 	for(var/thing in C.parallax_layers)
 		var/obj/screen/parallax_layer/L = thing
+		if(!L)
+			continue
 		L.update_status(mymob)
 		if (L.view_sized != C.view)
 			L.update_o(C.view)

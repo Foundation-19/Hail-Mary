@@ -61,10 +61,12 @@
 			_y = -zoom_amt
 		if(WEST)
 			_x = -zoom_amt
-	if(user.client)
+	if(user && user.client)
 		user.client.change_view(world.view + zoom_out_amt)
-		user.client.pixel_x = world.icon_size*_x
-		user.client.pixel_y = world.icon_size*_y
+		if(user.client)
+			user.client.pixel_x = world.icon_size*_x
+		if(user.client)
+			user.client.pixel_y = world.icon_size*_y
 
 /obj/item/binoculars/unwield(mob/user)
 	. = ..()

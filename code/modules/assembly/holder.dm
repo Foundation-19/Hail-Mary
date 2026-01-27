@@ -72,9 +72,9 @@
 
 /obj/item/assembly_holder/proc/on_entered(atom/movable/AM as mob|obj)
 	SIGNAL_HANDLER
-	if(a_left)
+	if(a_left && hascall(a_left, "on_entered"))
 		INVOKE_ASYNC(a_left, PROC_REF(on_entered), AM)
-	if(a_right)
+	if(a_right && hascall(a_right, "on_entered"))
 		INVOKE_ASYNC(a_right, PROC_REF(on_entered), AM)
 
 /obj/item/assembly_holder/on_found(mob/finder)
