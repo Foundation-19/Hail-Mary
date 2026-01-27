@@ -894,7 +894,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 //Tribal
 
 /obj/effect/landmark/start/f13/tribal
-	name = "Tribal"
+	name = "Far-Lands Tribals"
 	icon_state = "Tribal"
 
 /obj/effect/landmark/start/f13/chief

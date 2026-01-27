@@ -121,16 +121,51 @@
 		smoke.attach(src)
 
 /mob/living/simple_animal/hostile/Destroy()
-	targets_from = null
-	friends = null
-	foes = null
+	// Clear target reference with signal cleanup
 	GiveTarget(null)
+	targets_from = null
+	
+	// Clear lists
+	if(friends)
+		friends.Cut()
+	friends = null
+	
+	if(foes)
+		foes.Cut()
+	foes = null
+	
+	if(wanted_objects)
+		wanted_objects = null
+	
+	if(emote_taunt)
+		emote_taunt = null
+	
+	// Clear smoke system
 	if(smoke)
 		QDEL_NULL(smoke)
-	// Clean up lonely timer if active
+	
+	// Clear active emp flags
+	if(active_emp_flags)
+		active_emp_flags = null
+	if(emp_flags)
+		emp_flags = null
+	
+	// Clear timers
 	if(lonely_timer_id)
 		deltimer(lonely_timer_id)
 		lonely_timer_id = null
+	
+	if(lose_patience_timer_id)
+		deltimer(lose_patience_timer_id)
+		lose_patience_timer_id = null
+	
+	if(search_objects_timer_id)
+		deltimer(search_objects_timer_id)
+		search_objects_timer_id = null
+	
+	// Unqueue from idle NPC pool
+	SSidlenpcpool.remove_from_culling(src)
+	
 	return ..()
 
 /mob/living/simple_animal/hostile/BiologicalLife(seconds, times_fired)
@@ -813,18 +848,20 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 			else if (M.loc.type in hostile_machines)
 				. += M.loc
 
+// Fix the handle_target_del to ensure it clears properly
 /mob/living/simple_animal/hostile/proc/handle_target_del(datum/source)
 	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
 	LoseTarget()
 
+// Ensure add_target properly cleans up old references
 /mob/living/simple_animal/hostile/proc/add_target(new_target)
 	if(target)
 		UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = new_target
 	if(target)
-		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del), override = TRUE)
+		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
 
 /mob/living/simple_animal/hostile/proc/queue_unbirth()
 	SSidlenpcpool.add_to_culling(src)
