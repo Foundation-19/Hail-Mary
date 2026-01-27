@@ -91,18 +91,18 @@
 	force = WEAPON_FORCE_CLUB
 	slot_flags = ITEM_SLOT_BELT
 	wound_bonus = WOUNDING_BONUS_SMALL
-	var/qualitymod = 0
+	var/smithing_speed = 0
 
 /obj/item/melee/smith/hammer/premade
 	quality = 3
-	qualitymod = 1
+	smithing_speed = 1
 	custom_materials = list(/datum/material/iron = 1000)
 
 // Debugging Hammer
 /obj/item/melee/smith/hammer/debug
 	name = "debugging hammer"
 	desc = "A DEBUGGING HAMMER!! EPIC!!."
-	qualitymod = 10
+	smithing_speed = 50
 
 
 // -------- PROSPECTORS PICK -------- // Knock on rock to scan for minerals. Lowest quality too shitty to test.
@@ -333,6 +333,12 @@
 		qdel(src)
 	return
 
+/obj/item/restraints/legcuffs/ballandchain/smithed
+	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon_state = "ballandchain"
+	name = "ball and chain"
+	desc = "Clamp it on the prisoners feet. They will need a long time to remove it themselves."
+	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 
 
 //////////////////////////////////
@@ -877,7 +883,7 @@
 	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
 	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
 	item_state = "bola_smith"
-	breakouttime = 40//5 more deciseconds than regular bola
+	breakouttime = 40 //5 more deciseconds than regular bola
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 
 /obj/item/restraints/legcuffs/bola/smithed/Initialize()

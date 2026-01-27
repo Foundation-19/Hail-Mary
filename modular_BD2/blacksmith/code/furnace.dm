@@ -50,7 +50,7 @@
 	if(istype(I, /obj/item/blacksmith/ingot))
 		var/obj/item/blacksmith/ingot/workpiece = I
 		if(working)
-			if(do_after(user, 2 SECONDS, target = src))
+			if(do_after(user, 1.75 SECONDS, target = src))
 				to_chat(user, "You heat the [workpiece] in the [src].")
 				workpiece.workability = "shapeable"
 				workpiece.icon_state = "hot_ingot"
@@ -75,7 +75,7 @@
 		return
 	if(istype(I, /obj/item/stack/sheet/coke/))
 		var/obj/item/stack/sheet/coke/C = I
-		src.reagents.add_reagent(/datum/reagent/fuel, 5)
+		src.reagents.add_reagent(/datum/reagent/fuel, 8)
 		C.use(1)
 		to_chat(user, "You add some lumps of coke to the furnace.")
 		return
