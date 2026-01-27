@@ -4,7 +4,7 @@
  *
  * lipstick wiping is in code/game/objects/items/weapons/cosmetics.dm!
  */
-#define MAX_PAPER_LENGTH 5000
+#define MAX_PAPER_LENGTH 9000
 #define MAX_PAPER_STAMPS 30		// Too low?
 #define MAX_PAPER_STAMPS_OVERLAYS 4
 #define MODE_READING 0
@@ -44,6 +44,13 @@
 	var/info = ""
 	var/show_written_words = TRUE
 
+	/// Store arrays of formatting data parallel to text additions
+	var/list/add_text = list()
+	var/list/add_font = list()
+	var/list/add_color = list() 
+	var/list/add_sign = list()
+	var/list/add_crayon = list()
+
 	/// The (text for the) stamps on the paper.
 	var/list/stamps			/// Positioning for the stamp in tgui
 	var/list/stamped		/// Overlay info
@@ -55,6 +62,8 @@
 	/// This is an associated list
 	var/list/form_fields = list()
 	var/field_counter = 1
+	var/list/field_fonts = list()
+	var/list/field_colors = list()
 
 /obj/item/paper/Destroy()
 	stamps = null
@@ -75,8 +84,18 @@
 	N.update_icon_state()
 	N.stamps = stamps
 	N.stamped = stamped.Copy()
-	N.form_fields = form_fields.Copy()
-	N.field_counter = field_counter
+	N.field_fonts = field_fonts?.Copy()
+	N.field_colors = field_colors?.Copy()
+	if(add_text)
+		N.add_text = add_text.Copy()
+	if(add_font)
+		N.add_font = add_font.Copy()
+	if(add_color)
+		N.add_color = add_color.Copy()
+	if(add_sign)
+		N.add_sign = add_sign.Copy()
+	if(add_crayon)
+		N.add_crayon = add_crayon.Copy()
 	copy_overlays(N, TRUE)
 	return N
 
@@ -89,7 +108,27 @@
 	info = text
 	form_fields = null
 	field_counter = 0
+	field_fonts = list()
+	field_colors = list()
+	add_text = list()
+	add_font = list()
+	add_color = list()
+	add_sign = list()
+	add_crayon = list()
 	update_icon_state()
+
+/obj/item/paper/proc/parsemarkdown(text, mob/user)
+	// Don't re-process if already has HTML tags
+	if(findtext(text, "<"))
+		return text
+
+	// Replace %s or %sign with the user's name
+	var/regex/sign_regex = new(@"%s(?:ign)?(?:\s|$)?", "gi")
+	if(user && user.real_name)
+		text = sign_regex.Replace(text, "<b><span style='font-family: Times New Roman;'>[user.real_name]</span></b>")
+
+	// Add any other markdown processing here
+	return text
 
 /obj/item/paper/pickup(user)
 	if(contact_poison && ishuman(user))
@@ -107,8 +146,12 @@
 	update_icon()
 
 /obj/item/paper/update_icon_state()
-	if(info && show_written_words)
+	// Check if we have any text in the formatting arrays
+	if(add_text && add_text.len > 0 && show_written_words)
 		icon_state = "[initial(icon_state)]_words"
+	else if(info && show_written_words)  // Fallback for old papers
+		icon_state = "[initial(icon_state)]_words"
+	return ..()
 
 /obj/item/paper/verb/rename()
 	set name = "Rename paper"
@@ -137,6 +180,13 @@
 	info = ""
 	stamps = null
 	LAZYCLEARLIST(stamped)
+	field_fonts = list()
+	field_colors = list()
+	add_text = list()
+	add_font = list()
+	add_color = list()
+	add_sign = list()
+	add_crayon = list()
 	cut_overlays()
 	update_icon_state()
 
@@ -237,15 +287,27 @@
 /obj/item/paper/ui_static_data(mob/user)
 	. = list()
 	.["text"] = info
-	.["max_length"] = MAX_PAPER_LENGTH
-	.["paper_color"] = !color || color == "white" ? "#FFFFFF" : color	// color might not be set
-	.["paper_state"] = icon_state	/// TODO: show the sheet will bloodied or crinkling?
+	.["max_length"] = MAX_PAPER_LENGTH  // Send the actual limit
+	.["paper_color"] = !color || color == "white" ? "#FFFFFF" : color
+	.["paper_state"] = icon_state
 	.["stamps"] = stamps
-
+	.["field_counter"] = field_counter
+	.["add_text"] = add_text
+	.["add_font"] = add_font
+	.["add_color"] = add_color
+	.["add_sign"] = add_sign
+	.["add_crayon"] = add_crayon
+	.["form_fields"] = form_fields
+	.["field_fonts"] = field_fonts
+	.["field_colors"] = field_colors
 
 
 /obj/item/paper/ui_data(mob/user)
 	var/list/data = list()
+	data["edit_usr"] = user.real_name
+	data["field_counter"] = field_counter
+	data["raw_text"] = info
+	
 	var/obj/O = user.get_active_held_item()
 	if(istype(O, /obj/item/toy/crayon))
 		var/obj/item/toy/crayon/PEN = O
@@ -278,8 +340,6 @@
 		data["is_crayon"] = FALSE
 		data["stamp_icon_state"] = "FAKE"
 		data["stamp_class"] = "FAKE"
-	data["field_counter"] = field_counter
-	data["form_fields"] = form_fields
 
 	return data
 
@@ -318,25 +378,66 @@
 		if("save")
 			var/in_paper = params["text"]
 			var/paper_len = length(in_paper)
-			field_counter = params["field_counter"] ? text2num(params["field_counter"]) : field_counter
 
-			if(paper_len > MAX_PAPER_LENGTH)
-				// Side note, the only way we should get here is if
-				// the javascript was modified, somehow, outside of
-				// byond.  but right now we are logging it as
-				// the generated html might get beyond this limit
-				log_paper("[key_name(ui.user)] writing to paper [name], and overwrote it by [paper_len-MAX_PAPER_LENGTH]")
-			if(paper_len == 0)
-				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anthing!"))
+			// Update field counter
+			if(params["field_counter"])
+				field_counter = text2num(params["field_counter"])
+
+			// Get the fields data if provided WITH STYLING
+			if(params["fields"])
+				if(!form_fields)
+					form_fields = list()
+				if(!field_fonts)
+					field_fonts = list()
+				if(!field_colors)
+					field_colors = list()
+			
+			var/list/fields_data = params["fields"]
+			var/pen_font = params["pen_font"]
+			var/pen_color = params["pen_color"]
+			
+			// Store each field's value AND its styling
+			for(var/field_id in fields_data)
+				var/field_value = fields_data[field_id]
+			
+				// Check if this is a signature field and replace %s with actual name
+				if(findtext(field_value, "%s") || findtext(field_value, "%sign"))
+					field_value = ui.user.real_name
+					field_fonts[field_id] = "Times New Roman"  // Signatures use Times New Roman
+				else
+					field_fonts[field_id] = pen_font
+			
+				form_fields[field_id] = field_value
+				field_colors[field_id] = pen_color
+
+			if(paper_len == 0 && !params["fields"])
+				to_chat(ui.user, pick("Writing block strikes again!", "You forgot to write anything!"))
 			else
 				log_paper("[key_name(ui.user)] writing to paper [name]")
-				if(info != in_paper)
-					to_chat(ui.user, "You have added to your paper masterpiece!");
-					info = in_paper
-					update_static_data(usr,ui)
+				
+				// Only append new text if there is any
+				if(paper_len > 0)
+					// Don't modify info anymore, it's not used for display
+					if(!add_text) add_text = list()
+					if(!add_font) add_font = list()
+					if(!add_color) add_color = list()
+					if(!add_sign) add_sign = list()
+					if(!add_crayon) add_crayon = list()
 
+					add_text += in_paper
+					add_font += params["pen_font"]
+					add_color += params["pen_color"]
+					add_sign += ui.user.real_name
+					add_crayon += params["is_crayon"] ? TRUE : FALSE
 
-			update_icon()
+					to_chat(ui.user, "You have added to your paper masterpiece!")
+				
+				// If only fields were filled, still save
+				if(params["fields"])
+					to_chat(ui.user, "You have filled in the form!")
+				
+				update_static_data(usr, ui)
+				update_icon()
 			. = TRUE
 
 /**
