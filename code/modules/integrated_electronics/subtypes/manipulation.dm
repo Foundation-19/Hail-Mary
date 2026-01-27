@@ -424,9 +424,11 @@
 /obj/item/integrated_circuit/manipulation/matman/proc/AfterMaterialInsert(type_inserted, id_inserted, amount_inserted)
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	set_pin_data(IC_OUTPUT, 2, materials.total_amount)
+	var/list/materials_list = materials.materials
 	for(var/I in 1 to mtypes.len)
-		var/datum/material/M = materials.materials[SSmaterials.GetMaterialRef(I)]
-		var/amount = materials[M]
+		var/datum/material/M = materials_list[SSmaterials.GetMaterialRef(I)]
+		var/list/materials_check = materials.materials
+		var/amount = materials_check[M]
 		if(M)
 			set_pin_data(IC_OUTPUT, I+2, amount)
 	push_data()

@@ -400,14 +400,14 @@
 	build_path = /obj/item/ammo_box/m5mmbox
 	category = list("initial", "Basic Ammo")
 
-
+/*
 /datum/design/ammolathe/magnumshot
 	name = "magnum buckshot shotgun box"
 	id = "magnumshot"
 	materials = list(/datum/material/iron = 50000, /datum/material/blackpowder = 15000)
 	build_path = /obj/item/ammo_box/shotgun/magnum
 	category = list("initial", "Advanced Ammo")
-
+*/
 /datum/design/ammolathe/slugshot
 	name = "slug shotgun box"
 	id = "slugshot"
@@ -746,13 +746,14 @@
 	category = list("initial", "Advanced Ammo")
 	autocalc_material_values = FALSE
 
+/*
 /datum/design/ammolathe/a308/soviet
 	name = "7.62 steel tip ammo box"
 	id = "a308soviet"
 	materials = list(/datum/material/iron = 16000, /datum/material/blackpowder = 2500)
 	build_path = /obj/item/ammo_box/a308box/soviet
 	category = list("initial", "Advanced Ammo")
-/*
+
 /datum/design/ammolathe/a762
 	name = "7.62 ammo box"
 	id = "a762"

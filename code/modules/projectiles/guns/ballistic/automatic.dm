@@ -132,8 +132,10 @@
 /obj/item/gun/ballistic/automatic/smg/american180
 	name = "American 180"
 	desc = "An integrally suppressed submachinegun chambered in the common .22 long rifle. Top loaded drum magazine."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "smg22"
-	item_state = "shotgun"
+	item_state = "american"
 	mag_type = /obj/item/ammo_box/magazine/m22smg
 	init_mag_type = /obj/item/ammo_box/magazine/m22smg
 	weapon_class = WEAPON_CLASS_CARBINE
@@ -518,6 +520,8 @@
 /obj/item/gun/ballistic/automatic/smg/p90
 	name = "FN P90c"
 	desc = "The Fabrique Nationale P90c was just coming into use at the time of the war. The weapon's bullpup layout, and compact design, make it easy to control. The durable P90c is prized for its reliability, and high firepower in a ruggedly-compact package. Chambered in 10mm."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "p90"
 	item_state = "m90"
 	mag_type = /obj/item/ammo_box/magazine/m10mm_p90
@@ -571,8 +575,10 @@
 /obj/item/gun/ballistic/automatic/smg/mp5
 	name = "MP-5 SD"
 	desc = "An integrally suppressed submachinegun chambered in 9mm."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "mp5"
-	item_state = "fnfal"
+	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_CARBINE
@@ -1379,7 +1385,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
@@ -1403,13 +1409,13 @@
 /obj/item/gun/ballistic/automatic/marksman/worn
 	name = "battle-worn marksman carbine"
 	desc = "A marksman carbine built off the AR platform chambered in 5.56x45. Seen heavy usage in pre-war conflicts. This particular model is a civilian version and is semi-auto only. This one seems worn with time..."
-	icon_state = "marksman_rifle"
+	icon_state = "marksman_carbine"
 	item_state = "marksman"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = RIFLE_RECOIL(1.4)
 	init_firemodes = list(
 		/datum/firemode/semi_auto
@@ -1776,7 +1782,7 @@
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
-	init_recoil = RIFLE_RECOIL(0.9)
+	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm250,
 		/datum/firemode/semi_auto
@@ -1797,6 +1803,8 @@
 	name = "r91 assault rifle"
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
 	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "assault_rifle"
 	item_state = "r91"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -1831,6 +1839,8 @@
 	name = "infiltrator"
 	desc = "A customized R91 assault rifle, with an integrated suppressor, small scope, cut down stock and polymer furniture. The supressor takes away stopping-power, but a cleaner action allows it to fire faster."
 	icon = 'icons/obj/guns/projectile.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "infiltrator"
 	item_state = "infiltrator"
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -2341,8 +2351,10 @@
 /obj/item/gun/ballistic/automatic/g11
 	name = "G11"
 	desc = "This experimental gun fires a caseless cartridge consisting of a block of propellant with a bullet buried inside. The weight and space savings allows for a very high magazine capacity. Chambered in 4.73mm."
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "g11"
-	item_state = "arg"
+	item_state = "h&kg11"
 	mag_type = /obj/item/ammo_box/magazine/m473
 	init_mag_type = /obj/item/ammo_box/magazine/m473
 	disallowed_mags = list(/obj/item/ammo_box/magazine/m473/small, /obj/item/ammo_box/magazine/m473/small/empty)
@@ -2351,7 +2363,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/burst/three/slow,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -2633,6 +2645,8 @@
 	name = "\improper M72 gauss rifle"
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "gaussf2"
 	item_state = "gaussrifle"
 	slot_flags = ITEM_SLOT_BACK

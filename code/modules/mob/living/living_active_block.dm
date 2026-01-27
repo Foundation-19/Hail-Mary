@@ -3,6 +3,8 @@
 	if(!(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING)))
 		return FALSE
 	var/obj/item/I = active_block_item
+	if(!I)
+		return FALSE
 	combat_flags &= ~(COMBAT_FLAG_ACTIVE_BLOCKING | COMBAT_FLAG_ACTIVE_BLOCK_STARTING)
 	active_block_effect_end()
 	active_block_item = null

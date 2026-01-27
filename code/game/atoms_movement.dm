@@ -463,7 +463,7 @@
 	. = FALSE
 	move_stacks++
 	var/atom/oldloc = loc
-	if(destination)
+	if(destination && isatom(destination))
 		///zMove already handles whether a pull from another movable should be broken.
 		if(pulledby && !currently_z_moving)
 			pulledby.stop_pulling()

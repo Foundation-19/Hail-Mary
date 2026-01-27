@@ -777,10 +777,12 @@ GLOBAL_LIST_INIT(WALLITEMS_INVERSE, typecacheof(list(
 			return "white"
 
 /proc/params2turf(scr_loc, turf/origin, client/C)
-	if(!scr_loc)
+	if(!scr_loc || !origin)
 		return null
 	var/tX = splittext(scr_loc, ",")
 	var/tY = splittext(tX[2], ":")
+	if(!origin)
+		return null
 	var/tZ = origin.z
 	tY = tY[1]
 	tX = splittext(tX[1], ":")
@@ -1637,7 +1639,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	var/list/channels_to_use = list()
 	for(var/I in world.TgsChatChannelInfo())
 		var/datum/tgs_chat_channel/channel = I
-		if(channel.tag == config_setting)
+		if(channel.custom_tag == config_setting)
 			channels_to_use += channel
 
 	if(length(channels_to_use))
