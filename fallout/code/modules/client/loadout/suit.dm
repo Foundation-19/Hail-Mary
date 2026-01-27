@@ -221,9 +221,7 @@
 	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
 	cost = 2
 	restricted_desc = "NCR"
-	restricted_roles = list("NCR Captain",
-							"NCR Veteran Ranger",
-						)
+	restricted_roles = list("NCR Veteran Ranger")
 
 /datum/gear/suit/ncr/ranger/spider
 	name = "Spider Ranger Gear"
