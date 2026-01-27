@@ -1858,6 +1858,50 @@
 	subcategory = CAT_PARTS
 	always_available = FALSE
 
+/datum/crafting_recipe/blender
+	name = "Makeshift \"Bullet Blender\" barrel"
+	result = /obj/item/gun_upgrade/barrel/blender
+	reqs = list(
+				/obj/item/stack/crafting/metalparts = 5,
+				/obj/item/stack/crafting/goodparts = 2,
+				/obj/item/advanced_crafting_components/alloys = 1,
+				/obj/item/crafting/duct_tape = 1
+	)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_WEAPONRY
+	subcategory = CAT_PARTS
+	always_available = FALSE
+
+/datum/crafting_recipe/raidertrigger
+	name = "Raider Trigger"
+	result = /obj/item/gun_upgrade/trigger/raidertrigger
+	reqs = list(
+				/obj/item/stack/crafting/metalparts = 2,
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/goodparts = 1
+	)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_WEAPONRY
+	subcategory = CAT_PARTS
+	always_available = FALSE
+
+/datum/crafting_recipe/killer
+	name = "Deadeye Scope"
+	result = /obj/item/gun_upgrade/scope/killer
+	reqs = list(
+				/obj/item/stack/sheet/mineral/titanium = 10,
+				/obj/item/stack/crafting/goodparts = 5,
+				/obj/item/stack/sheet/glass = 5,
+				/obj/item/advanced_crafting_components/alloys = 1
+	)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_WEAPONRY
+	subcategory = CAT_PARTS
+	always_available = FALSE
+
 /datum/crafting_recipe/gigalens
 	name = "GigaLens"
 	result = /obj/item/gun_upgrade/barrel/excruciator
@@ -2147,7 +2191,7 @@ Not implemented due to balance at the moment
 /datum/crafting_recipe/handmade_rifle
 	name = "Handmade Assault Rifle"
 	result = /obj/item/gun/ballistic/automatic/handmade_rifle
-	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_assault_carbine = 1,
 				/obj/item/stack/sheet/metal = 15,
 				/obj/item/stack/sheet/mineral/wood = 10,
 				/obj/item/advanced_crafting_components/receiver = 1,
@@ -2165,7 +2209,7 @@ Not implemented due to balance at the moment
 /datum/crafting_recipe/handmade_battle_rifle
 	name = "Handmade Battle Rifle"
 	result = /obj/item/gun/ballistic/automatic/handmade_battle_rifle
-	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_dmr = 1,
 				/obj/item/stack/sheet/metal = 20,
 				/obj/item/stack/sheet/mineral/wood = 15,
 				/obj/item/advanced_crafting_components/receiver = 1,
@@ -2183,7 +2227,7 @@ Not implemented due to balance at the moment
 /datum/crafting_recipe/handmade_dmr
 	name = "Handmade Marksman Rifle"
 	result = /obj/item/gun/ballistic/automatic/handmade_dmr
-	reqs = list(/obj/item/gun/ballistic/automatic/handmade_carbine = 1,
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_assault_carbine = 1,
 				/obj/item/stack/sheet/metal = 15,
 				/obj/item/stack/sheet/mineral/wood = 20,
 				/obj/item/advanced_crafting_components/receiver = 1,
@@ -2207,6 +2251,77 @@ Not implemented due to balance at the moment
 				/obj/item/advanced_crafting_components/receiver = 1,
 				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/crafting/goodparts = 5,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Eastern PDW
+/datum/crafting_recipe/eastern_pdw
+	name = "Eastern PDW"
+	result = /obj/item/gun/ballistic/automatic/eastern_pdw
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_rifle = 1,
+				/obj/item/stack/sheet/metal = 10,
+				/obj/item/stack/sheet/plastic = 5,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 1,
+				/obj/item/stack/rods = 8,
+				/obj/item/stack/crafting/goodparts = 5,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Eastern Compact Shotgun
+/datum/crafting_recipe/eastern_compact_shotgun
+	name = "Eastern Compct Shotgun"
+	result = /obj/item/gun/ballistic/automatic/eastern_compact_shotgun
+	reqs = list(/obj/item/gun/ballistic/automatic/eastern_pdw = 1,
+				/obj/item/stack/sheet/metal = 20,
+				/obj/item/advanced_crafting_components/assembly = 1,
+				/obj/item/advanced_crafting_components/alloys = 2,
+				/obj/item/stack/rods = 2,
+				/obj/item/stack/crafting/goodparts = 7,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Eastern Light Machine Gun
+/datum/crafting_recipe/eastern_light_machine_gun
+	name = "Eastern Light Machine gun"
+	result = /obj/item/gun/ballistic/automatic/eastern_light_machine_gun
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_battle_rifle = 1,
+				/obj/item/stack/sheet/metal = 25,
+				/obj/item/stack/sheet/mineral/wood = 15,
+				/obj/item/stack/sheet/plastic = 5,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 2,
+				/obj/item/stack/rods = 10,
+				/obj/item/stack/crafting/goodparts = 10,
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
+//Eastern Assassin Rifle
+/datum/crafting_recipe/eastern_assassin_rifle
+	name = "Eastern Assassin Rifle"
+	result = /obj/item/gun/ballistic/automatic/eastern_assassin_rifle
+	reqs = list(/obj/item/gun/ballistic/automatic/handmade_dmr = 1,
+				/obj/item/stack/sheet/metal = 15,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 2,
+				/obj/item/stack/rods = 10,
+				/obj/item/stack/crafting/goodparts = 10,
 				)
 	tools = list(TOOL_WORKBENCH)
 	time = 120
