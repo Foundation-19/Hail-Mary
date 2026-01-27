@@ -17,6 +17,26 @@
 		. -= 1.25
 	if(HAS_TRAIT(src, TRAIT_SMUTANT))
 		. += 0
+	
+	// Apply strength-based armor penalties to base movement
+	if(istype(wear_suit))
+		var/obj/item/clothing/suit/armor = wear_suit
+		if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			if(special_s < 7)
+				. += 0.5 // Additional slowdown if lacking strength
+		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+			if(special_s < 7)
+				. += 0.4
+		else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+			if(special_s < 7)
+				. += 0.4
+		else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+			if(special_s < 5)
+				. += 0.3
+		else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+			if(special_s < 3)
+				. += 0.3
+	
 	. += 0.7 // Universal human slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
