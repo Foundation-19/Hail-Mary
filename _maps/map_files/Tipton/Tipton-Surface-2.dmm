@@ -43740,6 +43740,12 @@
 	icon_state = "common1"
 	},
 /area/f13/building)
+"qvJ" = (
+/obj/effect/landmark/start/f13/tribal,
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaltopbordertop0"
+	},
+/area/f13/tunnel)
 "qvL" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 6
@@ -55859,6 +55865,12 @@
 	name = "Hotsprings"
 	},
 /area/f13/wasteland/powered)
+"uYy" = (
+/obj/effect/landmark/latejoin,
+/turf/open/indestructible/ground/inside/subway{
+	name = "roughcast asphalt"
+	},
+/area/f13/tunnel)
 "uYD" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8
@@ -65532,7 +65544,7 @@ uHd
 uHd
 uHd
 nly
-qeV
+qvJ
 aQD
 yiS
 acn
@@ -65789,7 +65801,7 @@ uHd
 uHd
 uHd
 nly
-qeV
+qvJ
 aQD
 acn
 acn
@@ -123017,7 +123029,7 @@ cAd
 sUk
 rSB
 naN
-sqx
+uYy
 sqx
 sqx
 euX
