@@ -400,7 +400,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/steelpot_goggles
@@ -419,7 +421,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ranger/rigs
@@ -428,9 +432,7 @@
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	cost = 1
 	restricted_desc = "NCR"
-	restricted_roles = list("NCR Captain",
-							"NCR Veteran Ranger",
-						)
+	restricted_roles = list("NCR Veteran Ranger")
 
 /datum/gear/head/ranger/price
 	name = "Spider Riot Helmet"
@@ -478,7 +480,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/steelpot_bandolier
@@ -497,7 +501,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_slouch
@@ -516,7 +522,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_flapcap
@@ -535,7 +543,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_campaign

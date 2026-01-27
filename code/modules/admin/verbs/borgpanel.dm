@@ -32,6 +32,12 @@
 		CRASH("Borg panel attempted to open to a mob without a client")
 	borg = to_borg
 
+// CRITICAL: Fix borgpanel to properly clean up references
+/datum/borgpanel/Destroy()
+	borg = null
+	user = null
+	return ..()
+
 /datum/borgpanel/ui_state(mob/user)
 	return GLOB.admin_state
 

@@ -43,14 +43,28 @@
 
 	// Set up the dummy for its photoshoot
 	var/mob/living/carbon/human/dummy/mannequin = generate_or_wait_for_human_dummy(DUMMY_HUMAN_SLOT_PREFERENCES)
+	
+	// ALWAYS CLEAR EVERYTHING FIRST - regardless of tab
+	mannequin.cut_overlays()
+	
+	// Strip all equipment from previous character/preview
+	for(var/obj/item/I in mannequin.get_all_gear())
+		mannequin.dropItemToGround(I, TRUE)
+		qdel(I)
+	mannequin.delete_equipment()
+	
 	// Apply the Dummy's preview background first so we properly layer everything else on top of it.
 	mannequin.add_overlay(mutable_appearance('fallout/icons/ui/backgrounds.dmi', bgstate, layer = SPACE_LAYER))
-	copy_to(mannequin, initial_spawn = TRUE)
-
+	
 	if(current_tab == LOADOUT_TAB)
-		//give it its loadout if not on the appearance tab
+		// For loadout tab: apply appearance WITHOUT job equipment, then add loadout
+		copy_to(mannequin, initial_spawn = FALSE)
+		
+		// Equip ONLY loadout items
 		SSjob.equip_loadout(parent.mob, mannequin, FALSE, bypass_prereqs = TRUE, can_drop = FALSE)
 	else
+		// For other tabs: apply full character with job equipment
+		copy_to(mannequin, initial_spawn = TRUE)
 		if(previewJob && equip_job)
 			mannequin.job = previewJob.title
 			previewJob.equip(mannequin, TRUE, preference_source = parent)
