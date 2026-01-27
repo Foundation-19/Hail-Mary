@@ -3575,12 +3575,6 @@
 	},
 /turf/open/floor/carpet/green,
 /area/awaymission/vr/bos/casino)
-"xW" = (
-/obj/machinery/power/emitter/energycannon{
-	dir = 1
-	},
-/turf/open/floor/plating,
-/area/awaymission/vr/public/deathmatch)
 "ya" = (
 /turf/open/floor/wood_worn,
 /area/awaymission/vr/den)
@@ -5005,10 +4999,6 @@
 	},
 /turf/open/floor/plasteel/dark,
 /area/awaymission/vr/bos/deathmatch)
-"Ky" = (
-/obj/machinery/power/emitter/energycannon,
-/turf/open/floor/plating,
-/area/awaymission/vr/bos/deathmatch)
 "KE" = (
 /obj/machinery/light/small,
 /turf/open/floor/plating/tunnel,
@@ -5486,12 +5476,6 @@
 /area/awaymission/vr/bos/deathmatch)
 "Oo" = (
 /turf/open/floor/circuit/green/off,
-/area/awaymission/vr/bos/deathmatch)
-"Op" = (
-/obj/machinery/power/emitter/energycannon{
-	dir = 1
-	},
-/turf/open/floor/plating,
 /area/awaymission/vr/bos/deathmatch)
 "Ow" = (
 /obj/effect/decal/cleanable/dirt,
@@ -6597,10 +6581,6 @@
 	icon_state = "redrustyfull"
 	},
 /area/awaymission/vr/bos/enclavebunker)
-"XA" = (
-/obj/machinery/power/emitter/energycannon,
-/turf/open/floor/plating,
-/area/awaymission/vr/public/deathmatch)
 "XG" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 10
@@ -44110,11 +44090,11 @@ sT
 Je
 WP
 Je
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 Jf
@@ -44153,11 +44133,11 @@ Nf
 OJ
 fK
 OJ
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 bz
@@ -45138,11 +45118,11 @@ sT
 Rt
 WP
 Je
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 hM
@@ -45181,11 +45161,11 @@ Nf
 Eo
 fK
 OJ
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 gb
@@ -46166,11 +46146,11 @@ sT
 Je
 WP
 Je
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 WP
@@ -46209,11 +46189,11 @@ Nf
 OJ
 fK
 OJ
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 fK
@@ -47451,11 +47431,11 @@ Rk
 EF
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 hM
@@ -47494,11 +47474,11 @@ lv
 lw
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 gb
@@ -48712,11 +48692,11 @@ hM
 WP
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 WP
 Je
@@ -48736,11 +48716,11 @@ RL
 Je
 WP
 Je
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 WP
@@ -48755,11 +48735,11 @@ gb
 fK
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 fK
 OJ
@@ -48779,11 +48759,11 @@ fI
 OJ
 fK
 OJ
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 fK
@@ -49740,11 +49720,11 @@ Jf
 hM
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 WP
 NC
@@ -49764,11 +49744,11 @@ RL
 NC
 WP
 Je
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 hM
@@ -49783,11 +49763,11 @@ bz
 gb
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 fK
 tO
@@ -49807,11 +49787,11 @@ fI
 tO
 fK
 OJ
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 gb
@@ -50768,11 +50748,11 @@ hM
 WP
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 WP
 Je
@@ -50792,11 +50772,11 @@ RL
 Je
 WP
 Je
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 EF
 EF
 WP
@@ -50811,11 +50791,11 @@ gb
 fK
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 fK
 OJ
@@ -50835,11 +50815,11 @@ fI
 OJ
 fK
 OJ
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 lw
 lw
 fK
@@ -52053,11 +52033,11 @@ Jf
 hM
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 EF
 EF
@@ -52096,11 +52076,11 @@ bz
 gb
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 lw
 lw
@@ -53338,11 +53318,11 @@ hM
 WP
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 WP
 Je
@@ -53381,11 +53361,11 @@ gb
 fK
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 fK
 OJ
@@ -54366,11 +54346,11 @@ hM
 hM
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 WP
 rC
@@ -54409,11 +54389,11 @@ gb
 gb
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 fK
 Rm
@@ -55394,11 +55374,11 @@ hM
 Jf
 EF
 EF
-Ky
+ui
 ZS
 ui
 ui
-Op
+ui
 Je
 WP
 Je
@@ -55437,11 +55417,11 @@ gb
 bz
 lw
 lw
-XA
+xR
 fz
 xR
 xR
-xW
+xR
 OJ
 fK
 OJ
