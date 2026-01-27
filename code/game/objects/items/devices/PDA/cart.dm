@@ -777,6 +777,8 @@ Code:
 	else
 		menu += "<BR><A href='byond://?src=[REF(src)];op=botlist'>[PDAIMG(refresh)]Scan for active bots</A><BR><BR>"
 		var/turf/current_turf = get_turf(src)
+		if(!current_turf)
+			return menu
 		var/zlevel = current_turf.z
 		var/botcount = 0
 		for(Bot in GLOB.alive_mob_list) //Git da botz

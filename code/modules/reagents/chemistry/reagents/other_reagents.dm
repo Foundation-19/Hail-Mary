@@ -1227,7 +1227,8 @@
 			var/obj/effect/decal/cleanable/greenglow/GG = locate() in T.contents
 			if(!GG)
 				GG = new/obj/effect/decal/cleanable/greenglow(T)
-			GG.reagents.add_reagent(/datum/reagent/radium, reac_volume)
+			if(GG && GG.reagents)
+				GG.reagents.add_reagent(/datum/reagent/radium, reac_volume)
 
 /datum/reagent/abraxo_cleaner/sterilizine
 	name = "Sterilizine"

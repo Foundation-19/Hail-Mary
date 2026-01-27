@@ -128,7 +128,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	SHOULD_NOT_SLEEP(TRUE)
 	if(flags_1 & INITIALIZED_1)
-		stack_trace("Warning: [src]([type]) initialized multiple times!")
+		return INITIALIZE_HINT_QDEL
 	flags_1 |= INITIALIZED_1
 
 	if(loc)
@@ -563,9 +563,13 @@
 
 //to add blood dna info to the object's blood_DNA list
 /atom/proc/transfer_blood_dna(list/blood_dna, list/datum/disease/diseases)
+	if(!blood_dna)
+		return FALSE
 	LAZYINITLIST(blood_DNA)
 
 	var/old_length = blood_DNA.len
+	if(!islist(blood_dna))
+		return FALSE
 	blood_DNA |= blood_dna
 	if(blood_DNA.len > old_length)
 		. = TRUE

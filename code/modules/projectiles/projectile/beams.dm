@@ -183,6 +183,7 @@
 	light_color = LIGHT_COLOR_GREEN
 	wound_bonus = -40
 	bare_wound_bonus = 70
+	armour_penetration = 0 //Energy Cannon is doing bullshit in background
 
 /obj/item/projectile/beam/emitter/singularity_pull()
 	return
@@ -193,6 +194,7 @@
 	tracer_type = /obj/effect/projectile/tracer/laser/emitter
 	impact_type = /obj/effect/projectile/impact/laser/emitter
 	impact_effect_type = null
+	armour_penetration = 0 //Energy Cannon is doing bullshit in background
 
 /obj/item/projectile/beam/lasertag
 	name = "laser tag beam"

@@ -36,6 +36,9 @@
 
 //hands
 #define LOADOUT_CATEGORY_HANDS 				"Hands"
+#define LOADOUT_SUBCATEGORY_HANDS_GENERAL		"General"
+#define LOADOUT_SUBCATEGORY_HANDS_SHIELDS		"Shields"
+#define LOADOUT_SUBCATEGORY_HANDS_MODKITS		"Modkits"
 
 //uniform
 #define LOADOUT_CATEGORY_UNIFORM 			"Uniform" //there's so many types of uniform it's best to have lots of categories

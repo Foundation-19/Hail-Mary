@@ -229,8 +229,14 @@
 			recipes_list = srl.recipes
 		var/datum/stack_recipe/R = recipes_list[text2num(href_list["make"])]
 		var/multiplier = round(text2num(href_list["multiplier"]))
-		if(!multiplier || multiplier < 1 || !IS_FINITE(multiplier)) //href exploit protection
-			stack_trace("Invalid multiplier value in stack creation [multiplier], [usr] is likely attempting an exploit")
+		
+		// Validate multiplier is in acceptable range
+		var/max_multiplier = round(get_amount() / R.req_amount)
+		if(R.max_res_amount > 1)
+			max_multiplier = min(max_multiplier, round(R.max_res_amount / R.res_amount))
+		
+		if(!multiplier || multiplier < 1 || multiplier > max_multiplier || !IS_FINITE(multiplier))
+			log_admin("[key_name(usr)] attempted stack exploit with invalid multiplier: [multiplier] (max: [max_multiplier])")
 			return
 		if(!building_checks(R, multiplier))
 			return
@@ -428,12 +434,18 @@
 /obj/item/stack/proc/merge_without_del(obj/item/stack/target_stack, limit)
 	// Cover edge cases where multiple stacks are being merged together and haven't been deleted properly.
 	// Also cover edge case where a stack is being merged into itself, which is supposedly possible.
+	if(!target_stack)
+		// Target stack is null - cannot merge into it, return early
+		return 0
 	if(QDELETED(target_stack))
-		CRASH("Stack merge attempted on qdeleted target stack.")
+		// Target stack is queued for deletion - cannot merge into it, return early
+		return 0
 	if(QDELETED(src))
-		CRASH("Stack merge attempted on qdeleted source stack.")
+		// Source stack is queued for deletion - cannot merge from it, return early
+		return 0
 	if(target_stack == src)
-		CRASH("Stack attempted to merge into itself.")
+		// Cannot merge a stack into itself
+		return 0
 
 	var/transfer = get_amount()
 	if(target_stack.is_cyborg)
@@ -445,7 +457,7 @@
 	target_stack.copy_evidences(src)
 	use(transfer, transfer = TRUE, check = FALSE)
 	target_stack.add(transfer)
-	if(target_stack.mats_per_unit != mats_per_unit) // We get the average value of mats_per_unit between two stacks getting merged
+	if(target_stack.mats_per_unit != mats_per_unit && target_stack.amount > 0) // We get the average value of mats_per_unit between two stacks getting merged
 		var/list/temp_mats_list = list() // mats_per_unit is passed by ref into this coil, and that same ref is used in other places. If we didn't make a new list here we'd end up contaminating those other places, which leads to batshit behavior
 		for(var/mat_type in target_stack.mats_per_unit)
 			temp_mats_list[mat_type] = (target_stack.mats_per_unit[mat_type] * (target_stack.amount - transfer) + mats_per_unit[mat_type] * transfer) / target_stack.amount

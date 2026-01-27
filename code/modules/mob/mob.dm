@@ -7,6 +7,20 @@
 	focus = null
 	LAssailant = null
 	movespeed_modification = null
+	// Clear mind reference to break circular references
+	if(mind)
+		mind.current = null
+		mind = null
+	// Clear held items by destroying them BEFORE parent cleanup
+	// This prevents item cleanup from trying to re-add items during component destruction
+	if(held_items && held_items.len)
+		QDEL_LIST(held_items)
+	held_items = null
+	// Clear client screen objects to prevent GC leaks
+	// Do this BEFORE parent to prevent components from adding new screens
+	if(client && client.screen && client.screen.len)
+		QDEL_LIST(client.screen)
+	// Clear observers perspective references
 	for (var/alert in alerts)
 		clear_alert(alert, TRUE)
 	if(observers && observers.len)
@@ -569,20 +583,33 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 
 
 /mob/proc/transfer_ckey(mob/new_mob, send_signal = TRUE)
-	if(!new_mob || (!ckey && new_mob.ckey))
-		CRASH("transfer_ckey() called [new_mob ? "on ckey-less mob with a player mob as target" : "without a valid mob target"]!")
+	// Validate target mob
+	if(!new_mob || !istype(new_mob))
+		stack_trace("transfer_ckey() called without a valid mob target!")
+		return FALSE
+	
+	// Check if we have a ckey to transfer
+	if(!ckey && new_mob.ckey)
+		stack_trace("transfer_ckey() called on ckey-less mob with a player mob as target!")
+		return FALSE
+	
 	if(!ckey)
-		return
+		return FALSE
+	
 	SEND_SIGNAL(new_mob, COMSIG_MOB_PRE_PLAYER_CHANGE, new_mob, src)
-	if (client)
+	
+	if(client)
 		if(client.prefs?.auto_ooc)
-			if (client.prefs.chat_toggles & CHAT_OOC && isliving(new_mob))
+			if(client.prefs.chat_toggles & CHAT_OOC && isliving(new_mob))
 				client.prefs.chat_toggles ^= CHAT_OOC
-			if (!(client.prefs.chat_toggles & CHAT_OOC) && isdead(new_mob))
+			if(!(client.prefs.chat_toggles & CHAT_OOC) && isdead(new_mob))
 				client.prefs.chat_toggles ^= CHAT_OOC
+	
 	new_mob.ckey = ckey
+	
 	if(send_signal)
 		SEND_SIGNAL(src, COMSIG_MOB_KEY_CHANGE, new_mob, src)
+	
 	return TRUE
 
 /mob/verb/cancel_camera()
@@ -799,10 +826,24 @@ GLOBAL_VAR_INIT(exploit_warn_spam_prevention, 0)
 /mob/proc/swap_hand()
 	var/obj/item/held_item = get_active_held_item()
 	var/obj/item/new_item = get_inactive_held_item()
+	
+	// Unwield any two-handed items and drop their offhand placeholders BEFORE attempting swap
+	if(held_item)
+		var/datum/component/two_handed/th = held_item.GetComponent(/datum/component/two_handed)
+		if(th?.wielded)
+			th.unwield(src, show_message=FALSE)
+	
+	if(new_item)
+		var/datum/component/two_handed/th_new = new_item.GetComponent(/datum/component/two_handed)
+		if(th_new?.wielded)
+			th_new.unwield(src, show_message=FALSE)
+		// Also drop the item itself if it's an offhand placeholder
+		if(istype(new_item, /obj/item/twohanded/offhand))
+			dropItemToGround(new_item, force=TRUE)
+	
 	if((SEND_SIGNAL(src, COMSIG_MOB_SWAP_HANDS, held_item) & COMPONENT_BLOCK_SWAP))
 		return FALSE
-	if(istype(new_item,/obj/item/twohanded/offhand))
-		held_item.attempt_wield(src)
+	
 	return TRUE
 
 /mob/proc/activate_hand(selhand)

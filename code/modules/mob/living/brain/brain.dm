@@ -30,15 +30,31 @@
 			stored_dna.blood_type = stored_dna.species.exotic_bloodtype
 
 /mob/living/brain/Destroy()
-	if(key)				//If there is a mob connected to this thing. Have to check key twice to avoid false death reporting.
-		if(stat!=DEAD)	//If not dead.
-			death(1)	//Brains can die again. AND THEY SHOULD AHA HA HA HA HA HA
-		if(mind)	//You aren't allowed to return to brains that don't exist
+	// Handle player / mind cleanup first
+	if(key)
+		if(stat != DEAD)
+			death(1)
+
+		if(mind)
 			mind.current = null
-			mind.active = FALSE		//No one's using it anymore.
-		ghostize()		//Ghostize checks for key so nothing else is necessary.
+			mind.active = FALSE
+
+		ghostize()
+
+	// Inform MMI BEFORE severing container
+	if(container && istype(container, /obj/item/mmi))
+		var/obj/item/mmi/M = container
+		M.brainmob = null
+
+	// Now safely sever references
 	container = null
+	stored_dna = null
+	mind = null
+	possible_a_intents = null
+	speech_span = null
+
 	return ..()
+
 
 /mob/living/brain/update_mobility()
 	return ((mobility_flags = (container?.in_contents_of(/obj/mecha)? MOBILITY_FLAGS_DEFAULT : NONE)))

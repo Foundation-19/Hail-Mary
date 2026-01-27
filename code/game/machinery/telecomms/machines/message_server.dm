@@ -150,7 +150,10 @@
 	src.source = source
 	src.data = data
 	var/turf/T = get_turf(source)
-	levels = list(T.z)
+	if(T)
+		levels = list(T.z)
+	else
+		levels = list()
 
 /datum/signal/subspace/pda/copy()
 	var/datum/signal/subspace/pda/copy = new(source, data.Copy())

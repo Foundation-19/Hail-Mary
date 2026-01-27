@@ -105,7 +105,9 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	return H.dna && H.dna.species && H.dna.species.can_wag_tail(user)
+	if(!istype(H) || !H.dna || !H.dna.species)
+		return FALSE
+	return H.dna.species.can_wag_tail(user)
 
 /datum/emote/living/carbon/human/wag/select_message_type(mob/user)
 	. = ..()
@@ -141,8 +143,9 @@
 	if(!..())
 		return FALSE
 	var/mob/living/carbon/human/H = user
-	if(H.dna && H.dna.species && (H.dna.features["wings"] != "None"))
-		return TRUE
+	if(!istype(H) || !H.dna || !H.dna.species)
+		return FALSE
+	return H.dna.features["wings"] != "None"
 
 /mob/living/carbon/human/proc/OpenWings()
 	if(!dna || !dna.species)

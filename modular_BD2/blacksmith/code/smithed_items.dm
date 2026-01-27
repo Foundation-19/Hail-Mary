@@ -96,6 +96,8 @@
 	dofinish()
 
 /obj/item/smithing/proc/dofinish()
+	if(!finalitem)
+		return
 	var/qualname
 	switch(quality)
 		if(-1000 to -5)
