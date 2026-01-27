@@ -743,6 +743,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	flash_protect = 1
+	unique_reskin = list("Classic" = "ranger_old", "Classic 2.0" = "new_ranger_classic")
 	glass_colour_type = /datum/client_colour/glass_colour/red
 	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	darkness_view = 24

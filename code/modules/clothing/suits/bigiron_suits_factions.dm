@@ -475,6 +475,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "The NCR veteran ranger combat armor, or black armor consists of a pre-war L.A.P.D. riot suit under a duster with rodeo jeans. Considered one of the most prestigious suits of armor to earn and wear while in service of the NCR Rangers."
 	icon_state = "ranger"
 	item_state = "ranger"
+	unique_reskin = list("Classic" = "ranger_old")
 	clothing_flags = CUSHIONED_ARMOR
 	armor = ARMOR_VALUE_HEAVY
 	armor_tier_desc = ARMOR_CLOTHING_HEAVY
