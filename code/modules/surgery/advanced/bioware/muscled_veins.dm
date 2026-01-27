@@ -10,7 +10,7 @@
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	bioware_target = BIOWARE_CIRCULATION
-	requires_trait = "ABDUCTOR"
+	general_skill_required = 5
 /datum/surgery_step/muscled_veins
 	name = "shape vein muscles"
 	accept_hand = TRUE

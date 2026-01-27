@@ -8,7 +8,7 @@
 				/datum/surgery_step/bionecrosis,
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_HEAD)
-	requires_trait = "UNETHICAL_PRACTITIONER"
+	general_skill_required = 6
 /datum/surgery/advanced/necrotic_revival/can_start(mob/user, mob/living/carbon/target, obj/item/tool)
 	. = ..()
 	var/obj/item/organ/zombie_infection/ZI = target.getorganslot(ORGAN_SLOT_ZOMBIE)
