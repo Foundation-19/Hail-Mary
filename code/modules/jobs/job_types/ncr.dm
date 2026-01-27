@@ -44,6 +44,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrgate)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmor)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmetmk2)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmormk2)
 
 
 ///////////////////////
@@ -288,13 +292,13 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	display_order = JOB_DISPLAY_ORDER_SERGEANT
 	outfit = /datum/outfit/job/ncr/f13sergeant
 	exp_requirements = 500
-/*
-	loadout_options = list( // ALL: Bayonet, M1911 sidearm
-		/datum/outfit/loadout/sergeantrifleman,	// R82
-		/datum/outfit/loadout/sergeantrecon, // Scout Carbine, Scope
-		/datum/outfit/loadout/sergeantcqc, // Trench Shotgun, Gas mask, Smoke bombs, Trench knife
+
+	loadout_options = list( 
+		/datum/outfit/loadout/sergeantrifleman,	// standard service rifle with an added revolver
+		/datum/outfit/loadout/sergeantrecon, // marksman carbine
+		/datum/outfit/loadout/sergeantcqc, // trench shotgun
 		)
-*/
+
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/ncr,
@@ -318,7 +322,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	head = /obj/item/clothing/head/f13/ncr
 	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
 	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle
-	suit_store = /obj/item/gun/ballistic/automatic/service
 	belt = /obj/item/storage/belt/legholster
 	backpack_contents = list(
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
@@ -326,42 +329,43 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/binoculars = 1,
 		)
-/*
+
 /datum/outfit/loadout/sergeantrifleman
 	name = "Lead Rifleman"
-	suit_store = /obj/item/gun/ballistic/automatic/service/r82
+	suit_store = /obj/item/gun/ballistic/automatic/service
 	head = /obj/item/clothing/head/f13/ncr
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/extended = 2,
+		/obj/item/ammo_box/magazine/m556/rifle/extended = 1,
+		/obj/item/ammo_box/magazine/m556/rifle = 1,
 		/obj/item/storage/box/ration/menu_two = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 		/obj/item/flashlight/seclite = 1,
+		/obj/item/gun/ballistic/revolver/colt357 = 1,
+		/obj/item/ammo_box/a357 = 2,
 		)
 
 /datum/outfit/loadout/sergeantrecon
-	name = "Recon Squad Leader"
-	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+	name = "Scout"
+	suit_store = /obj/item/gun/ballistic/automatic/marksman
 	head = /obj/item/clothing/head/f13/ncr
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/extended = 2,
+		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/storage/box/ration/menu_eight = 1,
-		/obj/item/gun_upgrade/scope/watchman = 1
 		)
 
 /datum/outfit/loadout/sergeantcqc
-	name = "Trench Raider"
-	suit_store = /obj/item/gun/ballistic/shotgun/trench //Over thereee over thereeeee spread the spread the word over thereeee
-	head = /obj/item/clothing/head/f13/ncr/steelpot_goggles/trenchraider
+	name = "Pointman"
+	suit_store = /obj/item/gun/ballistic/shotgun/trench
 	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/clothing/mask/gas = 1,
+		/obj/item/ammo_box/shotgun/buck = 1,
+		/obj/item/ammo_box/shotgun/slug = 1,
 		/obj/item/grenade/smokebomb = 2,
 		/obj/item/melee/onehanded/knife/bayonet = 1,
-		/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle/trenchraider = 1,
 		)
-*/
+
 // DRILL SERGEANT
 
 /datum/job/ncr/f13drillsergeant
@@ -1041,9 +1045,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/marksman = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
-		/obj/item/book/granter/trait/techno = 1,
+		/obj/item/book/granter/trait/techno = 1
 		)
 
 /datum/outfit/loadout/combatmedic

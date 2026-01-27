@@ -6,6 +6,7 @@ GLOBAL_LIST_INIT(chemwhiz_recipes, list(
 	/datum/crafting_recipe/medx/chemistry,
 	/datum/crafting_recipe/stimpak/chemistry,
 	/datum/crafting_recipe/stimpak5/chemistry,
+	/datum/crafting_recipe/cheap_stimpak,
 	/datum/crafting_recipe/buffout,
 	/datum/crafting_recipe/steady))
 

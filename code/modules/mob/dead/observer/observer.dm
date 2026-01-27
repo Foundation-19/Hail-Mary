@@ -425,28 +425,39 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
 	set name = "Re-enter Corpse"
+	
+	// Check for client first
 	if(!client)
 		return
-	if(!ckey)
-		to_chat(src, span_warning("You have no ckey to transfer."))
+	
+	// Check for mind
+	if(!mind)
+		to_chat(src, span_warning("You have no mind!"))
 		return
-	if(!mind || QDELETED(mind.current))
+	
+	// Check if mind.current exists and isn't being deleted
+	if(!mind.current || QDELETED(mind.current))
 		to_chat(src, span_warning("You have no body."))
 		return
+	
+	// Check if we can re-enter
 	if(!can_reenter_corpse)
 		to_chat(src, span_warning("You cannot re-enter your body."))
 		return
-	if(mind.current && mind.current.key && mind.current.key[1] != "@")	//makes sure we don't accidentally kick any clients
-		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
+	
+	// Check if another player is in the body
+	if(mind.current.key && mind.current.key[1] != "@")
+		to_chat(src, span_warning("Another consciousness is in your body... It is resisting you."))
 		return
-	if(!mind.current)
-		to_chat(src, span_warning("Your body is gone."))
-		return
+	
+	// Now safe to transfer
 	client.change_view(CONFIG_GET(string/default_view))
 	transfer_ckey(mind.current, FALSE)
-	SStgui.on_transfer(src, mind.current) // Transfer NanoUIs.
+	SStgui.on_transfer(src, mind.current)
+	
 	if(mind.current.client)
 		mind.current.client.init_verbs()
+	
 	return TRUE
 
 /mob/dead/observer/verb/stay_dead()
