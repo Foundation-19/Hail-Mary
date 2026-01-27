@@ -194,6 +194,7 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Vigilante",
 	"Preacher",
 	"Wastelander",
+	"Far-Lands Tribals",
 ))
 
 GLOBAL_LIST_INIT(outlaw_positions, list(
