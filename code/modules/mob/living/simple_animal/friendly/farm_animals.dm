@@ -160,7 +160,7 @@
 	var/has_calf = 0
 	var/young_type = null
 	blood_volume = 480
-	var/ride_move_delay = 2
+	var/ride_move_delay = 3.5
 	var/hunger = 1
 	COOLDOWN_DECLARE(hunger_cooldown)
 
@@ -819,6 +819,8 @@
 	icon_state = "horse"
 	icon_living = "horse"
 	icon_dead = "horse_dead"
+	pixel_x = 0  // Adjust to shift horse left (-) or right (+)
+	pixel_y = -6  // Adjust to shift horse down (-) or up (+) to align under rider
 	speak = list("*shiver", "*alert")
 	speak_emote = list("nays","nays hauntingly")
 	emote_hear = list("brays.")
@@ -828,7 +830,7 @@
 	see_in_dark = 6
 	health = 100
 	maxHealth = 100
-	ride_move_delay = 1.5
+	ride_move_delay = 2.5
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -874,7 +876,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 1.8
+	ride_move_delay = 2.5
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -929,7 +931,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 1.8
+	ride_move_delay = 3
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
