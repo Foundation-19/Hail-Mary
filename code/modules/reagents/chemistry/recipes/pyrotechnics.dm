@@ -254,12 +254,14 @@
 			if(get_dist(C, location) < 4)
 				C.DefaultCombatKnockdown(60)
 
+/*
 /datum/chemical_reaction/smoke_powder
 	name = "smoke_powder"
 	id = /datum/reagent/smoke_powder
 	priority = CHEMICAL_REACTION_PRIORITY_SMOKE
 	results = list(/datum/reagent/smoke_powder = 3)
 	required_reagents = list(/datum/reagent/potassium = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/phosphorus = 1)
+*/
 
 /datum/chemical_reaction/smoke_powder/on_reaction(datum/reagents/holder, multiplier)
 	if(holder.has_reagent(/datum/reagent/stabilizing_agent))
