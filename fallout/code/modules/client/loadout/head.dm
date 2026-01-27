@@ -353,9 +353,37 @@
 	cost = 4
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	restricted_desc = "NCR"
-/*	restricted_roles = list("NCR Combat Engineer",
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
 							"NCR Off-Duty"
-						)*/
+						)
+
+/datum/gear/head/ncr_recon
+	name = "NCR recon beret"
+	path = /obj/item/clothing/head/beret/ncr/ncr_recon
+	cost = 4
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)
 
 /datum/gear/head/ncr_cap
 	name = "NCR garrison cap"
@@ -372,7 +400,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/steelpot_goggles
@@ -391,7 +421,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ranger/rigs
@@ -448,7 +480,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/steelpot_bandolier
@@ -467,7 +501,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_slouch
@@ -486,7 +522,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_flapcap
@@ -505,7 +543,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_campaign
