@@ -404,9 +404,7 @@
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	cost = 1
 	restricted_desc = "NCR"
-	restricted_roles = list("NCR Captain",
-							"NCR Veteran Ranger",
-						)
+	restricted_roles = list("NCR Veteran Ranger")
 
 /datum/gear/head/ranger/price
 	name = "Spider Riot Helmet"

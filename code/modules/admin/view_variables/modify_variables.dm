@@ -99,6 +99,9 @@ GLOBAL_PROTECT(VVpixelmovement)
 
 	switch(alert("Would you like to associate a value with the list entry?",,"Yes","No"))
 		if("Yes")
+			if(isnum(var_value) && (var_value < 1 || var_value > L.len))
+				to_chat(src, "Invalid list index for association.", confidential = TRUE)
+				return
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if (O)
 		if (O.vv_edit_var(objectvar, L) == FALSE)

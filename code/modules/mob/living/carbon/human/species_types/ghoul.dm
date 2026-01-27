@@ -18,7 +18,7 @@
 	wagging_type = "waggingtail_human"
 	species_type = "human"
 
-	allowed_limb_ids = list("human","mammal","aquatic","avian")
+	allowed_limb_ids = list("human")
 	use_skintones = 0
 	speedmod = 0.3 //slightly slower than humans
 	sexes = 1

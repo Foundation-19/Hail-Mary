@@ -233,8 +233,9 @@
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_SAY)
 
-/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, mob/speech_args)
-	var/message = speech_args[SPEECH_MESSAGE]
+/obj/item/clothing/head/warden/drill/proc/handle_speech(datum/source, speech_args)
+	var/list/args_list = speech_args
+	var/message = args_list[SPEECH_MESSAGE]
 	if(message[1] != "*")
 		switch (mode)
 			if(DRILL_SHOUTING)
@@ -256,7 +257,7 @@
 
 				if(prob(30))
 					message += pick(", eh?", ", EH?")
-		speech_args[SPEECH_MESSAGE] = message
+	args_list[SPEECH_MESSAGE] = message
 
 /obj/item/clothing/head/beret/sec
 	name = "security beret"

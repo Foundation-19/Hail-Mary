@@ -65,6 +65,9 @@ GLOBAL_LIST_INIT(huds, alist(
 		else
 			for(var/atom/A in hudatoms)
 				remove_from_single_hud(M, A)
+	//If mob is also an atom in this HUD, clean it up too
+	if(M in hudatoms)
+		remove_from_hud(M)
 
 /datum/atom_hud/proc/remove_from_hud(atom/A, clear_list)
 	if(!A)
@@ -73,8 +76,7 @@ GLOBAL_LIST_INIT(huds, alist(
 		UnregisterSignal(A, COMSIG_PARENT_QDELETING)
 	for(var/mob/M in hudusers)
 		remove_from_single_hud(M, A)
-	if(!clear_list)
-		hudatoms -= A
+	hudatoms -= A
 	return TRUE
 
 /datum/atom_hud/proc/remove_from_single_hud(mob/M, atom/A) //unsafe, no sanity apart from client
@@ -111,7 +113,9 @@ GLOBAL_LIST_INIT(huds, alist(
 	if(!A)
 		return FALSE
 	hudatoms |= A
-	RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_hud), override = TRUE) //both hud users and hud atoms use these signals
+	//Only register if not already registered (e.g., if mob is also a hud user)
+	if(!(A in hudusers))
+		RegisterSignal(A, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_hud), override = TRUE) //both hud users and hud atoms use these signals
 	for(var/mob/M in hudusers)
 		if(!queued_to_see[M])
 			add_to_single_hud(M, A)

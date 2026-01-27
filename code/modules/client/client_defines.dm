@@ -140,6 +140,9 @@
 
 	/// our current tab
 	var/stat_tab
+	
+	/// cached encoded turf items to prevent sending duplicate updates
+	var/last_turf_items_encoded
 
 	/// whether our browser is ready or not yet
 	var/statbrowser_ready = FALSE

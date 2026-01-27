@@ -168,6 +168,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 
 	QDEL_NULL(orbit_menu)
 	QDEL_NULL(spawners_menu)
+
+	// Clean up client screen objects to prevent orphaned UI elements
+	if(client)
+		QDEL_LIST(client.screen)
+		client.screen = null
+
 	return ..()
 
 /mob/dead/CanAllowThrough(atom/movable/mover, border_dir)
@@ -419,21 +425,39 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/reenter_corpse()
 	set category = "Ghost"
 	set name = "Re-enter Corpse"
+	
+	// Check for client first
 	if(!client)
 		return
-	if(!mind || QDELETED(mind.current))
+	
+	// Check for mind
+	if(!mind)
+		to_chat(src, span_warning("You have no mind!"))
+		return
+	
+	// Check if mind.current exists and isn't being deleted
+	if(!mind.current || QDELETED(mind.current))
 		to_chat(src, span_warning("You have no body."))
 		return
+	
+	// Check if we can re-enter
 	if(!can_reenter_corpse)
 		to_chat(src, span_warning("You cannot re-enter your body."))
 		return
-	if(mind.current.key && mind.current.key[1] != "@")	//makes sure we don't accidentally kick any clients
-		to_chat(usr, span_warning("Another consciousness is in your body...It is resisting you."))
+	
+	// Check if another player is in the body
+	if(mind.current.key && mind.current.key[1] != "@")
+		to_chat(src, span_warning("Another consciousness is in your body... It is resisting you."))
 		return
+	
+	// Now safe to transfer
 	client.change_view(CONFIG_GET(string/default_view))
 	transfer_ckey(mind.current, FALSE)
-	SStgui.on_transfer(src, mind.current) // Transfer NanoUIs.
-	mind.current.client.init_verbs()
+	SStgui.on_transfer(src, mind.current)
+	
+	if(mind.current.client)
+		mind.current.client.init_verbs()
+	
 	return TRUE
 
 /mob/dead/observer/verb/stay_dead()
@@ -551,6 +575,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	setDir(2)//reset dir so the right directional sprites show up
 	return ..()
 
+/mob/dead/observer/Moved(atom/old_loc, movement_dir, forced = FALSE, list/old_locs)
+	. = ..()
+	// Update the client's eye position when the observer moves
+	// This ensures audio distance calculations use the correct listener position
+	if(client && client.eye == src)
+		client.eye = src
+
+/mob/dead/observer/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = TRUE)
+	. = ..()
+	// When crossing z-levels, resync the client eye to ensure proper audio tracking
+	if(client && client.eye == src)
+		client.eye = src
+
 /mob/dead/observer/stop_orbit(datum/component/orbiter/orbits)
 	. = ..()
 	//restart our floating animation after orbit is done.
@@ -655,7 +692,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/update_sight()
-	if(client)
+	if(client && client.prefs)
 		ghost_others = client.prefs.ghost_others //A quick update just in case this setting was changed right before calling the proc
 
 	if (!ghostvision)
@@ -684,6 +721,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/updateghostimages()
 	if (!client)
+		return
+	if (!client.prefs)
 		return
 
 	if(lastsetting)

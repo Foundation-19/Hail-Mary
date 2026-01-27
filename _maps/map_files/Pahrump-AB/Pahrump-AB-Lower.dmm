@@ -5287,10 +5287,10 @@
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/tcoms)
 "ciI" = (
-/obj/structure/timeddoor,
 /obj/structure/barricade/bars,
 /obj/structure/table,
 /obj/structure/barricade/wooden/planks,
+/obj/structure/timeddoor,
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"
 	},
@@ -14158,6 +14158,14 @@
 	color = "#363636"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
+/area/f13/caves)
+"jYn" = (
+/obj/structure/ladder/unbreakable{
+	desc = "An extremely sturdy metal ladder. This one leads back up through the shattered ceiling plating.";
+	height = 2;
+	id = "undergroundcasino"
+	},
+/turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "jYv" = (
 /obj/effect/spawner/lootdrop/f13/crafting,
@@ -26310,6 +26318,10 @@
 /obj/structure/barricade/wooden/strong,
 /turf/closed/indestructible/rock,
 /area/f13/caves)
+"vlF" = (
+/obj/structure/timeddoor,
+/turf/closed/wall/rust,
+/area/f13/tunnel)
 "vme" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 1
@@ -28061,10 +28073,10 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
 "wRB" = (
-/obj/structure/timeddoor,
 /obj/structure/simple_door/metal/barred,
 /obj/structure/barricade/wooden/planks,
 /obj/structure/barricade/wooden/planks,
+/obj/structure/timeddoor,
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"
 	},
@@ -77566,7 +77578,7 @@ aae
 aae
 bsC
 bKb
-bKb
+ofm
 xXE
 bsC
 aae
@@ -78078,11 +78090,11 @@ aae
 aae
 aae
 aaa
-bsC
+vlF
 ciI
 wRB
 ciI
-bsC
+vlF
 aaa
 aae
 aaB
@@ -90374,7 +90386,7 @@ aaa
 hml
 aaB
 aaB
-aaB
+jYn
 hml
 aaB
 aaa

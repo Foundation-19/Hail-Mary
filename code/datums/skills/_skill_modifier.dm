@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(potential_mods_per_skill)
 	if(!M)
 		CRASH("Invalid add_skill_modifier id: [id].")
 	if(M.modifier_flags & MODIFIER_SKILL_BODYBOUND && !current)
-		CRASH("Body-bound skill modifier [M] was tried to be added to a mob-less mind.")
+		return // Cannot add body-bound modifier to mob-less mind
 
 	if(M.modifier_flags & MODIFIER_SKILL_VALUE)
 		LAZYINITLIST(skill_holder.skill_value_mods)

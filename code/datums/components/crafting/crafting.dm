@@ -3,6 +3,8 @@
 		RegisterSignal(parent, COMSIG_MOB_CLIENT_LOGIN, PROC_REF(create_mob_button))
 
 /datum/component/personal_crafting/proc/create_mob_button(mob/user, client/CL)
+	if(!user || !CL)
+		return
 	var/datum/hud/H = user.hud_used
 	var/obj/screen/craft/C = new()
 	C.icon = H.ui_style
@@ -265,6 +267,8 @@
 				var/datum/reagent/RGNT
 				while(amt > 0)
 					var/obj/item/reagent_containers/RC = locate() in surroundings
+					if(!RC)
+						continue main_loop
 					RG = RC.reagents.get_reagent(A)
 					if(RG)
 						if(!locate(RG.type) in Deletion)
