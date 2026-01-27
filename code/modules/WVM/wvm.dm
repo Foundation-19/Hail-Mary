@@ -682,6 +682,7 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Guns and Bullets, Part 2",		/obj/item/book/granter/crafting_recipe/gunsmith_two,				50),
 		new /datum/data/wasteland_equipment("Guns and Bullets, Part 3",		/obj/item/book/granter/crafting_recipe/gunsmith_three, 				75),
 		new /datum/data/wasteland_equipment("Guns and Bullets, Part 4",		/obj/item/book/granter/crafting_recipe/gunsmith_four, 				100),
+		new /datum/data/wasteland_equipment("Soldier of Fortune Magazine, 2074 Edition",		/obj/item/book/granter/crafting_recipe/gunsmith_five, 				225),
 		)
 	highpop_list = list(
 		new /datum/data/wasteland_equipment("Seclite Flashlight",			/obj/item/flashlight/seclite,										25),
