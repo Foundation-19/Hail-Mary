@@ -141,7 +141,7 @@
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/sinew = 3, /obj/item/reagent_containers/food/snacks/meat/slab/ant_meat = 6, /obj/item/stack/sheet/animalhide/chitin = 6, /obj/item/reagent_containers/food/snacks/rawantbrain = 1, /obj/item/stack/sheet/animalhide/chitin = 5)
 	butcher_results = list(/obj/item/stack/sheet/animalhide/chitin = 6, /obj/item/reagent_containers/food/snacks/meat/slab/ant_meat = 3)
 	butcher_difficulty = 1.5
-	loot = list(/obj/item/reagent_containers/food/snacks/f13/giantantegg = 10)
+	loot = list(/obj/item/reagent_containers/food/snacks/f13/egg = 10)
 	response_help_simple = "pets"
 	response_disarm_simple = "gently pushes aside"
 	response_harm_simple = "hits"
