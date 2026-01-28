@@ -7,6 +7,14 @@
 	category = CAT_VEHICLES
 	subcategory = CAT_VEHICLEPARTS
 
+/datum/crafting_recipe/mountedseat
+	name = "Mounted seat"
+	result = /obj/item/mecha_parts/mecha_equipment/seat
+	reqs = list(/obj/item/stack/sheet/plastic = 2,
+				/obj/item/stack/sheet/cloth = 4)
+	time = 20
+	category = CAT_VEHICLES
+	subcategory = CAT_VEHICLEPARTS
 
 /datum/crafting_recipe/fuel_tank
 	name = "Fuel Tank"

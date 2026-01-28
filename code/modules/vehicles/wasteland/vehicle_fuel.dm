@@ -85,7 +85,7 @@
 	name = "Jerrycan"
 	amount_per_transfer_from_this = 50
 	volume = 500
-	w_class = WEIGHT_CLASS_NORMAL
+	w_class = WEIGHT_CLASS_GIGANTIC
 	list_reagents = list(/datum/reagent/fuel)
 	icon = 'icons/mecha/mech_bay.dmi'
 	icon_state = "jerrycan"
