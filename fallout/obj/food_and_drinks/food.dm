@@ -605,19 +605,10 @@
 /obj/item/reagent_containers/food/snacks/f13/deathclawegg
 	name = "deathclaw egg"
 	desc = "A deathclaw egg. It has a brownish-red shell. Look at this thing, it's as big as your torso!"
-	icon_state = "deathclawegg"
+	icon = 'icons/obj/food/egg.dmi'
+	icon_state = "egg_deathclaw"
 	bonus_reagents = list(/datum/reagent/toxin = 30)
 	list_reagents = list(/datum/reagent/consumable/eggyolk = 40)
-	filling_color = "#F0E68C"
-	foodtype = MEAT
-
-/obj/item/reagent_containers/food/snacks/f13/giantantegg
-	name = "giant ant egg"
-	desc = "A giant ant egg.<br>You'd thought it be bigger but its white and squishy to the touch."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
-	icon_state = "antegg"
-	bonus_reagents = list(/datum/reagent/toxin = 10)
-	list_reagents = list(/datum/reagent/consumable/eggyolk = 15)
 	filling_color = "#F0E68C"
 	foodtype = MEAT
 

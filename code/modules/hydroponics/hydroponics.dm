@@ -853,6 +853,13 @@
 	icon = 'icons/fallout/turfs/ground.dmi'
 	icon_state = "dirtfull"
 
+/obj/machinery/hydroponics/soil/flat/harsh
+	name = "soil"
+	yieldmod = 0.8	// Harsh unkept badland soil	
+	icon = 'icons/fallout/turfs/ground_harsh.dmi'
+	icon_state = "dirtfull"
+
+
 /obj/machinery/hydroponics/soil/examine(mob/user)
 	. = ..()
 	. += "<span class='notice'><b>Alt-Click</b> to empty the tray's nutrients.</span>"

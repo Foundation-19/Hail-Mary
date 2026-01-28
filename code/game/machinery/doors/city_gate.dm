@@ -27,6 +27,18 @@
 		return
 	set_opacity(TRUE)
 
+/obj/machinery/door/poddoor/gate/vertical
+	name = "city gate"
+	icon = 'icons/fallout/structures/city_gate_vertical.dmi'
+	bound_width = 32
+	bound_height = 96
+
+/obj/machinery/door/poddoor/gate/vertical/preopen
+	name = "city gate"
+	icon_state = "open"
+	density = FALSE
+	opacity = FALSE
+
 /obj/machinery/door/poddoor/gate/bunker
 	name = "bunker door"
 	icon = 'icons/fallout/structures/brotherhood_gate.dmi'
