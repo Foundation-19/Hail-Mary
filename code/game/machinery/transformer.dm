@@ -31,9 +31,11 @@
 	if(cooldown && (hasSiliconAccessInArea(user) || isobserver(user)))
 		. += "It will be ready in [DisplayTimeText(cooldown_timer - world.time)]."
 
+// Fix transformer to clear masterAI reference
 /obj/machinery/transformer/Destroy()
 	QDEL_NULL(countdown)
-	. = ..()
+	masterAI = null
+	return ..()
 
 /obj/machinery/transformer/power_change()
 	..()
