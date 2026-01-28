@@ -460,6 +460,17 @@
 	slot_flags = ITEM_SLOT_NECK
 	resistance_flags = FIRE_PROOF
 
+/obj/item/storage/belt/sniperraincoat
+	name = "Sniper Rain Coat"
+	desc = "A sand colored rain coat modified with scrim netting for added camouflage value. Can store ammunition in internal pockets and offers great protection from the elements."
+	icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon_state = "sniper_rain_coat"
+	item_state = "sniper_rain_coat"
+	slot_flags = ITEM_SLOT_NECK
+	rad_flags = RAD_PROTECT_CONTENTS | RAD_NO_CONTAMINATE
+	component_type = /datum/component/storage/concrete/neckpron/specialized/bandolier
+
 /////////////////
 /// Neck Gunbelt
 /obj/item/storage/belt/shoulderholster
