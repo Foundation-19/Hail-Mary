@@ -648,8 +648,8 @@ Mayor
 /datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
-		/obj/item/clothing/under/f13/machinist,
-		/obj/item/clothing/under/f13/roving,
+		/obj/item/clothing/under/f13/machinist, \
+		/obj/item/clothing/under/f13/roving, \
 		/obj/item/clothing/under/f13/cowboyt)
 
 /datum/outfit/job/den/f13prospector/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -887,6 +887,7 @@ Mayor
 	spawn_positions =-1
 	supervisors = "Eastwood's laws"
 	description = "You are a citizen within the town. Under the watch of the Warden and his guard you try best to earn your keep. You live within the safety of the walls."
+	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/den/f13settler
 

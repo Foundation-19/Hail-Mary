@@ -1100,10 +1100,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "bZG" = (
-/obj/effect/spawner/lootdrop/f13/blueprintMid,
-/obj/effect/spawner/lootdrop/f13/blueprintMid,
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/f13/blueprintMid,
 /obj/effect/spawner/lootdrop/f13/blueprintMid,
 /turf/open/floor/carpet/blue,
 /area/f13/city)
@@ -2087,6 +2084,7 @@
 /obj/machinery/light/small{
 	dir = 8
 	},
+/obj/effect/spawner/lootdrop/f13/blueprintVHighPartsWeighted,
 /turf/open/floor/carpet/blue,
 /area/f13/city)
 "dVT" = (
@@ -3652,6 +3650,13 @@
 /obj/structure/wreck/trash/two_barrels,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
+"gVf" = (
+/obj/structure/table/wood,
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "gXb" = (
 /obj/structure/railing/handrail/legion/underlayer{
 	dir = 1
@@ -4738,6 +4743,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/wasteland)
+"iWs" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "iXJ" = (
 /obj/structure/dresser,
 /turf/open/floor/f13/wood,
@@ -4941,6 +4952,12 @@
 /obj/structure/barricade/wooden,
 /turf/open/floor/plasteel/f13/vault_floor/blue/side,
 /area/f13/building/hospital)
+"jtX" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "juL" = (
 /obj/machinery/light{
 	dir = 4
@@ -5168,6 +5185,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"jPl" = (
+/obj/structure/closet/crate/bin/trash_fallout,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "jPD" = (
 /obj/structure/barricade/wooden,
 /turf/closed/indestructible/rock{
@@ -9534,6 +9555,13 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building/hospital)
+"sga" = (
+/obj/structure/chair/wood,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "shW" = (
 /turf/closed/wall/f13/wood,
 /area/f13/legion)
@@ -11851,6 +11879,10 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/legion)
+"wPx" = (
+/obj/machinery/light,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "wQG" = (
 /mob/living/simple_animal/hostile/handy,
 /obj/effect/decal/cleanable/dirt,
@@ -33447,7 +33479,7 @@ nkA
 nkA
 woa
 xHa
-paR
+jtX
 iOG
 woa
 paR
@@ -33968,10 +34000,10 @@ lSa
 paR
 ujn
 paR
-paR
+wPx
 woa
 woa
-paR
+iWs
 paR
 paR
 paR
@@ -33981,7 +34013,7 @@ paR
 xCO
 uOI
 skX
-paR
+wPx
 woa
 paR
 paR
@@ -34476,7 +34508,7 @@ nkA
 woa
 paR
 paR
-paR
+wPx
 woa
 jSR
 dvk
@@ -34998,7 +35030,7 @@ sOm
 ujn
 sOm
 woa
-fGg
+sga
 paR
 uIk
 tTN
@@ -35522,7 +35554,7 @@ paR
 paR
 paR
 paR
-paR
+jPl
 woa
 oez
 oez
@@ -36032,11 +36064,11 @@ woa
 woa
 woa
 woa
-iPs
+gVf
 cMR
 bVu
 paR
-paR
+wPx
 woa
 oez
 oez
