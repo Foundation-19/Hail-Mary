@@ -232,72 +232,75 @@ proc/get_top_level_mob(mob/S)
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()
+	var/they = p_they()
+	var/capital_they = capitalize(they)
+	var/p_s = p_s()
 	var/msg = "*---------*" //S:[special_s],P:[special_p],E:[special_e],C:[special_c],I:[special_i],A:[special_a],L:[special_l]<br>"
-	msg += gen_strength_examine_text()
-	msg += gen_perception_examine_text()
-	msg += gen_endurance_examine_text()
-	msg += gen_charisma_examine_text()
-	msg += gen_intelligence_examine_text()
-	msg += gen_agility_examine_text()
-	msg += gen_luck_examine_text()
+	msg += gen_strength_examine_text(capital_they, they, p_s)
+	msg += gen_perception_examine_text(capital_they, they, p_s)
+	msg += gen_endurance_examine_text(capital_they, they, p_s)
+	msg += gen_charisma_examine_text(capital_they, they, p_s)
+	msg += gen_intelligence_examine_text(capital_they, they, p_s)
+	msg += gen_agility_examine_text(capital_they, they, p_s)
+	msg += gen_luck_examine_text(capital_they, they, p_s)
 	msg += "<br> *---------*"
 	return msg
 
-/mob/proc/gen_strength_examine_text()
+/mob/proc/gen_strength_examine_text(var/c_they, var/they, var/p_s)
 	if(special_s <= 3)
 		return "<br>This person looks puny, like a total noodle."
 	if(special_s >= 7)
-		return "<br>Simply built out of muscle, they could wrestle a deathclaw to death."
+		return "<br>Simply built out of muscle, [they] could wrestle a deathclaw to death."
 
-/mob/proc/gen_perception_examine_text()
+/mob/proc/gen_perception_examine_text(var/c_they, var/they, var/p_s)
 	if(special_p <= 3)
-		return "<br>Even with glasses, an elephant could easily sneak by them."
+		return "<br>Even with glasses, an elephant could easily sneak by [p_them()]."
 	if(special_p >= 7)
-		return "<br>A sharp and attentive gaze almost pierces through you, nothing gets past them it seems."
+		return "<br>A sharp and attentive gaze almost pierces through you, nothing gets past [p_them()] it seems."
 
-/mob/proc/gen_endurance_examine_text()
+/mob/proc/gen_endurance_examine_text(var/c_they, var/they, var/p_s)
 	if(special_e <= 3)
-		return "<br>It looks like a stiff breeze could tear them in two."
+		return "<br>It looks like a stiff breeze could tear [p_them()] in two."
 	if(special_e >= 7)
-		return "<br>As solid as an oak, they look like they could run for miles on end."
+		return "<br>As solid as an oak, [they] look[p_s] like [they] could run for miles on end."
 
-/mob/proc/gen_charisma_examine_text()
+/mob/proc/gen_charisma_examine_text(var/c_they, var/they, var/p_s)
 	switch(special_c)
 		if(1)
 			return "<br>You struggle not to vomit looking at this horribly fugly creature."
 		if(2)
-			return "<br>They look like a product of incest."
+			return "<br>[c_they] look[p_s] like a product of incest."
 		if(3)
-			return "<br>They look kinda ugly."
+			return "<br>[c_they] look[p_s] kinda ugly."
 		if(4)
-			return "<br>They look a little off appearance-wise."
+			return "<br>[c_they] look[p_s] a little off appearance-wise."
 		if(5)
-			return "<br>They look incredibly average."
+			return "<br>[c_they] look[p_s] incredibly average."
 		if(6)
-			return "<br>They look slightly better than your average waster."
+			return "<br>[c_they] look[p_s] slightly better than your average waster."
 		if(7)
-			return "<br>They look pretty damn good."
+			return "<br>[c_they] look[p_s] pretty damn good."
 		if(8)
-			return "<br>They look strikingly great."
+			return "<br>[c_they] look[p_s] strikingly great."
 		if(9)
-			return "<br>They look exceptionally beautiful."
+			return "<br>[c_they] look[p_s] exceptionally beautiful."
 		if(10)
-			return "<br>They have a perfect beauty to them leagues above the rest."
+			return "<br>[c_they] [p_have()] a perfect beauty to [p_them()] leagues above the rest."
 
-/mob/proc/gen_intelligence_examine_text()
+/mob/proc/gen_intelligence_examine_text(var/c_they, var/they, var/p_s)
 	if(special_i <= 3)
-		return "<br>They look like they'd struggle to get water out of a boot with instructions printed on the heel."
+		return "<br>[c_they] look[p_s] like [they]'d struggle to get water out of a boot with instructions printed on the heel."
 	if(special_i >= 7)
-		return "<br>A bright and careful gaze in their eyes, they seem to know much more than you."
+		return "<br>A bright and careful gaze in [p_their()] eyes, [they] seem[p_s] to know much more than you."
 
-/mob/proc/gen_agility_examine_text()
+/mob/proc/gen_agility_examine_text(var/c_they, var/they, var/p_s)
 	if(special_a <= 3)
-		return "<br>Maladroit and unbalanced, it is a wonder they can even stand straight."
+		return "<br>Maladroit and unbalanced, it is a wonder [they] can even stand straight."
 	if(special_a >= 7)
-		return "<br>Moving like a panther, it is a wonder you have even noticed that they are here."
+		return "<br>Moving like a panther, it is a wonder you have even noticed that [they] [p_are()] here."
 
-/mob/proc/gen_luck_examine_text()
+/mob/proc/gen_luck_examine_text(var/c_they, var/they, var/p_s)
 	if(special_l <= 3)
-		return "<br>Misfortune just seems to stick to them like a fly to shit."
+		return "<br>Misfortune just seems to stick to [p_them()] like a fly to shit."
 	if(special_l >= 7)
-		return "<br>Somehow you just know that they are as lucky as it gets."
+		return "<br>Somehow you just know that [they] [p_are()] as lucky as it gets."
