@@ -1309,7 +1309,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/effect/landmark/start/f13/dendoc,
+/obj/effect/landmark/start/f13/f13holidaydendoc,
 /turf/open/floor/f13{
 	icon_state = "whiterusty"
 	},
@@ -9086,7 +9086,7 @@
 /turf/open/floor/carpet/royalblack,
 /area/f13/building)
 "haF" = (
-/obj/effect/landmark/start/f13/quartermaster,
+/obj/effect/landmark/start/f13/f13holidayquartermaster,
 /turf/open/floor/f13{
 	icon_state = "yellowdirtychess"
 	},
@@ -10052,10 +10052,10 @@
 /turf/closed/wall/f13/wood/house,
 /area/f13/caves)
 "hQS" = (
-/obj/effect/landmark/start/f13/sheriff,
 /obj/structure/chair/comfy/beige{
 	dir = 8
 	},
+/obj/effect/landmark/start/f13/f13holidaysheriff,
 /turf/open/floor/carpet/red,
 /area/f13/city/bighorn)
 "hRg" = (
@@ -13484,7 +13484,7 @@
 /obj/structure/chair{
 	dir = 8
 	},
-/obj/effect/landmark/start/f13/secretary,
+/obj/effect/landmark/start/f13/f13holidaysecretary,
 /turf/open/floor/wood_fancy,
 /area/f13/city/bighorn)
 "kDC" = (
@@ -16674,7 +16674,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/f13/dendoc,
+/obj/effect/landmark/start/f13/f13holidaydendoc,
 /turf/open/floor/f13{
 	icon_state = "whiterusty"
 	},
@@ -21418,10 +21418,10 @@
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
 "qTT" = (
-/obj/effect/landmark/start/f13/mayor,
 /obj/structure/chair/comfy/purple{
 	dir = 8
 	},
+/obj/effect/landmark/start/f13/f13holidayf13holidaymayor,
 /turf/open/floor/carpet/green,
 /area/f13/city/bighorn)
 "qUS" = (
@@ -21467,7 +21467,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/city/bighorn)
 "qXO" = (
-/obj/effect/landmark/start/f13/dendoc,
+/obj/effect/landmark/start/f13/f13holidaydendoc,
 /turf/open/floor/f13{
 	icon_state = "whitedirty"
 	},
@@ -22189,7 +22189,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "rCg" = (
-/obj/effect/landmark/start/f13/dendoc,
+/obj/effect/landmark/start/f13/f13holidaydendoc,
 /turf/open/floor/f13{
 	icon_state = "whiterusty"
 	},
@@ -25265,7 +25265,6 @@
 /obj/structure/curtain{
 	pixel_y = 32
 	},
-/obj/effect/landmark/start/f13/followersadministrator,
 /turf/open/floor/wood_mosaic,
 /area/f13/city/bighorn)
 "tUv" = (
@@ -29496,7 +29495,7 @@
 	},
 /area/f13/building)
 "xsk" = (
-/obj/effect/landmark/start/f13/shopkeeper,
+/obj/effect/landmark/start/f13/f13holidayshopkeeper,
 /turf/open/floor/f13{
 	icon_state = "yellowdirtychess"
 	},
