@@ -81,7 +81,7 @@ Mayor
 		/datum/outfit/loadout/clinicdirector, //wattz magneto followers attire
 		/datum/outfit/loadout/richman, //1911 unique + grease gun and lever action blueprint 
 		/datum/outfit/loadout/eastchief, //tribal warmace
-		/datum/outfit/loadout/lord //medieval prep, bola + sword
+		/datum/outfit/loadout/lord //medieval armor, bola + sword
 		)
 
 
@@ -204,7 +204,9 @@ Mayor
 		/obj/item/restraints/legcuffs/bola/tactical = 2,
 		/obj/item/melee/coyote/oldlongsword/broadsword = 1,
 		/obj/item/storage/belt/sword = 1,
-		/obj/item/storage/box/medicine/poultice5 = 1
+		/obj/item/storage/box/medicine/poultice5 = 1,
+		/obj/item/clothing/suit/armor/heavy/riot/knight/mayor = 1,
+		/obj/item/clothing/head/helmet/knight/lord = 1
 	)
 /*--------------------------------------------------------------*/
 
@@ -386,7 +388,9 @@ Mayor
 	backpack_contents = list(
 		/obj/item/melee/coyote/mauler = 1,
 		/obj/item/restraints/legcuffs/bola/tactical = 2,
-		/obj/item/storage/box/medicine/poultice5 = 1
+		/obj/item/storage/box/medicine/poultice5 = 1,
+		/obj/item/clothing/suit/armor/heavy/riot/knight/sherrif = 1,
+		/obj/item/clothing/head/helmet/knight/sherrif = 1
 		)
 
 
@@ -516,7 +520,9 @@ Mayor
 	backpack_contents = list(
 		/obj/item/restraints/legcuffs/bola/tactical = 1,
 		/obj/item/storage/box/medicine/poultice5 = 1,
-		/obj/item/shield/riot = 1
+		/obj/item/shield/riot = 1,
+		/obj/item/clothing/suit/armor/heavy/riot/knight/tabard = 1,
+		/obj/item/clothing/head/helmet/knight/constable = 1
 	)
 
 /*--------------------------------------------------------------*/

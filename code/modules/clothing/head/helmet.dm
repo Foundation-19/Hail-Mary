@@ -340,6 +340,7 @@ Intended for use on BoS Town */
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 100
 	dog_fashion = null
+	
 
 /obj/item/clothing/head/helmet/knight/sherrif
 	name = "Sherrifs helmet"
@@ -352,8 +353,8 @@ Intended for use on BoS Town */
 	strip_delay = 100
 	dog_fashion = null
 
-/obj/item/clothing/head/helmet/knight/cosntable
-	name = "constables helmet"
+/obj/item/clothing/head/helmet/knight/constable
+	name = "Watchments helmet"
 	desc = "A metal helmet denoting the rank of constable, it appears worn and weathered but still well built."
 	icon = 'fallout/icons/objects/hats.dmi'
 	mob_overlay_icon = 'fallout/icons/objects/hats.dmi'
