@@ -7057,8 +7057,7 @@
 /area/f13/ambientlighting/building/d)
 "cGv" = (
 /obj/effect/decal/cleanable/oil{
-	icon_state = "floor2";
-	tag = "icon-floor2"
+	icon_state = "floor2"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
@@ -12847,13 +12846,6 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/building/powered)
-"ePo" = (
-/obj/structure/flora/tree/tall{
-	icon_state = "tree_3";
-	tag = "icon-tree_3"
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "ePA" = (
 /obj/structure/flora/wasteplant/wild_fungus,
 /turf/open/indestructible/ground/inside/mountain,
@@ -18460,8 +18452,7 @@
 /area/f13/caves)
 "gYF" = (
 /obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_6";
-	tag = "icon-tall_grass_6"
+	icon_state = "tall_grass_6"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
@@ -21827,14 +21818,6 @@
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland/cold)
-"inM" = (
-/obj/effect/decal/remains/human,
-/obj/effect/decal/cleanable/blood/old{
-	icon_state = "floor6-old";
-	tag = "icon-floor6-old"
-	},
-/turf/closed/mineral/random,
-/area/f13/legion)
 "inS" = (
 /obj/item/chair{
 	dir = 8;
@@ -36969,8 +36952,7 @@
 /area/f13/wasteland/cold)
 "nPT" = (
 /obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_6";
-	tag = "icon-tall_grass_6"
+	icon_state = "tall_grass_6"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 8;
@@ -37021,8 +37003,7 @@
 /area/f13/ambientlighting/building/d)
 "nQD" = (
 /obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_3";
-	tag = "icon-tall_grass_3"
+	icon_state = "tall_grass_3"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirtcorner"
@@ -37297,8 +37278,7 @@
 /area/f13/ambientlighting/building/d)
 "nWy" = (
 /obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_4";
-	tag = "icon-tall_grass_4"
+	icon_state = "tall_grass_4"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	icon_state = "dirt"
@@ -52350,8 +52330,7 @@
 /area/f13/building/powered)
 "tDi" = (
 /obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_3";
-	tag = "icon-tall_grass_3"
+	icon_state = "tall_grass_3"
 	},
 /turf/open/indestructible/ground/outside/dirt{
 	dir = 4;
@@ -59527,8 +59506,7 @@
 /area/f13/underground/mountain)
 "wjc" = (
 /obj/structure/flora/tree/tall{
-	icon_state = "tree_2";
-	tag = "icon-tree_2"
+	icon_state = "tree_2"
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
@@ -59545,8 +59523,7 @@
 /area/f13/wasteland/cold)
 "wjl" = (
 /obj/effect/decal/cleanable/blood/old{
-	icon_state = "floor5-old";
-	tag = "icon-floor5-old"
+	icon_state = "gibmid1"
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
@@ -62154,13 +62131,6 @@
 /obj/structure/wreck/trash/bus_door,
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
-"xhC" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_4";
-	tag = "icon-tall_grass_4"
-	},
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/wasteland)
 "xhH" = (
 /obj/structure/chair/bench,
 /turf/open/floor/f13/wood,
@@ -64080,8 +64050,7 @@
 /area/f13/underground/mountain)
 "xWP" = (
 /obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_2";
-	tag = "icon-tall_grass_2"
+	icon_state = "tall_grass_2"
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/legion)
@@ -155398,7 +155367,7 @@ emy
 emy
 emy
 emy
-ePo
+qMl
 emy
 emy
 fwy
@@ -156184,7 +156153,7 @@ emy
 emy
 emy
 emy
-xhC
+nzi
 oAD
 fky
 fky
@@ -156421,7 +156390,7 @@ emy
 emy
 emy
 emy
-ePo
+qMl
 emy
 emy
 emy
@@ -156677,7 +156646,7 @@ tej
 emy
 emy
 emy
-lzo
+emy
 emy
 emy
 emy
@@ -157451,7 +157420,7 @@ emy
 emy
 emy
 emy
-ePo
+qMl
 emy
 emy
 emy
@@ -161608,7 +161577,7 @@ esn
 mup
 jXb
 mup
-mup
+wjl
 mup
 rdU
 rdU
@@ -161865,7 +161834,7 @@ hKP
 evQ
 dOI
 rdU
-inM
+heH
 aLh
 rdU
 rxj
@@ -162587,7 +162556,7 @@ qgt
 tej
 emy
 emy
-ePo
+qMl
 emy
 dbq
 dbq
