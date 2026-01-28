@@ -8016,6 +8016,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer)
+"epB" = (
+/obj/item/blacksmith/ingot/adamantine,
+/turf/closed/mineral/random/low_chance,
+/area/f13/caves)
 "epT" = (
 /obj/effect/turf_decal/stripes/corner{
 	dir = 4
@@ -24226,6 +24230,10 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/tunnel)
+"tHj" = (
+/obj/item/blacksmith/ingot/adamantine,
+/turf/closed/mineral/random/high_chance,
+/area/f13/caves)
 "tHm" = (
 /mob/living/simple_animal/hostile/ghoul,
 /obj/effect/decal/cleanable/dirt{
@@ -59840,7 +59848,7 @@ aae
 aae
 aak
 aae
-aae
+epB
 aae
 aae
 aak
@@ -60079,7 +60087,7 @@ bCt
 aae
 aae
 aae
-aak
+tHj
 aae
 aae
 aae
@@ -63947,7 +63955,7 @@ aak
 aak
 aak
 aak
-aak
+tHj
 aak
 aak
 aak

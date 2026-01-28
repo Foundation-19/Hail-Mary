@@ -8366,11 +8366,8 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "aHc" = (
-/obj/structure/decoration/warning{
-	desc = "A restricted area sign, with scribbles underneath showing a Brotherhood of steel insignia";
-	name = "Restricted Area"
-	},
-/turf/closed/wall/f13/store,
+/obj/machinery/light,
+/turf/open/floor/f13/wood,
 /area/f13/brotherhood)
 "aHd" = (
 /obj/structure/kitchenspike,
@@ -27479,6 +27476,13 @@
 	dir = 10
 	},
 /area/f13/building)
+"fKE" = (
+/obj/structure/closet/crate/bin/trash_fallout,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/f13/wood,
+/area/f13/brotherhood)
 "fKP" = (
 /obj/item/reagent_containers/syringe,
 /obj/item/reagent_containers/hypospray/medipen/medx,
@@ -27605,6 +27609,13 @@
 	icon_state = "yellowrustychess"
 	},
 /area/f13/building/massfusion)
+"fOr" = (
+/obj/structure/filingcabinet/chestdrawer,
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/floor/f13/wood,
+/area/f13/brotherhood)
 "fOB" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -30381,6 +30392,12 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/building)
+"gYE" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/open/floor/f13/wood,
+/area/f13/brotherhood)
 "gYX" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/indestructible/ground/outside/road{
@@ -31696,8 +31713,13 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "hGc" = (
-/obj/machinery/light/small,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/obj/machinery/light,
+/obj/structure/bed/roller,
+/obj/machinery/iv_drip{
+	pixel_x = 13;
+	pixel_y = 2
+	},
+/turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/brotherhood)
 "hGv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -34172,6 +34194,9 @@
 /obj/machinery/autolathe/ammo,
 /obj/item/stack/ore/blackpowder/fifty,
 /obj/item/stack/sheet/metal/fifty,
+/obj/machinery/light{
+	dir = 4
+	},
 /turf/open/floor/f13/wood,
 /area/f13/brotherhood)
 "iIm" = (
@@ -39840,6 +39865,11 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building/powered)
+"llk" = (
+/obj/machinery/vending/snack/random,
+/obj/machinery/light,
+/turf/open/floor/f13/wood,
+/area/f13/brotherhood)
 "llo" = (
 /obj/structure/simple_door/room{
 	name = "Sergeant Room"
@@ -60202,8 +60232,6 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/wasteland)
 "ukk" = (
-/obj/item/blacksmith/ingot/adamantine,
-/obj/item/blacksmith/ingot/adamantine,
 /obj/structure/blacksmith/anvil/obtainable,
 /obj/machinery/light/small{
 	dir = 4;
@@ -68153,6 +68181,9 @@
 /obj/item/ammo_box/shotgun/bean,
 /obj/item/ammo_box/shotgun/bean,
 /obj/item/ammo_box/shotgun/bean,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/f13/wood,
 /area/f13/brotherhood)
 "xPJ" = (
@@ -90105,7 +90136,7 @@ awC
 awC
 nLG
 psq
-slb
+fOr
 nLG
 psq
 awC
@@ -90874,7 +90905,7 @@ oYF
 woD
 awC
 qST
-xqa
+aHc
 awC
 nce
 awC
@@ -91134,7 +91165,7 @@ qST
 xqa
 awC
 xqa
-qZQ
+fKE
 slb
 awC
 xqa
@@ -92161,13 +92192,13 @@ wea
 wea
 wea
 awC
+gYE
 xqa
 xqa
 xqa
 xqa
 xqa
-xqa
-ylm
+llk
 awC
 geW
 kZO
@@ -93942,7 +93973,7 @@ aky
 woD
 bvW
 oYF
-hGc
+oYF
 aAV
 oYF
 oYF
@@ -94198,11 +94229,11 @@ aky
 aky
 woD
 woD
-oYF
 woD
 woD
-oYF
-oYF
+woD
+woD
+woD
 woD
 woD
 woD
@@ -94455,11 +94486,11 @@ aky
 aky
 woD
 woD
-bcw
 woD
 woD
-bcw
-bcw
+woD
+woD
+woD
 woD
 woD
 woD
@@ -94711,13 +94742,13 @@ jxM
 aky
 aky
 tAT
-aHc
-bNH
-aHc
-aHc
-gEn
-gEn
-aHc
+tAT
+tAT
+tAT
+tAT
+tAT
+tAT
+tAT
 tAT
 wea
 wea
@@ -94972,8 +95003,8 @@ beJ
 bNH
 lRL
 bct
-gEn
-djG
+fBC
+hGc
 tAT
 tAT
 tAT
