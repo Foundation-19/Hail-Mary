@@ -912,7 +912,7 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Substantial armor
  * 7.5% slower - lore accurate
 */
-#define ARMOR_SLOWDOWN_MEDIUM 0.15
+#define ARMOR_SLOWDOWN_MEDIUM 0.19
 
 /*
  * Heavy Armor

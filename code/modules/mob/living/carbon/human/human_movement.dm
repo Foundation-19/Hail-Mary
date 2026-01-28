@@ -22,22 +22,22 @@
 	if(istype(wear_suit))
 		var/obj/item/clothing/suit/armor = wear_suit
 		if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			if(special_s < 7)
+			if(special_s < 6)
 				. += 0.5 // Additional slowdown if lacking strength
 		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
-			if(special_s < 7)
+			if(special_s < 4)
 				. += 0.4
 		else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
-			if(special_s < 7)
+			if(special_s < 6)
 				. += 0.4
 		else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
-			if(special_s < 5)
+			if(special_s < 4)
 				. += 0.3
 		else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
 			if(special_s < 3)
 				. += 0.3
 	
-	. += 0.45 // Universal human slowdown
+	. += 0.2 // Universal human slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
