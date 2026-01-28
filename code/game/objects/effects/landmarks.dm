@@ -666,7 +666,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 // Brotherhood of Steel
 
-/obj/effect/landmark/start/f13/envoy
+/obj/effect/landmark/start/f13/elderenvoy
 	name = "Elder Envoy"
 	icon_state = "Elder"
 
