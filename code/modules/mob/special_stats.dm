@@ -5,7 +5,7 @@
 	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth and increased poison and rad resistance for each level above/below 5 END
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets when they examine you
 	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
-	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 10% Sprint stamina usage modifier -/+ 0.05 movespeed modifier per lvl below/above 5 AGI
+	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 tiles sprint buffer, +/- 10% sprint regen, +/- 0.05 sprint speed, +/- 10% sprint stamina usage per lvl below/above 5 AGI
 	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to hit yourself if it's 3 or below
 
 /mob/proc/get_top_level_mob()
@@ -186,12 +186,101 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/calc_sprint_stamina_mod_from_special()
 	return
 
+/mob/living/carbon/proc/calc_sprint_speed_mod_from_special()
+	// BURST SPEED
+	var/base_sprint_boost = CONFIG_GET(number/movedelay/sprint_speed_increase)
+	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
+	
+	var/speed_bonus
+	if(agi_diff > 0)
+		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.1344)
+	else
+		speed_bonus = base_sprint_boost + (agi_diff * 0.1344)
+	
+	// Apply armor penalties to sprint speed with STRENGTH thresholds
+	// These penalties STACK with the existing armor slowdown system
+	var/armor_penalty = 0
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(istype(H.wear_suit))
+			var/obj/item/clothing/suit/armor = H.wear_suit
+			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+				armor_penalty = 0.60 // Base salvage penalty
+				// Additional 50% penalty if strength < 7
+				if(special_s < 7)
+					armor_penalty += 0.50
+			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+				armor_penalty = 0.30 // Base PA penalty
+				// Additional 40% penalty if strength < 7
+				if(special_s < 7)
+					armor_penalty += 0.40
+			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+				armor_penalty = 0.30 // Base heavy penalty
+				// Additional 40% penalty if strength < 7
+				if(special_s < 7)
+					armor_penalty += 0.40
+			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+				// No base penalty for medium
+				// 30% penalty if strength < 5
+				if(special_s < 5)
+					armor_penalty = 0.30
+			else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+				// No base penalty for light
+				// 30% penalty if strength < 3
+				if(special_s < 3)
+					armor_penalty = 0.30
+	
+	return speed_bonus - armor_penalty
+
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
-	return (1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1))
+	// HIGHER drain - short burst means burning through stamina faster
+	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
+	
+	var/base_modifier
+	if(agi_diff > 0)
+		base_modifier = (1 - (sqrt(agi_diff) * 0.1)) * 0.75
+	else
+		base_modifier = (1 - (agi_diff * 0.1)) * 0.75
+	
+	// Apply armor drain penalties
+	var/armor_multiplier = 1.0
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(istype(H.wear_suit))
+			var/obj/item/clothing/suit/armor = H.wear_suit
+			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+				armor_multiplier = 1.6 // Salvaged PA: 60% more drain
+			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+				armor_multiplier = 1.3 // Power Armor: 30% more drain
+			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+				armor_multiplier = 1.3 // Heavy armor: 30% more drain
+			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+				armor_multiplier = 1.15 // Medium armor: 15% more drain
+	
+	return base_modifier * armor_multiplier
 
-/mob/proc/calc_movespeed_mod_from_special()
-	return -((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.03)
-
+/mob/living/carbon/initialize_special_agility()
+	var/base_regen = CONFIG_GET(number/movedelay/sprint_buffer_regen_per_ds)
+	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
+	
+	// MUCH SMALLER buffer - true short burst
+	if(agi_diff > 0)
+		// Agi 6: 5.6 + 0.3 = 5.9 tiles
+		// Agi 8: 5.6 + 0.52 = 6.12 tiles
+		// Agi 10: 5.6 + 0.67 = 6.27 tiles (~6 seconds)
+		sprint_buffer_max = 5.6 + (sqrt(agi_diff) * 0.3)
+	else
+		// Agi 4: 5.6 - 0.15 = 5.45 tiles (~3.9 sec)
+		// Agi 1: 5.6 - 0.6 = 5.0 tiles (~3.6 sec)
+		// Softer penalty - only loses 0.15 per point below 5
+		sprint_buffer_max = 5.6 + (agi_diff * 0.15)
+	sprint_buffer = sprint_buffer_max
+	
+	// SLOWER regen - need real downtime between bursts
+	if(agi_diff > 0)
+		sprint_buffer_regen_ds = base_regen * (1 + (sqrt(agi_diff) * 0.00625)) * 0.5
+	else
+		sprint_buffer_regen_ds = base_regen * (1 + (agi_diff * 0.00625)) * 0.5
 /// LUCK
 
 /// Currently affects only money from trashpiles

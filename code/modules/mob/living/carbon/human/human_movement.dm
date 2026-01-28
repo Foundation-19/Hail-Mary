@@ -12,15 +12,32 @@
 /mob/living/carbon/human/movement_delay()
 	. = ..()
 	if(CHECK_MOBILITY(src, MOBILITY_STAND) && m_intent == MOVE_INTENT_RUN && (combat_flags & COMBAT_FLAG_SPRINT_ACTIVE))
-		var/static/datum/config_entry/number/movedelay/sprint_speed_increase/SSI
-		if(!SSI)
-			SSI = CONFIG_GET_ENTRY(number/movedelay/sprint_speed_increase)
-		. -= SSI.config_entry_value
+		. -= calc_sprint_speed_mod_from_special()
 	if(m_intent == MOVE_INTENT_WALK && HAS_TRAIT(src, TRAIT_SPEEDY_STEP))
 		. -= 1.25
 	if(HAS_TRAIT(src, TRAIT_SMUTANT))
-		. -= -1.0
-	. += calc_movespeed_mod_from_special() // S.P.E.C.I.A.L.
+		. += 0
+	
+	// Apply strength-based armor penalties to base movement
+	if(istype(wear_suit))
+		var/obj/item/clothing/suit/armor = wear_suit
+		if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			if(special_s < 6)
+				. += 0.5 // Additional slowdown if lacking strength
+		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+			if(special_s < 4)
+				. += 0.4
+		else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+			if(special_s < 6)
+				. += 0.4
+		else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+			if(special_s < 4)
+				. += 0.3
+		else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+			if(special_s < 3)
+				. += 0.3
+	
+	. += 0.2 // Universal human slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))

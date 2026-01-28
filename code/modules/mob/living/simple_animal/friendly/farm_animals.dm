@@ -160,7 +160,7 @@
 	var/has_calf = 0
 	var/young_type = null
 	blood_volume = 480
-	var/ride_move_delay = 2
+	var/ride_move_delay = 3.5
 	var/hunger = 1
 	COOLDOWN_DECLARE(hunger_cooldown)
 
@@ -703,6 +703,7 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	young_type = /mob/living/simple_animal/cow/brahmin/calf
 	var/obj/item/inventory_back
+	var/mob/living/carbon/human/current_rider
 	footstep_type = FOOTSTEP_MOB_HOOF
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
@@ -716,6 +717,53 @@
 		/obj/item/stack/sheet/bone = 2
 		)
 	butcher_difficulty = 1
+
+/mob/living/simple_animal/cow/brahmin/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
+	// Check if rider is wearing power armor or salvaged PA
+	if(ishuman(M) && istype(M.wear_suit))
+		var/obj/item/clothing/suit/armor = M.wear_suit
+		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			to_chat(M, "<span class='warning'>Your [armor] is too heavy! You're crushing [src]!</span>")
+			M.visible_message("<span class='danger'>[M] attempts to mount [src] but their heavy armor crushes the poor creature!</span>")
+			
+			if(!do_after(M, 3 SECONDS, target = src))
+				return FALSE
+			
+			src.death()
+			M.Paralyze(4 SECONDS)
+			M.Knockdown(6 SECONDS)
+			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
+			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
+			to_chat(M, "<span class='userdanger'>[src] collapses under the weight of your armor, throwing you to the ground!</span>")
+			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+			return FALSE
+	
+	. = ..()
+	
+	if(. && M)
+		M.pixel_x = 0
+		M.pixel_y = 6
+		if(ishuman(M))
+			current_rider = M
+			update_speed_with_agility()
+
+/mob/living/simple_animal/cow/brahmin/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
+	if(buckled_mob)
+		buckled_mob.pixel_x = 0
+		buckled_mob.pixel_y = 0
+	current_rider = null
+	return ..()
+
+/mob/living/simple_animal/cow/brahmin/proc/update_speed_with_agility()
+	if(!current_rider || !saddle)
+		return
+	
+	ride_move_delay = initial(ride_move_delay) + round(log(1.6, hunger), 0.2)
+	
+	var/datum/component/riding/D = GetComponent(/datum/component/riding)
+	if(D)
+		D.vehicle_move_delay = ride_move_delay
+
 
 /mob/living/simple_animal/cow/brahmin/molerat
 	name = "tamed molerat"
@@ -771,6 +819,8 @@
 	icon_state = "horse"
 	icon_living = "horse"
 	icon_dead = "horse_dead"
+	pixel_x = 0  // Adjust to shift horse left (-) or right (+)
+	pixel_y = -6  // Adjust to shift horse down (-) or up (+) to align under rider
 	speak = list("*shiver", "*alert")
 	speak_emote = list("nays","nays hauntingly")
 	emote_hear = list("brays.")
@@ -780,7 +830,7 @@
 	see_in_dark = 6
 	health = 100
 	maxHealth = 100
-	ride_move_delay = 1.5
+	ride_move_delay = 2.5
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -826,7 +876,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 1.8
+	ride_move_delay = 2.5
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -881,7 +931,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 1.8
+	ride_move_delay = 3
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
