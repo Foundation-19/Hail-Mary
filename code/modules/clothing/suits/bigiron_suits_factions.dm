@@ -1223,7 +1223,7 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_SALVAGE
 	armor_tier_desc = ARMOR_CLOTHING_SALVAGE
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
 
 /obj/item/clothing/suit/armor/heavy/riot/knight/sherrif
 	name = "Sherrifs Plated Armor"
@@ -1234,10 +1234,11 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	slowdown = ARMOR_SLOWDOWN_SALVAGE * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor = ARMOR_VALUE_SALVAGE
 	armor_tier_desc = ARMOR_CLOTHING_SALVAGE
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
 
 /obj/item/clothing/suit/armor/heavy/riot/knight/tabard
-	name = "constables tabard"
+	name = "Watchmens tabard"
 	desc = "A red tabard, scratched and marked from years of usage."
 	icon_state = "knight_tabard"
 	item_state = "knight_tabard"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T2)

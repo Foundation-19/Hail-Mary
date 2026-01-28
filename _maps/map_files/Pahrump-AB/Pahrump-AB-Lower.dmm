@@ -549,12 +549,6 @@
 	icon_state = "redmark"
 	},
 /area/f13/enclave)
-"awC" = (
-/obj/structure/closet/crate/radiation,
-/turf/open/floor/f13{
-	icon_state = "reddirtyfull"
-	},
-/area/f13/brotherhood)
 "awE" = (
 /obj/effect/decal/waste{
 	pixel_x = -4;
@@ -7479,9 +7473,17 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
 "dQp" = (
-/obj/structure/closet/crate/radiation,
 /obj/machinery/light{
 	dir = 1
+	},
+/obj/machinery/light/sign{
+	desc = "A deep hole, lit with unpowered coils, ready to receive power when activated. Just a nice glowy hole until then.";
+	icon_state = "norm3";
+	layer = 2.9;
+	light_color = "#1c738c";
+	light_power = 4;
+	light_range = 4;
+	name = "Hazerdous Fusion Reactor Tube"
 	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
@@ -8666,8 +8668,16 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "ePA" = (
-/obj/structure/closet/crate/radiation,
 /obj/machinery/light,
+/obj/machinery/light/sign{
+	desc = "A deep hole, lit with unpowered coils, ready to receive power when activated. Just a nice glowy hole until then.";
+	icon_state = "norm3";
+	layer = 2.9;
+	light_color = "#1c738c";
+	light_power = 4;
+	light_range = 4;
+	name = "Hazerdous Fusion Reactor Tube"
+	},
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -18645,8 +18655,8 @@
 	},
 /area/f13/tunnel)
 "otR" = (
-/obj/effect/landmark/start/f13/envoy,
-/turf/open/floor/carpet,
+/obj/effect/landmark/start/f13/elderenvoy,
+/turf/open/floor/carpet/black,
 /area/f13/brotherhood)
 "otS" = (
 /obj/structure/barricade/wooden/strong,
@@ -50045,7 +50055,7 @@ bOr
 bCt
 ede
 dQp
-awC
+bOT
 ePA
 ede
 ede
@@ -56478,7 +56488,7 @@ ede
 ede
 hUY
 hUY
-hUY
+otR
 hUY
 hUY
 ede
@@ -57506,7 +57516,7 @@ ede
 ede
 ylU
 efz
-otR
+efz
 fIe
 juq
 ede
