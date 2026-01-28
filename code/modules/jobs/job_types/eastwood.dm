@@ -39,16 +39,7 @@ Mayor
 	exp_type = EXP_TYPE_EASTWOOD
 	faction = FACTION_EASTWOOD
 
-/datum/job/eastwood/f13mayor// /obj/item/card/id/captains_spare for any elected mayors. - Blue
-	/*
-	objectivesList = list(
-		"Maintain a safe and prosperous town that allows for your citizens to thrive",
-		"Secure safety from the wastes through arming the people, forging treaties or reinforcing the town.",
-		"Make a treaty with one major faction, whether this be for protection, trade or more",
-		"Maintain order within the walls."
-		)
-		*/
-
+/datum/job/eastwood/f13mayor // /obj/item/card/id/captains_spare for any elected mayors. - Blue
 	title = "Warden"
 	flag = F13MAYOR
 	department_flag = DEP_EASTWOOD
@@ -100,7 +91,7 @@ Mayor
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 
 /datum/outfit/job/den/f13mayor
-	name = "Mayor"
+	name = "Warden"
 	jobtype = /datum/job/eastwood/f13mayor
 	id = /obj/item/card/id/silver/mayor
 	ears = /obj/item/radio/headset/headset_town/mayor
@@ -338,7 +329,7 @@ Mayor
 	)
 
 /datum/outfit/job/den/f13sheriff
-	name = "Sheriff"
+	name = "Head of the Watch"
 	jobtype = /datum/job/eastwood/f13sheriff
 	id = /obj/item/card/id/dogtag/sheriff
 	ears = /obj/item/radio/headset/headset_town/lawman
@@ -409,7 +400,7 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13deputy
-	title = "Watchmen"
+	title = "Watchman"
 	flag = F13DEPUTY
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
@@ -442,7 +433,7 @@ Mayor
 	)
 
 /datum/outfit/job/den/f13deputy
-	name = "Deputy"
+	name = "Watchman"
 	jobtype = /datum/job/eastwood/f13deputy
 	id = /obj/item/card/id/dogtag/deputy
 	ears = /obj/item/radio/headset/headset_town/lawman
@@ -638,7 +629,7 @@ Mayor
 	/datum/outfit/loadout/miner,) //silver pickaxe + advanced mining scanner
 
 /datum/outfit/job/den/f13prospector
-	name = "Prospector"
+	name = "Blacksmith"
 	jobtype = /datum/job/eastwood/f13prospector
 
 	id = /obj/item/card/id/dogtag/town
@@ -726,7 +717,7 @@ Mayor
 	)
 
 /datum/outfit/job/den/f13dendoc
-	name = "Doctor"
+	name = "Apothecary"
 	jobtype = /datum/job/eastwood/f13dendoc
 	chemwhiz = TRUE
 	ears = /obj/item/radio/headset/headset_town/medical
@@ -835,7 +826,7 @@ Mayor
 
 
 /datum/outfit/job/den/f13barkeep
-	name = "Barkeep"
+	name = "Tavern Keeper"
 	jobtype = /datum/job/eastwood/f13barkeep
 	uniform = /obj/item/clothing/under/f13/bartenderalt
 	id = /obj/item/card/id/dogtag/town
