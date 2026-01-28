@@ -294,17 +294,17 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 
-/datum/outfit/loadout/lieutenant_front
-	name = "Lead from the Front"
+
+/datum/outfit/loadout/lieutenant_back
+	name = "Lead from the Back"
 	suit_store = /obj/item/gun/ballistic/automatic/m1garand/republicspride
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/garand3006 = 4,
 		/obj/item/grenade/f13/frag = 1
 		)
 
-
-/datum/outfit/loadout/lieutenant_back
-	name = "Lead from the Back"
+/datum/outfit/loadout/lieutenant_front
+	name = "Lead from the Front"
 	suit_store = /obj/item/gun/ballistic/automatic/smg/smg10mm
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m10mm/adv/ext = 3,
