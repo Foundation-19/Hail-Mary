@@ -18243,13 +18243,6 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland/powered)
-"gTY" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "floor2-old";
-	tag = "icon-floor2-old"
-	},
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/legion)
 "gUc" = (
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/indestructible/ground/outside/road{
@@ -43106,10 +43099,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "qfz" = (
-/obj/effect/decal/cleanable/blood/tracks{
-	icon_state = "floor4-old";
-	tag = "icon-floor4-old"
-	},
+/obj/effect/decal/cleanable/blood/tracks,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/legion)
 "qfC" = (
@@ -158992,7 +158982,7 @@ rdU
 rdU
 cSp
 mup
-gTY
+mfA
 xOH
 mup
 rdU
