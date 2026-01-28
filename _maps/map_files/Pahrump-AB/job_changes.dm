@@ -25,14 +25,4 @@ MAP_REMOVE_JOB(f13baltimorepilot)
 MAP_REMOVE_JOB(locust/f13minutemen)
 MAP_REMOVE_JOB(enclave)
 MAP_REMOVE_JOB(khan)
-MAP_REMOVE_JOB(eastwood/f13mayor)
 MAP_REMOVE_JOB(eastwood/f13secretary)
-MAP_REMOVE_JOB(eastwood/f13sheriff)
-MAP_REMOVE_JOB(eastwood/f13deputy)
-/*MAP_REMOVE_JOB(eastwood/f13prospector)*/
-MAP_REMOVE_JOB(eastwood/f13dendoc)
-MAP_REMOVE_JOB(eastwood/f13detective)
-MAP_REMOVE_JOB(eastwood/f13banker)
-MAP_REMOVE_JOB(eastwood/f13pilot)
-
-// for future referance,  map remove job works via job path. e.g (eastwood/f13mayor) kills just the mayor, but (eastwood) will kill everything with eastwood at the start

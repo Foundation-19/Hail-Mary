@@ -39,15 +39,24 @@ Mayor
 	exp_type = EXP_TYPE_EASTWOOD
 	faction = FACTION_EASTWOOD
 
-/datum/job/eastwood/f13mayor   // /obj/item/card/id/captains_spare for any elected mayors. - Blue
-	title = "Mayor"
+/datum/job/eastwood/f13mayor// /obj/item/card/id/captains_spare for any elected mayors. - Blue
+	/*
+	objectivesList = list(
+		"Maintain a safe and prosperous town that allows for your citizens to thrive",
+		"Secure safety from the wastes through arming the people, forging treaties or reinforcing the town.",
+		"Make a treaty with one major faction, whether this be for protection, trade or more",
+		"Maintain order within the walls."
+		)
+		*/
+
+	title = "Warden"
 	flag = F13MAYOR
 	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Eastwood"
-	description = "You are the civil leader of the Town of Eastwood. You were chosen by the people to represent and lead them from your manor. Your town is in a terse situation with the slaver town to the south, Redwater. While not at war, you will have to work to keep your people safe from their predations. The Tribals to the south east are also a nuisance but it's best not to provoke them needlessly. Do what's best for the town, and it's people. All while lining your pockets occasionally, of course."
-	enforces = "The Secretary is your stand-in replacement, and under this the Sheriff."
+	description = "You are the Warden appointed to guide the people, chosen by the people through elections. You guide the people to a better tomorrow as you manage and maintain the town. Some say you are a greed filled man, some say you are a merciful leader. But only you will write your story."
+	enforces = "The Head of the Watch is your replacement, may you fall he shall step in to maintain order."
 	selection_color = "#d7b088"
 
 	exp_requirements = 600
@@ -65,13 +74,14 @@ Mayor
 	)
 
 	loadout_options = list(
-		/datum/outfit/loadout/mayoral,
-		/datum/outfit/loadout/dictator,
-		/datum/outfit/loadout/firstcitizen,
-		/datum/outfit/loadout/highroller,
-		/datum/outfit/loadout/clinicdirector,
-		/datum/outfit/loadout/richman,
-		/datum/outfit/loadout/eastchief
+		/datum/outfit/loadout/mayoral, //revolver cowboy
+		/datum/outfit/loadout/dictator, //1911 unique general uniform
+		/datum/outfit/loadout/firstcitizen, //baretta vaultie
+		/datum/outfit/loadout/highroller, //mk23 suit (gambler)
+		/datum/outfit/loadout/clinicdirector, //wattz magneto followers attire
+		/datum/outfit/loadout/richman, //1911 unique + grease gun and lever action blueprint 
+		/datum/outfit/loadout/eastchief, //tribal warmace
+		/datum/outfit/loadout/lord //medieval prep, bola + sword
 		)
 
 
@@ -187,6 +197,15 @@ Mayor
 		/obj/item/twohanded/sledgehammer/warmace = 1,
 		/obj/item/storage/box/medicine/poultice5 = 1
 	)
+	
+/datum/outfit/loadout/lord
+	name = "Lord of the Land"
+	backpack_contents = list(
+		/obj/item/restraints/legcuffs/bola/tactical = 2,
+		/obj/item/melee/coyote/oldlongsword/broadsword = 1,
+		/obj/item/storage/belt/sword = 1,
+		/obj/item/storage/box/medicine/poultice5 = 1
+	)
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13secretary
@@ -282,27 +301,27 @@ Mayor
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
 
-
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13sheriff
-	title = "Sheriff"
+	title = "Head of the Watch"
 	flag = F13SHERIFF
 	department_flag = DEP_EASTWOOD
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "The Mayor"
-	description = "You are the civil enforcer of Eastwood, keeping the settlement within firm control under the authority of the Mayor. With your loyal patrolmen, you maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Eastwood undefended, and don't let its people die out. If this town falls, new conquerors don't tend to look kindly upon the old law."
-	enforces = "You are the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
+	supervisors = "The Warden"
+	description = "You are the head of the Watch, appointed by the warden and entrusted with protecting the town. You are second to the Warden, should he fall you will take his place."
+	enforces = "You are the stand-in leader of Eastwood if a warden should fall."
 	selection_color = "#d7b088"
 	exp_requirements = 400
 
 	outfit = /datum/outfit/job/den/f13sheriff
 
 	loadout_options = list(
-	/datum/outfit/loadout/thelaw,
-	/datum/outfit/loadout/thechief
+	/datum/outfit/loadout/thelaw, //brush gun + scope
+	/datum/outfit/loadout/thechief, //citykiller + ranger45
+	/datum/outfit/loadout/medieval //Mauler melee + bolas + poultice
 	)
 
 	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
@@ -362,6 +381,14 @@ Mayor
 		/obj/item/ammo_box/shotgun/buck = 2
 		)
 
+/datum/outfit/loadout/medieval
+	name = "Head of the Watch"
+	backpack_contents = list(
+		/obj/item/melee/coyote/mauler = 1,
+		/obj/item/restraints/legcuffs/bola/tactical = 2,
+		/obj/item/storage/box/medicine/poultice5 = 1
+		)
+
 
 /datum/outfit/job/den/f13sheriff/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -378,23 +405,24 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13deputy
-	title = "Deputy"
+	title = "Watchmen"
 	flag = F13DEPUTY
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
-	supervisors = "The Sheriff"
-	description = "You are a loyal protector of Eastwood, keeping the settlement within firm control under the authority of the Mayor. The sheriff is your direct superior, and you should expect to take your day-to-day orders from them. Maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Eastwood undefended, and don't let its people die out."
-	enforces = "You may be elected temporary Sheriff if one does not exist. This may make you the stand-in leader of Eastwood if a Mayor or Secretary does not exist."
+	supervisors = "The Head of the Watch"
+	description = "You are a loyal protector of Eastwood who enforces the local laws. Working under the Head of the Watch you protect the town from threats foreign and domestic."
+	enforces = "You may be elected temporary Head of the Watch should none exist."
 	selection_color = "#dcba97"
 	exp_type = EXP_TYPE_EASTWOOD
 	exp_requirements = 0
 
 	loadout_options = list(
-	/datum/outfit/loadout/frontierjustice,
-	/datum/outfit/loadout/police,
-	/datum/outfit/loadout/swat,
-	/datum/outfit/loadout/energy,
+	/datum/outfit/loadout/frontierjustice, //Trail Carbine + Revolver
+	/datum/outfit/loadout/police, //police shotgun + bulletproof
+	/datum/outfit/loadout/swat, //police rifle + swat gear
+	/datum/outfit/loadout/energy, //aer9 + metal armor
+	/datum/outfit/loadout/watchmen, //bola + poultice + riot shield
 	)
 
 	outfit = /datum/outfit/job/den/f13deputy
@@ -483,7 +511,13 @@ Mayor
 		/obj/item/stock_parts/cell/ammo/mfc = 1
 		)
 
-
+/datum/outfit/loadout/watchmen
+	name = "Watchmen"
+	backpack_contents = list(
+		/obj/item/restraints/legcuffs/bola/tactical = 1,
+		/obj/item/storage/box/medicine/poultice5 = 1,
+		/obj/item/shield/riot = 1
+	)
 
 /*--------------------------------------------------------------*/
 
@@ -570,14 +604,14 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13prospector
-	title = "Prospector"
+	title = "Blacksmith"
 	flag = F13PROSPECTOR
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
-	supervisors = "The Mayor"
-	description = "Prospecting is a complicated business. Some call it scrounging or looting, but there is more to it than sifting through rubble - few can boast the valuable skills of mining and scavenging the ruins of fallen empires. The settlement of Eastwood understands the value of this, and you've found purpose within their mines. Sell the materials you find to the highest bidder - the local store may be particularly interested in metals."
-	enforces = "Mining is a public service, and you are under control of local governance - but by default you are expected to work with private businesses and individual clients."
+	supervisors = "The Warden"
+	description = "You are the miner and blacksmith of the town. Forge a better tomorrow with the materials you find underground."
+	enforces = "Mining and smithery is a public service, and you are under control of local governance - but by default you are expected to work with private businesses and individual clients."
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/den/f13prospector
@@ -594,8 +628,8 @@ Mayor
 	)
 
 	loadout_options = list(
-	/datum/outfit/loadout/engineer,
-	/datum/outfit/loadout/miner,)
+	/datum/outfit/loadout/engineer, //mini pickaxe and full toolbelt
+	/datum/outfit/loadout/miner,) //silver pickaxe + advanced mining scanner
 
 /datum/outfit/job/den/f13prospector
 	name = "Prospector"
@@ -617,8 +651,8 @@ Mayor
 /datum/outfit/job/den/f13settler/pre_equip(mob/living/carbon/human/H)
 	..()
 	uniform = pick(
-		/obj/item/clothing/under/f13/machinist, \
-		/obj/item/clothing/under/f13/roving, \
+		/obj/item/clothing/under/f13/machinist,
+		/obj/item/clothing/under/f13/roving,
 		/obj/item/clothing/under/f13/cowboyt)
 
 /datum/outfit/job/den/f13prospector/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
@@ -657,21 +691,21 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13dendoc
-	title = "Doctor"
+	title = "Apothecary"
 	flag = F13DENDOC
 	department_flag = DEP_EASTWOOD
 	total_positions = 3
 	spawn_positions = 3
-	supervisors = "The Mayor"
-	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood. Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position, if you're bad enough the sherrif might even kick you out!"
+	supervisors = "The Warden"
+	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood. Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position, if you're bad enough the Warden might even kick you out!"
 	enforces = "Medicine is a public service, and you are under control of local governance - but remember public doesn't equate to free."
 	selection_color = "#dcba97"
 
 	loadout_options = list(
-	/datum/outfit/loadout/rescueranger,
-	/datum/outfit/loadout/stitcher,
-	/datum/outfit/loadout/mixer,
-	/datum/outfit/loadout/holidaydoc)
+	/datum/outfit/loadout/rescueranger, //auto5 shotgun
+	/datum/outfit/loadout/stitcher, //primitive med + limbgrower circuit board
+	/datum/outfit/loadout/mixer,//big beakers + bloodgen circuit
+	/datum/outfit/loadout/holidaydoc) //revolver + firstaidkit
 
 	outfit = /datum/outfit/job/den/f13dendoc
 	access = list(ACCESS_BAR, ACCESS_CLINIC, ACCESS_CLONING, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_DOC, ACCESS_TOWN_SCIENCE)
@@ -764,23 +798,23 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/eastwood/f13barkeep
-	title = "Barkeep"
+	title = "Tavern Keeper"
 	flag = F13BARKEEP
 	department_flag = DEP_EASTWOOD
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "the free market and Eastwood's Laws"
-	description = "As a proprietor of the bar, you are responsible for ensuring both citizens and travellers in Eastwood can get some food, drink and rest. Speak to the farmers for fresh produce!"
-	enforces = " The bar is a private business and you can decide who is welcome there. However, you are still subject to the overarching laws of Eastwood."
+	description = "As a proprietor of the tavern, you are responsible for ensuring both citizens and travellers in Eastwood can get some food, drink and rest. Speak to the farmers for fresh produce!"
+	enforces = " The tavern is a private business and you can decide who is welcome there. However, you are still subject to the overarching laws of Eastwood."
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/den/f13barkeep
 
 	loadout_options = list(
-	/datum/outfit/loadout/rugged,
-	/datum/outfit/loadout/frontier,
-	/datum/outfit/loadout/richmantender,
-	/datum/outfit/loadout/diner)
+	/datum/outfit/loadout/rugged, //cowboy appearance
+	/datum/outfit/loadout/frontier,//Suit with fake moustache
+	/datum/outfit/loadout/richmantender,//fedora and suit
+	/datum/outfit/loadout/diner)//brahmin clothing + chefs apron
 
 	access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR)
 	minimal_access = list(ACCESS_BAR, ACCESS_KITCHEN, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR)
@@ -855,22 +889,21 @@ Mayor
 	total_positions = -1
 	spawn_positions =-1
 	supervisors = "Eastwood's laws"
-	description = "You are a citizen living in Eastwood. Treat your town with respect and make sure to follow the laws in place, as your premium status may be revoked if you are considered a danger to the populace. One of the local businesses may have work if you require funds."
-	selection_color = "#dcba97"
+	description = "You are a citizen within the town. Under the watch of the Warden and his guard you try best to earn your keep. You live within the safety of the walls."
 
 	outfit = /datum/outfit/job/den/f13settler
 
 	
 	loadout_options = list(
-		/datum/outfit/loadout/provisioner,
-		/datum/outfit/loadout/groundskeeper,
-		/datum/outfit/loadout/artisan,
-		/datum/outfit/loadout/outdoorsman,
-		/datum/outfit/loadout/militia,
-		/datum/outfit/loadout/singer,
-		/datum/outfit/loadout/farmer,
-		/datum/outfit/loadout/prospector,
-		/datum/outfit/loadout/remnant
+		/datum/outfit/loadout/provisioner, //first aid kit 
+		/datum/outfit/loadout/groundskeeper,//janitor
+		/datum/outfit/loadout/artisan,//welding gear + sledge
+		/datum/outfit/loadout/outdoorsman,//hunting rifle + ammo
+		/datum/outfit/loadout/militia,//combat rifle .45
+		/datum/outfit/loadout/singer,//2 smoke bombs
+		/datum/outfit/loadout/farmer,//weed + farming gear
+		/datum/outfit/loadout/prospector,//snub revolver + mining gear
+		// /datum/outfit/loadout/remnant
 	)
 	access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	minimal_access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
@@ -1060,25 +1093,25 @@ Mayor
 	/obj/item/gun/ballistic/revolver/m29/snub = 1
 	)
 
-/datum/outfit/loadout/remnant
+/* /datum/outfit/loadout/remnant
 	name = "Enclave Remnant"
 	backpack_contents = list(
 	/obj/item/clothing/head/f13/enclave/peacekeeper = 1,
 	/obj/item/card/id/dogtag/enclave/trooper = 1,
 	/obj/item/stock_parts/cell/ammo/ec = 3,
 	/obj/item/gun/energy/laser/pistol/worn = 1,
-	)
+	) */
 
 /*--------------------------------------------------------------*/
  
 /datum/job/eastwood/f13radio_host
-	title = "Radio Host"
+	title = "Jester"
 	flag = F13RADIOHOST
 	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "Eastwood laws"
-	description = "You are the Radio Host of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can stream music to the masses to keep them entretained."
+	description = "You are the Jester of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can move around as the towns clown. Pranking and Clowning on through history to make your mark. Should you choose."
 	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
 	selection_color = "#dcba97"
 
@@ -1258,7 +1291,7 @@ Mayor
 
 //The Quartermaster
 /datum/job/eastwood/f13quartermaster
-	title = "Quartermaster"
+	title = "Merchant"
 	flag = F13QUARTERMASTER
 	department_flag = DEP_EASTWOOD
 	total_positions = 1
@@ -1270,8 +1303,8 @@ Mayor
 	exp_requirements = 0
 
 	loadout_options = list(
-	/datum/outfit/loadout/laser_master,
-	/datum/outfit/loadout/ballistic_master
+	/datum/outfit/loadout/laser_master, //plasma rifle blueprint
+	/datum/outfit/loadout/ballistic_master //armalite blueprint
 	)
 
 	outfit = /datum/outfit/job/den/f13quartermaster
@@ -1354,7 +1387,7 @@ Mayor
 
 //The Trade Workers
 /datum/job/eastwood/f13shopkeeper
-	title = "Trade Worker"
+	title = "Merchants Mercenary"
 	flag = F13SHOPKEEPER
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
@@ -1366,9 +1399,9 @@ Mayor
 	exp_requirements = 0
 
 	loadout_options = list(
-	/datum/outfit/loadout/energy_specialist,
-	/datum/outfit/loadout/ballistic_specialist,
-	/datum/outfit/loadout/jackofall_specialist
+	/datum/outfit/loadout/energy_specialist, //AER9 + light plasma pistol blueprint
+	/datum/outfit/loadout/ballistic_specialist, //riotshotgun + deagle blueprint
+	/datum/outfit/loadout/jackofall_specialist //AEP7 + Uzi blueprint
 	)
 
 	outfit = /datum/outfit/job/den/f13shopkeeper
