@@ -335,7 +335,10 @@ Intended for use on BoS Town */
 	desc = "A metal helmet denoting the rank of lord, gold appears to be welded crudely onto the top to denote the rank of lord."
 	icon_state = "knight_yellow"
 	item_state = "knight_yellow"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1)
+	equip_delay_self = 60
+	equip_delay_other = 10
+	armor = ARMOR_VALUE_HEAVY
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 100
@@ -347,7 +350,10 @@ Intended for use on BoS Town */
 	desc = "A metal helmet. it appears to have red markings all over marking the rank of sherrif."
 	icon_state = "knight_red"
 	item_state = "knight_red"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_LASER_T1)
+	equip_delay_self = 60
+	equip_delay_other = 10
+	armor = ARMOR_VALUE_HEAVY
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 100
@@ -360,7 +366,8 @@ Intended for use on BoS Town */
 	mob_overlay_icon = 'fallout/icons/objects/hats.dmi'
 	icon_state = "medieval_helmet1"
 	item_state = "medieval_helmet1"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1)
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T1)
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 100
