@@ -2076,7 +2076,7 @@
 	)
 	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
 	can_scope = TRUE
-	scope_state = "scope_medium"
+	scope_state = "smallrifle_scope"
 	scope_x_offset = 5
 	scope_y_offset = 14
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -2100,7 +2100,7 @@
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_carbine"
-	item_state = "handmadeacar"
+	item_state = "handmadecar"
 	icon_prefix = "handmade_rifle"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2254,7 +2254,7 @@
 	)
 	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
 	can_scope = TRUE
-	scope_state = "scope_medium"
+	scope_state = "smallrifle_scope"
 	scope_x_offset = 5
 	scope_y_offset = 14
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION

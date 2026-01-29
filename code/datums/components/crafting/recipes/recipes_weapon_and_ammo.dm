@@ -2278,7 +2278,7 @@ Not implemented due to balance at the moment
 
 //Eastern Compact Shotgun
 /datum/crafting_recipe/eastern_compact_shotgun
-	name = "Eastern Compct Shotgun"
+	name = "Eastern Compact Shotgun"
 	result = /obj/item/gun/ballistic/automatic/eastern_compact_shotgun
 	reqs = list(/obj/item/gun/ballistic/automatic/eastern_pdw = 1,
 				/obj/item/stack/sheet/metal = 20,
