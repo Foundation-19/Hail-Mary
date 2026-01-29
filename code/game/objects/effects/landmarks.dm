@@ -898,7 +898,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 //Tribal
 
 /obj/effect/landmark/start/f13/tribal
-	name = "Tribal"
+	name = "Far-Lands Tribals"
 	icon_state = "Tribal"
 
 /obj/effect/landmark/start/f13/chief
@@ -1036,3 +1036,49 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Banker"
 
 
+// Holiday
+
+/obj/effect/landmark/start/f13/f13holidayf13holidaymayor
+	name = "Mayor"
+	icon_state = "Banker"
+
+/obj/effect/landmark/start/f13/f13holidaysecretary
+	name = "Secretary"
+	icon_state = "Lawyer"
+
+/obj/effect/landmark/start/f13/f13holidaysheriff
+	name = "Sheriff"
+	icon_state = "Chief of Police"
+
+/obj/effect/landmark/start/f13/f13holidaydeputy
+	name = "Deputy"
+	icon_state = "Officer"
+
+/obj/effect/landmark/start/f13/f13holidayfarmer
+	name = "Farmer"
+
+/obj/effect/landmark/start/f13/f13holidayprospector
+	name = "Prospector"
+
+/obj/effect/landmark/start/f13/f13holidaysettler
+	name = "Citizen"
+	icon_state = "Settler"
+
+/obj/effect/landmark/start/f13/f13holidayradio_host
+	name = "Radio Host"
+	icon_state = "Radio-Host"
+
+/obj/effect/landmark/start/f13/f13holidaydendoc
+	name = "Doctor"
+
+/obj/effect/landmark/start/f13/f13holidayquartermaster
+	name = "Quartermaster"
+	icon_state = "Shopkeeper"
+
+/obj/effect/landmark/start/f13/f13holidayshopkeeper
+	name = "Shopkeeper"
+	icon_state = "Shopkeeper"
+
+/obj/effect/landmark/start/f13/f13holidaybarkeep
+	name = "Barkeep"
+	icon_state = "Barkeep"
