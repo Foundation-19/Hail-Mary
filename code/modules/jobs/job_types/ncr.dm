@@ -206,7 +206,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	name = "Shock and Awe"
 	backpack_contents = list(
 	//gear for the faction
-		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 4,
+		/obj/item/storage/box/medicine/stimpaks/stimpaks5 = 2,
 		/obj/item/stack/sheet/metal = 50,
 		/obj/item/stack/ore/blackpowder = 20
 
@@ -216,7 +216,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	name = "Holdfast Doctrine"
 	backpack_contents = list(
 	//gear for the faction
-		/obj/item/stack/sheet/mineral/concrete = 100,
+		/obj/item/stack/sheet/mineral/concrete = 50,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
