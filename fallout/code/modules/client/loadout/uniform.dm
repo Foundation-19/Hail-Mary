@@ -997,39 +997,9 @@
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
-/datum/gear/uniform/wasteland/afghanka
-	name = "Afghanka Suit"
-	path = /obj/item/clothing/under/f13/afghanka
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
 /datum/gear/uniform/wasteland/adiktracksuit
 	name = "Adik Tracksuit"
 	path = /obj/item/clothing/under/f13/adiktracksuit
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/tacticoolhawaiianorange
-	name = "Orange Tacticool Hawaiian Shirt"
-	path = /obj/item/clothing/under/f13/tacticoolhawaiianorange
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/tacticoolhawaiianblue
-	name = "Blue Tacticool Hawaiian Shirt"
-	path = /obj/item/clothing/under/f13/tacticoolhawaiianblue
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/tacticoolhawaiianpurple
-	name = "Purple Tacticool Hawaiian Shirt"
-	path = /obj/item/clothing/under/f13/tacticoolhawaiianpurple
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/tacticoolhawaiiangreen
-	name = "Green Tacticool Hawaiian Shirt"
-	path = /obj/item/clothing/under/f13/tacticoolhawaiiangreen
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
@@ -1039,24 +1009,11 @@
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
-/datum/gear/uniform/wasteland/patriot2
-	name = "USA Wifebeater"
-	path = /obj/item/clothing/under/f13/patriot2
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
 /datum/gear/uniform/wasteland/patriot3
 	name = "USA Shirt"
 	path = /obj/item/clothing/under/f13/patriot3
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
-/datum/gear/uniform/wasteland/brazilaryan
-	name = "Brazilian Gang Shirt"
-	path = /obj/item/clothing/under/f13/brazilaryan
-	cost = 1
-	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
-
 
 /datum/gear/uniform/wasteland/khan
 	name = "khan pants"

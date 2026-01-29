@@ -254,7 +254,7 @@ datum/crafting_recipe/steelbib/heavy
 
 /datum/crafting_recipe/bulletproofcoat
 	name = "Bulletproof Coat"
-	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproofcoat
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/bulletproofcoat
 	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
 				/obj/item/weaponcrafting/string = 2,
 				/obj/item/stack/sheet/cloth = 15)
@@ -265,7 +265,7 @@ datum/crafting_recipe/steelbib/heavy
 
 /datum/crafting_recipe/bulletprooftrackjacket
 	name = "Bulletproof Track Jacket"
-	result = /obj/item/clothing/suit/armor/heavy/vest/bulletprooftrackjacket
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/bulletprooftrackjacket
 	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
 				/obj/item/weaponcrafting/string = 2,
 				/obj/item/stack/sheet/cloth = 10)
@@ -276,7 +276,7 @@ datum/crafting_recipe/steelbib/heavy
 
 /datum/crafting_recipe/swattrackjacket
 	name = "Swat Track Jacket"
-	result = /obj/item/clothing/suit/armor/medium/combat/swattrackjacket
+	result = /obj/item/clothing/suit/armor/medium/combat/swat/swattrackjacket
 	reqs = list(/obj/item/clothing/suit/armor/medium/combat/swat = 1,
 				/obj/item/weaponcrafting/string = 2,
 				/obj/item/stack/sheet/cloth = 10)

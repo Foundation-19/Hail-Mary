@@ -1054,15 +1054,6 @@
 	item_state = "sov_klmk"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/f13/afghanka
-	name = "Afghanka Uniform"
-	desc = "A standard issue uniform of the Soviet Army during the pre-war period. This summer version is right about good enough for service in almost every climate found in post-war america, and is often found in the hands of post-war soviet sympathizers."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "milrus_afghanka_open"
-	item_state = "milrus_afghanka_open"
-	can_adjust = FALSE
-
 //Assorted Larper, Freedom Fighter, and Mercenary outfits
 
 /obj/item/clothing/under/f13/adiktracksuit
@@ -1074,42 +1065,6 @@
 	item_state = "squatteroutfit"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/f13/tacticoolhawaiianorange
-	name = "Orange Tacticool Hawaiian Shirt"
-	desc = "The Big Igloo is real man, trust me."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "tacticool_hawaiian_orange"
-	item_state = "tacticool_hawaiian_orange"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/f13/tacticoolhawaiianblue
-	name = "Blue Tacticool Hawaiian Shirt"
-	desc = "The Big Igloo is real man, trust me."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "tacticool_hawaiian_blue"
-	item_state = "tacticool_hawaiian_blue"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/f13/tacticoolhawaiianpurple
-	name = "Purple Tacticool Hawaiian Shirt"
-	desc = "The Big Igloo is real man, trust me."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "tacticool_hawaiian_purple"
-	item_state = "tacticool_hawaiian_purple"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/f13/tacticoolhawaiiangreen
-	name = "Green Tacticool Hawaiian Shirt"
-	desc = "The Big Igloo is real man, trust me."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "tacticool_hawaiian_green"
-	item_state = "tacticool_hawaiian_green"
-	can_adjust = FALSE
-
 /obj/item/clothing/under/f13/patriot1
 	name = "Cammies and Jeans"
 	desc = "Q was right all along. A pair of jean pants and a surplus camo jacket. Freedom isn't free."
@@ -1119,15 +1074,6 @@
 	item_state = "boomerwaffen1"
 	can_adjust = FALSE
 
-/obj/item/clothing/under/f13/patriot2
-	name = "USA Wifebeater"
-	desc = "Q was right all along. A pair of surplus camo pants and a wife beater shirt with a USA flag. Freedom isn't free."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "boomerwaffen2"
-	item_state = "boomerwaffen2"
-	can_adjust = FALSE
-
 /obj/item/clothing/under/f13/patriot3
 	name = "USA Shirt"
 	desc = "Q was right all along. A pair of surplus camo pants and a black shirt with USA written on the back. Freedom isn't free."
@@ -1135,15 +1081,6 @@
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
 	icon_state = "boomerwaffen3"
 	item_state = "boomerwaffen3"
-	can_adjust = FALSE
-
-/obj/item/clothing/under/f13/brazilaryan
-	name = "South American Gang Outfit"
-	desc = "Você pensa que o flamengo é time? Flamengo não é time não. Time é o vasco da gama... O FLAMENGO É SELEÇÃO PORRA!!!!"
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon_state = "flamengo"
-	item_state = "flamengo"
 	can_adjust = FALSE
 
 //Old World Law Enforcement

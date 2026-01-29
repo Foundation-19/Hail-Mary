@@ -1048,7 +1048,7 @@
 
 /datum/crafting_recipe/ncrbulletproofcoat
 	name = "NCR bulletproof coat"
-	result = /obj/item/clothing/suit/armor/heavy/vest/ncrbulletproofcoat
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofcoat
 	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
 	            /obj/item/weaponcrafting/string = 2,
 				/obj/item/stack/sheet/cloth = 15,
@@ -1061,7 +1061,7 @@
 
 /datum/crafting_recipe/ncrbulletproofsniper
 	name = "NCR bulletproof sniper armor"
-	result = /obj/item/clothing/suit/armor/heavy/vest/ncrbulletproofsniper
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofsniper
 	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
 	            /obj/item/weaponcrafting/string = 2,
 				/obj/item/stack/sheet/cloth = 10,
