@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(ncr_radios)
 GLOBAL_LIST_EMPTY(legion_radios)
 GLOBAL_LIST_EMPTY(bos_radios)
 GLOBAL_LIST_EMPTY(enclave_radios)
+GLOBAL_LIST_EMPTY(minutemen_radios)
 
 /obj/machinery/radioterminal
 	name = "radio control"
@@ -127,3 +128,8 @@ GLOBAL_LIST_EMPTY(enclave_radios)
 	name = "Enclave radio control"
 	assigned_faction = FACTION_ENCLAVE
 	req_one_access = list(ACCESS_ENCLAVE)
+
+/obj/machinery/radioterminal/minutemen
+	name = "Minutemen radio control"
+	assigned_faction = FACTION_MINUTEMEN
+	req_one_access = list(ACCESS_MINUTEMEN)

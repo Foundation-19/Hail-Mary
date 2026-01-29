@@ -65,6 +65,9 @@
 	name = "Hell's Nomad door"
 	req_access = list(ACCESS_BIKER)
 
+/obj/machinery/door/unpowered/securedoor/minutemen
+	name = "Minutemen door"
+	req_access_txt = list(ACCESS_TOWN_SEC)
 
 // ------------------------------------
 // NCR SECURE REINFORCED DOOR - tough airlock replacement

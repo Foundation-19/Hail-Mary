@@ -328,6 +328,44 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	sheet_type = null
 	canSmoothWith = list(/turf/closed/wall)
 
+//baltimore custom walls
+
+/turf/closed/wall/f13/sunset/brick_small/baltimore
+	name = "brick wall"
+	desc = "A wall made out of solid brick."
+	icon = 'fallout/icons/turfs/walls/brick_small_baltimore.dmi'
+	icon_state = "brick0"
+	icon_type_smooth = "brick"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
+/turf/closed/wall/f13/sunset/brick_small_dark/baltimore
+	name = "brick wall"
+	desc = "A wall made out of solid brick."
+	icon = 'fallout/icons/turfs/walls/brick_small_dark_baltimore.dmi'
+	icon_state = "brick0"
+	icon_type_smooth = "brick"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
+/turf/closed/wall/f13/sunset/brick_small_light/baltimore
+	name = "brick wall"
+	desc = "A wall made out of solid brick."
+	icon = 'fallout/icons/turfs/walls/brick_small_light_baltimore.dmi'
+	icon_state = "brick0"
+	icon_type_smooth = "brick"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
 //Fallout 13 indestructible walls
 
 /turf/closed/indestructible/f13

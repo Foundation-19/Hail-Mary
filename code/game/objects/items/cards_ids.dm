@@ -1302,6 +1302,20 @@
 	assignment = "US dogtags"
 	access = list(ACCESS_ENCLAVE)
 
+//MINUTEMEN
+
+/obj/item/card/id/dogtag/minutemen
+	name = "Minutemen dogtags"
+	desc = "Issued to the minutemen very recently, they are a push from general Nate to reform the militia into a competent army."
+	icon_state = "minutemen"
+	item_state = "ncrdogtagofficer"
+
+/obj/item/card/id/dogtag/minutemen/officer
+	name = "Minutemen officer dogtags"
+	desc = "Issued to the minutemen very recently, they are a push from general Nate to reform the militia into a competent army."
+	icon_state = "minutemen_co"
+	item_state = "ncrdogtagofficer"
+
 GLOBAL_LIST_INIT(fuzzy_license, list(
 	"hug",
 	"snuggle",

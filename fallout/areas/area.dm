@@ -48,6 +48,8 @@
 
 /area/f13/wasteland/cold/power
 	requires_power = FALSE
+	
+// BALTIMORE AREAS
 
 /area/f13/Ocean
 	name = "Ocean"
@@ -126,7 +128,7 @@
 
 /area/f13/building/abandoned
 	name = "Abandoned Building"
-	icon_state = "black"
+	icon_state = "blue"
 	requires_power = TRUE
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
@@ -1283,3 +1285,267 @@
 	blob_allowed = 0
 	environment = 15
 	grow_chance = 75
+
+// BALTIMORE V2 AREAS
+/area/f13/baltimore
+	name = "Baltimore general area"
+	icon_state = "wasteland"
+
+/area/f13/baltimore/ocean
+	name = "Ocean"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ocean_b,
+		)
+	outdoors = 1
+	open_space = 1
+	blob_allowed = 0
+	environment = 0
+	grow_chance = 0
+	weather_tags = list(WEATHER_ALL)
+
+/area/f13/baltimore/wasteland
+	outdoors = 1
+	open_space = 1
+	blob_allowed = 0
+	environment = 19
+	grow_chance = 45
+	weather_tags = list(WEATHER_ALL)
+
+/area/f13/baltimore/wasteland/city
+	name = "Ruined City Coast"
+	icon_state = "city"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ocean_a,
+		)
+	ambientmusic = list('sound/f13music/thecoastpart1fo4.ogg')
+	grow_chance = 45
+	environment = 10
+
+/area/f13/baltimore/wasteland/city/citycenter
+	name = "Ruined Center City"
+	icon_state = "citycaves"
+	ambience_area = list(
+		/datum/looping_sound/ambient/critters,
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/critters/birds,
+		/datum/looping_sound/ambient/critters/birds/crow,
+		)
+	ambientmusic = list('sound/f13music/nomoresailsfo4.ogg')
+	grow_chance = 45
+	environment = 10
+
+/area/f13/baltimore/wasteland/citywasteland/town
+	name = "Locust point Town"
+	icon_state = "green"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_b,
+		)
+	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
+	grow_chance = 5
+
+
+/area/f13/baltimore/building
+	name = "Seaside Building"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town
+	name = "Locust point town Building"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/mayorial
+	name = "Locust point Town hall"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+
+/area/f13/baltimore/building/minutemen
+	name = "Locust point Town Minutemen HQ"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/citycenter
+	name = "Ruined city center Building"
+	icon_state = "yellow"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/boat
+	name = "Boat"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/boat/atlantic_cross
+	name = "ACHS Aegis"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/boat/atlantic_cross
+	name = "SS Rustbucket"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/abandoned
+	name = "Abandoned Building"
+	icon_state = "blue"
+	requires_power = TRUE
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+
+/area/f13/baltimore/building/abandoned/recruitement
+	name = "Navy Reserve Building"
+	icon_state = "blue"
+	requires_power = TRUE
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+
+/area/f13/baltimore/building/abandoned/hospital
+	name = "Deserted Clinic"
+	icon_state = "hospital"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/mchenrymuseum
+	name = "Fort Mc Henry Museum"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/mchenryfort
+	name = "Fort Mc Henry"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/church
+	name = "Church Building"
+	icon_state = "green"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+
+/area/f13/baltimore/building/tribal
+	name = "Tribal Building"
+	icon_state = "orange"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/torch,
+		)
+
+/area/f13/baltimore/building/tribal/cave
+	name = "Tribal Cave"
+	icon_state = "purple"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/torch,
+		/datum/looping_sound/ambient/cave,
+		/datum/looping_sound/ambient/swamp/quiet,
+		/datum/looping_sound/ambient/critters/birds,
+		/datum/looping_sound/ambient/critters/birds/crow,
+		)
+
+/area/f13/baltimore/building/sewers
+	name = "Sewers"
+	requires_power = TRUE
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/sewers,
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/steam,
+		)
+	ambientmusic = null
+	grow_chance = 5
+	weather_tags = null
+
+/area/f13/baltimore/building/sewers/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/caves
+	name = "Caves"
+	icon_state = "caves"
+	requires_power = TRUE
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/cave,
+		/datum/looping_sound/ambient/tunnel,
+	)
+	weather_tags = null
+
+/area/f13/baltimore/building/tunnel
+	name = "Tunnel"
+	icon_state = "tunnel"
+	environment = 21
+	grow_chance = 25
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/cave,
+		/datum/looping_sound/ambient/tunnel,
+	)
+	weather_tags = null
+
+/area/f13/baltimore/building/bar
+	name = "NCS Casablanca Bar"
+	icon_state = "bar"
+	ambience_area = list(
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
+		/datum/looping_sound/ambient/woodcreak,
+	)
+	weather_tags = null

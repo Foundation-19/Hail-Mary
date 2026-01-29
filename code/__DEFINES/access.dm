@@ -144,3 +144,5 @@ also be like that but I can't be arsed to go back and change them all*/
 #define ACCESS_TOWN_CMO 287
 #define ACCESS_TOWN_COMMAND 283
 #define ACCESS_TOWN_RADIO 284
+
+#define ACCESS_MINUTEMEN 285

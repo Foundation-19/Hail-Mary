@@ -46,7 +46,7 @@ Mayor
 	spawn_positions = 1
 	supervisors = "Locust Point Town"
 	description = "Long time ago, your ancestor, the first dockmaster, created the now safeheaven town you lead. You were not voted in, and other of the many descendants are also entrusted to be the leader. You have the power of making the laws."
-	enforces = "The port councelors are your stand-in replacement and works under you. Under this is the constable."
+	enforces = "The port councelors are your stand-in replacement and works under you. Under them is the preacher. The Minutemen Major may also hold power."
 	selection_color = "#d7b088"
 
 	outfit = /datum/outfit/job/locust/f13baltimoredockmaster
@@ -106,8 +106,8 @@ Mayor
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "The Mayor"
-	description = "A mix between secretary and town agent, you are the second in command. You make sure everything in town runs correctly, making sure everyone gets paid."
-	enforces = "You are the stand-in leader of locust point if the Dockmaster isn't here does not exist."
+	description = "A mix between secretary and town agent, you are the seconds in command. You make sure everything in town runs correctly, making sure everyone gets paid. You can act as the traditional secretary or act as the Dockmaster bodyguard."
+	enforces = "You are the stand-in leaders of locust point if the Dockmaster isn't here does not exist. The council is always made of 2 councilors if available."
 	selection_color = "#d7b088"
 
 	outfit = /datum/outfit/job/locust/f13baltimorecouncil
@@ -164,120 +164,6 @@ Mayor
 	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
 
 
-/*--------------------------------------------------------------*/
-
-/datum/job/locust_point/f13baltimoreconstable
-	title = "Police Constable"
-	flag = F13BALTIMORECONSTABLE
-	department_flag = DEP_LOCUST
-	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
-	supervisors = "The Dockmaster"
-	description = "You are the civil enforcer of Locust Point, keeping the settlement within firm control under the authority of the Mayor. With your loyal patrolmen, you maintain your claim to authority by keeping the peace, managing disputes, and protecting the citizens from threats within and without. Never leave Locust Point undefended, and don't let its people die out. If this town falls, new conquerors don't tend to look kindly upon the old law."
-	enforces = "You are the stand-in leader of Locust Point if a Mayor or Secretary does not exist."
-	selection_color = "#d7b088"
-	exp_requirements = 400
-
-	outfit = /datum/outfit/job/locust/f13baltimoreconstable
-
-	
-	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
-	minimal_access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_CLINIC, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/friend = list(
-			/datum/job/locust_point
-		),
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/locust_point
-		)
-	)
-
-/datum/outfit/job/locust/f13baltimoreconstable
-	name = "Sheriff"
-	jobtype = /datum/job/locust_point/f13baltimoreconstable
-	id = /obj/item/card/id/dogtag/sheriff
-	ears = /obj/item/radio/headset/headset_town/lawman
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	uniform = /obj/item/clothing/under/f13/sheriff
-	shoes = /obj/item/clothing/shoes/f13/cowboy
-	glasses = /obj/item/clothing/glasses/sunglasses
-	l_pocket = /obj/item/storage/wallet/stash/high
-	backpack_contents = list(
-		/obj/item/storage/pill_bottle/chem_tin/radx = 1,
-		/obj/item/storage/box/deputy_badges = 1,
-		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/classic_baton = 1,
-		/obj/item/melee/onehanded/knife/bowie = 1,
-		/obj/item/grenade/flashbang = 1,
-		/obj/item/storage/belt/army = 1
-		)
-
-
-/datum/outfit/job/locust/f13baltimoreconstable/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/policepistol)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/policerifle)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steelbib/heavy)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/armyhelmetheavy)
-	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
-	ADD_TRAIT(H, TRAIT_SELF_AWARE, src)
-
-
-/*--------------------------------------------------------------*/
-
-/datum/job/locust_point/f13baltimorepolice
-	title = "Locust Point Police Officer"
-	flag = F13BALTIMOREPOLICE
-	department_flag = DEP_LOCUST
-	total_positions = 3
-	spawn_positions = 3
-	supervisors = "The dockmaster, the port councelors"
-	description = "Welcome to the LPPD. Your job ? Make sure the town is peacefull. Get your guns ready, and make people respect the laws written by the dockmaster. The citizens are counting on you. You may also search for missing laborer if they are missing the call."
-	enforces = "You work with other organisation : The Minutemens, and the Atlantic Cross Marines. However, the laws by the dockmaster takes priority."
-	selection_color = "#dcba97"
-
-	outfit = /datum/outfit/job/locust/f13baltimorepolice
-	access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_SEC)
-	minimal_access = list(ACCESS_BAR, ACCESS_GATEWAY, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_SEC)
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/friend = list(
-			/datum/job/locust_point
-		),
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/locust_point
-		)
-	)
-
-/datum/outfit/job/locust/f13baltimorepolice
-	name = "Locust Point Police Officer"
-	jobtype = /datum/job/locust_point/f13baltimorepolice
-	id = /obj/item/card/id/dogtag/deputy
-	ears = /obj/item/radio/headset/headset_town/lawman
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
-	suit_store = /obj/item/storage/belt/legholster
-	glasses = /obj/item/clothing/glasses/sunglasses
-	l_pocket = /obj/item/storage/wallet/stash/mid
-	r_pocket = /obj/item/flashlight/flare
-	shoes = /obj/item/clothing/shoes/f13/explorer
-	head = /obj/item/clothing/head/helmet/f13/goner/officer/blue
-	uniform = /obj/item/clothing/under/f13/police/officer
-	suit_store = /obj/item/gun/ballistic/automatic/marksman/policerifle
-	backpack_contents = list(
-		/obj/item/storage/pill_bottle/chem_tin/radx = 1,
-		/obj/item/restraints/handcuffs = 1,
-		/obj/item/gun/ballistic/revolver/police =1,
-		/obj/item/ammo_box/a357box =1,
-		/obj/item/melee/onehanded/knife/bowie = 1,
-		/obj/item/grenade/flashbang = 1,
-		/obj/item/flashlight/seclite = 2,
-		/obj/item/storage/belt/army/assault = 1
-		)
-
 
 /*--------------------------------------------------------------*/
 
@@ -289,7 +175,7 @@ Mayor
 	spawn_positions = -1
 	supervisors = "Dockmaster, Portcouncelor, Shopclercs, bartender, even citizens..."
 	description = "A case of... voluntary service, where you get paid next to nothing to live in a relatively safe town. You are the very lowest point in the social hierachy. Not totaly and legaly a slave, since you have some form of freedom of movement... If it ain't too far from town."
-	enforces = "You are under control of local governance, and you are expected to produce food or be used in labor task. If you try to flee away, the police can try to get you back."
+	enforces = "You are under control of local governance, and you are expected to produce food or be used in labor task. If you try to flee away, the town can try to get you back. You have many farms in town avaiable for you to use."
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/locust/f13baltimorefarmer
@@ -309,7 +195,9 @@ Mayor
 	/datum/outfit/loadout/farmer,
 	/datum/outfit/loadout/defence,
 	/datum/outfit/loadout/salvager,
-	/datum/outfit/loadout/dendoc,)
+	/datum/outfit/loadout/dendoc,
+	/datum/outfit/loadout/groundskeeper2,
+	)
 
 /datum/outfit/job/locust/f13baltimorefarmer
 	name = "baltimore"
@@ -383,6 +271,40 @@ Mayor
 		/obj/item/book/granter/trait/lowsurgery= 1,
 		/obj/item/healthanalyzer = 1,
 		)
+
+/datum/outfit/loadout/prospector2
+	name = "prospector2"
+	backpack_contents = list(/obj/item/clothing/head/hardhat = 1,
+	/obj/item/clothing/under/overalls = 1,
+	/obj/item/clothing/suit/armor/light/leather/rig = 1,
+	/obj/item/clothing/gloves/patrol = 1,
+	/obj/item/clothing/shoes/workboots = 1,
+	/obj/item/storage/belt/utility/waster = 1,
+	/obj/item/shovel/spade = 1,
+	/obj/item/pickaxe/silver = 1,
+	/obj/item/clothing/glasses/welding = 1,
+	/obj/item/t_scanner/adv_mining_scanner = 1,
+	/obj/item/ammo_box/m44 = 2,
+	/obj/item/gun/ballistic/revolver/m29/snub = 1
+	)
+
+/datum/outfit/loadout/groundskeeper2
+	name = "groundskeeper2"
+	head = /obj/item/clothing/head/soft/grey
+	belt = /obj/item/storage/belt/utility/waster
+	suit = /obj/item/clothing/under/f13/mechanic
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/sneakers/noslip
+	neck = /obj/item/storage/belt/shoulderholster/
+	backpack_contents = list(/obj/item/storage/bag/trash = 1,
+	/obj/item/reagent_containers/spray/cleaner = 1,
+	/obj/item/mop = 1,
+	/obj/item/reagent_containers/glass/bucket/plastic = 1,
+	/obj/item/broom = 1,
+	/obj/item/stack/sheet/metal/fifty = 1,
+	/obj/item/lightreplacer = 1,
+	/obj/item/reagent_containers/spray/cleaner = 1
+	)
 
 /*--------------------------------------------------------------*/
 
@@ -478,7 +400,7 @@ Mayor
 	total_positions = -1
 	spawn_positions =-1
 	supervisors = "Locust point laws"
-	description = "Either you are the descendant of one of the first to arrive inside this settlement, or arrived on your own when the town opened, you are one of the first "
+	description = "Either you are the descendant of one of the first to arrive inside this settlement, or arrived on your own when the town opened, you are one of the first. Do note that you are at a comfortable position. Manual labor isn't your forte."
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/locust/baltimorecitizen
@@ -486,12 +408,10 @@ Mayor
 	
 	loadout_options = list(
 		/datum/outfit/loadout/provisioner2,
-		/datum/outfit/loadout/groundskeeper2,
 		/datum/outfit/loadout/artisan2,
 		/datum/outfit/loadout/outdoorsman2,
 		/datum/outfit/loadout/militia2,
-		/datum/outfit/loadout/singer2,
-		/datum/outfit/loadout/prospector2
+		/datum/outfit/loadout/singer2
 	)
 	access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	minimal_access = list(ACCESS_BAR, ACCESS_TOWN, ACCESS_TOWN_CIV)
@@ -551,24 +471,6 @@ Mayor
 	backpack_contents = list(/obj/item/reagent_containers/food/drinks/flask = 1,
 	/obj/item/storage/medical/ancientfirstaid = 1,
 	/obj/item/reagent_containers/food/drinks/flask/survival = 1,
-	)
-
-/datum/outfit/loadout/groundskeeper2
-	name = "groundskeeper2"
-	head = /obj/item/clothing/head/soft/grey
-	belt = /obj/item/storage/belt/utility/waster
-	suit = /obj/item/clothing/under/f13/mechanic
-	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes/sneakers/noslip
-	neck = /obj/item/storage/belt/shoulderholster/
-	backpack_contents = list(/obj/item/storage/bag/trash = 1,
-	/obj/item/reagent_containers/spray/cleaner = 1,
-	/obj/item/mop = 1,
-	/obj/item/reagent_containers/glass/bucket/plastic = 1,
-	/obj/item/broom = 1,
-	/obj/item/stack/sheet/metal/fifty = 1,
-	/obj/item/lightreplacer = 1,
-	/obj/item/reagent_containers/spray/cleaner = 1
 	)
 
 /datum/outfit/loadout/artisan2
@@ -634,22 +536,6 @@ Mayor
 	/obj/item/choice_beacon/music = 1,
 	)
 
-/datum/outfit/loadout/prospector2
-	name = "prospector2"
-	backpack_contents = list(/obj/item/clothing/head/hardhat = 1,
-	/obj/item/clothing/under/overalls = 1,
-	/obj/item/clothing/suit/armor/light/leather/rig = 1,
-	/obj/item/clothing/gloves/patrol = 1,
-	/obj/item/clothing/shoes/workboots = 1,
-	/obj/item/storage/belt/utility/waster = 1,
-	/obj/item/shovel/spade = 1,
-	/obj/item/pickaxe/silver = 1,
-	/obj/item/clothing/glasses/welding = 1,
-	/obj/item/t_scanner/adv_mining_scanner = 1,
-	/obj/item/ammo_box/m44 = 2,
-	/obj/item/gun/ballistic/revolver/m29/snub = 1
-	)
-
 /*--------------------------------------------------------------*/
  
 /datum/job/locust_point/f13baltimoreradiohort
@@ -659,7 +545,7 @@ Mayor
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "No. One. Well except the town laws."
-	description = "On board the Rusted Becket, a Ship known for being a Pirate Radio even before the great war. And you, are free to make anykind of show you want."
+	description = "On board the Rusted Becket, a Ship known for being a Pirate Radio even before the great war. And you, are free to make anykind of show and papers you want."
 	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
 	selection_color = "#dcba97"
 
@@ -707,14 +593,14 @@ Mayor
 	flag = F13BALTIMOREPREACHER
 	total_positions = 1
 	spawn_positions = 1
-	supervisors = "paying clients and Locust Point's laws"
-	description = "May it be in the undergrounds of Locust Point, or in the gardens just behind the townhall, you are here. Preaching and sermoning for what ever gun you bealive in. But you have put your faith in a other thing : This town. Your goal is to help. Feed the poor, bless the rich, help folks arround... And fight bad guys."
+	supervisors = "Locust Point's laws"
+	description = "Faith kept people moving. So you are an important person in town. Preaching and sermoning for what ever god or guns you believe in. But you have put your faith in a other thing : This town. Your goal is to help. Feed the poor, bless the rich, help folks arround... And fight bad guys."
 
 	selection_color = "#dcba97"
 	outfit = /datum/outfit/job/locust_point/f13baltimorepreacher
 
-	access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
-	minimal_access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_SEC)
+	access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV)
+	minimal_access = list(ACCESS_BAR, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/wasteland/f13wastelander,
@@ -736,7 +622,7 @@ Mayor
 	belt = /obj/item/kit_spawner/preacher
 	suit = /obj/item/clothing/suit/det_suit/grey
 	uniform = /obj/item/clothing/under/f13/chaplain
-	ears = /obj/item/radio/headset/headset_town/lawman
+	ears = /obj/item/radio/headset/headset_town
 	shoes = /obj/item/clothing/shoes/laceup
 	id = /obj/item/card/id/silver
 	l_pocket = /obj/item/storage/wallet/stash/mid
@@ -760,7 +646,7 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/locust_point/f13baltimoremechanic
-	title = "Gas station Mechanics"
+	title = "Big Bills Mechanics"
 	flag = F13BALTIMOREMECHANIC
 	department_flag = DEP_LOCUST
 	total_positions = 3
@@ -771,8 +657,8 @@ Mayor
 	selection_color = "#dcba97"
 	outfit = /datum/outfit/job/locust/f13baltimoremechanic
 
-	access = list(ACCESS_BAR, ACCESS_MINT_VAULT)
-	minimal_access = list(ACCESS_BAR, ACCESS_MINT_VAULT)
+	access = list(ACCESS_MINT_VAULT)
+	minimal_access = list(ACCESS_MINT_VAULT)
 
 /datum/outfit/job/locust/f13baltimoremechanic
 	name = "Mechanics"
@@ -815,8 +701,8 @@ Mayor
 	)
 
 	outfit = /datum/outfit/job/locust/f13baltimoreshopclerc
-	access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
-	minimal_access = list(ACCESS_BAR, ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
+	access = list(ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
+	minimal_access = list(ACCESS_CARGO_BOT, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_MERCH)
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/locust_point
@@ -908,7 +794,7 @@ Mayor
 	total_positions = 2
 	spawn_positions = 2
 	supervisors = "Locust Point's laws"
-	description = "This town vertibirds is quite the old one. Flew for and protected the Mary's Fleet, a fleet of ships that survived the great war, including the Casablanca until they arrived here. You, are a pilot. Either a descendant or fan of the first pilots of this craft, or simply here for a other reason. Its used by a small company that gets paid to fly the bird arround, called Airpoint Transport."
+	description = "The town vertibirds are quite old. The flew for and protected the Mary's Fleet, a fleet of ships that survived the great war, including the Casablanca until they arrived here. You, are a pilot. Either a descendant or fan of the first pilots of those crafts, or simply here for a other reason. Its used by a small company that gets paid to fly the bird arround, called Airpoint Transport."
 	selection_color = "#dcba97"
 
 	outfit = /datum/outfit/job/locust/f13baltimorepilot
@@ -947,34 +833,41 @@ Mayor
 /datum/job/locust/f13minutemen
 	title = "Minuteman"
 	flag = F13MINUTEMEN
-	faction = DEP_LOCUST
-	total_positions = 0
-	spawn_positions = 0
+	faction = DEP_MINUTEMEN
+	total_positions = 12
+	spawn_positions = 12
 	description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place."
-	supervisors = "minutemen superiors"
+	supervisors = "The Castle Command, and the Town Dockmaster"
+	
+	forbids = "The Minutemen forbids : Inhuman behavoir and execution of unarmed or otherwise subdued targets without authorisation."
+	enforces = "The Minutemens expects: Obeying the lawful orders of superiors. Proper treatment of prisoners. Wearing blue, no uniform was decided yet."
+	objectivesList = list("Leadership recommends the following goal for this week: Organise training for the soldiers","Leadership recommends the following goal for this week: Neutralize and capture dangerous criminals", "Leadership recommends the following goal for this week: Free slaves and establish good relations with unaligned individuals.")
 
 	outfit = /datum/outfit/job/locust/f13minutemen
 
-	access = list(ACCESS_TOWN_SEC)
-	minimal_access = list(ACCESS_TOWN_SEC)
+	access = list(ACCESS_MINUTEMEN)
+	minimal_access = list(ACCESS_MINUTEMEN)
 	matchmaking_allowed = list(
 	/datum/matchmaking_pref/friend = list(
 		/datum/job/wasteland/f13wastelander,
+		/datum/job/locust,
 	),
 	/datum/matchmaking_pref/rival = list(
 		/datum/job/wasteland/f13wastelander,
+		/datum/job/locust,
 	),
 	)
 
 /datum/outfit/job/locust/f13minutemen
-	ears = /obj/item/radio/headset/headset_town
+	ears = /obj/item/radio/headset/headset_town/lawman
 	shoes = /obj/item/clothing/shoes/f13/minutemen
 	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	l_pocket = /obj/item/storage/belt/legholster
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	belt = /obj/item/storage/belt/army/assault
+	belt = /obj/item/storage/belt/holster/rugged/revolver_357
 	uniform = /obj/item/clothing/under/f13/minutemen
+	id = /obj/item/card/id/dogtag/minutemen
 	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen
 	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
 	r_pocket = /obj/item/flashlight/seclite
@@ -983,5 +876,78 @@ Mayor
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/ammo_box/lasmusket = 3
+	)
+
+/datum/job/locust/f13minutemencaptain
+	title = "Minuteman Captain"
+	flag = F13BALTIMOREMINUTEMENCAPTAIN
+	faction = DEP_MINUTEMEN
+	total_positions = 2
+	spawn_positions = 2
+	description = "A team leader within the minutemen. Lead squad and are acting commander when there is no Major. They use heavy armor and weapons."
+	supervisors = "The Minutemen Major"
+
+	outfit = /datum/outfit/job/locust/f13minutemen/captain
+
+	access = list(ACCESS_MINUTEMEN)
+	minimal_access = list(ACCESS_MINUTEMEN)
+
+/datum/outfit/job/locust/f13minutemen/captain
+	ears = /obj/item/radio/headset/headset_town/lawman/command
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/melee/coyote/oldlongsword/spadroon
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/minutemen
+	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
+	r_pocket = /obj/item/flashlight/seclite
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/neck/scarf/f13/minutemen
+	id = /obj/item/card/id/dogtag/minutemen/officer
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/ammo_box/lasmusket = 3
+	)
+
+
+/datum/job/locust/f13minutemenmajor
+	title = "Minuteman Major"
+	flag = F13BALTIMOREMINUTEMENMAJOR
+	faction = DEP_MINUTEMEN
+	total_positions = 1
+	spawn_positions = 1
+	description = "The highest ranking Minutemen and the flagbearer of the organisation. You organise the squad, gives, orders, plan operations."
+	supervisors = "The generals"
+
+	outfit = /datum/outfit/job/locust/f13minutemen/major
+
+	access = list(ACCESS_MINUTEMEN)
+	minimal_access = list(ACCESS_MINUTEMEN)
+
+/datum/outfit/job/locust/f13minutemen/major
+	ears = /obj/item/radio/headset/headset_town
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/storage/belt/army/assault
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
+	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
+	r_pocket = /obj/item/flashlight/seclite
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/neck/scarf/f13/minutemen
+	id = /obj/item/card/id/dogtag/minutemen/officer
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/ammo_box/lasmusket = 3
 	)

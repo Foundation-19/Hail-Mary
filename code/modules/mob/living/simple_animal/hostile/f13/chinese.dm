@@ -83,3 +83,24 @@
 /mob/living/simple_animal/hostile/chinese/ranged/assault/Aggro()
 	..()
 	summon_backup(15)
+
+/mob/living/simple_animal/hostile/chinese/ranged/stealth
+	name = "chinese remnant infiltrator"
+	icon_state = "chinesestealth"
+	icon_living = "chinesestealth"
+	maxHealth = 100
+	health = 100
+	extra_projectiles = 4
+	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/assault, /obj/item/gun/ballistic/automatic/type93, /obj/item/ammo_box/magazine/m556/rifle/assault,/obj/item/clothing/under/f13/chinasuitcosmetic,/obj/item/clothing/head/f13/chinahelmetcosmetic)
+	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)

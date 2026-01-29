@@ -63,6 +63,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
+	"Minutemen Major",
 	))
 
 GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
@@ -274,6 +275,8 @@ GLOBAL_LIST_INIT(locust_positions, list(
 	"Dealmaker Shopclerc",
 	"Airpoint Transport Pilot",
 	"Minuteman",
+	"Minuteman Captain",
+	"Minuteman Major",
 ))
 
 // job categories for rendering the late join menu

@@ -856,6 +856,17 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "bos_beret"
 	item_state = "bos_beret"
 
+/obj/item/clothing/head/f13/boscap/lancercap
+	name = "brotherhood lancer captain cap"
+	desc = "A cap typically worn by lancer captains of the Brotherhood of Steel Chapter."
+	icon_state = "lancercap"
+	item_state = "lancercap"
+	icon = icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) 
+
+
 //Atlantic Cross
 
 /obj/item/clothing/head/beret/atlantic

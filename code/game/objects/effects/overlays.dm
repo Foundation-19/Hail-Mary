@@ -635,3 +635,38 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = WALL_PLANE
 	layer = ABOVE_OBJ_LAYER
+
+/obj/effect/overlay/docks
+	name = "Dock Edges"
+	icon = 'icons/obj/docks.dmi'
+	icon_state = "woodendock"
+	plane = FLOOR_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+
+/obj/effect/overlay/docks/bricks
+	name = "Brick dock"
+	icon = 'icons/obj/docks.dmi'
+	icon_state = "brickdock"
+	plane = FLOOR_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+
+/obj/effect/overlay/docks/rust
+	name = "Rust dock"
+	icon = 'icons/obj/docks.dmi'
+	icon_state = "rustdock"
+	plane = FLOOR_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+
+/obj/effect/overlay/docks/fort
+	name = "Fort Wall"
+	icon = 'icons/obj/docks.dmi'
+	icon_state = "fortwall"
+	plane = FLOOR_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER
+
+/obj/effect/overlay/docks/fortedge
+	name = "Fort Edge"
+	icon = 'icons/obj/docks.dmi'
+	icon_state = "fortedge"
+	plane = FLOOR_PLANE
+	layer = VISIBLE_FROM_ABOVE_LAYER

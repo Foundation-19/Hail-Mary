@@ -1880,6 +1880,17 @@
 	body_parts_covered = CHEST|ARMS|LEGS
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
 
+/obj/item/clothing/suit/armor/medium/duster/minutemen/officer
+	name = "minutemen officer coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs. This one has officer insignia"
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmo_coat"
+	item_state = "mmo_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_MELEE_T2,ARMOR_MODIFIER_UP_LASER_T2)
+
 /obj/item/clothing/suit/armor/light/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"

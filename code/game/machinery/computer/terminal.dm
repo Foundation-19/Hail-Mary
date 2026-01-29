@@ -338,3 +338,104 @@
 
 	updateUsrDialog()
 	return
+
+/obj/machinery/computer/terminal/batlimore
+	name = "Baltimore Robco Terminal"
+	desc = "A RobCo Industries terminal, widely available for commercial and private use before the war. Unlike the other more standart one, those often have written logs."
+	light_color = LIGHT_COLOR_BLUE
+	color = "#bfbfff"
+
+/obj/machinery/computer/terminal/batlimore/atlanticcross
+	doc_title_1 = "Operation in Area"
+	doc_content_1 = "01/01/2288 - (FROM : Fleet Captain Annie Helo) (TO: ACHS Aegis).\
+	\
+	For this year, the AEGIS refit, now alone is too keep relation with town and brotherhood at a best.\
+	Remember to get paid from the people we heal. We also must protect our interess, and funds, so take down of concurence, by peacefull or lethal means have been authorised."
+	doc_title_2 = "Price suggestion"
+	doc_content_2 = "01/01/2288 - (FROM : Fleet Captain Annie Helo) (TO: ACHS Aegis).\
+	\
+	Medical Check up : 20 caps \
+	Radiation heal : 30 caps \
+	Revival : 50 caps \
+	Don't hesiate to take the caps, leave a note of payement."
+
+/obj/machinery/computer/terminal/batlimore/minutemen
+	doc_title_1 = " Third company and Locust town Settelment"
+	doc_content_1 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Unlike our commonthwealth settlements, we hold little power here for now, but the people like us.\
+	The general ordered your company protect this town."
+	doc_title_2 = "Brotherhood Alliance"
+	doc_content_2 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Our Alliance with the brotherhood isn't stable.\
+	They act on paranoia, and secrecy \
+	Even with the institute gone, many are sure that our members may be synths \
+	All mens, be very carefull."
+
+/obj/machinery/computer/terminal/batlimore/minutemen/town
+	doc_title_1 = " Third company and Locust town Settelment"
+	doc_content_1 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Unlike our commonthwealth settlements, we hold little power here for now, but the people like us.\
+	The general ordered your company protect this town."
+	doc_title_2 = "Brotherhood Alliance"
+	doc_content_2 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Our Alliance with the brotherhood isn't stable.\
+	They act on paranoia, and secrecy \
+	Even with the institute gone, many are sure that our members may be synths \
+	All mens, be very carefull."
+	doc_title_2 = "Town concerns"
+	doc_content_2 = "(Personal note FROM : Mary Dell)\
+	\
+	Locust town is a town that existed before us minutemens.\
+	They seem to have a history with slavery.\
+	I am note sure what to think. Sure officialy its... Gone. There low class worker however still are badly treated\
+	Mankind often... Well. Often returns to their past self, ill let the others decide what to."
+
+/obj/machinery/computer/terminal/batlimore/portmary
+	doc_title_1 = "ET MERDE LES FEDERAUX - 08/10/2077"
+	doc_content_1 = "08/07/2077 - (DE : Captain Lucas) (A : Marseille Fast Transit)\
+	\
+	MEC, les RICAINS sont en TRAIN de traquer le navire ! Foutu control de TARRIF, si on se fait prendres il vont trouver les armes a BORD !\
+	(Robco Translation :) DUDE, the (Yankees) ARE tracking the shit ! (Fucking) TARIFS control, if we are caught, they will find our guns ONBOARD !"
+	doc_title_2 = "Ne t'inquiete pas - 12/10/2077"
+	doc_content_2 = "12/07/2077 - (DE : Marseille Fast Transit) (A : Captain Lucas)\
+	\
+	Ne t'inquiete pas. Je connais le directeur d'un des ports de Baltimore. Amare le Port Mary, met les gars armer sur les quais, et tient bon. Un bon deal. Tous se qu'on avait avait a a faire était the prendre de conteneur fait en plomb.\
+	(Robco Translation :) Don't worry. I know the director of one of Balitmore's harbors. Dock the Port Mary, and put some armed guys on the dock, then hold tight. It was a good deal. Only needed to put some lead containers on our side." 
+	doc_title_3 = "MEC C'EST LA FIN - 23/10/2077"
+	doc_content_3 = "23/10/2077 - (DE : Captain Lucas) (A : Marseille Fast Transit)\
+	\
+	ON NOUS NUKE !!! LES CONTENEUR SONT A PEINE ARRIVER, ON NOUS NUKE !!! PUTAIN DE MERD-\
+	(Robco Translation :) We are getting nuked. The cargo containers just arrived, and we got nuked. Fucking bitc-"
+
+/obj/machinery/computer/terminal/batlimore/recruitementcenter
+	doc_title_1 = "Welcome to the Naval Reserve center ! - 12/01/2076"
+	doc_content_1 = "Greetings ! And welcome ! Ready to start your sailor adventure ?\
+	\
+	Head on down to the base ! And start your training. We are happy that you are willing to joint the fight on our seas.\
+	Be carefull however ! We have a classified vessel in the drydock ! Do not come close, or Ensign DEADLOCK will have you shot !"
+
+/obj/machinery/computer/terminal/batlimore/recruitementcenter/officer
+	doc_title_1 = "Issue with the Ironclad Lander 'USS Iron Shadow' - 21/12/2076"
+	doc_content_1 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
+	\
+	While the Hull is finished, the USS Iron Shadow didn't get any of its consoles. Apparently, they will arrive in a year, in December 2077.\
+	We wont reach Chinese shores without this lander, and you all know it. So please, act fast before its simply too late ! In the mean time, I have put Ensign DEADLOCK inside, to make sure no one takes a peak."
+
+	doc_title_2 = "Northwestern Harbors Control - 01/09/2076"
+	doc_content_2 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
+	\
+	The Navy took control of the other side of Patapsco river, and removed all marinas to instead add more warehouses.\
+	I don't know what you are planning, but it should grant us more space. Since the local base is staffed by low ranking recruit, we put down turrets. However. Please note the calibers have been reduced to 22LR. It should detert any curious civilian.\
+	The squad of Gutsy we got should deal with any armed oposition."
+
+/obj/machinery/computer/terminal/batlimore/brotherhood
+	doc_title_1 = "Issue with the Ironclad Lander 'USS Iron Shadow' - 21/12/2076"
+	doc_content_1 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
+	\
+	While the Hull is finished, the USS Iron Shadow didn't get any of its consoles. Apparently, they will arrive in a year, in December 2077.\
+	We wont reach Chinese shores without this lander, and you all know it. So please, act fast before its simply too late ! In the mean time, I have put Ensign DEADLOCK inside, to make sure no one takes a peak."
+

@@ -164,6 +164,26 @@
 	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/butter = 10,
 							/obj/item/stack/sheet/animalhide/deathclaw = 3)
 
+// Intelligent deathclaw, for the Baltimore map. NOT TO BE USED UNLESS EVENT. Use the INFLICTED version for maps.
+/mob/living/simple_animal/hostile/deathclaw/inteligent
+	name = "inteligent deathclaw"
+	desc = "A very rare kind of deathclaw, with inteligence and able of speech."
+	icon = 'icons/fallout/mobs/monsters/deathclaw.dmi'
+	icon_state = "inteligent"
+	icon_living = "inteligent"
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
+	name = "inflicted deathclaw"
+	desc = "There was a time where this deathclaw was inteligent, able to thinking, with a mind and reason. You can still hear it, lamentation. Its trying to resist, and save you from what ever is controling him."
+	icon_state = "inflicted"
+	icon_living = "inflicted"
+	color_mad = rgb(255, 125, 85)
+	maxHealth = 400
+	health = 400
+	stat_attack = UNCONSCIOUS
+	reach = 2
+	speed = 4
+
 //Legendary Deathclaw
 /mob/living/simple_animal/hostile/deathclaw/legendary
 	name = "legendary deathclaw"
