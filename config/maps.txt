@@ -27,5 +27,5 @@ map tipton
 endmap
 
 map zion-valley
-	voteweight 0
+	voteweight 1
 endmap
