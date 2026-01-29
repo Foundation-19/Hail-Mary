@@ -34435,12 +34435,22 @@
 /turf/closed/wall/f13/wood,
 /area/f13/radiation)
 "iNK" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_3"
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/crate/footchest{
+	anchored = 1;
+	can_be_unanchored = 1;
+	dir = 8;
+	name = "chest with fittings"
 	},
-/obj/effect/landmark/start/f13/shopkeeper,
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/wasteland)
+/obj/item/stack/sheet/leatherstrips,
+/obj/item/blacksmith/chain,
+/obj/item/blacksmith/swordhandle,
+/obj/item/blacksmith/woodenrod,
+/obj/effect/turf_decal/shadow/floor{
+	dir = 8
+	},
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "iNL" = (
 /obj/structure/car/rubbish2,
 /turf/open/indestructible/ground/outside/sidewalk,
@@ -60237,6 +60247,9 @@
 	dir = 4;
 	light_color = "red"
 	},
+/obj/item/clothing/neck/apron/labor/forge,
+/obj/item/clothing/gloves/blacksmith_mittens,
+/obj/item/twohanded/sledgehammer/simple,
 /turf/open/floor/f13/wood,
 /area/f13/city)
 "ukz" = (
@@ -84427,7 +84440,7 @@ aOk
 mAk
 etg
 deN
-iNK
+etg
 aOk
 aOk
 aOk
@@ -101429,7 +101442,7 @@ aUF
 aUF
 qZU
 wea
-wea
+grq
 xvy
 jeh
 jeh
@@ -101690,7 +101703,7 @@ wea
 xvy
 iIB
 vos
-jeh
+thP
 jeh
 xvy
 wea
@@ -102202,7 +102215,7 @@ wea
 wea
 ilL
 xvy
-thP
+iNK
 mjk
 ukk
 bvQ
