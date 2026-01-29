@@ -742,7 +742,7 @@
 	job_description = "NCR Ranger"
 	flavour_text = "Rangers lead the way!"
 	assignedrole = "NCR Ranger"
-	outfit = /datum/outfit/job/ncr/f13ranger
+	outfit = /datum/outfit/job/ranger/f13vetranger
 	suit = /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
 	belt = /obj/item/storage/belt/army/assault/ncr
 	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
