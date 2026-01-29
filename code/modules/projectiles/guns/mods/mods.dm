@@ -67,7 +67,7 @@
 	I.weapon_upgrades = list(
 		GUN_UPGRADE_RICO_MULT = 5,
 		GUN_UPGRADE_PROJ_SPEED_MULT = 1.5,
-		GUN_UPGRADE_RECOIL = 1.6
+		GUN_UPGRADE_RECOIL = 1.35
 		)
 	I.gun_loc_tag = GUN_BARREL
 	I.req_gun_tags = list(GUN_PROJECTILE)
