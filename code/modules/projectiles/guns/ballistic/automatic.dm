@@ -176,11 +176,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/smg14
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
-		/datum/firemode/burst/three/slow,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/faster
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
@@ -205,10 +204,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/greasegun
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/burst/five/fast,
 		/datum/firemode/semi_auto/faster
 	)
 	suppressor_state = "uzi_suppressor"
@@ -229,10 +228,11 @@
 /obj/item/gun/ballistic/automatic/smg/greasegun/worn
 	name = "beat up .45ACP submachine gun"
 	desc = "What was once an inexpensive, but reliable submachine gun is now an inexpensive piece of shit. It's impressive this thing still fires at all."
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150
+		/datum/firemode/burst/three/fast,
+		/datum/firemode/semi_auto/fast
 	)
 
 /* * * * * * * * * * *
@@ -248,7 +248,7 @@
 
 /obj/item/gun/ballistic/automatic/smg/smg10mm
 	name = "10mm submachine gun"
-	desc = "One of the most common personal-defense weapons of the Great War, a sturdy and reliable open-bolt 10mm submachine gun."
+	desc = "One of the most common personal-defense weapons of the Great War, a sturdy and reliable open-bolt 10mm submachine gun. "
 	icon_state = "smg10mm"
 	item_state = "smg10mm"
 	icon_prefix = "smg10mm"
@@ -256,10 +256,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/ext
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
-	init_recoil = SMG_RECOIL(1)
+	damage_multiplier = GUN_LESS_DAMAGE_T3
+	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/faster
 	)
 	suppressor_state = "10mm_suppressor" //activate if sprited
@@ -283,9 +283,9 @@
 	desc = "Mass-produced weapon from the Great War, this one has seen use ever since. Grip is wrapped in tape to keep the plastic from crumbling, the metals are oxidizing, but the gun still works."
 	worn_out = TRUE //a lazy way to overlay the worn sprite variant onto the gun
 	damage_multiplier = GUN_LESS_DAMAGE_T1
-	init_recoil = SMG_RECOIL(1.2)
+	init_recoil = SMG_RECOIL(1.3)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/faster
 	)
 
@@ -312,10 +312,10 @@
 	disallowed_mags = list(/obj/item/ammo_box/magazine/uzim9mm/rockwell) //so I don't have to assign a ton of new sprite names
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/burst/five/fast,
+		/datum/firemode/semi_auto/faster
 	)
 	can_suppress = TRUE
 	suppressor_state = "uzi_suppressor"
@@ -335,7 +335,7 @@
 
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22
 	name = ".22 Uzi"
-	desc = "A very lightweight submachine gun, for when you really want to politely ask someone to be dead. Uses .22LR rounds."
+	desc = "A very lightweight submachine gun with a relatively low damage output. The use of .22 permits worrisome burst fire with excellent recoil control."
 	icon_state = "uzi22"
 	item_state = "uzi"
 	mag_type = /obj/item/ammo_box/magazine/m22/extended
@@ -346,7 +346,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = SMG_RECOIL(0.75)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/five/fastest,
 		/datum/firemode/semi_auto/faster
 	)
 	can_suppress = TRUE
@@ -373,7 +373,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_NORMAL //high class, one of the few smol smgs
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 
 //tec-9 but in .22, compared to .22 pistol, is automatic, but less damage, not silenced
@@ -399,8 +399,9 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
 	weapon_class = WEAPON_CLASS_CARBINE	
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/burst/five/faster,
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = FALSE
@@ -414,8 +415,9 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
 	weapon_class = WEAPON_CLASS_CARBINE	
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/burst/five/faster,
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = FALSE
@@ -424,15 +426,15 @@
 //mac-10: uzi, but compact, softer hitting, harder to control. needs suppressor location adjusted
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mac10
 	name = "Ingram Model 10" //I like naming things quirkily
-	desc = "A compact machine pistol with a blistering fire rate."
+	desc = "A compact machine pistol that looks terribly designed. The 10mm nature and design of the gun causes issues with keeping recoil low but it effectively functions as a bullet hose."
 	icon = 	'fallout/icons/objects/automatic.dmi'
 	icon_state = "mac10"
 	weapon_class = WEAPON_CLASS_NORMAL //kinda bulky for a compact gun
-	damage_multiplier = GUN_LESS_DAMAGE_T2 //this spits lots of bullets and is compact and can be dual wielded
-	init_recoil = SMG_RECOIL(2)
+	damage_multiplier = GUN_LESS_DAMAGE_T3 //this spits lots of bullets and is compact and can be dual wielded
+	init_recoil = SMG_RECOIL(1.4)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
-		/datum/firemode/semi_auto/faster
+		/datum/firemode/burst/five/fastest,
+		/datum/firemode/semi_auto/fastest
 	)
 
 /* * * * * * * * * * *
@@ -447,7 +449,7 @@
 
 /obj/item/gun/ballistic/automatic/smg/cg45
 	name = "Carl Gustaf 10mm"
-	desc = "Post-war submachine gun made in workshops in Phoenix, a copy of a simple old foreign design."
+	desc = "Post-war submachine gun made in workshops in Phoenix, a copy of a simple old Swedish design that somehow found it's way into the American People's hearts following the Vietnam war."
 	icon = 'icons/fallout/objects/guns/ballistic.dmi'
 	icon_state = "cg45"
 	item_state = "cg45"
@@ -455,11 +457,11 @@
 	init_mag_type = /obj/item/ammo_box/magazine/cg45
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
-		/datum/firemode/semi_auto/faster
+		/datum/firemode/burst/three/faster,
+		/datum/firemode/semi_auto/fastest
 	)
 	fire_sound = 'sound/f13weapons/10mm_fire_03.ogg'
 
@@ -480,10 +482,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/fast
 	)
 
@@ -503,7 +505,14 @@
 	desc = "A recovered ancient Thompson from an armory far up North. Commonly used by raiders of the White Legs tribe."
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
-	damage_multiplier = GUN_LESS_DAMAGE_T1
+	weapon_class = WEAPON_CLASS_CARBINE
+	weapon_weight = GUN_ONE_HAND_ONLY
+	damage_multiplier = GUN_LESS_DAMAGE_T3
+	init_recoil = SMG_RECOIL(1)
+	init_firemodes = list(
+		/datum/firemode/burst/three/faster,
+		/datum/firemode/semi_auto/fast
+	)
 
 
 /* * * * * * * * * * *
@@ -528,11 +537,11 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm_p90
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,
-		/datum/firemode/burst/three/slow,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = TRUE
@@ -555,10 +564,12 @@
 
 /obj/item/gun/ballistic/automatic/smg/p90/worn
 	name = "Worn FN P90c"
-	desc = "A FN P90 manufactured by Fabrique Nationale. This one is beat to hell but still works."
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	desc = "A FN P90 manufactured by Fabrique Nationale. This one is beat to hell but still works, albeit age has caused it's most ideal features to weaken, the recoil harder to control among other things."
+	damage_multiplier = GUN_LESS_DAMAGE_T4
+	init_recoil = SMG_RECOIL(1.1)
 	init_firemodes = list(
-		/datum/firemode/burst/five/slow,
+		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/fast
 	)
 
@@ -583,10 +594,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/faster
 	)
 	silenced = TRUE
@@ -611,10 +622,11 @@
 	init_mag_type = /obj/item/ammo_box/magazine/pps9mm
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T3
+	init_recoil = SMG_RECOIL(1.1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/burst/five/fastest,
+		/datum/firemode/semi_auto/faster
 	)
 	scope_state = "AEP7_scope"
 	scope_x_offset = 9
@@ -650,10 +662,10 @@
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
 	added_spread = GUN_SPREAD_POOR
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_firemodes = list(
-		/datum/firemode/semi_auto/fast,
-		/datum/firemode/burst/three/fast
+		/datum/firemode/semi_auto/faster,
+		/datum/firemode/burst/three/faster
 	)
 
 	can_scope = TRUE
@@ -744,7 +756,7 @@
 			available out here. This model is locked to semi-auto!"
 	icon_state = "sidewinder"
 	init_firemodes = list(
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/semi_auto/faster
 	)
 
 /// multical-magnum
@@ -760,8 +772,9 @@
 	extra_mag_types = /obj/item/ammo_box/magazine/m44/automag
 	init_mag_type = /obj/item/ammo_box/magazine/m44
 	current_caliber = "44"
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slow
+		/datum/firemode/semi_auto/fast
 	)
 	//fire_sound = 'sound/f13weapons/44mag.ogg'
 
@@ -2834,3 +2847,4 @@
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	zoom_factor = 1.2
 	can_scope = FALSE
+	
