@@ -176,11 +176,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/smg14
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
-	init_recoil = SMG_RECOIL(0.8)
+	damage_multiplier = GUN_LESS_DAMAGE_T4
+	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
-		/datum/firemode/burst/three/slow,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/faster
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
@@ -205,10 +204,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/greasegun
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/faster
 	)
 	suppressor_state = "uzi_suppressor"
@@ -229,10 +228,11 @@
 /obj/item/gun/ballistic/automatic/smg/greasegun/worn
 	name = "beat up .45ACP submachine gun"
 	desc = "What was once an inexpensive, but reliable submachine gun is now an inexpensive piece of shit. It's impressive this thing still fires at all."
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150
+		/datum/firemode/burst/three/faster,
+		/datum/firemode/semi_auto/faster
 	)
 
 /* * * * * * * * * * *
@@ -248,7 +248,7 @@
 
 /obj/item/gun/ballistic/automatic/smg/smg10mm
 	name = "10mm submachine gun"
-	desc = "One of the most common personal-defense weapons of the Great War, a sturdy and reliable open-bolt 10mm submachine gun."
+	desc = "With a fully automatic rate of fire and a 30-round magazine, the SMG is effective against wildlife and unarmored humans. 10mm ammo for the weapon is one of the most plentiful in the game and the SMG is also quite common, making it easy to repair. However, it suffers from poor accuracy due a high spread, making it ineffective at longer ranges."
 	icon_state = "smg10mm"
 	item_state = "smg10mm"
 	icon_prefix = "smg10mm"
@@ -256,10 +256,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/ext
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/faster
 	)
 	suppressor_state = "10mm_suppressor" //activate if sprited
@@ -282,10 +282,10 @@
 	name = "worn-out 10mm submachine gun"
 	desc = "Mass-produced weapon from the Great War, this one has seen use ever since. Grip is wrapped in tape to keep the plastic from crumbling, the metals are oxidizing, but the gun still works."
 	worn_out = TRUE //a lazy way to overlay the worn sprite variant onto the gun
-	damage_multiplier = GUN_LESS_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T5
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/faster
 	)
 
@@ -2449,7 +2449,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/lmg
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG
