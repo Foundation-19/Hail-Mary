@@ -1,6 +1,7 @@
 /// Sprint buffer ///
 /mob/living/carbon/doSprintLossTiles(tiles)
 	doSprintBufferRegen(FALSE)		//first regen.
+	sprint_idle_time = 0  // Reset idle timer when sprinting
 	if(sprint_buffer)
 		var/use = min(tiles, sprint_buffer)
 		var/special_discount = calc_sprint_stamina_mod_from_special() // S.P.E.C.I.A.L.
@@ -28,6 +29,15 @@
 /mob/living/carbon/proc/doSprintBufferRegen(updating = TRUE)
 	var/diff = world.time - sprint_buffer_regen_last
 	sprint_buffer_regen_last = world.time
-	sprint_buffer = min(sprint_buffer_max, sprint_buffer + sprint_buffer_regen_ds * diff)
+	
+	// Track time since last sprint
+	sprint_idle_time += diff
+	
+	// Apply regen boost if idle for 3+ seconds (30 deciseconds)
+	var/regen_rate = sprint_buffer_regen_ds
+	if(sprint_idle_time >= 30)
+		regen_rate *= 1.25 // 25% boost to regen when not sprinting for 3+ seconds
+	
+	sprint_buffer = min(sprint_buffer_max, sprint_buffer + regen_rate * diff)
 	if(updating)
 		update_hud_sprint_bar()
