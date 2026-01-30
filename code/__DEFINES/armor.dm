@@ -912,25 +912,25 @@ GLOBAL_LIST_INIT(armor_token_operation_legend, list(
  * Substantial armor
  * 7.5% slower - lore accurate
 */
-#define ARMOR_SLOWDOWN_MEDIUM 0.19
+#define ARMOR_SLOWDOWN_MEDIUM 0.2
 
 /*
  * Heavy Armor
  * Bulky suits of heavy armor
  * 15% slower - lore accurate
 */
-#define ARMOR_SLOWDOWN_HEAVY 0.3
+#define ARMOR_SLOWDOWN_HEAVY 0.35
 
 /*
  * Salvaged Power Armor
  * Basically wearing a car
 */
-#define ARMOR_SLOWDOWN_SALVAGE 0.6
+#define ARMOR_SLOWDOWN_SALVAGE 0.5
 
 //* Power Armor
 //* Basically driving a car
 
-#define ARMOR_SLOWDOWN_PA 0.3
+#define ARMOR_SLOWDOWN_PA 0.35
 /*
 
 **We're moving away from more slowdown modifiers, as they get messy and ridiculous**

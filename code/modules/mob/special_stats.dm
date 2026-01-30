@@ -187,75 +187,72 @@ proc/get_top_level_mob(mob/S)
 	return
 
 /mob/living/carbon/proc/calc_sprint_speed_mod_from_special()
-	// BURST SPEED
+	// BURST SPEED with double diminishing returns
 	var/base_sprint_boost = CONFIG_GET(number/movedelay/sprint_speed_increase)
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
 	var/speed_bonus
-	if(agi_diff > 0)
+	if(agi_diff > 3) // Agility above 8 (5 + 3)
+		// First bracket: AGI 5-8
+		var/first_bracket = sqrt(3) * 0.1344
+		// Second bracket: AGI 9+
+		var/second_bracket = sqrt(agi_diff - 3) * 0.067
+		speed_bonus = base_sprint_boost + first_bracket + second_bracket
+	else if(agi_diff > 0)
 		speed_bonus = base_sprint_boost + (sqrt(agi_diff) * 0.1344)
 	else
 		speed_bonus = base_sprint_boost + (agi_diff * 0.1344)
 	
 	// Apply armor penalties to sprint speed with STRENGTH thresholds
-	// These penalties STACK with the existing armor slowdown system
 	var/armor_penalty = 0
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(istype(H.wear_suit))
 			var/obj/item/clothing/suit/armor = H.wear_suit
 			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-				armor_penalty = 0.60 // Base salvage penalty
-				// Additional 50% penalty if strength < 7
-				if(special_s < 7)
+				armor_penalty = 0.50
+				if(special_s < 6)
 					armor_penalty += 0.50
 			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
-				armor_penalty = 0.30 // Base PA penalty
-				// Additional 40% penalty if strength < 7
-				if(special_s < 7)
+				armor_penalty = 0.30
+				if(special_s < 4)
 					armor_penalty += 0.40
 			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
-				armor_penalty = 0.30 // Base heavy penalty
-				// Additional 40% penalty if strength < 7
-				if(special_s < 7)
+				armor_penalty = 0.30
+				if(special_s < 6)
 					armor_penalty += 0.40
 			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
-				// No base penalty for medium
-				// 30% penalty if strength < 5
-				if(special_s < 5)
+				if(special_s < 4)
 					armor_penalty = 0.30
 			else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
-				// No base penalty for light
-				// 30% penalty if strength < 3
 				if(special_s < 3)
 					armor_penalty = 0.30
 	
 	return speed_bonus - armor_penalty
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
-	// HIGHER drain - short burst means burning through stamina faster
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
 	var/base_modifier
 	if(agi_diff > 0)
-		base_modifier = (1 - (sqrt(agi_diff) * 0.1)) * 0.75
+		base_modifier = (1 - (sqrt(agi_diff) * 0.07)) * 0.65
 	else
-		base_modifier = (1 - (agi_diff * 0.1)) * 0.75
+		base_modifier = (1 - (agi_diff * 0.07)) * 0.65
 	
-	// Apply armor drain penalties
+	// Apply armor drain penalties, must be balanced with regen or else infinite sprint
 	var/armor_multiplier = 1.0
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(istype(H.wear_suit))
 			var/obj/item/clothing/suit/armor = H.wear_suit
 			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-				armor_multiplier = 1.6 // Salvaged PA: 60% more drain
+				armor_multiplier = 1.5
 			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
-				armor_multiplier = 1.3 // Power Armor: 30% more drain
+				armor_multiplier = 1.4
 			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
-				armor_multiplier = 1.3 // Heavy armor: 30% more drain
+				armor_multiplier = 1.4
 			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
-				armor_multiplier = 1.15 // Medium armor: 15% more drain
+				armor_multiplier = 1.2
 	
 	return base_modifier * armor_multiplier
 
@@ -263,24 +260,54 @@ proc/get_top_level_mob(mob/S)
 	var/base_regen = CONFIG_GET(number/movedelay/sprint_buffer_regen_per_ds)
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
-	// MUCH SMALLER buffer - true short burst
+	// DON'T MESS WITH THESE FORMULAS WITHOUT TESTING, CAN LEAD TO BAD MATHS
+	// AGI 5: 5.6 | AGI 7: 6.02 | AGI 10: 6.27
 	if(agi_diff > 0)
-		// Agi 6: 5.6 + 0.3 = 5.9 tiles
-		// Agi 8: 5.6 + 0.52 = 6.12 tiles
-		// Agi 10: 5.6 + 0.67 = 6.27 tiles (~6 seconds)
 		sprint_buffer_max = 5.6 + (sqrt(agi_diff) * 0.3)
 	else
-		// Agi 4: 5.6 - 0.15 = 5.45 tiles (~3.9 sec)
-		// Agi 1: 5.6 - 0.6 = 5.0 tiles (~3.6 sec)
-		// Softer penalty - only loses 0.15 per point below 5
 		sprint_buffer_max = 5.6 + (agi_diff * 0.15)
 	sprint_buffer = sprint_buffer_max
-	
-	// SLOWER regen - need real downtime between bursts
+
+	// Sprint buffer regen
+	// Base AGI scaling bonus per point above 5
+	var/agi_regen_bonus = 0.03  // 3% per sqrt point of AGI
+	// AGI 5: base_regen * 1.0 * 0.01 (baseline, 0% bonus)
+	// AGI 7: base_regen * 1.0424 * 0.01 (+4.24% from sqrt)
+	// AGI 10: base_regen * 1.0671 * 0.01 (+6.71% from sqrt)
 	if(agi_diff > 0)
-		sprint_buffer_regen_ds = base_regen * (1 + (sqrt(agi_diff) * 0.00625)) * 0.5
+		sprint_buffer_regen_ds = base_regen * (1 + (sqrt(agi_diff) * agi_regen_bonus)) * 0.01
 	else
-		sprint_buffer_regen_ds = base_regen * (1 + (agi_diff * 0.00625)) * 0.5
+		sprint_buffer_regen_ds = base_regen * (1 + (agi_diff * agi_regen_bonus)) * 0.01
+
+	// High agility gets additional regen boost - scaled by armor weight
+	var/regen_armor_modifier = 1.0
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(istype(H.wear_suit))
+			var/obj/item/clothing/suit/armor = H.wear_suit
+			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+				regen_armor_modifier = 0.2  // 20% of regen bonuses
+			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+				regen_armor_modifier = 1.0  // Full regen bonuses
+			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+				regen_armor_modifier = 1.0  // Full regen bonuses
+			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+				regen_armor_modifier = 0.6  // 60% of regen bonuses
+			else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+				regen_armor_modifier = 0.15  // 15% of regen bonuses
+		else
+			regen_armor_modifier = 0.1  // No armor = only 10% of regen bonuses
+	// This is for sufficient regen for armors that heavily penalize sprinting
+	var/agi_7_bonus = 0.40  // 40% bonus at AGI 7+
+	var/agi_9_bonus = 0.30  // 30% bonus at AGI 9+
+
+	// AGI 10 with NO armor: 1.0671 * 1.04 * 1.03 = 1.143 (~14% total increase)
+	// AGI 10 with PA: 1.0671 * 1.40 * 1.30 = 1.942 (~94% total increase)
+	if(special_a >= 7)
+		sprint_buffer_regen_ds *= (1.0 + (agi_7_bonus * regen_armor_modifier))
+	if(special_a >= 9)
+		sprint_buffer_regen_ds *= (1.0 + (agi_9_bonus * regen_armor_modifier))
+
 /// LUCK
 
 /// Currently affects only money from trashpiles

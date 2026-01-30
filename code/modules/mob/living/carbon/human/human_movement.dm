@@ -23,7 +23,7 @@
 		var/obj/item/clothing/suit/armor = wear_suit
 		if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
 			if(special_s < 6)
-				. += 0.5 // Additional slowdown if lacking strength
+				. += 0.5
 		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
 			if(special_s < 4)
 				. += 0.4
@@ -36,8 +36,26 @@
 		else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
 			if(special_s < 3)
 				. += 0.3
-	
-	. += 0.2 // Universal human slowdown
+
+	var/current_time = world.time
+	var/fatigue_cap = 0.1
+
+	if(special_a >= 7)
+		fatigue_cap = 0.3
+
+	if(current_time - last_move_time < 10)
+		movement_fatigue = min(movement_fatigue + 0.005, fatigue_cap)
+		COOLDOWN_START(src, movement_fatigue_recovery, 3 SECONDS)
+	else if(COOLDOWN_FINISHED(src, movement_fatigue_recovery))
+		movement_fatigue = max(movement_fatigue - 0.02, 0)
+
+	last_move_time = current_time
+	. += movement_fatigue
+
+	if(special_a >= 7)
+		. += 0
+	else
+		. += 0.2 // Standard slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))

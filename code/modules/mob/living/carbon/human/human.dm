@@ -13,6 +13,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/hidden_underwear = FALSE
 	var/hidden_undershirt = FALSE
 	var/hidden_socks = FALSE
+	var/movement_fatigue = 0
+	COOLDOWN_DECLARE(movement_fatigue_recovery)
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
