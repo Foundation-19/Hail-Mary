@@ -2194,7 +2194,6 @@ Not implemented due to balance at the moment
 	reqs = list(/obj/item/gun/ballistic/automatic/handmade_assault_carbine = 1,
 				/obj/item/stack/sheet/metal = 15,
 				/obj/item/stack/sheet/mineral/wood = 10,
-				/obj/item/advanced_crafting_components/receiver = 1,
 				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/rods = 1,
 				/obj/item/stack/crafting/goodparts = 5,
@@ -2212,7 +2211,6 @@ Not implemented due to balance at the moment
 	reqs = list(/obj/item/gun/ballistic/automatic/handmade_dmr = 1,
 				/obj/item/stack/sheet/metal = 20,
 				/obj/item/stack/sheet/mineral/wood = 15,
-				/obj/item/advanced_crafting_components/receiver = 1,
 				/obj/item/advanced_crafting_components/assembly = 1,
 				/obj/item/stack/rods = 3,
 				/obj/item/stack/crafting/goodparts = 5,
@@ -2231,7 +2229,6 @@ Not implemented due to balance at the moment
 				/obj/item/stack/sheet/metal = 15,
 				/obj/item/stack/sheet/mineral/wood = 20,
 				/obj/item/advanced_crafting_components/receiver = 1,
-				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/rods = 2,
 				/obj/item/stack/crafting/goodparts = 10,
 				)
@@ -2249,7 +2246,6 @@ Not implemented due to balance at the moment
 				/obj/item/stack/sheet/metal = 10,
 				/obj/item/stack/sheet/mineral/wood = 10,
 				/obj/item/advanced_crafting_components/receiver = 1,
-				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/crafting/goodparts = 5,
 				)
 	tools = list(TOOL_WORKBENCH)
@@ -2265,7 +2261,6 @@ Not implemented due to balance at the moment
 	reqs = list(/obj/item/gun/ballistic/automatic/handmade_rifle = 1,
 				/obj/item/stack/sheet/metal = 10,
 				/obj/item/stack/sheet/plastic = 5,
-				/obj/item/advanced_crafting_components/receiver = 1,
 				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/rods = 8,
 				/obj/item/stack/crafting/goodparts = 5,
@@ -2283,7 +2278,6 @@ Not implemented due to balance at the moment
 	reqs = list(/obj/item/gun/ballistic/automatic/eastern_pdw = 1,
 				/obj/item/stack/sheet/metal = 20,
 				/obj/item/advanced_crafting_components/assembly = 1,
-				/obj/item/advanced_crafting_components/alloys = 2,
 				/obj/item/stack/rods = 2,
 				/obj/item/stack/crafting/goodparts = 7,
 				)
@@ -2301,7 +2295,6 @@ Not implemented due to balance at the moment
 				/obj/item/stack/sheet/metal = 25,
 				/obj/item/stack/sheet/mineral/wood = 15,
 				/obj/item/stack/sheet/plastic = 5,
-				/obj/item/advanced_crafting_components/receiver = 1,
 				/obj/item/advanced_crafting_components/alloys = 2,
 				/obj/item/stack/rods = 10,
 				/obj/item/stack/crafting/goodparts = 10,
@@ -2319,7 +2312,7 @@ Not implemented due to balance at the moment
 	reqs = list(/obj/item/gun/ballistic/automatic/handmade_dmr = 1,
 				/obj/item/stack/sheet/metal = 15,
 				/obj/item/advanced_crafting_components/receiver = 1,
-				/obj/item/advanced_crafting_components/alloys = 2,
+				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/rods = 10,
 				/obj/item/stack/crafting/goodparts = 10,
 				)
