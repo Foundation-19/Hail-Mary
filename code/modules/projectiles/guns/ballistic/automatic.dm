@@ -179,7 +179,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/burst/three/fast,
+		/datum/firemode/burst/three/slow,
 		/datum/firemode/semi_auto/faster
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
@@ -204,10 +204,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/greasegun
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/burst/five/fast,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/faster
 	)
 	suppressor_state = "uzi_suppressor"
@@ -228,7 +228,7 @@
 /obj/item/gun/ballistic/automatic/smg/greasegun/worn
 	name = "beat up .45ACP submachine gun"
 	desc = "What was once an inexpensive, but reliable submachine gun is now an inexpensive piece of shit. It's impressive this thing still fires at all."
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/burst/three/fast,
@@ -256,7 +256,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/ext
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -312,9 +312,9 @@
 	disallowed_mags = list(/obj/item/ammo_box/magazine/uzim9mm/rockwell) //so I don't have to assign a ton of new sprite names
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_firemodes = list(
-		/datum/firemode/burst/five/fast,
+		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/faster
 	)
 	can_suppress = TRUE
@@ -343,7 +343,7 @@
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	added_spread = GUN_SPREAD_POOR
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(0.75)
 	init_firemodes = list(
 		/datum/firemode/burst/five/fastest,
@@ -361,7 +361,13 @@
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp40"
 	item_state = "smg9mm"
-
+	damage_multiplier = GUN_LESS_DAMAGE_T3
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
+	init_recoil = SMG_RECOIL(1)
+	init_firemodes = list(
+		/datum/firemode/burst/three/faster,
+		/datum/firemode/semi_auto/faster
+	)
 //compact modernize MP5
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp5
 	name = "HK MP-5"
@@ -373,9 +379,13 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_NORMAL //high class, one of the few smol smgs
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
-
+	init_recoil = SMG_RECOIL(0.9)
+	init_firemodes = list(
+		/datum/firemode/burst/three/faster,
+		/datum/firemode/semi_auto/faster
+	)
 //tec-9 but in .22, compared to .22 pistol, is automatic, but less damage, not silenced
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22/tec22
 	name = ".22 machine pistol"
@@ -399,10 +409,10 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
 	weapon_class = WEAPON_CLASS_CARBINE	
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_firemodes = list(
-		/datum/firemode/burst/five/faster,
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/burst/three/slow,
+		/datum/firemode/semi_auto/slow
 	)
 	can_suppress = FALSE
 
@@ -415,9 +425,9 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
 	weapon_class = WEAPON_CLASS_CARBINE	
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	init_firemodes = list(
-		/datum/firemode/burst/five/faster,
+		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = FALSE
@@ -457,7 +467,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/cg45
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -482,7 +492,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T5
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -507,7 +517,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T5
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -537,7 +547,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm_p90
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T4
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,
@@ -594,7 +604,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T2
+	damage_multiplier = GUN_LESS_DAMAGE_T3
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
