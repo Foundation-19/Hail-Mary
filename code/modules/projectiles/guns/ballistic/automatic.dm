@@ -2847,4 +2847,3 @@
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	zoom_factor = 1.2
 	can_scope = FALSE
-	
