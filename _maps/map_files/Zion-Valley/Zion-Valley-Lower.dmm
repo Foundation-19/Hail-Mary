@@ -4737,7 +4737,7 @@
 	},
 /obj/machinery/power/apc/auto_name/east,
 /turf/open/floor/circuit/f13_red,
-/area/f13/wasteland/bighorn)
+/area/f13/city/bighorn)
 "dKu" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/water,
@@ -5001,7 +5001,7 @@
 /area/f13/tunnel)
 "dWz" = (
 /obj/structure/mirror,
-/turf/closed/wall/mineral/wood,
+/turf/closed/wall/f13/wood,
 /area/f13/caves)
 "dWA" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
@@ -7883,8 +7883,6 @@
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
-"gnP" = (
-/turf/closed/wall/r_wall)
 "gnZ" = (
 /obj/structure/wreck/trash/five_tires{
 	pixel_y = 15
@@ -10551,7 +10549,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/circuit/f13_blue)
+/turf/open/floor/circuit/f13_blue,
+/area/f13/brotherhood)
 "iAV" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -11048,6 +11047,9 @@
 "iVN" = (
 /obj/structure/simple_door/metal{
 	name = "The Den"
+	},
+/turf/open/floor/wood_mosaic/wood_mosaic_dark{
+	icon_state = "mosaic_dark-broken6"
 	},
 /area/f13/raiders)
 "iVO" = (
@@ -13842,7 +13844,8 @@
 "lrG" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/south,
-/turf/open/floor/circuit/f13_blue)
+/turf/open/floor/circuit/f13_blue,
+/area/f13/brotherhood)
 "lrT" = (
 /obj/structure/destructible/tribal_torch/wall{
 	dir = 4
@@ -14558,7 +14561,8 @@
 "lVu" = (
 /obj/structure/cable,
 /obj/machinery/power/apc/auto_name/south,
-/turf/open/floor/circuit/f13_green)
+/turf/open/floor/circuit/f13_green,
+/area/f13/brotherhood)
 "lVP" = (
 /obj/structure/flora/ausbushes/stalkybush,
 /turf/open/water,
@@ -19238,9 +19242,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/brotherhood)
-"pXV" = (
-/turf/closed/wall/mineral/wood,
-/area/f13/caves)
 "pYi" = (
 /obj/structure/rack,
 /obj/item/stack/sheet/metal/twenty,
@@ -22422,10 +22423,6 @@
 	icon_state = "reddirtyfull"
 	},
 /area/f13/tunnel)
-"sJq" = (
-/obj/structure/nest/fireant,
-/turf/closed/mineral/random/low_chance,
-/area/f13/caves)
 "sJv" = (
 /obj/structure/flora/wasteplant/wild_fungus,
 /turf/open/indestructible/ground/inside/mountain,
@@ -23736,7 +23733,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/turf/open/floor/circuit/f13_green)
+/turf/open/floor/circuit/f13_green,
+/area/f13/brotherhood)
 "tFK" = (
 /obj/item/toy/beach_ball/holoball,
 /turf/open/floor/f13{
@@ -27272,10 +27270,6 @@
 	icon_state = "hydrofloor"
 	},
 /area/f13/tunnel)
-"wLx" = (
-/obj/structure/nest/gecko,
-/turf/closed/mineral/random/low_chance,
-/area/f13/caves)
 "wLy" = (
 /obj/structure/weightmachine/stacklifter,
 /obj/effect/decal/cleanable/blood,
@@ -38891,7 +38885,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -45362,7 +45356,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -46310,7 +46304,7 @@ ske
 wKR
 tFH
 lVu
-gnP
+nQL
 hGO
 hGO
 hGO
@@ -47314,7 +47308,7 @@ fnn
 gml
 izX
 lrG
-gnP
+nQL
 hGO
 hGO
 hGO
@@ -62105,7 +62099,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -63968,7 +63962,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -67946,7 +67940,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -69052,7 +69046,7 @@ hGO
 lXj
 lXj
 lXj
-wLx
+lXj
 uZs
 lXj
 lXj
@@ -70586,7 +70580,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -71612,7 +71606,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -98565,7 +98559,7 @@ lXj
 lXj
 lXj
 lXj
-wLx
+lXj
 lXj
 lXj
 lXj
@@ -111625,10 +111619,10 @@ lXj
 lXj
 lXj
 lXj
-pXV
+gHn
 lCS
 lCS
-pXV
+gHn
 lXj
 lXj
 lXj
@@ -112130,8 +112124,8 @@ lXj
 qfU
 gJb
 gJb
-pXV
-pXV
+gHn
+gHn
 lXj
 lXj
 lXj
@@ -112633,8 +112627,8 @@ gJb
 gJb
 gJb
 gJb
-pXV
-pXV
+gHn
+gHn
 lXj
 lXj
 lXj
@@ -113136,7 +113130,7 @@ gJb
 hFL
 hFL
 xLQ
-pXV
+gHn
 lXj
 lXj
 lXj
@@ -113638,7 +113632,7 @@ hFL
 hFL
 hFL
 ukq
-pXV
+gHn
 lXj
 lXj
 lXj
@@ -114139,8 +114133,8 @@ bfA
 hFL
 nvw
 bVC
-pXV
-pXV
+gHn
+gHn
 lXj
 lXj
 lXj
@@ -114640,8 +114634,8 @@ rqR
 gJb
 hFL
 euo
-pXV
-pXV
+gHn
+gHn
 lXj
 lXj
 lXj
@@ -115134,14 +115128,14 @@ lXj
 lXj
 lXj
 lXj
-pXV
-pXV
+gHn
+gHn
 lXj
-pXV
-pXV
-pXV
+gHn
+gHn
+gHn
 rkU
-pXV
+gHn
 dWz
 lXj
 lXj
@@ -115635,18 +115629,18 @@ lXj
 lXj
 lXj
 lXj
-pXV
+gHn
 xPt
 gJb
 huh
-pXV
+gHn
 dlU
 hFL
 hFL
-pXV
+gHn
 cbk
-pXV
-pXV
+gHn
+gHn
 lXj
 lXj
 lXj
@@ -116137,18 +116131,18 @@ lXj
 lXj
 lXj
 lXj
-pXV
+gHn
 gJb
 tQc
 iGQ
-pXV
+gHn
 kGF
 hFL
 hFL
-pXV
+gHn
 gJb
 chb
-pXV
+gHn
 lXj
 lXj
 lXj
@@ -116639,18 +116633,18 @@ lXj
 lXj
 lXj
 lXj
-pXV
+gHn
 eRI
 gJb
 rpl
-pXV
+gHn
 gJb
 hFL
 hFL
-pXV
+gHn
 gJb
 tEM
-pXV
+gHn
 lXj
 lXj
 lXj
@@ -117141,18 +117135,18 @@ lXj
 lXj
 lXj
 lXj
-pXV
+gHn
 bxO
 fug
 rWE
-pXV
+gHn
 sBu
 gJb
 gJb
 lCS
 gJb
 hwv
-pXV
+gHn
 lXj
 lXj
 lXj
@@ -117643,18 +117637,18 @@ lXj
 lXj
 lXj
 lXj
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
-pXV
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
+gHn
 lXj
 lXj
 lXj
@@ -129723,7 +129717,7 @@ lXj
 lXj
 lXj
 lXj
-sJq
+lXj
 lXj
 lXj
 lXj
@@ -131699,7 +131693,6 @@ lXj
 lXj
 lXj
 lXj
-sJq
 lXj
 lXj
 lXj
@@ -131730,10 +131723,12 @@ lXj
 lXj
 lXj
 lXj
+lXj
+lXj
+uZs
 lXj
 uZs
 lXj
-uZs
 lXj
 lXj
 lXj
@@ -131757,7 +131752,6 @@ lXj
 lXj
 lXj
 lXj
-sJq
 lXj
 lXj
 lXj
@@ -138903,7 +138897,7 @@ lXj
 lXj
 lXj
 lXj
-sJq
+lXj
 lXj
 lXj
 lXj
@@ -154270,7 +154264,7 @@ lXj
 lXj
 lXj
 lXj
-sJq
+lXj
 lXj
 lXj
 lXj
