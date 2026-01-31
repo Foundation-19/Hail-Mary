@@ -54,12 +54,6 @@
 	if(!ishuman(user))
 		return FALSE
 	var/mob/living/carbon/human/human_user = user
-	if(human_user.get_cyber_surgery_skill() < cybernetic_skill_required)
-		return FALSE
-	var/general_skill = human_user.get_surgery_skill()
-	if(general_skill < general_skill_required || general_skill > general_skill_max)
-		return FALSE
-	return TRUE
 
 	var/list/advanced_surgeries = list()
 	if(iscyborg(user))
@@ -79,6 +73,13 @@
 	
 	if(type in advanced_surgeries)
 		return TRUE
+
+	if(human_user.get_cyber_surgery_skill() < cybernetic_skill_required)
+		return FALSE
+	var/general_skill = human_user.get_surgery_skill()
+	if(general_skill < general_skill_required || general_skill > general_skill_max)
+		return FALSE
+	return TRUE
 
 /datum/surgery/proc/next_step(mob/user, intent)
 	if(step_in_progress)
