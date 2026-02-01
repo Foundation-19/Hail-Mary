@@ -191,6 +191,24 @@
 	var/sprint_hunger_cost = 0.1
 	var/hunger_float = 1.0 // Precise hunger tracking
 
+	// LOYALTY SYSTEM
+	var/loyalty = 0 // Current loyalty value
+	var/loyalty_max = 100
+	
+	// Static loyalty bonuses (permanent)
+	var/loyalty_from_name = 0 // +20 for being named
+	var/loyalty_from_brand = 0 // +15 for being branded
+	
+	// Temporary loyalty tracking
+	var/loyalty_from_petting = 0 // Caps at 10
+	var/loyalty_from_feeding = 0 // Caps at 20
+	
+	// Decay rate
+	var/loyalty_decay_rate = 0.5 // How much loyalty decays per life tick
+	
+	COOLDOWN_DECLARE(loyalty_decay_cooldown)
+	COOLDOWN_DECLARE(petting_cooldown) // Prevent spam petting
+
 /mob/living/simple_animal/cow/Initialize()
 	udder = new(null, milk_reagent)
 	base_move_delay = ride_move_delay
@@ -219,6 +237,31 @@
 	if(saddle)
 		new /obj/item/brahminsaddle(get_turf(src))
 
+// Calculate total loyalty including all sources
+/mob/living/simple_animal/cow/proc/get_total_loyalty()
+	return loyalty_from_name + loyalty_from_brand + loyalty_from_petting + loyalty_from_feeding + loyalty
+
+// Add loyalty with feedback
+/mob/living/simple_animal/cow/proc/add_loyalty(amount, source)
+	loyalty = clamp(loyalty + amount, 0, loyalty_max)
+	if(source && current_rider)
+		to_chat(current_rider, span_notice("[src]'s loyalty increases from [source]!"))
+
+// Loyalty from healing (only when damaged)
+/mob/living/simple_animal/cow/proc/grant_healing_loyalty(amount_healed, mob/healer)
+	if(!healer || health >= maxHealth)
+		return
+	
+	// Grant loyalty based on % of health healed
+	// 10% max health healed = +2 loyalty
+	var/health_percent_healed = (amount_healed / maxHealth) * 100
+	var/loyalty_gain = round(health_percent_healed / 5) // Every 5% = +1 loyalty
+	
+	if(loyalty_gain > 0)
+		loyalty += loyalty_gain
+		loyalty = clamp(loyalty, 0, loyalty_max)
+		to_chat(healer, span_notice("[src] seems grateful for your care! (+[loyalty_gain] loyalty)"))
+
 // Add this proc to calculate fear chance based on HP
 /mob/living/simple_animal/cow/proc/get_fear_chance()
 	if(!saddle && !bridle)
@@ -230,8 +273,16 @@
 	if(health_percent >= 75)
 		return 0
 	
-	// Below 75% HP, return 25 for stutter check
-	return 25
+	// Base 25% fear chance below 75% HP
+	var/base_fear = 25
+	
+	// Loyalty reduces fear chance
+	// Every 10 loyalty = -5% fear chance
+	var/total_loyalty = get_total_loyalty()
+	var/loyalty_reduction = (total_loyalty / 10) * 5
+	
+	var/final_fear = base_fear - loyalty_reduction
+	return max(final_fear, 0) // Can't go below 0
 
 /mob/living/simple_animal/cow/proc/get_bucking_chance()
 	if(!saddle && !bridle)
@@ -344,7 +395,8 @@
 			return
 
 		collar = TRUE
-		to_chat(user, span_notice("You add [O] to [src]..."))
+		loyalty_from_name = 20 // Grant permanent loyalty bonus
+		to_chat(user, span_notice("You add [O] to [src]. They seem to recognize their new name!"))
 		message_admins(span_notice("[ADMIN_LOOKUPFLW(user)] renamed a mount to [name]."))
 		qdel(O)
 		return
@@ -390,13 +442,39 @@
 
 		if(!brand)
 			return
+		
+		loyalty_from_brand = 15 // Grant permanent loyalty bonus
+		to_chat(user, span_notice("You brand [src]. They seem to accept you as their master!"))
+		qdel(O)
+		return
 	. = ..()
 
+/mob/living/simple_animal/cow/heal_bodypart_damage(brute, burn, updating_health)
+	var/healed_amount = ..()
+	if(healed_amount > 0 && isliving(usr))
+		grant_healing_loyalty(healed_amount, usr)
+	return healed_amount
+
+// Loyalty decay in life tick - decays temporary loyalty first
 /mob/living/simple_animal/cow/BiologicalLife(seconds, times_fired)
 	if(!(. = ..()))
 		return
 	if(stat == CONSCIOUS)
 		handle_following()
+		
+		// Decay temporary loyalty over time (feeding and petting decay)
+		if(COOLDOWN_FINISHED(src, loyalty_decay_cooldown))
+			// Decay feeding loyalty first
+			if(loyalty_from_feeding > 0)
+				loyalty_from_feeding = max(loyalty_from_feeding - loyalty_decay_rate, 0)
+			// Then petting loyalty
+			else if(loyalty_from_petting > 0)
+				loyalty_from_petting = max(loyalty_from_petting - loyalty_decay_rate, 0)
+			// Finally healing loyalty
+			else if(loyalty > 0)
+				loyalty = max(loyalty - loyalty_decay_rate, 0)
+			
+			COOLDOWN_START(src, loyalty_decay_cooldown, 30 SECONDS) // Decay every 30 seconds
 		
 		// Check sprint key state for mounted riders - NO AUTOMATIC REGEN
 		if(current_rider && saddle)
@@ -475,7 +553,21 @@
 		if(D)
 			D.vehicle_move_delay = ride_move_delay
 
-/mob/living/simple_animal/cow/on_attack_hand(mob/living/carbon/M)
+// Loyalty from petting with cap and cooldown
+/mob/living/simple_animal/cow/on_attack_hand(mob/living/carbon/M, act_intent = M.a_intent, unarmed_attack_flags)
+	if(!stat && M.a_intent == INTENT_HELP)
+		M.visible_message(span_notice("[M] pets [src]."), span_notice("You pet [src]."))
+		
+		// Only grant loyalty if under cap and off cooldown
+		if(loyalty_from_petting < 10 && COOLDOWN_FINISHED(src, petting_cooldown))
+			loyalty_from_petting += 2
+			to_chat(M, span_notice("[src] seems to appreciate the attention! (Petting loyalty: [loyalty_from_petting]/10)"))
+			COOLDOWN_START(src, petting_cooldown, 30 SECONDS) // 30 second cooldown between loyalty gains
+		else if(loyalty_from_petting >= 10)
+			to_chat(M, span_notice("[src] is already very affectionate with you."))
+		
+		return
+	
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		M.visible_message(span_warning("[M] tips over [src]."),
 			span_notice("You tip over [src]."))
@@ -498,9 +590,11 @@
 						internal = "You resign yourself to your fate."
 				visible_message(span_notice("[external]"),
 					span_revennotice("[internal]"))
-	else
-		..()
+		return
+	
+	return ..()
 
+// Loyalty from feeding with cap
 /mob/living/simple_animal/cow/proc/feed_em(obj/item/I, mob/user)
 	if(!I || !user)
 		return
@@ -518,6 +612,14 @@
 			return
 		visible_message(span_alertalien("[src] consumes the [I]."))
 		refuel_horse()
+		
+		// Grant loyalty if under cap
+		if(loyalty_from_feeding < 20)
+			loyalty_from_feeding += 5
+			to_chat(user, span_notice("[src]'s loyalty increases from feeding! (Feeding loyalty: [loyalty_from_feeding]/20)"))
+		else
+			to_chat(user, span_notice("[src] enjoys the meal, but they already trust you greatly."))
+			
 	else if(is_calf)
 		visible_message(span_alertalien("[src] adorably chews the [I]."))
 	else if(!has_calf)
