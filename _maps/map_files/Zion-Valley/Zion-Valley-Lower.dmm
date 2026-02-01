@@ -3733,13 +3733,6 @@
 	color = "#d9c4b9"
 	},
 /area/f13/tunnel)
-"cNh" = (
-/obj/effect/decal/remains/deadeyebot{
-	plane = -5;
-	layer = 5
-	},
-/turf/closed/wall/r_wall,
-/area/f13/brotherhood)
 "cNl" = (
 /obj/structure/barricade/wooden,
 /turf/closed/indestructible/f13vaultrusted,
@@ -45800,7 +45793,7 @@ owI
 wsK
 wsK
 dwk
-cNh
+nQL
 nQL
 nQL
 hGO

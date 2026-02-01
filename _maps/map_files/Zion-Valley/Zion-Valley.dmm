@@ -2967,6 +2967,9 @@
 /obj/effect/landmark/start/f13/f13holidaydeputy,
 /turf/open/floor/wood_fancy,
 /area/f13/city/bighorn)
+"aJH" = (
+/turf/closed/indestructible/fakeglass,
+/area/f13/wasteland)
 "aJT" = (
 /obj/structure/reagent_dispensers/barrel/four,
 /turf/open/floor/plating/tunnel,
@@ -11127,6 +11130,10 @@
 	icon_state = "horizontalinnermain0"
 	},
 /area/f13/building)
+"dhH" = (
+/obj/machinery/mineral/wasteland_vendor/weapons,
+/turf/open/floor/plating/f13/inside,
+/area/f13/wasteland)
 "dhK" = (
 /obj/structure/sink{
 	dir = 4;
@@ -13425,6 +13432,9 @@
 /obj/effect/decal/cleanable/flour,
 /turf/open/floor/wood_common,
 /area/f13/building)
+"dUW" = (
+/turf/closed/indestructible/opshuttle,
+/area/f13/wasteland)
 "dVq" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
@@ -26427,6 +26437,8 @@
 /obj/item/reagent_containers/glass/bottle/blackpowder,
 /obj/item/reagent_containers/glass/bottle/blackpowder,
 /obj/item/stack/ore/blackpowder/fifty,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
 /turf/open/floor/f13{
 	icon_state = "yellowrustyfull"
 	},
@@ -27831,6 +27843,10 @@
 	},
 /turf/open/indestructible/ground/outside/water,
 /area/f13/caves)
+"ikz" = (
+/obj/machinery/mineral/wasteland_vendor/ammo,
+/turf/open/floor/plating/f13/inside,
+/area/f13/wasteland)
 "ikD" = (
 /obj/item/kirbyplants/random,
 /turf/open/floor/wood_mosaic,
@@ -32210,6 +32226,8 @@
 "jCV" = (
 /obj/machinery/autolathe/ammo/unlocked,
 /obj/item/stack/ore/blackpowder/fifty,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
 /turf/open/floor/f13{
 	dir = 10;
 	icon_state = "redmark"
@@ -46062,6 +46080,9 @@
 /obj/item/kitchen/knife,
 /turf/open/floor/wood_common,
 /area/f13/building)
+"nOW" = (
+/turf/open/floor/plating/f13/inside,
+/area/f13/wasteland)
 "nOX" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housebase4-broken"
@@ -64964,6 +64985,10 @@
 	icon_state = "horizontaltopborderbottom2right"
 	},
 /area/f13/wasteland)
+"tvU" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/closed/indestructible/opshuttle,
+/area/f13/wasteland)
 "twk" = (
 /mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/indestructible/ground/outside/dirt/dark,
@@ -68077,10 +68102,8 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "uuX" = (
-/obj/structure/wreck/bus/orange/alt,
-/turf/open/indestructible/ground/outside/road{
-	icon_state = "horizontalinnermain0"
-	},
+/mob/living/simple_animal/pet/dog/protectron,
+/turf/open/floor/plating/f13/inside,
 /area/f13/wasteland)
 "uvi" = (
 /obj/structure/fence/wooden{
@@ -69333,6 +69356,8 @@
 	pixel_y = 33;
 	layer = 3
 	},
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
 /turf/open/floor/f13{
 	icon_state = "reddirtysolid"
 	},
@@ -72017,6 +72042,8 @@
 /area/f13/building)
 "vEI" = (
 /obj/machinery/autolathe/ammo/unlocked_basic,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "vEU" = (
@@ -73227,10 +73254,6 @@
 /obj/machinery/chem_dispenser/drinks/beer,
 /turf/open/floor/carpet/red,
 /area/f13/building)
-"vWs" = (
-/obj/structure/wreck/trash/machinepile,
-/turf/closed/wall/r_wall,
-/area/f13/brotherhood/operations)
 "vWx" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -93681,7 +93704,7 @@ cjP
 cjP
 cjP
 cjP
-vWs
+fYW
 jiQ
 hhn
 aWR
@@ -120712,11 +120735,11 @@ xHK
 kYU
 pCL
 ulA
-ulA
-ulA
-ulA
-ulA
-ulA
+dUW
+tvU
+dUW
+dUW
+tvU
 ulA
 ulA
 ulA
@@ -121214,11 +121237,11 @@ pCL
 ulA
 ulA
 ulA
-ulA
-ulA
-ulA
-ulA
-ulA
+dUW
+nOW
+uuX
+nOW
+dUW
 ulA
 ulA
 ulA
@@ -121716,11 +121739,11 @@ luj
 luj
 luj
 luj
-luj
-luj
-luj
-luj
-luj
+dUW
+ikz
+aJH
+dhH
+dUW
 luj
 luj
 luj
@@ -199496,7 +199519,7 @@ dHw
 dHw
 dHw
 dHw
-uuX
+dfP
 dHw
 dHw
 dHw

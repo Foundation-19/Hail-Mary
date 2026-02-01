@@ -24875,6 +24875,8 @@
 "tGb" = (
 /obj/item/stack/ore/blackpowder/twenty,
 /obj/machinery/autolathe/ammo/unlocked_basic,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "tGo" = (
@@ -70312,11 +70314,11 @@ kGD
 kGD
 kGD
 kGD
-kGD
-kGD
-kGD
-kGD
-kGD
+oaL
+oaL
+oaL
+oaL
+oaL
 kGD
 kGD
 kGD
@@ -70814,11 +70816,11 @@ kGD
 kGD
 kGD
 kGD
-kGD
-kGD
-kGD
-kGD
-kGD
+oaL
+oaL
+oaL
+oaL
+oaL
 kGD
 kGD
 kGD
@@ -71316,11 +71318,11 @@ kGD
 kGD
 kGD
 kGD
-kGD
-kGD
-kGD
-kGD
-kGD
+oaL
+oaL
+oaL
+oaL
+oaL
 kGD
 kGD
 kGD
