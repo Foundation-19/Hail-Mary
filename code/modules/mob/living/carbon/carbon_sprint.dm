@@ -2,12 +2,6 @@
 	var/saved_sprint_buffer = 0
 	var/saved_sprint_buffer_max = 0
 
-/mob/living/carbon/proc/update_hud_sprint_bar()
-	// Don't update HUD if mounted - mount updates it
-	if(buckled && istype(buckled, /mob/living/simple_animal/cow))
-		return
-	
-
 /mob/living/carbon/doSprintLossTiles(tiles)
 	// Check if we're mounted
 	var/atom/movable/buckled_to_obj = buckled

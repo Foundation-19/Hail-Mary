@@ -507,12 +507,9 @@
 	if(!is_sprinting)
 		start_mount_sprint(rider)
 	
-	// ONLY drain hunger if actually sprinting
+	// ONLY drain hunger if actually sprinting AND moving
 	if(tiles > 0)
 		add_hunger(tiles * sprint_hunger_cost)
-	else
-		// Slow drain even when standing still while sprinting
-		add_hunger(0.02)
 	
 	// Always update display
 	update_rider_sprint_display(rider)
