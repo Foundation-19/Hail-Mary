@@ -164,6 +164,9 @@
 	var/hunger = 1
 	COOLDOWN_DECLARE(hunger_cooldown)
 
+	var/last_fear_check = 0
+	var/fear_check_cooldown = 30 // 3 seconds in deciseconds
+
 	footstep_type = FOOTSTEP_MOB_SHOE
 ///////////////////////
 //Dave's Brahmin Bags//
@@ -215,6 +218,46 @@
 		new /obj/item/brahminbridle(get_turf(src))
 	if(saddle)
 		new /obj/item/brahminsaddle(get_turf(src))
+
+// Add this proc to calculate fear chance based on HP
+/mob/living/simple_animal/cow/proc/get_fear_chance()
+	if(!saddle && !bridle)
+		return 0
+	
+	var/health_percent = (health / maxHealth) * 100
+	
+	// No fear above 75% HP
+	if(health_percent >= 75)
+		return 0
+	
+	// Between 75% and 25% HP, scale from 25% to 75% fear chance
+	// At 75% HP: 25% fear
+	// At 25% HP: 75% fear
+	// Below 25% HP: 75% fear (capped)
+	
+	if(health_percent <= 25)
+		return 75
+	
+	// Linear interpolation between 75% HP (25% fear) and 25% HP (75% fear)
+	// Formula: fear = 25 + ((75 - health_percent) / 50) * 50
+	var/fear_chance = 25 + ((75 - health_percent) / 50) * 50
+	return fear_chance
+
+// Override the Move proc to add fear resistance
+/mob/living/simple_animal/cow/Move(NewLoc, direct)
+	// Check for fear if mounted and on cooldown
+	if(current_rider && (saddle || bridle) && world.time >= last_fear_check + fear_check_cooldown)
+		last_fear_check = world.time
+		var/fear_chance = get_fear_chance()
+		
+		if(fear_chance > 0 && prob(fear_chance))
+			// Mount resists movement
+			visible_message(span_warning("[src] balks and refuses to move!"))
+			to_chat(current_rider, span_userdanger("[src] is too frightened to obey!"))
+			// Make a whiny sound path at some point
+			return FALSE
+	
+	return ..()
 
 /mob/living/simple_animal/cow/examine(mob/user)
 	. = ..()
@@ -418,7 +461,12 @@
 		if(!stax.tool_use_check(user, 2))
 			return
 
+	// If mount has saddle/bridle, require channeling to feed
 	if(saddle || bridle)
+		to_chat(user, span_notice("You begin feeding [I] to [src]..."))
+		if(!do_after(user, 3 SECONDS, target = src))
+			to_chat(user, span_warning("You stop feeding [src]."))
+			return
 		visible_message(span_alertalien("[src] consumes the [I]."))
 		refuel_horse()
 	else if(is_calf)
