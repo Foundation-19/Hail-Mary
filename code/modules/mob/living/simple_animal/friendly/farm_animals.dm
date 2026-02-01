@@ -178,10 +178,21 @@
 	var/collar = FALSE
 	var/saddle = FALSE
 	var/brand = ""
+	var/mob/living/carbon/human/current_rider
 
+	// MOUNT SPRINT VARS
+	var/is_sprinting = FALSE
+	var/base_move_delay = 0
+	var/sprint_move_delay = 0
+	var/last_sprint_time = 0
+	var/sprint_hunger_cost = 0.1
+	var/hunger_float = 1.0 // Precise hunger tracking
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new(null, milk_reagent)
+	base_move_delay = ride_move_delay
+	sprint_move_delay = ride_move_delay * 0.6 // 40% faster when sprinting
+	hunger_float = hunger
 	. = ..()
 
 /mob/living/simple_animal/cow/Destroy()
@@ -240,18 +251,6 @@
 	if(stat == CONSCIOUS && is_type_in_list(O, food_types))
 		feed_em(O, user)
 		return
-	/* if (istype(O,/obj/item/brahminbags))
-		if(bags)
-			to_chat(user, span_warning("The mount already has bags attached!"))
-			return
-		if(is_calf)
-			to_chat(user, span_warning("The young animal cannot carry the bags!"))
-			return
-		to_chat(user, span_notice("You add [O] to [src]..."))
-		bags = TRUE
-		qdel(O)
-		ComponentInitialize()
-		return */
 
 	if(istype(O,/obj/item/brahmincollar))
 		if(user != owner)
@@ -265,7 +264,7 @@
 
 		collar = TRUE
 		to_chat(user, span_notice("You add [O] to [src]..."))
-		message_admins(span_notice("[ADMIN_LOOKUPFLW(user)] renamed a mount to [name].")) //So people don't name their brahmin the N-Word without notice
+		message_admins(span_notice("[ADMIN_LOOKUPFLW(user)] renamed a mount to [name]."))
 		qdel(O)
 		return
 
@@ -317,6 +316,11 @@
 		return
 	if(stat == CONSCIOUS)
 		handle_following()
+		
+		// Check sprint key state for mounted riders - NO AUTOMATIC REGEN
+		if(current_rider && saddle)
+			check_rider_sprint_input()
+		
 		if((prob(3) && has_calf))
 			has_calf++
 		if(has_calf > 10)
@@ -335,24 +339,47 @@
 				visible_message(span_alertalien("[src] has fully grown."))
 		else
 			udder.generateMilk(milk_reagent)
-			if(COOLDOWN_FINISHED(src, hunger_cooldown))
-				if(prob(5))
-					become_hungry()
-				COOLDOWN_START(src, hunger_cooldown, 5 MINUTES)
-			else
-				update_speed()
+			// ONLY let hunger naturally increase if mount does NOT have saddle/bridle
+			if(!(saddle || bridle))
+				if(COOLDOWN_FINISHED(src, hunger_cooldown))
+					if(prob(5))
+						become_hungry()
+					COOLDOWN_START(src, hunger_cooldown, 5 MINUTES)
+
+/mob/living/simple_animal/cow/proc/add_hunger(amount)
+	var/old_hunger = hunger
+	hunger_float += amount
+	hunger_float = clamp(hunger_float, 1.0, 4.0)
+	hunger = round(hunger_float)
+	
+	if(hunger != old_hunger)
+		update_speed()
+		if(current_rider)
+			update_rider_sprint_display(current_rider)
 
 /mob/living/simple_animal/cow/proc/become_hungry()
+	// Don't become hungry if we have saddle/bridle (mount mode)
+	if(saddle || bridle)
+		return
+	
 	hunger++
+	hunger_float = hunger
 	update_speed()
+	// Update rider's display if mounted
+	if(current_rider)
+		update_rider_sprint_display(current_rider)
 
 /mob/living/simple_animal/cow/proc/refuel_horse()
 	hunger = 1
+	hunger_float = 1.0
 	update_speed()
+	// Update rider's sprint display if mounted
+	if(current_rider)
+		update_rider_sprint_display(current_rider)
 
 /mob/living/simple_animal/cow/proc/update_speed()
-	ride_move_delay = initial(ride_move_delay) + round(log(1.6,hunger), 0.2) // vOv
-	if(saddle)
+	ride_move_delay = initial(ride_move_delay) + round(log(1.6,hunger), 0.2)
+	if(saddle && !is_sprinting)
 		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
 		D.vehicle_move_delay = ride_move_delay
 
@@ -381,12 +408,6 @@
 					span_revennotice("[internal]"))
 	else
 		..()
-
-/* /mob/living/simple_animal/cow/ComponentInitialize()
-	if(!bags)
-		return
-	AddComponent(/datum/component/storage/concrete/brahminbag)
-	return */
 
 /mob/living/simple_animal/cow/proc/feed_em(obj/item/I, mob/user)
 	if(!I || !user)
@@ -456,6 +477,93 @@
 				return
 
 ///////////////////////////
+// MOUNT SPRINT SYSTEM  //
+///////////////////////////
+
+// Handle mount sprint stamina loss
+/mob/living/simple_animal/cow/proc/doMountSprintLoss(tiles, mob/living/carbon/rider)
+	if(!rider || !rider.client)
+		stop_mount_sprint(rider)
+		return
+	
+	// Check if rider is trying to sprint RIGHT NOW
+	var/datum/keybinding/living/toggle_sprint/sprint_bind = GLOB.keybindings_by_name["toggle_sprint"]
+	var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
+	var/trying_to_sprint = (rider.client in sprint_bind.is_down) || (rider.client in sprint_hold_bind.is_down)
+	
+	// If not trying to sprint, stop immediately and don't drain
+	if(!trying_to_sprint)
+		stop_mount_sprint(rider)
+		return
+	
+	// Can't sprint if too hungry
+	if(hunger >= 4)
+		stop_mount_sprint(rider)
+		if(prob(10))
+			to_chat(rider, span_warning("[src] is too exhausted to sprint!"))
+		return
+	
+	// Start sprinting if not already
+	if(!is_sprinting)
+		start_mount_sprint(rider)
+	
+	// ONLY drain hunger if actually sprinting
+	if(tiles > 0)
+		add_hunger(tiles * sprint_hunger_cost)
+	else
+		// Slow drain even when standing still while sprinting
+		add_hunger(0.02)
+	
+	// Always update display
+	update_rider_sprint_display(rider)
+
+/mob/living/simple_animal/cow/proc/check_rider_sprint_input()
+	if(!current_rider || !current_rider.client)
+		stop_mount_sprint(current_rider)
+		return
+	
+	var/datum/keybinding/living/toggle_sprint/sprint_bind = GLOB.keybindings_by_name["toggle_sprint"]
+	var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
+	var/trying_to_sprint = (current_rider.client in sprint_bind.is_down) || (current_rider.client in sprint_hold_bind.is_down)
+	
+	// If player stopped trying to sprint, stop the mount sprint
+	if(!trying_to_sprint)
+		stop_mount_sprint(current_rider)
+
+// Start the mount sprinting
+/mob/living/simple_animal/cow/proc/start_mount_sprint(mob/living/carbon/rider)
+	is_sprinting = TRUE
+	
+	// Make mount faster
+	if(saddle)
+		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+		D.vehicle_move_delay = sprint_move_delay
+	
+	last_sprint_time = world.time
+
+// Stop the mount sprinting
+/mob/living/simple_animal/cow/proc/stop_mount_sprint(mob/living/carbon/rider)
+	if(!is_sprinting)
+		return
+	
+	is_sprinting = FALSE
+	
+	// Return to normal speed
+	update_speed()
+
+// Update the rider's sprint bar to show mount hunger
+/mob/living/simple_animal/cow/proc/update_rider_sprint_display(mob/living/carbon/rider)
+	if(!rider)
+		return
+	
+	// Convert mount hunger to sprint bar percentage
+	// hunger 1.0 = 100% sprint, hunger 4.0 = 0% sprint
+	var/mount_sprint_percent = 1 - ((hunger_float - 1.0) / 3.0)
+	mount_sprint_percent = clamp(mount_sprint_percent, 0, 1)
+	rider.sprint_buffer = rider.sprint_buffer_max * mount_sprint_percent
+	rider.update_hud_sprint_bar()
+
+///////////////////////////
 //End Dave's Brahmin Bags//
 ///////////////////////////
 
@@ -466,21 +574,21 @@
 	desc = "Something seems off about the milk this cow is producing."
 
 /mob/living/simple_animal/cow/random/Initialize()
-	milk_reagent = get_random_reagent_id() //this has a blacklist so don't worry about romerol cows, etc
+	milk_reagent = get_random_reagent_id()
 	..()
 
 //Wisdom cow, speaks and bestows great wisdoms
 /mob/living/simple_animal/cow/wisdom
 	name = "wisdom cow"
 	desc = "Known for its wisdom, shares it with all"
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/wisdomcow = 1) //truly the best meat
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/wisdomcow = 1)
 	gold_core_spawnable = FALSE
-	speak_chance = 10 //the cow is eager to share its wisdom! //but is wise enough to not lag  the server too bad
+	speak_chance = 10
 	milk_reagent = /datum/reagent/medicine/liquid_wisdom
 
 /mob/living/simple_animal/cow/wisdom/Initialize()
 	. = ..()
-	speak = GLOB.wisdoms //Done here so it's setup properly
+	speak = GLOB.wisdoms
 
 
 /////////////
@@ -602,7 +710,7 @@
 	return ..()
 
 /mob/living/simple_animal/chicken/attackby(obj/item/O, mob/user, params)
-	if(istype(O, food_type)) //feedin' dem chickens
+	if(istype(O, food_type))
 		if(!stat && eggsleft < 8)
 			var/feedmsg = "[user] feeds [O] to [name]! [pick(feedMessages)]"
 			user.visible_message(feedmsg)
@@ -703,7 +811,6 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	young_type = /mob/living/simple_animal/cow/brahmin/calf
 	var/obj/item/inventory_back
-	var/mob/living/carbon/human/current_rider
 	footstep_type = FOOTSTEP_MOB_HOOF
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
@@ -719,7 +826,6 @@
 	butcher_difficulty = 1
 
 /mob/living/simple_animal/cow/brahmin/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	// Check if rider is wearing power armor or salvaged PA
 	if(ishuman(M) && istype(M.wear_suit))
 		var/obj/item/clothing/suit/armor = M.wear_suit
 		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
@@ -745,25 +851,21 @@
 		M.pixel_y = 6
 		if(ishuman(M))
 			current_rider = M
-			update_speed_with_agility()
+			M.save_sprint_on_mount(src)
+			update_rider_sprint_display(M)
 
 /mob/living/simple_animal/cow/brahmin/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
 	if(buckled_mob)
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0
+		
+		if(ishuman(buckled_mob))
+			var/mob/living/carbon/human/rider = buckled_mob
+			rider.restore_sprint_on_dismount()
+			stop_mount_sprint(rider)
+	
 	current_rider = null
 	return ..()
-
-/mob/living/simple_animal/cow/brahmin/proc/update_speed_with_agility()
-	if(!current_rider || !saddle)
-		return
-	
-	ride_move_delay = initial(ride_move_delay) + round(log(1.6, hunger), 0.2)
-	
-	var/datum/component/riding/D = GetComponent(/datum/component/riding)
-	if(D)
-		D.vehicle_move_delay = ride_move_delay
-
 
 /mob/living/simple_animal/cow/brahmin/molerat
 	name = "tamed molerat"
@@ -812,21 +914,21 @@
 
 //Horse
 
-/mob/living/simple_animal/cow/brahmin/horse //faster than a brahmin, but much less tanky
+/mob/living/simple_animal/cow/brahmin/horse
 	name = "horse"
 	desc = "Horses are commonly used for logistics and transportation over long distances. Surprisingly this horse isn't fully mutated like the rest of the animals."
 	icon = 'fallout/icons/mob/horse.dmi'
 	icon_state = "horse"
 	icon_living = "horse"
 	icon_dead = "horse_dead"
-	pixel_x = 0  // Adjust to shift horse left (-) or right (+)
-	pixel_y = -6  // Adjust to shift horse down (-) or up (+) to align under rider
+	pixel_x = 0
+	pixel_y = -6
 	speak = list("*shiver", "*alert")
 	speak_emote = list("nays","nays hauntingly")
 	emote_hear = list("brays.")
 	emote_see = list("shakes its head.")
 	speak_chance = 1
-	turns_per_move = -1 //no random movement
+	turns_per_move = -1
 	see_in_dark = 6
 	health = 100
 	maxHealth = 100
@@ -857,10 +959,9 @@
 		)
 	butcher_difficulty = 1
 
-
 //Ridable Nightstalker
 
-/mob/living/simple_animal/cow/brahmin/nightstalker //faster than a brahmin, but slower than a horse, mid ground tanky
+/mob/living/simple_animal/cow/brahmin/nightstalker
 	name = "tamed nightstalker"
 	desc = "A crazed genetic hybrid of rattlesnake and coyote DNA. This one seems a bit less crazed, at least."
 	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
@@ -872,7 +973,7 @@
 	emote_hear = list("perks its head up.")
 	emote_see = list("stares.")
 	speak_chance = 1
-	turns_per_move = -1 //no random movement
+	turns_per_move = -1
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
@@ -917,7 +1018,6 @@
 /mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider
 	name = "tamed spider"
 	desc = "SOMEONE TAMED A FUCKING GIANT SPIDER?"
-	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
 	icon = 'fallout/icons/mob/mounts.dmi'
 	icon_state = "hunter"
 	icon_living = "hunter"
@@ -927,7 +1027,7 @@
 	emote_hear = list("rubs it mandibles together.")
 	emote_see = list("stares, with all 8 eyes.")
 	speak_chance = 1
-	turns_per_move = -1 //no random movement
+	turns_per_move = -1
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
@@ -969,14 +1069,6 @@
 	butcher_difficulty = 1
 
 
-	/*
-/obj/item/brahminbags
-	name = "saddle bags"
-	desc = "Attach these bags to a mount and leave the heavy lifting to them!"
-	icon = 'icons/fallout/objects/storage.dmi'
-	icon_state = "trekkerpack"
-*/
-
 /obj/item/brahmincollar
 	name = "mount collar"
 	desc = "A collar with a piece of etched metal serving as a tag. Use this on a mount you own to rename them."
@@ -1006,25 +1098,12 @@
 
 /obj/item/storage/backpack/duffelbag/debug_brahmin_kit/PopulateContents()
 	. = ..()
-	//new /obj/item/brahminbags(src)
 	new /obj/item/brahmincollar(src)
 	new /obj/item/brahminbridle(src)
 	new /obj/item/brahminsaddle(src)
 	new /obj/item/brahminbrand(src)
 	new /obj/item/choice_beacon/pet(src)
 	new /obj/item/gun/ballistic/rifle/mag/antimateriel(src)
-
-/*
-/datum/crafting_recipe/brahminbags
-	name = "Saddle bags"
-	result = /obj/item/brahminbags
-	time = 60
-	reqs = list(/obj/item/storage/backpack/duffelbag = 2,
-				/obj/item/stack/sheet/cloth = 5)
-	tools = list(TOOL_WORKBENCH)
-	subcategory = CAT_MISCELLANEOUS
-	category = CAT_MISC
-*/
 
 /datum/crafting_recipe/brahmincollar
 	name = "Mount collar"
@@ -1068,15 +1147,6 @@
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
 
-/*
-/datum/component/storage/concrete/brahminbag
-	max_w_class = WEIGHT_CLASS_HUGE //Allows the storage of shotguns and other two handed items.
-	max_combined_w_class = 35
-	max_items = 20
-	drop_all_on_destroy = TRUE
-	allow_big_nesting = TRUE
-*/
-
 
 /mob/living/simple_animal/cow/brahmin/calf
 	name = "brahmin calf"
@@ -1093,18 +1163,12 @@
 	emote_see = list("shakes its head.","swishes its tail eagerly.")
 	speak_chance = 2
 
-
-
-/mob/living/simple_animal/cow/brahmin/proc/update_brahmin_fluff() //none of this should do anything for now, but it may be used for updating sprites later
-	// First, change back to defaults
+/mob/living/simple_animal/cow/brahmin/proc/update_brahmin_fluff()
 	name = real_name
 	desc = initial(desc)
-	// BYOND/DM doesn't support the use of initial on lists.
 	speak = list("Moo?","Moo!","Mooo!","Moooo!","Moooo.")
 	emote_hear = list("brays.")
 	desc = initial(desc)
-
-
 
 
 /////////////
@@ -1137,7 +1201,6 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	faction = list("neutral")
 
-//Special Radstag
 /mob/living/simple_animal/radstag/rudostag
 	name = "Rudo the Rednosed Stag"
 	desc = "An almost normal looking radstag. Apart from both of it's noses was a bright, glowing red."
@@ -1186,7 +1249,7 @@
 	var/young_type = /mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf
 
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/attackby(obj/item/O, mob/user, params)
-	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass)) // Should probably be bound into a proc at this point.
+	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		return 1
 	if(stat == CONSCIOUS && istype(O, food_type))
@@ -1225,16 +1288,14 @@
 		else
 			udder?.generateMilk(milk_reagent)
 
-// BIGHORNER CALF
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf
 	name = "bighoner calf"
 	resize = 0.7
 
-/mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf/Initialize() //calfs should not be a separate critter, they should just be a normal whatever with these vars
+/mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf/Initialize()
 	. = ..()
 	resize = 0.7
 	update_transform()
-
 
 /* Seems obsolete with Daves Brahmin packs, marked for death?
 	if(inventory_back && inventory_back.brahmin_fashion)
