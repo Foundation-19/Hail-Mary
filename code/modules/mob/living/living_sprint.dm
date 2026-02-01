@@ -7,10 +7,6 @@
 	S?.update_icon()
 
 /mob/living/proc/update_hud_sprint_bar()
-	// Don't update HUD if mounted - mount updates it
-	if(buckled && istype(buckled, /mob/living/simple_animal/cow))
-		return
-	
 	hud_used?.sprint_buffer?.update_to_mob(src)
 
 /mob/living/proc/update_sprint_lock()

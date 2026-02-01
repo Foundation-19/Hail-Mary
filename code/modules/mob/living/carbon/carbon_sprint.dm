@@ -53,7 +53,7 @@
 	update_hud_sprint_bar()
 
 /mob/living/carbon/proc/doSprintBufferRegen(updating = TRUE)
-	// Don't regenerate sprint buffer if mounted - mount controls the display
+	// Don't regenerate if mounted - mount controls everything
 	if(buckled && istype(buckled, /mob/living/simple_animal/cow))
 		return
 	
@@ -66,7 +66,7 @@
 	// Apply regen boost if idle for 3+ seconds (30 deciseconds)
 	var/regen_rate = sprint_buffer_regen_ds
 	if(sprint_idle_time >= 30)
-		regen_rate *= 1.25 // 25% boost to regen when not sprinting for 3+ seconds
+		regen_rate *= 1.25
 	
 	sprint_buffer = min(sprint_buffer_max, sprint_buffer + regen_rate * diff)
 	if(updating)

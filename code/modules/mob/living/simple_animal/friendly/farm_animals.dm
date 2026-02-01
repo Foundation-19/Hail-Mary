@@ -523,8 +523,8 @@
 	var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
 	var/trying_to_sprint = (current_rider.client in sprint_bind.is_down) || (current_rider.client in sprint_hold_bind.is_down)
 	
-	// If player stopped trying to sprint, stop the mount sprint
-	if(!trying_to_sprint)
+	// Always stop if not trying to sprint
+	if(!trying_to_sprint && is_sprinting)
 		stop_mount_sprint(current_rider)
 
 // Start the mount sprinting
@@ -545,8 +545,14 @@
 	
 	is_sprinting = FALSE
 	
-	// Return to normal speed
+	// IMMEDIATELY return to normal speed
 	update_speed()
+	
+	// Force the riding component to update NOW
+	if(saddle && current_rider)
+		var/datum/component/riding/D = GetComponent(/datum/component/riding)
+		if(D)
+			D.vehicle_move_delay = ride_move_delay
 
 // Update the rider's sprint bar to show mount hunger
 /mob/living/simple_animal/cow/proc/update_rider_sprint_display(mob/living/carbon/rider)
