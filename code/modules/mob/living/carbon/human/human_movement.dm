@@ -38,18 +38,18 @@
 				. += 0.3
 
 	var/current_time = world.time
-	var/fatigue_cap = 0.4
+	var/fatigue_cap = 0.2
 
 	if(special_a >= 7)
-		fatigue_cap = 0.6
+		fatigue_cap = 0.4
 
 	if(current_time - last_move_time < 10)
-		movement_fatigue = min(movement_fatigue + 0.02, fatigue_cap)
-		COOLDOWN_START(src, movement_fatigue_recovery, 3 SECONDS)
-	else if(COOLDOWN_FINISHED(src, movement_fatigue_recovery))
-		movement_fatigue = max(movement_fatigue - 0.02, 0)
+		movement_fatigue = min(movement_fatigue + 0.005, fatigue_cap)
+		last_move_time = current_time
+	else
+		movement_fatigue = max(movement_fatigue - 0.1, 0)
+		last_move_time = current_time
 
-	last_move_time = current_time
 	. += movement_fatigue
 
 	if(special_a >= 7)

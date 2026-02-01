@@ -262,7 +262,7 @@
 		loyalty = clamp(loyalty, 0, loyalty_max)
 		to_chat(healer, span_notice("[src] seems grateful for your care! (+[loyalty_gain] loyalty)"))
 
-// Add this proc to calculate fear chance based on HP
+// Fear chance is always 25% below 75% HP - loyalty doesn't reduce it
 /mob/living/simple_animal/cow/proc/get_fear_chance()
 	if(!saddle && !bridle)
 		return 0
@@ -273,16 +273,18 @@
 	if(health_percent >= 75)
 		return 0
 	
-	// Base 25% fear chance below 75% HP
-	var/base_fear = 25
-	
-	// Loyalty reduces fear chance
-	// Every 10 loyalty = -5% fear chance
+	// Base 25% fear chance below 75% HP (loyalty doesn't affect this)
+	return 25
+
+// New proc: Calculate loyalty resistance chance
+/mob/living/simple_animal/cow/proc/get_loyalty_resistance()
 	var/total_loyalty = get_total_loyalty()
-	var/loyalty_reduction = (total_loyalty / 10) * 5
 	
-	var/final_fear = base_fear - loyalty_reduction
-	return max(final_fear, 0) // Can't go below 0
+	// Every 10 loyalty = 5% chance to resist fear
+	// Max loyalty (155) = 77.5% resistance chance
+	var/resistance_chance = (total_loyalty / 10) * 5
+	
+	return resistance_chance
 
 /mob/living/simple_animal/cow/proc/get_bucking_chance()
 	if(!saddle && !bridle)
@@ -312,10 +314,32 @@
 		var/fear_chance = get_fear_chance()
 		
 		if(fear_chance > 0 && prob(fear_chance))
-			// Fear triggered! Now check if it's a full buck or just a stutter
-			var/bucking_chance = get_bucking_chance()
+			// Fear triggered! Now check if loyalty resists it
+			var/resistance_chance = get_loyalty_resistance()
 			
-			// Roll for bucking (5% per chunk)
+			if(resistance_chance > 0 && prob(resistance_chance))
+				// LOYALTY OVERCOMES FEAR!
+				var/list/resolve_messages = list(
+					"[src] trembles with fear, but their loyalty to [current_rider] holds strong!",
+					"[src] fights through their terror with unwavering devotion!",
+					"[src] steadies themself, trusting in their bond with [current_rider]!",
+					"[src] resists their fear through sheer loyalty!",
+					"[src] pushes past their panic, determined not to fail [current_rider]!"
+				)
+				visible_message(span_notice(pick(resolve_messages)))
+				to_chat(current_rider, span_green("[src]'s loyalty overcomes their fear!"))
+				return ..() // Continue moving normally
+			
+			// Fear wins - loyalty wasn't enough
+			var/bucking_chance = get_bucking_chance()
+			var/total_loyalty = get_total_loyalty()
+			
+			// Show loyalty resistance message based on loyalty level
+			if(total_loyalty > 50)
+				visible_message(span_notice("[src] struggles valiantly against their fear, but it's too much!"))
+			else if(total_loyalty > 20)
+				visible_message(span_notice("[src] tries to resist their fear, but fails..."))
+			
 			if(prob(bucking_chance))
 				// FULL BUCKING - throw rider off
 				visible_message(span_warning("[src] bucks wildly and rears back!"))
