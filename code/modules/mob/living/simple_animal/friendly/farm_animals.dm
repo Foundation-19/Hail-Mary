@@ -230,18 +230,28 @@
 	if(health_percent >= 75)
 		return 0
 	
-	// Between 75% and 25% HP, scale from 25% to 75% fear chance
-	// At 75% HP: 25% fear
-	// At 25% HP: 75% fear
-	// Below 25% HP: 75% fear (capped)
+	// Below 75% HP, return 25 for stutter check
+	return 25
+
+/mob/living/simple_animal/cow/proc/get_bucking_chance()
+	if(!saddle && !bridle)
+		return 0
 	
-	if(health_percent <= 25)
-		return 75
+	var/health_percent = (health / maxHealth) * 100
 	
-	// Linear interpolation between 75% HP (25% fear) and 25% HP (75% fear)
-	// Formula: fear = 25 + ((75 - health_percent) / 50) * 50
-	var/fear_chance = 25 + ((75 - health_percent) / 50) * 50
-	return fear_chance
+	// No bucking above 75% HP
+	if(health_percent >= 75)
+		return 0
+	
+	// Calculate 25% health chunks lost
+	// 75% HP = 0 chunks, 50% HP = 1 chunk, 25% HP = 2 chunks, 0% HP = 3 chunks
+	var/health_chunks_lost = round((75 - health_percent) / 25)
+	health_chunks_lost = clamp(health_chunks_lost, 0, 3)
+	
+	// 5% chance per chunk
+	var/bucking_chance = health_chunks_lost * 5
+	
+	return bucking_chance
 
 // Override the Move proc to add fear resistance
 /mob/living/simple_animal/cow/Move(NewLoc, direct)
@@ -251,10 +261,38 @@
 		var/fear_chance = get_fear_chance()
 		
 		if(fear_chance > 0 && prob(fear_chance))
-			// Mount resists movement
-			visible_message(span_warning("[src] balks and refuses to move!"))
-			to_chat(current_rider, span_userdanger("[src] is too frightened to obey!"))
-			// Make a whiny sound path at some point
+			// Fear triggered! Now check if it's a full buck or just a stutter
+			var/bucking_chance = get_bucking_chance()
+			
+			// Roll for bucking (5% per chunk)
+			if(prob(bucking_chance))
+				// FULL BUCKING - throw rider off
+				visible_message(span_warning("[src] bucks wildly and rears back!"))
+				to_chat(current_rider, span_userdanger("[src] throws you off!"))
+				
+				Stun(20)
+				
+				if(current_rider)
+					var/mob/living/rider = current_rider
+					
+					// Screen shake effect
+					if(rider.client)
+						shake_camera(rider, 3, 3)
+					
+					var/throw_dir = turn(dir, pick(-45, 45))
+					var/turf/throw_target = get_step(src, throw_dir)
+					
+					unbuckle_mob(rider)
+					rider.Paralyze(20)
+					
+					if(throw_target)
+						rider.throw_at(throw_target, 2, 1)
+			else
+				// MINOR STUTTER - just resist movement
+				visible_message(span_warning("[src] balks and resists!"))
+				to_chat(current_rider, span_warning("[src] is frightened!"))
+				Stun(20)
+			
 			return FALSE
 	
 	return ..()
@@ -396,7 +434,9 @@
 	hunger = round(hunger_float)
 	
 	if(hunger != old_hunger)
-		update_speed()
+		// Only update speed if NOT currently sprinting
+		if(!is_sprinting)
+			update_speed()
 		if(current_rider)
 			update_rider_sprint_display(current_rider)
 
@@ -421,10 +461,19 @@
 		update_rider_sprint_display(current_rider)
 
 /mob/living/simple_animal/cow/proc/update_speed()
-	ride_move_delay = initial(ride_move_delay) + round(log(1.6,hunger), 0.2)
+	// Only apply speed penalty when hunger is 3.5 or higher (almost out of stamina)
+	if(hunger_float >= 3.5)
+		// Apply penalty based on how close to 4.0 we are
+		var/penalty_amount = (hunger_float - 3.5) / 0.5 // 0 to 1 scale
+		ride_move_delay = initial(ride_move_delay) + (penalty_amount * 2) // Up to +2 delay at max
+	else
+		// No penalty, use base speed
+		ride_move_delay = initial(ride_move_delay)
+	
 	if(saddle && !is_sprinting)
 		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-		D.vehicle_move_delay = ride_move_delay
+		if(D)
+			D.vehicle_move_delay = ride_move_delay
 
 /mob/living/simple_animal/cow/on_attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
@@ -464,7 +513,7 @@
 	// If mount has saddle/bridle, require channeling to feed
 	if(saddle || bridle)
 		to_chat(user, span_notice("You begin feeding [I] to [src]..."))
-		if(!do_after(user, 3 SECONDS, target = src))
+		if(!do_after(user, 2 SECONDS, target = src))
 			to_chat(user, span_warning("You stop feeding [src]."))
 			return
 		visible_message(span_alertalien("[src] consumes the [I]."))
@@ -593,14 +642,8 @@
 	
 	is_sprinting = FALSE
 	
-	// IMMEDIATELY return to normal speed
+	// Recalculate normal speed based on current hunger
 	update_speed()
-	
-	// Force the riding component to update NOW
-	if(saddle && current_rider)
-		var/datum/component/riding/D = GetComponent(/datum/component/riding)
-		if(D)
-			D.vehicle_move_delay = ride_move_delay
 
 // Update the rider's sprint bar to show mount hunger
 /mob/living/simple_animal/cow/proc/update_rider_sprint_display(mob/living/carbon/rider)
@@ -983,7 +1026,7 @@
 	see_in_dark = 6
 	health = 100
 	maxHealth = 100
-	ride_move_delay = 2.5
+	ride_move_delay = 2
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -1028,7 +1071,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 2.5
+	ride_move_delay = 2
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -1082,7 +1125,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 3
+	ride_move_delay = 2
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
