@@ -176,11 +176,11 @@
 	init_mag_type = /obj/item/ammo_box/magazine/smg14
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
-		/datum/firemode/burst/three/slow,
-		/datum/firemode/semi_auto/faster
+		/datum/firemode/burst/two/slow,
+		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
 
@@ -204,11 +204,11 @@
 	init_mag_type = /obj/item/ammo_box/magazine/greasegun
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/burst/three/fast,
-		/datum/firemode/semi_auto/faster
+		/datum/firemode/burst/three/faster,
+		/datum/firemode/semi_auto/fast
 	)
 	suppressor_state = "uzi_suppressor"
 	suppressor_x_offset = 26
@@ -228,7 +228,7 @@
 /obj/item/gun/ballistic/automatic/smg/greasegun/worn
 	name = "beat up .45ACP submachine gun"
 	desc = "What was once an inexpensive, but reliable submachine gun is now an inexpensive piece of shit. It's impressive this thing still fires at all."
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/burst/three/fast,
@@ -256,7 +256,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/ext
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -312,7 +312,7 @@
 	disallowed_mags = list(/obj/item/ammo_box/magazine/uzim9mm/rockwell) //so I don't have to assign a ton of new sprite names
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_firemodes = list(
 		/datum/firemode/burst/three/fast,
 		/datum/firemode/semi_auto/faster
@@ -361,7 +361,7 @@
 	icon = 'fallout/icons/objects/automatic.dmi'
 	icon_state = "mp40"
 	item_state = "smg9mm"
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
@@ -379,7 +379,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_NORMAL //high class, one of the few smol smgs
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T2
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_recoil = SMG_RECOIL(0.9)
 	init_firemodes = list(
@@ -409,7 +409,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
 	weapon_class = WEAPON_CLASS_CARBINE	
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_firemodes = list(
 		/datum/firemode/burst/three/slow,
 		/datum/firemode/semi_auto/slow
@@ -425,7 +425,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm/rockwell
 	disallowed_mags = null
 	weapon_class = WEAPON_CLASS_CARBINE	
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
 		/datum/firemode/semi_auto/fast
@@ -440,7 +440,7 @@
 	icon = 	'fallout/icons/objects/automatic.dmi'
 	icon_state = "mac10"
 	weapon_class = WEAPON_CLASS_NORMAL //kinda bulky for a compact gun
-	damage_multiplier = GUN_LESS_DAMAGE_T3 //this spits lots of bullets and is compact and can be dual wielded
+	damage_multiplier = GUN_LESS_DAMAGE_T1 //this spits lots of bullets and is compact and can be dual wielded
 	init_recoil = SMG_RECOIL(1.4)
 	init_firemodes = list(
 		/datum/firemode/burst/five/fastest,
@@ -467,7 +467,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/cg45
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -492,7 +492,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T5
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -517,7 +517,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T5
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -547,7 +547,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm_p90
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,
@@ -575,7 +575,7 @@
 /obj/item/gun/ballistic/automatic/smg/p90/worn
 	name = "Worn FN P90c"
 	desc = "A FN P90 manufactured by Fabrique Nationale. This one is beat to hell but still works, albeit age has caused it's most ideal features to weaken, the recoil harder to control among other things."
-	damage_multiplier = GUN_LESS_DAMAGE_T4
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1.1)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,
@@ -604,7 +604,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // Accurate semiauto fire
 	init_firemodes = list(
 		/datum/firemode/burst/three/faster,
@@ -632,7 +632,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/pps9mm
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T3
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1.1)
 	init_firemodes = list(
 		/datum/firemode/burst/five/fastest,
@@ -1114,7 +1114,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m22
 	init_mag_type = /obj/item/ammo_box/magazine/m22/extended
 	weapon_class = WEAPON_CLASS_CARBINE
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1 // its a weakass cartridge
+	damage_multiplier = GUN_LESS_DAMAGE_T1 // its a weakass cartridge
 	init_recoil = CARBINE_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/semi_auto,
@@ -1360,7 +1360,7 @@
 	item_state = "alr15"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	can_bayonet = TRUE
 	bayonet_state = "bayonet"
 	knife_x_offset = 22
@@ -1703,7 +1703,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = RIFLE_RECOIL(1)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	init_firemodes = list(/datum/firemode/semi_auto/slower)
@@ -2091,7 +2091,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
@@ -2566,7 +2566,7 @@
 	name = "4.73mm carbine"
 	desc = "A WT-550 Personal Defense Weapon, manufactured by West Tek. It fires 4.73mm caseless rounds."
 	item_state = "m90"
-	icon_state = "WT550"
+	icon_state = "WT050"
 	mag_type = /obj/item/ammo_box/magazine/m473/small
 	init_mag_type = /obj/item/ammo_box/magazine/m473/small
 	weapon_class = WEAPON_CLASS_NORMAL
@@ -2847,7 +2847,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T1
+	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = RIFLE_RECOIL(0.6)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,

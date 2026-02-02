@@ -94,7 +94,7 @@
  * * * * * * * */
 
 /* 9mm surplus
- * DAMAGE: 20
+ * DAMAGE: 15
  * STAMIN: 10
  * RECOIL: 0.5
  * WOUNDS: 5
@@ -113,10 +113,10 @@
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_9MM
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
-	armour_penetration = 0.1
+	armour_penetration = 0.05
 
 /* 9mm handload
- * DAMAGE: 15
+ * DAMAGE: 13
  * STAMIN: 7.5
  * RECOIL: 0.5
  * WOUNDS: 3.75
@@ -455,7 +455,7 @@
 /obj/item/projectile/bullet/c10mm
 	name = "10mm FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_10MM
-	armour_penetration = 0.2
+	armour_penetration = 0.15
 	stamina = BULLET_STAMINA_PISTOL_10MM
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_10MM
@@ -588,7 +588,7 @@
 /obj/item/projectile/bullet/c45
 	name = ".45 FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_45ACP
-	armour_penetration = 0.2
+	armour_penetration = 0.08
 	stamina = BULLET_STAMINA_PISTOL_45ACP
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_45ACP
@@ -719,7 +719,7 @@
 /obj/item/projectile/bullet/a357
 	name = ".357 FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_38
-	armour_penetration = 0.1
+	armour_penetration = 0.12
 	stamina = BULLET_STAMINA_PISTOL_38
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_38
@@ -867,7 +867,7 @@
 /obj/item/projectile/bullet/m44
 	name = ".44 FMJ bullet"
 	damage = BULLET_DAMAGE_PISTOL_44
-	armour_penetration = 0.1
+	armour_penetration = 0.15
 	stamina = BULLET_STAMINA_PISTOL_44
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_44
