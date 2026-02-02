@@ -209,11 +209,13 @@
 	COOLDOWN_DECLARE(loyalty_decay_cooldown)
 	COOLDOWN_DECLARE(petting_cooldown) // Prevent spam petting
 
+// Update collision in Initialize
 /mob/living/simple_animal/cow/Initialize()
 	udder = new(null, milk_reagent)
 	base_move_delay = ride_move_delay
-	sprint_move_delay = ride_move_delay * 0.6 // 40% faster when sprinting
+	sprint_move_delay = ride_move_delay * 0.6
 	hunger_float = hunger
+	update_pass_flags() // Initialize collision flags
 	. = ..()
 
 /mob/living/simple_animal/cow/Destroy()
@@ -236,6 +238,22 @@
 		new /obj/item/brahminbridle(get_turf(src))
 	if(saddle)
 		new /obj/item/brahminsaddle(get_turf(src))
+
+/mob/living/simple_animal/cow/proc/update_pass_flags()
+	if(saddle || buckled_mobs.len > 0)
+		pass_flags |= PASSMOB // Can pass through other mobs when saddled/mounted
+	else
+		pass_flags &= ~PASSMOB // Normal collision when not saddled/mounted
+
+/mob/living/simple_animal/cow/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
+	. = ..()
+	if(.)
+		update_pass_flags()
+
+// Update collision when someone dismounts
+/mob/living/simple_animal/cow/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
+	. = ..()
+	update_pass_flags()
 
 // Calculate total loyalty including all sources
 /mob/living/simple_animal/cow/proc/get_total_loyalty()
@@ -261,6 +279,92 @@
 		loyalty += loyalty_gain
 		loyalty = clamp(loyalty, 0, loyalty_max)
 		to_chat(healer, span_notice("[src] seems grateful for your care! (+[loyalty_gain] loyalty)"))
+
+// Update collision when bridle/collar removed
+/mob/living/simple_animal/cow/CtrlShiftClick(mob/user)
+	if(get_dist(user, src) > 1)
+		return
+
+	if(bridle && user.a_intent == INTENT_DISARM)
+		bridle = FALSE
+		tame = FALSE
+		owner = null
+		update_pass_flags() // Update collision when bridle removed
+		to_chat(user, span_notice("You remove the bridle gear from [src], dropping it on the ground."))
+		new /obj/item/brahminbridle(get_turf(user))
+
+	if(collar && user.a_intent == INTENT_GRAB)
+		collar = FALSE
+		name = initial(name)
+		loyalty_from_name = 0 // Remove loyalty bonus
+		to_chat(user, span_notice("You remove the collar from [src], dropping it on the ground."))
+		new /obj/item/brahmincollar(get_turf(user))
+
+	if(user == owner)
+		if(bridle && user.a_intent == INTENT_HELP)
+			if(stat == DEAD || health <= 0)
+				to_chat(user, span_alert("[src] can't obey your commands anymore. It is dead."))
+				return
+			if(follow)
+				to_chat(user, span_notice("You tug on the reins of [src], telling it to stay."))
+				follow = FALSE
+				return
+			else if(!follow)
+				to_chat(user, span_notice("You tug on the reins of [src], telling it to follow."))
+				follow = TRUE
+				return
+
+// NAME CALLING - listen for owner calling mount's name
+/mob/living/simple_animal/cow/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/sound_loc)
+    . = ..()
+    
+    // Only respond to owner with collar
+    if(!owner || !collar || stat || speaker != owner)
+        return
+    
+    // Check if they're calling the mount by name
+    if(findtext(lowertext(message), lowertext(name)))
+        if(findtext(lowertext(message), "come") || findtext(lowertext(message), "here"))
+            attempt_come_to_owner(speaker)
+
+/mob/living/simple_animal/cow/proc/attempt_come_to_owner(mob/living/caller)
+	if(!caller || stat)
+		return
+	
+	var/total_loyalty = get_total_loyalty()
+	
+	// Loyalty determines success chance
+	// 0-30 loyalty = 30% chance
+	// 31-60 loyalty = 60% chance  
+	// 61-100 loyalty = 90% chance
+	// 100+ loyalty = 100% chance
+	var/success_chance = min(30 + (total_loyalty * 0.6), 100)
+	
+	if(!prob(success_chance))
+		// Failed to respond
+		var/list/fail_messages = list(
+			"[src] looks at [caller] but doesn't move.",
+			"[src] flicks an ear but ignores the call.",
+			"[src] seems distracted by something else.",
+			"[src] glances at [caller] uncertainly."
+		)
+		visible_message(span_notice(pick(fail_messages)))
+		return
+	
+	// Success! Mount comes to owner
+	var/list/success_messages = list(
+		"[src] perks up and trots toward [caller]!",
+		"[src] eagerly responds to [caller]'s call!",
+		"[src] obediently approaches [caller]."
+	)
+	visible_message(span_notice(pick(success_messages)))
+	
+	// Start following owner
+	follow = TRUE
+	
+	// Small loyalty boost for successful recall
+	if(loyalty < loyalty_max)
+		loyalty = min(loyalty + 2, loyalty_max)
 
 // Fear chance is always 25% below 75% HP - loyalty doesn't reduce it
 /mob/living/simple_animal/cow/proc/get_fear_chance()
@@ -306,7 +410,19 @@
 	
 	return bucking_chance
 
-// Override the Move proc to add fear resistance
+// PAIN EMOTES when hurt - FIXED: Added missing parameters
+/mob/living/simple_animal/cow/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
+	. = ..()
+	if(amount > 0 && !stat && prob(30))
+		var/list/pain_emotes = list(
+			"[src] lets out a pained cry!",
+			"[src] whimpers in pain!",
+			"[src] cries out!",
+			"[src] bellows in distress!"
+		)
+		visible_message(span_warning(pick(pain_emotes)))
+
+// Override the Move proc to add fear resistance - FIXED: Removed sleep() from main proc
 /mob/living/simple_animal/cow/Move(NewLoc, direct)
 	// Check for fear if mounted and on cooldown
 	if(current_rider && (saddle || bridle) && world.time >= last_fear_check + fear_check_cooldown)
@@ -341,7 +457,7 @@
 				visible_message(span_notice("[src] tries to resist their fear, but fails..."))
 			
 			if(prob(bucking_chance))
-				// FULL BUCKING - throw rider off
+				// FULL BUCKING - throw rider off AND flee
 				visible_message(span_warning("[src] bucks wildly and rears back!"))
 				to_chat(current_rider, span_userdanger("[src] throws you off!"))
 				
@@ -362,6 +478,16 @@
 					
 					if(throw_target)
 						rider.throw_at(throw_target, 2, 1)
+				
+				// FLEE - FIXED: Use spawn() to avoid blocking with sleep()
+				visible_message(span_warning("[src] flees in terror!"))
+				spawn(0)
+					for(var/i in 1 to rand(5,8))
+						if(stat)
+							break
+						var/flee_dir = pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
+						step(src, flee_dir)
+						sleep(3)
 			else
 				// MINOR STUTTER - just resist movement
 				visible_message(span_warning("[src] balks and resists!"))
@@ -419,7 +545,7 @@
 			return
 
 		collar = TRUE
-		loyalty_from_name = 20 // Grant permanent loyalty bonus
+		loyalty_from_name = 20
 		to_chat(user, span_notice("You add [O] to [src]. They seem to recognize their new name!"))
 		message_admins(span_notice("[ADMIN_LOOKUPFLW(user)] renamed a mount to [name]."))
 		qdel(O)
@@ -433,6 +559,7 @@
 		owner = user
 		bridle = TRUE
 		tame = TRUE
+		update_pass_flags() // Update collision when bridle added
 		to_chat(user, span_notice("You add [O] to [src], claiming it as yours."))
 		qdel(O)
 		return
@@ -453,6 +580,7 @@
 		D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
 		D.vehicle_move_delay = ride_move_delay
 		D.drive_verb = "ride"
+		update_pass_flags() // Update collision when saddle added
 		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		return
@@ -467,7 +595,7 @@
 		if(!brand)
 			return
 		
-		loyalty_from_brand = 15 // Grant permanent loyalty bonus
+		loyalty_from_brand = 15
 		to_chat(user, span_notice("You brand [src]. They seem to accept you as their master!"))
 		qdel(O)
 		return
@@ -1278,7 +1406,7 @@
 		)
 		D.set_riding_offsets(RIDING_OFFSET_ALL, horse_offsets)
 		
-		// Use ABOVE_MOB_LAYER for all directions so horse renders on top
+		// Use ABOVE_MOB_LAYER for left and right movement so horse renders behind rider
 		D.set_vehicle_dir_layer(SOUTH, FLOAT_LAYER)
 		D.set_vehicle_dir_layer(NORTH, FLOAT_LAYER)
 		D.set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
