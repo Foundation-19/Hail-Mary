@@ -115,14 +115,11 @@
 			if(1 to 6)
 				victim.bleed(blood_bled, TRUE)
 			if(7 to 13)
-				//victim.visible_message(span_smalldanger("[victim] coughs up a bit of blood from the blow to [victim.p_their()] chest."), span_danger("You cough up a bit of blood from the blow to your chest."), vision_distance=COMBAT_MESSAGE_RANGE)
 				victim.bleed(blood_bled, TRUE)
 			if(14 to 19)
-				//victim.visible_message(span_smalldanger("[victim] spits out a string of blood from the blow to [victim.p_their()] chest!"), span_danger("You spit out a string of blood from the blow to your chest!"), vision_distance=COMBAT_MESSAGE_RANGE)
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(victim.loc, victim.dir)
 				victim.bleed(blood_bled)
 			if(20 to INFINITY)
-				//victim.visible_message(span_danger("[victim] chokes up a spray of blood from the blow to [victim.p_their()] chest!"), "<span class='danger'><b>You choke up on a spray of blood from the blow to your chest!</b></span>", vision_distance=COMBAT_MESSAGE_RANGE)
 				victim.bleed(blood_bled)
 				new /obj/effect/temp_visual/dir_setting/bloodsplatter(victim.loc, victim.dir)
 				victim.add_splatter_floor(get_step(victim.loc, victim.dir))
@@ -280,6 +277,88 @@
 
 	victim.emote("scream")
 	qdel(src)
+
+/*
+	Open Fracture (NEW) - bleeding bone wound variants
+	- These are meant to be the "harder wounds": bone injury + exposed break + bleeding/tenderness.
+*/
+
+/datum/wound/blunt/open_fracture
+	name = "Open Fracture"
+	desc = "Patient's bone has broken through the skin, leaving an open wound with significant risk of blood loss and complications."
+	treat_text = "Immediate splinting and sterile dressing. Surgical intervention recommended; bone gel + surgical tape may stabilize in emergencies."
+	examine_desc = "is split open, with bone visibly protruding through torn flesh"
+	a_or_from = "an"
+	occur_text = "splits open with a wet crack, exposing broken bone"
+	sound_effect = 'sound/effects/wounds/crack2.ogg'
+	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE | MANGLES_BONE)
+
+	// Default tuning; children override
+	interaction_efficiency_penalty = 2
+	limp_slowdown = 3
+	disabling = FALSE
+
+	// bleeding + tenderness come from constants
+	// Note: these stack with any other bleeding systems you already have
+	// blood_flow is used by wound bleeding system
+	// damage_mulitplier_penalty makes the limb take more damage (tenderness)
+	// (typo is in base var name: damage_mulitplier_penalty)
+	damage_mulitplier_penalty = 1.10
+
+	// keep these not too spammy
+	threshold_penalty = 35
+
+/datum/wound/blunt/open_fracture/wound_injury(datum/wound/old_wound = null)
+	. = ..()
+	// open fracture should *immediately* apply its bleed + inefficiency effects
+	update_inefficiencies()
+
+/*
+	Open Fracture - Moderate
+*/
+/datum/wound/blunt/open_fracture/moderate
+	severity = WOUND_SEVERITY_MODERATE
+	threshold_minimum = 60
+	threshold_penalty = 20
+	interaction_efficiency_penalty = 1.75
+	limp_slowdown = 2.5
+	blood_flow = WOUND_OPEN_FRACTURE_BLOODFLOW_MODERATE
+	damage_mulitplier_penalty = WOUND_OPEN_FRACTURE_DAMAGE_MUL_MODERATE
+	status_effect_type = /datum/status_effect/wound/blunt/open_fracture/moderate
+	scar_keyword = "openfracturemoderate"
+
+/*
+	Open Fracture - Severe
+*/
+/datum/wound/blunt/open_fracture/severe
+	name = "Severe Open Fracture"
+	desc = "Patient's bone has shattered and torn through the skin, causing heavy bleeding and severe impairment."
+	severity = WOUND_SEVERITY_SEVERE
+	threshold_minimum = 95
+	threshold_penalty = 40
+	interaction_efficiency_penalty = 3
+	limp_slowdown = 5
+	blood_flow = WOUND_OPEN_FRACTURE_BLOODFLOW_SEVERE
+	damage_mulitplier_penalty = WOUND_OPEN_FRACTURE_DAMAGE_MUL_SEVERE
+	status_effect_type = /datum/status_effect/wound/blunt/open_fracture/severe
+	scar_keyword = "openfracturesevere"
+
+/*
+	Open Fracture - Critical
+*/
+/datum/wound/blunt/open_fracture/critical
+	name = "Critical Open Fracture"
+	desc = "Patient's limb is catastrophically broken open, with uncontrolled bleeding and near-total loss of function."
+	severity = WOUND_SEVERITY_CRITICAL
+	threshold_minimum = 140
+	threshold_penalty = 55
+	interaction_efficiency_penalty = 4.5
+	limp_slowdown = 7
+	disabling = TRUE
+	blood_flow = WOUND_OPEN_FRACTURE_BLOODFLOW_CRITICAL
+	damage_mulitplier_penalty = WOUND_OPEN_FRACTURE_DAMAGE_MUL_CRITICAL
+	status_effect_type = /datum/status_effect/wound/blunt/open_fracture/critical
+	scar_keyword = "openfracturecritical"
 
 /*
 	Severe (Hairline Fracture)

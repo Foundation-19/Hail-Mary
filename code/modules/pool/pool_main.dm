@@ -138,6 +138,10 @@
 						H.visible_message(span_danger("[H] falls in the water!"),
 											span_userdanger("You fall in the water!"))
 						playsound(src, 'sound/effects/splash.ogg', 60, TRUE, 1)
+						// Contaminated water → radiation intake
+						if(H.reagents)
+							H.reagents.add_reagent(/datum/reagent/radium, 2)
+
 						H.DefaultCombatKnockdown(20)
 						return
 					else

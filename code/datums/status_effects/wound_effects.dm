@@ -1,4 +1,3 @@
-
 // The shattered remnants of your broken limbs fill you with determination!
 /obj/screen/alert/status_effect/determined
 	name = "Determined"
@@ -162,9 +161,22 @@
 	id = "disjoint"
 /datum/status_effect/wound/blunt/severe
 	id = "hairline"
-
 /datum/status_effect/wound/blunt/critical
 	id = "compound"
+
+// OPEN FRACTURE (NEW)
+/datum/status_effect/wound/blunt/open_fracture
+	// inherits blunt modifiers above
+
+/datum/status_effect/wound/blunt/open_fracture/moderate
+	id = "openfracture_mod"
+
+/datum/status_effect/wound/blunt/open_fracture/severe
+	id = "openfracture_sev"
+
+/datum/status_effect/wound/blunt/open_fracture/critical
+	id = "openfracture_crit"
+
 
 // cuts
 /datum/status_effect/wound/slash/moderate

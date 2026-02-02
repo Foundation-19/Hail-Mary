@@ -1,15 +1,15 @@
-/* Code by Tienn */
+/* Code by Tienn (cleaned) */
 
 #define STATE_IDLE 0
 #define STATE_VEND 1
 
 /obj/machinery/bounty_machine
-	name = "Wastland Bounty Machine"
-	desc = "This is Wastland Bounty Machine"
+	name = "Wasteland Bounty Machine"
+	desc = "Wasteland Contracts Database terminal."
 	icon = 'icons/fallout/machines/terminals.dmi'
-	icon_state = "bounty"
-	anchored = 1
-	density = 1
+	icon_state = "Bounty_Console"
+	anchored = TRUE
+	density = TRUE
 	verb_say = "beeps"
 	verb_ask = "beeps"
 	verb_exclaim = "beeps"
@@ -18,197 +18,164 @@
 	integrity_failure = 100
 	armor = list(melee = 20, bullet = 0, laser = 0, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 
-	/* This items can be sold in this terminal */
-	var/obj/item/items_to_sell[0]
-
-	/* Subtypes will be selected for all quest list */
+	// Subtypes will be selected for all quest list
 	var/quest_type = /datum/bounty_quest/faction/wasteland
 
-	/* All quest */
+	// All quest types (paths)
 	var/list/all_quests = list()
 
-	/* Currently active quests */
-	var/datum/bounty_quest/active_quests[0]
+	// Currently active quests (instances)
+	var/list/active_quests = list()
 
-	/* Max active quest count */
 	var/quest_limit = 4
 
-	/* Connected bounty pod */
+	// Connected bounty pod
 	var/obj/machinery/bounty_pod/connected_pod
-
-	/* How far this machine will finde pod */
 	var/pod_distance = 2
 
-	// to debug
-	var/last_rand = -1
-
-/* Initialization */
 /obj/machinery/bounty_machine/New()
+	..()
 	InitQuestList()
 	FindPod(pod_distance)
 	UpdateActiveQuests()
 
-
-/*	---
- *	Quest management
- */
-
-/* Create all quests list */
 /obj/machinery/bounty_machine/proc/InitQuestList()
-	all_quests = get_all_quests()
-	all_quests.Remove(quest_type)
+	all_quests = typesof(quest_type)
+	// Remove the base type itself so we only pick actual quest subtypes
+	all_quests -= quest_type
 
-/obj/machinery/bounty_machine/proc/get_all_quests()
-	return typesof(quest_type)
-
-/* Returns random quest from database */
 /obj/machinery/bounty_machine/proc/GetRandomQuest()
-	if(all_quests.len == 0) return null
+	if(!all_quests || all_quests.len == 0)
+		return null
 	var/random_index = rand(1, all_quests.len)
-	var/quest_type = all_quests[random_index]
-	var/Q = new quest_type()
-	last_rand = random_index
-	return Q
+	var/qt = all_quests[random_index]
+	return new qt()
 
-/* Create new quests until its count not equal to quest limit */
 /obj/machinery/bounty_machine/proc/UpdateActiveQuests()
-	var/i
-	for(i = active_quests.len; i < quest_limit; i++)
-		active_quests += GetRandomQuest()
+	while(active_quests.len < quest_limit)
+		var/datum/bounty_quest/Q = GetRandomQuest()
+		if(Q)
+			active_quests += Q
+		else
+			break
 
-/* Destroy all active quests. If create_new = 1, will generate new quests */
-/obj/machinery/bounty_machine/proc/ClearActiveQuests(var/create_new = 0)
-	for(var/Qst in active_quests)
-		del Qst
+/obj/machinery/bounty_machine/proc/ClearActiveQuests(create_new = FALSE)
+	for(var/datum/bounty_quest/Q in active_quests)
+		qdel(Q)
 	active_quests.Cut()
 	if(create_new)
 		UpdateActiveQuests()
 
-/* Check quest objectives and complete it. */
-/obj/machinery/bounty_machine/proc/ProcessQuestComplete(var/quest_index, var/mob/user)
+/obj/machinery/bounty_machine/proc/ProcessQuestComplete(quest_index, mob/user)
 	quest_index = text2num(quest_index)
-	if(quest_index > active_quests.len)
-		return 0
+	if(quest_index < 1 || quest_index > active_quests.len)
+		return "Invalid contract."
 
-	// Check for connected pod
 	if(!connected_pod)
-		return 0
+		return "No pod connected."
 
 	var/turf/location = get_turf(connected_pod)
-	var/quest_objects[0]
 	var/datum/bounty_quest/current_quest = active_quests[quest_index]
 
-	// Create list of all object of taget types
-	for(var/atom/Itm in location.contents)
-		if(current_quest.ItsATarget(Itm))
-			quest_objects.Add(Itm)
+	// Find all target objects on the pod turf
+	var/list/quest_objects = list()
+	for(var/atom/A in location.contents)
+		if(current_quest.ItsATarget(A))
+			quest_objects += A
 
-	// If no target objects - fail to complete
 	if(quest_objects.len == 0)
-		return 0
+		return "Nothing on the pod matches this contract."
 
+	// Check counts
 	var/list/target_items = current_quest.target_items.Copy()
-	for(var/atom/Itm in quest_objects)
+	for(var/atom/A in quest_objects)
 		for(var/target_type in target_items)
-			if(istype(Itm, target_type))
-				target_items[target_type] -= 1
+			if(istype(A, target_type))
+				target_items[target_type] = max(0, target_items[target_type] - 1)
 
-	// If objective not completed - fail
-	for(var/Itm in target_items)
-		if(target_items[Itm] > 0)
-			return 0
+	for(var/k in target_items)
+		if(target_items[k] > 0)
+			return "Contract not fulfilled yet."
 
-	// Here we know - quest is complete
-	// 1. Remove quest objects. ALL QUEST OBJECTS WILL BE REMOVED! IF YOU PUT 2 GHOULS AND QUEST NEEDS ONLY ONE - ALL GHOULES ON POD TURF WILL BE DESTROYED
+	// Fulfilled: remove quest objects (NOTE: nukes everything matching on pod turf)
 	flick("tele0", connected_pod)
-	for(var/Itm in quest_objects)
-		qdel(Itm)
+	for(var/atom/A in quest_objects)
+		qdel(A)
 
-	// 2. Spawn reward
-	var/obj/item/stack/f13Cash/caps/C = new /obj/item/stack/f13Cash/caps
-	C.add(current_quest.caps_reward - 1)
-	C.forceMove(connected_pod.loc)
+	// Spawn reward
+	var/obj/item/stack/f13Cash/caps/C = new /obj/item/stack/f13Cash/caps(connected_pod.loc)
+	var/reward = max(1, current_quest.caps_reward)
+	C.add(reward - 1)
 
-	// 3. Delete quest
 	to_chat(user, current_quest.end_message)
+
+	// Remove quest + refill
 	active_quests -= current_quest
 	qdel(current_quest)
-
-	// 4. Update active quests
 	UpdateActiveQuests()
 
-	return 1
-	// -- END
+	return "Contract delivered."
 
-/*
- *	Pod management
-*/
-
-/* Find and assign firs pod in distance */
-/obj/machinery/bounty_machine/proc/FindPod(var/distance = 1)
-	for(var/Obj in view(distance, src))
-		if(istype(Obj, /obj/machinery/bounty_pod))
-			connected_pod = Obj
+/obj/machinery/bounty_machine/proc/FindPod(distance = 1)
+	connected_pod = null
+	for(var/obj/O in view(distance, src))
+		if(istype(O, /obj/machinery/bounty_pod))
+			connected_pod = O
 			break
 
-/*
- *	GUI
-*/
-/obj/machinery/bounty_machine/proc/ShowUI()
+/obj/machinery/bounty_machine/proc/ShowUI(mob/user)
+	if(!user) return
+
 	var/dat = ""
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
-	assets.send(usr)
+	assets.send(user)
 
 	dat += "<h1>Wasteland Contracts Database</h1>"
+
 	if(connected_pod)
-		dat += "<font color='green'>Quantum teleporter found</font><br>"
-		dat += "<a href='?src=\ref[src];findpod=1'>Scan</a><br>"
+		dat += "<font color='green'>Pod found</font><br>"
 	else
-		dat += "<font color='red'>Quantum teleporter not found</font>"
-		dat += "<a href='?src=\ref[src];findpod=1'>Scan</a><br>"
+		dat += "<font color='red'>Pod not found</font><br>"
+	dat += "<a href='?src=\ref[src];findpod=1'>Rescan</a><br>"
 
 	dat += "<style>.leftimg {float:left;margin: 7px 7px 7px 0;}</style>"
-
 	dat += "<h2>Contracts:</h2>"
-	var/item_index = 1
+
+	var/i = 1
 	for(var/datum/bounty_quest/Q in active_quests)
 		dat += "<div class='statusDisplay'>"
-		dat += "<img src='[Q.employer_icon]' class='leftimg' width = 59 height = 70></img>"
-		dat += "<font color='green'><b>Name: </b> [Q.name]</font><br>"
-		dat += "<font color='green'><b>Employer: </b> [Q.employer]</font><br>"
-		dat += "<font color='green'><b>message:</b></font>"
-		dat += "<font color='green'>[Q.desc]</font><br>"
-		dat += "<font color='green'><b>Need: </b></font>"
-		dat += "<font color='green'><i>[Q.need_message]. </i></font><br>"
-		dat += "<font color='green'><b>Reward:</b></font>"
-		dat += "<font color='green'> [Q.caps_reward] caps</font> "
-		dat += "<a href='?src=\ref[src];completequest=[item_index]'>Send</a>"
+		dat += "<img src='[Q.employer_icon]' class='leftimg' width=59 height=70></img>"
+		dat += "<font color='green'><b>Name:</b> [Q.name]</font><br>"
+		dat += "<font color='green'><b>Employer:</b> [Q.employer]</font><br>"
+		dat += "<font color='green'><b>Message:</b> [Q.desc]</font><br>"
+		dat += "<font color='green'><b>Need:</b> <i>[Q.need_message]</i></font><br>"
+		dat += "<font color='green'><b>Reward:</b> [Q.caps_reward] caps</font> "
+		dat += "<a href='?src=\ref[src];completequest=[i]'>Send</a>"
 		dat += "</div>"
-		item_index++
+		i++
 
-	var/datum/browser/popup = new(usr, "bounty", "Wasteland Contracts Database", 640, 400) // Set up the popup browser window
+	var/datum/browser/popup = new(user, "bounty", "Wasteland Contracts Database", 640, 400)
 	popup.set_content(dat)
-	popup.set_title_image(usr.browse_rsc_icon(src.icon, src.icon_state))
+	popup.set_title_image(user.browse_rsc_icon(src.icon, src.icon_state))
 	popup.open()
 
 /obj/machinery/bounty_machine/Topic(href, href_list)
+	..()
+
 	if(href_list["completequest"])
-		if(connected_pod)
-			var/result_msg = ProcessQuestComplete(href_list["completequest"], usr)
-			to_chat(usr, result_msg)
-		else
-			to_chat(usr, "Quantam teleport not found.")
-		ShowUI()
+		var/msg = ProcessQuestComplete(href_list["completequest"], usr)
+		to_chat(usr, msg)
+		ShowUI(usr)
+		return
 
 	if(href_list["findpod"])
 		FindPod(pod_distance)
-		ShowUI()
+		ShowUI(usr)
+		return
 
-/*
- * Interaction
-*/
 /obj/machinery/bounty_machine/attack_hand(mob/user)
-	ShowUI()
+	..()
+	ShowUI(user)
 
 #undef STATE_IDLE
 #undef STATE_VEND

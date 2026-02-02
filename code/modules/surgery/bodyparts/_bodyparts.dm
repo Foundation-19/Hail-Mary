@@ -975,16 +975,22 @@
  * * replaced- If true, this is being called from the remove_wound() of a wound that's being replaced, so the bandage that already existed is still relevant, but the new wound hasn't been added yet
  */
 /obj/item/bodypart/proc/update_wounds(replaced = FALSE)
-	var/dam_mul = 1 //initial(wound_damage_multiplier)
-	// we can only have one wound per type, but remember there's multiple types
-	// we can (normally) only have one wound per type, but remember there's multiple types (smites like :B:loodless can generate multiple cuts on a limb)
+	var/dam_mul = 1
+
+	if(!LAZYLEN(wounds))
+		wound_damage_multiplier = 1
+		update_disabled()
+		return
+
+	// Multiply all wound tenderness multipliers
 	for(var/i in wounds)
 		var/datum/wound/iter_wound = i
-		dam_mul *= iter_wound.damage_mulitplier_penalty
+		if(!iter_wound)
+			continue
+		dam_mul *= max(iter_wound.damage_mulitplier_penalty, 0) // never allow negative weirdness
 
-	//if we truly dont need our bandages anymore, dump em
-	//if(!LAZYLEN(wounds) && !replaced && !bleed_dam && !burn_dam && !brute_dam)
-	//	destroy_coverings()
+	// Safety clamp: prevents insane damage stacking if multiple wounds exist (smites/edge cases)
+	dam_mul = clamp(dam_mul, 0.25, 3)
 
 	wound_damage_multiplier = dam_mul
 	update_disabled()

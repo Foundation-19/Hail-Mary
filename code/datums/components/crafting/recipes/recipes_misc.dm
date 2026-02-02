@@ -1094,3 +1094,77 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_CONVERT
 	always_available = FALSE
+
+/datum/crafting_recipe/grid_fuel_rod
+	name = "Fuel Rod (Mass Fusion)"
+	result = /obj/item/f13/grid_fuel
+	time = 80
+	reqs = list(
+		/obj/item/stack/sheet/metal = 50,
+		/obj/item/stack/cable_coil = 10,
+		/obj/item/stack/crafting/goodparts = 2
+	)
+	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+	always_available = TRUE
+
+/datum/crafting_recipe/grid_coolant_canister
+	name = "Coolant Canister (Mass Fusion)"
+	result = /obj/item/f13/grid_coolant
+	time = 60
+	reqs = list(
+		/obj/item/stack/sheet/metal = 35,
+		/obj/item/stack/sheet/glass = 10,
+		/datum/reagent/water = 100
+	)
+	tools = list(TOOL_WORKBENCH, TOOL_WRENCH, TOOL_SCREWDRIVER)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+	always_available = TRUE
+
+/obj/item/storage/box/grid_fuel_bundle
+	name = "Fuel Rod Bundle"
+	desc = "A bundled set of fuel rods for Mass Fusion upkeep."
+
+/obj/item/storage/box/grid_fuel_bundle/PopulateContents()
+	. = ..()
+	for(var/i = 1 to 5)
+		new /obj/item/f13/grid_fuel(src)
+
+/datum/crafting_recipe/grid_fuel_bundle
+	name = "Fuel Rod Bundle (x5)"
+	result = /obj/item/storage/box/grid_fuel_bundle
+	time = 120
+	reqs = list(
+		/obj/item/stack/sheet/metal = 250,
+		/obj/item/stack/cable_coil = 50,
+		/obj/item/stack/crafting/goodparts = 10
+	)
+	tools = list(TOOL_WORKBENCH, TOOL_WELDER, TOOL_SCREWDRIVER)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+	always_available = TRUE
+
+/obj/item/storage/box/grid_coolant_bundle
+	name = "Coolant Bundle"
+	desc = "A bundled set of coolant canisters."
+
+/obj/item/storage/box/grid_coolant_bundle/PopulateContents()
+	. = ..()
+	for(var/i = 1 to 5)
+		new /obj/item/f13/grid_coolant(src)
+
+/datum/crafting_recipe/grid_coolant_bundle
+	name = "Coolant Bundle (x5)"
+	result = /obj/item/storage/box/grid_coolant_bundle
+	time = 120
+	reqs = list(
+		/obj/item/stack/sheet/metal = 175,
+		/obj/item/stack/sheet/glass = 50,
+		/datum/reagent/water = 500
+	)
+	tools = list(TOOL_WORKBENCH, TOOL_WRENCH, TOOL_SCREWDRIVER)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+	always_available = TRUE

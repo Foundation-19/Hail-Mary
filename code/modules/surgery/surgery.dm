@@ -197,6 +197,7 @@
 	var/propability = 0.5
 	var/turf/T = get_turf(target)
 
+	// Base surface modifiers
 	if(locate(/obj/structure/table/optable, T))
 		propability = 1
 	else if(locate(/obj/structure/table, T))
@@ -204,7 +205,38 @@
 	else if(locate(/obj/structure/bed, T))
 		propability = 0.7
 
-	return propability + success_multiplier
+	// --- Wasteland hardness modifiers ---
+
+	// Low light makes precision work harder (guarded so it won't runtime if your lighting differs)
+	if(T)
+		// try a few common patterns; if none exist, this does nothing
+		if(T.lighting_object && T.lighting_object.luminosity < 2)
+			propability -= 0.10
+
+	// Dirty/chaotic area: blood/cleanables nearby
+	if(T)
+		for(var/obj/effect/decal/cleanable/C in view(1, T))
+			propability -= 0.03
+			break
+
+	// Patient radiation makes tissues worse / more complications
+	if(target?.reagents)
+		var/rads = target.reagents.get_reagent_amount(/datum/reagent/radium)
+		if(rads > 0)
+			propability -= min(0.20, rads * 0.01) // cap at -0.20
+
+	// Low health -> harder to keep stable
+	if(target && target.health < 30)
+		propability -= 0.10
+
+	// No anesthesia/pain suppression -> more movement/panic (paths may differ in your fork; keep as a soft penalty)
+	// If your chems use different paths, swap these.
+	if(target?.reagents)
+		if(!target.reagents.has_reagent(/datum/reagent/medicine/morphine))
+			propability -= 0.2
+
+	// Final clamp so we never hit 0% or go totally insane
+	return clamp(propability + success_multiplier, 0.05, 1.25)
 
 /datum/surgery/advanced
 	name = "advanced surgery"

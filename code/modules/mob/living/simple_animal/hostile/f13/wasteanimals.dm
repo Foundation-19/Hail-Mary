@@ -85,7 +85,7 @@
 		"min_n2" = 0,
 		"max_n2" = 0
 		)
-	faction = list("gecko", "critter-friend") // critter-friend is a flag for related beast friend/master quirk. Makes hostile mob passive for quirk holder.
+	faction = list("gecko") // critter-friend is a flag for related beast friend/master quirk. Makes hostile mob passive for quirk holder.
 	a_intent = INTENT_HARM
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -705,7 +705,7 @@
 	attack_verb_simple = "bites"
 	speak_emote = list("howls")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("nightstalkers", "critter-friend")
+	faction = list("nightstalkers")
 	gold_core_spawnable = HOSTILE_SPAWN
 	a_intent = INTENT_HARM
 	footstep_type = FOOTSTEP_MOB_CLAW
@@ -802,7 +802,8 @@
 	attack_sound = 'sound/creatures/molerat_attack.ogg'
 	speak_emote = list("chitters")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("hostile", "gecko")
+	faction = list("molerat")
+
 	gold_core_spawnable = HOSTILE_SPAWN
 	a_intent = INTENT_HARM
 

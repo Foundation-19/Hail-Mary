@@ -1,31 +1,7 @@
-//Fallout 13 specific areas directory
-
-/area
-
-/area/f13
-	name = "error"
-	icon_state = "error"
-	has_gravity = 1
-//	requires_power = 0
-
-//Wasteland generic areas
-
-//Ambigen sound tips for ambientsounds: 
-//1 - 2 : outside the ruined buildings, 
-//3 - 9 : inside the wasteland buildings,
-// 10 - 14 : vaults and bunkers specific, 
-//15-19 : caves
-//These were defined a long time ago, but we may still consider using them with our new ambient sound system ~TK
-
-///////////////
-//C O Y O T E//
-//B A Y O U  //
-//  AMBIENT  //
-//   AREAS   //
-///////////////
 /area/f13/wasteland
 	name = "Wasteland"
 	icon_state = "wasteland"
+	requires_power = TRUE
 	ambience_area = list(
 		/datum/looping_sound/ambient/critters,
 		/datum/looping_sound/ambient/critters/birds,
@@ -40,14 +16,14 @@
 	grow_chance = 45
 	weather_tags = list(WEATHER_ALL)
 
-/area/f13/wasteland/powered
-	requires_power = FALSE
+
 
 /area/f13/wasteland/cold
 	icon_state = "wastelandcold"
+	requires_power = TRUE
 
 /area/f13/wasteland/cold/power
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/Ocean
 	name = "Ocean"
@@ -187,13 +163,13 @@
 	weather_tags = null
 
 /area/f13/building/sewers/powered
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/sewer/powered 
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/building/powered
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/caves
 	name = "Caves"
@@ -418,7 +394,7 @@
 	icon_state = "bighornbunker"
 
 /area/f13/building/powered
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/factory
 	name = "robco factory"
@@ -723,7 +699,7 @@
 	grow_chance = 5
 
 /area/f13/casino/powered
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/clinic
 	name = "Clinic"
@@ -1144,7 +1120,7 @@
 	icon_state = "brotherhoodmining"
 
 /area/f13/brotherhood/powered
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/enclave
 	name = "Enclave Bunker"
@@ -1197,12 +1173,12 @@
 	blob_allowed = 0
 	environment = 4
 	grow_chance = 5
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/ncr/powered
 	name = "NCR Outpost"
 	icon_state = "ncr"
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/legion
 	name = "Legion Fortress"
@@ -1225,7 +1201,7 @@
 /area/f13/legion/powered
 	name = "Legion Fortress"
 	icon_state = "legion"
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
@@ -1261,7 +1237,7 @@
 /area/f13/holiday/powered
 	name = "Holiday"
 	icon_state = "holiday"
-	requires_power = FALSE
+	requires_power = TRUE
 
 /area/f13/holiday/powered/deepmine // deepmines for holiday means no infinite power
 	name = "Holiday deep mine"

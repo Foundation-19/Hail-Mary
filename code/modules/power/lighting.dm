@@ -1,3 +1,10 @@
+/// F13: global grid check (available everywhere)
+
+/proc/wasteland_grid_ok()
+	return !!GLOB.wasteland_grid_online
+
+
+
 /obj/item/wallframe/light_fixture
 	name = "light fixture frame"
 	desc = "Used for building lights."
@@ -167,6 +174,9 @@
 	name = "light fixture"
 	icon = 'icons/obj/lighting.dmi'
 	var/overlayicon = 'icons/obj/lighting_overlay.dmi'
+	/// If TRUE, this light refuses to operate unless the wasteland grid is online.
+	var/requires_wasteland_grid = TRUE
+
 	var/base_state = "tube"		// base description and icon_state
 	icon_state = "tube"
 	desc = "A lighting fixture."
@@ -193,7 +203,7 @@
 	var/rigged = FALSE			// true if rigged to explode
 
 	var/obj/item/stock_parts/cell/cell
-	var/start_with_cell = TRUE	// if true, this fixture generates a very weak cell at roundstart
+	var/start_with_cell = FALSE	// if true, this fixture generates a very weak cell at roundstart
 
 	var/nightshift_enabled = FALSE	//Currently in night shift mode?
 	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
@@ -202,7 +212,7 @@
 	var/nightshift_light_color = "#FFDDCC"
 
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
-	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
+	var/no_emergency = TRUE	// if true, this light cannot ever have an emergency mode
 	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode
@@ -211,6 +221,21 @@
 
 	var/flicker_chance = 100/90 // the chance to flicker every tick (2 seconds) as a percentage;
 	// 100/90 is once every 90 ticks/three minutes, roughly.
+/obj/machinery/light/proc/wasteland_grid_ok()
+	return !!GLOB.wasteland_grid_online
+
+/obj/machinery/light/proc/on_wasteland_grid_change()
+	// grid down = lights hard off instantly
+	if(requires_wasteland_grid && !wasteland_grid_ok())
+		on = FALSE
+		emergency_mode = FALSE
+		set_light(0)
+		update_icon()
+		return
+
+	// grid up = re-evaluate immediately
+	power_change()
+	update(FALSE)
 
 /obj/machinery/light/broken
 	status = LIGHT_BROKEN
@@ -261,8 +286,16 @@
 // create a new lighting fixture
 /obj/machinery/light/Initialize()
 	. = ..()
-	if(start_with_cell && !no_emergency)
-		cell = new/obj/item/stock_parts/cell/emergency_light(src)
+
+	// Hard kill any existing emergency cell (mapplaced / old versions / saved states)
+	if(cell)
+		QDEL_NULL(cell)
+
+	// Disable emergency cells entirely
+	// (Either delete this block or leave it commented forever)
+	// if(start_with_cell && !no_emergency)
+	// 	cell = new/obj/item/stock_parts/cell/emergency_light(src)
+
 	spawn(2)
 		switch(fitting)
 			if("tube")
@@ -275,9 +308,11 @@
 					break_light_tube(1)
 		spawn(1)
 			update(0)
+
 	if(flicker_chance)
 		START_PROCESSING(SSmachines, src)
 	RegisterSignal(src, COMSIG_ATOM_LICKED, PROC_REF(lick_light))
+
 
 /obj/machinery/light/proc/lick_light(atom/A, mob/living/carbon/licker, obj/item/hand_item/tongue)
 	if(!iscarbon(licker) || !tongue)
@@ -595,6 +630,8 @@
 
 // returns if the light has power /but/ is manually turned off
 // if a light is turned off, it won't activate emergency power
+
+
 /obj/machinery/light/proc/turned_off()
 	var/area/A = get_area(src)
 	return !A.lightswitch && A.power_light || flickering
@@ -602,12 +639,17 @@
 // returns whether this light has power
 // true if area has power and lightswitch is on
 /obj/machinery/light/proc/has_power()
+	if(requires_wasteland_grid && !wasteland_grid_ok())
+		return FALSE
 	var/area/A = get_area(src)
 	return A.lightswitch && A.power_light
 
 // returns whether this light has emergency power
 // can also return if it has access to a certain amount of that power
+
 /obj/machinery/light/proc/has_emergency_power(pwr)
+	if(requires_wasteland_grid && !wasteland_grid_ok())
+		return FALSE
 	if(no_emergency || !cell)
 		return FALSE
 	if(pwr ? cell.charge >= pwr : cell.charge)

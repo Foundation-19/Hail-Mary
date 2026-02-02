@@ -198,7 +198,7 @@
 
 /obj/item/extinguisher/mini/nozzle
 	name = "extinguisher nozzle"
-	desc = "A heavy duty nozzle attached to a firefighter's backpack tank."
+	desc = "A heavy duty nozzle attached to a firefighter's backpack tank Any water stored inside is unsafe to drink unless purified."
 	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "atmos_nozzle"
 	item_state = "nozzleatmos"

@@ -176,7 +176,6 @@
 	var/spawn_text = "hatches from"
 	blood_volume = 0
 
-
 /mob/living/simple_animal/hostile/giantantqueen/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spawner, mob_types, spawn_time, faction, spawn_text, max_mobs, _range = 7)
@@ -250,7 +249,7 @@
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	faction = list("radscorpion")
 	gold_core_spawnable = HOSTILE_SPAWN
-	var/scorpion_color = "radscorpion" //holder for icon set
+	var/scorpion_color = "radscorpion"
 	var/list/icon_sets = list("radscorpion", "radscorpion_blue", "radscorpion_black")
 	blood_volume = 0
 	emote_taunt = list("snips")
@@ -259,7 +258,6 @@
 	aggrosound = list('sound/f13npc/scorpion/aggro.ogg', )
 	idlesound = list('sound/creatures/radscorpion_snip.ogg', )
 	death_sound = 'sound/f13npc/scorpion/death.ogg'
-
 
 /mob/living/simple_animal/hostile/radscorpion/AttackingTarget()
 	. = ..()
@@ -293,7 +291,6 @@
 	move_to_delay = 4
 	footstep_type = FOOTSTEP_MOB_CLAW
 
-
 // BLUE RADSCORPION - a little weaker and faster
 /mob/living/simple_animal/hostile/radscorpion/blue
 	name = "giant rad scorpion"
@@ -322,21 +319,11 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
-
 	move_to_delay = 2.0
-	// m2d 3 = standard, less is fast, more is slower.
-
 	retreat_distance = 3
-	//how far they pull back
-
 	minimum_distance = 1
-	// how close you can get before they try to pull back
-
-	aggro_vision_range = 7 //due to scorpions poor eyesight
-	//tiles within they start attacking, doesn't count the mobs tile
-
+	aggro_vision_range = 7
 	vision_range = 8
-	//tiles within they start making noise, does count the mobs tile
 	rapid_melee = 2
 
 	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat = 2, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/animalhide/chitin = 2)
@@ -390,7 +377,6 @@
 		visible_message(span_danger("[src] dodges [Proj]!"))
 		return 0
 
-
 /mob/living/simple_animal/hostile/cazador/young
 	name = "young cazador"
 	desc = "A mutated insect known for its fast speed, deadly sting, and being huge bastards. This one's little."
@@ -411,7 +397,7 @@
 /datum/reagent/toxin/cazador_venom
 	name = "Cazador venom"
 	description = "A potent toxin resulting from cazador stings that quickly kills if too much remains in the body."
-	color = "#801E28" // rgb: 128, 30, 40
+	color = "#801E28"
 	toxpwr = 1
 	taste_description = "pain"
 	taste_mult = 1.3
@@ -467,7 +453,10 @@
 	attack_sound = 'sound/creatures/bloatfly_attack.ogg'
 	speak_emote = list("chitters")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("hostile", "gecko", "critter-friend")
+
+	// FIX: no shared bridge factions
+	faction = list("bloatfly")
+
 	gold_core_spawnable = HOSTILE_SPAWN
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
@@ -477,8 +466,6 @@
 	casingtype = /obj/item/ammo_casing/shotgun/bloatfly
 	projectiletype = null
 	projectilesound = 'sound/f13npc/bloatfly/shoot2.ogg'
-	//sound_after_shooting = 'sound/f13npc/bloatfly/afterfire1.ogg'
-	//sound_after_shooting_delay = 1 SECONDS
 	extra_projectiles = 1
 	auto_fire_delay = GUN_BURSTFIRE_DELAY_NORMAL
 	ranged_cooldown_time = 3 SECONDS
@@ -545,7 +532,10 @@
 	attack_sound = 'sound/creatures/radroach_attack.ogg'
 	speak_emote = list("skitters")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("gecko", "critter-friend")
+
+	// FIX: no "gecko"/"critter-friend" bridge faction
+	faction = list("radroach")
+
 	a_intent = INTENT_HARM
 	pass_flags = PASSTABLE | PASSMOB
 	density = FALSE
@@ -574,4 +564,5 @@
 	. = ..()
 
 /mob/living/simple_animal/hostile/radroach/jungle
-	faction = list("gecko", "critter-friend", "jungle")
+	// FIX: keep jungle tag, but don't piggyback on gecko/critter-friend
+	faction = list("radroach", "jungle")

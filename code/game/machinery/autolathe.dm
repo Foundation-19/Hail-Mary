@@ -6,6 +6,9 @@
 #define AUTOLATHE_INSERT_OK TRUE
 
 /obj/machinery/autolathe
+	parent_type = /obj/machinery/f13_grid_gated
+
+	
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
 	icon = 'icons/fallout/machines/autolathe.dmi'
@@ -21,7 +24,7 @@
 	active_power_usage = 300
 	circuit = /obj/item/circuitboard/machine/autolathe
 	layer = BELOW_OBJ_LAYER
-
+	
 	var/operating = FALSE
 	var/list/L = list()
 	var/list/LL = list()

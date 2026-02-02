@@ -16,8 +16,12 @@ SUBSYSTEM_DEF(npcpool)
 /datum/controller/subsystem/npcpool/fire(resumed = FALSE)
 
 	if (!resumed)
-		var/list/activelist = GLOB.simple_animals[AI_ON]
-		src.currentrun = activelist.Copy()
+		var/list/onlist = GLOB.simple_animals[AI_ON]
+		var/list/idlelist = GLOB.simple_animals[AI_IDLE]
+
+		src.currentrun = onlist.Copy()
+		if(idlelist && idlelist.len)
+			src.currentrun += idlelist
 
 	//cache for sanic speed (lists are references anyways)
 	var/list/currentrun = src.currentrun
@@ -26,13 +30,17 @@ SUBSYSTEM_DEF(npcpool)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 		if(QDELETED(SA)) //sanity
-			break
+			continue
+
 		if(!SA.ckey && !SA.mob_transforming)
 			if(SA.stat != DEAD)
+				// Idle mobs: let them wander sometimes, not constantly
+				if(SA.AIStatus == AI_IDLE && !prob(20))
+					continue
+
 				SA.handle_automated_movement()
-			if(SA.stat != DEAD)
 				SA.handle_automated_action()
-			if(SA.stat != DEAD)
 				SA.handle_automated_speech()
+
 		if (MC_TICK_CHECK)
 			return

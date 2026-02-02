@@ -2,7 +2,7 @@
 	name = "Wastland Bounty Pod"
 	desc = "This is Wastland Bounty Pod"
 	icon = 'icons/obj/machines/teleporter.dmi'
-	icon_state = "teleport"
+	icon_state = "tele-o"
 	anchored = 1
 	density = 0
 	verb_say = "beeps"

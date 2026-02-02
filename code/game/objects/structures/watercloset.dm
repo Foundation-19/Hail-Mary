@@ -8,8 +8,8 @@
 	can_buckle = TRUE
 	buckle_lying = 0
 	var/open = FALSE			//if the lid is up
-	var/cistern = 0			//if the cistern bit is open
-	var/w_items = 0			//the combined w_class of all the items in the cistern
+	var/cistern = 0				//if the cistern bit is open
+	var/w_items = 0				//the combined w_class of all the items in the cistern
 	var/mob/living/swirlie = null	//the mob being given a swirlie
 	var/buildstacktype = /obj/item/stack/sheet/metal //they're metal now, shut up
 	var/buildstackamount = 1
@@ -125,7 +125,12 @@
 		if (!open)
 			return
 		var/obj/item/reagent_containers/RG = I
-		RG.reagents.add_reagent(/datum/reagent/water, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+		var/amt = min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this)
+		if(amt <= 0)
+			return
+		RG.reagents.add_reagent(/datum/reagent/water, amt)
+		// Toilet water is a last resort. Tune multiplier if it's too punishing.
+		RG.reagents.add_reagent(/datum/reagent/radium, round(amt * 0.6))
 		to_chat(user, span_notice("You fill [RG] from [src]. Gross."))
 	else
 		return ..()
@@ -317,7 +322,6 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-
 /obj/machinery/shower/update_overlays()
 	. = ..()
 	if(on)
@@ -496,8 +500,17 @@
 	anchored = TRUE
 	var/busy = FALSE 	//Something's being washed at the moment
 	var/dispensedreagent = /datum/reagent/water // for whenever plumbing happens
+	var/dispensed_radiation_mult = 0.35 // radium per 1u water (0.35 => 35 radium per 100 water)
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
+
+/obj/structure/sink/proc/dispense_into(obj/item/reagent_containers/RG, amount)
+	if(!RG || amount <= 0)
+		return
+	RG.reagents.add_reagent(dispensedreagent, amount)
+	// Add radiation unless you're later swapping dispensedreagent to a purified type
+	if(dispensedreagent == /datum/reagent/water && dispensed_radiation_mult > 0)
+		RG.reagents.add_reagent(/datum/reagent/radium, round(amount * dispensed_radiation_mult))
 
 /obj/structure/sink/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)
 	. = ..()
@@ -550,7 +563,8 @@
 		var/obj/item/reagent_containers/RG = O
 		if(RG.is_refillable())
 			if(!RG.reagents.holder_full())
-				RG.reagents.add_reagent(dispensedreagent, min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this))
+				var/amt = min(RG.volume - RG.reagents.total_volume, RG.amount_per_transfer_from_this)
+				dispense_into(RG, amt)
 				to_chat(user, span_notice("You fill [RG] from [src]."))
 				return TRUE
 			to_chat(user, span_notice("\The [RG] is full."))
@@ -571,7 +585,10 @@
 				return
 
 	if(istype(O, /obj/item/mop))
-		O.reagents.add_reagent(dispensedreagent, 5)
+		var/amt = 5
+		O.reagents.add_reagent(dispensedreagent, amt)
+		if(dispensedreagent == /datum/reagent/water && dispensed_radiation_mult > 0)
+			O.reagents.add_reagent(/datum/reagent/radium, round(amt * dispensed_radiation_mult))
 		to_chat(user, span_notice("You wet [O] in [src]."))
 		playsound(loc, 'sound/effects/slosh.ogg', 25, 1)
 		return

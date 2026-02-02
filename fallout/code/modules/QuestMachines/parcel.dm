@@ -158,14 +158,15 @@
 				prepared = TRUE
 				screwup_chance = rand(50,70)
 	else
-		if(istype(I, /obj/item/kitchen/knife) | istype(I, /obj/item/melee/onehanded/machete) | istype(I, /obj/item/melee/onehanded/knife/switchblade))
-			if (!isturf(src.loc) || !(locate(/obj/structure/table) in src.loc) && !(locate(/obj/structure/table/optable) in src.loc))
+		if(istype(I, /obj/item/kitchen/knife) || istype(I, /obj/item/melee/onehanded/machete) || istype(I, /obj/item/melee/onehanded/knife/switchblade))
+			if(!isturf(src.loc) || ( !(locate(/obj/structure/table) in src.loc) && !(locate(/obj/structure/table/optable) in src.loc) ))
 				to_chat(user, "<span class='warning'>You need table to do this.</span>")
 				return FALSE
+
 			if(user.mind == recipient)
 				if(do_after(user, 30, target = src))
-					var/obj/item/booty = pick(success_list)
-					booty = new booty(loc)
+					var/atom/movable/booty_type = pick(success_list)
+					var/atom/movable/booty = new booty_type(loc)
 					new /obj/item/mark(loc)
 					to_chat(user, "<span class='notice'>You found [booty] inside of parcel.</span>")
 					qdel(src)
@@ -176,7 +177,8 @@
 						new /obj/effect/gibspawner/robot(src.loc)
 						qdel(src)
 					else
-						var/obj/item/booty = pick(failure_list)
-						booty = new booty(loc)
+						var/atom/movable/booty_type = pick(failure_list)
+						var/atom/movable/booty = new booty_type(loc)
 						to_chat(user, "<span class='notice'>You found [booty] inside of parcel.</span>")
 						qdel(src)
+

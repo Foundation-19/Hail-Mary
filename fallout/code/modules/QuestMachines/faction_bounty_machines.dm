@@ -22,10 +22,10 @@
 */
 /*  Courier */
 
-/obj/machinery/bounty_machine/faction/coureer
+/obj/machinery/bounty_machine/faction/courier
 	name = "Parcel Terminal"
 	desc = "This terminal uses a courier to receive new parcels."
-	icon_state = "terminal"
+	icon_state = "enclave_on"
 	free_access = TRUE
 	quest_type = /datum/bounty_quest/faction/courier
 	price_list = list(
@@ -102,7 +102,9 @@
 		to_chat(usr, "Insufficient funds.")
 
 /*  INTERACTION */
-/obj/machinery/bounty_machine/faction/attackby(obj/item/OtherItem, /mob/living/carbon/human/user, parameters)
+/obj/machinery/bounty_machine/faction/attackby(obj/item/OtherItem, mob/living/carbon/human/user, params)
+	..()
+
 
 	// CAPS
 	if(istype(OtherItem, /obj/item/stack/f13Cash/caps))
@@ -139,7 +141,7 @@
 
 /* Quest UI */
 /obj/machinery/bounty_machine/faction/proc/GetQuestUI()
-	var/dat = {"<meta charset="UTF-8">"}
+	var/dat = "<meta charset='UTF-8'>"
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
 	assets.send(usr)
 

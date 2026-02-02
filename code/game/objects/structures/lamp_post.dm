@@ -122,6 +122,7 @@
 	return ..()
 
 /obj/machinery/light/lamp_post
+	
 	name = "lamp post"
 	desc = "A relic of the past that continues to illuminate the darkness."
 	icon = 'icons/fallout/objects/96x160_street_decore.dmi'
@@ -137,6 +138,7 @@
 	density = TRUE
 	pixel_x = -32
 	var/lamp_post_variant = "singles"
+
 
 /obj/machinery/light/lamp_post/deconstruct(disassembled = TRUE)
 	if(!(flags_1 & NODECONSTRUCT_1))
