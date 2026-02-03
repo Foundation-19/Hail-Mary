@@ -1,6 +1,33 @@
 /mob
 	var/status = "none"
 	var/list/allow_recipes = list()
+	var/courier_rep = 0
+	var/bounty_rep = 0
+
+/mob/proc/add_courier_rep(amount)
+	if(!amount)
+		return
+	courier_rep = max(0, courier_rep + round(amount))
+	if(client)
+		to_chat(src, "<span class='notice'>Courier reputation [amount > 0 ? "increased" : "decreased"] by [abs(round(amount))]. (Total: [courier_rep])</span>")
+
+/mob/proc/add_bounty_rep(amount)
+	if(!amount)
+		return
+	bounty_rep = max(0, bounty_rep + round(amount))
+	if(client)
+		to_chat(src, "<span class='notice'>Bounty reputation [amount > 0 ? "increased" : "decreased"] by [abs(round(amount))]. (Total: [bounty_rep])</span>")
+
+/mob/proc/get_courier_rank()
+	if(courier_rep >= 40)
+		return "Elite Runner"
+	if(courier_rep >= 20)
+		return "Trusted Runner"
+	if(courier_rep >= 10)
+		return "Reliable Courier"
+	if(courier_rep >= 5)
+		return "Junior Courier"
+	return "Rookie"
 
 var/human_status = list()
 

@@ -153,7 +153,11 @@
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/bounty_employers)
 	assets.send(usr)
 
+	var/mob/user = usr
+
 	dat += "<h1>Wasteland Parcel Post</h1>"
+	if(user)
+		dat += "<font color='green'>Courier Reputation: [user.courier_rep] ([user.get_courier_rank()])</font><br>"
 
 	if(connected_pod)
 		dat += "<font color='green'>Quantum pad connected!</font><br>"

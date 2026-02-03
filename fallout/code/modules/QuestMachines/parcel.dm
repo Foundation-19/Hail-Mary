@@ -8,6 +8,18 @@
 	..()
 	icon_state = "marka[rand(1,8)]"
 
+/obj/item/courier_receipt
+	name = "courier receipt"
+	desc = "A stamped receipt proving a parcel was accepted by its recipient."
+	icon = 'icons/obj/quest_items.dmi'
+	icon_state = "paper"
+
+/obj/item/contraband_tag
+	name = "contraband tag"
+	desc = "A coded tag used to verify sensitive cargo delivery."
+	icon = 'icons/obj/quest_items.dmi'
+	icon_state = "marka7"
+
 /obj/item/parcel
 	name = "parcel"
 	desc = "The package clearly contains something valuable, and maybe not so much."
@@ -22,6 +34,8 @@
 
 	var/screwup_chance = 60
 	var/prepared = FALSE
+	var/contraband = FALSE
+	var/mob/living/prepared_by = null
 
 	var/list/success_list = list(
 	/obj/item/crafting/duct_tape,
@@ -91,6 +105,15 @@
 	/obj/item/crafting/campfirekit
 	)
 
+	var/list/contraband_list = list(
+	/obj/item/stealthboy,
+	/obj/item/reagent_containers/hypospray/medipen/stimpak/super,
+	/obj/item/gun/ballistic/automatic/pistol/n99,
+	/obj/item/stock_parts/cell/ammo/mfc,
+	/obj/item/stock_parts/cell/ammo/ecp,
+	/obj/item/blueprint/misc/stim
+	)
+
 	var/list/failure_list = list(
 	/obj/item/crafting/duct_tape,
 	/obj/item/paper,
@@ -129,6 +152,7 @@
 /obj/item/parcel/New()
 	..()
 	icon_state = pick("bigbox", "longbox", "smallbox")
+	contraband = prob(20)
 
 	for(var/mob/living/player in shuffle(GLOB.player_list))
 		if(player.stat != DEAD && !isanimal(player) && ishuman(player) && player.mind)
@@ -154,6 +178,7 @@
 					icon_state = "smallbox1"
 					item_state = "smallbox"
 				desc = "A package clearly containing something valuable is intended for [recipient.name]."
+				prepared_by = user
 				qdel(I)
 				prepared = TRUE
 				screwup_chance = rand(50,70)
@@ -163,13 +188,20 @@
 				to_chat(user, "<span class='warning'>You need table to do this.</span>")
 				return FALSE
 
-			if(user.mind == recipient)
-				if(do_after(user, 30, target = src))
-					var/atom/movable/booty_type = pick(success_list)
-					var/atom/movable/booty = new booty_type(loc)
-					new /obj/item/mark(loc)
-					to_chat(user, "<span class='notice'>You found [booty] inside of parcel.</span>")
-					qdel(src)
+				if(user.mind == recipient)
+					if(do_after(user, 30, target = src))
+						var/atom/movable/booty_type = pick(success_list)
+						var/atom/movable/booty = new booty_type(loc)
+						new /obj/item/mark(loc)
+						new /obj/item/courier_receipt(loc)
+						if(contraband)
+							var/atom/movable/contraband_type = pick(contraband_list)
+							new contraband_type(loc)
+							new /obj/item/contraband_tag(loc)
+						if(prepared_by && prepared_by != user)
+							prepared_by.add_courier_rep(contraband ? 3 : 2)
+						to_chat(user, "<span class='notice'>You found [booty] inside of parcel.</span>")
+						qdel(src)
 			else
 				if(do_after(user, 50, target = src))
 					if(prob(screwup_chance))
@@ -181,4 +213,3 @@
 						var/atom/movable/booty = new booty_type(loc)
 						to_chat(user, "<span class='notice'>You found [booty] inside of parcel.</span>")
 						qdel(src)
-

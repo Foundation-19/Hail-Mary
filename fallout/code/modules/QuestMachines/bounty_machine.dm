@@ -76,6 +76,7 @@
 
 	var/turf/location = get_turf(connected_pod)
 	var/datum/bounty_quest/current_quest = active_quests[quest_index]
+	var/next_stage_type = current_quest.next_stage_type
 
 	// Find all target objects on the pod turf
 	var/list/quest_objects = list()
@@ -94,9 +95,29 @@
 	if(current_quest.HasBonus())
 		bonus_complete = current_quest.CheckTargets(current_quest.bonus_items, quest_objects)
 
-	// Fulfilled: remove quest objects (NOTE: nukes everything matching on pod turf)
+	// Fulfilled: remove only the required/bonus counts from the pod turf
 	flick("tele0", connected_pod)
+	var/list/removal_targets = list()
+	var/list/pending_required = current_quest.target_items.Copy()
+	var/list/pending_bonus = list()
+	if(bonus_complete)
+		pending_bonus = current_quest.bonus_items.Copy()
 	for(var/atom/A in quest_objects)
+		var/removed = FALSE
+		for(var/target_type in pending_required)
+			if(pending_required[target_type] > 0 && istype(A, target_type))
+				pending_required[target_type] = max(0, pending_required[target_type] - 1)
+				removal_targets += A
+				removed = TRUE
+				break
+		if(removed || !bonus_complete)
+			continue
+		for(var/target_type in pending_bonus)
+			if(pending_bonus[target_type] > 0 && istype(A, target_type))
+				pending_bonus[target_type] = max(0, pending_bonus[target_type] - 1)
+				removal_targets += A
+				break
+	for(var/atom/A in removal_targets)
 		qdel(A)
 
 	// Spawn reward
@@ -114,6 +135,9 @@
 	// Remove quest + refill
 	active_quests -= current_quest
 	qdel(current_quest)
+	if(next_stage_type)
+		var/datum/bounty_quest/next_stage = new next_stage_type()
+		active_quests.Insert(quest_index, next_stage)
 	UpdateActiveQuests()
 
 	return "Contract delivered."
