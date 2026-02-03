@@ -87,15 +87,12 @@
 		return "Nothing on the pod matches this contract."
 
 	// Check counts
-	var/list/target_items = current_quest.target_items.Copy()
-	for(var/atom/A in quest_objects)
-		for(var/target_type in target_items)
-			if(istype(A, target_type))
-				target_items[target_type] = max(0, target_items[target_type] - 1)
+	if(!current_quest.CheckTargets(current_quest.target_items, quest_objects))
+		return "Contract not fulfilled yet."
 
-	for(var/k in target_items)
-		if(target_items[k] > 0)
-			return "Contract not fulfilled yet."
+	var/bonus_complete = FALSE
+	if(current_quest.HasBonus())
+		bonus_complete = current_quest.CheckTargets(current_quest.bonus_items, quest_objects)
 
 	// Fulfilled: remove quest objects (NOTE: nukes everything matching on pod turf)
 	flick("tele0", connected_pod)
@@ -105,9 +102,14 @@
 	// Spawn reward
 	var/obj/item/stack/f13Cash/caps/C = new /obj/item/stack/f13Cash/caps(connected_pod.loc)
 	var/reward = max(1, current_quest.caps_reward)
+	if(bonus_complete)
+		reward += max(0, current_quest.bonus_reward)
 	C.add(reward - 1)
 
-	to_chat(user, current_quest.end_message)
+	if(bonus_complete && current_quest.bonus_end_message)
+		to_chat(user, current_quest.bonus_end_message)
+	else
+		to_chat(user, current_quest.end_message)
 
 	// Remove quest + refill
 	active_quests -= current_quest
@@ -149,6 +151,9 @@
 		dat += "<font color='green'><b>Employer:</b> [Q.employer]</font><br>"
 		dat += "<font color='green'><b>Message:</b> [Q.desc]</font><br>"
 		dat += "<font color='green'><b>Need:</b> <i>[Q.need_message]</i></font><br>"
+		if(Q.HasBonus())
+			var/bonus_reward = max(0, Q.bonus_reward)
+			dat += "<font color='green'><b>Bonus:</b> <i>[Q.bonus_need_message]</i> (+[bonus_reward] caps)</font><br>"
 		dat += "<font color='green'><b>Reward:</b> [Q.caps_reward] caps</font> "
 		dat += "<a href='?src=\ref[src];completequest=[i]'>Send</a>"
 		dat += "</div>"
