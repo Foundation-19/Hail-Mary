@@ -5942,9 +5942,9 @@
 	},
 /area/f13/wasteland/bighorn)
 "bFU" = (
-/obj/structure/table/reinforced,
+/obj/structure/table,
 /turf/open/floor/f13{
-	icon_state = "yellowrustyfull"
+	icon_state = "yellowdirtyfull"
 	},
 /area/f13/city/bighorn)
 "bFZ" = (
@@ -6906,6 +6906,13 @@
 	dir = 4
 	},
 /area/f13/wasteland/ncr)
+"bTt" = (
+/obj/structure/sink{
+	dir = 4;
+	pixel_x = 12
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ncr)
 "bTy" = (
 /obj/structure/table/wood/settler,
 /obj/item/reagent_containers/food/snacks/f13/fancylads,
@@ -7582,11 +7589,7 @@
 	pixel_x = -28
 	},
 /obj/effect/decal/cleanable/oil,
-/obj/structure/reagent_dispensers/fueltank{
-	anchored = 1;
-	icon_state = "retrofuelpumppe";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -9162,11 +9165,8 @@
 /turf/closed/wall/f13/wood,
 /area/f13/tunnel)
 "cFt" = (
-/obj/effect/spawner/lootdrop/f13/junkspawners{
-	pixel_x = -8;
-	pixel_y = -10
-	},
 /obj/effect/decal/cleanable/generic,
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalinnermain0"
 	},
@@ -9701,11 +9701,7 @@
 /obj/effect/decal/cleanable/oil{
 	pixel_x = -8
 	},
-/obj/structure/reagent_dispensers/fueltank{
-	anchored = 1;
-	icon_state = "retrofuelpumppe";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -11034,6 +11030,14 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
+"dgt" = (
+/obj/mecha/working/normalvehicle/pickuptruck/mechanic/loaded{
+	dir = 1
+	},
+/turf/open/floor/f13{
+	icon_state = "yellowdirtysolid"
+	},
+/area/f13/city/bighorn)
 "dgu" = (
 /obj/item/folder{
 	pixel_y = 5
@@ -11175,6 +11179,14 @@
 	},
 /turf/open/floor/plasteel/grimy,
 /area/f13/building)
+"diF" = (
+/obj/structure/rack,
+/obj/item/mecha_parts/mecha_equipment/trunk,
+/obj/item/mecha_parts/mecha_equipment/trunk,
+/turf/open/floor/f13{
+	icon_state = "yellowrustysolid"
+	},
+/area/f13/city/bighorn)
 "diN" = (
 /obj/machinery/light{
 	dir = 1;
@@ -11733,11 +11745,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "dso" = (
-/obj/structure/reagent_dispensers/fueltank{
-	anchored = 1;
-	icon_state = "retrofuelpumppe";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -11836,13 +11844,10 @@
 /turf/open/floor/wood_common,
 /area/f13/ncr)
 "dtv" = (
-/obj/structure/table/reinforced,
-/obj/item/clothing/accessory/armband/engine/ncr,
-/obj/item/clothing/accessory/armband/engine/ncr,
-/obj/item/clothing/accessory/armband/engine/ncr,
 /obj/effect/landmark/poster_spawner/ncr{
 	pixel_x = -32
 	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "dtM" = (
@@ -14154,6 +14159,15 @@
 /obj/effect/spawner/lootdrop/bedsheet,
 /turf/open/floor/carpet/red,
 /area/f13/building)
+"egW" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners{
+	pixel_x = -8;
+	pixel_y = -10
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain2right"
+	},
+/area/f13/building)
 "egX" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 5
@@ -15931,14 +15945,16 @@
 	},
 /area/f13/wasteland)
 "eKR" = (
-/obj/structure/sink{
-	dir = 4;
-	pixel_x = 12
-	},
 /obj/machinery/light{
 	dir = 4;
 	layer = 2
 	},
+/obj/structure/rack,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "eKY" = (
@@ -19373,6 +19389,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "fIx" = (
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	dir = 7;
 	icon_state = "horizontaltopbordertop2right"
@@ -19703,13 +19720,7 @@
 /turf/open/floor/carpet/red,
 /area/f13/building)
 "fNX" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft0"
 	},
@@ -25320,6 +25331,12 @@
 "hym" = (
 /obj/structure/closet/crate/large,
 /obj/effect/spawner/lootdrop/f13/crafting,
+/obj/item/clothing/under/rank/engineering/engineer/hazard{
+	pixel_y = 1
+	},
+/obj/item/clothing/under/rank/engineering/engineer/hazard{
+	pixel_y = -5
+	},
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertopleft"
 	},
@@ -32401,6 +32418,16 @@
 "jFz" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/table,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaltopbordertop2left"
 	},
@@ -35719,6 +35746,12 @@
 	icon_state = "verticalleftborderleft0"
 	},
 /area/f13/wasteland)
+"kDT" = (
+/obj/mecha/working/normalvehicle/buggy/red/loaded{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/wasteland)
 "kEa" = (
 /obj/structure/table,
 /obj/item/bikehorn/rubberducky{
@@ -36399,6 +36432,9 @@
 	},
 /area/f13/wasteland)
 "kOI" = (
+/obj/mecha/working/normalvehicle/jeep/bos/loaded{
+	dir = 4
+	},
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "innermaincornerouter - E"
 	},
@@ -38520,6 +38556,12 @@
 "lxG" = (
 /obj/structure/rack,
 /obj/machinery/light,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/f13{
 	icon_state = "yellowdirtysolid"
 	},
@@ -41287,6 +41329,9 @@
 	},
 /area/f13/city/bighorn)
 "mrm" = (
+/obj/mecha/combat/combatvehicle/pickuptruck/bos/armed{
+	dir = 4
+	},
 /turf/open/floor/plating/f13/outside/road{
 	icon_state = "innermaincornerouter - N"
 	},
@@ -41345,6 +41390,12 @@
 /area/f13/caves)
 "mrY" = (
 /obj/structure/rack,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
 /turf/open/floor/f13{
 	icon_state = "yellowdirtysolid"
 	},
@@ -48165,7 +48216,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "ouq" = (
-/obj/structure/wreck/trash/two_barrels,
+/obj/structure/table/reinforced,
+/obj/item/clothing/accessory/armband/engine/ncr,
+/obj/item/clothing/accessory/armband/engine/ncr,
+/obj/item/clothing/accessory/armband/engine/ncr,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "out" = (
@@ -49351,6 +49405,14 @@
 	network = list("BoS");
 	pixel_x = -12
 	},
+/obj/structure/rack,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertopright"
 	},
@@ -53193,6 +53255,14 @@
 	},
 /turf/open/floor/wood_mosaic,
 /area/f13/building/mall)
+"pSU" = (
+/obj/mecha/working/normalvehicle/corvega/police/loaded{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain1"
+	},
+/area/f13/city/bighorn)
 "pTg" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderrighttop"
@@ -55835,6 +55905,14 @@
 	icon_state = "horizontalinnermain2"
 	},
 /area/f13/wasteland)
+"qIu" = (
+/obj/mecha/working/normalvehicle/ambulance{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaltopbordertop2right"
+	},
+/area/f13/wasteland/bighorn)
 "qIC" = (
 /obj/structure/chair/f13chair1{
 	dir = 1
@@ -57148,13 +57226,7 @@
 	},
 /area/f13/wasteland)
 "rdP" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft2top"
 	},
@@ -58333,6 +58405,10 @@
 	},
 /turf/open/indestructible/ground/outside/dirt/dark,
 /area/f13/wasteland)
+"rxX" = (
+/obj/item/stack/cable_coil/random,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/ncr)
 "rye" = (
 /obj/structure/table,
 /obj/item/stack/sheet/glass/fifty,
@@ -59244,13 +59320,7 @@
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
 "rMu" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft2bottom"
 	},
@@ -62350,6 +62420,10 @@
 	},
 /turf/open/floor/f13,
 /area/f13/building)
+"sGN" = (
+/obj/mecha/working/normalvehicle/ncrtruck/loaded,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/area/f13/ncr)
 "sGX" = (
 /obj/item/paper_bin,
 /obj/item/pen,
@@ -63561,6 +63635,12 @@
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/wasteland)
+"sYK" = (
+/obj/mecha/working/normalvehicle/buggy/loaded,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain1"
+	},
+/area/f13/wasteland/bighorn)
 "sYM" = (
 /obj/item/chair/wood/dining,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
@@ -65279,7 +65359,7 @@
 	},
 /area/f13/wasteland/bighorn)
 "tzV" = (
-/obj/item/stack/cable_coil/random,
+/obj/mecha/combat/combatvehicle/buggy/rangerarmed/loaded,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/ncr)
 "tzX" = (
@@ -65607,6 +65687,18 @@
 	icon_state = "verticalrightborderright0"
 	},
 /area/f13/wasteland)
+"tEO" = (
+/obj/structure/fence/wooden,
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	layer = 2.8;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/open/floor/f13/wood,
+/area/f13/building)
 "tEV" = (
 /obj/machinery/door/poddoor/shutters{
 	id = "mus1";
@@ -67327,6 +67419,10 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building)
+"ugb" = (
+/obj/mecha/working/normalvehicle/highwayman/loaded,
+/turf/closed/mineral/indestructible/harsh,
+/area/f13/caves)
 "ugg" = (
 /obj/effect/overlay/junk/sink{
 	dir = 8;
@@ -68303,7 +68399,12 @@
 /area/f13/building)
 "uyC" = (
 /obj/machinery/light/broken,
-/obj/structure/junk/machinery,
+/obj/structure/rack,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
+/obj/item/mecha_parts/mecha_equipment/seat,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "verticalinnermain2"
 	},
@@ -68450,13 +68551,20 @@
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/building)
 "uzZ" = (
-/obj/effect/landmark/start/f13/ncrcombatengineer,
 /obj/machinery/button/door{
 	id = "ncrarmorygarage";
 	req_access_txt = "121";
 	name = "shutters button";
 	pixel_x = 32
 	},
+/obj/structure/rack,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "uAe" = (
@@ -68513,6 +68621,8 @@
 /area/f13/wasteland/bighorn)
 "uAW" = (
 /obj/structure/table/reinforced,
+/obj/item/mecha_parts/mecha_equipment/trunk,
+/obj/item/mecha_parts/mecha_equipment/trunk,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr)
 "uBd" = (
@@ -69310,13 +69420,7 @@
 	},
 /area/f13/wasteland)
 "uNc" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright1"
 	},
@@ -70749,13 +70853,7 @@
 	},
 /area/f13/wasteland)
 "vjN" = (
-/obj/structure/junk/small/table{
-	desc = "Time and the elements has degraded this fuel pump beyond repair.";
-	icon = 'icons/obj/objects.dmi';
-	icon_state = "retrofuelpumppe";
-	name = "fuel pump";
-	pixel_y = 5
-	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalrightborderright2bottom"
 	},
@@ -73813,6 +73911,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/building/mall)
+"weW" = (
+/obj/mecha/working/normalvehicle/buggy/blue/loaded,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain0"
+	},
+/area/f13/wasteland/bighorn)
 "wfe" = (
 /turf/closed/wall/f13/wood,
 /area/f13/building)
@@ -73880,6 +73984,16 @@
 	icon_state = "horizontaltopbordertop2right"
 	},
 /area/f13/wasteland/bighorn)
+"wgm" = (
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	layer = 2.8;
+	pixel_x = 7;
+	pixel_y = 3
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "verticalrightborderright0"
+	},
+/area/f13/wasteland)
 "wgn" = (
 /obj/item/restraints/legcuffs/beartrap{
 	armed = 1
@@ -75247,12 +75361,8 @@
 "wCQ" = (
 /obj/machinery/light/broken,
 /obj/structure/rack/shelf_metal,
-/obj/item/clothing/under/rank/engineering/engineer/hazard{
-	pixel_y = -5
-	},
-/obj/item/clothing/under/rank/engineering/engineer/hazard{
-	pixel_y = 1
-	},
+/obj/item/mecha_parts/mecha_equipment/trunk,
+/obj/item/mecha_parts/mecha_equipment/trunk,
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop3"
 	},
@@ -76650,6 +76760,7 @@
 /turf/open/indestructible/ground/outside/dirthole,
 /area/f13/wasteland)
 "wYl" = (
+/obj/structure/junk/machinery,
 /turf/open/indestructible/ground/outside/road{
 	dir = 8;
 	icon_state = "horizontalinnermain2left"
@@ -106770,7 +106881,7 @@ mxB
 mtU
 fTS
 rLu
-rAm
+egW
 rWF
 kOI
 qyg
@@ -107665,7 +107776,7 @@ lCf
 lCf
 vEI
 gtt
-eUg
+kDT
 eUg
 eUg
 xHK
@@ -115177,7 +115288,7 @@ xqc
 xKB
 xZp
 oIh
-wJM
+wgm
 nXG
 swq
 lIz
@@ -117727,7 +117838,7 @@ jqZ
 jqZ
 jqZ
 jqZ
-jqZ
+ugb
 jqZ
 jqZ
 jqZ
@@ -150605,7 +150716,7 @@ jRI
 jRI
 nrM
 sxE
-sxE
+sGN
 sxE
 sxE
 uwJ
@@ -151109,7 +151220,7 @@ byq
 sxE
 sxE
 sxE
-sxE
+pWC
 sxE
 sxE
 xMJ
@@ -151608,7 +151719,7 @@ jqZ
 jRI
 cpx
 byq
-pWC
+sxE
 lFi
 sxE
 pWC
@@ -152613,8 +152724,8 @@ jRI
 jRI
 bWp
 byq
-byq
-byq
+rxX
+coA
 aMN
 uAW
 uEc
@@ -154118,7 +154229,7 @@ jqZ
 jqZ
 nMi
 byq
-byq
+bTt
 eKR
 uzZ
 wJX
@@ -171893,7 +172004,7 @@ aZX
 oHP
 aZX
 mre
-wIu
+diF
 nsV
 exF
 gra
@@ -174397,7 +174508,7 @@ faX
 cOe
 mpP
 hdk
-lAW
+dgt
 kGd
 aZX
 aZX
@@ -180398,7 +180509,7 @@ dEP
 rpq
 uho
 wVv
-epN
+qIu
 snn
 abe
 abe
@@ -181930,7 +182041,7 @@ eRL
 faX
 nmx
 mBW
-nmx
+sYK
 faX
 faX
 nmx
@@ -183936,7 +184047,7 @@ tte
 qvP
 nmx
 nmx
-faX
+weW
 faX
 faX
 faX
@@ -189451,10 +189562,10 @@ kTN
 snn
 lro
 gZN
-dep
+pSU
 fIx
 vPs
-dep
+pSU
 snn
 mOM
 bit
@@ -198516,7 +198627,7 @@ lmn
 lmn
 tpR
 tpR
-hUZ
+tEO
 wkg
 frN
 dHw
