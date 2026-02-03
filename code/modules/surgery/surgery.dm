@@ -39,7 +39,8 @@
 			operated_bodypart = surgery_bodypart
 			if(targetable_wound)
 				operated_wound = operated_bodypart.get_wound_type(targetable_wound)
-				operated_wound.attached_surgery = src
+				if(operated_wound)
+					operated_wound.attached_surgery = src
 
 /datum/surgery/Destroy()
 	if(operated_wound)
@@ -125,7 +126,7 @@
 		else
 			return FALSE
 		//
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
+	if(HAS_TRAIT(user, TRAIT_SURGEON) || (user.mind && HAS_TRAIT(user.mind, TRAIT_SURGEON)))
 		if(replaced_by)
 			return FALSE
 		else

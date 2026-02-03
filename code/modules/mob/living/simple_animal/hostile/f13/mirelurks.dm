@@ -45,6 +45,13 @@
 	blood_volume = 0
 	footstep_type = FOOTSTEP_MOB_CLAW
 	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 24
+	ally_focus_range = 8
+	target_commitment_time = 30
+	tactical_memory_window = 35
+	flank_cooldown_time = 9
+	backup_call_cooldown = 70
 	variation_list = list(
 		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
 		MOB_SPEED_LIST(3.3, 3.4, 3.5),
@@ -75,6 +82,12 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	tactical_reposition_chance = 30
+	ally_focus_range = 10
+	target_commitment_time = 36
+	tactical_memory_window = 42
+	flank_cooldown_time = 8
+	backup_call_cooldown = 60
 	variation_list = list(
 		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
 		MOB_SPEED_LIST(3, 3.1, 3.2),
@@ -106,6 +119,13 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	pop_required_to_jump_into = 0
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 50
+	ally_focus_range = 10
+	target_commitment_time = 10
+	tactical_memory_window = 18
+	flank_cooldown_time = 6
+	backup_call_cooldown = 35
 	variation_list = list(
 		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
 		MOB_SPEED_LIST(2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8),

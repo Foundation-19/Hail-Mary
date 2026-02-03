@@ -34,6 +34,11 @@
 	del_on_death = TRUE
 	speak_chance = 1
 	despawns_when_lonely = FALSE
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 18
+	ally_focus_range = 7
+	target_commitment_time = 22
+	backup_call_cooldown = 120
 
 /obj/effect/mob_spawn/human/corpse/vault
 	name = "Vault Dweller"
@@ -85,8 +90,8 @@
 	icon_dead = "vault_dweller_sec"
 	maxHealth = 160
 	health = 160
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 3
+	minimum_distance = 6
 	loot = list(/obj/effect/mob_spawn/human/corpse/vault/security)
 	healable = 1
 	ranged = 1
@@ -136,7 +141,7 @@
 	response_help_simple = "pokes"
 	response_disarm_simple = "shoves"
 	response_harm_simple = "hits"
-	retreat_distance = 6
+	retreat_distance = 3
 	minimum_distance = 6
 	speed = 0
 	ranged_cooldown_time = 22
@@ -164,6 +169,11 @@
 	status_flags = CANPUSH
 	speak = list("For the Enclave!", "Stars and Stripes!", "Liberty or death!")
 	speak_emote = list("pulls out a weapon", "shouts")
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 34
+	ally_focus_range = 10
+	target_commitment_time = 35
+	backup_call_cooldown = 90
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),
@@ -299,6 +309,11 @@
 	speak = list("Semper Invicta!")
 	speak_emote = list("rushes")
 	speak_chance = 1
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 26
+	ally_focus_range = 8
+	target_commitment_time = 30
+	backup_call_cooldown = 100
 
 /obj/effect/mob_spawn/human/corpse/bs
 	name = "Brotherhood Knight"
@@ -316,8 +331,8 @@
 	icon_state = "bs_knight"
 	icon_living = "bs_knight"
 	icon_dead = "bs_knight"
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 3
+	minimum_distance = 6
 	loot = list(/obj/effect/mob_spawn/human/corpse/bs)
 	healable = 1
 	ranged = 1
@@ -340,8 +355,8 @@
 	icon_state = "bs_paladin"
 	icon_living = "bs_paladin"
 	icon_dead = "bs_paladin"
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 3
+	minimum_distance = 7
 	loot = list(/obj/effect/mob_spawn/human/corpse/bs/paladin)
 	maxHealth = 480
 	health = 480
@@ -409,6 +424,11 @@
 	speak = list("Patrolling the Mojave almost makes you wish for a nuclear winter.", "When I got this assignment I was hoping there would be more gambling.", "It's been a long tour, all I can think about now is going back home.", "You know, if you were serving, you'd probably be halfway to general by now.", "You oughtta think about enlisting. We need you here.")
 	speak_emote = list("says")
 	speak_chance = 1
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 24
+	ally_focus_range = 9
+	target_commitment_time = 28
+	backup_call_cooldown = 100
 
 /obj/effect/mob_spawn/human/corpse/ncr
 	name = "NCR Trooper"
@@ -424,8 +444,8 @@
 	icon_state = "ncr_trooper"
 	icon_living = "ncr_trooper"
 	icon_dead = "ncr_trooper"
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 3
+	minimum_distance = 6
 	loot = list(/obj/effect/mob_spawn/human/corpse/ncr)
 	healable = 1
 	ranged = 1
@@ -449,8 +469,8 @@
 	icon_state = "ncr_sergeant"
 	icon_living = "ncr_sergeant"
 	icon_dead = "ncr_sergeant"
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 4
+	minimum_distance = 7
 	loot = list(/obj/effect/mob_spawn/human/corpse/ncr/ranger)
 	maxHealth = 160
 	health = 160
@@ -514,6 +534,11 @@
 	speak = list("Ave, true to Caesar.", "True to Caesar.", "Ave, Amicus.", "The new slave girls are quite beautiful.", "Give me cause, Profligate.", "Degenerates like you belong on a cross.")
 	speak_emote = list("says")
 	speak_chance = 1
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 36
+	ally_focus_range = 8
+	target_commitment_time = 32
+	backup_call_cooldown = 90
 
 /obj/effect/mob_spawn/human/corpse/legion
 	name = "Legion Prime"
@@ -529,8 +554,8 @@
 	icon_living = "legion_prime"
 	icon_dead = "legion_prime"
 	icon_gib = "legion_prime"
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 2
+	minimum_distance = 6
 	loot = list(/obj/effect/mob_spawn/human/corpse/legion)
 	healable = 1
 	ranged = 1
@@ -555,8 +580,8 @@
 	icon_living = "legion_decan"
 	icon_dead = "legion_decan"
 	icon_gib = "legion_decan"
-	retreat_distance = 5
-	minimum_distance = 5
+	retreat_distance = 2
+	minimum_distance = 7
 	loot = list(/obj/effect/mob_spawn/human/corpse/legion/decan)
 	maxHealth = 180
 	health = 180
@@ -620,3 +645,8 @@
 	speak = list("For our kin!", "This will be a good hunt.", "The gods look upon me today.")
 	speak_emote = list("says")
 	speak_chance = 1
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 45
+	ally_focus_range = 6
+	target_commitment_time = 24
+	backup_call_cooldown = 80

@@ -108,6 +108,12 @@
 	can_ghost_into = TRUE // not a bad idea at all
 	desc_short = "Short, angry, and as confused as they are tasty."
 	desc_important = "Still in development! Report wierdness on the discord!"
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 30
+	ally_focus_range = 7
+	target_commitment_time = 20
+	flank_cooldown_time = 8
+	backup_call_cooldown = 75
 
 	variation_list = list(
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
@@ -649,6 +655,12 @@
 	waddle_amount = 3
 	waddle_up_time = 1
 	waddle_side_time = 1
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 34
+	ally_focus_range = 8
+	target_commitment_time = 24
+	flank_cooldown_time = 9
+	backup_call_cooldown = 80
 
 /mob/living/simple_animal/hostile/stalker/playable
 	health = 80

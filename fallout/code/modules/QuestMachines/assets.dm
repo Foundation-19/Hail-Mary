@@ -15,5 +15,7 @@
 		"employer_12.png" = 'icons/bounty_employers/employer_12.png',
 		"employer_13.png" = 'icons/bounty_employers/employer_13.png',
 		"employer_14.png" = 'icons/bounty_employers/employer_14.png',
-		"employer_15.png" = 'icons/bounty_employers/employer_15.png'
+		"employer_15.png" = 'icons/bounty_employers/employer_15.png',
+		// Legacy alias used by many wasteland contracts.
+		"employermerc.png" = 'icons/bounty_employers/employer_03.png'
 	)

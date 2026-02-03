@@ -23,13 +23,26 @@
 #define FAUNA_HEAT_NIGHT_MULT 2
 
 // ---- Reproduction ----
-#define FAUNA_REPRO_EVERY 160
-#define FAUNA_REPRO_CHANCE 18
+#define FAUNA_REPRO_EVERY 90
+#define FAUNA_REPRO_CHANCE 30
 #define FAUNA_REPRO_CHILDREN_MIN 1
 #define FAUNA_REPRO_CHILDREN_MAX 3
-#define FAUNA_REPRO_COOLDOWN 700
+#define FAUNA_REPRO_COOLDOWN 320
 #define FAUNA_REPRO_SPREAD_MIN 3
 #define FAUNA_REPRO_SPREAD_MAX 9
+#define FAUNA_MATE_SEARCH_RANGE 12
+#define FAUNA_MATE_PAIR_RANGE 4
+#define FAUNA_GESTATION_MIN 80
+#define FAUNA_GESTATION_MAX 150
+#define FAUNA_NEST_STAY_RADIUS 8
+#define FAUNA_NEST_DECAY 2400
+#define FAUNA_REPRO_CHANCE_MIN 8
+#define FAUNA_REPRO_CHANCE_MAX 88
+#define FAUNA_REPRO_LOWPOP_BOOST_HIGH 24
+#define FAUNA_REPRO_LOWPOP_BOOST_MID 12
+#define FAUNA_REPRO_LOWPOP_SOLO_THRESH 45
+#define FAUNA_REPRO_LOWPOP_SOLO_CHANCE 32
+#define FAUNA_REPRO_MAX_OFFSPRING_PASS 48
 
 // ---- Territorial Spread ----
 #define FAUNA_CROWD_RADIUS 6
@@ -124,6 +137,10 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 	var/list/rest_timers = list()      // "\ref[mob]" -> time
 	var/list/flee_memory = list()      // "\ref[mob]" -> "\ref[threat]"
 	var/list/hunt_memory = list()      // "\ref[mob]" -> "\ref[prey]"
+	var/list/gestation_until = list()  // "\ref[mob]" -> time
+	var/list/mate_target = list()      // "\ref[mob]" -> "\ref[mate]"
+	var/list/nest_site = list()        // "\ref[mob]" -> turf
+	var/list/nest_expires = list()     // "\ref[mob]" -> time
 
 	// Roam goals keyed by ref string
 	var/list/roam_goal = list()        // "\ref[mob]" -> "\ref[turf]"
@@ -1476,6 +1493,135 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 
 // ============== REPRODUCTION ==============
 
+/datum/controller/subsystem/fauna_ecosystem/proc/get_nest_turf(mob/living/simple_animal/hostile/M)
+	var/key = mob_key(M)
+	if(!key) return null
+	var/turf/N = nest_site[key]
+	if(!N || QDELETED(N) || !is_valid_turf(N))
+		return null
+	var/expire = nest_expires[key]
+	if(expire && world.time >= expire)
+		nest_site -= key
+		nest_expires -= key
+		return null
+	return N
+
+/datum/controller/subsystem/fauna_ecosystem/proc/set_nest_turf(mob/living/simple_animal/hostile/M, turf/N)
+	var/key = mob_key(M)
+	if(!key || !N || !is_valid_turf(N)) return
+	nest_site[key] = N
+	nest_expires[key] = world.time + FAUNA_NEST_DECAY
+
+/datum/controller/subsystem/fauna_ecosystem/proc/clear_repro_state(mob/living/simple_animal/hostile/M)
+	var/key = mob_key(M)
+	if(!key) return
+	gestation_until -= key
+	mate_target -= key
+
+/datum/controller/subsystem/fauna_ecosystem/proc/find_mate_candidate(mob/living/simple_animal/hostile/parent, datum/fauna_species/S)
+	if(!parent || !S) return null
+	var/mob/living/simple_animal/hostile/best = null
+	var/best_d = 99999
+
+	for(var/mob/living/simple_animal/hostile/M in range(FAUNA_MATE_SEARCH_RANGE, parent))
+		if(M == parent) continue
+		if(QDELETED(M) || M.stat) continue
+
+		var/datum/fauna_species/MS = get_species_for_mob(M)
+		if(!MS || MS.id != S.id) continue
+
+		var/mkey = mob_key(M)
+		if(!mkey) continue
+		if(gestation_until[mkey]) continue
+		if(repro_cooldowns[mkey] && world.time < repro_cooldowns[mkey]) continue
+		if(mate_target[mkey]) continue
+
+		var/d = get_dist(parent, M)
+		if(d < best_d)
+			best_d = d
+			best = M
+
+	return best
+
+/datum/controller/subsystem/fauna_ecosystem/proc/choose_nest_site(mob/living/simple_animal/hostile/A, mob/living/simple_animal/hostile/B)
+	if(!A || !B) return null
+	var/turf/AT = get_turf(A)
+	var/turf/BT = get_turf(B)
+	if(!AT || !BT) return null
+
+	// Prefer existing den/home between pair first.
+	var/turf/AH = get_home_turf(A)
+	if(AH && get_dist(B, AH) <= FAUNA_MATE_SEARCH_RANGE && is_valid_turf(AH))
+		return AH
+	var/turf/BH = get_home_turf(B)
+	if(BH && get_dist(A, BH) <= FAUNA_MATE_SEARCH_RANGE && is_valid_turf(BH))
+		return BH
+
+	var/mx = round((AT.x + BT.x) / 2)
+	var/my = round((AT.y + BT.y) / 2)
+	var/turf/mid = locate(clamp(mx, 1, world.maxx), clamp(my, 1, world.maxy), AT.z)
+	if(mid && is_valid_turf(mid))
+		return mid
+
+	return pick_spread_turf(AT, 1, 4)
+
+/datum/controller/subsystem/fauna_ecosystem/proc/start_pair_gestation(mob/living/simple_animal/hostile/A, mob/living/simple_animal/hostile/B, turf/N)
+	if(!A || !B || !N) return FALSE
+	var/akey = mob_key(A)
+	var/bkey = mob_key(B)
+	if(!akey || !bkey) return FALSE
+
+	var/gest = world.time + rand(FAUNA_GESTATION_MIN, FAUNA_GESTATION_MAX)
+	gestation_until[akey] = gest
+	gestation_until[bkey] = gest
+	mate_target[akey] = bkey
+	mate_target[bkey] = akey
+	set_nest_turf(A, N)
+	set_nest_turf(B, N)
+	set_home_turf(A, N)
+	set_home_turf(B, N)
+	set_intent(A, FAUNA_STATE_GUARD_HOME, rand(24, 55))
+	set_intent(B, FAUNA_STATE_GUARD_HOME, rand(24, 55))
+	return TRUE
+
+/datum/controller/subsystem/fauna_ecosystem/proc/spawn_from_nest(mob/living/simple_animal/hostile/parent, datum/fauna_species/S, turf/N)
+	if(!parent || !S || !N) return 0
+	var/spawned = 0
+	var/children = rand(FAUNA_REPRO_CHILDREN_MIN, FAUNA_REPRO_CHILDREN_MAX)
+	var/pkey = mob_key(parent)
+	var/den_q = pkey ? home_quality[pkey] : null
+
+	if(S.role == FAUNA_ROLE_PREY)
+		children += rand(1, 2)
+		if(prob(25))
+			children++
+	else if(S.role == FAUNA_ROLE_HUNTER)
+		if(prob(35))
+			children++
+	else if(S.role == FAUNA_ROLE_APEX)
+		if(prob(55))
+			children--
+
+	if(!isnull(den_q) && den_q >= 70 && prob(45))
+		children++
+	children = clamp(children, 1, 6)
+
+	for(var/i in 1 to children)
+		var/turf/T = pick_spread_turf(N, 1, 3)
+		if(!T) T = N
+
+		var/mob/living/simple_animal/hostile/child = new S.mob_type(T)
+		if(child)
+			spawned++
+			set_home_turf(child, N)
+			set_nest_turf(child, N)
+			if(prob(35))
+				set_intent(child, FAUNA_STATE_GUARD_HOME, rand(20, 45))
+			else if(prob(45))
+				roam_tick(child, 1)
+
+	return spawned
+
 /datum/controller/subsystem/fauna_ecosystem/proc/process_reproduction()
 	set background = 1
 
@@ -1483,6 +1629,9 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 		log_world("FAUNA: === REPRODUCTION PASS ===")
 
 	var/births = 0
+	var/pairs_started = 0
+	var/offspring_spawned = 0
+	var/list/species_count_cache = list()
 
 	for(var/mob/living/simple_animal/hostile/parent in world)
 		if(QDELETED(parent)) continue
@@ -1493,18 +1642,76 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 		if(!S) continue
 
 		var/pkey = mob_key(parent)
+		if(!pkey) continue
+
+		ensure_home_turf(parent)
+		ensure_mob_profile(parent)
+		var/pop_key = "[S.id]@[parent.z]"
+		var/current_pop = species_count_cache[pop_key]
+		if(isnull(current_pop))
+			current_pop = count_species_on_z(S, parent.z)
+			species_count_cache[pop_key] = current_pop
+
+		// Gestating pairs stay around nest and then deliver.
+		var/gest = gestation_until[pkey]
+		if(gest)
+			var/turf/N = get_nest_turf(parent)
+			if(!N)
+				N = get_home_turf(parent)
+				if(N)
+					set_nest_turf(parent, N)
+
+			var/mate_key = mate_target[pkey]
+			var/mob/living/simple_animal/hostile/mate = get_mob_from_key(mate_key)
+			if(!mate || QDELETED(mate) || mate.stat)
+				clear_repro_state(parent)
+				if(N)
+					nest_expires[pkey] = world.time + (FAUNA_NEST_DECAY / 2)
+				continue
+
+			if(world.time < gest)
+				if(N && get_dist(parent, N) > FAUNA_NEST_STAY_RADIUS)
+					step_toward_target(parent, N, 1)
+					set_intent(parent, FAUNA_STATE_RETURN_HOME, rand(18, 40))
+				else if(N && prob(30))
+					set_intent(parent, FAUNA_STATE_GUARD_HOME, rand(14, 32))
+				continue
+
+			if(current_pop >= S.hardcap)
+				clear_repro_state(parent)
+				repro_cooldowns[pkey] = world.time + (FAUNA_REPRO_COOLDOWN / 2)
+				continue
+
+			var/spawned = spawn_from_nest(parent, S, N)
+			if(spawned > 0)
+				births++
+				offspring_spawned += spawned
+				repro_cooldowns[pkey] = world.time + FAUNA_REPRO_COOLDOWN
+				var/mkey = mob_key(mate)
+				if(mkey)
+					repro_cooldowns[mkey] = world.time + FAUNA_REPRO_COOLDOWN
+					clear_repro_state(mate)
+				home_quality[pkey] = clamp((home_quality[pkey] || 50) + 2, 0, FAUNA_DEN_QUALITY_MAX)
+				species_count_cache[pop_key] = current_pop + spawned
+				if(debug_logging)
+					log_world("FAUNA: [S.id] nest delivery by [parent.type], [spawned] offspring at ([N ? N.x : 0],[N ? N.y : 0],[parent.z])")
+			clear_repro_state(parent)
+			if(offspring_spawned >= FAUNA_REPRO_MAX_OFFSPRING_PASS)
+				if(debug_logging)
+					log_world("FAUNA: reproduction pass reached offspring budget ([offspring_spawned]/[FAUNA_REPRO_MAX_OFFSPRING_PASS])")
+				break
+			continue
 
 		var/cd = repro_cooldowns[pkey]
 		if(cd && world.time < cd)
 			continue
 
-		if(count_species_on_z(S, parent.z) >= S.hardcap)
+		if(current_pop >= S.hardcap)
 			continue
 
 		var/turf/origin = get_turf(parent)
 		if(!origin || !is_valid_turf(origin))
 			continue
-		ensure_home_turf(parent)
 		var/turf/home = get_home_turf(parent)
 		if(home)
 			if(get_dist(parent, home) > 6 && prob(70))
@@ -1512,50 +1719,73 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 			origin = home
 
 		var/nearby_same = count_nearby_same_species(parent, FAUNA_CROWD_RADIUS)
-		if(nearby_same >= FAUNA_CROWD_THRESHOLD)
-			if(prob(25))
-				disperse_mob(parent)
+		if(nearby_same >= FAUNA_CROWD_THRESHOLD && prob(25))
+			disperse_mob(parent)
 
 		var/chance = FAUNA_REPRO_CHANCE
 		if(is_night() && S.nocturnal)
 			chance *= 1.25
 		else if(!is_night() && !S.nocturnal)
 			chance *= 1.15
+
+		if(current_pop < round(S.hardcap * 0.30))
+			chance += FAUNA_REPRO_LOWPOP_BOOST_HIGH
+		else if(current_pop < round(S.hardcap * 0.55))
+			chance += FAUNA_REPRO_LOWPOP_BOOST_MID
+		else if(current_pop > round(S.hardcap * 0.90))
+			chance -= 10
+
+		if(S.role == FAUNA_ROLE_PREY)
+			chance += 8
+		else if(S.role == FAUNA_ROLE_APEX)
+			chance -= 6
+
 		var/den_q = home_quality[pkey]
 		if(!isnull(den_q))
 			chance += round((den_q - 50) / 20)
-		chance = clamp(chance, 4, 55)
 
+		if(nearby_same <= 1 && current_pop < round(S.hardcap * 0.70))
+			chance += 6
+
+		chance = clamp(chance, FAUNA_REPRO_CHANCE_MIN, FAUNA_REPRO_CHANCE_MAX)
 		if(!prob(chance))
 			continue
 
-		var/children = rand(FAUNA_REPRO_CHILDREN_MIN, FAUNA_REPRO_CHILDREN_MAX)
-		var/spawned = 0
+		if(mate_target[pkey] || gestation_until[pkey])
+			continue
 
-		for(var/i in 1 to children)
-			var/turf/T = pick_spread_turf(origin, FAUNA_REPRO_SPREAD_MIN, FAUNA_REPRO_SPREAD_MAX)
-			if(!T) continue
+		var/mob/living/simple_animal/hostile/mate = find_mate_candidate(parent, S)
+		if(!mate)
+			if(S.role != FAUNA_ROLE_PREY) continue
+			if(current_pop >= round(S.hardcap * (FAUNA_REPRO_LOWPOP_SOLO_THRESH / 100))) continue
+			if(!prob(FAUNA_REPRO_LOWPOP_SOLO_CHANCE)) continue
+			mate = parent
+		var/mkey = mob_key(mate)
+		if(!mkey) continue
 
-			var/mob/living/simple_animal/hostile/child = new S.mob_type(T)
-			if(child)
-				spawned++
-				set_home_turf(child, origin)
-				if(prob(55))
-					// kick child into real roam early
-					roam_tick(child, 1)
+		if(mate != parent && get_dist(parent, mate) > FAUNA_MATE_PAIR_RANGE)
+			step_toward_target(parent, mate, 2)
+			step_toward_target(mate, parent, 2)
+			set_intent(parent, FAUNA_STATE_GUARD_HOME, rand(10, 24))
+			set_intent(mate, FAUNA_STATE_GUARD_HOME, rand(10, 24))
+			continue
 
-		if(spawned)
-			births++
-			repro_cooldowns[pkey] = world.time + FAUNA_REPRO_COOLDOWN
+		var/turf/N = choose_nest_site(parent, mate)
+		if(!N) continue
 
+		if(start_pair_gestation(parent, mate, N))
+			pairs_started++
 			if(debug_logging)
-				log_world("FAUNA: [parent.type] at ([origin.x],[origin.y],[origin.z]) had [spawned] children")
+				log_world("FAUNA: [S.id] pair started gestation at nest ([N.x],[N.y],[N.z])")
+
+		if(offspring_spawned >= FAUNA_REPRO_MAX_OFFSPRING_PASS)
+			break
 
 		if(MC_TICK_CHECK)
 			return
 
 	if(debug_logging)
-		log_world("FAUNA: Reproduction complete - [births] births")
+		log_world("FAUNA: Reproduction complete - [pairs_started] pairs, [births] births, [offspring_spawned] offspring")
 
 /datum/controller/subsystem/fauna_ecosystem/proc/disperse_mob(mob/living/simple_animal/hostile/M)
 	var/turf/origin = get_turf(M)
@@ -1614,6 +1844,11 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 		step_towards(M, target)
 		return
 	var/mob/living/simple_animal/hostile/H = M
+	// Avoid movement tug-of-war with core hostile AI during active combat/pathing.
+	if(H.ckey)
+		return
+	if(H.target || H.stop_automated_movement)
+		return
 	var/state = get_behavior_state(H)
 
 	var/gait = "walk"
@@ -1627,9 +1862,9 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 
 	var/move_attempts = 1
 	if(gait == "run")
-		move_attempts = prob(35) ? 2 : 1
+		move_attempts = prob(18) ? 2 : 1
 	else if(gait == "trot")
-		move_attempts = prob(20) ? 2 : 1
+		move_attempts = prob(10) ? 2 : 1
 	else if(gait == "stalk")
 		if(prob(35))
 			return
@@ -1637,9 +1872,9 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 		if(prob(55))
 			return
 
-	// Respect callers that ask for speed, but cap to avoid teleport-like jumps.
-	if(steps > move_attempts)
-		move_attempts = min(2, steps)
+	// Keep multi-step bursts rare to prevent "teleport/zoom" looking movement.
+	if(steps > 1 && gait == "run" && prob(15))
+		move_attempts = max(move_attempts, 2)
 
 	for(var/i in 1 to move_attempts)
 		smart_step_towards(H, target)
@@ -1725,8 +1960,9 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 
 	// Never execute packmates or same-species here; keeps deaths from looking random.
 	var/datum/fauna_pack/ppack = get_pack_for_mob(predator)
-	if(ppack && prey in ppack.members)
-		return
+	if(ppack)
+		if(prey in ppack.members)
+			return
 	var/datum/fauna_species/predS = get_species_for_mob(predator)
 	var/datum/fauna_species/preyS = get_species_for_mob(prey)
 	if(predS?.id && preyS?.id && predS.id == preyS.id)
@@ -1804,7 +2040,9 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 		if(other == M) continue
 		if(QDELETED(other)) continue
 		if(other.stat) continue
-		if(myPack && other in myPack.members) continue
+		if(myPack)
+			if(other in myPack.members)
+				continue
 
 		var/datum/fauna_species/otherS = get_species_for_mob(other)
 		if(!otherS) continue
@@ -1893,7 +2131,7 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 	var/text = "FAUNA DEBUG: states="
 	for(var/s in state_counts)
 		text += "[s]:[state_counts[s]] "
-	text += "| packs=[length(packs)] scents=[length(scent_trails)] safe=[length(safe_spot)] dens=[length(home_quality)]"
+	text += "| packs=[length(packs)] scents=[length(scent_trails)] safe=[length(safe_spot)] dens=[length(home_quality)] nests=[length(nest_site)] gest=[length(gestation_until)]"
 	return text
 
 /datum/controller/subsystem/fauna_ecosystem/proc/cleanup_stale_timers()
@@ -1929,6 +2167,38 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 			stale += key
 	for(var/key in stale)
 		hunt_memory -= key
+
+	stale.Cut()
+	for(var/key in gestation_until)
+		var/mob/M = get_mob_from_key(key)
+		if(!M || QDELETED(M))
+			stale += key
+	for(var/key in stale)
+		gestation_until -= key
+
+	stale.Cut()
+	for(var/key in mate_target)
+		var/mob/M = get_mob_from_key(key)
+		if(!M || QDELETED(M))
+			stale += key
+	for(var/key in stale)
+		mate_target -= key
+
+	stale.Cut()
+	for(var/key in nest_site)
+		var/mob/M = get_mob_from_key(key)
+		if(!M || QDELETED(M))
+			stale += key
+	for(var/key in stale)
+		nest_site -= key
+
+	stale.Cut()
+	for(var/key in nest_expires)
+		var/mob/M = get_mob_from_key(key)
+		if(!M || QDELETED(M))
+			stale += key
+	for(var/key in stale)
+		nest_expires -= key
 
 	// roam goals cleanup
 	stale.Cut()

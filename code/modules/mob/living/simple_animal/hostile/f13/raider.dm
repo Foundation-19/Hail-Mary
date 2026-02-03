@@ -44,6 +44,13 @@
 	minimum_distance = 1 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
 	vision_range = 8 //will see the player at max view range, and communicate that they've been seen but won't aggro unless they get closer.
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 32
+	ally_focus_range = 9
+	target_commitment_time = 26
+	tactical_memory_window = 34
+	flank_cooldown_time = 9
+	backup_call_cooldown = 80
 	variation_list = list(
 		MOB_NAME_FROM_GLOBAL_LIST(\
 			MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1)\
@@ -73,6 +80,10 @@
 // THIEF RAIDER - nabs stuff and runs
 /mob/living/simple_animal/hostile/raider/thief
 	desc = "Another murderer churned out by the wastes. This one looks like they have sticky fingers..."
+	tactical_reposition_chance = 48
+	target_commitment_time = 8
+	tactical_memory_window = 16
+	backup_call_cooldown = 120
 
 /mob/living/simple_animal/hostile/raider/thief/movement_delay()
 	return -2
@@ -113,10 +124,15 @@
 	rapid_melee = 2
 	melee_queue_distance = 5
 	move_to_delay = 2.8 //faster than average, but not a lot
-	retreat_distance = 1 //mob retreats 1 tile when in min distance
-	minimum_distance = 1 //Mob pushes up to melee, then backs off to avoid player attack?
+	retreat_distance = 2 //holds a little more spacing than melee raiders
+	minimum_distance = 4 //maintains pressure while avoiding face-tanking
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
 	vision_range = 8 //will see the player at max view range, and communicate that they've been seen but won't aggro unless they get closer.
+	tactical_reposition_chance = 38
+	ally_focus_range = 11
+	target_commitment_time = 24
+	flank_cooldown_time = 7
+	backup_call_cooldown = 65
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
@@ -223,6 +239,12 @@
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
 	vision_range = 8 //will see the player at max view range, and communicate that they've been seen but won't aggro unless they get closer.
 	despawns_when_lonely = FALSE
+	tactical_reposition_chance = 44
+	ally_focus_range = 13
+	target_commitment_time = 34
+	tactical_memory_window = 40
+	flank_cooldown_time = 6
+	backup_call_cooldown = 50
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
@@ -654,6 +676,13 @@
 	minimum_distance = 1 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
 	vision_range = 8 //will see the player at max view range, and communicate that they've been seen but won't aggro unless they get closer.
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 28
+	ally_focus_range = 9
+	target_commitment_time = 32
+	tactical_memory_window = 36
+	flank_cooldown_time = 8
+	backup_call_cooldown = 70
 
 /mob/living/simple_animal/hostile/raider/cultist/ranged
 	name = "Cultist Gunner"
@@ -673,6 +702,13 @@
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
 	vision_range = 8 //will see the player at max view range, and communicate that they've been seen but won't aggro unless they get closer.
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 42
+	ally_focus_range = 12
+	target_commitment_time = 30
+	tactical_memory_window = 38
+	flank_cooldown_time = 6
+	backup_call_cooldown = 60
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
 	projectiletype = /obj/item/projectile/bullet/c10mm/simple

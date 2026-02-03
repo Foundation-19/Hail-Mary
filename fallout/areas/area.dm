@@ -41,6 +41,7 @@
 /area/f13/wasteland/city
 	name = "Ruined City Coast"
 	icon_state = "city"
+	grid_district = "Town"
 	ambience_area = list(
 		/datum/looping_sound/ambient/ocean_a,
 		)
@@ -64,6 +65,7 @@
 /area/f13/wasteland/town
 	name = "Town"
 	icon_state = "green"
+	grid_district = "Town"
 	ambience_area = list(
 		/datum/looping_sound/ambient/harbor_b,
 		)
@@ -272,6 +274,7 @@
 /area/f13/wasteland/followers
 	name = "Followers Exterior"
 	icon_state = "followersex" //lol
+	grid_district = "Town"
 
 /area/f13/wasteland/bighornbunker
 	name = "Bighorn Bunker Exterior"
@@ -280,10 +283,12 @@
 /area/f13/wasteland/ncr
 	name = "NCR Outpost Exterior"
 	icon_state = "ncrex"
+	grid_district = "NCR"
 
 /area/f13/wasteland/legion
 	name = "Legion Fortress Exterior"
 	icon_state = "legionex"
+	grid_district = "Legion"
 
 /area/f13/forest
 	name = "Forest"
@@ -567,6 +572,7 @@
 /area/f13/village
 	name = "Village"
 	icon_state = "village"
+	grid_district = "Town"
 
 //	ambientmusic = list('sound/f13music/fo2_village.ogg','sound/f13music/fo2_wasteland.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -602,6 +608,7 @@
 /area/f13/hub
 	name = "Hub"
 	icon_state = "hub"
+	grid_district = "Town"
 
 //	ambientmusic = list('sound/f13music/fo2_hub.ogg','sound/f13music/fo2_village.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -620,6 +627,7 @@
 /area/f13/city
 	name = "City"
 	icon_state = "city"
+	grid_district = "Town"
 
 //	ambientmusic = list('sound/f13music/fo2_city.ogg','sound/f13music/fo2_hub.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1051,6 +1059,7 @@
 /area/f13/brotherhood
 	name = "Brotherhood of Steel Bunker"//Brother Hood
 	icon_state = "brotherhood"
+	grid_district = "BOS"
 
 //	ambientmusic = list('sound/f13music/fo2_brotherhood.ogg','sound/f13music/fo2_outpost.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1157,6 +1166,7 @@
 /area/f13/ncr
 	name = "NCR Outpost"
 	icon_state = "ncr"
+	grid_district = "NCR"
 
 //	ambientmusic = list('sound/f13music/fo2_city.ogg','sound/f13music/fo2_outpost.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1183,6 +1193,7 @@
 /area/f13/legion
 	name = "Legion Fortress"
 	icon_state = "legion"
+	grid_district = "Legion"
 
 //	ambientmusic = list('sound/f13music/fo2_hub.ogg','sound/f13music/fo2_outpost.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1206,6 +1217,7 @@
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
 	icon_state = "followers"
+	grid_district = "Town"
 
 //	ambientmusic = list('sound/f13music/fo2_vats.ogg','sound/f13music/fo2_outpost.ogg','sound/misc/null.ogg')
 	ambientsounds = list(

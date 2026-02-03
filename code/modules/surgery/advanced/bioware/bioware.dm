@@ -19,9 +19,11 @@
 	on_gain()
 	
 /datum/bioware/Destroy()
-	owner = null
+	if(owner)
+		owner.bioware -= src
 	if(active)
 		on_lose()
+	owner = null
 	return ..()
 
 /datum/bioware/proc/on_gain()

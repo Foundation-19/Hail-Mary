@@ -8,7 +8,7 @@
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE
-	targetable_wound = /datum/wound/blunt/severe
+	targetable_wound = /datum/wound/blunt
 	requires_trait = 0
 
 /datum/surgery/repair_bone_hairline/can_start(mob/living/user, mob/living/carbon/target)
@@ -16,7 +16,10 @@
 		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
 		if(!targeted_bodypart)
 			return FALSE
-		return(targeted_bodypart.get_wound_type(targetable_wound))
+		for(var/datum/wound/blunt/bone_wound in targeted_bodypart.wounds)
+			if(bone_wound.severity == WOUND_SEVERITY_SEVERE)
+				return TRUE
+		return FALSE
 
 
 ///// Repair Compound Fracture (Critical)
@@ -26,7 +29,7 @@
 	target_mobtypes = list(/mob/living/carbon/human)
 	possible_locs = list(BODY_ZONE_R_ARM,BODY_ZONE_L_ARM,BODY_ZONE_R_LEG,BODY_ZONE_L_LEG,BODY_ZONE_CHEST,BODY_ZONE_HEAD)
 	requires_real_bodypart = TRUE
-	targetable_wound = /datum/wound/blunt/critical
+	targetable_wound = /datum/wound/blunt
 	requires_trait= 1
 
 /datum/surgery/repair_bone_compound/can_start(mob/living/user, mob/living/carbon/target)
@@ -34,7 +37,10 @@
 		var/obj/item/bodypart/targeted_bodypart = target.get_bodypart(user.zone_selected)
 		if(!targeted_bodypart)
 			return FALSE
-		return(targeted_bodypart.get_wound_type(targetable_wound))
+		for(var/datum/wound/blunt/bone_wound in targeted_bodypart.wounds)
+			if(bone_wound.severity == WOUND_SEVERITY_CRITICAL)
+				return TRUE
+		return FALSE
 
 
 

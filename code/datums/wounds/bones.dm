@@ -292,6 +292,7 @@
 	occur_text = "splits open with a wet crack, exposing broken bone"
 	sound_effect = 'sound/effects/wounds/crack2.ogg'
 	wound_flags = (BONE_WOUND | ACCEPTS_GAUZE | MANGLES_BONE)
+	treatable_by = list(/obj/item/stack/sticky_tape/surgical, /obj/item/stack/medical/bone_gel)
 
 	// Default tuning; children override
 	interaction_efficiency_penalty = 2

@@ -40,6 +40,10 @@ GLOBAL_VAR(wasteland_grid_wave_tick_counter)
 GLOBAL_VAR(wasteland_grid_online)
 GLOBAL_VAR(wasteland_grid_state) // "GREEN","YELLOW","RED","OFF"
 GLOBAL_VAR(wasteland_grid_district_off_until)
+GLOBAL_VAR(wasteland_grid_district_forced_off)
+GLOBAL_VAR(wasteland_grid_district_applied_on)
+GLOBAL_VAR(wasteland_grid_apc_saved_operating)
+GLOBAL_VAR(wasteland_grid_area_saved_power)
 
 GLOBAL_VAR(wasteland_grid_fuel)
 GLOBAL_VAR(wasteland_grid_coolant)
@@ -74,6 +78,8 @@ GLOBAL_VAR(grid_sp_coolant_valve)     // 0..100
 GLOBAL_VAR(grid_sp_feedwater_valve)   // 0..100
 GLOBAL_VAR(grid_sp_relief_valve)      // 0..100
 GLOBAL_VAR(grid_sp_bypass)            // 0..100
+GLOBAL_VAR(grid_sp_turbine_governor)  // 0..100 (maps to rpm demand)
+GLOBAL_VAR(grid_sp_boron_ppm)         // 0..2000 (soluble boron setpoint)
 GLOBAL_VAR(grid_scram)                // bool
 
 // Process variables
@@ -84,11 +90,33 @@ GLOBAL_VAR(grid_secondary_pressure)   // 0..200
 GLOBAL_VAR(grid_steam_quality)        // 0..100
 GLOBAL_VAR(grid_turbine_rpm)          // 0..200
 GLOBAL_VAR(grid_output)               // 0..100
+GLOBAL_VAR(grid_turbine_stress)       // 0..100
+GLOBAL_VAR(grid_turbine_moisture)     // 0..100 (wetness)
+
+// Core physics extensions (xenon/boron/decay/burnup)
+GLOBAL_VAR(grid_xenon_poison)         // 0..40
+GLOBAL_VAR(grid_iodine_inventory)     // 0..40
+GLOBAL_VAR(grid_samarium_poison)      // 0..20
+GLOBAL_VAR(grid_fuel_burnup)          // 0..100
+GLOBAL_VAR(grid_reactivity_reserve)   // -30..30
+GLOBAL_VAR(grid_decay_heat)           // 0..50
+GLOBAL_VAR(grid_boron_ppm)            // 0..2000
+GLOBAL_VAR(grid_doppler_coeff)        // 0..1 (negative feedback strength)
+GLOBAL_VAR(grid_moderator_coeff)      // -0.3..1 (can go slightly positive)
+GLOBAL_VAR(grid_subcool_margin)       // 0..100
+GLOBAL_VAR(grid_npsh_margin)          // 0..100 (pump suction margin)
 
 // Consumables + chemistry
 GLOBAL_VAR(grid_coolant_contamination) // 0..100
 GLOBAL_VAR(grid_filter_clog)           // 0..100
 GLOBAL_VAR(grid_lube_level)            // 0..100
+
+// Pressurizer / condenser abstractions
+GLOBAL_VAR(grid_pressurizer_level)     // 0..100
+GLOBAL_VAR(grid_pressurizer_heaters)   // 0..100
+GLOBAL_VAR(grid_pressurizer_spray)     // 0..100
+GLOBAL_VAR(grid_condenser_vacuum)      // 0..100
+GLOBAL_VAR(grid_hotwell_level)         // 0..100
 
 // Wear
 GLOBAL_VAR(grid_wear_pump_primary)   // 0..100
@@ -115,12 +143,25 @@ GLOBAL_VAR(grid_maint_interval)     // ticks
 // Networks + components registries
 GLOBAL_VAR(grid_networks_by_id)     // assoc id => /datum/grid_network
 GLOBAL_VAR(grid_components_by_tag)  // assoc tag => obj
+GLOBAL_LIST_EMPTY(wasteland_grid_turbine_assemblies)
+GLOBAL_LIST_EMPTY(wasteland_grid_breaker_cabinets)
+GLOBAL_LIST_EMPTY(wasteland_grid_breaker_panels)
 
 // Procedure state: coolant purge
 GLOBAL_VAR(grid_proc_purge_stage)     // 0..4
 GLOBAL_VAR(grid_proc_purge_operator)  // ckey
 GLOBAL_VAR(grid_proc_purge_lock)      // bool
 GLOBAL_VAR(grid_proc_purge_started_at)// world.time
+
+// Deliberate catastrophe controls
+GLOBAL_VAR(grid_safety_interlocks_enabled) // bool
+GLOBAL_VAR(grid_catastrophe_risk)          // 0..100
+GLOBAL_VAR(grid_catastrophe_triggered)     // bool
+GLOBAL_VAR(grid_interlock_last_trip_at)    // world.time
+GLOBAL_VAR(grid_auto_enabled)              // bool
+GLOBAL_VAR(grid_auto_player_threshold)     // active player cutoff
+GLOBAL_VAR(grid_auto_active)               // bool: currently driving controls
+GLOBAL_VAR(grid_auto_last_player_count)    // cached active players
 
 ///////////////////////////////////////////////////////////////
 // AREA TAGS (existing mapping knobs)
@@ -155,6 +196,10 @@ proc/_wasteland_grid_bootstrap()
 	if(isnull(GLOB.wasteland_grid_background_rads)) GLOB.wasteland_grid_background_rads = 0
 	if(isnull(GLOB.wasteland_grid_rads_tick_counter)) GLOB.wasteland_grid_rads_tick_counter = 0
 	if(isnull(GLOB.wasteland_grid_district_off_until)) GLOB.wasteland_grid_district_off_until = list()
+	if(isnull(GLOB.wasteland_grid_district_forced_off)) GLOB.wasteland_grid_district_forced_off = list()
+	if(isnull(GLOB.wasteland_grid_district_applied_on)) GLOB.wasteland_grid_district_applied_on = list()
+	if(isnull(GLOB.wasteland_grid_apc_saved_operating)) GLOB.wasteland_grid_apc_saved_operating = list()
+	if(isnull(GLOB.wasteland_grid_area_saved_power)) GLOB.wasteland_grid_area_saved_power = list()
 
 	if(isnull(GLOB.wasteland_grid_restart_stage)) GLOB.wasteland_grid_restart_stage = 0
 	if(isnull(GLOB.wasteland_grid_restart_operator)) GLOB.wasteland_grid_restart_operator = null
@@ -168,6 +213,8 @@ proc/_wasteland_grid_bootstrap()
 	if(isnull(GLOB.grid_sp_feedwater_valve)) GLOB.grid_sp_feedwater_valve = 60
 	if(isnull(GLOB.grid_sp_relief_valve))    GLOB.grid_sp_relief_valve = 0
 	if(isnull(GLOB.grid_sp_bypass))          GLOB.grid_sp_bypass = 10
+	if(isnull(GLOB.grid_sp_turbine_governor))GLOB.grid_sp_turbine_governor = 55
+	if(isnull(GLOB.grid_sp_boron_ppm))       GLOB.grid_sp_boron_ppm = 900
 	if(isnull(GLOB.grid_scram))              GLOB.grid_scram = FALSE
 
 	// --- v2 process vars ---
@@ -178,11 +225,31 @@ proc/_wasteland_grid_bootstrap()
 	if(isnull(GLOB.grid_steam_quality))      GLOB.grid_steam_quality = 70
 	if(isnull(GLOB.grid_turbine_rpm))        GLOB.grid_turbine_rpm = 40
 	if(isnull(GLOB.grid_output))             GLOB.grid_output = 30
+	if(isnull(GLOB.grid_turbine_stress))     GLOB.grid_turbine_stress = 5
+	if(isnull(GLOB.grid_turbine_moisture))   GLOB.grid_turbine_moisture = 15
+
+	// --- v3 kinetics + chemistry ---
+	if(isnull(GLOB.grid_xenon_poison))       GLOB.grid_xenon_poison = 4
+	if(isnull(GLOB.grid_iodine_inventory))   GLOB.grid_iodine_inventory = 3
+	if(isnull(GLOB.grid_samarium_poison))    GLOB.grid_samarium_poison = 1
+	if(isnull(GLOB.grid_fuel_burnup))        GLOB.grid_fuel_burnup = 0
+	if(isnull(GLOB.grid_reactivity_reserve)) GLOB.grid_reactivity_reserve = 15
+	if(isnull(GLOB.grid_decay_heat))         GLOB.grid_decay_heat = 0
+	if(isnull(GLOB.grid_boron_ppm))          GLOB.grid_boron_ppm = GLOB.grid_sp_boron_ppm
+	if(isnull(GLOB.grid_doppler_coeff))      GLOB.grid_doppler_coeff = 0.20
+	if(isnull(GLOB.grid_moderator_coeff))    GLOB.grid_moderator_coeff = 0.30
+	if(isnull(GLOB.grid_subcool_margin))     GLOB.grid_subcool_margin = 60
+	if(isnull(GLOB.grid_npsh_margin))        GLOB.grid_npsh_margin = 55
 
 	// --- chemistry ---
 	if(isnull(GLOB.grid_coolant_contamination)) GLOB.grid_coolant_contamination = 10
 	if(isnull(GLOB.grid_filter_clog))           GLOB.grid_filter_clog = 10
 	if(isnull(GLOB.grid_lube_level))            GLOB.grid_lube_level = 80
+	if(isnull(GLOB.grid_pressurizer_level))     GLOB.grid_pressurizer_level = 55
+	if(isnull(GLOB.grid_pressurizer_heaters))   GLOB.grid_pressurizer_heaters = 25
+	if(isnull(GLOB.grid_pressurizer_spray))     GLOB.grid_pressurizer_spray = 20
+	if(isnull(GLOB.grid_condenser_vacuum))      GLOB.grid_condenser_vacuum = 70
+	if(isnull(GLOB.grid_hotwell_level))         GLOB.grid_hotwell_level = 55
 
 	// --- wear ---
 	if(isnull(GLOB.grid_wear_pump_primary)) GLOB.grid_wear_pump_primary = 10
@@ -214,6 +281,16 @@ proc/_wasteland_grid_bootstrap()
 	if(isnull(GLOB.grid_proc_purge_lock))       GLOB.grid_proc_purge_lock = FALSE
 	if(isnull(GLOB.grid_proc_purge_started_at)) GLOB.grid_proc_purge_started_at = 0
 
+	// --- catastrophe controls ---
+	if(isnull(GLOB.grid_safety_interlocks_enabled)) GLOB.grid_safety_interlocks_enabled = TRUE
+	if(isnull(GLOB.grid_catastrophe_risk))          GLOB.grid_catastrophe_risk = 0
+	if(isnull(GLOB.grid_catastrophe_triggered))     GLOB.grid_catastrophe_triggered = FALSE
+	if(isnull(GLOB.grid_interlock_last_trip_at))    GLOB.grid_interlock_last_trip_at = 0
+	if(isnull(GLOB.grid_auto_enabled))              GLOB.grid_auto_enabled = FALSE
+	if(isnull(GLOB.grid_auto_player_threshold))     GLOB.grid_auto_player_threshold = 20
+	if(isnull(GLOB.grid_auto_active))               GLOB.grid_auto_active = FALSE
+	if(isnull(GLOB.grid_auto_last_player_count))    GLOB.grid_auto_last_player_count = 0
+
 	// IMPORTANT: do NOT call _recalc_background_rads() from bootstrap
 	_recalc_wasteland_grid_state()
 	_grid_ensure_default_networks()
@@ -230,24 +307,161 @@ proc/_wasteland_grid_bootstrap()
 proc/_wasteland_grid_bootstrap_districts()
 	if(isnull(GLOB.wasteland_grid_district_off_until))
 		GLOB.wasteland_grid_district_off_until = list()
+	if(isnull(GLOB.wasteland_grid_district_forced_off))
+		GLOB.wasteland_grid_district_forced_off = list()
+	if(isnull(GLOB.wasteland_grid_district_applied_on))
+		GLOB.wasteland_grid_district_applied_on = list()
+	if(isnull(GLOB.wasteland_grid_apc_saved_operating))
+		GLOB.wasteland_grid_apc_saved_operating = list()
+	if(isnull(GLOB.wasteland_grid_area_saved_power))
+		GLOB.wasteland_grid_area_saved_power = list()
 
 /proc/_grid_set_district_off(district, duration)
 	_wasteland_grid_bootstrap_districts()
 	if(!district) return
 	GLOB.wasteland_grid_district_off_until[district] = world.time + duration
+	_grid_reconcile_district_power()
+
+/proc/_grid_set_district_forced(district, forced_off = TRUE)
+	_wasteland_grid_bootstrap_districts()
+	if(!district) return
+	if(forced_off)
+		GLOB.wasteland_grid_district_forced_off[district] = TRUE
+	else
+		if(!isnull(GLOB.wasteland_grid_district_forced_off[district]))
+			GLOB.wasteland_grid_district_forced_off[district] = null
+	// Clearing forced mode should also clear stale timed blackouts by default.
+	if(!forced_off && !isnull(GLOB.wasteland_grid_district_off_until[district]))
+		GLOB.wasteland_grid_district_off_until[district] = world.time
+	_grid_reconcile_district_power()
 
 /proc/_grid_is_district_on(district)
 	_wasteland_grid_bootstrap_districts()
 	if(!district) return TRUE
+	if(GLOB.wasteland_grid_district_forced_off[district])
+		return FALSE
 	var/t = GLOB.wasteland_grid_district_off_until[district]
 	if(isnull(t)) return TRUE
 	return world.time >= t
+
+/proc/_grid_get_area_district(area/A)
+	if(!A)
+		return null
+	if(istext(A.grid_district) && A.grid_district)
+		return A.grid_district
+
+	var/type_path = lowertext("[A.type]")
+	if(findtext(type_path, "/area/f13/brotherhood") || findtext(type_path, "/area/f13/underground/bos") || findtext(type_path, "/area/f13/bos"))
+		return "BOS"
+	if(findtext(type_path, "/area/f13/ncr"))
+		return "NCR"
+	if(findtext(type_path, "/area/f13/legion"))
+		return "Legion"
+	if(findtext(type_path, "/area/f13/village") || findtext(type_path, "/area/f13/hub") || findtext(type_path, "/area/f13/city") || findtext(type_path, "/area/f13/wasteland/town"))
+		return "Town"
+
+	var/area_name = lowertext("[A.name]")
+	if(findtext(area_name, "brotherhood") || findtext(area_name, "bos"))
+		return "BOS"
+	if(findtext(area_name, "ncr"))
+		return "NCR"
+	if(findtext(area_name, "legion"))
+		return "Legion"
+	if(findtext(area_name, "town") || findtext(area_name, "village") || findtext(area_name, "city") || findtext(area_name, "hub"))
+		return "Town"
+
+	return null
+
+/proc/_grid_apply_area_power_state(area/A, should_be_on)
+	if(!A) return
+
+	var/obj/machinery/power/apc/APC = A.get_apc()
+	if(APC)
+		var/apc_key = REF(APC)
+		if(!should_be_on)
+			if(isnull(GLOB.wasteland_grid_apc_saved_operating[apc_key]))
+				GLOB.wasteland_grid_apc_saved_operating[apc_key] = APC.operating ? 1 : 0
+			APC.operating = FALSE
+			APC.failure_timer = max(APC.failure_timer, 20)
+			APC.update()
+			APC.update_icon()
+		else
+			if(!isnull(GLOB.wasteland_grid_apc_saved_operating[apc_key]))
+				APC.operating = !!GLOB.wasteland_grid_apc_saved_operating[apc_key]
+				GLOB.wasteland_grid_apc_saved_operating[apc_key] = null
+			APC.failure_timer = 0
+			APC.update()
+			APC.update_icon()
+		return
+
+	// Fallback for areas without APCs: force area channels directly.
+	var/area_key = REF(A)
+	if(!should_be_on)
+		if(!islist(GLOB.wasteland_grid_area_saved_power[area_key]))
+			GLOB.wasteland_grid_area_saved_power[area_key] = list(
+				"light" = A.power_light,
+				"equip" = A.power_equip,
+				"environ" = A.power_environ
+			)
+		var/changed = (A.power_light || A.power_equip || A.power_environ)
+		A.power_light = FALSE
+		A.power_equip = FALSE
+		A.power_environ = FALSE
+		if(changed)
+			A.power_change()
+	else
+		var/list/saved = GLOB.wasteland_grid_area_saved_power[area_key]
+		if(!islist(saved))
+			return
+		var/new_light = !!saved["light"]
+		var/new_equip = !!saved["equip"]
+		var/new_environ = !!saved["environ"]
+		var/changed_back = (A.power_light != new_light || A.power_equip != new_equip || A.power_environ != new_environ)
+		A.power_light = new_light
+		A.power_equip = new_equip
+		A.power_environ = new_environ
+		GLOB.wasteland_grid_area_saved_power[area_key] = null
+		if(changed_back)
+			A.power_change()
+
+/proc/_grid_apply_district_power_state(district, should_be_on)
+	if(!district) return
+	for(var/area/A in world)
+		if(!A || _grid_get_area_district(A) != district)
+			continue
+		_grid_apply_area_power_state(A, should_be_on)
+
+/proc/_grid_reconcile_district_power()
+	_wasteland_grid_bootstrap_districts()
+
+	// Clean out expired timed outages to keep list compact.
+	var/list/expired = list()
+	for(var/d in GLOB.wasteland_grid_district_off_until)
+		var/t = GLOB.wasteland_grid_district_off_until[d]
+		if(isnull(t) || world.time >= t)
+			expired += d
+	for(var/dx in expired)
+		GLOB.wasteland_grid_district_off_until[dx] = null
+
+	var/list/discovered = list()
+	for(var/area/A in world)
+		if(!A) continue
+		var/d = _grid_get_area_district(A)
+		if(istext(d) && d)
+			discovered[d] = TRUE
+
+	for(var/district in discovered)
+		var/should_be_on = (GLOB.wasteland_grid_online && _grid_is_district_on(district))
+		var/prev = GLOB.wasteland_grid_district_applied_on[district]
+		if(isnull(prev) || (!!prev != !!should_be_on))
+			GLOB.wasteland_grid_district_applied_on[district] = !!should_be_on
+			_grid_apply_district_power_state(district, should_be_on)
 
 /proc/_grid_pick_random_district()
 	var/list/districts = list()
 	for(var/area/A in world)
 		if(!A) continue
-		var/d = A.grid_district
+		var/d = _grid_get_area_district(A)
 		if(istext(d) && d && !(d in districts))
 			districts += d
 	if(!districts.len) return null
@@ -265,11 +479,11 @@ proc/_wasteland_grid_bootstrap_districts()
 	if(!GLOB.wasteland_grid_online)
 		return FALSE
 
-	if(GLOB.wasteland_grid_state == "RED")
-		var/area/Ar = get_area(A)
-		if(Ar && Ar.grid_district)
-			if(!_grid_is_district_on(Ar.grid_district))
-				return FALSE
+	var/area/Ar = get_area(A)
+	var/d = _grid_get_area_district(Ar)
+	if(d)
+		if(!_grid_is_district_on(d))
+			return FALSE
 
 	return TRUE
 
@@ -462,7 +676,7 @@ proc/_wasteland_grid_bootstrap_districts()
 
 	var/list/required_reqs = null
 
-	var/repair_key = "breaker" // "breaker" | "coolant" | "control"
+	var/repair_key = "breaker" // "breaker" | "coolant" | "control" | "turbine"
 
 	var/fixed = FALSE
 	var/created_at = 0
@@ -514,7 +728,7 @@ proc/_wasteland_grid_bootstrap_districts()
 // BACKGROUND RADIATION (existing)
 ///////////////////////////////////////////////////////////////
 
-#define GRID_RADS_TICK_DIV   10
+#define GRID_RADS_TICK_DIV   3
 #define GRID_RADS_BASE_UNIT  0.2
 
 proc/_recalc_background_rads()
@@ -536,6 +750,7 @@ proc/_recalc_background_rads()
 	if(GLOB.wasteland_grid_containment < 60) r += 4
 	if(GLOB.wasteland_grid_containment < 40) r += 8
 	if(GLOB.wasteland_grid_containment < 20) r += 15
+	if(GLOB.grid_catastrophe_triggered) r += 60
 
 	// v2: output instability adds background load stress (minor)
 	if(GLOB.grid_output < 10 && GLOB.wasteland_grid_online) r += 1
@@ -565,12 +780,30 @@ proc/_recalc_background_rads()
 		if(A) mult = A.grid_rads_mult
 
 		var/dose = GRID_RADS_BASE_UNIT * bg * mult
-		var/irr = round(dose)  // or round(dose * 2) depending on how strong you want it
+		var/irr = max(1, round(dose))
 		H.apply_effect(irr, EFFECT_IRRADIATE, 0)
 
 #define GRID_WAVE_TICK_DIV  3  // every 3 subsystem fires (your subsystem waits 10s -> every 30s). change if needed.
-#define GRID_WAVE_INTENSITY_CAP 60
+#define GRID_WAVE_INTENSITY_CAP 120
 #define GRID_WAVE_DIAG_PROB 25
+
+/proc/_grid_get_radiation_anchor()
+	_wasteland_grid_bootstrap()
+
+	var/atom/existing = GLOB.grid_rad_source
+	if(existing && existing.loc)
+		return existing
+
+	for(var/obj/structure/f13/grid_radiation_source/R in world)
+		if(R && R.loc)
+			GLOB.grid_rad_source = R
+			return R
+
+	for(var/obj/machinery/f13/wasteland_grid_console/C in world)
+		if(C && C.loc)
+			return C
+
+	return null
 
 /proc/_emit_background_radiation_waves()
 	_wasteland_grid_bootstrap()
@@ -589,33 +822,29 @@ proc/_recalc_background_rads()
 	if(bg <= 0) return
 
 	// no anchor = nothing to emit from
-	// FIX: avoid QDELETED() because this codebase doesn't have gc_destroyed on objs
-	if(!GLOB.grid_rad_source)
-		return
-
-	// Cast so DM knows it has .loc
-	var/atom/RS = GLOB.grid_rad_source
+	var/atom/RS = _grid_get_radiation_anchor()
 	if(!RS || !RS.loc)
 		return
 
 
-	// IMPORTANT: radiation_wave intensity must be >=1
-	// Your background rads is like 0..30+. Make it actually bite.
-	var/intensity = clamp(round(bg * 2), 1, GRID_WAVE_INTENSITY_CAP)
+	// Must stay above RAD_BACKGROUND_RADIATION or waves self-delete instantly.
+	var/intensity = clamp(round((bg * 4) + 8), RAD_BACKGROUND_RADIATION + 1, GRID_WAVE_INTENSITY_CAP)
+	if(GLOB.grid_catastrophe_triggered)
+		intensity = max(intensity, 65)
 
 	// Emit cardinal waves always
-	new /datum/radiation_wave(GLOB.grid_rad_source, NORTH, intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
-	new /datum/radiation_wave(GLOB.grid_rad_source, SOUTH, intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
-	new /datum/radiation_wave(GLOB.grid_rad_source, EAST,  intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
-	new /datum/radiation_wave(GLOB.grid_rad_source, WEST,  intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
+	new /datum/radiation_wave(RS, NORTH, intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
+	new /datum/radiation_wave(RS, SOUTH, intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
+	new /datum/radiation_wave(RS, EAST,  intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
+	new /datum/radiation_wave(RS, WEST,  intensity, RAD_DISTANCE_COEFFICIENT, TRUE)
 
 	// Diagonals sometimes (CPU + vibe)
 	if(prob(GRID_WAVE_DIAG_PROB))
 		var/diag = max(1, round(intensity * 0.75))
-		new /datum/radiation_wave(GLOB.grid_rad_source, NORTHEAST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
-		new /datum/radiation_wave(GLOB.grid_rad_source, NORTHWEST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
-		new /datum/radiation_wave(GLOB.grid_rad_source, SOUTHEAST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
-		new /datum/radiation_wave(GLOB.grid_rad_source, SOUTHWEST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
+		new /datum/radiation_wave(RS, NORTHEAST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
+		new /datum/radiation_wave(RS, NORTHWEST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
+		new /datum/radiation_wave(RS, SOUTHEAST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
+		new /datum/radiation_wave(RS, SOUTHWEST, diag, RAD_DISTANCE_COEFFICIENT, TRUE)
 
 ///////////////////////////////////////////////////////////////
 // ONE TRUE SETTER (existing)
@@ -624,17 +853,51 @@ proc/_recalc_background_rads()
 /proc/set_wasteland_grid_online(state)
 	_wasteland_grid_bootstrap()
 
-	GLOB.wasteland_grid_online = !!state
+	var/new_state = !!state
+	var/changed = (new_state != !!GLOB.wasteland_grid_online)
+	GLOB.wasteland_grid_online = new_state
 	_recalc_wasteland_grid_state()
 	_recalc_background_rads()
+	_sync_wasteland_grid_reactor()
+	_grid_reconcile_district_power()
+	if(!changed)
+		return
 
 	// Lights: instant reaction
-	for(var/obj/machinery/light/L in world)
+	for(var/obj/machinery/light/L in GLOB.machines)
 		L.on_wasteland_grid_change()
 
 	// Grid-gated machines
-	for(var/obj/machinery/f13_grid_gated/M in world)
+	for(var/obj/machinery/f13_grid_gated/M in GLOB.machines)
 		M.power_change()
+
+/proc/_sync_wasteland_grid_reactor()
+	var/obj/structure/f13/grid_radiation_source/R = GLOB.grid_rad_source
+	if(istype(R) && R.loc)
+		R.sync_visual_and_audio()
+	_sync_wasteland_grid_component_visuals()
+
+/proc/_sync_wasteland_grid_component_visuals()
+	for(var/obj/machinery/grid/turbine_controller/T in GLOB.machines)
+		T.sync_visual_state()
+
+	for(var/obj/structure/grid/turbine_assembly/TA in GLOB.wasteland_grid_turbine_assemblies)
+		if(!TA || QDELETED(TA) || !TA.loc)
+			GLOB.wasteland_grid_turbine_assemblies -= TA
+			continue
+		TA.sync_visual_state()
+
+	for(var/obj/structure/grid/breaker_cabinet/B in GLOB.wasteland_grid_breaker_cabinets)
+		if(!B || QDELETED(B) || !B.loc)
+			GLOB.wasteland_grid_breaker_cabinets -= B
+			continue
+		B._sync_icon_state()
+
+	for(var/obj/structure/wasteland_grid/breaker_panel/BP in GLOB.wasteland_grid_breaker_panels)
+		if(!BP || QDELETED(BP) || !BP.loc)
+			GLOB.wasteland_grid_breaker_panels -= BP
+			continue
+		BP._sync_icon_state()
 
 ///////////////////////////////////////////////////////////////
 // GRID STATE + FAULT HELPERS (existing)
@@ -674,6 +937,12 @@ proc/_recalc_background_rads()
 	// v2: severe process conditions force RED even if resources ok
 	if(GLOB.grid_primary_pressure >= 170 || GLOB.wasteland_grid_core_heat >= 90)
 		state = "RED"
+	if(GLOB.grid_subcool_margin <= 8 || (GLOB.grid_decay_heat > 15 && GLOB.grid_primary_flow < 25))
+		state = "RED"
+	if(GLOB.grid_pressurizer_level >= 98)
+		state = "RED"
+	if(GLOB.grid_xenon_poison >= 24 && state == "GREEN")
+		state = "YELLOW"
 
 	GLOB.wasteland_grid_state = state
 
@@ -791,7 +1060,7 @@ proc/_recalc_background_rads()
 		if("turbine_overspeed_trip")
 			F.name = "Turbine Overspeed Trip"
 			F.severity = 2
-			F.repair_key = "breaker"
+			F.repair_key = "turbine"
 			F.location_hint = "Turbine Controller"
 			F.required_tool = /obj/item/screwdriver
 			F.required_reqs = list(/obj/item/crafting/fuse = 2, /obj/item/crafting/transistor = 2)
@@ -801,7 +1070,7 @@ proc/_recalc_background_rads()
 		if("turbine_vibration")
 			F.name = "Turbine Vibration"
 			F.severity = 2
-			F.repair_key = "control"
+			F.repair_key = "turbine"
 			F.location_hint = "Turbine Hall"
 			F.required_tool = /obj/item/wrench
 			F.required_reqs = list(/obj/item/crafting/small_gear = 2, /obj/item/crafting/wonderglue = 1)
@@ -894,6 +1163,7 @@ proc/_recalc_background_rads()
 #define GRID_K_PRESS_FLOW  0.20
 #define GRID_K_RPM         0.25
 #define GRID_K_OUT         0.010
+#define GRID_K_BORON_TRACK 0.06
 
 /proc/_grid_coolant_efficiency()
 	var/eff = 1.0
@@ -921,11 +1191,78 @@ proc/_recalc_background_rads()
 	GLOB.grid_sp_feedwater_valve = clamp(GLOB.grid_sp_feedwater_valve, 0, 100)
 	GLOB.grid_sp_relief_valve = clamp(GLOB.grid_sp_relief_valve, 0, 100)
 	GLOB.grid_sp_bypass = clamp(GLOB.grid_sp_bypass, 0, 100)
+	GLOB.grid_sp_turbine_governor = clamp(GLOB.grid_sp_turbine_governor, 0, 100)
+	GLOB.grid_sp_boron_ppm = clamp(GLOB.grid_sp_boron_ppm, 0, 2000)
+
+	// Chemistry system slowly tracks to operator boron target.
+	var/boron_err = GLOB.grid_sp_boron_ppm - GLOB.grid_boron_ppm
+	GLOB.grid_boron_ppm += (boron_err * GRID_K_BORON_TRACK)
+	GLOB.grid_boron_ppm = clamp(round(GLOB.grid_boron_ppm), 0, 2000)
+
+/proc/_simulate_reactor_kinetics()
+	// Core poison + burnup + decay heat model (abstracted but causal).
+	var/online_reaction = (GLOB.wasteland_grid_online && !GLOB.grid_scram)
+
+	// Fuel burnup accumulates when operating at power.
+	if(online_reaction)
+		GLOB.grid_fuel_burnup += 0.02 + (GLOB.grid_output / 500) + (GLOB.grid_core_reactivity / 900)
+	GLOB.grid_fuel_burnup = clamp(GLOB.grid_fuel_burnup, 0, 100)
+
+	// Samarium is effectively permanent poison that rises with burnup.
+	if(online_reaction)
+		GLOB.grid_samarium_poison += 0.003 + (GLOB.grid_fuel_burnup / 12000)
+	GLOB.grid_samarium_poison = clamp(GLOB.grid_samarium_poison, 0, 20)
+
+	// Iodine inventory follows operation, then decays into xenon.
+	if(online_reaction)
+		GLOB.grid_iodine_inventory += 0.10 + (GLOB.grid_output / 1200)
+	else
+		GLOB.grid_iodine_inventory = max(0, GLOB.grid_iodine_inventory - 0.03)
+	GLOB.grid_iodine_inventory = clamp(GLOB.grid_iodine_inventory, 0, 40)
+
+	// Xenon peaks after shutdown and burns out when power is restored.
+	GLOB.grid_xenon_poison += (GLOB.grid_iodine_inventory * 0.018)
+	if(online_reaction)
+		GLOB.grid_xenon_poison -= 0.08 + (GLOB.grid_core_reactivity / 700)
+	else
+		GLOB.grid_xenon_poison -= 0.012
+	GLOB.grid_xenon_poison = clamp(GLOB.grid_xenon_poison, 0, 40)
+
+	// Reactivity reserve drops with burnup (depleted core struggles to stay critical).
+	GLOB.grid_reactivity_reserve = clamp(25 - (GLOB.grid_fuel_burnup * 0.50), -30, 30)
+
+	// Decay heat persists after shutdown/scram and must be removed.
+	if(online_reaction)
+		GLOB.grid_decay_heat += 0.25 + (GLOB.grid_output / 350)
+	else
+		GLOB.grid_decay_heat -= 0.06 + (GLOB.grid_primary_flow / 2500)
+	GLOB.grid_decay_heat = clamp(GLOB.grid_decay_heat, 0, 50)
+
+	// Doppler + moderator coefficients drift with temperature/chemistry conditions.
+	GLOB.grid_doppler_coeff = clamp(0.12 + (GLOB.wasteland_grid_core_heat / 400), 0.10, 0.45)
+	GLOB.grid_moderator_coeff = 0.22 + (GLOB.grid_boron_ppm / 3500) + (GLOB.grid_xenon_poison / 260)
+	// Slightly positive MTC edge case at low boron + high xenon.
+	if(GLOB.grid_boron_ppm < 250 && GLOB.grid_xenon_poison > 20)
+		GLOB.grid_moderator_coeff -= 0.35
+	GLOB.grid_moderator_coeff = clamp(GLOB.grid_moderator_coeff, -0.30, 1.00)
 
 /proc/_simulate_thermal()
-	// Reactivity rises with (100 - rod insertion) and fuel availability
+	// Reactivity model includes poisons, burnup reserve, boron, and temperature coefficients.
 	var/fuel_factor = (GLOB.wasteland_grid_fuel > 0) ? 1.0 : 0.0
-	var/react = (100 - GLOB.grid_sp_rod_insertion) * fuel_factor
+	var/online_reaction = (GLOB.wasteland_grid_online && !GLOB.grid_scram)
+	var/base_reactivity = (100 - GLOB.grid_sp_rod_insertion) * fuel_factor
+	base_reactivity += GLOB.grid_reactivity_reserve
+	base_reactivity -= (GLOB.grid_xenon_poison * 1.7)
+	base_reactivity -= (GLOB.grid_samarium_poison * 1.2)
+	base_reactivity -= (GLOB.grid_boron_ppm / 40)
+
+	// Doppler is strong negative feedback; moderator coeff can go slightly positive in edge cases.
+	var/temp_delta = GLOB.wasteland_grid_core_heat - 45
+	var/doppler_feedback = temp_delta * GLOB.grid_doppler_coeff
+	var/mod_feedback = (temp_delta / 2) * GLOB.grid_moderator_coeff
+	var/react = base_reactivity - doppler_feedback - mod_feedback
+	if(!online_reaction)
+		react *= 0.10
 	react = clamp(react, 0, 100)
 	GLOB.grid_core_reactivity = react
 
@@ -935,6 +1272,7 @@ proc/_recalc_background_rads()
 	var/pen = _grid_fault_penalty_multiplier()
 
 	heat += (GRID_K_REACTIVITY * react * 100) * pen
+	heat += (GLOB.grid_decay_heat * 0.35)
 	heat -= (GRID_K_COOLING * GLOB.grid_primary_flow * eff * 100)
 
 	// low coolant resource makes heat worse
@@ -953,6 +1291,25 @@ proc/_recalc_background_rads()
 	var/pump_health = 1.0 - (GLOB.grid_wear_pump_primary / 150)
 	var/lube_eff = clamp(GLOB.grid_lube_level / 100, 0.2, 1.0)
 	var/pump_power = 80 * pump_health * lube_eff
+
+	// Simple pressurizer auto-control loop.
+	if(GLOB.grid_primary_pressure < 95)
+		GLOB.grid_pressurizer_heaters += 3
+		GLOB.grid_pressurizer_spray -= 2
+	else if(GLOB.grid_primary_pressure > 135)
+		GLOB.grid_pressurizer_spray += 3
+		GLOB.grid_pressurizer_heaters -= 2
+	else
+		GLOB.grid_pressurizer_heaters -= 1
+		GLOB.grid_pressurizer_spray -= 1
+	GLOB.grid_pressurizer_heaters = clamp(round(GLOB.grid_pressurizer_heaters), 0, 100)
+	GLOB.grid_pressurizer_spray = clamp(round(GLOB.grid_pressurizer_spray), 0, 100)
+
+	// NPSH abstraction: hot fluid + low hotwell => cavitation risk.
+	var/npsh = GLOB.grid_hotwell_level - (GLOB.wasteland_grid_core_heat * 0.45) + (GLOB.grid_primary_pressure * 0.20)
+	GLOB.grid_npsh_margin = clamp(round(npsh), 0, 100)
+	if(GLOB.grid_npsh_margin < 25)
+		pump_power *= clamp(GLOB.grid_npsh_margin / 25, 0.35, 1.0)
 
 	// Valve restrictions (operators + wear)
 	var/valve_eff = clamp(GLOB.grid_sp_coolant_valve / 100, 0.0, 1.0)
@@ -973,9 +1330,11 @@ proc/_recalc_background_rads()
 	p += (GLOB.wasteland_grid_core_heat - 40) * (GRID_K_PRESS_HEAT)
 	p += (60 - GLOB.grid_primary_flow) * (GRID_K_PRESS_FLOW)
 	p += (restr / 50)
+	p += (GLOB.grid_pressurizer_heaters / 20)
 
 	// relief valve vents pressure
 	p -= (GLOB.grid_sp_relief_valve / 15)
+	p -= (GLOB.grid_pressurizer_spray / 18)
 
 	// leaks reduce pressure & coolant resource
 	var/leak = 0
@@ -987,9 +1346,11 @@ proc/_recalc_background_rads()
 	// Secondary pressure follows heat exchanger and feedwater
 	var/sec_p = GLOB.grid_secondary_pressure
 	var/fw_eff = clamp(GLOB.grid_sp_feedwater_valve / 100, 0.0, 1.0)
+	var/vac_eff = clamp(GLOB.grid_condenser_vacuum / 100, 0.2, 1.0)
 	sec_p += (GLOB.wasteland_grid_core_heat - 50) * 0.25
 	sec_p -= (fw_eff * 10) // more feedwater = better condensing = lower pressure
 	sec_p -= (GLOB.grid_sp_bypass / 20) // bypass dumps steam
+	sec_p -= (vac_eff * 7) // stronger condenser vacuum pulls secondary pressure down
 	GLOB.grid_secondary_pressure = clamp(round(sec_p), 0, 200)
 
 	// Steam quality better with good feedwater and good exchanger health (modeled via wear + clog)
@@ -997,8 +1358,33 @@ proc/_recalc_background_rads()
 	sq += (fw_eff * 4)
 	sq -= (GLOB.grid_filter_clog / 40)
 	sq -= (GLOB.grid_wear_turbine / 60)
+
+	// Loss of subcooling degrades quality quickly (boiling/voiding starts).
+	var/subcool = 85 - (GLOB.wasteland_grid_core_heat * 0.6) + (GLOB.grid_primary_pressure * 0.15)
+	subcool += (GLOB.grid_sp_coolant_valve * 0.20) + (GLOB.grid_sp_feedwater_valve * 0.08)
+	subcool -= (GLOB.grid_coolant_contamination * 0.20)
+	GLOB.grid_subcool_margin = clamp(round(subcool), 0, 100)
+	if(GLOB.grid_subcool_margin < 18)
+		sq -= (18 - GLOB.grid_subcool_margin) * 0.8
+
+	// Very cold/high-boron condition can precipitate boron and hurt loop quality.
+	if(GLOB.wasteland_grid_core_heat < 20 && GLOB.grid_boron_ppm > 1700)
+		GLOB.grid_filter_clog = clamp(GLOB.grid_filter_clog + 0.6, 0, 100)
+		GLOB.grid_coolant_contamination = clamp(GLOB.grid_coolant_contamination + 0.4, 0, 100)
+
 	sq = clamp(round(sq), 0, 100)
 	GLOB.grid_steam_quality = sq
+
+	// Pressurizer inventory behavior and "solid plant" tendency.
+	var/pzr = GLOB.grid_pressurizer_level
+	pzr += ((GLOB.wasteland_grid_core_heat - 50) / 250)
+	pzr += (GLOB.grid_sp_feedwater_valve - 50) / 900
+	pzr -= (GLOB.grid_sp_relief_valve / 550)
+	GLOB.grid_pressurizer_level = clamp(round(pzr), 0, 100)
+
+	// Condenser/hotwell abstractions.
+	GLOB.grid_hotwell_level = clamp(round(GLOB.grid_hotwell_level + (fw_eff * 0.5) - (GLOB.grid_primary_flow / 220)), 0, 100)
+	GLOB.grid_condenser_vacuum = clamp(round(GLOB.grid_condenser_vacuum + 0.15 - (GLOB.grid_filter_clog / 650) - (GLOB.grid_secondary_pressure / 900)), 0, 100)
 
 	// writeback to networks if present
 	if(prim)
@@ -1010,19 +1396,47 @@ proc/_recalc_background_rads()
 		fw.flow = round(50 * fw_eff)
 
 /proc/_simulate_turbine_and_output()
-	// turbine rpm depends on secondary pressure minus bypass dump
+	// Turbine is now governor-driven instead of pure passive pressure-following.
 	var/bypass_dump = (GLOB.grid_sp_bypass / 100) * 60
 	var/rpm = GLOB.grid_turbine_rpm
-	rpm += GRID_K_RPM * (GLOB.grid_secondary_pressure - bypass_dump - 40)
+	var/steam_head = clamp(GLOB.grid_secondary_pressure - bypass_dump, 0, 200)
+	var/steam_drive = clamp((steam_head * 1.4) + (GLOB.grid_steam_quality * 0.7), 0, 200)
 
-	// wear hurts response and increases wobble (modeled later via faults)
+	// Command RPM from governor + target output request.
+	var/governor_cap = clamp(GLOB.grid_sp_turbine_governor * 2, 0, 200)
+	var/target_from_output = clamp(GLOB.grid_sp_target_output * 2, 0, 200)
+	var/commanded_rpm = min(governor_cap, max(target_from_output, 20))
+	var/target_rpm = min(commanded_rpm, steam_drive)
+
+	// Ramp rate limited to avoid rotor stress transients.
+	var/ramp_limit = 8 + round((100 - GLOB.grid_turbine_stress) / 25)
+	var/delta = clamp(target_rpm - rpm, -ramp_limit, ramp_limit)
+	rpm += delta
+
+	// Moisture estimate (wet steam) and turbine stress accumulation.
+	var/moisture_target = clamp(100 - GLOB.grid_steam_quality, 0, 100)
+	GLOB.grid_turbine_moisture += (moisture_target - GLOB.grid_turbine_moisture) * 0.15
+	GLOB.grid_turbine_moisture = clamp(GLOB.grid_turbine_moisture, 0, 100)
+
+	GLOB.grid_turbine_stress += (abs(delta) / 2) + (GLOB.grid_turbine_moisture / 180)
+	if(rpm > 170)
+		GLOB.grid_turbine_stress += 1.2
+	GLOB.grid_turbine_stress -= 1.1
+	GLOB.grid_turbine_stress = clamp(GLOB.grid_turbine_stress, 0, 100)
+
+	// Stress and wear damp achievable RPM.
+	if(GLOB.grid_turbine_stress > 85)
+		rpm -= 6
 	rpm *= (1.0 - (GLOB.grid_wear_turbine / 250))
 	rpm = clamp(round(rpm), 0, 200)
 	GLOB.grid_turbine_rpm = rpm
 
-	// output is turbine rpm * steam quality * wear factor
+	// Output reflects steam quality, turbine condition, and condenser vacuum.
 	var/wf = (1.0 - (GLOB.grid_wear_turbine / 150))
-	var/out = GRID_K_OUT * rpm * GLOB.grid_steam_quality * wf
+	var/stress_pen = (1.0 - (GLOB.grid_turbine_stress / 220))
+	var/moisture_pen = (1.0 - (GLOB.grid_turbine_moisture / 260))
+	var/vac_eff = clamp(GLOB.grid_condenser_vacuum / 100, 0.35, 1.0)
+	var/out = GRID_K_OUT * rpm * GLOB.grid_steam_quality * wf * stress_pen * moisture_pen * vac_eff
 	out = clamp(round(out), 0, 100)
 	GLOB.grid_output = out
 
@@ -1044,9 +1458,9 @@ proc/_recalc_background_rads()
 	GLOB.grid_lube_level = clamp(GLOB.grid_lube_level, 0, 100)
 
 	// Wear rises with stress
-	GLOB.grid_wear_pump_primary += 0.10 + (press / 1500) + (heat / 1200)
+	GLOB.grid_wear_pump_primary += 0.10 + (press / 1500) + (heat / 1200) + (GLOB.grid_decay_heat / 500)
 	GLOB.grid_wear_valves       += 0.05 + (GLOB.grid_sp_coolant_valve / 3000)
-	GLOB.grid_wear_turbine      += 0.10 + (GLOB.grid_turbine_rpm / 1000) + (GLOB.grid_sp_bypass / 2000)
+	GLOB.grid_wear_turbine      += 0.10 + (GLOB.grid_turbine_rpm / 1000) + (GLOB.grid_sp_bypass / 2000) + (GLOB.grid_turbine_stress / 700) + (GLOB.grid_turbine_moisture / 1200)
 	GLOB.grid_wear_breakers     += 0.08 + (GLOB.grid_output / 1200)
 	GLOB.grid_wear_sensors      += 0.05 + (heat / 2000)
 
@@ -1089,6 +1503,21 @@ proc/_recalc_background_rads()
 	if(GLOB.grid_lube_level <= 20) GLOB.grid_alarm_state["LUBE_LOW"] = (GLOB.grid_lube_level <= 8) ? 3 : 2
 	else if(GLOB.grid_lube_level <= 35) GLOB.grid_alarm_state["LUBE_WARN"] = 1
 
+	if(GLOB.grid_xenon_poison >= 24) GLOB.grid_alarm_state["XENON_PIT"] = (GLOB.grid_xenon_poison >= 32) ? 3 : 2
+	else if(GLOB.grid_xenon_poison >= 16) GLOB.grid_alarm_state["XENON_RISING"] = 1
+
+	if(GLOB.grid_subcool_margin <= 18) GLOB.grid_alarm_state["SUBCOOL_LOW"] = (GLOB.grid_subcool_margin <= 8) ? 3 : 2
+	else if(GLOB.grid_subcool_margin <= 28) GLOB.grid_alarm_state["SUBCOOL_WARN"] = 1
+
+	if(GLOB.grid_npsh_margin <= 20) GLOB.grid_alarm_state["NPSH_LOW"] = (GLOB.grid_npsh_margin <= 10) ? 3 : 2
+	else if(GLOB.grid_npsh_margin <= 30) GLOB.grid_alarm_state["NPSH_WARN"] = 1
+
+	if(GLOB.grid_pressurizer_level >= 95) GLOB.grid_alarm_state["PZR_SOLID"] = 3
+	else if(GLOB.grid_pressurizer_level <= 12) GLOB.grid_alarm_state["PZR_LEVEL_LOW"] = 2
+
+	if(GLOB.grid_turbine_stress >= 75) GLOB.grid_alarm_state["TURBINE_STRESS"] = (GLOB.grid_turbine_stress >= 90) ? 3 : 2
+	if(GLOB.grid_turbine_moisture >= 35) GLOB.grid_alarm_state["STEAM_WET"] = (GLOB.grid_turbine_moisture >= 55) ? 3 : 2
+
 	// --- Causal fault triggers (mostly deterministic-ish) ---
 	// Overpressure + relief mostly closed => rupture
 	if(GLOB.grid_primary_pressure > 160 && GLOB.grid_sp_relief_valve < 20)
@@ -1119,6 +1548,26 @@ proc/_recalc_background_rads()
 	// Turbine wear high => vibration
 	if(GLOB.grid_wear_turbine > 80 && GLOB.grid_turbine_rpm > 90)
 		if(prob(15))
+			add_grid_fault("turbine_vibration", 2)
+
+	// Subcooling collapse + decay heat is dangerous even post-SCRAM.
+	if(GLOB.grid_subcool_margin < 10 && GLOB.grid_decay_heat > 6)
+		if(prob(25))
+			add_grid_fault("coolant_leak", 2)
+
+	// Pump cavitation from low suction margin.
+	if(GLOB.grid_npsh_margin < 15)
+		if(prob(28))
+			add_grid_fault("pump_cavitation", 2)
+
+	// Solid pressurizer condition can force pressure excursions.
+	if(GLOB.grid_pressurizer_level >= 98 && GLOB.grid_primary_pressure > 140)
+		if(prob(18))
+			add_grid_fault("control_bus_short", 2)
+
+	// Rotor stress / wet steam faults.
+	if(GLOB.grid_turbine_stress > 85 || GLOB.grid_turbine_moisture > 60)
+		if(prob(20))
 			add_grid_fault("turbine_vibration", 2)
 
 	// Sensor drift high => instrumentation fault
@@ -1163,6 +1612,21 @@ proc/_recalc_background_rads()
 			/obj/item/wrench,
 			list(/obj/item/crafting/wonderglue = 1, /obj/item/crafting/duct_tape = 1),
 			list("Open pump service hatch", "Apply lubricant", "Inspect bearings", "Close hatch")
+		)
+
+	// Turbine service
+	if(GLOB.grid_wear_turbine > 70 || GLOB.grid_turbine_stress > 70 || GLOB.grid_turbine_moisture > 45)
+		grid_task_add(
+			"maint_turbine_service",
+			"Service Turbine Train",
+			"Inspect governor controls, rotor mounts, and blade clearances.",
+			(GLOB.grid_wear_turbine > 85 || GLOB.grid_turbine_stress > 85) ? 3 : 2,
+			6 MINUTES,
+			"turbine_1",
+			/obj/structure/grid/turbine_assembly,
+			/obj/item/wrench,
+			list(/obj/item/crafting/small_gear = 2, /obj/item/crafting/wonderglue = 1, /obj/item/crafting/duct_tape = 1),
+			list("Lock out controller", "Inspect rotor mounts", "Retorque housing", "Run vibration check")
 		)
 
 	// Sensor calibration
@@ -1237,6 +1701,8 @@ proc/_recalc_background_rads()
 	if(heat > 60) contain -= 0.5
 	if(heat > 75) contain -= 1.0
 	if(heat > 90) contain -= 2.0
+	if(GLOB.grid_decay_heat > 10 && GLOB.grid_primary_flow < 35)
+		contain -= 0.7
 
 	GLOB.wasteland_grid_containment = clamp(round(contain), 0, 100)
 	GLOB.wasteland_grid_integrity   = clamp(round(integ), 0, 100)
@@ -1249,6 +1715,181 @@ proc/_recalc_background_rads()
 		_trip_grid("Containment collapse risk")
 
 	_recalc_background_rads()
+
+#define GRID_CATASTROPHE_RISK_LIMIT 100
+
+/proc/_run_safety_interlocks()
+	_wasteland_grid_bootstrap()
+
+	if(GLOB.grid_catastrophe_triggered)
+		return
+	if(!GLOB.grid_safety_interlocks_enabled)
+		return
+	if(!GLOB.wasteland_grid_online)
+		return
+
+	var/extreme_pressure = (GLOB.grid_primary_pressure >= 190)
+	var/extreme_heat = (GLOB.wasteland_grid_core_heat >= 98)
+	var/loss_of_cooling = (GLOB.grid_primary_flow <= 12 && GLOB.grid_subcool_margin <= 5 && GLOB.grid_decay_heat >= 8)
+	if(!(extreme_pressure || extreme_heat || loss_of_cooling))
+		return
+
+	GLOB.grid_scram = TRUE
+	GLOB.grid_sp_rod_insertion = max(GLOB.grid_sp_rod_insertion, 95)
+	GLOB.grid_sp_relief_valve = max(GLOB.grid_sp_relief_valve, 90)
+	GLOB.grid_sp_bypass = max(GLOB.grid_sp_bypass, 80)
+
+	if(world.time >= GLOB.grid_interlock_last_trip_at + (45 SECONDS))
+		GLOB.grid_interlock_last_trip_at = world.time
+		_announce_grid("WASTELAND GRID: Safety interlocks engaged (auto SCRAM + pressure relief).")
+
+	if(extreme_pressure || loss_of_cooling)
+		_trip_grid("Automatic safety interlock trip")
+
+/proc/_trigger_grid_catastrophe(reason = "Prompt critical excursion")
+	_wasteland_grid_bootstrap()
+	if(GLOB.grid_catastrophe_triggered)
+		return
+
+	GLOB.grid_catastrophe_triggered = TRUE
+	GLOB.grid_catastrophe_risk = GRID_CATASTROPHE_RISK_LIMIT
+	GLOB.grid_safety_interlocks_enabled = FALSE
+
+	GLOB.wasteland_grid_online = FALSE
+	GLOB.wasteland_grid_restart_stage = 0
+	GLOB.wasteland_grid_restart_operator = null
+	GLOB.wasteland_grid_restart_lock = TRUE
+	GLOB.wasteland_grid_restart_cooldown_until = world.time + (30 MINUTES)
+
+	GLOB.grid_scram = FALSE
+	GLOB.grid_output = 0
+	GLOB.grid_turbine_rpm = 0
+	GLOB.grid_primary_flow = 0
+	GLOB.wasteland_grid_core_heat = 100
+	GLOB.grid_decay_heat = 50
+	GLOB.grid_primary_pressure = 200
+	GLOB.grid_secondary_pressure = 200
+	GLOB.wasteland_grid_containment = 0
+	GLOB.wasteland_grid_integrity = 0
+
+	_recalc_wasteland_grid_state()
+	_recalc_background_rads()
+	_sync_wasteland_grid_reactor()
+
+	_announce_grid("WASTELAND GRID CATASTROPHIC FAILURE: [reason]. Massive radiation release in progress.")
+	add_grid_fault("pipe_rupture_primary", 3)
+	add_grid_fault("coolant_leak", 3)
+	add_grid_fault("control_bus_short", 3)
+	add_grid_fault("breaker_trip", 3)
+	add_grid_fault("turbine_overspeed_trip", 3)
+
+	var/atom/epicenter = _grid_get_radiation_anchor()
+	if(epicenter)
+		explosion(epicenter, 5, 9, 14, 20)
+		for(var/d in list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+			new /datum/radiation_wave(epicenter, d, 120, RAD_DISTANCE_COEFFICIENT, TRUE)
+
+/proc/_update_catastrophe_risk()
+	_wasteland_grid_bootstrap()
+	if(GLOB.grid_catastrophe_triggered)
+		return
+
+	var/risk = GLOB.grid_catastrophe_risk
+	var/risk_delta = -4
+	var/extreme_combo = FALSE
+
+	if(GLOB.wasteland_grid_online && !GLOB.grid_safety_interlocks_enabled && !GLOB.grid_scram)
+		var/high_heat = (GLOB.wasteland_grid_core_heat >= 94)
+		var/high_pressure = (GLOB.grid_primary_pressure >= 170)
+		var/low_flow = (GLOB.grid_primary_flow <= 18)
+		var/low_subcool = (GLOB.grid_subcool_margin <= 8)
+		var/rods_withdrawn = (GLOB.grid_sp_rod_insertion <= 10)
+		var/low_boron = (GLOB.grid_boron_ppm <= 180)
+		var/high_xenon = (GLOB.grid_xenon_poison >= 22)
+
+		extreme_combo = (high_heat && high_pressure && low_flow && low_subcool && rods_withdrawn && low_boron && high_xenon)
+		if(extreme_combo)
+			risk_delta = 7
+		else if(high_heat && low_flow && rods_withdrawn)
+			risk_delta = 2
+		else
+			risk_delta = -2
+
+	risk = clamp(risk + risk_delta, 0, GRID_CATASTROPHE_RISK_LIMIT)
+	GLOB.grid_catastrophe_risk = risk
+
+	if(extreme_combo && risk >= GRID_CATASTROPHE_RISK_LIMIT)
+		_trigger_grid_catastrophe("Deliberate interlock bypass under unstable xenon/low-flow conditions")
+
+/proc/_grid_get_active_players()
+	var/players = get_active_player_count(alive_check = 1, afk_check = 1, human_check = 1)
+	GLOB.grid_auto_last_player_count = players
+	return players
+
+/proc/_grid_run_automation()
+	_wasteland_grid_bootstrap()
+
+	var/players = _grid_get_active_players()
+	var/threshold = clamp(round(GLOB.grid_auto_player_threshold), 1, 120)
+	GLOB.grid_auto_player_threshold = threshold
+
+	var/auto_now = (!!GLOB.grid_auto_enabled && !GLOB.grid_catastrophe_triggered && players < threshold)
+	if(auto_now != !!GLOB.grid_auto_active)
+		GLOB.grid_auto_active = auto_now
+		if(auto_now)
+			_announce_grid("WASTELAND GRID: Auto-operations engaged ([players] active players, threshold [threshold]).")
+		else
+			_announce_grid("WASTELAND GRID: Auto-operations disengaged ([players] active players, threshold [threshold]).")
+
+	if(!auto_now)
+		return
+
+	// Automation always prefers safe operation.
+	if(!GLOB.grid_safety_interlocks_enabled)
+		GLOB.grid_safety_interlocks_enabled = TRUE
+		GLOB.grid_catastrophe_risk = max(0, GLOB.grid_catastrophe_risk - 5)
+
+	if(GLOB.grid_sp_target_output < 35 || GLOB.grid_sp_target_output > 60)
+		GLOB.grid_sp_target_output = 45
+
+	GLOB.grid_sp_coolant_valve = max(GLOB.grid_sp_coolant_valve, 65)
+	GLOB.grid_sp_feedwater_valve = max(GLOB.grid_sp_feedwater_valve, 55)
+	GLOB.grid_sp_turbine_governor = max(GLOB.grid_sp_turbine_governor, 40)
+	GLOB.grid_sp_bypass = clamp(GLOB.grid_sp_bypass, 5, 25)
+
+	var/high_risk = (GLOB.wasteland_grid_core_heat >= 90 || GLOB.grid_primary_pressure >= 150 || GLOB.grid_subcool_margin <= 15 || GLOB.grid_npsh_margin <= 12)
+
+	if(high_risk)
+		GLOB.grid_sp_rod_insertion = min(100, max(GLOB.grid_sp_rod_insertion, 85))
+		GLOB.grid_sp_coolant_valve = min(100, GLOB.grid_sp_coolant_valve + 10)
+		GLOB.grid_sp_relief_valve = max(GLOB.grid_sp_relief_valve, 35)
+		GLOB.grid_sp_turbine_governor = max(25, GLOB.grid_sp_turbine_governor - 8)
+		if(GLOB.wasteland_grid_core_heat >= 96 || GLOB.grid_primary_pressure >= 180)
+			GLOB.grid_scram = TRUE
+	else
+		if(GLOB.grid_scram && GLOB.wasteland_grid_core_heat <= 70 && GLOB.grid_primary_pressure <= 115 && GLOB.grid_subcool_margin >= 25)
+			GLOB.grid_scram = FALSE
+
+		if(GLOB.grid_output < (GLOB.grid_sp_target_output - 8))
+			GLOB.grid_sp_rod_insertion = max(18, GLOB.grid_sp_rod_insertion - 4)
+			GLOB.grid_sp_turbine_governor = min(78, GLOB.grid_sp_turbine_governor + 3)
+		else if(GLOB.grid_output > (GLOB.grid_sp_target_output + 8))
+			GLOB.grid_sp_rod_insertion = min(92, GLOB.grid_sp_rod_insertion + 4)
+			GLOB.grid_sp_turbine_governor = max(30, GLOB.grid_sp_turbine_governor - 2)
+		else
+			GLOB.grid_sp_rod_insertion = clamp(GLOB.grid_sp_rod_insertion, 35, 75)
+
+		var/target_boron = 700 + (GLOB.grid_xenon_poison * 12) + (GLOB.grid_fuel_burnup * 2)
+		GLOB.grid_sp_boron_ppm = clamp(round(target_boron), 500, 1500)
+		GLOB.grid_sp_relief_valve = clamp(GLOB.grid_sp_relief_valve, 0, 20)
+
+	if(!GLOB.wasteland_grid_online && !GLOB.wasteland_grid_restart_lock && world.time >= GLOB.wasteland_grid_restart_cooldown_until)
+		if(GLOB.wasteland_grid_fuel > 0 && GLOB.wasteland_grid_coolant > 0 && GLOB.grid_xenon_poison < 34)
+			GLOB.wasteland_grid_restart_stage = 0
+			GLOB.wasteland_grid_restart_operator = null
+			GLOB.wasteland_grid_restart_lock = FALSE
+			set_wasteland_grid_online(TRUE)
+			_announce_grid("WASTELAND GRID: Auto-operations brought the reactor online.")
 
 ///////////////////////////////////////////////////////////////
 // SUBSYSTEM (modified to v2 phase order)
@@ -1284,14 +1925,18 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 	// Neglect escalation always
 	_escalate_faults_if_neglected()
+	_grid_run_automation()
 
 	// v2 PHASE ORDER
 	_apply_operator_controls()
+	_simulate_reactor_kinetics()
 	_simulate_thermal()
 	_simulate_hydraulics()
 	_simulate_turbine_and_output()
 	_update_wear_and_chemistry()
 	_update_alarms_and_fault_triggers()
+	_run_safety_interlocks()
+	_update_catastrophe_risk()
 	_spawn_maintenance_tasks()
 
 	// State recalc (existing + v2 conditions)
@@ -1299,6 +1944,7 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 	// Reactor health + rads (existing)
 	_update_reactor_health()
+	_sync_wasteland_grid_reactor()
 
 	if(!SSticker || !SSticker.HasRoundStarted())
 		return
@@ -1310,9 +1956,13 @@ SUBSYSTEM_DEF(wasteland_grid)
 			_grid_set_district_off(d, rand(GRID_RED_OUTAGE_MIN, GRID_RED_OUTAGE_MAX))
 			_announce_grid("WASTELAND GRID: Rolling blackout in district: [d].")
 
+	// Keep district power channels in sync with reactor routing and outage timers.
+	_grid_reconcile_district_power()
+
+	_apply_background_radiation()
 	_emit_background_radiation_waves()
 
-	for(var/obj/machinery/f13_grid_gated/M in world)
+	for(var/obj/machinery/f13_grid_gated/M in GLOB.machines)
 		M.power_change()
 
 ///////////////////////////////////////////////////////////////
@@ -1325,6 +1975,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 	set_wasteland_grid_online(FALSE)
 	GLOB.wasteland_grid_last_trip = world.time
+	GLOB.wasteland_grid_restart_stage = 0
+	GLOB.wasteland_grid_restart_operator = null
+	GLOB.wasteland_grid_restart_lock = FALSE
+	GLOB.wasteland_grid_restart_cooldown_until = max(GLOB.wasteland_grid_restart_cooldown_until, world.time + 45 SECONDS)
 
 	add_grid_fault("breaker_trip", 2)
 	_announce_grid("WASTELAND GRID OFFLINE: [reason]. Power is out across the wasteland.")
@@ -1476,8 +2130,8 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 /obj/structure/wasteland_grid/repair_point
 	name = "grid repair point"
-	icon = 'icons/obj/power.dmi'
-	icon_state = "apc0"
+	icon = 'fallout/eris/icons/Reactor_32x32.dmi'
+	icon_state = "Breaker_cabinet_closed"
 	anchored = TRUE
 	density = TRUE
 	var/repair_key = "breaker"
@@ -1510,6 +2164,7 @@ SUBSYSTEM_DEF(wasteland_grid)
 		if(do_after(user, 30, target = src))
 			GLOB.wasteland_grid_restart_stage = 2
 			_announce_grid("WASTELAND GRID: Breakers reset. Next: purge coolant at pump station.")
+			_sync_wasteland_grid_reactor()
 		return TRUE
 
 	if(GLOB.wasteland_grid_restart_stage == 2 && repair_key == "coolant")
@@ -1517,6 +2172,7 @@ SUBSYSTEM_DEF(wasteland_grid)
 		if(do_after(user, 30, target = src))
 			GLOB.wasteland_grid_restart_stage = 3
 			_announce_grid("WASTELAND GRID: Coolant purged. Return to console to engage grid.")
+			_sync_wasteland_grid_reactor()
 		return TRUE
 
 	return FALSE
@@ -1585,26 +2241,52 @@ SUBSYSTEM_DEF(wasteland_grid)
 	if(GLOB.wasteland_grid_restart_stage == 1 && repair_key == "breaker")
 		GLOB.wasteland_grid_restart_stage = 2
 		_announce_grid("WASTELAND GRID: Breakers reset. Next: purge coolant at pump station.")
+		_sync_wasteland_grid_reactor()
 		return
 
 	if(GLOB.wasteland_grid_restart_stage == 2 && repair_key == "coolant")
 		GLOB.wasteland_grid_restart_stage = 3
 		_announce_grid("WASTELAND GRID: Coolant purged. Return to console to engage grid.")
+		_sync_wasteland_grid_reactor()
 		return
 
 /obj/structure/wasteland_grid/breaker_panel
 	parent_type = /obj/structure/wasteland_grid/repair_point
 	name = "breaker panel"
 	desc = "A crusty breaker cabinet. Smells like ozone."
-	icon_state = "teg"
+	icon_state = "Breaker_cabinet_closed"
 	repair_key = "breaker"
+
+/obj/structure/wasteland_grid/breaker_panel/Initialize()
+	. = ..()
+	if(!(src in GLOB.wasteland_grid_breaker_panels))
+		GLOB.wasteland_grid_breaker_panels += src
+	_sync_icon_state()
+
+/obj/structure/wasteland_grid/breaker_panel/Destroy()
+	GLOB.wasteland_grid_breaker_panels -= src
+	return ..()
+
+/obj/structure/wasteland_grid/breaker_panel/proc/_sync_icon_state()
+	_wasteland_grid_bootstrap()
+	var/needs_attention = FALSE
+	if(_find_matching_fault())
+		needs_attention = TRUE
+	if(GLOB.wasteland_grid_restart_stage == 1)
+		needs_attention = TRUE
+	if(needs_attention)
+		icon_state = "Breaker_cabinet_open"
+	else
+		icon_state = "Breaker_cabinet_closed"
 
 /obj/structure/wasteland_grid/coolant_pump
 	parent_type = /obj/structure/wasteland_grid/repair_point
 	name = "coolant pump station"
 	desc = "A pump manifold with valves and pressure gauges."
-	icon = 'icons/obj/atmospherics/pipes/pipe_item.dmi'
-	icon_state = "manifold"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "Primary_pump"
+	pixel_x = -32
+	pixel_y = -32
 	repair_key = "coolant"
 	var/__purge_doing = FALSE
 	var/__purge_ticks_left = 0
@@ -1621,18 +2303,73 @@ SUBSYSTEM_DEF(wasteland_grid)
 // V2 PHYSICAL PLANT OBJECTS
 ///////////////////////////////////////////////////////////////
 /obj/structure/f13/grid_radiation_source
-	name = "reactor radiation source"
-	desc = "An invisible anchor for radiation propagation."
-	icon = 'icons/obj/machines/antimatter.dmi'
-	icon_state = "control_on" // whatever, or make it invisible
+	name = "mass fusion reactor core"
+	desc = "The reactor core housing. It hums when the grid is online."
+	icon = 'fallout/eris/icons/128x128_reactor.dmi'
+	icon_state = "Reactor_off"
 	anchored = TRUE
-	density = FALSE
-	invisibility = 101 // basically invisible
+	density = TRUE
+	pixel_x = -48
+	pixel_y = -48
+	var/last_visual_state = null
+	var/next_hum_at = 0
 
 /obj/structure/f13/grid_radiation_source/Initialize()
 	. = ..()
 	_wasteland_grid_bootstrap()
 	GLOB.grid_rad_source = src
+	sync_visual_and_audio(TRUE, FALSE)
+
+/obj/structure/f13/grid_radiation_source/Destroy()
+	if(GLOB.grid_rad_source == src)
+		GLOB.grid_rad_source = null
+	return ..()
+
+/obj/structure/f13/grid_radiation_source/proc/_desired_visual_state()
+	if(GLOB.grid_catastrophe_triggered)
+		return "destroyed"
+	if(GLOB.wasteland_grid_containment <= 15 || GLOB.wasteland_grid_integrity <= 15)
+		return "destroyed"
+	if(GLOB.wasteland_grid_online)
+		return "on"
+	return "off"
+
+/obj/structure/f13/grid_radiation_source/proc/sync_visual_and_audio(force = FALSE, allow_sfx = TRUE)
+	var/desired = _desired_visual_state()
+
+	if(force || desired != last_visual_state)
+		switch(desired)
+			if("on")
+				icon_state = "Reactor_on"
+				if(allow_sfx && last_visual_state && last_visual_state != "on")
+					playsound(src, 'sound/f13machines/generator_on.ogg', 60, FALSE)
+				next_hum_at = world.time + 4 SECONDS
+			if("destroyed")
+				icon_state = "Reactor_destroyed"
+				if(allow_sfx && last_visual_state == "on")
+					playsound(src, 'sound/f13machines/generator_off.ogg', 55, FALSE)
+			else
+				icon_state = "Reactor_off"
+				if(allow_sfx && last_visual_state == "on")
+					playsound(src, 'sound/f13machines/generator_off.ogg', 55, FALSE)
+		last_visual_state = desired
+
+	if(desired != "on")
+		return
+
+	if(!SSticker || !SSticker.HasRoundStarted())
+		return
+
+	if(world.time < next_hum_at)
+		return
+
+	if(prob(34))
+		playsound(src, 'sound/f13machines/engine_running1.ogg', 45, 1)
+	else if(prob(50))
+		playsound(src, 'sound/f13machines/engine_running2.ogg', 45, 1)
+	else
+		playsound(src, 'sound/f13machines/engine_running3.ogg', 45, 1)
+	next_hum_at = world.time + rand(14 SECONDS, 20 SECONDS)
 
 /obj/structure/grid/base
 	name = "grid component"
@@ -1654,8 +2391,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 	parent_type = /obj/structure/grid/base
 	name = "valve"
 	desc = "A manual valve with a crusty handwheel."
-	icon = 'icons/obj/atmospherics/pipes/pipe_item.dmi'
-	icon_state = "manifold"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "coolant valve"
+	pixel_x = -32
+	pixel_y = -32
 	var/valve_type = "coolant"  // "coolant"|"feedwater"|"relief"|"bypass"
 	var/position = 50           // 0..100
 	var/locked = FALSE
@@ -1698,8 +2437,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 /obj/machinery/grid/pump
 	name = "grid pump"
 	desc = "A heavy pump. Sounds like it wants lubrication."
-	icon = 'icons/obj/machines/antimatter.dmi'
-	icon_state = "control_on"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "Main_Primary_Pump"
+	pixel_x = -32
+	pixel_y = -32
 	anchored = TRUE
 	density = TRUE
 	var/component_tag = null
@@ -1782,8 +2523,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 	parent_type = /obj/structure/grid/base
 	name = "relief valve"
 	desc = "A safety relief valve. Lift test it or it will betray you."
-	icon = 'icons/obj/atmospherics/pipes/pipe_item.dmi'
-	icon_state = "manifold"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "Relief_valve"
+	pixel_x = -32
+	pixel_y = -32
 	var/position = 0   // 0..100 (mapped to grid_sp_relief_valve)
 	var/stuck_closed = FALSE
 	var/stuck_open = FALSE
@@ -1828,8 +2571,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 	parent_type = /obj/structure/grid/base
 	name = "filter unit"
 	desc = "A coolant filter skid. Ignore it and your coolant turns to soup."
-	icon = 'icons/obj/machines/antimatter.dmi'
-	icon_state = "control_on"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "Filter_unit"
+	pixel_x = -32
+	pixel_y = -32
 	var/clog_local = 0 // optional per-unit view
 
 /obj/structure/grid/filter_unit/examine(mob/user)
@@ -1866,8 +2611,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 	parent_type = /obj/structure/grid/base
 	name = "heat exchanger"
 	desc = "A battered exchanger. Descale it or steam quality drops."
-	icon = 'icons/obj/machines/antimatter.dmi'
-	icon_state = "control_on"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "Heat_exchanger"
+	pixel_x = -32
+	pixel_y = -32
 	var/fouling = 10 // 0..100
 
 /obj/structure/grid/heat_exchanger/examine(mob/user)
@@ -1888,6 +2635,134 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 	return ..()
 
+/obj/structure/grid/turbine_assembly
+	parent_type = /obj/structure/grid/base
+	name = "turbine assembly"
+	desc = "The main steam turbine train. It needs regular mechanical service."
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "Turbine_main"
+	pixel_x = -32
+	pixel_y = -32
+	component_tag = "turbine_1"
+
+/obj/structure/grid/turbine_assembly/Initialize()
+	. = ..()
+	if(!(src in GLOB.wasteland_grid_turbine_assemblies))
+		GLOB.wasteland_grid_turbine_assemblies += src
+	sync_visual_state()
+
+/obj/structure/grid/turbine_assembly/Destroy()
+	GLOB.wasteland_grid_turbine_assemblies -= src
+	return ..()
+
+/obj/structure/grid/turbine_assembly/proc/sync_visual_state()
+	_wasteland_grid_bootstrap()
+	icon_state = "Turbine_main"
+
+/obj/structure/grid/turbine_assembly/proc/_find_turbine_fault()
+	_wasteland_grid_bootstrap()
+	for(var/datum/wasteland_grid_fault/F in GLOB.wasteland_grid_faults)
+		if(!F || F.fixed) continue
+		if(F.affects_component_tag && component_tag && F.affects_component_tag == component_tag)
+			return F
+	return null
+
+/obj/structure/grid/turbine_assembly/examine(mob/user)
+	. = ..()
+	. += span_notice("RPM: [GLOB.grid_turbine_rpm]. Wear: [round(GLOB.grid_wear_turbine)]%. Stress: [round(GLOB.grid_turbine_stress)]%. Moisture: [round(GLOB.grid_turbine_moisture)]%.")
+	. += span_notice("Control adjustments are made at the turbine controller console.")
+
+	var/datum/wasteland_grid_fault/F = _find_turbine_fault()
+	if(F)
+		. += span_warning("Active issue: [F.describe()]")
+
+	var/datum/grid_task/T = grid_task_find_for_obj(src)
+	if(T && !T.completed)
+		. += span_notice("Maintenance due: [T.describe()]")
+
+/obj/structure/grid/turbine_assembly/attack_hand(mob/user)
+	_wasteland_grid_bootstrap()
+	if(!user) return TRUE
+
+	var/datum/wasteland_grid_fault/F = _find_turbine_fault()
+	if(F)
+		to_chat(user, span_warning("Active issue: [F.describe()]"))
+		to_chat(user, span_notice("Required tool: [F.get_required_tool_text()]"))
+		to_chat(user, span_notice("Required parts: [F.get_effective_reqs_text()]"))
+		return TRUE
+
+	var/datum/grid_task/T = grid_task_find_for_obj(src)
+	if(T && !T.completed)
+		to_chat(user, span_notice("Maintenance due: [T.describe()]"))
+		return TRUE
+
+	to_chat(user, span_notice("The turbine assembly looks stable. Use a wrench to perform service when needed."))
+	return TRUE
+
+/obj/structure/grid/turbine_assembly/attackby(obj/item/I, mob/user, params)
+	_wasteland_grid_bootstrap()
+	if(!I || !user) return ..()
+
+	var/datum/wasteland_grid_fault/F = _find_turbine_fault()
+	if(F)
+		if(F.required_tool && !istype(I, F.required_tool))
+			to_chat(user, span_warning("Wrong tool. You need [F.get_required_tool_text()]."))
+			return TRUE
+
+		var/list/fault_reqs = F.get_effective_reqs()
+		if(fault_reqs && fault_reqs.len)
+			if(!_grid_count_reqs_nearby(user, src, fault_reqs))
+				to_chat(user, span_warning("Missing parts. Need: [F.get_effective_reqs_text()]."))
+				return TRUE
+
+		user.visible_message(span_notice("[user] starts repairing the turbine assembly..."), span_notice("You start repairing the turbine assembly..."))
+		if(do_after(user, 45, target = src))
+			if(fault_reqs && fault_reqs.len)
+				if(!_grid_count_reqs_in_mob(user, fault_reqs) && !_grid_count_reqs_nearby(user, src, fault_reqs))
+					to_chat(user, span_warning("Repair failed: parts missing after you started."))
+					return TRUE
+				if(!_grid_consume_reqs_nearby(user, src, fault_reqs))
+					to_chat(user, span_warning("Repair failed: couldn't consume required parts."))
+					return TRUE
+
+			fix_grid_fault(F)
+			GLOB.grid_wear_turbine = max(0, GLOB.grid_wear_turbine - 12)
+			GLOB.grid_turbine_stress = max(0, GLOB.grid_turbine_stress - 16)
+			GLOB.grid_turbine_moisture = max(0, GLOB.grid_turbine_moisture - 8)
+			to_chat(user, span_notice("Turbine assembly repair complete."))
+		return TRUE
+
+	var/datum/grid_task/T = grid_task_find_for_obj(src)
+	if(T && !T.completed)
+		if(T.required_tool && !istype(I, T.required_tool))
+			var/tool_txt = "[T.required_tool]"
+			var/atom/A = T.required_tool
+			if(A) tool_txt = initial(A.name)
+			to_chat(user, span_warning("Wrong tool for maintenance. Need: [tool_txt]."))
+			return TRUE
+
+		if(T.required_reqs && !_grid_count_reqs_nearby(user, src, T.required_reqs))
+			to_chat(user, span_warning("Missing maintenance parts (inventory or nearby floor)."))
+			return TRUE
+
+		user.visible_message(span_notice("[user] starts turbine maintenance..."), span_notice("You start turbine maintenance..."))
+		if(do_after(user, 40, target = src))
+			if(T.required_reqs && !_grid_count_reqs_in_mob(user, T.required_reqs) && !_grid_count_reqs_nearby(user, src, T.required_reqs))
+				to_chat(user, span_warning("Maintenance failed: parts missing after you started."))
+				return TRUE
+			if(T.required_reqs && !_grid_consume_reqs_nearby(user, src, T.required_reqs))
+				to_chat(user, span_warning("Maintenance failed: couldn't consume required parts."))
+				return TRUE
+
+			grid_task_complete_by(user, T)
+			GLOB.grid_wear_turbine = max(0, GLOB.grid_wear_turbine - 10)
+			GLOB.grid_turbine_stress = max(0, GLOB.grid_turbine_stress - 12)
+			GLOB.grid_turbine_moisture = max(0, GLOB.grid_turbine_moisture - 6)
+			to_chat(user, span_notice("Turbine maintenance complete."))
+		return TRUE
+
+	return ..()
+
 /obj/machinery/grid/turbine_controller
 	name = "turbine controller"
 	desc = "Sets load and bypass. Overspeed this and it'll trip."
@@ -1895,12 +2770,49 @@ SUBSYSTEM_DEF(wasteland_grid)
 	icon_state = "control_on"
 	anchored = TRUE
 	density = TRUE
-	var/component_tag = null
+	var/component_tag = "turbine_ctrl_1"
 
 /obj/machinery/grid/turbine_controller/Initialize()
 	. = ..()
 	_wasteland_grid_bootstrap()
 	grid_register_component(src)
+	sync_visual_state()
+
+/obj/machinery/grid/turbine_controller/proc/sync_visual_state()
+	_wasteland_grid_bootstrap()
+	icon_state = "control_on"
+
+/obj/machinery/grid/turbine_controller/proc/_find_turbine_fault()
+	_wasteland_grid_bootstrap()
+
+	// Prefer faults that explicitly target this controller.
+	for(var/datum/wasteland_grid_fault/F in GLOB.wasteland_grid_faults)
+		if(!F || F.fixed) continue
+		if(F.affects_component_tag && component_tag && F.affects_component_tag == component_tag)
+			return F
+
+	// Compatibility fallback: if no dedicated turbine assembly exists on map,
+	// let the controller handle turbine-tagged faults too.
+	var/obj/structure/grid/turbine_assembly/TA = grid_get_component("turbine_1")
+	if(!istype(TA))
+		for(var/datum/wasteland_grid_fault/F in GLOB.wasteland_grid_faults)
+			if(!F || F.fixed) continue
+			if(F.repair_key == "turbine")
+				return F
+
+	return null
+
+/obj/machinery/grid/turbine_controller/examine(mob/user)
+	. = ..()
+	. += span_notice("RPM: [GLOB.grid_turbine_rpm]. Wear: [round(GLOB.grid_wear_turbine)]%. Stress: [round(GLOB.grid_turbine_stress)]%.")
+
+	var/datum/wasteland_grid_fault/F = _find_turbine_fault()
+	if(F)
+		. += span_warning("Active issue: [F.describe()]")
+
+	var/datum/grid_task/T = grid_task_find_for_obj(src)
+	if(T && !T.completed)
+		. += span_notice("Maintenance due: [T.describe()]")
 
 /obj/machinery/grid/turbine_controller/attack_hand(mob/user)
 	_wasteland_grid_bootstrap()
@@ -1908,18 +2820,24 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 	var/list/options = list()
 	options += "Set target output"
+	options += "Set turbine governor"
 	options += "Set bypass valve"
 	options += "Set feedwater valve"
+	options += "Set boron ppm"
 	options += "SCRAM"
 	options += "Close"
 
-	var/msg = "Turbine/Load Control\nOutput: [GLOB.grid_output]% (Target: [GLOB.grid_sp_target_output]%)\nRPM: [GLOB.grid_turbine_rpm]\nBypass: [GLOB.grid_sp_bypass]%\nFeedwater: [GLOB.grid_sp_feedwater_valve]%"
+	var/msg = "Turbine/Load Control\nOutput: [GLOB.grid_output]% (Target: [GLOB.grid_sp_target_output]%)\nRPM: [GLOB.grid_turbine_rpm] (Governor [GLOB.grid_sp_turbine_governor]%)\nBypass: [GLOB.grid_sp_bypass]%\nFeedwater: [GLOB.grid_sp_feedwater_valve]%\nBoron: [GLOB.grid_boron_ppm] ppm"
 	var/c = input(user, msg, "Turbine Controller") as null|anything in options
 	if(!c || c == "Close") return
 
 	if(c == "Set target output")
 		var/v = input(user, "Target output (0-100)", "Target") as null|num
 		if(!isnull(v)) GLOB.grid_sp_target_output = clamp(round(v), 0, 100)
+
+	if(c == "Set turbine governor")
+		var/vg = input(user, "Turbine governor demand (0-100)\nHigher allows higher RPM.", "Governor") as null|num
+		if(!isnull(vg)) GLOB.grid_sp_turbine_governor = clamp(round(vg), 0, 100)
 
 	if(c == "Set bypass valve")
 		var/v2 = input(user, "Bypass (0-100)\nHigher dumps steam (safer, less output).", "Bypass") as null|num
@@ -1929,9 +2847,77 @@ SUBSYSTEM_DEF(wasteland_grid)
 		var/v3 = input(user, "Feedwater (0-100)", "Feedwater") as null|num
 		if(!isnull(v3)) GLOB.grid_sp_feedwater_valve = clamp(round(v3), 0, 100)
 
+	if(c == "Set boron ppm")
+		var/vb = input(user, "Boron setpoint ppm (0-2000)\nHigher boron suppresses reactivity.", "Boron") as null|num
+		if(!isnull(vb)) GLOB.grid_sp_boron_ppm = clamp(round(vb), 0, 2000)
+
 	if(c == "SCRAM")
 		GLOB.grid_scram = TRUE
 		_announce_grid("WASTELAND GRID: SCRAM triggered by [user]!")
+
+/obj/machinery/grid/turbine_controller/attackby(obj/item/I, mob/user, params)
+	_wasteland_grid_bootstrap()
+	if(!I || !user) return ..()
+
+	var/datum/wasteland_grid_fault/F = _find_turbine_fault()
+	if(F)
+		if(F.required_tool && !istype(I, F.required_tool))
+			to_chat(user, span_warning("Wrong tool. You need [F.get_required_tool_text()]."))
+			return TRUE
+
+		var/list/fault_reqs = F.get_effective_reqs()
+		if(fault_reqs && fault_reqs.len)
+			if(!_grid_count_reqs_nearby(user, src, fault_reqs))
+				to_chat(user, span_warning("Missing parts. Need: [F.get_effective_reqs_text()]."))
+				return TRUE
+
+		user.visible_message(span_notice("[user] starts servicing the turbine controller..."), span_notice("You start servicing the turbine controller..."))
+		if(do_after(user, 40, target = src))
+			if(fault_reqs && fault_reqs.len)
+				if(!_grid_count_reqs_in_mob(user, fault_reqs) && !_grid_count_reqs_nearby(user, src, fault_reqs))
+					to_chat(user, span_warning("Repair failed: parts missing after you started."))
+					return TRUE
+				if(!_grid_consume_reqs_nearby(user, src, fault_reqs))
+					to_chat(user, span_warning("Repair failed: couldn't consume required parts."))
+					return TRUE
+
+			fix_grid_fault(F)
+			GLOB.grid_wear_turbine = max(0, GLOB.grid_wear_turbine - 8)
+			GLOB.grid_turbine_stress = max(0, GLOB.grid_turbine_stress - 15)
+			GLOB.grid_turbine_moisture = max(0, GLOB.grid_turbine_moisture - 8)
+			to_chat(user, span_notice("Turbine repair complete."))
+		return TRUE
+
+	var/datum/grid_task/T = grid_task_find_for_obj(src)
+	if(T && !T.completed)
+		if(T.required_tool && !istype(I, T.required_tool))
+			var/tool_txt = "[T.required_tool]"
+			var/atom/A = T.required_tool
+			if(A) tool_txt = initial(A.name)
+			to_chat(user, span_warning("Wrong tool for maintenance. Need: [tool_txt]."))
+			return TRUE
+
+		if(T.required_reqs && !_grid_count_reqs_nearby(user, src, T.required_reqs))
+			to_chat(user, span_warning("Missing maintenance parts (inventory or nearby floor)."))
+			return TRUE
+
+		user.visible_message(span_notice("[user] starts turbine maintenance..."), span_notice("You start turbine maintenance..."))
+		if(do_after(user, 35, target = src))
+			if(T.required_reqs && !_grid_count_reqs_in_mob(user, T.required_reqs) && !_grid_count_reqs_nearby(user, src, T.required_reqs))
+				to_chat(user, span_warning("Maintenance failed: parts missing after you started."))
+				return TRUE
+			if(T.required_reqs && !_grid_consume_reqs_nearby(user, src, T.required_reqs))
+				to_chat(user, span_warning("Maintenance failed: couldn't consume required parts."))
+				return TRUE
+
+			grid_task_complete_by(user, T)
+			GLOB.grid_wear_turbine = max(0, GLOB.grid_wear_turbine - 10)
+			GLOB.grid_turbine_stress = max(0, GLOB.grid_turbine_stress - 12)
+			GLOB.grid_turbine_moisture = max(0, GLOB.grid_turbine_moisture - 6)
+			to_chat(user, span_notice("Turbine maintenance complete."))
+		return TRUE
+
+	return ..()
 
 /obj/structure/grid/sensor_panel
 	parent_type = /obj/structure/grid/base
@@ -1985,9 +2971,28 @@ SUBSYSTEM_DEF(wasteland_grid)
 	parent_type = /obj/structure/grid/base
 	name = "breaker cabinet"
 	desc = "High-current breakers. District load lives here."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "apc0"
+	icon = 'fallout/eris/icons/Reactor_32x32.dmi'
+	icon_state = "Breaker_cabinet_closed"
 	var/district = null
+
+/obj/structure/grid/breaker_cabinet/Initialize()
+	. = ..()
+	if(!(src in GLOB.wasteland_grid_breaker_cabinets))
+		GLOB.wasteland_grid_breaker_cabinets += src
+	_sync_icon_state()
+
+/obj/structure/grid/breaker_cabinet/Destroy()
+	GLOB.wasteland_grid_breaker_cabinets -= src
+	return ..()
+
+/obj/structure/grid/breaker_cabinet/proc/_sync_icon_state()
+	var/is_out = FALSE
+	if(district)
+		is_out = !_grid_is_district_on(district)
+	if(is_out)
+		icon_state = "Breaker_cabinet_open"
+	else
+		icon_state = "Breaker_cabinet_closed"
 
 /obj/structure/grid/breaker_cabinet/examine(mob/user)
 	. = ..()
@@ -1995,6 +3000,7 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 /obj/structure/grid/breaker_cabinet/attack_hand(mob/user)
 	_wasteland_grid_bootstrap()
+	_sync_icon_state()
 	if(!district)
 		to_chat(user, span_notice("This cabinet isn't assigned a district. Set district var on the map if you want local control."))
 		return TRUE
@@ -2003,12 +3009,241 @@ SUBSYSTEM_DEF(wasteland_grid)
 	to_chat(user, span_notice("District [district] power is currently: [(on ? "ON" : "OFF (rolling outage)")]"))
 	return TRUE
 
+/obj/structure/grid/district_controller
+	parent_type = /obj/structure/grid/base
+	name = "district load controller"
+	desc = "Routes reactor power to a specific district without touching the full grid."
+	icon = 'icons/obj/machines/antimatter.dmi'
+	icon_state = "control_on"
+	var/district = null
+	var/default_outage_seconds = 90
+
+/obj/structure/grid/district_controller/proc/get_district_id()
+	if(istext(district) && district)
+		return district
+	var/area/A = get_area(src)
+	var/inferred = _grid_get_area_district(A)
+	if(inferred)
+		return inferred
+	if(SSfaction_control)
+		return SSfaction_control.get_district_for_atom(src)
+	return null
+
+/obj/structure/grid/district_controller/examine(mob/user)
+	. = ..()
+	var/d = get_district_id()
+	if(!d)
+		. += span_warning("District: unassigned. Set district var, map area.grid_district, or place this in NCR/BOS/Legion/Town areas.")
+		return
+	var/on = _grid_is_district_on(d)
+	var/forced = !!GLOB.wasteland_grid_district_forced_off[d]
+	var/t = GLOB.wasteland_grid_district_off_until[d]
+	var/remaining = (t && t > world.time) ? round((t - world.time) / 10) : 0
+	. += span_notice("District: [d] | Routed: [(on ? "ON" : "OFF")]")
+	if(forced)
+		. += span_warning("Mode: FORCED OFF")
+	else if(remaining > 0)
+		. += span_notice("Mode: timed outage ([remaining]s remaining)")
+	else
+		. += span_notice("Mode: normal routing")
+
+/obj/structure/grid/district_controller/attack_hand(mob/user)
+	_wasteland_grid_bootstrap()
+	var/d = get_district_id()
+	if(!d)
+		to_chat(user, span_warning("No district assigned. Set district var, map area.grid_district, or place this in NCR/BOS/Legion/Town areas."))
+		return TRUE
+
+	var/on = _grid_is_district_on(d)
+	var/forced = !!GLOB.wasteland_grid_district_forced_off[d]
+	var/t = GLOB.wasteland_grid_district_off_until[d]
+	var/remaining = (t && t > world.time) ? round((t - world.time) / 10) : 0
+	var/msg = "District: [d]\nCurrent route: [(on ? "ON" : "OFF")]\nMode: "
+	if(forced)
+		msg += "FORCED OFF"
+	else if(remaining > 0)
+		msg += "Timed outage ([remaining]s)"
+	else
+		msg += "Normal"
+
+	var/choice = alert(user, msg, "District Load Controller", "Route ON", "Route OFF", "Timed Outage")
+	switch(choice)
+		if("Route ON")
+			_grid_set_district_forced(d, FALSE)
+			_announce_grid("WASTELAND GRID: District [d] routed ON by [user].")
+		if("Route OFF")
+			_grid_set_district_forced(d, TRUE)
+			_announce_grid("WASTELAND GRID: District [d] routed OFF by [user].")
+		if("Timed Outage")
+			var/raw = input(user, "Timed outage length in seconds (15-600).", "Timed Outage", default_outage_seconds) as null|num
+			if(isnull(raw))
+				return TRUE
+			var/dur_s = clamp(round(raw), 15, 600)
+			_grid_set_district_forced(d, FALSE)
+			_grid_set_district_off(d, dur_s * 10)
+			_announce_grid("WASTELAND GRID: District [d] outage scheduled for [dur_s]s by [user].")
+	return TRUE
+
+/obj/machinery/f13/grid_faction_district_console
+	name = "district dispatch console"
+	desc = "Reactor-side console for routing BOS, NCR, Legion, and Town district power."
+	icon = 'icons/obj/machines/antimatter.dmi'
+	icon_state = "control_on"
+	density = TRUE
+	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
+	interaction_flags_machine = INTERACT_MACHINE_OFFLINE | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
+	var/default_outage_seconds = 90
+	var/list/faction_districts = list(
+		"BOS" = "BOS",
+		"NCR" = "NCR",
+		"Legion" = "Legion",
+		"Town" = "Town"
+	)
+
+/obj/machinery/f13/grid_faction_district_console/bos
+	name = "BOS district console"
+	faction_districts = list("BOS" = "BOS")
+
+/obj/machinery/f13/grid_faction_district_console/ncr
+	name = "NCR district console"
+	faction_districts = list("NCR" = "NCR")
+
+/obj/machinery/f13/grid_faction_district_console/legion
+	name = "Legion district console"
+	faction_districts = list("Legion" = "Legion")
+
+/obj/machinery/f13/grid_faction_district_console/town
+	name = "Town district console"
+	faction_districts = list("Town" = "Town")
+
+/obj/machinery/f13/grid_faction_district_console/Initialize()
+	. = ..()
+	_wasteland_grid_bootstrap()
+	if(!islist(faction_districts))
+		faction_districts = list()
+
+/obj/machinery/f13/grid_faction_district_console/power_change()
+	. = ..()
+	stat &= ~NOPOWER
+	icon_state = "control_on"
+
+/obj/machinery/f13/grid_faction_district_console/proc/get_district_for_faction(faction_name)
+	if(!istext(faction_name) || !faction_name)
+		return null
+	var/d = faction_districts[faction_name]
+	if(istext(d) && d)
+		return d
+	return faction_name
+
+/obj/machinery/f13/grid_faction_district_console/proc/get_status_label(faction_name)
+	var/d = get_district_for_faction(faction_name)
+	if(!d)
+		return "[faction_name]: Unassigned"
+	var/on = _grid_is_district_on(d)
+	var/forced = !!GLOB.wasteland_grid_district_forced_off[d]
+	var/t = GLOB.wasteland_grid_district_off_until[d]
+	var/remaining = (t && t > world.time) ? round((t - world.time) / 10) : 0
+	if(forced)
+		return "[faction_name]: OFF (forced)"
+	if(remaining > 0)
+		return "[faction_name]: OFF ([remaining]s timed)"
+	return "[faction_name]: [(on ? "ON" : "OFF")]"
+
+/obj/machinery/f13/grid_faction_district_console/examine(mob/user)
+	. = ..()
+	for(var/faction_name in faction_districts)
+		var/d = get_district_for_faction(faction_name)
+		. += span_notice("[faction_name] -> [d] | [get_status_label(faction_name)]")
+
+/obj/machinery/f13/grid_faction_district_console/attack_hand(mob/user)
+	. = ..()
+	if(!user) return
+	ui_interact(user, null)
+	return TRUE
+
+/obj/machinery/f13/grid_faction_district_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/f13/grid_faction_district_console/ui_data(mob/user)
+	_wasteland_grid_bootstrap()
+	var/list/data = list()
+	var/list/rows = list()
+
+	for(var/faction_name in faction_districts)
+		var/d = get_district_for_faction(faction_name)
+		var/on = _grid_is_district_on(d)
+		var/forced = !!GLOB.wasteland_grid_district_forced_off[d]
+		var/t = GLOB.wasteland_grid_district_off_until[d]
+		var/remaining = (t && t > world.time) ? round((t - world.time) / 10) : 0
+
+		rows += list(list(
+			"faction" = faction_name,
+			"district" = d,
+			"routed_on" = !!on,
+			"forced_off" = !!forced,
+			"remaining_s" = remaining
+		))
+
+	data["online"] = !!GLOB.wasteland_grid_online
+	data["state"] = GLOB.wasteland_grid_state
+	data["rows"] = rows
+	data["default_outage_s"] = default_outage_seconds
+	return data
+
+/obj/machinery/f13/grid_faction_district_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	_wasteland_grid_bootstrap()
+	var/mob/user = ui?.user
+	if(!user)
+		user = usr
+	if(!user)
+		return FALSE
+
+	var/faction_name = params["faction"]
+	var/d = get_district_for_faction(faction_name)
+	if(!istext(d) || !d)
+		to_chat(user, span_warning("No district mapped for [faction_name]."))
+		return TRUE
+
+	switch(action)
+		if("route_on")
+			_grid_set_district_forced(d, FALSE)
+			_announce_grid("WASTELAND GRID: [faction_name] district ([d]) routed ON by [user].")
+			return TRUE
+		if("route_off")
+			_grid_set_district_forced(d, TRUE)
+			_announce_grid("WASTELAND GRID: [faction_name] district ([d]) routed OFF by [user].")
+			return TRUE
+		if("timed_outage")
+			var/raw = text2num(params["seconds"])
+			var/dur_s = clamp(round(raw), 15, 600)
+			_grid_set_district_forced(d, FALSE)
+			_grid_set_district_off(d, dur_s * 10)
+			_announce_grid("WASTELAND GRID: [faction_name] district ([d]) outage scheduled for [dur_s]s by [user].")
+			return TRUE
+
+	return FALSE
+
+/obj/machinery/f13/grid_faction_district_console/ui_interact(mob/user, datum/tgui/ui)
+	_wasteland_grid_bootstrap()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "GridDistrictDispatch")
+		ui.open()
+
 /obj/structure/grid/purge_valve
 	parent_type = /obj/structure/grid/base
 	name = "purge valve"
 	desc = "A purge valve for flushing contaminated coolant."
-	icon = 'icons/obj/atmospherics/pipes/pipe_item.dmi'
-	icon_state = "manifold"
+	icon = 'fallout/eris/icons/96x96.dmi'
+	icon_state = "coolant valve"
+	pixel_x = -32
+	pixel_y = -32
 	var/opened = FALSE
 
 /obj/structure/grid/purge_valve/examine(mob/user)
@@ -2088,10 +3323,19 @@ SUBSYSTEM_DEF(wasteland_grid)
 	icon = 'icons/obj/machines/antimatter.dmi'
 	icon_state = "control_on"
 	density = TRUE
+	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
+	interaction_flags_machine = INTERACT_MACHINE_OFFLINE | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
 
 /obj/machinery/f13/wasteland_grid_console/Initialize()
 	. = ..()
 	_wasteland_grid_bootstrap()
+
+/obj/machinery/f13/wasteland_grid_console/power_change()
+	. = ..()
+	stat &= ~NOPOWER
+	icon_state = "control_on"
 
 /obj/machinery/f13/wasteland_grid_console/attack_hand(mob/user)
 	. = ..()
@@ -2139,6 +3383,13 @@ SUBSYSTEM_DEF(wasteland_grid)
 	data["state"] = GLOB.wasteland_grid_state
 	data["bg_rads"] = GLOB.wasteland_grid_background_rads
 	data["scram"] = !!GLOB.grid_scram
+	data["interlocks"] = !!GLOB.grid_safety_interlocks_enabled
+	data["catastrophe_risk"] = round(GLOB.grid_catastrophe_risk)
+	data["catastrophe_triggered"] = !!GLOB.grid_catastrophe_triggered
+	data["auto_enabled"] = !!GLOB.grid_auto_enabled
+	data["auto_active"] = !!GLOB.grid_auto_active
+	data["auto_threshold"] = GLOB.grid_auto_player_threshold
+	data["active_players"] = _grid_get_active_players()
 
 	// resources
 	data["fuel"] = GLOB.wasteland_grid_fuel
@@ -2160,6 +3411,24 @@ SUBSYSTEM_DEF(wasteland_grid)
 	data["steam_q"] = GLOB.grid_steam_quality
 	data["rpm"] = GLOB.grid_turbine_rpm
 	data["output"] = GLOB.grid_output
+	data["turbine_stress"] = round(GLOB.grid_turbine_stress)
+	data["turbine_moisture"] = round(GLOB.grid_turbine_moisture)
+
+	// advanced core model
+	data["xenon"] = round(GLOB.grid_xenon_poison, 0.1)
+	data["iodine"] = round(GLOB.grid_iodine_inventory, 0.1)
+	data["samarium"] = round(GLOB.grid_samarium_poison, 0.1)
+	data["burnup"] = round(GLOB.grid_fuel_burnup, 0.1)
+	data["react_reserve"] = round(GLOB.grid_reactivity_reserve, 0.1)
+	data["decay_heat"] = round(GLOB.grid_decay_heat, 0.1)
+	data["boron"] = round(GLOB.grid_boron_ppm)
+	data["doppler_coeff"] = round(GLOB.grid_doppler_coeff, 0.01)
+	data["mtc_coeff"] = round(GLOB.grid_moderator_coeff, 0.01)
+	data["subcool_margin"] = round(GLOB.grid_subcool_margin)
+	data["npsh_margin"] = round(GLOB.grid_npsh_margin)
+	data["pzr_level"] = round(GLOB.grid_pressurizer_level)
+	data["condenser_vac"] = round(GLOB.grid_condenser_vacuum)
+	data["hotwell"] = round(GLOB.grid_hotwell_level)
 
 	// setpoints
 	data["sp_rods"] = GLOB.grid_sp_rod_insertion
@@ -2168,6 +3437,8 @@ SUBSYSTEM_DEF(wasteland_grid)
 	data["sp_relief"] = GLOB.grid_sp_relief_valve
 	data["sp_bypass"] = GLOB.grid_sp_bypass
 	data["sp_target"] = GLOB.grid_sp_target_output
+	data["sp_turbine"] = GLOB.grid_sp_turbine_governor
+	data["sp_boron"] = GLOB.grid_sp_boron_ppm
 
 	// chemistry/wear
 	data["contam"] = round(GLOB.grid_coolant_contamination)
@@ -2237,9 +3508,13 @@ SUBSYSTEM_DEF(wasteland_grid)
 	switch(action)
 		if("set_sp")
 			var/key = params["key"]
-			var/val = text2num(params["val"])
+			var/raw = text2num(params["val"])
+			var/val = raw
 			if(isnull(key)) return TRUE
-			val = clamp(round(val), 0, 100)
+			if(key == "boron")
+				val = clamp(round(val), 0, 2000)
+			else
+				val = clamp(round(val), 0, 100)
 
 			if(key == "rods") GLOB.grid_sp_rod_insertion = val
 			else if(key == "coolant") GLOB.grid_sp_coolant_valve = val
@@ -2247,6 +3522,8 @@ SUBSYSTEM_DEF(wasteland_grid)
 			else if(key == "relief") GLOB.grid_sp_relief_valve = val
 			else if(key == "bypass") GLOB.grid_sp_bypass = val
 			else if(key == "target") GLOB.grid_sp_target_output = val
+			else if(key == "turbine") GLOB.grid_sp_turbine_governor = val
+			else if(key == "boron") GLOB.grid_sp_boron_ppm = val
 			return TRUE
 
 		if("toggle_scram")
@@ -2255,6 +3532,33 @@ SUBSYSTEM_DEF(wasteland_grid)
 				_announce_grid("WASTELAND GRID: SCRAM triggered by [user]!")
 			else
 				_announce_grid("WASTELAND GRID: SCRAM cleared by [user].")
+			return TRUE
+
+		if("toggle_interlocks")
+			if(GLOB.grid_catastrophe_triggered)
+				to_chat(user, "<span class='warning'>Safety system unavailable: core already destroyed.</span>")
+				return TRUE
+
+			GLOB.grid_safety_interlocks_enabled = !GLOB.grid_safety_interlocks_enabled
+			if(GLOB.grid_safety_interlocks_enabled)
+				GLOB.grid_catastrophe_risk = max(0, GLOB.grid_catastrophe_risk - 15)
+				_announce_grid("WASTELAND GRID: Safety interlocks RE-ENABLED by [user].")
+			else
+				_announce_grid("WASTELAND GRID: WARNING - Safety interlocks DISABLED by [user].")
+			return TRUE
+
+		if("toggle_auto")
+			GLOB.grid_auto_enabled = !GLOB.grid_auto_enabled
+			if(!GLOB.grid_auto_enabled)
+				GLOB.grid_auto_active = FALSE
+				_announce_grid("WASTELAND GRID: Auto-operations disabled by [user].")
+			else
+				_announce_grid("WASTELAND GRID: Auto-operations enabled by [user].")
+			return TRUE
+
+		if("set_auto_threshold")
+			var/raw_threshold = text2num(params["val"])
+			GLOB.grid_auto_player_threshold = clamp(round(raw_threshold), 1, 120)
 			return TRUE
 
 		if("prime_restart")
@@ -2323,11 +3627,19 @@ SUBSYSTEM_DEF(wasteland_grid)
 	msg += "Primary P: [_read_press_display()] | Relief SP: [GLOB.grid_sp_relief_valve]\n"
 	msg += "Secondary P: [GLOB.grid_secondary_pressure] | Feedwater SP: [GLOB.grid_sp_feedwater_valve]\n"
 	msg += "Steam Q: [GLOB.grid_steam_quality] | Bypass SP: [GLOB.grid_sp_bypass]\n"
-	msg += "Turbine RPM: [GLOB.grid_turbine_rpm] | Output: [GLOB.grid_output] (Target [GLOB.grid_sp_target_output])\n"
+	msg += "Turbine RPM: [GLOB.grid_turbine_rpm] | Gov SP: [GLOB.grid_sp_turbine_governor] | Output: [GLOB.grid_output] (Target [GLOB.grid_sp_target_output])\n"
+	msg += "Xenon/Iodine/Samarium: [round(GLOB.grid_xenon_poison,0.1)] / [round(GLOB.grid_iodine_inventory,0.1)] / [round(GLOB.grid_samarium_poison,0.1)]\n"
+	msg += "Burnup: [round(GLOB.grid_fuel_burnup,0.1)] | React reserve: [round(GLOB.grid_reactivity_reserve,0.1)] | Decay heat: [round(GLOB.grid_decay_heat,0.1)]\n"
+	msg += "Boron: [GLOB.grid_boron_ppm] ppm (SP [GLOB.grid_sp_boron_ppm]) | Subcool margin: [round(GLOB.grid_subcool_margin)]\n"
+	msg += "NPSH margin: [round(GLOB.grid_npsh_margin)]\n"
+	msg += "PZR level: [round(GLOB.grid_pressurizer_level)] | Condenser vac: [round(GLOB.grid_condenser_vacuum)] | Hotwell: [round(GLOB.grid_hotwell_level)]\n"
 	msg += "Contam: [round(GLOB.grid_coolant_contamination)] | Filter clog: [round(GLOB.grid_filter_clog)] | Lube: [round(GLOB.grid_lube_level)]\n"
 	msg += "Wear P/V/T/B/S: [round(GLOB.grid_wear_pump_primary)]/[round(GLOB.grid_wear_valves)]/[round(GLOB.grid_wear_turbine)]/[round(GLOB.grid_wear_breakers)]/[round(GLOB.grid_wear_sensors)]\n"
+	msg += "Turbine stress/moisture: [round(GLOB.grid_turbine_stress)] / [round(GLOB.grid_turbine_moisture)]\n"
 	msg += "Sensors health: [GLOB.grid_sensor_health]\n"
 	msg += "SCRAM: [(GLOB.grid_scram ? "YES" : "no")]\n"
+	msg += "Safety interlocks: [(GLOB.grid_safety_interlocks_enabled ? "ENABLED" : "DISABLED")]\n"
+	msg += "Catastrophe risk: [round(GLOB.grid_catastrophe_risk)]%\n"
 	msg += "Background rads: [GLOB.wasteland_grid_background_rads]\n"
 	msg += "=== ALARMS ===\n[_alarm_report()]"
 	msg += "=== MAINT ===\n[_maint_report()]"
@@ -2347,8 +3659,11 @@ SUBSYSTEM_DEF(wasteland_grid)
 	options += "Set feedwater valve SP (0-100)"
 	options += "Set relief valve SP (0-100)"
 	options += "Set bypass SP (0-100)"
+	options += "Set turbine governor SP (0-100)"
 	options += "Set target output (0-100)"
+	options += "Set boron SP (0-2000 ppm)"
 	options += "SCRAM / Clear SCRAM"
+	options += "Toggle safety interlocks"
 
 	// v2 procedures
 	options += "Start coolant purge procedure"
@@ -2398,9 +3713,17 @@ SUBSYSTEM_DEF(wasteland_grid)
 			var/v5 = input(user, "Bypass SP (0-100)", "Bypass") as null|num
 			if(!isnull(v5)) GLOB.grid_sp_bypass = clamp(round(v5), 0, 100)
 
+		if("Set turbine governor SP (0-100)")
+			var/vg = input(user, "Governor SP (0-100)\nCaps achievable RPM.", "Turbine Governor") as null|num
+			if(!isnull(vg)) GLOB.grid_sp_turbine_governor = clamp(round(vg), 0, 100)
+
 		if("Set target output (0-100)")
 			var/v6 = input(user, "Target output (0-100)", "Target Output") as null|num
 			if(!isnull(v6)) GLOB.grid_sp_target_output = clamp(round(v6), 0, 100)
+
+		if("Set boron SP (0-2000 ppm)")
+			var/vb = input(user, "Boron setpoint ppm (0-2000)", "Boron") as null|num
+			if(!isnull(vb)) GLOB.grid_sp_boron_ppm = clamp(round(vb), 0, 2000)
 
 		if("SCRAM / Clear SCRAM")
 			if(!GLOB.grid_scram)
@@ -2409,6 +3732,17 @@ SUBSYSTEM_DEF(wasteland_grid)
 			else
 				GLOB.grid_scram = FALSE
 				_announce_grid("WASTELAND GRID: SCRAM cleared by [user].")
+
+		if("Toggle safety interlocks")
+			if(GLOB.grid_catastrophe_triggered)
+				to_chat(user, "<span class='warning'>Interlocks unavailable: core already destroyed.</span>")
+			else
+				GLOB.grid_safety_interlocks_enabled = !GLOB.grid_safety_interlocks_enabled
+				if(GLOB.grid_safety_interlocks_enabled)
+					GLOB.grid_catastrophe_risk = max(0, GLOB.grid_catastrophe_risk - 15)
+					_announce_grid("WASTELAND GRID: Safety interlocks RE-ENABLED by [user].")
+				else
+					_announce_grid("WASTELAND GRID: WARNING - Safety interlocks DISABLED by [user].")
 
 		if("Start coolant purge procedure")
 			grid_start_coolant_purge(user)
@@ -2431,11 +3765,16 @@ SUBSYSTEM_DEF(wasteland_grid)
 	GLOB.wasteland_grid_restart_stage = 0
 	GLOB.wasteland_grid_restart_operator = null
 	GLOB.wasteland_grid_restart_lock = FALSE
+	_sync_wasteland_grid_reactor()
 
 /// Restart step 1: prime systems (existing)
 /obj/machinery/f13/wasteland_grid_console/proc/_prime_restart(mob/user)
 	if(GLOB.wasteland_grid_online)
 		to_chat(user, "<span class='warning'>Grid is already online.</span>")
+		return
+
+	if(GLOB.grid_catastrophe_triggered)
+		to_chat(user, "<span class='warning'>Restart impossible: reactor core destroyed by catastrophic failure.</span>")
 		return
 
 	if(world.time < GLOB.wasteland_grid_restart_cooldown_until)
@@ -2450,10 +3789,16 @@ SUBSYSTEM_DEF(wasteland_grid)
 		to_chat(user, "<span class='warning'>Insufficient fuel/coolant. Feed the plant first.</span>")
 		return
 
+	// Xenon pit behavior: immediate restart can be blocked after a recent shutdown.
+	if(GLOB.grid_xenon_poison >= 28 && GLOB.grid_sp_boron_ppm >= 400)
+		to_chat(user, "<span class='warning'>Reactor restart blocked by xenon poisoning. Lower boron and wait or burn through carefully.</span>")
+		return
+
 	GLOB.wasteland_grid_restart_stage = 1
 	GLOB.wasteland_grid_restart_operator = user.ckey
 	to_chat(user, "<span class='notice'>Systems primed. Next: reset breakers at the breaker panel.</span>")
 	_announce_grid("WASTELAND GRID: Restart primed by [user]. Step 2 required: breaker reset.")
+	_sync_wasteland_grid_reactor()
 
 /// Restart step 4: engage grid (existing, plus v2 penalties)
 /obj/machinery/f13/wasteland_grid_console/proc/_engage_restart(mob/user)
@@ -2485,6 +3830,15 @@ SUBSYSTEM_DEF(wasteland_grid)
 		GLOB.wasteland_grid_restart_stage = 0
 		GLOB.wasteland_grid_restart_operator = null
 		GLOB.wasteland_grid_restart_cooldown_until = world.time + 60 SECONDS
+		_sync_wasteland_grid_reactor()
+		return
+
+	if(GLOB.grid_xenon_poison >= 34)
+		to_chat(user, "<span class='warning'>Restart abort: xenon pit too deep. Wait out decay or condition the core first.</span>")
+		GLOB.wasteland_grid_restart_stage = 0
+		GLOB.wasteland_grid_restart_operator = null
+		GLOB.wasteland_grid_restart_cooldown_until = world.time + 45 SECONDS
+		_sync_wasteland_grid_reactor()
 		return
 
 	GLOB.wasteland_grid_restart_lock = TRUE
@@ -2500,12 +3854,14 @@ SUBSYSTEM_DEF(wasteland_grid)
 		GLOB.wasteland_grid_restart_stage = 0
 		GLOB.wasteland_grid_restart_operator = null
 		GLOB.wasteland_grid_restart_cooldown_until = world.time + 30 SECONDS
+		_sync_wasteland_grid_reactor()
 		return
 
 	set_wasteland_grid_online(TRUE)
 	GLOB.wasteland_grid_restart_stage = 0
 	GLOB.wasteland_grid_restart_operator = null
 	GLOB.wasteland_grid_restart_cooldown_until = world.time + 30 SECONDS
+	_sync_wasteland_grid_reactor()
 
 	_announce_grid("WASTELAND GRID ONLINE: Power restored by [user].")
 
@@ -2540,8 +3896,369 @@ SUBSYSTEM_DEF(wasteland_grid)
 	_recalc_background_rads()
 
 ///////////////////////////////////////////////////////////////
+// ADVISOR CONSOLE (automated recommendations + quick apply)
+///////////////////////////////////////////////////////////////
+
+/obj/machinery/f13/wasteland_grid_advisor_console
+	name = "reactor advisor console"
+	desc = "Decision-support terminal for reactor operations and safe setpoint guidance."
+	icon = 'icons/obj/machines/antimatter.dmi'
+	icon_state = "control_on"
+	density = TRUE
+	use_power = NO_POWER_USE
+	idle_power_usage = 0
+	active_power_usage = 0
+	interaction_flags_machine = INTERACT_MACHINE_OFFLINE | INTERACT_MACHINE_WIRES_IF_OPEN | INTERACT_MACHINE_ALLOW_SILICON | INTERACT_MACHINE_OPEN_SILICON | INTERACT_MACHINE_SET_MACHINE
+	var/advisor_name = "AZ-5 Decision Support Unit"
+
+/obj/machinery/f13/wasteland_grid_advisor_console/Initialize()
+	. = ..()
+	_wasteland_grid_bootstrap()
+
+/obj/machinery/f13/wasteland_grid_advisor_console/power_change()
+	. = ..()
+	stat &= ~NOPOWER
+	icon_state = "control_on"
+
+/obj/machinery/f13/wasteland_grid_advisor_console/attack_hand(mob/user)
+	. = ..()
+	if(!user) return
+	ui_interact(user, null)
+
+/obj/machinery/f13/wasteland_grid_advisor_console/ui_state(mob/user)
+	return GLOB.default_state
+
+/obj/machinery/f13/wasteland_grid_advisor_console/ui_interact(mob/user, datum/tgui/ui)
+	_wasteland_grid_bootstrap()
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "WastelandGridAdvisor")
+		ui.open()
+
+/obj/machinery/f13/wasteland_grid_advisor_console/proc/_compute_setpoint_plan()
+	var/list/plan = list()
+
+	var/target = clamp(round(GLOB.grid_sp_target_output), 35, 65)
+	if(!GLOB.wasteland_grid_online)
+		target = 45
+	if(GLOB.wasteland_grid_state == "RED")
+		target = min(target, 40)
+	if(GLOB.wasteland_grid_core_heat >= 85 || GLOB.grid_primary_pressure >= 145)
+		target = min(target, 35)
+	if(GLOB.grid_turbine_stress >= 70 || GLOB.grid_turbine_moisture >= 65)
+		target = min(target, 40)
+	plan["target"] = clamp(round(target), 0, 100)
+
+	var/rods = GLOB.grid_sp_rod_insertion
+	if(GLOB.wasteland_grid_core_heat >= 90 || GLOB.grid_primary_pressure >= 160)
+		rods = max(rods, 88)
+	else if(GLOB.grid_output < (target - 8) && !GLOB.grid_scram)
+		rods = max(15, rods - 5)
+	else if(GLOB.grid_output > (target + 8))
+		rods = min(92, rods + 4)
+	plan["rods"] = clamp(round(rods), 0, 100)
+
+	var/coolant = max(60, GLOB.grid_sp_coolant_valve)
+	if(GLOB.wasteland_grid_core_heat >= 85 || GLOB.grid_subcool_margin <= 20)
+		coolant += 10
+	if(GLOB.grid_subcool_margin <= 10 || GLOB.grid_npsh_margin <= 10)
+		coolant += 15
+	plan["coolant"] = clamp(round(coolant), 0, 100)
+
+	var/feedwater = max(50, GLOB.grid_sp_feedwater_valve)
+	if(GLOB.grid_secondary_pressure <= 40 || GLOB.grid_steam_quality <= 45)
+		feedwater += 10
+	if(GLOB.grid_hotwell_level <= 25)
+		feedwater = max(35, feedwater - 10)
+	plan["feedwater"] = clamp(round(feedwater), 0, 100)
+
+	var/relief = GLOB.grid_sp_relief_valve
+	if(GLOB.grid_primary_pressure >= 170)
+		relief = max(relief, 75)
+	else if(GLOB.grid_primary_pressure >= 150)
+		relief = max(relief, 45)
+	else
+		relief = clamp(relief, 0, 20)
+	plan["relief"] = clamp(round(relief), 0, 100)
+
+	var/bypass = clamp(GLOB.grid_sp_bypass, 5, 30)
+	if(GLOB.grid_turbine_moisture >= 60 || GLOB.grid_turbine_stress >= 70)
+		bypass = max(bypass, 35)
+	plan["bypass"] = clamp(round(bypass), 0, 100)
+
+	var/turbine = clamp(GLOB.grid_sp_turbine_governor, 25, 85)
+	if(GLOB.grid_subcool_margin <= 12 || GLOB.grid_npsh_margin <= 10)
+		turbine = max(25, turbine - 10)
+	else if(GLOB.grid_output < (target - 6) && GLOB.wasteland_grid_core_heat < 80 && GLOB.grid_primary_pressure < 130)
+		turbine = min(85, turbine + 3)
+	plan["turbine"] = clamp(round(turbine), 0, 100)
+
+	var/boron = 700 + (GLOB.grid_xenon_poison * 12) + (GLOB.grid_fuel_burnup * 2)
+	if(GLOB.wasteland_grid_core_heat >= 90)
+		boron += 200
+	if(GLOB.grid_output < (target - 10))
+		boron -= 50
+	plan["boron"] = clamp(round(boron), 450, 1700)
+
+	var/recommend_scram = (GLOB.wasteland_grid_core_heat >= 97 || GLOB.grid_primary_pressure >= 185 || GLOB.grid_subcool_margin <= 5 || GLOB.grid_npsh_margin <= 5 || (!GLOB.grid_safety_interlocks_enabled && GLOB.grid_catastrophe_risk >= 85))
+	plan["scram"] = recommend_scram ? 1 : 0
+	plan["interlocks"] = 1
+	return plan
+
+/obj/machinery/f13/wasteland_grid_advisor_console/proc/_build_recommendations(list/plan)
+	var/list/recs = list()
+
+	if(!GLOB.grid_safety_interlocks_enabled)
+		recs += list(list(
+			"id" = "interlocks",
+			"sev" = 3,
+			"title" = "Re-enable interlocks",
+			"detail" = "Safety interlocks are disabled. Catastrophe risk will rise rapidly under unstable conditions.",
+			"key" = "interlocks",
+			"val" = 1
+		))
+
+	if(plan["scram"])
+		recs += list(list(
+			"id" = "scram",
+			"sev" = 3,
+			"title" = "Immediate SCRAM recommended",
+			"detail" = "Core parameters are in a critical band. Insert rods and stabilize pressure now.",
+			"key" = "scram",
+			"val" = 1
+		))
+
+	if(GLOB.wasteland_grid_core_heat >= 85)
+		recs += list(list(
+			"id" = "heat",
+			"sev" = (GLOB.wasteland_grid_core_heat >= 95) ? 3 : 2,
+			"title" = "Core heat is high",
+			"detail" = "Raise rod insertion and increase coolant throughput to pull heat down.",
+			"key" = "rods",
+			"val" = plan["rods"]
+		))
+
+	if(GLOB.grid_primary_pressure >= 145)
+		recs += list(list(
+			"id" = "pressure",
+			"sev" = (GLOB.grid_primary_pressure >= 170) ? 3 : 2,
+			"title" = "Primary pressure high",
+			"detail" = "Open relief path to protect piping and containment margin.",
+			"key" = "relief",
+			"val" = plan["relief"]
+		))
+
+	if(GLOB.grid_subcool_margin <= 20 || GLOB.grid_npsh_margin <= 15)
+		recs += list(list(
+			"id" = "cooling",
+			"sev" = (GLOB.grid_subcool_margin <= 10 || GLOB.grid_npsh_margin <= 10) ? 3 : 2,
+			"title" = "Cooling margin is tight",
+			"detail" = "Increase coolant valve and reduce aggressive load ramps.",
+			"key" = "coolant",
+			"val" = plan["coolant"]
+		))
+
+	if(GLOB.grid_turbine_moisture >= 60 || GLOB.grid_turbine_stress >= 70)
+		recs += list(list(
+			"id" = "turbine",
+			"sev" = (GLOB.grid_turbine_stress >= 85) ? 3 : 2,
+			"title" = "Turbine stress/moisture elevated",
+			"detail" = "Increase bypass and reduce governor demand to protect turbine train.",
+			"key" = "bypass",
+			"val" = plan["bypass"]
+		))
+
+	if(GLOB.grid_output < (GLOB.grid_sp_target_output - 10) && !plan["scram"] && GLOB.wasteland_grid_core_heat < 80 && GLOB.grid_primary_pressure < 130)
+		recs += list(list(
+			"id" = "underpower",
+			"sev" = 1,
+			"title" = "Output below demand",
+			"detail" = "Withdraw rods gradually and tune governor to recover toward target output.",
+			"key" = "rods",
+			"val" = plan["rods"]
+		))
+
+	if(!GLOB.wasteland_grid_online && GLOB.grid_xenon_poison >= 28)
+		recs += list(list(
+			"id" = "xenon",
+			"sev" = 2,
+			"title" = "Xenon pit in progress",
+			"detail" = "Delay restart or lower boron and burn through carefully. Expect delayed reactivity response.",
+			"key" = "boron",
+			"val" = max(450, min(plan["boron"], 650))
+		))
+
+	if(!length(recs))
+		recs += list(list(
+			"id" = "stable",
+			"sev" = 0,
+			"title" = "Plant stable",
+			"detail" = "No immediate corrections required. Continue routine monitoring.",
+			"key" = "",
+			"val" = 0
+		))
+
+	return recs
+
+/obj/machinery/f13/wasteland_grid_advisor_console/proc/_apply_single(key, val, mob/user, announce = FALSE)
+	if(!istext(key) || !length(key))
+		return FALSE
+
+	switch(key)
+		if("rods")
+			GLOB.grid_sp_rod_insertion = clamp(round(val), 0, 100)
+		if("coolant")
+			GLOB.grid_sp_coolant_valve = clamp(round(val), 0, 100)
+		if("feedwater")
+			GLOB.grid_sp_feedwater_valve = clamp(round(val), 0, 100)
+		if("relief")
+			GLOB.grid_sp_relief_valve = clamp(round(val), 0, 100)
+		if("bypass")
+			GLOB.grid_sp_bypass = clamp(round(val), 0, 100)
+		if("turbine")
+			GLOB.grid_sp_turbine_governor = clamp(round(val), 0, 100)
+		if("target")
+			GLOB.grid_sp_target_output = clamp(round(val), 0, 100)
+		if("boron")
+			GLOB.grid_sp_boron_ppm = clamp(round(val), 0, 2000)
+		if("scram")
+			var/desired_scram = !!val
+			if(desired_scram != !!GLOB.grid_scram)
+				GLOB.grid_scram = desired_scram
+				if(announce)
+					_announce_grid("WASTELAND GRID: SCRAM [(GLOB.grid_scram ? "ENGAGED" : "CLEARED")] by advisor action ([user]).")
+		if("interlocks")
+			var/desired_interlocks = !!val
+			if(desired_interlocks != !!GLOB.grid_safety_interlocks_enabled)
+				GLOB.grid_safety_interlocks_enabled = desired_interlocks
+				if(GLOB.grid_safety_interlocks_enabled)
+					GLOB.grid_catastrophe_risk = max(0, GLOB.grid_catastrophe_risk - 10)
+				if(announce)
+					_announce_grid("WASTELAND GRID: Safety interlocks [(GLOB.grid_safety_interlocks_enabled ? "ENABLED" : "DISABLED")] by advisor action ([user]).")
+		else
+			return FALSE
+	return TRUE
+
+/obj/machinery/f13/wasteland_grid_advisor_console/proc/_apply_plan(list/plan, mob/user)
+	if(!islist(plan) || !user)
+		return
+
+	_apply_single("interlocks", plan["interlocks"], user, FALSE)
+	_apply_single("target", plan["target"], user, FALSE)
+	_apply_single("rods", plan["rods"], user, FALSE)
+	_apply_single("coolant", plan["coolant"], user, FALSE)
+	_apply_single("feedwater", plan["feedwater"], user, FALSE)
+	_apply_single("relief", plan["relief"], user, FALSE)
+	_apply_single("bypass", plan["bypass"], user, FALSE)
+	_apply_single("turbine", plan["turbine"], user, FALSE)
+	_apply_single("boron", plan["boron"], user, FALSE)
+	if(plan["scram"])
+		_apply_single("scram", 1, user, TRUE)
+
+	to_chat(user, "<span class='notice'>[advisor_name] applied recommended setpoints.</span>")
+
+/obj/machinery/f13/wasteland_grid_advisor_console/proc/_print_report(mob/user)
+	if(!user)
+		return
+	var/list/plan = _compute_setpoint_plan()
+	var/list/recs = _build_recommendations(plan)
+
+	var/text = "[advisor_name] OPERATIONAL REPORT\n"
+	text += "Grid: [(GLOB.wasteland_grid_online ? "ONLINE" : "OFFLINE")] ([GLOB.wasteland_grid_state])\n"
+	text += "Heat [GLOB.wasteland_grid_core_heat] | Primary P [GLOB.grid_primary_pressure] | Flow [GLOB.grid_primary_flow] | Output [GLOB.grid_output]\n"
+	text += "Subcool [round(GLOB.grid_subcool_margin)] | NPSH [round(GLOB.grid_npsh_margin)] | Xenon [round(GLOB.grid_xenon_poison, 0.1)]\n"
+	text += "Recommended SP => Rods [plan["rods"]], Coolant [plan["coolant"]], Feedwater [plan["feedwater"]], Relief [plan["relief"]], Bypass [plan["bypass"]], Turbine [plan["turbine"]], Target [plan["target"]], Boron [plan["boron"]]\n"
+	text += "Guidance:\n"
+	for(var/entry in recs)
+		var/list/R = entry
+		text += " - S[R["sev"]] [R["title"]]: [R["detail"]]\n"
+	to_chat(user, "<span class='notice'>[text]</span>")
+
+/obj/machinery/f13/wasteland_grid_advisor_console/ui_data(mob/user)
+	_wasteland_grid_bootstrap()
+
+	var/list/data = list()
+	var/list/plan = _compute_setpoint_plan()
+	var/list/recs = _build_recommendations(plan)
+
+	data["advisor_name"] = advisor_name
+	data["online"] = !!GLOB.wasteland_grid_online
+	data["state"] = GLOB.wasteland_grid_state
+	data["bg_rads"] = GLOB.wasteland_grid_background_rads
+	data["heat"] = GLOB.wasteland_grid_core_heat
+	data["pressure"] = GLOB.grid_primary_pressure
+	data["flow"] = GLOB.grid_primary_flow
+	data["output"] = GLOB.grid_output
+	data["target_output"] = GLOB.grid_sp_target_output
+	data["subcool"] = round(GLOB.grid_subcool_margin)
+	data["npsh"] = round(GLOB.grid_npsh_margin)
+	data["xenon"] = round(GLOB.grid_xenon_poison, 0.1)
+	data["iodine"] = round(GLOB.grid_iodine_inventory, 0.1)
+	data["samarium"] = round(GLOB.grid_samarium_poison, 0.1)
+	data["boron"] = round(GLOB.grid_boron_ppm)
+	data["scram"] = !!GLOB.grid_scram
+	data["interlocks"] = !!GLOB.grid_safety_interlocks_enabled
+	data["catastrophe_risk"] = round(GLOB.grid_catastrophe_risk)
+	data["catastrophe_triggered"] = !!GLOB.grid_catastrophe_triggered
+	data["auto_enabled"] = !!GLOB.grid_auto_enabled
+	data["auto_active"] = !!GLOB.grid_auto_active
+	data["auto_threshold"] = GLOB.grid_auto_player_threshold
+	data["active_players"] = _grid_get_active_players()
+
+	data["plan"] = plan
+	data["recs"] = recs
+	return data
+
+/obj/machinery/f13/wasteland_grid_advisor_console/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
+	. = ..()
+	if(.)
+		return
+
+	_wasteland_grid_bootstrap()
+	var/mob/user = ui?.user
+	if(!user)
+		user = usr
+	if(!user)
+		return FALSE
+
+	switch(action)
+		if("apply_all")
+			var/list/plan = _compute_setpoint_plan()
+			_apply_plan(plan, user)
+			return TRUE
+
+		if("apply_one")
+			var/key = params["key"]
+			var/raw = text2num(params["val"])
+			if(_apply_single(key, raw, user, TRUE))
+				to_chat(user, "<span class='notice'>Applied advisor recommendation for [key].</span>")
+			return TRUE
+
+		if("print_report")
+			_print_report(user)
+			return TRUE
+
+		if("toggle_auto")
+			GLOB.grid_auto_enabled = !GLOB.grid_auto_enabled
+			if(!GLOB.grid_auto_enabled)
+				GLOB.grid_auto_active = FALSE
+			_announce_grid("WASTELAND GRID: Auto-operations [(GLOB.grid_auto_enabled ? "ENABLED" : "DISABLED")] by [user].")
+			return TRUE
+
+		if("set_auto_threshold")
+			var/raw_threshold = text2num(params["val"])
+			GLOB.grid_auto_player_threshold = clamp(round(raw_threshold), 1, 120)
+			return TRUE
+
+	return FALSE
+
+///////////////////////////////////////////////////////////////
 // WORK ORDER BOARD (existing, expanded to include maintenance payouts)
 ///////////////////////////////////////////////////////////////
+
+#define GRID_SUPPLY_ORDER_COUNT 2
+#define GRID_SUPPLY_FUEL_REWARD 1200
+#define GRID_SUPPLY_COOLANT_REWARD 1000
 
 /datum/f13/work_order
 	var/id
@@ -2557,7 +4274,7 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 /obj/structure/f13/work_order_board
 	name = "work order board"
-	desc = "Jobs that keep the wasteland running. Caps paid on completion."
+	desc = "Reactor contracts console. Feed the plant, get paid."
 	icon = 'icons/obj/machines/antimatter.dmi'
 	icon_state = "control_on"
 	density = TRUE
@@ -2577,6 +4294,14 @@ SUBSYSTEM_DEF(wasteland_grid)
 		_generate_orders()
 	_show_orders(user)
 
+/obj/structure/f13/work_order_board/attackby(obj/item/I, mob/user, params)
+	. = ..()
+	if(!I || !user) return
+	if(world.time >= next_refresh)
+		_generate_orders()
+	if(_try_turn_in_item(user, I))
+		return TRUE
+
 /obj/structure/f13/work_order_board/proc/_generate_orders()
 	_wasteland_grid_bootstrap()
 	orders.Cut()
@@ -2585,19 +4310,19 @@ SUBSYSTEM_DEF(wasteland_grid)
 	var/datum/f13/work_order/A = new
 	A.id = "fuel"
 	A.title = "Deliver Fuel Rods"
-	A.desc = "Bring 2 fuel rods to the work order board."
-	A.reward_caps = 50
+	A.desc = "Turn in fuel rods. They are loaded straight into the reactor."
+	A.reward_caps = GRID_SUPPLY_FUEL_REWARD
 	A.required_typepath = /obj/item/f13/grid_fuel
-	A.required_count = 2
+	A.required_count = GRID_SUPPLY_ORDER_COUNT
 	orders += A
 
 	var/datum/f13/work_order/B = new
 	B.id = "coolant"
 	B.title = "Deliver Coolant"
-	B.desc = "Bring 2 coolant canisters to the work order board."
-	B.reward_caps = 50
+	B.desc = "Turn in coolant canisters. They inject directly into the reactor loop."
+	B.reward_caps = GRID_SUPPLY_COOLANT_REWARD
 	B.required_typepath = /obj/item/f13/grid_coolant
-	B.required_count = 2
+	B.required_count = GRID_SUPPLY_ORDER_COUNT
 	orders += B
 
 	// Live fault bounties
@@ -2630,7 +4355,10 @@ SUBSYSTEM_DEF(wasteland_grid)
 	var/text = "Available Work Orders:\n"
 	for(var/datum/f13/work_order/W in orders)
 		var/state = W.completed ? "COMPLETED" : "OPEN"
-		text += "- [W.title] ([state]) Reward: [W.reward_caps] caps\n  [W.desc]\n"
+		var/reward = _get_effective_order_reward(W)
+		text += "- [W.title] ([state]) Reward: [reward] caps\n  [W.desc]\n"
+		if(W.required_typepath && !W.completed)
+			text += "  Remaining turn-ins: [max(0, W.required_count)]\n"
 
 	var/list/options = list()
 	options += "Turn in items"
@@ -2649,26 +4377,74 @@ SUBSYSTEM_DEF(wasteland_grid)
 		if("Claim maintenance completions")
 			_claim_maint_completions(user)
 
+/obj/structure/f13/work_order_board/proc/_is_repeatable_supply_order(datum/f13/work_order/W)
+	if(!W) return FALSE
+	return (W.id == "fuel" || W.id == "coolant")
+
+/obj/structure/f13/work_order_board/proc/_get_effective_order_reward(datum/f13/work_order/W)
+	if(!W) return 0
+	var/reward = max(1, W.reward_caps)
+	if(_is_repeatable_supply_order(W))
+		if(GLOB.wasteland_grid_state == "RED")
+			reward = round(reward * 1.50)
+		else if(GLOB.wasteland_grid_state == "YELLOW")
+			reward = round(reward * 1.25)
+	return max(1, reward)
+
+/obj/structure/f13/work_order_board/proc/_apply_reactor_supply(mob/user, obj/item/I)
+	if(istype(I, /obj/item/f13/grid_fuel))
+		var/obj/item/f13/grid_fuel/F = I
+		var/old_fuel = GLOB.wasteland_grid_fuel
+		GLOB.wasteland_grid_fuel = min(200, GLOB.wasteland_grid_fuel + F.fuel_value)
+		to_chat(user, "<span class='notice'>Fuel injected directly to reactor: [old_fuel] -> [GLOB.wasteland_grid_fuel]</span>")
+	else if(istype(I, /obj/item/f13/grid_coolant))
+		var/obj/item/f13/grid_coolant/C = I
+		var/old_cool = GLOB.wasteland_grid_coolant
+		GLOB.wasteland_grid_coolant = min(200, GLOB.wasteland_grid_coolant + C.coolant_value)
+		GLOB.grid_coolant_contamination = max(0, GLOB.grid_coolant_contamination - 3)
+		to_chat(user, "<span class='notice'>Coolant injected directly to reactor: [old_cool] -> [GLOB.wasteland_grid_coolant]</span>")
+	_recalc_wasteland_grid_state()
+	_recalc_background_rads()
+
+/obj/structure/f13/work_order_board/proc/_reset_repeatable_supply_order(datum/f13/work_order/W)
+	if(!W) return
+	if(!_is_repeatable_supply_order(W)) return
+	W.completed = FALSE
+	W.required_count = GRID_SUPPLY_ORDER_COUNT
+
+/obj/structure/f13/work_order_board/proc/_try_turn_in_item(mob/user, obj/item/I)
+	if(!user || !I) return FALSE
+	for(var/datum/f13/work_order/W in orders)
+		if(W.completed) continue
+		if(!W.required_typepath) continue
+		if(!istype(I, W.required_typepath)) continue
+		if(!user.doUnEquip(I))
+			to_chat(user, "<span class='warning'>You can't submit that item right now.</span>")
+			return TRUE
+		_apply_reactor_supply(user, I)
+		qdel(I)
+		W.required_count--
+		to_chat(user, "<span class='notice'>Turned in. Remaining for this order: [max(0, W.required_count)]</span>")
+		if(W.required_count <= 0)
+			var/reward = _get_effective_order_reward(W)
+			if(_is_repeatable_supply_order(W))
+				_pay_caps(user, reward)
+				to_chat(user, "<span class='boldnotice'>Reactor supply contract complete. Paid [reward] caps.</span>")
+				_reset_repeatable_supply_order(W)
+			else
+				W.completed = TRUE
+				_pay_caps(user, reward)
+				to_chat(user, "<span class='boldnotice'>Order complete! Paid [reward] caps.</span>")
+		return TRUE
+	to_chat(user, "<span class='warning'>No matching open order for that item.</span>")
+	return FALSE
+
 /obj/structure/f13/work_order_board/proc/_turn_in_items(mob/user)
 	var/obj/item/I = user.get_active_held_item()
 	if(!I)
 		to_chat(user, "<span class='warning'>Hold the item you want to turn in.</span>")
 		return
-
-	for(var/datum/f13/work_order/W in orders)
-		if(W.completed) continue
-		if(!W.required_typepath) continue
-		if(istype(I, W.required_typepath))
-			qdel(I)
-			W.required_count--
-			to_chat(user, "<span class='notice'>Turned in. Remaining for this order: [max(0, W.required_count)]</span>")
-			if(W.required_count <= 0)
-				W.completed = TRUE
-				_pay_caps(user, W.reward_caps)
-				to_chat(user, "<span class='boldnotice'>Order complete! Paid [W.reward_caps] caps.</span>")
-			return
-
-	to_chat(user, "<span class='warning'>No matching open order for that item.</span>")
+	_try_turn_in_item(user, I)
 
 /obj/structure/f13/work_order_board/proc/_claim_fault_completions(mob/user)
 	var/paid_any = FALSE
@@ -2717,8 +4493,19 @@ SUBSYSTEM_DEF(wasteland_grid)
 		to_chat(user, "<span class='notice'>No completed maintenance tasks to claim yet.</span>")
 
 proc/_pay_caps(mob/user, amount)
-	if(amount <= 0) return
-	to_chat(user, "<span class='notice'>You receive [amount] caps. (Hook _pay_caps() to your real currency system)</span>")
+	if(amount <= 0 || !user) return
+	var/turf/T = get_turf(user)
+	if(!T) return
+
+	var/remaining = max(1, round(amount))
+	while(remaining > 0)
+		var/obj/item/stack/f13Cash/caps/C = new /obj/item/stack/f13Cash/caps(T)
+		var/give = min(C.max_amount, remaining)
+		if(give > 1)
+			C.add(give - 1)
+		remaining -= give
+	playsound(T, 'sound/items/change_jaws.ogg', 60, 1)
+	to_chat(user, "<span class='notice'>[amount] caps dispensed.</span>")
 
 ///////////////////////////////////////////////////////////////
 // MAP PLACEMENT: CONCRETE PLANT OBJECTS (examples)
@@ -2730,9 +4517,13 @@ proc/_pay_caps(mob/user, amount)
 // - /obj/structure/grid/relief_valve    (component_tag="relief_1")
 // - /obj/structure/grid/filter_unit     (component_tag="filter_1")
 // - /obj/structure/grid/heat_exchanger  (component_tag="hx_1")
+// - /obj/structure/grid/turbine_assembly (component_tag="turbine_1")
 // - /obj/machinery/grid/turbine_controller (component_tag="turbine_ctrl_1")
 // - /obj/structure/grid/sensor_panel    (component_tag="sensor_panel_1")
 // - /obj/structure/grid/breaker_cabinet (district="Downtown", component_tag="breaker_downtown")
+// - /obj/machinery/f13/grid_faction_district_console (or /bos, /ncr, /legion, /town variants)
+// - /obj/machinery/f13/wasteland_grid_console
+// - /obj/machinery/f13/wasteland_grid_advisor_console
 // - /obj/structure/grid/purge_valve     (component_tag="purge_valve_1")
 //
 // They’ll automatically register into GLOB.grid_components_by_tag at init.

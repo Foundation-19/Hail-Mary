@@ -58,6 +58,13 @@
 	idlesound = list('sound/f13npc/deathclaw/idle.ogg',)
 	death_sound = 'sound/f13npc/deathclaw/death.ogg'
 	low_health_threshold = 0.5
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 28
+	ally_focus_range = 10
+	target_commitment_time = 40
+	tactical_memory_window = 45
+	flank_cooldown_time = 10
+	backup_call_cooldown = 70
 	variation_list = list(
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 0, 3, 3),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(65),

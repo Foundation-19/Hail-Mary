@@ -75,6 +75,13 @@
 	wound_bonus = 0
 	bare_wound_bonus = 0
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 20
+	ally_focus_range = 10
+	target_commitment_time = 34
+	tactical_memory_window = 40
+	flank_cooldown_time = 10
+	backup_call_cooldown = 70
 
 /mob/living/simple_animal/hostile/supermutant/playable
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
@@ -169,8 +176,13 @@
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_RANGER
 	maxHealth = 130 
 	health = 130
-	retreat_distance = 1
-	minimum_distance = 1
+	retreat_distance = 2
+	minimum_distance = 4
+	tactical_reposition_chance = 32
+	ally_focus_range = 12
+	target_commitment_time = 30
+	flank_cooldown_time = 8
+	backup_call_cooldown = 60
 	casingtype = /obj/item/ammo_casing/shotgun/improvised
 	projectiletype = null
 	projectilesound = 'sound/f13weapons/shotgun.ogg'
@@ -254,6 +266,13 @@
 	attack_verb_simple = "slashes"
 	attack_sound = "sound/weapons/bladeslice.ogg"
 	footstep_type = FOOTSTEP_MOB_HEAVY
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 34
+	ally_focus_range = 11
+	target_commitment_time = 38
+	tactical_memory_window = 50
+	flank_cooldown_time = 8
+	backup_call_cooldown = 60
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/Aggro()
 	..()
@@ -286,6 +305,11 @@
 	extra_projectiles = 1
 	retreat_distance = 4
 	minimum_distance = 6
+	tactical_reposition_chance = 40
+	ally_focus_range = 13
+	target_commitment_time = 34
+	flank_cooldown_time = 7
+	backup_call_cooldown = 55
 	projectiletype = /obj/item/projectile/bullet/a556/simple
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	loot = list(/obj/item/ammo_box/magazine/m556/rifle)
@@ -331,6 +355,11 @@
 	attack_sound = "punch"
 	retreat_distance = 5
 	minimum_distance = 7
+	tactical_reposition_chance = 45
+	ally_focus_range = 13
+	target_commitment_time = 42
+	flank_cooldown_time = 7
+	backup_call_cooldown = 50
 	projectiletype = /obj/item/projectile/f13plasma/repeater
 	projectilesound = 'sound/f13weapons/plasma_rifle.ogg'
 	loot = list(/obj/item/stock_parts/cell/ammo/mfc)

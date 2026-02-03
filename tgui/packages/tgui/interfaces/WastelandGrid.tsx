@@ -31,6 +31,13 @@ type Data = {
   state: string;
   bg_rads: number;
   scram: boolean;
+  interlocks: boolean;
+  catastrophe_risk: number;
+  catastrophe_triggered: boolean;
+  auto_enabled: boolean;
+  auto_active: boolean;
+  auto_threshold: number;
+  active_players: number;
 
   fuel: number;
   coolant: number;
@@ -47,6 +54,8 @@ type Data = {
   steam_q: number;
   rpm: number;
   output: number;
+  turbine_stress: number;
+  turbine_moisture: number;
 
   sp_rods: number;
   sp_coolant_valve: number;
@@ -54,6 +63,23 @@ type Data = {
   sp_relief: number;
   sp_bypass: number;
   sp_target: number;
+  sp_turbine: number;
+  sp_boron: number;
+
+  xenon: number;
+  iodine: number;
+  samarium: number;
+  burnup: number;
+  react_reserve: number;
+  decay_heat: number;
+  boron: number;
+  doppler_coeff: number;
+  mtc_coeff: number;
+  subcool_margin: number;
+  npsh_margin: number;
+  pzr_level: number;
+  condenser_vac: number;
+  hotwell: number;
 
   contam: number;
   clog: number;
@@ -107,6 +133,12 @@ export const WastelandGrid = (props, context) => {
               onClick={() => act('toggle_scram')}>
               {data.scram ? 'SCRAM ACTIVE' : 'SCRAM'}
             </Button>
+            <Button
+              icon="robot"
+              color={data.auto_enabled ? 'green' : 'default'}
+              onClick={() => act('toggle_auto')}>
+              {data.auto_enabled ? 'AUTO OPS ON' : 'AUTO OPS OFF'}
+            </Button>
             <Button onClick={() => act('shutdown')}>Shutdown</Button>
             <Button onClick={() => act('prime_restart')}>Prime</Button>
             <Button onClick={() => act('engage_restart')}>Engage</Button>
@@ -135,10 +167,38 @@ export const WastelandGrid = (props, context) => {
                 {data.flow_disp} (actual {data.flow_actual})
               </LabeledList.Item>
               <LabeledList.Item label="RPM">{data.rpm}</LabeledList.Item>
+              <LabeledList.Item label="Turbine stress/moisture">
+                {data.turbine_stress}% / {data.turbine_moisture}%
+              </LabeledList.Item>
               <LabeledList.Item label="Fuel / Coolant">
                 {data.fuel} / {data.coolant}
               </LabeledList.Item>
+              <LabeledList.Item label="Xenon / Iodine / Samarium">
+                {data.xenon} / {data.iodine} / {data.samarium}
+              </LabeledList.Item>
+              <LabeledList.Item label="Burnup / Reserve / Decay">
+                {data.burnup}% / {data.react_reserve} / {data.decay_heat}
+              </LabeledList.Item>
+              <LabeledList.Item label="Boron / Subcool">
+                {data.boron} ppm / {data.subcool_margin}
+              </LabeledList.Item>
+              <LabeledList.Item label="NPSH margin">{data.npsh_margin}</LabeledList.Item>
+              <LabeledList.Item label="Doppler / MTC">
+                {data.doppler_coeff} / {data.mtc_coeff}
+              </LabeledList.Item>
+              <LabeledList.Item label="PZR / Vacuum / Hotwell">
+                {data.pzr_level}% / {data.condenser_vac}% / {data.hotwell}%
+              </LabeledList.Item>
               <LabeledList.Item label="Background rads">{data.bg_rads}</LabeledList.Item>
+              <LabeledList.Item label="Safety interlocks">
+                {data.interlocks ? 'Enabled' : 'Disabled'}
+              </LabeledList.Item>
+              <LabeledList.Item label="Catastrophe risk">
+                {data.catastrophe_risk}% {data.catastrophe_triggered ? '(Core destroyed)' : ''}
+              </LabeledList.Item>
+              <LabeledList.Item label="Auto operations">
+                {data.auto_enabled ? 'Enabled' : 'Disabled'} | {data.auto_active ? 'Active' : 'Standby'} (players {data.active_players}/{data.auto_threshold})
+              </LabeledList.Item>
               <LabeledList.Item label="Chemistry">
                 Contam {data.contam}% | Clog {data.clog}% | Lube {data.lube}%
               </LabeledList.Item>
@@ -199,7 +259,39 @@ export const WastelandGrid = (props, context) => {
                     onChange={(_, v) => setSP('target', v)}
                   />
                 </LabeledList.Item>
+                <LabeledList.Item label="Turbine governor">
+                  <NumberInput
+                    value={data.sp_turbine}
+                    minValue={0}
+                    maxValue={100}
+                    onChange={(_, v) => setSP('turbine', v)}
+                  />
+                </LabeledList.Item>
+                <LabeledList.Item label="Boron ppm">
+                  <NumberInput
+                    value={data.sp_boron}
+                    minValue={0}
+                    maxValue={2000}
+                    onChange={(_, v) => setSP('boron', v)}
+                  />
+                </LabeledList.Item>
+                <LabeledList.Item label="Auto threshold">
+                  <NumberInput
+                    value={data.auto_threshold}
+                    minValue={1}
+                    maxValue={120}
+                    onChange={(_, v) => act('set_auto_threshold', { val: v })}
+                  />
+                </LabeledList.Item>
               </LabeledList>
+              <Box mt={1}>
+                <Button
+                  icon="robot"
+                  color={data.auto_enabled ? 'green' : 'default'}
+                  onClick={() => act('toggle_auto')}>
+                  {data.auto_enabled ? 'Disable auto operations' : 'Enable auto operations'}
+                </Button>
+              </Box>
             </Section>
           )}
 
@@ -283,6 +375,12 @@ export const WastelandGrid = (props, context) => {
                 </Button>
                 <Button disabled={!data.purge_lock} onClick={() => act('abort_purge')}>
                   Abort purge
+                </Button>
+                <Button
+                  color={data.interlocks ? 'red' : 'green'}
+                  disabled={data.catastrophe_triggered}
+                  onClick={() => act('toggle_interlocks')}>
+                  {data.interlocks ? 'Disable safety interlocks' : 'Enable safety interlocks'}
                 </Button>
               </Box>
             </Section>

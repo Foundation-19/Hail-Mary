@@ -175,6 +175,48 @@
 		dat += "</div>"
 		item_index++
 
+	dat += GetFactionControlContractsUI(usr)
+
+	return dat
+
+/obj/machinery/bounty_machine/faction/proc/GetFactionControlContractsUI(mob/user)
+	if(!SSfaction_control || !user)
+		return ""
+	var/f = SSfaction_control.get_mob_faction(user)
+	if(!f || !SSfaction_control.is_controllable_faction(f))
+		return ""
+
+	var/dat = "<h2>Dynamic Operations Director</h2>"
+	var/list/contracts = SSfaction_control.get_contract_rows(f)
+	if(!islist(contracts) || !length(contracts))
+		dat += "<font color='gray'>No live faction operations available right now.</font><br>"
+		return dat
+
+	for(var/list/C in contracts)
+		if(!islist(C)) continue
+		var/cid = C["id"]
+		if(!cid) continue
+		var/title = C["title"]
+		var/district = C["district"]
+		var/desc = C["desc"]
+		var/progress = C["progress"]
+		var/target = C["target"]
+		var/reward_caps = C["reward_caps"]
+		var/reward_research = C["reward_research"]
+		var/reward_rep = C["reward_rep"]
+		var/complete = !!C["complete"]
+		var/expires_s = C["expires_s"]
+		dat += "<div class='statusDisplay'>"
+		dat += "<font color='orange'><b>[title]</b></font><br>"
+		dat += "<font color='orange'>District: [district]</font><br>"
+		dat += "<font color='orange'>[desc]</font><br>"
+		dat += "<font color='orange'>Progress: [progress]/[target] | Expires: [expires_s]s</font><br>"
+		dat += "<font color='orange'>Reward: [reward_caps] caps, [reward_research] research, [reward_rep] rep</font><br>"
+		if(complete)
+			dat += "<a href='?src=\ref[src];turninfcontract=[cid]'>turn in</a><br>"
+		else
+			dat += "<font color='gray'>incomplete</font><br>"
+		dat += "</div>"
 	return dat
 
 /obj/machinery/bounty_machine/faction/ShowUI()
@@ -205,4 +247,8 @@
 		vend_mode = 1
 	if(href_list["removecaps"])
 		remove_all_caps()
+	if(href_list["turninfcontract"])
+		var/cid = href_list["turninfcontract"]
+		if(istext(cid) && length(cid) && SSfaction_control)
+			SSfaction_control.turn_in_contract(usr, cid)
 	ShowUI()

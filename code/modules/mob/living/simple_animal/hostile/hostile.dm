@@ -92,6 +92,24 @@
 
 	var/peaceful = FALSE //Determines if mob is actively looking to attack something, regardless if hostile by default to the target or not
 
+	// Advanced combat behavior. Keep off by default for backwards compatibility.
+	var/advanced_tactics = FALSE
+	var/tactical_reposition_chance = 25
+	var/tactical_memory_window = 30
+	var/target_commitment_time = 20
+	var/ally_focus_range = 7
+	var/flank_cooldown_time = 12
+	var/backup_call_cooldown = 120
+
+	// Runtime tactical state.
+	var/next_flank_time = 0
+	var/next_backup_call = 0
+	var/last_target_swap = 0
+	var/turf/last_seen_target_turf
+	var/last_seen_target_time = 0
+	var/last_target_distance = -1
+	var/kite_counter = 0
+
 //These vars activate certain things on the mob depending on what it hears
 	var/attack_phrase = "" //Makes the mob become hostile (if it wasn't beforehand) upon hearing
 	var/peace_phrase = "" //Makes the mob become peaceful (if it wasn't beforehand) upon hearing
@@ -143,6 +161,8 @@
 	// Clear smoke system
 	if(smoke)
 		QDEL_NULL(smoke)
+
+	last_seen_target_turf = null
 	
 	// Clear active emp flags
 	if(active_emp_flags)
@@ -380,17 +400,136 @@
 	return
 
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
-	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
-		for(var/pos_targ in Targets)
-			var/atom/A = pos_targ
-			var/target_dist = get_dist(targets_from, target)
-			var/possible_target_distance = get_dist(targets_from, A)
-			if(target_dist < possible_target_distance)
-				Targets -= A
 	if(!Targets.len)//We didnt find nothin!
 		return
-	var/chosen_target = pick(Targets)//Pick the remaining targets (if any) at random
+	var/atom/chosen_target
+	var/best_score = -1000000
+	for(var/pos_targ in Targets)
+		var/atom/A = pos_targ
+		var/score = GetTargetScore(A)
+		if(score > best_score || (score == best_score && prob(40)))
+			best_score = score
+			chosen_target = A
 	return chosen_target
+
+/mob/living/simple_animal/hostile/proc/GetTargetScore(atom/A)
+	if(!A)
+		return -1000000
+	var/score = 0
+	var/distance = get_dist(targets_from, A)
+	if(isnum(distance))
+		score += max(0, (vision_range + 3 - distance) * 4)
+
+	if(A == target)
+		if(advanced_tactics && world.time <= (last_target_swap + target_commitment_time))
+			score += 20
+		else
+			score += 8
+
+	if(ismob(A))
+		var/mob/M = A
+		if(M.ckey)
+			score += 6
+		if(isliving(M))
+			var/mob/living/L = M
+			switch(L.stat)
+				if(CONSCIOUS)
+					score += 6
+				if(UNCONSCIOUS)
+					score -= 4
+				if(DEAD)
+					score -= 20
+			if(L.maxHealth > 0 && (L.health / L.maxHealth) <= 0.35)
+				score += 4
+
+	if(advanced_tactics)
+		score += GetAlliedFocusBonus(A)
+		if(ranged && distance > 1)
+			if(CheckFriendlyFire(A))
+				score -= 6
+			else
+				score += 2
+	return score
+
+/mob/living/simple_animal/hostile/proc/GetAlliedFocusBonus(atom/A)
+	if(!advanced_tactics || !A || ally_focus_range <= 0)
+		return 0
+	var/bonus = 0
+	for(var/mob/living/simple_animal/hostile/H in oview(ally_focus_range, targets_from))
+		if(H == src || QDELETED(H))
+			continue
+		if(!faction_check_mob(H, TRUE))
+			continue
+		if(H.target == A)
+			bonus += 3
+			if(bonus >= 12)
+				break
+	return bonus
+
+/mob/living/simple_animal/hostile/proc/GetDesiredDistance(atom/A)
+	var/desired = minimum_distance
+	if(!advanced_tactics || !ranged)
+		return desired
+	var/health_ratio = 1
+	if(maxHealth > 0)
+		health_ratio = health / maxHealth
+	if(health_ratio < 0.35)
+		desired = max(desired, isnull(retreat_distance) ? desired + 2 : retreat_distance + 1)
+	else if(health_ratio > 0.80 && A && get_dist(targets_from, A) > desired + 2)
+		desired = max(1, desired - 1)
+	return desired
+
+/mob/living/simple_animal/hostile/proc/TryTacticalReposition(atom/A, target_distance)
+	if(!advanced_tactics || !A)
+		return FALSE
+	if(world.time < next_flank_time)
+		return FALSE
+	if(target_distance <= 1 || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+		return FALSE
+	// Melee mobs should not strafe constantly; keep repositioning occasional and contextual.
+	if(!ranged)
+		if(target_distance <= 2 || !prob(12))
+			return FALSE
+	if(!prob(tactical_reposition_chance))
+		return FALSE
+
+	var/base_dir = get_dir(src, A)
+	var/list/candidates = list(turn(base_dir, 90), turn(base_dir, -90), turn(base_dir, 45), turn(base_dir, -45))
+	var/turf/best
+	var/best_score = -1000000
+	var/desired = GetDesiredDistance(A)
+	for(var/dir in candidates)
+		var/turf/T = get_step(src, dir)
+		if(!T || T.density)
+			continue
+		var/d = get_dist(T, A)
+		var/score = 0
+		if(ranged)
+			score -= abs(d - desired) * 4
+			if(retreat_distance != null && d < retreat_distance)
+				score -= 8
+		else
+			score -= d
+		if(score > best_score)
+			best_score = score
+			best = T
+
+	next_flank_time = world.time + flank_cooldown_time
+	if(!best)
+		return FALSE
+
+	set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
+	walk_to(src, best, 0, move_to_delay)
+	return TRUE
+
+/mob/living/simple_animal/hostile/proc/RememberTargetPosition()
+	if(!advanced_tactics || !target)
+		return
+	var/turf/T = get_turf(target)
+	if(!T)
+		return
+	last_seen_target_turf = T
+	last_seen_target_time = world.time
 
 // Please do not add one-off mob AIs here, but override this function for your mob
 /mob/living/simple_animal/hostile/CanAttack(atom/the_target)//Can we actually attack a possible target?
@@ -459,12 +598,18 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target)//Step 4, give us our selected target
+	var/atom/old_target = target
 	add_target(new_target)
+	if(old_target != target)
+		last_target_swap = world.time
 	LosePatience()
 	if(target != null)
 		GainPatience()
+		RememberTargetPosition()
 		Aggro()
 		return 1
+	last_target_distance = -1
+	kite_counter = 0
 
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
@@ -491,25 +636,42 @@
 		LoseTarget()
 		return 0
 	if(target in possible_targets)
+		RememberTargetPosition()
 		var/turf/T = get_turf(src)
 		if(target.z != T.z)
 			LoseTarget()
 			return 0
 		var/target_distance = get_dist(targets_from,target)
+		var/desired_distance = GetDesiredDistance(target)
+		if(advanced_tactics)
+			if(last_target_distance >= 0 && target_distance > last_target_distance && target_distance > desired_distance)
+				kite_counter = min(kite_counter + 1, 8)
+			else
+				kite_counter = max(kite_counter - 1, 0)
+			last_target_distance = target_distance
+
+			if(kite_counter >= 4 && world.time >= next_backup_call)
+				summon_backup(max(ally_focus_range, 7), TRUE)
+				next_backup_call = world.time + backup_call_cooldown
+				kite_counter = 1
+
 		if(ranged) //We ranged? Shoot at em
 			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
 		if(!Process_Spacemove()) //Drifting
 			walk(src,0)
 			return 1
+		if(TryTacticalReposition(target, target_distance))
+			GainPatience()
+			return 1
 		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
 			if(target_distance <= retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE)) //If target's closer than our retreat distance, run
 				set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else
-				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
+				Goto(target,move_to_delay,desired_distance) //Otherwise, get to our minimum distance so we chase them
 		else
-			Goto(target,move_to_delay,minimum_distance)
+			Goto(target,move_to_delay,desired_distance)
 		/// roll to randomize this thing... if its an option
 		if(variation_list[MOB_RETREAT_DISTANCE_CHANCE] && LAZYLEN(variation_list[MOB_RETREAT_DISTANCE]) && prob(variation_list[MOB_RETREAT_DISTANCE_CHANCE]))
 			retreat_distance = vary_from_list(variation_list[MOB_RETREAT_DISTANCE])
@@ -536,6 +698,11 @@
 			else
 				if(FindHidden())
 					return 1
+	if(advanced_tactics && last_seen_target_turf && world.time <= (last_seen_target_time + tactical_memory_window))
+		if(get_turf(src) != last_seen_target_turf)
+			Goto(last_seen_target_turf, move_to_delay, 0)
+			return 1
+		last_seen_target_turf = null
 	LoseTarget()
 	return 0
 
@@ -580,6 +747,9 @@
 	if(ckey)
 		return TRUE
 	vision_range = aggro_vision_range
+	if(advanced_tactics && world.time >= next_backup_call)
+		next_backup_call = world.time + backup_call_cooldown
+		summon_backup(max(ally_focus_range, 7), TRUE)
 	if(target && LAZYLEN(emote_taunt) && prob(taunt_chance))
 		INVOKE_ASYNC(src, PROC_REF(emote), "me", EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
 		taunt_chance = max(taunt_chance-7,2)
@@ -597,6 +767,9 @@
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
+	last_seen_target_turf = null
+	last_target_distance = -1
+	kite_counter = 0
 	walk(src, 0)
 	LoseAggro()
 
@@ -607,16 +780,17 @@
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
-	if(COOLDOWN_FINISHED(src, ding_spam_cooldown))
-		return TRUE
+	if(!COOLDOWN_FINISHED(src, ding_spam_cooldown))
+		return FALSE
 	COOLDOWN_START(src, ding_spam_cooldown, SIMPLE_MOB_DING_COOLDOWN)
 	do_alert_animation(src)
 	playsound(loc, 'sound/machines/chime.ogg', 50, 1, -1)
 	for(var/mob/living/simple_animal/hostile/M in oview(distance, targets_from))
-		if(faction_check_mob(M, TRUE))
+		if(faction_check_mob(M, exact_faction_match))
 			if(M.AIStatus == AI_OFF || M.stat == DEAD || M.ckey)
-				return
+				continue
 			M.Goto(src,M.move_to_delay,M.minimum_distance)
+	return TRUE
 
 /mob/living/simple_animal/hostile/proc/CheckFriendlyFire(atom/A)
 	if(check_friendly_fire && !ckey)

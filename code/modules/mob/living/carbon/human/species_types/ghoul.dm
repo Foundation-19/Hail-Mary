@@ -21,6 +21,11 @@
 #define GHOUL_MELTDOWN_BRUTE_MAX 2        // occasional self-brute at full meltdown
 #define GHOUL_MELTDOWN_SLOW_MAX  0.10     // slows you back down at full meltdown (stacked on top)
 
+// Below this, ghoul bodies begin to "starve" for radiation and degrade.
+#define GHOUL_RAD_STARVE_START   250
+#define GHOUL_STARVE_TOX_MAX     1.2
+#define GHOUL_STARVE_CLONE_MAX   1
+
 // -------------------------
 // Ghoul radiation wave emission knobs
 // Uses /datum/radiation_wave (SSradiation) so it respects shielding + insulation + falloff.
@@ -37,12 +42,17 @@
 // Debug toggle (spammy). Leave FALSE unless you're diagnosing.
 #define GHOUL_DEBUG_RADIATION FALSE
 
+#define GHOUL_FEEDBACK_CD        (45 SECONDS)
+#define GHOUL_FERAL_CONFUSED_MAX 14
+#define GHOUL_FERAL_JITTER_MAX   10
+
 // -------------------------
 // Per-mob throttle storage (REAL fix vs H.vars hacks)
 // Declared on the mob type so it actually persists.
 // -------------------------
 /mob/living/carbon/human
 	var/ghoul_wave_next = 0
+	var/ghoul_feedback_next = 0
 
 // Smooth-ish 0..1 ramp with ease-in (needs real rads to matter)
 /proc/ghoul_rad_factor(rads)
@@ -57,6 +67,13 @@
 		return 0
 	var/t = (rads - GHOUL_RAD_MELTDOWN_START) / (GHOUL_RAD_MELTDOWN_FULL - GHOUL_RAD_MELTDOWN_START)
 	return clamp(t, 0, 1)
+
+/proc/ghoul_starve_factor(rads)
+	if(rads >= GHOUL_RAD_STARVE_START)
+		return 0
+	var/t = (GHOUL_RAD_STARVE_START - rads) / GHOUL_RAD_STARVE_START
+	t = clamp(t, 0, 1)
+	return t * t
 
 // Variable movespeed modifier used by ghouls (rad-buffed or meltdown-dulled)
 /datum/movespeed_modifier/ghoul_rad
@@ -91,7 +108,7 @@
 	var/info_text = "You are a <span class='danger'>Ghoul.</span>. As pre-war zombified relic, or an unluckily recently made post-necrotic, you cannot bleed, cannot breathe, and heal from radiation. On surface examination, you are indistinguishable from a corpse. \
 					Your <span class='warning'>fragile limbs</span> are a source of vulnerability for you-they are easily dismembered and easily detached, though you can stick them on just as easily. You are incredibly fragile in melee. \
 					<span class='boldwarning'>Stimpaks and powder</span> will have reduced effect on your bizzare biology. Sutures, radiation, and other, non-chemical sources of healing are more effective. All chemicals that do not heal brute or burn work as normal. \
-					<span class='nicegreen'>Radiation heals you slowly.</span> \
+					<span class='nicegreen'>Radiation heals and empowers you.</span> Too little radiation now causes tissue decay, while too much can push you into feral instability. \
 					<span class='warning'>You are terrible at melee</span> and innately slower than humans. You also cannot go into critical condition-ever. You will keep shambling forward until you are <span class='danger'>dead.</span>"
 
 
@@ -139,6 +156,23 @@
 		new /datum/radiation_wave(H, SOUTHEAST, diag, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
 		new /datum/radiation_wave(H, SOUTHWEST, diag, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
 
+/datum/species/ghoul/proc/send_ghoul_feedback(mob/living/carbon/human/H, f, m, s)
+	if(!H)
+		return
+	if(world.time < H.ghoul_feedback_next)
+		return
+
+	if(m >= 0.75)
+		to_chat(H, span_warning("Your mind frays as feral instinct claws at your thoughts."))
+	else if(s >= 0.65)
+		to_chat(H, span_warning("Your necrotic flesh aches. You need radiation soon."))
+	else if(f >= 0.75)
+		to_chat(H, span_notice("Radiation invigorates your dead flesh."))
+	else
+		return
+
+	H.ghoul_feedback_next = world.time + GHOUL_FEEDBACK_CD
+
 
 //Ghouls have weak limbs.
 /datum/species/ghoul/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -164,6 +198,7 @@
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		H.ghoul_wave_next = 0
+		H.ghoul_feedback_next = 0
 
 
 /datum/species/ghoul/on_species_loss(mob/living/carbon/C)
@@ -180,12 +215,16 @@
 	for(var/obj/item/bodypart/l_leg/b in C.bodyparts)
 		b.max_damage = initial(b.max_damage)
 		b.wound_resistance = initial(b.wound_resistance)
+	for(var/obj/item/bodypart/head/b in C.bodyparts)
+		b.max_damage = initial(b.max_damage)
+		b.wound_resistance = initial(b.wound_resistance)
 
 	// remove our variable rad movespeed modifier so it can't linger
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
 		H.ghoul_wave_next = 0
+		H.ghoul_feedback_next = 0
 
 
 /datum/species/ghoul/qualifies_for_rank(rank, list/features)
@@ -240,6 +279,7 @@
 	var/r = H.radiation
 	var/f = ghoul_rad_factor(r)          // 0..1 heal/glow/speed factor (squared)
 	var/m = ghoul_meltdown_factor(r)     // 0..1 instability factor
+	var/s = ghoul_starve_factor(r)       // 0..1 low-rad degradation factor
 
 	// -----------------
 	// Healing scales with radiation (not binary).
@@ -256,11 +296,21 @@
 		if(prob(round(6 + 18*m)))
 			H.adjustBruteLoss(rand(1, max(1, GHOUL_MELTDOWN_BRUTE_MAX)))
 
+		H.confused = max(H.confused, round(2 + (GHOUL_FERAL_CONFUSED_MAX * m)))
+		H.jitteriness = max(H.jitteriness, round(1 + (GHOUL_FERAL_JITTER_MAX * m)))
+
 	// Apply core ghoul sustain
 	H.adjustCloneLoss(-healpwr)
 	H.adjustToxLoss(-0.3) // ghouls always heal toxin very slowly no matter what
 	H.adjustStaminaLoss(-20) // ghouls don't get tired ever
 	H.heal_overall_damage(healpwr, healpwr, healpwr)
+
+	// If radiation runs too low, ghoul tissue starts to decay.
+	if(s > 0)
+		var/starve_tox = 0.15 + (GHOUL_STARVE_TOX_MAX * s)
+		H.adjustToxLoss(starve_tox)
+		if(prob(round(20 + (50 * s))))
+			H.adjustCloneLoss(round(1 + (GHOUL_STARVE_CLONE_MAX * s)))
 
 	// -----------------
 	// Glow scales with radiation
@@ -279,6 +329,9 @@
 	// -----------------
 	var/speed_slowdown = 0
 
+	if(s > 0)
+		speed_slowdown += (0.04 + (0.10 * s))
+
 	if(f > 0)
 		speed_slowdown = -(0.04 + (0.06 * f)) // ~ -0.04 .. -0.10
 
@@ -287,10 +340,33 @@
 
 	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad, TRUE, speed_slowdown)
 
+	send_ghoul_feedback(H, f, m, s)
+
 	// -----------------
 	// NEW: emit real radiation waves (respects shielding/falloff/insulation)
 	// -----------------
 	emit_radiation_waves(H, f, m)
+
+/datum/species/ghoul/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
+	..()
+	if(!user || !target || target.stat == DEAD)
+		return
+	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+		return
+	if(target.dna && target.dna.species && target.dna.species.id == id)
+		return
+
+	var/f = ghoul_rad_factor(user.radiation)
+	if(f <= 0)
+		return
+
+	if(!prob(round(20 + (60 * f))))
+		return
+
+	var/rad_touch = round(5 + (15 * f))
+	target.apply_effect(rad_touch, EFFECT_IRRADIATE, 0)
+	if(prob(round(20 + (25 * f))))
+		to_chat(target, span_warning("[user]'s irradiated claws sear your flesh."))
 
 
 /*/datum/species/ghoul/glowing

@@ -258,6 +258,11 @@
 	aggrosound = list('sound/f13npc/scorpion/aggro.ogg', )
 	idlesound = list('sound/creatures/radscorpion_snip.ogg', )
 	death_sound = 'sound/f13npc/scorpion/death.ogg'
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 18
+	ally_focus_range = 6
+	target_commitment_time = 28
+	backup_call_cooldown = 90
 
 /mob/living/simple_animal/hostile/radscorpion/AttackingTarget()
 	. = ..()
@@ -357,6 +362,13 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/f13npc/cazador/cazador_death.ogg'
 	blood_volume = 0
+	advanced_tactics = TRUE
+	tactical_reposition_chance = 60
+	ally_focus_range = 9
+	target_commitment_time = 16
+	tactical_memory_window = 18
+	flank_cooldown_time = 6
+	backup_call_cooldown = 50
 
 /mob/living/simple_animal/hostile/cazador/AttackingTarget()
 	. = ..()
