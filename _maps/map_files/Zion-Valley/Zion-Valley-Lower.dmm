@@ -3322,6 +3322,10 @@
 	icon_state = "savannah8"
 	},
 /area/f13/wasteland)
+"cuN" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/savannah,
+/area/f13/brotherhood)
 "cuX" = (
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/indestructible/ground/outside/gravel,
@@ -54287,7 +54291,7 @@ hGO
 hGO
 gHn
 jJt
-jJt
+cuN
 jJt
 cci
 jJt

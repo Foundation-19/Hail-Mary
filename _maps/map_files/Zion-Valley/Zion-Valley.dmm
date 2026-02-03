@@ -9085,6 +9085,10 @@
 	dir = 6
 	},
 /area/f13/wasteland)
+"cDT" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/dirt/dark,
+/area/f13/ncr)
 "cDV" = (
 /obj/structure/grille,
 /turf/open/indestructible/ground/inside/mountain,
@@ -142726,7 +142730,7 @@ jqZ
 dqo
 dqo
 dqo
-dqo
+cDT
 dqo
 kDL
 qff
