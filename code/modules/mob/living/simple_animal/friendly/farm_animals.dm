@@ -264,18 +264,18 @@
 
 // NAME CALLING - listen for owner calling mount's name
 /mob/living/simple_animal/cow/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/sound_loc)
-    . = ..()
-    
-    // Only respond to owner with collar
-    if(!owner || !collar || stat || speaker != owner)
-        return
-    
-    // Check if they're calling the mount by name
-    if(findtext(lowertext(message), lowertext(name)))
-        if(findtext(lowertext(message), "come") || findtext(lowertext(message), "here"))
-            attempt_come_to_owner(speaker)
-        else if(findtext(lowertext(message), "stay") || findtext(lowertext(message), "stop"))
-            attempt_stay(speaker)
+	. = ..()
+
+	// Only respond to owner with collar
+	if(!owner || !collar || stat || speaker != owner)
+		return
+
+	// Check if they're calling the mount by name
+	if(findtext(lowertext(message), lowertext(name)))
+		if(findtext(lowertext(message), "come") || findtext(lowertext(message), "here"))
+			attempt_come_to_owner(speaker)
+		else if(findtext(lowertext(message), "stay") || findtext(lowertext(message), "stop"))
+			attempt_stay(speaker)
 
 // FIXED: attempt_come_to_owner - removed ai_controller code
 /mob/living/simple_animal/cow/proc/attempt_come_to_owner(mob/living/caller)
