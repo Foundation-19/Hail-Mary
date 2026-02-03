@@ -209,13 +209,11 @@
 	COOLDOWN_DECLARE(loyalty_decay_cooldown)
 	COOLDOWN_DECLARE(petting_cooldown) // Prevent spam petting
 
-// Update collision in Initialize
 /mob/living/simple_animal/cow/Initialize()
 	udder = new(null, milk_reagent)
 	base_move_delay = ride_move_delay
 	sprint_move_delay = ride_move_delay * 0.6
 	hunger_float = hunger
-	update_pass_flags() // Initialize collision flags
 	. = ..()
 
 /mob/living/simple_animal/cow/Destroy()
@@ -238,22 +236,6 @@
 		new /obj/item/brahminbridle(get_turf(src))
 	if(saddle)
 		new /obj/item/brahminsaddle(get_turf(src))
-
-/mob/living/simple_animal/cow/proc/update_pass_flags()
-	if(saddle || buckled_mobs.len > 0)
-		pass_flags |= PASSMOB // Can pass through other mobs when saddled/mounted
-	else
-		pass_flags &= ~PASSMOB // Normal collision when not saddled/mounted
-
-/mob/living/simple_animal/cow/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	. = ..()
-	if(.)
-		update_pass_flags()
-
-// Update collision when someone dismounts
-/mob/living/simple_animal/cow/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
-	. = ..()
-	update_pass_flags()
 
 // Calculate total loyalty including all sources
 /mob/living/simple_animal/cow/proc/get_total_loyalty()
@@ -280,40 +262,6 @@
 		loyalty = clamp(loyalty, 0, loyalty_max)
 		to_chat(healer, span_notice("[src] seems grateful for your care! (+[loyalty_gain] loyalty)"))
 
-// Update collision when bridle/collar removed
-/mob/living/simple_animal/cow/CtrlShiftClick(mob/user)
-	if(get_dist(user, src) > 1)
-		return
-
-	if(bridle && user.a_intent == INTENT_DISARM)
-		bridle = FALSE
-		tame = FALSE
-		owner = null
-		update_pass_flags() // Update collision when bridle removed
-		to_chat(user, span_notice("You remove the bridle gear from [src], dropping it on the ground."))
-		new /obj/item/brahminbridle(get_turf(user))
-
-	if(collar && user.a_intent == INTENT_GRAB)
-		collar = FALSE
-		name = initial(name)
-		loyalty_from_name = 0 // Remove loyalty bonus
-		to_chat(user, span_notice("You remove the collar from [src], dropping it on the ground."))
-		new /obj/item/brahmincollar(get_turf(user))
-
-	if(user == owner)
-		if(bridle && user.a_intent == INTENT_HELP)
-			if(stat == DEAD || health <= 0)
-				to_chat(user, span_alert("[src] can't obey your commands anymore. It is dead."))
-				return
-			if(follow)
-				to_chat(user, span_notice("You tug on the reins of [src], telling it to stay."))
-				follow = FALSE
-				return
-			else if(!follow)
-				to_chat(user, span_notice("You tug on the reins of [src], telling it to follow."))
-				follow = TRUE
-				return
-
 // NAME CALLING - listen for owner calling mount's name
 /mob/living/simple_animal/cow/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/sound_loc)
     . = ..()
@@ -326,7 +274,10 @@
     if(findtext(lowertext(message), lowertext(name)))
         if(findtext(lowertext(message), "come") || findtext(lowertext(message), "here"))
             attempt_come_to_owner(speaker)
+        else if(findtext(lowertext(message), "stay") || findtext(lowertext(message), "stop"))
+            attempt_stay(speaker)
 
+// FIXED: attempt_come_to_owner - removed ai_controller code
 /mob/living/simple_animal/cow/proc/attempt_come_to_owner(mob/living/caller)
 	if(!caller || stat)
 		return
@@ -334,10 +285,6 @@
 	var/total_loyalty = get_total_loyalty()
 	
 	// Loyalty determines success chance
-	// 0-30 loyalty = 30% chance
-	// 31-60 loyalty = 60% chance  
-	// 61-100 loyalty = 90% chance
-	// 100+ loyalty = 100% chance
 	var/success_chance = min(30 + (total_loyalty * 0.6), 100)
 	
 	if(!prob(success_chance))
@@ -365,6 +312,33 @@
 	// Small loyalty boost for successful recall
 	if(loyalty < loyalty_max)
 		loyalty = min(loyalty + 2, loyalty_max)
+
+// FIXED: attempt_stay - removed ai_controller code
+/mob/living/simple_animal/cow/proc/attempt_stay(mob/living/caller)
+	if(!caller || stat)
+		return
+	
+	var/total_loyalty = get_total_loyalty()
+	var/success_chance = min(30 + (total_loyalty * 0.6), 100)
+	
+	if(!prob(success_chance))
+		var/list/fail_messages = list(
+			"[src] continues following [caller].",
+			"[src] doesn't seem to understand.",
+			"[src] ignores the command."
+		)
+		visible_message(span_notice(pick(fail_messages)))
+		return
+	
+	// Success! Mount stops
+	var/list/success_messages = list(
+		"[src] stops and stands still.",
+		"[src] obediently halts.",
+		"[src] comes to a stop."
+	)
+	visible_message(span_notice(pick(success_messages)))
+	
+	follow = FALSE
 
 // Fear chance is always 25% below 75% HP - loyalty doesn't reduce it
 /mob/living/simple_animal/cow/proc/get_fear_chance()
@@ -559,7 +533,6 @@
 		owner = user
 		bridle = TRUE
 		tame = TRUE
-		update_pass_flags() // Update collision when bridle added
 		to_chat(user, span_notice("You add [O] to [src], claiming it as yours."))
 		qdel(O)
 		return
@@ -580,7 +553,6 @@
 		D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
 		D.vehicle_move_delay = ride_move_delay
 		D.drive_verb = "ride"
-		update_pass_flags() // Update collision when saddle added
 		to_chat(user, span_notice("You add [O] to [src]."))
 		qdel(O)
 		return
@@ -705,26 +677,74 @@
 		if(D)
 			D.vehicle_move_delay = ride_move_delay
 
-// Loyalty from petting with cap and cooldown
+// FIXED: Tipping AND untipping with SPECIAL strength check
 /mob/living/simple_animal/cow/on_attack_hand(mob/living/carbon/M, act_intent = M.a_intent, unarmed_attack_flags)
 	if(!stat && M.a_intent == INTENT_HELP)
+		// Check if mount is tipped over - help them up
+		if(icon_state == icon_dead)
+			// Check SPECIAL strength requirement for untipping
+			if(M.special_s < 8)
+				to_chat(M, span_warning("You're not strong enough to help [src] up!"))
+				return
+			
+			// Channeling to untip
+			M.visible_message(span_notice("[M] starts helping [src] back up..."),
+				span_notice("You start helping [src] back up..."))
+			
+			if(!do_after(M, 2 SECONDS, target = src))
+				to_chat(M, span_warning("You stop helping [src]."))
+				return
+			
+			M.visible_message(span_notice("[M] helps [src] back onto its feet!"),
+				span_notice("You help [src] back up!"))
+			to_chat(src, span_notice("[M] helps you back up!"))
+			
+			// FIXED: Properly restore icon and remove knockdown
+			icon_state = icon_living
+			set_resting(FALSE) // Make sure they're not resting
+			SetKnockdown(0) // Clear knockdown completely
+			SetStun(0) // Clear any stuns
+			update_icons() // Update appearance
+			return
+		
+		// Normal petting when not tipped
 		M.visible_message(span_notice("[M] pets [src]."), span_notice("You pet [src]."))
 		
 		// Only grant loyalty if under cap and off cooldown
 		if(loyalty_from_petting < 10 && COOLDOWN_FINISHED(src, petting_cooldown))
 			loyalty_from_petting += 2
 			to_chat(M, span_notice("[src] seems to appreciate the attention! (Petting loyalty: [loyalty_from_petting]/10)"))
-			COOLDOWN_START(src, petting_cooldown, 30 SECONDS) // 30 second cooldown between loyalty gains
+			COOLDOWN_START(src, petting_cooldown, 30 SECONDS)
 		else if(loyalty_from_petting >= 10)
 			to_chat(M, span_notice("[src] is already very affectionate with you."))
 		
 		return
 	
+	// Tipping with SPECIAL strength check and channeling
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] tips over [src]."),
-			span_notice("You tip over [src]."))
+		// Check if mount has saddle or bridle
+		if(saddle || bridle)
+			M.visible_message(span_warning("[M] tries to tip over [src], but it's too well-equipped!"),
+				span_warning("You can't tip over [src] while it has a saddle or bridle!"))
+			return
+		
+		// Check SPECIAL strength requirement for tipping
+		if(M.special_s < 8)
+			to_chat(M, span_warning("You're not strong enough to tip over [src]!"))
+			return
+		
+		// Channeling to tip over
+		M.visible_message(span_warning("[M] starts trying to tip over [src]..."),
+			span_notice("You start tipping over [src]..."))
+		
+		if(!do_after(M, 2 SECONDS, target = src))
+			to_chat(M, span_warning("You stop trying to tip over [src]."))
+			return
+		
+		M.visible_message(span_warning("[M] tips over [src]!"),
+			span_notice("You tip over [src]!"))
 		to_chat(src, span_userdanger("You are tipped over by [M]!"))
-		DefaultCombatKnockdown(60,ignore_canknockdown = TRUE)
+		DefaultCombatKnockdown(60, ignore_canknockdown = TRUE)
 		icon_state = icon_dead
 		spawn(rand(20,50))
 			if(!stat && M)
@@ -746,7 +766,7 @@
 	
 	return ..()
 
-// Loyalty from feeding with cap
+// FIXED: Feed function with potency-based stamina gain
 /mob/living/simple_animal/cow/proc/feed_em(obj/item/I, mob/user)
 	if(!I || !user)
 		return
@@ -763,7 +783,35 @@
 			to_chat(user, span_warning("You stop feeding [src]."))
 			return
 		visible_message(span_alertalien("[src] consumes the [I]."))
-		refuel_horse()
+		
+		// Calculate stamina gain based on potency
+		var/stamina_gain = 3.0 // Default full refuel (hunger goes from 4.0 to 1.0 = 3.0 reduction)
+		
+		// Check if it's a grown item with potency
+		if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
+			var/obj/item/reagent_containers/food/snacks/grown/G = I
+			if(G.seed && G.seed.potency)
+				var/potency = G.seed.potency
+				if(potency < 50)
+					stamina_gain = 3.0 / 8 // 1/8 of full refuel = 0.375
+				else
+					stamina_gain = 3.0 / 4 // 1/4 of full refuel = 0.75
+				
+				to_chat(user, span_notice("[src] consumed food with [potency] potency. (Stamina restored: [stamina_gain])"))
+		
+		// Apply stamina gain (reduce hunger)
+		hunger_float = max(hunger_float - stamina_gain, 1.0)
+		hunger = round(hunger_float)
+		update_speed()
+		
+		// FIXED: Update rider's sprint display immediately if mounted
+		if(current_rider)
+			update_rider_sprint_display(current_rider)
+			to_chat(current_rider, span_notice("[src]'s stamina: [100 - ((hunger_float - 1.0) / 3.0 * 100)]%"))
+		
+		// Show stamina change to the feeder
+		var/stamina_percent = 100 - ((hunger_float - 1.0) / 3.0 * 100)
+		to_chat(user, span_notice("[src]'s stamina is now at [round(stamina_percent)]%."))
 		
 		// Grant loyalty if under cap
 		if(loyalty_from_feeding < 20)
@@ -794,38 +842,49 @@
 		if(!follow)
 			return
 		else if(CHECK_MOBILITY(src, MOBILITY_MOVE) && isturf(loc))
+			// Move faster when following (reduced delay)
+			var/old_move_delay = cached_multiplicative_slowdown
+			cached_multiplicative_slowdown = 0 // Fast movement when coming
 			step_to(src, owner)
+			cached_multiplicative_slowdown = old_move_delay
 
+// FIXED: CtrlShiftClick with proper mob/user parameter
 /mob/living/simple_animal/cow/CtrlShiftClick(mob/user)
 	if(get_dist(user, src) > 1)
 		return
 
+	// Check if removing bridle (DISARM intent)
 	if(bridle && user.a_intent == INTENT_DISARM)
 		bridle = FALSE
 		tame = FALSE
 		owner = null
+		follow = FALSE // Stop following when bridle removed
 		to_chat(user, span_notice("You remove the bridle gear from [src], dropping it on the ground."))
 		new /obj/item/brahminbridle(get_turf(user))
+		return
 
+	// Check if removing collar (GRAB intent)
 	if(collar && user.a_intent == INTENT_GRAB)
 		collar = FALSE
 		name = initial(name)
+		loyalty_from_name = 0
 		to_chat(user, span_notice("You remove the collar from [src], dropping it on the ground."))
 		new /obj/item/brahmincollar(get_turf(user))
+		return
 
-	if(user == owner)
-		if(bridle && user.a_intent == INTENT_HELP)
-			if(stat == DEAD || health <= 0)
-				to_chat(user, span_alert("[src] can't obey your commands anymore. It is dead."))
-				return
-			if(follow)
-				to_chat(user, span_notice("You tug on the reins of [src], telling it to stay."))
-				follow = FALSE
-				return
-			else if(!follow)
-				to_chat(user, span_notice("You tug on the reins of [src], telling it to follow."))
-				follow = TRUE
-				return
+	// Owner commands with HELP intent
+	if(user == owner && bridle && user.a_intent == INTENT_HELP)
+		if(stat == DEAD || health <= 0)
+			to_chat(user, span_alert("[src] can't obey your commands anymore. It is dead."))
+			return
+		if(follow)
+			to_chat(user, span_notice("You tug on the reins of [src], telling it to stay."))
+			follow = FALSE
+			return
+		else if(!follow)
+			to_chat(user, span_notice("You tug on the reins of [src], telling it to follow."))
+			follow = TRUE
+			return
 
 ///////////////////////////
 // MOUNT SPRINT SYSTEM  //
@@ -1177,8 +1236,8 @@
 	if(ishuman(M) && istype(M.wear_suit))
 		var/obj/item/clothing/suit/armor = M.wear_suit
 		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			to_chat(M, "<span class='warning'>Your [armor] is too heavy! You're crushing [src]!</span>")
-			M.visible_message("<span class='danger'>[M] attempts to mount [src] but their heavy armor crushes the poor creature!</span>")
+			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
+			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
 			
 			if(!do_after(M, 3 SECONDS, target = src))
 				return FALSE
@@ -1188,7 +1247,7 @@
 			M.Knockdown(6 SECONDS)
 			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
 			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
-			to_chat(M, "<span class='userdanger'>[src] collapses under the weight of your armor, throwing you to the ground!</span>")
+			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
 			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
 			return FALSE
 	
@@ -1206,7 +1265,7 @@
 	if(buckled_mob)
 		buckled_mob.pixel_x = 0
 		buckled_mob.pixel_y = 0
-		
+
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/rider = buckled_mob
 			rider.restore_sprint_on_dismount()
@@ -1420,7 +1479,6 @@
 	
 	return ..()
 
-// Override unbuckle to reset position
 /mob/living/simple_animal/cow/brahmin/horse/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
 	if(buckled_mob)
 		buckled_mob.pixel_x = 0
