@@ -20,12 +20,6 @@
 	/* Extra caps if bonus items are delivered */
 	var/bonus_reward = 0
 
-	/* Bonus reputation for the worker */
-	var/rep_reward = 0
-
-	/* Bonus courier reputation for parcel work */
-	var/courier_rep_reward = 0
-
 	/* Message shown to the player on completion */
 	var/end_message = "*Beep* Contract fulfilled. Payment dispensing..."
 
@@ -35,11 +29,6 @@
 	var/need_message = "Bring items to the pod."
 
 	var/bonus_need_message = ""
-
-	var/chain_name = ""
-	var/stage_index = 0
-	var/stage_total = 0
-	var/next_stage_type = null
 
 	var/employer_icon = "employer_00.png"
 	var/employer_icon_folder = "icons/bounty_employers/"
@@ -54,10 +43,7 @@
 	return FALSE
 
 /datum/bounty_quest/proc/HasBonus()
-	return bonus_items && bonus_items.len && bonus_reward > 0 && bonus_need_message
-
-/datum/bounty_quest/proc/HasChain()
-	return chain_name && stage_total > 0
+	return bonus_items && bonus_items.len && bonus_reward > 0
 
 /datum/bounty_quest/proc/CheckTargets(var/list/items, var/list/quest_objects)
 	if(!items || !items.len)

@@ -131,10 +131,6 @@
 		to_chat(user, current_quest.bonus_end_message)
 	else
 		to_chat(user, current_quest.end_message)
-	if(current_quest.rep_reward)
-		user.add_bounty_rep(current_quest.rep_reward)
-	if(current_quest.courier_rep_reward)
-		user.add_courier_rep(current_quest.courier_rep_reward)
 
 	// Remove quest + refill
 	active_quests -= current_quest
@@ -179,12 +175,6 @@
 		dat += "<font color='green'><b>Employer:</b> [Q.employer]</font><br>"
 		dat += "<font color='green'><b>Message:</b> [Q.desc]</font><br>"
 		dat += "<font color='green'><b>Need:</b> <i>[Q.need_message]</i></font><br>"
-		if(Q.HasChain())
-			dat += "<font color='green'><b>Chain:</b> [Q.chain_name] (Stage [Q.stage_index]/[Q.stage_total])</font><br>"
-		if(Q.rep_reward)
-			dat += "<font color='green'><b>Rep:</b> +[Q.rep_reward]</font><br>"
-		if(Q.courier_rep_reward)
-			dat += "<font color='green'><b>Courier Rep:</b> +[Q.courier_rep_reward]</font><br>"
 		if(Q.HasBonus())
 			var/bonus_reward = max(0, Q.bonus_reward)
 			dat += "<font color='green'><b>Bonus:</b> <i>[Q.bonus_need_message]</i> (+[bonus_reward] caps)</font><br>"
