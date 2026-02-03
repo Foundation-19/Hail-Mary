@@ -11,13 +11,24 @@
 	/* Items needed to complete this contract */
 	var/list/target_items = list()
 
+	/* Optional bonus items for higher payout */
+	var/list/bonus_items = list()
+
 	/* Caps dispensed on completion */
 	var/caps_reward = 100
+
+	/* Extra caps if bonus items are delivered */
+	var/bonus_reward = 0
 
 	/* Message shown to the player on completion */
 	var/end_message = "*Beep* Contract fulfilled. Payment dispensing..."
 
+	/* Message shown to the player on completion with bonus */
+	var/bonus_end_message = ""
+
 	var/need_message = "Bring items to the pod."
+
+	var/bonus_need_message = ""
 
 	var/employer_icon = "employer_00.png"
 	var/employer_icon_folder = "icons/bounty_employers/"
@@ -26,7 +37,26 @@
 	for(var/target_type in target_items)
 		if(istype(target, target_type))
 			return TRUE
+	for(var/target_type in bonus_items)
+		if(istype(target, target_type))
+			return TRUE
 	return FALSE
+
+/datum/bounty_quest/proc/HasBonus()
+	return bonus_items && bonus_items.len && bonus_reward > 0
+
+/datum/bounty_quest/proc/CheckTargets(var/list/items, var/list/quest_objects)
+	if(!items || !items.len)
+		return FALSE
+	var/list/pending = items.Copy()
+	for(var/atom/A in quest_objects)
+		for(var/target_type in pending)
+			if(istype(A, target_type))
+				pending[target_type] = max(0, pending[target_type] - 1)
+	for(var/k in pending)
+		if(pending[k] > 0)
+			return FALSE
+	return TRUE
 
 /datum/bounty_quest/proc/GetIconWithPath()
 	return text2path("[employer_icon_folder][employer_icon]")
@@ -50,6 +80,10 @@
 	end_message = "Good. The caravans keep moving."
 	target_items = list(/obj/item/crafting/duct_tape = 6)
 	caps_reward = 450
+	bonus_need_message = "Bonus: add 2 Wonderglue for a reinforced patch."
+	bonus_end_message = "Excellent. That's a proper field fix."
+	bonus_items = list(/obj/item/crafting/wonderglue = 2)
+	bonus_reward = 200
 
 
 /datum/bounty_quest/faction/wasteland/qst_001
@@ -90,6 +124,10 @@
 	end_message = "Acceptable. Components received."
 	target_items = list(/obj/item/crafting/capacitor = 3, /obj/item/crafting/diode = 3, /obj/item/crafting/transistor = 3)
 	caps_reward = 950
+	bonus_need_message = "Bonus: include 4 resistors for control boards."
+	bonus_end_message = "Full set received. You'll be credited."
+	bonus_items = list(/obj/item/crafting/resistor = 4)
+	bonus_reward = 300
 
 
 /datum/bounty_quest/faction/wasteland/qst_005
@@ -200,6 +238,10 @@
 	end_message = "Good. We'll survive another night."
 	target_items = list(/obj/item/crafting/campfirekit = 2)
 	caps_reward = 420
+	bonus_need_message = "Bonus: include 3 bottles of turpentine to seal the frames."
+	bonus_end_message = "Supply complete. Fires will keep burning."
+	bonus_items = list(/obj/item/crafting/turpentine = 3)
+	bonus_reward = 180
 
 
 /datum/bounty_quest/faction/wasteland/qst_016
