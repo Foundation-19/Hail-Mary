@@ -162,6 +162,7 @@ GLOBAL_VAR(grid_auto_enabled)              // bool
 GLOBAL_VAR(grid_auto_player_threshold)     // active player cutoff
 GLOBAL_VAR(grid_auto_active)               // bool: currently driving controls
 GLOBAL_VAR(grid_auto_last_player_count)    // cached active players
+GLOBAL_VAR(grid_lowpop_faults_threshold)   // below this, suppress random/causal faults + maintenance generation
 
 ///////////////////////////////////////////////////////////////
 // AREA TAGS (existing mapping knobs)
@@ -290,6 +291,7 @@ proc/_wasteland_grid_bootstrap()
 	if(isnull(GLOB.grid_auto_player_threshold))     GLOB.grid_auto_player_threshold = 20
 	if(isnull(GLOB.grid_auto_active))               GLOB.grid_auto_active = FALSE
 	if(isnull(GLOB.grid_auto_last_player_count))    GLOB.grid_auto_last_player_count = 0
+	if(isnull(GLOB.grid_lowpop_faults_threshold))   GLOB.grid_lowpop_faults_threshold = 20
 
 	// IMPORTANT: do NOT call _recalc_background_rads() from bootstrap
 	_recalc_wasteland_grid_state()
@@ -1135,6 +1137,8 @@ proc/_recalc_background_rads()
 	return TRUE
 
 /proc/_escalate_faults_if_neglected()
+	if(_grid_lowpop_suppression_active())
+		return
 	var/changed = FALSE
 	for(var/datum/wasteland_grid_fault/F in GLOB.wasteland_grid_faults)
 		if(!F || F.fixed) continue
@@ -1518,6 +1522,10 @@ proc/_recalc_background_rads()
 	if(GLOB.grid_turbine_stress >= 75) GLOB.grid_alarm_state["TURBINE_STRESS"] = (GLOB.grid_turbine_stress >= 90) ? 3 : 2
 	if(GLOB.grid_turbine_moisture >= 35) GLOB.grid_alarm_state["STEAM_WET"] = (GLOB.grid_turbine_moisture >= 55) ? 3 : 2
 
+	// Keep alarms live at low pop, but suppress automatic fault generation/maintenance pressure.
+	if(_grid_lowpop_suppression_active())
+		return
+
 	// --- Causal fault triggers (mostly deterministic-ish) ---
 	// Overpressure + relief mostly closed => rupture
 	if(GLOB.grid_primary_pressure > 160 && GLOB.grid_sp_relief_valve < 20)
@@ -1579,6 +1587,12 @@ proc/_recalc_background_rads()
 		add_grid_fault(pick(list("breaker_trip","control_bus_short","fuel_feed_jam")), 0)
 
 /proc/_spawn_maintenance_tasks()
+	if(_grid_lowpop_suppression_active())
+		// Keep rolling timestamp fresh so the system does not "backlog burst"
+		// the instant population crosses the threshold again.
+		GLOB.grid_last_maint_roll = world.time
+		return
+
 	// roll on interval
 	if(world.time < (GLOB.grid_last_maint_roll + GLOB.grid_maint_interval))
 		return
@@ -1708,7 +1722,7 @@ proc/_recalc_background_rads()
 	GLOB.wasteland_grid_integrity   = clamp(round(integ), 0, 100)
 
 	// containment collapse adds faults and can trip
-	if(GLOB.wasteland_grid_containment <= 50 && prob(5))
+	if(!_grid_lowpop_suppression_active() && GLOB.wasteland_grid_containment <= 50 && prob(5))
 		add_grid_fault(pick(list("control_bus_short","coolant_leak","breaker_trip")), 2)
 
 	if(GLOB.wasteland_grid_containment <= 25 && GLOB.wasteland_grid_online)
@@ -1826,6 +1840,15 @@ proc/_recalc_background_rads()
 	GLOB.grid_auto_last_player_count = players
 	return players
 
+/proc/_grid_lowpop_suppression_active()
+	_wasteland_grid_bootstrap()
+	var/threshold = clamp(round(GLOB.grid_lowpop_faults_threshold), 1, 120)
+	GLOB.grid_lowpop_faults_threshold = threshold
+	var/players = GLOB.grid_auto_last_player_count
+	if(isnull(players) || players < 0)
+		players = _grid_get_active_players()
+	return (players < threshold)
+
 /proc/_grid_run_automation()
 	_wasteland_grid_bootstrap()
 
@@ -1912,6 +1935,7 @@ SUBSYSTEM_DEF(wasteland_grid)
 
 /datum/controller/subsystem/wasteland_grid/fire(resumed)
 	_wasteland_grid_bootstrap()
+	_grid_get_active_players()
 	// procedures must advance even if nobody is using the console
 	grid_tick_procedures()
 
@@ -3390,6 +3414,8 @@ SUBSYSTEM_DEF(wasteland_grid)
 	data["auto_active"] = !!GLOB.grid_auto_active
 	data["auto_threshold"] = GLOB.grid_auto_player_threshold
 	data["active_players"] = _grid_get_active_players()
+	data["fault_suppression_active"] = _grid_lowpop_suppression_active()
+	data["fault_suppression_threshold"] = GLOB.grid_lowpop_faults_threshold
 
 	// resources
 	data["fuel"] = GLOB.wasteland_grid_fuel

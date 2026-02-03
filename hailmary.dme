@@ -3780,6 +3780,7 @@
 #include "fallout\code\modules\QuestMachines\bounty_quests.dm"
 #include "fallout\code\modules\QuestMachines\faction_bounty_machines.dm"
 #include "fallout\code\modules\QuestMachines\parcel.dm"
+#include "fallout\code\modules\QuestMachines\parcel_receiver.dm"
 #include "fallout\code\modules\QuestMachines\quests\city.dm"
 #include "fallout\code\modules\QuestMachines\quests\courier.dm"
 #include "fallout\code\modules\reagents\chemistry\reagents\astrogen.dm"

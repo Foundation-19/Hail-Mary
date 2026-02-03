@@ -38,6 +38,8 @@ type Data = {
   auto_active: boolean;
   auto_threshold: number;
   active_players: number;
+  fault_suppression_active: boolean;
+  fault_suppression_threshold: number;
 
   fuel: number;
   coolant: number;
@@ -198,6 +200,9 @@ export const WastelandGrid = (props, context) => {
               </LabeledList.Item>
               <LabeledList.Item label="Auto operations">
                 {data.auto_enabled ? 'Enabled' : 'Disabled'} | {data.auto_active ? 'Active' : 'Standby'} (players {data.active_players}/{data.auto_threshold})
+              </LabeledList.Item>
+              <LabeledList.Item label="Low-pop protections">
+                {data.fault_suppression_active ? 'ACTIVE' : 'Inactive'} (fault/maintenance suppression below {data.fault_suppression_threshold} players)
               </LabeledList.Item>
               <LabeledList.Item label="Chemistry">
                 Contam {data.contam}% | Clog {data.clog}% | Lube {data.lube}%

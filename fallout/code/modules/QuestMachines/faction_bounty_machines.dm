@@ -24,13 +24,28 @@
 
 /obj/machinery/bounty_machine/faction/courier
 	name = "Parcel Terminal"
-	desc = "This terminal uses a courier to receive new parcels."
+	desc = "Issues sealed delivery parcels for cross-faction courier routes."
 	icon_state = "enclave_on"
 	free_access = TRUE
 	quest_type = /datum/bounty_quest/faction/courier
+	quest_limit = 0
+	faction_id = FACTION_EASTWOOD
+	var/min_receiver_distance = 35
 	price_list = list(
-	/obj/item/parcel = 400
+	/obj/item/parcel = 0
 					)
+
+/obj/machinery/bounty_machine/faction/courier/town
+	faction_id = FACTION_EASTWOOD
+
+/obj/machinery/bounty_machine/faction/courier/ncr
+	faction_id = FACTION_NCR
+
+/obj/machinery/bounty_machine/faction/courier/legion
+	faction_id = FACTION_LEGION
+
+/obj/machinery/bounty_machine/faction/courier/bos
+	faction_id = FACTION_BROTHERHOOD
 
 /*
 ================ Mechanics ======================
@@ -100,6 +115,101 @@
 		to_chat(usr, "Ready. *boop*")
 	else
 		to_chat(usr, "Insufficient funds.")
+
+/obj/machinery/bounty_machine/faction/courier/proc/get_canonical_faction_id()
+	if(SSfaction_control)
+		var/canonical = SSfaction_control.normalize_faction(faction_id)
+		if(canonical)
+			return canonical
+	return faction_id
+
+/obj/machinery/bounty_machine/faction/courier/proc/get_destination_candidates(origin_faction)
+	var/list/candidates = list()
+	var/turf/origin_turf = get_turf(src)
+	for(var/obj/machinery/f13/parcel_receiver_terminal/R in world)
+		var/f = R.get_canonical_faction()
+		if(!f || f == origin_faction)
+			continue
+		var/turf/receiver_turf = get_turf(R)
+		if(origin_turf && receiver_turf && origin_turf.z == receiver_turf.z)
+			if(get_dist(origin_turf, receiver_turf) < min_receiver_distance)
+				continue
+		if(!(f in candidates))
+			candidates += f
+	return candidates
+
+/obj/machinery/bounty_machine/faction/courier/proc/pick_destination_faction(origin_faction)
+	var/list/candidates = get_destination_candidates(origin_faction)
+	if(length(candidates))
+		return pick(candidates)
+
+	// Fallback to any canonical controllable faction except the origin.
+	if(SSfaction_control && islist(SSfaction_control.controllable_factions))
+		for(var/f in SSfaction_control.controllable_factions)
+			if(f == origin_faction)
+				continue
+			candidates += f
+	if(length(candidates))
+		return pick(candidates)
+	return null
+
+/obj/machinery/bounty_machine/faction/courier/buy(item_index, mob/user)
+	if(item_index > price_list.len)
+		to_chat(user, "<span class='warning'>Invalid item.</span>")
+		return
+
+	if(!connected_pod)
+		to_chat(user, "<span class='warning'>No pod connected.</span>")
+		return
+
+	var/target_type = price_list[item_index]
+	var/price = price_list[target_type]
+	if(stored_caps < price)
+		to_chat(user, "<span class='warning'>Insufficient funds.</span>")
+		return
+
+	if(target_type == /obj/item/parcel)
+		var/origin_faction = get_canonical_faction_id()
+		var/destination_faction = pick_destination_faction(origin_faction)
+		if(!destination_faction)
+			to_chat(user, "<span class='warning'>No valid parcel receiver routes found. Ask an admin to place receiver terminals.</span>")
+			return
+
+		flick("tele0", connected_pod)
+		stored_caps -= price
+		var/obj/item/parcel/P = new /obj/item/parcel(connected_pod.loc)
+		P.configure_courier_delivery(user, origin_faction, destination_faction, src)
+		to_chat(user, "<span class='notice'>Parcel route issued: [origin_faction] -> [destination_faction]. Seal it with duct tape, then deliver it on the destination receiver pad.</span>")
+		return
+
+	..()
+
+/obj/machinery/bounty_machine/faction/courier/GetQuestUI()
+	var/dat = "<meta charset='UTF-8'>"
+	dat += "<h1>Courier Operations Terminal</h1>"
+	dat += "<font color='green'><b>Origin Base:</b> [get_canonical_faction_id()]</font><br>"
+
+	if(connected_pod)
+		dat += "<font color='green'>Pod found</font><br>"
+	else
+		dat += "<font color='red'>Pod not found</font><br>"
+	dat += "<a href='?src=\ref[src];findpod=1'>Rescan Pod</a><br>"
+	dat += "<a href='?src=\ref[src];shop=1'>Issue Parcel</a><br><br>"
+
+	var/list/candidates = get_destination_candidates(get_canonical_faction_id())
+	dat += "<b>Active Receiver Routes:</b><br>"
+	if(length(candidates))
+		for(var/f in candidates)
+			dat += "- [f]<br>"
+	else
+		dat += "<font color='gray'>No valid routes. Place /obj/machinery/f13/parcel_receiver_terminal in other faction bases.</font><br>"
+
+	dat += "<br><font color='orange'>How it works:</font><br>"
+	dat += "1) Buy parcel -> spawns on pod.<br>"
+	dat += "2) Seal parcel with duct tape.<br>"
+	dat += "3) Carry to destination faction receiver pad.<br>"
+	dat += "4) Use receiver terminal Send Parcel for payout.<br>"
+	return dat
 
 /*  INTERACTION */
 /obj/machinery/bounty_machine/faction/attackby(obj/item/OtherItem, mob/living/carbon/human/user, params)

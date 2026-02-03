@@ -7,6 +7,11 @@
 	var/name = "Contract"
 	var/desc = "A posted contract from the wastes."
 	var/employer = "Unknown"
+	var/chain_name = ""
+	var/stage_index = 1
+	var/stage_total = 1
+	var/next_stage_type = null
+	var/courier_rep_reward = 0
 
 	/* Items needed to complete this contract */
 	var/list/target_items = list()
