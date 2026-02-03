@@ -169,6 +169,16 @@
 		dat += "<font color='green'>[Q.desc]</font><br><br>"
 		dat += "<font color='green'><b>Needs: </b></font>"
 		dat += "<font color='green'><i>[Q.need_message]. </i></font><br>"
+		if(Q.HasChain())
+			dat += "<font color='green'><b>Chain:</b> [Q.chain_name] (Stage [Q.stage_index]/[Q.stage_total])</font><br>"
+		if(Q.rep_reward)
+			dat += "<font color='green'><b>Rep:</b> +[Q.rep_reward]</font><br>"
+		if(Q.courier_rep_reward)
+			dat += "<font color='green'><b>Courier Rep:</b> +[Q.courier_rep_reward]</font><br>"
+		if(Q.HasBonus())
+			var/bonus_reward = max(0, Q.bonus_reward)
+			dat += "<font color='green'><b>Bonus: </b></font>"
+			dat += "<font color='green'><i>[Q.bonus_need_message] </i>(+[bonus_reward] caps)</font><br>"
 		dat += "<font color='green'><b>Reward:</b></font>"
 		dat += "<font color='green'> [Q.caps_reward] caps</font><br>"
 		dat += "<a href='?src=\ref[src];completequest=[item_index]'>send</a><br>"

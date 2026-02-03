@@ -76,6 +76,7 @@
 
 	var/turf/location = get_turf(connected_pod)
 	var/datum/bounty_quest/current_quest = active_quests[quest_index]
+	var/next_stage_type = current_quest.next_stage_type
 
 	// Find all target objects on the pod turf
 	var/list/quest_objects = list()
@@ -87,31 +88,60 @@
 		return "Nothing on the pod matches this contract."
 
 	// Check counts
-	var/list/target_items = current_quest.target_items.Copy()
-	for(var/atom/A in quest_objects)
-		for(var/target_type in target_items)
-			if(istype(A, target_type))
-				target_items[target_type] = max(0, target_items[target_type] - 1)
+	if(!current_quest.CheckTargets(current_quest.target_items, quest_objects))
+		return "Contract not fulfilled yet."
 
-	for(var/k in target_items)
-		if(target_items[k] > 0)
-			return "Contract not fulfilled yet."
+	var/bonus_complete = FALSE
+	if(current_quest.HasBonus())
+		bonus_complete = current_quest.CheckTargets(current_quest.bonus_items, quest_objects)
 
-	// Fulfilled: remove quest objects (NOTE: nukes everything matching on pod turf)
+	// Fulfilled: remove only the required/bonus counts from the pod turf
 	flick("tele0", connected_pod)
+	var/list/removal_targets = list()
+	var/list/pending_required = current_quest.target_items.Copy()
+	var/list/pending_bonus = list()
+	if(bonus_complete)
+		pending_bonus = current_quest.bonus_items.Copy()
 	for(var/atom/A in quest_objects)
+		var/removed = FALSE
+		for(var/target_type in pending_required)
+			if(pending_required[target_type] > 0 && istype(A, target_type))
+				pending_required[target_type] = max(0, pending_required[target_type] - 1)
+				removal_targets += A
+				removed = TRUE
+				break
+		if(removed || !bonus_complete)
+			continue
+		for(var/target_type in pending_bonus)
+			if(pending_bonus[target_type] > 0 && istype(A, target_type))
+				pending_bonus[target_type] = max(0, pending_bonus[target_type] - 1)
+				removal_targets += A
+				break
+	for(var/atom/A in removal_targets)
 		qdel(A)
 
 	// Spawn reward
 	var/obj/item/stack/f13Cash/caps/C = new /obj/item/stack/f13Cash/caps(connected_pod.loc)
 	var/reward = max(1, current_quest.caps_reward)
+	if(bonus_complete)
+		reward += max(0, current_quest.bonus_reward)
 	C.add(reward - 1)
 
-	to_chat(user, current_quest.end_message)
+	if(bonus_complete && current_quest.bonus_end_message)
+		to_chat(user, current_quest.bonus_end_message)
+	else
+		to_chat(user, current_quest.end_message)
+	if(current_quest.rep_reward)
+		user.add_bounty_rep(current_quest.rep_reward)
+	if(current_quest.courier_rep_reward)
+		user.add_courier_rep(current_quest.courier_rep_reward)
 
 	// Remove quest + refill
 	active_quests -= current_quest
 	qdel(current_quest)
+	if(next_stage_type)
+		var/datum/bounty_quest/next_stage = new next_stage_type()
+		active_quests.Insert(quest_index, next_stage)
 	UpdateActiveQuests()
 
 	return "Contract delivered."
@@ -149,6 +179,15 @@
 		dat += "<font color='green'><b>Employer:</b> [Q.employer]</font><br>"
 		dat += "<font color='green'><b>Message:</b> [Q.desc]</font><br>"
 		dat += "<font color='green'><b>Need:</b> <i>[Q.need_message]</i></font><br>"
+		if(Q.HasChain())
+			dat += "<font color='green'><b>Chain:</b> [Q.chain_name] (Stage [Q.stage_index]/[Q.stage_total])</font><br>"
+		if(Q.rep_reward)
+			dat += "<font color='green'><b>Rep:</b> +[Q.rep_reward]</font><br>"
+		if(Q.courier_rep_reward)
+			dat += "<font color='green'><b>Courier Rep:</b> +[Q.courier_rep_reward]</font><br>"
+		if(Q.HasBonus())
+			var/bonus_reward = max(0, Q.bonus_reward)
+			dat += "<font color='green'><b>Bonus:</b> <i>[Q.bonus_need_message]</i> (+[bonus_reward] caps)</font><br>"
 		dat += "<font color='green'><b>Reward:</b> [Q.caps_reward] caps</font> "
 		dat += "<a href='?src=\ref[src];completequest=[i]'>Send</a>"
 		dat += "</div>"

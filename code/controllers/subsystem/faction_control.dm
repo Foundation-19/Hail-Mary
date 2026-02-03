@@ -1015,6 +1015,50 @@ SUBSYSTEM_DEF(faction_control)
 	if(!faction || amount <= 0) return
 	faction_intel_points[faction] = get_faction_intel_points(faction) + round(amount)
 
+/datum/controller/subsystem/faction_control/proc/adjust_district_water(district, delta)
+	if(!district || !delta) return
+	var/current = get_district_water_level(district)
+	district_water[district] = clamp(current + round(delta), 0, 100)
+
+/datum/controller/subsystem/faction_control/proc/adjust_district_logistics(district, delta)
+	if(!district || !delta) return
+	var/current = get_district_logistics_level(district)
+	district_logistics_health[district] = clamp(current + round(delta), 0, 100)
+
+/datum/controller/subsystem/faction_control/proc/adjust_district_stability(district, delta)
+	if(!district || !delta) return
+	var/current = get_district_stability(district)
+	district_stability[district] = clamp(current + round(delta), 0, 100)
+	if(district_stability[district] < FACTION_CTRL_STABILITY_LOW)
+		maybe_trigger_stability_crisis(district)
+
+/datum/controller/subsystem/faction_control/proc/resolve_hostile_events(district)
+	if(!district) return
+	var/list/remove = list()
+	for(var/datum/faction_control_event/E in active_events)
+		if(!E || E.expired(world.time)) continue
+		if(E.district != district) continue
+		if(!E.hostile) continue
+		remove += E
+	for(var/datum/faction_control_event/E in remove)
+		active_events -= E
+		qdel(E)
+
+/datum/controller/subsystem/faction_control/proc/create_world_shift_event(district, title, desc, income_mult = 1.05, output_mult = 1.05, caravan_mult = 1.05)
+	if(!district || length(active_events) >= 10) return
+	var/datum/faction_control_event/E = new
+	E.id = "E[next_event_id++]"
+	E.district = district
+	E.started_at = world.time
+	E.ends_at = world.time + 8 MINUTES
+	E.event_type = "district_shift"
+	E.title = title
+	E.desc = desc
+	E.income_mult = income_mult
+	E.output_mult = output_mult
+	E.caravan_mult = caravan_mult
+	active_events += E
+
 /datum/controller/subsystem/faction_control/proc/spend_faction_intel_points(faction, amount)
 	if(!faction || amount <= 0) return FALSE
 	var/current = get_faction_intel_points(faction)
@@ -2574,10 +2618,48 @@ SUBSYSTEM_DEF(faction_control)
 	add_research_points(f, reward_research)
 	add_user_reputation(user, f, reward_rep)
 	spawn_rare_crafting_bundle(get_turf(user), get_rare_chance_bonus(f))
+	apply_contract_world_effect(target_contract, user)
 	contracts -= target_contract
 	to_chat(user, span_notice("Contract complete: [target_contract.title]. Treasury +[reward_caps], research +[reward_research], rep +[reward_rep]."))
 	roll_contracts()
 	return TRUE
+
+/datum/controller/subsystem/faction_control/proc/apply_contract_world_effect(datum/faction_control_contract/C, mob/user)
+	if(!C || !C.district) return
+	switch(C.contract_type)
+		if("clear_nest")
+			resolve_hostile_events(C.district)
+			adjust_district_stability(C.district, 8)
+			adjust_district_logistics(C.district, 6)
+			create_world_shift_event(C.district, "Nest Purged", "Hostile threats cleared in [C.district].")
+		if("utility_crisis")
+			adjust_district_logistics(C.district, 12)
+			adjust_district_stability(C.district, 6)
+			create_world_shift_event(C.district, "Grid Restored", "Utility routing stabilized in [C.district].", 1.06, 1.06, 1.02)
+		if("stability_push")
+			adjust_district_stability(C.district, 12)
+			create_world_shift_event(C.district, "Stability Surge", "Community confidence rose in [C.district].", 1.08, 1.03, 1.03)
+		if("water_crisis")
+			adjust_district_water(C.district, 20)
+			adjust_district_stability(C.district, 4)
+			create_world_shift_event(C.district, "Water Relief", "Clean water restored in [C.district].", 1.05, 1.04, 1.02)
+		if("defend_node")
+			adjust_district_stability(C.district, 6)
+			adjust_district_logistics(C.district, 4)
+		if("supply_run")
+			adjust_district_logistics(C.district, 10)
+			create_world_shift_event(C.district, "Supply Windfall", "Fresh supplies boosted output in [C.district].", 1.07, 1.08, 1.04)
+		if("pad_link")
+			adjust_district_logistics(C.district, 8)
+			adjust_district_stability(C.district, 4)
+		if("expand")
+			adjust_district_stability(C.district, 10)
+			create_world_shift_event(C.district, "Territory Secured", "New banners raised over [C.district].", 1.08, 1.06, 1.08)
+		if("sabotage_reactor_line")
+			adjust_district_stability(C.district, 8)
+			create_world_shift_event(C.district, "Reactor Line Cut", "Enemy logistics disrupted in [C.district].", 1.06, 1.06, 1.10)
+		if("hazard_extract")
+			adjust_district_stability(C.district, 4)
 
 /datum/controller/subsystem/faction_control/proc/get_contract_rows(faction)
 	var/list/rows = list()
