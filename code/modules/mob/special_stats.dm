@@ -252,8 +252,9 @@ proc/get_top_level_mob(mob/S)
 			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
 				armor_multiplier = 1.4
 			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
-				armor_multiplier = 1.2
-	
+				armor_multiplier = 1.3
+			else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+				armor_multiplier = 1.3
 	return base_modifier * armor_multiplier
 
 /mob/living/carbon/initialize_special_agility()

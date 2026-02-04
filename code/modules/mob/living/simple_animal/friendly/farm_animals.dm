@@ -1345,7 +1345,7 @@
 	see_in_dark = 6
 	health = 100
 	maxHealth = 100
-	ride_move_delay = 2
+	ride_move_delay = 2.25
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -1516,7 +1516,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 2
+	ride_move_delay = 2.25
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
@@ -1570,7 +1570,7 @@
 	see_in_dark = 6
 	health = 150
 	maxHealth = 150
-	ride_move_delay = 2
+	ride_move_delay = 2.25
 	can_ghost_into = TRUE
 	response_help_continuous  = "pets"
 	response_help_simple = "pet"
