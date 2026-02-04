@@ -311,9 +311,26 @@
 	// Start following owner
 	follow = TRUE
 	
+	// Kick off the fast following loop
+	start_following_loop()
+	
 	// Small loyalty boost for successful recall
 	if(loyalty < loyalty_max)
 		loyalty = min(loyalty + 2, loyalty_max)
+
+// New proc: Fast following loop (like flee but toward owner)
+/mob/living/simple_animal/cow/proc/start_following_loop()
+	spawn(0)
+		while(!stat && follow && owner)
+			if(Adjacent(owner))
+				sleep(5) // Wait a bit when next to owner
+				continue
+			
+			if(!CHECK_MOBILITY(src, MOBILITY_MOVE) || !isturf(loc))
+				break
+			
+			step_to(src, owner, 0)
+			sleep(4) // Slower movement - matches walking pace (2 for jogging, 4 for walking, 6 for crawling)
 
 // FIXED: attempt_stay - removed ai_controller code
 /mob/living/simple_animal/cow/proc/attempt_stay(mob/living/caller)
@@ -386,17 +403,25 @@
 	
 	return bucking_chance
 
-// PAIN EMOTES when hurt - FIXED: Added missing parameters
+// Add this to the adjustBruteLoss override that's already in the code
 /mob/living/simple_animal/cow/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
 	. = ..()
-	if(amount > 0 && !stat && prob(30))
-		var/list/pain_emotes = list(
-			"[src] lets out a pained cry!",
-			"[src] whimpers in pain!",
-			"[src] cries out!",
-			"[src] bellows in distress!"
-		)
-		visible_message(span_warning(pick(pain_emotes)))
+	if(amount > 0 && !stat)
+		// Stop following when damaged
+		if(follow)
+			follow = FALSE
+			if(owner)
+				visible_message(span_warning("[src] stops following [owner] due to the pain!"))
+		
+		// Existing pain emote code
+		if(prob(30))
+			var/list/pain_emotes = list(
+				"[src] lets out a pained cry!",
+				"[src] whimpers in pain!",
+				"[src] cries out!",
+				"[src] bellows in distress!"
+			)
+			visible_message(span_warning(pick(pain_emotes)))
 
 // Override the Move proc to add fear resistance - FIXED: Removed sleep() from main proc
 /mob/living/simple_animal/cow/Move(NewLoc, direct)
@@ -840,19 +865,11 @@
 		qdel(I)
 
 /mob/living/simple_animal/cow/proc/handle_following()
-	if(stat == DEAD)
+	// This proc now just maintains the follow state
+	// The actual movement is handled by start_following_loop()
+	if(stat == DEAD || health <= 0)
+		follow = FALSE
 		return
-	if(health <= 0)
-		return
-	if(owner)
-		if(!follow)
-			return
-		else if(CHECK_MOBILITY(src, MOBILITY_MOVE) && isturf(loc))
-			// Move faster when following (reduced delay)
-			var/old_move_delay = cached_multiplicative_slowdown
-			cached_multiplicative_slowdown = 0 // Fast movement when coming
-			step_to(src, owner)
-			cached_multiplicative_slowdown = old_move_delay
 
 // FIXED: CtrlShiftClick with proper mob/user parameter
 /mob/living/simple_animal/cow/CtrlShiftClick(mob/user)
