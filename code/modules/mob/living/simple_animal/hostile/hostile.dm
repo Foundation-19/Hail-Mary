@@ -776,6 +776,16 @@
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
 /mob/living/simple_animal/hostile/death(gibbed)
+	if(SSfaction_control && lastattackerckey)
+		var/mob/living/killer = null
+		for(var/mob/living/M in GLOB.player_list)
+			if(!M || QDELETED(M))
+				continue
+			if(M.ckey == lastattackerckey)
+				killer = M
+				break
+		if(killer)
+			SSfaction_control.reward_tribal_hunt_kill(killer, src)
 	LoseTarget()
 	..(gibbed)
 

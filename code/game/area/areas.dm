@@ -70,6 +70,8 @@ GLOBAL_LIST_INIT(area_weather_list, list(WEATHER_ALL))
 	var/power_light = TRUE
 	var/power_environ = TRUE
 	var/music = null
+	/// Optional per-area screen grading tint (typepath to /datum/client_colour)
+	var/client_colour_grade = null
 	var/used_equip = 0
 	var/used_light = 0
 	var/used_environ = 0
@@ -612,6 +614,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 	if(!L.ckey)
 		return
+
+	L.update_area_client_colour(src)
 
 	// Ambience goes down here -- make sure to list each area separately for ease of adding things in later, thanks! Note: areas adjacent to each other should have the same sounds to prevent cutoff when possible.- LastyScratch
 	if(L.client && L.client.prefs.toggles & SOUND_SHIP_AMBIENCE)

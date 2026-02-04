@@ -1353,6 +1353,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	. = FALSE
 	var/radiation = H.radiation
 	if(HAS_TRAIT(H, TRAIT_RADIMMUNE)) //Runs before FEV check so you can make supermutants that AREN'T slowed by rads.
+		H.radiation_sickness = max(0, H.radiation_sickness - 4)
+		H.radiation_recent_exposure = max(0, H.radiation_recent_exposure - 20)
 		return TRUE
 	if(HAS_TRAIT(H, TRAIT_FEV)) //Makes rads slow FEV mutants down. This can also be applied to other races, e.g ghouls.
 		switch(radiation)

@@ -437,7 +437,80 @@
 				dna.remove_mutation(HM.type)
 
 	if(HAS_TRAIT(src, TRAIT_RADIMMUNE))
+		radiation_sickness = 0
+		radiation_recent_exposure = 0
 		return FALSE
+
+	var/turf/current_turf = get_turf(src)
+	var/ambient_rads = current_turf ? SEND_SIGNAL(current_turf, COMSIG_TURF_CHECK_RADIATION) : 0
+	var/internal_excess = max(0, radiation - RAD_MOB_SAFE)
+	var/ambient_excess = max(0, ambient_rads - RAD_BACKGROUND_RADIATION)
+
+	var/sickness_gain = 0
+	if(internal_excess)
+		sickness_gain += (internal_excess * RAD_SICKNESS_GAIN_INTERNAL)
+	if(ambient_excess)
+		sickness_gain += (ambient_excess * RAD_SICKNESS_GAIN_AMBIENT)
+	if(radiation_recent_exposure)
+		sickness_gain += (radiation_recent_exposure * RAD_SICKNESS_GAIN_RECENT)
+	if(sickness_gain > 0)
+		radiation_sickness = min(RAD_SICKNESS_MAX, radiation_sickness + sickness_gain)
+
+	var/sickness_decay = RAD_SICKNESS_DECAY_BASE
+	if(radiation <= RAD_MOB_SAFE)
+		sickness_decay += RAD_SICKNESS_DECAY_SAFE_BONUS
+	if(HAS_TRAIT(src, TRAIT_50_RAD_RESIST) || HAS_TRAIT(src, TRAIT_75_RAD_RESIST))
+		sickness_decay += RAD_SICKNESS_DECAY_RADX_BONUS
+	if(sickness_decay > 0)
+		radiation_sickness = max(0, radiation_sickness - sickness_decay)
+
+	if(radiation_recent_exposure > 0)
+		radiation_recent_exposure = max(0, radiation_recent_exposure - RAD_RECENT_EXPOSURE_DECAY)
+
+	// Persistent stage-based sickness: this is the dangerous long-tail of radiation.
+	var/rad_stage = SSradiation.get_radiation_stage(src)
+	switch(rad_stage)
+		if(1)
+			adjustToxLoss(0.12)
+			adjustStaminaLoss(0.8)
+			if(world.time >= radiation_feedback_cooldown && prob(5))
+				to_chat(src, span_warning("A metallic taste fills your mouth."))
+				radiation_feedback_cooldown = world.time + 20 SECONDS
+		if(2)
+			adjustToxLoss(0.28)
+			adjustStaminaLoss(1.6)
+			jitteriness = max(jitteriness, 4)
+			slurring = max(slurring, 2)
+			if(prob(4))
+				adjust_blurriness(1)
+			if(world.time >= radiation_feedback_cooldown && prob(8))
+				to_chat(src, span_danger("You feel nauseous and weak from radiation sickness."))
+				radiation_feedback_cooldown = world.time + 18 SECONDS
+		if(3)
+			adjustToxLoss(0.55)
+			adjustCloneLoss(0.25)
+			adjustStaminaLoss(2.6)
+			jitteriness = max(jitteriness, 7)
+			slurring = max(slurring, 3)
+			if(prob(9))
+				vomit(6, TRUE)
+			if(world.time >= radiation_feedback_cooldown && prob(12))
+				to_chat(src, span_userdanger("Your organs burn with severe radiation sickness."))
+				radiation_feedback_cooldown = world.time + 15 SECONDS
+		if(4)
+			adjustToxLoss(1.0)
+			adjustCloneLoss(0.45)
+			adjustStaminaLoss(4.2)
+			jitteriness = max(jitteriness, 10)
+			slurring = max(slurring, 5)
+			if(prob(16))
+				vomit(10, TRUE)
+			if(prob(6))
+				DefaultCombatKnockdown(2)
+			if(world.time >= radiation_feedback_cooldown && prob(20))
+				to_chat(src, span_boldwarning("CRITICAL RADIATION SICKNESS! Seek treatment now!"))
+				radiation_feedback_cooldown = world.time + 12 SECONDS
+
 	//radiation -= min(radiation, RAD_LOSS_PER_TICK) nope, you need radx or radaway. small change to make rads *more*
 	if(radiation > RAD_MOB_SAFE)
 		adjustToxLoss(log(radiation-RAD_MOB_SAFE)*RAD_TOX_COEFFICIENT)

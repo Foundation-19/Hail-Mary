@@ -1,4 +1,23 @@
 //Ash storms happen frequently on lavaland. They heavily obscure vision, and cause high fire damage to anyone caught outside.
+#define SANDSTORM_GROUND_PERSIST (30 MINUTES)
+
+/proc/_wasteland_get_sand_overlay()
+	var/mutable_appearance/N = mutable_appearance('icons/turf/f13floors2.dmi', "Sand_overlay")
+	N.layer = TURF_DECAL_LAYER
+	N.plane = ABOVE_WALL_PLANE
+	N.alpha = 170
+	return N
+
+/proc/_wasteland_release_sand_overlay_list(list/turfs_to_release)
+	if(!islist(turfs_to_release) || !length(turfs_to_release))
+		return
+	var/mutable_appearance/ground_overlay = _wasteland_get_sand_overlay()
+	for(var/turf/open/T in turfs_to_release)
+		if(QDELETED(T))
+			continue
+		T.cut_overlay(ground_overlay)
+		CHECK_TICK
+
 /datum/weather/ash_storm
 	name = "ash storm"
 	desc = "An intense atmospheric storm lifts ash off of the planet's surface and billows it down across the area, dealing intense fire damage to the unprotected."
@@ -126,6 +145,36 @@
 	obscures_sight = TRUE // try seeing stuff now! YOU CANT!
 
 	target_trait = ZTRAIT_STATION
+	var/list/ground_overlay_turfs = list()
+
+/datum/weather/ash_storm/sandstorm/start()
+	. = ..()
+	apply_ground_overlay()
+
+/datum/weather/ash_storm/sandstorm/end()
+	// Let the sand layer linger for a while after the storm ends.
+	var/list/turfs_to_clear = islist(ground_overlay_turfs) ? ground_overlay_turfs.Copy() : null
+	if(islist(ground_overlay_turfs))
+		ground_overlay_turfs.Cut()
+	if(islist(turfs_to_clear) && length(turfs_to_clear))
+		addtimer(CALLBACK(GLOBAL_PROC, PROC_REF(_wasteland_release_sand_overlay_list), turfs_to_clear), SANDSTORM_GROUND_PERSIST)
+	return ..()
+
+/datum/weather/ash_storm/sandstorm/proc/apply_ground_overlay()
+	if(!islist(ground_overlay_turfs))
+		ground_overlay_turfs = list()
+	ground_overlay_turfs.Cut()
+
+	var/mutable_appearance/ground_overlay = _wasteland_get_sand_overlay()
+
+	for(var/area/A in impacted_areas)
+		// Only blanket true wasteland exterior tiles.
+		if(!istype(A, /area/f13/wasteland) || !A.outdoors)
+			continue
+		for(var/turf/open/T in get_area_turfs(A))
+			T.add_overlay(ground_overlay)
+			ground_overlay_turfs += T
+			CHECK_TICK
 
 /datum/weather/ash_storm/dust_event
 	name = "toxic cloud"

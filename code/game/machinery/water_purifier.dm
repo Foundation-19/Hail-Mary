@@ -203,13 +203,13 @@
 	// You can expand these icon states if your dmi has them.
 	// For now just flip between "running/offline/empty" style logic.
 	if(!is_operational())
-		icon_state = "purifier-off"
+		icon_state = "purifier"
 		return
 	if(fuel <= 0 || condition < min_condition_to_run)
-		icon_state = "purifier-fault"
+		icon_state = "purifier"
 		return
 	if(!output || !output.reagents || output.reagents.total_volume <= 0)
-		icon_state = "purifier-idle"
+		icon_state = "purifier"
 		return
 	icon_state = "purifier"
 

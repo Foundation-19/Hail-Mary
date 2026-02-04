@@ -24,14 +24,14 @@
 
 // ---- Reproduction ----
 #define FAUNA_REPRO_EVERY 90
-#define FAUNA_REPRO_CHANCE 30
+#define FAUNA_REPRO_CHANCE 22
 #define FAUNA_REPRO_CHILDREN_MIN 1
 #define FAUNA_REPRO_CHILDREN_MAX 3
-#define FAUNA_REPRO_COOLDOWN 320
+#define FAUNA_REPRO_COOLDOWN 520
 #define FAUNA_REPRO_SPREAD_MIN 3
 #define FAUNA_REPRO_SPREAD_MAX 9
-#define FAUNA_MATE_SEARCH_RANGE 12
-#define FAUNA_MATE_PAIR_RANGE 4
+#define FAUNA_MATE_SEARCH_RANGE 18
+#define FAUNA_MATE_PAIR_RANGE 6
 #define FAUNA_GESTATION_MIN 80
 #define FAUNA_GESTATION_MAX 150
 #define FAUNA_NEST_STAY_RADIUS 8
@@ -41,8 +41,8 @@
 #define FAUNA_REPRO_LOWPOP_BOOST_HIGH 24
 #define FAUNA_REPRO_LOWPOP_BOOST_MID 12
 #define FAUNA_REPRO_LOWPOP_SOLO_THRESH 45
-#define FAUNA_REPRO_LOWPOP_SOLO_CHANCE 32
-#define FAUNA_REPRO_MAX_OFFSPRING_PASS 48
+#define FAUNA_REPRO_LOWPOP_SOLO_CHANCE 18
+#define FAUNA_REPRO_MAX_OFFSPRING_PASS 32
 
 // ---- Territorial Spread ----
 #define FAUNA_CROWD_RADIUS 6
@@ -1604,6 +1604,13 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 
 	if(!isnull(den_q) && den_q >= 70 && prob(45))
 		children++
+
+	// Roaches/flies were over-scaling population pressure; keep litters small.
+	if(S.id == "radroach")
+		children = max(1, round(children * 0.45))
+	else if(S.id == "bloatfly")
+		children = max(1, round(children * 0.55))
+
 	children = clamp(children, 1, 6)
 
 	for(var/i in 1 to children)
@@ -1636,7 +1643,10 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 	for(var/mob/living/simple_animal/hostile/parent in world)
 		if(QDELETED(parent)) continue
 		if(parent.stat) continue
-		if(!is_z_active(parent.z)) continue
+		if(!is_z_active(parent.z))
+			// Still allow map fauna to breed when players are physically nearby.
+			if(!find_nearby_human(parent, FAUNA_MATE_SEARCH_RANGE + 6))
+				continue
 
 		var/datum/fauna_species/S = get_species_for_mob(parent)
 		if(!S) continue
@@ -1740,6 +1750,12 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 		else if(S.role == FAUNA_ROLE_APEX)
 			chance -= 6
 
+		// Tune down explosive low-tier insect growth.
+		if(S.id == "radroach")
+			chance -= 22
+		else if(S.id == "bloatfly")
+			chance -= 16
+
 		var/den_q = home_quality[pkey]
 		if(!isnull(den_q))
 			chance += round((den_q - 50) / 20)
@@ -1756,9 +1772,18 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 
 		var/mob/living/simple_animal/hostile/mate = find_mate_candidate(parent, S)
 		if(!mate)
-			if(S.role != FAUNA_ROLE_PREY) continue
-			if(current_pop >= round(S.hardcap * (FAUNA_REPRO_LOWPOP_SOLO_THRESH / 100))) continue
-			if(!prob(FAUNA_REPRO_LOWPOP_SOLO_CHANCE)) continue
+			var/solo_threshold = (S.role == FAUNA_ROLE_PREY) ? (FAUNA_REPRO_LOWPOP_SOLO_THRESH / 100) : 0.30
+			if(current_pop >= round(S.hardcap * solo_threshold))
+				continue
+			var/solo_chance = FAUNA_REPRO_LOWPOP_SOLO_CHANCE
+			if(S.role != FAUNA_ROLE_PREY)
+				solo_chance = 8
+			if(S.id == "radroach")
+				solo_chance = max(4, round(solo_chance * 0.50))
+			else if(S.id == "bloatfly")
+				solo_chance = max(5, round(solo_chance * 0.65))
+			if(!prob(solo_chance))
+				continue
 			mate = parent
 		var/mkey = mob_key(mate)
 		if(!mkey) continue
@@ -2386,13 +2411,13 @@ SUBSYSTEM_DEF(fauna_ecosystem)
 	id = "radroach"
 	name = "Radroach"
 	mob_type = /mob/living/simple_animal/hostile/radroach
-	hardcap = 360
+	hardcap = 160
 
 /datum/fauna_species/prey/bloatfly
 	id = "bloatfly"
 	name = "Bloatfly"
 	mob_type = /mob/living/simple_animal/hostile/bloatfly
-	hardcap = 320
+	hardcap = 145
 
 /datum/fauna_species/prey/molerat
 	id = "molerat"

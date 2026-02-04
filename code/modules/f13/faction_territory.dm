@@ -52,7 +52,7 @@
 	if(!SSfaction_control || !user) return FALSE
 	var/faction = SSfaction_control.get_mob_faction(user)
 	if(!faction || !SSfaction_control.is_controllable_faction(faction))
-		to_chat(user, span_warning("Only BOS, NCR, Legion, and Town can operate relay nodes."))
+		to_chat(user, span_warning("Only BOS, NCR, Legion, Town, Mass Fusion, and Tribe can operate relay nodes."))
 		return FALSE
 
 	var/district = ensure_district()
@@ -161,7 +161,7 @@
 	if(!SSfaction_control || !user) return
 	var/faction = SSfaction_control.get_mob_faction(user)
 	if(!faction || !SSfaction_control.is_controllable_faction(faction))
-		to_chat(user, span_warning("Only BOS, NCR, Legion, and Town can operate relay nodes."))
+		to_chat(user, span_warning("Only BOS, NCR, Legion, Town, Mass Fusion, and Tribe can operate relay nodes."))
 		return
 
 	var/choice = alert(user, "Relay controls", "District Relay Node", "Claim District", "Scan Resource Pad", "Cancel")
@@ -296,10 +296,13 @@
 	var/powder_mult = SSfaction_control.get_resource_output_mult(owner, d, "blackpowder")
 	var/caps_mult = SSfaction_control.get_resource_output_mult(owner, d, "caps")
 	var/industry_lvl = SSfaction_control.get_upgrade_level(d, "industry")
+	var/metal_out = max(0, round(metal_per_cycle * metal_mult))
+	var/powder_out = max(0, round(blackpowder_per_cycle * powder_mult))
+	var/caps_out = max(0, round(caps_per_cycle * caps_mult))
 
-	SSfaction_control.spawn_metal_bundle(src, max(0, round(metal_per_cycle * metal_mult)))
-	SSfaction_control.spawn_blackpowder_bundle(src, max(0, round(blackpowder_per_cycle * powder_mult)))
-	SSfaction_control.spawn_caps_bundle(src, max(0, round(caps_per_cycle * caps_mult)))
+	SSfaction_control.spawn_metal_bundle(src, metal_out)
+	SSfaction_control.spawn_blackpowder_bundle(src, powder_out)
+	SSfaction_control.spawn_caps_bundle(src, caps_out)
 	if(SSfaction_control.has_research_unlock(owner, "ind_smelter_chain") && industry_lvl >= 2)
 		var/plasteel_mult = SSfaction_control.get_resource_output_mult(owner, d, "plasteel")
 		var/plasteel_amt = max(0, round((20 + (industry_lvl * 10)) * plasteel_mult))
@@ -310,6 +313,9 @@
 		SSfaction_control.spawn_titanium_bundle(src, titanium_amt)
 	SSfaction_control.spawn_security_ammo_bundle(src, owner, d, 0.75)
 	SSfaction_control.spawn_rare_crafting_bundle(src, SSfaction_control.get_rare_chance_bonus(owner))
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "faction_resource_pad_cycles", 1, list("[owner]", "[d]"))
+		SSblackbox.record_feedback("tally", "faction_resource_pad_caps_generated", caps_out)
 
 	next_production = world.time + FACTION_CTRL_RESOURCE_EVERY
 	last_produced_at = world.time
@@ -377,7 +383,7 @@
 	if(!SSfaction_control || !user) return
 	var/f = SSfaction_control.get_mob_faction(user)
 	if(!f || !SSfaction_control.is_controllable_faction(f))
-		to_chat(user, span_warning("Only BOS, NCR, Legion, and Town can operate water nodes."))
+		to_chat(user, span_warning("Only BOS, NCR, Legion, Town, Mass Fusion, and Tribe can operate water nodes."))
 		return
 
 	if(!owner_faction || owner_faction != f)
@@ -457,7 +463,7 @@
 	if(!SSfaction_control || !user) return
 	var/f = SSfaction_control.get_mob_faction(user)
 	if(!f || !SSfaction_control.is_controllable_faction(f))
-		to_chat(user, span_warning("Only BOS, NCR, Legion, and Town can operate intel towers."))
+		to_chat(user, span_warning("Only BOS, NCR, Legion, Town, Mass Fusion, and Tribe can operate intel towers."))
 		return
 
 	if(!owner_faction || owner_faction != f)
@@ -653,7 +659,7 @@
 	desc = "Command console for district economy and control operations."
 	icon_state = "control_on"
 	require_district_owner = FALSE
-	allowed_factions = list(FACTION_BROTHERHOOD, FACTION_NCR, FACTION_LEGION, FACTION_EASTWOOD)
+	allowed_factions = list(FACTION_BROTHERHOOD, FACTION_NCR, FACTION_LEGION, FACTION_EASTWOOD, FACTION_MASS_FUSION)
 
 /obj/machinery/f13/faction_control_console/contracts
 	name = "faction contracts board"
@@ -666,7 +672,7 @@
 /obj/machinery/f13/faction_control_console/attack_hand(mob/user)
 	. = ..()
 	if(!can_user_access(user))
-		to_chat(user, span_warning(last_access_denial_reason ? last_access_denial_reason : "Only BOS, NCR, Legion, and Town command can use this console."))
+		to_chat(user, span_warning(last_access_denial_reason ? last_access_denial_reason : "Only BOS, NCR, Legion, Town, Mass Fusion, and Tribe command can use this console."))
 		return
 	ui_interact(user, null)
 

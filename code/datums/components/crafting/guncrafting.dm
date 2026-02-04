@@ -323,6 +323,14 @@
 		for(var/path in disassembly_loot)
 			if(prob(50))
 				new path(T)
+	if(SSfaction_control)
+		var/d = SSfaction_control.get_district_for_atom(src)
+		if(d && SSfaction_control.get_active_hazard_for_district(d))
+			// Hazard windows improve salvage yields from dismantling old infrastructure.
+			for(var/path in disassembly_loot)
+				if(prob(35))
+					new path(T)
+			to_chat(user, span_notice("Hazard-zone salvage bonus recovered extra parts."))
 	qdel(src)
 
 /obj/machinery/workbench/can_be_unfasten_wrench(mob/user, silent)

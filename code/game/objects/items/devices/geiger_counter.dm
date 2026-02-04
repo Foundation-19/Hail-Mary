@@ -74,6 +74,12 @@
 	if(!scanning)
 		return
 	. += span_info("Alt-click it to clear stored radiation levels.")
+	if(isliving(user))
+		var/mob/living/L = user
+		var/rad_stage = SSradiation.get_radiation_stage(L)
+		var/rad_stage_name = SSradiation.get_radiation_stage_name(rad_stage)
+		. += span_notice("Your accumulated dose: [round(L.radiation)] rad.")
+		. += span_notice("Radiation sickness: [rad_stage_name] ([round(L.radiation_sickness)]).")
 	if(obj_flags & EMAGGED)
 		. += span_warning("The display seems to be incomprehensible.")
 		return
@@ -194,6 +200,9 @@
 			to_chat(user, span_notice("[icon2html(src, user)] Radiation levels within normal boundaries."))
 		else
 			to_chat(user, span_boldannounce("[icon2html(src, user)] Subject is irradiated. Radiation levels: [M.radiation] rad."))
+		var/rad_stage = SSradiation.get_radiation_stage(M)
+		var/rad_stage_name = SSradiation.get_radiation_stage_name(rad_stage)
+		to_chat(user, span_notice("[icon2html(src, user)] Subject radiation sickness: [rad_stage_name] ([round(M.radiation_sickness)])."))
 	/* var/rad_strength = 0
 	for(var/i in get_rad_contents(A)) // Yes it's intentional that you can't detect radioactive things under rad protection. Gives traitors a way to hide their glowing green rocks.
 		var/atom/thing = i

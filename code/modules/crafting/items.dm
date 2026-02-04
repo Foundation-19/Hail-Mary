@@ -260,6 +260,20 @@ GLOBAL_LIST_INIT(blueprint_fluff, list(
 		place_to_put_it = get_turf(src) //just dump it on the floor you filthy animal
 	// base 1 loot roll, +1 if technophreak, 50% for +1, and 25% for +1
 	var/loot_rolls = 1 + (HAS_TRAIT(user, TRAIT_TECHNOPHREAK)) + (prob(50)) + (prob(25))
+	if(SSfaction_control)
+		var/d = SSfaction_control.get_district_for_atom(place_to_put_it)
+		if(d && SSfaction_control.get_active_hazard_for_district(d))
+			// Hazard windows make salvage richer, encouraging contested scav runs.
+			loot_rolls += 1
+			if(prob(40))
+				loot_rolls += 1
+	if(user && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H?.dna?.species?.type == /datum/species/ghoul)
+			// Ghouls get better salvage results when background rads are elevated.
+			if(round(GLOB.wasteland_grid_background_rads) >= 8)
+				loot_rolls += 1
+	loot_rolls = clamp(loot_rolls, 1, 8)
 	for(var/i in 1 to loot_rolls)
 		var/obj/I = pick(src.Loot)
 		new I (place_to_put_it)

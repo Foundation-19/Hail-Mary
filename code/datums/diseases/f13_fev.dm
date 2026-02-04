@@ -1,4 +1,20 @@
 /* FEV diseases */
+#define FEV_MUTATION_SOURCE "fev_mutation_profile"
+
+/mob/living
+	/// Permanent profile granted by successful FEV-II conversion.
+	var/fev_mutation_outcome = null
+	/// Prevents stacking/re-rolling the permanent FEV profile.
+	var/fev_mutation_outcome_applied = FALSE
+
+/datum/movespeed_modifier/fev_mutation
+	variable = TRUE
+	blacklisted_movetypes = (FLYING|FLOATING)
+
+/datum/movespeed_modifier/fev_mutation/boon
+
+/datum/movespeed_modifier/fev_mutation/bane
+
 // Main code
 /datum/disease/transformation/mutant
 	name = "Forced Evolutionary Virus"
@@ -86,6 +102,104 @@
 				to_chat(affected_mob, span_notice("Simple, efficient, glorious..."))
 				var/datum/component/mood/mood = affected_mob.GetComponent(/datum/component/mood)
 				mood.setSanity(SANITY_INSANE) // You're happy, aren't you?
+
+/datum/disease/transformation/mutant/super/do_disease_transformation(mob/living/affected_mob)
+	if(istype(affected_mob, /mob/living/carbon) && affected_mob.stat != DEAD)
+		if(stage5)
+			to_chat(affected_mob, pick(stage5))
+		if(QDELETED(affected_mob))
+			return
+		if(affected_mob.mob_transforming)
+			return
+		affected_mob.mob_transforming = TRUE
+		for(var/obj/item/W in affected_mob.get_equipped_items(TRUE))
+			affected_mob.dropItemToGround(W)
+		for(var/obj/item/I in affected_mob.held_items)
+			affected_mob.dropItemToGround(I)
+		var/mob/living/new_mob = new new_form(affected_mob.loc)
+		if(istype(new_mob))
+			if(bantype && jobban_isbanned(affected_mob, bantype))
+				replace_banned_player(new_mob)
+			new_mob.a_intent = INTENT_HARM
+			if(affected_mob.mind)
+				affected_mob.mind.transfer_to(new_mob)
+			else
+				affected_mob.transfer_ckey(new_mob)
+			if(ishuman(new_mob))
+				var/mob/living/carbon/human/H = new_mob
+				_apply_fev_permanent_profile(H)
+		new_mob.name = affected_mob.real_name
+		new_mob.real_name = new_mob.name
+		qdel(affected_mob)
+
+/datum/disease/transformation/mutant/super/proc/_apply_fev_permanent_profile(mob/living/carbon/human/H)
+	if(!H || H.fev_mutation_outcome_applied)
+		return
+	H.fev_mutation_outcome_applied = TRUE
+	var/list/notes = list()
+	var/list/positive_pool = list("adrenal_overdrive", "muscle_hypertrophy", "dense_tissue")
+	var/list/negative_pool = list("motor_degradation", "cellular_instability", "cognitive_scarring")
+	var/profile_roll = rand(1, 100)
+	var/positive_rolls = 1
+	var/negative_rolls = 1
+	if(profile_roll <= 20)
+		H.fev_mutation_outcome = "prime"
+		positive_rolls = 2
+		negative_rolls = 0
+	else if(profile_roll <= 75)
+		H.fev_mutation_outcome = "volatile"
+	else
+		H.fev_mutation_outcome = "catastrophic"
+		positive_rolls = 0
+		negative_rolls = 2
+
+	while(positive_rolls > 0 && LAZYLEN(positive_pool))
+		var/pick_effect = pick_n_take(positive_pool)
+		notes += _apply_fev_positive(H, pick_effect)
+		positive_rolls--
+
+	while(negative_rolls > 0 && LAZYLEN(negative_pool))
+		var/pick_effect = pick_n_take(negative_pool)
+		notes += _apply_fev_negative(H, pick_effect)
+		negative_rolls--
+
+	H.updatehealth()
+	to_chat(H, span_userdanger("The FEV rewrite stabilizes into a permanent [H.fev_mutation_outcome] profile."))
+	for(var/note in notes)
+		to_chat(H, span_notice("- [note]"))
+
+/datum/disease/transformation/mutant/super/proc/_apply_fev_positive(mob/living/carbon/human/H, effect_id)
+	switch(effect_id)
+		if("adrenal_overdrive")
+			H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fev_mutation/boon, TRUE, multiplicative_slowdown = -0.35)
+			H.physiology.stun_mod *= 0.85
+			return "Adrenal overdrive: you move faster and recover from stuns better."
+		if("muscle_hypertrophy")
+			ADD_TRAIT(H, TRAIT_FEV, FEV_MUTATION_SOURCE)
+			H.physiology.brute_mod *= 0.90
+			return "Muscle hypertrophy: stronger strikes and reduced brute damage taken."
+		if("dense_tissue")
+			H.setMaxHealth(H.maxHealth + 35)
+			H.health = min(H.maxHealth, H.health + 35)
+			H.physiology.damage_resistance = clamp(H.physiology.damage_resistance + 6, -50, 50)
+			return "Dense tissue growth: increased max health and baseline durability."
+	return "Unstable adaptation settled into a harmless configuration."
+
+/datum/disease/transformation/mutant/super/proc/_apply_fev_negative(mob/living/carbon/human/H, effect_id)
+	switch(effect_id)
+		if("motor_degradation")
+			H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/fev_mutation/bane, TRUE, multiplicative_slowdown = 0.35)
+			H.physiology.stamina_mod *= 1.15
+			return "Motor degradation: movement and stamina economy are worse."
+		if("cellular_instability")
+			H.physiology.tox_mod *= 1.40
+			H.physiology.clone_mod *= 1.25
+			return "Cellular instability: toxin and clone damage now hit harder."
+		if("cognitive_scarring")
+			H.physiology.do_after_speed *= 1.20
+			ADD_TRAIT(H, TRAIT_CLUMSY, FEV_MUTATION_SOURCE)
+			return "Cognitive scarring: slower technical actions and reduced finesse."
+	return "Latent scar tissue formed with no major mechanical impact."
 
 // FEV - Curling 13
 /datum/disease/curling_thirteen
@@ -176,3 +290,5 @@
 			if(prob(10))
 				affected_mob.adjustToxLoss(5)
 	return
+
+#undef FEV_MUTATION_SOURCE

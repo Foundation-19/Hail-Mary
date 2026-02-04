@@ -449,6 +449,9 @@
 /obj/item/reagent_containers/glass/bottle/FEV_solution
 	name = "FEV bottle"
 	desc = "A small vial of the Forced Evolutionary Virus. You think that consuming this would be a bad idea."
+	icon = 'code/modules/f13/32x32_sprites.dmi'
+	icon_state = "Fev_Container"
+	cached_icon = "bottle" // Keep normal bottle reagent fill overlays.
 	list_reagents = list(/datum/reagent/toxin/FEV_solution/one = 30)
 
 /obj/item/reagent_containers/glass/bottle/FEV_solution/two

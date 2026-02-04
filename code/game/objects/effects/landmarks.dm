@@ -803,6 +803,32 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Barkeep"
 	icon_state = "Barkeep"
 
+// Mass Fusion
+
+/obj/effect/landmark/start/f13/massfusionsupervisor
+	name = "Mass Fusion Supervisor"
+	icon_state = "Chief Engineer"
+
+/obj/effect/landmark/start/f13/massfusionscavenger
+	name = "Mass Fusion Scavenger"
+	icon_state = "Shaft Miner"
+
+/obj/effect/landmark/start/f13/massfusionreactoroperator
+	name = "Mass Fusion Reactor Operator"
+	icon_state = "Atmospheric Technician"
+
+/obj/effect/landmark/start/f13/massfusiongridtechnician
+	name = "Mass Fusion Grid Technician"
+	icon_state = "Station Engineer"
+
+/obj/effect/landmark/start/f13/massfusionrelayengineer
+	name = "Mass Fusion Relay Engineer"
+	icon_state = "Station Engineer"
+
+/obj/effect/landmark/start/f13/massfusionhazardrecovery
+	name = "Mass Fusion Hazard Recovery Tech"
+	icon_state = "Shaft Miner"
+
 // Wasteland
 
 /obj/effect/landmark/start/f13/cultleader

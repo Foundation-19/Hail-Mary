@@ -53,3 +53,29 @@ Ask ninjanomnom if they're around
 #define RAD_DISTANCE_COEFFICIENT 1					// Lower means further rad spread
 
 #define RAD_HALF_LIFE 90							// The half-life of contaminated objects
+
+// ---------------------------------------------------------------------------
+// Radiation sickness model (persistent "dose debt")
+// This is intentionally separate from raw `radiation` so:
+// - short spikes feel dangerous
+// - recovery takes active treatment/time
+// - ambient and contamination pressure matter
+// ---------------------------------------------------------------------------
+#define RAD_SICKNESS_MAX 1200
+
+#define RAD_SICKNESS_STAGE_MINOR 120
+#define RAD_SICKNESS_STAGE_MODERATE 280
+#define RAD_SICKNESS_STAGE_SEVERE 560
+#define RAD_SICKNESS_STAGE_CRITICAL 900
+
+#define RAD_SICKNESS_DECAY_BASE 1.2
+#define RAD_SICKNESS_DECAY_SAFE_BONUS 1.6
+#define RAD_SICKNESS_DECAY_RADX_BONUS 0.7
+
+// Sickness accumulation from each source
+#define RAD_SICKNESS_GAIN_INTERNAL 0.008
+#define RAD_SICKNESS_GAIN_AMBIENT 0.050
+#define RAD_SICKNESS_GAIN_RECENT 0.070
+
+// How quickly recent exposure memory decays each life tick
+#define RAD_RECENT_EXPOSURE_DECAY 14

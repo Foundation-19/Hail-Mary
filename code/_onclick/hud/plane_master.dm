@@ -43,6 +43,10 @@
 /obj/screen/plane_master/proc/clear_filters()
 	filters = list()
 
+/obj/screen/plane_master/proc/apply_cinematic_vignette()
+	add_filter("cinematic_vignette_soft", 40, list(type = "drop_shadow", color = "#05080A66", size = -10))
+	add_filter("cinematic_vignette_deep", 41, list(type = "drop_shadow", color = "#02040699", size = -18))
+
 ///Contains just the floor
 /obj/screen/plane_master/floor
 	name = "floor plane master"
@@ -56,8 +60,9 @@
 	appearance_flags = PLANE_MASTER
 
 /obj/screen/plane_master/wall/backdrop(mob/mymob)
+	apply_cinematic_vignette()
 	if(mymob?.client?.prefs?.ambientocclusion)
-		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(4, "#04080FAA"))
+		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(5, "#0C0907C8"))
 	else
 		remove_filter("ambient_occlusion")
 
@@ -71,8 +76,9 @@
 	add_filter("vision_cone", 100, list(type="alpha", render_source=FIELD_OF_VISION_RENDER_TARGET, flags=MASK_INVERSE))
 
 /obj/screen/plane_master/above_wall/backdrop(mob/mymob)
+	apply_cinematic_vignette()
 	if(mymob?.client?.prefs?.ambientocclusion)
-		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(3, "#04080F64"))
+		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(4, "#0C090788"))
 	else
 		remove_filter("ambient_occlusion")
 
@@ -88,8 +94,9 @@
 	add_filter("vision_cone", 100, list(type="alpha", render_source=FIELD_OF_VISION_RENDER_TARGET, flags=MASK_INVERSE))
 
 /obj/screen/plane_master/game_world/backdrop(mob/mymob)
+	apply_cinematic_vignette()
 	if(mymob?.client?.prefs?.ambientocclusion)
-		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(4, "#04080FAA"))
+		add_filter("ambient_occlusion", 0, AMBIENT_OCCLUSION(5, "#0C0907C8"))
 	else
 		remove_filter("ambient_occlusion")
 
@@ -150,12 +157,15 @@
 /obj/screen/plane_master/lighting/backdrop(mob/mymob)
 	mymob.overlay_fullscreen("lighting_backdrop_lit", /obj/screen/fullscreen/lighting_backdrop/lit)
 	mymob.overlay_fullscreen("lighting_backdrop_unlit", /obj/screen/fullscreen/lighting_backdrop/unlit)
+	mymob.overlay_fullscreen("lighting_grain", /obj/screen/fullscreen/lighting_grain)
 
 /obj/screen/plane_master/lighting/Initialize()
 	. = ..()
 	add_filter("emissives", 1, alpha_mask_filter(render_source = EMISSIVE_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("emissives_unblockable", 2, alpha_mask_filter(render_source = EMISSIVE_UNBLOCKABLE_RENDER_TARGET, flags = MASK_INVERSE))
 	add_filter("object_lighting", 3, alpha_mask_filter(render_source = O_LIGHTING_VISUAL_RENDER_TARGET, flags = MASK_INVERSE))
+	add_filter("cinematic_bloom_soft", 4, list(type = "blur", size = 0.5))
+	add_filter("cinematic_bloom_wide", 5, list(type = "blur", size = 0.9))
 
 /**
  * Things placed on this mask the lighting plane. Doesn't render directly.
@@ -171,6 +181,7 @@
 
 /obj/screen/plane_master/emissive/Initialize()
 	. = ..()
+	filters += filter(type="blur", size=0.7)
 	filters += filter(type="alpha", render_source=EMISSIVE_BLOCKER_RENDER_TARGET, flags=MASK_INVERSE)
 	filters += filter(type="alpha", render_source=FIELD_OF_VISION_RENDER_TARGET, flags=MASK_INVERSE)
 
@@ -189,6 +200,7 @@
 
 /obj/screen/plane_master/emissive_unblockable/Initialize()
 	. = ..()
+	filters += filter(type="blur", size=0.7)
 	filters += filter(type="alpha", render_source=FIELD_OF_VISION_RENDER_TARGET, flags=MASK_INVERSE)
 
 /**

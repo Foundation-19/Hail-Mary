@@ -50,6 +50,12 @@
 #define FACTION_CTRL_HAZARD_DURATION 7 MINUTES
 #define FACTION_CTRL_HAZARD_EXTRACT_COOLDOWN 4 MINUTES
 #define FACTION_CTRL_HAZARD_EXTRACT_COST 30
+#define FACTION_CTRL_GRID_PRESSURE_CHECK 90 SECONDS
+#define FACTION_CTRL_GRID_PRESSURE_EVENT_COOLDOWN 8 MINUTES
+#define FACTION_CTRL_GRID_FAULT_PRESSURE_THRESHOLD 4
+#define FACTION_CTRL_GRID_BG_RADS_PRESSURE_THRESHOLD 10
+#define FACTION_CTRL_HAZARD_CONTRACT_CAPS_BONUS 20
+#define FACTION_CTRL_HAZARD_CONTRACT_RESEARCH_BONUS 2
 
 SUBSYSTEM_DEF(faction_control)
 	name = "Faction Control"
@@ -137,8 +143,10 @@ SUBSYSTEM_DEF(faction_control)
 	var/next_event_roll = 0
 	var/next_utility_eval = 0
 	var/next_hazard_roll = 0
+	var/next_grid_pressure_check = 0
+	var/last_grid_pressure_event_at = 0
 	/// canonical factions that can run control gameplay
-	var/list/controllable_factions = list(FACTION_BROTHERHOOD, FACTION_NCR, FACTION_LEGION, FACTION_EASTWOOD)
+	var/list/controllable_factions = list(FACTION_BROTHERHOOD, FACTION_NCR, FACTION_LEGION, FACTION_EASTWOOD, FACTION_MASS_FUSION, FACTION_TRIBE)
 	/// alias map => canonical faction
 	var/list/faction_aliases = list(
 		"bos" = FACTION_BROTHERHOOD,
@@ -150,7 +158,15 @@ SUBSYSTEM_DEF(faction_control)
 		"red eye army" = FACTION_LEGION,
 		"town" = FACTION_EASTWOOD,
 		"city" = FACTION_EASTWOOD,
-		"eastwood" = FACTION_EASTWOOD
+		"eastwood" = FACTION_EASTWOOD,
+		"mass fusion" = FACTION_MASS_FUSION,
+		"massfusion" = FACTION_MASS_FUSION,
+		"mass fusion plant" = FACTION_MASS_FUSION,
+		"fusion" = FACTION_MASS_FUSION,
+		"mf" = FACTION_MASS_FUSION,
+		"tribe" = FACTION_TRIBE,
+		"tribal" = FACTION_TRIBE,
+		"tribals" = FACTION_TRIBE
 	)
 	/// world.time
 	var/next_payout = 0
@@ -164,6 +180,7 @@ SUBSYSTEM_DEF(faction_control)
 	next_event_roll = world.time + FACTION_CTRL_EVENT_INTERVAL
 	next_utility_eval = world.time + FACTION_CTRL_UTILITY_EVAL_EVERY
 	next_hazard_roll = world.time + FACTION_CTRL_HAZARD_INTERVAL
+	next_grid_pressure_check = world.time + FACTION_CTRL_GRID_PRESSURE_CHECK
 
 /datum/controller/subsystem/faction_control/fire(resumed = FALSE)
 	if(world.time >= next_payout)
@@ -185,6 +202,10 @@ SUBSYSTEM_DEF(faction_control)
 	if(world.time >= next_hazard_roll)
 		roll_hazard_zone()
 		next_hazard_roll = world.time + FACTION_CTRL_HAZARD_INTERVAL
+
+	if(world.time >= next_grid_pressure_check)
+		process_grid_pressure_events()
+		next_grid_pressure_check = world.time + FACTION_CTRL_GRID_PRESSURE_CHECK
 
 	process_world_events()
 	process_hazard_zones()
@@ -228,7 +249,7 @@ SUBSYSTEM_DEF(faction_control)
 	if(!islist(hazard_extract_cd)) hazard_extract_cd = list()
 	if(!islist(district_buildables)) district_buildables = list()
 	if(!islist(controllable_factions) || !length(controllable_factions))
-		controllable_factions = list(FACTION_BROTHERHOOD, FACTION_NCR, FACTION_LEGION, FACTION_EASTWOOD)
+		controllable_factions = list(FACTION_BROTHERHOOD, FACTION_NCR, FACTION_LEGION, FACTION_EASTWOOD, FACTION_MASS_FUSION, FACTION_TRIBE)
 	if(!islist(faction_aliases) || !length(faction_aliases))
 		faction_aliases = list()
 
@@ -1044,7 +1065,7 @@ SUBSYSTEM_DEF(faction_control)
 		active_events -= E
 		qdel(E)
 
-/datum/controller/subsystem/faction_control/proc/create_world_shift_event(district, title, desc, income_mult = 1.05, output_mult = 1.05, caravan_mult = 1.05)
+/datum/controller/subsystem/faction_control/proc/create_world_shift_event(district, title, desc, income_mult = 1.05, output_mult = 1.05, caravan_mult = 1.05, hostile = FALSE)
 	if(!district || length(active_events) >= 10) return
 	var/datum/faction_control_event/E = new
 	E.id = "E[next_event_id++]"
@@ -1057,7 +1078,75 @@ SUBSYSTEM_DEF(faction_control)
 	E.income_mult = income_mult
 	E.output_mult = output_mult
 	E.caravan_mult = caravan_mult
+	E.hostile = !!hostile
 	active_events += E
+
+/datum/controller/subsystem/faction_control/proc/get_unfixed_grid_fault_count()
+	if(!islist(GLOB.wasteland_grid_faults))
+		return 0
+	var/count = 0
+	for(var/datum/wasteland_grid_fault/F in GLOB.wasteland_grid_faults)
+		if(!F || F.fixed)
+			continue
+		count++
+	return count
+
+/datum/controller/subsystem/faction_control/proc/process_grid_pressure_events()
+	if(length(active_events) >= 8)
+		return
+	if(world.time < (last_grid_pressure_event_at + FACTION_CTRL_GRID_PRESSURE_EVENT_COOLDOWN))
+		return
+	var/grid_state = istext(GLOB.wasteland_grid_state) ? GLOB.wasteland_grid_state : "GREEN"
+	var/fault_count = get_unfixed_grid_fault_count()
+	var/bg_rads = max(0, round(GLOB.wasteland_grid_background_rads))
+	var/high_wear = max(
+		round(GLOB.grid_wear_pump_primary),
+		round(GLOB.grid_wear_valves),
+		round(GLOB.grid_wear_turbine),
+		round(GLOB.grid_wear_breakers),
+		round(GLOB.grid_wear_sensors)
+	)
+	var/pressure = FALSE
+	if(grid_state == "RED")
+		pressure = TRUE
+	if(fault_count >= FACTION_CTRL_GRID_FAULT_PRESSURE_THRESHOLD)
+		pressure = TRUE
+	if(bg_rads >= FACTION_CTRL_GRID_BG_RADS_PRESSURE_THRESHOLD)
+		pressure = TRUE
+	if(high_wear >= 72)
+		pressure = TRUE
+	if(!pressure)
+		return
+
+	var/list/candidates = list()
+	for(var/d in district_income)
+		if(get_owner(d))
+			candidates += "[d]"
+	if(!length(candidates))
+		return
+	var/chosen_district = pick(candidates)
+	var/title = "Grid Strain Surge"
+	var/desc = "Reactor instability is stressing [chosen_district]."
+	var/hostile = FALSE
+	if(bg_rads >= FACTION_CTRL_GRID_BG_RADS_PRESSURE_THRESHOLD && prob(50))
+		title = "Medical Supply Strain"
+		desc = "Background radiation is driving emergency med demand around [chosen_district]."
+		hostile = TRUE
+	else if(fault_count >= FACTION_CTRL_GRID_FAULT_PRESSURE_THRESHOLD)
+		title = "Breaker Storm"
+		desc = "Cascading grid faults are disrupting [chosen_district] utility lines."
+		hostile = TRUE
+	else if(high_wear >= 72)
+		title = "Maintenance Backlog"
+		desc = "Deferred maintenance is degrading district throughput in [chosen_district]."
+
+	create_world_shift_event(chosen_district, title, desc, 0.90, 0.86, 0.80, hostile)
+	last_grid_pressure_event_at = world.time
+	if(hostile)
+		district_jam_until[chosen_district] = max(round(district_jam_until[chosen_district]), world.time + 45 SECONDS)
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "faction_world_pressure_events", 1, list("[title]", "[chosen_district]"))
+	world << span_warning("World Pressure: [title] in [chosen_district].")
 
 /datum/controller/subsystem/faction_control/proc/spend_faction_intel_points(faction, amount)
 	if(!faction || amount <= 0) return FALSE
@@ -1116,7 +1205,7 @@ SUBSYSTEM_DEF(faction_control)
 	var/list/cached = district_utility_cache[district]
 	if(islist(cached))
 		return cached
-	var/power_ok = _grid_is_district_on(district)
+	var/power_ok = _grid_is_district_powered(district)
 	var/water_ok = (get_district_water_level(district) >= 35)
 	var/logi_ok = (get_district_logistics_level(district) >= 35) && !is_district_jammed(district)
 	if(get_district_stability(district) <= FACTION_CTRL_STABILITY_CRITICAL)
@@ -1308,7 +1397,7 @@ SUBSYSTEM_DEF(faction_control)
 		logi = round(logi * get_event_logistics_mult(d))
 		district_logistics_health[d] = clamp(logi, 0, 100)
 
-		var/power_ok = _grid_is_district_on(d)
+		var/power_ok = _grid_is_district_powered(d)
 		var/water_ok = (district_water[d] >= 35)
 		var/logi_ok = (district_logistics_health[d] >= 35) && !is_district_jammed(d)
 		var/stability = get_district_stability(d)
@@ -1554,6 +1643,8 @@ SUBSYSTEM_DEF(faction_control)
 	add_user_reputation(user, f, 2)
 	hazard_extract_count_by_key["[f]|[district]"] = get_hazard_extract_count(f, district) + 1
 	hazard_extract_cd[key] = world.time + FACTION_CTRL_HAZARD_EXTRACT_COOLDOWN
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "faction_hazard_extracts", 1, list("[f]", "[district]"))
 	to_chat(user, span_notice("Hazard extraction complete in [district]. Rare materials recovered."))
 	return TRUE
 
@@ -1592,6 +1683,14 @@ SUBSYSTEM_DEF(faction_control)
 				"cost" = 145,
 				"requires" = "doc_industry_focus"
 			)
+		if(FACTION_MASS_FUSION)
+			return list(
+				"kind" = "fusion_control_spire",
+				"name" = "Fusion Control Spire",
+				"desc" = "Plant authority node: improves power reliability and reactor logistics support.",
+				"cost" = 160,
+				"requires" = "doc_power_focus"
+			)
 	return null
 
 /datum/controller/subsystem/faction_control/proc/deploy_doctrine_buildable(mob/user, district, turf/drop_turf)
@@ -1628,8 +1727,9 @@ SUBSYSTEM_DEF(faction_control)
 		"faction" = "[f]",
 		"desc" = "[T["desc"]]"
 	)
-	var/obj/structure/f13/faction_district_buildable_marker/M = new(drop_turf)
-	M.configure_from_data("[T["name"]]", "[T["desc"]]", f, district)
+	var/obj/structure/f13/faction_district_buildable_marker/M = new /obj/structure/f13/faction_district_buildable_marker(drop_turf)
+	if(M && hascall(M, "configure_from_data"))
+		call(M, "configure_from_data")("[T["name"]]", "[T["desc"]]", f, district)
 	world << span_notice("[f] deployed [T["name"]] in [district].")
 	return TRUE
 
@@ -1769,6 +1869,8 @@ SUBSYSTEM_DEF(faction_control)
 		return "Legion"
 	if(findtext(type_path, "/area/f13/village") || findtext(type_path, "/area/f13/hub") || findtext(type_path, "/area/f13/city") || findtext(type_path, "/area/f13/wasteland/town"))
 		return "Town"
+	if(findtext(type_path, "/area/f13/wasteland/massfusion") || findtext(type_path, "/area/f13/building/massfusion"))
+		return "Mass Fusion"
 
 	var/area_name = lowertext("[Ar.name]")
 	if(findtext(area_name, "brotherhood") || findtext(area_name, "bos"))
@@ -1779,6 +1881,8 @@ SUBSYSTEM_DEF(faction_control)
 		return "Legion"
 	if(findtext(area_name, "town") || findtext(area_name, "village") || findtext(area_name, "city") || findtext(area_name, "hub"))
 		return "Town"
+	if(findtext(area_name, "mass fusion") || findtext(area_name, "massfusion") || findtext(area_name, "fusion plant"))
+		return "Mass Fusion"
 
 	return null
 
@@ -1842,6 +1946,14 @@ SUBSYSTEM_DEF(faction_control)
 		world << span_warning("Faction Control: [district] is now controlled by [faction].")
 		if(is_controllable_faction(faction))
 			add_research_points(faction, 3)
+		// Force a fresh utility read so capture feedback reflects current grid routing.
+		district_utility_cache[district] = null
+		if(user)
+			var/list/U = get_district_utility_state(district)
+			if(U["power"])
+				to_chat(user, span_notice("District utility check: [district] power route is ONLINE."))
+			else
+				to_chat(user, span_warning("District utility check: [district] power route is OFFLINE. Route district power from the grid controllers."))
 	return TRUE
 
 /datum/controller/subsystem/faction_control/proc/can_faction_capture(district, faction)
@@ -1868,6 +1980,27 @@ SUBSYSTEM_DEF(faction_control)
 		return FALSE
 	faction_funds[faction] = current - amount
 	return TRUE
+
+/datum/controller/subsystem/faction_control/proc/reward_tribal_hunt_kill(mob/living/killer, mob/living/simple_animal/hostile/target)
+	if(!killer || !target || QDELETED(target))
+		return
+	if(target.ckey)
+		return
+	if(findtext("[target.type]", "/spawner"))
+		return
+	var/faction = get_mob_faction(killer)
+	if(faction != FACTION_TRIBE)
+		return
+	var/tier = max(1, round(target.maxHealth / 90))
+	tier = min(tier, 10)
+	var/funds_gain = 8 + (tier * 7)
+	var/research_gain = max(1, round(tier / 2))
+	var/rep_gain = (tier >= 2) ? 1 : 0
+	add_faction_funds(FACTION_TRIBE, funds_gain)
+	add_research_points(FACTION_TRIBE, research_gain)
+	if(rep_gain > 0)
+		add_user_reputation(killer, FACTION_TRIBE, rep_gain)
+	to_chat(killer, span_notice("Tribal hunt reward: +[funds_gain] treasury, +[research_gain] research."))
 
 /datum/controller/subsystem/faction_control/proc/process_income_payout()
 	bootstrap_districts()
@@ -1975,6 +2108,8 @@ SUBSYSTEM_DEF(faction_control)
 	supply_cd[faction] = world.time + effective_cd
 	note_supply_drop(faction, district, user)
 	add_research_points(faction, 2)
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "faction_supply_drops", 1, list("[faction]", "[district]"))
 	world << span_notice("[faction] received a loaded supply drop in [district].")
 	return TRUE
 
@@ -2393,11 +2528,28 @@ SUBSYSTEM_DEF(faction_control)
 		else
 			enemy_owned += "[d]"
 
+	var/unfixed_faults = get_unfixed_grid_fault_count()
+	var/high_reactor_wear = max(
+		round(GLOB.grid_wear_pump_primary),
+		round(GLOB.grid_wear_valves),
+		round(GLOB.grid_wear_turbine),
+		round(GLOB.grid_wear_breakers),
+		round(GLOB.grid_wear_sensors)
+	)
+	var/reactor_pressure = FALSE
+	if(istext(GLOB.wasteland_grid_state) && GLOB.wasteland_grid_state == "RED")
+		reactor_pressure = TRUE
+	if(unfixed_faults >= 3 || high_reactor_wear >= 68)
+		reactor_pressure = TRUE
+
 	var/list/options = list("treasury")
 	if(length(owned))
 		options += "supply_run"
 		options += "defend_node"
 		options += "pad_link"
+		if(reactor_pressure)
+			options += "reactor_maintenance"
+			options += "reactor_maintenance"
 	if(length(owned_hotspots))
 		options += "clear_nest"
 		options += "clear_nest"
@@ -2463,6 +2615,15 @@ SUBSYSTEM_DEF(faction_control)
 			C.desc = "Run a hazard extraction in [C.district] while the window is active."
 			C.reward_caps += 55
 			C.reward_research += 6
+		if("reactor_maintenance")
+			C.district = length(owned_utility_crisis) ? pick(owned_utility_crisis) : pick(owned)
+			C.target = 1
+			C.baseline = max(unfixed_faults, high_reactor_wear)
+			C.title = "Reactor Maintenance Surge"
+			C.desc = "Reduce live reactor strain (faults/wear) and pull the grid out of emergency conditions."
+			C.reward_caps += 60
+			C.reward_research += 7
+			C.reward_rep += 1
 		if("defend_node")
 			C.district = pick(owned)
 			C.target = 1
@@ -2547,12 +2708,25 @@ SUBSYSTEM_DEF(faction_control)
 			return get_owner(C.district) == C.faction ? get_district_water_level(C.district) : 0
 		if("hazard_extract")
 			return max(0, get_hazard_extract_count(C.faction, C.district) - C.baseline)
+		if("reactor_maintenance")
+			var/unfixed = get_unfixed_grid_fault_count()
+			var/max_wear = max(
+				round(GLOB.grid_wear_pump_primary),
+				round(GLOB.grid_wear_valves),
+				round(GLOB.grid_wear_turbine),
+				round(GLOB.grid_wear_breakers),
+				round(GLOB.grid_wear_sensors)
+			)
+			if(unfixed > 0)
+				return (unfixed < max(1, round(C.baseline))) ? 1 : 0
+			var/grid_red = istext(GLOB.wasteland_grid_state) && GLOB.wasteland_grid_state == "RED"
+			return (!grid_red && max_wear <= 65) ? 1 : 0
 		if("defend_node")
-			return (get_owner(C.district) == C.faction && _grid_is_district_on(C.district)) ? 1 : 0
+			return (get_owner(C.district) == C.faction && _grid_is_district_powered(C.district)) ? 1 : 0
 		if("supply_run")
 			return max(0, get_supply_count(C.faction, C.district) - C.baseline)
 		if("stabilize")
-			return (get_owner(C.district) == C.faction && _grid_is_district_on(C.district)) ? 1 : 0
+			return (get_owner(C.district) == C.faction && _grid_is_district_powered(C.district)) ? 1 : 0
 		if("pad_link")
 			return has_active_linked_pad_for_district(C.faction, C.district) ? 1 : 0
 		if("expand")
@@ -2614,13 +2788,23 @@ SUBSYSTEM_DEF(faction_control)
 		reward_rep += 1
 	if(has_research_unlock(f, "doc_military_focus"))
 		reward_caps += 15
+	var/hazard_bonus_applied = FALSE
+	if(target_contract.district && get_active_hazard_for_district(target_contract.district))
+		reward_caps += FACTION_CTRL_HAZARD_CONTRACT_CAPS_BONUS
+		reward_research += FACTION_CTRL_HAZARD_CONTRACT_RESEARCH_BONUS
+		hazard_bonus_applied = TRUE
 	add_faction_funds(f, reward_caps)
 	add_research_points(f, reward_research)
 	add_user_reputation(user, f, reward_rep)
 	spawn_rare_crafting_bundle(get_turf(user), get_rare_chance_bonus(f))
 	apply_contract_world_effect(target_contract, user)
 	contracts -= target_contract
-	to_chat(user, span_notice("Contract complete: [target_contract.title]. Treasury +[reward_caps], research +[reward_research], rep +[reward_rep]."))
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "faction_contract_turnins", 1, list("[f]", "[target_contract.contract_type]", "[target_contract.district]"))
+		if(hazard_bonus_applied)
+			SSblackbox.record_feedback("nested tally", "faction_contract_hazard_bonus", 1, list("[f]", "[target_contract.contract_type]"))
+	var/bonus_suffix = hazard_bonus_applied ? " Hazard window bonus applied." : ""
+	to_chat(user, span_notice("Contract complete: [target_contract.title]. Treasury +[reward_caps], research +[reward_research], rep +[reward_rep].[bonus_suffix]"))
 	roll_contracts()
 	return TRUE
 
@@ -2660,6 +2844,23 @@ SUBSYSTEM_DEF(faction_control)
 			create_world_shift_event(C.district, "Reactor Line Cut", "Enemy logistics disrupted in [C.district].", 1.06, 1.06, 1.10)
 		if("hazard_extract")
 			adjust_district_stability(C.district, 4)
+		if("reactor_maintenance")
+			var/fixed_any = FALSE
+			for(var/datum/wasteland_grid_fault/F in GLOB.wasteland_grid_faults)
+				if(!F || F.fixed) continue
+				if(fix_grid_fault(F))
+					fixed_any = TRUE
+					break
+			GLOB.grid_wear_pump_primary = max(0, round(GLOB.grid_wear_pump_primary) - 8)
+			GLOB.grid_wear_valves = max(0, round(GLOB.grid_wear_valves) - 8)
+			GLOB.grid_wear_turbine = max(0, round(GLOB.grid_wear_turbine) - 10)
+			GLOB.grid_wear_breakers = max(0, round(GLOB.grid_wear_breakers) - 7)
+			GLOB.grid_wear_sensors = max(0, round(GLOB.grid_wear_sensors) - 6)
+			adjust_district_logistics(C.district, 8)
+			adjust_district_stability(C.district, 6)
+			create_world_shift_event(C.district, "Maintenance Stabilization", "Reactor maintenance crews reduced grid strain impacting [C.district].", 1.04, 1.05, 1.02)
+			if(fixed_any && user)
+				to_chat(user, span_notice("Maintenance crews resolved one outstanding reactor fault."))
 
 /datum/controller/subsystem/faction_control/proc/get_contract_rows(faction)
 	var/list/rows = list()
@@ -2857,8 +3058,9 @@ SUBSYSTEM_DEF(faction_control)
 	var/turf/from_anchor = get_anchor_turf_for_district(from_district)
 	var/turf/to_anchor = get_anchor_turf_for_district(to_district)
 	if(from_anchor)
-		var/obj/structure/f13/faction_caravan_marker/M = new(from_anchor)
-		M.setup_route(N.id, f, from_district, to_district, to_anchor, N.cargo_manifest)
+		var/obj/structure/M = new /obj/structure/f13/faction_caravan_marker(from_anchor)
+		if(M && hascall(M, "setup_route"))
+			call(M, "setup_route")(N.id, f, from_district, to_district, to_anchor, N.cargo_manifest)
 		N.cart_ref = WEAKREF(M)
 	if(from_anchor)
 		N.from_anchor_ref = WEAKREF(from_anchor)
@@ -2877,14 +3079,14 @@ SUBSYSTEM_DEF(faction_control)
 			remove += C
 			continue
 		if(world.time < C.arrive_at)
-			var/obj/structure/f13/faction_caravan_marker/MovingCart = RESOLVEWEAKREF(C.cart_ref)
+			var/obj/structure/MovingCart = RESOLVEWEAKREF(C.cart_ref)
 			var/turf/TargetTurf = RESOLVEWEAKREF(C.to_anchor_ref)
 			if(MovingCart && TargetTurf)
 				if(get_dist(MovingCart, TargetTurf) > 0)
 					step_towards(MovingCart, TargetTurf)
 			continue
 
-		var/obj/structure/f13/faction_caravan_marker/Cart = RESOLVEWEAKREF(C.cart_ref)
+		var/obj/structure/Cart = RESOLVEWEAKREF(C.cart_ref)
 		if(!Cart || QDELETED(Cart))
 			C.compromised = TRUE
 
@@ -2904,6 +3106,8 @@ SUBSYSTEM_DEF(faction_control)
 			active_events += Loss
 			if(Cart && !QDELETED(Cart))
 				qdel(Cart)
+			if(SSblackbox)
+				SSblackbox.record_feedback("nested tally", "faction_caravan_losses", 1, list("[C.faction]", "[C.to_district]"))
 			remove += C
 			continue
 
@@ -2949,6 +3153,8 @@ SUBSYSTEM_DEF(faction_control)
 		if(Cart && !QDELETED(Cart))
 			qdel(Cart)
 		world << span_notice("[C.faction] caravan arrived in [C.to_district]. Treasury +[caps], research +[C.base_reward_research].")
+		if(SSblackbox)
+			SSblackbox.record_feedback("nested tally", "faction_caravan_arrivals", 1, list("[C.faction]", "[C.to_district]"))
 		remove += C
 
 	active_caravans -= remove

@@ -12044,10 +12044,6 @@
 /obj/structure/closet/crate/wooden,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/caves)
-"ibd" = (
-/obj/machinery/water_purifier,
-/turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
-/area/f13/building/museum)
 "ibk" = (
 /mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
@@ -14668,13 +14664,6 @@
 /area/f13/building/hospital)
 "kyk" = (
 /turf/open/floor/plating/dirt,
-/area/f13/caves)
-"kym" = (
-/obj/machinery/water_purifier,
-/turf/open/floor/plasteel/barber{
-	icon = 'icons/turf/f13floors2.dmi';
-	icon_state = "bluerustychess2"
-	},
 /area/f13/caves)
 "kyo" = (
 /mob/living/simple_animal/hostile/centaur,
@@ -19438,11 +19427,6 @@
 /turf/open/floor/f13{
 	icon_state = "greenrustyfull"
 	},
-/area/f13/tunnel)
-"oVd" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/water_purifier,
-/turf/open/water,
 /area/f13/tunnel)
 "oVs" = (
 /obj/structure/closet/crate/wooden,
@@ -24689,13 +24673,6 @@
 /obj/item/reagent_containers/rag/towel,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/building/hospital)
-"tLY" = (
-/obj/effect/decal/cleanable/dirt{
-	color = "#363636"
-	},
-/obj/machinery/water_purifier,
-/turf/open/floor/plasteel/f13/vault_floor/yellow/yellowchess/yellowchess2,
-/area/f13/caves)
 "tNM" = (
 /obj/structure/handrail/g_central{
 	dir = 1;
@@ -24725,10 +24702,6 @@
 /obj/structure/bed/old,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
-"tOU" = (
-/obj/machinery/water_purifier,
-/turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/building/hospital)
 "tPe" = (
 /turf/closed/indestructible/f13/matrix,
 /area/f13/den)
@@ -46218,7 +46191,7 @@ bJq
 vSi
 mlr
 pAe
-oVd
+dHk
 hab
 mlr
 vSi
@@ -67882,7 +67855,7 @@ piK
 lNR
 ttq
 djZ
-ibd
+jvL
 ibk
 bsY
 cRu
@@ -78544,7 +78517,7 @@ dEX
 kDe
 gYI
 dEX
-tOU
+kDe
 pPS
 pPS
 vLw
@@ -81868,7 +81841,7 @@ xwF
 aaa
 fap
 dnc
-kym
+vyO
 uAf
 mMj
 vyO
@@ -93471,7 +93444,7 @@ jdq
 sty
 iUX
 xih
-tLY
+tji
 xFw
 aaa
 aae

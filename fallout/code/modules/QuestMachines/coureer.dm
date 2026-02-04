@@ -1,4 +1,7 @@
 /obj/machinery/bounty_machine/courier
+	var/price_multiplier = 3
+
+/obj/machinery/bounty_machine/courier
 	/* Available item types and prices. [key] - item type< [value] - item price*/
 	var/list/price_list = list()
 
@@ -90,20 +93,27 @@
 		return
 
 	var/target_type = price_list[item_index]
+	var/price = get_item_price(target_type)
 
 	// Check price
-	if(stored_caps >= price_list[target_type])
+	if(stored_caps >= price)
 		// animation
 		flick("tele0", connected_pod)
 
 		//Remove caps
-		stored_caps -= price_list[target_type]
+		stored_caps -= price
 
 		// Create item
 		new target_type(connected_pod.loc)
 		to_chat(usr, "<span class='notice'>Done. *beep-beep*</span>")
 	else
 		to_chat(usr, "<span class='warning'>Need more caps.</span>")
+
+/obj/machinery/bounty_machine/courier/proc/get_item_price(var/target_type)
+	var/base_price = price_list[target_type]
+	if(!isnum(base_price) || base_price <= 0)
+		return 0
+	return max(1, round(base_price * price_multiplier))
 
 /*  INTERACTION */
 /obj/machinery/bounty_machine/courier/attackby(var/obj/item/OtherItem, var/mob/living/carbon/human/user, parameters)
@@ -134,8 +144,8 @@
 	for(var/i = 1; i <= price_list.len; i++)
 		var/itm_type = price_list[i]
 		var/atom/itm_ref = items_ref_list[i]
-		var/price = price_list[itm_type]
-		if(stored_caps < price_list[itm_type])
+		var/price = get_item_price(itm_type)
+		if(stored_caps < price)
 			dat += "<a href='?src=\ref[src];examine=[i]'>?</a>"
 			dat += "<font color = 'grey'><b> [itm_ref] - [price] </b></font>"
 			dat += "<a href='?src=\ref[src];buy=[i]'>Buy</a><br>"

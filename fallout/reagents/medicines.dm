@@ -330,6 +330,9 @@
 		REMOVE_TRAIT(M, TRAIT_75_RAD_RESIST, RADX_TRAIT)
 		if (!HAS_TRAIT_FROM(M, TRAIT_50_RAD_RESIST, RADX_TRAIT))
 			ADD_TRAIT(M, TRAIT_50_RAD_RESIST, RADX_TRAIT) // just in case
+	// Mildly helps your body recover from existing radiation sickness debt.
+	M.radiation_sickness = max(0, M.radiation_sickness - 0.8)
+	M.radiation_recent_exposure = max(0, M.radiation_recent_exposure - 4)
 	. = TRUE
 	..()
 
@@ -372,10 +375,14 @@
 		if(method != INJECT) // Gotta be injected
 			return
 		M.radiation = max(M.radiation - (reac_volume*2), 0) //two times reaction volume, double check my work
+		M.radiation_sickness = max(0, M.radiation_sickness - (reac_volume * 1.6))
+		M.radiation_recent_exposure = max(0, M.radiation_recent_exposure - (reac_volume * 2))
 	..()
 
 /datum/reagent/medicine/radaway/on_mob_life(mob/living/carbon/M)
 	M.radiation = max(M.radiation - 3, 0) //the other 60% works if drank or otherwise overtime
+	M.radiation_sickness = max(0, M.radiation_sickness - 1.8)
+	M.radiation_recent_exposure = max(0, M.radiation_recent_exposure - 6)
 	. = TRUE
 	..()
 

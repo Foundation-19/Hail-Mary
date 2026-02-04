@@ -7,11 +7,16 @@
 #define STATE_LOCKOPEN 3
 
 #define CASH_CAP_VENDOR 1
+#define WASTELAND_VENDOR_PRICE_MULT 3
 
 /* exchange rates X * CAP*/
 #define CASH_AUR_VENDOR 100 /* 100 caps to 1 AUR */
 #define CASH_DEN_VENDOR 4 /* 4 caps to 1 DEN */
 #define CASH_NCR_VENDOR 0.4 /* $100 to 40 caps */
+#define WASTELAND_VENDOR_DISTRICT_TAX 0.12
+#define WASTELAND_VENDOR_STABILITY_LOW 35
+#define WASTELAND_VENDOR_STABILITY_CRITICAL 18
+#define WASTELAND_VENDOR_MED_RAD_ALERT 8
 
 // Total number of caps value spent in the Trading Protectrons Vendors
 GLOBAL_VAR_INIT(vendor_cash, 0)
@@ -529,6 +534,64 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 	var/list/prize_list = list()  //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
 	var/list/highpop_list = list()  //if you add something to this, please, for the love of god, sort it by price/type. use tabs and not spaces.
 
+/obj/machinery/mineral/wasteland_vendor/proc/get_effective_price(base_cost)
+	if(!isnum(base_cost))
+		return 0
+	if(base_cost <= 0)
+		return 0
+	var/m = WASTELAND_VENDOR_PRICE_MULT
+	m *= get_district_price_mult()
+	m *= get_medical_demand_mult()
+	return max(1, round(base_cost * m))
+
+/obj/machinery/mineral/wasteland_vendor/proc/get_vendor_district()
+	if(!SSfaction_control)
+		return null
+	return SSfaction_control.get_district_for_atom(src)
+
+/obj/machinery/mineral/wasteland_vendor/proc/get_district_price_mult()
+	if(!SSfaction_control)
+		return 1.0
+	var/d = get_vendor_district()
+	if(!d)
+		return 1.0
+	var/m = 1.0
+	var/stability = SSfaction_control.get_district_stability(d)
+	if(stability <= WASTELAND_VENDOR_STABILITY_CRITICAL)
+		m *= 1.35
+	else if(stability < WASTELAND_VENDOR_STABILITY_LOW)
+		m *= 1.20
+	var/list/U = SSfaction_control.get_district_utility_state(d)
+	if(!U["power"])
+		m *= 1.15
+	if(!U["logistics"])
+		m *= 1.12
+	return m
+
+/obj/machinery/mineral/wasteland_vendor/proc/get_medical_demand_mult()
+	if(!istype(src, /obj/machinery/mineral/wasteland_vendor/medical))
+		return 1.0
+	var/bg_rads = round(GLOB.wasteland_grid_background_rads)
+	if(bg_rads >= (WASTELAND_VENDOR_MED_RAD_ALERT + 4))
+		return 1.30
+	if(bg_rads >= WASTELAND_VENDOR_MED_RAD_ALERT)
+		return 1.18
+	return 1.0
+
+/obj/machinery/mineral/wasteland_vendor/proc/apply_district_tax(collected_caps)
+	if(collected_caps <= 0 || !SSfaction_control)
+		return
+	var/d = get_vendor_district()
+	if(!d)
+		return
+	var/owner = SSfaction_control.get_owner(d)
+	if(!owner || !SSfaction_control.is_controllable_faction(owner))
+		return
+	var/tax = max(1, round(collected_caps * WASTELAND_VENDOR_DISTRICT_TAX))
+	SSfaction_control.add_faction_funds(owner, tax)
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "wasteland_vendor_district_tax", 1, list("[owner]", "[d]"))
+
 /obj/machinery/mineral/wasteland_vendor/snack
 	name = "Dine-o-Matic (Wasteland)"
 	desc = "A Port-a-Diner snack vendor. Accepts bottle caps only."
@@ -597,6 +660,8 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Super Stimpak",				/obj/item/reagent_containers/hypospray/medipen/stimpak/super,		3500),
 		new /datum/data/wasteland_equipment("Rad-X Bottle",				/obj/item/storage/pill_bottle/chem_tin/radx,					800),
 		new /datum/data/wasteland_equipment("RadAway",						/obj/item/reagent_containers/blood/radaway,					1500),
+		new /datum/data/wasteland_equipment("Defibrillator",				/obj/item/defibrillator,										2200),
+		new /datum/data/wasteland_equipment("Chest Reviver Implant",		/obj/item/organ/cyberimp/chest/reviver,						5400),
 		new /datum/data/wasteland_equipment("Surgery for Wastelanders",		/obj/item/book/granter/trait/lowsurgery,					8000),
 		new /datum/data/wasteland_equipment("Chemistry for Wastelanders",	/obj/item/book/granter/trait/chemistry,					12000)
 		)
@@ -607,6 +672,8 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		new /datum/data/wasteland_equipment("Super Stimpak",				/obj/item/reagent_containers/hypospray/medipen/stimpak/super,		3500),
 		new /datum/data/wasteland_equipment("Rad-X Bottle",				/obj/item/storage/pill_bottle/chem_tin/radx,					800),
 		new /datum/data/wasteland_equipment("RadAway",						/obj/item/reagent_containers/blood/radaway,					1500),
+		new /datum/data/wasteland_equipment("Defibrillator",				/obj/item/defibrillator,										2200),
+		new /datum/data/wasteland_equipment("Chest Reviver Implant",		/obj/item/organ/cyberimp/chest/reviver,						5400),
 		new /datum/data/wasteland_equipment("Surgery for Wastelanders",		/obj/item/book/granter/trait/lowsurgery,					8000),
 		new /datum/data/wasteland_equipment("Chemistry for Wastelanders",	/obj/item/book/granter/trait/chemistry,					12000)
 		)
@@ -1245,10 +1312,12 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 	dat += "<b>Vendor goods:</b><BR><table border='0' width='300'>"
 	if (GLOB.player_list.len>50)
 		for(var/datum/data/wasteland_equipment/prize in highpop_list)
-			dat += "<tr><td>[prize.equipment_name]</td><td>[prize.cost]</td><td><A href='?src=[REF(src)];purchase=[REF(prize)]'>Purchase</A></td></tr>"
+			var/effective_cost_hp = get_effective_price(prize.cost)
+			dat += "<tr><td>[prize.equipment_name]</td><td>[effective_cost_hp]</td><td><A href='?src=[REF(src)];purchase=[REF(prize)]'>Purchase</A></td></tr>"
 	else
 		for(var/datum/data/wasteland_equipment/prize in prize_list)
-			dat += "<tr><td>[prize.equipment_name]</td><td>[prize.cost]</td><td><A href='?src=[REF(src)];purchase=[REF(prize)]'>Purchase</A></td></tr>"
+			var/effective_cost = get_effective_price(prize.cost)
+			dat += "<tr><td>[prize.equipment_name]</td><td>[effective_cost]</td><td><A href='?src=[REF(src)];purchase=[REF(prize)]'>Purchase</A></td></tr>"
 	dat += "</table>"
 	dat += "</div>"
 
@@ -1267,11 +1336,13 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		if (!prize || !(prize in highpop_list))
 			to_chat(usr, span_warning("Error: Invalid choice!"))
 			return
-		if(prize.cost > stored_caps)
+		var/effective_cost_hp = get_effective_price(prize.cost)
+		if(effective_cost_hp > stored_caps)
 			to_chat(usr, span_warning("Error: Insufficent bottle caps value for [prize.equipment_name]!"))
 		else
-			stored_caps -= prize.cost
-			GLOB.vendor_cash += prize.cost
+			stored_caps -= effective_cost_hp
+			GLOB.vendor_cash += effective_cost_hp
+			apply_district_tax(effective_cost_hp)
 			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			new prize.equipment_path(src.loc)
 			SSblackbox.record_feedback("nested tally", "wasteland_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
@@ -1280,11 +1351,13 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 		if (!prize || !(prize in prize_list))
 			to_chat(usr, span_warning("Error: Invalid choice!"))
 			return
-		if(prize.cost > stored_caps)
+		var/effective_cost = get_effective_price(prize.cost)
+		if(effective_cost > stored_caps)
 			to_chat(usr, span_warning("Error: Insufficent bottle caps value for [prize.equipment_name]!"))
 		else
-			stored_caps -= prize.cost
-			GLOB.vendor_cash += prize.cost
+			stored_caps -= effective_cost
+			GLOB.vendor_cash += effective_cost
+			apply_district_tax(effective_cost)
 			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
 			new prize.equipment_path(src.loc)
 			SSblackbox.record_feedback("nested tally", "wasteland_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
@@ -1359,3 +1432,8 @@ GLOBAL_VAR_INIT(vendor_cash, 0)
 #undef CASH_AUR_VENDOR
 #undef CASH_DEN_VENDOR
 #undef CASH_NCR_VENDOR
+#undef WASTELAND_VENDOR_PRICE_MULT
+#undef WASTELAND_VENDOR_DISTRICT_TAX
+#undef WASTELAND_VENDOR_STABILITY_LOW
+#undef WASTELAND_VENDOR_STABILITY_CRITICAL
+#undef WASTELAND_VENDOR_MED_RAD_ALERT

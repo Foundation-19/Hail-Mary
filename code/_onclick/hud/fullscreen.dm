@@ -165,12 +165,112 @@
 /obj/screen/fullscreen/lighting_backdrop/lit
 	invisibility = INVISIBILITY_LIGHTING
 	layer = BACKGROUND_LAYER+21
-	color = "#000"
+	color = "#06090C"
 	show_when_dead = TRUE
 
 //Provides whiteness in case you don't see lights so everything is still visible
 /obj/screen/fullscreen/lighting_backdrop/unlit
 	layer = BACKGROUND_LAYER+20
+	color = "#B7C7D6"
+	alpha = 190
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/lighting_grain
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "noise"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+22
+	blend_mode = BLEND_OVERLAY
+	alpha = 10
+	color = "#B8AD94"
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_transition
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = FULLSCREEN_PLANE
+	layer = CURSE_LAYER
+	color = "#06080C"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_exposure
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+23
+	blend_mode = BLEND_MULTIPLY
+	color = "#0B1015"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_mood
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+24
+	blend_mode = BLEND_OVERLAY
+	color = "#D27A34"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_rads
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "noise"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+25
+	blend_mode = BLEND_OVERLAY
+	color = "#96FF8E"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_heat_haze
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "noise"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+26
+	blend_mode = BLEND_ADD
+	color = "#FFC67A"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_emergency
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+27
+	blend_mode = BLEND_OVERLAY
+	color = "#FF4C3E"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_dust
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "noise"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+28
+	blend_mode = BLEND_OVERLAY
+	color = "#D9B983"
+	alpha = 0
+	show_when_dead = TRUE
+
+/obj/screen/fullscreen/cinematic_lens_glow
+	icon = 'icons/mob/screen_gen.dmi'
+	icon_state = "flash"
+	screen_loc = "WEST,SOUTH to EAST,NORTH"
+	plane = LIGHTING_PLANE
+	layer = BACKGROUND_LAYER+29
+	blend_mode = BLEND_ADD
+	color = "#A6D8FF"
+	alpha = 0
 	show_when_dead = TRUE
 
 /obj/screen/fullscreen/see_through_darkness

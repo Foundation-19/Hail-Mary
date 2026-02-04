@@ -1207,7 +1207,12 @@
 	amount *= get_special_rad_resist_multiplier()
 
 	var/blocked = getarmor(null, "rad")
-	apply_effect((amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION), EFFECT_IRRADIATE, blocked)
+	var/applied = (amount*RAD_MOB_COEFFICIENT)/max(1, (radiation**2)*RAD_OVERDOSE_REDUCTION)
+	apply_effect(applied, EFFECT_IRRADIATE, blocked)
+
+	// Keep a short memory of incoming dose spikes for sickness progression.
+	var/blocked_mult = clamp((100 - blocked) / 100, 0, 1)
+	radiation_recent_exposure = min(RAD_SICKNESS_MAX, radiation_recent_exposure + ((amount - RAD_BACKGROUND_RADIATION) * RAD_MOB_COEFFICIENT * blocked_mult))
 	if(HAS_TRAIT(src,TRAIT_RADIMMUNE)) //prevents you from being burned by rads if radimmune but you can still accumulate
 		return
 	if(amount > RAD_BURN_THRESHOLD)

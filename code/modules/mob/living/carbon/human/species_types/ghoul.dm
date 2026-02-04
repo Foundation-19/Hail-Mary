@@ -46,6 +46,11 @@
 #define GHOUL_FERAL_CONFUSED_MAX 14
 #define GHOUL_FERAL_JITTER_MAX   10
 
+// At higher meltdown, ferals stop treating the ghoul as prey.
+// Hysteresis prevents rapid on/off flipping around threshold values.
+#define GHOUL_FERAL_ALLY_ON      0.35
+#define GHOUL_FERAL_ALLY_OFF     0.20
+
 // -------------------------
 // Per-mob throttle storage (REAL fix vs H.vars hacks)
 // Declared on the mob type so it actually persists.
@@ -53,6 +58,7 @@
 /mob/living/carbon/human
 	var/ghoul_wave_next = 0
 	var/ghoul_feedback_next = 0
+	var/ghoul_feral_ally = FALSE
 
 // Smooth-ish 0..1 ramp with ease-in (needs real rads to matter)
 /proc/ghoul_rad_factor(rads)
@@ -109,6 +115,7 @@
 					Your <span class='warning'>fragile limbs</span> are a source of vulnerability for you-they are easily dismembered and easily detached, though you can stick them on just as easily. You are incredibly fragile in melee. \
 					<span class='boldwarning'>Stimpaks and powder</span> will have reduced effect on your bizzare biology. Sutures, radiation, and other, non-chemical sources of healing are more effective. All chemicals that do not heal brute or burn work as normal. \
 					<span class='nicegreen'>Radiation heals and empowers you.</span> Too little radiation now causes tissue decay, while too much can push you into feral instability. \
+					At high meltdown, feral ghouls may temporarily identify you as one of their own. \
 					<span class='warning'>You are terrible at melee</span> and innately slower than humans. You also cannot go into critical condition-ever. You will keep shambling forward until you are <span class='danger'>dead.</span>"
 
 
@@ -173,6 +180,25 @@
 
 	H.ghoul_feedback_next = world.time + GHOUL_FEEDBACK_CD
 
+/datum/species/ghoul/proc/update_feral_alignment(mob/living/carbon/human/H, m)
+	if(!H)
+		return
+	if(!islist(H.faction))
+		H.faction = list(H.faction)
+
+	if(H.stat == DEAD || m <= GHOUL_FERAL_ALLY_OFF)
+		if(H.ghoul_feral_ally)
+			H.ghoul_feral_ally = FALSE
+			H.faction -= "ghoul"
+			if(H.stat != DEAD)
+				to_chat(H, span_notice("Your scent settles. Nearby ferals will no longer mistake you for one of their own."))
+		return
+
+	if(m >= GHOUL_FERAL_ALLY_ON && !H.ghoul_feral_ally)
+		H.ghoul_feral_ally = TRUE
+		H.faction |= "ghoul"
+		to_chat(H, span_warning("Feral instinct floods your senses. Wild ghouls now read you as kin."))
+
 
 //Ghouls have weak limbs.
 /datum/species/ghoul/on_species_gain(mob/living/carbon/C, datum/species/old_species)
@@ -199,6 +225,7 @@
 		var/mob/living/carbon/human/H = C
 		H.ghoul_wave_next = 0
 		H.ghoul_feedback_next = 0
+		H.ghoul_feral_ally = FALSE
 
 
 /datum/species/ghoul/on_species_loss(mob/living/carbon/C)
@@ -222,6 +249,9 @@
 	// remove our variable rad movespeed modifier so it can't linger
 	if(istype(C, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = C
+		if(H.ghoul_feral_ally)
+			H.faction -= "ghoul"
+			H.ghoul_feral_ally = FALSE
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
 		H.ghoul_wave_next = 0
 		H.ghoul_feedback_next = 0
@@ -271,6 +301,7 @@
 	#endif
 
 	if(H.stat == DEAD)
+		update_feral_alignment(H, 0)
 		H.set_light(0)
 		H.remove_status_effect(/datum/status_effect/ghoulheal)
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
@@ -280,6 +311,9 @@
 	var/f = ghoul_rad_factor(r)          // 0..1 heal/glow/speed factor (squared)
 	var/m = ghoul_meltdown_factor(r)     // 0..1 instability factor
 	var/s = ghoul_starve_factor(r)       // 0..1 low-rad degradation factor
+
+	// Deep meltdown makes feral ghouls treat this ghoul as kin.
+	update_feral_alignment(H, m)
 
 	// -----------------
 	// Healing scales with radiation (not binary).
@@ -298,6 +332,11 @@
 
 		H.confused = max(H.confused, round(2 + (GHOUL_FERAL_CONFUSED_MAX * m)))
 		H.jitteriness = max(H.jitteriness, round(1 + (GHOUL_FERAL_JITTER_MAX * m)))
+		H.slurring = max(H.slurring, round(1 + (6 * m)))
+
+		// Deep feral instability causes occasional loss of movement control.
+		if(m >= 0.70 && prob(round(6 + (12 * m))))
+			step(H, pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
 
 	// Apply core ghoul sustain
 	H.adjustCloneLoss(-healpwr)
@@ -357,14 +396,23 @@
 		return
 
 	var/f = ghoul_rad_factor(user.radiation)
+	var/m = ghoul_meltdown_factor(user.radiation)
 	if(f <= 0)
 		return
 
-	if(!prob(round(20 + (60 * f))))
+	if(!prob(round(20 + (60 * f) + (10 * m))))
 		return
 
-	var/rad_touch = round(5 + (15 * f))
+	var/rad_touch = round(5 + (15 * f) + (8 * m))
 	target.apply_effect(rad_touch, EFFECT_IRRADIATE, 0)
+
+	// High-meltdown ghouls can briefly overwhelm a target with feral strikes.
+	if(m >= 0.40 && prob(round(8 + (18 * m))))
+		target.adjustStaminaLoss(round(8 + (10 * m)))
+
+	// Tradeoff: uncontrolled attacks can hurt the ghoul too.
+	if(m >= 0.65 && prob(round(6 + (16 * m))))
+		user.adjustBruteLoss(1)
 	if(prob(round(20 + (25 * f))))
 		to_chat(target, span_warning("[user]'s irradiated claws sear your flesh."))
 

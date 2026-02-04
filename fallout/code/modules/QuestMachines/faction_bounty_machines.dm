@@ -1,4 +1,7 @@
 /obj/machinery/bounty_machine/faction
+	var/price_multiplier = 3
+
+/obj/machinery/bounty_machine/faction
 	/* Available item types and prices. [key] - item type< [value] - item price*/
 	var/list/price_list = list()
 
@@ -32,7 +35,8 @@
 	faction_id = FACTION_EASTWOOD
 	var/min_receiver_distance = 35
 	price_list = list(
-	/obj/item/parcel = 0
+	/obj/item/parcel = 0,
+	/obj/item/crafting/duct_tape = 120
 					)
 
 /obj/machinery/bounty_machine/faction/courier/town
@@ -46,6 +50,9 @@
 
 /obj/machinery/bounty_machine/faction/courier/bos
 	faction_id = FACTION_BROTHERHOOD
+
+/obj/machinery/bounty_machine/faction/courier/massfusion
+	faction_id = FACTION_MASS_FUSION
 
 /*
 ================ Mechanics ======================
@@ -101,14 +108,15 @@
 		return
 
 	var/target_type = price_list[item_index]
+	var/price = get_item_price(target_type)
 
 	// Check price
-	if(stored_caps >= price_list[target_type])
+	if(stored_caps >= price)
 		// animation
 		flick("tele0", connected_pod)
 
 		//Remove caps
-		stored_caps -= price_list[target_type]
+		stored_caps -= price
 
 		// Create item
 		new target_type(connected_pod.loc)
@@ -163,7 +171,7 @@
 		return
 
 	var/target_type = price_list[item_index]
-	var/price = price_list[target_type]
+	var/price = get_item_price(target_type)
 	if(stored_caps < price)
 		to_chat(user, "<span class='warning'>Insufficient funds.</span>")
 		return
@@ -183,6 +191,12 @@
 		return
 
 	..()
+
+/obj/machinery/bounty_machine/faction/proc/get_item_price(var/target_type)
+	var/base_price = price_list[target_type]
+	if(!isnum(base_price) || base_price <= 0)
+		return 0
+	return max(1, round(base_price * price_multiplier))
 
 /obj/machinery/bounty_machine/faction/courier/GetQuestUI()
 	var/dat = "<meta charset='UTF-8'>"
@@ -236,8 +250,8 @@
 	for(var/i = 1; i <= price_list.len; i++)
 		var/itm_type = price_list[i]
 		var/atom/itm_ref = items_ref_list[i]
-		var/price = price_list[itm_type]
-		if(stored_caps < price_list[itm_type])
+		var/price = get_item_price(itm_type)
+		if(stored_caps < price)
 			dat += "<a href='?src=\ref[src];examine=[i]'>?</a>"
 			dat += "<font color = 'grey'><b> [itm_ref] - [price] </b></font>"
 			dat += "<a href='?src=\ref[src];buy=[i]'>Buy</a><br>"

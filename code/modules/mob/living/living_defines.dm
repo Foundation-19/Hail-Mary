@@ -128,6 +128,12 @@
 	var/list/obj/effect/proc_holder/abilities = list()
 
 	var/radiation = 0 //If the mob is irradiated.
+	/// Persistent radiation sickness debt (separate from raw radiation storage).
+	var/radiation_sickness = 0
+	/// Tracks recent incoming exposure pulses so spikes feel dangerous.
+	var/radiation_recent_exposure = 0
+	/// Cooldown for radiation warning/status chat.
+	var/radiation_feedback_cooldown = 0
 	var/ventcrawl_layer = PIPING_LAYER_DEFAULT
 	var/losebreath = 0
 

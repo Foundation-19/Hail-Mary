@@ -20,6 +20,9 @@
 /obj/structure/f13/parcel_receiver_pad/bos
 	faction_id = FACTION_BROTHERHOOD
 
+/obj/structure/f13/parcel_receiver_pad/massfusion
+	faction_id = FACTION_MASS_FUSION
+
 /obj/machinery/f13/parcel_receiver_terminal
 	name = "parcel receiver terminal"
 	desc = "Authenticates sealed courier parcels and credits the courier and local faction treasury."
@@ -45,6 +48,9 @@
 
 /obj/machinery/f13/parcel_receiver_terminal/bos
 	faction_id = FACTION_BROTHERHOOD
+
+/obj/machinery/f13/parcel_receiver_terminal/massfusion
+	faction_id = FACTION_MASS_FUSION
 
 /obj/machinery/f13/parcel_receiver_terminal/Initialize(mapload)
 	. = ..()

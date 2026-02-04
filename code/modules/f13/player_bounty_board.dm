@@ -267,9 +267,20 @@
 	C.resolved_at = world.time
 
 	drop_caps_reward(C.reward_caps, T)
+	var/claim_bonus_msg = ""
+	if(SSfaction_control)
+		var/d = SSfaction_control.get_district_for_atom(src)
+		var/claimer_faction = SSfaction_control.get_mob_faction(user)
+		var/owner = d ? SSfaction_control.get_owner(d) : null
+		if(claimer_faction && owner == claimer_faction)
+			SSfaction_control.add_user_reputation(user, claimer_faction, 1)
+			SSfaction_control.add_faction_intel_points(claimer_faction, 1)
+			claim_bonus_msg = " District bonus: +1 faction rep, +1 intel."
+	if(SSblackbox)
+		SSblackbox.record_feedback("nested tally", "player_bounty_claims", 1, list("[C.id]", "[C.reward_caps]"))
 	playsound(src, 'sound/items/coinflip.ogg', 60, TRUE)
 	visible_message(span_notice("[user] claims bounty [C.id] for [C.reward_caps] caps."))
-	to_chat(user, span_notice("Bounty paid: [C.reward_caps] caps."))
+	to_chat(user, span_notice("Bounty paid: [C.reward_caps] caps.[claim_bonus_msg]"))
 	return TRUE
 
 /obj/machinery/f13/player_bounty_board/proc/cull_expired_and_prune()
