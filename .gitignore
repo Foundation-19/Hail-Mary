@@ -198,3 +198,9 @@ Temporary Items
 start_server.sh
 tgui/public/tgui.bundle.css
 tgui/public/tgui.bundle.js
+# Exclude map files
+_maps/map_files/**/*.dmm
+_maps/**/Test.dmm
+
+# Exclude this WIP sprite
+icons/turf/walls/reinforced_wall.dmi
