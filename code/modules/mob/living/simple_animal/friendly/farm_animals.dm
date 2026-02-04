@@ -166,6 +166,8 @@
 
 	var/last_fear_check = 0
 	var/fear_check_cooldown = 30 // 3 seconds in deciseconds
+	var/being_untipped = FALSE
+	var/auto_untip_attempted = FALSE
 
 	footstep_type = FOOTSTEP_MOB_SHOE
 ///////////////////////
@@ -700,11 +702,8 @@
 			to_chat(src, span_notice("[M] helps you back up!"))
 			
 			// FIXED: Properly restore icon and remove knockdown
+			being_untipped = TRUE
 			icon_state = icon_living
-			set_resting(FALSE) // Make sure they're not resting
-			SetKnockdown(0) // Clear knockdown completely
-			SetStun(0) // Clear any stuns
-			update_icons() // Update appearance
 			return
 		
 		// Normal petting when not tipped
@@ -744,24 +743,31 @@
 		M.visible_message(span_warning("[M] tips over [src]!"),
 			span_notice("You tip over [src]!"))
 		to_chat(src, span_userdanger("You are tipped over by [M]!"))
-		DefaultCombatKnockdown(60, ignore_canknockdown = TRUE)
 		icon_state = icon_dead
+		being_untipped = FALSE
+		auto_untip_attempted = FALSE
 		spawn(rand(20,50))
-			if(!stat && M)
+			if(!stat && !being_untipped && !auto_untip_attempted)
+				auto_untip_attempted = TRUE
+		
+				if(!prob(50))
+					visible_message(span_notice("[src] struggles but can't get back up..."))
+					return
+		
 				icon_state = icon_living
+				visible_message(span_notice("[src] struggles and manages to get back on its feet!"))
+		
 				var/external
 				var/internal
 				switch(pick(1,2,3,4))
 					if(1,2,3)
-						var/text = pick("imploringly.", "pleadingly.",
-							"with a resigned expression.")
+						var/text = pick("imploringly.", "pleadingly.", "with a resigned expression.")
 						external = "[src] looks at [M] [text]"
 						internal = "You look at [M] [text]"
 					if(4)
 						external = "[src] seems resigned to its fate."
 						internal = "You resign yourself to your fate."
-				visible_message(span_notice("[external]"),
-					span_revennotice("[internal]"))
+				visible_message(span_notice("[external]"), span_revennotice("[internal]"))
 		return
 	
 	return ..()
