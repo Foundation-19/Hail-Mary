@@ -166,6 +166,11 @@
 	if(isanimal(M))
 		var/mob/living/simple_animal/SA = M
 		
+		// Block robotic/inorganic mobs
+		if(SA.mob_biotypes & (MOB_ROBOTIC|MOB_INORGANIC))
+			to_chat(user, span_warning("[SA] is mechanical - this medicine won't work on robots!"))
+			return
+		
 		if(SA.stat == DEAD)
 			to_chat(user, span_warning("[SA] is dead, medicine won't help now."))
 			return
@@ -203,7 +208,6 @@
 			mount.grant_healing_loyalty(total_instant_heal, user)
 		
 		// HEALING OVER TIME - Start the healing process BEFORE deleting the salve
-		// Pass the healing to a global proc that won't be deleted
 		apply_animal_salve_overtime(SA, 9, 6, 6)
 		
 		to_chat(user, span_notice("[SA] looks healthier! The salve will continue working over time."))
@@ -217,7 +221,6 @@
 		return
 	
 	return ..()
-
 /obj/item/reagent_containers/pill/animal_salve/afterattack(obj/target, mob/user, proximity)
 	. = ..()
 	if(!proximity)
@@ -247,6 +250,10 @@
 		target.adjustFireLoss(-burn_per_tick, FALSE)
 		target.updatehealth()
 		
-		// Visual feedback every few ticks
-		if(i % 3 == 0)
+		// Visual feedback every few ticks, but NOT on the last tick
+		if(i % 3 == 0 && i < ticks)
 			target.visible_message(span_notice("[target]'s wounds continue to close..."))
+	
+	// Final message when healing is complete
+	if(target && !QDELETED(target) && target.stat != DEAD)
+		target.visible_message(span_notice("The salve on [target] has finished its work."))

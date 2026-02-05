@@ -413,6 +413,21 @@
 			if(owner)
 				visible_message(span_warning("[src] stops following [owner] due to the pain!"))
 		
+		// FEAR PROC when unmounted and damaged
+		if(!current_rider && amount >= 5) // Only if unmounted and significant damage
+			var/fear_chance = 60 // 60% chance to panic
+			if(prob(fear_chance))
+				visible_message(span_warning("[src] panics from the pain and flees in terror!"))
+				
+				// Flee like the bucking code
+				spawn(0)
+					for(var/i in 1 to rand(6,10))
+						if(stat)
+							break
+						var/flee_dir = pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
+						step(src, flee_dir)
+						sleep(3)
+		
 		// Existing pain emote code
 		if(prob(30))
 			var/list/pain_emotes = list(
@@ -588,17 +603,65 @@
 		if(brand)
 			to_chat(user, span_warning("This mount already has a brand!"))
 			return
-
+		
+		if(user != owner)
+			to_chat(user, span_warning("You need to claim the mount with a bridle before you can brand it!"))
+			return
+		
+		// Calculate total loyalty for branding check
+		var/total_loyalty = get_total_loyalty()
+		
+		// Loyalty thresholds for branding success
+		var/kick_chance = 0
+		if(total_loyalty < 40)
+			kick_chance = 80 // Very low loyalty = 80% kick chance
+		else if(total_loyalty < 60)
+			kick_chance = 60 // Low loyalty = 60% kick chance
+		else if(total_loyalty < 80)
+			kick_chance = 40 // Medium loyalty = 40% kick chance
+		// else 0% - high loyalty (80+) = guaranteed success
+		
+		// Check if mount kicks the player
+		if(kick_chance > 0 && prob(kick_chance))
+			// MOUNT KICKS PLAYER
+			visible_message(span_danger("[src] violently kicks [user] away!"))
+			to_chat(user, span_userdanger("[src] kicks you hard in the chest!"))
+			
+			// Only apply effects if user is a living mob
+			if(isliving(user))
+				var/mob/living/L = user
+				
+				// Screen shake
+				if(L.client)
+					shake_camera(L, 4, 4)
+				
+				// Damage and knockdown
+				L.apply_damage(25, BRUTE, BODY_ZONE_CHEST)
+				L.Paralyze(20)
+				L.Knockdown(30)
+				
+				// Throw player back
+				var/throw_dir = get_dir(src, L)
+				var/turf/throw_target = get_step(L, throw_dir)
+				if(throw_target)
+					L.throw_at(throw_target, 2, 1)
+			
+			playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
+			
+			to_chat(user, span_warning("You need to build more loyalty before [src] will accept a brand! (Current loyalty: [total_loyalty]/80 required)"))
+			return
+		
+		// SUCCESS - Brand the mount
 		brand = input("What would you like to brand on your mount?","Brand", brand)
-
+		
 		if(!brand)
 			return
 		
 		loyalty_from_brand = 15
+		visible_message(span_notice("[user] successfully brands [src]!"))
 		to_chat(user, span_notice("You brand [src]. They seem to accept you as their master!"))
 		qdel(O)
 		return
-	. = ..()
 
 /mob/living/simple_animal/cow/heal_bodypart_damage(brute, burn, updating_health)
 	var/healed_amount = ..()

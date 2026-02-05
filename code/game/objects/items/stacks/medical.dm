@@ -177,22 +177,53 @@
  * * * * * * * * * * * * * * * * * * */
 /obj/item/stack/medical/proc/heal_critter(mob/living/M, mob/user)
 	if(!isanimal(M))
-		return
+		return FALSE
+	
 	var/mob/living/simple_animal/critter = M
+	
+	// Block robotic/inorganic mobs
+	if(critter.mob_biotypes & (MOB_ROBOTIC|MOB_INORGANIC))
+		to_chat(user, span_warning("[critter] is mechanical - use a welder to repair robots!"))
+		return FALSE
+	
 	if(M.stat == DEAD)
-		to_chat(user, span_notice(" [M] is dead. You can not help [M.p_them()]!"))
-		return
-	if (heal_mobs <= 0)
+		to_chat(user, span_notice("[M] is dead. You can not help [M.p_them()]!"))
+		return FALSE
+	
+	if(heal_mobs <= 0)
 		to_chat(user, span_warning("[M] cannot be healed with [src]!"))
 		return FALSE
-	if (!(critter.healable))
+	
+	if(!(critter.healable))
 		to_chat(user, span_warning("[M] cannot be healed!"))
 		return FALSE
-	if (critter.health >= critter.maxHealth)
+	
+	if(critter.health >= critter.maxHealth)
 		to_chat(user, span_notice("[M] is at full health."))
 		return FALSE
-	user.visible_message(span_green("[user] applies \the [src] on [M]."), span_green("You apply \the [src] on [M]."))
+	
+	// Start channeling
+	user.visible_message(
+		span_notice("[user] starts applying \the [src] on [M]..."),
+		span_notice("You start applying \the [src] on [M]..."))
+	
+	if(!do_after(user, 3 SECONDS, target = M))
+		to_chat(user, span_warning("You stop treating [M]."))
+		return FALSE
+	
+	// Successfully healed
+	user.visible_message(
+		span_green("[user] applies \the [src] on [M]."),
+		span_green("You apply \the [src] on [M]."))
+	
+	var/amount_healed = min(heal_mobs, critter.maxHealth - critter.health)
 	critter.adjustHealth(-heal_mobs)
+	
+	// Grant loyalty if it's a mount
+	if(istype(critter, /mob/living/simple_animal/cow))
+		var/mob/living/simple_animal/cow/mount = critter
+		mount.grant_healing_loyalty(amount_healed, user)
+	
 	return TRUE
 
 /* * * * * * * * * * * * * * * * * * *
