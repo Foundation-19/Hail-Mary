@@ -184,7 +184,7 @@
 			span_notice("[user] starts applying [src] to [SA]..."),
 			span_notice("You start applying [src] to [SA]..."))
 		
-		if(!do_after(user, 3 SECONDS, target = M))
+		if(!do_after(user, 2 SECONDS, target = M))
 			to_chat(user, span_warning("You stop applying the medicine."))
 			return
 		

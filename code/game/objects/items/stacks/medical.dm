@@ -217,7 +217,7 @@
 		span_notice("[user] starts applying \the [src] on [M]..."),
 		span_notice("You start applying \the [src] on [M]..."))
 	
-	if(!do_after(user, 3 SECONDS, target = M))
+	if(!do_after(user, 2 SECONDS, target = M))
 		to_chat(user, span_warning("You stop treating [M]."))
 		return FALSE
 	
