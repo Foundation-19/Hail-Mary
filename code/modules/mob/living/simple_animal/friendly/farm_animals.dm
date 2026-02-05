@@ -116,6 +116,7 @@
 			H.visible_message(span_warning("[src] takes a big chomp out of [H]!"), \
 									span_userdanger("[src] takes a big chomp out of your [NB]!"))
 			NB.dismember()
+
 //cow
 /mob/living/simple_animal/cow
 	name = "cow"
@@ -170,10 +171,10 @@
 	var/auto_untip_attempted = FALSE
 
 	footstep_type = FOOTSTEP_MOB_SHOE
+	
 ///////////////////////
 //Dave's Brahmin Bags//
 ///////////////////////
-
 
 	var/mob/living/owner = null
 	var/follow = FALSE
@@ -279,7 +280,6 @@
 		else if(findtext(lowertext(message), "stay") || findtext(lowertext(message), "stop"))
 			attempt_stay(speaker)
 
-// FIXED: attempt_come_to_owner - removed ai_controller code
 /mob/living/simple_animal/cow/proc/attempt_come_to_owner(mob/living/caller)
 	if(!caller || stat)
 		return
@@ -332,7 +332,6 @@
 			step_to(src, owner, 0)
 			sleep(4) // Slower movement - matches walking pace (2 for jogging, 4 for walking, 6 for crawling)
 
-// FIXED: attempt_stay - removed ai_controller code
 /mob/living/simple_animal/cow/proc/attempt_stay(mob/living/caller)
 	if(!caller || stat)
 		return
@@ -403,7 +402,6 @@
 	
 	return bucking_chance
 
-// Add this to the adjustBruteLoss override that's already in the code
 /mob/living/simple_animal/cow/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
 	. = ..()
 	if(amount > 0 && !stat)
@@ -438,7 +436,6 @@
 			)
 			visible_message(span_warning(pick(pain_emotes)))
 
-// Override the Move proc to add fear resistance - FIXED: Removed sleep() from main proc
 /mob/living/simple_animal/cow/Move(NewLoc, direct)
 	// Check for fear if mounted and on cooldown
 	if(current_rider && (saddle || bridle) && world.time >= last_fear_check + fear_check_cooldown)
@@ -495,7 +492,7 @@
 					if(throw_target)
 						rider.throw_at(throw_target, 2, 1)
 				
-				// FLEE - FIXED: Use spawn() to avoid blocking with sleep()
+				// FLEE
 				visible_message(span_warning("[src] flees in terror!"))
 				spawn(0)
 					for(var/i in 1 to rand(5,8))
@@ -580,23 +577,7 @@
 		return
 
 	if(istype(O,/obj/item/brahminsaddle))
-		if(saddle)
-			to_chat(user, span_warning("This mount already has a saddle!"))
-			return
-
-		saddle = TRUE
-		can_buckle = TRUE
-		buckle_lying = FALSE
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-		D.set_riding_offsets(RIDING_OFFSET_ALL, ride_offsets)
-		D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-		D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-		D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-		D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
-		D.vehicle_move_delay = ride_move_delay
-		D.drive_verb = "ride"
-		to_chat(user, span_notice("You add [O] to [src]."))
-		qdel(O)
+		install_saddle(O, user)
 		return
 
 	if(istype(O,/obj/item/brahminbrand))
@@ -663,13 +644,39 @@
 		qdel(O)
 		return
 
+// CONSOLIDATED SADDLE INSTALLATION
+/mob/living/simple_animal/cow/proc/install_saddle(obj/item/brahminsaddle/saddle_item, mob/user, list/custom_offsets)
+	if(saddle)
+		to_chat(user, span_warning("This mount already has a saddle!"))
+		return FALSE
+	
+	saddle = TRUE
+	can_buckle = TRUE
+	buckle_lying = FALSE
+	
+	var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+	
+	// Use custom offsets if provided, otherwise use default ride_offsets
+	var/list/mount_offsets = custom_offsets || ride_offsets
+	
+	D.set_riding_offsets(RIDING_OFFSET_ALL, mount_offsets)
+	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
+	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
+	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
+	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	D.vehicle_move_delay = ride_move_delay
+	D.drive_verb = "ride"
+	
+	to_chat(user, span_notice("You add [saddle_item] to [src]."))
+	qdel(saddle_item)
+	return TRUE
+
 /mob/living/simple_animal/cow/heal_bodypart_damage(brute, burn, updating_health)
 	var/healed_amount = ..()
 	if(healed_amount > 0 && isliving(usr))
 		grant_healing_loyalty(healed_amount, usr)
 	return healed_amount
 
-// Loyalty decay in life tick - decays temporary loyalty first
 /mob/living/simple_animal/cow/BiologicalLife(seconds, times_fired)
 	if(!(. = ..()))
 		return
@@ -767,7 +774,6 @@
 		if(D)
 			D.vehicle_move_delay = ride_move_delay
 
-// FIXED: Tipping AND untipping with SPECIAL strength check
 /mob/living/simple_animal/cow/on_attack_hand(mob/living/carbon/M, act_intent = M.a_intent, unarmed_attack_flags)
 	if(!stat && M.a_intent == INTENT_HELP)
 		// Check if mount is tipped over - help them up
@@ -789,7 +795,7 @@
 				span_notice("You help [src] back up!"))
 			to_chat(src, span_notice("[M] helps you back up!"))
 			
-			// FIXED: Properly restore icon and remove knockdown
+			// Properly restore icon and remove knockdown
 			being_untipped = TRUE
 			icon_state = icon_living
 			return
@@ -860,7 +866,6 @@
 	
 	return ..()
 
-// FIXED: Feed function with potency-based stamina gain
 /mob/living/simple_animal/cow/proc/feed_em(obj/item/I, mob/user)
 	if(!I || !user)
 		return
@@ -898,7 +903,7 @@
 		hunger = round(hunger_float)
 		update_speed()
 		
-		// FIXED: Update rider's sprint display immediately if mounted
+		// Update rider's sprint display immediately if mounted
 		if(current_rider)
 			update_rider_sprint_display(current_rider)
 			to_chat(current_rider, span_notice("[src]'s stamina: [100 - ((hunger_float - 1.0) / 3.0 * 100)]%"))
@@ -934,7 +939,6 @@
 		follow = FALSE
 		return
 
-// FIXED: CtrlShiftClick with proper mob/user parameter
 /mob/living/simple_animal/cow/CtrlShiftClick(mob/user)
 	if(get_dist(user, src) > 1)
 		return
@@ -976,7 +980,6 @@
 // MOUNT SPRINT SYSTEM  //
 ///////////////////////////
 
-// Handle mount sprint stamina loss
 /mob/living/simple_animal/cow/proc/doMountSprintLoss(tiles, mob/living/carbon/rider)
 	if(!rider || !rider.client)
 		stop_mount_sprint(rider)
@@ -1023,7 +1026,6 @@
 	if(!trying_to_sprint && is_sprinting)
 		stop_mount_sprint(current_rider)
 
-// Start the mount sprinting
 /mob/living/simple_animal/cow/proc/start_mount_sprint(mob/living/carbon/rider)
 	is_sprinting = TRUE
 	
@@ -1034,7 +1036,6 @@
 	
 	last_sprint_time = world.time
 
-// Stop the mount sprinting
 /mob/living/simple_animal/cow/proc/stop_mount_sprint(mob/living/carbon/rider)
 	if(!is_sprinting)
 		return
@@ -1044,7 +1045,6 @@
 	// Recalculate normal speed based on current hunger
 	update_speed()
 
-// Update the rider's sprint bar to show mount hunger
 /mob/living/simple_animal/cow/proc/update_rider_sprint_display(mob/living/carbon/rider)
 	if(!rider)
 		return
@@ -1057,9 +1057,55 @@
 	rider.update_hud_sprint_bar()
 
 ///////////////////////////
-//End Dave's Brahmin Bags//
+// CONSOLIDATED BUCKLE  //
 ///////////////////////////
 
+// Base class handles power armor check + rider setup
+/mob/living/simple_animal/cow/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
+	// Power armor check - applies to ALL mounts
+	if(ishuman(M) && istype(M.wear_suit))
+		var/obj/item/clothing/suit/armor = M.wear_suit
+		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
+			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
+			
+			if(!do_after(M, 3 SECONDS, target = src))
+				return FALSE
+			
+			src.death()
+			M.Paralyze(4 SECONDS)
+			M.Knockdown(6 SECONDS)
+			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
+			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
+			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
+			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+			return FALSE
+	
+	. = ..()
+	
+	// Handle rider sprint system
+	if(. && M && ishuman(M))
+		current_rider = M
+		M.save_sprint_on_mount(src)
+		update_rider_sprint_display(M)
+
+// Base class handles unbuckle
+/mob/living/simple_animal/cow/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
+	if(buckled_mob)
+		buckled_mob.pixel_x = 0
+		buckled_mob.pixel_y = 0
+		
+		if(ishuman(buckled_mob))
+			var/mob/living/carbon/human/rider = buckled_mob
+			rider.restore_sprint_on_dismount()
+			stop_mount_sprint(rider)
+	
+	current_rider = null
+	return ..()
+
+///////////////////////////
+//End Dave's Brahmin Bags//
+///////////////////////////
 
 //a cow that produces a random reagent in its udder
 /mob/living/simple_animal/cow/random
@@ -1284,24 +1330,10 @@
 	icon_gib = "brahmin_gib"
 	speak = list("moo?","moo","MOOOOOO")
 	speak_emote = list("moos","moos hauntingly")
-	emote_hear = list("brays.")
-	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
 	waddle_amount = 3
 	waddle_up_time = 1
 	waddle_side_time = 2
 	can_ghost_into = TRUE
-	attack_sound = 'sound/weapons/punch1.ogg'
 	young_type = /mob/living/simple_animal/cow/brahmin/calf
 	var/obj/item/inventory_back
 	footstep_type = FOOTSTEP_MOB_HOOF
@@ -1312,53 +1344,17 @@
 		/obj/item/stack/sheet/animalhide/brahmin = 3,
 		/obj/item/stack/sheet/bone = 2
 		)
-	butcher_results = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
-		/obj/item/stack/sheet/bone = 2
-		)
 	butcher_difficulty = 1
 
+// Only override if you need custom pixel positioning
 /mob/living/simple_animal/cow/brahmin/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(ishuman(M) && istype(M.wear_suit))
-		var/obj/item/clothing/suit/armor = M.wear_suit
-		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
-			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
-			
-			if(!do_after(M, 3 SECONDS, target = src))
-				return FALSE
-			
-			src.death()
-			M.Paralyze(4 SECONDS)
-			M.Knockdown(6 SECONDS)
-			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
-			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
-			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
-			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-			return FALSE
-	
 	. = ..()
 	
 	if(. && M)
-		M.pixel_x = 0
-		M.pixel_y = 6
-		if(ishuman(M))
-			current_rider = M
-			M.save_sprint_on_mount(src)
-			update_rider_sprint_display(M)
-
-/mob/living/simple_animal/cow/brahmin/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/rider = buckled_mob
-			rider.restore_sprint_on_dismount()
-			stop_mount_sprint(rider)
-	
-	current_rider = null
-	return ..()
+		spawn(1)
+			if(M && M.buckled == src)
+				M.pixel_x = 0
+				M.pixel_y = 6
 
 /mob/living/simple_animal/cow/brahmin/molerat
 	name = "tamed molerat"
@@ -1372,112 +1368,31 @@
 	speak_emote = list("grrrllgs","makes horrible molerat noises")
 	emote_hear = list("chatters.")
 	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = 5
-	see_in_dark = 6
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "bites"
-	response_harm_simple = "bite"
-	attack_verb_continuous = "bites"
-	attack_verb_simple = "bite"
 	waddle_amount = 4
-	waddle_up_time = 1
-	waddle_side_time = 2
-	can_ghost_into = TRUE
-	attack_sound = 'sound/weapons/punch1.ogg'
-	footstep_type = FOOTSTEP_MOB_HOOF
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
 		/obj/item/stack/sheet/bone = 2
 		)
-	butcher_results = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
-		/obj/item/stack/sheet/bone = 2
-		)
-	butcher_difficulty = 1
 
 /mob/living/simple_animal/cow/brahmin/molerat/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(ishuman(M) && istype(M.wear_suit))
-		var/obj/item/clothing/suit/armor = M.wear_suit
-		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
-			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
-			
-			if(!do_after(M, 3 SECONDS, target = src))
-				return FALSE
-			
-			src.death()
-			M.Paralyze(4 SECONDS)
-			M.Knockdown(6 SECONDS)
-			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
-			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
-			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
-			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-			return FALSE
-	
 	. = ..()
 	
 	if(. && M)
-		if(ishuman(M))
-			current_rider = M
-			M.save_sprint_on_mount(src)
-			update_rider_sprint_display(M)
-		
-		// Delay the pixel setting to override riding component
 		spawn(1)
 			if(M && M.buckled == src)
 				M.pixel_x = 0
 				M.pixel_y = 8
 
-// Override attackby to set custom ride offsets when saddle is added
 /mob/living/simple_animal/cow/brahmin/molerat/attackby(obj/item/O, mob/user, params)
-	if(istype(O,/obj/item/brahminsaddle))
-		if(saddle)
-			to_chat(user, span_warning("This mount already has a saddle!"))
-			return
-
-		saddle = TRUE
-		can_buckle = TRUE
-		buckle_lying = FALSE
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-		
-		// Set custom mount offsets - these will be used for ALL movement
-		var/list/mount_offsets = list(
-			"1" = list(0, 8),  // SOUTH
-			"2" = list(0, 8),  // NORTH
-			"4" = list(0, 8),  // EAST
-			"8" = list(0, 8)   // WEST
+	if(istype(O, /obj/item/brahminsaddle))
+		var/list/molerat_offsets = list(
+			"1" = list(0, 8),
+			"2" = list(0, 8),
+			"4" = list(0, 8),
+			"8" = list(0, 8)
 		)
-		D.set_riding_offsets(RIDING_OFFSET_ALL, mount_offsets)
-		
-		// Use ABOVE_MOB_LAYER for left and right movement so mount renders behind rider
-		D.set_vehicle_dir_layer(SOUTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(NORTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
-		D.set_vehicle_dir_layer(WEST, ABOVE_MOB_LAYER)
-		
-		D.vehicle_move_delay = ride_move_delay
-		D.drive_verb = "ride"
-		to_chat(user, span_notice("You add [O] to [src]."))
-		qdel(O)
+		install_saddle(O, user, molerat_offsets)
 		return
-	
-	return ..()
-
-/mob/living/simple_animal/cow/brahmin/molerat/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-		
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/rider = buckled_mob
-			rider.restore_sprint_on_dismount()
-			stop_mount_sprint(rider)
-	
-	current_rider = null
 	return ..()
 
 //Horse
@@ -1493,119 +1408,35 @@
 	pixel_y = -6
 	speak = list("*shiver", "*alert")
 	speak_emote = list("nays","nays hauntingly")
-	emote_hear = list("brays.")
-	emote_see = list("shakes its head.")
-	speak_chance = 1
-	turns_per_move = -1
-	see_in_dark = 6
 	health = 100
 	maxHealth = 100
 	ride_move_delay = 2.25
-	can_ghost_into = TRUE
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "kicks"
-	response_harm_simple = "kick"
-	attack_verb_continuous = "kicks"
-	attack_verb_simple = "kick"
-	waddle_amount = 3
-	waddle_up_time = 1
-	waddle_side_time = 2
-	attack_sound = 'sound/weapons/punch1.ogg'
 	young_type = /mob/living/simple_animal/cow/brahmin/horse
-	footstep_type = FOOTSTEP_MOB_HOOF
 	guaranteed_butcher_results = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
-		/obj/item/stack/sheet/bone = 2
-		)
-	butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
 		/obj/item/crafting/wonderglue = 1,
 		/obj/item/stack/sheet/bone = 2
 		)
-	butcher_difficulty = 1
 
 /mob/living/simple_animal/cow/brahmin/horse/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(ishuman(M) && istype(M.wear_suit))
-		var/obj/item/clothing/suit/armor = M.wear_suit
-		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
-			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
-			
-			if(!do_after(M, 3 SECONDS, target = src))
-				return FALSE
-			
-			src.death()
-			M.Paralyze(4 SECONDS)
-			M.Knockdown(6 SECONDS)
-			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
-			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
-			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
-			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-			return FALSE
-	
 	. = ..()
 	
 	if(. && M)
-		if(ishuman(M))
-			current_rider = M
-			M.save_sprint_on_mount(src)
-			update_rider_sprint_display(M)
-		
-		// Delay the pixel setting to override riding component
 		spawn(1)
 			if(M && M.buckled == src)
 				M.pixel_x = 16
 				M.pixel_y = 18
 
-// Override attackby to set custom ride offsets when saddle is added
 /mob/living/simple_animal/cow/brahmin/horse/attackby(obj/item/O, mob/user, params)
-	if(istype(O,/obj/item/brahminsaddle))
-		if(saddle)
-			to_chat(user, span_warning("This mount already has a saddle!"))
-			return
-
-		saddle = TRUE
-		can_buckle = TRUE
-		buckle_lying = FALSE
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-		
-		// Set custom mount offsets - these will be used for ALL movement
-		var/list/mount_offsets = list(
-			"1" = list(16, 18),  // SOUTH
-			"2" = list(16, 18),  // NORTH
-			"4" = list(16, 18),  // EAST
-			"8" = list(16, 18)   // WEST
+	if(istype(O, /obj/item/brahminsaddle))
+		var/list/horse_offsets = list(
+			"1" = list(16, 18),
+			"2" = list(16, 18),
+			"4" = list(16, 18),
+			"8" = list(16, 18)
 		)
-		D.set_riding_offsets(RIDING_OFFSET_ALL, mount_offsets)
-		
-		// Use ABOVE_MOB_LAYER for left and right movement so mount renders behind rider
-		D.set_vehicle_dir_layer(SOUTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(NORTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
-		D.set_vehicle_dir_layer(WEST, ABOVE_MOB_LAYER)
-		
-		D.vehicle_move_delay = ride_move_delay
-		D.drive_verb = "ride"
-		to_chat(user, span_notice("You add [O] to [src]."))
-		qdel(O)
+		install_saddle(O, user, horse_offsets)
 		return
-	
-	return ..()
-
-/mob/living/simple_animal/cow/brahmin/horse/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-		
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/rider = buckled_mob
-			rider.restore_sprint_on_dismount()
-			stop_mount_sprint(rider)
-	
-	current_rider = null
 	return ..()
 
 //Ridable Nightstalker
@@ -1621,25 +1452,9 @@
 	speak_emote = list("barks","hisses")
 	emote_hear = list("perks its head up.")
 	emote_see = list("stares.")
-	speak_chance = 1
-	turns_per_move = -1
-	see_in_dark = 6
 	health = 150
 	maxHealth = 150
 	ride_move_delay = 2.5
-	can_ghost_into = TRUE
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "bites"
-	response_harm_simple = "bites"
-	attack_verb_continuous = "bites"
-	attack_verb_simple = "bite"
-	waddle_amount = 3
-	waddle_up_time = 1
-	waddle_side_time = 2
-	attack_sound = 'sound/weapons/punch1.ogg'
 	young_type = /mob/living/simple_animal/cow/brahmin/nightstalker
 	food_types = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
@@ -1651,91 +1466,26 @@
 		/obj/item/stack/sheet/sinew = 2,
 		/obj/item/stack/sheet/bone = 2
 		)
-	butcher_results = list(
-		/obj/item/clothing/head/f13/stalkerpelt = 1,
-		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 1
-		)
-	butcher_difficulty = 1
 
 /mob/living/simple_animal/cow/brahmin/nightstalker/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(ishuman(M) && istype(M.wear_suit))
-		var/obj/item/clothing/suit/armor = M.wear_suit
-		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
-			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
-			
-			if(!do_after(M, 3 SECONDS, target = src))
-				return FALSE
-			
-			src.death()
-			M.Paralyze(4 SECONDS)
-			M.Knockdown(6 SECONDS)
-			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
-			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
-			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
-			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-			return FALSE
-	
 	. = ..()
 	
 	if(. && M)
-		if(ishuman(M))
-			current_rider = M
-			M.save_sprint_on_mount(src)
-			update_rider_sprint_display(M)
-		
-		// Delay the pixel setting to override riding component
 		spawn(1)
 			if(M && M.buckled == src)
 				M.pixel_x = 15
 				M.pixel_y = 8
 
-// Override attackby to set custom ride offsets when saddle is added
 /mob/living/simple_animal/cow/brahmin/nightstalker/attackby(obj/item/O, mob/user, params)
-	if(istype(O,/obj/item/brahminsaddle))
-		if(saddle)
-			to_chat(user, span_warning("This mount already has a saddle!"))
-			return
-
-		saddle = TRUE
-		can_buckle = TRUE
-		buckle_lying = FALSE
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-		
-		// Set custom mount offsets - these will be used for ALL movement
-		var/list/mount_offsets = list(
-			"1" = list(15, 10),  // SOUTH
-			"2" = list(15, 10),  // NORTH
-			"4" = list(15, 10),  // EAST
-			"8" = list(15, 10)   // WEST
+	if(istype(O, /obj/item/brahminsaddle))
+		var/list/nightstalker_offsets = list(
+			"1" = list(15, 10),
+			"2" = list(15, 10),
+			"4" = list(15, 10),
+			"8" = list(15, 10)
 		)
-		D.set_riding_offsets(RIDING_OFFSET_ALL, mount_offsets)
-		
-		// Use ABOVE_MOB_LAYER for left and right movement so mount renders behind rider
-		D.set_vehicle_dir_layer(SOUTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(NORTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
-		D.set_vehicle_dir_layer(WEST, ABOVE_MOB_LAYER)
-		
-		D.vehicle_move_delay = ride_move_delay
-		D.drive_verb = "ride"
-		to_chat(user, span_notice("You add [O] to [src]."))
-		qdel(O)
+		install_saddle(O, user, nightstalker_offsets)
 		return
-	
-	return ..()
-
-/mob/living/simple_animal/cow/brahmin/nightstalker/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-		
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/rider = buckled_mob
-			rider.restore_sprint_on_dismount()
-			stop_mount_sprint(rider)
-	
-	current_rider = null
 	return ..()
 
 /mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider
@@ -1749,121 +1499,26 @@
 	speak_emote = list("chitters","hisses")
 	emote_hear = list("rubs it mandibles together.")
 	emote_see = list("stares, with all 8 eyes.")
-	speak_chance = 1
-	turns_per_move = -1
-	see_in_dark = 6
-	health = 150
-	maxHealth = 150
-	ride_move_delay = 2.5
-	can_ghost_into = TRUE
-	response_help_continuous  = "pets"
-	response_help_simple = "pet"
-	response_disarm_continuous = "gently pushes aside"
-	response_disarm_simple = "gently push aside"
-	response_harm_continuous = "bites"
-	response_harm_simple = "bites"
-	attack_verb_continuous = "bites"
-	attack_verb_simple = "bite"
-	waddle_amount = 4
-	waddle_up_time = 1
-	waddle_side_time = 2
-	attack_sound = 'sound/weapons/punch1.ogg'
-	young_type = /mob/living/simple_animal/cow/brahmin/nightstalker
-	food_types = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
-		/obj/item/reagent_containers/food/snacks/f13/canned/dog
-		)
-	milk_reagent = /datum/reagent/toxin
-	guaranteed_butcher_results = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 2,
-		/obj/item/stack/sheet/sinew = 2,
-		/obj/item/stack/sheet/bone = 2
-		)
-	butcher_results = list(
-		/obj/item/clothing/head/f13/stalkerpelt = 1,
-		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 1
-		)
-	butcher_difficulty = 1
 
 /mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider/user_buckle_mob(mob/living/carbon/human/M, mob/user, check_loc = TRUE)
-	if(ishuman(M) && istype(M.wear_suit))
-		var/obj/item/clothing/suit/armor = M.wear_suit
-		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-			to_chat(M, span_warning("Your [armor] is too heavy! You're crushing [src]!"))
-			M.visible_message(span_danger("[M] attempts to mount [src] but their heavy armor crushes the poor creature!"))
-			
-			if(!do_after(M, 3 SECONDS, target = src))
-				return FALSE
-			
-			src.death()
-			M.Paralyze(4 SECONDS)
-			M.Knockdown(6 SECONDS)
-			M.apply_damage(15, BRUTE, BODY_ZONE_L_LEG)
-			M.apply_damage(15, BRUTE, BODY_ZONE_R_LEG)
-			to_chat(M, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
-			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
-			return FALSE
-	
 	. = ..()
 	
 	if(. && M)
-		if(ishuman(M))
-			current_rider = M
-			M.save_sprint_on_mount(src)
-			update_rider_sprint_display(M)
-		
-		// Delay the pixel setting to override riding component
 		spawn(1)
 			if(M && M.buckled == src)
 				M.pixel_x = 0
 				M.pixel_y = 9
 
-// Override attackby to set custom ride offsets when saddle is added
 /mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider/attackby(obj/item/O, mob/user, params)
-	if(istype(O,/obj/item/brahminsaddle))
-		if(saddle)
-			to_chat(user, span_warning("This mount already has a saddle!"))
-			return
-
-		saddle = TRUE
-		can_buckle = TRUE
-		buckle_lying = FALSE
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
-		
-		// Set custom mount offsets - these will be used for ALL movement
-		var/list/mount_offsets = list(
-			"1" = list(0, 14),  // SOUTH
-			"2" = list(0, 14),  // NORTH
-			"4" = list(-2, 14),  // EAST
-			"8" = list(-2, 14)   // WEST
+	if(istype(O, /obj/item/brahminsaddle))
+		var/list/spider_offsets = list(
+			"1" = list(0, 14),
+			"2" = list(0, 14),
+			"4" = list(-2, 14),
+			"8" = list(-2, 14)
 		)
-		D.set_riding_offsets(RIDING_OFFSET_ALL, mount_offsets)
-		
-		// Use ABOVE_MOB_LAYER for left and right movement so mount renders behind rider
-		D.set_vehicle_dir_layer(SOUTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(NORTH, FLOAT_LAYER)
-		D.set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
-		D.set_vehicle_dir_layer(WEST, ABOVE_MOB_LAYER)
-		
-		D.vehicle_move_delay = ride_move_delay
-		D.drive_verb = "ride"
-		to_chat(user, span_notice("You add [O] to [src]."))
-		qdel(O)
+		install_saddle(O, user, spider_offsets)
 		return
-	
-	return ..()
-
-/mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider/user_unbuckle_mob(mob/living/buckled_mob, mob/user, silent)
-	if(buckled_mob)
-		buckled_mob.pixel_x = 0
-		buckled_mob.pixel_y = 0
-		
-		if(ishuman(buckled_mob))
-			var/mob/living/carbon/human/rider = buckled_mob
-			rider.restore_sprint_on_dismount()
-			stop_mount_sprint(rider)
-	
-	current_rider = null
 	return ..()
 
 /obj/item/brahmincollar
@@ -1984,9 +1639,7 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/animalhide/radstag = 2, /obj/item/stack/sheet/bone = 2)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4, /obj/item/stack/sheet/bone = 2)
 	butcher_difficulty = 1
-
 	response_help_simple  = "pets"
 	response_disarm_simple = "gently pushes aside"
 	response_harm_simple   = "kicks"
@@ -2025,7 +1678,6 @@
 	turns_per_move = 5
 	see_in_dark = 6
 	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 3)
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/bone = 1)
 	butcher_difficulty = 1
 	response_help_simple  = "pets"
 	response_disarm_simple = "gently pushes aside"
