@@ -172,6 +172,16 @@
 			if(burndies.flesh_damage || burndies.infestation)
 				ENABLE_BITFIELD(., DO_UNBURN_WOUND)
 
+/obj/item/stack/medical/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	
+	// Try to heal simple animals directly
+	if(isanimal(target))
+		INVOKE_ASYNC(src, PROC_REF(try_heal), target, user)
+		return TRUE
+
 /* * * * * * * * * * * * * * * * * * *
  * Proc that heals simplemobs
  * * * * * * * * * * * * * * * * * * */

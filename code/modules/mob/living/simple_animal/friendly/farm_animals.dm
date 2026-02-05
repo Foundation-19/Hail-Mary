@@ -251,7 +251,7 @@
 
 // Loyalty from healing (only when damaged)
 /mob/living/simple_animal/cow/proc/grant_healing_loyalty(amount_healed, mob/healer)
-	if(!healer || health >= maxHealth)
+	if(!healer || amount_healed <= 0)
 		return
 	
 	// Grant loyalty based on % of health healed

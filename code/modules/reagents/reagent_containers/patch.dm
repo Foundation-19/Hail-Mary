@@ -221,12 +221,17 @@
 		return
 	
 	return ..()
-/obj/item/reagent_containers/pill/animal_salve/afterattack(obj/target, mob/user, proximity)
-	. = ..()
-	if(!proximity)
+
+/obj/item/reagent_containers/pill/animal_salve/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(!proximity_flag)
 		return
-	// Prevent eating it
-	return
+	
+	// Handle animals directly
+	if(isanimal(target))
+		attack(target, user)
+		return TRUE
+	
+	return ..()
 
 // GLOBAL PROC - Healing over time function (won't be deleted with the salve)
 /proc/apply_animal_salve_overtime(mob/living/simple_animal/target, brute_total, burn_total, duration_seconds)
