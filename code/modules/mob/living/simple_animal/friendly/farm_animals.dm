@@ -660,10 +660,10 @@
 	var/list/mount_offsets = custom_offsets || ride_offsets
 	
 	D.set_riding_offsets(RIDING_OFFSET_ALL, mount_offsets)
-	D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-	D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-	D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-	D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	D.set_vehicle_dir_layer(SOUTH, FLOAT_LAYER)
+	D.set_vehicle_dir_layer(NORTH, FLOAT_LAYER)
+	D.set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
+	D.set_vehicle_dir_layer(WEST, ABOVE_MOB_LAYER)
 	D.vehicle_move_delay = ride_move_delay
 	D.drive_verb = "ride"
 	
@@ -812,7 +812,24 @@
 			to_chat(M, span_notice("[src] is already very affectionate with you."))
 		
 		return
+
+	// HARM INTENT - Prevent unbuckling riders, just damage the mount
+	if(!stat && M.a_intent == INTENT_HARM && has_buckled_mobs())
+		M.visible_message(span_warning("[M] strikes [src]!"),
+			span_warning("You strike [src]!"))
 	
+		// Play attack sound
+		playsound(src, attacked_sound, 50, TRUE)
+	
+		// Apply damage
+		apply_damage(harm_intent_damage, BRUTE)
+	
+		// Visual feedback
+		if(M.client)
+			shake_camera(M, 1, 1)
+	
+		return TRUE
+
 	// Tipping with SPECIAL strength check and channeling
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
 		// Check if mount has saddle or bridle
