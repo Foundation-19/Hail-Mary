@@ -87,31 +87,31 @@
 	return TRUE
 
 /obj/item/pet_carrier/attack(mob/living/target, mob/living/user)
-    if(user.a_intent == INTENT_HARM)
-        return ..()
-    if(!open)
-        to_chat(user, span_warning("You need to open [src]'s [entrance_name]!"))
-        return
-    if(target.mob_size > max_occupant_weight)
-        if(ishuman(target))
-            var/mob/living/carbon/human/H = target
-            if(iscatperson(H))
-                to_chat(user, span_warning("You'd need a lot of catnip and treats, plus maybe a laser pointer, for that to work."))
-            else
-                to_chat(user, span_warning("Humans, generally, do not fit into [name]s."))
-        else
-            to_chat(user, span_warning("You get the feeling [target] isn't meant for a [name]."))
-        return
-    if(user == target)
-        to_chat(user, span_warning("Why would you ever do that?"))
-        return
-    if(target.move_resist >= MOVE_FORCE_VERY_STRONG)
-        to_chat(user, span_warning("You have a feeling you shouldn't keep this as a pet."))
-        return
-    if(ishostile(target) && (!allows_hostiles || !istype(target, /mob/living/simple_animal/hostile/carp/cayenne)))
-        to_chat(user, span_warning("You have a feeling you shouldn't keep this as a pet."))
-        return
-    load_occupant(user, target)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!open)
+		to_chat(user, span_warning("You need to open [src]'s [entrance_name]!"))
+		return
+	if(target.mob_size > max_occupant_weight)
+		if(ishuman(target))
+			var/mob/living/carbon/human/H = target
+			if(iscatperson(H))
+				to_chat(user, span_warning("You'd need a lot of catnip and treats, plus maybe a laser pointer, for that to work."))
+			else
+				to_chat(user, span_warning("Humans, generally, do not fit into [name]s."))
+		else
+			to_chat(user, span_warning("You get the feeling [target] isn't meant for a [name]."))
+		return
+	if(user == target)
+		to_chat(user, span_warning("Why would you ever do that?"))
+		return
+	if(target.move_resist >= MOVE_FORCE_VERY_STRONG)
+		to_chat(user, span_warning("You have a feeling you shouldn't keep this as a pet."))
+		return
+	if(ishostile(target) && (!allows_hostiles || !istype(target, /mob/living/simple_animal/hostile/carp/cayenne)))
+		to_chat(user, span_warning("You have a feeling you shouldn't keep this as a pet."))
+		return
+	load_occupant(user, target)
 
 /obj/item/pet_carrier/relaymove(mob/living/user, direction)
 	if(open)
