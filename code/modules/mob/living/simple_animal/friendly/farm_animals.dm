@@ -215,7 +215,7 @@
 /mob/living/simple_animal/cow/Initialize()
 	udder = new(null, milk_reagent)
 	base_move_delay = ride_move_delay
-	sprint_move_delay = ride_move_delay * 0.6
+	sprint_move_delay = ride_move_delay * 0.4
 	hunger_float = hunger
 	. = ..()
 
@@ -540,6 +540,12 @@
 			. += "<br>They look fuckin <i>famished</i>."
 
 /mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
+	// Allow weapons to damage mounted animals without dismounting rider
+	if(user.a_intent == INTENT_HARM && has_buckled_mobs())
+		// Let the weapon attack process normally, but don't unbuckle
+		return ..()
+	
+	// Existing attackby code for milking, feeding, etc.
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		return TRUE
@@ -778,12 +784,10 @@
 	if(!stat && M.a_intent == INTENT_HELP)
 		// Check if mount is tipped over - help them up
 		if(icon_state == icon_dead)
-			// Check SPECIAL strength requirement for untipping
 			if(M.special_s < 8)
 				to_chat(M, span_warning("You're not strong enough to help [src] up!"))
 				return
 			
-			// Channeling to untip
 			M.visible_message(span_notice("[M] starts helping [src] back up..."),
 				span_notice("You start helping [src] back up..."))
 			
@@ -795,7 +799,6 @@
 				span_notice("You help [src] back up!"))
 			to_chat(src, span_notice("[M] helps you back up!"))
 			
-			// Properly restore icon and remove knockdown
 			being_untipped = TRUE
 			icon_state = icon_living
 			return
@@ -803,7 +806,6 @@
 		// Normal petting when not tipped
 		M.visible_message(span_notice("[M] pets [src]."), span_notice("You pet [src]."))
 		
-		// Only grant loyalty if under cap and off cooldown
 		if(loyalty_from_petting < 10 && COOLDOWN_FINISHED(src, petting_cooldown))
 			loyalty_from_petting += 2
 			to_chat(M, span_notice("[src] seems to appreciate the attention! (Petting loyalty: [loyalty_from_petting]/10)"))
@@ -813,37 +815,35 @@
 		
 		return
 
-	// HARM INTENT - Prevent unbuckling riders, just damage the mount
-	if(!stat && M.a_intent == INTENT_HARM && has_buckled_mobs())
-		M.visible_message(span_warning("[M] strikes [src]!"),
-			span_warning("You strike [src]!"))
-	
-		// Play attack sound
-		playsound(src, attacked_sound, 50, TRUE)
-	
-		// Apply damage
-		apply_damage(harm_intent_damage, BRUTE)
-	
-		// Visual feedback
-		if(M.client)
-			shake_camera(M, 1, 1)
-	
-		return TRUE
+	// HARM INTENT - Damage mount but DON'T unbuckle rider
+	if(!stat && M.a_intent == INTENT_HARM)
+		if(has_buckled_mobs())
+			// Mount is being ridden - attack the mount, not the rider
+			M.visible_message(span_warning("[M] strikes [src]!"),
+				span_warning("You strike [src]!"))
+			
+			playsound(src, 'sound/weapons/punch1.ogg', 50, TRUE)
+			apply_damage(rand(5, 10), BRUTE) // Apply some damage
+			
+			if(M.client)
+				shake_camera(M, 1, 1)
+			
+			return // Don't call parent - prevents unbuckle
+		else
+			// Not being ridden - normal attack behavior
+			return ..()
 
 	// Tipping with SPECIAL strength check and channeling
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		// Check if mount has saddle or bridle
 		if(saddle || bridle)
 			M.visible_message(span_warning("[M] tries to tip over [src], but it's too well-equipped!"),
 				span_warning("You can't tip over [src] while it has a saddle or bridle!"))
 			return
 		
-		// Check SPECIAL strength requirement for tipping
 		if(M.special_s < 8)
 			to_chat(M, span_warning("You're not strong enough to tip over [src]!"))
 			return
 		
-		// Channeling to tip over
 		M.visible_message(span_warning("[M] starts trying to tip over [src]..."),
 			span_notice("You start tipping over [src]..."))
 		
@@ -1427,7 +1427,7 @@
 	speak_emote = list("nays","nays hauntingly")
 	health = 100
 	maxHealth = 100
-	ride_move_delay = 2.25
+	ride_move_delay = 2.1
 	young_type = /mob/living/simple_animal/cow/brahmin/horse
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab = 4,
@@ -1571,7 +1571,7 @@
 	new /obj/item/brahminbridle(src)
 	new /obj/item/brahminsaddle(src)
 	new /obj/item/brahminbrand(src)
-	new /obj/item/choice_beacon/pet(src)
+	new /obj/item/choice_beacon/pet/mountable(src)
 	new /obj/item/gun/ballistic/rifle/mag/antimateriel(src)
 
 /datum/crafting_recipe/brahmincollar
