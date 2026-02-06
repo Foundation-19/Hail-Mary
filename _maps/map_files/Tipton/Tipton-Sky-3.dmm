@@ -3467,6 +3467,13 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"fpX" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/chem_heater,
+/turf/open/floor/f13{
+	icon_state = "dark"
+	},
+/area/f13/holiday)
 "fqa" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -13922,7 +13929,9 @@
 	dir = 1
 	},
 /obj/structure/table,
-/obj/machinery/chem_heater,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
+/obj/item/reagent_containers/glass/beaker,
 /turf/open/floor/f13{
 	icon_state = "dark"
 	},
@@ -15829,9 +15838,6 @@
 "ykz" = (
 /obj/structure/table,
 /obj/item/reagent_containers/dropper,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
-/obj/item/reagent_containers/glass/beaker,
 /obj/item/assembly/igniter{
 	pixel_x = -6
 	},
@@ -49876,7 +49882,7 @@ pEV
 ykz
 bTY
 bNv
-iRy
+fpX
 pEV
 iRy
 iRy
