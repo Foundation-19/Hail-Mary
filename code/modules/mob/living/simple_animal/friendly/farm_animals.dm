@@ -191,8 +191,9 @@
 	var/base_move_delay = 0
 	var/sprint_move_delay = 0
 	var/last_sprint_time = 0
-	var/sprint_hunger_cost = 0.1
+	var/sprint_hunger_cost = 0.05 // FIXED: Reduced from 0.1 to allow ~4 full sprints
 	var/hunger_float = 1.0 // Precise hunger tracking
+	COOLDOWN_DECLARE(sprint_cooldown) // NEW: Cooldown tracker
 
 	// LOYALTY SYSTEM
 	var/loyalty = 0 // Current loyalty value
@@ -215,7 +216,7 @@
 /mob/living/simple_animal/cow/Initialize()
 	udder = new(null, milk_reagent)
 	base_move_delay = ride_move_delay
-	sprint_move_delay = ride_move_delay * 0.4
+	sprint_move_delay = ride_move_delay * 0.5
 	hunger_float = hunger
 	. = ..()
 
@@ -437,7 +438,16 @@
 			visible_message(span_warning(pick(pain_emotes)))
 
 /mob/living/simple_animal/cow/Move(NewLoc, direct)
-	// Check for fear if mounted and on cooldown
+	// Check sprint status BEFORE every move
+	if(current_rider && saddle)
+		var/datum/keybinding/living/toggle_sprint/sprint_bind = GLOB.keybindings_by_name["toggle_sprint"]
+		var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
+		var/trying_to_sprint = (current_rider.client in sprint_bind.is_down) || (current_rider.client in sprint_hold_bind.is_down)
+		
+		// Stop sprint immediately if key released
+		if(!trying_to_sprint && is_sprinting)
+			stop_mount_sprint(current_rider)
+	
 	if(current_rider && (saddle || bridle) && world.time >= last_fear_check + fear_check_cooldown)
 		last_fear_check = world.time
 		var/fear_chance = get_fear_chance()
@@ -689,6 +699,10 @@
 	if(stat == CONSCIOUS)
 		handle_following()
 		
+		// FIXED: Check if rider equipped PA/Salvage while mounted
+		if(current_rider && has_buckled_mobs())
+			check_rider_equipment()
+		
 		// Decay temporary loyalty over time (feeding and petting decay)
 		if(COOLDOWN_FINISHED(src, loyalty_decay_cooldown))
 			// Decay feeding loyalty first
@@ -732,10 +746,73 @@
 						become_hungry()
 					COOLDOWN_START(src, hunger_cooldown, 5 MINUTES)
 
+// FIXED: New proc to check if rider is wearing forbidden armor
+/mob/living/simple_animal/cow/proc/check_rider_equipment()
+	if(!current_rider || !ishuman(current_rider))
+		return
+	
+	var/mob/living/carbon/human/H = current_rider
+	
+	// Check if they're wearing PA or Salvage armor
+	if(istype(H.wear_suit))
+		var/obj/item/clothing/suit/armor = H.wear_suit
+		if(armor.slowdown == ARMOR_SLOWDOWN_PA || armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			// They equipped forbidden armor while mounted!
+			// FEAR EMOTES - mount realizes it's about to die
+			var/list/fear_emotes = list(
+				"[src] suddenly buckles under the weight!",
+				"[src] lets out a terrified cry as its legs begin to give out!",
+				"[src] trembles violently, struggling to stay upright!",
+				"[src] whinnies in panic as the crushing weight settles in!",
+				"[src]'s legs shake uncontrollably under the massive load!"
+			)
+			visible_message(span_danger(pick(fear_emotes)))
+			
+			// Screen shake for the rider
+			if(H.client)
+				shake_camera(H, 5, 5)
+			
+			// Brief delay as mount struggles
+			sleep(1 SECONDS)
+			
+			// DEATH EMOTES
+			var/list/death_emotes = list(
+				"[src]'s legs finally give out with a sickening crack!",
+				"[src] collapses with a final anguished cry!",
+				"[src]'s body crumples under the unbearable weight!",
+				"[src] falls to the ground, unable to bear the load any longer!"
+			)
+			visible_message(span_danger(pick(death_emotes)))
+			H.visible_message(span_danger("[H]'s heavy [armor] crushes [src]!"),
+				span_userdanger("Your [armor] is too heavy! You're crushing [src]!"))
+			
+			// Kill the mount
+			src.death()
+			
+			// Throw and hurt the rider
+			H.Paralyze(4 SECONDS)
+			H.Knockdown(6 SECONDS)
+			H.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
+			H.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
+			to_chat(H, span_userdanger("[src] collapses under the weight of your armor, throwing you to the ground!"))
+			playsound(src, 'sound/effects/splat.ogg', 50, TRUE)
+			
+			return
+
 /mob/living/simple_animal/cow/proc/add_hunger(amount)
 	var/old_hunger = hunger
+	
 	hunger_float += amount
 	hunger_float = clamp(hunger_float, 1.0, 4.0)
+	
+	hunger = round(hunger_float)
+	
+	if(hunger != old_hunger)
+		if(!is_sprinting)
+			update_speed()
+		if(current_rider)
+			update_rider_sprint_display(current_rider)
+	
 	hunger = round(hunger_float)
 	
 	if(hunger != old_hunger)
@@ -1002,32 +1079,38 @@
 		stop_mount_sprint(rider)
 		return
 	
-	// Check if rider is trying to sprint RIGHT NOW
 	var/datum/keybinding/living/toggle_sprint/sprint_bind = GLOB.keybindings_by_name["toggle_sprint"]
 	var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
 	var/trying_to_sprint = (rider.client in sprint_bind.is_down) || (rider.client in sprint_hold_bind.is_down)
 	
-	// If not trying to sprint, stop immediately and don't drain
 	if(!trying_to_sprint)
 		stop_mount_sprint(rider)
 		return
 	
-	// Can't sprint if too hungry
+	if(!COOLDOWN_FINISHED(src, sprint_cooldown))
+		if(!is_sprinting)
+			to_chat(rider, span_warning("[src] needs to catch their breath before sprinting again!"))
+		return
+	
+	// Can't sprint if too exhausted
 	if(hunger >= 4)
 		stop_mount_sprint(rider)
 		if(prob(10))
 			to_chat(rider, span_warning("[src] is too exhausted to sprint!"))
 		return
 	
-	// Start sprinting if not already
 	if(!is_sprinting)
 		start_mount_sprint(rider)
 	
-	// ONLY drain hunger if actually sprinting AND moving
-	if(tiles > 0)
-		add_hunger(tiles * sprint_hunger_cost)
+	// DRAIN STAMINA BASED ON TIME SPRINTING, NOT JUST TILES
+	if(is_sprinting)
+		// Drain stamina every tick while sprinting (not just when moving)
+		add_hunger(sprint_hunger_cost * 0.5) // Drain over time regardless of movement
+		
+		// Additional drain for actual movement
+		if(tiles > 0)
+			add_hunger(tiles * sprint_hunger_cost * 0.5)
 	
-	// Always update display
 	update_rider_sprint_display(rider)
 
 /mob/living/simple_animal/cow/proc/check_rider_sprint_input()
@@ -1059,7 +1142,12 @@
 	
 	is_sprinting = FALSE
 	
-	// Recalculate normal speed based on current hunger
+	// Calculate cooldown based on how much stamina was used
+	var/stamina_used = world.time - last_sprint_time // Time spent sprinting
+	var/proportional_cooldown = stamina_used * 0.5 // 50% of sprint time as cooldown
+	
+	COOLDOWN_START(src, sprint_cooldown, proportional_cooldown)
+	
 	update_speed()
 
 /mob/living/simple_animal/cow/proc/update_rider_sprint_display(mob/living/carbon/rider)
