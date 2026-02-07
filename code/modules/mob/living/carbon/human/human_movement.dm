@@ -145,6 +145,7 @@
 /mob/living/carbon/human/Moved()
 	. = ..()
 	if(.)
+		update_turf_movespeed(loc)
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER)) // Let's pretend this trait responds for everything
 			set_thirst(THIRST_LEVEL_FULL)
 		else if(thirst && stat != DEAD)

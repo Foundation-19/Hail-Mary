@@ -206,6 +206,7 @@
 	// Temporary loyalty tracking
 	var/loyalty_from_petting = 0 // Caps at 10
 	var/loyalty_from_feeding = 0 // Caps at 20
+	COOLDOWN_DECLARE(healing_loyalty_cooldown)
 	
 	// Decay rate
 	var/loyalty_decay_rate = 0.5 // How much loyalty decays per life tick
@@ -256,6 +257,10 @@
 	if(!healer || amount_healed <= 0)
 		return
 	
+	// Prevent spam healing for loyalty
+	if(!COOLDOWN_FINISHED(src, healing_loyalty_cooldown))
+		return
+	
 	// Grant loyalty based on % of health healed
 	// 10% max health healed = +2 loyalty
 	var/health_percent_healed = (amount_healed / maxHealth) * 100
@@ -265,6 +270,8 @@
 		loyalty += loyalty_gain
 		loyalty = clamp(loyalty, 0, loyalty_max)
 		to_chat(healer, span_notice("[src] seems grateful for your care! (+[loyalty_gain] loyalty)"))
+		
+		COOLDOWN_START(src, healing_loyalty_cooldown, 30 SECONDS)
 
 // NAME CALLING - listen for owner calling mount's name
 /mob/living/simple_animal/cow/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/sound_loc)
@@ -969,7 +976,6 @@
 		if(!stax.tool_use_check(user, 2))
 			return
 
-	// If mount has saddle/bridle, require channeling to feed
 	if(saddle || bridle)
 		to_chat(user, span_notice("You begin feeding [I] to [src]..."))
 		if(!do_after(user, 2 SECONDS, target = src))
@@ -978,10 +984,14 @@
 		visible_message(span_alertalien("[src] consumes the [I]."))
 		
 		// Calculate stamina gain based on potency
-		var/stamina_gain = 3.0 // Default full refuel (hunger goes from 4.0 to 1.0 = 3.0 reduction)
+		var/stamina_gain = 3.0 // Default full refuel
 		
+		// Check if it's hay (low-quality food)
+		if(istype(I, /obj/item/stack/sheet/hay))
+			stamina_gain = 3.0 / 8 // Same as low-potency crops (0.375 = 12.5% stamina)
+			to_chat(user, span_notice("[src] munches on the hay. It's not very nutritious. (Stamina restored: [stamina_gain])"))
 		// Check if it's a grown item with potency
-		if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
+		else if(istype(I, /obj/item/reagent_containers/food/snacks/grown))
 			var/obj/item/reagent_containers/food/snacks/grown/G = I
 			if(G.seed && G.seed.potency)
 				var/potency = G.seed.potency
