@@ -557,12 +557,16 @@
 			. += "<br>They look fuckin <i>famished</i>."
 
 /mob/living/simple_animal/cow/attackby(obj/item/O, mob/user, params)
-	// Allow weapons to damage mounted animals without dismounting rider
-	if(user.a_intent == INTENT_HARM && has_buckled_mobs())
-		// Let the weapon attack process normally, but don't unbuckle
-		return ..()
+	// Allow weapons to damage mounted animals with HARM intent
+	if(user.a_intent == INTENT_HARM)
+		// Call parent but prevent unbuckling
+		var/original_buckle = can_buckle
+		can_buckle = FALSE
+		. = ..()
+		can_buckle = original_buckle
+		return
 	
-	// Existing attackby code for milking, feeding, etc.
+	// Existing attackby code for milking, feeding, etc. (non-HARM intent)
 	if(stat == CONSCIOUS && istype(O, /obj/item/reagent_containers/glass))
 		udder.milkAnimal(O, user)
 		return TRUE
@@ -612,39 +616,30 @@
 			to_chat(user, span_warning("You need to claim the mount with a bridle before you can brand it!"))
 			return
 		
-		// Calculate total loyalty for branding check
 		var/total_loyalty = get_total_loyalty()
 		
-		// Loyalty thresholds for branding success
 		var/kick_chance = 0
 		if(total_loyalty < 40)
-			kick_chance = 80 // Very low loyalty = 80% kick chance
+			kick_chance = 80
 		else if(total_loyalty < 60)
-			kick_chance = 60 // Low loyalty = 60% kick chance
+			kick_chance = 60
 		else if(total_loyalty < 80)
-			kick_chance = 40 // Medium loyalty = 40% kick chance
-		// else 0% - high loyalty (80+) = guaranteed success
+			kick_chance = 40
 		
-		// Check if mount kicks the player
 		if(kick_chance > 0 && prob(kick_chance))
-			// MOUNT KICKS PLAYER
 			visible_message(span_danger("[src] violently kicks [user] away!"))
 			to_chat(user, span_userdanger("[src] kicks you hard in the chest!"))
 			
-			// Only apply effects if user is a living mob
 			if(isliving(user))
 				var/mob/living/L = user
 				
-				// Screen shake
 				if(L.client)
 					shake_camera(L, 4, 4)
 				
-				// Damage and knockdown
 				L.apply_damage(25, BRUTE, BODY_ZONE_CHEST)
 				L.Paralyze(20)
 				L.Knockdown(30)
 				
-				// Throw player back
 				var/throw_dir = get_dir(src, L)
 				var/turf/throw_target = get_step(L, throw_dir)
 				if(throw_target)
@@ -655,7 +650,6 @@
 			to_chat(user, span_warning("You need to build more loyalty before [src] will accept a brand! (Current loyalty: [total_loyalty]/80 required)"))
 			return
 		
-		// SUCCESS - Brand the mount
 		brand = input("What would you like to brand on your mount?","Brand", brand)
 		
 		if(!brand)
@@ -666,6 +660,9 @@
 		to_chat(user, span_notice("You brand [src]. They seem to accept you as their master!"))
 		qdel(O)
 		return
+	
+	// If nothing else matched, call parent
+	return ..()
 
 // CONSOLIDATED SADDLE INSTALLATION
 /mob/living/simple_animal/cow/proc/install_saddle(obj/item/brahminsaddle/saddle_item, mob/user, list/custom_offsets)
