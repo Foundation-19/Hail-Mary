@@ -233,6 +233,39 @@
 							"NCR Veteran Ranger",
 						)
 
+/datum/gear/suit/ncr/ranger/c27_light/ncr
+	name = "NCR light C-27 armor"
+	path = /obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light/ncr
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Rear Echelon",
+							"NCR Conscript",
+							"NCR Trooper",
+						)
+
+/datum/gear/suit/ncr/ranger/c27_medium/ncr
+	name = "NCR medium C-27 armor"
+	path = /obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium/ncr
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Rear Echelon",
+							"NCR Conscript",
+							"NCR Trooper",
+						)
+
+/datum/gear/suit/ncr/ranger/c27_heavy/ncr
+	name = "NCR heavy C-27 armor"
+	path = /obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy/ncr
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Rear Echelon",
+							"NCR Conscript",
+							"NCR Trooper",
+						)
+
 /datum/gear/suit/legion/venator
 	name = "Reptilia Tenebris"
 	path = /obj/item/clothing/suit/armor/medium/raider/reptiliatenebris
@@ -242,6 +275,51 @@
 	restricted_roles = list("Legion Centurion",
 							"Legion Veteran Decanus",
 						)
+
+/datum/gear/suit/ncr/ranger/c27_light/bos
+	name = "Brotherhood light C-27 armor"
+	path = /obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light/bos
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+	restricted_desc = "Brotherhood"
+	restricted_roles = list("Knight",
+						)
+
+/datum/gear/suit/ncr/ranger/c27_medium/bos
+	name = "Brotherhood medium C-27 armor"
+	path = /obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium/bos
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+	restricted_desc = "Brotherhood"
+	restricted_roles = list("Knight",
+						)
+
+/datum/gear/suit/ncr/ranger/c27_heavy/bos
+	name = "Brotherhood heavy C-27 armor"
+	path = /obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy/bos
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+	restricted_desc = "Brotherhood"
+	restricted_roles = list("Knight",
+						)
+
+/datum/gear/suit/ncr/ranger/c27_light
+	name = "Light C-27 armor"
+	path = /obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+
+/datum/gear/suit/ncr/ranger/c27_medium
+	name = "Medium C-27 armor"
+	path = /obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
+
+/datum/gear/suit/ncr/ranger/c27_heavy
+	name = "Heavy C-27 armor"
+	path = /obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy
+	subcategory = LOADOUT_SUBCATEGORY_SUIT_ARMOR 	
+	cost = 0
 
 /datum/gear/suit/samurai  //added by TK420634 ~ 5/29/2022 "Samurai Wasteland WeebShit Edition (tm)
 	name = "Rusted Samurai Armor"

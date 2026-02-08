@@ -3665,3 +3665,105 @@
 	icon = 'icons/fallout/clothing/hats.dmi'
 	icon_state = "hazmat"
 	item_state = "hazmat_helmet"
+
+//c27 armor
+
+//light
+/obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light
+	name = "light c27 armor"
+	desc = "Light C-27 armor."
+	icon_state = "light"
+	item_state = "light"
+	species_exception = list(/datum/species/c27)
+	var/requires_training = TRUE
+	slowdown = 1.3
+
+
+/obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+	var/mob/living/carbon/human/H = user
+	if(src == H.wear_suit) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_C27) && slot == SLOT_WEAR_SUIT && requires_training)
+		to_chat(user, span_warning("You aren't a C-27!"))
+		return FALSE
+	if(slot == SLOT_WEAR_SUIT)
+		return ..()
+	return
+
+/obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light/bos
+	name = "brotherhood light c27 armor"
+	desc = "Light C-27 armor, painted with a Brotherhood theme."
+	icon_state = "light_bos"
+	item_state = "light_bos"
+
+/obj/item/clothing/suit/armor/medium/combat/brotherhood/c27_light/ncr
+	name = "ncr light c27 armor"
+	desc = "Light C-27 armor, painted with an NCR theme."
+	icon_state = "light_ncr"
+	item_state = "light_ncr"
+
+//medium
+/obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium
+	name = "medium c27 armor"
+	desc = "Medium C-27 armor."
+	icon_state = "medium"
+	item_state = "medium"
+	species_exception = list(/datum/species/c27)
+	var/requires_training = TRUE
+	slowdown = 1.5
+
+
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+	var/mob/living/carbon/human/H = user
+	if(src == H.wear_suit) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_C27) && slot == SLOT_WEAR_SUIT && requires_training)
+		to_chat(user, span_warning("You aren't a C-27!"))
+		return FALSE
+	if(slot == SLOT_WEAR_SUIT)
+		return ..()
+	return
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium/bos
+	name = "brotherhood medium c27 armor"
+	desc = "Medium C-27 armor, painted with a Brotherhood theme."
+	icon_state = "medium_bos"
+	item_state = "medium_bos"
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/c27_medium/ncr
+	name = "ncr medium c27 armor"
+	desc = "Medium C-27 armor, painted with an NCR theme."
+	icon_state = "medium_ncr"
+	item_state = "medium_ncr"
+
+//heavy
+/obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy
+	name = "heavy c27 armor"
+	desc = "Heavy C-27 armor."
+	icon_state = "c27_heavy"
+	item_state = "c27_heavy"
+	species_exception = list(/datum/species/c27)
+
+/obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+	var/mob/living/carbon/human/H = user
+	if(src == H.wear_suit) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_C27) && slot == SLOT_WEAR_SUIT && requires_training)
+		to_chat(user, span_warning("You aren't a C-27!"))
+		return FALSE
+	if(slot == SLOT_WEAR_SUIT)
+		return ..()
+	return
+
+/obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy/bos
+	name = "brotherhood heavy c27 armor"
+	desc = "Heavy C-27 armor, painted with a Brotherhood theme."
+	icon_state = "heavy_bos"
+	item_state = "heavy_bos"
+
+/obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy/ncr
+	name = "ncr heavy c27 armor"
+	desc = "Heavy C-27 armor, painted with an NCR theme."
+	icon_state = "heavy_ncr"
+	item_state = "heavy_ncr"
