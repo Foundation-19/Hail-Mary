@@ -231,6 +231,32 @@ proc/get_top_level_mob(mob/S)
 	return speed_bonus - armor_penalty
 
 /mob/living/carbon/calc_sprint_stamina_mod_from_special()
+	// Ghoul-specific sprint stamina calculation
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.dna && H.dna.species && istype(H.dna.species, /datum/species/ghoul))
+			var/f = ghoul_rad_factor(H.radiation)
+			var/s = ghoul_starve_factor(H.radiation)
+			
+			// Ghouls are BETTER at sprinting than humans when well-fed
+			// Base is 0.65 for humans, ghouls get 0.50 base (LESS stamina drain)
+			var/base_mod = 0.50
+			
+			// Well-radiated ghouls sprint MUCH more efficiently
+			if(f > 0)
+				base_mod *= (1.0 - (0.5 * f))  // Up to 50% reduction at full rad (down to 0.25 total)
+			
+			// Starving ghouls burn stamina faster than baseline
+			if(s > 0)
+				base_mod *= (1.0 + (1.0 * s))  // Up to 100% increase when starving (up to 0.50 total)
+				
+				// Occasional warning about poor sprint performance
+				if(s >= 0.5 && prob(5))
+					to_chat(H, span_warning("Your radiation-starved legs struggle to carry you..."))
+			
+			return base_mod
+	
+	// Standard SPECIAL-based calculation for non-ghouls
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
 	var/base_modifier
@@ -261,53 +287,51 @@ proc/get_top_level_mob(mob/S)
 	var/base_regen = CONFIG_GET(number/movedelay/sprint_buffer_regen_per_ds)
 	var/agi_diff = special_a - SPECIAL_DEFAULT_ATTR_VALUE
 	
-	// DON'T MESS WITH THESE FORMULAS WITHOUT TESTING, CAN LEAD TO BAD MATHS
-	// AGI 5: 5.6 | AGI 7: 6.02 | AGI 10: 6.27
+	// Sprint buffer max
 	if(agi_diff > 0)
 		sprint_buffer_max = 5.6 + (sqrt(agi_diff) * 0.3)
 	else
 		sprint_buffer_max = 5.6 + (agi_diff * 0.15)
 	sprint_buffer = sprint_buffer_max
 
-	// Sprint buffer regen
-	// Base AGI scaling bonus per point above 5
-	var/agi_regen_bonus = 0.03  // 3% per sqrt point of AGI
-	// AGI 5: base_regen * 1.0 * 0.01 (baseline, 0% bonus)
-	// AGI 7: base_regen * 1.0424 * 0.01 (+4.24% from sqrt)
-	// AGI 10: base_regen * 1.0671 * 0.01 (+6.71% from sqrt)
+	// GHOUL CHECK - different initialization
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.dna && H.dna.species && istype(H.dna.species, /datum/species/ghoul))
+			// Ghouls start with special-modified values but DON'T use them for regen
+			// Regen is handled in spec_life based on radiation
+			sprint_buffer_regen_ds = 0  // Will be set by spec_life
+			return
+	
+	// NORMAL (non-ghoul) sprint regen calculation
 	if(agi_diff > 0)
-		sprint_buffer_regen_ds = base_regen * (1 + (sqrt(agi_diff) * agi_regen_bonus)) * 0.01
+		sprint_buffer_regen_ds = base_regen * (1 + (sqrt(agi_diff) * 0.03)) * 0.01
 	else
-		sprint_buffer_regen_ds = base_regen * (1 + (agi_diff * agi_regen_bonus)) * 0.01
+		sprint_buffer_regen_ds = base_regen * (1 + (agi_diff * 0.03)) * 0.01
 
-	// High agility gets additional regen boost - scaled by armor weight
+	// High agility regen boost (non-ghouls only)
 	var/regen_armor_modifier = 1.0
 	if(ishuman(src))
 		var/mob/living/carbon/human/H = src
 		if(istype(H.wear_suit))
 			var/obj/item/clothing/suit/armor = H.wear_suit
 			if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
-				regen_armor_modifier = 0.2  // 20% of regen bonuses
+				regen_armor_modifier = 0.2
 			else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
-				regen_armor_modifier = 1.0  // Full regen bonuses
+				regen_armor_modifier = 1.0
 			else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
-				regen_armor_modifier = 1.0  // Full regen bonuses
+				regen_armor_modifier = 1.0
 			else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
-				regen_armor_modifier = 0.6  // 60% of regen bonuses
+				regen_armor_modifier = 0.6
 			else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
-				regen_armor_modifier = 0.15  // 15% of regen bonuses
+				regen_armor_modifier = 0.15
 		else
-			regen_armor_modifier = 0.1  // No armor = only 10% of regen bonuses
-	// This is for sufficient regen for armors that heavily penalize sprinting
-	var/agi_7_bonus = 0.40  // 40% bonus at AGI 7+
-	var/agi_9_bonus = 0.30  // 30% bonus at AGI 9+
+			regen_armor_modifier = 0.1
 
-	// AGI 10 with NO armor: 1.0671 * 1.04 * 1.03 = 1.143 (~14% total increase)
-	// AGI 10 with PA: 1.0671 * 1.40 * 1.30 = 1.942 (~94% total increase)
 	if(special_a >= 7)
-		sprint_buffer_regen_ds *= (1.0 + (agi_7_bonus * regen_armor_modifier))
+		sprint_buffer_regen_ds *= (1.0 + (0.40 * regen_armor_modifier))
 	if(special_a >= 9)
-		sprint_buffer_regen_ds *= (1.0 + (agi_9_bonus * regen_armor_modifier))
+		sprint_buffer_regen_ds *= (1.0 + (0.30 * regen_armor_modifier))
 
 /// LUCK
 

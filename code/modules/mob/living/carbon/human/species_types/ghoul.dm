@@ -1,7 +1,203 @@
 //ghouls-heal from radiation, do not breathe. do not go into crit. terrible at melee, easily dismembered.
-//cannot use medical chemicals to heal brute or burn, must heal from rads, sutures. can use antitoxin chemicals.  //actually changed my mind i'll give stims reduced effect instead
-//Slower than humans at combat armor speed, appear dead. rotted organs unable to use for transplant.
-//like before, they cannot take piercing wounds or burn wounds or slash wounds, but they can have their bones broken by any source of wound now instead of being impervious
+//NECROTIC SURGE SYSTEM - Your dead heart can only pump so many times before it needs to rest
+//Radiation is the FUEL consumed during healing, not the source of charges
+//Charges = emergency healing bursts that regenerate slowly over time
+//FERAL STACKS - Each surge used builds up feral instinct, pushing you toward meltdown
+
+// -------------------------
+// Ghoul radiation scaling knobs
+// -------------------------
+#define GHOUL_RAD_HEAL_START     150      // Minimum radiation to enable healing (LOWERED)
+#define GHOUL_RAD_HEAL_FULL      1000     // Radiation for max healing power (LOWERED)
+#define GHOUL_RAD_MELTDOWN_START 4000     // Meltdown begins (NOW BASED ON FERAL STACKS)
+#define GHOUL_RAD_MELTDOWN_FULL  8000     // Full meltdown (NOW BASED ON FERAL STACKS)
+
+#define GHOUL_GLOW_MIN           0
+#define GHOUL_GLOW_MAX           3        
+
+#define GHOUL_MELTDOWN_BRUTE_MAX 2        
+#define GHOUL_MELTDOWN_SLOW_MAX  0.10     
+
+// Starvation
+#define GHOUL_RAD_STARVE_START   150
+#define GHOUL_STARVE_TOX_MAX     0.35     
+#define GHOUL_STARVE_CLONE_MAX   0.35     
+
+// Neglect tracker
+#define GHOUL_NEGLECT_THRESHOLD  300      
+#define GHOUL_NEGLECT_MULTIPLIER 2.5      
+
+// High-rad exposure
+#define GHOUL_HIGHRAD_THRESHOLD  1500     
+#define GHOUL_EXPOSURE_BUILDUP   200      
+#define GHOUL_EXPOSURE_RADS_GAIN 2        
+
+// -------------------------
+// NECROTIC SURGE SYSTEM
+// -------------------------
+#define GHOUL_SURGES_MAX            10     // Maximum healing surges (your necrotic heart's limit)
+#define GHOUL_SURGE_COOLDOWN        30     // Seconds between surge regeneration (30s = 5min for full)
+#define GHOUL_SURGE_COOLDOWN_INJURED 15    // When injured, recharge twice as fast
+#define GHOUL_INJURY_THRESHOLD      25     // Damage threshold to count as "injured"
+#define GHOUL_DAMAGE_ACTIVATION_MIN 3      // Minimum damage to activate regen (prevents 0.08 toxin issues)
+#define GHOUL_RAD_ABSORPTION_MULT   2.0    // Ghouls absorb 2x radiation
+#define GHOUL_COMBAT_TIMEOUT        100    // 10 seconds - time since last combat damage to count as "in combat"
+#define GHOUL_COMBAT_COOLDOWN_MULT  0.5    // Cooldown multiplier when in combat (50% = half cooldown time)
+
+// Radiation CONSUMPTION during healing (this is your FUEL)
+#define GHOUL_RAD_CONSUME_BASE      2.0    // Radiation consumed per healing tick (LOWERED)
+#define GHOUL_RAD_CONSUME_HEAVY     4.0    // Extra consumption when heavily injured (LOWERED)
+#define GHOUL_RAD_CONSUME_SURGE     25.0   // Radiation consumed when a SURGE is used (LOWERED)
+
+// Healing percentages (applied to total max HP)
+#define GHOUL_HEAL_PERCENT_MIN      0.012  // 1.2% of max HP per tick at minimum radiation
+#define GHOUL_HEAL_PERCENT_MAX      0.040  // 4.0% of max HP per tick at optimal radiation
+
+// Radiation decay - ONLY when NOT regenerating
+#define GHOUL_RAD_DECAY_BASE        0.5    
+#define GHOUL_RAD_DECAY_SCALE_START 500    
+#define GHOUL_RAD_DECAY_MAX         5.0    
+
+// Regeneration timeout - if no healing for this long, turn off regen
+#define GHOUL_REGEN_TIMEOUT         150    // 15 seconds (150 deciseconds)
+
+// -------------------------
+// FERAL STACK SYSTEM
+// -------------------------
+#define GHOUL_FERAL_MAX             100    // Maximum feral stacks (0-100)
+#define GHOUL_FERAL_PER_HP_HEALED   0.15   // Feral stacks gained per HP healed (scales with healing power)
+#define GHOUL_FERAL_PER_SURGE_USE   2      // Flat feral stacks per surge consumed (unavoidable cost)
+#define GHOUL_FERAL_MELTDOWN_START  40     // Feral stacks when meltdown begins
+#define GHOUL_FERAL_MELTDOWN_FULL   80     // Feral stacks for full meltdown
+#define GHOUL_FERAL_DECAY_RATE      1      // Feral stacks decay naturally (whole number - 1 per tick)
+#define GHOUL_FERAL_DECAY_INTERVAL  100    // Decay 1 feral every 100 ticks (10 seconds)
+#define GHOUL_FERAL_RAD_MULT_MIN    1.0    // Minimum radiation absorption multiplier
+#define GHOUL_FERAL_RAD_MULT_MAX    3.0    // Maximum radiation absorption multiplier at 100 feral
+
+// Radaway purge system
+#define GHOUL_RADAWAY_PURGE_AMOUNT  15     // Feral stacks removed per radaway dose
+#define GHOUL_RADAWAY_PURGE_COOLDOWN 300   // 30 seconds cooldown between purges (300 deciseconds)
+#define GHOUL_RADAWAY_PURGE_DAMAGE  5      // Damage taken when purging feral stacks
+
+// -------------------------
+// FERAL EMOTE SYSTEM (runechat visible)
+// -------------------------
+#define GHOUL_FERAL_SPEAK_CHANCE_LOW  1    // 1% chance per tick at low feral
+#define GHOUL_FERAL_SPEAK_CHANCE_MID  2    // 2% chance per tick at mid feral
+#define GHOUL_FERAL_SPEAK_CHANCE_HIGH 4    // 4% chance per tick at high feral
+#define GHOUL_FERAL_SPEAK_FERAL_MIN   20   // Minimum feral stacks to start speaking
+#define GHOUL_FERAL_SPEAK_FERAL_MID   40   // Mid-tier feral
+#define GHOUL_FERAL_SPEAK_FERAL_HIGH  60   // High feral
+
+// -------------------------
+// Wave emission (Glowing One transformation)
+// -------------------------
+#define GHOUL_WAVE_PULSE_CD        30      
+#define GHOUL_WAVE_MIN_RADS        2000    // Need high radiation to emit waves (glowing one path)
+#define GHOUL_WAVE_INTENSITY_MIN   4       
+#define GHOUL_WAVE_INTENSITY_MAX   22      
+#define GHOUL_WAVE_DIAGONALS_PROB  30      
+#define GHOUL_WAVE_CAN_CONTAMINATE TRUE    
+#define GHOUL_WAVE_RANGE_MOD       RAD_DISTANCE_COEFFICIENT
+
+// Debug toggle
+#define GHOUL_DEBUG_RADIATION TRUE
+
+#define GHOUL_FEEDBACK_CD        (45 SECONDS)
+#define GHOUL_FERAL_CONFUSED_MAX 14
+#define GHOUL_FERAL_JITTER_MAX   10
+
+#define GHOUL_FERAL_ALLY_ON      0.50      // Feral factor when you join ghoul faction (still used for meltdown check)
+#define GHOUL_FERAL_ALLY_OFF     0.30      // Feral factor when you leave ghoul faction (still used for meltdown check)
+#define GHOUL_FERAL_ALLY_RAD_MIN 2000      // Minimum radiation to join feral faction (radmaxxing required)
+
+// -------------------------
+// Chemical interaction
+// -------------------------
+#define GHOUL_RADAWAY_DAMAGE      2
+#define GHOUL_RADAWAY_FEEDBACK    5
+#define GHOUL_RADX_DAMAGE         2
+#define GHOUL_RADX_FEEDBACK       5
+#define GHOUL_STIMPAK_PENALTY     1.5
+#define GHOUL_SUPERSTIM_PENALTY   2.5
+
+// -------------------------
+// Per-mob variables
+// -------------------------
+/mob/living/carbon/human
+	var/ghoul_wave_next = 0
+	var/ghoul_feedback_next = 0
+	var/ghoul_feral_ally = FALSE
+	var/ghoul_starve_ticks = 0
+	var/ghoul_exposure_ticks = 0
+	var/ghoul_last_state = "normal"
+	var/ghoul_surges = 0                    // Necrotic surges (0-10) - START AT ZERO
+	var/ghoul_surges_max = 10
+	var/ghoul_surge_recharge_next = 0       // When next surge will recharge
+	var/ghoul_regen_active = FALSE          // Tracks if regeneration is currently active
+	var/ghoul_last_heal_tick = 0            // Last time we actually healed damage
+	var/ghoul_feral_stacks = 0              // Feral stacks (0-100) - builds with surge use
+	var/ghoul_feral_accumulator = 0         // Fractional feral gain tracker
+	var/ghoul_radaway_purge_next = 0        // Cooldown for radaway feral purging
+	var/last_radiation_check = 0            // For tracking radiation gain vs decay
+	var/ghoul_feral_decay_counter = 0       // Counter for interval-based feral decay
+	var/ghoul_last_combat_time = 0          // Last time we took damage from another mob
+	var/ghoul_last_damage_source = null     // What last damaged us (for self-damage check)
+
+// Factor procs
+/proc/ghoul_rad_factor(rads)
+	if(rads <= GHOUL_RAD_HEAL_START)
+		return 0
+	var/t = (rads - GHOUL_RAD_HEAL_START) / (GHOUL_RAD_HEAL_FULL - GHOUL_RAD_HEAL_START)
+	t = clamp(t, 0, 1)
+	return t * t
+
+// NEW: Meltdown now based on FERAL STACKS instead of radiation
+/proc/ghoul_meltdown_factor(feral_stacks)
+	if(feral_stacks <= GHOUL_FERAL_MELTDOWN_START)
+		return 0
+	var/t = (feral_stacks - GHOUL_FERAL_MELTDOWN_START) / (GHOUL_FERAL_MELTDOWN_FULL - GHOUL_FERAL_MELTDOWN_START)
+	return clamp(t, 0, 1)
+
+/proc/ghoul_starve_factor(rads)
+	if(rads >= GHOUL_RAD_STARVE_START)
+		return 0
+	
+	var/t = (GHOUL_RAD_STARVE_START - rads) / GHOUL_RAD_STARVE_START
+	t = clamp(t, 0, 1)
+	
+	if(rads >= 100)
+		return t * t * t * 0.3
+	else if(rads >= 50)
+		return 0.3 + (t * t * 0.4)
+	else
+		return 0.7 + (t * 0.3)
+
+// NEW: Feral stacks amplify radiation absorption
+/proc/ghoul_feral_rad_multiplier(feral_stacks)
+	var/t = feral_stacks / GHOUL_FERAL_MAX
+	t = clamp(t, 0, 1)
+	return GHOUL_FERAL_RAD_MULT_MIN + ((GHOUL_FERAL_RAD_MULT_MAX - GHOUL_FERAL_RAD_MULT_MIN) * t)
+
+// NEW: Clean up tiny damage values
+/proc/ghoul_cleanup_damage(mob/living/carbon/human/H)
+	if(!H)
+		return
+	
+	// Round damage values below 1.0 to 0
+	if(H.getBruteLoss() > 0 && H.getBruteLoss() < 1.0)
+		H.adjustBruteLoss(-H.getBruteLoss())
+	if(H.getFireLoss() > 0 && H.getFireLoss() < 1.0)
+		H.adjustFireLoss(-H.getFireLoss())
+	if(H.getToxLoss() > 0 && H.getToxLoss() < 1.0)
+		H.adjustToxLoss(-H.getToxLoss())
+	if(H.getCloneLoss() > 0 && H.getCloneLoss() < 1.0)
+		H.adjustCloneLoss(-H.getCloneLoss())
+
+/datum/movespeed_modifier/ghoul_rad
+	variable = TRUE
+	id = "ghoul_rad"
+	priority = 50
 
 /datum/species/ghoul
 	name = "Ghoul"
@@ -9,7 +205,7 @@
 	say_mod = "rasps"
 	limbs_id = "ghoul"
 	species_traits = list(HAIR,FACEHAIR,HAS_BONE, NOBLOOD, MUTCOLORS, EYECOLOR,LIPS, HORNCOLOR,WINGCOLOR)
-	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOHARDCRIT, TRAIT_NOSOFTCRIT, TRAIT_GHOULMELEE, TRAIT_EASYDISMEMBER, TRAIT_EASYLIMBDISABLE, TRAIT_LIMBATTACHMENT)
+	inherent_traits = list(TRAIT_RADIMMUNE, TRAIT_VIRUSIMMUNE, TRAIT_NOBREATH, TRAIT_NOHARDCRIT, TRAIT_NOSOFTCRIT, TRAIT_GHOULMELEE, TRAIT_EASYDISMEMBER, TRAIT_EASYLIMBDISABLE, TRAIT_LIMBATTACHMENT, TRAIT_NOHUNGER)
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BEAST)
 	mutant_bodyparts = list("mcolor" = "FFFFFF","mcolor2" = "FFFFFF","mcolor3" = "FFFFFF", "mam_snouts" = "Husky", "mam_tail" = "Husky", "mam_ears" = "Husky", "deco_wings" = "None", "mam_body_markings" = "Husky", "taur" = "None", "horns" = "None", "legs" = "Plantigrade", "meat_type" = "Mammalian")
 	attack_verb = "claw"
@@ -18,75 +214,938 @@
 	wagging_type = "waggingtail_human"
 	species_type = "human"
 	use_skintones = 0
-	speedmod = 0
+	speedmod = 0.2
 	sexes = 1
-	sharp_blunt_mod = 2.5
-	sharp_edged_mod = 2.5
+	sharp_blunt_mod = 2
+	sharp_edged_mod = 2
 	disliked_food = NONE
 	liked_food = NONE
-	var/info_text = "You are a <span class='danger'>Ghoul.</span>. As pre-war zombified relic, or an unluckily recently made post-necrotic, you cannot bleed, cannot breathe, and heal from radiation. On surface examination, you are indistinguishable from a corpse. \
-					Your <span class='warning'>fragile limbs</span> are a source of vulnerability for you-they are easily dismembered and easily detached, though you can stick them on just as easily. You are incredibly fragile in melee. \
-					<span class='boldwarning'>Stimpaks and powder</span> will have reduced effect on your bizzare biology. Sutures, radiation, and other, non-chemical sources of healing are more effective. All chemicals that do not heal brute or burn work as normal. \
-					<span class='nicegreen'>Radiation heals you slowly.</span> \
-					<span class='warning'>You are terrible at melee</span> and slightly more vulnerable to damage than humans. You also cannot go into critical condition-ever. You will keep shambling forward until you are <span class='danger'>dead.</span>"
+	var/info_text = "You are a <span class='danger'>Ghoul.</span> Your necrotic heart surges with power, but each use builds <b>feral instinct</b>. Manage your radiation and feral stacks carefully, or risk losing yourself to the wasteland."
 
-/datum/species/ghoul/spec_life(mob/living/carbon/human/H)
+/datum/species/ghoul/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
-	var/healpwr = 0
-	var/is_healing = FALSE
-	if(H.stat == DEAD)
-		is_healing = FALSE
-		return
-	switch(H.radiation)
-		if(0)
-			healpwr = 0
-			is_healing = FALSE
-			H.set_light(0)
-		else
-			healpwr = 3
-			is_healing = TRUE
-			H.set_light(2, 15, LIGHT_COLOR_GREEN)
-	H.adjustCloneLoss(-healpwr)
-	H.adjustToxLoss(-0.3) //ghouls always heal toxin very slowly no matter what
-	H.adjustStaminaLoss(-10)
-	H.heal_overall_damage(healpwr, healpwr, healpwr)
-	if(is_healing)
-		H.apply_status_effect(/datum/status_effect/ghoulheal)
+	to_chat(C, "[info_text]")
+	
+	for(var/obj/item/bodypart/b in C.bodyparts)
+		if(istype(b, /obj/item/bodypart/chest))
+			continue
+		b.max_damage -= 20
+		b.wound_resistance = -35
+	
+	if(istype(C, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = C
+		H.ghoul_wave_next = 0
+		H.ghoul_feedback_next = 0
+		H.ghoul_feral_ally = FALSE
+		H.ghoul_starve_ticks = 0
+		H.ghoul_exposure_ticks = 0
+		H.ghoul_surges = 0  // START WITH ZERO SURGES
+		H.ghoul_surges_max = GHOUL_SURGES_MAX
+		H.ghoul_surge_recharge_next = world.time + (GHOUL_SURGE_COOLDOWN * 10)
+		H.ghoul_regen_active = FALSE
+		H.ghoul_last_heal_tick = 0
+		H.ghoul_feral_stacks = 0
+		H.ghoul_feral_accumulator = 0
+		H.ghoul_radaway_purge_next = 0
+		H.last_radiation_check = H.radiation  // Initialize tracking
+		H.ghoul_feral_decay_counter = 0
+		H.ghoul_last_combat_time = 0
+		H.ghoul_last_damage_source = null
+		
+		H.sprint_buffer_max = 4.5
+		H.sprint_buffer = H.sprint_buffer_max
+		H.sprint_buffer_regen_ds = 0
+		H.sprint_buffer_regen_last = world.time
+		H.sprint_idle_time = 0
+		
+		RegisterSignal(H, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+		
+		#if GHOUL_DEBUG_RADIATION
+		world.log << "GHOUL INIT: [H] surges=[H.ghoul_surges]/[H.ghoul_surges_max] radiation=[H.radiation] feral=[H.ghoul_feral_stacks]"
+		to_chat(H, span_notice("DEBUG: Ghoul initialized - surges_max=[H.ghoul_surges_max]"))
+		#endif
+
+/datum/species/ghoul/on_species_loss(mob/living/carbon/C)
+	..()
+	
+	for(var/obj/item/bodypart/b in C.bodyparts)
+		if(istype(b, /obj/item/bodypart/chest))
+			continue
+		b.max_damage = initial(b.max_damage)
+		b.wound_resistance = initial(b.wound_resistance)
+	
+	if(istype(C, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = C
+		if(H.ghoul_feral_ally)
+			H.faction -= "ghoul"
+			H.ghoul_feral_ally = FALSE
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
+		
+		UnregisterSignal(H, COMSIG_PARENT_EXAMINE)
+
+/datum/species/ghoul/proc/on_examine(mob/living/carbon/human/H, mob/user, list/examine_list)
+	SIGNAL_HANDLER
+	
+	var/t_He = H.p_they(TRUE)
+	var/t_his = H.p_their()
+	var/t_is = H.p_are()
+	
+	// Show surge status
+	if(H.ghoul_surges >= H.ghoul_surges_max)
+		examine_list += span_nicegreen("[t_He] [t_is] blazing with necrotic energy - fully charged! ([H.ghoul_surges]/[H.ghoul_surges_max] surges)")
+	else if(H.ghoul_surges >= 7)
+		examine_list += span_notice("[t_He] [t_is] building up necrotic power. ([H.ghoul_surges]/[H.ghoul_surges_max] surges)")
+	else if(H.ghoul_surges >= 4)
+		examine_list += "[t_He] [t_is] accumulating energy. ([H.ghoul_surges]/[H.ghoul_surges_max] surges)"
+	else if(H.ghoul_surges >= 1)
+		examine_list += span_warning("[t_He]'s necrotic heart is weak. ([H.ghoul_surges]/[H.ghoul_surges_max] surges)")
 	else
-		H.remove_status_effect(/datum/status_effect/ghoulheal)
+		examine_list += span_danger("[t_He] has no pulse - [t_his] necrotic heart is completely spent.")
+	
+	// Show feral status
+	var/feral_percent = (H.ghoul_feral_stacks / GHOUL_FERAL_MAX) * 100
+	if(feral_percent >= 80)
+		examine_list += span_userdanger("[t_He] [t_is] twitching with barely-contained feral rage! ([H.ghoul_feral_stacks]/[GHOUL_FERAL_MAX] feral)")
+	else if(feral_percent >= 60)
+		examine_list += span_danger("[t_He] [t_is] showing signs of feral degradation. ([H.ghoul_feral_stacks]/[GHOUL_FERAL_MAX] feral)")
+	else if(feral_percent >= 40)
+		examine_list += span_warning("[t_He] seems more bestial than usual. ([H.ghoul_feral_stacks]/[GHOUL_FERAL_MAX] feral)")
+	else if(feral_percent >= 20)
+		examine_list += span_notice("[t_He] has a slight wild look in [t_his] eyes. ([H.ghoul_feral_stacks]/[GHOUL_FERAL_MAX] feral)")
 
 /datum/species/ghoul/qualifies_for_rank(rank, list/features)
+	if(rank in GLOB.legion_positions)
+		return 0
+	if(rank in GLOB.brotherhood_positions)
+		return 0
+	if(rank in GLOB.vault_positions)
+		return 0
 	if(rank in GLOB.mutant_positions)
 		return 0
 	return ..()
 
-/*/datum/species/ghoul/glowing
-	name = "Glowing Ghoul"
-	id = "glowing ghoul"
-	limbs_id = "glowghoul"
-	armor = -30
-	speedmod = 0.5
-	brutemod = 1.3
-	punchdamagehigh = 6
-	punchstunthreshold = 6
-	use_skintones = 0
-	sexes = 0
+/datum/species/ghoul/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
+	if(istype(chem) && !chem.ghoulfriendly)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * 1000)
+		return TRUE
+	
+	// RADAWAY FERAL PURGE SYSTEM
+	if(chem.type == /datum/reagent/medicine/radaway)
+		H.adjustBruteLoss(GHOUL_RADAWAY_DAMAGE)
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+		
+		// Check if we can purge feral stacks
+		if(H.ghoul_feral_stacks > 0 && world.time >= H.ghoul_radaway_purge_next)
+			var/old_feral = H.ghoul_feral_stacks
+			H.ghoul_feral_stacks = max(0, H.ghoul_feral_stacks - GHOUL_RADAWAY_PURGE_AMOUNT)
+			H.ghoul_feral_accumulator = 0  // Clear accumulator too
+			H.ghoul_radaway_purge_next = world.time + GHOUL_RADAWAY_PURGE_COOLDOWN
+			H.adjustBruteLoss(GHOUL_RADAWAY_PURGE_DAMAGE)
+			
+			to_chat(H, span_boldnotice("The radaway burns through your system, purging feral instinct!"))
+			to_chat(H, span_notice("Feral stacks: [old_feral] → [H.ghoul_feral_stacks] (-[old_feral - H.ghoul_feral_stacks])"))
+			
+			if(H.ghoul_feral_stacks == 0)
+				to_chat(H, span_nicegreen("Your mind clears. The beast within has been suppressed... for now."))
+			else if(H.ghoul_feral_stacks < GHOUL_FERAL_MELTDOWN_START)
+				to_chat(H, span_notice("You feel more in control, but feral urges still lurk."))
+			else
+				to_chat(H, span_warning("You're still dangerously feral. More radaway needed."))
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL RADAWAY PURGE: [H] feral=[old_feral]->[H.ghoul_feral_stacks] cooldown=[GHOUL_RADAWAY_PURGE_COOLDOWN/10]s"
+			#endif
+		else if(H.ghoul_feral_stacks > 0)
+			var/time_left = round((H.ghoul_radaway_purge_next - world.time) / 10)
+			to_chat(H, span_warning("Your body resists the radaway - you need [time_left]s before you can purge feral instinct again."))
+		else if(prob(GHOUL_RADAWAY_FEEDBACK))
+			to_chat(H, span_warning("You feel like taking radaway wasn't the best idea."))
+	
+	if(chem.type == /datum/reagent/medicine/radx)
+		H.adjustBruteLoss(GHOUL_RADX_DAMAGE)
+		if(prob(GHOUL_RADX_FEEDBACK))
+			to_chat(H, span_warning("You feel sick..."))
+		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
+	if(chem.type == /datum/reagent/medicine/stimpak)
+		H.adjustBruteLoss(GHOUL_STIMPAK_PENALTY)
+	if(chem.type == /datum/reagent/medicine/super_stimpak)
+		H.adjustBruteLoss(GHOUL_SUPERSTIM_PENALTY)
+	return ..()
 
-//Ghouls have weak limbs.
-/datum/species/ghoul/glowing/on_species_gain(mob/living/carbon/C, datum/species/old_species)
+// ========== RADIATION ABSORPTION OVERRIDE ==========
+/mob/living/carbon/human/apply_effect(effect, effecttype, blocked, knockdown_stamoverride, knockdown_stammax)
+	if(effecttype == EFFECT_IRRADIATE && dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		var/original_effect = effect
+		
+		// Base 2x absorption, then amplified by feral stacks
+		var/feral_mult = ghoul_feral_rad_multiplier(ghoul_feral_stacks)
+		effect = effect * GHOUL_RAD_ABSORPTION_MULT * feral_mult
+		
+		#if GHOUL_DEBUG_RADIATION
+		if(effect > 0)
+			world.log << "GHOUL RAD ABSORB: [src] original=[original_effect] base_mult=2.0 feral_mult=[feral_mult] final=[effect] feral_stacks=[ghoul_feral_stacks]"
+		#endif
+		
+		// Feral feedback - much less spammy
+		if(feral_mult >= 2.5 && prob(2))  // Only 2% chance, only at very high feral
+			to_chat(src, span_warning("Your feral instinct hungers for radiation!"))
+	
+	return ..()
+
+// ========== MAIN SPEC_LIFE ==========
+/datum/species/ghoul/spec_life(mob/living/carbon/human/H)
+	// DO NOT CALL PARENT
+	
+	if(!H || !istype(H))
+		return
+
+	if(H.stat == DEAD)
+		update_feral_alignment(H, 0)
+		H.set_light(0)
+		H.remove_status_effect(/datum/status_effect/ghoulheal)
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
+		H.ghoul_starve_ticks = 0
+		H.ghoul_exposure_ticks = 0
+		H.sprint_buffer_regen_last = world.time
+		H.ghoul_regen_active = FALSE
+		return
+
+	// ========== CALCULATE RADIATION FACTORS EARLY ==========
+	var/r = H.radiation
+	var/f = ghoul_rad_factor(r)
+	var/m = ghoul_meltdown_factor(H.ghoul_feral_stacks)  // NOW BASED ON FERAL STACKS
+	var/s = ghoul_starve_factor(r)
+	
+	// Calculate current damage once (used in multiple places)
+	var/current_damage = H.getBruteLoss() + H.getFireLoss() + H.getCloneLoss() + H.getToxLoss()
+
+	// ========== STEP 1: SURGE RECHARGE (only when GAINING radiation AND NOT regenerating) ==========
+	// Track radiation change
+	var/rad_gained_this_tick = 0
+	if(H.radiation > (H.last_radiation_check ? H.last_radiation_check : 0))
+		rad_gained_this_tick = H.radiation - (H.last_radiation_check ? H.last_radiation_check : 0)
+	H.last_radiation_check = H.radiation
+	
+	// Check if in combat (took damage from another mob recently)
+	var/in_combat = (world.time - H.ghoul_last_combat_time) < GHOUL_COMBAT_TIMEOUT
+	
+	// Check if injured for faster recharge
+	var/is_injured = current_damage >= GHOUL_INJURY_THRESHOLD
+	
+	// Calculate recharge cooldown with combat bonus
+	var/recharge_cooldown = is_injured ? (GHOUL_SURGE_COOLDOWN_INJURED * 10) : (GHOUL_SURGE_COOLDOWN * 10)
+	if(in_combat)
+		recharge_cooldown = round(recharge_cooldown * GHOUL_COMBAT_COOLDOWN_MULT)
+	
+	// ONLY recharge if: 1) we're GAINING radiation (not decaying), 2) NOT actively regenerating, 3) not at max
+	if(rad_gained_this_tick > 0 && !H.ghoul_regen_active && H.ghoul_surges < H.ghoul_surges_max && world.time >= H.ghoul_surge_recharge_next)
+		// If completely exhausted (0 surges), restore 1 surge
+		if(H.ghoul_surges == 0)
+			H.ghoul_surges = 1
+			H.ghoul_surge_recharge_next = world.time + recharge_cooldown
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL SURGE RECHARGE: [src] surges=[H.ghoul_surges]/[H.ghoul_surges_max] rad_gained=[rad_gained_this_tick] injured=[is_injured] in_combat=[in_combat] next_in=[recharge_cooldown/10]s"
+			#endif
+			
+			if(in_combat)
+				to_chat(H, span_nicegreen("Combat adrenaline surges through your necrotic heart - one surge recovered! ([H.ghoul_surges]/[H.ghoul_surges_max])"))
+			else if(is_injured)
+				to_chat(H, span_notice("Your injuries spur your necrotic heart - one surge recovered quickly. ([H.ghoul_surges]/[H.ghoul_surges_max])"))
+			else
+				to_chat(H, span_notice("Your necrotic heart shudders back to life - one surge recovered. ([H.ghoul_surges]/[H.ghoul_surges_max])"))
+		
+		// If you have at least 1 surge and less than max, slowly build up more
+		else if(H.ghoul_surges > 0 && H.ghoul_surges < H.ghoul_surges_max)
+			H.ghoul_surges = min(H.ghoul_surges_max, H.ghoul_surges + 1)
+			H.ghoul_surge_recharge_next = world.time + recharge_cooldown
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL SURGE RECHARGE: [src] surges=[H.ghoul_surges]/[H.ghoul_surges_max] rad_gained=[rad_gained_this_tick] injured=[is_injured] in_combat=[in_combat] next_in=[recharge_cooldown/10]s"
+			#endif
+			
+			if(in_combat)
+				to_chat(H, span_notice("Battle fuels your necrotic heart - another surge available. ([H.ghoul_surges]/[H.ghoul_surges_max])"))
+			else
+				to_chat(H, span_notice("Your necrotic heart thrums - another surge available. ([H.ghoul_surges]/[H.ghoul_surges_max])"))
+			
+			if(H.ghoul_surges >= H.ghoul_surges_max)
+				to_chat(H, span_nicegreen("Your necrotic heart pulses at full capacity!"))
+	
+	// ========== STEP 2: RADIATION DECAY (only when NOT regenerating) ==========
+	if(!H.ghoul_regen_active && H.radiation > GHOUL_RAD_DECAY_SCALE_START)
+		var/decay_factor = (H.radiation - GHOUL_RAD_DECAY_SCALE_START) / (GHOUL_RAD_MELTDOWN_FULL - GHOUL_RAD_DECAY_SCALE_START)
+		decay_factor = clamp(decay_factor, 0, 1)
+		var/decay_amount = GHOUL_RAD_DECAY_BASE + ((GHOUL_RAD_DECAY_MAX - GHOUL_RAD_DECAY_BASE) * decay_factor)
+		
+		H.radiation = max(0, H.radiation - decay_amount)
+		
+		#if GHOUL_DEBUG_RADIATION
+		if(world.time % 100 == 0)
+			world.log << "GHOUL RAD DECAY: [src] radiation=[H.radiation] decay=[decay_amount]"
+		#endif
+	
+	// ========== STEP 3: FERAL STACK NATURAL DECAY (whole numbers on interval) ==========
+	if(H.ghoul_feral_stacks > 0)
+		H.ghoul_feral_decay_counter++
+		
+		// Decay 1 feral stack every GHOUL_FERAL_DECAY_INTERVAL ticks
+		if(H.ghoul_feral_decay_counter >= GHOUL_FERAL_DECAY_INTERVAL)
+			H.ghoul_feral_stacks = max(0, H.ghoul_feral_stacks - GHOUL_FERAL_DECAY_RATE)
+			H.ghoul_feral_decay_counter = 0
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL FERAL DECAY: [src] feral=[H.ghoul_feral_stacks] decayed=[GHOUL_FERAL_DECAY_RATE]"
+			#endif
+	else
+		H.ghoul_feral_decay_counter = 0
+
+	#if GHOUL_DEBUG_RADIATION
+	if(world.time % 100 == 0)
+		world.log << "GHOUL LIFE: [src] rads=[r] surges=[H.ghoul_surges] feral=[H.ghoul_feral_stacks] f=[f] m=[m] s=[s] regen_active=[H.ghoul_regen_active]"
+	#endif
+
+	// ========== STEP 4: UPDATE FERAL ALIGNMENT ==========
+	update_feral_alignment(H, m)
+
+	// ========== STEP 5: HIGH-RAD EXPOSURE ==========
+	if(r >= GHOUL_HIGHRAD_THRESHOLD && r < GHOUL_RAD_MELTDOWN_START)
+		H.ghoul_exposure_ticks++
+		
+		if(H.ghoul_exposure_ticks >= GHOUL_EXPOSURE_BUILDUP)
+			H.radiation += GHOUL_EXPOSURE_RADS_GAIN
+			
+			if(H.ghoul_exposure_ticks == GHOUL_EXPOSURE_BUILDUP)
+				to_chat(H, span_warning("Your body absorbs more radiation than it can safely process."))
+	else
+		if(H.ghoul_exposure_ticks > 0)
+			H.ghoul_exposure_ticks = max(0, H.ghoul_exposure_ticks - 3)
+
+	// ========== STEP 6: HEALING - NEW LOGIC ==========
+	// Clean up tiny damage values first
+	ghoul_cleanup_damage(H)
+	
+	// Recalculate damage after cleanup
+	current_damage = H.getBruteLoss() + H.getFireLoss() + H.getCloneLoss() + H.getToxLoss()
+	
+	// ACTIVATION: Reach 10 surges with radiation fuel and damage to heal (minimum threshold)
+	if(!H.ghoul_regen_active && H.ghoul_surges >= H.ghoul_surges_max && r >= GHOUL_RAD_HEAL_START && current_damage >= GHOUL_DAMAGE_ACTIVATION_MIN)
+		H.ghoul_regen_active = TRUE
+		H.ghoul_last_heal_tick = world.time
+		to_chat(H, span_nicegreen("Your necrotic heart SURGES to life! Regeneration activated!"))
+		H.jitteriness = max(H.jitteriness, 20)  // Initial activation jitter
+		
+		#if GHOUL_DEBUG_RADIATION
+		world.log << "GHOUL REGEN ACTIVATED: [src] surges=[H.ghoul_surges] rads=[r]"
+		#endif
+	
+	// DEACTIVATION CONDITIONS:
+	// 1. Surges hit 0
+	// 2. No damage healed for GHOUL_REGEN_TIMEOUT (idle timeout)
+	// NOTE: We do NOT check radiation while regen is active - surges are the only limit
+	if(H.ghoul_regen_active)
+		var/should_deactivate = FALSE
+		var/deactivate_reason = ""
+		
+		if(H.ghoul_surges <= 0)
+			should_deactivate = TRUE
+			deactivate_reason = "Your necrotic heart is exhausted! Regeneration stops."
+		else if(current_damage < GHOUL_DAMAGE_ACTIVATION_MIN && (world.time - H.ghoul_last_heal_tick) >= GHOUL_REGEN_TIMEOUT)
+			should_deactivate = TRUE
+			deactivate_reason = "Your wounds are healed. Regeneration goes dormant."
+		
+		if(should_deactivate)
+			H.ghoul_regen_active = FALSE
+			to_chat(H, span_warning("[deactivate_reason]"))
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL REGEN DEACTIVATED: [src] reason=[deactivate_reason]"
+			#endif
+	
+	// HEALING: Only heal if regeneration is ACTIVE
+	if(H.ghoul_regen_active && current_damage >= GHOUL_DAMAGE_ACTIVATION_MIN)
+		// Calculate max possible HP
+		var/max_hp = H.getMaxHealth()
+		
+		// Healing scales with radiation level (percentage of max HP)
+		var/heal_percent = GHOUL_HEAL_PERCENT_MIN + ((GHOUL_HEAL_PERCENT_MAX - GHOUL_HEAL_PERCENT_MIN) * f)
+		var/healpwr = round(max_hp * heal_percent)
+		healpwr = max(1, healpwr) // Minimum 1 HP healed
+		
+		#if GHOUL_DEBUG_RADIATION
+		world.log << "GHOUL HEAL ACTIVE: [src] healpwr=[healpwr] damage=[current_damage] surges=[H.ghoul_surges] rads=[r]"
+		#endif
+		
+		// Meltdown effects
+		if(m > 0)
+			if(prob(30 + round(40*m)))
+				healpwr = max(1, healpwr - 3)
+			
+			if(prob(round(6 + 18*m)))
+				H.adjustBruteLoss(rand(1, max(1, GHOUL_MELTDOWN_BRUTE_MAX)))
+			
+			H.confused = max(H.confused, round(2 + (GHOUL_FERAL_CONFUSED_MAX * m)))
+			H.jitteriness = max(H.jitteriness, round(1 + (GHOUL_FERAL_JITTER_MAX * m)))
+			H.slurring = max(H.slurring, round(1 + (6 * m)))
+			
+			if(m >= 0.70 && prob(round(6 + (12 * m))))
+				step(H, pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+		
+		// Apply healing
+		var/brute_before = H.getBruteLoss()
+		var/burn_before = H.getFireLoss()
+		var/clone_before = H.getCloneLoss()
+		var/tox_before = H.getToxLoss()
+		
+		H.heal_overall_damage(healpwr, healpwr, healpwr)
+		H.adjustCloneLoss(-healpwr)
+		H.adjustToxLoss(-0.3)
+		
+		var/brute_healed = brute_before - H.getBruteLoss()
+		var/burn_healed = burn_before - H.getFireLoss()
+		var/clone_healed = clone_before - H.getCloneLoss()
+		var/tox_healed = tox_before - H.getToxLoss()
+		var/total_healed = brute_healed + burn_healed + clone_healed + tox_healed
+		
+		if(total_healed > 0)
+			H.ghoul_last_heal_tick = world.time  // Update last heal time
+			
+			// CONSUME RADIATION (your fuel) - base consumption
+			var/rad_consume = GHOUL_RAD_CONSUME_BASE
+			if(current_damage > 75)
+				rad_consume = GHOUL_RAD_CONSUME_HEAVY  // Heavy injuries burn more fuel
+			
+			var/old_rads = H.radiation
+			H.radiation = max(0, H.radiation - rad_consume)
+			
+			// CONSUME SURGE (your heart expends a pump)
+			// Each surge lasts for multiple healing ticks
+			// Consume 1 surge per ~15 HP healed (adjust this to your taste)
+			if(prob(total_healed * 6)) // ~6% chance per HP healed = 1 surge per ~17 HP
+				H.ghoul_surges = max(0, H.ghoul_surges - 1)
+				
+				// FLAT FERAL GAIN PER SURGE USE - can't avoid this cost!
+				var/old_feral_surge = H.ghoul_feral_stacks
+				H.ghoul_feral_stacks = min(GHOUL_FERAL_MAX, H.ghoul_feral_stacks + GHOUL_FERAL_PER_SURGE_USE)
+				
+				#if GHOUL_DEBUG_RADIATION
+				world.log << "GHOUL SURGE CONSUMED: [src] +[GHOUL_FERAL_PER_SURGE_USE] FLAT feral from surge use feral=[old_feral_surge]->[H.ghoul_feral_stacks]"
+				#endif
+				
+				// CONSUME EXTRA RADIATION when surge is used (from stored rads)
+				H.radiation = max(0, H.radiation - GHOUL_RAD_CONSUME_SURGE)
+				
+				// ALSO consume radiation metabolism (effect_irradiate) - eat pending radiation absorption
+				// This keeps total radiation lower by consuming the "incoming" radiation
+				if(H.reagents)
+					var/metabolism_consumed = 0
+					for(var/datum/reagent/R in H.reagents.reagent_list)
+						// Look for radiation effects in metabolism
+						if(istype(R, /datum/reagent/toxin/plasma) || istype(R, /datum/reagent/uranium))
+							var/amount_to_remove = min(R.volume, GHOUL_RAD_CONSUME_SURGE / 10)
+							H.reagents.remove_reagent(R.type, amount_to_remove)
+							metabolism_consumed += amount_to_remove * 10
+					
+					#if GHOUL_DEBUG_RADIATION
+					if(metabolism_consumed > 0)
+						world.log << "GHOUL SURGE METABOLISM: [src] consumed=[metabolism_consumed] rads from metabolism"
+					#endif
+				
+				// JITTER FEEDBACK - Visual cue that a surge was consumed
+				H.jitteriness = max(H.jitteriness, 15)
+				
+				// Surge warnings
+				if(H.ghoul_surges == 7)
+					to_chat(H, span_warning("Your necrotic heart is burning through surges! ([H.ghoul_surges]/[H.ghoul_surges_max] remaining)"))
+				else if(H.ghoul_surges == 3)
+					to_chat(H, span_boldwarning("Your necrotic heart is nearly spent! ([H.ghoul_surges]/[H.ghoul_surges_max] remaining)"))
+				else if(H.ghoul_surges == 0)
+					to_chat(H, span_userdanger("Your necrotic heart is exhausted! Healing stops!"))
+					// Deactivation will happen next tick
+			
+			// BUILD FERAL STACKS based on HEALING POWER (more HP healed = more feral)
+			// Use accumulator to prevent rounding loss
+			var/old_feral = H.ghoul_feral_stacks
+			var/feral_gain = total_healed * GHOUL_FERAL_PER_HP_HEALED
+			
+			// Add to accumulator (this preserves fractional amounts)
+			H.ghoul_feral_accumulator += feral_gain
+			
+			// Only apply whole number increases
+			if(H.ghoul_feral_accumulator >= 1.0)
+				var/whole_feral = floor(H.ghoul_feral_accumulator)
+				H.ghoul_feral_stacks = min(GHOUL_FERAL_MAX, H.ghoul_feral_stacks + whole_feral)
+				H.ghoul_feral_accumulator -= whole_feral  // Keep the fractional remainder
+				
+				#if GHOUL_DEBUG_RADIATION
+				world.log << "GHOUL FERAL GAIN: [src] healed=[total_healed] feral_gain=[feral_gain] whole_feral=[whole_feral] feral=[old_feral]->[H.ghoul_feral_stacks] accumulator=[H.ghoul_feral_accumulator]"
+				#endif
+				
+				// Feral warnings - only when crossing thresholds
+				if(H.ghoul_feral_stacks >= GHOUL_FERAL_MELTDOWN_FULL && old_feral < GHOUL_FERAL_MELTDOWN_FULL)
+					to_chat(H, span_userdanger("FERAL RAGE CONSUMES YOU! Your mind fractures as the beast takes over!"))
+				else if(H.ghoul_feral_stacks >= GHOUL_FERAL_MELTDOWN_START && old_feral < GHOUL_FERAL_MELTDOWN_START)
+					to_chat(H, span_danger("The beast within stirs - you feel yourself slipping toward feral madness!"))
+				else if(H.ghoul_feral_stacks >= 60 && old_feral < 60)
+					to_chat(H, span_warning("Feral instinct builds with each surge. ([H.ghoul_feral_stacks]/[GHOUL_FERAL_MAX] feral)"))
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL RAD CONSUME: [src] healed=[total_healed] consumed=[rad_consume] rads=[old_rads]->[H.radiation]"
+			#endif
+			
+			// Visual feedback
+			if(total_healed >= 3 && prob(15))
+				var/list/healing_messages = list()
+				
+				if(brute_healed >= 2)
+					healing_messages += "flesh knits"
+				if(burn_healed >= 2)
+					healing_messages += "burns seal"
+				if(clone_healed >= 2)
+					healing_messages += "decay reverses"
+				
+				if(healing_messages.len > 0)
+					var/message = english_list(healing_messages)
+					H.visible_message(
+						span_notice("[H]'s [message] with a sickly green pulse!"),
+						span_notice("Your necrotic heart surges as [message]!")
+					)
+	else if(!H.ghoul_regen_active && current_damage >= GHOUL_DAMAGE_ACTIVATION_MIN)
+		// Explain why healing isn't working
+		if(H.ghoul_surges < H.ghoul_surges_max && prob(1))
+			var/time_until = round((H.ghoul_surge_recharge_next - world.time) / 10)
+			if(time_until > 0)
+				to_chat(H, span_warning("Your necrotic heart isn't at full capacity! ([H.ghoul_surges]/[H.ghoul_surges_max] surges - next in [time_until]s)"))
+			else
+				to_chat(H, span_warning("Your necrotic heart isn't at full capacity! ([H.ghoul_surges]/[H.ghoul_surges_max] surges)"))
+		else if(r < GHOUL_RAD_HEAL_START && prob(1))
+			to_chat(H, span_warning("Your wounds won't close - you need more radiation fuel! (Currently: [round(r)]/[GHOUL_RAD_HEAL_START])"))
+
+	// ========== STEP 7: FERAL SPEECH (runechat visible) ==========
+	process_feral_speech(H)
+
+	// ========== STEP 8: STARVATION ==========
+	if(s > 0)
+		H.ghoul_starve_ticks++
+		
+		var/neglect_mult = 1.0
+		if(H.ghoul_starve_ticks >= GHOUL_NEGLECT_THRESHOLD)
+			var/neglect_progress = min((H.ghoul_starve_ticks - GHOUL_NEGLECT_THRESHOLD) / GHOUL_NEGLECT_THRESHOLD, 1.0)
+			neglect_mult = 1.0 + (GHOUL_NEGLECT_MULTIPLIER - 1.0) * neglect_progress
+		
+		var/starve_tox = (0.08 + (GHOUL_STARVE_TOX_MAX * s)) * neglect_mult
+		H.adjustToxLoss(starve_tox)
+		
+		var/clone_chance = round((15 + (35 * s)) * neglect_mult)
+		if(prob(clone_chance))
+			H.adjustCloneLoss(round((0.5 + (GHOUL_STARVE_CLONE_MAX * s)) * neglect_mult))
+		
+		if(H.ghoul_starve_ticks == GHOUL_NEGLECT_THRESHOLD)
+			to_chat(H, span_boldwarning("Your tissue deteriorates rapidly. You NEED radiation!"))
+	else
+		H.ghoul_starve_ticks = 0
+
+	// ========== STEP 9: STAMINA RECOVERY ==========
+	if(H.getStaminaLoss() > 0)
+		var/stam_recovery = -1.5
+		
+		if(f > 0)
+			stam_recovery = -1.5 - (2.5 * f)
+		
+		if(s > 0)
+			stam_recovery = stam_recovery * (1.0 - (0.6 * s))
+		
+		H.adjustStaminaLoss(stam_recovery)
+
+	// ========== STEP 10: GLOW - ONLY WHEN REGENERATION IS ACTIVE ==========
+	if(H.ghoul_regen_active)
+		H.set_light(GHOUL_GLOW_MAX, 15, LIGHT_COLOR_GREEN)
+		H.apply_status_effect(/datum/status_effect/ghoulheal)
+	else
+		H.set_light(0)
+		H.remove_status_effect(/datum/status_effect/ghoulheal)
+
+	// ========== STEP 11: SPEED ==========
+	var/speed_slowdown = 0
+
+	if(s > 0)
+		speed_slowdown += (0.04 + (0.10 * s))
+
+	if(f > 0)
+		speed_slowdown += -(0.04 + (0.06 * f))
+
+	if(m > 0)
+		speed_slowdown += (GHOUL_MELTDOWN_SLOW_MAX * m)
+
+	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad, TRUE, speed_slowdown)
+
+	// ========== STEP 12: SPRINT BUFFER ==========
+	var/time_diff = world.time - H.sprint_buffer_regen_last
+	H.sprint_buffer_regen_last = world.time
+	
+	if(time_diff > 0)
+		H.sprint_idle_time += time_diff
+		
+		var/base_regen = 0.075
+		var/regen_rate = 0
+		
+		if(f > 0)
+			var/rad_multiplier = 0.4 + (0.8 * f)
+			regen_rate = base_regen * rad_multiplier
+			
+			if(H.sprint_idle_time >= 30)
+				regen_rate *= 1.25
+		else if(s > 0)
+			regen_rate = -(0.03 * s)
+		else
+			regen_rate = base_regen * 0.2
+			
+			if(H.sprint_idle_time >= 30)
+				regen_rate *= 1.25
+		
+		H.sprint_buffer = clamp(H.sprint_buffer + (regen_rate * (time_diff / 10)), 0, H.sprint_buffer_max)
+		H.update_hud_sprint_bar()
+
+	// ========== STEP 13: FEEDBACK ==========
+	var/status_changed = check_radiation_status_change(H, f, m, s)
+	if(!status_changed)
+		send_ghoul_feedback(H, f, m, s)
+
+	// ========== STEP 14: EMIT WAVES - GLOWING ONE TRANSFORMATION (high radiation only) ==========
+	if(r >= GHOUL_WAVE_MIN_RADS)
+		emit_radiation_waves(H, r, m)
+
+// ========== FERAL SPEECH SYSTEM (runechat visible) ==========
+/datum/species/ghoul/proc/process_feral_speech(mob/living/carbon/human/H)
+	if(!H || H.stat == DEAD || H.stat == UNCONSCIOUS)
+		return
+	
+	// Only process if we have enough feral stacks
+	if(H.ghoul_feral_stacks < GHOUL_FERAL_SPEAK_FERAL_MIN)
+		return
+	
+	// Determine speak chance based on feral level
+	var/speak_chance = 0
+	var/feral_tier = 1  // 1 = low, 2 = mid, 3 = high
+	
+	if(H.ghoul_feral_stacks >= GHOUL_FERAL_SPEAK_FERAL_HIGH)
+		speak_chance = GHOUL_FERAL_SPEAK_CHANCE_HIGH
+		feral_tier = 3
+	else if(H.ghoul_feral_stacks >= GHOUL_FERAL_SPEAK_FERAL_MID)
+		speak_chance = GHOUL_FERAL_SPEAK_CHANCE_MID
+		feral_tier = 2
+	else
+		speak_chance = GHOUL_FERAL_SPEAK_CHANCE_LOW
+		feral_tier = 1
+	
+	if(!prob(speak_chance))
+		return
+	
+	// Low feral: creepy whispers
+	var/list/feral_whispers = list(
+		"hungry...",
+		"need... flesh...",
+		"smoothskin...",
+		"so... hungry...",
+		"rads...",
+		"itches...",
+		"what... was I...?"
+	)
+	
+	// Mid feral: audible mutters
+	var/list/feral_mutters = list(
+		"Hungry... so hungry...",
+		"Smoothskins... I smell them...",
+		"The rads... they call...",
+		"What... happened to me...?",
+		"Flesh... need flesh...",
+		"Can't... think..."
+	)
+	
+	// High feral: loud outbursts
+	var/list/feral_shouts = list(
+		"SMOOTHSKIN!",
+		"HUNGRY!",
+		"RADS!",
+		"FLESH!",
+		"MINE!",
+		"GET AWAY!"
+	)
+	
+	// Visible emotes (like animal emote_see)
+	var/list/feral_emotes_low = list(
+		"twitches slightly",
+		"scratches at their arm",
+		"stares off into the distance",
+		"tilts their head unnaturally"
+	)
+	
+	var/list/feral_emotes_mid = list(
+		"twitches violently",
+		"claws at their own skin",
+		"sniffs the air hungrily",
+		"drools slightly",
+		"shambles in place"
+	)
+	
+	var/list/feral_emotes_high = list(
+		"convulses with feral rage",
+		"claws wildly at the air",
+		"snaps their jaws like a rabid animal",
+		"hunches over, breathing heavily",
+		"lets out a bestial snarl"
+	)
+	
+	// Decide: speech or emote (60% speech, 40% emote)
+	if(prob(60))
+		// SPEECH (runechat visible)
+		var/message = ""
+		
+		switch(feral_tier)
+			if(1)  // Low - whisper (runechat visible but quiet)
+				message = pick(feral_whispers)
+				H.whisper(message, forced = "feral whisper")
+			
+			if(2)  // Mid - mutter/say (normal volume)
+				message = pick(feral_mutters)
+				H.say(message, forced = "feral mutter")
+			
+			if(3)  // High - shout (loud, runechat visible)
+				message = pick(feral_shouts)
+				H.say(message, forced = "feral shout")
+	else
+		// EMOTE (runechat visible with me verb)
+		var/emote_text = ""
+		
+		switch(feral_tier)
+			if(1)
+				emote_text = pick(feral_emotes_low)
+			if(2)
+				emote_text = pick(feral_emotes_mid)
+			if(3)
+				emote_text = pick(feral_emotes_high)
+		
+		// Use me verb for runechat visible emotes
+		H.emote("me", 1, emote_text, TRUE)
+
+// ========== WAVE EMISSION (Glowing One) ==========
+/datum/species/ghoul/proc/emit_radiation_waves(mob/living/carbon/human/H, rads, m)
+	if(!H || H.stat == DEAD)
+		return
+
+	if(world.time < H.ghoul_wave_next)
+		return
+	H.ghoul_wave_next = world.time + GHOUL_WAVE_PULSE_CD
+
+	// Intensity scales with radiation level (glowing one transformation)
+	var/rad_factor = (rads - GHOUL_WAVE_MIN_RADS) / (GHOUL_RAD_MELTDOWN_FULL - GHOUL_WAVE_MIN_RADS)
+	rad_factor = clamp(rad_factor, 0, 1)
+	var/intensity = round(GHOUL_WAVE_INTENSITY_MIN + ((GHOUL_WAVE_INTENSITY_MAX - GHOUL_WAVE_INTENSITY_MIN) * rad_factor))
+
+	if(m > 0)
+		intensity = round(intensity * (1 + (0.60 * m)))
+
+	intensity = clamp(intensity, 1, GHOUL_WAVE_INTENSITY_MAX * 2)
+
+	#if GHOUL_DEBUG_RADIATION
+	world.log << "GHOUL WAVE (GLOWING ONE): [src] rads=[rads] rad_factor=[rad_factor] intensity=[intensity]"
+	#endif
+
+	new /datum/radiation_wave(H, NORTH, intensity, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+	new /datum/radiation_wave(H, SOUTH, intensity, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+	new /datum/radiation_wave(H, EAST,  intensity, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+	new /datum/radiation_wave(H, WEST,  intensity, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+
+	if(prob(GHOUL_WAVE_DIAGONALS_PROB))
+		var/diag = max(1, round(intensity * 0.75))
+		new /datum/radiation_wave(H, NORTHEAST, diag, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+		new /datum/radiation_wave(H, NORTHWEST, diag, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+		new /datum/radiation_wave(H, SOUTHEAST, diag, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+		new /datum/radiation_wave(H, SOUTHWEST, diag, GHOUL_WAVE_RANGE_MOD, GHOUL_WAVE_CAN_CONTAMINATE)
+
+/datum/species/ghoul/proc/send_ghoul_feedback(mob/living/carbon/human/H, f, m, s)
+	if(!H)
+		return
+	if(world.time < H.ghoul_feedback_next)
+		return
+
+	if(m >= 0.75)
+		to_chat(H, span_warning("Your mind frays as feral instinct claws at your thoughts."))
+	else if(s >= 0.65)
+		to_chat(H, span_warning("Your necrotic flesh aches. You need radiation soon."))
+	else if(f >= 0.75)
+		to_chat(H, span_notice("Radiation fuels your undead form."))
+	else
+		return
+
+	H.ghoul_feedback_next = world.time + GHOUL_FEEDBACK_CD
+
+/datum/species/ghoul/proc/update_feral_alignment(mob/living/carbon/human/H, m)
+	if(!H)
+		return
+	if(!islist(H.faction))
+		H.faction = list(H.faction)
+
+	// Remove from feral faction if dead or conditions not met
+	if(H.stat == DEAD || m <= GHOUL_FERAL_ALLY_OFF || H.radiation < GHOUL_FERAL_ALLY_RAD_MIN)
+		if(H.ghoul_feral_ally)
+			H.ghoul_feral_ally = FALSE
+			H.faction -= "ghoul"
+			if(H.stat != DEAD)
+				to_chat(H, span_notice("Your scent settles. Nearby ferals will no longer mistake you for one of their own."))
+		return
+
+	// Join feral faction if BOTH high feral AND high radiation (radmaxxing route)
+	if(m >= GHOUL_FERAL_ALLY_ON && H.radiation >= GHOUL_FERAL_ALLY_RAD_MIN && !H.ghoul_feral_ally)
+		H.ghoul_feral_ally = TRUE
+		H.faction |= "ghoul"
+		to_chat(H, span_warning("Feral instinct and radiation saturation flood your senses. Wild ghouls now recognize you as kin."))
+
+/datum/species/ghoul/proc/check_radiation_status_change(mob/living/carbon/human/H, f, m, s)
+	var/old_state = H.ghoul_last_state
+	var/new_state = "normal"
+	
+	// Now check feral stacks for meltdown state instead of radiation
+	if(H.ghoul_feral_stacks >= GHOUL_FERAL_MELTDOWN_FULL)
+		new_state = "meltdown_full"
+	else if(H.ghoul_feral_stacks >= GHOUL_FERAL_MELTDOWN_START)
+		new_state = "meltdown"
+	else if(H.radiation >= GHOUL_RAD_HEAL_FULL)
+		new_state = "optimal"
+	else if(H.radiation >= GHOUL_RAD_HEAL_START)
+		new_state = "healing"
+	else if(H.radiation >= GHOUL_RAD_STARVE_START)
+		new_state = "stable"
+	else if(H.radiation >= 50)
+		new_state = "starving"
+	else
+		new_state = "critical_starve"
+	
+	H.ghoul_last_state = new_state
+	
+	if(old_state != new_state)
+		var/tier_message = get_status_tier_message(H)
+		if(tier_message)
+			to_chat(H, tier_message)
+		return TRUE
+	
+	return FALSE
+
+/datum/species/ghoul/proc/get_status_tier_message(mob/living/carbon/human/H)
+	var/f = H.ghoul_feral_stacks
+	var/r = H.radiation
+	
+	// Feral states take priority
+	if(f >= GHOUL_FERAL_MELTDOWN_FULL)
+		return span_userdanger("Your humanity shatters. The feral beast has taken over completely.")
+	else if(f >= GHOUL_FERAL_MELTDOWN_START)
+		return span_danger("Feral instinct claws at your sanity. You're losing control!")
+	else if(f >= 60)
+		return span_warning("The beast within grows stronger. You feel yourself slipping.")
+	else if(f >= 40)
+		return span_warning("Feral urges build in the back of your mind.")
+	
+	// Then radiation states
+	else if(r >= GHOUL_RAD_HEAL_FULL)
+		return span_nicegreen("You're perfectly irradiated - radiation fuels your undead form.")
+	else if(r >= GHOUL_RAD_HEAL_START)
+		return span_notice("Ambient radiation sustains your body.")
+	else if(r >= GHOUL_RAD_STARVE_START)
+		return "You feel stable, but not particularly energized."
+	else if(r >= 50)
+		return span_warning("Your flesh aches for radiation. You're beginning to wither.")
+	else
+		return span_danger("Your body is collapsing from radiation starvation!")
+
+/datum/species/ghoul/spec_unarmedattacked(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	..()
-	for(var/obj/item/bodypart/b in C.bodyparts)
-		b.max_damage -= 15
-	C.faction |= "ghoul"
-	C.set_light(2, 1, LIGHT_COLOR_GREEN)
-	SSradiation.processing += C
+	if(!user || !target || target.stat == DEAD)
+		return
+	if(HAS_TRAIT(target, TRAIT_RADIMMUNE))
+		return
+	if(target.dna && target.dna.species && target.dna.species.id == id)
+		return
 
-/datum/species/ghoul/glowing/on_species_loss(mob/living/carbon/C)
-	..()
-	C.set_light(0)
-	C.faction -= "ghoul"
-	for(var/obj/item/bodypart/b in C.bodyparts)
-		b.max_damage = initial(b.max_damage)
-	SSradiation.processing -= C
-*/
+	var/f = ghoul_rad_factor(user.radiation)
+	var/m = ghoul_meltdown_factor(user.ghoul_feral_stacks)
+	if(f <= 0)
+		return
 
+	if(!prob(round(20 + (60 * f) + (10 * m))))
+		return
+
+	var/rad_touch = round(5 + (15 * f) + (8 * m))
+	target.apply_effect(rad_touch, EFFECT_IRRADIATE, 0)
+
+	if(m >= 0.40 && prob(round(8 + (18 * m))))
+		target.adjustStaminaLoss(round(8 + (10 * m)))
+
+	if(m >= 0.65 && prob(round(6 + (16 * m))))
+		user.adjustBruteLoss(1)
+	if(prob(round(20 + (25 * f))))
+		to_chat(target, span_warning("[user]'s irradiated claws sear your flesh."))
+
+// ========== COMBAT TRACKING - FIXED ==========
+// We need to override apply_damage to track combat properly
+/mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_threshold = 0, sendsignal = TRUE)
+	. = ..()
+	
+	// Track combat for ghouls - ONLY if we actually took damage from someone else
+	if(. && damage > 0 && dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		// Check if this was from another mob attacking us (not self-inflicted)
+		if(ghoul_last_damage_source && ghoul_last_damage_source != src)
+			ghoul_last_combat_time = world.time
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL COMBAT DAMAGE: [src] damaged by [ghoul_last_damage_source] for [damage] damage - combat timer refreshed"
+			#endif
+		
+		// Reset damage source after processing
+		ghoul_last_damage_source = null
+
+// Track damage source - set it BEFORE apply_damage is called
+/mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
+	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		if(user && user != src)  // Not self-inflicted
+			ghoul_last_damage_source = user
+	return ..()
+
+/mob/living/carbon/human/attack_hand(mob/living/carbon/human/user, list/modifiers)
+	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		if(user && user != src)  // Not self-inflicted
+			ghoul_last_damage_source = user
+	return ..()
+
+/mob/living/carbon/human/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		// Try to get the thrower from the throwingdatum
+		if(throwingdatum)
+			var/mob/thrower = null
+			
+			// Check if thrower is a weakref and resolve it
+			if(istype(throwingdatum.thrower, /datum/weakref))
+				var/datum/weakref/WR = throwingdatum.thrower
+				thrower = WR.resolve()
+			else if(ismob(throwingdatum.thrower))
+				thrower = throwingdatum.thrower
+			
+			if(thrower && thrower != src)  // Not self-inflicted
+				ghoul_last_damage_source = thrower
+	return ..()
+
+/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone, piercing_hit)
+	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		// Try to get the firer
+		if(P)
+			var/mob/firer = null
+			
+			// Check if firer exists and resolve if it's a weakref
+			if(istype(P.firer, /datum/weakref))
+				var/datum/weakref/WR = P.firer
+				firer = WR.resolve()
+			else if(ismob(P.firer))
+				firer = P.firer
+			
+			if(firer && firer != src)  // Not self-inflicted
+				ghoul_last_damage_source = firer
+	return ..()

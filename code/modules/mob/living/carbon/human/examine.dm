@@ -510,8 +510,87 @@
 		. += "<span class='info'><b>Traits:</b> [traitstring]</span>"
 
 	. += "\n[generate_special_examine_text()]\n"
+	
+	// Detailed ghoul self-examine - Necrotic Surge system with Feral Stacks
+	if(user == src && dna && dna.species && istype(dna.species, /datum/species/ghoul))
+		. += "<span class='info'>*--- Necrotic Status ---*</span>"
+		
+		var/r = radiation
+		var/f = ghoul_rad_factor(r)
+		var/s = ghoul_starve_factor(r)
+		var/m = ghoul_meltdown_factor(ghoul_feral_stacks)  // NOW BASED ON FERAL STACKS
+		
+		// REGENERATION STATUS - Most important info first
+		if(ghoul_regen_active)
+			. += "<span class='nicegreen'>☢ REGENERATION ACTIVE ☢</span>"
+			. += "<span class='nicegreen'>Your necrotic heart is pumping! ([ghoul_surges]/[ghoul_surges_max] surges remaining)</span>"
+		else if(ghoul_surges >= ghoul_surges_max && r >= 150)
+			var/current_damage = getBruteLoss() + getFireLoss() + getCloneLoss() + getToxLoss()
+			if(current_damage > 0)
+				. += "<span class='nicegreen'>★ REGENERATION READY ★</span>"
+				. += "<span class='nicegreen'>Your necrotic heart is at FULL POWER! Will activate on next healing tick.</span>"
+			else
+				. += "<span class='notice'>☆ REGENERATION STANDBY ☆</span>"
+				. += "<span class='notice'>Fully charged ([ghoul_surges]/[ghoul_surges_max]), waiting for injury to activate.</span>"
+		else
+			. += "<span class='warning'>✗ REGENERATION INACTIVE ✗</span>"
+			if(ghoul_surges < ghoul_surges_max)
+				var/time_until = round((ghoul_surge_recharge_next - world.time) / 10)
+				if(time_until > 0)
+					. += "<span class='warning'>Building power... ([ghoul_surges]/[ghoul_surges_max] surges, next in [time_until]s)</span>"
+				else
+					. += "<span class='warning'>Not at full capacity! ([ghoul_surges]/[ghoul_surges_max] surges)</span>"
+			else if(r < 150)
+				. += "<span class='warning'>Need [150 - round(r)] more radiation fuel!</span>"
+		
+		// FERAL STACKS STATUS
+		if(ghoul_feral_stacks >= 80)
+			. += "<span class='userdanger'>⚠ FERAL RAGE ⚠</span>"
+			. += "<span class='userdanger'>Your humanity is slipping away! ([ghoul_feral_stacks]/100 feral - CRITICAL!)</span>"
+		else if(ghoul_feral_stacks >= 60)
+			. += "<span class='danger'>⚠ FERAL DANGER ⚠</span>"
+			. += "<span class='danger'>The beast within grows strong. ([ghoul_feral_stacks]/100 feral)</span>"
+		else if(ghoul_feral_stacks >= 40)
+			. += "<span class='warning'>⚠ FERAL BUILDUP ⚠</span>"
+			. += "<span class='warning'>Feral instinct is building. ([ghoul_feral_stacks]/100 feral)</span>"
+		else if(ghoul_feral_stacks >= 20)
+			. += "<span class='notice'>⚠ Feral Rising ⚠</span>"
+			. += "<span class='notice'>You feel bestial urges stirring. ([ghoul_feral_stacks]/100 feral)</span>"
+		else if(ghoul_feral_stacks > 0)
+			. += "Feral instinct: [ghoul_feral_stacks]/100 (under control)"
+		else
+			. += "<span class='nicegreen'>Feral instinct: 0/100 (mind is clear)</span>"
+		
+		// Radaway purge availability
+		if(ghoul_feral_stacks > 0)
+			if(world.time >= ghoul_radaway_purge_next)
+				. += "<span class='notice'>💊 You can use radaway to purge [15] feral stacks.</span>"
+			else
+				var/time_left = round((ghoul_radaway_purge_next - world.time) / 10)
+				. += "<span class='warning'>💊 Radaway purge on cooldown ([time_left]s remaining)</span>"
+		
+		// Radiation fuel status
+		var/feral_mult = ghoul_feral_rad_multiplier(ghoul_feral_stacks)
+		if(feral_mult > 1.5)
+			. += "<span class='warning'>☢ Radiation absorption amplified [feral_mult]x by feral instinct! ([round(r)] rads)</span>"
+		else if(m >= 0.7)
+			. += "<span class='userdanger'>☢ Feral rage distorts your senses. ([round(r)] rads)</span>"
+		else if(m >= 0.4)
+			. += "<span class='warning'>☢ Feral instinct clouds your thoughts. ([round(r)] rads)</span>"
+		else if(f >= 0.75)
+			. += "<span class='nicegreen'>☢ Radiation flows through you like fuel - you have plenty to burn. ([round(r)] rads)</span>"
+		else if(f >= 0.4)
+			. += "<span class='notice'>☢ You have enough radiation to power your regeneration. ([round(r)] rads)</span>"
+		else if(s >= 0.65)
+			. += "<span class='danger'>☢ Your flesh aches with starvation. You desperately need radiation fuel. ([round(r)] rads)</span>"
+		else if(s >= 0.35)
+			. += "<span class='warning'>☢ You're beginning to wither. Your body craves radiation. ([round(r)] rads)</span>"
+		else
+			. += "☢ You feel stable, neither energized nor starving. ([round(r)] rads)"
+		
+		. += "<span class='info'>*------------------------*</span>"
 
-	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .) //This also handles flavor texts now
+	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 	if(has_status_effect(STATUS_EFFECT_ADMINSLEEP))
 		. += span_danger("<B>This player has been slept by staff.</B>\n")

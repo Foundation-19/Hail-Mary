@@ -12,22 +12,29 @@
 	// NORMAL PLAYER SPRINT
 	doSprintBufferRegen(FALSE)
 	sprint_idle_time = 0
-	if(sprint_buffer)
+	
+	if(sprint_buffer > 0)
 		var/use = min(tiles, sprint_buffer)
 		var/special_discount = calc_sprint_stamina_mod_from_special()
 		if(HAS_TRAIT(src, TRAIT_SPEED))
 			sprint_buffer -= (use * 0.5) * special_discount
 		else
 			sprint_buffer -= (use * special_discount)
-			tiles -= use
-	update_hud_sprint_bar()
+		tiles -= use
+		update_hud_sprint_bar()
+	
+	// If buffer depleted, all remaining tiles cost stamina
 	if(!tiles)
 		return
+	
+	// Check if sprint key is still held
 	var/datum/keybinding/living/toggle_sprint/sprint_bind = GLOB.keybindings_by_name["toggle_sprint"]
 	var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
 	if(!client || !((client in sprint_bind.is_down) || (client in sprint_hold_bind.is_down)))
 		disable_intentional_sprint_mode()
 		return
+	
+	// Apply stamina cost for tiles beyond buffer
 	var/stamina_modifier = calc_sprint_stamina_mod_from_special()
 	if(HAS_TRAIT(src, TRAIT_SPEED))
 		adjustStaminaLoss(tiles * sprint_stamina_cost * 0.5 * stamina_modifier)
@@ -35,6 +42,12 @@
 		return
 	else
 		adjustStaminaLoss(tiles * sprint_stamina_cost * stamina_modifier)
+	
+	// Auto-disable sprint if we hit soft stamcrit (same as combat system)
+	if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
+		disable_intentional_sprint_mode()
+		to_chat(src, span_warning("You're too exhausted to continue sprinting!"))
+		return
 
 /mob/living/carbon/proc/save_sprint_on_mount(mob/living/simple_animal/cow/mount)
 	saved_sprint_buffer = sprint_buffer
