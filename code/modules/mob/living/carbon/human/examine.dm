@@ -518,7 +518,7 @@
 		var/r = radiation
 		var/f = ghoul_rad_factor(r)
 		var/s = ghoul_starve_factor(r)
-		var/m = ghoul_meltdown_factor(ghoul_feral_stacks)  // NOW BASED ON FERAL STACKS
+		var/m = ghoul_meltdown_factor(ghoul_feral_stacks)
 		
 		// REGENERATION STATUS - Most important info first
 		if(ghoul_regen_active)
@@ -561,13 +561,29 @@
 		else
 			. += "<span class='nicegreen'>Feral instinct: 0/100 (mind is clear)</span>"
 		
-		// Radaway purge availability
-		if(ghoul_feral_stacks > 0)
-			if(world.time >= ghoul_radaway_purge_next)
-				. += "<span class='notice'>💊 You can use radaway to purge [15] feral stacks.</span>"
+		// RADAWAY CLEANSE STATUS - Always show if charges exist OR if on cooldown
+		var/time_since_last_cleanse = world.time - ghoul_last_cleanse_time
+		
+		// Use the STORED cooldown duration (which is dynamic based on charges spent)
+		var/on_post_cleanse_cooldown = (ghoul_cleanse_charges == 0 && time_since_last_cleanse < ghoul_cleanse_cooldown_duration)
+		
+		if(ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
+			// Max charges - ready to cleanse
+			var/time_until_cleanse = round((ghoul_last_cleanse_time + GHOUL_CLEANSE_COOLDOWN - world.time) / 10)
+			if(time_until_cleanse > 0 && ghoul_feral_stacks > 0)
+				. += "<span class='info'><font color='#FFA500'>💊 Radaway cleanse ready in [time_until_cleanse]s ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+			else if(ghoul_feral_stacks > 0)
+				. += "<span class='info'><font color='#FFA500'>💊 Radaway cleanse imminent... ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
 			else
-				var/time_left = round((ghoul_radaway_purge_next - world.time) / 10)
-				. += "<span class='warning'>💊 Radaway purge on cooldown ([time_left]s remaining)</span>"
+				. += "<span class='info'><font color='#FFA500'>💊 Radaway charges ready but no feral to cleanse ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+		else if(ghoul_cleanse_charges > 0)
+			// Building charges
+			. += "<span class='info'><font color='#FFA500'>💊 Radaway building cleansing power ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+		else if(on_post_cleanse_cooldown)
+			// Post-cleanse cooldown - use the DYNAMIC cooldown duration
+			var/cooldown_remaining = round((ghoul_cleanse_cooldown_duration - time_since_last_cleanse) / 10)
+			. += "<span class='info'><font color='#FFA500'>💊 Radaway cleanse on cooldown ([cooldown_remaining]s remaining)</font></span>"
+		// If no charges and not on cooldown, don't show anything (system is inactive)
 		
 		// Radiation fuel status
 		var/feral_mult = ghoul_feral_rad_multiplier(ghoul_feral_stacks)
@@ -589,6 +605,7 @@
 			. += "☢ You feel stable, neither energized nor starving. ([round(r)] rads)"
 		
 		. += "<span class='info'>*------------------------*</span>"
+
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
