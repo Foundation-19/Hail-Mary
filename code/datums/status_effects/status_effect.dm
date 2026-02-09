@@ -306,4 +306,3 @@
 	// icon_state = "heal" 
 	// icon_state = "regeneration"
 	// icon_state = "regen"
-	override_alerts = FALSE
