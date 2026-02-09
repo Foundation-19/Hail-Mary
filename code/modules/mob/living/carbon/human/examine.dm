@@ -511,7 +511,7 @@
 
 	. += "\n[generate_special_examine_text()]\n"
 	
-	// Detailed ghoul self-examine - Necrotic Surge system with Feral Stacks
+	// Detailed ghoul self-examine - ONLY for the ghoul themselves
 	if(user == src && dna && dna.species && istype(dna.species, /datum/species/ghoul))
 		. += "<span class='info'>*--- Necrotic Status ---*</span>"
 		
@@ -520,92 +520,84 @@
 		var/s = ghoul_starve_factor(r)
 		var/m = ghoul_meltdown_factor(ghoul_feral_stacks)
 		
-		// REGENERATION STATUS - Most important info first
+		// NECROTIC HEART STATUS - described as pulse/beat
 		if(ghoul_regen_active)
-			. += "<span class='nicegreen'>☢ REGENERATION ACTIVE ☢</span>"
-			. += "<span class='nicegreen'>Your necrotic heart is pumping! ([ghoul_surges]/[ghoul_surges_max] surges remaining)</span>"
-		else if(ghoul_surges >= ghoul_surges_max && r >= 150)
+			. += "<span class='nicegreen'>☢ Your dead heart POUNDS with savage power! ☢</span>"
+			. += "<span class='nicegreen'>Each beat forces flesh to knit and bone to mend. ([ghoul_surges]/[ghoul_surges_max] pulses remaining)</span>"
+		else if(ghoul_surges >= ghoul_surges_max)
 			var/current_damage = getBruteLoss() + getFireLoss() + getCloneLoss() + getToxLoss()
 			if(current_damage > 0)
-				. += "<span class='nicegreen'>★ REGENERATION READY ★</span>"
-				. += "<span class='nicegreen'>Your necrotic heart is at FULL POWER! Will activate on next healing tick.</span>"
+				. += "<span class='nicegreen'>☢ Your necrotic heart swells - ready to surge! ☢</span>"
+				. += "<span class='nicegreen'>The slightest injury will trigger the flood. ([ghoul_surges]/[ghoul_surges_max] pulses charged)</span>"
 			else
-				. += "<span class='notice'>☆ REGENERATION STANDBY ☆</span>"
-				. += "<span class='notice'>Fully charged ([ghoul_surges]/[ghoul_surges_max]), waiting for injury to activate.</span>"
+				. += "<span class='notice'>☆ The dead heart waits, bloated with power. ☆</span>"
+				. += "<span class='notice'>It needs something to fix before it will release the surge. ([ghoul_surges]/[ghoul_surges_max])</span>"
 		else
-			. += "<span class='warning'>✗ REGENERATION INACTIVE ✗</span>"
-			if(ghoul_surges < ghoul_surges_max)
+			. += "<span class='warning'>✗ The necrotic heart struggles to beat. ✗</span>"
+			if(ghoul_surges > 0)
 				var/time_until = round((ghoul_surge_recharge_next - world.time) / 10)
 				if(time_until > 0)
-					. += "<span class='warning'>Building power... ([ghoul_surges]/[ghoul_surges_max] surges, next in [time_until]s)</span>"
+					. += "<span class='warning'>You can feel another pulse building... ([ghoul_surges]/[ghoul_surges_max] - next in [time_until]s)</span>"
 				else
-					. += "<span class='warning'>Not at full capacity! ([ghoul_surges]/[ghoul_surges_max] surges)</span>"
-			else if(r < 150)
-				. += "<span class='warning'>Need [150 - round(r)] more radiation fuel!</span>"
+					. += "<span class='warning'>The heart is weak. ([ghoul_surges]/[ghoul_surges_max] pulses stored)</span>"
+			else
+				. += "<span class='danger'>There is no pulse. Your heart is completely spent.</span>"
+				if(r < 150)
+					. += "<span class='danger'>It needs radiation fuel to restart!</span>"
 		
-		// FERAL STACKS STATUS
+		// FERAL INSTINCT - internal experience
 		if(ghoul_feral_stacks >= 80)
-			. += "<span class='userdanger'>⚠ FERAL RAGE ⚠</span>"
-			. += "<span class='userdanger'>Your humanity is slipping away! ([ghoul_feral_stacks]/100 feral - CRITICAL!)</span>"
+			. += "<span class='userdanger'>⚠ The beast has you. Thoughts scatter like prey. ⚠</span>"
+			. += "<span class='userdanger'>Hunt. Feed. KILL. Everything else is noise.</span>"
 		else if(ghoul_feral_stacks >= 60)
-			. += "<span class='danger'>⚠ FERAL DANGER ⚠</span>"
-			. += "<span class='danger'>The beast within grows strong. ([ghoul_feral_stacks]/100 feral)</span>"
+			. += "<span class='danger'>⚠ The hunger claws at your mind. ⚠</span>"
+			. += "<span class='danger'>You can smell their flesh. You can almost taste the meat...</span>"
 		else if(ghoul_feral_stacks >= 40)
-			. += "<span class='warning'>⚠ FERAL BUILDUP ⚠</span>"
-			. += "<span class='warning'>Feral instinct is building. ([ghoul_feral_stacks]/100 feral)</span>"
+			. += "<span class='warning'>⚠ Feral thoughts intrude. ⚠</span>"
+			. += "<span class='warning'>Sometimes you forget words. Sometimes you only remember teeth.</span>"
 		else if(ghoul_feral_stacks >= 20)
-			. += "<span class='notice'>⚠ Feral Rising ⚠</span>"
-			. += "<span class='notice'>You feel bestial urges stirring. ([ghoul_feral_stacks]/100 feral)</span>"
+			. += "<span class='notice'>⚠ The beast stirs in the back of your skull. ⚠</span>"
+			. += "<span class='notice'>Whispers of hunger. Flashes of violence. Not yet overwhelming.</span>"
 		else if(ghoul_feral_stacks > 0)
-			. += "Feral instinct: [ghoul_feral_stacks]/100 (under control)"
+			. += "A faint animal urge lurks beneath your thoughts. You can ignore it. For now."
 		else
-			. += "<span class='nicegreen'>Feral instinct: 0/100 (mind is clear)</span>"
+			. += "<span class='nicegreen'>Your mind is clear. You remember who you were.</span>"
 		
-		// RADAWAY CLEANSE STATUS - Always show if charges exist OR if on cooldown
+		// Radaway cleanse status
 		var/time_since_last_cleanse = world.time - ghoul_last_cleanse_time
-		
-		// Use the STORED cooldown duration (which is dynamic based on charges spent)
 		var/on_post_cleanse_cooldown = (ghoul_cleanse_charges == 0 && time_since_last_cleanse < ghoul_cleanse_cooldown_duration)
 		
 		if(ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
-			// Max charges - ready to cleanse
 			var/time_until_cleanse = round((ghoul_last_cleanse_time + GHOUL_CLEANSE_COOLDOWN - world.time) / 10)
-			if(time_until_cleanse > 0 && ghoul_feral_stacks > 0)
-				. += "<span class='info'><font color='#FFA500'>💊 Radaway cleanse ready in [time_until_cleanse]s ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
-			else if(ghoul_feral_stacks > 0)
-				. += "<span class='info'><font color='#FFA500'>💊 Radaway cleanse imminent... ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+			if(time_until_cleanse > 0 && ghoul_feral_stacks >= 15)
+				. += "<span class='info'><font color='#FFA500'>💊 The radaway chokes your heart - clarity comes in [time_until_cleanse]s</font></span>"
+			else if(ghoul_feral_stacks >= 15)
+				. += "<span class='info'><font color='#FFA500'>💊 The radaway tightens around the necrotic pulse...</font></span>"
 			else
-				. += "<span class='info'><font color='#FFA500'>💊 Radaway charges ready but no feral to cleanse ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+				. += "<span class='info'><font color='#FFA500'>💊 Radaway courses through you, but there's no feral urge to purge</font></span>"
 		else if(ghoul_cleanse_charges > 0)
-			// Building charges
-			. += "<span class='info'><font color='#FFA500'>💊 Radaway building cleansing power ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+			. += "<span class='info'><font color='#FFA500'>💊 The radaway starves your heart ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] interruptions stored)</font></span>"
 		else if(on_post_cleanse_cooldown)
-			// Post-cleanse cooldown - use the DYNAMIC cooldown duration
 			var/cooldown_remaining = round((ghoul_cleanse_cooldown_duration - time_since_last_cleanse) / 10)
-			. += "<span class='info'><font color='#FFA500'>💊 Radaway cleanse on cooldown ([cooldown_remaining]s remaining)</font></span>"
-		// If no charges and not on cooldown, don't show anything (system is inactive)
+			. += "<span class='info'><font color='#FFA500'>💊 Your heart reels from the interruption ([cooldown_remaining]s to recover)</font></span>"
 		
-		// Radiation fuel status
-		var/feral_mult = ghoul_feral_rad_multiplier(ghoul_feral_stacks)
-		if(feral_mult > 1.5)
-			. += "<span class='warning'>☢ Radiation absorption amplified [feral_mult]x by feral instinct! ([round(r)] rads)</span>"
-		else if(m >= 0.7)
-			. += "<span class='userdanger'>☢ Feral rage distorts your senses. ([round(r)] rads)</span>"
+		// Radiation fuel status - tied to heart's needs
+		if(m >= 0.7)
+			. += "<span class='userdanger'>☢ The radiation burns. The heart beats too fast. Too hard.</span>"
 		else if(m >= 0.4)
-			. += "<span class='warning'>☢ Feral instinct clouds your thoughts. ([round(r)] rads)</span>"
+			. += "<span class='warning'>☢ Each pulse floods you with sickening warmth. The heart is overdriven.</span>"
 		else if(f >= 0.75)
-			. += "<span class='nicegreen'>☢ Radiation flows through you like fuel - you have plenty to burn. ([round(r)] rads)</span>"
+			. += "<span class='nicegreen'>☢ Radiation flows like blood. The dead heart feeds well. ([round(r)] rads)</span>"
 		else if(f >= 0.4)
-			. += "<span class='notice'>☢ You have enough radiation to power your regeneration. ([round(r)] rads)</span>"
+			. += "<span class='notice'>☢ You have enough fuel to keep the heart beating. ([round(r)] rads)</span>"
 		else if(s >= 0.65)
-			. += "<span class='danger'>☢ Your flesh aches with starvation. You desperately need radiation fuel. ([round(r)] rads)</span>"
+			. += "<span class='danger'>☢ The heart shudders, starving. You need radiation. Now. ([round(r)] rads)</span>"
 		else if(s >= 0.35)
-			. += "<span class='warning'>☢ You're beginning to wither. Your body craves radiation. ([round(r)] rads)</span>"
+			. += "<span class='warning'>☢ The pulse weakens. Your flesh cries for fuel. ([round(r)] rads)</span>"
 		else
-			. += "☢ You feel stable, neither energized nor starving. ([round(r)] rads)"
+			. += "☢ The heart beats steady. Neither feast nor famine. ([round(r)] rads)"
 		
 		. += "<span class='info'>*------------------------*</span>"
-
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 

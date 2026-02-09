@@ -291,8 +291,8 @@
 /datum/status_effect/proc/interact_speed_modifier()
 	return 1
 
-/datum/status_effect/ghoul_regenerating 
-	id = "ghoul_regenerating" // Still not working
+/datum/status_effect/ghoul_regenerating
+	id = "ghoul_regenerating"
 	duration = -1 // Infinite, manually removed
 	tick_interval = -1 // Doesn't tick
 	status_type = STATUS_EFFECT_REFRESH // Refresh on reapply
@@ -301,5 +301,9 @@
 /atom/movable/screen/alert/status_effect/ghoul_regenerating
 	name = "Necrotic Regeneration"
 	desc = "Your dead heart surges with unnatural power, knitting flesh and bone."
-	icon_state = "regenerating"
-	// icon_state = "heal" // or "regen" or whatever fits
+	icon_state = "regenerating" // Will need to add this icon, or use an existing one
+	// If we don't have a custom icon, use one of these instead:
+	// icon_state = "heal" 
+	// icon_state = "regeneration"
+	// icon_state = "regen"
+	override_alerts = FALSE
