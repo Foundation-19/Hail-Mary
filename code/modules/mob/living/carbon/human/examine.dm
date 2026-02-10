@@ -513,91 +513,104 @@
 	
 	// Detailed ghoul self-examine - ONLY for the ghoul themselves
 	if(user == src && dna && dna.species && istype(dna.species, /datum/species/ghoul))
-		. += "<span class='info'>*--- Necrotic Status ---*</span>"
+		. += "<span class='info'>*--- Rot Readings ---*</span>"
 		
 		var/r = radiation
 		var/f = ghoul_rad_factor(r)
 		var/s = ghoul_starve_factor(r)
 		var/m = ghoul_meltdown_factor(ghoul_feral_stacks)
-		
-		// NECROTIC HEART STATUS - described as pulse/beat
+
+		// === NECROTIC HEART (surge status) ===
 		if(ghoul_regen_active)
-			. += "<span class='nicegreen'>☢ Your dead heart POUNDS with savage power! ☢</span>"
-			. += "<span class='nicegreen'>Each beat forces flesh to knit and bone to mend. ([ghoul_surges]/[ghoul_surges_max] pulses remaining)</span>"
+			. += "<span class='nicegreen'>☣ NECROTIC HEART - HAMMERING</span>"
+			. += "<span class='nicegreen'>Meat crawls back onto bone. Keep bleeding. ([ghoul_surges]/[ghoul_surges_max])</span>"
 		else if(ghoul_surges >= ghoul_surges_max)
 			var/current_damage = getBruteLoss() + getFireLoss() + getCloneLoss() + getToxLoss()
-			if(current_damage > 0)
-				. += "<span class='nicegreen'>☢ Your necrotic heart swells - ready to surge! ☢</span>"
-				. += "<span class='nicegreen'>The slightest injury will trigger the flood. ([ghoul_surges]/[ghoul_surges_max] pulses charged)</span>"
+			if(current_damage >= GHOUL_DAMAGE_ACTIVATION_MIN)
+				. += "<span class='nicegreen'>☣ NECROTIC HEART - CHOKING ON POWER</span>"
+				. += "<span class='nicegreen'>One good tear and it vomits life back into you. ([ghoul_surges]/[ghoul_surges_max])</span>"
 			else
-				. += "<span class='notice'>☆ The dead heart waits, bloated with power. ☆</span>"
-				. += "<span class='notice'>It needs something to fix before it will release the surge. ([ghoul_surges]/[ghoul_surges_max])</span>"
+				. += "<span class='notice'>☣ NECROTIC HEART - DISTENDED & WAITING</span>"
+				. += "<span class='notice'>Full tank. No wounds. Useless. ([ghoul_surges]/[ghoul_surges_max])</span>"
+		else if(ghoul_surges > 0)
+			var/time_until = round((ghoul_surge_recharge_next - world.time) / 10)
+			if(time_until > 0)
+				. += "<span class='warning'>☣ NECROTIC HEART - FADING</span>"
+				. += "<span class='warning'>Another rotten pulse clawing its way up... ([ghoul_surges]/[ghoul_surges_max] - [time_until]s)</span>"
+			else
+				. += "<span class='warning'>☣ NECROTIC HEART - WEAK</span>"
+				. += "<span class='warning'>Half-dead throbs. ([ghoul_surges]/[ghoul_surges_max])</span>"
 		else
-			. += "<span class='warning'>✗ The necrotic heart struggles to beat. ✗</span>"
-			if(ghoul_surges > 0)
-				var/time_until = round((ghoul_surge_recharge_next - world.time) / 10)
-				if(time_until > 0)
-					. += "<span class='warning'>You can feel another pulse building... ([ghoul_surges]/[ghoul_surges_max] - next in [time_until]s)</span>"
-				else
-					. += "<span class='warning'>The heart is weak. ([ghoul_surges]/[ghoul_surges_max] pulses stored)</span>"
+			. += "<span class='danger'>☣ NECROTIC HEART - SILENT</span>"
+			if(r < GHOUL_RAD_HEAL_START)
+				. += "<span class='danger'>Cold meat. Starving. Feed it gamma or rot faster.</span>"
 			else
-				. += "<span class='danger'>There is no pulse. Your heart is completely spent.</span>"
-				if(r < 150)
-					. += "<span class='danger'>It needs radiation fuel to restart!</span>"
-		
-		// FERAL INSTINCT - internal experience
+				. += "<span class='danger'>No pulse left. Needs time to rebuild.</span>"
+
+		// === FERAL STATE (behavior) ===
 		if(ghoul_feral_stacks >= 80)
-			. += "<span class='userdanger'>⚠ The beast has you. Thoughts scatter like prey. ⚠</span>"
-			. += "<span class='userdanger'>Hunt. Feed. KILL. Everything else is noise.</span>"
+			. += "<span class='danger'>⚠ FERAL - YOU ARE GONE ([ghoul_feral_stacks]/100)</span>"
+			. += "<span class='danger'>Only the gnashing thing remains. Tear. Eat. Forget your name.</span>"
 		else if(ghoul_feral_stacks >= 60)
-			. += "<span class='danger'>⚠ The hunger claws at your mind. ⚠</span>"
-			. += "<span class='danger'>You can smell their flesh. You can almost taste the meat...</span>"
+			. += "<span class='danger'>⚠ FERAL - RAVENOUS ([ghoul_feral_stacks]/100)</span>"
+			. += "<span class='danger'>Their pulse is louder than yours. You want to rip it out and drink it.</span>"
 		else if(ghoul_feral_stacks >= 40)
-			. += "<span class='warning'>⚠ Feral thoughts intrude. ⚠</span>"
-			. += "<span class='warning'>Sometimes you forget words. Sometimes you only remember teeth.</span>"
+			. += "<span class='warning'>⚠ FERAL - GROWLING ([ghoul_feral_stacks]/100)</span>"
+			. += "<span class='warning'>Thoughts curdle. You keep smelling blood that isn't there yet.</span>"
 		else if(ghoul_feral_stacks >= 20)
-			. += "<span class='notice'>⚠ The beast stirs in the back of your skull. ⚠</span>"
-			. += "<span class='notice'>Whispers of hunger. Flashes of violence. Not yet overwhelming.</span>"
+			. += "<span class='notice'>⚠ FERAL - AWAKE ([ghoul_feral_stacks]/100)</span>"
+			. += "<span class='notice'>Something old and hungry is breathing down your own neck.</span>"
 		else if(ghoul_feral_stacks > 0)
-			. += "A faint animal urge lurks beneath your thoughts. You can ignore it. For now."
+			. += "FERAL - STIRRING ([ghoul_feral_stacks]/100)"
 		else
-			. += "<span class='nicegreen'>Your mind is clear. You remember who you were.</span>"
-		
-		// Radaway cleanse status
-		var/time_since_last_cleanse = world.time - ghoul_last_cleanse_time
-		var/on_post_cleanse_cooldown = (ghoul_cleanse_charges == 0 && time_since_last_cleanse < ghoul_cleanse_cooldown_duration)
+			. += "<span class='nicegreen'>FERAL - DORMANT</span>"
+			. += "<span class='nicegreen'>Still pretending to be a person. For now.</span>"
+
+		// === RADAWAY CLEANSE (chemical intervention) ===
+		var/time_since_cleanse = world.time - ghoul_last_cleanse_time
+		var/on_cooldown = (ghoul_cleanse_charges == 0 && time_since_cleanse < ghoul_cleanse_cooldown_duration)
 		
 		if(ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
-			var/time_until_cleanse = round((ghoul_last_cleanse_time + GHOUL_CLEANSE_COOLDOWN - world.time) / 10)
-			if(time_until_cleanse > 0 && ghoul_feral_stacks >= 15)
-				. += "<span class='info'><font color='#FFA500'>💊 The radaway chokes your heart - clarity comes in [time_until_cleanse]s</font></span>"
-			else if(ghoul_feral_stacks >= 15)
-				. += "<span class='info'><font color='#FFA500'>💊 The radaway tightens around the necrotic pulse...</font></span>"
+			if(ghoul_feral_stacks >= 15)
+				var/time_left = round((ghoul_last_cleanse_time + GHOUL_CLEANSE_COOLDOWN - world.time) / 10)
+				if(time_left > 0)
+					. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - PRIMED ([time_left]s until choke)</font></span>"
+				else
+					. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - ABOUT TO STRANGLE THE HEART</font></span>"
 			else
-				. += "<span class='info'><font color='#FFA500'>💊 Radaway courses through you, but there's no feral urge to purge</font></span>"
+				. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - FULL & DORMANT</font></span>"
 		else if(ghoul_cleanse_charges > 0)
-			. += "<span class='info'><font color='#FFA500'>💊 The radaway starves your heart ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] interruptions stored)</font></span>"
-		else if(on_post_cleanse_cooldown)
-			var/cooldown_remaining = round((ghoul_cleanse_cooldown_duration - time_since_last_cleanse) / 10)
-			. += "<span class='info'><font color='#FFA500'>💊 Your heart reels from the interruption ([cooldown_remaining]s to recover)</font></span>"
-		
-		// Radiation fuel status - tied to heart's needs
+			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - BUILDING ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+		else if(on_cooldown)
+			var/cooldown_left = round((ghoul_cleanse_cooldown_duration - time_since_cleanse) / 10)
+			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - HEART REELING ([cooldown_left]s)</font></span>"
+		// No message if inactive
+
+		// === RADIATION FUEL (what powers the heart) ===
+		// Priority: meltdown > starving > normal states
 		if(m >= 0.7)
-			. += "<span class='userdanger'>☢ The radiation burns. The heart beats too fast. Too hard.</span>"
+			. += "<span class='danger'>☢ FUEL - HEART IN OVERDRIVE</span>"
+			. += "<span class='danger'>Beating itself to slurry. Keep this up and it explodes. ([round(r)] rads)</span>"
 		else if(m >= 0.4)
-			. += "<span class='warning'>☢ Each pulse floods you with sickening warmth. The heart is overdriven.</span>"
-		else if(f >= 0.75)
-			. += "<span class='nicegreen'>☢ Radiation flows like blood. The dead heart feeds well. ([round(r)] rads)</span>"
-		else if(f >= 0.4)
-			. += "<span class='notice'>☢ You have enough fuel to keep the heart beating. ([round(r)] rads)</span>"
+			. += "<span class='danger'>☢ FUEL - OVERDRIVEN</span>"
+			. += "<span class='danger'>Each pulse floods you with sickening warmth. ([round(r)] rads)</span>"
 		else if(s >= 0.65)
-			. += "<span class='danger'>☢ The heart shudders, starving. You need radiation. Now. ([round(r)] rads)</span>"
+			. += "<span class='danger'>☢ FUEL - STARVING</span>"
+			. += "<span class='danger'>It's chewing on your ribs for scraps. Feed it. ([round(r)] rads)</span>"
 		else if(s >= 0.35)
-			. += "<span class='warning'>☢ The pulse weakens. Your flesh cries for fuel. ([round(r)] rads)</span>"
+			. += "<span class='warning'>☢ FUEL - WASTING</span>"
+			. += "<span class='warning'>The pulse weakens. Flesh cries for gamma. ([round(r)] rads)</span>"
+		else if(f >= 0.75)
+			. += "<span class='nicegreen'>☢ FUEL - GORGED</span>"
+			. += "<span class='nicegreen'>Gamma like cheap whiskey. Keep pouring. ([round(r)] rads)</span>"
+		else if(f >= 0.4)
+			. += "<span class='notice'>☢ FUEL - SUSTAINING</span>"
+			. += "<span class='notice'>The heart has enough to beat. ([round(r)] rads)</span>"
 		else
-			. += "☢ The heart beats steady. Neither feast nor famine. ([round(r)] rads)"
-		
+			. += "☢ FUEL - LOW ([round(r)] rads)"
+
 		. += "<span class='info'>*------------------------*</span>"
+
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 

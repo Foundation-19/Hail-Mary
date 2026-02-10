@@ -92,6 +92,20 @@
 #define GHOUL_FERAL_SPEAK_FERAL_MIN   20   // Minimum feral stacks to start speaking
 #define GHOUL_FERAL_SPEAK_FERAL_MID   40   // Mid-tier feral
 #define GHOUL_FERAL_SPEAK_FERAL_HIGH  60   // High feral
+#define GHOUL_FERAL_CD_LOW       (40 SECONDS)
+#define GHOUL_FERAL_CD_MID       (30 SECONDS)
+#define GHOUL_FERAL_CD_HIGH      (20 SECONDS)
+
+
+// -------------------------
+// INTERNAL FERAL WHISPER SYSTEM (private, cloud gray)
+// -------------------------
+#define GHOUL_WHISPER_CHANCE_LOW   2    // 2% chance per tick at low feral
+#define GHOUL_WHISPER_CHANCE_MID   4    // 4% chance per tick at mid feral
+#define GHOUL_WHISPER_CHANCE_HIGH  6    // 6% chance per tick at high feral
+#define GHOUL_WHISPER_CD_LOW       (40 SECONDS)
+#define GHOUL_WHISPER_CD_MID       (30 SECONDS)
+#define GHOUL_WHISPER_CD_HIGH      (20 SECONDS)
 
 // -------------------------
 // Wave emission (Glowing One transformation)
@@ -105,7 +119,7 @@
 #define GHOUL_WAVE_RANGE_MOD       RAD_DISTANCE_COEFFICIENT
 
 // Debug toggle
-#define GHOUL_DEBUG_RADIATION TRUE
+#define GHOUL_DEBUG_RADIATION FALSE // Set to TRUE to enable debug logging in Dream Daemon
 
 #define GHOUL_FEEDBACK_CD        (45 SECONDS)
 #define GHOUL_FERAL_CONFUSED_MAX 14
