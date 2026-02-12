@@ -126,7 +126,7 @@
 #define GHOUL_WAVE_RANGE_MOD       RAD_DISTANCE_COEFFICIENT
 
 // Debug toggle
-#define GHOUL_DEBUG_RADIATION TRUE // Set to TRUE to enable debug logging in Dream Daemon
+#define GHOUL_DEBUG_RADIATION FALSE // Set to TRUE to enable debug logging in Dream Daemon
 
 #define GHOUL_FEEDBACK_CD        (45 SECONDS)
 #define GHOUL_FERAL_CONFUSED_MAX 14

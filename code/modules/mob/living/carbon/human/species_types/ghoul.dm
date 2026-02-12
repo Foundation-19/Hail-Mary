@@ -443,13 +443,13 @@
 	else
 		H.ghoul_feral_decay_counter = 0
 
-// ========== STEP 3.5: SMART RADAWAY CLEANSE SYSTEM - STATE MACHINE ==========
+// ========== STEP 3.5: RADAWAY CLEANSE SYSTEM ==========
 	
 	// Track RADAWAY ACTIVE flag and grant cleanse charges
 	if(H.ghoul_radaway_active)
 		H.ghoul_radaway_active = FALSE  // Consume the flag
 		
-		var/radaway_cleanse_value = 25
+		var/radaway_cleanse_value = 25  // How much radiation RadAway removes
 		
 		#if GHOUL_DEBUG_RADIATION
 		world.log << "GHOUL RADAWAY CONSUMED: [src] cleanse_value=[radaway_cleanse_value] cleanse_active=[H.ghoul_cleanse_active]"
@@ -468,32 +468,50 @@
 			world.log << "GHOUL RADAWAY BLOCKED: [src] cleanse system is active, can't build charges"
 			#endif
 		else
-			// STATE 1: BUILDING - can accumulate
-			H.ghoul_rad_removed_accumulator += radaway_cleanse_value
+			// ==========================================
+			// CRITICAL FIX #1: Actually remove radiation!
+			// ==========================================
 			
-			#if GHOUL_DEBUG_RADIATION
-			world.log << "GHOUL RADAWAY ACCUMULATOR: [src] accumulator=[H.ghoul_rad_removed_accumulator] charges=[H.ghoul_cleanse_charges]"
-			#endif
-			
-			while(H.ghoul_rad_removed_accumulator >= GHOUL_RADS_PER_CLEANSE && H.ghoul_cleanse_charges < GHOUL_CLEANSE_MAX_CHARGES)
-				H.ghoul_rad_removed_accumulator -= GHOUL_RADS_PER_CLEANSE  // CRITICAL FIX: Reset accumulator!
-				H.ghoul_cleanse_charges++
-
-				to_chat(H, "<span class='notice'><font color='#FFA500'>Your chest lurches painfully. The necrotic pulse stutters. ([H.ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] interruptions)</font></span>")
+			// Check if we have enough radiation to remove
+			if(H.radiation < radaway_cleanse_value)
+				#if GHOUL_DEBUG_RADIATION
+				world.log << "GHOUL RADAWAY BLOCKED: [src] not enough radiation (have [H.radiation], need [radaway_cleanse_value])"
+				#endif
+				to_chat(H, "<span class='notice'><font color='#FFA500'>The radaway burns as it courses through your veins...</font></span>")
+				// Don't add to accumulator if we can't actually remove the rads
+			else
+				// STATE 1: BUILDING - Actually remove the radiation
+				H.radiation -= radaway_cleanse_value
+				H.ghoul_rad_removed_accumulator += radaway_cleanse_value
 				
 				#if GHOUL_DEBUG_RADIATION
-				world.log << "GHOUL CLEANSE CHARGE GAINED: [src] charges=[H.ghoul_cleanse_charges] accumulator_reset=[H.ghoul_rad_removed_accumulator]"
+				world.log << "GHOUL RADAWAY ACCUMULATOR: [src] accumulator=[H.ghoul_rad_removed_accumulator] charges=[H.ghoul_cleanse_charges] rads_removed=[radaway_cleanse_value]"
 				#endif
 				
-				// Check if we just hit max
-				if(H.ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
-					H.ghoul_cleanse_active = TRUE
-					// Set initial cooldown so it doesn't fire immediately
-					if(H.ghoul_cleanse_next < world.time)
-						H.ghoul_cleanse_next = world.time + GHOUL_CLEANSE_COOLDOWN
+				to_chat(H, "<span class='notice'><font color='#FFA500'>The radaway burns as it courses through your veins...</font></span>")
+				
+				// ==========================================
+				// CRITICAL FIX #2: Proper accumulator reset!
+				// ==========================================
+				while(H.ghoul_rad_removed_accumulator >= GHOUL_RADS_PER_CLEANSE && H.ghoul_cleanse_charges < GHOUL_CLEANSE_MAX_CHARGES)
+					H.ghoul_rad_removed_accumulator -= GHOUL_RADS_PER_CLEANSE  // Reset accumulator!
+					H.ghoul_cleanse_charges++
+
+					to_chat(H, "<span class='notice'><font color='#FFA500'>Your chest lurches painfully. The necrotic pulse stutters. ([H.ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] interruptions)</font></span>")
+					
 					#if GHOUL_DEBUG_RADIATION
-					world.log << "GHOUL CLEANSE READY: [src] max charges reached, entering SPENDING mode, cooldown=[GHOUL_CLEANSE_COOLDOWN/10]s"
+					world.log << "GHOUL CLEANSE CHARGE GAINED: [src] charges=[H.ghoul_cleanse_charges] accumulator_reset=[H.ghoul_rad_removed_accumulator]"
 					#endif
+					
+					// Check if we just hit max
+					if(H.ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
+						H.ghoul_cleanse_active = TRUE
+						// Set initial cooldown so it doesn't fire immediately
+						if(H.ghoul_cleanse_next < world.time)
+							H.ghoul_cleanse_next = world.time + GHOUL_CLEANSE_COOLDOWN
+						#if GHOUL_DEBUG_RADIATION
+						world.log << "GHOUL CLEANSE READY: [src] max charges reached, entering SPENDING mode, cooldown=[GHOUL_CLEANSE_COOLDOWN/10]s"
+						#endif
 
 	// STATE 2: SPENDING - Use charges ONE AT A TIME with proportional cooldown
 	if(H.ghoul_cleanse_active && world.time >= H.ghoul_cleanse_next)
