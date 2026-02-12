@@ -7,8 +7,15 @@
 // -------------------------
 #define GHOUL_RAD_HEAL_START     150      // Minimum radiation to enable healing (LOWERED)
 #define GHOUL_RAD_HEAL_FULL      1000     // Radiation for max healing power (LOWERED)
-#define GHOUL_RAD_MELTDOWN_START 4000     // Meltdown begins (NOW BASED ON FERAL STACKS)
-#define GHOUL_RAD_MELTDOWN_FULL  8000     // Full meltdown (NOW BASED ON FERAL STACKS)
+#define GHOUL_RAD_MELTDOWN_START 4000     // Meltdown begins (SYNCED WITH FERAL STACKS)
+#define GHOUL_RAD_MELTDOWN_FULL  8000     // Full meltdown (SYNCED WITH FERAL STACKS)
+
+#define GHOUL_CLEANSE_RESIST_LOW    0.60   // 60% effective at low meltdown rad
+#define GHOUL_CLEANSE_RESIST_MID    0.40   // 40% effective at mid meltdown rad  
+#define GHOUL_CLEANSE_RESIST_HIGH   0.20   // 20% effective at full meltdown rad
+
+#define GHOUL_FERAL_RAD_GAIN_MULT_LOW   1.5   // 1.5x feral gain at low meltdown rad
+#define GHOUL_FERAL_RAD_GAIN_MULT_HIGH  2.5   // 2.5x feral gain at full meltdown rad
 
 #define GHOUL_GLOW_MIN           0
 #define GHOUL_GLOW_MAX           3        
@@ -80,7 +87,7 @@
 // Automatic Radaway Cleanse System
 #define GHOUL_RADS_PER_CLEANSE       50    // Every 50 rads removed = 1 cleanse charge
 #define GHOUL_FERAL_PER_CLEANSE      15    // Each cleanse removes 15 feral stacks
-#define GHOUL_CLEANSE_COOLDOWN       600   // 60 seconds between automatic cleanses (increased from 30s)
+#define GHOUL_CLEANSE_COOLDOWN       100   // 10 seconds between automatic cleanses (decreased from 30s)
 #define GHOUL_CLEANSE_MAX_CHARGES    3     // Max stockpiled cleanse charges
 
 // -------------------------
@@ -119,7 +126,7 @@
 #define GHOUL_WAVE_RANGE_MOD       RAD_DISTANCE_COEFFICIENT
 
 // Debug toggle
-#define GHOUL_DEBUG_RADIATION FALSE // Set to TRUE to enable debug logging in Dream Daemon
+#define GHOUL_DEBUG_RADIATION TRUE // Set to TRUE to enable debug logging in Dream Daemon
 
 #define GHOUL_FEEDBACK_CD        (45 SECONDS)
 #define GHOUL_FERAL_CONFUSED_MAX 14

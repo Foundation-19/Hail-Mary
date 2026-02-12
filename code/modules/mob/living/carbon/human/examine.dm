@@ -567,24 +567,47 @@
 			. += "<span class='nicegreen'>Still pretending to be a person. For now.</span>"
 
 		// === RADAWAY CLEANSE (chemical intervention) ===
-		var/time_since_cleanse = world.time - ghoul_last_cleanse_time
-		var/on_cooldown = (ghoul_cleanse_charges == 0 && time_since_cleanse < ghoul_cleanse_cooldown_duration)
+		var/on_cooldown = (world.time < ghoul_cleanse_next)
 		
-		if(ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
+		// STATE 1: SPENDING ACTIVE (you have max charges and are using them)
+		if(ghoul_cleanse_active && ghoul_cleanse_charges > 0)
 			if(ghoul_feral_stacks >= 15)
-				var/time_left = round((ghoul_last_cleanse_time + GHOUL_CLEANSE_COOLDOWN - world.time) / 10)
-				if(time_left > 0)
+				if(on_cooldown)
+					var/time_left = round((ghoul_cleanse_next - world.time) / 10)
+					. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - SPENDING ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] charges left, next in [time_left]s)</font></span>"
+				else
+					. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - SPENDING ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] charges ready to fire)</font></span>"
+			else
+				// Feral too low to spend remaining charges
+				. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - WASTED ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] charges can't fire - feral too low)</font></span>"
+		
+		// STATE 2: BUILDING (accumulating charges, not at max yet)
+		else if(ghoul_cleanse_charges > 0 && ghoul_cleanse_charges < GHOUL_CLEANSE_MAX_CHARGES)
+			var/rads_needed = GHOUL_RADS_PER_CLEANSE - ghoul_rad_removed_accumulator
+			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - BUILDING ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] charges, [rads_needed] rads until next)</font></span>"
+		
+		// STATE 3: FULL AND READY (max charges, waiting for cooldown to spend first one)
+		else if(ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES && !ghoul_cleanse_active)
+			if(ghoul_feral_stacks >= 15)
+				if(on_cooldown)
+					var/time_left = round((ghoul_cleanse_next - world.time) / 10)
 					. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - PRIMED ([time_left]s until choke)</font></span>"
 				else
 					. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - ABOUT TO STRANGLE THE HEART</font></span>"
 			else
-				. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - FULL & DORMANT</font></span>"
-		else if(ghoul_cleanse_charges > 0)
-			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - BUILDING ([ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES])</font></span>"
+				. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - FULL & DORMANT (feral too low to trigger)</font></span>"
+		
+		// STATE 4: COOLDOWN (no charges, recovering from last cleanse)
 		else if(on_cooldown)
-			var/cooldown_left = round((ghoul_cleanse_cooldown_duration - time_since_cleanse) / 10)
-			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - HEART REELING ([cooldown_left]s)</font></span>"
-		// No message if inactive
+			var/cooldown_left = round((ghoul_cleanse_next - world.time) / 10)
+			var/rads_needed = GHOUL_RADS_PER_CLEANSE - ghoul_rad_removed_accumulator
+			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - HEART REELING ([cooldown_left]s, [rads_needed] rads to first charge)</font></span>"
+		
+		// STATE 5: IDLE (can build charges, just need to drink radaway)
+		else if(ghoul_rad_removed_accumulator > 0)
+			var/rads_needed = GHOUL_RADS_PER_CLEANSE - ghoul_rad_removed_accumulator
+			. += "<span class='info'><font color='#FFA500'>💊 RADAWAY PURGE - IDLE ([rads_needed] rads to first charge)</font></span>"
+		// No message if completely inactive (0 accumulator, 0 charges, no cooldown)
 
 		// === RADIATION FUEL (what powers the heart) ===
 		// Priority: meltdown > starving > normal states

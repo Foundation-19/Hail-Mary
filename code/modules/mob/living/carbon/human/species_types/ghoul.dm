@@ -28,13 +28,17 @@
 	var/ghoul_last_damage_source = null     // What last damaged us (for self-damage check)
 	var/ghoul_rad_removed_accumulator = 0   // Tracks total rads removed by radaway
 	var/ghoul_cleanse_charges = 0           // Cleanse charges available (max 3)
-	var/ghoul_last_cleanse_time = 0         // Last time a cleanse was used
-	var/ghoul_cleanse_cooldown_duration = 1200 // Stores the dynamic cooldown for current cycle (starts at 120s, can be reduced with more cleanses)
+	var/ghoul_cleanse_active = FALSE        // Is cleanse currently firing?
+	var/ghoul_cleanse_next = 0              // When can next cleanse fire (cooldown tracker)
 	var/ghoul_damage_window_start = 0       // When current damage window started
 	var/ghoul_latent_damage = 0             // Damage taken since last surge recharge scan
 	var/ghoul_damage_snapshot = 0           // Snapshot of total damage for surge activation check
 	var/ghoul_whisper_next = 0              // Cooldown for internal feral whispers
 	var/ghoul_speech_next = 0				// Cooldown for actual speech (feral growls)
+	var/ghoul_radaway_active = FALSE    // Set by handle_chemicals, consumed in spec_life
+	var/ghoul_last_cleanse_time = 0
+	var/ghoul_cleanse_cooldown_duration = 1200  // 2 minutes base
+
 
 // Factor procs
 /proc/ghoul_rad_factor(rads)
@@ -131,7 +135,7 @@
 		H.ghoul_feral_ally = FALSE
 		H.ghoul_starve_ticks = 0
 		H.ghoul_exposure_ticks = 0
-		H.ghoul_surges = 0  // START WITH ZERO SURGES
+		H.ghoul_surges = 0
 		H.ghoul_surges_max = GHOUL_SURGES_MAX
 		H.ghoul_surge_recharge_next = world.time + (GHOUL_SURGE_COOLDOWN * 10)
 		H.ghoul_regen_active = FALSE
@@ -139,19 +143,22 @@
 		H.ghoul_feral_stacks = 0
 		H.ghoul_feral_accumulator = 0
 		H.ghoul_radaway_purge_next = 0
-		H.last_radiation_check = H.radiation  // Initialize tracking
+		H.last_radiation_check = H.radiation
 		H.ghoul_feral_decay_counter = 0
 		H.ghoul_last_combat_time = 0
 		H.ghoul_last_damage_source = null
 		H.ghoul_rad_removed_accumulator = 0
 		H.ghoul_cleanse_charges = 0
-		H.ghoul_last_cleanse_time = 0
-		H.ghoul_cleanse_cooldown_duration = 1200  // Initialize to base 2min cooldown
+		H.ghoul_cleanse_active = FALSE
+		H.ghoul_cleanse_next = 0
+		H.ghoul_last_cleanse_time = 0  // NEW
+		H.ghoul_cleanse_cooldown_duration = 1200  // NEW - 2min base cooldown
 		H.ghoul_damage_window_start = world.time
 		H.ghoul_latent_damage = 0
 		H.ghoul_damage_snapshot = 0
 		H.ghoul_whisper_next = 0
 		H.ghoul_speech_next = 0
+		H.ghoul_radaway_active = FALSE
 		
 		H.sprint_buffer_max = 4.5
 		H.sprint_buffer = H.sprint_buffer_max
@@ -236,6 +243,10 @@
 	// Below 3 perception: You notice nothing special
 	
 	// === FERAL STATUS (Always visible through behavior) ===
+	if(H.stat == DEAD)
+		examine_list += span_notice("[t_He] [t_is] dead. Whatever was driving them is gone now.")
+		return  // Don't show feral or surge status for corpses
+
 	var/feral_percent = (H.ghoul_feral_stacks / GHOUL_FERAL_MAX) * 100
 	
 	if(feral_percent >= 80)
@@ -267,6 +278,7 @@
 	// RADAWAY - Just damages, cleansing happens automatically in spec_life
 	if(chem.type == /datum/reagent/medicine/radaway)
 		H.adjustBruteLoss(GHOUL_RADAWAY_DAMAGE)
+		H.ghoul_radaway_active = TRUE   // Flag before removing
 		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM)
 		
 		if(prob(GHOUL_RADAWAY_FEEDBACK))
@@ -417,10 +429,8 @@
 		#endif
 	
 	// ========== STEP 3: FERAL STACK NATURAL DECAY (whole numbers on interval) ==========
-	if(H.ghoul_feral_stacks > 0)
+	if(H.ghoul_feral_stacks > 0 && !H.ghoul_regen_active && H.ghoul_surges < H.ghoul_surges_max)
 		H.ghoul_feral_decay_counter++
-		
-		// Decay 1 feral stack every GHOUL_FERAL_DECAY_INTERVAL ticks
 		if(H.ghoul_feral_decay_counter >= GHOUL_FERAL_DECAY_INTERVAL)
 			H.ghoul_feral_stacks = max(0, H.ghoul_feral_stacks - GHOUL_FERAL_DECAY_RATE)
 			H.ghoul_feral_decay_counter = 0
@@ -428,103 +438,167 @@
 			#if GHOUL_DEBUG_RADIATION
 			world.log << "GHOUL FERAL DECAY: [src] feral=[H.ghoul_feral_stacks] decayed=[GHOUL_FERAL_DECAY_RATE]"
 			#endif
+	else if(H.ghoul_regen_active || H.ghoul_surges >= H.ghoul_surges_max)
+		H.ghoul_feral_decay_counter = 0  // Reset counter so decay doesn't burst when surge ends
 	else
 		H.ghoul_feral_decay_counter = 0
 
-	// ========== STEP 3.5: SMART RADAWAY CLEANSE SYSTEM ==========
-	// Track radiation REMOVED and grant cleanse charges
+// ========== STEP 3.5: SMART RADAWAY CLEANSE SYSTEM - STATE MACHINE ==========
 	
-	if(H.radiation < (H.last_radiation_check ? H.last_radiation_check : 0))
-		var/rads_removed = (H.last_radiation_check ? H.last_radiation_check : 0) - H.radiation
+	// Track RADAWAY ACTIVE flag and grant cleanse charges
+	if(H.ghoul_radaway_active)
+		H.ghoul_radaway_active = FALSE  // Consume the flag
+		
+		var/radaway_cleanse_value = 25
 		
 		#if GHOUL_DEBUG_RADIATION
-		world.log << "GHOUL RADAWAY CHECK: [src] last=[H.last_radiation_check] current=[H.radiation] removed=[rads_removed]"
+		world.log << "GHOUL RADAWAY CONSUMED: [src] cleanse_value=[radaway_cleanse_value] cleanse_active=[H.ghoul_cleanse_active]"
 		#endif
 		
-		// Only count if radaway is present AND not on full cooldown cycle
-		if(H.reagents && H.reagents.has_reagent(/datum/reagent/medicine/radaway))
-			// Block charge gain if on cooldown (charges = 0 and still within cooldown window)
-			if(H.ghoul_cleanse_charges == 0 && world.time < H.ghoul_last_cleanse_time + H.ghoul_cleanse_cooldown_duration)
+		// Check if in cooldown OR already cleansing
+		var/in_cooldown = (world.time < H.ghoul_cleanse_next)
+		
+		if(in_cooldown)
+			#if GHOUL_DEBUG_RADIATION
+			var/time_remaining = (H.ghoul_cleanse_next - world.time) / 10
+			world.log << "GHOUL RADAWAY BLOCKED: [src] in cooldown for [time_remaining]s more"
+			#endif
+		else if(H.ghoul_cleanse_active)
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL RADAWAY BLOCKED: [src] cleanse system is active, can't build charges"
+			#endif
+		else
+			// STATE 1: BUILDING - can accumulate
+			H.ghoul_rad_removed_accumulator += radaway_cleanse_value
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL RADAWAY ACCUMULATOR: [src] accumulator=[H.ghoul_rad_removed_accumulator] charges=[H.ghoul_cleanse_charges]"
+			#endif
+			
+			while(H.ghoul_rad_removed_accumulator >= GHOUL_RADS_PER_CLEANSE && H.ghoul_cleanse_charges < GHOUL_CLEANSE_MAX_CHARGES)
+				H.ghoul_rad_removed_accumulator -= GHOUL_RADS_PER_CLEANSE  // CRITICAL FIX: Reset accumulator!
+				H.ghoul_cleanse_charges++
+
+				to_chat(H, "<span class='notice'><font color='#FFA500'>Your chest lurches painfully. The necrotic pulse stutters. ([H.ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] interruptions)</font></span>")
+				
 				#if GHOUL_DEBUG_RADIATION
-				world.log << "GHOUL RADAWAY BLOCKED: [src] on cooldown, not building charges"
+				world.log << "GHOUL CLEANSE CHARGE GAINED: [src] charges=[H.ghoul_cleanse_charges] accumulator_reset=[H.ghoul_rad_removed_accumulator]"
 				#endif
+				
+				// Check if we just hit max
+				if(H.ghoul_cleanse_charges >= GHOUL_CLEANSE_MAX_CHARGES)
+					H.ghoul_cleanse_active = TRUE
+					// Set initial cooldown so it doesn't fire immediately
+					if(H.ghoul_cleanse_next < world.time)
+						H.ghoul_cleanse_next = world.time + GHOUL_CLEANSE_COOLDOWN
+					#if GHOUL_DEBUG_RADIATION
+					world.log << "GHOUL CLEANSE READY: [src] max charges reached, entering SPENDING mode, cooldown=[GHOUL_CLEANSE_COOLDOWN/10]s"
+					#endif
+
+	// STATE 2: SPENDING - Use charges ONE AT A TIME with proportional cooldown
+	if(H.ghoul_cleanse_active && world.time >= H.ghoul_cleanse_next)
+		// Safety check
+		if(H.ghoul_cleanse_charges <= 0)
+			H.ghoul_cleanse_active = FALSE
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL CLEANSE ERROR: [src] in SPENDING mode but 0 charges, exiting"
+			#endif
+		
+		// Check if feral is high enough to cleanse (minimum 15 feral required)
+		else if(H.ghoul_feral_stacks >= 15)
+			#if GHOUL_DEBUG_RADIATION
+			var/old_feral = H.ghoul_feral_stacks
+			#endif
+			
+			// Calculate cleanse amount
+			var/cleanse_per_charge = GHOUL_FERAL_PER_CLEANSE
+			
+			// Apply radiation resistance modifiers
+			if(H.radiation >= GHOUL_RAD_MELTDOWN_FULL)
+				cleanse_per_charge = round(GHOUL_FERAL_PER_CLEANSE * GHOUL_CLEANSE_RESIST_HIGH)
+			else if(H.radiation >= (GHOUL_RAD_MELTDOWN_START + (GHOUL_RAD_MELTDOWN_FULL - GHOUL_RAD_MELTDOWN_START) * 0.5))
+				cleanse_per_charge = round(GHOUL_FERAL_PER_CLEANSE * GHOUL_CLEANSE_RESIST_MID)
+			else if(H.radiation >= GHOUL_RAD_MELTDOWN_START)
+				cleanse_per_charge = round(GHOUL_FERAL_PER_CLEANSE * GHOUL_CLEANSE_RESIST_LOW)
+			
+			// Spend ONE charge
+			H.ghoul_feral_stacks = max(0, H.ghoul_feral_stacks - cleanse_per_charge)
+			H.ghoul_cleanse_charges--
+			
+			// Update tracking
+			H.ghoul_last_cleanse_time = world.time
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL RADAWAY SPENDING (1 CHARGE): [src] feral=[old_feral]->[H.ghoul_feral_stacks] removed=[cleanse_per_charge] charges_left=[H.ghoul_cleanse_charges]"
+			#endif
+			
+			// Outcome messages
+			if(H.ghoul_feral_stacks == 0)
+				H.visible_message(
+					span_notice("[H] gasps sharply, eyes suddenly focusing with terrifying clarity..."),
+					"<span class='nicegreen'><font color='#90EE90'>The radaway CHOKES the necrotic pulse (1 charge spent). The feral fog lifts completely.</font></span>"
+				)
+			else if(H.ghoul_feral_stacks < GHOUL_FERAL_MELTDOWN_START)
+				H.visible_message(
+					span_notice("[H] shudders violently, clutching their chest..."),
+					"<span class='notice'><font color='#FFA500'>The radaway tightens around your dead heart (1 charge spent). It skips - the beast retreats.</font></span>"
+				)
 			else
-				H.ghoul_rad_removed_accumulator += rads_removed
+				H.visible_message(
+					span_warning("[H] convulses as if struck..."),
+					"<span class='warning'><font color='#FFA500'>The radaway burns (1 charge spent), but the beast won't let go. Not yet.</font></span>"
+				)
+			
+			// Check if we're done cleansing (no charges left OR feral too low)
+			if(H.ghoul_cleanse_charges <= 0 || H.ghoul_feral_stacks < 15)
+				// PROPORTIONAL COOLDOWN: Based on how many charges were actually used
+				var/charges_used = GHOUL_CLEANSE_MAX_CHARGES - H.ghoul_cleanse_charges
+				var/cooldown_multiplier = charges_used / GHOUL_CLEANSE_MAX_CHARGES
+				var/actual_cooldown = round(H.ghoul_cleanse_cooldown_duration * cooldown_multiplier)
 				
-				#if GHOUL_DEBUG_RADIATION
-				world.log << "GHOUL RADAWAY ACCUMULATOR: [src] accumulator=[H.ghoul_rad_removed_accumulator] charges=[H.ghoul_cleanse_charges]"
-				#endif
+				H.ghoul_cleanse_next = world.time + actual_cooldown
+				H.ghoul_cleanse_active = FALSE
 				
-				// Grant cleanse charges for every 50 rads removed (up to max)
-				while(H.ghoul_rad_removed_accumulator >= GHOUL_RADS_PER_CLEANSE && H.ghoul_cleanse_charges < GHOUL_CLEANSE_MAX_CHARGES)
-					H.ghoul_rad_removed_accumulator -= GHOUL_RADS_PER_CLEANSE
-					H.ghoul_cleanse_charges++
-					
-					to_chat(H, "<span class='notice'><font color='#FFA500'>Your chest lurches painfully. The necrotic pulse stutters. ([H.ghoul_cleanse_charges]/[GHOUL_CLEANSE_MAX_CHARGES] interruptions)</font></span>")
+				// Show completion message
+				if(H.ghoul_cleanse_charges > 0)
+					// Partial cleanse (stopped early because feral < 15)
+					to_chat(H, "<span class='notice'><font color='#FFA500'>The radaway dissipates - not enough feral urge to purge. [H.ghoul_cleanse_charges] charge[H.ghoul_cleanse_charges > 1 ? "s" : ""] wasted. Reduced cooldown: [actual_cooldown/10]s</font></span>")
 					
 					#if GHOUL_DEBUG_RADIATION
-					world.log << "GHOUL CLEANSE CHARGE GAINED: [src] charges=[H.ghoul_cleanse_charges]"
+					world.log << "GHOUL RADAWAY PARTIAL SPENDING: [src] charges_wasted=[H.ghoul_cleanse_charges] charges_used=[charges_used] cooldown=[actual_cooldown/10]s"
 					#endif
+				else
+					// Full cleanse (all charges spent)
+					to_chat(H, "<span class='notice'><font color='#FFA500'>All charges spent. Full cooldown: [actual_cooldown/10]s</font></span>")
 					
-					// Reset last cleanse time when gaining first charge (starts the 60s timer)
-					if(H.ghoul_cleanse_charges == 1)
-						H.ghoul_last_cleanse_time = world.time
-	
-	// SMART AUTO-CLEANSE: Use 1 charge at a time if you have 15+ feral
-	if(H.ghoul_cleanse_charges > 0 && H.ghoul_feral_stacks >= 15 && world.time >= H.ghoul_last_cleanse_time + GHOUL_CLEANSE_COOLDOWN)
-		#if GHOUL_DEBUG_RADIATION
-		var/old_feral = H.ghoul_feral_stacks
-		#endif
-		H.ghoul_feral_stacks = max(0, H.ghoul_feral_stacks - GHOUL_FERAL_PER_CLEANSE)
-		H.ghoul_cleanse_charges--
-		H.ghoul_last_cleanse_time = world.time
-		#if GHOUL_DEBUG_RADIATION
-		world.log << "GHOUL RADAWAY CLEANSE (1 CHARGE): [src] feral=[old_feral]->[H.ghoul_feral_stacks] charges_left=[H.ghoul_cleanse_charges]"
-		#endif
+					#if GHOUL_DEBUG_RADIATION
+					world.log << "GHOUL RADAWAY FULL SPENDING: [src] all_charges_used cooldown=[actual_cooldown/10]s"
+					#endif
+				
+				// Reset charges
+				H.ghoul_cleanse_charges = 0
+			else
+				// Still have charges and feral is high enough - continue spending next tick
+				H.ghoul_cleanse_next = world.time + GHOUL_CLEANSE_COOLDOWN
+				to_chat(H, "<span class='notice'><font color='#FFA500'>[H.ghoul_cleanse_charges] charge[H.ghoul_cleanse_charges > 1 ? "s" : ""] remain. Next cleanse in [GHOUL_CLEANSE_COOLDOWN/10]s.</font></span>")
 		
-		// Messages based on outcome
-		if(H.ghoul_feral_stacks == 0)
-			H.visible_message(
-				span_notice("[H] gasps sharply, eyes suddenly focusing with terrifying clarity..."),
-				"<span class='nicegreen'><font color='#90EE90'>The radaway CHOKES the necrotic pulse. The feral fog lifts completely.</font></span>"
-			)
-		else if(H.ghoul_feral_stacks < GHOUL_FERAL_MELTDOWN_START)
-			H.visible_message(
-				span_notice("[H] shudders violently, clutching their chest..."),
-				"<span class='notice'><font color='#FFA500'>The radaway tightens around your dead heart. It skips - the beast retreats.</font></span>"
-			)
+		// Feral too low - stop immediately and enter proportional cooldown
 		else
-			H.visible_message(
-				span_warning("[H] convulses as if struck..."),
-				"<span class='warning'><font color='#FFA500'>The radaway burns, but the beast won't let go. Not yet.</font></span>"
-			)
-		
-		// If still have feral and charges left, hint at next cleanse
-		if(H.ghoul_feral_stacks >= 15 && H.ghoul_cleanse_charges > 0)
-			to_chat(H, "<span class='info'><font color='#FFA500'>Another dose in [round(GHOUL_CLEANSE_COOLDOWN/10)]s... ([H.ghoul_cleanse_charges] charges remain)</font></span>")
-		else if(H.ghoul_cleanse_charges > 0)
-			to_chat(H, "<span class='info'><font color='#FFA500'>Not enough feral to cleanse. Charges will dump soon...</font></span>")
-	
-	// AUTO-DUMP: If you have charges but feral < 15 for 15 seconds, dump them
-	else if(H.ghoul_cleanse_charges > 0 && H.ghoul_feral_stacks < 15 && world.time >= H.ghoul_last_cleanse_time + 150) // 15 seconds
-		var/charges_dumped = H.ghoul_cleanse_charges
-		H.ghoul_cleanse_charges = 0
-		
-		// Scaled cooldown: 40s per charge dumped (unused charges = less cooldown)
-		H.ghoul_cleanse_cooldown_duration = charges_dumped * 400 // 400 deciseconds = 40s per charge
-		H.ghoul_last_cleanse_time = world.time
-		
-		var/cooldown_seconds = round(H.ghoul_cleanse_cooldown_duration / 10)
-		to_chat(H, "<span class='notice'><font color='#FFA500'>The radaway dissipates - not enough feral urge to purge. Cooldown: [cooldown_seconds]s</font></span>")
-		
-		#if GHOUL_DEBUG_RADIATION
-		world.log << "GHOUL RADAWAY DUMP: [src] charges_dumped=[charges_dumped] cooldown_set=[H.ghoul_cleanse_cooldown_duration]"
-		#endif
-
-	// Just waiting on cooldown - cooldown already set from last dump/use
-
-	// NOW update last_radiation_check AFTER we've tracked changes
-	H.last_radiation_check = H.radiation
+			var/charges_wasted = H.ghoul_cleanse_charges
+			var/charges_used = GHOUL_CLEANSE_MAX_CHARGES - charges_wasted
+			var/cooldown_multiplier = charges_used / GHOUL_CLEANSE_MAX_CHARGES
+			var/actual_cooldown = round(H.ghoul_cleanse_cooldown_duration * cooldown_multiplier)
+			
+			H.ghoul_cleanse_charges = 0
+			H.ghoul_cleanse_active = FALSE
+			H.ghoul_last_cleanse_time = world.time
+			H.ghoul_cleanse_next = world.time + actual_cooldown
+			
+			to_chat(H, "<span class='notice'><font color='#FFA500'>The radaway dissipates - not enough feral urge to purge. [charges_wasted] charge[charges_wasted > 1 ? "s" : ""] wasted. Reduced cooldown: [actual_cooldown/10]s</font></span>")
+			
+			#if GHOUL_DEBUG_RADIATION
+			world.log << "GHOUL RADAWAY DUMP: [src] charges_wasted=[charges_wasted] feral_too_low=[H.ghoul_feral_stacks] charges_used=[charges_used] cooldown=[actual_cooldown/10]s"
+			#endif
 
 	// ========== STEP 4: UPDATE FERAL ALIGNMENT ==========
 	update_feral_alignment(H, m)
@@ -554,6 +628,18 @@
 		if(m >= 0.95 && prob(15) && world.time >= H.ghoul_feedback_next)
 			to_chat(H, span_userdanger("The beast tears at the inside of your skull. You can barely think straight."))
 			H.ghoul_feedback_next = world.time + GHOUL_FEEDBACK_CD
+		
+		// High feral + high radiation: predator senses kick in, mobs visible through darkness
+		if(H.ghoul_feral_stacks >= GHOUL_FERAL_MELTDOWN_START && H.radiation >= GHOUL_RAD_MELTDOWN_START && m >= 0.5)
+			if(!HAS_TRAIT(H, TRAIT_THERMAL_VISION))
+				ADD_TRAIT(H, TRAIT_THERMAL_VISION, "ghoul_feral")
+				H.update_sight()
+				to_chat(H, span_warning("Your senses sharpen to a predatory edge. Everything warm stands out in the dark."))
+		else
+			if(HAS_TRAIT(H, TRAIT_THERMAL_VISION) && HAS_TRAIT_FROM(H, TRAIT_THERMAL_VISION, "ghoul_feral"))
+				REMOVE_TRAIT(H, TRAIT_THERMAL_VISION, "ghoul_feral")
+				H.update_sight()
+				to_chat(H, span_notice("The predator's edge fades from your vision.")) // Let normal sight rules apply when not in feral meltdown
 
 	// ========== STEP 5: HIGH-RAD EXPOSURE ==========
 	if(r >= GHOUL_HIGHRAD_THRESHOLD && r < GHOUL_RAD_MELTDOWN_START)
@@ -706,14 +792,53 @@
 					to_chat(H, span_warning("Your necrotic heart is burning through surges! ([H.ghoul_surges]/[H.ghoul_surges_max] remaining)"))
 				else if(H.ghoul_surges == 3)
 					to_chat(H, span_boldwarning("Your necrotic heart is nearly spent! ([H.ghoul_surges]/[H.ghoul_surges_max] remaining)"))
-				else if(H.ghoul_surges == 0)
-					to_chat(H, span_userdanger("Your necrotic heart is exhausted! Healing stops!"))
 					// Deactivation will happen next tick
 			
 			// BUILD FERAL STACKS based on HEALING POWER (more HP healed = more feral)
 			// Use accumulator to prevent rounding loss
 			var/old_feral = H.ghoul_feral_stacks
 			var/feral_gain = total_healed * GHOUL_FERAL_PER_HP_HEALED
+
+			// Add a rad multiplier to feral gain - high radiation accelerates feral buildup
+			if(H.radiation >= GHOUL_RAD_MELTDOWN_START)
+				var/rad_gain_t = (H.radiation - GHOUL_RAD_MELTDOWN_START) / (GHOUL_RAD_MELTDOWN_FULL - GHOUL_RAD_MELTDOWN_START)
+				rad_gain_t = clamp(rad_gain_t, 0, 1)
+				var/rad_gain_mult = GHOUL_FERAL_RAD_GAIN_MULT_LOW + ((GHOUL_FERAL_RAD_GAIN_MULT_HIGH - GHOUL_FERAL_RAD_GAIN_MULT_LOW) * rad_gain_t)
+				feral_gain *= rad_gain_mult
+
+				// Feedback when radiation is actively accelerating feral gain
+				if(prob(3) && world.time >= H.ghoul_feedback_next)
+					H.ghoul_feedback_next = world.time + GHOUL_FEEDBACK_CD
+
+					if(rad_gain_t >= 0.75)  // Near full meltdown radiation
+						var/list/msgs_high = list(
+							"The radiation doesn't just heal you. It feeds something worse.",
+							"Your dead cells drink it in. So does the beast.",
+							"Every rem soaking into your bones makes it harder to remember who you were.",
+							"The rads taste good. That should scare you more than it does.",
+							"You're not healing. You're being rewritten."
+						)
+						to_chat(H, span_danger(pick(msgs_high)))
+
+					else if(rad_gain_t >= 0.35)  // Mid meltdown radiation
+						var/list/msgs_mid = list(
+							"The radiation sharpens the hunger. You're not sure which one you are anymore.",
+							"Healing and losing ground at the same time. The math isn't in your favor.",
+							"Something in your chest gets louder every time you close a wound.",
+							"The rads fix the flesh. Something else pays the tab.",
+							"Two hundred years of this. No wonder they all go feral eventually."
+						)
+						to_chat(H, span_warning(pick(msgs_mid)))
+
+					else  // Just crossed meltdown threshold
+						var/list/msgs_low = list(
+							"The radiation is doing more than healing you now.",
+							"You can feel the difference. The surge costs more here.",
+							"Something's off. The rads are too hot, even for you.",
+							"Your necrotic heart drinks deep. Don't let it get too comfortable.",
+							"That familiar itch behind your eyes. Too much radiation, not enough left of you."
+						)
+						to_chat(H, span_notice(pick(msgs_low)))
 			
 			// Add to accumulator instead of rounding immediately
 			H.ghoul_feral_accumulator += feral_gain
@@ -1196,13 +1321,28 @@
 	var/rad_touch = round(5 + (15 * f) + (8 * m))
 	target.apply_effect(rad_touch, EFFECT_IRRADIATE, 0)
 
+	// Stamina drain at high feral
 	if(m >= 0.40 && prob(round(8 + (18 * m))))
 		target.adjustStaminaLoss(round(8 + (10 * m)))
 
+	// Self-damage at extreme feral
 	if(m >= 0.65 && prob(round(6 + (16 * m))))
 		user.adjustBruteLoss(1)
-	if(prob(round(20 + (25 * f))))
-		to_chat(target, span_warning("[user]'s irradiated claws sear your flesh."))
+
+	// TARGET feedback - always shown on a hit
+	to_chat(target, span_warning("[user]'s necrotic claws inject a sick heat under your skin."))
+
+	// Visible message to the room
+	user.visible_message(
+		span_warning("[user] rakes their irradiated claws across [target]!"),
+		span_notice("Your necrotic claws tear into [target] - you feel the radiation pass through them.")
+	)
+
+	// Meltdown tier: extra sting message to target
+	if(m >= 0.50)
+		to_chat(target, span_danger("Something wrong seeps into the wound - their claws feel diseased."))
+	if(m >= 0.80)
+		to_chat(target, span_userdanger("Your veins burn where they touched you. Whatever is in those claws isn't just radiation."))
 
 // ========== COMBAT TRACKING ==========
 // Hook into damage to track combat state via latent damage window
