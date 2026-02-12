@@ -21,21 +21,65 @@
 	// Apply strength-based armor penalties to base movement
 	if(istype(wear_suit))
 		var/obj/item/clothing/suit/armor = wear_suit
+		var/str_requirement = 0
+		var/armor_type = ""
+		var/is_penalized = FALSE
+		
 		if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			str_requirement = 6
+			armor_type = "salvaged plate"
 			if(special_s < 6)
 				. += 0.5
+				is_penalized = TRUE
+				
 		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+			str_requirement = 4
+			armor_type = "power armor frame"
 			if(special_s < 4)
 				. += 0.4
+				is_penalized = TRUE
+				
 		else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+			str_requirement = 6
+			armor_type = "heavy plating"
 			if(special_s < 6)
 				. += 0.4
+				is_penalized = TRUE
+				
 		else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+			str_requirement = 4
+			armor_type = "combat armor"
 			if(special_s < 4)
 				. += 0.3
+				is_penalized = TRUE
+				
 		else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+			str_requirement = 3
+			armor_type = "light armor"
 			if(special_s < 3)
 				. += 0.3
+				is_penalized = TRUE
+		
+		// Only warn if penalized AND haven't warned recently
+		if(is_penalized && (last_armor_warning_time == 0 || world.time > last_armor_warning_time + 3000))
+			last_armor_warning_time = world.time
+			
+			// Themed warning messages based on armor type
+			var/message = ""
+			switch(armor_type)
+				if("salvaged plate")
+					message = "<span class='warning'>The [armor] drags on you like a corpse. Your muscles scream. You need [str_requirement] STR to move like you're alive.</span>"
+				if("power armor frame")
+					message = "<span class='warning'>The [armor]'s servos whine uselessly without the strength to guide them. [str_requirement] STR would let the machine work with you, not against you.</span>"
+				if("heavy plating")
+					message = "<span class='warning'>Every step in the [armor] feels like dragging yourself out of a grave. [str_requirement] STR would make this wearable instead of a punishment.</span>"
+				if("combat armor")
+					message = "<span class='warning'>The [armor] fights you with every movement. Your frame can't quite fill it. [str_requirement] STR would let you wear this like it was meant to be worn.</span>"
+				if("light armor")
+					message = "<span class='warning'>Even this [armor] weighs you down. The straps dig in wrong. [str_requirement] STR and it'd sit right.</span>"
+			
+			if(message)
+				to_chat(src, message)
 
 	var/current_time = world.time
 	var/fatigue_cap = 0.3
