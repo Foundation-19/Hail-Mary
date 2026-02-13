@@ -1259,3 +1259,39 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	item_state = "duster_recon"
 	permeability_coefficient = 0.9
 
+///////////////
+////  Town ////
+///////////////
+
+/obj/item/clothing/suit/armor/heavy/riot/knight/mayor
+	name = "Mayors Plated Armor"
+	desc = "A metal set of plated armor. denoting the rank of lord, gold appears to be welded crudely onto the top"
+	icon_state = "knight_yellow"
+	item_state = "knight_yellow"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/armor
+	equip_delay_self = 110
+	equip_delay_other = 20
+	slowdown = ARMOR_SLOWDOWN_HEAVY
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/heavy/riot/knight/sherrif
+	name = "Sherrifs Plated Armor"
+	desc = "A metal set of plated armor. it appears to have red markings all over marking the rank of sherrif."
+	icon_state = "knight_red"
+	item_state = "knight_red"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/armor
+	equip_delay_self = 110
+	equip_delay_other = 20
+	slowdown = ARMOR_SLOWDOWN_HEAVY
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/heavy/riot/knight/tabard
+	name = "Watchmens tabard"
+	desc = "A red tabard, scratched and marked from years of usage."
+	icon_state = "knight_tabard"
+	item_state = "knight_tabard"
+	slowdown = ARMOR_SLOWDOWN_HEAVY
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T1)

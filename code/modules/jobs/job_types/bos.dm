@@ -72,12 +72,17 @@ Elder Envoy
 /datum/job/bos/f13envoy
 	title = "Elder Envoy"
 	flag = F13ENVOY
+	display_order = JOB_DISPLAY_ORDER_ENVOY
 	head_announce = list("Security")
-	total_positions = 0
-	spawn_positions = 0
+	total_positions = 1
+	spawn_positions = 1
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
-	req_admin_notify = 1
+	exp_requirements = 3600
+
+	min_required_special = list(
+		"special_c" = 7,
+		)
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
@@ -101,13 +106,12 @@ Elder Envoy
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
-	suit_store = /obj/item/gun/energy/laser/pistol
+	suit_store = /obj/item/gun/energy/laser/laer
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
 		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		/obj/item/melee/onehanded/knife/hunting = 1
-
 	)
 
 /*
@@ -246,7 +250,7 @@ Paladin Commander
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
-	suit_store = /obj/item/shield/riot/bullet_proof 
+	suit_store =  /obj/item/gun/energy/laser/aer12
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
@@ -255,6 +259,7 @@ Paladin Commander
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 5,
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
 
 		)
 
@@ -408,7 +413,7 @@ Knight-Captain
 	gunsmith_three = TRUE
 	gunsmith_four = TRUE
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
-	suit_store = /obj/item/gun/energy/laser/aer12
+	suit_store = /obj/item/gun/energy/laser/aer9
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
 	l_pocket = /obj/item/storage/belt/sabre/heavy
@@ -420,6 +425,7 @@ Knight-Captain
 		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
+		/obj/item/storage/box/bos/kcaptain = 1,
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -554,7 +560,7 @@ Paladin
 	name =	"Paladin"
 	jobtype =	/datum/job/bos/f13paladin
 	suit =	/obj/item/clothing/suit/armor/power_armor/t45d/bos
-	suit_store = /obj/item/gun/energy/laser/aer12
+	suit_store = /obj/item/gun/energy/laser/aer9
 	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	uniform =	/obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
@@ -652,8 +658,8 @@ Scribe
 /datum/job/bos/f13scribe
 	title = "Scribe"
 	flag = F13SCRIBE
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 3
+	spawn_positions = 3
 	description = "You answer to senior members, tasked with researching and reverse-engineering recovered technologies from the old world, while maintaining the brotherhoods scientific archives. You may also be given a trainee to assign duties to."
 	supervisors = "the Head and Senior Scribe"
 	display_order = JOB_DISPLAY_ORDER_SCRIBE
@@ -909,8 +915,8 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 6
+	spawn_positions = 6
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT

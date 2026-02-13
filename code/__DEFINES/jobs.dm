@@ -113,20 +113,20 @@
 
 #define BOS				(1<<5)
 
-#define F13SENTINEL		(1<<0)
-#define F13PALADINCOMMANDER		(1<<1)
-#define F13SENIORPALADIN	(1<<2)
-#define F13PALADIN		(1<<3)
-#define F13KNIGHTCAPTAIN	(1<<4)
-#define F13KNIGHTSARGE	(1<<5)
-#define F13SENIORKNIGHT	(1<<6)
-#define F13KNIGHT		(1<<7)
-#define F13HEADSCRIBE	(1<<8)
-#define F13SENIORSCRIBE (1<<9)
-#define F13SCRIBE		(1<<10)
-#define F13INITIATE		(1<<11)
-#define F13OFFDUTYBOS	(1<<12)
-#define F13ENVOY	(1<<13)
+#define F13ENVOY	(1<<0)
+#define F13SENTINEL		(1<<1)
+#define F13PALADINCOMMANDER		(1<<2)
+#define F13SENIORPALADIN	(1<<3)
+#define F13PALADIN		(1<<4)
+#define F13KNIGHTCAPTAIN	(1<<5)
+#define F13KNIGHTSARGE	(1<<6)
+#define F13SENIORKNIGHT	(1<<7)
+#define F13KNIGHT		(1<<8)
+#define F13HEADSCRIBE	(1<<9)
+#define F13SENIORSCRIBE (1<<10)
+#define F13SCRIBE		(1<<11)
+#define F13INITIATE		(1<<12)
+#define F13OFFDUTYBOS	(1<<13)
 
 #define DEP_EASTWOOD (1<<6)
 
@@ -340,7 +340,7 @@
 #define JOB_DISPLAY_ORDER_LEGIONSLAVE 67
 
 
-
+#define JOB_DISPLAY_ORDER_ENVOY 67.5
 #define JOB_DISPLAY_ORDER_SENTINEL 67.9	//God I fucking hate. This does work tho. - Kitsunemitsu
 #define JOB_DISPLAY_ORDER_COMMANDER 68
 #define JOB_DISPLAY_ORDER_SENIORPALADIN 69

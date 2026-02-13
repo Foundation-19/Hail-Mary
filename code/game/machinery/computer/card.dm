@@ -582,19 +582,19 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	job_list = list(
 		"Secretary",
 		"Farmer",
-		"Prospector",
-		"Doctor",
+		"Blacksmith",
+		"Apothecary",
 		"Banker",
-		"Quartermaster",
-		"Trade Worker",
+		"Merchant",
+		"Merchants Mercenary",
 		"Barkeep",
 		"Citizen",
-		"Radio Host",
+		"Jester",
 		)
 	job_req = list(
-		"Mayor",
+		"Warden",
 		"Secretary",
-		"Sheriff",
+		"Head of the Watch",
 		)
 
 /obj/machinery/computer/card/town/sheriff
@@ -605,9 +605,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Deputy",
 		)
 	job_req = list(
-		"Mayor",
+		"Warden",
 		"Secretary",
-		"Sheriff",
+		"Head of the Watch",
 		)
 
 /obj/machinery/computer/card/town/locust

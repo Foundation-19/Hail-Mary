@@ -582,9 +582,9 @@
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	cost = 3
 	restricted_desc = "Oasis PD, Oasis officials"
-	restricted_roles = list("Chief of Police",
+	restricted_roles = list("Head of the Watch",
 							"Officer",
-							"Mayor",
+							"Warden",
 							"Detective",
 							"Secretary",
 							"Shopkeeper",

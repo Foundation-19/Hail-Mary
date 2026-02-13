@@ -666,6 +666,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 // Brotherhood of Steel
 
+/obj/effect/landmark/start/f13/elderenvoy
+	name = "Elder Envoy"
+	icon_state = "Elder"
+
 /obj/effect/landmark/start/f13/sentinel
 	name = "Sentinel"
 	icon_state = "Elder"
@@ -751,7 +755,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 // Eastwood
 
 /obj/effect/landmark/start/f13/mayor
-	name = "Mayor"
+	name = "Warden"
 	icon_state = "Banker"
 
 /obj/effect/landmark/start/f13/secretary
@@ -759,25 +763,25 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Lawyer"
 
 /obj/effect/landmark/start/f13/sheriff
-	name = "Sheriff"
+	name = "Head of the Watch"
 	icon_state = "Chief of Police"
 
 /obj/effect/landmark/start/f13/deputy
-	name = "Deputy"
+	name = "Watchman"
 	icon_state = "Officer"
 
 /obj/effect/landmark/start/f13/farmer
 	name = "Farmer"
 
 /obj/effect/landmark/start/f13/prospector
-	name = "Prospector"
+	name = "Blacksmith"
 
 /obj/effect/landmark/start/f13/settler
 	name = "Citizen"
 	icon_state = "Settler"
 
 /obj/effect/landmark/start/f13/radio_host
-	name = "Radio Host"
+	name = "Jester"
 	icon_state = "Radio-Host"
 
 /obj/effect/landmark/start/f13/pilot
@@ -785,14 +789,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Scribe"
 
 /obj/effect/landmark/start/f13/dendoc
-	name = "Doctor"
+	name = "Apothecary"
 
 /obj/effect/landmark/start/f13/quartermaster
-	name = "Quartermaster"
+	name = "Merchant"
 	icon_state = "Shopkeeper"
 
 /obj/effect/landmark/start/f13/shopkeeper
-	name = "Trade Worker"
+	name = "Merchants Mercenary"
 	icon_state = "Shopkeeper"
 
 /obj/effect/landmark/start/f13/banker
@@ -800,7 +804,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Banker"
 
 /obj/effect/landmark/start/f13/barkeep
-	name = "Barkeep"
+	name = "Tavern Keeper"
 	icon_state = "Barkeep"
 
 // Wasteland
