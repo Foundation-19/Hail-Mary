@@ -401,6 +401,14 @@ datum/crafting_recipe/steelbib/heavy
 	category = CAT_CLOTHING
 	subcategory = CAT_ARMOR
 
+/datum/crafting_recipe/altyn
+	name = "Altyn Helmet"
+	result = /obj/item/clothing/head/helmet/altyn
+	reqs = list(/obj/item/clothing/head/helmet/alt = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_CLOTHING
+	subcategory = CAT_ARMOR
 
 //Greaves
 

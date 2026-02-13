@@ -658,7 +658,7 @@
 	icon_state = "gab3"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/scope, /datum/crafting_recipe/suppressor, /datum/crafting_recipe/ergonomic_grip, /datum/crafting_recipe/metal_guard, /datum/crafting_recipe/forged_barrel, /datum/crafting_recipe/booster, /datum/crafting_recipe/laserguide, /datum/crafting_recipe/gigalens, /datum/crafting_recipe/battshunt, /datum/crafting_recipe/overdrivemod, /datum/crafting_recipe/ai_tool, /datum/crafting_recipe/handmade_rifle, /datum/crafting_recipe/handmade_battle_rifle, /datum/crafting_recipe/handmade_dmr, /datum/crafting_recipe/handmade_assault_carbine)
+	crafting_recipe_types = list(/datum/crafting_recipe/scope, /datum/crafting_recipe/suppressor, /datum/crafting_recipe/ergonomic_grip, /datum/crafting_recipe/metal_guard, /datum/crafting_recipe/forged_barrel, /datum/crafting_recipe/booster, /datum/crafting_recipe/laserguide, /datum/crafting_recipe/gigalens, /datum/crafting_recipe/battshunt, /datum/crafting_recipe/overdrivemod, /datum/crafting_recipe/ai_tool, /datum/crafting_recipe/handmade_assault_carbine)
 
 /obj/item/book/granter/crafting_recipe/gunsmith_four
 	name = "Guns and Bullets, Part 4"
@@ -666,7 +666,15 @@
 	icon_state = "gab4"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended, /datum/crafting_recipe/drum10mm)
+	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended, /datum/crafting_recipe/drum10mm, /datum/crafting_recipe/handmade_rifle, /datum/crafting_recipe/handmade_dmr)
+
+/obj/item/book/granter/crafting_recipe/gunsmith_five
+	name = "Soldier of Fortune Magazine, 2074 Edition"
+	desc = "The hottest magazine in the pre-war private and governmental military sectors, the favorite of mercenary, cop, soldier and wannabe alike! The 2077 Edition of the Soldier of Fortune magazine features the newest when it comes to updates in the global military scene and the most recent news on firearms development. This edition seems to have a specific focus on the weapons from the other side of the iron curtain, featuring a deep dive into their mechanics and functionality. Likewise, another item of distinct focus is the newest and brightest when it comes to publically and not-so publically available weapon attachments inside and outside of pre-war america."
+	icon_state = "book1"
+	oneuse = TRUE
+	remarks = list("The first rule of gun safety is to have fun...", ".45 ACP is God's gift to mankind...", "Nyet, rifle is fine...", "That's a gimmick sonny, back in my day...", "Studies show that the higher you set your sights, the harder the bullet hits...")
+	crafting_recipe_types = list(/datum/crafting_recipe/handmade_battle_rifle, /datum/crafting_recipe/eastern_pdw, /datum/crafting_recipe/eastern_compact_shotgun, /datum/crafting_recipe/eastern_light_machine_gun, /datum/crafting_recipe/eastern_assassin_rifle , /datum/crafting_recipe/killer, /datum/crafting_recipe/raidertrigger, /datum/crafting_recipe/blender)
 
 /obj/item/book/granter/crafting_recipe/scav_one
 	name = "SCAV! Issue 1"

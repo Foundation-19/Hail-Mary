@@ -176,3 +176,25 @@
 
 /mob/living/carbon/human/get_biological_state()
 	return dna.species.get_biological_state()
+
+/mob/living/carbon/human/proc/get_surgery_skill()
+	if(HAS_TRAIT(src, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
+		return 5
+	if(HAS_TRAIT(src, TRAIT_SURGERY_HIGH))
+		return 4
+	if(HAS_TRAIT(src, TRAIT_SURGERY_MID))
+		return 3
+	if(HAS_TRAIT(src, TRAIT_SURGERY_LOW))
+		return 2
+	if(special_i >= 6)
+		return 1
+	return 0
+
+/mob/living/carbon/human/proc/get_cyber_surgery_skill()
+	if(HAS_TRAIT(src, TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
+		return 3
+	if(HAS_TRAIT(src, TRAIT_CYBERNETICIST_EXPERT))
+		return 2
+	if(HAS_TRAIT(src, TRAIT_CYBERNETICIST))
+		return 1
+	return 0
