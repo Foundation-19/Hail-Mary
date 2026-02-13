@@ -2100,7 +2100,7 @@
 				/obj/item/reagent_containers/food/snacks/f13/fried_brahmin_skin,
 				/obj/item/reagent_containers/food/snacks/f13/fried_molerat_lung,
 				/obj/item/reagent_containers/food/snacks/f13/gecko_kebab,
-				/obj/item/reagent_containers/food/snacks/f13/giantantegg,
+				/obj/item/reagent_containers/food/snacks/f13/egg,
 				/obj/item/reagent_containers/food/snacks/f13/mirelurkcake,
 				/obj/item/reagent_containers/food/snacks/f13/molejerky,
 				/obj/item/reagent_containers/food/snacks/f13/molerat_manicotti,

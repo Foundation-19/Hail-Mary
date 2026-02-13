@@ -161,3 +161,32 @@
 	filling_color = "#A0522D"
 	tastes = list("chocolate" = 4, "sweetness" = 1)
 	foodtype = JUNKFOOD | SUGAR
+
+/// Fallout Eggs
+
+/obj/item/reagent_containers/food/snacks/f13/egg
+	name = "giant ant egg"
+	desc = "A giant ant egg.<br>You'd thought it be bigger but its white and squishy to the touch."
+	icon = 'icons/obj/food/egg.dmi'
+	icon_state = "antegg"
+	bonus_reagents = list(/datum/reagent/toxin = 10)
+	list_reagents = list(/datum/reagent/consumable/eggyolk = 15)
+	filling_color = "#F0E68C"
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/f13/egg/nightstalker
+	name = "nightstalker egg"
+	desc = "A shiny, leathery egg."
+	icon_state = "egg_nightstalker"
+	bonus_reagents = list(/datum/reagent/toxin = 5)
+	list_reagents = list(/datum/reagent/consumable/eggyolk = 20)
+	filling_color = "#FFDF00"
+	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/f13/egg/mirelurk
+	name = "mirelurk egg"
+	desc = "A bluish egg with very hard shell."
+	icon_state = "egg_mirelurk"
+	list_reagents = list(/datum/reagent/consumable/eggyolk = 30)
+	filling_color = "#E6E6FA"
+	foodtype = MEAT
