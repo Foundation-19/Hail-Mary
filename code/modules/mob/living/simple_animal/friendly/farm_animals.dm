@@ -226,6 +226,15 @@
 	udder = null
 	return ..()
 
+/mob/living/simple_animal/cow/Life()
+	. = ..()
+	
+	// If current_rider exists but isn't actually buckled to us, clear it
+	if(current_rider && current_rider.buckled != src)
+		current_rider = null
+		is_sprinting = FALSE
+		update_speed()
+
 /mob/living/simple_animal/cow/death(gibbed)
 	. = ..()
 	if(can_buckle)
@@ -445,22 +454,13 @@
 			visible_message(span_warning(pick(pain_emotes)))
 
 /mob/living/simple_animal/cow/Move(NewLoc, direct)
-	// Check sprint status BEFORE every move
-	if(current_rider && saddle)
-		var/datum/keybinding/living/toggle_sprint/sprint_bind = GLOB.keybindings_by_name["toggle_sprint"]
-		var/datum/keybinding/living/hold_sprint/sprint_hold_bind = GLOB.keybindings_by_name["hold_sprint"]
-		var/trying_to_sprint = (current_rider.client in sprint_bind.is_down) || (current_rider.client in sprint_hold_bind.is_down)
-		
-		// Stop sprint immediately if key released
-		if(!trying_to_sprint && is_sprinting)
-			stop_mount_sprint(current_rider)
-	
-	if(current_rider && (saddle || bridle) && world.time >= last_fear_check + fear_check_cooldown)
+	// Only check fear if we actually have a rider AND they're still buckled
+	if(current_rider && current_rider.buckled == src && (saddle || bridle) && world.time >= last_fear_check + fear_check_cooldown)
 		last_fear_check = world.time
 		var/fear_chance = get_fear_chance()
 		
 		if(fear_chance > 0 && prob(fear_chance))
-			// Fear triggered! Now check if loyalty resists it
+			// [existing fear code]
 			var/resistance_chance = get_loyalty_resistance()
 			
 			if(resistance_chance > 0 && prob(resistance_chance))
@@ -474,7 +474,7 @@
 				)
 				visible_message(span_notice(pick(resolve_messages)))
 				to_chat(current_rider, span_green("[src]'s loyalty overcomes their fear!"))
-				return ..() // Continue moving normally
+				return ..()
 			
 			// Fear wins - loyalty wasn't enough
 			var/bucking_chance = get_bucking_chance()
@@ -487,13 +487,13 @@
 				visible_message(span_notice("[src] tries to resist their fear, but fails..."))
 			
 			if(prob(bucking_chance))
-				// FULL BUCKING - throw rider off AND flee
+				// FULL BUCKING
 				visible_message(span_warning("[src] bucks wildly and rears back!"))
 				to_chat(current_rider, span_userdanger("[src] throws you off!"))
 				
 				Stun(20)
 				
-				if(current_rider)
+				if(current_rider && current_rider.buckled == src) // Double-check they're still buckled
 					var/mob/living/rider = current_rider
 					
 					// Screen shake effect
@@ -503,6 +503,7 @@
 					var/throw_dir = turn(dir, pick(-45, 45))
 					var/turf/throw_target = get_step(src, throw_dir)
 					
+					// Unbuckle BEFORE throwing
 					unbuckle_mob(rider)
 					rider.Paralyze(20)
 					
@@ -519,7 +520,7 @@
 						step(src, flee_dir)
 						sleep(3)
 			else
-				// MINOR STUTTER - just resist movement
+				// MINOR STUTTER
 				visible_message(span_warning("[src] balks and resists!"))
 				to_chat(current_rider, span_warning("[src] is frightened!"))
 				Stun(20)
@@ -1209,10 +1210,20 @@
 		
 		if(ishuman(buckled_mob))
 			var/mob/living/carbon/human/rider = buckled_mob
+			
+			// Stop any active sprint on the mount
+			if(is_sprinting)
+				stop_mount_sprint(rider)
+			
+			// Restore the player's original sprint stats
 			rider.restore_sprint_on_dismount()
-			stop_mount_sprint(rider)
+			
+			// Clear the current_rider reference BEFORE parent call
+			current_rider = null
 	
-	current_rider = null
+	// Reset fear check timer to prevent immediate bucking after dismount
+	last_fear_check = world.time
+	
 	return ..()
 
 ///////////////////////////

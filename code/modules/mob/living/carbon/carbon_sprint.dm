@@ -59,6 +59,10 @@
 	update_hud_sprint_bar()
 
 /mob/living/carbon/proc/restore_sprint_on_dismount()
+	// Force disable any sprint mode flags
+	if(m_intent == "sprint")
+		toggle_move_intent(src)
+	
 	sprint_buffer = saved_sprint_buffer
 	sprint_buffer_max = saved_sprint_buffer_max
 	saved_sprint_buffer = 0
@@ -82,6 +86,6 @@
 		regen_rate *= 1.25
 	
 	sprint_buffer = min(sprint_buffer_max, sprint_buffer + regen_rate * diff)
-	
+
 	if(updating)
 		update_hud_sprint_bar()
