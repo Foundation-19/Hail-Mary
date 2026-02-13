@@ -83,6 +83,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	box_two = /obj/item/storage/survivalkit/medical
 	r_pocket = /obj/item/binoculars
 	backpack_contents = list(
+		/obj/item/ammo_box/tube/a357 = 3,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
@@ -131,6 +132,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	suit_store =	/obj/item/gun/ballistic/rifle/repeater/trail
 	neck = 			/obj/item/storage/belt/shoulderholster/ranger45
 	backpack_contents = list(
+		/obj/item/ammo_box/tube/m44 = 3,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
@@ -181,6 +183,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	suit_store =	/obj/item/gun/ballistic/rifle/repeater/trail
 	neck = 			/obj/item/storage/belt/shoulderholster/ranger45
 	backpack_contents = list(
+		/obj/item/ammo_box/tube/m44 = 3,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
@@ -245,6 +248,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	accessory = 	/obj/item/clothing/accessory/armband/med/ncr
 	neck = 			/obj/item/storage/belt/shoulderholster/ranger45
 	backpack_contents = list(
+		/obj/item/ammo_box/tube/m44 = 3,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
