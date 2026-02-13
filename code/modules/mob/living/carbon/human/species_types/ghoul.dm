@@ -162,6 +162,10 @@
 		
 		RegisterSignal(H, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 		
+		// Grant the surge action
+		var/datum/action/cooldown/ghoul_surge/A = new()
+		A.Grant(H)
+		
 		#if GHOUL_DEBUG_RADIATION
 		world.log << "GHOUL INIT: [H] surges=[H.ghoul_surges]/[H.ghoul_surges_max] radiation=[H.radiation] feral=[H.ghoul_feral_stacks]"
 		to_chat(H, span_notice("DEBUG: Ghoul initialized - surges_max=[H.ghoul_surges_max]"))
@@ -184,6 +188,12 @@
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
 		
 		UnregisterSignal(H, COMSIG_PARENT_EXAMINE)
+	
+	// Remove the surge action
+	if(istype(C, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = C
+		for(var/datum/action/cooldown/ghoul_surge/A in H.actions)
+			A.Remove(H)
 
 /datum/species/ghoul/proc/on_examine(mob/living/carbon/human/H, mob/user, list/examine_list)
 	SIGNAL_HANDLER
@@ -676,35 +686,64 @@
 	// Recalculate damage after cleanup
 	current_damage = H.getBruteLoss() + H.getFireLoss() + H.getCloneLoss() + H.getToxLoss()
 	
-	// ACTIVATION: Reach 10 surges with radiation fuel and damage to heal (minimum threshold)
-	if(!H.ghoul_regen_active && H.ghoul_surges >= H.ghoul_surges_max && r >= GHOUL_RAD_HEAL_START && current_damage >= GHOUL_DAMAGE_ACTIVATION_MIN)
-		H.ghoul_regen_active = TRUE
-		H.ghoul_last_heal_tick = world.time
-		to_chat(H, span_nicegreen("Your necrotic heart SURGES to life! Regeneration activated!"))
-		H.jitteriness = max(H.jitteriness, 20)  // Initial activation jitter
-		
-		#if GHOUL_DEBUG_RADIATION
-		world.log << "GHOUL REGEN ACTIVATED: [src] surges=[H.ghoul_surges] rads=[r]"
-		#endif
+// ========== STEP 6: HEALING - NEW LOGIC ==========
+	// Clean up tiny damage values first
+	ghoul_cleanup_damage(H)
+	
+	// Recalculate damage after cleanup
+	current_damage = H.getBruteLoss() + H.getFireLoss() + H.getCloneLoss() + H.getToxLoss()
+	
+	// ACTIVATION: Now handled by the action button - we just check if it's active
+	// The action button sets ghoul_regen_active to TRUE when activated
 	
 	// DEACTIVATION CONDITIONS:
 	// 1. Surges hit 0
 	// 2. No damage healed for GHOUL_REGEN_TIMEOUT (idle timeout)
-	// NOTE: We do NOT check radiation while regen is active - surges are the only limit
+	// 3. SINGLE mode completed one surge
 	if(H.ghoul_regen_active)
 		var/should_deactivate = FALSE
 		var/deactivate_reason = ""
 		
+		// Get the surge action to check mode
+		var/datum/action/cooldown/ghoul_surge/surge_action = null
+		for(var/datum/action/cooldown/ghoul_surge/A in H.actions)
+			surge_action = A
+			break
+		
 		if(H.ghoul_surges <= 0)
 			should_deactivate = TRUE
 			deactivate_reason = "Your necrotic heart is exhausted! Regeneration stops."
+			if(surge_action)
+				surge_action.surge_mode = SURGE_MODE_OFF
+				surge_action.UpdateButtonIcon()
+		
 		else if(current_damage < GHOUL_DAMAGE_ACTIVATION_MIN && (world.time - H.ghoul_last_heal_tick) >= GHOUL_REGEN_TIMEOUT)
 			should_deactivate = TRUE
 			deactivate_reason = "Your wounds are healed. Regeneration goes dormant."
+			if(surge_action)
+				surge_action.surge_mode = SURGE_MODE_OFF
+				surge_action.UpdateButtonIcon()
+		
+		// SINGLE mode: deactivate after using one surge
+		else if(surge_action && surge_action.surge_mode == SURGE_MODE_SINGLE)
+			// Check if we've consumed ANY surge since activation
+			if(H.ghoul_surges < surge_action.surges_at_activation)
+				should_deactivate = TRUE
+				deactivate_reason = "Single surge spent. Your heart goes dormant."
+				surge_action.surge_mode = SURGE_MODE_OFF
+				surge_action.surges_at_activation = 0
+				surge_action.UpdateButtonIcon()
 		
 		if(should_deactivate)
 			H.ghoul_regen_active = FALSE
 			to_chat(H, span_warning("[deactivate_reason]"))
+			
+			if(surge_action)
+				surge_action.surge_mode = SURGE_MODE_OFF
+				surge_action.queued_mode = SURGE_MODE_OFF
+				surge_action.surges_at_activation = 0
+				surge_action.can_switch_mode = TRUE
+				surge_action.UpdateButtonIcon()
 			
 			#if GHOUL_DEBUG_RADIATION
 			world.log << "GHOUL REGEN DEACTIVATED: [src] reason=[deactivate_reason]"
@@ -765,15 +804,45 @@
 			H.radiation = max(0, H.radiation - rad_consume)
 			
 			// CONSUME SURGE (your heart expends a pump)
-			// Each surge lasts for multiple healing ticks
-			// Consume 1 surge per ~15 HP healed (adjust this to your taste)
-			if(prob(total_healed * 6)) // ~6% chance per HP healed = 1 surge per ~17 HP
+			if(prob(total_healed * 6))
 				H.ghoul_surges = max(0, H.ghoul_surges - 1)
 				
-				// FLAT FERAL GAIN PER SURGE USE - can't avoid this cost!
-				#if GHOUL_DEBUG_RADIATION
-				var/old_feral_surge = H.ghoul_feral_stacks
-				#endif
+				// Get the surge action
+				var/datum/action/cooldown/ghoul_surge/surge_action = null
+				for(var/datum/action/cooldown/ghoul_surge/A in H.actions)
+					surge_action = A
+					break
+				
+				if(surge_action)
+					// Unlock mode switching - surge has been consumed
+					surge_action.can_switch_mode = TRUE
+					
+					// Process queued mode change
+					if(surge_action.queued_mode != SURGE_MODE_OFF && surge_action.surge_mode != surge_action.queued_mode)
+						var/old_mode = surge_action.surge_mode
+						surge_action.surge_mode = surge_action.queued_mode
+						surge_action.queued_mode = SURGE_MODE_OFF
+						surge_action.can_switch_mode = FALSE  // Lock again for next surge
+						
+						// Handle mode-specific transitions
+						if(surge_action.surge_mode == SURGE_MODE_OFF)
+							H.ghoul_regen_active = FALSE
+							to_chat(H, span_warning("Queued deactivation executed. Your heart goes dormant."))
+						else if(old_mode == SURGE_MODE_SINGLE && surge_action.surge_mode == SURGE_MODE_TOGGLE)
+							to_chat(H, span_nicegreen("Switched to TOGGLE mode. Auto-surge active!"))
+					
+					// SINGLE mode auto-off after consuming one surge (if not queued to TOGGLE)
+					else if(surge_action.surge_mode == SURGE_MODE_SINGLE && surge_action.queued_mode == SURGE_MODE_OFF)
+						if(H.ghoul_surges < surge_action.surges_at_activation)
+							surge_action.surge_mode = SURGE_MODE_OFF
+							surge_action.surges_at_activation = 0
+							surge_action.can_switch_mode = TRUE
+							H.ghoul_regen_active = FALSE
+							to_chat(H, span_notice("Single surge consumed. Your heart goes dormant."))
+					
+					surge_action.UpdateButtonIcon()
+				
+				// FLAT FERAL GAIN PER SURGE USE
 				H.ghoul_feral_stacks = min(GHOUL_FERAL_MAX, H.ghoul_feral_stacks + GHOUL_FERAL_PER_SURGE_USE)
 				
 				#if GHOUL_DEBUG_RADIATION
@@ -1396,3 +1465,125 @@
 			world.log << "GHOUL BULLET_ACT: [src] damage source set to [P.firer] (self=[P.firer == src])"
 			#endif
 	return ..()
+
+// ========== NECROTIC SURGE ACTION ==========
+/datum/action/cooldown/ghoul_surge
+	name = "Necrotic Surge"
+	desc = "Activate your necrotic heart to heal wounds. Click once to spend one surge, click again to toggle auto-spending, click a third time to turn off.\n\
+	Requires maximum surges (10/10) and radiation fuel to activate."
+	button_icon_state = "ghoul_surge"
+	icon_icon = 'icons/mob/actions/actions_ghoul.dmi'
+	check_flags = AB_CHECK_CONSCIOUS
+	
+	var/surge_mode = SURGE_MODE_OFF
+	var/queued_mode = SURGE_MODE_OFF  // NEW: What mode are we queuing to switch to?
+	var/surges_at_activation = 0
+	var/can_switch_mode = TRUE  // NEW: Can we process the next click?
+
+/datum/action/cooldown/ghoul_surge/IsAvailable(silent = FALSE)
+	if(!..())
+		return FALSE
+	
+	if(!ishuman(owner))
+		return FALSE
+	
+	var/mob/living/carbon/human/H = owner
+	
+	// Must be a ghoul
+	if(!H.dna || !H.dna.species || !istype(H.dna.species, /datum/species/ghoul))
+		return FALSE
+	
+	// If currently active, always show as available so player can queue next action
+	if(surge_mode != SURGE_MODE_OFF)
+		return TRUE
+	
+	// When OFF, check activation requirements
+	if(H.ghoul_surges < H.ghoul_surges_max)
+		if(!silent)
+			to_chat(owner, span_warning("Your necrotic heart isn't at full capacity! ([H.ghoul_surges]/[H.ghoul_surges_max] surges)"))
+		return FALSE
+	
+	if(H.radiation < GHOUL_RAD_HEAL_START)
+		if(!silent)
+			to_chat(owner, span_warning("You need more radiation fuel to activate your necrotic heart! (Need [GHOUL_RAD_HEAL_START], have [round(H.radiation)])"))
+		return FALSE
+	
+	var/current_damage = H.getBruteLoss() + H.getFireLoss() + H.getCloneLoss() + H.getToxLoss()
+	if(current_damage < GHOUL_DAMAGE_ACTIVATION_MIN)
+		if(!silent)
+			to_chat(owner, span_notice("You have no significant wounds to heal."))
+		return FALSE
+	
+	return TRUE
+
+/datum/action/cooldown/ghoul_surge/Trigger()
+	if(!..())
+		return FALSE
+	
+	if(!ishuman(owner))
+		return FALSE
+	
+	var/mob/living/carbon/human/H = owner
+	
+	// Determine next state based on current mode
+	if(surge_mode == SURGE_MODE_OFF)
+		// Activating from OFF -> SINGLE
+		surge_mode = SURGE_MODE_SINGLE
+		queued_mode = SURGE_MODE_OFF  // No queue yet
+		surges_at_activation = H.ghoul_surges
+		can_switch_mode = FALSE  // Lock until surge consumed
+		H.ghoul_regen_active = TRUE
+		H.ghoul_last_heal_tick = world.time
+		to_chat(H, span_nicegreen("Your necrotic heart SURGES! Will use ONE surge then stop."))
+		H.jitteriness = max(H.jitteriness, 20)
+		
+	else if(surge_mode == SURGE_MODE_SINGLE)
+		if(!can_switch_mode)
+			// Queue the switch to TOGGLE
+			queued_mode = SURGE_MODE_TOGGLE
+			to_chat(H, span_notice("Mode switch queued: Will switch to TOGGLE after current surge is consumed."))
+		else
+			// Can switch immediately
+			surge_mode = SURGE_MODE_TOGGLE
+			queued_mode = SURGE_MODE_OFF
+			can_switch_mode = FALSE
+			to_chat(H, span_nicegreen("Auto-surge ENABLED! Your heart will keep surging until depleted or manually stopped."))
+		
+	else if(surge_mode == SURGE_MODE_TOGGLE)
+		if(!can_switch_mode)
+			// Queue the deactivation
+			queued_mode = SURGE_MODE_OFF
+			to_chat(H, span_notice("Deactivation queued: Will turn off after current surge is consumed."))
+		else
+			// Can turn off immediately
+			surge_mode = SURGE_MODE_OFF
+			queued_mode = SURGE_MODE_OFF
+			surges_at_activation = 0
+			can_switch_mode = TRUE
+			H.ghoul_regen_active = FALSE
+			to_chat(H, span_warning("Necrotic surge DEACTIVATED. Your heart goes dormant."))
+	
+	UpdateButtonIcon()
+	return TRUE
+
+/datum/action/cooldown/ghoul_surge/UpdateButtonIcon(status_only = FALSE, force = FALSE)
+	. = ..()
+	if(!.)
+		return
+	
+	// Button color logic:
+	// - Show AVAILABLE (normal color) when it can be clicked
+	// - Show UNAVAILABLE (red) when it can't be used
+	
+	// The parent IsAvailable() already handles this via the color change
+	// We just need to make sure IsAvailable returns TRUE when clickable
+
+/datum/action/cooldown/ghoul_surge/Grant(mob/M)
+	..()
+	if(!ishuman(M))
+		return
+	
+	// Reset state on grant
+	surge_mode = SURGE_MODE_OFF
+	queued_mode = SURGE_MODE_OFF
+	can_switch_mode = TRUE
