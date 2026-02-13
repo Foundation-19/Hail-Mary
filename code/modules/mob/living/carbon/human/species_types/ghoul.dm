@@ -110,7 +110,7 @@
 	wagging_type = "waggingtail_human"
 	species_type = "human"
 	use_skintones = 0
-	speedmod = 0
+	speedmod = 0.2
 	sexes = 1
 	sharp_blunt_mod = 2
 	sharp_edged_mod = 2
@@ -333,8 +333,6 @@
 	
 	// Calculate current damage once (used in multiple places)
 	var/current_damage = H.getBruteLoss() + H.getFireLoss() + H.getCloneLoss() + H.getToxLoss()
-
-	// ========== STEP 1: SURGE RECHARGE (with snapshot-based combat detection) ==========
 	
 	// ========== STEP 1: SURGE RECHARGE (with snapshot-based combat detection) ==========
 	
