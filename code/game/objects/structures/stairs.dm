@@ -179,3 +179,9 @@
 		if(S.dir == dir)
 			return FALSE
 	return TRUE
+
+/obj/structure/stairs/slopes/update_icon_state()
+	if(isTerminator())
+		icon_state = "slopes_t"
+	else
+		icon_state = "slopes"
