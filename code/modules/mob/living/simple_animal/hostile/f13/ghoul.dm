@@ -16,7 +16,7 @@
 	maxHealth = 40 
 	health = 40
 	robust_searching = 1
-	move_to_delay = 3.1
+	move_to_delay = 2.0
 	turns_per_move = 5
 	waddle_amount = 2
 	waddle_up_time = 1
@@ -107,6 +107,9 @@
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
 	)
+
+	can_z_move = TRUE
+	z_move_delay = 50 // 5 seconds - slower
 
 /mob/living/simple_animal/hostile/ghoul/Initialize()
 	. = ..()
@@ -385,7 +388,7 @@
 	response_help_simple = "hugs"
 	response_disarm_simple = "pushes aside"
 	response_harm_simple = "growl"
-	move_to_delay = 4
+	move_to_delay = 3.0
 	faction = list("scorched", "hostile")
 	death_sound = null
 	melee_damage_upper = 20
@@ -410,7 +413,7 @@
 	response_help_simple = "hugs"
 	response_disarm_simple = "pushes aside"
 	response_harm_simple = "ow"
-	move_to_delay = 4
+	move_to_delay = 3.0
 	ranged = TRUE
 	ranged_cooldown_time = 200
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple

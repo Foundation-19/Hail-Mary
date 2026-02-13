@@ -118,10 +118,19 @@
 		return
 	if(!checking.zPassIn(climber, UP, get_turf(src)))
 		return
-	var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
-	if(istype(target) && !climber.canZMove(DOWN, target, z_move_flags = ZMOVE_FALL_FLAGS)) //Don't throw them into a tile that will just dump them back down.
+	
+	// Use get_step() first, then get the Z-level above that
+	// Old code: var/turf/target = get_step_multiz(get_turf(src), (dir|UP))
+	// This was broken because (NORTH|UP) doesn't make sense as a direction
+	
+	// New code: Get the tile in front of us on the same Z, then go up from there
+	var/turf/forward_turf = get_step(get_turf(src), dir)
+	var/turf/target = get_step_multiz(forward_turf, UP)
+	
+	if(istype(target) && !climber.canZMove(DOWN, target, z_move_flags = ZMOVE_FALL_FLAGS))
 		climber.zMove(target = target, z_move_flags = ZMOVE_STAIRS_FLAGS)
-		/// Moves anything that's being dragged by src or anything buckled to it to the stairs turf.
+		
+		// Move anything being dragged
 		climber.pulling?.move_from_pull(climber, loc, climber.glide_size)
 		for(var/mob/living/buckled as anything in climber.buckled_mobs)
 			buckled.pulling?.move_from_pull(buckled, loc, buckled.glide_size)

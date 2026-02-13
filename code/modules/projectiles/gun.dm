@@ -454,7 +454,7 @@ ATTACHMENTS
 	if (automatic == 0)
 		user.DelayNextAction(1)
 	if (automatic == 1)
-		user.DelayNextAction(autofire_shot_delay)
+		user.DelayNextAction(autofire_shot_delay * 0.3) // 70% reduction
 
 	//DUAL (or more!) WIELDING
 	var/loop_counter = 0

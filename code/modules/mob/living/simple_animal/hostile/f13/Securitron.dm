@@ -34,7 +34,7 @@
 	healable = FALSE
 	faction = list("wastebot")
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
-	move_to_delay = 5.0
+	move_to_delay = 3.25
 	// m2d 3 = standard, less is fast, more is slower.
 
 	retreat_distance = 2
@@ -77,6 +77,9 @@
 		SP_DISTANT_SOUND(PISTOL_LIGHT_DISTANT_SOUND),
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
+
+	can_z_move = TRUE
+	z_move_delay = 30
 
 /mob/living/simple_animal/hostile/securitron/nsb //NSB + Raider Bunker specific
 	name = "Securitron"

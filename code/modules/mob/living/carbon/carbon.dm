@@ -4,10 +4,13 @@
 /mob/living/carbon/Initialize()
 	. = ..()
 	create_reagents(1000, NONE, NO_REAGENTS_VALUE)
-	update_body_parts() //to update the carbon's new bodyparts appearance
+	update_body_parts()
 	GLOB.carbon_list += src
 	blood_volume = (BLOOD_VOLUME_NORMAL * blood_ratio)
 	add_movespeed_modifier(/datum/movespeed_modifier/carbon_crawling)
+	
+	// Initialize sprint stats for all carbons
+	initialize_sprint_stats()
 
 /mob/living/carbon/Destroy()
 	. = ..()
@@ -44,6 +47,22 @@
 	if(client)
 		addtimer(CALLBACK(src, PROC_REF(defer_hud_cleanup)), 0, TIMER_DELETE_ME)
 
+/mob/living/carbon/Life()
+	. = ..()
+	if(. && stat != DEAD)
+		// Regenerate sprint buffer every tick for everyone
+		if(!buckled || !istype(buckled, /mob/living/simple_animal/cow))
+			doSprintBufferRegen()
+
+/mob/living/carbon/proc/initialize_sprint_stats()
+	var/base_regen = CONFIG_GET(number/movedelay/sprint_buffer_regen_per_ds)
+	
+	// Default values for non-humans (overridden by species/SPECIAL for humans)
+	sprint_buffer_max = 13
+	sprint_buffer = sprint_buffer_max
+	sprint_buffer_regen_ds = base_regen
+	sprint_buffer_regen_last = world.time
+	sprint_idle_time = 0
 
 /mob/living/carbon/proc/defer_hud_cleanup()
 	// Deferred HUD cleanup (non-critical, can smooth GC)

@@ -30,4 +30,4 @@
 	icon_state = "Punga Fruit"
 	filling_color = "#FF6347"
 	juice_results = list(/datum/reagent/medicine/potass_iodide = 0)
-	distill_reagent = /datum/reagent/consumable/ethanol/vodka
+	distill_reagent = /datum/reagent/consumable/ethanol/pungajuice
