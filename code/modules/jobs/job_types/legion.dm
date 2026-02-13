@@ -1147,7 +1147,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/empgrenade)
 	//H.mind.teach_crafting_recipe(/datum/crafting_recipe/tribalwar/cheaparrow)
 	//H.mind.teach_crafting_recipe(/datum/crafting_recipe/tribalwar/xbow)
-
+	H.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 800, 500000, silent = TRUE)
 
 
 // AUXILIA - Civilians with special training. Can sow new uniforms for soldiers who lost theirs, and are loyal so they would never abuse this.
@@ -1207,7 +1207,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_TECHNOPHREAK, src)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/tailor/legionuniform)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/warpaint)
-
+	H.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 600, 500000, silent = TRUE)
 
 /datum/outfit/loadout/auxassist
 	name = "Treasurer"
@@ -1329,19 +1329,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/soap/homemade = 1,
 		/obj/item/lighter = 1,
 		)
-
-/datum/outfit/loadout/slaveservant/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	if(H.gender == MALE)
-		H.gender = FEMALE
-		H.real_name = random_unique_legion_name(FEMALE)
-		H.name = H.real_name
-		if(H.wear_id)
-			var/obj/item/card/id/dogtag/L = H.wear_id
-			L.registered_name = H.name
-			L.update_label()
 
 //Laborers farm and mine.
 /datum/outfit/loadout/slaveworker
