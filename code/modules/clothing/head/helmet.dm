@@ -104,6 +104,24 @@
 	can_flashlight = 1
 	dog_fashion = null
 
+/obj/item/clothing/head/helmet/altyn
+	name = "Altyn Helmet"
+	desc = "A titanium alloy combat helmet with an integrated armored face shield and advanced ballistic protection. Tends to ignite when subjected to heat or particularly hard impacts."
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "altyn"
+	item_state = "altyn"
+	actions_types = list(/datum/action/item_action/toggle)
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_UP_BOMB_T2, ARMOR_MODIFIER_DOWN_ENV_T2, ARMOR_MODIFIER_UP_DT_T2)
+
+/obj/item/clothing/head/helmet/altyn/attack_self(mob/user)
+	weldingvisortoggle(user)
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "altynup"
+	item_state = "altynup"
+
 /obj/item/clothing/head/helmet/alt/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
