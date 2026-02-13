@@ -425,6 +425,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/decan
 	name = "legion veteran decanus helmet"
 	desc = "It's a metal helmet with an array of red, white and black feathers, unmistakably a Veteran Decanus."
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	icon_state = "legion-decvet-alt"
 	item_state = "legion-decvet-alt"
 	armor = ARMOR_VALUE_MEDIUM
