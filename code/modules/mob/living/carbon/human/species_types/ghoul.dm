@@ -110,7 +110,7 @@
 	wagging_type = "waggingtail_human"
 	species_type = "human"
 	use_skintones = 0
-	speedmod = 0.2
+	speedmod = 0
 	sexes = 1
 	sharp_blunt_mod = 2
 	sharp_edged_mod = 2
