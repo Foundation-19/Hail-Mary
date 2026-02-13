@@ -105,7 +105,6 @@ Sidearms are 45mm.
 
 	loadout_options = list(
 		/datum/outfit/loadout/powerfist,	// i can't believe you've done this
-		/datum/outfit/loadout/antimat,	// one shot one kill
 		/datum/outfit/loadout/osmanoglu,	// shishkebab
 		)
 
@@ -113,7 +112,6 @@ Sidearms are 45mm.
 	..()
 	if(visualsOnly)
 		return
-	ADD_TRAIT(H, TRAIT_TECHNOPHOBE, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
@@ -140,17 +138,6 @@ Sidearms are 45mm.
 		/obj/item/ammo_box/magazine/m10mm/adv/ext = 2,
 		)
 
-/datum/outfit/loadout/antimat
-	name = "Stalker"
-	gloves = /obj/item/clothing/gloves/bracer
-	suit_store = /obj/item/gun/ballistic/rifle/mag/antimateriel
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/amr = 2,
-		/obj/item/ammo_box/c4570 = 1,
-		/obj/item/gun/ballistic/revolver/hunting = 1,
-		/obj/item/gun_upgrade/scope/watchman = 1,
-		)
-
 /datum/outfit/loadout/osmanoglu
 	name = "Firestarter"
 	gloves = /obj/item/clothing/gloves/bracer
@@ -171,7 +158,7 @@ Sidearms are 45mm.
 	total_positions = 2
 	spawn_positions = 2
 	description = "You are the kuna-boomber. You boomb kunas. Your role in battle is to soften up your enemies and their defenses with the wide variety of improvised explosive devices at your disposal. Though your tribe shuns industry, or perhaps can't understand it, you have the rare talent of making explosives. Just remember to stand back."
-	supervisors = "your War Chief and"
+	supervisors = "your War Chief"
 	display_order = JOB_DISPLAY_ORDER_LIGHTBRINGER
 	outfit = /datum/outfit/job/whitelegs/f13lightbringer
 

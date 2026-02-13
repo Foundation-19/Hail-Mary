@@ -60,8 +60,8 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
+	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
 
@@ -110,6 +110,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
@@ -160,6 +161,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
@@ -217,9 +219,9 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
-	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
 	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
