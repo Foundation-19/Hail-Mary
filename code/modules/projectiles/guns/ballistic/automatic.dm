@@ -520,8 +520,8 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/burst/three/faster,
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/burst/three/slower,
+		/datum/firemode/semi_auto/slower
 	)
 
 

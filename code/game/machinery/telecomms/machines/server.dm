@@ -152,6 +152,31 @@
 	freq_listening = list(FREQ_KHANS)
 	autolinkers = list("khans")
 
+/obj/machinery/telecomms/server/presets/lds
+	id = "LDS Server"
+	freq_listening = list(FREQ_LDS)
+	autolinkers = list("lds")
+
+/obj/machinery/telecomms/server/presets/usps
+	id = "USPS Server"
+	freq_listening = list(FREQ_USPS)
+	autolinkers = list("usps")
+
+/obj/machinery/telecomms/server/presets/eighties
+	id = "80s Server"
+	freq_listening = list(FREQ_EIGHTIES)
+	autolinkers = list("eighties")
+
+/obj/machinery/telecomms/server/presets/eightiesb
+	id = "Blue Server"
+	freq_listening = list(FREQ_EIGHTIESB)
+	autolinkers = list("eightiesb")
+
+/obj/machinery/telecomms/server/presets/eightiesr
+	id = "Red Server"
+	freq_listening = list(FREQ_EIGHTIESR)
+	autolinkers = list("eightiesr")
+
 //Common and other radio frequencies for people to freely use
 /obj/machinery/telecomms/server/presets/common/Initialize()
 	. = ..()

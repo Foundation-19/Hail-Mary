@@ -523,6 +523,19 @@
 		if(ACCESS_TOWN_COMMAND)
 			return "Mayoral Access"
 
+/* 80s */
+/proc/get_all_eighties_access()
+	return list(ACCESS_80S, ACCESS_80SB, ACCESS_80SR)
+
+/proc/get_eighties_access_desc(A)
+	switch(A)
+		if(ACCESS_80S)
+			return "80s"
+		if(ACCESS_80SB)
+			return "Blue Team"
+		if(ACCESS_80SR)
+			return "Red Team"
+
 /proc/get_all_jobs()
 	return list("Centurion", "NCR Captain", "Overseer", "Sheriff",
 				"Sentinel", "Senior Paladin", "Paladin", "Knight-Captain", "Senior Knight", "Knight", "Head Scribe", "Senior Scribe", "Scribe", "Initiate", "Knight Sergeant",

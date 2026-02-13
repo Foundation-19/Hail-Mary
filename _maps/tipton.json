@@ -70,7 +70,7 @@
 
 	"added_jobs":[
 		"bos.dm",
-		"ncr.dm",
+		"rangers.dm",
 		"legion.dm",
 		"eastwood.dm",
 		"khan.dm",
@@ -81,6 +81,7 @@
 		"enclave.dm",
 		"atlantic_cross.dm",
 		"locust_point.dm",
-		"mutants.dm"
+		"mutants.dm",
+		"ncra.dm"
 	]
 }

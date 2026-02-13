@@ -583,6 +583,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "NCR Ranger"
 	icon_state = "NCR Patrol Ranger"
 
+/obj/effect/landmark/start/f13/ncrrangerscout
+	name = "NCR Scout Ranger"
+	icon_state = "NCR Patrol Ranger"
+
+/obj/effect/landmark/start/f13/ncrrangermedic
+	name = "NCR Medic Ranger"
+	icon_state = "NCR Patrol Ranger"
+
 /obj/effect/landmark/start/f13/ncrrearechelon
 	name = "NCR Rear Echelon"
 	icon_state = "NCR Trooper"
@@ -802,6 +810,90 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/barkeep
 	name = "Barkeep"
 	icon_state = "Barkeep"
+
+// New Canaanites
+/obj/effect/landmark/start/f13/templepresident
+	name = "Temple President"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/missionary
+	name = "Missionary"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/templeguard
+	name = "Temple Guard"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/newcanaanite
+	name = "New Canaanite"
+	icon_state = "Security Officer"
+
+// USPS
+/obj/effect/landmark/start/f13/postmastergeneral
+	name = "Postmaster General"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/postalworker
+	name = "Mail Carrier"
+	icon_state = "Medical Doctor"
+
+// 80s
+/obj/effect/landmark/start/f13/warboss
+	name = "Warboss"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/arenamaster
+	name = "Arena Master"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/laymechanic
+	name = "Lay Mechanic"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/blackfinger
+	name = "Blackfinger"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/blueteam
+	name = "Blue Team"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/redteam
+	name = "Red Team"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/eighty
+	name = "80"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/roadie
+	name = "Roadie"
+	icon_state = "Security Officer"
+
+// White Legs
+/obj/effect/landmark/start/f13/warchief
+	name = "War Chief"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/lightbringer
+	name = "Light-bringer"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/sapper
+	name = "Sapper"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/bonebreaker
+	name = "Bone-breaker"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/painmaker
+	name = "Pain-maker"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/stormdrummer
+	name = "Storm-drummer"
+	icon_state = "Security Officer"
 
 // Wasteland
 

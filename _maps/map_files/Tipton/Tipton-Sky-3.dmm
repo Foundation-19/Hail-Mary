@@ -7437,9 +7437,6 @@
 /area/f13/holiday)
 "lpY" = (
 /obj/structure/table/wood,
-/obj/item/documents{
-	desc = "Documents and maps concerning the local NCR presence."
-	},
 /turf/open/floor/carpet,
 /area/f13/ncr/powered)
 "lqN" = (
@@ -7602,9 +7599,6 @@
 	light_color = "#BC8F8F";
 	name = "bar light"
 	},
-/obj/structure/railing/tg{
-	dir = 1
-	},
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "lyP" = (
@@ -7680,9 +7674,12 @@
 /turf/closed/wall/f13/wood,
 /area/f13/wasteland/cold)
 "lFu" = (
-/obj/structure/bed/wooden,
-/obj/item/bedsheet/brown,
-/obj/effect/landmark/start/f13/ncrranger,
+/obj/machinery/light/small{
+	dir = 8;
+	light_color = "#d8b1b1"
+	},
+/obj/structure/closet/crate/footlocker,
+/obj/item/pda,
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "lFV" = (
@@ -9602,12 +9599,6 @@
 /mob/living/simple_animal/hostile/raider/baseball,
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
-"oFm" = (
-/obj/structure/closet/crate/footlocker,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
-/turf/open/floor/f13/wood,
-/area/f13/ncr/powered)
 "oFE" = (
 /obj/structure/bed/dogbed,
 /obj/structure/decoration/clock{
@@ -13395,12 +13386,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland/cold)
-"uyH" = (
-/obj/structure/railing/tg{
-	dir = 1
-	},
-/turf/open/floor/f13/wood,
-/area/f13/ncr/powered)
 "uyQ" = (
 /obj/structure/table/wood,
 /obj/item/cigbutt{
@@ -13817,12 +13802,6 @@
 	dir = 8;
 	light_color = "#d8b1b1"
 	},
-/turf/open/floor/f13/wood,
-/area/f13/ncr/powered)
-"vdK" = (
-/obj/structure/bed/wooden,
-/obj/item/bedsheet/brown,
-/obj/effect/landmark/start/f13/ncrveteranranger,
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "vei" = (
@@ -14959,20 +14938,6 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/wasteland/cold)
-"wVm" = (
-/obj/structure/closet/cabinet/anchored,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/turf/open/floor/f13/wood,
-/area/f13/ncr/powered)
 "wVB" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4"
@@ -15472,8 +15437,6 @@
 	light_color = "#d8b1b1"
 	},
 /obj/structure/closet/crate/footlocker,
-/obj/item/clothing/head/beret/ncr_dresscap,
-/obj/item/clothing/under/f13/ncr/ncr_dress,
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "xLR" = (
@@ -22444,7 +22407,7 @@ vCQ
 vPa
 sfU
 vCQ
-xLI
+lFu
 gNa
 vCQ
 gNa
@@ -22958,7 +22921,7 @@ vCQ
 gNa
 gNa
 vCQ
-oFm
+dAX
 gNa
 ngV
 gNa
@@ -23221,7 +23184,7 @@ vCQ
 gNa
 vCQ
 hYk
-oFm
+dAX
 qkx
 vfn
 vfn
@@ -23472,7 +23435,7 @@ qkx
 gNa
 mAw
 vCQ
-oFm
+dAX
 gNa
 vCQ
 gNa
@@ -23735,7 +23698,7 @@ vCQ
 gNa
 vCQ
 hYk
-oFm
+dAX
 qkx
 vfn
 vfn
@@ -24249,7 +24212,7 @@ bPE
 gNa
 nTc
 bsd
-wVm
+xtS
 vCQ
 vfn
 vfn
@@ -24763,7 +24726,7 @@ gNa
 bsd
 umh
 umh
-wVm
+xtS
 vCQ
 vfn
 vfn
@@ -25271,13 +25234,13 @@ vCQ
 gNa
 vCQ
 xPR
-oFm
+dAX
 vCQ
 gNa
 xPR
-oFm
+dAX
 xPR
-oFm
+dAX
 vCQ
 vfn
 vfn
@@ -25785,13 +25748,13 @@ vCQ
 gNa
 vCQ
 xPR
-oFm
+dAX
 vCQ
 gNa
 xPR
-oFm
+dAX
 xPR
-oFm
+dAX
 vCQ
 vfn
 vfn
@@ -26298,7 +26261,7 @@ vfn
 qkx
 gNa
 vCQ
-oFm
+dAX
 vdy
 eml
 vCQ
@@ -34765,8 +34728,8 @@ ncO
 uTw
 dNh
 vCQ
-vPa
-uyH
+gNa
+gNa
 gNa
 gNa
 uIQ
@@ -35022,7 +34985,7 @@ rVT
 uTw
 kOq
 vCQ
-vPa
+gNa
 lyA
 gNa
 gNa
@@ -35801,7 +35764,7 @@ gNa
 gNa
 nLw
 dAX
-lFu
+jSA
 vCQ
 xIP
 vfn
@@ -36053,7 +36016,7 @@ kUh
 ncO
 xIP
 vCQ
-lFu
+jSA
 dqP
 dqP
 dqP
@@ -36572,7 +36535,7 @@ dqP
 lpY
 dqP
 dAX
-lFu
+jSA
 vCQ
 xIP
 vfn
@@ -37081,10 +37044,10 @@ rVT
 kUh
 xIP
 vCQ
-vdK
+jSA
 gNa
 gNa
-lFu
+jSA
 vCQ
 xIP
 xIP

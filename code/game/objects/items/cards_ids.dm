@@ -1276,6 +1276,71 @@
 	righthand_file = 'icons/mob/inhands/equipment/idcards_righthand.dmi'
 	uses_overlays = FALSE
 
+/obj/item/card/id/whiteleg
+	name = "White Leg belt buckle"
+	desc = "A big belt buckle with a longhorn on it."
+	icon_state = "whitelegs"
+	item_state = "beltbuckle"
+	access = list(ACCESS_LEGION)
+	uses_overlays = FALSE
+
+/obj/item/card/id/dogtag/eighties
+	name = "driver's license"
+	desc = "This license indicates that the holder is authorized to drive in the state of Utah."
+	icon_state = "fadedvaultid"
+	item_state = "driverslicense"
+	access = list(ACCESS_80S)
+
+/obj/item/card/id/dogtag/eighties/blueteam
+	name = "driver's license"
+	desc = "This license indicates that the holder is authorized to drive in the state of Utah. DOB: Unknown, Height: Unimportant, Sex: Unclear, Team: BLUE."
+	icon_state = "fadedvaultid"
+	assignment = "Blue Team"
+	access = list(ACCESS_80S, ACCESS_80SR)
+
+/obj/item/card/id/dogtag/eighties/redteam
+	name = "driver's license"
+	desc = "This license indicates that the holder is authorized to drive in the state of Utah. DOB: Unknown, Height: Unimportant, Sex: Unclear, Team: RED."
+	icon_state = "fadedvaultid"
+	assignment = "Red Team"
+	access = list(ACCESS_80S, ACCESS_80SR)
+
+/obj/item/card/id/dogtag/eighties/leadership
+	name = "driver's license"
+	desc = "This license indicates that the holder is authorized to drive in the state of Utah."
+	icon_state = "fadedvaultid"
+	access = list(ACCESS_80S, ACCESS_80SB, ACCESS_80SR)
+
+/obj/item/card/id/usps
+	name = "USPS ID"
+	desc = "Issued to mail carriers upon joining the postal service."
+	icon_state = "doctor"
+	item_state = "card-doctor"
+	access = list(ACCESS_USPS)
+	uses_overlays = FALSE
+
+/obj/item/card/id/montegobay
+	name = "Staff badge"
+	desc = "A badge given to employees of the Montego Bay resort & casino. Grants access to the back rooms."
+	icon_state = "doctor"
+	item_state = "card-doctor"
+	access = list(ACCESS_LAWYER)
+	uses_overlays = FALSE
+
+/obj/item/card/id/newcanaanite
+	name = "Temple Recommend"
+	desc = "A badge given to members of the New Canaanite church in good standing."
+	icon_state = "ert_commander"
+	access = list(ACCESS_CHAPEL_OFFICE)
+	uses_overlays = FALSE
+
+/obj/item/card/id/templepresident
+	name = "Temple President's Badge"
+	desc = "A badge given to the President of the Wendover Temple."
+	icon_state = "ert_chaplain"
+	access = list(ACCESS_CHAPEL_OFFICE)
+	uses_overlays = FALSE
+
 //ENCLAVE ID
 
 /obj/item/card/id/dogtag/enclave/officer
