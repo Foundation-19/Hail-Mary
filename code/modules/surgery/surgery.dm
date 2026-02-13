@@ -17,16 +17,15 @@
 	var/requires_real_bodypart = 0							//Some surgeries don't work on limbs that don't really exist
 	var/lying_required = TRUE								//Does the vicitm needs to be lying down.
 	var/requires_tech = FALSE
-	var/replaced_by
 	var/datum/wound/operated_wound								//The actual wound datum instance we're targeting
 	var/datum/wound/targetable_wound							//The wound type this surgery targets
-	var/requires_trait = 1
-	//	0 = low, 1 = mid, 2 = high
-	//	(CMO biological/prewar knoweldge expert) MEDICALEXPERT
-	//	(Follower) Medical Graduate
-	//	(Senior BOS scribe) cyberneticist (BOS Head Scribe) cyberneticist & cyberneticist_expert
-	//	(Enclave Scientist) unethical practitioner
-	//	(Zetans?) abductor= "ABDUCTOR"
+	var/general_skill_required = 1
+	var/cybernetic_skill_required = 0
+	var/general_skill_max = INFINITY // For replacing upgradeable surgeries
+	var/special_requirements = NONE
+	//	1 = improvised, 2 = low, 3 = mid, 4 = high, 5 = alien, 6 = unuseable
+	//	(Senior BOS scribe) cyberneticist (BOS Head Scribe) cyberneticist_expert
+	//	(Enclave Scientist) brainwash_surgeon
 
 /datum/surgery/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -52,91 +51,9 @@
 
 
 /datum/surgery/proc/can_start(mob/user, mob/living/patient, obj/item/tool) //FALSE to not show in list
-	. = TRUE
-	if(replaced_by == /datum/surgery)
+	if(!ishuman(user))
 		return FALSE
-		//
-
-// Alien & Unethical surgeries
-
-	if(requires_trait== "ABDUCTOR") //Actual alien abductions
-		if(HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-	if(requires_trait== "UNETHICAL_PRACTITIONER") //brainwashing, romerol revivication, viral bonding, combat implants
-		if(HAS_TRAIT(user,TRAIT_UNETHICAL_PRACTITIONER)||HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-	if(requires_trait== "UNETHICAL_PRACTITIONER_BRAINWASHING") //brainwashing, romerol revivication, viral bonding, combat implants
-		if(HAS_TRAIT(user,TRAIT_UNETHICAL_PRACTITIONER_BRAINWASHING))
-			return TRUE
-		else
-			return FALSE
-
-// Robotic surgeries
-
-	if(requires_trait== "CYBERNETICIST_2") //robotic brain surgery, augumentation, robotic repairs.
-		if(HAS_TRAIT(user,TRAIT_CYBERNETICIST_EXPERT)|| HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-	if(requires_trait== "CYBERNETICIST_1") //allows robotic limb repairs.
-		if(HAS_TRAIT(user,TRAIT_CYBERNETICIST)|| HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-// Medical Surgeries
-
-	if(requires_trait== "MEDICALEXPERT") // can do explicit cranial resuscitation.
-		if(HAS_TRAIT(user,TRAIT_MEDICALEXPERT)||HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-	if(requires_trait== "MEDICALGRADUATE") //doctoring trait for offmap tuition, bypasses at mid level knowledge.
-		if(HAS_TRAIT(user,TRAIT_MEDICALGRADUATE) || HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-/* Biological anatomy patient surgeries*/
-
-	if(requires_trait>2)
-		if(HAS_TRAIT(user,TRAIT_SURGERY_HIGH)||HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-	if(requires_trait>1)
-		if(HAS_TRAIT(user,TRAIT_SURGERY_MID)||HAS_TRAIT(user,TRAIT_SURGERY_HIGH)||HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-
-	if(requires_trait>0)
-		if(HAS_TRAIT(user,TRAIT_SURGERY_LOW)||HAS_TRAIT(user,TRAIT_SURGERY_MID)||HAS_TRAIT(user,TRAIT_SURGERY_HIGH)||HAS_TRAIT(user,TRAIT_ABDUCTOR_SCIENTIST_TRAINING))
-			return TRUE
-		else
-			return FALSE
-		//
-	if(HAS_TRAIT(user, TRAIT_SURGEON) || HAS_TRAIT(user.mind, TRAIT_SURGEON))
-		if(replaced_by)
-			return FALSE
-		else
-			return TRUE
-
-	if(!requires_tech && !replaced_by)
-		return TRUE
-	// True surgeons (like abductor scientists) need no instructions
-
-	if(requires_tech)
-		. = FALSE
+	var/mob/living/carbon/human/human_user = user
 
 	var/list/advanced_surgeries = list()
 	if(iscyborg(user))
@@ -153,11 +70,16 @@
 	if(istype(tool, /obj/item/surgical_drapes/advanced))
 		var/obj/item/surgical_drapes/advanced/A = tool
 		advanced_surgeries |= A.get_advanced_surgeries()
-
-	if(replaced_by in advanced_surgeries)
-		return FALSE
+	
 	if(type in advanced_surgeries)
 		return TRUE
+
+	if(human_user.get_cyber_surgery_skill() < cybernetic_skill_required)
+		return FALSE
+	var/general_skill = human_user.get_surgery_skill()
+	if(general_skill < general_skill_required || general_skill > general_skill_max)
+		return FALSE
+	return TRUE
 
 /datum/surgery/proc/next_step(mob/user, intent)
 	if(step_in_progress)
