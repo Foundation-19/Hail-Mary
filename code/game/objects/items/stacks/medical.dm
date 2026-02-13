@@ -924,7 +924,7 @@
 /obj/item/stack/medical/poultice
 	name = "mourning dust"
 	singular_name = "mourning dust"
-	desc = "A type of primitive herbal powder.\nWhile traditionally used to prepare corpses for the mourning feast, it can also treat scrapes and burns on the living, however, it is liable to cause shortness of breath when employed in this manner.\nIt is imbued with ancient wisdom."
+	desc = "A type of primitive herbal powder.\nWhile traditionally used to prepare corpses for the mourning feast, it can also treat scrapes and burns on the living.\nIt is imbued with ancient wisdom."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "mourningdust"
 	amount = 15
@@ -941,10 +941,6 @@
 
 /obj/item/stack/medical/poultice/five
 	amount = 5
-
-/obj/item/stack/medical/poultice/post_heal_effects(amount_healed, mob/living/carbon/healed_mob, mob/user)
-	. = ..()
-	healed_mob.adjustOxyLoss(amount_healed)
 
 /datum/chemical_reaction/mourningpoultice
 	name = "mourning dust"

@@ -82,5 +82,6 @@
 		regen_rate *= 1.25
 	
 	sprint_buffer = min(sprint_buffer_max, sprint_buffer + regen_rate * diff)
+	
 	if(updating)
 		update_hud_sprint_bar()

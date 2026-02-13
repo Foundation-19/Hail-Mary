@@ -37,6 +37,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 	AddComponent(/datum/component/personal_crafting)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 0.3, 5)
+	
+	// Initialize sprint stats BEFORE calling parent
+	// This gets overridden by initialize_special_agility() when SPECIAL stats are set
+	initialize_sprint_stats()
+	
 	. = ..()
 
 	if(CONFIG_GET(flag/disable_stambuffer))

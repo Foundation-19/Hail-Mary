@@ -151,20 +151,14 @@
 		H.ghoul_cleanse_charges = 0
 		H.ghoul_cleanse_active = FALSE
 		H.ghoul_cleanse_next = 0
-		H.ghoul_last_cleanse_time = 0  // NEW
-		H.ghoul_cleanse_cooldown_duration = 1200  // NEW - 2min base cooldown
+		H.ghoul_last_cleanse_time = 0
+		H.ghoul_cleanse_cooldown_duration = 1200  // 2min base cooldown
 		H.ghoul_damage_window_start = world.time
 		H.ghoul_latent_damage = 0
 		H.ghoul_damage_snapshot = 0
 		H.ghoul_whisper_next = 0
 		H.ghoul_speech_next = 0
 		H.ghoul_radaway_active = FALSE
-		
-		H.sprint_buffer_max = 4.5
-		H.sprint_buffer = H.sprint_buffer_max
-		H.sprint_buffer_regen_ds = 0
-		H.sprint_buffer_regen_last = world.time
-		H.sprint_idle_time = 0
 		
 		RegisterSignal(H, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 		
@@ -941,9 +935,6 @@
 	if(H.getStaminaLoss() > 0)
 		var/stam_recovery = -1.5
 		
-		if(f > 0)
-			stam_recovery = -1.5 - (2.5 * f)
-		
 		if(s > 0)
 			stam_recovery = stam_recovery * (1.0 - (0.6 * s))
 		
@@ -970,47 +961,17 @@
 	if(s > 0)
 		speed_slowdown += (0.04 + (0.10 * s))
 
-	if(f > 0)
-		speed_slowdown += -(0.04 + (0.06 * f))
-
 	if(m > 0)
 		speed_slowdown += (GHOUL_MELTDOWN_SLOW_MAX * m)
 
 	H.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad, TRUE, speed_slowdown)
 
-	// ========== STEP 12: SPRINT BUFFER ==========
-	var/time_diff = world.time - H.sprint_buffer_regen_last
-	H.sprint_buffer_regen_last = world.time
-	
-	if(time_diff > 0)
-		H.sprint_idle_time += time_diff
-		
-		var/base_regen = 0.075
-		var/regen_rate = 0
-		
-		if(f > 0)
-			var/rad_multiplier = 0.4 + (0.8 * f)
-			regen_rate = base_regen * rad_multiplier
-			
-			if(H.sprint_idle_time >= 30)
-				regen_rate *= 1.25
-		else if(s > 0)
-			regen_rate = -(0.03 * s)
-		else
-			regen_rate = base_regen * 0.2
-			
-			if(H.sprint_idle_time >= 30)
-				regen_rate *= 1.25
-		
-		H.sprint_buffer = clamp(H.sprint_buffer + (regen_rate * (time_diff / 10)), 0, H.sprint_buffer_max)
-		H.update_hud_sprint_bar()
-
-	// ========== STEP 13: FEEDBACK ==========
+	// ========== STEP 12: FEEDBACK ==========
 	var/status_changed = check_radiation_status_change(H, f, m, s)
 	if(!status_changed)
 		send_ghoul_feedback(H, f, m, s)
 
-	// ========== STEP 14: EMIT WAVES - GLOWING ONE TRANSFORMATION (high radiation only) ==========
+	// ========== STEP 13: EMIT WAVES - GLOWING ONE TRANSFORMATION (high radiation only) ==========
 	if(r >= GHOUL_WAVE_MIN_RADS)
 		emit_radiation_waves(H, r, m)
 
