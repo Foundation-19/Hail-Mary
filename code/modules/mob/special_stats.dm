@@ -239,7 +239,7 @@ proc/get_top_level_mob(mob/S)
 		base_modifier = (1 - (sqrt(agi_diff) * 0.07)) * 0.65
 	else
 		base_modifier = (1 - (agi_diff * 0.07)) * 0.65
-	
+
 	// Armor penalties
 	var/armor_multiplier = 1.0
 	if(ishuman(src))
@@ -351,25 +351,25 @@ proc/get_top_level_mob(mob/S)
 	msg += "<br> *---------*"
 	return msg
 
-/mob/proc/gen_strength_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_strength_examine_text(c_they, they, p_s)
 	if(special_s <= 3)
 		return "<br>This person looks puny, like a total noodle."
 	if(special_s >= 7)
 		return "<br>Simply built out of muscle, [they] could wrestle a deathclaw to death."
 
-/mob/proc/gen_perception_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_perception_examine_text(c_they, they, p_s)
 	if(special_p <= 3)
 		return "<br>Even with glasses, an elephant could easily sneak by [p_them()]."
 	if(special_p >= 7)
 		return "<br>A sharp and attentive gaze almost pierces through you, nothing gets past [p_them()] it seems."
 
-/mob/proc/gen_endurance_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_endurance_examine_text(c_they, they, p_s)
 	if(special_e <= 3)
 		return "<br>It looks like a stiff breeze could tear [p_them()] in two."
 	if(special_e >= 7)
 		return "<br>As solid as an oak, [they] look[p_s] like [they] could run for miles on end."
 
-/mob/proc/gen_charisma_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_charisma_examine_text(c_they, they, p_s)
 	switch(special_c)
 		if(1)
 			return "<br>You struggle not to vomit looking at this horribly fugly creature."
@@ -392,19 +392,19 @@ proc/get_top_level_mob(mob/S)
 		if(10)
 			return "<br>[c_they] [p_have()] a perfect beauty to [p_them()] leagues above the rest."
 
-/mob/proc/gen_intelligence_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_intelligence_examine_text(c_they, they, p_s)
 	if(special_i <= 3)
 		return "<br>[c_they] look[p_s] like [they]'d struggle to get water out of a boot with instructions printed on the heel."
 	if(special_i >= 7)
 		return "<br>A bright and careful gaze in [p_their()] eyes, [they] seem[p_s] to know much more than you."
 
-/mob/proc/gen_agility_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_agility_examine_text(c_they, they, p_s)
 	if(special_a <= 3)
 		return "<br>Maladroit and unbalanced, it is a wonder [they] can even stand straight."
 	if(special_a >= 7)
 		return "<br>Moving like a panther, it is a wonder you have even noticed that [they] [p_are()] here."
 
-/mob/proc/gen_luck_examine_text(var/c_they, var/they, var/p_s)
+/mob/proc/gen_luck_examine_text(c_they, they, p_s)
 	if(special_l <= 3)
 		return "<br>Misfortune just seems to stick to [p_them()] like a fly to shit."
 	if(special_l >= 7)
