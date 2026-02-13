@@ -22,7 +22,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	footstep_type = FOOTSTEP_MOB_HEAVY
-	move_to_delay = 2.4 //hahahahahahahaaaaa
+	move_to_delay = 2.75	//hahahahahahahaaaaa
 	gender = MALE
 	a_intent = INTENT_HARM //So we can not move past them.
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
@@ -65,6 +65,9 @@
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(30),
 	)
 	despawns_when_lonely = FALSE
+
+	can_z_move = TRUE
+	z_move_delay = 20 // 2 seconds - fast pursuit
 
 /mob/living/simple_animal/hostile/deathclaw/playable
 	emote_taunt_sound = null

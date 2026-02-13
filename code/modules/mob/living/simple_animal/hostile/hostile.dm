@@ -110,6 +110,15 @@
 	/// timer for despawning when lonely
 	var/lonely_timer_id
 
+	/// Can this mob pursue targets across Z-levels?
+	var/can_z_move = TRUE
+	/// How long to wait before attempting Z pursuit (deciseconds)
+	var/z_move_delay = 30
+	/// Last time we attempted Z-level movement
+	var/last_z_move_attempt = 0
+	/// What Z-level was our target last seen on?
+	var/target_last_z = 0
+
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
 
@@ -265,6 +274,8 @@
 		return FALSE
 	if(AIStatus == AI_ON || AIStatus == AI_OFF)
 		return FALSE
+	if(target) // Don't despawn if we have a target
+		return FALSE
 	return TRUE
 
 /mob/living/simple_animal/hostile/become_the_mob(mob/user)
@@ -297,6 +308,7 @@
 		peaceful = FALSE
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
+		COOLDOWN_RESET(src, sight_shoot_delay) // Let them shoot back immediately when attacked
 	return ..()
 
 /mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
@@ -306,8 +318,8 @@
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
+			COOLDOWN_RESET(src, sight_shoot_delay) // Let them shoot back immediately
 		Goto(P.starting, move_to_delay, 3)
-	//return ..()
 
 /mob/living/simple_animal/hostile/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
 	. = ..()
@@ -326,8 +338,36 @@
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(!search_objects)
-		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
-
+		. = hearers(vision_range, targets_from) - src
+		
+		// Check for targets one Z-level ABOVE through openspace above us
+		var/turf/our_turf = get_turf(targets_from)
+		var/turf/above_us = get_step_multiz(our_turf, UP)
+		if(above_us && istype(above_us, /turf/open/transparent/openspace))
+			// We're under openspace, we can see up
+			for(var/mob/living/M in range(vision_range, above_us))
+				// Make sure they're actually on the openspace (visible to us)
+				var/turf/their_turf = get_turf(M)
+				if(istype(their_turf, /turf/open/transparent/openspace))
+					. += M
+		
+		// Check for targets one Z-level BELOW through openspace we're standing on/near
+		var/list/openspace_tiles = list()
+		if(istype(our_turf, /turf/open/transparent/openspace))
+			openspace_tiles += our_turf
+		
+		for(var/turf/open/transparent/openspace/OS in range(1, targets_from))
+			openspace_tiles += OS
+		
+		if(openspace_tiles.len)
+			var/turf/below_check = get_step_multiz(our_turf, DOWN)
+			if(below_check)
+				for(var/mob/living/M in range(vision_range, below_check))
+					var/turf/their_turf = get_turf(M)
+					var/turf/above_them = get_step_multiz(their_turf, UP)
+					if(above_them && istype(above_them, /turf/open/transparent/openspace))
+						. += M
+		
 		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/structure/destructible/clockwork/ocular_warden,/obj/item/electronic_assembly))
 
 		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
@@ -335,11 +375,11 @@
 			if(can_see(targets_from, HM, vision_range))
 				. += HM
 	else
-		. = list() // The following code is only very slightly slower than just returning oview(vision_range, targets_from), but it saves us much more work down the line, particularly when bees are involved
+		. = list()
 		for (var/obj/A in oview(vision_range, targets_from))
 			CHECK_TICK
 			. += A
-		for (var/mob/living/A in oview(vision_range, targets_from)) //mob/dead/observers arent possible targets
+		for (var/mob/living/A in oview(vision_range, targets_from))
 			CHECK_TICK
 			. += A
 
@@ -393,19 +433,48 @@
 	return chosen_target
 
 // Please do not add one-off mob AIs here, but override this function for your mob
-/mob/living/simple_animal/hostile/CanAttack(atom/the_target)//Can we actually attack a possible target?
-	if(!the_target || the_target.type == /atom/movable/lighting_object || isturf(the_target)) // bail out on invalids
+/mob/living/simple_animal/hostile/CanAttack(atom/the_target)
+	if(!the_target || the_target.type == /atom/movable/lighting_object || isturf(the_target))
 		return FALSE
-	if(!loc) // Don't attack if we have no location (being deleted/moved)
+	if(!loc)
 		return FALSE
 
-	if(ismob(the_target)) //Target is in godmode, ignore it.
+	if(ismob(the_target))
 		var/mob/M = the_target
 		if(M.status_flags & GODMODE)
 			return FALSE
 
-	if(see_invisible < the_target.invisibility)//Target's invisible to us, forget it
+	if(see_invisible < the_target.invisibility)
 		return FALSE
+	
+	// Allow attacking through Z-levels if there's openspace
+	if(the_target.z != z)
+		// Target is above us
+		if(the_target.z == z + 1)
+			var/turf/above_us = get_step_multiz(get_turf(src), UP)
+			if(!istype(above_us, /turf/open/transparent/openspace))
+				return FALSE
+			var/turf/target_turf = get_turf(the_target)
+			if(!istype(target_turf, /turf/open/transparent/openspace))
+				return FALSE
+		// Target is below us
+		else if(the_target.z == z - 1)
+			var/turf/our_turf = get_turf(src)
+			if(!istype(our_turf, /turf/open/transparent/openspace))
+				// Check if we're near openspace
+				var/found_openspace = FALSE
+				for(var/turf/open/transparent/openspace/OS in range(1, src))
+					found_openspace = TRUE
+					break
+				if(!found_openspace)
+					return FALSE
+			var/turf/target_turf = get_turf(the_target)
+			var/turf/above_target = get_step_multiz(target_turf, UP)
+			if(!istype(above_target, /turf/open/transparent/openspace))
+				return FALSE
+		else
+			return FALSE // Too far in Z
+	
 	if(search_objects < 2)
 		if(isliving(the_target))
 			var/mob/living/L = the_target
@@ -428,17 +497,17 @@
 
 		if(ismecha(the_target))
 			var/obj/mecha/M = the_target
-			if(M.occupant)//Just so we don't attack empty mechs
+			if(M.occupant)
 				if(CanAttack(M.occupant))
 					return TRUE
 
 		if(istype(the_target, /obj/machinery/porta_turret))
 			var/obj/machinery/porta_turret/P = the_target
-			if(P.in_faction(src)) //Don't attack if the turret is in the same faction
+			if(P.in_faction(src))
 				return FALSE
-			if(P.has_cover &&!P.raised) //Don't attack invincible turrets
+			if(P.has_cover &&!P.raised)
 				return FALSE
-			if(P.stat & BROKEN) //Or turrets that are already broken
+			if(P.stat & BROKEN)
 				return FALSE
 			return TRUE
 
@@ -491,45 +560,65 @@
 		LoseTarget()
 		return 0
 	if(target in possible_targets)
-		var/turf/T = get_turf(src)
-		if(target.z != T.z)
+		if(target.z != z)
+			if(attempt_z_pursuit())
+				return 1
 			LoseTarget()
 			return 0
-		var/target_distance = get_dist(targets_from,target)
-		if(ranged) //We ranged? Shoot at em
-			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
+		
+		var/target_distance = get_dist(targets_from, target)
+		
+		// Check if we THINK we're adjacent but target is on different Z
+		if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from))
+			// Verify they're actually on the same Z-level
+			if(target.z != z)
+				// Target is on different Z but appears adjacent (openspace issue)
+				// Don't try to melee, just pursue
+				if(attempt_z_pursuit())
+					return 1
+				LoseTarget()
+				return 0
+		
+		if(ranged)
+			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time)
 				OpenFire(target)
-		if(!Process_Spacemove()) //Drifting
+		
+		if(!Process_Spacemove())
 			walk(src,0)
 			return 1
-		if(retreat_distance != null) //If we have a retreat distance, check if we need to run from our target
-			if(target_distance <= retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE)) //If target's closer than our retreat distance, run
+			
+		if(retreat_distance != null)
+			if(target_distance <= retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
 				set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else
-				Goto(target,move_to_delay,minimum_distance) //Otherwise, get to our minimum distance so we chase them
+				Goto(target,move_to_delay,minimum_distance)
 		else
 			Goto(target,move_to_delay,minimum_distance)
-		/// roll to randomize this thing... if its an option
+		
 		if(variation_list[MOB_RETREAT_DISTANCE_CHANCE] && LAZYLEN(variation_list[MOB_RETREAT_DISTANCE]) && prob(variation_list[MOB_RETREAT_DISTANCE_CHANCE]))
 			retreat_distance = vary_from_list(variation_list[MOB_RETREAT_DISTANCE])
+		
 		if(target)
 			if(COOLDOWN_TIMELEFT(src, melee_cooldown))
 				return TRUE
 			COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
-			if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from)) //If they're next to us, attack
+			
+			// Only try melee if we're ACTUALLY adjacent (same Z-level)
+			if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && target.z == z)
 				MeleeAction()
 			else
 				if(rapid_melee > 1 && target_distance <= melee_queue_distance)
 					MeleeAction(FALSE)
-				in_melee = FALSE //If we're just preparing to strike do not enter sidestep mode
+				in_melee = FALSE
 			return 1
 		return 0
+		
 	if(environment_smash)
-		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
+		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range)
+			if(ranged_ignores_vision && ranged_cooldown <= world.time)
 				OpenFire(target)
-			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
+			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS))
 				Goto(target,move_to_delay,minimum_distance)
 				FindHidden()
 				return 1
@@ -594,11 +683,89 @@
 	taunt_chance = initial(taunt_chance)
 
 /mob/living/simple_animal/hostile/proc/LoseTarget()
+	// Check if target just changed Z-levels before giving up
+	if(target && can_z_move && isliving(target))
+		var/mob/living/L = target
+		if(L.z != z) // Target is on different Z!
+			if(attempt_z_pursuit())
+				return // Don't lose target, we're pursuing
+	
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
 	walk(src, 0)
 	LoseAggro()
+
+/mob/living/simple_animal/hostile/proc/attempt_z_pursuit()
+	if(!target || !can_z_move)
+		return FALSE
+	
+	if(world.time < last_z_move_attempt + z_move_delay)
+		return FALSE
+	
+	last_z_move_attempt = world.time
+	
+	var/mob/living/L = target
+	if(!istype(L))
+		return FALSE
+	
+	target_last_z = L.z
+	
+	var/went_up = (L.z > z)
+	var/went_down = (L.z < z)
+	
+	if(!went_up && !went_down)
+		return FALSE
+	
+	var/list/z_structures = list()
+	
+	if(went_up)
+		for(var/obj/structure/stairs/S in view(vision_range, src))
+			if(S.isTerminator())
+				z_structures += S
+		
+		for(var/obj/structure/ladder/L2 in view(vision_range, src))
+			if(L2.up)
+				z_structures += L2
+	
+	else if(went_down)
+		for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
+			z_structures += OS
+		
+		for(var/obj/structure/ladder/L2 in view(vision_range, src))
+			if(L2.down)
+				z_structures += L2
+	
+	if(!z_structures.len)
+		return FALSE
+	
+	var/atom/nearest = get_closest_atom(/atom, z_structures, src)
+	
+	visible_message(span_danger("[src] pursues [target] [went_up ? "upward" : "downward"]!"))
+	
+	LosePatience()
+	GainPatience()
+	COOLDOWN_RESET(src, sight_shoot_delay)
+	
+	if(went_up && istype(nearest, /obj/structure/stairs))
+		var/obj/structure/stairs/S = nearest
+		
+		// Check if we're already on the stairs
+		var/turf/our_turf = get_turf(src)
+		var/turf/stairs_turf = get_turf(S)
+		
+		if(our_turf == stairs_turf)
+			// We're ON the stairs, just try to step in the stairs' direction
+			step(src, S.dir)
+		else
+			// Path to the stairs themselves, not beyond them
+			// Use Goto with minimum_distance 0 to actually step onto them
+			Goto(S, move_to_delay, 0)
+	else
+		// For going down or ladders, just path to them
+		Goto(nearest, move_to_delay, 0)
+	
+	return TRUE
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
@@ -627,11 +794,59 @@
 				if(faction_check_mob(L) && !attack_same)
 					return TRUE
 
+/mob/living/simple_animal/hostile/proc/CanShootThrough(atom/A)
+	// Same Z-level is fine
+	if(A.z == z)
+		return TRUE
+	
+	// Check if we can shoot down through openspace
+	if(A.z == z - 1) // Target is below us
+		var/turf/our_turf = get_turf(src)
+		if(istype(our_turf, /turf/open/transparent/openspace))
+			return TRUE
+		// Check if we're standing near openspace with clear shot
+		for(var/turf/open/transparent/openspace/OS in range(1, src))
+			if(get_dir(src, A) == get_dir(src, OS))
+				return TRUE
+	
+	// Check if we can shoot up through openspace
+	if(A.z == z + 1) // Target is above us
+		var/turf/their_turf = get_turf(A)
+		if(istype(their_turf, /turf/open/transparent/openspace))
+			return TRUE
+	
+	return FALSE
+
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
 		return FALSE
+	
+	// Allow shooting through openspace
+	if(A.z != z)
+		var/can_shoot = FALSE
+		
+		// Shooting down through openspace
+		if(A.z == z - 1)
+			var/turf/A_turf = get_turf(A)
+			var/turf/above_target = get_step_multiz(A_turf, UP)
+			if(above_target && istype(above_target, /turf/open/transparent/openspace))
+				// Make sure we're near the openspace
+				if(get_dist(src, above_target) <= vision_range)
+					can_shoot = TRUE
+		
+		// Shooting up through openspace
+		else if(A.z == z + 1)
+			var/turf/our_turf = get_turf(src)
+			var/turf/above_us = get_step_multiz(our_turf, UP)
+			if(above_us && istype(above_us, /turf/open/transparent/openspace))
+				can_shoot = TRUE
+		
+		if(!can_shoot)
+			return FALSE
+	
 	if(CheckFriendlyFire(A))
 		return
+	
 	visible_message("<span class='danger'><b>[src]</b> [islist(ranged_message) ? pick(ranged_message) : ranged_message] at [A]!</span>")
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
@@ -645,10 +860,10 @@
 	if(sound_after_shooting)
 		addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(playsound), src, sound_after_shooting, 100, 0, 0), sound_after_shooting_delay, TIMER_STOPPABLE)
 	if(projectiletype)
-		if(LAZYLEN(variation_list[MOB_PROJECTILE]) >= 2) // Gotta have multiple different projectiles to cycle through
+		if(LAZYLEN(variation_list[MOB_PROJECTILE]) >= 2)
 			projectiletype = vary_from_list(variation_list[MOB_PROJECTILE], TRUE)
 	if(casingtype)
-		if(LAZYLEN(variation_list[MOB_CASING]) >= 2) // Gotta have multiple different casings to cycle through
+		if(LAZYLEN(variation_list[MOB_CASING]) >= 2)
 			casingtype = vary_from_list(variation_list[MOB_CASING], TRUE)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)

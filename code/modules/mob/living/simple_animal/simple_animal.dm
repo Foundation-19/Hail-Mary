@@ -557,6 +557,20 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
 			. = FALSE
 
+/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
+	// Let medical items try to heal before anything else
+	if(istype(O, /obj/item/stack/medical))
+		var/obj/item/stack/medical/med = O
+		if(med.can_heal_critters)
+			med.try_heal(src, user)
+			return TRUE
+	
+	// Let animal salve try to heal
+	if(istype(O, /obj/item/reagent_containers/pill/animal_salve))
+		O.attack(src, user)
+		return TRUE
+	
+	return ..()
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atom/A = src.loc
