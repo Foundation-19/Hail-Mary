@@ -161,6 +161,7 @@
 		H.ghoul_radaway_active = FALSE
 		
 		RegisterSignal(H, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
+		RegisterSignal(H, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 		
 		// Grant the surge action
 		var/datum/action/cooldown/ghoul_surge/A = new()
@@ -188,6 +189,7 @@
 		H.remove_movespeed_modifier(/datum/movespeed_modifier/ghoul_rad)
 		
 		UnregisterSignal(H, COMSIG_PARENT_EXAMINE)
+		UnregisterSignal(H, COMSIG_MOB_SAY)
 	
 	// Remove the surge action
 	if(istype(C, /mob/living/carbon/human))
@@ -632,24 +634,24 @@
 	// These fire regardless of whether healing is active.
 	// The beast doesn't care if your heart is surging or not.
 	if(m > 0)
-		// Confusion and jitter scale with feral stacks
-		H.confused = max(H.confused, round(2 + (GHOUL_FERAL_CONFUSED_MAX * m)))
+		// Jitter scales with feral stacks
 		H.jitteriness = max(H.jitteriness, round(1 + (GHOUL_FERAL_JITTER_MAX * m)))
 		H.slurring = max(H.slurring, round(1 + (6 * m)))
 
-		// Occasional self-brute from feral thrashing (independent of healing)
-		if(prob(round(3 + (9 * m))))  // Half the rate of the healing version, stacks with it
-			H.adjustBruteLoss(rand(1, max(1, GHOUL_MELTDOWN_BRUTE_MAX)))
-
-		// Loss of movement control at high feral
-		if(m >= 0.70 && prob(round(4 + (10 * m))))
-			step(H, pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+		// Brain damage at high feral (capped at 100)
+		if(m >= 0.5)
+			var/obj/item/organ/brain/B = H.getorganslot(ORGAN_SLOT_BRAIN)
+			if(B && B.damage < 100)
+				if(prob(5 + round(10 * m)))
+					B.applyOrganDamage(0.5)
+					if(B.damage >= 100)
+						to_chat(H, span_userdanger("Your mind fractures. Thoughts scatter like rats."))
 		
-		// NEW: At very high feral, occasional forced attack animation / emote (pure cosmetic)
+		// At very high feral, occasional forced attack animation / emote (pure cosmetic)
 		if(m >= 0.85 && prob(round(5 + (10 * m))))
 			H.emote(pick("twitch", "scream"), TRUE)
 
-		// NEW: Screen overlay flash at full meltdown to signal you're barely holding it together
+		// Screen overlay flash at full meltdown to signal you're barely holding it together
 		if(m >= 0.95 && prob(15) && world.time >= H.ghoul_feedback_next)
 			to_chat(H, span_userdanger("The beast tears at the inside of your skull. You can barely think straight."))
 			H.ghoul_feedback_next = world.time + GHOUL_FEEDBACK_CD
@@ -1231,6 +1233,41 @@
 		whisper_text = pick(whispers_low)
 
 	to_chat(H, "<i><span style='color:#a0a0a0'>[whisper_text]</span></i>")
+
+/datum/species/ghoul/proc/handle_speech(datum/source, list/speech_args)
+	if(!ishuman(source))
+		return
+	
+	var/mob/living/carbon/human/H = source
+	var/feral_percent = (H.ghoul_feral_stacks / GHOUL_FERAL_MAX)
+	
+	if(feral_percent < 0.4)
+		return
+	
+	var/message = speech_args[SPEECH_MESSAGE]
+	var/corruption_chance = round(20 + (60 * feral_percent))
+	
+	var/list/feral_words = list(
+		"Grahhhh",
+		"Rahhhhh", 
+		"Hungry",
+		"FLESH",
+		"Grrrr",
+		"Hssss",
+		"Smoothskin",
+		"MINE"
+	)
+	
+	var/list/words = splittext(message, " ")
+	var/corrupted = FALSE
+	
+	for(var/i in 1 to words.len)
+		if(prob(corruption_chance))
+			words[i] = pick(feral_words)
+			corrupted = TRUE
+	
+	if(corrupted)
+		speech_args[SPEECH_MESSAGE] = jointext(words, " ")
 
 // ========== WAVE EMISSION (Glowing One) ==========
 /datum/species/ghoul/proc/emit_radiation_waves(mob/living/carbon/human/H, rads, m)
