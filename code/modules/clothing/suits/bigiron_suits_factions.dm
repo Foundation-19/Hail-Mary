@@ -426,6 +426,25 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for New California Republic."
 	icon_state = "combat_armor_ncr_mk2"
 
+/obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofcoat
+	name = "heavy NCR bulletproof coat"
+	desc = "A heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry. This one comes with a long coat to boot, styled after the types commonly used by the NCRA and NCRR."
+	icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon_state = "ncrbulletproofcoat"
+	item_state = "ncrbulletproofcoat"
+	blood_overlay_type = "armor"
+
+/obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofsniper
+	name = "heavy NCR bulletproof sniper armor"
+	desc = "A heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry. This one comes with an attached sniper's raincoat, colored to fit the arid environments of the Mojave Desert."
+	icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon_state = "ncrbulletproofsniper"
+	item_state = "ncrbulletproofsniper"
+	blood_overlay_type = "armor"
+
+
 //NCR Ranger
 /obj/item/clothing/suit/toggle/armor/rangerrecon
 	name = "ranger recon duster"

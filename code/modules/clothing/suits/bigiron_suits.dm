@@ -2299,7 +2299,15 @@
 	icon_state = "armoralt"
 	item_state = "armoralt"
 	clothing_flags = CUSHIONED_ARMOR
-	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
+
+/obj/item/clothing/suit/armor/medium/combat/swat/swattrackjacket
+	name = "SWAT combat tracksuit jacket"
+	desc = "A custom version of the pre-war combat armor, slimmed down and minimalist for domestic S.W.A.T. teams. Seems to have been co-opted by some eastern european militiaman and is worn over a tracksuit jacket."
+	icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon_state = "swattrackjacket"
+	item_state = "swattrackjacket"
 
 /obj/item/clothing/suit/armor/medium/combat/chinese
 	name = "chinese combat armor"
@@ -2643,8 +2651,26 @@
 	blood_overlay_type = "armor"
 	mutantrace_variation = STYLE_DIGITIGRADE
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/magpouch // 4 slots for ammo!
-	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
+	slowdown = ARMOR_SLOWDOWN_HEAVY * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_DOWN_ENV_T2, ARMOR_MODIFIER_UP_DT_T3)
+
+/obj/item/clothing/suit/armor/heavy/vest/bulletproof/bulletproofcoat
+	name = "heavy bulletproof coat"
+	desc = "A heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry. This one comes with a long coat to boot"
+	icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon_state = "bulletproofcoat"
+	item_state = "bulletproofcoat"
+	blood_overlay_type = "armor"
+
+/obj/item/clothing/suit/armor/heavy/vest/bulletproof/bulletprooftrackjacket
+	name = "heavy bulletproof track jacket"
+	desc = "A heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry. Worn over a classic track jacket that seems to belong to some cheesy eastern european mobster."
+	icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon_state = "bulletprooftrackjacket"
+	item_state = "bulletprooftrackjacket"
+	blood_overlay_type = "armor"
 
 //////////////////////
 //// TRIBAL ARMOR ////
