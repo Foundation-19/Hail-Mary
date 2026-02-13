@@ -336,10 +336,15 @@
 
 	// ========== STEP 1: SURGE RECHARGE (with snapshot-based combat detection) ==========
 	
+	// ========== STEP 1: SURGE RECHARGE (with snapshot-based combat detection) ==========
+	
 	// Track radiation change for recharge fuel
 	var/rad_gained_this_tick = 0
 	if(H.radiation > (H.last_radiation_check ? H.last_radiation_check : 0))
 		rad_gained_this_tick = H.radiation - (H.last_radiation_check ? H.last_radiation_check : 0)
+	
+	// Update radiation tracking
+	H.last_radiation_check = H.radiation
 	
 	// Check if injured for faster recharge
 	var/is_injured = current_damage >= GHOUL_INJURY_THRESHOLD
@@ -354,16 +359,16 @@
 			in_combat = TRUE
 			
 			#if GHOUL_DEBUG_RADIATION
-			world.log << "GHOUL COMBAT DETECTED: [src] damage_now=[current_damage] damage_snapshot=[H.ghoul_damage_snapshot] - NEW DAMAGE!"
+			world.log << "GHOUL COMBAT DETECTED: [H] damage_now=[current_damage] damage_snapshot=[H.ghoul_damage_snapshot] - NEW DAMAGE!"
 			#endif
 			
 			// Anti-gaming: Check if damage source was self-inflicted
-			// If last damage was from self AND it happened recently (within 10 seconds), deny combat bonus
-			if(H.ghoul_last_damage_source == H && (world.time - H.ghoul_last_combat_time) < 100) // 10 seconds
+			// If last damage was from self AND it happened recently (within 30 seconds), deny combat bonus
+			if(H.ghoul_last_damage_source == H && (world.time - H.ghoul_last_combat_time) < 300) // 30 seconds
 				in_combat = FALSE // Deny combat bonus for self-damage
 				
 				#if GHOUL_DEBUG_RADIATION
-				world.log << "GHOUL COMBAT DENIED: [src] self-inflicted damage detected - no combat bonus"
+				world.log << "GHOUL COMBAT DENIED: [H] self-inflicted damage detected within 30s - no combat bonus"
 				#endif
 		
 		// Update snapshot for next time
@@ -975,6 +980,15 @@
 	if(r >= GHOUL_WAVE_MIN_RADS)
 		emit_radiation_waves(H, r, m)
 
+/datum/species/ghoul/proc/clear_stale_damage_source(mob/living/carbon/human/H)
+	// Clear damage source if it's been more than 5 seconds since last damage
+	if(H.ghoul_last_damage_source && (world.time - H.ghoul_last_combat_time) > 50) // 5 seconds
+		H.ghoul_last_damage_source = null
+		
+		#if GHOUL_DEBUG_RADIATION
+		world.log << "GHOUL DAMAGE SOURCE CLEARED: [H] - source expired"
+		#endif
+
 // ========== FERAL SPEECH SYSTEM (runechat visible) ==========
 /datum/species/ghoul/proc/process_feral_speech(mob/living/carbon/human/H)
 	if(!H || H.stat == DEAD || H.stat == UNCONSCIOUS)
@@ -1325,62 +1339,62 @@
 
 // ========== COMBAT TRACKING ==========
 // Hook into damage to track combat state via latent damage window
+
+// Track damage source - DON'T clear it immediately
 /mob/living/carbon/human/apply_damage(damage = 0, damagetype = BRUTE, def_zone = null, blocked = FALSE, forced = FALSE, spread_damage = FALSE, wound_bonus = 0, bare_wound_bonus = 0, sharpness = SHARP_NONE, damage_threshold = 0, sendsignal = TRUE)
-	// Track latent damage for ghouls (only if damage came from another mob, not self-inflicted)
+	// Track damage source for ghouls BEFORE applying damage
 	if(damage > 0 && dna && dna.species && istype(dna.species, /datum/species/ghoul))
-		if(ghoul_last_damage_source && ghoul_last_damage_source != src)
-			// Add to latent damage window BEFORE calling parent
-			ghoul_latent_damage += damage
+		// Only record if we have a damage source set from one of the attack hooks
+		if(ghoul_last_damage_source)
+			ghoul_last_combat_time = world.time
 			
 			#if GHOUL_DEBUG_RADIATION
-			world.log << "GHOUL LATENT DAMAGE: [src] +[damage] from [ghoul_last_damage_source] (total: [ghoul_latent_damage])"
+			world.log << "GHOUL DAMAGE APPLIED: [src] damage=[damage] source=[ghoul_last_damage_source] is_self=[ghoul_last_damage_source == src]"
 			#endif
-		
-		// Clear the damage source after recording
-		ghoul_last_damage_source = null
 	
-	return ..()
+	// Call parent to actually apply the damage
+	. = ..()
 
-// Track damage source
+// Set damage source when attacked by item
 /mob/living/carbon/human/attackby(obj/item/I, mob/user, params)
 	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
-		if(user != src)  // Not self-inflicted
-			ghoul_last_damage_source = user
-			
-			#if GHOUL_DEBUG_RADIATION
-			world.log << "GHOUL ATTACKBY: [src] damage source set to [user]"
-			#endif
+		ghoul_last_damage_source = user
+		
+		#if GHOUL_DEBUG_RADIATION
+		world.log << "GHOUL ATTACKBY: [src] damage source set to [user] (self=[user == src])"
+		#endif
 	return ..()
 
+// Set damage source when punched
 /mob/living/carbon/human/attack_hand(mob/living/carbon/human/user, list/modifiers)
 	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
-		if(user != src)  // Not self-inflicted
-			ghoul_last_damage_source = user
-			
-			#if GHOUL_DEBUG_RADIATION
-			world.log << "GHOUL ATTACK_HAND: [src] damage source set to [user]"
-			#endif
+		ghoul_last_damage_source = user
+		
+		#if GHOUL_DEBUG_RADIATION
+		world.log << "GHOUL ATTACK_HAND: [src] damage source set to [user] (self=[user == src])"
+		#endif
 	return ..()
 
+// Set damage source when hit by thrown object
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
 		if(throwingdatum && throwingdatum.thrower)
 			var/mob/thrower = throwingdatum.thrower
-			// Check if it's a valid mob reference
-			if(istype(thrower) && thrower != src)  // Not self-inflicted
+			if(istype(thrower))
 				ghoul_last_damage_source = thrower
 				
 				#if GHOUL_DEBUG_RADIATION
-				world.log << "GHOUL HITBY: [src] damage source set to [thrower]"
+				world.log << "GHOUL HITBY: [src] damage source set to [thrower] (self=[thrower == src])"
 				#endif
 	return ..()
 
+// Set damage source when shot
 /mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone, piercing_hit)
 	if(dna && dna.species && istype(dna.species, /datum/species/ghoul))
-		if(P && P.firer && P.firer != src)  // Not self-inflicted
+		if(P && P.firer)
 			ghoul_last_damage_source = P.firer
 			
 			#if GHOUL_DEBUG_RADIATION
-			world.log << "GHOUL BULLET_ACT: [src] damage source set to [P.firer]"
+			world.log << "GHOUL BULLET_ACT: [src] damage source set to [P.firer] (self=[P.firer == src])"
 			#endif
 	return ..()
