@@ -2173,6 +2173,22 @@ Not implemented due to balance at the moment
 	subcategory = CAT_WEAPON
 	always_available = FALSE
 
+//MP5 because it looks cool
+/datum/crafting_recipe/mp5
+	name = "HK MP-5"
+	result = /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp5
+	reqs = list(/obj/item/stack/sheet/metal = 30,
+				/obj/item/advanced_crafting_components/receiver = 1,
+				/obj/item/advanced_crafting_components/alloys = 1,
+				/obj/item/stack/crafting/goodparts = 10,
+				/obj/item/advanced_crafting_components/assembly
+				)
+	tools = list(TOOL_WORKBENCH)
+	time = 120
+	category = CAT_WEAPONRY
+	subcategory = CAT_WEAPON
+	always_available = FALSE
+
 //Handmade Carbine
 /datum/crafting_recipe/handmade_carbine
 	name = "Handmade Carbine"
