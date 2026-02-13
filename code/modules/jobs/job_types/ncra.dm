@@ -48,6 +48,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmor)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmetmk2)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmormk2)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrbulletproofcoat)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrbulletproofsniper)
 
 
 ///////////////////////
