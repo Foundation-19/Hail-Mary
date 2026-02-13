@@ -700,19 +700,34 @@
 	if(!target || !can_z_move)
 		return FALSE
 	
-	if(world.time < last_z_move_attempt + z_move_delay)
-		return FALSE
-	
-	last_z_move_attempt = world.time
-	
 	var/mob/living/L = target
 	if(!istype(L))
 		return FALSE
 	
-	target_last_z = L.z
-	
 	var/went_up = (L.z > z)
 	var/went_down = (L.z < z)
+	
+	// Check if we can see stairs and are close to them
+	var/near_stairs = FALSE
+	if(went_up)
+		for(var/obj/structure/stairs/S in view(vision_range, src))
+			if(S.isTerminator())
+				var/dist = get_dist(src, S)
+				if(dist <= 2) // Within 2 tiles of stairs
+					near_stairs = TRUE
+					break
+	
+	// Bypass cooldown when near stairs
+	if(world.time < last_z_move_attempt + z_move_delay)
+		if(near_stairs)
+			// Very short cooldown when near stairs
+			if(world.time < last_z_move_attempt + 2)
+				return FALSE
+		else
+			return FALSE
+	
+	last_z_move_attempt = world.time
+	target_last_z = L.z
 	
 	if(!went_up && !went_down)
 		return FALSE
@@ -729,6 +744,11 @@
 				z_structures += L2
 	
 	else if(went_down)
+		var/turf/our_turf = get_turf(src)
+		
+		if(istype(our_turf, /turf/open/transparent/openspace))
+			z_structures += our_turf
+		
 		for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
 			z_structures += OS
 		
@@ -747,25 +767,50 @@
 	GainPatience()
 	COOLDOWN_RESET(src, sight_shoot_delay)
 	
+	// Use Goto for pathfinding, manual step only when adjacent
 	if(went_up && istype(nearest, /obj/structure/stairs))
 		var/obj/structure/stairs/S = nearest
-		
-		// Check if we're already on the stairs
 		var/turf/our_turf = get_turf(src)
 		var/turf/stairs_turf = get_turf(S)
+		var/dist = get_dist(src, S)
 		
 		if(our_turf == stairs_turf)
-			// We're ON the stairs, just try to step in the stairs' direction
-			step(src, S.dir)
+			// Already on stairs - climb
+			var/step_result = step(src, S.dir)
+			if(!step_result)
+				// Climb blocked, set micro-cooldown
+				last_z_move_attempt = world.time - (z_move_delay - 2)
+		else if(dist <= 1)
+			// Adjacent - try to step on
+			walk(src, 0)
+			var/dir_to_stairs = get_dir(src, S)
+			var/step_result = step(src, dir_to_stairs)
+			
+			if(step_result && get_turf(src) == stairs_turf)
+				addtimer(CALLBACK(src, PROC_REF(climb_stairs), S), 1)
+			else if(!step_result)
+				last_z_move_attempt = world.time - (z_move_delay - 2)
+				return TRUE
 		else
-			// Path to the stairs themselves, not beyond them
-			// Use Goto with minimum_distance 0 to actually step onto them
+			// Use Goto for pathfinding
 			Goto(S, move_to_delay, 0)
 	else
-		// For going down or ladders, just path to them
 		Goto(nearest, move_to_delay, 0)
 	
 	return TRUE
+
+// Helper proc for delayed stair climbing
+/mob/living/simple_animal/hostile/proc/climb_stairs(obj/structure/stairs/S)
+	if(!S || QDELETED(S) || QDELETED(src))
+		return
+	
+	var/turf/our_turf = get_turf(src)
+	var/turf/stairs_turf = get_turf(S)
+	
+	if(our_turf != stairs_turf)
+		return
+	
+	step(src, S.dir)
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
