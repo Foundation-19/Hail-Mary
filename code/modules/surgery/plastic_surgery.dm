@@ -3,7 +3,8 @@
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/retract_skin, /datum/surgery_step/reshape_face, /datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_HEAD)
 	requires_bodypart_type = BODYPART_ORGANIC
-	requires_trait = 2
+	general_skill_required = 3
+	
 //reshape_face
 /datum/surgery_step/reshape_face
 	name = "reshape face"

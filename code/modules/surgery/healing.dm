@@ -9,11 +9,10 @@
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
 	requires_bodypart_type = BODYPART_ORGANIC
-	replaced_by = /datum/surgery
 	ignore_clothes = TRUE
 	var/healing_step_type
 	var/antispam = FALSE
-	requires_trait = 0
+	general_skill_max = 1
 
 /datum/surgery/healing/New(surgery_target, surgery_location, surgery_bodypart)
 	..()
@@ -105,25 +104,24 @@
 
 /datum/surgery/healing/brute/basic
 	name = "Tend Wounds (Bruises, Basic)"
-	replaced_by = /datum/surgery/healing/brute/upgraded
 	healing_step_type = /datum/surgery_step/heal/brute/basic
 	desc = "A surgical procedure that provides basic treatment for a patient's brute traumas. Heals slightly more when the patient is severely injured."
 
 /datum/surgery/healing/brute/upgraded
 	name = "Tend Wounds (Bruises, Adv.)"
-	replaced_by = /datum/surgery/healing/brute/upgraded/femto
 	requires_tech = TRUE
 	healing_step_type = /datum/surgery_step/heal/brute/upgraded
 	desc = "A surgical procedure that provides advanced treatment for a patient's brute traumas. Heals more when the patient is severely injured."
-	requires_trait = 1
+	general_skill_required = 2
+	general_skill_max = 2
 
 /datum/surgery/healing/brute/upgraded/femto
 	name = "Tend Wounds (Bruises, Exp.)"
-	replaced_by = /datum/surgery/healing/combo/upgraded/femto
 	requires_tech = TRUE
 	healing_step_type = /datum/surgery_step/heal/brute/upgraded/femto
 	desc = "A surgical procedure that provides experimental treatment for a patient's brute traumas. Heals considerably more when the patient is severely injured."
-	requires_trait = 2
+	general_skill_required = 3
+	general_skill_max = INFINITY
 
 /********************BRUTE STEPS********************/
 /datum/surgery_step/heal/brute/basic
@@ -145,25 +143,25 @@
 
 /datum/surgery/healing/burn/basic
 	name = "Tend Wounds (Burn, Basic)"
-	replaced_by = /datum/surgery/healing/burn/upgraded
 	healing_step_type = /datum/surgery_step/heal/burn/basic
 	desc = "A surgical procedure that provides basic treatment for a patient's burns. Heals slightly more when the patient is severely injured."
+	general_skill_max = 1
 
 /datum/surgery/healing/burn/upgraded
 	name = "Tend Wounds (Burn, Adv.)"
-	replaced_by = /datum/surgery/healing/burn/upgraded/femto
 	requires_tech = TRUE
 	healing_step_type = /datum/surgery_step/heal/burn/upgraded
 	desc = "A surgical procedure that provides advanced treatment for a patient's burns. Heals more when the patient is severely injured."
-	requires_trait = 1
+	general_skill_required = 2
+	general_skill_max = 2
 
 /datum/surgery/healing/burn/upgraded/femto
 	name = "Tend Wounds (Burn, Exp.)"
-	replaced_by = /datum/surgery/healing/combo/upgraded/femto
 	requires_tech = TRUE
 	healing_step_type = /datum/surgery_step/heal/burn/upgraded/femto
 	desc = "A surgical procedure that provides experimental treatment for a patient's burns. Heals considerably more when the patient is severely injured."
-	requires_trait = 2
+	general_skill_required = 3
+	general_skill_max = INFINITY
 
 /********************BURN STEPS********************/
 /datum/surgery_step/heal/burn/basic
@@ -185,24 +183,25 @@
 
 /datum/surgery/healing/combo
 	name = "Tend Wounds (Mixture, Basic)"
-	replaced_by = /datum/surgery/healing/combo/upgraded
 	requires_tech = TRUE
 	healing_step_type = /datum/surgery_step/heal/combo
 	desc = "A surgical procedure that provides basic treatment for a patient's burns and brute traumas. Heals slightly more when the patient is severely injured."
+	general_skill_max = 1
 
 /datum/surgery/healing/combo/upgraded
 	name = "Tend Wounds (Mixture, Adv.)"
-	replaced_by = /datum/surgery/healing/combo/upgraded/femto
 	healing_step_type = /datum/surgery_step/heal/combo/upgraded
 	desc = "A surgical procedure that provides advanced treatment for a patient's burns and brute traumas. Heals more when the patient is severely injured."
-	requires_trait = 1
+	general_skill_required = 2
+	general_skill_max = 2
 
 /datum/surgery/healing/combo/upgraded/femto //no real reason to type it like this except consistency, don't worry you're not missing anything
 	name = "Tend Wounds (Mixture, Exp.)"
-	replaced_by = null
 	healing_step_type = /datum/surgery_step/heal/combo/upgraded/femto
 	desc = "A surgical procedure that provides experimental treatment for a patient's burns and brute traumas. Heals considerably more when the patient is severely injured."
-	requires_trait = 2
+	general_skill_required = 3
+	general_skill_max = INFINITY
+
 /********************COMBO STEPS********************/
 /datum/surgery_step/heal/combo
 	name = "tend physical wounds"

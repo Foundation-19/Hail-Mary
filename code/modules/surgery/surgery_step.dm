@@ -61,6 +61,10 @@
 	if(user.mind)
 		speed_mod = user.mind.action_skill_mod(/datum/skill/numerical/surgery, speed_mod, THRESHOLD_UNTRAINED, FALSE)
 	var/delay = time * speed_mod
+	if(ishuman(user))
+		var/mob/living/carbon/human/human_user = user
+		var/user_skill = human_user.get_surgery_skill()
+		delay /= (1 + user_skill/10)
 	if(do_after(user, delay, target = target))
 		var/prob_chance = 100
 		if(implement_type)	//this means it isn't a require hand or any item step.
