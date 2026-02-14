@@ -1399,6 +1399,7 @@ datum/job/CaesarsLegion/Legionnaire/f13slavemaster
 	spawn_positions = 1
 	description = "You are the feared and respected disciplinary corps of the Legion. Acting as both master of the Slaves and de-facto executioner of the Centurion's will within his ranks, you are a faceless and undoubtedly cruel torturer... but be careful to not let your hubris and malice lead to a strikeback from those you thought broken."
 	supervisors = "the Decani and Centurion"
+	display_order = JOB_DISPLAY_ORDER_SLAVEMASTER
 	exp_requirements = 150
 
 	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13slavemaster
