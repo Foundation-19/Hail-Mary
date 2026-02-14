@@ -1248,14 +1248,14 @@
 	var/corruption_chance = round(20 + (60 * feral_percent))
 	
 	var/list/feral_words = list(
-		"Grahhhh",
-		"Rahhhhh", 
-		"Hungry",
-		"FLESH",
-		"Grrrr",
-		"Hssss",
-		"Smoothskin",
-		"MINE"
+		"..grahhhh..",
+		"..rahhhhh..", 
+		"..hnnngh..",
+		"..brllgh..",
+		"..grrrr..",
+		"..hssss..",
+		"..guughh..",
+		"..mmnnnhh.."
 	)
 	
 	var/list/words = splittext(message, " ")

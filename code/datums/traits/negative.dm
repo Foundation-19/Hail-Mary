@@ -180,7 +180,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	if(!quirk_holder)
 		return
 	var/mob/living/carbon/human/H = quirk_holder
-	if(istype(H) && H.dna && H.dna.species && H.dna.species.id in list("shadow", "nightmare"))
+	if(istype(H) && H.dna && H.dna.species && (H.dna.species.id in list("shadow", "nightmare")))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_holder)
 	if(!T)
