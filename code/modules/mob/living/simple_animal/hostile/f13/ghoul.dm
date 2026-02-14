@@ -16,7 +16,7 @@
 	maxHealth = 40 
 	health = 40
 	robust_searching = 1
-	move_to_delay = 2.0
+	move_to_delay = 2.5
 	turns_per_move = 5
 	waddle_amount = 2
 	waddle_up_time = 1
@@ -146,6 +146,7 @@
 	rapid_melee = 2
 	retreat_distance = 3
 	minimum_distance = 1
+	move_to_delay = 2.0
 	ranged = TRUE
 	ranged_message = "throws a rock"
 	ranged_cooldown_time = 3 SECONDS
