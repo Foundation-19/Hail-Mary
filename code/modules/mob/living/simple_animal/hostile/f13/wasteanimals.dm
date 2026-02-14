@@ -119,6 +119,10 @@
 		MOB_MINIMUM_DISTANCE_LIST(0, 0, 4, 6),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(100),
 	)
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/gecko/become_the_mob(mob/user)
 	make_a_nest = /obj/effect/proc_holder/mob_common/make_nest/gecko
@@ -650,6 +654,11 @@
 	waddle_up_time = 1
 	waddle_side_time = 1
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/stalker/playable
 	health = 80
 	maxHealth = 80
@@ -828,6 +837,11 @@
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 	)
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/molerat/become_the_mob(mob/user)
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
 	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/small_critter
@@ -884,6 +898,11 @@
 	waddle_up_time = 3
 	waddle_side_time = 2
 	desc_short = "Big, squishy, and gelatinous."
+
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/gelcube/Initialize()
 	. = ..()
@@ -985,3 +1004,8 @@
 		MOB_MINIMUM_DISTANCE_LIST(0, 0, 0, 1),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(90),
 	)
+
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE

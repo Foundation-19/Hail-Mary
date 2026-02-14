@@ -67,6 +67,9 @@
 	despawns_when_lonely = FALSE
 
 	can_z_move = TRUE
+	can_climb_ladders = FALSE  // Too big!
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 	z_move_delay = 20 // 2 seconds - fast pursuit
 
 /mob/living/simple_animal/hostile/deathclaw/playable

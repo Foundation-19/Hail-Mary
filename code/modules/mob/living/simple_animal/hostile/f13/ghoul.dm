@@ -109,6 +109,9 @@
 	)
 
 	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 	z_move_delay = 50 // 5 seconds - slower
 
 /mob/living/simple_animal/hostile/ghoul/Initialize()

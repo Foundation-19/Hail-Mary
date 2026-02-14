@@ -75,6 +75,12 @@
 	desc_short = "A flying metal meatball with lasers."
 	var/obj/machinery/camera/portable/builtInCamera
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 50 // 5 seconds - slower
+
 
 /mob/living/simple_animal/hostile/eyebot/New()
 	..()

@@ -76,6 +76,11 @@
 	bare_wound_bonus = 0
 	footstep_type = FOOTSTEP_MOB_HEAVY
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/supermutant/playable
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
 	maxHealth = 130

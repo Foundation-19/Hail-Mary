@@ -79,6 +79,9 @@
 	)
 
 	can_z_move = TRUE
+	can_climb_ladders = FALSE  // Wheels!
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 	z_move_delay = 30
 
 /mob/living/simple_animal/hostile/securitron/nsb //NSB + Raider Bunker specific

@@ -39,6 +39,12 @@ using ant armor b/c it just kinda works here and i don't want it to be super bee
 
 	faction = list("hostile", "wastebot", "ghoul", "cazador", "supermutant", "bighorner")
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
+
 
 
 /mob/living/simple_animal/hostile/texas_rattler/AttackingTarget()

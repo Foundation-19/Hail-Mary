@@ -110,8 +110,14 @@
 	/// timer for despawning when lonely
 	var/lonely_timer_id
 
-	/// Can this mob pursue targets across Z-levels?
+	/// Can this mob pursue targets across Z-levels? (Master toggle)
 	var/can_z_move = TRUE
+	/// Can this mob climb ladders specifically?
+	var/can_climb_ladders = TRUE
+	/// Can this mob use stairs specifically?
+	var/can_climb_stairs = TRUE
+	/// Can this mob jump down through openspace?
+	var/can_jump_down = TRUE
 	/// How long to wait before attempting Z pursuit (deciseconds)
 	var/z_move_delay = 30
 	/// Last time we attempted Z-level movement
@@ -808,7 +814,7 @@
 // This proc handles mobs chasing targets up/down stairs and ladders
 // Called when target is on a different Z-level than the mob
 /mob/living/simple_animal/hostile/proc/attempt_z_pursuit()
-	if(!target || !can_z_move)
+	if(!target || !can_z_move) // Master toggle
 		pursuing_z_target = FALSE
 		z_pursuit_structure = null
 		return FALSE
@@ -823,27 +829,28 @@
 	var/went_down = (L.z < z)
 	
 	// STEP 1: Check if we're standing ON a ladder right now
-	// If yes, climb immediately without pathfinding
-	var/obj/structure/ladder/unbreakable/current_ladder = locate() in loc
-	if(current_ladder)
-		if(went_up && current_ladder.up)
-			visible_message(span_warning("[src] climbs up the ladder after [target]!"))
-			zMove(target = get_turf(current_ladder.up), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
-			last_z_move_attempt = world.time
-			pursuing_z_target = FALSE  // We climbed! Clear pursuit state
-			z_pursuit_structure = null
-			return TRUE
-		else if(went_down && current_ladder.down)
-			visible_message(span_warning("[src] climbs down the ladder after [target]!"))
-			zMove(target = get_turf(current_ladder.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
-			last_z_move_attempt = world.time
-			pursuing_z_target = FALSE  // We climbed! Clear pursuit state
-			z_pursuit_structure = null
-			return TRUE
+	// If yes, climb immediately without pathfinding (if we can climb ladders)
+	if(can_climb_ladders)
+		var/obj/structure/ladder/unbreakable/current_ladder = locate() in loc
+		if(current_ladder)
+			if(went_up && current_ladder.up)
+				visible_message(span_warning("[src] climbs up the ladder after [target]!"))
+				zMove(target = get_turf(current_ladder.up), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+				last_z_move_attempt = world.time
+				pursuing_z_target = FALSE  // We climbed! Clear pursuit state
+				z_pursuit_structure = null
+				return TRUE
+			else if(went_down && current_ladder.down)
+				visible_message(span_warning("[src] climbs down the ladder after [target]!"))
+				zMove(target = get_turf(current_ladder.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+				last_z_move_attempt = world.time
+				pursuing_z_target = FALSE  // We climbed! Clear pursuit state
+				z_pursuit_structure = null
+				return TRUE
 	
 	// STEP 2: Check if we're near stairs (reduces cooldown)
 	var/near_stairs = FALSE
-	if(went_up)
+	if(can_climb_stairs && went_up)
 		for(var/obj/structure/stairs/S in view(vision_range, src))
 			if(S.isTerminator())
 				var/dist = get_dist(src, S)
@@ -869,31 +876,36 @@
 		return FALSE
 	
 	// STEP 4: Find Z-level transition structures (stairs, ladders, openspace)
+	// Only include structures we're actually allowed to use
 	var/list/z_structures = list()
 	
 	if(went_up)
 		// Target went UP - look for stairs and ladders going up
-		for(var/obj/structure/stairs/S in view(vision_range, src))
-			if(S.isTerminator())
-				z_structures += S
+		if(can_climb_stairs)
+			for(var/obj/structure/stairs/S in view(vision_range, src))
+				if(S.isTerminator())
+					z_structures += S
 		
-		for(var/obj/structure/ladder/LD in view(vision_range, src))
-			if(LD.up)
-				z_structures += LD
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/LD in view(vision_range, src))
+				if(LD.up)
+					z_structures += LD
 	
 	else if(went_down)
 		// Target went DOWN - look for openspace and ladders going down
-		var/turf/our_turf = get_turf(src)
+		if(can_jump_down)
+			var/turf/our_turf = get_turf(src)
+			
+			if(istype(our_turf, /turf/open/transparent/openspace))
+				z_structures += our_turf
+			
+			for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
+				z_structures += OS
 		
-		if(istype(our_turf, /turf/open/transparent/openspace))
-			z_structures += our_turf
-		
-		for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
-			z_structures += OS
-		
-		for(var/obj/structure/ladder/LD in view(vision_range, src))
-			if(LD.down)
-				z_structures += LD
+		if(can_climb_ladders)
+			for(var/obj/structure/ladder/LD in view(vision_range, src))
+				if(LD.down)
+					z_structures += LD
 	
 	if(!z_structures.len)
 		pursuing_z_target = FALSE
@@ -916,8 +928,8 @@
 	
 	// STEP 6: Handle different structure types
 	
-	// STAIRS - special handling for multi-tile climb
-	if(went_up && istype(nearest, /obj/structure/stairs))
+	// STAIRS - special handling for multi-tile climb (only if we can climb stairs)
+	if(went_up && can_climb_stairs && istype(nearest, /obj/structure/stairs))
 		var/obj/structure/stairs/S = nearest
 		var/turf/our_turf = get_turf(src)
 		var/turf/stairs_turf = get_turf(S)
@@ -944,32 +956,37 @@
 			// Use Goto for pathfinding
 			Goto(S, move_to_delay, 0)
 	
-	// LADDERS - aggressive stepping to ensure mob gets ON the ladder tile
-	else
-		if(istype(nearest, /obj/structure/ladder))
-			var/obj/structure/ladder/L_target = nearest
-			var/dist = get_dist(src, L_target)
-			
-			// Check if already on ladder tile
-			var/obj/structure/ladder/on_ladder = locate() in loc
-			if(on_ladder)
-				// Already on ladder, next tick will detect and climb
-				return TRUE
-			
-			if(dist == 0)
-				// Somehow on ladder tile without locate() finding it - next tick will climb
-				return TRUE
-			else if(dist == 1)
-				// Adjacent to ladder - AGGRESSIVELY step onto it
-				walk(src, 0) // Stop any pathfinding
-				step(src, get_dir(src, L_target)) // Force step onto ladder
-				// Next AI tick will detect we're on ladder and climb
-			else
-				// Still far away - pathfind toward ladder
-				Goto(L_target, move_to_delay, 0)
+	// LADDERS - aggressive stepping to ensure mob gets ON the ladder tile (only if we can climb ladders)
+	else if(can_climb_ladders && istype(nearest, /obj/structure/ladder))
+		var/obj/structure/ladder/L_target = nearest
+		var/dist = get_dist(src, L_target)
+		
+		// Check if already on ladder tile
+		var/obj/structure/ladder/on_ladder = locate() in loc
+		if(on_ladder)
+			// Already on ladder, next tick will detect and climb
+			return TRUE
+		
+		if(dist == 0)
+			// Somehow on ladder tile without locate() finding it - next tick will climb
+			return TRUE
+		else if(dist == 1)
+			// Adjacent to ladder - AGGRESSIVELY step onto it
+			walk(src, 0) // Stop any pathfinding
+			step(src, get_dir(src, L_target)) // Force step onto ladder
+			// Next AI tick will detect we're on ladder and climb
 		else
-			// Generic structure (openspace, etc) - just pathfind
-			Goto(nearest, move_to_delay, 0)
+			// Still far away - pathfind toward ladder
+			Goto(L_target, move_to_delay, 0)
+	
+	// OPENSPACE/OTHER - generic pathfinding (only if we can jump down)
+	else if(can_jump_down)
+		Goto(nearest, move_to_delay, 0)
+	else
+		// We can't use this structure type, give up
+		pursuing_z_target = FALSE
+		z_pursuit_structure = null
+		return FALSE
 	
 	return TRUE
 

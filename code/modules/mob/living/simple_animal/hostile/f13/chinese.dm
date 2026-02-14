@@ -29,6 +29,11 @@
 	del_on_death = 1
 	tastes = list("people" = 1, "dust" = 2)
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/chinese/Aggro()
 	. = ..()
 	if(.)

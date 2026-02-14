@@ -77,6 +77,12 @@
 	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
 	desc_short = "A snooty robot with a circular saw."
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE  // Ergonomics!
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 50 // 5 seconds - slower
+
 /mob/living/simple_animal/hostile/handy/playable
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	maxHealth = 300 
@@ -513,6 +519,11 @@
 	aggrosound = FALSE
 	idlesound = FALSE
 	desc_short = "A sexy robot."
+
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/handy/assaultron/nsb //NSB + Raider Bunker specific.
 	name = "assaultron"

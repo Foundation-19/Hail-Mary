@@ -65,6 +65,12 @@
 	decompose = FALSE
 	tastes = list("dirt" = 1, "sand" = 1, "metal?" = 1)
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
+
 /mob/living/simple_animal/hostile/giantant/Initialize()
 	. = ..()
 
@@ -176,6 +182,10 @@
 	var/spawn_text = "hatches from"
 	blood_volume = 0
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/giantantqueen/Initialize()
 	. = ..()
@@ -260,6 +270,10 @@
 	idlesound = list('sound/creatures/radscorpion_snip.ogg', )
 	death_sound = 'sound/f13npc/scorpion/death.ogg'
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/radscorpion/AttackingTarget()
 	. = ..()
@@ -370,6 +384,11 @@
 	gold_core_spawnable = HOSTILE_SPAWN
 	death_sound = 'sound/f13npc/cazador/cazador_death.ogg'
 	blood_volume = 0
+
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/cazador/AttackingTarget()
 	. = ..()
@@ -493,6 +512,11 @@
 	desc_short = "A gigantic fly that's more disgusting than actually threatening. Tends to dodge bullets."
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/bloatfly/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
@@ -567,6 +591,11 @@
 	death_sound = 'sound/f13npc/roach/roach_death.ogg'
 	desc_short = "One of countless bugs that move in gross hordes."
 	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /mob/living/simple_animal/hostile/radroach/become_the_mob(mob/user)
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter

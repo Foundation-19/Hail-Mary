@@ -38,6 +38,11 @@
 	idlesound = list('sound/f13npc/dog/dog_bark1.ogg', 'sound/f13npc/dog/dog_bark2.ogg', 'sound/f13npc/dog/dog_bark3.ogg')
 	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/wolf/playable
 	health = 150
 	maxHealth = 150

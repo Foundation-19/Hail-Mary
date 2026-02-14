@@ -63,6 +63,11 @@
 	death_sound = 'sound/f13npc/centaur/centaur_death.ogg'
 	attack_sound = 'sound/f13npc/centaur/lash.ogg'
 
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /obj/item/projectile/neurotox
 	name = "spitball"
 	damage = 25
@@ -127,6 +132,11 @@
 	death_sound = 'sound/voice/abomburning.ogg'
 	despawns_when_lonely = FALSE // too ANGRY to despawn
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /mob/living/simple_animal/hostile/abomination/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
@@ -189,6 +199,11 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	var/static/list/abom_sounds
 	deathmessage = "wails as its form shudders and violently comes to a stop."
+
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 // NSB variant, some sort of bulletsponge
 /mob/living/simple_animal/hostile/abomhorror/nsb

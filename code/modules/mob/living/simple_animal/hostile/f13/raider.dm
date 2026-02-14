@@ -48,7 +48,11 @@
 		MOB_NAME_FROM_GLOBAL_LIST(\
 			MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1)\
 		))
+	
 	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 	z_move_delay = 40 // 4 seconds - more cautious
 
 /mob/living/simple_animal/hostile/raider/Initialize()

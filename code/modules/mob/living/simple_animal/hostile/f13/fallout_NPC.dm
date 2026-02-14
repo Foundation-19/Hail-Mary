@@ -35,6 +35,12 @@
 	speak_chance = 1
 	despawns_when_lonely = FALSE
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
+
 /obj/effect/mob_spawn/human/corpse/vault
 	name = "Vault Dweller"
 	gloves = /obj/item/pda
@@ -175,6 +181,11 @@
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 // Enclave Scientist
 /mob/living/simple_animal/hostile/enclave/scientist
 	name = "enclave scientist"
@@ -300,6 +311,11 @@
 	speak_emote = list("rushes")
 	speak_chance = 1
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /obj/effect/mob_spawn/human/corpse/bs
 	name = "Brotherhood Knight"
 	uniform = /obj/item/clothing/under/syndicate/brotherhood
@@ -410,6 +426,11 @@
 	speak_emote = list("says")
 	speak_chance = 1
 
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+
 /obj/effect/mob_spawn/human/corpse/ncr
 	name = "NCR Trooper"
 	uniform = /obj/item/clothing/under/f13/ncr
@@ -514,6 +535,11 @@
 	speak = list("Ave, true to Caesar.", "True to Caesar.", "Ave, Amicus.", "The new slave girls are quite beautiful.", "Give me cause, Profligate.", "Degenerates like you belong on a cross.")
 	speak_emote = list("says")
 	speak_chance = 1
+
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
 
 /obj/effect/mob_spawn/human/corpse/legion
 	name = "Legion Prime"
@@ -620,3 +646,8 @@
 	speak = list("For our kin!", "This will be a good hunt.", "The gods look upon me today.")
 	speak_emote = list("says")
 	speak_chance = 1
+
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
