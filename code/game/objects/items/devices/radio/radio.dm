@@ -693,7 +693,7 @@ GLOBAL_LIST_INIT(banned_whiteleg_freqs, list(FREQ_COMMON, 1486))
 	color = "#a06464"
 
 /obj/item/radio/whiteleg/proc/setup_whiteleg_frequency(mob/user)
-	if(GLOB.outlaw_frequency > 1)
+	if(GLOB.whiteleg_frequency > 1)
 		return // already setup!
 	var/frequency_ok = FALSE
 	var/tries_left = 5
