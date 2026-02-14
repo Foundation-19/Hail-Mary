@@ -119,6 +119,23 @@
 	/// What Z-level was our target last seen on?
 	var/target_last_z = 0
 
+	// Z-PURSUIT STATE TRACKING - prevents AI from getting confused during vertical movement
+	/// Are we currently in the middle of Z-level pursuit? Used to lock the mob into climbing mode
+	var/pursuing_z_target = FALSE
+	/// What structure (ladder/stairs) are we trying to reach for Z pursuit?
+	var/atom/z_pursuit_structure = null
+	/// When did we start Z-pursuit? Used for timeout
+	var/z_pursuit_started = 0
+	/// Maximum time to spend in Z-pursuit before giving up (10 seconds)
+	var/z_pursuit_timeout = 100
+
+	/// Remembered target during Z-pursuit - won't lose them even if out of sight
+	var/atom/remembered_target = null
+	/// When did we last see our target? Used to prevent losing them during brief moments out of sight
+	var/last_target_sighting = 0
+	/// How long to remember target after losing sight (deciseconds) - 15 seconds
+	var/target_memory_duration = 150
+
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
 
@@ -388,6 +405,19 @@
 	if (peaceful == FALSE)
 		if(!HasTargetsList)
 			possible_targets = ListTargets()
+		
+		// MEMORY SYSTEM: If we have a remembered target and haven't seen them recently, keep them as target
+		if(remembered_target && !QDELETED(remembered_target))
+			if((world.time - last_target_sighting) < target_memory_duration)
+				// We recently saw this target, keep pursuing even if not in possible_targets
+				if(target != remembered_target)
+					GiveTarget(remembered_target)
+					COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
+				return remembered_target
+			else
+				// Memory expired, forget them
+				remembered_target = null
+		
 		for(var/pos_targ in possible_targets)
 			var/atom/A = pos_targ
 			if(Found(A))//Just in case people want to override targetting
@@ -399,9 +429,13 @@
 		var/Target = PickTarget(.)
 		GiveTarget(Target)
 		COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
+		
+		// Remember this target
+		if(Target)
+			remembered_target = Target
+			last_target_sighting = world.time
+		
 		return Target //We now have a target
-
-
 
 /mob/living/simple_animal/hostile/proc/PossibleThreats()
 	. = list()
@@ -531,9 +565,16 @@
 	add_target(new_target)
 	LosePatience()
 	if(target != null)
+		// Update memory when we get a new target
+		remembered_target = target
+		last_target_sighting = world.time
 		GainPatience()
 		Aggro()
 		return 1
+	else
+		// Only clear memory if we're not in Z-pursuit
+		if(!pursuing_z_target)
+			remembered_target = null
 
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
@@ -556,9 +597,55 @@
 	if (peaceful == TRUE)
 		LoseTarget()
 		return 0
+	
+	// If we have no target but have a remembered target, restore it
+	if(!target && remembered_target && !QDELETED(remembered_target))
+		if((world.time - last_target_sighting) < target_memory_duration)
+			GiveTarget(remembered_target)
+	
 	if(!target || !CanAttack(target))
+		// Check if we should keep pursuing via memory
+		if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+			if(remembered_target.z != z)
+				// Target is on different Z, keep pursuing
+				if(attempt_z_pursuit())
+					return 1
 		LoseTarget()
 		return 0
+	
+	// Update last sighting if we can see target
+	if(target in possible_targets)
+		last_target_sighting = world.time
+		remembered_target = target
+	
+	// Z-PURSUIT STATE MANAGEMENT
+	// Clear Z-pursuit state if target is back on same Z-level OR we've been pursuing too long (timeout)
+	if(pursuing_z_target)
+		if(target && target.z == z)
+			// Target is back on our level - resume normal combat
+			pursuing_z_target = FALSE
+			z_pursuit_structure = null
+		else if((world.time - z_pursuit_started) > z_pursuit_timeout)
+			// Been pursuing for too long (10+ seconds) - give up
+			pursuing_z_target = FALSE
+			z_pursuit_structure = null
+			visible_message(span_notice("[src] gives up the pursuit."))
+	
+	// PRIORITY: If we're in Z-pursuit mode, keep moving toward the structure (ladder/stairs)
+	// This overrides normal combat AI to ensure we actually reach and climb the structure
+	if(pursuing_z_target && z_pursuit_structure && target && target.z != z)
+		var/dist = get_dist(src, z_pursuit_structure)
+		
+		// If we're right next to a ladder, step onto it
+		if(dist <= 1 && istype(z_pursuit_structure, /obj/structure/ladder))
+			walk(src, 0) // Stop pathfinding
+			step(src, get_dir(src, z_pursuit_structure)) // Step onto ladder
+		else
+			// Still far away, keep pathfinding toward it
+			Goto(z_pursuit_structure, move_to_delay, 0)
+		
+		return 1 // Keep pursuing, don't do normal AI stuff
+	
 	if(target in possible_targets)
 		if(target.z != z)
 			if(attempt_z_pursuit())
@@ -687,8 +774,29 @@
 	if(target && can_z_move && isliving(target))
 		var/mob/living/L = target
 		if(L.z != z) // Target is on different Z!
+			// MEMORY LOCK: Remember them for extended period during Z-pursuit
+			remembered_target = L
+			last_target_sighting = world.time
+			
+			// Give ourselves a brief grace period to re-acquire via Z pursuit
+			if((world.time - last_z_move_attempt) < 50) // Within 5 seconds of last Z move
+				return // Keep the target locked!
+			
 			if(attempt_z_pursuit())
 				return // Don't lose target, we're pursuing
+	
+	// Only clear memory if enough time has passed
+	if(remembered_target && (world.time - last_target_sighting) > target_memory_duration)
+		remembered_target = null
+	
+	// Don't clear target/pursuit state if we have a remembered target
+	if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+		return // Keep pursuit active
+	
+	// Clear Z-pursuit state when actually losing target
+	pursuing_z_target = FALSE
+	z_pursuit_structure = null
+	remembered_target = null
 	
 	GiveTarget(null)
 	approaching_target = FALSE
@@ -696,18 +804,44 @@
 	walk(src, 0)
 	LoseAggro()
 
+// Z-LEVEL PURSUIT SYSTEM
+// This proc handles mobs chasing targets up/down stairs and ladders
+// Called when target is on a different Z-level than the mob
 /mob/living/simple_animal/hostile/proc/attempt_z_pursuit()
 	if(!target || !can_z_move)
+		pursuing_z_target = FALSE
+		z_pursuit_structure = null
 		return FALSE
 	
 	var/mob/living/L = target
 	if(!istype(L))
+		pursuing_z_target = FALSE
+		z_pursuit_structure = null
 		return FALSE
 	
 	var/went_up = (L.z > z)
 	var/went_down = (L.z < z)
 	
-	// Check if we can see stairs and are close to them
+	// STEP 1: Check if we're standing ON a ladder right now
+	// If yes, climb immediately without pathfinding
+	var/obj/structure/ladder/unbreakable/current_ladder = locate() in loc
+	if(current_ladder)
+		if(went_up && current_ladder.up)
+			visible_message(span_warning("[src] climbs up the ladder after [target]!"))
+			zMove(target = get_turf(current_ladder.up), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+			last_z_move_attempt = world.time
+			pursuing_z_target = FALSE  // We climbed! Clear pursuit state
+			z_pursuit_structure = null
+			return TRUE
+		else if(went_down && current_ladder.down)
+			visible_message(span_warning("[src] climbs down the ladder after [target]!"))
+			zMove(target = get_turf(current_ladder.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+			last_z_move_attempt = world.time
+			pursuing_z_target = FALSE  // We climbed! Clear pursuit state
+			z_pursuit_structure = null
+			return TRUE
+	
+	// STEP 2: Check if we're near stairs (reduces cooldown)
 	var/near_stairs = FALSE
 	if(went_up)
 		for(var/obj/structure/stairs/S in view(vision_range, src))
@@ -717,33 +851,38 @@
 					near_stairs = TRUE
 					break
 	
-	// Bypass cooldown when near stairs
+	// STEP 3: Cooldown check (can be bypassed if near stairs)
 	if(world.time < last_z_move_attempt + z_move_delay)
 		if(near_stairs)
 			// Very short cooldown when near stairs
 			if(world.time < last_z_move_attempt + 2)
-				return FALSE
+				return pursuing_z_target  // Return current state
 		else
-			return FALSE
+			return pursuing_z_target  // Return current state
 	
 	last_z_move_attempt = world.time
 	target_last_z = L.z
 	
 	if(!went_up && !went_down)
+		pursuing_z_target = FALSE
+		z_pursuit_structure = null
 		return FALSE
 	
+	// STEP 4: Find Z-level transition structures (stairs, ladders, openspace)
 	var/list/z_structures = list()
 	
 	if(went_up)
+		// Target went UP - look for stairs and ladders going up
 		for(var/obj/structure/stairs/S in view(vision_range, src))
 			if(S.isTerminator())
 				z_structures += S
 		
-		for(var/obj/structure/ladder/L2 in view(vision_range, src))
-			if(L2.up)
-				z_structures += L2
+		for(var/obj/structure/ladder/LD in view(vision_range, src))
+			if(LD.up)
+				z_structures += LD
 	
 	else if(went_down)
+		// Target went DOWN - look for openspace and ladders going down
 		var/turf/our_turf = get_turf(src)
 		
 		if(istype(our_turf, /turf/open/transparent/openspace))
@@ -752,22 +891,32 @@
 		for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
 			z_structures += OS
 		
-		for(var/obj/structure/ladder/L2 in view(vision_range, src))
-			if(L2.down)
-				z_structures += L2
+		for(var/obj/structure/ladder/LD in view(vision_range, src))
+			if(LD.down)
+				z_structures += LD
 	
 	if(!z_structures.len)
+		pursuing_z_target = FALSE
+		z_pursuit_structure = null
 		return FALSE
 	
+	// STEP 5: Pick nearest structure and enter Z-pursuit state
 	var/atom/nearest = get_closest_atom(/atom, z_structures, src)
+	
+	// Enter Z-pursuit state - this locks the mob into climbing mode
+	pursuing_z_target = TRUE
+	z_pursuit_structure = nearest
+	z_pursuit_started = world.time  // Start timeout timer
 	
 	visible_message(span_danger("[src] pursues [target] [went_up ? "upward" : "downward"]!"))
 	
-	LosePatience()
-	GainPatience()
-	COOLDOWN_RESET(src, sight_shoot_delay)
+	LosePatience() // Reset patience timer
+	GainPatience() // Restart it
+	COOLDOWN_RESET(src, sight_shoot_delay) // Allow immediate shooting after climbing
 	
-	// Use Goto for pathfinding, manual step only when adjacent
+	// STEP 6: Handle different structure types
+	
+	// STAIRS - special handling for multi-tile climb
 	if(went_up && istype(nearest, /obj/structure/stairs))
 		var/obj/structure/stairs/S = nearest
 		var/turf/our_turf = get_turf(src)
@@ -794,8 +943,33 @@
 		else
 			// Use Goto for pathfinding
 			Goto(S, move_to_delay, 0)
+	
+	// LADDERS - aggressive stepping to ensure mob gets ON the ladder tile
 	else
-		Goto(nearest, move_to_delay, 0)
+		if(istype(nearest, /obj/structure/ladder))
+			var/obj/structure/ladder/L_target = nearest
+			var/dist = get_dist(src, L_target)
+			
+			// Check if already on ladder tile
+			var/obj/structure/ladder/on_ladder = locate() in loc
+			if(on_ladder)
+				// Already on ladder, next tick will detect and climb
+				return TRUE
+			
+			if(dist == 0)
+				// Somehow on ladder tile without locate() finding it - next tick will climb
+				return TRUE
+			else if(dist == 1)
+				// Adjacent to ladder - AGGRESSIVELY step onto it
+				walk(src, 0) // Stop any pathfinding
+				step(src, get_dir(src, L_target)) // Force step onto ladder
+				// Next AI tick will detect we're on ladder and climb
+			else
+				// Still far away - pathfind toward ladder
+				Goto(L_target, move_to_delay, 0)
+		else
+			// Generic structure (openspace, etc) - just pathfind
+			Goto(nearest, move_to_delay, 0)
 	
 	return TRUE
 
@@ -961,11 +1135,37 @@
 	return iswallturf(T) || ismineralturf(T)
 
 
-/mob/living/simple_animal/hostile/Move(atom/newloc, dir , step_x , step_y)
+/mob/living/simple_animal/hostile/Move(atom/newloc, dir, step_x, step_y)
 	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
 		return dodge(newloc,dir)
-	else
-		return ..()
+	
+	. = ..() // Do the move
+	
+	if(!.) // Move failed
+		return FALSE
+	
+	// IMMEDIATE LADDER CLIMBING - happens the instant we step onto a ladder
+	// This prevents the "stand on ladder for one tick" issue
+	if(pursuing_z_target && target && target.z != z && !client)
+		var/obj/structure/ladder/unbreakable/L = locate() in loc
+		if(L)
+			var/went_up = (target.z > z)
+			var/went_down = (target.z < z)
+			
+			if(went_up && L.up)
+				visible_message(span_warning("[src] immediately climbs up the ladder!"))
+				zMove(target = get_turf(L.up), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+				pursuing_z_target = FALSE
+				z_pursuit_structure = null
+				last_z_move_attempt = world.time
+				return TRUE
+			else if(went_down && L.down)
+				visible_message(span_warning("[src] immediately climbs down the ladder!"))
+				zMove(target = get_turf(L.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+				pursuing_z_target = FALSE
+				z_pursuit_structure = null
+				last_z_move_attempt = world.time
+				return TRUE
 
 /mob/living/simple_animal/hostile/proc/dodge(moving_to,move_direction)
 	//Assuming we move towards the target we want to swerve toward them to get closer
