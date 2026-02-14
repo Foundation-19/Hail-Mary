@@ -1578,10 +1578,6 @@
 /obj/structure/table/wood/settler,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"buk" = (
-/obj/effect/landmark/start/f13/ncrrangerscout,
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "buw" = (
 /obj/effect/decal/waste{
 	pixel_x = 20;
@@ -4020,7 +4016,9 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "bOV" = (
-/obj/effect/landmark/start/f13/ncrrangermedic,
+/obj/structure/simple_door/room{
+	name = "Veteran Ranger Office"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "bPa" = (
@@ -9396,10 +9394,6 @@
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
-"fAV" = (
-/obj/effect/landmark/start/f13/ncrveteranranger,
-/turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/ncr)
 "fBd" = (
 /obj/structure/dresser,
 /turf/open/floor/wood_common,
@@ -17328,6 +17322,10 @@
 	anchored = 1;
 	density = 0
 	},
+/obj/item/clothing/under/f13/ranger/trail,
+/obj/item/clothing/under/f13/ranger/patrol,
+/obj/item/clothing/under/f13/ranger/modif_ranger,
+/obj/item/clothing/under/f13/ranger/blue,
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "mVE" = (
@@ -25425,6 +25423,7 @@
 /obj/structure/chair/f13chair1{
 	dir = 4
 	},
+/obj/effect/landmark/start/f13/ncrveteranranger,
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "uyq" = (
@@ -39132,12 +39131,12 @@ rJB
 mVz
 cHj
 mVz
-buk
+cHj
 mVz
-bOV
+cHj
 mVz
 gZX
-fAV
+gRk
 nOS
 rJB
 aae
@@ -39903,9 +39902,9 @@ rJB
 mVz
 cHj
 mVz
-buk
+cHj
 mVz
-bOV
+cHj
 mVz
 oGV
 gRk
@@ -40938,7 +40937,7 @@ rJB
 ctk
 gRk
 gRk
-qba
+bOV
 bzD
 bzD
 oie
