@@ -304,7 +304,7 @@
 	health = 160
 	melee_damage_lower = 10
 	melee_damage_upper = 28
-	move_to_delay = 4
+	move_to_delay = 3
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 
@@ -319,7 +319,7 @@
 	speed = 1.35
 	maxHealth = 110
 	health = 110
-	move_to_delay = 4
+	move_to_delay = 3
 	footstep_type = FOOTSTEP_MOB_CLAW
 
 /////////////
@@ -337,7 +337,7 @@
 	speak_chance = 0
 	turns_per_move = 5
 
-	move_to_delay = 2.0
+	move_to_delay = 2.5
 	// m2d 3 = standard, less is fast, more is slower.
 
 	retreat_distance = 3

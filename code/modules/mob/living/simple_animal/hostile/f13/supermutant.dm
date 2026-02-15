@@ -26,7 +26,7 @@
 		"shouts",
 		"yells"
 		)
-	move_to_delay = 5
+	move_to_delay = 3
 	stat_attack = CONSCIOUS
 	robust_searching = 1
 	environment_smash = ENVIRONMENT_SMASH_WALLS

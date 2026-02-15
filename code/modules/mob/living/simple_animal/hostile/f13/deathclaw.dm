@@ -22,7 +22,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	footstep_type = FOOTSTEP_MOB_HEAVY
-	move_to_delay = 2.75	//hahahahahahahaaaaa
+	move_to_delay = 2.75
 	gender = MALE
 	a_intent = INTENT_HARM //So we can not move past them.
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST

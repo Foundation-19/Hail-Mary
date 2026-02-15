@@ -327,7 +327,7 @@
 	extra_projectiles = 0 //removed extra projectiles to make these easier to deal with on super lowpop
 	stat_attack = CONSCIOUS
 	ranged = TRUE
-	move_to_delay = 9 //WAY slower than average, 
+	move_to_delay = 4 //WAY slower than average, 
 	// m2d 3 = standard, less is fast, more is slower.
 
 	retreat_distance = 0 // Mob doesn't retreat

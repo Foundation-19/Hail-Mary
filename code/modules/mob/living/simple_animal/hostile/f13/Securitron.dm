@@ -34,7 +34,7 @@
 	healable = FALSE
 	faction = list("wastebot")
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
-	move_to_delay = 3.25
+	move_to_delay = 2.75
 	// m2d 3 = standard, less is fast, more is slower.
 
 	retreat_distance = 2
@@ -224,7 +224,7 @@
 	health = 1500 //more HP than its smaller brother
 	maxHealth = 1500
 	armour_penetration = 1 //Punches harder
-	move_to_delay = 3.0 //Is deceptively quick
+	move_to_delay = 2.75
 	retreat_distance = 0 //Is going to punch you
 	rapid_melee = 2 //Punches faster
 	color = "#3444C8" //dark blue

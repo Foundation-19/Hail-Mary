@@ -26,7 +26,7 @@
 
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	robust_searching = TRUE
-	move_to_delay = 6 //slower than average, but not a lot.  //Needs to be slower than a protectron
+	move_to_delay = 4 //slower than average, but not a lot.  //Needs to be slower than a protectron
 	// m2d 4 = standard, less is fast, more is slower.
 
 	retreat_distance = 0 // Mob doesn't retreat

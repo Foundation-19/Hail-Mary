@@ -16,7 +16,7 @@
 	maxHealth = 40 
 	health = 40
 	robust_searching = 1
-	move_to_delay = 2.0
+	move_to_delay = 3
 	turns_per_move = 5
 	waddle_amount = 2
 	waddle_up_time = 1
@@ -150,6 +150,7 @@
 	retreat_distance = 3
 	minimum_distance = 1
 	ranged = TRUE
+	move_to_delay = 2.5
 	ranged_message = "throws a rock"
 	ranged_cooldown_time = 3 SECONDS
 	projectiletype = /obj/item/projectile/bullet/ghoul_rock
@@ -391,7 +392,7 @@
 	response_help_simple = "hugs"
 	response_disarm_simple = "pushes aside"
 	response_harm_simple = "growl"
-	move_to_delay = 3.0
+	move_to_delay = 3
 	faction = list("scorched", "hostile")
 	death_sound = null
 	melee_damage_upper = 20
@@ -416,7 +417,7 @@
 	response_help_simple = "hugs"
 	response_disarm_simple = "pushes aside"
 	response_harm_simple = "ow"
-	move_to_delay = 3.0
+	move_to_delay = 3
 	ranged = TRUE
 	ranged_cooldown_time = 200
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple

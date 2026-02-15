@@ -28,7 +28,7 @@
 	obj_damage = 20
 	melee_damage_lower = 4
 	melee_damage_upper = 12
-	move_to_delay = 1.5
+	move_to_delay = 2.5
 	retreat_distance = 0
 	minimum_distance = 0
 	aggro_vision_range = 7
@@ -158,7 +158,7 @@
 	obj_damage = 20
 	melee_damage_lower = 4
 	melee_damage_upper = 12
-	move_to_delay = 1.5
+	move_to_delay = 2.5
 	retreat_distance = 0
 	minimum_distance = 0
 	aggro_vision_range = 7
@@ -322,7 +322,7 @@
 	obj_damage = 20
 	melee_damage_lower = 7
 	melee_damage_upper = 18
-	move_to_delay = 1.5
+	move_to_delay = 2.5
 	retreat_distance = 0
 	minimum_distance = 0
 	aggro_vision_range = 7
@@ -424,7 +424,7 @@
 	obj_damage = 20
 	melee_damage_lower = 7
 	melee_damage_upper = 18
-	move_to_delay = 1.5
+	move_to_delay = 2.5
 	retreat_distance = 0
 	minimum_distance = 0
 	aggro_vision_range = 7
@@ -491,7 +491,7 @@
 	obj_damage = 20
 	melee_damage_lower = 12
 	melee_damage_upper = 24
-	move_to_delay = 1.5
+	move_to_delay = 2.5
 	retreat_distance = 0
 	minimum_distance = 0
 	aggro_vision_range = 4
@@ -605,7 +605,7 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	speak_chance = 0
 	turns_per_move = 5
-	move_to_delay = 2
+	move_to_delay = 2.5
 	// m2d 3 = standard, less is fast, more is slower.
 
 	retreat_distance = 0
@@ -880,7 +880,7 @@
 	obj_damage = 15
 	melee_damage_lower = 35
 	melee_damage_upper = 45
-	move_to_delay = 10
+	move_to_delay = 6
 	attack_verb_simple = "goops"
 	attack_sound = 'sound/effects/attackblob.ogg'
 	speak_emote = list("glorbles")
@@ -940,7 +940,7 @@
 	obj_damage = 20
 	melee_damage_lower = 25
 	melee_damage_upper = 35
-	move_to_delay = 1.5
+	move_to_delay = 2.5
 	retreat_distance = 0
 	minimum_distance = 0
 	aggro_vision_range = 9

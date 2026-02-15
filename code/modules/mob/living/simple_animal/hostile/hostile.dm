@@ -157,6 +157,10 @@
 	GiveTarget(null)
 	targets_from = null
 	
+	// Clear Z-pursuit memory references - IMPORTANT FOR GC
+	remembered_target = null
+	z_pursuit_structure = null
+	
 	// Clear lists
 	if(friends)
 		friends.Cut()

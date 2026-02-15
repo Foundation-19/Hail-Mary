@@ -19,7 +19,7 @@ using ant armor b/c it just kinda works here and i don't want it to be super bee
 	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = -1
-	move_to_delay = 2.1
+	move_to_delay = 2.5
 	tastes = list("weird oil" = 5, "dirt" = 1)
 
 	speak_emote = list("hisses", "shakes its rattle")

@@ -18,6 +18,8 @@
 	waddle_side_time = 1
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	robust_searching = TRUE
+	melee_damage_upper = 12
+	move_to_delay = 3
 	turns_per_move = 5
 	speak_emote = list("growls")
 	emote_see = list("screeches")
