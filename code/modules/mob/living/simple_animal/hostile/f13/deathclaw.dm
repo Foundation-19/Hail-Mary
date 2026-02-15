@@ -88,7 +88,7 @@
 	playsound(src, 'sound/f13npc/deathclaw/aggro2.ogg', 100, 1, SOUND_DISTANCE(20))
 	color = color_mad
 	reach += 1
-	speed *= 0.8
+	speed *= 1.25
 	obj_damage += 200
 	melee_damage_lower *= 1.5
 	melee_damage_upper *= 1.4
