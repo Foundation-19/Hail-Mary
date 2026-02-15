@@ -84,6 +84,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/supermutant/playable
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
 	maxHealth = 130
@@ -159,6 +164,11 @@
 	attack_sound = "hit_swing"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/supermutant/meleemutant/death(gibbed)
 	icon = 'icons/fallout/mobs/supermutant_dead.dmi'
 	icon_state = icon_dead
@@ -203,6 +213,11 @@
 		SP_DISTANT_RANGE(SHOTGUN_RANGE_DISTANT)
 	)
 
+	// Mixed combat - shoots but will melee
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 1
+	minimum_distance = 1
+
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint
 	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
@@ -239,6 +254,11 @@
 	mob_size = 5
 	footstep_type = FOOTSTEP_MOB_HEAVY
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/supermutant/legendary/death(gibbed)
 	icon = 'icons/fallout/mobs/supermutant_dead.dmi'
 	icon_state = icon_dead
@@ -262,6 +282,11 @@
 	attack_verb_simple = "slashes"
 	attack_sound = "sound/weapons/bladeslice.ogg"
 	footstep_type = FOOTSTEP_MOB_HEAVY
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/Aggro()
 	..()
@@ -308,6 +333,11 @@
 		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 4
+	minimum_distance = 6
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/Aggro()
 	..()

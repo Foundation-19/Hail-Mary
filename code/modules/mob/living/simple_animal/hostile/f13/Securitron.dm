@@ -87,6 +87,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 2
+	minimum_distance = 5
+
 /mob/living/simple_animal/hostile/securitron/nsb //NSB + Raider Bunker specific
 	name = "Securitron"
 	faction = list("raider")

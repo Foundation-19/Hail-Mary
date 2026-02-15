@@ -46,6 +46,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/wolf/playable
 	health = 150
 	maxHealth = 150
@@ -97,6 +102,11 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 28
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
 	
 //Unique Dogs - Guerilla for Khans is a Rottweiler, Brutus and Lupa german shepherds, Sniffs-the-Earth a sheepdog.
 //Feel free to move or add code for different behaviours like sleep, some unused sprites prepped for that sort of thing.

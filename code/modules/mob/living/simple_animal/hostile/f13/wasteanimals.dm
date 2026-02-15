@@ -127,6 +127,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/gecko/become_the_mob(mob/user)
 	make_a_nest = /obj/effect/proc_holder/mob_common/make_nest/gecko
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
@@ -248,6 +253,11 @@
 		MOB_MINIMUM_DISTANCE_LIST(1, 2, 3),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(100),
 	)
+
+	// Mixed combat - fire spit + melee
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 0
+	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/gecko/fire/Initialize()
 	.=..()
@@ -665,6 +675,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee - venomous bite
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/stalker/playable
 	health = 80
 	maxHealth = 80
@@ -711,6 +726,12 @@
 	response_harm_simple = "kicks"
 	taunt_chance = 30
 	speed = 1
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 8
+	minimum_distance = 6
+
 	maxHealth = 50
 	health = 50
 	harm_intent_damage = 8
@@ -807,6 +828,12 @@
 	response_harm_simple = "hits"
 	taunt_chance = 30
 	speed = 2
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 	maxHealth = 25
 	health = 25
 	harm_intent_damage = 8
@@ -883,6 +910,12 @@
 	response_harm_simple = "shakes"
 	taunt_chance = 30
 	speed = 8
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 	maxHealth = 850
 	health = 850
 	harm_intent_damage = 30
@@ -946,6 +979,12 @@
 	response_harm_simple = "hits"
 	taunt_chance = 30
 	speed = 0
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 	maxHealth = 100
 	health = 100
 	harm_intent_damage = 8

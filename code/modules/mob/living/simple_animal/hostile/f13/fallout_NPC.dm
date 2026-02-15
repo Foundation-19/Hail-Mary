@@ -43,6 +43,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /obj/effect/mob_spawn/human/corpse/vault
 	name = "Vault Dweller"
 	gloves = /obj/item/pda
@@ -50,8 +55,12 @@
 	shoes = /obj/item/clothing/shoes/jackboots
 
 /mob/living/simple_animal/hostile/vault/dweller
+
+	// Pure melee (flees when attacked)
+	combat_mode = COMBAT_MODE_MELEE
 	minimum_distance = 10
 	retreat_distance = 10
+
 	obj_damage = 0
 	environment_smash = 0
 
@@ -93,8 +102,12 @@
 	icon_dead = "vault_dweller_sec"
 	maxHealth = 160
 	health = 160
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 5
 	minimum_distance = 5
+
 	loot = list(/obj/effect/mob_spawn/human/corpse/vault/security)
 	healable = 1
 	ranged = 1
@@ -192,6 +205,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 6
+	minimum_distance = 6
+
 // Enclave Scientist
 /mob/living/simple_animal/hostile/enclave/scientist
 	name = "enclave scientist"
@@ -200,8 +218,12 @@
 	icon_living = "enclave_scientist"
 	maxHealth = 120
 	health = 120
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	minimum_distance = 10
 	retreat_distance = 10
+
 	obj_damage = 0
 	environment_smash = 0
 	loot = list(/obj/effect/mob_spawn/human/corpse/enclavescientist)
@@ -235,8 +257,12 @@
 	melee_damage_lower = 20
 	melee_damage_upper = 47
 	extra_projectiles = 2
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 3
 	minimum_distance = 5
+
 	ranged_cooldown_time = 12
 	loot = list(/obj/effect/mob_spawn/human/corpse/enclave/soldier)
 	healable = 1
@@ -326,6 +352,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /obj/effect/mob_spawn/human/corpse/bs
 	name = "Brotherhood Knight"
 	uniform = /obj/item/clothing/under/syndicate/brotherhood
@@ -342,8 +373,12 @@
 	icon_state = "bs_knight"
 	icon_living = "bs_knight"
 	icon_dead = "bs_knight"
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 5
 	minimum_distance = 5
+
 	loot = list(/obj/effect/mob_spawn/human/corpse/bs)
 	healable = 1
 	ranged = 1
@@ -366,8 +401,12 @@
 	icon_state = "bs_paladin"
 	icon_living = "bs_paladin"
 	icon_dead = "bs_paladin"
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 5
 	minimum_distance = 5
+
 	loot = list(/obj/effect/mob_spawn/human/corpse/bs/paladin)
 	maxHealth = 480
 	health = 480
@@ -445,6 +484,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /obj/effect/mob_spawn/human/corpse/ncr
 	name = "NCR Trooper"
 	uniform = /obj/item/clothing/under/f13/ncr
@@ -459,8 +503,12 @@
 	icon_state = "ncr_trooper"
 	icon_living = "ncr_trooper"
 	icon_dead = "ncr_trooper"
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 5
 	minimum_distance = 5
+
 	loot = list(/obj/effect/mob_spawn/human/corpse/ncr)
 	healable = 1
 	ranged = 1
@@ -484,8 +532,12 @@
 	icon_state = "ncr_sergeant"
 	icon_living = "ncr_sergeant"
 	icon_dead = "ncr_sergeant"
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 5
 	minimum_distance = 5
+
 	loot = list(/obj/effect/mob_spawn/human/corpse/ncr/ranger)
 	maxHealth = 160
 	health = 160
@@ -559,6 +611,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /obj/effect/mob_spawn/human/corpse/legion
 	name = "Legion Prime"
 	uniform = /obj/item/clothing/under/f13/legskirt
@@ -573,8 +630,12 @@
 	icon_living = "legion_prime"
 	icon_dead = "legion_prime"
 	icon_gib = "legion_prime"
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 5
 	minimum_distance = 5
+
 	loot = list(/obj/effect/mob_spawn/human/corpse/legion)
 	healable = 1
 	ranged = 1

@@ -74,6 +74,11 @@
 
 	can_open_doors = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/deathclaw/playable
 	emote_taunt_sound = null
 	emote_taunt = null

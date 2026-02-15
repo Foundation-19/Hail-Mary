@@ -73,6 +73,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/giantant/Initialize()
 	. = ..()
 
@@ -192,6 +197,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Mixed combat - ranged bile projectiles, retreats
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 5
+	minimum_distance = 7
+
 /mob/living/simple_animal/hostile/giantantqueen/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spawner, mob_types, spawn_time, faction, spawn_text, max_mobs, _range = 7)
@@ -282,6 +292,11 @@
 
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
 
 /mob/living/simple_animal/hostile/radscorpion/AttackingTarget()
 	. = ..()
@@ -400,6 +415,11 @@
 
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
+
+	// Pure melee - flying ambush
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 3
+	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/cazador/AttackingTarget()
 	. = ..()
@@ -530,6 +550,11 @@
 
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
+
+	// Pure ranged - flies and shoots
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 3
+	minimum_distance = 2
 
 /mob/living/simple_animal/hostile/bloatfly/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)

@@ -1,3 +1,8 @@
+// Combat mode defines
+#define COMBAT_MODE_MELEE 1   // Pure melee, always rush in
+#define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
+#define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
+
 /mob/living/simple_animal/hostile
 	faction = list("hostile")
 	stop_automated_movement_when_pulled = 0
@@ -203,6 +208,9 @@
 	var/consecutive_stair_steps = 0
 	/// Maximum consecutive stair steps before forcing off
 	var/max_consecutive_stair_steps = 5
+
+	/// What's our primary combat style?
+	var/combat_mode = COMBAT_MODE_MELEE // COMBAT_MODE_MELEE, COMBAT_MODE_RANGED, or COMBAT_MODE_MIXED
 
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
@@ -455,6 +463,11 @@
 	return ..()
 
 /mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+	// ALERT NEARBY ALLIES ABOUT COMBAT - BEFORE taking damage
+	// This way even near-misses alert mobs
+	if(P.firer)
+		alert_allies_of_combat(get_turf(P), P.firer)
+	
 	. = ..()
 	if (peaceful == TRUE)
 		peaceful = FALSE
@@ -463,9 +476,6 @@
 			FindTarget(list(P.firer), 1)
 			COOLDOWN_RESET(src, sight_shoot_delay)
 		Goto(P.starting, move_to_delay, 3)
-	
-	// ALERT NEARBY ALLIES ABOUT COMBAT - they'll hear the gunfire
-	alert_allies_of_combat(get_turf(src), P.firer)
 
 /mob/living/simple_animal/hostile/proc/alert_allies_of_combat(turf/combat_location, atom/attacker)
 	if(!combat_location)
@@ -898,6 +908,7 @@
 				LoseTarget()
 				return 0
 		
+		// RANGED ATTACK - fire if not adjacent and ranged capable
 		if(ranged)
 			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time)
 				OpenFire(target)
@@ -910,34 +921,73 @@
 		if(can_open_doors && target)
 			var/turf/T = get_step(src, get_dir(src, target))
 			if(T)
+				// Check for simple doors
+				for(var/obj/structure/simple_door/SD in T)
+					if(SD.density)
+						try_open_door(SD)
+				// Check for machinery doors
 				for(var/obj/machinery/door/D in T)
 					if(D.density)
 						try_open_door(D)
-			
+		
+// MOVEMENT & DISTANCE MANAGEMENT - handle retreat/advance BEFORE melee
 		if(retreat_distance != null)
-			if(target_distance <= retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+			// Ranged mob behavior
+			if(target_distance < retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+				// Too close! Retreat to preferred distance
 				set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
 				walk_away(src,target,retreat_distance,move_to_delay)
+			else if(target_distance > retreat_distance)
+				// Too far! Move closer TO retreat_distance (our optimal range)
+				// But never closer than retreat_distance - 1 to avoid accidentally entering melee
+				var/safe_approach_distance = max(retreat_distance - 1, 1)
+				Goto(target,move_to_delay,safe_approach_distance)
 			else
-				Goto(target,move_to_delay,minimum_distance)
+				// We're at optimal range! Stop and shoot
+				walk(src, 0)
 		else
-			Goto(target,move_to_delay,minimum_distance)
+			// Pure melee mob behavior
+			if(target_distance > minimum_distance)
+				Goto(target,move_to_delay,minimum_distance)
+			else
+				// At melee distance, stop moving
+				walk(src, 0)
 		
 		if(variation_list[MOB_RETREAT_DISTANCE_CHANCE] && LAZYLEN(variation_list[MOB_RETREAT_DISTANCE]) && prob(variation_list[MOB_RETREAT_DISTANCE_CHANCE]))
 			retreat_distance = vary_from_list(variation_list[MOB_RETREAT_DISTANCE])
 		
+		// MELEE ATTACK - behavior depends on combat mode
 		if(target)
 			if(COOLDOWN_TIMELEFT(src, melee_cooldown))
 				return TRUE
-			COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
 			
-			// Only try melee if we're ACTUALLY adjacent (same Z-level)
-			if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && target.z == z)
-				MeleeAction()
+			// Check if we're actually adjacent
+			var/is_adjacent = targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && target.z == z
+			
+			if(is_adjacent)
+				// We're in melee range - should we melee?
+				var/should_melee = FALSE
+				
+				if(combat_mode == COMBAT_MODE_MELEE)
+					// Pure melee mob - always melee
+					should_melee = TRUE
+				else if(combat_mode == COMBAT_MODE_MIXED)
+					// Mixed mob - melee if target got close
+					should_melee = TRUE
+				else if(combat_mode == COMBAT_MODE_RANGED)
+					// Pure ranged - NEVER melee, keep backing away
+					should_melee = FALSE
+				
+				if(should_melee)
+					COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
+					MeleeAction()
+			else if(rapid_melee > 1 && target_distance <= melee_queue_distance && combat_mode != COMBAT_MODE_RANGED)
+				// Queue up melee for fast-attacking melee/mixed mobs only
+				COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
+				MeleeAction(FALSE)
 			else
-				if(rapid_melee > 1 && target_distance <= melee_queue_distance)
-					MeleeAction(FALSE)
 				in_melee = FALSE
+			
 			return 1
 		return 0
 		
@@ -1581,6 +1631,36 @@
 			enter_search_mode()
 		else
 			visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
+
+/mob/living/simple_animal/hostile/proc/hear_gunshot(turf/shot_location, atom/shooter)
+	if(!can_hear_combat)
+		return
+	
+	if(!shot_location || QDELETED(shot_location))
+		return
+	
+	// Check if shooter is an enemy
+	if(shooter && faction_check_mob(shooter))
+		return // Don't care about friendly fire
+	
+	var/distance = get_dist(src, shot_location)
+	var/z_distance = abs(z - shot_location.z)
+	
+	if(distance > combat_hearing_range)
+		return
+	
+	if(z_distance > 1)
+		return
+	
+	// Wake up if idle
+	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+		toggle_ai(AI_ON)
+	
+	// If we don't have a target, investigate the sound
+	if(!target && !searching)
+		last_known_location = shot_location
+		enter_search_mode()
+		visible_message(span_warning("[src] perks up at the sound of gunfire!"))
 
 //////////////END HOSTILE MOB TARGETTING AND AGGRESSION////////////
 

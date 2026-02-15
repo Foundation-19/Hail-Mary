@@ -71,6 +71,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Mixed combat - shoots poison but will melee
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 0
+	minimum_distance = 0
+
 /obj/item/projectile/neurotox
 	name = "spitball"
 	damage = 25
@@ -143,6 +148,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/abomination/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
@@ -213,6 +223,11 @@
 
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
 
 // NSB variant, some sort of bulletsponge
 /mob/living/simple_animal/hostile/abomhorror/nsb

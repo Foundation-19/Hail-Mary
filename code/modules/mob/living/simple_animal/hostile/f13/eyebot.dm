@@ -118,11 +118,18 @@
 	icon_living = "floatingeye"
 	icon_dead = "floatingeye_d"
 
-	retreat_distance = 4
 	faction = list("hostile", "bs")
 
 	projectiletype = /obj/item/projectile/energy/electrode
 	projectilesound = 'sound/weapons/resonator_blast.ogg'
+
+	// Pure ranged
+	retreat_distance = 4
+	minimum_distance = 6
+
+	// Pure ranged (inherits combat_mode, overrides retreat_distance)
+	retreat_distance = 4
+	minimum_distance = 6
 
 /mob/living/simple_animal/hostile/eyebot/floatingeye/New()
 	..()
@@ -203,8 +210,16 @@
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOWER
 	melee_damage_lower = 5
 	melee_damage_upper = 10
-	minimum_distance = 4
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 6
+	minimum_distance = 4
+
+	// Pure ranged (inherits combat_mode, overrides distances)
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 6
+	minimum_distance = 4
 
 /mob/living/simple_animal/hostile/eyebot/reinforced/become_the_mob(mob/user)
 	send_mobs = null

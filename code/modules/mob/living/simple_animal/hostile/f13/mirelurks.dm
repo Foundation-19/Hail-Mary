@@ -63,6 +63,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 // MIRELURK HUNTER MALES
 /mob/living/simple_animal/hostile/mirelurk/hunter
 	name = "mirelurk hunter"

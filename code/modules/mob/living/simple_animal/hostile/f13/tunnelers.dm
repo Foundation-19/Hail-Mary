@@ -42,6 +42,11 @@
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/trog/sporecarrier
 	name = "spore carrier"
 	desc = "A victim of the beauveria mordicana fungus, these corpses sole purpose is to spread its spores."

@@ -85,7 +85,10 @@
 
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
-
+	// Pure melee - close range saw bot
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
 /mob/living/simple_animal/hostile/handy/playable
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	maxHealth = 300 
@@ -176,6 +179,11 @@
 	)
 	desc_short = "A gutsy robot with a plasma gun."
 
+	// Pure ranged - plasma gun
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 4
+	minimum_distance = 4
+
 /mob/living/simple_animal/hostile/handy/gutsy/playable
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	maxHealth = 100 
@@ -246,6 +254,11 @@
 		SP_DISTANT_RANGE(LASER_RANGE_DISTANT)
 	)
 	desc_short = "A robot that shoots lasers."
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 2
+	minimum_distance = 2
 
 /mob/living/simple_animal/hostile/handy/liberator/yellow
 	name = "liberator"
@@ -412,6 +425,11 @@
 	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
 	desc_short = "A clunky hunk of junk with a laser."
 
+	// Mixed combat - has ranged but will melee
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 0
+	minimum_distance = 1
+
 /mob/living/simple_animal/hostile/handy/protectron/playable
 	ranged = FALSE
 	melee_damage_lower = 25
@@ -528,6 +546,11 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/handy/assaultron/nsb //NSB + Raider Bunker specific.
 	name = "assaultron"
 	aggro_vision_range = 15
@@ -579,8 +602,12 @@
 	desc = "A modified assaultron. It's eye has been outfitted with a deadly laser."
 	color = "#B85C00"
 	ranged = TRUE
+
+	// Mixed - both ranged and melee
+	combat_mode = COMBAT_MODE_MIXED
 	retreat_distance = null
 	minimum_distance = 1
+
 	projectilesound = 'sound/weapons/laser.ogg'
 	projectiletype = /obj/item/projectile/beam/laser/lasgun
 	projectile_sound_properties = list(

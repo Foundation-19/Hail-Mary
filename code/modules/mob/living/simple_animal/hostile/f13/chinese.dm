@@ -39,6 +39,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 0
+	minimum_distance = 0
+
 /mob/living/simple_animal/hostile/chinese/Aggro()
 	. = ..()
 	if(.)
@@ -58,6 +63,11 @@
 	minimum_distance = 6
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
 	projectilesound =  'sound/f13weapons/ninemil.ogg'
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 4
+	minimum_distance = 6
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),

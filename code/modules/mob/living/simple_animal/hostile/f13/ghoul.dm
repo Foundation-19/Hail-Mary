@@ -117,6 +117,11 @@
 	can_open_doors = TRUE
 	can_open_airlocks = FALSE
 
+	// Pure melee - chase and attack
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+
 /mob/living/simple_animal/hostile/ghoul/Initialize()
 	. = ..()
 	if(random_trash_loot)
@@ -150,9 +155,6 @@
 	maxHealth = 50
 	health = 50
 	rapid_melee = 2
-	retreat_distance = 3
-	minimum_distance = 1
-	ranged = TRUE
 	move_to_delay = 2.5
 	ranged_message = "throws a rock"
 	ranged_cooldown_time = 3 SECONDS
@@ -183,6 +185,12 @@
 		)
 	)
 	desc_short = "A beefy creature that may or may not be a reanimated corpse."
+
+	// Mixed combat - throws rocks at range, melees up close
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 3
+	minimum_distance = 1
+	ranged = TRUE
 
 /mob/living/simple_animal/hostile/ghoul/reaver/Initialize()
 	. = ..()
@@ -290,8 +298,6 @@
 	maxHealth = 40 
 	health = 40
 	speed = 2
-	retreat_distance = 4
-	minimum_distance = 4
 	ranged_message = "emits radiation"
 	ranged = TRUE
 	projectiletype = /obj/item/projectile/radiation_thing
@@ -317,6 +323,11 @@
 		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(50)
 	)
+
+	// Pure ranged - radiation only, never melee
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 4
+	minimum_distance = 4
 
 /mob/living/simple_animal/hostile/ghoul/glowing/Initialize(mapload)
 	. = ..()
@@ -406,6 +417,11 @@
 	can_ghost_into = FALSE
 	loot_drop_amount = 4
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+
 //Alive Ghoul Ranged
 /mob/living/simple_animal/hostile/ghoul/scorched/ranged
 	name = "Ranged Ghoul Solder"
@@ -417,6 +433,7 @@
 	speak_chance = 1
 	turns_per_move = 5
 	environment_smash = 0
+	ranged = TRUE
 	response_help_simple = "hugs"
 	response_disarm_simple = "pushes aside"
 	response_harm_simple = "ow"
@@ -434,6 +451,11 @@
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	can_ghost_into = FALSE
 	loot_drop_amount = 5
+
+	// Pure ranged
+	combat_mode = COMBAT_MODE_RANGED
+	retreat_distance = 4
+	minimum_distance = 4
 
 //Sunset mob of some sort?
 /mob/living/simple_animal/hostile/ghoul/wyomingghost
@@ -466,13 +488,17 @@
 	can_ghost_into = FALSE
 	loot_drop_amount = 5
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+
 //Halloween Event Ghouls
 /mob/living/simple_animal/hostile/ghoul/zombie
 	name = "ravenous feral ghoul"
 	desc = "A ferocious feral ghoul, hungry for human meat."
 	faction = list("ghoul")
 	stat_attack = CONSCIOUS
-	can_ghost_into = FALSE
 	maxHealth = 200
 	health = 200
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
@@ -493,12 +519,17 @@
 	speed = 2
 	maxHealth = 216
 	health = 216
-	can_ghost_into = FALSE
 	harm_intent_damage = 8
 	melee_damage_lower = 30
 	melee_damage_upper = 30
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	can_ghost_into = FALSE
+
+	// Mixed combat
+	combat_mode = COMBAT_MODE_MIXED
+	retreat_distance = 3
+	minimum_distance = 1
+	ranged = TRUE
 
 /mob/living/simple_animal/hostile/ghoul/zombie/glowing
 	name = "ravenous glowing feral ghoul"
@@ -509,7 +540,6 @@
 	maxHealth = 192
 	health = 192
 	speed = 2
-	can_ghost_into = FALSE
 	harm_intent_damage = 8
 	melee_damage_lower = 30
 	melee_damage_upper = 30
@@ -545,7 +575,6 @@
 	color = "#FFFF00"
 	maxHealth = 200
 	health = 200
-	can_ghost_into = FALSE
 	speed = 2.5
 	harm_intent_damage = 8
 	melee_damage_lower = 30

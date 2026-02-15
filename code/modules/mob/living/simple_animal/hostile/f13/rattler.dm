@@ -47,6 +47,11 @@ using ant armor b/c it just kinda works here and i don't want it to be super bee
 	can_open_doors = FALSE
 	can_open_airlocks = FALSE
 
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = 2
+	minimum_distance = 0
+
 
 /mob/living/simple_animal/hostile/texas_rattler/AttackingTarget()
 	. = ..()
