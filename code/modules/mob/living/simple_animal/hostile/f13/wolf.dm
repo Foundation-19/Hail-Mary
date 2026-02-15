@@ -43,6 +43,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/wolf/playable
 	health = 150
 	maxHealth = 150

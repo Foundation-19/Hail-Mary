@@ -81,6 +81,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = TRUE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/supermutant/playable
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
 	maxHealth = 130

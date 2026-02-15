@@ -36,6 +36,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 /mob/living/simple_animal/hostile/chinese/Aggro()
 	. = ..()
 	if(.)

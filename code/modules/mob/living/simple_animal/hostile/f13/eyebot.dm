@@ -81,6 +81,8 @@
 	can_jump_down = TRUE
 	z_move_delay = 50 // 5 seconds - slower
 
+	can_open_doors = FALSE
+	can_open_airlocks = TRUE
 
 /mob/living/simple_animal/hostile/eyebot/New()
 	..()

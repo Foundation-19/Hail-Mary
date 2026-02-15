@@ -84,6 +84,9 @@
 	can_jump_down = TRUE
 	z_move_delay = 30
 
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 /mob/living/simple_animal/hostile/securitron/nsb //NSB + Raider Bunker specific
 	name = "Securitron"
 	faction = list("raider")

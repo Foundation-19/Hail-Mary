@@ -60,6 +60,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 // MIRELURK HUNTER MALES
 /mob/living/simple_animal/hostile/mirelurk/hunter
 	name = "mirelurk hunter"

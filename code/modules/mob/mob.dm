@@ -9,8 +9,12 @@
 	movespeed_modification = null
 	// Clear mind reference to break circular references
 	if(mind)
-		mind.current = null
-		mind = null
+		// Don't clear mind.current if there's a ghost that can still re-enter
+		// This prevents ghosts from being locked out of revival attempts
+		var/mob/dead/observer/ghost = mind.get_ghost(even_if_they_cant_reenter = FALSE)
+		if(!ghost)
+			mind.current = null
+			mind = null
 	// Clear held items by destroying them BEFORE parent cleanup
 	// This prevents item cleanup from trying to re-add items during component destruction
 	if(held_items && held_items.len)

@@ -72,6 +72,8 @@
 	can_jump_down = TRUE
 	z_move_delay = 20 // 2 seconds - fast pursuit
 
+	can_open_doors = FALSE
+
 /mob/living/simple_animal/hostile/deathclaw/playable
 	emote_taunt_sound = null
 	emote_taunt = null

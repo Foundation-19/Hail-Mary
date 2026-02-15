@@ -39,6 +39,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/trog/sporecarrier
 	name = "spore carrier"
 	desc = "A victim of the beauveria mordicana fungus, these corpses sole purpose is to spread its spores."

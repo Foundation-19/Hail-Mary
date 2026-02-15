@@ -70,6 +70,8 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
 
 /mob/living/simple_animal/hostile/giantant/Initialize()
 	. = ..()
@@ -187,6 +189,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/giantantqueen/Initialize()
 	. = ..()
 	AddComponent(/datum/component/spawner, mob_types, spawn_time, faction, spawn_text, max_mobs, _range = 7)
@@ -274,6 +279,9 @@
 	can_climb_ladders = FALSE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
 
 /mob/living/simple_animal/hostile/radscorpion/AttackingTarget()
 	. = ..()
@@ -389,6 +397,9 @@
 	can_climb_ladders = TRUE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
 
 /mob/living/simple_animal/hostile/cazador/AttackingTarget()
 	. = ..()
@@ -517,6 +528,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 /mob/living/simple_animal/hostile/bloatfly/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
@@ -596,6 +610,9 @@
 	can_climb_ladders = FALSE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
 
 /mob/living/simple_animal/hostile/radroach/become_the_mob(mob/user)
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter

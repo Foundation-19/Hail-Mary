@@ -437,7 +437,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	
 	// Check if mind.current exists and isn't being deleted
 	if(!mind.current || QDELETED(mind.current))
-		to_chat(src, span_warning("You have no body."))
+		to_chat(src, span_warning("You have no body. Your corpse may have been destroyed, or you may be too far from respawn."))
 		return
 	
 	// Check if we can re-enter

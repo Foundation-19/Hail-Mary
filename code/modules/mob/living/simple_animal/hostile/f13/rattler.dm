@@ -44,7 +44,8 @@ using ant armor b/c it just kinda works here and i don't want it to be super bee
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
-
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
 
 
 /mob/living/simple_animal/hostile/texas_rattler/AttackingTarget()

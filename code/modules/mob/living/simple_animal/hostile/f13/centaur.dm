@@ -68,6 +68,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /obj/item/projectile/neurotox
 	name = "spitball"
 	damage = 25
@@ -137,6 +140,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/abomination/AttackingTarget()
 	. = ..()
 	if(. && ishuman(target))
@@ -204,6 +210,9 @@
 	can_climb_ladders = TRUE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
 
 // NSB variant, some sort of bulletsponge
 /mob/living/simple_animal/hostile/abomhorror/nsb

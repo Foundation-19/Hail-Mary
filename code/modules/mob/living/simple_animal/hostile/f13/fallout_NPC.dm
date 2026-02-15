@@ -40,6 +40,8 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
 
 /obj/effect/mob_spawn/human/corpse/vault
 	name = "Vault Dweller"
@@ -186,6 +188,10 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 // Enclave Scientist
 /mob/living/simple_animal/hostile/enclave/scientist
 	name = "enclave scientist"
@@ -316,6 +322,10 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 /obj/effect/mob_spawn/human/corpse/bs
 	name = "Brotherhood Knight"
 	uniform = /obj/item/clothing/under/syndicate/brotherhood
@@ -431,6 +441,10 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 /obj/effect/mob_spawn/human/corpse/ncr
 	name = "NCR Trooper"
 	uniform = /obj/item/clothing/under/f13/ncr
@@ -540,6 +554,10 @@
 	can_climb_ladders = TRUE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
 
 /obj/effect/mob_spawn/human/corpse/legion
 	name = "Legion Prime"
@@ -651,3 +669,6 @@
 	can_climb_ladders = TRUE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE

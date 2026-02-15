@@ -55,6 +55,9 @@
 	can_jump_down = TRUE
 	z_move_delay = 40 // 4 seconds - more cautious
 
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+
 /mob/living/simple_animal/hostile/raider/Initialize()
 	. = ..()
 	if(random_trash_loot)

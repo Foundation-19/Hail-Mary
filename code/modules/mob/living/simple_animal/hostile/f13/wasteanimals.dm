@@ -124,6 +124,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/gecko/become_the_mob(mob/user)
 	make_a_nest = /obj/effect/proc_holder/mob_common/make_nest/gecko
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
@@ -659,6 +662,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/stalker/playable
 	health = 80
 	maxHealth = 80
@@ -842,6 +848,9 @@
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
 /mob/living/simple_animal/hostile/molerat/become_the_mob(mob/user)
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
 	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/small_critter
@@ -903,6 +912,9 @@
 	can_climb_ladders = FALSE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
 
 /mob/living/simple_animal/hostile/gelcube/Initialize()
 	. = ..()
@@ -1009,3 +1021,6 @@
 	can_climb_ladders = TRUE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
