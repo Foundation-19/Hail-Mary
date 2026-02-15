@@ -328,13 +328,11 @@
 		if(time_on_stairs == 0)
 			time_on_stairs = world.time
 		else if((world.time - time_on_stairs) > max_stairs_time)
-			// Been on stairs too long! Force commit to current Z
 			commit_to_z_level()
 			pursuing_z_target = FALSE
 			z_pursuit_structure = null
 			time_on_stairs = 0
 			
-			// Walk away from stairs
 			var/list/escape_turfs = list()
 			for(var/turf/T in range(3, src))
 				var/has_stairs = FALSE
@@ -355,6 +353,11 @@
 	if(can_open_doors && target)
 		var/turf/T = get_step(src, get_dir(src, target))
 		if(T)
+			// Check for simple doors
+			for(var/obj/structure/simple_door/SD in T)
+				if(SD.density)
+					try_open_door(SD)
+			// Check for machinery doors
 			for(var/obj/machinery/door/D in T)
 				if(D.density)
 					try_open_door(D)
@@ -1424,7 +1427,7 @@
 		visible_message(span_notice("[src] updates their search pattern..."))
 
 // DOOR OPENING - smart mobs can open doors instead of destroying them
-/mob/living/simple_animal/hostile/proc/try_open_door(obj/machinery/door/D)
+/mob/living/simple_animal/hostile/proc/try_open_door(atom/D)
 	if(!can_open_doors)
 		return FALSE
 	
@@ -1437,21 +1440,53 @@
 	
 	COOLDOWN_START(src, door_open_cooldown, door_open_delay)
 	
-	// Check if it's an airlock and we can't open airlocks
-	if(istype(D, /obj/machinery/door/airlock) && !can_open_airlocks)
-		return FALSE
+	// Handle simple doors (wooden, metal, etc)
+	if(istype(D, /obj/structure/simple_door))
+		var/obj/structure/simple_door/SD = D
+		
+		// Check if door has a padlock
+		if(SD.padlock && SD.padlock.locked)
+			return FALSE // Can't open locked doors
+		
+		// Check if door is already open
+		if(!SD.density)
+			return FALSE
+		
+		// Check if door is moving
+		if(SD.moving)
+			return FALSE
+		
+		// Open the door using the proper method
+		visible_message(span_notice("[src] opens [SD]."))
+		SD.SwitchState(TRUE) // Use SwitchState with animate = TRUE
+		return TRUE
 	
-	// Check if door is locked/bolted
+	// Handle airlocks
 	if(istype(D, /obj/machinery/door/airlock))
+		if(!can_open_airlocks)
+			return FALSE
+		
 		var/obj/machinery/door/airlock/A = D
 		if(A.locked || A.welded)
 			return FALSE // Can't open locked/welded doors
+		
+		// Try to open it
+		if(A.density) // Door is closed
+			visible_message(span_notice("[src] opens [A]."))
+			INVOKE_ASYNC(A, TYPE_PROC_REF(/obj/machinery/door, open))
+			return TRUE
+		
+		return FALSE
 	
-	// Try to open it
-	if(D.density) // Door is closed
-		visible_message(span_notice("[src] opens [D]."))
-		INVOKE_ASYNC(D, TYPE_PROC_REF(/obj/machinery/door, open))
-		return TRUE
+	// Handle other machinery doors
+	if(istype(D, /obj/machinery/door))
+		var/obj/machinery/door/MD = D
+		
+		// Try to open it
+		if(MD.density) // Door is closed
+			visible_message(span_notice("[src] opens [MD]."))
+			INVOKE_ASYNC(MD, TYPE_PROC_REF(/obj/machinery/door, open))
+			return TRUE
 	
 	return FALSE
 
@@ -1817,6 +1852,13 @@
 	if(T && T.Adjacent(targets_from))
 		// Check for doors first
 		if(can_open_doors)
+			// Try simple doors
+			for(var/obj/structure/simple_door/SD in T)
+				if(SD.density) // Door is closed
+					if(try_open_door(SD))
+						return // Successfully opened door, don't destroy
+			
+			// Try machinery doors
 			for(var/obj/machinery/door/D in T)
 				if(D.density) // Door is closed
 					if(try_open_door(D))
