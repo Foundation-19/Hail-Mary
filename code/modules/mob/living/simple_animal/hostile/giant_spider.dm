@@ -458,12 +458,11 @@
 
 /obj/effect/proc_holder/wrap/Destroy()
 	// CRITICAL: Clear ALL references that might keep this alive
+	// NOTE: Parent (simple_animal) handles deleting actions and abilities
+	// We only need to clear references here, not delete objects
 	
 	// Clear from user's ranged ability AND click intercept
 	if(ranged_ability_user)
-		// Remove from their abilities list
-		if(ranged_ability_user.abilities)
-			ranged_ability_user.abilities -= src
 		// If we're their active ranged ability, clear it
 		if(ranged_ability_user.ranged_ability == src)
 			ranged_ability_user.ranged_ability = null
@@ -472,15 +471,8 @@
 			ranged_ability_user.click_intercept = null
 		ranged_ability_user = null
 
-	// Clear the action completely
-	if(action)
-		// Remove from owner's action list
-		if(action.owner)
-			if(action.owner.actions)
-				action.owner.actions -= action
-			action.owner = null
-		// Delete the action
-		QDEL_NULL(action)
+	// Clear the action reference - parent already handles deletion
+	action = null
 
 	// Clear any other vars
 	active = FALSE

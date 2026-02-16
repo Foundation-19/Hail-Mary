@@ -82,22 +82,10 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	gloves = null
 	shoes = null
 
-	var/result = ..()
-
 	QDEL_NULL(physiology)
 
-	if(client && client.screen && client.screen.len)
-		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
+	return ..()
 
-	return result
-
-/mob/living/carbon/human/proc/defer_screen_cleanup()
-	// Called next tick to avoid GC spike from screen deletion
-	// Clears all screen objects attached to this mob's client
-	if(!src || QDELETED(src) || !client)
-		return
-	if(client.screen && client.screen.len)
-		QDEL_LIST(client.screen)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...

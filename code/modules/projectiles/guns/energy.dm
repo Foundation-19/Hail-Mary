@@ -77,8 +77,21 @@
 
 /obj/item/gun/energy/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	
+	// CRITICAL FIX: Energy guns reuse ammo casings from ammo_type list
+	// Don't let parent delete chambered since it's in ammo_type
+	// We need to clean up ammo_type ourselves
+	chambered = null  // Clear reference without deleting
+	
+	// Clean up the ammo_type list and delete all the ammo casings
+	if(ammo_type)
+		for(var/obj/item/ammo_casing/energy/E in ammo_type)
+			qdel(E)
+		ammo_type = null
+	
 	if(cell)
 		QDEL_NULL(cell)
+	
 	return ..()
 
 /obj/item/gun/energy/handle_atom_del(atom/A)

@@ -1074,7 +1074,7 @@
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
 		for(var/i in 1 to rapid_melee)
-			addtimer(cb, (i - 1)*delay)
+			addtimer(cb, (i - 1)*delay, TIMER_DELETE_ME)
 	else
 		AttackingTarget()
 	if(patience)
@@ -1574,7 +1574,7 @@
 			var/step_result = step(src, dir_to_stairs)
 			
 			if(step_result && get_turf(src) == stairs_turf)
-				addtimer(CALLBACK(src, PROC_REF(climb_stairs), S), 1)
+				addtimer(CALLBACK(src, PROC_REF(climb_stairs), S), 1, TIMER_DELETE_ME)
 			else if(!step_result)
 				last_z_move_attempt = world.time - (z_move_delay - 2)
 				return TRUE
@@ -1684,7 +1684,7 @@
 		return
 	
 	if(!last_known_location || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
-		addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 		return
 	
 	// SMART SEARCH: Expand radius every few iterations
@@ -1765,7 +1765,7 @@
 			return
 	
 	// Keep searching every few seconds
-	addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 
 // BACKUP SYSTEM - alert nearby allies about target location
 /mob/living/simple_animal/hostile/proc/call_for_backup(atom/found_target, alert_type = "found")
@@ -2240,11 +2240,11 @@
 	if(rapid > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(Shoot), A)
 		for(var/i in 1 to rapid)
-			addtimer(cb, (i - 1)*rapid_fire_delay)
+			addtimer(cb, (i - 1)*rapid_fire_delay, TIMER_DELETE_ME)
 	else
 		Shoot(A)
 		for(var/i in 1 to extra_projectiles)
-			addtimer(CALLBACK(src, PROC_REF(Shoot), A), i * auto_fire_delay)
+			addtimer(CALLBACK(src, PROC_REF(Shoot), A), i * auto_fire_delay, TIMER_DELETE_ME)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	if(sound_after_shooting)
 		addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(playsound), src, sound_after_shooting, 100, 0, 0), sound_after_shooting_delay, TIMER_STOPPABLE)
@@ -2720,7 +2720,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	visible_message(span_green("[src] shudders as the EMP overloads its servos!"))
 	LoseTarget()
 	toggle_ai(AI_OFF)
-	addtimer(CALLBACK(src, PROC_REF(un_emp_stun)), min(intensity, 3 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(un_emp_stun)), min(intensity, 3 SECONDS), TIMER_DELETE_ME)
 
 /mob/living/simple_animal/hostile/proc/un_emp_stun()
 	active_emp_flags -= MOB_EMP_STUN
@@ -2737,7 +2737,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	visible_message(span_green("[src] lets out a burst of static and whips its gun around wildly!"))
 	var/list/old_faction = faction
 	faction = null
-	addtimer(CALLBACK(src, PROC_REF(un_emp_berserk), old_faction), intensity SECONDS * 0.5)
+	addtimer(CALLBACK(src, PROC_REF(un_emp_berserk), old_faction), intensity SECONDS * 0.5, TIMER_DELETE_ME)
 
 /mob/living/simple_animal/hostile/proc/un_emp_berserk(list/unberserk)
 	active_emp_flags -= MOB_EMP_BERSERK
