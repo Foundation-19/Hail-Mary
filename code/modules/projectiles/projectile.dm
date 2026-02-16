@@ -222,6 +222,10 @@
 		hit_limb = L.check_limb_hit(def_zone)
 	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle, hit_limb)
 	var/turf/target_loca = get_turf(target)
+	
+	// Alert hostile mobs about the impact (spawned to avoid blocking, optimized with early exits)
+	spawn(0)
+		notify_mobs_of_projectile_impact(target_loca, firer, src)
 
 	var/hitx
 	var/hity
@@ -929,6 +933,35 @@
 /proc/check_armor_penetration(atom/A)
 	var/obj/item/projectile/P = A
 	return istype(P) && P.armour_penetration
+
+// GLOBAL PROJECTILE IMPACT HANDLER for hostile.dm
+// CPU OPTIMIZED: Early exits, limited notifications, reduced range
+/proc/notify_mobs_of_projectile_impact(turf/impact_turf, atom/firer, obj/item/projectile/P)
+	if(!impact_turf || !firer)
+		return
+	
+	var/notified = 0
+	var/max_notifications = 8 // Limit notifications to prevent spam on large mob groups
+	
+	// CPU OPTIMIZATION: Reduced range from 20 to 5 tiles (50 tiles vs 400 tiles to check)
+	for(var/mob/living/simple_animal/hostile/M in range(5, impact_turf))
+		if(M.stat == DEAD || M.ckey)
+			continue
+		
+		// Only alert mobs actively engaged (has target or searching)
+		if(!M.target && !M.searching)
+			continue
+		
+		// Check if mob can hear the impact (with muffling)
+		var/effective_range = M.calculate_muffled_sound_range(impact_turf, M.impact_hearing_range)
+		var/distance = get_dist(M, impact_turf)
+		var/z_distance = abs(M.z - impact_turf.z)
+		
+		if(distance <= effective_range && z_distance <= 1)
+			M.hear_impact_sound(impact_turf, firer)
+			notified++
+			if(notified >= max_notifications) // Early exit after enough notifications
+				return
 
 /obj/item/projectile/bullet/F13
 	name = "bullet"

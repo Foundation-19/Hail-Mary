@@ -157,6 +157,12 @@
 	var/turf/last_known_location = null
 	/// Search radius around last known location
 	var/search_radius = 7
+	/// SMART SEARCH: Track visited search locations to avoid repetition
+	var/list/searched_turfs = list()
+	/// SMART SEARCH: Current search expansion level (increases over time)
+	var/search_expansion = 0
+	/// SMART SEARCH: Doors we've already tried to open during search
+	var/list/searched_doors = list()
 
 	/// How far to call for backup when finding a target (tiles)
 	var/backup_call_range = 15
@@ -196,6 +202,32 @@
 	var/combat_hearing_range = 7  // Reduced to 7 tiles by default
 	/// Last time we heard combat
 	var/last_combat_sound = 0
+	/// Range we can hear impact sounds (tiles) - same as gunfire (impacts ARE from gunfire)
+	var/impact_hearing_range = 7  // Increased to 7 tiles to match combat sounds
+
+	/// SPATIAL AWARENESS & DOOR MEMORY
+	/// List of door locations we know about and can potentially use
+	var/list/known_doors = list()
+	/// Last position we were at
+	var/turf/last_position = null
+	/// How long have we been stuck in the same position?
+	var/stuck_time = 0
+	/// Position where we got stuck
+	var/turf/stuck_position = null
+	/// How long to wait before considering ourselves stuck (deciseconds) - 10 seconds
+	var/stuck_timeout = 100
+	/// How long to wait before smashing (deciseconds) - 15 seconds (stuck_timeout + smash_delay)
+	var/smash_delay = 150
+	/// Last time we smashed something (prevents spam)
+	var/last_smash_time = 0
+	/// Cooldown between smash attempts (deciseconds) - 5 seconds
+	var/smash_cooldown = 50
+	/// Are we currently stuck and trying alternate routes?
+	var/is_stuck = FALSE
+	/// How many alternate path attempts have we made?
+	var/path_attempts = 0
+	/// Maximum path attempts before smashing
+	var/max_path_attempts = 3
 
 	/// How long have we been on stairs?
 	var/time_on_stairs = 0
@@ -211,6 +243,15 @@
 
 	/// What's our primary combat style?
 	var/combat_mode = COMBAT_MODE_MELEE // COMBAT_MODE_MELEE, COMBAT_MODE_RANGED, or COMBAT_MODE_MIXED
+
+	/// CHAIN REACTION ALERTING - tracks if this mob is the "alpha" that woke up others
+	var/is_alpha_alerter = FALSE
+	/// Range for chain reaction LOS alerting (tiles)
+	var/chain_alert_range = 15
+	/// Cooldown for chain alerting to prevent spam
+	COOLDOWN_DECLARE(chain_alert_cooldown)
+	/// How long between chain alerts (deciseconds)
+	var/chain_alert_delay = 30 // 3 seconds
 
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
@@ -240,6 +281,23 @@
 		deltimer(search_timer_id)
 		search_timer_id = null
 	searching = FALSE
+	
+	// Clear smart search memory
+	if(searched_turfs)
+		searched_turfs.Cut()
+	searched_turfs = null
+	
+	if(searched_doors)
+		searched_doors.Cut()
+	searched_doors = null
+	
+	search_expansion = 0
+	
+	// Clear stuck state and door memory
+	known_doors = null
+	last_position = null
+	stuck_position = null
+	is_stuck = FALSE
 	
 	// Clear lists
 	if(friends)
@@ -326,6 +384,47 @@
 
 	var/list/possible_targets = ListTargets()
 	
+	// POSITION TRACKING - detect if we're stuck
+	var/turf/current_pos = get_turf(src)
+	if(target && current_pos)
+		if(last_position == current_pos)
+			// We haven't moved
+			if(!stuck_position)
+				stuck_position = current_pos
+				stuck_time = world.time
+			else if(world.time - stuck_time > stuck_timeout)
+				// We've been stuck for too long
+				if(!is_stuck)
+					// PROXIMITY CHECK: If target is close and visible, we're NOT stuck
+					var/target_dist = get_dist(src, target)
+					if(can_see(src, target, vision_range) && target_dist <= 3)
+						// Target is close and visible - not stuck, just repositioning
+						stuck_position = null
+						stuck_time = 0
+					else
+						is_stuck = TRUE
+						path_attempts = 0
+						visible_message(span_notice("[src] seems to be having trouble reaching its target..."))
+		else
+			// We moved! Clear stuck state
+			if(is_stuck || stuck_position)
+				is_stuck = FALSE
+				stuck_position = null
+				stuck_time = 0
+				path_attempts = 0
+	else
+		// No target, clear stuck state
+		is_stuck = FALSE
+		stuck_position = null
+		stuck_time = 0
+		path_attempts = 0
+	
+	last_position = current_pos
+	
+	// DOOR MEMORY - scan for nearby doors periodically
+	if(can_open_doors && prob(10)) // 10% chance per tick to scan
+		scan_for_doors()
+	
 	// HARD ANTI-STUCK CHECK - force mobs off stairs if stuck too long
 	var/on_stairs = FALSE
 	for(var/obj/structure/stairs/S in loc)
@@ -375,7 +474,10 @@
 
 	if(AICanContinue(possible_targets))
 		if(!QDELETED(target) && !targets_from.Adjacent(target))
-			DestroyPathToTarget()
+			// ONLY try to destroy path if we've been stuck for a LONG time
+			// This makes door opening and pathfinding the primary methods
+			if(is_stuck && (world.time - stuck_time > smash_delay))
+				DestroyPathToTarget()
 		if(!MoveToTarget(possible_targets))
 			if(AIShouldSleep(possible_targets))
 				toggle_ai(AI_IDLE)
@@ -460,13 +562,23 @@
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
 		COOLDOWN_RESET(src, sight_shoot_delay) // Let them shoot back immediately when attacked
+		
+		// CHAIN REACTION: This mob just woke up, alert nearby allies
+		trigger_chain_alert(user)
 	return ..()
 
 /mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
-	// ALERT NEARBY ALLIES ABOUT COMBAT - BEFORE taking damage
-	// This way even near-misses alert mobs
+	// ALERT NEARBY ALLIES ABOUT COMBAT - alert at multiple locations
 	if(P.firer)
-		alert_allies_of_combat(get_turf(P), P.firer)
+		// Alert from shooter location (full range, muffled by walls)
+		alert_allies_of_combat(get_turf(P.firer), P.firer)
+		
+		// Alert from impact location (smaller radius, also muffled)
+		// This represents the sound of bullet hitting wall/target/mob
+		var/turf/impact_loc = get_turf(src)
+		if(impact_loc)
+			// Use a smaller range for impact sounds
+			alert_allies_of_impact(impact_loc, P.firer, impact_hearing_range)
 	
 	. = ..()
 	if (peaceful == TRUE)
@@ -475,8 +587,156 @@
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer), 1)
 			COOLDOWN_RESET(src, sight_shoot_delay)
+			
+			// CHAIN REACTION: This mob just woke up, alert nearby allies
+			trigger_chain_alert(P.firer)
 		Goto(P.starting, move_to_delay, 3)
 
+// GLOBAL HELPER: Alert all hostile mobs about a projectile impact at a location
+// This should be called from turf/obj bullet_act implementations or projectile on_range
+/proc/alert_hostile_mobs_of_impact(turf/impact_location, atom/firer, impact_range = 5)
+	if(!impact_location || !firer)
+		return
+	
+	// Find all hostile mobs within reasonable hearing range (max 20 tiles)
+	for(var/mob/living/simple_animal/hostile/M in range(20, impact_location))
+		if(M.stat == DEAD || M.ckey || !M.can_hear_combat)
+			continue
+		
+		// Only alert mobs actively engaged (has target or searching)
+		if(!M.target && !M.searching)
+			continue
+		
+		// Check muffled range
+		var/effective_range = M.calculate_muffled_sound_range(impact_location, impact_range)
+		var/distance = get_dist(M, impact_location)
+		var/z_distance = abs(M.z - impact_location.z)
+		
+		if(distance <= effective_range && z_distance <= 1)
+			M.hear_impact_sound(impact_location, firer)
+
+// CHAIN REACTION ALERTING
+// When a mob wakes up, it alerts all allies within LOS (vision range)
+// Those allies then check for the original target and also wake up
+// This creates a cascading alert system
+/mob/living/simple_animal/hostile/proc/trigger_chain_alert(atom/threat)
+	if(!threat)
+		return
+	
+	// Cooldown check to prevent spam
+	if(!COOLDOWN_FINISHED(src, chain_alert_cooldown))
+		return
+	
+	COOLDOWN_START(src, chain_alert_cooldown, chain_alert_delay)
+	
+	// Mark this mob as the alpha (primary alerter)
+	is_alpha_alerter = TRUE
+	
+	visible_message(span_danger("[src] alerts nearby allies!"))
+	
+	// Find all allies within vision range that have LOS to us
+	var/list/alerted_allies = list()
+	
+	// Check same Z-level
+	for(var/mob/living/simple_animal/hostile/M in range(chain_alert_range, src))
+		if(M == src || M.stat == DEAD || M.ckey)
+			continue
+		if(!faction_check_mob(M, TRUE))
+			continue
+		
+		// Check LOS between this mob and the ally
+		if(can_see(src, M, chain_alert_range))
+			alerted_allies += M
+	
+	// Check Z-level above
+	var/turf/above_us = get_step_multiz(get_turf(src), UP)
+	if(above_us)
+		for(var/mob/living/simple_animal/hostile/M in range(chain_alert_range, above_us))
+			if(M == src || M.stat == DEAD || M.ckey)
+				continue
+			if(!faction_check_mob(M, TRUE))
+				continue
+			
+			// Check if we can see them through openspace
+			if(can_see(src, M, chain_alert_range))
+				alerted_allies += M
+	
+	// Check Z-level below
+	var/turf/below_us = get_step_multiz(get_turf(src), DOWN)
+	if(below_us)
+		for(var/mob/living/simple_animal/hostile/M in range(chain_alert_range, below_us))
+			if(M == src || M.stat == DEAD || M.ckey)
+				continue
+			if(!faction_check_mob(M, TRUE))
+				continue
+			
+			// Check if we can see them through openspace
+			if(can_see(src, M, chain_alert_range))
+				alerted_allies += M
+	
+	// Alert each ally - they will then propagate the alert if they can see the threat
+	for(var/mob/living/simple_animal/hostile/ally in alerted_allies)
+		ally.receive_chain_alert(threat, src)
+
+// Receive a chain alert from an ally
+/mob/living/simple_animal/hostile/proc/receive_chain_alert(atom/threat, mob/living/simple_animal/hostile/alerter)
+	if(!threat || QDELETED(threat))
+		return
+	
+	// If already active, ignore
+	if(AIStatus == AI_ON || target)
+		return
+	
+	// Wake up!
+	visible_message(span_danger("[src] perks up from [alerter]'s alert!"))
+	
+	// Set the threat as our target if we can see them
+	if(can_see(src, threat, vision_range))
+		if(AIStatus != AI_ON)
+			toggle_ai(AI_ON)
+		FindTarget(list(threat), 1)
+		remembered_target = threat
+		last_target_sighting = world.time
+		last_known_location = get_turf(threat)
+		
+		// Propagate the chain reaction (but don't mark as alpha)
+		// This creates the cascading effect
+		if(!is_alpha_alerter) // Don't double-alert if we're the alpha
+			trigger_chain_alert(threat)
+	else
+		// Can't see the threat directly, but enter search mode toward last known location
+		if(AIStatus != AI_ON)
+			toggle_ai(AI_ON)
+		last_known_location = get_turf(threat)
+		enter_search_mode()
+
+// SOUND MUFFLING THROUGH WALLS
+// Calculates effective hearing range by counting walls between source and listener
+// Each wall reduces range by 1 tile
+/mob/living/simple_animal/hostile/proc/calculate_muffled_sound_range(turf/sound_source, base_range)
+	if(!sound_source)
+		return 0
+	
+	var/turf/our_turf = get_turf(src)
+	if(!our_turf)
+		return 0
+	
+	// Get line between source and us
+	var/list/line = getline(sound_source, our_turf)
+	
+	// Count walls
+	var/wall_count = 0
+	for(var/turf/T in line)
+		if(iswallturf(T))
+			wall_count++
+	
+	// Each wall reduces range by 1
+	var/effective_range = base_range - wall_count
+	
+	// Can't go below 0
+	return max(effective_range, 0)
+
+// Updated alert_allies_of_combat with sound muffling
 /mob/living/simple_animal/hostile/proc/alert_allies_of_combat(turf/combat_location, atom/attacker)
 	if(!combat_location)
 		return
@@ -489,7 +749,12 @@
 		if(M == src || M.stat == DEAD || M.ckey)
 			continue
 		if(faction_check_mob(M, TRUE))
-			allies_in_range += M
+			// Check muffled range
+			var/effective_range = M.calculate_muffled_sound_range(combat_location, combat_hearing_range)
+			var/actual_distance = get_dist(M, combat_location)
+			
+			if(actual_distance <= effective_range)
+				allies_in_range += M
 	
 	// Z above
 	var/turf/above = get_step_multiz(combat_location, UP)
@@ -498,7 +763,12 @@
 			if(M == src || M.stat == DEAD || M.ckey)
 				continue
 			if(faction_check_mob(M, TRUE))
-				allies_in_range += M
+				// Check muffled range (Z-distance adds 1 wall equivalent)
+				var/effective_range = M.calculate_muffled_sound_range(combat_location, combat_hearing_range) - 1
+				var/actual_distance = get_dist(M, above)
+				
+				if(actual_distance <= effective_range)
+					allies_in_range += M
 	
 	// Z below
 	var/turf/below = get_step_multiz(combat_location, DOWN)
@@ -507,11 +777,41 @@
 			if(M == src || M.stat == DEAD || M.ckey)
 				continue
 			if(faction_check_mob(M, TRUE))
-				allies_in_range += M
+				// Check muffled range (Z-distance adds 1 wall equivalent)
+				var/effective_range = M.calculate_muffled_sound_range(combat_location, combat_hearing_range) - 1
+				var/actual_distance = get_dist(M, below)
+				
+				if(actual_distance <= effective_range)
+					allies_in_range += M
 	
 	// Alert all allies
 	for(var/mob/living/simple_animal/hostile/ally in allies_in_range)
 		ally.hear_combat_sound(combat_location, attacker)
+
+// Alert allies about impact sounds (bullet hitting wall/target)
+// Smaller radius than gunfire, but still muffled by walls
+/mob/living/simple_animal/hostile/proc/alert_allies_of_impact(turf/impact_location, atom/attacker, impact_range = 5)
+	if(!impact_location)
+		return
+	
+	var/notified = 0
+	var/max_notifications = 10 // CPU OPTIMIZATION: Limit notifications per impact
+	
+	// CPU OPTIMIZATION: Reduced range from 20 to 5 tiles, ALL hostile mobs (not just faction)
+	// Impacts are universal - everyone hears bullets hitting things nearby
+	for(var/mob/living/simple_animal/hostile/M in range(5, impact_location))
+		if(M.stat == DEAD || M.ckey || !M.can_hear_combat)
+			continue
+		
+		// Check muffled range
+		var/effective_range = M.calculate_muffled_sound_range(impact_location, impact_range)
+		var/actual_distance = get_dist(M, impact_location)
+		
+		if(actual_distance <= effective_range)
+			M.hear_impact_sound(impact_location, attacker)
+			notified++
+			if(notified >= max_notifications) // Early exit optimization
+				return
 
 /mob/living/simple_animal/hostile/Hear(message, atom/movable/speaker, datum/language/message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
 	. = ..()
@@ -641,8 +941,6 @@
 		if(CanAttack(A))
 			. += A
 			continue
-
-
 
 /mob/living/simple_animal/hostile/proc/Found(atom/A)//This is here as a potential override to pick a specific target if available
 	return
@@ -1101,6 +1399,12 @@
 	remembered_target = null
 	last_known_location = null
 	
+	// Clear stuck state when losing target
+	is_stuck = FALSE
+	stuck_position = null
+	stuck_time = 0
+	path_attempts = 0
+	
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
@@ -1338,6 +1642,11 @@
 	searching = TRUE
 	last_known_location = get_turf(target) // Remember where we last saw them
 	
+	// SMART SEARCH: Clear previous search memory
+	searched_turfs = list()
+	searched_doors = list()
+	search_expansion = 0
+	
 	visible_message(span_warning("[src] looks around suspiciously..."))
 	
 	// Call for backup - let allies know we lost the target
@@ -1355,6 +1664,11 @@
 	last_known_location = null
 	search_timer_id = null
 	
+	// SMART SEARCH: Clear search memory
+	searched_turfs = list()
+	searched_doors = list()
+	search_expansion = 0
+	
 	// Give up and return to idle
 	if(!target)
 		LoseTarget()
@@ -1369,16 +1683,86 @@
 		last_target_sighting = world.time
 		return
 	
-	// Move to a random location near last known position
-	if(last_known_location && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
-		var/list/search_turfs = list()
-		for(var/turf/T in range(search_radius, last_known_location))
-			if(istype(T, /turf/open))
-				search_turfs += T
+	if(!last_known_location || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
+		addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS)
+		return
+	
+	// SMART SEARCH: Expand radius every few iterations
+	var/current_radius = search_radius + (search_expansion * 3)
+	if(current_radius > 20)
+		current_radius = 20 // Cap at 20 tiles
+	
+	// PRIORITY 1: Check nearby doors we haven't checked yet
+	if(can_open_doors)
+		var/opened_door = FALSE
+		for(var/turf/T in range(current_radius, last_known_location))
+			// Check for simple doors
+			for(var/obj/structure/simple_door/SD in T)
+				if(SD in searched_doors)
+					continue // Already checked this door
+				
+				if(SD.density && get_dist(src, T) <= 1) // Only open if adjacent
+					searched_doors += SD
+					if(try_open_door(SD))
+						visible_message(span_notice("[src] checks behind [SD]..."))
+						opened_door = TRUE
+						break
+			
+			// Check for machinery doors
+			for(var/obj/machinery/door/D in T)
+				if(D in searched_doors)
+					continue
+				
+				if(D.density && get_dist(src, D) <= 1)
+					searched_doors += D
+					if(try_open_door(D))
+						visible_message(span_notice("[src] checks behind [D]..."))
+						opened_door = TRUE
+						break
+			
+			if(opened_door)
+				break
+	
+	// PRIORITY 2: Move to unexplored areas
+	var/list/unexplored_turfs = list()
+	for(var/turf/T in range(current_radius, last_known_location))
+		if(T in searched_turfs)
+			continue // Already searched here
 		
-		if(search_turfs.len)
-			var/turf/search_target = pick(search_turfs)
-			Goto(search_target, move_to_delay, 0)
+		if(!istype(T, /turf/open))
+			continue
+		
+		// Prioritize turfs near doors
+		var/near_door = FALSE
+		for(var/turf/adj in orange(1, T))
+			for(var/obj/structure/simple_door/SD in adj)
+				near_door = TRUE
+				break
+			for(var/obj/machinery/door/D in adj)
+				near_door = TRUE
+				break
+			if(near_door)
+				break
+		
+		if(near_door)
+			unexplored_turfs.Insert(1, T) // Put door-adjacent turfs at front
+		else
+			unexplored_turfs += T
+	
+	// Move to unexplored area
+	if(unexplored_turfs.len)
+		var/turf/search_target = unexplored_turfs[1] // Pick first (prioritized) turf
+		searched_turfs += search_target
+		Goto(search_target, move_to_delay, 0)
+	else
+		// EXPANSION: All nearby areas searched, expand radius
+		search_expansion++
+		if(search_expansion <= 3)
+			visible_message(span_notice("[src] expands the search..."))
+		else
+			// Give up after expanding 3 times
+			exit_search_mode()
+			return
 	
 	// Keep searching every few seconds
 	addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS)
@@ -1572,7 +1956,7 @@
 	last_climb_reset = world.time
 	last_successful_z_move = world.time
 
-// SOUND DETECTION - hear gunfire and move toward it
+// SOUND DETECTION - hear gunfire and move toward it (WITH MUFFLING)
 /mob/living/simple_animal/hostile/proc/hear_combat_sound(turf/sound_location, atom/sound_source)
 	if(!can_hear_combat)
 		return
@@ -1580,11 +1964,14 @@
 	if(!sound_location || QDELETED(sound_location))
 		return
 	
-	// Ignore sounds too far away (including Z-distance)
+	// Calculate muffled range
+	var/effective_range = calculate_muffled_sound_range(sound_location, combat_hearing_range)
+	
+	// Ignore sounds beyond effective range
 	var/distance = get_dist(src, sound_location)
 	var/z_distance = abs(z - sound_location.z)
 	
-	if(distance > combat_hearing_range)
+	if(distance > effective_range)
 		return
 	
 	if(z_distance > 1) // Only hear sounds 1 Z-level away max
@@ -1594,13 +1981,18 @@
 	
 	// Don't give exact location - pick a random spot near the sound (simulates hearing direction)
 	var/list/investigation_turfs = list()
-	for(var/turf/T in range(7, sound_location)) // 7 tile radius around actual sound
+	for(var/turf/T in range(3, sound_location)) // Smaller radius for more accurate investigation
 		if(istype(T, /turf/open))
 			investigation_turfs += T
 	
 	var/turf/investigation_spot = sound_location
 	if(investigation_turfs.len)
 		investigation_spot = pick(investigation_turfs)
+	
+	// WAKE UP if idle - sounds should always wake mobs
+	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+		toggle_ai(AI_ON)
+		visible_message(span_warning("[src] perks up at the sound of combat!"))
 	
 	// If we're stuck on stairs or in a loop, this breaks us out
 	if(pursuing_z_target || (recent_climbs >= 2))
@@ -1610,8 +2002,6 @@
 			recent_climbs = 0
 			z_commit_time = 0
 			
-			visible_message(span_danger("[src] perks up at the sound of combat!"))
-			
 			if(remembered_target)
 				last_known_location = investigation_spot // Use approximate location
 			
@@ -1619,21 +2009,91 @@
 				last_known_location = investigation_spot
 		else if(sound_location.z == z)
 			commit_to_z_level()
-			visible_message(span_danger("[src] hears combat nearby!"))
 			
 			if(searching || !target)
 				last_known_location = investigation_spot
 				if(!searching)
 					enter_search_mode()
 	
-	// If we're idle or searching, investigate the sound
-	if(AIStatus == AI_IDLE || searching)
-		last_known_location = investigation_spot // Approximate location
+	// ACTIVELY INVESTIGATE - move toward the sound!
+	if(!target) // Only investigate if we don't have a target
+		last_known_location = investigation_spot
 		
 		if(!searching)
 			enter_search_mode()
+			visible_message(span_notice("[src] starts investigating the commotion..."))
 		else
+			// Already searching, update location
 			visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
+	else if(searching)
+		// We have a remembered target but are searching - update search location
+		last_known_location = investigation_spot
+		visible_message(span_notice("[src] adjusts their search toward the gunfire..."))
+
+// Hear impact sounds (bullet hitting wall/target) - smaller radius
+/mob/living/simple_animal/hostile/proc/hear_impact_sound(turf/impact_location, atom/sound_source)
+	if(!can_hear_combat)
+		return
+	
+	if(!impact_location || QDELETED(impact_location))
+		return
+	
+	// Calculate muffled range (now 7 tiles to match combat sounds)
+	var/effective_range = calculate_muffled_sound_range(impact_location, impact_hearing_range)
+	
+	// Ignore sounds beyond effective range
+	var/distance = get_dist(src, impact_location)
+	var/z_distance = abs(z - impact_location.z)
+	
+	if(distance > effective_range)
+		return
+	
+	if(z_distance > 1) // Only hear sounds 1 Z-level away max
+		return
+	
+	last_combat_sound = world.time
+	
+	// Use impact location directly for CPU efficiency (no random picking)
+	var/turf/investigation_spot = impact_location
+	
+	// ALWAYS WAKE UP - impacts should alert idle mobs
+	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+		toggle_ai(AI_ON)
+		visible_message(span_warning("[src] hears an impact nearby!"))
+	
+	// AGGRESSIVE DOOR CHECKING - open doors between us and impact (ONLY ADJACENT)
+	if(can_open_doors)
+		var/list/path = getline(get_turf(src), impact_location)
+		for(var/turf/T in path)
+			// REALISM FIX: Only open doors within melee range (adjacent)
+			var/door_distance = get_dist(src, T)
+			if(door_distance > 1)
+				continue // Too far to open
+			
+			// Check for simple doors
+			for(var/obj/structure/simple_door/SD in T)
+				if(SD.density && try_open_door(SD))
+					visible_message(span_notice("[src] opens [SD] to investigate!"))
+					break // Only open one door per check for performance
+			
+			// Check for machinery doors
+			for(var/obj/machinery/door/D in T)
+				if(D.density && try_open_door(D))
+					visible_message(span_notice("[src] opens [D] to investigate!"))
+					break // Only open one door per check for performance
+	
+	// INVESTIGATE - move toward the impact
+	if(!target)
+		last_known_location = investigation_spot
+		
+		if(!searching)
+			enter_search_mode()
+			visible_message(span_notice("[src] goes to investigate the noise..."))
+		else
+			last_known_location = investigation_spot
+	else if(searching)
+		// Update search location to be closer to impact
+		last_known_location = investigation_spot
 
 /mob/living/simple_animal/hostile/proc/hear_gunshot(turf/shot_location, atom/shooter)
 	if(!can_hear_combat)
@@ -1646,10 +2106,13 @@
 	if(shooter && faction_check_mob(shooter))
 		return // Don't care about friendly fire
 	
+	// Calculate muffled range
+	var/effective_range = calculate_muffled_sound_range(shot_location, combat_hearing_range)
+	
 	var/distance = get_dist(src, shot_location)
 	var/z_distance = abs(z - shot_location.z)
 	
-	if(distance > combat_hearing_range)
+	if(distance > effective_range)
 		return
 	
 	if(z_distance > 1)
@@ -1716,8 +2179,36 @@
 	return FALSE
 
 /mob/living/simple_animal/hostile/proc/OpenFire(atom/A)
+	// CRITICAL: Check if we actually have line of sight before shooting
+	if(!can_see(src, A, vision_range))
+		return FALSE // Can't see target, don't shoot
+	
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
 		return FALSE
+	
+	// TACTICAL: Check shot line for doors - prefer opening over shooting (ONLY ADJACENT)
+	if(can_open_doors && A.z == z) // Only check same Z-level
+		var/list/shot_line = getline(src, A)
+		for(var/turf/T in shot_line)
+			if(T == get_turf(src)) // Skip our own tile
+				continue
+			
+			// REALISM FIX: Only open doors within melee range (adjacent tiles)
+			var/door_distance = get_dist(src, T)
+			if(door_distance > 1)
+				continue // Too far to open, skip this door
+			
+			// Check for simple doors
+			for(var/obj/structure/simple_door/SD in T)
+				if(SD.density && try_open_door(SD))
+					visible_message(span_notice("[src] opens [SD] to get a clear shot!"))
+					return FALSE // Don't shoot this turn, door is opening
+			
+			// Check for machinery doors
+			for(var/obj/machinery/door/D in T)
+				if(D.density && try_open_door(D))
+					visible_message(span_notice("[src] opens [D] to get a clear shot!"))
+					return FALSE // Don't shoot this turn, door is opening
 	
 	// Allow shooting through openspace
 	if(A.z != z)
@@ -1891,6 +2382,69 @@
 		. =  Move(moving_to,move_direction)
 	dodging = TRUE
 
+// SPATIAL AWARENESS - scan for doors we can use
+/mob/living/simple_animal/hostile/proc/scan_for_doors()
+	if(!can_open_doors)
+		return
+	
+	// Scan area around us for doors
+	var/scan_range = min(vision_range, 7) // Don't scan too far
+	
+	for(var/obj/machinery/door/D in range(scan_range, src))
+		// Add to known doors if not already there
+		var/door_loc = get_turf(D)
+		if(door_loc && !(door_loc in known_doors))
+			known_doors += door_loc
+	
+	for(var/obj/structure/simple_door/SD in range(scan_range, src))
+		// Add to known doors if not already there
+		var/door_loc = get_turf(SD)
+		if(door_loc && !(door_loc in known_doors))
+			known_doors += door_loc
+	
+	// Limit memory size to prevent bloat (keep 20 most recent)
+	if(known_doors.len > 20)
+		known_doors.Cut(1, known_doors.len - 20)
+
+// Try alternate paths using door memory
+/mob/living/simple_animal/hostile/proc/try_alternate_path()
+	if(!target || !can_open_doors)
+		return FALSE
+	
+	if(path_attempts >= max_path_attempts)
+		return FALSE // Tried enough times
+	
+	path_attempts++
+	
+	// Look for known doors that might provide alternate routes
+	var/list/potential_doors = list()
+	
+	for(var/turf/door_loc in known_doors)
+		if(QDELETED(door_loc))
+			known_doors -= door_loc
+			continue
+		
+		// Check if door is in a useful direction
+		var/door_dist = get_dist(src, door_loc)
+		var/target_dist = get_dist(src, target)
+		
+		// Door should be closer to us than target, but still reasonably close to target
+		if(door_dist < target_dist && door_dist <= 10)
+			potential_doors += door_loc
+	
+	if(!potential_doors.len)
+		return FALSE
+	
+	// Pick a random door to try
+	var/turf/chosen_door = pick(potential_doors)
+	
+	visible_message(span_notice("[src] looks for another way around..."))
+	
+	// Pathfind to the door
+	Goto(chosen_door, move_to_delay, 0)
+	
+	return TRUE
+
 /mob/living/simple_animal/hostile/proc/DestroyObjectsInDirection(direction)
 	var/turf/T = get_step(targets_from, direction)
 	if(T && T.Adjacent(targets_from))
@@ -1903,51 +2457,76 @@
 
 
 /mob/living/simple_animal/hostile/proc/DestroyPathToTarget()
-	// STEP 1: Try opening doors first (if capable)
-	if(can_open_doors)
-		var/dir_to_target = get_dir(targets_from, target)
-		var/turf/T = get_step(targets_from, dir_to_target)
-		if(T)
-			for(var/obj/machinery/door/D in T)
-				if(D.density && try_open_door(D))
-					return // Successfully opened door, no need to smash
+	// This should only be called when we're REALLY stuck (after 15 seconds of trying)
 	
-	// STEP 2: Only smash if we can't open doors OR door opening failed
-	if(environment_smash)
-		EscapeConfinement()
-		var/dir_to_target = get_dir(targets_from, target)
-		var/dir_list = list()
-		if(dir_to_target in GLOB.diagonals)
-			for(var/direction in GLOB.cardinals)
-				if(direction & dir_to_target)
-					dir_list += direction
-		else
-			dir_list += dir_to_target
+	// PRIORITY 1: Try opening doors aggressively first
+	if(can_open_doors)
+		var/opened_something = FALSE
 		
-		// Only smash if target is relatively close (prevents smashing through entire base)
-		var/target_dist = get_dist(targets_from, target)
-		if(target_dist <= 5) // Only smash if within 5 tiles
-			for(var/direction in dir_list)
-				DestroyOrOpenInDirection(direction)
-
-/mob/living/simple_animal/hostile/proc/DestroyOrOpenInDirection(direction)
-	var/turf/T = get_step(targets_from, direction)
-	if(T && T.Adjacent(targets_from))
-		// Check for doors first
-		if(can_open_doors)
+		// Try all adjacent turfs for doors
+		for(var/dir in GLOB.cardinals)
+			var/turf/T = get_step(src, dir)
+			if(!T)
+				continue
+			
 			// Try simple doors
 			for(var/obj/structure/simple_door/SD in T)
-				if(SD.density) // Door is closed
-					if(try_open_door(SD))
-						return // Successfully opened door, don't destroy
+				if(SD.density && try_open_door(SD))
+					opened_something = TRUE
+					visible_message(span_notice("[src] forces open [SD]!"))
 			
 			// Try machinery doors
 			for(var/obj/machinery/door/D in T)
-				if(D.density) // Door is closed
-					if(try_open_door(D))
-						return // Successfully opened door, don't destroy
+				if(D.density && try_open_door(D))
+					opened_something = TRUE
+					visible_message(span_notice("[src] forces open [D]!"))
 		
-		// If we didn't open a door, proceed with normal destruction
+		if(opened_something)
+			// Give the door time to open
+			return
+	
+	// PRIORITY 2: Try alternate paths using door memory
+	if(can_open_doors && try_alternate_path())
+		visible_message(span_notice("[src] tries to find another route..."))
+		return
+	
+	// PRIORITY 3: Only smash if we can't open doors AND we're REALLY stuck
+	if(!environment_smash)
+		return // Can't smash, give up
+	
+	// Check if we've been stuck long enough to justify smashing
+	if(!is_stuck || (world.time - stuck_time < smash_delay))
+		return // Not stuck long enough yet
+	
+	// ANTI-SPAM: Check smash cooldown
+	if((world.time - last_smash_time) < smash_cooldown)
+		return // Too soon since last smash
+	
+	// ONE frustration message with cooldown
+	visible_message(span_danger("[src] gets frustrated and starts breaking things!"))
+	last_smash_time = world.time
+	
+	// Now we can smash
+	EscapeConfinement()
+	var/dir_to_target = get_dir(targets_from, target)
+	var/dir_list = list()
+	if(dir_to_target in GLOB.diagonals)
+		for(var/direction in GLOB.cardinals)
+			if(direction & dir_to_target)
+				dir_list += direction
+	else
+		dir_list += dir_to_target
+	
+	// Only smash if target is close (prevents smashing through entire base)
+	var/target_dist = get_dist(targets_from, target)
+	if(target_dist <= 5) // Only smash if within 5 tiles
+		for(var/direction in dir_list)
+			SmashInDirection(direction)
+
+// Pure smashing - no door checking (that's handled above now)
+/mob/living/simple_animal/hostile/proc/SmashInDirection(direction)
+	var/turf/T = get_step(targets_from, direction)
+	if(T && T.Adjacent(targets_from))
 		if(environment_smash)
 			if(CanSmashTurfs(T))
 				T.attack_animal(src)
