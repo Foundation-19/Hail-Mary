@@ -930,18 +930,16 @@
 					if(D.density)
 						try_open_door(D)
 		
-// MOVEMENT & DISTANCE MANAGEMENT - handle retreat/advance BEFORE melee
+	// MOVEMENT & DISTANCE MANAGEMENT - handle retreat/advance BEFORE melee
 		if(retreat_distance != null)
-			// Ranged mob behavior
+			// Ranged/Mixed mob behavior
 			if(target_distance < retreat_distance && CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
 				// Too close! Retreat to preferred distance
 				set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
 				walk_away(src,target,retreat_distance,move_to_delay)
 			else if(target_distance > retreat_distance)
 				// Too far! Move closer TO retreat_distance (our optimal range)
-				// But never closer than retreat_distance - 1 to avoid accidentally entering melee
-				var/safe_approach_distance = max(retreat_distance - 1, 1)
-				Goto(target,move_to_delay,safe_approach_distance)
+				Goto(target,move_to_delay,retreat_distance)
 			else
 				// We're at optimal range! Stop and shoot
 				walk(src, 0)
@@ -968,23 +966,28 @@
 				// We're in melee range - should we melee?
 				var/should_melee = FALSE
 				
-				if(combat_mode == COMBAT_MODE_MELEE)
+				// Check combat mode - default to MELEE if not set
+				var/effective_combat_mode = combat_mode ? combat_mode : COMBAT_MODE_MELEE
+				
+				if(effective_combat_mode == COMBAT_MODE_MELEE)
 					// Pure melee mob - always melee
 					should_melee = TRUE
-				else if(combat_mode == COMBAT_MODE_MIXED)
+				else if(effective_combat_mode == COMBAT_MODE_MIXED)
 					// Mixed mob - melee if target got close
 					should_melee = TRUE
-				else if(combat_mode == COMBAT_MODE_RANGED)
+				else if(effective_combat_mode == COMBAT_MODE_RANGED)
 					// Pure ranged - NEVER melee, keep backing away
 					should_melee = FALSE
 				
 				if(should_melee)
 					COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
 					MeleeAction()
-			else if(rapid_melee > 1 && target_distance <= melee_queue_distance && combat_mode != COMBAT_MODE_RANGED)
-				// Queue up melee for fast-attacking melee/mixed mobs only
-				COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
-				MeleeAction(FALSE)
+			else if(rapid_melee > 1 && target_distance <= melee_queue_distance)
+				// Only queue melee for MELEE/MIXED combat modes
+				var/effective_combat_mode = combat_mode ? combat_mode : COMBAT_MODE_MELEE
+				if(effective_combat_mode != COMBAT_MODE_RANGED)
+					COOLDOWN_START(src, melee_cooldown, melee_attack_cooldown)
+					MeleeAction(FALSE)
 			else
 				in_melee = FALSE
 			

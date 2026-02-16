@@ -13,7 +13,6 @@
 	icon_living = "raider_melee"
 	icon_dead = "raider_dead"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	turns_per_move = 5
 	mob_armor = ARMOR_VALUE_RAIDER_LEATHER_JACKET
 	maxHealth = 100
 	health = 100
@@ -26,30 +25,23 @@
 	check_friendly_fire = TRUE
 	status_flags = CANPUSH
 	del_on_death = FALSE
+	
 	loot = list(/obj/item/melee/onehanded/knife/survival, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 2
 	loot_amount_random = TRUE
 	var/random_trash_loot = TRUE
+	
 	footstep_type = FOOTSTEP_MOB_SHOE
 	rapid_melee = 2
 	melee_queue_distance = 5
 	move_to_delay = 3
+	turns_per_move = 5
 	waddle_amount = 2
 	waddle_up_time = 1
 	waddle_side_time = 1
 	
-	// Combat behavior
-	combat_mode = COMBAT_MODE_MELEE
-	retreat_distance = null
-	minimum_distance = 1
-	
 	aggro_vision_range = 6
 	vision_range = 8
-	
-	variation_list = list(
-		MOB_NAME_FROM_GLOBAL_LIST(\
-			MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1)\
-		))
 	
 	// Z-movement
 	can_z_move = TRUE
@@ -61,27 +53,36 @@
 	// Door interaction
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
+	
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+	
+	variation_list = list(
+		MOB_NAME_FROM_GLOBAL_LIST(MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1))
+	)
 
 /mob/living/simple_animal/hostile/raider/Initialize()
 	. = ..()
 	if(random_trash_loot)
 		loot = GLOB.trash_ammo + GLOB.trash_chem + GLOB.trash_clothing + GLOB.trash_craft + GLOB.trash_gun + GLOB.trash_misc + GLOB.trash_money + GLOB.trash_mob + GLOB.trash_part + GLOB.trash_tool + GLOB.trash_attachment
 
-/obj/effect/mob_spawn/human/corpse/raider
-	name = "Raider"
-	uniform = /obj/item/clothing/under/f13/rag
-	suit = /obj/item/clothing/suit/armor/medium/raider/iconoclast
-	shoes = /obj/item/clothing/shoes/f13/explorer
-	gloves = /obj/item/clothing/gloves/f13/leather
-	head = /obj/item/clothing/head/helmet/f13/firefighter
-
 /mob/living/simple_animal/hostile/raider/Aggro()
 	. = ..()
 	if(.)
 		return
-	summon_backup(15)
+	summon_backup(10)
 	if(!ckey)
-		say(pick("*insult", "Fuck off!!", "Back off!!" , "Keep moving!!", "Get lost, asshole!!", "Call a doctor, we got a bleeder!!", "Fuck around and find out!!" ))
+		say(pick("*insult", "Fuck off!!", "Back off!!", "Keep moving!!", "Get lost, asshole!!", "Call a doctor, we got a bleeder!!", "Fuck around and find out!!"))
+
+// Override CanAttack to ignore unconscious/dead targets
+/mob/living/simple_animal/hostile/raider/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
 
 // THIEF RAIDER - nabs stuff and runs
 /mob/living/simple_animal/hostile/raider/thief
@@ -122,24 +123,23 @@
 	maxHealth = 85
 	health = 85
 	
-	// Combat behavior - pure ranged
+	loot = list(/obj/effect/spawner/lootdrop/f13/npc_raider, /obj/item/stack/f13Cash/random/med)
+	loot_drop_amount = 3
+	
+	// Pure ranged - CRITICAL FIX
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
-	retreat_distance = 4
-	minimum_distance = 4
+	retreat_distance = 5  // Stay at 5 tiles away
+	minimum_distance = 1  // Ignored for pure ranged, but set anyway
 	
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
 	projectilesound = 'sound/f13weapons/ninemil.ogg'
 	
-	loot = list(/obj/effect/spawner/lootdrop/f13/npc_raider, /obj/item/stack/f13Cash/random/med)
-	loot_drop_amount = 3
-	
 	variation_list = list(
-		MOB_NAME_FROM_GLOBAL_LIST(\
-			MOB_RANDOM_NAME(MOB_NAME_RANDOM_FEMALE, 1)\
-		))
+		MOB_NAME_FROM_GLOBAL_LIST(MOB_RANDOM_NAME(MOB_NAME_RANDOM_FEMALE, 1))
+	)
 	
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
@@ -157,12 +157,13 @@
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes - this one seems a bit faster than the average..."
 	color = "#FFFF00"
-	maxHealth = 300
-	health = 300
+	maxHealth = 225  // Reduced from 300
+	health = 225
 	stat_attack = UNCONSCIOUS
 	speed = 1.2
 	obj_damage = 300
 	rapid_melee = 1
+	
 	loot = list(/obj/item/melee/onehanded/knife/survival, /obj/item/reagent_containers/food/snacks/kebab/human, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = MOB_LOOT_ALL
 	loot_amount_random = FALSE
@@ -173,8 +174,8 @@
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes, wielding a decent pistol and looking very strong"
 	color = "#FFFF00"
-	maxHealth = 240
-	health = 240
+	maxHealth = 180	// Reduced from 240
+	health = 180
 	stat_attack = UNCONSCIOUS
 	
 	ranged_cooldown_time = 2 SECONDS
@@ -240,9 +241,9 @@
 	)
 
 	variation_list = list(
-		MOB_RETREAT_DISTANCE_LIST(0, 1, 3, 4),
+		MOB_RETREAT_DISTANCE_LIST(3, 4, 5),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(50),
-		MOB_MINIMUM_DISTANCE_LIST(0, 2, 4),
+		MOB_MINIMUM_DISTANCE_LIST(1, 2, 3),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(40),
 	)
 
@@ -250,10 +251,11 @@
 	. = ..()
 	if(.)
 		return
-	summon_backup(15)
+	summon_backup(10)
 	if(!ckey)
 		say("KILL 'EM, FELLAS!")
 
+// NAMED BOSSES
 /mob/living/simple_animal/hostile/raider/ranged/boss/mangomatt
 	name = "Mango Mathew and his Merry Meth Madlads"
 	desc = "Hi, Mango Mathew and his Merry Meth Madlads."
@@ -274,7 +276,7 @@
 
 /mob/living/simple_animal/hostile/raider/ranged/boss/mangomatt/Aggro()
 	..()
-	summon_backup(15)
+	summon_backup(10)
 	say(pick("*nya", "*mrowl", "*lynx", "*cougar", "*growl", "*come", "Fuck em' up!"))
 
 /mob/living/simple_animal/hostile/raider/ranged/boss/blueberrybates
@@ -293,8 +295,7 @@
 	projectilesound = 'sound/f13weapons/shotgun.ogg'
 	extra_projectiles = 0
 	
-	retreat_distance = 3
-	minimum_distance = 3
+	retreat_distance = 4
 	
 	loot = list(/obj/item/stack/f13Cash/random/high, /obj/item/ammo_box/shotgun/incendiary, /obj/item/gun/ballistic/shotgun/police)
 	speak_emote = list("mutters", "counts his caps to himself", "yells at someone to pick up the pace", "barks", "grumbles", "grouches")
@@ -304,7 +305,7 @@
 
 /mob/living/simple_animal/hostile/raider/ranged/boss/blueberrybates/Aggro()
 	..()
-	summon_backup(15)
+	summon_backup(10)
 	say(pick("TO ME, BOYS!", "KICK THEIR ASS!", "Fuck 'em up!", "*chitter", "*kyaa", "*come", "YOU'RE ABOUT TO GET A DISCOUNT ON A GRAVE, BUDDY!"))
 
 // RANGED RAIDER WITH ARMOR
@@ -375,14 +376,6 @@
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
 
-/obj/effect/mob_spawn/human/corpse/raider/ranged/biker
-	uniform = /obj/item/clothing/under/f13/ncrcf
-	suit = /obj/item/clothing/suit/armor/medium/combat/rusted
-	shoes = /obj/item/clothing/shoes/f13/explorer
-	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
-	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
-	neck = /obj/item/clothing/neck/mantle/brown
-
 // YANKEE RAIDER
 /mob/living/simple_animal/hostile/raider/baseball
 	icon_state = "baseball_raider"
@@ -397,13 +390,6 @@
 	loot = list(/obj/item/twohanded/baseball, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
 
-/obj/effect/mob_spawn/human/corpse/raider/baseball
-	uniform = /obj/item/clothing/under/f13/mechanic
-	suit = /obj/item/clothing/suit/armor/medium/raider/yankee
-	shoes = /obj/item/clothing/shoes/f13/explorer
-	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
-	head = /obj/item/clothing/head/helmet/f13/raider/yankee
-
 // TRIBAL RAIDER
 /mob/living/simple_animal/hostile/raider/tribal
 	icon_state = "tribal_raider"
@@ -417,13 +403,6 @@
 	rapid_melee = 1
 	loot = list(/obj/item/twohanded/spear)
 	loot_drop_amount = 3
-
-/obj/effect/mob_spawn/human/corpse/raider/tribal
-	uniform = /obj/item/clothing/under/f13/raiderrags
-	suit = /obj/item/clothing/suit/armor/light/tribal
-	shoes = /obj/item/clothing/shoes/f13/rag
-	mask = /obj/item/clothing/mask/facewrap
-	head = /obj/item/clothing/head/helmet/f13/fiend
 
 //////////////
 // SULPHITE //
@@ -488,10 +467,11 @@
 	maxHealth = 150
 	health = 150
 	
+	// Pure ranged - spawns eyebots
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	retreat_distance = 6
-	minimum_distance = 8
+	minimum_distance = 1
 	
 	rapid_melee = 1
 	ranged_cooldown_time = 2 SECONDS
@@ -521,7 +501,7 @@
 	. = ..()
 	if(.)
 		return
-	summon_backup(10)
+	summon_backup(8)
 
 /mob/living/simple_animal/hostile/raider/junker/boss
 	name = "Junker Boss"
@@ -534,10 +514,11 @@
 	health = 165
 	stat_attack = UNCONSCIOUS
 	
+	// Pure ranged - shrapnel cannon
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
-	retreat_distance = 4
-	minimum_distance = 6
+	retreat_distance = 5
+	minimum_distance = 1
 	
 	rapid_melee = 1
 	extra_projectiles = 2
@@ -582,10 +563,11 @@
 	maxHealth = 85
 	health = 85
 	
+	// Pure ranged
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
-	retreat_distance = 4
-	minimum_distance = 2
+	retreat_distance = 5
+	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/c10mm/simple
@@ -683,3 +665,34 @@
 	
 	loot = list(/obj/item/gun/energy/gammagun, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = 10
+
+// CORPSE SPAWNERS
+/obj/effect/mob_spawn/human/corpse/raider
+	name = "Raider"
+	uniform = /obj/item/clothing/under/f13/rag
+	suit = /obj/item/clothing/suit/armor/medium/raider/iconoclast
+	shoes = /obj/item/clothing/shoes/f13/explorer
+	gloves = /obj/item/clothing/gloves/f13/leather
+	head = /obj/item/clothing/head/helmet/f13/firefighter
+
+/obj/effect/mob_spawn/human/corpse/raider/ranged/biker
+	uniform = /obj/item/clothing/under/f13/ncrcf
+	suit = /obj/item/clothing/suit/armor/medium/combat/rusted
+	shoes = /obj/item/clothing/shoes/f13/explorer
+	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
+	head = /obj/item/clothing/head/helmet/f13/raidercombathelmet
+	neck = /obj/item/clothing/neck/mantle/brown
+
+/obj/effect/mob_spawn/human/corpse/raider/baseball
+	uniform = /obj/item/clothing/under/f13/mechanic
+	suit = /obj/item/clothing/suit/armor/medium/raider/yankee
+	shoes = /obj/item/clothing/shoes/f13/explorer
+	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
+	head = /obj/item/clothing/head/helmet/f13/raider/yankee
+
+/obj/effect/mob_spawn/human/corpse/raider/tribal
+	uniform = /obj/item/clothing/under/f13/raiderrags
+	suit = /obj/item/clothing/suit/armor/light/tribal
+	shoes = /obj/item/clothing/shoes/f13/rag
+	mask = /obj/item/clothing/mask/facewrap
+	head = /obj/item/clothing/head/helmet/f13/fiend
