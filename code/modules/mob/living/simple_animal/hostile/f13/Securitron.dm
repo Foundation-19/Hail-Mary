@@ -101,6 +101,16 @@
 /mob/living/simple_animal/hostile/securitron/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		CRASH("[src] securitron invoked bullet_act() without a projectile")
+	
+	// Friendly fire resistance - securitrons coordinate
+	if(Proj.firer && istype(Proj.firer, /mob/living/simple_animal/hostile/securitron))
+		// Friendly fire from another securitron - take only 20% damage
+		var/original_damage = Proj.damage
+		Proj.damage *= 0.2
+		. = ..()
+		Proj.damage = original_damage
+		return
+	
 	if(prob(5) && health > 1)
 		var/flashbang_turf = get_turf(src)
 		if(!flashbang_turf)

@@ -76,6 +76,17 @@
 	retreat_distance = 0
 	minimum_distance = 0
 
+// Friendly fire resistance - centaurs fight together
+/mob/living/simple_animal/hostile/centaur/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/centaur))
+		// Friendly fire from another centaur - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 /obj/item/projectile/neurotox
 	name = "spitball"
 	damage = 25

@@ -111,6 +111,17 @@
 	. = ..()
 	add_overlay("eyes-[initial(icon_state)]")
 
+// Friendly fire resistance - wastebots are coordinated
+/mob/living/simple_animal/hostile/handy/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/handy))
+		// Friendly fire from another wastebot - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 /mob/living/simple_animal/hostile/handy/nsb //NSB + Raider Bunker specific
 	name = "mr.handy"
 	aggro_vision_range = 15

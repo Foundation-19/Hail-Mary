@@ -76,6 +76,17 @@
 	if(!ckey)
 		say(pick("*insult", "Fuck off!!", "Back off!!", "Keep moving!!", "Get lost, asshole!!", "Call a doctor, we got a bleeder!!", "Fuck around and find out!!"))
 
+// Friendly fire resistance - raiders are used to fighting in groups
+/mob/living/simple_animal/hostile/raider/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/raider))
+		// Friendly fire from another raider - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 // Override CanAttack to ignore unconscious/dead targets
 /mob/living/simple_animal/hostile/raider/CanAttack(atom/the_target)
 	if(isliving(the_target))

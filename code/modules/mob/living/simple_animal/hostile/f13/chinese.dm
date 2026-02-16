@@ -52,6 +52,17 @@
 	if(!ckey)
 		say(pick("操你祖宗十八代", "乡巴佬", "傻逼" , "妈你个", "操你大爷", "祝你生孩子没屁眼", "扯鸡巴蛋", "狗改不了吃屎", "爆你菊花" ))
 
+// Friendly fire resistance - chinese soldiers fight in squads
+/mob/living/simple_animal/hostile/chinese/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/chinese))
+		// Friendly fire from another chinese soldier - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 /mob/living/simple_animal/hostile/chinese/ranged
 	icon_state = "chinesepistol"
 	icon_living = "chinesepistol"

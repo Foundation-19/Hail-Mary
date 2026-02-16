@@ -48,6 +48,17 @@
 	retreat_distance = 0
 	minimum_distance = 0
 
+// Friendly fire resistance - vault dwellers fight together
+/mob/living/simple_animal/hostile/vault/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/vault))
+		// Friendly fire from another vault dweller - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 /obj/effect/mob_spawn/human/corpse/vault
 	name = "Vault Dweller"
 	gloves = /obj/item/pda
@@ -210,6 +221,17 @@
 	retreat_distance = 6
 	minimum_distance = 6
 
+// Friendly fire resistance - enclave soldiers are well-trained
+/mob/living/simple_animal/hostile/enclave/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/enclave))
+		// Friendly fire from another enclave - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 // Enclave Scientist
 /mob/living/simple_animal/hostile/enclave/scientist
 	name = "enclave scientist"
@@ -308,6 +330,17 @@
 /////////////////////
 // BROTHERHOOD NPC //
 /////////////////////
+
+// Friendly fire resistance - brotherhood members are well-trained
+/mob/living/simple_animal/hostile/bs/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/bs))
+		// Friendly fire from another brotherhood member - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
 
 /mob/living/simple_animal/hostile/bs
 	name = "BS"
@@ -441,6 +474,17 @@
 // NCR = NPC //
 ///////////////
 
+// Friendly fire resistance - NCR troopers are trained soldiers
+/mob/living/simple_animal/hostile/ncr/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/ncr))
+		// Friendly fire from another NCR - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 /mob/living/simple_animal/hostile/ncr
 	name = "NCR"
 	desc = "For the Republic!"
@@ -567,6 +611,17 @@
 ////////////////
 // LEGION NPC //
 ////////////////
+
+// Friendly fire resistance - legion soldiers fight in formation
+/mob/living/simple_animal/hostile/legion/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/legion))
+		// Friendly fire from another legion - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
 
 /mob/living/simple_animal/hostile/legion
 	name = "Legion"

@@ -15,6 +15,7 @@
 	health = 110
 	stat_attack = CONSCIOUS
 	robust_searching = 1
+	check_friendly_fire = FALSE  // Let them shoot through each other
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES  // Only structures normally, not walls
 	
 	speak_chance = 10
@@ -104,6 +105,17 @@
 /mob/living/simple_animal/hostile/supermutant/Aggro()
 	..()
 	summon_backup(10)
+
+// Friendly fire resistance - supermutants are tough and trained to fight together
+/mob/living/simple_animal/hostile/supermutant/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/supermutant))
+		// Friendly fire from another supermutant - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage  // Restore for next hit
+		return
+	return ..()
 
 /mob/living/simple_animal/hostile/supermutant/death(gibbed)
 	icon = 'icons/fallout/mobs/supermutant_dead.dmi'

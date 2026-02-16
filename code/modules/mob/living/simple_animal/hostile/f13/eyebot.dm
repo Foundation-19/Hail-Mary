@@ -88,6 +88,17 @@
 	..()
 	name = "ED-[rand(1,99)]"
 
+// Friendly fire resistance - eyebots are networked together
+/mob/living/simple_animal/hostile/eyebot/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/eyebot))
+		// Friendly fire from another eyebot - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 /mob/living/simple_animal/hostile/eyebot/become_the_mob(mob/user)
 	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/robot
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/robot

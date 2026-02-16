@@ -114,6 +114,17 @@
 	if(!ckey)
 		say(pick("*scrungy", "*mbark"))
 
+// Friendly fire resistance - ghouls are tough and fight in packs
+/mob/living/simple_animal/hostile/ghoul/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/ghoul))
+		// Friendly fire from another ghoul - take only 20% damage
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
 // Override CanAttack to ignore unconscious/dead targets
 /mob/living/simple_animal/hostile/ghoul/CanAttack(atom/the_target)
 	if(isliving(the_target))
