@@ -352,13 +352,11 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		abilities = null // Clear the list to break references
 
 		for(var/obj/effect/proc_holder/ability in abilities_copy)
-			// Clear cross-references
-			if(ability.ranged_ability_user == src)
-				ability.ranged_ability_user = null
+			// DON'T manually clear ranged_ability_user - let proc_holder's Destroy() handle it via remove_ranged_ability()
+			// Just clear the action owner to prevent circular refs
 			if(ability.action)
 				if(ability.action.owner == src)
 					ability.action.owner = null
-				// Don't need to remove from actions list since we're clearing it below
 			qdel(ability)
 
 	// Clean up ALL actions

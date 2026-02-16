@@ -457,26 +457,8 @@
 	action = new(src)
 
 /obj/effect/proc_holder/wrap/Destroy()
-	// CRITICAL: Clear ALL references that might keep this alive
-	// NOTE: Parent (simple_animal) handles deleting actions and abilities
-	// We only need to clear references here, not delete objects
-	
-	// Clear from user's ranged ability AND click intercept
-	if(ranged_ability_user)
-		// If we're their active ranged ability, clear it
-		if(ranged_ability_user.ranged_ability == src)
-			ranged_ability_user.ranged_ability = null
-		// If we're their click intercept, clear it
-		if(ranged_ability_user.click_intercept == src)
-			ranged_ability_user.click_intercept = null
-		ranged_ability_user = null
-
-	// Clear the action reference - parent already handles deletion
+	// Clear the action reference - parent simple_animal already deletes it
 	action = null
-
-	// Clear any other vars
-	active = FALSE
-	has_action = FALSE
 	
 	return ..()
 
