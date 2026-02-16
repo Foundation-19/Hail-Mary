@@ -326,7 +326,7 @@ Sidearms are 45mm.
 	total_positions = 2
 	spawn_positions = 2
 	description = "You wield the mighty Storm Drum, the symbol of your tribe and key to your people's greatness."
-	supervisors = "your War Chief and the Legion Decanii"
+	supervisors = "your War Chief"
 	display_order = JOB_DISPLAY_ORDER_STORMDRUMMER
 	outfit = /datum/outfit/job/whitelegs/f13stormdrummer
 
