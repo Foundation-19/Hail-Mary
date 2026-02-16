@@ -580,7 +580,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "NCR Veteran Ranger"
 
 /obj/effect/landmark/start/f13/ncrranger
-	name = "NCR Ranger"
+	name = "NCR Patrol Ranger"
 	icon_state = "NCR Patrol Ranger"
 
 /obj/effect/landmark/start/f13/ncrrangerscout

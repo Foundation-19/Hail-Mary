@@ -2733,6 +2733,10 @@
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
+"aZq" = (
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
 "aZt" = (
 /obj/machinery/vending/cigarette,
 /obj/effect/decal/cleanable/dirt{
@@ -11455,6 +11459,10 @@
 "emy" = (
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"emQ" = (
+/mob/living/simple_animal/hostile/deathclaw/spiderclaw,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
 "emR" = (
 /obj/effect/turf_decal/delivery,
 /obj/structure/rack,
@@ -17846,6 +17854,10 @@
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/carpet,
 /area/f13/building/powered)
+"gNb" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/ncr/powered)
 "gNg" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -20119,6 +20131,10 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/wasteland/cold)
+"hEG" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/desert,
+/area/f13/wasteland)
 "hEP" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -22606,6 +22622,10 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/building/powered)
+"iAN" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/floor/plating/dirt,
+/area/f13/wasteland/powered)
 "iAO" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -26603,17 +26623,7 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "kay" = (
-/mob/living/simple_animal/hostile/deathclaw/legendary{
-	icon_state = "tarantula";
-	icon_living = "tarantula";
-	icon = 'icons/mob/animal.dmi';
-	mob_size = 5;
-	resize = 5;
-	health = 500;
-	name = "Deathspider";
-	desc = "A massive spider, it's usually soft flesh has long sinced hardened. It's many eyes glint with menace. It's clearly a legendary creature and it wants nothing more than to kill you.";
-	faction = list("spiders")
-	},
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "kaA" = (
@@ -29161,8 +29171,8 @@
 /area/f13/brotherhood/powered)
 "kVn" = (
 /obj/effect/decal/cleanable/greenglow,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/high,
 /obj/structure/spider/stickyweb,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "kVs" = (
@@ -32676,6 +32686,10 @@
 /obj/structure/sign/departments/medbay,
 /turf/closed/wall/f13/wood/house,
 /area/f13/building/powered)
+"mnH" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/cold)
 "mnN" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/decal/cleanable/dirt,
@@ -32802,7 +32816,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "mqv" = (
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/unique,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/lowmid,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "mqy" = (
@@ -34550,7 +34564,7 @@
 /area/f13/wasteland/cold)
 "mXl" = (
 /obj/structure/spider/stickyweb,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/midhigh,
+/mob/living/simple_animal/hostile/poison/giant_spider/hunter/viper,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "mXp" = (
@@ -40800,6 +40814,11 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/building/powered)
+"poC" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/inside/dirt,
+/area/f13/wasteland/cold)
 "poI" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -41005,6 +41024,11 @@
 	icon_state = "common-broken6"
 	},
 /area/f13/building)
+"prH" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/underground/mountain)
 "prJ" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 8;
@@ -50860,6 +50884,12 @@
 /mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building)
+"tcK" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/road{
+	icon_state = "horizontalinnermain2left"
+	},
+/area/f13/wasteland)
 "tcR" = (
 /obj/structure/barricade/wooden/planks,
 /turf/closed/wall/f13/store{
@@ -58395,7 +58425,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/ambientlighting/building/i)
 "vOd" = (
-/obj/effect/spawner/lootdrop/f13/armor/tier4,
+/obj/effect/spawner/lootdrop/f13/armor/tier3,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "vOe" = (
@@ -59445,6 +59475,11 @@
 "whQ" = (
 /turf/open/indestructible/ground/outside/road/damagedhor,
 /area/f13/wasteland)
+"whU" = (
+/obj/structure/flora/grass/both,
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "wia" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_worn/wood_worn_dark{
@@ -60636,12 +60671,16 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/ambientlighting/building/v)
+"wFG" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "wFL" = (
 /obj/structure/closet/crate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/underground/mountain)
 "wFM" = (
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/underground/mountain)
 "wFQ" = (
@@ -63992,6 +64031,13 @@
 	icon_state = "housebase"
 	},
 /area/f13/building/powered)
+"xWu" = (
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/dirt{
+	dir = 8;
+	icon_state = "dirtcorner"
+	},
+/area/f13/wasteland)
 "xWA" = (
 /obj/structure/stairs/north{
 	color = "#A47449"
@@ -71996,7 +72042,7 @@ cAd
 cAd
 cAd
 cAd
-slY
+gNb
 eHM
 rPB
 lQG
@@ -72510,7 +72556,7 @@ cAd
 cAd
 unX
 qmL
-slY
+gNb
 eHM
 lOO
 wbQ
@@ -92678,7 +92724,7 @@ jRd
 qXQ
 jRd
 jRd
-jRd
+wFG
 jRd
 jRd
 uHd
@@ -98569,7 +98615,7 @@ jRd
 jRd
 qXQ
 jRd
-jRd
+wFG
 jRd
 jRd
 uHd
@@ -101925,7 +101971,7 @@ uHd
 uHd
 fHV
 wsU
-wsU
+emQ
 wsU
 wsU
 uHd
@@ -102171,8 +102217,8 @@ aHr
 uHd
 uHd
 uHd
-mBC
-fRI
+prH
+mXl
 fRI
 wsU
 uHd
@@ -102702,7 +102748,7 @@ wsU
 aTJ
 uHd
 wsU
-wsU
+kay
 wsU
 pgB
 jdk
@@ -103967,7 +104013,7 @@ aHr
 uHd
 uHd
 fRI
-kay
+wsU
 fRI
 pgB
 wsU
@@ -105016,9 +105062,9 @@ aTJ
 wsU
 qjP
 uHd
-wsU
-wsU
-mqv
+pgB
+dAh
+aZq
 uHd
 uHd
 aHr
@@ -105273,9 +105319,9 @@ uHd
 pgB
 wsU
 wsU
+vOd
 wsU
 wsU
-pgB
 fHV
 uHd
 aHr
@@ -105530,9 +105576,9 @@ uHd
 wsU
 wsU
 mmF
-kay
 wsU
-vOd
+emQ
+wsU
 uHd
 uHd
 aHr
@@ -105787,7 +105833,7 @@ uHd
 uHd
 wsU
 wsU
-fRI
+wsU
 fRI
 fRI
 uHd
@@ -106043,7 +106089,7 @@ aHr
 uHd
 uHd
 wsU
-wsU
+fRI
 fRI
 fRI
 fRI
@@ -106300,7 +106346,7 @@ aHr
 uHd
 uHd
 pgB
-wsU
+fRI
 uHd
 uHd
 uHd
@@ -106556,7 +106602,7 @@ uHd
 uHd
 aHr
 uHd
-wsU
+fRI
 uHd
 uHd
 uHd
@@ -107821,7 +107867,7 @@ pgB
 wsU
 wsU
 wsU
-wFM
+mqv
 uHd
 uHd
 aHr
@@ -108074,7 +108120,7 @@ uHd
 uHd
 uHd
 fRI
-wsU
+kay
 wsU
 wsU
 pgB
@@ -108094,7 +108140,7 @@ wsU
 fRI
 fRI
 fRI
-kay
+wsU
 wsU
 fRI
 jqU
@@ -108596,9 +108642,9 @@ fRI
 fHV
 uHd
 aHr
-mXl
+mBC
 wsU
-wsU
+kay
 wsU
 uHd
 aHr
@@ -108609,7 +108655,7 @@ wsU
 wsU
 wsU
 wsU
-dAh
+wFM
 uHd
 uHd
 uHd
@@ -110992,7 +111038,7 @@ cAd
 cAd
 cAd
 aHr
-pmX
+mnH
 cUR
 cUR
 cUR
@@ -111509,7 +111555,7 @@ aHr
 pmX
 cUR
 nye
-cUR
+poC
 cUR
 baP
 iHs
@@ -125188,7 +125234,7 @@ xyH
 jRd
 kwl
 jRd
-jRd
+wFG
 jRd
 cAJ
 xyH
@@ -130177,7 +130223,7 @@ vvU
 vEr
 vvU
 tLT
-rvU
+iAN
 ehI
 tPl
 uuV
@@ -131042,7 +131088,7 @@ uXX
 uXX
 jRd
 jRd
-jRd
+wFG
 jRd
 jRd
 jRd
@@ -133753,7 +133799,7 @@ jRd
 xTc
 jRd
 jRd
-fcA
+whU
 jRd
 jRd
 qXQ
@@ -153046,7 +153092,7 @@ dbq
 dbq
 dbq
 emy
-rQY
+xWu
 kQV
 qNG
 dbq
@@ -153301,11 +153347,11 @@ dbq
 dbq
 dbq
 dbq
-emy
+fmD
 emy
 dyD
 rQY
-hpR
+kQV
 nka
 dbq
 dbq
@@ -153816,7 +153862,7 @@ dbq
 dbq
 dbq
 dbq
-emy
+hEG
 nep
 emy
 emy
@@ -154438,7 +154484,7 @@ aYG
 tjR
 gCw
 gCw
-gCw
+tcK
 gCw
 qmE
 gCw
@@ -157801,7 +157847,7 @@ qNA
 qgt
 xND
 emy
-emy
+hEG
 cAd
 cAd
 cAd
@@ -162470,7 +162516,7 @@ dbq
 dbq
 emy
 emy
-emy
+hEG
 emy
 emy
 xKU
@@ -163301,7 +163347,7 @@ qgt
 tej
 emy
 emy
-emy
+hEG
 emy
 dbq
 dbq
@@ -164523,7 +164569,7 @@ cAd
 dbq
 dbq
 emy
-emy
+hEG
 rfy
 nzi
 emy

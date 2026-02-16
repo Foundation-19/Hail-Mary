@@ -202,6 +202,20 @@
 	melee_damage_upper = 60
 	footstep_type = FOOTSTEP_MOB_HEAVY
 
+//Deathspider aka deathclaw spider
+/mob/living/simple_animal/hostile/deathclaw/spiderclaw
+	name = "deathspider"
+	desc = "A massive spider, it's usually soft flesh has long sinced hardened. It's many eyes glint with menace. It's clearly a legendary creature and it wants nothing more than to kill you."
+	faction = list("spiders")
+	icon = 'icons/mob/animal.dmi'
+	icon_state = "tarantula"
+	icon_living = "tarantula"
+	icon_dead = "tarantula_dead"
+
+/mob/living/simple_animal/hostile/deathclaw/spiderclaw/Initialize()
+	.=..()
+	resize = 1.5
+	update_transform()
 
 /// Code for deathclaw charging. It barely works
 /* /mob/living/simple_animal/hostile/deathclaw/bullet_act(obj/item/projectile/Proj)

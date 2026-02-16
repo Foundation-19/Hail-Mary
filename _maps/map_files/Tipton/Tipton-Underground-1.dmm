@@ -5119,12 +5119,9 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
 "dUI" = (
-/obj/item/melee/onehanded/club/tireiron{
-	color = "#bc8f8f";
-	name = "King Roachs Tire Iron"
-	},
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/sewer/powered)
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/caves)
 "dUV" = (
 /obj/machinery/telecomms/processor/preset_two,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -11286,11 +11283,7 @@
 	},
 /area/f13/bunker/bunkersix)
 "iFh" = (
-/mob/living/simple_animal/cockroach{
-	desc = "A huge example of his kin, swollen on radiation and scraps. Oddly friendly..";
-	name = "King Roach";
-	resize = 3
-	},
+/mob/living/simple_animal/crab/evil/kreb,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
 "iFq" = (
@@ -52661,7 +52654,7 @@ tYm
 tYm
 jxz
 iFh
-dUI
+hsT
 hsT
 fDM
 htC
@@ -78193,7 +78186,7 @@ agx
 cur
 cCF
 plL
-lsm
+dUI
 vKr
 vKr
 vKr
@@ -79219,7 +79212,7 @@ mYd
 vDQ
 awn
 iRu
-lsm
+dUI
 plL
 lsm
 vKr
