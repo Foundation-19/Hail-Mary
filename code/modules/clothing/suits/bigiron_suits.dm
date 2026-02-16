@@ -3675,6 +3675,7 @@
 	icon_state = "light"
 	item_state = "light"
 	species_exception = list(/datum/species/c27)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_ENERGY_T2)
 	var/requires_training = TRUE
 	slowdown = 1.3
 
@@ -3743,6 +3744,7 @@
 	desc = "Heavy C-27 armor."
 	icon_state = "c27_heavy"
 	item_state = "c27_heavy"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_ENV_T3, ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_ENERGY_T1)
 	species_exception = list(/datum/species/c27)
 
 /obj/item/clothing/suit/armor/power_armor/excavator/c27_heavy/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)

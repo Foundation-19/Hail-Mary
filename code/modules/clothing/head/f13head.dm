@@ -1002,6 +1002,7 @@
 	icon_state = "helmet_light"
 	item_state = "helmet_light"
 	species_exception = list(/datum/species/c27)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_ENERGY_T2)
 	var/requires_training = TRUE
 
 
@@ -1066,6 +1067,7 @@
 	desc = "Heavy C-27 helmet."
 	icon_state = "helmet_heavy"
 	item_state = "helmet_heavy"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_ENV_T3, ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_ENERGY_T1)
 	species_exception = list(/datum/species/c27)
 
 /obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)

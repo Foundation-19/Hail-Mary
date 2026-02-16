@@ -32,6 +32,7 @@
 		TRAIT_MUTATION_STASIS,
 		TRAIT_SPRINT_LOCKED,
 		TRAIT_C27,
+		TRAIT_PA_WEAR,
 		)
 	hair_alpha = 210
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
