@@ -163,6 +163,16 @@
 	item_state = "ncrcf"
 	item_color = "ncrcf"
 
+/obj/item/clothing/under/f13/ncr/ncrcoat
+	name = "NCR Winter Coat"
+	desc = "A tan winter coat utilized by the NCRA when under harsh climatic conditions, worn over the standard trooper uniform."
+	can_adjust = FALSE
+	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon_state = "ncrcoat"
+	item_state = "ncrcoat"
+	item_color = "ncrcoat"
+
 //Settlers
 
 /obj/item/clothing/under/f13/brahminm
@@ -1023,6 +1033,55 @@
 	mutantrace_variation = STYLE_DIGITIGRADE
 	icon_state = "chinese_officer"
 	item_state = "chinese_officer"
+
+//Eastern Bloc Militaries
+
+/obj/item/clothing/under/f13/kzs
+	name = "KZS suit"
+	desc = "A rough burlap suit coated in a flame retardant and radiation protective coating, provides decent camouflage value, surprisingly comfortable and well ventilated."
+	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon_state = "sov_kzs"
+	item_state = "sov_kzs"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/f13/klmk
+	name = "KLMK suit"
+	desc = "A dedicated masking suit often utilized by reconnaisance personnel, snipers and others with a need for concealment. Painted in an unusual blocky camo pattern featuring green and light golden tones."
+	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon_state = "sov_klmk"
+	item_state = "sov_klmk"
+	can_adjust = FALSE
+
+//Assorted Larper, Freedom Fighter, and Mercenary outfits
+
+/obj/item/clothing/under/f13/adiktracksuit
+	name = "Adik tracksuit"
+	desc = "A mildly expensive tracksuit from pre-war times. Comes with a single stripe down the pants and sleeves of the top, for some reason, two stripes or even three were either already trademarked or too expensive to produce."
+	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon_state = "squatteroutfit"
+	item_state = "squatteroutfit"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/f13/patriot1
+	name = "Cammies and Jeans"
+	desc = "Q was right all along. A pair of jean pants and a surplus camo jacket. Freedom isn't free."
+	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon_state = "boomerwaffen1"
+	item_state = "boomerwaffen1"
+	can_adjust = FALSE
+
+/obj/item/clothing/under/f13/patriot3
+	name = "USA Shirt"
+	desc = "Q was right all along. A pair of surplus camo pants and a black shirt with USA written on the back. Freedom isn't free."
+	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon_state = "boomerwaffen3"
+	item_state = "boomerwaffen3"
+	can_adjust = FALSE
 
 //Old World Law Enforcement
 //Police and State Police

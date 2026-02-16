@@ -118,7 +118,7 @@
 
 	if(affecting && affecting.status == BODYPART_ROBOTIC && user.a_intent != INTENT_HARM)
 		//only heal to 25 if limb is damaged to or past 25 brute, otherwise heal normally
-		var/difference = affecting.brute_dam - 0 //This was dumb and was bypassable. Only served to cause annoyance.
+		var/difference = affecting.brute_dam - 0
 		var/heal_amount = 15
 		if(difference >= 0)
 			heal_amount = difference
@@ -132,6 +132,60 @@
 	else
 		return ..()
 
+// NEW PROC - Add healing for simple_animal robots
+/obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	
+	// Try to heal robotic simple animals
+	if(isanimal(O) && user.a_intent == INTENT_HELP)
+		var/mob/living/simple_animal/robot = O
+		
+		// Only heal robotic/inorganic mobs
+		if(!(robot.mob_biotypes & (MOB_ROBOTIC|MOB_INORGANIC)))
+			return
+		
+		if(robot.stat == DEAD)
+			to_chat(user, span_warning("[robot] is too damaged to repair!"))
+			return
+		
+		if(robot.health >= robot.maxHealth)
+			to_chat(user, span_notice("[robot] doesn't need repairs."))
+			return
+		
+		if(!isOn())
+			to_chat(user, span_warning("[src] needs to be on to repair [robot]!"))
+			return
+		
+		if(!use_tool(robot, user, 3 SECONDS, volume=50, amount=1))
+			return
+		
+		var/heal_amount = 20
+		robot.adjustBruteLoss(-heal_amount)
+		robot.updatehealth()
+		
+		user.visible_message(
+			span_notice("[user] repairs some damage on [robot] with [src]."),
+			span_notice("You repair some damage on [robot] with [src]."))
+		
+		return
+	
+	// Original afterattack code continues...
+	if(refil_the_tool(O, user))
+		return
+	if(isOn())
+		use(1)
+		var/turf/location = get_turf(user)
+		location.hotspot_expose(550, 10, 1)
+		if(get_fuel() <= 0)
+			set_light_on(FALSE)
+
+		if(isliving(O) && user.a_intent == INTENT_HARM)
+			var/mob/living/L = O
+			if(L.IgniteMob())
+				message_admins("[ADMIN_LOOKUPFLW(user)] set [key_name_admin(L)] on fire with [src] at [AREACOORD(user)]")
+				log_game("[key_name(user)] set [key_name(L)] on fire with [src] at [AREACOORD(user)]")
 
 /obj/item/weldingtool/afterattack(atom/O, mob/user, proximity)
 	. = ..()

@@ -315,8 +315,7 @@
 #define TRAIT_C27           "c27_wear" //guess
 #define TRAIT_MEDICALEXPERT		"Medicinal Expert" //Can do revival surgery
 #define TRAIT_MEDICALGRADUATE		"Medical Graduate" //generalised offmap medschool graduation training
-#define TRAIT_UNETHICAL_PRACTITIONER	"Unethical Practitioner" //Can do harmful experimental surguries
-#define TRAIT_UNETHICAL_PRACTITIONER_BRAINWASHING	"Unethical Practitioner - Brainwashing" //Can do harmful experimental surguries
+#define TRAIT_BRAINWASH_SURGERY	"brainwash_surgeon" //Can do harmful experimental surguries
 #define TRAIT_CYBERNETICIST		"Cyberneticist" //Utilizes powerful cybernetics
 #define TRAIT_CYBERNETICIST_EXPERT	"Cyberneticist Expert" //Can augument people into robots directly
 #define TRAIT_MACHINE_SPIRITS	"machine_spirits" //for tribe unique functions.

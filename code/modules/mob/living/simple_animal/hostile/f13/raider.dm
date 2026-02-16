@@ -36,7 +36,7 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 3.1
+	move_to_delay = 3.0
 	waddle_amount = 2
 	waddle_up_time = 1
 	waddle_side_time = 1
@@ -48,6 +48,8 @@
 		MOB_NAME_FROM_GLOBAL_LIST(\
 			MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1)\
 		))
+	can_z_move = TRUE
+	z_move_delay = 40 // 4 seconds - more cautious
 
 /mob/living/simple_animal/hostile/raider/Initialize()
 	. = ..()
@@ -112,7 +114,7 @@
 	health = 85
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 2.8 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 1 //mob retreats 1 tile when in min distance
 	minimum_distance = 1 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
@@ -217,7 +219,7 @@
 	random_trash_loot = FALSE
 	footstep_type = FOOTSTEP_MOB_SHOE
 	sentience_type = SENTIENCE_BOSS
-	move_to_delay = 4.0 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
@@ -308,7 +310,7 @@
 	icon_living = "blueberry_bates"
 	icon_dead = "blueberry_bates_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
-	move_to_delay = 4 //S L O W
+	move_to_delay = 3.0		//S L O W
 	sight_shoot_delay_time = 0 SECONDS
 	ranged_cooldown_time = 1 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
@@ -646,7 +648,7 @@
 	footstep_type = FOOTSTEP_MOB_SHOE
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 1.5
+	move_to_delay = 3.0
 	waddle_amount = 2
 	waddle_up_time = 1
 	waddle_side_time = 1
@@ -668,7 +670,7 @@
 	health = 85
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 2.8 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
@@ -704,7 +706,7 @@
 	health = 85
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 2.8 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
@@ -742,7 +744,7 @@
 	health = 85
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 2.8 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
@@ -780,7 +782,7 @@
 	health = 150
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 2.8 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.
@@ -818,7 +820,7 @@
 	health = 150
 	rapid_melee = 2
 	melee_queue_distance = 5
-	move_to_delay = 2.8 //faster than average, but not a lot
+	move_to_delay = 3.0 //faster than average, but not a lot
 	retreat_distance = 4 //mob retreats 1 tile when in min distance
 	minimum_distance = 2 //Mob pushes up to melee, then backs off to avoid player attack?
 	aggro_vision_range = 6 //mob waits to attack if the player chooses to close distance, or if the player attacks first.

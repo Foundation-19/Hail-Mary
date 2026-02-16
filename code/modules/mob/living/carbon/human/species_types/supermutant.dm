@@ -5,7 +5,7 @@
 	limbs_id = "smutant"
 	inherent_traits = list(TRAIT_RADIMMUNE,TRAIT_VIRUSIMMUNE,TRAIT_SMUTANT,)
 	inherent_biotypes = list(MOB_INORGANIC, MOB_HUMANOID)
-	speedmod = -0.5
+	speedmod = 0.2
 	siemens_coeff = 0
 	punchdamagelow = 20
 	punchdamagehigh = 30
@@ -57,6 +57,8 @@
 	if(rank in GLOB.locust_positions) 
 		return 0
 	if(rank in GLOB.atlantic_positions) 
+		return 0
+	if(rank in GLOB.ranger_positions)
 		return 0
 /*	if(rank in GLOB.followers_positions) 
 		return 0*/

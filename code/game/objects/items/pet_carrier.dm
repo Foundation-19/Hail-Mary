@@ -1,7 +1,5 @@
 #define pet_carrier_full(carrier) carrier.occupants.len >= carrier.max_occupants || carrier.occupant_weight >= carrier.max_occupant_weight
 
-//Used to transport little animals without having to drag them across the station.
-//Comes with a handy lock to prevent them from running off.
 /obj/item/pet_carrier
 	name = "pet carrier"
 	desc = "A big white-and-blue pet carrier. Good for carrying <s>meat to the chef</s> cute animals around."
@@ -20,17 +18,17 @@
 	var/locked = FALSE
 	var/list/occupants = list()
 	var/occupant_weight = 0
-	var/max_occupants = 3 //Hard-cap so you can't have infinite mice or something in one carrier
-	var/max_occupant_weight = MOB_SIZE_SMALL //This is calculated from the mob sizes of occupants
-	var/entrance_name = "door" //name of the entrance to the item
-	var/escape_time = 200 //how long it takes for mobs above small sizes to escape (for small sizes, its randomly 1.5 to 2x this)
-	var/alternate_escape_time = 0 //how long it takes for mobs to escape when the entrance is open
-	var/load_time = 30 //how long it takes for mobs to be loaded into the pet carrier
-	var/has_lock_sprites = TRUE //whether to load the lock overlays or not
-	var/allows_hostiles = FALSE //does the pet carrier allow hostile entities to be held within it?
+	var/max_occupants = 3
+	var/max_occupant_weight = MOB_SIZE_SMALL
+	var/entrance_name = "door"
+	var/escape_time = 200
+	var/alternate_escape_time = 0
+	var/load_time = 30
+	var/has_lock_sprites = TRUE
+	var/allows_hostiles = FALSE
 
 /obj/item/pet_carrier/donator
-	custom_materials = null //you cant just use the loadout item to get free metal!
+	custom_materials = null
 
 /obj/item/pet_carrier/Destroy()
 	if(occupants.len)
@@ -84,10 +82,7 @@
 		return
 	locked = !locked
 	to_chat(user, span_notice("You flip the lock switch [locked ? "down" : "up"]."))
-	if(locked)
-		playsound(user, 'sound/machines/boltsdown.ogg', 30, TRUE)
-	else
-		playsound(user, 'sound/machines/boltsup.ogg', 30, TRUE)
+	playsound(user, locked ? 'sound/machines/boltsdown.ogg' : 'sound/machines/boltsup.ogg', 30, TRUE)
 	update_icon()
 	return TRUE
 
@@ -110,7 +105,10 @@
 	if(user == target)
 		to_chat(user, span_warning("Why would you ever do that?"))
 		return
-	if((ishostile(target) && (!allows_hostiles || !istype(target, /mob/living/simple_animal/hostile/carp/cayenne))) || target.move_resist >= MOVE_FORCE_VERY_STRONG) //don't allow goliaths into pet carriers, but let cayenne in!
+	if(target.move_resist >= MOVE_FORCE_VERY_STRONG)
+		to_chat(user, span_warning("You have a feeling you shouldn't keep this as a pet."))
+		return
+	if(ishostile(target) && (!allows_hostiles || !istype(target, /mob/living/simple_animal/hostile/carp/cayenne)))
 		to_chat(user, span_warning("You have a feeling you shouldn't keep this as a pet."))
 		return
 	load_occupant(user, target)
@@ -118,12 +116,12 @@
 /obj/item/pet_carrier/relaymove(mob/living/user, direction)
 	if(open)
 		loc.visible_message(span_notice("[user] climbs out of [src]!"), \
-		span_warning("[user] jumps out of [src]!"))
+			span_warning("[user] jumps out of [src]!"))
 		remove_occupant(user)
 		return
 	else if(!locked)
 		loc.visible_message(span_notice("[user] pushes open the [entrance_name] to [src]!"), \
-		span_warning("[user] pushes open the [entrance_name] of [src]!"))
+			span_warning("[user] pushes open the [entrance_name] of [src]!"))
 		open = TRUE
 		update_icon()
 		return
@@ -131,19 +129,17 @@
 		container_resist(user)
 
 /obj/item/pet_carrier/container_resist(mob/living/user)
-	//don't do the whole resist timer thing if it's open!
 	if(open)
 		if(alternate_escape_time > 0)
 			loc.visible_message(span_notice("The [src] begins to shake!"))
 			if(do_after(user, alternate_escape_time, target = user))
 				loc.visible_message(span_notice("[user] jumps out of [src]"))
 				remove_occupant(user)
-			return
-		else //instant escape, different message
+		else
 			loc.visible_message(span_notice("[user] climbs out of [src]!"), \
 				span_warning("[user] jumps out of [src]!"))
 			remove_occupant(user)
-			return
+		return
 
 	if(user.mob_size <= MOB_SIZE_SMALL)
 		to_chat(user, span_notice("You begin to try escaping the [src] and start fumbling for the lock switch... (This will take some time.)"))
@@ -160,7 +156,7 @@
 		to_chat(user, span_notice("You start pushing out of [src]... (This will take about [escape_time/10] seconds.)"))
 		if(!do_after(user, escape_time, target = user) || open || !locked || !(user in occupants))
 			return
-		loc.visible_message(span_warning("[user] shoves out of	[src]!"), null, null, null, user)
+		loc.visible_message(span_warning("[user] shoves out of [src]!"), null, null, null, user)
 		to_chat(user, span_notice("You shove open [src]'s [entrance_name] against the lock's resistance and fall out!"))
 		locked = FALSE
 		open = TRUE
@@ -181,7 +177,7 @@
 /obj/item/pet_carrier/MouseDrop(atom/over_atom)
 	if(isopenturf(over_atom) && usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)) && usr.Adjacent(over_atom) && open && occupants.len)
 		usr.visible_message(span_notice("[usr] unloads [src]."), \
-		span_notice("You unload [src] onto [over_atom]."))
+			span_notice("You unload [src] onto [over_atom]."))
 		for(var/V in occupants)
 			remove_occupant(V, over_atom)
 	else
@@ -192,17 +188,15 @@
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
 	user.visible_message(span_notice("[user] starts loading [target] into [src]."), \
-	span_notice("You start loading [target] into [src]..."), null, null, target)
+		span_notice("You start loading [target] into [src]..."), null, null, target)
 	to_chat(target, span_userdanger("[user] starts loading you into [user.p_their()] [name]!"))
 	if(!do_mob(user, target, load_time))
 		return FALSE
-	if(target in occupants)
-		return FALSE
-	if(pet_carrier_full(src)) //Run the checks again, just in case
+	if(target in occupants || pet_carrier_full(src))
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
 	user.visible_message(span_notice("[user] loads [target] into [src]!"), \
-	span_notice("You load [target] into [src]."), null, null, target)
+		span_notice("You load [target] into [src]."), null, null, target)
 	to_chat(target, span_userdanger("[user] loads you into [user.p_their()] [name]!"))
 	add_occupant(target)
 	return TRUE
@@ -222,40 +216,34 @@
 	occupant_weight -= occupant.mob_size
 	occupant.setDir(SOUTH)
 
-//bluespace jar, a reskin of the pet carrier that can fit people and smashes when thrown
 /obj/item/pet_carrier/bluespace
 	name = "bluespace jar"
 	desc = "A jar, that seems to be bigger on the inside, somehow allowing lifeforms to fit through its narrow entrance."
-	open = FALSE //starts closed so it looks better on menus
+	open = FALSE
 	icon_state = "bluespace_jar"
 	item_state = "bluespace_jar"
 	lefthand_file = ""
 	righthand_file = ""
-	max_occupant_weight = MOB_SIZE_HUMAN //can fit people, like a bluespace bodybag!
-	load_time = 40 //loading things into a jar takes longer than a regular pet carrier
+	max_occupant_weight = MOB_SIZE_HUMAN
+	load_time = 40
 	entrance_name = "lid"
-	w_class = WEIGHT_CLASS_SMALL //it's a jar
+	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
-	max_occupants = 1 //far less than a regular carrier or bluespace bodybag, because it can be thrown to release the contents
-	allows_hostiles = TRUE //can fit hostile creatures, with the move resist restrictions in place, this means they still cannot take things like legions/goliaths/etc regardless
-	has_lock_sprites = FALSE //jar doesn't show the regular lock overlay
+	max_occupants = 1
+	allows_hostiles = TRUE
+	has_lock_sprites = FALSE
 	custom_materials = list(/datum/material/glass = 1000, /datum/material/bluespace = 600)
-	escape_time = 200 //equal to the time of a bluespace bodybag
+	escape_time = 200
 	alternate_escape_time = 100
-
-	///gas supply for simplemobs so they don't die
 	var/datum/gas_mixture/occupant_gas_supply
-	///level until the reagent gets INGEST ed instead of TOUCH
 	var/sipping_level = 150
-	///prob50 level of sipping
 	var/sipping_probably = 99
-	///chem transfer rate / second
 	var/transfer_rate = 5
 
 /obj/item/pet_carrier/bluespace/Initialize()
 	. = ..()
-	create_reagents(300, OPENCONTAINER, DEFAULT_REAGENTS_VALUE) //equivalent of bsbeakers
+	create_reagents(300, OPENCONTAINER, DEFAULT_REAGENTS_VALUE)
 
 /obj/item/pet_carrier/bluespace/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -264,35 +252,28 @@
 /obj/item/pet_carrier/bluespace/attack_self(mob/living/user)
 	..()
 	if(reagents)
-		if(open)
-			reagents.reagents_holder_flags = OPENCONTAINER
-		else
-			reagents.reagents_holder_flags = NONE
+		reagents.reagents_holder_flags = open ? OPENCONTAINER : NONE
 
 /obj/item/pet_carrier/bluespace/update_icon_state()
-	if(open)
-		icon_state = "bluespace_jar_open"
-	else
-		icon_state = "bluespace_jar"
+	icon_state = open ? "bluespace_jar_open" : "bluespace_jar"
 
 /obj/item/pet_carrier/bluespace/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
-	//delete the item upon impact, releasing the creature inside (this is handled by its deletion)
 	if(occupants.len)
 		loc.visible_message(span_warning("The bluespace jar smashes, releasing [occupants[1]]!"))
 
 	if(reagents?.total_volume && ismob(hit_atom) && hit_atom.reagents)
-		reagents.total_volume *= rand(5,10) * 0.1 //Not all of it makes contact with the target
+		reagents.total_volume *= rand(5,10) * 0.1
 		var/mob/M = hit_atom
 		var/R = reagents.log_list()
 		hit_atom.visible_message(span_danger("[M] has been splashed with something!"), \
-						span_userdanger("[M] has been splashed with something!"))
+			span_userdanger("[M] has been splashed with something!"))
 		var/turf/TT = get_turf(hit_atom)
 		var/throwerstring
 		if(thrownby)
 			log_combat(thrownby, M, "splashed", R)
 			var/turf/AT = get_turf(thrownby)
-			throwerstring = " THROWN BY [key_name(thrownby)] at [AT] (AREACOORD(AT)]"
+			throwerstring = " THROWN BY [key_name(thrownby)] at [AT] ([AREACOORD(AT)])"
 		log_reagent("SPLASH: [src] mob throw_impact() onto [key_name(hit_atom)] at [TT] ([AREACOORD(TT)])[throwerstring] - [R]")
 		reagents.reaction(hit_atom, TOUCH)
 		reagents.clear_reagents()
@@ -300,7 +281,7 @@
 	playsound(src, "shatter", 70, 1)
 	qdel(src)
 
-/obj/item/pet_carrier/bluespace/add_occupant(mob/living/occupant) //update the gas supply as required, this acts like magical internals
+/obj/item/pet_carrier/bluespace/add_occupant(mob/living/occupant)
 	. = ..()
 	if(!occupant_gas_supply)
 		occupant_gas_supply = new
@@ -308,10 +289,10 @@
 	if(isanimal(occupant))
 		var/mob/living/simple_animal/animal = occupant
 		var/list/occupant_gas_list = occupant_gas_supply
-		occupant_gas_list[GAS_O2] = 0.0064 //make sure it has some gas in so it isn't depressurized
-		occupant_gas_supply.set_temperature(animal.minbodytemp) //simple animals only care about temperature/pressure when their turf isnt a location
+		occupant_gas_list[GAS_O2] = 0.0064
+		occupant_gas_supply.set_temperature(animal.minbodytemp)
 
-	if(ishuman(occupant)) //humans require resistance to cold/heat and living in no air while inside, and lose this when outside
+	if(ishuman(occupant))
 		START_PROCESSING(SSobj, src)
 		ADD_TRAIT(occupant, TRAIT_RESISTCOLD, "bluespace_container_cold_resist")
 		ADD_TRAIT(occupant, TRAIT_RESISTHEAT, "bluespace_container_heat_resist")
@@ -319,7 +300,7 @@
 		ADD_TRAIT(occupant, TRAIT_RESISTHIGHPRESSURE, "bluespace_container_resist_high_pressure")
 		ADD_TRAIT(occupant, TRAIT_RESISTLOWPRESSURE, "bluespace_container_resist_low_pressure")
 
-/obj/item/pet_carrier/bluespace/remove_occupant(mob/living/occupant)
+/obj/item/pet_carrier/bluespace/remove_occupant(mob/living/occupant, turf/new_turf)
 	. = ..()
 	if(ishuman(occupant))
 		STOP_PROCESSING(SSobj, src)
@@ -341,8 +322,8 @@
 	for(var/mob/living/L in occupants)
 		if(!ishuman(L))
 			continue
-		if((reagents.total_volume >= sipping_level) || ((reagents.total_volume >= sipping_probably) && prob(50))) //sipp
-			reagents.reaction(L, INGEST) //consume
+		if((reagents.total_volume >= sipping_level) || ((reagents.total_volume >= sipping_probably) && prob(50)))
+			reagents.reaction(L, INGEST)
 			reagents.trans_to(L, transfer_rate)
 		else
 			reagents.reaction(L, TOUCH, show_message = FALSE)
