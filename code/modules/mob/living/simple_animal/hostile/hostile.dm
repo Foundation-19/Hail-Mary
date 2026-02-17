@@ -755,8 +755,7 @@
 	if(!impact_location || !firer)
 		return
 	
-	// Find all hostile mobs within reasonable hearing range (max 20 tiles)
-	for(var/mob/living/simple_animal/hostile/M in range(20, impact_location))
+	for(var/mob/living/simple_animal/hostile/M in range(7, impact_location))
 		if(M.stat == DEAD || M.ckey || !M.can_hear_combat)
 			continue
 		
@@ -2078,158 +2077,138 @@
 	if(current_radius > 15)
 		current_radius = 15
 
-	// PRIORITY 1: Check doors around last_known_location (where player likely went)
-	if(can_open_doors)
-		var/list/doors_near_last_known = list()
+	// PRIORITY 1: Check BOTH doors AND containers, investigate closest one
+	// This fixes the issue where mobs would check all doors before any containers
+	if(can_open_doors && last_known_location)
+		// Ensure last_known_location is a proper turf
+		if(!isturf(last_known_location))
+			last_known_location = get_turf(last_known_location)
 		
-		// PERFORMANCE: Direct object iteration instead of turf iteration
-		for(var/obj/structure/simple_door/SD in range(current_radius, last_known_location))
-			if(!(SD in searched_doors) && SD.density)
-				doors_near_last_known += SD
-		for(var/obj/machinery/door/D in range(current_radius, last_known_location))
-			if(!(D in searched_doors) && D.density)
-				doors_near_last_known += D
-		
-		// Try to open doors, prioritizing ones closest to us
-		if(doors_near_last_known.len > 0)
-			// Sort doors by distance from mob
-			var/atom/closest_door = null
-			var/closest_dist = 999
-			for(var/atom/door in doors_near_last_known)
-				var/dist = get_dist(src, door)
-				if(dist < closest_dist)
-					closest_dist = dist
-					closest_door = door
+		if(last_known_location)
+			var/list/hiding_spots = list() // Combined list of doors and containers
 			
-			// If we have a closest door
-			if(closest_door)
-				if(get_dist(src, closest_door) <= 1) // Adjacent - open it
-					searched_doors += closest_door
-					if(try_open_door(closest_door))
-						recently_opened_door = closest_door
-						sleep(5)
-						
-						var/list/check_targets = ListTargets()
-						if(check_targets && check_targets.len > 0)
-							for(var/atom/possible_target in check_targets)
-								if(isliving(possible_target))
-									var/mob/living/L = possible_target
-									if(L.stat == DEAD || L.ckey && !L.client)
-										continue
-								if(!can_see(src, possible_target, vision_range))
-									continue
-								if(!CanAttack(possible_target))
-									continue
-								
-								visible_message(span_danger("[src] spots [possible_target] behind the door!"))
-								exit_search_mode(FALSE, found_target = TRUE)
-								last_target_sighting = world.time
-								remembered_target = possible_target
-								GiveTarget(possible_target)
-								last_known_location = get_turf(possible_target)
-								walk(src, 0)
-								call_for_backup(possible_target, "found")
-								return
-						
-						// No visible target - continue to Priority 2 containers
-						addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
-						return
-				else if(closest_dist <= current_radius) // Not adjacent but close enough - move toward it
-					Goto(closest_door, move_to_delay, 0)
-					addtimer(CALLBACK(src, PROC_REF(search_for_target)), 2 SECONDS, TIMER_DELETE_ME)
-					return
-		
-		// All door checking branches completed - door investigation done
-	
-	// PRIORITY 1.5: If we're already investigating a specific container, finish that first
-	if(investigating_container && !QDELETED(investigating_container))
-		var/dist_to_container = get_dist(src, investigating_container)
-		
-		if(investigating_container.opened || investigating_container.welded || investigating_container.locked)
-			// Container state changed - give up on this one
-			investigating_container = null
-		else if(dist_to_container <= 1) // Adjacent - open it NOW
-			searched_containers += investigating_container
-			visible_message(span_warning("[src] searches [investigating_container]..."))
+			// Collect unchecked doors
+			for(var/obj/structure/simple_door/SD in range(current_radius, last_known_location))
+				if(!(SD in searched_doors) && SD.density)
+					hiding_spots += SD
+			for(var/obj/machinery/door/D in range(current_radius, last_known_location))
+				if(!(D in searched_doors) && D.density)
+					hiding_spots += D
 			
-			// Check container contents BEFORE opening (to catch hiding mobs)
-			for(var/atom/A in investigating_container.contents)
-				if(isliving(A))
-					var/mob/living/L = A
-					if(L.stat == DEAD || L.ckey && !L.client)
-						continue
-					if(CanAttack(L))
-						// Found someone hiding! Open and aggro!
-						investigating_container.open(src)
-						sleep(5) // Wait for animation
-						visible_message(span_danger("[src] found [L] hiding in [investigating_container]!"))
-						exit_search_mode(FALSE, found_target = TRUE)
-						last_target_sighting = world.time
-						remembered_target = L
-						GiveTarget(L)
-						last_known_location = get_turf(L)
-						walk(src, 0)
-						call_for_backup(L, "found")
-						return
+			// Collect unchecked containers 
+			for(var/obj/structure/closet/C in range(current_radius, last_known_location))
+				if(!(C in searched_containers) && !C.opened && !C.welded && !C.locked)
+					hiding_spots += C
 			
-			// No one inside - open and check nearby
-			investigating_container.open(src)
-			sleep(5) // Wait for container to open
-			
-			var/list/check_targets = ListTargets()
-			if(check_targets && check_targets.len > 0)
-				for(var/atom/possible_target in check_targets)
-					if(isliving(possible_target))
-						var/mob/living/L = possible_target
-						if(L.stat == DEAD || L.ckey && !L.client)
-							continue
-					if(!CanAttack(possible_target))
-						continue
+			// Find CLOSEST hiding spot (door or container)
+			if(hiding_spots.len > 0)
+				var/atom/closest_spot = null
+				var/closest_dist = 999
+				for(var/atom/spot in hiding_spots)
+					var/dist = get_dist(src, spot)
+					if(dist < closest_dist)
+						closest_dist = dist
+						closest_spot = spot
+				
+				// Handle the closest hiding spot
+				if(closest_spot)
+				// Is it a container?
+				if(istype(closest_spot, /obj/structure/closet))
+					var/obj/structure/closet/C = closest_spot
 					
-					// Check if they were near the container we just opened
-					if(get_dist(possible_target, investigating_container) <= 1)
-						visible_message(span_danger("[src] found [possible_target] near [investigating_container]!"))
-						exit_search_mode(FALSE, found_target = TRUE)
-						last_target_sighting = world.time
-						remembered_target = possible_target
-						GiveTarget(possible_target)
-						last_known_location = get_turf(possible_target)
-						walk(src, 0)
-						call_for_backup(possible_target, "found")
-						return
-			
-			// Container was empty - clear investigating flag and continue
-			investigating_container = null
-			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
-			return
-		else if(dist_to_container <= 5) // Still moving toward it - continue
-			Goto(investigating_container, move_to_delay, 0)
-			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1.5 SECONDS, TIMER_DELETE_ME)
-			return
-		else
-			// Too far away now - give up on this container
-			investigating_container = null
+					if(get_dist(src, C) <= 1) // Adjacent - open it NOW
+						searched_containers += C
+						visible_message(span_warning("[src] searches [C]..."))
+						
+						// Check container contents BEFORE opening
+						for(var/atom/A in C.contents)
+							if(isliving(A))
+								var/mob/living/L = A
+								if(L.stat == DEAD || L.ckey && !L.client)
+									continue
+								if(CanAttack(L))
+									// Found someone hiding!
+									C.open(src)
+									sleep(5)
+									visible_message(span_danger("[src] found [L] hiding in [C]!"))
+									exit_search_mode(FALSE, found_target = TRUE)
+									last_target_sighting = world.time
+									remembered_target = L
+									GiveTarget(L)
+									last_known_location = get_turf(L)
+									walk(src, 0)
+									call_for_backup(L, "found")
+									return
+							C.open(src)
+							sleep(5)
+							
+							var/list/check_targets = ListTargets()
+							if(check_targets && check_targets.len > 0)
+								for(var/atom/possible_target in check_targets)
+									if(isliving(possible_target))
+										var/mob/living/L = possible_target
+										if(L.stat == DEAD || L.ckey && !L.client)
+											continue
+									if(!CanAttack(possible_target))
+										continue
+									
+									if(get_dist(possible_target, C) <= 1)
+										visible_message(span_danger("[src] found [possible_target] near [C]!"))
+										exit_search_mode(FALSE, found_target = TRUE)
+										last_target_sighting = world.time
+										remembered_target = possible_target
+										GiveTarget(possible_target)
+										last_known_location = get_turf(possible_target)
+										walk(src, 0)
+										call_for_backup(possible_target, "found")
+										return
+							
+							// Container was empty - continue searching
+							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
+							return
+						else // Not adjacent - move toward it
 
-	// PRIORITY 2: Check containers around last_known_location
-	if(can_open_doors)
-		var/list/unchecked_containers = list()
+					// Is it a door?
+					else
+						if(get_dist(src, closest_spot) <= 1) // Adjacent - open it
+							searched_doors += closest_spot
+							if(try_open_door(closest_spot))
+								recently_opened_door = closest_spot
+								sleep(5)
+								
+								var/list/check_targets = ListTargets()
+								if(check_targets && check_targets.len > 0)
+									for(var/atom/possible_target in check_targets)
+										if(isliving(possible_target))
+											var/mob/living/L = possible_target
+											if(L.stat == DEAD || L.ckey && !L.client)
+												continue
+										if(!can_see(src, possible_target, vision_range))
+											continue
+										if(!CanAttack(possible_target))
+											continue
+										
+										visible_message(span_danger("[src] spots [possible_target] behind the door!"))
+										exit_search_mode(FALSE, found_target = TRUE)
+										last_target_sighting = world.time
+										remembered_target = possible_target
+										GiveTarget(possible_target)
+										last_known_location = get_turf(possible_target)
+										walk(src, 0)
+										call_for_backup(possible_target, "found")
+										return
+								
+								// No visible target - continue searching
+								addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
+								return
+						else // Not adjacent - move toward it
+							Goto(closest_spot, move_to_delay, 0)
+							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1.5 SECONDS, TIMER_DELETE_ME)
+							return
 		
-		// PERFORMANCE: Direct object iteration instead of turf iteration
-		for(var/obj/structure/closet/C in range(current_radius, last_known_location))
-			if(!(C in searched_containers) && !C.opened && !C.welded && !C.locked)
-				unchecked_containers += C
-		
-		if(unchecked_containers.len > 0)
-			// Find closest container and mark as investigating
-			var/obj/structure/closet/target_container = get_closest_atom(/obj/structure/closet, unchecked_containers, src)
-			investigating_container = target_container
-			
-			// Move toward it (next cycle will handle opening via Priority 1.5)
-			Goto(target_container, move_to_delay, 0)
-			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1.5 SECONDS, TIMER_DELETE_ME)
-			return
-
-	// PRIORITY 3: Explore unsearched tiles around last_known_location
+		// All hiding spots checked
+	
+	// PRIORITY 2: Explore unsearched tiles around last_known_location
 	var/list/unexplored_turfs = list()
 	
 	// Search around last_known_location, not our current position
