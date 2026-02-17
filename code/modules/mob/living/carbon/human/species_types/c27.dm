@@ -18,6 +18,7 @@
 		WINGCOLOR,
 		NO_UNDERWEAR,
 		NO_DNA_COPY,
+		NOBLOOD,
 		)
 	inherent_traits = list(
 		TRAIT_EASYDISMEMBER,
@@ -33,6 +34,8 @@
 		TRAIT_SPRINT_LOCKED,
 		TRAIT_C27,
 		TRAIT_PA_WEAR,
+		TRAIT_NOHUNGER,
+		TRAIT_TOXINIMMUNE,
 		)
 	hair_alpha = 210
 	inherent_biotypes = MOB_ROBOTIC|MOB_HUMANOID
@@ -114,7 +117,6 @@
 		// Allow Trooper and below ranks
 		if(rank in list(
 					"NCR Rear Echelon",
-					"NCR Conscript",
 					"NCR Trooper"))
 			return 1
 		return 0  // Block higher NCR ranks
@@ -133,5 +135,9 @@
 	if(rank in GLOB.followers_positions) 
 		return 0
 	if(rank in GLOB.tribal_positions) 
+		return 0
+	if(rank in GLOB.ranger_positions)
+		return 0
+	if(rank in GLOB.mutant_positions)
 		return 0
 	return ..()
