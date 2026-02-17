@@ -239,6 +239,24 @@
 	/// Range we can hear impact sounds (tiles) - same as gunfire (impacts ARE from gunfire)
 	var/impact_hearing_range = 7  // Increased to 7 tiles to match combat sounds
 
+	// LIGHT DETECTION SYSTEM - Mobs notice player light sources in darkness
+	/// Can this mob detect light sources?
+	var/can_detect_light = TRUE
+	/// How far can we detect light sources? (tiles)
+	var/light_detection_range = 9
+	/// Minimum light_range value to be detected (flashlights are ~3-4, torches ~3)
+	var/light_detection_threshold = 2
+	/// Last time we detected a light source
+	var/last_light_detected = 0
+	/// Cooldown between light detections (deciseconds) - prevents spam
+	var/light_detection_cooldown = 50 // 5 seconds
+	/// Memory of last detected light location
+	var/turf/last_light_location = null
+	/// Should we only detect lights in dark areas? (TRUE = ignore lights in well-lit rooms)
+	var/only_detect_lights_in_darkness = TRUE
+	/// Minimum darkness level required to detect lights (0-1, lower = darker)
+	var/darkness_threshold = 0.5
+
 	/// SPATIAL AWARENESS & DOOR MEMORY
 	/// List of door locations we know about and can potentially use
 	var/list/known_doors = list()
@@ -479,6 +497,11 @@
 			call_for_backup(possible_target, "found")
 			break
 
+	// LIGHT DETECTION: Periodically check for light sources in darkness
+	// Has its own cooldown to avoid spam
+	if(!target || searching)
+		detect_light_source()
+
 	// POSITION TRACKING
 	var/turf/current_pos = get_turf(src)
 	if(target && current_pos)
@@ -560,15 +583,15 @@
 		if((world.time - last_curiosity_check) > curiosity_check_interval)
 			last_curiosity_check = world.time
 			if(prob(curiosity_chance))
-				// Look for nearby closed doors to investigate
+				// PERFORMANCE: Use direct object range() instead of turf iteration
+				// Limit to range 3 instead of vision_range (9) to reduce lag
 				var/list/nearby_doors = list()
-				for(var/turf/T in range(vision_range, src))  // Use vision range instead of fixed 5
-					for(var/obj/structure/simple_door/SD in T)
-						if(SD.density)
-							nearby_doors += SD
-					for(var/obj/machinery/door/D in T)
-						if(D.density)
-							nearby_doors += D
+				for(var/obj/structure/simple_door/SD in range(3, src))
+					if(SD.density)
+						nearby_doors += SD
+				for(var/obj/machinery/door/D in range(3, src))
+					if(D.density)
+						nearby_doors += D
 				
 				if(nearby_doors.len > 0)
 					// Prefer doors closer to us
@@ -1812,6 +1835,15 @@
 	if(searching)
 		return
 
+	// Don't start searching if the remembered target is dead
+	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
+		var/mob/living/L = remembered_target
+		if(L.stat == DEAD)
+			// Target is dead, no point searching
+			remembered_target = null
+			last_target_sighting = 0
+			return
+
 	if(last_search_exit_time > 0 && (world.time - last_search_exit_time) < search_entry_cooldown)
 		if(!remembered_target || (world.time - last_target_sighting) > target_memory_duration)
 			return
@@ -1872,6 +1904,22 @@
 /mob/living/simple_animal/hostile/proc/search_for_target()
 	if(!searching || QDELETED(src))
 		return
+
+	// Check if remembered_target is dead/invalid - if so, give up search
+	if(remembered_target)
+		if(QDELETED(remembered_target))
+			// Target deleted entirely
+			visible_message(span_notice("[src] gives up the search."))
+			exit_search_mode(FALSE)
+			return
+		
+		if(isliving(remembered_target))
+			var/mob/living/L = remembered_target
+			if(L.stat == DEAD)
+				// Target died - no point searching for a corpse
+				visible_message(span_notice("[src] gives up the search."))
+				exit_search_mode(FALSE)
+				return
 
 	// HARD CHECK: Valid, visible, ATTACKABLE target right now?
 	var/list/immediate_targets = ListTargets()
@@ -2034,14 +2082,13 @@
 	if(can_open_doors)
 		var/list/doors_near_last_known = list()
 		
-		// Find doors near where we last saw them
-		for(var/turf/T in range(current_radius, last_known_location))
-			for(var/obj/structure/simple_door/SD in T)
-				if(!(SD in searched_doors) && SD.density)
-					doors_near_last_known += SD
-			for(var/obj/machinery/door/D in T)
-				if(!(D in searched_doors) && D.density)
-					doors_near_last_known += D
+		// PERFORMANCE: Direct object iteration instead of turf iteration
+		for(var/obj/structure/simple_door/SD in range(current_radius, last_known_location))
+			if(!(SD in searched_doors) && SD.density)
+				doors_near_last_known += SD
+		for(var/obj/machinery/door/D in range(current_radius, last_known_location))
+			if(!(D in searched_doors) && D.density)
+				doors_near_last_known += D
 		
 		// Try to open doors, prioritizing ones closest to us
 		if(doors_near_last_known.len > 0)
@@ -2167,11 +2214,10 @@
 	if(can_open_doors)
 		var/list/unchecked_containers = list()
 		
-		// Find all unsearched containers in range
-		for(var/turf/T in range(current_radius, last_known_location))
-			for(var/obj/structure/closet/C in T)
-				if(!(C in searched_containers) && !C.opened && !C.welded && !C.locked)
-					unchecked_containers += C
+		// PERFORMANCE: Direct object iteration instead of turf iteration
+		for(var/obj/structure/closet/C in range(current_radius, last_known_location))
+			if(!(C in searched_containers) && !C.opened && !C.welded && !C.locked)
+				unchecked_containers += C
 		
 		if(unchecked_containers.len > 0)
 			// Find closest container and mark as investigating
@@ -2200,19 +2246,17 @@
 				unexplored_turfs.Insert(1, T)
 				continue
 		
-		// Prioritize tiles near unopened doors
+		// PERFORMANCE: Direct door check instead of turf iteration
 		var/near_unopened_door = FALSE
-		for(var/turf/adj in orange(1, T))
-			for(var/obj/structure/simple_door/SD in adj)
-				if(SD.density && !(SD in searched_doors))
-					near_unopened_door = TRUE
-					break
-			for(var/obj/machinery/door/D in adj)
+		for(var/obj/structure/simple_door/SD in orange(1, T))
+			if(SD.density && !(SD in searched_doors))
+				near_unopened_door = TRUE
+				break
+		if(!near_unopened_door)
+			for(var/obj/machinery/door/D in orange(1, T))
 				if(D.density && !(D in searched_doors))
 					near_unopened_door = TRUE
 					break
-			if(near_unopened_door)
-				break
 		
 		if(near_unopened_door)
 			unexplored_turfs.Insert(1, T)
@@ -2854,6 +2898,78 @@
 		enter_search_mode()
 		visible_message(span_warning("[src] perks up at the sound of gunfire!"))
 
+// LIGHT DETECTION - detect and investigate light sources in darkness
+/mob/living/simple_animal/hostile/proc/detect_light_source()
+	if(!can_detect_light)
+		return
+	
+	// Check cooldown
+	if(world.time < last_light_detected + light_detection_cooldown)
+		return
+	
+	// Check if we're in darkness (if required)
+	if(only_detect_lights_in_darkness)
+		var/turf/my_turf = get_turf(src)
+		if(!my_turf)
+			return
+		
+		// Check the ambient light level at our location
+		var/light_level = my_turf.luminosity
+		if(light_level > darkness_threshold)
+			return // Too bright, don't bother detecting lights
+	
+	// ONLY check for living mobs with lights - not objects
+	// Scanning all objects is too expensive and causes lag
+	var/list/potential_lights = list()
+	
+	// Check all mobs in range (players with flashlights, glowing creatures, etc)
+	for(var/mob/living/M in view(light_detection_range, src))
+		if(M == src)
+			continue
+		
+		// Check if they're emitting enough light
+		if(M.light_range >= light_detection_threshold)
+			// Don't detect friendly faction members
+			if(!faction_check_mob(M))
+				potential_lights += M
+	
+	// If we found any lights, investigate the closest one
+	if(potential_lights.len > 0)
+		var/atom/closest_light = null
+		var/closest_distance = INFINITY
+		
+		for(var/atom/light_source in potential_lights)
+			var/distance = get_dist(src, light_source)
+			if(distance < closest_distance)
+				closest_distance = distance
+				closest_light = light_source
+		
+		if(closest_light)
+			var/turf/light_location = get_turf(closest_light)
+			
+			// Update cooldown
+			last_light_detected = world.time
+			last_light_location = light_location
+			
+			// Wake up if idle
+			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+				toggle_ai(AI_ON)
+			
+			// If it's a mob and we don't have a target, acquire it
+			if(ismob(closest_light) && !target)
+				GiveTarget(closest_light)
+				visible_message(span_warning("[src] spots a light source in the darkness!"))
+				return
+			
+			// Otherwise investigate the location
+			if(!target && !searching)
+				last_known_location = light_location
+				enter_search_mode()
+				visible_message(span_warning("[src] notices a light in the darkness..."))
+			else if(searching && !target)
+				// Update search location if already searching
+				last_known_location = light_location
+
 // CORNER NAVIGATION - try alternate paths when stuck at corners
 /mob/living/simple_animal/hostile/proc/navigate_around_corner()
 	if(!target || !CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
@@ -3311,8 +3427,9 @@
 	if(!can_open_doors)
 		return
 	
-	// Scan area around us for doors
-	var/scan_range = min(vision_range, 7) // Don't scan too far
+	// PERFORMANCE: Reduced scan range from vision_range to fixed 5 to reduce lag
+	// Direct object iteration instead of turf iteration
+	var/scan_range = 5
 	
 	for(var/obj/machinery/door/D in range(scan_range, src))
 		// Add to known doors if not already there

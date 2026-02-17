@@ -409,6 +409,10 @@
 	loot = list(/obj/item/twohanded/baseball, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
 
+/mob/living/simple_animal/hostile/raider/baseball/outlaw
+	name = "Baseball Outlaw"
+	faction = list("raider", "wastelander")
+
 /mob/living/simple_animal/hostile/raider/tribal
 	icon_state = "tribal_raider"
 	icon_living = "tribal_raider"
