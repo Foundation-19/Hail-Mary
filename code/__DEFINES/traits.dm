@@ -276,7 +276,9 @@
 #define TRAIT_AUTOBREW "autobrewery-syndrome"
 #define TRAIT_SPEED "SPEED"
 #define TRAIT_SUPER_SPEED "super SPEED"
+
 // Hey. Dickheads. Never, ever use anything cringe like 'zoomies' or 'smol' as a define ever again. - Hangyul
+// Hey. Hangyul often have Zoomies, and is smol in fallout canon, according to the fallout bible. -Delta
 
 // mobility flag traits
 // IN THE FUTURE, IT WOULD BE NICE TO DO SOMETHING SIMILAR TO https://github.com/tgstation/tgstation/pull/48923/files (ofcourse not nearly the same because I have my.. thoughts on it)
@@ -328,7 +330,7 @@
 #define TRAIT_MARS_TEACH		"mars_teachings" //for legion unique functions
 #define TRAIT_EXPLOSIVE_CRAFTING "explosive_crafting" //can craft explosives and bombs
 #define TRAIT_ADVANCED_EXPLOSIVE_CRAFTING "advanced explosive crafting" //can craft almost all kinds of explosives
-/// Lets your tongue heal damage on limbs
+#define TRAIT_PILOT 			"pilot" //For Vertibird use
 /*
 #define TRAIT_HEAL_TONGUE "healing tongue"
 /// Lets your tongue apply awful bandages to limbs
