@@ -1,10 +1,9 @@
-// IN THIS FILE: -All Raider Mobs
+// IN THIS FILE: All Raider Mobs
 
-///////////////////
-// BASIC RAIDERS //
-///////////////////
+// ============================================================
+// BASE RAIDER
+// ============================================================
 
-// BASIC MELEE RAIDER
 /mob/living/simple_animal/hostile/raider
 	name = "Raider"
 	desc = "Another murderer churned out by the wastes."
@@ -25,12 +24,12 @@
 	check_friendly_fire = TRUE
 	status_flags = CANPUSH
 	del_on_death = FALSE
-	
+
 	loot = list(/obj/item/melee/onehanded/knife/survival, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 2
 	loot_amount_random = TRUE
 	var/random_trash_loot = TRUE
-	
+
 	footstep_type = FOOTSTEP_MOB_SHOE
 	rapid_melee = 2
 	melee_queue_distance = 5
@@ -39,26 +38,23 @@
 	waddle_amount = 2
 	waddle_up_time = 1
 	waddle_side_time = 1
-	
+
 	aggro_vision_range = 6
 	vision_range = 8
-	
-	// Z-movement
+
 	can_z_move = TRUE
 	can_climb_ladders = TRUE
 	can_climb_stairs = TRUE
 	can_jump_down = TRUE
 	z_move_delay = 40
 
-	// Door interaction
 	can_open_doors = TRUE
 	can_open_airlocks = TRUE
-	
-	// Pure melee
+
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
-	
+
 	variation_list = list(
 		MOB_NAME_FROM_GLOBAL_LIST(MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1))
 	)
@@ -79,7 +75,6 @@
 // Friendly fire resistance - raiders are used to fighting in groups
 /mob/living/simple_animal/hostile/raider/bullet_act(obj/item/projectile/P)
 	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/raider))
-		// Friendly fire from another raider - take only 20% damage
 		var/original_damage = P.damage
 		P.damage *= 0.2
 		. = ..()
@@ -87,22 +82,19 @@
 		return
 	return ..()
 
-// Override CanAttack to ignore unconscious/dead targets
-/mob/living/simple_animal/hostile/raider/CanAttack(atom/the_target)
-	if(isliving(the_target))
-		var/mob/living/L = the_target
-		if(L.stat >= UNCONSCIOUS)
-			return FALSE
-	return ..()
+// ============================================================
+// THIEF RAIDER
+// Steals items from downed players and runs
+// ============================================================
 
-// THIEF RAIDER - nabs stuff and runs
 /mob/living/simple_animal/hostile/raider/thief
 	desc = "Another murderer churned out by the wastes. This one looks like they have sticky fingers..."
 
 /mob/living/simple_animal/hostile/raider/thief/movement_delay()
-	return -2
+	return ..() - 2
 
 /mob/living/simple_animal/hostile/raider/thief/AttackingTarget()
+	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(H.stat == SOFT_CRIT)
@@ -118,40 +110,40 @@
 			if(shoe_target)
 				H.dropItemToGround(shoe_target, TRUE)
 				src.transferItemToLoc(shoe_target, src, TRUE)
-			retreat_distance = 50
-		else
-			. = ..()
+			retreat_distance = 50 // Run after stealing
 
 /mob/living/simple_animal/hostile/raider/thief/death(gibbed)
 	for(var/obj/I in contents)
 		src.dropItemToGround(I)
 	. = ..()
 
-// BASIC RANGED RAIDER
+// ============================================================
+// RANGED RAIDER
+// ============================================================
+
 /mob/living/simple_animal/hostile/raider/ranged
 	icon_state = "raider_ranged"
 	icon_living = "raider_ranged"
 	maxHealth = 85
 	health = 85
-	
+
 	loot = list(/obj/effect/spawner/lootdrop/f13/npc_raider, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
-	
-	// Pure ranged - CRITICAL FIX
+
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
-	retreat_distance = 5  // Stay at 5 tiles away
-	minimum_distance = 1  // Ignored for pure ranged, but set anyway
-	
+	retreat_distance = 5
+	minimum_distance = 1
+
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
 	projectilesound = 'sound/f13weapons/ninemil.ogg'
-	
+
 	variation_list = list(
 		MOB_NAME_FROM_GLOBAL_LIST(MOB_RANDOM_NAME(MOB_NAME_RANDOM_FEMALE, 1))
 	)
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),
@@ -163,44 +155,48 @@
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
 
-// LEGENDARY MELEE RAIDER
+// ============================================================
+// LEGENDARY RAIDERS
+// stat_attack = UNCONSCIOUS lets them finish off downed targets
+// NOTE: This only works correctly now that the CanAttack override is removed
+// ============================================================
+
 /mob/living/simple_animal/hostile/raider/legendary
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes - this one seems a bit faster than the average..."
 	color = "#FFFF00"
-	maxHealth = 225  // Reduced from 300
+	maxHealth = 225
 	health = 225
 	stat_attack = UNCONSCIOUS
 	speed = 1.2
 	obj_damage = 300
 	rapid_melee = 1
-	
+
 	loot = list(/obj/item/melee/onehanded/knife/survival, /obj/item/reagent_containers/food/snacks/kebab/human, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = MOB_LOOT_ALL
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE
 
-// LEGENDARY RANGED RAIDER
 /mob/living/simple_animal/hostile/raider/ranged/legendary
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes, wielding a decent pistol and looking very strong"
 	color = "#FFFF00"
-	maxHealth = 180	// Reduced from 240
+	maxHealth = 180
 	health = 180
 	stat_attack = UNCONSCIOUS
-	
+
 	ranged_cooldown_time = 2 SECONDS
 	sight_shoot_delay_time = 0 SECONDS
 	projectiletype = /obj/item/projectile/bullet/m44/simple
 	projectilesound = 'sound/f13weapons/44mag.ogg'
 	extra_projectiles = 1
 	obj_damage = 300
-	
+
 	loot = list(/obj/item/gun/ballistic/revolver/m29, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = MOB_LOOT_ALL
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_HEAVY_VOLUME),
@@ -212,7 +208,10 @@
 		SP_DISTANT_RANGE(PISTOL_HEAVY_RANGE_DISTANT)
 	)
 
+// ============================================================
 // RAIDER BOSS
+// ============================================================
+
 /mob/living/simple_animal/hostile/raider/ranged/boss
 	name = "Raider Boss"
 	icon_state = "raiderboss"
@@ -222,24 +221,24 @@
 	maxHealth = 150
 	health = 150
 	stat_attack = UNCONSCIOUS
-	
+
 	extra_projectiles = 2
 	waddle_amount = 4
 	waddle_up_time = 2
 	waddle_side_time = 1
-	
+
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	projectiletype = /obj/item/projectile/bullet/c10mm/improvised
-	
+
 	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm, /obj/item/clothing/head/helmet/f13/combat/mk2/raider, /obj/effect/spawner/lootdrop/f13/armor/random, /obj/item/clothing/under/f13/ravenharness, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = MOB_LOOT_ALL
 	loot_amount_random = FALSE
 	random_trash_loot = FALSE
-	
+
 	sentience_type = SENTIENCE_BOSS
 	despawns_when_lonely = FALSE
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
@@ -266,7 +265,10 @@
 	if(!ckey)
 		say("KILL 'EM, FELLAS!")
 
+// ============================================================
 // NAMED BOSSES
+// ============================================================
+
 /mob/living/simple_animal/hostile/raider/ranged/boss/mangomatt
 	name = "Mango Mathew and his Merry Meth Madlads"
 	desc = "Hi, Mango Mathew and his Merry Meth Madlads."
@@ -279,16 +281,18 @@
 	ranged_cooldown_time = 1 SECONDS
 	sight_shoot_delay_time = 0 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
-	
+
 	speak_emote = list("growls", "murrs", "purrs", "mrowls", "yowls", "prowls")
 	emote_see = list("laughs", "nyas", "")
 	attack_verb_simple = list("claws", "maims", "bites", "mauls", "slashes", "thrashes", "bashes", "glomps", "beats their greasegun against the face of")
-	variation_list = list() // keeps stupid name
+	variation_list = list() // Prevents random name override
 
 /mob/living/simple_animal/hostile/raider/ranged/boss/mangomatt/Aggro()
-	..()
-	summon_backup(10)
-	say(pick("*nya", "*mrowl", "*lynx", "*cougar", "*growl", "*come", "Fuck em' up!"))
+	. = ..()
+	if(.)
+		return
+	if(!ckey)
+		say(pick("*nya", "*mrowl", "*lynx", "*cougar", "*growl", "*come", "Fuck em' up!"))
 
 /mob/living/simple_animal/hostile/raider/ranged/boss/blueberrybates
 	name = "Blueberry Bates and his Bottom-Feeder Buys"
@@ -298,28 +302,34 @@
 	icon_dead = "blueberry_bates_dead"
 	maxHealth = 200
 	health = 200
-	
+
 	sight_shoot_delay_time = 0 SECONDS
 	ranged_cooldown_time = 1 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
 	projectiletype = /obj/item/projectile/bullet/incendiary/shotgun
 	projectilesound = 'sound/f13weapons/shotgun.ogg'
 	extra_projectiles = 0
-	
+
 	retreat_distance = 4
-	
+
 	loot = list(/obj/item/stack/f13Cash/random/high, /obj/item/ammo_box/shotgun/incendiary, /obj/item/gun/ballistic/shotgun/police)
 	speak_emote = list("mutters", "counts his caps to himself", "yells at someone to pick up the pace", "barks", "grumbles", "grouches")
 	emote_see = list("chitters", "idly gnaws on a hat")
 	attack_verb_simple = list("bayonets", "smacks", "bites", "mauls", "slashes", "thrashes", "bashes", "glomps", "robusts on")
 	variation_list = list()
 
+// FIX: Same double-summon issue as mangomatt. Added proper return check.
 /mob/living/simple_animal/hostile/raider/ranged/boss/blueberrybates/Aggro()
-	..()
-	summon_backup(10)
-	say(pick("TO ME, BOYS!", "KICK THEIR ASS!", "Fuck 'em up!", "*chitter", "*kyaa", "*come", "YOU'RE ABOUT TO GET A DISCOUNT ON A GRAVE, BUDDY!"))
+	. = ..()
+	if(.)
+		return
+	if(!ckey)
+		say(pick("TO ME, BOYS!", "KICK THEIR ASS!", "Fuck 'em up!", "*chitter", "*kyaa", "*come", "YOU'RE ABOUT TO GET A DISCOUNT ON A GRAVE, BUDDY!"))
 
-// RANGED RAIDER WITH ARMOR
+// ============================================================
+// SPECIALTY RAIDERS
+// ============================================================
+
 /mob/living/simple_animal/hostile/raider/ranged/sulphiteranged
 	icon_state = "metal_raider"
 	icon_living = "metal_raider"
@@ -327,14 +337,14 @@
 	mob_armor = ARMOR_VALUE_RAIDER_METAL_ARMOR
 	maxHealth = 60
 	health = 60
-	
+
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/c45/simple
 	projectilesound = 'sound/weapons/gunshot.ogg'
-	
+
 	loot = list(/obj/item/gun/ballistic/automatic/pistol/m1911/custom, /obj/item/clothing/suit/armor/heavy/metal/reinforced, /obj/item/clothing/head/helmet/f13/metalmask/mk2, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 5
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
@@ -346,7 +356,6 @@
 		SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
 	)
 
-// FIREFIGHTER RAIDER
 /mob/living/simple_animal/hostile/raider/firefighter
 	icon_state = "firefighter_raider"
 	icon_living = "firefighter_raider"
@@ -358,7 +367,6 @@
 	loot = list(/obj/item/twohanded/fireaxe, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
 
-// BIKER RAIDER
 /mob/living/simple_animal/hostile/raider/ranged/biker
 	icon_state = "biker_raider"
 	icon_living = "biker_raider"
@@ -368,14 +376,14 @@
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
 	maxHealth = 125
 	health = 125
-	
+
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
 	projectilesound = 'sound/f13weapons/magnum_fire.ogg'
-	
+
 	loot = list(/obj/item/gun/ballistic/revolver/thatgun, /obj/item/clothing/suit/armor/medium/combat/rusted, /obj/item/clothing/head/helmet/f13/raidercombathelmet, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 5
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(RIFLE_LIGHT_VOLUME),
@@ -387,7 +395,7 @@
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
 
-// YANKEE RAIDER
+// Yankee Raider - baseball bat specialist
 /mob/living/simple_animal/hostile/raider/baseball
 	icon_state = "baseball_raider"
 	icon_living = "baseball_raider"
@@ -401,7 +409,6 @@
 	loot = list(/obj/item/twohanded/baseball, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
 
-// TRIBAL RAIDER
 /mob/living/simple_animal/hostile/raider/tribal
 	icon_state = "tribal_raider"
 	icon_living = "tribal_raider"
@@ -415,16 +422,26 @@
 	loot = list(/obj/item/twohanded/spear)
 	loot_drop_amount = 3
 
-//////////////
-// SULPHITE //
-//////////////
+// only chosen for its damage values - using base is cleaner and more intentional.
+/mob/living/simple_animal/hostile/raider/outlaw
+	name = "Bouncer"
+	faction = list("raider", "wastelander") // FIX: was list("Raiders","Wastelander") - wrong case, broke faction checks
+	icon_state = "badland_raider"
+	icon_living = "badland_raider"
+	icon_dead = "badland_raider_dead"
+	melee_damage_lower = 15 // Preserved from baseball parent
+	melee_damage_upper = 33
+
+// ============================================================
+// SULPHITE RAIDERS
+// ============================================================
 
 /mob/living/simple_animal/hostile/raider/sulphite
 	name = "Sulphite Brawler"
 	desc = "A raider with low military grade armor and a shishkebab"
 	icon_state = "sulphite"
 	icon_living = "sulphite"
-	icon_dead= "sulphite_dead"
+	icon_dead = "sulphite_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
 	maxHealth = 135
 	health = 135
@@ -434,9 +451,9 @@
 	loot = list(/obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 5
 
-/////////////
-// JUNKERS //
-/////////////
+// ============================================================
+// JUNKER GANG
+// ============================================================
 
 /mob/living/simple_animal/hostile/raider/junker
 	name = "Junker"
@@ -477,18 +494,17 @@
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
 	maxHealth = 150
 	health = 150
-	
-	// Pure ranged - spawns eyebots
+
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	retreat_distance = 6
 	minimum_distance = 1
-	
+
 	rapid_melee = 1
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/c45/op
 	projectilesound = 'sound/weapons/gunshot.ogg'
-	
+
 	var/list/spawned_mobs = list()
 	var/max_mobs = 3
 	var/mob_types = list(/mob/living/simple_animal/hostile/eyebot/reinforced)
@@ -501,10 +517,6 @@
 	AddComponent(/datum/component/spawner, mob_types, spawn_time, faction, spawn_text, max_mobs, _range = 7)
 
 /mob/living/simple_animal/hostile/raider/junker/creator/death()
-	RemoveComponentByType(/datum/component/spawner)
-	. = ..()
-
-/mob/living/simple_animal/hostile/raider/junker/creator/Destroy()
 	RemoveComponentByType(/datum/component/spawner)
 	. = ..()
 
@@ -524,34 +536,30 @@
 	maxHealth = 165
 	health = 165
 	stat_attack = UNCONSCIOUS
-	
-	// Pure ranged - shrapnel cannon
+
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
-	
+
 	rapid_melee = 1
 	extra_projectiles = 2
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/shrapnel/simple
 	projectilesound = 'sound/f13weapons/auto5.ogg'
-	
+
 	loot = list(/obj/item/stack/f13Cash/random/high)
-	loot_drop_amount = 10
+	loot_drop_amount = 10 // Intentional - boss drops a big pile of caps
 	loot_amount_random = FALSE
 
-// Outlaw Raiders
-/mob/living/simple_animal/hostile/raider/baseball/outlaw
-	name = "Bouncer"
-	faction = list("Raiders","Wastelander")
-	icon_state = "badland_raider"
-	icon_living = "badland_raider"
-	icon_dead = "badland_raider_dead"
+// ============================================================
+// CULTIST RAIDERS
+// implicit empty type that won't inherit random_trash_loot, faction, etc. cleanly.
+// ============================================================
 
-////////////////////
-// CULTIST STUFF //
-////////////////////
+/mob/living/simple_animal/hostile/raider/cultist
+	faction = list("cultist") // Cultists are separate from the raider faction
+	random_trash_loot = FALSE // Cultists don't carry general wasteland trash
 
 /mob/living/simple_animal/hostile/raider/cultist/melee
 	name = "Cultist Shredder"
@@ -573,20 +581,20 @@
 	icon_dead = "cultist_dead"
 	maxHealth = 85
 	health = 85
-	
-	// Pure ranged
+
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
-	
+
 	ranged_cooldown_time = 2 SECONDS
+	// FIX: c10mm projectile was paired with ninemil.ogg sound. Using 10mm sound.
 	projectiletype = /obj/item/projectile/bullet/c10mm/simple
-	projectilesound = 'sound/f13weapons/ninemil.ogg'
-	
+	projectilesound = 'sound/f13weapons/10mm_fire_02.ogg'
+
 	loot = list(/obj/item/gun/ballistic/automatic/pistol/n99, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),
@@ -602,17 +610,18 @@
 	name = "Cultist Crowd Controller"
 	icon_state = "cultist_shotgun"
 	icon_living = "cultist_shotgun"
-	
+	icon_dead = "cultist_shotgun_dead" // FIX: was missing, fell back to wrong parent dead sprite
+
 	ranged_cooldown_time = 4 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOW
 	projectiletype = /obj/item/projectile/bullet/pellet/shotgun_buckshot
 	projectilesound = 'sound/f13weapons/shotgun.ogg'
 	sound_after_shooting = 'sound/weapons/shotguninsert.ogg'
 	extra_projectiles = 1
-	
+
 	loot = list(/obj/item/gun/ballistic/shotgun/trench, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 6
-	
+
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(SHOTGUN_VOLUME),
@@ -629,14 +638,14 @@
 	icon_state = "cultist2_smg"
 	icon_living = "cultist2_smg"
 	icon_dead = "cultist2_dead"
-	
+
 	ranged_cooldown_time = 1 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	projectiletype = /obj/item/projectile/bullet/c22
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	sound_after_shooting = 'sound/weapons/shotguninsert.ogg'
 	extra_projectiles = 2
-	
+
 	loot = list(/obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 8
 
@@ -647,14 +656,14 @@
 	icon_dead = "cultist3_dead"
 	maxHealth = 150
 	health = 150
-	
+
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	projectiletype = /obj/item/projectile/energy/teslacannon/eastwood
 	projectilesound = 'sound/weapons/resonator_fire.ogg'
 	sound_after_shooting = 'sound/f13weapons/rcwfire.ogg'
 	extra_projectiles = 2
-	
+
 	loot = list(/obj/item/gun/energy/laser/auto/eastwood, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = 8
 
@@ -666,18 +675,21 @@
 	icon_dead = "cultist3_dead"
 	maxHealth = 150
 	health = 150
-	
+
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	projectiletype = /obj/item/projectile/energy/nuclear_particle
 	projectilesound = 'sound/weapons/resonator_fire.ogg'
 	sound_after_shooting = 'sound/f13weapons/rcwfire.ogg'
 	extra_projectiles = 1
-	
+
 	loot = list(/obj/item/gun/energy/gammagun, /obj/item/stack/f13Cash/random/high)
 	loot_drop_amount = 10
 
+// ============================================================
 // CORPSE SPAWNERS
+// ============================================================
+
 /obj/effect/mob_spawn/human/corpse/raider
 	name = "Raider"
 	uniform = /obj/item/clothing/under/f13/rag

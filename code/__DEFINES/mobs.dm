@@ -176,6 +176,7 @@
 #define MOB_SIZE_SMALL 1
 #define MOB_SIZE_HUMAN 2
 #define MOB_SIZE_LARGE 3
+#define MOB_SIZE_HUGE 5
 
 //Ventcrawling defines
 #define VENTCRAWLER_NONE   0

@@ -423,9 +423,37 @@
 		return 0
 
 	var/list/possible_targets = ListTargets()
+	
+	// Safety check: ensure possible_targets is a proper list, not nested
+	if(!possible_targets)
+		possible_targets = list()
+	else if(!islist(possible_targets))
+		possible_targets = list(possible_targets)
+	else if(islist(possible_targets))
+		// Check for nested lists and flatten them
+		var/has_nested = FALSE
+		for(var/item in possible_targets)
+			if(islist(item))
+				has_nested = TRUE
+				break
+		
+		if(has_nested)
+			var/list/flattened = list()
+			var/original_len = possible_targets.len
+			for(var/entry in possible_targets)
+				if(islist(entry))
+					for(var/subitem in entry)
+						flattened += subitem
+				else
+					flattened += entry
+			possible_targets = flattened
+			
+			// Debug logging to track down the source
+			log_runtime("HOSTILE MOB: [src] ([type]) had nested list from ListTargets() at [get_turf(src)]. Original list: [original_len] entries, flattened to [flattened.len] entries.")
 
-	// IMMEDIATE SEARCH EXIT: valid, visible, attackable target while searching
-	if(searching && possible_targets && possible_targets.len > 0)
+	// IMMEDIATE TARGET RESPONSE: Fast acquisition for both search mode and initial detection
+	// When idle or searching, quickly grab first valid target without waiting for next cycle
+	if((searching || AIStatus == AI_IDLE) && possible_targets && possible_targets.len > 0)
 		for(var/atom/possible_target in possible_targets)
 			// BUG 1+3 FIX: all three guards
 			if(isliving(possible_target))
@@ -436,7 +464,15 @@
 				continue
 			if(!CanAttack(possible_target))
 				continue
-			exit_search_mode(FALSE, found_target = TRUE)
+			
+			// Wake up immediately if idle
+			if(AIStatus == AI_IDLE)
+				toggle_ai(AI_ON)
+			
+			// Exit search mode if searching
+			if(searching)
+				exit_search_mode(FALSE, found_target = TRUE)
+			
 			last_target_sighting = world.time
 			remembered_target = possible_target
 			GiveTarget(possible_target)
@@ -923,6 +959,10 @@
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src
 		
+		// Safety check: ensure we have a proper list
+		if(!islist(.))
+			. = list()
+		
 		// Check for targets one Z-level ABOVE through openspace above us
 		var/turf/our_turf = get_turf(targets_from)
 		var/turf/above_us = get_step_multiz(our_turf, UP)
@@ -1160,6 +1200,23 @@
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)
 	stop_automated_movement = 1
+	
+	// Safety check: flatten nested lists if somehow we received one
+	if(possible_targets && islist(possible_targets))
+		for(var/item in possible_targets)
+			if(islist(item))
+				// We have a nested list - flatten it
+				var/list/flattened = list()
+				for(var/entry in possible_targets)
+					if(islist(entry))
+						// Add all items from the nested list
+						for(var/subitem in entry)
+							flattened += subitem
+					else
+						flattened += entry
+				possible_targets = flattened
+				log_runtime("HOSTILE MOB MoveToTarget: [src] ([type]) had nested list at [get_turf(src)]. Flattened to [flattened.len] entries.")
+				break
 
 	if(peaceful == TRUE)
 		LoseTarget()
@@ -1328,6 +1385,10 @@
 		if(COOLDOWN_TIMELEFT(src, melee_cooldown))
 			return TRUE
 
+		// Safety check: target might have been cleared during movement/shooting
+		if(!target)
+			return 0
+
 		var/is_adjacent = targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && target.z == z
 
 		if(is_adjacent)
@@ -1350,7 +1411,7 @@
 	// TARGET NOT IN LOS but we know roughly where they are (within grace period)
 	// Move toward last known position - this is the "searching while in combat" path
 	// ranged_ignores_vision mobs can still shoot
-	if(environment_smash || can_open_doors || ranged_ignores_vision)
+	if(target && (environment_smash || can_open_doors || ranged_ignores_vision))
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range)
 			if(ranged_ignores_vision && ranged_cooldown <= world.time)
 				OpenFire(target)
@@ -1364,6 +1425,12 @@
 				else
 					if(FindHidden())
 						return 1
+			
+			// If we can open doors and target is nearby but not visible, move toward them
+			// Don't immediately give up after firing - pursue through the door
+			if(can_open_doors && target_dist <= vision_range)
+				Goto(target, move_to_delay, minimum_distance)
+				return 1
 
 	LoseTarget()
 	return 0
