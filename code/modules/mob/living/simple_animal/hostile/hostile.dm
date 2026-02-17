@@ -2112,33 +2112,35 @@
 				
 				// Handle the closest hiding spot
 				if(closest_spot)
-				// Is it a container?
-				if(istype(closest_spot, /obj/structure/closet))
-					var/obj/structure/closet/C = closest_spot
-					
-					if(get_dist(src, C) <= 1) // Adjacent - open it NOW
-						searched_containers += C
-						visible_message(span_warning("[src] searches [C]..."))
+					// Is it a container?
+					if(istype(closest_spot, /obj/structure/closet))
+						var/obj/structure/closet/C = closest_spot
 						
-						// Check container contents BEFORE opening
-						for(var/atom/A in C.contents)
-							if(isliving(A))
-								var/mob/living/L = A
-								if(L.stat == DEAD || L.ckey && !L.client)
-									continue
-								if(CanAttack(L))
-									// Found someone hiding!
-									C.open(src)
-									sleep(5)
-									visible_message(span_danger("[src] found [L] hiding in [C]!"))
-									exit_search_mode(FALSE, found_target = TRUE)
-									last_target_sighting = world.time
-									remembered_target = L
-									GiveTarget(L)
-									last_known_location = get_turf(L)
-									walk(src, 0)
-									call_for_backup(L, "found")
-									return
+						if(get_dist(src, C) <= 1) // Adjacent - open it NOW
+							searched_containers += C
+							visible_message(span_warning("[src] searches [C]..."))
+							
+							// Check container contents BEFORE opening
+							for(var/atom/A in C.contents)
+								if(isliving(A))
+									var/mob/living/L = A
+									if(L.stat == DEAD || L.ckey && !L.client)
+										continue
+									if(CanAttack(L))
+										// Found someone hiding!
+										C.open(src)
+										sleep(5)
+										visible_message(span_danger("[src] found [L] hiding in [C]!"))
+										exit_search_mode(FALSE, found_target = TRUE)
+										last_target_sighting = world.time
+										remembered_target = L
+										GiveTarget(L)
+										last_known_location = get_turf(L)
+										walk(src, 0)
+										call_for_backup(L, "found")
+										return
+							
+							// No one inside - open and check nearby
 							C.open(src)
 							sleep(5)
 							
@@ -2167,7 +2169,10 @@
 							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1 SECONDS, TIMER_DELETE_ME)
 							return
 						else // Not adjacent - move toward it
-
+							Goto(C, move_to_delay, 0)
+							addtimer(CALLBACK(src, PROC_REF(search_for_target)), 1.5 SECONDS, TIMER_DELETE_ME)
+							return
+					
 					// Is it a door?
 					else
 						if(get_dist(src, closest_spot) <= 1) // Adjacent - open it
