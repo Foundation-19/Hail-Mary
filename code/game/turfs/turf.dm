@@ -87,10 +87,12 @@
 		base_opacity = initial(opacity)
 		directional_opacity = ALL_CARDINALS
 
+	// Cache area lookup - used multiple times below
+	var/area/A = loc
+	
 	for(var/atom/movable/AM in src)
 		Entered(AM)
 
-	var/area/A = loc
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 	else

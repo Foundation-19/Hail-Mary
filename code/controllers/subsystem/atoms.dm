@@ -30,6 +30,7 @@ SUBSYSTEM_DEF(atoms)
 	LAZYINITLIST(late_loaders)
 
 	var/count
+	var/batch_count = 0
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
 		count = atoms.len
@@ -37,14 +38,18 @@ SUBSYSTEM_DEF(atoms)
 			var/atom/A = I
 			if(!(A.flags_1 & INITIALIZED_1))
 				InitAtom(I, mapload_arg)
-				CHECK_TICK
+				if(++batch_count >= 100)
+					batch_count = 0
+					CHECK_TICK
 	else
 		count = 0
 		for(var/atom/A in world)
 			if(!(A.flags_1 & INITIALIZED_1))
 				InitAtom(A, mapload_arg)
 				++count
-				CHECK_TICK
+				if(++batch_count >= 100)
+					batch_count = 0
+					CHECK_TICK
 
 	testing("Initialized [count] atoms")
 	pass(count)
@@ -52,9 +57,13 @@ SUBSYSTEM_DEF(atoms)
 	initialized = INITIALIZATION_INNEW_REGULAR
 
 	if(late_loaders.len)
+		batch_count = 0
 		for(var/I in late_loaders)
 			var/atom/A = I
 			A.LateInitialize()
+			if(++batch_count >= 100)
+				batch_count = 0
+				CHECK_TICK
 		testing("Late initialized [late_loaders.len] atoms")
 		late_loaders.Cut()
 
