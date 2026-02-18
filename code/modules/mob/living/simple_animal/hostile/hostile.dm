@@ -1132,6 +1132,10 @@
 	// Determine which cone target is in
 	var/cone_type = get_vision_cone(target)
 	
+	// No vision behind us ever
+	if(cone_type == CONE_REAR)
+		return 0
+	
 	// Check if target has a light source
 	var/has_light = FALSE
 	if(isliving(target))
@@ -1139,11 +1143,13 @@
 		if(L.light_range > 0)
 			has_light = TRUE
 	
-	// If they have a light, they're visible at full range (unless behind us)
+	// If they have a light, they're visible at full range
 	if(has_light)
-		if(cone_type == CONE_REAR)
-			return 0 // Can't see behind us even with light
-		return vision_range
+		// Apply cone multiplier
+		if(cone_type == CONE_FRONT)
+			return vision_range
+		else // CONE_PERIPHERAL
+			return max(round(vision_range * 0.6), 2)
 	
 	// Check ambient lighting at target location
 	var/turf/target_turf = get_turf(target)
@@ -1153,30 +1159,20 @@
 	var/light_amount = target_turf.get_lumcount()
 	var/base_range = vision_range
 	
-	// Lighting-based range calculation
+	// Lighting-based range calculation (same for all cones)
 	if(light_amount >= 0.5)
 		base_range = vision_range // Bright: full range
 	else if(light_amount >= 0.2)
-		base_range = max(round(vision_range * 0.5), 3) // Dim: half range
+		base_range = max(round(vision_range * 0.6), 3) // Dim: 60% range
 	else
-		// Darkness: depends on cone
-		if(cone_type == CONE_FRONT)
-			base_range = 5 // Front cone: 5 tiles in darkness
-		else if(cone_type == CONE_PERIPHERAL)
-			base_range = 3 // Peripheral: 3 tiles in darkness
-		else // CONE_REAR
-			return 0 // Can't see behind us in darkness
+		// Darkness: reduced to 40% range
+		base_range = max(round(vision_range * 0.4), 3)
 	
-	// Apply cone multipliers to final range
-	switch(cone_type)
-		if(CONE_FRONT)
-			return base_range // Full range in front cone
-		if(CONE_PERIPHERAL)
-			return max(round(base_range * 0.6), 2) // 60% range in peripheral
-		if(CONE_REAR)
-			return 0 // No vision behind
-	
-	return 2
+	// Apply cone multipliers
+	if(cone_type == CONE_FRONT)
+		return base_range // Full range in front cone
+	else // CONE_PERIPHERAL
+		return max(round(base_range * 0.6), 2) // 60% of lighting range in peripheral
 
 /// LOW-LIGHT VISION: Modified version that adds low-light vision bonus for mutants/animals
 /mob/living/simple_animal/hostile/proc/get_effective_vision_range_lowlight(atom/target)
@@ -1291,9 +1287,9 @@
 	var/detection_range = 0
 	
 	if(sound_cone == SOUND_REAR_CENTER)
-		detection_range = round(sound_level * 3)
+		detection_range = round(sound_level * 1.5) // Directly behind - harder to hear
 	else // SOUND_REAR_PERIPHERAL
-		detection_range = round(sound_level * 1.5)
+		detection_range = round(sound_level * 3) // Sides - easier to hear
 	
 	return detection_range
 
