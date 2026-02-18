@@ -1266,15 +1266,16 @@
 	if(!sound_cone)
 		return 0 // Not behind us - no sound detection
 	
-	// FIX 2: Strict movement check - only detect if moving RIGHT NOW
-	// Must have moved within last 0.3 seconds (3 deciseconds)
+	// FIX 2: Check for recent movement
+	// Must have moved within last 2 seconds (20 deciseconds)
+	// This catches continuous walking/running between actual movement ticks
 	if(!L.last_move_time)
 		return 0 // Never moved
 	
 	var/time_since_move = world.time - L.last_move_time
 	
-	// CRITICAL: 0.3 second window catches mid-move, not after stopping
-	if(time_since_move > 3)
+	// 2 second window catches ongoing movement
+	if(time_since_move > 20)
 		return 0 // Stopped moving - no sound
 	
 	// Get their movement sound level
