@@ -27,6 +27,9 @@
 	aggro_vision_range = 7
 	vision_range = 8
 	
+	// Reptilian eyes adapted to wasteland conditions
+	has_low_light_vision = TRUE
+	
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab/gecko = 2,
 		/obj/item/stack/sheet/animalhide/gecko = 1,
@@ -321,6 +324,10 @@
 	
 	aggro_vision_range = 7
 	vision_range = 8
+	
+	// Nightstalkers are specifically adapted for nocturnal hunting
+	has_low_light_vision = TRUE
+	low_light_bonus = 4
 	
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab/nightstalker_meat = 2,

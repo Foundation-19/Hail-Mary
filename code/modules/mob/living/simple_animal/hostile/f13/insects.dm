@@ -353,6 +353,10 @@
 	aggro_vision_range = 4  // Poor eyesight
 	vision_range = 5
 	
+	// Nocturnal hunter, but limited by poor eyesight
+	has_low_light_vision = TRUE
+	low_light_bonus = 2
+	
 	butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat = 2,
 		/obj/item/stack/sheet/bone = 1
@@ -497,6 +501,9 @@
 	
 	aggro_vision_range = 7
 	vision_range = 8
+	
+	// Hunting insect with compound eyes adapted for low light
+	has_low_light_vision = TRUE
 	
 	guaranteed_butcher_results = list(
 		/obj/item/reagent_containers/food/snacks/meat/slab/cazador_meat = 2,

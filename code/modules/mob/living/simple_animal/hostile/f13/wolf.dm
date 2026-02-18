@@ -26,6 +26,9 @@
 	
 	aggro_vision_range = 15
 	
+	// Canine predators with natural night vision
+	has_low_light_vision = TRUE
+	
 	guaranteed_butcher_results = list(
 		/obj/item/stack/sheet/animalhide/wolf = 1,
 		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1,

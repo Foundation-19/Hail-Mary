@@ -28,6 +28,10 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	robust_searching = TRUE
 	
+	// Apex predator with excellent vision in low light
+	has_low_light_vision = TRUE
+	low_light_bonus = 4
+	
 	speak = list("ROAR!","Rawr!","GRRAAGH!","Growl!")
 	speak_emote = list("growls", "roars")
 	emote_hear = list("grumbles.","grawls.")

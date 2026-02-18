@@ -329,6 +329,9 @@
 	attack_verb_simple = "slashes"
 	attack_sound = "sound/weapons/bladeslice.ogg"
 	color_rage = "#9999ff"
+	
+	// Nightkin have excellent night vision for stealth operations
+	has_low_light_vision = TRUE
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/Aggro()
 	. = ..()
