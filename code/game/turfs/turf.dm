@@ -78,10 +78,21 @@
 
 	assemble_baseturfs()
 
-	levelupdate()
+	// OPTIMIZATION: Merge levelupdate() and Entered() into single loop to avoid iterating objects twice
+	for(var/atom/movable/AM in src)
+		Entered(AM)
+		// Handle level 1 object hiding (was in levelupdate())
+		if(isobj(AM))
+			var/obj/O = AM
+			if(O.level == 1 && (O.flags_1 & INITIALIZED_1))
+				O.hide(src.intact)
+	
 	if(smooth)
 		queue_smooth(src)
-	visibilityChanged()
+	
+	// OPTIMIZATION: Skip camera updates during mapload - batched update happens after all turfs init
+	if(!mapload)
+		visibilityChanged()
 
 	if(initial(opacity)) // Could be changed by the initialization of movable atoms in the turf.
 		base_opacity = initial(opacity)
@@ -89,21 +100,32 @@
 
 	// Cache area lookup - used multiple times below
 	var/area/A = loc
-	
-	for(var/atom/movable/AM in src)
-		Entered(AM)
 
 	if(!IS_DYNAMIC_LIGHTING(src) && IS_DYNAMIC_LIGHTING(A))
 		add_overlay(/obj/effect/fullbright)
 	else
 		if(A.outdoors == TRUE)
 			sunlight_state = SUNLIGHT_SOURCE
-		switch(sunlight_state)
-			if(SUNLIGHT_SOURCE)
-				setup_sunlight_source()
-			if(SUNLIGHT_BORDER)
-				border_neighbors = null
-				smooth_sunlight_border()
+		// OPTIMIZATION: Defer sunlight smoothing during mapload - batched after all turfs exist
+		if(mapload)
+			// Store state for batch processing, but skip the expensive neighbor checks
+			if(sunlight_state == SUNLIGHT_SOURCE)
+				vis_contents += SSnightcycle.sunlight_source_object
+				luminosity = 1
+				// Mark neighbors, but don't smooth yet
+				for(var/dir in GLOB.alldirs)
+					var/turf/neighbor = get_step(src, dir)
+					if(!neighbor || !neighbor.type || neighbor?.sunlight_state && neighbor?.sunlight_state != NO_SUNLIGHT)
+						continue
+					neighbor.sunlight_state = SUNLIGHT_BORDER
+		else
+			// Not mapload, do normal smoothing
+			switch(sunlight_state)
+				if(SUNLIGHT_SOURCE)
+					setup_sunlight_source()
+				if(SUNLIGHT_BORDER)
+					border_neighbors = null
+					smooth_sunlight_border()
 
 	if(requires_activation)
 		CALCULATE_ADJACENT_TURFS(src)

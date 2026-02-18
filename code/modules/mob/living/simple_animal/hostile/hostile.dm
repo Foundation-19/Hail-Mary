@@ -473,21 +473,31 @@
 	// When idle or searching, quickly grab first valid target without waiting for next cycle
 	if((searching || AIStatus == AI_IDLE) && possible_targets && possible_targets.len > 0)
 		for(var/atom/possible_target in possible_targets)
-			// BUG 1+3 FIX: all three guards
+			// Dead/ghost check
 			if(isliving(possible_target))
 				var/mob/living/L = possible_target
 				if(L.stat == DEAD || L.ckey && !L.client)
 					continue
-			if(!can_see(src, possible_target, vision_range))
+			
+			// CORE FIX: Check distance FIRST using effective range
+			var/effective_range = get_effective_vision_range(possible_target)
+			var/actual_distance = get_dist(src, possible_target)
+			
+			if(actual_distance > effective_range)
+				continue // Too far in darkness
+			
+			// Now check line of sight
+			if(!can_see(src, possible_target, effective_range))
 				continue
+			
+			// Faction check
 			if(!CanAttack(possible_target))
 				continue
 			
-			// Wake up immediately if idle
+			// All checks passed - acquire target
 			if(AIStatus == AI_IDLE)
 				toggle_ai(AI_ON)
 			
-			// Exit search mode if searching
 			if(searching)
 				exit_search_mode(FALSE, found_target = TRUE)
 			
@@ -512,7 +522,7 @@
 			else
 				var/stuck_duration = world.time - stuck_time
 				var/target_dist = get_dist(src, target)
-				var/can_see_target = can_see(src, target, vision_range)
+				var/can_see_target = can_see(src, target, get_effective_vision_range(target))
 				if(can_see_target && target_dist >= 2 && target_dist <= 10)
 					if(stuck_duration > corner_stuck_timeout && !is_stuck)
 						is_stuck = TRUE
@@ -839,7 +849,7 @@
 
 	visible_message(span_danger("[src] perks up from [alerter]'s alert!"))
 
-	if(can_see(src, threat, vision_range) && CanAttack(threat))
+	if(can_see(src, threat, get_effective_vision_range(threat)) && CanAttack(threat))
 		// Direct confirmation - becomes alpha, can propagate
 		if(AIStatus != AI_ON)
 			toggle_ai(AI_ON)
@@ -977,26 +987,89 @@
 
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
+/// Get directional vision multiplier (DISABLED FOR TESTING)
+/// Returns 1.0 to disable directional vision while testing lighting
+/mob/living/simple_animal/hostile/proc/get_directional_vision_multiplier(atom/target)
+	// DISABLED: Just return full range for lighting-only testing
+	return 1.0
+
+/// Check if target is within the mob's field of view (direction-based)
+/// Returns TRUE if target is in front half (180-degree cone) of mob's facing direction
+/// Legacy compatibility wrapper for the multiplier system
+/mob/living/simple_animal/hostile/proc/in_field_of_view(atom/target)
+	if(!target)
+		return FALSE
+	
+	var/multiplier = get_directional_vision_multiplier(target)
+	return (multiplier >= 0.5) // TRUE if in front or side, FALSE if behind
+
+/// Calculate effective vision range - LIGHTING ONLY (direction disabled for testing)
+/// Returns the final detection range in tiles based on lighting conditions
+/mob/living/simple_animal/hostile/proc/get_effective_vision_range(atom/target)
+	if(!target)
+		return vision_range
+	
+	// Check if target has a light source
+	if(isliving(target))
+		var/mob/living/L = target
+		if(L.light_range > 0)
+			// They're carrying a light - full detection
+			return vision_range
+	
+	// Check ambient lighting at target's location
+	var/turf/target_turf = get_turf(target)
+	if(target_turf)
+		var/light_amount = target_turf.get_lumcount()
+		
+		// SIMPLE THRESHOLDS:
+		// >= 0.5 = bright (full range)
+		// >= 0.2 = dim (half range)
+		// < 0.2 = dark (1/4 range)
+		
+		if(light_amount >= 0.5)
+			return vision_range // 9 tiles
+		else if(light_amount >= 0.2)
+			return max(round(vision_range * 0.5), 3) // ~4-5 tiles
+		else
+			return max(round(vision_range * 0.25), 2) // ~2 tiles
+	
+	// Default: minimal range
+	return 2
+
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(!search_objects)
-		. = hearers(vision_range, targets_from) - src
+		// CORE FIX: Filter by effective range BEFORE adding to list
+		. = list()
 		
-		// Safety check: ensure we have a proper list
-		if(!islist(.))
-			. = list()
+		// Get all potential targets in max vision range
+		var/list/potential_targets = hearers(vision_range, targets_from) - src
 		
-		// Check for targets one Z-level ABOVE through openspace above us
+		for(var/atom/A in potential_targets)
+			// Skip non-attackable things early
+			if(!isliving(A) && !ismecha(A) && !istype(A, /obj/machinery/porta_turret))
+				continue
+			
+			// Check effective vision range (lighting + direction)
+			var/effective_range = get_effective_vision_range(A)
+			var/actual_distance = get_dist(src, A)
+			
+			// Only include if within effective range
+			if(actual_distance <= effective_range)
+				. += A
+		
+		// Check for targets one Z-level ABOVE through openspace
 		var/turf/our_turf = get_turf(targets_from)
 		var/turf/above_us = get_step_multiz(our_turf, UP)
 		if(above_us && istype(above_us, /turf/open/transparent/openspace))
-			// We're under openspace, we can see up
 			for(var/mob/living/M in range(vision_range, above_us))
-				// Make sure they're actually on the openspace (visible to us)
 				var/turf/their_turf = get_turf(M)
 				if(istype(their_turf, /turf/open/transparent/openspace))
-					. += M
+					var/effective_range = get_effective_vision_range(M)
+					var/actual_distance = get_dist(src, M)
+					if(actual_distance <= effective_range)
+						. += M
 		
-		// Check for targets one Z-level BELOW through openspace we're standing on/near
+		// Check for targets one Z-level BELOW through openspace
 		var/list/openspace_tiles = list()
 		if(istype(our_turf, /turf/open/transparent/openspace))
 			openspace_tiles += our_turf
@@ -1011,22 +1084,35 @@
 					var/turf/their_turf = get_turf(M)
 					var/turf/above_them = get_step_multiz(their_turf, UP)
 					if(above_them && istype(above_them, /turf/open/transparent/openspace))
-						. += M
+						var/effective_range = get_effective_vision_range(M)
+						var/actual_distance = get_dist(src, M)
+						if(actual_distance <= effective_range)
+							. += M
 		
-		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/structure/destructible/clockwork/ocular_warden,/obj/item/electronic_assembly))
-
+		// Add hostile machines that are in effective range
+		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/structure/destructible/clockwork/ocular_warden, /obj/item/electronic_assembly))
+		
 		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
 			CHECK_TICK
-			if(can_see(targets_from, HM, vision_range))
+			var/effective_range = get_effective_vision_range(HM)
+			var/actual_distance = get_dist(src, HM)
+			if(actual_distance <= effective_range && can_see(targets_from, HM, effective_range))
 				. += HM
 	else
+		// Object search mode - also respect effective range
 		. = list()
-		for (var/obj/A in oview(vision_range, targets_from))
+		for(var/obj/A in oview(vision_range, targets_from))
 			CHECK_TICK
-			. += A
-		for (var/mob/living/A in oview(vision_range, targets_from))
+			var/effective_range = get_effective_vision_range(A)
+			var/actual_distance = get_dist(src, A)
+			if(actual_distance <= effective_range)
+				. += A
+		for(var/mob/living/A in oview(vision_range, targets_from))
 			CHECK_TICK
-			. += A
+			var/effective_range = get_effective_vision_range(A)
+			var/actual_distance = get_dist(src, A)
+			if(actual_distance <= effective_range)
+				. += A
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0)
 	. = list()
@@ -1036,7 +1122,7 @@
 			possible_targets = ListTargets()
 
 		// SEARCH MODE: If searching and target reappears in LOS, re-acquire
-		if(searching && target && (target in possible_targets) && can_see(src, target, vision_range))
+		if(searching && target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			remembered_target = target
@@ -1206,6 +1292,19 @@
 
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
+	// Vision check before attempting melee
+	if(target)
+		var/effective_range = get_effective_vision_range(target)
+		if(effective_range == 0)
+			// Target is behind us - lose target
+			LoseTarget()
+			return
+		var/dist = get_dist(src, target)
+		if(dist > effective_range)
+			// Target is beyond our vision range - lose target
+			LoseTarget()
+			return
+	
 	if(rapid_melee > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
@@ -1218,6 +1317,13 @@
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
 	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated())
+		// Vision check before rapid melee attack
+		var/effective_range = get_effective_vision_range(target)
+		if(effective_range == 0)
+			return // Can't see target (behind us)
+		var/dist = get_dist(src, target)
+		if(dist > effective_range)
+			return // Target beyond vision range
 		AttackingTarget()
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)
@@ -1245,7 +1351,7 @@
 		return 0
 
 	if(searching)
-		if(target && (target in possible_targets) && can_see(src, target, vision_range))
+		if(target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			call_for_backup(target, "found")
@@ -1253,7 +1359,7 @@
 			return 1
 
 	if(rallying)
-		if(target && (target in possible_targets) && can_see(src, target, vision_range))
+		if(target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
 			rallying = FALSE
 			rally_point = null
 		else if((world.time - rally_start_time) > rally_duration)
@@ -1278,7 +1384,7 @@
 		LoseTarget()
 		return 0
 
-	var/has_los = (target in possible_targets) && can_see(src, target, vision_range)
+	var/has_los = (target in possible_targets) && can_see(src, target, get_effective_vision_range(target))
 
 	if(has_los)
 		last_target_sighting = world.time
@@ -1460,6 +1566,10 @@
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
 	if(target == src.target)
 		approaching_target = TRUE
+		// FIX: Turn to face target while pursuing
+		var/face_dir = get_dir(src, target)
+		if(face_dir && face_dir != dir)
+			setDir(face_dir)
 	else
 		approaching_target = FALSE
 	if(CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
@@ -1481,7 +1591,7 @@
 			var/new_target = null
 			// FIXED: Only acquire target we can actually see
 			for(var/atom/T in possible_targets)
-				if(can_see(src, T, vision_range) && CanAttack(T))
+				if(can_see(src, T, get_effective_vision_range(T)) && CanAttack(T))
 					new_target = T
 					break
 			if(new_target)
@@ -1502,7 +1612,7 @@
 			var/new_target = null
 			// FIXED: LOS check here too
 			for(var/atom/T in possible_targets)
-				if(can_see(src, T, vision_range) && CanAttack(T))
+				if(can_see(src, T, get_effective_vision_range(T)) && CanAttack(T))
 					new_target = T
 					break
 			if(new_target)
@@ -1525,6 +1635,26 @@
 
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
+	// VISION CHECK: Don't attack if we can't see the target
+	if(target)
+		var/effective_range = get_effective_vision_range(target)
+		// If effective range is 0, target is completely out of vision (behind us)
+		if(effective_range == 0)
+			if(isliving(target))
+				var/mob/living/L = target
+				if(L.client)
+					to_chat(L, span_notice("DEBUG: [src] cannot attack - you are behind them (range=0)"))
+			return FALSE
+		
+		// Check if target is within our effective vision range
+		var/dist = get_dist(src, target)
+		if(dist > effective_range)
+			if(isliving(target))
+				var/mob/living/L = target
+				if(L.client)
+					to_chat(L, span_notice("DEBUG: [src] cannot attack - beyond vision range (dist=[dist], range=[effective_range])"))
+			return FALSE
+	
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	in_melee = TRUE
 	if(prob(alternate_attack_prob) && AlternateAttackingTarget(target))
@@ -1538,6 +1668,13 @@
 /mob/living/simple_animal/hostile/proc/Aggro()
 	if(ckey)
 		return TRUE
+	
+	// Face the target when we acquire them
+	if(target && !QDELETED(target))
+		var/face_dir = get_dir(src, target)
+		if(face_dir && face_dir != dir)
+			setDir(face_dir)
+	
 	vision_range = aggro_vision_range
 	if(target && LAZYLEN(emote_taunt) && prob(taunt_chance))
 		INVOKE_ASYNC(src, PROC_REF(emote), "me", EMOTE_VISIBLE, "[pick(emote_taunt)] at [target].")
@@ -1930,7 +2067,7 @@
 				var/mob/living/L = possible_target
 				if(L.stat == DEAD || L.ckey && !L.client) // Dead or ghosted
 					continue
-			if(!can_see(src, possible_target, vision_range))
+			if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
 				continue
 			if(!CanAttack(possible_target))
 				continue
@@ -1989,7 +2126,7 @@
 										var/mob/living/L = possible_target
 										if(L.stat == DEAD || L.ckey && !L.client)
 											continue
-									if(!can_see(src, possible_target, vision_range))
+									if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
 										continue
 									if(!CanAttack(possible_target))
 										continue
@@ -2021,7 +2158,7 @@
 										var/mob/living/L = possible_target
 										if(L.stat == DEAD || L.ckey && !L.client)
 											continue
-									if(!can_see(src, possible_target, vision_range))
+									if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
 										continue
 									if(!CanAttack(possible_target))
 										continue
@@ -2188,7 +2325,7 @@
 											var/mob/living/L = possible_target
 											if(L.stat == DEAD || L.ckey && !L.client)
 												continue
-										if(!can_see(src, possible_target, vision_range))
+										if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
 											continue
 										if(!CanAttack(possible_target))
 											continue
@@ -2356,7 +2493,7 @@
 			return // Don't chase ghosts or corpses
 
 	// Can we see them directly?
-	if(can_see(src, alert_target, vision_range) && CanAttack(alert_target))
+	if(can_see(src, alert_target, get_effective_vision_range(alert_target)) && CanAttack(alert_target))
 		if(searching)
 			exit_search_mode(found_target = TRUE)
 		// Direct confirmation → becomes alpha
@@ -2898,24 +3035,35 @@
 			return
 		
 		// Check the ambient light level at our location
-		var/light_level = my_turf.luminosity
+		var/light_level = my_turf.get_lumcount()
 		if(light_level > darkness_threshold)
 			return // Too bright, don't bother detecting lights
 	
 	// ONLY check for living mobs with lights - not objects
-	// Scanning all objects is too expensive and causes lag
 	var/list/potential_lights = list()
 	
-	// Check all mobs in range (players with flashlights, glowing creatures, etc)
+	// FIX: Use the INTEGRATED vision system instead of raw view()
+	// Check all mobs in range, but filter by effective vision range
 	for(var/mob/living/M in view(light_detection_range, src))
 		if(M == src)
 			continue
 		
+		// Don't detect friendly faction members
+		if(faction_check_mob(M))
+			continue
+		
 		// Check if they're emitting enough light
-		if(M.light_range >= light_detection_threshold)
-			// Don't detect friendly faction members
-			if(!faction_check_mob(M))
-				potential_lights += M
+		if(M.light_range < light_detection_threshold)
+			continue
+		
+		// FIX: Apply the integrated vision system
+		// This checks BOTH lighting and direction
+		var/effective_range = get_effective_vision_range(M)
+		var/actual_distance = get_dist(src, M)
+		
+		// Only detect if within our effective vision range
+		if(actual_distance <= effective_range)
+			potential_lights += M
 	
 	// If we found any lights, investigate the closest one
 	if(potential_lights.len > 0)
@@ -3165,7 +3313,7 @@
 	// CRITICAL: Check if we actually have line of sight before shooting
 	// Exception: Allow close-range shooting (within 2 tiles) even without perfect LOS
 	var/dist_to_target = get_dist(src, A)
-	if(dist_to_target > 2 && !can_see(src, A, vision_range))
+	if(dist_to_target > 2 && !can_see(src, A, get_effective_vision_range(A)))
 		return FALSE // Can't see target and not close enough, don't shoot
 	
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
@@ -3330,6 +3478,10 @@
 
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir, step_x, step_y)
+	// FIX: Set facing direction when we move (so mobs turn naturally)
+	if(dir && dir != src.dir && !dodging)
+		setDir(dir)
+	
 	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
 		return dodge(newloc,dir)
 	
