@@ -95,7 +95,7 @@
 	// LOW-LIGHT VISION: Some mobs (mutants, animals, nightkin) see better in darkness
 	var/has_low_light_vision = FALSE // Set to TRUE for mutants, animals, nightkin, deathclaws, etc.
 	var/low_light_bonus = 3 // Extra tiles of vision in darkness when has_low_light_vision is TRUE
-	var/debug_vision = TRUE // Set to TRUE to see cone detection messages in chat
+	var/debug_vision = FALSE // Set to TRUE to see cone detection messages in chat
 	
 	var/search_objects = 0 //If we want to consider objects when searching around, set this to 1. If you want to search for objects while also ignoring mobs until hurt, set it to 2. To completely ignore mobs, even when attacked, set it to 3
 	var/search_objects_timer_id //Timer for regaining our old search_objects value after being attacked
