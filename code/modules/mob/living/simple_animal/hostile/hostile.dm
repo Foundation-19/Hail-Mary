@@ -3,6 +3,15 @@
 #define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
 #define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
 
+// Vision cone definitions (cone-based directional vision system)
+#define CONE_FRONT 1        // 90° front cone - best vision
+#define CONE_PERIPHERAL 2   // 45° side cones - reduced vision
+#define CONE_REAR 3         // Behind mob - no vision, sound only
+
+// Sound cone definitions (rear sound detection)
+#define SOUND_REAR_CENTER 1    // 90° rear cone - normal sound detection
+#define SOUND_REAR_PERIPHERAL 2 // 45° rear side cones - reduced sound detection
+
 /mob/living/simple_animal/hostile
 	faction = list("hostile")
 	stop_automated_movement_when_pulled = 0
@@ -82,6 +91,12 @@
 	var/robust_searching = 0 //By default, mobs have a simple searching method, set this to 1 for the more scrutinous searching (stat_attack, stat_exclusive, etc), should be disabled on most mobs
 	var/vision_range = 9 //How big of an area to search for targets in, a vision of 9 attempts to find targets as soon as they walk into screen view
 	var/aggro_vision_range = 9 //If a mob is aggro, we search in this radius. Defaults to 9 to keep in line with original simple mob aggro radius
+	
+	// LOW-LIGHT VISION: Some mobs (mutants, animals, nightkin) see better in darkness
+	var/has_low_light_vision = FALSE // Set to TRUE for mutants, animals, nightkin, deathclaws, etc.
+	var/low_light_bonus = 3 // Extra tiles of vision in darkness when has_low_light_vision is TRUE
+	var/debug_vision = TRUE // Set to TRUE to see cone detection messages in chat
+	
 	var/search_objects = 0 //If we want to consider objects when searching around, set this to 1. If you want to search for objects while also ignoring mobs until hurt, set it to 2. To completely ignore mobs, even when attacked, set it to 3
 	var/search_objects_timer_id //Timer for regaining our old search_objects value after being attacked
 	var/search_objects_regain_time = 30 //the delay between being attacked and gaining our old search_objects value back
@@ -987,6 +1002,111 @@
 
 //////////////HOSTILE MOB TARGETTING AND AGGRESSION////////////
 
+/// Determine which vision cone the target is in relative to mob's facing direction
+/// Returns CONE_FRONT, CONE_PERIPHERAL, or CONE_REAR
+/mob/living/simple_animal/hostile/proc/get_vision_cone(atom/target)
+	if(!target)
+		return CONE_REAR
+	
+	var/turf/my_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!my_turf || !target_turf)
+		return CONE_REAR
+	
+	// Same tile = front cone
+	if(my_turf == target_turf)
+		return CONE_FRONT
+	
+	// Calculate relative position
+	var/dx = target_turf.x - my_turf.x
+	var/dy = target_turf.y - my_turf.y
+	
+	// If no direction set, face the target
+	if(!dir || dir == 0)
+		setDir(get_dir(src, target))
+		return CONE_FRONT
+	
+	// Calculate which cone based on cardinal and diagonal directions
+	switch(dir)
+		if(NORTH) // Facing north
+			if(dy > 0) // Target is north of us
+				if(abs(dx) <= abs(dy) * 0.414) // tan(22.5°) ≈ 0.414 (half of 45°)
+					return CONE_FRONT // Within 45° of center (90° total cone)
+				else
+					return CONE_PERIPHERAL // Within 22.5-67.5° (45° peripheral cones)
+			else // Target is south of us (behind)
+				return CONE_REAR
+		
+		if(SOUTH) // Facing south
+			if(dy < 0) // Target is south of us
+				if(abs(dx) <= abs(dy) * 0.414)
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+		
+		if(EAST) // Facing east
+			if(dx > 0) // Target is east of us
+				if(abs(dy) <= abs(dx) * 0.414)
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+		
+		if(WEST) // Facing west
+			if(dx < 0) // Target is west of us
+				if(abs(dy) <= abs(dx) * 0.414)
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+		
+		// Diagonal facings
+		if(NORTHEAST)
+			if(dx > 0 && dy > 0) // In northeast quadrant
+				var/angle_diff = abs(dx - dy) / max(abs(dx), abs(dy))
+				if(angle_diff < 0.5) // Within 45° cone
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+		
+		if(NORTHWEST)
+			if(dx < 0 && dy > 0)
+				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
+				if(angle_diff < 0.5)
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+		
+		if(SOUTHEAST)
+			if(dx > 0 && dy < 0)
+				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
+				if(angle_diff < 0.5)
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+		
+		if(SOUTHWEST)
+			if(dx < 0 && dy < 0)
+				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
+				if(angle_diff < 0.5)
+					return CONE_FRONT
+				else
+					return CONE_PERIPHERAL
+			else
+				return CONE_REAR
+	
+	return CONE_REAR
+
 /// Get directional vision multiplier (DISABLED FOR TESTING)
 /// Returns 1.0 to disable directional vision while testing lighting
 /mob/living/simple_animal/hostile/proc/get_directional_vision_multiplier(atom/target)
@@ -1003,38 +1123,179 @@
 	var/multiplier = get_directional_vision_multiplier(target)
 	return (multiplier >= 0.5) // TRUE if in front or side, FALSE if behind
 
-/// Calculate effective vision range - LIGHTING ONLY (direction disabled for testing)
-/// Returns the final detection range in tiles based on lighting conditions
+/// Calculate effective vision range based on lighting AND directional cone
+/// Front cone: Better dark vision (5 tiles in darkness vs 3 in peripheral, 0 in rear)
 /mob/living/simple_animal/hostile/proc/get_effective_vision_range(atom/target)
 	if(!target)
 		return vision_range
 	
+	// Determine which cone target is in
+	var/cone_type = get_vision_cone(target)
+	
 	// Check if target has a light source
+	var/has_light = FALSE
 	if(isliving(target))
 		var/mob/living/L = target
 		if(L.light_range > 0)
-			// They're carrying a light - full detection
-			return vision_range
+			has_light = TRUE
 	
-	// Check ambient lighting at target's location
+	// If they have a light, they're visible at full range (unless behind us)
+	if(has_light)
+		if(cone_type == CONE_REAR)
+			return 0 // Can't see behind us even with light
+		return vision_range
+	
+	// Check ambient lighting at target location
 	var/turf/target_turf = get_turf(target)
-	if(target_turf)
-		var/light_amount = target_turf.get_lumcount()
-		
-		// SIMPLE THRESHOLDS:
-		// >= 0.5 = bright (full range)
-		// >= 0.2 = dim (half range)
-		// < 0.2 = dark (1/4 range)
-		
-		if(light_amount >= 0.5)
-			return vision_range // 9 tiles
-		else if(light_amount >= 0.2)
-			return max(round(vision_range * 0.5), 3) // ~4-5 tiles
-		else
-			return max(round(vision_range * 0.25), 2) // ~2 tiles
+	if(!target_turf)
+		return 2
 	
-	// Default: minimal range
+	var/light_amount = target_turf.get_lumcount()
+	var/base_range = vision_range
+	
+	// Lighting-based range calculation
+	if(light_amount >= 0.5)
+		base_range = vision_range // Bright: full range
+	else if(light_amount >= 0.2)
+		base_range = max(round(vision_range * 0.5), 3) // Dim: half range
+	else
+		// Darkness: depends on cone
+		if(cone_type == CONE_FRONT)
+			base_range = 5 // Front cone: 5 tiles in darkness
+		else if(cone_type == CONE_PERIPHERAL)
+			base_range = 3 // Peripheral: 3 tiles in darkness
+		else // CONE_REAR
+			return 0 // Can't see behind us in darkness
+	
+	// Apply cone multipliers to final range
+	switch(cone_type)
+		if(CONE_FRONT)
+			return base_range // Full range in front cone
+		if(CONE_PERIPHERAL)
+			return max(round(base_range * 0.6), 2) // 60% range in peripheral
+		if(CONE_REAR)
+			return 0 // No vision behind
+	
 	return 2
+
+/// LOW-LIGHT VISION: Modified version that adds low-light vision bonus for mutants/animals
+/mob/living/simple_animal/hostile/proc/get_effective_vision_range_lowlight(atom/target)
+	var/base_range = get_effective_vision_range(target)
+	
+	if(!has_low_light_vision)
+		return base_range
+	
+	// Check if it's actually dark
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		return base_range
+	
+	var/light_amount = target_turf.get_lumcount()
+	
+	// Only apply low-light bonus in darkness
+	if(light_amount < 0.2)
+		// Add bonus to dark vision
+		return base_range + low_light_bonus
+	
+	return base_range
+
+/// Determine which sound cone the target is in (for rear detection)
+/mob/living/simple_animal/hostile/proc/get_sound_cone(atom/target)
+	if(!target)
+		return null
+	
+	var/turf/my_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!my_turf || !target_turf)
+		return null
+	
+	var/dx = target_turf.x - my_turf.x
+	var/dy = target_turf.y - my_turf.y
+	
+	// Only care about targets BEHIND us
+	var/is_behind = FALSE
+	
+	switch(dir)
+		if(NORTH)
+			is_behind = (dy < 0) // South of us
+		if(SOUTH)
+			is_behind = (dy > 0) // North of us
+		if(EAST)
+			is_behind = (dx < 0) // West of us
+		if(WEST)
+			is_behind = (dx > 0) // East of us
+		if(NORTHEAST)
+			is_behind = (dx < 0 || dy < 0)
+		if(NORTHWEST)
+			is_behind = (dx > 0 || dy < 0)
+		if(SOUTHEAST)
+			is_behind = (dx < 0 || dy > 0)
+		if(SOUTHWEST)
+			is_behind = (dx > 0 || dy > 0)
+	
+	if(!is_behind)
+		return null // Not behind us
+	
+	// Determine if in center or peripheral rear cone
+	var/angle_from_rear_center = 0
+	
+	switch(dir)
+		if(NORTH) // Rear is south
+			angle_from_rear_center = abs(dx) / max(abs(dy), 1)
+		if(SOUTH) // Rear is north
+			angle_from_rear_center = abs(dx) / max(abs(dy), 1)
+		if(EAST) // Rear is west
+			angle_from_rear_center = abs(dy) / max(abs(dx), 1)
+		if(WEST) // Rear is east
+			angle_from_rear_center = abs(dy) / max(abs(dx), 1)
+	
+	// If angle ratio < 0.414 (tan 22.5°), it's center cone
+	if(angle_from_rear_center < 0.414)
+		return SOUND_REAR_CENTER
+	else
+		return SOUND_REAR_PERIPHERAL
+
+/// Detect moving targets behind us via sound
+/mob/living/simple_animal/hostile/proc/detect_rear_movement(atom/target)
+	if(!target)
+		return 0
+	
+	if(!isliving(target))
+		return 0
+	
+	var/mob/living/L = target
+	
+	// FIX 1: Check if they're BEHIND us first
+	var/sound_cone = get_sound_cone(target)
+	if(!sound_cone)
+		return 0 // Not behind us - no sound detection
+	
+	// FIX 2: Strict movement check - only detect if moving RIGHT NOW
+	// Must have moved within last 0.3 seconds (3 deciseconds)
+	if(!L.last_move_time)
+		return 0 // Never moved
+	
+	var/time_since_move = world.time - L.last_move_time
+	
+	// CRITICAL: 0.3 second window catches mid-move, not after stopping
+	if(time_since_move > 3)
+		return 0 // Stopped moving - no sound
+	
+	// Get their movement sound level
+	var/sound_level = 1.0 // Default for non-humans
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		sound_level = H.get_movement_sound_level()
+	
+	// Calculate detection range
+	var/detection_range = 0
+	
+	if(sound_cone == SOUND_REAR_CENTER)
+		detection_range = round(sound_level * 3)
+	else // SOUND_REAR_PERIPHERAL
+		detection_range = round(sound_level * 1.5)
+	
+	return detection_range
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
 	if(!search_objects)
@@ -1049,13 +1310,48 @@
 			if(!isliving(A) && !ismecha(A) && !istype(A, /obj/machinery/porta_turret))
 				continue
 			
-			// Check effective vision range (lighting + direction)
+			// VISION-BASED DETECTION
 			var/effective_range = get_effective_vision_range(A)
+			
+			// Apply low-light vision bonus if applicable
+			if(has_low_light_vision)
+				effective_range = get_effective_vision_range_lowlight(A)
+			
 			var/actual_distance = get_dist(src, A)
 			
-			// Only include if within effective range
+			// Check if within visual range
 			if(actual_distance <= effective_range)
 				. += A
+				if(debug_vision && isliving(A))
+					var/mob/living/L = A
+					var/cone = get_vision_cone(L)
+					var/cone_name = "UNKNOWN"
+					switch(cone)
+						if(CONE_FRONT)
+							cone_name = "FRONT (90°)"
+						if(CONE_PERIPHERAL)
+							cone_name = "PERIPHERAL (45°)"
+						if(CONE_REAR)
+							cone_name = "REAR (blind)"
+					to_chat(L, span_notice("[src] detected you via VISION in [cone_name] cone at [actual_distance] tiles (max: [effective_range])"))
+				continue
+			
+			// SOUND-BASED DETECTION (for targets behind us)
+			var/sound_range = detect_rear_movement(A)
+			if(sound_range > 0 && actual_distance <= sound_range)
+				// Detected via sound!
+				. += A
+				if(debug_vision && isliving(A))
+					var/mob/living/L = A
+					var/sound_cone = get_sound_cone(L)
+					var/cone_name = "UNKNOWN"
+					switch(sound_cone)
+						if(SOUND_REAR_CENTER)
+							cone_name = "REAR CENTER (90°)"
+						if(SOUND_REAR_PERIPHERAL)
+							cone_name = "REAR PERIPHERAL (45°)"
+					to_chat(L, span_warning("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
+				continue
 		
 		// Check for targets one Z-level ABOVE through openspace
 		var/turf/our_turf = get_turf(targets_from)
@@ -1065,6 +1361,8 @@
 				var/turf/their_turf = get_turf(M)
 				if(istype(their_turf, /turf/open/transparent/openspace))
 					var/effective_range = get_effective_vision_range(M)
+					if(has_low_light_vision)
+						effective_range = get_effective_vision_range_lowlight(M)
 					var/actual_distance = get_dist(src, M)
 					if(actual_distance <= effective_range)
 						. += M
@@ -1085,6 +1383,8 @@
 					var/turf/above_them = get_step_multiz(their_turf, UP)
 					if(above_them && istype(above_them, /turf/open/transparent/openspace))
 						var/effective_range = get_effective_vision_range(M)
+						if(has_low_light_vision)
+							effective_range = get_effective_vision_range_lowlight(M)
 						var/actual_distance = get_dist(src, M)
 						if(actual_distance <= effective_range)
 							. += M

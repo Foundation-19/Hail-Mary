@@ -266,6 +266,29 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	ghostize()
 	qdel(src)
 
+// Calculate movement sound level for rear detection by hostile mobs
+// Returns a multiplier based on movement speed and armor weight
+/mob/living/carbon/human/proc/get_movement_sound_level()
+	// Base sound level: 1.0 for walking, 2.0 for running
+	var/base_movement = 1.0
+	if(m_intent == MOVE_INTENT_RUN)
+		base_movement = 2.0
+	
+	// Calculate armor weight modifier from slowdown values
+	var/armor_slowdown = 0
+	if(wear_suit)
+		armor_slowdown += wear_suit.slowdown
+	if(shoes)
+		armor_slowdown += shoes.slowdown
+	if(head)
+		armor_slowdown += head.slowdown
+	
+	// Light armor (low slowdown) makes you quieter, heavy armor makes you louder
+	// 0 slowdown = 0.5x (very quiet), 0.25 slowdown = 1.0x (normal), 0.5+ slowdown = increasingly loud
+	var/armor_multiplier = 0.5 + (armor_slowdown * 2)
+	
+	return base_movement * armor_multiplier
+
 /mob/living/carbon/human/Topic(href, href_list)
 	if(usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))
 		if(href_list["embedded_object"])

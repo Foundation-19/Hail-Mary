@@ -24,6 +24,7 @@
 	if(.)
 		pseudo_z_axis = newloc.get_fake_z()
 		pixel_z = pseudo_z_axis
+		last_move_time = world.time // Track movement for sound detection
 
 /mob/living/carbon/update_stamina()
 	var/total_health = getStaminaLoss()
