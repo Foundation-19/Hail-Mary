@@ -149,6 +149,11 @@
 			for(var/obj/item/I in held_items)
 				accident(I)
 			DefaultCombatKnockdown(80)
+	
+	// Update vision cones when player moves in sneak mode
+	if(. && sneaking)
+		update_vision_cones() // Update vision cones when we move
+	
 	if(shoes)
 		if(!lying && !buckled)
 			if(loc == NewLoc)

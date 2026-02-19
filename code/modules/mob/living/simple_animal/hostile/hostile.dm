@@ -1030,16 +1030,16 @@
 	switch(dir)
 		if(NORTH) // Facing north
 			if(dy > 0) // Target is north of us
-				if(abs(dx) <= abs(dy) * 0.414) // tan(22.5°) ≈ 0.414 (half of 45°)
+				if(abs(dx) <= abs(dy) * 1.0) // tan(45°) = 1.0 (45° on each side = 90° total cone)
 					return CONE_FRONT // Within 45° of center (90° total cone)
 				else
-					return CONE_PERIPHERAL // Within 22.5-67.5° (45° peripheral cones)
+					return CONE_PERIPHERAL // Beyond 45° (peripheral cones)
 			else // Target is south of us (behind)
 				return CONE_REAR
 		
 		if(SOUTH) // Facing south
 			if(dy < 0) // Target is south of us
-				if(abs(dx) <= abs(dy) * 0.414)
+				if(abs(dx) <= abs(dy) * 1.0)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL
@@ -1048,7 +1048,7 @@
 		
 		if(EAST) // Facing east
 			if(dx > 0) // Target is east of us
-				if(abs(dy) <= abs(dx) * 0.414)
+				if(abs(dy) <= abs(dx) * 1.0)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL
@@ -1057,7 +1057,7 @@
 		
 		if(WEST) // Facing west
 			if(dx < 0) // Target is west of us
-				if(abs(dy) <= abs(dx) * 0.414)
+				if(abs(dy) <= abs(dx) * 1.0)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL
@@ -1068,7 +1068,7 @@
 		if(NORTHEAST)
 			if(dx > 0 && dy > 0) // In northeast quadrant
 				var/angle_diff = abs(dx - dy) / max(abs(dx), abs(dy))
-				if(angle_diff < 0.5) // Within 45° cone
+				if(angle_diff < 1.0) // Within 90° cone (±45° from diagonal center)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL
@@ -1078,7 +1078,7 @@
 		if(NORTHWEST)
 			if(dx < 0 && dy > 0)
 				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
-				if(angle_diff < 0.5)
+				if(angle_diff < 1.0)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL
@@ -1088,7 +1088,7 @@
 		if(SOUTHEAST)
 			if(dx > 0 && dy < 0)
 				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
-				if(angle_diff < 0.5)
+				if(angle_diff < 1.0)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL
@@ -1098,7 +1098,7 @@
 		if(SOUTHWEST)
 			if(dx < 0 && dy < 0)
 				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
-				if(angle_diff < 0.5)
+				if(angle_diff < 1.0)
 					return CONE_FRONT
 				else
 					return CONE_PERIPHERAL

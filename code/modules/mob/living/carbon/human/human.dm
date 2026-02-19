@@ -16,6 +16,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/movement_fatigue = 0
 	var/last_armor_warning_time = 0
 	COOLDOWN_DECLARE(movement_fatigue_recovery)
+	
+	// Sneaking mode system
+	var/sneaking = FALSE // Is the player in sneak mode?
+	var/mutable_appearance/sneak_indicator = null // Ninja icon overlay above head
+	var/list/visible_vision_cones = list() // List of vision cone overlays we're showing
+	var/vision_cone_timer = null // Timer for periodic cone updates
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -287,7 +293,152 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	// 0 slowdown = 0.5x (very quiet), 0.25 slowdown = 1.0x (normal), 0.5+ slowdown = increasingly loud
 	var/armor_multiplier = 0.5 + (armor_slowdown * 2)
 	
-	return base_movement * armor_multiplier
+	var/sound_level = base_movement * armor_multiplier
+	
+	// If sneaking, halve the sound (you move more carefully)
+	if(sneaking)
+		sound_level *= 0.5
+	
+	return sound_level
+
+// Toggle sneak mode when K is pressed
+/mob/living/carbon/human/verb/toggle_sneak_mode()
+	set name = "Toggle Sneak"
+	set category = "IC"
+	set hidden = TRUE // Only accessible via keybind
+	
+	if(stat != CONSCIOUS)
+		return
+	
+	sneaking = !sneaking
+	
+	if(sneaking)
+		// Entered sneak mode
+		to_chat(src, span_notice("You enter sneak mode. Enemy vision cones are now visible."))
+		
+		// Create ninja icon as overlay above head
+		if(!sneak_indicator)
+			var/obj/effect/overlay/sneak_icon/indicator_obj = new()
+			sneak_indicator = mutable_appearance(indicator_obj.icon, indicator_obj.icon_state, indicator_obj.layer)
+			sneak_indicator.pixel_y = 16
+			sneak_indicator.appearance_flags = RESET_COLOR | TILE_BOUND | PIXEL_SCALE
+			add_overlay(sneak_indicator)
+		
+		// Start showing vision cones
+		update_vision_cones()
+		
+		// Start periodic refresh timer (every 1 second) to catch mob deaths and lighting changes
+		vision_cone_timer = addtimer(CALLBACK(src, PROC_REF(update_vision_cones)), 10, TIMER_STOPPABLE | TIMER_LOOP)
+		
+		// Auto-switch to walk if running
+		if(m_intent == MOVE_INTENT_RUN)
+			toggle_move_intent()
+			to_chat(src, span_warning("You automatically switch to walking."))
+	else
+		// Exited sneak mode
+		to_chat(src, span_notice("You exit sneak mode."))
+		
+		// Stop periodic refresh timer
+		if(vision_cone_timer)
+			deltimer(vision_cone_timer)
+			vision_cone_timer = null
+		
+		// Remove ninja icon overlay
+		if(sneak_indicator)
+			cut_overlay(sneak_indicator)
+			sneak_indicator = null
+		
+		// Clear all vision cones
+		clear_vision_cones()
+
+// Clean up when player dies/disconnects
+/mob/living/carbon/human/death()
+	. = ..()
+	if(sneaking)
+		sneaking = FALSE
+		if(vision_cone_timer)
+			deltimer(vision_cone_timer)
+			vision_cone_timer = null
+		if(sneak_indicator)
+			cut_overlay(sneak_indicator)
+			sneak_indicator = null
+		clear_vision_cones()
+
+// Update visible vision cones for nearby hostile mobs
+/mob/living/carbon/human/proc/update_vision_cones()
+	if(!sneaking || !client)
+		return
+	
+	// Clear old cones
+	clear_vision_cones()
+	
+	// Find all hostile mobs and sort by distance
+	var/list/hostile_mobs = list()
+	for(var/mob/living/simple_animal/hostile/H in view(20, src)) // Increased range for visibility
+		if(H.stat == DEAD || H.ckey) // Don't show for dead mobs or player-controlled mobs
+			continue
+		
+		var/distance = get_dist(src, H)
+		hostile_mobs[H] = distance
+	
+	// Only show cones for nearest 5 mobs to reduce clutter
+	var/list/sorted_mobs = sortTim(hostile_mobs, GLOBAL_PROC_REF(cmp_numeric_asc), associative = TRUE)
+	var/count = 0
+	for(var/mob/living/simple_animal/hostile/H in sorted_mobs)
+		if(count >= 5)
+			break
+		show_vision_cone_for_mob(H)
+		count++
+
+// Show vision cone for a specific mob
+/mob/living/carbon/human/proc/show_vision_cone_for_mob(mob/living/simple_animal/hostile/H)
+	if(!H || !sneaking)
+		return
+	
+	// Check if mob died while we're showing cones
+	if(H.stat == DEAD)
+		return
+	
+	// Get mob's facing direction
+	var/mob_dir = H.dir
+	if(!mob_dir || mob_dir == 0)
+		return
+	
+	// Get adaptive range based on lighting at player position
+	var/front_range = H.get_effective_vision_range(src)
+	var/peripheral_range = round(front_range * 0.6)
+	
+	// Create front cone (90° ahead) - Red
+	var/obj/effect/overlay/vision_cone/front_cone = new /obj/effect/overlay/vision_cone(get_turf(H))
+	front_cone.viewer = src // Set viewer for image visibility
+	front_cone.setup_cone(H, mob_dir, front_range, "red") // Use pre-colored red state
+	front_cone.generate_cone_image()
+	visible_vision_cones += front_cone
+	
+	// Create left peripheral cone (45° to left) - Blurry
+	var/left_dir = turn(mob_dir, 45)
+	var/obj/effect/overlay/vision_cone/left_cone = new /obj/effect/overlay/vision_cone(get_turf(H))
+	left_cone.viewer = src
+	left_cone.alpha = 40 // Make peripheral dimmer
+	left_cone.setup_cone(H, left_dir, peripheral_range, "blurry") // Use blurry for peripheral
+	left_cone.generate_cone_image()
+	visible_vision_cones += left_cone
+	
+	// Create right peripheral cone (45° to right) - Blurry
+	var/right_dir = turn(mob_dir, -45)
+	var/obj/effect/overlay/vision_cone/right_cone = new /obj/effect/overlay/vision_cone(get_turf(H))
+	right_cone.viewer = src
+	right_cone.alpha = 40 // Make peripheral dimmer
+	right_cone.setup_cone(H, right_dir, peripheral_range, "blurry") // Use blurry for peripheral
+	right_cone.generate_cone_image()
+	visible_vision_cones += right_cone
+
+// Clear all vision cone overlays
+/mob/living/carbon/human/proc/clear_vision_cones()
+	for(var/obj/effect/overlay/vision_cone/cone in visible_vision_cones)
+		// Tiles are deleted when the cone is deleted
+		qdel(cone)
+	visible_vision_cones.Cut()
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))

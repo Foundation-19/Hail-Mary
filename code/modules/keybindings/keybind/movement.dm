@@ -219,3 +219,19 @@
 	var/mob/M = user.mob
 	M.tilt_left()
 	return TRUE
+
+/datum/keybinding/mob/toggle_sneak
+	hotkey_keys = list("K")
+	name = "toggle_sneak"
+	full_name = "Toggle Sneak Mode"
+	description = "Enter/exit sneak mode. Shows enemy vision cones and reduces sound."
+	category = CATEGORY_MOVEMENT
+
+/datum/keybinding/mob/toggle_sneak/down(client/user)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/carbon/human/H = user.mob
+	if(istype(H))
+		H.toggle_sneak_mode()
+	return TRUE

@@ -635,3 +635,194 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = WALL_PLANE
 	layer = ABOVE_OBJ_LAYER
+
+// SNEAKING MODE OVERLAYS
+// Visual effects for the sneak mode system
+
+// Sneak icon overlay that appears above player's head
+// Sneak mode indicator - overlay appearance for add_overlay
+/obj/effect/overlay/sneak_icon
+	name = ""
+	icon = 'icons/obj/toy.dmi'
+	icon_state = "ninja"
+	layer = ABOVE_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = RESET_COLOR | TILE_BOUND | PIXEL_SCALE
+	
+/obj/effect/overlay/sneak_icon/Initialize()
+	. = ..()
+	pixel_y = 16 // Lower, like health indicator
+
+// Vision cone overlay object
+/obj/effect/overlay/vision_cone
+	name = ""
+	icon = null
+	layer = BELOW_MOB_LAYER
+	plane = GAME_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE
+	alpha = 80
+	
+	var/list/cone_tiles = list() // Store actual tile objects
+	var/list/cone_images = list() // Store image references for client visibility
+	var/mob/living/carbon/human/viewer = null // The player viewing these cones
+	var/mob/living/simple_animal/hostile/tracked_mob = null
+	var/cone_dir = NORTH
+	var/cone_range = 9
+	var/cone_icon_state = "red" // Use pre-colored states from alphacolors.dmi
+
+/obj/effect/overlay/vision_cone/Destroy()
+	// Remove images from client first
+	if(viewer && viewer.client)
+		viewer.client.images -= cone_images
+	cone_images.Cut()
+	
+	// Clean up all tile objects
+	for(var/obj/effect/overlay/vision_cone_tile/tile in cone_tiles)
+		qdel(tile)
+	cone_tiles.Cut()
+	return ..()
+
+/obj/effect/overlay/vision_cone_tile
+	name = ""
+	icon = 'icons/effects/alphacolors.dmi'
+	icon_state = "white"
+	layer = BELOW_MOB_LAYER
+	plane = GAME_PLANE
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE
+	alpha = 100
+
+/obj/effect/overlay/vision_cone/proc/setup_cone(mob/living/simple_animal/hostile/H, mob_dir, range_tiles, icon_state_name = "red")
+	tracked_mob = H
+	cone_dir = mob_dir
+	cone_range = range_tiles
+	cone_icon_state = icon_state_name
+
+/obj/effect/overlay/vision_cone/proc/generate_cone_image()
+	// Use actual objects on turfs - clean rendering, no checkering
+	// Also create image references for client visibility from afar
+	
+	var/turf/center = get_turf(tracked_mob)
+	if(!center)
+		return FALSE
+	
+	// Clean up old images from client
+	if(viewer && viewer.client)
+		viewer.client.images -= cone_images
+	cone_images.Cut()
+	
+	// Clean up old tiles
+	for(var/obj/effect/overlay/vision_cone_tile/tile in cone_tiles)
+		qdel(tile)
+	cone_tiles.Cut()
+	
+	// Get all turfs in the cone
+	var/list/cone_turfs = get_cone_turfs(center, cone_dir, cone_range)
+	if(!cone_turfs || !cone_turfs.len)
+		return FALSE
+	
+	// Place colored tile objects on each turf - using pre-colored icon states
+	for(var/turf/T in cone_turfs)
+		var/obj/effect/overlay/vision_cone_tile/tile = new(T)
+		tile.icon_state = cone_icon_state // Use pre-colored state directly
+		cone_tiles += tile
+		
+		// Create image reference for client visibility - use icon/location directly
+		if(viewer && viewer.client)
+			var/image/img = image('icons/effects/alphacolors.dmi', T, cone_icon_state)
+			img.layer = BELOW_MOB_LAYER
+			img.plane = GAME_PLANE
+			img.alpha = alpha
+			cone_images += img
+	
+	// Add all images to client at once
+	if(viewer && viewer.client && cone_images.len)
+		viewer.client.images += cone_images
+	
+	return TRUE
+
+/obj/effect/overlay/vision_cone/proc/get_cone_turfs(turf/center, direction, range)
+	// Get ALL turfs in range, then filter by cone angle - NO GAPS
+	var/list/turfs = list()
+	
+	// Get all turfs within range
+	for(var/turf/T in view(range, center))
+		if(T == center)
+			continue
+			
+		// Calculate if this turf is within the 90° cone
+		var/dx = T.x - center.x
+		var/dy = T.y - center.y
+		
+		// Check if turf is in the cone based on direction
+		var/in_cone = FALSE
+		switch(direction)
+			if(NORTH)
+				// Cone points north (dy > 0), spread is 45° each side (abs(dx) <= dy)
+				in_cone = (dy > 0 && abs(dx) <= dy)
+			if(SOUTH)
+				// Cone points south (dy < 0), spread is 45° each side (abs(dx) <= abs(dy))
+				in_cone = (dy < 0 && abs(dx) <= abs(dy))
+			if(EAST)
+				// Cone points east (dx > 0), spread is 45° each side (abs(dy) <= dx)
+				in_cone = (dx > 0 && abs(dy) <= dx)
+			if(WEST)
+				// Cone points west (dx < 0), spread is 45° each side (abs(dy) <= abs(dx))
+				in_cone = (dx < 0 && abs(dy) <= abs(dx))
+		
+		if(in_cone)
+			turfs += T
+	
+	return turfs
+
+/obj/effect/overlay/vision_cone/proc/get_turf_in_direction(turf/start, direction, distance)
+	var/turf/current = start
+	for(var/i = 1 to distance)
+		current = get_step(current, direction)
+		if(!current)
+			return null
+	return current
+
+/obj/effect/overlay/vision_cone/proc/get_turf_perpendicular(turf/start, direction, offset)
+	// Get turf perpendicular to the facing direction
+	var/perp_dir
+	var/abs_offset = abs(offset)
+	
+	switch(direction)
+		if(NORTH)
+			perp_dir = offset > 0 ? EAST : WEST
+		if(SOUTH)
+			perp_dir = offset > 0 ? WEST : EAST
+		if(EAST)
+			perp_dir = offset > 0 ? SOUTH : NORTH
+		if(WEST)
+			perp_dir = offset > 0 ? NORTH : SOUTH
+		if(NORTHEAST)
+			if(offset > 0)
+				perp_dir = SOUTHEAST
+			else
+				perp_dir = NORTHWEST
+		if(NORTHWEST)
+			if(offset > 0)
+				perp_dir = NORTHEAST
+			else
+				perp_dir = SOUTHWEST
+		if(SOUTHEAST)
+			if(offset > 0)
+				perp_dir = NORTHEAST
+			else
+				perp_dir = SOUTHWEST
+		if(SOUTHWEST)
+			if(offset > 0)
+				perp_dir = NORTHWEST
+			else
+				perp_dir = SOUTHEAST
+	
+	var/turf/result = start
+	for(var/i = 1 to abs_offset)
+		result = get_step(result, perp_dir)
+		if(!result)
+			return null
+	
+	return result
