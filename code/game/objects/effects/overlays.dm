@@ -664,19 +664,14 @@
 	alpha = 80
 	
 	var/list/cone_tiles = list() // Store actual tile objects
-	var/list/cone_images = list() // Store image references for client visibility
 	var/mob/living/carbon/human/viewer = null // The player viewing these cones
 	var/mob/living/simple_animal/hostile/tracked_mob = null
 	var/cone_dir = NORTH
 	var/cone_range = 9
 	var/cone_icon_state = "red" // Use pre-colored states from alphacolors.dmi
+	var/cone_alpha = 80 // Alpha value for this cone
 
 /obj/effect/overlay/vision_cone/Destroy()
-	// Remove images from client first
-	if(viewer && viewer.client)
-		viewer.client.images -= cone_images
-	cone_images.Cut()
-	
 	// Clean up all tile objects
 	for(var/obj/effect/overlay/vision_cone_tile/tile in cone_tiles)
 		qdel(tile)
@@ -698,19 +693,14 @@
 	cone_dir = mob_dir
 	cone_range = range_tiles
 	cone_icon_state = icon_state_name
+	cone_alpha = alpha // Capture the alpha value that was set on this cone
 
 /obj/effect/overlay/vision_cone/proc/generate_cone_image()
-	// Use actual objects on turfs - clean rendering, no checkering
-	// Also create image references for client visibility from afar
+	// Use actual objects on turfs - visible from any angle naturally
 	
 	var/turf/center = get_turf(tracked_mob)
 	if(!center)
 		return FALSE
-	
-	// Clean up old images from client
-	if(viewer && viewer.client)
-		viewer.client.images -= cone_images
-	cone_images.Cut()
 	
 	// Clean up old tiles
 	for(var/obj/effect/overlay/vision_cone_tile/tile in cone_tiles)
@@ -722,23 +712,12 @@
 	if(!cone_turfs || !cone_turfs.len)
 		return FALSE
 	
-	// Place colored tile objects on each turf - using pre-colored icon states
+	// Place colored tile objects on each turf - visible to everyone who can see the turf
 	for(var/turf/T in cone_turfs)
 		var/obj/effect/overlay/vision_cone_tile/tile = new(T)
 		tile.icon_state = cone_icon_state // Use pre-colored state directly
+		tile.alpha = cone_alpha
 		cone_tiles += tile
-		
-		// Create image reference for client visibility - use icon/location directly
-		if(viewer && viewer.client)
-			var/image/img = image('icons/effects/alphacolors.dmi', T, cone_icon_state)
-			img.layer = BELOW_MOB_LAYER
-			img.plane = GAME_PLANE
-			img.alpha = alpha
-			cone_images += img
-	
-	// Add all images to client at once
-	if(viewer && viewer.client && cone_images.len)
-		viewer.client.images += cone_images
 	
 	return TRUE
 

@@ -1,3 +1,7 @@
+// Sneak mode movement slowdown - makes player move 2x slower
+/datum/movespeed_modifier/sneak_mode
+	multiplicative_slowdown = 1 // 2x slower (base movement + 1 = 2x the delay)
+
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNORESLOWDOWN))

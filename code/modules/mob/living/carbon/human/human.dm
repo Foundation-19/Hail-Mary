@@ -295,9 +295,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	var/sound_level = base_movement * armor_multiplier
 	
-	// If sneaking, halve the sound (you move more carefully)
-	if(sneaking)
-		sound_level *= 0.5
+	// Sneaking no longer reduces sound - it only shows vision cones
 	
 	return sound_level
 
@@ -313,6 +311,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	sneaking = !sneaking
 	
 	if(sneaking)
+		// Add movement slowdown (2x slower)
+		add_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
 		// Entered sneak mode
 		to_chat(src, span_notice("You enter sneak mode. Enemy vision cones are now visible."))
 		
@@ -335,6 +335,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 			toggle_move_intent()
 			to_chat(src, span_warning("You automatically switch to walking."))
 	else
+		// Remove movement slowdown
+		remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
 		// Exited sneak mode
 		to_chat(src, span_notice("You exit sneak mode."))
 		
@@ -356,6 +358,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	. = ..()
 	if(sneaking)
 		sneaking = FALSE
+		remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
 		if(vision_cone_timer)
 			deltimer(vision_cone_timer)
 			vision_cone_timer = null
