@@ -410,12 +410,16 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		var/activation_range = H.vision_range // Base range, no penalties
 		
 		// Also activate if we're within sound detection range
-		var/sound_range = 0
+		// Use the LARGER center range (3x multiplier) for activation
+		var/max_sound_range = 0
 		if(last_move_time && (world.time - last_move_time) <= 20)
-			sound_range = H.detect_rear_movement(src)
+			var/sound_cone = H.get_sound_cone(src)
+			if(sound_cone)
+				var/sound_level = get_movement_sound_level()
+				max_sound_range = round(sound_level * 3) // Use center multiplier (largest)
 		
 		// Show cone if within activation range OR sound range
-		if(actual_distance <= activation_range || (sound_range > 0 && actual_distance <= sound_range))
+		if(actual_distance <= activation_range || (max_sound_range > 0 && actual_distance <= max_sound_range))
 			show_vision_cone_for_mob(H)
 
 // Show vision cone with ACTUAL detection range (affected by darkness/direction/sound)
@@ -437,9 +441,19 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/your_cone = H.get_vision_cone(src)
 	var/currently_detected = (actual_distance <= effective_range && effective_range > 0)
 	
-	var/sound_range = 0
+	// Calculate BOTH sound ranges (center and peripheral have different multipliers)
+	var/sound_level = 0.0
+	var/sound_center_range = 0
+	var/sound_peripheral_range = 0
+	
 	if(last_move_time && (world.time - last_move_time) <= 20)
-		sound_range = H.detect_rear_movement(src)
+		// Get movement sound level
+		sound_level = get_movement_sound_level()
+		
+		// Always calculate ranges when moving (shows potential detection from any angle)
+		// The color/alpha logic will indicate whether detection is actually relevant
+		sound_center_range = round(sound_level * 3) // Rear center: sound travels clearly
+		sound_peripheral_range = round(sound_level * 2.5) // Rear peripheral: slightly muffled
 	
 	// ============================================
 	// CENTERED SECTOR LAYOUT (6 slices, 60° each)
@@ -489,38 +503,49 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	var/rear_peripheral_range = 3
 	var/rear_peripheral_alpha = 60
-	var/sound_cone = H.get_sound_cone(src)
 	
-	if(sound_range > 0)
-		rear_peripheral_range = sound_range
-		if(sound_cone == SOUND_REAR_PERIPHERAL && actual_distance <= sound_range)
-			rear_peripheral_alpha = 150
+	// Show sound detection ranges when moving (always show potential range for visibility)
+	// Use alpha to indicate whether ACTUALLY detected
+	// Use PERIPHERAL multiplier (2.5x) for cyan zones
+	if(sound_peripheral_range > 0)
+		rear_peripheral_range = sound_peripheral_range
+		var/sound_cone = H.get_sound_cone(src)
+		if(actual_distance <= sound_peripheral_range && sound_cone == SOUND_REAR_PERIPHERAL)
+			rear_peripheral_alpha = 150 // Actually detected in this zone
+		else if(actual_distance <= sound_peripheral_range && sound_cone)
+			rear_peripheral_alpha = 120 // Within range but wrong zone
 		else
-			rear_peripheral_alpha = 120
+			rear_peripheral_alpha = 80 // Showing potential range, not yet detected
 	
 	var/rear_range = 3
 	var/rear_color = "#808080"
 	var/rear_alpha = 60
 	
-	if(your_cone == CONE_REAR)
-		if(sound_range > 0 && actual_distance <= sound_range)
-			rear_range = sound_range
-			rear_color = "#FFFF00"
-			if(sound_cone == SOUND_REAR_CENTER)
-				rear_alpha = 150
-			else
-				rear_alpha = 120
+	// Show sound detection ranges when moving (always show potential range for visibility)
+	// Use alpha to indicate whether ACTUALLY detected
+	// Use CENTER multiplier (3x) for gray zone - sound travels clearly from behind
+	if(sound_center_range > 0)
+		rear_range = sound_center_range
+		
+		// Determine if sound detection is currently relevant
+		var/sound_cone = H.get_sound_cone(src)
+		var/in_rear_zone = (sound_cone == SOUND_REAR_CENTER || sound_cone == SOUND_REAR_PERIPHERAL)
+		
+		// Color logic: Yellow only when sound detection is relevant AND not already detected by vision
+		// If detected by vision, sound doesn't matter (show gray)
+		// If in front zones, sound doesn't apply (show gray)
+		if(in_rear_zone && !currently_detected)
+			rear_color = "#FFFF00" // Yellow: in rear zone, moving, not yet visually detected
 		else
-			rear_range = max(round(H.vision_range * 0.3), 2)
-			rear_alpha = 60
-	else
-		if(sound_range > 0)
-			rear_range = sound_range
-			rear_color = "#FFFF00"
-			rear_alpha = 100
+			rear_color = "#808080" // Gray: either not in rear zone OR already detected by vision
+		
+		// Alpha: Brightness indicates detection state
+		if(actual_distance <= sound_center_range && sound_cone == SOUND_REAR_CENTER)
+			rear_alpha = 150 // Actually detected in rear center
+		else if(actual_distance <= sound_center_range && sound_cone)
+			rear_alpha = 120 // Within range but wrong zone
 		else
-			rear_range = 3
-			rear_alpha = 60
+			rear_alpha = 80 // Showing potential range, not yet detected
 	
 	// Create 6 sectors, each 60° wide, CENTERED on cardinal/diagonal directions
 	// Each sector covers exactly 60° with NO overlap

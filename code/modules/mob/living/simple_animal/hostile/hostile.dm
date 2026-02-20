@@ -1285,13 +1285,15 @@
 		var/mob/living/carbon/human/H = L
 		sound_level = H.get_movement_sound_level()
 	
-	// Calculate detection range
+	// Calculate detection range based on zone
+	// REAR CENTER: Directly behind - sound travels straight, easier to hear
+	// REAR PERIPHERAL: Diagonal/side angles - slightly muffled by head position
 	var/detection_range = 0
 	
 	if(sound_cone == SOUND_REAR_CENTER)
-		detection_range = round(sound_level * 1.5) // Directly behind - harder to hear
+		detection_range = round(sound_level * 3) // Directly behind - sound travels clearly
 	else // SOUND_REAR_PERIPHERAL
-		detection_range = round(sound_level * 3) // Sides - easier to hear
+		detection_range = round(sound_level * 2.5) // Diagonal - slightly muffled
 	
 	return detection_range
 
