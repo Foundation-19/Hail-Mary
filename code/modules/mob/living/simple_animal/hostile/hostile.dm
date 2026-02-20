@@ -278,6 +278,48 @@
 	var/corner_stuck_timeout = 30
 	/// How long to wait before smashing (deciseconds) - 15 seconds (stuck_timeout + smash_delay)
 	var/smash_delay = 150
+
+	/// DOOR KITING PREVENTION: Track TARGET's door passages to detect exploit
+	/// Last door the target passed through
+	var/atom/target_last_door = null
+	/// How many times has target passed through this door recently?
+	var/target_door_pass_count = 0
+	/// Last time target passed through a door
+	var/target_last_door_pass_time = 0
+	/// Have we committed to one side due to target kiting?
+	var/committed_to_door_side = FALSE
+	/// Which side of the door are we committed to?
+	var/turf/committed_door_location = null
+	/// Last known position of target (for tracking movement)
+	var/turf/target_last_position = null
+	
+	/// CORNER KITING PREVENTION: Track target peeking around corners
+	/// How many times has target peeked from same area?
+	var/corner_peek_count = 0
+	/// Last time target peeked
+	var/last_corner_peek_time = 0
+	/// Location where target keeps peeking from
+	var/turf/corner_peek_location = null
+	/// Have we committed to rushing a corner?
+	var/committed_to_corner = FALSE
+	
+	/// LIGHT PATROL SYSTEM: Idle mobs patrol to nearby doors when players are nearby
+	/// Are we on light patrol?
+	var/light_patrolling = FALSE
+	/// Where did we start the patrol from?
+	var/turf/patrol_home = null
+	/// Which door are we patrolling to?
+	var/atom/patrol_target_door = null
+	/// How many times have we visited each door?
+	var/list/patrol_door_visits = list()
+	/// Maximum visits before resting at home
+	var/patrol_max_visits = 2
+	/// Are we resting after patrol?
+	var/patrol_resting = FALSE
+	/// When did we start resting?
+	var/patrol_rest_start = 0
+	/// How long to rest before patrolling again (30 seconds)
+	var/patrol_rest_duration = 300
 	/// Last time we smashed something (prevents spam)
 	var/last_smash_time = 0
 	/// Cooldown between smash attempts (deciseconds) - 5 seconds
@@ -626,6 +668,11 @@
 					Goto(door_to_check, move_to_delay, 0)
 					// Try to open it when we get adjacent
 					addtimer(CALLBACK(src, PROC_REF(curiosity_check_door), door_to_check), 3 SECONDS, TIMER_DELETE_ME)
+	
+	// LIGHT PATROL SYSTEM: Check for nearby players and patrol
+	if(AIStatus == AI_IDLE && !target && !searching && !light_patrolling)
+		if(prob(20)) // 20% chance each cycle to check
+			check_light_patrol()
 
 	if(AICanContinue(possible_targets))
 		if(!QDELETED(target) && !targets_from.Adjacent(target))
@@ -1656,6 +1703,47 @@
 	if(peaceful == TRUE)
 		LoseTarget()
 		return 0
+	
+	// DOOR KITING CHECK: Track if target is exploiting door kiting
+	if(target)
+		check_target_door_kiting()
+		
+		// If target is kiting and we're committed, stay on our side
+		if(committed_to_door_side && committed_door_location)
+			var/dist_from_commitment = get_dist(src, committed_door_location)
+			
+			if(dist_from_commitment > 2)
+				// Moved too far from commitment point - return to it
+				Goto(committed_door_location, move_to_delay, 0)
+				return 1
+			else
+				// Stay here and wait for target to come to us
+				walk(src, 0)
+				
+				// If target gets far enough away, reset commitment
+				if(get_dist(src, target) > 7)
+					committed_to_door_side = FALSE
+					committed_door_location = null
+					target_door_pass_count = 0
+					target_last_door = null
+				
+				return 1
+		
+		// CORNER KITING CHECK: Track if target is exploiting corner peeks
+		check_corner_kiting()
+		
+		// If target is corner peeking, commit to rushing their position
+		if(committed_to_corner && corner_peek_location)
+			// Rush toward their last known peek location
+			Goto(corner_peek_location, move_to_delay, 0)
+			
+			// Reset if we reach the corner or target gets far away
+			if(get_dist(src, corner_peek_location) <= 1 || (target && get_dist(src, target) > 10))
+				committed_to_corner = FALSE
+				corner_peek_location = null
+				corner_peek_count = 0
+			
+			return 1
 
 	if(searching)
 		if(target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
@@ -1941,6 +2029,337 @@
 			FindTarget()
 
 
+/// DOOR KITING PREVENTION: Track if target is passing through same door repeatedly
+/mob/living/simple_animal/hostile/proc/check_target_door_kiting()
+	if(!target || !isliving(target))
+		return FALSE
+	
+	// Reset if it's been more than 5 seconds
+	if((world.time - target_last_door_pass_time) > 50)
+		target_door_pass_count = 0
+		target_last_door = null
+		committed_to_door_side = FALSE
+		committed_door_location = null
+		return FALSE
+	
+	// Get target's current position
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf || !target_last_position)
+		target_last_position = target_turf
+		return FALSE
+	
+	// Check if target moved
+	if(target_turf == target_last_position)
+		return committed_to_door_side
+	
+	// Check if target passed through a door between last position and current position
+	var/atom/door_passed = null
+	
+	// Check for doors at old position
+	for(var/obj/structure/simple_door/SD in target_last_position)
+		if(!SD.density) // Door is open
+			door_passed = SD
+			break
+	if(!door_passed)
+		for(var/obj/machinery/door/D in target_last_position)
+			if(!D.density) // Door is open
+				door_passed = D
+				break
+	
+	// Check for doors at new position
+	if(!door_passed)
+		for(var/obj/structure/simple_door/SD in target_turf)
+			if(!SD.density)
+				door_passed = SD
+				break
+	if(!door_passed)
+		for(var/obj/machinery/door/D in target_turf)
+			if(!D.density)
+				door_passed = D
+				break
+	
+	// Track door passage
+	if(door_passed)
+		if(door_passed == target_last_door)
+			// Target passed through same door again
+			if((world.time - target_last_door_pass_time) < 50) // Within 5 seconds
+				target_door_pass_count++
+				if(target_door_pass_count >= 3)
+					// Target is kiting! Commit to this side
+					if(!committed_to_door_side)
+						committed_to_door_side = TRUE
+						committed_door_location = get_turf(src)
+						visible_message(span_warning("[src] stops chasing through the doorway!"))
+			else
+				target_door_pass_count = 1 // Reset if too much time passed
+		else
+			// Different door
+			target_last_door = door_passed
+			target_door_pass_count = 1
+		
+		target_last_door_pass_time = world.time
+	
+	// Update last position
+	target_last_position = target_turf
+	return committed_to_door_side
+
+/// CORNER KITING PREVENTION: Track if target is peeking around same corner repeatedly
+/mob/living/simple_animal/hostile/proc/check_corner_kiting()
+	if(!target || !isliving(target))
+		return FALSE
+	
+	// Reset if it's been more than 5 seconds
+	if((world.time - last_corner_peek_time) > 50)
+		corner_peek_count = 0
+		corner_peek_location = null
+		committed_to_corner = FALSE
+		return FALSE
+	
+	// Check if we lost sight of target
+	var/has_los = can_see(src, target, get_effective_vision_range(target))
+	
+	if(!has_los)
+		// Target disappeared - record as potential peek
+		var/turf/target_turf = get_turf(target)
+		if(target_turf)
+			// Check if this is same area as last peek
+			if(corner_peek_location && get_dist(corner_peek_location, target_turf) <= 2)
+				// Same corner area!
+				if((world.time - last_corner_peek_time) < 50) // Within 5 seconds
+					corner_peek_count++
+					if(corner_peek_count >= 3)
+						// Target is corner peeking! Commit to rushing
+						if(!committed_to_corner)
+							committed_to_corner = TRUE
+							visible_message(span_warning("[src] stops reacting to the corner peeks!"))
+				else
+					corner_peek_count = 1
+			else
+				// New corner location
+				corner_peek_location = target_turf
+				corner_peek_count = 1
+			
+			last_corner_peek_time = world.time
+	
+	return committed_to_corner
+
+/// BARRICADE FIX: Check if target is blocked by structure
+/mob/living/simple_animal/hostile/proc/is_target_blocked_by_structure(atom/A)
+	if(!A)
+		return FALSE
+	
+	var/turf/source = get_turf(src)
+	var/turf/target_turf = get_turf(A)
+	
+	if(!source || !target_turf)
+		return FALSE
+	
+	// Get line to target
+	var/list/line_to_target = getline(source, target_turf)
+	
+	// Check for blocking structures (NOT doors - doors can be opened)
+	for(var/turf/T in line_to_target)
+		if(T == source || T == target_turf)
+			continue
+		
+		// Check for barricades, tables, windows, etc
+		for(var/obj/structure/S in T)
+			if(S.density)
+				// Skip doors - we handle those separately
+				if(istype(S, /obj/structure/simple_door))
+					continue
+				if(istype(S, /obj/machinery/door))
+					continue
+				
+				// Found a blocking structure!
+				return TRUE
+	
+	return FALSE
+
+/// LIGHT PATROL: Check for nearby players and start patrol
+/mob/living/simple_animal/hostile/proc/check_light_patrol()
+	// Don't patrol if already have target, searching, or currently patrolling
+	if(target || searching || AIStatus != AI_IDLE || light_patrolling || patrol_resting)
+		return
+	
+	// Check if resting cooldown expired
+	if(patrol_resting)
+		if((world.time - patrol_rest_start) > patrol_rest_duration)
+			patrol_resting = FALSE
+			patrol_door_visits = list() // Reset visit counts
+		else
+			return // Still resting
+	
+	// Look for players within 14 tiles
+	var/found_player = FALSE
+	for(var/mob/living/carbon/human/H in range(14, src))
+		if(H.stat == DEAD || H.ckey && !H.client)
+			continue
+		
+		// Check if we can attack them (faction check)
+		if(!CanAttack(H))
+			continue
+		
+		// Found a valid player!
+		found_player = TRUE
+		break
+	
+	if(!found_player)
+		return
+	
+	// Start light patrol!
+	start_light_patrol()
+
+/// LIGHT PATROL: Start patrolling
+/mob/living/simple_animal/hostile/proc/start_light_patrol()
+	light_patrolling = TRUE
+	patrol_home = get_turf(src)
+	
+	// Find doors within 14 tiles
+	var/list/available_doors = list()
+	
+	for(var/obj/structure/simple_door/SD in range(14, src))
+		// Skip doors we've visited too many times
+		var/visits = patrol_door_visits[SD] || 0
+		if(visits >= patrol_max_visits)
+			continue
+		available_doors += SD
+	
+	for(var/obj/machinery/door/D in range(14, src))
+		var/visits = patrol_door_visits[D] || 0
+		if(visits >= patrol_max_visits)
+			continue
+		available_doors += D
+	
+	// No doors available?
+	if(available_doors.len == 0)
+		// Move to furthest point within 7 tiles
+		patrol_to_furthest_point()
+		return
+	
+	// Pick a random door
+	patrol_target_door = pick(available_doors)
+	
+	// Record this visit
+	if(!patrol_door_visits[patrol_target_door])
+		patrol_door_visits[patrol_target_door] = 0
+	patrol_door_visits[patrol_target_door]++
+	
+	visible_message(span_notice("[src] perks up and starts patrolling..."))
+	
+	// Move toward the door (max 7 tiles)
+	patrol_to_target()
+
+/// LIGHT PATROL: Move toward patrol target
+/mob/living/simple_animal/hostile/proc/patrol_to_target()
+	if(!patrol_target_door || !patrol_home)
+		end_light_patrol()
+		return
+	
+	// Calculate how far we can move (max 7 tiles from home)
+	var/dist_from_home = get_dist(src, patrol_home)
+	var/dist_to_door = get_dist(src, patrol_target_door)
+	var/tiles_remaining = 7 - dist_from_home
+	
+	if(tiles_remaining <= 0)
+		// Reached max range - return home
+		return_to_patrol_home()
+		return
+	
+	if(dist_to_door <= 1)
+		// Reached the door!
+		return_to_patrol_home()
+		return
+	
+	// Move toward door with SLOW speed (patrol is slower)
+	var/patrol_delay = move_to_delay * 1.5 // 50% slower than normal
+	Goto(patrol_target_door, patrol_delay, 1)
+	
+	// Check again in 2 seconds
+	addtimer(CALLBACK(src, PROC_REF(patrol_to_target)), 2 SECONDS, TIMER_DELETE_ME)
+
+/// LIGHT PATROL: Return to starting position
+/mob/living/simple_animal/hostile/proc/return_to_patrol_home()
+	if(!patrol_home)
+		end_light_patrol()
+		return
+	
+	// Move back to home position
+	var/patrol_delay = move_to_delay * 1.5
+	Goto(patrol_home, patrol_delay, 0)
+	
+	// Check if we're home
+	if(get_dist(src, patrol_home) <= 1)
+		end_light_patrol()
+	else
+		// Check again in 2 seconds
+		addtimer(CALLBACK(src, PROC_REF(return_to_patrol_home)), 2 SECONDS, TIMER_DELETE_ME)
+
+/// LIGHT PATROL: Move to furthest point when no doors available
+/mob/living/simple_animal/hostile/proc/patrol_to_furthest_point()
+	if(!patrol_home)
+		end_light_patrol()
+		return
+	
+	// Find furthest open turf within 7 tiles
+	var/list/candidate_turfs = list()
+	for(var/turf/open/T in range(7, patrol_home))
+		if(!T.density)
+			candidate_turfs += T
+	
+	if(candidate_turfs.len == 0)
+		end_light_patrol()
+		return
+	
+	// Pick furthest turf
+	var/turf/furthest = null
+	var/furthest_dist = 0
+	for(var/turf/T in candidate_turfs)
+		var/dist = get_dist(patrol_home, T)
+		if(dist > furthest_dist)
+			furthest_dist = dist
+			furthest = T
+	
+	if(!furthest)
+		end_light_patrol()
+		return
+	
+	visible_message(span_notice("[src] patrols to a distant point..."))
+	
+	// Move to furthest point
+	var/patrol_delay = move_to_delay * 1.5
+	Goto(furthest, patrol_delay, 0)
+	
+	// Return home after reaching it
+	addtimer(CALLBACK(src, PROC_REF(return_to_patrol_home)), 5 SECONDS, TIMER_DELETE_ME)
+
+/// LIGHT PATROL: End patrol and possibly rest
+/mob/living/simple_animal/hostile/proc/end_light_patrol()
+	light_patrolling = FALSE
+	patrol_target_door = null
+	walk(src, 0) // Stop moving
+	
+	// Check if we should start resting
+	var/all_doors_visited = TRUE
+	for(var/obj/structure/simple_door/SD in range(14, patrol_home))
+		var/visits = patrol_door_visits[SD] || 0
+		if(visits < patrol_max_visits)
+			all_doors_visited = FALSE
+			break
+	
+	if(all_doors_visited)
+		for(var/obj/machinery/door/D in range(14, patrol_home))
+			var/visits = patrol_door_visits[D] || 0
+			if(visits < patrol_max_visits)
+				all_doors_visited = FALSE
+				break
+	
+	if(all_doors_visited)
+		// All doors visited - rest at home
+		patrol_resting = TRUE
+		patrol_rest_start = world.time
+		visible_message(span_notice("[src] returns to its post."))
+
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	// VISION CHECK: Don't attack if we can't see the target
 	if(target)
@@ -1997,6 +2416,16 @@
 	taunt_chance = initial(taunt_chance)
 
 /mob/living/simple_animal/hostile/proc/LoseTarget()
+	// Check if we should clear memory due to target being crit/dead
+	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
+		var/mob/living/L = remembered_target
+		if(L.stat == DEAD || L.stat == UNCONSCIOUS)
+			// Target went crit/dead - clear memory immediately
+			remembered_target = null
+			last_target_sighting = 0
+			if(searching)
+				exit_search_mode(give_up_message = TRUE, found_target = FALSE)
+
 	// Z-pursuit check
 	if(target && can_z_move && isliving(target))
 		var/mob/living/L = target
@@ -2278,11 +2707,11 @@
 	if(searching)
 		return
 
-	// Don't start searching if the remembered target is dead
+	// Don't start searching if the remembered target is dead OR CRIT
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 		var/mob/living/L = remembered_target
-		if(L.stat == DEAD)
-			// Target is dead, no point searching
+		if(L.stat == DEAD || L.stat == UNCONSCIOUS) // FIX: Include UNCONSCIOUS (crit)
+			// Target is dead/crit, no point searching
 			remembered_target = null
 			last_target_sighting = 0
 			return
@@ -3625,6 +4054,11 @@
 	
 	if(COOLDOWN_TIMELEFT(src, sight_shoot_delay))
 		return FALSE
+	
+	// BARRICADE FIX: Don't shoot at targets blocked by structures
+	// Pathfinding will handle getting around obstacles
+	if(dist_to_target > 2 && is_target_blocked_by_structure(A))
+		return FALSE // Target behind barricade/table/window - path around instead
 	
 	// TACTICAL: Check shot line for doors - prefer opening over shooting (ONLY ADJACENT)
 	if(can_open_doors && A.z == z) // Only check same Z-level
