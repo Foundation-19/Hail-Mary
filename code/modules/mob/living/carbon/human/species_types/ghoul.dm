@@ -105,7 +105,6 @@
 	inherent_biotypes = list(MOB_ORGANIC, MOB_HUMANOID, MOB_BEAST)
 	mutant_bodyparts = list("mcolor" = "FFFFFF","mcolor2" = "FFFFFF","mcolor3" = "FFFFFF", "mam_snouts" = "Husky", "mam_tail" = "Husky", "mam_ears" = "Husky", "deco_wings" = "None", "mam_body_markings" = "Husky", "taur" = "None", "horns" = "None", "legs" = "Plantigrade", "meat_type" = "Mammalian")
 	attack_verb = "claw"
-	punchstunthreshold = 9
 	tail_type = "tail_human"
 	wagging_type = "waggingtail_human"
 	species_type = "human"

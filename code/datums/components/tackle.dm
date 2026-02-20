@@ -246,9 +246,9 @@
 
 	var/tackle_damage = PUNCH_DAMAGE_AVERAGE
 	if(HAS_TRAIT(user, TRAIT_IRONFIST))
-		tackle_damage = IRON_FIST_PUNCH_DAMAGE_AVERAGE
+		tackle_damage = IRON_FIST_PUNCH_DAMAGE + 3 // Yes, this is a magic number. No, I don't think it's that big a deal here. Change it if you want.
 	else if(HAS_TRAIT(user, TRAIT_STEELFIST))
-		tackle_damage = STEEL_FIST_PUNCH_DAMAGE_AVERAGE
+		tackle_damage = STEEL_FIST_PUNCH_DAMAGE + 3
 	var/damage_mod = 1
 
 	switch(roll)

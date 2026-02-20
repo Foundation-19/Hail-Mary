@@ -18,13 +18,6 @@
 
 	var/atk_verb = pick("left hook","right hook","straight punch")
 	var/extra_damage = damage_roll(A,D)
-	if(extra_damage == A.dna.species.punchdamagelow)
-		playsound(D.loc, A.dna.species.miss_sound, 25, 1, -1)
-		D.visible_message(span_warning("[A] has attempted to [atk_verb] [D]!"), \
-			span_userdanger("[A] has attempted to [atk_verb] [D]!"), null, COMBAT_MESSAGE_RANGE)
-		log_combat(A, D, "attempted to hit", atk_verb)
-		return TRUE
-
 	var/obj/item/bodypart/affecting = D.get_bodypart(ran_zone(A.zone_selected))
 	var/armor_block = D.run_armor_check(affecting, "melee")
 

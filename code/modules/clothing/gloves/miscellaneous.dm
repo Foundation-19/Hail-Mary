@@ -42,8 +42,7 @@
 			ADD_TRAIT(H, TRAIT_PUGILIST, GLOVE_TRAIT)
 			ADD_TRAIT(H, inherited_trait, GLOVE_TRAIT)
 			ADD_TRAIT(H, secondary_trait, GLOVE_TRAIT)
-			H.dna.species.punchdamagehigh += enhancement
-			H.dna.species.punchdamagelow += enhancement
+			H.dna.species.punchdamage += enhancement
 
 /obj/item/clothing/gloves/fingerless/pugilist/dropped(mob/user)
 
@@ -52,8 +51,7 @@
 	REMOVE_TRAIT(user, secondary_trait, GLOVE_TRAIT)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		H.dna.species.punchdamagehigh -= enhancement
-		H.dna.species.punchdamagelow -= enhancement
+		H.dna.species.punchdamage -= enhancement
 	return ..()
 
 /obj/item/clothing/gloves/fingerless/pugilist/chaplain
