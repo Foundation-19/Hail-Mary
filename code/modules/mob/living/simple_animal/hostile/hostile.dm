@@ -1416,19 +1416,17 @@
 			// SOUND-BASED DETECTION (for targets behind us)
 			var/sound_range = detect_rear_movement(A)
 			if(sound_range > 0 && actual_distance <= sound_range)
-				// Detected via sound! Now check if we can actually see them when we turn
-				// This handles stealth boys - heard movement, turn to check, see nothing = search
-				var/can_actually_see = can_see(src, A, sound_range)
+				// Heard movement! Turn to face the sound source
+				var/face_dir = get_dir(src, A)
+				if(face_dir && face_dir != dir)
+					setDir(face_dir)
 				
-				// Check for stealth boy cloaking (alpha < 100)
-				var/is_cloaked = FALSE
-				if(ismob(A))
-					var/mob/M = A
-					if(M.alpha < 100)
-						is_cloaked = TRUE
+				// Check line-of-sight AND if they're within stealth-adjusted range
+				// Note: effective_range is already calculated above with stealth penalty
+				var/can_actually_see = can_see(src, A, effective_range) && (actual_distance <= effective_range)
 				
-				if(!can_actually_see || is_cloaked)
-					// Heard something, but can't see it - enter search mode
+				if(!can_actually_see)
+					// Heard something, turned to check, but can't see it - enter search mode
 					if(!searching && !target)
 						last_known_location = get_turf(A)
 						remembered_target = A
@@ -1441,7 +1439,7 @@
 					
 					if(debug_vision && isliving(A))
 						var/mob/living/L = A
-						to_chat(L, span_warning("[src] heard you but can't see you - searching!"))
+						to_chat(L, span_warning("[src] heard you but can't see you (stealth: [effective_range] tiles) - searching!"))
 						var/sound_cone = get_sound_cone(L)
 						var/cone_name = "UNKNOWN"
 						switch(sound_cone)
