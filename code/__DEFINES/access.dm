@@ -103,6 +103,10 @@ also be like that but I can't be arsed to go back and change them all*/
 #define ACCESS_CLINIC		133 //Eastwood clinic access
 #define ACCESS_ENCLAVE 		134 //enclave minibunker
 #define ACCESS_BIKER 		135 //general not-khan cowbikers
+#define ACCESS_80S 	        136 //80s access
+#define ACCESS_80SB 	    137 //80s blue access
+#define ACCESS_80SR 	    138 //80s red access
+#define ACCESS_USPS	        139 //Postal service access
 	//The Syndicate
 #define ACCESS_SYNDICATE 150//General Syndicate Access. Includes Syndicate mechs and ruins.
 #define ACCESS_SYNDICATE_LEADER 151//Nuke Op Leader Access

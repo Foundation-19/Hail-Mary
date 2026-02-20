@@ -673,6 +673,43 @@ GLOBAL_LIST_INIT(banned_outlaw_freqs, list(FREQ_COMMON, 1488))
 	if(GLOB.outlaw_frequency)
 		. += "Scratched into the bottom is a note, \"Don't forget, we're tuned to <span class='boldnotice'>[GLOB.outlaw_frequency * 0.1]</span>!\""
 
+GLOBAL_VAR_INIT(whiteleg_frequency, null)
+GLOBAL_LIST_INIT(banned_whiteleg_freqs, list(FREQ_COMMON, 1486))
+
+/obj/item/radio/whiteleg
+	name = "handheld transceiver"
+	icon_state = "walkietalkie"
+	item_state = "walkietalkie"
+	desc = "A basic handheld radio that can both broadcast and recieve signals."
+	canhear_range = 2
+	w_class = WEIGHT_CLASS_TINY
+	force = WEAPON_FORCE_BLUNT_LARGE // 15 Brute, enough to daze someone
+	sharpness = SHARP_NONE
+
+/obj/item/radio/whiteleg/Initialize()
+	. = ..()
+	setup_whiteleg_frequency()
+	set_frequency(GLOB.whiteleg_frequency)
+	color = "#a06464"
+
+/obj/item/radio/whiteleg/proc/setup_whiteleg_frequency(mob/user)
+	if(GLOB.whiteleg_frequency > 1)
+		return // already setup!
+	var/frequency_ok = FALSE
+	var/tries_left = 5
+	while(!frequency_ok)
+		GLOB.whiteleg_frequency = rand(MIN_FREQ, MAX_FREQ)
+		if(GLOB.whiteleg_frequency in GLOB.banned_whiteleg_freqs)
+			if(tries_left-- > 0)
+				continue
+		frequency_ok = TRUE
+
+/obj/item/radio/whiteleg/examine(mob/user)
+	. = ..()
+	if(GLOB.whiteleg_frequency)
+		. += "Scratched into the bottom is a note, \"Don't forget, we're tuned to <span class='boldnotice'>[GLOB.whiteleg_frequency * 0.1]</span>!\""
+
+
 /obj/item/radio/loudspeaker
 	name = "speaker"
 	icon = 'icons/obj/radio.dmi'

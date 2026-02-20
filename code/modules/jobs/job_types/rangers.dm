@@ -1,24 +1,14 @@
 /*
-NCRA/RANGERS Design notes:
-Standard issue stuff to keep the theme visually and gameplay and avoid watering down.
-Gloves		Officers - Leather glovesl, fingerless leather gloves for sergeants. Bayonet standard issue knife. Sidearms mostly for officers, 9mm is the standard. MP gets nonstandard pot helm, the exception to prove the rule.
-			NCOs -		Fingerless gloves
-			Rest -		No gloves
-Knives		Army -		Bayonet
-			Ranger -	Bowie knife
-Money		Commanding Officer (LT and CAP) - "small" money bag
-			Officers and Rangers - /obj/item/storage/bag/money/small/ncrofficers
-			Rest - /obj/item/storage/bag/money/small/ncrenlisted
-Sidearm		Officers & a few specialists - 9mm pistol
-Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
-			Don't use Greaseguns, Lever shotguns, Police shotguns, Berettas, Hunting knives
+Ranger Design Notes:
+Trail Carbine + .45 for all rangers outside of the veteran.
 */
+
 
 /datum/job/ranger //do NOT use this for anything, it's just to store faction datums
 	department_flag = RANGER
 	selection_color = "#f3c400"
 	faction = FACTION_RANGER
-	exp_type = EXP_TYPE_NCR
+	exp_type = EXP_TYPE_RANGER
 
 	access = list(ACCESS_NCR)
 	minimal_access = list(ACCESS_NCR)
@@ -59,14 +49,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	display_order = JOB_DISPLAY_ORDER_VETRANGE
 	access = list(ACCESS_NCR, ACCESS_NCR_ARMORY, ACCESS_NCR_COMMAND)
 	outfit = /datum/outfit/job/ranger/f13vetranger
-	exp_requirements = 1750
-
-	loadout_options = list( // ALL: Binoculars, Bowie knife
-		/datum/outfit/loadout/vrclassic, // Sequoia
-		/datum/outfit/loadout/vrlite, // Brush
-		/datum/outfit/loadout/vrshotgunner, // Unique Lever-Action
-		/datum/outfit/loadout/vrcqc // 2 x .45 Long colt revolvers
-		)
+	exp_requirements = 1800
 
 	min_required_special = list(
 		"special_c" = 4,
@@ -77,6 +60,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
@@ -91,13 +75,15 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	gloves = /obj/item/clothing/gloves/rifleman
 	shoes =	/obj/item/clothing/shoes/f13/military/leather
 	glasses	= /obj/item/clothing/glasses/sunglasses
-	neck = /obj/item/storage/belt/shoulderholster
+	neck = /obj/item/storage/belt/shoulderholster/ranger4570
 	ears = /obj/item/radio/headset/headset_ranger
 	mask = /obj/item/clothing/mask/gas/ranger
+	suit_store =	/obj/item/gun/ballistic/rifle/repeater/cowboy
 	box = /obj/item/storage/survivalkit
 	box_two = /obj/item/storage/survivalkit/medical
 	r_pocket = /obj/item/binoculars
 	backpack_contents = list(
+		/obj/item/ammo_box/tube/a357 = 3,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
@@ -105,84 +91,48 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/grenade/smokebomb = 1
 		)
 
-/datum/outfit/loadout/vrclassic
-	name = "The Classic"
-	suit_store = /obj/item/gun/ballistic/revolver/sequoia
-	backpack_contents = list(
-		/obj/item/ammo_box/c4570box = 3,
-		/obj/item/ammo_box/c4570box/knockback = 1
-		)
 
-/datum/outfit/loadout/vrlite
-	name = "The Rifleman"
-	suit_store = /obj/item/gun/ballistic/rifle/repeater/brush
-	backpack_contents = list(
-		/obj/item/ammo_box/c4570 = 3,
-		/obj/item/book/granter/trait/rifleman = 1,
-		)
+// NCR Patrol Ranger
 
-/datum/outfit/loadout/vrshotgunner
-	name = "The Shotgunner"
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock
-	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 3,
-		/obj/item/ammo_box/shotgun/trainshot = 1
-		)
-
-/datum/outfit/loadout/vrcqc
-	name = "The Gunslinger"
-	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	backpack_contents = list(
-		/obj/item/book/granter/trait/gunslinger = 1,
-		/obj/item/gun/ballistic/revolver/revolver45/gunslinger = 2,
-		/obj/item/ammo_box/a45lcbox = 1,
-		/obj/item/lighter = 1
-		)
-
-
-// NCR Ranger
-
-/datum/job/ranger/f13ranger
-	title = "NCR Ranger"
-	flag = F13RANGER
-	total_positions = 2
-	spawn_positions = 2
+/datum/job/ranger/f13rangerpatrol
+	title = "NCR Patrol Ranger"
+	flag = F13PATROLRANGER
+	total_positions = 3
+	spawn_positions = 3
 	description = "As an NCR Ranger, you are the premier special forces unit of the NCR. You are the forward observations and support the Army in it's campaigns, as well as continuing the tradition of stopping slavery in it's tracks."
 	supervisors = "Veteran Ranger"
-	selection_color = "#f3c400"
-	display_order = JOB_DISPLAY_ORDER_RANGER
-	outfit = /datum/outfit/job/ranger/f13ranger
-	exp_requirements = 500
+	selection_color = "#fff5cc"
+	display_order = JOB_DISPLAY_ORDER_PATROLRANGER
+	outfit = /datum/outfit/job/ranger/f13rangerpatrol
+	exp_requirements = 600
 
-	loadout_options = list( // ALL: Binoculars, Bowie knife
-	/datum/outfit/loadout/rangerrecon, // DKS Sniper rifle, .45 Revolver
-	/datum/outfit/loadout/rangertrail, // Trail Carbine, 2 x .357 Revolvers
-	/datum/outfit/loadout/rangerpatrolcqb, // Lever-Action Shotgun, .44 Snubnose revolver
-	)
-
-/datum/outfit/job/ranger/f13ranger/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/ranger/f13rangerpatrol/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	. = ..()
 	if(visualsOnly)
 		return
 	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	var/datum/martial_art/rangertakedown/RT = new
 	RT.teach(H)
 
 
-/datum/outfit/job/ranger/f13ranger
-	name = "NCR Ranger"
-	jobtype	= /datum/job/ranger/f13ranger
-	id = /obj/item/card/id/dogtag/ncrranger
-	uniform	= /obj/item/clothing/under/f13/ranger/trail
-	head = /obj/item/clothing/head/f13/trailranger
-	gloves = /obj/item/clothing/gloves/patrol
-	shoes = /obj/item/clothing/shoes/f13/military/leather
-	glasses	= /obj/item/clothing/glasses/sunglasses
-	ears = /obj/item/radio/headset/headset_ranger
-	r_pocket = /obj/item/binoculars
-	neck = /obj/item/storage/belt/shoulderholster
+/datum/outfit/job/ranger/f13rangerpatrol
+	name = "NCR Parol Ranger"
+	jobtype	=		/datum/job/ranger/f13rangerpatrol
+	id =			/obj/item/card/id/dogtag/ncrranger
+	uniform	=		/obj/item/clothing/under/f13/ranger/patrol
+	suit =			/obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
+	head =			/obj/item/clothing/head/helmet/f13/combat/ncr_patrol
+	gloves =		/obj/item/clothing/gloves/patrol
+	shoes =			/obj/item/clothing/shoes/f13/military/leather
+	glasses	=		/obj/item/clothing/glasses/sunglasses
+	ears =			/obj/item/radio/headset/headset_ranger
+	r_pocket = 		/obj/item/binoculars
+	suit_store =	/obj/item/gun/ballistic/rifle/repeater/trail
+	neck = 			/obj/item/storage/belt/shoulderholster/ranger45
 	backpack_contents = list(
+		/obj/item/ammo_box/tube/m44 = 3,
 		/obj/item/restraints/handcuffs = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
@@ -192,41 +142,118 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/grenade/smokebomb = 1
 		)
 
-/datum/outfit/loadout/rangerrecon
-	name = "Recon Ranger"
-	suit = /obj/item/clothing/suit/toggle/armor/rangerrecon
-	belt = /obj/item/storage/belt/military/reconbandolier
-	head = /obj/item/clothing/head/beret/ncr_recon_ranger
-	neck = /obj/item/clothing/neck/mantle/ranger
-	suit_store = /obj/item/gun/ballistic/automatic/marksman/sniper/sniperranger
+
+//NCR Scout Ranger
+/datum/job/ranger/f13rangerscout
+	title = "NCR Scout Ranger"
+	flag = F13RANGERSCOUT
+	total_positions = 2
+	spawn_positions = 2
+	description = "As a Scout Ranger, you perform reconnaissance and assist in special operations for the Republic. Your reason for being sent here is to identify and neutralize threats to the Republic and to assist Patrol Rangers in identifying slavers and raiders so that they can be brought to justice."
+	supervisors = "Veteran Ranger"
+	selection_color = "#fff5cc"
+	display_order = JOB_DISPLAY_ORDER_SCOUTRANGER
+	exp_type = EXP_TYPE_FALLOUT
+	exp_requirements = 360
+
+	outfit = /datum/outfit/job/ranger/f13rangerscout
+
+/datum/outfit/job/ranger/f13rangerscout/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
+	ADD_TRAIT(H, TRAIT_GENERIC, src)
+	var/datum/martial_art/rangertakedown/RT = new
+	RT.teach(H)
+
+/datum/outfit/job/ranger/f13rangerscout
+	name = "NCR Scout Ranger"
+	jobtype = 		/datum/job/ranger/f13rangerscout
+	id = 			/obj/item/card/id/dogtag/ncrranger
+	uniform = 		/obj/item/clothing/under/f13/ranger/trail
+	suit =			/obj/item/clothing/suit/toggle/armor/rangerrecon
+	gloves = 		/obj/item/clothing/gloves/color/latex/nitrile
+	shoes = 		/obj/item/clothing/shoes/f13/military/leather
+	glasses = 		/obj/item/clothing/glasses/sunglasses
+	head =			/obj/item/clothing/head/beret/ncr_recon_ranger
+	ears =			/obj/item/radio/headset/headset_ranger
+	r_pocket = 		/obj/item/binoculars
+	suit_store =	/obj/item/gun/ballistic/rifle/repeater/trail
+	neck = 			/obj/item/storage/belt/shoulderholster/ranger45
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/w3006 = 3,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 2
+		/obj/item/ammo_box/tube/m44 = 3,
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/melee/onehanded/knife/bowie = 1,
+	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
+		/obj/item/clothing/mask/gas/ranger = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/gauze/bloodleaf = 2,
+		/obj/item/grenade/smokebomb = 1
 		)
 
-/datum/outfit/loadout/rangertrail
-	name = "Trail Ranger"
-	suit = /obj/item/clothing/suit/armor/trailranger
-	belt = /obj/item/storage/belt/military/NCR_Bandolier
-	neck = /obj/item/clothing/neck/mantle/ranger
-	suit_store = /obj/item/gun/ballistic/rifle/repeater/trail
-	backpack_contents = list(
-		/obj/item/ammo_box/m44box = 1,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 2
-		)
+// Specialist Rangers
 
-/datum/outfit/loadout/rangerpatrolcqb
-	name = "Patrol Ranger"
-	suit = /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
-	head = /obj/item/clothing/head/f13/ranger
-	uniform	= /obj/item/clothing/under/f13/ranger/patrol
-	belt = /obj/item/storage/belt/army/assault/ncr
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock
+//NCR Medic Ranger
+/datum/job/ranger/f13rangermedic
+	title = "NCR Medic Ranger"
+	flag = F13RANGERMEDIC
+	total_positions = 2
+	spawn_positions = 2
+	description = "As a Medic Ranger, you perform medical duties in special operations for the Republic."
+	supervisors = "Veteran Ranger"
+	selection_color = "#fff5cc"
+	display_order = JOB_DISPLAY_ORDER_MEDICRANGER
+	exp_requirements = 900
+
+	outfit = /datum/outfit/job/ranger/f13rangermedic
+
+/datum/outfit/job/ranger/f13rangermedic/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	. = ..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/stimpak5/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/steady)
+	ADD_TRAIT(H, TRAIT_SURGERY_MID, src)
+	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
+	ADD_TRAIT(H, TRAIT_FAST_PUMP, src)
+	ADD_TRAIT(H, TRAIT_GENERIC, src)
+	var/datum/martial_art/rangertakedown/RT = new
+	RT.teach(H)
+
+
+/datum/outfit/job/ranger/f13rangermedic
+	name = "NCR Medic Ranger"
+	jobtype = /datum/job/ranger/f13rangermedic
+	id = 			/obj/item/card/id/dogtag/ncrranger
+	uniform = 		/obj/item/clothing/under/f13/ranger/trail
+	suit =			/obj/item/clothing/suit/armor/trailranger
+	gloves = 		/obj/item/clothing/gloves/color/latex/nitrile
+	r_hand = 		/obj/item/storage/backpack/duffelbag/med/surgery
+	shoes = 		/obj/item/clothing/shoes/f13/military/leather
+	glasses = 		/obj/item/clothing/glasses/hud/health/sunglasses
+	head =			/obj/item/clothing/head/f13/trailranger
+	ears =			/obj/item/radio/headset/headset_ranger
+	mask = 			/obj/item/clothing/mask/surgical
+	r_pocket = 		/obj/item/binoculars
+	suit_store =	/obj/item/gun/ballistic/rifle/repeater/trail
+	accessory = 	/obj/item/clothing/accessory/armband/med/ncr
+	neck = 			/obj/item/storage/belt/shoulderholster/ranger45
 	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/clothing/head/helmet/f13/combat/ncr_patrol = 1,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 2
+		/obj/item/ammo_box/tube/m44 = 3,
+		/obj/item/restraints/handcuffs = 1,
+		/obj/item/melee/onehanded/knife/bowie = 1,
+	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
+		/obj/item/clothing/mask/gas/ranger = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/stack/medical/gauze/bloodleaf = 2,
+		/obj/item/storage/firstaid/regular = 1
 		)

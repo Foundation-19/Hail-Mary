@@ -1,0 +1,98 @@
+{
+
+    "whiteleg": {
+		"okay": "maiku",
+		"not": "net",
+        "I'm": "Ahm", 
+        "I am": "Ahm", 
+		"are": "ahn",
+        "this": "thees", 
+		"these": "thees",
+		"that": "thah",
+		"them": "dems",
+		"at": "ay",
+		"don't": "do'an",
+		"do not": "do'an",
+		"don't see": "do'anse",
+		
+        "point": "poin",
+        "weapon": "aiti",
+        "weapons": "aiti",
+		"gun": "aiti",
+        "guns": "aiti", 
+		"please": "tsahh",
+        "you can't": [
+            "nokihn", 
+            "yoocan no"
+        ], 
+		"stop": "subai",
+        "quit": "subai", 
+        "die": "deyai",
+		"dead": "deiyape", 
+        "killer": "baika-ker",
+		"murderer": "baika-ker",  
+        "friend": "hainji",
+		"fire": "kuna",
+        "good": "tsaande", 
+        "grenade": "grenah", 
+        "bomb": "boomb",
+        "explosive": "boomb",
+		"listen": "nanang",
+		"listening": "nananga",
+		"maybe": "mabe",
+        "where": [
+            "haganai", 
+            "whar"
+        ], 
+        "hear": "heer", 
+        "him": "hem",
+		"now": "maikku", 
+        "taking": [
+			"tek", 
+			"mane"
+		],
+        "enough": "eno", 
+        "playing": "naaiyawi", 
+        "play": "naaiyawi",
+		"attack": "nikkumpa", 
+		"fight": "nikumpa", 
+        "done": "matenka",
+		"something": "sumning", 
+        "anything": "gaihinnim",
+		"look": "shoah",  
+        "still": "stih", 
+		"shit": "shits",
+        "murder": [
+			"murdah",
+			"baika"
+		],
+        "kill": [
+			"murdah",
+			"baika"
+		],
+        "search": "bui-neek", 
+        "nothing": "ne gaihinnim", 
+        "take": "tek",
+		"lucky": "sunhai", 
+		"today": "tihda", 
+		"gone": "gaihaiwai",
+        "Burned Man": "Kuna-man", 
+        "with you": "wichoo", 
+        "what": "hagai", 
+        "let us": "wes",
+		"let's": "wes",  
+        "work": "job", 
+        "you": "yoo",
+		"you're": "your",
+		"you are": "your",
+		"nice": "tsaande", 
+        "based": "tsaande",
+		"cringe": "subai thah",
+		"cope": "kale watcha nei conserva oh",
+		"seethe": "kale watcha nei conserva oh",
+		"mald": "kale watcha nei conserva oh",
+		"found you": "shih finn deh deer",
+		"come here": "hah go"
+		}
+		
+}

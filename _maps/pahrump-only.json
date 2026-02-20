@@ -71,6 +71,11 @@
 		"enclave.dm",
 		"atlantic_cross.dm",
 		"locust_point.dm",
-		"khan.dm"
+		"khan.dm",
+		"lds.dm",
+		"eighties.dm",
+		"whitelegs.dm",
+		"usps.dm"
+		
 	]
 }
