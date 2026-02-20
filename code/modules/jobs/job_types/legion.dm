@@ -229,6 +229,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 	if(H.mind)
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
@@ -407,6 +408,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 
 /datum/outfit/job/CaesarsLegion/Legionnaire/f13decanvet
 	name = "Legion Veteran Decanus"
@@ -753,8 +755,9 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	exp_requirements = 150
 
 	loadout_options = list(	// ALL: .45 Revolver, Machete
-		/datum/outfit/loadout/expambusher,	// Greasegun, Bottlecap mine
+		/datum/outfit/loadout/expambusher,	// Shotgun, Bottlecap mine
 		/datum/outfit/loadout/expsniper,	// SKS + Scope, Smokebomb
+		/datum/outfit/loadout/expsaboteur,	// Silenced pistol, C4 charges for raids, mine
 		)
 
 	matchmaking_allowed = list(
@@ -772,6 +775,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		return
 	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
 	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
+	ADD_TRAIT(H, TRAIT_SOFT_YARDS, src)
 
 
 
@@ -798,10 +802,10 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/outfit/loadout/expambusher
 	name = "Ambusher"
 	glasses = /obj/item/clothing/glasses/sunglasses/big
-	suit_store = /obj/item/gun/ballistic/automatic/smg/greasegun
+	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever
 	backpack_contents = list(
 		/obj/item/bottlecap_mine = 1,
-		/obj/item/ammo_box/magazine/greasegun = 2,
+		/obj/item/ammo_box/shotgun/buck = 2,
 		/obj/item/grenade/smokebomb = 1,
 		/obj/item/restraints/legcuffs/bola/tactical = 1,
 		)
@@ -816,6 +820,17 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/gun_upgrade/scope/watchman = 1,
 		)
 
+/datum/outfit/loadout/expsaboteur
+	name = "Saboteur"
+	glasses = /obj/item/clothing/glasses/sunglasses/big
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/mk23
+	backpack_contents = list(
+		/obj/item/ammo_box/magazine/m45/socom = 3,
+		/obj/item/gun_upgrade/muzzle/silencer
+		/obj/item/bottlecap_mine = 1,
+		/obj/item/restraints/legcuffs/bola/tactical = 1,
+		/obj/item/grenade/plastic/x4 = 2,
+		)
 
 
 
@@ -984,6 +999,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		/obj/item/storage/backpack/spearquiver = 1,
 		/obj/item/reagent_containers/pill/patch/healpoultice = 2,
 		)
+
 
 // RECRUIT
 
