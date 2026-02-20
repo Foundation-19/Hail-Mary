@@ -22,6 +22,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/mutable_appearance/sneak_indicator = null // Ninja icon overlay above head
 	var/list/visible_vision_cones = list() // List of vision cone overlays we're showing
 	var/vision_cone_timer = null // Timer for periodic cone updates
+	var/previous_move_intent = null // Saves movement speed before sneak mode
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -320,7 +321,9 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		if(!sneak_indicator)
 			var/obj/effect/overlay/sneak_icon/indicator_obj = new()
 			sneak_indicator = mutable_appearance(indicator_obj.icon, indicator_obj.icon_state, indicator_obj.layer)
-			sneak_indicator.pixel_y = 16
+			sneak_indicator.alpha = 102 // 60% transparent
+			sneak_indicator.pixel_y = 20 // Above head
+			sneak_indicator.transform = matrix().Scale(0.7, 0.7) // 30% smaller
 			sneak_indicator.appearance_flags = RESET_COLOR | TILE_BOUND | PIXEL_SCALE
 			add_overlay(sneak_indicator)
 		
@@ -330,7 +333,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		// Start periodic refresh timer (every 1 second) to catch mob deaths and lighting changes
 		vision_cone_timer = addtimer(CALLBACK(src, PROC_REF(update_vision_cones)), 10, TIMER_STOPPABLE | TIMER_LOOP)
 		
-		// Auto-switch to walk if running
+		// Save current movement intent and auto-switch to walk if running
+		previous_move_intent = m_intent
 		if(m_intent == MOVE_INTENT_RUN)
 			toggle_move_intent()
 			to_chat(src, span_warning("You automatically switch to walking."))
@@ -339,6 +343,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
 		// Exited sneak mode
 		to_chat(src, span_notice("You exit sneak mode."))
+		
+		// Restore previous movement intent if it was different
+		if(previous_move_intent && previous_move_intent != m_intent)
+			toggle_move_intent()
+			to_chat(src, span_notice("Movement speed restored to [previous_move_intent]."))
+		previous_move_intent = null
 		
 		// Stop periodic refresh timer
 		if(vision_cone_timer)
@@ -368,6 +378,9 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		clear_vision_cones()
 
 // Update visible vision cones for nearby hostile mobs
+// TWO-LAYER SYSTEM:
+// Layer 1: ACTIVATION - Based on mob's base vision_range (ignores YOUR penalties)
+// Layer 2: DISPLAY - Shows ACTUAL detection range (includes YOUR darkness/direction penalties)
 /mob/living/carbon/human/proc/update_vision_cones()
 	if(!sneaking || !client)
 		return
@@ -375,66 +388,178 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	// Clear old cones
 	clear_vision_cones()
 	
-	// Find all hostile mobs and sort by distance
-	var/list/hostile_mobs = list()
-	for(var/mob/living/simple_animal/hostile/H in view(20, src)) // Increased range for visibility
-		if(H.stat == DEAD || H.ckey) // Don't show for dead mobs or player-controlled mobs
+	// ACTIVATION RANGE: Find all hostile mobs within their BASE vision range
+	// This ignores YOUR darkness penalties - it's based on THEIR potential awareness
+	for(var/mob/living/simple_animal/hostile/H in view(15, src)) // Extended view to catch edge cases
+		if(H.stat == DEAD || H.ckey)
 			continue
 		
-		var/distance = get_dist(src, H)
-		hostile_mobs[H] = distance
-	
-	// Only show cones for nearest 5 mobs to reduce clutter
-	var/list/sorted_mobs = sortTim(hostile_mobs, GLOBAL_PROC_REF(cmp_numeric_asc), associative = TRUE)
-	var/count = 0
-	for(var/mob/living/simple_animal/hostile/H in sorted_mobs)
-		if(count >= 5)
-			break
-		show_vision_cone_for_mob(H)
-		count++
+		// Check if they're hostile to us
+		if(H.faction_check_mob(src))
+			continue // Friendly, don't show cone
+		
+		// Hide cones if mob is actively targeting the player
+		if(H.target == src)
+			continue // Aggroed onto us, hide cone
+		
+		var/actual_distance = get_dist(src, H)
+		
+		// ACTIVATION TRIGGER: Use mob's BASE vision_range (9 tiles typically)
+		// This is their "awareness bubble" - you can see their cone when you're in it
+		// EVEN IF they can't see you yet due to darkness
+		var/activation_range = H.vision_range // Base range, no penalties
+		
+		// Also activate if we're within sound detection range
+		var/sound_range = 0
+		if(last_move_time && (world.time - last_move_time) <= 20)
+			sound_range = H.detect_rear_movement(src)
+		
+		// Show cone if within activation range OR sound range
+		if(actual_distance <= activation_range || (sound_range > 0 && actual_distance <= sound_range))
+			show_vision_cone_for_mob(H)
 
-// Show vision cone for a specific mob
+// Show vision cone with ACTUAL detection range (affected by darkness/direction/sound)
+// DISPLAY LAYER: Shows how far they can ACTUALLY detect you
+// PIE CHART SECTORS - Creates 6 clean non-overlapping 60° sectors
 /mob/living/carbon/human/proc/show_vision_cone_for_mob(mob/living/simple_animal/hostile/H)
 	if(!H || !sneaking)
 		return
 	
-	// Check if mob died while we're showing cones
 	if(H.stat == DEAD)
 		return
 	
-	// Get mob's facing direction
 	var/mob_dir = H.dir
 	if(!mob_dir || mob_dir == 0)
 		return
 	
-	// Get adaptive range based on lighting at player position
-	var/front_range = H.get_effective_vision_range(src)
-	var/peripheral_range = round(front_range * 0.6)
+	var/effective_range = H.get_effective_vision_range(src)
+	var/actual_distance = get_dist(src, H)
+	var/your_cone = H.get_vision_cone(src)
+	var/currently_detected = (actual_distance <= effective_range && effective_range > 0)
 	
-	// Create front cone (90° ahead) - Red
-	var/obj/effect/overlay/vision_cone/front_cone = new /obj/effect/overlay/vision_cone(get_turf(H))
-	front_cone.viewer = src // Set viewer for image visibility
-	front_cone.setup_cone(H, mob_dir, front_range, "red") // Use pre-colored red state
-	front_cone.generate_cone_image()
-	visible_vision_cones += front_cone
+	var/sound_range = 0
+	if(last_move_time && (world.time - last_move_time) <= 20)
+		sound_range = H.detect_rear_movement(src)
 	
-	// Create left peripheral cone (45° to left) - Blurry
-	var/left_dir = turn(mob_dir, 45)
-	var/obj/effect/overlay/vision_cone/left_cone = new /obj/effect/overlay/vision_cone(get_turf(H))
-	left_cone.viewer = src
-	left_cone.alpha = 40 // Make peripheral dimmer
-	left_cone.setup_cone(H, left_dir, peripheral_range, "blurry") // Use blurry for peripheral
-	left_cone.generate_cone_image()
-	visible_vision_cones += left_cone
+	// ============================================
+	// CENTERED SECTOR LAYOUT (6 slices, 60° each)
+	// ============================================
+	// Sectors are CENTERED on cardinal directions:
+	// 
+	// FRONT CENTER (RED): -30° to +30° from facing
+	// RIGHT PERIPHERAL (YELLOW): 30° to 90°
+	// RIGHT REAR (CYAN): 90° to 150°
+	// REAR CENTER (GRAY): 150° to 210° (±30° from opposite)
+	// LEFT REAR (CYAN): 210° to 270°
+	// LEFT PERIPHERAL (YELLOW): 270° to 330°
+	// ============================================
 	
-	// Create right peripheral cone (45° to right) - Blurry
-	var/right_dir = turn(mob_dir, -45)
-	var/obj/effect/overlay/vision_cone/right_cone = new /obj/effect/overlay/vision_cone(get_turf(H))
-	right_cone.viewer = src
-	right_cone.alpha = 40 // Make peripheral dimmer
-	right_cone.setup_cone(H, right_dir, peripheral_range, "blurry") // Use blurry for peripheral
-	right_cone.generate_cone_image()
-	visible_vision_cones += right_cone
+	// Calculate ranges for each sector
+	var/front_range = H.vision_range
+	var/front_alpha = 80
+	
+	if(your_cone == CONE_FRONT)
+		front_range = effective_range
+		if(currently_detected)
+			front_alpha = 120
+		else
+			front_alpha = 60
+	else
+		var/turf/front_check = get_step(H, mob_dir)
+		if(front_check)
+			var/light_amount = front_check.get_lumcount()
+			if(light_amount >= 0.5)
+				front_range = H.vision_range
+			else if(light_amount >= 0.2)
+				front_range = max(round(H.vision_range * 0.6), 3)
+			else
+				front_range = max(round(H.vision_range * 0.4), 3)
+		front_alpha = 60
+	
+	var/peripheral_range = max(round(front_range * 0.6), 2)
+	var/peripheral_alpha = 100
+	if(your_cone == CONE_PERIPHERAL)
+		peripheral_range = effective_range
+		if(currently_detected)
+			peripheral_alpha = 150
+		else
+			peripheral_alpha = 110
+	else
+		peripheral_alpha = 80
+	
+	var/rear_peripheral_range = 3
+	var/rear_peripheral_alpha = 60
+	var/sound_cone = H.get_sound_cone(src)
+	
+	if(sound_range > 0)
+		rear_peripheral_range = sound_range
+		if(sound_cone == SOUND_REAR_PERIPHERAL && actual_distance <= sound_range)
+			rear_peripheral_alpha = 150
+		else
+			rear_peripheral_alpha = 120
+	
+	var/rear_range = 3
+	var/rear_color = "#808080"
+	var/rear_alpha = 60
+	
+	if(your_cone == CONE_REAR)
+		if(sound_range > 0 && actual_distance <= sound_range)
+			rear_range = sound_range
+			rear_color = "#FFFF00"
+			if(sound_cone == SOUND_REAR_CENTER)
+				rear_alpha = 150
+			else
+				rear_alpha = 120
+		else
+			rear_range = max(round(H.vision_range * 0.3), 2)
+			rear_alpha = 60
+	else
+		if(sound_range > 0)
+			rear_range = sound_range
+			rear_color = "#FFFF00"
+			rear_alpha = 100
+		else
+			rear_range = 3
+			rear_alpha = 60
+	
+	// Create 6 sectors, each 60° wide, CENTERED on cardinal/diagonal directions
+	// Each sector covers exactly 60° with NO overlap
+	
+	// FRONT CENTER (RED): -30° to +30° from facing (wraps around 0°)
+	create_sector(H, mob_dir, -30, 30, front_range, "#FF0000", front_alpha)
+	
+	// RIGHT PERIPHERAL (YELLOW): 30° to 90° from facing
+	create_sector(H, mob_dir, 30, 90, peripheral_range, "#FFCC00", peripheral_alpha)
+	
+	// RIGHT REAR (CYAN): 90° to 150° from facing
+	create_sector(H, mob_dir, 90, 150, rear_peripheral_range, "#00FFFF", rear_peripheral_alpha)
+	
+	// REAR CENTER (GRAY/YELLOW): 150° to 210° from facing (±30° from opposite)
+	create_sector(H, mob_dir, 150, 210, rear_range, rear_color, rear_alpha)
+	
+	// LEFT REAR (CYAN): 210° to 270° from facing
+	create_sector(H, mob_dir, 210, 270, rear_peripheral_range, "#00FFFF", rear_peripheral_alpha)
+	
+	// LEFT PERIPHERAL (YELLOW): 270° to 330° from facing
+	create_sector(H, mob_dir, 270, 330, peripheral_range, "#FFCC00", peripheral_alpha)
+
+// Create a sector between two angles (in degrees, clockwise from facing direction)
+// Angles can be negative (e.g., -30 to 30 for front-centered cone that wraps around 0°)
+/mob/living/carbon/human/proc/create_sector(mob/living/simple_animal/hostile/H, base_dir, start_angle, end_angle, sector_range, sector_color, sector_alpha)
+	if(sector_range <= 0)
+		return
+	
+	var/obj/effect/overlay/vision_cone/cone = new /obj/effect/overlay/vision_cone(get_turf(H))
+	cone.viewer = src
+	cone.setup_sector(H, base_dir, start_angle, end_angle, sector_range)
+	cone.alpha = sector_alpha
+	
+	if(cone.generate_cone_image())
+		for(var/image/img in cone.cone_images)
+			img.color = sector_color
+			img.alpha = sector_alpha
+	
+	visible_vision_cones += cone
 
 // Clear all vision cone overlays
 /mob/living/carbon/human/proc/clear_vision_cones()

@@ -3,15 +3,6 @@
 #define COMBAT_MODE_RANGED 2  // Pure ranged, never voluntarily enter melee
 #define COMBAT_MODE_MIXED 3   // Ranged but will melee if target gets close (like reaver)
 
-// Vision cone definitions (cone-based directional vision system)
-#define CONE_FRONT 1        // 90° front cone - best vision
-#define CONE_PERIPHERAL 2   // 45° side cones - reduced vision
-#define CONE_REAR 3         // Behind mob - no vision, sound only
-
-// Sound cone definitions (rear sound detection)
-#define SOUND_REAR_CENTER 1    // 90° rear cone - normal sound detection
-#define SOUND_REAR_PERIPHERAL 2 // 45° rear side cones - reduced sound detection
-
 /mob/living/simple_animal/hostile
 	faction = list("hostile")
 	stop_automated_movement_when_pulled = 0
@@ -1026,86 +1017,77 @@
 		setDir(get_dir(src, target))
 		return CONE_FRONT
 	
-	// Calculate which cone based on cardinal and diagonal directions
-	switch(dir)
-		if(NORTH) // Facing north
-			if(dy > 0) // Target is north of us
-				if(abs(dx) <= abs(dy) * 1.0) // tan(45°) = 1.0 (45° on each side = 90° total cone)
-					return CONE_FRONT // Within 45° of center (90° total cone)
-				else
-					return CONE_PERIPHERAL // Beyond 45° (peripheral cones)
-			else // Target is south of us (behind)
-				return CONE_REAR
-		
-		if(SOUTH) // Facing south
-			if(dy < 0) // Target is south of us
-				if(abs(dx) <= abs(dy) * 1.0)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
-		
-		if(EAST) // Facing east
-			if(dx > 0) // Target is east of us
-				if(abs(dy) <= abs(dx) * 1.0)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
-		
-		if(WEST) // Facing west
-			if(dx < 0) // Target is west of us
-				if(abs(dy) <= abs(dx) * 1.0)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
-		
-		// Diagonal facings
-		if(NORTHEAST)
-			if(dx > 0 && dy > 0) // In northeast quadrant
-				var/angle_diff = abs(dx - dy) / max(abs(dx), abs(dy))
-				if(angle_diff < 1.0) // Within 90° cone (±45° from diagonal center)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
-		
-		if(NORTHWEST)
-			if(dx < 0 && dy > 0)
-				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
-				if(angle_diff < 1.0)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
-		
-		if(SOUTHEAST)
-			if(dx > 0 && dy < 0)
-				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
-				if(angle_diff < 1.0)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
-		
-		if(SOUTHWEST)
-			if(dx < 0 && dy < 0)
-				var/angle_diff = abs(abs(dx) - abs(dy)) / max(abs(dx), abs(dy))
-				if(angle_diff < 1.0)
-					return CONE_FRONT
-				else
-					return CONE_PERIPHERAL
-			else
-				return CONE_REAR
+	// Get the direction vector for the mob's facing
+	var/target_dx = 0
+	var/target_dy = 0
 	
-	return CONE_REAR
+	switch(dir)
+		if(NORTH)
+			target_dy = 1
+		if(SOUTH)
+			target_dy = -1
+		if(EAST)
+			target_dx = 1
+		if(WEST)
+			target_dx = -1
+		if(NORTHEAST)
+			target_dx = 1
+			target_dy = 1
+		if(NORTHWEST)
+			target_dx = -1
+			target_dy = 1
+		if(SOUTHEAST)
+			target_dx = 1
+			target_dy = -1
+		if(SOUTHWEST)
+			target_dx = -1
+			target_dy = -1
+	
+	// Calculate dot product to check general direction
+	var/dot_product = dx * target_dx + dy * target_dy
+	var/target_magnitude = sqrt(target_dx * target_dx + target_dy * target_dy)
+	var/along_centerline = dot_product / target_magnitude
+	
+	// Calculate perpendicular distance from centerline (cross product magnitude)
+	var/cross_product = dx * target_dy - dy * target_dx // Keep sign for left/right
+	var/perp_distance = abs(cross_product) / target_magnitude
+	
+	// Classify into zones matching pie chart layout:
+	// tan(60°) ≈ 1.732
+	// tan(75°) ≈ 3.732
+	// tan(90°) = infinity
+	// tan(105°) ≈ -3.732
+	//
+	// Zone layout (2 large + 4 small):
+	// Front: -60° to +60° (120°) - CONE_FRONT (red)
+	// Front Peripheral: 60° to 90° each side (60° total) - CONE_PERIPHERAL (yellow)
+	// Rear Peripheral: 90° to 120° each side (60° total) - CONE_REAR (cyan)
+	// Rear: 120° to 180° (120°) - CONE_REAR (gray)
+	
+	// Check if target is in front hemisphere (dot_product > 0)
+	if(along_centerline > 0)
+		// Front hemisphere - check angle from centerline
+		if(perp_distance <= along_centerline * 1.732)
+			// Within ±60° - main front cone
+			return CONE_FRONT
+		else
+			// Between 60° and 90° - front peripheral
+			return CONE_PERIPHERAL
+	else if(along_centerline < 0)
+		// Rear hemisphere (behind mob)
+		var/behind_distance = abs(along_centerline)
+		
+		// Check angle from rear direction
+		if(perp_distance <= behind_distance * 1.732)
+			// Within ±60° of rear center (120° to 180° from front)
+			return CONE_REAR
+		else
+			// Between rear center and sides (90° to 120° from front)
+			// This is rear peripheral zone
+			return CONE_REAR
+	else
+		// Perpendicular to facing (exactly 90°) - peripheral
+		return CONE_PERIPHERAL
 
 /// Get directional vision multiplier (DISABLED FOR TESTING)
 /// Returns 1.0 to disable directional vision while testing lighting
