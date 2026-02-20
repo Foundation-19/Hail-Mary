@@ -1017,77 +1017,45 @@
 		setDir(get_dir(src, target))
 		return CONE_FRONT
 	
-	// Get the direction vector for the mob's facing
-	var/target_dx = 0
-	var/target_dy = 0
-	
-	switch(dir)
-		if(NORTH)
-			target_dy = 1
-		if(SOUTH)
-			target_dy = -1
-		if(EAST)
-			target_dx = 1
-		if(WEST)
-			target_dx = -1
-		if(NORTHEAST)
-			target_dx = 1
-			target_dy = 1
-		if(NORTHWEST)
-			target_dx = -1
-			target_dy = 1
-		if(SOUTHEAST)
-			target_dx = 1
-			target_dy = -1
-		if(SOUTHWEST)
-			target_dx = -1
-			target_dy = -1
-	
-	// Calculate dot product to check general direction
-	var/dot_product = dx * target_dx + dy * target_dy
-	var/target_magnitude = sqrt(target_dx * target_dx + target_dy * target_dy)
-	var/along_centerline = dot_product / target_magnitude
-	
-	// Calculate perpendicular distance from centerline (cross product magnitude)
-	var/cross_product = dx * target_dy - dy * target_dx // Keep sign for left/right
-	var/perp_distance = abs(cross_product) / target_magnitude
-	
-	// Classify into zones matching pie chart layout:
-	// tan(60°) ≈ 1.732
-	// tan(75°) ≈ 3.732
-	// tan(90°) = infinity
-	// tan(105°) ≈ -3.732
+	// ============================================
+	// QUADRANT-BASED DETECTION (matches visual sectors exactly)
+	// ============================================
+	// Uses IDENTICAL quadrant logic as get_sector_turfs() for perfect 1:1 match
 	//
-	// Zone layout (2 large + 4 small):
-	// Front: -60° to +60° (120°) - CONE_FRONT (red)
-	// Front Peripheral: 60° to 90° each side (60° total) - CONE_PERIPHERAL (yellow)
-	// Rear Peripheral: 90° to 120° each side (60° total) - CONE_REAR (cyan)
-	// Rear: 120° to 180° (120°) - CONE_REAR (gray)
+	// Sector layout:
+	// FRONT (RED): -30° to +30° → CONE_FRONT
+	// RIGHT PERIPHERAL (YELLOW): 30° to 90° → CONE_PERIPHERAL
+	// RIGHT REAR (CYAN): 90° to 150° → CONE_REAR
+	// REAR (GRAY): 150° to 210° → CONE_REAR
+	// LEFT REAR (CYAN): 210° to 270° → CONE_REAR
+	// LEFT PERIPHERAL (YELLOW): 270° to 330° → CONE_PERIPHERAL
+	// ============================================
 	
-	// Check if target is in front hemisphere (dot_product > 0)
-	if(along_centerline > 0)
-		// Front hemisphere - check angle from centerline
-		if(perp_distance <= along_centerline * 1.732)
-			// Within ±60° - main front cone
-			return CONE_FRONT
-		else
-			// Between 60° and 90° - front peripheral
-			return CONE_PERIPHERAL
-	else if(along_centerline < 0)
-		// Rear hemisphere (behind mob)
-		var/behind_distance = abs(along_centerline)
-		
-		// Check angle from rear direction
-		if(perp_distance <= behind_distance * 1.732)
-			// Within ±60° of rear center (120° to 180° from front)
-			return CONE_REAR
-		else
-			// Between rear center and sides (90° to 120° from front)
-			// This is rear peripheral zone
-			return CONE_REAR
-	else
-		// Perpendicular to facing (exactly 90°) - peripheral
+	// Get base direction angle
+	var/base_angle = dir_to_angle_detection(dir)
+	
+	// Calculate angle to target using SAME quadrant logic as visuals
+	var/target_angle = calculate_angle_from_offset_detection(dx, dy)
+	
+	// Calculate relative angle from facing direction
+	var/relative_angle = target_angle - base_angle
+	
+	// Normalize to -180 to +180 range
+	while(relative_angle > 180)
+		relative_angle -= 360
+	while(relative_angle < -180)
+		relative_angle += 360
+	
+	// Classify based on angle (matching visual sectors EXACTLY)
+	if(relative_angle >= -30 && relative_angle <= 30)
+		// Front center: -30° to +30° (60° total)
+		return CONE_FRONT
+	else if((relative_angle > 30 && relative_angle <= 90) || (relative_angle >= -90 && relative_angle < -30))
+		// Peripheral zones: 30° to 90° and -90° to -30° (270° to 330°)
 		return CONE_PERIPHERAL
+	else
+		// Rear zones: 90° to 270° (includes cyan rear peripheral and gray rear center)
+		return CONE_REAR
 
 /// Get directional vision multiplier (DISABLED FOR TESTING)
 /// Returns 1.0 to disable directional vision while testing lighting
@@ -1190,48 +1158,99 @@
 	var/dx = target_turf.x - my_turf.x
 	var/dy = target_turf.y - my_turf.y
 	
-	// Only care about targets BEHIND us
-	var/is_behind = FALSE
+	// ============================================
+	// QUADRANT-BASED SOUND DETECTION (matches visual sectors exactly)
+	// ============================================
+	// Sound detection only works in REAR zones (90° to 270° from facing)
+	//
+	// REAR CENTER (GRAY): 150° to 210° → SOUND_REAR_CENTER (harder to hear)
+	// REAR PERIPHERAL (CYAN): 90° to 150° and 210° to 270° → SOUND_REAR_PERIPHERAL (easier to hear)
+	// ============================================
 	
-	switch(dir)
-		if(NORTH)
-			is_behind = (dy < 0) // South of us
-		if(SOUTH)
-			is_behind = (dy > 0) // North of us
-		if(EAST)
-			is_behind = (dx < 0) // West of us
-		if(WEST)
-			is_behind = (dx > 0) // East of us
-		if(NORTHEAST)
-			is_behind = (dx < 0 || dy < 0)
-		if(NORTHWEST)
-			is_behind = (dx > 0 || dy < 0)
-		if(SOUTHEAST)
-			is_behind = (dx < 0 || dy > 0)
-		if(SOUTHWEST)
-			is_behind = (dx > 0 || dy > 0)
+	// Get base direction angle
+	var/base_angle = dir_to_angle_detection(dir)
 	
-	if(!is_behind)
-		return null // Not behind us
+	// Calculate angle to target using SAME quadrant logic
+	var/target_angle = calculate_angle_from_offset_detection(dx, dy)
 	
-	// Determine if in center or peripheral rear cone
-	var/angle_from_rear_center = 0
+	// Calculate relative angle
+	var/relative_angle = target_angle - base_angle
 	
-	switch(dir)
-		if(NORTH) // Rear is south
-			angle_from_rear_center = abs(dx) / max(abs(dy), 1)
-		if(SOUTH) // Rear is north
-			angle_from_rear_center = abs(dx) / max(abs(dy), 1)
-		if(EAST) // Rear is west
-			angle_from_rear_center = abs(dy) / max(abs(dx), 1)
-		if(WEST) // Rear is east
-			angle_from_rear_center = abs(dy) / max(abs(dx), 1)
+	// Normalize to -180 to +180
+	while(relative_angle > 180)
+		relative_angle -= 360
+	while(relative_angle < -180)
+		relative_angle += 360
 	
-	// If angle ratio < 0.414 (tan 22.5°), it's center cone
-	if(angle_from_rear_center < 0.414)
-		return SOUND_REAR_CENTER
+	// Check if target is in rear zones
+	if(relative_angle >= -90 && relative_angle <= 90)
+		return null // Front zones - no sound detection
+	
+	// Target is behind - determine if center or peripheral
+	// Rear center: 150° to 210° (±30° from opposite = relative ±30° from 180°)
+	// Which is: relative >= 150 OR relative <= -150
+	var/abs_rel = abs(relative_angle)
+	if(abs_rel >= 150)
+		return SOUND_REAR_CENTER // Directly behind (harder to hear)
 	else
-		return SOUND_REAR_PERIPHERAL
+		return SOUND_REAR_PERIPHERAL // Rear diagonal (easier to hear)
+
+// Helper functions for detection (identical to visual logic)
+/mob/living/simple_animal/hostile/proc/dir_to_angle_detection(byond_dir)
+	switch(byond_dir)
+		if(NORTH)
+			return 0
+		if(NORTHEAST)
+			return 45
+		if(EAST)
+			return 90
+		if(SOUTHEAST)
+			return 135
+		if(SOUTH)
+			return 180
+		if(SOUTHWEST)
+			return 225
+		if(WEST)
+			return 270
+		if(NORTHWEST)
+			return 315
+	return 0
+
+/mob/living/simple_animal/hostile/proc/calculate_angle_from_offset_detection(dx, dy)
+	var/angle = 0
+	
+	// Cardinals (avoids arctan edge cases)
+	if(dx == 0)
+		if(dy > 0)
+			return 0 // NORTH
+		else
+			return 180 // SOUTH
+	else if(dy == 0)
+		if(dx > 0)
+			return 90 // EAST
+		else
+			return 270 // WEST
+	
+	// Diagonals - use arctan on absolute values
+	var/acute_angle = arctan(abs(dy), abs(dx))
+	
+	// Map to correct quadrant
+	if(dx > 0 && dy > 0)
+		angle = acute_angle // NE
+	else if(dx < 0 && dy > 0)
+		angle = 360 - acute_angle // NW
+	else if(dx > 0 && dy < 0)
+		angle = 180 - acute_angle // SE
+	else // dx < 0 && dy < 0
+		angle = 180 + acute_angle // SW
+	
+	// Normalize
+	while(angle < 0)
+		angle += 360
+	while(angle >= 360)
+		angle -= 360
+	
+	return angle
 
 /// Detect moving targets behind us via sound
 /mob/living/simple_animal/hostile/proc/detect_rear_movement(atom/target)

@@ -718,9 +718,8 @@
 	use_sector_mode = TRUE
 	cone_alpha = alpha
 
+// Generate sector images using quadrant-based angle calculation
 /obj/effect/overlay/vision_cone/proc/generate_cone_image()
-	// Create images on CHAT_PLANE which bypasses FoV hiding
-	
 	var/turf/center = get_turf(tracked_mob)
 	if(!center)
 		return FALSE
@@ -730,8 +729,13 @@
 		viewer.client.images -= cone_images
 	cone_images.Cut()
 	
-	// Get all turfs in the cone
-	var/list/cone_turfs = get_cone_turfs(center, cone_dir, cone_range)
+	// Get all turfs in the sector using quadrant-based calculation
+	var/list/cone_turfs
+	if(use_sector_mode)
+		cone_turfs = get_sector_turfs(center, cone_dir, cone_range, sector_start_angle, sector_end_angle)
+	else
+		return FALSE
+	
 	if(!cone_turfs || !cone_turfs.len)
 		return FALSE
 	
@@ -741,7 +745,6 @@
 		img.layer = BELOW_MOB_LAYER
 		img.plane = CHAT_PLANE // CHAT_PLANE bypasses FoV
 		img.alpha = cone_alpha
-		// Note: color property will be set by caller after generation
 		cone_images += img
 	
 	// Add all images to viewer's client at once
@@ -749,84 +752,6 @@
 		viewer.client.images += cone_images
 	
 	return TRUE
-
-/obj/effect/overlay/vision_cone/proc/get_cone_turfs(turf/center, direction, range)
-	if(use_sector_mode)
-		return get_sector_turfs(center, direction, range, sector_start_angle, sector_end_angle)
-	
-	var/list/turfs = list()
-	
-	// Get direction vector
-	var/target_dx = 0
-	var/target_dy = 0
-	
-	switch(direction)
-		if(NORTH)
-			target_dy = 1
-		if(SOUTH)
-			target_dy = -1
-		if(EAST)
-			target_dx = 1
-		if(WEST)
-			target_dx = -1
-		if(NORTHEAST)
-			target_dx = 1
-			target_dy = 1
-		if(NORTHWEST)
-			target_dx = -1
-			target_dy = 1
-		if(SOUTHEAST)
-			target_dx = 1
-			target_dy = -1
-		if(SOUTHWEST)
-			target_dx = -1
-			target_dy = -1
-	
-	// Normalize target vector
-	var/target_length = sqrt(target_dx * target_dx + target_dy * target_dy)
-	var/norm_target_dx = target_dx / target_length
-	var/norm_target_dy = target_dy / target_length
-	
-	// Convert cone_angle (half-angle in degrees) to radians and get cosine
-	var/angle_radians = cone_angle * 0.0174533 // π/180
-	var/cos_cone_angle = cos(angle_radians)
-	
-	// Check all turfs in range
-	for(var/turf/T in range(range, center))
-		if(T == center)
-			continue
-		
-		// Vector from center to turf
-		var/dx = T.x - center.x
-		var/dy = T.y - center.y
-		
-		// Distance to turf
-		var/distance = sqrt(dx * dx + dy * dy)
-		if(distance == 0 || distance > range)
-			continue
-		
-		// Normalize direction to this turf
-		var/norm_dx = dx / distance
-		var/norm_dy = dy / distance
-		
-		// Dot product = cos(angle between vectors)
-		var/dot_product = norm_dx * norm_target_dx + norm_dy * norm_target_dy
-		
-		// If cos(angle) >= cos(cone_angle), turf is in cone
-		if(dot_product >= cos_cone_angle)
-			turfs += T
-	
-	return turfs
-
-/obj/effect/overlay/vision_cone/proc/get_turf_in_direction(turf/start, direction, distance)
-	var/turf/current = start
-	for(var/i = 1 to distance)
-		current = get_step(current, direction)
-		if(!current)
-			return null
-	return current
-
-// Get turfs in an angular sector
 
 /obj/effect/overlay/vision_cone/proc/get_sector_turfs(turf/center, base_direction, range, start_angle_deg, end_angle_deg)
 	var/list/turfs = list()
@@ -859,50 +784,8 @@
 		if(dx == 0 && dy == 0)
 			continue
 		
-		// Calculate angle using manual quadrant logic
-		// This avoids arctan's ambiguity and conversion issues
-		var/turf_angle = 0
-		
-		// Handle cardinal directions first (avoid division by zero)
-		if(dx == 0)
-			if(dy > 0)
-				turf_angle = 0 // Pure NORTH
-			else
-				turf_angle = 180 // Pure SOUTH
-		else if(dy == 0)
-			if(dx > 0)
-				turf_angle = 90 // Pure EAST
-			else
-				turf_angle = 270 // Pure WEST
-		else
-			// Diagonal - determine quadrant and calculate
-			// Quadrant 1: +dx, +dy (NE) - angles 0° to 90°
-			// Quadrant 2: -dx, +dy (NW) - angles 270° to 360°
-			// Quadrant 3: -dx, -dy (SW) - angles 180° to 270°
-			// Quadrant 4: +dx, -dy (SE) - angles 90° to 180°
-			
-			// Use arctan on absolute values to get acute angle
-			var/acute_angle = arctan(abs(dy), abs(dx))
-			// This gives us angle from the nearest cardinal direction
-			
-			if(dx > 0 && dy > 0)
-				// NE quadrant: between NORTH (0°) and EAST (90°)
-				turf_angle = acute_angle
-			else if(dx < 0 && dy > 0)
-				// NW quadrant: between NORTH (0°) and WEST (270°)
-				turf_angle = 360 - acute_angle
-			else if(dx > 0 && dy < 0)
-				// SE quadrant: between EAST (90°) and SOUTH (180°)
-				turf_angle = 180 - acute_angle
-			else // dx < 0 && dy < 0
-				// SW quadrant: between SOUTH (180°) and WEST (270°)
-				turf_angle = 180 + acute_angle
-		
-		// Normalize
-		while(turf_angle < 0)
-			turf_angle += 360
-		while(turf_angle >= 360)
-			turf_angle -= 360
+		// QUADRANT-BASED ANGLE CALCULATION
+		var/turf_angle = calculate_angle_from_offset(dx, dy)
 		
 		// Check if turf angle is within sector
 		var/in_sector = FALSE
@@ -915,6 +798,14 @@
 			turfs += T
 	
 	return turfs
+
+/obj/effect/overlay/vision_cone/proc/get_turf_in_direction(turf/start, direction, distance)
+	var/turf/current = start
+	for(var/i = 1 to distance)
+		current = get_step(current, direction)
+		if(!current)
+			return null
+	return current
 
 // Helper: Convert BYOND direction to angle in degrees
 // 0° = NORTH (up), increases CLOCKWISE
@@ -938,6 +829,48 @@
 		if(NORTHWEST)
 			return 315 // Up-left diagonal
 	return 0
+
+// Helper: Calculate angle from dx/dy offset using quadrant-based logic
+// Returns angle in degrees: 0° = NORTH, clockwise
+/obj/effect/overlay/vision_cone/proc/calculate_angle_from_offset(dx, dy)
+	var/angle = 0
+	
+	// Handle cardinal directions first (avoids arctan edge cases)
+	if(dx == 0)
+		if(dy > 0)
+			return 0 // Pure NORTH
+		else
+			return 180 // Pure SOUTH
+	else if(dy == 0)
+		if(dx > 0)
+			return 90 // Pure EAST
+		else
+			return 270 // Pure WEST
+	
+	// Diagonal - use arctan on absolute values to get acute angle
+	var/acute_angle = arctan(abs(dy), abs(dx))
+	
+	// Map to correct quadrant based on dx/dy signs
+	if(dx > 0 && dy > 0)
+		// NE quadrant (0° to 90°)
+		angle = acute_angle
+	else if(dx < 0 && dy > 0)
+		// NW quadrant (270° to 360°)
+		angle = 360 - acute_angle
+	else if(dx > 0 && dy < 0)
+		// SE quadrant (90° to 180°)
+		angle = 180 - acute_angle
+	else // dx < 0 && dy < 0
+		// SW quadrant (180° to 270°)
+		angle = 180 + acute_angle
+	
+	// Normalize
+	while(angle < 0)
+		angle += 360
+	while(angle >= 360)
+		angle -= 360
+	
+	return angle
 
 /obj/effect/overlay/vision_cone/proc/get_turf_perpendicular(turf/start, direction, offset)
 	// Get turf perpendicular to the facing direction
