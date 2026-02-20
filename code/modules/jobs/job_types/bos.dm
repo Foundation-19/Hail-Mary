@@ -407,13 +407,13 @@ Knight-Captain
 	gunsmith_two = TRUE
 	gunsmith_three = TRUE
 	gunsmith_four = TRUE
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
+	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/captain
 	suit_store = /obj/item/gun/energy/laser/aer12
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
 	l_pocket = /obj/item/storage/belt/sabre/heavy
 	mask = /obj/item/clothing/mask/gas/sechailer
-	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
+	head = /obj/item/clothing/head/helmet/f13/combat/mk2/brotherhood/captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
@@ -733,8 +733,8 @@ Knight Sarge
 /datum/job/bos/f13knightsarge
 	title = "Knight Sergeant"
 	flag = F13KNIGHTSARGE
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 1
+	spawn_positions = 1
 	description = " You are the Knight Sergeant of the Brotherhood Of Steel Expeditionary force, your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
 	supervisors = "the Knight-Captain and Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
@@ -778,14 +778,14 @@ Knight Sarge
 /datum/outfit/job/bos/f13knightsarge
 	name = "Senior Knight"
 	jobtype = /datum/job/bos/f13knightsarge
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
+	suit = /obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/sarge
 	suit_store = /obj/item/gun/energy/laser/aer9
 	accessory = /obj/item/clothing/accessory/bos/knightsarge
 	glasses = /obj/item/clothing/glasses/night
 	mask = /obj/item/clothing/mask/gas/sechailer
 	belt = /obj/item/storage/belt/army/assault
 	l_pocket = /obj/item/storage/belt/shoulderholster
-	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
+	head = /obj/item/clothing/head/helmet/f13/combat/mk2/brotherhood/sarge
 	gunsmith_one = TRUE
 	gunsmith_two = TRUE
 	gunsmith_three = TRUE
@@ -909,8 +909,8 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 2
+	spawn_positions = 2
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
@@ -1042,7 +1042,7 @@ Initiate
 /datum/outfit/loadout/initiatek
 	name = "Knight-Aspirant"
 	belt = /obj/item/storage/belt/utility
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
+	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/initiate
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/initiate
 	backpack_contents = list(
 		/obj/item/gun/energy/laser/aer9 = 1,

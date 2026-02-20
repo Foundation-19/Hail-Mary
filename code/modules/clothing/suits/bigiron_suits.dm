@@ -2419,28 +2419,24 @@
 	desc = "A combat armor set made by the Brotherhood of Steel, standard issue for all Knights. It bears a red stripe."
 	icon_state = "brotherhood_armor_knight"
 	item_state = "brotherhood_armor_knight"
-	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_GLOBAL_MULT
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_DT_T1)
 
-/obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
+/obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/senior
 	name = "brotherhood senior knight armor"
-	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Senior Knights. It bears a silver stripe."
+	desc = "A reinforced combat armor set made by the Brotherhood of Steel, standard issue for all Senior Knights. It bears a silver stripe."
 	icon_state = "brotherhood_armor_senior"
 	item_state = "brotherhood_armor_senior"
 
-/obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
+/obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/sarge
 	name = "brotherhood Knight Sarge Armor"
-	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Knight Sarge. It bears a silver stripe."
+	desc = "A reinforced combat armor set made by the Brotherhood of Steel, standard issue for all Knight Sarge. It bears a silver stripe."
 	icon_state = "brotherhood_armor_senior"
 	item_state = "brotherhood_armor_senior"
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_DT_T1)
 
-/obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
+/obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood/captain
 	name = "brotherhood head knight armor"
-	desc = "A renforced combat armor set made by the Brotherhood of Steel, standard issue for all Head Knights. It bears golden embroidery."
+	desc = "A reinforced combat armor set made by the Brotherhood of Steel, standard issue for all Head Knights. It bears golden embroidery."
 	icon_state = "brotherhood_armor_captain"
 	item_state = "brotherhood_armor_captain"
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/medium/combat/brotherhood/initiate
 	name = "initiate armor"
@@ -2448,13 +2444,13 @@
 	icon_state = "brotherhood_armor"
 	item_state = "brotherhood_armor"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T2)
+	slowdown = ARMOR_SLOWDOWN_MEDIUM * ARMOR_SLOWDOWN_LESS_T2 * ARMOR_SLOWDOWN_GLOBAL_MULT
 
-/obj/item/clothing/suit/armor/medium/combat/brotherhood/initiate/mk2
+/obj/item/clothing/suit/armor/medium/combat/mk2/brotherhood
 	name = "reinforced knight armor"
 	desc = "A reinforced set of bracers, greaves, and torso plating of prewar design This one is kitted with additional plates and, repainted to the colour scheme of the Brotherhood of Steel."
 	icon_state = "brotherhood_armor_mk2"
 	item_state = "brotherhood_armor_mk2"
-	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_UP_DT_T1)
 
 /obj/item/clothing/suit/armor/medium/combat/brotherhood/outcast
 	name = "brotherhood armor" //unused?
