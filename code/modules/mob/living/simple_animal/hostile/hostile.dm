@@ -331,7 +331,7 @@
 	/// How many thrown items before we investigate the source?
 	var/thrown_spam_threshold = 3
 	/// Cooldown for investigating thrown items (deciseconds)
-	var/thrown_investigation_cooldown = 50 // 5 seconds
+	var/thrown_investigation_cooldown = 150 // 15 seconds
 	
 	/// LIGHT DESTRUCTION DETECTION: Track shot-out lights and investigate
 	/// Track recent light destructions and their sources
@@ -2477,8 +2477,12 @@
 			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 				toggle_ai(AI_ON)
 			
-			// Move toward the item to investigate (adjacent)
+			// Set investigation state to prevent LoseTarget() from stopping movement
 			last_known_location = item_location
+			remembered_target = thrower  // Remember who threw it
+			last_target_sighting = world.time  // Mark as recent
+			
+			// Move toward the item to investigate (adjacent)
 			Goto(item_location, move_to_delay, 0)
 
 // ========================================
@@ -2545,9 +2549,13 @@
 			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 				toggle_ai(AI_ON)
 			
-			// Move to investigate the light location (adjacent)
+			// Set investigation state to prevent LoseTarget() from stopping movement
 			last_known_location = destruction_location
+			if(shooter)
+				remembered_target = shooter
+			last_target_sighting = world.time
 			
+			// Move to investigate the light location (adjacent)
 			if(!searching)
 				Goto(destruction_location, move_to_delay, 0)
 		else
@@ -2566,9 +2574,12 @@
 				if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 					toggle_ai(AI_ON)
 				
-				// Move directly toward the shooter (adjacent)
+				// Set investigation state to prevent LoseTarget() from stopping movement
 				last_known_location = shooter_location
+				remembered_target = shooter
+				last_target_sighting = world.time
 				
+				// Move directly toward the shooter (adjacent)
 				if(!searching)
 					Goto(shooter_location, move_to_delay, 0)
 			else
@@ -2583,9 +2594,11 @@
 				if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 					toggle_ai(AI_ON)
 				
-				// Move to investigate the light location (adjacent)
+				// Set investigation state to prevent LoseTarget() from stopping movement
 				last_known_location = destruction_location
+				last_target_sighting = world.time
 				
+				// Move to investigate the light location (adjacent)
 				if(!searching)
 					Goto(destruction_location, move_to_delay, 0)
 

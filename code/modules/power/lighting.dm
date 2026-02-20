@@ -750,6 +750,10 @@
 		for(var/mob/living/simple_animal/hostile/H in range(9, impact_loc))
 			if(H.stat == DEAD || H.ckey || !H.can_hear_combat)
 				continue
+			// Only alert mobs that can actually SEE the light being destroyed
+			// Exception: if NOT silenced, sound carries through walls (hearing, not seeing)
+			if(silenced && !can_see(H, impact_loc, 9))
+				continue
 			H.detect_light_destruction(impact_loc, shooter, silenced)
 
 /obj/machinery/light/proc/fix()
