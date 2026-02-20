@@ -575,7 +575,19 @@
 	. = ..()
 	if(. && !QDELETED(src))
 		if(prob(damage_amount * 5))
-			break_light_tube()
+			// Check if attacked_by is a projectile to get the firer
+			var/atom/shooter = null
+			var/silenced = FALSE
+			if(istype(attacked_by, /obj/item/projectile))
+				var/obj/item/projectile/P = attacked_by
+				shooter = P.firer
+				silenced = P.suppressed
+			break_light_tube(0, shooter, silenced)
+
+// Override bullet_act to capture projectile info before damage
+/obj/machinery/light/bullet_act(obj/item/projectile/P, def_zone)
+	. = ..()
+	// The take_damage proc will handle the rest
 
 
 
@@ -720,7 +732,7 @@
 
 // break the light and make sparks if was on
 
-/obj/machinery/light/proc/break_light_tube(skip_sound_and_sparks = 0)
+/obj/machinery/light/proc/break_light_tube(skip_sound_and_sparks = 0, atom/shooter = null, silenced = FALSE)
 	if(status == LIGHT_EMPTY || status == LIGHT_BROKEN)
 		return
 
@@ -731,6 +743,14 @@
 			do_sparks(3, TRUE, src)
 	status = LIGHT_BROKEN
 	update()
+	
+	// HOSTILE MOB DETECTION: Alert nearby hostile mobs about light destruction
+	var/turf/impact_loc = get_turf(src)
+	if(impact_loc)
+		for(var/mob/living/simple_animal/hostile/H in range(9, impact_loc))
+			if(H.stat == DEAD || H.ckey || !H.can_hear_combat)
+				continue
+			H.detect_light_destruction(impact_loc, shooter, silenced)
 
 /obj/machinery/light/proc/fix()
 	if(status == LIGHT_OK)

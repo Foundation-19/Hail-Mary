@@ -320,6 +320,27 @@
 	var/patrol_rest_start = 0
 	/// How long to rest before patrolling again (30 seconds)
 	var/patrol_rest_duration = 300
+	/// Timer for patrol checks
+	var/patrol_check_timer = null
+	
+	/// THROWN ITEM DETECTION: Track thrown items and investigate spammers
+	/// Track recent thrown items and their sources
+	var/list/recent_thrown_items = list()
+	/// When did we last clear the thrown item list?
+	var/last_thrown_clear = 0
+	/// How many thrown items before we investigate the source?
+	var/thrown_spam_threshold = 3
+	/// Cooldown for investigating thrown items (deciseconds)
+	var/thrown_investigation_cooldown = 50 // 5 seconds
+	
+	/// LIGHT DESTRUCTION DETECTION: Track shot-out lights and investigate
+	/// Track recent light destructions and their sources
+	var/list/recent_light_shots = list()
+	/// When did we last clear the light shot list?
+	var/last_light_shot_clear = 0
+	/// How many lights shot before we investigate the shooter?
+	var/light_spam_threshold = 3
+	
 	/// Last time we smashed something (prevents spam)
 	var/last_smash_time = 0
 	/// Cooldown between smash attempts (deciseconds) - 5 seconds
@@ -671,7 +692,9 @@
 	
 	// LIGHT PATROL SYSTEM: Check for nearby players and patrol
 	if(AIStatus == AI_IDLE && !target && !searching && !light_patrolling)
-		if(prob(20)) // 20% chance each cycle to check
+		// Check every 5 seconds (50 deciseconds)
+		if(!patrol_check_timer || (world.time - patrol_check_timer) > 50)
+			patrol_check_timer = world.time
 			check_light_patrol()
 
 	if(AICanContinue(possible_targets))
@@ -1393,7 +1416,43 @@
 			// SOUND-BASED DETECTION (for targets behind us)
 			var/sound_range = detect_rear_movement(A)
 			if(sound_range > 0 && actual_distance <= sound_range)
-				// Detected via sound!
+				// Detected via sound! Now check if we can actually see them when we turn
+				// This handles stealth boys - heard movement, turn to check, see nothing = search
+				var/can_actually_see = can_see(src, A, sound_range)
+				
+				// Check for stealth boy cloaking (alpha < 100)
+				var/is_cloaked = FALSE
+				if(ismob(A))
+					var/mob/M = A
+					if(M.alpha < 100)
+						is_cloaked = TRUE
+				
+				if(!can_actually_see || is_cloaked)
+					// Heard something, but can't see it - enter search mode
+					if(!searching && !target)
+						last_known_location = get_turf(A)
+						remembered_target = A
+						last_target_sighting = world.time
+					
+					// Wake up and enter search mode immediately
+					if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+						toggle_ai(AI_ON)
+					enter_search_mode()
+					
+					if(debug_vision && isliving(A))
+						var/mob/living/L = A
+						to_chat(L, span_warning("[src] heard you but can't see you - searching!"))
+						var/sound_cone = get_sound_cone(L)
+						var/cone_name = "UNKNOWN"
+						switch(sound_cone)
+							if(SOUND_REAR_CENTER)
+								cone_name = "REAR CENTER (90°)"
+							if(SOUND_REAR_PERIPHERAL)
+								cone_name = "REAR PERIPHERAL (45°)"
+						to_chat(L, span_warning("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
+					continue
+				
+				// Successfully detected via sound - add as target
 				. += A
 				if(debug_vision && isliving(A))
 					var/mob/living/L = A
@@ -1404,8 +1463,7 @@
 							cone_name = "REAR CENTER (90°)"
 						if(SOUND_REAR_PERIPHERAL)
 							cone_name = "REAR PERIPHERAL (45°)"
-					to_chat(L, span_warning("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
-				continue
+					to_chat(L, span_notice("[src] detected you via SOUND in [cone_name] cone at [actual_distance] tiles (max: [sound_range])"))
 		
 		// Check for targets one Z-level ABOVE through openspace
 		var/turf/our_turf = get_turf(targets_from)
@@ -2359,6 +2417,177 @@
 		patrol_resting = TRUE
 		patrol_rest_start = world.time
 		visible_message(span_notice("[src] returns to its post."))
+
+// ========================================
+// THROWN ITEM DETECTION SYSTEM
+// ========================================
+// Track who's throwing items, investigate source if spammed
+
+/// Called when a thrown item lands near the mob
+/mob/living/simple_animal/hostile/proc/detect_thrown_item(obj/item/thrown_item, atom/thrower)
+	if(!thrown_item || !thrower)
+		return
+	
+	// Don't react if we already have a target
+	if(target)
+		return
+	
+	// Clear old entries (older than 10 seconds)
+	if((world.time - last_thrown_clear) > 100)
+		recent_thrown_items = list()
+		last_thrown_clear = world.time
+	
+	// Add this throw to our memory
+	if(!recent_thrown_items[thrower])
+		recent_thrown_items[thrower] = 0
+	recent_thrown_items[thrower]++
+	
+	// Check if this thrower is spamming
+	if(recent_thrown_items[thrower] >= thrown_spam_threshold)
+		// SPAM DETECTED - investigate the source (thrower)
+		if(CanAttack(thrower))
+			visible_message(span_warning("[src] notices someone throwing things!"))
+			
+			// Wake up if idle
+			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+				toggle_ai(AI_ON)
+			
+			// Enter search mode targeting the thrower
+			last_known_location = get_turf(thrower)
+			remembered_target = thrower
+			last_target_sighting = world.time
+			
+			if(!searching)
+				enter_search_mode()
+			
+			// Reset spam counter for this thrower
+			recent_thrown_items[thrower] = 0
+	else
+		// First or second throw - investigate the ITEM, not the thrower
+		var/turf/item_location = get_turf(thrown_item)
+		
+		if(item_location && !searching)
+			visible_message(span_notice("[src] looks toward [thrown_item]..."))
+			
+			// End light patrol if active
+			if(light_patrolling)
+				end_light_patrol()
+			
+			// Wake up
+			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+				toggle_ai(AI_ON)
+			
+			// Move toward the item to investigate (adjacent)
+			last_known_location = item_location
+			Goto(item_location, move_to_delay, 0)
+
+// ========================================
+// LIGHT DESTRUCTION DETECTION SYSTEM
+// ========================================
+// Investigate shot-out lights, or the shooter if spamming
+
+/// Called when a light is destroyed nearby
+/mob/living/simple_animal/hostile/proc/detect_light_destruction(turf/destruction_location, atom/shooter, silenced = FALSE)
+	if(!destruction_location)
+		return
+	
+	// Don't react if we already have a target
+	if(target)
+		return
+	
+	// Clear old entries (older than 10 seconds)
+	if((world.time - last_light_shot_clear) > 100)
+		recent_light_shots = list()
+		last_light_shot_clear = world.time
+	
+	// Add this destruction to our memory (if we know the shooter)
+	if(shooter)
+		if(!recent_light_shots[shooter])
+			recent_light_shots[shooter] = 0
+		recent_light_shots[shooter]++
+	
+	// Check if shooter is spamming (shot 3+ lights)
+	if(shooter && recent_light_shots[shooter] >= light_spam_threshold)
+		// SPAM DETECTED - investigate the SHOOTER
+		if(CanAttack(shooter))
+			visible_message(span_warning("[src] notices someone shooting out lights!"))
+			
+			// Wake up if idle
+			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+				toggle_ai(AI_ON)
+			
+			// Enter search mode targeting the shooter
+			last_known_location = get_turf(shooter)
+			remembered_target = shooter
+			last_target_sighting = world.time
+			
+			if(!searching)
+				enter_search_mode()
+			
+			// Reset spam counter
+			recent_light_shots[shooter] = 0
+	else
+		// First, second shot, OR we don't know who shot it
+		
+		if(silenced)
+			// Silenced weapon - only investigate if very close (3 tiles)
+			// Investigate the LIGHT LOCATION since we can't hear the shooter
+			if(get_dist(src, destruction_location) > 3)
+				return
+			
+			visible_message(span_notice("[src] notices a light going out..."))
+			
+			// End light patrol if active
+			if(light_patrolling)
+				end_light_patrol()
+			
+			// Wake up if idle
+			if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+				toggle_ai(AI_ON)
+			
+			// Move to investigate the light location (adjacent)
+			last_known_location = destruction_location
+			
+			if(!searching)
+				Goto(destruction_location, move_to_delay, 0)
+		else
+			// NOT silenced - heard the gunshot!
+			// Natural response: investigate the SHOOTER, not the light
+			if(shooter && CanAttack(shooter))
+				var/turf/shooter_location = get_turf(shooter)
+				
+				visible_message(span_warning("[src] heard that shot!"))
+				
+				// End light patrol if active
+				if(light_patrolling)
+					end_light_patrol()
+				
+				// Wake up if idle
+				if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+					toggle_ai(AI_ON)
+				
+				// Move directly toward the shooter (adjacent)
+				last_known_location = shooter_location
+				
+				if(!searching)
+					Goto(shooter_location, move_to_delay, 0)
+			else
+				// Don't know the shooter - investigate the light location as fallback
+				visible_message(span_notice("[src] notices a light going out..."))
+				
+				// End light patrol if active
+				if(light_patrolling)
+					end_light_patrol()
+				
+				// Wake up if idle
+				if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
+					toggle_ai(AI_ON)
+				
+				// Move to investigate the light location (adjacent)
+				last_known_location = destruction_location
+				
+				if(!searching)
+					Goto(destruction_location, move_to_delay, 0)
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
 	// VISION CHECK: Don't attack if we can't see the target
