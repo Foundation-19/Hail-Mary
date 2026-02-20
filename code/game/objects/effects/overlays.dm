@@ -709,7 +709,7 @@
 	use_sector_mode = FALSE
 
 // Setup for sector mode
-/obj/effect/overlay/vision_cone/proc/setup_sector(mob/living/simple_animal/hostile/H, base_dir, start_deg, end_deg, range_tiles)
+/obj/effect/overlay/vision_cone/proc/setup_sector(mob/living/simple_animal/hostile/H, base_dir, start_deg, end_deg, range_tiles, icon_state_name = "white")
 	tracked_mob = H
 	cone_dir = base_dir
 	cone_range = range_tiles
@@ -717,6 +717,7 @@
 	sector_end_angle = end_deg
 	use_sector_mode = TRUE
 	cone_alpha = alpha
+	cone_icon_state = icon_state_name
 
 // Generate sector images using quadrant-based angle calculation
 /obj/effect/overlay/vision_cone/proc/generate_cone_image()

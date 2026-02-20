@@ -470,14 +470,14 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	// Calculate ranges for each sector
 	var/front_range = H.vision_range
-	var/front_alpha = 80
+	var/front_alpha = 100 // Medium opacity for vision detection
 	
 	if(your_cone == CONE_FRONT)
 		front_range = effective_range
 		if(currently_detected)
-			front_alpha = 120
+			front_alpha = 180 // Brighten significantly when detected
 		else
-			front_alpha = 60
+			front_alpha = 100
 	else
 		var/turf/front_check = get_step(H, mob_dir)
 		if(front_check)
@@ -488,21 +488,21 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 				front_range = max(round(H.vision_range * 0.6), 3)
 			else
 				front_range = max(round(H.vision_range * 0.4), 3)
-		front_alpha = 60
+		front_alpha = 100
 	
 	var/peripheral_range = max(round(front_range * 0.6), 2)
-	var/peripheral_alpha = 100
+	var/peripheral_alpha = 70 // Lower opacity than front cone
 	if(your_cone == CONE_PERIPHERAL)
 		peripheral_range = effective_range
 		if(currently_detected)
-			peripheral_alpha = 150
+			peripheral_alpha = 150 // Brighten when detected
 		else
-			peripheral_alpha = 110
+			peripheral_alpha = 70
 	else
-		peripheral_alpha = 80
+		peripheral_alpha = 70
 	
 	var/rear_peripheral_range = 3
-	var/rear_peripheral_alpha = 60
+	var/rear_peripheral_alpha = 60 // Light opacity for sound detection
 	
 	// Show sound detection ranges when moving (always show potential range for visibility)
 	// Use alpha to indicate whether ACTUALLY detected
@@ -511,15 +511,15 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		rear_peripheral_range = sound_peripheral_range
 		var/sound_cone = H.get_sound_cone(src)
 		if(actual_distance <= sound_peripheral_range && sound_cone == SOUND_REAR_PERIPHERAL)
-			rear_peripheral_alpha = 150 // Actually detected in this zone
+			rear_peripheral_alpha = 130 // Brighten when detected in sound zone
 		else if(actual_distance <= sound_peripheral_range && sound_cone)
-			rear_peripheral_alpha = 120 // Within range but wrong zone
+			rear_peripheral_alpha = 100 // Within range but wrong zone
 		else
-			rear_peripheral_alpha = 80 // Showing potential range, not yet detected
+			rear_peripheral_alpha = 60 // Light opacity base
 	
 	var/rear_range = 3
-	var/rear_color = "#808080"
-	var/rear_alpha = 60
+	var/rear_color = "#808080" // Gray for sound zones
+	var/rear_alpha = 60 // Light opacity for sound detection
 	
 	// Show sound detection ranges when moving (always show potential range for visibility)
 	// Use alpha to indicate whether ACTUALLY detected
@@ -527,56 +527,49 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(sound_center_range > 0)
 		rear_range = sound_center_range
 		
-		// Determine if sound detection is currently relevant
-		var/sound_cone = H.get_sound_cone(src)
-		var/in_rear_zone = (sound_cone == SOUND_REAR_CENTER || sound_cone == SOUND_REAR_PERIPHERAL)
-		
-		// Color logic: Yellow only when sound detection is relevant AND not already detected by vision
-		// If detected by vision, sound doesn't matter (show gray)
-		// If in front zones, sound doesn't apply (show gray)
-		if(in_rear_zone && !currently_detected)
-			rear_color = "#FFFF00" // Yellow: in rear zone, moving, not yet visually detected
-		else
-			rear_color = "#808080" // Gray: either not in rear zone OR already detected by vision
+		// Keep gray color for sound zones (no color change needed)
+		rear_color = "#808080"
 		
 		// Alpha: Brightness indicates detection state
+		var/sound_cone = H.get_sound_cone(src)
 		if(actual_distance <= sound_center_range && sound_cone == SOUND_REAR_CENTER)
-			rear_alpha = 150 // Actually detected in rear center
+			rear_alpha = 130 // Brighten when detected in sound zone
 		else if(actual_distance <= sound_center_range && sound_cone)
-			rear_alpha = 120 // Within range but wrong zone
+			rear_alpha = 100 // Within range but wrong zone
 		else
-			rear_alpha = 80 // Showing potential range, not yet detected
+			rear_alpha = 60 // Light opacity base
 	
 	// Create 6 sectors, each 60° wide, CENTERED on cardinal/diagonal directions
 	// Each sector covers exactly 60° with NO overlap
+	// Vision zones use "red" sprite, sound zones use "blurry" sprite
 	
 	// FRONT CENTER (RED): -30° to +30° from facing (wraps around 0°)
-	create_sector(H, mob_dir, -30, 30, front_range, "#FF0000", front_alpha)
+	create_sector(H, mob_dir, -30, 30, front_range, "#FF0000", front_alpha, "red")
 	
 	// RIGHT PERIPHERAL (YELLOW): 30° to 90° from facing
-	create_sector(H, mob_dir, 30, 90, peripheral_range, "#FFCC00", peripheral_alpha)
+	create_sector(H, mob_dir, 30, 90, peripheral_range, "#FFCC00", peripheral_alpha, "red")
 	
-	// RIGHT REAR (CYAN): 90° to 150° from facing
-	create_sector(H, mob_dir, 90, 150, rear_peripheral_range, "#00FFFF", rear_peripheral_alpha)
+	// RIGHT REAR (GRAY): 90° to 150° from facing - sound detection
+	create_sector(H, mob_dir, 90, 150, rear_peripheral_range, "#808080", rear_peripheral_alpha, "blurry")
 	
-	// REAR CENTER (GRAY/YELLOW): 150° to 210° from facing (±30° from opposite)
-	create_sector(H, mob_dir, 150, 210, rear_range, rear_color, rear_alpha)
+	// REAR CENTER (GRAY): 150° to 210° from facing (±30° from opposite) - sound detection
+	create_sector(H, mob_dir, 150, 210, rear_range, rear_color, rear_alpha, "blurry")
 	
-	// LEFT REAR (CYAN): 210° to 270° from facing
-	create_sector(H, mob_dir, 210, 270, rear_peripheral_range, "#00FFFF", rear_peripheral_alpha)
+	// LEFT REAR (GRAY): 210° to 270° from facing - sound detection
+	create_sector(H, mob_dir, 210, 270, rear_peripheral_range, "#808080", rear_peripheral_alpha, "blurry")
 	
 	// LEFT PERIPHERAL (YELLOW): 270° to 330° from facing
-	create_sector(H, mob_dir, 270, 330, peripheral_range, "#FFCC00", peripheral_alpha)
+	create_sector(H, mob_dir, 270, 330, peripheral_range, "#FFCC00", peripheral_alpha, "red")
 
 // Create a sector between two angles (in degrees, clockwise from facing direction)
 // Angles can be negative (e.g., -30 to 30 for front-centered cone that wraps around 0°)
-/mob/living/carbon/human/proc/create_sector(mob/living/simple_animal/hostile/H, base_dir, start_angle, end_angle, sector_range, sector_color, sector_alpha)
+/mob/living/carbon/human/proc/create_sector(mob/living/simple_animal/hostile/H, base_dir, start_angle, end_angle, sector_range, sector_color, sector_alpha, icon_state_name = "white")
 	if(sector_range <= 0)
 		return
 	
 	var/obj/effect/overlay/vision_cone/cone = new /obj/effect/overlay/vision_cone(get_turf(H))
 	cone.viewer = src
-	cone.setup_sector(H, base_dir, start_angle, end_angle, sector_range)
+	cone.setup_sector(H, base_dir, start_angle, end_angle, sector_range, icon_state_name)
 	cone.alpha = sector_alpha
 	
 	if(cone.generate_cone_image())
