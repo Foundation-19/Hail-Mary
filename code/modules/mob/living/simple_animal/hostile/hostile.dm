@@ -1118,6 +1118,13 @@
 		// Darkness: reduced to 40% range
 		base_range = max(round(vision_range * 0.4), 3)
 	
+	// STEALTH BOY CHECK: Drastically reduce detection range for cloaked targets
+	if(ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.alpha < 100) // Heavily cloaked by stealth boy
+			// Reduce detection range to 20% - they need to be VERY close
+			base_range = max(round(base_range * 0.2), 1)
+	
 	// Apply cone multipliers
 	if(cone_type == CONE_FRONT)
 		return base_range // Full range in front cone

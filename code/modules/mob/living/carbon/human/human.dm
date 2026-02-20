@@ -488,6 +488,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 				front_range = max(round(H.vision_range * 0.6), 3)
 			else
 				front_range = max(round(H.vision_range * 0.4), 3)
+		
+		// Apply stealth boy penalty consistently with darkness
+		if(alpha < 100) // Cloaked - reduce range to 20%
+			front_range = max(round(front_range * 0.2), 1)
+		
 		front_alpha = 100
 	
 	var/peripheral_range = max(round(front_range * 0.6), 2)
