@@ -177,10 +177,14 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	medical_record_text = "Patient demonstrates a fear of the dark."
 
 /datum/quirk/nyctophobia/on_process()
+	if(!quirk_holder)
+		return
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H.dna.species.id in list("shadow", "nightmare"))
+	if(istype(H) && H.dna && H.dna.species && (H.dna.species.id in list("shadow", "nightmare")))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_holder)
+	if(!T)
+		return
 	var/lums = T.get_lumcount()
 	if(lums <= 0.2)
 		if(quirk_holder.m_intent == MOVE_INTENT_RUN)
