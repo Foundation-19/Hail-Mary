@@ -198,6 +198,8 @@
  * * sig_typeor_types Signal string key or list of signal keys to stop listening to specifically
  */
 /datum/proc/UnregisterSignal(datum/target, sig_type_or_types)
+	if(!target)
+		return
 	var/list/lookup = target.comp_lookup
 	if(!signal_procs || !signal_procs[target] || !lookup)
 		return
@@ -300,14 +302,22 @@
 		var/datum/C = target
 		if(!C.signal_enabled)
 			return NONE
+		if(!C.signal_procs?[src])
+			return NONE
 		var/proctype = C.signal_procs[src][sigtype]
+		if(!proctype)
+			return NONE
 		return NONE | CallAsync(C, proctype, arguments)
 	. = NONE
 	for(var/I in target)
 		var/datum/C = I
 		if(!C.signal_enabled)
 			continue
+		if(!C.signal_procs?[src])
+			continue
 		var/proctype = C.signal_procs[src][sigtype]
+		if(!proctype)
+			continue
 		. |= CallAsync(C, proctype, arguments)
 
 // The type arg is casted so initial works, you shouldn't be passing a real instance into this
@@ -344,12 +354,13 @@
 	var/list/dc = datum_components
 	if(!dc)
 		return null
-	var/datum/component/C = dc[c_type]
+	var/C = dc[c_type]
 	if(C)
-		if(length(C))
+		if(islist(C))
 			C = C[1]
-		if(C.type == c_type)
-			return C
+		var/datum/component/comp = C
+		if(comp.type == c_type)
+			return comp
 	return null
 
 /**

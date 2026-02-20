@@ -7,12 +7,15 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian_m"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
-	var/saved_underwear = ""//saves their underwear so it can be toggled later
+	var/saved_underwear = "" //saves their underwear so it can be toggled later
 	var/saved_undershirt = ""
 	var/saved_socks = ""
 	var/hidden_underwear = FALSE
 	var/hidden_undershirt = FALSE
 	var/hidden_socks = FALSE
+	var/movement_fatigue = 0
+	var/last_armor_warning_time = 0
+	COOLDOWN_DECLARE(movement_fatigue_recovery)
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -34,6 +37,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 	AddComponent(/datum/component/personal_crafting)
 	AddComponent(/datum/component/footstep, FOOTSTEP_MOB_HUMAN, 0.3, 5)
+	
+	// Initialize sprint stats BEFORE calling parent
+	// This gets overridden by initialize_special_agility() when SPECIAL stats are set
+	initialize_sprint_stats()
+	
 	. = ..()
 
 	if(CONFIG_GET(flag/disable_stambuffer))
@@ -53,9 +61,43 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
 /mob/living/carbon/human/Destroy()
-	QDEL_NULL(physiology)
 	GLOB.human_list -= src
-	return ..()
+
+	for(var/atom/movable/A in contents)
+		qdel(A)
+
+	wear_suit = null
+	w_uniform = null
+	belt = null
+	wear_id = null
+	r_store = null
+	l_store = null
+	s_store = null
+	back = null
+	head = null
+	wear_mask = null
+	wear_neck = null
+	glasses = null
+	ears = null
+	gloves = null
+	shoes = null
+
+	var/result = ..()
+
+	QDEL_NULL(physiology)
+
+	if(client && client.screen && client.screen.len)
+		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
+
+	return result
+
+/mob/living/carbon/human/proc/defer_screen_cleanup()
+	// Called next tick to avoid GC spike from screen deletion
+	// Clears all screen objects attached to this mob's client
+	if(!src || QDELETED(src) || !client)
+		return
+	if(client.screen && client.screen.len)
+		QDEL_LIST(client.screen)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...

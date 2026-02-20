@@ -53,6 +53,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Proctor", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
 
 	"NCR Captain",
+
 	"NCR Veteran Ranger",
 
 	"Legion Centurion",
@@ -149,16 +150,11 @@ GLOBAL_LIST_INIT(legion_positions, list(
 	"Legion Slavemaster"
 ))
 
-GLOBAL_LIST_INIT(ncr_rangervet_positions, list(
-	"NCR Veteran Ranger",
-))
-//NCR
+//NCRA
 GLOBAL_LIST_INIT(ncr_positions, list(
 	"NCR Captain",
 	"NCR Lieutenant",
-	"NCR Veteran Ranger",
 	"NCR Brahmin Baron",
-	"NCR Ranger",
 	"NCR Sergeant First Class",
 	"NCR Heavy Trooper",
 	"NCR Military Police",
@@ -172,6 +168,11 @@ GLOBAL_LIST_INIT(ncr_positions, list(
 	"NCR Medical Officer",
 	"NCR Logistics Officer",
 	"NCR Rear Echelon",
+))
+
+GLOBAL_LIST_INIT(ranger_positions, list(
+	"NCR Veteran Ranger",
+	"NCR Ranger",
 ))
 
 GLOBAL_LIST_INIT(vault_positions, list(
@@ -193,6 +194,7 @@ GLOBAL_LIST_INIT(wasteland_positions, list(
 	"Vigilante",
 	"Preacher",
 	"Wastelander",
+	"Far-Lands Tribals",
 ))
 
 GLOBAL_LIST_INIT(outlaw_positions, list(
@@ -279,6 +281,7 @@ GLOBAL_LIST_INIT(locust_positions, list(
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
 	EXP_TYPE_NCR = list("jobs" = ncr_positions, "color" = "#ffeeaa"),
+	EXP_TYPE_RANGER = list("jobs" = ranger_positions, "color" = "#f3c400"),
 	// EXP_TYPE_VAULT = list("jobs" = vault_positions, "color" = "##fdee00"),
 	EXP_TYPE_FOLLOWERS = list("jobs" = followers_positions, "color" = "#ffeeaa"),
 	EXP_TYPE_BROTHERHOOD = list("jobs" = brotherhood_positions, "color" = "#95a5a6"),
@@ -323,7 +326,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	//EXP_TYPE_TRIBAL = list("titles" = tribal_positions),
 	//EXP_TYPE_BIKER = list("titles" = biker_positions),
 	"debug" = list("titles" = debug_positions),
-	EXP_TYPE_RANGER = list("titles" = list("NCR Veteran Ranger","NCR Ranger")),
+	EXP_TYPE_RANGER = list("titles" = ranger_positions),
 	EXP_TYPE_SCRIBE = list("titles" = list("Scribe")),
 	EXP_TYPE_DECANUS = list("titles" = list("Legion Decanus")),
 

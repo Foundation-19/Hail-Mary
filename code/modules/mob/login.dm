@@ -1,11 +1,13 @@
 /mob/Login()
 	GLOB.player_list |= src
-	lastKnownIP	= client.address
-	computer_id	= client.computer_id
+	if(client)
+		lastKnownIP	= client.address
+		computer_id	= client.computer_id
 	log_access("Mob Login: [key_name(src)] was assigned to a [type]")
 	world.update_status()
-	client.screen = list()				//remove hud items just in case
-	client.images = list()
+	if(client)
+		client.screen = list()				//remove hud items just in case
+		client.images = list()
 
 	if(!hud_used)
 		create_mob_hud()
@@ -55,6 +57,7 @@
 	if(client)
 		var/delay = client.statbrowser_ready ? 1 : 50
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, init_verbs)), delay)
+		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, load_statbrowser)), delay)
 
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)

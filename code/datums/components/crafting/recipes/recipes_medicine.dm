@@ -166,7 +166,7 @@
 
 /datum/crafting_recipe/hydra5
 	name = "Hydra (x5)"
-	result = /obj/item/reagent_containers/pill/patch/hydra
+	result = /obj/item/storage/box/medicine/hydra5
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/fungus = 15,
 				/obj/item/reagent_containers/food/snacks/grown/broc = 15)
 	time = 15
@@ -197,6 +197,17 @@
 	category = CAT_MEDICAL
 	always_available = TRUE
 */
+/datum/crafting_recipe/cheap_stimpak
+	name = "Cheap Stimpak"
+	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/cheap
+	reqs = list(/obj/item/reagent_containers/food/snacks/grown/broc = 1,
+				/obj/item/reagent_containers/food/snacks/grown/xander = 1,
+				/obj/item/reagent_containers/syringe = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 10
+	category = CAT_MEDICAL
+	always_available = FALSE
+
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
@@ -487,6 +498,38 @@
 /obj/item/storage/box/medicine/antivenom5/PopulateContents()
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/antivenom(src)
+
+/datum/crafting_recipe/animal_medicine
+	name = "Animal Healing Salve"
+	result = /obj/item/reagent_containers/pill/animal_salve
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/grown/xander = 2,
+		/datum/reagent/consumable/ethanol/pungajuice = 15
+	)
+	time = 20
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_MEDICAL
+
+/datum/crafting_recipe/animal_medicine5
+	name = "Animal Healing Salve (x5)"
+	result = /obj/item/storage/box/medicine/animal_salve5
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/grown/xander = 10,
+		/datum/reagent/consumable/ethanol/pungajuice = 75
+	)
+	time = 40
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_MEDICAL
+
+/obj/item/storage/box/medicine/animal_salve5
+	name = "box of animal healing salve"
+	desc = "A box full of veterinary healing salves."
+	icon = 'icons/fallout/objects/storage.dmi'
+	icon_state = "medicinebox_simple"
+
+/obj/item/storage/box/medicine/animal_salve5/PopulateContents()
+	for(var/i in 1 to 5)
+		new /obj/item/reagent_containers/pill/animal_salve(src)
 
 // IMPLANTS
 

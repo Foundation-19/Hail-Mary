@@ -22,15 +22,18 @@
 
 //returns the damage value of the attack after processing the obj's various armor protections
 /obj/proc/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir, armour_penetration = 0)
+	if(!isnum(armour_penetration))
+		CRASH("run_obj_armor: armour_penetration is not a number! Got [armour_penetration] (bad type).\nArgs: damage_amount=[damage_amount], damage_type=[damage_type], damage_flag=[damage_flag], attack_dir=[attack_dir], armour_penetration=[armour_penetration]")
 	switch(damage_type)
 		if(BRUTE)
 		if(BURN)
 		else
 			return 0
 	var/armor_protection = 0
-	if(damage_flag)
+	if(damage_flag && istype(armor, /datum/armor))
 		armor_protection = armor.getRating(damage_flag)
-	if(armor_protection > 0)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
+	if(armor_protection > 0)
+		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection*(1-armour_penetration), 0, 100) //FO13 AP OVERHAUL - just using simple % reduction here instead of full formula
 	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
 
@@ -77,7 +80,7 @@
 	if(P.suppressed != SUPPRESSED_VERY)
 		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
-		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration, attacked_by = P.firer)
+		take_damage(P.damage, P.damage_type, P.flag, sound_effect = 0, attack_dir = turn(P.dir, 180), armour_penetration = P.armour_penetration, attacked_by = P.firer)
 
 /obj/proc/hulk_damage()
 	return 150 //the damage hulks do on punches to this object, is affected by melee armor
@@ -91,7 +94,7 @@
 			user.say(pick(";RAAAAAAAARGH!", ";HNNNNNNNNNGGGGGGH!", ";GWAAAAAAAARRRHHH!", "NNNNNNNNGGGGGGGGHH!", ";AAAAAAARRRGH!" ), forced="hulk")
 		else
 			playsound(src, 'sound/effects/bang.ogg', 50, 1)
-		take_damage(hulk_damage(), BRUTE, "melee", 0, get_dir(src, user), attacked_by = user)
+		take_damage(hulk_damage(), BRUTE, "melee", sound_effect = 0, attack_dir = get_dir(src, user), attacked_by = user)
 		return 1
 	return 0
 

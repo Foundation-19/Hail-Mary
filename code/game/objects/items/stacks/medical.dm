@@ -172,27 +172,68 @@
 			if(burndies.flesh_damage || burndies.infestation)
 				ENABLE_BITFIELD(., DO_UNBURN_WOUND)
 
+/obj/item/stack/medical/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	. = ..()
+	if(!proximity_flag)
+		return
+	
+	// Try to heal simple animals directly
+	if(isanimal(target))
+		INVOKE_ASYNC(src, PROC_REF(try_heal), target, user)
+		return TRUE
+
 /* * * * * * * * * * * * * * * * * * *
  * Proc that heals simplemobs
  * * * * * * * * * * * * * * * * * * */
 /obj/item/stack/medical/proc/heal_critter(mob/living/M, mob/user)
 	if(!isanimal(M))
-		return
+		return FALSE
+	
 	var/mob/living/simple_animal/critter = M
+	
+	// Block robotic/inorganic mobs
+	if(critter.mob_biotypes & (MOB_ROBOTIC|MOB_INORGANIC))
+		to_chat(user, span_warning("[critter] is mechanical - use a welder to repair robots!"))
+		return FALSE
+	
 	if(M.stat == DEAD)
-		to_chat(user, span_notice(" [M] is dead. You can not help [M.p_them()]!"))
-		return
-	if (heal_mobs <= 0)
+		to_chat(user, span_notice("[M] is dead. You can not help [M.p_them()]!"))
+		return FALSE
+	
+	if(heal_mobs <= 0)
 		to_chat(user, span_warning("[M] cannot be healed with [src]!"))
 		return FALSE
-	if (!(critter.healable))
+	
+	if(!(critter.healable))
 		to_chat(user, span_warning("[M] cannot be healed!"))
 		return FALSE
-	if (critter.health >= critter.maxHealth)
+	
+	if(critter.health >= critter.maxHealth)
 		to_chat(user, span_notice("[M] is at full health."))
 		return FALSE
-	user.visible_message(span_green("[user] applies \the [src] on [M]."), span_green("You apply \the [src] on [M]."))
+	
+	// Start channeling
+	user.visible_message(
+		span_notice("[user] starts applying \the [src] on [M]..."),
+		span_notice("You start applying \the [src] on [M]..."))
+	
+	if(!do_after(user, 2 SECONDS, target = M))
+		to_chat(user, span_warning("You stop treating [M]."))
+		return FALSE
+	
+	// Successfully healed
+	user.visible_message(
+		span_green("[user] applies \the [src] on [M]."),
+		span_green("You apply \the [src] on [M]."))
+	
+	var/amount_healed = min(heal_mobs, critter.maxHealth - critter.health)
 	critter.adjustHealth(-heal_mobs)
+	
+	// Grant loyalty if it's a mount
+	if(istype(critter, /mob/living/simple_animal/cow))
+		var/mob/living/simple_animal/cow/mount = critter
+		mount.grant_healing_loyalty(amount_healed, user)
+	
 	return TRUE
 
 /* * * * * * * * * * * * * * * * * * *
@@ -883,7 +924,7 @@
 /obj/item/stack/medical/poultice
 	name = "mourning dust"
 	singular_name = "mourning dust"
-	desc = "A type of primitive herbal powder.\nWhile traditionally used to prepare corpses for the mourning feast, it can also treat scrapes and burns on the living, however, it is liable to cause shortness of breath when employed in this manner.\nIt is imbued with ancient wisdom."
+	desc = "A type of primitive herbal powder.\nWhile traditionally used to prepare corpses for the mourning feast, it can also treat scrapes and burns on the living.\nIt is imbued with ancient wisdom."
 	icon = 'icons/fallout/objects/medicine/drugs.dmi'
 	icon_state = "mourningdust"
 	amount = 15
@@ -900,10 +941,6 @@
 
 /obj/item/stack/medical/poultice/five
 	amount = 5
-
-/obj/item/stack/medical/poultice/post_heal_effects(amount_healed, mob/living/carbon/healed_mob, mob/user)
-	. = ..()
-	healed_mob.adjustOxyLoss(amount_healed)
 
 /datum/chemical_reaction/mourningpoultice
 	name = "mourning dust"

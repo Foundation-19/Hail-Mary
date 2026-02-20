@@ -1,14 +1,15 @@
 #define VV_HTML_ENCODE(thing) ( sanitize ? html_encode(thing) : thing )
 /// Get displayed variable in VV variable list
-/proc/debug_variable(name, value, level, datum/D, sanitize = TRUE)			//if D is a list, name will be index, and value will be assoc value.
+/proc/debug_variable(name, value, level, D, sanitize = TRUE)			//if D is a list, name will be index, and value will be assoc value.
 	var/header
 	if(D)
 		if(islist(D))
 			var/index = name
+			var/list/D_list = D
 			if (value)
-				name = D[name] //name is really the index until this line
+				name = D_list[name] //name is really the index until this line
 			else
-				value = D[name]
+				value = D_list[name]
 			header = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(D, VV_HK_LIST_EDIT, "E", index)]) ([VV_HREF_TARGET_1V(D, VV_HK_LIST_CHANGE, "C", index)]) ([VV_HREF_TARGET_1V(D, VV_HK_LIST_REMOVE, "-", index)]) "
 		else
 			header = "<li style='backgroundColor:white'>([VV_HREF_TARGET_1V(D, VV_HK_BASIC_EDIT, "E", name)]) ([VV_HREF_TARGET_1V(D, VV_HK_BASIC_CHANGE, "C", name)]) ([VV_HREF_TARGET_1V(D, VV_HK_BASIC_MASSEDIT, "M", name)]) "

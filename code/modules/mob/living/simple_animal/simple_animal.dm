@@ -210,7 +210,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	if(!real_name)
 		real_name = name
 	if(!loc)
-		stack_trace("Simple animal being instantiated in nullspace")
+		return INITIALIZE_HINT_QDEL
 	update_simplemob_varspeed()
 	if(dextrous)
 		AddComponent(/datum/component/personal_crafting)
@@ -342,10 +342,43 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	if (SSnpcpool.state == SS_PAUSED && LAZYLEN(SSnpcpool.currentrun))
 		SSnpcpool.currentrun -= src
 	sever_link_to_nest()
-	if(make_a_nest)
-		QDEL_NULL(make_a_nest)
-	if(unmake_a_nest)
-		QDEL_NULL(unmake_a_nest)
+
+	// CRITICAL FIX: Properly clean up ALL proc holders and abilities BEFORE calling parent
+	// This prevents circular references that block GC
+
+	// Clean up ALL abilities generically first (catches any we might have missed)
+	if(abilities && LAZYLEN(abilities))
+		var/list/abilities_copy = abilities.Copy()
+		abilities = null // Clear the list to break references
+
+		for(var/obj/effect/proc_holder/ability in abilities_copy)
+			// Clear cross-references
+			if(ability.ranged_ability_user == src)
+				ability.ranged_ability_user = null
+			if(ability.action)
+				if(ability.action.owner == src)
+					ability.action.owner = null
+				// Don't need to remove from actions list since we're clearing it below
+			qdel(ability)
+
+	// Clean up ALL actions
+	if(actions && LAZYLEN(actions))
+		var/list/actions_copy = actions.Copy()
+		actions = null // Clear the list to break references
+		
+		for(var/datum/action/act in actions_copy)
+			if(act.owner == src)
+				act.owner = null
+			qdel(act)
+
+	// Now clean up the specific references we keep
+	make_a_nest = null
+	unmake_a_nest = null
+	send_mobs = null
+	call_backup = null
+	ghostme = null
+
+	// Clean up mob spawner lists
 	LAZYREMOVE(GLOB.mob_spawners[initial(name)], src)
 	if(!LAZYLEN(GLOB.mob_spawners[initial(name)]))
 		GLOB.mob_spawners -= initial(name)
@@ -353,7 +386,10 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		LAZYREMOVE(GLOB.mob_spawners["Tame [initial(name)]"], src)
 		if(!LAZYLEN(GLOB.mob_spawners["Tame [initial(name)]"]))
 			GLOB.mob_spawners -= "Tame [initial(name)]"
+
+	// Clear weakrefs
 	lazarused_by = null
+	nest = null
 
 	var/turf/T = get_turf(src)
 	if (T && AIStatus == AI_Z_OFF)
@@ -374,7 +410,7 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	can_ghost_into = TRUE
 	AddElement(/datum/element/ghost_role_eligibility, free_ghosting = TRUE, penalize_on_ghost = FALSE)
 	LAZYADD(GLOB.mob_spawners[initial(name)], src)
-	RegisterSignal(src, COMSIG_MOB_GHOSTIZE_FINAL, PROC_REF(set_ghost_timeout))
+	RegisterSignal(src, COMSIG_MOB_GHOSTIZE_FINAL, PROC_REF(set_ghost_timeout), override = TRUE)
 	if(istype(user))
 		lazarused = TRUE
 		lazarused_by = WEAKREF(user)
@@ -521,6 +557,20 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
 			. = FALSE
 
+/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
+	// Let medical items try to heal before anything else
+	if(istype(O, /obj/item/stack/medical))
+		var/obj/item/stack/medical/med = O
+		if(med.can_heal_critters)
+			med.try_heal(src, user)
+			return TRUE
+	
+	// Let animal salve try to heal
+	if(istype(O, /obj/item/reagent_containers/pill/animal_salve))
+		O.attack(src, user)
+		return TRUE
+	
+	return ..()
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atom/A = src.loc
@@ -790,6 +840,8 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	if(!dextrous)
 		return
 	if(!hand_index)
+		if(!held_items.len)
+			return
 		hand_index = (active_hand_index % held_items.len)+1
 	var/oindex = active_hand_index
 	active_hand_index = hand_index
@@ -1080,12 +1132,13 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		return // all done!
 	
 	for(var/list/token in mob_armor_tokens)
+		var/list/mob_armor_list = mob_armor
 		for(var/modifier in token)
 			switch(GLOB.armor_token_operation_legend[modifier])
 				if("MULT")
-					mob_armor[modifier] = round(mob_armor[modifier] * token[modifier], 1)
+					mob_armor_list[modifier] = round(mob_armor_list[modifier] * token[modifier], 1)
 				if("ADD")
-					mob_armor[modifier] = max(mob_armor[modifier] + token[modifier], 0)
+					mob_armor_list[modifier] = max(mob_armor_list[modifier] + token[modifier], 0)
 				else
 					continue
 

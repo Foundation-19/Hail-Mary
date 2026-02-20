@@ -44,6 +44,12 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrgate)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmor)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombathelmetmk2)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrcombatarmormk2)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrbulletproofcoat)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/ncrbulletproofsniper)
 
 
 ///////////////////////
@@ -288,13 +294,13 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	display_order = JOB_DISPLAY_ORDER_SERGEANT
 	outfit = /datum/outfit/job/ncr/f13sergeant
 	exp_requirements = 500
-/*
-	loadout_options = list( // ALL: Bayonet, M1911 sidearm
-		/datum/outfit/loadout/sergeantrifleman,	// R82
-		/datum/outfit/loadout/sergeantrecon, // Scout Carbine, Scope
-		/datum/outfit/loadout/sergeantcqc, // Trench Shotgun, Gas mask, Smoke bombs, Trench knife
+
+	loadout_options = list( 
+		/datum/outfit/loadout/sergeantrifleman,	// standard service rifle with an added revolver
+		/datum/outfit/loadout/sergeantrecon, // marksman carbine
+		/datum/outfit/loadout/sergeantcqc, // trench shotgun
 		)
-*/
+
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/friend = list(
 			/datum/job/ncr,
@@ -318,7 +324,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	head = /obj/item/clothing/head/f13/ncr
 	gloves = /obj/item/clothing/gloves/f13/leather/fingerless
 	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle
-	suit_store = /obj/item/gun/ballistic/automatic/service
 	belt = /obj/item/storage/belt/legholster
 	backpack_contents = list(
 	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
@@ -326,42 +331,43 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/gun/ballistic/automatic/pistol/ninemil = 1,
 		/obj/item/ammo_box/magazine/m9mm/doublestack = 2,
 		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1
+		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
+		/obj/item/binoculars = 1,
 		)
-/*
+
 /datum/outfit/loadout/sergeantrifleman
 	name = "Lead Rifleman"
-	suit_store = /obj/item/gun/ballistic/automatic/service/r82
+	suit_store = /obj/item/gun/ballistic/automatic/service
 	head = /obj/item/clothing/head/f13/ncr
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/extended = 2,
+		/obj/item/ammo_box/magazine/m556/rifle/extended = 1,
+		/obj/item/ammo_box/magazine/m556/rifle = 1,
 		/obj/item/storage/box/ration/menu_two = 1,
 		/obj/item/melee/onehanded/knife/bowie = 1,
 		/obj/item/flashlight/seclite = 1,
+		/obj/item/gun/ballistic/revolver/colt357 = 1,
+		/obj/item/ammo_box/a357 = 2,
 		)
 
 /datum/outfit/loadout/sergeantrecon
-	name = "Recon Squad Leader"
-	suit_store = /obj/item/gun/ballistic/automatic/service/carbine
+	name = "Scout"
+	suit_store = /obj/item/gun/ballistic/automatic/marksman
 	head = /obj/item/clothing/head/f13/ncr
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/m556/rifle/extended = 2,
+		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/storage/box/ration/menu_eight = 1,
-		/obj/item/gun_upgrade/scope/watchman = 1
 		)
 
 /datum/outfit/loadout/sergeantcqc
-	name = "Trench Raider"
-	suit_store = /obj/item/gun/ballistic/shotgun/trench //Over thereee over thereeeee spread the spread the word over thereeee
-	head = /obj/item/clothing/head/f13/ncr/steelpot_goggles/trenchraider
+	name = "Pointman"
+	suit_store = /obj/item/gun/ballistic/shotgun/trench
 	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/clothing/mask/gas = 1,
+		/obj/item/ammo_box/shotgun/buck = 1,
+		/obj/item/ammo_box/shotgun/slug = 1,
 		/obj/item/grenade/smokebomb = 2,
 		/obj/item/melee/onehanded/knife/bayonet = 1,
-		/obj/item/clothing/suit/armor/ncrarmor/reinforced/mantle/trenchraider = 1,
 		)
-*/
+
 // DRILL SERGEANT
 
 /datum/job/ncr/f13drillsergeant
@@ -508,196 +514,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	//	/obj/item/storage/bag/money/small/ncr = 1,
 		/obj/item/storage/box/ration/menu_two = 1
 		)
-
-///////////////
-/// Rangers ///
-///////////////
-
-// VETERAN RANGER
-
-/datum/job/ncr/f13vetranger
-	title = "NCR Veteran Ranger"
-	flag = F13VETRANGER
-	total_positions = 1
-	spawn_positions = 1
-	description = "You answer directly to the Captain, working either independently or in a team to complete your mission objectives however required, operating either alone, in a squad or with the NCR Army. Your primary mission is to improve general opinion of the Republic and to neutralize slavers and raiders operating in the area."
-	supervisors = "NCRA Captain, High Command"
-	selection_color = "#ffeeaa"
-	display_order = JOB_DISPLAY_ORDER_VETRANGE
-	access = list(ACCESS_NCR, ACCESS_NCR_ARMORY, ACCESS_NCR_COMMAND)
-	outfit = /datum/outfit/job/ncr/f13vetranger
-	exp_requirements = 1750
-
-	loadout_options = list( // ALL: Binoculars, Bowie knife
-		/datum/outfit/loadout/vrclassic, // Sequoia
-		/datum/outfit/loadout/vrlite, // Brush
-		/datum/outfit/loadout/vrshotgunner, // Unique Lever-Action
-		/datum/outfit/loadout/vrcqc // 2 x .45 Long colt revolvers
-		)
-
-	min_required_special = list(
-		"special_c" = 4,
-		)
-
-/datum/outfit/job/ncr/f13vetranger/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_SILENT_STEP, src)
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
-	var/datum/martial_art/rangertakedown/RT = new
-	RT.teach(H)
-
-/datum/outfit/job/ncr/f13vetranger
-	name = "NCR Veteran Ranger"
-	jobtype	= /datum/job/ncr/f13vetranger
-	id = /obj/item/card/id/dogtag/ncrvetranger
-	uniform	= /obj/item/clothing/under/f13/ranger/vet
-	suit = /obj/item/clothing/suit/armor/rangercombat
-	head = /obj/item/clothing/head/helmet/f13/ncr/rangercombat
-	gloves = /obj/item/clothing/gloves/rifleman
-	shoes =	/obj/item/clothing/shoes/f13/military/leather
-	glasses	= /obj/item/clothing/glasses/sunglasses
-	neck = /obj/item/storage/belt/shoulderholster
-	ears = /obj/item/radio/headset/headset_ranger
-	mask = /obj/item/clothing/mask/gas/ranger
-	box = /obj/item/storage/survivalkit
-	box_two = /obj/item/storage/survivalkit/medical
-	r_pocket = /obj/item/binoculars
-	backpack_contents = list(
-		/obj/item/melee/onehanded/knife/bowie = 1,
-	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak/super = 1,
-		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/grenade/smokebomb = 1
-		)
-
-/datum/outfit/loadout/vrclassic
-	name = "The Classic"
-	suit_store = /obj/item/gun/ballistic/revolver/sequoia
-	backpack_contents = list(
-		/obj/item/ammo_box/c4570box = 3,
-		/obj/item/ammo_box/c4570box/knockback = 1
-		)
-
-/datum/outfit/loadout/vrlite
-	name = "The Rifleman"
-	suit_store = /obj/item/gun/ballistic/rifle/repeater/brush
-	backpack_contents = list(
-		/obj/item/ammo_box/c4570 = 3,
-		/obj/item/book/granter/trait/rifleman = 1,
-		)
-
-/datum/outfit/loadout/vrshotgunner
-	name = "The Shotgunner"
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock
-	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 3,
-		/obj/item/ammo_box/shotgun/trainshot = 1
-		)
-
-/datum/outfit/loadout/vrcqc
-	name = "The Gunslinger"
-	mask = /obj/item/clothing/mask/cigarette/cigar/havana
-	backpack_contents = list(
-		/obj/item/book/granter/trait/gunslinger = 1,
-		/obj/item/gun/ballistic/revolver/revolver45/gunslinger = 2,
-		/obj/item/ammo_box/a45lcbox = 1,
-		/obj/item/lighter = 1
-		)
-
-
-// NCR Ranger
-
-/datum/job/ncr/f13ranger
-	title = "NCR Ranger"
-	flag = F13RANGER
-	total_positions = 2
-	spawn_positions = 2
-	description = "As an NCR Ranger, you are the premier special forces unit of the NCR. You are the forward observations and support the Army in it's campaigns, as well as continuing the tradition of stopping slavery in it's tracks."
-	supervisors = "Veteran Ranger"
-	selection_color = "#fff5cc"
-	display_order = JOB_DISPLAY_ORDER_RANGER
-	outfit = /datum/outfit/job/ncr/f13ranger
-	exp_requirements = 500
-
-	loadout_options = list( // ALL: Binoculars, Bowie knife
-	/datum/outfit/loadout/rangerrecon, // DKS Sniper rifle, .45 Revolver
-	/datum/outfit/loadout/rangertrail, // Trail Carbine, 2 x .357 Revolvers
-	/datum/outfit/loadout/rangerpatrolcqb, // Lever-Action Shotgun, .44 Snubnose revolver
-	)
-
-/datum/outfit/job/ncr/f13ranger/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_LIGHT_STEP, src)
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
-	var/datum/martial_art/rangertakedown/RT = new
-	RT.teach(H)
-
-
-/datum/outfit/job/ncr/f13ranger
-	name = "NCR Ranger"
-	jobtype	= /datum/job/ncr/f13ranger
-	id = /obj/item/card/id/dogtag/ncrranger
-	uniform	= /obj/item/clothing/under/f13/ranger/trail
-	head = /obj/item/clothing/head/f13/trailranger
-	gloves = /obj/item/clothing/gloves/patrol
-	shoes = /obj/item/clothing/shoes/f13/military/leather
-	glasses	= /obj/item/clothing/glasses/sunglasses
-	ears = /obj/item/radio/headset/headset_ranger
-	r_pocket = /obj/item/binoculars
-	neck = /obj/item/storage/belt/shoulderholster
-	backpack_contents = list(
-		/obj/item/restraints/handcuffs = 1,
-		/obj/item/melee/onehanded/knife/bowie = 1,
-	//	/obj/item/storage/bag/money/small/ncrofficers = 1,
-		/obj/item/clothing/mask/gas/ranger = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-		/obj/item/stack/medical/gauze/bloodleaf = 2,
-		/obj/item/grenade/smokebomb = 1
-		)
-
-/datum/outfit/loadout/rangerrecon
-	name = "Recon Ranger"
-	suit = /obj/item/clothing/suit/toggle/armor/rangerrecon
-	belt = /obj/item/storage/belt/military/reconbandolier
-	head = /obj/item/clothing/head/beret/ncr_recon_ranger
-	neck = /obj/item/clothing/neck/mantle/ranger
-	suit_store = /obj/item/gun/ballistic/automatic/marksman/sniper/sniperranger
-	backpack_contents = list(
-		/obj/item/ammo_box/magazine/w3006 = 3,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 2
-		)
-
-/datum/outfit/loadout/rangertrail
-	name = "Trail Ranger"
-	suit = /obj/item/clothing/suit/armor/trailranger
-	belt = /obj/item/storage/belt/military/NCR_Bandolier
-	neck = /obj/item/clothing/neck/mantle/ranger
-	suit_store = /obj/item/gun/ballistic/rifle/repeater/trail
-	backpack_contents = list(
-		/obj/item/ammo_box/m44box = 1,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 2
-		)
-
-/datum/outfit/loadout/rangerpatrolcqb
-	name = "Patrol Ranger"
-	suit = /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
-	head = /obj/item/clothing/head/f13/ranger
-	uniform	= /obj/item/clothing/under/f13/ranger/patrol
-	belt = /obj/item/storage/belt/army/assault/ncr
-	suit_store = /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock
-	backpack_contents = list(
-		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/clothing/head/helmet/f13/combat/ncr_patrol = 1,
-		/obj/item/gun/ballistic/revolver/colt357 = 1,
-		/obj/item/ammo_box/a357 = 2
-		)
-
 
 ////////////////////
 /// Specialists ////
@@ -1041,9 +857,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/stack/ore/blackpowder/twenty = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/marksman = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
-		/obj/item/book/granter/trait/techno = 1,
+		/obj/item/book/granter/trait/techno = 1
 		)
 
 /datum/outfit/loadout/combatmedic
@@ -1131,8 +947,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13conscript
 	title = "NCR Conscript"
 	flag = F13CONSCRIPT
-	total_positions = 3
-	spawn_positions = 3
+	total_positions = -1
+	spawn_positions = -1
 	description = "You have been recently conscripted, given little-to-no training and were issued a gun. Obey your the NCOs and officers, no matter what you are expected to follow military discipline."
 	supervisors = "The Drill Sergeant, Corporals and Above"
 	selection_color = "#fff5cc"
@@ -1441,3 +1257,4 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle=2,
 		)
+

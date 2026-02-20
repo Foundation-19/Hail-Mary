@@ -177,6 +177,8 @@ ATTACHMENTS
 	COOLDOWN_DECLARE(shoot_message_antispam)
 	/// Minimum S.P.E.C.I.A.L. Intelligence stat required for using this gun
 	var/required_int_to_fire = 0
+	/// Minimum S.P.E.C.I.A.L. Strength stat required for using this gun
+	var/required_str_to_fire = 0
 
 /obj/item/gun/Initialize()
 	if(!recoil_dat && islist(init_recoil))
@@ -266,6 +268,12 @@ ATTACHMENTS
 	if(chambered)
 		QDEL_NULL(chambered)
 	QDEL_LIST(firemodes)
+	return ..()
+
+/obj/item/gun/ballistic/Destroy()
+	if(magazine)
+		QDEL_NULL(magazine)
+	magazine = null
 	return ..()
 
 /obj/item/gun/handle_atom_del(atom/A)
@@ -446,7 +454,7 @@ ATTACHMENTS
 	if (automatic == 0)
 		user.DelayNextAction(1)
 	if (automatic == 1)
-		user.DelayNextAction(autofire_shot_delay)
+		user.DelayNextAction(autofire_shot_delay * 0.3) // 70% reduction
 
 	//DUAL (or more!) WIELDING
 	var/loop_counter = 0
@@ -551,7 +559,7 @@ ATTACHMENTS
 /obj/item/gun/proc/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", stam_cost = 0)
 	add_fingerprint(user)
 
-	if(!gun_firing_special_stat_check(user)) //S.P.E.C.I.A.L.
+	if(!gun_firing_int_check(user) || !gun_firing_str_check(user)) //S.P.E.C.I.A.L.
 		return
 	if(on_cooldown(user))
 		return

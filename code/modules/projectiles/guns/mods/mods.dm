@@ -51,7 +51,7 @@
 	..()
 	var/datum/component/item_upgrade/I = AddComponent(/datum/component/item_upgrade)
 	I.weapon_upgrades = list(
-		GUN_UPGRADE_FIRE_DELAY_MULT = 0.8
+		GUN_UPGRADE_FIRE_DELAY_MULT = 0.9
 		)
 	I.gun_loc_tag = GUN_BARREL
 	I.req_gun_tags = list(GUN_PROJECTILE)
@@ -65,10 +65,9 @@
 	..()
 	var/datum/component/item_upgrade/I = AddComponent(/datum/component/item_upgrade)
 	I.weapon_upgrades = list(
-		GUN_UPGRADE_PEN_MULT = 0.2,
 		GUN_UPGRADE_RICO_MULT = 5,
-		GUN_UPGRADE_PROJ_SPEED_MULT = 1.4,
-		GUN_UPGRADE_RECOIL = 1.4
+		GUN_UPGRADE_PROJ_SPEED_MULT = 1.5,
+		GUN_UPGRADE_RECOIL = 1.35
 		)
 	I.gun_loc_tag = GUN_BARREL
 	I.req_gun_tags = list(GUN_PROJECTILE)
@@ -102,7 +101,7 @@
 	..()
 	var/datum/component/item_upgrade/I = AddComponent(/datum/component/item_upgrade)
 	I.weapon_upgrades = list(
-		GUN_UPGRADE_FIRE_DELAY_MULT = 0.8,
+		GUN_UPGRADE_FIRE_DELAY_MULT = 0.9,
 		GUN_UPGRADE_FORCESAFETY = FALSE
 		)
 	I.gun_loc_tag = GUN_TRIGGER

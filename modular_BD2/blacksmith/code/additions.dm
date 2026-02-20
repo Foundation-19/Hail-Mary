@@ -10,9 +10,9 @@
 
 #define QUALITY_MODIFIER quality
 
-#define FORCE_SMITH_REACH 14
-#define FORCE_SMITH_LOW 18
-#define FORCE_SMITH_HIGH 23
+#define FORCE_SMITH_REACH 20
+#define FORCE_SMITH_LOW 24
+#define FORCE_SMITH_HIGH 29
 
 
 //////////////////////////////////////

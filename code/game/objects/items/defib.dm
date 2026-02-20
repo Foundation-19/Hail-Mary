@@ -431,6 +431,7 @@
 		H.grab_ghost() // Shove them back in their body.
 	else if(H.can_revive())
 		H.notify_ghost_cloning("Your heart is being defibrillated. Re-enter your corpse if you want to be revived!", source = src)
+		H.grab_ghost() // Try to pull the ghost back as well
 
 	do_help(H, user)
 

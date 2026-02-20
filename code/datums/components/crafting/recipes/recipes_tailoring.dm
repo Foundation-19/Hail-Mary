@@ -251,6 +251,40 @@ datum/crafting_recipe/steelbib/heavy
 	subcategory = CAT_ARMOR
 	always_available = FALSE
 
+
+/datum/crafting_recipe/bulletproofcoat
+	name = "Bulletproof Coat"
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/bulletproofcoat
+	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
+				/obj/item/weaponcrafting/string = 2,
+				/obj/item/stack/sheet/cloth = 15)
+	tools = list(TOOL_WORKBENCH)
+	time = 60
+	category = CAT_CLOTHING
+	subcategory = CAT_ARMOR
+
+/datum/crafting_recipe/bulletprooftrackjacket
+	name = "Bulletproof Track Jacket"
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/bulletprooftrackjacket
+	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
+				/obj/item/weaponcrafting/string = 2,
+				/obj/item/stack/sheet/cloth = 10)
+	tools = list(TOOL_WORKBENCH)
+	time = 60
+	category = CAT_CLOTHING
+	subcategory = CAT_ARMOR
+
+/datum/crafting_recipe/swattrackjacket
+	name = "Swat Track Jacket"
+	result = /obj/item/clothing/suit/armor/medium/combat/swat/swattrackjacket
+	reqs = list(/obj/item/clothing/suit/armor/medium/combat/swat = 1,
+				/obj/item/weaponcrafting/string = 2,
+				/obj/item/stack/sheet/cloth = 10)
+	tools = list(TOOL_WORKBENCH)
+	time = 60
+	category = CAT_CLOTHING
+	subcategory = CAT_ARMOR
+
 ///////////
 //HELMETS//
 ///////////
@@ -367,6 +401,14 @@ datum/crafting_recipe/steelbib/heavy
 	category = CAT_CLOTHING
 	subcategory = CAT_ARMOR
 
+/datum/crafting_recipe/altyn
+	name = "Altyn Helmet"
+	result = /obj/item/clothing/head/helmet/altyn
+	reqs = list(/obj/item/clothing/head/helmet/alt = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_CLOTHING
+	subcategory = CAT_ARMOR
 
 //Greaves
 

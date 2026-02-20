@@ -177,10 +177,14 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	medical_record_text = "Patient demonstrates a fear of the dark."
 
 /datum/quirk/nyctophobia/on_process()
+	if(!quirk_holder)
+		return
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H.dna.species.id in list("shadow", "nightmare"))
+	if(istype(H) && H.dna && H.dna.species && (H.dna.species.id in list("shadow", "nightmare")))
 		return //we're tied with the dark, so we don't get scared of it; don't cleanse outright to avoid cheese
 	var/turf/T = get_turf(quirk_holder)
+	if(!T)
+		return
 	var/lums = T.get_lumcount()
 	if(lums <= 0.2)
 		if(quirk_holder.m_intent == MOVE_INTENT_RUN)
@@ -766,17 +770,18 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	mood_change = -3
 	timeout = 0
 
-/datum/quirk/masked_mook/on_spawn()
-	. = ..()
-	var/mob/living/carbon/human/H = quirk_holder
-	var/list/obj/item/clothing/masks = subtypesof(/obj/item/clothing/mask)
-	var/obj/item/clothing/mask/chosen = pick(masks)
-	var/list/ciggies = subtypesof(/obj/item/clothing/mask/cigarette)
-	while(chosen in ciggies)
-		chosen = pick(masks)
-	var/obj/item/clothing/mask/gas = new chosen(get_turf(quirk_holder))
-	H.equip_to_slot(gas, SLOT_WEAR_MASK)
-	H.regenerate_icons()
+// this is the code that gives the player a mask on spawn. If somebody takes the trait, they're responsible for getting their own mask in the first place, not getting it given to them.
+// /datum/quirk/masked_mook/on_spawn()
+//	. = ..()
+//	var/mob/living/carbon/human/H = quirk_holder
+//	var/list/obj/item/clothing/masks = subtypesof(/obj/item/clothing/mask)
+//	var/obj/item/clothing/mask/chosen = pick(masks)
+//	var/list/ciggies = subtypesof(/obj/item/clothing/mask/cigarette)
+//	while(chosen in ciggies)
+//		chosen = pick(masks)
+//	var/obj/item/clothing/mask/gas = new chosen(get_turf(quirk_holder))
+//	H.equip_to_slot(gas, SLOT_WEAR_MASK)
+//	H.regenerate_icons()
 
 /datum/quirk/paper_skin
 	name = "Paper Skin"

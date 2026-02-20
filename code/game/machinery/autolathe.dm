@@ -74,6 +74,9 @@
 
 /obj/machinery/autolathe/Destroy()
 	QDEL_NULL(wires)
+	QDEL_NULL(stored_research)
+	being_built = null           // or just omit - it's likely already null
+	matching_designs = null      // clear references, don't delete contents
 	return ..()
 
 /obj/machinery/autolathe/ui_interact(mob/user)
@@ -181,8 +184,8 @@
 				return
 
 			var/multiplier = text2num(href_list["multiplier"])
-			if(!multiplier || !IS_FINITE(multiplier))
-				stack_trace("Invalid multiplier value in stack creation [multiplier], [usr] is likely attempting an exploit")
+			if(!multiplier || multiplier < 1 || !IS_FINITE(multiplier))
+				log_admin("[key_name(usr)] attempted autolathe exploit with invalid multiplier: [multiplier]")
 				return
 			var/is_stack = ispath(being_built.build_path, /obj/item/stack)
 
@@ -352,28 +355,30 @@
 
 	for(var/v in matching_designs)
 		var/datum/design/D = v
+		if(!D || !D.id)  // Skip if design is null or has no ID
+			continue
+		
 		if(disabled || !can_build(D))
 			dat += span_linkOff("[D.name]")
 		else
 			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
 
-		if(ispath(D.build_path, /obj/item/stack))
+		if(D.build_path && ispath(D.build_path, /obj/item/stack))
 			var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 			var/max_multiplier
-			for(var/datum/material/mat in D.materials)
-				max_multiplier = min(D.maxstack, round(materials.get_material_amount(mat)/D.materials[mat]))
+			if(D.materials)
+				for(var/datum/material/mat in D.materials)
+					max_multiplier = min(D.maxstack, round(materials.get_material_amount(mat)/D.materials[mat]))
 			if (max_multiplier>10 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=10'>x10</a>"
 			if (max_multiplier>25 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
-
 		dat += "[get_design_cost(D)]<br>"
 
 	dat += "</div>"
 	return dat
-
 /obj/machinery/autolathe/proc/materials_printout()
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	var/dat = "<b>Total amount:</b> [materials.total_amount] / [materials.max_amount] cm<sup>3</sup><br>"
@@ -385,7 +390,9 @@
 	return dat
 
 /obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
-	if(D.make_reagents.len)
+	if(!D)
+		return FALSE
+	if(D.make_reagents && D.make_reagents.len)
 		return FALSE
 
 	var/coeff = (ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff)
@@ -763,6 +770,8 @@
 	return dat
 
 /obj/machinery/autolathe/ammo/can_build(datum/design/D, amount = 1)
+	if(!D)
+		return FALSE
 	if("Handloaded Ammo" in D.category)
 		return ..()
 	if("Handmade Magazines" in D.category)
@@ -771,58 +780,45 @@
 		if(simple == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Simple Magazines" in D.category)
 		if(simple == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Basic Ammo" in D.category)
 		if(basic == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Basic Magazines" in D.category)
 		if(basic == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Intermediate Ammo" in D.category)
 		if(intermediate == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Intermediate Magazines" in D.category)
 		if(intermediate == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Advanced Ammo" in D.category)
 		if(advanced == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
 	if("Advanced Magazines" in D.category)
 		if(advanced == 0)
 			return FALSE
 		else
-			. = ..()
-	else
-		. = ..()
+			return ..()
+
+	// Default fallback for designs not in any of the above categories
+	return ..()
 
 /obj/machinery/autolathe/ammo/on_deconstruction()
 	..()
