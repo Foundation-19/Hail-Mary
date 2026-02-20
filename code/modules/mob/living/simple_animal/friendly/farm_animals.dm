@@ -436,7 +436,7 @@
 				
 				// Flee like the bucking code
 				spawn(0)
-					for(var/i in 1 to rand(6,10))
+					for(var/i in 1 to rand(9,13))
 						if(stat)
 							break
 						var/flee_dir = pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST)
@@ -1580,7 +1580,7 @@
 	ride_move_delay = 2.5
 	young_type = /mob/living/simple_animal/cow/brahmin/nightstalker
 	food_types = list(
-		/obj/item/reagent_containers/food/snacks/meat/slab/gecko,
+		/obj/item/reagent_containers/food/snacks/meat/slab,
 		/obj/item/reagent_containers/food/snacks/f13/canned/dog
 		)
 	milk_reagent = /datum/reagent/toxin
