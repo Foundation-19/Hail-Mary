@@ -367,22 +367,41 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		// Clear all vision cones
 		clear_vision_cones()
 
+// Force exit sneak mode (used when exhausted or other forced exit)
+/mob/living/carbon/human/proc/force_exit_sneak_mode()
+	if(!sneaking)
+		return
+	
+	sneaking = FALSE
+	
+	// Update assassination button
+	for(var/datum/action/cooldown/assassinate/A in actions)
+		A.UpdateButtonIcon()
+	
+	// Remove movement slowdown
+	remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
+	
+	// Stop periodic refresh timer
+	if(vision_cone_timer)
+		deltimer(vision_cone_timer)
+		vision_cone_timer = null
+	
+	// Remove ninja icon overlay
+	if(sneak_indicator)
+		cut_overlay(sneak_indicator)
+		sneak_indicator = null
+	
+	// Clear all vision cones
+	clear_vision_cones()
+	
+	// Don't restore previous move intent when forced out
+	previous_move_intent = null
+
 // Clean up when player dies/disconnects
 /mob/living/carbon/human/death()
 	. = ..( )
 	if(sneaking)
-		sneaking = FALSE
-		// Update assassination button
-		for(var/datum/action/cooldown/assassinate/A in actions)
-			A.UpdateButtonIcon()
-		remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
-		if(vision_cone_timer)
-			deltimer(vision_cone_timer)
-			vision_cone_timer = null
-		if(sneak_indicator)
-			cut_overlay(sneak_indicator)
-			sneak_indicator = null
-		clear_vision_cones()
+		force_exit_sneak_mode()
 
 // Update visible vision cones for nearby hostile mobs
 // TWO-LAYER SYSTEM:

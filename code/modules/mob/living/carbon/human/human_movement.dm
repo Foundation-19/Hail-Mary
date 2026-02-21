@@ -167,7 +167,7 @@
 			
 			// Force out of sneak mode if sprint buffer depleted
 			if(sprint_buffer <= 0)
-				toggle_sneak_mode()
+				force_exit_sneak_mode()
 				to_chat(src, span_warning("You're too exhausted to continue sneaking!"))
 		// Update assassination button availability (position changed)
 		for(var/datum/action/cooldown/assassinate/A in actions)
