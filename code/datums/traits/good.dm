@@ -1243,3 +1243,238 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)
+
+/datum/quirk/assassin
+	name = "Assassin"
+	desc = "Years of practice have made you lethal at close range. While sneaking with a melee weapon in your active hand, you can assassinate unaware enemies within 2 tiles by attacking from behind."
+	value = 3
+	mob_trait = TRAIT_ASSASSIN
+	gain_text = span_notice("You feel like you could kill someone very quietly.")
+	lose_text = span_danger("You feel less lethal.")
+	locked = FALSE
+	var/datum/action/cooldown/assassinate/assassinate_action
+
+/datum/quirk/assassin/add()
+	assassinate_action = new()
+	assassinate_action.Grant(quirk_holder)
+	assassinate_action.UpdateButtonIcon()
+	to_chat(quirk_holder, span_notice("DEBUG: Assassin action granted. Check your action buttons!"))
+	to_chat(quirk_holder, span_notice("DEBUG: Owner set to: [assassinate_action.owner], Button: [assassinate_action.button]"))
+
+/datum/quirk/assassin/remove()
+	if(assassinate_action)
+		assassinate_action.Remove(quirk_holder)
+		QDEL_NULL(assassinate_action)
+
+// ========== ASSASSINATE ACTION ==========
+/datum/action/cooldown/assassinate
+	name = "Assassinate"
+	desc = "Strike a killing blow on an unaware enemy within 2 tiles from behind. Requires a melee weapon in your active hand and sneak mode. Target must not be alerted to your presence."
+	button_icon_state = "dagger"
+	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	check_flags = AB_CHECK_CONSCIOUS
+	cooldown_time = 15 SECONDS
+
+/// Check if assassin is behind the target (in their rear cone)
+/datum/action/cooldown/assassinate/proc/is_behind_target(mob/attacker, mob/target)
+	if(!attacker || !target)
+		return FALSE
+	
+	var/turf/attacker_turf = get_turf(attacker)
+	var/turf/target_turf = get_turf(target)
+	
+	if(!attacker_turf || !target_turf)
+		return FALSE
+	
+	// Same tile doesn't count as behind
+	if(attacker_turf == target_turf)
+		return FALSE
+	
+	// Calculate offset from target to attacker
+	var/dx = attacker_turf.x - target_turf.x
+	var/dy = attacker_turf.y - target_turf.y
+	
+	// Get target's facing direction angle
+	var/target_angle = 0
+	switch(target.dir)
+		if(NORTH)
+			target_angle = 0
+		if(SOUTH)
+			target_angle = 180
+		if(EAST)
+			target_angle = 90
+		if(WEST)
+			target_angle = 270
+	
+	// Calculate angle from target to attacker
+	var/attacker_angle = arctan(dy, dx)
+	
+	// Calculate relative angle (where attacker is relative to target's facing)
+	var/relative_angle = attacker_angle - target_angle
+	
+	// Normalize to -180 to +180
+	while(relative_angle > 180)
+		relative_angle -= 360
+	while(relative_angle < -180)
+		relative_angle += 360
+	
+	// Check if attacker is in rear cone (roughly 90° to 270°, or ±90° to ±180°)
+	// Being generous: if relative angle is > 90° or < -90°, they're behind
+	if(relative_angle > 90 || relative_angle < -90)
+		return TRUE
+	
+	return FALSE
+
+/datum/action/cooldown/assassinate/IsAvailable(silent = FALSE)
+	// Check conditions FIRST, then cooldown
+	if(!ishuman(owner))
+		return FALSE
+
+	var/mob/living/carbon/human/H = owner
+
+	if(!H.sneaking)
+		return FALSE
+
+	// Check for melee weapon in active hand
+	var/obj/item/held_item = H.get_active_held_item()
+	if(!held_item)
+		return FALSE
+	
+	// Check if item is a valid melee weapon (has damage potential)
+	if(!istype(held_item, /obj/item/melee) && !istype(held_item, /obj/item/kitchen) && held_item.force <= 0)
+		return FALSE
+
+	// Check that a valid unaware target exists within 2 tiles AND we're behind them
+	for(var/mob/living/L in range(2, H))
+		if(L == H)
+			continue
+		if(L.stat != CONSCIOUS)
+			continue
+		
+		// Must be behind target
+		if(!is_behind_target(H, L))
+			continue
+		
+		if(istype(L, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/enemy = L
+			if(enemy.faction_check_mob(H))
+				continue // friendly
+			if(enemy.target == H)
+				continue // already aware of us
+			// Found valid target - show button as available for visual feedback
+			return TRUE
+		else if(ishuman(L) && L != H)
+			// Found valid target - show button as available for visual feedback
+			return TRUE
+
+	return FALSE
+
+/datum/action/cooldown/assassinate/Grant(mob/M)
+	..()
+	if(!ishuman(M))
+		return
+	UpdateButtonIcon()
+
+/datum/action/cooldown/assassinate/Trigger()
+	if(!..())
+		return FALSE
+
+	if(!ishuman(owner))
+		return FALSE
+
+	var/mob/living/carbon/human/H = owner
+
+	// Find the closest valid target (must be behind them)
+	var/mob/living/target = null
+	var/closest_dist = 999
+
+	for(var/mob/living/L in range(2, H))
+		if(L == H)
+			continue
+		if(L.stat != CONSCIOUS)
+			continue
+		
+		// Must be behind target
+		if(!is_behind_target(H, L))
+			continue
+
+		var/dist = get_dist(H, L)
+
+		if(istype(L, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/enemy = L
+			if(enemy.faction_check_mob(H))
+				continue
+			if(enemy.target == H)
+				continue
+			if(dist < closest_dist)
+				closest_dist = dist
+				target = L
+
+		else if(ishuman(L))
+			if(dist < closest_dist)
+				closest_dist = dist
+				target = L
+
+	if(!target)
+		to_chat(H, span_warning("No valid target found (must attack from behind)."))
+		return FALSE
+	
+	// Double-check we have a weapon
+	var/obj/item/weapon = H.get_active_held_item()
+	if(!weapon)
+		to_chat(H, span_warning("You need a weapon in your active hand!"))
+		return FALSE
+	
+	if(!istype(weapon, /obj/item/melee) && !istype(weapon, /obj/item/kitchen) && weapon.force <= 0)
+		to_chat(H, span_warning("[weapon] is not suitable for assassination!"))
+		return FALSE
+
+	// Check distance - if 2 tiles away, lunge forward 1 tile
+	var/current_distance = get_dist(H, target)
+	if(current_distance == 2)
+		// Lunge toward target
+		var/lunge_dir = get_dir(H, target)
+		step(H, lunge_dir)
+		
+		// Visual effect for the lunge
+		H.visible_message(
+			span_danger("[H] lunges at [target]!"),
+			span_userdanger("You lunge at [target]!")
+		)
+		playsound(H.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
+	
+	// Play attack animation
+	H.do_attack_animation(target)
+	
+	// Brief wind-up message
+	H.visible_message(
+		span_danger("[H] strikes with lethal precision!"),
+		span_userdanger("You strike at [target]'s vitals!")
+	)
+
+	// Calculate damage: weapon damage + significant bonus
+	var/base_damage = weapon.force
+	var/assassination_damage = base_damage + 40 // Weapon damage + 40 bonus
+	var/secondary_damage = round(assassination_damage * 0.4)
+	
+	// Deal damage: heavy brute to two random zones
+	target.apply_damage(assassination_damage, BRUTE, ran_zone())
+	target.apply_damage(secondary_damage, BRUTE, ran_zone())
+	
+	// Light screen shake for impact feedback
+	shake_camera(H, 3, 1.5)
+
+	// Apply a brief stun so they can't immediately retaliate
+	if(isliving(target))
+		target.Stun(20) // 2 seconds
+
+	// Alert nearby mobs to our position (assassination isn't silent)
+	for(var/mob/living/simple_animal/hostile/nearby in range(4, H))
+		if(!nearby.faction_check_mob(H) && nearby.stat == CONSCIOUS)
+			if(!nearby.target)
+				nearby.GiveTarget(H)
+
+	log_combat(H, target, "assassinated")
+	StartCooldown()
+	UpdateButtonIcon()
+	return TRUE

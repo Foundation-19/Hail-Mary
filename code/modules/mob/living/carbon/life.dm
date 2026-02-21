@@ -17,7 +17,14 @@
 		if(bprv & BODYPART_LIFE_UPDATE_HEALTH)
 			updatehealth()
 	update_stamina()
-	doSprintBufferRegen()
+	
+	// Don't regenerate sprint buffer while sneaking
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(!H.sneaking)
+			doSprintBufferRegen()
+	else
+		doSprintBufferRegen()
 
 	if(stat != DEAD)
 		handle_brain_damage()
@@ -503,7 +510,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 //this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
-	if(getStaminaLoss())		//CIT CHANGE - prevents stamina regen while combat mode is active (Stam regen is currently enabled)
+	// Don't regenerate stamina while sneaking
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(!H.sneaking && getStaminaLoss())
+			adjustStaminaLoss(!CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL)
+	else if(getStaminaLoss())		//CIT CHANGE - prevents stamina regen while combat mode is active (Stam regen is currently enabled)
 		adjustStaminaLoss(!CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL)
 
 	if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && incomingstammult != 1)

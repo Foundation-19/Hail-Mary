@@ -248,6 +248,16 @@
 	// LIGHT DETECTION SYSTEM - Mobs notice player light sources in darkness
 	/// Can this mob detect light sources?
 	var/can_detect_light = TRUE
+
+	// DETECTION DELAY SYSTEM - Sneaking players have detection buildup time
+	/// Detection progress toward player (0 to detection_time_required)
+	var/detection_progress = 0
+	/// How long to fully detect player (deciseconds) - 0 = instant, 30 = 3 seconds for sneaking
+	var/detection_time_required = 0
+	/// Who are we currently building detection progress toward?
+	var/atom/detecting_target = null
+	/// Cooldown for detection tick updates
+	COOLDOWN_DECLARE(detection_tick_cooldown)
 	/// How far can we detect light sources? (tiles)
 	var/light_detection_range = 9
 	/// Minimum light_range value to be detected (flashlights are ~3-4, torches ~3)
@@ -699,8 +709,13 @@
 
 	if(AICanContinue(possible_targets))
 		if(!QDELETED(target) && !targets_from.Adjacent(target))
-			if(is_stuck && (world.time - stuck_time > smash_delay))
-				DestroyPathToTarget()
+			if(is_stuck)
+				var/can_see_target_now = target && can_see(src, target, get_effective_vision_range(target))
+				// If we can SEE the target but are stuck, smash immediately - don't wait for smash_delay
+				if(can_see_target_now && (world.time - stuck_time > corner_stuck_timeout))
+					DestroyPathToTarget()
+				else if(world.time - stuck_time > smash_delay)
+					DestroyPathToTarget()
 		if(!MoveToTarget(possible_targets))
 			if(AIShouldSleep(possible_targets))
 				toggle_ai(AI_IDLE)
@@ -1375,6 +1390,8 @@
 	return detection_range
 
 /mob/living/simple_animal/hostile/proc/ListTargets()//Step 1, find out what we can see
+	if(stat == DEAD) // Dead mobs can't detect targets
+		return list()
 	if(!search_objects)
 		// CORE FIX: Filter by effective range BEFORE adding to list
 		. = list()
@@ -1552,6 +1569,11 @@
 				continue
 
 		var/Target = PickTarget(.)
+		
+		// Check detection delay for sneaking targets
+		if(Target && !check_detection_delay(Target))
+			return // Still building detection, don't acquire yet
+		
 		GiveTarget(Target)
 		COOLDOWN_START(src, sight_shoot_delay, sight_shoot_delay_time)
 
@@ -1687,7 +1709,49 @@
 
 	return FALSE
 
+/// Check if enough time has passed to detect a sneaking target
+/mob/living/simple_animal/hostile/proc/check_detection_delay(atom/candidate_target)
+	if(!candidate_target)
+		return FALSE
+
+	// Check if target is sneaking
+	var/target_sneaking = FALSE
+	if(ishuman(candidate_target))
+		var/mob/living/carbon/human/H = candidate_target
+		target_sneaking = H.sneaking
+
+	// Not sneaking = instant detection
+	if(!target_sneaking)
+		detection_progress = 0
+		detecting_target = null
+		return TRUE
+
+	// Sneaking = 3 second buildup (30 deciseconds)
+	var/required_time = 30
+
+	// Reset if we switched targets
+	if(detecting_target != candidate_target)
+		detection_progress = 0
+		detecting_target = candidate_target
+
+	// Start detection timer
+	if(!detection_progress)
+		detection_progress = world.time // store start time
+		return FALSE
+
+	var/elapsed = world.time - detection_progress
+	if(elapsed >= required_time)
+		// Fully detected!
+		detection_progress = 0
+		detecting_target = null
+		return TRUE
+
+	// Still building up - not detected yet
+	return FALSE
+
 /mob/living/simple_animal/hostile/proc/GiveTarget(new_target)
+	if(stat == DEAD) // Dead mobs can't acquire targets
+		return
 	add_target(new_target)
 	LosePatience()
 	if(target != null)
@@ -3456,6 +3520,8 @@
 
 // Receive backup alert from ally
 /mob/living/simple_animal/hostile/proc/receive_backup_alert(atom/alert_target, turf/target_location)
+	if(stat == DEAD) // Dead mobs can't respond to alerts
+		return
 	if(!alert_target || QDELETED(alert_target))
 		return
 
@@ -4691,8 +4757,11 @@
 			LoseTarget()
 		return
 	
-	// Check if we've been stuck long enough to justify smashing
-	if(!is_stuck || (world.time - stuck_time < smash_delay))
+	// Check if we have direct line of sight to target
+	var/has_direct_los = target && can_see(src, target, get_effective_vision_range(target))
+	
+	// Smash immediately with LOS, otherwise wait for delay
+	if(!has_direct_los && (!is_stuck || (world.time - stuck_time < smash_delay)))
 		return // Not stuck long enough yet
 	
 	// ANTI-SPAM: Check smash cooldown
@@ -4810,6 +4879,8 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	search_objects = value
 
 /mob/living/simple_animal/hostile/consider_wakeup()
+	if(stat == DEAD) // Dead mobs don't wake up
+		return
 	..()
 	var/list/tlist
 	var/turf/T = get_turf(src)

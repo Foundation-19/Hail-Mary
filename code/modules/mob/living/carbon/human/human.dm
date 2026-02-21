@@ -311,6 +311,10 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	sneaking = !sneaking
 	
+	// Update assassination button availability
+	for(var/datum/action/cooldown/assassinate/A in actions)
+		A.UpdateButtonIcon()
+	
 	if(sneaking)
 		// Add movement slowdown (2x slower)
 		add_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
@@ -365,9 +369,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 // Clean up when player dies/disconnects
 /mob/living/carbon/human/death()
-	. = ..()
+	. = ..( )
 	if(sneaking)
 		sneaking = FALSE
+		// Update assassination button
+		for(var/datum/action/cooldown/assassinate/A in actions)
+			A.UpdateButtonIcon()
 		remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
 		if(vision_cone_timer)
 			deltimer(vision_cone_timer)
@@ -436,7 +443,13 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(!mob_dir || mob_dir == 0)
 		return
 	
-	var/effective_range = H.get_effective_vision_range(src)
+	// Use the correct vision range function based on low-light vision
+	var/effective_range = 0
+	if(H.has_low_light_vision)
+		effective_range = H.get_effective_vision_range_lowlight(src)
+	else
+		effective_range = H.get_effective_vision_range(src)
+	
 	var/actual_distance = get_dist(src, H)
 	var/your_cone = H.get_vision_cone(src)
 	var/currently_detected = (actual_distance <= effective_range && effective_range > 0)

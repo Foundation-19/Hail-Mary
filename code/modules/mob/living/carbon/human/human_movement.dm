@@ -154,9 +154,24 @@
 				accident(I)
 			DefaultCombatKnockdown(80)
 	
-	// Update vision cones when player moves in sneak mode
+	// Update vision cones and drain stamina when player moves in sneak mode
 	if(. && sneaking)
 		update_vision_cones() // Update vision cones when we move
+		// Drain sprint buffer while sneaking and moving
+		if(has_gravity(loc) && CHECK_ALL_MOBILITY(src, MOBILITY_MOVE|MOBILITY_STAND))
+			doSprintBufferRegen(FALSE) // Reset idle timer
+			sprint_idle_time = 0
+			var/sneak_cost = 0.5 // 0.5 tiles of sprint buffer per tile moved
+			sprint_buffer = max(0, sprint_buffer - sneak_cost)
+			update_hud_sprint_bar() // Update sprint bar display
+			
+			// Force out of sneak mode if sprint buffer depleted
+			if(sprint_buffer <= 0)
+				toggle_sneak_mode()
+				to_chat(src, span_warning("You're too exhausted to continue sneaking!"))
+		// Update assassination button availability (position changed)
+		for(var/datum/action/cooldown/assassinate/A in actions)
+			A.UpdateButtonIcon()
 	
 	if(shoes)
 		if(!lying && !buckled)
