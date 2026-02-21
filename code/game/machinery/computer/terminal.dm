@@ -53,6 +53,12 @@ var/global/list/HACK_JUNK_CHARS = list(
 	"|","\\","/","?","~","`",":",";","'","\"",",","."
 )
 
+// Column rendering constants (lore-accurate Fallout layout)
+// Words displayed spaced: "UNDEAD" -> "U N D E A D"
+// Brackets also spaced: "{ : ^ }" - junk padding compensates for visual width
+#define HACK_COLS 12  // Characters per line (excluding hex address)
+#define HACK_ROWS 16  // Number of rows per column
+
 // ============================================================
 
 // ============================================================
@@ -441,8 +447,137 @@ var/global/list/HACK_JUNK_CHARS = list(
 	hack_removed = list()
 	hack_history = list()
 
+// ============================================================
+// JUNK / BRACKET LINE BUILDER
+// Returns list(line_string, bracket_start, bracket_end)
+// Bracket spaces are FREE (same as word spaces).
+// Junk budget = HACK_COLS - solid_chars (open + inner + close).
+// If place_bracket, a bracket pair is embedded at a random position
+// and its start/end indices are returned (1-based, inclusive).
+// ============================================================
+/obj/machinery/computer/terminal/proc/gen_junk_line(place_bracket)
+	if(!place_bracket)
+		var/line = ""
+		for(var/i = 1 to HACK_COLS)
+			line += pick(HACK_JUNK_CHARS)
+		return list(line, 0, 0)
+
+	// Bracket format: "OPEN SPACE inner SPACE CLOSE" e.g. ( % ) or [ @ # ]
+	// Spaces inside are FREE — same trick as spaced words.
+	// Junk budget = HACK_COLS - solid_chars_in_bracket
+	// solid_chars = open(1) + inner_count + close(1) = inner_count + 2
+	// Spaces (surrounding + between inner) don't count against the budget.
+	var/inner_count = rand(1, 2)
+	var/inner_chars = ""
+	for(var/i = 1 to inner_count)
+		inner_chars += pick(HACK_JUNK_CHARS)
+		if(i < inner_count)
+			inner_chars += " " // space between multiple inner chars — free
+
+	var/bstyle  = pick("()", "[]", "{}", "<>")
+	var/bopen   = copytext(bstyle, 1, 2)
+	var/bclose  = copytext(bstyle, 2, 3)
+	// Mandatory surrounding spaces make even single chars look like ( % )
+	var/bracket_str    = bopen + " " + inner_chars + " " + bclose
+	var/bracket_vis    = length(bracket_str)          // visual width incl spaces
+	var/bracket_solid  = inner_count + 2              // open + inner chars + close
+
+	// Junk budget based on solid chars only — spaces are free
+	var/junk_budget = HACK_COLS - bracket_solid
+	if(junk_budget < 0)
+		var/line = ""
+		for(var/i = 1 to HACK_COLS)
+			line += pick(HACK_JUNK_CHARS)
+		return list(line, 0, 0)
+
+	var/pre_len  = round(rand(0, junk_budget))
+	var/post_len = junk_budget - pre_len
+
+	var/pre_junk = ""
+	for(var/i = 1 to pre_len)
+		pre_junk += pick(HACK_JUNK_CHARS)
+
+	var/post_junk = ""
+	for(var/i = 1 to post_len)
+		post_junk += pick(HACK_JUNK_CHARS)
+
+	var/full_line = pre_junk + bracket_str + post_junk
+	return list(full_line, pre_len + 1, pre_len + bracket_vis)
+
+// ============================================================
+// WORD LINE BUILDER
+// Returns list(pre_junk, display_word, post_junk, visual_word_width)
+//
+// display_word is the spaced version: "MUTANT" -> "M U T A N T"
+// visual_word_width is how many characters that takes visually.
+//
+// The pre/post junk are sized so:
+//   length(pre_junk) + visual_word_width + length(post_junk) == HACK_COLS
+//
+// If the spaced word doesn't fit, falls back to unspaced.
+// If even unspaced doesn't fit (shouldn't happen with HACK_COLS=12 and
+// word lengths 4-10), returns the word alone with no padding.
+// ============================================================
+/obj/machinery/computer/terminal/proc/gen_word_line(word)
+	var/wlen = length(word)
+
+	// Try spaced first: "WORD" -> "W O R D", visual width = 2*len - 1
+	var/spaced_width = (wlen > 1) ? (2 * wlen - 1) : wlen
+	var/display_word = ""
+	var/vis_width    = 0
+
+	if(spaced_width <= HACK_COLS)
+		// Build spaced display string
+		for(var/i = 1 to wlen)
+			display_word += copytext(word, i, i + 1)
+			if(i < wlen)
+				display_word += " "
+		vis_width = spaced_width
+	else if(wlen <= HACK_COLS)
+		// Spaced doesn't fit, use compact
+		display_word = word
+		vis_width    = wlen
+	else
+		// Word itself is too long (only happens with very long words + small HACK_COLS)
+		display_word = copytext(word, 1, HACK_COLS + 1)
+		vis_width    = HACK_COLS
+
+	// Junk budget = HACK_COLS - len(word) [not vis_width].
+	// Spaces inside "P I S T O L" are free/decorative and don't consume
+	// junk slots. Word rows will be visually wider than junk rows — that's
+	// correct and matches how Fallout terminals actually look.
+	// A 6-letter word gets 6 junk chars scattered around it randomly.
+	var/junk_budget = HACK_COLS - wlen
+	var/pre_len     = round(rand(0, junk_budget))
+	var/post_len    = junk_budget - pre_len
+
+	var/pre_junk = ""
+	for(var/i = 1 to pre_len)
+		pre_junk += pick(HACK_JUNK_CHARS)
+
+	var/post_junk = ""
+	for(var/i = 1 to post_len)
+		post_junk += pick(HACK_JUNK_CHARS)
+
+	return list(pre_junk, display_word, post_junk, vis_width)
+
+// ============================================================
+// JUNK TO CLICKABLE
+// Converts a plain junk string into per-character <a> links
+// that fire hack_junk (failed attempt) when clicked.
+// Safe to use inside <pre> — inline <a> tags don't affect char width.
+// ============================================================
+/obj/machinery/computer/terminal/proc/junk_to_clickable(str)
+	if(!str || !length(str))
+		return ""
+	var/result = ""
+	for(var/i = 1 to length(str))
+		var/ch = copytext(str, i, i + 1)
+		result += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[ch]</a>"
+	return result
+
 /obj/machinery/computer/terminal/proc/render_lock_screen(mob/user)
-	// INT gate — if they fail it, don't even show the screen
+	// INT gate
 	if(istype(user, /mob/living) && !hack_locked_out && !hack_solved)
 		var/mob/living/L = user
 		if(!check_int_gate(L))
@@ -458,22 +593,32 @@ var/global/list/HACK_JUNK_CHARS = list(
 	var/list/cfg  = get_difficulty_config()
 	var/diff_name = cfg[5]
 
-	var/dat = ""
+	// ── CSS
+	// Key insight: the <pre> tag + monospace font means every character
+	// is the same width. We use inline-block <a> tags inside the <pre>
+	// so links don't break the character grid.
+	var/dat = "<head><style>"
+	dat += "body{padding:0;margin:10px;background-color:#062113;color:#4aed92;"
+	dat += "font-family:'Courier New',Courier,monospace;font-size:13px;line-height:1.3;}"
 
-	// ── Shared CSS (matches your existing terminal style)
-	dat += "<head><style>"
-	dat += "body{padding:0;margin:15px;background-color:#062113;color:#4aed92;line-height:170%;font-family:courier,monospace;}"
-	dat += "a,button{color:#4aed92;text-decoration:none;background:#062113;border:none;padding:1px 4px;margin:0 2px;cursor:default;}"
-	dat += "a:hover{color:#062113;background:#4aed92;}"
-	dat += ".dim{color:#2a7a52;} .bad{color:#c0392b;} .good{color:#4aed92;font-weight:bold;}"
-	dat += ".word-btn{display:inline-block;padding:1px 3px;letter-spacing:2px;}"
-	dat += ".word-btn:hover{color:#062113;background:#4aed92;cursor:pointer;}"
-	dat += ".removed{color:#1a5c35;text-decoration:line-through;cursor:default;}"
-	dat += ".col{display:inline-block;vertical-align:top;width:48%;}"
-	dat += ".pip{display:inline-block;width:12px;height:12px;background:#4aed92;margin:0 2px;}"
+	// All links — default state looks identical to surrounding text
+	dat += "a{color:#4aed92;text-decoration:none;background:transparent;"
+	dat += "border:none;padding:0;margin:0;display:inline;cursor:default;}"
+	dat += "a:hover{color:#062113;background:#4aed92;cursor:pointer;}"
+
+	// pre block — preserves whitespace, guarantees monospace char width
+	dat += "pre{margin:0;padding:0;font-family:'Courier New',Courier,monospace;"
+	dat += "font-size:13px;line-height:1.3;display:inline-block;vertical-align:top;}"
+
+	dat += ".dim{color:#2a7a52;}"
+	dat += ".bad{color:#c0392b;font-weight:bold;}"
+	dat += ".good{color:#4aed92;font-weight:bold;}"
+	dat += ".addr{color:#2a7a52;}"  // hex address colour
+	dat += ".removed{color:#1a5c35;text-decoration:line-through;}"
+	dat += ".pip{display:inline-block;width:11px;height:11px;background:#4aed92;margin:0 1px;vertical-align:middle;}"
 	dat += ".pip.used{background:#062113;border:1px solid #2a7a52;}"
-	dat += ".hist{font-size:85%;color:#2a7a52;}"
-	dat += ".hint{color:#4aed92;font-size:85%;}"
+	dat += ".hist{font-size:90%;color:#2a7a52;font-family:'Courier New',Courier,monospace;}"
+	dat += ".hint{color:#4aed92;font-size:90%;font-family:'Courier New',Courier,monospace;}"
 	dat += "</style></head>"
 
 	// ── Header
@@ -481,166 +626,169 @@ var/global/list/HACK_JUNK_CHARS = list(
 	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br>"
 	dat += "= PASSWORD REQUIRED =</center><br>"
 
+	// ── Locked out state
 	if(hack_locked_out)
 		dat += "<center><span class='bad'>!!! TERMINAL LOCKED — TOO MANY FAILED ATTEMPTS !!!</span><br><br>"
 		dat += "<span class='dim'>A technician with a Repair Kit can bypass this lock.</span><br><br>"
 		dat += "<a href='byond://?src=[REF(src)];choice=hack_reset'>&gt; " + ascii2text(91) + "FORCE BYPASS" + ascii2text(93) + "</a>"
 		dat += "</center>"
+
 	else
-		// ── CHA flavour line
+		// CHA flavour line
 		if(istype(user, /mob/living))
 			var/mob/living/L = user
 			var/cha_line = get_cha_flavour_text(L)
-			if(cha_line)
-				dat += "[cha_line]<br>"
+			if(cha_line) dat += "[cha_line]<br>"
 
-		// ── Difficulty + attempt pips
-		dat += "<b>DIFFICULTY: [diff_name]</b><br>"
-		dat += "ATTEMPTS REMAINING: "
+		// Pips + difficulty
+		dat += "<b>DIFFICULTY:</b> [diff_name] &nbsp; <b>ATTEMPTS:</b> "
 		for(var/i = 1 to hack_max)
 			dat += "<span class='pip [i <= hack_attempts ? "" : "used"]'></span>"
 		dat += "<br>"
 
-		// ── INT-based attempt count hint
+		// INT hint
 		if(istype(user, /mob/living))
 			var/mob/living/L = user
-			if(L.special_i && L.special_i >= 7)
-				dat += "<span class='dim'>&gt; Your intelligence has granted you additional attempts.</span><br>"
-			else if(L.special_i && L.special_i <= 3)
-				dat += "<span class='dim'>&gt; Your limited intelligence has reduced your attempts.</span><br>"
-
+			if(L.special_i >= 7)
+				dat += "<span class='dim'>&gt; Your intelligence grants additional attempts.</span><br>"
+			else if(L.special_i <= 3)
+				dat += "<span class='dim'>&gt; Your limited intelligence reduces your attempts.</span><br>"
 		dat += "<br>"
 
-		// ── Word grid with hex junk columns (authentic Fallout style)
-		// Words are embedded within junk, not in separate columns
+		// ── Build column content
+		// We split words evenly between left and right columns.
+		// Each column is HACK_ROWS lines tall.
+		// Each line = hex address + space + HACK_COLS content chars.
+		//
+		// Strategy per column:
+		//   - Decide which rows will contain words vs pure junk
+		//   - Decide which junk rows will contain bracket pairs
+		//   - Build each line as a plain string + metadata
+		//   - Render with <pre> and inject <a> tags for interactive elements
+
 		var/mid = round(hack_words.len / 2)
-		
-		// Create word queue for each column
-		var/list/left_words = hack_words.Copy(1, mid + 1)
-		var/list/right_words = hack_words.Copy(mid + 1)
-		
-		// Calculate lines needed (ensure enough for all words + junk spacing)
-		var/lines_per_col = max(mid * 2, 12)
-		
-		dat += "<table style='width:100%;'><tr>"
-		
-		// ── LEFT COLUMN ──
-		dat += "<td style='width:50%;vertical-align:top;font-family:courier,monospace;white-space:nowrap;'>"
-		var/left_word_idx = 1
-		for(var/line = 1 to lines_per_col)
-			var/hex_addr = uppertext(num2hex(0xF340 + (line - 1) * 16, 4))
-			dat += "0x[hex_addr] "
-			
-			// Decide if this line gets a word or just junk
-			var/has_word = (left_word_idx <= left_words.len && (line == left_word_idx * 2 || prob(40)))
-			
-			if(has_word && left_word_idx <= left_words.len)
-				// Embed word in junk
-				var/junk_before = rand(2, 5)
-				for(var/j = 1 to junk_before)
-					dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
-				
-				// Add the word
-				var/w = left_words[left_word_idx]
-				if(w in hack_removed)
-					dat += "<span class='removed'>[w]</span>"
-				else if(w == hack_answer)
-					dat += "<a class='word-btn' href='byond://?src=[REF(src)];choice=hack_word;word=[w]'>[w]</a>"
-				else if(w in hack_duds)
-					dat += "<a class='word-btn' href='byond://?src=[REF(src)];choice=hack_word;word=[w]'>[w]</a>"
-				else
-					dat += "<span class='removed'>[w]</span>"
-				
-				// Junk after word
-				var/junk_after = rand(2, 5)
-				for(var/j = 1 to junk_after)
-					dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
-				
-				left_word_idx++
+
+		// Left column gets first half of words, right gets second half
+		var/list/left_words  = list()
+		var/list/right_words = list()
+		for(var/i = 1 to hack_words.len)
+			if(i <= mid)
+				left_words  += hack_words[i]
 			else
-				// Just junk with possible bracket pairs
-				var/junk_count = rand(10, 16)
-				var/bracket_pos = rand(4, 8)
-				
-				for(var/j = 1 to junk_count)
-					if(j == bracket_pos && hack_dud_charges > 0 && prob(25))
-						var/bracket_style = pick("()", "[]", "{}", "<>")
-						var/open_char = copytext(bracket_style, 1, 2)
-						var/close_char = copytext(bracket_style, 2, 3)
-						var/junk_inside = ""
-						for(var/k = 1 to rand(3, 5))
-							junk_inside += pick(HACK_JUNK_CHARS)
-						dat += "<a href='byond://?src=[REF(src)];choice=hack_dud'>[open_char][junk_inside][close_char]</a>"
-						j += rand(3, 5) // Skip ahead
+				right_words += hack_words[i]
+
+		// How many dud bracket pairs to scatter in left column
+		var/left_brackets  = hack_dud_charges > 0    ? rand(1, min(3, hack_dud_charges))    : 0
+		var/right_brackets = hack_refill_charges > 0 ? rand(1, min(2, hack_refill_charges)) : 0
+
+		dat += "<table style='border:0;border-spacing:8px 0;'><tr>"
+
+		// ── Render one column as HTML
+		// col_words: words to embed
+		// bracket_count: how many bracket pairs to scatter
+		// bracket_type: "dud" or "refill"
+		// base_addr: starting hex address offset
+		for(var/col = 1 to 2)
+			var/list/col_words    = (col == 1) ? left_words  : right_words
+			var/bracket_count     = (col == 1) ? left_brackets : right_brackets
+			var/bracket_type      = (col == 1) ? "dud" : "refill"
+			var/base_addr         = (col == 1) ? 0xF340 : 0xF3E0
+
+			// Assign rows: pick random rows for words, random rows for brackets
+			// remaining rows are pure junk
+			var/list/row_types = list() // indexed 1..HACK_ROWS, value = "word_N", "bracket", or "junk"
+			for(var/i = 1 to HACK_ROWS)
+				row_types += "junk"
+
+			// Place words at random rows (without collision)
+			var/list/available_rows = list()
+			for(var/i = 1 to HACK_ROWS) available_rows += i
+			available_rows = shuffle(available_rows)
+
+			var/word_slot = 1
+			for(var/i = 1 to col_words.len)
+				if(word_slot > available_rows.len) break
+				row_types[available_rows[word_slot]] = "word_[i]"
+				word_slot++
+
+			// Place brackets at remaining rows
+			var/bracket_placed = 0
+			for(var/i = word_slot to available_rows.len)
+				if(bracket_placed >= bracket_count) break
+				row_types[available_rows[i]] = "bracket"
+				bracket_placed++
+
+			// Now render the column inside a <pre> block
+			// We use <pre> so spaces are preserved and all chars are equal width
+			dat += "<td style='vertical-align:top;padding:0;'><pre>"
+
+			for(var/row = 1 to HACK_ROWS)
+				// Hex address — always shown in dim colour
+				var/hex_val = uppertext(num2hex(base_addr + (row - 1) * 12, 4))
+				dat += "<span class='addr'>0x[hex_val]</span> "
+
+				var/rtype = row_types[row]
+
+				if(findtext(rtype, "word_"))
+					// ── WORD ROW
+					var/widx = text2num(copytext(rtype, 6))
+					if(widx < 1 || widx > col_words.len)
+						// Bad index fallback — pure junk
+						for(var/j = 1 to HACK_COLS)
+							dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
 					else
-						dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
-			
-			dat += "<br>"
-		dat += "</td>"
-		
-		// ── RIGHT COLUMN ──
-		dat += "<td style='width:50%;vertical-align:top;font-family:courier,monospace;white-space:nowrap;'>"
-		var/right_word_idx = 1
-		for(var/line = 1 to lines_per_col)
-			var/hex_addr = uppertext(num2hex(0xF3E0 + (line - 1) * 16, 4))
-			dat += "0x[hex_addr] "
-			
-			// Decide if this line gets a word or just junk
-			var/has_word = (right_word_idx <= right_words.len && (line == right_word_idx * 2 || prob(40)))
-			
-			if(has_word && right_word_idx <= right_words.len)
-				// Embed word in junk
-				var/junk_before = rand(2, 5)
-				for(var/j = 1 to junk_before)
-					dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
-				
-				// Add the word
-				var/w = right_words[right_word_idx]
-				if(w in hack_removed)
-					dat += "<span class='removed'>[w]</span>"
-				else if(w == hack_answer)
-					dat += "<a class='word-btn' href='byond://?src=[REF(src)];choice=hack_word;word=[w]'>[w]</a>"
-				else if(w in hack_duds)
-					dat += "<a class='word-btn' href='byond://?src=[REF(src)];choice=hack_word;word=[w]'>[w]</a>"
+						var/w          = col_words[widx]
+						var/list/parts = gen_word_line(w)
+						// parts[1] = pre_junk  (plain string, length = pre chars)
+						// parts[2] = display_word (spaced or compact, plain string)
+						// parts[3] = post_junk (plain string)
+						// parts[4] = visual width of display_word
+
+						dat += junk_to_clickable(parts[1])
+
+						if(w in hack_removed)
+							dat += "<span class='removed'>[parts[2]]</span>"
+						else
+							// The word itself is clickable and highlighted on hover
+							dat += "<a href='byond://?src=[REF(src)];choice=hack_word;word=[w]'>[parts[2]]</a>"
+
+						dat += junk_to_clickable(parts[3])
+
+				else if(rtype == "bracket")
+					// ── BRACKET ROW
+					var/list/jline = gen_junk_line(TRUE)
+					var/line_str   = jline[1]
+					var/bstart     = jline[2]
+					var/bend       = jline[3]
+
+					if(!bstart)
+						// Bracket placement failed — whole line is clickable junk
+						dat += junk_to_clickable(line_str)
+					else
+						var/pre_part    = copytext(line_str, 1, bstart)
+						var/bracket_str = copytext(line_str, bstart, bend + 1)
+						var/post_part   = copytext(line_str, bend + 1)
+
+						var/href_action = (bracket_type == "dud") ? "hack_dud" : "hack_refill"
+						dat += junk_to_clickable(pre_part)
+						dat += "<a href='byond://?src=[REF(src)];choice=[href_action]'>[bracket_str]</a>"
+						dat += junk_to_clickable(post_part)
+
 				else
-					dat += "<span class='removed'>[w]</span>"
-				
-				// Junk after word
-				var/junk_after = rand(2, 5)
-				for(var/j = 1 to junk_after)
-					dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
-				
-				right_word_idx++
-			else
-				// Just junk with possible bracket pairs
-				var/junk_count = rand(10, 16)
-				var/bracket_pos = rand(4, 8)
-				
-				for(var/j = 1 to junk_count)
-					if(j == bracket_pos && hack_refill_charges > 0 && prob(25))
-						var/bracket_style = pick("()", "[]", "{}", "<>")
-						var/open_char = copytext(bracket_style, 1, 2)
-						var/close_char = copytext(bracket_style, 2, 3)
-						var/junk_inside = ""
-						for(var/k = 1 to rand(3, 5))
-							junk_inside += pick(HACK_JUNK_CHARS)
-						dat += "<a href='byond://?src=[REF(src)];choice=hack_refill'>[open_char][junk_inside][close_char]</a>"
-						j += rand(3, 5) // Skip ahead
-					else
-						dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
-			
-			dat += "<br>"
-		dat += "</td>"
-		
+					// ── PURE JUNK ROW — all chars clickable for failed attempt
+					var/list/jline = gen_junk_line(FALSE)
+					dat += junk_to_clickable(jline[1])
+
+				dat += "\n"
+
+			dat += "</pre></td>"
+
 		dat += "</tr></table>"
 
-		dat += "<br>"
+		// Charges indicator
+		dat += "<span class='dim'>&gt; DUD REMOVALS: [hack_dud_charges] | ATTEMPT REFILLS: [hack_refill_charges]</span><br><br>"
 
-		// ── Charges display (informational only, brackets are in junk columns)
-		dat += "<span class='dim'>&gt; DUD REMOVALS: [hack_dud_charges] | REFILLS: [hack_refill_charges]</span><br>"
-		dat += "<br>"
-
-		// ── History log
+		// History log
 		if(hack_history && hack_history.len)
 			dat += "<b>ENTRY LOG:</b><br>"
 			for(var/line in hack_history)
@@ -648,7 +796,7 @@ var/global/list/HACK_JUNK_CHARS = list(
 
 	dat += "</font>"
 
-	var/datum/browser/popup = new(user, "terminal", null, 600, 520)
+	var/datum/browser/popup = new(user, "terminal", null, 620, 540)
 	popup.set_content(dat)
 	popup.open()
 
