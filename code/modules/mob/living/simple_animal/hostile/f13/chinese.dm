@@ -1,3 +1,10 @@
+// In this document: Chinese Remnant Soldiers
+
+/////////////////////////////
+// CHINESE REMNANT SOLDIERS //
+/////////////////////////////
+
+// BASE - melee ghoul soldier
 /mob/living/simple_animal/hostile/chinese
 	name = "chinese remnant soldier"
 	desc = "Chinese soldiers who survived the Great War via ghoulification, and now shoot anything that isn't their own on sight."
@@ -5,49 +12,108 @@
 	icon_state = "chinesesoldier"
 	icon_living = "chinesesoldier"
 	icon_gib = "syndicate_gib"
+	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
-	speak_chance = 0
+	mob_armor = ARMOR_VALUE_CHINESE_REMNANT
+	
+	maxHealth = 80
+	health = 80
+	speed = 1
+	move_to_delay = 3
 	turns_per_move = 5
+	
+	melee_damage_lower = 20
+	melee_damage_upper = 38
+	harm_intent_damage = 8
+	
+	robust_searching = TRUE
+	
 	response_help_simple = "pokes"
 	response_disarm_simple = "shoves"
 	response_harm_simple = "hits"
-	speed = 1
-	maxHealth = 80
-	health = 80
-	harm_intent_damage = 8
-	melee_damage_lower = 20
-	melee_damage_upper = 38
 	attack_verb_simple = "punches"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
-	a_intent = INTENT_HARM
-	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant, /obj/item/melee/onehanded/knife/survival)
+	
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
 	unsuitable_atmos_damage = 15
-	faction = list("china")
-	check_friendly_fire = 1
-	status_flags = CANPUSH
-	del_on_death = 1
+	
 	tastes = list("people" = 1, "dust" = 2)
+	
+	faction = list("china")
+	a_intent = INTENT_HARM
+	check_friendly_fire = TRUE
+	status_flags = CANPUSH
+	del_on_death = TRUE
+	speak_chance = 0
+	
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/chineseremnant,
+		/obj/item/melee/onehanded/knife/survival
+	)
+	
+	// Z-movement
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 30
+
+	can_open_doors = TRUE
+	can_open_airlocks = TRUE
+	
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/chinese/Aggro()
 	. = ..()
 	if(.)
 		return
-	summon_backup(15)
+	summon_backup(10)
 	if(!ckey)
-		say(pick("操你祖宗十八代", "乡巴佬", "傻逼" , "妈你个", "操你大爷", "祝你生孩子没屁眼", "扯鸡巴蛋", "狗改不了吃屎", "爆你菊花" ))
+		say(pick("操你祖宗十八代", "乡巴佬", "傻逼", "妈你个", "操你大爷", "祝你生孩子没屁眼", "扯鸡巴蛋", "狗改不了吃屎", "爆你菊花"))
 
+/mob/living/simple_animal/hostile/chinese/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+// Friendly fire resistance - chinese soldiers fight in squads
+/mob/living/simple_animal/hostile/chinese/bullet_act(obj/item/projectile/P)
+	if(P && P.firer && istype(P.firer, /mob/living/simple_animal/hostile/chinese))
+		var/original_damage = P.damage
+		P.damage *= 0.2
+		. = ..()
+		P.damage = original_damage
+		return
+	return ..()
+
+// PISTOL SOLDIER - ranged variant
 /mob/living/simple_animal/hostile/chinese/ranged
+	name = "chinese remnant soldier"
 	icon_state = "chinesepistol"
 	icon_living = "chinesepistol"
-	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/pistol, /obj/item/gun/ballistic/automatic/pistol/type17)
-	ranged = 1
+	
 	maxHealth = 110
 	health = 110
-	retreat_distance = 4
-	minimum_distance = 6
+	
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/chineseremnant/pistol,
+		/obj/item/gun/ballistic/automatic/pistol/type17
+	)
+	
+	// Pure ranged - pistol
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 5
+	minimum_distance = 1
+	
+	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
-	projectilesound =  'sound/f13weapons/ninemil.ogg'
+	projectilesound = 'sound/f13weapons/ninemil.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),
@@ -59,14 +125,24 @@
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
 
+// ASSAULT SOLDIER - burst fire rifle
 /mob/living/simple_animal/hostile/chinese/ranged/assault
 	name = "chinese remnant assault soldier"
 	icon_state = "chineseassault"
 	icon_living = "chineseassault"
+	
 	maxHealth = 160
 	health = 160
 	extra_projectiles = 2
-	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/assault, /obj/item/gun/ballistic/automatic/type93, /obj/item/ammo_box/magazine/m556/rifle/assault)
+	
+	loot = list(
+		/obj/effect/mob_spawn/human/corpse/chineseremnant/assault,
+		/obj/item/gun/ballistic/automatic/type93,
+		/obj/item/ammo_box/magazine/m556/rifle/assault
+	)
+	
+	// Pure ranged - assault rifle
+	ranged_cooldown_time = 15
 	projectiletype = /obj/item/projectile/bullet/a556/simple
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	projectile_sound_properties = list(
@@ -81,5 +157,7 @@
 	)
 
 /mob/living/simple_animal/hostile/chinese/ranged/assault/Aggro()
-	..()
-	summon_backup(15)
+	. = ..()
+	if(.)
+		return
+	summon_backup(10)

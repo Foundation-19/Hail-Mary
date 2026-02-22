@@ -358,7 +358,9 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	// Initialize tgui panel
 	tgui_panel.initialize()
 
-	// Initialize statbrowser properly
+	// Initialize statbrowser on first client connection
+	// This only runs once per connection - body switches (ghosting/re-entering) only refresh verbs
+	// Use "Fix Statpanel" verb if issues occur during play
 	load_statbrowser()
 
 
@@ -1110,11 +1112,16 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 	return prefs.pref_species.mutant_bodyparts[part_name] || (part_name in GLOB.unlocked_mutant_parts)
 
 /// compiles a full list of verbs and sends it to the browser
-/client/proc/init_verbs()
+/// Only rebuilds if verbs have changed to prevent unnecessary statpanel refreshes
+/client/proc/init_verbs(force = FALSE)
 	if(IsAdminAdvancedProcCall())
 		return
+	
+	// Build verb list and calculate hash
 	var/list/verblist = list()
-	verb_tabs.Cut()
+	var/list/new_verb_tabs = list()
+	var/verb_hash = ""
+	
 	for(var/thing in (verbs + mob?.verbs))
 		var/procpath/verb_to_init = thing
 		if(!verb_to_init)
@@ -1123,8 +1130,17 @@ GLOBAL_LIST_EMPTY(every_fucking_sound_file)
 			continue
 		if(!istext(verb_to_init.category))
 			continue
-		verb_tabs |= verb_to_init.category
+		new_verb_tabs |= verb_to_init.category
 		verblist[++verblist.len] = list(verb_to_init.category, verb_to_init.name)
+		verb_hash += "[verb_to_init.category]:[verb_to_init.name];"
+	
+	// Only rebuild if verbs have changed or forced
+	if(!force && verb_hash == cached_verb_hash)
+		return // Verbs haven't changed, skip rebuild
+	
+	// Update cache and send to browser
+	cached_verb_hash = verb_hash
+	verb_tabs = new_verb_tabs
 	src << output("[url_encode(json_encode(verb_tabs))];[url_encode(json_encode(verblist))]", "statbrowser:init_verbs")
 
 /client/proc/check_panel_loaded()

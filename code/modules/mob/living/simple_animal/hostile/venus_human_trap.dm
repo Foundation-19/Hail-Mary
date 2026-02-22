@@ -21,7 +21,7 @@
 	for(var/turf/T in anchors)
 		var/datum/beam/B = Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/vine)
 		B.sleep_time = 10 //these shouldn't move, so let's slow down updates to 1 second (any slower and the deletion of the vines would be too slow)
-	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
+	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time, TIMER_DELETE_ME)
 
 /**
  * Spawns a venus human trap, then qdels itself.

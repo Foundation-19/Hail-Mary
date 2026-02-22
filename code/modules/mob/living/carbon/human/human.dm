@@ -16,6 +16,13 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/movement_fatigue = 0
 	var/last_armor_warning_time = 0
 	COOLDOWN_DECLARE(movement_fatigue_recovery)
+	
+	// Sneaking mode system
+	var/sneaking = FALSE // Is the player in sneak mode?
+	var/mutable_appearance/sneak_indicator = null // Ninja icon overlay above head
+	var/list/visible_vision_cones = list() // List of vision cone overlays we're showing
+	var/vision_cone_timer = null // Timer for periodic cone updates
+	var/previous_move_intent = null // Saves movement speed before sneak mode
 
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
@@ -82,22 +89,10 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	gloves = null
 	shoes = null
 
-	var/result = ..()
-
 	QDEL_NULL(physiology)
 
-	if(client && client.screen && client.screen.len)
-		addtimer(CALLBACK(src, PROC_REF(defer_screen_cleanup)), 0, TIMER_DELETE_ME)
+	return ..()
 
-	return result
-
-/mob/living/carbon/human/proc/defer_screen_cleanup()
-	// Called next tick to avoid GC spike from screen deletion
-	// Clears all screen objects attached to this mob's client
-	if(!src || QDELETED(src) || !client)
-		return
-	if(client.screen && client.screen.len)
-		QDEL_LIST(client.screen)
 
 /mob/living/carbon/human/prepare_data_huds()
 	//Update med hud images...
@@ -277,6 +272,356 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	log_game(dat)
 	ghostize()
 	qdel(src)
+
+// Calculate movement sound level for rear detection by hostile mobs
+// Returns a multiplier based on movement speed and armor weight
+/mob/living/carbon/human/proc/get_movement_sound_level()
+	// Base sound level: 1.0 for walking, 2.0 for running
+	var/base_movement = 1.0
+	if(m_intent == MOVE_INTENT_RUN)
+		base_movement = 2.0
+	
+	// Calculate armor weight modifier from slowdown values
+	var/armor_slowdown = 0
+	if(wear_suit)
+		armor_slowdown += wear_suit.slowdown
+	if(shoes)
+		armor_slowdown += shoes.slowdown
+	if(head)
+		armor_slowdown += head.slowdown
+	
+	// Light armor (low slowdown) makes you quieter, heavy armor makes you louder
+	// 0 slowdown = 0.5x (very quiet), 0.25 slowdown = 1.0x (normal), 0.5+ slowdown = increasingly loud
+	var/armor_multiplier = 0.5 + (armor_slowdown * 2)
+	
+	var/sound_level = base_movement * armor_multiplier
+	
+	// Sneaking no longer reduces sound - it only shows vision cones
+	
+	return sound_level
+
+// Toggle sneak mode when K is pressed
+/mob/living/carbon/human/verb/toggle_sneak_mode()
+	set name = "Toggle Sneak"
+	set category = "IC"
+	set hidden = TRUE // Only accessible via keybind
+	
+	if(stat != CONSCIOUS)
+		return
+	
+	sneaking = !sneaking
+	
+	// Update assassination button availability
+	for(var/datum/action/cooldown/assassinate/A in actions)
+		A.UpdateButtonIcon()
+	
+	if(sneaking)
+		// Add movement slowdown (2x slower)
+		add_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
+		// Entered sneak mode
+		to_chat(src, span_notice("You enter sneak mode. Enemy vision cones are now visible."))
+		
+		// Create ninja icon as overlay above head
+		if(!sneak_indicator)
+			var/obj/effect/overlay/sneak_icon/indicator_obj = new()
+			sneak_indicator = mutable_appearance(indicator_obj.icon, indicator_obj.icon_state, indicator_obj.layer)
+			sneak_indicator.alpha = 102 // 60% transparent
+			sneak_indicator.pixel_y = 20 // Above head
+			sneak_indicator.transform = matrix().Scale(0.7, 0.7) // 30% smaller
+			sneak_indicator.appearance_flags = RESET_COLOR | TILE_BOUND | PIXEL_SCALE
+			add_overlay(sneak_indicator)
+		
+		// Start showing vision cones
+		update_vision_cones()
+		
+		// Start periodic refresh timer (every 1 second) to catch mob deaths and lighting changes
+		vision_cone_timer = addtimer(CALLBACK(src, PROC_REF(update_vision_cones)), 10, TIMER_STOPPABLE | TIMER_LOOP)
+		
+		// Save current movement intent and auto-switch to walk if running
+		previous_move_intent = m_intent
+		if(m_intent == MOVE_INTENT_RUN)
+			toggle_move_intent()
+			to_chat(src, span_warning("You automatically switch to walking."))
+	else
+		// Remove movement slowdown
+		remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
+		// Exited sneak mode
+		to_chat(src, span_notice("You exit sneak mode."))
+		
+		// Restore previous movement intent if it was different
+		if(previous_move_intent && previous_move_intent != m_intent)
+			toggle_move_intent()
+			to_chat(src, span_notice("Movement speed restored to [previous_move_intent]."))
+		previous_move_intent = null
+		
+		// Stop periodic refresh timer
+		if(vision_cone_timer)
+			deltimer(vision_cone_timer)
+			vision_cone_timer = null
+		
+		// Remove ninja icon overlay
+		if(sneak_indicator)
+			cut_overlay(sneak_indicator)
+			sneak_indicator = null
+		
+		// Clear all vision cones
+		clear_vision_cones()
+
+// Force exit sneak mode (used when exhausted or other forced exit)
+/mob/living/carbon/human/proc/force_exit_sneak_mode()
+	if(!sneaking)
+		return
+	
+	sneaking = FALSE
+	
+	// Update assassination button
+	for(var/datum/action/cooldown/assassinate/A in actions)
+		A.UpdateButtonIcon()
+	
+	// Remove movement slowdown
+	remove_movespeed_modifier(/datum/movespeed_modifier/sneak_mode)
+	
+	// Stop periodic refresh timer
+	if(vision_cone_timer)
+		deltimer(vision_cone_timer)
+		vision_cone_timer = null
+	
+	// Remove ninja icon overlay
+	if(sneak_indicator)
+		cut_overlay(sneak_indicator)
+		sneak_indicator = null
+	
+	// Clear all vision cones
+	clear_vision_cones()
+	
+	// Don't restore previous move intent when forced out
+	previous_move_intent = null
+
+// Clean up when player dies/disconnects
+/mob/living/carbon/human/death()
+	. = ..( )
+	if(sneaking)
+		force_exit_sneak_mode()
+
+// Update visible vision cones for nearby hostile mobs
+// TWO-LAYER SYSTEM:
+// Layer 1: ACTIVATION - Based on mob's base vision_range (ignores YOUR penalties)
+// Layer 2: DISPLAY - Shows ACTUAL detection range (includes YOUR darkness/direction penalties)
+/mob/living/carbon/human/proc/update_vision_cones()
+	if(!sneaking || !client)
+		return
+	
+	// Clear old cones
+	clear_vision_cones()
+	
+	// ACTIVATION RANGE: Find all hostile mobs within their BASE vision range
+	// This ignores YOUR darkness penalties - it's based on THEIR potential awareness
+	for(var/mob/living/simple_animal/hostile/H in view(15, src)) // Extended view to catch edge cases
+		if(H.stat == DEAD || H.ckey)
+			continue
+		
+		// Check if they're hostile to us
+		if(H.faction_check_mob(src))
+			continue // Friendly, don't show cone
+		
+		// Hide cones if mob is actively targeting the player
+		if(H.target == src)
+			continue // Aggroed onto us, hide cone
+		
+		var/actual_distance = get_dist(src, H)
+		
+		// ACTIVATION TRIGGER: Use mob's BASE vision_range (9 tiles typically)
+		// This is their "awareness bubble" - you can see their cone when you're in it
+		// EVEN IF they can't see you yet due to darkness
+		var/activation_range = H.vision_range // Base range, no penalties
+		
+		// Also activate if we're within sound detection range
+		// Use the LARGER center range (3x multiplier) for activation
+		var/max_sound_range = 0
+		if(last_move_time && (world.time - last_move_time) <= 20)
+			var/sound_cone = H.get_sound_cone(src)
+			if(sound_cone)
+				var/sound_level = get_movement_sound_level()
+				max_sound_range = round(sound_level * 3) // Use center multiplier (largest)
+		
+		// Show cone if within activation range OR sound range
+		if(actual_distance <= activation_range || (max_sound_range > 0 && actual_distance <= max_sound_range))
+			show_vision_cone_for_mob(H)
+
+// Show vision cone with ACTUAL detection range (affected by darkness/direction/sound)
+// DISPLAY LAYER: Shows how far they can ACTUALLY detect you
+// PIE CHART SECTORS - Creates 6 clean non-overlapping 60° sectors
+/mob/living/carbon/human/proc/show_vision_cone_for_mob(mob/living/simple_animal/hostile/H)
+	if(!H || !sneaking)
+		return
+	
+	if(H.stat == DEAD)
+		return
+	
+	var/mob_dir = H.dir
+	if(!mob_dir || mob_dir == 0)
+		return
+	
+	// Use the correct vision range function based on low-light vision
+	var/effective_range = 0
+	if(H.has_low_light_vision)
+		effective_range = H.get_effective_vision_range_lowlight(src)
+	else
+		effective_range = H.get_effective_vision_range(src)
+	
+	var/actual_distance = get_dist(src, H)
+	var/your_cone = H.get_vision_cone(src)
+	var/currently_detected = (actual_distance <= effective_range && effective_range > 0)
+	
+	// Calculate BOTH sound ranges (center and peripheral have different multipliers)
+	var/sound_level = 0.0
+	var/sound_center_range = 0
+	var/sound_peripheral_range = 0
+	
+	if(last_move_time && (world.time - last_move_time) <= 20)
+		// Get movement sound level
+		sound_level = get_movement_sound_level()
+		
+		// Always calculate ranges when moving (shows potential detection from any angle)
+		// The color/alpha logic will indicate whether detection is actually relevant
+		sound_center_range = round(sound_level * 3) // Rear center: sound travels clearly
+		sound_peripheral_range = round(sound_level * 2.5) // Rear peripheral: slightly muffled
+	
+	// ============================================
+	// CENTERED SECTOR LAYOUT (6 slices, 60° each)
+	// ============================================
+	// Sectors are CENTERED on cardinal directions:
+	// 
+	// FRONT CENTER (RED): -30° to +30° from facing
+	// RIGHT PERIPHERAL (YELLOW): 30° to 90°
+	// RIGHT REAR (CYAN): 90° to 150°
+	// REAR CENTER (GRAY): 150° to 210° (±30° from opposite)
+	// LEFT REAR (CYAN): 210° to 270°
+	// LEFT PERIPHERAL (YELLOW): 270° to 330°
+	// ============================================
+	
+	// Calculate ranges for each sector
+	var/front_range = H.vision_range
+	var/front_alpha = 100 // Medium opacity for vision detection
+	
+	if(your_cone == CONE_FRONT)
+		front_range = effective_range
+		if(currently_detected)
+			front_alpha = 180 // Brighten significantly when detected
+		else
+			front_alpha = 100
+	else
+		var/turf/front_check = get_step(H, mob_dir)
+		if(front_check)
+			var/light_amount = front_check.get_lumcount()
+			if(light_amount >= 0.5)
+				front_range = H.vision_range
+			else if(light_amount >= 0.2)
+				front_range = max(round(H.vision_range * 0.6), 3)
+			else
+				front_range = max(round(H.vision_range * 0.4), 3)
+		
+		// Apply stealth boy penalty consistently with darkness
+		if(alpha < 100) // Cloaked - reduce range to 20%
+			front_range = max(round(front_range * 0.2), 1)
+		
+		front_alpha = 100
+	
+	var/peripheral_range = max(round(front_range * 0.6), 2)
+	var/peripheral_alpha = 70 // Lower opacity than front cone
+	if(your_cone == CONE_PERIPHERAL)
+		peripheral_range = effective_range
+		if(currently_detected)
+			peripheral_alpha = 150 // Brighten when detected
+		else
+			peripheral_alpha = 70
+	else
+		peripheral_alpha = 70
+	
+	var/rear_peripheral_range = 3
+	var/rear_peripheral_alpha = 60 // Light opacity for sound detection
+	
+	// Show sound detection ranges when moving (always show potential range for visibility)
+	// Use alpha to indicate whether ACTUALLY detected
+	// Use PERIPHERAL multiplier (2.5x) for cyan zones
+	if(sound_peripheral_range > 0)
+		rear_peripheral_range = sound_peripheral_range
+		var/sound_cone = H.get_sound_cone(src)
+		if(actual_distance <= sound_peripheral_range && sound_cone == SOUND_REAR_PERIPHERAL)
+			rear_peripheral_alpha = 130 // Brighten when detected in sound zone
+		else if(actual_distance <= sound_peripheral_range && sound_cone)
+			rear_peripheral_alpha = 100 // Within range but wrong zone
+		else
+			rear_peripheral_alpha = 60 // Light opacity base
+	
+	var/rear_range = 3
+	var/rear_color = "#808080" // Gray for sound zones
+	var/rear_alpha = 60 // Light opacity for sound detection
+	
+	// Show sound detection ranges when moving (always show potential range for visibility)
+	// Use alpha to indicate whether ACTUALLY detected
+	// Use CENTER multiplier (3x) for gray zone - sound travels clearly from behind
+	if(sound_center_range > 0)
+		rear_range = sound_center_range
+		
+		// Keep gray color for sound zones (no color change needed)
+		rear_color = "#808080"
+		
+		// Alpha: Brightness indicates detection state
+		var/sound_cone = H.get_sound_cone(src)
+		if(actual_distance <= sound_center_range && sound_cone == SOUND_REAR_CENTER)
+			rear_alpha = 130 // Brighten when detected in sound zone
+		else if(actual_distance <= sound_center_range && sound_cone)
+			rear_alpha = 100 // Within range but wrong zone
+		else
+			rear_alpha = 60 // Light opacity base
+	
+	// Create 6 sectors, each 60° wide, CENTERED on cardinal/diagonal directions
+	// Each sector covers exactly 60° with NO overlap
+	// Vision zones use "red" sprite, sound zones use "blurry" sprite
+	
+	// FRONT CENTER (RED): -30° to +30° from facing (wraps around 0°)
+	create_sector(H, mob_dir, -30, 30, front_range, "#FF0000", front_alpha, "red")
+	
+	// RIGHT PERIPHERAL (YELLOW): 30° to 90° from facing
+	create_sector(H, mob_dir, 30, 90, peripheral_range, "#FFCC00", peripheral_alpha, "red")
+	
+	// RIGHT REAR (GRAY): 90° to 150° from facing - sound detection
+	create_sector(H, mob_dir, 90, 150, rear_peripheral_range, "#808080", rear_peripheral_alpha, "blurry")
+	
+	// REAR CENTER (GRAY): 150° to 210° from facing (±30° from opposite) - sound detection
+	create_sector(H, mob_dir, 150, 210, rear_range, rear_color, rear_alpha, "blurry")
+	
+	// LEFT REAR (GRAY): 210° to 270° from facing - sound detection
+	create_sector(H, mob_dir, 210, 270, rear_peripheral_range, "#808080", rear_peripheral_alpha, "blurry")
+	
+	// LEFT PERIPHERAL (YELLOW): 270° to 330° from facing
+	create_sector(H, mob_dir, 270, 330, peripheral_range, "#FFCC00", peripheral_alpha, "red")
+
+// Create a sector between two angles (in degrees, clockwise from facing direction)
+// Angles can be negative (e.g., -30 to 30 for front-centered cone that wraps around 0°)
+/mob/living/carbon/human/proc/create_sector(mob/living/simple_animal/hostile/H, base_dir, start_angle, end_angle, sector_range, sector_color, sector_alpha, icon_state_name = "white")
+	if(sector_range <= 0)
+		return
+	
+	var/obj/effect/overlay/vision_cone/cone = new /obj/effect/overlay/vision_cone(get_turf(H))
+	cone.viewer = src
+	cone.setup_sector(H, base_dir, start_angle, end_angle, sector_range, icon_state_name)
+	cone.alpha = sector_alpha
+	
+	if(cone.generate_cone_image())
+		for(var/image/img in cone.cone_images)
+			img.color = sector_color
+			img.alpha = sector_alpha
+	
+	visible_vision_cones += cone
+
+// Clear all vision cone overlays
+/mob/living/carbon/human/proc/clear_vision_cones()
+	for(var/obj/effect/overlay/vision_cone/cone in visible_vision_cones)
+		// Tiles are deleted when the cone is deleted
+		qdel(cone)
+	visible_vision_cones.Cut()
 
 /mob/living/carbon/human/Topic(href, href_list)
 	if(usr.canUseTopic(src, BE_CLOSE, NO_DEXTERY))

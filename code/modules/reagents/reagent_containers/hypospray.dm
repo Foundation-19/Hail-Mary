@@ -109,6 +109,11 @@
 	if(!reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return
+	
+	// Prevent use on simple animals
+	if(isanimal(M) && !iscarbon(M))
+		to_chat(user, span_warning("[src] is not designed for use on animals!"))
+		return
 
 	if(M == user)
 		M.visible_message(span_notice("[user] attempts to inject themselves with the [src]."))

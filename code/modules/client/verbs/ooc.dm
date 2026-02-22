@@ -311,7 +311,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set name = "Fix Stat Panel"
 	set hidden = TRUE
 
-	init_verbs()
+	init_verbs(force = TRUE)
 
 /client/proc/GetOOCName()
 	return key

@@ -48,3 +48,10 @@ obj/item/projectile/energy/evebolt
 	irradiate = 25
 	stamina = 100
 	icon_state = "plasma3"
+
+// Radiation projectile used by glowing ghouls
+/obj/item/projectile/radiation_thing
+	name = "radiation"
+	damage = 0
+	irradiate = 20
+	icon_state = "declone"

@@ -189,3 +189,5 @@
 	/// If the client is currently under the restrictions of the interview system
 	var/interviewee = FALSE
 	var/is_fullscreen = 0
+	/// Cached hash of current verb list to prevent unnecessary rebuilds
+	var/cached_verb_hash = null

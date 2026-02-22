@@ -37,7 +37,7 @@
 	max_amount = 15000
 	throwforce = 0
 	throw_speed = 2
-	throw_range = 2
+	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
