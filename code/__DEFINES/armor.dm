@@ -839,6 +839,33 @@
 #define ARMOR_MODIFIER_DOWN_LASER_T4 list(\
 		"linelaser" = -200)
 
+/* Energy armor
+ * Adds on energy protection
+ * T1 - Thicker, heat resistant clothing
+ * T2 - Shiny surface, but not quite polished
+ * T3 - Dedicated polished mirror finish
+ * * * * * * * * * * * */
+#define ARMOR_MODIFIER_UP_ENERGY_T1 list(\
+		"energy" = (1/4))
+
+#define ARMOR_MODIFIER_UP_ENERGY_T2 list(\
+		"energy" = 5)
+
+#define ARMOR_MODIFIER_UP_ENERGY_T3 list(\
+		"energy" = 50)
+
+#define ARMOR_MODIFIER_DOWN_ENERGY_T1 list(\
+		"energy" = -10)
+
+#define ARMOR_MODIFIER_DOWN_ENERGY_T2 list(\
+		"energy" = -25)
+
+#define ARMOR_MODIFIER_DOWN_ENERGY_T3 list(\
+		"energy" = -50)
+
+#define ARMOR_MODIFIER_DOWN_ENERGY_T4 list(\
+		"energy" = -200)
+
 /* DT tokens
  * Adds on damage threshold
  * T1 - Small plated inserts, or heavy leather

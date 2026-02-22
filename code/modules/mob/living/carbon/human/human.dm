@@ -1381,5 +1381,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 /mob/living/carbon/human/species/smutant
 	race = /datum/species/smutant
 
+/mob/living/carbon/human/species/c27
+	race = /datum/species/c27
+
 /mob/living/carbon/human/dump_harddel_info()
 	return "mob name: [real_name]"
