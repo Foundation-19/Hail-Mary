@@ -65978,12 +65978,6 @@
 	icon_state = "verticalrightborderright3"
 	},
 /area/f13/wasteland)
-"wPr" = (
-/obj/structure/table,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
-	},
-/area/f13/brotherhood)
 "wPt" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blanket,
@@ -95782,8 +95776,8 @@ ngE
 odm
 aky
 jNW
+tAT
 cbS
-wPr
 bNH
 nJS
 bct
@@ -96038,7 +96032,7 @@ sfW
 xLC
 xLC
 aky
-jNW
+aky
 tAT
 beJ
 bNH
