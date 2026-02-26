@@ -705,11 +705,15 @@ Mayor
 		/obj/item/storage/firstaid/regular,
 		/obj/item/clothing/accessory/armband/medblue
 		)
+
 /datum/outfit/job/denholiday/f13dendoc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
-	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
+	if(!H.mind.learned_recipes)
+		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/pico_manip)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/super_matter_bin)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/phasic_scanning)
@@ -718,6 +722,7 @@ Mayor
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
+
 
 /datum/outfit/loadout/rescueranger
 	name = "Search and Rescue"
