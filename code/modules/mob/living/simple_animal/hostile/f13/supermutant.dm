@@ -102,9 +102,10 @@
 // meaning player-controlled supermutants would also call for backup on aggro.
 /mob/living/simple_animal/hostile/supermutant/Aggro()
 	. = ..()
-	if(.)
-		return
-	summon_backup(10)
+	if(is_low_health)
+		return // Already raged, skip
+	if(health < (maxHealth * low_health_threshold))
+		make_low_health()
 
 // Friendly fire resistance
 /mob/living/simple_animal/hostile/supermutant/bullet_act(obj/item/projectile/P)
@@ -118,6 +119,9 @@
 
 /// RAGE MODE - faster, harder hitting, can smash through walls
 /mob/living/simple_animal/hostile/supermutant/make_low_health()
+	if(!target)
+		return // Not in combat, don't rage
+	..()
 	visible_message(span_danger("[src] roars with primal fury!!!"))
 	playsound(src, pick(aggrosound), 100, 1, SOUND_DISTANCE(15))
 	color = color_rage

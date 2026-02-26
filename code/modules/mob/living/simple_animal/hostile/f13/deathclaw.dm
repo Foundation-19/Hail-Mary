@@ -114,40 +114,37 @@
 	return ..()
 
 /// RAGE MODE - when going from high health to low health
-/mob/living/simple_animal/hostile/deathclaw/make_low_health()
-	visible_message(span_danger("[src] lets out a vicious roar and enters a berserker rage!!!"))
-	playsound(src, 'sound/f13npc/deathclaw/aggro2.ogg', 100, 1, SOUND_DISTANCE(20))
-	color = color_mad
-	reach += 1
-	speed *= 1.25
-	obj_damage += 200
-	melee_damage_lower = round(melee_damage_lower * 1.5)
-	melee_damage_upper = round(melee_damage_upper * 1.4)
-	see_in_dark += 8
-	// RAGE MODE: Can now smash through walls!
-	environment_smash = ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_WALLS | ENVIRONMENT_SMASH_RWALLS
-	wound_bonus += 25
-	bare_wound_bonus += 50
-	sound_pitch = -50
-	alternate_attack_prob = 75
-	is_low_health = TRUE
+/mob/living/simple_animal/hostile/deathclaw/mother/make_low_health()
+	if(!target)
+		return
+	..()
 
 /// Calming down when going from low health to high health
-/mob/living/simple_animal/hostile/deathclaw/make_high_health()
-	visible_message(span_danger("[src] calms down."))
-	color = initial(color)
-	reach = initial(reach)
-	speed = initial(speed)
-	obj_damage = initial(obj_damage)
-	melee_damage_lower = initial(melee_damage_lower)
-	melee_damage_upper = initial(melee_damage_upper)
-	see_in_dark = initial(see_in_dark)
-	environment_smash = initial(environment_smash)
-	wound_bonus = initial(wound_bonus)
-	bare_wound_bonus = initial(bare_wound_bonus)
-	alternate_attack_prob = initial(alternate_attack_prob)
-	sound_pitch = initial(sound_pitch)
-	is_low_health = FALSE
+/mob/living/simple_animal/hostile/deathclaw/mother/make_high_health()
+	if(!target)
+		// If we somehow have rage active without a target, clean it up
+		if(is_low_health)
+			color = initial(color)
+			reach = initial(reach)
+			speed = initial(speed)
+			obj_damage = initial(obj_damage)
+			melee_damage_lower = initial(melee_damage_lower)
+			melee_damage_upper = initial(melee_damage_upper)
+			see_in_dark = initial(see_in_dark)
+			environment_smash = initial(environment_smash)
+			wound_bonus = initial(wound_bonus)
+			bare_wound_bonus = initial(bare_wound_bonus)
+			alternate_attack_prob = initial(alternate_attack_prob)
+			sound_pitch = initial(sound_pitch)
+			is_low_health = FALSE
+		return
+	..()
+
+// Deactivate rage when target is lost
+/mob/living/simple_animal/hostile/deathclaw/mother/LoseTarget()
+	..()
+	if(is_low_health)
+		make_high_health()
 
 /mob/living/simple_animal/hostile/deathclaw/AlternateAttackingTarget(atom/the_target)
 	if(!ismovable(the_target))

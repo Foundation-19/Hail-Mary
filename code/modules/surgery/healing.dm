@@ -56,8 +56,8 @@
 				break
 
 /datum/surgery_step/heal/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	var/umsg = "You succeed in fixing some of [target]'s wounds" //no period, add initial space to "addons"
-	var/tmsg = "[user] fixes some of [target]'s wounds" //see above
+	var/umsg = "You succeed in fixing some of [target]'s wounds"
+	var/tmsg = "[user] fixes some of [target]'s wounds"
 	var/urhealedamt_brute = brutehealing
 	var/urhealedamt_burn = burnhealing
 	var/urhealedamt_bleed = woundhealing
@@ -66,7 +66,7 @@
 			urhealedamt_brute += round((target.getBruteLoss()/ missinghpbonus),0.1)
 			urhealedamt_burn += round((target.getFireLoss()/ missinghpbonus),0.1)
 			urhealedamt_bleed += round((target.getBleedLoss()/ missinghpbonus),0.1)
-		else //less healing bonus for the dead since they're expected to have lots of damage to begin with (to make TW into defib not TOO simple)
+		else
 			urhealedamt_brute += round((target.getBruteLoss()/ (missinghpbonus*5)),0.1)
 			urhealedamt_burn += round((target.getFireLoss()/ (missinghpbonus*5)),0.1)
 			urhealedamt_bleed += round((target.getBleedLoss()/ (missinghpbonus*5)),0.1)
@@ -76,6 +76,23 @@
 		urhealedamt_bleed *= 0.55
 		umsg += " as best as you can while they have clothing on"
 		tmsg += " as best as they can while [target] has clothing on"
+
+	// Skill 1 (INT >= 6, no surgery training) caps healing to just make the target revivable
+	// They'll survive but need meds to actually recover
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(H.get_surgery_skill() == 1)
+			var/current_total = target.getBruteLoss() + target.getFireLoss()
+			var/revive_threshold = target.maxHealth * 0.15 // just above crit/death line
+			var/healable_total = max(0, current_total - revive_threshold)
+			var/heal_cap = min(1.0, healable_total / max(1, urhealedamt_brute + urhealedamt_burn))
+			urhealedamt_brute *= heal_cap
+			urhealedamt_burn *= heal_cap
+			urhealedamt_bleed *= heal_cap
+			if(heal_cap < 1.0)
+				umsg = "You crudely stabilize [target] — they'll need proper medical care to fully recover"
+				tmsg = "[user] crudely stabilizes [target]"
+
 	target.heal_bodypart_damage(urhealedamt_brute, urhealedamt_burn, bleed = urhealedamt_bleed)
 	display_results(user, target, span_notice("[umsg]."),
 		"[tmsg].",

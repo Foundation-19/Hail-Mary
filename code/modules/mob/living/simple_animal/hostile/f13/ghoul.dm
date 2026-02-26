@@ -286,6 +286,9 @@
 
 /// RAGE MODE - legendary ghoul becomes faster and deadlier at low health
 /mob/living/simple_animal/hostile/ghoul/legendary/make_low_health()
+	if(!target)
+		return // Not in combat, don't rage
+	..()
 	visible_message(span_danger("[src] howls with primal fury!!!"))
 	playsound(src, pick(aggrosound), 100, 1, SOUND_DISTANCE(15))
 	color = color_rage
@@ -306,6 +309,13 @@
 	wound_bonus = initial(wound_bonus)
 	bare_wound_bonus = initial(bare_wound_bonus)
 	is_low_health = FALSE
+
+/mob/living/simple_animal/hostile/ghoul/legendary/Aggro()
+	. = ..()
+	if(is_low_health)
+		return
+	if(health < (maxHealth * low_health_threshold))
+		make_low_health()
 
 // ============================================================
 // GLOWING GHOUL

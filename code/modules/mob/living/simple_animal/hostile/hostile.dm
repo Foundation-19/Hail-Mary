@@ -1539,6 +1539,9 @@
 			var/effective_range = get_effective_vision_range(A)
 			var/actual_distance = get_dist(src, A)
 			if(actual_distance <= effective_range)
+				if(ishuman(A))
+					if(!can_see(src, A, effective_range))
+						continue // No detection through walls, regardless of sneak mode
 				. += A
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets, HasTargetsList = 0)
