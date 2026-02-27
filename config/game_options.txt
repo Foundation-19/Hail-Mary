@@ -446,7 +446,7 @@ SILICON_MAX_LAW_AMOUNT 12
 ROUNDSTART_RACES human
 ROUNDSTART_RACES ghoul
 ROUNDSTART_RACES smutant
-
+ROUNDSTART_RACES c27
 
 ##-------------------------------------------------------------------------------------------
 

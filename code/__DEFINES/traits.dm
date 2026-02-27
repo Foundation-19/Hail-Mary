@@ -312,6 +312,8 @@
 #define TRAIT_TECHNOPHREAK		"technophreak"	//boosts salvage return
 #define TRAIT_WEAPONCRAFTING	"weapon_crafting"	// You spawn with various unlocked gun/armor crafts
 #define TRAIT_PA_WEAR           "pa_wear" //guess
+#define TRAIT_C27           "c27_wear" //guess
+#define TRAIT_MEDICALEXPERT		"Medicinal Expert" //Can do revival surgery
 #define TRAIT_MEDICALGRADUATE		"Medical Graduate" //generalised offmap medschool graduation training
 #define TRAIT_BRAINWASH_SURGERY	"brainwash_surgeon" //Can do harmful experimental surguries
 #define TRAIT_CYBERNETICIST		"Cyberneticist" //Utilizes powerful cybernetics
