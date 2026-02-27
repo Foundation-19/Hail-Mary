@@ -3,55 +3,55 @@
 // ============================================================
 
 // 4-letter words (Very Easy)
-var/global/list/HACK_WORDS_4 = list(
+GLOBAL_LIST_INIT(HACK_WORDS_4, list(
 	"ATOM","BUNK","CAPS","DART","ECHO","FUSE","GLOW","HACK",
 	"IRON","JUNK","KERN","LOOT","MOLE","NUKE","OPEN","PERK",
 	"QUIZ","RUST","SAFE","TUBE","UNIT","VENT","WATT","XRAY",
 	"YARD","ZERO","ACID","BOLT","CHIP","DEAD","FIRE","GORE",
 	"HIVE","IDOL","JADE","KILL","LAMP","MIRE","NODE","ORAL"
-)
+))
 
 // 5-letter words (Easy)
-var/global/list/HACK_WORDS_5 = list(
+GLOBAL_LIST_INIT(HACK_WORDS_5, list(
 	"ALARM","BLEED","CRATE","DRONE","EMBER","FLARE","GHOUL","HAVOC",
 	"IDEAL","JADED","KARMA","LASER","MUTIE","NINJA","OPTIC","PINCH",
 	"QUOTA","RADON","SIREN","TURBO","ULTRA","VAULT","WASTE","XENON",
 	"YIELD","ZONED","AMMON","BRACE","CRAFT","DECAY","EXILE","FORGE",
 	"GUARD","HAUNT","INGOT","JUICE","KNEEL","LANCE","METRO","NERVE"
-)
+))
 
 // 6-letter words (Average)
-var/global/list/HACK_WORDS_6 = list(
+GLOBAL_LIST_INIT(HACK_WORDS_6, list(
 	"ATOMIC","BANDIT","CAPPED","DEACON","ENERGY","FUSION","GHETTO","HUNTER",
 	"INMATE","JOCKEY","RADWST","LAUNCH","MIASMA","NAPALM","OUTLAW","PISTOL",
 	"QUARTZ","RADIUM","SENTRY","TURRET","UNDEAD","VENDOR","WANTED","XENIAL",
 	"ZEALOT","AMBUSH","BLIGHT","CINDER","DUSTER","FAMINE","GAMBLE","HAVENS",
 	"INTAKE","JACKAL","KETTLE","LETHAL","MUTANT","NOODLE","OFFSET","PLASMA"
-)
+))
 
 // 8-letter words (Hard)
-var/global/list/HACK_WORDS_8 = list(
+GLOBAL_LIST_INIT(HACK_WORDS_8, list(
 	"ATOMFALL","BUNKERED","CAPSTONE","DEADZONE","ELECTRON","FIREBOMB",
 	"GREYZONE","HALFLIFE","INFRARED","JUNKYARD","KILOWATT","LOCKDOWN",
 	"MUTATION","NUKEFALL","OVERLOAD","PARTISAN","QUANTIZE","RADIATED",
 	"SENTINEL","TERMINAL","ULTERIOR","VAULTBOY","WASTEFUL","XELERANT",
 	"ZEROZONE","ABERRANT","BLACKOUT","CHEMICAL","DESERTER","ENDURING"
-)
+))
 
 // 10-letter words (Very Hard)
-var/global/list/HACK_WORDS_10 = list(
+GLOBAL_LIST_INIT(HACK_WORDS_10, list(
 	"ABANDONWAR","BIOHAZARDS","CONTAINMEN","DEADLOCKED","ENCLAVECOD",
 	"FALLOUTZON","GROUNDZERO","HACKTHRUGH","IRRADIATON","JUNKPILWAR",
 	"KINETICALY","LIQUIDATON","MILITIABAS","NEUTRALIZE","OUTCASTZON",
 	"PRIVATEERZ","QUARANTINE","RADIOACTIV","SURVIVALIS","TURRETFILD",
 	"UNDERGROND","VAULTDWELR","WASTECRAFR","XENOBIOLGC","ZEROTOLERC"
-)
+))
 
 // Junk characters for hex column padding
-var/global/list/HACK_JUNK_CHARS = list(
+GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	"!","@","#","$","%","^","&","*","=","+","-","_",
 	"|","\\","/","?","~","`",":",";","'","\"",",","."
-)
+))
 
 // Column rendering constants (lore-accurate Fallout layout)
 #define HACK_COLS 12  // Characters per line (excluding hex address)
@@ -969,12 +969,12 @@ var/global/list/HACK_JUNK_CHARS = list(
 
 /obj/machinery/computer/terminal/proc/get_difficulty_config()
 	switch(hack_difficulty)
-		if(0) return list(HACK_WORDS_4,  8,  4, 1, "VERY EASY")
-		if(1) return list(HACK_WORDS_5,  8,  4, 2, "EASY")
-		if(2) return list(HACK_WORDS_6,  10, 4, 3, "AVERAGE")
-		if(3) return list(HACK_WORDS_8,  12, 3, 5, "HARD")
-		if(4) return list(HACK_WORDS_10, 12, 3, 7, "VERY HARD")
-	return list(HACK_WORDS_6, 10, 4, 3, "AVERAGE")
+		if(0) return list(GLOB.HACK_WORDS_4,  8,  4, 1, "VERY EASY")
+		if(1) return list(GLOB.HACK_WORDS_5,  8,  4, 2, "EASY")
+		if(2) return list(GLOB.HACK_WORDS_6,  10, 4, 3, "AVERAGE")
+		if(3) return list(GLOB.HACK_WORDS_8,  12, 3, 5, "HARD")
+		if(4) return list(GLOB.HACK_WORDS_10, 12, 3, 7, "VERY HARD")
+	return list(GLOB.HACK_WORDS_6, 10, 4, 3, "AVERAGE")
 
 /obj/machinery/computer/terminal/proc/calc_attempts_from_int(mob/living/user)
 	var/list/cfg = get_difficulty_config()
@@ -1038,7 +1038,7 @@ var/global/list/HACK_JUNK_CHARS = list(
 /obj/machinery/computer/terminal/proc/gen_junk(len)
 	var/result = ""
 	for(var/i = 1 to len)
-		result += pick(HACK_JUNK_CHARS)
+		result += pick(GLOB.HACK_JUNK_CHARS)
 	return result
 
 /obj/machinery/computer/terminal/proc/gen_junk_column(lines, bracket_type)
@@ -1103,12 +1103,12 @@ var/global/list/HACK_JUNK_CHARS = list(
 	if(!place_bracket)
 		var/line = ""
 		for(var/i = 1 to HACK_COLS)
-			line += pick(HACK_JUNK_CHARS)
+			line += pick(GLOB.HACK_JUNK_CHARS)
 		return list(line, 0, 0)
 	var/inner_count = rand(1, 2)
 	var/inner_chars = ""
 	for(var/i = 1 to inner_count)
-		inner_chars += pick(HACK_JUNK_CHARS)
+		inner_chars += pick(GLOB.HACK_JUNK_CHARS)
 		if(i < inner_count) inner_chars += " "
 	var/bstyle  = pick("()", "[]", "{}", "<>")
 	var/bopen   = copytext(bstyle, 1, 2)
@@ -1120,16 +1120,16 @@ var/global/list/HACK_JUNK_CHARS = list(
 	if(junk_budget < 0)
 		var/line = ""
 		for(var/i = 1 to HACK_COLS)
-			line += pick(HACK_JUNK_CHARS)
+			line += pick(GLOB.HACK_JUNK_CHARS)
 		return list(line, 0, 0)
 	var/pre_len  = round(rand(0, junk_budget))
 	var/post_len = junk_budget - pre_len
 	var/pre_junk = ""
 	for(var/i = 1 to pre_len)
-		pre_junk += pick(HACK_JUNK_CHARS)
+		pre_junk += pick(GLOB.HACK_JUNK_CHARS)
 	var/post_junk = ""
 	for(var/i = 1 to post_len)
-		post_junk += pick(HACK_JUNK_CHARS)
+		post_junk += pick(GLOB.HACK_JUNK_CHARS)
 	var/full_line = pre_junk + bracket_str + post_junk
 	return list(full_line, pre_len + 1, pre_len + bracket_vis)
 
@@ -1154,10 +1154,10 @@ var/global/list/HACK_JUNK_CHARS = list(
 
 	var/pre_junk = ""
 	for(var/i = 1 to pre_len)
-		pre_junk += pick(HACK_JUNK_CHARS)
+		pre_junk += pick(GLOB.HACK_JUNK_CHARS)
 	var/post_junk = ""
 	for(var/i = 1 to post_len)
-		post_junk += pick(HACK_JUNK_CHARS)
+		post_junk += pick(GLOB.HACK_JUNK_CHARS)
 
 	return list(pre_junk, display_word, post_junk, vis_width)
 
@@ -1284,7 +1284,7 @@ var/global/list/HACK_JUNK_CHARS = list(
 					var/widx = text2num(copytext(rtype, 6))
 					if(widx < 1 || widx > col_words.len)
 						for(var/j = 1 to HACK_COLS)
-							dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(HACK_JUNK_CHARS)]</a>"
+							dat += "<a href='byond://?src=[REF(src)];choice=hack_junk'>[pick(GLOB.HACK_JUNK_CHARS)]</a>"
 					else
 						var/w          = col_words[widx]
 						var/list/parts = gen_word_line(w)
