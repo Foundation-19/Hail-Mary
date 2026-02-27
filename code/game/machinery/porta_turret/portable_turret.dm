@@ -633,6 +633,10 @@
 			if(in_faction(potential_target))
 				continue
 
+		/// Skip personnel registered on the terminal ID whitelist
+		if(is_whitelisted(potential_target))
+			continue
+
 		/// If its got a client, add it
 		if(turret_flags & TF_SHOOT_PLAYERS)
 			if(potential_target.client)
@@ -956,6 +960,9 @@
 			continue // Stop stop, he's already asleep!
 		if(IS_STAMCRIT(person))
 			continue // Stop stop, he's stamcritted to shit!
+		/// Skip personnel registered on the terminal ID whitelist
+		if(is_whitelisted(person))
+			continue
 		return person
 	return turf_has_nobody_on_it ? the_turf : null
 

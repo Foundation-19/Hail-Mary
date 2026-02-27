@@ -130,6 +130,8 @@ var/global/list/HACK_JUNK_CHARS = list(
 	var/turret_detail_ref     = null
 	/// When non-null, the next ID card swiped will be registered to this turret's whitelist
 	var/pending_whitelist_tref = null
+	/// When non-null, the next ID card swiped will register its faction to this turret
+	var/pending_faction_tref = null
 
 /obj/machinery/computer/terminal/Initialize()
 	. = ..()
@@ -327,14 +329,9 @@ var/global/list/HACK_JUNK_CHARS = list(
 		if("turret_add_faction")
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T)
-				var/new_faction = input(U, "Enter faction tag to add (e.g. 'neutral', 'raider', 'wastebot', 'turret'):", "Add Faction", "") as text|null
-				if(new_faction && !QDELETED(T))
-					new_faction = lowertext(trim(new_faction))
-					if(!T.faction) T.faction = list()
-					if(!(new_faction in T.faction))
-						T.faction += new_faction
-						to_chat(U, span_notice("Faction '[new_faction]' registered."))
-				mode = 5
+				pending_faction_tref = REF(T)
+				to_chat(U, span_notice("Swipe an ID card on the terminal to register its faction to [T.name]."))
+			mode = 5
 		if("turret_remove_faction")
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T && T.faction)
@@ -373,6 +370,8 @@ var/global/list/HACK_JUNK_CHARS = list(
 			to_chat(U, span_notice("Ready to register. Swipe an ID card on the terminal."))
 		if("turret_whitelist_cancel")
 			pending_whitelist_tref = null
+		if("turret_faction_cancel")
+			pending_faction_tref = null
 		if("turret_whitelist_remove")
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T)
@@ -799,8 +798,13 @@ var/global/list/HACK_JUNK_CHARS = list(
 // TURRET WHITELIST HELPERS
 // ============================================================
 
-/// Called when an ID card is swiped on the terminal while pending_whitelist_tref is set.
+/// Called when an ID card is swiped on the terminal.
+/// Handles both whitelist registration and faction registration depending on pending state.
 /obj/machinery/computer/terminal/proc/register_id_to_whitelist(obj/item/card/id/card, mob/user)
+	// Faction registration takes priority
+	if(pending_faction_tref)
+		register_id_faction(card, user)
+		return
 	if(!pending_whitelist_tref)
 		to_chat(user, span_warning("No turret is waiting for an ID card. Use the terminal UI to start registration."))
 		return
@@ -824,6 +828,72 @@ var/global/list/HACK_JUNK_CHARS = list(
 		to_chat(user, span_nicegreen("Registered [person_name] to [T.name]'s personnel whitelist."))
 	pending_whitelist_tref = null
 	updateUsrDialog()
+
+/// Called when an ID card is swiped to register its faction to a turret.
+/// Maps the card's assignment (job title) to a Fallout 13 faction define.
+/obj/machinery/computer/terminal/proc/register_id_faction(obj/item/card/id/card, mob/user)
+	var/obj/machinery/porta_turret/T = get_linked_turret(pending_faction_tref)
+	pending_faction_tref = null
+	if(!T)
+		to_chat(user, span_warning("Target turret no longer linked."))
+		return
+	// Map card assignment to faction tag using the Fallout 13 defines
+	var/faction_tag = get_faction_from_card(card)
+	if(!faction_tag)
+		to_chat(user, span_warning("Could not determine faction from this ID card. The assignment '[card.assignment ? card.assignment : "(blank)"]' is not recognised."))
+		return
+	if(!T.faction) T.faction = list()
+	if(faction_tag in T.faction)
+		to_chat(user, span_warning("[faction_tag] is already in [T.name]'s faction list."))
+		return
+	T.faction += faction_tag
+	to_chat(user, span_nicegreen("Registered faction '[faction_tag]' to [T.name] based on ID card: [card.registered_name ? card.registered_name : "(unnamed)"] ([card.assignment])."))
+	updateUsrDialog()
+
+/// Maps a card's assignment string to a canonical Fallout 13 faction tag.
+/// Returns null if the assignment doesn't match any known faction.
+/obj/machinery/computer/terminal/proc/get_faction_from_card(obj/item/card/id/card)
+	if(!card.assignment) return null
+	var/assign = lowertext(trim(card.assignment))
+	// NCR / Rangers
+	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger") && !findtext(assign, "veteran"))
+		return FACTION_NCR
+	if(findtext(assign, "veteran ranger") || findtext(assign, "vet ranger"))
+		return FACTION_RANGER
+	// Legion
+	if(findtext(assign, "legion") || findtext(assign, "centurion") || findtext(assign, "prime") || findtext(assign, "recruit medallion") || findtext(assign, "veteran medallion") || findtext(assign, "auxilia"))
+		return FACTION_LEGION
+	// Brotherhood of Steel
+	if(findtext(assign, "brotherhood") || findtext(assign, "bos") || findtext(assign, "paladin") || findtext(assign, "knight") || findtext(assign, "scribe") || findtext(assign, "elder"))
+		return FACTION_BROTHERHOOD
+	// Enclave
+	if(findtext(assign, "enclave") || findtext(assign, "us officer") || findtext(assign, "us dogtag") || findtext(assign, "american"))
+		return FACTION_ENCLAVE
+	// Town / Eastwood
+	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff") || findtext(assign, "deputy"))
+		return FACTION_EASTWOOD
+	// Raiders
+	if(findtext(assign, "raider") || findtext(assign, "outlaw") || findtext(assign, "bandit"))
+		return FACTION_RAIDERS
+	// Great Khans
+	if(findtext(assign, "khan"))
+		return FACTION_KHAN
+	// Super Mutants
+	if(findtext(assign, "mutant"))
+		return FACTION_SMUTANT
+	// Vault
+	if(findtext(assign, "vault") || findtext(assign, "overseer") || findtext(assign, "dweller"))
+		return FACTION_VAULT
+	// Followers
+	if(findtext(assign, "follower"))
+		return FACTION_FOLLOWERS
+	// Tribe
+	if(findtext(assign, "tribe") || findtext(assign, "tribal") || findtext(assign, "talisman"))
+		return FACTION_TRIBE
+	// Wastelander catch-all
+	if(findtext(assign, "waster") || findtext(assign, "wastelander") || findtext(assign, "survivor") || findtext(assign, "scavenger"))
+		return FACTION_WASTELAND
+	return null
 
 /// Remove a name from a turret's whitelist.
 /obj/machinery/computer/terminal/proc/turret_whitelist_remove(obj/machinery/porta_turret/T, entry, mob/user)
@@ -1066,33 +1136,29 @@ var/global/list/HACK_JUNK_CHARS = list(
 // ── Word line builder
 /obj/machinery/computer/terminal/proc/gen_word_line(word)
 	var/wlen = length(word)
+
+	// Always space letters: "LETHAL" -> "L E T H A L "
+	// Spaces are free — junk budget is based on wlen, not visual width.
+	// Long words (8+) just have zero junk padding, which is fine.
 	var/spaced_width = (wlen > 1) ? (2 * wlen - 1) : wlen
 	var/display_word = ""
-	var/vis_width    = 0
-	if(spaced_width <= HACK_COLS)
-		// Word fits with spaces between letters (short words, 1-6 letters)
-		for(var/i = 1 to wlen)
-			display_word += copytext(word, i, i + 1)
-			if(i < wlen) display_word += " "
-		vis_width = spaced_width
-	else if(wlen <= HACK_COLS)
-		// Too long to space but fits plain (7-12 letters)
-		display_word = word
-		vis_width    = wlen
-	else
-		// Truncate to column width
-		display_word = copytext(word, 1, HACK_COLS + 1)
-		vis_width    = HACK_COLS
-	// Junk padding uses vis_width (the actual rendered width) not raw wlen
-	var/junk_budget = max(0, HACK_COLS - vis_width)
+	for(var/i = 1 to wlen)
+		display_word += copytext(word, i, i + 1)
+		display_word += " " // trailing space after every letter, including last
+	var/vis_width = spaced_width
+
+	// Junk budget = HACK_COLS - wlen (spaces are free, don't eat junk slots)
+	var/junk_budget = max(0, HACK_COLS - wlen)
 	var/pre_len     = junk_budget ? round(rand(0, junk_budget)) : 0
 	var/post_len    = junk_budget - pre_len
+
 	var/pre_junk = ""
 	for(var/i = 1 to pre_len)
 		pre_junk += pick(HACK_JUNK_CHARS)
 	var/post_junk = ""
 	for(var/i = 1 to post_len)
 		post_junk += pick(HACK_JUNK_CHARS)
+
 	return list(pre_junk, display_word, post_junk, vis_width)
 
 // ── Junk to clickable
@@ -1119,7 +1185,6 @@ var/global/list/HACK_JUNK_CHARS = list(
 
 	var/list/cfg  = get_difficulty_config()
 	var/diff_name = cfg[5]
-
 	var/dat = "<head><style>"
 	dat += "body{padding:0;margin:10px;background-color:#062113;color:#4aed92;"
 	dat += "font-family:'Courier New',Courier,monospace;font-size:13px;line-height:1.3;}"
@@ -1169,6 +1234,7 @@ var/global/list/HACK_JUNK_CHARS = list(
 		dat += "<br>"
 
 		// ── Build columns
+
 		var/mid = round(hack_words.len / 2)
 		var/list/left_words  = list()
 		var/list/right_words = list()
@@ -1372,9 +1438,10 @@ var/global/list/HACK_JUNK_CHARS = list(
 	if(!user)
 		return
 
-	// Must be holding a hacking device
-	var/obj/item/hacking_device/H = user.get_active_held_item()
-	if(!istype(H))
+	// Must be holding a hacking device — use untyped var to avoid forward-reference errors
+	// (hacking_device.dm may be compiled after terminal.dm)
+	var/obj/item/H = user.get_active_held_item()
+	if(!istype(H, /obj/item/hacking_device))
 		to_chat(user, span_warning("You need a hacking device to bypass the lockout."))
 		return
 
@@ -1382,7 +1449,7 @@ var/global/list/HACK_JUNK_CHARS = list(
 	var/int_val = istype(user) ? user.special_i : 5
 	if(int_val <= 4)
 		to_chat(user, span_warning("You wave the hacking device at the terminal helplessly. You have no idea what you're doing."))
-		H.play_denied_anim()
+		call(H, "play_denied_anim")()
 		return
 
 	// Determine time and success chance from INT
@@ -1395,21 +1462,21 @@ var/global/list/HACK_JUNK_CHARS = list(
 		repair_time    = 20 SECONDS
 		success_chance = 65
 
-	H.start_working_anim()
+	call(H, "start_working_anim")()
 	user.visible_message(
 		span_notice("[user] connects a hacking device to the terminal and starts working..."),
 		span_notice("You start attempting to bypass the terminal lockout. This will take a moment.")
 	)
 
 	if(!do_after(user, repair_time, target = src))
-		H.stop_working_anim()
+		call(H, "stop_working_anim")()
 		to_chat(user, span_warning("You were interrupted."))
 		return
 
-	H.stop_working_anim()
+	call(H, "stop_working_anim")()
 
 	if(!prob(success_chance))
-		H.play_denied_anim()
+		call(H, "play_denied_anim")()
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, FALSE)
 		to_chat(user, span_warning("The terminal rejects the bypass. Try again."))
 		if(!hack_history) hack_history = list()
