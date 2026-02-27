@@ -49,6 +49,13 @@
 #define GHOUL_COMBAT_TIMEOUT        100    // 10 seconds - time since last combat damage to count as "in combat"
 #define GHOUL_COMBAT_COOLDOWN_MULT  0.5    // Cooldown multiplier when in combat (50% = half cooldown time)
 
+// -------------------------
+// SURGE ACTION MODES
+// -------------------------
+#define SURGE_MODE_OFF    0
+#define SURGE_MODE_SINGLE 1
+#define SURGE_MODE_TOGGLE 2
+
 // Radiation CONSUMPTION during healing (this is your FUEL)
 #define GHOUL_RAD_CONSUME_BASE      2.0    // Radiation consumed per healing tick (LOWERED)
 #define GHOUL_RAD_CONSUME_HEAVY     4.0    // Extra consumption when heavily injured (LOWERED)
