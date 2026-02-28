@@ -5,6 +5,11 @@
 	icon_state = "robot"
 	bubble_icon = "robot"
 
+	/// CPU Certification datum. Defines this robot's capabilities and upgrade slots.
+	/// Set at mapspawn via subtype or installed via cert_card/base at runtime.
+	var/datum/cpu_cert/cpu_cert = null
+	var/cert_armor_bonus = 0
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 
@@ -71,6 +76,12 @@
 	aicamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	toner = tonermax
 	diag_hud_set_borgcell()
+
+	// CPU Cert initialization.
+	// If a subtype has pre-defined a cert, apply it now.
+	// Otherwise the robot waits for a cert_card/base to be installed.
+	if(cpu_cert)
+		cpu_cert.apply_to_holder(src)
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
@@ -195,6 +206,11 @@
 				U.forceMove(T)
 		upgrades.Cut()
 	upgrades = null
+
+	// Clean up cpu_cert datum
+	if(cpu_cert)
+		qdel(cpu_cert)
+	cpu_cert = null
 
 	// Clear the cell reference (don't qdel, it's been moved or should be handled by robot_suit)
 	cell = null
@@ -568,6 +584,14 @@
 			else
 				to_chat(user, span_danger("Access denied."))
 
+	else if(istype(W, /obj/item/cert_card))
+		if(!opened)
+			to_chat(user, span_warning("You must access the borg's internals!"))
+			return
+		var/obj/item/cert_card/card = W
+		card.try_apply_to_robot(src, user)
+
+	// Legacy SS13 upgrade support — kept for backwards compat during transition
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
@@ -880,9 +904,9 @@
 	scrambledcodes = TRUE // These are rogue borgs.
 	ionpulse = TRUE
 	var/playstyle_string = "<span class='big bold'>You are a Syndicate assault cyborg!</span><br>\
-							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
-							<i>Help the operatives secure the disk at all costs!</i></b>"
+						<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
+						Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
+						<i>Help the operatives secure the disk at all costs!</i></b>"
 	set_module = /obj/item/robot_module/syndicate
 
 /mob/living/silicon/robot/modules/syndicate/Initialize()
@@ -902,22 +926,22 @@
 /mob/living/silicon/robot/modules/syndicate/medical
 	icon_state = "synd_medical"
 	playstyle_string = "<span class='big bold'>You are a Syndicate medical cyborg!</span><br>\
-						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
-						Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
-						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
+					<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
+					Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
+					Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
+					Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
+					<i>Help the operatives secure the disk at all costs!</i></b>"
 	set_module = /obj/item/robot_module/syndicate_medical
 
 /mob/living/silicon/robot/modules/syndicate/saboteur
 	icon_state = "synd_engi"
 	playstyle_string = "<span class='big bold'>You are a Syndicate saboteur cyborg!</span><br>\
-						<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your destination tagger will allow you to stealthily traverse the disposal network across the station \
-						Your welder will allow you to repair the operatives' exosuits, but also yourself and your fellow cyborgs \
-						Your cyborg chameleon projector allows you to assume the appearance and registered name of a Nanotrasen engineering borg, and undertake covert actions on the station \
-						Be aware that almost any physical contact or incidental damage will break your camouflage \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
+					<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
+					Your destination tagger will allow you to stealthily traverse the disposal network across the station \
+					Your welder will allow you to repair the operatives' exosuits, but also yourself and your fellow cyborgs \
+					Your cyborg chameleon projector allows you to assume the appearance and registered name of a Nanotrasen engineering borg, and undertake covert actions on the station \
+					Be aware that almost any physical contact or incidental damage will break your camouflage \
+					<i>Help the operatives secure the disk at all costs!</i></b>"
 	set_module = /obj/item/robot_module/saboteur
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
@@ -1054,12 +1078,17 @@
 		update_transform()
 	module.transform_to(/obj/item/robot_module)
 
-	// Remove upgrades.
+	// Remove legacy SS13 upgrades.
 	for(var/obj/item/borg/upgrade/I in upgrades)
 		I.deactivate(src)
 		I.forceMove(get_turf(src))
 
 	upgrades.Cut()
+
+	// Strip cert upgrades back to cards and drop them.
+	// NPC certs (CERT_LOCKED) skip this entirely.
+	if(cpu_cert && !(cpu_cert.capability_flags & CERT_LOCKED))
+		cpu_cert.strip_all_upgrades(src, get_turf(src))
 
 	speed = 0
 	ionpulse = FALSE
