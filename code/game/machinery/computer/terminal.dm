@@ -124,10 +124,16 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	var/on_hack_success     = null
 
 	// ── Security linkage
-	var/list/linked_door_ids  = null
-	var/list/linked_buttons   = null
-	var/list/linked_turrets   = null
+	var/list/linked_door_ids  = null  // List of airlock id strings — set in map editor
+	var/list/linked_buttons   = null  // Live button refs — populated at runtime
+	var/list/linked_turrets   = null  // Live turret refs — populated at runtime
 	var/turret_detail_ref     = null
+
+	// ── Map-editor linkage vars (resolved to live refs in Initialize)
+	/// Comma-separated button IDs to auto-link on init, e.g. "btn_vault,btn_armory"
+	var/map_button_ids  = null
+	/// Comma-separated turret tag strings to auto-link on init, e.g. "turret_guard,turret_east"
+	var/map_turret_tags = null
 	/// When non-null, the next ID card swiped will be registered to this turret's whitelist
 	var/pending_whitelist_tref = null
 	/// When non-null, the next ID card swiped will register its faction to this turret
@@ -140,6 +146,60 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 		termnumber = rand(69,420)
 	else
 		desc = "[initial(desc)] Unfortunately, this one seems to have broken down."
+	write_documents()
+	resolve_map_links()
+
+/* 
+
+MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
+
+/obj/machinery/computer/terminal/vault_security{
+    // Hacking difficulty and tag
+    termtag = "Security"
+    hack_difficulty = 3          // HARD
+
+    // Airlocks — matched by their var/id
+    linked_door_ids = list("vault_main", "vault_armory")
+
+    // Buttons — matched by their var/id (same id as the airlocks they control)
+    map_button_ids = "btn_main,btn_armory"
+
+    // Turrets — matched by their var/tag (set tag on each turret in the map editor)
+    map_turret_tags = "turret_entrance,turret_east_hall"
+
+    // Documents
+    doc_title_1 = "SECURITY PROTOCOLS"
+    doc_content_1 = "All personnel must be screened..."
+}
+
+*/
+
+/obj/machinery/computer/terminal/proc/resolve_map_links()
+	// Resolve map_button_ids -> linked_buttons
+	// Accepts a comma-separated list of button id strings matching var/id on /obj/machinery/button/door
+	if(map_button_ids && length(map_button_ids))
+		if(!linked_buttons) linked_buttons = list()
+		var/list/ids = splittext(map_button_ids, ",")
+		for(var/raw_id in ids)
+			var/target_id = trim(raw_id)
+			if(!length(target_id)) continue
+			for(var/obj/machinery/button/door/B in world)
+				if(B.vars["id"] == target_id)
+					if(!(B in linked_buttons))
+						linked_buttons += B
+
+	// Resolve map_turret_tags -> linked_turrets
+	// Accepts a comma-separated list of strings matching var/tag on porta_turret
+	if(map_turret_tags && length(map_turret_tags))
+		if(!linked_turrets) linked_turrets = list()
+		var/list/tags = splittext(map_turret_tags, ",")
+		for(var/raw_tag in tags)
+			var/target_tag = trim(raw_tag)
+			if(!length(target_tag)) continue
+			for(var/obj/machinery/porta_turret/T in world)
+				if(T.tag == target_tag)
+					if(!(T in linked_turrets))
+						linked_turrets += T
 
 // ============================================================
 // SHARED CSS HELPER
@@ -193,8 +253,9 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 				dat += "TERMINAL FUNCTIONS"
 				dat += "<br><a href='byond://?src=[REF(src)];choice=1'>&gt;  Word Processor</a>"
 				dat += "<br>"
-			dat += "<br>FILE SYSTEM"
-			dat += render_document_list()
+			if(terminal_documents && terminal_documents.len)
+				dat += "<br>FILE SYSTEM"
+				dat += render_document_list()
 			dat += render_security_menu_items()
 			dat += render_admin_menu_item(user)
 
@@ -1177,7 +1238,22 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 /obj/machinery/computer/terminal/proc/render_lock_screen(mob/user)
 	if(istype(user, /mob/living) && !hack_locked_out && !hack_solved)
 		var/mob/living/L = user
-		if(!check_int_gate(L)) return
+		if(!check_int_gate(L))
+			// Show a proper ACCESS DENIED screen instead of silently doing nothing
+			var/list/cfg = get_difficulty_config()
+			var/min_int = cfg[4]
+			var/denied_dat = get_terminal_css()
+			denied_dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+			denied_dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br>"
+			denied_dat += "= [termtag ? termtag : "BUSINESS"] TERMINAL [termnumber] =</center><br>"
+			denied_dat += "<center><span class='bad'>*** ACCESS DENIED ***</span><br><br>"
+			denied_dat += "<span class='dim'>THIS TERMINAL REQUIRES INTELLIGENCE [min_int] OR HIGHER.</span><br>"
+			denied_dat += "<span class='dim'>YOUR CURRENT INTELLIGENCE IS INSUFFICIENT.</span><br><br>"
+			denied_dat += "<span class='dim'>&gt; AUTHORIZATION FAILURE. INCIDENT LOGGED.</span></center>"
+			var/datum/browser/denied_popup = new(user, "terminal", null, 620, 540)
+			denied_popup.set_content(denied_dat)
+			denied_popup.open()
+			return
 
 	if(!hack_words || !hack_words.len)
 		if(istype(user, /mob/living)) init_hack(user)
@@ -1338,6 +1414,7 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 
 /obj/machinery/computer/terminal/proc/process_hack_attempt(mob/living/user, word)
 	if(!locked || hack_solved || hack_locked_out || !user) return
+	if(!check_int_gate(user)) return
 	if(!word || !(word in hack_words) || (word in hack_removed)) return
 	if(!(word in hack_duds) && word != hack_answer) return
 
@@ -1389,6 +1466,7 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 
 /obj/machinery/computer/terminal/proc/process_hack_junk_click(mob/living/user)
 	if(!locked || hack_solved || hack_locked_out || !user) return
+	if(!check_int_gate(user)) return
 	if(!hack_history) hack_history = list()
 	hack_history += "&gt;Entry denied."
 	hack_history += "&gt;Invalid selection."
