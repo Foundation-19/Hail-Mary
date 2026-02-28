@@ -154,22 +154,22 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 /obj/machinery/computer/terminal/vault_security{
-    // Hacking difficulty and tag
-    termtag = "Security"
-    hack_difficulty = 3          // HARD
+	// Hacking difficulty and tag
+	termtag = "Security"
+	hack_difficulty = 3          // HARD
 
-    // Airlocks — matched by their var/id
-    linked_door_ids = list("vault_main", "vault_armory")
+	// Airlocks — matched by their var/id
+	linked_door_ids = list("vault_main", "vault_armory")
 
-    // Buttons — matched by their var/id (same id as the airlocks they control)
-    map_button_ids = "btn_main,btn_armory"
+	// Buttons — matched by their var/id (same id as the airlocks they control)
+	map_button_ids = "btn_main,btn_armory"
 
-    // Turrets — matched by their var/tag (set tag on each turret in the map editor)
-    map_turret_tags = "turret_entrance,turret_east_hall"
+	// Turrets — matched by their var/tag (set tag on each turret in the map editor)
+	map_turret_tags = "turret_entrance,turret_east_hall"
 
-    // Documents
-    doc_title_1 = "SECURITY PROTOCOLS"
-    doc_content_1 = "All personnel must be screened..."
+	// Documents
+	doc_title_1 = "SECURITY PROTOCOLS"
+	doc_content_1 = "All personnel must be screened..."
 }
 
 */
