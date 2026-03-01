@@ -1,6 +1,15 @@
 // ====================================================
 // CPU CERT FABRICATOR
-// Lathe-style machine for printing cert cards.
+// Lathe-style machine for printing cert cards and
+// behavior assemblies.
+//
+// Behavior assembly printing requires:
+//   1. TRAIT_ROBOT_WHISPERER on the user
+//   2. special_i >= required_int (min 6)
+//
+// Builder's SPECIAL is snapshotted at print time:
+//   - PER → sensor_range on the assembly (base 5 + bonus)
+//   - LCK → chance of +1 circuit slot (LCK 7+)
 //
 // File: code/modules/research/cpu_fabricator.dm
 // ====================================================
@@ -45,6 +54,14 @@
 	designs += new /datum/cpu_fab_design/upgrade/emp_shielding()
 	designs += new /datum/cpu_fab_design/upgrade/hacking_module()
 
+	// Behavior assemblies — gated behind Robot Whisperer + INT
+	designs += new /datum/cpu_fab_design/behavior/sentry()
+	designs += new /datum/cpu_fab_design/behavior/guardian()
+	designs += new /datum/cpu_fab_design/behavior/medic()
+	designs += new /datum/cpu_fab_design/behavior/watchdog()
+	designs += new /datum/cpu_fab_design/behavior/deadman()
+	designs += new /datum/cpu_fab_design/behavior/fortress()
+
 
 /obj/machinery/cpu_fabricator/Destroy()
 	designs.Cut()
@@ -69,15 +86,19 @@
 	var/list/design_data = list()
 
 	for(var/datum/cpu_fab_design/D in designs)
+		// Hide behavior assemblies from users without the quirk
+		if(D.requires_robot_whisperer && !HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
+			continue
 		var/list/costs = list()
 		for(var/mat in D.cost)
 			costs += list(list("material" = mat, "amount" = D.cost[mat]))
 		design_data += list(list(
-			"name"  = D.design_name,
-			"desc"  = D.design_desc,
-			"id"    = D.id,
-			"tier"  = D.required_tier,
-			"costs" = costs
+			"name"     = D.design_name,
+			"desc"     = D.design_desc,
+			"id"       = D.id,
+			"tier"     = D.required_tier,
+			"costs"    = costs,
+			"behavior" = D.requires_robot_whisperer
 		))
 
 	data["designs"]  = design_data
@@ -112,17 +133,54 @@
 		to_chat(user, span_warning("The fabricator is already printing."))
 		return
 
+	// Behavior assembly gates
+	if(D.requires_robot_whisperer)
+		if(!HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
+			to_chat(user, span_warning("You don't have the knowledge to program behavior assemblies."))
+			return
+		if(!ishuman(user))
+			to_chat(user, span_warning("Behavior assembly programming requires a human operator."))
+			return
+		var/mob/living/carbon/human/H = user
+		if(H.special_i < D.required_int)
+			to_chat(user, span_warning("Your Intelligence is too low to program this assembly. (Requires [D.required_int])"))
+			return
+
 	// TODO: wire material cost check into your materials system here
 
 	printing = TRUE
 	use_power(active_power_usage * 10)
 
-	addtimer(CALLBACK(src, PROC_REF(_finish_print), D, get_turf(src)), 30, TIMER_OVERRIDE)
+	// Snapshot builder SPECIAL for behavior assemblies
+	var/builder_per  = 5
+	var/builder_lck  = 5
+	var/builder_ckey = ""
+	if(D.requires_robot_whisperer && ishuman(user))
+		var/mob/living/carbon/human/H = user
+		builder_per  = H.special_p
+		builder_lck  = H.special_l
+		builder_ckey = key_name(H)
+
+	addtimer(CALLBACK(src, PROC_REF(_finish_print), D, get_turf(src), builder_per, builder_lck, builder_ckey), 30, TIMER_OVERRIDE)
 
 
-/obj/machinery/cpu_fabricator/proc/_finish_print(datum/cpu_fab_design/D, turf/T)
+/obj/machinery/cpu_fabricator/proc/_finish_print(datum/cpu_fab_design/D, turf/T, builder_per, builder_lck, builder_ckey)
 	printing = FALSE
-	new D.output_path(T)
+
+	var/atom/movable/result = new D.output_path(T)
+
+	// Apply SPECIAL snapshot to behavior assemblies
+	if(D.requires_robot_whisperer && istype(result, /obj/item/behavior_assembly))
+		var/obj/item/behavior_assembly/A = result
+		// PER → sensor range: base 5, +1 per PER above 5, max 10
+		A.sensor_range = clamp(5 + max(0, builder_per - 5), 5, 10)
+		// LCK 7+ → prob chance of +1 circuit slot
+		if(builder_lck >= 7 && prob((builder_lck - 6) * 15))
+			A.max_circuits++
+			visible_message(span_notice("[src] hums with unusual efficiency — an extra circuit slot was configured!"))
+		A.builder_ckey = builder_ckey
+		log_game("Behavior assembly '[D.design_name]' printed by [builder_ckey] — sensor_range:[A.sensor_range] max_circuits:[A.max_circuits]")
+
 	visible_message(span_notice("[src] finishes printing [D.design_name]."))
 
 
@@ -136,8 +194,11 @@
 	var/design_desc = "An unconfigured fabricator design."
 	var/id = "unknown"
 	var/required_tier = CERT_TIER_BASIC
+	var/required_int = 0
 	var/output_path = /obj/item/cert_card
 	var/list/cost = list()
+	/// If TRUE, requires TRAIT_ROBOT_WHISPERER + INT check
+	var/requires_robot_whisperer = FALSE
 
 
 // ---- Base cert designs ----
@@ -227,3 +288,51 @@
 	required_tier = CERT_TIER_MILITARY
 	output_path = /obj/item/cert_card/upgrade/hacking_module
 	cost = list("iron" = 400, "glass" = 200, "gold" = 400)
+
+
+// ---- Behavior assembly designs ----
+// All require Robot Whisperer quirk + INT 6 minimum
+
+/datum/cpu_fab_design/behavior
+	requires_robot_whisperer = TRUE
+	required_int = 6
+	cost = list("iron" = 400, "glass" = 300, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/sentry
+	design_name = "Sentry Protocol Assembly"
+	design_desc = "Automatically enters combat mode when a hostile mob is detected in sensor range."
+	id = "behavior_sentry"
+	output_path = /obj/item/behavior_assembly/sentry
+
+/datum/cpu_fab_design/behavior/guardian
+	design_name = "Guardian Protocol Assembly"
+	design_desc = "Broadcasts a distress signal when the robot takes damage."
+	id = "behavior_guardian"
+	output_path = /obj/item/behavior_assembly/guardian
+
+/datum/cpu_fab_design/behavior/medic
+	design_name = "Medic Protocol Assembly"
+	design_desc = "Activates self-repair subroutines when the robot takes damage. Requires CERT_CAN_REPAIR."
+	id = "behavior_medic"
+	output_path = /obj/item/behavior_assembly/medic
+	cost = list("iron" = 400, "glass" = 400, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/watchdog
+	design_name = "Watchdog Protocol Assembly"
+	design_desc = "Broadcasts a power warning when the robot's cell runs low."
+	id = "behavior_watchdog"
+	output_path = /obj/item/behavior_assembly/watchdog
+
+/datum/cpu_fab_design/behavior/deadman
+	design_name = "Deadman Protocol Assembly"
+	design_desc = "Broadcasts a distress signal with location when the robot is destroyed."
+	id = "behavior_deadman"
+	output_path = /obj/item/behavior_assembly/deadman
+
+/datum/cpu_fab_design/behavior/fortress
+	design_name = "Fortress Protocol Assembly"
+	design_desc = "Initiates emergency lockdown when the robot takes heavy damage."
+	id = "behavior_fortress"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/fortress
+	cost = list("iron" = 600, "glass" = 300, "gold" = 200)
