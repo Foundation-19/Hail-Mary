@@ -13,6 +13,7 @@
 #define FAB_UPGRADES   2
 #define FAB_BEHAVIORS  3
 #define FAB_CUSTOM     4
+#define FAB_REPROG     5
 
 /obj/machinery/cpu_fabricator
 	name = "CPU Certification Fabricator"
@@ -30,11 +31,13 @@
 	var/fab_mode = FAB_HOME
 	var/custom_trigger_id = null
 	var/custom_response_id = null
+	var/obj/item/behavior_assembly/inserted_assembly = null
 
 
 /obj/machinery/cpu_fabricator/Initialize(mapload)
 	. = ..()
 	_build_design_list()
+	AddComponent(/datum/component/material_container, 		list(/datum/material/iron, /datum/material/glass, /datum/material/gold, /datum/material/silver), 		MINERAL_MATERIAL_AMOUNT * 50, TRUE, 		list(/obj/item/stack))
 
 
 /obj/machinery/cpu_fabricator/proc/_build_design_list()
@@ -66,7 +69,41 @@
 
 
 /obj/machinery/cpu_fabricator/Destroy()
+	var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
+	if(mats)
+		mats.retrieve_all()
+	if(inserted_assembly)
+		inserted_assembly.forceMove(get_turf(src))
+		inserted_assembly = null
 	designs.Cut()
+	return ..()
+
+
+/obj/machinery/cpu_fabricator/attackby(obj/item/O, mob/user)
+	if(stat & (BROKEN|NOPOWER))
+		return
+	if(istype(O, /obj/item/behavior_assembly))
+		if(inserted_assembly)
+			to_chat(user, span_warning("Reprogram slot occupied. Eject the current assembly first."))
+			return TRUE
+		var/obj/item/behavior_assembly/A = O
+		if(!user.transferItemToLoc(A, src))
+			return TRUE
+		inserted_assembly = A
+		to_chat(user, span_notice("You slot [A] into the reprogramming port."))
+		fab_mode = FAB_REPROG
+		ui_interact(user)
+		return TRUE
+	if(istype(O, /obj/item/stack))
+		var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
+		if(!mats)
+			return ..()
+		if(!mats.has_space())
+			to_chat(user, span_warning("Material hopper is full."))
+			return TRUE
+		mats.user_insert(O, user)
+		ui_interact(user)
+		return TRUE
 	return ..()
 
 
@@ -82,44 +119,50 @@
 
 /obj/machinery/cpu_fabricator/proc/get_fab_css()
 	var/css = "<head><style>"
-	css += "body{padding:0;margin:15px;background:#0a0a1a;color:#7ec8e3;line-height:160%;font-family:'Courier New',Courier,monospace;}"
-	css += "a,a:link,a:visited,a:active{color:#7ec8e3;text-decoration:none;background:#0a0a1a;border:none;padding:1px 5px;margin:0 2px;cursor:default;}"
-	css += "a:hover{color:#0a0a1a;background:#7ec8e3;}"
+	css += "body{padding:0;margin:15px;background-color:#062113;color:#4aed92;line-height:170%;font-family:'Courier New',Courier,monospace;}"
+	css += "a,a:link,a:visited,a:active{color:#4aed92;text-decoration:none;background:#062113;border:none;padding:1px 4px;margin:0 2px;cursor:default;}"
+	css += "a:hover{color:#062113;background:#4aed92;}"
 	css += ".good{color:#4aed92;font-weight:bold;}"
 	css += ".bad{color:#c0392b;font-weight:bold;}"
-	css += ".dim{color:#2a4a5a;}"
+	css += ".dim{color:#2a7a52;}"
 	css += ".warn{color:#e8a020;}"
 	css += ".stat{color:#e8a020;font-weight:bold;}"
-	css += ".tab{display:inline-block;padding:2px 8px;margin:1px;border:1px solid #2a4a5a;}"
-	css += ".sel{background:#7ec8e3;color:#0a0a1a;font-weight:bold;}"
-	css += ".card{border:1px solid #2a4a5a;padding:4px 8px;margin:3px 0;}"
-	css += "hr{border:0;border-top:1px solid #2a4a5a;margin:6px 0;}"
+	css += ".card{border:1px solid #2a7a52;padding:4px 8px;margin:3px 0;}"
+	css += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
 	css += "</style></head>"
 	return css
 
 
 /obj/machinery/cpu_fabricator/proc/get_header()
-	var/h = "<center><b>ROBCO INDUSTRIES - CPU CERTIFICATION SYSTEM</b><br>"
-	h += "<b>CERT-TECH FABRICATOR v3.1</b></center><br>"
+	var/h = "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	h += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br>"
+	h += "= CPU CERTIFICATION FABRICATOR =</center><br>"
 	return h
 
 
-/obj/machinery/cpu_fabricator/proc/get_tabs(mob/user)
-	var/t = ""
-	t += _tab("Home",         FAB_HOME)
-	t += _tab("Base Certs",   FAB_CERTS)
-	t += _tab("Upgrades",     FAB_UPGRADES)
+/obj/machinery/cpu_fabricator/proc/get_nav(mob/user)
+	var/n = ""
+	n += _navlink("\[HOME\]",       FAB_HOME)
+	n += " | "
+	n += _navlink("\[CERTS\]",      FAB_CERTS)
+	n += " | "
+	n += _navlink("\[UPGRADES\]",   FAB_UPGRADES)
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
-		t += _tab("Behavior Asm.", FAB_BEHAVIORS)
-		t += _tab("Custom Build",  FAB_CUSTOM)
-	t += "<br><hr>"
-	return t
+		n += " | "
+		n += _navlink("\[BEHAVIOR\]",   FAB_BEHAVIORS)
+		n += " | "
+		n += _navlink("\[CUSTOM\]",     FAB_CUSTOM)
+	if(inserted_assembly)
+		n += " | "
+		n += _navlink("\[REPROGRAM\]",  FAB_REPROG)
+	n += "<br><hr>"
+	return n
 
 
-/obj/machinery/cpu_fabricator/proc/_tab(label, mode_id)
+/obj/machinery/cpu_fabricator/proc/_navlink(label, mode_id)
 	if(fab_mode == mode_id)
-		return "<a href='byond://?src=[REF(src)];mode=[mode_id]' class='tab sel'>[label]</a>"
-	return "<a href='byond://?src=[REF(src)];mode=[mode_id]' class='tab'>[label]</a>"
+		return "<span class='good'><b>[label]</b></span>"
+	return "<a href='byond://?src=[REF(src)];mode=[mode_id]'>[label]</a>"
 
 
 // ============================================================
@@ -130,7 +173,7 @@
 	. = ..()
 	var/dat = get_fab_css()
 	dat += get_header()
-	dat += get_tabs(user)
+	dat += get_nav(user)
 	if(printing)
 		dat += "<span class='warn'>&gt; PRINTING IN PROGRESS...</span><br><br>"
 	switch(fab_mode)
@@ -150,6 +193,11 @@
 				dat += _render_custom(user)
 			else
 				dat += "<span class='bad'>&gt; Robot Whisperer trait required.</span><br>"
+		if(FAB_REPROG)
+			if(inserted_assembly)
+				dat += _render_reprog(user)
+			else
+				dat += "<span class='bad'>&gt; No assembly in reprogramming slot.</span><br>"
 	var/datum/browser/popup = new(user, "cpu_fabricator", name, 680, 500)
 	popup.set_content(dat)
 	popup.open()
@@ -179,6 +227,20 @@
 				dat += "<span class='dim'>&gt; Luck:         [H.special_l] - no bonus slot (LCK 7+ needed)</span><br>"
 	else
 		dat += "<br><span class='dim'>&gt; Behavior assembly fabrication requires the Robot Whisperer trait.</span><br>"
+	// Assembly slot
+	if(inserted_assembly)
+		dat += "<br><b>REPROGRAM SLOT</b><br>"
+		dat += "<span class='good'>&gt; [inserted_assembly.name]</span> - <a href='byond://?src=[REF(src)];eject_assembly=1'>&gt; Eject</a><br>"
+	// Material hopper
+	var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
+	if(mats)
+		dat += "<br><b>MATERIAL HOPPER</b> - <a href='byond://?src=[REF(src)];eject_mats=1'>&gt; Eject All</a><br>"
+		var/list/mpaths = list(/datum/material/iron, /datum/material/glass, /datum/material/gold, /datum/material/silver)
+		var/list/mnames  = list("iron", "glass", "gold", "silver")
+		for(var/i in 1 to mpaths.len)
+			var/amt = mats.get_material_amount(mpaths[i]) || 0
+			dat += "<span class='dim'>&gt; [mnames[i]]: [amt] cm3</span><br>"
+		dat += "<span class='dim'>(Insert sheets to load.)</span><br>"
 	return dat
 
 
@@ -309,29 +371,48 @@
 		return
 	if(href_list["mode"])
 		fab_mode = text2num(href_list["mode"])
-		updateUsrDialog()
+		ui_interact(usr)
 		return
 	if(href_list["print"])
 		var/datum/cpu_fab_design/D = _get_design(href_list["print"])
 		if(D)
 			_print_card(D, usr)
-		updateUsrDialog()
+		ui_interact(usr)
 		return
 	if(href_list["sel_trigger"])
 		var/T = text2path(href_list["sel_trigger"])
 		if(T && ispath(T, /datum/behavior_circuit/trigger))
 			custom_trigger_id = href_list["sel_trigger"]
-		updateUsrDialog()
+		ui_interact(usr)
 		return
 	if(href_list["sel_response"])
 		var/T = text2path(href_list["sel_response"])
 		if(T && ispath(T, /datum/behavior_circuit/response))
 			custom_response_id = href_list["sel_response"]
-		updateUsrDialog()
+		ui_interact(usr)
 		return
 	if(href_list["build_custom"])
 		_build_custom(usr)
-		updateUsrDialog()
+		ui_interact(usr)
+		return
+	if(href_list["eject_assembly"])
+		if(inserted_assembly)
+			inserted_assembly.forceMove(get_turf(src))
+			to_chat(usr, span_notice("You retrieve [inserted_assembly] from the reprogramming slot."))
+			inserted_assembly = null
+			if(fab_mode == FAB_REPROG)
+				fab_mode = FAB_HOME
+		ui_interact(usr)
+		return
+	if(href_list["eject_mats"])
+		var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
+		if(mats)
+			mats.retrieve_all(get_turf(src))
+		ui_interact(usr)
+		return
+	if(href_list["reprogram"])
+		_reprogram(usr)
+		ui_interact(usr)
 		return
 
 
@@ -359,6 +440,8 @@
 		if(H.special_i < dint)
 			to_chat(user, span_warning("Intelligence too low. (Requires [dint])"))
 			return
+	if(!_spend_materials(D, user))
+		return
 	printing = TRUE
 	use_power(active_power_usage * 10)
 	var/builder_per = 5
@@ -395,6 +478,10 @@
 		log_game("Behavior assembly '[dname]' printed by [builder_ckey] (range:[arange] slots:[aslots])")
 	var/dname2 = D.design_name
 	visible_message(span_notice("[src] finishes printing [dname2]."))
+	// Re-open UI for nearby users so the print button unlocks without manual tab switch
+	for(var/mob/living/carbon/human/H in range(2, src))
+		if(H.client)
+			spawn(0) ui_interact(H)
 
 
 // ============================================================
@@ -421,6 +508,12 @@
 		return
 	if(!response_type || !ispath(response_type, /datum/behavior_circuit/response))
 		return
+	// Custom build costs materials - same base as a preset behavior assembly
+	var/datum/cpu_fab_design/behavior/dummy = new()
+	if(!_spend_materials(dummy, user))
+		qdel(dummy)
+		return
+	qdel(dummy)
 	printing = TRUE
 	use_power(active_power_usage * 10)
 	var/t_name = _resolve_circuit_name(custom_trigger_id)
@@ -450,6 +543,137 @@
 	A.circuits += RE
 	log_game("Custom assembly '[label]' ([trigger_type]->[response_type]) printed by [builder_ckey]")
 	visible_message(span_notice("[src] finishes printing: [label]."))
+	for(var/mob/living/carbon/human/H in range(2, src))
+		if(H.client)
+			spawn(0) ui_interact(H)
+
+
+// ============================================================
+// MATERIALS
+// ============================================================
+
+/obj/machinery/cpu_fabricator/proc/_mat_path(key)
+	switch(key)
+		if("iron")   return /datum/material/iron
+		if("glass")  return /datum/material/glass
+		if("gold")   return /datum/material/gold
+		if("silver") return /datum/material/silver
+	return null
+
+/obj/machinery/cpu_fabricator/proc/_spend_materials(datum/cpu_fab_design/D, mob/user)
+	if(!D.cost || !D.cost.len)
+		return TRUE
+	var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
+	if(!mats)
+		return TRUE
+	for(var/key in D.cost)
+		var/mat = _mat_path(key)
+		if(!mat)
+			continue
+		var/needed = D.cost[key]
+		var/have = mats.get_material_amount(mat) || 0
+		if(have < needed)
+			to_chat(user, span_warning("Not enough [key]. Need [needed] cm3, have [have] cm3."))
+			return FALSE
+	for(var/key in D.cost)
+		var/mat = _mat_path(key)
+		if(mat)
+			mats.use_amount_mat(D.cost[key], mat)
+	return TRUE
+
+
+// ============================================================
+// REPROGRAMMING
+// ============================================================
+
+// Reprogram cost: gold only (rerouting logic, no new chassis material needed)
+#define REPROGRAM_COST_GOLD 100
+
+/obj/machinery/cpu_fabricator/proc/_render_reprog(mob/user)
+	if(!inserted_assembly)
+		return "<span class='bad'>&gt; No assembly in reprogramming slot.</span><br>"
+	var/obj/item/behavior_assembly/A = inserted_assembly
+	var/dat = "<b>REPROGRAMMING: [A.assembly_label]</b><br>"
+	dat += "<span class='dim'>Circuits: [A.circuits.len]/[A.max_circuits] | Sensor range: [A.sensor_range] tiles</span><br>"
+	if(A.circuits.len)
+		dat += "<br><b>INSTALLED CIRCUITS:</b><br>"
+		for(var/datum/behavior_circuit/C in A.circuits)
+			dat += "<span class='dim'>&gt; [C.circuit_name]</span><br>"
+	dat += "<hr><b>SELECT NEW TRIGGER</b><br>"
+	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
+		var/datum/behavior_circuit/trigger/inst = new T
+		var/tname = inst.circuit_name
+		var/tdesc = inst.circuit_desc
+		var/tpath = "[T]"
+		qdel(inst)
+		if(custom_trigger_id == tpath)
+			dat += "<span class='good'>&gt; * [tname]</span> <span class='dim'>- [tdesc]</span><br>"
+		else
+			dat += "&gt; <a href='byond://?src=[REF(src)];sel_trigger=[tpath]'>[tname]</a> <span class='dim'>- [tdesc]</span><br>"
+	dat += "<hr><b>SELECT NEW RESPONSE</b><br>"
+	for(var/T in subtypesof(/datum/behavior_circuit/response))
+		var/datum/behavior_circuit/response/inst = new T
+		var/rname = inst.circuit_name
+		var/rdesc = inst.circuit_desc
+		var/rpath = "[T]"
+		qdel(inst)
+		if(custom_response_id == rpath)
+			dat += "<span class='good'>&gt; * [rname]</span> <span class='dim'>- [rdesc]</span><br>"
+		else
+			dat += "&gt; <a href='byond://?src=[REF(src)];sel_response=[rpath]'>[rname]</a> <span class='dim'>- [rdesc]</span><br>"
+	dat += "<hr>"
+	var/t_label = custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none)"
+	var/r_label = custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none)"
+	dat += "<span class='dim'>Trigger:  </span><span class='[custom_trigger_id ? "good" : "bad"]'>[t_label]</span><br>"
+	dat += "<span class='dim'>Response: </span><span class='[custom_response_id ? "good" : "bad"]'>[r_label]</span><br>"
+	dat += "<span class='dim'>Cost: [REPROGRAM_COST_GOLD] gold cm3</span><br>"
+	if(!printing && custom_trigger_id && custom_response_id)
+		dat += "<br><a href='byond://?src=[REF(src)];reprogram=1'>&gt; Reprogram Assembly</a><br>"
+	else if(printing)
+		dat += "<br><span class='warn'>&gt; Busy...</span><br>"
+	else
+		dat += "<br><span class='dim'>&gt; Select trigger and response to proceed.</span><br>"
+	dat += "<br><a href='byond://?src=[REF(src)];eject_assembly=1'>&gt; Eject Assembly</a><br>"
+	return dat
+
+
+/obj/machinery/cpu_fabricator/proc/_reprogram(mob/user)
+	if(!inserted_assembly || printing)
+		return
+	if(!custom_trigger_id || !custom_response_id)
+		return
+	if(!HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
+		to_chat(user, span_warning("You lack the expertise to reprogram this assembly."))
+		return
+	var/trigger_type = text2path(custom_trigger_id)
+	var/response_type = text2path(custom_response_id)
+	if(!trigger_type || !ispath(trigger_type, /datum/behavior_circuit/trigger))
+		return
+	if(!response_type || !ispath(response_type, /datum/behavior_circuit/response))
+		return
+	// Check and deduct reprogram cost
+	var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
+	if(mats)
+		var/have_gold = mats.get_material_amount(/datum/material/gold) || 0
+		if(have_gold < REPROGRAM_COST_GOLD)
+			to_chat(user, span_warning("Not enough gold. Need [REPROGRAM_COST_GOLD] cm3, have [have_gold] cm3."))
+			return
+		mats.use_amount_mat(REPROGRAM_COST_GOLD, /datum/material/gold)
+	var/obj/item/behavior_assembly/A = inserted_assembly
+	QDEL_LIST(A.circuits)
+	A.circuits = list()
+	var/datum/behavior_circuit/trigger/TR = new trigger_type()
+	var/datum/behavior_circuit/response/RE = new response_type()
+	TR.response = RE
+	A.circuits += TR
+	A.circuits += RE
+	A.assembly_label = "[_resolve_circuit_name(custom_trigger_id)] -> [_resolve_circuit_name(custom_response_id)]"
+	A.name = "behavior assembly - [A.assembly_label]"
+	custom_trigger_id = null
+	custom_response_id = null
+	to_chat(user, span_notice("Assembly reprogrammed: [A.assembly_label]."))
+	visible_message(span_notice("[src] completes a reprogramming cycle."))
+	log_game("[key_name(user)] reprogrammed assembly '[A.assembly_label]' at [AREACOORD(src)]")
 
 
 // ============================================================
@@ -694,3 +918,5 @@
 #undef FAB_UPGRADES
 #undef FAB_BEHAVIORS
 #undef FAB_CUSTOM
+#undef FAB_REPROG
+#undef REPROGRAM_COST_GOLD

@@ -58,6 +58,76 @@
 	if(circuits.len)
 		for(var/datum/behavior_circuit/C in circuits)
 			. += span_notice("  - [C.circuit_name]")
+	. += span_notice("Use it on a robot to install. Crowbar open the panel first for player-controlled robots.")
+
+
+// ====================================================
+// DIRECT INSTALLATION
+// Use the assembly on a robot to install it.
+// Player-controlled robots require open panel.
+// NPC robots (no mind) can be installed freely.
+// ====================================================
+
+/obj/item/behavior_assembly/attack(atom/target, mob/living/user)
+	if(!istype(target, /mob/living/silicon/robot))
+		return ..()
+	var/mob/living/silicon/robot/R = target
+	_try_install(R, user)
+
+/obj/item/behavior_assembly/proc/_is_npc_robot(mob/living/silicon/robot/R)
+	// NPC: no player mind and not a shell
+	return (!R.mind && !R.shell)
+
+/obj/item/behavior_assembly/proc/_try_install(mob/living/silicon/robot/R, mob/living/user)
+	var/is_npc = _is_npc_robot(R)
+	// Player robots require open panel
+	if(!is_npc && !R.opened)
+		to_chat(user, span_warning("You need to open [R]'s panel with a crowbar first."))
+		return
+	// Build cert_upgrade wrapper
+	var/datum/cert_upgrade/robot/behavior_assembly/U = new()
+	U.assembly = src
+	// Ensure the robot has a cert - NPCs get an auto-assigned standard cert
+	if(!R.cpu_cert)
+		if(is_npc)
+			R.cpu_cert = new /datum/cpu_cert/robot()
+			R.cpu_cert.apply_to_holder(R)
+			to_chat(user, span_notice("[R] has no certification - auto-applying standard chassis cert."))
+		else
+			to_chat(user, span_warning("[R] has no base certification installed. Install a base cert first."))
+			qdel(U)
+			return
+	// Check slot availability
+	var/datum/cpu_cert/C = R.cpu_cert
+	if(!C.can_install_upgrade(U))
+		to_chat(user, span_warning("No available upgrade slots on [R]. Remove an existing upgrade first."))
+		qdel(U)
+		return
+	// Install
+	if(!user.transferItemToLoc(src, R))
+		qdel(U)
+		return
+	if(C.install_upgrade(U, R))
+		to_chat(user, span_notice("You install [assembly_label] into [R]. Behavior circuits activated."))
+		var/aname = assembly_label
+		log_game("[key_name(user)] installed behavior assembly '[aname]' into [R] at [AREACOORD(R)]")
+	else
+		to_chat(user, span_warning("Installation failed - upgrade slot rejected."))
+		forceMove(drop_location())
+		qdel(U)
+
+
+// ====================================================
+// REMOVAL
+// Used in cert strip / manual remove from robot panel.
+// Called by datum/cert_upgrade/robot/behavior_assembly/on_remove.
+// ====================================================
+
+/obj/item/behavior_assembly/proc/eject_from(mob/living/silicon/robot/R, mob/living/user)
+	unregister_signals(R)
+	forceMove(get_turf(R))
+	if(user)
+		to_chat(user, span_notice("You remove [assembly_label] from [R]."))
 
 
 // ====================================================
@@ -90,6 +160,9 @@
 		return
 	var/mob/living/silicon/robot/R = holder
 	assembly.unregister_signals(R)
+	// Move the physical item back to the world so it can be picked up or re-used
+	assembly.forceMove(get_turf(R))
+	assembly = null
 
 /datum/cert_upgrade/robot/behavior_assembly/Destroy()
 	if(assembly)
