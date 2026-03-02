@@ -269,45 +269,7 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 		R.module.basic_modules += M
 		R.module.add_module(M, FALSE, TRUE)
 
-/obj/item/borg/upgrade/syndicate
-	name = "illegal equipment module"
-	desc = "Unlocks the hidden, deadlier functions of a cyborg."
-	icon_state = "cyborg_upgrade3"
-	require_module = 1
 
-/obj/item/borg/upgrade/syndicate/action(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if(.)
-		if(R.emagged)
-			return FALSE
-
-		R.SetEmagged(1)
-
-		return TRUE
-
-/obj/item/borg/upgrade/syndicate/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		R.SetEmagged(FALSE)
-
-/obj/item/borg/upgrade/lavaproof
-	name = "mining cyborg lavaproof tracks"
-	desc = "An upgrade kit to apply specialized coolant systems and insulation layers to mining cyborg tracks, enabling them to withstand exposure to molten rock."
-	icon_state = "ash_plating"
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	require_module = 1
-	module_type = list(/obj/item/robot_module/miner)
-	module_flags = BORG_MODULE_MINER
-
-/obj/item/borg/upgrade/lavaproof/action(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if(.)
-		R.weather_immunities += "lava"
-
-/obj/item/borg/upgrade/lavaproof/deactivate(mob/living/silicon/robot/R, user = usr)
-	. = ..()
-	if (.)
-		R.weather_immunities -= "lava"
 
 /obj/item/borg/upgrade/selfrepair
 	name = "self-repair module"
@@ -414,8 +376,7 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 		to produce more advanced and complex medical reagents."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/medical,
-		/obj/item/robot_module/syndicate_medical)
+	module_type = list(/obj/item/robot_module/medical)
 	var/list/additional_reagents = list()
 	module_flags = BORG_MODULE_MEDICAL
 
@@ -485,8 +446,7 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 		out procedures"
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(/obj/item/robot_module/medical,
-		/obj/item/robot_module/syndicate_medical)
+	module_type = list(/obj/item/robot_module/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
 /obj/item/borg/upgrade/processor/action(mob/living/silicon/robot/R, user = usr)
@@ -508,9 +468,7 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 		advanced health scanner, for better readings on patients."
 	icon_state = "cyborg_upgrade3"
 	require_module = 1
-	module_type = list(
-		/obj/item/robot_module/medical,
-		/obj/item/robot_module/syndicate_medical)
+	module_type = list(/obj/item/robot_module/medical)
 
 /obj/item/borg/upgrade/advhealth/action(mob/living/silicon/robot/R, user = usr)
 	. = ..()
@@ -594,7 +552,7 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "borg_BS_RPED"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/engineering, /obj/item/robot_module/saboteur)
+	module_type = list(/obj/item/robot_module/engineering)
 	module_flags = BORG_MODULE_ENGINEERING
 
 /obj/item/borg/upgrade/rped/action(mob/living/silicon/robot/R, user = usr)
@@ -630,7 +588,7 @@ as performing this in action() will cause the upgrade to end up in the borg inst
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pinpointer_crew"
 	require_module = TRUE
-	module_type = list(/obj/item/robot_module/medical, /obj/item/robot_module/syndicate_medical)
+	module_type = list(/obj/item/robot_module/medical)
 	module_flags = BORG_MODULE_MEDICAL
 
 /obj/item/borg/upgrade/pinpointer/action(mob/living/silicon/robot/R, user = usr)

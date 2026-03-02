@@ -35,9 +35,6 @@
 	if(cell && cell.charge <= 0)
 		. += span_warning("Its battery indicator is blinking red!")
 
-	if(is_servant_of_ratvar(src) && get_dist(user, src) <= 1 && !stat)
-		. += span_warning("Its eyes are glowing a blazing yellow!")
-
 	switch(stat)
 		if(CONSCIOUS)
 			if(shell)
@@ -87,7 +84,7 @@
 
 
 // ====================================================
-// STRIP VERB — player with open panel pulls an upgrade
+// STRIP VERB - player with open panel pulls an upgrade
 // back out to a cert card
 // ====================================================
 

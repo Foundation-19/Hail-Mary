@@ -267,16 +267,16 @@
 	if(!CONFIG_GET(flag/disable_secborg) && GLOB.security_level < CONFIG_GET(number/minimum_secborg_alert))
 		to_chat(src, span_notice("NOTICE: Due to local station regulations, the security cyborg module and its variants are only available during [NUM2SECLEVEL(CONFIG_GET(number/minimum_secborg_alert))] alert and greater."))
 
-	var/list/modulelist = list("Standard" = /obj/item/robot_module/standard, \
-	"Engineering" = /obj/item/robot_module/engineering, \
-	"Medical" = /obj/item/robot_module/medical, \
-	"Miner" = /obj/item/robot_module/miner, \
-	"Service" = /obj/item/robot_module/butler,
-	"Gutsy" = /obj/item/robot_module/gutsy
+	var/list/modulelist = list(
+		"Standard"    = /obj/item/robot_module/standard,
+		"Medical"     = /obj/item/robot_module/medical,
+		"Engineering" = /obj/item/robot_module/engineering,
+		"Service"     = /obj/item/robot_module/butler,
+		"Miner"       = /obj/item/robot_module/miner,
+		"Mr. Handy"   = /obj/item/robot_module/handy,
+		"Gutsy"       = /obj/item/robot_module/gutsy,
+		"Protectron"  = /obj/item/robot_module/protectron
 	)
-
-	if(!CONFIG_GET(flag/disable_peaceborg))
-		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
 	if(BORG_SEC_AVAILABLE)
 		modulelist["Security"] = /obj/item/robot_module/security
 
@@ -591,7 +591,7 @@
 		var/obj/item/cert_card/card = W
 		card.try_apply_to_robot(src, user)
 
-	// Legacy SS13 upgrade support — kept for backwards compat during transition
+	// Legacy SS13 upgrade support - kept for backwards compat during transition
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
@@ -865,9 +865,6 @@
 /mob/living/silicon/robot/modules/security
 	set_module = /obj/item/robot_module/security
 
-/mob/living/silicon/robot/modules/peacekeeper
-	set_module = /obj/item/robot_module/peacekeeper
-
 /mob/living/silicon/robot/modules/miner
 	set_module = /obj/item/robot_module/miner
 
@@ -895,54 +892,38 @@
 	to use the myriad medical tools strapped to parts of her body under protective cases all show this model is meant to save lives. She's stockier than other assaultrons \
 	due to all the added gear, and her legs seem much thicker than normal due to reinforced servos and gears."
 
-/mob/living/silicon/robot/modules/syndicate
-	icon_state = "synd_sec"
-	faction = list(ROLE_SYNDICATE)
-	bubble_icon = "syndibot"
-	req_access = list(ACCESS_SYNDICATE)
-	lawupdate = FALSE
-	scrambledcodes = TRUE // These are rogue borgs.
-	ionpulse = TRUE
-	var/playstyle_string = "<span class='big bold'>You are a Syndicate assault cyborg!</span><br>\
-						<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/syndicate
 
-/mob/living/silicon/robot/modules/syndicate/Initialize()
+// ---- F13 chassis NPC subtypes ----
+
+/mob/living/silicon/robot/modules/handy
+	name = "Mr. Handy"
+	set_module = /obj/item/robot_module/handy
+
+/mob/living/silicon/robot/modules/protectron
+	name = "Protectron"
+	set_module = /obj/item/robot_module/protectron
+
+/mob/living/silicon/robot/modules/securitron
+	name = "Securitron"
+	set_module = /obj/item/robot_module/securitron
+
+/mob/living/silicon/robot/modules/securitron/Initialize()
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
-	radio = new /obj/item/radio/borg/syndicate(src)
-	laws = new /datum/ai_laws/syndicate_override()
-	addtimer(CALLBACK(src, PROC_REF(show_playstyle)), 5)
 
-/mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
-	if(playstyle_string)
-		to_chat(src, playstyle_string)
+/mob/living/silicon/robot/modules/sentrybot
+	name = "Sentry Bot"
+	set_module = /obj/item/robot_module/sentrybot
+	faction = list("wastebots")
 
-/mob/living/silicon/robot/modules/syndicate/ResetModule()
-	return
+/mob/living/silicon/robot/modules/sentrybot/Initialize()
+	. = ..()
+	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
 
-/mob/living/silicon/robot/modules/syndicate/medical
-	icon_state = "synd_medical"
-	playstyle_string = "<span class='big bold'>You are a Syndicate medical cyborg!</span><br>\
-					<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-					Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
-					Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
-					Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
-					<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/syndicate_medical
-
-/mob/living/silicon/robot/modules/syndicate/saboteur
-	icon_state = "synd_engi"
-	playstyle_string = "<span class='big bold'>You are a Syndicate saboteur cyborg!</span><br>\
-					<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-					Your destination tagger will allow you to stealthily traverse the disposal network across the station \
-					Your welder will allow you to repair the operatives' exosuits, but also yourself and your fellow cyborgs \
-					Your cyborg chameleon projector allows you to assume the appearance and registered name of a Nanotrasen engineering borg, and undertake covert actions on the station \
-					Be aware that almost any physical contact or incidental damage will break your camouflage \
-					<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/saboteur
+/mob/living/silicon/robot/modules/liberator
+	name = "Liberator"
+	set_module = /obj/item/robot_module/liberator
+	faction = list("wastebots")
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
