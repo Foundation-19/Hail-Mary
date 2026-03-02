@@ -14,6 +14,7 @@
 #define FAB_BEHAVIORS  3
 #define FAB_CUSTOM     4
 #define FAB_REPROG     5
+#define FAB_AI         6
 
 /obj/machinery/cpu_fabricator
 	name = "CPU Certification Fabricator"
@@ -32,6 +33,10 @@
 	var/custom_trigger_id = null
 	var/custom_response_id = null
 	var/obj/item/behavior_assembly/inserted_assembly = null
+	/// Assoc list: var_name -> value, set by workshop config fields
+	var/list/custom_config = list()
+	/// Workshop phase: 0=pick trigger, 1=pick response, 2=configure, 3=review
+	var/workshop_phase = 0
 
 
 /obj/machinery/cpu_fabricator/Initialize(mapload)
@@ -66,6 +71,9 @@
 	designs += new /datum/cpu_fab_design/behavior/night_watch()
 	designs += new /datum/cpu_fab_design/behavior/escort()
 	designs += new /datum/cpu_fab_design/behavior/last_resort()
+	// AI upgrade designs
+	designs += new /datum/cpu_fab_design/ai_upgrade/surveillance()
+	designs += new /datum/cpu_fab_design/ai_upgrade/malf_package()
 
 
 /obj/machinery/cpu_fabricator/Destroy()
@@ -152,6 +160,8 @@
 		n += _navlink("\[BEHAVIOR\]",   FAB_BEHAVIORS)
 		n += " | "
 		n += _navlink("\[CUSTOM\]",     FAB_CUSTOM)
+	n += " | "
+	n += _navlink("\[AI MODS\]",    FAB_AI)
 	if(inserted_assembly)
 		n += " | "
 		n += _navlink("\[REPROGRAM\]",  FAB_REPROG)
@@ -193,6 +203,8 @@
 				dat += _render_custom(user)
 			else
 				dat += "<span class='bad'>&gt; Robot Whisperer trait required.</span><br>"
+		if(FAB_AI)
+			dat += _render_list(user, "ai_upgrade")
 		if(FAB_REPROG)
 			if(inserted_assembly)
 				dat += _render_reprog(user)
@@ -283,6 +295,8 @@
 			if(H.special_i < dint2)
 				can_print = FALSE
 				block_reason = "INT [dint2]+ required (you have [H.special_i])"
+		if(D.for_ai)
+			dat += "<span class='dim'>(Use on an AI unit, not a robot.)</span><br>"
 		if(can_print)
 			dat += "<a href='byond://?src=[REF(src)];print=[D.id]'>&gt; Print</a>"
 		else if(block_reason)
@@ -296,57 +310,199 @@
 
 
 /obj/machinery/cpu_fabricator/proc/_render_custom(mob/user)
-	var/dat = "<b>CUSTOM BEHAVIOR ASSEMBLY</b><br>"
-	dat += "<span class='dim'>Pick a trigger and a response, then print.</span><br>"
+	// INT check
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.special_i < 6)
-			return dat + "<br><span class='bad'>&gt; Intelligence too low. Need INT 6+ to program assemblies.</span><br>"
+			var/dat2 = "<b>CUSTOM BEHAVIOR WORKSHOP</b><br>"
+			dat2 += "<span class='bad'>&gt; INTELLIGENCE TOO LOW. INT 6 required to program assemblies.</span><br>"
+			return dat2
+	return _render_workshop(user)
+
+
+// -- Workshop: multi-phase tabbed build UI ------------------------------
+/obj/machinery/cpu_fabricator/proc/_render_workshop(mob/user)
+	var/dat = "<b>BEHAVIOR ASSEMBLY WORKSHOP</b>"
+	// Phase nav
+	dat += " - "
+	var/list/phases = list("1:TRIGGER", "2:RESPONSE", "3:CONFIGURE", "4:REVIEW")
+	for(var/i in 1 to phases.len)
+		var/ph = i - 1
+		var/label = phases[i]
+		if(workshop_phase == ph)
+			dat += "<span class='good'><b>\[[label]\]</b></span>"
+		else
+			dat += "<a href='byond://?src=[REF(src)];workshop_phase=[ph]'>\[[label]\]</a>"
+		if(i < phases.len)
+			dat += " "
+	dat += "<br>"
+	// Builder stats
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
 		var/sensor = min(10, 5 + max(0, H.special_p - 5))
-		dat += "<span class='dim'>&gt; Sensor range (PER [H.special_p]): [sensor] tiles</span>"
+		dat += "<span class='dim'>INT [H.special_i] | PER [H.special_p] (sensor: [sensor] tiles)"
 		if(H.special_l >= 7)
-			var/luck_chance = (H.special_l - 6) * 15
-			dat += "  <span class='good'>LCK [H.special_l]: [luck_chance]% bonus slot</span>"
-		dat += "<br>"
-	dat += "<hr><b>SELECT TRIGGER</b><br>"
+			var/lchance = (H.special_l - 6) * 15
+			dat += " | <span class='good'>LCK [H.special_l]: [lchance]% bonus slot</span>"
+		dat += "</span><br>"
+	dat += "<hr>"
+	switch(workshop_phase)
+		if(0)
+			dat += _workshop_phase_trigger(user)
+		if(1)
+			dat += _workshop_phase_response(user)
+		if(2)
+			dat += _workshop_phase_configure(user)
+		if(3)
+			dat += _workshop_phase_review(user)
+	return dat
+
+
+// Phase 1: Pick a trigger
+/obj/machinery/cpu_fabricator/proc/_workshop_phase_trigger(mob/user)
+	var/dat = "<b>STEP 1 - SELECT TRIGGER</b><br>"
+	dat += "<span class='dim'>The trigger defines WHEN your assembly acts. It watches the robot continuously and fires when its condition is met.</span><br><br>"
 	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
 		var/datum/behavior_circuit/trigger/inst = new T
 		var/tname = inst.circuit_name
 		var/tdesc = inst.circuit_desc
+		var/ttut  = inst.tutorial_text
+		var/tcpu  = inst.cpu_cost
 		var/tpath = "[T]"
 		qdel(inst)
+		dat += "<div class='card'>"
 		if(custom_trigger_id == tpath)
-			dat += "<span class='good'>&gt; * [tname]</span> <span class='dim'>- [tdesc]</span><br>"
+			dat += "<span class='good'><b>&gt; * [tname]</b></span> <span class='dim'>CPU: [tcpu]</span><br>"
 		else
-			dat += "&gt; <a href='byond://?src=[REF(src)];sel_trigger=[tpath]'>[tname]</a> <span class='dim'>- [tdesc]</span><br>"
-	dat += "<hr><b>SELECT RESPONSE</b><br>"
+			dat += "<a href='byond://?src=[REF(src)];sel_trigger=[tpath]'><b>&gt; [tname]</b></a> <span class='dim'>CPU: [tcpu]</span><br>"
+		dat += "<span class='dim'>[tdesc]</span><br>"
+		dat += "<span class='dim' style='font-size:0.85em'>[ttut]</span>"
+		dat += "</div>"
+	if(custom_trigger_id)
+		dat += "<br><a href='byond://?src=[REF(src)];workshop_phase=1'>&gt; Continue to Response selection</a><br>"
+	return dat
+
+
+// Phase 2: Pick a response
+/obj/machinery/cpu_fabricator/proc/_workshop_phase_response(mob/user)
+	var/dat = "<b>STEP 2 - SELECT RESPONSE</b><br>"
+	dat += "<span class='dim'>The response defines WHAT happens when the trigger fires. Responses marked HARDWARE REQUIRED need an IC in the robot's module.</span><br><br>"
 	for(var/T in subtypesof(/datum/behavior_circuit/response))
 		var/datum/behavior_circuit/response/inst = new T
 		var/rname = inst.circuit_name
 		var/rdesc = inst.circuit_desc
+		var/rtut  = inst.tutorial_text
+		var/rcpu  = inst.cpu_cost
 		var/rpath = "[T]"
 		qdel(inst)
+		dat += "<div class='card'>"
 		if(custom_response_id == rpath)
-			dat += "<span class='good'>&gt; * [rname]</span> <span class='dim'>- [rdesc]</span><br>"
+			dat += "<span class='good'><b>&gt; * [rname]</b></span> <span class='dim'>CPU: [rcpu]</span><br>"
 		else
-			dat += "&gt; <a href='byond://?src=[REF(src)];sel_response=[rpath]'>[rname]</a> <span class='dim'>- [rdesc]</span><br>"
-	dat += "<hr>"
-	var/t_label = custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none)"
-	var/r_label = custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none)"
-	if(custom_trigger_id)
-		dat += "<span class='dim'>Trigger:  </span><span class='good'>[t_label]</span><br>"
-	else
-		dat += "<span class='dim'>Trigger:  </span><span class='bad'>[t_label]</span><br>"
+			dat += "<a href='byond://?src=[REF(src)];sel_response=[rpath]'><b>&gt; [rname]</b></a> <span class='dim'>CPU: [rcpu]</span><br>"
+		dat += "<span class='dim'>[rdesc]</span><br>"
+		dat += "<span class='dim' style='font-size:0.85em'>[rtut]</span>"
+		dat += "</div>"
 	if(custom_response_id)
-		dat += "<span class='dim'>Response: </span><span class='good'>[r_label]</span><br>"
+		dat += "<br><a href='byond://?src=[REF(src)];workshop_phase=2'>&gt; Continue to Configuration</a><br>"
+	return dat
+
+
+// Phase 3: Configure circuit vars
+/obj/machinery/cpu_fabricator/proc/_workshop_phase_configure(mob/user)
+	var/dat = "<b>STEP 3 - CONFIGURE</b><br>"
+	dat += "<span class='dim'>Adjust the behavior parameters. Leave defaults if unsure.</span><br><br>"
+	var/any_config = FALSE
+	// Trigger configurable vars
+	if(custom_trigger_id)
+		var/TR = text2path(custom_trigger_id)
+		if(TR)
+			var/datum/behavior_circuit/trigger/inst = new TR
+			dat += "<b>[inst.circuit_name]</b> configuration:<br>"
+			dat += _render_circuit_config(inst, "trigger")
+			any_config = TRUE
+			qdel(inst)
+	// Response configurable vars
+	if(custom_response_id)
+		var/RE = text2path(custom_response_id)
+		if(RE)
+			var/datum/behavior_circuit/response/inst = new RE
+			dat += "<br><b>[inst.circuit_name]</b> configuration:<br>"
+			dat += _render_circuit_config(inst, "response")
+			any_config = TRUE
+			qdel(inst)
+	if(!any_config)
+		dat += "<span class='dim'>No configurable parameters for this combination.</span><br>"
+	dat += "<br><a href='byond://?src=[REF(src)];workshop_phase=3'>&gt; Continue to Review</a><br>"
+	return dat
+
+
+// Renders configurable vars for one circuit
+/obj/machinery/cpu_fabricator/proc/_render_circuit_config(datum/behavior_circuit/C, prefix)
+	var/dat = ""
+	// Enumerate vars that are configurable (not base circuit vars, not internal state)
+	var/list/skip = list("circuit_name","circuit_desc","tutorial_text","cpu_cost","robot_ref","assembly_ref",
+		"response","damage_threshold","last_health","charge_threshold","already_triggered",
+		"spot_cooldown","last_spotted","hear_cooldown","last_heard","last_message","last_speaker",
+		"last_received","signal_cooldown","last_check","check_cooldown","last_fire","was_low",
+		"in_zone","already_fired","last_shot","last_scan_time","follow_target_ref")
+	var/has_vars = FALSE
+	for(var/varname in C.vars)
+		if(varname in skip)
+			continue
+		if(copytext(varname,1,2) == "_")
+			continue
+		var/cur_val = custom_config["[prefix].[varname]"] != null ? custom_config["[prefix].[varname]"] : C.vars[varname]
+		dat += "<span class='dim'>[varname]</span> = <span class='good'>[cur_val]</span>"
+		dat += " &gt; <a href='byond://?src=[REF(src)];set_config=[prefix].[varname];val=[input(usr,"Set [varname]","Value",cur_val)]'>edit</a><br>"
+		has_vars = TRUE
+	if(!has_vars)
+		dat += "<span class='dim'>No configurable vars.</span><br>"
+	return dat
+
+
+// Phase 4: Review + print
+/obj/machinery/cpu_fabricator/proc/_workshop_phase_review(mob/user)
+	var/dat = "<b>STEP 4 - REVIEW & PRINT</b><br><br>"
+	// Circuit summary
+	var/t_name = custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none selected)"
+	var/r_name = custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none selected)"
+	var/t_cpu = 0
+	var/r_cpu = 0
+	if(custom_trigger_id)
+		var/datum/behavior_circuit/trigger/TI = new (text2path(custom_trigger_id))
+		t_cpu = TI.cpu_cost
+		qdel(TI)
+	if(custom_response_id)
+		var/datum/behavior_circuit/response/RI = new (text2path(custom_response_id))
+		r_cpu = RI.cpu_cost
+		qdel(RI)
+	var/total_cpu = t_cpu + r_cpu
+	dat += "<b>TRIGGER:</b>  <span class='[custom_trigger_id ? "good" : "bad"]'>[t_name]</span> <span class='dim'>(CPU: [t_cpu])</span><br>"
+	dat += "<b>RESPONSE:</b> <span class='[custom_response_id ? "good" : "bad"]'>[r_name]</span> <span class='dim'>(CPU: [r_cpu])</span><br>"
+	dat += "<b>TOTAL CPU COST:</b> <span class='warn'>[total_cpu]</span><br>"
+	// Config summary
+	if(custom_config.len)
+		dat += "<br><b>CUSTOM CONFIGURATION:</b><br>"
+		for(var/key in custom_config)
+			dat += "<span class='dim'>  [key] = [custom_config[key]]</span><br>"
+	// Material cost summary
+	var/datum/cpu_fab_design/behavior/dummy = new()
+	var/cost_dat = ""
+	for(var/mat in dummy.cost)
+		cost_dat += "[dummy.cost[mat]] [mat] cm3, "
+	qdel(dummy)
+	if(cost_dat)
+		dat += "<br><b>MATERIAL COST:</b> <span class='dim'>[copytext(cost_dat, 1, length(cost_dat)-1)]</span><br>"
+	// Print button
+	dat += "<hr>"
+	if(printing)
+		dat += "<span class='warn'>&gt; PRINTING IN PROGRESS...</span><br>"
+	else if(custom_trigger_id && custom_response_id)
+		dat += "<a href='byond://?src=[REF(src)];build_custom=1'><b>&gt; WIRE AND PRINT</b></a><br>"
+		dat += "<a href='byond://?src=[REF(src)];clear_workshop=1'><span class='dim'>&gt; Clear and start over</span></a><br>"
 	else
-		dat += "<span class='dim'>Response: </span><span class='bad'>[r_label]</span><br>"
-	if(!printing && custom_trigger_id && custom_response_id)
-		dat += "<br><a href='byond://?src=[REF(src)];build_custom=1'>&gt; Wire and Print</a><br>"
-	else if(printing)
-		dat += "<br><span class='warn'>&gt; Printing...</span><br>"
-	else
-		dat += "<br><span class='dim'>&gt; Select both to enable printing.</span><br>"
+		dat += "<span class='bad'>&gt; Select trigger and response first.</span><br>"
 	return dat
 
 
@@ -383,16 +539,36 @@
 		var/T = text2path(href_list["sel_trigger"])
 		if(T && ispath(T, /datum/behavior_circuit/trigger))
 			custom_trigger_id = href_list["sel_trigger"]
+			custom_config = list()  // reset config on new selection
 		ui_interact(usr)
 		return
 	if(href_list["sel_response"])
 		var/T = text2path(href_list["sel_response"])
 		if(T && ispath(T, /datum/behavior_circuit/response))
 			custom_response_id = href_list["sel_response"]
+			custom_config = list()
 		ui_interact(usr)
 		return
 	if(href_list["build_custom"])
 		_build_custom(usr)
+		ui_interact(usr)
+		return
+	if(href_list["workshop_phase"])
+		workshop_phase = text2num(href_list["workshop_phase"])
+		ui_interact(usr)
+		return
+	if(href_list["set_config"])
+		var/key = href_list["set_config"]
+		var/val = href_list["val"]
+		if(key && val != null)
+			custom_config[key] = val
+		ui_interact(usr)
+		return
+	if(href_list["clear_workshop"])
+		custom_trigger_id = null
+		custom_response_id = null
+		custom_config = list()
+		workshop_phase = 0
 		ui_interact(usr)
 		return
 	if(href_list["eject_assembly"])
@@ -520,10 +696,13 @@
 	var/r_name = _resolve_circuit_name(custom_response_id)
 	custom_trigger_id = null
 	custom_response_id = null
-	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, t_name, r_name, get_turf(src), H.special_p, H.special_l, key_name(H)), 30, TIMER_OVERRIDE)
+	var/list/config_snap = custom_config.Copy()
+	custom_config = list()
+	workshop_phase = 0
+	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, t_name, r_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap), 30, TIMER_OVERRIDE)
 
 
-/obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, t_name, r_name, turf/T, builder_per, builder_lck, builder_ckey)
+/obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, t_name, r_name, turf/T, builder_per, builder_lck, builder_ckey, list/config_snapshot)
 	printing = FALSE
 	var/label = "[t_name] -> [r_name]"
 	var/obj/item/behavior_assembly/A = new(T)
@@ -539,6 +718,14 @@
 	var/datum/behavior_circuit/trigger/TR = new trigger_type()
 	var/datum/behavior_circuit/response/RE = new response_type()
 	TR.response = RE
+	// Apply workshop config vars
+	for(var/key in config_snapshot)
+		var/val = config_snapshot[key]
+		// Try trigger first then response
+		if(key in TR.vars)
+			TR.vars[key] = val
+		else if(key in RE.vars)
+			RE.vars[key] = val
 	A.circuits += TR
 	A.circuits += RE
 	log_game("Custom assembly '[label]' ([trigger_type]->[response_type]) printed by [builder_ckey]")
@@ -690,15 +877,39 @@
 	var/list/cost = list()
 	var/requires_robot_whisperer = FALSE
 	var/ui_category = "cert"
+	var/for_ai = FALSE
 
 /datum/cpu_fab_design/upgrade
 	ui_category = "upgrade"
+
+/datum/cpu_fab_design/ai_upgrade
+	ui_category = "ai_upgrade"
+	for_ai = TRUE
 
 /datum/cpu_fab_design/behavior
 	ui_category = "behavior"
 	requires_robot_whisperer = TRUE
 	required_int = 6
 	cost = list("iron" = 400, "glass" = 300, "gold" = 100)
+
+
+// ---- AI upgrade cert cards ----
+// These are printed by the fabricator and used on AI units.
+// The upgrade var carries the datum/cert_upgrade/ai/* datum.
+
+/obj/item/cert_card/upgrade/ai
+	name = "cert card - AI upgrade"
+	desc = "An AI-targeted upgrade card. Use it on an AI unit's upgrade interface."
+
+/obj/item/cert_card/upgrade/ai/surveillance/Initialize(mapload)
+	. = ..()
+	upgrade = new /datum/cert_upgrade/ai/surveillance()
+	_update_name()
+
+/obj/item/cert_card/upgrade/ai/malf_package/Initialize(mapload)
+	. = ..()
+	upgrade = new /datum/cert_upgrade/ai/malf_package()
+	_update_name()
 
 
 // ---- Base certs ----
@@ -877,7 +1088,7 @@
 	design_desc = "Detonates when an enemy is spotted. Requires CERT_CAN_MALF. Dangerous."
 	id = "behavior_lastresort"
 	required_int = 8
-	output_path = /obj/item/behavior_assembly/suicide_bomb
+	output_path = /obj/item/behavior_assembly/last_resort
 	cost = list("iron" = 600, "glass" = 200, "gold" = 300)
 
 
@@ -913,10 +1124,29 @@
 	output_path = /obj/item/behavior_assembly/broadcast_relay
 	cost = list("iron" = 200, "glass" = 100)
 
+// ---- AI upgrades ----
+
+/datum/cpu_fab_design/ai_upgrade/surveillance
+	design_name = "Surveillance Software Package"
+	design_desc = "Allows the AI to hear through cameras. Installs on AI units, not robots."
+	id = "ai_upgrade_surveillance"
+	output_path = /obj/item/cert_card/upgrade/ai/surveillance
+	cost = list("glass" = 2000, "gold" = 2000)
+
+/datum/cpu_fab_design/ai_upgrade/malf_package
+	design_name = "Combat Software Package"
+	design_desc = "Illegal. Grants malfunction-class combat routines. Requires Military-tier AI cert."
+	id = "ai_upgrade_malf"
+	required_tier = CERT_TIER_MILITARY
+	output_path = /obj/item/cert_card/upgrade/ai/malf_package
+	cost = list("gold" = 4000, "glass" = 2000)
+
+
 #undef FAB_HOME
 #undef FAB_CERTS
 #undef FAB_UPGRADES
 #undef FAB_BEHAVIORS
 #undef FAB_CUSTOM
 #undef FAB_REPROG
+#undef FAB_AI
 #undef REPROGRAM_COST_GOLD

@@ -198,10 +198,12 @@
 /datum/behavior_circuit
 	var/circuit_name = "Unknown Circuit"
 	var/circuit_desc = "An unconfigured behavior circuit."
-
+	/// Human-readable explanation shown in the fabricator workshop
+	var/tutorial_text = "No documentation available."
+	/// CPU budget cost. Checked against cert compute at assembly install.
+	var/cpu_cost = 1
 	/// Weakref to the robot this circuit is registered on
 	var/datum/weakref/robot_ref = null
-
 	/// Weakref to the parent assembly
 	var/datum/weakref/assembly_ref = null
 
