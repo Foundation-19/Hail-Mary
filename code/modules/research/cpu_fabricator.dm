@@ -367,6 +367,13 @@
 		var/mob/living/carbon/human/H = user
 		builder_per = H.special_p
 		builder_lck = H.special_l
+	// Warn if this assembly requires cert upgrades the robot may not have
+	if(ispath(D.output_path, /obj/item/behavior_assembly))
+		var/obj/item/behavior_assembly/test = new D.output_path()
+		var/incompatible = !test.cert_compatible(null)
+		qdel(test)
+		if(incompatible)
+			to_chat(user, span_warning("Warning: this assembly requires specific cert upgrades to function."))
 	addtimer(CALLBACK(src, PROC_REF(_finish_print), D, get_turf(src), builder_per, builder_lck, key_name(user)), 30, TIMER_OVERRIDE)
 
 
@@ -648,6 +655,39 @@
 	required_int = 8
 	output_path = /obj/item/behavior_assembly/suicide_bomb
 	cost = list("iron" = 600, "glass" = 200, "gold" = 300)
+
+
+/datum/cpu_fab_design/behavior/sprint_chaser
+	design_name = "Sprint Chaser Protocol"
+	design_desc = "Pursues enemies automatically. Pairs with VTEC Sprint System upgrade for maximum effectiveness."
+	id = "behavior_sprint_chaser"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/sprint_chaser
+	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/infiltrator
+	design_name = "Infiltrator Protocol"
+	design_desc = "Reports in and shadows targets after bypassing access. Requires Intrusion Countermeasure Suite (CERT_CAN_HACK)."
+	id = "behavior_infiltrator"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/infiltrator
+	cost = list("iron" = 400, "glass" = 300, "gold" = 200)
+
+/datum/cpu_fab_design/behavior/field_surgeon
+	design_name = "Field Surgeon Protocol"
+	design_desc = "Automatically moves toward injured friendlies. Pairs with Stimpak Injector or Saw Arm cert upgrades."
+	id = "behavior_field_surgeon"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/field_surgeon
+	cost = list("iron" = 300, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/broadcast_relay
+	design_name = "Broadcast Relay Protocol"
+	design_desc = "Periodically transmits faction identification. Requires Faction Transponder upgrade (CERT_CAN_BROADCAST)."
+	id = "behavior_broadcast_relay"
+	required_int = 4
+	output_path = /obj/item/behavior_assembly/broadcast_relay
+	cost = list("iron" = 200, "glass" = 100)
 
 #undef FAB_HOME
 #undef FAB_CERTS

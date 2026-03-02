@@ -194,10 +194,7 @@
 		return
 	if(!(R.cpu_cert.capability_flags & CERT_CAN_SHOOT))
 		return
-	if(R.emagged)
-		return
-	R.SetEmagged(TRUE)
-	R.audible_message(span_warning("[R] enters combat mode!"))
+	R.audible_message(span_warning("[R]: Combat mode engaged. Hostile contact confirmed."))
 
 
 // --- SELF REPAIR PULSE ---
@@ -697,6 +694,9 @@
 // Suicide bomb: enemy spotted -> detonate (requires CERT_CAN_MALF)
 /obj/item/behavior_assembly/suicide_bomb
 	assembly_label = "Last Resort Protocol"
+
+/obj/item/behavior_assembly/suicide_bomb/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_MALF)
 
 /obj/item/behavior_assembly/suicide_bomb/Initialize(mapload)
 	. = ..()
@@ -1238,6 +1238,9 @@
 /obj/item/behavior_assembly/turret_bot
 	assembly_label = "Turret Bot Protocol"
 
+/obj/item/behavior_assembly/turret_bot/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_SHOOT)
+
 /obj/item/behavior_assembly/turret_bot/Initialize(mapload)
 	. = ..()
 	var/datum/behavior_circuit/trigger/on_enemy_spotted/T = new()
@@ -1249,6 +1252,9 @@
 // Combat medic: friendly injured -> inject reagent
 /obj/item/behavior_assembly/combat_medic
 	assembly_label = "Combat Medic Protocol"
+
+/obj/item/behavior_assembly/combat_medic/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_REPAIR)
 
 /obj/item/behavior_assembly/combat_medic/Initialize(mapload)
 	. = ..()
@@ -1290,6 +1296,9 @@
 // Scavenger: interval -> grab nearest item
 /obj/item/behavior_assembly/scavenger_bot
 	assembly_label = "Scavenger Bot Protocol"
+
+/obj/item/behavior_assembly/scavenger_bot/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_INTERFACE)
 
 /obj/item/behavior_assembly/scavenger_bot/Initialize(mapload)
 	. = ..()
@@ -2360,3 +2369,85 @@
 	circuits += T
 	circuits += RE
 
+
+// ====================================================
+// UPGRADE-PAIRED ASSEMBLIES
+// These assemblies require specific cert upgrades.
+// cert_compatible() enforces the pairing at fabricator time.
+// ====================================================
+
+// Sprint Chaser: enemy spotted -> pathfind to enemy
+// Pairs with: VTEC Sprint System upgrade
+// The VTEC upgrade increases move speed; this assembly
+// gives the robot an automated reason to use it.
+/obj/item/behavior_assembly/sprint_chaser
+	assembly_label = "Sprint Chaser Protocol"
+
+/obj/item/behavior_assembly/sprint_chaser/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_SPRINT)
+
+/obj/item/behavior_assembly/sprint_chaser/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T = new()
+	var/datum/behavior_circuit/response/pathfind_to_enemy/RE = new()
+	T.response = RE
+	circuits += T
+	circuits += RE
+
+// Infiltrator: access granted -> broadcast radio signal + follow target
+// Pairs with: Intrusion Countermeasure Suite (CERT_CAN_HACK)
+// The hacking module grants access to secured areas; this assembly
+// has the robot automatically report in and tail whoever let it through.
+/obj/item/behavior_assembly/infiltrator
+	assembly_label = "Infiltrator Protocol"
+
+/obj/item/behavior_assembly/infiltrator/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_HACK)
+
+/obj/item/behavior_assembly/infiltrator/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_access_granted/T = new()
+	var/datum/behavior_circuit/response/say_text/RE = new()
+	var/datum/behavior_circuit/response/follow_target/RE2 = new()
+	RE.say_string = "Access secured. Proceeding."
+	T.response = RE
+	circuits += T
+	circuits += RE
+	circuits += RE2
+
+// Saw Medic: friendly injured nearby -> pathfind to them (stimpak injector does the actual healing)
+// Pairs with: Saw Arm Attachment OR Stimpak Injector (CERT_CAN_REPAIR)
+// The cert upgrade physically adds the tool; the assembly automates finding patients.
+/obj/item/behavior_assembly/field_surgeon
+	assembly_label = "Field Surgeon Protocol"
+
+/obj/item/behavior_assembly/field_surgeon/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_REPAIR)
+
+/obj/item/behavior_assembly/field_surgeon/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_mob_injured/T = new()
+	var/datum/behavior_circuit/response/follow_target/RE = new()
+	T.response = RE
+	circuits += T
+	circuits += RE
+
+// Broadcast Relay: on interval -> send radio signal
+// Pairs with: Faction Transponder (CERT_CAN_BROADCAST)
+// Periodic faction identification ping - lets the robot announce
+// its presence and allegiance on a set frequency.
+/obj/item/behavior_assembly/broadcast_relay
+	assembly_label = "Broadcast Relay Protocol"
+
+/obj/item/behavior_assembly/broadcast_relay/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_BROADCAST)
+
+/obj/item/behavior_assembly/broadcast_relay/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_interval/T = new()
+	var/datum/behavior_circuit/response/say_text/RE = new()
+	T.interval = 600  // every 60 seconds
+	RE.say_string = "Unit online. Transponder active."
+	T.response = RE
+	circuits += T
+	circuits += RE

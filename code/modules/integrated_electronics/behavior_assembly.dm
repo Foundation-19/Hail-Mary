@@ -4,7 +4,7 @@
 // robot's cert upgrade slot and defines automated
 // behaviors via signal-driven circuits.
 //
-// No SScircuit dependency — all circuits fire via
+// No SScircuit dependency - all circuits fire via
 // existing COMSIG signals on the robot holder.
 //
 // Builder's SPECIAL is snapshotted at fabricator
@@ -28,14 +28,14 @@
 	/// The behavior circuits loaded into this assembly
 	var/list/datum/behavior_circuit/circuits = list()
 
-	/// Max circuits this assembly can hold — set at fabricator print time via PER + LCK
+	/// Max circuits this assembly can hold - set at fabricator print time via PER + LCK
 	var/max_circuits = 2
 
 	/// Sensor range baked in from builder's PER at print time
 	/// Used by circuits that need a detection radius
 	var/sensor_range = 5
 
-	/// Ckey of the player who built this assembly — for logging
+	/// Ckey of the player who built this assembly - for logging
 	var/builder_ckey = ""
 
 	/// Human-readable label, set by fabricator design
@@ -107,6 +107,12 @@
 	for(var/datum/behavior_circuit/C in circuits)
 		C.register(R, src)
 
+// Returns TRUE if this assembly is compatible with the given cert.
+// Called by the CPU fabricator before printing to warn the builder.
+// Subtypes override to enforce required capability flags.
+/obj/item/behavior_assembly/proc/cert_compatible(datum/cpu_cert/C)
+	return TRUE
+
 /obj/item/behavior_assembly/proc/unregister_signals(mob/living/silicon/robot/R)
 	for(var/datum/behavior_circuit/C in circuits)
 		C.unregister(R)
@@ -137,10 +143,10 @@
 	robot_ref  = null
 	assembly_ref = null
 
-/// Convenience — resolves and returns the robot, or null if gone
+/// Convenience - resolves and returns the robot, or null if gone
 /datum/behavior_circuit/proc/get_robot()
 	return robot_ref?.resolve()
 
-/// Convenience — resolves and returns the assembly, or null if gone
+/// Convenience - resolves and returns the assembly, or null if gone
 /datum/behavior_circuit/proc/get_assembly()
 	return assembly_ref?.resolve()
