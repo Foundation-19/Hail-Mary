@@ -390,7 +390,7 @@
 			continue
 		if(!R.faction_check_mob(M, FALSE))  // only friendly mobs
 			continue
-		if(M.health < M.maxHealth * health_threshold)
+		if(M.health < M.getMaxHealth() * health_threshold)
 			_trigger(R)
 			return
 
@@ -1797,7 +1797,22 @@
 		break
 	if(!P)
 		return
+	// pump do_work reads IC_INPUT 1=source, 2=target, 3=amount via on_data_written
+	// Find first storage IC as source and first injector as target
+	var/source_ref = null
+	var/target_ref = null
+	for(var/obj/item/integrated_circuit/reagent/storage/ST in R.module.modules)
+		source_ref = WEAKREF(ST)
+		break
+	for(var/obj/item/integrated_circuit/reagent/injector/INJ in R.module.modules)
+		target_ref = WEAKREF(INJ)
+		break
+	if(!source_ref || !target_ref)
+		return
+	P.set_pin_data(IC_INPUT, 1, source_ref)
+	P.set_pin_data(IC_INPUT, 2, target_ref)
 	P.set_pin_data(IC_INPUT, 3, pump_amount)
+	P.on_data_written()
 	P.do_work()
 
 
@@ -1993,9 +2008,7 @@
 		RP.set_pin_data(IC_INPUT, 1, paint_color)
 		RP.do_work(1)
 		return
-	// Fallback: direct repaint
-	A.color = paint_color
-	A.update_icon()
+	// No repaint IC present - nothing to fall back to
 
 
 // ====================================================
@@ -2040,7 +2053,7 @@
 	if(!R.module)
 		return
 	for(var/obj/item/IC in R.module.modules)
-		if(!istype(IC, /obj/item/integrated_circuit/atmospherics/pump))
+		if(IC.type != /obj/item/integrated_circuit/atmospherics/pump && IC.type != /obj/item/integrated_circuit/atmospherics/pump/volume)
 			continue
 		var/obj/item/integrated_circuit/atmospherics/pump/P = IC
 		P.set_pin_data(IC_INPUT, 3, target_pressure)
@@ -2346,3 +2359,4 @@
 	T.response = RE
 	circuits += T
 	circuits += RE
+
