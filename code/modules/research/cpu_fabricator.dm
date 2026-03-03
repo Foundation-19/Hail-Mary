@@ -407,51 +407,127 @@
 	return dat
 
 
+// Human-readable labels and hints for known configurable vars.
+// Format: varname -> list(label, hint)
+/obj/machinery/cpu_fabricator/proc/_get_var_meta(varname)
+	switch(varname)
+		// Trigger vars
+		if("damage_threshold")  return list("Damage Threshold",   "Min damage per tick to fire (default 10). Lower = more sensitive.")
+		if("charge_threshold")  return list("Charge Threshold",   "Cell ratio 0.0-1.0 to trigger at (default 0.2 = 20% charge).")
+		if("restore_threshold") return list("Restore Threshold",  "Cell ratio to consider 'restored' (default 0.5 = 50%).")
+		if("interval_ticks")    return list("Interval (ticks)",   "How often to fire in ticks. 10 ticks = 1 second (default 100 = 10s).")
+		if("approach_range")    return list("Approach Range",     "Tiles away a mob must be to trigger (default 3).")
+		if("health_threshold")  return list("Health Threshold",   "Raw health value below which an injured mob triggers this (default 50).")
+		if("night_start")       return list("Night Start (ticks)","World time tick when night begins (default 180000).")
+		if("night_end")         return list("Night End (ticks)",  "World time tick when night ends (default 360000).")
+		if("spot_cooldown")     return list("Spot Cooldown",      "Ticks between enemy scans (default 50 = 5s).")
+		if("check_cooldown")    return list("Check Cooldown",     "Ticks between checks (default 30-50).")
+		if("pressure_min")      return list("Min Pressure (kPa)", "kPa below which atmos is considered dangerous (default 60).")
+		if("o2_min")            return list("Min O2 (%)",         "O2 percentage below which atmos is considered dangerous (default 16).")
+		if("damage_threshold")  return list("Damage Threshold",   "Total damage before this triggers (default 80).")
+		if("zone_x1")           return list("Zone X1",            "West boundary of GPS trigger zone.")
+		if("zone_y1")           return list("Zone Y1",            "South boundary of GPS trigger zone.")
+		if("zone_x2")           return list("Zone X2",            "East boundary of GPS trigger zone.")
+		if("zone_y2")           return list("Zone Y2",            "North boundary of GPS trigger zone.")
+		// Response vars
+		if("alert_message")     return list("Alert Message",      "Text broadcast over radio when this fires.")
+		if("say_string")        return list("Say Text",           "What the robot says out loud when this fires.")
+		if("emote_text")        return list("Emote Text",         "Action text: robot will do '\[robot name\] \[text\].' visibly.")
+		if("repair_amount")     return list("Repair Amount",      "HP repaired per pulse (default 15). Higher = more cell drain.")
+		if("stun_duration")     return list("Stun Duration",      "Ticks to stun target (default 20 = 2s).")
+		if("smoke_range")       return list("Smoke Range",        "Radius of smoke cloud in tiles (default 2).")
+		if("smoke_duration")    return list("Smoke Duration",     "How long smoke lasts in ticks (default 15).")
+		if("inject_amount")     return list("Inject Amount (u)",  "Units of reagent injected per trigger (default 5).")
+		if("target_friendly")   return list("Friendlies Only",    "TRUE = only inject allies; FALSE = inject anyone nearby.")
+		if("grab_range")        return list("Grab Range",         "Tiles away to grab items from (default 2).")
+		if("detonation_time")   return list("Detonation Time (s)","Seconds before explosion after priming (default 3).")
+		if("move_dir")          return list("Move Direction",     "Direction to step: NORTH=1, SOUTH=2, EAST=4, WEST=8.")
+		if("force_state")       return list("Light Force State",  "-1=toggle, 0=force off, 1=force on.")
+		if("sound_file")        return list("Sound File",         "Path to sound file (e.g. sound/machines/beep.ogg).")
+		if("sound_volume")      return list("Sound Volume",       "0-100. Default 50.")
+		if("display_text")      return list("Display Text",       "Message shown on the robot's screen display IC.")
+	return null
+
+
+// The explicit allowlist of every configurable var name.
+// ONLY vars in this list will appear on the review/config page.
+// Add entries here AND in _get_var_meta when adding new circuit vars.
+/obj/machinery/cpu_fabricator/proc/_get_configurable_vars()
+	return list(
+		// Trigger vars
+		"damage_threshold", "charge_threshold", "restore_threshold",
+		"interval_ticks", "approach_range", "health_threshold",
+		"night_start", "night_end", "pressure_min", "o2_min",
+		"zone_x1", "zone_y1", "zone_x2", "zone_y2",
+		// Response vars
+		"alert_message", "say_string", "emote_text", "repair_amount",
+		"stun_duration", "smoke_range", "smoke_duration",
+		"inject_amount", "target_friendly", "grab_range",
+		"detonation_time", "move_dir", "force_state",
+		"sound_file", "sound_volume", "display_text"
+	)
+
+
 // Renders inline config fields for one circuit on the review page.
-// Uses href links with text input prompts - no popup dialogs.
+// Tutorial text appears FIRST to guide the player, then only known-configurable fields.
 /obj/machinery/cpu_fabricator/proc/_render_circuit_config_inline(datum/behavior_circuit/C, prefix)
 	var/dat = ""
-	// Skip internal state vars - only show meaningful configuration vars
-	var/list/skip = list(
-		"circuit_name","circuit_desc","tutorial_text","cpu_cost","robot_ref","assembly_ref",
-		"response","last_health","already_triggered","spot_cooldown","last_spotted",
-		"hear_cooldown","last_heard","last_message","last_speaker","last_received","signal_cooldown",
-		"last_check","check_cooldown","last_fire","was_low","in_zone","already_fired","last_shot",
-		"last_scan_time","linked_target_ref","linked_target_name","follow_target_ref")
+	// Tutorial text goes FIRST - guides the player before they touch anything
+	dat += "<span class='dim' style='font-size:0.88em;border-left:2px solid #2a7a52;padding-left:4px'>[C.tutorial_text]</span><br>"
+	// Only iterate the explicit allowlist - never iterate C.vars directly,
+	// as that would expose all inherited /datum internals
+	var/list/allowed = _get_configurable_vars()
 	var/has_vars = FALSE
-	for(var/varname in C.vars)
-		if(varname in skip)
+	for(var/varname in allowed)
+		// Skip if this circuit type does not declare this var
+		// (allowlist may contain vars for other circuit subtypes)
+		var/has_var = FALSE
+		for(var/vn in C.vars)
+			if(vn == varname)
+				has_var = TRUE
+				break
+		if(!has_var)
 			continue
-		if(copytext(varname,1,2) == "_")
-			continue
-		var/cur_val = custom_config["[prefix].[varname]"] != null ? custom_config["[prefix].[varname]"] : C.vars[varname]
-		// Render as an inline edit link - click to be prompted via browser input
-		dat += "<span class='dim'>&gt; [varname]:</span> "
-		dat += "<span class='good'>[cur_val]</span>"
-		dat += " \[<a href='byond://?src=[REF(src)];prompt_config=[prefix].[varname]'>edit</a>\]<br>"
+		// Resolve stored config value, falling back to the circuit's actual default
+		var/default_val = C.vars[varname]
+		var/cur_val = (custom_config["[prefix].[varname]"] != null) ? custom_config["[prefix].[varname]"] : default_val
+		var/list/meta = _get_var_meta(varname)
+		var/label = meta ? meta[1] : varname
+		var/hint  = meta ? meta[2] : ""
+		dat += "<div style='margin:2px 0;padding:2px 4px;border-left:1px solid #2a7a52'>"
+		dat += "<b><span class='good'>[label]</span></b>"
+		dat += " = <span class='warn'>[cur_val]</span>"
+		dat += " \[<a href='byond://?src=[REF(src)];prompt_config=[prefix].[varname]'>edit</a>\]"
+		if(hint)
+			dat += "<br><span class='dim' style='font-size:0.82em'>([hint])</span>"
+		dat += "</div>"
 		has_vars = TRUE
 	if(!has_vars)
-		dat += "<span class='dim'>&gt; No configurable parameters.</span><br>"
+		dat += "<span class='dim'>&gt; No configurable parameters for this circuit.</span><br>"
 	return dat
 
 
 // Phase 4: Review + print
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_review(mob/user)
 	var/dat = "<b>STEP 3 - REVIEW & CONFIGURE</b><br>"
-	dat += "<span class='dim'>Adjust parameters below. All have sensible defaults - change only what you need.</span><br><hr>"
+	dat += "<span class='dim'>Review your trigger and response, then adjust parameters. Each section shows a guide first, then the editable fields.</span><br><hr>"
 	// Circuit summary
 	var/t_name = custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none selected)"
 	var/r_name = custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none selected)"
 	var/t_cpu = 0
 	var/r_cpu = 0
-	var/datum/behavior_circuit/trigger/TI = null
-	var/datum/behavior_circuit/response/RI = null
+	var/datum/behavior_circuit/TI = null
+	var/datum/behavior_circuit/RI = null
 	if(custom_trigger_id)
-		TI = new (text2path(custom_trigger_id))
-		t_cpu = TI.cpu_cost
+		var/trigger_type = text2path(custom_trigger_id)
+		if(trigger_type)
+			TI = new trigger_type()
+			t_cpu = TI.cpu_cost
 	if(custom_response_id)
-		RI = new (text2path(custom_response_id))
-		r_cpu = RI.cpu_cost
+		var/response_type = text2path(custom_response_id)
+		if(response_type)
+			RI = new response_type()
+			r_cpu = RI.cpu_cost
 	var/total_cpu = t_cpu + r_cpu
 	dat += "<b>TRIGGER:</b>  <span class='[custom_trigger_id ? "good" : "bad"]'>[t_name]</span>"
 	if(custom_trigger_id)
@@ -462,17 +538,25 @@
 		dat += " <a href='byond://?src=[REF(src)];workshop_phase=1'>\[change\]</a>"
 	dat += " <span class='dim'>CPU: [r_cpu]</span><br>"
 	dat += "<b>TOTAL CPU:</b> <span class='warn'>[total_cpu]</span><br>"
-	// Inline config fields
-	dat += "<hr><b>TRIGGER PARAMETERS</b><br>"
+	// Inline config fields - tutorial text is rendered inside _render_circuit_config_inline, BEFORE the fields
+	dat += "<hr><b>TRIGGER CONFIGURATION</b>"
+	if(custom_trigger_id)
+		dat += " <span class='dim'>([t_name])</span>"
+	dat += "<br>"
 	if(TI)
 		dat += _render_circuit_config_inline(TI, "trigger")
-		dat += "<span class='dim' style='font-size:0.85em'>[TI.tutorial_text]</span><br>"
 		qdel(TI)
-	dat += "<hr><b>RESPONSE PARAMETERS</b><br>"
+	else
+		dat += "<span class='dim'>&gt; No trigger selected.</span><br>"
+	dat += "<hr><b>RESPONSE CONFIGURATION</b>"
+	if(custom_response_id)
+		dat += " <span class='dim'>([r_name])</span>"
+	dat += "<br>"
 	if(RI)
 		dat += _render_circuit_config_inline(RI, "response")
-		dat += "<span class='dim' style='font-size:0.85em'>[RI.tutorial_text]</span><br>"
 		qdel(RI)
+	else
+		dat += "<span class='dim'>&gt; No response selected.</span><br>"
 	// Material cost summary
 	var/datum/cpu_fab_design/behavior/dummy = new()
 	var/cost_dat = ""
@@ -555,8 +639,21 @@
 	if(href_list["prompt_config"])
 		// Inline config edit - prompt the user via browser input
 		var/key = href_list["prompt_config"]
-		var/cur = custom_config[key] || ""
-		var/new_val = input(usr, "Set value for [key]:", "Configure Assembly", cur)
+		// Determine the current value: prefer stored config, then fall back to circuit default
+		var/cur = custom_config[key]
+		if(cur == null && custom_trigger_id && custom_response_id)
+			// Parse prefix to get circuit default
+			var/prefix = copytext(key, 1, findtext(key, "."))
+			var/varname = copytext(key, findtext(key, ".") + 1)
+			var/circuit_path = (prefix == "trigger") ? text2path(custom_trigger_id) : text2path(custom_response_id)
+			if(circuit_path)
+				var/datum/behavior_circuit/inst = new circuit_path
+				if(varname in inst.vars)
+					cur = "[inst.vars[varname]]"
+				qdel(inst)
+		if(cur == null)
+			cur = ""
+		var/new_val = input(usr, "Set value for [copytext(key, findtext(key, ".") + 1)]:", "Configure Assembly", cur)
 		if(new_val != null)
 			custom_config[key] = new_val
 		ui_interact(usr)
@@ -715,14 +812,18 @@
 	var/datum/behavior_circuit/trigger/TR = new trigger_type()
 	var/datum/behavior_circuit/response/RE = new response_type()
 	TR.response = RE
-	// Apply workshop config vars
+	// Apply workshop config vars (keys are stored as "trigger.varname" or "response.varname")
 	for(var/key in config_snapshot)
 		var/val = config_snapshot[key]
-		// Try trigger first then response
-		if(key in TR.vars)
-			TR.vars[key] = val
-		else if(key in RE.vars)
-			RE.vars[key] = val
+		var/dot = findtext(key, ".")
+		if(!dot)
+			continue
+		var/prefix  = copytext(key, 1, dot)
+		var/varname = copytext(key, dot + 1)
+		if(prefix == "trigger" && (varname in TR.vars))
+			TR.vars[varname] = val
+		else if(prefix == "response" && (varname in RE.vars))
+			RE.vars[varname] = val
 	A.circuits += TR
 	A.circuits += RE
 	log_game("Custom assembly '[label]' ([trigger_type]->[response_type]) printed by [builder_ckey]")
