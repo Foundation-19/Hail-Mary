@@ -34,6 +34,10 @@
 	var/datum/behavior_circuit/response/response = null
 
 /datum/behavior_circuit/trigger/proc/_trigger(mob/living/silicon/robot/R)
+	// Behavior assemblies do not override player-controlled robots.
+	// If the robot has a live player mind in control, skip autonomous responses.
+	if(R.mind && R.client)
+		return
 	if(response)
 		response.execute(R, get_assembly())
 
@@ -390,7 +394,7 @@
 /datum/behavior_circuit/trigger/on_mess_detected
 	circuit_name = "Trigger: On Mess Detected"
 	circuit_desc = "Fires when blood, reagent spills, or dirt are found nearby."
-	tutorial_text = "Janitor trigger. Scans adjacent and nearby turfs for blood, reagent puddles, or grime. When it finds contamination in range it fires. Use with the Emote Action response to make your janitor-bot announce it found a mess, or pair with module-specific cleaning ICs."
+	tutorial_text = "Janitor trigger. Checks nearby turfs for blood decals (footprints, puddles, splatter) and reagent spills. When contamination is detected it fires. Use with the Emote Action response to make the bot announce it found a mess, or pair it with cleaning module ICs. Triggers on blood footprints left by wounded humans."
 	cpu_cost = 1
 	var/last_check = 0
 	var/check_cooldown = 50
@@ -412,7 +416,16 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	for(var/turf/T in range(3, R))
-		if((T.reagents && T.reagents.total_volume > 0))
+		// Check for blood decals (footprints, splatter, puddles)
+		for(var/obj/effect/decal/cleanable/blood/B in T.contents)
+			_trigger(R)
+			return
+		// Check for general cleanable mess
+		for(var/obj/effect/decal/cleanable/C in T.contents)
+			_trigger(R)
+			return
+		// Check for reagent spills
+		if(T.reagents && T.reagents.total_volume > 0)
 			_trigger(R)
 			return
 
@@ -815,32 +828,29 @@
 // -- FOLLOW FRIENDLY ---------------------------------
 
 /datum/behavior_circuit/response/follow_target
-	circuit_name = "Response: Follow Friendly"
-	circuit_desc = "Moves toward the nearest friendly mob."
-	tutorial_text = "Finds the nearest mob in the robot's own faction and steps toward it. Used by escort and medic builds to keep the robot near allies. No hardware required. If no friendly is in range it does nothing quietly."
+	circuit_name = "Response: Follow Linked Target"
+	circuit_desc = "Follows a specific mob linked by multitool ID scan."
+	tutorial_text = "HARDWARE SETUP: Scan a player's ID card with a multitool, then use the multitool on the robot to link them as the follow target. Once linked the robot will step toward that specific mob whenever this response fires. If the linked target is gone or dead, does nothing. Link is persistent until reprogrammed. Use with On Interval trigger for continuous escort."
 	cpu_cost = 2
-	var/datum/weakref/follow_target_ref = null
+	var/datum/weakref/linked_target_ref = null
+	var/linked_target_name = ""
 
 /datum/behavior_circuit/response/follow_target/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	if(R.anchored || R.stat == DEAD)
 		return
-	var/scan_range = A ? A.sensor_range : 5
-	var/mob/living/closest = null
-	var/closest_dist = INFINITY
-	for(var/mob/living/M in range(scan_range, R))
-		if(M == R || M.stat == DEAD)
-			continue
-		if(!R.faction_check_mob(M, FALSE))
-			continue
-		var/d = get_dist(R, M)
-		if(d < closest_dist)
-			closest_dist = d
-			closest = M
-	if(!closest)
+	var/mob/living/target = linked_target_ref?.resolve()
+	if(!target || target.stat == DEAD || QDELETED(target))
+		// No linked target - announce waiting state once
 		return
-	follow_target_ref = WEAKREF(closest)
-	step_towards(R, closest)
-	R.setDir(get_dir(R, closest))
+	step_towards(R, target)
+	R.setDir(get_dir(R, target))
+
+/// Called by multitool linkage - sets the follow target
+/datum/behavior_circuit/response/follow_target/proc/set_linked_target(mob/living/new_target, mob/user)
+	linked_target_ref = WEAKREF(new_target)
+	linked_target_name = new_target.name
+	if(user)
+		to_chat(user, span_notice("Follow target linked: [new_target.name]."))
 
 
 // -- FLEE FROM THREAT --------------------------------
@@ -979,13 +989,16 @@
 
 /datum/behavior_circuit/response/detonate_self/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	R.visible_message(span_danger("[R] begins emitting a high-pitched whine!"))
-	addtimer(CALLBACK(src, PROC_REF(_boom), R), 30, TIMER_OVERRIDE)
+	playsound(R, 'sound/machines/alarm.ogg', 75, 1)
+	addtimer(CALLBACK(src, PROC_REF(_boom), R), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /datum/behavior_circuit/response/detonate_self/proc/_boom(mob/living/silicon/robot/R)
 	if(QDELETED(R))
 		return
-	explosion(R, devastation_range = 0, heavy_impact_range = 1, light_impact_range = 2, flash_range = 3)
-	R.death()
+	explosion(R, devastation_range = 1, heavy_impact_range = 2, light_impact_range = 3, flash_range = 4)
+	// Fully destroy the robot chassis - not just kill it
+	if(!QDELETED(R))
+		R.gib()
 
 
 // -- PRIME GRENADE -----------------------------------

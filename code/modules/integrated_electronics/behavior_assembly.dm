@@ -225,3 +225,65 @@
 /// Convenience - resolves and returns the assembly, or null if gone
 /datum/behavior_circuit/proc/get_assembly()
 	return assembly_ref?.resolve()
+
+
+// ====================================================
+// MULTITOOL LINKAGE - Follow Target
+// Scan a player's ID card with a multitool to capture
+// their name/ref, then use the multitool on the robot
+// to link them as the follow target for any follow_target
+// behavior circuit installed on the robot.
+// ====================================================
+
+// Multitool linkage: user scans an ID card with multitool (buffers assignment),
+// then uses the multitool on this assembly to link the follow target.
+/obj/item/behavior_assembly/multitool_act(mob/living/user)
+	var/obj/item/multitool/MT = user.get_active_hand()
+	if(!istype(MT, /obj/item/multitool))
+		MT = locate(/obj/item/multitool) in user.contents
+	if(!istype(MT, /obj/item/multitool))
+		return FALSE
+	if(!MT.buffer)
+		to_chat(user, span_warning("Scan an ID card with a multitool first to set a follow target."))
+		return TRUE
+	_try_multitool_link(MT, user)
+	return TRUE
+
+/obj/item/behavior_assembly/proc/_try_multitool_link(obj/item/multitool/MT, mob/user)
+	// Multitool must have a buffered target from scanning an ID card
+	if(!MT.buffer)
+		to_chat(user, span_warning("Scan an ID card with the multitool first to link a follow target."))
+		return
+	// Find linked mob by name match - buffer should be a mob name or ID name
+	var/target_name = "[MT.buffer]"
+	var/mob/living/found = null
+	for(var/mob/living/M in GLOB.alive_mob_list)
+		if(M.name == target_name || (istype(M, /mob/living/carbon/human) && M.real_name == target_name))
+			found = M
+			break
+	if(!found)
+		to_chat(user, span_warning("Could not locate '[target_name]' in the world. Are they still alive?"))
+		return
+	// Find a follow_target circuit in this assembly and link it
+	var/linked = FALSE
+	for(var/datum/behavior_circuit/response/follow_target/FT in circuits)
+		FT.set_linked_target(found, user)
+		linked = TRUE
+	if(!linked)
+		to_chat(user, span_warning("This assembly has no Follow Linked Target response to configure."))
+		return
+	visible_message(span_notice("[user] links [found.name] as a follow target on [src]."))
+	MT.buffer = null  // Clear buffer after use
+
+
+// Multitool scanning an ID card buffers the assignee name for follow-target linkage.
+// Use: scan ID card with multitool -> use multitool on behavior assembly -> robot follows that person.
+/obj/item/card/id/multitool_act(mob/living/user)
+	var/obj/item/multitool/MT = user.get_active_hand()
+	if(!istype(MT, /obj/item/multitool))
+		MT = locate(/obj/item/multitool) in user.contents
+	if(!istype(MT, /obj/item/multitool))
+		return FALSE
+	MT.buffer = assignment  // Buffer the ID's assigned name
+	to_chat(user, span_notice("Buffered ID target: [assignment]. Use the multitool on a behavior assembly to link as follow target."))
+	return TRUE

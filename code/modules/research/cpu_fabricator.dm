@@ -325,7 +325,7 @@
 	var/dat = "<b>BEHAVIOR ASSEMBLY WORKSHOP</b>"
 	// Phase nav
 	dat += " - "
-	var/list/phases = list("1:TRIGGER", "2:RESPONSE", "3:CONFIGURE", "4:REVIEW")
+	var/list/phases = list("1:TRIGGER", "2:RESPONSE", "3:REVIEW+CONFIG")
 	for(var/i in 1 to phases.len)
 		var/ph = i - 1
 		var/label = phases[i]
@@ -351,9 +351,8 @@
 			dat += _workshop_phase_trigger(user)
 		if(1)
 			dat += _workshop_phase_response(user)
-		if(2)
-			dat += _workshop_phase_configure(user)
-		if(3)
+		else
+			// Phase 2+ = review/configure; also auto-advance here
 			dat += _workshop_phase_review(user)
 	return dat
 
@@ -408,44 +407,17 @@
 	return dat
 
 
-// Phase 3: Configure circuit vars
-/obj/machinery/cpu_fabricator/proc/_workshop_phase_configure(mob/user)
-	var/dat = "<b>STEP 3 - CONFIGURE</b><br>"
-	dat += "<span class='dim'>Adjust the behavior parameters. Leave defaults if unsure.</span><br><br>"
-	var/any_config = FALSE
-	// Trigger configurable vars
-	if(custom_trigger_id)
-		var/TR = text2path(custom_trigger_id)
-		if(TR)
-			var/datum/behavior_circuit/trigger/inst = new TR
-			dat += "<b>[inst.circuit_name]</b> configuration:<br>"
-			dat += _render_circuit_config(inst, "trigger")
-			any_config = TRUE
-			qdel(inst)
-	// Response configurable vars
-	if(custom_response_id)
-		var/RE = text2path(custom_response_id)
-		if(RE)
-			var/datum/behavior_circuit/response/inst = new RE
-			dat += "<br><b>[inst.circuit_name]</b> configuration:<br>"
-			dat += _render_circuit_config(inst, "response")
-			any_config = TRUE
-			qdel(inst)
-	if(!any_config)
-		dat += "<span class='dim'>No configurable parameters for this combination.</span><br>"
-	dat += "<br><a href='byond://?src=[REF(src)];workshop_phase=3'>&gt; Continue to Review</a><br>"
-	return dat
-
-
-// Renders configurable vars for one circuit
-/obj/machinery/cpu_fabricator/proc/_render_circuit_config(datum/behavior_circuit/C, prefix)
+// Renders inline config fields for one circuit on the review page.
+// Uses href links with text input prompts - no popup dialogs.
+/obj/machinery/cpu_fabricator/proc/_render_circuit_config_inline(datum/behavior_circuit/C, prefix)
 	var/dat = ""
-	// Enumerate vars that are configurable (not base circuit vars, not internal state)
-	var/list/skip = list("circuit_name","circuit_desc","tutorial_text","cpu_cost","robot_ref","assembly_ref",
-		"response","damage_threshold","last_health","charge_threshold","already_triggered",
-		"spot_cooldown","last_spotted","hear_cooldown","last_heard","last_message","last_speaker",
-		"last_received","signal_cooldown","last_check","check_cooldown","last_fire","was_low",
-		"in_zone","already_fired","last_shot","last_scan_time","follow_target_ref")
+	// Skip internal state vars - only show meaningful configuration vars
+	var/list/skip = list(
+		"circuit_name","circuit_desc","tutorial_text","cpu_cost","robot_ref","assembly_ref",
+		"response","last_health","already_triggered","spot_cooldown","last_spotted",
+		"hear_cooldown","last_heard","last_message","last_speaker","last_received","signal_cooldown",
+		"last_check","check_cooldown","last_fire","was_low","in_zone","already_fired","last_shot",
+		"last_scan_time","linked_target_ref","linked_target_name","follow_target_ref")
 	var/has_vars = FALSE
 	for(var/varname in C.vars)
 		if(varname in skip)
@@ -453,39 +425,54 @@
 		if(copytext(varname,1,2) == "_")
 			continue
 		var/cur_val = custom_config["[prefix].[varname]"] != null ? custom_config["[prefix].[varname]"] : C.vars[varname]
-		dat += "<span class='dim'>[varname]</span> = <span class='good'>[cur_val]</span>"
-		dat += " &gt; <a href='byond://?src=[REF(src)];set_config=[prefix].[varname];val=[input(usr,"Set [varname]","Value",cur_val)]'>edit</a><br>"
+		// Render as an inline edit link - click to be prompted via browser input
+		dat += "<span class='dim'>&gt; [varname]:</span> "
+		dat += "<span class='good'>[cur_val]</span>"
+		dat += " \[<a href='byond://?src=[REF(src)];prompt_config=[prefix].[varname]'>edit</a>\]<br>"
 		has_vars = TRUE
 	if(!has_vars)
-		dat += "<span class='dim'>No configurable vars.</span><br>"
+		dat += "<span class='dim'>&gt; No configurable parameters.</span><br>"
 	return dat
 
 
 // Phase 4: Review + print
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_review(mob/user)
-	var/dat = "<b>STEP 4 - REVIEW & PRINT</b><br><br>"
+	var/dat = "<b>STEP 3 - REVIEW & CONFIGURE</b><br>"
+	dat += "<span class='dim'>Adjust parameters below. All have sensible defaults - change only what you need.</span><br><hr>"
 	// Circuit summary
 	var/t_name = custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none selected)"
 	var/r_name = custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none selected)"
 	var/t_cpu = 0
 	var/r_cpu = 0
+	var/datum/behavior_circuit/trigger/TI = null
+	var/datum/behavior_circuit/response/RI = null
 	if(custom_trigger_id)
-		var/datum/behavior_circuit/trigger/TI = new (text2path(custom_trigger_id))
+		TI = new (text2path(custom_trigger_id))
 		t_cpu = TI.cpu_cost
-		qdel(TI)
 	if(custom_response_id)
-		var/datum/behavior_circuit/response/RI = new (text2path(custom_response_id))
+		RI = new (text2path(custom_response_id))
 		r_cpu = RI.cpu_cost
-		qdel(RI)
 	var/total_cpu = t_cpu + r_cpu
-	dat += "<b>TRIGGER:</b>  <span class='[custom_trigger_id ? "good" : "bad"]'>[t_name]</span> <span class='dim'>(CPU: [t_cpu])</span><br>"
-	dat += "<b>RESPONSE:</b> <span class='[custom_response_id ? "good" : "bad"]'>[r_name]</span> <span class='dim'>(CPU: [r_cpu])</span><br>"
-	dat += "<b>TOTAL CPU COST:</b> <span class='warn'>[total_cpu]</span><br>"
-	// Config summary
-	if(custom_config.len)
-		dat += "<br><b>CUSTOM CONFIGURATION:</b><br>"
-		for(var/key in custom_config)
-			dat += "<span class='dim'>  [key] = [custom_config[key]]</span><br>"
+	dat += "<b>TRIGGER:</b>  <span class='[custom_trigger_id ? "good" : "bad"]'>[t_name]</span>"
+	if(custom_trigger_id)
+		dat += " <a href='byond://?src=[REF(src)];workshop_phase=0'>\[change\]</a>"
+	dat += " <span class='dim'>CPU: [t_cpu]</span><br>"
+	dat += "<b>RESPONSE:</b> <span class='[custom_response_id ? "good" : "bad"]'>[r_name]</span>"
+	if(custom_response_id)
+		dat += " <a href='byond://?src=[REF(src)];workshop_phase=1'>\[change\]</a>"
+	dat += " <span class='dim'>CPU: [r_cpu]</span><br>"
+	dat += "<b>TOTAL CPU:</b> <span class='warn'>[total_cpu]</span><br>"
+	// Inline config fields
+	dat += "<hr><b>TRIGGER PARAMETERS</b><br>"
+	if(TI)
+		dat += _render_circuit_config_inline(TI, "trigger")
+		dat += "<span class='dim' style='font-size:0.85em'>[TI.tutorial_text]</span><br>"
+		qdel(TI)
+	dat += "<hr><b>RESPONSE PARAMETERS</b><br>"
+	if(RI)
+		dat += _render_circuit_config_inline(RI, "response")
+		dat += "<span class='dim' style='font-size:0.85em'>[RI.tutorial_text]</span><br>"
+		qdel(RI)
 	// Material cost summary
 	var/datum/cpu_fab_design/behavior/dummy = new()
 	var/cost_dat = ""
@@ -493,14 +480,14 @@
 		cost_dat += "[dummy.cost[mat]] [mat] cm3, "
 	qdel(dummy)
 	if(cost_dat)
-		dat += "<br><b>MATERIAL COST:</b> <span class='dim'>[copytext(cost_dat, 1, length(cost_dat)-1)]</span><br>"
+		dat += "<hr><span class='dim'>Material cost: [copytext(cost_dat, 1, length(cost_dat)-1)]</span><br>"
 	// Print button
 	dat += "<hr>"
 	if(printing)
 		dat += "<span class='warn'>&gt; PRINTING IN PROGRESS...</span><br>"
 	else if(custom_trigger_id && custom_response_id)
-		dat += "<a href='byond://?src=[REF(src)];build_custom=1'><b>&gt; WIRE AND PRINT</b></a><br>"
-		dat += "<a href='byond://?src=[REF(src)];clear_workshop=1'><span class='dim'>&gt; Clear and start over</span></a><br>"
+		dat += "<a href='byond://?src=[REF(src)];build_custom=1'><b>&gt; WIRE AND PRINT</b></a>"
+		dat += "  <a href='byond://?src=[REF(src)];clear_workshop=1'><span class='dim'>\[clear\]</span></a><br>"
 	else
 		dat += "<span class='bad'>&gt; Select trigger and response first.</span><br>"
 	return dat
@@ -547,6 +534,7 @@
 		if(T && ispath(T, /datum/behavior_circuit/response))
 			custom_response_id = href_list["sel_response"]
 			custom_config = list()
+			workshop_phase = 2  // auto-advance to review
 		ui_interact(usr)
 		return
 	if(href_list["build_custom"])
@@ -562,6 +550,15 @@
 		var/val = href_list["val"]
 		if(key && val != null)
 			custom_config[key] = val
+		ui_interact(usr)
+		return
+	if(href_list["prompt_config"])
+		// Inline config edit - prompt the user via browser input
+		var/key = href_list["prompt_config"]
+		var/cur = custom_config[key] || ""
+		var/new_val = input(usr, "Set value for [key]:", "Configure Assembly", cur)
+		if(new_val != null)
+			custom_config[key] = new_val
 		ui_interact(usr)
 		return
 	if(href_list["clear_workshop"])
@@ -633,7 +630,7 @@
 		qdel(test)
 		if(incompatible)
 			to_chat(user, span_warning("Warning: this assembly requires specific cert upgrades to function."))
-	addtimer(CALLBACK(src, PROC_REF(_finish_print), D, get_turf(src), builder_per, builder_lck, key_name(user)), 30, TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(_finish_print), D, get_turf(src), builder_per, builder_lck, key_name(user)), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
 /obj/machinery/cpu_fabricator/proc/_finish_print(datum/cpu_fab_design/D, turf/T, builder_per, builder_lck, builder_ckey)
@@ -699,7 +696,7 @@
 	var/list/config_snap = custom_config.Copy()
 	custom_config = list()
 	workshop_phase = 0
-	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, t_name, r_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap), 30, TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, t_name, r_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
 /obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, t_name, r_name, turf/T, builder_per, builder_lck, builder_ckey, list/config_snapshot)
