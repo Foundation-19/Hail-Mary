@@ -433,6 +433,7 @@
 // -- ON ACCESS GRANTED -------------------------------
 
 /datum/behavior_circuit/trigger/on_access_granted
+	needs_hardware = TRUE
 	circuit_name = "Trigger: On Access Granted"
 	circuit_desc = "Fires when an ID scan by the robot succeeds."
 	tutorial_text = "For door-guard or escort robots. Polls the robot's ID scanner IC for a successful read. When an ID with valid access is scanned it fires. Pair with: Say Text (greeting), Follow Friendly (escort), or Toggle Light (open a door via the IC chain)."
@@ -467,6 +468,7 @@
 // -- ON SPEECH HEARD ---------------------------------
 
 /datum/behavior_circuit/trigger/on_speech_heard
+	needs_hardware = TRUE
 	circuit_name = "Trigger: On Speech Heard"
 	circuit_desc = "Fires when the robot's microphone picks up speech."
 	tutorial_text = "Requires a microphone IC in the robot's module. Reads the IC's output pins for new messages. Fires when new speech is detected that differs from the last heard message. Good for companion robots that respond to being spoken to, or alarms that trigger on voices."
@@ -501,6 +503,7 @@
 // -- ON WEAPON FIRED ---------------------------------
 
 /datum/behavior_circuit/trigger/on_weapon_fired
+	needs_hardware = TRUE
 	circuit_name = "Trigger: On Weapon Fired"
 	circuit_desc = "Fires each time the robot's weapon IC is activated."
 	tutorial_text = "Polls the weapon_firing IC for fire events. Useful for: logging shots, playing sound effects on fire, auto-reloading behavior, or triggering a secondary action after each shot. Requires a weapon_firing IC in the robot's module."
@@ -530,6 +533,7 @@
 // -- ON SIGNAL RECEIVED ------------------------------
 
 /datum/behavior_circuit/trigger/on_signal_received
+	needs_hardware = TRUE
 	circuit_name = "Trigger: On Signal Received"
 	circuit_desc = "Fires when a radio signal is received on the robot's signaler IC."
 	tutorial_text = "Requires a signaler IC in the robot's module. When the signaler detects a matching radio signal, this trigger fires. Good for remotely commanded robots - you send a signal, the robot executes its response. Works best with Say Text or Enter Combat Mode responses."
@@ -560,6 +564,7 @@
 // -- ON GPS ZONE -------------------------------------
 
 /datum/behavior_circuit/trigger/on_gps_zone
+	needs_hardware = TRUE
 	circuit_name = "Trigger: On GPS Zone"
 	circuit_desc = "Fires when the robot is within defined map coordinates."
 	tutorial_text = "Requires a GPS IC in the robot's module. Define a rectangular zone by coordinates. When the robot is inside that box, it fires. Great for patrol waypoint robots: chain multiple assemblies with GPS zones to create a route. Configure zone_x1/y1/x2/y2."
@@ -604,6 +609,7 @@
 // -- ON ATMOS THRESHOLD ------------------------------
 
 /datum/behavior_circuit/trigger/on_atmos_threshold
+	needs_hardware = TRUE
 	circuit_name = "Trigger: On Atmos Threshold"
 	circuit_desc = "Fires when atmospheric pressure or O2 drops below safe levels."
 	tutorial_text = "Requires an atmospherics IC in the robot's module. Monitors local atmosphere and fires when pressure or O2 falls below the thresholds. Ideal for emergency response robots that seal breaches or warn survivors. Pair with Broadcast Alert or Deploy Smoke."
@@ -639,6 +645,7 @@
 // -- ON HEALTH SCAN CRITICAL -------------------------
 
 /datum/behavior_circuit/trigger/on_health_scan_critical
+	needs_hardware = TRUE
 	circuit_name = "Trigger: Health Scan Critical"
 	circuit_desc = "Fires when the robot's health scanner detects a critically injured mob."
 	tutorial_text = "Requires a health scanner IC. Scans for mobs whose total damage exceeds the critical threshold. More precise than On Mob Injured because it uses the scanner IC reading rather than raw health. Perfect for medic robots. Pair with Inject Reagent or Say Text."
@@ -899,6 +906,7 @@
 // -- FIRE WEAPON -------------------------------------
 
 /datum/behavior_circuit/response/fire_weapon
+	needs_hardware = TRUE
 	circuit_name = "Response: Fire Weapon"
 	circuit_desc = "Fires the robot's weapon IC at the nearest enemy. Requires weapon_firing IC."
 	tutorial_text = "HARDWARE REQUIRED: weapon_firing IC in the robot's module. Finds the first weapon_firing IC, scans for the nearest hostile in sensor range, and fires at it. If no weapon IC is found or no enemy is in range, does nothing. Pair with On Enemy Spotted for a complete auto-turret."
@@ -938,6 +946,7 @@
 // -- FIRE AIR CANNON ---------------------------------
 
 /datum/behavior_circuit/response/fire_air_cannon
+	needs_hardware = TRUE
 	circuit_name = "Response: Fire Air Cannon"
 	circuit_desc = "Fires the pneumatic cannon at the nearest enemy. Requires air_cannon and atmospherics ICs."
 	tutorial_text = "HARDWARE REQUIRED: air_cannon IC and atmospherics IC in the robot's module. Non-lethal suppression: knocks targets back without dealing direct damage. Good for crowd control robots. If either IC is missing, silently does nothing."
@@ -1004,6 +1013,7 @@
 // -- PRIME GRENADE -----------------------------------
 
 /datum/behavior_circuit/response/prime_grenade
+	needs_hardware = TRUE
 	circuit_name = "Response: Prime Grenade"
 	circuit_desc = "Arms the grenade loaded in the robot's grenade primer IC."
 	tutorial_text = "HARDWARE REQUIRED: grenade IC with an attached grenade in the robot's module. Arms and primes the grenade. If no grenade IC or no attached grenade is found, does nothing. Useful for trap-setter robots or walking bombs. Configure 'detonation_time' (default 3 seconds)."
@@ -1025,6 +1035,7 @@
 // -- THROW ITEM AT ENEMY -----------------------------
 
 /datum/behavior_circuit/response/throw_item_at_enemy
+	needs_hardware = TRUE
 	circuit_name = "Response: Throw Item At Enemy"
 	circuit_desc = "Throws held items at the nearest hostile. Requires grabber and thrower ICs."
 	tutorial_text = "HARDWARE REQUIRED: grabber IC and thrower IC in the robot's module. The robot must already be holding something (via Grab Nearest Item) to throw. Great for improvised weapon robots or distracting enemies. No kill-switch required."
@@ -1064,6 +1075,7 @@
 // -- INJECT REAGENT ----------------------------------
 
 /datum/behavior_circuit/response/inject_reagent
+	needs_hardware = TRUE
 	circuit_name = "Response: Inject Reagent"
 	circuit_desc = "Injects reagents into the nearest valid target. Requires borghypo IC."
 	tutorial_text = "HARDWARE REQUIRED: borghypo (injector) in the robot's module. Injects 'inject_amount' units into the nearest mob (friendly or hostile, configurable). Used by medic robots. Configure 'inject_amount' (default 5u) and 'target_friendly' (TRUE = inject friendlies only)."
@@ -1094,6 +1106,7 @@
 // -- OFFER DRINK -------------------------------------
 
 /datum/behavior_circuit/response/offer_drink
+	needs_hardware = TRUE
 	circuit_name = "Response: Offer Drink"
 	circuit_desc = "Dispenses drink to the nearest thirsty mob. Requires borghypo IC."
 	tutorial_text = "HARDWARE REQUIRED: borghypo in the robot's module loaded with a drink reagent. Finds the nearest thirsty human and dispenses 10u to them. For Drink-Bot builds. The borghypo must have liquid in it - it won't refill automatically. Pair with On Mob Thirsty trigger."
@@ -1122,6 +1135,7 @@
 // -- GRAB NEAREST ITEM -------------------------------
 
 /datum/behavior_circuit/response/grab_nearest_item
+	needs_hardware = TRUE
 	circuit_name = "Response: Grab Nearest Item"
 	circuit_desc = "Grabs the nearest loose item using the grabber IC."
 	tutorial_text = "HARDWARE REQUIRED: grabber IC in the robot's module. Finds the nearest loose item within grab_range and picks it up using the IC. The robot can then throw it (Throw Item At Enemy) or carry it. Configure 'grab_range' (default 2 tiles)."
@@ -1151,6 +1165,7 @@
 // -- DROP ALL ITEMS ----------------------------------
 
 /datum/behavior_circuit/response/drop_all_items
+	needs_hardware = TRUE
 	circuit_name = "Response: Drop All Items"
 	circuit_desc = "Ejects all items from the robot's grabber IC."
 	tutorial_text = "HARDWARE REQUIRED: grabber IC. Calls the grabber's eject-all mode. Good for: deposit robots that grab items and drop them at a location, or robots that drop weapons on death. Pair with On Death trigger."
@@ -1204,6 +1219,7 @@
 // -- FIRE EXTINGUISHER -------------------------------
 
 /datum/behavior_circuit/response/fire_extinguisher
+	needs_hardware = TRUE
 	circuit_name = "Response: Extinguish Fire"
 	circuit_desc = "Sprays CO2 at nearby fire tiles. Requires extinguisher IC."
 	tutorial_text = "HARDWARE REQUIRED: extinguisher IC in the module. Scans nearby turfs for fire and activates the IC to extinguish it. For firefighting robots. If no extinguisher IC is present it silently does nothing."
@@ -1224,6 +1240,7 @@
 // -- TOGGLE LIGHT ------------------------------------
 
 /datum/behavior_circuit/response/toggle_light
+	needs_hardware = TRUE
 	circuit_name = "Response: Toggle Light"
 	circuit_desc = "Toggles or sets the robot's light output IC."
 	tutorial_text = "HARDWARE REQUIRED: light output IC in the module. Toggles it by default or forces it on/off. Configure 'force_state': -1 = toggle, 0 = force off, 1 = force on. Good for night-cycle triggers or stealth robots that turn off their lights."
@@ -1258,6 +1275,7 @@
 // -- PUMP REAGENTS -----------------------------------
 
 /datum/behavior_circuit/response/pump_reagents
+	needs_hardware = TRUE
 	circuit_name = "Response: Pump Reagents"
 	circuit_desc = "Activates the reagent pump IC to push chemicals."
 	tutorial_text = "HARDWARE REQUIRED: reagent pump IC. Activates the pump to push reagents from a container through the IC. For chemistry/service robots. If no pump IC is present does nothing."
@@ -1274,6 +1292,7 @@
 // -- SEND RADIO SIGNAL -------------------------------
 
 /datum/behavior_circuit/response/send_radio_signal
+	needs_hardware = TRUE
 	circuit_name = "Response: Send Radio Signal"
 	circuit_desc = "Transmits a radio signal via the robot's signaler IC."
 	tutorial_text = "HARDWARE REQUIRED: signaler IC in the module. Pulses the signaler to transmit on its configured frequency. Good for triggering other robot assemblies remotely, activating traps, or chaining behaviors across multiple robots. Configure frequency on the IC itself."
@@ -1326,6 +1345,7 @@
 // -- DISPLAY SCREEN ----------------------------------
 
 /datum/behavior_circuit/response/display_screen
+	needs_hardware = TRUE
 	circuit_name = "Response: Display Screen Message"
 	circuit_desc = "Shows a message on the robot's screen display IC."
 	tutorial_text = "HARDWARE REQUIRED: screen display IC. Updates the display with 'display_text'. Good for status boards, warning displays, or information robots. Configure 'display_text' to set the message shown."

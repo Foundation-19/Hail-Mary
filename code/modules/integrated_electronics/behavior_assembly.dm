@@ -41,6 +41,9 @@
 	/// Human-readable label, set by fabricator design
 	var/assembly_label = "Unnamed Assembly"
 
+	/// One-time slot expansion at reprogram terminal has been used
+	var/slot_expansion_used = FALSE
+
 
 /obj/item/behavior_assembly/Initialize(mapload)
 	. = ..()
@@ -202,6 +205,8 @@
 	var/tutorial_text = "No documentation available."
 	/// CPU budget cost. Checked against cert compute at assembly install.
 	var/cpu_cost = 1
+	/// TRUE if this circuit requires specific hardware ICs in the robot's module
+	var/needs_hardware = FALSE
 	/// Weakref to the robot this circuit is registered on
 	var/datum/weakref/robot_ref = null
 	/// Weakref to the parent assembly

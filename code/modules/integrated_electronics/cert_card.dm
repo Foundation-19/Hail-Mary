@@ -217,6 +217,20 @@
 		to_chat(user, span_warning("[R]'s certification is locked and cannot be modified."))
 		return FALSE
 
+	// Behavior assemblies are physical items - hand the assembly back directly,
+	// don't wrap it in a new cert card.
+	if(istype(U, /datum/cert_upgrade/robot/behavior_assembly))
+		var/datum/cert_upgrade/robot/behavior_assembly/BA = U
+		R.cpu_cert.remove_upgrade(U, R)
+		var/obj/item/behavior_assembly/A = BA.assembly
+		if(A)
+			A.forceMove(user.drop_location())
+			to_chat(user, span_notice("You remove [A.assembly_label] from [R]."))
+			log_game("[key_name(user)] stripped behavior assembly '[A.assembly_label]' from [R] at [AREACOORD(R)]")
+		BA.assembly = null
+		qdel(BA)
+		return TRUE
+
 	R.cpu_cert.remove_upgrade(U, R)
 
 	var/obj/item/cert_card/card = new(user.drop_location())
