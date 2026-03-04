@@ -250,7 +250,7 @@
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/sensor_range = min(10, 5 + max(0, H.special_p - 5))
-		var/luck_chance = H.special_l >= 7 ? (H.special_l - 6) * 15 : 0
+		var/luck_chance = H.special_l >= 5 ? (H.special_l - 4) * 5 : 0
 		dat += "<br><b>OPERATOR PROFILE</b>  <span class='dim'>// Robot Whisperer</span><br>"
 		dat += "<div class='card'>"
 		dat += "<span class='dim'>INT</span> <span class='[H.special_i >= 6 ? "good" : "warn"]'>[H.special_i]</span>"
@@ -259,7 +259,7 @@
 		if(luck_chance > 0)
 			dat += "<span class='dim'>LCK</span> <span class='good'>[H.special_l]</span>  <span class='good'>// [luck_chance]% BONUS CIRCUIT on Wire and Print</span><br>"
 		else
-			dat += "<span class='dim'>LCK [H.special_l]  // no bonus circuit (LCK 7+ needed)</span><br>"
+			dat += "<span class='dim'>LCK [H.special_l]  // no bonus circuit (LCK 5+ needed)</span><br>"
 		dat += "</div>"
 	dat += "<br>"
 	if(inserted_assembly)
@@ -393,8 +393,8 @@
 		var/mob/living/carbon/human/H = user
 		var/sensor = min(10, 5 + max(0, H.special_p - 5))
 		dat += "<span class='dim'>INT [H.special_i] | PER [H.special_p] (sensor: [sensor] tiles)"
-		if(H.special_l >= 7)
-			var/lchance = (H.special_l - 6) * 15
+		if(H.special_l >= 5)
+			var/lchance = (H.special_l - 4) * 5
 			dat += " | <span class='good'>LCK [H.special_l]: [lchance]% bonus slot</span>"
 		dat += "</span><br>"
 	if(bonus_slot_available && bonus_slot_mode)
@@ -1002,8 +1002,8 @@
 		// LCK roll fires NOW when player clicks Wire and Print
 		if(!bonus_slot_available && ishuman(usr))
 			var/mob/living/carbon/human/H = usr
-			if(H.special_l >= 7)
-				var/luck_chance = (H.special_l - 6) * 15
+			if(H.special_l >= 5)
+				var/luck_chance = (H.special_l - 4) * 5
 				if(prob(luck_chance))
 					bonus_slot_available = TRUE
 					to_chat(usr, span_good("Lucky! Pick a bonus circuit to wire into this assembly."))
