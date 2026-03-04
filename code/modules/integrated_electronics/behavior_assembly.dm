@@ -48,6 +48,10 @@
 	/// Set when player chose to defer the bonus slot selection until REPROGRAM
 	var/pending_bonus_slot = null
 
+	/// If TRUE, behavior circuits will fire even when a player mind is controlling this robot.
+	/// Set by robot_workshop at spawn so assemblies always run regardless of control mode.
+	var/assembly_override = FALSE
+
 
 /obj/item/behavior_assembly/Initialize(mapload)
 	. = ..()
@@ -211,6 +215,10 @@
 	var/cpu_cost = 1
 	/// TRUE if this circuit requires specific hardware ICs in the robot's module
 	var/needs_hardware = FALSE
+
+	/// Hardware slot identifier used by robot_workshop UI to show named requirement slots
+	/// Matches IC_SLOT_* defines. Only set on circuits with needs_hardware = TRUE.
+	var/hardware_slot_name = null
 	/// Weakref to the robot this circuit is registered on
 	var/datum/weakref/robot_ref = null
 	/// Weakref to the parent assembly
