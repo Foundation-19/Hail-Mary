@@ -44,6 +44,10 @@
 	/// One-time slot expansion at reprogram terminal has been used
 	var/slot_expansion_used = FALSE
 
+	/// Pending bonus circuit from a LCK roll at print time - "trigger" or "response"
+	/// Set when player chose to defer the bonus slot selection until REPROGRAM
+	var/pending_bonus_slot = null
+
 
 /obj/item/behavior_assembly/Initialize(mapload)
 	. = ..()

@@ -548,7 +548,7 @@
 		dat += "</div>"
 	if(custom_bonus_id)
 		dat += "<br><a href='byond://?src=[REF(src)];build_custom_confirm=1'><b>&gt; WIRE AND PRINT WITH BONUS</b></a><br>"
-	dat += "<a href='byond://?src=[REF(src)];build_custom_confirm=1'><span class='dim'>&gt; Skip - print without bonus</span></a><br>"
+	dat += "<a href='byond://?src=[REF(src)];build_custom_defer=1'><span class='dim'>&gt; Print now, choose bonus at REPROGRAM</span></a><br>"
 	return dat
 
 
@@ -760,7 +760,27 @@
 	var/obj/item/behavior_assembly/A = inserted_assembly
 	var/dat = "<b>CONFIGURE: [A.assembly_label]</b><br>"
 	dat += "<span class='dim'>Slots: [A.circuits.len]/[A.max_circuits] | Range: [A.sensor_range] tiles</span><br>"
-	if(!A.slot_expansion_used && HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && A.max_circuits < 4)
+	// Pending bonus from deferred LCK roll at print time
+	if(A.pending_bonus_slot)
+		dat += "<br><b>PENDING BONUS CIRCUIT</b>  <span class='good'>// earned at print via LCK</span><br>"
+		dat += "<span class='dim'>Pick a [A.pending_bonus_slot] circuit to wire into this assembly.</span><br>"
+		var/base_path2 = A.pending_bonus_slot == "trigger" ? /datum/behavior_circuit/trigger : /datum/behavior_circuit/response
+		for(var/T2 in subtypesof(base_path2))
+			var/datum/behavior_circuit/inst2 = new T2
+			var/bpath2 = "[T2]"
+			var/hw2 = inst2.needs_hardware
+			var/bname2 = inst2.circuit_name
+			var/bdesc2 = inst2.circuit_desc
+			qdel(inst2)
+			dat += "<div class='card[hw2 ? " hw" : ""]'>"
+			dat += "&gt; <a href='byond://?src=[REF(src)];wire_pending_bonus=[bpath2]'>[bname2]</a>"
+			if(hw2)
+				dat += "  <span class='warn'>HARDWARE</span>"
+			dat += "<br><span class='dim'>[bdesc2]</span>"
+			dat += "</div>"
+		dat += "<a href='byond://?src=[REF(src)];wire_pending_bonus=skip'><span class='dim'>&gt; Skip - discard bonus</span></a><br>"
+		dat += "<hr>"
+	else if(!A.slot_expansion_used && HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && A.max_circuits < 4)
 		dat += "<br><b>EXPAND CIRCUIT SLOT</b>  <span class='dim'>(one-time | costs [REPROGRAM_COST_GOLD] gold)</span><br>"
 		dat += "<span class='dim'>Adds one empty slot so you can install an additional circuit. Cannot be undone.</span><br>"
 		dat += "&gt; <a href='byond://?src=[REF(src)];reprog_expand=trigger'>\[+ TRIGGER slot\]</a>"
@@ -784,6 +804,44 @@
 	dat += "<hr>"
 	dat += "<a href='byond://?src=[REF(src)];eject_assembly=1'>&gt; Eject Assembly</a><br>"
 	return dat
+
+// Wire a deferred bonus circuit earned via LCK roll at print time.
+// "skip" discards it; any valid path installs the circuit into the assembly.
+/obj/machinery/cpu_fabricator/proc/_wire_pending_bonus(mob/user, path_or_skip)
+	if(!inserted_assembly)
+		return
+	var/obj/item/behavior_assembly/A = inserted_assembly
+	if(!A.pending_bonus_slot)
+		to_chat(user, span_warning("No pending bonus circuit on this assembly."))
+		return
+	if(path_or_skip == "skip")
+		A.pending_bonus_slot = null
+		A.max_circuits = max(A.max_circuits - 1, A.circuits.len)  // reclaim reserved slot
+		to_chat(user, span_warning("Bonus circuit discarded."))
+		return
+	var/bonus_path = text2path(path_or_skip)
+	if(!bonus_path)
+		return
+	var/base_path = A.pending_bonus_slot == "trigger" ? /datum/behavior_circuit/trigger : /datum/behavior_circuit/response
+	if(!ispath(bonus_path, base_path))
+		return
+	if(A.circuits.len >= A.max_circuits)
+		to_chat(user, span_warning("Assembly is full."))
+		return
+	var/datum/behavior_circuit/BONUS = new bonus_path()
+	// If it's a trigger, wire it to fire the first installed response
+	if(istype(BONUS, /datum/behavior_circuit/trigger))
+		var/datum/behavior_circuit/trigger/BT = BONUS
+		for(var/datum/behavior_circuit/response/R in A.circuits)
+			BT.response = R
+			break
+	var/bonus_slot_type = A.pending_bonus_slot
+	A.circuits += BONUS
+	A.pending_bonus_slot = null
+	to_chat(user, span_good("Bonus [bonus_slot_type] wired: [BONUS.circuit_name]."))
+	visible_message(span_notice("[src] completes a circuit installation on [A.assembly_label]."))
+	log_game("[key_name(user)] wired deferred bonus '[BONUS.circuit_name]' into '[A.assembly_label]' at [AREACOORD(src)]")
+
 
 // One-time slot expansion at reprogram terminal.
 // No roll - player picks trigger or response type, pays gold, slot is added.
@@ -959,6 +1017,10 @@
 		_build_custom(usr)
 		ui_interact(usr)
 		return
+	if(href_list["build_custom_defer"])
+		_build_custom(usr, TRUE)
+		ui_interact(usr)
+		return
 	if(href_list["workshop_phase"])
 		workshop_phase = text2num(href_list["workshop_phase"])
 		ui_interact(usr)
@@ -1012,6 +1074,10 @@
 		bonus_slot_available = FALSE
 		custom_config = list()
 		workshop_phase = 0
+		ui_interact(usr)
+		return
+	if(href_list["wire_pending_bonus"])
+		_wire_pending_bonus(usr, href_list["wire_pending_bonus"])
 		ui_interact(usr)
 		return
 	if(href_list["reprog_expand"])
@@ -1098,7 +1164,7 @@
 // PRINTING - custom assembly
 // ============================================================
 
-/obj/machinery/cpu_fabricator/proc/_build_custom(mob/user)
+/obj/machinery/cpu_fabricator/proc/_build_custom(mob/user, defer_bonus = FALSE)
 	if(printing)
 		to_chat(user, span_warning("The fabricator is already printing."))
 		return
@@ -1145,10 +1211,11 @@
 	var/list/config_snap = custom_config.Copy()
 	custom_config = list()
 	workshop_phase = 0
-	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, bonus_type, b_mode, t_name, r_name, b_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
+	var/deferred_bonus_mode = defer_bonus ? b_mode : null
+	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, bonus_type, b_mode, deferred_bonus_mode, t_name, r_name, b_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
-/obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, bonus_type, bonus_mode, t_name, r_name, b_name, turf/T, builder_per, builder_lck, builder_ckey, list/config_snapshot)
+/obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, bonus_type, bonus_mode, deferred_bonus_mode, t_name, r_name, b_name, turf/T, builder_per, builder_lck, builder_ckey, list/config_snapshot)
 	printing = FALSE
 	var/label = "[t_name] -> [r_name]"
 	if(b_name)
@@ -1158,9 +1225,13 @@
 	A.name = "behavior assembly - [label]"
 	A.sensor_range = clamp(5 + max(0, builder_per - 5), 5, 10)
 	A.builder_ckey = builder_ckey
-	// If bonus circuit included, raise max_circuits to match (3/3 not 3/2)
-	// and mark slot_expansion_used so the reprogram expand button doesn't appear
-	if(bonus_type)
+	// Deferred bonus: player chose to wire the bonus circuit later at REPROGRAM
+	if(deferred_bonus_mode)
+		A.pending_bonus_slot = deferred_bonus_mode
+		A.max_circuits = 3  // reserve the slot
+		A.slot_expansion_used = TRUE  // block the paid expand since LCK already gave a slot
+	// Immediate bonus: circuit wired now, mark as used
+	else if(bonus_type)
 		A.max_circuits = 3
 		A.slot_expansion_used = TRUE
 	var/datum/behavior_circuit/trigger/TR = new trigger_type()
@@ -1180,8 +1251,8 @@
 			RE.vars[varname] = val
 	A.circuits += TR
 	A.circuits += RE
-	// Wire bonus circuit
-	if(bonus_type)
+	// Wire bonus circuit (only if not deferred - deferred bonuses are wired later at REPROGRAM)
+	if(bonus_type && !deferred_bonus_mode)
 		var/datum/behavior_circuit/BONUS = new bonus_type()
 		// Apply bonus config vars
 		for(var/key in config_snapshot)
