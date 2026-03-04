@@ -652,3 +652,34 @@
 	upgrade = U
 	_update_name()
 
+
+// ====================================================
+// CPU_CERT CORE GETTERS
+// Returns effective CORE values accounting for all
+// installed upgrade modifiers.
+// ====================================================
+
+/datum/cpu_cert/proc/get_compute()
+	var/total = base_compute
+	for(var/datum/cert_upgrade/U in upgrade_slots)
+		total += U.compute_mod
+	return max(0, total)
+
+/datum/cpu_cert/proc/get_operations()
+	var/total = base_operations
+	for(var/datum/cert_upgrade/U in upgrade_slots)
+		total += U.operations_mod
+	return max(0, total)
+
+/datum/cpu_cert/proc/get_resilience()
+	var/total = base_resilience
+	for(var/datum/cert_upgrade/U in upgrade_slots)
+		total += U.resilience_mod
+	return max(0, total)
+
+/datum/cpu_cert/proc/get_energy()
+	var/total = base_energy
+	for(var/datum/cert_upgrade/U in upgrade_slots)
+		total += U.energy_mod
+	return max(0, total)
+

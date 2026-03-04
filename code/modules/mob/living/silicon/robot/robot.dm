@@ -9,6 +9,13 @@
 	/// Set at mapspawn via subtype or installed via cert_card/base at runtime.
 	var/datum/cpu_cert/cpu_cert = null
 	var/cert_armor_bonus = 0
+	var/list/installed_hardware = list()
+	var/list/builder_special = list()
+	var/cert_cha_modifier = 0
+	var/signaler_connection = null
+	var/signaler_frequency = 0
+	var/signaler_code = 0
+	var/obj/item/speaker_hardware = null
 
 /mob/living/silicon/robot/get_cell()
 	return cell

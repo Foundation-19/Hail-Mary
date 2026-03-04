@@ -350,39 +350,35 @@
 		to_chat(user, span_warning("You don't know how to operate this equipment."))
 		return
 	var/dat = _render_page(user)
-	var/datum/browser/popup = new(user, "robot_workshop", "ROBOT WORKSHOP v1.0", 620, 720)
-	popup.set_content(_wrap_css(dat))
+	var/datum/browser/popup = new(user, "robot_workshop", "ROBOT WORKSHOP", 620, 720)
+	popup.set_content(dat)
 	popup.open()
 
 /obj/machinery/robot_workshop/proc/_render_page(mob/user)
-	var/dat = ""
-
-	// -- HEADER ------------------------------------------
-	dat += "<div class='header'>"
-	dat += "<b>ROBOT WORKSHOP</b>"
-	dat += "  <span class='dim'>TIER: [_tier_label(workshop_tier)]</span>"
+	var/dat = _get_css()
+	// ROBCO header - exact match to cpu_fabricator
+	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br>"
+	dat += "= ROBOT WORKSHOP =</center><br>"
+	// Tab nav - bracketed [TAB] style with pipes
+	dat += _navlink("\[HOME\]",     RW_HOME)
+	dat += " | "
+	dat += _navlink("\[BUILD\]",    RW_BUILD)
+	dat += " | "
+	dat += _navlink("\[HARDWARE\]", RW_HARDWARE)
+	dat += " | "
+	dat += _navlink("\[PROGRAMS\]", RW_PROGRAMS)
+	dat += " | "
+	dat += _navlink("\[FINALIZE\]", RW_FINALIZE)
+	dat += "<br>"
+	if(workshop_tier > WORKSHOP_TIER_NONE)
+		dat += "<span class='dim'>TIER: <b>[_tier_label(workshop_tier)]</b></span>"
+	else
+		dat += "<span class='warn'>TIER: UNCERTIFIED -- install a Workshop Cert Card</span>"
 	if(building)
 		dat += "  <span class='warn'>// FABRICATING...</span>"
-	dat += "</div>"
-
-	// -- TAB NAV ------------------------------------------
-	dat += "<div class='tabs'>"
-	var/list/tab_labels = list(
-		"HOME"     = RW_HOME,
-		"BUILD"    = RW_BUILD,
-		"HARDWARE" = RW_HARDWARE,
-		"PROGRAMS" = RW_PROGRAMS,
-		"FINALIZE" = RW_FINALIZE
-	)
-	for(var/label in tab_labels)
-		var/tmode = tab_labels[label]
-		if(tmode == ui_mode)
-			dat += "<span class='tab-active'>[label]</span>"
-		else
-			dat += "<a href='byond://?src=[REF(src)];set_mode=[tmode]'><span class='tab'>[label]</span></a>"
-	dat += "</div><hr>"
-
-	// -- PAGE CONTENT -------------------------------------
+	dat += "<hr>"
+	// Page content
 	switch(ui_mode)
 		if(RW_HOME)
 			dat += _render_home(user)
@@ -394,8 +390,12 @@
 			dat += _render_programs(user)
 		if(RW_FINALIZE)
 			dat += _render_finalize(user)
-
 	return dat
+
+/obj/machinery/robot_workshop/proc/_navlink(label, mode_id)
+	if(ui_mode == mode_id)
+		return "<span class='good'><b>[label]</b></span>"
+	return "<a href='byond://?src=[REF(src)];set_mode=[mode_id]'>[label]</a>"
 
 
 // ====================================================
@@ -468,7 +468,8 @@
 		any_shown = TRUE
 		var/is_selected = (selected_design == D.type)
 		var/tier_label = _tier_label(D.tier)
-		dat += "<div class='card[is_selected ? " selected" : ""]'>"
+		var/sel_class = is_selected ? " sel" : ""
+		dat += "<div class='card[sel_class]'>"
 		dat += "<b>[D.design_name]</b>  <span class='dim'>T[D.tier] [tier_label]</span><br>"
 		dat += "<span class='dim'>[D.design_desc]</span><br>"
 		dat += "HP: <span class='good'>[D.display_health]</span>  "
@@ -510,17 +511,18 @@
 	var/all_filled = TRUE
 	for(var/slot in hardware_slots)
 		var/obj/item/I = hardware_slots[slot]
+		var/label = _slot_label(slot)
 		if(I)
-			dat += "<div class='card hw'>"
-			dat += "<span class='good'>&#10003;</span> <b>[slot]</b><br>"
-			dat += "<span class='dim'>Filled: [I.name]</span>"
+			dat += "<div class='card'>"
+			dat += "<span class='good'>&gt; [label]</span><br>"
+			dat += "<span class='dim'>Installed: [I.name]</span>"
 			dat += "  <a href='byond://?src=[REF(src)];eject_hw=[slot]'>\[eject\]</a>"
 			dat += "</div>"
 		else
 			all_filled = FALSE
-			dat += "<div class='card hw empty'>"
-			dat += "<span class='warn'>&#9744;</span> <b>[slot]</b><br>"
-			dat += "<span class='dim'>Empty -- drop a compatible item into the machine.</span>"
+			dat += "<div class='card hw'>"
+			dat += "<span class='warn'>&gt; [label]</span><br>"
+			dat += "<span class='dim'>Empty -- insert a compatible item into the machine.</span>"
 			dat += "</div>"
 
 	if(all_filled)
@@ -533,7 +535,9 @@
 			dat += "<br><b>BASE MODULE LOADOUT</b>  <span class='dim'>// pre-installed, not configurable</span><br>"
 			var/obj/item/robot_module/dummy = new D.module_type(null)
 			for(var/path in dummy.basic_modules)
-				dat += "<span class='dim'>  + [path]</span><br>"
+				var/obj/item/thing = new path(null)
+				dat += "<span class='dim'>  + [thing.name]</span><br>"
+				qdel(thing)
 			qdel(dummy)
 
 	return dat
@@ -787,6 +791,7 @@
 		materials[mat] -= D.mat_cost[mat]
 
 	building = TRUE
+	icon_state = "h_lathe_load"
 	use_power(active_power_usage * 20)
 
 	// Snapshot state before addtimer
@@ -807,11 +812,17 @@
 	hardware_slots    = list()
 	selected_design   = null
 
+	addtimer(CALLBACK(src, PROC_REF(_set_working_anim)), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
 	addtimer(CALLBACK(src, PROC_REF(_finish_robot),
 		snap_design, snap_control, snap_ckey,
 		snap_assembly, snap_cert, snap_chassis,
 		snap_hw, T, builder_ckey), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
 
+
+
+/obj/machinery/robot_workshop/proc/_set_working_anim()
+	if(building)
+		icon_state = "h_lathe_wloop"
 
 /obj/machinery/robot_workshop/proc/_finish_robot(
 	design_path, control_mode_snap, ckey_snap,
@@ -821,6 +832,7 @@
 	list/hw_snap, turf/T, builder_ckey)
 
 	building = FALSE
+	icon_state = "h_lathe"
 
 	var/datum/robot_build_design/D = _get_design(design_path)
 	if(!D)
@@ -1091,6 +1103,27 @@
 		seen_slots += C.hardware_slot_name
 		hardware_slots[C.hardware_slot_name] = null  // null = unfilled
 
+
+/obj/machinery/robot_workshop/proc/_slot_label(slot_name)
+	switch(slot_name)
+		if(IC_SLOT_WEAPON_FIRING)    return "Weapon Firing Mechanism"
+		if(IC_SLOT_AIR_CANNON)       return "Pneumatic Air Cannon"
+		if(IC_SLOT_GRENADE_THROWER)  return "Grenade Launcher + Thrower"
+		if(IC_SLOT_THROWER_GRABBER)  return "Thrower + Grabber Arm"
+		if(IC_SLOT_BORGHYPO)         return "Hypodermic Injector (Borghypo)"
+		if(IC_SLOT_GRABBER)          return "Grabber Arm"
+		if(IC_SLOT_EXTINGUISHER)     return "Fire Extinguisher / Atmos IC"
+		if(IC_SLOT_LIGHT)            return "Light Output Module"
+		if(IC_SLOT_REAGENT_PUMP)     return "Reagent Pump"
+		if(IC_SLOT_SIGNALER)         return "Radio Signaler"
+		if(IC_SLOT_SCREEN)           return "Display Screen"
+		if(IC_SLOT_ID_READER)        return "ID Card Reader"
+		if(IC_SLOT_MICROPHONE)       return "Microphone Input"
+		if(IC_SLOT_GPS)              return "GPS Locator"
+		if(IC_SLOT_ATMOSPHERICS)     return "Atmospherics Sensor"
+		if(IC_SLOT_HEALTH_SCANNER)   return "Health Analyzer"
+	return slot_name
+
 /obj/machinery/robot_workshop/proc/_item_satisfies_slot(obj/item/I, slot_name)
 	// Maps slot names to acceptable item types
 	switch(slot_name)
@@ -1134,26 +1167,19 @@
 // Matches cpu_fabricator terminal aesthetic
 // ====================================================
 
-/obj/machinery/robot_workshop/proc/_wrap_css(content)
-	return {"
-<html><head><style>
-body        { background:#062113; color:#4aed92; font-family:monospace; font-size:13px; margin:10px; }
-b           { color:#7fffbf; }
-a           { color:#4aed92; text-decoration:none; }
-a:hover     { color:#ffffff; }
-hr          { border:1px solid #2a7a52; margin:6px 0; }
-.header     { font-size:15px; font-weight:bold; margin-bottom:4px; }
-.tabs       { margin:4px 0; }
-.tab        { color:#2a7a52; padding:2px 6px; border:1px solid #2a7a52; margin-right:4px; }
-.tab-active { color:#4aed92; padding:2px 6px; border:1px solid #4aed92; margin-right:4px; font-weight:bold; }
-.dim        { color:#2a7a52; }
-.good       { color:#4aed92; }
-.warn       { color:#e8a020; }
-.card       { border:1px solid #2a7a52; padding:4px 8px; margin:4px 0; }
-.card.hw    { border-color:#4aed92; }
-.card.empty { border-color:#e8a020; }
-.card.selected { border-color:#ffffff; background:#0a2e1a; }
-</style></head><body>
-[content]
-</body></html>
-"}
+/obj/machinery/robot_workshop/proc/_get_css()
+	var/css = "<head><style>"
+	css += "body{padding:0;margin:15px;background-color:#062113;color:#4aed92;line-height:170%;font-family:'Courier New',Courier,monospace;}"
+	css += "a,a:link,a:visited,a:active{color:#4aed92;text-decoration:none;background:#062113;border:none;padding:1px 4px;margin:0 2px;cursor:default;}"
+	css += "a:hover{color:#062113;background:#4aed92;}"
+	css += ".good{color:#4aed92;font-weight:bold;}"
+	css += ".bad{color:#c0392b;font-weight:bold;}"
+	css += ".dim{color:#2a7a52;}"
+	css += ".warn{color:#e8a020;}"
+	css += ".stat{color:#e8a020;font-weight:bold;}"
+	css += ".card{border:1px solid #2a7a52;padding:4px 8px;margin:3px 0;}"
+	css += ".hw{border-left:3px solid #e8a020;}"
+	css += ".sel{border-left:3px solid #4aed92;background:#071a0f;}"
+	css += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
+	css += "</style></head>"
+	return css
