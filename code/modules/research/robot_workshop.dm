@@ -36,11 +36,11 @@
 // WORKSHOP UI MODE DEFINES
 // ====================================================
 
-#define RW_HOME      0
-#define RW_BUILD     1
-#define RW_HARDWARE  2
-#define RW_PROGRAMS  3
-#define RW_FINALIZE  4
+#define RW_HOME      1
+#define RW_BUILD     2
+#define RW_HARDWARE  3
+#define RW_PROGRAMS  4
+#define RW_FINALIZE  5
 
 
 // ====================================================
@@ -261,10 +261,21 @@
 		to_chat(user, span_warning("You don't know how to operate this equipment."))
 		return
 
-	// Workshop cert cards -- tier upgrades
+	// Cert cards -- two kinds: workshop tier certs and robot base certs
 	if(istype(W, /obj/item/cert_card))
 		var/obj/item/cert_card/CC = W
-		_try_install_workshop_cert(CC, user)
+		if(CC.base_cert && istype(CC.base_cert, /datum/cpu_cert/workshop))
+			_try_install_workshop_cert(CC, user)
+			return
+		// Robot base cert or upgrade cert -- load into the robot cert slot
+		if(!robot_cert)
+			if(!user.transferItemToLoc(W, src))
+				return
+			robot_cert = CC
+			to_chat(user, span_notice("Robot cert card loaded."))
+			ui_interact(user)
+			return
+		to_chat(user, span_warning("A robot cert is already loaded. Eject it first."))
 		return
 
 	// Robot chassis
@@ -295,31 +306,7 @@
 		ui_interact(user)
 		return
 
-	// Hardware items -- fill named slots from the assembly
-	if(behavior_assembly && hardware_slots.len)
-		for(var/slot in hardware_slots)
-			if(hardware_slots[slot])
-				continue  // already filled
-			if(_item_satisfies_slot(W, slot))
-				if(!user.transferItemToLoc(W, src))
-					return
-				hardware_slots[slot] = W
-				to_chat(user, span_notice("Installed [W] into [slot] slot."))
-				ui_interact(user)
-				return
-		to_chat(user, span_warning("This item doesn't match any open hardware slot."))
-		return
-
-	// Cert card for the robot
-	if(istype(W, /obj/item/cert_card) && !robot_cert)
-		if(!user.transferItemToLoc(W, src))
-			return
-		robot_cert = W
-		to_chat(user, span_notice("Robot cert card loaded."))
-		ui_interact(user)
-		return
-
-	// Materials -- accept stacks of metal/glass/gold/silver
+	// Materials -- accept stacks of metal/glass/gold/silver (check before hardware slots)
 	var/mat_key = _mat_key_from_item(W)
 	if(mat_key)
 		var/obj/item/stack/S = W
@@ -335,6 +322,21 @@
 		materials[mat_key] += to_take * 2000
 		to_chat(user, span_notice("Added [to_take] sheets of [mat_key]. ([materials[mat_key]]/[mat_max])"))
 		ui_interact(user)
+		return
+
+	// Hardware items -- fill named slots from the assembly
+	if(behavior_assembly && hardware_slots.len)
+		for(var/slot in hardware_slots)
+			if(hardware_slots[slot])
+				continue  // already filled
+			if(_item_satisfies_slot(W, slot))
+				if(!user.transferItemToLoc(W, src))
+					return
+				hardware_slots[slot] = W
+				to_chat(user, span_notice("Installed [W] into [slot] slot."))
+				ui_interact(user)
+				return
+		to_chat(user, span_warning("This item doesn't match any open hardware slot."))
 		return
 
 	return ..(  )
@@ -511,15 +513,13 @@
 // ====================================================
 
 /obj/machinery/robot_workshop/proc/_render_hardware(mob/user)
-	switch(hw_mode)
-		if("pick")
-			return _render_hw_picker(user)
-		if("config")
-			return _render_hw_config(user)
-		if("circuit")
-			return _render_circuit_editor(user)
-		else
-			return _render_hw_overview(user)
+	if(hw_mode == "pick")
+		return _render_hw_picker(user)
+	if(hw_mode == "config")
+		return _render_hw_config(user)
+	if(hw_mode == "circuit")
+		return _render_circuit_editor(user)
+	return _render_hw_overview(user)
 
 
 // ====================================================
@@ -575,10 +575,8 @@
 		if(D)
 			dat += "<br><b>BASE MODULE LOADOUT</b>  <span class='dim'>// pre-installed, not configurable</span><br>"
 			var/obj/item/robot_module/dummy = new D.module_type(null)
-			for(var/path in dummy.basic_modules)
-				var/obj/item/thing = new path(null)
-				dat += "<span class='dim'>  + [thing.name]</span><br>"
-				qdel(thing)
+			for(var/obj/item/I in dummy.basic_modules)
+				dat += "<span class='dim'>  + [I.name]</span><br>"
 			qdel(dummy)
 
 	return dat
@@ -587,7 +585,8 @@
 /obj/machinery/robot_workshop/proc/_hw_slot_row(slot_key, required, mob/living/carbon/human/builder)
 	var/datum/robot_hardware/HW = pending_hardware[slot_key]
 	var/dat = ""
-	dat += "<div class='card [HW ? "hw" : ""]'>"
+	var/card_class = HW ? "card hw" : "card"
+	dat += "<div class='[card_class]'>"
 	if(HW)
 		dat += "<span class='good'>&gt; [slot_key]</span><br>"
 		dat += "<span class='dim'>[HW.hardware_name]"
@@ -599,8 +598,10 @@
 			dat += "  <a href='byond://?src=[REF(src)];hw_circuit_edit=[slot_key]'>\[circuit editor\]</a>"
 		dat += "  <a href='byond://?src=[REF(src)];hw_remove=[slot_key]'>\[remove\]</a>"
 	else
-		dat += "<span class='[required ? "warn" : "dim"]'>&gt; [slot_key]</span><br>"
-		dat += "<span class='dim'>[required ? "Required" : "Optional"] -- not configured.</span><br>"
+		var/slot_class = required ? "warn" : "dim"
+		var/slot_label = required ? "Required" : "Optional"
+		dat += "<span class='[slot_class]'>&gt; [slot_key]</span><br>"
+		dat += "<span class='dim'>[slot_label] -- not configured.</span><br>"
 		dat += "<a href='byond://?src=[REF(src)];hw_pick=[slot_key]'>\[select hardware\]</a>"
 	dat += "</div>"
 	return dat
@@ -624,7 +625,7 @@
 	if(agi > 5)
 		dat += "<span class='good'>AGI [agi]</span>  <span class='dim'>-[round((agi-5)*0.1, 0.01)] movement delay</span><br>"
 	if(int_s >= RH_INT_MASTER)
-		dat += "<span class='good'>INT [int_s]</span>  <span class='dim'>Circuit Board slot UNLOCKED // all hardware tiers available</span><br>"
+		dat += "<span class='good'>INT [int_s]</span>  <span class='dim'>Advanced Circuit Board unlocked -- add via \[+ add optional hardware\]</span><br>"
 	else if(int_s >= RH_INT_ADVANCED)
 		dat += "<span class='good'>INT [int_s]</span>  <span class='dim'>Advanced configs unlocked // circuit board requires INT [RH_INT_MASTER]</span><br>"
 	else if(int_s >= RH_INT_STANDARD)
@@ -956,7 +957,8 @@
 				var/cost = D2.mat_cost[mat]
 				var/have = materials[mat]
 				var/ok = have >= cost
-				dat += "<span class='[ok ? "good" : "warn"]'>[uppertext(mat)]: [cost]</span>  "
+				var/mat_class = ok ? "good" : "warn"
+				dat += "<span class='[mat_class]'>[uppertext(mat)]: [cost]</span>  "
 				dat += "<span class='dim'>(stored: [have])</span><br>"
 
 	// Control mode
@@ -1785,10 +1787,10 @@
 /// slot_name is a HW_SLOT_* define (a /datum/robot_hardware type path string).
 /obj/machinery/robot_workshop/proc/_slot_accepts_hw_type(slot_name, hw_type)
 	if(!slot_name || !hw_type)
-		return FALSE
+		return TRUE  // no constraint -- show everything
 	var/required = text2path(slot_name)
 	if(!required)
-		return FALSE
+		return TRUE  // slot_name is not a type path (e.g. "Optional 1") -- no filter
 	return ispath(hw_type, required)
 
 

@@ -564,7 +564,7 @@
 	circuit_name = "Trigger: On Weapon Fired"
 	hardware_slot_name = HW_SLOT_WEAPON
 	required_hardware_type = /datum/robot_hardware/weapon
-	circuit_desc = "Fires each time the robot's weapon IC is activated."
+	circuit_desc = "Fires each time the robot's weapon fires."
 	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires each time the robot's weapon discharges. Good for: sound effects on fire, logging shots, or chaining a secondary action after each attack."
 	cpu_cost = 1
 	var/last_shot = 0
@@ -596,7 +596,7 @@
 	circuit_name = "Trigger: On Signal Received"
 	hardware_slot_name = HW_SLOT_SIGNALER
 	required_hardware_type = /datum/robot_hardware/signaler
-	circuit_desc = "Fires when a radio signal is received on the robot's signaler IC."
+	circuit_desc = "Fires when a radio signal is received on the configured frequency."
 	tutorial_text = "HARDWARE REQUIRED: Signaler. Fires when a matching radio signal is received. Good for: remotely commanded robots. Send a signal on the configured frequency and the robot executes its response. Pair with Say Text, Enter Combat Mode, or any response."
 	cpu_cost = 2
 	var/last_received = 0
@@ -991,7 +991,7 @@
 	circuit_name = "Response: Fire Weapon"
 	hardware_slot_name = HW_SLOT_WEAPON
 	required_hardware_type = /datum/robot_hardware/weapon
-	circuit_desc = "Fires the robot's weapon IC at the nearest enemy. Requires weapon_firing IC."
+	circuit_desc = "Fires the robot's weapon at the nearest enemy. Requires Weapon hardware."
 	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires the weapon at the nearest hostile in sensor range. Does nothing if no enemy is in range. Pair with On Enemy Spotted for a complete auto-turret."
 	cpu_cost = 3
 
@@ -1024,7 +1024,7 @@
 	circuit_name = "Response: Fire Air Cannon"
 	hardware_slot_name = HW_SLOT_AIR_CANNON
 	required_hardware_type = /datum/robot_hardware/air_cannon
-	circuit_desc = "Fires the pneumatic cannon at the nearest enemy. Requires air_cannon and atmospherics ICs."
+	circuit_desc = "Fires the pneumatic cannon at the nearest enemy. Requires Air Cannon hardware."
 	tutorial_text = "HARDWARE REQUIRED: Air Cannon hardware datum. Non-lethal suppression: knocks nearby hostiles back without dealing damage. Good for crowd control robots."
 	cpu_cost = 3
 
@@ -1082,7 +1082,7 @@
 	circuit_name = "Response: Prime Grenade"
 	hardware_slot_name = HW_SLOT_GRENADE
 	required_hardware_type = /datum/robot_hardware/grenade_launcher
-	circuit_desc = "Arms the grenade loaded in the robot's grenade primer IC."
+	circuit_desc = "Arms and throws the grenade at the nearest enemy. Requires Grenade Launcher hardware."
 	tutorial_text = "HARDWARE REQUIRED: Grenade Launcher hardware datum with a grenade loaded. Arms and throws the grenade at the nearest enemy. Does nothing if no grenade is loaded. Configure 'detonation_time' (default 3 seconds)."
 	cpu_cost = 2
 	var/detonation_time = 3
@@ -1116,7 +1116,7 @@
 	circuit_name = "Response: Throw Item At Enemy"
 	hardware_slot_name = HW_SLOT_THROWER
 	required_hardware_type = /datum/robot_hardware/thrower
-	circuit_desc = "Throws held items at the nearest hostile. Requires grabber and thrower ICs."
+	circuit_desc = "Throws a held item at the nearest hostile. Requires Thrower hardware."
 	tutorial_text = "HARDWARE REQUIRED: Thrower hardware datum. Throws a held item at the nearest hostile. The robot must be holding something first -- pair with Grab Nearest Item. Good for improvised weapon robots or distracting enemies."
 	cpu_cost = 2
 
@@ -1157,7 +1157,7 @@
 	circuit_name = "Response: Inject Reagent"
 	hardware_slot_name = HW_SLOT_INJECTOR
 	required_hardware_type = /datum/robot_hardware/injector
-	circuit_desc = "Injects reagents into the nearest valid target. Requires borghypo IC."
+	circuit_desc = "Injects reagents into the nearest valid target. Requires Injector hardware."
 	tutorial_text = "HARDWARE REQUIRED: Injector hardware datum. Injects reagents into the nearest mob. Configure 'inject_amount' (default 5u) and 'target_friendly' (TRUE = friendlies only, FALSE = any mob). Used by medic robots."
 	cpu_cost = 2
 	var/inject_amount = 5
@@ -1185,7 +1185,7 @@
 	circuit_name = "Response: Offer Drink"
 	hardware_slot_name = HW_SLOT_INJECTOR
 	required_hardware_type = /datum/robot_hardware/injector
-	circuit_desc = "Dispenses drink to the nearest thirsty mob. Requires borghypo IC."
+	circuit_desc = "Dispenses a drink to the nearest thirsty mob. Requires Injector hardware."
 	tutorial_text = "HARDWARE REQUIRED: Injector hardware datum loaded with a drink reagent. Dispenses 10u to the nearest thirsty human. The injector won't refill automatically. Pair with the On Mob Thirsty Nearby trigger."
 	cpu_cost = 1
 
@@ -1211,7 +1211,7 @@
 	circuit_name = "Response: Grab Nearest Item"
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
-	circuit_desc = "Grabs the nearest loose item using the grabber IC."
+	circuit_desc = "Grabs the nearest loose item. Requires Grabber hardware."
 	tutorial_text = "HARDWARE REQUIRED: Grabber hardware datum. Picks up the nearest loose item within range. Configure 'grab_range' (default 2 tiles). The robot can then throw it (Throw Item At Enemy) or carry it."
 	cpu_cost = 2
 	var/grab_range = 2
@@ -1237,7 +1237,7 @@
 	circuit_name = "Response: Drop All Items"
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
-	circuit_desc = "Ejects all items from the robot's grabber IC."
+	circuit_desc = "Drops all held items. Requires Grabber hardware."
 	tutorial_text = "HARDWARE REQUIRED: Grabber hardware datum. Drops all held items. Good for: deposit robots that collect and drop items at a location, or robots that drop weapons on death. Pair with On Death trigger."
 	cpu_cost = 1
 
@@ -1295,7 +1295,7 @@
 	circuit_name = "Response: Extinguish Fire"
 	hardware_slot_name = HW_SLOT_GAS_PUMP
 	required_hardware_type = /datum/robot_hardware/gas_pump
-	circuit_desc = "Sprays CO2 at nearby fire tiles. Requires extinguisher IC."
+	circuit_desc = "Sprays CO2 at nearby fire tiles. Requires Gas Pump hardware."
 	tutorial_text = "HARDWARE REQUIRED: Gas Pump hardware datum (CO2 extinguisher config). Scans nearby turfs for fire and suppresses it. For firefighting robots."
 	cpu_cost = 2
 
@@ -1318,7 +1318,7 @@
 	circuit_name = "Response: Toggle Light"
 	hardware_slot_name = HW_SLOT_LIGHT
 	required_hardware_type = /datum/robot_hardware/light
-	circuit_desc = "Toggles or sets the robot's light output IC."
+	circuit_desc = "Toggles or sets the robot's light. Requires Light hardware."
 	tutorial_text = "HARDWARE REQUIRED: Light hardware datum. Toggles the robot's light or forces it on/off. Configure 'force_state': -1 = toggle, 0 = force off, 1 = force on. Good for stealth robots or night-cycle triggers."
 	cpu_cost = 1
 	var/force_state = -1
@@ -1356,7 +1356,7 @@
 	circuit_name = "Response: Pump Reagents"
 	hardware_slot_name = HW_SLOT_REAGENT_PUMP
 	required_hardware_type = /datum/robot_hardware/reagent_pump
-	circuit_desc = "Activates the reagent pump IC to push chemicals."
+	circuit_desc = "Activates the reagent pump to push chemicals. Requires Reagent Pump hardware."
 	tutorial_text = "HARDWARE REQUIRED: Reagent Pump hardware datum. Activates the pump to push reagents from the attached container. For chemistry and service robots."
 	cpu_cost = 1
 
@@ -1379,7 +1379,7 @@
 	circuit_name = "Response: Send Radio Signal"
 	hardware_slot_name = HW_SLOT_SIGNALER
 	required_hardware_type = /datum/robot_hardware/signaler
-	circuit_desc = "Transmits a radio signal via the robot's signaler IC."
+	circuit_desc = "Transmits a radio signal on the configured frequency. Requires Signaler hardware."
 	tutorial_text = "HARDWARE REQUIRED: Signaler hardware datum. Transmits a radio signal on the configured frequency. Good for triggering other robots remotely, activating traps, or chaining behaviors across multiple robots. Set the frequency on the Signaler datum at build time."
 	cpu_cost = 1
 
@@ -1434,7 +1434,7 @@
 	circuit_name = "Response: Display Screen Message"
 	hardware_slot_name = HW_SLOT_DISPLAY
 	required_hardware_type = /datum/robot_hardware/display_screen
-	circuit_desc = "Shows a message on the robot's screen display IC."
+	circuit_desc = "Shows a message on the robot's display screen. Requires Display Screen hardware."
 	tutorial_text = "HARDWARE REQUIRED: Display Screen hardware datum. Updates the robot's screen with 'display_text'. Good for status boards, warning displays, or information robots."
 	cpu_cost = 1
 	var/display_text = "STATUS: NOMINAL"
