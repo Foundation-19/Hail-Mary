@@ -108,6 +108,12 @@
 			to_chat(user, span_warning("[R] has no base certification installed. Install a base cert first."))
 			qdel(U)
 			return
+	// Cert compatibility check -- warn if assembly requires flags the cert doesn't have.
+	// We don't hard-block NPC installs (mappers may intentionally use exotic assemblies),
+	// but we log and warn so misconfigurations are visible.
+	if(!cert_compatible(R.cpu_cert))
+		to_chat(user, span_warning("[assembly_label] requires capabilities this chassis cert does not have. Some circuits may not function."))
+		log_game("[key_name(user)] installed behavior assembly '[assembly_label]' onto [R] whose cert lacks required flags.")
 	// Check slot availability
 	var/datum/cpu_cert/C = R.cpu_cert
 	if(!C.can_install_upgrade(U))

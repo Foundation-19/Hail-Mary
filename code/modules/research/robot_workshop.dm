@@ -1471,15 +1471,28 @@
 		for(var/slot in hw_snap)
 			var/datum/robot_hardware/HW = hw_snap[slot]
 			if(HW) hw_list += HW
-		// Apply SPECIAL and install each datum
-		if(builder)
-			apply_special_to_hardware(builder, R)
+		// Install first so R.installed_hardware is populated,
+		// THEN apply SPECIAL so apply_special() fires on each datum correctly.
 		for(var/datum/robot_hardware/HW in hw_list)
 			HW.install(R)
+		if(builder)
+			apply_special_to_hardware(builder, R)
 
-	R.module.rebuild_modules()
+	// Validate assembly hardware slot coverage against what was actually installed.
+	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.
+	if(A)
+		for(var/datum/behavior_circuit/C in A.circuits)
+			if(!C.needs_hardware || !C.hardware_slot_name || !C.required_hardware_type)
+				continue
+			var/found = FALSE
+			if(hw_snap)
+				var/datum/robot_hardware/HW = hw_snap[C.hardware_slot_name]
+				if(HW && ispath(HW.type, text2path(C.hardware_slot_name)))
+					found = TRUE
+			if(!found)
+				log_game("[builder_ckey] built [R] with assembly '[A.assembly_label]' but circuit '[C.circuit_name]' is missing required hardware in slot [C.hardware_slot_name] -- circuit will silently no-op.")
 
-	// Apply cert
+
 	if(CC && CC.base_cert)
 		R.cpu_cert = CC.base_cert
 		CC.base_cert = null
@@ -1491,19 +1504,26 @@
 
 	// Install behavior assembly
 	if(A)
-		A.assembly_override = TRUE  // assemblies always fire on workshop robots
-		A.forceMove(R)
-		var/datum/cert_upgrade/robot/behavior_assembly/U = new()
-		U.assembly = A
-		if(R.cpu_cert.can_install_upgrade(U))
-			R.cpu_cert.install_upgrade(U, R)
-		else
-			// Cert full -- drop assembly at feet with a warning
-			A.assembly_override = FALSE
+		// Final cert_compatible gate -- _validate_build already blocked incompatible
+		// assemblies, but re-check here in case cert was swapped or path bypassed.
+		if(!A.cert_compatible(R.cpu_cert))
 			A.forceMove(T)
-			U.assembly = null
-			qdel(U)
-			visible_message(span_warning("[src]: assembly could not be installed -- cert slots full. Assembly dropped."))
+			visible_message(span_warning("[src]: assembly '[A.assembly_label]' is not compatible with installed cert. Assembly dropped."))
+			log_game("[builder_ckey] tried to build [R.name] with incompatible assembly '[A.assembly_label]' -- dropped at [AREACOORD(T)]")
+		else
+			A.assembly_override = TRUE  // assemblies always fire on workshop robots
+			A.forceMove(R)
+			var/datum/cert_upgrade/robot/behavior_assembly/U = new()
+			U.assembly = A
+			if(R.cpu_cert.can_install_upgrade(U))
+				R.cpu_cert.install_upgrade(U, R)
+			else
+				// Cert full -- drop assembly at feet with a warning
+				A.assembly_override = FALSE
+				A.forceMove(T)
+				U.assembly = null
+				qdel(U)
+				visible_message(span_warning("[src]: assembly could not be installed -- cert slots full. Assembly dropped."))
 
 	// Player control mode
 	switch(control_mode_snap)
@@ -1658,11 +1678,33 @@
 			for(var/mat in D.mat_cost)
 				if(materials[mat] < D.mat_cost[mat])
 					errors += "Insufficient [mat]: need [D.mat_cost[mat]], have [materials[mat]]."
-	// Hardware slots -- warn but don't block (partial hardware is allowed, circuit silently no-ops)
-	// If you want hard blocking, uncomment:
-	// for(var/slot in hardware_slots)
-	//     if(!hardware_slots[slot])
-	//         errors += "Hardware slot unfilled: [slot]."
+	// CORE budget -- hard block if hardware exceeds cert limits
+	var/datum/cpu_cert/budget_cert = robot_cert ? robot_cert.base_cert : null
+	if(!budget_cert)
+		budget_cert = new /datum/cpu_cert/robot()
+	var/list/core_errors = check_hardware_core_budget(pending_hardware, budget_cert)
+	if(!robot_cert) qdel(budget_cert)
+	for(var/ce in core_errors)
+		errors += ce
+
+	// Circuit cpu_cost -- sum all circuits in queued assembly vs cert compute
+	if(behavior_assembly && behavior_assembly.circuits.len)
+		var/datum/cpu_cert/cc = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
+		var/total_cpu = 0
+		for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
+			total_cpu += C.cpu_cost
+		var/avail_cpu = cc.get_compute()
+		if(!robot_cert) qdel(cc)
+		if(total_cpu > avail_cpu)
+			errors += "Assembly cpu_cost [total_cpu] exceeds cert Compute [avail_cpu]. Remove circuits or use a higher-tier cert."
+
+	// Assembly cert_compatible check -- ensures assembly capability flags match the cert
+	if(behavior_assembly && (robot_cert || TRUE))
+		var/datum/cpu_cert/ac = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
+		if(!behavior_assembly.cert_compatible(ac))
+			errors += "Assembly '[behavior_assembly.assembly_label]' requires capabilities this cert does not have."
+		if(!robot_cert) qdel(ac)
+
 	return errors
 
 
