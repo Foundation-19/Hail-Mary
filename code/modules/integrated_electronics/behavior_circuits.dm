@@ -109,7 +109,7 @@
 /datum/behavior_circuit/trigger/on_take_damage
 	circuit_name = "Trigger: On Take Damage"
 	circuit_desc = "Fires when the robot takes significant damage."
-	tutorial_text = "This trigger watches your robot's health every tick. When damage received in one tick exceeds the threshold, it fires the linked response. Works on both player and NPC robots. Good for: distress calls, self-repair, fleeing, or retaliation."
+	tutorial_text = "Fires when the robot takes a hit above the damage threshold. Configure 'damage_threshold' (default 10). Good for: distress calls, self-repair triggers, retreat behavior, or retaliation responses."
 	cpu_cost = 1
 	var/damage_threshold = 10
 	var/last_health = -1
@@ -139,7 +139,7 @@
 /datum/behavior_circuit/trigger/on_low_power
 	circuit_name = "Trigger: On Low Power"
 	circuit_desc = "Fires once when cell charge drops below a threshold."
-	tutorial_text = "Monitors the robot's power cell ratio. Fires once per low-power event (resets when power is restored). The threshold is 0.0-1.0 where 0.2 = 20% charge. Great for: warning broadcasts, retreating to a charger, entering low-power mode."
+	tutorial_text = "Fires once when cell charge drops below the threshold, then resets when power recovers. Configure 'power_threshold' (0.0-1.0, default 0.2 = 20%). Good for: low-battery warnings, retreat to charger, entering low-power mode."
 	cpu_cost = 1
 	var/charge_threshold = 0.2
 	var/already_triggered = FALSE
@@ -172,7 +172,7 @@
 /datum/behavior_circuit/trigger/on_enemy_spotted
 	circuit_name = "Trigger: On Enemy Spotted"
 	circuit_desc = "Fires when a hostile mob enters sensor range."
-	tutorial_text = "Scans the area around the robot every 5 seconds. If any mob that is not in the robot's faction is found within sensor range, it fires. Sensor range is set by the builder's Perception stat at print time. Best paired with: Enter Combat Mode, Pathfind To Enemy, Fire Weapon, Broadcast Alert."
+	tutorial_text = "Scans for hostile mobs within sensor range every few seconds. Sensor range is baked in from the builder's Perception at print time. Best paired with: Enter Combat Mode, Pathfind To Enemy, Fire Weapon, Broadcast Alert."
 	cpu_cost = 2
 	var/last_spotted = 0
 	var/spot_cooldown = 50
@@ -209,7 +209,7 @@
 /datum/behavior_circuit/trigger/on_death
 	circuit_name = "Trigger: On Death"
 	circuit_desc = "Fires once when the robot dies."
-	tutorial_text = "Polls the robot's stat each tick and fires exactly once when it transitions to DEAD. Perfect for death-triggered behaviors: distress beacons, explosions, drop all items, or a parting message."
+	tutorial_text = "Fires exactly once when the robot dies. Good for: distress beacons, self-destruct, drop all items, or a last words message."
 	cpu_cost = 1
 	var/already_fired = FALSE
 
@@ -240,7 +240,7 @@
 /datum/behavior_circuit/trigger/on_interval
 	circuit_name = "Trigger: On Interval"
 	circuit_desc = "Fires repeatedly on a fixed time interval."
-	tutorial_text = "The simplest trigger: just fires every N ticks (10 ticks = 1 second). Use it for ambient behaviors: periodic announcements, regular status checks, patrol loops, or heartbeat signals. Configure 'interval_ticks' to set how often."
+	tutorial_text = "Fires repeatedly on a fixed timer. Configure 'interval_ticks' (10 ticks = 1 second). Good for: ambient announcements, patrol loops, status checks, heartbeat signals."
 	cpu_cost = 1
 	var/interval_ticks = 100
 	var/last_fire = 0
@@ -270,7 +270,7 @@
 /datum/behavior_circuit/trigger/on_power_restored
 	circuit_name = "Trigger: On Power Restored"
 	circuit_desc = "Fires once when the robot's cell charge rises above threshold after being low."
-	tutorial_text = "Companion to On Low Power. Fires once when the cell recovers above the threshold. Good for: announcing readiness, resuming patrol, or broadcasting a status update after recharging."
+	tutorial_text = "Fires once when the cell recovers above the power threshold after having been low. Good for: announcing readiness, resuming patrol, or broadcasting a status update after recharging."
 	cpu_cost = 1
 	var/restore_threshold = 0.5
 	var/was_low = FALSE
@@ -303,7 +303,7 @@
 /datum/behavior_circuit/trigger/on_mob_approaches
 	circuit_name = "Trigger: Mob Approaches"
 	circuit_desc = "Fires when any living mob enters close proximity."
-	tutorial_text = "Broad-spectrum proximity sensor. Fires when ANY living mob (friend or foe) steps within range. Good for service robots: greeting visitors, offering items, sounding an alarm. For enemy-only detection use On Enemy Spotted instead."
+	tutorial_text = "Fires when any living mob (friend or foe) enters proximity. Good for: greeting visitors, offering items, sounding an alarm. For enemy-only detection use On Enemy Spotted instead."
 	cpu_cost = 2
 	var/last_check = 0
 	var/check_cooldown = 30
@@ -337,7 +337,7 @@
 /datum/behavior_circuit/trigger/on_mob_thirsty
 	circuit_name = "Trigger: Mob Thirsty Nearby"
 	circuit_desc = "Fires when a thirsty human is in sensor range."
-	tutorial_text = "For service robots only. Scans for humans below THIRST_LEVEL_THIRSTY in range. Used by Drink-Bot builds. Requires a borghypo or dispenser in the robot's module to actually deliver the drink. Pair with: Offer Drink response."
+	tutorial_text = "Fires when a thirsty human is in sensor range. Used by drink-bot builds. Pair with the Offer Drink response, which requires an Injector hardware datum loaded with a drink reagent."
 	cpu_cost = 2
 	var/last_check = 0
 	var/check_cooldown = 50
@@ -373,7 +373,7 @@
 /datum/behavior_circuit/trigger/on_mob_injured
 	circuit_name = "Trigger: Mob Injured Nearby"
 	circuit_desc = "Fires when a friendly mob below a health threshold is in range."
-	tutorial_text = "Scans for friendly mobs (same faction) below the health threshold. Designed for combat medic and field surgeon builds. Pair with: Inject Reagent, Self Repair Pulse, Follow Friendly. The threshold is a raw health value - default 50 = below half health on most mobs."
+	tutorial_text = "Fires when a friendly mob (same faction) is below the health threshold in sensor range. Configure 'health_threshold' (default 50). Pair with: Inject Reagent, Self Repair Pulse, or Follow Linked Target."
 	cpu_cost = 2
 	var/last_check = 0
 	var/check_cooldown = 50
@@ -412,7 +412,7 @@
 /datum/behavior_circuit/trigger/on_night_cycle
 	circuit_name = "Trigger: On Night Cycle"
 	circuit_desc = "Fires when the world time enters the night window."
-	tutorial_text = "Fires once per in-game night period. Good for patrol robots that should behave differently after dark, lighting systems, or security bots that activate at night. Uses world.time - configure night_start and night_end in ticks."
+	tutorial_text = "Fires once per in-game night period. Configure 'night_start' and 'night_end' in ticks. Good for: patrol robots that behave differently after dark, lighting systems, or security bots that activate at night."
 	cpu_cost = 1
 	var/night_start = 180000
 	var/night_end   = 360000
@@ -445,7 +445,7 @@
 /datum/behavior_circuit/trigger/on_mess_detected
 	circuit_name = "Trigger: On Mess Detected"
 	circuit_desc = "Fires when blood, reagent spills, or dirt are found nearby."
-	tutorial_text = "Janitor trigger. Checks nearby turfs for blood decals (footprints, puddles, splatter) and reagent spills. When contamination is detected it fires. Use with the Emote Action response to make the bot announce it found a mess, or pair it with cleaning module ICs. Triggers on blood footprints left by wounded humans."
+	tutorial_text = "Fires when blood, spills, or dirt decals are found on nearby turfs. Good for janitor robots. Pair with Emote Action to announce the mess, or any cleaning response. Triggers on blood footprints from wounded humans."
 	cpu_cost = 1
 	var/last_check = 0
 	var/check_cooldown = 50
@@ -489,7 +489,7 @@
 	hardware_slot_name = HW_SLOT_ID_READER
 	required_hardware_type = /datum/robot_hardware/id_reader
 	circuit_desc = "Fires when an ID scan by the robot succeeds."
-	tutorial_text = "For door-guard or escort robots. Polls the robot's ID scanner IC for a successful read. When an ID with valid access is scanned it fires. Pair with: Say Text (greeting), Follow Friendly (escort), or Toggle Light (open a door via the IC chain)."
+	tutorial_text = "HARDWARE REQUIRED: ID Reader. Fires when the robot scans an ID with valid access. Good for: door-guard robots, greeter builds, or escort bots that unlock on ID confirmation. Pair with Say Text or Follow Linked Target."
 	cpu_cost = 1
 	var/last_check = 0
 	var/check_cooldown = 10
@@ -526,7 +526,7 @@
 	hardware_slot_name = HW_SLOT_MICROPHONE
 	required_hardware_type = /datum/robot_hardware/microphone
 	circuit_desc = "Fires when the robot's microphone picks up speech."
-	tutorial_text = "Requires a microphone IC in the robot's module. Reads the IC's output pins for new messages. Fires when new speech is detected that differs from the last heard message. Good for companion robots that respond to being spoken to, or alarms that trigger on voices."
+	tutorial_text = "HARDWARE REQUIRED: Microphone. Fires when the robot picks up new speech nearby. Good for: companion robots that respond when spoken to, voice-activated alarms, or logging conversations."
 	cpu_cost = 2
 	var/last_heard = 0
 	var/hear_cooldown = 10
@@ -565,7 +565,7 @@
 	hardware_slot_name = HW_SLOT_WEAPON
 	required_hardware_type = /datum/robot_hardware/weapon
 	circuit_desc = "Fires each time the robot's weapon IC is activated."
-	tutorial_text = "Polls the weapon_firing IC for fire events. Useful for: logging shots, playing sound effects on fire, auto-reloading behavior, or triggering a secondary action after each shot. Requires a weapon_firing IC in the robot's module."
+	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires each time the robot's weapon discharges. Good for: sound effects on fire, logging shots, or chaining a secondary action after each attack."
 	cpu_cost = 1
 	var/last_shot = 0
 
@@ -597,7 +597,7 @@
 	hardware_slot_name = HW_SLOT_SIGNALER
 	required_hardware_type = /datum/robot_hardware/signaler
 	circuit_desc = "Fires when a radio signal is received on the robot's signaler IC."
-	tutorial_text = "Requires a signaler IC in the robot's module. When the signaler detects a matching radio signal, this trigger fires. Good for remotely commanded robots - you send a signal, the robot executes its response. Works best with Say Text or Enter Combat Mode responses."
+	tutorial_text = "HARDWARE REQUIRED: Signaler. Fires when a matching radio signal is received. Good for: remotely commanded robots. Send a signal on the configured frequency and the robot executes its response. Pair with Say Text, Enter Combat Mode, or any response."
 	cpu_cost = 2
 	var/last_received = 0
 	var/signal_cooldown = 5
@@ -631,7 +631,7 @@
 	hardware_slot_name = HW_SLOT_GPS
 	required_hardware_type = /datum/robot_hardware/gps
 	circuit_desc = "Fires when the robot is within defined map coordinates."
-	tutorial_text = "Requires a GPS IC in the robot's module. Define a rectangular zone by coordinates. When the robot is inside that box, it fires. Great for patrol waypoint robots: chain multiple assemblies with GPS zones to create a route. Configure zone_x1/y1/x2/y2."
+	tutorial_text = "HARDWARE REQUIRED: GPS. Fires when the robot is inside the defined coordinate zone. Configure 'zone_x1', 'zone_y1', 'zone_x2', 'zone_y2'. Chain multiple assemblies with different GPS zones to build a patrol route."
 	cpu_cost = 2
 	var/zone_x1 = 0
 	var/zone_y1 = 0
@@ -680,7 +680,7 @@
 	hardware_slot_name = HW_SLOT_ENV_SCANNER
 	required_hardware_type = /datum/robot_hardware/environment_scanner
 	circuit_desc = "Fires when atmospheric pressure or O2 drops below safe levels."
-	tutorial_text = "Requires an atmospherics IC in the robot's module. Monitors local atmosphere and fires when pressure or O2 falls below the thresholds. Ideal for emergency response robots that seal breaches or warn survivors. Pair with Broadcast Alert or Deploy Smoke."
+	tutorial_text = "HARDWARE REQUIRED: Environment Scanner. Fires when local pressure or O2 drops below safe levels. Good for: emergency response robots, breach detection, warning survivors. Pair with Broadcast Alert or Deploy Smoke."
 	cpu_cost = 2
 	var/pressure_min = 60
 	var/o2_min = 16
@@ -730,7 +730,7 @@
 	hardware_slot_name = HW_SLOT_HEALTH_SCANNER
 	required_hardware_type = /datum/robot_hardware/health_scanner
 	circuit_desc = "Fires when the robot's health scanner detects a critically injured mob."
-	tutorial_text = "Requires a health scanner IC. Scans for mobs whose total damage exceeds the critical threshold. More precise than On Mob Injured because it uses the scanner IC reading rather than raw health. Perfect for medic robots. Pair with Inject Reagent or Say Text."
+	tutorial_text = "HARDWARE REQUIRED: Health Scanner. Fires when the scanner finds a mob with critical injuries in range. More precise than On Mob Injured. Good for medic robots. Pair with Inject Reagent or Say Text."
 	cpu_cost = 2
 	var/damage_threshold = 80
 	var/last_check = 0
@@ -780,7 +780,7 @@
 /datum/behavior_circuit/response/broadcast_alert
 	circuit_name = "Response: Broadcast Alert"
 	circuit_desc = "Broadcasts a radio alert message on the robot's channel."
-	tutorial_text = "Uses the robot's radio to send a message on its default channel. No special hardware required - all robots have a radio. Configure 'alert_message' to set what it says. Good for: distress calls, zone announcements, status reports."
+	tutorial_text = "Broadcasts a message on the robot's radio channel. No hardware required. Configure 'alert_message'. Good for: distress calls, zone announcements, status reports."
 	cpu_cost = 1
 	var/alert_message = "WARNING: Threat detected."
 
@@ -796,7 +796,7 @@
 /datum/behavior_circuit/response/broadcast_distress
 	circuit_name = "Response: Broadcast Distress Signal"
 	circuit_desc = "Broadcasts a distress call including current location."
-	tutorial_text = "Like Broadcast Alert but automatically includes the robot's current area in the message. Good for: taking damage events, low health situations, or being attacked. No configuration needed."
+	tutorial_text = "Broadcasts a distress call that includes the robot's current location. No configuration needed. Good for: damage events, low health, or being attacked."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/broadcast_distress/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -814,7 +814,7 @@
 /datum/behavior_circuit/response/say_text
 	circuit_name = "Response: Say Text"
 	circuit_desc = "Robot speaks a line of text aloud."
-	tutorial_text = "The robot says your configured message out loud via its speech system. If it has a text-to-speech IC it uses that; otherwise falls back to a direct say(). Configure 'say_string' to set the message. Great for: greetings, warnings, personality, or responding to speech triggers."
+	tutorial_text = "The robot says a message aloud. Configure 'say_string'. Good for: greetings, warnings, personality, or responding to speech triggers. No hardware required."
 	cpu_cost = 1
 	var/say_string = "Beep."
 
@@ -831,7 +831,7 @@
 /datum/behavior_circuit/response/emote_action
 	circuit_name = "Response: Emote Action"
 	circuit_desc = "Robot performs a visible emote or ambient action."
-	tutorial_text = "Shows a custom emote message visible to nearby players. The robot will '\[robot name\] \[emote_text\].' - configure 'emote_text' to set the action. Great for personality: beeping, gesturing, reacting to stimuli. No hardware required."
+	tutorial_text = "The robot performs a visible emote. Configure 'emote_text' -- it appears in chat as the robot's name followed by the emote text. Good for personality: beeping, gesturing, reacting to stimuli. No hardware required."
 	cpu_cost = 1
 	var/emote_text = "beeps cheerfully"
 
@@ -844,7 +844,7 @@
 /datum/behavior_circuit/response/enter_combat_mode
 	circuit_name = "Response: Enter Combat Mode"
 	circuit_desc = "Switches the robot into combat stance."
-	tutorial_text = "Sets the robot's combat mode flag, which affects how it interacts with mobs. No hardware required - any robot can enter combat mode. This is a stance change, not an attack. Pair with Fire Weapon or Pathfind To Enemy for actual combat."
+	tutorial_text = "Switches the robot into combat stance. No hardware required. This is a mode change, not an attack. Pair with Fire Weapon or Pathfind To Enemy to make the robot actually fight."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/enter_combat_mode/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -856,7 +856,7 @@
 /datum/behavior_circuit/response/self_repair_pulse
 	circuit_name = "Response: Self Repair Pulse"
 	circuit_desc = "Instantly repairs a small amount of the robot's damage."
-	tutorial_text = "The robot patches its own chassis for a small amount. No hardware required - uses internal self-maintenance routines. Configure 'repair_amount' (default 15) to adjust how much is repaired per pulse. Higher values drain the cell faster. Good paired with On Take Damage."
+	tutorial_text = "The robot heals itself for a small amount. No hardware required. Configure 'repair_amount' (default 15). Higher values drain the cell faster. Pair with On Take Damage."
 	cpu_cost = 2
 	var/repair_amount = 15
 
@@ -872,7 +872,7 @@
 /datum/behavior_circuit/response/lockdown_self
 	circuit_name = "Response: Emergency Lockdown"
 	circuit_desc = "Anchors the robot in place and plays an alarm."
-	tutorial_text = "Activates a hard lockdown: the robot anchors itself, enters a defensive stance, and emits an alarm sound. Good for: area denial when critically damaged, security checkpoint bots, or self-preservation responses. Combine with Broadcast Distress for maximum effect."
+	tutorial_text = "Anchors the robot in place and sounds an alarm. Good for: area denial, security checkpoints, or self-preservation. Combine with Broadcast Distress for a full emergency response. No hardware required."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/lockdown_self/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -887,7 +887,7 @@
 /datum/behavior_circuit/response/pathfind_to_enemy
 	circuit_name = "Response: Pathfind To Enemy"
 	circuit_desc = "Moves the robot toward the nearest hostile mob."
-	tutorial_text = "Steps toward the nearest visible enemy each time it fires. Since most triggers fire every few seconds and this steps once, the robot will slowly close the distance. For faster pursuit pair this with a short-interval trigger. No hardware required - uses the robot's built-in locomotion."
+	tutorial_text = "Steps toward the nearest enemy each time it fires. For faster pursuit pair with a short On Interval trigger. No hardware required."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/pathfind_to_enemy/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -918,7 +918,7 @@
 /datum/behavior_circuit/response/follow_target
 	circuit_name = "Response: Follow Linked Target"
 	circuit_desc = "Follows a specific mob linked by multitool ID scan."
-	tutorial_text = "HARDWARE SETUP: Scan a player's ID card with a multitool, then use the multitool on the robot to link them as the follow target. Once linked the robot will step toward that specific mob whenever this response fires. If the linked target is gone or dead, does nothing. Link is persistent until reprogrammed. Use with On Interval trigger for continuous escort."
+	tutorial_text = "Steps toward a specific linked mob. To link a target: scan their ID card with a multitool, then use the multitool on the robot. The link persists until reprogrammed. If the target is dead or gone, does nothing. Pair with On Interval for continuous escort. No hardware required."
 	cpu_cost = 2
 	var/datum/weakref/linked_target_ref = null
 	var/linked_target_name = ""
@@ -946,7 +946,7 @@
 /datum/behavior_circuit/response/flee_from_threat
 	circuit_name = "Response: Flee From Threat"
 	circuit_desc = "Moves away from the nearest hostile mob."
-	tutorial_text = "Cowardly survival response. Steps away from the nearest enemy each time it fires. Combine with On Take Damage for a robot that retreats when shot. No hardware required. Useful for non-combat robots that should not stand their ground."
+	tutorial_text = "Steps away from the nearest enemy each time it fires. Combine with On Take Damage for a robot that retreats when hit. No hardware required."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/flee_from_threat/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -974,7 +974,7 @@
 /datum/behavior_circuit/response/move_direction
 	circuit_name = "Response: Move Direction"
 	circuit_desc = "Steps the robot one tile in a fixed direction."
-	tutorial_text = "The most basic movement response. Steps exactly one tile in the configured direction each time it fires. Combine with On Interval for a simple patrol loop: set interval to 10 and alternate NORTH/SOUTH assemblies for a back-and-forth patrol. Configure 'move_dir' (NORTH/SOUTH/EAST/WEST)."
+	tutorial_text = "Steps one tile in a fixed direction each time it fires. Configure 'move_dir' (NORTH/SOUTH/EAST/WEST). Pair with On Interval for a simple patrol loop. Chain two assemblies moving in opposite directions for a back-and-forth route."
 	cpu_cost = 1
 	var/move_dir = SOUTH
 
@@ -992,7 +992,7 @@
 	hardware_slot_name = HW_SLOT_WEAPON
 	required_hardware_type = /datum/robot_hardware/weapon
 	circuit_desc = "Fires the robot's weapon IC at the nearest enemy. Requires weapon_firing IC."
-	tutorial_text = "HARDWARE REQUIRED: weapon_firing IC in the robot's module. Finds the first weapon_firing IC, scans for the nearest hostile in sensor range, and fires at it. If no weapon IC is found or no enemy is in range, does nothing. Pair with On Enemy Spotted for a complete auto-turret."
+	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires the weapon at the nearest hostile in sensor range. Does nothing if no enemy is in range. Pair with On Enemy Spotted for a complete auto-turret."
 	cpu_cost = 3
 
 /datum/behavior_circuit/response/fire_weapon/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1025,7 +1025,7 @@
 	hardware_slot_name = HW_SLOT_AIR_CANNON
 	required_hardware_type = /datum/robot_hardware/air_cannon
 	circuit_desc = "Fires the pneumatic cannon at the nearest enemy. Requires air_cannon and atmospherics ICs."
-	tutorial_text = "HARDWARE REQUIRED: air_cannon IC and atmospherics IC in the robot's module. Non-lethal suppression: knocks targets back without dealing direct damage. Good for crowd control robots. If either IC is missing, silently does nothing."
+	tutorial_text = "HARDWARE REQUIRED: Air Cannon hardware datum. Non-lethal suppression: knocks nearby hostiles back without dealing damage. Good for crowd control robots."
 	cpu_cost = 3
 
 /datum/behavior_circuit/response/fire_air_cannon/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1058,7 +1058,7 @@
 /datum/behavior_circuit/response/detonate_self
 	circuit_name = "Response: Detonate Self"
 	circuit_desc = "Triggers a self-destruct explosion after a short delay."
-	tutorial_text = "The robot announces its detonation, then explodes after 3 seconds. No cert gate - any robot can self-destruct if programmed to. The player or admin installing this assembly is responsible for the consequences. Pair with On Death or On Enemy Spotted for suicide builds. Very loud, very final."
+	tutorial_text = "The robot announces its detonation then explodes after 3 seconds. Any robot can self-destruct if programmed to. Pair with On Death for a deadman switch or On Enemy Spotted for a suicide build. No hardware required."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/detonate_self/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1083,7 +1083,7 @@
 	hardware_slot_name = HW_SLOT_GRENADE
 	required_hardware_type = /datum/robot_hardware/grenade_launcher
 	circuit_desc = "Arms the grenade loaded in the robot's grenade primer IC."
-	tutorial_text = "HARDWARE REQUIRED: grenade IC with an attached grenade in the robot's module. Arms and primes the grenade. If no grenade IC or no attached grenade is found, does nothing. Useful for trap-setter robots or walking bombs. Configure 'detonation_time' (default 3 seconds)."
+	tutorial_text = "HARDWARE REQUIRED: Grenade Launcher hardware datum with a grenade loaded. Arms and throws the grenade at the nearest enemy. Does nothing if no grenade is loaded. Configure 'detonation_time' (default 3 seconds)."
 	cpu_cost = 2
 	var/detonation_time = 3
 
@@ -1117,7 +1117,7 @@
 	hardware_slot_name = HW_SLOT_THROWER
 	required_hardware_type = /datum/robot_hardware/thrower
 	circuit_desc = "Throws held items at the nearest hostile. Requires grabber and thrower ICs."
-	tutorial_text = "HARDWARE REQUIRED: grabber IC and thrower IC in the robot's module. The robot must already be holding something (via Grab Nearest Item) to throw. Great for improvised weapon robots or distracting enemies. No kill-switch required."
+	tutorial_text = "HARDWARE REQUIRED: Thrower hardware datum. Throws a held item at the nearest hostile. The robot must be holding something first -- pair with Grab Nearest Item. Good for improvised weapon robots or distracting enemies."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/throw_item_at_enemy/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1158,7 +1158,7 @@
 	hardware_slot_name = HW_SLOT_INJECTOR
 	required_hardware_type = /datum/robot_hardware/injector
 	circuit_desc = "Injects reagents into the nearest valid target. Requires borghypo IC."
-	tutorial_text = "HARDWARE REQUIRED: borghypo (injector) in the robot's module. Injects 'inject_amount' units into the nearest mob (friendly or hostile, configurable). Used by medic robots. Configure 'inject_amount' (default 5u) and 'target_friendly' (TRUE = inject friendlies only)."
+	tutorial_text = "HARDWARE REQUIRED: Injector hardware datum. Injects reagents into the nearest mob. Configure 'inject_amount' (default 5u) and 'target_friendly' (TRUE = friendlies only, FALSE = any mob). Used by medic robots."
 	cpu_cost = 2
 	var/inject_amount = 5
 	var/target_friendly = TRUE
@@ -1186,7 +1186,7 @@
 	hardware_slot_name = HW_SLOT_INJECTOR
 	required_hardware_type = /datum/robot_hardware/injector
 	circuit_desc = "Dispenses drink to the nearest thirsty mob. Requires borghypo IC."
-	tutorial_text = "HARDWARE REQUIRED: borghypo in the robot's module loaded with a drink reagent. Finds the nearest thirsty human and dispenses 10u to them. For Drink-Bot builds. The borghypo must have liquid in it - it won't refill automatically. Pair with On Mob Thirsty trigger."
+	tutorial_text = "HARDWARE REQUIRED: Injector hardware datum loaded with a drink reagent. Dispenses 10u to the nearest thirsty human. The injector won't refill automatically. Pair with the On Mob Thirsty Nearby trigger."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/offer_drink/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1212,7 +1212,7 @@
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
 	circuit_desc = "Grabs the nearest loose item using the grabber IC."
-	tutorial_text = "HARDWARE REQUIRED: grabber IC in the robot's module. Finds the nearest loose item within grab_range and picks it up using the IC. The robot can then throw it (Throw Item At Enemy) or carry it. Configure 'grab_range' (default 2 tiles)."
+	tutorial_text = "HARDWARE REQUIRED: Grabber hardware datum. Picks up the nearest loose item within range. Configure 'grab_range' (default 2 tiles). The robot can then throw it (Throw Item At Enemy) or carry it."
 	cpu_cost = 2
 	var/grab_range = 2
 
@@ -1238,7 +1238,7 @@
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
 	circuit_desc = "Ejects all items from the robot's grabber IC."
-	tutorial_text = "HARDWARE REQUIRED: grabber IC. Calls the grabber's eject-all mode. Good for: deposit robots that grab items and drop them at a location, or robots that drop weapons on death. Pair with On Death trigger."
+	tutorial_text = "HARDWARE REQUIRED: Grabber hardware datum. Drops all held items. Good for: deposit robots that collect and drop items at a location, or robots that drop weapons on death. Pair with On Death trigger."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/drop_all_items/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1256,7 +1256,7 @@
 /datum/behavior_circuit/response/stun_target
 	circuit_name = "Response: Stun Target"
 	circuit_desc = "Stuns the nearest hostile mob briefly."
-	tutorial_text = "Emits a focused EMP-like pulse that stuns the nearest enemy. No weapon IC required - the robot's chassis delivers the pulse directly. Stun duration is configurable (default 2 seconds). Good for security robots that need to incapacitate without lethal force."
+	tutorial_text = "Stuns the nearest enemy. No hardware required -- the robot delivers the pulse directly from its chassis. Configure 'stun_duration' in deciseconds (default 20 = 2 seconds). Good for security robots that need to incapacitate without killing."
 	cpu_cost = 2
 	var/stun_duration = 20
 
@@ -1277,7 +1277,7 @@
 /datum/behavior_circuit/response/deploy_smoke
 	circuit_name = "Response: Deploy Smoke"
 	circuit_desc = "Releases a smoke cloud around the robot."
-	tutorial_text = "Creates a small smoke cloud at the robot's position. Useful for: escape when taking damage, area denial, obscuring allied movement. No hardware required. Configure 'smoke_range' (default 2 tiles) and 'smoke_duration' (default 15 ticks)."
+	tutorial_text = "Releases a smoke cloud at the robot's position. No hardware required. Configure 'smoke_range' (default 2 tiles) and 'smoke_duration' (default 15 ticks). Good for: escape when damaged, area denial, or covering allied movement."
 	cpu_cost = 2
 	var/smoke_range = 2
 	var/smoke_duration = 15
@@ -1296,7 +1296,7 @@
 	hardware_slot_name = HW_SLOT_GAS_PUMP
 	required_hardware_type = /datum/robot_hardware/gas_pump
 	circuit_desc = "Sprays CO2 at nearby fire tiles. Requires extinguisher IC."
-	tutorial_text = "HARDWARE REQUIRED: extinguisher IC in the module. Scans nearby turfs for fire and activates the IC to extinguish it. For firefighting robots. If no extinguisher IC is present it silently does nothing."
+	tutorial_text = "HARDWARE REQUIRED: Gas Pump hardware datum (CO2 extinguisher config). Scans nearby turfs for fire and suppresses it. For firefighting robots."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/fire_extinguisher/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1319,7 +1319,7 @@
 	hardware_slot_name = HW_SLOT_LIGHT
 	required_hardware_type = /datum/robot_hardware/light
 	circuit_desc = "Toggles or sets the robot's light output IC."
-	tutorial_text = "HARDWARE REQUIRED: light output IC in the module. Toggles it by default or forces it on/off. Configure 'force_state': -1 = toggle, 0 = force off, 1 = force on. Good for night-cycle triggers or stealth robots that turn off their lights."
+	tutorial_text = "HARDWARE REQUIRED: Light hardware datum. Toggles the robot's light or forces it on/off. Configure 'force_state': -1 = toggle, 0 = force off, 1 = force on. Good for stealth robots or night-cycle triggers."
 	cpu_cost = 1
 	var/force_state = -1
 
@@ -1340,7 +1340,7 @@
 /datum/behavior_circuit/response/play_sound
 	circuit_name = "Response: Play Sound"
 	circuit_desc = "Plays a sound effect at the robot's position."
-	tutorial_text = "Plays a sound file from the robot's location. Great for personality and feedback: alarm sounds, beeps, music. Configure 'sound_file' to a valid sound path (e.g. 'sound/machines/beep.ogg'). Volume configurable (0-100)."
+	tutorial_text = "Plays a sound at the robot's location. No hardware required. Configure 'sound_file' (e.g. 'sound/machines/beep.ogg') and 'sound_volume' (0-100). Good for personality, alarm sounds, or feedback beeps."
 	cpu_cost = 1
 	var/sound_file = 'sound/machines/beep.ogg'
 	var/sound_volume = 50
@@ -1357,7 +1357,7 @@
 	hardware_slot_name = HW_SLOT_REAGENT_PUMP
 	required_hardware_type = /datum/robot_hardware/reagent_pump
 	circuit_desc = "Activates the reagent pump IC to push chemicals."
-	tutorial_text = "HARDWARE REQUIRED: reagent pump IC. Activates the pump to push reagents from a container through the IC. For chemistry/service robots. If no pump IC is present does nothing."
+	tutorial_text = "HARDWARE REQUIRED: Reagent Pump hardware datum. Activates the pump to push reagents from the attached container. For chemistry and service robots."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/pump_reagents/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1380,7 +1380,7 @@
 	hardware_slot_name = HW_SLOT_SIGNALER
 	required_hardware_type = /datum/robot_hardware/signaler
 	circuit_desc = "Transmits a radio signal via the robot's signaler IC."
-	tutorial_text = "HARDWARE REQUIRED: signaler IC in the module. Pulses the signaler to transmit on its configured frequency. Good for triggering other robot assemblies remotely, activating traps, or chaining behaviors across multiple robots. Configure frequency on the IC itself."
+	tutorial_text = "HARDWARE REQUIRED: Signaler hardware datum. Transmits a radio signal on the configured frequency. Good for triggering other robots remotely, activating traps, or chaining behaviors across multiple robots. Set the frequency on the Signaler datum at build time."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/send_radio_signal/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1396,7 +1396,7 @@
 /datum/behavior_circuit/response/read_battery
 	circuit_name = "Response: Read Battery"
 	circuit_desc = "Says the current cell charge percentage aloud."
-	tutorial_text = "The robot announces its current battery percentage. Simple diagnostic response. Pair with On Interval for a status robot that periodically reports its health, or On Low Power for an automatic low-battery warning. No hardware required."
+	tutorial_text = "The robot says its current battery percentage aloud. No hardware required. Pair with On Interval for periodic status reports, or On Low Power for an automatic low-battery warning."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/read_battery/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1412,7 +1412,7 @@
 /datum/behavior_circuit/response/pull_target
 	circuit_name = "Response: Pull Target"
 	circuit_desc = "Grabs and pulls the nearest friendly mob."
-	tutorial_text = "Starts pulling the nearest friendly mob toward the robot. Good for: rescue robots that drag the injured to safety, escort builds, or any situation where you want the robot to physically haul an ally. No hardware required."
+	tutorial_text = "Grabs and pulls the nearest friendly mob. No hardware required. Good for: rescue robots that drag the injured to safety, escort builds, or physically hauling allies."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/pull_target/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -1435,7 +1435,7 @@
 	hardware_slot_name = HW_SLOT_DISPLAY
 	required_hardware_type = /datum/robot_hardware/display_screen
 	circuit_desc = "Shows a message on the robot's screen display IC."
-	tutorial_text = "HARDWARE REQUIRED: screen display IC. Updates the display with 'display_text'. Good for status boards, warning displays, or information robots. Configure 'display_text' to set the message shown."
+	tutorial_text = "HARDWARE REQUIRED: Display Screen hardware datum. Updates the robot's screen with 'display_text'. Good for status boards, warning displays, or information robots."
 	cpu_cost = 1
 	var/display_text = "STATUS: NOMINAL"
 
