@@ -198,6 +198,21 @@
 	/// UI mode
 	var/ui_mode = RW_HOME
 
+	/// Hardware sub-mode: null, "pick", "config", "circuit"
+	var/hw_mode = null
+	/// Slot key currently being configured in pick/config mode
+	var/hw_active_slot = null
+	/// Hardware datum type currently being configured before confirm
+	var/hw_pending_type = null
+	/// Pending config overrides assoc varname -> value
+	var/list/hw_pending_config = list()
+	/// Final hardware list: assoc slot_key -> datum/robot_hardware
+	var/list/pending_hardware = list()
+	/// Slot key of circuit_board hardware open in circuit editor
+	var/hw_circuit_slot = null
+	/// Node connection state for circuit editor wiring
+	var/list/hw_connect_from = null
+
 	/// Whether the machine is currently building
 	var/building = FALSE
 
@@ -446,6 +461,20 @@
 	dat += "<span class='dim'>T3 Combat:   Assaultron</span><br>"
 	dat += "<span class='dim'>T4 Apex:     Sentry Bot  // find the cert first</span><br>"
 
+	// Operator SPECIAL profile
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		dat += "<br><b>OPERATOR PROFILE</b>  <span class='dim'>// your stats at build time</span><br>"
+		dat += "<span class='dim'>STR [H.special_s]  PER [H.special_p]  END [H.special_e]  CHA [H.special_c]"
+		dat += "  INT [H.special_i]  AGI [H.special_a]  LCK [H.special_l]</span><br>"
+		var/lck_disc = get_workshop_lck_discount(H)
+		if(lck_disc > 0)
+			dat += "<span class='good'>LCK bonus: [lck_disc]% material cost discount active</span><br>"
+		if(H.special_i >= RH_INT_MASTER)
+			dat += "<span class='good'>INT [H.special_i]: Circuit Board slot unlocked on HARDWARE tab</span><br>"
+		else if(H.special_i < RH_INT_STANDARD)
+			dat += "<span class='warn'>INT [H.special_i]: limited hardware access (INT [RH_INT_STANDARD]+ recommended)</span><br>"
+
 	return dat
 
 
@@ -491,44 +520,72 @@
 // HARDWARE TAB
 // ====================================================
 
+// ====================================================
+// HARDWARE TAB - DISPATCH
+// Sub-modes: null=overview, "pick"=picker, "config"=configurator
+//            "circuit"=circuit board node editor
+// ====================================================
+
 /obj/machinery/robot_workshop/proc/_render_hardware(mob/user)
-	var/dat = ""
-	dat += "<b>HARDWARE SLOTS</b>  <span class='dim'>// derived from queued assembly circuits</span><br><br>"
-
-	if(!behavior_assembly)
-		dat += "<span class='dim'>No behavior assembly queued. Go to PROGRAMS to insert one.</span><br>"
-		dat += "<span class='dim'>Hardware slots appear here once an assembly is loaded.</span><br>"
-		return dat
-
-	if(!hardware_slots.len)
-		dat += "<span class='good'>This assembly has no hardware requirements.</span><br>"
-		dat += "<span class='dim'>All circuits are software-only.</span><br>"
-		return dat
-
-	// Show which circuits need what
-	dat += "<span class='dim'>Insert items into the machine to fill named slots.</span><br><br>"
-
-	var/all_filled = TRUE
-	for(var/slot in hardware_slots)
-		var/obj/item/I = hardware_slots[slot]
-		var/label = _slot_label(slot)
-		if(I)
-			dat += "<div class='card'>"
-			dat += "<span class='good'>&gt; [label]</span><br>"
-			dat += "<span class='dim'>Installed: [I.name]</span>"
-			dat += "  <a href='byond://?src=[REF(src)];eject_hw=[slot]'>\[eject\]</a>"
-			dat += "</div>"
+	switch(hw_mode)
+		if("pick")
+			return _render_hw_picker(user)
+		if("config")
+			return _render_hw_config(user)
+		if("circuit")
+			return _render_circuit_editor(user)
 		else
-			all_filled = FALSE
-			dat += "<div class='card hw'>"
-			dat += "<span class='warn'>&gt; [label]</span><br>"
-			dat += "<span class='dim'>Empty -- insert a compatible item into the machine.</span>"
-			dat += "</div>"
+			return _render_hw_overview(user)
 
-	if(all_filled)
-		dat += "<br><span class='good'>&gt; All hardware slots filled.</span><br>"
 
-	// Show base module items (pre-installed, not removable)
+// ====================================================
+// HARDWARE TAB - OVERVIEW
+// ====================================================
+
+/obj/machinery/robot_workshop/proc/_render_hw_overview(mob/user)
+	var/dat = ""
+	var/mob/living/carbon/human/H = istype(user, /mob/living/carbon/human) ? user : null
+
+	// Recommended button
+	if(selected_design)
+		dat += "<a href='byond://?src=[REF(src)];hw_use_recommended=1'><b>\[USE RECOMMENDED HARDWARE\]</b></a>"
+		dat += "  <span class='dim'>// auto-fills all slots for this robot type</span><br>"
+		if(pending_hardware.len)
+			dat += "<a href='byond://?src=[REF(src)];hw_clear_all=1'>\[clear all\]</a><br>"
+		dat += "<br>"
+
+	// CORE budget meter
+	if(robot_cert)
+		dat += get_core_usage_display(pending_hardware, robot_cert.base_cert) + "<br><br>"
+	else
+		var/datum/cpu_cert/default_cert = new /datum/cpu_cert/robot()
+		dat += get_core_usage_display(pending_hardware, default_cert) + "<br>"
+		qdel(default_cert)
+		dat += "<span class='dim'>(using default cert - insert a cert card for accurate budget)</span><br><br>"
+
+	// SPECIAL influence preview
+	if(H)
+		dat += _hw_special_preview(H) + "<br>"
+
+	// Hardware slots derived from assembly
+	var/list/asm_slots = _get_assembly_slot_keys()
+
+	if(asm_slots.len)
+		dat += "<b>REQUIRED HARDWARE SLOTS</b>  <span class='dim'>// from queued assembly</span><br>"
+		for(var/slot_key in asm_slots)
+			dat += _hw_slot_row(slot_key, TRUE, H)
+		dat += "<br>"
+
+	// Optional hardware
+	dat += "<b>OPTIONAL HARDWARE</b>  <span class='dim'>// enhances robot beyond assembly requirements</span><br>"
+	// Show already-added optional slots
+	for(var/slot_key in pending_hardware)
+		if(slot_key in asm_slots)
+			continue
+		dat += _hw_slot_row(slot_key, FALSE, H)
+	dat += "<a href='byond://?src=[REF(src)];hw_add_optional=1'>\[+ add optional hardware\]</a><br>"
+
+	// Base module loadout
 	if(selected_design)
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
@@ -542,6 +599,274 @@
 
 	return dat
 
+
+/obj/machinery/robot_workshop/proc/_hw_slot_row(slot_key, required, mob/living/carbon/human/builder)
+	var/datum/robot_hardware/HW = pending_hardware[slot_key]
+	var/dat = ""
+	dat += "<div class='card [HW ? "hw" : ""]'>"
+	if(HW)
+		dat += "<span class='good'>&gt; [slot_key]</span><br>"
+		dat += "<span class='dim'>[HW.hardware_name]"
+		if(HW.core_compute || HW.core_operations || HW.core_resilience || HW.core_energy)
+			dat += "  C.O.R.E: C[HW.core_compute] O[HW.core_operations] R[HW.core_resilience] E[HW.core_energy]"
+		dat += "</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];hw_configure=[slot_key]'>\[configure\]</a>"
+		if(istype(HW, /datum/robot_hardware/circuit_board))
+			dat += "  <a href='byond://?src=[REF(src)];hw_circuit_edit=[slot_key]'>\[circuit editor\]</a>"
+		dat += "  <a href='byond://?src=[REF(src)];hw_remove=[slot_key]'>\[remove\]</a>"
+	else
+		dat += "<span class='[required ? "warn" : "dim"]'>&gt; [slot_key]</span><br>"
+		dat += "<span class='dim'>[required ? "Required" : "Optional"] -- not configured.</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];hw_pick=[slot_key]'>\[select hardware\]</a>"
+	dat += "</div>"
+	return dat
+
+
+/obj/machinery/robot_workshop/proc/_hw_special_preview(mob/living/carbon/human/H)
+	var/dat = "<b>OPERATOR INFLUENCE</b>  <span class='dim'>// your SPECIAL baked into this robot at build</span><br>"
+	var/per = H.special_p
+	var/str = H.special_s
+	var/end_s = H.special_e
+	var/cha = H.special_c
+	var/int_s = H.special_i
+	var/agi = H.special_a
+	var/lck = H.special_l
+	if(per > 5)
+		dat += "<span class='good'>PER [per]</span>  <span class='dim'>+[per-5] tile sensor/weapon range</span><br>"
+	if(str > 5)
+		dat += "<span class='good'>STR [str]</span>  <span class='dim'>+[str-5] grab force, +[(str-5)*5]ds stun duration, +[(str-5)] knockback</span><br>"
+	if(end_s > 5)
+		dat += "<span class='good'>END [end_s]</span>  <span class='dim'>+[(end_s-5)*10] robot HP</span><br>"
+	if(agi > 5)
+		dat += "<span class='good'>AGI [agi]</span>  <span class='dim'>-[round((agi-5)*0.1, 0.01)] movement delay</span><br>"
+	if(int_s >= RH_INT_MASTER)
+		dat += "<span class='good'>INT [int_s]</span>  <span class='dim'>Circuit Board slot UNLOCKED // all hardware tiers available</span><br>"
+	else if(int_s >= RH_INT_ADVANCED)
+		dat += "<span class='good'>INT [int_s]</span>  <span class='dim'>Advanced configs unlocked // circuit board requires INT [RH_INT_MASTER]</span><br>"
+	else if(int_s >= RH_INT_STANDARD)
+		dat += "<span class='dim'>INT [int_s]  // standard hardware</span><br>"
+	else
+		dat += "<span class='warn'>INT [int_s]  // basic hardware only (INT [RH_INT_STANDARD]+ for full access)</span><br>"
+	var/lck_disc = get_workshop_lck_discount(H)
+	if(lck_disc > 0)
+		dat += "<span class='good'>LCK [lck]</span>  <span class='dim'>[lck_disc]% material cost discount</span><br>"
+	if(cha > 5)
+		dat += "<span class='good'>CHA [cha]</span>  <span class='dim'>+[cha-5] vocabulary slots, reduced neutral aggro</span><br>"
+	return dat
+
+
+/obj/machinery/robot_workshop/proc/_get_assembly_slot_keys()
+	var/list/keys = list()
+	if(!behavior_assembly)
+		return keys
+	var/list/seen = list()
+	for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
+		if(!C.needs_hardware || !C.hardware_slot_name)
+			continue
+		if(C.hardware_slot_name in seen)
+			continue
+		seen += C.hardware_slot_name
+		keys += C.hardware_slot_name
+	return keys
+
+
+// ====================================================
+// HARDWARE TAB - PICKER
+// ====================================================
+
+/obj/machinery/robot_workshop/proc/_render_hw_picker(mob/user)
+	var/mob/living/carbon/human/H = istype(user, /mob/living/carbon/human) ? user : null
+	var/int_level = H ? H.special_i : RH_INT_BASIC
+	var/dat = ""
+	dat += "<b>SELECT HARDWARE</b>  <span class='dim'>// slot: [hw_active_slot]</span>"
+	dat += "  <a href='byond://?src=[REF(src)];hw_cancel_pick=1'>\[cancel\]</a><br><br>"
+
+	var/list/by_cat = list()
+	for(var/T in subtypesof(/datum/robot_hardware))
+		var/datum/robot_hardware/proto = new T()
+		if(!by_cat[proto.category])
+			by_cat[proto.category] = list()
+		by_cat[proto.category] += T
+		qdel(proto)
+
+	for(var/cat in by_cat)
+		dat += "<b>[cat]</b><br>"
+		for(var/T in by_cat[cat])
+			var/datum/robot_hardware/proto = new T()
+			var/blocked = int_level < proto.min_int
+			var/gate_label = get_int_gate_label(proto.min_int)
+			// CORE budget check
+			var/list/test_hw = pending_hardware.Copy()
+			test_hw[hw_active_slot] = proto
+			var/datum/cpu_cert/cert = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
+			var/list/core_errors = check_hardware_core_budget(test_hw, cert)
+			if(!robot_cert) qdel(cert)
+			var/overbudget = core_errors.len > 0
+			var/core_str = "C[proto.core_compute] O[proto.core_operations] R[proto.core_resilience] E[proto.core_energy]"
+			var/mat_str = _mat_cost_str(proto.mat_cost)
+			if(blocked)
+				dat += "<div class='card'>"
+				dat += "<span class='dim'>&gt; [proto.hardware_name]  [gate_label]</span><br>"
+				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
+				dat += "<span class='dim'>CORE: [core_str]  MAT: [mat_str]  // INT too low</span>"
+				dat += "</div>"
+			else if(overbudget)
+				dat += "<div class='card'>"
+				dat += "<span class='warn'>&gt; [proto.hardware_name]</span><br>"
+				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
+				dat += "<span class='warn'>CORE: [core_str]  // overbudget</span>  MAT: [mat_str]"
+				dat += "</div>"
+			else
+				dat += "<div class='card hw'>"
+				dat += "<span class='good'>&gt; [proto.hardware_name]</span>  [gate_label]"
+				dat += "  <a href='byond://?src=[REF(src)];hw_select_type=[T]'>\[select\]</a><br>"
+				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
+				dat += "<span class='dim'>CORE: [core_str]  MAT: [mat_str]</span>"
+				dat += "</div>"
+			qdel(proto)
+		dat += "<br>"
+
+	return dat
+
+
+// ====================================================
+// HARDWARE TAB - CONFIGURATOR
+// ====================================================
+
+/obj/machinery/robot_workshop/proc/_render_hw_config(mob/user)
+	if(!hw_pending_type)
+		hw_mode = null
+		return _render_hw_overview(user)
+
+	var/datum/robot_hardware/proto = new hw_pending_type()
+	var/dat = ""
+	dat += "<b>CONFIGURE: [proto.hardware_name]</b>"
+	dat += "  <span class='dim'>// slot: [hw_active_slot]</span><br>"
+	dat += "<a href='byond://?src=[REF(src)];hw_back_to_pick=1'>\[back\]</a>"
+	dat += "  <a href='byond://?src=[REF(src)];hw_confirm=1'><b>\[CONFIRM & INSTALL\]</b></a><br><br>"
+
+	dat += "<span class='dim'>[proto.tutorial_text]</span><br><br>"
+
+	if(proto.config_defs.len)
+		dat += "<b>CONFIGURATION</b><br>"
+		for(var/varname in proto.config_defs)
+			var/list/def = proto.config_defs[varname]
+			var/label    = def[1]
+			var/dtype    = def[2]
+			var/cur_val  = hw_pending_config[varname] != null ? hw_pending_config[varname] : def[3]
+			dat += "<span class='dim'>[label]:</span>  "
+			dat += "<span class='good'>[cur_val]</span>"
+			dat += "  <a href='byond://?src=[REF(src)];hw_edit_var=[varname]'>\[edit\]</a>"
+			if(dtype == "bool")
+				dat += "  <a href='byond://?src=[REF(src)];hw_toggle_var=[varname]'>\[toggle\]</a>"
+			dat += "<br>"
+	else
+		dat += "<span class='dim'>No configuration options for this hardware.</span><br>"
+
+	dat += "<br><span class='dim'>CORE cost: C[proto.core_compute] O[proto.core_operations] R[proto.core_resilience] E[proto.core_energy]</span><br>"
+	dat += "<span class='dim'>Material cost: [_mat_cost_str(proto.mat_cost)]</span><br>"
+	qdel(proto)
+	return dat
+
+
+// ====================================================
+// HARDWARE TAB - CIRCUIT BOARD EDITOR
+// ====================================================
+
+/obj/machinery/robot_workshop/proc/_render_circuit_editor(mob/user)
+	var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+	if(!CB || !istype(CB, /datum/robot_hardware/circuit_board))
+		hw_mode = null
+		return _render_hw_overview(user)
+
+	var/dat = ""
+	dat += "<b>CIRCUIT BOARD EDITOR</b>  <span class='dim'>// slot: [hw_circuit_slot]  nodes: [CB.nodes.len]/[CB.max_nodes]</span><br>"
+	dat += "<a href='byond://?src=[REF(src)];hw_circuit_done=1'>\[done - return to overview\]</a><br><br>"
+
+	// -- ADD NODE panel --
+	dat += "<b>ADD NODE</b>  <span class='dim'>// click to place</span><br>"
+	var/list/cat_nodes = list()
+	for(var/T in /datum/circuit_node_catalog::all_types)
+		var/datum/circuit_node/proto = new T()
+		if(!cat_nodes[proto.node_category])
+			cat_nodes[proto.node_category] = list()
+		cat_nodes[proto.node_category] += T
+		qdel(proto)
+	for(var/cat in cat_nodes)
+		dat += "<span class='dim'>[cat]:</span>  "
+		var/list/links = list()
+		for(var/T in cat_nodes[cat])
+			var/datum/circuit_node/proto = new T()
+			links += "<a href='byond://?src=[REF(src)];ce_add_node=[T]'>[proto.node_name]</a>"
+			qdel(proto)
+		dat += links.Join("  ")
+		dat += "<br>"
+	dat += "<br>"
+
+	// -- PLACED NODES panel --
+	dat += "<b>PLACED NODES</b><br>"
+	if(!CB.nodes.len)
+		dat += "<span class='dim'>No nodes placed yet. Add from the list above.</span><br>"
+	else
+		for(var/i in 1 to CB.nodes.len)
+			var/datum/circuit_node/N = CB.nodes[i]
+			dat += "<div class='card hw'>"
+			dat += "<b>[i]. [N.node_name]</b>  <span class='dim'>[N.node_category]</span>"
+			dat += "  <a href='byond://?src=[REF(src)];ce_remove_node=[i]'>\[remove\]</a><br>"
+			// Inputs
+			if(N.inputs.len)
+				dat += "<span class='dim'>IN: "
+				var/list/iparts = list()
+				for(var/inp in N.inputs)
+					iparts += "[inp]=[N.inputs[inp]]"
+				dat += iparts.Join("  ") + "</span><br>"
+			// Outputs
+			if(N.outputs.len)
+				dat += "<span class='dim'>OUT: "
+				var/list/oparts = list()
+				for(var/outp in N.outputs)
+					oparts += "<a href='byond://?src=[REF(src)];ce_connect_from=[i]:[outp]'>[outp]=[N.outputs[outp]]</a>"
+				dat += oparts.Join("  ") + "</span><br>"
+			// Config
+			if(N.config_defs.len)
+				for(var/varname in N.config_defs)
+					var/list/def = N.config_defs[varname]
+					dat += "<span class='dim'>[def[1]]:</span> [N.vars[varname]]"
+					dat += "  <a href='byond://?src=[REF(src)];ce_edit_node=[i]:[varname]'>\[edit\]</a><br>"
+					if(def[2] == "bool")
+						dat += "  <a href='byond://?src=[REF(src)];ce_toggle_node=[i]:[varname]'>\[toggle\]</a><br>"
+			// Pending connect state
+			if(hw_connect_from && hw_connect_from[1] != i)
+				for(var/inp in N.inputs)
+					dat += "<a href='byond://?src=[REF(src)];ce_connect_to=[i]:[inp]'><b>\[WIRE TO [inp]\]</b></a>  "
+				dat += "<br>"
+			dat += "</div>"
+
+	// -- CONNECTIONS panel --
+	dat += "<br><b>CONNECTIONS</b><br>"
+	if(!CB.connections.len)
+		dat += "<span class='dim'>No wires. Click an output pin above to begin wiring.</span><br>"
+	else
+		for(var/ci in 1 to CB.connections.len)
+			var/list/conn = CB.connections[ci]
+			var/datum/weakref/from_ref = conn[1]
+			var/datum/weakref/to_ref   = conn[3]
+			var/datum/circuit_node/FN = from_ref?.resolve()
+			var/datum/circuit_node/TN = to_ref?.resolve()
+			var/fname = FN ? FN.node_name : "?"
+			var/tname = TN ? TN.node_name : "?"
+			dat += "<span class='dim'>[fname].[conn[2]] &rarr; [tname].[conn[4]]</span>"
+			dat += "  <a href='byond://?src=[REF(src)];ce_disconnect=[ci]'>\[disconnect\]</a><br>"
+
+	// Evaluate button
+	dat += "<br><a href='byond://?src=[REF(src)];ce_evaluate=1'><b>\[EVALUATE BOARD\]</b></a>"
+	dat += "  <span class='dim'>// runs all nodes, shows live output values above</span><br>"
+
+	if(hw_connect_from)
+		dat += "<br><span class='warn'>Wiring mode: select a destination input pin above. "
+		dat += "<a href='byond://?src=[REF(src)];ce_cancel_connect=1'>\[cancel\]</a></span><br>"
+
+	return dat
 
 // ====================================================
 // PROGRAMS TAB
@@ -699,6 +1024,10 @@
 		if(val == "clear")
 			selected_design = null
 			hardware_slots = list()
+			for(var/slot in pending_hardware)
+				var/datum/robot_hardware/HW = pending_hardware[slot]
+				if(HW) qdel(HW)
+			pending_hardware = list()
 		else
 			var/path = text2path(val)
 			if(_get_design(path))
@@ -769,10 +1098,302 @@
 		ui_interact(usr)
 		return
 
+	// ---- HARDWARE OVERVIEW ACTIONS ----
+
+	if(href_list["hw_use_recommended"])
+		_hw_apply_recommended(usr)
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_clear_all"])
+		pending_hardware = list()
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_pick"])
+		hw_active_slot = href_list["hw_pick"]
+		hw_pending_type = null
+		hw_pending_config = list()
+		hw_mode = "pick"
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_configure"])
+		var/slot = href_list["hw_configure"]
+		var/datum/robot_hardware/HW = pending_hardware[slot]
+		if(HW)
+			hw_active_slot = slot
+			hw_pending_type = HW.type
+			// Copy existing config into pending
+			hw_pending_config = list()
+			for(var/varname in HW.config_defs)
+				hw_pending_config[varname] = HW.vars[varname]
+			hw_mode = "config"
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_remove"])
+		var/slot = href_list["hw_remove"]
+		if(slot in pending_hardware)
+			var/datum/robot_hardware/HW = pending_hardware[slot]
+			if(HW) qdel(HW)
+			pending_hardware.Remove(slot)
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_add_optional"])
+		hw_active_slot = "Optional [pending_hardware.len + 1]"
+		hw_pending_type = null
+		hw_pending_config = list()
+		hw_mode = "pick"
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_circuit_edit"])
+		hw_circuit_slot = href_list["hw_circuit_edit"]
+		hw_mode = "circuit"
+		hw_connect_from = null
+		ui_interact(usr)
+		return
+
+	// ---- HARDWARE PICKER ACTIONS ----
+
+	if(href_list["hw_cancel_pick"])
+		hw_mode = null
+		hw_active_slot = null
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_select_type"])
+		var/path = text2path(href_list["hw_select_type"])
+		if(ispath(path, /datum/robot_hardware))
+			hw_pending_type = path
+			hw_pending_config = list()
+			// Seed config with defaults from config_defs
+			var/datum/robot_hardware/proto = new path()
+			for(var/varname in proto.config_defs)
+				var/list/def = proto.config_defs[varname]
+				hw_pending_config[varname] = def[3]
+			qdel(proto)
+			hw_mode = "config"
+		ui_interact(usr)
+		return
+
+	// ---- HARDWARE CONFIGURATOR ACTIONS ----
+
+	if(href_list["hw_back_to_pick"])
+		hw_pending_type = null
+		hw_pending_config = list()
+		hw_mode = "pick"
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_edit_var"])
+		var/varname = href_list["hw_edit_var"]
+		if(hw_pending_type && (varname in hw_pending_config))
+			var/datum/robot_hardware/proto = new hw_pending_type()
+			if(varname in proto.config_defs)
+				var/list/def = proto.config_defs[varname]
+				var/dtype = def[2]
+				var/new_val
+				if(dtype == "number")
+					new_val = input(usr, "Enter value for [def[1]]:", "[def[1]]", hw_pending_config[varname]) as null|num
+				else if(dtype == "list")
+					new_val = input(usr, "Enter value for [def[1]]:", "[def[1]]", hw_pending_config[varname]) as null|text
+				else
+					new_val = input(usr, "Enter value for [def[1]]:", "[def[1]]", hw_pending_config[varname]) as null|text
+				if(!isnull(new_val))
+					hw_pending_config[varname] = new_val
+			qdel(proto)
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_toggle_var"])
+		var/varname = href_list["hw_toggle_var"]
+		if(varname in hw_pending_config)
+			hw_pending_config[varname] = !hw_pending_config[varname]
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_confirm"])
+		_hw_confirm_slot(usr)
+		ui_interact(usr)
+		return
+
+	// ---- CIRCUIT EDITOR ACTIONS ----
+
+	if(href_list["hw_circuit_done"])
+		hw_mode = null
+		hw_circuit_slot = null
+		hw_connect_from = null
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_add_node"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board))
+			var/path = text2path(href_list["ce_add_node"])
+			if(ispath(path, /datum/circuit_node))
+				CB.add_node(path)
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_remove_node"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board))
+			var/idx = text2num(href_list["ce_remove_node"])
+			if(idx >= 1 && idx <= CB.nodes.len)
+				CB.remove_node(CB.nodes[idx])
+		hw_connect_from = null
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_connect_from"])
+		var/list/parts = splittext(href_list["ce_connect_from"], ":")
+		if(parts.len == 2)
+			hw_connect_from = list(text2num(parts[1]), parts[2])
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_cancel_connect"])
+		hw_connect_from = null
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_connect_to"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board) && hw_connect_from)
+			var/list/parts = splittext(href_list["ce_connect_to"], ":")
+			if(parts.len == 2)
+				var/from_idx  = hw_connect_from[1]
+				var/from_out  = hw_connect_from[2]
+				var/to_idx    = text2num(parts[1])
+				var/to_inp    = parts[2]
+				if(from_idx >= 1 && from_idx <= CB.nodes.len && to_idx >= 1 && to_idx <= CB.nodes.len)
+					CB.connect(CB.nodes[from_idx], from_out, CB.nodes[to_idx], to_inp)
+		hw_connect_from = null
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_disconnect"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board))
+			var/ci = text2num(href_list["ce_disconnect"])
+			if(ci >= 1 && ci <= CB.connections.len)
+				CB.connections.Cut(ci, ci+1)
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_evaluate"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board))
+			CB.evaluate()
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_edit_node"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board))
+			var/list/parts = splittext(href_list["ce_edit_node"], ":")
+			if(parts.len == 2)
+				var/idx = text2num(parts[1])
+				var/varname = parts[2]
+				if(idx >= 1 && idx <= CB.nodes.len)
+					var/datum/circuit_node/N = CB.nodes[idx]
+					if(varname in N.config_defs)
+						var/list/def = N.config_defs[varname]
+						var/new_val = input(usr, "Set [def[1]] on [N.node_name]:", def[1], N.vars[varname]) as null|text
+						if(!isnull(new_val))
+							if(def[2] == "number") N.vars[varname] = text2num(new_val) || 0
+							else N.vars[varname] = new_val
+		ui_interact(usr)
+		return
+
+	if(href_list["ce_toggle_node"])
+		var/datum/robot_hardware/circuit_board/CB = pending_hardware[hw_circuit_slot]
+		if(CB && istype(CB, /datum/robot_hardware/circuit_board))
+			var/list/parts = splittext(href_list["ce_toggle_node"], ":")
+			if(parts.len == 2)
+				var/idx = text2num(parts[1])
+				var/varname = parts[2]
+				if(idx >= 1 && idx <= CB.nodes.len)
+					var/datum/circuit_node/N = CB.nodes[idx]
+					N.vars[varname] = !N.vars[varname]
+		ui_interact(usr)
+		return
+
 
 // ====================================================
 // BUILDING
 // ====================================================
+
+/obj/machinery/robot_workshop/proc/_hw_confirm_slot(mob/living/user)
+	if(!hw_pending_type || !hw_active_slot)
+		return
+	// Remove old datum in this slot if any
+	var/datum/robot_hardware/old = pending_hardware[hw_active_slot]
+	if(old) qdel(old)
+	// Create new datum with pending config applied
+	var/datum/robot_hardware/HW = new hw_pending_type()
+	for(var/varname in hw_pending_config)
+		if(varname in HW.config_defs)
+			HW.vars[varname] = hw_pending_config[varname]
+	pending_hardware[hw_active_slot] = HW
+	// Reset picker state
+	hw_mode = null
+	hw_active_slot = null
+	hw_pending_type = null
+	hw_pending_config = list()
+
+
+/obj/machinery/robot_workshop/proc/_hw_apply_recommended(mob/living/user)
+	if(!selected_design)
+		return
+	// Clear existing pending hardware
+	for(var/slot in pending_hardware)
+		var/datum/robot_hardware/HW = pending_hardware[slot]
+		if(HW) qdel(HW)
+	pending_hardware = list()
+	// Get recommended entries for this design
+	var/list/recs = get_recommended_hardware(selected_design)
+	if(!recs || !recs.len)
+		to_chat(user, span_notice("No recommended hardware config for this robot type."))
+		return
+	// Instantiate each entry - use slot names matching assembly or auto-name
+	var/list/asm_slots = _get_assembly_slot_keys()
+	var/opt_idx = 1
+	for(var/list/entry in recs)
+		if(!islist(entry) || entry.len < 1) continue
+		var/hw_type      = entry[1]
+		var/list/config  = entry.len >= 2 ? entry[2] : list()
+		// INT gate
+		var/mob/living/carbon/human/H = istype(user, /mob/living/carbon/human) ? user : null
+		var/datum/robot_hardware/test = new hw_type()
+		var/gated = H && !check_int_gate(H, test)
+		qdel(test)
+		if(gated) continue
+		// Create and configure
+		var/datum/robot_hardware/HW = new hw_type()
+		for(var/key in config)
+			if(key in HW.config_defs)
+				HW.vars[key] = config[key]
+		// Find a matching assembly slot or use optional slot
+		var/slot_key = null
+		for(var/sk in asm_slots)
+			if(sk in pending_hardware) continue
+			// Rough match: slot key contains hardware category
+			slot_key = sk
+			break
+		if(!slot_key)
+			slot_key = "Optional [opt_idx]"
+			opt_idx++
+		pending_hardware[slot_key] = HW
+	var/design_label = "this robot"
+	if(selected_design)
+		var/datum/robot_build_design/D = _get_design(selected_design)
+		if(D) design_label = D.design_name
+	to_chat(user, span_notice("Recommended hardware loaded for [design_label]."))
+
 
 /obj/machinery/robot_workshop/proc/_build_robot(mob/living/user)
 	if(building)
@@ -801,22 +1422,24 @@
 	var/obj/item/behavior_assembly/snap_assembly = behavior_assembly
 	var/obj/item/cert_card/snap_cert             = robot_cert
 	var/obj/item/robot_suit/snap_chassis         = chassis
-	var/list/snap_hw                             = hardware_slots.Copy()
+	var/list/snap_hw                             = pending_hardware.Copy()
 	var/turf/T                                   = get_turf(src)
 	var/builder_ckey                             = key_name(user)
+	var/mob/living/carbon/human/snap_builder     = istype(user, /mob/living/carbon/human) ? user : null
 
 	// Clear workshop state immediately so slots are free
 	behavior_assembly = null
 	robot_cert        = null
 	chassis           = null
 	hardware_slots    = list()
+	pending_hardware  = list()
 	selected_design   = null
 
 	addtimer(CALLBACK(src, PROC_REF(_set_working_anim)), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
 	addtimer(CALLBACK(src, PROC_REF(_finish_robot),
 		snap_design, snap_control, snap_ckey,
 		snap_assembly, snap_cert, snap_chassis,
-		snap_hw, T, builder_ckey), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
+		snap_hw, T, builder_ckey, snap_builder), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
 
@@ -829,7 +1452,8 @@
 	obj/item/behavior_assembly/A,
 	obj/item/cert_card/CC,
 	obj/item/robot_suit/suit,
-	list/hw_snap, turf/T, builder_ckey)
+	list/hw_snap, turf/T, builder_ckey,
+	mob/living/carbon/human/builder)
 
 	building = FALSE
 	icon_state = "h_lathe"
@@ -852,12 +1476,18 @@
 		qdel(R.module)
 	R.module = new D.module_type(R)
 
-	// Install hardware ICs into added_modules
-	for(var/slot in hw_snap)
-		var/obj/item/I = hw_snap[slot]
-		if(I)
-			I.forceMove(R)
-			R.module.add_module(I, TRUE, FALSE)
+	// Install robot hardware datums via robot_hardware_defaults proc
+	if(hw_snap && hw_snap.len)
+		// Build a flat list of hardware datums from the pending_hardware assoc list
+		var/list/hw_list = list()
+		for(var/slot in hw_snap)
+			var/datum/robot_hardware/HW = hw_snap[slot]
+			if(HW) hw_list += HW
+		// Apply SPECIAL and install each datum
+		if(builder)
+			apply_special_to_hardware(builder, R)
+		for(var/datum/robot_hardware/HW in hw_list)
+			HW.install(R)
 
 	R.module.rebuild_modules()
 

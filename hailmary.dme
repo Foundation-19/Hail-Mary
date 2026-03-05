@@ -2337,6 +2337,7 @@
 #include "code\modules\integrated_electronics\hacking_device.dm"
 #include "code\modules\integrated_electronics\robot_hardware.dm"
 #include "code\modules\integrated_electronics\robot_hardware_defaults.dm"
+#include "code\modules\integrated_electronics\robot_hardware_hooks.dm"
 #include "code\modules\integrated_electronics\core\analyzer.dm"
 #include "code\modules\integrated_electronics\core\assemblies.dm"
 #include "code\modules\integrated_electronics\core\debugger.dm"

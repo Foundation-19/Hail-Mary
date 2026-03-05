@@ -53,6 +53,17 @@
 /datum/behavior_circuit/response/proc/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	return
 
+/// Returns the first installed /datum/robot_hardware of hw_type on robot R.
+/// Used by hardware-dependent circuits to resolve their datum instead of
+/// searching R.module.modules for legacy IC objects.
+/datum/behavior_circuit/proc/get_hardware(mob/living/silicon/robot/R, hw_type)
+	if(!R || !R.installed_hardware)
+		return null
+	for(var/datum/robot_hardware/HW in R.installed_hardware)
+		if(istype(HW, hw_type))
+			return HW
+	return null
+
 
 // ====================================================
 // TRIGGER CIRCUITS
@@ -462,14 +473,14 @@
 		return
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
 		return
-	for(var/obj/item/integrated_circuit/input/ID in R.module.modules)
-		var/t = ID.get_pin_data(IC_OUTPUT, 3)  // output 3 = last scan time
-		if(t && t != last_scan_time)
-			last_scan_time = t
-			_trigger(R)
-			return
+	var/datum/robot_hardware/id_reader/IDR = get_hardware(R, /datum/robot_hardware/id_reader)
+	if(!IDR)
+		return
+	if(IDR.last_scan_time && IDR.last_scan_time != last_scan_time)
+		last_scan_time = IDR.last_scan_time
+		_trigger(R)
 
 
 // -- ON SPEECH HEARD ---------------------------------
@@ -497,15 +508,17 @@
 	if(world.time < last_heard + hear_cooldown)
 		return
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
 		return
-	for(var/obj/item/integrated_circuit/input/microphone/M in R.module.modules)
-		var/msg = M.get_pin_data(IC_OUTPUT, 2)
-		if(msg && msg != last_message)
-			last_message = msg
-			last_heard = world.time
-			_trigger(R)
-			return
+	var/datum/robot_hardware/microphone/MIC = get_hardware(R, /datum/robot_hardware/microphone)
+	if(!MIC)
+		return
+	// microphone datum stores last heard message in its last_message var
+	var/msg = MIC.last_heard_message
+	if(msg && msg != last_message && MIC.last_heard_time > last_heard)
+		last_message = msg
+		last_heard = world.time
+		_trigger(R)
 
 
 // -- ON WEAPON FIRED ---------------------------------
@@ -529,14 +542,14 @@
 
 /datum/behavior_circuit/trigger/on_weapon_fired/process()
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
 		return
-	for(var/obj/item/integrated_circuit/weaponized/weapon_firing/WF in R.module.modules)
-		var/t = WF.get_pin_data(IC_OUTPUT, 1)  // last fire timestamp
-		if(t && t != last_shot)
-			last_shot = t
-			_trigger(R)
-			return
+	var/datum/robot_hardware/weapon/WH = get_hardware(R, /datum/robot_hardware/weapon)
+	if(!WH)
+		return
+	if(WH.last_fire_time && WH.last_fire_time != last_shot)
+		last_shot = WH.last_fire_time
+		_trigger(R)
 
 
 // -- ON SIGNAL RECEIVED ------------------------------
@@ -561,14 +574,15 @@
 
 /datum/behavior_circuit/trigger/on_signal_received/process()
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
 		return
-	for(var/obj/item/integrated_circuit/input/signaler/S in R.module.modules)
-		var/t = S.get_pin_data(IC_OUTPUT, 1)
-		if(t && world.time > last_received + signal_cooldown)
+	var/datum/robot_hardware/signaler/SIG = get_hardware(R, /datum/robot_hardware/signaler)
+	if(!SIG)
+		return
+	if(SIG.last_received_time && SIG.last_received_time > last_received)
+		if(world.time > last_received + signal_cooldown)
 			last_received = world.time
 			_trigger(R)
-			return
 
 
 // -- ON GPS ZONE -------------------------------------
@@ -601,20 +615,22 @@
 		return
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
 		return
-	for(var/obj/item/integrated_circuit/input/gps/G in R.module.modules)
-		var/gx = G.get_pin_data(IC_OUTPUT, 1)
-		var/gy = G.get_pin_data(IC_OUTPUT, 2)
-		if(!gx || !gy)
-			return
-		var/now_in = (gx >= zone_x1 && gx <= zone_x2 && gy >= zone_y1 && gy <= zone_y2)
-		if(now_in && !in_zone)
-			in_zone = TRUE
-			_trigger(R)
-		else if(!now_in)
-			in_zone = FALSE
+	var/datum/robot_hardware/gps/GPS = get_hardware(R, /datum/robot_hardware/gps)
+	if(!GPS)
 		return
+	var/turf/here = get_turf(R)
+	if(!here)
+		return
+	var/gx = here.x
+	var/gy = here.y
+	var/now_in = (gx >= zone_x1 && gx <= zone_x2 && gy >= zone_y1 && gy <= zone_y2)
+	if(now_in && !in_zone)
+		in_zone = TRUE
+		_trigger(R)
+	else if(!now_in)
+		in_zone = FALSE
 
 
 // -- ON ATMOS THRESHOLD ------------------------------
@@ -644,13 +660,25 @@
 		return
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
 		return
-	for(var/obj/item/integrated_circuit/atmospherics/AT in R.module.modules)
-		var/pressure = AT.get_pin_data(IC_OUTPUT, 1)
-		var/o2 = AT.get_pin_data(IC_OUTPUT, 2)
-		if((pressure && pressure < pressure_min) || (o2 && o2 < o2_min))
-			_trigger(R)
+	var/datum/robot_hardware/environment_scanner/ENV = get_hardware(R, /datum/robot_hardware/environment_scanner)
+	if(!ENV)
+		return
+	// Sample atmosphere - check if area is unsafe (space, breached)
+	// without accessing turf.air which is not directly accessible.
+	var/turf/here = get_turf(R)
+	if(!here)
+		return
+	var/area/A = get_area(here)
+	if(!A)
+		return
+	// Treat space tiles and area with fire/breaches as threshold-triggered
+	if(istype(here, /turf/open/space))
+		_trigger(R)
+		return
+	for(var/obj/effect/hotspot/HS in range(3, R))
+		_trigger(R)
 		return
 
 
@@ -680,19 +708,19 @@
 		return
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || !R.module)
+	if(!R || R.stat == DEAD)
+		return
+	var/datum/robot_hardware/health_scanner/HS = get_hardware(R, /datum/robot_hardware/health_scanner)
+	if(!HS)
 		return
 	var/obj/item/behavior_assembly/A = get_assembly()
 	var/scan_range = A ? A.sensor_range : 5
-	for(var/obj/item/integrated_circuit/HS in R.module.modules)
-		for(var/mob/living/carbon/M in range(scan_range, R))
-			if(M.stat == DEAD)
-				continue
-			if((M.getBruteLoss() + M.getFireLoss() + M.getToxLoss() + M.getOxyLoss()) >= damage_threshold)
-				HS.set_pin_data(IC_INPUT, 1, WEAKREF(M))
-				HS.do_work()
-				_trigger(R)
-				return
+	for(var/mob/living/carbon/M in range(scan_range, R))
+		if(M.stat == DEAD)
+			continue
+		if((M.getBruteLoss() + M.getFireLoss() + M.getToxLoss() + M.getOxyLoss()) >= damage_threshold)
+			_trigger(R)
+			return
 
 
 // ====================================================
@@ -750,11 +778,10 @@
 	var/say_string = "Beep."
 
 /datum/behavior_circuit/response/say_text/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(R.module)
-		for(var/obj/item/integrated_circuit/output/text_to_speech/TTS in R.module.modules)
-			TTS.set_pin_data(IC_INPUT, 1, say_string)
-			TTS.do_work()
-			return
+	// Check for speaker hardware for enhanced audio output
+	var/datum/robot_hardware/speaker/SPK = get_hardware(R, /datum/robot_hardware/speaker)
+	if(SPK)
+		playsound(R, SPK.sound_file, SPK.volume, 1)
 	R.say(say_string)
 
 
@@ -927,15 +954,10 @@
 	cpu_cost = 3
 
 /datum/behavior_circuit/response/fire_weapon/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/weapon/WH = get_hardware(R, /datum/robot_hardware/weapon)
+	if(!WH)
 		return
-	var/obj/item/integrated_circuit/weaponized/weapon_firing/WF = null
-	for(var/obj/item/integrated_circuit/weaponized/weapon_firing/W in R.module.modules)
-		WF = W
-		break
-	if(!WF || !WF.installed_gun)
-		return
-	var/scan_range = A ? A.sensor_range : 7
+	var/scan_range = (A ? A.sensor_range : 7) + WH.fire_range_bonus
 	var/mob/living/target = null
 	var/closest_dist = INFINITY
 	for(var/mob/living/M in range(scan_range, R))
@@ -949,12 +971,8 @@
 			target = M
 	if(!target)
 		return
-	var/turf/T = get_turf(target)
-	var/turf/self = get_turf(R)
-	WF.set_pin_data(IC_INPUT, 1, T.x - self.x)
-	WF.set_pin_data(IC_INPUT, 2, T.y - self.y)
-	WF.set_pin_data(IC_INPUT, 3, TRUE)
-	WF.do_work()
+	// Delegate to the hardware datum's fire proc
+	WH.fire_at(R, target)
 
 
 // -- FIRE AIR CANNON ---------------------------------
@@ -968,18 +986,8 @@
 	cpu_cost = 3
 
 /datum/behavior_circuit/response/fire_air_cannon/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
-		return
-	var/obj/item/integrated_circuit/weaponized/air_cannon/AC = null
-	var/obj/item/integrated_circuit/atmospherics/AT = null
-	for(var/obj/item/integrated_circuit/weaponized/air_cannon/C in R.module.modules)
-		AC = C
-		break
-	for(var/obj/item/IC in R.module.modules)
-		if(istype(IC, /obj/item/integrated_circuit/atmospherics))
-			AT = IC
-			break
-	if(!AC || !AT)
+	var/datum/robot_hardware/air_cannon/AC = get_hardware(R, /datum/robot_hardware/air_cannon)
+	if(!AC)
 		return
 	var/scan_range = A ? A.sensor_range : 7
 	var/mob/living/target = null
@@ -995,12 +1003,11 @@
 			target = M
 	if(!target)
 		return
-	var/turf/T = get_turf(target)
-	var/turf/self = get_turf(R)
-	AT.set_pin_data(IC_INPUT, 1, T.x - self.x)
-	AT.set_pin_data(IC_INPUT, 2, T.y - self.y)
-	AC.set_pin_data(IC_INPUT, 1, AT.get_pin_data(IC_OUTPUT, 1))
-	AC.do_work()
+	// Throw the target with configured knockback
+	var/turf/here = get_turf(R)
+	var/throw_dir = get_dir(here, get_turf(target))
+	target.throw_at(get_step(get_turf(target), throw_dir), AC.knockback_force, 1, R)
+	R.visible_message(span_warning("[R] fires a burst of compressed air at [target]!"))
 
 
 // -- DETONATE SELF -----------------------------------
@@ -1037,15 +1044,25 @@
 	var/detonation_time = 3
 
 /datum/behavior_circuit/response/prime_grenade/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/grenade_launcher/GL = get_hardware(R, /datum/robot_hardware/grenade_launcher)
+	if(!GL)
 		return
-	for(var/obj/item/integrated_circuit/weaponized/grenade/GR in R.module.modules)
-		if(!GR.attached_grenade || GR.attached_grenade.active)
+	var/scan_range = A ? A.sensor_range : 5
+	var/mob/living/target = null
+	for(var/mob/living/M in range(scan_range, R))
+		if(M == R || M.stat == DEAD)
 			continue
-		GR.set_pin_data(IC_INPUT, 1, detonation_time)
-		GR.do_work()
-		R.visible_message(span_danger("[R] arms a grenade!"))
+		if(R.faction_check_mob(M, FALSE))
+			continue
+		target = M
+		break
+	if(!target)
 		return
+	// Spawn and throw the grenade
+	var/obj/item/grenade/G = new GL.grenade_type(get_turf(R))
+	G.throw_at(target, 7, 1, R)
+	addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/grenade, prime)), 30)
+	R.visible_message(span_danger("[R] launches a grenade at [target]!"))
 
 
 // -- THROW ITEM AT ENEMY -----------------------------
@@ -1059,17 +1076,16 @@
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/throw_item_at_enemy/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/thrower/TH = get_hardware(R, /datum/robot_hardware/thrower)
+	if(!TH)
 		return
-	var/obj/item/integrated_circuit/manipulation/thrower/TH = null
-	var/obj/item/integrated_circuit/manipulation/grabber/GR = null
-	for(var/obj/item/integrated_circuit/manipulation/thrower/T in R.module.modules)
-		TH = T
-		break
-	for(var/obj/item/integrated_circuit/manipulation/grabber/G in R.module.modules)
-		GR = G
-		break
-	if(!TH || !GR || !GR.contents.len)
+	// Find something to throw from the robot's held items
+	var/obj/item/projectile = null
+	for(var/obj/item/I in R)
+		if(!I.anchored)
+			projectile = I
+			break
+	if(!projectile)
 		return
 	var/scan_range = A ? A.sensor_range : 7
 	var/mob/living/target = null
@@ -1085,8 +1101,8 @@
 			target = M
 	if(!target)
 		return
-	TH.set_pin_data(IC_INPUT, 1, WEAKREF(target))
-	TH.do_work()
+	projectile.forceMove(get_turf(R))
+	projectile.throw_at(target, TH.throw_range, TH.throw_force, R)
 
 
 // -- INJECT REAGENT ----------------------------------
@@ -1102,13 +1118,8 @@
 	var/target_friendly = TRUE
 
 /datum/behavior_circuit/response/inject_reagent/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
-		return
-	var/obj/item/reagent_containers/borghypo/hypo = null
-	for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
-		hypo = H
-		break
-	if(!hypo || !hypo.reagents || !hypo.reagents.total_volume)
+	var/datum/robot_hardware/injector/INJ = get_hardware(R, /datum/robot_hardware/injector)
+	if(!INJ || !INJ.reagent_tank || !INJ.reagent_tank.reagents || !INJ.reagent_tank.reagents.total_volume)
 		return
 	var/scan_range = A ? A.sensor_range : 5
 	for(var/mob/living/carbon/M in range(scan_range, R))
@@ -1116,7 +1127,7 @@
 			continue
 		if(target_friendly && !R.faction_check_mob(M, FALSE))
 			continue
-		hypo.reagents.trans_to(M, inject_amount)
+		INJ.reagent_tank.reagents.trans_to(M, inject_amount)
 		R.visible_message(span_notice("[R] administers treatment to [M]."))
 		return
 
@@ -1132,13 +1143,8 @@
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/offer_drink/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
-		return
-	var/obj/item/reagent_containers/borghypo/dispenser = null
-	for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
-		dispenser = H
-		break
-	if(!dispenser || !dispenser.reagents || !dispenser.reagents.total_volume)
+	var/datum/robot_hardware/injector/INJ = get_hardware(R, /datum/robot_hardware/injector)
+	if(!INJ || !INJ.reagent_tank || !INJ.reagent_tank.reagents || !INJ.reagent_tank.reagents.total_volume)
 		return
 	var/obj/item/behavior_assembly/asm = get_assembly()
 	var/scan_range = asm ? asm.sensor_range : 5
@@ -1146,7 +1152,7 @@
 		if(H.stat == DEAD || !H.reagents)
 			continue
 		if(H.thirst < THIRST_LEVEL_THIRSTY)
-			dispenser.reagents.trans_to(H, 10)
+			INJ.reagent_tank.reagents.trans_to(H, 10)
 			R.visible_message(span_notice("[R] extends a dispenser nozzle toward [H]."))
 			return
 
@@ -1163,12 +1169,7 @@
 	var/grab_range = 2
 
 /datum/behavior_circuit/response/grab_nearest_item/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
-		return
-	var/obj/item/integrated_circuit/manipulation/grabber/GR = null
-	for(var/obj/item/integrated_circuit/manipulation/grabber/G in R.module.modules)
-		GR = G
-		break
+	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
 	if(!GR)
 		return
 	for(var/obj/item/I in range(grab_range, R))
@@ -1176,9 +1177,8 @@
 			continue
 		if(I.anchored)
 			continue
-		GR.set_pin_data(IC_INPUT, 1, WEAKREF(I))
-		GR.set_pin_data(IC_INPUT, 2, 1)
-		GR.do_work()
+		I.forceMove(R)
+		R.visible_message(span_notice("[R] picks up [I]."))
 		return
 
 
@@ -1193,11 +1193,13 @@
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/drop_all_items/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
+	if(!GR)
 		return
-	for(var/obj/item/integrated_circuit/manipulation/grabber/GR in R.module.modules)
-		GR.set_pin_data(IC_INPUT, 2, -1)
-		GR.do_work()
+	for(var/obj/item/I in R)
+		if(istype(I, /obj/item/electronic_assembly) || istype(I, /obj/item/integrated_circuit))
+			continue
+		I.forceMove(get_turf(R))
 
 
 // -- STUN TARGET -------------------------------------
@@ -1248,15 +1250,15 @@
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/fire_extinguisher/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/gas_pump/GP = get_hardware(R, /datum/robot_hardware/gas_pump)
+	if(!GP)
 		return
 	var/scan_range = A ? A.sensor_range : 3
 	for(var/turf/T in range(scan_range, R))
 		if(locate(/obj/effect/hotspot) in T)
-			for(var/obj/item/integrated_circuit/atmospherics/EX in R.module.modules)
-				EX.set_pin_data(IC_INPUT, 1, WEAKREF(T))
-				EX.do_work()
-				return
+			T.hotspot_expose(-100, 100)
+			R.visible_message(span_notice("[R] vents gas at the fire!"))
+			return
 
 
 // -- TOGGLE LIGHT ------------------------------------
@@ -1271,14 +1273,15 @@
 	var/force_state = -1
 
 /datum/behavior_circuit/response/toggle_light/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/light/LT = get_hardware(R, /datum/robot_hardware/light)
+	if(!LT)
 		return
-	for(var/obj/item/integrated_circuit/output/light/LT in R.module.modules)
-		var/cur = LT.get_pin_data(IC_OUTPUT, 1)
-		var/new_state = (force_state == -1) ? !cur : force_state
-		LT.set_pin_data(IC_INPUT, 1, new_state)
-		LT.do_work()
-		return
+	var/new_state = (force_state == -1) ? !LT.start_on : (force_state > 0)
+	LT.start_on = new_state
+	if(new_state)
+		R.set_light(LT.light_brightness, 1, LT.light_color)
+	else
+		R.set_light(0)
 
 
 // -- PLAY SOUND --------------------------------------
@@ -1306,11 +1309,15 @@
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/pump_reagents/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/reagent_pump/RP = get_hardware(R, /datum/robot_hardware/reagent_pump)
+	if(!RP || !RP.pump_tank || !RP.pump_tank.reagents)
 		return
-	for(var/obj/item/integrated_circuit/P in R.module.modules)
-		P.do_work()
-		return
+	var/scan_range = A ? A.sensor_range : 3
+	for(var/obj/item/reagent_containers/RC in range(scan_range, R))
+		if(RC.reagents && RC.reagents.total_volume > 0)
+			RP.pump_tank.reagents.trans_to(RC, RP.pump_amount)
+			R.visible_message(span_notice("[R] pumps reagents."))
+			return
 
 
 // -- SEND RADIO SIGNAL -------------------------------
@@ -1324,11 +1331,11 @@
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/send_radio_signal/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/signaler/SIG = get_hardware(R, /datum/robot_hardware/signaler)
+	if(!SIG)
 		return
-	for(var/obj/item/integrated_circuit/input/signaler/S in R.module.modules)
-		S.do_work()
-		return
+	SIG.send_signal(R)
+	R.visible_message(span_notice("[R] transmits a signal on [SIG.frequency]."))
 
 
 // -- READ BATTERY ------------------------------------
@@ -1379,12 +1386,12 @@
 	var/display_text = "STATUS: NOMINAL"
 
 /datum/behavior_circuit/response/display_screen/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(!R.module)
+	var/datum/robot_hardware/display_screen/DS = get_hardware(R, /datum/robot_hardware/display_screen)
+	if(!DS)
 		return
-	for(var/obj/item/integrated_circuit/output/D in R.module.modules)
-		D.set_pin_data(IC_INPUT, 1, display_text)
-		D.do_work()
-		return
+	DS.current_text = display_text
+	// Update robot name overlay if it uses a display
+	R.visible_message(span_notice("[R]'s screen reads: [display_text]"))
 
 
 // ====================================================
