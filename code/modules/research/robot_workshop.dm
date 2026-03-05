@@ -14,27 +14,11 @@
 
 
 // ====================================================
-// IC SLOT DEFINES
-// Human-readable hardware slot names shown in HARDWARE tab.
-// Matched against behavior_circuit.hardware_slot_name.
+// HARDWARE SLOT DEFINES
+// HW_SLOT_* defines are declared in behavior_circuits.dm
+// and are available here since DM defines are compile-global.
+// See behavior_circuits.dm for the full list.
 // ====================================================
-
-#define IC_SLOT_WEAPON_FIRING    "Weapon Firing IC"
-#define IC_SLOT_AIR_CANNON       "Air Cannon IC"
-#define IC_SLOT_GRENADE_THROWER  "Grenade + Thrower IC"
-#define IC_SLOT_THROWER_GRABBER  "Thrower + Grabber IC"
-#define IC_SLOT_BORGHYPO         "Borghypo (Injector)"
-#define IC_SLOT_GRABBER          "Grabber IC"
-#define IC_SLOT_EXTINGUISHER     "Extinguisher IC"
-#define IC_SLOT_LIGHT            "Light Output IC"
-#define IC_SLOT_REAGENT_PUMP     "Reagent Pump IC"
-#define IC_SLOT_SIGNALER         "Signaler IC"
-#define IC_SLOT_SCREEN           "Screen Display IC"
-#define IC_SLOT_ID_READER        "ID Card Reader IC"
-#define IC_SLOT_MICROPHONE       "Microphone IC"
-#define IC_SLOT_GPS              "GPS IC"
-#define IC_SLOT_ATMOSPHERICS     "Atmospherics IC"
-#define IC_SLOT_HEALTH_SCANNER   "Health Scanner IC"
 
 
 // ====================================================
@@ -693,6 +677,10 @@
 		dat += "<b>[cat]</b><br>"
 		for(var/T in by_cat[cat])
 			var/datum/robot_hardware/proto = new T()
+			// Skip hardware that doesn't satisfy the required slot type
+			if(hw_active_slot && !_slot_accepts_hw_type(hw_active_slot, T))
+				qdel(proto)
+				continue
 			var/blocked = int_level < proto.min_int
 			var/gate_label = get_int_gate_label(proto.min_int)
 			// CORE budget check
@@ -1735,61 +1723,35 @@
 
 
 /obj/machinery/robot_workshop/proc/_slot_label(slot_name)
-	switch(slot_name)
-		if(IC_SLOT_WEAPON_FIRING)    return "Weapon Firing Mechanism"
-		if(IC_SLOT_AIR_CANNON)       return "Pneumatic Air Cannon"
-		if(IC_SLOT_GRENADE_THROWER)  return "Grenade Launcher + Thrower"
-		if(IC_SLOT_THROWER_GRABBER)  return "Thrower + Grabber Arm"
-		if(IC_SLOT_BORGHYPO)         return "Hypodermic Injector (Borghypo)"
-		if(IC_SLOT_GRABBER)          return "Grabber Arm"
-		if(IC_SLOT_EXTINGUISHER)     return "Fire Extinguisher / Atmos IC"
-		if(IC_SLOT_LIGHT)            return "Light Output Module"
-		if(IC_SLOT_REAGENT_PUMP)     return "Reagent Pump"
-		if(IC_SLOT_SIGNALER)         return "Radio Signaler"
-		if(IC_SLOT_SCREEN)           return "Display Screen"
-		if(IC_SLOT_ID_READER)        return "ID Card Reader"
-		if(IC_SLOT_MICROPHONE)       return "Microphone Input"
-		if(IC_SLOT_GPS)              return "GPS Locator"
-		if(IC_SLOT_ATMOSPHERICS)     return "Atmospherics Sensor"
-		if(IC_SLOT_HEALTH_SCANNER)   return "Health Analyzer"
+	// slot_name is a /datum/robot_hardware type path string.
+	// Instantiate a proto to read hardware_name, then clean up.
+	var/hw_type = text2path(slot_name)
+	if(hw_type && ispath(hw_type, /datum/robot_hardware))
+		var/datum/robot_hardware/proto = new hw_type()
+		var/label = proto.hardware_name
+		qdel(proto)
+		return label
 	return slot_name
 
 /obj/machinery/robot_workshop/proc/_item_satisfies_slot(obj/item/I, slot_name)
-	// Maps slot names to acceptable item types
-	switch(slot_name)
-		if(IC_SLOT_WEAPON_FIRING)
-			return istype(I, /obj/item/integrated_circuit/weaponized/weapon_firing)
-		if(IC_SLOT_AIR_CANNON)
-			return istype(I, /obj/item/integrated_circuit/weaponized/air_cannon)
-		if(IC_SLOT_GRENADE_THROWER)
-			return istype(I, /obj/item/integrated_circuit/weaponized/grenade) || istype(I, /obj/item/integrated_circuit/manipulation/thrower)
-		if(IC_SLOT_THROWER_GRABBER)
-			return istype(I, /obj/item/integrated_circuit/manipulation/thrower) || istype(I, /obj/item/integrated_circuit/manipulation/grabber)
-		if(IC_SLOT_BORGHYPO)
-			return istype(I, /obj/item/reagent_containers/borghypo)
-		if(IC_SLOT_GRABBER)
-			return istype(I, /obj/item/integrated_circuit/manipulation/grabber)
-		if(IC_SLOT_EXTINGUISHER)
-			return istype(I, /obj/item/extinguisher) || istype(I, /obj/item/integrated_circuit/atmospherics)
-		if(IC_SLOT_LIGHT)
-			return istype(I, /obj/item/integrated_circuit/output/light)
-		if(IC_SLOT_REAGENT_PUMP)
-			return istype(I, /obj/item/integrated_circuit/reagent)
-		if(IC_SLOT_SIGNALER)
-			return istype(I, /obj/item/integrated_circuit/input/signaler)
-		if(IC_SLOT_SCREEN)
-			return istype(I, /obj/item/integrated_circuit/output/screen)
-		if(IC_SLOT_ID_READER)
-			return istype(I, /obj/item/integrated_circuit/input/card_reader) || istype(I, /obj/item/card/id)
-		if(IC_SLOT_MICROPHONE)
-			return istype(I, /obj/item/integrated_circuit/input/microphone)
-		if(IC_SLOT_GPS)
-			return istype(I, /obj/item/integrated_circuit/input/gps) || istype(I, /obj/item/gps)
-		if(IC_SLOT_ATMOSPHERICS)
-			return istype(I, /obj/item/integrated_circuit/atmospherics)
-		if(IC_SLOT_HEALTH_SCANNER)
-			return istype(I, /obj/item/healthanalyzer)
+	// Legacy stub - physical IC items no longer used for hardware slots.
+	// Hardware is now installed via datum/robot_hardware at build time.
+	// This proc is retained only for any external callers; always returns FALSE.
 	return FALSE
+
+/// Returns TRUE if the given hardware datum type satisfies the slot requirement.
+/// slot_name is a HW_SLOT_* define (a /datum/robot_hardware type path string).
+/obj/machinery/robot_workshop/proc/_slot_accepts_hw_type(slot_name, hw_type)
+	if(!slot_name || !hw_type)
+		return FALSE
+	var/required = text2path(slot_name)
+	if(!required)
+		return FALSE
+	return ispath(hw_type, required)
+
+
+// ====================================================
+// CSS WRAPPER
 
 
 // ====================================================
