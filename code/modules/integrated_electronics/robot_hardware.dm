@@ -418,9 +418,10 @@
 
 /datum/robot_hardware/injector/install(mob/living/silicon/robot/R)
 	. = ..()
-	// Create the borghypo and fill it
+	// Create the borghypo, fill it, store a ref, and add it to the module loadout
 	var/obj/item/reagent_containers/borghypo/H = new(R)
 	H.reagents.add_reagent(reagent_type, reagent_volume)
+	reagent_tank = H
 	if(R.module)
 		R.module.add_module(H, TRUE, FALSE)
 

@@ -117,29 +117,18 @@
 // ====================================================
 
 /datum/robot_hardware/injector
-	/// Internal reagent tank. Created at install time.
-	var/obj/item/reagent_containers/reagent_tank = null
-
-/datum/robot_hardware/injector/install(mob/living/silicon/robot/R)
-	. = ..()
-	if(!reagent_tank)
-		reagent_tank = new /obj/item/reagent_containers/glass/beaker/large(R)
+	/// Reference to the borghypo created at install time.
+	/// Read by inject_reagent and offer_drink circuits via INJ.reagent_tank.
+	var/obj/item/reagent_containers/borghypo/reagent_tank = null
 
 
 // ====================================================
-// REAGENT PUMP - pump tank lifecycle
+// REAGENT PUMP - runtime state
 // ====================================================
 
 /datum/robot_hardware/reagent_pump
-	/// Internal pump tank. Created at install time.
-	var/obj/item/reagent_containers/pump_tank = null
-	/// Units transferred per pump activation.
+	/// Units transferred per pump activation (alias read by circuits).
 	var/pump_amount = 10
-
-/datum/robot_hardware/reagent_pump/install(mob/living/silicon/robot/R)
-	. = ..()
-	if(!pump_tank)
-		pump_tank = new /obj/item/reagent_containers/glass/beaker/large(R)
 
 
 // ====================================================

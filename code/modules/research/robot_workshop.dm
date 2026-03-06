@@ -1428,53 +1428,21 @@
 		R.robot_suit = suit
 		suit.forceMove(R)
 
-	// Set module
+	// Set module and build its base loadout
 	if(R.module)
 		qdel(R.module)
 	R.module = new D.module_type(R)
+	R.module.rebuild_modules()
 
-	// Build hardware list:
-	// 1. Always start with the full recommended defaults for this design.
-	// 2. Any custom pending_hardware the builder selected overrides/adds on top
-	//    (same type = replace the default, new type = add alongside).
-	// This means robots ALWAYS get their full loadout. Custom picks refine it.
-	var/list/hw_list = list()
-
-	// Step 1 - recommended defaults
-	var/list/recommended = get_recommended_hardware(design_path)
-	for(var/entry in recommended)
-		var/list/E = entry
-		var/hw_type = E[1]
-		var/list/overrides = E.len >= 2 ? E[2] : null
-		var/datum/robot_hardware/HW = new hw_type()
-		if(overrides)
-			for(var/varname in overrides)
-				HW.vars[varname] = overrides[varname]
-		hw_list += HW
-
-	// Step 2 - merge custom selections: replace matching type, otherwise append
+	// Only install hardware the player explicitly selected.
+	// No selection = base module loadout only, no hardware.
 	if(hw_snap && hw_snap.len)
 		for(var/slot in hw_snap)
-			var/datum/robot_hardware/custom = hw_snap[slot]
-			if(!custom) continue
-			// Find and replace a default of the same type, or append if no match
-			var/replaced = FALSE
-			for(var/i = 1; i <= hw_list.len; i++)
-				var/datum/robot_hardware/existing = hw_list[i]
-				if(istype(existing, custom.type))
-					qdel(existing)
-					hw_list[i] = custom
-					replaced = TRUE
-					break
-			if(!replaced)
-				hw_list += custom
-
-	// Install first so R.installed_hardware is populated,
-	// THEN apply SPECIAL so apply_special() fires on each datum correctly.
-	for(var/datum/robot_hardware/HW in hw_list)
-		HW.install(R)
-	if(builder)
-		apply_special_to_hardware(builder, R)
+			var/datum/robot_hardware/HW = hw_snap[slot]
+			if(!HW) continue
+			HW.install(R)
+		if(builder)
+			apply_special_to_hardware(builder, R)
 
 	// Validate assembly hardware slot coverage against what was actually installed.
 	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.

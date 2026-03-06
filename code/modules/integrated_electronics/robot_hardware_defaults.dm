@@ -363,6 +363,10 @@
 		// Install into robot
 		H.install(R)
 
+	// Rebuild the module's usable item list now that all hardware has added its items
+	if(R.module)
+		R.module.rebuild_modules()
+
 	// Apply robot-level SPECIAL bonuses after all hardware is in
 	if(builder)
 		apply_special_to_hardware(builder, R)
