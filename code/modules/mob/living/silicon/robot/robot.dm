@@ -1317,3 +1317,15 @@
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
+
+
+// ====================================================
+// HARDWARE HOOKS - HEAR
+// Routes speech to installed microphone hardware so
+// behavior circuits using On Speech Heard can fire.
+// ====================================================
+
+/mob/living/silicon/robot/Hear(message, atom/movable/speaker, datum/language/language, raw_message, radio_freq, list/spans, list/message_mods)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_HEARING_HARDWARE))
+		hardware_on_hear(speaker, raw_message)

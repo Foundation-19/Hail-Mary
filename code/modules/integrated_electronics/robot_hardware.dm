@@ -150,6 +150,9 @@
 /datum/robot_hardware/weapon/install(mob/living/silicon/robot/R)
 	. = ..()
 	var/obj/item/gun/energy/G = new gun_type(R)
+	// Give it a visible placeholder icon so it shows in the module loadout
+	G.icon = 'icons/obj/assemblies/electronic_setups.dmi'
+	G.icon_state = "setup_small"
 	if(R.module)
 		R.module.add_module(G, TRUE, FALSE)
 
@@ -187,6 +190,8 @@
 	for(var/i in 1 to grenade_count)
 		var/obj/item/grenade/G = new grenade_type(R)
 		G.det_time = fuse_time
+		G.icon = 'icons/obj/assemblies/electronic_setups.dmi'
+		G.icon_state = "setup_small"
 		if(R.module)
 			R.module.add_module(G, TRUE, FALSE)
 
@@ -418,9 +423,11 @@
 
 /datum/robot_hardware/injector/install(mob/living/silicon/robot/R)
 	. = ..()
-	// Create the borghypo, fill it, store a ref, and add it to the module loadout
+	// Create the borghypo, fill it, store ref, and add to loadout
 	var/obj/item/reagent_containers/borghypo/H = new(R)
 	H.reagents.add_reagent(reagent_type, reagent_volume)
+	H.icon = 'icons/obj/assemblies/electronic_setups.dmi'
+	H.icon_state = "setup_small"
 	reagent_tank = H
 	if(R.module)
 		R.module.add_module(H, TRUE, FALSE)

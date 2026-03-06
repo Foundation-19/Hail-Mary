@@ -29,20 +29,22 @@
 /datum/robot_hardware/weapon/proc/fire_at(mob/living/silicon/robot/R, mob/living/target)
 	if(!target || !R || !gun_type)
 		return
-	var/obj/item/gun/G = locate(gun_type) in R
+	// Find the gun already installed in the module loadout
+	var/obj/item/gun/G = null
+	if(R.module)
+		for(var/obj/item/gun/existing in R.module.modules)
+			if(istype(existing, gun_type))
+				G = existing
+				break
+	// Fallback: locate anywhere in robot contents
 	if(!G)
-		G = new gun_type(R)
+		G = locate(gun_type) in R
 	if(!G)
 		return
 	last_fire_time = world.time
 	R.setDir(get_dir(R, target))
-	var/turf/T = get_turf(target)
-	if(!T)
-		return
-	var/obj/item/projectile/P = new /obj/item/projectile(T)
-	P.preparePixelProjectile(T, R, null)
-	P.fire()
-	R.visible_message(span_danger("[R] fires [G] at [target]!"))
+	// Use afterattack to fire the gun — standard SS13 gun firing path
+	G.afterattack(get_turf(target), R, FALSE)
 
 
 // ====================================================
@@ -117,18 +119,29 @@
 // ====================================================
 
 /datum/robot_hardware/injector
-	/// Reference to the borghypo created at install time.
-	/// Read by inject_reagent and offer_drink circuits via INJ.reagent_tank.
-	var/obj/item/reagent_containers/borghypo/reagent_tank = null
+	/// Internal reagent tank. Created at install time.
+	var/obj/item/reagent_containers/reagent_tank = null
+
+/datum/robot_hardware/injector/install(mob/living/silicon/robot/R)
+	. = ..()
+	if(!reagent_tank)
+		reagent_tank = new /obj/item/reagent_containers/glass/beaker/large(R)
 
 
 // ====================================================
-// REAGENT PUMP - runtime state
+// REAGENT PUMP - pump tank lifecycle
 // ====================================================
 
 /datum/robot_hardware/reagent_pump
-	/// Units transferred per pump activation (alias read by circuits).
+	/// Internal pump tank. Created at install time.
+	var/obj/item/reagent_containers/pump_tank = null
+	/// Units transferred per pump activation.
 	var/pump_amount = 10
+
+/datum/robot_hardware/reagent_pump/install(mob/living/silicon/robot/R)
+	. = ..()
+	if(!pump_tank)
+		pump_tank = new /obj/item/reagent_containers/glass/beaker/large(R)
 
 
 // ====================================================
