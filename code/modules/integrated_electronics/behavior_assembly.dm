@@ -231,15 +231,25 @@
 	var/datum/weakref/assembly_ref = null
 
 
+
 /// Called when the assembly is installed. R = robot holder.
 /datum/behavior_circuit/proc/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	robot_ref  = WEAKREF(R)
+	robot_ref    = WEAKREF(R)
 	assembly_ref = WEAKREF(A)
+	RegisterSignal(R, COMSIG_ROBOT_CLOCK_TICK, PROC_REF(_on_clock_tick))
 
 /// Called when the assembly is removed.
 /datum/behavior_circuit/proc/unregister(mob/living/silicon/robot/R)
-	robot_ref  = null
+	UnregisterSignal(R, COMSIG_ROBOT_CLOCK_TICK)
+	robot_ref    = null
 	assembly_ref = null
+
+/// Internal signal handler -- resolves refs and calls execute()
+/datum/behavior_circuit/proc/_on_clock_tick(mob/living/silicon/robot/R, datum/robot_hardware/clock/CLK)
+	var/obj/item/behavior_assembly/A = assembly_ref?.resolve()
+	if(!R || !A)
+		return
+	execute(R, A)
 
 /// Convenience - resolves and returns the robot, or null if gone
 /datum/behavior_circuit/proc/get_robot()

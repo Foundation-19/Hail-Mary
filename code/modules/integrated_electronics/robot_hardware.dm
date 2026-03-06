@@ -8,7 +8,7 @@
 
 /// Signal fired by robot_hardware/clock each tick interval.
 /// Received by behavior circuits using Trigger: On Clock Tick.
-#define COMSIG_ROBOT_CLOCK_TICK "robot_clock_tick"
+// COMSIG_ROBOT_CLOCK_TICK defined in behavior_defines.dm
 
 // ====================================================
 // ROBOT HARDWARE SYSTEM
@@ -91,15 +91,12 @@
 /// Called by workshop at build time to apply hardware to the robot.
 /datum/robot_hardware/proc/install(mob/living/silicon/robot/R)
 	robot_ref = WEAKREF(R)
-	if(!R.installed_hardware)
-		R.installed_hardware = list()
 	R.installed_hardware += src
 
 /// Called when hardware is removed from a robot.
 /datum/robot_hardware/proc/uninstall(mob/living/silicon/robot/R)
 	robot_ref = null
-	if(R.installed_hardware)
-		R.installed_hardware -= src
+	R.installed_hardware -= src
 
 /// Convenience: resolve the robot this is installed on
 /datum/robot_hardware/proc/get_robot()
@@ -155,6 +152,7 @@
 	var/obj/item/gun/energy/G = new gun_type(R)
 	if(R.module)
 		R.module.add_module(G, TRUE, FALSE)
+
 
 /datum/robot_hardware/weapon/get_summary()
 	return "[hardware_name] ([gun_type]) [lethal_mode ? "LETHAL" : "STUN"] range:[fire_range]"
@@ -271,6 +269,8 @@
 	var/max_items     = 5
 	/// Max weight class of items it can lift (WEIGHT_CLASS_*)
 	var/max_weight    = WEIGHT_CLASS_NORMAL
+	/// Items currently held by this arm
+	var/list/held_items = list()
 
 /datum/robot_hardware/grabber/New()
 	config_defs = list(
@@ -437,9 +437,8 @@
 	core_energy      = 1
 	mat_cost         = list("iron" = 300, "glass" = 200)
 
-	/// Units transferred per pump activation
+	/// Units transferred per pump activation (also aliased as pump_amount for circuits)
 	var/transfer_amount = 10
-	/// TRUE = pump from container into self, FALSE = pump from self into container
 	var/pump_in         = TRUE
 
 /datum/robot_hardware/reagent_pump/New()
@@ -905,6 +904,7 @@
 	if(R.signaler_connection)
 		SSradio.remove_object(R, frequency)
 	R.signaler_connection = null
+
 
 
 // ====================================================

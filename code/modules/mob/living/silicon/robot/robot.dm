@@ -9,13 +9,25 @@
 	/// Set at mapspawn via subtype or installed via cert_card/base at runtime.
 	var/datum/cpu_cert/cpu_cert = null
 	var/cert_armor_bonus = 0
+
+	/// List of installed /datum/robot_hardware datums. Populated by hardware.install().
+	/// Read by behavior circuits via get_hardware().
 	var/list/installed_hardware = list()
-	var/list/builder_special = list()
-	var/cert_cha_modifier = 0
-	var/signaler_connection = null
+
+	/// Snapshot of builder SPECIAL stats stored at build time. Used by behavior circuits.
+	var/list/builder_special = null
+	/// CHA modifier from builder - affects faction tolerance radius in circuits.
+	var/cert_cha_modifier = 5
+
+	/// Reference to installed speaker hardware datum. Set by speaker/install().
+	var/datum/robot_hardware/speaker/speaker_hardware = null
+
+	/// Radio frequency datum for signaler hardware. Set by signaler/install().
+	var/datum/radio_frequency/signaler_connection = null
+	/// Signaler frequency value. Set by signaler/install().
 	var/signaler_frequency = 0
+	/// Signaler code value. Set by signaler/install().
 	var/signaler_code = 0
-	var/obj/item/speaker_hardware = null
 
 /mob/living/silicon/robot/get_cell()
 	return cell

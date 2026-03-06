@@ -23,6 +23,16 @@
 #define HW_SLOT_HEALTH_SCANNER   "/datum/robot_hardware/health_scanner"
 #define HW_SLOT_LIGHT            "/datum/robot_hardware/light"
 #define HW_SLOT_GAS_PUMP         "/datum/robot_hardware/gas_pump"
+#define HW_SLOT_HARVESTER        "/datum/robot_hardware/harvester"
+#define HW_SLOT_MATERIAL_COLLECTOR "/datum/robot_hardware/material_collector"
+#define HW_SLOT_GRINDER          "/datum/robot_hardware/grinder_module"
+#define HW_SLOT_GAS_VENT         "/datum/robot_hardware/gas_vent"
+#define HW_SLOT_BIO_SCANNER      "/datum/robot_hardware/bio_scanner"
+#define HW_SLOT_OBJECT_LOCATOR   "/datum/robot_hardware/object_locator"
+#define HW_SLOT_POWER_RELAY      "/datum/robot_hardware/power_relay"
+#define HW_SLOT_NAV_COMPUTER     "/datum/robot_hardware/nav_computer"
+#define HW_SLOT_VOCABULARY       "/datum/robot_hardware/vocabulary_module"
+#define HW_SLOT_PIPE_INTERFACE   "/datum/robot_hardware/pipe_interface"
 
 
 // ====================================================
@@ -83,9 +93,7 @@
 
 
 // -- RESPONSE BASE -------------------------------------------
-
-/datum/behavior_circuit/response/proc/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	return
+// execute() overrides the base stub defined in _behavior_defines.dm
 
 /// Returns the first installed /datum/robot_hardware of hw_type on robot R.
 /// Used by hardware-dependent circuits to resolve their datum instead of
@@ -999,7 +1007,7 @@
 	var/datum/robot_hardware/weapon/WH = get_hardware(R, /datum/robot_hardware/weapon)
 	if(!WH)
 		return
-	var/scan_range = (A ? A.sensor_range : 7) + WH.fire_range_bonus
+	var/scan_range = (A ? A.sensor_range : 7) + WH.fire_range
 	var/mob/living/target = null
 	var/closest_dist = INFINITY
 	for(var/mob/living/M in range(scan_range, R))
@@ -1362,12 +1370,12 @@
 
 /datum/behavior_circuit/response/pump_reagents/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/robot_hardware/reagent_pump/RP = get_hardware(R, /datum/robot_hardware/reagent_pump)
-	if(!RP || !RP.pump_tank || !RP.pump_tank.reagents)
+	if(!RP || !R.reagents || R.reagents.total_volume <= 0)
 		return
 	var/scan_range = A ? A.sensor_range : 3
 	for(var/obj/item/reagent_containers/RC in range(scan_range, R))
-		if(RC.reagents && RC.reagents.total_volume > 0)
-			RP.pump_tank.reagents.trans_to(RC, RP.pump_amount)
+		if(RC.reagents)
+			R.reagents.trans_to(RC, RP.transfer_amount)
 			R.visible_message(span_notice("[R] pumps reagents."))
 			return
 
@@ -1446,6 +1454,364 @@
 	DS.current_text = display_text
 	// Update robot name overlay if it uses a display
 	R.visible_message(span_notice("[R]'s screen reads: [display_text]"))
+
+
+// ====================================================
+// HARVESTER CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/response/harvest_plants
+	needs_hardware = TRUE
+	circuit_name = "Response: Harvest Nearby Plants"
+	hardware_slot_name = HW_SLOT_HARVESTER
+	required_hardware_type = /datum/robot_hardware/harvester
+	circuit_desc = "Harvests mature plants in range. Requires Harvester Module hardware."
+	tutorial_text = "HARDWARE REQUIRED: Harvester Module. The robot searches for mature hydroponic trays in range and harvests them. Set auto_replant on the hardware datum to replant after harvesting. Pair with On Interval for a fully automated farm bot."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/harvest_plants/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/harvester/HV = get_hardware(R, /datum/robot_hardware/harvester)
+	if(!HV)
+		return
+	// Use the tray's own attack_hand proc to trigger harvesting logic
+	for(var/obj/machinery/hydroponics/tray in range(HV.harvest_range, R))
+		tray.attack_hand(R)
+		R.visible_message(span_notice("[R] tends a hydroponic tray."))
+		return
+
+
+// ====================================================
+// MATERIAL COLLECTOR CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/response/collect_items
+	needs_hardware = TRUE
+	circuit_name = "Response: Collect Nearby Items"
+	hardware_slot_name = HW_SLOT_MATERIAL_COLLECTOR
+	required_hardware_type = /datum/robot_hardware/material_collector
+	circuit_desc = "Picks up nearby raw materials. Requires Material Collector hardware."
+	tutorial_text = "HARDWARE REQUIRED: Material Collector. The robot searches for raw materials (metal sheets, glass, etc.) in range and picks them up. Configure target_types on the hardware datum to restrict what it collects. Requires Grabber Arm to store items."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/collect_items/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/material_collector/MC = get_hardware(R, /datum/robot_hardware/material_collector)
+	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
+	if(!MC)
+		return
+	for(var/obj/item/I in range(MC.collect_range, R))
+		if(!is_type_in_list(I, MC.target_types))
+			continue
+		if(GR && GR.held_items.len >= GR.max_items)
+			continue
+		I.forceMove(R)
+		if(GR)
+			GR.held_items += I
+		R.visible_message(span_notice("[R] collects [I]."))
+		return
+
+
+// ====================================================
+// GRINDER CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/response/grind_item
+	needs_hardware = TRUE
+	circuit_name = "Response: Grind Item"
+	hardware_slot_name = HW_SLOT_GRINDER
+	required_hardware_type = /datum/robot_hardware/grinder_module
+	circuit_desc = "Grinds a held item into reagents. Requires Grinder Module hardware."
+	tutorial_text = "HARDWARE REQUIRED: Grinder Module. Grinds the first held item (via Grabber Arm) into its chemical components, storing results in the onboard Reagent Tank. Requires both Grabber Arm and Reagent Tank hardware. Good for automated chemistry or scrap processing bots."
+	cpu_cost = 3
+
+/datum/behavior_circuit/response/grind_item/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/grinder_module/GM = get_hardware(R, /datum/robot_hardware/grinder_module)
+	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
+	if(!GM || !GR)
+		return
+	if(!GR.held_items || !GR.held_items.len)
+		return
+	var/obj/item/target = GR.held_items[1]
+	if(!target)
+		return
+	var/target_name = target.name
+	GR.held_items -= target
+	if(target.reagents && R.reagents)
+		target.reagents.trans_to(R, target.reagents.total_volume)
+	qdel(target)
+	R.visible_message(span_notice("[R] grinds [target_name] into reagents."))
+
+
+// ====================================================
+// GAS VENT CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/response/vent_gas
+	needs_hardware = TRUE
+	circuit_name = "Response: Vent Gas"
+	hardware_slot_name = HW_SLOT_GAS_VENT
+	required_hardware_type = /datum/robot_hardware/gas_vent
+	circuit_desc = "Releases gas from internal reserves. Requires Gas Vent hardware."
+	tutorial_text = "HARDWARE REQUIRED: Gas Vent. Releases a burst of gas from the robot's internal reservoir into the surrounding area. Configure vent_radius and vent_amount on the hardware datum. Can be used for smoke screens, gas deployment, or atmoshperic equalization."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/vent_gas/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/gas_vent/GV = get_hardware(R, /datum/robot_hardware/gas_vent)
+	if(!GV)
+		return
+	// Use the smoke system as a safe visual proxy for gas venting.
+	// True atmospheric injection requires knowing the codebase's gas_mixture API,
+	// which varies. Replace with adjust_moles() calls if atmos procs are available.
+	var/datum/effect_system/smoke_spread/smoke = new()
+	smoke.set_up(GV.vent_radius, 0, R)
+	smoke.start()
+	R.visible_message(span_warning("[R] vents [GV.gas_type] gas!"))
+
+
+// ====================================================
+// BIO SCANNER CIRCUITS
+// ====================================================
+
+/datum/behavior_circuit/trigger/on_mutant_detected
+	needs_hardware = TRUE
+	circuit_name = "Trigger: On Mutant Detected"
+	hardware_slot_name = HW_SLOT_BIO_SCANNER
+	required_hardware_type = /datum/robot_hardware/bio_scanner
+	circuit_desc = "Fires when an unusual biological signature is detected nearby."
+	tutorial_text = "HARDWARE REQUIRED: Bio Scanner. Fires when a mob with unusual biology (non-standard species, mutation flags) is detected in scan range. Configure target_species on the hardware datum to only react to a specific species. Good for field research bots or bounty hunter builds."
+	cpu_cost = 2
+	var/last_detected = 0
+
+/datum/behavior_circuit/trigger/on_mutant_detected/process()
+	if(world.time < last_detected + 30)
+		return
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/datum/robot_hardware/bio_scanner/BS = get_hardware(R, /datum/robot_hardware/bio_scanner)
+	if(!BS)
+		return
+	for(var/mob/living/carbon/M in range(BS.scan_radius, R))
+		if(M == R || M.stat == DEAD)
+			continue
+		// Filter by species name if configured
+		if(BS.target_species)
+			var/species_name = M.dna?.species
+			if(species_name && species_name != BS.target_species)
+				continue
+		// Trigger on non-human carbon mobs
+		if(!istype(M, /mob/living/carbon/human))
+			last_detected = world.time
+			_trigger(R)
+			return
+		// Or humans with active DNA mutations
+		var/mob/living/carbon/human/H = M
+		if(H.dna && H.dna.uni_identity)
+			last_detected = world.time
+			_trigger(R)
+			return
+
+/datum/behavior_circuit/response/broadcast_bio_report
+	needs_hardware = TRUE
+	circuit_name = "Response: Broadcast Bio Report"
+	hardware_slot_name = HW_SLOT_BIO_SCANNER
+	required_hardware_type = /datum/robot_hardware/bio_scanner
+	circuit_desc = "Reports biological scan results to the radio. Requires Bio Scanner hardware."
+	tutorial_text = "HARDWARE REQUIRED: Bio Scanner. Broadcasts a brief biological report about the nearest mob in scan range -- species, apparent health state, and faction. Good for field research robots or scouts."
+	cpu_cost = 1
+
+/datum/behavior_circuit/response/broadcast_bio_report/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/bio_scanner/BS = get_hardware(R, /datum/robot_hardware/bio_scanner)
+	if(!BS)
+		return
+	for(var/mob/living/M in range(BS.scan_radius, R))
+		if(M == R || M.stat == DEAD)
+			continue
+		var/health_state = M.health > M.maxHealth * 0.75 ? "healthy" : (M.health > 0 ? "injured" : "critical")
+		R.say("BIO REPORT: [M.name] -- [M.real_name ? M.real_name : "unknown"] -- [health_state]")
+		return
+
+
+// ====================================================
+// OBJECT LOCATOR CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/trigger/on_item_spotted
+	needs_hardware = TRUE
+	circuit_name = "Trigger: On Item Spotted"
+	hardware_slot_name = HW_SLOT_OBJECT_LOCATOR
+	required_hardware_type = /datum/robot_hardware/object_locator
+	circuit_desc = "Fires when a specific item type is found nearby. Requires Object Locator hardware."
+	tutorial_text = "HARDWARE REQUIRED: Object Locator. Fires when an item matching target_type is found within search_radius. More precise than the Environment Scanner. The robot will pathfind toward it. Configure target_type on the hardware datum."
+	cpu_cost = 1
+	var/last_spotted = 0
+
+/datum/behavior_circuit/trigger/on_item_spotted/process()
+	if(world.time < last_spotted + 20)
+		return
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/datum/robot_hardware/object_locator/OL = get_hardware(R, /datum/robot_hardware/object_locator)
+	if(!OL)
+		return
+	for(var/obj/item/I in range(OL.search_radius, R))
+		if(!istype(I, OL.target_type))
+			continue
+		last_spotted = world.time
+		_trigger(R)
+		return
+
+
+// ====================================================
+// POWER RELAY CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/response/relay_power
+	needs_hardware = TRUE
+	circuit_name = "Response: Relay Power"
+	hardware_slot_name = HW_SLOT_POWER_RELAY
+	required_hardware_type = /datum/robot_hardware/power_relay
+	circuit_desc = "Beams charge to nearby robots or machines. Requires Power Relay hardware."
+	tutorial_text = "HARDWARE REQUIRED: Power Relay. Transfers charge from this robot's power cell to the nearest robot or powered machine in relay_range. Configure transfer_rate (units per tick) and relay_range on the hardware datum. Drains the robot's own cell."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/relay_power/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/power_relay/PR = get_hardware(R, /datum/robot_hardware/power_relay)
+	if(!PR || !R.cell || R.cell.charge < PR.transfer_rate)
+		return
+	// Try robots first, then powered machines
+	for(var/mob/living/silicon/robot/target in range(PR.relay_range, R))
+		if(target == R || !target.cell || target.cell.charge >= target.cell.maxcharge)
+			continue
+		R.cell.charge -= PR.transfer_rate
+		target.cell.charge = min(target.cell.charge + PR.transfer_rate, target.cell.maxcharge)
+		R.visible_message(span_notice("[R] relays [PR.transfer_rate]u of power to [target]."))
+		return
+	for(var/obj/machinery/M in range(PR.relay_range, R))
+		var/obj/item/stock_parts/cell/MC = locate(/obj/item/stock_parts/cell) in M
+		if(!MC || MC.charge >= MC.maxcharge)
+			continue
+		R.cell.charge -= PR.transfer_rate
+		MC.charge = min(MC.charge + PR.transfer_rate, MC.maxcharge)
+		R.visible_message(span_notice("[R] relays power to [M]."))
+		return
+
+
+// ====================================================
+// NAV COMPUTER CIRCUIT (Waypoint Patrol)
+// ====================================================
+
+/datum/behavior_circuit/response/patrol_waypoints
+	needs_hardware = TRUE
+	circuit_name = "Response: Patrol Waypoints"
+	hardware_slot_name = HW_SLOT_NAV_COMPUTER
+	required_hardware_type = /datum/robot_hardware/nav_computer
+	circuit_desc = "Moves the robot along its stored waypoints. Requires Navigation Computer hardware."
+	tutorial_text = "HARDWARE REQUIRED: Navigation Computer. Steps the robot to the next waypoint in its stored list. Configure waypoints as list(list(x,y,z)) on the hardware datum. Set loop_route = TRUE to patrol in a loop. Use with On Interval trigger for automated patrol."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/patrol_waypoints/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/nav_computer/NC = get_hardware(R, /datum/robot_hardware/nav_computer)
+	if(!NC || !NC.waypoints.len)
+		return
+	if(NC.current_waypoint > NC.waypoints.len)
+		if(NC.loop_route)
+			NC.current_waypoint = 1
+		else
+			return
+	var/list/wp = NC.waypoints[NC.current_waypoint]
+	if(!islist(wp) || wp.len < 2)
+		NC.current_waypoint++
+		return
+	var/turf/target = locate(wp[1], wp[2], (wp.len >= 3 ? wp[3] : R.z))
+	if(!target)
+		NC.current_waypoint++
+		return
+	if(get_dist(R, target) <= 1)
+		NC.current_waypoint++
+		return
+	step_towards(R, target)
+
+
+// ====================================================
+// VOCABULARY CIRCUIT
+// ====================================================
+
+/datum/behavior_circuit/response/say_vocab_phrase
+	needs_hardware = TRUE
+	circuit_name = "Response: Say Vocab Phrase"
+	hardware_slot_name = HW_SLOT_VOCABULARY
+	required_hardware_type = /datum/robot_hardware/vocabulary_module
+	circuit_desc = "Says a stored vocabulary phrase by index. Requires Vocabulary Module hardware."
+	tutorial_text = "HARDWARE REQUIRED: Vocabulary Module. Says the phrase stored at 'phrase_index' in the vocabulary module's phrases list. Index 1 = first phrase. Good for building robots that cycle through different responses, announcements, or flavor speech without hardcoding strings in each circuit."
+	cpu_cost = 1
+	var/phrase_index = 1
+
+/datum/behavior_circuit/response/say_vocab_phrase/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/vocabulary_module/VM = get_hardware(R, /datum/robot_hardware/vocabulary_module)
+	if(!VM || !VM.phrases.len)
+		return
+	var/idx = clamp(phrase_index, 1, VM.phrases.len)
+	R.say(VM.phrases[idx])
+
+
+// ====================================================
+// PIPE INTERFACE CIRCUITS
+// ====================================================
+
+/datum/behavior_circuit/trigger/on_pipe_connected
+	needs_hardware = TRUE
+	circuit_name = "Trigger: On Pipe Connected"
+	hardware_slot_name = HW_SLOT_PIPE_INTERFACE
+	required_hardware_type = /datum/robot_hardware/pipe_interface
+	circuit_desc = "Fires when the robot is standing on a pipe connector. Requires Pipe Interface hardware."
+	tutorial_text = "HARDWARE REQUIRED: Pipe Interface. Fires when the robot is standing on a floor pipe connector. Use this to trigger gas or reagent exchange. Good for maintenance or chemical distribution bots that dock at fixed stations."
+	cpu_cost = 1
+	var/last_check = 0
+
+/datum/behavior_circuit/trigger/on_pipe_connected/process()
+	if(world.time < last_check + 10)
+		return
+	last_check = world.time
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/datum/robot_hardware/pipe_interface/PIPE_HW = get_hardware(R, /datum/robot_hardware/pipe_interface)
+	if(!PIPE_HW)
+		return
+	var/turf/T = get_turf(R)
+	for(var/obj/machinery/atmospherics/components/unary/portables_connector/connector in T)
+		if(connector.connected_device)
+			_trigger(R)
+			return
+
+/datum/behavior_circuit/response/exchange_with_pipe
+	needs_hardware = TRUE
+	circuit_name = "Response: Exchange With Pipe"
+	hardware_slot_name = HW_SLOT_PIPE_INTERFACE
+	required_hardware_type = /datum/robot_hardware/pipe_interface
+	circuit_desc = "Exchanges gas or reagents with a floor pipe connector. Requires Pipe Interface hardware."
+	tutorial_text = "HARDWARE REQUIRED: Pipe Interface. Exchanges gas or reagents with the pipe connector at the robot's current turf. Set exchange_mode to 'gas' or 'reagent' and configure exchange_rate on the hardware datum."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/exchange_with_pipe/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/pipe_interface/PIPE_HW = get_hardware(R, /datum/robot_hardware/pipe_interface)
+	if(!PIPE_HW)
+		return
+	var/turf/T = get_turf(R)
+	for(var/obj/machinery/atmospherics/components/unary/portables_connector/connector in T)
+		if(!connector.connected_device)
+			continue
+		// Gas exchange: stub - wire up to your codebase's tank/atmos API
+		if(PIPE_HW.exchange_mode == "reagent" && R.reagents && connector.connected_device && connector.connected_device.reagents)
+			R.reagents.trans_to(connector.connected_device, PIPE_HW.exchange_rate)
+			R.visible_message(span_notice("[R] pumps reagents into the pipe connector."))
+		else
+			R.visible_message(span_notice("[R] docks with the pipe connector."))
+		return
 
 
 // ====================================================

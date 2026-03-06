@@ -153,7 +153,7 @@
 	active_power_usage = 400
 
 	/// Current workshop tier unlocked by installed cert cards
-	var/workshop_tier = WORKSHOP_TIER_NONE
+	var/workshop_tier = WORKSHOP_TIER_UTILITY  // Baseline -- UTILITY designs build freely. Higher tiers need a Workshop Cert Card.
 
 	/// Installed cert cards that provided tier upgrades (stored for examination/ejection)
 	var/list/installed_certs = list()
@@ -168,7 +168,6 @@
 	var/obj/item/behavior_assembly/behavior_assembly = null
 
 	/// Hardware IC slots filled by player - assoc list: slot_name -> obj/item
-	var/list/hardware_slots = list()
 
 	/// Currently inserted cert card for the robot (optional)
 	var/obj/item/cert_card/robot_cert = null
@@ -238,12 +237,11 @@
 	if(robot_cert)
 		robot_cert.forceMove(get_turf(src))
 	robot_cert = null
-	// Eject hardware
-	for(var/slot in hardware_slots)
-		var/obj/item/I = hardware_slots[slot]
-		if(I)
-			I.forceMove(get_turf(src))
-	hardware_slots = list()
+	// Eject pending hardware datums
+	for(var/slot in pending_hardware)
+		var/datum/robot_hardware/HW = pending_hardware[slot]
+		if(HW) qdel(HW)
+	pending_hardware = list()
 	// Eject tier certs
 	for(var/obj/item/cert_card/C in installed_certs)
 		C.forceMove(get_turf(src))
@@ -299,7 +297,6 @@
 			return
 		behavior_assembly = W
 		// Populate hardware slots required by this assembly
-		_rebuild_hw_slots()
 		var/obj/item/behavior_assembly/BA_cast = W
 		to_chat(user, span_notice("Behavior assembly queued: [BA_cast.assembly_label]."))
 		ui_mode = RW_HARDWARE
@@ -324,20 +321,6 @@
 		ui_interact(user)
 		return
 
-	// Hardware items -- fill named slots from the assembly
-	if(behavior_assembly && hardware_slots.len)
-		for(var/slot in hardware_slots)
-			if(hardware_slots[slot])
-				continue  // already filled
-			if(_item_satisfies_slot(W, slot))
-				if(!user.transferItemToLoc(W, src))
-					return
-				hardware_slots[slot] = W
-				to_chat(user, span_notice("Installed [W] into [slot] slot."))
-				ui_interact(user)
-				return
-		to_chat(user, span_warning("This item doesn't match any open hardware slot."))
-		return
 
 	return ..(  )
 
@@ -409,8 +392,6 @@
 	// Workshop tier
 	dat += "<b>WORKSHOP STATUS</b><br>"
 	dat += "Tier: <span class='good'>[_tier_label(workshop_tier)]</span><br>"
-	if(workshop_tier == WORKSHOP_TIER_NONE)
-		dat += "<span class='warn'>Install a Workshop Cert Card to unlock fabrication.</span><br>"
 	dat += "<br>"
 
 	// Installed tier certs
@@ -471,10 +452,6 @@
 /obj/machinery/robot_workshop/proc/_render_build(mob/user)
 	var/dat = ""
 	dat += "<b>SELECT ROBOT TYPE</b>  <span class='dim'>// filtered by workshop tier</span><br><br>"
-
-	if(workshop_tier == WORKSHOP_TIER_NONE)
-		dat += "<span class='warn'>Workshop uncertified. Install a Workshop Cert Card first.</span><br>"
-		return dat
 
 	var/any_shown = FALSE
 	for(var/datum/robot_build_design/D in designs)
@@ -935,18 +912,22 @@
 	else
 		dat += "<span class='dim'>Auto-assigned</span><br>"
 
-	// Hardware slots
-	if(hardware_slots.len)
-		dat += "Hardware: "
-		var/filled = 0
-		for(var/slot in hardware_slots)
-			if(hardware_slots[slot])
-				filled++
-		var/total = hardware_slots.len
-		if(filled < total)
-			dat += "<span class='warn'>[filled]/[total] slots filled</span><br>"
-		else
-			dat += "<span class='good'>All [total] slots filled</span><br>"
+	// Hardware summary: show pending custom count vs required circuit slots
+	var/required_hw_slots = 0
+	if(behavior_assembly)
+		var/list/seen_req = list()
+		for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
+			if(C.needs_hardware && C.hardware_slot_name && !(C.hardware_slot_name in seen_req))
+				seen_req += C.hardware_slot_name
+				required_hw_slots++
+	dat += "Hardware: "
+	if(pending_hardware.len)
+		dat += "<span class='good'>[pending_hardware.len] selected</span>"
+	else
+		dat += "<span class='dim'>auto (recommended defaults)</span>"
+	if(required_hw_slots > 0)
+		dat += " <span class='dim'>([required_hw_slots] required by assembly)</span>"
+	dat += "<br>"
 
 	// Material cost
 	if(selected_design)
@@ -1013,7 +994,6 @@
 		var/val = href_list["select_design"]
 		if(val == "clear")
 			selected_design = null
-			hardware_slots = list()
 			for(var/slot in pending_hardware)
 				var/datum/robot_hardware/HW = pending_hardware[slot]
 				if(HW) qdel(HW)
@@ -1037,7 +1017,6 @@
 		if(behavior_assembly)
 			behavior_assembly.forceMove(get_turf(src))
 			behavior_assembly = null
-			hardware_slots = list()
 			to_chat(usr, span_notice("Assembly ejected."))
 		ui_interact(usr)
 		return
@@ -1050,15 +1029,6 @@
 		ui_interact(usr)
 		return
 
-	if(href_list["eject_hw"])
-		var/slot = href_list["eject_hw"]
-		if(hardware_slots[slot])
-			var/obj/item/I = hardware_slots[slot]
-			I.forceMove(get_turf(src))
-			hardware_slots[slot] = null
-			to_chat(usr, span_notice("[slot] slot cleared."))
-		ui_interact(usr)
-		return
 
 	if(href_list["eject_tier_cert"])
 		var/obj/item/cert_card/CC = locate(href_list["eject_tier_cert"]) in installed_certs
@@ -1351,7 +1321,6 @@
 		return
 	// Instantiate each entry - use slot names matching assembly or auto-name
 	var/list/asm_slots = _get_assembly_slot_keys()
-	var/opt_idx = 1
 	for(var/list/entry in recs)
 		if(!islist(entry) || entry.len < 1) continue
 		var/hw_type      = entry[1]
@@ -1367,16 +1336,15 @@
 		for(var/key in config)
 			if(key in HW.config_defs)
 				HW.vars[key] = config[key]
-		// Find a matching assembly slot or use optional slot
-		var/slot_key = null
+		// Key optional hardware by its type path so it's stable and findable
+		var/slot_key = "[hw_type]"
+		// If the assembly has a slot that expects this exact hardware type, use that
 		for(var/sk in asm_slots)
 			if(sk in pending_hardware) continue
-			// Rough match: slot key contains hardware category
-			slot_key = sk
-			break
-		if(!slot_key)
-			slot_key = "Optional [opt_idx]"
-			opt_idx++
+			var/required = text2path(sk)
+			if(required && ispath(hw_type, required))
+				slot_key = sk
+				break
 		pending_hardware[slot_key] = HW
 	var/design_label = "this robot"
 	if(selected_design)
@@ -1421,7 +1389,6 @@
 	behavior_assembly = null
 	robot_cert        = null
 	chassis           = null
-	hardware_slots    = list()
 	pending_hardware  = list()
 	selected_design   = null
 
@@ -1466,19 +1433,48 @@
 		qdel(R.module)
 	R.module = new D.module_type(R)
 
-	// Install robot hardware datums via robot_hardware_defaults proc
+	// Build hardware list:
+	// 1. Always start with the full recommended defaults for this design.
+	// 2. Any custom pending_hardware the builder selected overrides/adds on top
+	//    (same type = replace the default, new type = add alongside).
+	// This means robots ALWAYS get their full loadout. Custom picks refine it.
+	var/list/hw_list = list()
+
+	// Step 1 - recommended defaults
+	var/list/recommended = get_recommended_hardware(design_path)
+	for(var/entry in recommended)
+		var/list/E = entry
+		var/hw_type = E[1]
+		var/list/overrides = E.len >= 2 ? E[2] : null
+		var/datum/robot_hardware/HW = new hw_type()
+		if(overrides)
+			for(var/varname in overrides)
+				HW.vars[varname] = overrides[varname]
+		hw_list += HW
+
+	// Step 2 - merge custom selections: replace matching type, otherwise append
 	if(hw_snap && hw_snap.len)
-		// Build a flat list of hardware datums from the pending_hardware assoc list
-		var/list/hw_list = list()
 		for(var/slot in hw_snap)
-			var/datum/robot_hardware/HW = hw_snap[slot]
-			if(HW) hw_list += HW
-		// Install first so R.installed_hardware is populated,
-		// THEN apply SPECIAL so apply_special() fires on each datum correctly.
-		for(var/datum/robot_hardware/HW in hw_list)
-			HW.install(R)
-		if(builder)
-			apply_special_to_hardware(builder, R)
+			var/datum/robot_hardware/custom = hw_snap[slot]
+			if(!custom) continue
+			// Find and replace a default of the same type, or append if no match
+			var/replaced = FALSE
+			for(var/i = 1; i <= hw_list.len; i++)
+				var/datum/robot_hardware/existing = hw_list[i]
+				if(istype(existing, custom.type))
+					qdel(existing)
+					hw_list[i] = custom
+					replaced = TRUE
+					break
+			if(!replaced)
+				hw_list += custom
+
+	// Install first so R.installed_hardware is populated,
+	// THEN apply SPECIAL so apply_special() fires on each datum correctly.
+	for(var/datum/robot_hardware/HW in hw_list)
+		HW.install(R)
+	if(builder)
+		apply_special_to_hardware(builder, R)
 
 	// Validate assembly hardware slot coverage against what was actually installed.
 	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.
@@ -1530,7 +1526,11 @@
 	// Player control mode
 	switch(control_mode_snap)
 		if("npc")
-			// Pure NPC -- no MMI setup needed, robot runs on assembly only
+			// Pure NPC -- no player control needed. Remove the MMI the base robot
+			// Initialize() auto-created so vanilla Destroy() doesn't runtime on a brainless MMI.
+			if(R.mmi)
+				qdel(R.mmi)
+				R.mmi = null
 			R.mind = null
 		if("open")
 			// Anyone can ghost in -- create MMI but leave it empty
@@ -1666,12 +1666,10 @@
 
 /obj/machinery/robot_workshop/proc/_validate_build()
 	var/list/errors = list()
-	if(!chassis)
-		errors += "No chassis loaded."
+	// Chassis is optional -- robot spawns without a suit if none loaded.
+	// if(!chassis) errors += "No chassis loaded."
 	if(!selected_design)
 		errors += "No robot type selected."
-	if(workshop_tier == WORKSHOP_TIER_NONE)
-		errors += "Workshop uncertified -- install a Workshop Cert Card."
 	if(selected_design)
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
@@ -1750,20 +1748,6 @@
 	if(istype(W, /obj/item/stack/sheet/mineral/gold))   return "gold"
 	if(istype(W, /obj/item/stack/sheet/mineral/silver)) return "silver"
 	return null
-
-/obj/machinery/robot_workshop/proc/_rebuild_hw_slots()
-	// Build required hardware slot list from the queued assembly's circuits
-	hardware_slots = list()
-	if(!behavior_assembly)
-		return
-	var/list/seen_slots = list()
-	for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
-		if(!C.needs_hardware || !C.hardware_slot_name)
-			continue
-		if(C.hardware_slot_name in seen_slots)
-			continue  // deduplicate same slot type
-		seen_slots += C.hardware_slot_name
-		hardware_slots[C.hardware_slot_name] = null  // null = unfilled
 
 
 /obj/machinery/robot_workshop/proc/_slot_label(slot_name)

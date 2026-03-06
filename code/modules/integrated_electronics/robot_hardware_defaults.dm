@@ -201,6 +201,7 @@
 
 /datum/recommended_hardware_config/handy/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,          list("tick_interval" = 20)),
 		list(/datum/robot_hardware/grabber,        list("max_items" = 8)),
 		list(/datum/robot_hardware/harvester,      list("harvest_range" = 3, "auto_replant" = TRUE)),
 		list(/datum/robot_hardware/reagent_tank,   list("tank_capacity" = 60, "reagent_type" = /datum/reagent/water, "prefill_volume" = 60)),
@@ -218,6 +219,7 @@
 
 /datum/recommended_hardware_config/liberator/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,          list("tick_interval" = 20)),
 		list(/datum/robot_hardware/weapon,         list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 7)),
 		list(/datum/robot_hardware/light,          list("light_brightness" = 3, "start_on" = TRUE)),
 		list(/datum/robot_hardware/locomotion,     list("speed_modifier" = -0.5, "patrol_mode" = "random")),
@@ -232,6 +234,7 @@
 
 /datum/recommended_hardware_config/protectron/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,          list("tick_interval" = 20)),
 		list(/datum/robot_hardware/weapon,         list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = FALSE, "fire_range" = 6)),
 		list(/datum/robot_hardware/stun_module,    list("stun_duration" = 30, "stun_range" = 1)),
 		list(/datum/robot_hardware/health_scanner, list("scan_range" = 5, "scan_target" = "all")),
@@ -247,6 +250,7 @@
 
 /datum/recommended_hardware_config/gutsy/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,           list("tick_interval" = 20)),
 		list(/datum/robot_hardware/weapon,          list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 8)),
 		list(/datum/robot_hardware/stun_module,     list("stun_duration" = 40)),
 		list(/datum/robot_hardware/speaker,         list("tts_mode" = TRUE, "tts_text" = "You call that running, maggot?")),
@@ -262,6 +266,7 @@
 
 /datum/recommended_hardware_config/securitron/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,               list("tick_interval" = 20)),
 		list(/datum/robot_hardware/weapon,              list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 9)),
 		list(/datum/robot_hardware/air_cannon,          list("knockback_force" = 4)),
 		list(/datum/robot_hardware/health_scanner,      list("scan_range" = 7, "scan_target" = "all")),
@@ -278,6 +283,7 @@
 
 /datum/recommended_hardware_config/assaultron/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,           list("tick_interval" = 15)),
 		list(/datum/robot_hardware/weapon,          list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 10)),
 		list(/datum/robot_hardware/stun_module,     list("stun_duration" = 50, "stun_range" = 1)),
 		list(/datum/robot_hardware/grabber,         list("max_items" = 3)),
@@ -293,6 +299,7 @@
 
 /datum/recommended_hardware_config/sentrybot/New()
 	hardware_entries = list(
+		list(/datum/robot_hardware/clock,               list("tick_interval" = 10)),
 		list(/datum/robot_hardware/weapon,              list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 12)),
 		list(/datum/robot_hardware/grenade_launcher,    list("grenade_type" = /obj/item/grenade, "fuse_time" = 30, "grenade_count" = 2)),
 		list(/datum/robot_hardware/air_cannon,          list("knockback_force" = 6)),
