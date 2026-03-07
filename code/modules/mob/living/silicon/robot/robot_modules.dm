@@ -237,6 +237,9 @@
 	R.setDir(SOUTH)
 	R.anchored = FALSE
 	R.mob_transforming = FALSE
+	// Apply the final icon now that the animation is done.
+	// Without this call the robot keeps whatever icon_state it had before the transform.
+	R.update_icons()
 	R.update_headlamp()
 	R.notify_ai(NEW_MODULE)
 	if(R.hud_used)

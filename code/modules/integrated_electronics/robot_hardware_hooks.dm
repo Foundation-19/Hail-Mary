@@ -24,27 +24,33 @@
 	/// Range bonus tiles added at build time from builder PER.
 	var/fire_range_bonus = 0
 
-/// Fire the weapon at a target. Locates or spawns the gun,
-/// aims the robot, and sends a projectile toward the target.
+/// Fire the weapon at a target. Locates the installed gun and fires it
+/// using the gun's standard shoot proc so damage/ammo/sound all apply correctly.
 /datum/robot_hardware/weapon/proc/fire_at(mob/living/silicon/robot/R, mob/living/target)
 	if(!target || !R || !gun_type)
 		return
-	// Find the gun already installed in the module loadout
+	// Range gate: don't fire at targets beyond fire_range + any bonus
+	var/effective_range = fire_range + fire_range_bonus
+	if(get_dist(R, target) > effective_range)
+		return
+	// Locate the installed gun; create it if not yet spawned
 	var/obj/item/gun/G = null
-	if(R.module)
-		for(var/obj/item/gun/existing in R.module.modules)
-			if(istype(existing, gun_type))
-				G = existing
-				break
-	// Fallback: locate anywhere in robot contents
+	for(var/obj/item/gun/candidate in R)
+		if(istype(candidate, gun_type))
+			G = candidate
+			break
 	if(!G)
-		G = locate(gun_type) in R
+		G = new gun_type(R)
 	if(!G)
 		return
 	last_fire_time = world.time
 	R.setDir(get_dir(R, target))
-	// Use afterattack to fire the gun — standard SS13 gun firing path
-	G.afterattack(get_turf(target), R, FALSE)
+	var/turf/target_turf = get_turf(target)
+	if(!target_turf)
+		return
+	// Use the gun's afterattack so ammo consumption, sound, and projectile type all work
+	G.afterattack(target, R, TRUE)
+	R.visible_message(span_danger("[R] fires [G.name] at [target]!"))
 
 
 // ====================================================
@@ -183,3 +189,89 @@
 		return
 	for(var/datum/robot_hardware/signaler/SIG in installed_hardware)
 		SIG.on_receive_signal(sig)
+
+
+// ====================================================
+// MULTITOOL - ID CARD SCAN + FOLLOW TARGET LINKING
+//
+// Usage:
+//   1. Use multitool on an ID card (or holder of one)
+//      → stores the card owner as the follow target.
+//   2. Use the multitool on a robot that has a
+//      Follow Linked Target circuit installed
+//      → calls set_linked_target() on that circuit.
+// ====================================================
+
+/obj/item/multitool
+	/// Weakref to the mob whose ID was last scanned.
+	var/datum/weakref/scanned_mob_ref = null
+	/// Display name of the last scanned target.
+	var/scanned_mob_name = ""
+
+/// Scan an ID card: store the owner so we can link them to a robot later.
+/obj/item/multitool/afterattack(atom/target, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+
+	// Scanning an ID card directly
+	if(istype(target, /obj/item/card/id))
+		var/obj/item/card/id/ID = target
+		// Try to find the living mob who owns this card
+		var/mob/living/owner = null
+		// First check if the user is holding it (their own ID)
+		if(istype(user, /mob/living))
+			owner = user
+		// Otherwise search nearby for a mob whose ID matches
+		if(!owner)
+			for(var/mob/living/M in range(2, target))
+				if(M.get_idcard(TRUE) == ID || M.get_idcard(FALSE) == ID)
+					owner = M
+					break
+		if(owner)
+			scanned_mob_ref  = WEAKREF(owner)
+			scanned_mob_name = owner.real_name ? owner.real_name : owner.name
+			to_chat(user, span_notice("Multitool: follow target stored — [scanned_mob_name]."))
+		else
+			to_chat(user, span_warning("Multitool: could not locate the owner of this ID card."))
+		return
+
+	// Using multitool on a robot: link the stored target to its Follow circuit
+	if(istype(target, /mob/living/silicon/robot))
+		if(!scanned_mob_ref)
+			to_chat(user, span_warning("Multitool: no follow target scanned. Use the multitool on an ID card first."))
+			return
+		var/mob/living/target_mob = scanned_mob_ref.resolve()
+		if(!target_mob || QDELETED(target_mob))
+			to_chat(user, span_warning("Multitool: stored follow target no longer exists."))
+			scanned_mob_ref  = null
+			scanned_mob_name = ""
+			return
+		var/mob/living/silicon/robot/R = target
+		var/linked = FALSE
+		// Walk all behavior assemblies installed on the cert
+		for(var/datum/cert_upgrade/robot/behavior_assembly/U in R.cpu_cert?.upgrade_slots)
+			var/obj/item/behavior_assembly/A = U.assembly
+			if(!A)
+				continue
+			for(var/datum/behavior_circuit/response/follow_target/FT in A.circuits)
+				FT.set_linked_target(target_mob, user)
+				linked = TRUE
+		if(!linked)
+			to_chat(user, span_warning("Multitool: this robot has no Follow Linked Target circuit installed."))
+		return
+
+
+// ====================================================
+// GRENADE LAUNCHER - physical insertion via click
+// If a player clicks on a robot while holding a grenade,
+// and the robot has Grenade Launcher hardware installed,
+// the grenade gets loaded in automatically.
+// ====================================================
+
+/mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
+	. = ..(W, user, params)
+	if(istype(W, /obj/item/grenade) && installed_hardware)
+		for(var/datum/robot_hardware/grenade_launcher/GL in installed_hardware)
+			if(GL.accept_grenade(W, user, src))
+				return

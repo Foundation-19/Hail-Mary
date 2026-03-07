@@ -1428,21 +1428,53 @@
 		R.robot_suit = suit
 		suit.forceMove(R)
 
-	// Set module and build its base loadout
+	// Set module
 	if(R.module)
 		qdel(R.module)
 	R.module = new D.module_type(R)
-	R.module.rebuild_modules()
 
-	// Only install hardware the player explicitly selected.
-	// No selection = base module loadout only, no hardware.
+	// Build hardware list:
+	// 1. Always start with the full recommended defaults for this design.
+	// 2. Any custom pending_hardware the builder selected overrides/adds on top
+	//    (same type = replace the default, new type = add alongside).
+	// This means robots ALWAYS get their full loadout. Custom picks refine it.
+	var/list/hw_list = list()
+
+	// Step 1 - recommended defaults
+	var/list/recommended = get_recommended_hardware(design_path)
+	for(var/entry in recommended)
+		var/list/E = entry
+		var/hw_type = E[1]
+		var/list/overrides = E.len >= 2 ? E[2] : null
+		var/datum/robot_hardware/HW = new hw_type()
+		if(overrides)
+			for(var/varname in overrides)
+				HW.vars[varname] = overrides[varname]
+		hw_list += HW
+
+	// Step 2 - merge custom selections: replace matching type, otherwise append
 	if(hw_snap && hw_snap.len)
 		for(var/slot in hw_snap)
-			var/datum/robot_hardware/HW = hw_snap[slot]
-			if(!HW) continue
-			HW.install(R)
-		if(builder)
-			apply_special_to_hardware(builder, R)
+			var/datum/robot_hardware/custom = hw_snap[slot]
+			if(!custom) continue
+			// Find and replace a default of the same type, or append if no match
+			var/replaced = FALSE
+			for(var/i = 1; i <= hw_list.len; i++)
+				var/datum/robot_hardware/existing = hw_list[i]
+				if(istype(existing, custom.type))
+					qdel(existing)
+					hw_list[i] = custom
+					replaced = TRUE
+					break
+			if(!replaced)
+				hw_list += custom
+
+	// Install first so R.installed_hardware is populated,
+	// THEN apply SPECIAL so apply_special() fires on each datum correctly.
+	for(var/datum/robot_hardware/HW in hw_list)
+		HW.install(R)
+	if(builder)
+		apply_special_to_hardware(builder, R)
 
 	// Validate assembly hardware slot coverage against what was actually installed.
 	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.
@@ -1483,6 +1515,11 @@
 			U.assembly = A
 			if(R.cpu_cert.can_install_upgrade(U))
 				R.cpu_cert.install_upgrade(U, R)
+				// Explicitly register all trigger circuits now that the robot and cert are both ready.
+				// Entered() on behavior_assembly may fire before install_upgrade completes,
+				// so we always call register() here as the authoritative activation point.
+				for(var/datum/behavior_circuit/trigger/TR in A.circuits)
+					TR.register(R, A)
 			else
 				// Cert full -- drop assembly at feet with a warning
 				A.assembly_override = FALSE
@@ -1518,7 +1555,8 @@
 	R.real_name = R.name
 	R.maxHealth = D.display_health
 	R.health = D.display_health
-	R.update_icons()
+	if(R.module)  // guard: update_icons() reads R.module.cyborg_base_icon - must not be null
+		R.update_icons()
 
 	log_game("[builder_ckey] built [R.name] ([D.design_name], T[D.tier]) at [AREACOORD(T)]")
 	visible_message(span_notice("[src] finishes fabricating: <b>[R.name]</b>."))

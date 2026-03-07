@@ -33,6 +33,8 @@
 #define HW_SLOT_NAV_COMPUTER     "/datum/robot_hardware/nav_computer"
 #define HW_SLOT_VOCABULARY       "/datum/robot_hardware/vocabulary_module"
 #define HW_SLOT_PIPE_INTERFACE   "/datum/robot_hardware/pipe_interface"
+#define HW_SLOT_CLOCK            "/datum/robot_hardware/clock"
+#define HW_SLOT_MEMORY           "/datum/robot_hardware/memory_core"
 
 
 // ====================================================
@@ -75,7 +77,17 @@
 // -- TRIGGER BASE --------------------------------------------
 
 /datum/behavior_circuit/trigger
+	/// Single wired response — kept for backwards compat with presets and fabricator rewire.
+	/// If responses_list is non-empty it takes priority over this var.
 	var/datum/behavior_circuit/response/response = null
+	/// Multi-response list. Populated when a trigger is wired to more than one response.
+	/// The fabricator's "add response" flow appends here. _trigger() iterates this if set.
+	var/list/responses_list = null
+	/// Per-trigger Logic Core override. When set, this datum's conditions gate ONLY this
+	/// trigger rather than the robot-global Logic Core hardware. Allows mixed-condition builds:
+	/// e.g. one assembly fires only when hurt, another fires unconditionally.
+	/// Set by the fabricator's advanced wiring UI; null = fall back to installed hardware.
+	var/datum/robot_hardware/logic_core/local_logic_core = null
 
 /datum/behavior_circuit/trigger/proc/_trigger(mob/living/silicon/robot/R)
 	// Skip autonomous behavior for player-controlled robots UNLESS assembly_override is set.
@@ -88,8 +100,26 @@
 				break
 		if(!assembly_active)
 			return
-	if(response)
-		response.execute(R, get_assembly())
+	// Logic Core gate: check local_logic_core (per-trigger) first, then fall back to the
+	// robot-global Logic Core hardware. This lets builders have one assembly that fires only
+	// when a condition passes and another that always fires — they don't share the same gate.
+	var/datum/robot_hardware/logic_core/LC = local_logic_core
+	if(!LC)
+		LC = get_hardware(R, /datum/robot_hardware/logic_core)
+	if(LC && !LC.evaluate(R))
+		return
+	// Advanced Circuit Board: if installed, run the node graph now so any
+	// dynamic outputs it computes are current before the response reads them.
+	var/datum/robot_hardware/circuit_board/CB = get_hardware(R, /datum/robot_hardware/circuit_board)
+	if(CB && CB.nodes.len)
+		CB.evaluate()
+	// Multi-response: iterate responses_list if populated; fall back to single response var.
+	var/obj/item/behavior_assembly/A_exec = get_assembly()
+	if(responses_list && responses_list.len)
+		for(var/datum/behavior_circuit/response/RE in responses_list)
+			RE.execute(R, A_exec)
+	else if(response)
+		response.execute(R, A_exec)
 
 
 // -- RESPONSE BASE -------------------------------------------
@@ -117,14 +147,17 @@
 /datum/behavior_circuit/trigger/on_take_damage
 	circuit_name = "Trigger: On Take Damage"
 	circuit_desc = "Fires when the robot takes significant damage."
-	tutorial_text = "Fires when the robot takes a hit above the damage threshold. Configure 'damage_threshold' (default 10). Good for: distress calls, self-repair triggers, retreat behavior, or retaliation responses."
+	tutorial_text = "Fires when the robot takes a hit above the damage threshold. Configure 'damage_threshold' (default 10). Has a built-in cooldown so it fires at most once every 2 seconds, not every tick. Good for: distress calls, self-repair triggers, retreat behavior, or retaliation responses."
 	cpu_cost = 1
 	var/damage_threshold = 10
 	var/last_health = -1
+	var/last_fire = 0
+	var/fire_cooldown = 20  // 2 seconds minimum between fires
 
 /datum/behavior_circuit/trigger/on_take_damage/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
 	last_health = R.health
+	last_fire = world.time  // cooldown starts fresh so prior damage doesn't immediately trigger
 	START_PROCESSING(SSobj, src)
 
 /datum/behavior_circuit/trigger/on_take_damage/unregister(mob/living/silicon/robot/R)
@@ -138,7 +171,8 @@
 		return
 	var/delta = last_health - R.health
 	last_health = R.health
-	if(delta >= damage_threshold)
+	if(delta >= damage_threshold && world.time >= last_fire + fire_cooldown)
+		last_fire = world.time
 		_trigger(R)
 
 
@@ -223,6 +257,7 @@
 
 /datum/behavior_circuit/trigger/on_death/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
+	already_fired = FALSE  // reset so reinsertion into a live robot doesn't immediately fire
 	START_PROCESSING(SSobj, src)
 
 /datum/behavior_circuit/trigger/on_death/unregister(mob/living/silicon/robot/R)
@@ -273,6 +308,35 @@
 	_trigger(R)
 
 
+// -- ON CLOCK TICK ------------------------------------
+// Paired with the Interval Clock hardware. Unlike on_interval
+// (which runs its own SSobj timer), this trigger fires only when
+// the Clock hardware emits COMSIG_ROBOT_CLOCK_TICK. Install both
+// and they share one clock source — keeps everything in sync and
+// makes the clock hardware actually meaningful.
+
+/datum/behavior_circuit/trigger/on_clock_tick
+	circuit_name = "Trigger: On Clock Tick"
+	circuit_desc = "Fires each time the robot's Interval Clock hardware ticks."
+	tutorial_text = "HARDWARE REQUIRED: Interval Clock. Fires each time the installed Interval Clock hardware pulses. Unlike On Interval (which has its own independent timer), this shares the clock hardware's configured interval. Install both when you want multiple assemblies to stay perfectly in sync."
+	needs_hardware = TRUE
+	hardware_slot_name = HW_SLOT_CLOCK
+	required_hardware_type = /datum/robot_hardware/clock
+	cpu_cost = 1
+
+/datum/behavior_circuit/trigger/on_clock_tick/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	RegisterSignal(R, COMSIG_ROBOT_CLOCK_TICK, PROC_REF(on_tick_signal))
+
+/datum/behavior_circuit/trigger/on_clock_tick/unregister(mob/living/silicon/robot/R)
+	UnregisterSignal(R, COMSIG_ROBOT_CLOCK_TICK)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_clock_tick/proc/on_tick_signal(mob/living/silicon/robot/R, datum/robot_hardware/clock/CLK)
+	SIGNAL_HANDLER
+	_trigger(R)
+
+
 // -- ON POWER RESTORED -------------------------------
 
 /datum/behavior_circuit/trigger/on_power_restored
@@ -311,11 +375,12 @@
 /datum/behavior_circuit/trigger/on_mob_approaches
 	circuit_name = "Trigger: Mob Approaches"
 	circuit_desc = "Fires when any living mob enters close proximity."
-	tutorial_text = "Fires when any living mob (friend or foe) enters proximity. Good for: greeting visitors, offering items, sounding an alarm. For enemy-only detection use On Enemy Spotted instead."
+	tutorial_text = "Fires when a living mob enters proximity. Configure 'approach_range' (default 3 tiles) and 'check_faction' (TRUE = ignore friendlies, FALSE = fire on anyone including builders). Good for: greeting visitors, offering items, sounding an alarm. For enemy-only detection use On Enemy Spotted instead."
 	cpu_cost = 2
 	var/last_check = 0
 	var/check_cooldown = 30
 	var/approach_range = 3
+	var/check_faction = TRUE  // default TRUE so robots don't immediately trigger on their own builder
 
 /datum/behavior_circuit/trigger/on_mob_approaches/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
@@ -334,8 +399,12 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	for(var/mob/living/M in range(approach_range, R))
-		if(M == R || M.stat == DEAD)
+		if(M == R)
 			continue
+		if(M.stat != CONSCIOUS)  // ignore dead/unconscious mobs
+			continue
+		if(check_faction && !R.faction_check_mob(M, FALSE))
+			continue  // with check_faction TRUE, only fire on enemies (non-faction members)
 		_trigger(R)
 		return
 
@@ -381,11 +450,11 @@
 /datum/behavior_circuit/trigger/on_mob_injured
 	circuit_name = "Trigger: Mob Injured Nearby"
 	circuit_desc = "Fires when a friendly mob below a health threshold is in range."
-	tutorial_text = "Fires when a friendly mob (same faction) is below the health threshold in sensor range. Configure 'health_threshold' (default 50). Pair with: Inject Reagent, Self Repair Pulse, or Follow Linked Target."
+	tutorial_text = "Fires when a friendly mob (same faction) is below the health threshold in sensor range. Configure 'health_threshold' as a percentage 0-100 (default 50 = below 50% health). Pair with: Inject Reagent, Self Repair Pulse, or Follow Linked Target."
 	cpu_cost = 2
 	var/last_check = 0
 	var/check_cooldown = 50
-	var/health_threshold = 50
+	var/health_threshold = 50  // percentage 0-100
 
 /datum/behavior_circuit/trigger/on_mob_injured/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
@@ -410,7 +479,9 @@
 			continue
 		if(!R.faction_check_mob(M, FALSE))  // skip enemies
 			continue
-		if(M.health < health_threshold)
+		// Compare as percentage so it works correctly across all robot health pools
+		var/health_pct = (M.health / max(M.maxHealth, 1)) * 100
+		if(health_pct < health_threshold)
 			_trigger(R)
 			return
 
@@ -440,7 +511,8 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/t = world.time % 360000
-	var/in_night = (t >= night_start || t < night_end)
+	// AND: both conditions must hold so "night" is a real window, not always-true
+	var/in_night = (t >= night_start && t < night_end)
 	if(in_night && !already_triggered)
 		already_triggered = TRUE
 		_trigger(R)
@@ -474,17 +546,9 @@
 	if(!R || R.stat == DEAD)
 		STOP_PROCESSING(SSobj, src)
 		return
+	// Only trigger on actual cleanable decals - NOT ambient reagents (water, air etc)
 	for(var/turf/T in range(3, R))
-		// Check for blood decals (footprints, splatter, puddles)
-		for(var/obj/effect/decal/cleanable/blood/B in T.contents)
-			_trigger(R)
-			return
-		// Check for general cleanable mess
 		for(var/obj/effect/decal/cleanable/C in T.contents)
-			_trigger(R)
-			return
-		// Check for reagent spills
-		if(T.reagents && T.reagents.total_volume > 0)
 			_trigger(R)
 			return
 
@@ -542,6 +606,11 @@
 
 /datum/behavior_circuit/trigger/on_speech_heard/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
+	// Snapshot current mic state so stale messages don't trigger immediately on insertion
+	var/datum/robot_hardware/microphone/MIC = get_hardware(R, /datum/robot_hardware/microphone)
+	if(MIC)
+		last_message = MIC.last_heard_message
+	last_heard = world.time
 	START_PROCESSING(SSobj, src)
 
 /datum/behavior_circuit/trigger/on_speech_heard/unregister(mob/living/silicon/robot/R)
@@ -864,13 +933,23 @@
 /datum/behavior_circuit/response/self_repair_pulse
 	circuit_name = "Response: Self Repair Pulse"
 	circuit_desc = "Instantly repairs a small amount of the robot's damage."
-	tutorial_text = "The robot heals itself for a small amount. No hardware required. Configure 'repair_amount' (default 15). Higher values drain the cell faster. Pair with On Take Damage."
+	tutorial_text = "The robot heals itself for a small amount. No hardware required. Configure 'repair_amount' (default 15). Costs cell charge proportional to repair amount — larger pulses drain the battery faster. Pair with On Take Damage."
 	cpu_cost = 2
 	var/repair_amount = 15
+	/// Cell charge consumed per repair point. 10 charge per HP = meaningful but not crippling.
+	var/energy_cost_per_hp = 10
 
 /datum/behavior_circuit/response/self_repair_pulse/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	if(R.stat == DEAD)
 		return
+	// Require a working cell with enough charge — no free infinite healing
+	if(!R.cell)
+		return
+	var/energy_needed = repair_amount * energy_cost_per_hp
+	if(R.cell.charge < energy_needed)
+		R.visible_message(span_warning("[R]'s repair pulse sputters — insufficient power."))
+		return
+	R.cell.charge -= energy_needed
 	R.heal_bodypart_damage(repair_amount, repair_amount)
 	R.visible_message(span_notice("[R] emits a brief repair pulse."))
 
@@ -934,10 +1013,18 @@
 /datum/behavior_circuit/response/follow_target/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	if(R.anchored || R.stat == DEAD)
 		return
-	var/mob/living/target = linked_target_ref?.resolve()
-	if(!target || target.stat == DEAD || QDELETED(target))
-		// No linked target - announce waiting state once
+	if(!linked_target_ref)
+		return  // no target set yet - silent until linked via multitool
+	var/mob/living/target = linked_target_ref.resolve()
+	if(!target || QDELETED(target))
+		// Target qdel'd entirely (left server etc)
+		linked_target_ref = null
+		R.say("Escort target lost. Awaiting new link.")
 		return
+	if(target.stat == DEAD)
+		return  // target is dead/unconscious - hold position silently
+	if(get_dist(R, target) <= 1)
+		return  // already adjacent, no need to step
 	step_towards(R, target)
 	R.setDir(get_dir(R, target))
 
@@ -947,6 +1034,82 @@
 	linked_target_name = new_target.name
 	if(user)
 		to_chat(user, span_notice("Follow target linked: [new_target.name]."))
+
+
+// -- REMEMBER LAST ENEMY -----------------------------
+// Writes the nearest hostile's weakref+name into Memory Core.
+// Paired with On Remembered Enemy to recall and re-engage
+// after losing sight (e.g. enemy ducked around a corner).
+
+/datum/behavior_circuit/response/remember_enemy
+	circuit_name = "Response: Remember Last Enemy"
+	circuit_desc = "Stores the nearest hostile in Memory Core for later recall."
+	tutorial_text = "HARDWARE REQUIRED: Memory Core. Writes the nearest hostile mob into the 'last_enemy' memory slot. Pair with Trigger: On Remembered Enemy to re-engage after losing line of sight. Without a Memory Core this does nothing."
+	needs_hardware = TRUE
+	hardware_slot_name = HW_SLOT_MEMORY
+	required_hardware_type = /datum/robot_hardware/memory_core
+	cpu_cost = 1
+
+/datum/behavior_circuit/response/remember_enemy/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/memory_core/MEM = get_hardware(R, /datum/robot_hardware/memory_core)
+	if(!MEM)
+		return
+	var/scan_range = A ? A.sensor_range : 10
+	for(var/mob/living/M in range(scan_range, R))
+		if(M == R || M.stat == DEAD || QDELETED(M))
+			continue
+		if(R.faction_check_mob(M, FALSE))
+			continue  // skip friendlies
+		MEM.write("last_enemy", WEAKREF(M))
+		MEM.write("last_enemy_name", M.name)
+		return
+
+
+// -- ON REMEMBERED ENEMY ------------------------------
+// Fires when Memory Core has a stored enemy that is still
+// alive, acting as a "persistent hunt" trigger.
+
+/datum/behavior_circuit/trigger/on_remembered_enemy
+	circuit_name = "Trigger: On Remembered Enemy"
+	circuit_desc = "Fires when a previously remembered enemy is still alive and trackable."
+	tutorial_text = "HARDWARE REQUIRED: Memory Core. Fires periodically while the 'last_enemy' memory slot holds a living mob. Pair with Response: Remember Last Enemy (on On Enemy Spotted) to create persistent hunt behavior: robot chases after an enemy even after losing direct sensor contact."
+	needs_hardware = TRUE
+	hardware_slot_name = HW_SLOT_MEMORY
+	required_hardware_type = /datum/robot_hardware/memory_core
+	cpu_cost = 1
+	var/check_interval = 20
+	var/last_check = 0
+
+/datum/behavior_circuit/trigger/on_remembered_enemy/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	last_check = world.time
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_remembered_enemy/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_remembered_enemy/process()
+	if(world.time < last_check + check_interval)
+		return
+	last_check = world.time
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/datum/robot_hardware/memory_core/MEM = get_hardware(R, /datum/robot_hardware/memory_core)
+	if(!MEM)
+		return
+	var/datum/weakref/enemy_ref = MEM.read("last_enemy")
+	if(!enemy_ref)
+		return
+	var/mob/living/enemy = enemy_ref.resolve()
+	if(!enemy || enemy.stat == DEAD || QDELETED(enemy))
+		// Enemy is gone - clear the memory slot
+		MEM.clear("last_enemy")
+		MEM.clear("last_enemy_name")
+		return
+	_trigger(R)
 
 
 // -- FLEE FROM THREAT --------------------------------
@@ -1021,6 +1184,10 @@
 			target = M
 	if(!target)
 		return
+	// Line-of-sight check: don't fire at targets we can't see
+	// view() is a BYOND built-in that respects walls - skip targets we have no LOS to
+	if(!(target in view(scan_range, R)))
+		return
 	// Delegate to the hardware datum's fire proc
 	WH.fire_at(R, target)
 
@@ -1040,6 +1207,9 @@
 	var/datum/robot_hardware/air_cannon/AC = get_hardware(R, /datum/robot_hardware/air_cannon)
 	if(!AC)
 		return
+	if(AC.gas_volume <= 0)
+		R.visible_message(span_warning("[R]'s pneumatic cannon hisses — out of propellant!"))
+		return
 	var/scan_range = A ? A.sensor_range : 7
 	var/mob/living/target = null
 	var/closest_dist = INFINITY
@@ -1054,11 +1224,14 @@
 			target = M
 	if(!target)
 		return
-	// Throw the target with configured knockback
+	if(!(target in view(scan_range, R)))
+		return
+	// Throw the target with configured knockback, consume propellant
 	var/turf/here = get_turf(R)
 	var/throw_dir = get_dir(here, get_turf(target))
 	target.throw_at(get_step(get_turf(target), throw_dir), AC.knockback_force, 1, R)
-	R.visible_message(span_warning("[R] fires a burst of compressed air at [target]!"))
+	AC.gas_volume = max(0, AC.gas_volume - 1)
+	R.visible_message(span_warning("[R] fires a burst of compressed air at [target]! ([AC.gas_volume] shots remaining)"))
 
 
 // -- DETONATE SELF -----------------------------------
@@ -1099,6 +1272,11 @@
 	var/datum/robot_hardware/grenade_launcher/GL = get_hardware(R, /datum/robot_hardware/grenade_launcher)
 	if(!GL)
 		return
+	// Find a loaded grenade - either player-inserted or hardware-spawned on install
+	var/obj/item/grenade/G = locate(/obj/item/grenade) in R
+	if(!G)
+		R.visible_message(span_warning("[R]'s grenade launcher is empty!"))
+		return
 	var/scan_range = A ? A.sensor_range : 5
 	var/mob/living/target = null
 	for(var/mob/living/M in range(scan_range, R))
@@ -1110,11 +1288,15 @@
 		break
 	if(!target)
 		return
-	// Spawn and throw the grenade
-	var/obj/item/grenade/G = new GL.grenade_type(get_turf(R))
+	var/grenade_scan_range = A ? A.sensor_range : 5
+	if(!(target in view(grenade_scan_range, R)))
+		return
+	// Move grenade to target turf, prime it, throw it
+	var/turf/target_turf = get_turf(target)
+	G.forceMove(target_turf)
+	G.prime()
 	G.throw_at(target, 7, 1, R)
-	addtimer(CALLBACK(G, TYPE_PROC_REF(/obj/item/grenade, prime)), 30)
-	R.visible_message(span_danger("[R] launches a grenade at [target]!"))
+	R.visible_message(span_danger("[R] launches [G] at [target]!"))
 
 
 // -- THROW ITEM AT ENEMY -----------------------------
@@ -1269,13 +1451,17 @@
 	var/stun_duration = 20
 
 /datum/behavior_circuit/response/stun_target/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	var/scan_range = A ? A.sensor_range : 3
+	// Prefer the hardware's configured stun_range; fall back to assembly sensor_range
+	// if no stun_module is installed (allows use as a bare chassis pulse).
+	var/datum/robot_hardware/stun_module/SM = get_hardware(R, /datum/robot_hardware/stun_module)
+	var/scan_range = SM ? SM.stun_range : (A ? A.sensor_range : 3)
+	var/duration   = SM ? SM.stun_duration : stun_duration
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
 		if(R.faction_check_mob(M, FALSE))
 			continue
-		M.Stun(stun_duration)
+		M.Stun(duration)
 		R.visible_message(span_warning("[R] fires a stun pulse at [M]!"))
 		return
 
@@ -1473,11 +1659,27 @@
 	var/datum/robot_hardware/harvester/HV = get_hardware(R, /datum/robot_hardware/harvester)
 	if(!HV)
 		return
-	// Use the tray's own attack_hand proc to trigger harvesting logic
-	for(var/obj/machinery/hydroponics/tray in range(HV.harvest_range, R))
-		tray.attack_hand(R)
-		R.visible_message(span_notice("[R] tends a hydroponic tray."))
+	// Cooldown prevents per-tick spam cycling through all trays in range
+	if(world.time < HV.last_harvest + HV.harvest_cooldown)
 		return
+	// Find a tray that is ready to harvest (tray.harvest = TRUE means ripe)
+	// Skip trays with no seed planted and trays that are dead
+	var/obj/machinery/hydroponics/target_tray = null
+	for(var/obj/machinery/hydroponics/tray in range(HV.harvest_range, R))
+		if(tray.harvest && tray.myseed)
+			target_tray = tray
+			break
+	if(!target_tray)
+		return
+	HV.last_harvest = world.time
+	// Step adjacent if not next to it
+	if(get_dist(R, target_tray) > 1)
+		step_towards(R, target_tray)
+		return
+	// attack_hand() has issilicon(user) guard that blocks robots. Call update_tray() directly
+	// which is the same proc attack_hand() calls internally when harvest == TRUE.
+	target_tray.update_tray(R)
+	R.visible_message(span_notice("[R] harvests [target_tray]."))
 
 
 // ====================================================
@@ -1499,10 +1701,22 @@
 	if(!MC)
 		return
 	for(var/obj/item/I in range(MC.collect_range, R))
-		if(!is_type_in_list(I, MC.target_types))
+		if(I.anchored)
+			continue
+		// Use istype subtype check so sheet/metal subtypes are caught
+		var/type_match = FALSE
+		for(var/t in MC.target_types)
+			if(istype(I, t))
+				type_match = TRUE
+				break
+		if(!type_match)
 			continue
 		if(GR && GR.held_items.len >= GR.max_items)
 			continue
+		// Step toward item if not adjacent
+		if(get_dist(R, I) > 1)
+			step_towards(R, I)
+			return
 		I.forceMove(R)
 		if(GR)
 			GR.held_items += I
@@ -1581,6 +1795,15 @@
 	cpu_cost = 2
 	var/last_detected = 0
 
+/datum/behavior_circuit/trigger/on_mutant_detected/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	last_detected = world.time
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_mutant_detected/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
 /datum/behavior_circuit/trigger/on_mutant_detected/process()
 	if(world.time < last_detected + 30)
 		return
@@ -1628,7 +1851,8 @@
 		if(M == R || M.stat == DEAD)
 			continue
 		var/health_state = M.health > M.maxHealth * 0.75 ? "healthy" : (M.health > 0 ? "injured" : "critical")
-		R.say("BIO REPORT: [M.name] -- [M.real_name ? M.real_name : "unknown"] -- [health_state]")
+		// ";message" prefix sends over robot's radio channel in SS13
+		R.say(";BIO REPORT: [M.name] -- [health_state] -- [M.stat == CONSCIOUS ? "CONSCIOUS" : "INCAPACITATED"]")
 		return
 
 
@@ -1645,6 +1869,15 @@
 	tutorial_text = "HARDWARE REQUIRED: Object Locator. Fires when an item matching target_type is found within search_radius. More precise than the Environment Scanner. The robot will pathfind toward it. Configure target_type on the hardware datum."
 	cpu_cost = 1
 	var/last_spotted = 0
+
+/datum/behavior_circuit/trigger/on_item_spotted/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	last_spotted = world.time
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_item_spotted/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
 
 /datum/behavior_circuit/trigger/on_item_spotted/process()
 	if(world.time < last_spotted + 20)
@@ -1770,6 +2003,15 @@
 	tutorial_text = "HARDWARE REQUIRED: Pipe Interface. Fires when the robot is standing on a floor pipe connector. Use this to trigger gas or reagent exchange. Good for maintenance or chemical distribution bots that dock at fixed stations."
 	cpu_cost = 1
 	var/last_check = 0
+
+/datum/behavior_circuit/trigger/on_pipe_connected/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	last_check = world.time
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_pipe_connected/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
 
 /datum/behavior_circuit/trigger/on_pipe_connected/process()
 	if(world.time < last_check + 10)
@@ -2044,6 +2286,38 @@
 	var/datum/behavior_circuit/response/grab_nearest_item/RE = new()
 	var/datum/behavior_circuit/response/emote_action/EA = new()
 	EA.emote_text = "begins cleaning the floor with its utility arm"
+	T.response = RE
+	circuits += T
+	circuits += RE
+
+/obj/item/behavior_assembly/hunter
+	assembly_label = "Hunter Protocol"
+
+/obj/item/behavior_assembly/hunter/Initialize(mapload)
+	. = ..()
+	// On Enemy Spotted -> Remember Last Enemy + Fire Weapon (one trigger, two responses)
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
+	var/datum/behavior_circuit/response/remember_enemy/RE1 = new()
+	var/datum/behavior_circuit/response/fire_weapon/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// On Remembered Enemy -> Pathfind (persistent chase after losing sight)
+	var/datum/behavior_circuit/trigger/on_remembered_enemy/T3 = new()
+	var/datum/behavior_circuit/response/pathfind_to_enemy/RE3 = new()
+	T3.response = RE3
+	circuits += T3
+	circuits += RE3
+
+/obj/item/behavior_assembly/clock_patrol
+	assembly_label = "Clock Patrol Protocol"
+
+/obj/item/behavior_assembly/clock_patrol/Initialize(mapload)
+	. = ..()
+	// On Clock Tick -> Patrol Waypoints (shared clock, stays in sync with other assemblies)
+	var/datum/behavior_circuit/trigger/on_clock_tick/T = new()
+	var/datum/behavior_circuit/response/patrol_waypoints/RE = new()
 	T.response = RE
 	circuits += T
 	circuits += RE

@@ -194,6 +194,24 @@
 		G.icon_state = "setup_small"
 		if(R.module)
 			R.module.add_module(G, TRUE, FALSE)
+		else
+			G.forceMove(R)
+	var/loaded = 0
+	for(var/obj/item/grenade/existing in R)
+		loaded++
+	R.visible_message(span_notice("[R]'s grenade launcher is armed with [loaded] grenade(s)."))
+
+/// Allow players to physically insert a grenade into the robot by clicking on it
+/datum/robot_hardware/grenade_launcher/proc/accept_grenade(obj/item/grenade/G, mob/user, mob/living/silicon/robot/R)
+	if(!G || !R || !user)
+		return FALSE
+	G.forceMove(R)
+	G.det_time = fuse_time
+	var/loaded = 0
+	for(var/obj/item/grenade/existing in R)
+		loaded++
+	to_chat(user, span_notice("You load [G] into [R]. [loaded] grenade(s) ready."))
+	return TRUE
 
 
 // -- AIR CANNON ---------------------------------------
@@ -351,6 +369,9 @@
 
 	var/harvest_range  = 3
 	var/auto_replant   = TRUE
+	/// world.time of last harvest attempt - prevents per-tick spam across multiple trays
+	var/last_harvest   = 0
+	var/harvest_cooldown = 30  // 3 seconds between harvest attempts
 
 /datum/robot_hardware/harvester/New()
 	config_defs = list(
@@ -953,6 +974,25 @@
 	R.speed += speed_modifier
 	if(can_sprint)
 		R.cansprint = TRUE
+	// Hook up random wander if configured. patrol_mode "random" makes the robot
+	// step_rand() on each SSobj process tick when no combat is active.
+	// "waypoint" mode is handled by the on_interval + patrol_waypoints assembly circuit.
+	if(patrol_mode == "random")
+		START_PROCESSING(SSobj, src)
+
+/datum/robot_hardware/locomotion/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD || R.anchored)
+		// Robot is dead, gone, or stuck -- stop wander processing
+		STOP_PROCESSING(SSobj, src)
+		return
+	// Don't wander if robot is being player-controlled
+	if(R.client)
+		return
+	// Don't wander if a behavior assembly has switched to combat mode
+	if(R.a_intent == INTENT_HARM)
+		return
+	step_rand(R)
 
 
 // -- NAV COMPUTER -------------------------------------
@@ -1185,6 +1225,19 @@
 /datum/robot_hardware/vocabulary_module/apply_special(list/S)
 	var/cha_bonus = max(0, S["CHA"] - 5)
 	max_phrases = min(max_phrases + cha_bonus, 16)
+
+/datum/robot_hardware/vocabulary_module/install(mob/living/silicon/robot/R)
+	. = ..(R)
+	// Map phrase_* config_defs into the phrases assoc list at install time.
+	// config_defs stores "phrase_greeting" = "text", but the runtime var is phrases["greeting"].
+	for(var/key in config_defs)
+		if(copytext(key, 1, 8) != "phrase_")  // skip non-phrase keys like max_phrases
+			continue
+		var/slot = copytext(key, 8)  // strip "phrase_" prefix -> "greeting", "warning" etc
+		var/list/def = config_defs[key]
+		var/val = def.len >= 3 ? def[3] : ""
+		if(slot && val)
+			phrases[slot] = val
 
 /datum/robot_hardware/vocabulary_module/proc/say_phrase(mob/living/silicon/robot/R, key)
 	if(!(key in phrases))

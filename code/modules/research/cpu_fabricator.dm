@@ -33,6 +33,9 @@
 	var/fab_mode = FAB_HOME
 	var/custom_trigger_id = null
 	var/custom_response_id = null
+	/// Additional response type paths the player has added beyond the first.
+	/// These are wired into trigger.responses_list at print time.
+	var/list/extra_response_ids = list()
 	var/obj/item/behavior_assembly/inserted_assembly = null
 	/// Assoc list: var_name -> value, set by workshop config fields
 	var/list/custom_config = list()
@@ -414,6 +417,8 @@
 			dat += _workshop_phase_configure(user)
 		if(4)
 			dat += _workshop_phase_review(user)
+		if(5)
+			dat += _workshop_phase_extra_response(user)
 		else
 			dat += _workshop_phase_trigger(user)
 	return dat
@@ -594,6 +599,37 @@
 
 
 // Phase 4: Review + print
+/obj/machinery/cpu_fabricator/proc/_workshop_phase_extra_response(mob/user)
+	var/dat = "<b>ADD RESPONSE</b><br>"
+	dat += "<span class='dim'>Pick an additional response. The trigger will fire ALL wired responses in sequence.</span><br><hr>"
+	var/list/standard_responses = list()
+	var/list/hardware_responses = list()
+	for(var/T in subtypesof(/datum/behavior_circuit/response))
+		var/datum/behavior_circuit/response/inst = new T
+		var/entry = list("path"=T, "name"=inst.circuit_name, "desc"=inst.circuit_desc, "cpu"=inst.cpu_cost, "hw"=inst.needs_hardware)
+		if(inst.needs_hardware)
+			hardware_responses += list(entry)
+		else
+			standard_responses += list(entry)
+		qdel(inst)
+	dat += "<b>STANDARD RESPONSES:</b><br>"
+	for(var/list/E in standard_responses)
+		var/rpath = "[E["path"]]"
+		if(rpath == custom_response_id || (extra_response_ids && (rpath in extra_response_ids)))
+			dat += "<span class='dim'>[E["name"]] (already added)</span><br>"
+			continue
+		dat += "<a href='byond://?src=[REF(src)];add_extra_response=[rpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+	dat += "<br><b>HARDWARE RESPONSES:</b><br>"
+	for(var/list/E in hardware_responses)
+		var/rpath = "[E["path"]]"
+		if(rpath == custom_response_id || (extra_response_ids && (rpath in extra_response_ids)))
+			dat += "<span class='dim'>[E["name"]] (already added)</span><br>"
+			continue
+		dat += "<a href='byond://?src=[REF(src)];add_extra_response=[rpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]] | requires hardware</span><br>"
+	dat += "<hr><a href='byond://?src=[REF(src)];workshop_phase=4'>&lt; Back to Review</a><br>"
+	return dat
+
+
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_review(mob/user)
 	var/dat = "<b>STEP 4 - REVIEW & PRINT</b><br>"
 	dat += "<span class='dim'>Final check before printing. CPU cost must fit your robot's cert.</span><br><hr>"
@@ -629,6 +665,14 @@
 	if(custom_response_id)
 		dat += " <a href='byond://?src=[REF(src)];workshop_phase=1'>\[change\]</a>"
 	dat += " <span class='dim'>CPU: [r_cpu]</span><br>"
+	// Extra responses (multi-response wiring)
+	if(extra_response_ids && extra_response_ids.len)
+		dat += "<span class='dim'>+ [extra_response_ids.len] additional response(s):</span><br>"
+		for(var/eid in extra_response_ids)
+			var/ename = _resolve_circuit_name(eid)
+			dat += "&nbsp;&nbsp;<span class='good'>[ename]</span> <a href='byond://?src=[REF(src)];remove_extra_response=[eid]'>\[x\]</a><br>"
+	if(custom_response_id && extra_response_ids.len < 3)
+		dat += "<a href='byond://?src=[REF(src)];workshop_phase=5'><span class='dim'>+ Add another response</span></a><br>"
 	if(bonus_slot_available && bonus_slot_mode && custom_bonus_id)
 		dat += "<b>BONUS [uppertext(bonus_slot_mode)]:</b> <span class='good'>[_resolve_circuit_name(custom_bonus_id)]</span> <span class='dim'>CPU: [b_cpu]</span><br>"
 	dat += "<b>TOTAL CPU:</b> <span class='warn'>[total_cpu]</span><br>"
@@ -899,6 +943,11 @@
 				continue
 			var/old_val = C.vars[varname]
 			var/new_val = custom_config[key]
+			// Coerce to number if the existing var is numeric - input() always returns text
+			if(isnum(old_val) && istext(new_val))
+				new_val = text2num(new_val)
+				if(isnull(new_val))
+					new_val = old_val  // bad input - keep old value
 			C.vars[varname] = new_val
 			if("[old_val]" != "[new_val]")
 				changed++
@@ -934,13 +983,24 @@
 	A.circuits = list()
 	var/datum/behavior_circuit/trigger/TR = new trigger_type()
 	var/datum/behavior_circuit/response/RE = new response_type()
-	TR.response = RE
+	// Wire primary response and any extra responses as multi-response list
+	if(extra_response_ids && extra_response_ids.len)
+		TR.responses_list = list(RE)
+		for(var/extra_path_str in extra_response_ids)
+			var/extra_path = text2path(extra_path_str)
+			if(extra_path && ispath(extra_path, /datum/behavior_circuit/response))
+				var/datum/behavior_circuit/response/ER = new extra_path()
+				TR.responses_list += ER
+				A.circuits += ER
+	else
+		TR.response = RE
 	A.circuits += TR
 	A.circuits += RE
 	A.assembly_label = "[_resolve_circuit_name(custom_trigger_id)] -> [_resolve_circuit_name(custom_response_id)]"
 	A.name = "behavior assembly - [A.assembly_label]"
 	custom_trigger_id = null
 	custom_response_id = null
+	extra_response_ids = list()
 	to_chat(user, span_notice("Assembly rewired: [A.assembly_label]."))
 	visible_message(span_notice("[src] completes a full rewire cycle."))
 	log_game("[key_name(user)] full-rewired assembly '[A.assembly_label]' at [AREACOORD(src)]")
@@ -979,6 +1039,18 @@
 		return
 	if(href_list["advance_from_response"])
 		workshop_phase = 3
+		ui_interact(usr)
+		return
+	if(href_list["add_extra_response"])
+		var/epath = href_list["add_extra_response"]
+		if(ispath(text2path(epath), /datum/behavior_circuit/response))
+			if(!(epath in extra_response_ids) && epath != custom_response_id)
+				extra_response_ids += epath
+		workshop_phase = 4
+		ui_interact(usr)
+		return
+	if(href_list["remove_extra_response"])
+		extra_response_ids -= href_list["remove_extra_response"]
 		ui_interact(usr)
 		return
 	if(href_list["set_bonus_mode"])
@@ -1063,12 +1135,17 @@
 		var/varname2 = copytext(key, findtext(key, ".") + 1)
 		var/new_val = input(usr, "Set value for [varname2]:", "Configure Assembly", cur)
 		if(new_val != null)
+			// Clamp numeric inputs to sane ranges to prevent runtime overflows
+			var/num_test = text2num(new_val)
+			if(!isnull(num_test))
+				new_val = "[clamp(num_test, -9999, 99999)]"
 			custom_config[key] = new_val
 		ui_interact(usr)
 		return
 	if(href_list["clear_workshop"])
 		custom_trigger_id = null
 		custom_response_id = null
+		extra_response_ids = list()
 		custom_bonus_id = null
 		bonus_slot_mode = null
 		bonus_slot_available = FALSE
@@ -1209,13 +1286,15 @@
 	bonus_slot_mode = null
 	bonus_slot_available = FALSE
 	var/list/config_snap = custom_config.Copy()
+	var/list/extra_snap = extra_response_ids.Copy()
 	custom_config = list()
+	extra_response_ids = list()
 	workshop_phase = 0
 	var/deferred_bonus_mode = defer_bonus ? b_mode : null
-	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, bonus_type, b_mode, deferred_bonus_mode, t_name, r_name, b_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(_finish_custom), trigger_type, response_type, bonus_type, b_mode, deferred_bonus_mode, t_name, r_name, b_name, get_turf(src), H.special_p, H.special_l, key_name(H), config_snap, extra_snap), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
-/obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, bonus_type, bonus_mode, deferred_bonus_mode, t_name, r_name, b_name, turf/T, builder_per, builder_lck, builder_ckey, list/config_snapshot)
+/obj/machinery/cpu_fabricator/proc/_finish_custom(trigger_type, response_type, bonus_type, bonus_mode, deferred_bonus_mode, t_name, r_name, b_name, turf/T, builder_per, builder_lck, builder_ckey, list/config_snapshot, list/extra_response_paths = null)
 	printing = FALSE
 	var/label = "[t_name] -> [r_name]"
 	if(b_name)
@@ -1236,7 +1315,17 @@
 		A.slot_expansion_used = TRUE
 	var/datum/behavior_circuit/trigger/TR = new trigger_type()
 	var/datum/behavior_circuit/response/RE = new response_type()
-	TR.response = RE
+	// Multi-response: if extra paths were selected, use responses_list instead of single response
+	if(extra_response_paths && extra_response_paths.len)
+		TR.responses_list = list(RE)
+		for(var/epath in extra_response_paths)
+			var/epath_type = text2path(epath)
+			if(epath_type && ispath(epath_type, /datum/behavior_circuit/response))
+				var/datum/behavior_circuit/response/ER = new epath_type()
+				TR.responses_list += ER
+				A.circuits += ER
+	else
+		TR.response = RE
 	// Apply workshop config vars
 	for(var/key in config_snapshot)
 		var/val = config_snapshot[key]
@@ -1246,9 +1335,11 @@
 		var/prefix  = copytext(key, 1, dot)
 		var/varname = copytext(key, dot + 1)
 		if(prefix == "trigger" && (varname in TR.vars))
-			TR.vars[varname] = val
+			var/existing_t = TR.vars[varname]
+			TR.vars[varname] = (isnum(existing_t) && istext(val)) ? (text2num(val) || existing_t) : val
 		else if(prefix == "response" && (varname in RE.vars))
-			RE.vars[varname] = val
+			var/existing_r = RE.vars[varname]
+			RE.vars[varname] = (isnum(existing_r) && istext(val)) ? (text2num(val) || existing_r) : val
 	A.circuits += TR
 	A.circuits += RE
 	// Wire bonus circuit (only if not deferred - deferred bonuses are wired later at REPROGRAM)
