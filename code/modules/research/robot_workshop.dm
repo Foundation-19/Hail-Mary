@@ -881,7 +881,7 @@
 	dat += "<b>BUILD SUMMARY</b><br><br>"
 
 	// Validate
-	var/list/errors = _validate_build()
+	var/list/errors = _validate_build(user)
 
 	// Chassis
 	dat += "Chassis:  "
@@ -1358,16 +1358,19 @@
 		to_chat(user, span_warning("Already fabricating."))
 		return
 
-	var/list/errors = _validate_build()
+	var/list/errors = _validate_build(user)
 	if(errors.len)
 		to_chat(user, span_warning("Build errors: [errors[1]]"))
 		return
 
 	var/datum/robot_build_design/D = _get_design(selected_design)
 
-	// Spend materials
+	// Spend materials -- apply LCK discount if builder is present
+	var/mob/living/carbon/human/snap_builder = istype(user, /mob/living/carbon/human) ? user : null
+	var/lck_discount_pct = snap_builder ? get_workshop_lck_discount(snap_builder) : 0
 	for(var/mat in D.mat_cost)
-		materials[mat] -= D.mat_cost[mat]
+		var/final_cost = round(D.mat_cost[mat] * (1 - lck_discount_pct / 100))
+		materials[mat] -= final_cost
 
 	building = TRUE
 	icon_state = "h_lathe_load"
@@ -1383,7 +1386,6 @@
 	var/list/snap_hw                             = pending_hardware.Copy()
 	var/turf/T                                   = get_turf(src)
 	var/builder_ckey                             = key_name(user)
-	var/mob/living/carbon/human/snap_builder     = istype(user, /mob/living/carbon/human) ? user : null
 
 	// Clear workshop state immediately so slots are free
 	behavior_assembly = null
@@ -1433,48 +1435,27 @@
 		qdel(R.module)
 	R.module = new D.module_type(R)
 
-	// Build hardware list:
-	// 1. Always start with the full recommended defaults for this design.
-	// 2. Any custom pending_hardware the builder selected overrides/adds on top
-	//    (same type = replace the default, new type = add alongside).
-	// This means robots ALWAYS get their full loadout. Custom picks refine it.
-	var/list/hw_list = list()
-
-	// Step 1 - recommended defaults
-	var/list/recommended = get_recommended_hardware(design_path)
-	for(var/entry in recommended)
-		var/list/E = entry
-		var/hw_type = E[1]
-		var/list/overrides = E.len >= 2 ? E[2] : null
-		var/datum/robot_hardware/HW = new hw_type()
-		if(overrides)
-			for(var/varname in overrides)
-				HW.vars[varname] = overrides[varname]
-		hw_list += HW
-
-	// Step 2 - merge custom selections: replace matching type, otherwise append
+	// Build hardware entry list from what the player explicitly configured.
+	// Recommended hardware is only used to pre-populate the HARDWARE tab UI --
+	// it is never silently installed. If the player didn't touch the HARDWARE tab,
+	// hw_snap is empty and the robot gets no hardware (just its basic_modules items).
+	var/list/hw_entries = list()
 	if(hw_snap && hw_snap.len)
 		for(var/slot in hw_snap)
 			var/datum/robot_hardware/custom = hw_snap[slot]
 			if(!custom) continue
-			// Find and replace a default of the same type, or append if no match
-			var/replaced = FALSE
-			for(var/i = 1; i <= hw_list.len; i++)
-				var/datum/robot_hardware/existing = hw_list[i]
-				if(istype(existing, custom.type))
-					qdel(existing)
-					hw_list[i] = custom
-					replaced = TRUE
-					break
-			if(!replaced)
-				hw_list += custom
+			// Snapshot config vars from the already-configured datum
+			var/list/config = list()
+			for(var/key in custom.config_defs)
+				config[key] = custom.vars[key]
+			hw_entries += list(list(custom.type, config))
 
-	// Install first so R.installed_hardware is populated,
-	// THEN apply SPECIAL so apply_special() fires on each datum correctly.
-	for(var/datum/robot_hardware/HW in hw_list)
-		HW.install(R)
-	if(builder)
-		apply_special_to_hardware(builder, R)
+	// Install hardware and rebuild module item list.
+	// rebuild_modules() is called unconditionally after so basic_modules items always load
+	// even when the player picked no hardware.
+	instantiate_hardware_list(hw_entries, R, builder)
+	if(R.module)
+		R.module.rebuild_modules()
 
 	// Validate assembly hardware slot coverage against what was actually installed.
 	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.
@@ -1514,12 +1495,9 @@
 			var/datum/cert_upgrade/robot/behavior_assembly/U = new()
 			U.assembly = A
 			if(R.cpu_cert.can_install_upgrade(U))
+				// install_upgrade calls on_apply -> assembly.register_signals(R)
+				// which calls C.register(R, A) on every circuit.
 				R.cpu_cert.install_upgrade(U, R)
-				// Explicitly register all trigger circuits now that the robot and cert are both ready.
-				// Entered() on behavior_assembly may fire before install_upgrade completes,
-				// so we always call register() here as the authoritative activation point.
-				for(var/datum/behavior_circuit/trigger/TR in A.circuits)
-					TR.register(R, A)
 			else
 				// Cert full -- drop assembly at feet with a warning
 				A.assembly_override = FALSE
@@ -1591,7 +1569,9 @@
 	ui_interact(user)
 
 /obj/machinery/robot_workshop/proc/_recalculate_tier()
-	workshop_tier = WORKSHOP_TIER_NONE
+	// Baseline is UTILITY -- the machine always builds T1 without any cert.
+	// Installed certs can raise the tier but ejecting them never drops below T1.
+	workshop_tier = WORKSHOP_TIER_UTILITY
 	for(var/obj/item/cert_card/C in installed_certs)
 		if(istype(C.base_cert, /datum/cpu_cert/workshop))
 			var/datum/cpu_cert/workshop/WC = C.base_cert
@@ -1670,7 +1650,7 @@
 // VALIDATION
 // ====================================================
 
-/obj/machinery/robot_workshop/proc/_validate_build()
+/obj/machinery/robot_workshop/proc/_validate_build(mob/living/user = null)
 	var/list/errors = list()
 	// Chassis is optional -- robot spawns without a suit if none loaded.
 	// if(!chassis) errors += "No chassis loaded."
@@ -1682,8 +1662,11 @@
 			if(D.tier > workshop_tier)
 				errors += "This design requires Tier [D.tier] but workshop is Tier [workshop_tier]."
 			for(var/mat in D.mat_cost)
-				if(materials[mat] < D.mat_cost[mat])
-					errors += "Insufficient [mat]: need [D.mat_cost[mat]], have [materials[mat]]."
+				// Apply LCK discount at validation so the threshold matches what spend will use
+				var/lck_disc_val = istype(user, /mob/living/carbon/human) ? get_workshop_lck_discount(user) : 0
+				var/discounted_cost = round(D.mat_cost[mat] * (1 - lck_disc_val / 100))
+				if(materials[mat] < discounted_cost)
+					errors += "Insufficient [mat]: need [discounted_cost] (after LCK discount), have [materials[mat]]."
 	// CORE budget -- hard block if hardware exceeds cert limits
 	var/datum/cpu_cert/budget_cert = robot_cert ? robot_cert.base_cert : null
 	if(!budget_cert)
@@ -1705,7 +1688,7 @@
 			errors += "Assembly cpu_cost [total_cpu] exceeds cert Compute [avail_cpu]. Remove circuits or use a higher-tier cert."
 
 	// Assembly cert_compatible check -- ensures assembly capability flags match the cert
-	if(behavior_assembly && (robot_cert || TRUE))
+	if(behavior_assembly)
 		var/datum/cpu_cert/ac = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
 		if(!behavior_assembly.cert_compatible(ac))
 			errors += "Assembly '[behavior_assembly.assembly_label]' requires capabilities this cert does not have."

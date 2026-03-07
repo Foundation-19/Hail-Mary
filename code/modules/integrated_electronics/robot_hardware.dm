@@ -837,7 +837,8 @@
 /datum/robot_hardware/light/install(mob/living/silicon/robot/R)
 	. = ..()
 	if(start_on)
-		R.set_light(light_brightness, light_brightness, light_color)
+		R.set_light_range(light_brightness)
+		R.set_light_on(TRUE)
 
 
 // -- DISPLAY SCREEN -----------------------------------

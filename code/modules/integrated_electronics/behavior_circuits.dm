@@ -157,18 +157,22 @@
 /datum/behavior_circuit/trigger/on_take_damage/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
 	last_health = R.health
-	last_fire = world.time  // cooldown starts fresh so prior damage doesn't immediately trigger
-	START_PROCESSING(SSobj, src)
+	last_fire = world.time
+	// SSfastprocess (~0.5s window) keeps per-sample drag brute below threshold.
+	// SSobj (2s window) lets accumulated drag brute add up to 10+ and false-trigger.
+	START_PROCESSING(SSfastprocess, src)
 
 /datum/behavior_circuit/trigger/on_take_damage/unregister(mob/living/silicon/robot/R)
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()
 
 /datum/behavior_circuit/trigger/on_take_damage/process()
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
-		STOP_PROCESSING(SSobj, src)
+		STOP_PROCESSING(SSfastprocess, src)
 		return
+	// delta = damage taken THIS sample window only (not accumulated).
+	// Drag/bump deals ~1-3 brute per 0.5s. Real hits deal 10+.
 	var/delta = last_health - R.health
 	last_health = R.health
 	if(delta >= damage_threshold && world.time >= last_fire + fire_cooldown)
@@ -403,8 +407,8 @@
 			continue
 		if(M.stat != CONSCIOUS)  // ignore dead/unconscious mobs
 			continue
-		if(check_faction && !R.faction_check_mob(M, FALSE))
-			continue  // with check_faction TRUE, only fire on enemies (non-faction members)
+		if(check_faction && R.faction_check_mob(M, FALSE))
+			continue  // with check_faction TRUE, skip friendlies and only fire on enemies
 		_trigger(R)
 		return
 
@@ -1245,7 +1249,7 @@
 /datum/behavior_circuit/response/detonate_self/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	R.visible_message(span_danger("[R] begins emitting a high-pitched whine!"))
 	playsound(R, 'sound/machines/alarm.ogg', 75, 1)
-	addtimer(CALLBACK(src, PROC_REF(_boom), R), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
+	addtimer(CALLBACK(src, PROC_REF(_boom), R), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /datum/behavior_circuit/response/detonate_self/proc/_boom(mob/living/silicon/robot/R)
 	if(QDELETED(R))
@@ -1291,9 +1295,7 @@
 	var/grenade_scan_range = A ? A.sensor_range : 5
 	if(!(target in view(grenade_scan_range, R)))
 		return
-	// Move grenade to target turf, prime it, throw it
-	var/turf/target_turf = get_turf(target)
-	G.forceMove(target_turf)
+	// Prime the grenade and throw it from the robot's position
 	G.prime()
 	G.throw_at(target, 7, 1, R)
 	R.visible_message(span_danger("[R] launches [G] at [target]!"))
@@ -1524,9 +1526,11 @@
 	var/new_state = (force_state == -1) ? !LT.start_on : (force_state > 0)
 	LT.start_on = new_state
 	if(new_state)
-		R.set_light(LT.light_brightness, 1, LT.light_color)
+		R.set_light_range(LT.light_brightness)
+		R.set_light_on(TRUE)
 	else
-		R.set_light(0)
+		R.set_light_on(FALSE)
+		R.set_light_range(0)
 
 
 // -- PLAY SOUND --------------------------------------

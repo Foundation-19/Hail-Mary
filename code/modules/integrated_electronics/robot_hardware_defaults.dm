@@ -186,10 +186,14 @@
 /// Returns the recommended hardware list for a given design type path.
 /// Each entry: list(hardware_datum_type, list/config_overrides)
 /proc/get_recommended_hardware(design_path)
+	// Copy before qdel: returning RHC.hardware_entries directly lets BYOND GC the datum
+	// (and the list with it) before the caller iterates it -> silent empty-loadout builds.
 	for(var/T in subtypesof(/datum/recommended_hardware_config))
 		var/datum/recommended_hardware_config/RHC = new T()
 		if(RHC.design_type == design_path)
-			return RHC.hardware_entries
+			var/list/result = RHC.hardware_entries.Copy()
+			qdel(RHC)
+			return result
 		qdel(RHC)
 	return list()
 
@@ -207,8 +211,8 @@
 		list(/datum/robot_hardware/reagent_tank,   list("tank_capacity" = 60, "reagent_type" = /datum/reagent/water, "prefill_volume" = 60)),
 		list(/datum/robot_hardware/injector,       list("dose_per_use" = 5, "target_friendly" = TRUE)),
 		list(/datum/robot_hardware/speaker,        list("tts_mode" = TRUE, "tts_text" = "How may I assist you?")),
-		list(/datum/robot_hardware/light,          list("light_brightness" = 2, "start_on" = TRUE)),
-		list(/datum/robot_hardware/locomotion,     list("patrol_mode" = "random"))
+		list(/datum/robot_hardware/light,          list("light_brightness" = 2, "start_on" = FALSE)),
+		list(/datum/robot_hardware/locomotion,     list("patrol_mode" = "none"))
 	)
 
 
@@ -221,8 +225,8 @@
 	hardware_entries = list(
 		list(/datum/robot_hardware/clock,          list("tick_interval" = 20)),
 		list(/datum/robot_hardware/weapon,         list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 7)),
-		list(/datum/robot_hardware/light,          list("light_brightness" = 3, "start_on" = TRUE)),
-		list(/datum/robot_hardware/locomotion,     list("speed_modifier" = -0.5, "patrol_mode" = "random")),
+		list(/datum/robot_hardware/light,          list("light_brightness" = 3, "start_on" = FALSE)),
+		list(/datum/robot_hardware/locomotion,     list("speed_modifier" = -0.5, "patrol_mode" = "none")),
 		list(/datum/robot_hardware/health_scanner, list("scan_range" = 5, "critical_threshold" = 30))
 	)
 
@@ -239,7 +243,7 @@
 		list(/datum/robot_hardware/stun_module,    list("stun_duration" = 30, "stun_range" = 1)),
 		list(/datum/robot_hardware/health_scanner, list("scan_range" = 5, "scan_target" = "all")),
 		list(/datum/robot_hardware/speaker,        list("tts_mode" = TRUE, "tts_text" = "Halt. Violators will be prosecuted.")),
-		list(/datum/robot_hardware/locomotion,     list("patrol_mode" = "random"))
+		list(/datum/robot_hardware/locomotion,     list("patrol_mode" = "none"))
 	)
 
 
@@ -255,7 +259,7 @@
 		list(/datum/robot_hardware/stun_module,     list("stun_duration" = 40)),
 		list(/datum/robot_hardware/speaker,         list("tts_mode" = TRUE, "tts_text" = "You call that running, maggot?")),
 		list(/datum/robot_hardware/light,           list("light_brightness" = 3)),
-		list(/datum/robot_hardware/locomotion,      list("speed_modifier" = -0.3, "patrol_mode" = "random"))
+		list(/datum/robot_hardware/locomotion,      list("speed_modifier" = -0.3, "patrol_mode" = "none"))
 	)
 
 
@@ -272,7 +276,7 @@
 		list(/datum/robot_hardware/health_scanner,      list("scan_range" = 7, "scan_target" = "all")),
 		list(/datum/robot_hardware/environment_scanner, list("scan_radius" = 6, "detect_radiation" = TRUE, "detect_fire" = TRUE)),
 		list(/datum/robot_hardware/speaker,             list("tts_mode" = TRUE, "tts_text" = "Citizen. Please comply.")),
-		list(/datum/robot_hardware/locomotion,          list("patrol_mode" = "random"))
+		list(/datum/robot_hardware/locomotion,          list("patrol_mode" = "none"))
 	)
 
 
@@ -287,7 +291,7 @@
 		list(/datum/robot_hardware/weapon,          list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 10)),
 		list(/datum/robot_hardware/stun_module,     list("stun_duration" = 50, "stun_range" = 1)),
 		list(/datum/robot_hardware/grabber,         list("max_items" = 3)),
-		list(/datum/robot_hardware/locomotion,      list("speed_modifier" = -1.0, "can_sprint" = TRUE, "patrol_mode" = "random")),
+		list(/datum/robot_hardware/locomotion,      list("speed_modifier" = -1.0, "can_sprint" = TRUE, "patrol_mode" = "none")),
 		list(/datum/robot_hardware/health_scanner,  list("scan_range" = 8))
 	)
 
@@ -305,7 +309,7 @@
 		list(/datum/robot_hardware/air_cannon,          list("knockback_force" = 6)),
 		list(/datum/robot_hardware/environment_scanner, list("scan_radius" = 8, "detect_radiation" = TRUE, "detect_fire" = TRUE, "detect_bodies" = TRUE)),
 		list(/datum/robot_hardware/health_scanner,      list("scan_range" = 10, "scan_target" = "all")),
-		list(/datum/robot_hardware/light,               list("light_brightness" = 5, "start_on" = TRUE)),
+		list(/datum/robot_hardware/light,               list("light_brightness" = 5, "start_on" = FALSE)),
 		list(/datum/robot_hardware/locomotion,          list("speed_modifier" = 0.5))
 	)
 
@@ -318,6 +322,9 @@
 
 /proc/instantiate_hardware_list(list/hardware_entries, mob/living/silicon/robot/R, mob/living/carbon/human/builder)
 	if(!hardware_entries || !hardware_entries.len)
+		// No hardware entries, but still rebuild the module so basic_modules items populate.
+		if(R.module)
+			R.module.rebuild_modules()
 		return
 
 	var/lck_discount = builder ? get_workshop_lck_discount(builder) : 0
@@ -327,6 +334,7 @@
 			continue
 		var/hw_type    = entry[1]
 		var/list/config = entry.len >= 2 ? entry[2] : list()
+
 
 		// INT gate check
 		var/datum/robot_hardware/test = new hw_type()
