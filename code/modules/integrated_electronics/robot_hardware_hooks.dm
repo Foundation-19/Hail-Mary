@@ -27,20 +27,22 @@
 /// Fire the weapon at a target. Locates the installed gun and fires it
 /// using the gun's standard shoot proc so damage/ammo/sound all apply correctly.
 /datum/robot_hardware/weapon/proc/fire_at(mob/living/silicon/robot/R, mob/living/target)
-	if(!target || !R || !gun_type)
+	if(!target || !R)
 		return
-	// Range gate: don't fire at targets beyond fire_range + any bonus
+	// Range gate
 	var/effective_range = fire_range + fire_range_bonus
 	if(get_dist(R, target) > effective_range)
 		return
-	// Locate the installed gun; create it if not yet spawned
-	var/obj/item/gun/G = null
-	for(var/obj/item/gun/candidate in R)
-		if(istype(candidate, gun_type))
+	// Resolve gun: use stored ref first, then scan module inventory, then spawn fallback
+	var/obj/item/gun/G = gun_ref ? gun_ref.resolve() : null
+	if(!G && R.module)
+		for(var/obj/item/gun/candidate in R.module.modules)
 			G = candidate
+			gun_ref = WEAKREF(G)
 			break
-	if(!G)
+	if(!G && gun_type)
 		G = new gun_type(R)
+		if(G) gun_ref = WEAKREF(G)
 	if(!G)
 		return
 	last_fire_time = world.time
@@ -48,7 +50,7 @@
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		return
-	// Use the gun's afterattack so ammo consumption, sound, and projectile type all work
+	log_game("CIRCUIT fire_at: [R] fires [G] ([G.type]) at [target] dist=[get_dist(R,target)] range=[effective_range]")
 	G.afterattack(target, R, TRUE)
 	R.visible_message(span_danger("[R] fires [G.name] at [target]!"))
 

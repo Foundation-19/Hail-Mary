@@ -128,12 +128,15 @@
 	core_energy      = 2
 	mat_cost         = list("iron" = 500, "gold" = 100)
 
-	/// Path of the gun to install - must be /obj/item/gun/energy subtype
+	/// Path of the gun to install - must be /obj/item/gun subtype.
+	/// If the robot already has a gun in its module inventory, that gun is used instead.
 	var/gun_type = /obj/item/gun/energy/laser
 	/// If TRUE fires lethal shots, if FALSE fires stun/disable
 	var/lethal_mode = TRUE
 	/// Effective fire range in tiles - modified by builder PER at install
 	var/fire_range = 7
+	/// Weakref to the actual gun item being used (set at install time)
+	var/datum/weakref/gun_ref = null
 
 /datum/robot_hardware/weapon/New()
 	config_defs = list(
@@ -149,12 +152,21 @@
 
 /datum/robot_hardware/weapon/install(mob/living/silicon/robot/R)
 	. = ..()
-	var/obj/item/gun/energy/G = new gun_type(R)
-	// Give it a visible placeholder icon so it shows in the module loadout
-	G.icon = 'icons/obj/assemblies/electronic_setups.dmi'
-	G.icon_state = "setup_small"
+	// Try to use a gun already in the robot's module inventory (from basic_modules).
+	// This lets the hardware "adopt" whatever weapon the robot naturally carries
+	// instead of spawning a duplicate. Falls back to gun_type if none found.
+	var/obj/item/gun/G = null
 	if(R.module)
-		R.module.add_module(G, TRUE, FALSE)
+		for(var/obj/item/gun/candidate in R.module.modules)
+			G = candidate
+			break
+	if(!G)
+		G = new gun_type(R.module)
+		if(R.module)
+			R.module.add_module(G, TRUE, FALSE)
+	if(G)
+		gun_ref = WEAKREF(G)
+		gun_type = G.type  // sync gun_type so fire_at fallback matches
 
 
 /datum/robot_hardware/weapon/get_summary()
@@ -1090,7 +1102,7 @@
 		if("enemy_count")
 			var/count = 0
 			for(var/mob/living/M in range(10, R))
-				if(!R.faction_check_mob(M, FALSE))
+				if(!_is_faction_friend(R, M))
 					count++
 			return count
 		if("world_time")     return world.time

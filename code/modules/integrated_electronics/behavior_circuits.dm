@@ -90,6 +90,7 @@
 	var/datum/robot_hardware/logic_core/local_logic_core = null
 
 /datum/behavior_circuit/trigger/proc/_trigger(mob/living/silicon/robot/R)
+	log_game("CIRCUIT TRIGGER: [circuit_name] fired on [R]")
 	// Skip autonomous behavior for player-controlled robots UNLESS assembly_override is set.
 	// assembly_override is set by robot_workshop so assemblies always run on workshop-built bots.
 	if(R.mind && R.client)
@@ -99,27 +100,30 @@
 				assembly_active = TRUE
 				break
 		if(!assembly_active)
+			log_game("CIRCUIT TRIGGER: [circuit_name] BLOCKED - player-controlled, no assembly_override")
 			return
-	// Logic Core gate: check local_logic_core (per-trigger) first, then fall back to the
-	// robot-global Logic Core hardware. This lets builders have one assembly that fires only
-	// when a condition passes and another that always fires — they don't share the same gate.
+	// Logic Core gate
 	var/datum/robot_hardware/logic_core/LC = local_logic_core
 	if(!LC)
 		LC = get_hardware(R, /datum/robot_hardware/logic_core)
 	if(LC && !LC.evaluate(R))
+		log_game("CIRCUIT TRIGGER: [circuit_name] BLOCKED - Logic Core gate failed")
 		return
-	// Advanced Circuit Board: if installed, run the node graph now so any
-	// dynamic outputs it computes are current before the response reads them.
+	// Advanced Circuit Board
 	var/datum/robot_hardware/circuit_board/CB = get_hardware(R, /datum/robot_hardware/circuit_board)
 	if(CB && CB.nodes.len)
 		CB.evaluate()
-	// Multi-response: iterate responses_list if populated; fall back to single response var.
+	// Fire responses
 	var/obj/item/behavior_assembly/A_exec = get_assembly()
 	if(responses_list && responses_list.len)
 		for(var/datum/behavior_circuit/response/RE in responses_list)
+			log_game("CIRCUIT RESPONSE: [RE.circuit_name] executing on [R]")
 			RE.execute(R, A_exec)
 	else if(response)
+		log_game("CIRCUIT RESPONSE: [response.circuit_name] executing on [R]")
 		response.execute(R, A_exec)
+	else
+		log_game("CIRCUIT TRIGGER: [circuit_name] - no response wired")
 
 
 // -- RESPONSE BASE -------------------------------------------
@@ -135,6 +139,19 @@
 		if(istype(HW, hw_type))
 			return HW
 	return null
+
+
+/// Returns TRUE if target M is friendly to robot R (shared faction or same mob).
+/// Used by all circuits to skip friendly mobs when scanning for enemies.
+/proc/_is_faction_friend(mob/living/silicon/robot/R, mob/living/M)
+	if(!R || !M || M == R)
+		return TRUE
+	if(!R.faction || !R.faction.len)
+		return FALSE  // robot has no faction - treat all non-self as potential targets
+	for(var/f in R.faction)
+		if(M.faction && (f in M.faction))
+			return TRUE
+	return FALSE
 
 
 // ====================================================
@@ -243,7 +260,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		last_spotted = world.time
 		_trigger(R)
@@ -379,12 +396,12 @@
 /datum/behavior_circuit/trigger/on_mob_approaches
 	circuit_name = "Trigger: Mob Approaches"
 	circuit_desc = "Fires when any living mob enters close proximity."
-	tutorial_text = "Fires when a living mob enters proximity. Configure 'approach_range' (default 3 tiles) and 'check_faction' (TRUE = ignore friendlies, FALSE = fire on anyone including builders). Good for: greeting visitors, offering items, sounding an alarm. For enemy-only detection use On Enemy Spotted instead."
+	tutorial_text = "Fires when a living mob enters proximity. Configure 'approach_range' (default 3 tiles) and 'check_faction' (FALSE = fire on anyone, TRUE = skip faction allies). Default FALSE fires on any conscious mob including builders. Good for: greeting visitors, offering items, sounding an alarm. For enemy-only detection use On Enemy Spotted instead."
 	cpu_cost = 2
 	var/last_check = 0
 	var/check_cooldown = 30
 	var/approach_range = 3
-	var/check_faction = TRUE  // default TRUE so robots don't immediately trigger on their own builder
+	var/check_faction = FALSE  // FALSE: fire on anyone approaching. Set TRUE to skip faction allies.
 
 /datum/behavior_circuit/trigger/on_mob_approaches/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
@@ -405,10 +422,12 @@
 	for(var/mob/living/M in range(approach_range, R))
 		if(M == R)
 			continue
-		if(M.stat != CONSCIOUS)  // ignore dead/unconscious mobs
+		if(M.stat != CONSCIOUS)
 			continue
-		if(check_faction && R.faction_check_mob(M, FALSE))
-			continue  // with check_faction TRUE, skip friendlies and only fire on enemies
+		if(check_faction && _is_faction_friend(R, M))
+			log_game("CIRCUIT mob_approaches: skipping [M] - faction friend of [R]")
+			continue
+		log_game("CIRCUIT mob_approaches: [R] detects [M] at dist=[get_dist(R,M)] check_faction=[check_faction]")
 		_trigger(R)
 		return
 
@@ -481,7 +500,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(!R.faction_check_mob(M, FALSE))  // skip enemies
+		if(!_is_faction_friend(R, M))  // skip enemies
 			continue
 		// Compare as percentage so it works correctly across all robot health pools
 		var/health_pct = (M.health / max(M.maxHealth, 1)) * 100
@@ -944,18 +963,25 @@
 	var/energy_cost_per_hp = 10
 
 /datum/behavior_circuit/response/self_repair_pulse/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(R.stat == DEAD)
-		return
-	// Require a working cell with enough charge — no free infinite healing
 	if(!R.cell)
 		return
 	var/energy_needed = repair_amount * energy_cost_per_hp
 	if(R.cell.charge < energy_needed)
-		R.visible_message(span_warning("[R]'s repair pulse sputters — insufficient power."))
+		if(R.stat != DEAD)  // only warn if alive; dead robot can't speak
+			R.visible_message(span_warning("[R]'s repair pulse sputters — insufficient power."))
 		return
 	R.cell.charge -= energy_needed
-	R.heal_bodypart_damage(repair_amount, repair_amount)
-	R.visible_message(span_notice("[R] emits a brief repair pulse."))
+	if(R.stat == DEAD)
+		// Must zero out brute BEFORE revive() so can_be_revived() passes (health > HEALTH_THRESHOLD_DEAD).
+		// adjustBruteLoss(-getBruteLoss()) clears all brute regardless of repair_amount,
+		// guaranteeing health crosses the threshold. The cell drain is the cost limiter.
+		R.adjustBruteLoss(-R.getBruteLoss())
+		R.adjustFireLoss(-R.getFireLoss())
+		R.revive()
+		R.visible_message(span_notice("[R] emergency repair pulse fires — unit back online!"))
+	else
+		R.heal_bodypart_damage(repair_amount, repair_amount)
+		R.visible_message(span_notice("[R] emits a brief repair pulse."))
 
 
 // -- EMERGENCY LOCKDOWN ------------------------------
@@ -990,7 +1016,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		var/d = get_dist(R, M)
 		if(d < closest_dist)
@@ -1062,7 +1088,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD || QDELETED(M))
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue  // skip friendlies
 		MEM.write("last_enemy", WEAKREF(M))
 		MEM.write("last_enemy_name", M.name)
@@ -1133,7 +1159,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		var/d = get_dist(R, M)
 		if(d < closest_dist)
@@ -1167,32 +1193,46 @@
 	hardware_slot_name = HW_SLOT_WEAPON
 	required_hardware_type = /datum/robot_hardware/weapon
 	circuit_desc = "Fires the robot's weapon at the nearest enemy. Requires Weapon hardware."
-	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires the weapon at the nearest hostile in sensor range. Does nothing if no enemy is in range. Pair with On Enemy Spotted for a complete auto-turret."
+	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires the weapon at the nearest hostile in sensor range. Does nothing if no enemy is in range. Pair with On Enemy Spotted for auto-turret, or On Take Damage for retaliation. Set require_los=FALSE for retaliation builds so walls don't block the shot."
 	cpu_cost = 3
+	/// If TRUE, skips targets with no line of sight. Set FALSE for retaliation builds.
+	var/require_los = TRUE
 
 /datum/behavior_circuit/response/fire_weapon/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/robot_hardware/weapon/WH = get_hardware(R, /datum/robot_hardware/weapon)
 	if(!WH)
+		log_game("CIRCUIT fire_weapon: no weapon hardware on [R]")
 		return
 	var/scan_range = (A ? A.sensor_range : 7) + WH.fire_range
 	var/mob/living/target = null
-	var/closest_dist = INFINITY
-	for(var/mob/living/M in range(scan_range, R))
-		if(M == R || M.stat == DEAD)
-			continue
-		if(R.faction_check_mob(M, FALSE))
-			continue
-		var/d = get_dist(R, M)
-		if(d < closest_dist)
-			closest_dist = d
-			target = M
+
+	// Retaliation: if robot was attacked recently (within 5s), shoot back at that attacker directly.
+	// This gives the "mirror" feel for On Take Damage builds without needing a range scan.
+	if(R.last_attacker_ref && (world.time - R.last_attacker_time) <= 50)
+		var/mob/living/attacker = R.last_attacker_ref.resolve()
+		if(attacker && attacker.stat != DEAD && !_is_faction_friend(R, attacker))
+			target = attacker
+
+	// Fallback: scan for nearest hostile in range (used by On Enemy Spotted / On Interval builds)
 	if(!target)
+		var/closest_dist = INFINITY
+		for(var/mob/living/M in range(scan_range, R))
+			if(M == R || M.stat == DEAD)
+				continue
+			if(_is_faction_friend(R, M))
+				continue
+			var/d = get_dist(R, M)
+			if(d < closest_dist)
+				closest_dist = d
+				target = M
+
+	if(!target)
+		log_game("CIRCUIT fire_weapon: no target found in range=[scan_range] faction=[R.faction]")
 		return
-	// Line-of-sight check: don't fire at targets we can't see
-	// view() is a BYOND built-in that respects walls - skip targets we have no LOS to
-	if(!(target in view(scan_range, R)))
+	// Line-of-sight check - skippable for retaliation builds (require_los=FALSE)
+	if(require_los && !(target in view(scan_range, R)))
+		log_game("CIRCUIT fire_weapon: target=[target] blocked by LOS")
 		return
-	// Delegate to the hardware datum's fire proc
 	WH.fire_at(R, target)
 
 
@@ -1220,7 +1260,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		var/d = get_dist(R, M)
 		if(d < closest_dist)
@@ -1286,7 +1326,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		target = M
 		break
@@ -1330,7 +1370,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		var/d = get_dist(R, M)
 		if(d < closest_dist)
@@ -1363,7 +1403,7 @@
 	for(var/mob/living/carbon/M in range(scan_range, R))
 		if(M.stat == DEAD)
 			continue
-		if(target_friendly && !R.faction_check_mob(M, FALSE))
+		if(target_friendly && !_is_faction_friend(R, M))
 			continue
 		INJ.reagent_tank.reagents.trans_to(M, inject_amount)
 		R.visible_message(span_notice("[R] administers treatment to [M]."))
@@ -1461,7 +1501,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		M.Stun(duration)
 		R.visible_message(span_warning("[R] fires a stun pulse at [M]!"))
@@ -1480,7 +1520,7 @@
 
 /datum/behavior_circuit/response/deploy_smoke/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/effect_system/smoke_spread/smoke = new()
-	smoke.set_up(smoke_range, 0, R)
+	smoke.set_up(smoke_range, get_turf(R))
 	smoke.start()
 
 
@@ -1618,7 +1658,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(!R.faction_check_mob(M, FALSE))
+		if(!_is_faction_friend(R, M))
 			continue
 		R.pulling = M
 		R.visible_message(span_notice("[R] begins pulling [M]."))
@@ -1780,7 +1820,7 @@
 	// True atmospheric injection requires knowing the codebase's gas_mixture API,
 	// which varies. Replace with adjust_moles() calls if atmos procs are available.
 	var/datum/effect_system/smoke_spread/smoke = new()
-	smoke.set_up(GV.vent_radius, 0, R)
+	smoke.set_up(GV.vent_radius, get_turf(R))
 	smoke.start()
 	R.visible_message(span_warning("[R] vents [GV.gas_type] gas!"))
 

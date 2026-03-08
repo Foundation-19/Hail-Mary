@@ -317,6 +317,8 @@
 		MT = locate(/obj/item/multitool) in user.contents
 	if(!istype(MT, /obj/item/multitool))
 		return FALSE
-	MT.buffer = assignment  // Buffer the ID's assigned name
-	to_chat(user, span_notice("Buffered ID target: [assignment]. Use the multitool on a behavior assembly to link as follow target."))
+	// Buffer the cardholder's registered name, not their job assignment.
+	// registered_name is what matches mob.real_name in the world search.
+	MT.buffer = registered_name
+	to_chat(user, span_notice("Buffered follow target: [registered_name] ([assignment]). Use the multitool on a behavior assembly to link."))
 	return TRUE
