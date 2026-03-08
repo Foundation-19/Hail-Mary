@@ -236,11 +236,13 @@
 /datum/behavior_circuit/proc/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	robot_ref    = WEAKREF(R)
 	assembly_ref = WEAKREF(A)
-	RegisterSignal(R, COMSIG_ROBOT_CLOCK_TICK, PROC_REF(_on_clock_tick))
+	// Note: COMSIG_ROBOT_CLOCK_TICK is NOT registered here.
+	// on_clock_tick trigger registers it in its own override via on_tick_signal -> _trigger().
+	// Registering it here caused _on_clock_tick to call execute() on every response circuit
+	// on every clock tick, bypassing the trigger chain entirely.
 
 /// Called when the assembly is removed.
 /datum/behavior_circuit/proc/unregister(mob/living/silicon/robot/R)
-	UnregisterSignal(R, COMSIG_ROBOT_CLOCK_TICK)
 	robot_ref    = null
 	assembly_ref = null
 

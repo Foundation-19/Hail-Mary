@@ -1450,6 +1450,17 @@
 				config[key] = custom.vars[key]
 			hw_entries += list(list(custom.type, config))
 
+	// Clock hardware is always installed as the base heartbeat for behavior circuits.
+	// Without it, On Clock Tick triggers never fire regardless of assembly configuration.
+	// Merge into hw_entries only if the player didn't already configure clock hardware.
+	var/clock_already_configured = FALSE
+	for(var/list/entry in hw_entries)
+		if(entry[1] == /datum/robot_hardware/clock || ispath(entry[1], /datum/robot_hardware/clock))
+			clock_already_configured = TRUE
+			break
+	if(!clock_already_configured)
+		hw_entries += list(list(/datum/robot_hardware/clock, list("tick_interval" = 20)))
+
 	// Install hardware and rebuild module item list.
 	// rebuild_modules() is called unconditionally after so basic_modules items always load
 	// even when the player picked no hardware.

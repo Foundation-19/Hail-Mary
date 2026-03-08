@@ -89,6 +89,13 @@
 	/// Set by the fabricator's advanced wiring UI; null = fall back to installed hardware.
 	var/datum/robot_hardware/logic_core/local_logic_core = null
 
+// Triggers have no execute() — base register() wires _on_clock_tick to every circuit,
+// which calls execute(). Without this no-op, calling execute() on a trigger datum throws
+// a runtime on every clock tick, breaking the signal handler chain and preventing
+// on_tick_signal (the real On Clock Tick handler) from ever firing.
+/datum/behavior_circuit/trigger/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	return  // triggers are activated by _trigger(), not execute()
+
 /datum/behavior_circuit/trigger/proc/_trigger(mob/living/silicon/robot/R)
 	log_game("CIRCUIT TRIGGER: [circuit_name] fired on [R]")
 	// Skip autonomous behavior for player-controlled robots UNLESS assembly_override is set.
@@ -146,10 +153,29 @@
 /proc/_is_faction_friend(mob/living/silicon/robot/R, mob/living/M)
 	if(!R || !M || M == R)
 		return TRUE
-	if(!R.faction || !R.faction.len)
+	if(!R.faction)
 		return FALSE  // robot has no faction - treat all non-self as potential targets
-	for(var/f in R.faction)
-		if(M.faction && (f in M.faction))
+	// faction can be a string (single faction) or a list (multiple factions).
+	// Normalise both sides to lists before comparing.
+	var/list/r_factions = islist(R.faction) ? R.faction : list(R.faction)
+	var/list/m_factions = M.faction ? (islist(M.faction) ? M.faction : list(M.faction)) : null
+	if(!r_factions.len || !m_factions || !m_factions.len)
+		return FALSE
+	// Exclude entries that are NOT meaningful alliance markers:
+	// "neutral" = generic no-faction tag shared by all mobs, not an alliance.
+	// self-REF entries ([mob_XXXX]) = unique per-mob identity tags added by living Initialize,
+	// also shared by nobody else so they can never match across mobs.
+	// Matching on either of these produces false positives where all mobs appear friendly.
+	var/static/list/ignore_factions = list("neutral", "silicon")
+	// Self-REF entries added by living/Initialize look like [mob_1954].
+	// ascii2text(91) is "[" — avoids DM string interpolation parser treating "[" as an expression.
+	var/static/open_bracket = ascii2text(91)
+	for(var/f in r_factions)
+		if(f in ignore_factions)
+			continue
+		if(copytext(f, 1, 2) == open_bracket)  // skip self-REF entries
+			continue
+		if(f in m_factions)
 			return TRUE
 	return FALSE
 
@@ -1207,16 +1233,29 @@
 	var/mob/living/target = null
 
 	// Retaliation: if robot was attacked recently (within 5s), shoot back at that attacker directly.
-	// This gives the "mirror" feel for On Take Damage builds without needing a range scan.
-	if(R.last_attacker_ref && (world.time - R.last_attacker_time) <= 50)
+	if(R.last_attacker_ref)
 		var/mob/living/attacker = R.last_attacker_ref.resolve()
-		if(attacker && attacker.stat != DEAD && !_is_faction_friend(R, attacker))
+		var/age = world.time - R.last_attacker_time
+		if(age > 50)
+			log_game("CIRCUIT fire_weapon: last_attacker_ref expired age=[age] ticks")
+		else if(!attacker)
+			log_game("CIRCUIT fire_weapon: last_attacker_ref resolve() returned null (GCd?)")
+		else if(attacker.stat == DEAD)
+			log_game("CIRCUIT fire_weapon: last attacker=[attacker] is dead")
+		else if(_is_faction_friend(R, attacker))
+			log_game("CIRCUIT fire_weapon: attacker=[attacker] is faction friend of [R], skipping retaliation")
+		else
 			target = attacker
+			log_game("CIRCUIT fire_weapon: retaliation target=[attacker]")
+	else
+		log_game("CIRCUIT fire_weapon: last_attacker_ref is null - pending_attacker_ref was=[R.pending_attacker_ref]")
 
-	// Fallback: scan for nearest hostile in range (used by On Enemy Spotted / On Interval builds)
+	// Fallback: scan for nearest visible hostile in range.
+	// view() instead of range() — range() ignores walls, so the robot would fixate on
+	// targets through solid walls that it can never actually shoot.
 	if(!target)
 		var/closest_dist = INFINITY
-		for(var/mob/living/M in range(scan_range, R))
+		for(var/mob/living/M in view(scan_range, R))
 			if(M == R || M.stat == DEAD)
 				continue
 			if(_is_faction_friend(R, M))
@@ -1227,11 +1266,7 @@
 				target = M
 
 	if(!target)
-		log_game("CIRCUIT fire_weapon: no target found in range=[scan_range] faction=[R.faction]")
-		return
-	// Line-of-sight check - skippable for retaliation builds (require_los=FALSE)
-	if(require_los && !(target in view(scan_range, R)))
-		log_game("CIRCUIT fire_weapon: target=[target] blocked by LOS")
+		log_game("CIRCUIT fire_weapon: no visible target in range=[scan_range]")
 		return
 	WH.fire_at(R, target)
 
