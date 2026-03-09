@@ -941,3 +941,41 @@
 	uses++
 	qdel(M)
 
+/obj/effect/mob_spawn/human/synthmachine
+	name = "Synth Machines"
+	desc = "A Synth transformation machine, remnant of the Institute. Put a human inside, and they will get out as a synth."
+	faction = "synth"
+	mob_name = "synth"
+	job_description = "synth"
+	short_desc = "You are MK 2 Synth, and you recall everything of your past life as a Human ! But programming doesn't let you harm any other synth."
+	flavour_text = "Assist the institute remants."
+	assignedrole = "Synth"
+	icon = 'icons/fallout/machines/64x32.dmi'
+	icon_state = "reactoroff"
+	pixel_x = -16
+	mob_type = /mob/living/simple_animal/hostile/synth/mk2/playable
+	uses = 0	//Starts with 0, gets more as you put more goobers in here
+	can_buckle = TRUE
+	density = FALSE
+	death = FALSE
+	roundstart = FALSE
+	permanent = TRUE
+
+/obj/effect/mob_spawn/human/synthmachine/buckle_mob(mob/living/carbon/human/species/M, force = FALSE, check_loc = TRUE)
+	if (!istype(M, /mob/living/carbon/human))
+		to_chat(usr, span_warning("You can only put humans in the machines !... And gorillas."))
+		return FALSE
+
+	else if (is_species(M, /datum/species/smutant))
+		to_chat(usr, span_warning("You can't put a mutant into the machine, the programming doesnt work !"))
+		return FALSE
+
+	else
+		to_chat(usr, span_warning("[M] is being converted !"))
+		transform_em(M)
+
+//Pop a human in here to increase the number of uses by 1 and melt the human
+/obj/effect/mob_spawn/human/synthmachine/proc/transform_em(mob/living/carbon/human/M)
+	playsound(get_turf(src), 'sound/machines/fuckedup_fax.ogg', 50, 0, 2)
+	uses++
+	qdel(M)

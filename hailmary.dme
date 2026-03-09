@@ -2379,6 +2379,7 @@
 #include "code\modules\jobs\job_types\_job.dm"
 #include "code\modules\jobs\job_types\atlantic_cross.dm"
 #include "code\modules\jobs\job_types\baltimore_bos.dm"
+#include "code\modules\jobs\job_types\baltimore_outlaws.dm"
 #include "code\modules\jobs\job_types\bos.dm"
 #include "code\modules\jobs\job_types\eastwood.dm"
 #include "code\modules\jobs\job_types\enclave.dm"

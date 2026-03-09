@@ -1757,10 +1757,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	doc_title_2 = "Town concerns"
 	doc_content_2 = "(Personal note FROM : Mary Dell)\
 	\
-	Locust town is a town that existed before us minutemens.\
+	Locust town is a town that existed before us Maryland minutemens.\
 	They seem to have a history with slavery.\
 	I am note sure what to think. Sure officialy its... Gone. There low class worker however still are badly treated\
-	Mankind often... Well. Often returns to their past self, ill let the others decide what to."
+	Mankind often... Well. Often returns to their past self, ill let the others decide what to do."
 
 /obj/machinery/computer/terminal/batlimore/portmary
 	doc_title_1 = "ET MERDE LES FEDERAUX - 08/10/2077"
@@ -1791,21 +1791,59 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	doc_content_1 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
 	\
 	While the Hull is finished, the USS Iron Shadow didn't get any of its consoles. Apparently, they will arrive in a year, in December 2077.\
-	We wont reach Chinese shores without this lander, and you all know it. So please, act fast before its simply too late ! In the mean time, I have put Ensign DEADLOCK inside, to make sure no one takes a peak."
+	We wont reach Chinese shores without this lander, and you all know it. So please, act fast before its simply too late ! In the meantime, I have put Ensign DEADLOCK inside, to make sure no one takes a peak."
 
 	doc_title_2 = "Northwestern Harbors Control - 01/09/2076"
 	doc_content_2 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
 	\
 	The Navy took control of the other side of Patapsco river, and removed all marinas to instead add more warehouses.\
-	I don't know what you are planning, but it should grant us more space. Since the local base is staffed by low ranking recruit, we put down turrets. However. Please note the calibers have been reduced to 22LR. It should detert any curious civilian.\
+	I don't know what you are planning, but it should grant us more space. Since the local base is staffed by low ranking recruit, we put down turrets. However. Please note the calibers have been reduced to 22LR. It should detert any curious civilian without straight up killing them.\
 	The squad of Gutsy we got should deal with any armed oposition."
 
 /obj/machinery/computer/terminal/batlimore/brotherhood
-	doc_title_1 = "Issue with the Ironclad Lander 'USS Iron Shadow' - 21/12/2076"
-	doc_content_1 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
+	doc_title_1 = "Avalonian Airship history"
+	doc_content_1 = " The Avalonian is the first and only vessel of the Avalonian Class.\
+	After the creation of the Pridwen, the brotherhood needed to build a quick airship. It recovered parts of the firsts brotherhood airships and build with the new standarts.\
+	Smaller, with a lesser range as a Pridwen class, the Avalonian is used in special missions on the east coast only."
+
+	doc_title_2 = "Avalonian Mission"
+	doc_content_2 = " 15/01/2090 (FROM : ELDER ENVOY Sasha German) (TO : Avalonian Crew - No restriction).\
 	\
-	While the Hull is finished, the USS Iron Shadow didn't get any of its consoles. Apparently, they will arrive in a year, in December 2077.\
-	We wont reach Chinese shores without this lander, and you all know it. So please, act fast before its simply too late ! In the mean time, I have put Ensign DEADLOCK inside, to make sure no one takes a peak."
+	The Avalonian will be granted a lot of autonomy. While not reconized as a chapter by the Capital, you are now regarded as a the Maryland detachement.\
+	Your task may vary, but you will have to track down Enclave remnant activity, track down Institute remnant activity, clear out super mutants, save the people of your operation area from technology \
+	\
+	Here are the list of ranks assigned to the vessel : \
+	Lancer Captain (Commanding Officer)\
+	Paladin Commander (Excutive Officer)\
+	Head Scribe\
+	Knight Captain\
+	Paladin\
+	Knight sergeant\
+	Lancer\
+	Scribe\
+	Knight\
+	Initiate\
+	\
+	Special Ranks are :\
+	Commonwealth Elder Envoy (High command)\
+	Cleric (Outside traditional ranks)\
+	\
+	You have also been fitted with new gear. I wish you luck on your endeavour. Ad Victorium."
+
+	doc_title_3 = "The Minutemen Question"
+	doc_content_3 = " 18/01/2090 (FROM : ELDER ENVOY Sasha German) (TO : Avalonian Crew - No restriction).\
+	\
+	We are aware of the presence of a Branch of the minutemen in Maryland. They have been called to action by the 'general' back in the Commonwealth and are an Official branch of the organisation.\
+	So while not being imposters, and a direct threat to us, it is possible that they are made of synth in attempt to fool the main branch of the Minutemen, but also ourselfs.\
+	In the case that those theory are wrong, still. You have to keep in mind that the people on the ground are scared of the brotherhood. If the West fought us, they might fought us here.\
+	Our alliance with them isn't set in stone. Ad Victorium."
+
+/obj/machinery/computer/terminal/batlimore/vault124/surface
+	doc_title_1 = "Vault-Tech Public University 08/09/2072"
+	doc_content_1 = "\
+	\
+	.\
+	"
 
 
 /obj/machinery/computer/terminal/grognak2

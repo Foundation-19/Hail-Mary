@@ -46,6 +46,9 @@ Administrator
 	description = "You are the captain of the ACS Aegis, and its escort. You make sure your hospital runs well, make sure people pay, make sure your doctors ain't doing mad shit or unethical things, provide education for the new people, organise the ressources of the ship. You also make sure there is no competition to your business, by sending Marines or Guards."
 	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders."
 	selection_color = "#FF95FF"
+	min_required_special = list(
+		"special_c" = 4,
+		)
 
 	outfit = /datum/outfit/job/atlantic/f13atlanticcap
 

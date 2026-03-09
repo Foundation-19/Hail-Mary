@@ -1344,6 +1344,14 @@
 	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
 	grow_chance = 5
 
+/area/f13/baltimore/wasteland/citywasteland/minutemen
+	name = "Miutemen controled point"
+	icon_state = "green"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_b,
+		)
+	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
+	grow_chance = 5
 
 /area/f13/baltimore/building
 	name = "Seaside Building"
@@ -1440,6 +1448,15 @@
 		)
 
 /area/f13/baltimore/building/abandoned/hospital
+	name = "University of Maryland Medical"
+	icon_state = "hospital"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/clinic
 	name = "Deserted Clinic"
 	icon_state = "hospital"
 	ambience_area = list(
@@ -1447,6 +1464,69 @@
 		/datum/looping_sound/ambient/woodcreak,
 		)
 	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/hospital2
+	name = "MedStar Harbor Hospital"
+	icon_state = "hospital"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/washington
+	name = "Washington Monument"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/washington2
+	name = "New President Monument"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/library
+	name = "George Peabody Library"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/mall
+	name = "Cherry Hill Town Center"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/cruiseship
+	name = "HMS Queen Ann"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/carrier
+	name = "USS Pegasus"
+	icon_state = "outpost"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
 
 /area/f13/baltimore/building/abandoned/mchenrymuseum
 	name = "Fort Mc Henry Museum"

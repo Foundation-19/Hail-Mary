@@ -48,6 +48,9 @@ Mayor
 	description = "Long time ago, your ancestor, the first dockmaster, created the now safeheaven town you lead. You were not voted in, and other of the many descendants are also entrusted to be the leader. You have the power of making the laws."
 	enforces = "The port councelors are your stand-in replacement and works under you. Under them is the preacher. The Minutemen Major may also hold power."
 	selection_color = "#d7b088"
+	min_required_special = list(
+		"special_c" = 4,
+		)
 
 	outfit = /datum/outfit/job/locust/f13baltimoredockmaster
 	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
@@ -109,6 +112,9 @@ Mayor
 	description = "A mix between secretary and town agent, you are the seconds in command. You make sure everything in town runs correctly, making sure everyone gets paid. You can act as the traditional secretary or act as the Dockmaster bodyguard."
 	enforces = "You are the stand-in leaders of locust point if the Dockmaster isn't here does not exist. The council is always made of 2 councilors if available."
 	selection_color = "#d7b088"
+	min_required_special = list(
+		"special_c" = 5,
+		)
 
 	outfit = /datum/outfit/job/locust/f13baltimorecouncil
 
@@ -881,7 +887,7 @@ Mayor
 
 /datum/job/locust/f13minutemencaptain
 	title = "Minuteman Captain"
-	flag = F13BALTIMOREMINUTEMENCAPTAIN
+	flag = F13MINUTEMENCAPTAIN
 	faction = DEP_MINUTEMEN
 	total_positions = 2
 	spawn_positions = 2
@@ -918,7 +924,7 @@ Mayor
 
 /datum/job/locust/f13minutemenmajor
 	title = "Minuteman Major"
-	flag = F13BALTIMOREMINUTEMENMAJOR
+	flag = F13MINUTEMENMAJOR
 	faction = DEP_MINUTEMEN
 	total_positions = 1
 	spawn_positions = 1

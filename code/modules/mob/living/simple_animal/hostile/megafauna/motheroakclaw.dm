@@ -1,14 +1,14 @@
 /mob/living/simple_animal/hostile/megafauna/motheroakclaw
 	name = "supermutant motheroakclaw"
 	desc = "An inteligent Deathclaw Alpha that fused with a parasite tree. It lost all reason."
-	icon = 'icons/fallout/mobs/oakclaw.dmi'
+	icon = 'icons/fallout/mobs/monsters/oakclaw.dmi'
 	icon_state = "oakclaw"
 	icon_living = "oakclaw"
 	icon_dead = "oakclaw"
 
 	health = 2200 
 	maxHealth = 2200 
-	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 10, /obj/item/stack/sheet/wood = 6)
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 5)
 	loot = list(/obj/item/stack/f13Cash/random/med) //THIS IS FOR DUNGEON ACCESS STUFF: CHANGE IF NEEDED
 	armour_penetration = 0.7
 	melee_damage_lower = 50

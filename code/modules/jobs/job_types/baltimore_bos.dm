@@ -129,17 +129,17 @@ Lancer Captain
 		"special_c" = 5,
 		)
 
-	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_BOS1, ACCESS_BOS2, ACCESS_PUBLIC)
-	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND,ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_BOS1, ACCESS_BOS2, ACCESS_PUBLIC)
+	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
+	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	
 /datum/outfit/job/bos/f13lancercaptain
-	name = "Lancer"
+	name = "Lancer Captain"
 	jobtype = /datum/job/bos/f13lancer
 	ears = /obj/item/radio/headset/headset_bos
-	suit = /obj/item/clothing/suit/bomber_open
+	suit = /obj/item/clothing/suit/armor/light/duster/bos/lancer
 	suit_store = /obj/item/gun/energy/laser/aer12
 	head = /obj/item/clothing/head/f13/boscap/lancercap
-	belt = /obj/item/storage/belt/military/army
+	belt =/obj/item/storage/belt/army/assault
 	glasses = /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
@@ -159,24 +159,24 @@ Lancer
 	title = "Lancer"
 	flag = F13LANCER
 	display_order = JOB_DISPLAY_ORDER_LANCER
-	total_positions = 3
-	spawn_positions = 3
-	description = "You are reinforcement that arrived to help out this chapter, after the Mojave chapter went to Hidding. You pilot the Vertibirds and supports the knights and paladins."
-	supervisors = "All Heads"
+	total_positions = 2
+	spawn_positions = 2
+	description = "You are a brotherhood vertibird pilot asigned to the 'Avalonian' airship. You transport the troops in and out the airship, perform scout and recon missions."
+	supervisors = "The Lancer Captain"
 
 	outfit = /datum/outfit/job/bos/f13lancer
 
-	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_BOS1, ACCESS_BOS2, ACCESS_PUBLIC)
-	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND,ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_BOS1, ACCESS_BOS2, ACCESS_PUBLIC)
+	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
+	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	
 /datum/outfit/job/bos/f13lancer
 	name = "Lancer"
 	jobtype = /datum/job/bos/f13lancer
 	ears = /obj/item/radio/headset/headset_bos
-	suit = /obj/item/clothing/suit/bomber_open
+	suit = /obj/item/clothing/suit/armor/light/duster/bos/lancer
 	suit_store = /obj/item/gun/energy/laser/aer9
 	head = /obj/item/clothing/head/f13/boscap
-	belt = /obj/item/storage/belt/military/army
+	belt =/obj/item/storage/belt/army/assault
 	glasses = /obj/item/clothing/glasses/hud/diagnostic/sunglasses
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
@@ -198,8 +198,8 @@ Paladin Commander
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
-	description = "You are the Paladin Commander, leader of the expedition. Work with your small expeditionary force to secure the land and remove the enemy. You are in charge of the expedition and as such you are in-charge of the faction. You should not attempt to fight everyone you see but rather use your rank and skill to secure the land and remove your enemy. "
-	supervisors = "the Elders or their Envoys"
+	description = "You are the Paladin Commander, second in command, and in charge of ground operation. Work with your small expeditionary force to secure the land and recovert any technology."
+	supervisors = "the Elders or their Envoys, the lancer captain."
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/baltimore_bos/f13commander
@@ -263,7 +263,7 @@ Paladin Commander
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
-	suit_store = /obj/item/shield/riot/bullet_proof 
+	suit_store = /obj/item/shield/riot/bullet_proof
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
@@ -271,6 +271,7 @@ Paladin Commander
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 5,
 		/obj/item/melee/powered/ripper/prewar = 1,
+		/obj/item/clothing/suit/armor/light/duster/bos/officer = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
 
 		)
@@ -307,7 +308,7 @@ Proctor
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
-	description = "You are the foremost experienced scribe remaining in this bunker. Your role is to ensure the safekeeping and proper usage of technology within the Brotherhood. You are also the lead medical expert in this Chapter. Delegate your tasks to your Scribes."
+	description = "You are the foremost experienced scribe remaining on the 'Avalonian'. Your role is to ensure the safekeeping and proper usage of technology within the Brotherhood. You are also the lead medical expert in this Chapter. Delegate your tasks to your Scribes."
 	supervisors = "the Elders"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_HEADSCRIBE
@@ -391,7 +392,7 @@ Knight-Captain
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
-	description = "You are the Knight-Captain, one of the leaders of your group of outcasts. After the attempted coup by the late Paladin Commander Wossner, you have been wandering the wastes, looking for a new home, and have now found a barely-acceptable place to construct your new chapters' bunker. Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
+	description = "You are the Knight-Captain, the fourth in command onboard the 'Avalonian' . Your knowledge of pre-war materials and engineering is almost unparalleled, and you have basic combat training and experience. You are in charge of establishing a working foothold, and your Knights and initiates. Delegate to them as necessary. As Chief Armorer, you are also in charge of the armory."
 	supervisors = "The Paladin Commander"
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
@@ -440,6 +441,7 @@ Knight-Captain
 		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
+		/obj/item/clothing/suit/armor/light/duster/bos/officer = 1,
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -460,7 +462,7 @@ Paladin
 	flag = F13PALADIN
 	total_positions = 1
 	spawn_positions = 1
-	description = "You are a paladin. Assigned to the expeditionary force through sheer luck or skill. You're one of two power-armor wearers within the force and as such you're to treat it with care. Your posting as a paladin allows you rank over the senior knights and senior scribes. But the Head-Knight, as assigned Second In Command, is above you in rank."
+	description = "You are a paladin, and the only one posted onboard the 'Avalonian'. You're one of two power-armor wearers within the force and as such you're to treat it with care. Your posting as a paladin allows you rank over the senior knights and senior scribes."
 	supervisors = "the Elders or the Paladin Commander if he is present"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/baltimore_bos/f13paladin
@@ -484,7 +486,7 @@ Paladin
 			/datum/job/baltimore_bos/f13initiate,
 		),
 		/datum/matchmaking_pref/disciple = list(
-			/datum/job/baltimore_bos/f13seniorpaladin,
+			/datum/job/baltimore_bos/f13paladincommander,
 		),
 	)
 
@@ -517,7 +519,8 @@ Paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
 		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/stock_parts/cell/ammo/mfc = 5
+		/obj/item/clothing/suit/armor/light/duster/bos/officer = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 5,
 	)
 /*
 /datum/outfit/loadout/paladina
@@ -689,7 +692,7 @@ Knight Sarge
 	flag = F13KNIGHTSARGE
 	total_positions = 2
 	spawn_positions = 2
-	description = " You are the Knight Sergeant of the Brotherhood Of Steel Expeditionary force, your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
+	description = " You are the Knight Sergeant of the Brotherhood Of Steel Airship 'Avalonian', your goal is to maintain order within the ranks, above the scribes and knights you are below the paladin. Your duty is to maintain order within the knights, infantry work and primary grunt work as well as train the lower ranking knights and aspirants."
 	supervisors = "the Knight-Captain and Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
 	outfit = /datum/outfit/job/baltimore_bos/f13knightsarge
@@ -732,7 +735,7 @@ Knight Sarge
 /datum/outfit/job/baltimore_bos/f13knightsarge
 	name = "Senior Knight"
 	jobtype = /datum/job/baltimore_bos/f13knightsarge
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/sarge
+	suit = /obj/item/clothing/suit/armor/light/duster/bos/officer
 	suit_store = /obj/item/gun/energy/laser/aer9
 	accessory = /obj/item/clothing/accessory/bos/knightsarge
 	glasses = /obj/item/clothing/glasses/night
@@ -755,79 +758,7 @@ Knight Sarge
 		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
 		/obj/item/ammo_box/magazine/m45/socom = 3,
 		)
-/*
-Senior Knight
-*/
 
-/datum/job/baltimore_bos/f13seniorknight
-	title = "Senior Knight"
-	flag = F13SENIORKNIGHT
-	total_positions = 0
-	spawn_positions = 0
-	description = "You report directly to the Knight-Captain. You are the Brotherhood Knight-Sergeant. Having served the Knight Caste for some time now, you are versatile and experienced in both basic combat and repairs, and also a primary maintainer of the Bunker's facilities. As your seniormost Knight, you may be assigned initiates or Junior Knights to mentor."
-	supervisors = "the Knight-Captain"
-	display_order = JOB_DISPLAY_ORDER_SENIORKNIGHT
-	outfit = /datum/outfit/job/baltimore_bos/f13seniorknight
-	exp_requirements = 900
-/*
-	loadout_options = list(
-	/datum/outfit/loadout/sknightb, //Police Shotgun
-	/datum/outfit/loadout/sknightc, //R93
-	/datum/outfit/loadout/sknightd, //Pre-war Ripper
-	)
-*/
-	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
-	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
-	matchmaking_allowed = list(
-		/datum/matchmaking_pref/friend = list(
-			/datum/job/baltimore_bos,
-		),
-		/datum/matchmaking_pref/rival = list(
-			/datum/job/baltimore_bos,
-		),
-		/datum/matchmaking_pref/mentor = list(
-			/datum/job/baltimore_bos/f13knight,
-		),
-	)
-
-/datum/outfit/job/baltimore_bos/f13seniorknight/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/R93)
-
-/datum/outfit/job/baltimore_bos/f13seniorknight
-	name = "Senior Knight"
-	jobtype = /datum/job/baltimore_bos/f13seniorknight
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/senior
-	suit_store = /obj/item/gun/energy/laser/aer9
-	accessory = /obj/item/clothing/accessory/bos/seniorknight
-	glasses = /obj/item/clothing/glasses/night
-	mask = /obj/item/clothing/mask/gas/sechailer
-	belt = /obj/item/storage/belt/army/assault
-	l_pocket = /obj/item/storage/belt/shoulderholster
-	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
-	gunsmith_one = TRUE
-	gunsmith_two = TRUE
-	gunsmith_three = TRUE
-	gunsmith_four = TRUE
-	backpack_contents = list(
-		/obj/item/melee/onehanded/knife/hunting = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/storage/box/bos/senior = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
-		)
 /*
 Knight
 */
@@ -837,7 +768,7 @@ Knight
 	flag = F13KNIGHT
 	total_positions = 5
 	spawn_positions = 5
-	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
+	description = "You are a Brotherhood Knight onboard the 'Avalonian', and are the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
 	outfit = /datum/outfit/job/baltimore_bos/f13knight
@@ -856,7 +787,7 @@ Knight
 			/datum/job/baltimore_bos/f13initiate,
 		),
 		/datum/matchmaking_pref/disciple = list(
-			/datum/job/baltimore_bos/f13seniorknight,
+			/datum/job/baltimore_bos/f13knightsarge,
 		),
 	)
 
@@ -878,12 +809,11 @@ Knight
 /datum/outfit/job/baltimore_bos/f13knight
 	name = "Knight"
 	jobtype = /datum/job/baltimore_bos/f13knight
-	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
+	suit = /obj/item/clothing/suit/armor/light/duster/bos/knight
 	suit_store = /obj/item/gun/energy/laser/aer9
-	mask = /obj/item/clothing/mask/gas/sechailer
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	belt = /obj/item/storage/belt/army/assault
-	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood
+	head = /obj/item/clothing/head/f13/boscap/beret
 	gunsmith_one = TRUE
 	gunsmith_two = TRUE
 	gunsmith_three = TRUE
@@ -904,7 +834,7 @@ Initiate
 	flag = F13INITIATE
 	total_positions = 5
 	spawn_positions = 5
-	description = "Either recently inducted or born into the Brotherhood, you have since proven yourself worthy of assignment to the Chapter. You are to assist your superiors and receive training how they deem fit. You are NEVER allowed to leave the bunker without the direct supervision of a superior; doing so may result in exile."
+	description = "Either recently inducted or born into the Brotherhood, you have since proven yourself worthy of assignment to the onboard the 'Avalonian'. You are to assist your superiors and receive training how they deem fit. You are NEVER allowed to leave the bunker without the direct supervision of a superior; doing so may result in exile."
 	supervisors = "the Scribes, Knights, or Paladins"
 	display_order = JOB_DISPLAY_ORDER_INITIATE
 	outfit = /datum/outfit/job/baltimore_bos/f13initiate

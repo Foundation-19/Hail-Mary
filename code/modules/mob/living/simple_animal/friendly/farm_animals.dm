@@ -574,6 +574,7 @@
 	if(stat == CONSCIOUS && is_type_in_list(O, food_types))
 		feed_em(O, user)
 		return
+		/*
 	if (istype(O,/obj/item/brahminbags))
 		if(bags)
 			to_chat(user, span_warning("The mount already has bags attached!"))
@@ -582,8 +583,6 @@
 			to_chat(user, span_warning("The young animal cannot carry the bags!"))
 			return
 		to_chat(user, span_notice("You add [O] to [src]..."))
-		update_icon = "packedbrahmin"
-		update_icon_state = "packedbrahmin"
 		bags = TRUE
 		qdel(O)
 		ComponentInitialize()

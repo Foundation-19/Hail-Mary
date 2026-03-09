@@ -25,7 +25,7 @@
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
-			"Name": "Surface",
+			"Name": "Baltimore Surface",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 1
@@ -71,17 +71,28 @@
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 3
-		}
+		},
 
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Up": 1,
+			"No Parallax": true,
+			"Linkage" : null,
+			"Name": "Dungeons"
+		}
 
 	],
 	"minetype": "none",
 	"added_jobs": [
 		"atlantic_cross.dm",
-		"locust_point.dm"
+		"locust_point.dm",
+		"baltimore_outlaws.dm",
+		"baltimore_bos.dm"
 	],
 	"removed_jobs": [
 		"enclave.dm",
+		"bos.dm"
 		"eastwood.dm",
 		"ncr.dm",
 		"legion.dm",

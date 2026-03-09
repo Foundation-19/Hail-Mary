@@ -710,6 +710,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Knight"
 	icon_state = "Knight"
 
+/obj/effect/landmark/start/f13/lancer
+	name = "Lancer"
+	icon_state = "Knight"
+
+/obj/effect/landmark/start/f13/lancercaptain
+	name = "Lancer Captain"
+	icon_state = "Knight"
+
 /obj/effect/landmark/start/f13/initiate
 	name = "Initiate"
 	icon_state = "Initiate"
@@ -1031,6 +1039,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Locust Point Priest"
 	icon_state = "Banker"
 
+//mercs
 
 // Holiday
 
@@ -1078,3 +1087,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 /obj/effect/landmark/start/f13/f13holidaybarkeep
 	name = "Barkeep"
 	icon_state = "Barkeep"
+/obj/effect/landmark/start/f13/mercenary
+	name = "Mercenary Soldier"
+	icon_state = "Enforcer"
+
+/obj/effect/landmark/start/f13/mercenary
+	name = "Mercenary Warlord"
+	icon_state = "Enforcer"
