@@ -425,6 +425,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/decan
 	name = "legion veteran decanus helmet"
 	desc = "It's a metal helmet with an array of red, white and black feathers, unmistakably a Veteran Decanus."
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	icon_state = "legion-decvet-alt"
 	item_state = "legion-decvet-alt"
 	armor = ARMOR_VALUE_MEDIUM
@@ -743,6 +745,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	flash_protect = 1
+	unique_reskin = list("Classic" = "ranger_old", "Classic 2.0" = "new_ranger_classic")
 	glass_colour_type = /datum/client_colour/glass_colour/red
 	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	darkness_view = 24
@@ -1298,8 +1301,8 @@ obj/item/clothing/head/f13/army/beret
 	item_state = "combat_helmet_ncr_mk2"
 
 /obj/item/clothing/head/beret/ncr/ncr_recon
-	name = "NCR First Recon beret"
-	desc = "A red beret, issued to members of NCR First Recon."
+	name = "NCR recon beret"
+	desc = "A red beret, issued to scouts of the NCRA's various reconnaissance battalions."
 	icon_state = "ncr_recon_beret"
 	item_state = "ncr_recon_beret"
 

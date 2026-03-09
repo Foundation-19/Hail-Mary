@@ -198,6 +198,7 @@
 #define TRAIT_NO_MIDROUND_ANTAG	"no-midround-antag" //can't be turned into an antag by random events
 #define TRAIT_PUGILIST	"pugilist" //This guy punches people for a living
 #define TRAIT_KI_VAMPIRE	"ki-vampire" //when someone with this trait rolls maximum damage on a punch and stuns the target, they regain some stamina and do clone damage
+#define TRAIT_ASSASSIN	"assassin" //Can perform deadly assassination strikes on unaware enemies
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"
@@ -312,10 +313,10 @@
 #define TRAIT_TECHNOPHREAK		"technophreak"	//boosts salvage return
 #define TRAIT_WEAPONCRAFTING	"weapon_crafting"	// You spawn with various unlocked gun/armor crafts
 #define TRAIT_PA_WEAR           "pa_wear" //guess
+#define TRAIT_C27           "c27_wear" //guess
 #define TRAIT_MEDICALEXPERT		"Medicinal Expert" //Can do revival surgery
 #define TRAIT_MEDICALGRADUATE		"Medical Graduate" //generalised offmap medschool graduation training
-#define TRAIT_UNETHICAL_PRACTITIONER	"Unethical Practitioner" //Can do harmful experimental surguries
-#define TRAIT_UNETHICAL_PRACTITIONER_BRAINWASHING	"Unethical Practitioner - Brainwashing" //Can do harmful experimental surguries
+#define TRAIT_BRAINWASH_SURGERY	"brainwash_surgeon" //Can do harmful experimental surguries
 #define TRAIT_CYBERNETICIST		"Cyberneticist" //Utilizes powerful cybernetics
 #define TRAIT_CYBERNETICIST_EXPERT	"Cyberneticist Expert" //Can augument people into robots directly
 #define TRAIT_MACHINE_SPIRITS	"machine_spirits" //for tribe unique functions.

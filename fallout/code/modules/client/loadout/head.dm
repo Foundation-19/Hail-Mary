@@ -333,6 +333,24 @@
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_HELMETS
 
+/datum/gear/head/c27_light
+	name = "Light C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+
+/datum/gear/head/c27_medium
+	name = "Medium C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+
+/datum/gear/head/c27_heavy
+	name = "Heavy C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+
 //CHINA
 
 /datum/gear/head/chinese
@@ -353,9 +371,37 @@
 	cost = 4
 	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
 	restricted_desc = "NCR"
-/*	restricted_roles = list("NCR Combat Engineer",
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
 							"NCR Off-Duty"
-						)*/
+						)
+
+/datum/gear/head/ncr_recon
+	name = "NCR recon beret"
+	path = /obj/item/clothing/head/beret/ncr/ncr_recon
+	cost = 4
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty"
+						)
 
 /datum/gear/head/ncr_cap
 	name = "NCR garrison cap"
@@ -372,7 +418,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/steelpot_goggles
@@ -391,7 +439,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ranger/rigs
@@ -448,7 +498,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/steelpot_bandolier
@@ -467,7 +519,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_slouch
@@ -486,7 +540,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_flapcap
@@ -505,7 +561,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/head/ncr_campaign
@@ -519,6 +577,39 @@
 							"NCR Medical Officer",
 							"NCR Sergeant",
 							"NCR Heavy Trooper"
+						)
+
+/datum/gear/head/c27_light/ncr
+	name = "NCR light C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light/ncr
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Rear Echelon",
+							"NCR Conscript",
+							"NCR Trooper",
+						)
+
+/datum/gear/head/c27_medium/ncr
+	name = "NCR medium C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium/ncr
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS	
+	cost = 0
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Rear Echelon",
+							"NCR Conscript",
+							"NCR Trooper",
+						)
+
+/datum/gear/head/c27_heavy/ncr
+	name = "NCR heavy C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy/ncr
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Rear Echelon",
+							"NCR Conscript",
+							"NCR Trooper",
 						)
 
 /datum/gear/head/khan
@@ -569,6 +660,33 @@
 							"Initiate",
 							"BoS Off-Duty"
 	)
+
+/datum/gear/head/c27_light/bos
+	name = "Brotherhood light C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light/bos
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+	restricted_desc = "Brotherhood"
+	restricted_roles = list("Knight",
+						)
+
+/datum/gear/head/c27_medium/bos
+	name = "Brotherhood medium C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium/bos
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS 	
+	cost = 0
+	restricted_desc = "Brotherhood"
+	restricted_roles = list("Knight",
+						)
+
+/datum/gear/head/c27_heavy/bos
+	name = "Brotherhood heavy C-27 armor"
+	path = /obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy/bos
+	subcategory = LOADOUT_SUBCATEGORY_HEAD_FACTIONS	
+	cost = 0
+	restricted_desc = "Brotherhood"
+	restricted_roles = list("Knight",
+						)
 
 /datum/gear/head/legion/venator
 	name = "Galerum Lacertarex"
