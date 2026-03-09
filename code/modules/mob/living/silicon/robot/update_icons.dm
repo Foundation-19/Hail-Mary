@@ -3,7 +3,12 @@
 	cut_overlays()
 	icon_state = module.cyborg_base_icon
 
-	if(module.cyborg_base_icon == "robot")
+	// Set icon file based on module type.
+	// F13 robots use wasterobots.dmi; vanilla TG modules use robots.dmi.
+	var/static/list/f13_module_icons = list("handy","protectron","securitron","sentrybot","liberator","gutsy","assaultron","assaultron_sase")
+	if(module.cyborg_base_icon in f13_module_icons)
+		icon = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	else
 		icon = 'icons/mob/robots.dmi'
 	if(stat != DEAD && !(IsUnconscious() ||IsStun() || IsKnockdown() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)

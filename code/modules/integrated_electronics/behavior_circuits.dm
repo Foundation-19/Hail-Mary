@@ -22,17 +22,17 @@
 #define HW_SLOT_ENV_SCANNER      "/datum/robot_hardware/environment_scanner"
 #define HW_SLOT_HEALTH_SCANNER   "/datum/robot_hardware/health_scanner"
 #define HW_SLOT_LIGHT            "/datum/robot_hardware/light"
-#define HW_SLOT_GAS_PUMP         "/datum/robot_hardware/gas_pump"
+#define HW_SLOT_CHEM_SPRAYER     "/datum/robot_hardware/chem_sprayer"
 #define HW_SLOT_HARVESTER        "/datum/robot_hardware/harvester"
 #define HW_SLOT_MATERIAL_COLLECTOR "/datum/robot_hardware/material_collector"
 #define HW_SLOT_GRINDER          "/datum/robot_hardware/grinder_module"
-#define HW_SLOT_GAS_VENT         "/datum/robot_hardware/gas_vent"
+
 #define HW_SLOT_BIO_SCANNER      "/datum/robot_hardware/bio_scanner"
 #define HW_SLOT_OBJECT_LOCATOR   "/datum/robot_hardware/object_locator"
 #define HW_SLOT_POWER_RELAY      "/datum/robot_hardware/power_relay"
 #define HW_SLOT_NAV_COMPUTER     "/datum/robot_hardware/nav_computer"
 #define HW_SLOT_VOCABULARY       "/datum/robot_hardware/vocabulary_module"
-#define HW_SLOT_PIPE_INTERFACE   "/datum/robot_hardware/pipe_interface"
+
 #define HW_SLOT_CLOCK            "/datum/robot_hardware/clock"
 #define HW_SLOT_MEMORY           "/datum/robot_hardware/memory_core"
 
@@ -800,52 +800,43 @@
 
 // -- ON ATMOS THRESHOLD ------------------------------
 
-/datum/behavior_circuit/trigger/on_atmos_threshold
+/datum/behavior_circuit/trigger/on_radiation_detected
 	needs_hardware = TRUE
-	circuit_name = "Trigger: On Atmos Threshold"
+	circuit_name = "Trigger: On Radiation Detected"
 	hardware_slot_name = HW_SLOT_ENV_SCANNER
 	required_hardware_type = /datum/robot_hardware/environment_scanner
-	circuit_desc = "Fires when atmospheric pressure or O2 drops below safe levels."
-	tutorial_text = "HARDWARE REQUIRED: Environment Scanner. Fires when local pressure or O2 drops below safe levels. Good for: emergency response robots, breach detection, warning survivors. Pair with Broadcast Alert or Deploy Smoke."
+	circuit_desc = "Fires when the robot detects significant radiation on itself or nearby survivors."
+	tutorial_text = "HARDWARE REQUIRED: Environment Scanner. Fires when the robot's own radiation level exceeds the threshold, or when a nearby mob has radiation above the threshold. Good for: RadAway dispensers, hazmat warnings, evacuation triggers. Pair with Broadcast Alert or Spray Reagent."
 	cpu_cost = 2
-	var/pressure_min = 60
-	var/o2_min = 16
-	var/last_check = 0
+	var/rad_threshold  = 10
+	var/scan_range     = 5
+	var/last_check     = 0
 	var/check_cooldown = 30
 
-/datum/behavior_circuit/trigger/on_atmos_threshold/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+/datum/behavior_circuit/trigger/on_radiation_detected/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
-/datum/behavior_circuit/trigger/on_atmos_threshold/unregister(mob/living/silicon/robot/R)
+/datum/behavior_circuit/trigger/on_radiation_detected/unregister(mob/living/silicon/robot/R)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/datum/behavior_circuit/trigger/on_atmos_threshold/process()
+/datum/behavior_circuit/trigger/on_radiation_detected/process()
 	if(world.time < last_check + check_cooldown)
 		return
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
 		return
-	var/datum/robot_hardware/environment_scanner/ENV = get_hardware(R, /datum/robot_hardware/environment_scanner)
-	if(!ENV)
-		return
-	// Sample atmosphere - check if area is unsafe (space, breached)
-	// without accessing turf.air which is not directly accessible.
-	var/turf/here = get_turf(R)
-	if(!here)
-		return
-	var/area/A = get_area(here)
-	if(!A)
-		return
-	// Treat space tiles and area with fire/breaches as threshold-triggered
-	if(istype(here, /turf/open/space))
+	// Fire if the robot itself is irradiated
+	if(R.radiation >= rad_threshold)
 		_trigger(R)
 		return
-	for(var/obj/effect/hotspot/HS in range(3, R))
-		_trigger(R)
-		return
+	// Fire if a nearby survivor is irradiated
+	for(var/mob/living/carbon/M in range(scan_range, R))
+		if(M.radiation >= rad_threshold)
+			_trigger(R)
+			return
 
 
 // -- ON HEALTH SCAN CRITICAL -------------------------
@@ -911,10 +902,9 @@
 	var/alert_message = "WARNING: Threat detected."
 
 /datum/behavior_circuit/response/broadcast_alert/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	if(R.radio)
-		R.radio.talk_into(R, alert_message, R.radio.frequency, null, null)
-	else
-		R.say(alert_message)
+	// Use radio prefix so the alert goes out over the robot's radio channel.
+	// Silicon say() with ";" routes through the installed radio automatically.
+	R.say(";[alert_message]")
 
 
 // -- BROADCAST DISTRESS ------------------------------
@@ -929,10 +919,7 @@
 	var/area/here = get_area(R)
 	var/loc = here ? here.name : "unknown location"
 	var/msg = "[R.name] is under attack at [loc]! Requesting immediate assistance!"
-	if(R.radio)
-		R.radio.talk_into(R, msg, R.radio.frequency, null, null)
-	else
-		R.say(msg)
+	R.say(";[msg]")
 
 
 // -- SAY TEXT ----------------------------------------
@@ -1562,24 +1549,38 @@
 // -- FIRE EXTINGUISHER -------------------------------
 
 /datum/behavior_circuit/response/fire_extinguisher
-	needs_hardware = TRUE
 	circuit_name = "Response: Extinguish Fire"
-	hardware_slot_name = HW_SLOT_GAS_PUMP
-	required_hardware_type = /datum/robot_hardware/gas_pump
-	circuit_desc = "Sprays CO2 at nearby fire tiles. Requires Gas Pump hardware."
-	tutorial_text = "HARDWARE REQUIRED: Gas Pump hardware datum (CO2 extinguisher config). Scans nearby turfs for fire and suppresses it. For firefighting robots."
+	circuit_desc = "Uses the robot's extinguisher on a nearby mob that is on fire."
+	tutorial_text = "The robot finds the nearest mob on fire in range and uses its installed extinguisher on them. Pair with Trigger: On Interval or On Enemy Spotted. No special hardware required beyond an extinguisher in the module loadout."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/fire_extinguisher/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	var/datum/robot_hardware/gas_pump/GP = get_hardware(R, /datum/robot_hardware/gas_pump)
-	if(!GP)
+	// Find an extinguisher in the robot's module inventory
+	var/obj/item/extinguisher/EX = null
+	if(R.module)
+		for(var/obj/item/extinguisher/E in R.module.modules)
+			EX = E
+			break
+	if(!EX)
 		return
-	var/scan_range = A ? A.sensor_range : 3
-	for(var/turf/T in range(scan_range, R))
-		if(locate(/obj/effect/hotspot) in T)
-			T.hotspot_expose(-100, 100)
-			R.visible_message(span_notice("[R] vents gas at the fire!"))
-			return
+	// Find the nearest mob on fire within sensor range
+	var/scan_range = A ? A.sensor_range : 5
+	var/mob/living/target = null
+	var/closest = INFINITY
+	for(var/mob/living/M in view(scan_range, R))
+		if(M.fire_stacks > 0 || M.on_fire)
+			var/d = get_dist(R, M)
+			if(d < closest)
+				closest = d
+				target = M
+	if(!target)
+		return
+	// Step adjacent if needed
+	if(get_dist(R, target) > 1)
+		step_towards(R, target)
+		return
+	EX.attack(target, R)
+	R.visible_message(span_notice("[R] extinguishes [target]!"))
 
 
 // -- TOGGLE LIGHT ------------------------------------
@@ -1838,26 +1839,36 @@
 // GAS VENT CIRCUIT
 // ====================================================
 
-/datum/behavior_circuit/response/vent_gas
+/datum/behavior_circuit/response/pump_reagent
 	needs_hardware = TRUE
-	circuit_name = "Response: Vent Gas"
-	hardware_slot_name = HW_SLOT_GAS_VENT
-	required_hardware_type = /datum/robot_hardware/gas_vent
-	circuit_desc = "Releases gas from internal reserves. Requires Gas Vent hardware."
-	tutorial_text = "HARDWARE REQUIRED: Gas Vent. Releases a burst of gas from the robot's internal reservoir into the surrounding area. Configure vent_radius and vent_amount on the hardware datum. Can be used for smoke screens, gas deployment, or atmoshperic equalization."
-	cpu_cost = 2
+	circuit_name = "Response: Pump Reagent"
+	hardware_slot_name = HW_SLOT_REAGENT_PUMP
+	required_hardware_type = /datum/robot_hardware/reagent_pump
+	circuit_desc = "Transfers reagents between the robot's tank and an adjacent container."
+	tutorial_text = "HARDWARE REQUIRED: Reagent Pump. Pulls reagents into the robot from an adjacent container, or pushes them out, depending on the hardware's pump_direction setting. Good for: supply bots that restock from dispensers, or robots that dispense reagents into containers."
+	cpu_cost = 1
 
-/datum/behavior_circuit/response/vent_gas/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	var/datum/robot_hardware/gas_vent/GV = get_hardware(R, /datum/robot_hardware/gas_vent)
-	if(!GV)
+/datum/behavior_circuit/response/pump_reagent/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/reagent_pump/PU = get_hardware(R, /datum/robot_hardware/reagent_pump)
+	if(!PU || !R.reagents)
 		return
-	// Use the smoke system as a safe visual proxy for gas venting.
-	// True atmospheric injection requires knowing the codebase's gas_mixture API,
-	// which varies. Replace with adjust_moles() calls if atmos procs are available.
-	var/datum/effect_system/smoke_spread/smoke = new()
-	smoke.set_up(GV.vent_radius, get_turf(R))
-	smoke.start()
-	R.visible_message(span_warning("[R] vents [GV.gas_type] gas!"))
+	// Scan adjacent tiles for a reagent container
+	var/obj/item/reagent_containers/target = null
+	for(var/obj/item/reagent_containers/RC in range(1, R))
+		if(RC.reagents)
+			target = RC
+			break
+	if(!target)
+		return
+	var/amount = PU.transfer_rate
+	if(PU.pump_direction == 0)
+		// Pull: container -> robot
+		target.reagents.trans_to(R, min(amount, target.reagents.total_volume))
+		R.visible_message(span_notice("[R] draws reagents from [target]."))
+	else
+		// Push: robot -> container
+		R.reagents.trans_to(target, min(amount, R.reagents.total_volume))
+		R.visible_message(span_notice("[R] fills [target] with reagents."))
 
 
 // ====================================================
@@ -2073,67 +2084,91 @@
 // PIPE INTERFACE CIRCUITS
 // ====================================================
 
-/datum/behavior_circuit/trigger/on_pipe_connected
-	needs_hardware = TRUE
-	circuit_name = "Trigger: On Pipe Connected"
-	hardware_slot_name = HW_SLOT_PIPE_INTERFACE
-	required_hardware_type = /datum/robot_hardware/pipe_interface
-	circuit_desc = "Fires when the robot is standing on a pipe connector. Requires Pipe Interface hardware."
-	tutorial_text = "HARDWARE REQUIRED: Pipe Interface. Fires when the robot is standing on a floor pipe connector. Use this to trigger gas or reagent exchange. Good for maintenance or chemical distribution bots that dock at fixed stations."
+/datum/behavior_circuit/trigger/on_reagent_container_nearby
+	circuit_name = "Trigger: On Reagent Container Nearby"
+	circuit_desc = "Fires when a reagent container is detected within range."
+	tutorial_text = "Fires when the robot detects a reagent container (chem bottle, canteen, medkit, etc.) within sensor range. Good for: medical dispensers that home in on supplies, scavenger bots collecting chems. No hardware required."
 	cpu_cost = 1
 	var/last_check = 0
+	var/check_range = 4
 
-/datum/behavior_circuit/trigger/on_pipe_connected/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+/datum/behavior_circuit/trigger/on_reagent_container_nearby/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
-	last_check = world.time
 	START_PROCESSING(SSobj, src)
 
-/datum/behavior_circuit/trigger/on_pipe_connected/unregister(mob/living/silicon/robot/R)
+/datum/behavior_circuit/trigger/on_reagent_container_nearby/unregister(mob/living/silicon/robot/R)
 	STOP_PROCESSING(SSobj, src)
 	. = ..()
 
-/datum/behavior_circuit/trigger/on_pipe_connected/process()
-	if(world.time < last_check + 10)
+/datum/behavior_circuit/trigger/on_reagent_container_nearby/process()
+	if(world.time < last_check + 20)
 		return
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
-		STOP_PROCESSING(SSobj, src)
 		return
-	var/datum/robot_hardware/pipe_interface/PIPE_HW = get_hardware(R, /datum/robot_hardware/pipe_interface)
-	if(!PIPE_HW)
-		return
-	var/turf/T = get_turf(R)
-	for(var/obj/machinery/atmospherics/components/unary/portables_connector/connector in T)
-		if(connector.connected_device)
+	for(var/obj/item/reagent_containers/RC in range(check_range, R))
+		if(RC.reagents && RC.reagents.total_volume > 0)
 			_trigger(R)
 			return
 
-/datum/behavior_circuit/response/exchange_with_pipe
-	needs_hardware = TRUE
-	circuit_name = "Response: Exchange With Pipe"
-	hardware_slot_name = HW_SLOT_PIPE_INTERFACE
-	required_hardware_type = /datum/robot_hardware/pipe_interface
-	circuit_desc = "Exchanges gas or reagents with a floor pipe connector. Requires Pipe Interface hardware."
-	tutorial_text = "HARDWARE REQUIRED: Pipe Interface. Exchanges gas or reagents with the pipe connector at the robot's current turf. Set exchange_mode to 'gas' or 'reagent' and configure exchange_rate on the hardware datum."
+/datum/behavior_circuit/response/collect_reagents
+	circuit_name = "Response: Collect Reagents"
+	circuit_desc = "Moves to and collects reagents from the nearest container in range."
+	tutorial_text = "The robot finds the nearest reagent container in range and transfers its contents into the robot's reagent tank. Pair with Trigger: On Reagent Container Nearby or On Interval. Requires Reagent Tank hardware."
 	cpu_cost = 2
 
-/datum/behavior_circuit/response/exchange_with_pipe/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	var/datum/robot_hardware/pipe_interface/PIPE_HW = get_hardware(R, /datum/robot_hardware/pipe_interface)
-	if(!PIPE_HW)
+/datum/behavior_circuit/response/collect_reagents/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	if(!R.reagents)
 		return
-	var/turf/T = get_turf(R)
-	for(var/obj/machinery/atmospherics/components/unary/portables_connector/connector in T)
-		if(!connector.connected_device)
+	var/scan_range = A ? A.sensor_range : 4
+	var/obj/item/reagent_containers/target = null
+	var/closest = INFINITY
+	for(var/obj/item/reagent_containers/RC in range(scan_range, R))
+		if(!RC.reagents || RC.reagents.total_volume <= 0)
 			continue
-		// Gas exchange: stub - wire up to your codebase's tank/atmos API
-		if(PIPE_HW.exchange_mode == "reagent" && R.reagents && connector.connected_device && connector.connected_device.reagents)
-			R.reagents.trans_to(connector.connected_device, PIPE_HW.exchange_rate)
-			R.visible_message(span_notice("[R] pumps reagents into the pipe connector."))
-		else
-			R.visible_message(span_notice("[R] docks with the pipe connector."))
+		var/d = get_dist(R, RC)
+		if(d < closest)
+			closest = d
+			target = RC
+	if(!target)
 		return
+	if(get_dist(R, target) > 1)
+		step_towards(R, target)
+		return
+	target.reagents.trans_to(R, target.reagents.total_volume)
+	R.visible_message(span_notice("[R] collects reagents from [target]."))
 
+// -- SPRAY REAGENT ------------------------------------
+
+/datum/behavior_circuit/response/spray_reagent
+	needs_hardware = TRUE
+	circuit_name = "Response: Spray Reagent"
+	hardware_slot_name = HW_SLOT_CHEM_SPRAYER
+	required_hardware_type = /datum/robot_hardware/chem_sprayer
+	circuit_desc = "Sprays reagents from the robot's tank onto a nearby mob."
+	tutorial_text = "HARDWARE REQUIRED: Chem Sprayer. The robot sprays a configured amount of reagent from its tank onto the nearest mob in range. Combine with On Interval for passive dispensing, or On Take Damage for emergency self-treatment. Requires Reagent Tank hardware for supply."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/spray_reagent/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/chem_sprayer/SP = get_hardware(R, /datum/robot_hardware/chem_sprayer)
+	if(!SP || !R.reagents || R.reagents.total_volume <= 0)
+		return
+	var/mob/living/target = null
+	var/closest = INFINITY
+	for(var/mob/living/M in range(SP.spray_range, R))
+		if(M == R || M.stat == DEAD)
+			continue
+		var/d = get_dist(R, M)
+		if(d < closest)
+			closest = d
+			target = M
+	if(!target)
+		return
+	if(!target.reagents)
+		return
+	R.reagents.trans_to(target, min(SP.spray_amount, R.reagents.total_volume))
+	R.visible_message(span_notice("[R] sprays [target] with reagents."))
 
 // ====================================================
 // PRESET ASSEMBLY SUBTYPES

@@ -45,7 +45,7 @@
 #define RHC_WEAPONS      "Weapons"
 #define RHC_MANIPULATION "Manipulation"
 #define RHC_REAGENTS     "Reagents"
-#define RHC_ATMOSPHERICS "Atmospherics"
+// RHC_ATMOSPHERICS removed: no atmos hardware. Reagent pump/sprayer now under RHC_REAGENTS.
 #define RHC_SENSORS      "Sensors"
 #define RHC_OUTPUT       "Output"
 #define RHC_COMMS        "Communications"
@@ -151,22 +151,25 @@
 	fire_range += per_bonus
 
 /datum/robot_hardware/weapon/install(mob/living/silicon/robot/R)
-	. = ..()
-	// Try to use a gun already in the robot's module inventory (from basic_modules).
-	// This lets the hardware "adopt" whatever weapon the robot naturally carries
-	// instead of spawning a duplicate. Falls back to gun_type if none found.
+	// Weapon hardware must adopt an existing gun from the module's basic_modules.
+	// Spawning a generic weapon is not allowed - the module must already carry one.
 	var/obj/item/gun/G = null
 	if(R.module)
-		for(var/obj/item/gun/candidate in R.module.modules)
+		// basic_modules is populated at module Initialize(), before hardware install.
+		// modules is populated later by rebuild_modules(). Check basic_modules first.
+		for(var/obj/item/gun/candidate in R.module.basic_modules)
 			G = candidate
 			break
+		if(!G)
+			for(var/obj/item/gun/candidate in R.module.modules)
+				G = candidate
+				break
 	if(!G)
-		G = new gun_type(R.module)
-		if(R.module)
-			R.module.add_module(G, TRUE, FALSE)
-	if(G)
-		gun_ref = WEAKREF(G)
-		gun_type = G.type  // sync gun_type so fire_at fallback matches
+		log_game("HARDWARE weapon/install: [R] module has no gun in inventory - weapon hardware requires a gun already in the module's loadout. Not installed.")
+		return  // do NOT call ..() - hardware is not installed at all
+	. = ..()
+	gun_ref = WEAKREF(G)
+	gun_type = G.type  // sync gun_type so fire_at knows what we're using
 
 
 /datum/robot_hardware/weapon/get_summary()
@@ -549,77 +552,50 @@
 
 // -- GAS PUMP -----------------------------------------
 
-/datum/robot_hardware/gas_pump
-	hardware_name    = "Gas Pump Module"
-	hardware_desc    = "Moves gas between the robot's internal tank and adjacent gas containers."
-	tutorial_text    = "Enables: Response: Pump Gas. Transfers gas between internal storage and adjacent tanks or canisters. Configure direction (in vs out), flow rate, and target pressure. Used for atmospheric maintenance bots."
-	category         = RHC_ATMOSPHERICS
-	min_int          = RH_INT_STANDARD
-	core_operations  = 1
-	core_energy      = 2
-	mat_cost         = list("iron" = 400, "glass" = 200)
-
-	/// SOURCE_TO_TARGET = 0, TARGET_TO_SOURCE = 1
-	var/pump_direction = 0
-	/// Max flow rate in L/s
-	var/flow_rate      = 100
-	/// Target pressure in kPa
-	var/target_pressure = ONE_ATMOSPHERE
-
-/datum/robot_hardware/gas_pump/New()
-	config_defs = list(
-		"pump_direction"  = list("Direction (0=out 1=in)", "number", 0),
-		"flow_rate"       = list("Flow Rate (L/s)",        "number", 100),
-		"target_pressure" = list("Target Pressure (kPa)",  "number", ONE_ATMOSPHERE)
-	)
-
-
-// -- GAS VENT -----------------------------------------
-
-/datum/robot_hardware/gas_vent
-	hardware_name    = "Gas Vent"
-	hardware_desc    = "Vents internal gas reserves to the environment on command."
-	tutorial_text    = "Enables: Response: Vent Gas. The robot releases gas from its internal reservoir into the surrounding area. Configure vent radius and gas type. Can be used for smoke screens, gas deployment, or atmospheric equalization."
-	category         = RHC_ATMOSPHERICS
+/datum/robot_hardware/reagent_pump
+	hardware_name    = "Reagent Pump"
+	hardware_desc    = "Transfers reagents between the robot's internal tank and an adjacent container."
+	tutorial_text    = "Enables: Response: Collect Reagents. The robot transfers reagents to or from adjacent reagent containers. Configure direction (0=pull in, 1=push out) and transfer rate. Used for medical supply bots and chem dispensers."
+	category         = RHC_REAGENTS
 	min_int          = RH_INT_STANDARD
 	core_operations  = 1
 	core_energy      = 1
 	mat_cost         = list("iron" = 300, "glass" = 150)
 
-	var/vent_radius    = 3
-	var/gas_type       = "o2"
-	var/vent_amount    = 10  // moles released per activation
+	/// 0 = pull from container into robot, 1 = push from robot into container
+	var/pump_direction = 0
+	/// Units to transfer per activation
+	var/transfer_rate  = 50
 
-/datum/robot_hardware/gas_vent/New()
+/datum/robot_hardware/reagent_pump/New()
 	config_defs = list(
-		"vent_radius"  = list("Vent Radius",   "number", 3),
-		"gas_type"     = list("Gas Type",      "list",   "o2"),
-		"vent_amount"  = list("Moles Released","number", 10)
+		"pump_direction" = list("Direction (0=pull 1=push)", "number", 0),
+		"transfer_rate"  = list("Transfer Rate (u)",        "number", 50)
 	)
 
 
-// -- PIPE INTERFACE -----------------------------------
+// -- CHEM SPRAYER -------------------------------------
 
-/datum/robot_hardware/pipe_interface
-	hardware_name    = "Pipe Interface"
-	hardware_desc    = "When the robot stands on a pipe connector, it can exchange gas or reagents with the pipe network."
-	tutorial_text    = "Enables: Trigger: On Pipe Connected, Response: Exchange With Pipe. Allows docking with floor-mounted pipe connectors for gas or liquid exchange. Used for maintenance bots and chemical distribution builds."
-	category         = RHC_ATMOSPHERICS
+/datum/robot_hardware/chem_sprayer
+	hardware_name    = "Chem Sprayer"
+	hardware_desc    = "Sprays a reagent from the robot's internal tank onto a nearby mob."
+	tutorial_text    = "Enables: Response: Spray Reagent. The robot sprays a configured reagent from its tank onto a nearby target. Set spray_range and spray_amount. Good for: RadAway dispensers, stimpak sprayers, or chemical deterrents."
+	category         = RHC_REAGENTS
 	min_int          = RH_INT_STANDARD
 	core_operations  = 1
 	core_energy      = 1
-	mat_cost         = list("iron" = 350, "glass" = 200)
+	mat_cost         = list("iron" = 250, "glass" = 200)
 
-	/// "gas" or "reagent"
-	var/exchange_mode   = "gas"
-	var/exchange_rate   = 50  // L/s for gas, u/s for reagents
+	/// Range in tiles to find a spray target
+	var/spray_range  = 2
+	/// Amount of reagent to transfer per spray (units)
+	var/spray_amount = 10
 
-/datum/robot_hardware/pipe_interface/New()
+/datum/robot_hardware/chem_sprayer/New()
 	config_defs = list(
-		"exchange_mode" = list("Exchange Mode (gas/reagent)", "list", "gas"),
-		"exchange_rate" = list("Exchange Rate",               "number", 50)
+		"spray_range"  = list("Spray Range (tiles)", "number", 2),
+		"spray_amount" = list("Spray Amount (u)",    "number", 10)
 	)
-
 
 // ====================================================
 // SENSORS
