@@ -369,6 +369,25 @@
 		"wound" = 0, \
 		"damage_threshold" = 11)
 
+/* Robot Heavy Milbot (Boss-tier)
+ * High DR across the board
+ * Still weak to lasers (sensors and shit)
+ * Very resistant to bullets (thick armor plating)
+ * Very high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ROBOT_MILITARY_HEAVY list(\
+		"melee" = 25, \
+		"bullet" = 45, \
+		"laser" = -15, \
+		"energy" = -15, \
+		"bomb" = 10, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 20, \
+		"acid" = 20, \
+		"wound" = 0, \
+		"damage_threshold" = 15)
+
 /* Deathclaw Commonboy
  * Just about impervious to bullets
  * Melee is... okay ish
@@ -663,6 +682,452 @@
 		"acid" = 0, \
 		"wound" = 5, \
 		"damage_threshold" = 3)
+
+/* Mirelurk armor
+ * Hard shell - resistant to bullets and melee
+ * Weak to energy weapons
+ * Water creature - good vs bio/rad
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK list(\
+		"melee" = 35, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 15, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 5, \
+		"acid" = 50, \
+		"wound" = 10, \
+		"damage_threshold" = 8)
+
+/* Mirelurk Hunter armor
+ * Tougher shell - even better defense
+ * Higher DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_HUNTER list(\
+		"melee" = 45, \
+		"bullet" = 50, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 20, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 60, \
+		"wound" = 15, \
+		"damage_threshold" = 12)
+
+/* Mirelurk Baby armor
+ * Soft shell - much weaker
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_BABY list(\
+		"melee" = 15, \
+		"bullet" = 20, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 25, \
+		"wound" = 5, \
+		"damage_threshold" = 3)
+
+/* Mirelurk Queen armor
+ * Massive armored carapace
+ * Very high DT
+ * Boss-tier
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_QUEEN list(\
+		"melee" = 60, \
+		"bullet" = 65, \
+		"laser" = 25, \
+		"energy" = 25, \
+		"bomb" = 35, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 20, \
+		"acid" = 80, \
+		"wound" = 25, \
+		"damage_threshold" = 18)
+
+/* Mirelurk Softshell armor
+ * Weak variant - hasn't hardened yet
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_SOFT list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 30, \
+		"wound" = 5, \
+		"damage_threshold" = 4)
+
+/* Mirelurk King armor
+ * Humanoid variant - different armor profile
+ * More balanced, less bullet resistance
+ * High DT, boss-tier
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_KING list(\
+		"melee" = 50, \
+		"bullet" = 45, \
+		"laser" = 35, \
+		"energy" = 35, \
+		"bomb" = 30, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 25, \
+		"acid" = 70, \
+		"wound" = 20, \
+		"damage_threshold" = 15)
+
+/* Ant Queen armor
+ * Boss variant - heavily armored matriarch
+ * Very high melee/bullet resistance
+ * High DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ANTS_QUEEN list(\
+		"melee" = 45, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 5, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 5, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 8)
+
+/* Radscorpion armor
+ * Armored carapace - good all-around protection
+ * Strong melee/bullet resistance
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RADSCORPION list(\
+		"melee" = 35, \
+		"bullet" = 30, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 10, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 10, \
+		"acid" = 25, \
+		"wound" = 5, \
+		"damage_threshold" = 7)
+
+/* Black Radscorpion armor
+ * Tougher variant - thicker black exoskeleton
+ * Higher armor across the board
+ * Higher DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RADSCORPION_BLACK list(\
+		"melee" = 45, \
+		"bullet" = 40, \
+		"laser" = 20, \
+		"energy" = 20, \
+		"bomb" = 15, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 15, \
+		"acid" = 35, \
+		"wound" = 10, \
+		"damage_threshold" = 10)
+
+/* Cazador armor
+ * Flying insect - weak armor, relies on speed
+ * Low protection overall
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CAZADOR list(\
+		"melee" = 10, \
+		"bullet" = 5, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Tunneler armor
+ * Deadly swarm creature with tough hide
+ * Moderate melee/bullet resistance
+ * Medium DT, relies on pack tactics
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_TUNNELER list(\
+		"melee" = 30, \
+		"bullet" = 25, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 10, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 5, \
+		"acid" = 20, \
+		"wound" = 10, \
+		"damage_threshold" = 6)
+
+/* Centaur armor
+ * FEV mutant, ranged spitter
+ * Light armor coverage
+ * Low DT, relies on poison attacks
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CENTAUR list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 30, \
+		"wound" = 5, \
+		"damage_threshold" = 3)
+
+/* Abomination armor
+ * Massive FEV horror
+ * Extremely heavy armor
+ * Very high DT, nearly unstoppable
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ABOMINATION list(\
+		"melee" = 60, \
+		"bullet" = 55, \
+		"laser" = 40, \
+		"energy" = 40, \
+		"bomb" = 30, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 20, \
+		"acid" = 50, \
+		"wound" = 30, \
+		"damage_threshold" = 15)
+
+/* Horror armor
+ * Failed FEV experiment
+ * Heavy armor coverage
+ * High DT, dangerous melee combatant
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_HORROR list(\
+		"melee" = 50, \
+		"bullet" = 45, \
+		"laser" = 30, \
+		"energy" = 30, \
+		"bomb" = 20, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 15, \
+		"acid" = 40, \
+		"wound" = 20, \
+		"damage_threshold" = 12)
+
+/* * * * * * * * * * * * * * *
+ * FACTION NPC ARMOR VALUES *
+ * * * * * * * * * * * * * * */
+
+/* Tribal armor
+ * Very basic protection
+ * Cloth and leather scraps
+ * Minimal resistance
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_TRIBAL list(\
+		"melee" = 15, \
+		"bullet" = 10, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 5, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 1)
+
+/* Legion recruit armor
+ * Sports equipment and leather
+ * Better melee protection than bullet
+ * Weak to energy weapons
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_LEGION list(\
+		"melee" = 25, \
+		"bullet" = 20, \
+		"laser" = -5, \
+		"energy" = -10, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 10, \
+		"damage_threshold" = 2)
+
+/* Legion veteran armor
+ * Reinforced sports armor with metal pieces
+ * Good melee protection
+ * Decent bullet resistance
+ * Still weak to energy weapons
+ * Decent DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_LEGION_VETERAN list(\
+		"melee" = 40, \
+		"bullet" = 30, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 5, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 10, \
+		"acid" = 0, \
+		"wound" = 15, \
+		"damage_threshold" = 5)
+
+/* NCR trooper armor
+ * Standard combat armor
+ * Balanced protection
+ * Decent against most threats
+ * Decent DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_NCR list(\
+		"melee" = 30, \
+		"bullet" = 35, \
+		"laser" = 25, \
+		"energy" = 10, \
+		"bomb" = 10, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 10, \
+		"acid" = 10, \
+		"wound" = 15, \
+		"damage_threshold" = 4)
+
+/* NCR Ranger armor
+ * Elite riot gear
+ * Heavy protection across the board
+ * Well-rounded defense
+ * High DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_NCR_RANGER list(\
+		"melee" = 50, \
+		"bullet" = 55, \
+		"laser" = 45, \
+		"energy" = 20, \
+		"bomb" = 25, \
+		"bio" = 20, \
+		"rad" = 20, \
+		"fire" = 35, \
+		"acid" = 30, \
+		"wound" = 25, \
+		"damage_threshold" = 8)
+
+/* Brotherhood of Steel armor
+ * T-45d or T-51b Power Armor
+ * Strong protection
+ * Good energy resistance
+ * High DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_BOS list(\
+		"melee" = 70, \
+		"bullet" = 75, \
+		"laser" = 70, \
+		"energy" = 30, \
+		"bomb" = 50, \
+		"bio" = 80, \
+		"rad" = 40, \
+		"fire" = 70, \
+		"acid" = 70, \
+		"wound" = 40, \
+		"damage_threshold" = 10)
+
+/* Brotherhood Paladin armor
+ * Superior Power Armor (T-51b or T-60)
+ * Enhanced protection
+ * Better energy resistance
+ * Very high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_BOS_PALADIN list(\
+		"melee" = 85, \
+		"bullet" = 90, \
+		"laser" = 85, \
+		"energy" = 40, \
+		"bomb" = 70, \
+		"bio" = 90, \
+		"rad" = 50, \
+		"fire" = 85, \
+		"acid" = 85, \
+		"wound" = 45, \
+		"damage_threshold" = 12)
+
+/* Enclave soldier armor
+ * Advanced Combat Armor or X-01 Power Armor
+ * Excellent protection
+ * Superior energy resistance
+ * Very high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ENCLAVE list(\
+		"melee" = 80, \
+		"bullet" = 85, \
+		"laser" = 80, \
+		"energy" = 35, \
+		"bomb" = 65, \
+		"bio" = 85, \
+		"rad" = 45, \
+		"fire" = 80, \
+		"acid" = 80, \
+		"wound" = 40, \
+		"damage_threshold" = 11)
+
+/* Enclave Advanced Power Armor
+ * Top-tier X-02 Advanced Power Armor
+ * Near-impenetrable protection
+ * Best energy resistance
+ * Extremely high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ENCLAVE_APA list(\
+		"melee" = 95, \
+		"bullet" = 100, \
+		"laser" = 95, \
+		"energy" = 45, \
+		"bomb" = 80, \
+		"bio" = 100, \
+		"rad" = 55, \
+		"fire" = 95, \
+		"acid" = 95, \
+		"wound" = 50, \
+		"damage_threshold" = 14)
+
+/* Chinese Remnant Soldier
+ * Ghoulified Chinese soldiers with military equipment
+ * Decent bullet resistance from worn armor
+ * Laser/energy resistance from ghoul biology
+ * Weak to melee due to degraded condition
+ * Low DT from aged equipment
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CHINESE_REMNANT list(\
+		"melee" = -25, \
+		"bullet" = 30, \
+		"laser" = 20, \
+		"energy" = 25, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
 
 /* Armor Subclass multipliers
  * Modifies base armor slots by these values

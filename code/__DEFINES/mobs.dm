@@ -11,6 +11,15 @@
 #define MOVE_INTENT_WALK "walk"
 #define MOVE_INTENT_RUN  "run"
 
+// Vision cone definitions (cone-based directional vision system)
+#define CONE_FRONT 1        // 90° front cone - best vision
+#define CONE_PERIPHERAL 2   // 45° side cones - reduced vision
+#define CONE_REAR 3         // Behind mob - no vision, sound only
+
+// Sound cone definitions (rear sound detection)
+#define SOUND_REAR_CENTER 1    // 90° rear cone - normal sound detection
+#define SOUND_REAR_PERIPHERAL 2 // 45° rear side cones - reduced sound detection
+
 /// Normal baseline blood volume
 #define BLOOD_VOLUME_NORMAL 1000
 /// The amount blood typically regenerates to on its own
@@ -176,6 +185,7 @@
 #define MOB_SIZE_SMALL 1
 #define MOB_SIZE_HUMAN 2
 #define MOB_SIZE_LARGE 3
+#define MOB_SIZE_HUGE 5
 
 //Ventcrawling defines
 #define VENTCRAWLER_NONE   0
