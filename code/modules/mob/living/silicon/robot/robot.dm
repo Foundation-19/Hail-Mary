@@ -504,16 +504,12 @@
 		to_chat(user, "The wires seem fine, there's no need to fix them.")
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
-	// Multitool on open robot: admins get config panel; others get assembly linking
-	if(istype(W, /obj/item/multitool) && opened)
-		if(check_rights_for(user.client, R_ADMIN))
+	// Multitool: admin with open panel → config panel.
+	// Everyone else → handled by multitool/afterattack in robot_hardware_hooks.dm.
+	// Always return so we never fall through to the vanilla is_wire_tool branch.
+	if(istype(W, /obj/item/multitool))
+		if(opened && check_rights_for(user.client, R_ADMIN))
 			open_config_panel(user)
-			return
-		var/datum/cert_upgrade/robot/behavior_assembly/BA = _get_behavior_upgrade()
-		if(BA?.assembly)
-			BA.assembly.multitool_act(user)
-		else
-			to_chat(user, span_warning("No behavior assembly installed."))
 		return
 
 	if(istype(W, /obj/item/weldingtool) && (user.a_intent != INTENT_HARM || user == src))

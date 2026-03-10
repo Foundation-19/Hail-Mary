@@ -254,8 +254,15 @@
 			to_chat(user, span_warning("Multitool: could not locate the owner of this ID card."))
 		return
 
-	// Using multitool on a robot: link the stored target to its Follow circuit
+	// Using multitool on a robot:
+	// If the buffer holds a terminal, this is a terminal-link operation — hand off
+	// to attackby_terminal_link() and don't touch scanned_mob_ref at all.
 	if(istype(target, /mob/living/silicon/robot))
+		var/mob/living/silicon/robot/TR = target
+		if(istype(buffer, /obj/machinery/computer/terminal))
+			TR.attackby_terminal_link(src, user)
+			return
+		// Otherwise: follow-target linking — need a scanned mob ref
 		if(!scanned_mob_ref)
 			to_chat(user, span_warning("Multitool: no follow target scanned. Use the multitool on an ID card first."))
 			return
@@ -278,6 +285,33 @@
 		if(!linked)
 			to_chat(user, span_warning("Multitool: this robot has no Follow Linked Target circuit installed."))
 		return
+
+
+// ====================================================
+// PLAYER-CONTROLLED WEAPON FIRE TRACKING
+//
+// When a player (or ghost) controls the robot and fires
+// a gun item, the weapon hardware's last_fire_time never
+// gets stamped because fire_at() is only called by the
+// autonomous fire_weapon circuit response.
+//
+// Override /obj/item/gun/afterattack: if the user is a robot,
+// stamp last_fire_time on its weapon hardware and call
+// hardware_on_combat_sound() so both On Weapon Fired and
+// On Combat Sound Nearby triggers fire correctly.
+// ====================================================
+
+/obj/item/gun/afterattack(atom/target, mob/user, proximity, params)
+	. = ..(target, user, proximity, params)
+	if(!istype(user, /mob/living/silicon/robot))
+		return
+	var/mob/living/silicon/robot/R = user
+	if(!R.installed_hardware)
+		return
+	for(var/datum/robot_hardware/weapon/WH in R.installed_hardware)
+		WH.last_fire_time = world.time
+		break
+	R.hardware_on_combat_sound()
 
 
 // ====================================================
