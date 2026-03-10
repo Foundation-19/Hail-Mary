@@ -3,24 +3,19 @@
 	cut_overlays()
 	icon_state = module.cyborg_base_icon
 
-	// Set icon file based on module type.
-	// F13 robots use wasterobots.dmi; vanilla TG modules use robots.dmi.
-	var/static/list/f13_module_icons = list("handy","protectron","securitron","sentrybot","liberator","gutsy","assaultron","assaultron_sase")
-	if(module.cyborg_base_icon in f13_module_icons)
-		icon = 'icons/fallout/mobs/robots/wasterobots.dmi'
-	else
-		icon = 'icons/mob/robots.dmi'
+	// Icon file is declared per-module as cyborg_icon_file (defaults to robots.dmi).
+	icon = module.cyborg_icon_file
 	if(stat != DEAD && !(IsUnconscious() ||IsStun() || IsKnockdown() || IsParalyzed() || low_power_mode)) //Not dead, not stunned.
 		if(!eye_lights)
 			eye_lights = new()
-		if(lamp_intensity > 2)
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_l"
-		else
-			eye_lights.icon_state = "[module.special_light_key ? "[module.special_light_key]":"[module.cyborg_base_icon]"]_e"
-		eye_lights.icon = icon
-		add_overlay(eye_lights)
+		// cyborg_eye_state is set per-module. F13 dmi files use "eyes-[name]"; vanilla uses "[name]_e".
+		var/eye_key = module.special_light_key ? module.special_light_key : module.cyborg_eye_state
+		if(module.cyborg_eye_state)
+			eye_lights.icon_state = eye_key
+			eye_lights.icon = module.cyborg_icon_file
+			add_overlay(eye_lights)
 
-	if(opened)
+	if(opened && module.has_cover_overlay)
 		if(wiresexposed)
 			add_overlay("ov-opencover +w")
 		else if(cell)

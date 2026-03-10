@@ -18,6 +18,13 @@
 	var/list/storages = list()
 
 	var/cyborg_base_icon = "robot" //produces the icon for the borg and, if no special_light_key is set, the lights
+	/// DMI file used by update_icons() for this module type. Set per-module subtype.
+	var/cyborg_icon_file = 'icons/mob/robots.dmi'
+	/// Icon state to use for eye-light overlay. Null = no eye overlay.
+	/// F13 modules set this to the "eyes-name" state; vanilla modules use "name_e".
+	var/cyborg_eye_state = null
+	/// Whether this module has ov-opencover states in its dmi. FALSE for F13 modules.
+	var/has_cover_overlay = TRUE
 	var/special_light_key //if we want specific lights, use this instead of copying lights in the dmi
 
 	var/moduleselect_icon = "nomod"
@@ -237,9 +244,6 @@
 	R.setDir(SOUTH)
 	R.anchored = FALSE
 	R.mob_transforming = FALSE
-	// Apply the final icon now that the animation is done.
-	// Without this call the robot keeps whatever icon_state it had before the transform.
-	R.update_icons()
 	R.update_headlamp()
 	R.notify_ai(NEW_MODULE)
 	if(R.hud_used)
@@ -469,6 +473,9 @@
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	borghealth = 300
 	cyborg_base_icon = "gutsy"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	cyborg_eye_state = "eyes-gutsy"
+	has_cover_overlay = FALSE
 	moduleselect_icon = "standard"
 	hat_offset = -2
 
@@ -489,6 +496,9 @@
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
 	borghealth = 450
 	cyborg_base_icon = "assaultron"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	cyborg_eye_state = "eyes-assaultron"
+	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 3
 
@@ -531,6 +541,9 @@
 		/obj/item/melee/unarmed/punchdagger/cyborg)
 	emag_modules = list(/obj/item/reagent_containers/borghypo/hacked)
 	cyborg_base_icon = "assaultron_sase"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	cyborg_eye_state = "eyes-assaultron"
+	has_cover_overlay = FALSE
 
 
 // ---- MR. HANDY ---- (F13-native)
@@ -539,6 +552,9 @@
 	name = "Mr. Handy"
 	borghealth = 200
 	cyborg_base_icon = "handy"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	cyborg_eye_state = "eyes-handy"
+	has_cover_overlay = FALSE
 	moduleselect_icon = "standard"
 	hat_offset = -2
 	basic_modules = list(
@@ -569,6 +585,9 @@
 	name = "Protectron"
 	borghealth = 250
 	cyborg_base_icon = "protectron"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/protectrons.dmi'
+	cyborg_eye_state = "eyes-protectron"
+	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 0
 	basic_modules = list(
@@ -599,6 +618,9 @@
 	name = "Securitron"
 	borghealth = 500
 	cyborg_base_icon = "securitron"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	cyborg_eye_state = null  // no eye state in wasterobots.dmi
+	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 0
 	basic_modules = list(
@@ -627,6 +649,9 @@
 	name = "Sentry Bot"
 	borghealth = 600
 	cyborg_base_icon = "sentrybot"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	cyborg_eye_state = null  // no eye state in wasterobots.dmi
+	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 0
 	basic_modules = list(
@@ -655,6 +680,9 @@
 	name = "Liberator"
 	borghealth = 150
 	cyborg_base_icon = "liberator"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/weirdrobots.dmi'
+	cyborg_eye_state = null  // no eye state in weirdrobots.dmi
+	has_cover_overlay = FALSE
 	moduleselect_icon = "standard"
 	hat_offset = 0
 	basic_modules = list(

@@ -2338,6 +2338,7 @@
 #include "code\modules\integrated_electronics\cert_card.dm"
 #include "code\modules\integrated_electronics\circuit_node.dm"
 #include "code\modules\integrated_electronics\hacking_device.dm"
+#include "code\modules\integrated_electronics\robot_config_panel.dm"
 #include "code\modules\integrated_electronics\robot_hardware.dm"
 #include "code\modules\integrated_electronics\robot_hardware_defaults.dm"
 #include "code\modules\integrated_electronics\robot_hardware_hooks.dm"

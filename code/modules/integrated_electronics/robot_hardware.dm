@@ -46,6 +46,7 @@
 #define RHC_MANIPULATION "Manipulation"
 #define RHC_REAGENTS     "Reagents"
 // RHC_ATMOSPHERICS removed: no atmos hardware. Reagent pump/sprayer now under RHC_REAGENTS.
+
 #define RHC_SENSORS      "Sensors"
 #define RHC_OUTPUT       "Output"
 #define RHC_COMMS        "Communications"
@@ -137,12 +138,22 @@
 	var/fire_range = 7
 	/// Weakref to the actual gun item being used (set at install time)
 	var/datum/weakref/gun_ref = null
+	/// Combat positioning mode: ROBOT_COMBAT_MELEE / ROBOT_COMBAT_RANGED / ROBOT_COMBAT_MIXED.
+	/// Used by the Maintain Combat Range response circuit.
+	var/combat_mode = ROBOT_COMBAT_MELEE
+	/// Preferred engagement range in tiles (RANGED and MIXED modes).
+	var/retreat_distance = 5
+	/// Minimum distance before a MIXED-mode robot switches from ranged to melee.
+	var/minimum_distance = 2
 
 /datum/robot_hardware/weapon/New()
 	config_defs = list(
-		"gun_type"    = list("Weapon Type",  "list",   /obj/item/gun/energy/laser),
-		"lethal_mode" = list("Lethal Mode",  "bool",   TRUE),
-		"fire_range"  = list("Fire Range",   "number", 7)
+		"gun_type"         = list("Weapon Type",     "list",   /obj/item/gun/energy/laser),
+		"lethal_mode"      = list("Lethal Mode",      "bool",   TRUE),
+		"fire_range"       = list("Fire Range",       "number", 7),
+		"combat_mode"      = list("Combat Mode",      "number", ROBOT_COMBAT_MELEE),
+		"retreat_distance" = list("Retreat Distance", "number", 5),
+		"minimum_distance" = list("Minimum Distance", "number", 2)
 	)
 
 /datum/robot_hardware/weapon/apply_special(list/S)
@@ -782,14 +793,14 @@
 	var/scan_radius      = 7
 	/// TRUE = broadcast scan results over radio
 	var/broadcast_results = FALSE
-	/// Specific species/type to flag - empty = flag any non-human
-	var/target_species   = ""
+	/// Species typepath to detect (null = any non-baseline). E.g. /datum/species/ghoul
+	var/target_species = null
 
 /datum/robot_hardware/bio_scanner/New()
 	config_defs = list(
 		"scan_radius"       = list("Scan Radius",         "number", 7),
 		"broadcast_results" = list("Broadcast Results",   "bool",   FALSE),
-		"target_species"    = list("Target Species (blank=any)", "text", "")
+		"target_species"    = list("Target Species typepath (null=any)", "text", "")
 	)
 
 /datum/robot_hardware/bio_scanner/apply_special(list/S)

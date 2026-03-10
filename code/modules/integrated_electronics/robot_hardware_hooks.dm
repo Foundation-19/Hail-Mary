@@ -65,6 +65,9 @@
 	var/last_heard_message = ""
 	/// world.time when last_heard_message was written.
 	var/last_heard_time = 0
+	/// world.time when a combat sound (gunshot, explosion, weapon impact) was last detected.
+	/// Set by on_combat_sound(). Read by On Combat Sound Nearby trigger.
+	var/last_combat_time = 0
 
 /// Called by hardware_on_hear() when speech is detected nearby.
 /// Filters by trigger_phrase if set.
@@ -75,6 +78,11 @@
 		return
 	last_heard_message = msg
 	last_heard_time = world.time
+
+/// Called by the robot's bullet_act hook when a projectile impacts.
+/// Records the time so On Combat Sound Nearby can fire.
+/datum/robot_hardware/microphone/proc/on_combat_sound()
+	last_combat_time = world.time
 
 
 // ====================================================
@@ -191,6 +199,14 @@
 		return
 	for(var/datum/robot_hardware/signaler/SIG in installed_hardware)
 		SIG.on_receive_signal(sig)
+
+/// Notify microphone hardware that a combat sound occurred nearby.
+/// Call from /mob/living/silicon/robot/bullet_act() when a projectile hits.
+/mob/living/silicon/robot/proc/hardware_on_combat_sound()
+	if(!installed_hardware)
+		return
+	for(var/datum/robot_hardware/microphone/MIC in installed_hardware)
+		MIC.on_combat_sound()
 
 
 // ====================================================

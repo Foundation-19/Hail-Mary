@@ -33,6 +33,10 @@
 #define HW_SLOT_NAV_COMPUTER     "/datum/robot_hardware/nav_computer"
 #define HW_SLOT_VOCABULARY       "/datum/robot_hardware/vocabulary_module"
 
+#define ROBOT_COMBAT_MELEE  1   // Always close in
+#define ROBOT_COMBAT_RANGED 2   // Stay at retreat_distance, back off if closer
+#define ROBOT_COMBAT_MIXED  3   // Prefer range, switch to melee if rushed
+
 #define HW_SLOT_CLOCK            "/datum/robot_hardware/clock"
 #define HW_SLOT_MEMORY           "/datum/robot_hardware/memory_core"
 
@@ -305,24 +309,24 @@
 /datum/behavior_circuit/trigger/on_death/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
 	already_fired = FALSE  // reset so reinsertion into a live robot doesn't immediately fire
-	START_PROCESSING(SSobj, src)
+	START_PROCESSING(SSfastprocess, src)  // fast poll so death response fires within ~0.5s
 
 /datum/behavior_circuit/trigger/on_death/unregister(mob/living/silicon/robot/R)
-	STOP_PROCESSING(SSobj, src)
+	STOP_PROCESSING(SSfastprocess, src)
 	. = ..()
 
 /datum/behavior_circuit/trigger/on_death/process()
 	if(already_fired)
-		STOP_PROCESSING(SSobj, src)
+		STOP_PROCESSING(SSfastprocess, src)
 		return
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R)
-		STOP_PROCESSING(SSobj, src)
+		STOP_PROCESSING(SSfastprocess, src)
 		return
 	if(R.stat == DEAD)
 		already_fired = TRUE
-		_trigger(R)
-		STOP_PROCESSING(SSobj, src)
+		STOP_PROCESSING(SSfastprocess, src)
+		_trigger(R)  // fire after stop so process() can't be re-entered
 
 
 // -- ON INTERVAL -------------------------------------
@@ -396,6 +400,9 @@
 
 /datum/behavior_circuit/trigger/on_power_restored/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
+	// If robot is already low-power when installed, mark was_low so any recharge fires the trigger
+	if(R.cell && (R.cell.charge / R.cell.maxcharge) < 0.3)
+		was_low = TRUE
 	START_PROCESSING(SSobj, src)
 
 /datum/behavior_circuit/trigger/on_power_restored/unregister(mob/living/silicon/robot/R)
@@ -489,7 +496,7 @@
 	for(var/mob/living/carbon/human/H in range(scan_range, R))
 		if(H.stat == DEAD)
 			continue
-		if(H.thirst < THIRST_LEVEL_THIRSTY)
+		if(H.thirst <= THIRST_LEVEL_THIRSTY)
 			_trigger(R)
 			return
 
@@ -687,10 +694,10 @@
 
 /datum/behavior_circuit/trigger/on_weapon_fired
 	needs_hardware = TRUE
-	circuit_name = "Trigger: On Weapon Fired"
+	circuit_name = "Trigger: On Robot Fires Weapon"
 	hardware_slot_name = HW_SLOT_WEAPON
 	required_hardware_type = /datum/robot_hardware/weapon
-	circuit_desc = "Fires each time the robot's weapon fires."
+	circuit_desc = "Fires each time THIS robot fires its own weapon. Not triggered when the robot is shot at."
 	tutorial_text = "HARDWARE REQUIRED: Weapon hardware datum. Fires each time the robot's weapon discharges. Good for: sound effects on fire, logging shots, or chaining a secondary action after each attack."
 	cpu_cost = 1
 	var/last_shot = 0
@@ -712,6 +719,36 @@
 		return
 	if(WH.last_fire_time && WH.last_fire_time != last_shot)
 		last_shot = WH.last_fire_time
+		_trigger(R)
+
+
+// -- ON HIT -----------------------------------------
+// Fires when the robot is struck by a projectile.
+// Hooks into the existing bullet_act() tracking.
+
+/datum/behavior_circuit/trigger/on_hit
+	circuit_name = "Trigger: On Hit"
+	circuit_desc = "Fires when the robot is struck by a projectile or attack."
+	tutorial_text = "Fires when this robot takes a projectile hit. Good for: last-resort detonation, retaliation triggers, distress signals on first damage. No hardware required."
+	cpu_cost = 1
+	var/last_hit_time = 0
+
+/datum/behavior_circuit/trigger/on_hit/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	last_hit_time = R.last_damage_time
+	START_PROCESSING(SSfastprocess, src)
+
+/datum/behavior_circuit/trigger/on_hit/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSfastprocess, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_hit/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R)
+		STOP_PROCESSING(SSfastprocess, src)
+		return
+	if(R.last_damage_time > last_hit_time)
+		last_hit_time = R.last_damage_time
 		_trigger(R)
 
 
@@ -881,6 +918,129 @@
 			return
 
 
+
+
+// -- ON LOW HEALTH -----------------------------------
+
+/datum/behavior_circuit/trigger/on_low_health
+	circuit_name = "Trigger: On Low Health"
+	circuit_desc = "Fires once when the robot's health drops below a threshold."
+	tutorial_text = "Fires once when the robot crosses below the health threshold, then resets when health recovers above it (with 10% hysteresis). Configure 'health_threshold' (0.0-1.0, default 0.25 = 25% max health). Good for: retreat-when-hurt, distress calls, emergency self-repair. Pairs well with Flee From Threat or Broadcast Distress."
+	cpu_cost = 1
+	var/health_threshold = 0.25
+	var/already_triggered = FALSE
+
+/datum/behavior_circuit/trigger/on_low_health/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	already_triggered = (R.health <= R.maxHealth * health_threshold)
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_low_health/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_low_health/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/ratio = R.health / max(R.maxHealth, 1)
+	if(ratio <= health_threshold && !already_triggered)
+		already_triggered = TRUE
+		_trigger(R)
+	else if(ratio > health_threshold + 0.1)
+		already_triggered = FALSE
+
+
+// -- ON ALLY UNDER ATTACK ----------------------------
+
+/datum/behavior_circuit/trigger/on_ally_under_attack
+	circuit_name = "Trigger: On Ally Under Attack"
+	circuit_desc = "Fires when a nearby friendly mob takes damage."
+	tutorial_text = "Scans for faction-matched mobs in range whose health dropped since last check. Configure 'scan_range' (default 9) and 'damage_threshold' (default 5). Fires when an ally loses that much HP in a single scan window. Good for: group defense, sentries that rally when allies are shot, backup calls. Pairs well with Enter Combat Mode, Broadcast Alert, or Pathfind To Enemy."
+	cpu_cost = 2
+	var/scan_range = 9
+	var/damage_threshold = 5
+	var/last_check = 0
+	var/check_cooldown = 15
+	var/last_fire = 0
+	var/fire_cooldown = 40
+	var/list/ally_health_snapshot = null
+
+/datum/behavior_circuit/trigger/on_ally_under_attack/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	ally_health_snapshot = list()
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_ally_under_attack/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	ally_health_snapshot = null
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_ally_under_attack/process()
+	if(world.time < last_check + check_cooldown)
+		return
+	last_check = world.time
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	if(world.time < last_fire + fire_cooldown)
+		return
+	var/list/new_snapshot = list()
+	for(var/mob/living/M in range(scan_range, R))
+		if(M == R || M.stat == DEAD)
+			continue
+		if(!_is_faction_friend(R, M))
+			continue
+		var/mref = REF(M)
+		new_snapshot[mref] = M.health
+		if(ally_health_snapshot && (mref in ally_health_snapshot))
+			var/old_hp = ally_health_snapshot[mref]
+			if(old_hp - M.health >= damage_threshold)
+				ally_health_snapshot = new_snapshot
+				last_fire = world.time
+				_trigger(R)
+				return
+	ally_health_snapshot = new_snapshot
+
+
+// -- ON COMBAT SOUND NEARBY --------------------------
+
+/datum/behavior_circuit/trigger/on_combat_sound_nearby
+	needs_hardware = TRUE
+	circuit_name = "Trigger: On Combat Sound Nearby"
+	hardware_slot_name = HW_SLOT_MICROPHONE
+	required_hardware_type = /datum/robot_hardware/microphone
+	circuit_desc = "Fires when the robot's microphone picks up nearby gunfire or combat sounds."
+	tutorial_text = "HARDWARE REQUIRED: Microphone. Fires when the mic picks up a combat sound — gunshots, projectile impacts — within hearing range. Unlike On Speech Heard which only fires on speech, this fires when bullet_act sets last_combat_time on the mic hardware. Good for: alert sentries that activate when shooting starts, guards that investigate combat sounds."
+	cpu_cost = 2
+	var/hear_cooldown = 30
+	var/last_combat_time = 0
+
+/datum/behavior_circuit/trigger/on_combat_sound_nearby/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	var/datum/robot_hardware/microphone/MIC = get_hardware(R, /datum/robot_hardware/microphone)
+	if(MIC)
+		last_combat_time = MIC.last_combat_time
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_combat_sound_nearby/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_combat_sound_nearby/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/datum/robot_hardware/microphone/MIC = get_hardware(R, /datum/robot_hardware/microphone)
+	if(!MIC)
+		return
+	if(MIC.last_combat_time > last_combat_time)
+		last_combat_time = MIC.last_combat_time
+		_trigger(R)
+
 // ====================================================
 // RESPONSE CIRCUITS
 // ====================================================
@@ -918,8 +1078,15 @@
 /datum/behavior_circuit/response/broadcast_distress/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/area/here = get_area(R)
 	var/loc = here ? here.name : "unknown location"
-	var/msg = "[R.name] is under attack at [loc]! Requesting immediate assistance!"
-	R.say(";[msg]")
+	var/msg = "[R.name]: DISTRESS — unit down at [loc]! Requesting assistance!"
+	// R.say() is gated on consciousness. Use direct chat + radio so it works when dead.
+	var/turf/T = get_turf(R)
+	if(T)
+		playsound(T, 'sound/machines/alarm.ogg', 60, 1)
+	for(var/mob/living/M in range(7, R))
+		to_chat(M, span_danger(msg))
+	if(R.radio)
+		R.radio.talk_into(R, msg, null, null, null)
 
 
 // -- SAY TEXT ----------------------------------------
@@ -1309,8 +1476,12 @@
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/detonate_self/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	R.visible_message(span_danger("[R] begins emitting a high-pitched whine!"))
-	playsound(R, 'sound/machines/alarm.ogg', 75, 1)
+	var/turf/T = get_turf(R)
+	// Bypass visible_message which may be gated on consciousness
+	for(var/mob/living/M in range(5, R))
+		to_chat(M, span_danger("[R] begins emitting a high-pitched whine!"))
+	if(T)
+		playsound(T, 'sound/machines/alarm.ogg', 75, 1)
 	addtimer(CALLBACK(src, PROC_REF(_boom), R), 30, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 /datum/behavior_circuit/response/detonate_self/proc/_boom(mob/living/silicon/robot/R)
@@ -1452,7 +1623,7 @@
 	for(var/mob/living/carbon/human/H in range(scan_range, R))
 		if(H.stat == DEAD || !H.reagents)
 			continue
-		if(H.thirst < THIRST_LEVEL_THIRSTY)
+		if(H.thirst <= THIRST_LEVEL_THIRSTY)
 			INJ.reagent_tank.reagents.trans_to(H, 10)
 			R.visible_message(span_notice("[R] extends a dispenser nozzle toward [H]."))
 			return
@@ -1904,22 +2075,17 @@
 	var/datum/robot_hardware/bio_scanner/BS = get_hardware(R, /datum/robot_hardware/bio_scanner)
 	if(!BS)
 		return
-	for(var/mob/living/carbon/M in range(BS.scan_radius, R))
+	for(var/mob/living/carbon/human/M in range(BS.scan_radius, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		// Filter by species name if configured
+		if(!M.dna || !M.dna.species)
+			continue
+		// Filter by species type path if configured on hardware
 		if(BS.target_species)
-			var/species_name = M.dna?.species
-			if(species_name && species_name != BS.target_species)
+			if(!istype(M.dna.species, BS.target_species))
 				continue
-		// Trigger on non-human carbon mobs
-		if(!istype(M, /mob/living/carbon/human))
-			last_detected = world.time
-			_trigger(R)
-			return
-		// Or humans with active DNA mutations
-		var/mob/living/carbon/human/H = M
-		if(H.dna && H.dna.uni_identity)
+		// Trigger on non-baseline species (ghouls, mutants, etc.)
+		if(!istype(M.dna.species, /datum/species/human))
 			last_detected = world.time
 			_trigger(R)
 			return
@@ -2086,11 +2252,13 @@
 
 /datum/behavior_circuit/trigger/on_reagent_container_nearby
 	circuit_name = "Trigger: On Reagent Container Nearby"
-	circuit_desc = "Fires when a reagent container is detected within range."
-	tutorial_text = "Fires when the robot detects a reagent container (chem bottle, canteen, medkit, etc.) within sensor range. Good for: medical dispensers that home in on supplies, scavenger bots collecting chems. No hardware required."
+	circuit_desc = "Fires when a reagent container is detected on the ground or in a nearby mob's inventory."
+	tutorial_text = "Fires when the robot detects a reagent container (chem bottle, canteen, medkit, etc.) within sensor range. Configure check_range (default 4) and check_inventory (default FALSE). When check_inventory is TRUE, also scans nearby mobs' hands and pockets. Good for: medical dispensers that home in on supplies, scavenger bots collecting chems. No hardware required."
 	cpu_cost = 1
 	var/last_check = 0
 	var/check_range = 4
+	/// When TRUE, also scans nearby mobs' inventories for reagent containers.
+	var/check_inventory = FALSE
 
 /datum/behavior_circuit/trigger/on_reagent_container_nearby/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
@@ -2111,6 +2279,14 @@
 		if(RC.reagents && RC.reagents.total_volume > 0)
 			_trigger(R)
 			return
+	if(check_inventory)
+		for(var/mob/living/M in range(check_range, R))
+			if(M == R || M.stat == DEAD)
+				continue
+			for(var/obj/item/reagent_containers/RC in M.contents)
+				if(RC.reagents && RC.reagents.total_volume > 0)
+					_trigger(R)
+					return
 
 /datum/behavior_circuit/response/collect_reagents
 	circuit_name = "Response: Collect Reagents"
@@ -2169,6 +2345,59 @@
 		return
 	R.reagents.trans_to(target, min(SP.spray_amount, R.reagents.total_volume))
 	R.visible_message(span_notice("[R] sprays [target] with reagents."))
+
+
+
+// -- MAINTAIN COMBAT RANGE ---------------------------
+
+/datum/behavior_circuit/response/maintain_combat_range
+	needs_hardware = TRUE
+	circuit_name = "Response: Maintain Combat Range"
+	hardware_slot_name = HW_SLOT_WEAPON
+	required_hardware_type = /datum/robot_hardware/weapon
+	circuit_desc = "Moves toward or away from the nearest enemy to hold the configured combat range."
+	tutorial_text = "HARDWARE REQUIRED: Weapon hardware. Reads combat_mode, retreat_distance, and minimum_distance from the weapon hardware and repositions the robot. RANGED: backs off when enemy closes. MIXED: prefers range but closes if rushed. MELEE: always charges. Pair with Fire Weapon and On Enemy Spotted for a full ranged build."
+	cpu_cost = 2
+
+/datum/behavior_circuit/response/maintain_combat_range/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	if(R.anchored || R.stat == DEAD)
+		return
+	var/datum/robot_hardware/weapon/WH = get_hardware(R, /datum/robot_hardware/weapon)
+	if(!WH)
+		return
+	var/scan_range = (A ? A.sensor_range : 7) + WH.fire_range
+	var/mob/living/target = null
+	var/closest_dist = INFINITY
+	for(var/mob/living/M in range(scan_range, R))
+		if(M == R || M.stat == DEAD)
+			continue
+		if(R.faction_check_mob(M, FALSE))
+			continue
+		var/d = get_dist(R, M)
+		if(d < closest_dist)
+			closest_dist = d
+			target = M
+	if(!target)
+		return
+	var/cmode = WH.combat_mode
+	var/ret_d  = WH.retreat_distance
+	var/min_d  = WH.minimum_distance
+	var/tgt_d  = get_dist(R, target)
+	switch(cmode)
+		if(ROBOT_COMBAT_MELEE)
+			step_to(R, target, 1)
+		if(ROBOT_COMBAT_RANGED)
+			if(tgt_d < ret_d)
+				step_away(R, target)
+			else if(tgt_d > ret_d + 2)
+				step_to(R, target, ret_d)
+		if(ROBOT_COMBAT_MIXED)
+			if(tgt_d <= min_d)
+				step_to(R, target, 1)
+			else if(tgt_d < ret_d)
+				step_away(R, target)
+			else if(tgt_d > ret_d + 2)
+				step_to(R, target, ret_d)
 
 // ====================================================
 // PRESET ASSEMBLY SUBTYPES

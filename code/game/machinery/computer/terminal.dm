@@ -128,12 +128,16 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	var/list/linked_buttons   = null  // Live button refs — populated at runtime
 	var/list/linked_turrets   = null  // Live turret refs — populated at runtime
 	var/turret_detail_ref     = null
+	var/list/linked_robots    = null
+	var/robot_detail_ref      = null
 
 	// ── Map-editor linkage vars (resolved to live refs in Initialize)
 	/// Comma-separated button IDs to auto-link on init, e.g. "btn_vault,btn_armory"
 	var/map_button_ids  = null
 	/// Comma-separated turret tag strings to auto-link on init, e.g. "turret_guard,turret_east"
 	var/map_turret_tags = null
+	/// Comma-separated robot names to auto-link on init
+	var/map_robot_tags = null
 	/// When non-null, the next ID card swiped will be registered to this turret's whitelist
 	var/pending_whitelist_tref = null
 	/// When non-null, the next ID card swiped will register its faction to this turret
@@ -200,6 +204,16 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				if(T.tag == target_tag)
 					if(!(T in linked_turrets))
 						linked_turrets += T
+
+	if(map_robot_tags && length(map_robot_tags))
+		if(!linked_robots) linked_robots = list()
+		var/list/rtags = splittext(map_robot_tags, ",")
+		for(var/rtag in rtags)
+			rtag = trim(rtag)
+			for(var/mob/living/silicon/robot/R in world)
+				if(R.name == rtag || R.real_name == rtag)
+					if(!(R in linked_robots))
+						linked_robots += R
 
 // ============================================================
 // SHARED CSS HELPER
@@ -290,6 +304,17 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			dat += render_admin_page(user)
 			dat += get_terminal_footer()
 
+		if(7)
+			dat += get_terminal_header("Robotics Network")
+			dat += render_robot_list_page()
+			dat += get_terminal_footer()
+
+		if(8)
+			var/mob/living/silicon/robot/RR = get_linked_robot(robot_detail_ref)
+			dat += get_terminal_header("Unit Configuration")
+			dat += render_robot_detail_page(RR)
+			dat += get_terminal_footer("<a href='byond://?src=[REF(src)];choice=goto_robots'>&gt;  Back to Robotics Network</a><br>")
+
 	if(!mode)
 		dat += "</font></div>"
 
@@ -337,6 +362,11 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			mode = 3
 		if("goto_turrets")
 			mode = 4
+		if("goto_robots")
+			mode = 7
+		if("robot_detail")
+			robot_detail_ref = href_list["rref"]
+			mode = 8
 		if("goto_admin")
 			// Only allow if terminal is unlocked/solved
 			if(!locked || hack_solved)
@@ -368,6 +398,66 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			door_unlock_by_id(U, href_list["id"])
 
 		// ── Turret list
+		if("robot_rename")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/newname = stripped_input(U, "Enter new robot name:", R.name, R.name, max_length=50)
+				if(in_range(src, U) && newname)
+					R.name = newname
+					R.real_name = newname
+					log_game("[key_name(U)] renamed robot to [newname] via terminal [tag]")
+		if("robot_reboot")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R && R.stat != DEAD)
+				R.visible_message(span_warning("[R] reboots."))
+				R.Stun(30)
+				log_game("[key_name(U)] rebooted [R] via terminal [tag]")
+		if("robot_add_faction")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/ftag = stripped_input(U, "Enter faction tag:", "Faction", "", max_length=30)
+				if(in_range(src, U) && ftag)
+					if(!R.faction) R.faction = list()
+					if(!(ftag in R.faction))
+						R.faction += ftag
+						log_game("[key_name(U)] added faction [ftag] to [R] via terminal [tag]")
+		if("robot_remove_faction")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/ftag = href_list["faction"]
+				if(ftag && R.faction)
+					R.faction -= ftag
+					log_game("[key_name(U)] removed faction [ftag] from [R] via terminal [tag]")
+		if("robot_apply_preset")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/design_path = text2path(href_list["dtype"])
+				if(design_path)
+					var/list/entries = get_recommended_hardware(design_path)
+					var/applied = 0
+					for(var/list/E in entries)
+						var/hw_type = E[1]
+						var/already = FALSE
+						for(var/datum/robot_hardware/ex in R.installed_hardware)
+							if(istype(ex, hw_type))
+								already = TRUE
+								break
+						if(already) continue
+						var/datum/robot_hardware/NHW = new hw_type()
+						if(E.len >= 2 && islist(E[2]))
+							for(var/key in E[2])
+								NHW.vars[key] = E[2][key]
+						R.installed_hardware += NHW
+						NHW.install(R)
+						applied++
+					log_game("[key_name(U)] applied preset [design_path] to [R] via terminal [tag] ([applied] modules added)")
+		if("robot_link_toggle")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				linked_robots -= R
+				robot_detail_ref = null
+				mode = 7
+
 		if("turret_toggle")
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T) T.toggle_on()
@@ -474,6 +564,9 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		if(istype(M.buffer, /obj/machinery/porta_turret))
 			link_turret_from_multitool(M, user)
 			return
+		if(istype(M.buffer, /mob/living/silicon/robot))
+			link_robot_from_multitool(M, user)
+			return
 		// Wrong direction: buffer has the terminal itself (player hit terminal first)
 		// Just tell them what to do instead of silently overwriting
 		if(M.buffer == src)
@@ -481,7 +574,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			return
 		// Buffer has something else or is empty — store the terminal
 		M.buffer = src
-		to_chat(user, span_notice("You add [src] to multitool buffer. Now swipe a door button or turret, then swipe this terminal again to link it."))
+		to_chat(user, span_notice("You add [src] to multitool buffer. Now swipe a door button, turret, or robot, then swipe this terminal again to link it."))
 		return
 	return ..()
 
@@ -501,6 +594,21 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			M.buffer = null
 			return
 	return ..()
+
+// ── Reverse-direction linking: multitool buffer has terminal, swipe the robot
+/mob/living/silicon/robot/proc/attackby_terminal_link(obj/item/multitool/M, mob/user)
+	if(!istype(M.buffer, /obj/machinery/computer/terminal))
+		return FALSE
+	var/obj/machinery/computer/terminal/T = M.buffer
+	if(!T.linked_robots) T.linked_robots = list()
+	if(src in T.linked_robots)
+		T.linked_robots -= src
+		to_chat(user, span_notice("Unlinked [name] from [T.name]."))
+	else
+		T.linked_robots += src
+		to_chat(user, span_notice("Linked [name] to [T.name]."))
+	M.buffer = null
+	return TRUE
 
 // ── Reverse-direction linking: multitool buffer has terminal, swipe the turret
 /obj/machinery/porta_turret/attackby(obj/item/W, mob/user, params)
@@ -651,13 +759,16 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 /obj/machinery/computer/terminal/proc/render_security_menu_items()
 	var/has_doors   = (linked_buttons && linked_buttons.len) || (linked_door_ids && linked_door_ids.len)
 	var/has_turrets = (linked_turrets && linked_turrets.len)
-	if(!has_doors && !has_turrets)
+	var/has_robots = (linked_robots && linked_robots.len)
+	if(!has_doors && !has_turrets && !has_robots)
 		return ""
 	var/dat = "<br><br>SECURITY SYSTEMS"
 	if(has_doors)
 		dat += "<br><a href='byond://?src=[REF(src)];choice=goto_doors'>&gt;  Door Control</a>"
 	if(has_turrets)
 		dat += "<br><a href='byond://?src=[REF(src)];choice=goto_turrets'>&gt;  Automated Defense</a>"
+	if(has_robots)
+		dat += "<br><a href='byond://?src=[REF(src)];choice=goto_robots'>&gt;  Robotics Network</a>"
 	return dat
 
 // ============================================================
@@ -854,6 +965,115 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	var/obj/machinery/porta_turret/T = locate(tref)
 	if(!istype(T) || !(T in linked_turrets)) return null
 	return T
+
+// ============================================================
+// ROBOT LINKAGE
+// ============================================================
+
+/obj/machinery/computer/terminal/proc/link_robot_from_multitool(obj/item/multitool/M, mob/user)
+	if(!istype(M.buffer, /mob/living/silicon/robot))
+		to_chat(user, span_warning("No robot in multitool buffer."))
+		return
+	if(!linked_robots) linked_robots = list()
+	var/mob/living/silicon/robot/R = M.buffer
+	if(R in linked_robots)
+		linked_robots -= R
+		to_chat(user, span_notice("Unlinked [R.name] from terminal."))
+	else
+		linked_robots += R
+		to_chat(user, span_notice("Linked [R.name] to terminal."))
+	M.buffer = null
+
+/obj/machinery/computer/terminal/proc/get_linked_robot(rref)
+	if(!linked_robots) return null
+	var/mob/living/silicon/robot/R = locate(rref)
+	if(!istype(R) || !(R in linked_robots)) return null
+	return R
+
+/obj/machinery/computer/terminal/proc/render_robot_list_page()
+	var/dat = "<b>ROBOTICS NETWORK</b><br><br>"
+	if(!linked_robots || !linked_robots.len)
+		dat += "<span class='dim'>&gt; No robots linked. Scan robot with multitool, then swipe terminal.</span><br>"
+		return dat
+	dat += "<table style='border-spacing:4px 2px;'>"
+	dat += "<tr><td><b>UNIT</b></td><td><b>TYPE</b></td><td><b>HP</b></td><td><b>CELL</b></td><td><b>STATUS</b></td><td>&nbsp;</td></tr>"
+	for(var/mob/living/silicon/robot/R in linked_robots)
+		if(!R || QDELETED(R)) continue
+		var/online = (R.stat != DEAD)
+		var/st = online ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
+		var/hp = round((R.health / max(1, R.maxHealth)) * 100)
+		var/cp = R.cell ? round((R.cell.charge / max(1, R.cell.maxcharge)) * 100) : 0
+		var/mname = R.module ? R.module.name : "unknown"
+		dat += "<tr>"
+		dat += "<td>[R.name]</td>"
+		dat += "<td><span class='dim'>[mname]</span></td>"
+		dat += "<td>[hp]%</td>"
+		dat += "<td>[cp]%</td>"
+		dat += "<td>[st]</td>"
+		dat += "<td><a href='byond://?src=[REF(src)];choice=robot_detail;rref=[REF(R)]'>&gt; MANAGE</a></td>"
+		dat += "</tr>"
+	dat += "</table>"
+	return dat
+
+/obj/machinery/computer/terminal/proc/render_robot_detail_page(mob/living/silicon/robot/R)
+	if(!R || QDELETED(R))
+		return "<span class='bad'>ERROR: Unit not found.</span><br>"
+	var/dat = ""
+	var/hp = round((R.health / max(1, R.maxHealth)) * 100)
+	var/cp = R.cell ? round((R.cell.charge / max(1, R.cell.maxcharge)) * 100) : 0
+	var/mname = R.module ? R.module.name : "unknown"
+	var/online = (R.stat != DEAD)
+	var/st = online ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
+	dat += "<b>UNIT: [R.name]</b><br>"
+	dat += "<span class='dim'>&gt; Location: ([R.x],[R.y],[R.z])</span><br>"
+	dat += "<span class='dim'>&gt; Module: [mname]</span><br>"
+	dat += "<span class='dim'>&gt; Integrity: [hp]%  Cell: [cp]%</span><br>"
+	dat += "<span class='dim'>&gt; Status: [st]</span><br>"
+	dat += "<br>"
+	dat += "<b>FACTION REGISTRY</b><br>"
+	if(R.faction && R.faction.len)
+		for(var/f in R.faction)
+			dat += "&gt; [f] <a href='byond://?src=[REF(src)];choice=robot_remove_faction;rref=[REF(R)];faction=[f]'>\[REMOVE\]</a><br>"
+	else
+		dat += "<span class='dim'>&gt; No faction set.</span><br>"
+	dat += "<a href='byond://?src=[REF(src)];choice=robot_add_faction;rref=[REF(R)]'>&gt; Add faction</a><br>"
+	dat += "<br>"
+	dat += "<b>INSTALLED HARDWARE</b><br>"
+	if(R.installed_hardware && R.installed_hardware.len)
+		for(var/datum/robot_hardware/HW in R.installed_hardware)
+			dat += "&gt; [HW.hardware_name]"
+			if(HW.hardware_desc)
+				dat += " <span class='dim'>-- [HW.hardware_desc]</span>"
+			dat += "<br>"
+	else
+		dat += "<span class='dim'>&gt; None installed.</span><br>"
+	dat += "<br>"
+	var/datum/cert_upgrade/robot/behavior_assembly/BA = null
+	if(R.cpu_cert)
+		for(var/datum/cert_upgrade/robot/behavior_assembly/U2 in R.cpu_cert.upgrade_slots)
+			BA = U2
+			break
+	dat += "<b>BEHAVIOR ASSEMBLY</b><br>"
+	if(BA?.assembly)
+		dat += "<span class='dim'>&gt; [BA.assembly.assembly_label] ([BA.assembly.circuits.len] circuits)</span><br>"
+	else
+		dat += "<span class='dim'>&gt; No assembly installed.</span><br>"
+	dat += "<br>"
+	dat += "<b>HARDWARE PRESETS</b><br>"
+	dat += "<span class='dim'>Installs missing modules only.</span><br>"
+	for(var/T in subtypesof(/datum/recommended_hardware_config))
+		var/datum/recommended_hardware_config/RHC = new T()
+		if(!RHC.design_type) { qdel(RHC); continue }
+		var/label = uppertext(copytext("[RHC.design_type]", findlasttext("[RHC.design_type]", "/") + 1))
+		dat += "&gt; [label] ([RHC.hardware_entries.len] modules) <a href='byond://?src=[REF(src)];choice=robot_apply_preset;rref=[REF(R)];dtype=[url_encode("[RHC.design_type]")]'>\[APPLY\]</a><br>"
+		qdel(RHC)
+	dat += "<br>"
+	dat += "<b>COMMANDS</b><br>"
+	dat += "<a href='byond://?src=[REF(src)];choice=robot_rename;rref=[REF(R)]'>&gt; Rename unit</a><br>"
+	if(R.stat != DEAD)
+		dat += "<a href='byond://?src=[REF(src)];choice=robot_reboot;rref=[REF(R)]'>&gt; Reboot unit</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];choice=robot_link_toggle;rref=[REF(R)]'>&gt; Unlink this unit</a><br>"
+	return dat
 
 // ============================================================
 // TURRET WHITELIST HELPERS

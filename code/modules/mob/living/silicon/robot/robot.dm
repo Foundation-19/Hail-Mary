@@ -13,6 +13,8 @@
 	/// List of installed /datum/robot_hardware datums. Populated by hardware.install().
 	/// Read by behavior circuits via get_hardware().
 	var/list/installed_hardware = list()
+	/// world.time of last projectile hit. Read by On Hit behavior trigger.
+	var/last_damage_time = 0
 	/// Weakref to the mob currently hitting this robot (set by attack hooks, committed by adjustBruteLoss).
 	var/datum/weakref/pending_attacker_ref = null
 	/// Weakref to the last confirmed attacker (committed when damage actually applied). Used by fire_weapon.
@@ -502,9 +504,18 @@
 		to_chat(user, "The wires seem fine, there's no need to fix them.")
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
-	// ROBOT COMBAT TRACKING PATCH: record pending attacker for fire_weapon retaliation.
-	if(user && user != src)
-		pending_attacker_ref = WEAKREF(user)
+	// Multitool on open robot: admins get config panel; others get assembly linking
+	if(istype(W, /obj/item/multitool) && opened)
+		if(check_rights_for(user.client, R_ADMIN))
+			open_config_panel(user)
+			return
+		var/datum/cert_upgrade/robot/behavior_assembly/BA = _get_behavior_upgrade()
+		if(BA?.assembly)
+			BA.assembly.multitool_act(user)
+		else
+			to_chat(user, span_warning("No behavior assembly installed."))
+		return
+
 	if(istype(W, /obj/item/weldingtool) && (user.a_intent != INTENT_HARM || user == src))
 		INVOKE_ASYNC(src, PROC_REF(attempt_welder_repair), W, user)
 		return
@@ -1362,6 +1373,9 @@
 /mob/living/silicon/robot/bullet_act(obj/item/projectile/P, def_zone, piercing_hit)
 	if(P && P.firer && P.firer != src)
 		pending_attacker_ref = WEAKREF(P.firer)
+	// Notify microphone hardware so On Combat Sound Nearby can fire
+	hardware_on_combat_sound()
+	last_damage_time = world.time
 	return ..()
 
 // Commit pending attacker when brute damage actually lands.
@@ -1373,3 +1387,11 @@
 		last_attacker_time = world.time
 		pending_attacker_ref = null
 	return ..()
+
+/// Returns the installed behavior_assembly cert upgrade, or null.
+/mob/living/silicon/robot/proc/_get_behavior_upgrade()
+	if(!cpu_cert)
+		return null
+	for(var/datum/cert_upgrade/robot/behavior_assembly/BA in cpu_cert.upgrade_slots)
+		return BA
+	return null
