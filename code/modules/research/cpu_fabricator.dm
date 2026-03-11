@@ -48,7 +48,6 @@
 	/// Type path string of the selected bonus circuit
 	var/custom_bonus_id = null
 
-
 /obj/machinery/cpu_fabricator/Initialize(mapload)
 	. = ..()
 	_build_design_list()
@@ -427,7 +426,12 @@
 // Phase 1: Pick a trigger - split into STANDARD and HARDWARE sections
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_trigger(mob/user)
 	var/dat = "<b>STEP 1 - SELECT TRIGGER</b><br>"
-	dat += "<span class='dim'>The trigger defines WHEN your assembly acts.</span><br><br>"
+	dat += "<span class='dim'>The trigger defines WHEN your assembly acts.</span><br>"
+	dat += "<span class='dim'>&gt; Search:</span> "
+	var/ccs = null; ccs = ccs // JS: search string
+	var/ccn = null; ccn = ccn // JS: card count
+	var/cci = null; cci = cci // JS: card item
+	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter circuits...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
 	var/list/standard_triggers = list()
 	var/list/hardware_triggers = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
@@ -441,7 +445,8 @@
 	dat += "<b>STANDARD TRIGGERS</b> <span class='dim'>(work on any robot)</span><br>"
 	for(var/list/E in standard_triggers)
 		var/tpath = "[E["path"]]"
-		dat += "<div class='card'>"
+		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
+		dat += "<div class='card ccard' data-s='[searchkey]'>"
 		if(custom_trigger_id == tpath)
 			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
@@ -452,7 +457,8 @@
 	dat += "<br><b>HARDWARE TRIGGERS</b> <span class='warn'>(require specific modules in robot)</span><br>"
 	for(var/list/E in hardware_triggers)
 		var/tpath = "[E["path"]]"
-		dat += "<div class='card hw'>"
+		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
+		dat += "<div class='card hw ccard' data-s='[searchkey]'>"
 		if(custom_trigger_id == tpath)
 			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
@@ -468,7 +474,12 @@
 // Phase 2: Pick a response - split into STANDARD and HARDWARE sections
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_response(mob/user)
 	var/dat = "<b>STEP 2 - SELECT RESPONSE</b><br>"
-	dat += "<span class='dim'>The response defines WHAT happens when the trigger fires.</span><br><br>"
+	dat += "<span class='dim'>The response defines WHAT happens when the trigger fires.</span><br>"
+	dat += "<span class='dim'>&gt; Search:</span> "
+	var/ccs = null; ccs = ccs // JS: search string
+	var/ccn = null; ccn = ccn // JS: card count
+	var/cci = null; cci = cci // JS: card item
+	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter circuits...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
 	var/list/standard_responses = list()
 	var/list/hardware_responses = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/response))
@@ -482,7 +493,8 @@
 	dat += "<b>STANDARD RESPONSES</b> <span class='dim'>(work on any robot)</span><br>"
 	for(var/list/E in standard_responses)
 		var/rpath = "[E["path"]]"
-		dat += "<div class='card'>"
+		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
+		dat += "<div class='card ccard' data-s='[searchkey]'>"
 		if(custom_response_id == rpath)
 			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
@@ -493,7 +505,8 @@
 	dat += "<br><b>HARDWARE RESPONSES</b> <span class='warn'>(require specific modules in robot)</span><br>"
 	for(var/list/E in hardware_responses)
 		var/rpath = "[E["path"]]"
-		dat += "<div class='card hw'>"
+		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
+		dat += "<div class='card hw ccard' data-s='[searchkey]'>"
 		if(custom_response_id == rpath)
 			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
@@ -630,6 +643,8 @@
 	return dat
 
 
+
+// Phase 4: Review + print
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_review(mob/user)
 	var/dat = "<b>STEP 4 - REVIEW & PRINT</b><br>"
 	dat += "<span class='dim'>Final check before printing. CPU cost must fit your robot's cert.</span><br><hr>"

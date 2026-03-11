@@ -260,6 +260,81 @@
 		already_triggered = FALSE
 
 
+// -- ON DARKNESS -------------------------------------
+// Fires once when the robot's turf drops below a
+// darkness threshold.  Resets when it becomes lit again.
+// Good for: activating a light, sounding an alert,
+// retreating to a lit area.
+
+/datum/behavior_circuit/trigger/on_darkness
+	circuit_name = "Trigger: On Darkness"
+	circuit_desc = "Fires once when the robot's location becomes dark. Resets when lit again."
+	tutorial_text = "Fires when the turf the robot stands on drops below the darkness threshold (0.0-1.0, default 0.15). Resets when light returns. Good for: activating a headlamp, alerting to a power outage, or retreating to lit areas. Pair with Toggle Light or Say Text."
+	cpu_cost = 1
+	var/lum_threshold = 0.15
+	var/in_darkness = FALSE
+
+/datum/behavior_circuit/trigger/on_darkness/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_darkness/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_darkness/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/turf/T = get_turf(R)
+	if(!T)
+		return
+	var/lum = T.get_lumcount()
+	if(lum <= lum_threshold && !in_darkness)
+		in_darkness = TRUE
+		_trigger(R)
+	else if(lum > lum_threshold)
+		in_darkness = FALSE
+
+
+// -- ON LIT ---------------------------------------
+// Fires once when the robot's turf rises above a
+// light threshold.  Resets when it becomes dark again.
+// Good for: turning a light off, a "back to normal" hook.
+
+/datum/behavior_circuit/trigger/on_lit
+	circuit_name = "Trigger: On Lit"
+	circuit_desc = "Fires once when the robot's location becomes lit after being dark. Resets when dark again."
+	tutorial_text = "Fires when the turf the robot stands on rises above the light threshold (0.0-1.0, default 0.15). Resets when darkness returns. Companion to On Darkness. Good for: deactivating a headlamp when you enter a lit room, or chaining a 'lights-on' response."
+	cpu_cost = 1
+	var/lum_threshold = 0.15
+	var/in_light = TRUE
+
+/datum/behavior_circuit/trigger/on_lit/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_lit/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_lit/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	var/turf/T = get_turf(R)
+	if(!T)
+		return
+	var/lum = T.get_lumcount()
+	if(lum > lum_threshold && !in_light)
+		in_light = TRUE
+		_trigger(R)
+	else if(lum <= lum_threshold)
+		in_light = FALSE
+
+
 // -- ON ENEMY SPOTTED --------------------------------
 
 /datum/behavior_circuit/trigger/on_enemy_spotted
