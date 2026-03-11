@@ -103,13 +103,15 @@
 	var/top = 0
 	var/tr = 0
 	var/te = 0
-	for(var/datum/robot_hardware/H in hardware_list)
+	for(var/slot in hardware_list)
+		var/datum/robot_hardware/H = hardware_list[slot]
+		if(!H) continue
 		tc  += H.core_compute
 		top += H.core_operations
 		tr  += H.core_resilience
 		te  += H.core_energy
 	if(!cert)
-		return "C.O.R.E: C[tc] O[top] R[tr] E[te]  <span class='warn'>(no cert)</span>"
+		return "C.O.R.E:  C [tc]  O [top]  R [tr]  E [te]  <span class='dim'>(no cert)</span>"
 	var/ac = cert.get_compute()
 	var/ao = cert.get_operations()
 	var/ar = cert.get_resilience()
@@ -118,11 +120,15 @@
 	var/o_ok = top <= ao
 	var/r_ok = tr  <= ar
 	var/e_ok = te  <= ae
-	var/out = "C.O.R.E: "
-	out += "<span class='[c_ok ? "good" : "warn"]'>C[tc]/[ac]</span> "
-	out += "<span class='[o_ok ? "good" : "warn"]'>O[top]/[ao]</span> "
-	out += "<span class='[r_ok ? "good" : "warn"]'>R[tr]/[ar]</span> "
-	out += "<span class='[e_ok ? "good" : "warn"]'>E[te]/[ae]</span>"
+	var/c_class = c_ok ? "good" : "bad"
+	var/o_class = o_ok ? "good" : "bad"
+	var/r_class = r_ok ? "good" : "bad"
+	var/e_class = e_ok ? "good" : "bad"
+	var/out = "C.O.R.E:  "
+	out += "<span class='[c_class]'>C [tc]/[ac]</span>  "
+	out += "<span class='[o_class]'>O [top]/[ao]</span>  "
+	out += "<span class='[r_class]'>R [tr]/[ar]</span>  "
+	out += "<span class='[e_class]'>E [te]/[ae]</span>"
 	return out
 
 

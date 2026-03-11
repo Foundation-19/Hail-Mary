@@ -344,24 +344,23 @@
 	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
 	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br>"
 	dat += "= ROBOT WORKSHOP =</center><br>"
-	// Tab nav - bracketed [TAB] style with pipes
-	dat += _navlink("\[HOME\]",     RW_HOME)
+	dat += _navlink("Home",     RW_HOME)
 	dat += " | "
-	dat += _navlink("\[BUILD\]",    RW_BUILD)
+	dat += _navlink("Build",    RW_BUILD)
 	dat += " | "
-	dat += _navlink("\[HARDWARE\]", RW_HARDWARE)
+	dat += _navlink("Hardware", RW_HARDWARE)
 	dat += " | "
-	dat += _navlink("\[PROGRAMS\]", RW_PROGRAMS)
+	dat += _navlink("Programs", RW_PROGRAMS)
 	dat += " | "
-	dat += _navlink("\[FINALIZE\]", RW_FINALIZE)
-	dat += "<br>"
+	dat += _navlink("Finalize", RW_FINALIZE)
+	dat += "<br><hr>"
 	if(workshop_tier > WORKSHOP_TIER_NONE)
 		dat += "<span class='dim'>TIER: <b>[_tier_label(workshop_tier)]</b></span>"
 	else
 		dat += "<span class='warn'>TIER: UNCERTIFIED -- install a Workshop Cert Card</span>"
 	if(building)
 		dat += "  <span class='warn'>// FABRICATING...</span>"
-	dat += "<hr>"
+	dat += "<br>"
 	// Page content
 	switch(ui_mode)
 		if(RW_HOME)
@@ -378,8 +377,8 @@
 
 /obj/machinery/robot_workshop/proc/_navlink(label, mode_id)
 	if(ui_mode == mode_id)
-		return "<span class='good'><b>[label]</b></span>"
-	return "<a href='byond://?src=[REF(src)];set_mode=[mode_id]'>[label]</a>"
+		return "<b>&gt; [label]</b>"
+	return "<a href='byond://?src=[REF(src)];set_mode=[mode_id]'>&gt; [label]</a>"
 
 
 // ====================================================
@@ -390,12 +389,12 @@
 	var/dat = ""
 
 	// Workshop tier
-	dat += "<b>WORKSHOP STATUS</b><br>"
+	dat += "WORKSHOP STATUS<br>"
 	dat += "Tier: <span class='good'>[_tier_label(workshop_tier)]</span><br>"
 	dat += "<br>"
 
 	// Installed tier certs
-	dat += "<b>INSTALLED CERTS</b><br>"
+	dat += "INSTALLED CERTS<br>"
 	if(installed_certs.len)
 		for(var/obj/item/cert_card/C in installed_certs)
 			dat += "<span class='dim'>&gt; [C.name]</span>"
@@ -405,7 +404,7 @@
 	dat += "<br>"
 
 	// Chassis slot
-	dat += "<b>CHASSIS SLOT</b><br>"
+	dat += "CHASSIS SLOT<br>"
 	if(chassis)
 		dat += "<span class='good'>&gt; [chassis.name]</span>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_chassis=1'>\[eject\]</a><br>"
@@ -414,15 +413,19 @@
 	dat += "<br>"
 
 	// Material hopper
-	dat += "<b>MATERIAL HOPPER</b><br>"
+	dat += "MATERIAL HOPPER  <a href='byond://?src=[REF(src)];eject_mats=1'>\[eject all\]</a><br>"
 	for(var/mat in materials)
 		var/amt = materials[mat]
 		var/bar = _mat_bar(amt, mat_max)
-		dat += "<span class='dim'>[uppertext(mat)]</span>  [bar]  <span class='dim'>[amt]/[mat_max]</span><br>"
+		dat += "<span class='dim'>[uppertext(mat)]</span>  [bar]  "
+		dat += "<span class='warn'>[amt]</span><span class='dim'>/[mat_max] cm3</span>  "
+		if(amt > 0)
+			dat += "<a href='byond://?src=[REF(src)];eject_mat=[mat]'>\[eject\]</a>"
+		dat += "<br>"
 	dat += "<br>"
 
 	// Unlock table
-	dat += "<b>TIER UNLOCK GUIDE</b><br>"
+	dat += "TIER UNLOCK GUIDE<br>"
 	dat += "<span class='dim'>T1 Utility:  Mr. Handy, Liberator</span><br>"
 	dat += "<span class='dim'>T2 Security: Protectron, Mr. Gutsy, Securitron</span><br>"
 	dat += "<span class='dim'>T3 Combat:   Assaultron</span><br>"
@@ -451,7 +454,7 @@
 
 /obj/machinery/robot_workshop/proc/_render_build(mob/user)
 	var/dat = ""
-	dat += "<b>SELECT ROBOT TYPE</b>  <span class='dim'>// filtered by workshop tier</span><br><br>"
+	dat += "SELECT ROBOT TYPE  <span class='dim'>// filtered by workshop tier</span><br><br>"
 
 	var/any_shown = FALSE
 	for(var/datum/robot_build_design/D in designs)
@@ -460,18 +463,18 @@
 		any_shown = TRUE
 		var/is_selected = (selected_design == D.type)
 		var/tier_label = _tier_label(D.tier)
-		var/sel_class = is_selected ? " sel" : ""
-		dat += "<div class='card[sel_class]'>"
-		dat += "<b>[D.design_name]</b>  <span class='dim'>T[D.tier] [tier_label]</span><br>"
-		dat += "<span class='dim'>[D.design_desc]</span><br>"
-		dat += "HP: <span class='good'>[D.display_health]</span>  "
-		dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
 		if(is_selected)
+			dat += "<b>&gt; [D.design_name]</b>  <span class='dim'>T[D.tier] [tier_label]</span><br>"
+			dat += "<span class='dim'>[D.design_desc]</span><br>"
+			dat += "HP: <span class='good'>[D.display_health]</span>  "
+			dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
 			dat += "<span class='good'>&gt; SELECTED</span>"
-			dat += "  <a href='byond://?src=[REF(src)];select_design=clear'>\[clear\]</a>"
+			dat += "  <a href='byond://?src=[REF(src)];select_design=clear'>\[clear\]</a><br>"
 		else
-			dat += "<a href='byond://?src=[REF(src)];select_design=[D.type]'>&gt; \[SELECT\]</a>"
-		dat += "</div>"
+			dat += "&gt; <a href='byond://?src=[REF(src)];select_design=[D.type]'>[D.design_name]</a>  <span class='dim'>T[D.tier] [tier_label]</span><br>"
+			dat += "<span class='dim'>[D.design_desc]</span><br>"
+			dat += "HP: <span class='good'>[D.display_health]</span>  "
+			dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
 
 	if(!any_shown)
 		dat += "<span class='warn'>No designs available at current tier.</span><br>"
@@ -532,13 +535,13 @@
 	var/list/asm_slots = _get_assembly_slot_keys()
 
 	if(asm_slots.len)
-		dat += "<b>REQUIRED HARDWARE SLOTS</b>  <span class='dim'>// from queued assembly</span><br>"
+		dat += "REQUIRED HARDWARE SLOTS  <span class='dim'>// from queued assembly</span><br>"
 		for(var/slot_key in asm_slots)
 			dat += _hw_slot_row(slot_key, TRUE, H)
 		dat += "<br>"
 
 	// Optional hardware
-	dat += "<b>OPTIONAL HARDWARE</b>  <span class='dim'>// enhances robot beyond assembly requirements</span><br>"
+	dat += "OPTIONAL HARDWARE  <span class='dim'>// enhances robot beyond assembly requirements</span><br>"
 	// Show already-added optional slots
 	for(var/slot_key in pending_hardware)
 		if(slot_key in asm_slots)
@@ -550,7 +553,7 @@
 	if(selected_design)
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
-			dat += "<br><b>BASE MODULE LOADOUT</b>  <span class='dim'>// pre-installed, not configurable</span><br>"
+			dat += "<br>BASE MODULE LOADOUT  <span class='dim'>// pre-installed, not configurable</span><br>"
 			var/obj/item/robot_module/dummy = new D.module_type(null)
 			for(var/obj/item/I in dummy.basic_modules)
 				dat += "<span class='dim'>  + [I.name]</span><br>"
@@ -562,30 +565,28 @@
 /obj/machinery/robot_workshop/proc/_hw_slot_row(slot_key, required, mob/living/carbon/human/builder)
 	var/datum/robot_hardware/HW = pending_hardware[slot_key]
 	var/dat = ""
-	var/card_class = HW ? "card hw" : "card"
-	dat += "<div class='[card_class]'>"
+	// Readable slot label: strip /datum/robot_hardware/ prefix from type-path keys
+	var/display_key = slot_key
+	if(copytext(slot_key, 1, 23) == "/datum/robot_hardware/")
+		display_key = replacetext(copytext(slot_key, 23), "_", " ")
 	if(HW)
-		dat += "<span class='good'>&gt; [slot_key]</span><br>"
-		dat += "<span class='dim'>[HW.hardware_name]"
+		dat += "<span class='good'>&gt; [display_key]</span>  [HW.hardware_name]<br>"
 		if(HW.core_compute || HW.core_operations || HW.core_resilience || HW.core_energy)
-			dat += "  C.O.R.E: C[HW.core_compute] O[HW.core_operations] R[HW.core_resilience] E[HW.core_energy]"
-		dat += "</span><br>"
+			dat += "<span class='dim'>C.O.R.E: C[HW.core_compute] O[HW.core_operations] R[HW.core_resilience] E[HW.core_energy]</span><br>"
 		dat += "<a href='byond://?src=[REF(src)];hw_configure=[slot_key]'>\[configure\]</a>"
 		if(istype(HW, /datum/robot_hardware/circuit_board))
 			dat += "  <a href='byond://?src=[REF(src)];hw_circuit_edit=[slot_key]'>\[circuit editor\]</a>"
-		dat += "  <a href='byond://?src=[REF(src)];hw_remove=[slot_key]'>\[remove\]</a>"
+		dat += "  <a href='byond://?src=[REF(src)];hw_remove=[slot_key]'>\[remove\]</a><br>"
 	else
 		var/slot_class = required ? "warn" : "dim"
-		var/slot_label = required ? "Required" : "Optional"
-		dat += "<span class='[slot_class]'>&gt; [slot_key]</span><br>"
-		dat += "<span class='dim'>[slot_label] -- not configured.</span><br>"
-		dat += "<a href='byond://?src=[REF(src)];hw_pick=[slot_key]'>\[select hardware\]</a>"
-	dat += "</div>"
+		var/slot_label = required ? "required" : "optional"
+		dat += "<span class='[slot_class]'>&gt; [display_key]</span>  <span class='dim'>([slot_label] -- empty)</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];hw_pick=[slot_key]'>\[select hardware\]</a><br>"
 	return dat
 
 
 /obj/machinery/robot_workshop/proc/_hw_special_preview(mob/living/carbon/human/H)
-	var/dat = "<b>OPERATOR INFLUENCE</b>  <span class='dim'>// your SPECIAL baked into this robot at build</span><br>"
+	var/dat = "OPERATOR INFLUENCE  <span class='dim'>// your SPECIAL baked into this robot at build</span><br>"
 	var/per = H.special_p
 	var/str = H.special_s
 	var/end_s = H.special_e
@@ -640,13 +641,14 @@
 	var/mob/living/carbon/human/H = istype(user, /mob/living/carbon/human) ? user : null
 	var/int_level = H ? H.special_i : RH_INT_BASIC
 	var/dat = ""
-	dat += "<b>SELECT HARDWARE</b>  <span class='dim'>// slot: [hw_active_slot]</span>"
+	dat += "SELECT HARDWARE  <span class='dim'>// slot: [hw_active_slot]</span>"
 	dat += "  <a href='byond://?src=[REF(src)];hw_cancel_pick=1'>\[cancel\]</a><br>"
 	dat += "<span class='dim'>&gt; Search:</span> "
 	var/ccs = null; ccs = ccs
 	var/ccn = null; ccn = ccn
 	var/cci = null; cci = cci
-	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter hardware...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
+	var/sn  = null; sn  = sn
+	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter hardware...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}var sn=document.getElementsByClassName(&quot;csec&quot;).length;while(sn--){document.getElementsByClassName(&quot;csec&quot;).item(sn).style.display=ccs?&quot;none&quot;:&quot;block&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
 
 	var/list/by_cat = list()
 	for(var/T in subtypesof(/datum/robot_hardware))
@@ -657,7 +659,7 @@
 		qdel(proto)
 
 	for(var/cat in by_cat)
-		dat += "<b>[cat]</b><br>"
+		dat += "<div class='csec'>[cat]</div>"
 		for(var/T in by_cat[cat])
 			var/datum/robot_hardware/proto = new T()
 			// Skip hardware that doesn't satisfy the required slot type
@@ -676,27 +678,24 @@
 			var/core_str = "C[proto.core_compute] O[proto.core_operations] R[proto.core_resilience] E[proto.core_energy]"
 			var/mat_str = _mat_cost_str(proto.mat_cost)
 			var/searchkey = replacetext(lowertext(proto.hardware_name) + " " + lowertext(proto.hardware_desc) + " " + lowertext(cat), "'", "")
+			dat += "<div class='ccard' data-s='[searchkey]'>"
 			if(blocked)
-				dat += "<div class='card ccard' data-s='[searchkey]'>"
 				dat += "<span class='dim'>&gt; [proto.hardware_name]  [gate_label]</span><br>"
 				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
-				dat += "<span class='dim'>CORE: [core_str]  MAT: [mat_str]  // INT too low</span>"
-				dat += "</div>"
+				dat += "<span class='dim'>CORE: [core_str]  MAT: [mat_str]</span>"
 			else if(overbudget)
-				dat += "<div class='card ccard' data-s='[searchkey]'>"
-				dat += "<span class='warn'>&gt; [proto.hardware_name]</span><br>"
-				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
-				dat += "<span class='warn'>CORE: [core_str]  // overbudget</span>  MAT: [mat_str]"
-				dat += "</div>"
-			else
-				dat += "<div class='card hw ccard' data-s='[searchkey]'>"
-				dat += "<span class='good'>&gt; [proto.hardware_name]</span>  [gate_label]"
-				dat += "  <a href='byond://?src=[REF(src)];hw_select_type=[T]'>\[select\]</a><br>"
+				dat += "<span class='bad'>&gt; [proto.hardware_name]  // overbudget</span><br>"
 				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
 				dat += "<span class='dim'>CORE: [core_str]  MAT: [mat_str]</span>"
-				dat += "</div>"
+			else
+				dat += "&gt; <a href='byond://?src=[REF(src)];hw_select_type=[T]'>[proto.hardware_name]</a>"
+				if(gate_label)
+					dat += "  [gate_label]"
+				dat += "<br>"
+				dat += "<span class='dim'>[proto.hardware_desc]</span><br>"
+				dat += "<span class='dim'>CORE: [core_str]  MAT: [mat_str]</span>"
+			dat += "</div>"
 			qdel(proto)
-		dat += "<br>"
 
 	return dat
 
@@ -712,7 +711,7 @@
 
 	var/datum/robot_hardware/proto = new hw_pending_type()
 	var/dat = ""
-	dat += "<b>CONFIGURE: [proto.hardware_name]</b>"
+	dat += "CONFIGURE: [proto.hardware_name]"
 	dat += "  <span class='dim'>// slot: [hw_active_slot]</span><br>"
 	dat += "<a href='byond://?src=[REF(src)];hw_back_to_pick=1'>\[back\]</a>"
 	dat += "  <a href='byond://?src=[REF(src)];hw_confirm=1'><b>\[CONFIRM & INSTALL\]</b></a><br><br>"
@@ -720,7 +719,7 @@
 	dat += "<span class='dim'>[proto.tutorial_text]</span><br><br>"
 
 	if(proto.config_defs.len)
-		dat += "<b>CONFIGURATION</b><br>"
+		dat += "CONFIGURATION<br>"
 		for(var/varname in proto.config_defs)
 			var/list/def = proto.config_defs[varname]
 			var/label    = def[1]
@@ -752,11 +751,11 @@
 		return _render_hw_overview(user)
 
 	var/dat = ""
-	dat += "<b>CIRCUIT BOARD EDITOR</b>  <span class='dim'>// slot: [hw_circuit_slot]  nodes: [CB.nodes.len]/[CB.max_nodes]</span><br>"
+	dat += "CIRCUIT BOARD EDITOR  <span class='dim'>// slot: [hw_circuit_slot]  nodes: [CB.nodes.len]/[CB.max_nodes]</span><br>"
 	dat += "<a href='byond://?src=[REF(src)];hw_circuit_done=1'>\[done - return to overview\]</a><br><br>"
 
 	// -- ADD NODE panel --
-	dat += "<b>ADD NODE</b>  <span class='dim'>// click to place</span><br>"
+	dat += "ADD NODE  <span class='dim'>// click to place</span><br>"
 	var/list/cat_nodes = list()
 	for(var/T in /datum/circuit_node_catalog::all_types)
 		var/datum/circuit_node/proto = new T()
@@ -776,13 +775,13 @@
 	dat += "<br>"
 
 	// -- PLACED NODES panel --
-	dat += "<b>PLACED NODES</b><br>"
+	dat += "PLACED NODES<br>"
 	if(!CB.nodes.len)
 		dat += "<span class='dim'>No nodes placed yet. Add from the list above.</span><br>"
 	else
 		for(var/i in 1 to CB.nodes.len)
 			var/datum/circuit_node/N = CB.nodes[i]
-			dat += "<div class='card hw'>"
+			dat += ""
 			dat += "<b>[i]. [N.node_name]</b>  <span class='dim'>[N.node_category]</span>"
 			dat += "  <a href='byond://?src=[REF(src)];ce_remove_node=[i]'>\[remove\]</a><br>"
 			// Inputs
@@ -791,14 +790,14 @@
 				var/list/iparts = list()
 				for(var/inp in N.inputs)
 					iparts += "[inp]=[N.inputs[inp]]"
-				dat += iparts.Join("  ") + "</span><br>"
+				dat += iparts.Join("  ") + "</div>"
 			// Outputs
 			if(N.outputs.len)
 				dat += "<span class='dim'>OUT: "
 				var/list/oparts = list()
 				for(var/outp in N.outputs)
 					oparts += "<a href='byond://?src=[REF(src)];ce_connect_from=[i]:[outp]'>[outp]=[N.outputs[outp]]</a>"
-				dat += oparts.Join("  ") + "</span><br>"
+				dat += oparts.Join("  ") + "</div>"
 			// Config
 			if(N.config_defs.len)
 				for(var/varname in N.config_defs)
@@ -812,7 +811,7 @@
 				for(var/inp in N.inputs)
 					dat += "<a href='byond://?src=[REF(src)];ce_connect_to=[i]:[inp]'><b>\[WIRE TO [inp]\]</b></a>  "
 				dat += "<br>"
-			dat += "</div>"
+
 
 	// -- CONNECTIONS panel --
 	dat += "<br><b>CONNECTIONS</b><br>"
@@ -846,12 +845,11 @@
 
 /obj/machinery/robot_workshop/proc/_render_programs(mob/user)
 	var/dat = ""
-	dat += "<b>BEHAVIOR ASSEMBLY</b><br><br>"
+	dat += "BEHAVIOR ASSEMBLY<br><br>"
 
 	if(behavior_assembly)
 		var/obj/item/behavior_assembly/A = behavior_assembly
-		dat += "<div class='card'>"
-		dat += "<b>[A.assembly_label]</b><br>"
+		dat += "[A.assembly_label]<br>"
 		dat += "<span class='dim'>Circuits: [A.circuits.len]/[A.max_circuits]</span><br>"
 		dat += "<span class='dim'>Sensor range: [A.sensor_range] tiles</span><br>"
 		if(A.circuits.len)
@@ -860,14 +858,13 @@
 				var/hw_note = C.needs_hardware ? "  <span class='warn'>HARDWARE</span>" : ""
 				dat += "<span class='dim'>  [C.circuit_name][hw_note]</span><br>"
 				dat += "<span class='dim'>    [C.circuit_desc]</span><br>"
-		dat += "</div>"
 		dat += "<a href='byond://?src=[REF(src)];eject_assembly=1'>\[Eject assembly\]</a><br>"
 	else
 		dat += "<span class='dim'>No assembly queued. Insert a behavior_assembly item into the machine.</span><br>"
 		dat += "<span class='dim'>Assemblies are printed at the CPU Cert Fabricator.</span><br>"
 		dat += "<br><span class='dim'>Building without an assembly produces a basic NPC robot using its default module behaviors.</span><br>"
 
-	dat += "<br><b>ROBOT CERT CARD</b>  <span class='dim'>(optional)</span><br>"
+	dat += "<br>ROBOT CERT CARD  <span class='dim'>(optional)</span><br>"
 	if(robot_cert)
 		dat += "<span class='good'>&gt; [robot_cert.name]</span>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_robot_cert=1'>\[eject\]</a><br>"
@@ -884,7 +881,7 @@
 
 /obj/machinery/robot_workshop/proc/_render_finalize(mob/user)
 	var/dat = ""
-	dat += "<b>BUILD SUMMARY</b><br><br>"
+	dat += "BUILD SUMMARY<br><br>"
 
 	// Validate
 	var/list/errors = _validate_build(user)
@@ -939,17 +936,17 @@
 	if(selected_design)
 		var/datum/robot_build_design/D2 = _get_design(selected_design)
 		if(D2)
-			dat += "<br><b>MATERIAL COST</b><br>"
+			dat += "<br>MATERIAL COST<br>"
 			for(var/mat in D2.mat_cost)
 				var/cost = D2.mat_cost[mat]
 				var/have = materials[mat]
 				var/ok = have >= cost
-				var/mat_class = ok ? "good" : "warn"
+				var/mat_class = ok ? "good" : "bad"
 				dat += "<span class='[mat_class]'>[uppertext(mat)]: [cost]</span>  "
 				dat += "<span class='dim'>(stored: [have])</span><br>"
 
 	// Control mode
-	dat += "<br><b>PLAYER CONTROL</b><br>"
+	dat += "<br>PLAYER CONTROL<br>"
 	dat += "<span class='dim'>Mode: </span>"
 	switch(control_mode)
 		if("npc")
@@ -971,11 +968,11 @@
 	if(building)
 		dat += "<span class='warn'>&gt; FABRICATING -- please wait...</span><br>"
 	else if(errors.len)
-		dat += "<b>CANNOT BUILD:</b><br>"
+		dat += "CANNOT BUILD<br>"
 		for(var/e in errors)
-			dat += "<span class='warn'>  ! [e]</span><br>"
+			dat += "<span class='bad'>  ! [e]</span><br>"
 	else
-		dat += "<a href='byond://?src=[REF(src)];build_robot=1'><b>&gt; \[FABRICATE ROBOT\]</b></a><br>"
+		dat += "<a href='byond://?src=[REF(src)];build_robot=1'>&gt; FABRICATE ROBOT</a><br>"
 
 	return dat
 
@@ -1035,6 +1032,34 @@
 		ui_interact(usr)
 		return
 
+	if(href_list["eject_mats"])
+		for(var/mat in materials)
+			var/amt = materials[mat]
+			if(amt > 0)
+				var/mat_path = _mat_path_from_key(mat)
+				if(mat_path)
+					var/sheets = round(amt / 2000)
+					if(sheets > 0)
+						new mat_path(get_turf(src), sheets)
+					materials[mat] = 0
+		to_chat(usr, span_notice("All materials ejected."))
+		ui_interact(usr)
+		return
+
+	if(href_list["eject_mat"])
+		var/mkey = href_list["eject_mat"]
+		if(mkey in materials)
+			var/amt = materials[mkey]
+			if(amt > 0)
+				var/mat_path = _mat_path_from_key(mkey)
+				if(mat_path)
+					var/sheets = round(amt / 2000)
+					if(sheets > 0)
+						new mat_path(get_turf(src), sheets)
+					materials[mkey] = 0
+					to_chat(usr, span_notice("[sheets] sheet\s of [mkey] ejected."))
+		ui_interact(usr)
+		return
 
 	if(href_list["eject_tier_cert"])
 		var/obj/item/cert_card/CC = locate(href_list["eject_tier_cert"]) in installed_certs
@@ -1755,6 +1780,14 @@
 	if(istype(W, /obj/item/stack/sheet/mineral/silver)) return "silver"
 	return null
 
+/obj/machinery/robot_workshop/proc/_mat_path_from_key(key)
+	switch(key)
+		if("iron")   return /obj/item/stack/sheet/metal
+		if("glass")  return /obj/item/stack/sheet/glass
+		if("gold")   return /obj/item/stack/sheet/mineral/gold
+		if("silver") return /obj/item/stack/sheet/mineral/silver
+	return null
+
 
 /obj/machinery/robot_workshop/proc/_slot_label(slot_name)
 	// slot_name is a /datum/robot_hardware type path string.
@@ -1803,9 +1836,7 @@
 	css += ".dim{color:#2a7a52;}"
 	css += ".warn{color:#e8a020;}"
 	css += ".stat{color:#e8a020;font-weight:bold;}"
-	css += ".card{border:1px solid #2a7a52;padding:4px 8px;margin:3px 0;}"
-	css += ".hw{border-left:3px solid #e8a020;}"
-	css += ".sel{border-left:3px solid #4aed92;background:#071a0f;}"
+	css += ".csec{margin-top:2px;}"
 	css += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
 	css += "</style></head>"
 	return css

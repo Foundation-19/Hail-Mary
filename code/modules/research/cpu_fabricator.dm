@@ -151,8 +151,7 @@
 	css += ".dim{color:#2a7a52;}"
 	css += ".warn{color:#e8a020;}"
 	css += ".stat{color:#e8a020;font-weight:bold;}"
-	css += ".card{border:1px solid #2a7a52;padding:4px 8px;margin:3px 0;}"
-	css += ".hw{border-left:3px solid #e8a020;}"
+	css += ".csec{margin-top:2px;}"
 	css += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
 	css += "</style></head>"
 	return css
@@ -167,29 +166,29 @@
 
 /obj/machinery/cpu_fabricator/proc/get_nav(mob/user)
 	var/n = ""
-	n += _navlink("\[HOME\]",       FAB_HOME)
+	n += _navlink("Home",       FAB_HOME)
 	n += " | "
-	n += _navlink("\[CERTS\]",      FAB_CERTS)
+	n += _navlink("Certs",      FAB_CERTS)
 	n += " | "
-	n += _navlink("\[UPGRADES\]",   FAB_UPGRADES)
+	n += _navlink("Upgrades",   FAB_UPGRADES)
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
 		n += " | "
-		n += _navlink("\[BEHAVIOR\]",   FAB_BEHAVIORS)
+		n += _navlink("Behavior",   FAB_BEHAVIORS)
 		n += " | "
-		n += _navlink("\[CUSTOM\]",     FAB_CUSTOM)
+		n += _navlink("Custom",     FAB_CUSTOM)
 	n += " | "
-	n += _navlink("\[AI MODS\]",    FAB_AI)
+	n += _navlink("AI Mods",    FAB_AI)
 	if(inserted_assembly)
 		n += " | "
-		n += _navlink("\[REPROGRAM\]",  FAB_REPROG)
+		n += _navlink("Reprogram",  FAB_REPROG)
 	n += "<br><hr>"
 	return n
 
 
 /obj/machinery/cpu_fabricator/proc/_navlink(label, mode_id)
 	if(fab_mode == mode_id)
-		return "<span class='good'><b>[label]</b></span>"
-	return "<a href='byond://?src=[REF(src)];mode=[mode_id]'>[label]</a>"
+		return "&gt; [label]"
+	return "<a href='byond://?src=[REF(src)];mode=[mode_id]'>&gt; [label]</a>"
 
 
 // ============================================================
@@ -238,23 +237,20 @@
 
 /obj/machinery/cpu_fabricator/proc/_render_home(mob/user)
 	var/dat = ""
-	dat += "<b>MODULE DIRECTORY</b><br>"
-	dat += "<div class='card'>"
-	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CERTS]'><b>BASE CERTIFICATIONS</b></a>  <span class='dim'>chassis identity cards</span><br>"
-	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_UPGRADES]'><b>UPGRADE MODULES</b></a>  <span class='dim'>hardware enhancements</span><br>"
-	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_AI]'><b>AI MODS</b></a>  <span class='dim'>software packages for AI units</span><br>"
+	dat += "MODULE DIRECTORY<br>"
+	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CERTS]'>Base Certifications</a>  <span class='dim'>chassis identity cards</span><br>"
+	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_UPGRADES]'>Upgrade Modules</a>  <span class='dim'>hardware enhancements</span><br>"
+	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_AI]'>AI Mods</a>  <span class='dim'>software packages for AI units</span><br>"
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
-		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_BEHAVIORS]'><b>BEHAVIOR ASSEMBLIES</b></a>  <span class='dim'>preset automation programs</span><br>"
-		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CUSTOM]'><b>CUSTOM BUILD</b></a>  <span class='dim'>wire your own trigger/response pair</span><br>"
+		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_BEHAVIORS]'>Behavior Assemblies</a>  <span class='dim'>preset automation programs</span><br>"
+		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CUSTOM]'>Custom Build</a>  <span class='dim'>wire your own trigger/response pair</span><br>"
 	else
-		dat += "<span class='dim'>&gt; BEHAVIOR ASSEMBLIES  (requires Robot Whisperer trait)</span><br>"
-	dat += "</div>"
+		dat += "<span class='dim'>&gt; Behavior Assemblies  (requires Robot Whisperer trait)</span><br>"
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/sensor_range = min(10, 5 + max(0, H.special_p - 5))
 		var/luck_chance = H.special_l >= 5 ? (H.special_l - 4) * 5 : 0
-		dat += "<br><b>OPERATOR PROFILE</b>  <span class='dim'>// Robot Whisperer</span><br>"
-		dat += "<div class='card'>"
+		dat += "<br>OPERATOR PROFILE  <span class='dim'>// Robot Whisperer</span><br>"
 		dat += "<span class='dim'>INT</span> <span class='[H.special_i >= 6 ? "good" : "warn"]'>[H.special_i]</span>"
 		dat += "  <span class='dim'>// [H.special_i >= 8 ? "UNRESTRICTED" : H.special_i >= 7 ? "ADV" : H.special_i >= 6 ? "STD" : "LOCKED"]</span><br>"
 		dat += "<span class='dim'>PER</span> <span class='good'>[H.special_p]</span>  <span class='dim'>// sensor range: [sensor_range] tiles</span><br>"
@@ -262,33 +258,35 @@
 			dat += "<span class='dim'>LCK</span> <span class='good'>[H.special_l]</span>  <span class='good'>// [luck_chance]% BONUS CIRCUIT on Wire and Print</span><br>"
 		else
 			dat += "<span class='dim'>LCK [H.special_l]  // no bonus circuit (LCK 5+ needed)</span><br>"
-		dat += "</div>"
 	dat += "<br>"
 	if(inserted_assembly)
-		dat += "<b>REPROGRAM SLOT</b>  <span class='good'>// LOADED</span><br>"
-		dat += "<div class='card'>"
+		dat += "REPROGRAM SLOT  <span class='good'>// LOADED</span><br>"
 		dat += "<span class='good'>[inserted_assembly.assembly_label]</span>"
 		dat += "  <span class='dim'>circuits: [inserted_assembly.circuits.len]/[inserted_assembly.max_circuits] | range: [inserted_assembly.sensor_range] tiles</span><br>"
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_REPROG]'>\[configure\]</a>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_assembly=1'>\[eject\]</a>"
-		dat += "</div>"
 	else
-		dat += "<b>REPROGRAM SLOT</b>  <span class='dim'>// EMPTY - insert a behavior assembly</span><br>"
+		dat += "REPROGRAM SLOT  <span class='dim'>// EMPTY - insert a behavior assembly</span><br>"
 	var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
 	if(mats)
-		dat += "<br><b>MATERIAL HOPPER</b>  <a href='byond://?src=[REF(src)];eject_mats=1'>\[eject all\]</a><br>"
-		dat += "<div class='card'>"
 		var/list/mpaths = list(/datum/material/iron, /datum/material/glass, /datum/material/gold, /datum/material/silver)
 		var/list/mnames = list("iron", "glass", "gold", "silver")
+		var/mat_max_fab = MINERAL_MATERIAL_AMOUNT * 50
+		dat += "<br>MATERIAL HOPPER  <a href='byond://?src=[REF(src)];eject_mats=1'>\[eject all\]</a><br>"
 		for(var/i in 1 to mpaths.len)
 			var/amt = mats.get_material_amount(mpaths[i]) || 0
-			var/filled = round(clamp(amt / 2000, 0, 1) * 10)
+			var/filled = round(clamp(amt / mat_max_fab, 0, 1) * 10)
 			var/bar = ""
 			for(var/j in 1 to 10)
 				bar += (j <= filled) ? "#" : "-"
-			dat += "<span class='dim'>[mnames[i]]</span>  <span class='[amt > 0 ? "good" : "dim"]'>\[[bar]\]</span>  <span class='warn'>[amt]</span> <span class='dim'>cm3</span><br>"
+			dat += "<span class='dim'>[mnames[i]]</span>  "
+			var/bar_class = amt > 0 ? "good" : "dim"
+			dat += "<span class='[bar_class]'>\[[bar]\]</span>  "
+			dat += "<span class='warn'>[amt]</span><span class='dim'>/[mat_max_fab] cm3</span>  "
+			if(amt > 0)
+				dat += "<a href='byond://?src=[REF(src)];eject_mat=[mnames[i]]'>\[eject\]</a>"
+			dat += "<br>"
 		dat += "<span class='dim'>(Insert material sheets to load.)</span>"
-		dat += "</div>"
 	return dat
 
 // ============================================================
@@ -304,15 +302,16 @@
 		count++
 		var/dname = D.design_name
 		var/ddesc = D.design_desc
-		dat += "<div class='card'>"
-		dat += "<b>[dname]</b>"
+		// Name line: name + inline tier/int tags
+		dat += "[dname]"
 		if(D.required_tier > CERT_TIER_BASIC)
-			dat += " <span class='warn'>(Tier 2 - Military)</span>"
+			dat += "  <span class='warn'>Tier 2 - Military</span>"
 		if(D.required_int > 0)
-			dat += " <span class='dim'>(INT [D.required_int]+)</span>"
+			dat += "  <span class='dim'>INT [D.required_int]+</span>"
 		dat += "<br>"
+		// Desc line
 		dat += "<span class='dim'>[ddesc]</span><br>"
-		// Show hardware requirements for behavior assemblies
+		// Hardware required note
 		if(category == "behavior" && ispath(D.output_path, /obj/item/behavior_assembly))
 			var/obj/item/behavior_assembly/test = new D.output_path()
 			var/hw_list = ""
@@ -321,9 +320,10 @@
 					hw_list += (hw_list ? ", " : "") + C.circuit_name
 			qdel(test)
 			if(hw_list)
-				dat += "<span class='warn' style='font-size:0.88em'>&gt; HARDWARE REQUIRED for: [hw_list]</span><br>"
+				dat += "<span class='warn'>&gt; hardware required: [hw_list]</span><br>"
+		// Cost line
 		if(D.cost && D.cost.len)
-			var/cost_text = "Cost: "
+			var/cost_text = ""
 			var/first = TRUE
 			for(var/mat in D.cost)
 				var/amt = D.cost[mat]
@@ -331,7 +331,10 @@
 					cost_text += ", "
 				cost_text += "[amt] [mat]"
 				first = FALSE
-			dat += "<span class='dim'>[cost_text]</span><br>"
+			dat += "<span class='dim'>cost: [cost_text]</span><br>"
+		if(D.for_ai)
+			dat += "<span class='dim'>installed on AI units, not robots</span><br>"
+		// Action line
 		var/can_print = !printing
 		var/block_reason = ""
 		if(D.requires_robot_whisperer && !HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
@@ -342,15 +345,13 @@
 			if(H.special_i < D.required_int)
 				can_print = FALSE
 				block_reason = "INT [D.required_int]+ required (you have [H.special_i])"
-		if(D.for_ai)
-			dat += "<span class='dim'>(Installed on AI units, not robots.)</span><br>"
 		if(can_print)
-			dat += "<a href='byond://?src=[REF(src)];print=[D.id]'>&gt; Print</a>"
+			dat += "<a href='byond://?src=[REF(src)];print=[D.id]'>&gt; Print</a><br>"
 		else if(block_reason)
-			dat += "<span class='dim'>&gt; Locked: [block_reason]</span>"
+			dat += "<span class='dim'>&gt; Locked: [block_reason]</span><br>"
 		else
-			dat += "<span class='dim'>&gt; Locked</span>"
-		dat += "</div>"
+			dat += "<span class='dim'>&gt; Locked</span><br>"
+		dat += "<hr>"
 	if(!count)
 		dat += "<span class='dim'>&gt; No designs in this category.</span><br>"
 	return dat
@@ -364,14 +365,14 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.special_i < 6)
-			var/dat2 = "<b>CUSTOM BEHAVIOR WORKSHOP</b><br>"
+			var/dat2 = "CUSTOM BEHAVIOR WORKSHOP<br>"
 			dat2 += "<span class='bad'>&gt; INTELLIGENCE TOO LOW. INT 6 required to program assemblies.</span><br>"
 			return dat2
 	return _render_workshop(user)
 
 
 /obj/machinery/cpu_fabricator/proc/_render_workshop(mob/user)
-	var/dat = "<b>BEHAVIOR ASSEMBLY WORKSHOP</b>"
+	var/dat = "BEHAVIOR ASSEMBLY WORKSHOP"
 	// Phase nav
 	dat += " - "
 	var/list/phase_labels = list("1:TRIGGER", "2:RESPONSE", "3:CONFIGURE", "4:REVIEW")
@@ -425,13 +426,17 @@
 
 // Phase 1: Pick a trigger - split into STANDARD and HARDWARE sections
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_trigger(mob/user)
-	var/dat = "<b>STEP 1 - SELECT TRIGGER</b><br>"
+	var/dat = "STEP 1 -- SELECT TRIGGER<br>"
 	dat += "<span class='dim'>The trigger defines WHEN your assembly acts.</span><br>"
 	dat += "<span class='dim'>&gt; Search:</span> "
 	var/ccs = null; ccs = ccs // JS: search string
 	var/ccn = null; ccn = ccn // JS: card count
 	var/cci = null; cci = cci // JS: card item
-	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter circuits...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
+	var/sn  = null; sn  = sn  // JS: section index
+	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter circuits...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}var sn=document.getElementsByClassName(&quot;csec&quot;).length;while(sn--){document.getElementsByClassName(&quot;csec&quot;).item(sn).style.display=ccs?&quot;none&quot;:&quot;block&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br>"}
+	if(custom_trigger_id)
+		dat += "&gt; <a href='byond://?src=[REF(src)];workshop_phase=1'>Continue to Response selection</a><br>"
+	dat += "<br>"
 	var/list/standard_triggers = list()
 	var/list/hardware_triggers = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
@@ -442,29 +447,29 @@
 		else
 			standard_triggers += list(entry)
 		qdel(inst)
-	dat += "<b>STANDARD TRIGGERS</b> <span class='dim'>(work on any robot)</span><br>"
+	dat += "<div class='csec'>STANDARD TRIGGERS <span class='dim'>(work on any robot)</span></div>"
 	for(var/list/E in standard_triggers)
 		var/tpath = "[E["path"]]"
 		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
-		dat += "<div class='card ccard' data-s='[searchkey]'>"
+		dat += "<div class='ccard' data-s='[searchkey]'>"
 		if(custom_trigger_id == tpath)
-			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<span class='good'>&gt; * [E["name"]]</span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
-			dat += "<a href='byond://?src=[REF(src)];sel_trigger=[tpath]'><b>&gt; [E["name"]]</b></a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<a href='byond://?src=[REF(src)];sel_trigger=[tpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		dat += "<span class='dim'>[E["desc"]]</span><br>"
-		dat += "<span class='dim' style='font-size:0.85em'>[E["tut"]]</span>"
+		dat += "<span class='dim' >[E["tut"]]</span>"
 		dat += "</div>"
-	dat += "<br><b>HARDWARE TRIGGERS</b> <span class='warn'>(require specific modules in robot)</span><br>"
+	dat += "<div class='csec'>HARDWARE TRIGGERS <span class='warn'>(require specific modules)</span></div>"
 	for(var/list/E in hardware_triggers)
 		var/tpath = "[E["path"]]"
 		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
-		dat += "<div class='card hw ccard' data-s='[searchkey]'>"
+		dat += "<div class='ccard' data-s='[searchkey]'>"
 		if(custom_trigger_id == tpath)
-			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<span class='good'>&gt; * [E["name"]]</span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
-			dat += "<a href='byond://?src=[REF(src)];sel_trigger=[tpath]'><b>&gt; [E["name"]]</b></a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<a href='byond://?src=[REF(src)];sel_trigger=[tpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		dat += "<span class='dim'>[E["desc"]]</span><br>"
-		dat += "<span class='dim' style='font-size:0.85em'>[E["tut"]]</span>"
+		dat += "<span class='dim'>[E["tut"]]</span>"
 		dat += "</div>"
 	if(custom_trigger_id)
 		dat += "<br><a href='byond://?src=[REF(src)];workshop_phase=1'>&gt; Continue to Response selection</a><br>"
@@ -473,13 +478,17 @@
 
 // Phase 2: Pick a response - split into STANDARD and HARDWARE sections
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_response(mob/user)
-	var/dat = "<b>STEP 2 - SELECT RESPONSE</b><br>"
+	var/dat = "STEP 2 -- SELECT RESPONSE<br>"
 	dat += "<span class='dim'>The response defines WHAT happens when the trigger fires.</span><br>"
 	dat += "<span class='dim'>&gt; Search:</span> "
 	var/ccs = null; ccs = ccs // JS: search string
 	var/ccn = null; ccn = ccn // JS: card count
 	var/cci = null; cci = cci // JS: card item
-	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter circuits...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
+	var/sn  = null; sn  = sn  // JS: section index
+	dat += {"<input id='cfilter' type='text' autofocus placeholder='filter circuits...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;ccard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;ccard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}var sn=document.getElementsByClassName(&quot;csec&quot;).length;while(sn--){document.getElementsByClassName(&quot;csec&quot;).item(sn).style.display=ccs?&quot;none&quot;:&quot;block&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br>"}
+	if(custom_response_id)
+		dat += "&gt; <a href='byond://?src=[REF(src)];advance_from_response=1'>Continue</a><br>"
+	dat += "<br>"
 	var/list/standard_responses = list()
 	var/list/hardware_responses = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/response))
@@ -490,29 +499,29 @@
 		else
 			standard_responses += list(entry)
 		qdel(inst)
-	dat += "<b>STANDARD RESPONSES</b> <span class='dim'>(work on any robot)</span><br>"
+	dat += "<div class='csec'>STANDARD RESPONSES <span class='dim'>(work on any robot)</span></div>"
 	for(var/list/E in standard_responses)
 		var/rpath = "[E["path"]]"
 		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
-		dat += "<div class='card ccard' data-s='[searchkey]'>"
+		dat += "<div class='ccard' data-s='[searchkey]'>"
 		if(custom_response_id == rpath)
-			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<span class='good'>&gt; * [E["name"]]</span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
-			dat += "<a href='byond://?src=[REF(src)];sel_response=[rpath]'><b>&gt; [E["name"]]</b></a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<a href='byond://?src=[REF(src)];sel_response=[rpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		dat += "<span class='dim'>[E["desc"]]</span><br>"
-		dat += "<span class='dim' style='font-size:0.85em'>[E["tut"]]</span>"
+		dat += "<span class='dim' >[E["tut"]]</span>"
 		dat += "</div>"
-	dat += "<br><b>HARDWARE RESPONSES</b> <span class='warn'>(require specific modules in robot)</span><br>"
+	dat += "<div class='csec'>HARDWARE RESPONSES <span class='warn'>(require specific modules)</span></div>"
 	for(var/list/E in hardware_responses)
 		var/rpath = "[E["path"]]"
 		var/searchkey = replacetext(lowertext(E["name"]) + " " + lowertext(E["desc"]), "'", "")
-		dat += "<div class='card hw ccard' data-s='[searchkey]'>"
+		dat += "<div class='ccard' data-s='[searchkey]'>"
 		if(custom_response_id == rpath)
-			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<span class='good'>&gt; * [E["name"]]</span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
-			dat += "<a href='byond://?src=[REF(src)];sel_response=[rpath]'><b>&gt; [E["name"]]</b></a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<a href='byond://?src=[REF(src)];sel_response=[rpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		dat += "<span class='dim'>[E["desc"]]</span><br>"
-		dat += "<span class='dim' style='font-size:0.85em'>[E["tut"]]</span>"
+		dat += "<span class='dim'>[E["tut"]]</span>"
 		dat += "</div>"
 	if(custom_response_id)
 		// Advance button: roll for bonus if eligible, otherwise go to configure
@@ -525,7 +534,7 @@
 	if(!bonus_slot_available)
 		workshop_phase = 3
 		return _workshop_phase_configure(user)
-	var/dat = "<b>BONUS CIRCUIT SLOT</b><br>"
+	var/dat = "BONUS CIRCUIT SLOT<br>"
 	dat += "<span class='good'>&gt; Your Luck stat earned a bonus circuit slot! Wire in one extra trigger OR one extra response.</span><br><br>"
 	if(!bonus_slot_mode)
 		dat += "<a href='byond://?src=[REF(src)];set_bonus_mode=trigger'>\[Add a second TRIGGER\]</a> "
@@ -544,12 +553,12 @@
 		else
 			standard_bonus += list(entry)
 		qdel(inst)
-	dat += "<b>STANDARD</b><br>"
+	dat += "<div class='csec'>STANDARD</div>"
 	for(var/list/E in standard_bonus)
 		var/bpath = "[E["path"]]"
-		dat += "<div class='card'>"
+		dat += ""
 		if(custom_bonus_id == bpath)
-			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<span class='good'>&gt; * [E["name"]]</span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
 			dat += "<a href='byond://?src=[REF(src)];sel_bonus=[bpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		dat += "<span class='dim'>[E["desc"]]</span>"
@@ -557,25 +566,24 @@
 	dat += "<br><b>HARDWARE</b> <span class='warn'>(require specific modules)</span><br>"
 	for(var/list/E in hardware_bonus)
 		var/bpath = "[E["path"]]"
-		dat += "<div class='card hw'>"
+		dat += ""
 		if(custom_bonus_id == bpath)
-			dat += "<span class='good'><b>&gt; * [E["name"]]</b></span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
+			dat += "<span class='good'>&gt; * [E["name"]]</span> <span class='dim'>CPU: [E["cpu"]]</span><br>"
 		else
 			dat += "<a href='byond://?src=[REF(src)];sel_bonus=[bpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
-		dat += "<span class='dim'>[E["desc"]]</span>"
-		dat += "</div>"
+		dat += "<span class='dim'>[E["desc"]]</span><br>"
 	if(custom_bonus_id)
-		dat += "<br><a href='byond://?src=[REF(src)];build_custom_confirm=1'><b>&gt; WIRE AND PRINT WITH BONUS</b></a><br>"
+		dat += "<br><a href='byond://?src=[REF(src)];build_custom_confirm=1'>&gt; WIRE AND PRINT WITH BONUS</a><br>"
 	dat += "<a href='byond://?src=[REF(src)];build_custom_defer=1'><span class='dim'>&gt; Print now, choose bonus at REPROGRAM</span></a><br>"
 	return dat
 
 
 // Phase 3: Configure vars for selected circuits
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_configure(mob/user)
-	var/dat = "<b>STEP 3 - CONFIGURE</b><br>"
+	var/dat = "STEP 3 -- CONFIGURE<br>"
 	dat += "<span class='dim'>Adjust parameters for your circuits. Leave defaults if unsure.</span><br><hr>"
 	// Trigger
-	dat += "<b>TRIGGER:</b> <span class='[custom_trigger_id ? "good" : "bad"]'>[custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none selected)"]</span>"
+	dat += "TRIGGER: <span class='[custom_trigger_id ? "good" : "bad"]'>[custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none selected)"]</span>"
 	if(custom_trigger_id)
 		dat += " <a href='byond://?src=[REF(src)];workshop_phase=0'>\[change\]</a>"
 	dat += "<br>"
@@ -585,7 +593,7 @@
 			var/datum/behavior_circuit/TI = new trigger_type()
 			dat += _render_circuit_config_inline(TI, "trigger")
 			qdel(TI)
-	dat += "<hr><b>RESPONSE:</b> <span class='[custom_response_id ? "good" : "bad"]'>[custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none selected)"]</span>"
+	dat += "<hr>RESPONSE: <span class='[custom_response_id ? "good" : "bad"]'>[custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none selected)"]</span>"
 	if(custom_response_id)
 		dat += " <a href='byond://?src=[REF(src)];workshop_phase=1'>\[change\]</a>"
 	dat += "<br>"
@@ -597,7 +605,7 @@
 			qdel(RI)
 	// Bonus circuit config if applicable
 	if(bonus_slot_available && bonus_slot_mode && custom_bonus_id)
-		dat += "<hr><b>BONUS [uppertext(bonus_slot_mode)]:</b> <span class='good'>[_resolve_circuit_name(custom_bonus_id)]</span><br>"
+		dat += "<hr>BONUS [uppertext(bonus_slot_mode)]: <span class='good'>[_resolve_circuit_name(custom_bonus_id)]</span><br>"
 		var/bonus_type = text2path(custom_bonus_id)
 		if(bonus_type)
 			var/datum/behavior_circuit/BI = new bonus_type()
@@ -613,7 +621,7 @@
 
 // Phase 4: Review + print
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_extra_response(mob/user)
-	var/dat = "<b>ADD RESPONSE</b><br>"
+	var/dat = "ADD RESPONSE<br>"
 	dat += "<span class='dim'>Pick an additional response. The trigger will fire ALL wired responses in sequence.</span><br><hr>"
 	var/list/standard_responses = list()
 	var/list/hardware_responses = list()
@@ -625,14 +633,14 @@
 		else
 			standard_responses += list(entry)
 		qdel(inst)
-	dat += "<b>STANDARD RESPONSES:</b><br>"
+	dat += "<div class='csec'>STANDARD RESPONSES</div>"
 	for(var/list/E in standard_responses)
 		var/rpath = "[E["path"]]"
 		if(rpath == custom_response_id || (extra_response_ids && (rpath in extra_response_ids)))
 			dat += "<span class='dim'>[E["name"]] (already added)</span><br>"
 			continue
 		dat += "<a href='byond://?src=[REF(src)];add_extra_response=[rpath]'>&gt; [E["name"]]</a> <span class='dim'>CPU: [E["cpu"]]</span><br>"
-	dat += "<br><b>HARDWARE RESPONSES:</b><br>"
+	dat += "<div class='csec'>HARDWARE RESPONSES</div>"
 	for(var/list/E in hardware_responses)
 		var/rpath = "[E["path"]]"
 		if(rpath == custom_response_id || (extra_response_ids && (rpath in extra_response_ids)))
@@ -646,7 +654,7 @@
 
 // Phase 4: Review + print
 /obj/machinery/cpu_fabricator/proc/_workshop_phase_review(mob/user)
-	var/dat = "<b>STEP 4 - REVIEW & PRINT</b><br>"
+	var/dat = "STEP 4 -- REVIEW & PRINT<br>"
 	dat += "<span class='dim'>Final check before printing. CPU cost must fit your robot's cert.</span><br><hr>"
 	var/t_name = custom_trigger_id ? _resolve_circuit_name(custom_trigger_id) : "(none)"
 	var/r_name = custom_response_id ? _resolve_circuit_name(custom_response_id) : "(none)"
@@ -672,11 +680,11 @@
 			b_cpu = inst.cpu_cost
 			qdel(inst)
 	var/total_cpu = t_cpu + r_cpu + b_cpu
-	dat += "<b>TRIGGER:</b>  <span class='[custom_trigger_id ? "good" : "bad"]'>[t_name]</span>"
+	dat += "TRIGGER:  <span class='[custom_trigger_id ? "good" : "bad"]'>[t_name]</span>"
 	if(custom_trigger_id)
 		dat += " <a href='byond://?src=[REF(src)];workshop_phase=0'>\[change\]</a>"
 	dat += " <span class='dim'>CPU: [t_cpu]</span><br>"
-	dat += "<b>RESPONSE:</b> <span class='[custom_response_id ? "good" : "bad"]'>[r_name]</span>"
+	dat += "RESPONSE: <span class='[custom_response_id ? "good" : "bad"]'>[r_name]</span>"
 	if(custom_response_id)
 		dat += " <a href='byond://?src=[REF(src)];workshop_phase=1'>\[change\]</a>"
 	dat += " <span class='dim'>CPU: [r_cpu]</span><br>"
@@ -689,8 +697,8 @@
 	if(custom_response_id && extra_response_ids.len < 3)
 		dat += "<a href='byond://?src=[REF(src)];workshop_phase=5'><span class='dim'>+ Add another response</span></a><br>"
 	if(bonus_slot_available && bonus_slot_mode && custom_bonus_id)
-		dat += "<b>BONUS [uppertext(bonus_slot_mode)]:</b> <span class='good'>[_resolve_circuit_name(custom_bonus_id)]</span> <span class='dim'>CPU: [b_cpu]</span><br>"
-	dat += "<b>TOTAL CPU:</b> <span class='warn'>[total_cpu]</span><br>"
+		dat += "BONUS [uppertext(bonus_slot_mode)]: <span class='good'>[_resolve_circuit_name(custom_bonus_id)]</span> <span class='dim'>CPU: [b_cpu]</span><br>"
+	dat += "TOTAL CPU: <span class='good'>[total_cpu]</span><br>"
 	// Material cost
 	var/datum/cpu_fab_design/behavior/dummy = new()
 	var/cost_dat = ""
@@ -703,7 +711,7 @@
 	if(printing)
 		dat += "<span class='warn'>&gt; PRINTING IN PROGRESS...</span><br>"
 	else if(custom_trigger_id && custom_response_id)
-		dat += "<a href='byond://?src=[REF(src)];build_custom=1'><b>&gt; WIRE AND PRINT</b></a>"
+		dat += "<a href='byond://?src=[REF(src)];build_custom=1'>&gt; WIRE AND PRINT</a>"
 		dat += "  <a href='byond://?src=[REF(src)];clear_workshop=1'><span class='dim'>\[clear\]</span></a><br>"
 	else
 		dat += "<span class='bad'>&gt; Select trigger and response first.</span><br>"
@@ -767,7 +775,7 @@
 
 /obj/machinery/cpu_fabricator/proc/_render_circuit_config_inline(datum/behavior_circuit/C, prefix)
 	var/dat = ""
-	dat += "<span class='dim' style='font-size:0.88em;border-left:2px solid #2a7a52;padding-left:4px'>[C.tutorial_text]</span><br>"
+	dat += "<span class='dim'>[C.tutorial_text]</span><br>"
 	var/list/allowed = _get_configurable_vars()
 	var/has_vars = FALSE
 	for(var/varname in allowed)
@@ -783,13 +791,12 @@
 		var/list/meta = _get_var_meta(varname)
 		var/label = meta ? meta[1] : varname
 		var/hint  = meta ? meta[2] : ""
-		dat += "<div style='margin:2px 0;padding:2px 4px;border-left:1px solid #2a7a52'>"
-		dat += "<b><span class='good'>[label]</span></b>"
-		dat += " = <span class='warn'>[cur_val]</span>"
+		dat += "<span class='dim'>[label]</span>"
+		dat += " = <span class='good'>[cur_val]</span>"
 		dat += " \[<a href='byond://?src=[REF(src)];prompt_config=[prefix].[varname]'>edit</a>\]"
 		if(hint)
-			dat += "<br><span class='dim' style='font-size:0.82em'>([hint])</span>"
-		dat += "</div>"
+			dat += "  <span class='dim'>[hint]</span>"
+		dat += "<br>"
 		has_vars = TRUE
 	if(!has_vars)
 		dat += "<span class='dim'>&gt; No configurable parameters for this circuit.</span><br>"
@@ -817,11 +824,11 @@
 	if(!inserted_assembly)
 		return "<span class='bad'>&gt; No assembly in reprogramming slot.</span><br>"
 	var/obj/item/behavior_assembly/A = inserted_assembly
-	var/dat = "<b>CONFIGURE: [A.assembly_label]</b><br>"
+	var/dat = "CONFIGURE: [A.assembly_label]<br>"
 	dat += "<span class='dim'>Slots: [A.circuits.len]/[A.max_circuits] | Range: [A.sensor_range] tiles</span><br>"
 	// Pending bonus from deferred LCK roll at print time
 	if(A.pending_bonus_slot)
-		dat += "<br><b>PENDING BONUS CIRCUIT</b>  <span class='good'>// earned at print via LCK</span><br>"
+		dat += "<br>PENDING BONUS CIRCUIT  <span class='good'>// earned at print via LCK</span><br>"
 		dat += "<span class='dim'>Pick a [A.pending_bonus_slot] circuit to wire into this assembly.</span><br>"
 		var/base_path2 = A.pending_bonus_slot == "trigger" ? /datum/behavior_circuit/trigger : /datum/behavior_circuit/response
 		for(var/T2 in subtypesof(base_path2))
@@ -831,33 +838,33 @@
 			var/bname2 = inst2.circuit_name
 			var/bdesc2 = inst2.circuit_desc
 			qdel(inst2)
-			dat += "<div class='card[hw2 ? " hw" : ""]'>"
+			dat += ""
 			dat += "&gt; <a href='byond://?src=[REF(src)];wire_pending_bonus=[bpath2]'>[bname2]</a>"
 			if(hw2)
 				dat += "  <span class='warn'>HARDWARE</span>"
 			dat += "<br><span class='dim'>[bdesc2]</span>"
-			dat += "</div>"
+			dat += "<br>"
 		dat += "<a href='byond://?src=[REF(src)];wire_pending_bonus=skip'><span class='dim'>&gt; Skip - discard bonus</span></a><br>"
 		dat += "<hr>"
 	else if(!A.slot_expansion_used && HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && A.max_circuits < 4)
-		dat += "<br><b>EXPAND CIRCUIT SLOT</b>  <span class='dim'>(one-time | costs [REPROGRAM_COST_GOLD] gold)</span><br>"
+		dat += "<br>EXPAND CIRCUIT SLOT  <span class='dim'>(one-time | costs [REPROGRAM_COST_GOLD] gold)</span><br>"
 		dat += "<span class='dim'>Adds one empty slot so you can install an additional circuit. Cannot be undone.</span><br>"
 		dat += "&gt; <a href='byond://?src=[REF(src)];reprog_expand=trigger'>\[+ TRIGGER slot\]</a>"
 		dat += "  <a href='byond://?src=[REF(src)];reprog_expand=response'>\[+ RESPONSE slot\]</a><br>"
 		dat += "<hr>"
 	if(A.circuits.len)
-		dat += "<br><b>INSTALLED CIRCUITS:</b><br>"
+		dat += "<br>INSTALLED CIRCUITS<br>"
 		for(var/datum/behavior_circuit/C in A.circuits)
 			var/hw_label = C.needs_hardware ? "  <span class='warn'>HARDWARE</span>" : ""
 			dat += "<span class='dim'>&gt; [C.circuit_name][hw_label]</span><br>"
 	dat += "<hr>"
-	dat += "<b>CONFIGURE VARIABLES</b>  <span class='dim'>(free - no material cost)</span><br>"
+	dat += "CONFIGURE VARIABLES  <span class='dim'>(free - no material cost)</span><br>"
 	dat += "<span class='dim'>Changes apply immediately. Preset protocols cannot be rewired, only tuned.</span><br>"
 	if(A.circuits.len)
 		for(var/datum/behavior_circuit/C in A.circuits)
 			dat += "<br><span class='good'>[C.circuit_name]</span><br>"
 			dat += _render_circuit_config_inline(C, "reprogram_[A.circuits.Find(C)]")
-		dat += "<br><a href='byond://?src=[REF(src)];reprogram_vars=1'><b>&gt; Apply Changes</b></a><br>"
+		dat += "<br><a href='byond://?src=[REF(src)];reprogram_vars=1'>&gt; Apply Changes</a><br>"
 	else
 		dat += "<span class='dim'>&gt; No circuits installed.</span><br>"
 	dat += "<hr>"
@@ -1190,6 +1197,34 @@
 		var/datum/component/material_container/mats = GetComponent(/datum/component/material_container)
 		if(mats)
 			mats.retrieve_all(get_turf(src))
+		ui_interact(usr)
+		return
+	if(href_list["eject_mat"])
+		var/datum/component/material_container/mats_single = GetComponent(/datum/component/material_container)
+		if(mats_single)
+			var/list/mat_map = list(
+				"iron"   = /datum/material/iron,
+				"glass"  = /datum/material/glass,
+				"gold"   = /datum/material/gold,
+				"silver" = /datum/material/silver
+			)
+			var/mkey = href_list["eject_mat"]
+			var/mpath = mat_map[mkey]
+			if(mpath)
+				var/have = mats_single.get_material_amount(mpath) || 0
+				if(have > 0)
+					var/sheets = round(have / MINERAL_MATERIAL_AMOUNT)
+					mats_single.use_amount_mat(sheets * MINERAL_MATERIAL_AMOUNT, mpath)
+					if(sheets > 0)
+						var/list/sheet_paths = list(
+							/datum/material/iron   = /obj/item/stack/sheet/metal,
+							/datum/material/glass  = /obj/item/stack/sheet/glass,
+							/datum/material/gold   = /obj/item/stack/sheet/mineral/gold,
+							/datum/material/silver = /obj/item/stack/sheet/mineral/silver
+						)
+						var/spath = sheet_paths[mpath]
+						if(spath)
+							new spath(get_turf(src), sheets)
 		ui_interact(usr)
 		return
 	if(href_list["reprogram_vars"])
