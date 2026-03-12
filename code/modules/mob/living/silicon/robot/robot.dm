@@ -504,8 +504,14 @@
 		to_chat(user, "The wires seem fine, there's no need to fix them.")
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
-	// Multitool: admin with open panel → config panel.
-	// Everyone else → handled by multitool/afterattack in robot_hardware_hooks.dm.
+	// Config panel ID card auth -- must be first, before the vanilla ID card branch.
+	// rcp_pending_action is set by robot_config_panel.dm when awaiting a faction/lock swipe.
+	if(rcp_pending_action && istype(W, /obj/item/card/id))
+		rcp_handle_id_card_auth(W, user)
+		return
+
+	// Multitool: admin with open panel -> config panel.
+	// Everyone else -> handled by multitool/afterattack in robot_hardware_hooks.dm.
 	// Always return so we never fall through to the vanilla is_wire_tool branch.
 	if(istype(W, /obj/item/multitool))
 		if(opened && check_rights_for(user.client, R_ADMIN))

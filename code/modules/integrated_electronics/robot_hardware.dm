@@ -5,6 +5,7 @@
 /// Trait added to robots with microphone hardware installed.
 /// Signals behavior circuits to process heard speech.
 #define TRAIT_HEARING_HARDWARE  "trait_hearing_hardware"
+#define TRAIT_SENSOR_HARDWARE   "trait_sensor_hardware"
 
 /// Signal fired by robot_hardware/clock each tick interval.
 /// Received by behavior circuits using Trigger: On Clock Tick.
@@ -527,12 +528,24 @@
 
 /datum/robot_hardware/reagent_tank/install(mob/living/silicon/robot/R)
 	. = ..()
+	// Create a beaker item in the robot's module so it can be used as a held container
 	var/obj/item/reagent_containers/glass/beaker/large/tank = new(R)
 	tank.reagents.maximum_volume = tank_capacity
 	if(prefill_volume > 0 && reagent_type)
 		tank.reagents.add_reagent(reagent_type, min(prefill_volume, tank_capacity))
 	if(R.module)
 		R.module.add_module(tank, TRUE, FALSE)
+	// Also expand R.reagents (the robot's internal pool used by pump/collect circuits)
+	if(R.reagents)
+		R.reagents.maximum_volume = max(R.reagents.maximum_volume, tank_capacity)
+		if(prefill_volume > 0 && reagent_type)
+			R.reagents.add_reagent(reagent_type, min(prefill_volume, tank_capacity))
+
+/datum/robot_hardware/reagent_tank/uninstall(mob/living/silicon/robot/R)
+	// Shrink R.reagents back to default (50u) when tank is removed
+	if(R.reagents)
+		R.reagents.maximum_volume = 50
+	. = ..()
 
 
 // -- GRINDER MODULE -----------------------------------
@@ -575,13 +588,13 @@
 
 	/// 0 = pull from container into robot, 1 = push from robot into container
 	var/pump_direction = 0
-	/// Units to transfer per activation
+	/// Units to transfer per activation. Named transfer_rate to match behavior_circuits.dm usage.
 	var/transfer_rate  = 50
 
 /datum/robot_hardware/reagent_pump/New()
 	config_defs = list(
 		"pump_direction" = list("Direction (0=pull 1=push)", "number", 0),
-		"transfer_rate"  = list("Transfer Rate (u)",        "number", 50)
+		"transfer_rate"  = list("Transfer Rate (u)",         "number", 50)
 	)
 
 
@@ -752,6 +765,33 @@
 
 /datum/robot_hardware/environment_scanner/apply_special(list/S)
 	scan_radius += max(0, S["PER"] - 5)
+
+
+// -- ENVIRONMENT SENSOR ---------------------------------------
+// Passive visual cortex. Installs TRAIT_SENSOR_HARDWARE which
+// enables show_message() interception in robot_log.dm, logging
+// nearby emotes and visible actions to the activity log.
+
+/datum/robot_hardware/environment_sensor
+	hardware_name    = "Environment Sensor"
+	hardware_desc    = "Passive sensor array. The robot observes nearby visible actions and emotes."
+	tutorial_text    = "Logs nearby visible actions (emotes, gestures) to the unit's activity log. Useful for surveillance or any robot that should notice what's happening around it."
+	category         = RHC_SENSORS
+	min_int          = 1
+	core_compute     = 1
+	mat_cost         = list("iron" = 150)
+	var/sensor_range = 5
+
+/datum/robot_hardware/environment_sensor/New()
+	config_defs = list(
+		"sensor_range" = list("Sensor Range", "number", 5)
+	)
+
+/datum/robot_hardware/environment_sensor/install(mob/living/silicon/robot/R)
+	ADD_TRAIT(R, TRAIT_SENSOR_HARDWARE, "robot_hardware")
+
+/datum/robot_hardware/environment_sensor/uninstall(mob/living/silicon/robot/R)
+	REMOVE_TRAIT(R, TRAIT_SENSOR_HARDWARE, "robot_hardware")
 
 
 // -- OBJECT LOCATOR -----------------------------------

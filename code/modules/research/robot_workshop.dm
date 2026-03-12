@@ -199,6 +199,12 @@
 	/// Whether the machine is currently building
 	var/building = FALSE
 
+	/// Pending loadout item swaps: assoc item_index(num as text) -> type path
+	/// Applied at build time to override default basic_modules items
+	var/list/pending_loadout_swaps = list()
+	/// Index (1-based, as text) of the loadout slot currently open for picking
+	var/loadout_pick_idx = null
+
 	/// Materials hopper - assoc list: material key -> amount
 	var/list/materials = list(
 		"iron"   = 0,
@@ -549,14 +555,43 @@
 		dat += _hw_slot_row(slot_key, FALSE, H)
 	dat += "<a href='byond://?src=[REF(src)];hw_add_optional=1'>\[+ add optional hardware\]</a><br>"
 
-	// Base module loadout
+	// Base module loadout — player can swap same-type alternatives
 	if(selected_design)
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
-			dat += "<br>BASE MODULE LOADOUT  <span class='dim'>// pre-installed, not configurable</span><br>"
+			dat += "<br>BASE MODULE LOADOUT  <span class='dim'>// swap same-type item alternatives before build</span><br>"
 			var/obj/item/robot_module/dummy = new D.module_type(null)
+			var/list/base_items = list()
 			for(var/obj/item/I in dummy.basic_modules)
-				dat += "<span class='dim'>  + [I.name]</span><br>"
+				base_items += I
+			for(var/idx = 1 to base_items.len)
+				var/obj/item/I = base_items[idx]
+				var/idx_key = "[idx]"
+				var/swapped_path = pending_loadout_swaps[idx_key]
+				if(swapped_path)
+					dat += "&gt; [I.name]  <span class='dim'>→</span>  <span class='good'>[initial(swapped_path:name)]</span>  <a href='byond://?src=[REF(src)];loadout_swap_clear=[idx_key]'>\[reset\]</a><br>"
+				else if(loadout_pick_idx == idx_key)
+					dat += "<span class='good'>&gt; [I.name]</span>  <span class='dim'>// picking replacement:</span><br>"
+					var/parent_path = type2parent(I.type)
+					var/list/candidates = list()
+					if(parent_path && parent_path != /obj/item)
+						for(var/ctype in subtypesof(parent_path))
+							if(ctype == I.type) continue
+							if(initial(ctype:name) == initial(parent_path:name)) continue
+							candidates += ctype
+					if(!candidates.len)
+						for(var/ctype in subtypesof(I.type))
+							if(ctype == I.type) continue
+							candidates += ctype
+					if(candidates.len)
+						for(var/ctype in candidates)
+							var/ctype_str = "[ctype]"
+							dat += "  <a href='byond://?src=[REF(src)];loadout_swap_set=[idx_key];loadout_swap_type=[url_encode(ctype_str)]'>&gt; [initial(ctype:name)]</a><br>"
+					else
+						dat += "  <span class='dim'>(no alternatives found)</span><br>"
+					dat += "  <a href='byond://?src=[REF(src)];loadout_pick_cancel=1'>\[cancel\]</a><br>"
+				else
+					dat += "<span class='dim'>  + [I.name]</span>  <a href='byond://?src=[REF(src)];loadout_pick=[idx_key]'>\[swap\]</a><br>"
 			qdel(dummy)
 
 	return dat
@@ -1001,9 +1036,14 @@
 				var/datum/robot_hardware/HW = pending_hardware[slot]
 				if(HW) qdel(HW)
 			pending_hardware = list()
+			pending_loadout_swaps = list()
+			loadout_pick_idx = null
 		else
 			var/path = text2path(val)
 			if(_get_design(path))
+				if(selected_design != path)
+					pending_loadout_swaps = list()
+					loadout_pick_idx = null
 				selected_design = path
 		ui_interact(usr)
 		return
@@ -1100,6 +1140,36 @@
 		pending_hardware = list()
 		ui_interact(usr)
 		return
+
+	// ── Loadout item swap handlers ────────────────────────────────────────────
+	if(href_list["loadout_pick"])
+		loadout_pick_idx = href_list["loadout_pick"]
+		ui_interact(usr)
+		return
+
+	if(href_list["loadout_pick_cancel"])
+		loadout_pick_idx = null
+		ui_interact(usr)
+		return
+
+	if(href_list["loadout_swap_set"])
+		var/idx_key = href_list["loadout_swap_set"]
+		var/swap_path = text2path(url_decode(href_list["loadout_swap_type"]))
+		if(idx_key && swap_path)
+			if(!pending_loadout_swaps) pending_loadout_swaps = list()
+			pending_loadout_swaps[idx_key] = swap_path
+		loadout_pick_idx = null
+		ui_interact(usr)
+		return
+
+	if(href_list["loadout_swap_clear"])
+		var/idx_key = href_list["loadout_swap_clear"]
+		if(pending_loadout_swaps && (idx_key in pending_loadout_swaps))
+			pending_loadout_swaps.Remove(idx_key)
+		ui_interact(usr)
+		return
+
+	// ── Hardware IC topic handlers ─────────────────────────────────────────────
 
 	if(href_list["hw_pick"])
 		hw_active_slot = href_list["hw_pick"]
@@ -1415,6 +1485,7 @@
 	var/obj/item/cert_card/snap_cert             = robot_cert
 	var/obj/item/robot_suit/snap_chassis         = chassis
 	var/list/snap_hw                             = pending_hardware.Copy()
+	var/list/snap_loadout                        = pending_loadout_swaps.Copy()
 	var/turf/T                                   = get_turf(src)
 	var/builder_ckey                             = key_name(user)
 
@@ -1423,13 +1494,15 @@
 	robot_cert        = null
 	chassis           = null
 	pending_hardware  = list()
+	pending_loadout_swaps = list()
+	loadout_pick_idx  = null
 	selected_design   = null
 
 	addtimer(CALLBACK(src, PROC_REF(_set_working_anim)), 10, TIMER_UNIQUE|TIMER_OVERRIDE)
 	addtimer(CALLBACK(src, PROC_REF(_finish_robot),
 		snap_design, snap_control, snap_ckey,
 		snap_assembly, snap_cert, snap_chassis,
-		snap_hw, T, builder_ckey, snap_builder), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
+		snap_hw, snap_loadout, T, builder_ckey, snap_builder), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
 
@@ -1442,7 +1515,7 @@
 	obj/item/behavior_assembly/A,
 	obj/item/cert_card/CC,
 	obj/item/robot_suit/suit,
-	list/hw_snap, turf/T, builder_ckey,
+	list/hw_snap, list/loadout_snap, turf/T, builder_ckey,
 	mob/living/carbon/human/builder)
 
 	building = FALSE
@@ -1498,6 +1571,32 @@
 	instantiate_hardware_list(hw_entries, R, builder)
 	if(R.module)
 		R.module.rebuild_modules()
+
+	// Apply player-selected loadout item swaps.
+	// loadout_snap is assoc: "1" -> /obj/item/gun/... etc.
+	// Index corresponds to position in basic_modules at build time.
+	if(loadout_snap && loadout_snap.len && R.module)
+		var/list/bm = R.module.basic_modules
+		if(bm && bm.len)
+			for(var/idx_key in loadout_snap)
+				var/idx = text2num(idx_key)
+				if(!idx || idx < 1 || idx > bm.len) continue
+				var/swap_path = loadout_snap[idx_key]
+				if(!swap_path || !ispath(swap_path)) continue
+				var/obj/item/old_item = bm[idx]
+				if(!old_item) continue
+				// Verify type compatibility (swap_path must be same parent as old_item)
+				if(!ispath(swap_path, old_item.type) && !istype(old_item, swap_path))
+					// Also allow sibling types (same grandparent)
+					var/compatible = FALSE
+					for(var/ancestor in typesof(old_item.type))
+						if(ispath(swap_path, ancestor)) { compatible = TRUE; break }
+					if(!compatible) continue
+				bm -= old_item
+				qdel(old_item)
+				var/obj/item/new_item = new swap_path(R.module)
+				bm.Insert(idx, new_item)
+			R.module.rebuild_modules()
 
 	// Validate assembly hardware slot coverage against what was actually installed.
 	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.
