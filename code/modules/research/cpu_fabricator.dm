@@ -698,7 +698,9 @@
 		dat += "<a href='byond://?src=[REF(src)];workshop_phase=5'><span class='dim'>+ Add another response</span></a><br>"
 	if(bonus_slot_available && bonus_slot_mode && custom_bonus_id)
 		dat += "BONUS [uppertext(bonus_slot_mode)]: <span class='good'>[_resolve_circuit_name(custom_bonus_id)]</span> <span class='dim'>CPU: [b_cpu]</span><br>"
-	dat += "TOTAL CPU: <span class='good'>[total_cpu]</span><br>"
+	dat += "TOTAL CPU: <span class='good'>[total_cpu]</span>"
+	dat += "  <span class='dim'>// cert budget: Standard=5  Combat=10  Medical=8  Engineering=7</span><br>"
+	dat += "<span class='dim'>(Assembly must fit the compute budget of the cert installed in the robot.)</span><br>"
 	// Material cost
 	var/datum/cpu_fab_design/behavior/dummy = new()
 	var/cost_dat = ""

@@ -5,6 +5,9 @@
 /// Trait added to robots with microphone hardware installed.
 /// Signals behavior circuits to process heard speech.
 #define TRAIT_HEARING_HARDWARE  "trait_hearing_hardware"
+
+/// Trait added to robots with environment_scanner hardware installed.
+/// Used by robot_log.dm to gate show_message() interception.
 #define TRAIT_SENSOR_HARDWARE   "trait_sensor_hardware"
 
 /// Signal fired by robot_hardware/clock each tick interval.
@@ -84,9 +87,12 @@
 	/// Weakref to the robot this hardware is installed on
 	var/datum/weakref/robot_ref = null
 
-	/// Config var definitions for workshop UI
-	/// Assoc list: var_name -> list("label", "type", default_value)
+	/// Config var definitions for workshop UI and config panel.
+	/// Assoc list: var_name -> list("label", "type", default_value, min, max)
 	/// Types: "number", "text", "bool", "list"
+	/// min/max: optional 4th/5th entries for "number" type — panel clamps to range.
+	/// Omit or use null to allow any value. Example:
+	///   "fire_range" = list("Fire Range", "number", 7, 1, 20)
 	var/list/config_defs = list()
 
 
@@ -151,10 +157,10 @@
 	config_defs = list(
 		"gun_type"         = list("Weapon Type",     "list",   /obj/item/gun/energy/laser),
 		"lethal_mode"      = list("Lethal Mode",      "bool",   TRUE),
-		"fire_range"       = list("Fire Range",       "number", 7),
-		"combat_mode"      = list("Combat Mode",      "number", ROBOT_COMBAT_MELEE),
-		"retreat_distance" = list("Retreat Distance", "number", 5),
-		"minimum_distance" = list("Minimum Distance", "number", 2)
+		"fire_range"       = list("Fire Range",       "number", 7,                1, 20),
+		"combat_mode"      = list("Combat Mode",      "number", ROBOT_COMBAT_MELEE, 1, 3),
+		"retreat_distance" = list("Retreat Distance", "number", 5,                1, 15),
+		"minimum_distance" = list("Minimum Distance", "number", 2,                0, 10)
 	)
 
 /datum/robot_hardware/weapon/apply_special(list/S)
@@ -185,7 +191,8 @@
 
 
 /datum/robot_hardware/weapon/get_summary()
-	return "[hardware_name] ([gun_type]) [lethal_mode ? "LETHAL" : "STUN"] range:[fire_range]"
+	var/mode_txt = lethal_mode ? "LETHAL" : "STUN"
+	return "[hardware_name] ([gun_type]) [mode_txt] range:[fire_range]"
 
 
 // -- GRENADE LAUNCHER ---------------------------------
@@ -205,11 +212,14 @@
 	var/fuse_time     = 30
 	var/grenade_count = 1
 
+/datum/robot_hardware/grenade_launcher/get_summary()
+	return "[hardware_name] type:[grenade_type] fuse:[fuse_time]ds x[grenade_count]"
+
 /datum/robot_hardware/grenade_launcher/New()
 	config_defs = list(
 		"grenade_type"  = list("Grenade Type",  "list",   /obj/item/grenade),
-		"fuse_time"     = list("Fuse Timer (ds)","number", 30),
-		"grenade_count" = list("Grenade Count", "number", 1)
+		"fuse_time"     = list("Fuse Timer (ds)","number", 30, 5, 120),
+		"grenade_count" = list("Grenade Count", "number", 1, 1, 5)
 	)
 
 /datum/robot_hardware/grenade_launcher/install(mob/living/silicon/robot/R)
@@ -260,11 +270,14 @@
 	/// Internal gas volume available
 	var/gas_volume      = 50
 
+/datum/robot_hardware/air_cannon/get_summary()
+	return "[hardware_name] force:[knockback_force] vol:[gas_volume]L"
+
 /datum/robot_hardware/air_cannon/New()
 	config_defs = list(
-		"knockback_force" = list("Knockback Force", "number", 3),
+		"knockback_force" = list("Knockback Force", "number", 3, 1, 10),
 		"gas_type"        = list("Gas Type",        "list",   "o2"),
-		"gas_volume"      = list("Gas Volume",      "number", 50)
+		"gas_volume"      = list("Gas Volume (L)",  "number", 50, 10, 200)
 	)
 
 /datum/robot_hardware/air_cannon/apply_special(list/S)
@@ -289,10 +302,13 @@
 	/// Range in tiles (melee = 1)
 	var/stun_range    = 1
 
+/datum/robot_hardware/stun_module/get_summary()
+	return "[hardware_name] range:[stun_range] dur:[stun_duration]ds"
+
 /datum/robot_hardware/stun_module/New()
 	config_defs = list(
-		"stun_duration" = list("Stun Duration (ds)", "number", 30),
-		"stun_range"    = list("Stun Range",         "number", 1)
+		"stun_duration" = list("Stun Duration (ds)", "number", 30, 5, 100),
+		"stun_range"    = list("Stun Range",         "number", 1, 1, 7)
 	)
 
 /datum/robot_hardware/stun_module/apply_special(list/S)
@@ -322,10 +338,13 @@
 	/// Items currently held by this arm
 	var/list/held_items = list()
 
+/datum/robot_hardware/grabber/get_summary()
+	return "[hardware_name] capacity:[max_items]"
+
 /datum/robot_hardware/grabber/New()
 	config_defs = list(
-		"max_items"  = list("Max Items",    "number", 5),
-		"max_weight" = list("Max Weight Class", "number", WEIGHT_CLASS_NORMAL)
+		"max_items"  = list("Max Items",    "number", 5, 1, 20),
+		"max_weight" = list("Max Weight Class", "number", WEIGHT_CLASS_NORMAL, null, null)
 	)
 
 /datum/robot_hardware/grabber/apply_special(list/S)
@@ -347,10 +366,13 @@
 	var/throw_force   = 5
 	var/throw_range   = 7
 
+/datum/robot_hardware/thrower/get_summary()
+	return "[hardware_name] force:[throw_force] range:[throw_range]"
+
 /datum/robot_hardware/thrower/New()
 	config_defs = list(
-		"throw_force" = list("Throw Force", "number", 5),
-		"throw_range" = list("Throw Range", "number", 7)
+		"throw_force" = list("Throw Force", "number", 5, 1, 20),
+		"throw_range" = list("Throw Range", "number", 7, 1, 15)
 	)
 
 /datum/robot_hardware/thrower/apply_special(list/S)
@@ -373,9 +395,12 @@
 	/// Grab strength: GRAB_PASSIVE, GRAB_AGGRESSIVE, GRAB_NECK
 	var/grab_strength = GRAB_PASSIVE
 
+/datum/robot_hardware/claw/get_summary()
+	return "[hardware_name] strength:[grab_strength]"
+
 /datum/robot_hardware/claw/New()
 	config_defs = list(
-		"grab_strength" = list("Grab Strength", "number", GRAB_PASSIVE)
+		"grab_strength" = list("Grab Strength", "number", GRAB_PASSIVE, null, null)
 	)
 
 /datum/robot_hardware/claw/apply_special(list/S)
@@ -400,9 +425,13 @@
 	var/last_harvest   = 0
 	var/harvest_cooldown = 30  // 3 seconds between harvest attempts
 
+/datum/robot_hardware/harvester/get_summary()
+	var/replant_txt = auto_replant ? "replant:ON" : "replant:OFF"
+	return "[hardware_name] range:[harvest_range] [replant_txt]"
+
 /datum/robot_hardware/harvester/New()
 	config_defs = list(
-		"harvest_range" = list("Harvest Range", "number", 3),
+		"harvest_range" = list("Harvest Range", "number", 3, 1, 10),
 		"auto_replant"  = list("Auto Replant",  "bool",   TRUE)
 	)
 
@@ -425,9 +454,12 @@
 	/// List of typepaths the collector will prioritize
 	var/list/target_types = list(/obj/item/stack/sheet/metal, /obj/item/stack/sheet/glass)
 
+/datum/robot_hardware/material_collector/get_summary()
+	return "[hardware_name] range:[collect_range]"
+
 /datum/robot_hardware/material_collector/New()
 	config_defs = list(
-		"collect_range" = list("Collection Range", "number", 4)
+		"collect_range" = list("Collection Range", "number", 4, 1, 15)
 	)
 
 /datum/robot_hardware/material_collector/apply_special(list/S)
@@ -459,12 +491,18 @@
 	var/inject_mode    = TRUE
 	/// TRUE = only targets friendlies
 	var/target_friendly = TRUE
+	// reagent_tank var declared in robot_hardware_hooks.dm (runtime state ownership)
+
+/datum/robot_hardware/injector/get_summary()
+	var/mode_txt    = inject_mode     ? "inject"  : "extract"
+	var/target_txt  = target_friendly ? "friendly" : "any"
+	return "[hardware_name] [reagent_type] [dose_per_use]u/dose [mode_txt] [target_txt]"
 
 /datum/robot_hardware/injector/New()
 	config_defs = list(
 		"reagent_type"    = list("Reagent Type",     "list",   /datum/reagent/water),
-		"reagent_volume"  = list("Volume Loaded",    "number", 30),
-		"dose_per_use"    = list("Dose Per Use (u)", "number", 5),
+		"reagent_volume"  = list("Volume Loaded",    "number", 30,  1, 300),
+		"dose_per_use"    = list("Dose Per Use (u)", "number", 5,   1, 50),
 		"inject_mode"     = list("Inject Mode",      "bool",   TRUE),
 		"target_friendly" = list("Friendlies Only",  "bool",   TRUE)
 	)
@@ -480,28 +518,6 @@
 	if(R.module)
 		R.module.add_module(H, TRUE, FALSE)
 
-
-// -- REAGENT PUMP -------------------------------------
-
-/datum/robot_hardware/reagent_pump
-	hardware_name    = "Reagent Pump"
-	hardware_desc    = "Moves reagents between internal storage and adjacent containers."
-	tutorial_text    = "Enables: Response: Pump Reagents. The robot can transfer liquids to/from adjacent containers. Useful for chemical distribution robots or medical bots that need to refill their injector from a tank."
-	category         = RHC_REAGENTS
-	min_int          = RH_INT_STANDARD
-	core_operations  = 1
-	core_energy      = 1
-	mat_cost         = list("iron" = 300, "glass" = 200)
-
-	/// Units transferred per pump activation (also aliased as pump_amount for circuits)
-	var/transfer_amount = 10
-	var/pump_in         = TRUE
-
-/datum/robot_hardware/reagent_pump/New()
-	config_defs = list(
-		"transfer_amount" = list("Transfer Amount (u)", "number", 10),
-		"pump_in"         = list("Pump In (vs Out)",    "bool",   TRUE)
-	)
 
 
 // -- REAGENT TANK -------------------------------------
@@ -519,33 +535,24 @@
 	var/reagent_type   = /datum/reagent/water
 	var/prefill_volume = 0
 
+/datum/robot_hardware/reagent_tank/get_summary()
+	return "[hardware_name] cap:[tank_capacity]u prefill:[prefill_volume]u"
+
 /datum/robot_hardware/reagent_tank/New()
 	config_defs = list(
-		"tank_capacity"  = list("Tank Capacity (u)", "number", 120),
+		"tank_capacity"  = list("Tank Capacity (u)", "number", 120, 10, 500),
 		"reagent_type"   = list("Prefill Reagent",   "list",   /datum/reagent/water),
-		"prefill_volume" = list("Prefill Volume (u)","number", 0)
+		"prefill_volume" = list("Prefill Volume (u)","number", 0,   0, 500)
 	)
 
 /datum/robot_hardware/reagent_tank/install(mob/living/silicon/robot/R)
 	. = ..()
-	// Create a beaker item in the robot's module so it can be used as a held container
 	var/obj/item/reagent_containers/glass/beaker/large/tank = new(R)
 	tank.reagents.maximum_volume = tank_capacity
 	if(prefill_volume > 0 && reagent_type)
 		tank.reagents.add_reagent(reagent_type, min(prefill_volume, tank_capacity))
 	if(R.module)
 		R.module.add_module(tank, TRUE, FALSE)
-	// Also expand R.reagents (the robot's internal pool used by pump/collect circuits)
-	if(R.reagents)
-		R.reagents.maximum_volume = max(R.reagents.maximum_volume, tank_capacity)
-		if(prefill_volume > 0 && reagent_type)
-			R.reagents.add_reagent(reagent_type, min(prefill_volume, tank_capacity))
-
-/datum/robot_hardware/reagent_tank/uninstall(mob/living/silicon/robot/R)
-	// Shrink R.reagents back to default (50u) when tank is removed
-	if(R.reagents)
-		R.reagents.maximum_volume = 50
-	. = ..()
 
 
 // -- GRINDER MODULE -----------------------------------
@@ -564,22 +571,19 @@
 	var/output_override = null
 	var/grind_speed     = 10  // deciseconds per grind
 
+/datum/robot_hardware/grinder_module/get_summary()
+	return "[hardware_name] speed:[grind_speed]ds"
+
 /datum/robot_hardware/grinder_module/New()
 	config_defs = list(
-		"grind_speed" = list("Grind Speed (ds)", "number", 10)
+		"grind_speed" = list("Grind Speed (ds)", "number", 10, 2, 60)
 	)
 
-
-// ====================================================
-// ATMOSPHERICS
-// ====================================================
-
-// -- GAS PUMP -----------------------------------------
 
 /datum/robot_hardware/reagent_pump
 	hardware_name    = "Reagent Pump"
 	hardware_desc    = "Transfers reagents between the robot's internal tank and an adjacent container."
-	tutorial_text    = "Enables: Response: Collect Reagents. The robot transfers reagents to or from adjacent reagent containers. Configure direction (0=pull in, 1=push out) and transfer rate. Used for medical supply bots and chem dispensers."
+	tutorial_text    = "Enables: Response: Pump Reagents, Response: Pump Reagent. Transfers reagents between the robot and an adjacent container. Configure pump_direction (0=pull in, 1=push out) and transfer_rate. Pairs with Internal Reagent Tank for supply storage."
 	category         = RHC_REAGENTS
 	min_int          = RH_INT_STANDARD
 	core_operations  = 1
@@ -588,13 +592,17 @@
 
 	/// 0 = pull from container into robot, 1 = push from robot into container
 	var/pump_direction = 0
-	/// Units to transfer per activation. Named transfer_rate to match behavior_circuits.dm usage.
+	/// Units to transfer per activation
 	var/transfer_rate  = 50
+
+/datum/robot_hardware/reagent_pump/get_summary()
+	var/dir_txt = pump_direction == 0 ? "PULL IN" : "PUSH OUT"
+	return "[hardware_name] [dir_txt] [transfer_rate]u"
 
 /datum/robot_hardware/reagent_pump/New()
 	config_defs = list(
-		"pump_direction" = list("Direction (0=pull 1=push)", "number", 0),
-		"transfer_rate"  = list("Transfer Rate (u)",         "number", 50)
+		"pump_direction" = list("Direction (0=pull 1=push)", "number", 0,  0, 1),
+		"transfer_rate"  = list("Transfer Rate (u)",        "number", 50, 1, 300)
 	)
 
 
@@ -615,11 +623,76 @@
 	/// Amount of reagent to transfer per spray (units)
 	var/spray_amount = 10
 
+/datum/robot_hardware/chem_sprayer/get_summary()
+	return "[hardware_name] range:[spray_range] [spray_amount]u"
+
 /datum/robot_hardware/chem_sprayer/New()
 	config_defs = list(
-		"spray_range"  = list("Spray Range (tiles)", "number", 2),
-		"spray_amount" = list("Spray Amount (u)",    "number", 10)
+		"spray_range"  = list("Spray Range (tiles)", "number", 2,  1, 8),
+		"spray_amount" = list("Spray Amount (u)",    "number", 10, 1, 100)
 	)
+
+// -- EXTINGUISHER MODULE ---------------------------------
+
+/datum/robot_hardware/extinguisher_module
+	hardware_name    = "Extinguisher Module"
+	hardware_desc    = "Mounts an extinguisher unit the robot can use to douse fires on mobs or turfs."
+	tutorial_text    = "Enables: Response: Extinguish Fire. The robot douses the nearest mob on fire within spray_range. Configure spray_range and charges. Pair with Trigger: On Interval or On Enemy Spotted for an automatic fire-response bot."
+	category         = RHC_SUPPORT
+	min_int          = RH_INT_BASIC
+	core_operations  = 1
+	mat_cost         = list("iron" = 200, "glass" = 100)
+
+	/// Range in tiles to find a fire target
+	var/spray_range = 3
+	/// Number of uses remaining. -1 = unlimited.
+	var/charges = 10
+	/// Weakref to the actual extinguisher item installed into the module
+	var/datum/weakref/extinguisher_ref = null
+
+/datum/robot_hardware/extinguisher_module/get_summary()
+	var/chg_txt = charges < 0 ? "unlim" : "[charges]"
+	return "[hardware_name] range:[spray_range] charges:[chg_txt]"
+
+/datum/robot_hardware/extinguisher_module/New()
+	config_defs = list(
+		"spray_range" = list("Spray Range (tiles)", "number", 3,   1, 10),
+		"charges"     = list("Charges (-1=unlimited)", "number", 10, -1, 100)
+	)
+
+/datum/robot_hardware/extinguisher_module/install(mob/living/silicon/robot/R)
+	. = ..()
+	var/obj/item/extinguisher/EX = new(R)
+	EX.icon = 'icons/obj/assemblies/electronic_setups.dmi'
+	EX.icon_state = "setup_small"
+	extinguisher_ref = WEAKREF(EX)
+	if(R.module)
+		R.module.add_module(EX, TRUE, FALSE)
+
+/datum/robot_hardware/extinguisher_module/uninstall(mob/living/silicon/robot/R)
+	var/obj/item/extinguisher/EX = extinguisher_ref?.resolve()
+	if(EX)
+		qdel(EX)
+	extinguisher_ref = null
+	. = ..()
+
+/// Returns the installed extinguisher item, or null if gone/uncharged.
+/datum/robot_hardware/extinguisher_module/proc/get_extinguisher()
+	if(!extinguisher_ref)
+		return null
+	var/obj/item/extinguisher/EX = extinguisher_ref.resolve()
+	if(!EX || QDELETED(EX))
+		extinguisher_ref = null
+		return null
+	if(charges == 0)
+		return null
+	return EX
+
+/// Called by fire_extinguisher circuit after each successful use.
+/datum/robot_hardware/extinguisher_module/proc/consume_charge()
+	if(charges > 0)
+		charges--
+
 
 // ====================================================
 // SENSORS
@@ -640,10 +713,14 @@
 	var/trigger_phrase = ""
 	var/listen_range   = 7
 
+/datum/robot_hardware/microphone/get_summary()
+	var/phrase_txt = length(trigger_phrase) ? " phrase:yes" : ""
+	return "[hardware_name] range:[listen_range][phrase_txt]"
+
 /datum/robot_hardware/microphone/New()
 	config_defs = list(
 		"trigger_phrase" = list("Trigger Phrase (blank=any)", "text",   ""),
-		"listen_range"   = list("Listen Range",               "number", 7)
+		"listen_range"   = list("Listen Range",               "number", 7, 1, 15)
 	)
 
 /datum/robot_hardware/microphone/apply_special(list/S)
@@ -674,12 +751,15 @@
 	/// TRUE = trigger on enter, FALSE = trigger on exit
 	var/trigger_on_enter = TRUE
 
+/datum/robot_hardware/gps/get_summary()
+	return "[hardware_name] zone:([zone_x1],[zone_y1])-([zone_x2],[zone_y2])"
+
 /datum/robot_hardware/gps/New()
 	config_defs = list(
-		"zone_x1"          = list("Zone X1",          "number", 0),
-		"zone_y1"          = list("Zone Y1",          "number", 0),
-		"zone_x2"          = list("Zone X2",          "number", 0),
-		"zone_y2"          = list("Zone Y2",          "number", 0),
+		"zone_x1"          = list("Zone X1",          "number", 0, 0, 500),
+		"zone_y1"          = list("Zone Y1",          "number", 0, 0, 500),
+		"zone_x2"          = list("Zone X2",          "number", 0, 0, 500),
+		"zone_y2"          = list("Zone Y2",          "number", 0, 0, 500),
 		"trigger_on_enter" = list("Trigger On Enter", "bool",   TRUE)
 	)
 
@@ -699,10 +779,13 @@
 	var/required_access = ACCESS_SECURITY
 	var/scan_range      = 1
 
+/datum/robot_hardware/id_reader/get_summary()
+	return "[hardware_name] range:[scan_range]"
+
 /datum/robot_hardware/id_reader/New()
 	config_defs = list(
-		"required_access" = list("Required Access Level", "number", ACCESS_SECURITY),
-		"scan_range"      = list("Scan Range",            "number", 1)
+		"required_access" = list("Required Access Level", "number", ACCESS_SECURITY, null, null),
+		"scan_range"      = list("Scan Range",            "number", 1, 1, 5)
 	)
 
 
@@ -723,10 +806,13 @@
 	/// "friendly", "hostile", "all"
 	var/scan_target       = "friendly"
 
+/datum/robot_hardware/health_scanner/get_summary()
+	return "[hardware_name] range:[scan_range] threshold:[critical_threshold]%"
+
 /datum/robot_hardware/health_scanner/New()
 	config_defs = list(
-		"scan_range"         = list("Scan Range",            "number", 5),
-		"critical_threshold" = list("Critical HP Threshold %","number", 30),
+		"scan_range"         = list("Scan Range",            "number", 5, 1, 15),
+		"critical_threshold" = list("Critical HP Threshold %","number", 30, 1, 99),
 		"scan_target"        = list("Scan Target",           "list",   "friendly")
 	)
 
@@ -753,45 +839,29 @@
 	/// Radiation threshold in rads/tick to trigger
 	var/rad_threshold      = 5
 
+/datum/robot_hardware/environment_scanner/get_summary()
+	var/fire_txt   = detect_fire      ? " fire"   : ""
+	var/rad_txt    = detect_radiation ? " rad"    : ""
+	var/body_txt   = detect_bodies    ? " bodies" : ""
+	return "[hardware_name] radius:[scan_radius][fire_txt][rad_txt][body_txt]"
+
 /datum/robot_hardware/environment_scanner/New()
 	config_defs = list(
-		"scan_radius"      = list("Scan Radius",         "number", 5),
+		"scan_radius"      = list("Scan Radius",         "number", 5, 1, 15),
 		"detect_fire"      = list("Detect Fire",         "bool",   TRUE),
 		"detect_radiation" = list("Detect Radiation",    "bool",   TRUE),
 		"detect_bodies"    = list("Detect Bodies",       "bool",   TRUE),
 		"detect_items"     = list("Detect Items",        "bool",   FALSE),
-		"rad_threshold"    = list("Radiation Threshold", "number", 5)
+		"rad_threshold"    = list("Radiation Threshold", "number", 5, 1, 50)
 	)
 
 /datum/robot_hardware/environment_scanner/apply_special(list/S)
 	scan_radius += max(0, S["PER"] - 5)
 
-
-// -- ENVIRONMENT SENSOR ---------------------------------------
-// Passive visual cortex. Installs TRAIT_SENSOR_HARDWARE which
-// enables show_message() interception in robot_log.dm, logging
-// nearby emotes and visible actions to the activity log.
-
-/datum/robot_hardware/environment_sensor
-	hardware_name    = "Environment Sensor"
-	hardware_desc    = "Passive sensor array. The robot observes nearby visible actions and emotes."
-	tutorial_text    = "Logs nearby visible actions (emotes, gestures) to the unit's activity log. Useful for surveillance or any robot that should notice what's happening around it."
-	category         = RHC_SENSORS
-	min_int          = 1
-	core_compute     = 1
-	mat_cost         = list("iron" = 150)
-	var/sensor_range = 5
-
-/datum/robot_hardware/environment_sensor/New()
-	config_defs = list(
-		"sensor_range" = list("Sensor Range", "number", 5)
-	)
-
-/datum/robot_hardware/environment_sensor/install(mob/living/silicon/robot/R)
+/datum/robot_hardware/environment_scanner/install(mob/living/silicon/robot/R)
+	. = ..()
+	// Register sensor trait - robot_log.dm uses this to gate show_message() interception
 	ADD_TRAIT(R, TRAIT_SENSOR_HARDWARE, "robot_hardware")
-
-/datum/robot_hardware/environment_sensor/uninstall(mob/living/silicon/robot/R)
-	REMOVE_TRAIT(R, TRAIT_SENSOR_HARDWARE, "robot_hardware")
 
 
 // -- OBJECT LOCATOR -----------------------------------
@@ -809,10 +879,13 @@
 	var/target_type   = /obj/item
 	var/search_radius = 10
 
+/datum/robot_hardware/object_locator/get_summary()
+	return "[hardware_name] radius:[search_radius]"
+
 /datum/robot_hardware/object_locator/New()
 	config_defs = list(
 		"target_type"   = list("Target Item Type", "list",   /obj/item),
-		"search_radius" = list("Search Radius",    "number", 10)
+		"search_radius" = list("Search Radius",    "number", 10, 1, 20)
 	)
 
 /datum/robot_hardware/object_locator/apply_special(list/S)
@@ -836,9 +909,12 @@
 	/// Species typepath to detect (null = any non-baseline). E.g. /datum/species/ghoul
 	var/target_species = null
 
+/datum/robot_hardware/bio_scanner/get_summary()
+	return "[hardware_name] radius:[scan_radius]"
+
 /datum/robot_hardware/bio_scanner/New()
 	config_defs = list(
-		"scan_radius"       = list("Scan Radius",         "number", 7),
+		"scan_radius"       = list("Scan Radius",         "number", 7, 1, 15),
 		"broadcast_results" = list("Broadcast Results",   "bool",   FALSE),
 		"target_species"    = list("Target Species typepath (null=any)", "text", "")
 	)
@@ -866,9 +942,13 @@
 	var/light_color      = "#FFFFFF"
 	var/start_on         = TRUE
 
+/datum/robot_hardware/light/get_summary()
+	var/on_txt = start_on ? "starts:ON" : "starts:OFF"
+	return "[hardware_name] brightness:[light_brightness] [on_txt]"
+
 /datum/robot_hardware/light/New()
 	config_defs = list(
-		"light_brightness" = list("Brightness (1-10)", "number", 3),
+		"light_brightness" = list("Brightness (1-10)", "number", 3, 1, 10),
 		"light_color"      = list("Color (hex)",       "text",   "#FFFFFF"),
 		"start_on"         = list("Start On",          "bool",   TRUE)
 	)
@@ -895,10 +975,14 @@
 	/// Broadcast range - 0 = examine only, >0 = visible message
 	var/broadcast_range = 0
 
+/datum/robot_hardware/display_screen/get_summary()
+	var/msg_txt = length(default_message) > 20 ? copytext(default_message,1,18)+"..." : default_message
+	return "[hardware_name] msg:[msg_txt]"
+
 /datum/robot_hardware/display_screen/New()
 	config_defs = list(
 		"default_message" = list("Default Message",  "text",   "UNIT OPERATIONAL"),
-		"broadcast_range" = list("Broadcast Range",  "number", 0)
+		"broadcast_range" = list("Broadcast Range",  "number", 0, 0, 10)
 	)
 
 
@@ -920,11 +1004,14 @@
 	var/tts_mode     = FALSE
 	var/tts_text     = "Attention."
 
+/datum/robot_hardware/speaker/get_summary()
+	return "[hardware_name] vol:[volume] range:[sound_range]"
+
 /datum/robot_hardware/speaker/New()
 	config_defs = list(
 		"sound_file"  = list("Sound File",   "text",   "sound/machines/ding.ogg"),
-		"volume"      = list("Volume",       "number", 50),
-		"sound_range" = list("Sound Range",  "number", 5),
+		"volume"      = list("Volume",       "number", 50, 0, 100),
+		"sound_range" = list("Sound Range",  "number", 5, 1, 12),
 		"tts_mode"    = list("TTS Mode",     "bool",   FALSE),
 		"tts_text"    = list("TTS Text",     "text",   "Attention.")
 	)
@@ -954,10 +1041,13 @@
 	var/frequency = FREQ_SIGNALER
 	var/code      = DEFAULT_SIGNALER_CODE
 
+/datum/robot_hardware/signaler/get_summary()
+	return "[hardware_name] freq:[frequency] code:[code]"
+
 /datum/robot_hardware/signaler/New()
 	config_defs = list(
-		"frequency" = list("Frequency", "number", FREQ_SIGNALER),
-		"code"      = list("Code",      "number", DEFAULT_SIGNALER_CODE)
+		"frequency" = list("Frequency", "number", FREQ_SIGNALER, null, null),
+		"code"      = list("Code",      "number", DEFAULT_SIGNALER_CODE, null, null)
 	)
 
 /datum/robot_hardware/signaler/install(mob/living/silicon/robot/R)
@@ -998,9 +1088,14 @@
 	/// "none", "random", "waypoint"
 	var/patrol_mode      = "none"
 
+/datum/robot_hardware/locomotion/get_summary()
+	var/sign_txt   = speed_modifier > 0 ? "+" : ""
+	var/sprint_txt = can_sprint ? "sprint:YES" : "sprint:NO"
+	return "[hardware_name] spd:[sign_txt][speed_modifier] [sprint_txt]"
+
 /datum/robot_hardware/locomotion/New()
 	config_defs = list(
-		"speed_modifier" = list("Speed Modifier",  "number", 0),
+		"speed_modifier" = list("Speed Modifier",  "number", 0, -5, 10),
 		"can_sprint"     = list("Can Sprint",       "bool",   FALSE),
 		"patrol_mode"    = list("Patrol Mode",      "list",   "none")
 	)
@@ -1053,10 +1148,14 @@
 	var/loop_route        = TRUE
 	var/current_waypoint  = 1
 
+/datum/robot_hardware/nav_computer/get_summary()
+	var/loop_txt = loop_route ? "loop" : "one-shot"
+	return "[hardware_name] waypoints:[max_waypoints] [loop_txt]"
+
 /datum/robot_hardware/nav_computer/New()
 	config_defs = list(
 		"loop_route"    = list("Loop Route",     "bool",   TRUE),
-		"max_waypoints" = list("Max Waypoints",  "number", 5)
+		"max_waypoints" = list("Max Waypoints",  "number", 5, 1, 20)
 	)
 
 /datum/robot_hardware/nav_computer/apply_special(list/S)
@@ -1086,10 +1185,13 @@
 	/// "AND" or "OR" - how multiple conditions combine
 	var/condition_mode    = "AND"
 
+/datum/robot_hardware/logic_core/get_summary()
+	return "[hardware_name] max:[max_conditions] mode:[condition_mode]"
+
 /datum/robot_hardware/logic_core/New()
 	config_defs = list(
 		"condition_mode" = list("Condition Mode (AND/OR)", "list", "AND"),
-		"max_conditions" = list("Max Conditions",          "number", 4)
+		"max_conditions" = list("Max Conditions",          "number", 4, 1, 8)
 	)
 
 /datum/robot_hardware/logic_core/apply_special(list/S)
@@ -1161,9 +1263,12 @@
 	/// Runtime storage - populated at play time not build time
 	var/list/memory = list()
 
+/datum/robot_hardware/memory_core/get_summary()
+	return "[hardware_name] slots:[max_slots]"
+
 /datum/robot_hardware/memory_core/New()
 	config_defs = list(
-		"max_slots" = list("Memory Slots (1-16)", "number", 8)
+		"max_slots" = list("Memory Slots (1-16)", "number", 8, 1, 16)
 	)
 
 /datum/robot_hardware/memory_core/apply_special(list/S)
@@ -1201,9 +1306,13 @@
 	var/next_tick    = 0
 	var/is_running   = FALSE
 
+/datum/robot_hardware/clock/get_summary()
+	var/run_txt = is_running ? "RUNNING" : "idle"
+	return "[hardware_name] interval:[tick_interval]ds [run_txt]"
+
 /datum/robot_hardware/clock/New()
 	config_defs = list(
-		"tick_interval"    = list("Tick Interval (ds)",  "number", 40),
+		"tick_interval"    = list("Tick Interval (ds)",  "number", 40, 5, 600),
 		"reset_on_trigger" = list("Reset On Trigger",    "bool",   FALSE)
 	)
 
@@ -1252,9 +1361,13 @@
 	)
 	var/max_phrases = 8
 
+/datum/robot_hardware/vocabulary_module/get_summary()
+	var/plural_txt = phrases.len != 1 ? "s" : ""
+	return "[hardware_name] [phrases.len] phrase[plural_txt]"
+
 /datum/robot_hardware/vocabulary_module/New()
 	config_defs = list(
-		"max_phrases"       = list("Max Phrases", "number", 8),
+		"max_phrases"       = list("Max Phrases", "number", 8, 1, 20),
 		"phrase_greeting"   = list("Greeting Phrase",  "text", "Unit online."),
 		"phrase_warning"    = list("Warning Phrase",   "text", "Halt. Identify yourself."),
 		"phrase_alert"      = list("Alert Phrase",     "text", "Hostile detected."),
@@ -1304,10 +1417,13 @@
 	var/transfer_rate = 500
 	var/relay_range   = 3
 
+/datum/robot_hardware/power_relay/get_summary()
+	return "[hardware_name] [transfer_rate]W range:[relay_range]"
+
 /datum/robot_hardware/power_relay/New()
 	config_defs = list(
-		"transfer_rate" = list("Transfer Rate (W)", "number", 500),
-		"relay_range"   = list("Relay Range",       "number", 3)
+		"transfer_rate" = list("Transfer Rate (W)", "number", 500, 50, 5000),
+		"relay_range"   = list("Relay Range",       "number", 3, 1, 10)
 	)
 
 /datum/robot_hardware/power_relay/apply_special(list/S)
@@ -1341,9 +1457,12 @@
 	/// Max nodes allowed on this board
 	var/max_nodes = 16
 
+/datum/robot_hardware/circuit_board/get_summary()
+	return "[hardware_name] [nodes.len]/[max_nodes] nodes"
+
 /datum/robot_hardware/circuit_board/New()
 	config_defs = list(
-		"max_nodes" = list("Max Nodes", "number", 16)
+		"max_nodes" = list("Max Nodes", "number", 16, 4, 32)
 	)
 
 /datum/robot_hardware/circuit_board/apply_special(list/S)

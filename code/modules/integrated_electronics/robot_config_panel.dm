@@ -136,10 +136,23 @@
 				var/label     = def[1]
 				var/dtype     = def[2]
 				var/cur_val   = HW.vars[key]
+				// def[4]/def[5] are optional min/max for "number" type. null = unclamped.
+				var/cfg_min   = def.len >= 4 ? def[4] : null
+				var/cfg_max   = def.len >= 5 ? def[5] : null
 				var/new_val   = null
 				if(dtype == "number")
-					new_val = input(U, "Set [label]:", label, cur_val) as null|num
+					var/prompt = "[label]"
+					if(!isnull(cfg_min) && !isnull(cfg_max))
+						prompt += " ([cfg_min]-[cfg_max])"
+					new_val = input(U, "Set [prompt]:", label, cur_val) as null|num
 					if(!isnull(new_val))
+						// Clamp to configured range if both bounds are set
+						if(!isnull(cfg_min) && !isnull(cfg_max))
+							new_val = clamp(new_val, cfg_min, cfg_max)
+						else if(!isnull(cfg_min))
+							new_val = max(new_val, cfg_min)
+						else if(!isnull(cfg_max))
+							new_val = min(new_val, cfg_max)
 						HW.vars[key] = new_val
 						log_game("[key_name(U)] set [HW.hardware_name].[key] = [new_val] on [real_name]")
 				else if(dtype == "bool")
@@ -257,39 +270,11 @@
 // FACTION FROM CARD
 // ====================================================
 
-/// Resolves an ID card's assignment string to a canonical Fallout 13 faction tag.
-/// Duplicate of get_faction_from_card() on /obj/machinery/computer/terminal --
-/// needed here because that proc is not callable from /mob/living/silicon/robot.
+/// Resolves an ID card's assignment to a canonical faction tag.
+/// Delegates to the global resolve_faction_from_card() proc defined
+/// in terminal.dm, which is the single authoritative implementation.
 /mob/living/silicon/robot/proc/_rcp_faction_from_card(obj/item/card/id/card)
-	if(!card.assignment) return null
-	var/assign = lowertext(trim(card.assignment))
-	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || (findtext(assign, "ranger") && !findtext(assign, "veteran")))
-		return FACTION_NCR
-	if(findtext(assign, "veteran ranger") || findtext(assign, "vet ranger"))
-		return FACTION_RANGER
-	if(findtext(assign, "legion") || findtext(assign, "centurion") || findtext(assign, "prime") || findtext(assign, "auxilia"))
-		return FACTION_LEGION
-	if(findtext(assign, "brotherhood") || findtext(assign, "bos") || findtext(assign, "paladin") || findtext(assign, "knight") || findtext(assign, "scribe") || findtext(assign, "elder"))
-		return FACTION_BROTHERHOOD
-	if(findtext(assign, "enclave") || findtext(assign, "us officer") || findtext(assign, "us dogtag") || findtext(assign, "american"))
-		return FACTION_ENCLAVE
-	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff"))
-		return FACTION_EASTWOOD
-	if(findtext(assign, "raider") || findtext(assign, "outlaw") || findtext(assign, "bandit"))
-		return FACTION_RAIDERS
-	if(findtext(assign, "khan"))
-		return FACTION_KHAN
-	if(findtext(assign, "mutant"))
-		return FACTION_SMUTANT
-	if(findtext(assign, "vault") || findtext(assign, "overseer") || findtext(assign, "dweller"))
-		return FACTION_VAULT
-	if(findtext(assign, "follower"))
-		return FACTION_FOLLOWERS
-	if(findtext(assign, "tribe") || findtext(assign, "tribal") || findtext(assign, "talisman"))
-		return FACTION_TRIBE
-	if(findtext(assign, "waster") || findtext(assign, "wastelander") || findtext(assign, "survivor") || findtext(assign, "scavenger"))
-		return FACTION_WASTELAND
-	return null
+	return resolve_faction_from_card(card)
 
 
 // ====================================================
@@ -409,6 +394,33 @@
 			var/list/cat_items = by_cat[cat]
 			d += "<span class='dim'>[cat]:</span>  [cat_items.Join(", ")]<br>"
 
+	// ?? Circuit/hardware compatibility check ???????????????????????????
+	// Walk installed behavior assembly circuits; warn on any that declare
+	// required_hardware_type but whose hardware is not installed.
+	if(cpu_cert)
+		var/datum/cert_upgrade/robot/behavior_assembly/BA = null
+		for(var/datum/cert_upgrade/robot/behavior_assembly/U2 in cpu_cert.upgrade_slots)
+			BA = U2
+			break
+		if(BA?.assembly && BA.assembly.circuits.len)
+			var/list/hw_types = list()
+			for(var/datum/robot_hardware/HW in installed_hardware)
+				hw_types += HW.type
+			var/list/missing_hw = list()
+			for(var/datum/behavior_circuit/C in BA.assembly.circuits)
+				if(!C.needs_hardware || !C.required_hardware_type) continue
+				var/found = FALSE
+				for(var/ht in hw_types)
+					if(ht == C.required_hardware_type || ispath(ht, C.required_hardware_type))
+						found = TRUE
+						break
+				if(!found)
+					missing_hw += "[C.circuit_name] needs [C.hardware_slot_name]"
+			if(missing_hw.len)
+				d += "<br><span class='warn'>CIRCUIT HARDWARE MISSING:</span><br>"
+				for(var/warn in missing_hw)
+					d += "<span class='warn'>&gt; [warn]</span><br>"
+
 	return d
 
 
@@ -449,6 +461,9 @@
 
 		// Expanded config -- shown only for the selected module
 		if(expanded)
+			// Show tutorial text so the technician knows what this hardware enables
+			if(HW.tutorial_text && HW.tutorial_text != "No documentation available.")
+				d += "  <span class='dim'>[html_encode(HW.tutorial_text)]</span><br>"
 			if(!has_cfg)
 				d += "  <span class='dim'>This module has no configurable settings.</span><br>"
 			else
@@ -458,6 +473,8 @@
 					var/label     = def[1]
 					var/dtype     = def[2]
 					var/cur_val   = HW.vars[key]
+					var/cfg_min   = def.len >= 4 ? def[4] : null
+					var/cfg_max   = def.len >= 5 ? def[5] : null
 
 					d += "<tr>"
 					d += "<td class='dim'>[html_encode(label)]</td>"
@@ -469,7 +486,8 @@
 						d += "<td><span class='[bcls]'>[bval]</span></td>"
 						d += "<td><a href='byond://?src=[REF(src)];a=cfg_set;ref=[hw_ref];key=[url_encode(key)]'>\[toggle\]</a></td>"
 					else if(dtype == "number")
-						d += "<td><b>[cur_val]</b></td>"
+						var/range_hint = (!isnull(cfg_min) && !isnull(cfg_max)) ? " <span class='dim'>([cfg_min]-[cfg_max])</span>" : ""
+						d += "<td><b>[cur_val]</b>[range_hint]</td>"
 						d += "<td><a href='byond://?src=[REF(src)];a=cfg_set;ref=[hw_ref];key=[url_encode(key)]'>\[edit\]</a></td>"
 					else
 						// text / list (type path or string) -- show shortened if long

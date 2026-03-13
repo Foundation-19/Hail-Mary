@@ -555,7 +555,7 @@
 		dat += _hw_slot_row(slot_key, FALSE, H)
 	dat += "<a href='byond://?src=[REF(src)];hw_add_optional=1'>\[+ add optional hardware\]</a><br>"
 
-	// Base module loadout — player can swap same-type alternatives
+	// Base module loadout ? player can swap same-type alternatives
 	if(selected_design)
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
@@ -569,7 +569,7 @@
 				var/idx_key = "[idx]"
 				var/swapped_path = pending_loadout_swaps[idx_key]
 				if(swapped_path)
-					dat += "&gt; [I.name]  <span class='dim'>→</span>  <span class='good'>[initial(swapped_path:name)]</span>  <a href='byond://?src=[REF(src)];loadout_swap_clear=[idx_key]'>\[reset\]</a><br>"
+					dat += "&gt; [I.name]  <span class='dim'>?</span>  <span class='good'>[initial(swapped_path:name)]</span>  <a href='byond://?src=[REF(src)];loadout_swap_clear=[idx_key]'>\[reset\]</a><br>"
 				else if(loadout_pick_idx == idx_key)
 					dat += "<span class='good'>&gt; [I.name]</span>  <span class='dim'>// picking replacement:</span><br>"
 					var/parent_path = type2parent(I.type)
@@ -950,22 +950,17 @@
 	else
 		dat += "<span class='dim'>Auto-assigned</span><br>"
 
-	// Hardware summary: show pending custom count vs required circuit slots
-	var/required_hw_slots = 0
-	if(behavior_assembly)
-		var/list/seen_req = list()
-		for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
-			if(C.needs_hardware && C.hardware_slot_name && !(C.hardware_slot_name in seen_req))
-				seen_req += C.hardware_slot_name
-				required_hw_slots++
+	// Hardware summary
+	var/list/hw_warns = _get_hw_warnings()
 	dat += "Hardware: "
 	if(pending_hardware.len)
-		dat += "<span class='good'>[pending_hardware.len] selected</span>"
+		dat += "<span class='good'>[pending_hardware.len] configured</span>"
 	else
-		dat += "<span class='dim'>auto (recommended defaults)</span>"
-	if(required_hw_slots > 0)
-		dat += " <span class='dim'>([required_hw_slots] required by assembly)</span>"
+		dat += "<span class='dim'>none configured</span>"
 	dat += "<br>"
+	if(hw_warns.len)
+		for(var/w in hw_warns)
+			dat += "<span class='warn'>  ! [w]</span><br>"
 
 	// Material cost
 	if(selected_design)
@@ -1141,7 +1136,7 @@
 		ui_interact(usr)
 		return
 
-	// ── Loadout item swap handlers ────────────────────────────────────────────
+	// ?? Loadout item swap handlers ????????????????????????????????????????????
 	if(href_list["loadout_pick"])
 		loadout_pick_idx = href_list["loadout_pick"]
 		ui_interact(usr)
@@ -1169,7 +1164,7 @@
 		ui_interact(usr)
 		return
 
-	// ── Hardware IC topic handlers ─────────────────────────────────────────────
+	// ?? Hardware IC topic handlers ?????????????????????????????????????????????
 
 	if(href_list["hw_pick"])
 		hw_active_slot = href_list["hw_pick"]
@@ -1598,21 +1593,6 @@
 				bm.Insert(idx, new_item)
 			R.module.rebuild_modules()
 
-	// Validate assembly hardware slot coverage against what was actually installed.
-	// _validate_build() ran pre-timer; re-check here in case of race or direct API use.
-	if(A)
-		for(var/datum/behavior_circuit/C in A.circuits)
-			if(!C.needs_hardware || !C.hardware_slot_name || !C.required_hardware_type)
-				continue
-			var/found = FALSE
-			if(hw_snap)
-				var/datum/robot_hardware/HW = hw_snap[C.hardware_slot_name]
-				if(HW && ispath(HW.type, text2path(C.hardware_slot_name)))
-					found = TRUE
-			if(!found)
-				log_game("[builder_ckey] built [R] with assembly '[A.assembly_label]' but circuit '[C.circuit_name]' is missing required hardware in slot [C.hardware_slot_name] -- circuit will silently no-op.")
-
-
 	if(CC && CC.base_cert)
 		R.cpu_cert = CC.base_cert
 		CC.base_cert = null
@@ -1836,6 +1816,22 @@
 		if(!robot_cert) qdel(ac)
 
 	return errors
+
+
+/obj/machinery/robot_workshop/proc/_get_hw_warnings()
+	var/list/warns = list()
+	if(!behavior_assembly)
+		return warns
+	var/list/seen = list()
+	for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
+		if(!C.needs_hardware || !C.hardware_slot_name)
+			continue
+		if(C.hardware_slot_name in seen)
+			continue
+		seen += C.hardware_slot_name
+		if(!(C.hardware_slot_name in pending_hardware))
+			warns += "[C.circuit_name]: needs hardware in '[C.hardware_slot_name]' -- circuit will no-op until hardware is installed separately."
+	return warns
 
 
 // ====================================================

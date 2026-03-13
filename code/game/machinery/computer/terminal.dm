@@ -160,6 +160,19 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	write_documents()
 	resolve_map_links()
 
+/obj/machinery/computer/terminal/Destroy()
+	// Clear all pending ID-card states so nothing is left dangling
+	pending_whitelist_tref        = null
+	pending_faction_tref          = null
+	pending_robot_faction_rref    = null
+	pending_robot_lock_rref       = null
+	robot_hw_add_mode             = null
+	robot_hw_add_cat              = null
+	linked_buttons                = null
+	linked_turrets                = null
+	linked_robots                 = null
+	return ..()
+
 /* 
 
 MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
@@ -499,8 +512,9 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 		// ?? Remote hardware add picker navigation ?????????????????????????????
 		if("robot_hw_nav")
-			robot_hw_add_mode = href_list["hwmode"] || null
-			robot_hw_add_cat  = href_list["hwcat"]  || null
+			var/new_mode = href_list["hwmode"]
+			robot_hw_add_mode = (new_mode && new_mode != "null") ? new_mode : null
+			robot_hw_add_cat  = robot_hw_add_mode ? (href_list["hwcat"] || null) : null
 			robot_detail_ref  = href_list["rref"]
 			mode = 8
 
@@ -533,7 +547,9 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 					HW.uninstall(R)
 					to_chat(U, span_notice("Removed [hwname] from [R.name]."))
 					log_game("[key_name(U)] remotely removed [hwname] from [R] via terminal [tag]")
-			robot_detail_ref = href_list["rref"]
+			robot_hw_add_mode = null
+			robot_hw_add_cat  = null
+			robot_detail_ref  = href_list["rref"]
 			mode = 8
 
 		// ?? Loadout equipment swap ????????????????????????????????????????????
@@ -1152,20 +1168,65 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		dat += "<a href='byond://?src=[REF(src)];choice=robot_add_faction_card;rref=[REF(R)]'>&gt; Swipe ID card to register faction</a><br>"
 	dat += "<br>"
 
-	// ?? Installed hardware -- read only ????????????????????????????????????
-	// Install/remove is done at the robot workshop. Terminal shows status only.
-	dat += "<b>INSTALLED HARDWARE</b>  <span class='dim'>// modify at workshop</span><br>"
+	// ?? Installed hardware -- add / remove ??????????????????????????????????
+	dat += "<b>INSTALLED HARDWARE</b><br>"
 	if(R.installed_hardware && R.installed_hardware.len)
-		dat += "<table><tr><th>Module</th><th>Category</th><th>Info</th></tr>"
+		dat += "<table><tr><th>Module</th><th>Category</th><th>Status</th><th>&nbsp;</th></tr>"
 		for(var/datum/robot_hardware/HW in R.installed_hardware)
 			dat += "<tr>"
 			dat += "<td><b>[html_encode(HW.hardware_name)]</b></td>"
 			dat += "<td class='dim'>[html_encode(HW.category ? HW.category : "--")]</td>"
 			dat += "<td class='dim'>[html_encode(HW.get_summary())]</td>"
+			dat += "<td><a href='byond://?src=[REF(src)];choice=robot_hw_remove;hwref=[REF(HW)];rref=[REF(R)]'>\[remove\]</a></td>"
 			dat += "</tr>"
 		dat += "</table>"
 	else
 		dat += "<span class='dim'>&gt; No hardware installed.</span><br>"
+	dat += "<br>"
+
+	// Hardware add picker -- driven by robot_hw_add_mode state
+	if(robot_detail_ref == REF(R))
+		if(robot_hw_add_mode == "cat")
+			// Category picker
+			dat += "<b>ADD HARDWARE -- Select Category</b><br>"
+			var/list/cats = list()
+			for(var/T in subtypesof(/datum/robot_hardware))
+				var/datum/robot_hardware/inst = new T()
+				if(inst.hardware_name == "Unknown Hardware")
+					qdel(inst)
+					continue
+				var/cat = inst.category ? inst.category : "Other"
+				if(!(cat in cats)) cats[cat] = TRUE
+				qdel(inst)
+			for(var/cat in cats)
+				dat += "<a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=type;hwcat=[url_encode(cat)];rref=[REF(R)]'>&gt; [html_encode(cat)]</a><br>"
+			dat += "<br><a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=null;rref=[REF(R)]'>&gt; Cancel</a><br>"
+
+		else if(robot_hw_add_mode == "type" && robot_hw_add_cat)
+			// Type picker for selected category
+			dat += "<b>ADD HARDWARE -- [html_encode(robot_hw_add_cat)]</b><br>"
+			for(var/T in subtypesof(/datum/robot_hardware))
+				var/datum/robot_hardware/inst = new T()
+				if(inst.hardware_name == "Unknown Hardware")
+					qdel(inst)
+					continue
+				if(inst.category != robot_hw_add_cat)
+					qdel(inst)
+					continue
+				// Check if already installed
+				var/already = FALSE
+				for(var/datum/robot_hardware/IHW in R.installed_hardware)
+					if(IHW.type == T) { already = TRUE; break }
+				if(already)
+					dat += "<span class='dim'>&gt; [html_encode(inst.hardware_name)] -- INSTALLED</span><br>"
+				else
+					dat += "<a href='byond://?src=[REF(src)];choice=robot_hw_add;hwtype=[url_encode("[T]")];rref=[REF(R)]'>&gt; [html_encode(inst.hardware_name)]</a>"
+					dat += "  <span class='dim'>// [html_encode(inst.hardware_desc)]</span><br>"
+				qdel(inst)
+			dat += "<br><a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=cat;rref=[REF(R)]'>&gt; Back</a><br>"
+
+		else
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=cat;rref=[REF(R)]'>&gt; Add hardware module...</a><br>"
 	dat += "<br>"
 
 	// ?? Module loadout swaps ????????????????????????????????????????????????
@@ -1347,17 +1408,19 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	to_chat(user, span_nicegreen("Registered faction '[faction_tag]' to [T.name] based on ID card: [card.registered_name ? card.registered_name : "(unnamed)"] ([card.assignment])."))
 	updateUsrDialog()
 
-/// Validates a swiped ID card against the pending robot's faction list.
-/// Maps a card's assignment string to a canonical Fallout 13 faction tag.
-/// Returns null if the assignment doesn't match any known faction.
-/obj/machinery/computer/terminal/proc/get_faction_from_card(obj/item/card/id/card)
+/// Resolves an ID card's assignment string to a canonical Fallout 13 faction tag.
+/// Global proc -- callable from any context (robot mob, terminal obj, etc.).
+/// The terminal's get_faction_from_card() and the panel's _rcp_faction_from_card()
+/// both delegate here. Single authoritative implementation; edit only this one.
+/proc/resolve_faction_from_card(obj/item/card/id/card)
 	if(!card.assignment) return null
 	var/assign = lowertext(trim(card.assignment))
-	// NCR / Rangers
-	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger") && !findtext(assign, "veteran"))
-		return FACTION_NCR
+	// Veteran Ranger must be checked BEFORE general ranger to avoid misclassification
 	if(findtext(assign, "veteran ranger") || findtext(assign, "vet ranger"))
 		return FACTION_RANGER
+	// NCR
+	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger"))
+		return FACTION_NCR
 	// Legion
 	if(findtext(assign, "legion") || findtext(assign, "centurion") || findtext(assign, "prime") || findtext(assign, "recruit medallion") || findtext(assign, "veteran medallion") || findtext(assign, "auxilia"))
 		return FACTION_LEGION
@@ -1368,7 +1431,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	if(findtext(assign, "enclave") || findtext(assign, "us officer") || findtext(assign, "us dogtag") || findtext(assign, "american"))
 		return FACTION_ENCLAVE
 	// Town / Eastwood
-	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff") || findtext(assign, "deputy"))
+	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff"))
 		return FACTION_EASTWOOD
 	// Raiders
 	if(findtext(assign, "raider") || findtext(assign, "outlaw") || findtext(assign, "bandit"))
@@ -1392,6 +1455,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	if(findtext(assign, "waster") || findtext(assign, "wastelander") || findtext(assign, "survivor") || findtext(assign, "scavenger"))
 		return FACTION_WASTELAND
 	return null
+
+/// Terminal-scoped wrapper. Delegates to the global resolve_faction_from_card().
+/obj/machinery/computer/terminal/proc/get_faction_from_card(obj/item/card/id/card)
+	return resolve_faction_from_card(card)
 
 /// Remove a name from a turret's whitelist.
 /obj/machinery/computer/terminal/proc/turret_whitelist_remove(obj/machinery/porta_turret/T, entry, mob/user)

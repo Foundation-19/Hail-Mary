@@ -1,45 +1,4 @@
-// ====================================================
-// HARDWARE SLOT DEFINES
-// These are defined here so behavior_circuits.dm can use
-// them for hardware_slot_name assignments without depending
-// on robot_workshop.dm being compiled first.
-// robot_workshop.dm also defines these - DM will warn on
-// duplicate #defines but the values are identical.
-// ====================================================
-
-#define HW_SLOT_WEAPON           "/datum/robot_hardware/weapon"
-#define HW_SLOT_AIR_CANNON       "/datum/robot_hardware/air_cannon"
-#define HW_SLOT_GRENADE          "/datum/robot_hardware/grenade_launcher"
-#define HW_SLOT_THROWER          "/datum/robot_hardware/thrower"
-#define HW_SLOT_GRABBER          "/datum/robot_hardware/grabber"
-#define HW_SLOT_INJECTOR         "/datum/robot_hardware/injector"
-#define HW_SLOT_REAGENT_PUMP     "/datum/robot_hardware/reagent_pump"
-#define HW_SLOT_SIGNALER         "/datum/robot_hardware/signaler"
-#define HW_SLOT_DISPLAY          "/datum/robot_hardware/display_screen"
-#define HW_SLOT_ID_READER        "/datum/robot_hardware/id_reader"
-#define HW_SLOT_MICROPHONE       "/datum/robot_hardware/microphone"
-#define HW_SLOT_GPS              "/datum/robot_hardware/gps"
-#define HW_SLOT_ENV_SCANNER      "/datum/robot_hardware/environment_scanner"
-#define HW_SLOT_HEALTH_SCANNER   "/datum/robot_hardware/health_scanner"
-#define HW_SLOT_LIGHT            "/datum/robot_hardware/light"
-#define HW_SLOT_CHEM_SPRAYER     "/datum/robot_hardware/chem_sprayer"
-#define HW_SLOT_HARVESTER        "/datum/robot_hardware/harvester"
-#define HW_SLOT_MATERIAL_COLLECTOR "/datum/robot_hardware/material_collector"
-#define HW_SLOT_GRINDER          "/datum/robot_hardware/grinder_module"
-
-#define HW_SLOT_BIO_SCANNER      "/datum/robot_hardware/bio_scanner"
-#define HW_SLOT_OBJECT_LOCATOR   "/datum/robot_hardware/object_locator"
-#define HW_SLOT_POWER_RELAY      "/datum/robot_hardware/power_relay"
-#define HW_SLOT_NAV_COMPUTER     "/datum/robot_hardware/nav_computer"
-#define HW_SLOT_VOCABULARY       "/datum/robot_hardware/vocabulary_module"
-
-#define ROBOT_COMBAT_MELEE  1   // Always close in
-#define ROBOT_COMBAT_RANGED 2   // Stay at retreat_distance, back off if closer
-#define ROBOT_COMBAT_MIXED  3   // Prefer range, switch to melee if rushed
-
-#define HW_SLOT_CLOCK            "/datum/robot_hardware/clock"
-#define HW_SLOT_MEMORY           "/datum/robot_hardware/memory_core"
-
+// HW_SLOT and ROBOT_COMBAT defines are in _behavior_defines.dm
 
 // ====================================================
 // BEHAVIOR CIRCUITS
@@ -1756,7 +1715,7 @@
 /datum/behavior_circuit/response/stun_target
 	circuit_name = "Response: Stun Target"
 	circuit_desc = "Stuns the nearest hostile mob briefly."
-	tutorial_text = "Stuns the nearest enemy. No hardware required -- the robot delivers the pulse directly from its chassis. Configure 'stun_duration' in deciseconds (default 20 = 2 seconds). Good for security robots that need to incapacitate without killing."
+	tutorial_text = "Stuns the nearest hostile. Works without Stun Module hardware using chassis defaults (range: assembly sensor_range, duration: stun_duration var). Install Stun Module hardware for configurable range and duration that scale with builder STR. Good for security robots that incapacitate without killing."
 	cpu_cost = 2
 	var/stun_duration = 20
 
@@ -1795,22 +1754,24 @@
 // -- FIRE EXTINGUISHER -------------------------------
 
 /datum/behavior_circuit/response/fire_extinguisher
+	needs_hardware = TRUE
 	circuit_name = "Response: Extinguish Fire"
-	circuit_desc = "Uses the robot's extinguisher on a nearby mob that is on fire."
-	tutorial_text = "The robot finds the nearest mob on fire in range and uses its installed extinguisher on them. Pair with Trigger: On Interval or On Enemy Spotted. No special hardware required beyond an extinguisher in the module loadout."
+	hardware_slot_name = HW_SLOT_EXTINGUISHER
+	required_hardware_type = /datum/robot_hardware/extinguisher_module
+	circuit_desc = "Douses the nearest mob on fire. Requires Extinguisher Module hardware."
+	tutorial_text = "HARDWARE REQUIRED: Extinguisher Module. The robot finds the nearest mob on fire within the hardware's spray_range and douses them. Respects charge count (set -1 for unlimited). Pair with Trigger: On Interval for automatic fire response."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/fire_extinguisher/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
-	// Find an extinguisher in the robot's module inventory
-	var/obj/item/extinguisher/EX = null
-	if(R.module)
-		for(var/obj/item/extinguisher/E in R.module.modules)
-			EX = E
-			break
-	if(!EX)
+	var/datum/robot_hardware/extinguisher_module/EM = get_hardware(R, /datum/robot_hardware/extinguisher_module)
+	if(!EM)
 		return
-	// Find the nearest mob on fire within sensor range
-	var/scan_range = A ? A.sensor_range : 5
+	var/obj/item/extinguisher/EX = EM.get_extinguisher()
+	if(!EX)
+		R.visible_message(span_warning("[R]'s extinguisher module is empty!"))
+		return
+	// Find nearest mob on fire within hardware spray_range
+	var/scan_range = EM.spray_range
 	var/mob/living/target = null
 	var/closest = INFINITY
 	for(var/mob/living/M in view(scan_range, R))
@@ -1821,11 +1782,12 @@
 				target = M
 	if(!target)
 		return
-	// Step adjacent if needed
+	// Step adjacent if needed; trigger will re-fire next tick to close distance
 	if(get_dist(R, target) > 1)
 		step_towards(R, target)
 		return
 	EX.attack(target, R)
+	EM.consume_charge()
 	R.visible_message(span_notice("[R] extinguishes [target]!"))
 
 
@@ -1887,7 +1849,7 @@
 	var/scan_range = A ? A.sensor_range : 3
 	for(var/obj/item/reagent_containers/RC in range(scan_range, R))
 		if(RC.reagents)
-			R.reagents.trans_to(RC, RP.transfer_amount)
+			R.reagents.trans_to(RC, RP.transfer_rate)
 			R.visible_message(span_notice("[R] pumps reagents."))
 			return
 
@@ -2366,7 +2328,7 @@
 /datum/behavior_circuit/response/collect_reagents
 	circuit_name = "Response: Collect Reagents"
 	circuit_desc = "Moves to and collects reagents from the nearest container in range."
-	tutorial_text = "The robot finds the nearest reagent container in range and transfers its contents into the robot's reagent tank. Pair with Trigger: On Reagent Container Nearby or On Interval. Requires Reagent Tank hardware."
+	tutorial_text = "The robot moves to and collects reagents from the nearest container in range into the robot's internal reagents. Install Internal Reagent Tank hardware for meaningful storage capacity -- without it the robot has only its default reagent buffer. Pair with Trigger: On Reagent Container Nearby or On Interval."
 	cpu_cost = 2
 
 /datum/behavior_circuit/response/collect_reagents/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -2446,7 +2408,7 @@
 	for(var/mob/living/M in range(scan_range, R))
 		if(M == R || M.stat == DEAD)
 			continue
-		if(R.faction_check_mob(M, FALSE))
+		if(_is_faction_friend(R, M))
 			continue
 		var/d = get_dist(R, M)
 		if(d < closest_dist)
