@@ -244,8 +244,16 @@
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_BEHAVIORS]'>Behavior Assemblies</a>  <span class='dim'>preset automation programs</span><br>"
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CUSTOM]'>Custom Build</a>  <span class='dim'>wire your own trigger/response pair</span><br>"
+		// Imagination hook -- shown only to Robot Whisperers who can actually build these.
+		// A concrete goal to work toward: the Hunter + Last Resort combo.
+		dat += "<br><span class='dim'>// FIELD NOTE: Some builders combine the Hunter Protocol with Last Resort --"
+		dat += " a robot that hunts enemies and, when it's about to fall, detonates. A one-way trip. Effective.</span><br>"
+		dat += "<span class='dim'>// Combine any trigger with any response. The circuits don't care what you wire.</span><br>"
 	else
 		dat += "<span class='dim'>&gt; Behavior Assemblies  (requires Robot Whisperer trait)</span><br>"
+		// Teaser for players who don't have the trait yet
+		dat += "<br><span class='dim'>// FIELD NOTE: Robot Whisperers can wire behavior circuits -- program robots to"
+		dat += " guard on sight, escort allies, or detonate on a dead man's trigger. Find the trait to unlock this.</span><br>"
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/sensor_range = min(10, 5 + max(0, H.special_p - 5))
@@ -311,7 +319,7 @@
 		dat += "<br>"
 		// Desc line
 		dat += "<span class='dim'>[ddesc]</span><br>"
-		// Hardware required note
+		// Hardware required note (behaviors only)
 		if(category == "behavior" && ispath(D.output_path, /obj/item/behavior_assembly))
 			var/obj/item/behavior_assembly/test = new D.output_path()
 			var/hw_list = ""
@@ -321,6 +329,43 @@
 			qdel(test)
 			if(hw_list)
 				dat += "<span class='warn'>&gt; hardware required: [hw_list]</span><br>"
+		// Upgrade-specific: C.O.R.E. delta, capability requirements, conflicts, tutorial
+		if(category == "upgrade" || category == "ai_upgrade")
+			if(ispath(D.output_path, /obj/item/cert_card/upgrade))
+				var/obj/item/cert_card/upgrade/card = new D.output_path()
+				var/datum/cert_upgrade/U = card.upgrade
+				if(U)
+					// C.O.R.E. delta line
+					var/list/core_parts = list()
+					if(U.compute_mod)
+						var/s = U.compute_mod > 0 ? "+" : ""
+						core_parts += "C[s][U.compute_mod]"
+					if(U.operations_mod)
+						var/s = U.operations_mod > 0 ? "+" : ""
+						core_parts += "O[s][U.operations_mod]"
+					if(U.resilience_mod)
+						var/s = U.resilience_mod > 0 ? "+" : ""
+						core_parts += "R[s][U.resilience_mod]"
+					if(U.energy_mod)
+						var/s = U.energy_mod > 0 ? "+" : ""
+						core_parts += "E[s][U.energy_mod]"
+					if(core_parts.len)
+						dat += "<span class='dim'>C.O.R.E.: [core_parts.Join("  ")]</span><br>"
+					// Required capability flag hint
+					if(U.required_capability_flags)
+						dat += "<span class='warn'>&gt; requires chassis capability flag [U.required_capability_flags]</span><br>"
+					// Exclusive_with warning
+					if(U.exclusive_with && U.exclusive_with.len)
+						var/list/ex_names = list()
+						for(var/T in U.exclusive_with)
+							var/datum/cert_upgrade/ex_inst = new T()
+							ex_names += ex_inst.upgrade_name
+							qdel(ex_inst)
+						dat += "<span class='warn'>&gt; conflicts with: [ex_names.Join(", ")]</span><br>"
+					// Tutorial text
+					if(U.tutorial_text && U.tutorial_text != "No documentation available.")
+						dat += "<span class='dim'>[html_encode(U.tutorial_text)]</span><br>"
+				qdel(card)
 		// Cost line
 		if(D.cost && D.cost.len)
 			var/cost_text = ""

@@ -70,6 +70,10 @@
 		for(var/datum/behavior_circuit/C in circuits)
 			. += span_notice("  - [C.circuit_name]")
 	. += span_notice("Use it on a robot to install. Crowbar open the panel first for player-controlled robots.")
+	// Hint the multitool follow-target trick
+	. += span_notice("<i>Tip: Scan an ID card with a multitool, then use the multitool on this assembly to link a follow target.</i>")
+	// Surface the deeper system -- this is the imagination hook for new players
+	. += span_notice("<i>Tip: Assemble circuits at the CPU Cert Fabricator -- combine triggers and responses to create behavior chains. Some combinations are... surprising.</i>")
 
 
 // ====================================================
@@ -128,6 +132,10 @@
 		to_chat(user, span_notice("You install [assembly_label] into [R]. Behavior circuits activated."))
 		var/aname = assembly_label
 		log_game("[key_name(user)] installed behavior assembly '[aname]' into [R] at [AREACOORD(R)]")
+		// Boot announcement -- robot speaks its first words so the installer knows it's alive.
+		// This is the "I made a brain" moment for new players.
+		R.visible_message(span_notice("[R] systems initialize. Internal voice synthesizer activates."))
+		R.say("ASSEMBLY ONLINE. [aname] loaded. Behavior circuits nominal.")
 	else
 		to_chat(user, span_warning("Installation failed - upgrade slot rejected."))
 		forceMove(drop_location())
@@ -149,12 +157,15 @@
 
 // ====================================================
 // CERT UPGRADE SUBTYPE
-// Plugs behavior assembly into cert upgrade slot
+// Canonical definition of the behavior_assembly slot.
+// Lives here (not cert_upgrade.dm) because it directly
+// wraps the /obj/item/behavior_assembly physical item.
 // ====================================================
 
 /datum/cert_upgrade/robot/behavior_assembly
 	upgrade_name = "Behavior Assembly"
-	upgrade_desc = "A pre-programmed behavior circuit board."
+	upgrade_desc = "An installed behavior assembly. Drives the robot's autonomous actions."
+	tutorial_text = "This slot holds the robot's active behavior assembly -- the circuit program that tells it when to act and how to respond. Install a behavior_assembly item at the Robot Workshop, or print one at the CPU Cert Fabricator. Once installed, the robot will announce circuit activations out loud so you can see it working. Pull the activity log at a terminal to review what it has done."
 	energy_mod = 2
 
 	/// The physical assembly item this upgrade wraps

@@ -38,6 +38,8 @@
 	if(base_cert)
 		qdel(base_cert)
 	base_cert = null
+	if(upgrade)
+		qdel(upgrade)
 	upgrade = null
 	return ..()
 
@@ -74,15 +76,25 @@
 			. += span_warning("Compatible chassis only.")
 		var/list/stat_lines = list()
 		if(upgrade.compute_mod)
-			stat_lines += "Compute [upgrade.compute_mod > 0 ? "+" : ""][upgrade.compute_mod]"
+			var/c_sign = upgrade.compute_mod > 0 ? "+" : ""
+			stat_lines += "Compute [c_sign][upgrade.compute_mod]"
 		if(upgrade.operations_mod)
-			stat_lines += "Operations [upgrade.operations_mod > 0 ? "+" : ""][upgrade.operations_mod]"
+			var/o_sign = upgrade.operations_mod > 0 ? "+" : ""
+			stat_lines += "Operations [o_sign][upgrade.operations_mod]"
 		if(upgrade.resilience_mod)
-			stat_lines += "Resilience [upgrade.resilience_mod > 0 ? "+" : ""][upgrade.resilience_mod]"
+			var/r_sign = upgrade.resilience_mod > 0 ? "+" : ""
+			stat_lines += "Resilience [r_sign][upgrade.resilience_mod]"
 		if(upgrade.energy_mod)
-			stat_lines += "Energy draw +[upgrade.energy_mod]"
+			var/e_sign = upgrade.energy_mod > 0 ? "+" : ""
+			stat_lines += "Energy [e_sign][upgrade.energy_mod]"
+		if(upgrade.exclusive_with && upgrade.exclusive_with.len)
+			. += span_warning("Conflicts with: [upgrade.exclusive_with.Join(", ")]")
+		if(upgrade.required_capability_flags)
+			. += span_warning("Requires chassis capability flag: [upgrade.required_capability_flags]")
 		if(stat_lines.len)
-			. += span_notice("Stats: [english_list(stat_lines)]")
+			. += span_notice("C.O.R.E. delta: [english_list(stat_lines)]")
+		if(upgrade.tutorial_text && upgrade.tutorial_text != "No documentation available.")
+			. += span_notice("[upgrade.tutorial_text]")
 	else
 		. += span_warning("This card is blank and unprogrammed.")
 
@@ -265,10 +277,10 @@
 		to_chat(user, span_warning("This upgrade requires a Tier [U.required_tier] chassis. [C.cert_name] is only Tier [C.cert_tier]."))
 		return
 	if(U.required_capability_flags && !(C.capability_flags & U.required_capability_flags))
-		to_chat(user, span_warning("This chassis lacks the required capabilities for that upgrade."))
+		to_chat(user, span_warning("This chassis lacks a required capability for [U.upgrade_name]. Check the upgrade card's examine text for what flag is needed."))
 		return
 	if(U.required_cert_type && !istype(C, U.required_cert_type))
-		to_chat(user, span_warning("That upgrade is not compatible with this chassis type."))
+		to_chat(user, span_warning("That upgrade requires a [U.required_cert_type] chassis. This chassis is [C.type]."))
 		return
 	to_chat(user, span_warning("That upgrade cannot be installed in this chassis."))
 

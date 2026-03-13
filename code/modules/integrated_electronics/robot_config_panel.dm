@@ -346,7 +346,40 @@
 	d += "CPU cert: <span class='dim'>[cpu_cert ? "[cpu_cert.type]" : "none"]</span><br>"
 	d += "<br>"
 
-	// ?? Control mode ??????????????????????????????????????????????
+	// ?? Cert and installed upgrades ?????????????????????????????????????????????
+	d += "<b>CERTIFICATION</b><br>"
+	if(cpu_cert)
+		d += "Cert: <span class='good'>[html_encode(cpu_cert.cert_name)]</span>"
+		d += "  <span class='dim'>Tier [cpu_cert.cert_tier]  Slots: [cpu_cert.upgrade_slots.len]/[cpu_cert.max_upgrade_slots]</span><br>"
+		d += "<span class='dim'>C.O.R.E. base: C[cpu_cert.base_compute] O[cpu_cert.base_operations] R[cpu_cert.base_resilience] E[cpu_cert.base_energy]</span><br>"
+		// Show effective after upgrades
+		d += "<span class='dim'>C.O.R.E. effective: C[cpu_cert.get_compute()] O[cpu_cert.get_operations()] R[cpu_cert.get_resilience()] E[cpu_cert.get_energy()]</span><br>"
+		if(cpu_cert.upgrade_slots.len)
+			d += "<br><span class='dim'>INSTALLED UPGRADES:</span><br>"
+			for(var/datum/cert_upgrade/U in cpu_cert.upgrade_slots)
+				// Skip behavior_assembly -- it's shown in Programs tab
+				if(istype(U, /datum/cert_upgrade/robot/behavior_assembly))
+					continue
+				var/list/delta_parts = list()
+				if(U.compute_mod)
+					var/s = U.compute_mod > 0 ? "+" : ""
+					delta_parts += "C[s][U.compute_mod]"
+				if(U.operations_mod)
+					var/s = U.operations_mod > 0 ? "+" : ""
+					delta_parts += "O[s][U.operations_mod]"
+				if(U.resilience_mod)
+					var/s = U.resilience_mod > 0 ? "+" : ""
+					delta_parts += "R[s][U.resilience_mod]"
+				if(U.energy_mod)
+					var/s = U.energy_mod > 0 ? "+" : ""
+					delta_parts += "E[s][U.energy_mod]"
+				var/delta_txt = delta_parts.len ? "  <span class='dim'>([delta_parts.Join(" ")])</span>" : ""
+				d += "&gt; <b>[html_encode(U.upgrade_name)]</b>[delta_txt]<br>"
+		else
+			d += "<span class='dim'>No upgrades installed.</span><br>"
+	else
+		d += "<span class='warn'>No certification installed. Robot may behave unexpectedly.</span><br>"
+	d += "<br>"
 	// Plain-language description of each mode so it reads like a service menu,
 	// not a codebase variable.
 	d += "<b>CONTROL MODE</b><br>"

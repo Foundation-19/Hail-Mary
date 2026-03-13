@@ -12,13 +12,18 @@
 	var/upgrade_name = "Unknown Upgrade"
 	var/upgrade_desc = "An unconfigured upgrade module."
 
+	/// Player-facing explanation of what this upgrade does and when to use it.
+	/// Shown in the CPU Fabricator upgrade list and on cert_card examine.
+	var/tutorial_text = "No documentation available."
+
 	/// If set, this upgrade only installs into this cert type or its subtypes
 	var/required_cert_type = null
 
 	/// Minimum cert tier required
 	var/required_tier = CERT_TIER_BASIC
 
-	/// Capability flags the cert must ALREADY have before this installs
+	/// Capability flags the cert must ALREADY have before this installs.
+	/// Shown as a requirement hint in the fabricator UI.
 	var/required_capability_flags = NONE
 
 	/// Flags added to the cert when this upgrade is installed
@@ -33,7 +38,8 @@
 	var/resilience_mod = 0
 	var/energy_mod     = 0  // positive = draws more power (costs from energy ceiling)
 
-	/// List of /datum/cert_upgrade types that cannot coexist with this upgrade
+	/// List of /datum/cert_upgrade types that cannot coexist with this upgrade.
+	/// Checked at install time; installation is blocked if a conflict is found.
 	var/list/exclusive_with = list()
 
 
@@ -59,6 +65,17 @@
 
 
 // ====================================================
+// BEHAVIOR ASSEMBLY UPGRADE
+// /datum/cert_upgrade/robot/behavior_assembly is defined
+// in behavior_assembly.dm alongside the physical item it
+// wraps. That file is the canonical definition -- including
+// Destroy() cleanup and physical item ejection on remove.
+// cert_card.dm and robot_workshop.dm reference the type
+// path directly and do not need it defined here.
+// ====================================================
+
+
+// ====================================================
 // ROBOT UPGRADES
 // ====================================================
 
@@ -68,8 +85,9 @@
 
 // --- VTEC ---
 /datum/cert_upgrade/robot/vtec
-	upgrade_name = "VTEC Sprint System"
-	upgrade_desc = "Overclocks locomotion servos for burst speed capability."
+	upgrade_name   = "VTEC Sprint System"
+	upgrade_desc   = "Overclocks locomotion servos for burst speed capability."
+	tutorial_text  = "Unlocks the VTEC sprint ability. The robot gains a toggled high-speed burst mode at the cost of increased operations load. Exclusive with Armor Plating -- bulk and speed don't mix. Use on fast skirmisher builds."
 	capability_flag_add = CERT_CAN_SPRINT
 	operations_mod = 1
 	energy_mod     = 2
@@ -80,15 +98,18 @@
 	if(!istype(holder, /mob/living/silicon/robot))
 		return
 	var/mob/living/silicon/robot/R = holder
-	if(R.cansprint)
-		R.AddAbility(new /obj/effect/proc_holder/silicon/cyborg/vtecControl)
-		R.cansprint = FALSE
+	// Disable native cansprint so it doesn't double-fire alongside the VTEC ability.
+	// Always add the controlled ability regardless of prior sprint state.
+	R.cansprint = FALSE
+	R.AddAbility(new /obj/effect/proc_holder/silicon/cyborg/vtecControl)
 
 /datum/cert_upgrade/robot/vtec/on_remove(datum/cpu_cert/C, atom/holder)
 	. = ..()
 	if(!istype(holder, /mob/living/silicon/robot))
 		return
 	var/mob/living/silicon/robot/R = holder
+	// Remove the VTEC ability and restore native sprint capability.
+	R.RemoveAbility(/obj/effect/proc_holder/silicon/cyborg/vtecControl)
 	R.speed = initial(R.speed)
 	R.cansprint = TRUE
 
@@ -97,8 +118,9 @@
 // Uses cert_armor_bonus var on the robot mob to reduce incoming brute damage.
 // Checked in bullet_act and melee damage via the bonus var.
 /datum/cert_upgrade/robot/armor_plating
-	upgrade_name = "Reinforced Armor Plating"
-	upgrade_desc = "Heavy plating bolted over chassis joints. Tough but sluggish."
+	upgrade_name   = "Reinforced Armor Plating"
+	upgrade_desc   = "Heavy plating bolted over chassis joints. Tough but sluggish."
+	tutorial_text  = "Adds 25 flat armor against brute damage. Significant defensive upgrade for frontline robots. Reduces operations by 2 due to added bulk. Exclusive with VTEC Sprint -- you can't be both fast and heavily armored."
 	resilience_mod  =  2
 	operations_mod  = -2
 	energy_mod      =  1
@@ -121,8 +143,9 @@
 
 // --- ION THRUSTERS ---
 /datum/cert_upgrade/robot/thrusters
-	upgrade_name = "Ion Thruster System"
-	upgrade_desc = "Energy-fed thrusters for microgravity traversal and jump assists."
+	upgrade_name   = "Ion Thruster System"
+	upgrade_desc   = "Energy-fed thrusters for microgravity traversal and jump assists."
+	tutorial_text  = "Enables ionpulse movement -- the robot can traverse low-gravity environments and execute jump assists. Requires the chassis to already have CERT_CAN_MOVE (locomotion capability). Toggle via the ionpulse verb in Robot Commands."
 	required_capability_flags = CERT_CAN_MOVE
 	capability_flag_add = CERT_CAN_IONPULSE
 	energy_mod = 2
@@ -139,19 +162,23 @@
 	if(!istype(holder, /mob/living/silicon/robot))
 		return
 	var/mob/living/silicon/robot/R = holder
-	R.ionpulse = FALSE
+	// Deactivate thrusters before clearing the flag to avoid a mid-flight disable crash.
 	if(R.ionpulse_on)
 		R.toggle_ionpulse()
+	R.ionpulse = FALSE
 
 
 // --- DISABLER COOLER ---
 /datum/cert_upgrade/robot/disabler_cooler
-	upgrade_name = "Energy Weapon Cooling System"
-	upgrade_desc = "Active cooling for energy-based weapons, increasing recharge rate."
+	upgrade_name   = "Energy Weapon Cooling System"
+	upgrade_desc   = "Active cooling for energy-based weapons, increasing recharge rate."
+	tutorial_text  = "Reduces energy weapon charge_delay by 4 deciseconds (floor: 2). Makes energy guns fire significantly faster. Requires CERT_CAN_SHOOT. Stack with Targeting System for maximum ranged offense."
 	required_capability_flags = CERT_CAN_SHOOT
 	operations_mod = 1
 	energy_mod     = 1
-	exclusive_with = list(/datum/cert_upgrade/robot/disabler_cooler)
+	// FIX: original had list(/datum/cert_upgrade/robot/disabler_cooler) -- self-reference
+	// that permanently blocked installation. Now correctly empty.
+	exclusive_with = list()
 
 /datum/cert_upgrade/robot/disabler_cooler/on_apply(datum/cpu_cert/C, atom/holder)
 	. = ..()
@@ -176,17 +203,23 @@
 
 // --- TARGETING SYSTEM ---
 /datum/cert_upgrade/robot/targeting_system
-	upgrade_name = "Advanced Targeting System"
-	upgrade_desc = "Improves weapon tracking and reaction targeting calculations."
+	upgrade_name   = "Advanced Targeting System"
+	upgrade_desc   = "Improves weapon tracking and reaction targeting calculations."
+	tutorial_text  = "Passively improves targeting for behavior circuits that have CERT_CAN_SHOOT requirement. No toggle needed -- the bonus applies automatically. Adds significant operations cost. Pair with Disabler Cooler for a full ranged-combat build."
 	required_capability_flags = CERT_CAN_SHOOT
 	operations_mod = 2
 	energy_mod     = 1
 
+// on_apply/on_remove inherited from base -- capability flags are handled automatically
+// if capability_flag_add is set. Targeting System has no flag to add; its benefit is
+// passive via the operations bonus influencing assembly circuit scheduling.
+
 
 // --- EMP SHIELDING ---
 /datum/cert_upgrade/robot/emp_shielding
-	upgrade_name = "EMP Shielding Array"
-	upgrade_desc = "Faraday shielding woven into chassis internals."
+	upgrade_name   = "EMP Shielding Array"
+	upgrade_desc   = "Faraday shielding woven into chassis internals."
+	tutorial_text  = "Makes the robot immune to EMP effects -- wires won't be fried, contents won't be disrupted. Adds CERT_EMP_HARDENED. Essential for robots operating in combat zones or near energy weapons."
 	capability_flag_add = CERT_EMP_HARDENED
 	resilience_mod = 1
 	energy_mod     = 1
@@ -208,9 +241,10 @@
 
 // --- HACKING MODULE ---
 /datum/cert_upgrade/robot/hacking_module
-	upgrade_name = "Intrusion Countermeasure Suite"
-	upgrade_desc = "Military-grade hacking suite. Allows interfacing with hardened electronic systems."
-	required_tier = CERT_TIER_MILITARY
+	upgrade_name   = "Intrusion Countermeasure Suite"
+	upgrade_desc   = "Military-grade hacking suite. Allows interfacing with hardened electronic systems."
+	tutorial_text  = "Unlocks CERT_CAN_HACK, enabling the robot to interact with hardened terminals, airlocks, and electronics. Requires Tier 2 Military chassis AND the CERT_MILITARY_GRADE flag. Not available to standard civilian units."
+	required_tier  = CERT_TIER_MILITARY
 	required_capability_flags = CERT_MILITARY_GRADE
 	capability_flag_add = CERT_CAN_HACK
 	compute_mod = 2
@@ -227,10 +261,11 @@
 
 // --- MALF PACKAGE ---
 /datum/cert_upgrade/ai/malf_package
-	upgrade_name = "Combat Software Package"
-	upgrade_desc = "Highly illegal. Grants the AI access to malfunction-class combat routines."
+	upgrade_name   = "Combat Software Package"
+	upgrade_desc   = "Highly illegal. Grants the AI access to malfunction-class combat routines."
+	tutorial_text  = "Installs malfunction-class AI combat routines. Once applied, cannot be removed -- the change is permanent for this session. Requires Military AI cert. Only usable on AI units, not robots."
 	required_cert_type = /datum/cpu_cert/ai/military
-	required_tier = CERT_TIER_MILITARY
+	required_tier  = CERT_TIER_MILITARY
 	capability_flag_add = CERT_CAN_MALF
 	compute_mod = 1
 	energy_mod  = 2
@@ -255,8 +290,9 @@
 
 // --- SURVEILLANCE PACKAGE ---
 /datum/cert_upgrade/ai/surveillance
-	upgrade_name = "Surveillance Software Package"
-	upgrade_desc = "Allows the AI to hear through cameras via lip-reading and hidden microphones."
+	upgrade_name   = "Surveillance Software Package"
+	upgrade_desc   = "Allows the AI to hear through cameras via lip-reading and hidden microphones."
+	tutorial_text  = "Activates relay_speech on the AI's eyeobj -- the AI can hear conversations near any camera it can see through. Useful for information-gathering AIs. Adds CERT_CAN_SURVEIL. No effect if AI has no eyeobj."
 	capability_flag_add = CERT_CAN_SURVEIL
 	compute_mod = 1
 
@@ -286,24 +322,27 @@
 	required_cert_type = /datum/cpu_cert/device
 
 /datum/cert_upgrade/device/extended_range
-	upgrade_name = "Extended Sensor Array"
-	upgrade_desc = "Boosts detection and targeting range."
+	upgrade_name   = "Extended Sensor Array"
+	upgrade_desc   = "Boosts detection and targeting range."
+	tutorial_text  = "Increases sensor range for detection-based behaviors. Compatible with all cert types (required_cert_type = null). Good general-purpose upgrade for scout or patrol builds."
 	required_cert_type = null
 	compute_mod    = 1
 	operations_mod = 1
 	energy_mod     = 1
 
 /datum/cert_upgrade/device/hardened
-	upgrade_name = "Hardened Casing"
-	upgrade_desc = "Reinforced housing resistant to EMP and physical damage."
+	upgrade_name   = "Hardened Casing"
+	upgrade_desc   = "Reinforced housing resistant to EMP and physical damage."
+	tutorial_text  = "Adds CERT_EMP_HARDENED to any device cert. Compatible with all cert types. Use on fixed installations that cannot easily be evacuated from hostile areas."
 	required_cert_type = null
 	capability_flag_add = CERT_EMP_HARDENED
 	resilience_mod = 2
 	energy_mod     = 1
 
 /datum/cert_upgrade/device/auto_reload
-	upgrade_name = "Automated Throughput System"
-	upgrade_desc = "Speeds up fabrication cycles."
+	upgrade_name   = "Automated Throughput System"
+	upgrade_desc   = "Speeds up fabrication cycles."
+	tutorial_text  = "Reduces fabrication time for devices with a fabricator cert. Requires /datum/cpu_cert/device/fabricator -- has no effect on other cert types."
 	required_cert_type = /datum/cpu_cert/device/fabricator
 	compute_mod = 1
 	energy_mod  = 2
@@ -313,12 +352,19 @@
 // F13 CERT UPGRADES
 // ====================================================
 
-// Additional capability flags for F13 upgrades
+// CERT_CAN_RENAME: allows the robot to use the Set Designation verb.
+// Defined here because it is unique to F13 content and has no vanilla equivalent.
 #define CERT_CAN_RENAME      (1 << 10)
 
+
+// ====================================================
+// RADAWAY INJECTOR
+// ====================================================
+
 /datum/cert_upgrade/robot/rad_shielding
-	upgrade_name = "Radaway Injector"
-	upgrade_desc = "An integrated RadAway dispenser arm. Administers anti-radiation treatment to irradiated survivors nearby."
+	upgrade_name   = "Radaway Injector"
+	upgrade_desc   = "An integrated RadAway dispenser arm. Administers anti-radiation treatment to irradiated survivors nearby."
+	tutorial_text  = "Installs a borghypo loaded with RadAway into the robot's module. The robot can administer it to nearby humans to clear radiation buildup. Adds CERT_CAN_REPAIR. The borghypo can be refilled at a chemistry station."
 	capability_flag_add = CERT_CAN_REPAIR
 	energy_mod = 1
 
@@ -350,20 +396,18 @@
 
 /obj/item/cert_card/upgrade/rad_shielding/Initialize(mapload)
 	. = ..()
-	var/datum/cert_upgrade/robot/rad_shielding/U = new()
-	upgrade = U
+	upgrade = new /datum/cert_upgrade/robot/rad_shielding()
 	_update_name()
 
 
 // ====================================================
 // SCAVENGER ARRAY
-// Highlights nearby loot and corpses on examine.
-// Useful for player robots and merchant/utility builds.
 // ====================================================
 
 /datum/cert_upgrade/robot/scavenger_array
-	upgrade_name = "Scavenger Array"
-	upgrade_desc = "Advanced proximity sensors tuned for detecting valuable salvage and organic remains."
+	upgrade_name   = "Scavenger Array"
+	upgrade_desc   = "Advanced proximity sensors tuned for detecting valuable salvage and organic remains."
+	tutorial_text  = "Adds CERT_CAN_INTERFACE and activates proximity salvage detection. The robot passively identifies nearby items of value and organic remains. Good for loot-runner or merchant builds operating in ruins."
 	compute_mod = 2
 	capability_flag_add = CERT_CAN_INTERFACE
 
@@ -386,20 +430,18 @@
 
 /obj/item/cert_card/upgrade/scavenger_array/Initialize(mapload)
 	. = ..()
-	var/datum/cert_upgrade/robot/scavenger_array/U = new()
-	upgrade = U
+	upgrade = new /datum/cert_upgrade/robot/scavenger_array()
 	_update_name()
 
 
 // ====================================================
 // FACTION TRANSPONDER
-// Lets the robot switch its faction alignment.
-// Useful for player borgs who want to align with factions.
 // ====================================================
 
 /datum/cert_upgrade/robot/faction_transponder
-	upgrade_name = "Faction Transponder"
-	upgrade_desc = "A programmable IFF transponder. Allows the robot to broadcast a specific faction signal."
+	upgrade_name   = "Faction Transponder"
+	upgrade_desc   = "A programmable IFF transponder. Allows the robot to broadcast a specific faction signal."
+	tutorial_text  = "Unlocks 'Set Faction Transponder' under Robot Commands. Pick any major F13 faction. Previous transponder faction tags are stripped on switch. Does not affect technician-assigned faction tags. Adds CERT_CAN_BROADCAST."
 	capability_flag_add = CERT_CAN_BROADCAST
 	energy_mod = 1
 
@@ -417,7 +459,6 @@
 	var/mob/living/silicon/robot/R = holder
 	to_chat(R, span_warning("Faction Transponder removed."))
 
-// Verb added to robot when transponder is installed
 /mob/living/silicon/robot/verb/set_transponder_faction()
 	set name = "Set Faction Transponder"
 	set category = "Robot Commands"
@@ -441,7 +482,6 @@
 	if(!choice || !client)
 		return
 
-	// Strip old transponder factions, add new one
 	for(var/f in faction_options)
 		faction -= list(faction_options[f])
 	faction |= list(faction_options[choice])
@@ -453,20 +493,18 @@
 
 /obj/item/cert_card/upgrade/faction_transponder/Initialize(mapload)
 	. = ..()
-	var/datum/cert_upgrade/robot/faction_transponder/U = new()
-	upgrade = U
+	upgrade = new /datum/cert_upgrade/robot/faction_transponder()
 	_update_name()
 
 
 // ====================================================
 // SAW ARM ATTACHMENT
-// Replaces punch with a proper buzzsaw melee attack.
-// Exclusive with armor_plating (bulk vs agility).
 // ====================================================
 
 /datum/cert_upgrade/robot/saw_arm
-	upgrade_name = "Saw Arm Attachment"
-	upgrade_desc = "A high-speed rotary saw replaces the standard manipulator arm. Brutal in close combat."
+	upgrade_name   = "Saw Arm Attachment"
+	upgrade_desc   = "A high-speed rotary saw replaces the standard manipulator arm. Brutal in close combat."
+	tutorial_text  = "Adds a circular_saw to the robot's module. Dramatically increases melee damage. Exclusive with Armor Plating -- the saw arm requires full freedom of movement. Reduces resilience by 1 due to exposed mechanical joints."
 	operations_mod = 2
 	resilience_mod = -1
 	exclusive_with = list(/datum/cert_upgrade/robot/armor_plating)
@@ -497,21 +535,18 @@
 
 /obj/item/cert_card/upgrade/saw_arm/Initialize(mapload)
 	. = ..()
-	var/datum/cert_upgrade/robot/saw_arm/U = new()
-	upgrade = U
+	upgrade = new /datum/cert_upgrade/robot/saw_arm()
 	_update_name()
 
 
 // ====================================================
 // STIMPAK INJECTOR
-// Allows robot to administer a stimpak to a nearby
-// injured human. Requires CERT_CAN_REPAIR.
-// Limited charges, recharged at a fabricator.
 // ====================================================
 
 /datum/cert_upgrade/robot/stimpak_injector
-	upgrade_name = "Stimpak Injector"
-	upgrade_desc = "An integrated stimpak reservoir with a pneumatic injector arm. Can administer emergency medical aid to injured survivors."
+	upgrade_name   = "Stimpak Injector"
+	upgrade_desc   = "An integrated stimpak reservoir with a pneumatic injector arm. Can administer emergency medical aid to injured survivors."
+	tutorial_text  = "Adds a stimpak injector arm (3 charges) to the robot's module. Click on an injured human to inject. Cannot target the dead or uninjured. Adds CERT_CAN_REPAIR. Shares the flag with Radaway Injector -- both can be installed simultaneously."
 	capability_flag_add = CERT_CAN_REPAIR
 	resilience_mod = 1
 	energy_mod = 1
@@ -534,7 +569,6 @@
 		R.module.remove_module(S, TRUE)
 		break
 
-// Physical injector tool
 /obj/item/borg/f13/stimpak_injector
 	name = "stimpak injector arm"
 	desc = "An integrated medical injector loaded with stimpak solution. Administer to injured survivors."
@@ -567,10 +601,8 @@
 
 /obj/item/cert_card/upgrade/stimpak_injector/Initialize(mapload)
 	. = ..()
-	var/datum/cert_upgrade/robot/stimpak_injector/U = new()
-	upgrade = U
+	upgrade = new /datum/cert_upgrade/robot/stimpak_injector()
 	_update_name()
-
 
 
 // ====================================================
@@ -587,7 +619,6 @@
 		to_chat(src, span_warning("You cannot change your designation while offline."))
 		return
 
-	// Requires Designation Chip upgrade (CERT_CAN_RENAME flag)
 	if(!cpu_cert || !(cpu_cert.capability_flags & CERT_CAN_RENAME))
 		to_chat(src, span_warning("Your chassis lacks a Designation Chip. Install one to set a custom callsign."))
 		return
@@ -595,7 +626,7 @@
 	var/new_name = stripped_input(src, "Enter your new designation. Keep it lore-appropriate.", "Set Designation", real_name)
 	if(!new_name)
 		return
-	if(!client) // re-check after async input
+	if(!client)
 		return
 
 	new_name = reject_bad_name(new_name, TRUE)
@@ -613,14 +644,10 @@
 	log_game("[key_name(src)] renamed their robot to '[real_name]'")
 
 
-// ====================================================
-// DESIGNATION CHIP - Cert upgrade
-// Adds CERT_CAN_RENAME flag, unlocking the rename verb.
-// ====================================================
-
 /datum/cert_upgrade/robot/designation_chip
-	upgrade_name = "Designation Chip"
-	upgrade_desc = "A writable identity module. Allows the robot to set a custom callsign."
+	upgrade_name   = "Designation Chip"
+	upgrade_desc   = "A writable identity module. Allows the robot to set a custom callsign."
+	tutorial_text  = "Unlocks 'Set Designation' under Robot Commands. The robot can pick a custom name (up to 50 characters, name-filter validated). Purely cosmetic. Small energy draw. Good quality-of-life upgrade for player-controlled borgs. RECOMMENDED FIRST UPGRADE -- zero risk, immediate feedback, teaches how the upgrade system works. Install this, name your robot, then move on to behavior assemblies."
 	capability_flag_add = CERT_CAN_RENAME
 	energy_mod = 1
 
@@ -629,6 +656,9 @@
 	if(!istype(holder, /mob/living/silicon/robot))
 		return
 	var/mob/living/silicon/robot/R = holder
+	// Speak to nearby players so the noob sees the robot react immediately.
+	R.visible_message(span_notice("[R] designation module slots in with a soft click."))
+	R.say("Designation Chip installed. Ready to accept callsign. Use Robot Commands -- Set Designation.")
 	to_chat(R, span_notice("Designation Chip installed. Use 'Set Designation' in Robot Commands to set your callsign."))
 
 /datum/cert_upgrade/robot/designation_chip/on_remove(datum/cpu_cert/C, atom/holder)
@@ -638,18 +668,12 @@
 	var/mob/living/silicon/robot/R = holder
 	to_chat(R, span_warning("Designation Chip removed. Custom callsign locked."))
 
-
-// ====================================================
-// CERT CARD - Designation Chip physical item
-// ====================================================
-
 /obj/item/cert_card/upgrade/designation_chip
 	name = "cert card - Designation Chip"
 
 /obj/item/cert_card/upgrade/designation_chip/Initialize(mapload)
 	. = ..()
-	var/datum/cert_upgrade/robot/designation_chip/U = new()
-	upgrade = U
+	upgrade = new /datum/cert_upgrade/robot/designation_chip()
 	_update_name()
 
 
@@ -682,4 +706,3 @@
 	for(var/datum/cert_upgrade/U in upgrade_slots)
 		total += U.energy_mod
 	return max(0, total)
-

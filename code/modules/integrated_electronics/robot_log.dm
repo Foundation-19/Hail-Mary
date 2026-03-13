@@ -176,6 +176,14 @@
 	/// TRUE = this subtype logs its own specific entry in its execute() override.
 	/// response/execute will skip the generic log line for these.
 	var/suppress_base_log = FALSE
+	/// Short visible_message emote shown to nearby players when this circuit fires.
+	/// This is the noob feedback hook -- players nearby see the robot react in real-time.
+	/// Set to null to suppress visible chatter for this response type.
+	/// Dynamic responses (fire_weapon, follow_target etc.) emit their own chatter in execute().
+	var/visible_chatter = null
+	/// Cooldown (deciseconds) between visible_chatter emits. Prevents spam on fast triggers.
+	var/chatter_cooldown = 30
+	var/last_chatter = 0
 
 /datum/behavior_circuit/response/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	// Override — proc/execute declared on base datum in _behavior_defines.dm.
@@ -186,37 +194,52 @@
 	// so behavior_circuits.dm subtype ..() calls bubble up into this override correctly.
 	if(R && !suppress_base_log)
 		robot_log(R, "CIRCUIT — [log_entry ? log_entry : circuit_name]", RLOG_CIRCUIT)
+	// Visible chatter — lets nearby players see the robot's brain working.
+	// This is the primary noob feedback hook: when your robot does something, you see it.
+	if(R && visible_chatter && world.time >= last_chatter + chatter_cooldown)
+		last_chatter = world.time
+		R.visible_message(span_notice("[R] [visible_chatter]"))
 	..()
 
-// Per-response overrides — only for cases where circuit_name is too terse
-// or where the target name adds useful information.
+// ── Per-response overrides ────────────────────────────────────────────────────
+// Only for cases where circuit_name is too terse, where target names add useful
+// information, or where visible_chatter adds noob-facing flavor.
 
 /datum/behavior_circuit/response/enter_combat_mode
 	log_entry = "CIRCUIT — ENTER COMBAT MODE"
+	visible_chatter = "snaps to attention, optics flaring red."
 
 /datum/behavior_circuit/response/flee_from_threat
 	log_entry = "CIRCUIT — FLEE FROM THREAT"
+	visible_chatter = "reverses course, chassis whirring urgently."
 
 /datum/behavior_circuit/response/lockdown_self
 	log_entry = "CIRCUIT — LOCKDOWN ENGAGED"
+	visible_chatter = "shudders and locks into an emergency brace posture."
 
 /datum/behavior_circuit/response/self_repair_pulse
 	log_entry = "CIRCUIT — SELF-REPAIR PULSE"
+	visible_chatter = "emits a rapid series of clicks as internal repair systems cycle."
 
 /datum/behavior_circuit/response/broadcast_alert
 	log_entry = "CIRCUIT — BROADCAST ALERT"
+	visible_chatter = "transmitter array flashes as it broadcasts an alert signal."
 
 /datum/behavior_circuit/response/broadcast_distress
 	log_entry = "CIRCUIT — BROADCAST DISTRESS"
+	visible_chatter = "distress beacon lights strobe orange."
 
 /datum/behavior_circuit/response/inject_nearby_mob
 	log_entry = "HARDWARE — INJECTOR ACTIVATED"
+	visible_chatter = "extends its injector arm."
 
 /datum/behavior_circuit/response/spray_reagent
 	log_entry = "HARDWARE — CHEM SPRAYER ACTIVATED"
+	visible_chatter = "chemical sprayer hisses and pressurizes."
 
 /datum/behavior_circuit/response/collect_reagents
 	log_entry = "HARDWARE — REAGENT COLLECTION CYCLE"
+	visible_chatter = "collection nozzle retracts with a soft vacuum hiss."
 
 
 /datum/behavior_circuit/response/say_text
@@ -240,6 +263,9 @@
 			var/mob/T = tref.resolve()
 			if(T) tname = T.name
 		robot_log(R, "WEAPON FIRED — target: [tname]", RLOG_COMBAT)
+		if(world.time >= last_chatter + chatter_cooldown)
+			last_chatter = world.time
+			R.visible_message(span_warning("[R] weapon systems lock onto [tname]."))
 	..()
 
 /datum/behavior_circuit/response/pathfind_to_enemy
@@ -249,7 +275,11 @@
 	if(R && R.last_attacker_ref)
 		var/datum/weakref/tref = R.last_attacker_ref
 		var/mob/T = tref.resolve()
-		robot_log(R, "CIRCUIT — MOVING TO ENGAGE: [T ? T.name : "unknown"]", RLOG_CIRCUIT)
+		var/tname = T ? T.name : "unknown"
+		robot_log(R, "CIRCUIT — MOVING TO ENGAGE: [tname]", RLOG_CIRCUIT)
+		if(world.time >= last_chatter + chatter_cooldown)
+			last_chatter = world.time
+			R.visible_message(span_warning("[R] threat drive engages -- pursuit of [tname] initiated."))
 	..()
 
 /datum/behavior_circuit/response/follow_target
@@ -263,6 +293,10 @@
 			var/mob/T = tref2.resolve()
 			if(T) tname = T.name
 		robot_log(R, "CIRCUIT — FOLLOWING: [tname]", RLOG_CIRCUIT)
+		// Follow chatter fires rarely (long cooldown) so it doesn't spam during escort
+		if(world.time >= last_chatter + 200)
+			last_chatter = world.time
+			R.visible_message(span_notice("[R] escort lock on [tname] confirmed."))
 	..()
 
 /datum/behavior_circuit/response/remember_enemy
@@ -272,7 +306,11 @@
 	if(R && R.last_attacker_ref)
 		var/datum/weakref/tref = R.last_attacker_ref
 		var/mob/T = tref.resolve()
-		robot_log(R, "CIRCUIT — THREAT LOGGED: [T ? T.name : "unknown"]", RLOG_CIRCUIT)
+		var/tname = T ? T.name : "unknown"
+		robot_log(R, "CIRCUIT — THREAT LOGGED: [tname]", RLOG_CIRCUIT)
+		if(world.time >= last_chatter + chatter_cooldown)
+			last_chatter = world.time
+			R.visible_message(span_warning("[R] threat profile updated: [tname] flagged as hostile."))
 	..()
 
 
