@@ -72,69 +72,126 @@
 	var/preview_icon = "robot"
 	/// borghealth value - shown as stat in UI
 	var/display_health = 100
+	/// Short role/warning tags shown inline in the Build tab.
+	/// Each entry is a list(label, css_class) — class is one of: "dim", "warn", "good", "bad", "stat"
+	var/list/design_tags = list()
+	/// If TRUE, the Build tab shows a "★ Recommended first build" callout.
+	var/design_starter = FALSE
+	/// If TRUE, the Build tab shows an assembly warning before the player can finalize.
+	var/design_needs_assembly = FALSE
+	/// One-line cert guidance shown under the chassis in the Build tab.
+	var/cert_hint = ""
+
+
+// ============================================================
+// CHASSIS DEFINITIONS
+// ============================================================
+// Tags use list(label, css_class).  Classes: dim | warn | good | bad | stat
+// Keep labels short — they render inline next to the chassis name.
+// ============================================================
 
 /datum/robot_build_design/handy
-	design_name    = "Mr. Handy"
-	design_desc    = "Pre-war household assistant. Useful for service and basic repairs."
-	module_type    = /obj/item/robot_module/handy
-	tier           = WORKSHOP_TIER_UTILITY
-	mat_cost       = RW_COST_TIER1
-	preview_icon   = "handy"
-	display_health = 200
+	design_name        = "Mr. Handy"
+	design_desc        = "Pre-war household assistant rebuilt for the wasteland. Harvests, hauls, patches wounds, and serves water — all without complaining. The friendliest thing you'll build at this bench."
+	module_type        = /obj/item/robot_module/handy
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "handy"
+	display_health     = 200
+	design_starter     = TRUE
+	design_tags        = list(
+		list("SUPPORT",  "good"),
+		list("STARTER",  "good")
+	)
+	cert_hint          = "Default cert: Standard. Swap to Medical cert for Medbot or Field Surgeon behaviors."
 
 /datum/robot_build_design/liberator
-	design_name    = "Liberator"
-	design_desc    = "Compact combat drone. Light armor, fast, low threat ceiling."
-	module_type    = /obj/item/robot_module/liberator
-	tier           = WORKSHOP_TIER_UTILITY
-	mat_cost       = RW_COST_TIER1
-	preview_icon   = "liberator"
-	display_health = 150
+	design_name        = "Liberator"
+	design_desc        = "Cheap, fast combat drone with a short lifespan. It will close ground and shoot things before most robots react. It will also die to anything that shoots back. Wire an assembly or it wanders aimlessly — and fragile things that wander get shot."
+	module_type        = /obj/item/robot_module/liberator
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "liberator"
+	display_health     = 150
+	design_needs_assembly = TRUE
+	design_tags        = list(
+		list("COMBAT",   "warn"),
+		list("FRAGILE",  "bad")
+	)
+	cert_hint          = "Default cert: Standard. Combat cert gives +2 Operations and +2 Resilience — worth it here."
 
 /datum/robot_build_design/protectron
-	design_name    = "Protectron"
-	design_desc    = "Basic law enforcement unit. Slow but sturdy."
-	module_type    = /obj/item/robot_module/protectron
-	tier           = WORKSHOP_TIER_SECURITY
-	mat_cost       = RW_COST_TIER2
-	preview_icon   = "protectron"
-	display_health = 250
+	design_name        = "Protectron"
+	design_desc        = "Slow, durable law enforcement unit with a built-in stun module. Won't win a footrace, but it absorbs punishment and drops enemies with electrical stuns. Good second build — more forgiving than it looks."
+	module_type        = /obj/item/robot_module/protectron
+	tier               = WORKSHOP_TIER_SECURITY
+	mat_cost           = RW_COST_TIER2
+	preview_icon       = "protectron"
+	display_health     = 250
+	design_tags        = list(
+		list("SECURITY", "stat"),
+		list("TANKY",    "good")
+	)
+	cert_hint          = "Default cert: Standard. Combat cert unlocks combat behaviors and adds speed — the intended pairing."
 
 /datum/robot_build_design/gutsy
-	design_name    = "Mr. Gutsy"
-	design_desc    = "Military-grade service unit. Aggressive temperament, heavier armor."
-	module_type    = /obj/item/robot_module/gutsy
-	tier           = WORKSHOP_TIER_SECURITY
-	mat_cost       = RW_COST_TIER2
-	preview_icon   = "gutsy"
-	display_health = 300
+	design_name        = "Mr. Gutsy"
+	design_desc        = "Military-grade service unit with a short temper and a laser arm. Heavier armor than a Protectron, higher aggression ceiling. Fully customizable voice lines — it ships with opinions already installed."
+	module_type        = /obj/item/robot_module/gutsy
+	tier               = WORKSHOP_TIER_SECURITY
+	mat_cost           = RW_COST_TIER2
+	preview_icon       = "gutsy"
+	display_health     = 300
+	design_tags        = list(
+		list("SECURITY",   "stat"),
+		list("AGGRESSIVE", "warn")
+	)
+	cert_hint          = "Default cert: Standard. Combat cert is the right call — unlocks combat behaviors and bumps resilience."
 
 /datum/robot_build_design/securitron
-	design_name    = "Securitron"
-	design_desc    = "Heavy security platform. High health, strong weapons. Dangerous in numbers."
-	module_type    = /obj/item/robot_module/securitron
-	tier           = WORKSHOP_TIER_SECURITY
-	mat_cost       = RW_COST_TIER3
-	preview_icon   = "securitron"
-	display_health = 500
+	design_name        = "Securitron"
+	design_desc        = "Heavy platform with a wall of HP and an air cannon that throws enemies across the room. Slower than everything else at this tier — but it doesn't need to be fast. Two of these guarding a position are almost impossible to dislodge."
+	module_type        = /obj/item/robot_module/securitron
+	tier               = WORKSHOP_TIER_SECURITY
+	mat_cost           = RW_COST_TIER3
+	preview_icon       = "securitron"
+	display_health     = 500
+	design_tags        = list(
+		list("SECURITY", "stat"),
+		list("HEAVY",    "good"),
+		list("SLOW",     "dim")
+	)
+	cert_hint          = "Default cert: Standard. Combat cert recommended — this chassis is built to fight, give it the right cert."
 
 /datum/robot_build_design/assaultron
-	design_name    = "Assaultron"
-	design_desc    = "High-speed combat unit. Lethal up close. Do not build without assembly."
-	module_type    = /obj/item/robot_module/assaultron
-	tier           = WORKSHOP_TIER_COMBAT
-	mat_cost       = RW_COST_TIER3
-	preview_icon   = "assaultron"
-	display_health = 450
+	design_name        = "Assaultron"
+	design_desc        = "The fastest chassis in the workshop. Closes distance in seconds, devastating at melee range. Without a behavior assembly it is a danger to everyone nearby, including you. Do not finalize without one."
+	module_type        = /obj/item/robot_module/assaultron
+	tier               = WORKSHOP_TIER_COMBAT
+	mat_cost           = RW_COST_TIER3
+	preview_icon       = "assaultron"
+	display_health     = 450
+	design_needs_assembly = TRUE
+	design_tags        = list(
+		list("COMBAT",          "warn"),
+		list("FAST",            "good"),
+		list("NEEDS ASSEMBLY",  "bad")
+	)
+	cert_hint          = "Needs Combat cert. Combat cert unlocks the aggressive behaviors this chassis was built to run."
 
 /datum/robot_build_design/sentrybot
-	design_name    = "Sentry Bot"
-	design_desc    = "Apex combat platform. Massive health, heavy weapons. Near-endgame threat level."
-	module_type    = /obj/item/robot_module/sentrybot
-	tier           = WORKSHOP_TIER_APEX
-	mat_cost       = RW_COST_TIER4
-	preview_icon   = "sentrybot"
-	display_health = 600
+	design_name        = "Sentry Bot"
+	design_desc        = "The apex chassis. Grenade launcher, heavy laser, air cannon, HP that shrugs off most small-arms fire. The T4 cert that unlocks this does not come from the fabricator — you find it in the world. When you have it, you'll know it was worth it."
+	module_type        = /obj/item/robot_module/sentrybot
+	tier               = WORKSHOP_TIER_APEX
+	mat_cost           = RW_COST_TIER4
+	preview_icon       = "sentrybot"
+	display_health     = 600
+	design_tags        = list(
+		list("APEX",        "bad"),
+		list("WORLD CERT",  "warn")
+	)
+	cert_hint          = "Needs Combat cert (T2). The T4 workshop cert to build this doesn't come from the fabricator — find it in the world."
 
 
 // ====================================================
@@ -393,20 +450,32 @@
 
 /obj/machinery/robot_workshop/proc/_render_home(mob/user)
 	var/dat = ""
+	dat += "<span class='dim'>// This bench builds robot units from chassis parts, hardware modules, and behavior assemblies. Pick a design, load materials, and finalize to fabricate.</span><br><br>"
+
+	// Quick-start guide for new builders
+	dat += "QUICKSTART<br>"
+	dat += "<span class='dim'>1. Load materials into the hopper (insert metal/glass/gold/silver sheets).</span><br>"
+	dat += "<span class='dim'>2. Go to <b>Build</b> and pick a robot type. Mr. Handy is the recommended first build.</span><br>"
+	dat += "<span class='dim'>3. Go to <b>Hardware</b> and click \[USE RECOMMENDED HARDWARE\] to auto-fill slots.</span><br>"
+	dat += "<span class='dim'>4. Go to <b>Programs</b> if you have a behavior assembly to slot in (optional).</span><br>"
+	dat += "<span class='dim'>5. Go to <b>Finalize</b> and hit FABRICATE ROBOT.</span><br>"
+	dat += "<br>"
 
 	// Workshop tier
 	dat += "WORKSHOP STATUS<br>"
-	dat += "Tier: <span class='good'>[_tier_label(workshop_tier)]</span><br>"
+	dat += "Tier: <span class='good'>[_tier_label(workshop_tier)]</span>"
+	// Next tier teaser
+	var/next_tier = workshop_tier + 1
+	if(next_tier <= WORKSHOP_TIER_APEX)
+		dat += "  <span class='dim'>// install a T[next_tier] Workshop Cert Card to unlock [_tier_label(next_tier)] chassis</span>"
 	dat += "<br>"
 
 	// Installed tier certs
-	dat += "INSTALLED CERTS<br>"
 	if(installed_certs.len)
+		dat += "Installed certs:<br>"
 		for(var/obj/item/cert_card/C in installed_certs)
 			dat += "<span class='dim'>&gt; [C.name]</span>"
 			dat += "  <a href='byond://?src=[REF(src)];eject_tier_cert=[REF(C)]'>\[eject\]</a><br>"
-	else
-		dat += "<span class='dim'>None installed.</span><br>"
 	dat += "<br>"
 
 	// Chassis slot
@@ -415,11 +484,18 @@
 		dat += "<span class='good'>&gt; [chassis.name]</span>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_chassis=1'>\[eject\]</a><br>"
 	else
-		dat += "<span class='dim'>Empty -- insert a robot_suit chassis.</span><br>"
+		dat += "<span class='warn'>Empty -- insert a robot chassis item into this machine.</span><br>"
 	dat += "<br>"
 
 	// Material hopper
+	var/any_mats = FALSE
+	for(var/mat in materials)
+		if(materials[mat] > 0)
+			any_mats = TRUE
+			break
 	dat += "MATERIAL HOPPER  <a href='byond://?src=[REF(src)];eject_mats=1'>\[eject all\]</a><br>"
+	if(!any_mats)
+		dat += "<span class='warn'>&gt; Hopper empty. Insert iron, glass, gold, or silver sheets from your inventory.</span><br>"
 	for(var/mat in materials)
 		var/amt = materials[mat]
 		var/bar = _mat_bar(amt, mat_max)
@@ -430,22 +506,17 @@
 		dat += "<br>"
 	dat += "<br>"
 
-	// Unlock table
-	dat += "TIER UNLOCK GUIDE<br>"
-	dat += "<span class='dim'>T1 Utility:  Mr. Handy, Liberator</span><br>"
-	dat += "<span class='dim'>T2 Security: Protectron, Mr. Gutsy, Securitron</span><br>"
-	dat += "<span class='dim'>T3 Combat:   Assaultron</span><br>"
-	dat += "<span class='dim'>T4 Apex:     Sentry Bot  // find the cert first</span><br>"
-
 	// Operator SPECIAL profile
 	if(istype(user, /mob/living/carbon/human))
 		var/mob/living/carbon/human/H = user
-		dat += "<br><b>OPERATOR PROFILE</b>  <span class='dim'>// your stats at build time</span><br>"
+		dat += "OPERATOR PROFILE  <span class='dim'>// your stats shape this robot at build time</span><br>"
 		dat += "<span class='dim'>STR [H.special_s]  PER [H.special_p]  END [H.special_e]  CHA [H.special_c]"
 		dat += "  INT [H.special_i]  AGI [H.special_a]  LCK [H.special_l]</span><br>"
 		var/lck_disc = get_workshop_lck_discount(H)
 		if(lck_disc > 0)
-			dat += "<span class='good'>LCK bonus: [lck_disc]% material cost discount active</span><br>"
+			dat += "<span class='good'>LCK [H.special_l]: [lck_disc]% material cost discount active</span><br>"
+		else if(H.special_l < 5)
+			dat += "<span class='dim'>LCK [H.special_l]: LCK 5+ gives a material cost discount at build time</span><br>"
 		if(H.special_i >= RH_INT_MASTER)
 			dat += "<span class='good'>INT [H.special_i]: Circuit Board slot unlocked on HARDWARE tab</span><br>"
 		else if(H.special_i < RH_INT_STANDARD)
@@ -463,27 +534,62 @@
 	dat += "SELECT ROBOT TYPE  <span class='dim'>// filtered by workshop tier</span><br><br>"
 
 	var/any_shown = FALSE
+	var/next_locked_tier = -1  // lowest locked tier above current
+
 	for(var/datum/robot_build_design/D in designs)
+		// Track lowest locked tier for preview
+		if(D.tier > workshop_tier)
+			if(next_locked_tier < 0 || D.tier < next_locked_tier)
+				next_locked_tier = D.tier
 		if(D.tier > workshop_tier)
 			continue
 		any_shown = TRUE
 		var/is_selected = (selected_design == D.type)
-		var/tier_label = _tier_label(D.tier)
+
+		// Build inline tag string
+		var/tag_str = ""
+		if(D.design_tags && D.design_tags.len)
+			for(var/list/tag in D.design_tags)
+				tag_str += "  <span class='[tag[2]]'>\[[tag[1]]\]</span>"
+
 		if(is_selected)
-			dat += "<b>&gt; [D.design_name]</b>  <span class='dim'>T[D.tier] [tier_label]</span><br>"
+			dat += "<b>&gt; [D.design_name]</b>[tag_str]<br>"
+			if(D.design_starter)
+				dat += "<span class='good'>  ★ Recommended first build</span><br>"
 			dat += "<span class='dim'>[D.design_desc]</span><br>"
 			dat += "HP: <span class='good'>[D.display_health]</span>  "
 			dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
+			if(D.cert_hint)
+				dat += "<span class='dim'>Cert: [D.cert_hint]</span><br>"
+			if(D.design_needs_assembly)
+				dat += "<span class='bad'>&gt; Assembly warning: slot a behavior assembly before finalizing or this robot will be uncontrolled.</span><br>"
 			dat += "<span class='good'>&gt; SELECTED</span>"
 			dat += "  <a href='byond://?src=[REF(src)];select_design=clear'>\[clear\]</a><br>"
 		else
-			dat += "&gt; <a href='byond://?src=[REF(src)];select_design=[D.type]'>[D.design_name]</a>  <span class='dim'>T[D.tier] [tier_label]</span><br>"
+			dat += "&gt; <a href='byond://?src=[REF(src)];select_design=[D.type]'>[D.design_name]</a>[tag_str]<br>"
+			if(D.design_starter)
+				dat += "<span class='good'>  ★ Recommended first build</span><br>"
 			dat += "<span class='dim'>[D.design_desc]</span><br>"
 			dat += "HP: <span class='good'>[D.display_health]</span>  "
 			dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
+			if(D.cert_hint)
+				dat += "<span class='dim'>Cert: [D.cert_hint]</span><br>"
+		dat += "<br>"
 
 	if(!any_shown)
 		dat += "<span class='warn'>No designs available at current tier.</span><br>"
+
+	// Locked tier preview — show the next tier's chassis as dim teasers
+	if(next_locked_tier > 0)
+		dat += "<hr><span class='dim'>LOCKED — [_tier_label(next_locked_tier)] tier  // install a T[next_locked_tier] Workshop Cert Card to unlock</span><br>"
+		for(var/datum/robot_build_design/D in designs)
+			if(D.tier != next_locked_tier)
+				continue
+			var/tag_str = ""
+			if(D.design_tags && D.design_tags.len)
+				for(var/list/tag in D.design_tags)
+					tag_str += "  <span class='dim'>\[[tag[1]]\]</span>"
+			dat += "<span class='dim'>&gt; [D.design_name][tag_str]</span><br>"
 
 	return dat
 
@@ -899,13 +1005,14 @@
 		dat += "<span class='dim'>Assemblies are printed at the CPU Cert Fabricator.</span><br>"
 		dat += "<br><span class='dim'>Building without an assembly produces a basic NPC robot using its default module behaviors.</span><br>"
 
-	dat += "<br>ROBOT CERT CARD  <span class='dim'>(optional)</span><br>"
+	dat += "<br>CERT CARD  <span class='dim'>// defines robot C.O.R.E. stats, upgrade slots, and capability tier</span><br>"
 	if(robot_cert)
 		dat += "<span class='good'>&gt; [robot_cert.name]</span>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_robot_cert=1'>\[eject\]</a><br>"
 	else
-		dat += "<span class='dim'>None -- robot will get a default cert auto-applied at spawn.</span><br>"
-		dat += "<span class='dim'>Insert a cert_card item to override.</span><br>"
+		dat += "<span class='dim'>None — robot will receive a Standard cert at spawn (C5/O5/R5/E5, 3 upgrade slots).</span><br>"
+		dat += "<span class='dim'>Print a cert card at the CPU Cert Fabricator and insert it here to override.</span><br>"
+		dat += "<span class='dim'>Combat cert unlocks combat behaviors. Medical unlocks repair. Engineering unlocks machine interfaces.</span><br>"
 
 	return dat
 
@@ -921,7 +1028,17 @@
 	// Validate
 	var/list/errors = _validate_build(user)
 
-	// Chassis
+	// Plain-English summary of what the player is building
+	if(selected_design)
+		var/datum/robot_build_design/D0 = _get_design(selected_design)
+		if(D0)
+			var/asm_clause = behavior_assembly ? "running [behavior_assembly.assembly_label]" : "no behavior assembly (NPC default)"
+			dat += "<span class='good'>// You are building a [D0.design_name] — [asm_clause].</span><br>"
+			// Assembly danger warning for chassis that really need one
+			if(D0.design_needs_assembly && !behavior_assembly)
+				dat += "<span class='bad'>! WARNING: [D0.design_name] without an assembly is uncontrolled and dangerous. Slot a behavior assembly in the Programs tab before finalizing.</span><br>"
+			dat += "<br>"
+
 	dat += "Chassis:  "
 	if(chassis)
 		dat += "<span class='good'>[chassis.name]</span><br>"

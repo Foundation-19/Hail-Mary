@@ -87,6 +87,23 @@
 	designs += new /datum/cpu_fab_design/behavior/infiltrator()
 	designs += new /datum/cpu_fab_design/behavior/field_surgeon()
 	designs += new /datum/cpu_fab_design/behavior/broadcast_relay()
+	designs += new /datum/cpu_fab_design/behavior/greeter()
+	designs += new /datum/cpu_fab_design/behavior/panic()
+	designs += new /datum/cpu_fab_design/behavior/sentry_hold()
+	designs += new /datum/cpu_fab_design/behavior/fire_watch()
+	designs += new /datum/cpu_fab_design/behavior/lockdown()
+	designs += new /datum/cpu_fab_design/behavior/grudge()
+	designs += new /datum/cpu_fab_design/behavior/watchful()
+	designs += new /datum/cpu_fab_design/behavior/vengeance()
+	designs += new /datum/cpu_fab_design/behavior/courier()
+	designs += new /datum/cpu_fab_design/behavior/parrot()
+	// Layer 6-10
+	designs += new /datum/cpu_fab_design/behavior/shadow()
+	designs += new /datum/cpu_fab_design/behavior/crowd_control()
+	designs += new /datum/cpu_fab_design/behavior/depot()
+	designs += new /datum/cpu_fab_design/behavior/bodyguard()
+	designs += new /datum/cpu_fab_design/behavior/escalation()
+	designs += new /datum/cpu_fab_design/behavior/dead_man_timer()
 	// AI upgrade designs
 	designs += new /datum/cpu_fab_design/ai_upgrade/surveillance()
 	designs += new /datum/cpu_fab_design/ai_upgrade/malf_package()
@@ -176,6 +193,9 @@
 		n += _navlink("Behavior",   FAB_BEHAVIORS)
 		n += " | "
 		n += _navlink("Custom",     FAB_CUSTOM)
+	else
+		n += " | "
+		n += _navlink("Custom",     FAB_CUSTOM)
 	n += " | "
 	n += _navlink("AI Mods",    FAB_AI)
 	if(inserted_assembly)
@@ -218,7 +238,7 @@
 			if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
 				dat += _render_custom(user)
 			else
-				dat += "<span class='bad'>&gt; Robot Whisperer trait required.</span><br>"
+				dat += _render_custom_preview(user)
 		if(FAB_AI)
 			dat += _render_list(user, "ai_upgrade")
 		if(FAB_REPROG)
@@ -237,6 +257,7 @@
 
 /obj/machinery/cpu_fabricator/proc/_render_home(mob/user)
 	var/dat = ""
+	dat += "<span class='dim'>// This fabricator programs robot minds. Feed it materials, wire a trigger to a response, and print a behavior assembly you can slot into any robot CPU.</span><br><br>"
 	dat += "MODULE DIRECTORY<br>"
 	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CERTS]'>Base Certifications</a>  <span class='dim'>chassis identity cards</span><br>"
 	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_UPGRADES]'>Upgrade Modules</a>  <span class='dim'>hardware enhancements</span><br>"
@@ -244,16 +265,9 @@
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_BEHAVIORS]'>Behavior Assemblies</a>  <span class='dim'>preset automation programs</span><br>"
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CUSTOM]'>Custom Build</a>  <span class='dim'>wire your own trigger/response pair</span><br>"
-		// Imagination hook -- shown only to Robot Whisperers who can actually build these.
-		// A concrete goal to work toward: the Hunter + Last Resort combo.
-		dat += "<br><span class='dim'>// FIELD NOTE: Some builders combine the Hunter Protocol with Last Resort --"
-		dat += " a robot that hunts enemies and, when it's about to fall, detonates. A one-way trip. Effective.</span><br>"
-		dat += "<span class='dim'>// Combine any trigger with any response. The circuits don't care what you wire.</span><br>"
 	else
 		dat += "<span class='dim'>&gt; Behavior Assemblies  (requires Robot Whisperer trait)</span><br>"
-		// Teaser for players who don't have the trait yet
-		dat += "<br><span class='dim'>// FIELD NOTE: Robot Whisperers can wire behavior circuits -- program robots to"
-		dat += " guard on sight, escort allies, or detonate on a dead man's trigger. Find the trait to unlock this.</span><br>"
+		dat += "<span class='dim'>&gt; Custom Build  (requires Robot Whisperer trait)</span><br>"
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && ishuman(user))
 		var/mob/living/carbon/human/H = user
 		var/sensor_range = min(10, 5 + max(0, H.special_p - 5))
@@ -263,9 +277,9 @@
 		dat += "  <span class='dim'>// [H.special_i >= 8 ? "UNRESTRICTED" : H.special_i >= 7 ? "ADV" : H.special_i >= 6 ? "STD" : "LOCKED"]</span><br>"
 		dat += "<span class='dim'>PER</span> <span class='good'>[H.special_p]</span>  <span class='dim'>// sensor range: [sensor_range] tiles</span><br>"
 		if(luck_chance > 0)
-			dat += "<span class='dim'>LCK</span> <span class='good'>[H.special_l]</span>  <span class='good'>// [luck_chance]% BONUS CIRCUIT on Wire and Print</span><br>"
+			dat += "<span class='dim'>LCK</span> <span class='good'>[H.special_l]</span>  <span class='good'>// [luck_chance]% chance: bonus circuit slot on Wire and Print</span><br>"
 		else
-			dat += "<span class='dim'>LCK [H.special_l]  // no bonus circuit (LCK 5+ needed)</span><br>"
+			dat += "<span class='dim'>LCK [H.special_l]  // LCK 5+ unlocks random bonus circuit slots during assembly</span><br>"
 	dat += "<br>"
 	if(inserted_assembly)
 		dat += "REPROGRAM SLOT  <span class='good'>// LOADED</span><br>"
@@ -281,6 +295,13 @@
 		var/list/mnames = list("iron", "glass", "gold", "silver")
 		var/mat_max_fab = MINERAL_MATERIAL_AMOUNT * 50
 		dat += "<br>MATERIAL HOPPER  <a href='byond://?src=[REF(src)];eject_mats=1'>\[eject all\]</a><br>"
+		var/any_loaded = FALSE
+		for(var/i in 1 to mpaths.len)
+			var/amt = mats.get_material_amount(mpaths[i]) || 0
+			if(amt > 0)
+				any_loaded = TRUE
+		if(!any_loaded)
+			dat += "<span class='warn'>&gt; Hopper empty. Insert iron, glass, gold, or silver sheets from your inventory to load materials.</span><br>"
 		for(var/i in 1 to mpaths.len)
 			var/amt = mats.get_material_amount(mpaths[i]) || 0
 			var/filled = round(clamp(amt / mat_max_fab, 0, 1) * 10)
@@ -294,7 +315,6 @@
 			if(amt > 0)
 				dat += "<a href='byond://?src=[REF(src)];eject_mat=[mnames[i]]'>\[eject\]</a>"
 			dat += "<br>"
-		dat += "<span class='dim'>(Insert material sheets to load.)</span>"
 	return dat
 
 // ============================================================
@@ -304,14 +324,23 @@
 /obj/machinery/cpu_fabricator/proc/_render_list(mob/user, category)
 	var/dat = ""
 	var/count = 0
+	// Category intro headers
+	if(category == "cert")
+		dat += "<span class='dim'>// Cert cards define what a robot IS — its stats, upgrade slots, and what assemblies it can run. Print one and slot it into a robot at the workshop.</span><br>"
+		dat += "<span class='dim'>// Workflow: print a cert here → carry it to the Robot Workshop → insert it in the Programs tab before building.</span><br>"
+		dat += "<span class='dim'>// Start with Standard. Combat/Medical/Engineering require a purpose-built robot to be worth it.</span><br><br>"
+	else if(category == "upgrade")
+		dat += "<span class='dim'>// Upgrade cards install into a robot's cert slot to boost C.O.R.E. stats or add capabilities. Slot them directly onto the robot.</span><br><br>"
 	for(var/datum/cpu_fab_design/D in designs)
 		if(D.ui_category != category)
 			continue
 		count++
 		var/dname = D.design_name
 		var/ddesc = D.design_desc
-		// Name line: name + inline tier/int tags
+		// Name line: name + inline tier/int tags + starter callout
 		dat += "[dname]"
+		if(D.starter_build)
+			dat += "  <span class='good'>★ Starter</span>"
 		if(D.required_tier > CERT_TIER_BASIC)
 			dat += "  <span class='warn'>Tier 2 - Military</span>"
 		if(D.required_int > 0)
@@ -405,6 +434,28 @@
 // ============================================================
 // CUSTOM BUILD WORKSHOP
 // ============================================================
+
+// Read-only browse preview of the custom workshop for players without Robot Whisperer.
+// Shows all trigger/response combinations but locks the Wire and Print button.
+/obj/machinery/cpu_fabricator/proc/_render_custom_preview(mob/user)
+	var/dat = "BEHAVIOR ASSEMBLY WORKSHOP  <span class='warn'>// READ-ONLY PREVIEW</span><br>"
+	dat += "<span class='dim'>Robot Whisperer trait required to wire and print. Browse below to see what's possible.</span><br><hr>"
+	dat += "AVAILABLE TRIGGERS  <span class='dim'>// what makes your robot react</span><br>"
+	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
+		var/datum/behavior_circuit/trigger/inst = new T
+		dat += "<span class='dim'>&gt; [inst.circuit_name]</span>  <span class='dim'>CPU: [inst.cpu_cost]</span><br>"
+		dat += "<span class='dim'>  [inst.circuit_desc]</span><br>"
+		qdel(inst)
+	dat += "<hr>AVAILABLE RESPONSES  <span class='dim'>// what your robot does when triggered</span><br>"
+	for(var/T in subtypesof(/datum/behavior_circuit/response))
+		var/datum/behavior_circuit/response/inst = new T
+		dat += "<span class='dim'>&gt; [inst.circuit_name]</span>  <span class='dim'>CPU: [inst.cpu_cost]</span><br>"
+		dat += "<span class='dim'>  [inst.circuit_desc]</span><br>"
+		qdel(inst)
+	dat += "<hr><span class='warn'>&gt; WIRE AND PRINT  // locked - Robot Whisperer trait required</span><br>"
+	dat += "<span class='dim'>Operators with this trait can combine any trigger with any response to print a custom behavior assembly.</span><br>"
+	return dat
+
 
 /obj/machinery/cpu_fabricator/proc/_render_custom(mob/user)
 	if(ishuman(user))
@@ -746,6 +797,11 @@
 	dat += "TOTAL CPU: <span class='good'>[total_cpu]</span>"
 	dat += "  <span class='dim'>// cert budget: Standard=5  Combat=10  Medical=8  Engineering=7</span><br>"
 	dat += "<span class='dim'>(Assembly must fit the compute budget of the cert installed in the robot.)</span><br>"
+	// Plain-English summary
+	if(custom_trigger_id && custom_response_id)
+		var/summary = _build_plain_english_summary()
+		if(summary)
+			dat += "<br><span class='good'>// [summary]</span><br>"
 	// Material cost
 	var/datum/cpu_fab_design/behavior/dummy = new()
 	var/cost_dat = ""
@@ -763,6 +819,31 @@
 	else
 		dat += "<span class='bad'>&gt; Select trigger and response first.</span><br>"
 	return dat
+
+
+// ============================================================
+// PLAIN-ENGLISH SUMMARY
+// Generates a one-sentence description of what the wired
+// assembly will do, shown on the Review screen.
+// ============================================================
+
+/obj/machinery/cpu_fabricator/proc/_build_plain_english_summary()
+	if(!custom_trigger_id || !custom_response_id)
+		return null
+	var/t_name = _resolve_circuit_name(custom_trigger_id)
+	var/r_name = _resolve_circuit_name(custom_response_id)
+	// Build extra response clause if any
+	var/extra_clause = ""
+	if(extra_response_ids && extra_response_ids.len)
+		var/list/extra_names = list()
+		for(var/eid in extra_response_ids)
+			extra_names += _resolve_circuit_name(eid)
+		extra_clause = " AND [extra_names.Join(", ")]"
+	// Bonus circuit clause
+	var/bonus_clause = ""
+	if(bonus_slot_available && bonus_slot_mode && custom_bonus_id)
+		bonus_clause = " (Bonus: also [_resolve_circuit_name(custom_bonus_id)].)"
+	return "When your robot triggers [t_name], it will [r_name][extra_clause].[bonus_clause]"
 
 
 // ============================================================
@@ -1514,6 +1595,8 @@
 	var/requires_robot_whisperer = FALSE
 	var/ui_category = "cert"
 	var/for_ai = FALSE
+	/// If TRUE the behavior list shows a ★ Starter callout next to this entry.
+	var/starter_build = FALSE
 
 /datum/cpu_fab_design/upgrade
 	ui_category = "upgrade"
@@ -1550,14 +1633,15 @@
 
 /datum/cpu_fab_design/base/standard
 	design_name = "Standard Chassis Cert"
-	design_desc = "General-purpose robotic chassis certification."
+	design_desc = "The all-purpose cert. Balanced C.O.R.E. stats (5/5/5/5), 3 upgrade slots. Fits any robot in the workshop. Print this first if you're not sure what you need."
 	id = "cert_base_standard"
 	output_path = /obj/item/cert_card/base
 	cost = list("iron" = 500, "glass" = 200)
+	starter_build = TRUE
 
 /datum/cpu_fab_design/base/combat
 	design_name = "Combat Chassis Cert"
-	design_desc = "Military-grade combat chassis certification. Tier 2 required."
+	design_desc = "Military-grade cert. Faster and tougher than Standard (C4/O7/R7/E6), 4 upgrade slots, unlocks combat behaviors. Requires Tier 2. Slot this on a Protectron, Gutsy, Assaultron, or Securitron."
 	id = "cert_base_combat"
 	required_tier = CERT_TIER_MILITARY
 	output_path = /obj/item/cert_card/base/combat
@@ -1565,14 +1649,14 @@
 
 /datum/cpu_fab_design/base/medical
 	design_name = "Medical Chassis Cert"
-	design_desc = "Medical chassis certification."
+	design_desc = "Field medicine cert. Unlocks repair and triage capabilities (C6/O5/R5/E6), 4 upgrade slots. Required to run Medbot or Field Surgeon assemblies. Pairs well with Mr. Handy."
 	id = "cert_base_medical"
 	output_path = /obj/item/cert_card/base/medical
 	cost = list("iron" = 500, "glass" = 400)
 
 /datum/cpu_fab_design/base/engineering
 	design_name = "Engineering Chassis Cert"
-	design_desc = "Engineering chassis certification."
+	design_desc = "Infrastructure cert. Unlocks repair and machine interface capabilities (C6/O4/R6/E7), 4 upgrade slots. Higher energy budget means more hardware. Good for a dedicated support robot."
 	id = "cert_base_engineering"
 	output_path = /obj/item/cert_card/base/engineering
 	cost = list("iron" = 700, "glass" = 200)
@@ -1659,6 +1743,7 @@
 	design_desc = "Enters combat mode when an enemy is spotted."
 	id = "behavior_sentry"
 	output_path = /obj/item/behavior_assembly/sentry
+	starter_build = TRUE
 
 /datum/cpu_fab_design/behavior/guardian
 	design_name = "Guardian Protocol"
@@ -1678,6 +1763,7 @@
 	design_desc = "Broadcasts a power warning when the cell runs critically low."
 	id = "behavior_watchdog"
 	output_path = /obj/item/behavior_assembly/watchdog
+	starter_build = TRUE
 
 /datum/cpu_fab_design/behavior/deadman
 	design_name = "Deadman Protocol"
@@ -1698,6 +1784,7 @@
 	design_desc = "Offers water to thirsty survivors that approach. Requires a borghypo in the robot's module."
 	id = "behavior_drinkbot"
 	output_path = /obj/item/behavior_assembly/drink_bot
+	starter_build = TRUE
 
 /datum/cpu_fab_design/behavior/medbot
 	design_name = "Medbot Protocol"
@@ -1716,6 +1803,7 @@
 	design_desc = "Follows a linked target mob. Scan an ID card with a multitool and use it on the robot to link a follow target."
 	id = "behavior_escort"
 	output_path = /obj/item/behavior_assembly/escort
+	starter_build = TRUE
 
 /datum/cpu_fab_design/behavior/last_resort
 	design_name = "Last Resort Protocol"
@@ -1756,6 +1844,124 @@
 	required_int = 4
 	output_path = /obj/item/behavior_assembly/broadcast_relay
 	cost = list("iron" = 200, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/greeter
+	design_name = "Greeter Protocol"
+	design_desc = "Waves and greets any mob that approaches. The friendliest thing you can wire. No hardware required."
+	id = "behavior_greeter"
+	output_path = /obj/item/behavior_assembly/greeter
+	starter_build = TRUE
+
+/datum/cpu_fab_design/behavior/panic
+	design_name = "Panic Protocol"
+	design_desc = "Flees, calls for reinforcements, and broadcasts distress when critically damaged. Turns any robot into a survivor."
+	id = "behavior_panic"
+	output_path = /obj/item/behavior_assembly/panic
+	cost = list("iron" = 500, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/sentry_hold
+	design_name = "Sentry Hold Protocol"
+	design_desc = "Locks down and enters combat on enemy contact. Releases after 30 seconds of quiet. A proper guard robot."
+	id = "behavior_sentry_hold"
+	output_path = /obj/item/behavior_assembly/sentry_hold
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/fire_watch
+	design_name = "Fire Watch Protocol"
+	design_desc = "Sounds an alarm and deploys the extinguisher when fire is detected nearby. Requires Extinguisher Module hardware."
+	id = "behavior_fire_watch"
+	output_path = /obj/item/behavior_assembly/fire_watch
+	cost = list("iron" = 300, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/lockdown
+	design_name = "Lockdown Protocol"
+	design_desc = "On enemy contact: bolts the nearest door, sounds the alarm, and enters combat. The full security response in one assembly."
+	id = "behavior_lockdown"
+	output_path = /obj/item/behavior_assembly/lockdown
+	cost = list("iron" = 500, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/grudge
+	design_name = "Grudge Protocol"
+	design_desc = "Remembers enemies by name, announces them, chases persistently, and broadcasts distress on death. Requires Memory Core hardware. INT 7+."
+	id = "behavior_grudge"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/grudge
+	cost = list("iron" = 500, "glass" = 300, "gold" = 200)
+
+/datum/cpu_fab_design/behavior/watchful
+	design_name = "Watchful Protocol"
+	design_desc = "Checks in on radio periodically, then switches cleanly into combat mode on enemy contact. Requires Memory Core hardware. INT 7+."
+	id = "behavior_watchful"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/watchful
+	cost = list("iron" = 400, "glass" = 200, "gold" = 150)
+
+/datum/cpu_fab_design/behavior/vengeance
+	design_name = "Vengeance Protocol"
+	design_desc = "Goes berserk when an ally dies nearby. Enters combat, charges the enemy, taunts them, and sounds the alarm. No hardware required."
+	id = "behavior_vengeance"
+	output_path = /obj/item/behavior_assembly/vengeance
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/courier
+	design_name = "Courier Protocol"
+	design_desc = "Collects nearby items and brings them to a linked target. Link a delivery target with a multitool. Requires Grabber Arm hardware."
+	id = "behavior_courier"
+	output_path = /obj/item/behavior_assembly/courier
+	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/parrot
+	design_name = "Parrot Protocol"
+	design_desc = "Repeats everything it hears. Requires Microphone hardware. Simple. Strange. Extremely effective at annoying people."
+	id = "behavior_parrot"
+	output_path = /obj/item/behavior_assembly/parrot
+
+// -- Layer 6-10 designs --
+
+/datum/cpu_fab_design/behavior/shadow
+	design_name = "Shadow Protocol"
+	design_desc = "Cuts lights and goes silent on enemy contact. Sounds the alarm on unauthorized access. Requires Light and Memory Core hardware."
+	id = "behavior_shadow"
+	required_int = 6
+	output_path = /obj/item/behavior_assembly/shadow
+	cost = list("iron" = 400, "glass" = 200, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/crowd_control
+	design_name = "Crowd Control Protocol"
+	design_desc = "Area suppression when surrounded by 3+ enemies: air blast, smoke, alarm. Requires Air Cannon hardware."
+	id = "behavior_crowd_control"
+	output_path = /obj/item/behavior_assembly/crowd_control
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/depot
+	design_name = "Depot Protocol"
+	design_desc = "Collect-deposit loop: grabs items until full, deposits into the nearest container, repeats. Requires Grabber Arm hardware."
+	id = "behavior_depot"
+	output_path = /obj/item/behavior_assembly/depot
+	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/bodyguard
+	design_name = "Bodyguard Protocol"
+	design_desc = "Follows a linked target and interposes itself when they take damage. Link target with multitool + ID card."
+	id = "behavior_bodyguard"
+	output_path = /obj/item/behavior_assembly/bodyguard
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/escalation
+	design_name = "Escalation Protocol"
+	design_desc = "Stays calm under light fire. After absorbing 3 significant hits, escalates to full combat and calls for backup. Requires Memory Core hardware. INT 7+."
+	id = "behavior_escalation"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/escalation
+	cost = list("iron" = 500, "glass" = 300, "gold" = 200)
+
+/datum/cpu_fab_design/behavior/dead_man_timer
+	design_name = "Dead Man Timer"
+	design_desc = "Arms a countdown on death and detonates after a short delay. Gives enemies a moment to react. Requires Memory Core hardware."
+	id = "behavior_dead_man_timer"
+	required_int = 6
+	output_path = /obj/item/behavior_assembly/dead_man_timer
+	cost = list("iron" = 500, "glass" = 200, "gold" = 200)
 
 
 // ---- AI upgrades ----

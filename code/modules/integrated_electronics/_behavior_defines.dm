@@ -63,3 +63,4 @@
 #define ROBOT_COMBAT_RANGED 2   // Stay at retreat_distance, back off if closer
 #define ROBOT_COMBAT_MIXED  3   // Prefer range, switch to melee if rushed
 
+#define HW_SLOT_LOCOMOTION     "/datum/robot_hardware/locomotion"
