@@ -64,3 +64,21 @@
 #define ROBOT_COMBAT_MIXED  3   // Prefer range, switch to melee if rushed
 
 #define HW_SLOT_LOCOMOTION     "/datum/robot_hardware/locomotion"
+
+// ====================================================
+// ROBOT ROLE TAG DEFINES
+// Bitfield used to match chassis designs with compatible
+// module types in the Robot Workshop.
+// Defined here so both robot_workshop.dm and
+// robot_modules.dm can reference them without either
+// file depending on the other.
+// ROBOT_ROLE_ANY is a wildcard — Standard, Medical,
+// Engineering, and Security modules use this and
+// fit any chassis.
+// ====================================================
+
+#define ROBOT_ROLE_ANY       255    // Fits any chassis
+#define ROBOT_ROLE_SUPPORT   (1<<0) // Service/utility: Mr. Handy
+#define ROBOT_ROLE_COMBAT    (1<<1) // Combat: Liberator, Assaultron, Sentry Bot
+#define ROBOT_ROLE_SECURITY  (1<<2) // Security: Protectron, Mr. Gutsy, Securitron
+#define ROBOT_ROLE_APEX      (1<<3) // Apex: Sentry Bot only

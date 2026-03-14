@@ -2656,9 +2656,6 @@
 /obj/item/behavior_assembly/scavenger_bot
 	assembly_label = "Scavenger Protocol"
 
-/obj/item/behavior_assembly/scavenger_bot/cert_compatible(datum/cpu_cert/C)
-	return C && (C.capability_flags & CERT_CAN_INTERFACE)
-
 /obj/item/behavior_assembly/scavenger_bot/Initialize(mapload)
 	. = ..()
 	var/datum/behavior_circuit/trigger/on_interval/T = new()
@@ -2672,23 +2669,26 @@
 
 /obj/item/behavior_assembly/hunter
 	assembly_label = "Hunter Protocol"
+	max_circuits = 5
 
 /obj/item/behavior_assembly/hunter/Initialize(mapload)
 	. = ..()
-	// On Enemy Spotted -> Remember Last Enemy + Fire Weapon (one trigger, two responses)
+	// On Enemy Spotted -> Remember + Fire + maintain range (kites while shooting)
 	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
 	var/datum/behavior_circuit/response/remember_enemy/RE1 = new()
 	var/datum/behavior_circuit/response/fire_weapon/RE2 = new()
-	T1.responses_list = list(RE1, RE2)
+	var/datum/behavior_circuit/response/maintain_combat_range/RE3 = new()
+	T1.responses_list = list(RE1, RE2, RE3)
 	circuits += T1
 	circuits += RE1
 	circuits += RE2
-	// On Remembered Enemy -> Pathfind (persistent chase after losing sight)
-	var/datum/behavior_circuit/trigger/on_remembered_enemy/T3 = new()
-	var/datum/behavior_circuit/response/pathfind_to_enemy/RE3 = new()
-	T3.response = RE3
-	circuits += T3
 	circuits += RE3
+	// On Remembered Enemy -> Pathfind (persistent chase after losing sight)
+	var/datum/behavior_circuit/trigger/on_remembered_enemy/T2 = new()
+	var/datum/behavior_circuit/response/pathfind_to_enemy/RE4 = new()
+	T2.response = RE4
+	circuits += T2
+	circuits += RE4
 
 /obj/item/behavior_assembly/clock_patrol
 	assembly_label = "Clock Patrol Protocol"
@@ -3039,25 +3039,29 @@
 
 /obj/item/behavior_assembly/sentry_hold
 	assembly_label = "Sentry Hold Protocol"
-	max_circuits = 4
+	max_circuits = 6
 
 /obj/item/behavior_assembly/sentry_hold/Initialize(mapload)
 	. = ..()
-	// Enemy spotted -> lock down and enter combat
+	// Enemy spotted -> lock down, enter combat, fire and hold range
 	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
 	var/datum/behavior_circuit/response/hold_position/RE1 = new()
 	var/datum/behavior_circuit/response/enter_combat_mode/RE2 = new()
-	T1.responses_list = list(RE1, RE2)
+	var/datum/behavior_circuit/response/fire_weapon/RE3 = new()
+	var/datum/behavior_circuit/response/maintain_combat_range/RE4 = new()
+	T1.responses_list = list(RE1, RE2, RE3, RE4)
 	circuits += T1
 	circuits += RE1
 	circuits += RE2
+	circuits += RE3
+	circuits += RE4
 	// Slow interval -> release (only fires when no enemies trip the first trigger)
 	var/datum/behavior_circuit/trigger/on_interval/T2 = new()
 	T2.interval_ticks = 300  // 30s
-	var/datum/behavior_circuit/response/release_position/RE3 = new()
-	T2.response = RE3
+	var/datum/behavior_circuit/response/release_position/RE5 = new()
+	T2.response = RE5
 	circuits += T2
-	circuits += RE3
+	circuits += RE5
 
 
 // ====================================================
@@ -4750,4 +4754,879 @@
 	var/datum/behavior_circuit/response/detonate_self/RE3 = new()
 	T2.response = RE3
 	circuits += T2
+	circuits += RE3
+
+
+// ====================================================
+// FARMING BOT PROTOCOL
+// The full autonomous farm loop:
+//   On Interval -> Harvest Nearby Plants
+//                  + Grab Nearest Item (collect yield)
+//   On Grabber Full -> Report Position (loaded) +
+//                      Follow Linked Target (return)
+//   On Grabber Empty -> Report Position (ready)
+//
+// Designed for Mr. Handy with:
+//   - Harvester Module hardware (auto_replant = TRUE)
+//   - Grabber Arm hardware
+// Link a drop-off target with multitool + ID card
+// so the bot returns when loaded.
+// ====================================================
+
+/obj/item/behavior_assembly/farming_bot
+	assembly_label = "Farming Protocol"
+	max_circuits = 6
+
+/obj/item/behavior_assembly/farming_bot/Initialize(mapload)
+	. = ..()
+	// Primary loop: harvest then collect yield
+	var/datum/behavior_circuit/trigger/on_interval/T1 = new()
+	T1.interval_ticks = 50  // ~5s between harvest sweeps
+	var/datum/behavior_circuit/response/harvest_plants/RE1 = new()
+	var/datum/behavior_circuit/response/grab_nearest_item/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Full load: report and return to linked target
+	var/datum/behavior_circuit/trigger/on_grabber_full/T2 = new()
+	var/datum/behavior_circuit/response/report_position/RE3 = new()
+	RE3.position_prefix = "Harvest loaded"
+	var/datum/behavior_circuit/response/follow_target/RE4 = new()
+	T2.responses_list = list(RE3, RE4)
+	circuits += T2
+	circuits += RE3
+	circuits += RE4
+
+
+// ====================================================
+// LAYER A — UTILITY & SERVICE PROTOCOLS
+// ====================================================
+
+
+// ====================================================
+// PRESET: JANITOR PROTOCOL
+// On Mess Detected -> Emote Action ("moves to clean up")
+//                  + Say Text ("This is unacceptable.")
+// On Interval (slow) -> Emote Action ("scrubs the floor")
+// No hardware required.  Mr. Handy natural pairing.
+// ====================================================
+
+/obj/item/behavior_assembly/janitor
+	assembly_label = "Janitor Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/janitor/Initialize(mapload)
+	. = ..()
+	// Mess detected: react and complain
+	var/datum/behavior_circuit/trigger/on_mess_detected/T1 = new()
+	var/datum/behavior_circuit/response/emote_action/RE1 = new()
+	RE1.emote_text = "moves purposefully toward the mess"
+	var/datum/behavior_circuit/response/say_text/RE2 = new()
+	RE2.say_string = "Unsanitary conditions detected. Corrective action initiated."
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Slow ambient loop: scrubbing emote when nothing is happening
+	var/datum/behavior_circuit/trigger/on_idle/T2 = new()
+	T2.idle_ticks = 300
+	var/datum/behavior_circuit/response/emote_action/RE3 = new()
+	RE3.emote_text = "wipes down a nearby surface with a cleaning cloth"
+	T2.response = RE3
+	circuits += T2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: LAMP BOT PROTOCOL
+// On Darkness -> Toggle Light (force on)
+// On Lit      -> Toggle Light (force off)
+// The robot is a smart lamp.
+// Requires Light hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/lamp_bot
+	assembly_label = "Lamp Bot Protocol"
+	max_circuits = 2
+
+/obj/item/behavior_assembly/lamp_bot/Initialize(mapload)
+	. = ..()
+	// Dark: turn on
+	var/datum/behavior_circuit/trigger/on_darkness/T1 = new()
+	var/datum/behavior_circuit/response/toggle_light/RE1 = new()
+	RE1.force_state = 1
+	T1.response = RE1
+	circuits += T1
+	circuits += RE1
+	// Lit: turn off
+	var/datum/behavior_circuit/trigger/on_lit/T2 = new()
+	var/datum/behavior_circuit/response/toggle_light/RE2 = new()
+	RE2.force_state = 0
+	T2.response = RE2
+	circuits += T2
+	circuits += RE2
+
+
+// ====================================================
+// PRESET: BATTERY STEWARD PROTOCOL
+// On Low Power  -> Read Battery + Retreat To Spawn
+// On Power Restored -> Read Battery + Report Position
+// A robot that manages its own power cycle and
+// announces when it's back online.
+// No hardware required.
+// ====================================================
+
+/obj/item/behavior_assembly/battery_steward
+	assembly_label = "Battery Steward Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/battery_steward/Initialize(mapload)
+	. = ..()
+	// Low power: announce and retreat to charging point
+	var/datum/behavior_circuit/trigger/on_low_power/T1 = new()
+	T1.charge_threshold = 0.2
+	var/datum/behavior_circuit/response/read_battery/RE1 = new()
+	var/datum/behavior_circuit/response/retreat_to_spawn/RE2 = new()
+	var/datum/behavior_circuit/response/say_text/RE3 = new()
+	RE3.say_string = "Power cell low. Returning to charge station."
+	T1.responses_list = list(RE1, RE2, RE3)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+	// Power restored: announce readiness
+	var/datum/behavior_circuit/trigger/on_power_restored/T2 = new()
+	var/datum/behavior_circuit/response/read_battery/RE4 = new()
+	var/datum/behavior_circuit/response/report_position/RE5 = new()
+	RE5.position_prefix = "Power restored — back online"
+	T2.responses_list = list(RE4, RE5)
+	circuits += T2
+	circuits += RE4
+	circuits += RE5
+
+
+// ====================================================
+// PRESET: CHEM RUNNER PROTOCOL
+// On Reagent Container Nearby -> Collect Reagents
+//                              + Follow Linked Target
+// Collects nearby chemistry supplies and brings them
+// to a linked chemist or dispenser.
+// Link target with multitool + ID card.
+// No hardware required.
+// ====================================================
+
+/obj/item/behavior_assembly/chem_runner
+	assembly_label = "Chem Runner Protocol"
+	max_circuits = 3
+
+/obj/item/behavior_assembly/chem_runner/Initialize(mapload)
+	. = ..()
+	// Reagent spotted: collect and bring to linked target
+	var/datum/behavior_circuit/trigger/on_reagent_container_nearby/T1 = new()
+	T1.check_range = 5
+	var/datum/behavior_circuit/response/collect_reagents/RE1 = new()
+	var/datum/behavior_circuit/response/follow_target/RE2 = new()
+	var/datum/behavior_circuit/response/report_position/RE3 = new()
+	RE3.position_prefix = "Chem pickup"
+	T1.responses_list = list(RE1, RE2, RE3)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// LAYER B — COMBAT DEPTH PROTOCOLS
+// ====================================================
+
+
+// ====================================================
+// PRESET: REACTIVE MARKSMAN PROTOCOL
+// On Hit -> Maintain Combat Range + Fire Weapon +
+//           Taunt Enemy
+// A robot that backs off when shot and returns fire
+// while trash-talking.  Requires Weapon hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/reactive_marksman
+	assembly_label = "Reactive Marksman Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/reactive_marksman/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_hit/T = new()
+	var/datum/behavior_circuit/response/maintain_combat_range/RE1 = new()
+	var/datum/behavior_circuit/response/fire_weapon/RE2 = new()
+	var/datum/behavior_circuit/response/taunt_enemy/RE3 = new()
+	RE3.taunt_string = "You'll have to do better than that."
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: GRENADIER PROTOCOL
+// On Mob Count Threshold (3+) -> Prime Grenade +
+//                                Flee From Threat
+// Lobs a grenade into a crowd then retreats.
+// Requires Grenade Launcher hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/grenadier
+	assembly_label = "Grenadier Protocol"
+	max_circuits = 3
+
+/obj/item/behavior_assembly/grenadier/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_mob_count_threshold/T = new()
+	T.threshold = 3
+	var/datum/behavior_circuit/response/prime_grenade/RE1 = new()
+	var/datum/behavior_circuit/response/flee_from_threat/RE2 = new()
+	T.responses_list = list(RE1, RE2)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+
+
+// ====================================================
+// PRESET: STUN & SUBDUE PROTOCOL
+// On Enemy Spotted -> Stun Target + Enter Combat Mode
+// On Ally Under Attack -> Stun Target
+// Focuses on incapacitation over lethal force.
+// Best on a Protectron.  Stun Module hardware
+// recommended but not required.
+// ====================================================
+
+/obj/item/behavior_assembly/stun_subdue
+	assembly_label = "Stun & Subdue Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/stun_subdue/Initialize(mapload)
+	. = ..()
+	// Enemy spotted: stun and enter combat
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
+	var/datum/behavior_circuit/response/stun_target/RE1 = new()
+	var/datum/behavior_circuit/response/enter_combat_mode/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Ally under attack: stun the attacker
+	var/datum/behavior_circuit/trigger/on_ally_under_attack/T2 = new()
+	var/datum/behavior_circuit/response/stun_target/RE3 = new()
+	T2.response = RE3
+	circuits += T2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: COMBAT SOUND RESPONSE PROTOCOL
+// On Combat Sound Nearby -> Enter Combat Mode +
+//   Sound Alarm + Set Memory Flag("alert")
+// On Memory Flag("alert") -> Report Position +
+//   Pathfind To Enemy
+// Wakes on gunfire, reports contact, and hunts the
+// source.  Requires Microphone hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/combat_response
+	assembly_label = "Combat Response Protocol"
+	max_circuits = 6
+
+/obj/item/behavior_assembly/combat_response/Initialize(mapload)
+	. = ..()
+	// Gunfire heard: wake up and flag
+	var/datum/behavior_circuit/trigger/on_combat_sound_nearby/T1 = new()
+	var/datum/behavior_circuit/response/enter_combat_mode/RE1 = new()
+	var/datum/behavior_circuit/response/sound_alarm/RE2 = new()
+	RE2.alarm_message = "Gunfire detected. Responding."
+	var/datum/behavior_circuit/response/set_memory_flag/RE3 = new()
+	RE3.flag_key = "alert"
+	RE3.flag_value = "1"
+	T1.responses_list = list(RE1, RE2, RE3)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+	// While alert: report and pursue
+	var/datum/behavior_circuit/trigger/on_memory_flag/T2 = new()
+	T2.flag_key = "alert"
+	T2.poll_interval = 25
+	var/datum/behavior_circuit/response/report_position/RE4 = new()
+	RE4.position_prefix = "Responding to contact"
+	var/datum/behavior_circuit/response/pathfind_to_enemy/RE5 = new()
+	T2.responses_list = list(RE4, RE5)
+	circuits += T2
+	circuits += RE4
+	circuits += RE5
+
+
+// ====================================================
+// LAYER C — SPECIALIST PROTOCOLS
+// ====================================================
+
+
+// ====================================================
+// PRESET: BIO SCOUT PROTOCOL
+// On Mutant Detected -> Broadcast Bio Report +
+//   Remember Last Enemy + Set Memory Flag("contact")
+// Requires Bio Scanner hardware.  INT 7+.
+// Field researcher that scans and logs unusual biology.
+// ====================================================
+
+/obj/item/behavior_assembly/bio_scout
+	assembly_label = "Bio Scout Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/bio_scout/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_mutant_detected/T = new()
+	var/datum/behavior_circuit/response/broadcast_bio_report/RE1 = new()
+	var/datum/behavior_circuit/response/remember_enemy/RE2 = new()
+	var/datum/behavior_circuit/response/set_memory_flag/RE3 = new()
+	RE3.flag_key = "contact"
+	RE3.flag_value = "1"
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: HAZMAT RESPONDER PROTOCOL
+// On Radiation Detected -> Hazmat Warning +
+//   Spray Reagent (RadAway) + Seal Nearby Door
+// Contamination containment robot.
+// Requires Environment Scanner + Chem Sprayer hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/hazmat_responder
+	assembly_label = "Hazmat Responder Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/hazmat_responder/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_radiation_detected/T = new()
+	var/datum/behavior_circuit/response/hazmat_warning/RE1 = new()
+	var/datum/behavior_circuit/response/spray_reagent/RE2 = new()
+	var/datum/behavior_circuit/response/seal_nearby_door/RE3 = new()
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: GPS ZONE GUARD PROTOCOL
+// On GPS Zone -> Hold Position + Sound Alarm +
+//               Enter Combat Mode
+// Only activates when the robot is inside a defined
+// map coordinate zone.  Requires GPS hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/gps_zone_guard
+	assembly_label = "GPS Zone Guard Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/gps_zone_guard/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_gps_zone/T = new()
+	var/datum/behavior_circuit/response/hold_position/RE1 = new()
+	var/datum/behavior_circuit/response/sound_alarm/RE2 = new()
+	RE2.alarm_message = "Zone boundary breach. Lockdown active."
+	var/datum/behavior_circuit/response/enter_combat_mode/RE3 = new()
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: ANNOUNCE BOT PROTOCOL
+// On Interval (very slow) -> Say Vocab Phrase +
+//                            Display Screen Message
+// A town crier / bulletin board robot.
+// Cycles through stored announcements.
+// Requires Vocabulary Module + Display Screen hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/announce_bot
+	assembly_label = "Announce Bot Protocol"
+	max_circuits = 2
+
+/obj/item/behavior_assembly/announce_bot/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_interval/T = new()
+	T.interval_ticks = 800  // ~80s between announcements
+	var/datum/behavior_circuit/response/say_vocab_phrase/RE1 = new()
+	RE1.phrase_index = 1
+	var/datum/behavior_circuit/response/display_screen/RE2 = new()
+	RE2.display_text = "ANNOUNCEMENT IN PROGRESS"
+	T.responses_list = list(RE1, RE2)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+
+
+// ====================================================
+// PRESET: RELAY STATION PROTOCOL
+// On Signal Received -> Broadcast Alert +
+//                       Send Radio Signal
+// A signal repeater — receives a signal on one
+// frequency and rebroadcasts on its own channel.
+// Chains robots across distances.
+// Requires Signaler hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/relay_station
+	assembly_label = "Relay Station Protocol"
+	max_circuits = 3
+
+/obj/item/behavior_assembly/relay_station/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_signal_received/T = new()
+	var/datum/behavior_circuit/response/broadcast_alert/RE1 = new()
+	RE1.alert_message = "Signal relayed. Retransmitting."
+	var/datum/behavior_circuit/response/send_radio_signal/RE2 = new()
+	T.responses_list = list(RE1, RE2)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+
+
+// ====================================================
+// PRESET: ALCHEMIST PROTOCOL
+// On Reagent Container Nearby -> Collect Reagents
+// On Interval -> Grind Item + Pump Reagent
+// Automated chemistry processing bot.
+// Requires Grabber Arm + Reagent Tank + Grinder Module
+// + Reagent Pump hardware.  INT 7+.
+// ====================================================
+
+/obj/item/behavior_assembly/alchemist
+	assembly_label = "Alchemist Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/alchemist/Initialize(mapload)
+	. = ..()
+	// Collect nearby reagent containers
+	var/datum/behavior_circuit/trigger/on_reagent_container_nearby/T1 = new()
+	T1.check_range = 3
+	var/datum/behavior_circuit/response/collect_reagents/RE1 = new()
+	T1.response = RE1
+	circuits += T1
+	circuits += RE1
+	// Process loop: grind held items, pump result
+	var/datum/behavior_circuit/trigger/on_interval/T2 = new()
+	T2.interval_ticks = 100
+	var/datum/behavior_circuit/response/grind_item/RE2 = new()
+	var/datum/behavior_circuit/response/pump_reagent/RE3 = new()
+	T2.responses_list = list(RE2, RE3)
+	circuits += T2
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// LAYER E — CLEARING REMAINING ORPHANS
+// ====================================================
+
+
+// ====================================================
+// PRESET: SPRINT AMBUSH PROTOCOL
+// On Enemy Spotted -> Activate Sprint + Fire Weapon
+// On Weapon Fired  -> Taunt Enemy
+// An aggressive Assaultron that surges into range,
+// fires, and trash-talks on each shot.
+// Requires Weapon + Locomotion (can_sprint) hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/sprint_ambush
+	assembly_label = "Sprint Ambush Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/sprint_ambush/Initialize(mapload)
+	. = ..()
+	// Enemy spotted: burst toward them and open fire
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
+	var/datum/behavior_circuit/response/activate_sprint/RE1 = new()
+	var/datum/behavior_circuit/response/fire_weapon/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Each shot: taunt
+	var/datum/behavior_circuit/trigger/on_weapon_fired/T2 = new()
+	var/datum/behavior_circuit/response/taunt_enemy/RE3 = new()
+	RE3.taunt_string = "Pow! That's what you get, smoothskin!"
+	T2.response = RE3
+	circuits += T2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: MEDEVAC PROTOCOL
+// On Health Scan Critical -> Drag Injured Ally +
+//                            Pull Target
+// On Low Health (own)     -> Retreat To Spawn +
+//                            Broadcast Distress
+// A dedicated evacuation robot.
+// Best on Mr. Handy with Health Scanner hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/medevac
+	assembly_label = "Medevac Protocol"
+	max_circuits = 5
+
+/obj/item/behavior_assembly/medevac/Initialize(mapload)
+	. = ..()
+	// Critical ally nearby: drag them to safety
+	var/datum/behavior_circuit/trigger/on_health_scan_critical/T1 = new()
+	var/datum/behavior_circuit/response/drag_injured_ally/RE1 = new()
+	var/datum/behavior_circuit/response/pull_target/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Own health critical: retreat and call for help
+	var/datum/behavior_circuit/trigger/on_low_health/T2 = new()
+	T2.health_threshold = 0.3
+	var/datum/behavior_circuit/response/retreat_to_spawn/RE3 = new()
+	var/datum/behavior_circuit/response/broadcast_distress/RE4 = new()
+	T2.responses_list = list(RE3, RE4)
+	circuits += T2
+	circuits += RE3
+	circuits += RE4
+
+
+// ====================================================
+// PRESET: RIOT CONTROL PROTOCOL
+// On Mob Count Threshold (3+) -> Air Blast Area +
+//                                Strobe Flash +
+//                                Sound Alarm
+// On Enemy Spotted -> Move Direction (step back) +
+//                     Fire Air Cannon
+// A Securitron that uses maximum non-lethal suppression.
+// Requires Air Cannon hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/riot_control
+	assembly_label = "Riot Control Protocol"
+	max_circuits = 6
+
+/obj/item/behavior_assembly/riot_control/Initialize(mapload)
+	. = ..()
+	// Surrounded: area blast + strobe + alarm
+	var/datum/behavior_circuit/trigger/on_mob_count_threshold/T1 = new()
+	T1.threshold = 3
+	var/datum/behavior_circuit/response/air_blast_area/RE1 = new()
+	var/datum/behavior_circuit/response/strobe_flash/RE2 = new()
+	var/datum/behavior_circuit/response/sound_alarm/RE3 = new()
+	RE3.alarm_message = "DISPERSE. Use of force authorized."
+	T1.responses_list = list(RE1, RE2, RE3)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+	// Single target: step back and blast them
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T2 = new()
+	var/datum/behavior_circuit/response/move_direction/RE4 = new()
+	RE4.move_dir = SOUTH  // default step-back; configure at workshop
+	var/datum/behavior_circuit/response/fire_air_cannon/RE5 = new()
+	T2.responses_list = list(RE4, RE5)
+	circuits += T2
+	circuits += RE4
+	circuits += RE5
+
+
+// ====================================================
+// PRESET: THROWER PROTOCOL
+// On Item Picked Up  -> Throw Item At Enemy
+// On Grabber Empty   -> Grab Nearest Item
+// A scavenger that throws whatever it finds.
+// Requires Grabber Arm + Throwing Arm hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/thrower_bot
+	assembly_label = "Thrower Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/thrower_bot/Initialize(mapload)
+	. = ..()
+	// Picked something up: immediately throw it at enemy
+	var/datum/behavior_circuit/trigger/on_item_picked_up/T1 = new()
+	var/datum/behavior_circuit/response/throw_item_at_enemy/RE1 = new()
+	T1.response = RE1
+	circuits += T1
+	circuits += RE1
+	// Empty grabber: go collect more ammunition
+	var/datum/behavior_circuit/trigger/on_grabber_empty/T2 = new()
+	var/datum/behavior_circuit/response/grab_nearest_item/RE2 = new()
+	T2.response = RE2
+	circuits += T2
+	circuits += RE2
+
+
+// ====================================================
+// PRESET: SUPPLY DROP PROTOCOL
+// On Mob Approaches -> Offer Item + Say Text
+// On Grabber Empty  -> Request Resupply
+// A logistics robot that distributes held items
+// to approaching friendlies and calls for restocking.
+// Requires Grabber Arm hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/supply_drop
+	assembly_label = "Supply Drop Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/supply_drop/Initialize(mapload)
+	. = ..()
+	// Someone approaches: offer item
+	var/datum/behavior_circuit/trigger/on_mob_approaches/T1 = new()
+	T1.approach_range = 3
+	T1.check_faction = TRUE  // friendlies only
+	var/datum/behavior_circuit/response/offer_item/RE1 = new()
+	var/datum/behavior_circuit/response/say_text/RE2 = new()
+	RE2.say_string = "Resupply available. Take what you need."
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Empty grabber: call for resupply
+	var/datum/behavior_circuit/trigger/on_grabber_empty/T2 = new()
+	var/datum/behavior_circuit/response/request_resupply/RE3 = new()
+	RE3.supply_type = "inventory items"
+	RE3.urgency = "urgent"
+	T2.response = RE3
+	circuits += T2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: POWER RELAY PROTOCOL
+// On Interval -> Relay Power + Read Battery
+// On Low Power -> Request Resupply + Broadcast Distress
+// A robot that recharges other robots and reports
+// its own power state.
+// Requires Power Relay hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/power_relay_bot
+	assembly_label = "Power Relay Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/power_relay_bot/Initialize(mapload)
+	. = ..()
+	// Periodic: relay power to nearby robots, report own charge
+	var/datum/behavior_circuit/trigger/on_interval/T1 = new()
+	T1.interval_ticks = 60
+	var/datum/behavior_circuit/response/relay_power/RE1 = new()
+	var/datum/behavior_circuit/response/read_battery/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Own power low: call for help
+	var/datum/behavior_circuit/trigger/on_low_power/T2 = new()
+	var/datum/behavior_circuit/response/request_resupply/RE3 = new()
+	RE3.supply_type = "power cell"
+	RE3.urgency = "critical"
+	var/datum/behavior_circuit/response/broadcast_distress/RE4 = new()
+	T2.responses_list = list(RE3, RE4)
+	circuits += T2
+	circuits += RE3
+	circuits += RE4
+
+
+// ====================================================
+// PRESET: COLLECTION SWEEP PROTOCOL
+// On Item Spotted    -> Collect Nearby Items +
+//                       Play Sound (confirm beep)
+// On Grabber Full    -> Drop All Items + Report Position
+// A mining/salvage sweep bot.
+// Requires Material Collector + Grabber hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/collection_sweep
+	assembly_label = "Collection Sweep Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/collection_sweep/Initialize(mapload)
+	. = ..()
+	// Item spotted: collect and confirm
+	var/datum/behavior_circuit/trigger/on_item_spotted/T1 = new()
+	var/datum/behavior_circuit/response/collect_items/RE1 = new()
+	var/datum/behavior_circuit/response/play_sound/RE2 = new()
+	RE2.sound_file = 'sound/machines/ping.ogg'
+	RE2.sound_volume = 30
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Full: dump payload and report
+	var/datum/behavior_circuit/trigger/on_grabber_full/T2 = new()
+	var/datum/behavior_circuit/response/drop_all_items/RE3 = new()
+	var/datum/behavior_circuit/response/report_position/RE4 = new()
+	RE4.position_prefix = "Payload deposited"
+	T2.responses_list = list(RE3, RE4)
+	circuits += T2
+	circuits += RE3
+	circuits += RE4
+
+
+// ====================================================
+// PRESET: WATCHPOST PROTOCOL
+// On Spoken To Directly -> Say Text (respond) +
+//                          Report Position
+// On Body Detected      -> Sound Alarm +
+//                          Broadcast Distress +
+//                          Play Sound
+// On Memory Flag Cleared("alert") -> Say Text +
+//                                    Release Position
+// A guard bot that responds when addressed, alarms
+// on casualties, and stands down when alert clears.
+// Requires Microphone + Environment Scanner hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/watchpost
+	assembly_label = "Watchpost Protocol"
+	max_circuits = 7
+
+/obj/item/behavior_assembly/watchpost/Initialize(mapload)
+	. = ..()
+	// Spoken to: acknowledge and report position
+	var/datum/behavior_circuit/trigger/on_spoken_to/T1 = new()
+	var/datum/behavior_circuit/response/say_text/RE1 = new()
+	RE1.say_string = "Watchpost operational. All clear."
+	var/datum/behavior_circuit/response/report_position/RE2 = new()
+	RE2.position_prefix = "Watchpost position"
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// Body detected: alert!
+	var/datum/behavior_circuit/trigger/on_body_detected/T2 = new()
+	var/datum/behavior_circuit/response/sound_alarm/RE3 = new()
+	RE3.alarm_message = "CASUALTY DETECTED. All units respond."
+	var/datum/behavior_circuit/response/broadcast_distress/RE4 = new()
+	var/datum/behavior_circuit/response/play_sound/RE5 = new()
+	RE5.sound_file = 'sound/machines/alarm.ogg'
+	RE5.sound_volume = 80
+	var/datum/behavior_circuit/response/set_memory_flag/RE6 = new()
+	RE6.flag_key = "alert"
+	RE6.flag_value = "1"
+	T2.responses_list = list(RE3, RE4, RE5, RE6)
+	circuits += T2
+	circuits += RE3
+	circuits += RE4
+	circuits += RE5
+	circuits += RE6
+	// Alert cleared: stand down
+	var/datum/behavior_circuit/trigger/on_memory_flag_cleared/T3 = new()
+	T3.flag_key = "alert"
+	var/datum/behavior_circuit/response/say_text/RE7 = new()
+	RE7.say_string = "Alert cleared. Resuming normal operations."
+	var/datum/behavior_circuit/response/release_position/RE8 = new()
+	T3.responses_list = list(RE7, RE8)
+	circuits += T3
+	circuits += RE7
+	circuits += RE8
+
+
+// ====================================================
+// PRESET: ONE-SHOT ANNOUNCEMENT PROTOCOL
+// On Mob Approaches (once ever) ->
+//   Say Text + Play Sound + One-Shot Lockout
+// Fires once and never again — a robot with a single
+// thing to say.  The tutorial demonstration for
+// one_shot_lockout.  No hardware required.
+// ====================================================
+
+/obj/item/behavior_assembly/one_shot_announcement
+	assembly_label = "One-Shot Announcement"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/one_shot_announcement/Initialize(mapload)
+	. = ..()
+	// Check lockout first — if "fired" flag set, memory gate blocks this
+	// (wire a second assembly with On Memory Flag -> do nothing to fully suppress)
+	var/datum/behavior_circuit/trigger/on_mob_approaches/T = new()
+	T.approach_range = 5
+	T.check_faction = FALSE
+	var/datum/behavior_circuit/response/say_text/RE1 = new()
+	RE1.say_string = "Welcome. This message will not repeat."
+	var/datum/behavior_circuit/response/play_sound/RE2 = new()
+	RE2.sound_file = 'sound/machines/chime.ogg'
+	RE2.sound_volume = 60
+	var/datum/behavior_circuit/response/one_shot_lockout/RE3 = new()
+	RE3.lockout_key = "fired"
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: PUMP STATION PROTOCOL
+// On Interval -> Pump Reagents (push to containers) +
+//               Broadcast Counter Status
+// Tracks how many pump cycles have run and reports.
+// Requires Reagent Pump hardware + Memory Core.
+// ====================================================
+
+/obj/item/behavior_assembly/pump_station
+	assembly_label = "Pump Station Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/pump_station/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_interval/T = new()
+	T.interval_ticks = 120
+	var/datum/behavior_circuit/response/pump_reagents/RE1 = new()
+	var/datum/behavior_circuit/response/increment_counter/RE2 = new()
+	RE2.counter_key = "cycles"
+	var/datum/behavior_circuit/response/broadcast_counter/RE3 = new()
+	RE3.counter_key = "cycles"
+	RE3.counter_prefix = "Pump cycles completed"
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// PRESET: DOOR PATROL PROTOCOL
+// On Interval (slow) -> Open Nearby Door +
+//                       Move Direction (step through) +
+//                       Seal Nearby Door (close behind)
+// A robot that patrols by moving through doorways
+// and closing them behind itself.
+// No hardware required.
+// ====================================================
+
+/obj/item/behavior_assembly/door_patrol
+	assembly_label = "Door Patrol Protocol"
+	max_circuits = 3
+
+/obj/item/behavior_assembly/door_patrol/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_interval/T = new()
+	T.interval_ticks = 150
+	var/datum/behavior_circuit/response/open_nearby_door/RE1 = new()
+	var/datum/behavior_circuit/response/move_direction/RE2 = new()
+	RE2.move_dir = NORTH  // configure at workshop to match patrol direction
+	var/datum/behavior_circuit/response/seal_nearby_door/RE3 = new()
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
 	circuits += RE3

@@ -61,6 +61,9 @@
 // Each entry defines one buildable robot type.
 // ====================================================
 
+// ROBOT_ROLE_* defines are in _behavior_defines.dm
+
+
 /datum/robot_build_design
 	var/design_name = "Unknown"
 	var/design_desc = "No description."
@@ -81,6 +84,9 @@
 	var/design_needs_assembly = FALSE
 	/// One-line cert guidance shown under the chassis in the Build tab.
 	var/cert_hint = ""
+	/// Bitfield of ROBOT_ROLE_* tags.  The selected module_type must share at least
+	/// one tag with this chassis or the build is blocked at Finalize.
+	var/chassis_tags = ROBOT_ROLE_ANY
 
 
 // ============================================================
@@ -104,6 +110,7 @@
 		list("STARTER",  "good")
 	)
 	cert_hint          = "Default cert: Standard. Swap to Medical cert for Medbot or Field Surgeon behaviors."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
 
 /datum/robot_build_design/liberator
 	design_name        = "Liberator"
@@ -119,6 +126,7 @@
 		list("FRAGILE",  "bad")
 	)
 	cert_hint          = "Default cert: Standard. Combat cert gives +2 Operations and +2 Resilience — worth it here."
+	chassis_tags       = ROBOT_ROLE_COMBAT
 
 /datum/robot_build_design/protectron
 	design_name        = "Protectron"
@@ -133,6 +141,7 @@
 		list("TANKY",    "good")
 	)
 	cert_hint          = "Default cert: Standard. Combat cert unlocks combat behaviors and adds speed — the intended pairing."
+	chassis_tags       = ROBOT_ROLE_SECURITY
 
 /datum/robot_build_design/gutsy
 	design_name        = "Mr. Gutsy"
@@ -147,6 +156,7 @@
 		list("AGGRESSIVE", "warn")
 	)
 	cert_hint          = "Default cert: Standard. Combat cert is the right call — unlocks combat behaviors and bumps resilience."
+	chassis_tags       = ROBOT_ROLE_SECURITY
 
 /datum/robot_build_design/securitron
 	design_name        = "Securitron"
@@ -159,9 +169,10 @@
 	design_tags        = list(
 		list("SECURITY", "stat"),
 		list("HEAVY",    "good"),
-		list("SLOW",     "dim")
+		list("SLOW",     "warn")
 	)
 	cert_hint          = "Default cert: Standard. Combat cert recommended — this chassis is built to fight, give it the right cert."
+	chassis_tags       = ROBOT_ROLE_SECURITY
 
 /datum/robot_build_design/assaultron
 	design_name        = "Assaultron"
@@ -178,6 +189,7 @@
 		list("NEEDS ASSEMBLY",  "bad")
 	)
 	cert_hint          = "Needs Combat cert. Combat cert unlocks the aggressive behaviors this chassis was built to run."
+	chassis_tags       = ROBOT_ROLE_COMBAT
 
 /datum/robot_build_design/sentrybot
 	design_name        = "Sentry Bot"
@@ -192,6 +204,7 @@
 		list("WORLD CERT",  "warn")
 	)
 	cert_hint          = "Needs Combat cert (T2). The T4 workshop cert to build this doesn't come from the fabricator — find it in the world."
+	chassis_tags       = ROBOT_ROLE_COMBAT | ROBOT_ROLE_APEX
 
 
 // ====================================================
@@ -561,6 +574,14 @@
 			dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
 			if(D.cert_hint)
 				dat += "<span class='dim'>Cert: [D.cert_hint]</span><br>"
+			// Module role requirement
+			if(D.chassis_tags && D.chassis_tags != ROBOT_ROLE_ANY)
+				var/role_label = _role_tag_label(D.chassis_tags)
+				var/module_tag_val = initial(D.module_type:module_tags)
+				if(D.chassis_tags & module_tag_val)
+					dat += "<span class='dim'>Module role: [role_label] — compatible.</span><br>"
+				else
+					dat += "<span class='bad'>! Module mismatch: [D.design_name] requires a [role_label] module. Select a matching chassis module on the Build tab.</span><br>"
 			if(D.design_needs_assembly)
 				dat += "<span class='bad'>&gt; Assembly warning: slot a behavior assembly before finalizing or this robot will be uncontrolled.</span><br>"
 			dat += "<span class='good'>&gt; SELECTED</span>"
@@ -574,6 +595,8 @@
 			dat += "Cost: <span class='dim'>[_mat_cost_str(D.mat_cost)]</span><br>"
 			if(D.cert_hint)
 				dat += "<span class='dim'>Cert: [D.cert_hint]</span><br>"
+			if(D.chassis_tags && D.chassis_tags != ROBOT_ROLE_ANY)
+				dat += "<span class='dim'>Module role: [_role_tag_label(D.chassis_tags)]</span><br>"
 		dat += "<br>"
 
 	if(!any_shown)
@@ -1932,6 +1955,16 @@
 			errors += "Assembly '[behavior_assembly.assembly_label]' requires capabilities this cert does not have."
 		if(!robot_cert) qdel(ac)
 
+	// Chassis-module tag compatibility check
+	// The selected module_type must share at least one ROBOT_ROLE_* tag with the chassis design.
+	if(selected_design)
+		var/datum/robot_build_design/D = _get_design(selected_design)
+		if(D && D.chassis_tags != ROBOT_ROLE_ANY)
+			var/module_tag_val = initial(D.module_type:module_tags)
+			if(!(D.chassis_tags & module_tag_val))
+				var/mod_name = initial(D.module_type:name)
+				errors += "Module '[mod_name]' is not compatible with [D.design_name]. This chassis requires a matching role module."
+
 	return errors
 
 
@@ -1960,6 +1993,18 @@
 		if(D.type == path)
 			return D
 	return null
+
+/// Returns a human-readable label for a chassis_tags bitfield value.
+/obj/machinery/robot_workshop/proc/_role_tag_label(tags)
+	if(tags == ROBOT_ROLE_ANY || !tags)
+		return "Any"
+	var/list/parts = list()
+	if(tags & ROBOT_ROLE_SUPPORT)  parts += "Support"
+	if(tags & ROBOT_ROLE_COMBAT)   parts += "Combat"
+	if(tags & ROBOT_ROLE_SECURITY) parts += "Security"
+	if(tags & ROBOT_ROLE_APEX)     parts += "Apex"
+	return parts.Join("/")
+
 
 /obj/machinery/robot_workshop/proc/_tier_label(tier)
 	switch(tier)

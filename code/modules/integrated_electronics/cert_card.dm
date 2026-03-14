@@ -130,6 +130,15 @@
 		if(R.cpu_cert)
 			to_chat(user, span_warning("[R] already has a certification installed. Remove it first."))
 			return
+		// Soft warning: check if cert role matches the robot's module tags
+		if(R.module)
+			var/cert_role = _get_cert_role_hint(base_cert)
+			var/module_tags = R.module.module_tags
+			if(cert_role && module_tags != ROBOT_ROLE_ANY)
+				if(cert_role == "combat" && !(module_tags & (ROBOT_ROLE_COMBAT | ROBOT_ROLE_SECURITY | ROBOT_ROLE_APEX)))
+					to_chat(user, span_warning("Warning: Combat cert is designed for combat/security chassis. This module is a [R.module.name]. It will install, but the cert may not suit this chassis."))
+				else if(cert_role == "support" && !(module_tags & ROBOT_ROLE_SUPPORT))
+					to_chat(user, span_warning("Warning: Medical cert is best suited for support chassis like Mr. Handy. This module is a [R.module.name]. It will install, but you may want Standard or Engineering instead."))
 		if(!user.temporarilyRemoveItemFromInventory(src))
 			return
 		R.cpu_cert = base_cert
@@ -172,6 +181,17 @@
 		return
 
 	to_chat(user, span_warning("This card is blank — nothing to install."))
+
+
+/// Returns a short role string for a cpu_cert datum so try_apply_to_robot
+/// can warn when the cert seems mismatched to the robot's module.
+/// Returns "combat", "support", or null (no opinion).
+/obj/item/cert_card/proc/_get_cert_role_hint(datum/cpu_cert/C)
+	if(istype(C, /datum/cpu_cert/robot/combat))
+		return "combat"
+	if(istype(C, /datum/cpu_cert/robot/medical))
+		return "support"
+	return null
 
 
 // ====================================================

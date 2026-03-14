@@ -87,6 +87,12 @@
 	designs += new /datum/cpu_fab_design/behavior/infiltrator()
 	designs += new /datum/cpu_fab_design/behavior/field_surgeon()
 	designs += new /datum/cpu_fab_design/behavior/broadcast_relay()
+	designs += new /datum/cpu_fab_design/behavior/turret_bot()
+	designs += new /datum/cpu_fab_design/behavior/combat_medic_protocol()
+	designs += new /datum/cpu_fab_design/behavior/scavenger_protocol()
+	designs += new /datum/cpu_fab_design/behavior/hunter_protocol()
+	designs += new /datum/cpu_fab_design/behavior/clock_patrol_protocol()
+	designs += new /datum/cpu_fab_design/behavior/farming_bot()
 	designs += new /datum/cpu_fab_design/behavior/greeter()
 	designs += new /datum/cpu_fab_design/behavior/panic()
 	designs += new /datum/cpu_fab_design/behavior/sentry_hold()
@@ -104,6 +110,33 @@
 	designs += new /datum/cpu_fab_design/behavior/bodyguard()
 	designs += new /datum/cpu_fab_design/behavior/escalation()
 	designs += new /datum/cpu_fab_design/behavior/dead_man_timer()
+	// Layers A-C
+	designs += new /datum/cpu_fab_design/behavior/janitor()
+	designs += new /datum/cpu_fab_design/behavior/lamp_bot()
+	designs += new /datum/cpu_fab_design/behavior/battery_steward()
+	designs += new /datum/cpu_fab_design/behavior/chem_runner()
+	designs += new /datum/cpu_fab_design/behavior/reactive_marksman()
+	designs += new /datum/cpu_fab_design/behavior/grenadier()
+	designs += new /datum/cpu_fab_design/behavior/stun_subdue()
+	designs += new /datum/cpu_fab_design/behavior/combat_response()
+	designs += new /datum/cpu_fab_design/behavior/bio_scout()
+	designs += new /datum/cpu_fab_design/behavior/hazmat_responder()
+	designs += new /datum/cpu_fab_design/behavior/gps_zone_guard()
+	designs += new /datum/cpu_fab_design/behavior/announce_bot()
+	designs += new /datum/cpu_fab_design/behavior/relay_station()
+	designs += new /datum/cpu_fab_design/behavior/alchemist()
+	// Layer E
+	designs += new /datum/cpu_fab_design/behavior/sprint_ambush()
+	designs += new /datum/cpu_fab_design/behavior/medevac()
+	designs += new /datum/cpu_fab_design/behavior/riot_control()
+	designs += new /datum/cpu_fab_design/behavior/thrower_bot()
+	designs += new /datum/cpu_fab_design/behavior/supply_drop()
+	designs += new /datum/cpu_fab_design/behavior/power_relay_bot()
+	designs += new /datum/cpu_fab_design/behavior/collection_sweep()
+	designs += new /datum/cpu_fab_design/behavior/watchpost()
+	designs += new /datum/cpu_fab_design/behavior/one_shot_announcement()
+	designs += new /datum/cpu_fab_design/behavior/pump_station()
+	designs += new /datum/cpu_fab_design/behavior/door_patrol()
 	// AI upgrade designs
 	designs += new /datum/cpu_fab_design/ai_upgrade/surveillance()
 	designs += new /datum/cpu_fab_design/ai_upgrade/malf_package()
@@ -169,6 +202,7 @@
 	css += ".warn{color:#e8a020;}"
 	css += ".stat{color:#e8a020;font-weight:bold;}"
 	css += ".csec{margin-top:2px;}"
+	css += ".ccard{display:block;}.bcard{display:block;}"
 	css += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
 	css += "</style></head>"
 	return css
@@ -331,12 +365,25 @@
 		dat += "<span class='dim'>// Start with Standard. Combat/Medical/Engineering require a purpose-built robot to be worth it.</span><br><br>"
 	else if(category == "upgrade")
 		dat += "<span class='dim'>// Upgrade cards install into a robot's cert slot to boost C.O.R.E. stats or add capabilities. Slot them directly onto the robot.</span><br><br>"
+	else if(category == "behavior")
+		dat += "<span class='dim'>// Behavior assemblies are pre-wired programs. Print one and slot it into a robot at the Robot Workshop.</span><br>"
+		dat += "<span class='dim'>&gt; Search:</span> "
+		var/ccs = null; ccs = ccs
+		var/ccn = null; ccn = ccn
+		var/cci = null; cci = cci
+		dat += {"<input id='bfilter' type='text' autofocus placeholder='filter behaviors...' onkeyup='var ccs=this.value.toLowerCase();var ccn=document.getElementsByClassName(&quot;bcard&quot;).length;while(ccn--){cci=document.getElementsByClassName(&quot;bcard&quot;).item(ccn);cci.style.display=cci.getAttribute(&quot;data-s&quot;).indexOf(ccs)>=0?&quot;block&quot;:&quot;none&quot;;}' style='background:#062113;color:#4aed92;border:1px solid #2a7a52;font-family:monospace;padding:2px 4px;width:220px' /><br><br>"}
 	for(var/datum/cpu_fab_design/D in designs)
 		if(D.ui_category != category)
 			continue
 		count++
 		var/dname = D.design_name
 		var/ddesc = D.design_desc
+		// Build search key for behavior entries
+		var/searchkey = ""
+		var/use_card = (category == "behavior")
+		if(use_card)
+			searchkey = replacetext(lowertext(dname) + " " + lowertext(ddesc), "'", "")
+			dat += "<div class='bcard' data-s='[searchkey]'>"
 		// Name line: name + inline tier/int tags + starter callout
 		dat += "[dname]"
 		if(D.starter_build)
@@ -348,6 +395,9 @@
 		dat += "<br>"
 		// Desc line
 		dat += "<span class='dim'>[ddesc]</span><br>"
+		// Suited-for hint (cert category only)
+		if(category == "cert" && D.suited_for != "")
+			dat += "<span class='dim'>Best suited for: [D.suited_for]</span><br>"
 		// Hardware required note (behaviors only)
 		if(category == "behavior" && ispath(D.output_path, /obj/item/behavior_assembly))
 			var/obj/item/behavior_assembly/test = new D.output_path()
@@ -426,6 +476,8 @@
 		else
 			dat += "<span class='dim'>&gt; Locked</span><br>"
 		dat += "<hr>"
+		if(use_card)
+			dat += "</div>"
 	if(!count)
 		dat += "<span class='dim'>&gt; No designs in this category.</span><br>"
 	return dat
@@ -442,12 +494,14 @@
 	dat += "<span class='dim'>Robot Whisperer trait required to wire and print. Browse below to see what's possible.</span><br><hr>"
 	dat += "AVAILABLE TRIGGERS  <span class='dim'>// what makes your robot react</span><br>"
 	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
+		if(T == /datum/behavior_circuit/trigger) continue
 		var/datum/behavior_circuit/trigger/inst = new T
 		dat += "<span class='dim'>&gt; [inst.circuit_name]</span>  <span class='dim'>CPU: [inst.cpu_cost]</span><br>"
 		dat += "<span class='dim'>  [inst.circuit_desc]</span><br>"
 		qdel(inst)
 	dat += "<hr>AVAILABLE RESPONSES  <span class='dim'>// what your robot does when triggered</span><br>"
 	for(var/T in subtypesof(/datum/behavior_circuit/response))
+		if(T == /datum/behavior_circuit/response) continue
 		var/datum/behavior_circuit/response/inst = new T
 		dat += "<span class='dim'>&gt; [inst.circuit_name]</span>  <span class='dim'>CPU: [inst.cpu_cost]</span><br>"
 		dat += "<span class='dim'>  [inst.circuit_desc]</span><br>"
@@ -536,6 +590,7 @@
 	var/list/standard_triggers = list()
 	var/list/hardware_triggers = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/trigger))
+		if(T == /datum/behavior_circuit/trigger) continue
 		var/datum/behavior_circuit/trigger/inst = new T
 		var/entry = list("path"=T, "name"=inst.circuit_name, "desc"=inst.circuit_desc, "tut"=inst.tutorial_text, "cpu"=inst.cpu_cost, "hw"=inst.needs_hardware)
 		if(inst.needs_hardware)
@@ -588,6 +643,7 @@
 	var/list/standard_responses = list()
 	var/list/hardware_responses = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/response))
+		if(T == /datum/behavior_circuit/response) continue
 		var/datum/behavior_circuit/response/inst = new T
 		var/entry = list("path"=T, "name"=inst.circuit_name, "desc"=inst.circuit_desc, "tut"=inst.tutorial_text, "cpu"=inst.cpu_cost, "hw"=inst.needs_hardware)
 		if(inst.needs_hardware)
@@ -642,6 +698,7 @@
 	var/list/standard_bonus = list()
 	var/list/hardware_bonus = list()
 	for(var/T in subtypesof(base_path))
+		if(T == base_path) continue
 		var/datum/behavior_circuit/inst = new T
 		var/entry = list("path"=T, "name"=inst.circuit_name, "desc"=inst.circuit_desc, "cpu"=inst.cpu_cost, "hw"=inst.needs_hardware)
 		if(inst.needs_hardware)
@@ -722,6 +779,7 @@
 	var/list/standard_responses = list()
 	var/list/hardware_responses = list()
 	for(var/T in subtypesof(/datum/behavior_circuit/response))
+		if(T == /datum/behavior_circuit/response) continue
 		var/datum/behavior_circuit/response/inst = new T
 		var/entry = list("path"=T, "name"=inst.circuit_name, "desc"=inst.circuit_desc, "cpu"=inst.cpu_cost, "hw"=inst.needs_hardware)
 		if(inst.needs_hardware)
@@ -1597,6 +1655,9 @@
 	var/for_ai = FALSE
 	/// If TRUE the behavior list shows a ★ Starter callout next to this entry.
 	var/starter_build = FALSE
+	/// Optional one-line "best suited for" hint shown under cert designs.
+	/// Empty string = no hint shown.
+	var/suited_for = ""
 
 /datum/cpu_fab_design/upgrade
 	ui_category = "upgrade"
@@ -1638,6 +1699,7 @@
 	output_path = /obj/item/cert_card/base
 	cost = list("iron" = 500, "glass" = 200)
 	starter_build = TRUE
+	suited_for = "Any chassis"
 
 /datum/cpu_fab_design/base/combat
 	design_name = "Combat Chassis Cert"
@@ -1646,6 +1708,7 @@
 	required_tier = CERT_TIER_MILITARY
 	output_path = /obj/item/cert_card/base/combat
 	cost = list("iron" = 1000, "glass" = 200, "gold" = 300)
+	suited_for = "Combat / Security / Apex chassis"
 
 /datum/cpu_fab_design/base/medical
 	design_name = "Medical Chassis Cert"
@@ -1653,6 +1716,7 @@
 	id = "cert_base_medical"
 	output_path = /obj/item/cert_card/base/medical
 	cost = list("iron" = 500, "glass" = 400)
+	suited_for = "Support chassis (Mr. Handy)"
 
 /datum/cpu_fab_design/base/engineering
 	design_name = "Engineering Chassis Cert"
@@ -1660,6 +1724,7 @@
 	id = "cert_base_engineering"
 	output_path = /obj/item/cert_card/base/engineering
 	cost = list("iron" = 700, "glass" = 200)
+	suited_for = "Any chassis — high energy for hardware-heavy builds"
 
 
 // ---- Upgrades ----
@@ -1845,6 +1910,49 @@
 	output_path = /obj/item/behavior_assembly/broadcast_relay
 	cost = list("iron" = 200, "glass" = 100)
 
+/datum/cpu_fab_design/behavior/turret_bot
+	design_name = "Turret Protocol"
+	design_desc = "Fires at enemies on sight. Requires a weapon cert (CERT_CAN_SHOOT). Best on an anchored or slow chassis."
+	id = "behavior_turret_bot"
+	output_path = /obj/item/behavior_assembly/turret_bot
+
+/datum/cpu_fab_design/behavior/combat_medic_protocol
+	design_name = "Combat Medic Protocol"
+	design_desc = "Injects nearby injured friendlies in combat. Requires a repair cert (CERT_CAN_REPAIR) and Injector hardware."
+	id = "behavior_combat_medic"
+	output_path = /obj/item/behavior_assembly/combat_medic
+	cost = list("iron" = 300, "glass" = 200, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/scavenger_protocol
+	design_name = "Scavenger Protocol"
+	design_desc = "Grabs loose items on a timer. Pairs well with Depot Protocol for a full collect-deposit loop. Requires Grabber Arm hardware."
+	id = "behavior_scavenger"
+	output_path = /obj/item/behavior_assembly/scavenger_bot
+
+/datum/cpu_fab_design/behavior/hunter_protocol
+	design_name = "Hunter Protocol"
+	design_desc = "Fires on spotted enemies, remembers them after they break line of sight, and pursues. Requires Weapon hardware."
+	id = "behavior_hunter"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/hunter
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/clock_patrol_protocol
+	design_name = "Clock Patrol Protocol"
+	design_desc = "Steps through stored waypoints on each clock tick. Requires Navigation Computer and Interval Clock hardware. INT 5+."
+	id = "behavior_clock_patrol"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/clock_patrol
+	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/farming_bot
+	design_name = "Farming Protocol"
+	design_desc = "Harvests mature plants, collects the yield, then returns to a linked drop-off target when loaded. Requires Harvester Module and Grabber Arm hardware. Link target with multitool."
+	id = "behavior_farming_bot"
+	output_path = /obj/item/behavior_assembly/farming_bot
+	starter_build = TRUE
+	cost = list("iron" = 300, "glass" = 100)
+
 /datum/cpu_fab_design/behavior/greeter
 	design_name = "Greeter Protocol"
 	design_desc = "Waves and greets any mob that approaches. The friendliest thing you can wire. No hardware required."
@@ -1962,6 +2070,194 @@
 	required_int = 6
 	output_path = /obj/item/behavior_assembly/dead_man_timer
 	cost = list("iron" = 500, "glass" = 200, "gold" = 200)
+
+
+// ---- Layer A: Utility & Service ----
+
+/datum/cpu_fab_design/behavior/janitor
+	design_name = "Janitor Protocol"
+	design_desc = "Reacts to nearby mess with an emote and complaint, then idles by cleaning ambient surfaces. No hardware required. Mr. Handy pairing."
+	id = "behavior_janitor"
+	output_path = /obj/item/behavior_assembly/janitor
+	starter_build = TRUE
+
+/datum/cpu_fab_design/behavior/lamp_bot
+	design_name = "Lamp Bot Protocol"
+	design_desc = "Turns its own light on when dark, off when lit. A robot that is a smart light. Requires Light hardware."
+	id = "behavior_lamp_bot"
+	output_path = /obj/item/behavior_assembly/lamp_bot
+
+/datum/cpu_fab_design/behavior/battery_steward
+	design_name = "Battery Steward Protocol"
+	design_desc = "Retreats to its spawn point when low on power and announces when it's back online. No hardware required."
+	id = "behavior_battery_steward"
+	output_path = /obj/item/behavior_assembly/battery_steward
+	starter_build = TRUE
+
+/datum/cpu_fab_design/behavior/chem_runner
+	design_name = "Chem Runner Protocol"
+	design_desc = "Collects nearby reagent containers and brings them to a linked target. Link with multitool. No hardware required."
+	id = "behavior_chem_runner"
+	output_path = /obj/item/behavior_assembly/chem_runner
+	cost = list("iron" = 200, "glass" = 100)
+
+
+// ---- Layer B: Combat Depth ----
+
+/datum/cpu_fab_design/behavior/reactive_marksman
+	design_name = "Reactive Marksman Protocol"
+	design_desc = "Backs off when hit, returns fire, and taunts. A robot that fights dirty when cornered. Requires Weapon hardware."
+	id = "behavior_reactive_marksman"
+	output_path = /obj/item/behavior_assembly/reactive_marksman
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/grenadier
+	design_name = "Grenadier Protocol"
+	design_desc = "Lobs a grenade into crowds of 3+ enemies then retreats. Requires Grenade Launcher hardware."
+	id = "behavior_grenadier"
+	output_path = /obj/item/behavior_assembly/grenadier
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/stun_subdue
+	design_name = "Stun & Subdue Protocol"
+	design_desc = "Stuns enemies on sight and when allies are attacked. Focuses on incapacitation over lethal force. Best on a Protectron."
+	id = "behavior_stun_subdue"
+	output_path = /obj/item/behavior_assembly/stun_subdue
+	cost = list("iron" = 300, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/combat_response
+	design_name = "Combat Response Protocol"
+	design_desc = "Wakes on gunfire, reports contact, and pursues the source. Requires Microphone hardware. INT 5+."
+	id = "behavior_combat_response"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/combat_response
+	cost = list("iron" = 400, "glass" = 200, "gold" = 100)
+
+
+// ---- Layer C: Specialist ----
+
+/datum/cpu_fab_design/behavior/bio_scout
+	design_name = "Bio Scout Protocol"
+	design_desc = "Scans for unusual biology, broadcasts a bio report, and logs the contact. Requires Bio Scanner hardware. INT 7+."
+	id = "behavior_bio_scout"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/bio_scout
+	cost = list("iron" = 300, "glass" = 200, "gold" = 150)
+
+/datum/cpu_fab_design/behavior/hazmat_responder
+	design_name = "Hazmat Responder Protocol"
+	design_desc = "On radiation detection: broadcasts hazmat warning, sprays RadAway, seals the nearest door. Requires Environment Scanner + Chem Sprayer hardware."
+	id = "behavior_hazmat_responder"
+	output_path = /obj/item/behavior_assembly/hazmat_responder
+	cost = list("iron" = 400, "glass" = 300, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/gps_zone_guard
+	design_name = "GPS Zone Guard Protocol"
+	design_desc = "Locks down and sounds alarm only when inside a defined coordinate zone. Requires GPS hardware."
+	id = "behavior_gps_zone_guard"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/gps_zone_guard
+	cost = list("iron" = 300, "glass" = 100, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/announce_bot
+	design_name = "Announce Bot Protocol"
+	design_desc = "Cycles through stored vocabulary phrases and updates its display screen on a slow timer. Requires Vocabulary Module + Display Screen hardware."
+	id = "behavior_announce_bot"
+	output_path = /obj/item/behavior_assembly/announce_bot
+
+/datum/cpu_fab_design/behavior/relay_station
+	design_name = "Relay Station Protocol"
+	design_desc = "Receives a radio signal and rebroadcasts on its own channel. Chains robots across distances. Requires Signaler hardware."
+	id = "behavior_relay_station"
+	output_path = /obj/item/behavior_assembly/relay_station
+	cost = list("iron" = 200, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/alchemist
+	design_name = "Alchemist Protocol"
+	design_desc = "Collects reagent containers, grinds items, and pumps reagents autonomously. Requires Grabber + Reagent Tank + Grinder + Pump hardware. INT 7+."
+	id = "behavior_alchemist"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/alchemist
+	cost = list("iron" = 500, "glass" = 300, "gold" = 200)
+
+
+// ---- Layer E: Clearing Orphans ----
+
+/datum/cpu_fab_design/behavior/sprint_ambush
+	design_name = "Sprint Ambush Protocol"
+	design_desc = "Surges into range when an enemy is spotted and taunts on every shot. Requires Weapon + Locomotion (sprint) hardware."
+	id = "behavior_sprint_ambush"
+	output_path = /obj/item/behavior_assembly/sprint_ambush
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/medevac
+	design_name = "Medevac Protocol"
+	design_desc = "Drags critically injured allies to safety. Retreats and calls for help when its own health is critical. Requires Health Scanner hardware."
+	id = "behavior_medevac"
+	output_path = /obj/item/behavior_assembly/medevac
+	cost = list("iron" = 400, "glass" = 200, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/riot_control
+	design_name = "Riot Control Protocol"
+	design_desc = "Area blast + strobe when surrounded. Steps back and cannon-blasts single targets. Maximum non-lethal suppression. Requires Air Cannon hardware."
+	id = "behavior_riot_control"
+	output_path = /obj/item/behavior_assembly/riot_control
+	cost = list("iron" = 400, "glass" = 200)
+
+/datum/cpu_fab_design/behavior/thrower_bot
+	design_name = "Thrower Protocol"
+	design_desc = "Picks up loose items and throws them at enemies. Collects more when empty. Requires Grabber Arm + Throwing Arm hardware."
+	id = "behavior_thrower_bot"
+	output_path = /obj/item/behavior_assembly/thrower_bot
+	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/supply_drop
+	design_name = "Supply Drop Protocol"
+	design_desc = "Offers held items to approaching friendlies and requests resupply when empty. Requires Grabber Arm hardware."
+	id = "behavior_supply_drop"
+	output_path = /obj/item/behavior_assembly/supply_drop
+	cost = list("iron" = 200, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/power_relay_bot
+	design_name = "Power Relay Protocol"
+	design_desc = "Periodically relays charge to nearby robots and reports its own battery. Calls for help when critically low. Requires Power Relay hardware."
+	id = "behavior_power_relay_bot"
+	output_path = /obj/item/behavior_assembly/power_relay_bot
+	cost = list("iron" = 300, "glass" = 100, "gold" = 150)
+
+/datum/cpu_fab_design/behavior/collection_sweep
+	design_name = "Collection Sweep Protocol"
+	design_desc = "Collects spotted items with an audio ping, drops payload and reports when full. Requires Material Collector + Grabber hardware."
+	id = "behavior_collection_sweep"
+	output_path = /obj/item/behavior_assembly/collection_sweep
+	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/watchpost
+	design_name = "Watchpost Protocol"
+	design_desc = "Responds when addressed, alarms on casualties, and stands down when the alert clears. Requires Microphone + Environment Scanner hardware."
+	id = "behavior_watchpost"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/watchpost
+	cost = list("iron" = 400, "glass" = 200, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/one_shot_announcement
+	design_name = "One-Shot Announcement"
+	design_desc = "Fires once when anyone approaches — says a message, plays a chime, then locks itself out forever. No hardware required."
+	id = "behavior_one_shot_announcement"
+	output_path = /obj/item/behavior_assembly/one_shot_announcement
+
+/datum/cpu_fab_design/behavior/pump_station
+	design_name = "Pump Station Protocol"
+	design_desc = "Pumps reagents on a timer, counts cycles, and broadcasts the running total. Requires Reagent Pump + Memory Core hardware."
+	id = "behavior_pump_station"
+	output_path = /obj/item/behavior_assembly/pump_station
+	cost = list("iron" = 200, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/door_patrol
+	design_name = "Door Patrol Protocol"
+	design_desc = "Opens doors, steps through, and seals them behind itself on a timer. No hardware required."
+	id = "behavior_door_patrol"
+	output_path = /obj/item/behavior_assembly/door_patrol
 
 
 // ---- AI upgrades ----

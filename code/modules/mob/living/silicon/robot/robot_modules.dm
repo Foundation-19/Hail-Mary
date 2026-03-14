@@ -48,6 +48,11 @@
 	var/has_snowflake_deadsprite
 	var/moduleselect_alternate_icon
 
+	/// Bitfield of ROBOT_ROLE_* tags. Must share at least one tag with the chassis
+	/// design's chassis_tags for the build to pass validation at Finalize.
+	/// Default ROBOT_ROLE_ANY means the module fits all chassis.
+	var/module_tags = ROBOT_ROLE_ANY
+
 /obj/item/robot_module/Initialize()
 	. = ..()
 	for(var/i in basic_modules)
@@ -478,6 +483,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "standard"
 	hat_offset = -2
+	module_tags = ROBOT_ROLE_SECURITY
 
 
 // ---- ASSAULTRON ---- (already F13-native)
@@ -501,6 +507,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 3
+	module_tags = ROBOT_ROLE_COMBAT
 
 /obj/item/robot_module/assaultron/rebuild_modules()
 	..()
@@ -557,6 +564,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "standard"
 	hat_offset = -2
+	module_tags = ROBOT_ROLE_SUPPORT
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -590,6 +598,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 0
+	module_tags = ROBOT_ROLE_SECURITY
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -623,6 +632,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 0
+	module_tags = ROBOT_ROLE_SECURITY
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -654,6 +664,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "security"
 	hat_offset = 0
+	module_tags = ROBOT_ROLE_COMBAT | ROBOT_ROLE_APEX
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/gun/energy/laser/pistol/cyborg,
@@ -685,6 +696,7 @@
 	has_cover_overlay = FALSE
 	moduleselect_icon = "standard"
 	hat_offset = 0
+	module_tags = ROBOT_ROLE_COMBAT
 	basic_modules = list(
 		/obj/item/gun/energy/laser/pistol/cyborg,
 		/obj/item/healthanalyzer,
