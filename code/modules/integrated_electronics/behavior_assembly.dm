@@ -70,10 +70,6 @@
 		for(var/datum/behavior_circuit/C in circuits)
 			. += span_notice("  - [C.circuit_name]")
 	. += span_notice("Use it on a robot to install. Crowbar open the panel first for player-controlled robots.")
-	// Hint the multitool follow-target trick
-	. += span_notice("<i>Tip: Scan an ID card with a multitool, then use the multitool on this assembly to link a follow target.</i>")
-	// Surface the deeper system -- this is the imagination hook for new players
-	. += span_notice("<i>Tip: Assemble circuits at the CPU Cert Fabricator -- combine triggers and responses to create behavior chains. Some combinations are... surprising.</i>")
 
 
 // ====================================================
@@ -132,10 +128,6 @@
 		to_chat(user, span_notice("You install [assembly_label] into [R]. Behavior circuits activated."))
 		var/aname = assembly_label
 		log_game("[key_name(user)] installed behavior assembly '[aname]' into [R] at [AREACOORD(R)]")
-		// Boot announcement -- robot speaks its first words so the installer knows it's alive.
-		// This is the "I made a brain" moment for new players.
-		R.visible_message(span_notice("[R] systems initialize. Internal voice synthesizer activates."))
-		R.say("ASSEMBLY ONLINE. [aname] loaded. Behavior circuits nominal.")
 	else
 		to_chat(user, span_warning("Installation failed - upgrade slot rejected."))
 		forceMove(drop_location())
@@ -153,50 +145,6 @@
 	forceMove(get_turf(R))
 	if(user)
 		to_chat(user, span_notice("You remove [assembly_label] from [R]."))
-
-
-// ====================================================
-// CERT UPGRADE SUBTYPE
-// Canonical definition of the behavior_assembly slot.
-// Lives here (not cert_upgrade.dm) because it directly
-// wraps the /obj/item/behavior_assembly physical item.
-// ====================================================
-
-/datum/cert_upgrade/robot/behavior_assembly
-	upgrade_name = "Behavior Assembly"
-	upgrade_desc = "An installed behavior assembly. Drives the robot's autonomous actions."
-	tutorial_text = "This slot holds the robot's active behavior assembly -- the circuit program that tells it when to act and how to respond. Install a behavior_assembly item at the Robot Workshop, or print one at the CPU Cert Fabricator. Once installed, the robot will announce circuit activations out loud so you can see it working. Pull the activity log at a terminal to review what it has done."
-	energy_mod = 2
-
-	/// The physical assembly item this upgrade wraps
-	var/obj/item/behavior_assembly/assembly = null
-
-/datum/cert_upgrade/robot/behavior_assembly/on_apply(datum/cpu_cert/C, atom/holder)
-	. = ..()
-	if(!assembly)
-		return
-	if(!istype(holder, /mob/living/silicon/robot))
-		return
-	var/mob/living/silicon/robot/R = holder
-	assembly.register_signals(R)
-
-/datum/cert_upgrade/robot/behavior_assembly/on_remove(datum/cpu_cert/C, atom/holder)
-	. = ..()
-	if(!assembly)
-		return
-	if(!istype(holder, /mob/living/silicon/robot))
-		return
-	var/mob/living/silicon/robot/R = holder
-	assembly.unregister_signals(R)
-	// Move the physical item back to the world so it can be picked up or re-used
-	assembly.forceMove(get_turf(R))
-	assembly = null
-
-/datum/cert_upgrade/robot/behavior_assembly/Destroy()
-	if(assembly)
-		qdel(assembly)
-	assembly = null
-	return ..()
 
 
 // ====================================================
@@ -310,6 +258,43 @@
 	if(!found)
 		to_chat(user, span_warning("Could not locate '[target_name]' in the world. Are they still alive?"))
 		return
+	// --- AUTHORIZATION GATE ---
+	// If any follow_target circuit already has a linked target, this is a redirect.
+	// Redirecting requires either: the robot's panel is open (physical access granted
+	// by a screwdriver), or the user IS the currently linked operator.
+	// If neither, block and log it as a tamper attempt.
+	var/mob/living/silicon/robot/R = null
+	if(istype(loc, /mob/living/silicon/robot))
+		R = loc
+	else
+		// Assembly installed in cert slot — find the robot holding it
+		for(var/mob/living/silicon/robot/RR in GLOB.alive_mob_list)
+			if(RR.cpu_cert)
+				for(var/datum/cert_upgrade/robot/behavior_assembly/BA in RR.cpu_cert.upgrade_slots)
+					if(BA.assembly == src)
+						R = RR
+						break
+			if(R) break
+	var/already_linked = FALSE
+	for(var/datum/behavior_circuit/response/follow_target/FT in circuits)
+		if(FT.linked_target_ref)
+			already_linked = TRUE
+			break
+	if(already_linked && R)
+		// Check authorization: panel open, or user is the locked operator
+		var/panel_open = R.opened
+		var/is_operator = (R.locked_ckey && istype(user, /mob/living/carbon/human))
+		if(is_operator)
+			var/mob/living/carbon/human/H = user
+			is_operator = (H.real_name == R.locked_ckey || H.name == R.locked_ckey)
+		if(!panel_open && !is_operator)
+			// Unauthorized redirect attempt — block and log
+			to_chat(user, span_warning("[R] emits a sharp tone. <b>UNAUTHORIZED REPROGRAMMING ATTEMPT DETECTED.</b>"))
+			R.visible_message(span_warning("[R]'s indicator light flashes red. \"Warning: unauthorized reprogramming attempt.\""))
+			log_game("TAMPER ATTEMPT: [key_name(user)] attempted to redirect follow_target on [R] ([R.name]) at [AREACOORD(R)] without authorization.")
+			// Alert nearby players and log service record
+			R.log_service("TAMPER ATTEMPT -- follow_target redirect blocked. User: [user.name] at [AREACOORD(R)]")
+			return
 	// Find a follow_target circuit in this assembly and link it
 	var/linked = FALSE
 	for(var/datum/behavior_circuit/response/follow_target/FT in circuits)
@@ -319,6 +304,7 @@
 		to_chat(user, span_warning("This assembly has no Follow Linked Target response to configure."))
 		return
 	visible_message(span_notice("[user] links [found.name] as a follow target on [src]."))
+	if(R) log_game("[key_name(user)] linked follow_target '[found.name]' on [R] ([R.name]) at [AREACOORD(R)]")
 	MT.buffer = null  // Clear buffer after use
 
 

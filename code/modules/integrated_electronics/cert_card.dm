@@ -342,6 +342,14 @@
 	base_cert = new /datum/cpu_cert/robot/engineering()
 	_update_name()
 
+/obj/item/cert_card/base/hacking_tool
+	name = "cert card - Hacking Tool Certificate"
+
+/obj/item/cert_card/base/hacking_tool/Initialize(mapload)
+	. = ..()
+	base_cert = new /datum/cpu_cert/device/hacking_tool()
+	_update_name()
+
 // --- Upgrade cards ---
 /obj/item/cert_card/upgrade
 	name = "cert card - upgrade"

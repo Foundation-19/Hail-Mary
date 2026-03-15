@@ -29,7 +29,7 @@
 	var/control_mode   = null    // null/"npc" = behavior circuits; "open" = any player; "locked" = one ckey
 	var/locked_ckey    = null
 	/// Set when the config panel is waiting for a faction-auth ID card swipe.
-	/// Stores the action to perform: "faction" or "lock"
+	/// Stores the action to perform: "faction", "lock", or "follow"
 	var/rcp_pending_action = null
 	/// The user whose panel is open and waiting for the swipe.
 	var/datum/weakref/rcp_pending_user = null
@@ -195,12 +195,21 @@
 
 		if("set_ctrl_card")
 			// Close the cover and enter pending state.
-			// The technician swipes their ID to authorize ? faction is checked against their card.
+			// The technician swipes their ID to authorize — faction is checked against their card.
 			rcp_pending_action = "lock"
 			rcp_pending_user   = WEAKREF(U)
 			opened = FALSE
 			update_icons()
 			to_chat(U, span_notice("Cover closed. Swipe your ID card on [real_name] to authorize operator lock."))
+
+		if("set_follow_card")
+			// Close the cover and enter pending state.
+			// The technician swipes an ID card to link that person as follow target.
+			rcp_pending_action = "follow"
+			rcp_pending_user   = WEAKREF(U)
+			opened = FALSE
+			update_icons()
+			to_chat(U, span_notice("Cover closed. Swipe the target's ID card on [real_name] to link them as follow target."))
 
 		if("add_fac_card")
 			// Close the cover and enter pending state.
@@ -262,6 +271,39 @@
 			log_service("CONTROL MODE -- LOCKED ([op_name]) authorized by [user.name]")
 			log_game("[key_name(user)] locked [real_name] to [op_name] via ID card swipe")
 			to_chat(user, span_nicegreen("[real_name] locked to operator: [op_name]."))
+	else if(action == "follow")
+		var/person_name = card.registered_name
+		if(!person_name || !length(person_name))
+			to_chat(user, span_warning("This ID card has no registered name."))
+		else
+			// Find the mob in the world by name
+			var/mob/living/target = null
+			for(var/mob/living/M in GLOB.alive_mob_list)
+				if(M.name == person_name || (istype(M, /mob/living/carbon/human) && M.real_name == person_name))
+					target = M
+					break
+			if(!target)
+				to_chat(user, span_warning("Could not locate '[person_name]' in the world. Are they alive and present?"))
+			else
+				// Find the installed assembly and link all follow_target circuits
+				var/datum/cert_upgrade/robot/behavior_assembly/BA = null
+				if(cpu_cert)
+					for(var/datum/cert_upgrade/robot/behavior_assembly/U2 in cpu_cert.upgrade_slots)
+						BA = U2
+						break
+				if(!BA?.assembly || !BA.assembly.circuits.len)
+					to_chat(user, span_warning("[real_name] has no behavior assembly installed."))
+				else
+					var/linked = 0
+					for(var/datum/behavior_circuit/response/follow_target/FT in BA.assembly.circuits)
+						FT.set_linked_target(target, user)
+						linked++
+					if(!linked)
+						to_chat(user, span_warning("[real_name]'s assembly has no Follow Linked Target circuit to configure."))
+					else
+						log_service("FOLLOW TARGET -- [person_name] linked via ID card by [user.name]")
+						log_game("[key_name(user)] linked follow target '[person_name]' to [real_name] via config panel ID card swipe")
+						to_chat(user, span_nicegreen("Follow target set: [real_name] will follow [person_name]."))
 	if(panel_user) _rcp_push(panel_user)
 
 
@@ -410,7 +452,13 @@
 	else
 		d += "<a href='byond://?src=[REF(src)];a=set_ctrl;val=locked'>\[Reserve -- enter ckey\]</a>  "
 		d += "<a href='byond://?src=[REF(src)];a=set_ctrl_card'>\[Reserve -- swipe ID card\]</a>"
-	d += "<br><br>"
+	d += "<br>"
+	// Follow target link
+	if(rcp_pending_action == "follow")
+		d += "<span class='warn'>Swipe the target's ID card on the robot...</span>  <a href='byond://?src=[REF(src)];a=rcp_cancel_pending'>\[cancel\]</a><br>"
+	else
+		d += "<a href='byond://?src=[REF(src)];a=set_follow_card'>\[Set follow target -- swipe ID card\]</a>  <span class='dim'>// links Follow Linked Target circuits</span><br>"
+	d += "<br>"
 
 	// ?? Installed modules -- summary only ??????????????????????????
 	// Full config is in the Software tab; this is just a quick read.

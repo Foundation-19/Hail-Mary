@@ -226,7 +226,7 @@
 /datum/cpu_cert/robot
 	cert_name = "Standard Chassis"
 	cert_desc = "A general-purpose robotic chassis certification."
-	capability_flags = CERT_FLAGS_PLAYER_BORG
+	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_IS_HACKABLE
 	max_upgrade_slots = 3
 	base_compute    = 5
 	base_operations = 5
@@ -237,7 +237,7 @@
 	cert_name = "Combat Chassis"
 	cert_desc = "A military-grade combat certified chassis. Built to fight."
 	cert_tier = CERT_TIER_MILITARY
-	capability_flags = CERT_FLAGS_COMBAT
+	capability_flags = CERT_FLAGS_COMBAT  // no CERT_IS_HACKABLE — hardened
 	max_upgrade_slots = 4
 	base_compute    = 4
 	base_operations = 7
@@ -247,7 +247,7 @@
 /datum/cpu_cert/robot/medical
 	cert_name = "Medical Chassis"
 	cert_desc = "A chassis certified for field medicine and triage support."
-	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR
+	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_IS_HACKABLE
 	max_upgrade_slots = 4
 	base_compute    = 6
 	base_operations = 5
@@ -257,7 +257,7 @@
 /datum/cpu_cert/robot/engineering
 	cert_name = "Engineering Chassis"
 	cert_desc = "A chassis certified for construction, repair, and infrastructure work."
-	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_CAN_INTERFACE
+	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_CAN_INTERFACE | CERT_IS_HACKABLE
 	max_upgrade_slots = 4
 	base_compute    = 6
 	base_operations = 4
@@ -335,3 +335,28 @@
 	max_upgrade_slots = 0
 	base_compute    = 8
 	base_operations = 7
+
+// ====================================================
+// HACKING TOOL CERT
+// Installed inside a /obj/item/hacking_device.
+// CERT_CAN_HACK on this cert gates minigame access.
+// core_compute scales attempts and timer.
+// Military-grade variant is world-found only — not
+// printable at the CPU Cert Fabricator.
+// ====================================================
+
+/datum/cpu_cert/device/hacking_tool
+	cert_name       = "Hacking Tool Certificate"
+	cert_desc       = "A RobCo intrusion countermeasure certificate. Slots into a hacking device."
+	cert_tier       = CERT_TIER_BASIC
+	capability_flags = CERT_CAN_HACK
+	max_upgrade_slots = 0
+	base_compute    = 2   // attempts + time window
+	base_operations = 1
+
+/datum/cpu_cert/device/hacking_tool/advanced
+	cert_name       = "Military Hacking Certificate"
+	cert_desc       = "A hardened military-grade ICE cert. Masks operator identity on success."
+	cert_tier       = CERT_TIER_MILITARY
+	capability_flags = CERT_CAN_HACK | CERT_MILITARY_GRADE
+	base_compute    = 5

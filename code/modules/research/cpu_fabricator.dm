@@ -62,6 +62,7 @@
 	designs += new /datum/cpu_fab_design/base/combat()
 	designs += new /datum/cpu_fab_design/base/medical()
 	designs += new /datum/cpu_fab_design/base/engineering()
+	designs += new /datum/cpu_fab_design/base/hacking_tool()
 	designs += new /datum/cpu_fab_design/upgrade/vtec()
 	designs += new /datum/cpu_fab_design/upgrade/armor_plating()
 	designs += new /datum/cpu_fab_design/upgrade/emp_shielding()
@@ -1725,6 +1726,14 @@
 	output_path = /obj/item/cert_card/base/engineering
 	cost = list("iron" = 700, "glass" = 200)
 	suited_for = "Any chassis — high energy for hardware-heavy builds"
+
+/datum/cpu_fab_design/base/hacking_tool
+	design_name = "Hacking Tool Certificate"
+	design_desc = "Unlocks robot hacking on a hacking device. Print this, use it on your hacking device to slot it in, then click any standard robot to start the wordlist minigame. Basic tier gives 2 compute (4+ attempts). Military-grade is world-found only and masks your identity."
+	id = "cert_hacking_tool"
+	output_path = /obj/item/cert_card/base/hacking_tool
+	cost = list("iron" = 600, "glass" = 300, "gold" = 200)
+	suited_for = "Hacking device — slot this card into the device to enable robot hacking"
 
 
 // ---- Upgrades ----

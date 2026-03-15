@@ -66,13 +66,37 @@
 
 // ====================================================
 // BEHAVIOR ASSEMBLY UPGRADE
-// /datum/cert_upgrade/robot/behavior_assembly is defined
-// in behavior_assembly.dm alongside the physical item it
-// wraps. That file is the canonical definition -- including
-// Destroy() cleanup and physical item ejection on remove.
-// cert_card.dm and robot_workshop.dm reference the type
-// path directly and do not need it defined here.
+// Wraps a behavior_assembly item inside a cert upgrade
+// slot so the assembly fires on the robot's clock tick.
+// Defined here (not in behavior_circuits.dm) because
+// cert_card.dm and robot_workshop.dm both need the type.
 // ====================================================
+
+/datum/cert_upgrade/robot/behavior_assembly
+	upgrade_name = "Behavior Assembly"
+	upgrade_desc = "An installed behavior assembly. Drives the robot's autonomous actions."
+	tutorial_text = "This slot holds the robot's active behavior assembly -- the circuit program that tells it when to act and how to respond. Install a behavior_assembly item at the Robot Workshop, or print one at the CPU Cert Fabricator."
+	energy_mod = 2
+
+	/// The physical behavior_assembly item embedded in this cert slot.
+	/// cert_card.strip_upgrade_from() hands it back as a physical item when removed.
+	var/obj/item/behavior_assembly/assembly = null
+
+/datum/cert_upgrade/robot/behavior_assembly/on_apply(datum/cpu_cert/C, atom/holder)
+	. = ..()
+	if(!istype(holder, /mob/living/silicon/robot))
+		return
+	var/mob/living/silicon/robot/R = holder
+	if(assembly)
+		assembly.register_signals(R)
+
+/datum/cert_upgrade/robot/behavior_assembly/on_remove(datum/cpu_cert/C, atom/holder)
+	. = ..()
+	if(!istype(holder, /mob/living/silicon/robot))
+		return
+	var/mob/living/silicon/robot/R = holder
+	if(assembly)
+		assembly.unregister_signals(R)
 
 
 // ====================================================
@@ -355,6 +379,12 @@
 // CERT_CAN_RENAME: allows the robot to use the Set Designation verb.
 // Defined here because it is unique to F13 content and has no vanilla equivalent.
 #define CERT_CAN_RENAME      (1 << 10)
+
+// CERT_IS_HACKABLE: marks a robot cert as targetable by a hacking device.
+// Standard, Medical, and Engineering certs carry this flag.
+// Combat cert does not — hardened chassis resist hacking by default.
+// NPC robots with no cert are always hackable (easy difficulty).
+#define CERT_IS_HACKABLE     (1 << 15)
 
 
 // ====================================================
@@ -647,7 +677,7 @@
 /datum/cert_upgrade/robot/designation_chip
 	upgrade_name   = "Designation Chip"
 	upgrade_desc   = "A writable identity module. Allows the robot to set a custom callsign."
-	tutorial_text  = "Unlocks 'Set Designation' under Robot Commands. The robot can pick a custom name (up to 50 characters, name-filter validated). Purely cosmetic. Small energy draw. Good quality-of-life upgrade for player-controlled borgs. RECOMMENDED FIRST UPGRADE -- zero risk, immediate feedback, teaches how the upgrade system works. Install this, name your robot, then move on to behavior assemblies."
+	tutorial_text  = "Unlocks 'Set Designation' under Robot Commands. The robot can pick a custom name (up to 50 characters, name-filter validated). Purely cosmetic. Small energy draw. Good quality-of-life upgrade for player-controlled borgs."
 	capability_flag_add = CERT_CAN_RENAME
 	energy_mod = 1
 
@@ -656,9 +686,6 @@
 	if(!istype(holder, /mob/living/silicon/robot))
 		return
 	var/mob/living/silicon/robot/R = holder
-	// Speak to nearby players so the noob sees the robot react immediately.
-	R.visible_message(span_notice("[R] designation module slots in with a soft click."))
-	R.say("Designation Chip installed. Ready to accept callsign. Use Robot Commands -- Set Designation.")
 	to_chat(R, span_notice("Designation Chip installed. Use 'Set Designation' in Robot Commands to set your callsign."))
 
 /datum/cert_upgrade/robot/designation_chip/on_remove(datum/cpu_cert/C, atom/holder)
