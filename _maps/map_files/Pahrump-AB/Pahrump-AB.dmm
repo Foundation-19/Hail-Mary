@@ -4319,9 +4319,6 @@
 /area/f13/building/museum)
 "atp" = (
 /obj/effect/spawner/lootdrop/f13/crafting,
-/obj/machinery/gear_painter{
-	pixel_y = 2
-	},
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -45919,9 +45916,6 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
-/obj/machinery/gear_painter{
-	pixel_y = 2
-	},
 /turf/open/floor/f13{
 	icon_state = "floorrusty"
 	},
@@ -55547,15 +55541,6 @@
 	icon_state = "dirtcorner"
 	},
 /area/f13/wasteland)
-"sel" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/gear_painter{
-	pixel_y = 2
-	},
-/turf/open/floor/f13/wood{
-	icon_state = "housewood2-broken"
-	},
-/area/f13/radiation)
 "sep" = (
 /obj/structure/window/reinforced/spawner,
 /obj/effect/decal/cleanable/dirt,
@@ -55871,9 +55856,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"smf" = (
-/turf/open/floor/plasteel/f13/vault_floor,
-/area/f13/caves)
 "sml" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_8";
@@ -78812,7 +78794,7 @@ stG
 baK
 wFQ
 stG
-sel
+hSb
 tGX
 wFQ
 stG
@@ -114422,7 +114404,7 @@ iJy
 aae
 aae
 aae
-smf
+aae
 aae
 aaa
 aaa
