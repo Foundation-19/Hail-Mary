@@ -27,6 +27,11 @@
 #define CERT_LOCKED             (1<<13) // NPC robots: cert is immutable, no swapping allowed
 #define CERT_EMP_HARDENED       (1<<14) // Reduced EMP vulnerability
 
+// F13 extended flags
+#define CERT_CAN_RENAME         (1<<15) // Can use Set Designation verb
+#define CERT_IS_HACKABLE        (1<<16) // Can be targeted by a hacking device (standard/med/eng certs)
+#define CERT_ICE_HARDENED       (1<<17) // Passive ICE: burns one attacker attempt per hack session
+
 
 // ====================================================
 // C.O.R.E. STAT TYPE DEFINES

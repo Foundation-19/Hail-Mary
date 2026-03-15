@@ -63,6 +63,7 @@
 	designs += new /datum/cpu_fab_design/base/medical()
 	designs += new /datum/cpu_fab_design/base/engineering()
 	designs += new /datum/cpu_fab_design/base/hacking_tool()
+	designs += new /datum/cpu_fab_design/base/hacking_tool_advanced()
 	designs += new /datum/cpu_fab_design/upgrade/vtec()
 	designs += new /datum/cpu_fab_design/upgrade/armor_plating()
 	designs += new /datum/cpu_fab_design/upgrade/emp_shielding()
@@ -138,6 +139,11 @@
 	designs += new /datum/cpu_fab_design/behavior/one_shot_announcement()
 	designs += new /datum/cpu_fab_design/behavior/pump_station()
 	designs += new /datum/cpu_fab_design/behavior/door_patrol()
+	designs += new /datum/cpu_fab_design/behavior/breach_response()
+	designs += new /datum/cpu_fab_design/behavior/sleeper_agent()
+	// Tier 4 — security upgrade and hacking device fabrication
+	designs += new /datum/cpu_fab_design/upgrade/hardened_ice()
+	designs += new /datum/cpu_fab_design/device/hacking_device()
 	// AI upgrade designs
 	designs += new /datum/cpu_fab_design/ai_upgrade/surveillance()
 	designs += new /datum/cpu_fab_design/ai_upgrade/malf_package()
@@ -1673,6 +1679,21 @@
 	required_int = 6
 	cost = list("iron" = 400, "glass" = 300, "gold" = 100)
 
+/datum/cpu_fab_design/device
+	ui_category = "cert"  // shows in Certs tab — it's a craftable tool, not a cert but fits there
+	required_int = 6      // needs skilled operator to build
+
+// ---- Device fabrication ----
+
+/datum/cpu_fab_design/device/hacking_device
+	design_name = "Hacking Device"
+	design_desc = "Prints a RobCo hacking device. Slot a Hacking Tool Certificate into it to enable robot intrusion. Without a cert it still works as a terminal lockout bypass tool. Requires INT 6."
+	id = "device_hacking_device"
+	required_int = 6
+	output_path = /obj/item/hacking_device
+	cost = list("iron" = 800, "glass" = 400, "gold" = 300)
+	suited_for = "Standalone tool — not a cert card"
+
 
 // ---- AI upgrade cert cards ----
 
@@ -1735,6 +1756,16 @@
 	cost = list("iron" = 600, "glass" = 300, "gold" = 200)
 	suited_for = "Hacking device — slot this card into the device to enable robot hacking"
 
+/datum/cpu_fab_design/base/hacking_tool_advanced
+	design_name = "Military Hacking Certificate"
+	design_desc = "Military-grade ICE cert. 5 compute (7 attempts), masks your identity on successful hacks — service logs show 'operator identity unknown' instead of your name. Required for the SHUTDOWN action and bypassing player-robot resist windows."
+	id = "cert_hacking_tool_advanced"
+	required_tier = CERT_TIER_MILITARY
+	required_int = 7
+	output_path = /obj/item/cert_card/base/hacking_tool/advanced
+	cost = list("iron" = 800, "glass" = 400, "gold" = 600, "plasma" = 200)
+	suited_for = "Hacking device — military-grade slot"
+
 
 // ---- Upgrades ----
 
@@ -1766,6 +1797,13 @@
 	required_tier = CERT_TIER_MILITARY
 	output_path = /obj/item/cert_card/upgrade/hacking_module
 	cost = list("iron" = 400, "glass" = 200, "gold" = 400)
+
+/datum/cpu_fab_design/upgrade/hardened_ice
+	design_name = "Hardened ICE"
+	design_desc = "Passive intrusion countermeasure. Burns one of the attacker's attempts at the start of every hack session. Silent — the attacker won't know why. Pairs with Breach Response Protocol."
+	id = "cert_upgrade_hardened_ice"
+	output_path = /obj/item/cert_card/upgrade/hardened_ice
+	cost = list("iron" = 300, "glass" = 200, "gold" = 150)
 
 /datum/cpu_fab_design/upgrade/designation_chip
 	design_name = "Designation Chip"
@@ -2267,6 +2305,19 @@
 	design_desc = "Opens doors, steps through, and seals them behind itself on a timer. No hardware required."
 	id = "behavior_door_patrol"
 	output_path = /obj/item/behavior_assembly/door_patrol
+
+/datum/cpu_fab_design/behavior/breach_response
+	design_name = "Breach Response Protocol"
+	design_desc = "Sounds alarm, calls reinforcements, and broadcasts distress the instant it's successfully hacked. A paranoid operator's insurance policy. No hardware required."
+	id = "behavior_breach_response"
+	output_path = /obj/item/behavior_assembly/breach_response
+
+/datum/cpu_fab_design/behavior/sleeper_agent
+	design_name = "Guard Patrol Protocol"
+	design_desc = "Standard patrol assembly. Watchdog listener included for remote diagnostic uplink. HARDWARE REQUIRED: Microphone. The keyword is set on the Watchdog Listener circuit before install."
+	id = "behavior_sleeper_agent"
+	required_int = 9
+	output_path = /obj/item/behavior_assembly/sleeper_agent
 
 
 // ---- AI upgrades ----

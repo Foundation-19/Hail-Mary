@@ -89,6 +89,11 @@
 	/// from both ui_interact and proxy.Topic calling _render_minigame.
 	var/hack_resolving = FALSE
 
+	/// World.time when the player-robot resist window expires.
+	var/resist_window_until = 0
+	/// TRUE once the resist has been used this session.
+	var/resist_used = FALSE
+
 
 // ====================================================
 // CERT SLOT
@@ -199,14 +204,19 @@
 		to_chat(user, span_warning("Hack already in progress. Finish or wait for the current session to end."))
 		return
 
-	// Determine hackability and difficulty from target cert
+	// Determine hackability and difficulty from target cert + operator security setting
 	var/hackable = TRUE
 	var/hack_diff = 0  // no cert = always easy
 	if(R.cpu_cert)
 		if(R.cpu_cert.capability_flags & CERT_IS_HACKABLE)
-			hack_diff = clamp(round((R.cpu_cert.base_operations - 1) / 2), 0, 4)
+			// Base difficulty from cert ops, but operator can set it higher
+			var/cert_diff = clamp(round((R.cpu_cert.base_operations - 1) / 2), 0, 4)
+			hack_diff = max(cert_diff, R.security_difficulty)
 		else
 			hackable = FALSE
+	else
+		// No cert: use operator's security setting directly
+		hack_diff = R.security_difficulty
 
 	if(!hackable)
 		to_chat(user, span_warning("[R] has a hardened combat certification — intrusion is not possible with this device."))
@@ -218,6 +228,52 @@
 		return
 
 	_begin_hack_session(R, user, hack_diff)
+
+
+// ====================================================
+// TIER 2 — INTRUSION ALERTS
+// ====================================================
+
+/// Finds the online mob matching a robot's locked_ckey.
+/// Returns null if operator is offline or no lock set.
+/obj/item/hacking_device/proc/_find_operator(mob/living/silicon/robot/R)
+	if(!R.locked_ckey)
+		return null
+	for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
+		if(H.real_name == R.locked_ckey || H.name == R.locked_ckey)
+			return H
+	return null
+
+/// Sends an intrusion alert to the operator (if online) and any
+/// Broadcast Relay robots in the same faction.
+/obj/item/hacking_device/proc/_send_intrusion_alert(mob/living/silicon/robot/R, message)
+	// Alert operator if online
+	var/mob/living/carbon/human/op = _find_operator(R)
+	if(op)
+		to_chat(op, span_danger("SECURITY ALERT — [R.name]: [message]"))
+
+	// Broadcast on faction robots running Broadcast Relay or radio circuits
+	if(R.faction && R.faction.len)
+		for(var/mob/living/silicon/robot/relay in GLOB.alive_mob_list)
+			if(relay == R || relay.stat == DEAD) continue
+			if(!relay.faction) continue
+			// Share at least one faction tag
+			var/shared = FALSE
+			for(var/f in R.faction)
+				if(f in relay.faction)
+					shared = TRUE
+					break
+			if(!shared) continue
+			// Has a behavior assembly with send_radio_signal or broadcast_alert circuit
+			if(relay.cpu_cert)
+				for(var/datum/cert_upgrade/robot/behavior_assembly/BA in relay.cpu_cert.upgrade_slots)
+					if(BA?.assembly)
+						for(var/datum/behavior_circuit/C in BA.assembly.circuits)
+							if(istype(C, /datum/behavior_circuit/response/broadcast_alert) || \
+							   istype(C, /datum/behavior_circuit/response/send_radio_signal))
+								relay.say(";SECURITY RELAY: [message]")
+								break
+						break
 
 
 // ====================================================
@@ -237,12 +293,25 @@
 	// Apply compute scaling AFTER init_hack so it isn't overwritten
 	hack_session.hack_max        = clamp(device_cert.get_compute() + 2, 2, 8)
 	hack_session.hack_attempts   = hack_session.hack_max
+	// Tier 4: Hardened ICE passively burns one attempt at session start
+	if(R.cpu_cert && (R.cpu_cert.capability_flags & CERT_ICE_HARDENED))
+		hack_session.hack_attempts = max(1, hack_session.hack_attempts - 1)
+		// Silent — the attacker just has one fewer attempt, no message
 
 	user.visible_message(
 		span_notice("[user] connects [src] to [R]'s access port and begins an intrusion sequence."),
 		span_notice("Hacking [R]. Guess the correct password in the terminal window. Higher Intelligence = more attempts.")
 	)
 	log_game("HACK ATTEMPT: [key_name(user)] targeting [R] ([R.name]) at [AREACOORD(R)] — difficulty [difficulty]")
+	// Tier 2: alert operator and relay robots
+	_send_intrusion_alert(R, "Intrusion attempt detected at ([R.x],[R.y],[R.z]).")
+	// Tier 3: player-controlled robot gets a resist window (unless military cert bypasses it)
+	var/is_player_robot = (R.mind && R.mind.key != null)
+	var/is_military_attacker = device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE)
+	if(is_player_robot && !is_military_attacker)
+		resist_window_until = world.time + 80  // 8 second window
+		resist_used = FALSE
+		to_chat(R, span_danger("<b>INTRUSION DETECTED.</b> Someone is hacking you. <a href='byond://?src=[REF(src)];hack_action=resist'>\[RESIST\]</a> (8 seconds)"))
 	start_working_anim()
 	_render_minigame(user)
 
@@ -266,11 +335,28 @@
 	if(masked)
 		log_game("HACK SUCCESS (MASKED): [key_name(user)] on [R] ([R.name]) at [AREACOORD(R)]")
 		R.log_service("INTRUSION SUCCESS -- operator identity masked.")
+		_send_intrusion_alert(R, "Security breach confirmed at ([R.x],[R.y],[R.z]). Operator identity unknown.")
 	else
 		log_game("HACK SUCCESS: [key_name(user)] on [R] ([R.name]) at [AREACOORD(R)]")
 		R.log_service("INTRUSION SUCCESS -- operator: [user.name] at [AREACOORD(R)]")
+		_send_intrusion_alert(R, "Security breach by [user.name] at ([R.x],[R.y],[R.z]).")
+
+	// Cooldown asymmetry: military cert earns faster reset
+	if(device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE))
+		hack_cooldown_until = world.time + 100  // 10s reset for military cert
+	else
+		hack_cooldown_until = world.time + 200  // 20s reset for basic cert on success
 
 	INVOKE_ASYNC(src, PROC_REF(_end_hack_session))
+
+	// Fire any on_hacked trigger circuits in the robot's assembly
+	if(R.cpu_cert)
+		for(var/datum/cert_upgrade/robot/behavior_assembly/BA in R.cpu_cert.upgrade_slots)
+			if(BA?.assembly)
+				for(var/datum/behavior_circuit/trigger/on_hacked/TH in BA.assembly.circuits)
+					TH.fire_on_hacked()
+				break
+
 	_open_action_menu(R, user, masked)
 
 /obj/item/hacking_device/proc/_on_hack_fail(mob/living/user)
@@ -302,9 +388,11 @@
 	if(hack_session)
 		qdel(hack_session)
 		hack_session = null
-	hack_target_ref = null
-	hack_user_ref   = null
-	hack_resolving  = FALSE
+	hack_target_ref     = null
+	hack_user_ref       = null
+	hack_resolving      = FALSE
+	resist_window_until = 0
+	resist_used         = FALSE
 
 
 // ====================================================
@@ -341,6 +429,11 @@
 	else
 		dat += "<span class='dim'>&gt; SHUTDOWN  // Military-grade cert only. Find one in the world.</span><br>"
 
+	// Trace — always available, only reveals if security is HARD+
+	dat += "<a href='byond://?src=[REF(src)];hack_action=trace;rref=[REF(R)]'>&gt; TRACE</a>"
+	dat += "  <span class='dim'>// Attempts to read your own access footprint from this robot's logs."
+	dat += " Requires HARD+ security to yield useful data. Attacker doesn't know you traced them.</span><br>"
+
 	dat += "<br><a href='byond://?src=[REF(src)];hack_action=close'>&gt; \[Close\]</a>"
 	dat += "</font></body></html>"
 
@@ -370,6 +463,11 @@
 			winset(user, "hacking_device_[REF(src)]", "is-visible=false")
 		return
 
+	// Resist is handled before the R lookup — it targets the hacker, not a robot
+	if(action == "resist")
+		_hack_resist(user)
+		return
+
 	var/mob/living/silicon/robot/R = null
 	if(href_list["rref"])
 		R = locate(href_list["rref"])
@@ -386,14 +484,46 @@
 		if("action_menu")             _open_action_menu(R, user, device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE))
 		if("reprogram_follow")        _hack_reprogram_follow(R, user)
 		if("reprogram_faction_add")   _hack_reprogram_faction_add(R, user)
+		if("reprogram_faction_remove") _hack_reprogram_faction_remove(R, user, href_list["faction"])
 		if("reprogram_faction_clear") _hack_reprogram_faction_clear(R, user)
 		if("reprogram_clear_lock")    _hack_reprogram_clear_lock(R, user)
+		if("reprogram_set_lock")      _hack_reprogram_set_lock(R, user)
 		if("shutdown")                _hack_shutdown(R, user)
+		if("trace")                   _hack_trace(R, user)
 
 
 // ====================================================
 // ACTIONS
 // ====================================================
+
+/// Called when a player-controlled robot clicks the resist link.
+/// Spends 2 of the attacker's attempts, or locks them out entirely
+/// if attempts drop to zero.  Only works within the 8-second window.
+/obj/item/hacking_device/proc/_hack_resist(mob/user)
+	if(!hack_session)
+		return
+	if(resist_used)
+		to_chat(user, span_warning("Resist already used this session."))
+		return
+	if(world.time > resist_window_until)
+		to_chat(user, span_warning("Resist window expired."))
+		return
+	resist_used = TRUE
+	var/mob/living/silicon/robot/R = hack_target_ref?.resolve()
+	// Burn 2 attempts on the attacker
+	var/hacker = hack_user_ref?.resolve()
+	if(hacker)
+		to_chat(hacker, span_danger("[R ? R.name : "The target"] is actively resisting. You lost 2 attempts."))
+	hack_session.hack_attempts = max(0, hack_session.hack_attempts - 2)
+	to_chat(user, span_nicegreen("Resist successful. Burned 2 of the attacker's attempts."))
+	if(hack_session.hack_attempts <= 0)
+		hack_session.hack_locked_out = TRUE
+		if(hacker)
+			to_chat(hacker, span_danger("The target's resistance locked you out."))
+		to_chat(user, span_nicegreen("Attacker locked out completely."))
+		_render_minigame(hacker ? hacker : user)
+	else
+		_render_minigame(hacker ? hacker : user)
 
 /obj/item/hacking_device/proc/_hack_suppress(mob/living/silicon/robot/R, mob/living/user)
 	var/masked = device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE)
@@ -478,14 +608,25 @@
 	dat += "<a href='byond://?src=[REF(src)];hack_action=reprogram_faction_add;rref=[REF(R)]'>&gt; Add your faction as ally</a>"
 	dat += "  <span class='dim'>// Robot reads your ID card's faction and adds it — won't attack your people anymore.</span><br>"
 
+	// Surgical faction removal — list each tag individually
+	if(R.faction && R.faction.len)
+		for(var/f in R.faction)
+			if(!findtext(f, "\[") && length(f))
+				dat += "<a href='byond://?src=[REF(src)];hack_action=reprogram_faction_remove;rref=[REF(R)];faction=[html_encode(f)]'><span class='warn'>&gt; Remove faction: [html_encode(f)]</span></a>"
+				dat += "  <span class='dim'>// Surgically removes just this tag — robot stays allied with others.</span><br>"
+
 	dat += "<a href='byond://?src=[REF(src)];hack_action=reprogram_faction_clear;rref=[REF(R)]'><span class='warn'>&gt; Wipe all faction loyalty</span></a>"
 	dat += "  <span class='dim'>// Robot becomes hostile to everyone. Useful chaos, dangerous to you too.</span><br>"
 
 	if(R.locked_ckey)
 		dat += "<a href='byond://?src=[REF(src)];hack_action=reprogram_clear_lock;rref=[REF(R)]'><span class='warn'>&gt; Remove operator lock</span></a>"
 		dat += "  <span class='dim'>// [html_encode(R.locked_ckey)] currently owns this robot. Clearing the lock frees it for anyone.</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];hack_action=reprogram_set_lock;rref=[REF(R)]'><span class='warn'>&gt; Transfer lock to you</span></a>"
+		dat += "  <span class='dim'>// Removes [html_encode(R.locked_ckey)]'s lock and installs yours. Silent ownership transfer.</span><br>"
 	else
 		dat += "<span class='dim'>&gt; Remove operator lock  // No lock installed.</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];hack_action=reprogram_set_lock;rref=[REF(R)]'>&gt; Lock to me</a>"
+		dat += "  <span class='dim'>// Installs you as the operator. Robot is now yours until someone clears it.</span><br>"
 
 	dat += "<br><a href='byond://?src=[REF(src)];hack_action=action_menu;rref=[REF(R)]'>&gt; \[Back\]</a>"
 	dat += "</font></body></html>"
@@ -545,6 +686,52 @@
 	to_chat(user, span_nicegreen("Operator lock cleared. [R.name] is no longer reserved for [old_op]."))
 	R.log_service("HACK: REPROGRAM lock cleared (was: [old_op]) — operator: [masked ? "(masked)" : user.name]")
 
+/// Surgical faction removal — removes one specific tag without touching others.
+/obj/item/hacking_device/proc/_hack_reprogram_faction_remove(mob/living/silicon/robot/R, mob/living/user, faction_tag)
+	var/masked = device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE)
+	if(!faction_tag || !length(faction_tag))
+		to_chat(user, span_warning("No faction tag specified."))
+		return
+	if(!R.faction)
+		to_chat(user, span_warning("[R.name] has no factions loaded."))
+		return
+	// Match against actual list — href param may have encoding artifacts
+	var/matched = null
+	for(var/f in R.faction)
+		if(lowertext(f) == lowertext(faction_tag) || f == faction_tag)
+			matched = f
+			break
+	if(!matched)
+		to_chat(user, span_warning("'[faction_tag]' not found in [R.name]'s faction list. It may have already been removed."))
+		_hack_reprogram_menu(R, user)
+		return
+	R.faction -= matched
+	to_chat(user, span_nicegreen("Removed '[matched]' from [R.name]'s ally list. Other faction loyalties untouched."))
+	R.log_service("HACK: REPROGRAM faction removed: [matched] — operator: [masked ? "(masked)" : user.name]")
+	_hack_reprogram_menu(R, user)
+
+/// Lock injection — installs the hacker as operator, silently transferring ownership.
+/// If an existing lock is present it is overwritten.
+/obj/item/hacking_device/proc/_hack_reprogram_set_lock(mob/living/silicon/robot/R, mob/living/user)
+	var/masked = device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE)
+	var/person_name = null
+	if(istype(user, /mob/living/carbon/human))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/card/id/ID = H.get_idcard(TRUE)
+		if(ID) person_name = ID.registered_name
+	if(!person_name) person_name = user.real_name
+	var/old_op = R.locked_ckey ? R.locked_ckey : null
+	R.control_mode = "locked"
+	R.locked_ckey  = person_name
+	if(old_op)
+		to_chat(user, span_nicegreen("Lock transferred. [R.name] was [old_op]'s — it's now yours ([person_name])."))
+		R.log_service("HACK: REPROGRAM lock transferred from [old_op] to [person_name] — hacker: [masked ? "(masked)" : user.name]")
+		// Alert the dispossessed operator if online
+		_send_intrusion_alert(R, "Operator lock transferred. [R.name] is no longer under your control.")
+	else
+		to_chat(user, span_nicegreen("Lock installed. [R.name] is now yours ([person_name])."))
+		R.log_service("HACK: REPROGRAM lock installed for [person_name] — hacker: [masked ? "(masked)" : user.name]")
+
 /obj/item/hacking_device/proc/_hack_shutdown(mob/living/silicon/robot/R, mob/living/user)
 	if(!device_cert || !(device_cert.capability_flags & CERT_MILITARY_GRADE))
 		to_chat(user, span_warning("Military-grade certificate required for shutdown command."))
@@ -553,6 +740,42 @@
 	to_chat(user, span_nicegreen("Shutdown command executed. [R.name] is offline."))
 	R.log_service("HACK: SHUTDOWN — operator: (masked)")
 	R.death(null)
+
+
+/// TRACE — reads the most recent intrusion entry from the robot's service log
+/// and reports the attacker identity to the operator.
+/// Only yields useful data if security_difficulty >= HARD (3).
+/// The attacker has no indication they were traced.
+/obj/item/hacking_device/proc/_hack_trace(mob/living/silicon/robot/R, mob/living/user)
+	var/masked = device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE)
+	// Low security = no useful forensic data
+	if(R.security_difficulty < 3)
+		to_chat(user, span_warning("Security software too basic to retain forensic data. Raise the robot's security difficulty to HARD or above to enable tracing."))
+		R.log_service("HACK: TRACE attempted — insufficient security level by [masked ? "(masked)" : user.name]")
+		return
+	// Scan activity log for last INTRUSION SUCCESS entry
+	var/found_entry = null
+	if(R.activity_log)
+		for(var/entry in R.activity_log)
+			if(findtext("[entry]", "INTRUSION SUCCESS"))
+				found_entry = entry
+				break  // activity_log is newest-first, so first match is most recent
+	if(!found_entry)
+		to_chat(user, span_notice("No intrusion records found in security log. Either this robot has never been hacked or logs were cleared."))
+		R.log_service("HACK: TRACE — no records found, checked by [masked ? "(masked)" : user.name]")
+		return
+	// Display the full log entry — attacker name visible if unmasked, otherwise shows masked
+	var/dat = _get_hack_css()
+	dat += "<b>TRACE — [html_encode(R.name)]</b><br>"
+	dat += "<span class='dim'>Most recent intrusion record:</span><br><br>"
+	dat += "<span class='warn'>[html_encode("[found_entry]")]</span><br><br>"
+	dat += "<span class='dim'>This entry was written to the service log. The attacker has no indication this trace was run.</span><br>"
+	dat += "<br><a href='byond://?src=[REF(src)];hack_action=action_menu;rref=[REF(R)]'>&gt; \[Back\]</a>"
+	dat += "</font></body></html>"
+	var/datum/browser/popup = new(user, "hacking_device_[REF(src)]", "RobCo ICE — Trace", 560, 320)
+	popup.set_content(dat)
+	popup.open()
+	R.log_service("HACK: TRACE read by [masked ? "(masked)" : user.name]")
 
 
 // ====================================================

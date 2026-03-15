@@ -146,9 +146,6 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	var/pending_robot_faction_rref = null
 	/// When non-null, the next ID card swiped locks this robot to that card's registered ckey
 	var/pending_robot_lock_rref = null
-	/// When non-null, the next ID card swiped links its registered_name as follow target
-	/// on any follow_target circuit in the robot's installed assembly.
-	var/pending_robot_follow_rref = null
 	/// Sub-page for robot hardware add picker: null | "cat" | "type"
 	var/robot_hw_add_mode = null
 	var/robot_hw_add_cat  = null
@@ -169,7 +166,6 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	pending_faction_tref          = null
 	pending_robot_faction_rref    = null
 	pending_robot_lock_rref       = null
-	pending_robot_follow_rref     = null
 	robot_hw_add_mode             = null
 	robot_hw_add_cat              = null
 	linked_buttons                = null
@@ -450,21 +446,12 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		if("robot_lock_card")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
 			if(R)
-				pending_robot_lock_rref    = href_list["rref"]
+				pending_robot_lock_rref = href_list["rref"]
 				pending_robot_faction_rref = null
-				pending_robot_follow_rref  = null
 				to_chat(U, span_notice("Swipe an ID card on the terminal to lock [R.name] to that operator."))
-		if("robot_link_follow_card")
-			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
-			if(R)
-				pending_robot_follow_rref  = href_list["rref"]
-				pending_robot_faction_rref = null
-				pending_robot_lock_rref    = null
-				to_chat(U, span_notice("Swipe an ID card on the terminal to set [R.name]'s follow target."))
 		if("robot_pending_cancel")
 			pending_robot_faction_rref = null
-			pending_robot_lock_rref    = null
-			pending_robot_follow_rref  = null
+			pending_robot_lock_rref = null
 		if("robot_remove_faction")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
 			if(R)
@@ -515,6 +502,22 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				RCC.locked_ckey  = null
 				RCC.log_service("CONTROL MODE -- AUTONOMOUS (lock cleared via terminal)")
 				log_game("[key_name(U)] cleared operator lock on [RCC.name] via terminal [tag]")
+
+		if("robot_set_security")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/new_diff = text2num(href_list["diff"])
+				var/list/sec_min_int = list(1, 3, 5, 7, 9)
+				var/list/sec_labels = list("VERY EASY","EASY","AVERAGE","HARD","VERY HARD")
+				if(isnull(new_diff) || new_diff < 0 || new_diff > 4)
+					to_chat(U, span_warning("Invalid difficulty."))
+				else if(istype(U, /mob/living) && U.special_i < sec_min_int[new_diff + 1])
+					to_chat(U, span_warning("Your Intelligence ([U.special_i]) is too low to configure [sec_labels[new_diff + 1]] security."))
+				else
+					R.security_difficulty = new_diff
+					R.log_service("SECURITY DIFFICULTY -- set to [sec_labels[new_diff + 1]] by [U.name]")
+					log_game("[key_name(U)] set security difficulty on [R.name] to [sec_labels[new_diff + 1]] via terminal [tag]")
+					to_chat(U, span_nicegreen("[R.name] security software updated: [sec_labels[new_diff + 1]]."))
 
 		if("robot_link_toggle")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
@@ -1298,12 +1301,28 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			dat += "<span class='warn'>&gt; Waiting for ID card swipe...</span>  <a href='byond://?src=[REF(src)];choice=robot_pending_cancel'>\[cancel\]</a><br>"
 		else
 			dat += "<a href='byond://?src=[REF(src)];choice=robot_lock_card;rref=[REF(R)]'>&gt; Lock to operator -- swipe ID card</a><br>"
-	// Follow target link
-	if(pending_robot_follow_rref == REF(R))
-		dat += "<span class='warn'>&gt; Waiting for ID card swipe (follow target)...</span>  <a href='byond://?src=[REF(src)];choice=robot_pending_cancel'>\[cancel\]</a><br>"
-	else
-		dat += "<a href='byond://?src=[REF(src)];choice=robot_link_follow_card;rref=[REF(R)]'>&gt; Set follow target -- swipe ID card</a>  <span class='dim'>// links Follow Linked Target circuits</span><br>"
 	dat += "<a href='byond://?src=[REF(src)];choice=robot_link_toggle;rref=[REF(R)]'>&gt; Unlink from network</a>  <span class='dim'>// removes this unit from your terminal</span><br>"
+	dat += "<br>"
+
+	// ?? Security software difficulty ??????????????????????????????????????????????
+	dat += "<b>SECURITY SOFTWARE</b><br>"
+	dat += "<span class='dim'>Sets how hard this robot is to hack. Higher difficulty requires more Intelligence to crack.</span><br>"
+	var/list/sec_labels = list("VERY EASY","EASY","AVERAGE","HARD","VERY HARD")
+	var/list/sec_min_int = list(1, 3, 5, 7, 9)
+	dat += "<span class='dim'>&gt; Current: </span><b>[sec_labels[R.security_difficulty + 1]]</b><br>"
+	for(var/i = 0 to 4)
+		var/can_set = TRUE
+		var/locked_txt = ""
+		if(istype(usr, /mob/living))
+			var/mob/living/L = usr
+			if(L.special_i < sec_min_int[i+1])
+				can_set = FALSE
+				locked_txt = " <span class='dim'>(INT [sec_min_int[i+1]]+ required)</span>"
+		var/selected_txt = (R.security_difficulty == i) ? " <span class='good'>\[active\]</span>" : ""
+		if(can_set)
+			dat += "&gt; <a href='byond://?src=[REF(src)];choice=robot_set_security;rref=[REF(R)];diff=[i]'>[sec_labels[i+1]]</a>[selected_txt]<br>"
+		else
+			dat += "&gt; <span class='dim'>[sec_labels[i+1]]</span>[locked_txt][selected_txt]<br>"
 	dat += "<br>"
 
 	// ?? Activity log ????????????????????????????????????????????????????????
@@ -1362,48 +1381,9 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	updateUsrDialog()
 
 
-/// Called when an ID card is swiped while pending_robot_follow_rref is set.
-/// Finds the person by registered_name in the world and links them as the
-/// follow target on any follow_target circuits in the robot's installed assembly.
-/obj/machinery/computer/terminal/proc/register_id_robot_follow(obj/item/card/id/card, mob/user)
-	var/rref = pending_robot_follow_rref
-	pending_robot_follow_rref = null
-	var/mob/living/silicon/robot/R = get_linked_robot(rref)
-	if(!R)
-		to_chat(user, span_warning("Target robot is no longer linked."))
-		return
-	var/person_name = card.registered_name
-	if(!person_name || !length(person_name))
-		to_chat(user, span_warning("This ID card has no registered name."))
-		return
-	// Find the mob by name
-	var/mob/living/target = null
-	for(var/mob/living/M in GLOB.alive_mob_list)
-		if(M.name == person_name || (istype(M, /mob/living/carbon/human) && M.real_name == person_name))
-			target = M
-			break
-	if(!target)
-		to_chat(user, span_warning("Could not locate '[person_name]' in the world. Are they alive and present?"))
-		return
-	// Find the assembly and link all follow_target circuits
-	var/datum/cert_upgrade/robot/behavior_assembly/BA = null
-	if(R.cpu_cert)
-		for(var/datum/cert_upgrade/robot/behavior_assembly/U2 in R.cpu_cert.upgrade_slots)
-			BA = U2
-			break
-	if(!BA?.assembly || !BA.assembly.circuits.len)
-		to_chat(user, span_warning("[R.name] has no behavior assembly installed."))
-		return
-	var/linked = 0
-	for(var/datum/behavior_circuit/response/follow_target/FT in BA.assembly.circuits)
-		FT.set_linked_target(target, user)
-		linked++
-	if(!linked)
-		to_chat(user, span_warning("[R.name]'s assembly has no Follow Linked Target circuit to configure."))
-		return
-	log_game("[key_name(user)] linked follow target '[person_name]' to [R.name] via terminal [tag]")
-	to_chat(user, span_nicegreen("Follow target set: [R.name] will follow [person_name]."))
-	updateUsrDialog()
+// ============================================================
+// TURRET WHITELIST HELPERS
+// ============================================================
 
 /// Called when an ID card is swiped on the terminal.
 /// Handles both whitelist registration and faction registration depending on pending state.
@@ -1415,10 +1395,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	// Robot operator lock
 	if(pending_robot_lock_rref)
 		register_id_robot_lock(card, user)
-		return
-	// Robot follow target link
-	if(pending_robot_follow_rref)
-		register_id_robot_follow(card, user)
 		return
 	// Turret faction registration takes priority over whitelist
 	if(pending_faction_tref)

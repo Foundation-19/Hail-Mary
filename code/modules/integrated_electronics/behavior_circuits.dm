@@ -5630,3 +5630,141 @@
 	circuits += RE1
 	circuits += RE2
 	circuits += RE3
+
+
+// ====================================================
+// ON HACKED TRIGGER
+// Fires when the hacking device successfully intrudes
+// on this robot. Called by the hacking device after
+// _on_hack_success confirms the breach.
+// Lets paranoid operators pre-wire a response.
+// ====================================================
+
+/datum/behavior_circuit/trigger/on_hacked
+	circuit_name = "Trigger: On Hacked"
+	circuit_desc = "Fires when someone successfully hacks this robot."
+	tutorial_text = "Fires immediately after a successful hacking device intrusion. No hardware required. Use this to pre-wire a response: call reinforcements, sound alarm, broadcast distress, enter combat mode, or any combination. Gives operators a way to fight back even when offline."
+	cpu_cost = 1
+	var/datum/weakref/robot_ref_hack = null
+
+/datum/behavior_circuit/trigger/on_hacked/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	robot_ref_hack = WEAKREF(R)
+
+/datum/behavior_circuit/trigger/on_hacked/unregister(mob/living/silicon/robot/R)
+	robot_ref_hack = null
+	. = ..()
+
+/// Called directly by the hacking device on successful breach.
+/datum/behavior_circuit/trigger/on_hacked/proc/fire_on_hacked()
+	var/mob/living/silicon/robot/R = robot_ref_hack?.resolve()
+	if(R && R.stat != DEAD)
+		_trigger(R)
+
+
+// ====================================================
+// PRESET: BREACH RESPONSE PROTOCOL
+// On Hacked -> Sound Alarm + Call Reinforcements +
+//              Broadcast Distress
+// A robot that screams for help the moment it's
+// successfully compromised.  No hardware required.
+// ====================================================
+
+/obj/item/behavior_assembly/breach_response
+	assembly_label = "Breach Response Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/breach_response/Initialize(mapload)
+	. = ..()
+	var/datum/behavior_circuit/trigger/on_hacked/T = new()
+	var/datum/behavior_circuit/response/sound_alarm/RE1 = new()
+	RE1.alarm_message = "SECURITY BREACH. I have been compromised."
+	var/datum/behavior_circuit/response/call_reinforcements/RE2 = new()
+	var/datum/behavior_circuit/response/broadcast_distress/RE3 = new()
+	T.responses_list = list(RE1, RE2, RE3)
+	circuits += T
+	circuits += RE1
+	circuits += RE2
+	circuits += RE3
+
+
+// ====================================================
+// ON RADIO KEYWORD TRIGGER
+// Fires when the robot hears a specific keyword over
+// radio or speech. Hooks into the microphone hardware's
+// last_heard_message. Used by the Sleeper Agent preset
+// to activate a covert follow-target on command.
+// ====================================================
+
+/datum/behavior_circuit/trigger/on_radio_keyword
+	circuit_name  = "Trigger: On Radio Keyword"
+	circuit_desc  = "Fires when a specific keyword is heard. Set the keyword at build time."
+	tutorial_text = "HARDWARE REQUIRED: Microphone. Fires when the robot hears the configured keyword in nearby speech or radio. The keyword is set as a var on this circuit datum at build time — it does not appear in the assembly label. Used for covert activation of sleeper assemblies."
+	cpu_cost  = 1
+	var/keyword  = "OVERRIDE"  // Set at build time. Not shown in assembly label.
+	var/datum/weakref/robot_ref_kw = null
+
+/datum/behavior_circuit/trigger/on_radio_keyword/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	robot_ref_kw = WEAKREF(R)
+
+/datum/behavior_circuit/trigger/on_radio_keyword/unregister(mob/living/silicon/robot/R)
+	robot_ref_kw = null
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_radio_keyword/process()
+	var/mob/living/silicon/robot/R = robot_ref_kw?.resolve()
+	if(!R || R.stat == DEAD)
+		return
+	if(!R.installed_hardware)
+		return
+	for(var/datum/robot_hardware/microphone/MIC in R.installed_hardware)
+		if(!MIC.last_heard_message || !length(MIC.last_heard_message))
+			continue
+		if(findtext(MIC.last_heard_message, keyword))
+			// Clear the message so it only fires once per transmission
+			MIC.last_heard_message = ""
+			_trigger(R)
+		break
+
+
+// ====================================================
+// SLEEPER AGENT PRESET
+// Looks like a standard Guard Patrol assembly.
+// Contains a hidden on_radio_keyword trigger that
+// redirects the follow_target to whoever spoke the
+// keyword. The assembly label is deliberately generic.
+// An operator inspecting it will see normal patrol
+// circuits; the backdoor circuit is listed last and
+// named to look like a diagnostic module.
+// ====================================================
+
+/obj/item/behavior_assembly/sleeper_agent
+	assembly_label = "Guard Patrol Protocol"  // Deliberately misleading label
+	max_circuits = 8
+
+/obj/item/behavior_assembly/sleeper_agent/Initialize(mapload)
+	. = ..()
+	// Visible circuits -- a plausible-looking patrol assembly
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
+	var/datum/behavior_circuit/response/enter_combat_mode/R1 = new()
+	var/datum/behavior_circuit/trigger/on_countdown/T2 = new()
+	T2.counter_key = "patrol_timer"
+	T2.poll_interval = 200  // check every 20s
+	var/datum/behavior_circuit/response/patrol_waypoints/R2 = new()
+	// Hidden backdoor circuit -- looks like a diagnostic module
+	var/datum/behavior_circuit/trigger/on_radio_keyword/BACK = new()
+	BACK.circuit_name = "Diagnostic: Watchdog Listener"  // Disguised name
+	BACK.keyword = "OVERRIDE"  // Default keyword -- attacker sets before install
+	var/datum/behavior_circuit/response/follow_target/R3 = new()
+	R3.circuit_name = "Diagnostic: Uplink Response"  // Disguised name
+	BACK.responses_list = list(R3)
+	// Register circuit chain
+	T1.responses_list = list(R1)
+	T2.responses_list = list(R2)
+	circuits += T1
+	circuits += R1
+	circuits += T2
+	circuits += R2
+	circuits += BACK
+	circuits += R3

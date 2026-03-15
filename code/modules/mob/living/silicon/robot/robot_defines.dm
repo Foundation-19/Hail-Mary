@@ -115,3 +115,9 @@
 	var/cansprint = 1
 
 	var/orebox = null
+
+	/// Security difficulty for hacking device minigame.
+	/// 0=VERY EASY, 1=EASY, 2=AVERAGE, 3=HARD, 4=VERY HARD.
+	/// Set by the operator via terminal or config panel.
+	/// Overrides cert-derived difficulty when higher.
+	var/security_difficulty = 1  // default EASY — basic robots aren't hardened

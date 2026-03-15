@@ -275,6 +275,16 @@
 	energy_mod  = 2
 
 
+// --- HARDENED ICE ---
+/datum/cert_upgrade/robot/hardened_ice
+	upgrade_name   = "Hardened ICE"
+	upgrade_desc   = "Passive intrusion countermeasure. Burns one of the attacker's attempts every hack session automatically."
+	tutorial_text  = "Adds CERT_ICE_HARDENED. When this robot is hacked, the attacker silently loses one attempt at the start of the session — before they even guess a word. Stacks with high security_difficulty for layered defense. The attacker won't know why they have fewer attempts. Pairs with Breach Response Protocol for the full defensive build."
+	capability_flag_add = CERT_ICE_HARDENED
+	compute_mod = 1
+	energy_mod  = 1
+
+
 // ====================================================
 // AI UPGRADES
 // ====================================================
@@ -376,15 +386,8 @@
 // F13 CERT UPGRADES
 // ====================================================
 
-// CERT_CAN_RENAME: allows the robot to use the Set Designation verb.
-// Defined here because it is unique to F13 content and has no vanilla equivalent.
-#define CERT_CAN_RENAME      (1 << 10)
-
-// CERT_IS_HACKABLE: marks a robot cert as targetable by a hacking device.
-// Standard, Medical, and Engineering certs carry this flag.
-// Combat cert does not — hardened chassis resist hacking by default.
-// NPC robots with no cert are always hackable (easy difficulty).
-#define CERT_IS_HACKABLE     (1 << 15)
+// CERT_CAN_RENAME, CERT_IS_HACKABLE, and CERT_ICE_HARDENED are defined in
+// code/_DEFINES/_flags/robots.dm alongside all other cert capability flags.
 
 
 // ====================================================

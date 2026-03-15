@@ -350,6 +350,14 @@
 	base_cert = new /datum/cpu_cert/device/hacking_tool()
 	_update_name()
 
+/obj/item/cert_card/base/hacking_tool/advanced
+	name = "cert card - Military Hacking Certificate"
+
+/obj/item/cert_card/base/hacking_tool/advanced/Initialize(mapload)
+	. = ..()
+	base_cert = new /datum/cpu_cert/device/hacking_tool/advanced()
+	_update_name()
+
 // --- Upgrade cards ---
 /obj/item/cert_card/upgrade
 	name = "cert card - upgrade"
@@ -408,4 +416,12 @@
 /obj/item/cert_card/upgrade/hacking_module/Initialize(mapload)
 	. = ..()
 	upgrade = new /datum/cert_upgrade/robot/hacking_module()
+	_update_name()
+
+/obj/item/cert_card/upgrade/hardened_ice
+	name = "cert card - Hardened ICE"
+
+/obj/item/cert_card/upgrade/hardened_ice/Initialize(mapload)
+	. = ..()
+	upgrade = new /datum/cert_upgrade/robot/hardened_ice()
 	_update_name()

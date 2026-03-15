@@ -211,6 +211,19 @@
 			update_icons()
 			to_chat(U, span_notice("Cover closed. Swipe the target's ID card on [real_name] to link them as follow target."))
 
+		if("set_security")
+			var/new_diff = text2num(href_list["diff"])
+			var/list/sec_min_int = list(1, 3, 5, 7, 9)
+			var/list/sec_labels  = list("VERY EASY","EASY","AVERAGE","HARD","VERY HARD")
+			if(isnull(new_diff) || new_diff < 0 || new_diff > 4)
+				to_chat(U, span_warning("Invalid difficulty."))
+			else if(istype(U, /mob/living) && U.special_i < sec_min_int[new_diff + 1])
+				to_chat(U, span_warning("INT [sec_min_int[new_diff + 1]]+ required for [sec_labels[new_diff + 1]] security."))
+			else
+				security_difficulty = new_diff
+				log_service("SECURITY DIFFICULTY -- set to [sec_labels[new_diff + 1]] by [U.name]")
+				to_chat(U, span_nicegreen("Security software updated: [sec_labels[new_diff + 1]]."))
+
 		if("add_fac_card")
 			// Close the cover and enter pending state.
 			// The technician swipes their ID ? faction is read from their card's assignment.
@@ -458,6 +471,27 @@
 		d += "<span class='warn'>Swipe the target's ID card on the robot...</span>  <a href='byond://?src=[REF(src)];a=rcp_cancel_pending'>\[cancel\]</a><br>"
 	else
 		d += "<a href='byond://?src=[REF(src)];a=set_follow_card'>\[Set follow target -- swipe ID card\]</a>  <span class='dim'>// links Follow Linked Target circuits</span><br>"
+	d += "<br>"
+
+	// ?? Security software difficulty
+	d += "<b>SECURITY SOFTWARE</b><br>"
+	d += "<span class='dim'>Raise this to make hacking harder. Requires Intelligence to configure.</span><br>"
+	var/list/sec_labels = list("VERY EASY","EASY","AVERAGE","HARD","VERY HARD")
+	var/list/sec_min_int = list(1, 3, 5, 7, 9)
+	d += "<span class='dim'>Current: </span><b>[sec_labels[security_difficulty + 1]]</b><br>"
+	for(var/i = 0 to 4)
+		var/can_set = TRUE
+		var/locked_txt = ""
+		if(istype(usr, /mob/living))
+			var/mob/living/L = usr
+			if(L.special_i < sec_min_int[i+1])
+				can_set = FALSE
+				locked_txt = " <span class='dim'>(INT [sec_min_int[i+1]]+)</span>"
+		var/selected_txt = (security_difficulty == i) ? " <span class='good'>\[active\]</span>" : ""
+		if(can_set)
+			d += "&gt; <a href='byond://?src=[REF(src)];a=set_security;diff=[i]'>[sec_labels[i+1]]</a>[selected_txt]<br>"
+		else
+			d += "&gt; <span class='dim'>[sec_labels[i+1]]</span>[locked_txt][selected_txt]<br>"
 	d += "<br>"
 
 	// ?? Installed modules -- summary only ??????????????????????????
