@@ -1189,12 +1189,20 @@
 
 /datum/behavior_circuit/response/self_repair_pulse
 	circuit_name = "Response: Self Repair Pulse"
-	circuit_desc = "Instantly repairs a small amount of the robot's damage."
-	tutorial_text = "The robot heals itself for a small amount. No hardware required. Configure 'repair_amount' (default 15). Costs cell charge proportional to repair amount � larger pulses drain the battery faster. Pair with On Take Damage."
+	circuit_desc = "Instantly repairs a small amount of the robot's damage. Can revive the robot from death up to max_revives times per deployment."
+	tutorial_text = "The robot heals itself for a small amount. No hardware required. Configure 'repair_amount' (default 15) and 'max_revives' (0=disabled, -1=unlimited, default 1). Costs cell charge proportional to repair amount � larger pulses drain the battery faster. Revive counter resets each time the assembly is installed. Pair with On Death or On Take Damage."
 	cpu_cost = 2
 	var/repair_amount = 15
 	/// Cell charge consumed per repair point. 10 charge per HP = meaningful but not crippling.
 	var/energy_cost_per_hp = 10
+	/// How many times this circuit may revive from DEAD per deployment. 0=disabled, -1=unlimited.
+	var/max_revives = 1
+	/// Counts how many times this circuit has revived the robot this deployment.
+	var/revives_used = 0
+
+/datum/behavior_circuit/response/self_repair_pulse/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..(R, A)
+	revives_used = 0
 
 /datum/behavior_circuit/response/self_repair_pulse/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	if(!R.cell)
@@ -1206,13 +1214,20 @@
 		return
 	R.cell.charge -= energy_needed
 	if(R.stat == DEAD)
+		if(max_revives == 0)
+			return  // revive disabled
+		if(max_revives > 0 && revives_used >= max_revives)
+			R.visible_message(span_warning("[R]'s emergency repair pulse is depleted � revive limit reached."))
+			return
 		// Must zero out brute BEFORE revive() so can_be_revived() passes (health > HEALTH_THRESHOLD_DEAD).
 		// adjustBruteLoss(-getBruteLoss()) clears all brute regardless of repair_amount,
 		// guaranteeing health crosses the threshold. The cell drain is the cost limiter.
 		R.adjustBruteLoss(-R.getBruteLoss())
 		R.adjustFireLoss(-R.getFireLoss())
 		R.revive()
-		R.visible_message(span_notice("[R] emergency repair pulse fires � unit back online!"))
+		revives_used++
+		var/revive_note = max_revives > 0 ? " ([revives_used]/[max_revives])" : ""
+		R.visible_message(span_notice("[R] emergency repair pulse fires � unit back online![revive_note]"))
 	else
 		R.heal_bodypart_damage(repair_amount, repair_amount)
 		R.visible_message(span_notice("[R] emits a brief repair pulse."))

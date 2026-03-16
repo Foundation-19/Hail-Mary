@@ -1134,9 +1134,10 @@
 
 /datum/robot_hardware/nav_computer/New()
 	config_defs = list(
-		"patrol_mode"   = list("Patrol Mode",    "list",   "none"),
-		"loop_route"    = list("Loop Route",     "bool",   TRUE),
-		"max_waypoints" = list("Max Waypoints",  "number", 5, 1, 20)
+		"patrol_mode"   = list("Patrol Mode",    "list",         "none"),
+		"loop_route"    = list("Loop Route",     "bool",         TRUE),
+		"max_waypoints" = list("Max Waypoints",  "number",       5, 1, 20),
+		"waypoints"     = list("Waypoints",      "waypoint_list", null)
 	)
 
 /datum/robot_hardware/nav_computer/apply_special(list/S)

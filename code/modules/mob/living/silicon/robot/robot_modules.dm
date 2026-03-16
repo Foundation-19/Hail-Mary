@@ -997,22 +997,6 @@
 		return TRUE
 	return FALSE
 
-/// Loads an item from a user's hand into the vendor inventory.
-/obj/item/robot_module/trader/proc/_load_item(obj/item/W, mob/user)
-	if(vendor_content.len >= max_vendor_items)
-		to_chat(user, span_warning("[vendor_name]: Item capacity full ([max_vendor_items])."))
-		return
-	if(!user.transferItemToLoc(W, src))
-		return
-	vendor_content[W] = 0
-	var/new_price = input(user, "Set a price for [W.name] (caps).", "Set Price", 0) as null|num
-	if(new_price != null)
-		vendor_content[W] = max(round(new_price), 0)
-	to_chat(user, span_notice("Loaded [W.name] at [vendor_content[W]] caps."))
-	var/mob/living/silicon/robot/R = loc
-	if(istype(R) && ishuman(user))
-		_open_vendor_ui(R, user)
-
 /// Handles caps payment for the active pending transaction.
 /obj/item/robot_module/trader/proc/_process_payment(obj/item/stack/f13Cash/paying, mob/user)
 	if(paying.amount < expected_price)
@@ -1103,17 +1087,26 @@
 		if(ishuman(H))
 			_open_vendor_ui(R, H)
 
-	// --- Service: add item from active hand ---
+	// --- Service: add item from active hand (browser button path — no input() to avoid dialog conflict) ---
 	if(href_list["additem"])
 		if(!service_mode || owner_ref?.resolve() != usr)
 			return
 		if(!ishuman(H))
 			return
-		var/obj/item/held = H.get_active_hand()
+		var/obj/item/held = H.held_items[H.active_hand_index]
 		if(!held)
 			to_chat(usr, span_warning("[vendor_name]: Nothing in active hand."))
 			return
-		_load_item(held, H)
+		if(vendor_content.len >= max_vendor_items)
+			to_chat(usr, span_warning("[vendor_name]: Item capacity full ([max_vendor_items])."))
+			return
+		if(!H.transferItemToLoc(held, src))
+			to_chat(usr, span_warning("[vendor_name]: Could not retrieve item."))
+			return
+		vendor_content[held] = 0
+		to_chat(usr, span_notice("Loaded [held.name] — use \[Price\] to set a price."))
+		_open_vendor_ui(R, H)
+
 
 // --- HTML Generators ---
 

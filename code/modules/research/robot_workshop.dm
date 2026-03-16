@@ -1067,6 +1067,20 @@
 			var/label    = def[1]
 			var/dtype    = def[2]
 			var/cur_val  = hw_pending_config[varname] != null ? hw_pending_config[varname] : def[3]
+			if(dtype == "waypoint_list")
+				// Waypoint list: render an inline editor instead of a plain edit link
+				var/list/wps = islist(cur_val) ? cur_val : list()
+				var/max_wp = hw_pending_config["max_waypoints"] != null ? hw_pending_config["max_waypoints"] : 5
+				dat += "<span class='dim'>[label]:</span>  <span class='good'>[wps.len]/[max_wp]</span><br>"
+				for(var/i in 1 to wps.len)
+					var/list/wp = wps[i]
+					dat += "&nbsp;&nbsp;[i]. X:[wp[1]] Y:[wp[2]]"
+					dat += "  <a href='byond://?src=[REF(src)];hw_wp_remove=[i]'>\[remove\]</a><br>"
+				if(wps.len < max_wp)
+					dat += "&nbsp;&nbsp;<a href='byond://?src=[REF(src)];hw_wp_add=1'>\[+ Add Waypoint\]</a><br>"
+				else
+					dat += "&nbsp;&nbsp;<span class='dim'>(waypoint slots full)</span><br>"
+				continue
 			dat += "<span class='dim'>[label]:</span>  "
 			dat += "<span class='good'>[cur_val]</span>"
 			dat += "  <a href='byond://?src=[REF(src)];hw_edit_var=[varname]'>\[edit\]</a>"
@@ -1510,10 +1524,15 @@
 		if(HW)
 			hw_active_slot = slot
 			hw_pending_type = HW.type
-			// Copy existing config into pending
+			// Copy existing config into pending; deep-copy lists so edits don't alias the installed datum
 			hw_pending_config = list()
 			for(var/varname in HW.config_defs)
-				hw_pending_config[varname] = HW.vars[varname]
+				var/val = HW.vars[varname]
+				if(islist(val))
+					var/list/lval = val
+					hw_pending_config[varname] = lval.Copy()
+				else
+					hw_pending_config[varname] = val
 			hw_mode = "config"
 		ui_interact(usr)
 		return
@@ -1559,7 +1578,12 @@
 			var/datum/robot_hardware/proto = new path()
 			for(var/varname in proto.config_defs)
 				var/list/def = proto.config_defs[varname]
-				hw_pending_config[varname] = def[3]
+				var/dtype = def[2]
+				// waypoint_list always starts with a fresh empty list to avoid sharing the template reference
+				if(dtype == "waypoint_list")
+					hw_pending_config[varname] = list()
+				else
+					hw_pending_config[varname] = def[3]
 			qdel(proto)
 			hw_mode = "config"
 		ui_interact(usr)
@@ -1571,6 +1595,32 @@
 		hw_pending_type = null
 		hw_pending_config = list()
 		hw_mode = "pick"
+		ui_interact(usr)
+		return
+
+	// ---- WAYPOINT EDITOR ACTIONS (nav_computer) ----
+
+	if(href_list["hw_wp_add"])
+		if(hw_pending_type && ispath(hw_pending_type, /datum/robot_hardware/nav_computer))
+			var/max_wp = hw_pending_config["max_waypoints"] != null ? hw_pending_config["max_waypoints"] : 5
+			if(!islist(hw_pending_config["waypoints"]))
+				hw_pending_config["waypoints"] = list()
+			var/list/wps_add = hw_pending_config["waypoints"]
+			if(wps_add.len < max_wp)
+				var/new_x = input(usr, "Enter X coordinate for the new waypoint:", "Waypoint X") as null|num
+				if(!isnull(new_x))
+					var/new_y = input(usr, "Enter Y coordinate for the new waypoint:", "Waypoint Y") as null|num
+					if(!isnull(new_y))
+						wps_add += list(list(new_x, new_y))
+		ui_interact(usr)
+		return
+
+	if(href_list["hw_wp_remove"])
+		if(hw_pending_type && islist(hw_pending_config["waypoints"]))
+			var/list/wps_rem = hw_pending_config["waypoints"]
+			var/idx = text2num(href_list["hw_wp_remove"])
+			if(idx >= 1 && idx <= wps_rem.len)
+				wps_rem.Cut(idx, idx + 1)
 		ui_interact(usr)
 		return
 
