@@ -228,7 +228,7 @@
 	cert_desc = "A general-purpose robotic chassis certification."
 	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_IS_HACKABLE
 	max_upgrade_slots = 3
-	base_compute    = 5
+	base_compute    = 6
 	base_operations = 5
 	base_resilience = 5
 	base_energy     = 5

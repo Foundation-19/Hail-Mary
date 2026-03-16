@@ -110,6 +110,7 @@
 	designs += new /datum/cpu_fab_design/behavior/crowd_control()
 	designs += new /datum/cpu_fab_design/behavior/depot()
 	designs += new /datum/cpu_fab_design/behavior/bodyguard()
+	designs += new /datum/cpu_fab_design/behavior/companion_fighter()
 	designs += new /datum/cpu_fab_design/behavior/escalation()
 	designs += new /datum/cpu_fab_design/behavior/dead_man_timer()
 	// Layers A-C
@@ -395,6 +396,8 @@
 		dat += "[dname]"
 		if(D.starter_build)
 			dat += "  <span class='good'>★ Starter</span>"
+		if(istype(D, /datum/cpu_fab_design/behavior) && D:npc_only)
+			dat += "  <span class='bad'>⚠ NPC cert required</span>"
 		if(D.required_tier > CERT_TIER_BASIC)
 			dat += "  <span class='warn'>Tier 2 - Military</span>"
 		if(D.required_int > 0)
@@ -402,6 +405,14 @@
 		dat += "<br>"
 		// Desc line
 		dat += "<span class='dim'>[ddesc]</span><br>"
+		// CPU cost display for behavior assemblies
+		if(category == "behavior" && ispath(D.output_path, /obj/item/behavior_assembly))
+			var/obj/item/behavior_assembly/cpu_test = new D.output_path()
+			var/total_cpu = 0
+			for(var/datum/behavior_circuit/C in cpu_test.circuits)
+				total_cpu += C.cpu_cost
+			qdel(cpu_test)
+			dat += "<span class='dim'>cpu cost: [total_cpu]  (Standard cert: 6  |  Sentry Bot NPC: 7-8)</span><br>"
 		// Suited-for hint (cert category only)
 		if(category == "cert" && D.suited_for != "")
 			dat += "<span class='dim'>Best suited for: [D.suited_for]</span><br>"
@@ -1678,6 +1689,9 @@
 	requires_robot_whisperer = TRUE
 	required_int = 6
 	cost = list("iron" = 400, "glass" = 300, "gold" = 100)
+	/// If TRUE, this assembly requires NPC-tier compute (7+).
+	/// Shown as a warning in the fabricator UI.
+	var/npc_only = FALSE
 
 /datum/cpu_fab_design/device
 	ui_category = "cert"  // shows in Certs tab — it's a craftable tool, not a cert but fits there
@@ -1859,15 +1873,17 @@
 
 /datum/cpu_fab_design/behavior/guardian
 	design_name = "Guardian Protocol"
-	design_desc = "Broadcasts a distress call when the robot takes damage."
+	design_desc = "Broadcasts a distress call when the robot takes damage. No hardware required."
 	id = "behavior_guardian"
 	output_path = /obj/item/behavior_assembly/guardian
+	starter_build = TRUE
 
 /datum/cpu_fab_design/behavior/medic_protocol
 	design_name = "Medic Protocol"
-	design_desc = "Self-repair pulse when the robot takes damage. Requires a repair-capable robot."
+	design_desc = "Self-repair pulse when the robot takes damage. Requires a repair-capable cert (Medical or Engineering)."
 	id = "behavior_medic"
 	output_path = /obj/item/behavior_assembly/medic
+	starter_build = TRUE
 	cost = list("iron" = 400, "glass" = 400, "gold" = 100)
 
 /datum/cpu_fab_design/behavior/watchdog
@@ -1935,7 +1951,7 @@
 
 /datum/cpu_fab_design/behavior/infiltrator
 	design_name = "Infiltrator Protocol"
-	design_desc = "Reports in and shadows targets after bypassing access. Requires the Intrusion Countermeasure Suite upgrade."
+	design_desc = "Confirms access verbally when the robot passes through a secured door. Starting point — wire in additional circuits at the workshop for stealth builds. Requires the Intrusion Countermeasure Suite upgrade."
 	id = "behavior_infiltrator"
 	required_int = 7
 	output_path = /obj/item/behavior_assembly/infiltrator
@@ -1959,9 +1975,10 @@
 
 /datum/cpu_fab_design/behavior/turret_bot
 	design_name = "Turret Protocol"
-	design_desc = "Fires at enemies on sight. Requires a weapon cert (CERT_CAN_SHOOT). Best on an anchored or slow chassis."
+	design_desc = "Fires at enemies on sight. Requires a combat-capable chassis with a weapon module installed. Best on an anchored or slow robot."
 	id = "behavior_turret_bot"
 	output_path = /obj/item/behavior_assembly/turret_bot
+	starter_build = TRUE
 
 /datum/cpu_fab_design/behavior/combat_medic_protocol
 	design_name = "Combat Medic Protocol"
@@ -1978,11 +1995,12 @@
 
 /datum/cpu_fab_design/behavior/hunter_protocol
 	design_name = "Hunter Protocol"
-	design_desc = "Fires on spotted enemies, remembers them after they break line of sight, and pursues. Requires Weapon hardware."
+	design_desc = "Fires on spotted enemies, remembers them after they break line of sight, and pursues relentlessly. Requires Weapon hardware and an NPC-tier cert (compute 8+) to run all circuits."
 	id = "behavior_hunter"
-	required_int = 5
+	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/hunter
-	cost = list("iron" = 400, "glass" = 200)
+	cost = list("iron" = 500, "glass" = 300, "gold" = 100)
 
 /datum/cpu_fab_design/behavior/clock_patrol_protocol
 	design_name = "Clock Patrol Protocol"
@@ -2016,16 +2034,19 @@
 
 /datum/cpu_fab_design/behavior/sentry_hold
 	design_name = "Sentry Hold Protocol"
-	design_desc = "Locks down and enters combat on enemy contact. Releases after 30 seconds of quiet. A proper guard robot."
+	design_desc = "Locks down, fires, and holds combat range on enemy contact. Releases after 30 seconds of quiet. Requires Weapon hardware and an NPC-tier cert (compute 8+)."
 	id = "behavior_sentry_hold"
+	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/sentry_hold
-	cost = list("iron" = 400, "glass" = 200)
+	cost = list("iron" = 500, "glass" = 300, "gold" = 100)
 
 /datum/cpu_fab_design/behavior/fire_watch
 	design_name = "Fire Watch Protocol"
 	design_desc = "Sounds an alarm and deploys the extinguisher when fire is detected nearby. Requires Extinguisher Module hardware."
 	id = "behavior_fire_watch"
 	output_path = /obj/item/behavior_assembly/fire_watch
+	starter_build = TRUE
 	cost = list("iron" = 300, "glass" = 200)
 
 /datum/cpu_fab_design/behavior/lockdown
@@ -2037,17 +2058,19 @@
 
 /datum/cpu_fab_design/behavior/grudge
 	design_name = "Grudge Protocol"
-	design_desc = "Remembers enemies by name, announces them, chases persistently, and broadcasts distress on death. Requires Memory Core hardware. INT 7+."
+	design_desc = "Remembers enemies by name, announces them, chases persistently, and broadcasts distress on death. Requires Memory Core hardware. NPC-tier cert required (compute 8+)."
 	id = "behavior_grudge"
 	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/grudge
 	cost = list("iron" = 500, "glass" = 300, "gold" = 200)
 
 /datum/cpu_fab_design/behavior/watchful
 	design_name = "Watchful Protocol"
-	design_desc = "Checks in on radio periodically, then switches cleanly into combat mode on enemy contact. Requires Memory Core hardware. INT 7+."
+	design_desc = "Checks in on radio periodically, switches cleanly into combat on enemy contact. Requires Memory Core hardware. NPC-tier cert required (compute 9+)."
 	id = "behavior_watchful"
 	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/watchful
 	cost = list("iron" = 400, "glass" = 200, "gold" = 150)
 
@@ -2090,8 +2113,9 @@
 
 /datum/cpu_fab_design/behavior/depot
 	design_name = "Depot Protocol"
-	design_desc = "Collect-deposit loop: grabs items until full, deposits into the nearest container, repeats. Requires Grabber Arm hardware."
+	design_desc = "Collect-deposit loop: grabs items until full, deposits into the nearest container, repeats. Requires Grabber Arm hardware. NPC-tier cert required (compute 7+)."
 	id = "behavior_depot"
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/depot
 	cost = list("iron" = 300, "glass" = 100)
 
@@ -2102,11 +2126,20 @@
 	output_path = /obj/item/behavior_assembly/bodyguard
 	cost = list("iron" = 400, "glass" = 200)
 
+/datum/cpu_fab_design/behavior/companion_fighter
+	design_name = "Companion Fighter Protocol"
+	design_desc = "Follows you, fights enemies on sight, remembers the last one seen, pursues after losing sight, and calls for help when hurt. The intermediate milestone build. Requires Weapon hardware + linked follow target. Needs compute 7 — aim for a Sentry Bot or use a Compute upgrade."
+	id = "behavior_companion_fighter"
+	required_int = 6
+	output_path = /obj/item/behavior_assembly/companion_fighter
+	cost = list("iron" = 500, "glass" = 300, "gold" = 100)
+
 /datum/cpu_fab_design/behavior/escalation
 	design_name = "Escalation Protocol"
-	design_desc = "Stays calm under light fire. After absorbing 3 significant hits, escalates to full combat and calls for backup. Requires Memory Core hardware. INT 7+."
+	design_desc = "Stays calm under light fire. After absorbing 3 significant hits, escalates to full combat and calls for backup. Requires Memory Core hardware. NPC-tier cert required (compute 9+)."
 	id = "behavior_escalation"
 	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/escalation
 	cost = list("iron" = 500, "glass" = 300, "gold" = 200)
 
@@ -2174,9 +2207,10 @@
 
 /datum/cpu_fab_design/behavior/combat_response
 	design_name = "Combat Response Protocol"
-	design_desc = "Wakes on gunfire, reports contact, and pursues the source. Requires Microphone hardware. INT 5+."
+	design_desc = "Wakes on gunfire, reports contact, and pursues the source. Requires Microphone hardware. NPC-tier cert required (compute 8+)."
 	id = "behavior_combat_response"
-	required_int = 5
+	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/combat_response
 	cost = list("iron" = 400, "glass" = 200, "gold" = 100)
 
@@ -2246,8 +2280,10 @@
 
 /datum/cpu_fab_design/behavior/riot_control
 	design_name = "Riot Control Protocol"
-	design_desc = "Area blast + strobe when surrounded. Steps back and cannon-blasts single targets. Maximum non-lethal suppression. Requires Air Cannon hardware."
+	design_desc = "Area blast + strobe when surrounded. Steps back and cannon-blasts single targets. Maximum non-lethal suppression. Requires Air Cannon hardware. NPC-tier cert required (compute 9+)."
 	id = "behavior_riot_control"
+	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/riot_control
 	cost = list("iron" = 400, "glass" = 200)
 
@@ -2281,9 +2317,10 @@
 
 /datum/cpu_fab_design/behavior/watchpost
 	design_name = "Watchpost Protocol"
-	design_desc = "Responds when addressed, alarms on casualties, and stands down when the alert clears. Requires Microphone + Environment Scanner hardware."
+	design_desc = "Responds when addressed, alarms on casualties, and stands down when the alert clears. Requires Microphone + Environment Scanner hardware. NPC-tier cert required (compute 9+)."
 	id = "behavior_watchpost"
-	required_int = 5
+	required_int = 7
+	npc_only = TRUE
 	output_path = /obj/item/behavior_assembly/watchpost
 	cost = list("iron" = 400, "glass" = 200, "gold" = 100)
 
