@@ -218,10 +218,10 @@
 	config_entry_value = ""
 
 /datum/config_entry/string/discordurl
-	config_entry_value = "https://discord.gg/7RWZGXQqgr"
+	config_entry_value = "https://discord.gg/3G5GxPbe"
 
 /datum/config_entry/string/wikiurltg
-	config_entry_value = "https://tgstation13.org/wiki/Main_Page"
+	config_entry_value = "https://sites.google.com/view/f13mechanisediron/menu?authuser=0"
 
 /datum/config_entry/string/forumurl
 	config_entry_value = null

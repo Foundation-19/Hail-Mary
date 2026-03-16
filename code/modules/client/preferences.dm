@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//game-preferences
 	var/lastchangelog = ""				//Saved changlog filesize to detect if there was a change
+	var/rules_accepted = FALSE			//Whether the player has accepted the server rules (saved to disk)
 	var/ooccolor = "#c43b23"
 	var/aooccolor = "#ce254f"
 	var/enable_tips = TRUE
@@ -817,13 +818,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 				var/datum/keybinding/kb = GLOB.keybindings_by_name[name]
 				kb_categories[kb.category] += list(kb)
 
-			dat += {"
-			<style>
-			span.bindname { display: inline-block; position: absolute; width: 20% ; left: 5px; padding: 5px; } \
-			span.bindings { display: inline-block; position: relative; width: auto; left: 20%; width: auto; right: 20%; padding: 5px; } \
-			span.independent { display: inline-block; position: absolute; width: 20%; right: 5px; padding: 5px; } \
-			</style><body>
-			"}
+
 
 			for (var/category in kb_categories)
 				dat += "<h3>[category]</h3>"
@@ -857,7 +852,6 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 			dat += "<br><br>"
 			dat += "<a href ='?_src_=prefs;preference=keybindings_reset'>\[Reset to default\]</a>"
-			dat += "</body>"
 
 
 	dat += "<hr><center>"
@@ -870,13 +864,55 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	dat += "</center>"
 
 	winshow(user, "preferences_window", TRUE)
-	var/datum/browser/popup = new(user, "preferences_browser", "<div align='center'>Character Setup</div>", 640, 770)
-	popup.set_content(dat.Join())
-	popup.open(FALSE)
+	user << browse(get_terminal_page(dat.Join(), "&#9654; CHARACTER DOSSIER &#9664;"), "window=preferences_browser;size=640x770;can_close=1;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	onclose(user, "preferences_window", src)
 
 #undef APPEARANCE_CATEGORY_COLUMN
 #undef MAX_MUTANT_ROWS
+
+// Returns a complete Fallout terminal HTML page with CRT scanlines, vignette and film grain effects.
+// All preference sub-panels use this so the aesthetic is consistent and defined in one place.
+/datum/preferences/proc/get_terminal_page(content, title)
+	return {"<!DOCTYPE html>
+<html><head><meta charset='UTF-8'><style>
+* { box-sizing: border-box; }
+body { background: #062113; color: #4aed92; font-family: 'Courier New',Courier,monospace; font-size: 13px; line-height: 1.6; padding: 8px 12px 12px; animation: flicker 10s infinite; }
+a, a:link, a:visited, a:active, .linkOn, .linkOff { color: #4aed92; text-decoration: none; background: #062113; border: none; padding: 1px 5px; cursor: default; }
+a:hover { color: #062113; background: #4aed92; }
+a:hover b, a:hover strong, a:hover * { color: #041a0e; }
+button { color: #4aed92; background: #062113; border: none; font-family: 'Courier New',Courier,monospace; cursor: default; }
+.linkOn, a.linkOn:link, a.linkOn:visited, a.linkOn:active, a.linkOn:hover { color: #062113; background: #4aed92; font-weight: bold; }
+.linkOff, a.linkOff:link, a.linkOff:visited, a.linkOff:active, a.linkOff:hover { color: #2a7a52; background: #062113; }
+.dark { color: #4aed92; }
+.white, a.white, a.white:link, a.white:visited, a.white:active { color: #4aed92; background: #062113; border: 1px solid #1a5e38; padding: 1px 4px; }
+a.white:hover { color: #062113; background: #4aed92; }
+h1,h2,h3,h4,h5,h6 { color: #4aed92; font-family: 'Courier New',Courier,monospace; border-bottom: 1px solid #1a5e38; padding: 4px 0; margin: 6px 0 4px; }
+b, strong { color: #6af5aa; }
+hr { border: none; border-top: 1px solid #1a5e38; margin: 4px 0; }
+table { border-collapse: collapse; }
+td, th { color: #4aed92; font-family: 'Courier New',Courier,monospace; vertical-align: top; padding: 1px 4px; }
+input, select, textarea { background: #041a0e; color: #4aed92; border: 1px solid #1a5e38; font-family: 'Courier New',Courier,monospace; }
+.notice { color: #e8a020; padding: 4px 0; }
+span.bindname { display: inline-block; position: absolute; width: 20%; left: 5px; padding: 5px; }
+span.bindings { display: inline-block; position: relative; left: 20%; width: auto; right: 20%; padding: 5px; }
+span.independent { display: inline-block; position: absolute; width: 20%; right: 5px; padding: 5px; }
+.crt-title { text-align: center; font-size: 14px; letter-spacing: 2px; color: #4aed92; border-bottom: 1px solid #1a5e38; padding: 6px 0 8px; margin-bottom: 8px; }
+.content { position: relative; z-index: 100; }
+.crt-scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px); }
+.crt-vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 51; background: radial-gradient(ellipse at center, transparent 50%, rgba(2,10,6,0.7) 100%); }
+.crt-grain { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; opacity: 0.03; pointer-events: none; z-index: 52; animation: grain 0.35s steps(1) infinite; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+@keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-3%,-4%)} 20%{transform:translate(-7%,2%)} 30%{transform:translate(5%,-1%)} 40%{transform:translate(-4%,6%)} 50%{transform:translate(-6%,-7%)} 60%{transform:translate(3%,4%)} 70%{transform:translate(7%,-3%)} 80%{transform:translate(-5%,5%)} 90%{transform:translate(4%,-6%)} 100%{transform:translate(0,0)} }
+@keyframes flicker { 0%,94%,96%,98%,100%{opacity:1} 95%{opacity:0.97} 97%{opacity:0.95} 99%{opacity:0.98} }
+</style></head><body>
+<div class='crt-scanlines'></div>
+<div class='crt-vignette'></div>
+<div class='crt-grain'></div>
+<div class='content'>
+<div class='crt-title'>[title]</div>
+[content]
+</div>
+</body>
+</html>"}
 
 /datum/preferences/proc/CaptureKeybinding(mob/user, datum/keybinding/kb, old_key, independent = FALSE, special = FALSE)
 	var/HTML = {"
@@ -898,146 +934,170 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	</script>
 	"}
 	winshow(user, "capturekeypress", TRUE)
-	var/datum/browser/popup = new(user, "capturekeypress", "<div align='center'>Keybindings</div>", 350, 300)
-	popup.set_content(HTML)
-	popup.open(FALSE)
+	user << browse(get_terminal_page(HTML, "&#9654; KEYBINDING &#9664;"), "window=capturekeypress;size=350x300;can_close=1;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	onclose(user, "capturekeypress", src)
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 17, list/splitJobs = list("Chief Engineer"), widthPerColumn = 295, height = 620)
+/datum/preferences/proc/SetChoices(mob/user)
 	if(!SSjob)
 		return
 
-	//limit - The amount of jobs allowed per column. Defaults to 17 to make it look nice.
-	//splitJobs - Allows you split the table by job. You can make different tables for each department by including their heads. Defaults to CE to make it look nice.
-	//widthPerColumn - Screen's width for every column.
-	//height - Screen's height.
+	// Group jobs by faction, preserving display sort order within each group
+	var/list/faction_jobs = list()
+	for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
+		if(job.total_positions == 0)
+			continue
+		if(job.faction == "None")
+			continue
+		if(!faction_jobs[job.faction])
+			faction_jobs[job.faction] = list()
+		faction_jobs[job.faction] += job
 
-	var/width = widthPerColumn
+	var/HTML = "<style>"
+	HTML += ".occ-header{text-align:center;margin:0 0 10px 0;}"
+	HTML += ".occ-header p{color:#2a7a52;font-size:12px;margin:2px 0;}"
+	HTML += ".occ-header a{color:#6af5aa;font-weight:bold;letter-spacing:1px;}"
+	HTML += ".occ-grid{display:flex;flex-wrap:wrap;gap:10px;padding:4px 6px 10px 6px;}"
+	HTML += ".faction-block{flex:1 1 200px;min-width:185px;max-width:270px;border:1px solid #1a5e38;background:#041a0e;}"
+	HTML += ".faction-hdr{background:#0a3e20;color:#6af5aa;font-weight:bold;letter-spacing:1px;font-size:11px;padding:4px 8px;border-bottom:1px solid #1a5e38;text-align:center;}"
+	HTML += ".job-row{display:flex;justify-content:space-between;align-items:center;padding:2px 6px;border-bottom:1px solid #081e10;}"
+	HTML += ".job-row:last-child{border-bottom:none;}"
+	HTML += ".jname{color:#4aed92;font-size:12px;flex:1;padding-right:4px;}"
+	HTML += ".jname b{color:#6af5aa;}"
+	HTML += ".jname.jbad{color:#5a1a10;}"
+	HTML += ".jname.jwarn{color:#6a4a00;}"
+	HTML += ".jbadge{display:inline-block;font-size:10px;font-weight:bold;padding:1px 5px;min-width:46px;text-align:center;letter-spacing:1px;text-decoration:none;border:1px solid #1a5e38;cursor:pointer;}"
+	HTML += ".bn{background:#1e0604;color:#c8160a;border-color:#4a1008;}"
+	HTML += ".bl{background:#1e1200;color:#e8a020;border-color:#4a3000;}"
+	HTML += ".bm{background:#061a0e;color:#4aed92;border-color:#1a5e38;}"
+	HTML += ".bh{background:#06101e;color:#4a9eed;border-color:#1a3a6e;}"
+	HTML += ".bbad{background:#160606;color:#5a1a10;border-color:#2a0808;cursor:default;}"
+	HTML += ".occ-footer{text-align:center;padding:8px 4px;border-top:1px solid #1a5e38;font-size:12px;color:#2a7a52;margin-top:4px;}"
+	HTML += ".occ-footer a{color:#4aed92;margin:0 8px;}"
+	HTML += "</style>"
+	HTML += "<script type='text/javascript'>function sjpr(lvl,rank){window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level='+lvl+';text='+encodeURIComponent(rank);return false;}</script>"
 
-	var/HTML = "<center>"
 	if(SSjob.occupations.len <= 0)
-		HTML += "The job SSticker is not yet finished creating jobs, please try again later"
-		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
-
+		HTML += "<p style='color:#c8160a;text-align:center;'>The job controller is not ready yet — please try again shortly.</p>"
 	else
-		HTML += "<b>Choose occupation chances</b><br>"
-		HTML += "<div align='center'>Left-click to raise an occupation preference, right-click to lower it.<br></div>"
-		HTML += "<center><a href='?_src_=prefs;preference=job;task=close'>Done</a></center><br>" // Easier to press up here.
-		HTML += "<script type='text/javascript'>function setJobPrefRedirect(level, rank) { window.location.href='?_src_=prefs;preference=job;task=setJobLevel;level=' + level + ';text=' + encodeURIComponent(rank); return false; }</script>"
-		HTML += "<table width='100%' cellpadding='1' cellspacing='0'><tr><td width='20%'>" // Table within a table for alignment, also allows you to easily add more colomns.
-		HTML += "<table width='100%' cellpadding='1' cellspacing='0'>"
-		var/index = -1
+		HTML += "<div class='occ-header'>"
+		HTML += "<p>Left-click to raise &bull; Right-click to lower</p>"
+		HTML += "<p><a href='?_src_=prefs;preference=job;task=close'>&#9658; DONE &#9664;</a></p>"
+		HTML += "</div>"
+		HTML += "<div class='occ-grid'>"
 
-		//The job before the current job. I only use this to get the previous jobs color when I'm filling in blank rows.
-		var/datum/job/lastJob
+		for(var/faction_name in faction_jobs)
+			var/list/jobs = faction_jobs[faction_name]
+			HTML += "<div class='faction-block'>"
+			HTML += "<div class='faction-hdr'>&#9658; [faction_name] &#9664;</div>"
 
-		for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
-			if(job.total_positions == 0)
-				continue
+			for(var/datum/job/job in jobs)
+				var/rank = job.title
+				HTML += "<div class='job-row'>"
 
-			if(job.faction == "None") //All jobs are now loaded into occupations so maps can just hide individual ones
-				continue
+				if(jobban_isbanned(user, rank))
+					HTML += "<span class='jname jbad'>[rank]</span>"
+					HTML += "<a class='jbadge bbad' href='?_src_=prefs;bancheck=[rank]'>BANNED</a>"
+					HTML += "</div>"
+					continue
 
-			index += 1
-			if((index >= limit) || (job.title in splitJobs))
-				width += widthPerColumn
-				if((index < limit) && (lastJob != null))
-					//If the cells were broken up by a job in the splitJob list then it will fill in the rest of the cells with
-					//the last job's selection color. Creating a rather nice effect.
-					for(var/i = 0, i < (limit - index), i += 1)
-						HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
-				HTML += "</table></td><td width='20%'><table width='100%' cellpadding='1' cellspacing='0'>"
-				index = 0
+				if(job.special_stat_check(src))
+					HTML += "<span class='jname jbad'>[rank]</span>"
+					HTML += "<span class='jbadge bbad'>S:[job.special_stat_check(src)]</span>"
+					HTML += "</div>"
+					continue
 
-			HTML += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
-			var/rank = job.title
-			lastJob = job
-			if(jobban_isbanned(user, rank))
-				HTML += "<font color=red>[rank]</font></td><td><a href='?_src_=prefs;bancheck=[rank]'> BANNED</a></td></tr>"
-				continue
-			if(job.special_stat_check(src))
-				HTML += "<font color=red>[rank]</font></td><td><font color=red>\[SPECIAL [job.special_stat_check(src)]\]</font></td></tr>"
-				continue
-			var/required_playtime_remaining = job.required_playtime_remaining(user.client)
-			if(required_playtime_remaining)
-				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[ [get_exp_format(required_playtime_remaining)] as [job.get_exp_req_type()] \] </font></td></tr>"
-				continue
-			if(!job.player_old_enough(user.client))
-				var/available_in_days = job.available_in_days(user.client)
-				HTML += "<font color=red>[rank]</font></td><td><font color=red> \[IN [(available_in_days)] DAYS\]</font></td></tr>"
-				continue
-			if(!user.client.prefs.pref_species.qualifies_for_rank(rank, user.client.prefs.features))
-				if(user.client.prefs.pref_species.id == "human")
-					HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[MUTANT\]</b></font></td></tr>"
+				var/required_playtime_remaining = job.required_playtime_remaining(user.client)
+				if(required_playtime_remaining)
+					HTML += "<span class='jname jbad'>[rank]</span>"
+					HTML += "<span class='jbadge bbad'>[get_exp_format(required_playtime_remaining)]</span>"
+					HTML += "</div>"
+					continue
+
+				if(!job.player_old_enough(user.client))
+					var/available_in_days = job.available_in_days(user.client)
+					HTML += "<span class='jname jbad'>[rank]</span>"
+					HTML += "<span class='jbadge bbad'>+[available_in_days]d</span>"
+					HTML += "</div>"
+					continue
+
+				if(!user.client.prefs.pref_species.qualifies_for_rank(rank, user.client.prefs.features))
+					HTML += "<span class='jname jbad'>[rank]</span>"
+					if(user.client.prefs.pref_species.id == "human")
+						HTML += "<span class='jbadge bbad'>MUTANT</span>"
+					else
+						HTML += "<span class='jbadge bbad'>N-HUMAN</span>"
+					HTML += "</div>"
+					continue
+
+				// Overflow-locked warning: overflow role also low AND this isn't the overflow role
+				if((job_preferences["[SSjob.overflow_role]"] == JP_LOW) && (rank != SSjob.overflow_role) && !jobban_isbanned(user, SSjob.overflow_role))
+					if((rank in GLOB.command_positions) || (rank == "AI"))
+						HTML += "<span class='jname jwarn'><b>[rank]</b></span>"
+					else
+						HTML += "<span class='jname jwarn'>[rank]</span>"
+					HTML += "<span class='jbadge bl'>&mdash;</span>"
+					HTML += "</div>"
+					continue
+
+				// Overflow role toggle (Yes/No)
+				if(rank == SSjob.overflow_role)
+					HTML += "<span class='jname'>[rank]</span>"
+					if(job_preferences["[SSjob.overflow_role]"] == JP_LOW)
+						HTML += "<a class='jbadge bh' href='?_src_=prefs;preference=job;task=setJobLevel;level=3;text=[rank]' oncontextmenu='javascript:return sjpr(3,\"[rank]\");'>YES</a>"
+					else
+						HTML += "<a class='jbadge bn' href='?_src_=prefs;preference=job;task=setJobLevel;level=2;text=[rank]' oncontextmenu='javascript:return sjpr(2,\"[rank]\");'>NO</a>"
+					HTML += "</div>"
+					continue
+
+				// Standard job preference badge
+				var/prefLevelLabel = "NEVER"
+				var/badgeClass = "bn"
+				var/prefUpperLevel = 3
+				var/prefLowerLevel = 1
+
+				switch(job_preferences["[job.title]"])
+					if(JP_HIGH)
+						prefLevelLabel = "HIGH"
+						badgeClass = "bh"
+						prefUpperLevel = 4
+						prefLowerLevel = 2
+					if(JP_MEDIUM)
+						prefLevelLabel = "MED"
+						badgeClass = "bm"
+						prefUpperLevel = 1
+						prefLowerLevel = 3
+					if(JP_LOW)
+						prefLevelLabel = "LOW"
+						badgeClass = "bl"
+						prefUpperLevel = 2
+						prefLowerLevel = 4
+					else
+						prefLevelLabel = "NEVER"
+						badgeClass = "bn"
+						prefUpperLevel = 3
+						prefLowerLevel = 1
+
+				if((rank in GLOB.command_positions) || (rank == "AI"))
+					HTML += "<span class='jname'><b>[rank]</b></span>"
 				else
-					HTML += "<font color=red>[rank]</font></td><td><font color=red><b> \[NON-HUMAN\]</b></font></td></tr>"
-				continue
-			if((job_preferences["[SSjob.overflow_role]"] == JP_LOW) && (rank != SSjob.overflow_role) && !jobban_isbanned(user, SSjob.overflow_role))
-				HTML += "<font color=orange>[rank]</font></td><td></td></tr>"
-				continue
-			if((rank in GLOB.command_positions) || (rank == "AI"))//Bold head jobs
-				HTML += "<b><span class='dark'>[rank]</span></b>"
-			else
-				HTML += "<span class='dark'>[rank]</span>"
+					HTML += "<span class='jname'>[rank]</span>"
 
-			HTML += "</td><td width='40%'>"
+				HTML += "<a class='jbadge [badgeClass]' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return sjpr([prefLowerLevel],\"[rank]\");'>[prefLevelLabel]</a>"
+				HTML += "</div>"
 
-			var/prefLevelLabel = "ERROR"
-			var/prefLevelColor = "pink"
-			var/prefUpperLevel = -1 // level to assign on left click
-			var/prefLowerLevel = -1 // level to assign on right click
+			HTML += "</div>" // end .faction-block
 
-			switch(job_preferences["[job.title]"])
-				if(JP_HIGH)
-					prefLevelLabel = "High"
-					prefLevelColor = "slateblue"
-					prefUpperLevel = 4
-					prefLowerLevel = 2
-				if(JP_MEDIUM)
-					prefLevelLabel = "Medium"
-					prefLevelColor = "green"
-					prefUpperLevel = 1
-					prefLowerLevel = 3
-				if(JP_LOW)
-					prefLevelLabel = "Low"
-					prefLevelColor = "orange"
-					prefUpperLevel = 2
-					prefLowerLevel = 4
-				else
-					prefLevelLabel = "NEVER"
-					prefLevelColor = "red"
-					prefUpperLevel = 3
-					prefLowerLevel = 1
+		HTML += "</div>" // end .occ-grid
 
-			HTML += "<a class='white' href='?_src_=prefs;preference=job;task=setJobLevel;level=[prefUpperLevel];text=[rank]' oncontextmenu='javascript:return setJobPrefRedirect([prefLowerLevel], \"[rank]\");'>"
-
-			if(rank == SSjob.overflow_role)//Overflow is special
-				if(job_preferences["[SSjob.overflow_role]"] == JP_LOW)
-					HTML += "<font color=green>Yes</font>"
-				else
-					HTML += "<font color=red>No</font>"
-				HTML += "</a></td></tr>"
-				continue
-
-			HTML += "<font color=[prefLevelColor]>[prefLevelLabel]</font>"
-			HTML += "</a></td></tr>"
-
-		for(var/i = 1, i < (limit - index), i += 1) // Finish the column so it is even
-			HTML += "<tr bgcolor='[lastJob.selection_color]'><td width='60%' align='right'>&nbsp</td><td>&nbsp</td></tr>"
-
-		HTML += "</td'></tr></table>"
-		HTML += "</center></table>"
-
-		var/message = "Be an [SSjob.overflow_role] if preferences unavailable"
+		var/message = "Be a [SSjob.overflow_role] if unavailable"
 		if(joblessrole == RETURNTOLOBBY)
-			message = "Return to lobby if preferences unavailable"
-		HTML += "<center><br><a href='?_src_=prefs;preference=job;task=random'>[message]</a></center>"
-		HTML += "<center><a href='?_src_=prefs;preference=job;task=reset'>Reset Preferences</a></center>"
+			message = "Return to lobby if unavailable"
+		HTML += "<div class='occ-footer'>"
+		HTML += "<a href='?_src_=prefs;preference=job;task=random'>[message]</a>"
+		HTML += "<a href='?_src_=prefs;preference=job;task=reset'>Reset Preferences</a>"
+		HTML += "</div>"
 
-	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Occupation Preferences</div>", width, height)
-	popup.set_window_options("can_close=0")
-	popup.set_content(HTML)
-	popup.open(FALSE)
+	user << browse(get_terminal_page(HTML, "&#9654; OCCUPATION PREFERENCES &#9664;"), "window=mob_occupation;size=960x720;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 
 /datum/preferences/proc/SetJobPreferenceLevel(datum/job/job, level)
 	if (!job)
@@ -1160,10 +1220,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset Quirks</a></center>"
 
 	user << browse(null, "window=preferences")
-	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>SPECIAL</div>", 900, 600) //no reason not to reuse the occupation window, as it's cleaner that way
-	popup.set_window_options("can_close=0")
-	popup.set_content(dat.Join())
-	popup.open(0)
+	user << browse(get_terminal_page(dat.Join(), "&#9654; QUIRK SETUP &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
 
@@ -1200,10 +1257,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
 
 	user << browse(null, "window=preferences")
-	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>S.P.E.C.I.A.L</div>", 400, 550) //no reason not to reuse the occupation window, as it's cleaner that way
-	popup.set_window_options("can_close=0")
-	popup.set_content(dat.Join())
-	popup.open(0)
+	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=400x550;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
 /datum/preferences/proc/GetQuirkBalance()

@@ -45,16 +45,12 @@ export const setClientTheme = name => {
       'mainwindow.background-color': 'none',
       'split.background-color': 'none',
       // Buttons
-      'changelog.background-color': 'none',
-      'changelog.text-color': '#000000',
       'rules.background-color': 'none',
       'rules.text-color': '#000000',
       'wiki.background-color': 'none',
       'wiki.text-color': '#000000',
       'forum.background-color': 'none',
       'forum.text-color': '#000000',
-      'github.background-color': 'none',
-      'github.text-color': '#000000',
       'report-issue.background-color': 'none',
       'report-issue.text-color': '#000000',
       // Status and verb tabs
@@ -95,16 +91,12 @@ export const setClientTheme = name => {
       'mainwindow.background-color': COLOR_DARK_BG,
       'split.background-color': COLOR_DARK_BG,
       // Buttons
-      'changelog.background-color': '#494949',
-      'changelog.text-color': COLOR_DARK_TEXT,
       'rules.background-color': '#494949',
       'rules.text-color': COLOR_DARK_TEXT,
       'wiki.background-color': '#494949',
       'wiki.text-color': COLOR_DARK_TEXT,
       'forum.background-color': '#494949',
       'forum.text-color': COLOR_DARK_TEXT,
-      'github.background-color': '#3a3a3a',
-      'github.text-color': COLOR_DARK_TEXT,
       'report-issue.background-color': '#492020',
       'report-issue.text-color': COLOR_DARK_TEXT,
       // Status and verb tabs
