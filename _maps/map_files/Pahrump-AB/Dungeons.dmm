@@ -1128,8 +1128,6 @@
 "azZ" = (
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/head/f13/chinahelmetcosmetic,
-/obj/item/clothing/under/f13/chinasuitcosmetic,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowdirtyfull"
 	},
@@ -3043,7 +3041,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier5,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowdirtyfull"
 	},
@@ -3425,10 +3422,24 @@
 /area/f13/casino)
 "bOF" = (
 /obj/structure/rack,
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowdirtyfull"
 	},
@@ -6224,9 +6235,6 @@
 "dfg" = (
 /obj/structure/safe,
 /obj/item/stack/spacecash/c1000,
-/obj/item/stack/f13Cash/random/high,
-/obj/item/stack/f13Cash/random/high,
-/obj/item/stack/f13Cash/random/high,
 /turf/open/floor/plasteel/f13{
 	icon_state = "floorrusty"
 	},
@@ -7524,8 +7532,7 @@
 /area/f13/brotherhood/leisure)
 "dGE" = (
 /obj/structure/ladder/unbreakable{
-	id = "CHI1";
-	height = 2
+	id = "CHI1"
 	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "plating"
@@ -12626,9 +12633,6 @@
 /area/f13/brotherhood/offices2nd)
 "gct" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "redrustyfull"
 	},
@@ -12663,7 +12667,6 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/west,
-/obj/effect/spawner/bundle/f13/ak112,
 /turf/open/floor/plasteel/f13{
 	icon_state = "floorrusty"
 	},
@@ -13364,7 +13367,6 @@
 /obj/item/clothing/head/welding,
 /obj/item/storage/toolbox/mechanical/old,
 /obj/item/storage/toolbox/mechanical/old,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowrustyfull"
 	},
@@ -15277,7 +15279,6 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "floorgrime"
 	},
@@ -18357,14 +18358,12 @@
 /obj/item/toy/plush/lizardplushie,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/vault)
-"iWl" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier5,
-/turf/open/floor/plasteel/f13{
-	icon_state = "yellowdirtyfull"
+"iWh" = (
+/obj/effect/turf_decal/weather/dirt{
+	dir = 9
 	},
-/area/f13/building)
+/turf/open/indestructible/ground/outside/river,
+/area/f13/underground/cave)
 "iWD" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/carpet/green,
@@ -22309,11 +22308,6 @@
 /obj/machinery/light/broken{
 	dir = 8
 	},
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "showroomfloor"
 	},
@@ -26976,9 +26970,9 @@
 	},
 /area/f13/building)
 "nge" = (
+/obj/effect/spawner/bundle/f13/armor/t51b,
 /obj/effect/decal/remains/human,
 /obj/structure/closet/crate/grave,
-/obj/effect/spawner/lootdrop/f13/armor/tier5,
 /turf/open/floor/plating/f13/inside/mountain{
 	icon_state = "mountain2"
 	},
@@ -33271,8 +33265,6 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowdirtysolid"
 	},
@@ -33804,7 +33796,6 @@
 /area/f13/vault)
 "qnp" = (
 /obj/structure/rack,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowrustyfull"
 	},
@@ -36375,13 +36366,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/vault)
-"rAx" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "whitebluerustychess"
-	},
-/area/f13/building)
 "rAy" = (
 /obj/effect/decal/remains/human,
 /turf/open/indestructible/ground/inside/mountain,
@@ -38048,13 +38032,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/vault)
-"ssk" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "plating"
-	},
-/area/f13/building)
 "sst" = (
 /obj/structure/target_stake{
 	anchored = 1
@@ -44836,13 +44813,6 @@
 	icon_state = "platingdmg2"
 	},
 /area/f13/bunker)
-"vDC" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "floorgrime"
-	},
-/area/f13/building)
 "vDO" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -48873,25 +48843,6 @@
 /obj/structure/rack,
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "yellowdirtyfull"
 	},
@@ -49608,14 +49559,6 @@
 /obj/effect/decal/cleanable/generic,
 /turf/open/floor/carpet/green,
 /area/f13/casino)
-"yaX" = (
-/obj/structure/table/wood,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13{
-	icon_state = "floorgrime"
-	},
-/area/f13/building)
 "yba" = (
 /obj/machinery/light/broken{
 	dir = 1
@@ -89787,7 +89730,7 @@ whv
 rvr
 ogg
 vcj
-ssk
+ogg
 ard
 qCE
 rvr
@@ -89806,7 +89749,7 @@ kjP
 ebn
 hVk
 ebn
-bOF
+xHm
 bDp
 rvr
 huc
@@ -90813,11 +90756,11 @@ whv
 whv
 whv
 rvr
-rAx
+mAt
 fpk
 fpk
 vsu
-rAx
+mAt
 rYD
 aPi
 kMO
@@ -91343,7 +91286,7 @@ aPi
 wZT
 rvr
 wYV
-iWl
+azZ
 huc
 wwV
 azZ
@@ -91854,7 +91797,7 @@ rvr
 nHI
 aPi
 olB
-vDC
+vOH
 rvr
 whv
 whv
@@ -93138,7 +93081,7 @@ aPi
 dcp
 rvr
 rvr
-vDC
+vOH
 aPi
 aPi
 aPi
@@ -95181,7 +95124,7 @@ riy
 aPi
 gOr
 nBn
-yaX
+qQS
 mvO
 aPi
 rvr
@@ -95194,7 +95137,7 @@ aPi
 mTn
 rvr
 rvr
-vDC
+vOH
 aPi
 aPi
 aPi
@@ -95687,7 +95630,7 @@ whv
 whv
 rvr
 rVk
-yaX
+qQS
 xZf
 puF
 qQS

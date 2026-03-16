@@ -333,7 +333,10 @@ Proctor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
+	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST_EXPERT, src)
+	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
+	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 
@@ -627,10 +630,7 @@ Senior Scribe
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
-	if(!H.mind.learned_recipes)
-		H.mind.learned_recipes = list()
-	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
-	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
+	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -730,10 +730,7 @@ Scribe
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
-	if(!H.mind.learned_recipes)
-		H.mind.learned_recipes = list()
-	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
-	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
+	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)

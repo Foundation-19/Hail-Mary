@@ -177,9 +177,6 @@ mob/living/simple_animal/hostile/bear/butter/AttackingTarget() //Makes some atta
 	wound_bonus = 5
 	bare_wound_bonus = 25
 	faction = list("yaoguai")
-	
-	// Mutant bear with enhanced night vision
-	has_low_light_vision = TRUE
 
 /*mob/living/simple_animal/hostile/bear/yaoguai/frozen
 	name = "frozen yao guai"

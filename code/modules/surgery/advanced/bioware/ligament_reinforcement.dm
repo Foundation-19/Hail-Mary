@@ -11,7 +11,7 @@
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	bioware_target = BIOWARE_LIGAMENTS
-	general_skill_required = 5
+	requires_trait = "ABDUCTOR"
 /datum/surgery_step/reinforce_ligaments
 	name = "reinforce ligaments"
 	accept_hand = TRUE

@@ -171,6 +171,7 @@ Medical Doctor
 	..()
 	if(visualsOnly)
 		return
+	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
 	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 

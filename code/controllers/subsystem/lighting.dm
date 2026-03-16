@@ -32,7 +32,6 @@ SUBSYSTEM_DEF(lighting)
 	if(!init_tick_checks)
 		MC_SPLIT_TICK
 	var/list/queue = GLOB.lighting_update_lights
-	var/batch_count = 0
 	while(length(queue))
 		var/datum/light_source/light_datum = queue[length(queue)]
 		queue.len--
@@ -42,9 +41,7 @@ SUBSYSTEM_DEF(lighting)
 		light_datum.needs_update = LIGHTING_NO_UPDATE
 
 		if(init_tick_checks)
-			if(++batch_count >= 100)
-				batch_count = 0
-				CHECK_TICK
+			CHECK_TICK
 		else if (MC_TICK_CHECK)
 			break
 
@@ -52,7 +49,6 @@ SUBSYSTEM_DEF(lighting)
 		MC_SPLIT_TICK
 
 	queue = GLOB.lighting_update_corners
-	batch_count = 0
 	while(length(queue))
 		var/datum/lighting_corner/corner_datum = queue[length(queue)]
 		queue.len--
@@ -60,9 +56,7 @@ SUBSYSTEM_DEF(lighting)
 		corner_datum.update_objects()
 		corner_datum.needs_update = FALSE
 		if(init_tick_checks)
-			if(++batch_count >= 100)
-				batch_count = 0
-				CHECK_TICK
+			CHECK_TICK
 		else if (MC_TICK_CHECK)
 			break
 
@@ -70,7 +64,6 @@ SUBSYSTEM_DEF(lighting)
 		MC_SPLIT_TICK
 
 	queue = GLOB.lighting_update_objects
-	batch_count = 0
 	while(length(queue))
 		var/atom/movable/lighting_object/lighting_object = queue[length(queue)]
 		queue.len--
@@ -81,9 +74,7 @@ SUBSYSTEM_DEF(lighting)
 		lighting_object.update()
 		lighting_object.needs_update = FALSE
 		if(init_tick_checks)
-			if(++batch_count >= 100)
-				batch_count = 0
-				CHECK_TICK
+			CHECK_TICK
 		else if (MC_TICK_CHECK)
 			break
 

@@ -98,7 +98,6 @@
 	var/list/eastwood = list()
 	var/list/leg = list()
 	var/list/ncr = list()
-	var/list/ranger = list()
 	var/list/vault = list()
 	var/list/flw = list()
 	var/list/tribe = list()
@@ -125,6 +124,9 @@
 		if(rank in GLOB.command_positions)
 			command[name] = rank
 			department = 1
+		if(rank in GLOB.ncr_rangervet_positions)
+			command[name] = rank
+			department = 1
 		if(rank in GLOB.brotherhood_positions)
 			bos[name] = rank
 			department = 1
@@ -139,9 +141,6 @@
 			department = 1
 		if(rank in GLOB.ncr_positions)
 			ncr[name] = rank
-			department = 1
-		if(rank in GLOB.ranger_positions)
-			ranger[name] = rank
 			department = 1
 /*		if(rank in GLOB.followers_positions)
 			flw[name] = rank
@@ -188,11 +187,6 @@
 		dat += "<tr><th colspan=3>New California Republic</th></tr>"
 		for(var/name in ncr)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ncr[name]]</td></tr>"
-			even = !even
-	if(length(ranger))
-		dat += "<tr><th colspan=3>New California Republic Rangers</th></tr>"
-		for(var/name in ranger)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ranger[name]]</td></tr>"
 			even = !even
 	if(length(flw))
 		dat += "<tr><th colspan=3>Eastwood Clinic</th></tr>"

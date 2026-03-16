@@ -24,7 +24,7 @@
 	
 	// Wait for HTML to load, then reinitialize everything
 	spawn(15)
-		init_verbs(force = TRUE) // Force rebuild on manual reload
+		init_verbs() // Restore all verb tabs
 		
 		// Restore admin tabs if they're an admin
 		if(holder)

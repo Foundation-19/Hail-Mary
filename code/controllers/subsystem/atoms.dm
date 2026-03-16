@@ -17,11 +17,6 @@ SUBSYSTEM_DEF(atoms)
 /datum/controller/subsystem/atoms/Initialize(timeofday)
 	GLOB.fire_overlay.appearance_flags = RESET_COLOR
 	setupGenetics()
-	
-	// OPTIMIZATION: Pre-allocate GLOB.machines to avoid repeated list resizing during init
-	// Typical maps have 1000-2500 machines, so pre-allocate to avoid performance hits
-	GLOB.machines = new /list(2500)
-	
 	initialized = INITIALIZATION_INNEW_MAPLOAD
 	InitializeAtoms()
 	return ..()
@@ -35,7 +30,6 @@ SUBSYSTEM_DEF(atoms)
 	LAZYINITLIST(late_loaders)
 
 	var/count
-	var/batch_count = 0
 	var/list/mapload_arg = list(TRUE)
 	if(atoms)
 		count = atoms.len
@@ -43,18 +37,14 @@ SUBSYSTEM_DEF(atoms)
 			var/atom/A = I
 			if(!(A.flags_1 & INITIALIZED_1))
 				InitAtom(I, mapload_arg)
-				if(++batch_count >= 100)
-					batch_count = 0
-					CHECK_TICK
+				CHECK_TICK
 	else
 		count = 0
 		for(var/atom/A in world)
 			if(!(A.flags_1 & INITIALIZED_1))
 				InitAtom(A, mapload_arg)
 				++count
-				if(++batch_count >= 100)
-					batch_count = 0
-					CHECK_TICK
+				CHECK_TICK
 
 	testing("Initialized [count] atoms")
 	pass(count)
@@ -62,37 +52,12 @@ SUBSYSTEM_DEF(atoms)
 	initialized = INITIALIZATION_INNEW_REGULAR
 
 	if(late_loaders.len)
-		batch_count = 0
 		for(var/I in late_loaders)
 			var/atom/A = I
 			A.LateInitialize()
-			if(++batch_count >= 100)
-				batch_count = 0
-				CHECK_TICK
 		testing("Late initialized [late_loaders.len] atoms")
-		late_loaders.Cut()	
-	// OPTIMIZATION: Batch camera visibility updates after all atoms initialized
-	if(atoms) // Only during mapload
-		testing("Updating camera visibility for all turfs...")
-		batch_count = 0
-		for(var/turf/T in world)
-			T.visibilityChanged()
-			if(++batch_count >= 100)
-				batch_count = 0
-				CHECK_TICK
-		testing("Camera visibility updated")
-	
-	// OPTIMIZATION: Batch sunlight border smoothing after all turfs exist
-	if(atoms)
-		testing("Smoothing sunlight borders...")
-		batch_count = 0
-		for(var/turf/T in world)
-			if(T.sunlight_state == SUNLIGHT_BORDER && isnull(T.border_neighbors))
-				T.smooth_sunlight_border()
-			if(++batch_count >= 100)
-				batch_count = 0
-				CHECK_TICK
-		testing("Sunlight borders smoothed")
+		late_loaders.Cut()
+
 /datum/controller/subsystem/atoms/proc/InitAtom(atom/A, list/arguments)
 	var/the_type = A.type
 	if(QDELING(A))

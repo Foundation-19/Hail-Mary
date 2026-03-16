@@ -1,19 +1,18 @@
+//Green
 /obj/structure/handrail/g_central
 	name = "handrail"
 	desc = "Old, rusted metal handrails. The green paint is chipping off in spots."
 	icon = 'icons/obj/obstacles.dmi'
 	icon_state = "g_handrail"
-	density = FALSE
-	anchored = TRUE
+	density = 0
+	anchored = 1
 	pixel_y = 0
-	
-	max_integrity = 150
-	integrity_failure = 0.5
 
-/obj/structure/handrail/g_central/Initialize()
-	. = ..()
+/obj/structure/handrail/g_central/New()
 	layer = 4.2
-	
+
+/obj/structure/handrail/g_central/Initialize() //window hack to make collision work
+	. = ..()
 	switch(dir)
 		if(NORTH)
 			pixel_y = 23
@@ -23,12 +22,12 @@
 			pixel_x = 20
 		if(WEST)
 			pixel_x = -20
+	var/obj/structure/window/W = new /obj/structure/window(get_turf(src))
+	W.alpha = 0
+	W.anchored = 1
+	W.resistance_flags = INDESTRUCTIBLE
+	W.dir = src.dir
 
-// Block movement in our direction
-/obj/structure/handrail/g_central/CanPass(atom/movable/mover, border_dir)
-	if(border_dir == dir)
-		return FALSE
-	return ..()
 
 /obj/structure/handrail/g_end
 	name = "handrail end"

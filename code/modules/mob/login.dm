@@ -53,10 +53,11 @@
 	mind?.hide_ckey = client?.prefs?.hide_ckey
 
 	// BYOND 516: Initialize verbs for the client on login/reconnect
-	// Only refresh verbs on body switch, not entire statbrowser (statbrowser loads once on client connection)
+	// Reconnect shorter: joining longer
 	if(client)
 		var/delay = client.statbrowser_ready ? 1 : 50
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, init_verbs)), delay)
+		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, load_statbrowser)), delay)
 
 	log_message("Client [key_name(src)] has taken ownership of mob [src]([src.type])", LOG_OWNERSHIP)
 	SEND_SIGNAL(src, COMSIG_MOB_CLIENT_LOGIN, client)

@@ -4,7 +4,7 @@
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
 	//Its easier to pull stuff out than it is to put it back in.
-	general_skill_required = 3
+	requires_trait = "MEDICALGRADUATE"
 
 //extract implant
 /datum/surgery_step/extract_implant
@@ -62,4 +62,4 @@
 		/datum/surgery_step/extract_implant,
 		/datum/surgery_step/mechanic_wrench,
 		/datum/surgery_step/mechanic_close)
-	cybernetic_skill_required = 1
+	requires_trait = "CYBERNETICIST_1" //Intermediary surgically & mechanically skilled scribes.

@@ -11,7 +11,7 @@
 		/datum/surgery_step/hepatectomy,
 		/datum/surgery_step/close
 		)
-	general_skill_required = 3
+	requires_trait = "MEDICALGRADUATE"
 
 /datum/surgery/hepatectomy/can_start(mob/user, mob/living/carbon/target)
 	var/obj/item/organ/liver/L = target.getorganslot(ORGAN_SLOT_LIVER)

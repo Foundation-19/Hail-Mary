@@ -10,7 +10,7 @@
 				/datum/surgery_step/close)
 	possible_locs = list(BODY_ZONE_CHEST)
 	bioware_target = BIOWARE_CIRCULATION
-	general_skill_required = 5
+	requires_trait = "ABDUCTOR"
 /datum/surgery_step/thread_veins
 	name = "thread veins"
 	accept_hand = TRUE

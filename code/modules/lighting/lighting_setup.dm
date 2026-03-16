@@ -10,3 +10,4 @@
 
 			new/atom/movable/lighting_object(T)
 			CHECK_TICK
+		CHECK_TICK

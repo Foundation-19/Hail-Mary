@@ -75,10 +75,7 @@
 		return
 
 	if(stat == DEAD)
-		// Only route to dead chat if the mob has a player (ckey)
-		// NPCs should not broadcast to dead chat
-		if(ckey)
-			say_dead(original_message)
+		say_dead(original_message)
 		return
 
 	if(check_emote(original_message, just_runechat = just_chat) || !can_speak_basic(original_message, ignore_spam))
