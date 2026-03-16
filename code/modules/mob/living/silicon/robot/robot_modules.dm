@@ -52,6 +52,12 @@
 	/// design's chassis_tags for the build to pass validation at Finalize.
 	/// Default ROBOT_ROLE_ANY means the module fits all chassis.
 	var/module_tags = ROBOT_ROLE_ANY
+	/// Short description shown in the workshop loadout header and robot config panel.
+	var/module_desc = ""
+	/// Item type paths that can be ADDED to this module via the workshop's "Add Item" section.
+	/// These are not instantiated here — they are appended as new instances at build time
+	/// only if the player explicitly toggles them on in the Hardware tab's module loadout panel.
+	var/list/loadout_extras = list()
 
 /obj/item/robot_module/Initialize()
 	. = ..()
@@ -285,6 +291,21 @@
 
 /obj/item/robot_module/standard
 	name = "Standard"
+	module_desc = "Wasteland utility unit. Repair work, first aid, and restraint. A generalist with no weapons and no hard edges."
+	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/surgical_drapes,            // enable full surgery with a medical cert
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/cultivator,                 // tend crops between repairs
+		/obj/item/cultivator/rake,            // full farming complement
+		/obj/item/shovel/spade,               // remove detritus in the field
+		/obj/item/sensor_device,              // monitor plant or patient health
+		/obj/item/megaphone,                  // broadcast instructions
+		/obj/item/pinpointer/crew             // track crew positions
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -294,8 +315,6 @@
 		/obj/item/wrench/cyborg,
 		/obj/item/stack/sheet/metal/cyborg,
 		/obj/item/stack/rods/cyborg,
-		/obj/item/pickaxe,
-		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/soap/nanotrasen,
 		/obj/item/borg/cyborghug)
@@ -307,6 +326,17 @@
 
 /obj/item/robot_module/medical
 	name = "Medical"
+	module_desc = "Field medic platform. Full surgical suite, pharmaceutical synthesis, and trauma response. The best healer you can field."
+	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/cultivator,          // weed trays while attending to patients
+		/obj/item/cultivator/rake,     // full farming complement
+		/obj/item/shovel/spade,        // remove dead/blocking plants in the field
+		/obj/item/weldingtool/largetank/cyborg,  // field repair between surgeries
+		/obj/item/wrench/cyborg,       // equipment maintenance
+		/obj/item/restraints/handcuffs/cable/zipties,  // secure hostile patients
+		/obj/item/megaphone            // broadcast medical emergencies
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -342,6 +372,19 @@
 
 /obj/item/robot_module/engineering
 	name = "Engineering"
+	module_desc = "Construction and repair chassis. RCD, full toolset, wire and material synthesis. Built to build and fix things."
+	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/healthanalyzer,               // triage injured workers on-site
+		/obj/item/reagent_containers/borghypo/epi,  // emergency stimulant
+		/obj/item/surgical_drapes,              // field surgery for trapped workers
+		/obj/item/scalpel,                      // surgical capability
+		/obj/item/retractor,                    // surgical capability
+		/obj/item/hemostat,                     // surgical capability
+		/obj/item/cautery,                      // surgical capability
+		/obj/item/restraints/handcuffs/cable/zipties,  // detain problem workers
+		/obj/item/megaphone                     // site-wide announcements
+	)
 	basic_modules = list(
 		/obj/item/construction/rcd/borg,
 		/obj/item/extinguisher,
@@ -374,11 +417,25 @@
 
 /obj/item/robot_module/security
 	name = "Security"
+	module_desc = "Law enforcement chassis. Stun capability, restraints, health monitoring, and crew tracking. Disabler auto-upgrades to advanced taser if available."
+	module_tags = ROBOT_ROLE_SECURITY
+	loadout_extras = list(
+		/obj/item/reagent_containers/borghypo/epi,  // revive downed civilians
+		/obj/item/surgical_drapes,          // field surgery on wounded
+		/obj/item/scalpel,                  // surgical capability
+		/obj/item/retractor,                // surgical capability
+		/obj/item/hemostat,                 // surgical capability
+		/obj/item/cautery,                  // surgical capability
+		/obj/item/weldingtool/largetank/cyborg,  // patch damaged equipment
+		/obj/item/wrench/cyborg,            // field equipment maintenance
+		/obj/item/cultivator                // patrol the greenhouse too
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/gun/energy/disabler/cyborg,
+		/obj/item/healthanalyzer,
 		/obj/item/megaphone,
 		/obj/item/pinpointer/crew)
 	emag_modules = list(/obj/item/gun/energy/laser/cyborg)
@@ -400,6 +457,23 @@
 
 /obj/item/robot_module/butler
 	name = "Service"
+	module_desc = "Civilian service chassis. Hospitality, cleaning, and light maintenance. The screwdriver and lightreplacer handle lamp upkeep — not combat."
+	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/healthanalyzer,           // spot injured guests and staff
+		/obj/item/reagent_containers/borghypo/epi,  // emergency first aid
+		/obj/item/surgical_drapes,          // emergency surgery support
+		/obj/item/scalpel,                  // surgical capability
+		/obj/item/retractor,                // surgical capability
+		/obj/item/hemostat,                 // surgical capability
+		/obj/item/cautery,                  // surgical capability
+		/obj/item/cultivator,               // help tend the settlement garden
+		/obj/item/cultivator/rake,          // full farming complement
+		/obj/item/shovel/spade,             // clear detritus
+		/obj/item/sensor_device,            // monitor plant health
+		/obj/item/restraints/handcuffs/cable/zipties,  // handle unruly guests
+		/obj/item/megaphone                 // announcements and crowd management
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -441,8 +515,51 @@
 // ---- MINER ----
 // Salvage and excavation.
 
+// ---- FARMER ---- (custom)
+
+/obj/item/robot_module/farmer
+	name = "Farmer"
+	module_desc = "Agricultural maintenance chassis. Cultivates weeds, waters trays, and monitors plant health. Add medical tools from extras for field triage."
+	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/healthanalyzer,           // check injured people or plant health
+		/obj/item/surgical_drapes,          // begin emergency surgery on patients
+		/obj/item/scalpel,                  // surgical capability
+		/obj/item/retractor,                // surgical capability
+		/obj/item/hemostat,                 // surgical capability
+		/obj/item/cautery,                  // surgical capability
+		/obj/item/reagent_containers/syringe  // inject treatments
+	)
+	basic_modules = list(
+		/obj/item/cultivator,
+		/obj/item/cultivator/rake,
+		/obj/item/shovel/spade,
+		/obj/item/extinguisher/mini,
+		/obj/item/crowbar/cyborg,
+		/obj/item/sensor_device,
+		/obj/item/weapon/gripper)
+	cyborg_base_icon = "robot"
+	moduleselect_icon = "standard"
+	hat_offset = 0
+
+
+// ---- MINER ----
+
 /obj/item/robot_module/miner
 	name = "Miner"
+	module_desc = "Excavation and salvage chassis. Ore extraction, mining scanner, kinetic accelerator, and GPS. Built to bring resources back."
+	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/healthanalyzer,             // check for cave-in injuries
+		/obj/item/reagent_containers/borghypo/epi,  // revive downed miners
+		/obj/item/surgical_drapes,            // emergency surgery in the field
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/restraints/handcuffs/cable/zipties,  // catch claim jumpers
+		/obj/item/megaphone                   // coordinate extraction teams
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -456,8 +573,7 @@
 		/obj/item/gps/cyborg,
 		/obj/item/weapon/gripper/mining,
 		/obj/item/cyborg_clamp,
-		/obj/item/stack/marker_beacon,
-		/obj/item/stack/packageWrap)
+		/obj/item/stack/marker_beacon)
 	cyborg_base_icon = "miner"
 	moduleselect_icon = "miner"
 	hat_offset = 0
@@ -467,6 +583,18 @@
 
 /obj/item/robot_module/gutsy
 	name = "Gutsy"
+	module_desc = "Military-grade security unit with a laser arm and pre-war opinions. More aggressive than a Protectron and armored to match."
+	loadout_extras = list(
+		/obj/item/healthanalyzer,             // triage fallen allies
+		/obj/item/reagent_containers/borghypo/epi,  // revive downed soldiers
+		/obj/item/surgical_drapes,            // emergency combat surgery
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/weldingtool/largetank/cyborg,  // armor and equipment patching
+		/obj/item/wrench/cyborg               // field equipment maintenance
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -490,6 +618,18 @@
 
 /obj/item/robot_module/assaultron
 	name = "Assaultron"
+	module_desc = "Fast melee-capable combat unit. Flash, punchdagger, and sidearm. Built to close ground and overwhelm targets before they can react."
+	loadout_extras = list(
+		/obj/item/healthanalyzer,             // fast triage between engagements
+		/obj/item/reagent_containers/borghypo/epi,  // emergency revive
+		/obj/item/surgical_drapes,            // close-combat emergency surgery
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/weldingtool/largetank/cyborg,  // patch chassis damage
+		/obj/item/wrench/cyborg               // field maintenance
+	)
 	basic_modules = list(
 		/obj/item/assembly/flash/cyborg,
 		/obj/item/extinguisher/mini,
@@ -521,6 +661,7 @@
 
 /obj/item/robot_module/assaultron/medical
 	name = "Medical Assaultron"
+	module_desc = "Combat-medic frame. Full surgical suite and trauma tools on an Assaultron chassis — fast enough to reach casualties before heavy units, armed enough to not need an escort. Pair with field medicine behavior assemblies."
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -557,6 +698,7 @@
 
 /obj/item/robot_module/handy
 	name = "Mr. Handy"
+	module_desc = "Pre-war household assistant. Basic first aid, hygiene, and morale support. Unarmed, approachable, and useful in non-combat roles."
 	borghealth = 200
 	cyborg_base_icon = "handy"
 	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
@@ -565,6 +707,21 @@
 	moduleselect_icon = "standard"
 	hat_offset = -2
 	module_tags = ROBOT_ROLE_SUPPORT
+	loadout_extras = list(
+		/obj/item/surgical_drapes,            // full surgical suite with a medical cert
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/reagent_containers/syringe, // administer injections
+		/obj/item/cultivator,                 // tend the settlement garden
+		/obj/item/cultivator/rake,            // full farming complement
+		/obj/item/shovel/spade,               // clear detritus
+		/obj/item/sensor_device,              // monitor plant or patient health
+		/obj/item/weldingtool/largetank/cyborg,  // light structural repairs
+		/obj/item/wrench/cyborg,              // equipment maintenance
+		/obj/item/screwdriver/cyborg          // fine adjustments
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -591,6 +748,7 @@
 
 /obj/item/robot_module/protectron
 	name = "Protectron"
+	module_desc = "Durable security unit with baton and laser sidearm. Stuns, arrests, and monitors crew vitals. Slower than Assaultron, more forgiving."
 	borghealth = 250
 	cyborg_base_icon = "protectron"
 	cyborg_icon_file = 'icons/fallout/mobs/robots/protectrons.dmi'
@@ -599,6 +757,17 @@
 	moduleselect_icon = "security"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_SECURITY
+	loadout_extras = list(
+		/obj/item/surgical_drapes,            // emergency surgery on arrested suspects
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/weldingtool/largetank/cyborg,  // field repair
+		/obj/item/wrench/cyborg,              // equipment maintenance
+		/obj/item/cultivator,                 // protect the farms on patrol
+		/obj/item/shovel/spade                // clear blockages
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
@@ -625,6 +794,7 @@
 
 /obj/item/robot_module/securitron
 	name = "Securitron"
+	module_desc = "Heavy security platform. Full laser arm, baton, health monitoring, and restraint capability. When a Protectron isn't enough."
 	borghealth = 500
 	cyborg_base_icon = "securitron"
 	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
@@ -633,10 +803,23 @@
 	moduleselect_icon = "security"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_SECURITY
+	loadout_extras = list(
+		/obj/item/reagent_containers/borghypo/epi,   // field triage
+		/obj/item/surgical_drapes,            // emergency surgery
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/weldingtool/largetank/cyborg,  // field repair
+		/obj/item/wrench/cyborg,              // equipment maintenance
+		/obj/item/cultivator,                 // patrol and tend farms
+		/obj/item/shovel/spade                // clear detritus on patrol
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
 		/obj/item/crowbar/cyborg,
-		/obj/item/gun/energy/laser/pistol/cyborg,
+		/obj/item/gun/energy/laser/cyborg,
+		/obj/item/melee/baton,
 		/obj/item/restraints/handcuffs/cable/zipties,
 		/obj/item/megaphone,
 		/obj/item/pinpointer/crew,
@@ -657,6 +840,7 @@
 
 /obj/item/robot_module/sentrybot
 	name = "Sentry Bot"
+	module_desc = "Apex combat platform. Heavy laser, crew tracking, and enough HP to shrug off most small-arms fire. Wire an assembly or it stands there looking threatening."
 	borghealth = 600
 	cyborg_base_icon = "sentrybot"
 	cyborg_icon_file = 'icons/fallout/mobs/robots/wasterobots.dmi'
@@ -665,13 +849,17 @@
 	moduleselect_icon = "security"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_COMBAT | ROBOT_ROLE_APEX
+	loadout_extras = list(
+		/obj/item/healthanalyzer,             // identify casualties without leaving post
+		/obj/item/reagent_containers/borghypo/epi,  // administer emergency stim
+		/obj/item/crowbar/cyborg,             // breach and clear
+		/obj/item/restraints/handcuffs/cable/zipties  // detain survivors
+	)
 	basic_modules = list(
 		/obj/item/extinguisher/mini,
-		/obj/item/gun/energy/laser/pistol/cyborg,
+		/obj/item/gun/energy/laser/cyborg,
 		/obj/item/megaphone,
 		/obj/item/pinpointer/crew)
-	emag_modules = list(
-		/obj/item/gun/energy/laser/cyborg)
 
 /obj/item/robot_module/sentrybot/rebuild_modules()
 	..()
@@ -684,12 +872,351 @@
 	R.faction -= list("wastebot")
 
 
+// ====================================================
+// TRADER MODULE
+// Mobile commerce unit. Owner stocks goods, sets prices,
+// and collects caps. Customers browse by clicking the bot.
+// Uses the vendor key (spawned at construction) to toggle
+// service mode. Physical caps payment via attackby hook.
+// ====================================================
+
+/obj/item/robot_module/trader
+	name = "Trader"
+	module_desc = "Mobile commerce unit. Stock goods, set prices, and collect caps. Customers browse by clicking the bot. Use the vendor key to enter service mode."
+	module_tags = ROBOT_ROLE_SUPPORT
+	cyborg_base_icon = "protectron"
+	cyborg_icon_file = 'icons/fallout/mobs/robots/protectrons.dmi'
+	cyborg_eye_state = "eyes-protectron"
+	has_cover_overlay = FALSE
+	moduleselect_icon = "standard"
+	hat_offset = 0
+	loadout_extras = list(
+		/obj/item/megaphone,                // announce deals to nearby players
+		/obj/item/healthanalyzer,           // assess trade partners for wounds
+		/obj/item/crowbar/cyborg,           // general maintenance
+		/obj/item/weldingtool/largetank/cyborg  // field repairs
+	)
+	basic_modules = list(
+		/obj/item/megaphone,
+		/obj/item/pinpointer
+	)
+
+	/// Assoc list: item -> price in caps
+	var/list/vendor_content = list()
+	/// Caps collected from completed sales (stored internally until owner collects)
+	var/stored_caps = 0
+	/// Whether owner has unlocked service mode via vendor key
+	var/service_mode = FALSE
+	/// Weakref to the mob that activated service mode
+	var/datum/weakref/owner_ref = null
+	/// Physical vendor key spawned at construction
+	var/obj/item/key/vending/vendor_key = null
+	/// Item currently awaiting caps payment (mid-transaction)
+	var/obj/item/pending_vend_item = null
+	/// Price of the mid-transaction pending item
+	var/expected_price = 0
+	/// Maximum number of items that can be stocked
+	var/max_vendor_items = 15
+	/// Display name shown in the vendor UI header
+	var/vendor_name = "ROBCO TRADER"
+
+/obj/item/robot_module/trader/Initialize(mapload)
+	. = ..()
+	// Spawn the vendor key at the robot's current location so the owner can pick it up.
+	vendor_key = new /obj/item/key/vending(get_turf(src))
+	vendor_key.name = "[vendor_name] key"
+	// Hook into the robot's attack_hand signal so clicks open the vendor UI.
+	// loc is the robot mob that contains this module.
+	RegisterSignal(loc, COMSIG_ATOM_ATTACK_HAND, PROC_REF(_handle_robot_click))
+
+/obj/item/robot_module/trader/Destroy()
+	// Unregister from the robot's signal before teardown.
+	if(loc && ismob(loc))
+		UnregisterSignal(loc, COMSIG_ATOM_ATTACK_HAND)
+	// Drop all stocked items onto the robot's turf.
+	var/turf/T = get_turf(loc)
+	for(var/obj/item/I in vendor_content)
+		I.forceMove(T)
+	vendor_content.Cut()
+	// Materialise any stored caps as a physical stack.
+	if(stored_caps > 0 && T)
+		var/obj/item/stack/f13Cash/caps/C = new(T)
+		C.add(stored_caps - 1)
+		stored_caps = 0
+	// Remove the key from world.
+	if(!QDELETED(vendor_key))
+		qdel(vendor_key)
+	vendor_key = null
+	return ..()
+
+/// Signal handler: fires when any mob clicks the robot with an empty hand.
+/// Opens the vendor UI for HELP/GRAB intent; suppresses normal punch handling.
+/obj/item/robot_module/trader/proc/_handle_robot_click(mob/living/silicon/robot/R, mob/user)
+	SIGNAL_HANDLER
+	if(!istype(R))
+		return
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(H.a_intent != INTENT_HELP && H.a_intent != INTENT_GRAB)
+		return
+	INVOKE_ASYNC(src, PROC_REF(_open_vendor_ui), R, H)
+	return COMPONENT_NO_ATTACK_HAND
+
+/// Opens the correct vendor browser panel for the given user.
+/obj/item/robot_module/trader/proc/_open_vendor_ui(mob/living/silicon/robot/R, mob/living/carbon/human/H)
+	var/html
+	if(service_mode && owner_ref?.resolve() == H)
+		html = _get_service_html(R)
+	else if(pending_vend_item)
+		html = _get_vend_html(R)
+	else
+		html = _get_shop_html(R)
+	var/datum/browser/popup = new(H, "trader_[REF(R)]", "[vendor_name] — [R.name]", 440, 540)
+	popup.set_content(html)
+	popup.open()
+
+/// Called from the robot.dm attackby hook when an item is handed to the robot.
+/// Returns TRUE to consume the interaction and prevent further attackby processing.
+/obj/item/robot_module/trader/proc/handle_item_interaction(obj/item/W, mob/user)
+	// Vendor key: toggle service mode on/off.
+	if(istype(W, /obj/item/key/vending) && W == vendor_key)
+		var/mob/living/silicon/robot/R = loc
+		if(service_mode)
+			service_mode = FALSE
+			owner_ref = null
+			R.visible_message(span_notice("[R.name] chimes. Service mode deactivated."))
+		else
+			service_mode = TRUE
+			owner_ref = WEAKREF(user)
+			R.visible_message(span_notice("[R.name] chimes. Service mode activated."))
+		return TRUE
+	// Payment: caps handed over while a vend transaction is active.
+	if(pending_vend_item && istype(W, /obj/item/stack/f13Cash))
+		_process_payment(W, user)
+		return TRUE
+	return FALSE
+
+/// Loads an item from a user's hand into the vendor inventory.
+/obj/item/robot_module/trader/proc/_load_item(obj/item/W, mob/user)
+	if(vendor_content.len >= max_vendor_items)
+		to_chat(user, span_warning("[vendor_name]: Item capacity full ([max_vendor_items])."))
+		return
+	if(!user.transferItemToLoc(W, src))
+		return
+	vendor_content[W] = 0
+	var/new_price = input(user, "Set a price for [W.name] (caps).", "Set Price", 0) as null|num
+	if(new_price != null)
+		vendor_content[W] = max(round(new_price), 0)
+	to_chat(user, span_notice("Loaded [W.name] at [vendor_content[W]] caps."))
+	var/mob/living/silicon/robot/R = loc
+	if(istype(R) && ishuman(user))
+		_open_vendor_ui(R, user)
+
+/// Handles caps payment for the active pending transaction.
+/obj/item/robot_module/trader/proc/_process_payment(obj/item/stack/f13Cash/paying, mob/user)
+	if(paying.amount < expected_price)
+		var/mob/living/silicon/robot/R = loc
+		R.say("Insufficient payment. [expected_price] caps required.", forced = TRUE)
+		to_chat(user, span_warning("[vendor_name]: Insufficient funds. [expected_price] caps required."))
+		return
+	paying.use(expected_price)
+	stored_caps += expected_price
+	var/obj/item/vended = pending_vend_item
+	var/price = expected_price
+	pending_vend_item = null
+	expected_price = 0
+	vended.forceMove(get_turf(loc))
+	vendor_content.Remove(vended)
+	var/mob/living/silicon/robot/R = loc
+	R.say("Thank you for your purchase!", forced = TRUE)
+	to_chat(user, span_notice("[vendor_name] dispenses [vended.name]. [price] caps deducted."))
+	playsound(R, 'sound/items/coinflip.ogg', 60, 1)
+
+/// Topic handler for browser href links.
+/obj/item/robot_module/trader/Topic(href, href_list)
+	if(!usr || !istype(loc, /mob/living/silicon/robot))
+		return
+	var/mob/living/silicon/robot/R = loc
+	// Adjacency check — prevent remote UI abuse.
+	if(!usr.Adjacent(R))
+		return
+	var/mob/living/carbon/human/H = usr
+
+	// --- Customer: initiate a purchase ---
+	if(href_list["buy"])
+		var/obj/item/target = locate(href_list["buy"]) in src
+		if(!target || !vendor_content[target])
+			return
+		if(pending_vend_item)
+			return
+		pending_vend_item = target
+		expected_price = vendor_content[target]
+		if(ishuman(H))
+			_open_vendor_ui(R, H)
+
+	// --- Cancel an active vend transaction ---
+	if(href_list["back"])
+		pending_vend_item = null
+		expected_price = 0
+		if(ishuman(H))
+			_open_vendor_ui(R, H)
+
+	// --- Service: set a new price for an item ---
+	if(href_list["setprice"])
+		if(!service_mode || owner_ref?.resolve() != usr)
+			return
+		var/obj/item/target = locate(href_list["setprice"]) in src
+		if(!target || !vendor_content[target] && vendor_content[target] != 0)
+			return
+		var/new_price = input(usr, "Set price for [target.name] (caps).", "Set Price", vendor_content[target]) as null|num
+		if(new_price != null)
+			vendor_content[target] = max(round(new_price), 0)
+		if(ishuman(H))
+			_open_vendor_ui(R, H)
+
+	// --- Service: remove an item and return it to the robot's turf ---
+	if(href_list["remove"])
+		if(!service_mode || owner_ref?.resolve() != usr)
+			return
+		var/obj/item/target = locate(href_list["remove"]) in src
+		if(!target)
+			return
+		target.forceMove(get_turf(R))
+		vendor_content.Remove(target)
+		to_chat(usr, span_notice("Removed [target.name] from [vendor_name]."))
+		if(ishuman(H))
+			_open_vendor_ui(R, H)
+
+	// --- Service: collect all stored caps ---
+	if(href_list["collectcaps"])
+		if(!service_mode || owner_ref?.resolve() != usr)
+			return
+		if(stored_caps <= 0)
+			to_chat(usr, span_warning("[vendor_name]: No caps stored."))
+			return
+		var/obj/item/stack/f13Cash/caps/C = new(get_turf(R))
+		C.add(stored_caps - 1)
+		to_chat(usr, span_notice("[vendor_name] dispenses [stored_caps] caps."))
+		playsound(R, 'sound/items/coinflip.ogg', 60, 1)
+		stored_caps = 0
+		if(ishuman(H))
+			_open_vendor_ui(R, H)
+
+	// --- Service: add item from active hand ---
+	if(href_list["additem"])
+		if(!service_mode || owner_ref?.resolve() != usr)
+			return
+		if(!ishuman(H))
+			return
+		var/obj/item/held = H.get_active_hand()
+		if(!held)
+			to_chat(usr, span_warning("[vendor_name]: Nothing in active hand."))
+			return
+		_load_item(held, H)
+
+// --- HTML Generators ---
+
+/// Shared CSS matching the RobCo terminal style used by robot_workshop.dm.
+/obj/item/robot_module/trader/proc/_get_css()
+	var/css = "<head><style>"
+	css += "body{padding:0;margin:10px;background-color:#062113;color:#4aed92;line-height:170%;font-family:'Courier New',Courier,monospace;}"
+	css += "a,a:link,a:visited,a:active{color:#4aed92;text-decoration:none;background:#062113;border:none;padding:1px 4px;margin:0 2px;cursor:default;}"
+	css += "a:hover{color:#062113;background:#4aed92;}"
+	css += ".bad{color:#c0392b;font-weight:bold;}"
+	css += ".dim{color:#2a7a52;}"
+	css += ".warn{color:#e8a020;}"
+	css += ".price{color:#e8a020;font-weight:bold;}"
+	css += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
+	css += "td{padding:2px 4px;}"
+	css += ".row td{border-bottom:1px solid #0a3020;}"
+	css += "</style></head>"
+	return css
+
+/// Customer-facing shop listing.
+/obj/item/robot_module/trader/proc/_get_shop_html(mob/living/silicon/robot/R)
+	var/dat = _get_css()
+	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b></center><br>"
+	dat += "<hr>"
+	dat += "<b>= [vendor_name] =</b><br>"
+	dat += "<hr>"
+	if(vendor_content.len == 0)
+		dat += "<span class='warn'>-- NO ITEMS AVAILABLE --</span><br>"
+	else
+		dat += "<table width='100%'>"
+		for(var/obj/item/Itm in vendor_content)
+			var/price = vendor_content[Itm]
+			dat += "<tr class='row'>"
+			dat += "<td>[Itm.name]</td>"
+			dat += "<td class='price'>[price] caps</td>"
+			dat += "<td><a href='?src=\ref[src];buy=\ref[Itm]'>\[Buy\]</a></td>"
+			dat += "</tr>"
+		dat += "</table>"
+	dat += "<hr>"
+	dat += "<span class='dim'>Hand over exact caps when prompted.</span>"
+	return dat
+
+/// Owner service panel.
+/obj/item/robot_module/trader/proc/_get_service_html(mob/living/silicon/robot/R)
+	var/dat = _get_css()
+	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b></center><br>"
+	dat += "<hr>"
+	dat += "<b>= [vendor_name] -- SERVICE MODE =</b><br>"
+	dat += "<hr>"
+	dat += "Caps stored: <span class='price'>[stored_caps]</span>"
+	if(stored_caps > 0)
+		dat += " <a href='?src=\ref[src];collectcaps=1'>\[Collect Caps\]</a>"
+	dat += "<br><hr>"
+	dat += "Inventory ([vendor_content.len]/[max_vendor_items])<br>"
+	dat += "<hr>"
+	if(vendor_content.len == 0)
+		dat += "<span class='warn'>-- NO ITEMS STOCKED --</span><br>"
+	else
+		dat += "<table width='100%'>"
+		for(var/obj/item/Itm in vendor_content)
+			var/price = vendor_content[Itm]
+			dat += "<tr class='row'>"
+			dat += "<td>[Itm.name]</td>"
+			dat += "<td class='price'>[price] caps</td>"
+			dat += "<td>"
+			dat += "<a href='?src=\ref[src];setprice=\ref[Itm]'>\[Price\]</a>"
+			dat += "<a href='?src=\ref[src];remove=\ref[Itm]'>\[Remove\]</a>"
+			dat += "</td>"
+			dat += "</tr>"
+		dat += "</table>"
+	dat += "<hr>"
+	dat += "<a href='?src=\ref[src];additem=1'>\[+ Add Item from Active Hand\]</a><br>"
+	dat += "<hr>"
+	dat += "<span class='dim'>Use your vendor key on the bot again to exit service mode.</span>"
+	return dat
+
+/// Awaiting-payment view shown after a customer clicks Buy.
+/obj/item/robot_module/trader/proc/_get_vend_html(mob/living/silicon/robot/R)
+	var/dat = _get_css()
+	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	dat += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b></center><br>"
+	dat += "<hr>"
+	dat += "<b>= [vendor_name] -- PURCHASE PENDING =</b><br>"
+	dat += "<hr>"
+	if(pending_vend_item)
+		dat += "Item: <b>[pending_vend_item.name]</b><br>"
+		dat += "Price: <span class='price'>[expected_price] caps</span><br>"
+		dat += "<hr>"
+		dat += "Hand [expected_price] caps to the bot to complete the purchase.<br>"
+	dat += "<hr>"
+	dat += "<a href='?src=\ref[src];back=1'>\[Cancel\]</a>"
+	return dat
+
+
 // ---- LIBERATOR ---- (F13-native)
 // Note: cyborg_base_icon = "liberator" requires that state in your borg DMI.
 
 /obj/item/robot_module/liberator
 	name = "Liberator"
-	borghealth = 150
+	module_desc = "Fast, disposable combat drone. Sidearm and punchdagger. Closes ground faster than most targets can respond — and dies to anything that shoots back."
+	borghealth = 200
 	cyborg_base_icon = "liberator"
 	cyborg_icon_file = 'icons/fallout/mobs/robots/weirdrobots.dmi'
 	cyborg_eye_state = null  // no eye state in weirdrobots.dmi
@@ -697,10 +1224,19 @@
 	moduleselect_icon = "standard"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_COMBAT
+	loadout_extras = list(
+		/obj/item/reagent_containers/borghypo/epi,   // emergency revive
+		/obj/item/surgical_drapes,            // emergency surgery
+		/obj/item/scalpel,                    // surgical capability
+		/obj/item/hemostat,                   // surgical capability
+		/obj/item/cautery,                    // surgical capability
+		/obj/item/restraints/handcuffs/cable/zipties,  // detain downed targets
+		/obj/item/megaphone                   // issue commands and warnings
+	)
 	basic_modules = list(
 		/obj/item/gun/energy/laser/pistol/cyborg,
+		/obj/item/melee/unarmed/punchdagger/cyborg,
 		/obj/item/healthanalyzer,
-		/obj/item/t_scanner/adv_mining_scanner,
 		/obj/item/extinguisher/mini)
 
 /obj/item/robot_module/liberator/rebuild_modules()

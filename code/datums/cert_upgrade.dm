@@ -408,7 +408,7 @@
 	var/mob/living/silicon/robot/R = holder
 	if(R.module)
 		var/obj/item/reagent_containers/borghypo/H = new(R.module)
-		H.reagents.add_reagent(/datum/reagent/medicine/radaway, 30)
+		H.add_reagent(/datum/reagent/medicine/radaway) // borghypo-specific proc: populates reagent_list and reagent_ids used by attack
 		R.module.basic_modules += H
 		R.module.add_module(H, FALSE, TRUE)
 
@@ -420,7 +420,7 @@
 	if(!R.module)
 		return
 	for(var/obj/item/reagent_containers/borghypo/H in R.module.modules)
-		if(H.reagents && H.reagents.has_reagent(/datum/reagent/medicine/radaway))
+		if(H.reagent_ids && (/datum/reagent/medicine/radaway in H.reagent_ids))
 			R.module.remove_module(H, TRUE)
 			break
 
@@ -474,8 +474,8 @@
 /datum/cert_upgrade/robot/faction_transponder
 	upgrade_name   = "Faction Transponder"
 	upgrade_desc   = "A programmable IFF transponder. Allows the robot to broadcast a specific faction signal."
-	tutorial_text  = "Unlocks 'Set Faction Transponder' under Robot Commands. Pick any major F13 faction. Previous transponder faction tags are stripped on switch. Does not affect technician-assigned faction tags. Adds CERT_CAN_BROADCAST."
-	capability_flag_add = CERT_CAN_BROADCAST
+	tutorial_text  = "Adds CERT_CAN_FACTION. Unlocks 'Set Faction Transponder' under Robot Commands -- switch IFF alignment to any major F13 faction in the field. Also required to run the Broadcast Relay behavior assembly. Without this upgrade installed, neither the verb nor the assembly function regardless of cert type."
+	capability_flag_add = CERT_CAN_FACTION
 	energy_mod = 1
 
 /datum/cert_upgrade/robot/faction_transponder/on_apply(datum/cpu_cert/C, atom/holder)
@@ -496,7 +496,7 @@
 	set name = "Set Faction Transponder"
 	set category = "Robot Commands"
 
-	if(!cpu_cert || !(cpu_cert.capability_flags & CERT_CAN_BROADCAST))
+	if(!cpu_cert || !(cpu_cert.capability_flags & CERT_CAN_FACTION))
 		to_chat(src, span_warning("No Faction Transponder installed."))
 		return
 
@@ -541,6 +541,9 @@
 	operations_mod = 2
 	resilience_mod = -1
 	exclusive_with = list(/datum/cert_upgrade/robot/armor_plating)
+	/// Reference to the circular_saw this upgrade installed. Stored so on_remove targets the right instance
+	/// instead of the first circular_saw found (which may be a pre-existing surgical saw on medical modules).
+	var/obj/item/circular_saw/installed_saw = null
 
 /datum/cert_upgrade/robot/saw_arm/on_apply(datum/cpu_cert/C, atom/holder)
 	. = ..()
@@ -549,6 +552,7 @@
 	var/mob/living/silicon/robot/R = holder
 	if(R.module)
 		var/obj/item/circular_saw/saw = new(R.module)
+		installed_saw = saw
 		R.module.basic_modules += saw
 		R.module.add_module(saw, FALSE, TRUE)
 
@@ -559,9 +563,16 @@
 	var/mob/living/silicon/robot/R = holder
 	if(!R.module)
 		return
-	for(var/obj/item/circular_saw/CS in R.module.modules)
-		R.module.remove_module(CS, TRUE)
-		break
+	if(installed_saw && (installed_saw in R.module.modules))
+		R.module.remove_module(installed_saw, TRUE)
+	else
+		// Fallback: find the last circular_saw (the installed one should be after any pre-existing surgical saw)
+		var/obj/item/circular_saw/last_saw = null
+		for(var/obj/item/circular_saw/CS in R.module.modules)
+			last_saw = CS
+		if(last_saw)
+			R.module.remove_module(last_saw, TRUE)
+	installed_saw = null
 
 /obj/item/cert_card/upgrade/saw_arm
 	name = "cert card - Saw Arm Attachment"

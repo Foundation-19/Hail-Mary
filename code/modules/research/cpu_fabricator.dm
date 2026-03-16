@@ -88,6 +88,7 @@
 	designs += new /datum/cpu_fab_design/behavior/sprint_chaser()
 	designs += new /datum/cpu_fab_design/behavior/infiltrator()
 	designs += new /datum/cpu_fab_design/behavior/field_surgeon()
+	designs += new /datum/cpu_fab_design/behavior/surgical_assistant()
 	designs += new /datum/cpu_fab_design/behavior/broadcast_relay()
 	designs += new /datum/cpu_fab_design/behavior/turret_bot()
 	designs += new /datum/cpu_fab_design/behavior/combat_medic_protocol()
@@ -95,6 +96,8 @@
 	designs += new /datum/cpu_fab_design/behavior/hunter_protocol()
 	designs += new /datum/cpu_fab_design/behavior/clock_patrol_protocol()
 	designs += new /datum/cpu_fab_design/behavior/farming_bot()
+	designs += new /datum/cpu_fab_design/behavior/farm_tender()
+	designs += new /datum/cpu_fab_design/behavior/trader()
 	designs += new /datum/cpu_fab_design/behavior/greeter()
 	designs += new /datum/cpu_fab_design/behavior/panic()
 	designs += new /datum/cpu_fab_design/behavior/sentry_hold()
@@ -1959,15 +1962,23 @@
 
 /datum/cpu_fab_design/behavior/field_surgeon
 	design_name = "Field Surgeon Protocol"
-	design_desc = "Automatically moves toward critically injured friendlies. Pairs well with Stimpak Injector upgrade."
+	design_desc = "Activates full surgical response protocols on detecting critically injured friendlies. Requires Medical certification (CERT_CAN_MEDICAL) — standard cert cannot run this assembly. Pairs well with Stimpak or RadAway Injector upgrades."
 	id = "behavior_field_surgeon"
 	required_int = 5
 	output_path = /obj/item/behavior_assembly/field_surgeon
 	cost = list("iron" = 300, "glass" = 200)
 
+/datum/cpu_fab_design/behavior/surgical_assistant
+	design_name = "Surgical Assistant Protocol"
+	design_desc = "Autonomously initiates and advances surgical procedures on nearby injured patients. Polls for wounded targets, selects an appropriate surgery from available protocols, and advances each step using tools already loaded in the medical module. Requires Medical certification (CERT_CAN_MEDICAL). The medical module must be installed and equipped with surgical instruments."
+	id = "behavior_surgical_assistant"
+	required_int = 7
+	output_path = /obj/item/behavior_assembly/surgical_assistant
+	cost = list("iron" = 400, "glass" = 300, "silver" = 100)
+
 /datum/cpu_fab_design/behavior/broadcast_relay
 	design_name = "Broadcast Relay Protocol"
-	design_desc = "Periodically transmits faction identification. Requires the Faction Transponder upgrade."
+	design_desc = "Periodically transmits faction identification over radio. Requires a Faction Transponder upgrade (CERT_CAN_FACTION) — will not activate on a cert that lacks the transponder hardware."
 	id = "behavior_broadcast_relay"
 	required_int = 4
 	output_path = /obj/item/behavior_assembly/broadcast_relay
@@ -2008,6 +2019,14 @@
 	id = "behavior_clock_patrol"
 	required_int = 5
 	output_path = /obj/item/behavior_assembly/clock_patrol
+
+/datum/cpu_fab_design/behavior/infrastructure_monitor
+	design_name = "Infrastructure Monitor Protocol"
+	design_desc = "Surveys the area on a timer and broadcasts an intruder warning when enemies are spotted. Exclusive to Engineering certification (CERT_CAN_ENGINEERING). Pairs well with Clock Patrol for a full construction-zone security build."
+	id = "behavior_infrastructure_monitor"
+	required_int = 5
+	output_path = /obj/item/behavior_assembly/infrastructure_monitor
+	cost = list("iron" = 400, "glass" = 200)
 	cost = list("iron" = 300, "glass" = 100)
 
 /datum/cpu_fab_design/behavior/farming_bot
@@ -2017,6 +2036,21 @@
 	output_path = /obj/item/behavior_assembly/farming_bot
 	starter_build = TRUE
 	cost = list("iron" = 300, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/trader
+	design_name = "Trader Protocol"
+	design_desc = "Greets approaching mobs with a vendor pitch. Works alongside the Trader module's built-in click-to-browse UI. No hardware required."
+	id = "behavior_trader"
+	output_path = /obj/item/behavior_assembly/trader_bot
+	cost = list("iron" = 200, "glass" = 100)
+
+/datum/cpu_fab_design/behavior/farm_tender
+	design_name = "Farm Tender Protocol"
+	design_desc = "Automatically weeds and waters nearby hydroponics trays on a tick loop. No harvesting — use the Farming Protocol for that. The farmer module's cultivator handles weeding; the robot draws from an internal reservoir to water. Pair with a Farmer Unit chassis."
+	id = "behavior_farm_tender"
+	required_int = 4
+	output_path = /obj/item/behavior_assembly/farm_tender
+	cost = list("iron" = 200, "glass" = 100)
 
 /datum/cpu_fab_design/behavior/greeter
 	design_name = "Greeter Protocol"

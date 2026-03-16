@@ -32,6 +32,11 @@
 #define CERT_IS_HACKABLE        (1<<16) // Can be targeted by a hacking device (standard/med/eng certs)
 #define CERT_ICE_HARDENED       (1<<17) // Passive ICE: burns one attacker attempt per hack session
 
+// Specialization flags — only granted by their respective cert subtype or upgrade; gate specialty assemblies
+#define CERT_CAN_FACTION        (1<<18) // Faction transponder installed; enables IFF switching verb and Broadcast Relay assembly
+#define CERT_CAN_MEDICAL        (1<<19) // Medical chassis specialization; required for Field Surgeon and surgical behavior assemblies
+#define CERT_CAN_ENGINEERING    (1<<20) // Engineering chassis specialization; required for Infrastructure Monitor and construction behavior assemblies
+
 
 // ====================================================
 // C.O.R.E. STAT TYPE DEFINES

@@ -1260,7 +1260,8 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				var/list/candidates = list()
 				for(var/obj/item/candidate in range(2, R))
 					if(candidate == equipped) continue
-					if(istype(candidate, equipped.type) || istype(equipped, candidate.type))
+					if(istype(candidate, /obj/item/borg/upgrade)) continue
+					if(istype(candidate, equipped.type))
 						candidates += candidate
 				dat += "&gt; [html_encode(equipped.name)]"
 				if(candidates.len)

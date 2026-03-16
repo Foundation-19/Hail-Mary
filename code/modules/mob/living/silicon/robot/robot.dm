@@ -283,6 +283,43 @@
 	return ..()
 
 
+// Ghost inhabitation for workshop-built player robots.
+// Called when a ghost (dead/observer) clicks on the robot mob.
+/mob/living/silicon/robot/attack_ghost(mob/dead/observer/user)
+	if(player_robot_control == "npc")
+		return
+
+	// Already occupied
+	if(key)
+		to_chat(user, span_warning("[src] is already occupied."))
+		return
+
+	if(!mmi || !mmi.brainmob)
+		to_chat(user, span_warning("[src]'s mind interface is not present."))
+		return
+
+	if(player_robot_control == "locked")
+		if(!player_robot_ckey || user.ckey != player_robot_ckey)
+			to_chat(user, span_warning("[src] has been reserved for [player_robot_ckey ? player_robot_ckey : "another player"]."))
+			return
+
+	if(!user.can_reenter_round())
+		return
+
+	var/choice = alert("Inhabit [name]? You will control this robot body.", "Inhabit Robot", "Yes", "No")
+	if(choice != "Yes" || QDELETED(src) || !isobserver(user))
+		return
+
+	// Re-check occupation after async alert
+	if(key)
+		to_chat(user, span_warning("[src] was taken before you could get to it."))
+		return
+
+	player_robot_control = "npc" // prevent concurrent entry
+	player_robot_ckey = null
+	user.transfer_ckey(src, FALSE)
+
+
 /mob/living/silicon/robot/proc/pick_module()
 	if(module.type != /obj/item/robot_module)
 		return
@@ -508,6 +545,11 @@
 	// rcp_pending_action is set by robot_config_panel.dm when awaiting a faction/lock swipe.
 	if(rcp_pending_action && istype(W, /obj/item/card/id))
 		rcp_handle_id_card_auth(W, user)
+		return
+
+	// Trader module: intercept caps payment, vendor key use, and service item loading.
+	var/obj/item/robot_module/trader/TM = module
+	if(istype(TM) && TM.handle_item_interaction(W, user))
 		return
 
 	// Multitool: admin with open panel -> config panel.

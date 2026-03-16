@@ -119,7 +119,7 @@
 	tier               = WORKSHOP_TIER_UTILITY
 	mat_cost           = RW_COST_TIER1
 	preview_icon       = "liberator"
-	display_health     = 150
+	display_health     = 200
 	design_needs_assembly = TRUE
 	design_tags        = list(
 		list("COMBAT",   "warn"),
@@ -191,6 +191,23 @@
 	cert_hint          = "Needs Combat cert. Combat cert unlocks the aggressive behaviors this chassis was built to run."
 	chassis_tags       = ROBOT_ROLE_COMBAT
 
+/datum/robot_build_design/assaultron_medical
+	design_name        = "Medical Assaultron"
+	design_desc        = "An Assaultron chassis rebuilt for front-line trauma medicine. Full surgical suite, stabilizer injector, and a punchdagger for when the patients aren't the only problem. Fast enough to reach casualties before heavier units. Wire field medicine behaviors or it is just an expensive stretcher."
+	module_type        = /obj/item/robot_module/assaultron/medical
+	tier               = WORKSHOP_TIER_COMBAT
+	mat_cost           = RW_COST_TIER3
+	preview_icon       = "assaultron_sase"
+	display_health     = 450
+	design_needs_assembly = TRUE
+	design_tags        = list(
+		list("COMBAT",          "warn"),
+		list("MEDICAL",         "good"),
+		list("NEEDS ASSEMBLY",  "bad")
+	)
+	cert_hint          = "Combat cert for combat behaviors. Medical cert unlocks field surgery and stabilization protocols — the actual reason to build this over the standard Assaultron."
+	chassis_tags       = ROBOT_ROLE_COMBAT
+
 /datum/robot_build_design/sentrybot
 	design_name        = "Sentry Bot"
 	design_desc        = "The apex chassis. Grenade launcher, heavy laser, air cannon, HP that shrugs off most small-arms fire. The T4 cert that unlocks this does not come from the fabricator — you find it in the world. When you have it, you'll know it was worth it."
@@ -205,6 +222,129 @@
 	)
 	cert_hint          = "Needs Combat cert (T2). The T4 workshop cert to build this doesn't come from the fabricator — find it in the world."
 	chassis_tags       = ROBOT_ROLE_COMBAT | ROBOT_ROLE_APEX
+
+
+// ============================================================
+// PLAYER-INHABITED UNIT DESIGNS
+// These are built like any other chassis but intended to be
+// ghost-inhabited.  Set control mode to Open before building.
+// ============================================================
+
+/datum/robot_build_design/standard_unit
+	design_name        = "Standard Unit"
+	design_desc        = "Generalist borg body — repair tools, epi injector, extinguisher, first aid, and restraints. No weapons, no hard edges. The right first build for a player who wants to be a robot."
+	module_type        = /obj/item/robot_module/standard
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("SUPPORT", "dim")
+	)
+	cert_hint          = "Any cert works. Medical cert unlocks Field Surgeon and stabilization assemblies."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
+
+/datum/robot_build_design/medical_unit
+	design_name        = "Medical Unit"
+	design_desc        = "Full surgical suite in a borg chassis. Best healer you can field — scalpel, saw, bone setter, defibrillator, the works. Fragile. Has no way to fight back. Don't send it in alone."
+	module_type        = /obj/item/robot_module/medical
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("MEDICAL", "good"),
+		list("FRAGILE", "bad")
+	)
+	cert_hint          = "Medical cert required to run Field Surgeon and stabilization assemblies — the actual reason to build this chassis."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
+
+/datum/robot_build_design/engineering_unit
+	design_name        = "Engineering Unit"
+	design_desc        = "Construction and repair chassis. RCD, full toolset, wire synthesis, sheet fabrication. Builds walls, lays cable, fixes pipes. The most useful non-combat robot you can put a player into."
+	module_type        = /obj/item/robot_module/engineering
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("BUILDER", "dim")
+	)
+	cert_hint          = "Engineering cert unlocks the Infrastructure Monitor assembly and engineering-specific behaviors."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
+
+/datum/robot_build_design/security_unit
+	design_name        = "Security Unit"
+	design_desc        = "Enforcement chassis. Stun weapon, restraints, health monitor, crew tracker. Won't win a straight fight but nobody outruns it and nobody slips the cuffs. The right call when you need a body that doesn't get tired."
+	module_type        = /obj/item/robot_module/security
+	tier               = WORKSHOP_TIER_SECURITY
+	mat_cost           = RW_COST_TIER2
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("SECURITY", "stat")
+	)
+	cert_hint          = "No specialist cert required. Combat cert adds combat behaviors if you want more enforcement firepower."
+	chassis_tags       = ROBOT_ROLE_SECURITY
+
+/datum/robot_build_design/service_unit
+	design_name        = "Service Unit"
+	design_desc        = "Hospitality chassis. Cleans, serves drinks, carries food, plays music on request. Will not fight. Will not run. Will keep the floor spotless while everything goes wrong around it."
+	module_type        = /obj/item/robot_module/butler
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("CIVILIAN", "dim")
+	)
+	cert_hint          = "Any cert works. No behaviors are locked behind specialist certs for this chassis."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
+
+/datum/robot_build_design/miner_unit
+	design_name        = "Miner Unit"
+	design_desc        = "Excavation chassis. Kinetic accelerator, ore bag, mining scanner, GPS. The highest-throughput resource platform available. A player in one of these is worth three pack brahmin."
+	module_type        = /obj/item/robot_module/miner
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("MINER",  "dim")
+	)
+	cert_hint          = "Any cert works. No behaviors are locked behind specialist certs for this chassis."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
+
+/datum/robot_build_design/farmer_unit
+	design_name        = "Farmer Unit"
+	design_desc        = "Agricultural maintenance chassis. Cultivator, rake, spade, mini extinguisher, crowbar, sensor device, and gripper. Pair with a Farm Tender Protocol assembly for automated weed and water maintenance. Add surgical extras from the loadout panel if you want a field medic unit."
+	module_type        = /obj/item/robot_module/farmer
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "robot"
+	display_health     = 100
+	design_tags        = list(
+		list("FARMER",   "good"),
+		list("CIVILIAN", "dim")
+	)
+	cert_hint          = "Any cert works. No specialist cert required for farming or maintenance assemblies."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
+
+
+/datum/robot_build_design/trader_unit
+	design_name        = "Trader Unit"
+	design_desc        = "Mobile commerce chassis. Stock goods, set prices, and collect caps — all from a Protectron frame. Use the spawned vendor key to enter service mode. Pair with a Trader Protocol assembly for automated customer pitches. Customers browse stock by clicking the bot."
+	module_type        = /obj/item/robot_module/trader
+	tier               = WORKSHOP_TIER_UTILITY
+	mat_cost           = RW_COST_TIER1
+	preview_icon       = "protectron"
+	display_health     = 100
+	design_tags        = list(
+		list("TRADER",   "good"),
+		list("CIVILIAN", "dim")
+	)
+	cert_hint          = "Any cert works. Pair with a Trader Protocol assembly for player-free operation."
+	chassis_tags       = ROBOT_ROLE_SUPPORT
 
 
 // ====================================================
@@ -274,6 +414,9 @@
 	var/list/pending_loadout_swaps = list()
 	/// Index (1-based, as text) of the loadout slot currently open for picking
 	var/loadout_pick_idx = null
+	/// Addable extras toggled on by the player: list of type paths from module.loadout_extras
+	/// Applied at build time by appending new instances to M.basic_modules
+	var/list/pending_loadout_adds = list()
 
 	/// Materials hopper - assoc list: material key -> amount
 	var/list/materials = list(
@@ -688,7 +831,11 @@
 	if(selected_design)
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
-			dat += "<br>BASE MODULE LOADOUT  <span class='dim'>// swap same-type item alternatives before build</span><br>"
+			var/module_desc_text = initial(D.module_type:module_desc)
+			dat += "<br>MODULE LOADOUT"
+			if(module_desc_text)
+				dat += "  <span class='dim'>// [module_desc_text]</span>"
+			dat += "<br>"
 			var/obj/item/robot_module/dummy = new D.module_type(null)
 			var/list/base_items = list()
 			for(var/obj/item/I in dummy.basic_modules)
@@ -701,17 +848,10 @@
 					dat += "&gt; [I.name]  <span class='dim'>?</span>  <span class='good'>[initial(swapped_path:name)]</span>  <a href='byond://?src=[REF(src)];loadout_swap_clear=[idx_key]'>\[reset\]</a><br>"
 				else if(loadout_pick_idx == idx_key)
 					dat += "<span class='good'>&gt; [I.name]</span>  <span class='dim'>// picking replacement:</span><br>"
-					var/parent_path = type2parent(I.type)
 					var/list/candidates = list()
-					if(parent_path && parent_path != /obj/item)
-						for(var/ctype in subtypesof(parent_path))
-							if(ctype == I.type) continue
-							if(initial(ctype:name) == initial(parent_path:name)) continue
-							candidates += ctype
-					if(!candidates.len)
-						for(var/ctype in subtypesof(I.type))
-							if(ctype == I.type) continue
-							candidates += ctype
+					for(var/ctype in subtypesof(I.type))
+						if(ctype == I.type) continue
+						candidates += ctype
 					if(candidates.len)
 						for(var/ctype in candidates)
 							var/ctype_str = "[ctype]"
@@ -721,6 +861,44 @@
 					dat += "  <a href='byond://?src=[REF(src)];loadout_pick_cancel=1'>\[cancel\]</a><br>"
 				else
 					dat += "<span class='dim'>  + [I.name]</span>  <a href='byond://?src=[REF(src)];loadout_pick=[idx_key]'>\[swap\]</a><br>"
+
+			// ADDABLE ITEMS -- extras declared by the module but not in the base loadout
+			var/list/extras = dummy.loadout_extras
+			if(extras && extras.len)
+				dat += "<br>ADDABLE ITEMS  <span class='dim'>// optional extras this module supports</span><br>"
+				for(var/add_path in extras)
+					var/add_name = initial(add_path:name)
+					if(add_path in pending_loadout_adds)
+						dat += "<span class='good'>  + [add_name]</span>  <a href='byond://?src=[REF(src)];loadout_add_toggle=[url_encode("[add_path]")]'>\[remove\]</a><br>"
+					else
+						dat += "<span class='dim'>  + [add_name]</span>  <a href='byond://?src=[REF(src)];loadout_add_toggle=[url_encode("[add_path]")]'>\[add\]</a><br>"
+
+			// ASSEMBLY CHECKLIST -- cross-check circuit tool requirements against effective loadout
+			if(behavior_assembly)
+				var/list/required_items = behavior_assembly.get_required_module_items()
+				if(required_items && required_items.len)
+					// Build effective type list: swapped base items + toggled adds
+					var/list/effective_types = list()
+					for(var/cidx = 1 to base_items.len)
+						var/obj/item/CI = base_items[cidx]
+						var/cidx_key = "[cidx]"
+						var/swap_path = pending_loadout_swaps[cidx_key]
+						effective_types += swap_path ? swap_path : CI.type
+					for(var/add_path in pending_loadout_adds)
+						effective_types += add_path
+					dat += "<br>ASSEMBLY CHECKLIST  <span class='dim'>// tools required by loaded assembly circuits</span><br>"
+					for(var/req_path in required_items)
+						var/req_name = initial(req_path:name)
+						var/found = FALSE
+						for(var/etype in effective_types)
+							if(ispath(etype, req_path))
+								found = TRUE
+								break
+						if(found)
+							dat += "<span class='good'>  ✓ [req_name]</span><br>"
+						else
+							dat += "<span class='warn'>  ✗ [req_name]  <span class='dim'>(not in module loadout - add above or swap a slot)</span></span><br>"
+
 			qdel(dummy)
 
 	return dat
@@ -1172,12 +1350,14 @@
 				if(HW) qdel(HW)
 			pending_hardware = list()
 			pending_loadout_swaps = list()
+			pending_loadout_adds = list()
 			loadout_pick_idx = null
 		else
 			var/path = text2path(val)
 			if(_get_design(path))
 				if(selected_design != path)
 					pending_loadout_swaps = list()
+					pending_loadout_adds = list()
 					loadout_pick_idx = null
 				selected_design = path
 		ui_interact(usr)
@@ -1301,6 +1481,16 @@
 		var/idx_key = href_list["loadout_swap_clear"]
 		if(pending_loadout_swaps && (idx_key in pending_loadout_swaps))
 			pending_loadout_swaps.Remove(idx_key)
+		ui_interact(usr)
+		return
+
+	if(href_list["loadout_add_toggle"])
+		var/add_path = text2path(url_decode(href_list["loadout_add_toggle"]))
+		if(add_path)
+			if(add_path in pending_loadout_adds)
+				pending_loadout_adds -= add_path
+			else
+				pending_loadout_adds += add_path
 		ui_interact(usr)
 		return
 
@@ -1621,6 +1811,7 @@
 	var/obj/item/robot_suit/snap_chassis         = chassis
 	var/list/snap_hw                             = pending_hardware.Copy()
 	var/list/snap_loadout                        = pending_loadout_swaps.Copy()
+	var/list/snap_adds                           = pending_loadout_adds.Copy()
 	var/turf/T                                   = get_turf(src)
 	var/builder_ckey                             = key_name(user)
 
@@ -1630,6 +1821,7 @@
 	chassis           = null
 	pending_hardware  = list()
 	pending_loadout_swaps = list()
+	pending_loadout_adds  = list()
 	loadout_pick_idx  = null
 	selected_design   = null
 
@@ -1637,7 +1829,7 @@
 	addtimer(CALLBACK(src, PROC_REF(_finish_robot),
 		snap_design, snap_control, snap_ckey,
 		snap_assembly, snap_cert, snap_chassis,
-		snap_hw, snap_loadout, T, builder_ckey, snap_builder), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
+		snap_hw, snap_loadout, snap_adds, T, builder_ckey, snap_builder), 50, TIMER_UNIQUE|TIMER_OVERRIDE)
 
 
 
@@ -1650,7 +1842,7 @@
 	obj/item/behavior_assembly/A,
 	obj/item/cert_card/CC,
 	obj/item/robot_suit/suit,
-	list/hw_snap, list/loadout_snap, turf/T, builder_ckey,
+	list/hw_snap, list/loadout_snap, list/adds_snap, turf/T, builder_ckey,
 	mob/living/carbon/human/builder)
 
 	building = FALSE
@@ -1733,6 +1925,15 @@
 				bm.Insert(idx, new_item)
 			R.module.rebuild_modules()
 
+	// Apply player-toggled addable items from loadout_extras.
+	// adds_snap is a list of item type paths to append to basic_modules.
+	if(adds_snap && adds_snap.len && R.module)
+		for(var/add_path in adds_snap)
+			if(!add_path || !ispath(add_path)) continue
+			var/obj/item/new_add = new add_path(R.module)
+			R.module.basic_modules += new_add
+		R.module.rebuild_modules()
+
 	if(CC && CC.base_cert)
 		R.cpu_cert = CC.base_cert
 		CC.base_cert = null
@@ -1777,17 +1978,17 @@
 				R.mmi = null
 			R.mind = null
 		if("open")
-			// Anyone can ghost in -- create MMI but leave it empty
+			// Anyone can ghost in -- attack_ghost on the robot handles entry
 			if(!R.mmi)
 				R.mmi = new(R)
+			R.player_robot_control = "open"
 		if("locked")
-			// MMI open but only specified ckey can take it
+			// Only the specified ckey can enter
 			if(!R.mmi)
 				R.mmi = new(R)
+			R.player_robot_control = "locked"
 			if(ckey_snap)
-				// Store ckey so ghost-takeover proc can gate on it
-				// Standard SS13 ckey restriction via mmi name tag
-				R.mmi.name = "MMI: Reserved for [ckey_snap]"
+				R.player_robot_ckey = ckey_snap
 
 	// Cosmetics
 	R.name = "[D.design_name]-[rand(100,999)]"
@@ -1800,6 +2001,15 @@
 	log_game("[builder_ckey] built [R.name] ([D.design_name], T[D.tier]) at [AREACOORD(T)]")
 	visible_message(span_notice("[src] finishes fabricating: <b>[R.name]</b>."))
 	playsound(T, 'sound/machines/ding.ogg', 75, 1)
+
+	// Ghost notifications for player-inhabitable robots
+	if(control_mode_snap == "open")
+		notify_ghosts("[R.name] ([D.design_name]) is ready for inhabitation in [get_area(R)]!", source = R, action = NOTIFY_ATTACK, flashwindow = FALSE, ignore_dnr_observers = TRUE)
+	else if(control_mode_snap == "locked" && ckey_snap)
+		for(var/client/C in GLOB.clients)
+			if(C.ckey == ckey_snap)
+				to_chat(C, span_ghostalert("[R.name] ([D.design_name]) has been built for you in [get_area(R)]. Click the robot to inhabit it."))
+				break
 
 
 // ====================================================

@@ -162,6 +162,20 @@
 /obj/item/behavior_assembly/proc/cert_compatible(datum/cpu_cert/C)
 	return TRUE
 
+/// Returns a deduplicated list of item type paths that circuits in this assembly
+/// require to be present in the robot module's basic_modules list.
+/// The workshop assembly checklist uses this to show ✓/✗ per required tool.
+/// Returns an empty list if no circuit has requirements.
+/obj/item/behavior_assembly/proc/get_required_module_items()
+	var/list/required = list()
+	for(var/datum/behavior_circuit/C in circuits)
+		if(!C.required_module_items)
+			continue
+		for(var/path in C.required_module_items)
+			if(!(path in required))
+				required += path
+	return required
+
 /obj/item/behavior_assembly/proc/unregister_signals(mob/living/silicon/robot/R)
 	for(var/datum/behavior_circuit/C in circuits)
 		C.unregister(R)

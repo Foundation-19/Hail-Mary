@@ -1074,8 +1074,8 @@
 
 /datum/robot_hardware/locomotion
 	hardware_name    = "Locomotion Controller"
-	hardware_desc    = "Fine-tunes the robot's movement parameters: speed, sprint, and patrol mode."
-	tutorial_text    = "Passive hardware. Improves movement. Configure move speed modifier, whether the robot can sprint, and patrol behavior (random wander vs. waypoint follow). High AGI builders reduce movement delay further."
+	hardware_desc    = "Upgrades the robot's movement: adjustable speed and sprint capability."
+	tutorial_text    = "Passive hardware. Adjusts move speed and enables sprinting. Configure 'speed_modifier' (negative = faster) and 'can_sprint'. High AGI builders reduce movement delay further. For patrol/wander behavior, install a Navigation Computer — that's where patrol mode lives."
 	category         = RHC_NAVIGATION
 	min_int          = RH_INT_BASIC
 	core_operations  = 1
@@ -1085,8 +1085,6 @@
 	/// Move delay modifier - negative = faster
 	var/speed_modifier   = 0
 	var/can_sprint       = FALSE
-	/// "none", "random", "waypoint"
-	var/patrol_mode      = "none"
 
 /datum/robot_hardware/locomotion/get_summary()
 	var/sign_txt   = speed_modifier > 0 ? "+" : ""
@@ -1096,8 +1094,7 @@
 /datum/robot_hardware/locomotion/New()
 	config_defs = list(
 		"speed_modifier" = list("Speed Modifier",  "number", 0, -5, 10),
-		"can_sprint"     = list("Can Sprint",       "bool",   FALSE),
-		"patrol_mode"    = list("Patrol Mode",      "list",   "none")
+		"can_sprint"     = list("Can Sprint",       "bool",   FALSE)
 	)
 
 /datum/robot_hardware/locomotion/apply_special(list/S)
@@ -1105,42 +1102,25 @@
 	speed_modifier -= agi_bonus * 0.1
 
 /datum/robot_hardware/locomotion/install(mob/living/silicon/robot/R)
-	. = ..()
+	. = ..(R)
 	R.speed += speed_modifier
 	if(can_sprint)
 		R.cansprint = TRUE
-	// Hook up random wander if configured. patrol_mode "random" makes the robot
-	// step_rand() on each SSobj process tick when no combat is active.
-	// "waypoint" mode is handled by the on_interval + patrol_waypoints assembly circuit.
-	if(patrol_mode == "random")
-		START_PROCESSING(SSobj, src)
-
-/datum/robot_hardware/locomotion/process()
-	var/mob/living/silicon/robot/R = get_robot()
-	if(!R || R.stat == DEAD || R.anchored)
-		// Robot is dead, gone, or stuck -- stop wander processing
-		STOP_PROCESSING(SSobj, src)
-		return
-	// Don't wander if robot is being player-controlled
-	if(R.client)
-		return
-	// Don't wander if a behavior assembly has switched to combat mode
-	if(R.a_intent == INTENT_HARM)
-		return
-	step_rand(R)
 
 
 // -- NAV COMPUTER -------------------------------------
 
 /datum/robot_hardware/nav_computer
 	hardware_name    = "Navigation Computer"
-	hardware_desc    = "Stores up to 5 waypoints. The robot can patrol between them in sequence."
-	tutorial_text    = "Enables patrol routes. Store coordinate pairs (x,y) as waypoints. Pair with Locomotion Controller in waypoint mode to make the robot follow a defined route. High INT builder gets more waypoint slots."
+	hardware_desc    = "Controls how the robot moves through the world: random wander or a defined waypoint patrol route."
+	tutorial_text    = "Controls patrol behavior. Set 'patrol_mode' to: 'none' (stand still), 'random' (wander freely), or 'waypoint' (follow stored coordinates in sequence). For waypoint mode, also add Patrol Waypoints circuit to your assembly. High INT builder gets more waypoint slots. Locomotion Controller is separate — that just handles speed and sprint."
 	category         = RHC_NAVIGATION
 	min_int          = RH_INT_ADVANCED
 	core_compute     = 2
 	mat_cost         = list("iron" = 300, "gold" = 150)
 
+	/// "none", "random", or "waypoint"
+	var/patrol_mode      = "none"
 	/// List of waypoints: each entry is list(x, y)
 	var/list/waypoints    = list()
 	var/max_waypoints     = 5
@@ -1150,10 +1130,11 @@
 
 /datum/robot_hardware/nav_computer/get_summary()
 	var/loop_txt = loop_route ? "loop" : "one-shot"
-	return "[hardware_name] waypoints:[max_waypoints] [loop_txt]"
+	return "[hardware_name] [patrol_mode] waypoints:[max_waypoints] [loop_txt]"
 
 /datum/robot_hardware/nav_computer/New()
 	config_defs = list(
+		"patrol_mode"   = list("Patrol Mode",    "list",   "none"),
 		"loop_route"    = list("Loop Route",     "bool",   TRUE),
 		"max_waypoints" = list("Max Waypoints",  "number", 5, 1, 20)
 	)
@@ -1161,6 +1142,23 @@
 /datum/robot_hardware/nav_computer/apply_special(list/S)
 	var/int_bonus = max(0, S["INT"] - 7)
 	max_waypoints = min(max_waypoints + int_bonus, 10)
+
+/datum/robot_hardware/nav_computer/install(mob/living/silicon/robot/R)
+	. = ..(R)
+	// Random wander mode: step_rand() each SSobj tick when not in combat.
+	if(patrol_mode == "random")
+		START_PROCESSING(SSobj, src)
+
+/datum/robot_hardware/nav_computer/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD || R.anchored)
+		STOP_PROCESSING(SSobj, src)
+		return
+	if(R.client)
+		return
+	if(R.a_intent == INTENT_HARM)
+		return
+	step_rand(R)
 
 
 // ====================================================

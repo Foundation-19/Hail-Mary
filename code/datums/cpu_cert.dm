@@ -225,7 +225,7 @@
 
 /datum/cpu_cert/robot
 	cert_name = "Standard Chassis"
-	cert_desc = "A general-purpose robotic chassis certification."
+	cert_desc = "Base certification for all player-controlled robots. Grants movement, repair, terminal access, and radio. Hackable by players with a hacking device. Install cert upgrades at a RobCo terminal."
 	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_IS_HACKABLE
 	max_upgrade_slots = 3
 	base_compute    = 6
@@ -235,7 +235,7 @@
 
 /datum/cpu_cert/robot/combat
 	cert_name = "Combat Chassis"
-	cert_desc = "A military-grade combat certified chassis. Built to fight."
+	cert_desc = "Military-grade certification. Unlocks combat behavior assemblies and weapons-hot protocols. Higher operations and resilience; lower compute. Hardened against hacking. Accepts military-tier cert upgrades."
 	cert_tier = CERT_TIER_MILITARY
 	capability_flags = CERT_FLAGS_COMBAT  // no CERT_IS_HACKABLE — hardened
 	max_upgrade_slots = 4
@@ -246,8 +246,8 @@
 
 /datum/cpu_cert/robot/medical
 	cert_name = "Medical Chassis"
-	cert_desc = "A chassis certified for field medicine and triage support."
-	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_IS_HACKABLE
+	cert_desc = "Medical certification. Unlocks field medicine behavior assemblies — field surgeon, stabilization, and triage protocols. Extra upgrade slot and higher energy budget. Compatible with any chassis running a surgical or support toolkit."
+	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_IS_HACKABLE | CERT_CAN_MEDICAL
 	max_upgrade_slots = 4
 	base_compute    = 6
 	base_operations = 5
@@ -256,8 +256,8 @@
 
 /datum/cpu_cert/robot/engineering
 	cert_name = "Engineering Chassis"
-	cert_desc = "A chassis certified for construction, repair, and infrastructure work."
-	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_CAN_INTERFACE | CERT_IS_HACKABLE
+	cert_desc = "Engineering certification. Unlocks construction and infrastructure behavior assemblies — interface protocols, remote access, structural repair. Higher resilience and energy budget; lower operations speed. Extra upgrade slot."
+	capability_flags = CERT_FLAGS_PLAYER_BORG | CERT_CAN_REPAIR | CERT_CAN_INTERFACE | CERT_IS_HACKABLE | CERT_CAN_ENGINEERING
 	max_upgrade_slots = 4
 	base_compute    = 6
 	base_operations = 4
