@@ -157,8 +157,10 @@
 	)
 
 /mob/living/simple_animal/hostile/chinese/ranged/assault/Aggro()
-	..()
-	summon_backup(15)
+	. = ..()
+	if(.)
+		return
+	summon_backup(10)
 
 /mob/living/simple_animal/hostile/chinese/ranged/stealth
 	name = "chinese remnant infiltrator"
@@ -180,7 +182,4 @@
 		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
-	. = ..()
-	if(.)
-		return
-	summon_backup(10)
+	

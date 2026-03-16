@@ -2,11 +2,10 @@
 	"map_name": "Baltimore",
 	"map_path": "map_files/Baltimore",
 	"map_file": [
-		"baltimore_v2_surface.dmm",
-		"baltimore_v2_underground.dmm",
-		"baltimore_v2_above.dmm",
-		"baltimore_v2_above_2.dmm",
-		"baltimore_v2_dungeon.dmm"
+		"baltimore_underground.dmm",
+		"baltimore_surface.dmm",
+		"baltimore_above.dmm",
+		"baltimore_above_2.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -17,32 +16,30 @@
 		"ferry": "ferry_fancy"
 	},
 	"traits":[
-
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
 			"Up": 1,
-			"Down": -1,
-			"No Parallax": true,
-			"Linkage" : "Cross",
-			"Name": "Baltimore Surface",
-			"Force X": 2,
-			"Force Y": 2,
-			"Force Z": 1
-		},
-
-		{
-			"Gravity": true,
-			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Station": 1,
-			"Up": 1,
-			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
 			"Name": "Baltimore Underground",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 0
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Up": 1,
+			"Down": -1,
+			"Station": 1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Baltimore Surface",
+			"Force X": 2,
+			"Force Y": 2,
+			"Force Z": 1
 		},
 
 		{
@@ -62,7 +59,6 @@
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/transparent/openspace",
-			"Up": 1,
 			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
@@ -71,15 +67,6 @@
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 3
-		},
-
-		{
-			"Gravity": true,
-			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Up": 1,
-			"No Parallax": true,
-			"Linkage" : null,
-			"Name": "Dungeons"
 		}
 
 	],
@@ -92,7 +79,7 @@
 	],
 	"removed_jobs": [
 		"enclave.dm",
-		"bos.dm"
+		"bos.dm",
 		"eastwood.dm",
 		"ncr.dm",
 		"legion.dm",

@@ -1926,6 +1926,17 @@
 	body_parts_covered = CHEST|ARMS|LEGS
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
 
+/obj/item/clothing/suit/armor/medium/duster/minutemen/alt
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmo_alt"
+	item_state = "mmo_alt"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
+
 /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
 	name = "minutemen officer coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs. This one has officer insignia"

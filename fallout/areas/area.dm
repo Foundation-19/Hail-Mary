@@ -1629,3 +1629,19 @@
 		/datum/looping_sound/ambient/woodcreak,
 	)
 	weather_tags = null
+
+/area/f13/baltimore/building/brotherhood
+	name = "Brotherhood of Steel Airship Avalionian"
+	icon_state = "brotherhood"
+	ambientmusic = list('sound/f13music/FOTV Chain of command Ramin Djawadi.ogg')
+	ambience_area = list(
+		/datum/looping_sound/ambient/airship,
+	)
+
+/area/f13/baltimore/building/minutemen
+	name = "Minutemen Fort McHenry"
+	icon_state = "blue"
+	ambientmusic = list('sound/f13music/FO4 libertylives.ogg')
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+	)

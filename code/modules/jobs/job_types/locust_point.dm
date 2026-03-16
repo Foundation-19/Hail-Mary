@@ -957,3 +957,42 @@ Mayor
 		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/ammo_box/lasmusket = 3
 	)
+
+
+//Admin role
+
+/datum/job/locust/f13minutemenltcolonel
+	title = "Minuteman Lieutenant Colonel"
+	flag = F13MINUTEMENLTCOLONEL
+	faction = DEP_MINUTEMEN
+	total_positions = 0
+	spawn_positions = 0
+	description = "You are in charge... From affar."
+	supervisors = "The generals"
+
+	outfit = /datum/outfit/job/locust/f13minutemen/ltcolonel
+
+	access = list(ACCESS_MINUTEMEN)
+	minimal_access = list(ACCESS_MINUTEMEN)
+
+/datum/outfit/job/locust/f13minutemen/ltcolonel
+	ears = /obj/item/radio/headset/headset_town
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/storage/belt/army/assault
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
+	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
+	r_pocket = /obj/item/flashlight/seclite
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/neck/scarf/f13/minutemen
+	id = /obj/item/card/id/dogtag/minutemen/officer
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/belt/army/assault = 1,
+		/obj/item/ammo_box/lasmusket = 3
+	)

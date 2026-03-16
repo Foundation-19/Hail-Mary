@@ -3649,6 +3649,7 @@
 #include "code\modules\vending\bigredvendor.dm"
 #include "code\modules\vending\boozeomat.dm"
 #include "code\modules\vending\brahminvendordm.dm"
+#include "code\modules\vending\caravan.dm"
 #include "code\modules\vending\cartridge.dm"
 #include "code\modules\vending\cigarette.dm"
 #include "code\modules\vending\clothesmate.dm"
