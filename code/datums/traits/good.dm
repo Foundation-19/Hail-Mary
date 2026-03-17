@@ -1,12 +1,14 @@
-GLOBAL_LIST_INIT(chemwhiz_recipes, list(
+GLOBAL_LIST_INIT(chemwhiz_recipes_basic, list(
+	/datum/crafting_recipe/cheap_stimpak,
+	/datum/crafting_recipe/medx/chemistry))
+
+GLOBAL_LIST_INIT(chemwhiz_recipes_advanced, list(
 	/datum/crafting_recipe/jet,
 	/datum/crafting_recipe/turbo,
 	/datum/crafting_recipe/psycho,
 	/datum/crafting_recipe/medx,
-	/datum/crafting_recipe/medx/chemistry,
 	/datum/crafting_recipe/stimpak/chemistry,
 	/datum/crafting_recipe/stimpak5/chemistry,
-	/datum/crafting_recipe/cheap_stimpak,
 	/datum/crafting_recipe/buffout,
 	/datum/crafting_recipe/steady))
 
@@ -89,7 +91,7 @@ GLOBAL_LIST_INIT(pa_repair, list(
 	/datum/crafting_recipe/repair_t45_helm,
 	/datum/crafting_recipe/scrap_pa,
 	/datum/crafting_recipe/scrap_pa_helm))
-	
+
 GLOBAL_LIST_INIT(white_legs_recipes, list(
 	/datum/crafting_recipe/tribalwar/whitelegs/lightarmour,
 	/datum/crafting_recipe/tribalwar/whitelegs/armour,
@@ -368,6 +370,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
 	lose_text = span_danger("Old-War rubble suddenly seems less generous to you.")
+	locked = TRUE
 
 /datum/quirk/technophreak/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -396,6 +399,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_WEAPONSMITH
 	gain_text = span_notice("You are adept at crafting makeshift weapons.")
 	lose_text = span_danger("You feel less adept at crafting makeshift weapons.")
+	locked = TRUE
 
 /datum/quirk/gunsmith/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -454,7 +458,6 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("The shadows seem a little less dark.")
 	lose_text = span_danger("Everything seems a little darker.")
 
-
 /datum/quirk/night_vision/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.update_sight()
@@ -489,7 +492,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You learn the secrets of butchering!")
 	lose_text = span_danger("You forget how to slaughter animals.")
 	locked = FALSE
-
+/*
 /datum/quirk/bigleagues
 	name = "Melee - Big Leagues"
 	desc = "Swing for the fences! You deal even more additional damage with melee weapons."
@@ -497,7 +500,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_BIG_LEAGUES
 	gain_text = span_notice("You feel like swinging for the fences!")
 	lose_text = span_danger("You feel like bunting.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/littleleagues
 	name = "Melee - Little Leagues"
@@ -506,29 +509,45 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_LITTLE_LEAGUES
 	gain_text = span_notice("You feel like swinging for the outfield!")
 	lose_text = span_danger("You feel like skipping practice.")
-	locked = FALSE
+	locked = TRUE
+*/
 
 /datum/quirk/chemwhiz
 	name = "Chem Whiz"
-	desc = "You've been playing around with chemicals all your life. You know how to use chemistry machinery."
+	desc = "You've been playing around with chemicals all your life. You know how to use chemistry machinery. High intelligence unlocks advanced formulas."
 	value = 3
 	mob_trait = TRAIT_CHEMWHIZ
 	gain_text = span_notice("The mysteries of chemistry are revealed to you.")
 	lose_text = span_danger("You forget how the periodic table works.")
-	locked =  FALSE
+	locked = TRUE
 
 /datum/quirk/chemwhiz/add()
 	var/mob/living/carbon/human/H = quirk_holder
-	// I made the quirks add the same recipes as the trait books. Feel free to nerf this
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
-	H.mind.learned_recipes |= GLOB.chemwhiz_recipes
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
+	if(H.special_i >= 6)
+		H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
+		to_chat(H, span_notice("Your sharp mind unlocks advanced chemical formulas."))
+	else
+		to_chat(H, span_notice("You can make basic stabilization supplies, but advanced formulas are beyond you for now. (Requires 6 INT)"))
 
 /datum/quirk/chemwhiz/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.mind.learned_recipes -= GLOB.chemwhiz_recipes
+		H.mind.learned_recipes -= GLOB.chemwhiz_recipes_basic
+		H.mind.learned_recipes -= GLOB.chemwhiz_recipes_advanced
 
+// Call this wherever INT (special_i) changes
+/mob/living/carbon/human/proc/update_chemwhiz_recipes()
+	if(!HAS_TRAIT(src, TRAIT_CHEMWHIZ) || !mind)
+		return
+	if(!mind.learned_recipes)
+		mind.learned_recipes = list()
+	if(special_i >= 6)
+		mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
+	else
+		mind.learned_recipes -= GLOB.chemwhiz_recipes_advanced
 
 /datum/quirk/pa_wear
 	name = "Power Armor Training"
@@ -537,7 +556,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PA_WEAR
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
-	locked = FALSE
+	locked = TRUE
+
 /*
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
@@ -546,7 +566,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_HARD_YARDS
 	gain_text = span_notice("Rain or shine, nothing slows you down.")
 	lose_text = span_danger("You walk with a less sure gait, the ground seeming less firm somehow.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/soft_yards
 	name = "Mobility - Wasteland Wanderer"
@@ -555,8 +575,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_SOFT_YARDS
 	gain_text = span_notice("Rain or shine only slow you down a little.")
 	lose_text = span_danger("You walk with a less sure gait, the ground seeming less firm somehow.")
-	locked = FALSE
-*/
+	locked = TRUE
+
 /datum/quirk/lifegiver
 	name = "Health - Tough"
 	desc = "You embody wellness! Instantly gain +10 maximum Health."
@@ -565,7 +585,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel more healthy than usual.")
 	lose_text = span_danger("You feel less healthy than usual.")
 	medical_record_text = "Patient has higher capacity for injury."
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/lifegiver/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -580,12 +600,13 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel much more healthy than usual.")
 	lose_text = span_danger("You feel much less healthy than usual.")
 	medical_record_text = "Patient has much higher capacity for injury."
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/lifegiverplus/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.maxHealth += 20
 	H.health += 20
+*/
 
 /datum/quirk/iron_fist
 	name = "Fists of Iron"
@@ -608,7 +629,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_STEELFIST
 	gain_text = span_notice("Your fists feel MASSIVELY furious!")
 	lose_text = span_danger("Your fists feel calm again, what a relief.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/steel_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -640,7 +661,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_EXPLOSIVE_CRAFTING
 	gain_text = span_notice("You feel like you can make a bomb out of anything.")
 	lose_text = span_danger("You feel okay with the advancement of technology.")
-	locked = FALSE
+	locked = TRUE
 
 /datum/quirk/explosive_crafting/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -741,7 +762,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_WHITELEGS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/whitelegstraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -761,7 +782,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_DEADHORSES_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/deadhorsestraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -781,7 +802,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_RUSTWALKERS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/rustwalkerstraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -801,7 +822,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_EIGHTIES_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/eightiestraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -821,7 +842,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_SORROWS_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/sorrowstraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -841,7 +862,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_WAYFARER_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/wayfarertraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -861,7 +882,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_BONEDANCER_TRAD
 	gain_text = span_notice("The mysteries of your ancestors are revealed to you.")
 	lose_text = span_danger("You forget how your ancestors created their garments.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/bonedancertraditions/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -881,7 +902,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PUSHIMMUNE
 	gain_text = span_notice("You feel stronger than a brick wall.")
 	lose_text = span_danger("Your feel like you could get thrown down again.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/heatresist
 	name = "Heat Resistant"
@@ -890,7 +911,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_RESISTHEAT
 	gain_text = span_notice("It could be a little warmer in here.")
 	lose_text = span_danger("You know? Being hot kind of sucks actually.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/coldresist
 	name = "Cold Resistant"
@@ -899,17 +920,17 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_RESISTCOLD
 	gain_text = span_notice("It could be a little colder in here.")
 	lose_text = span_danger("You know? Being cold kind of sucks actually.")
-	locked =  FALSE
+	locked = FALSE
 
 /*
-/* /datum/quirk/radimmune
+/datum/quirk/radimmune
 	name = "Radiation - Immune"
 	desc = "Geiger Counters are for suckers."
 	value = 5
 	mob_trait = TRAIT_RADIMMUNE
 	gain_text = span_notice("You've decided radiation just doesn't matter.")
 	lose_text = span_danger("You no longer feel like you could probably live in a microwave while it's on.")
-	locked =  FALSE */
+	locked = FALSE
 
 /datum/quirk/radimmuneish
 	name = "Radiation - Mostly Immune"
@@ -918,8 +939,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_75_RAD_RESIST
 	gain_text = span_notice("You've decided radiation just doesn't matter much.")
 	lose_text = span_danger("You no longer feel like you could roll around in a rad puddle for a while.")
-	locked =  FALSE
-*/
+	locked = FALSE
 
 /datum/quirk/radimmunesorta
 	name = "Radiation - Sorta Immune"
@@ -928,9 +948,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_50_RAD_RESIST
 	gain_text = span_notice("You've decided radiation only kind of matters.")
 	lose_text = span_danger("You no longer think you should hang out next to rad puddles.")
-	locked =  FALSE
+	locked = TRUE
 
-/*
 /datum/quirk/nohunger
 	name = "Does not Eat"
 	desc = "You don't need to eat to live, lucky you."
@@ -938,7 +957,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_NOHUNGER
 	gain_text = span_notice("Your need for food has left you.")
 	lose_text = span_danger("GOD YOU WANT A BURGER SO BAD.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/thickskin
 	name = "Thick Skin"
@@ -947,7 +966,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PIERCEIMMUNE
 	gain_text = span_notice("Your skin feels way stronger.")
 	lose_text = span_danger("You feel like your skin is about as tough as tissue paper.")
-	locked =  TRUE
+	locked = TRUE
 */
 
 /datum/quirk/barbedwire
@@ -966,7 +985,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_QUICKER_CARRY
 	gain_text = span_notice("You feel like a MASTER fireman!")
 	lose_text = span_danger("Your ability to carry folk seems massively diminished.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/quickcarry
 	name = "Quick Carry"
@@ -975,7 +994,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_QUICK_CARRY
 	gain_text = span_notice("You feel like an ACCEPTABLE fireman!")
 	lose_text = span_danger("Your ability to carry folk seems a bit diminished.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/builder
 	name = "Experienced Builder"
@@ -984,7 +1003,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_QUICK_BUILD
 	gain_text = span_notice("You could throw up a house if you wanted to!")
 	lose_text = span_danger("What's a two by four again?")
-	locked =  FALSE
+	locked = FALSE
 
 /*
 /datum/quirk/grappler
@@ -994,7 +1013,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_STRONG_GRABBER
 	gain_text = span_notice("You could wrassle a deathclaw!!")
 	lose_text = span_danger("You no longer feel like you should wrestle deathclaws.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/mastermartialartist
 	name = "Master Martial Artist"
@@ -1003,7 +1022,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_KI_VAMPIRE
 	gain_text = span_notice("They are already dead.")
 	lose_text = span_danger("Your fists no longer feel so powerful.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/surestrike
 	name = "Sure Strike"
@@ -1012,7 +1031,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PERFECT_ATTACKER
 	gain_text = span_notice("They are already dead.")
 	lose_text = span_danger("Your fists no longer feel so powerful.")
-	locked =  FALSE
+	locked = FALSE
 */
 
 /datum/quirk/quietstep
@@ -1022,7 +1041,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_SILENT_STEP
 	gain_text = span_notice("Your footsteps fade away.")
 	lose_text = span_danger("You find yourself surprised by the sound of your own footsteps.")
-	locked =  FALSE
+	locked = FALSE
 /*
 /datum/quirk/deadeye
 	name = "Dead Eye"
@@ -1031,8 +1050,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_INSANE_AIM
 	gain_text = span_notice("Your aim is legendary, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
-	locked =  FALSE
-*/
+	locked = FALSE
+
 /datum/quirk/straightshooter
 	name = "Straight Shooter"
 	desc = "You're a better than average shot."
@@ -1040,7 +1059,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_NICE_SHOT
 	gain_text = span_notice("Your aim is amazing, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
-	locked =  FALSE
+	locked = TRUE
+*/
 
 /datum/quirk/bowtrained
 	name = "Bow Trained"
@@ -1049,7 +1069,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_AUTO_DRAW
 	gain_text = span_notice("You feel like all that training with bows has paid off.")
 	lose_text = span_danger("Guns were always better...")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/masterrifleman
 	name = "Bolt Worker"
@@ -1058,7 +1078,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_FAST_PUMP
 	gain_text = span_notice("In a sudden haze you realize that the Mosin-Nagant was God's gift to mankind.")
 	lose_text = span_danger("After picking some 250 year old cosmoline out from under one of your nails you realize that... Uh, no, the Mosin-Nagant is a piece of shit.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/playdead
 	name = "Class Act"
@@ -1067,7 +1087,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_PLAY_DEAD
 	gain_text = span_notice("You feel confident at playing dead.")
 	lose_text = span_danger("You feel that laying down in a field of gunfire may not be such a good idea after all.")
-	locked =  FALSE
+	locked = FALSE
 
 /datum/quirk/ratfriend
 	name = "Beast Friend - Rats"
@@ -1075,7 +1095,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	value = 2
 	mob_trait = TRAIT_BEASTFRIEND_RAT
 	gain_text = span_notice("Rats are friends!")
-	lose_text = span_danger("God of rats curses your name...") // Perhaps make killing related mobs lose the quirk?
+	lose_text = span_danger("God of rats curses your name...")
 	locked = FALSE
 
 /datum/quirk/ratfriend/add()
@@ -1091,7 +1111,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	name = "Beast Master - Rats"
 	desc = "Whether by psychic means or otherwise, you've gained the ability to control the rats of the wasteland.\
 	<br>Taming will make them passive toward other players and tamed fauna (but also makes them a target for wild rats)."
-	value = 4
+	value = 3
 	mob_trait = TRAIT_BEASTMASTER_RAT
 	gain_text = span_notice("You feel like being a giant rat, that makes all of the rules!")
 	lose_text = span_danger("You've lost your rat crown...")
@@ -1125,7 +1145,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/critterfriend
 	name = "Beast Friend - Small Critters"
 	desc = "Roaches, young nightstalkers, and most types of geckos outright ignore you now."
-	value = 2
+	value = 3
 	mob_trait = TRAIT_BEASTFRIEND_SMALLCRITTER
 	gain_text = span_notice("Some (if not all) wasteland critters doesn't seem to mind you now!")
 	lose_text = span_danger("You feel critters of the wasteland wouldn't be so friendly with you anymore...")
@@ -1181,7 +1201,6 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You remember the old ways of your tribe...")
 	lose_text = span_notice("You've forgotten the ways of your ancestors...")
 
-
 /datum/quirk/tribespeak/add()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.grant_language(/datum/language/tribal)
@@ -1197,7 +1216,6 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	value = 1
 	gain_text = span_notice("You remember the old tongue of the Mexican cartels.")
 	lose_text = span_notice("You've forgotten the tongue of the Mexican cartels.")
-
 
 /datum/quirk/spanishspeak/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -1239,3 +1257,198 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)
+
+/datum/quirk/assassin
+	name = "Assassin"
+	desc = "Years of practice have made you lethal at close range. While sneaking with a melee weapon in your active hand, you can assassinate unaware enemies within 2 tiles by attacking from behind."
+	value = 4
+	mob_trait = TRAIT_ASSASSIN
+	gain_text = span_notice("You feel like you could kill someone very quietly.")
+	lose_text = span_danger("You feel less lethal.")
+	locked = FALSE
+	var/datum/action/cooldown/assassinate/assassinate_action
+
+/datum/quirk/assassin/add()
+	assassinate_action = new()
+	assassinate_action.Grant(quirk_holder)
+	assassinate_action.UpdateButtonIcon()
+
+/datum/quirk/assassin/remove()
+	if(assassinate_action)
+		assassinate_action.Remove(quirk_holder)
+		QDEL_NULL(assassinate_action)
+
+// ========== ASSASSINATE ACTION ==========
+/datum/action/cooldown/assassinate
+	name = "Assassinate"
+	desc = "Strike a killing blow on an unaware enemy within 2 tiles from behind. Requires a melee weapon in your active hand and sneak mode. Target must not be alerted to your presence."
+	button_icon_state = "dagger"
+	icon_icon = 'icons/mob/actions/actions_cult.dmi'
+	check_flags = AB_CHECK_CONSCIOUS
+	cooldown_time = 15 SECONDS
+
+/// Check if assassin is behind the target (in their rear cone)
+/datum/action/cooldown/assassinate/proc/is_behind_target(mob/attacker, mob/target)
+	if(!attacker || !target)
+		return FALSE
+
+	var/turf/attacker_turf = get_turf(attacker)
+	var/turf/target_turf = get_turf(target)
+
+	if(!attacker_turf || !target_turf)
+		return FALSE
+
+	if(attacker_turf == target_turf)
+		return FALSE
+
+	var/dx = attacker_turf.x - target_turf.x
+	var/dy = attacker_turf.y - target_turf.y
+
+	var/target_angle = 0
+	switch(target.dir)
+		if(NORTH)
+			target_angle = 0
+		if(SOUTH)
+			target_angle = 180
+		if(EAST)
+			target_angle = 90
+		if(WEST)
+			target_angle = 270
+
+	var/attacker_angle = arctan(dy, dx)
+	var/relative_angle = attacker_angle - target_angle
+
+	while(relative_angle > 180)
+		relative_angle -= 360
+	while(relative_angle < -180)
+		relative_angle += 360
+
+	if(relative_angle > 90 || relative_angle < -90)
+		return TRUE
+
+	return FALSE
+
+/datum/action/cooldown/assassinate/IsAvailable(silent = FALSE)
+	if(!..())
+		return FALSE
+
+	if(!ishuman(owner))
+		return FALSE
+
+	var/mob/living/carbon/human/H = owner
+
+	if(!H.sneaking)
+		return FALSE
+
+	var/obj/item/held_item = H.get_active_held_item()
+	if(!held_item)
+		return FALSE
+
+	if(!istype(held_item, /obj/item/melee) && !istype(held_item, /obj/item/kitchen) && held_item.force <= 0)
+		return FALSE
+
+	for(var/mob/living/L in range(2, H))
+		if(L == H)
+			continue
+		if(L.stat != CONSCIOUS)
+			continue
+		if(!is_behind_target(H, L))
+			continue
+		if(istype(L, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/enemy = L
+			if(enemy.faction_check_mob(H))
+				continue
+			if(enemy.target == H)
+				continue
+			return TRUE
+		else if(ishuman(L) && L != H)
+			return TRUE
+
+	return FALSE
+
+/datum/action/cooldown/assassinate/Grant(mob/M)
+	..()
+	if(!ishuman(M))
+		return
+	UpdateButtonIcon()
+
+/datum/action/cooldown/assassinate/Trigger()
+	if(!..())
+		return FALSE
+
+	if(!ishuman(owner))
+		return FALSE
+
+	var/mob/living/carbon/human/H = owner
+	var/mob/living/target = null
+	var/closest_dist = 999
+
+	for(var/mob/living/L in range(2, H))
+		if(L == H)
+			continue
+		if(L.stat != CONSCIOUS)
+			continue
+		if(!is_behind_target(H, L))
+			continue
+
+		var/dist = get_dist(H, L)
+
+		if(istype(L, /mob/living/simple_animal/hostile))
+			var/mob/living/simple_animal/hostile/enemy = L
+			if(enemy.faction_check_mob(H))
+				continue
+			if(enemy.target == H)
+				continue
+			if(dist < closest_dist)
+				closest_dist = dist
+				target = L
+		else if(ishuman(L))
+			if(dist < closest_dist)
+				closest_dist = dist
+				target = L
+
+	if(!target)
+		to_chat(H, span_warning("No valid target found (must attack from behind)."))
+		return FALSE
+
+	var/obj/item/weapon = H.get_active_held_item()
+	if(!weapon)
+		to_chat(H, span_warning("You need a weapon in your active hand!"))
+		return FALSE
+
+	if(!istype(weapon, /obj/item/melee) && !istype(weapon, /obj/item/kitchen) && weapon.force <= 0)
+		to_chat(H, span_warning("[weapon] is not suitable for assassination!"))
+		return FALSE
+
+	var/current_distance = get_dist(H, target)
+	if(current_distance == 2)
+		var/lunge_dir = get_dir(H, target)
+		step(H, lunge_dir)
+		H.visible_message(
+			span_danger("[H] lunges at [target]!"),
+			span_userdanger("You lunge at [target]!")
+		)
+		playsound(H.loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
+
+	H.do_attack_animation(target)
+	H.visible_message(
+		span_danger("[H] strikes with lethal precision!"),
+		span_userdanger("You strike at [target]'s vitals!")
+	)
+
+	var/base_damage = weapon.force
+	var/assassination_damage = base_damage + 40
+	var/secondary_damage = round(assassination_damage * 0.4)
+
+	target.apply_damage(assassination_damage, BRUTE, ran_zone())
+	target.apply_damage(secondary_damage, BRUTE, ran_zone())
+
+	shake_camera(H, 3, 1.5)
+
+	if(isliving(target))
+		target.Stun(20)
+
+	log_combat(H, target, "assassinated")
+	StartCooldown()
+	UpdateButtonIcon()
+	return TRUE

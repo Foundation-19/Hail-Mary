@@ -159,6 +159,7 @@
 	var/sprint_buffer_regen_ds = 0.1		//Tiles per world.time decisecond
 	var/sprint_buffer_regen_last = 0		//last world.time this was regen'd for math.
 	var/sprint_stamina_cost = 0.70			//stamina loss per tile while insufficient sprint buffer.
+	var/sprint_idle_time = 0				//time since last sprint use (for regen boost)
 	//---End
 
 	//Used in living/recoil.dm

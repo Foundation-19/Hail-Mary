@@ -39,6 +39,12 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 	var/wander = 1
 	///When set to 1 this stops the animal from moving when someone is pulling it.
 	var/stop_automated_movement_when_pulled = 1
+	///The current direction the mob is facing while idle wandering
+	var/current_idle_direction = null
+	///Last time (world.time) the mob changed its idle wander direction
+	var/idle_direction_change_time = 0
+	///Minimum time (in deciseconds) before changing idle direction (45 seconds = 450 deciseconds)
+	var/idle_direction_change_cooldown = 450
 
 	///When someone interacts with the simple animal.
 	///Help-intent verb in present continuous tense.
@@ -352,13 +358,11 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		abilities = null // Clear the list to break references
 
 		for(var/obj/effect/proc_holder/ability in abilities_copy)
-			// Clear cross-references
-			if(ability.ranged_ability_user == src)
-				ability.ranged_ability_user = null
+			// DON'T manually clear ranged_ability_user - let proc_holder's Destroy() handle it via remove_ranged_ability()
+			// Just clear the action owner to prevent circular refs
 			if(ability.action)
 				if(ability.action.owner == src)
 					ability.action.owner = null
-				// Don't need to remove from actions list since we're clearing it below
 			qdel(ability)
 
 	// Clean up ALL actions
@@ -473,7 +477,18 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		return TRUE
 	if(stop_automated_movement_when_pulled && pulledby) //Some animals don't move when pulled
 		return TRUE
-	var/anydir = pick(GLOB.cardinals)
+	
+	// Direction persistence: only change idle direction after cooldown expires
+	var/anydir
+	if(!current_idle_direction || (world.time - idle_direction_change_time) >= idle_direction_change_cooldown)
+		// Cooldown expired or first time - pick a new random direction
+		anydir = pick(GLOB.cardinals)
+		current_idle_direction = anydir
+		idle_direction_change_time = world.time
+	else
+		// Use the persistent idle direction
+		anydir = current_idle_direction
+	
 	if(Process_Spacemove(anydir))
 		Move(get_step(src, anydir), anydir)
 		turns_since_move = 0
@@ -557,6 +572,20 @@ GLOBAL_LIST_EMPTY(playmob_cooldowns)
 		if((areatemp < minbodytemp) || (areatemp > maxbodytemp))
 			. = FALSE
 
+/mob/living/simple_animal/attackby(obj/item/O, mob/user, params)
+	// Let medical items try to heal before anything else
+	if(istype(O, /obj/item/stack/medical))
+		var/obj/item/stack/medical/med = O
+		if(med.can_heal_critters)
+			med.try_heal(src, user)
+			return TRUE
+	
+	// Let animal salve try to heal
+	if(istype(O, /obj/item/reagent_containers/pill/animal_salve))
+		O.attack(src, user)
+		return TRUE
+	
+	return ..()
 
 /mob/living/simple_animal/handle_environment(datum/gas_mixture/environment)
 	var/atom/A = src.loc

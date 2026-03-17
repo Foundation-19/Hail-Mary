@@ -1046,6 +1046,32 @@
 	subcategory = CAT_CONVERT
 	always_available = FALSE
 
+/datum/crafting_recipe/ncrbulletproofcoat
+	name = "NCR bulletproof coat"
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofcoat
+	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
+	            /obj/item/weaponcrafting/string = 2,
+				/obj/item/stack/sheet/cloth = 15,
+				/obj/item/toy/crayon/spraycan)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_CRAFTING
+	subcategory = CAT_CONVERT
+	always_available = FALSE
+
+/datum/crafting_recipe/ncrbulletproofsniper
+	name = "NCR bulletproof sniper armor"
+	result = /obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofsniper
+	reqs = list(/obj/item/clothing/suit/armor/heavy/vest/bulletproof = 1,
+	            /obj/item/weaponcrafting/string = 2,
+				/obj/item/stack/sheet/cloth = 10,
+				/obj/item/toy/crayon/spraycan)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_CRAFTING
+	subcategory = CAT_CONVERT
+	always_available = FALSE
+
 ////////////////////////////////////
 //////////////LEGION////////////////
 ////////////////////////////////////

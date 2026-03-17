@@ -421,6 +421,7 @@
 /obj/item/organ/eyes/ipc
 	name = "ipc eyes"
 	icon_state = "cybernetic_eyeballs"
+	flash_protect = 2
 
 /obj/item/organ/eyes/ipc/emp_act(severity)
 	. = ..()

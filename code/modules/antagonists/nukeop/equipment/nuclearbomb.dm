@@ -69,6 +69,13 @@
 /obj/machinery/nuclearbomb/syndicate
 	//ui_style = "syndicate" // actually the nuke op bomb is a stole nt bomb
 
+/obj/machinery/nuclearbomb/selfdestruct/fallout
+	name = "Nuclear Bomb"
+	desc = "It looks like an ordinary Chinese atomic bomb. The most common bomb. It’s more a miracle that it didn’t explode . Hieroglyphs can be seen on the side: 憎恨. 美国."
+	icon = 'icons/fallout/objects/fallout_nuke.dmi'
+	icon_state = "nuclearbomb_base"
+	anchored = TRUE
+	
 /obj/machinery/nuclearbomb/syndicate/get_cinematic_type(off_station)
 	var/datum/game_mode/nuclear/NM = SSticker.mode
 	switch(off_station)
@@ -502,8 +509,8 @@
 		return CINEMATIC_SELFDESTRUCT_MISS
 
 /obj/machinery/nuclearbomb/beer
-	name = "\improper Nanotrasen-brand nuclear fission explosive"
-	desc = "One of the more successful achievements of the Nanotrasen Corporate Warfare Division, their nuclear fission explosives are renowned for being cheap to produce and devastatingly effective. Signs explain that though this particular device has been decommissioned, every Nanotrasen station is equipped with an equivalent one, just in case. All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
+	name = "Vault-Tec-brand nuclear fission explosive"
+	desc = "One of the more successful achievements of the Vault-Tec Warfare Division, their nuclear fission explosives are renowned for being cheap to produce and devastatingly effective. Signs explain that though this particular device has been decommissioned, every Nanotrasen station is equipped with an equivalent one, just in case. All Captains carefully guard the disk needed to detonate them - at least, the sign says they do. There seems to be a tap on the back."
 	proper_bomb = FALSE
 	var/obj/structure/reagent_dispensers/beerkeg/keg
 
