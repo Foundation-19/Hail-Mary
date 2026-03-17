@@ -8,8 +8,8 @@
 @use 'sass:meta';
 
 $phosphor: #4cff4c;
-$phosphor-dim: #2ea82e;
-$phosphor-text: #8fbf8f;
+$phosphor-dim: #3ac83a;
+$phosphor-text: #a8d8a8;
 
 @use '../colors.scss' with (
   $primary: $phosphor,
@@ -17,7 +17,7 @@ $phosphor-text: #8fbf8f;
   $bg-map-keys: (),
 );
 @use '../base.scss' with (
-  $color-bg: #050c05,
+  $color-bg: #1a1f1a,
   $color-bg-grad-spread: 0%,
   $border-radius: 0,
 );
@@ -80,7 +80,7 @@ $phosphor-text: #8fbf8f;
     color: $phosphor;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    text-shadow: 0 0 8px rgba(77, 255, 77, 0.5);
+    text-shadow: 0 0 4px rgba(77, 255, 77, 0.2);
   }
 
   a {
@@ -101,7 +101,7 @@ $phosphor-text: #8fbf8f;
     font-family: 'Courier New', Courier, monospace;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    text-shadow: 0 0 6px rgba(77, 255, 77, 0.5);
+    text-shadow: 0 0 3px rgba(77, 255, 77, 0.2);
   }
 
   .Section {

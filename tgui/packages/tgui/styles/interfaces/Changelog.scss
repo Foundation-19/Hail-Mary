@@ -18,23 +18,22 @@
     h1 {
       font-size: 0.85em;
       color: #4cff4c;
-      border-bottom: 1px solid #2ea82e;
+      border-bottom: 1px solid #3ac83a;
       padding-bottom: 0.4em;
       margin-bottom: 0.6em;
-      text-shadow: 0 0 10px rgba(77, 255, 77, 0.6);
+      text-shadow: 0 0 3px rgba(77, 255, 77, 0.2);
     }
 
     h4 {
       font-size: 0.8em;
       color: #4cff4c;
       margin: 0.5em 0 0.25em;
-      text-shadow: 0 0 6px rgba(77, 255, 77, 0.35);
     }
 
     p, b {
       font-family: 'Courier New', Courier, monospace;
       font-size: 0.9em;
-      color: #8fbf8f;
+      color: #a8d8a8;
     }
 
     a {
@@ -47,7 +46,7 @@
     }
 
     &__Cell {
-      color: #8fbf8f;
+      color: #a8d8a8;
       font-size: 0.88em;
       line-height: 1.5;
     }
