@@ -3414,10 +3414,23 @@
 /turf/open/floor/carpet/green,
 /area/f13/casino)
 "bOF" = (
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
 /obj/structure/rack,
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
+/obj/item/clothing/under/f13/vault{
+	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
+	name = "vault 223 jumpsuit"
+	},
 /obj/effect/turf_decal/bot,
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/f13{
@@ -26672,9 +26685,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/vault)
-"mWP" = (
-/turf/closed/wall/mineral/iron,
-/area/f13/underground/cave)
 "mXe" = (
 /obj/structure/table/wood,
 /obj/item/pen,
@@ -44790,30 +44800,6 @@
 	icon_state = "platingdmg2"
 	},
 /area/f13/bunker)
-"vDC" = (
-/obj/structure/rack,
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt/dust,
-/turf/open/floor/plasteel/f13{
-	icon_state = "yellowdirtyfull"
-	},
-/area/f13/building)
 "vDO" = (
 /obj/structure/table/wood,
 /obj/item/paper_bin,
@@ -48836,6 +48822,17 @@
 /obj/structure/glowshroom,
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
+"xHm" = (
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/item/clothing/head/ushanka,
+/obj/structure/rack,
+/obj/effect/turf_decal/bot,
+/obj/effect/decal/cleanable/dirt/dust,
+/turf/open/floor/plasteel/f13{
+	icon_state = "yellowdirtyfull"
+	},
+/area/f13/building)
 "xHv" = (
 /obj/structure/chair/right{
 	dir = 8
@@ -88306,7 +88303,7 @@ whv
 whv
 whv
 whv
-wWG
+whv
 whv
 "}
 (150,1,1) = {"
@@ -89738,7 +89735,7 @@ kjP
 ebn
 hVk
 ebn
-bOF
+xHm
 bDp
 rvr
 huc
@@ -90250,9 +90247,9 @@ one
 huc
 bCH
 ebn
-vDC
-ebn
 bOF
+ebn
+xHm
 hyB
 rvr
 huc
@@ -90619,7 +90616,7 @@ whv
 whv
 whv
 whv
-mWP
+whv
 whv
 "}
 (159,1,1) = {"
@@ -90876,7 +90873,7 @@ whv
 whv
 whv
 whv
-wWG
+whv
 whv
 "}
 (160,1,1) = {"
@@ -91133,7 +91130,7 @@ whv
 whv
 whv
 whv
-wWG
+whv
 whv
 "}
 (161,1,1) = {"

@@ -18977,8 +18977,8 @@
 /obj/structure/bed/mattress{
 	icon_state = "mattress5"
 	},
-/obj/effect/gibspawner/human,
 /obj/structure/destructible/tribal_torch/wall/lit,
+/obj/effect/gibspawner/human/bodypartless,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "oKm" = (
@@ -21629,7 +21629,12 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "rhj" = (
-)
+/obj/structure/bed/mattress{
+	icon_state = "mattress3"
+	},
+/obj/effect/gibspawner/human/bodypartless,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/bunker)
 "rhq" = (
 /obj/effect/turf_decal/vg_decals/radiation_custom,
 /turf/closed/wall/r_wall/rust,
@@ -26321,7 +26326,6 @@
 /obj/structure/bed/mattress{
 	icon_state = "mattress5"
 	},
-/obj/effect/gibspawner/human,
 /obj/item/clothing/under/f13/rag,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
@@ -88253,7 +88257,7 @@ xWj
 fIE
 aEb
 aul
-rgC
+aul
 xWj
 xWj
 aae
@@ -88507,11 +88511,11 @@ aaa
 aae
 xWj
 fib
-pnL
+aul
 aEb
 baB
-pnL
-cnp
+aul
+rhj
 xWj
 aae
 aae
@@ -88764,7 +88768,7 @@ aae
 xWj
 xWj
 aul
-aul
+rgC
 aEb
 kSW
 aEb
@@ -89536,7 +89540,7 @@ rgC
 aEb
 aul
 aul
-rgC
+aul
 aul
 kSW
 oJQ
@@ -90305,7 +90309,7 @@ gCc
 aul
 aEb
 aul
-rgC
+aul
 aul
 aul
 aul
@@ -90562,7 +90566,7 @@ xuN
 rgC
 kSW
 aul
-rhj
+aul
 sxV
 aul
 rgC
@@ -90822,7 +90826,7 @@ aul
 aul
 sxV
 aul
-rhj
+rgC
 jKh
 xWj
 xWj
@@ -91330,7 +91334,7 @@ aaa
 aae
 xWj
 aul
-rgC
+aul
 jIq
 aEb
 aul
@@ -91587,12 +91591,12 @@ aaa
 aae
 xWj
 lTz
-aul
+rgC
 aul
 aEb
-rhj
 aul
-rgC
+aul
+aul
 mAw
 sTz
 xWj
@@ -91844,7 +91848,7 @@ aaa
 aae
 xWj
 aul
-aul
+rgC
 eJl
 kSW
 aul
@@ -92105,7 +92109,7 @@ aEb
 aEb
 aEb
 aul
-rgC
+aul
 aul
 mAw
 aul
@@ -92363,7 +92367,7 @@ fsi
 kSW
 aul
 aul
-aul
+rgC
 aul
 aul
 sWA
@@ -92618,10 +92622,10 @@ gCc
 aul
 rgC
 aEb
-rhj
 aul
 aul
-rhj
+aul
+aul
 hwO
 xWj
 xWj
@@ -92877,9 +92881,9 @@ aEb
 aEb
 aul
 aul
-pnL
 aul
-rgC
+aul
+aul
 xWj
 aae
 aae
@@ -93387,7 +93391,7 @@ aae
 aae
 xWj
 xWj
-rgC
+aul
 aEb
 aEb
 kSW
