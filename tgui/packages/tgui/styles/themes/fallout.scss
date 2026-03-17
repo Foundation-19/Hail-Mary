@@ -54,6 +54,10 @@ $phosphor-text: #8fbf8f;
   font-family: 'Courier New', Courier, monospace;
   color: $phosphor-text;
 
+  .Window {
+    color: $phosphor-text;
+  }
+
   .Button {
     font-family: 'Courier New', Courier, monospace;
     background-color: #04100a;

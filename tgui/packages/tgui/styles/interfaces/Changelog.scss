@@ -17,34 +17,49 @@
   .Changelog {
     h1 {
       font-size: 0.85em;
-      border-bottom: 1px solid #c8960a;
+      color: #4cff4c;
+      border-bottom: 1px solid #2ea82e;
       padding-bottom: 0.4em;
       margin-bottom: 0.6em;
+      text-shadow: 0 0 10px rgba(77, 255, 77, 0.6);
     }
 
     h4 {
       font-size: 0.8em;
-      color: #90b870;
+      color: #4cff4c;
       margin: 0.5em 0 0.25em;
+      text-shadow: 0 0 6px rgba(77, 255, 77, 0.35);
     }
 
     p, b {
       font-family: 'Courier New', Courier, monospace;
       font-size: 0.9em;
-      color: #90b870;
+      color: #8fbf8f;
     }
 
     a {
-      color: #c8960a;
+      color: #4cff4c;
     }
 
     a:hover {
-      color: #e0b030;
+      color: #c8ffc8;
       text-decoration: underline;
     }
 
     &__Cell {
-      color: #b8cc98;
+      color: #8fbf8f;
+      font-size: 0.88em;
+      line-height: 1.5;
+    }
+
+    .Section {
+      border-left: 2px solid rgba(77, 255, 77, 0.12);
+      padding-left: 0.6em;
+
+      .Section {
+        border-left: none;
+        padding-left: 0;
+      }
     }
   }
 }
