@@ -176,8 +176,8 @@ export class Changelog extends Component {
 
     const header = (
       <Section>
-        <h1>// ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL</h1>
-        <h1>// HAIL MARY STATION — CHANGE LOG</h1>
+        <h1>{'// ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL'}</h1>
+        <h1>{'// HAIL MARY STATION — CHANGE LOG'}</h1>
         <p>
           <b>Built upon: </b>
           Baystation 12, /vg/station, NTstation, CDK Station devs,
@@ -198,7 +198,7 @@ export class Changelog extends Component {
     const footer = (
       <Section>
         {dateDropdown}
-        <h3>// LICENSING</h3>
+        <h3>{'// LICENSING'}</h3>
         <p>
           {'Except where otherwise noted, Goon Station 13 is licensed under a '}
           <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">
