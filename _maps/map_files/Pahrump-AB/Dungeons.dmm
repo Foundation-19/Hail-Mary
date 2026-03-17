@@ -9310,7 +9310,6 @@
 /obj/effect/decal/cleanable/oil{
 	icon_state = "floor2"
 	},
-/obj/effect/spawner/lootdrop/f13/weapon/gun/energy/mid,
 /obj/structure/closet/secure_closet/goodies{
 	anchorable = 0;
 	anchored = 1;
@@ -17561,7 +17560,6 @@
 /area/f13/building)
 "iAE" = (
 /obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/f13/medical,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "whitedirtysolid"
 	},
@@ -21133,7 +21131,6 @@
 "knP" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/blueprintLow,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -30801,13 +30798,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/vault)
-"oVL" = (
-/obj/structure/table/reinforced,
-/obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
-	},
-/area/f13/underground/cave)
 "oVM" = (
 /obj/structure/reagent_dispensers/barrel/old,
 /obj/item/flag/bos,
@@ -38325,7 +38315,6 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/advcrafting,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -42139,8 +42128,6 @@
 /obj/item/pda,
 /obj/item/pda,
 /obj/item/pda,
-/obj/item/pda,
-/obj/item/book/granter/trait/pa_wear,
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
@@ -48048,7 +48035,6 @@
 /area/f13/underground/cave)
 "xlo" = (
 /obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/f13/attachments,
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
@@ -49805,8 +49791,6 @@
 /area/f13/brotherhood/operations)
 "yfM" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/high_tools,
-/obj/effect/spawner/lootdrop/tool_box,
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/underground/cave)
 "yfO" = (
@@ -102246,7 +102230,7 @@ mAw
 qYF
 nGR
 hLV
-oVL
+iAE
 aoL
 aoL
 sqg
@@ -102760,7 +102744,7 @@ mAw
 qYF
 nGR
 vqa
-oVL
+iAE
 aoL
 aoL
 bFQ
