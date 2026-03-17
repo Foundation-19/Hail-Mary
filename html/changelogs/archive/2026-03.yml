@@ -1,0 +1,11 @@
+2026-03-16:
+  Malerus:
+  - rscadd: Players must now accept the server rules before joining; acceptance is
+      saved to preferences so you are only prompted once.
+  - admin: Forcerules command now persists the reset to the player's savefile.
+  - qol: Occupation picker in character creation is now a faction-grouped card grid.
+  - qol: Lobby panel no longer shows a redundant title bar or default scrollbar.
+  - bugfix: HUD changelog and github buttons no longer lose their amber color when
+      the tgui panel loads.
+  - bugfix: Bold and strong text no longer change to the wrong color on hover in browser
+      UI.

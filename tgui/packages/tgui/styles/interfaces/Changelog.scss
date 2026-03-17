@@ -5,9 +5,47 @@
 
   &__Cell {
     padding: 3px 0;
+    font-family: 'Courier New', Courier, monospace;
 
     &--Icon {
       width: 25px;
     }
   }
 }
+
+.theme-fallout {
+  .Changelog {
+    h1 {
+      font-size: 0.85em;
+      border-bottom: 1px solid #c8960a;
+      padding-bottom: 0.4em;
+      margin-bottom: 0.6em;
+    }
+
+    h4 {
+      font-size: 0.8em;
+      color: #90b870;
+      margin: 0.5em 0 0.25em;
+    }
+
+    p, b {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9em;
+      color: #90b870;
+    }
+
+    a {
+      color: #c8960a;
+    }
+
+    a:hover {
+      color: #e0b030;
+      text-decoration: underline;
+    }
+
+    &__Cell {
+      color: #b8cc98;
+    }
+  }
+}
+
