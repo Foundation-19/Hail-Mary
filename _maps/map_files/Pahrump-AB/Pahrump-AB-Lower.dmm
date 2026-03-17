@@ -23838,8 +23838,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker)
-"tsr" = (
-)
 "tst" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
@@ -62293,11 +62291,11 @@ aak
 aak
 aae
 aae
-tsr
+aae
 aae
 adz
 aae
-tsr
+adz
 aae
 aae
 adz

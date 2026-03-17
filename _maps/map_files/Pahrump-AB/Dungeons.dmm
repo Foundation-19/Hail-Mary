@@ -26679,9 +26679,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/vault)
-"mWP" = (
-/turf/closed/wall/mineral/iron,
-/area/f13/underground/cave)
 "mXe" = (
 /obj/structure/table/wood,
 /obj/item/pen,
@@ -48851,8 +48848,6 @@
 /obj/structure/glowshroom,
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
-"xHm" = (
-)
 "xHv" = (
 /obj/structure/chair/right{
 	dir = 8
@@ -88331,7 +88326,7 @@ whv
 whv
 whv
 whv
-wWG
+whv
 whv
 "}
 (150,1,1) = {"
@@ -90644,7 +90639,7 @@ whv
 whv
 whv
 whv
-mWP
+whv
 whv
 "}
 (159,1,1) = {"
@@ -90901,7 +90896,7 @@ whv
 whv
 whv
 whv
-wWG
+whv
 whv
 "}
 (160,1,1) = {"
@@ -91158,7 +91153,7 @@ whv
 whv
 whv
 whv
-wWG
+whv
 whv
 "}
 (161,1,1) = {"
@@ -104748,7 +104743,7 @@ hrZ
 hrZ
 whv
 ghS
-xHm
+mdP
 lJL
 lJL
 qEQ
@@ -110683,7 +110678,7 @@ klQ
 klQ
 qYF
 qYF
-xHm
+lju
 kXK
 xXz
 cKR
@@ -110940,7 +110935,7 @@ eZs
 klQ
 qYF
 qYF
-xHm
+lju
 kXK
 ghA
 cKR
