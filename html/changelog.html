@@ -1,11 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Hail Mary Station 13 Changelog</title>
-  <link rel="stylesheet" type="text/css" href="changelog.css">
-  <base target="_blank" />
-  <script type='text/javascript'>
-  
+	<title>Hail Mary Station 13 Changelog</title>
+	<link rel="stylesheet" type="text/css" href="changelog.css">
+	<base target="_blank" />
+	<script type='text/javascript'>
+
 	function changeText(tagID, newText, linkTagID){
 		var tag = document.getElementById(tagID);
 		tag.innerHTML = newText;
@@ -14,7 +14,7 @@
 		linkTag.removeAttribute("onclick");
 	}
 	
-  </script>  
+	</script>  
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 
@@ -41,12 +41,18 @@
 			<h2 class="date">16 March 2026</h2>
 			<h3 class="author">Malerus updated:</h3>
 			<ul class="changes bgimages16">
-				<li class="rscadd">Players must now accept the server rules before joining; acceptance is saved to preferences so you are only prompted once.</li>
-				<li class="admin">Forcerules command now persists the reset to the player's savefile.</li>
-				<li class="qol">Occupation picker in character creation is now a faction-grouped card grid.</li>
-				<li class="qol">Lobby panel no longer shows a redundant title bar or default scrollbar.</li>
-				<li class="bugfix">HUD changelog and github buttons no longer lose their amber color when the tgui panel loads.</li>
+				<li class="rscadd">Players are now prompted to accept server rules before joining; the prompt only appears once and is saved to their preferences file.</li>
+				<li class="rscadd">Admins can force a player to re-accept the server rules via the existing forcerules command; this now also persists the reset to their savefile.</li>
+				<li class="qol">Occupation picker in character creation is now a faction-grouped card grid instead of a plain list.</li>
+				<li class="qol">Removed the "New Player Options" title bar from the lobby popup.</li>
+				<li class="qol">Lobby popup is now tall enough to avoid a default scrollbar.</li>
+				<li class="bugfix">HUD changelog and github buttons no longer lose their amber color every time the tgui panel loads.</li>
 				<li class="bugfix">Bold and strong text no longer change to the wrong color on hover in browser UI.</li>
+				<li class="code_imp">rules_accepted moved from /client to datum/preferences so acceptance persists across server restarts.</li>
+				<li class="code_imp">Added tools/ss13_genchangelog.py for generating the static changelog archive from yml entries.</li>
+				<li class="qol">In-game Changelog redesigned as a Fallout 1 phosphor-green RobCo terminal with monospace font, scanline effect, and green glow headings.</li>
+				<li class="qol">Changelog header updated to Hail Mary Station branding, removing upstream Coyote Bayou references.</li>
+				<li class="bugfix">Fixed null runtime in explosion.dm when reactionary_explosions config flag is disabled.</li>
 			</ul>
 
 			<h2 class="date">09 September 2021</h2>
