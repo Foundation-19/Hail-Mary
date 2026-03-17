@@ -21628,8 +21628,6 @@
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
-"rhj" = (
-)
 "rhq" = (
 /obj/effect/turf_decal/vg_decals/radiation_custom,
 /turf/closed/wall/r_wall/rust,
@@ -24303,6 +24301,9 @@
 /obj/structure/bed/old,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
+"tPe" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/den)
 "tPy" = (
 /obj/structure/barricade/wooden/strong,
 /turf/closed/mineral/random/high_chance,
@@ -24613,12 +24614,10 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/water,
 /area/f13/bunker)
-"ueF" = (
-/obj/machinery/light/small{
-	dir = 8
-	},
-/turf/closed/mineral/random/low_chance,
-/area/f13/caves)
+"ueB" = (
+/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/bunker)
 "ueN" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/enclave)
@@ -45613,7 +45612,7 @@ bJq
 vSi
 mlr
 pAe
-tsr
+dHk
 hab
 mlr
 vSi
@@ -59205,7 +59204,7 @@ bsC
 bKb
 bJq
 bJq
-bKb
+bOi
 bCt
 bCt
 bCt
@@ -64860,7 +64859,7 @@ bKb
 bJq
 bJq
 bPR
-bKb
+bOi
 xOM
 fnd
 mby
@@ -90562,7 +90561,7 @@ xuN
 rgC
 kSW
 aul
-rhj
+ueB
 sxV
 aul
 rgC
@@ -90822,7 +90821,7 @@ aul
 aul
 sxV
 aul
-rhj
+ueB
 jKh
 xWj
 xWj
@@ -91590,7 +91589,7 @@ lTz
 aul
 aul
 aEb
-rhj
+ueB
 aul
 rgC
 mAw
@@ -92618,10 +92617,10 @@ gCc
 aul
 rgC
 aEb
-rhj
+ueB
 aul
 aul
-rhj
+ueB
 hwO
 xWj
 xWj
