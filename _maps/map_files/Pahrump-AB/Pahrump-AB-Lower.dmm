@@ -410,6 +410,13 @@
 /obj/structure/timeddoor,
 /turf/closed/wall/r_wall/rust,
 /area/f13/tunnel)
+"apo" = (
+/obj/structure/ladder/unbreakable{
+	height = 1;
+	id = "toredlick"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/tunnel)
 "apr" = (
 /obj/structure/fence{
 	dir = 4;
@@ -422,13 +429,6 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/den)
-"apo" = (
-/obj/structure/ladder/unbreakable{
-	height = 1;
-	id = "toredlick"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/tunnel)
 "apB" = (
 /obj/structure/spacevine{
 	name = "vines"
@@ -22416,6 +22416,16 @@
 /obj/effect/gibspawner/human/bodypartless,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
+"rgQ" = (
+/obj/structure/chair/f13foldupchair{
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	name = "metal plating"
+	},
+/area/f13/city)
+"rhj" = (
+)
 "rhq" = (
 /obj/effect/turf_decal/vg_decals/radiation_custom,
 /turf/closed/wall/r_wall/rust,
@@ -28448,9 +28458,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"wOE" = (
-/turf/closed/indestructible/f13/matrix,
-/area/f13/den)
 "wPI" = (
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plasteel/f13/vault_floor/red,
@@ -55400,9 +55407,9 @@ ede
 pgm
 fix
 fix
-nQV
-nQV
 fix
+nQV
+nQV
 fix
 fix
 fix
@@ -64146,7 +64153,7 @@ wlx
 wlx
 wlx
 wlx
-wOE
+tPe
 wlx
 wlx
 wsO
@@ -65162,7 +65169,7 @@ dup
 nPL
 sns
 iWI
-nuU
+rhj
 jtg
 tEZ
 tEZ
@@ -66199,7 +66206,7 @@ jmg
 aXW
 ggl
 rrD
-hMU
+rhj
 aXW
 iah
 vZF
@@ -91627,7 +91634,7 @@ xuN
 rgC
 kSW
 aul
-ueB
+rhj
 sxV
 aul
 rgC
@@ -91887,7 +91894,7 @@ aul
 aul
 sxV
 aul
-ueB
+rhj
 jKh
 xWj
 xWj
@@ -92655,7 +92662,7 @@ lTz
 aul
 aul
 aEb
-ueB
+rhj
 aul
 rgC
 mAw
@@ -93683,10 +93690,10 @@ gCc
 aul
 rgC
 aEb
-ueB
+rhj
 aul
 aul
-ueB
+rhj
 hwO
 xWj
 xWj
