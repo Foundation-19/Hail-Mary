@@ -23839,10 +23839,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker)
 "tsr" = (
-/obj/structure/lattice/catwalk,
-/obj/machinery/water_purifier,
-/turf/open/water,
-/area/f13/tunnel)
+)
 "tst" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
@@ -24301,9 +24298,6 @@
 /obj/structure/bed/old,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/radiation)
-"tPe" = (
-/turf/closed/indestructible/f13/matrix,
-/area/f13/den)
 "tPy" = (
 /obj/structure/barricade/wooden/strong,
 /turf/closed/mineral/random/high_chance,
@@ -62299,11 +62293,11 @@ aak
 aak
 aae
 aae
-ueF
+tsr
 aae
 adz
 aae
-ueF
+tsr
 aae
 aae
 adz
@@ -88509,7 +88503,7 @@ fib
 pnL
 aEb
 baB
-pnL
+aul
 cnp
 xWj
 aae

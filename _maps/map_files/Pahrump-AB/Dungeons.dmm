@@ -1125,16 +1125,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"azZ" = (
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/item/clothing/head/f13/chinahelmetcosmetic,
-/obj/item/clothing/under/f13/chinasuitcosmetic,
-/turf/open/floor/plasteel/f13{
-	icon_state = "yellowdirtyfull"
-	},
-/turf/open/indestructible/ground/outside/dirt,
-/area/f13/underground/cave)
 "aAh" = (
 /obj/structure/bookcase/random,
 /turf/open/floor/wood_common,
@@ -48148,15 +48138,6 @@
 /obj/structure/sign/poster/prewar/poster75,
 /turf/closed/wall/r_wall,
 /area/f13/brotherhood/dorms)
-"xnQ" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/structure/closet/crate/freezer/surplus_limbs,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
-	},
-/area/f13/underground/cave)
 "xnR" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
@@ -48870,40 +48851,8 @@
 /obj/structure/glowshroom,
 /turf/open/floor/plasteel/cult,
 /area/f13/underground/cave)
-"xHf" = (
-/mob/living/simple_animal/hostile/enclave,
-/turf/open/floor/plasteel/f13/vault_floor/yellow/yellowchess/yellowchess2,
-/area/f13/vault)
 "xHm" = (
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/structure/rack,
-/obj/effect/turf_decal/bot,
-/obj/effect/decal/cleanable/dirt/dust,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/head/ushanka,
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/obj/item/clothing/under/f13/vault{
-	desc = "A blue jumpsuit with a yellow vault pattern and the number 223 printed on it.";
-	name = "vault 223 jumpsuit"
-	},
-/turf/open/floor/plasteel/f13{
-	icon_state = "yellowdirtyfull"
-	},
-/area/f13/building)
+)
 "xHv" = (
 /obj/structure/chair/right{
 	dir = 8
@@ -103533,7 +103482,7 @@ mAw
 qYF
 nGR
 vqa
-xnQ
+uOz
 aoL
 fGX
 aoL
@@ -104799,7 +104748,7 @@ hrZ
 hrZ
 whv
 ghS
-iWh
+xHm
 lJL
 lJL
 qEQ
@@ -110734,7 +110683,7 @@ klQ
 klQ
 qYF
 qYF
-aAf
+xHm
 kXK
 xXz
 cKR
@@ -110991,7 +110940,7 @@ eZs
 klQ
 qYF
 qYF
-aAf
+xHm
 kXK
 ghA
 cKR
