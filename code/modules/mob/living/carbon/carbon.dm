@@ -495,6 +495,7 @@
 				W.plane = initial(W.plane)
 		SetNextAction(0)
 	update_equipment_speed_mods() // In case cuffs ever change speed
+	update_mobility() //update mobility flags so we can use items/move properly after removing restraints
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
 	if(!I.loc || buckled)
@@ -521,6 +522,7 @@
 			legcuffed = null
 			I.dropped(src)
 			update_inv_legcuffed()
+			update_mobility() //update mobility flags so we can use items/move properly after removing restraints
 			return
 		else
 			dropItemToGround(I)
@@ -960,6 +962,7 @@
 	update_action_buttons_icon() //some of our action buttons might be unusable when we're handcuffed.
 	update_inv_handcuffed()
 	update_hud_handcuffed()
+	update_mobility() //update mobility flags so we can use items again after breaking free
 
 /mob/living/carbon/proc/can_revive(ignore_timelimit = FALSE, maximum_brute_dam = MAX_REVIVE_BRUTE_DAMAGE, maximum_fire_dam = MAX_REVIVE_FIRE_DAMAGE, ignore_heart = FALSE)
 	//var/tlimit = DEFIB_TIME_LIMIT * 10

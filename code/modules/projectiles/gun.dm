@@ -350,12 +350,22 @@ ATTACHMENTS
 		distant_sound = shootprops[CSP_INDEX_DISTANT_SOUND],
 		distant_range = shootprops[CSP_INDEX_DISTANT_RANGE]
 		)
+	
+	// Alert nearby hostile mobs to gunfire
+	if(!silenced)
+		for(var/mob/living/simple_animal/hostile/H in range(7, user))
+			if(H.stat != DEAD && !H.ckey && H.can_hear_combat)
+				// Don't alert if shooter is same faction
+				if(!H.faction_check_mob(user))
+					H.hear_gunshot(get_turf(user), user)
+	
 	if(!silenced && message && COOLDOWN_FINISHED(src, shoot_message_antispam))
 		COOLDOWN_START(src, shoot_message_antispam, GUN_SHOOT_MESSAGE_ANTISPAM_TIME)
 		if(pointblank)
 			user.visible_message(span_danger("[user] fires [src] point blank at [pbtarget]!"), null, null, COMBAT_MESSAGE_RANGE)
 		else
 			user.visible_message(span_danger("[user] fires [src]!"), null, null, COMBAT_MESSAGE_RANGE)
+	
 	kickback(user, P)
 
 //Adds logging to the attack log whenever anyone draws a gun, adds a pause after drawing a gun before you can do anything based on it's size
