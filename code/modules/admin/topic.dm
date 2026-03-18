@@ -1948,6 +1948,26 @@
 		if(M.ckey in GLOB.client_ghost_timeouts)
 			GLOB.client_ghost_timeouts -= M.ckey
 
+	else if(href_list["forcerules"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): forcerules without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): forcerules without admin perms.")
+			return
+		var/mob/M = locate(href_list["forcerules"])
+		if(!ismob(M) || !M.client)
+			to_chat(usr, "Target has no active client.")
+			return
+		if(M.client.prefs)
+			M.client.prefs.rules_accepted = FALSE
+			M.client.prefs.save_preferences()
+		log_admin("[key_name(usr)] has forced [key_name(M)] to re-accept the server rules.")
+		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to re-accept the server rules.")
+		if(isnewplayer(M))
+			var/mob/dead/new_player/NP = M
+			NP.show_rules_panel(TRUE)
+		else
+			to_chat(M, span_adminnotice("An admin has required you to re-read and accept the server rules. They will be shown the next time you return to the lobby."))
+
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))
 			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): sendtoprison without admin perms.")

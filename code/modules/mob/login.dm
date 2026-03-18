@@ -53,7 +53,7 @@
 	mind?.hide_ckey = client?.prefs?.hide_ckey
 
 	// BYOND 516: Initialize verbs for the client on login/reconnect
-	// Reconnect shorter: joining longer
+	// Only refresh verbs on body switch, not entire statbrowser (statbrowser loads once on client connection)
 	if(client)
 		var/delay = client.statbrowser_ready ? 1 : 50
 		addtimer(CALLBACK(client, TYPE_PROC_REF(/client, init_verbs)), delay)

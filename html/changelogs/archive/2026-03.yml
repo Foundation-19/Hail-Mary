@@ -1,0 +1,24 @@
+2026-03-16:
+  Malerus:
+  - rscadd: Players are now prompted to accept server rules before joining; the prompt
+      only appears once and is saved to their preferences file.
+  - rscadd: Admins can force a player to re-accept the server rules via the existing
+      forcerules command; this now also persists the reset to their savefile.
+  - qol: Occupation picker in character creation is now a faction-grouped card grid
+      instead of a plain list.
+  - qol: Removed the "New Player Options" title bar from the lobby popup.
+  - qol: Lobby popup is now tall enough to avoid a default scrollbar.
+  - bugfix: HUD changelog and github buttons no longer lose their amber color every
+      time the tgui panel loads.
+  - bugfix: Bold and strong text no longer change to the wrong color on hover in
+      browser UI.
+  - code_imp: rules_accepted moved from /client to datum/preferences so acceptance
+      persists across server restarts.
+  - code_imp: Added tools/ss13_genchangelog.py for generating the static changelog
+      archive from yml entries.
+  - qol: In-game Changelog redesigned as a Fallout 1 phosphor-green RobCo terminal
+      with monospace font, scanline effect, and green glow headings.
+  - qol: Changelog header updated to Hail Mary Station branding, removing upstream
+      Coyote Bayou references.
+  - bugfix: Fixed null runtime in explosion.dm when reactionary_explosions config
+      flag is disabled.

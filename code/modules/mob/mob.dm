@@ -9,8 +9,12 @@
 	movespeed_modification = null
 	// Clear mind reference to break circular references
 	if(mind)
-		mind.current = null
-		mind = null
+		// Don't clear mind.current if there's a ghost that can still re-enter
+		// This prevents ghosts from being locked out of revival attempts
+		var/mob/dead/observer/ghost = mind.get_ghost(even_if_they_cant_reenter = FALSE)
+		if(!ghost)
+			mind.current = null
+			mind = null
 	// Clear held items by destroying them BEFORE parent cleanup
 	// This prevents item cleanup from trying to re-add items during component destruction
 	if(held_items && held_items.len)
@@ -583,20 +587,33 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 
 
 /mob/proc/transfer_ckey(mob/new_mob, send_signal = TRUE)
-	if(!new_mob || (!ckey && new_mob.ckey))
-		CRASH("transfer_ckey() called [new_mob ? "on ckey-less mob with a player mob as target" : "without a valid mob target"]!")
+	// Validate target mob
+	if(!new_mob || !istype(new_mob))
+		stack_trace("transfer_ckey() called without a valid mob target!")
+		return FALSE
+	
+	// Check if we have a ckey to transfer
+	if(!ckey && new_mob.ckey)
+		stack_trace("transfer_ckey() called on ckey-less mob with a player mob as target!")
+		return FALSE
+	
 	if(!ckey)
-		return
+		return FALSE
+	
 	SEND_SIGNAL(new_mob, COMSIG_MOB_PRE_PLAYER_CHANGE, new_mob, src)
-	if (client)
+	
+	if(client)
 		if(client.prefs?.auto_ooc)
-			if (client.prefs.chat_toggles & CHAT_OOC && isliving(new_mob))
+			if(client.prefs.chat_toggles & CHAT_OOC && isliving(new_mob))
 				client.prefs.chat_toggles ^= CHAT_OOC
-			if (!(client.prefs.chat_toggles & CHAT_OOC) && isdead(new_mob))
+			if(!(client.prefs.chat_toggles & CHAT_OOC) && isdead(new_mob))
 				client.prefs.chat_toggles ^= CHAT_OOC
+	
 	new_mob.ckey = ckey
+	
 	if(send_signal)
 		SEND_SIGNAL(src, COMSIG_MOB_KEY_CHANGE, new_mob, src)
+	
 	return TRUE
 
 /mob/verb/cancel_camera()

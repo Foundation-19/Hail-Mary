@@ -880,6 +880,9 @@
 			registered_name = input_name
 			assignment = target_occupation
 			update_label()
+			LAZYCLEARLIST(access)
+			var/datum/job/player_job = SSjob.GetJob(user.mind.assigned_role)
+			src.access |= player_job.access
 			to_chat(user, span_notice("You successfully forge the ID card."))
 			return
 		else

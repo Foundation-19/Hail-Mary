@@ -174,7 +174,7 @@
 
 	to_chat(world, "<BR><BR><BR><span class='big bold'>The round has ended.</span>")
 	if(LAZYLEN(GLOB.round_end_notifiees))
-		world.TgsTargetedChatBroadcast("[GLOB.round_end_notifiees.Join(", ")] the round has ended.", FALSE)
+		send2chat("[GLOB.round_end_notifiees.Join(", ")] the round has ended.", CONFIG_GET(string/discord_channel_serverstatus))
 
 	for(var/I in round_end_events)
 		var/datum/callback/cb = I
@@ -212,8 +212,8 @@
 	var/list/publisher = list("Eastwood Publishing","Brotherhood News","Mojave Publishing","FEV News")
 	//tell the nice people on discord what went on before the salt cannon happens.
 	// send2chat sending the new round ping off
-	send2chat(" <@&922230570791108628> ", CONFIG_GET(string/discord_channel_serverstatus))
-	world.TgsTargetedChatBroadcast("The current round has ended. Please standby for your [pick(publisher)] report!", FALSE)
+	send2chat(" <@&1211451281353474059> ", CONFIG_GET(string/discord_channel_serverstatus))
+	send2chat("The current round has ended. Please standby for your [pick(publisher)] report!", CONFIG_GET(string/discord_channel_serverstatus))
 	//lonestar edit. i'm adding a timer here because i'm tired of the messages being sent out of order
 	addtimer(CALLBACK(src, PROC_REF(send_roundinfo)), 3 SECONDS)
 
@@ -222,7 +222,7 @@
 	set_observer_default_invisibility(0, span_warning("The round is over! You are now visible to the living."))
 
 	CHECK_TICK
-	
+
 	//These need update to actually reflect the real antagonists
 	//Print a list of antagonists to the server log
 	var/list/total_antagonists = list()
@@ -665,5 +665,4 @@
 		qdel(query_check_everything_ranks)
 
 /datum/controller/subsystem/ticker/proc/send_roundinfo()
-	world.TgsTargetedChatBroadcast(send_news_report(),FALSE)
-
+	send2chat(send_news_report(), CONFIG_GET(string/discord_channel_serverstatus))

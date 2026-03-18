@@ -627,10 +627,6 @@ SUBSYSTEM_DEF(ticker)
 			news_message += "[pick(investigator)] discovered the corpse of a person of interest in the area. Their name was: [ded["name"]], the [ded["role"]], who died in a nearby [ded["area"]].[ded["last_words"] ? " Their last words were: \"[ded["last_words"]]\"" : ""]"
 		else
 			news_message += " [pick(investigator)] have reported a relatively safe week so far!"
-
-		//role ping for discord
-		news_message += " \n <@&922230570791108628> "
-
 	if(news_message)
 		send2otherserver(news_source, news_message,"News_Report")
 		return news_message

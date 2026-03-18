@@ -178,6 +178,11 @@
 	name = "bandolier"
 	path = /obj/item/storage/belt/bandolier
 	cost = 2
+
+/datum/gear/neck/bandolier
+	name = "Sniper Rain Coat"
+	path = /obj/item/storage/belt/sniperraincoat
+	cost = 2
 	
 /datum/gear/neck/shoulderholster
 	name = "shoulder holster"

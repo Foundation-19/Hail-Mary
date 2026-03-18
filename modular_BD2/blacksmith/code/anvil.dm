@@ -44,10 +44,9 @@
 #define RECIPE_THROWING "sdd" //shrink draw draw
 #define RECIPE_BOLA "suu" //shrink upset upset
 
-
 // LEGION SPECIFIC
 #define RECIPE_GLADIUS "fbf" //fold bend fold
-#define RECIPE_LANCE "dbdf" //draw bend fold fold LEGION
+#define RECIPE_LANCE "dbdf" //draw bend draw fold LEGION
 #define RECIPE_SPATHA "ffbf" // fold fold bend fold LEGION
 #define RECIPE_WARAXE "udup" //upset draw upset punch LEGION
 
@@ -56,37 +55,37 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	RECIPE_SHOVEL = /obj/item/smithing/shovelhead,
 	RECIPE_PICKAXE = /obj/item/smithing/pickaxehead,
 	RECIPE_PROSPECTPICK = /obj/item/smithing/prospectingpickhead,
-	RECIPE_KITCHENKNIFE = /obj/item/smithing/knifeblade,
+	RECIPE_KITCHENKNIFE = /obj/item/smithing/weapon/knifeblade,
 	RECIPE_CROWBAR = /obj/item/smithing/crowbar,
 	RECIPE_UNITOOL = /obj/item/smithing/unitool,
 	RECIPE_RING = /obj/item/smithing/special/jewelry/ring,
-	RECIPE_BALLANDCHAIN = /obj/item/smithing/ballandchain,
+	RECIPE_BALLANDCHAIN = /obj/item/smithing/weapon/ballandchain,
 	RECIPE_ARMOR_PIECE = /obj/item/smithing/armor_piece,
-	RECIPE_DAGGER = /obj/item/smithing/daggerblade,
-   	RECIPE_BOWIE = /obj/item/smithing/bowieblade,
-	RECIPE_MACHETE = /obj/item/smithing/macheteblade,
-	RECIPE_MACHREFORG = /obj/item/smithing/macheterblade,
-	RECIPE_SWORD = /obj/item/smithing/swordblade,
-	RECIPE_SABRE = /obj/item/smithing/sabreblade,
+	RECIPE_DAGGER = /obj/item/smithing/weapon/daggerblade,
+   	RECIPE_BOWIE = /obj/item/smithing/weapon/daggerblade/bowieblade,
+	RECIPE_MACHETE = /obj/item/smithing/weapon/macheteblade,
+	RECIPE_MACHREFORG = /obj/item/smithing/weapon/macheteblade/macheterblade,
+	RECIPE_SWORD = /obj/item/smithing/weapon/swordblade,
+	RECIPE_SABRE = /obj/item/smithing/weapon/swordblade/sabreblade,
 	RECIPE_LONGSWORD = /obj/item/smithing/longswordblade,
 	RECIPE_KATANA = /obj/item/smithing/katanablade,
-	RECIPE_WAKI = /obj/item/smithing/wakiblade,
-	RECIPE_SCRAPSAW  = /obj/item/smithing/scrapsaw,
-	RECIPE_MACE = /obj/item/smithing/macehead,
+	RECIPE_WAKI = /obj/item/smithing/weapon/macheteblade/wakiblade,
+	RECIPE_SCRAPSAW  = /obj/item/smithing/weapon/scrapsaw,
+	RECIPE_MACE = /obj/item/smithing/weapon/macehead,
 	RECIPE_SCRAP = /obj/item/smithing/scrapblade,
 	RECIPE_ZWEIHANDER = /obj/item/smithing/zweiblade,
 	RECIPE_AXE = /obj/item/smithing/axehead,
 	RECIPE_CRUSHER = /obj/item/smithing/crusherhead,
 	RECIPE_SPEAR = /obj/item/smithing/spearhead,
-	RECIPE_TRIDENT = /obj/item/smithing/tridenthead,
-	RECIPE_PIKE = /obj/item/smithing/pikehead,
+	RECIPE_TRIDENT = /obj/item/smithing/spearhead/tridenthead,
+	RECIPE_PIKE = /obj/item/smithing/spearhead/pikehead,
 	RECIPE_JAVELIN = /obj/item/smithing/javelinhead,
 	RECIPE_THROWING = /obj/item/smithing/throwingknife,
 	RECIPE_BOLA = /obj/item/smithing/bola,
-	RECIPE_GLADIUS =  /obj/item/smithing/gladiusblade,
-	RECIPE_SPATHA = /obj/item/smithing/spathablade,
+	RECIPE_GLADIUS =  /obj/item/smithing/weapon/macheteblade/gladiusblade,
+	RECIPE_SPATHA = /obj/item/smithing/weapon/swordblade/spathablade,
 	RECIPE_WARAXE = /obj/item/smithing/waraxehead,
-	RECIPE_LANCE = /obj/item/smithing/lancehead,
+	RECIPE_LANCE = /obj/item/smithing/spearhead/lancehead,
     ))
 
 
@@ -111,12 +110,11 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	var/anvilquality = 0
 	var/currentquality = 0 //lolman? what the fuck do these vars do?
 	var/currentsteps = 0 //even i don't know
-	var/outrightfailchance = 5 //todo: document this shit
+	var/outrightfailchance = 0 //todo: document this shit
 	var/stepsdone = ""
-	var/rng = TRUE
-	var/debug = FALSE //vv this if you want an artifact
-	var/artifactrolled = FALSE
-	var/itemqualitymax = 10
+	var/fallible = TRUE
+	var/guaranteed_artifact = FALSE //vv this if you want an artifact
+	var/itemqualitymax = 15
 
 /obj/structure/blacksmith/anvil/Initialize(mapload)
 	. = ..()
@@ -127,29 +125,31 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	if(istype(I, /obj/item/blacksmith/ingot)) // That's it we're refactoring this code because I can't im literally crying rn ; _;
 		return HandleIngot(I, user)
 
-	if(istype(I, /obj/item/melee/smith/hammer) || istype(I, /obj/item/twohanded/sledgehammer/simple)) // Hammer interactions:
-		var/obj/item/melee/smith/hammer/hammertime = I // Even though they are two seperate object paths, I believe because we're only accessing qualitymod, it casts accordingly.
-
-		// if there is nothing present or something in progress.
-		if(!(workpiece_state == WORKPIECE_PRESENT || workpiece_state == WORKPIECE_INPROGRESS))
-			to_chat(user, "You can't work an empty anvil!")
-			return FALSE
+	var/hammer_speed = 0
+	if(!istype(I, /obj/item/twohanded/sledgehammer/simple)) // Hammer interactions:
+		if(istype(I, /obj/item/melee/smith/hammer))
+			var/obj/item/melee/smith/hammer/hammertime = I // Even though they are two seperate object paths, I believe because we're only accessing qualitymod, it casts accordingly.
+			hammer_speed = hammertime.smithing_speed
+		else
+			return ..()
+	// if there is nothing present or something in progress.
+	if(!(workpiece_state == WORKPIECE_PRESENT || workpiece_state == WORKPIECE_INPROGRESS))
+		to_chat(user, "You can't work an empty anvil!")
+		return FALSE
 
 		// Checks if F.busy or busy.
-		if(CheckBusy(user))
-			to_chat(user, "This anvil is already being worked or you're already working on another one!")
-			return FALSE
+	if(CheckBusy(user))
+		to_chat(user, "This anvil is already being worked or you're already working on another one!")
+		return FALSE
 
-		return do_shaping(user, hammertime.qualitymod) // The actual progression part.
-
-	return ..()
+	return do_shaping(user, hammer_speed) // The actual progression part.
 
 /obj/structure/blacksmith/anvil/proc/CheckBusy(mob/user)
 	var/mob/living/carbon/human/F = user
 
 	return F.busy || busy
 
-/obj/structure/blacksmith/anvil/proc/SetBusy(value, mob/living/carbon/human/H)
+/obj/structure/blacksmith/anvil/proc/set_busy(value, mob/living/carbon/human/H)
 	if(H)
 		H.busy = value
 	busy = value
@@ -160,10 +160,9 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	stepsdone = ""
 	currentsteps = 0
 	outrightfailchance = initial(outrightfailchance)
-	artifactrolled = FALSE
 	workpiece_state = FALSE
 	cut_overlay(image(icon= 'modular_BD2/blacksmith/icons/blacksmith.dmi',icon_state="workpiece"))
-	SetBusy(FALSE, null)
+	set_busy(FALSE, null)
 
 /obj/structure/blacksmith/anvil/proc/HandleIngot(obj/item/blacksmith/ingot/workpiece, mob/user)
 	if(workpiece_state)
@@ -180,38 +179,131 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 			add_overlay(image(icon= 'modular_BD2/blacksmith/icons/blacksmith.dmi',icon_state="workpiece"))
 			set_light_on(TRUE)
 
-		var/skillmod = 0
-		if(user.mind.skill_holder)
-			skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/2
-		currentquality += skillmod
-
 		qdel(workpiece)
 	else
 		to_chat(user, "The ingot isn't workable yet!")
 		return FALSE
 
-/obj/structure/blacksmith/anvil/proc/do_shaping(mob/user, qualitychange)
+/obj/structure/blacksmith/anvil/proc/do_shaping(mob/user, hammer_speed)
 	if(!iscarbon(user))
 		return
 
-	SetBusy(TRUE, user)
-
-	currentquality += qualitychange
+	set_busy(TRUE, user)
 	workpiece_state = WORKPIECE_INPROGRESS // set it so we're working on it.
 
 	// Present choice selection.
-	var/list/shapingsteps = list("weak hit", "strong hit", "heavy hit", "fold", "draw", "shrink", "bend", "punch", "upset") //weak/strong/heavy hit affect strength. All the other steps shape.
-	var/stepdone = input(user, "How would you like to work the metal?") in shapingsteps
-
+	var/list/working_steps = list("weak hit", "strong hit", "heavy hit")
+	var/shaping_steps = list("fold", "draw", "shrink", "bend", "punch", "upset") //weak/strong/heavy hit affect strength. All the other steps shape.
+	var/finishing_steps = list("finish (strong)", "finish (sharp)", "finish (jagged)")
+	var/all_steps = working_steps + shaping_steps
+	for(var/i in GLOB.anvil_recipes) // for each recipes.
+		if(i == stepsdone)
+			all_steps += finishing_steps
+			break
+	var/stepdone = input(user, "How would you like to work the metal?") in all_steps
 
 	// if user is not in range, remove business.
 	if(!locate(src) in range(1, user))
-		return SetBusy(FALSE, user)
+		return set_busy(FALSE, user)
 
+	do_shaping_feedback(user, stepdone)
 
 	// Time it takes for us to uh...forge..?
 	var/steptime = 45 // sounds edited to fit 4.5 seconds
-	switch(stepdone) // Have some more then
+	if(user.mind.skill_holder) // Skill modifier to make it faster at blacksmithing. Limited to avoid going too far out of step with sounds.
+		var/skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/15 + 1
+		steptime /= skillmod
+	var/hammer_speed_mod = (hammer_speed * 0.05) + 1
+	steptime /= hammer_speed_mod
+
+	if(!do_after(user, steptime, target = src))
+		return set_busy(FALSE, user)
+
+	if(stepdone in finishing_steps)
+		try_finish(user, stepdone)
+	else
+		if(stepdone in working_steps)
+			var/magnitude = working_steps.Find(stepdone)
+			currentsteps += magnitude
+			outrightfailchance += magnitude * 4
+			currentquality += magnitude
+		else if(stepdone in shaping_steps)
+			stepsdone += stepdone[1]
+			currentsteps += 1
+
+		// sparkles~
+		do_smithing_sparks(1, TRUE, src)
+
+		if(length(stepsdone) >= 3)
+			try_fail(user)
+	
+	set_busy(FALSE, user) // Set it to false, cause we're done now.
+
+/obj/structure/blacksmith/anvil/proc/try_fail(mob/user)
+
+	var/skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)
+	skillmod = 0.9 ^ (skillmod-1)
+	var/finalfailchance = max(0, outrightfailchance * skillmod) //lv 2 gives 10% less to fail, 3 is 10% less than that, etc 
+	
+	if((currentsteps > 10 || (fallible && prob(finalfailchance))))
+
+		to_chat(user, span_warning("You overwork the metal, causing it to turn into useless slag!"))
+
+		new /obj/item/stack/ore/slag(get_turf(src)) // Spawn some slag
+
+		ResetAnvil() // Resets it to be default.
+
+		if(user.mind.skill_holder) // give them some experience
+			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 50, 500000, silent = FALSE) //This shouldn't give you a full level until 3+
+
+/obj/structure/blacksmith/anvil/proc/try_finish(mob/user, finishing_touch)
+
+	var/artifactchance = 0
+	var/skillmod = 0
+	if(user.mind.skill_holder)
+		skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/2.5
+		currentquality += skillmod
+
+	if(currentquality >= 10) // if there has not been a roll chance, do it now..?
+		artifactchance = (currentquality)/2000 //Reduced. Artifacts are silly, fun on occasion but not meant be a balance crutch. Adjust base values until sweet spot instead ffs.
+
+	var/artifact = (prob(artifactchance) || guaranteed_artifact) // If there is an artifact..?
+
+	var/obj/item/smithing/finisheditem = GLOB.anvil_recipes[stepsdone]
+	finisheditem = new finisheditem(get_turf(src)) // Lets just spawn the item in immediately!
+
+	to_chat(user, "You finish your [finisheditem]!")
+
+	// math to make quality better if its an artifact.
+	if(artifact)
+		to_chat(user, "It is an artifact, a creation whose legacy shall live on forevermore.") //todo: SSblackbox
+		currentquality = max(currentquality, 15)
+		currentquality += 7
+		finisheditem.artifact = TRUE
+	else
+		finisheditem.quality = min(currentquality, itemqualitymax)
+
+	finisheditem.set_custom_materials(workpiece_material)
+	var/stepexperience = currentsteps + finisheditem.quality
+	var/finalexperience = clamp(stepexperience * 20, 300, 2000) //Makes powerlevelling late-game harder as it gives more bonuses here
+	if(user.mind.skill_holder) // give them some experience!
+		if(currentquality <= 1)
+			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 300, 500000, silent = FALSE) //Incentivises not spamming Slag
+		else
+			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, finalexperience, 500000, silent = FALSE) //Made more forgiving for lower levels and terrible anvils.
+
+	finisheditem.finishing_touch = finishing_touch
+
+	workpiece_state = FALSE
+	finisheditem.set_custom_materials(workpiece_material)
+	currentquality = anvilquality
+	stepsdone = ""
+	currentsteps = 0
+	outrightfailchance = 1
+	ResetAnvil() // Worse Case something might break if we dont do this. soo.... yeah!
+
+/obj/structure/blacksmith/anvil/proc/do_shaping_feedback(mob/user, stepdone)
+	switch(stepdone)
 		if("weak hit")
 			playsound(src, 'modular_BD2/blacksmith/sound/anvil_weak.ogg',100)
 			user.visible_message("<span class='notice'>[user] carefully hammers out imperfections in the metal.</span>", \
@@ -256,140 +348,21 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 			do_smithing_sparks(1, TRUE, src)
 			user.visible_message("<span class='notice'>[user] upsets the metal by hammering the thick end.</span>", \
 						"<span class='notice'>You upset the metal by hammering the thick end.</span>")
-
-	if(user.mind.skill_holder) // Skill modifier to make it faster at blacksmithing. Limited to avoid going too far out of step with sounds.
-		var/skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/15 + 1
-		steptime = 50 / skillmod
-
-
-	if(!do_after(user, steptime, target = src))
-		return SetBusy(FALSE, user)
-
-	// I hate this.
-	// I'd rather die.
-	switch(stepdone)
-		if("weak hit")
-			currentsteps += 1
-			outrightfailchance += 4
-			currentquality += 1
-		if("strong hit")
-			currentsteps += 2
-			outrightfailchance += 8.5
-			currentquality += 2
-		if("heavy hit")
-			currentsteps += 3
-			outrightfailchance += 13
-			currentquality += 3
-		if("fold")
-			stepsdone += "f"
-			currentsteps += 1
-			currentquality -= 1
-		if("draw")
-			stepsdone += "d"
-			currentsteps += 1
-			currentquality -= 1
-		if("shrink")
-			stepsdone += "s"
-			currentsteps += 1
-			currentquality -= 1
-		if("bend")
-			stepsdone += "b"
-			currentsteps += 1
-			currentquality -= 1
-		if("punch")
-			stepsdone += "p"
-			currentsteps += 1
-			currentquality -= 1
-		if("upset")
-			stepsdone += "u"
-			currentsteps += 1
-			currentquality -= 1
-
-	// sparkles~
-	do_smithing_sparks(1, TRUE, src)
-
-	// the stepsdone is a string of characters which are actions made.
-	// Once it is more or equal to 3, call try finish.
-	if(length(stepsdone) >= 3)
-		tryfinish(user)
-
-	SetBusy(FALSE, user) // Set it to false, cause we're done now some how.
-
-/obj/structure/blacksmith/anvil/proc/tryfinish(mob/user) // Oh god before I prettify this code I just feel like I'm having a stroke at all this word garble.
-
-	var/artifactchance = 0
-	var/combinedqualitymax = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/4 + itemqualitymax //This is no longer as good. /2 divisor to /4 to make the max ~12
-	if(!artifactrolled) // if there has not been a roll chance, do it now..?
-		artifactchance = (1+(user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/4))/2000 //Reduced. Artifacts are silly, fun on occasion but not meant be a balance crutch. Adjust base values until sweet spot instead ffs.
-		//artifactrolled = TRUE --Disabled because this is a shitty mechanic.
-
-	var/artifact = max(prob(artifactchance), debug) // If there is an artifact..?
-
-	var/finalfailchance = outrightfailchance // Compiled fail chance result
-
-	if(user.mind.skill_holder) // Divide the failing chance based on the skillmodifier
-		var/skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing) / 10 + 1
-		finalfailchance = max(0, finalfailchance / skillmod) //lv 2 gives 20% less to fail, 3 30%, etc
-
-
-	///////
-	// The two main conditionals
-	///////
-
-	// I hate this. If you hit more than 10 times, or the final piece failed and you have no artifact. Why it gotta look so awkward.
-	if((currentsteps > 10 || (rng && prob(finalfailchance))) && !artifact)
-
-		to_chat(user, span_warning("You overwork the metal, causing it to turn into useless slag!"))
-
-		new /obj/item/stack/ore/slag(get_turf(src)) // Spawn some slag
-
-		ResetAnvil() // Resets it to be default.
-
-		if(user.mind.skill_holder) // give them some experience
-			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 50, 500000, silent = FALSE) //This shouldn't give you a full level until 3+
-
-		return SetBusy(FALSE, user)
-
-	// IF YOU DIDN'T FUCK UP THE RECIPE
-	for(var/i in GLOB.anvil_recipes) // for each recipes.
-		if(i == stepsdone)
-
-			var/obj/item/smithing/finisheditem = GLOB.anvil_recipes[stepsdone]
-			finisheditem = new finisheditem(get_turf(src)) // Lets just spawn the item in immediately!
-
-			to_chat(user, "You finish your [finisheditem]!")
-
-			// math to make quality better if its an artifact.
-			if(artifact)
-				to_chat(user, "It is an artifact, a creation whose legacy shall live on forevermore.") //todo: SSblackbox
-				currentquality = max(currentquality, 2)
-				finisheditem.artifact = TRUE
-			else
-				if(combinedqualitymax >= 0)
-					finisheditem.quality = min(currentquality, combinedqualitymax) //Changed so better smiths can make better gear regardless of their anvil. WILL HAVE TO BE TWEAKED, POSSIBLY.
-				else
-					finisheditem.quality = min(currentquality, itemqualitymax)
-
-			finisheditem.set_custom_materials(workpiece_material)
-			var/stepexperience = currentsteps + finisheditem.quality
-			var/finalexperience = (150 *(stepexperience + finisheditem.quality))/8 //Makes powerlevelling late-game harder as it gives more bonuses here
-			if(user.mind.skill_holder) // give them some experience!
-				if(currentquality <= 1)
-					user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 400, 500000, silent = FALSE) //Incentivises not spamming Slag
-				else
-					user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, finalexperience, 500000, silent = FALSE) //Made more forgiving for lower levels and terrible anvils.
-
-			workpiece_state = FALSE
-			finisheditem.set_custom_materials(workpiece_material)
-			currentquality = anvilquality
-			stepsdone = ""
-			currentsteps = 0
-			outrightfailchance = 1
-			artifactrolled = FALSE
-			ResetAnvil() // Worse Case something might break if we dont do this. soo.... yeah!
-			break
-
-
+		if("finish (strong)")
+			playsound(src, 'modular_BD2/blacksmith/sound/anvil_double3.ogg',100)
+			do_smithing_sparks(1, TRUE, src)
+			user.visible_message("<span class='notice'>[user] prepares to finish up their work.</span>", \
+						"<span class='notice'>You prepare to finish up your work.</span>")
+		if("finish (sharp)")
+			playsound(src, 'modular_BD2/blacksmith/sound/anvil_double3.ogg',100)
+			do_smithing_sparks(1, TRUE, src)
+			user.visible_message("<span class='notice'>[user] sharpens the edge of their piece.</span>", \
+						"<span class='notice'>You prepare to finish up your work, sharpening the edge of your piece.</span>")
+		if("finish (jagged)")
+			playsound(src, 'modular_BD2/blacksmith/sound/anvil_double3.ogg',100)
+			do_smithing_sparks(1, TRUE, src)
+			user.visible_message("<span class='notice'>[user] cuts serrated teeth into their piece.</span>", \
+						"<span class='notice'>You prepare to finish up your work, cutting jagged edges into your piece.</span>")
 
 //////////////////////
 //					//
@@ -439,7 +412,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	anvilquality = 10
 	itemqualitymax = 9001
 	outrightfailchance = 0
-	rng = FALSE
+	fallible = FALSE
 
 #undef WORKPIECE_PRESENT
 #undef WORKPIECE_INPROGRESS

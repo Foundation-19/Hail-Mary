@@ -104,6 +104,24 @@
 	can_flashlight = 1
 	dog_fashion = null
 
+/obj/item/clothing/head/helmet/altyn
+	name = "Altyn Helmet"
+	desc = "A titanium alloy combat helmet with an integrated armored face shield and advanced ballistic protection. Tends to ignite when subjected to heat or particularly hard impacts."
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "altyn"
+	item_state = "altyn"
+	actions_types = list(/datum/action/item_action/toggle)
+	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2)
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_UP_BOMB_T2, ARMOR_MODIFIER_DOWN_ENV_T2, ARMOR_MODIFIER_UP_DT_T2)
+
+/obj/item/clothing/head/helmet/altyn/attack_self(mob/user)
+	weldingvisortoggle(user)
+	icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon_state = "altynup"
+	item_state = "altynup"
+
 /obj/item/clothing/head/helmet/alt/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
@@ -326,6 +344,52 @@
 	dynamic_hair_suffix = ""
 	dynamic_fhair_suffix = ""
 	strip_delay = 80
+
+/* Medieval Town armors
+Intended for use on BoS Town */
+
+/obj/item/clothing/head/helmet/knight/lord
+	name = "Lords helmet"
+	desc = "A metal helmet denoting the rank of lord, gold appears to be welded crudely onto the top to denote the rank of lord."
+	icon_state = "knight_yellow"
+	item_state = "knight_yellow"
+	equip_delay_self = 60
+	equip_delay_other = 10
+	armor = ARMOR_VALUE_HEAVY
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	strip_delay = 100
+	dog_fashion = null
+	
+
+/obj/item/clothing/head/helmet/knight/sherrif
+	name = "Sherrifs helmet"
+	desc = "A metal helmet. it appears to have red markings all over marking the rank of sherrif."
+	icon_state = "knight_red"
+	item_state = "knight_red"
+	equip_delay_self = 60
+	equip_delay_other = 10
+	armor = ARMOR_VALUE_HEAVY
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	strip_delay = 100
+	dog_fashion = null
+
+/obj/item/clothing/head/helmet/knight/constable
+	name = "Watchments helmet"
+	desc = "A metal helmet denoting the rank of constable, it appears worn and weathered but still well built."
+	icon = 'fallout/icons/objects/hats.dmi'
+	mob_overlay_icon = 'fallout/icons/objects/hats.dmi'
+	icon_state = "medieval_helmet1"
+	item_state = "medieval_helmet1"
+	armor = ARMOR_VALUE_MEDIUM
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T1)
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	strip_delay = 100
+	dog_fashion = null
 
 //LightToggle
 

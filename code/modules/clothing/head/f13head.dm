@@ -525,14 +525,37 @@
 	desc = "It's an advanced power armor MK1 helmet, typically used by the Enclave. It looks somewhat threatening."
 	icon_state = "advhelmet1"
 	item_state = "advhelmet1"
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_UP_LASER_T2)
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	deflect_damage = 20
 
 /obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire
-	name = "hellfire power armor"
+	name = "hellfire power armor helmet"
 	desc = "A deep black helmet of Enclave-manufactured heavy power armor with yellow ballistic glass, based on pre-war designs such as the T-51 and improving off of data gathered by post-war designs such as the X-01. Most commonly fielded on the East Coast, no other helmet rivals it's strength."
 	icon_state = "hellfirehelm"
 	item_state = "hellfirehelm"
+	armor = list("melee" = 80, "bullet" = 80, "laser" = 82, "energy" = 55, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
 
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/super_advanced_pa
+	name = "super advanced power armor helmet"
+	desc = "The helm to a set of super advanced power armor, there is motivational stickers on the inside."
+	icon_state = "superadvanced"
+	item_state = "superadvanced"
+	armor = list("melee" = 90, "bullet" = 90, "laser" = 90, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
+
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/ultracite
+	name = "ultracite power armor helmet"
+	desc = "A deep blue helmet with orange tinted goggles left over from the advanced PA helmet that this PA was built off of"
+	icon_state = "ultracitepa_helm"
+	item_state = "ultracitepa_helm"
+	armor = list("melee" = 84, "bullet" = 84, "laser" = 65, "energy" = 20, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 50,)
+
+/obj/item/clothing/head/helmet/f13/power_armor/advanced/hellfire/tesla
+	name = "tesla power armor helmet"
+	desc = "It's an advanced power armor MK1 helmet, typically used by the Enclave. It looks somewhat threatening, this one has been improved with some coils and extra batteries."
+	icon_state = "tesla"
+	item_state = "tesla"
+	armor = list("melee" = 83, "bullet" = 83, "laser" = 83, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	deflect_damage = 21
 
 //Part of the peacekeeper enclave stuff, adjust values as needed.
 /obj/item/clothing/head/helmet/f13/power_armor/x02helmet
@@ -541,7 +564,7 @@
 	icon_state = "advanced"
 	item_state = "advanced"
 	slowdown = 0.1
-	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_UP_BULLET_T3, ARMOR_MODIFIER_UP_LASER_T3)
+	armor = list("melee" = 81, "bullet" = 81, "laser" = 81, "energy" = 57, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 60,)
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/x02
 
@@ -756,7 +779,16 @@
 	color = "#999999"
 	dynamic_hair_suffix = ""
 
-
+/obj/item/clothing/head/helmet/f13/raider/herbertranger
+	name = "weathered desert ranger helmet"
+	icon_state = "modified_usmc_riot"
+	item_state = "modified_usmc_riot"
+	desc = "An ancient USMC riot helmet. This paticular piece retains the classic colouration of the legendary Desert Rangers, and looks as if it has been worn for decades; its night vision no longer seems to be functional. Scratched into the helmet is the sentence: 'Death to the Devils that simulate our freedom.'"
+	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	resistance_flags = LAVA_PROOF | FIRE_PROOF
+	dynamic_hair_suffix = ""
+	dynamic_fhair_suffix = ""
 
 //Soft caps
 /obj/item/clothing/head/soft/f13
@@ -874,17 +906,6 @@
 	icon_state = "diohelmet"
 	item_state = "diohelmet"
 
-/obj/item/clothing/head/helmet/f13/herbertranger
-	name = "weathered desert ranger helmet"
-	icon_state = "modified_usmc_riot"
-	item_state = "modified_usmc_riot"
-	desc = "An ancient USMC riot helmet. This paticular piece retains the classic colouration of the legendary Desert Rangers, and looks as if it has been worn for decades; its night vision no longer seems to be functional. Scratched into the helmet is the sentence: 'Death to the Devils that simulate our freedom.'"
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
-
 /obj/item/clothing/head/helmet/f13/marlowhat
 	name = "boss of the plains hat"
 	desc = "A thick undyed felt cowboy hat, bleached from excessive sun exposure and creased from heavy usage."
@@ -970,3 +991,104 @@
 	icon_state = "mm_hat"
 	item_state = "mm_hat"
 	mutantrace_variation = NONE
+
+
+//c27 helmet
+
+//light
+/obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light
+	name = "light c27 helmet"
+	desc = "Light C-27 helmet."
+	icon_state = "helmet_light"
+	item_state = "helmet_light"
+	species_exception = list(/datum/species/c27)
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_ENERGY_T2)
+	var/requires_training = TRUE
+
+
+/obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+	var/mob/living/carbon/human/H = user
+	if(src == H.head) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_C27) && slot == SLOT_HEAD && requires_training)
+		to_chat(user, span_warning("You aren't a C-27!"))
+		return 0
+	if(slot == SLOT_HEAD)
+		return ..()
+	return
+
+/obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light/bos
+	name = "brotherhood light c27 helmet"
+	desc = "Light C-27 helmet, painted with a Brotherhood theme."
+	icon_state = "helmet_light_bos"
+	item_state = "helmet_light_bos"
+
+/obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light/ncr
+	name = "ncr light c27 helmet"
+	desc = "Light C-27 helmet, painted with an NCR theme."
+	icon_state = "helmet_light_ncr"
+	item_state = "helmet_light_ncr"
+
+//medium
+/obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium
+	name = "medium c27 helmet"
+	desc = "Medium C-27 helmet."
+	icon_state = "helmet_medium"
+	item_state = "helmet_medium"
+	species_exception = list(/datum/species/c27)
+	var/requires_training = TRUE
+
+/obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+	var/mob/living/carbon/human/H = user
+	if(src == H.head) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_C27) && slot == SLOT_HEAD && requires_training)
+		to_chat(user, span_warning("You aren't a C-27!"))
+		return 0
+	if(slot == SLOT_HEAD)
+		return ..()
+	return
+
+/obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium/bos
+	name = "brotherhood medium c27 helmet"
+	desc = "Medium C-27 helmet, painted with a Brotherhood theme."
+	icon_state = "helmet_medium_bos"
+	item_state = "helmet_medium_bos"
+
+/obj/item/clothing/head/helmet/f13/combat/mk2/c27_medium/ncr
+	name = "ncr medium c27 helmet"
+	desc = "Medium C-27 helmet, painted with an NCR theme."
+	icon_state = "helmet_medium_ncr"
+	item_state = "helmet_medium_ncr"
+
+//heavy
+/obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy
+	name = "heavy c27 helmet"
+	desc = "Heavy C-27 helmet."
+	icon_state = "helmet_heavy"
+	item_state = "helmet_heavy"
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_ENV_T3, ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_ENERGY_T1)
+	species_exception = list(/datum/species/c27)
+
+/obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
+	var/mob/living/carbon/human/H = user
+	if(src == H.head) //Suit is already equipped
+		return ..()
+	if (!HAS_TRAIT(H, TRAIT_C27) && slot == SLOT_HEAD && requires_training)
+		to_chat(user, span_warning("You aren't a C-27!"))
+		return 0
+	if(slot == SLOT_HEAD)
+		return ..()
+	return
+
+/obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy/bos
+	name = "brotherhood heavy c27 helmet"
+	desc = "Heavy C-27 helmet, painted with a Brotherhood theme."
+	icon_state = "helmet_heavy_bos"
+	item_state = "helmet_heavy_bos"
+
+/obj/item/clothing/head/helmet/f13/power_armor/excavator/c27_heavy/ncr
+	name = "ncr heavy c27 helmet"
+	desc = "Heavy C-27 helmet, painted with an NCR theme."
+	icon_state = "helmet_heavy_ncr"
+	item_state = "helmet_heavy_ncr"

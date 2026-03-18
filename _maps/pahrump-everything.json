@@ -155,5 +155,11 @@
 		}
 
 	],
-	"minetype": "none"
+	"minetype": "none",
+	"removed_jobs": [
+		"eastwood.dm",
+		"atlantic_cross.dm",
+		"locust_point.dm",
+		"khan.dm"
+	]
 }

@@ -1,0 +1,112 @@
+/**
+ * Fallout 1 phosphor green terminal theme for Hail Mary Station 13
+ * Monochrome green CRT phosphor (#4cff4c) on near-black (#050c05).
+ * Matches classic Fallout 1 / RobCo terminal aesthetic.
+ */
+
+@use 'sass:color';
+@use 'sass:meta';
+
+$phosphor: #4cff4c;
+$phosphor-dim: #3ac83a;
+$phosphor-text: #a8d8a8;
+
+@use '../colors.scss' with (
+  $primary: $phosphor,
+  $fg-map-keys: (),
+  $bg-map-keys: (),
+);
+@use '../base.scss' with (
+  $color-bg: #1a1f1a,
+  $color-bg-grad-spread: 0%,
+  $border-radius: 0,
+);
+
+.theme-fallout {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css('../components/Button.scss', $with: (
+    'color-default': color.scale($phosphor, $lightness: -60%),
+    'color-disabled': #1a2a1a,
+    'color-selected': color.scale($phosphor, $lightness: -40%),
+    'color-caution': #6b8f00,
+    'color-danger': #7a1a1a,
+  ));
+  @include meta.load-css('../components/Dropdown.scss');
+  @include meta.load-css('../components/Input.scss', $with: (
+    'border-color': $phosphor-dim,
+  ));
+  @include meta.load-css('../components/Modal.scss');
+  @include meta.load-css('../components/ProgressBar.scss', $with: (
+    'background-color': rgba(0, 0, 0, 0.7),
+  ));
+  @include meta.load-css('../components/Section.scss');
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css('../layouts/TitleBar.scss', $with: (
+    'background-color': #030703,
+  ));
+
+  font-family: 'Courier New', Courier, monospace;
+  color: $phosphor-text;
+
+  .Window {
+    color: $phosphor-text;
+  }
+
+  .Button {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #04100a;
+    color: $phosphor;
+    border: base.em(1px) solid $phosphor-dim;
+  }
+
+  .Layout__content {
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: 'Courier New', Courier, monospace;
+    color: $phosphor;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 4px rgba(77, 255, 77, 0.2);
+  }
+
+  a {
+    color: $phosphor;
+  }
+
+  a:hover {
+    color: #c8ffc8;
+  }
+
+  .Section__title {
+    border-color: $phosphor-dim;
+    background: transparent;
+  }
+
+  .Section__titleText {
+    color: $phosphor;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 3px rgba(77, 255, 77, 0.2);
+  }
+
+  .Section {
+    background: transparent;
+    box-shadow: none;
+    border: none;
+  }
+}
