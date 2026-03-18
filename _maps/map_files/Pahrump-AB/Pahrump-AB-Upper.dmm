@@ -6451,6 +6451,12 @@
 	icon_state = "bluedirtychess2"
 	},
 /area/f13/building)
+"mho" = (
+/obj/structure/table/wood/bar,
+/obj/effect/spawner/lootdrop/f13/cash_random_med,
+/obj/machinery/light/small,
+/turf/open/floor/f13/wood,
+/area/f13/city)
 "mhV" = (
 /obj/structure/rack/shelf_metal{
 	dir = 4
@@ -34499,7 +34505,7 @@ nkA
 woa
 paR
 paR
-wPx
+paR
 woa
 jSR
 dvk
@@ -34754,7 +34760,7 @@ ezW
 nkA
 nkA
 woa
-paR
+iWs
 qRB
 paR
 rMb
@@ -37344,7 +37350,7 @@ xHa
 paR
 paR
 fRp
-oQg
+mho
 woa
 oez
 oez
@@ -37597,7 +37603,7 @@ oez
 oez
 oez
 woa
-paR
+wsx
 paR
 nJd
 paR

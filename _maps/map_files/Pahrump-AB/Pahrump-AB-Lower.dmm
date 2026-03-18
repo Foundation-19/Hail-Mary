@@ -8557,11 +8557,6 @@
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/caves)
-"eJS" = (
-/obj/structure/fluff/railing/corner,
-/obj/machinery/light,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "eKs" = (
 /obj/structure/table,
 /obj/machinery/light/small{
@@ -10143,12 +10138,10 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
 "gxa" = (
-/obj/structure/fluff/railing/corner{
-	dir = 4
-	},
 /obj/machinery/light{
 	dir = 1
 	},
+/obj/effect/landmark/start/f13/initiate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "gxz" = (
@@ -10267,9 +10260,7 @@
 	},
 /area/f13/brotherhood)
 "gzT" = (
-/obj/structure/fluff/railing{
-	dir = 1
-	},
+/obj/effect/landmark/start/f13/initiate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "gzX" = (
@@ -13769,13 +13760,6 @@
 	dir = 4
 	},
 /area/f13/caves)
-"jQN" = (
-/obj/structure/fluff/railing/corner{
-	dir = 8
-	},
-/obj/machinery/light,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "jRc" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
@@ -19579,6 +19563,22 @@
 	light_power = 4;
 	light_range = 4;
 	name = "inactive fusion reactor tube"
+	},
+/obj/structure/fluff/railing{
+	dir = 1;
+	pixel_y = -32
+	},
+/obj/structure/fluff/railing{
+	pixel_y = 33
+	},
+/obj/structure/fluff/railing/corner{
+	pixel_y = 34;
+	pixel_x = -32
+	},
+/obj/structure/fluff/railing/corner{
+	dir = 4;
+	pixel_x = -32;
+	pixel_y = -33
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
@@ -25928,7 +25928,23 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "vrk" = (
-/obj/structure/fluff/railing,
+/obj/structure/fluff/railing{
+	dir = 1;
+	pixel_y = -32
+	},
+/obj/structure/fluff/railing{
+	pixel_y = 33
+	},
+/obj/structure/fluff/railing/corner{
+	dir = 8;
+	pixel_x = 32;
+	pixel_y = 34
+	},
+/obj/structure/fluff/railing/corner{
+	dir = 1;
+	pixel_x = 32;
+	pixel_y = -33
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "vrx" = (
@@ -25966,15 +25982,6 @@
 /obj/item/twohanded/spear/bonespear,
 /turf/open/floor/f13/wood,
 /area/f13/building)
-"vtn" = (
-/obj/structure/fluff/railing/corner{
-	dir = 1
-	},
-/obj/machinery/light{
-	dir = 1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/brotherhood)
 "vtp" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -52785,8 +52792,8 @@ fix
 fix
 fix
 von
-fix
-fix
+gzT
+gzT
 ykL
 ede
 uuB
@@ -53040,10 +53047,10 @@ qKy
 teF
 fix
 fix
-eJS
+dTN
 qeW
 gxa
-fix
+gzT
 ykL
 ede
 uuB
@@ -53297,10 +53304,10 @@ ede
 ede
 fix
 fix
-vrk
+fix
 pkv
 gzT
-fix
+gzT
 ykL
 ede
 uuB
@@ -53554,10 +53561,10 @@ fix
 fix
 fix
 fix
+fix
 vrk
-fix
 gzT
-fix
+gzT
 ykL
 ede
 uuB
@@ -53811,9 +53818,9 @@ fix
 fix
 fix
 fix
-jQN
+dTN
 qeW
-vtn
+hrh
 fix
 ewY
 ede

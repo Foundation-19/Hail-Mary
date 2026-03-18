@@ -12048,9 +12048,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood)
 "aUG" = (
-/obj/item/candle/tribal_torch{
-	lit = 1
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/graveldirt,
 /area/f13/city)
 "aUH" = (
@@ -18114,12 +18112,6 @@
 /obj/structure/flora/tree/jungle/small,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"cbS" = (
-/obj/machinery/chem_master,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "whitedirtysolid"
-	},
-/area/f13/brotherhood)
 "cbT" = (
 /obj/structure/sign/poster/official/random,
 /turf/closed/wall/f13/store,
@@ -22108,7 +22100,7 @@
 	desc = "An airtight door, built to withstand a nuclear blast.";
 	max_integrity = 10000;
 	name = "Apothecary Hall";
-	req_access_txt = "120, 280"
+	req_access_txt = "280"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/brotherhood)
@@ -23137,9 +23129,7 @@
 	dir = 8;
 	pixel_x = 32
 	},
-/obj/item/candle/tribal_torch{
-	lit = 1
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/f13/wood,
 /area/f13/chapel)
 "dVp" = (
@@ -27314,8 +27304,7 @@
 /obj/machinery/door/airlock/hatch{
 	desc = "An airtight door, built to withstand a nuclear blast.";
 	max_integrity = 10000;
-	name = "Apothecary Hall";
-	req_access_txt = "120, 280"
+	name = "Apothecary Hall"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/brotherhood)
@@ -49062,9 +49051,7 @@
 	},
 /area/f13/wasteland)
 "pfH" = (
-/obj/item/candle/tribal_torch{
-	lit = 1
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/city)
 "pfK" = (
@@ -52946,9 +52933,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "qSB" = (
-/obj/item/candle/tribal_torch{
-	lit = 1
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/wood_common,
 /area/f13/chapel)
 "qSH" = (
@@ -64333,9 +64318,7 @@
 	},
 /area/f13/building)
 "wdE" = (
-/obj/item/candle/tribal_torch{
-	lit = 1
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/f13/wood,
 /area/f13/chapel)
 "wdP" = (
@@ -66025,9 +66008,7 @@
 	},
 /area/f13/legion)
 "wQk" = (
-/obj/item/candle/tribal_torch{
-	lit = 1
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/city)
 "wQs" = (
@@ -95759,9 +95740,9 @@ odm
 aky
 jNW
 tAT
-cbS
-bNH
 nJS
+bNH
+bNH
 bct
 gEn
 hwo
