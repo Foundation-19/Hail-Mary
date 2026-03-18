@@ -32,11 +32,14 @@ SUBSYSTEM_DEF(icon_smooth)
 	smooth_zlevel(2,TRUE)
 	var/queue = smooth_queue
 	smooth_queue = list()
+	var/batch_count = 0
 	for(var/V in queue)
 		var/atom/A = V
 		if(!A || A.z <= 2)
 			continue
 		smooth_icon(A)
-		CHECK_TICK
+		if(++batch_count >= 100)
+			batch_count = 0
+			CHECK_TICK
 
 	return ..()

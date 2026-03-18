@@ -635,3 +635,283 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = WALL_PLANE
 	layer = ABOVE_OBJ_LAYER
+
+// SNEAKING MODE OVERLAYS
+// Visual effects for the sneak mode system
+
+// Sneak icon overlay that appears above player's head
+// Sneak mode indicator - overlay appearance for add_overlay
+/obj/effect/overlay/sneak_icon
+	name = ""
+	icon = 'icons/mob/actions/actions_changeling.dmi'
+	icon_state = "ling_augmented_eyesight"
+	layer = ABOVE_MOB_LAYER
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	appearance_flags = RESET_COLOR | TILE_BOUND | PIXEL_SCALE
+	alpha = 102 // 60% transparent (40% opaque)
+	
+/obj/effect/overlay/sneak_icon/Initialize()
+	. = ..()
+	pixel_y = 20 // Above the head
+	// Make 30% smaller
+	transform = matrix().Scale(0.7, 0.7)
+
+
+// VISION CONE OVERLAY - Fixed angle calculation version
+// Properly fills cone areas using dot product comparison
+
+/obj/effect/overlay/vision_cone
+	name = ""
+	icon = null
+	layer = BELOW_MOB_LAYER
+	plane = CHAT_PLANE // Use CHAT_PLANE to bypass FoV hiding
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	anchored = TRUE
+	alpha = 80
+	
+	var/list/cone_images = list() // Images shown to the viewer's client
+	var/mob/living/carbon/human/viewer = null // The player viewing these cones
+	var/mob/living/simple_animal/hostile/tracked_mob = null
+	var/cone_dir = NORTH
+	var/cone_range = 9
+	var/cone_icon_state = "white" // Use white base for color tinting
+	var/cone_alpha = 80 // Alpha value for this cone
+	var/cone_angle = 62.5 // Default: 125° large center cones (62.5° half-angle)
+	
+	// Sector mode variables
+	var/sector_start_angle = 0  // Start angle for sector mode
+	var/sector_end_angle = 0    // End angle for sector mode
+	var/use_sector_mode = FALSE // Use angular sector instead of cone
+
+/obj/effect/overlay/vision_cone/Destroy()
+	// Remove images from client
+	if(viewer && viewer.client)
+		viewer.client.images -= cone_images
+	cone_images.Cut()
+	return ..()
+
+/obj/effect/overlay/vision_cone/proc/setup_cone(mob/living/simple_animal/hostile/H, mob_dir, range_tiles, icon_state_name = "white")
+	tracked_mob = H
+	cone_dir = mob_dir
+	cone_range = range_tiles
+	cone_icon_state = icon_state_name
+	cone_alpha = alpha // Capture the alpha value that was set on this cone
+	cone_angle = 62.5 // 125° large center cones with overlap
+
+// Setup a narrow cone (for peripheral/side zones)
+/obj/effect/overlay/vision_cone/proc/setup_narrow_cone(mob/living/simple_animal/hostile/H, mob_dir, range_tiles, angle_width = 16.5)
+	tracked_mob = H
+	cone_dir = mob_dir
+	cone_range = range_tiles
+	cone_icon_state = "white"
+	cone_alpha = alpha
+	cone_angle = angle_width // Use specified angle width
+	use_sector_mode = FALSE
+
+// Setup for sector mode
+/obj/effect/overlay/vision_cone/proc/setup_sector(mob/living/simple_animal/hostile/H, base_dir, start_deg, end_deg, range_tiles, icon_state_name = "white")
+	tracked_mob = H
+	cone_dir = base_dir
+	cone_range = range_tiles
+	sector_start_angle = start_deg
+	sector_end_angle = end_deg
+	use_sector_mode = TRUE
+	cone_alpha = alpha
+	cone_icon_state = icon_state_name
+
+// Generate sector images using quadrant-based angle calculation
+/obj/effect/overlay/vision_cone/proc/generate_cone_image()
+	var/turf/center = get_turf(tracked_mob)
+	if(!center)
+		return FALSE
+	
+	// Remove old images from client
+	if(viewer && viewer.client)
+		viewer.client.images -= cone_images
+	cone_images.Cut()
+	
+	// Get all turfs in the sector using quadrant-based calculation
+	var/list/cone_turfs
+	if(use_sector_mode)
+		cone_turfs = get_sector_turfs(center, cone_dir, cone_range, sector_start_angle, sector_end_angle)
+	else
+		return FALSE
+	
+	if(!cone_turfs || !cone_turfs.len)
+		return FALSE
+	
+	// Create images at each turf location on CHAT_PLANE
+	for(var/turf/T in cone_turfs)
+		var/image/img = image('icons/effects/alphacolors.dmi', T, cone_icon_state)
+		img.layer = BELOW_MOB_LAYER
+		img.plane = CHAT_PLANE // CHAT_PLANE bypasses FoV
+		img.alpha = cone_alpha
+		cone_images += img
+	
+	// Add all images to viewer's client at once
+	if(viewer && viewer.client)
+		viewer.client.images += cone_images
+	
+	return TRUE
+
+/obj/effect/overlay/vision_cone/proc/get_sector_turfs(turf/center, base_direction, range, start_angle_deg, end_angle_deg)
+	var/list/turfs = list()
+	
+	// Get base direction angle (0° = NORTH, clockwise)
+	var/base_angle = dir_to_angle(base_direction)
+	
+	// Convert sector angles to absolute angles
+	var/absolute_start = base_angle + start_angle_deg
+	var/absolute_end = base_angle + end_angle_deg
+	
+	// Normalize angles to 0-360
+	while(absolute_start < 0)
+		absolute_start += 360
+	while(absolute_start >= 360)
+		absolute_start -= 360
+	while(absolute_end < 0)
+		absolute_end += 360
+	while(absolute_end >= 360)
+		absolute_end -= 360
+	
+	// Check all turfs in range
+	for(var/turf/T in range(range, center))
+		if(T == center)
+			continue
+		
+		var/dx = T.x - center.x
+		var/dy = T.y - center.y
+		
+		if(dx == 0 && dy == 0)
+			continue
+		
+		// QUADRANT-BASED ANGLE CALCULATION
+		var/turf_angle = calculate_angle_from_offset(dx, dy)
+		
+		// Check if turf angle is within sector
+		var/in_sector = FALSE
+		if(absolute_start < absolute_end)
+			in_sector = (turf_angle >= absolute_start && turf_angle < absolute_end)
+		else
+			in_sector = (turf_angle >= absolute_start || turf_angle < absolute_end)
+		
+		if(in_sector)
+			turfs += T
+	
+	return turfs
+
+/obj/effect/overlay/vision_cone/proc/get_turf_in_direction(turf/start, direction, distance)
+	var/turf/current = start
+	for(var/i = 1 to distance)
+		current = get_step(current, direction)
+		if(!current)
+			return null
+	return current
+
+// Helper: Convert BYOND direction to angle in degrees
+// 0° = NORTH (up), increases CLOCKWISE
+// NORTH = 0°, EAST = 90°, SOUTH = 180°, WEST = 270°
+/obj/effect/overlay/vision_cone/proc/dir_to_angle(byond_dir)
+	switch(byond_dir)
+		if(NORTH)
+			return 0   // Up
+		if(NORTHEAST)
+			return 45  // Up-right diagonal
+		if(EAST)
+			return 90  // Right
+		if(SOUTHEAST)
+			return 135 // Down-right diagonal  
+		if(SOUTH)
+			return 180 // Down
+		if(SOUTHWEST)
+			return 225 // Down-left diagonal
+		if(WEST)
+			return 270 // Left
+		if(NORTHWEST)
+			return 315 // Up-left diagonal
+	return 0
+
+// Helper: Calculate angle from dx/dy offset using quadrant-based logic
+// Returns angle in degrees: 0° = NORTH, clockwise
+/obj/effect/overlay/vision_cone/proc/calculate_angle_from_offset(dx, dy)
+	var/angle = 0
+	
+	// Handle cardinal directions first (avoids arctan edge cases)
+	if(dx == 0)
+		if(dy > 0)
+			return 0 // Pure NORTH
+		else
+			return 180 // Pure SOUTH
+	else if(dy == 0)
+		if(dx > 0)
+			return 90 // Pure EAST
+		else
+			return 270 // Pure WEST
+	
+	// Diagonal - use arctan on absolute values to get acute angle
+	var/acute_angle = arctan(abs(dy), abs(dx))
+	
+	// Map to correct quadrant based on dx/dy signs
+	if(dx > 0 && dy > 0)
+		// NE quadrant (0° to 90°)
+		angle = acute_angle
+	else if(dx < 0 && dy > 0)
+		// NW quadrant (270° to 360°)
+		angle = 360 - acute_angle
+	else if(dx > 0 && dy < 0)
+		// SE quadrant (90° to 180°)
+		angle = 180 - acute_angle
+	else // dx < 0 && dy < 0
+		// SW quadrant (180° to 270°)
+		angle = 180 + acute_angle
+	
+	// Normalize
+	while(angle < 0)
+		angle += 360
+	while(angle >= 360)
+		angle -= 360
+	
+	return angle
+
+/obj/effect/overlay/vision_cone/proc/get_turf_perpendicular(turf/start, direction, offset)
+	// Get turf perpendicular to the facing direction
+	var/perp_dir
+	var/abs_offset = abs(offset)
+	
+	switch(direction)
+		if(NORTH)
+			perp_dir = offset > 0 ? EAST : WEST
+		if(SOUTH)
+			perp_dir = offset > 0 ? WEST : EAST
+		if(EAST)
+			perp_dir = offset > 0 ? SOUTH : NORTH
+		if(WEST)
+			perp_dir = offset > 0 ? NORTH : SOUTH
+		if(NORTHEAST)
+			if(offset > 0)
+				perp_dir = SOUTHEAST
+			else
+				perp_dir = NORTHWEST
+		if(NORTHWEST)
+			if(offset > 0)
+				perp_dir = NORTHEAST
+			else
+				perp_dir = SOUTHWEST
+		if(SOUTHEAST)
+			if(offset > 0)
+				perp_dir = NORTHEAST
+			else
+				perp_dir = SOUTHWEST
+		if(SOUTHWEST)
+			if(offset > 0)
+				perp_dir = NORTHWEST
+			else
+				perp_dir = SOUTHEAST
+	
+	var/turf/result = start
+	for(var/i = 1 to abs_offset)
+		result = get_step(result, perp_dir)
+		if(!result)
+			return null
+	
+	return result
