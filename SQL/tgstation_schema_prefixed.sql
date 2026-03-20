@@ -266,6 +266,21 @@ CREATE TABLE `SS13_messages` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `SS13_exp_type_exempt`
+--
+
+DROP TABLE IF EXISTS `SS13_exp_type_exempt`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+
+CREATE TABLE `SS13_exp_type_exempt`
+( `ckey` VARCHAR(32) NOT NULL ,
+ `exp_type` VARCHAR(64) NOT NULL ,
+ PRIMARY KEY (`ckey`, `exp_type`)
+ ) ENGINE = InnoDB;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `SS13_role_time`
 --
 

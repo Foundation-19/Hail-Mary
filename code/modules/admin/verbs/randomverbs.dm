@@ -69,7 +69,7 @@
 		return
 
 	if (!sender)
-		sender = input("Who is the message from?", "Sender") as null|anything in list(RADIO_CHANNEL_CENTCOM,RADIO_CHANNEL_SYNDICATE)
+		sender = input("Who is the message from?", "Sender") as null|anything in list(RADIO_CHANNEL_COMMAND, RADIO_CHANNEL_NCR, RADIO_CHANNEL_BOS, RADIO_CHANNEL_ENCLAVE)
 		if(!sender)
 			return
 
@@ -81,7 +81,7 @@
 
 	log_directed_talk(mob, H, input, LOG_ADMIN, "reply")
 	message_admins("[key_name_admin(src)] replied to [key_name_admin(H)]'s [sender] message with: \"[input]\"")
-	to_chat(H, "You hear something crackle in your ears for a moment before a voice speaks.  \"Please stand by for a message from [sender == "Syndicate" ? "your benefactor" : "Central Command"].  Message as follows[sender == "Syndicate" ? ", agent." : ":"] <span class='bold'>[input].</span> Message ends.\"")
+	to_chat(H, "You hear something crackle in your ears for a moment before a voice speaks. \"Please stand by for a message from [sender]. Message as follows: <span class='bold'>[input].</span> Message ends.\"")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Headset Message") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
@@ -624,12 +624,12 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use cmd_change_command_name() without admin perms.")
 		return
 
-	var/input = input(usr, "Please input a new name for Central Command.", "What?", "") as text|null
+	var/input = input(usr, "Please input a new name for the commanding authority.", "What?", "") as text|null
 	if(!input)
 		return
 	change_command_name(input)
-	message_admins("[key_name_admin(src)] has changed Central Command's name to [input]")
-	log_admin("[key_name(src)] has changed the Central Command name to: [input]")
+	message_admins("[key_name_admin(src)] has changed the command authority name to [input]")
+	log_admin("[key_name(src)] has changed the command authority name to: [input]")
 
 /client/proc/cmd_admin_delete(atom/A as obj|mob|turf in world)
 	set category = "Admin"
@@ -1416,13 +1416,13 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use trigger_centcom_recall() without admin perms.")
 		return
 	var/message = pick(GLOB.admiral_messages)
-	message = input("Enter message from the on-call admiral to be put in the recall report.", "Admiral Message", message) as text|null
+	message = input("Enter the emergency recall announcement message.", "Recall Message", message) as text|null
 
 	if(!message)
 		return
 
-	message_admins("[key_name_admin(usr)] triggered a CentCom recall, with the admiral message of: [message]")
-	log_game("[key_name(usr)] triggered a CentCom recall, with the message of: [message]")
+	message_admins("[key_name_admin(usr)] triggered an emergency recall, with the message of: [message]")
+	log_game("[key_name(usr)] triggered an emergency recall, with the message of: [message]")
 	SSshuttle.centcom_recall(SSshuttle.emergency.timer, message)
 
 /client/proc/cmd_admin_check_player_exp()	//Allows admins to determine who the newer players are.
@@ -1456,12 +1456,123 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		to_chat(usr, span_warning("Tracking is disabled in the server configuration file."))
 		return
 
+	var/ref = "?_src_=holder;[HrefToken()]"
 	var/list/body = list()
-	body += "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Playtime for [C.key]</title></head><BODY><BR>Playtime:"
+	body += "<html><head><meta http-equiv='Content-Type' content='text/html; charset=UTF-8'><title>Playtime for [C.key]</title></head>"
+	body += "<body style='font-family:monospace;padding:8px;'>"
+	body += "<h3>Playtime &mdash; [C.key]</h3>"
 	body += C.get_exp_report()
-	body += "<A href='?_src_=holder;[HrefToken()];toggleexempt=[REF(C)]'>Toggle Exempt status</a>"
-	body += "</BODY></HTML>"
-	usr << browse(body.Join(), "window=playerplaytime[C.ckey];size=550x615")
+	body += "<hr><h4>Reset Hours by Type</h4>"
+	body += "<table border='0' cellpadding='2' cellspacing='2'>"
+
+	// Aggregate exp_jobsmap categories
+	for(var/exp_type in GLOB.exp_jobsmap)
+		var/list/typemap = GLOB.exp_jobsmap[exp_type]
+		var/list/titles = typemap ? typemap["titles"] : null
+		if(!typemap || !titles || !titles.len)
+			continue
+		var/total_mins = 0
+		for(var/job_key in titles)
+			if(C.prefs.exp[job_key])
+				total_mins += text2num(C.prefs.exp[job_key])
+		if(total_mins <= 0)
+			continue
+		body += "<tr><td>[exp_type]</td><td>[get_exp_format(total_mins)]</td>"
+		body += "<td><a href='[ref];resetexptype=[REF(C)];exp_type=[url_encode(exp_type)]'>\[Reset\]</a></td>"
+		body += "<td><a href='[ref];setexptype=[REF(C)];exp_type=[url_encode(exp_type)]'>\[Set\]</a></td></tr>"
+
+	// Direct special types (Living, Ghost, Admin, etc.)
+	for(var/exp_type in GLOB.exp_specialmap)
+		if(exp_type == EXP_TYPE_SPECIAL || exp_type == EXP_TYPE_ANTAG)
+			continue // nested maps, skip
+		if(!C.prefs.exp[exp_type])
+			continue
+		var/mins = text2num(C.prefs.exp[exp_type])
+		if(mins <= 0)
+			continue
+		body += "<tr><td>[exp_type]</td><td>[get_exp_format(mins)]</td>"
+		body += "<td><a href='[ref];resetexptype=[REF(C)];exp_type=[url_encode(exp_type)]'>\[Reset\]</a></td>"
+		body += "<td><a href='[ref];setexptype=[REF(C)];exp_type=[url_encode(exp_type)]'>\[Set\]</a></td></tr>"
+
+	body += "</table>"
+
+	// Tier-level resets — grouped by faction
+	body += "<hr><h4>Reset Hours by Tier</h4>"
+	body += "<table border='0' cellpadding='2' cellspacing='2'>"
+	var/static/list/tier_faction_order_reset = list(
+		EXP_TYPE_NCR, EXP_TYPE_RANGER, EXP_TYPE_BROTHERHOOD, EXP_TYPE_LEGION,
+		EXP_TYPE_VAULT, EXP_TYPE_ENCLAVE, EXP_TYPE_EASTWOOD, EXP_TYPE_WASTELAND,
+		EXP_TYPE_KHAN, EXP_TYPE_TRIBAL, EXP_TYPE_FOLLOWERS
+	)
+	for(var/faction in tier_faction_order_reset)
+		var/faction_prefix = faction + EXP_TIER_SEP
+		var/shown_header = FALSE
+		for(var/tier_key in GLOB.exp_tiermap)
+			if(copytext(tier_key, 1, length(faction_prefix) + 1) != faction_prefix)
+				continue
+			var/list/tier_titles = GLOB.exp_tiermap[tier_key]
+			var/tier_mins = 0
+			for(var/job_key in tier_titles)
+				if(C.prefs.exp[job_key])
+					tier_mins += text2num(C.prefs.exp[job_key])
+			if(tier_mins <= 0)
+				continue
+			if(!shown_header)
+				body += "<tr><td colspan='4' style='padding-top:4px;'><b>[faction]</b></td></tr>"
+				shown_header = TRUE
+			var/tier_label = copytext(tier_key, length(faction_prefix) + 1)
+			body += "<tr><td>&nbsp;&nbsp;[tier_label]</td><td>[get_exp_format(tier_mins)]</td>"
+			body += "<td><a href='[ref];resetexptype=[REF(C)];exp_type=[url_encode(tier_key)]'>\[Reset\]</a></td>"
+			body += "<td><a href='[ref];setexptype=[REF(C)];exp_type=[url_encode(tier_key)]'>\[Set\]</a></td></tr>"
+	body += "</table>"
+	body += "<hr><h4>Type Exemptions</h4>"
+	body += "<table border='0' cellpadding='2' cellspacing='2'>"
+	// Fallout faction types only — skip SS13 department categories and debug
+	var/static/list/exp_panel_skip = list(EXP_TYPE_CREW, EXP_TYPE_COMMAND, EXP_TYPE_ENGINEERING, EXP_TYPE_MEDICAL, EXP_TYPE_SCIENCE, EXP_TYPE_SUPPLY, EXP_TYPE_SECURITY, EXP_TYPE_SILICON, EXP_TYPE_SERVICE, "debug")
+	for(var/exp_type in GLOB.exp_jobsmap)
+		if(exp_type in exp_panel_skip)
+			continue
+		var/is_exempt = (exp_type in C.prefs.exp_type_exempt)
+		var/exempt_color = is_exempt ? "#4aed92" : "#888"
+		var/exempt_label = is_exempt ? "EXEMPT" : "normal"
+		var/exempt_action = is_exempt ? "Remove" : "Grant"
+		var/exempt_newstate = is_exempt ? 0 : 1
+		body += "<tr><td>[exp_type]</td>"
+		body += "<td style='color:[exempt_color];'>[exempt_label]</td>"
+		body += "<td><a href='[ref];toggleexempttype=[REF(C)];exp_type=[url_encode(exp_type)];state=[exempt_newstate]'>\[[exempt_action]\]</a></td></tr>"
+	body += "</table>"
+
+	body += "<hr><h4>Tier Exemptions</h4>"
+	body += "<table border='0' cellpadding='2' cellspacing='2'>"
+	// Iterate factions in display order; for each print a header then its tier rows
+	var/static/list/tier_faction_order = list(
+		EXP_TYPE_NCR, EXP_TYPE_RANGER, EXP_TYPE_BROTHERHOOD, EXP_TYPE_LEGION,
+		EXP_TYPE_VAULT, EXP_TYPE_ENCLAVE, EXP_TYPE_EASTWOOD, EXP_TYPE_WASTELAND,
+		EXP_TYPE_KHAN, EXP_TYPE_TRIBAL, EXP_TYPE_FOLLOWERS
+	)
+	for(var/faction in tier_faction_order)
+		var/faction_prefix = faction + EXP_TIER_SEP
+		var/shown_header = FALSE
+		for(var/tier_key in GLOB.exp_tiermap)
+			if(copytext(tier_key, 1, length(faction_prefix) + 1) != faction_prefix)
+				continue
+			if(!shown_header)
+				body += "<tr><td colspan='3' style='padding-top:4px;'><b>[faction]</b></td></tr>"
+				shown_header = TRUE
+			var/tier_label = copytext(tier_key, length(faction_prefix) + 1)
+			var/is_exempt = (tier_key in C.prefs.exp_type_exempt)
+			var/exempt_color = is_exempt ? "#4aed92" : "#888"
+			var/exempt_label = is_exempt ? "EXEMPT" : "normal"
+			var/exempt_action = is_exempt ? "Remove" : "Grant"
+			var/exempt_newstate = is_exempt ? 0 : 1
+			body += "<tr><td>&nbsp;&nbsp;[tier_label]</td>"
+			body += "<td style='color:[exempt_color];'>[exempt_label]</td>"
+			body += "<td><a href='[ref];toggleexempttype=[REF(C)];exp_type=[url_encode(tier_key)];state=[exempt_newstate]'>\[[exempt_action]\]</a></td></tr>"
+	body += "</table>"
+
+	body += "<hr><a href='[ref];toggleexempt=[REF(C)]'>Toggle Global Exempt status</a>"
+	body += "</body></html>"
+	usr << browse(body.Join(), "window=playerplaytime[C.ckey];size=580x650")
 
 /datum/admins/proc/toggle_exempt_status(client/C)
 	if(!check_rights(R_ADMIN))

@@ -55,6 +55,60 @@
 			return
 		cmd_show_exp_panel(M.client)
 
+	else if(href_list["resetexptype"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use resetexptype without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use resetexptype without admin perms.")
+			return
+		var/client/C = locate(href_list["resetexptype"]) in GLOB.clients
+		var/exp_type = href_list["exp_type"]
+		if(!C)
+			to_chat(usr, span_danger("ERROR: Client not found (they may have disconnected)."))
+			return
+		if(!exp_type)
+			to_chat(usr, span_danger("ERROR: No exp type specified."))
+			return
+		var/confirm = input(usr, "Reset ALL [exp_type] hours for [C.key] to 0? This cannot be undone.", "Confirm Reset") as null|anything in list("Yes, reset them", "Cancel")
+		if(confirm != "Yes, reset them")
+			return
+		if(!C || QDELETED(C))
+			to_chat(usr, span_danger("ERROR: Client disconnected before reset could be applied."))
+			return
+		if(C.reset_exp_for_type(exp_type))
+			message_admins("[key_name_admin(usr)] reset [exp_type] hours for [key_name_admin(C.mob)] to 0.")
+			log_admin("[key_name(usr)] reset [exp_type] hours for [key_name(C)] to 0.")
+			cmd_show_exp_panel(C)
+		else
+			to_chat(usr, span_danger("ERROR: Reset failed. Check DB connection and logs."))
+
+	else if(href_list["setexptype"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use setexptype without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use setexptype without admin perms.")
+			return
+		var/client/C = locate(href_list["setexptype"]) in GLOB.clients
+		var/exp_type = href_list["exp_type"]
+		if(!C)
+			to_chat(usr, span_danger("ERROR: Client not found (they may have disconnected)."))
+			return
+		if(!exp_type)
+			to_chat(usr, span_danger("ERROR: No exp type specified."))
+			return
+		var/hours = input(usr, "Set [exp_type] hours for [C.key] to how many hours?", "Set Hours") as num|null
+		if(isnull(hours))
+			return
+		hours = max(0, round(hours, 0.1))
+		var/total_minutes = round(hours * 60)
+		if(!C || QDELETED(C))
+			to_chat(usr, span_danger("ERROR: Client disconnected before hours could be set."))
+			return
+		if(C.set_exp_for_type(exp_type, total_minutes))
+			message_admins("[key_name_admin(usr)] set [exp_type] hours for [key_name_admin(C.mob)] to [hours]h.")
+			log_admin("[key_name(usr)] set [exp_type] hours for [key_name(C)] to [hours]h ([total_minutes] minutes).")
+			cmd_show_exp_panel(C)
+		else
+			to_chat(usr, span_danger("ERROR: Could not set hours. Check DB connection and logs."))
+
 	else if(href_list["toggleexempt"])
 		if(!check_rights(R_ADMIN))
 			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): toggleexempt without admin perms.")
@@ -65,6 +119,28 @@
 			to_chat(usr, span_danger("ERROR: Client not found."))
 			return
 		toggle_exempt_status(C)
+
+	else if(href_list["toggleexempttype"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use toggleexempttype without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use toggleexempttype without admin perms.")
+			return
+		var/client/C = locate(href_list["toggleexempttype"]) in GLOB.clients
+		var/exp_type = href_list["exp_type"]
+		var/new_state = text2num(href_list["state"])
+		if(!C)
+			to_chat(usr, span_danger("ERROR: Client not found (they may have disconnected)."))
+			return
+		if(!exp_type)
+			to_chat(usr, span_danger("ERROR: No exp type specified."))
+			return
+		if(C.set_exp_type_exempt(exp_type, new_state))
+			var/action = new_state ? "granted" : "removed"
+			message_admins("[key_name_admin(usr)] [action] [exp_type] playtime exemption for [key_name_admin(C.mob)].")
+			log_admin("[key_name(usr)] [action] [exp_type] playtime exemption for [key_name(C)].")
+			cmd_show_exp_panel(C)
+		else
+			to_chat(usr, span_danger("ERROR: Could not update exemption. Check DB connection and logs."))
 
 	else if(href_list["makeAntag"])
 		if(!check_rights(R_ADMIN))

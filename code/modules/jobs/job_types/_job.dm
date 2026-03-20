@@ -53,6 +53,11 @@
 	var/exp_type = EXP_TYPE_LIVING
 	var/exp_type_department = ""
 
+	/// Associative list of exp_type -> required_minutes for multi-requirement jobs.
+	/// ALL entries must be satisfied for the job to unlock.
+	/// Example: multi_exp_requirements = list(EXP_TYPE_WASTELAND = 600, EXP_TYPE_BROTHERHOOD = 1200)
+	var/list/multi_exp_requirements
+
 	//faction objective for the round
 	var/objectives
 	var/list/objectivesList
