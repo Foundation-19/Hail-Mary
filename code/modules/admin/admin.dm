@@ -224,7 +224,8 @@
 			<a href='?src=[ref];tdomeobserve=[ref_mob]'>Thunderdome Observer</A> | 
 			<a href='?src=[ref];makementor=[M.ckey]'>Make mentor</A> | 
 			<a href='?src=[ref];removementor=[M.ckey]'>Remove mentor</A> | 
-			<a href='?src=[ref];makeeligible=[ref_mob]'>Allow reentering round</A>
+			<a href='?src=[ref];makeeligible=[ref_mob]'>Allow reentering round</A> |
+			<a href='?src=[ref];forcerules=[ref_mob]'>Force rules reaccept</A>
 			"}
 	body += "<br></body></html>"
 

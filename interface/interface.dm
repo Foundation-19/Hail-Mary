@@ -1,4 +1,17 @@
 //Please use mob or src (not usr) in these procs. This way they can be called in the same fashion as procs.
+/client/verb/openwiki()
+	set name = "openwiki"
+	set desc = "Opens the server wiki."
+	set hidden = 1
+	winset(src, "infowindow.tgwiki", "is-checked=false")
+	SEND_SOUND(usr, sound('sound/machines/button4.ogg', repeat = 0, wait = 0, volume = 100, channel = 512))
+	var/wikiurltg = CONFIG_GET(string/wikiurltg)
+	if(wikiurltg)
+		src << link(wikiurltg)
+	else
+		to_chat(src, span_danger("The wiki URL is not set in the server configuration."))
+	return
+
 /client/verb/tgwiki(query as text)
 	set name = "tgwiki"
 	set desc = "Type what you want to know about.  This will open the wiki in your web browser. Type nothing to go to the main page."
@@ -21,6 +34,7 @@
 	set name = "discord"
 	set desc = "Visit the Discord."
 	set hidden = 1
+	winset(src, "infowindow.discord", "is-checked=false")
 	SEND_SOUND(usr, sound('sound/machines/button4.ogg', repeat = 0, wait = 0, volume = 100, channel = 512))
 	var/discordurl = CONFIG_GET(string/discordurl)
 	if(discordurl)
@@ -35,6 +49,7 @@
 	set name = "github"
 	set desc = "Visit Github"
 	set hidden = 1
+	winset(src, "infowindow.github", "is-checked=false")
 	SEND_SOUND(usr, sound('sound/machines/button4.ogg', repeat = 0, wait = 0, volume = 100, channel = 512))
 	var/githuburl = CONFIG_GET(string/githuburl)
 	if(githuburl)
@@ -71,6 +86,7 @@
 /client/verb/changelog()
 	set name = "Changelog"
 	set category = "OOC"
+	winset(src, "infowindow.changelog", "is-checked=false")
 	if(!GLOB.changelog_tgui)
 		GLOB.changelog_tgui = new /datum/changelog()
 
@@ -78,7 +94,6 @@
 	if(prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.save_preferences()
-		winset(src, "infowindow.changelog", "font-style=;")
 
 ///////////////////
 // Coyote Buttons//
@@ -96,6 +111,7 @@
 	set name = "setoocstatus"
 	set desc = "Closes the char gen window"
 	set hidden = 1// This hides the actual verb from the verb menu so you can just trigger this when you click a button)
+	winset(src, "infowindow.setoocstatus", "is-checked=false")
 	SEND_SOUND(usr, sound('sound/machines/button4.ogg', repeat = 0, wait = 0, volume = 100, channel = 512))
 	var/client/C = src
 	var/mob/M = C.mob

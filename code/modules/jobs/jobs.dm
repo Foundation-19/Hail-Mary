@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	))
 
 GLOBAL_LIST_INIT(command_positions, list(
-	"Elder",
+	"Elder Envoy",
 	"Paladin Commander",
 	"Knight-Captain",
 	"Proctor", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
@@ -90,6 +90,7 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
+	"Elder Envoy",
 	"Sentinel",
 	"Paladin Commander",
 	"Knight-Captain",
@@ -105,21 +106,21 @@ GLOBAL_LIST_INIT(brotherhood_positions, list(
 ))
 //Eastwood/Eastwood
 GLOBAL_LIST_INIT(eastwood_positions, list(
-	"Mayor",
+	"Warden",
 	"Secretary",
-	"Sheriff",
-	"Deputy",
+	"Head of the Watch",
+	"Watchmen",
 	"Farmer",
-	"Prospector",
-	"Doctor",
+	"Blacksmith",
+	"Apothecary",
 	"Detective",
 	"Banker",
-	"Quartermaster",
-	"Trade Worker",
-	"Barkeep",
+	"Merchant",
+	"Merchants Mercenary",
+	"Tavern Keeper",
 	"Citizen",
 	"Vertibird Pilot",
-	"Radio Host"
+	"Jester"
 ))
 
 GLOBAL_LIST_INIT(legion_command_positions, list(

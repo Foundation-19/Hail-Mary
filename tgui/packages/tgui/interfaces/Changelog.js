@@ -176,24 +176,20 @@ export class Changelog extends Component {
 
     const header = (
       <Section>
-        <h1>Coyote Bayou</h1>
+        <h1>{'// ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL'}</h1>
+        <h1>{'// HAIL MARY STATION — CHANGE LOG'}</h1>
         <p>
-          <b>Thanks to: </b>
+          <b>Built upon: </b>
           Baystation 12, /vg/station, NTstation, CDK Station devs,
           FacepunchStation, GoonStation devs, the original Space Station 13
-          developers, Sunset Wasteland for providing us with the foundation and
-          fallout code, and thanks to all the wonderful developers working on
-          this project. ❤️
+          developers, and Sunset Wasteland for the Fallout foundation.
+          Thanks to all contributors past and present. ❤️
         </p>
         <p>
-          {'Current project maintainers can be found '}
-          <a href="https://github.com/ARF-SS13/coyote-bayou/people">
-            here
+          {'Project repository and contributors: '}
+          <a href="https://github.com/Foundation-19/Hail-Mary">
+            github.com/Foundation-19/Hail-Mary
           </a>
-          {', recent GitHub contributors can be found '}
-          <a href="https://github.com/ARF-SS13/coyote-bayou/pulse/monthly">
-            here
-          </a>.
         </p>
         {dateDropdown}
       </Section>
@@ -202,26 +198,7 @@ export class Changelog extends Component {
     const footer = (
       <Section>
         {dateDropdown}
-        <h3>GoonStation 13 Development Team</h3>
-        <p>
-          <b>Coders: </b>
-          Stuntwaffle, Showtime, Pantaloons, Nannek, Keelin, Exadv1, hobnob,
-          Justicefries, 0staf, sniperchance, AngriestIBM, BrianOBlivion
-        </p>
-        <p>
-          <b>Spriters: </b>
-          Supernorn, Haruhi, Stuntwaffle, Pantaloons, Rho, SynthOrange,
-          I Said No
-        </p>
-        <p>
-          Traditional Games Space Station 13 is thankful to the
-          GoonStation 13 Development Team for its work on the game up to the
-          {' r4407 release. The changelog for changes up to r4407 can be seen '}
-          <a href="https://wiki.ss13.co/Changelog#April_2010">
-            here
-          </a>
-          .
-        </p>
+        <h3>{'// LICENSING'}</h3>
         <p>
           {'Except where otherwise noted, Goon Station 13 is licensed under a '}
           <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/">
@@ -288,7 +265,7 @@ export class Changelog extends Component {
           <Box ml={3}>
             {Object.entries(authors).map(([name, changes]) => (
               <Fragment key={name}>
-                <h4>{name} changed:</h4>
+                <h4>{'>> ' + name + ':'}</h4>
                 <Box ml={3}>
                   <Table>
                     {changes.map(change => {
@@ -330,7 +307,7 @@ export class Changelog extends Component {
     );
 
     return (
-      <Window title="Changelog" width={675} height={650}>
+      <Window title="Changelog" theme="fallout" width={675} height={650}>
         <Window.Content scrollable>
           {header}
           {changes}
