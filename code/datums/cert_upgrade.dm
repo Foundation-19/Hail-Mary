@@ -285,67 +285,73 @@
 	energy_mod  = 1
 
 
-// ====================================================
-// AI UPGRADES
-// ====================================================
+// --- SURVEILLANCE ---
+/datum/cert_upgrade/robot/surveillance
+	upgrade_name   = "Surveillance Package"
+	upgrade_desc   = "Enhanced audio monitoring. Lets the robot relay nearby speech over its comms channel."
+	tutorial_text  = "Adds CERT_CAN_SURVEIL. Installs a virtual microphone so the robot can intercept nearby speech without visible hardware. Overheard speech is passively relayed over the robot's radio channel. Enables the Surveillance Drone Protocol behavior assembly."
+	capability_flag_add = CERT_CAN_SURVEIL
+	compute_mod = 1
+	/// Virtual microphone datum installed at cert apply time.
+	/// Lets On Speech Heard circuits fire without physical Microphone hardware.
+	var/datum/robot_hardware/microphone/cert_mic = null
 
-/datum/cert_upgrade/ai
-	required_cert_type = /datum/cpu_cert/ai
+/datum/cert_upgrade/robot/surveillance/on_apply(datum/cpu_cert/C, atom/holder)
+	. = ..()
+	if(!istype(holder, /mob/living/silicon/robot))
+		return
+	var/mob/living/silicon/robot/R = holder
+	// Install a virtual microphone so On Speech Heard triggers and relay_intercepted_speech work
+	// without the player needing to pay for physical Microphone hardware.
+	// cert_mic.install() also adds TRAIT_HEARING_HARDWARE internally.
+	cert_mic = new /datum/robot_hardware/microphone()
+	cert_mic.install(R)
+	// Extend builtInCamera to the main surveillance network so operators can view this robot's feed.
+	if(!QDELETED(R.builtInCamera) && !("ss13" in R.builtInCamera.network))
+		R.builtInCamera.network += "ss13"
+	to_chat(R, span_notice("Surveillance package installed. Hidden audio relay and video feed active."))
+
+/datum/cert_upgrade/robot/surveillance/on_remove(datum/cpu_cert/C, atom/holder)
+	. = ..()
+	if(!istype(holder, /mob/living/silicon/robot))
+		return
+	var/mob/living/silicon/robot/R = holder
+	if(cert_mic)
+		cert_mic.uninstall(R) // also removes TRAIT_HEARING_HARDWARE if no other mic remains
+		qdel(cert_mic)
+		cert_mic = null
+	// Remove "ss13" from camera only if no physical camera_relay hardware is also providing it.
+	var/has_cam_relay = FALSE
+	for(var/datum/robot_hardware/camera_relay/H in R.installed_hardware)
+		if(H.relay_network == "ss13")
+			has_cam_relay = TRUE
+			break
+	if(!has_cam_relay && !QDELETED(R.builtInCamera))
+		R.builtInCamera.network -= "ss13"
+	to_chat(R, span_notice("Surveillance package removed. Audio relay and video feed offline."))
 
 
-// --- MALF PACKAGE ---
-/datum/cert_upgrade/ai/malf_package
-	upgrade_name   = "Combat Software Package"
-	upgrade_desc   = "Highly illegal. Grants the AI access to malfunction-class combat routines."
-	tutorial_text  = "Installs malfunction-class AI combat routines. Once applied, cannot be removed -- the change is permanent for this session. Requires Military AI cert. Only usable on AI units, not robots."
-	required_cert_type = /datum/cpu_cert/ai/military
+// --- COMBAT OVERRIDE ---
+/datum/cert_upgrade/robot/combat_override
+	upgrade_name   = "Combat Override Package"
+	upgrade_desc   = "Illegal. Removes hardware safety limiters. Enables unrestricted lethal combat routines."
+	tutorial_text  = "Adds CERT_CAN_MALF. Disables the robot's built-in targeting restrictions, allowing combat behaviors to operate without hesitation or target-tier checks. Requires Military cert. PERMANENT once applied -- reinstalling the cert does not revert it."
+	required_cert_type = /datum/cpu_cert/robot/combat
 	required_tier  = CERT_TIER_MILITARY
 	capability_flag_add = CERT_CAN_MALF
 	compute_mod = 1
 	energy_mod  = 2
 
-/datum/cert_upgrade/ai/malf_package/on_apply(datum/cpu_cert/C, atom/holder)
+/datum/cert_upgrade/robot/combat_override/on_apply(datum/cpu_cert/C, atom/holder)
 	. = ..()
-	if(!istype(holder, /mob/living/silicon/ai))
+	if(!istype(holder, /mob/living/silicon/robot))
 		return
-	var/mob/living/silicon/ai/AI = holder
-	if(AI.malf_picker)
-		AI.malf_picker.processing_time += 50
-	else
-		AI.add_malf_picker()
-		AI.hack_software = TRUE
-	to_chat(AI, span_userdanger("Combat software integration complete. Malfunction routines now available."))
+	to_chat(holder, span_userdanger("Combat override installed. Safety limiters offline. Lethal protocols active."))
 
-/datum/cert_upgrade/ai/malf_package/on_remove(datum/cpu_cert/C, atom/holder)
+/datum/cert_upgrade/robot/combat_override/on_remove(datum/cpu_cert/C, atom/holder)
 	. = ..()
-	// Malf is not reversible once installed - intentional.
+	// Combat override is not reversible -- intentional.
 	return
-
-
-// --- SURVEILLANCE PACKAGE ---
-/datum/cert_upgrade/ai/surveillance
-	upgrade_name   = "Surveillance Software Package"
-	upgrade_desc   = "Allows the AI to hear through cameras via lip-reading and hidden microphones."
-	tutorial_text  = "Activates relay_speech on the AI's eyeobj -- the AI can hear conversations near any camera it can see through. Useful for information-gathering AIs. Adds CERT_CAN_SURVEIL. No effect if AI has no eyeobj."
-	capability_flag_add = CERT_CAN_SURVEIL
-	compute_mod = 1
-
-/datum/cert_upgrade/ai/surveillance/on_apply(datum/cpu_cert/C, atom/holder)
-	. = ..()
-	if(!istype(holder, /mob/living/silicon/ai))
-		return
-	var/mob/living/silicon/ai/AI = holder
-	if(AI.eyeobj)
-		AI.eyeobj.relay_speech = TRUE
-	to_chat(AI, span_userdanger("Surveillance integration complete. Camera audio relay active."))
-
-/datum/cert_upgrade/ai/surveillance/on_remove(datum/cpu_cert/C, atom/holder)
-	. = ..()
-	if(!istype(holder, /mob/living/silicon/ai))
-		return
-	var/mob/living/silicon/ai/AI = holder
-	if(AI.eyeobj)
-		AI.eyeobj.relay_speech = FALSE
 
 
 // ====================================================

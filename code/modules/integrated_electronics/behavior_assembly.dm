@@ -113,7 +113,6 @@
 	// but we log and warn so misconfigurations are visible.
 	if(!cert_compatible(R.cpu_cert))
 		to_chat(user, span_warning("[assembly_label] requires capabilities this chassis cert does not have. Some circuits may not function."))
-		log_game("[key_name(user)] installed behavior assembly '[assembly_label]' onto [R] whose cert lacks required flags.")
 	// Check slot availability
 	var/datum/cpu_cert/C = R.cpu_cert
 	if(!C.can_install_upgrade(U))
@@ -126,8 +125,6 @@
 		return
 	if(C.install_upgrade(U, R))
 		to_chat(user, span_notice("You install [assembly_label] into [R]. Behavior circuits activated."))
-		var/aname = assembly_label
-		log_game("[key_name(user)] installed behavior assembly '[aname]' into [R] at [AREACOORD(R)]")
 	else
 		to_chat(user, span_warning("Installation failed - upgrade slot rejected."))
 		forceMove(drop_location())
@@ -305,8 +302,6 @@
 			// Unauthorized redirect attempt — block and log
 			to_chat(user, span_warning("[R] emits a sharp tone. <b>UNAUTHORIZED REPROGRAMMING ATTEMPT DETECTED.</b>"))
 			R.visible_message(span_warning("[R]'s indicator light flashes red. \"Warning: unauthorized reprogramming attempt.\""))
-			log_game("TAMPER ATTEMPT: [key_name(user)] attempted to redirect follow_target on [R] ([R.name]) at [AREACOORD(R)] without authorization.")
-			// Alert nearby players and log service record
 			R.log_service("TAMPER ATTEMPT -- follow_target redirect blocked. User: [user.name] at [AREACOORD(R)]")
 			return
 	// Find a follow_target circuit in this assembly and link it
@@ -318,7 +313,6 @@
 		to_chat(user, span_warning("This assembly has no Follow Linked Target response to configure."))
 		return
 	visible_message(span_notice("[user] links [found.name] as a follow target on [src]."))
-	if(R) log_game("[key_name(user)] linked follow_target '[found.name]' on [R] ([R.name]) at [AREACOORD(R)]")
 	MT.buffer = null  // Clear buffer after use
 
 

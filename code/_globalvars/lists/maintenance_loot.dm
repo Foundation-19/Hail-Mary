@@ -971,12 +971,17 @@ GLOBAL_LIST_INIT(loot_t2_blueprint, list(
 	/obj/item/book/granter/crafting_recipe/blueprint/riotshotgun,
 	/obj/item/book/granter/crafting_recipe/blueprint/thatgun,
 	/obj/item/book/granter/crafting_recipe/blueprint/lsw,
-	/obj/item/book/granter/crafting_recipe/blueprint/deagle
+	/obj/item/book/granter/crafting_recipe/blueprint/deagle,
+	/obj/item/book/granter/crafting_recipe/blueprint/cyborg_endoskeleton,
+	/obj/item/book/granter/crafting_recipe/blueprint/cyborg_arms,
+	/obj/item/book/granter/crafting_recipe/blueprint/cyborg_legs
 ))
 
 GLOBAL_LIST_INIT(loot_t3_blueprint, list(
 	/obj/item/book/granter/crafting_recipe/blueprint/am_rifle,
 	/obj/item/book/granter/crafting_recipe/blueprint/citykiller,
 	/obj/item/book/granter/crafting_recipe/blueprint/rangemaster,
-	/obj/item/book/granter/crafting_recipe/blueprint/bozar
+	/obj/item/book/granter/crafting_recipe/blueprint/bozar,
+	/obj/item/book/granter/crafting_recipe/blueprint/cyborg_torso,
+	/obj/item/book/granter/crafting_recipe/blueprint/cyborg_head
 ))

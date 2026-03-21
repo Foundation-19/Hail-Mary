@@ -222,7 +222,6 @@
 		to_chat(user, span_warning("[R] has a hardened combat certification — intrusion is not possible with this device."))
 		to_chat(user, span_notice("Standard, Medical, and Engineering chassis can be hacked. Combat-certified robots cannot."))
 		R.visible_message(span_warning("[R]'s indicator light flashes red. \"Intrusion attempt rejected.\""))
-		log_game("HACK BLOCKED: [key_name(user)] attempted to hack [R] ([R.name]) — hardened cert at [AREACOORD(R)]")
 		play_denied_anim()
 		hack_cooldown_until = world.time + 100
 		return
@@ -302,7 +301,6 @@
 		span_notice("[user] connects [src] to [R]'s access port and begins an intrusion sequence."),
 		span_notice("Hacking [R]. Guess the correct password in the terminal window. Higher Intelligence = more attempts.")
 	)
-	log_game("HACK ATTEMPT: [key_name(user)] targeting [R] ([R.name]) at [AREACOORD(R)] — difficulty [difficulty]")
 	// Tier 2: alert operator and relay robots
 	_send_intrusion_alert(R, "Intrusion attempt detected at ([R.x],[R.y],[R.z]).")
 	// Tier 3: player-controlled robot gets a resist window (unless military cert bypasses it)
@@ -333,11 +331,9 @@
 
 	var/masked = device_cert && (device_cert.capability_flags & CERT_MILITARY_GRADE)
 	if(masked)
-		log_game("HACK SUCCESS (MASKED): [key_name(user)] on [R] ([R.name]) at [AREACOORD(R)]")
 		R.log_service("INTRUSION SUCCESS -- operator identity masked.")
 		_send_intrusion_alert(R, "Security breach confirmed at ([R.x],[R.y],[R.z]). Operator identity unknown.")
 	else
-		log_game("HACK SUCCESS: [key_name(user)] on [R] ([R.name]) at [AREACOORD(R)]")
 		R.log_service("INTRUSION SUCCESS -- operator: [user.name] at [AREACOORD(R)]")
 		_send_intrusion_alert(R, "Security breach by [user.name] at ([R.x],[R.y],[R.z]).")
 
@@ -380,7 +376,6 @@
 						for(var/datum/behavior_circuit/response/enter_combat_mode/EC in BA.assembly.circuits)
 							EC.execute(R, BA.assembly)
 						break
-		log_game("HACK FAIL: [key_name(user)] failed on [R] ([R.name]) at [AREACOORD(R)]")
 
 	INVOKE_ASYNC(src, PROC_REF(_end_hack_session))
 

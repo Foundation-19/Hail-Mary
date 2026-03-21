@@ -50,7 +50,6 @@
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		return
-	log_game("CIRCUIT fire_at: [R] fires [G] ([G.type]) at [target] dist=[get_dist(R,target)] range=[effective_range]")
 	G.afterattack(target, R, TRUE)
 	R.visible_message(span_danger("[R] fires [G.name] at [target]!"))
 

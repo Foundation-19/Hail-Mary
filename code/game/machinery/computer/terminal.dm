@@ -428,14 +428,25 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 					R.log_service("RENAME -- [R.name] ? [newname]")
 					R.name = newname
 					R.real_name = newname
-					log_game("[key_name(U)] renamed robot to [newname] via terminal [tag]")
 		if("robot_reboot")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
 			if(R && R.stat != DEAD)
 				R.log_reboot()
 				R.visible_message(span_warning("[R] reboots."))
 				R.Stun(30)
-				log_game("[key_name(U)] rebooted [R] via terminal [tag]")
+
+		if("robot_view_camera")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R && !QDELETED(R.builtInCamera) && R.builtInCamera.status)
+				U.reset_perspective(R.builtInCamera)
+				to_chat(U, span_notice("Camera uplink established: [R.name]. Click \[stop viewing\] to disconnect."))
+			else
+				to_chat(U, span_warning("Camera relay failed -- camera offline or not available."))
+			return
+
+		if("robot_stop_camera")
+			U.reset_perspective(null)
+			to_chat(U, span_notice("Camera uplink closed."))
 
 		if("robot_add_faction_card")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
@@ -459,14 +470,12 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				if(ftag && R.faction)
 					R.faction -= ftag
 					R.log_service("FACTION REMOVED -- [ftag]")
-					log_game("[key_name(U)] removed faction [ftag] from [R] via terminal [tag]")
 		if("robot_apply_preset")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
 			if(R)
 				var/design_path = text2path(href_list["dtype"])
 				if(design_path)
 					var/list/entries = get_recommended_hardware(design_path)
-					var/applied = 0
 					for(var/list/E in entries)
 						var/hw_type = E[1]
 						var/already = FALSE
@@ -481,8 +490,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 								NHW.vars[key] = E[2][key]
 						R.installed_hardware += NHW
 						NHW.install(R)
-						applied++
-					log_game("[key_name(U)] applied preset [design_path] to [R] via terminal [tag] ([applied] modules added)")
 		if("robot_sync_log")
 			var/mob/living/silicon/robot/RSL = get_linked_robot(href_list["rref"])
 			if(RSL)
@@ -493,15 +500,15 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			if(RCL)
 				RCL.activity_log = list()
 				if(robot_log_cache) robot_log_cache.Remove(href_list["rref"])
-				log_game("[key_name(U)] cleared activity log on [RCL.name]")
 
 		if("robot_ctrl_clear")
 			var/mob/living/silicon/robot/RCC = get_linked_robot(href_list["rref"])
 			if(RCC)
-				RCC.control_mode = null
-				RCC.locked_ckey  = null
+				RCC.control_mode         = null
+				RCC.player_robot_control = "npc"
+				RCC.locked_ckey          = null
+				RCC.player_robot_ckey    = null
 				RCC.log_service("CONTROL MODE -- AUTONOMOUS (lock cleared via terminal)")
-				log_game("[key_name(U)] cleared operator lock on [RCC.name] via terminal [tag]")
 
 		if("robot_set_security")
 			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
@@ -516,7 +523,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				else
 					R.security_difficulty = new_diff
 					R.log_service("SECURITY DIFFICULTY -- set to [sec_labels[new_diff + 1]] by [U.name]")
-					log_game("[key_name(U)] set security difficulty on [R.name] to [sec_labels[new_diff + 1]] via terminal [tag]")
 					to_chat(U, span_nicegreen("[R.name] security software updated: [sec_labels[new_diff + 1]]."))
 
 		if("robot_link_toggle")
@@ -547,7 +553,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 						var/datum/robot_hardware/HW = new hwtype()
 						HW.install(R)
 						to_chat(U, span_notice("Installed [HW.hardware_name] on [R.name]."))
-						log_game("[key_name(U)] remotely installed [HW.hardware_name] on [R] via terminal [tag]")
 			robot_hw_add_mode = null
 			robot_hw_add_cat  = null
 			robot_detail_ref  = href_list["rref"]
@@ -562,7 +567,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 					var/hwname = HW.hardware_name
 					HW.uninstall(R)
 					to_chat(U, span_notice("Removed [hwname] from [R.name]."))
-					log_game("[key_name(U)] remotely removed [hwname] from [R] via terminal [tag]")
 			robot_hw_add_mode = null
 			robot_hw_add_cat  = null
 			robot_detail_ref  = href_list["rref"]
@@ -584,7 +588,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 						R.module.basic_modules += new_item
 						R.module.rebuild_modules()
 						to_chat(U, span_notice("Swapped [old_item.name] ? [new_item.name] on [R.name]."))
-						log_game("[key_name(U)] swapped loadout [old_item.name] for [new_item.name] on [R] via terminal [tag]")
 				robot_detail_ref = href_list["rref"]
 				mode = 8
 		if("turret_all_on")
@@ -1285,7 +1288,24 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		dat += "<span class='dim'>&gt; No assembly installed.</span><br>"
 	dat += "<br>"
 
-
+	// ?? Camera uplink ???????????????????????????????????????????????????
+	dat += "<b>CAMERA UPLINK</b><br>"
+	var/has_cam_hardware = FALSE
+	for(var/datum/robot_hardware/HW in R.installed_hardware)
+		if(istype(HW, /datum/robot_hardware/camera_relay))
+			has_cam_hardware = TRUE
+			break
+	if(has_cam_hardware)
+		if(!QDELETED(R.builtInCamera) && R.builtInCamera.status)
+			dat += "&gt; Camera active. "
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_view_camera;rref=[REF(R)]'>\[view feed\]</a>"
+			dat += "  <a href='byond://?src=[REF(src)];choice=robot_stop_camera'>\[stop viewing\]</a><br>"
+		else
+			dat += "<span class='dim'>&gt; Camera offline.</span>  "
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_stop_camera'>\[stop viewing\]</a><br>"
+	else
+		dat += "<span class='dim'>&gt; No Camera Relay Module installed.</span><br>"
+	dat += "<br>"
 
 	// ?? Service actions ?????????????????????????????????????????????????????
 	dat += "<b>SERVICE ACTIONS</b><br>"
@@ -1355,7 +1375,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		return
 	R.faction += faction_tag
 	R.log_service("FACTION ADDED -- [faction_tag] (via ID card: [card.registered_name ? card.registered_name : "(unnamed)"])")
-	log_game("[key_name(user)] added faction [faction_tag] to [R] via ID card swipe on terminal [tag]")
 	to_chat(user, span_nicegreen("Registered faction '[faction_tag]' to [R.name] based on: [card.registered_name ? card.registered_name : "(unnamed)"] ([card.assignment])."))
 	updateUsrDialog()
 
@@ -1374,10 +1393,11 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	if(!person_name || !length(person_name))
 		to_chat(user, span_warning("This ID card has no registered name."))
 		return
-	R.control_mode = "locked"
-	R.locked_ckey  = person_name
+	R.control_mode         = "locked"
+	R.player_robot_control = "locked"
+	R.locked_ckey          = person_name
+	R.player_robot_ckey    = person_name   // name-based; attack_ghost also checks real_name
 	R.log_service("CONTROL MODE -- LOCKED ([person_name]) via ID card")
-	log_game("[key_name(user)] locked robot [R.name] to [person_name] via ID card swipe on terminal [tag]")
 	to_chat(user, span_nicegreen("Robot [R.name] locked to operator: [person_name]."))
 	updateUsrDialog()
 

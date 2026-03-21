@@ -145,7 +145,6 @@
 		base_cert = null
 		R.cpu_cert.apply_to_holder(R)
 		to_chat(user, span_notice("You install the [R.cpu_cert.cert_name] certification into [R]."))
-		log_game("[key_name(user)] installed cert '[R.cpu_cert.cert_name]' into [R] at [AREACOORD(R)]")
 		_update_name()
 		return
 
@@ -172,7 +171,6 @@
 		upgrade = null
 		if(C.install_upgrade(held_upgrade, R))
 			to_chat(user, span_notice("You install [held_upgrade.upgrade_name] into [R]."))
-			log_game("[key_name(user)] installed upgrade '[held_upgrade.upgrade_name]' into [R] at [AREACOORD(R)]")
 			qdel(src)
 		else
 			upgrade = held_upgrade
@@ -220,7 +218,6 @@
 	upgrade = null
 	if(C.install_upgrade(held_upgrade, AI))
 		to_chat(user, span_notice("You install [held_upgrade.upgrade_name] into [AI]."))
-		log_game("[key_name(user)] installed upgrade '[held_upgrade.upgrade_name]' into [AI] at [AREACOORD(AI)]")
 		qdel(src)
 	else
 		upgrade = held_upgrade
@@ -258,7 +255,6 @@
 		if(A)
 			A.forceMove(user.drop_location())
 			to_chat(user, span_notice("You remove [A.assembly_label] from [R]."))
-			log_game("[key_name(user)] stripped behavior assembly '[A.assembly_label]' from [R] at [AREACOORD(R)]")
 		BA.assembly = null
 		qdel(BA)
 		return TRUE
@@ -270,7 +266,6 @@
 	card._update_name()
 
 	to_chat(user, span_notice("You remove [U.upgrade_name] from [R] and store it on a cert card."))
-	log_game("[key_name(user)] stripped upgrade '[U.upgrade_name]' from [R] at [AREACOORD(R)]")
 	return TRUE
 
 
@@ -424,4 +419,20 @@
 /obj/item/cert_card/upgrade/hardened_ice/Initialize(mapload)
 	. = ..()
 	upgrade = new /datum/cert_upgrade/robot/hardened_ice()
+	_update_name()
+
+/obj/item/cert_card/upgrade/surveillance
+	name = "cert card - Surveillance Package"
+
+/obj/item/cert_card/upgrade/surveillance/Initialize(mapload)
+	. = ..()
+	upgrade = new /datum/cert_upgrade/robot/surveillance()
+	_update_name()
+
+/obj/item/cert_card/upgrade/combat_override
+	name = "cert card - Combat Override Package"
+
+/obj/item/cert_card/upgrade/combat_override/Initialize(mapload)
+	. = ..()
+	upgrade = new /datum/cert_upgrade/robot/combat_override()
 	_update_name()

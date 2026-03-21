@@ -40,8 +40,8 @@
 // ====================================================
 
 /mob/living/silicon/robot/proc/open_config_panel(mob/user)
-	if(!check_rights_for(user.client, R_ADMIN))
-		to_chat(user, span_warning("Access denied."))
+	if(!check_rights_for(user.client, R_ADMIN) && !allowed(user) && !HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
+		to_chat(user, span_warning("Access denied. Robotics clearance or Robot Whisperer skill required."))
 		return
 	rcp_mode   = RCP_DIAG
 	rcp_sw_ref = null
@@ -74,7 +74,29 @@
 
 /mob/living/silicon/robot/Topic(href, list/href_list)
 	var/mob/U = usr
-	if(!U?.client || !check_rights_for(U.client, R_ADMIN))
+	if(!U?.client)
+		return
+
+	// Module picker self-selection — only the inhabited robot may confirm this.
+	// Fires from the pick_module() HTML popup; no external panel access needed.
+	if(href_list["pick_module_sel"])
+		if(U != src || !module || module.type != /obj/item/robot_module)
+			return
+		var/T = text2path(href_list["pick_module_sel"])
+		if(!T || !ispath(T, /obj/item/robot_module))
+			return
+		module.transform_to(T)
+		if(cpu_cert && module)
+			var/compute    = cpu_cert.get_core_stat(CORE_COMPUTE)
+			var/slots_used = cpu_cert.upgrade_slots.len
+			var/slots_max  = cpu_cert.max_upgrade_slots
+			to_chat(src, span_good("> BOOT SEQUENCE COMPLETE."))
+			to_chat(src, span_notice("MODULE: [module.name] | COMPUTE: [compute] | UPGRADE SLOTS: [slots_used]/[slots_max] free"))
+			to_chat(src, span_notice("Find a CPU Certification Fabricator (green terminal) to print upgrade cards and expand your capabilities."))
+		return
+
+	// Full panel access: admin, robotics-access ID card, or Robot Whisperer trait
+	if(!check_rights_for(U.client, R_ADMIN) && !allowed(U) && !HAS_TRAIT(U, TRAIT_ROBOT_WHISPERER))
 		return
 
 	// Tab navigation
@@ -105,7 +127,6 @@
 			var/n = stripped_input(U, "Enter display name:", "Unit Name", real_name, max_length=64)
 			if(!QDELETED(src) && n)
 				log_service("RENAME -- [real_name] ? [n]")
-				log_game("[key_name(U)] renamed robot [real_name] -> [n]")
 				real_name = n
 				name      = n
 				if(builtInCamera) builtInCamera.c_tag = n
@@ -116,14 +137,21 @@
 				var/ck = stripped_input(U, "Lock to ckey:", "Lock to Operator", "")
 				if(length(ck))
 					log_service("CONTROL MODE -- LOCKED ([ck])")
-					control_mode = "locked"
-					locked_ckey  = ck
-					log_game("[key_name(U)] locked [real_name] to [ck]")
+					control_mode         = "locked"
+					player_robot_control = "locked"
+					locked_ckey          = ck
+					player_robot_ckey    = ck
+					if(!mmi)
+						mmi = new(src)
+
 			else if(val in list("npc", "open"))
 				log_service("CONTROL MODE -- [uppertext(val)]")
-				control_mode = val
-				locked_ckey  = null
-				log_game("[key_name(U)] set [real_name] control mode = [val]")
+				control_mode         = val
+				player_robot_control = val
+				locked_ckey          = null
+				player_robot_ckey    = null
+				if(val == "open" && !mmi)
+					mmi = new(src)
 
 		// ?? SOFTWARE ????????????????????????????????????????????????
 
@@ -154,11 +182,10 @@
 						else if(!isnull(cfg_max))
 							new_val = min(new_val, cfg_max)
 						HW.vars[key] = new_val
-						log_game("[key_name(U)] set [HW.hardware_name].[key] = [new_val] on [real_name]")
+
 				else if(dtype == "bool")
 					// Bool: toggle without a dialog
 					HW.vars[key] = !cur_val
-					log_game("[key_name(U)] toggled [HW.hardware_name].[key] = [!cur_val] on [real_name]")
 				else
 					// "text" and "list" (type path / string): free text input
 					new_val = stripped_input(U, "Set [label]:", label, "[cur_val]", max_length=128)
@@ -169,7 +196,6 @@
 							else to_chat(U, span_warning("Invalid type path: [new_val]"))
 						else
 							HW.vars[key] = new_val
-						log_game("[key_name(U)] set [HW.hardware_name].[key] = [new_val] on [real_name]")
 
 		// ?? ALIGNMENT ???????????????????????????????????????????????
 
@@ -179,18 +205,15 @@
 				if(!faction) faction = list()
 				faction |= tag
 				log_service("FACTION ADDED -- [tag]")
-				log_game("[key_name(U)] added faction [tag] to [real_name]")
 
 		if("del_fac")
 			var/tag = href_list["val"]
 			if(tag && faction && (tag in faction))
 				faction -= tag
 				log_service("FACTION REMOVED -- [tag]")
-				log_game("[key_name(U)] removed faction [tag] from [real_name]")
 
 		if("clear_fac")
 			log_service("FACTIONS CLEARED")
-			log_game("[key_name(U)] cleared all factions from [real_name]")
 			faction = list()
 
 		if("set_ctrl_card")
@@ -239,9 +262,20 @@
 
 		if("ctrl_clear")
 			log_service("CONTROL MODE -- AUTONOMOUS (lock cleared)")
-			log_game("[key_name(U)] cleared operator lock on [real_name] via config panel")
-			control_mode = null
-			locked_ckey  = null
+			control_mode         = null
+			player_robot_control = "npc"
+			locked_ckey          = null
+			player_robot_ckey    = null
+
+		if("reboot")
+			if(!check_rights_for(U.client, R_ADMIN) && !allowed(U) && !HAS_TRAIT(U, TRAIT_ROBOT_WHISPERER))
+				to_chat(U, span_warning("Access denied."))
+			else
+				log_service("REBOOT -- initiated by [U.name]")
+				ResetModule()
+				log_reboot()
+				visible_message(span_warning("[src] reboots."))
+				to_chat(U, span_nicegreen("[real_name] module reset."))
 
 	if(!QDELETED(src))
 		_rcp_push(U)
@@ -272,17 +306,19 @@
 			if(!faction) faction = list()
 			faction += faction_tag
 			log_service("FACTION ADDED -- [faction_tag] (authorized by [card.registered_name ? card.registered_name : user.name])")
-			log_game("[key_name(user)] added faction [faction_tag] to [real_name] via ID card swipe")
 			to_chat(user, span_nicegreen("Faction '[faction_tag]' registered to [real_name]."))
 	else if(action == "lock")
 		var/op_name = card.registered_name
 		if(!op_name || !length(op_name))
 			to_chat(user, span_warning("This ID card has no registered name."))
 		else
-			control_mode = "locked"
-			locked_ckey  = op_name
+			control_mode         = "locked"
+			player_robot_control = "locked"
+			locked_ckey          = op_name
+			player_robot_ckey    = op_name   // name-based; attack_ghost also checks real_name
+			if(!mmi)
+				mmi = new(src)
 			log_service("CONTROL MODE -- LOCKED ([op_name]) authorized by [user.name]")
-			log_game("[key_name(user)] locked [real_name] to [op_name] via ID card swipe")
 			to_chat(user, span_nicegreen("[real_name] locked to operator: [op_name]."))
 	else if(action == "follow")
 		var/person_name = card.registered_name
@@ -315,7 +351,6 @@
 						to_chat(user, span_warning("[real_name]'s assembly has no Follow Linked Target circuit to configure."))
 					else
 						log_service("FOLLOW TARGET -- [person_name] linked via ID card by [user.name]")
-						log_game("[key_name(user)] linked follow target '[person_name]' to [real_name] via config panel ID card swipe")
 						to_chat(user, span_nicegreen("Follow target set: [real_name] will follow [person_name]."))
 	if(panel_user) _rcp_push(panel_user)
 
@@ -438,7 +473,7 @@
 	// Plain-language description of each mode so it reads like a service menu,
 	// not a codebase variable.
 	d += "<b>CONTROL MODE</b><br>"
-	var/cmode = control_mode ? control_mode : "npc"
+	var/cmode = player_robot_control ? player_robot_control : "npc"
 	switch(cmode)
 		if("npc")
 			d += "&gt; <b>AUTONOMOUS</b>  <span class='dim'>-- unit operates under installed behavior circuits</span><br>"
@@ -535,6 +570,13 @@
 				d += "<br><span class='warn'>CIRCUIT HARDWARE MISSING:</span><br>"
 				for(var/warn in missing_hw)
 					d += "<span class='warn'>&gt; [warn]</span><br>"
+
+	// Service actions
+	d += "<br><b>SERVICE</b><br>"
+	if(stat != DEAD)
+		d += "<a href='byond://?src=[REF(src)];a=reboot'>\[Reboot Unit\]</a>  <span class='dim'>// resets module state; drops non-locked cert upgrades</span><br>"
+	else
+		d += "<span class='dim'>\[Reboot Unit\]</span>  <span class='dim'>// unit is offline</span><br>"
 
 	return d
 

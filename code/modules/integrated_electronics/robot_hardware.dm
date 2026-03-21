@@ -183,7 +183,6 @@
 				G = candidate
 				break
 	if(!G)
-		log_game("HARDWARE weapon/install: [R] module has no gun in inventory - weapon hardware requires a gun already in the module's loadout. Not installed.")
 		return  // do NOT call ..() - hardware is not installed at all
 	. = ..()
 	gun_ref = WEAKREF(G)
@@ -921,6 +920,39 @@
 
 /datum/robot_hardware/bio_scanner/apply_special(list/S)
 	scan_radius += max(0, S["PER"] - 5)
+
+
+// -- CAMERA RELAY ------------------------------------
+
+/datum/robot_hardware/camera_relay
+	hardware_name    = "Camera Relay Module"
+	hardware_desc    = "Extends the robot's built-in camera to a second configurable network and enables behavioral camera control."
+	tutorial_text    = "Enables: Response: Toggle Camera. The robot's built-in camera is always on 'ss13'. This module adds it to a second configurable network -- default 'ss13' (main surveillance grid). Configure to a faction network like 'BoS' to restrict visibility to that faction's consoles only."
+	category         = RHC_SENSORS
+	min_int          = RH_INT_STANDARD
+	core_energy      = 1
+	mat_cost         = list("iron" = 200, "glass" = 100, "gold" = 50)
+
+	/// Secondary network the camera is relayed to. Default 'ss13' (main surveillance grid).
+	var/relay_network = "ss13"
+
+/datum/robot_hardware/camera_relay/get_summary()
+	return "[hardware_name] net:[relay_network]"
+
+/datum/robot_hardware/camera_relay/New()
+	config_defs = list(
+		"relay_network" = list("Relay Network", "text", "ss13")
+	)
+
+/datum/robot_hardware/camera_relay/install(mob/living/silicon/robot/R)
+	. = ..()
+	if(!QDELETED(R.builtInCamera) && !(relay_network in R.builtInCamera.network))
+		R.builtInCamera.network += relay_network
+
+/datum/robot_hardware/camera_relay/uninstall(mob/living/silicon/robot/R)
+	if(!QDELETED(R.builtInCamera))
+		R.builtInCamera.network -= relay_network
+	. = ..()
 
 
 // ====================================================

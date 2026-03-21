@@ -64,7 +64,6 @@
 	return  // triggers are activated by _trigger(), not execute()
 
 /datum/behavior_circuit/trigger/proc/_trigger(mob/living/silicon/robot/R)
-	log_game("CIRCUIT TRIGGER: [circuit_name] fired on [R]")
 	// Skip autonomous behavior for player-controlled robots UNLESS assembly_override is set.
 	// assembly_override is set by robot_workshop so assemblies always run on workshop-built bots.
 	if(R.mind && R.client)
@@ -74,14 +73,12 @@
 				assembly_active = TRUE
 				break
 		if(!assembly_active)
-			log_game("CIRCUIT TRIGGER: [circuit_name] BLOCKED - player-controlled, no assembly_override")
 			return
 	// Logic Core gate
 	var/datum/robot_hardware/logic_core/LC = local_logic_core
 	if(!LC)
 		LC = get_hardware(R, /datum/robot_hardware/logic_core)
 	if(LC && !LC.evaluate(R))
-		log_game("CIRCUIT TRIGGER: [circuit_name] BLOCKED - Logic Core gate failed")
 		return
 	// Advanced Circuit Board
 	var/datum/robot_hardware/circuit_board/CB = get_hardware(R, /datum/robot_hardware/circuit_board)
@@ -91,13 +88,9 @@
 	var/obj/item/behavior_assembly/A_exec = get_assembly()
 	if(responses_list && responses_list.len)
 		for(var/datum/behavior_circuit/response/RE in responses_list)
-			log_game("CIRCUIT RESPONSE: [RE.circuit_name] executing on [R]")
 			RE.execute(R, A_exec)
 	else if(response)
-		log_game("CIRCUIT RESPONSE: [response.circuit_name] executing on [R]")
 		response.execute(R, A_exec)
-	else
-		log_game("CIRCUIT TRIGGER: [circuit_name] - no response wired")
 
 
 // -- RESPONSE BASE -------------------------------------------
@@ -120,6 +113,9 @@
 /proc/_is_faction_friend(mob/living/silicon/robot/R, mob/living/M)
 	if(!R || !M || M == R)
 		return TRUE
+	// CERT_CAN_MALF: safety limiters removed -- treat all non-self mobs as potential targets.
+	if(R.cpu_cert && (R.cpu_cert.capability_flags & CERT_CAN_MALF))
+		return FALSE
 	if(!R.faction)
 		return FALSE  // robot has no faction - treat all non-self as potential targets
 	// faction can be a string (single faction) or a list (multiple factions).
@@ -500,9 +496,7 @@
 		if(M.stat != CONSCIOUS)
 			continue
 		if(check_faction && _is_faction_friend(R, M))
-			log_game("CIRCUIT mob_approaches: skipping [M] - faction friend of [R]")
 			continue
-		log_game("CIRCUIT mob_approaches: [R] detects [M] at dist=[get_dist(R,M)] check_faction=[check_faction]")
 		_trigger(R)
 		return
 
@@ -1456,7 +1450,6 @@
 /datum/behavior_circuit/response/fire_weapon/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/robot_hardware/weapon/WH = get_hardware(R, /datum/robot_hardware/weapon)
 	if(!WH)
-		log_game("CIRCUIT fire_weapon: no weapon hardware on [R]")
 		return
 	var/scan_range = (A ? A.sensor_range : 7) + WH.fire_range
 	var/mob/living/target = null
@@ -1465,19 +1458,8 @@
 	if(R.last_attacker_ref)
 		var/mob/living/attacker = R.last_attacker_ref.resolve()
 		var/age = world.time - R.last_attacker_time
-		if(age > 50)
-			log_game("CIRCUIT fire_weapon: last_attacker_ref expired age=[age] ticks")
-		else if(!attacker)
-			log_game("CIRCUIT fire_weapon: last_attacker_ref resolve() returned null (GCd?)")
-		else if(attacker.stat == DEAD)
-			log_game("CIRCUIT fire_weapon: last attacker=[attacker] is dead")
-		else if(_is_faction_friend(R, attacker))
-			log_game("CIRCUIT fire_weapon: attacker=[attacker] is faction friend of [R], skipping retaliation")
-		else
+		if(age <= 50 && attacker && attacker.stat != DEAD && !_is_faction_friend(R, attacker))
 			target = attacker
-			log_game("CIRCUIT fire_weapon: retaliation target=[attacker]")
-	else
-		log_game("CIRCUIT fire_weapon: last_attacker_ref is null - pending_attacker_ref was=[R.pending_attacker_ref]")
 
 	// Fallback: scan for nearest visible hostile in range.
 	// view() instead of range() � range() ignores walls, so the robot would fixate on
@@ -1495,7 +1477,6 @@
 				target = M
 
 	if(!target)
-		log_game("CIRCUIT fire_weapon: no visible target in range=[scan_range]")
 		return
 	WH.fire_at(R, target)
 
@@ -1830,6 +1811,29 @@
 	EX.attack(target, R)
 	EM.consume_charge()
 	R.visible_message(span_notice("[R] extinguishes [target]!"))
+
+
+// -- CLEAN NEARBY MESS --------------------------------
+
+/datum/behavior_circuit/response/clean_nearby_mess
+	circuit_name = "Response: Clean Nearby Mess"
+	circuit_desc = "Cleans blood, spills, and dirt on the robot's tile and adjacent tiles."
+	tutorial_text = "Deletes all cleanable decals (blood, spills, dirt) on the robot's current turf and all adjacent turfs. No hardware required. Pair with Trigger: On Mess Detected for automatic cleaning."
+	cpu_cost = 1
+
+/datum/behavior_circuit/response/clean_nearby_mess/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/turf/T = get_turf(R)
+	if(!T)
+		return
+	var/cleaned = FALSE
+	for(var/turf/CT in range(1, T))
+		SEND_SIGNAL(CT, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
+		for(var/atom/movable/item in CT)
+			if(is_cleanable(item))
+				qdel(item)
+				cleaned = TRUE
+	if(cleaned)
+		R.visible_message(span_notice("[R] scrubs the nearby area clean."))
 
 
 // -- TOGGLE LIGHT ------------------------------------
@@ -4103,6 +4107,45 @@
 		R.setDir(get_dir(R, target))
 
 
+// -- RELAY INTERCEPTED SPEECH -----------------------
+// Broadcasts the last heard speech over the robot's
+// radio channel.  Surveillance cert's circuit twin.
+// Works with Microphone hardware OR the virtual mic
+// installed by the Surveillance Package cert upgrade.
+
+/datum/behavior_circuit/response/relay_intercepted_speech
+	needs_hardware = TRUE
+	circuit_name = "Response: Relay Intercepted Speech"
+	hardware_slot_name = HW_SLOT_MICROPHONE
+	required_hardware_type = /datum/robot_hardware/microphone
+	circuit_desc = "Broadcasts the last intercepted speech over the robot's radio channel."
+	tutorial_text = "HARDWARE REQUIRED: Microphone (or Surveillance Package cert upgrade -- the cert installs a virtual mic). Transmits the last overheard message on the robot's radio channel with a surveillance header. Pair with Trigger: On Speech Heard. Unlike Mimic Speech, this goes over radio rather than being spoken aloud."
+	cpu_cost = 1
+
+/datum/behavior_circuit/response/relay_intercepted_speech/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/microphone/MIC = get_hardware(R, /datum/robot_hardware/microphone)
+	if(!MIC || !MIC.last_heard_message)
+		return
+	var/msg = copytext(MIC.last_heard_message, 1, 120)
+	R.say(";[R.name]: intercepted: \"[msg]\"")
+
+// -- RESPONSE: TOGGLE CAMERA --------------------------
+
+/datum/behavior_circuit/response/toggle_camera
+	needs_hardware       = TRUE
+	circuit_name         = "Response: Toggle Camera"
+	hardware_slot_name   = HW_SLOT_CAMERA_RELAY
+	required_hardware_type = /datum/robot_hardware/camera_relay
+	circuit_desc         = "Toggles the robot's built-in camera on or off."
+	tutorial_text        = "HARDWARE REQUIRED: Camera Relay Module. Switches the built-in camera feed on or off. Use with On Speech Heard or a Clock Tick trigger to go dark on command or resume surveillance. The camera relay module must be installed for behavioral camera control."
+	cpu_cost             = 1
+
+/datum/behavior_circuit/response/toggle_camera/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	if(QDELETED(R.builtInCamera))
+		return
+	R.builtInCamera.toggle_cam(R, 0)
+
+
 // -- MIMIC SPEECH ------------------------------------
 // Repeats the last heard speech back at the speaker.
 // The "parrot bot" circuit.  Needs Microphone.
@@ -4209,6 +4252,76 @@
 	T.response = RE
 	circuits += T
 	circuits += RE
+
+
+// ====================================================
+// PRESET: SURVEILLANCE DRONE PROTOCOL
+// Requires CERT_CAN_SURVEIL (Surveillance Package cert).
+// On Speech Heard -> Relay Intercepted Speech (radio)
+// On Combat Sound Nearby -> Broadcast Alert (shots fired)
+// The cert upgrade installs a virtual microphone datum,
+// so this assembly works without physical mic hardware.
+// ====================================================
+
+/obj/item/behavior_assembly/surveillance_drone
+	assembly_label = "Surveillance Drone Protocol"
+	max_circuits = 4
+
+/obj/item/behavior_assembly/surveillance_drone/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_SURVEIL)
+
+/obj/item/behavior_assembly/surveillance_drone/Initialize(mapload)
+	. = ..()
+	// T1: relay overheard speech to radio channel
+	var/datum/behavior_circuit/trigger/on_speech_heard/T1 = new()
+	var/datum/behavior_circuit/response/relay_intercepted_speech/RE1 = new()
+	T1.response = RE1
+	circuits += T1
+	circuits += RE1
+	// T2: alert on combat sounds (shots, explosions)
+	var/datum/behavior_circuit/trigger/on_combat_sound_nearby/T2 = new()
+	var/datum/behavior_circuit/response/broadcast_alert/RE2 = new()
+	RE2.alert_message = "SURVEILLANCE: Combat sounds detected at current position."
+	T2.response = RE2
+	circuits += T2
+	circuits += RE2
+
+
+// ====================================================
+// PRESET: ROGUE PROTOCOL
+// Requires CERT_CAN_MALF (Combat Override Package).
+// On Enemy Spotted -> Enter Combat Mode + Fire Weapon
+// On Enemy Spotted (slow) -> Pathfind To Enemy
+// CERT_CAN_MALF bypasses _is_faction_friend() so the
+// robot treats ALL mobs (including faction allies) as
+// valid targets.  Requires Weapon hardware to fire.
+// ====================================================
+
+/obj/item/behavior_assembly/rogue_protocol
+	assembly_label = "Rogue Protocol"
+	max_circuits = 5
+
+/obj/item/behavior_assembly/rogue_protocol/cert_compatible(datum/cpu_cert/C)
+	return C && (C.capability_flags & CERT_CAN_MALF)
+
+/obj/item/behavior_assembly/rogue_protocol/Initialize(mapload)
+	. = ..()
+	// T1: enter combat and fire on any spotted mob (faction bypassed by CERT_CAN_MALF)
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T1 = new()
+	T1.spot_cooldown = 20
+	var/datum/behavior_circuit/response/enter_combat_mode/RE1 = new()
+	var/datum/behavior_circuit/response/fire_weapon/RE2 = new()
+	T1.responses_list = list(RE1, RE2)
+	circuits += T1
+	circuits += RE1
+	circuits += RE2
+	// T2: pathfind toward target to close distance
+	var/datum/behavior_circuit/trigger/on_enemy_spotted/T2 = new()
+	T2.spot_cooldown = 40
+	var/datum/behavior_circuit/response/pathfind_to_enemy/RE3 = new()
+	T2.response = RE3
+	circuits += T2
+	circuits += RE3
 
 
 // ====================================================
@@ -5208,17 +5321,16 @@
 
 /obj/item/behavior_assembly/janitor/Initialize(mapload)
 	. = ..()
-	// Mess detected: react and complain
+	// Mess detected: announce and clean it
 	var/datum/behavior_circuit/trigger/on_mess_detected/T1 = new()
-	var/datum/behavior_circuit/response/emote_action/RE1 = new()
-	RE1.emote_text = "moves purposefully toward the mess"
-	var/datum/behavior_circuit/response/say_text/RE2 = new()
-	RE2.say_string = "Unsanitary conditions detected. Corrective action initiated."
+	var/datum/behavior_circuit/response/say_text/RE1 = new()
+	RE1.say_string = "Unsanitary conditions detected. Corrective action initiated."
+	var/datum/behavior_circuit/response/clean_nearby_mess/RE2 = new()
 	T1.responses_list = list(RE1, RE2)
 	circuits += T1
 	circuits += RE1
 	circuits += RE2
-	// Slow ambient loop: scrubbing emote when nothing is happening
+	// Slow ambient loop: passive cleaning emote when idle
 	var/datum/behavior_circuit/trigger/on_idle/T2 = new()
 	T2.idle_ticks = 300
 	var/datum/behavior_circuit/response/emote_action/RE3 = new()

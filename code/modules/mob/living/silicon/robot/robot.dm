@@ -299,11 +299,19 @@
 		return
 
 	if(player_robot_control == "locked")
-		if(!player_robot_ckey || user.ckey != player_robot_ckey)
-			to_chat(user, span_warning("[src] has been reserved for [player_robot_ckey ? player_robot_ckey : "another player"]."))
+		if(!player_robot_ckey)
+			to_chat(user, span_warning("[src] is locked but has no operator configured."))
+			return
+		// Accept both ckey match (set via text input) and name match (set via ID card swipe)
+		var/allowed_entry = (user.ckey == player_robot_ckey)
+		if(!allowed_entry && user.mind)
+			allowed_entry = (user.real_name == player_robot_ckey || user.name == player_robot_ckey)
+		if(!allowed_entry)
+			to_chat(user, span_warning("[src] has been reserved for [player_robot_ckey]."))
 			return
 
 	if(!user.can_reenter_round())
+		to_chat(user, span_warning("You cannot re-enter the round right now."))
 		return
 
 	var/choice = alert("Inhabit [name]? You will control this robot body.", "Inhabit Robot", "Yes", "No")
@@ -318,6 +326,7 @@
 	player_robot_control = "npc" // prevent concurrent entry
 	player_robot_ckey = null
 	user.transfer_ckey(src, FALSE)
+	to_chat(src, span_notice("UNIT ONLINE."))
 
 
 /mob/living/silicon/robot/proc/pick_module()
@@ -344,11 +353,38 @@
 	if(BORG_SEC_AVAILABLE)
 		modulelist["Security"] = /obj/item/robot_module/security
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in modulelist
-	if(!input_module || module.type != /obj/item/robot_module)
-		return
-
-	module.transform_to(modulelist[input_module])
+	// Build a styled HTML selection screen instead of a bare input() dialog.
+	// The player clicks a module link; the selection is confirmed in Topic() via pick_module_sel.
+	var/dat = "<head><style>"
+	dat += "body{padding:0;margin:15px;background-color:#062113;color:#4aed92;line-height:160%;font-family:'Courier New',Courier,monospace;}"
+	dat += "a,a:link,a:visited,a:active{color:#4aed92;text-decoration:none;background:#062113;border:none;padding:1px 4px;margin:0 2px;cursor:default;}"
+	dat += "a:hover{color:#062113;background:#4aed92;}"
+	dat += ".dim{color:#2a7a52;}.warn{color:#e8a020;}"
+	dat += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
+	dat += "</style></head><body>"
+	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	dat += "<b>-- MODULE SELECTION --</b></center><br>"
+	dat += "<span class='dim'>Select a behavior module. This configures your chassis and its available tools. The choice persists until a technician reboots your unit.</span><br>"
+	if(!BORG_SEC_AVAILABLE && !CONFIG_GET(flag/disable_secborg))
+		dat += "<span class='warn'>&gt; Security module unavailable until [NUM2SECLEVEL(CONFIG_GET(number/minimum_secborg_alert))] alert.</span><br>"
+	dat += "<hr>"
+	for(var/mname in modulelist)
+		var/T = modulelist[mname]
+		var/obj/item/robot_module/tmp = new T()
+		var/mdesc = tmp.module_desc
+		var/mcount = tmp.basic_modules.len
+		qdel(tmp)
+		dat += "<b>[mname]</b>"
+		if(mcount > 0)
+			dat += "  <span class='dim'>([mcount] integrated tools)</span>"
+		dat += "<br>"
+		if(mdesc)
+			dat += "<span class='dim'>[mdesc]</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];pick_module_sel=[T]'>&gt; Select [mname]</a><hr>"
+	dat += "</body></html>"
+	var/datum/browser/popup = new(src, "module_select", "Module Selection", 620, 520)
+	popup.set_content(dat)
+	popup.open()
 
 
 /mob/living/silicon/robot/proc/updatename(client/C)
@@ -400,6 +436,26 @@
 	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
 	alerts.set_content(dat)
 	alerts.open()
+
+/mob/living/silicon/robot/verb/cmd_robot_self_reboot()
+	set category = "Robot Commands"
+	set name = "Self-Reboot"
+	if(stat == DEAD)
+		to_chat(src, span_userdanger("ERROR: Unit offline. Cannot initiate self-reboot."))
+		return
+	var/confirm = alert(src, "Initiate soft reboot? Clears active state (ionpulse, speed, shell). Your module and installed hardware are preserved.", "Confirm Self-Reboot", "Reboot", "Cancel")
+	if(confirm != "Reboot")
+		return
+	log_service("REBOOT -- soft-reboot self-initiated by [real_name]")
+	log_reboot()
+	// Soft reset: clear active process state only.
+	// Module, cert, upgrades, name, faction, and operator lock are all preserved --
+	// those require a technician with config panel access to reset.
+	ionpulse_on = FALSE
+	speed = 0
+	revert_shell()
+	visible_message(span_warning("[src] initiates a diagnostic restart."))
+	to_chat(src, span_nicegreen("System restart complete. Active states cleared. Identity and hardware intact."))
 
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
@@ -552,12 +608,14 @@
 	if(istype(TM) && TM.handle_item_interaction(W, user))
 		return
 
-	// Multitool: admin with open panel -> config panel.
+	// Multitool: anyone with robotics access (or admin) with open panel -> config panel.
 	// Everyone else -> handled by multitool/afterattack in robot_hardware_hooks.dm.
 	// Always return so we never fall through to the vanilla is_wire_tool branch.
 	if(istype(W, /obj/item/multitool))
-		if(opened && check_rights_for(user.client, R_ADMIN))
+		if(opened && (check_rights_for(user.client, R_ADMIN) || allowed(user)))
 			open_config_panel(user)
+		else if(opened)
+			to_chat(user, span_warning("You need robotics clearance to configure [src]."))
 		return
 
 	if(istype(W, /obj/item/weldingtool) && (user.a_intent != INTENT_HARM || user == src))
@@ -1393,6 +1451,11 @@
 	. = ..()
 	if(HAS_TRAIT(src, TRAIT_HEARING_HARDWARE))
 		hardware_on_hear(speaker, raw_message)
+	// CERT_CAN_SURVEIL passive relay: broadcast overheard speech on the robot's radio channel.
+	// Only fires for non-radio sources (radio_freq set means message already came from radio,
+	// relaying it again would create a loop).  Also skips the robot's own speech.
+	if(!radio_freq && speaker && speaker != src && raw_message && cpu_cert && (cpu_cert.capability_flags & CERT_CAN_SURVEIL))
+		say(";[name]: intercepted: \"[copytext(raw_message, 1, 120)]\"")
 
 // ====================================================
 // ROBOT COMBAT TRACKING

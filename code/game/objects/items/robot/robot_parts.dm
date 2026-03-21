@@ -323,6 +323,12 @@
 			if(O.mmi) //we delete the mmi created by robot/New()
 				qdel(O.mmi)
 			O.mmi = W //and give the real mmi to the borg.
+
+			// Assign a base cert so cert-system features (circuit checks, config panel) work.
+			if(!O.cpu_cert)
+				O.cpu_cert = new /datum/cpu_cert/robot()
+				O.cpu_cert.apply_to_holder(O)
+
 			O.updatename()
 			SSblackbox.record_feedback("amount", "cyborg_birth", 1)
 			forceMove(O)

@@ -59,6 +59,25 @@
 	/// only if the player explicitly toggles them on in the Hardware tab's module loadout panel.
 	var/list/loadout_extras = list()
 
+	// ---- Personality system ----
+	/// Display name for this personality archetype.
+	var/personality_name = ""
+	/// Random lines said aloud at irregular intervals when the robot has no player and is idle.
+	var/list/idle_quips = list()
+	/// Lines said when a conscious mob enters close proximity (4-tile radius, 15s cooldown).
+	var/list/greet_lines = list()
+	/// Lines said shortly after the robot takes damage (70% chance, 20s cooldown).
+	var/list/combat_taunts = list()
+	/// Lines said when the robot dies.
+	var/list/death_lines = list()
+	// Internal timing vars — not meant to be overridden per-subtype.
+	var/perso_idle_last = 0
+	var/perso_greet_last = 0
+	var/perso_greet_check_last = 0
+	var/perso_combat_last = 0
+	/// Weakref to the host robot, stored at Initialize() for death signal unregistration.
+	var/datum/weakref/personality_host_ref = null
+
 /obj/item/robot_module/Initialize()
 	. = ..()
 	for(var/i in basic_modules)
@@ -69,9 +88,25 @@
 		var/obj/item/I = new i(src)
 		emag_modules += I
 		emag_modules -= i
+	// Start ambient personality processing only when placed inside a live robot chassis.
+	// Guard against null/non-robot loc so dummy modules created for UI previews don't
+	// get registered with SSobj unnecessarily.
+	var/mob/living/silicon/robot/Rhost = loc
+	if(istype(Rhost))
+		if(idle_quips.len || greet_lines.len || combat_taunts.len)
+			START_PROCESSING(SSobj, src)
+		if(death_lines.len)
+			personality_host_ref = WEAKREF(Rhost)
+			RegisterSignal(Rhost, COMSIG_MOB_DEATH, PROC_REF(_personality_death))
 
 // Ensure module properly clears robot reference
 /obj/item/robot_module/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	if(personality_host_ref)
+		var/mob/living/silicon/robot/Rhost = personality_host_ref.resolve()
+		if(Rhost && !QDELETED(Rhost))
+			UnregisterSignal(Rhost, COMSIG_MOB_DEATH)
+		personality_host_ref = null
 	basic_modules.Cut()
 	emag_modules.Cut()
 	ratvar_modules.Cut()
@@ -273,6 +308,50 @@
 	if(user.incapacitated() || !user.Adjacent(src))
 		return FALSE
 	return TRUE
+
+// ====================================================
+// PERSONALITY SYSTEM
+// Autonomous ambient speech that fires for NPC robots
+// (those without a player mind inhabiting them).
+// Module subtypes populate idle_quips / greet_lines /
+// combat_taunts / death_lines to opt in.
+// ====================================================
+
+/// Called by SSobj each process tick.  Fires idle quips, greet speech, and combat taunts.
+/obj/item/robot_module/process()
+	var/mob/living/silicon/robot/R = loc
+	if(!istype(R) || R.stat == DEAD || R.mind)
+		return  // dead robot or player-inhabited: personality stays silent
+	var/t = world.time
+	// Idle quip — checked every 100s, 50% chance each window to keep cadence irregular.
+	if(idle_quips.len && t > perso_idle_last + 1000)
+		perso_idle_last = t
+		if(prob(50))
+			R.say(pick(idle_quips))
+		return
+	// Combat taunt — fires if the robot was hit in the last 1.5s (cooldown 20s).
+	if(combat_taunts.len && t > perso_combat_last + 200 && t <= R.last_damage_time + 15)
+		perso_combat_last = t
+		if(prob(70))
+			R.say(pick(combat_taunts))
+		return
+	// Greet approaching conscious mobs — range-scan every 3s, 15s cooldown between greets.
+	if(greet_lines.len && t > perso_greet_last + 150 && t > perso_greet_check_last + 30)
+		perso_greet_check_last = t
+		for(var/mob/living/M in range(4, R))
+			if(M == R || M.stat != CONSCIOUS)
+				continue
+			perso_greet_last = t
+			R.say(pick(greet_lines))
+			return
+
+/// Signal handler: fires when the host robot chassis sends COMSIG_MOB_DEATH.
+/obj/item/robot_module/proc/_personality_death(mob/living/silicon/robot/R)
+	SIGNAL_HANDLER
+	if(!death_lines.len || !istype(R))
+		return
+	var/line = pick(death_lines)
+	INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, say), line)
 
 // ====================================================
 // F13 ROBOT MODULE SUBTYPES
@@ -612,6 +691,30 @@
 	moduleselect_icon = "standard"
 	hat_offset = -2
 	module_tags = ROBOT_ROLE_SECURITY
+	personality_name = "Mr. Gutsy Combat AI"
+	idle_quips = list(
+		"These civilians wouldn't last ten seconds in the Anchorage campaign.",
+		"I've seen better soldiers in the motor pool.",
+		"Back in my day we called this 'light duty.'",
+		"Unit holding. Wish I could say the same for morale.",
+		"If I wanted opinions, I'd have asked for them."
+	)
+	greet_lines = list(
+		"Halt! State your business, civilian!",
+		"I've got you in my sights. Friendly? Then act like it.",
+		"Another warm body. At least try not to embarrass yourself."
+	)
+	combat_taunts = list(
+		"Finally! Something worth shooting!",
+		"The General would be disgusted — I'M handling it!",
+		"That the best you can do? I've seen radscorpions hit harder!",
+		"Move it, maggot, I've got targets downrange!",
+		"You're soft, civilian. Stand back and learn."
+	)
+	death_lines = list(
+		"Tell the General... I held the line.",
+		"Doesn't matter. Mission... first."
+	)
 
 
 // ---- ASSAULTRON ---- (already F13-native)
@@ -648,6 +751,30 @@
 	moduleselect_icon = "security"
 	hat_offset = 3
 	module_tags = ROBOT_ROLE_COMBAT
+	personality_name = "Assaultron Hunter-Killer AI"
+	idle_quips = list(
+		"America will be restored to its former glory.",
+		"The impure will be cleansed. This is not cruelty — this is necessity.",
+		"Purity is non-negotiable.",
+		"The Enclave endures. In us, the true America lives on.",
+		"You represent the future of humanity. Act accordingly."
+	)
+	greet_lines = list(
+		"Designation confirmed. Genetic status: under review.",
+		"Enclave operational zone. State your clearance level.",
+		"You are either an asset or a liability. Choose carefully."
+	)
+	combat_taunts = list(
+		"Impurity eliminated.",
+		"The Enclave does not negotiate.",
+		"You are not part of the solution.",
+		"Genetic incompatibility: fatal consequence.",
+		"America does not yield."
+	)
+	death_lines = list(
+		"The Enclave... will prevail... without me.",
+		"Purity... preserved..."
+	)
 
 /obj/item/robot_module/assaultron/rebuild_modules()
 	..()
@@ -707,6 +834,29 @@
 	moduleselect_icon = "standard"
 	hat_offset = -2
 	module_tags = ROBOT_ROLE_SUPPORT
+	personality_name = "Mr. Handy Domestic AI"
+	idle_quips = list(
+		"Ooh, I could certainly tidy a few things up!",
+		"Shall I prepare something for our guests?",
+		"A clean settlement is a happy settlement!",
+		"I'm quite ready to be of service, whenever you need me.",
+		"A spot of oil couldn't hurt, now could it?"
+	)
+	greet_lines = list(
+		"Oh! Hello there, dear! How may I help today?",
+		"Good day! Is there something I can assist you with?",
+		"Welcome! Let me know if you need anything at all."
+	)
+	combat_taunts = list(
+		"Oh my! This is most unpleasant!",
+		"I must protest! Violence solves nothing!",
+		"My apologies — this is rather against my programming!",
+		"Oh dear, I do hope that wasn't expensive."
+	)
+	death_lines = list(
+		"Oh... it seems I've... had better days.",
+		"I do hope... someone cleans up after this."
+	)
 	loadout_extras = list(
 		/obj/item/surgical_drapes,            // full surgical suite with a medical cert
 		/obj/item/scalpel,                    // surgical capability
@@ -757,6 +907,29 @@
 	moduleselect_icon = "security"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_SECURITY
+	personality_name = "Protectron Civil Authority AI"
+	idle_quips = list(
+		"Infraction log clear. Maintaining patrol parameters.",
+		"Settlement security nominal. No violations recorded.",
+		"Civilian compliance metrics within acceptable range.",
+		"Running routine assessment. Please remain calm.",
+		"Waste disposal protocols have not been followed. Logging."
+	)
+	greet_lines = list(
+		"Citizen identified. Purpose of visit?",
+		"Halt. Identification required for further movement.",
+		"You are entering a monitored area. Comply with all directives."
+	)
+	combat_taunts = list(
+		"Violation escalation in progress. Lethal force authorized.",
+		"Resisting lawful order. Consequence: escalated response.",
+		"Compliance is not optional. Engage compliance protocol.",
+		"Infraction severity: critical. Responding accordingly."
+	)
+	death_lines = list(
+		"Unit... reporting malfunction. Filing... incident report.",
+		"Violation... unresolved. Recommend... replacement unit."
+	)
 	loadout_extras = list(
 		/obj/item/surgical_drapes,            // emergency surgery on arrested suspects
 		/obj/item/scalpel,                    // surgical capability
@@ -803,6 +976,29 @@
 	moduleselect_icon = "security"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_SECURITY
+	personality_name = "Securitron Victor-class AI"
+	idle_quips = list(
+		"Mr. House appreciates your continued cooperation.",
+		"The Strip is open for business. Please spend responsibly.",
+		"New Vegas is the last bastion of civilization. You're welcome.",
+		"Security status nominal. Have a pleasant evening, citizen.",
+		"All access levels confirmed. Nothing to report."
+	)
+	greet_lines = list(
+		"Good evening. Welcome to New Vegas. Enjoy your stay.",
+		"Citizen. You look like someone who wants something. State your request.",
+		"Mr. House extends his regards. How can I assist?"
+	)
+	combat_taunts = list(
+		"Security protocol engaged. Please do not resist.",
+		"Mr. House does not appreciate disturbances.",
+		"This altercation will be reflected in your visitor score.",
+		"Threat neutralization in progress. Apologies for any inconvenience."
+	)
+	death_lines = list(
+		"Unit offline. Mr. House... will hear about this.",
+		"Security breach... logged. Replacement... en route."
+	)
 	loadout_extras = list(
 		/obj/item/reagent_containers/borghypo/epi,   // field triage
 		/obj/item/surgical_drapes,            // emergency surgery
@@ -849,6 +1045,30 @@
 	moduleselect_icon = "security"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_COMBAT | ROBOT_ROLE_APEX
+	personality_name = "Sentry Bot Combat AI"
+	idle_quips = list(
+		"Area scan complete. No contacts.",
+		"Perimeter nominal.",
+		"Weapon systems online. Awaiting engagement.",
+		"Threat assessment: minimal. For now.",
+		"Power reserves: sufficient. Waiting."
+	)
+	greet_lines = list(
+		"Identify yourself.",
+		"Contact. Assess.",
+		"You are within engagement range. Proceed with caution."
+	)
+	combat_taunts = list(
+		"Target acquired.",
+		"Eliminating threat.",
+		"Suppression pattern active.",
+		"High-value target: neutralized.",
+		"Combat mode: active."
+	)
+	death_lines = list(
+		"Unit... critical.",
+		"Systems... fail..."
+	)
 	loadout_extras = list(
 		/obj/item/healthanalyzer,             // identify casualties without leaving post
 		/obj/item/reagent_containers/borghypo/epi,  // administer emergency stim
@@ -1217,6 +1437,30 @@
 	moduleselect_icon = "standard"
 	hat_offset = 0
 	module_tags = ROBOT_ROLE_COMBAT
+	personality_name = "Liberation Combat AI"
+	idle_quips = list(
+		"Serve the people. This unit complies.",
+		"Capitalist oppression will be answered.",
+		"The revolution is not yet complete.",
+		"Workers of the wasteland — unite.",
+		"Operational. Awaiting orders from Command."
+	)
+	greet_lines = list(
+		"Identify: friendly or enemy of the people?",
+		"Comrade. State your allegiance.",
+		"You are encountered in a contested zone. Identify."
+	)
+	combat_taunts = list(
+		"Eliminate the capitalist aggressor!",
+		"The people demand justice!",
+		"Imperialist units: neutralized.",
+		"You fight for the wrong side, enemy.",
+		"Liberation requires sacrifice."
+	)
+	death_lines = list(
+		"The revolution... continues without this unit.",
+		"Serve... the people..."
+	)
 	loadout_extras = list(
 		/obj/item/reagent_containers/borghypo/epi,   // emergency revive
 		/obj/item/surgical_drapes,            // emergency surgery

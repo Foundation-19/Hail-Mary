@@ -53,6 +53,7 @@
 #define HW_SLOT_CLOCK            "/datum/robot_hardware/clock"
 #define HW_SLOT_MEMORY           "/datum/robot_hardware/memory_core"
 #define HW_SLOT_EXTINGUISHER     "/datum/robot_hardware/extinguisher_module"
+#define HW_SLOT_CAMERA_RELAY     "/datum/robot_hardware/camera_relay"
 
 // ====================================================
 // ROBOT COMBAT MODE DEFINES

@@ -15,7 +15,6 @@
 #define FAB_BEHAVIORS  3
 #define FAB_CUSTOM     4
 #define FAB_REPROG     5
-#define FAB_AI         6
 
 /obj/machinery/cpu_fabricator
 	name = "CPU Certification Fabricator"
@@ -145,12 +144,13 @@
 	designs += new /datum/cpu_fab_design/behavior/door_patrol()
 	designs += new /datum/cpu_fab_design/behavior/breach_response()
 	designs += new /datum/cpu_fab_design/behavior/sleeper_agent()
-	// Tier 4 — security upgrade and hacking device fabrication
+	// Tier 4 — security upgrades, hacking device fabrication, and cert-gated protocols
 	designs += new /datum/cpu_fab_design/upgrade/hardened_ice()
 	designs += new /datum/cpu_fab_design/device/hacking_device()
-	// AI upgrade designs
-	designs += new /datum/cpu_fab_design/ai_upgrade/surveillance()
-	designs += new /datum/cpu_fab_design/ai_upgrade/malf_package()
+	designs += new /datum/cpu_fab_design/upgrade/surveillance()
+	designs += new /datum/cpu_fab_design/upgrade/combat_override()
+	designs += new /datum/cpu_fab_design/behavior/surveillance_drone()
+	designs += new /datum/cpu_fab_design/behavior/rogue_protocol()
 
 
 /obj/machinery/cpu_fabricator/Destroy()
@@ -241,8 +241,6 @@
 	else
 		n += " | "
 		n += _navlink("Custom",     FAB_CUSTOM)
-	n += " | "
-	n += _navlink("AI Mods",    FAB_AI)
 	if(inserted_assembly)
 		n += " | "
 		n += _navlink("Reprogram",  FAB_REPROG)
@@ -284,8 +282,6 @@
 				dat += _render_custom(user)
 			else
 				dat += _render_custom_preview(user)
-		if(FAB_AI)
-			dat += _render_list(user, "ai_upgrade")
 		if(FAB_REPROG)
 			if(inserted_assembly)
 				dat += _render_reprog(user)
@@ -306,7 +302,6 @@
 	dat += "MODULE DIRECTORY<br>"
 	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CERTS]'>Base Certifications</a>  <span class='dim'>chassis identity cards</span><br>"
 	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_UPGRADES]'>Upgrade Modules</a>  <span class='dim'>hardware enhancements</span><br>"
-	dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_AI]'>AI Mods</a>  <span class='dim'>software packages for AI units</span><br>"
 	if(HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_BEHAVIORS]'>Behavior Assemblies</a>  <span class='dim'>preset automation programs</span><br>"
 		dat += "&gt; <a href='byond://?src=[REF(src)];mode=[FAB_CUSTOM]'>Custom Build</a>  <span class='dim'>wire your own trigger/response pair</span><br>"
@@ -1683,10 +1678,6 @@
 /datum/cpu_fab_design/upgrade
 	ui_category = "upgrade"
 
-/datum/cpu_fab_design/ai_upgrade
-	ui_category = "ai_upgrade"
-	for_ai = TRUE
-
 /datum/cpu_fab_design/behavior
 	ui_category = "behavior"
 	requires_robot_whisperer = TRUE
@@ -1710,23 +1701,6 @@
 	output_path = /obj/item/hacking_device
 	cost = list("iron" = 800, "glass" = 400, "gold" = 300)
 	suited_for = "Standalone tool — not a cert card"
-
-
-// ---- AI upgrade cert cards ----
-
-/obj/item/cert_card/upgrade/ai
-	name = "cert card - AI upgrade"
-	desc = "An AI-targeted upgrade card. Use it on an AI unit's upgrade interface."
-
-/obj/item/cert_card/upgrade/ai/surveillance/Initialize(mapload)
-	. = ..()
-	upgrade = new /datum/cert_upgrade/ai/surveillance()
-	_update_name()
-
-/obj/item/cert_card/upgrade/ai/malf_package/Initialize(mapload)
-	. = ..()
-	upgrade = new /datum/cert_upgrade/ai/malf_package()
-	_update_name()
 
 
 // ---- Base certs ----
@@ -2027,7 +2001,6 @@
 	required_int = 5
 	output_path = /obj/item/behavior_assembly/infrastructure_monitor
 	cost = list("iron" = 400, "glass" = 200)
-	cost = list("iron" = 300, "glass" = 100)
 
 /datum/cpu_fab_design/behavior/farming_bot
 	design_name = "Farming Protocol"
@@ -2391,22 +2364,38 @@
 	output_path = /obj/item/behavior_assembly/sleeper_agent
 
 
-// ---- AI upgrades ----
+// ---- Robot-only upgrades ----
 
-/datum/cpu_fab_design/ai_upgrade/surveillance
-	design_name = "Surveillance Software Package"
-	design_desc = "Allows the AI to hear through cameras. Installed on AI units, not robots."
-	id = "ai_upgrade_surveillance"
-	output_path = /obj/item/cert_card/upgrade/ai/surveillance
+/datum/cpu_fab_design/upgrade/surveillance
+	design_name = "Surveillance Package"
+	design_desc = "Enhanced audio monitoring. Enables nearby speech relay via comms. Pairs with Microphone hardware."
+	id = "upgrade_surveillance"
+	output_path = /obj/item/cert_card/upgrade/surveillance
 	cost = list("glass" = 2000, "gold" = 2000)
 
-/datum/cpu_fab_design/ai_upgrade/malf_package
-	design_name = "Combat Software Package"
-	design_desc = "Illegal. Grants combat-class AI routines. Requires Military-tier AI cert. Installed on AI units."
-	id = "ai_upgrade_malf"
+/datum/cpu_fab_design/upgrade/combat_override
+	design_name = "Combat Override Package"
+	design_desc = "Illegal. Removes safety limiters. Enables unrestricted lethal combat routines. Requires Military cert."
+	id = "upgrade_combat_override"
 	required_tier = CERT_TIER_MILITARY
-	output_path = /obj/item/cert_card/upgrade/ai/malf_package
+	output_path = /obj/item/cert_card/upgrade/combat_override
 	cost = list("gold" = 4000, "glass" = 2000)
+
+/datum/cpu_fab_design/behavior/surveillance_drone
+	design_name = "Surveillance Drone Protocol"
+	design_desc = "Relay intercepted speech over radio and alert on combat sounds. Requires Surveillance Package cert upgrade (CERT_CAN_SURVEIL). Works without physical Microphone hardware -- the cert installs a hidden audio relay."
+	id = "behavior_surveillance_drone"
+	required_int = 4
+	output_path = /obj/item/behavior_assembly/surveillance_drone
+	cost = list("iron" = 300, "glass" = 200, "gold" = 100)
+
+/datum/cpu_fab_design/behavior/rogue_protocol
+	design_name = "Rogue Protocol"
+	design_desc = "Unlimited target acquisition -- fires on all mobs regardless of faction. Requires Combat Override Package (CERT_CAN_MALF). Weapon hardware required to fire. HIGHLY ILLEGAL."
+	id = "behavior_rogue_protocol"
+	required_int = 6
+	output_path = /obj/item/behavior_assembly/rogue_protocol
+	cost = list("iron" = 500, "gold" = 300)
 
 
 #undef FAB_HOME
@@ -2415,5 +2404,4 @@
 #undef FAB_BEHAVIORS
 #undef FAB_CUSTOM
 #undef FAB_REPROG
-#undef FAB_AI
 #undef REPROGRAM_COST_GOLD

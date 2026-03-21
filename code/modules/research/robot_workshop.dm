@@ -640,7 +640,7 @@
 		dat += "<span class='good'>&gt; [chassis.name]</span>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_chassis=1'>\[eject\]</a><br>"
 	else
-		dat += "<span class='warn'>Empty -- insert a robot chassis item into this machine.</span><br>"
+		dat += "<span class='dim'>Empty -- chassis is optional. Insert a robot suit item to give the robot a cosmetic body skin at spawn.</span><br>"
 	dat += "<br>"
 
 	// Material hopper
@@ -788,6 +788,9 @@
 	var/dat = ""
 	var/mob/living/carbon/human/H = istype(user, /mob/living/carbon/human) ? user : null
 
+	if(!selected_design)
+		dat += "<span class='dim'>// Tip: go to the <b>Build</b> tab and select a robot type first. That unlocks \[USE RECOMMENDED HARDWARE\] and shows which hardware slots are required for that chassis.</span><br><br>"
+
 	// Recommended button
 	if(selected_design)
 		dat += "<a href='byond://?src=[REF(src)];hw_use_recommended=1'><b>\[USE RECOMMENDED HARDWARE\]</b></a>"
@@ -832,10 +835,13 @@
 		var/datum/robot_build_design/D = _get_design(selected_design)
 		if(D)
 			var/module_desc_text = initial(D.module_type:module_desc)
+			var/persona_name = initial(D.module_type:personality_name)
 			dat += "<br>MODULE LOADOUT"
 			if(module_desc_text)
 				dat += "  <span class='dim'>// [module_desc_text]</span>"
 			dat += "<br>"
+			if(persona_name)
+				dat += "<span class='dim'>Personality: [persona_name]  // robot will speak ambient lines when no player is inhabiting</span><br>"
 			var/obj/item/robot_module/dummy = new D.module_type(null)
 			var/list/base_items = list()
 			for(var/obj/item/I in dummy.basic_modules)
@@ -1220,7 +1226,7 @@
 		dat += "<span class='dim'>Assemblies are printed at the CPU Cert Fabricator.</span><br>"
 		dat += "<br><span class='dim'>Building without an assembly produces a basic NPC robot using its default module behaviors.</span><br>"
 
-	dat += "<br>CERT CARD  <span class='dim'>// defines robot C.O.R.E. stats, upgrade slots, and capability tier</span><br>"
+	dat += "<br>CERT CARD  <span class='dim'>// defines robot C.O.R.E. stats (Compute/Operations/Resilience/Energy), upgrade slots, and capability tier</span><br>"
 	if(robot_cert)
 		dat += "<span class='good'>&gt; [robot_cert.name]</span>"
 		dat += "  <a href='byond://?src=[REF(src)];eject_robot_cert=1'>\[eject\]</a><br>"
@@ -1258,13 +1264,16 @@
 	if(chassis)
 		dat += "<span class='good'>[chassis.name]</span><br>"
 	else
-		dat += "<span class='warn'>MISSING</span><br>"
+		dat += "<span class='dim'>None (optional)</span><br>"
 
 	// Module
 	dat += "Module:   "
 	if(selected_design)
-		var/datum/robot_build_design/D = _get_design(selected_design)
-		dat += "<span class='good'>[D.design_name]</span>  <span class='dim'>(T[D.tier])</span><br>"
+		var/datum/robot_build_design/Dm = _get_design(selected_design)
+		dat += "<span class='good'>[Dm.design_name]</span>  <span class='dim'>(T[Dm.tier])</span><br>"
+		var/persona = initial(Dm.module_type:personality_name)
+		if(persona)
+			dat += "<span class='dim'>Personality: [persona]</span><br>"
 	else
 		dat += "<span class='warn'>NOT SELECTED</span><br>"
 
@@ -1313,6 +1322,7 @@
 	switch(control_mode)
 		if("npc")
 			dat += "<span class='good'>NPC ONLY</span>"
+			dat += "  <span class='dim'>// robot runs on its module's built-in AI; no player inhabitation</span>"
 			dat += "  <a href='byond://?src=[REF(src)];set_control=open'>\[allow players\]</a>"
 			dat += "  <a href='byond://?src=[REF(src)];set_control=locked'>\[lock to ckey\]</a>"
 		if("open")
@@ -1812,6 +1822,18 @@
 		for(var/key in config)
 			if(key in HW.config_defs)
 				HW.vars[key] = config[key]
+		// CORE budget check -- skip this entry if adding it would push over the cert limit
+		var/list/hw_values_test = list()
+		for(var/sk in pending_hardware)
+			var/datum/robot_hardware/HWV = pending_hardware[sk]
+			if(HWV) hw_values_test += HWV
+		hw_values_test += HW
+		var/datum/cpu_cert/budget_cert_test = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
+		var/list/budget_errors = check_hardware_core_budget(hw_values_test, budget_cert_test)
+		if(!robot_cert) qdel(budget_cert_test)
+		if(budget_errors.len)
+			qdel(HW)
+			continue
 		// Key optional hardware by its type path so it's stable and findable
 		var/slot_key = "[hw_type]"
 		// If the assembly has a slot that expects this exact hardware type, use that
