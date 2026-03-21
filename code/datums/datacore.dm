@@ -99,6 +99,10 @@
 	var/list/leg = list()
 	var/list/ncr = list()
 	var/list/ranger = list()
+	var/list/whitelegs = list()
+	var/list/eighties = list()
+	var/list/lds = list()
+	var/list/usps = list()
 	var/list/vault = list()
 	var/list/flw = list()
 	var/list/tribe = list()
@@ -142,6 +146,18 @@
 			department = 1
 		if(rank in GLOB.ranger_positions)
 			ranger[name] = rank
+			department = 1
+		if(rank in GLOB.whitelegs_positions)
+			whitelegs[name] = rank
+			department = 1
+		if(rank in GLOB.eighties_positions)
+			eighties[name] = rank
+			department = 1
+		if(rank in GLOB.lds_positions)
+			lds[name] = rank
+			department = 1
+		if(rank in GLOB.usps_positions)
+			usps[name] = rank
 			department = 1
 /*		if(rank in GLOB.followers_positions)
 			flw[name] = rank
@@ -194,6 +210,26 @@
 		for(var/name in ranger)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ranger[name]]</td></tr>"
 			even = !even
+	if(length(whitelegs))
+		dat += "<tr><th colspan=3>White Legs</th></tr>"
+		for(var/name in whitelegs)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[whitelegs[name]]</td></tr>"
+			even = !even
+	if(length(eighties))
+		dat += "<tr><th colspan=3>80s</th></tr>"
+		for(var/name in eighties)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[eighties[name]]</td></tr>"
+			even = !even
+	if(length(lds))
+		dat += "<tr><th colspan=3>New Canaanites</th></tr>"
+		for(var/name in lds)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[lds[name]]</td></tr>"
+			even = !even
+	if(length(usps))
+		dat += "<tr><th colspan=3>USPS</th></tr>"
+		for(var/name in usps)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[usps[name]]</td></tr>"
+			even = !even
 	if(length(flw))
 		dat += "<tr><th colspan=3>Eastwood Clinic</th></tr>"
 		for(var/name in flw)
@@ -205,6 +241,11 @@
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[tribe[name]]</td></tr>"
 			even = !even
 	if(length(vault))
+		dat += "<tr><th colspan=3>Vault</th></tr>"
+		for(var/name in vault)
+			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[vault[name]]</td></tr>"
+			even = !even
+	if(length(eighties))
 		dat += "<tr><th colspan=3>Vault</th></tr>"
 		for(var/name in vault)
 			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[vault[name]]</td></tr>"

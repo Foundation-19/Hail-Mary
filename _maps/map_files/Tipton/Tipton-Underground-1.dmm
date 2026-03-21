@@ -741,10 +741,9 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker/bunkersix)
 "aHa" = (
-/obj/structure/chair/sofa/left{
-	dir = 4
+/turf/open/floor/f13/wood{
+	icon_state = "housebase3-broken"
 	},
-/turf/open/floor/carpet/royalblue,
 /area/f13/ncr)
 "aHc" = (
 /obj/structure/lattice,
@@ -4706,16 +4705,6 @@
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)
-"dEv" = (
-/obj/machinery/door/airlock/wood{
-	name = "Ranger Quarters";
-	req_access_txt = "121"
-	},
-/turf/open/indestructible/ground/outside/ruins{
-	color = "#e6edf0";
-	name = "cobblestone floor"
-	},
-/area/f13/ncr)
 "dEA" = (
 /obj/structure/disposalpipe/segment,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
@@ -5130,12 +5119,9 @@
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
 "dUI" = (
-/obj/item/melee/onehanded/club/tireiron{
-	color = "#bc8f8f";
-	name = "King Roachs Tire Iron"
-	},
-/turf/open/indestructible/ground/inside/mountain,
-/area/f13/sewer/powered)
+/mob/living/simple_animal/cow/brahmin/horse,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/caves)
 "dUV" = (
 /obj/machinery/telecomms/processor/preset_two,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -5705,13 +5691,6 @@
 /obj/item/storage/trash_stack,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
-"evX" = (
-/obj/structure/chalkboard,
-/turf/open/indestructible/ground/outside/ruins{
-	color = "#e6edf0";
-	name = "cobblestone floor"
-	},
-/area/f13/ncr)
 "ewn" = (
 /obj/structure/simple_door/metal/barred,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -5895,9 +5874,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/caves)
 "eDo" = (
-/obj/machinery/light/small{
-	brightness = 7
-	},
+/obj/machinery/light/small/broken,
 /turf/open/indestructible/ground/outside/ruins{
 	color = "#e6edf0";
 	name = "cobblestone floor"
@@ -6220,11 +6197,9 @@
 	},
 /area/f13/radiation)
 "eNG" = (
-/obj/structure/bed/mattress{
-	icon_state = "mattress6";
-	pixel_y = -3
+/turf/open/floor/f13/wood{
+	icon_state = "housewood3-broken"
 	},
-/turf/open/floor/f13/wood,
 /area/f13/ncr)
 "eNI" = (
 /obj/structure/bed,
@@ -8525,15 +8500,6 @@
 /obj/item/storage/trash_stack,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
-"gvp" = (
-/obj/structure/table/wood,
-/obj/item/clothing/mask/cigarette/pipe,
-/obj/item/storage/fancy/cigarettes/cigars{
-	pixel_x = -1;
-	pixel_y = 12
-	},
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "gwa" = (
 /obj/structure/rack,
 /obj/item/flashlight/lantern,
@@ -8660,10 +8626,6 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/bunker/bunkerseven)
-"gzW" = (
-/obj/machinery/door/unpowered/secure_NCR,
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "gAw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/autolathe,
@@ -8994,7 +8956,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "gRX" = (
-/turf/open/floor/carpet/royalblue,
+/turf/open/indestructible/ground/inside/subway,
 /area/f13/ncr)
 "gRZ" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9548,12 +9510,6 @@
 	icon_state = "yellowrustyfull"
 	},
 /area/f13/caves)
-"hkh" = (
-/obj/structure/chair/sofa/corner{
-	dir = 8
-	},
-/turf/open/floor/carpet/royalblue,
-/area/f13/ncr)
 "hkj" = (
 /obj/structure/car/rubbish3{
 	icon_state = "debris3"
@@ -11327,11 +11283,7 @@
 	},
 /area/f13/bunker/bunkersix)
 "iFh" = (
-/mob/living/simple_animal/cockroach{
-	desc = "A huge example of his kin, swollen on radiation and scraps. Oddly friendly..";
-	name = "King Roach";
-	resize = 3
-	},
+/mob/living/simple_animal/crab/evil/kreb,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
 "iFq" = (
@@ -12773,11 +12725,13 @@
 /turf/open/floor/f13/wood,
 /area/f13/sewer/powered)
 "jRX" = (
-/obj/machinery/light/small{
-	brightness = 7;
+/obj/machinery/light/small/broken{
 	dir = 4
 	},
-/turf/open/floor/f13/wood,
+/turf/open/indestructible/ground/outside/ruins{
+	color = "#e6edf0";
+	name = "cobblestone floor"
+	},
 /area/f13/ncr)
 "jSl" = (
 /obj/structure/rack,
@@ -12847,8 +12801,6 @@
 /obj/item/paper_bin,
 /obj/item/pen,
 /obj/item/pen,
-/obj/item/pda,
-/obj/item/stack/f13Cash/caps/twofivezero,
 /obj/structure/table/booth,
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
@@ -13412,9 +13364,6 @@
 /turf/open/floor/plating/dirt,
 /area/f13/caves)
 "kqn" = (
-/obj/item/documents{
-	desc = "Documents and maps concerning the local NCR presence."
-	},
 /obj/machinery/light{
 	dir = 4
 	},
@@ -13572,12 +13521,6 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
-"kzC" = (
-/obj/machinery/door/unpowered/securedoor{
-	name = "Ranger Sergeant's Office"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "kzJ" = (
 /obj/structure/reagent_dispensers/barrel/dangerous,
 /obj/effect/decal/cleanable/greenglow,
@@ -14337,10 +14280,6 @@
 	icon_state = "yellowrustyfull"
 	},
 /area/f13/caves)
-"ldU" = (
-/obj/structure/closet/decay,
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "ldZ" = (
 /mob/living/simple_animal/hostile/renegade,
 /turf/open/indestructible/ground/inside/subway,
@@ -14671,10 +14610,13 @@
 	},
 /area/f13/den)
 "lrb" = (
-/obj/machinery/door/unpowered/securedoor{
-	name = "Veteran Ranger's Office"
+/obj/machinery/light{
+	dir = 4
 	},
-/turf/open/floor/f13/wood,
+/turf/open/indestructible/ground/outside/ruins{
+	color = "#e6edf0";
+	name = "cobblestone floor"
+	},
 /area/f13/ncr)
 "lsm" = (
 /turf/open/indestructible/ground/outside/dirt,
@@ -14759,28 +14701,9 @@
 	},
 /area/f13/caves)
 "lvR" = (
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 9;
-	pixel_y = 14
+/turf/open/floor/f13/wood{
+	icon_state = "housebase"
 	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = 7;
-	pixel_y = 5
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -9;
-	pixel_y = 3
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -3;
-	pixel_y = 11
-	},
-/obj/item/reagent_containers/food/drinks/drinkingglass/shotglass{
-	pixel_x = -1;
-	pixel_y = 4
-	},
-/obj/structure/table/glass,
-/turf/open/floor/carpet/royalblue,
 /area/f13/ncr)
 "lwK" = (
 /turf/open/floor/plasteel/f13/vault_floor/neutral/side{
@@ -15319,16 +15242,6 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/sewer/powered)
-"lOb" = (
-/obj/structure/ladder/unbreakable{
-	id = "rangerceller";
-	height = 1
-	},
-/turf/open/indestructible/ground/outside/ruins{
-	color = "#e6edf0";
-	name = "cobblestone floor"
-	},
-/area/f13/ncr)
 "lOK" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/lamp{
@@ -16125,8 +16038,7 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "mtI" = (
-/obj/structure/chair/sofa/left,
-/turf/open/floor/carpet/royalblue,
+/turf/open/indestructible/ground/outside/desert,
 /area/f13/ncr)
 "mtK" = (
 /obj/structure/fence/wooden{
@@ -16998,7 +16910,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/redchess/redchess2,
 /area/f13/bunker)
 "ndj" = (
-/obj/machinery/light{
+/obj/machinery/light/small/broken{
 	dir = 4
 	},
 /turf/open/floor/f13/wood,
@@ -17493,12 +17405,6 @@
 	pixel_x = 4;
 	pixel_y = 3
 	},
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "nvL" = (
@@ -19705,10 +19611,6 @@
 "phU" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/bunker)
-"pij" = (
-/obj/structure/chair/comfy/beige,
-/turf/open/floor/carpet/royalblue,
-/area/f13/ncr)
 "piF" = (
 /obj/structure/wreck/trash/brokenvendor,
 /obj/structure/wreck/trash/autoshaft{
@@ -20102,13 +20004,6 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/sewer/powered)
-"pxR" = (
-/obj/structure/chair/sofa/right{
-	dir = 8
-	},
-/obj/effect/landmark/start/f13/ncrveteranranger,
-/turf/open/floor/carpet/royalblue,
-/area/f13/ncr)
 "pxT" = (
 /obj/effect/spawner/lootdrop/f13/armor/random,
 /obj/effect/decal/cleanable/greenglow,
@@ -21229,8 +21124,7 @@
 	},
 /area/f13/sewer/powered)
 "qtB" = (
-/obj/machinery/light/small{
-	brightness = 7;
+/obj/machinery/light/small/broken{
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/ruins{
@@ -22135,8 +22029,9 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/bunker)
 "rcJ" = (
-/obj/structure/barricade/bars,
-/turf/open/floor/f13/wood,
+/turf/open/floor/f13/wood{
+	baseturfs = /turf/open/water/river/notdeep
+	},
 /area/f13/ncr)
 "rcW" = (
 /obj/structure/junk/small/table,
@@ -23427,7 +23322,6 @@
 /turf/open/water,
 /area/f13/sewer/powered)
 "seq" = (
-/obj/item/pda,
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
@@ -24034,7 +23928,6 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
-/obj/effect/landmark/start/f13/ncrveteranranger,
 /turf/open/floor/carpet,
 /area/f13/ncr)
 "sBt" = (
@@ -24213,13 +24106,6 @@
 	},
 /turf/open/water,
 /area/f13/caves)
-"sIs" = (
-/obj/structure/chair/sofa/left{
-	dir = 1
-	},
-/obj/effect/landmark/start/f13/ncrranger,
-/turf/open/floor/carpet/royalblue,
-/area/f13/ncr)
 "sIv" = (
 /obj/machinery/vending/tool,
 /obj/effect/decal/cleanable/dirt,
@@ -24538,25 +24424,6 @@
 /obj/structure/wreck/trash/one_barrel,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
-"sWM" = (
-/obj/structure/table/wood,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/obj/effect/spawner/lootdrop/f13/ncr_k_ration,
-/turf/open/indestructible/ground/outside/ruins{
-	color = "#e6edf0";
-	name = "cobblestone floor"
-	},
-/area/f13/ncr)
 "sWU" = (
 /obj/structure/girder/reinforced,
 /turf/open/indestructible/ground/inside/subway,
@@ -25558,7 +25425,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/bunker)
 "tHg" = (
-/obj/item/storage/fancy/cigarettes/cigars/havana,
 /obj/item/lighter/gold{
 	pixel_y = 8
 	},
@@ -25568,7 +25434,6 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
-/obj/structure/table,
 /turf/open/floor/f13/wood,
 /area/f13/ncr)
 "tHi" = (
@@ -26820,13 +26685,6 @@
 	},
 /turf/open/water,
 /area/f13/tunnel)
-"uyE" = (
-/obj/structure/chair/sofa/right{
-	dir = 1
-	},
-/obj/effect/landmark/start/f13/ncrranger,
-/turf/open/floor/carpet/royalblue,
-/area/f13/ncr)
 "uyN" = (
 /obj/structure/table/wood/poker,
 /obj/effect/decal/cleanable/dirt,
@@ -28002,15 +27860,6 @@
 /obj/structure/spacevine,
 /turf/open/floor/plating/dirt,
 /area/f13/caves)
-"voS" = (
-/mob/living/simple_animal/hostile/molerat{
-	color = "#db8f6e";
-	desc = "A friendly little molerat. Looks kind of cute, though crispy and burnt. What happened to the poor thing?";
-	faction = list("neutral");
-	name = "Tandi"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "voW" = (
 /obj/structure/destructible/tribal_torch/lit,
 /obj/structure/fence/wooden{
@@ -28982,18 +28831,7 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/tunnel)
-"vXB" = (
-/obj/structure/chair/sofa/corner{
-	dir = 1
-	},
-/obj/effect/landmark/start/f13/ncrranger,
-/turf/open/floor/carpet/royalblue,
-/area/f13/ncr)
 "vXK" = (
-/obj/machinery/door/unpowered/secure_NCR{
-	color = "#e8e4ca";
-	name = "Ranger Lodge"
-	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/ncr)
 "vYc" = (
@@ -29049,15 +28887,6 @@
 /obj/structure/simple_door/metal/iron,
 /turf/open/floor/plasteel/f13/vault_floor/blue/white,
 /area/f13/bunker/bighornbunker)
-"waw" = (
-/obj/machinery/door/unpowered/securedoor{
-	name = "Veteran Ranger's Office"
-	},
-/obj/effect/decal/cleanable/dirt{
-	color = "000000"
-	},
-/turf/open/floor/f13/wood,
-/area/f13/ncr)
 "waD" = (
 /obj/machinery/telecomms/server/presets/ncr,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
@@ -29628,8 +29457,9 @@
 /turf/open/floor/plasteel,
 /area/f13/tcoms)
 "wvF" = (
-/obj/structure/chair/sofa/right,
-/turf/open/floor/carpet/royalblue,
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2-broken"
+	},
 /area/f13/ncr)
 "wvV" = (
 /obj/effect/turf_decal/weather/dirt{
@@ -29984,7 +29814,10 @@
 /area/f13/sewer/powered)
 "wMj" = (
 /obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/f13/wood,
+/turf/open/indestructible/ground/outside/ruins{
+	color = "#e6edf0";
+	name = "cobblestone floor"
+	},
 /area/f13/ncr)
 "wML" = (
 /obj/machinery/door/airlock,
@@ -30148,7 +29981,10 @@
 	icon_state = "mattress2";
 	pixel_y = -3
 	},
-/turf/open/floor/f13/wood,
+/turf/open/indestructible/ground/outside/ruins{
+	color = "#e6edf0";
+	name = "cobblestone floor"
+	},
 /area/f13/ncr)
 "wQt" = (
 /obj/structure/chair/sofa/right{
@@ -31185,7 +31021,10 @@
 /area/f13/bunker/bunkernine)
 "xAK" = (
 /obj/structure/simple_door/metal/barred,
-/turf/open/floor/f13/wood,
+/turf/open/indestructible/ground/outside/ruins{
+	color = "#e6edf0";
+	name = "cobblestone floor"
+	},
 /area/f13/ncr)
 "xAZ" = (
 /obj/item/storage/trash_stack{
@@ -51337,7 +51176,7 @@ htC
 xvl
 iBp
 wEf
-lOb
+wEf
 wpz
 qtB
 wpz
@@ -51595,11 +51434,11 @@ xvl
 iBp
 wEf
 wpz
-joi
-gvp
+gRX
+gRX
 aHa
-vXB
-joi
+gRX
+gRX
 eDo
 wEf
 iBp
@@ -51852,10 +51691,10 @@ xvl
 iBp
 wEf
 wpz
-joi
-pij
 gRX
-uyE
+gRX
+gRX
+gRX
 gRX
 wpz
 wEf
@@ -52109,10 +51948,10 @@ dhU
 iBp
 wEf
 wpz
-joi
-wvF
 lvR
-gRX
+wvF
+mtI
+aHa
 gRX
 wpz
 vXK
@@ -52365,11 +52204,11 @@ vWz
 dhU
 iBp
 wEf
-evX
-joi
+wpz
 mtI
+mtI
+eNG
 gRX
-sIs
 gRX
 wpz
 vXK
@@ -52623,11 +52462,11 @@ dhU
 iBp
 wEf
 wpz
-joi
-joi
-pxR
-hkh
-joi
+rcJ
+lvR
+wvF
+gRX
+aHa
 wpz
 wEf
 dhU
@@ -52815,7 +52654,7 @@ tYm
 tYm
 jxz
 iFh
-dUI
+hsT
 hsT
 fDM
 htC
@@ -53403,8 +53242,8 @@ wEf
 wEf
 wpz
 xAK
-joi
-joi
+wpz
+wpz
 aCN
 dhU
 yfB
@@ -53653,13 +53492,13 @@ dhU
 jBX
 wEf
 wEf
-dEv
+wpz
 wEf
 wEf
 wEf
 sYC
-joi
-rcJ
+wpz
+bup
 wMj
 wQn
 aCN
@@ -53914,8 +53753,8 @@ wpz
 wpz
 wpz
 bup
-ldU
-joi
+sYC
+wpz
 nHX
 nHX
 aCN
@@ -54167,15 +54006,15 @@ dhU
 iBp
 wEf
 jJa
-joi
-joi
-joi
+wpz
+wpz
+wpz
 xAK
-joi
-joi
-rcJ
-joi
-eNG
+wpz
+wpz
+bup
+wpz
+wpz
 aCN
 dhU
 dhU
@@ -54424,15 +54263,15 @@ dhU
 iBp
 wEf
 qhX
-joi
-ndj
-joi
-rcJ
-joi
+wpz
+lrb
+wpz
+bup
+wpz
 jRX
 xAK
-joi
-joi
+wpz
+wpz
 aCN
 iBp
 dhU
@@ -54685,7 +54524,7 @@ tNW
 tNW
 tNW
 tNW
-gzW
+joi
 tNW
 tNW
 aCN
@@ -54943,7 +54782,7 @@ tNW
 tNW
 joi
 joi
-joi
+aHa
 tNW
 tNW
 tNW
@@ -55194,13 +55033,13 @@ clo
 dhU
 iBp
 tNW
-sWM
+xOO
 joi
+eNG
 joi
+lvR
 joi
-joi
-joi
-joi
+wpz
 joi
 joi
 wpz
@@ -55452,11 +55291,11 @@ dhU
 iBp
 tNW
 xOO
-voS
+joi
 ndj
 joi
 joi
-joi
+eNG
 joi
 ndj
 joi
@@ -55711,12 +55550,12 @@ tNW
 tNW
 tNW
 tNW
-waw
-lrb
+xcW
+joi
 tNW
 tNW
 tNW
-kzC
+wpz
 tNW
 tNW
 iBp
@@ -78347,7 +78186,7 @@ agx
 cur
 cCF
 plL
-lsm
+dUI
 vKr
 vKr
 vKr
@@ -79373,7 +79212,7 @@ mYd
 vDQ
 awn
 iRu
-lsm
+dUI
 plL
 lsm
 vKr

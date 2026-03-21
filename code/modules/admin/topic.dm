@@ -792,6 +792,42 @@
 				counter = 0
 		dat += "</tr></table>"
 
+	//Eighties (Blue)
+		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		dat += "<tr align='center' bgcolor='0F398B'><th colspan='[length(GLOB.eighties_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=eightiesdept;jobban4=[REF(M)]'>Eighties Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.eighties_positions)
+			if(!jobPos)
+				continue
+			if(jobban_isbanned(M, jobPos))
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'><font color=red>[jobPos]</font></a></td>"
+				counter++
+			else
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'>[jobPos]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				dat += "</tr><tr>"
+				counter = 0
+		dat += "</tr></table>"
+
+	//Whitelegs (Red)
+		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		dat += "<tr align='center' bgcolor='800000'><th colspan='[length(GLOB.whitelegs_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=whitelegsdept;jobban4=[REF(M)]'>White Legs Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.whitelegs_positions)
+			if(!jobPos)
+				continue
+			if(jobban_isbanned(M, jobPos))
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'><font color=red>[jobPos]</font></a></td>"
+				counter++
+			else
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'>[jobPos]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				dat += "</tr><tr>"
+				counter = 0
+		dat += "</tr></table>"
+
 	//Wasteland (Grey)
 		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		dat += "<tr align='center' bgcolor='c9c9c9'><th colspan='[length(GLOB.wasteland_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=wastelanddept;jobban4=[REF(M)]'>Wasteland Positions</a></th></tr><tr align='center'>"

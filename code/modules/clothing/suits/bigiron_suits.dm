@@ -1741,6 +1741,21 @@
 	item_state = "80s_armour"
 	body_parts_hidden = ARMS | CHEST
 
+/obj/item/clothing/suit/armor/medium/tribal/eighties/blue
+	name = "80s armour"
+	desc = "A blue I-80 sign fitted around its wearer."
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets
+	icon_state = "80sarmor"
+	item_state = "80sarmor"
+	body_parts_hidden = CHEST
+
+/obj/item/clothing/suit/armor/medium/tribal/eighties/green
+	name = "80s armour"
+	desc = "A green Alt I-80 sign fitted around its wearer."
+	icon_state = "80sgreen"
+	item_state = "80sgreen"
+	body_parts_hidden = CHEST
+
 /obj/item/clothing/suit/armor/medium/tribal/deadhorses
 	name = "Dead Horses armour"
 	desc = "A simple leather bandolier and gecko hide chest covering, with an engraved metal pauldron and a set of black leather straps, one holding a shinpad in place. Commonly worn by the members of the Dead Horses tribe."
