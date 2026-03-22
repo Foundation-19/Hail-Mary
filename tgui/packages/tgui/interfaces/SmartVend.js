@@ -7,6 +7,7 @@ export const SmartVend = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={440}
       height={550}
       resizable>

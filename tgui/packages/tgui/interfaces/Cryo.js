@@ -26,6 +26,7 @@ const damageTypes = [
 export const Cryo = () => {
   return (
     <Window
+      theme="fallout"
       width={400}
       height={550}
       resizable>

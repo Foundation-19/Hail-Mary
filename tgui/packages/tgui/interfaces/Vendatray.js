@@ -14,6 +14,7 @@ export const Vendatray = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={300}
       height={270}>
       <Window.Content>

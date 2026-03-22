@@ -8,6 +8,7 @@ export const ChemMaster = (props, context) => {
   const { screen } = data;
   return (
     <Window
+      theme="fallout"
       width={465}
       height={550}
       resizable>

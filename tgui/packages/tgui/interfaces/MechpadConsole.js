@@ -51,6 +51,7 @@ export const MechpadConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={475}
       height={130}
       resizable>

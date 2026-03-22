@@ -10,6 +10,7 @@ export const MiningVendor = (props, context) => {
   ];
   return (
     <Window
+      theme="fallout"
       width={425}
       height={600}
       resizable>

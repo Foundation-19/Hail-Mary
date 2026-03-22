@@ -24,8 +24,9 @@ export const PortableTurret = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={310}
-      height={lasertag_turret ? 110 : 292}>
+      height={lasertag_turret ? 110 : 390}>
       <Window.Content>
         <NoticeBox>
           Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.

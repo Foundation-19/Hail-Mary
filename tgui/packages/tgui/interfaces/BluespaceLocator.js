@@ -17,6 +17,7 @@ export const BluespaceLocator = (props, context) => {
   const [tab, setTab] = useSharedState(context, "tab", "implant");
   return (
     <Window
+      theme="fallout"
       width={300}
       height={300}
       resizable>

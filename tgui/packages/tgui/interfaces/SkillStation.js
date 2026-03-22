@@ -270,6 +270,7 @@ export const SkillStation = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       title="Skillsoft Station"
       width={500}
       height={500}

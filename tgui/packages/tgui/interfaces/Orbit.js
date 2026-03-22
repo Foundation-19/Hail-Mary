@@ -120,6 +120,7 @@ export const Orbit = (props, context) => {
 
   return (
     <Window
+      theme="fallout"
       title="Orbit"
       width={350}
       height={700}>

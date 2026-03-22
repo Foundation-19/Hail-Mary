@@ -9,6 +9,7 @@ export const Bepis = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={500}
       height={480}>
       <Window.Content>

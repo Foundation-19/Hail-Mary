@@ -10,6 +10,7 @@ export const InfraredEmitter = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={225}
       height={110}>
       <Window.Content>

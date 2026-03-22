@@ -17,6 +17,7 @@ export const Intellicard = (props, context) => {
   const offline = isDead || isBraindead;
   return (
     <Window
+      theme="fallout"
       width={500}
       height={500}
       resizable>

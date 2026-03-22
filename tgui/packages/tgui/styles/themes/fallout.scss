@@ -56,6 +56,14 @@ $phosphor-text: #a8d8a8;
 
   .Window {
     color: $phosphor-text;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+    background-attachment: local;
   }
 
   .Button {
@@ -66,13 +74,7 @@ $phosphor-text: #a8d8a8;
   }
 
   .Layout__content {
-    background-image: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0, 0, 0, 0.1) 3px,
-      rgba(0, 0, 0, 0.1) 4px
-    );
+    background-image: none;
   }
 
   h1, h2, h3, h4, h5 {
@@ -108,5 +110,34 @@ $phosphor-text: #a8d8a8;
     background: transparent;
     box-shadow: none;
     border: none;
+  }
+
+  .Tabs {
+    background-color: transparent;
+  }
+
+  .Tab {
+    color: $phosphor-dim;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+
+    &:hover {
+      color: $phosphor;
+      background-color: rgba(74, 237, 146, 0.08);
+    }
+  }
+
+  .Tab--selected {
+    color: #041a0e;
+    background-color: $phosphor-dim;
+    font-weight: bold;
+
+    &:hover {
+      background-color: $phosphor;
+    }
+  }
+
+  .Tabs--vertical .Tab--selected {
+    border-right-color: $phosphor;
   }
 }

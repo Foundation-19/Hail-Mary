@@ -15,6 +15,7 @@ export const ChemPress = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={300}
       height={227}>
       <Window.Content>

@@ -10,6 +10,7 @@ export const ApcControl = (props, context) => {
   const { data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       title="APC Controller"
       width={550}
       height={500}

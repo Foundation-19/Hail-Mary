@@ -52,6 +52,7 @@ export const ChemFilter = (props, context) => {
   const [rightName, setRightName] = useLocalState(context, 'rightName', '');
   return (
     <Window
+      theme="fallout"
       width={500}
       height={300}
       resizable>

@@ -17,6 +17,7 @@ export const powerRank = str => {
 export const PowerMonitor = () => {
   return (
     <Window
+      theme="fallout"
       width={550}
       height={700}
       resizable>

@@ -6,6 +6,7 @@ export const AtmosPump = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={335}
       height={115}>
       <Window.Content>

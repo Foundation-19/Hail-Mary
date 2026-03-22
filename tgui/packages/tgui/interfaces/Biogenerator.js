@@ -16,6 +16,7 @@ export const Biogenerator = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={550}
       height={380}
       resizable>

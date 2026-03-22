@@ -12,6 +12,7 @@ export const RoboticsControlConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={500}
       height={460}
       resizable>

@@ -14,6 +14,7 @@ export const PortableBlenderBelt = (props, context) => {
   const bufferMaxVolume = data.bufferMaxVolume || [];
   return (
     <Window
+      theme="fallout"
       width={645}
       height={550}
       resizable>

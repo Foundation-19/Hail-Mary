@@ -10,6 +10,7 @@ export const Wires = (props, context) => {
   const statuses = data.status || [];
   return (
     <Window
+      theme="fallout"
       width={350}
       height={150
         + (wires.length * 30)

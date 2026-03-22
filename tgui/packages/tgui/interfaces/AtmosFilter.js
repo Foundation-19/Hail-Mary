@@ -8,6 +8,7 @@ export const AtmosFilter = (props, context) => {
   const filterTypes = data.filter_types || [];
   return (
     <Window
+      theme="fallout"
       width={390}
       height={187}>
       <Window.Content>

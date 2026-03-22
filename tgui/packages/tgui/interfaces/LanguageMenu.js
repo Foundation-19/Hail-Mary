@@ -14,6 +14,7 @@ export const LanguageMenu = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       title="Language Menu"
       width={700}
       height={600}

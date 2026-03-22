@@ -22,6 +22,7 @@ export const Canister = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={300}
       height={232}>
       <Window.Content>

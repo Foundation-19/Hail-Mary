@@ -7,6 +7,7 @@ export const SpaceHeater = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={400}
       height={305}>
       <Window.Content>

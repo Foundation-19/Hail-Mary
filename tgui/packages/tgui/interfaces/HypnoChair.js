@@ -6,6 +6,7 @@ export const HypnoChair = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={375}
       height={480}>
       <Window.Content>

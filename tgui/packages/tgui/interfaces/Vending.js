@@ -122,6 +122,7 @@ export const Vending = (props, context) => {
   inventory = inventory.filter(item => !!item);
   return (
     <Window
+      theme="fallout"
       title="Vending Machine"
       width={450}
       height={600}

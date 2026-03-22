@@ -14,6 +14,7 @@ export const Electropack = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={260}
       height={137}>
       <Window.Content>

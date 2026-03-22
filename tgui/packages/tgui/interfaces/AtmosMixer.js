@@ -6,6 +6,7 @@ export const AtmosMixer = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={370}
       height={165}>
       <Window.Content>

@@ -8,6 +8,7 @@ export const CellularEmporium = (props, context) => {
   const { abilities } = data;
   return (
     <Window
+      theme="fallout"
       width={900}
       height={480}
       resizable>

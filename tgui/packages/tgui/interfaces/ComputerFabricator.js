@@ -8,6 +8,7 @@ export const ComputerFabricator = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       title="Personal Computer Vendor"
       width={500}
       height={400}

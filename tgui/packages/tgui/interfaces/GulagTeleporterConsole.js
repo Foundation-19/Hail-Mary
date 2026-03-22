@@ -20,6 +20,7 @@ export const GulagTeleporterConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={295}>
       <Window.Content>
