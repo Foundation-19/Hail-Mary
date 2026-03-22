@@ -128,8 +128,10 @@ window "infowindow"
 		size = 160x20
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = none
-		saved-params = "is-checked"
+		background-color = #141410
+		text-color = #c8960a
+		font-family = "Courier New"
+		font-size = 10
 		text = "Set OOC Status"
 		command = "setoocstatus"
 	elem "info"
@@ -149,18 +151,22 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 34,0
 		anchor2 = 50,0
-		background-color = none
-		saved-params = "is-checked"
-		text = "/tg/ Wiki"
-		command = "tgwiki"
+		background-color = #141410
+		text-color = #c8960a
+		font-family = "Courier New"
+		font-size = 10
+		text = "Wiki"
+		command = "openwiki"
 	elem "changelog"
 		type = BUTTON
 		pos = 320,5
 		size = 100x20
 		anchor1 = 50,0
 		anchor2 = 66,0
-		background-color = none
-		saved-params = "is-checked"
+		background-color = #141410
+		text-color = #c8960a
+		font-family = "Courier New"
+		font-size = 10
 		text = "Changelog"
 		command = "Changelog"
 	elem "github"
@@ -169,8 +175,10 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 66,0
 		anchor2 = 81,0
-		background-color = none
-		saved-params = "is-checked"
+		background-color = #141410
+		text-color = #c8960a
+		font-family = "Courier New"
+		font-size = 10
 		text = "Github"
 		command = "github"
 	elem "discord"
@@ -179,8 +187,10 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 81,0
 		anchor2 = 97,0
-		background-color = none
-		saved-params = "is-checked"
+		background-color = #141410
+		text-color = #c8960a
+		font-family = "Courier New"
+		font-size = 10
 		text = "Discord/Rules"
 		command = "discord"
 

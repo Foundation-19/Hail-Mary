@@ -792,6 +792,42 @@
 				counter = 0
 		dat += "</tr></table>"
 
+	//Eighties (Blue)
+		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		dat += "<tr align='center' bgcolor='0F398B'><th colspan='[length(GLOB.eighties_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=eightiesdept;jobban4=[REF(M)]'>Eighties Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.eighties_positions)
+			if(!jobPos)
+				continue
+			if(jobban_isbanned(M, jobPos))
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'><font color=red>[jobPos]</font></a></td>"
+				counter++
+			else
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'>[jobPos]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				dat += "</tr><tr>"
+				counter = 0
+		dat += "</tr></table>"
+
+	//Whitelegs (Red)
+		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		dat += "<tr align='center' bgcolor='800000'><th colspan='[length(GLOB.whitelegs_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=whitelegsdept;jobban4=[REF(M)]'>White Legs Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.whitelegs_positions)
+			if(!jobPos)
+				continue
+			if(jobban_isbanned(M, jobPos))
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'><font color=red>[jobPos]</font></a></td>"
+				counter++
+			else
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'>[jobPos]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				dat += "</tr><tr>"
+				counter = 0
+		dat += "</tr></table>"
+
 	//Wasteland (Grey)
 		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		dat += "<tr align='center' bgcolor='c9c9c9'><th colspan='[length(GLOB.wasteland_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=wastelanddept;jobban4=[REF(M)]'>Wasteland Positions</a></th></tr><tr align='center'>"
@@ -1947,6 +1983,26 @@
 			to_chat(usr, "this can only be used on instances of type /mob.")
 		if(M.ckey in GLOB.client_ghost_timeouts)
 			GLOB.client_ghost_timeouts -= M.ckey
+
+	else if(href_list["forcerules"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): forcerules without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): forcerules without admin perms.")
+			return
+		var/mob/M = locate(href_list["forcerules"])
+		if(!ismob(M) || !M.client)
+			to_chat(usr, "Target has no active client.")
+			return
+		if(M.client.prefs)
+			M.client.prefs.rules_accepted = FALSE
+			M.client.prefs.save_preferences()
+		log_admin("[key_name(usr)] has forced [key_name(M)] to re-accept the server rules.")
+		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to re-accept the server rules.")
+		if(isnewplayer(M))
+			var/mob/dead/new_player/NP = M
+			NP.show_rules_panel(TRUE)
+		else
+			to_chat(M, span_adminnotice("An admin has required you to re-read and accept the server rules. They will be shown the next time you return to the lobby."))
 
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))

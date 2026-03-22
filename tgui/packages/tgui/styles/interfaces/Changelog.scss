@@ -5,9 +5,61 @@
 
   &__Cell {
     padding: 3px 0;
+    font-family: 'Courier New', Courier, monospace;
 
     &--Icon {
       width: 25px;
     }
   }
 }
+
+.theme-fallout {
+  .Changelog {
+    h1 {
+      font-size: 0.85em;
+      color: #4cff4c;
+      border-bottom: 1px solid #3ac83a;
+      padding-bottom: 0.4em;
+      margin-bottom: 0.6em;
+      text-shadow: 0 0 3px rgba(77, 255, 77, 0.2);
+    }
+
+    h4 {
+      font-size: 0.8em;
+      color: #4cff4c;
+      margin: 0.5em 0 0.25em;
+    }
+
+    p, b {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1em;
+      color: #a8d8a8;
+    }
+
+    a {
+      color: #4cff4c;
+    }
+
+    a:hover {
+      color: #c8ffc8;
+      text-decoration: underline;
+    }
+
+    &__Cell {
+      color: #a8d8a8;
+      font-size: 1em;
+      line-height: 1.6;
+    }
+
+    .Section {
+      border-left: 2px solid rgba(77, 255, 77, 0.12);
+      padding-left: 0.6em;
+
+      .Section {
+        border-left: none;
+        padding-left: 0;
+      }
+    }
+  }
+}
+

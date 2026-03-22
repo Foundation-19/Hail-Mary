@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(nonhuman_positions, list(
 	))
 
 GLOBAL_LIST_INIT(command_positions, list(
-	"Elder",
+	"Elder Envoy",
 	"Paladin Commander",
 	"Knight-Captain",
 	"Lancer Captain",
@@ -94,6 +94,7 @@ GLOBAL_LIST_INIT(faction_whitelist_positions, list(
 ))
 //Brotherhood
 GLOBAL_LIST_INIT(brotherhood_positions, list(
+	"Elder Envoy",
 	"Sentinel",
 	"Paladin Commander",
 	"Knight-Captain",
@@ -111,21 +112,21 @@ GLOBAL_LIST_INIT(brotherhood_positions, list(
 ))
 //Eastwood/Eastwood
 GLOBAL_LIST_INIT(eastwood_positions, list(
-	"Mayor",
+	"Warden",
 	"Secretary",
-	"Sheriff",
-	"Deputy",
+	"Head of the Watch",
+	"Watchmen",
 	"Farmer",
-	"Prospector",
-	"Doctor",
+	"Blacksmith",
+	"Apothecary",
 	"Detective",
 	"Banker",
-	"Quartermaster",
-	"Trade Worker",
-	"Barkeep",
+	"Merchant",
+	"Merchants Mercenary",
+	"Tavern Keeper",
 	"Citizen",
 	"Vertibird Pilot",
-	"Radio Host"
+	"Jester"
 ))
 
 GLOBAL_LIST_INIT(legion_command_positions, list(
@@ -178,7 +179,9 @@ GLOBAL_LIST_INIT(ncr_positions, list(
 
 GLOBAL_LIST_INIT(ranger_positions, list(
 	"NCR Veteran Ranger",
-	"NCR Ranger",
+	"NCR Patrol Ranger",
+	"NCR Scout Ranger",
+	"NCR Medic Ranger",
 ))
 
 GLOBAL_LIST_INIT(vault_positions, list(
@@ -293,6 +296,37 @@ GLOBAL_LIST_INIT(mercenary_positions, list(
 	"Mercenary Warlord",
 	"Mercenary Soldier",
 ))
+GLOBAL_LIST_INIT(eighties_positions, list(
+	"Warboss",
+	"Arena Master",
+	"Lay Mechanic",
+	"Blackfinger",
+	"Blue Team",
+	"Red Team",
+	"80",
+))
+
+GLOBAL_LIST_INIT(whitelegs_positions, list(
+	"War Chief",
+	"Light-bringer",
+	"Sapper",
+	"Bone-breaker",
+	"Pain-maker",
+	"Storm-drummer",
+))
+
+GLOBAL_LIST_INIT(lds_positions, list(
+	"Temple President",
+	"Missionary",
+	"Temple Guard",
+	"New Canaanite",
+))
+
+GLOBAL_LIST_INIT(usps_positions, list(
+	"Postmaster General",
+	"Mail Carrier",
+))
+
 
 // job categories for rendering the late join menu
 GLOBAL_LIST_INIT(position_categories, list(
@@ -308,6 +342,10 @@ GLOBAL_LIST_INIT(position_categories, list(
 	"Eastwood" = list("jobs" = eastwood_positions, "color" = "#d7b088"),
 	EXP_TYPE_SILICON = list("jobs" = silicon_positions, "color" = "#4a4a4a"),
 	EXP_TYPE_TRIBAL = list("jobs" = tribal_positions, "color" = "#006666"),
+	EXP_TYPE_USPS = list("jobs" = usps_positions, "color" = "#0262b0"),
+	EXP_TYPE_LDS = list("jobs" = lds_positions, "color" = "#ffffff"),
+	EXP_TYPE_WHITELEGS = list("jobs" = whitelegs_positions, "color" = "#b60202"),
+	EXP_TYPE_EIGHTIES = list("jobs" = eighties_positions, "color" = "#1858D9"),
 	//EXP_TYPE_BIKER = list("jobs" = biker_positions, "color" = "#eb872f"),
 	"Super Mutants" = list("jobs" = mutant_positions, "color" = "#26bf47"),
 	//"debug" = list("jobs" = debug_positions, "color" = "#ff00ee"),
@@ -329,7 +367,7 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_SILICON = list("titles" = list("AI","Cyborg")),
 	EXP_TYPE_SERVICE = list("titles" = civilian_positions),
 
-	EXP_TYPE_FALLOUT = list("titles" = brotherhood_positions | eastwood_positions | legion_positions | ncr_positions | vault_positions | wasteland_positions | tribal_positions | followers_positions | enclave_positions),
+	EXP_TYPE_FALLOUT = list("titles" = brotherhood_positions | eastwood_positions | legion_positions | ncr_positions | vault_positions | wasteland_positions | tribal_positions | followers_positions | usps_positions | lds_positions | whitelegs_positions | eighties_positions | enclave_positions),
 
 	EXP_TYPE_OUTLAW = list("titles" = list("Outlaw","Den Mob Boss","Den Mob Enforcer","Den Doctor",)),
 	EXP_TYPE_BROTHERHOOD = list("titles" = brotherhood_positions),
@@ -347,6 +385,10 @@ GLOBAL_LIST_INIT(exp_jobsmap, list(
 	EXP_TYPE_RANGER = list("titles" = ranger_positions),
 	EXP_TYPE_SCRIBE = list("titles" = list("Scribe")),
 	EXP_TYPE_DECANUS = list("titles" = list("Legion Decanus")),
+	EXP_TYPE_USPS = list("titles" = usps_positions),
+	EXP_TYPE_LDS = list("titles" = lds_positions),
+	EXP_TYPE_WHITELEGS = list("titles" = whitelegs_positions),
+	EXP_TYPE_EIGHTIES = list("titles" = eighties_positions),
 
 	EXP_TYPE_TRIBALCOMMAND = list("titles" = list("Chief","Shaman","Head Hunter")),
 	EXP_TYPE_FOLLOWERSCOMMAND = list("titles" = list("Senior Doctor")),

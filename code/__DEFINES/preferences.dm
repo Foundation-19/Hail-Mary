@@ -88,6 +88,10 @@
 #define EXP_TYPE_FOLLOWERS		"Followers"
 #define EXP_TYPE_OUTLAW			"Outlaw"
 #define EXP_TYPE_KHAN			"Great Khans"
+#define EXP_TYPE_EIGHTIES		"80s"
+#define EXP_TYPE_WHITELEGS		"White Legs"
+#define EXP_TYPE_LDS			"New Canaanites"
+#define EXP_TYPE_USPS			"United States Postal Service"
 //Flags in the players table in the db
 #define DB_FLAG_EXEMPT 							(1<<0)
 #define DB_FLAG_AGE_CONFIRMATION_INCOMPLETE		(1<<1)

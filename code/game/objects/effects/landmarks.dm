@@ -580,7 +580,15 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "NCR Veteran Ranger"
 
 /obj/effect/landmark/start/f13/ncrranger
-	name = "NCR Ranger"
+	name = "NCR Patrol Ranger"
+	icon_state = "NCR Patrol Ranger"
+
+/obj/effect/landmark/start/f13/ncrrangerscout
+	name = "NCR Scout Ranger"
+	icon_state = "NCR Patrol Ranger"
+
+/obj/effect/landmark/start/f13/ncrrangermedic
+	name = "NCR Medic Ranger"
 	icon_state = "NCR Patrol Ranger"
 
 /obj/effect/landmark/start/f13/ncrrearechelon
@@ -665,6 +673,10 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Wastelander"
 
 // Brotherhood of Steel
+
+/obj/effect/landmark/start/f13/elderenvoy
+	name = "Elder Envoy"
+	icon_state = "Elder"
 
 /obj/effect/landmark/start/f13/sentinel
 	name = "Sentinel"
@@ -759,7 +771,7 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 // Eastwood
 
 /obj/effect/landmark/start/f13/mayor
-	name = "Mayor"
+	name = "Warden"
 	icon_state = "Banker"
 
 /obj/effect/landmark/start/f13/secretary
@@ -767,25 +779,25 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Lawyer"
 
 /obj/effect/landmark/start/f13/sheriff
-	name = "Sheriff"
+	name = "Head of the Watch"
 	icon_state = "Chief of Police"
 
 /obj/effect/landmark/start/f13/deputy
-	name = "Deputy"
+	name = "Watchman"
 	icon_state = "Officer"
 
 /obj/effect/landmark/start/f13/farmer
 	name = "Farmer"
 
 /obj/effect/landmark/start/f13/prospector
-	name = "Prospector"
+	name = "Blacksmith"
 
 /obj/effect/landmark/start/f13/settler
 	name = "Citizen"
 	icon_state = "Settler"
 
 /obj/effect/landmark/start/f13/radio_host
-	name = "Radio Host"
+	name = "Jester"
 	icon_state = "Radio-Host"
 
 /obj/effect/landmark/start/f13/pilot
@@ -793,14 +805,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Scribe"
 
 /obj/effect/landmark/start/f13/dendoc
-	name = "Doctor"
+	name = "Apothecary"
 
 /obj/effect/landmark/start/f13/quartermaster
-	name = "Quartermaster"
+	name = "Merchant"
 	icon_state = "Shopkeeper"
 
 /obj/effect/landmark/start/f13/shopkeeper
-	name = "Trade Worker"
+	name = "Merchants Mercenary"
 	icon_state = "Shopkeeper"
 
 /obj/effect/landmark/start/f13/banker
@@ -808,8 +820,92 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	icon_state = "Banker"
 
 /obj/effect/landmark/start/f13/barkeep
-	name = "Barkeep"
+	name = "Tavern Keeper"
 	icon_state = "Barkeep"
+
+// New Canaanites
+/obj/effect/landmark/start/f13/templepresident
+	name = "Temple President"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/missionary
+	name = "Missionary"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/templeguard
+	name = "Temple Guard"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/newcanaanite
+	name = "New Canaanite"
+	icon_state = "Security Officer"
+
+// USPS
+/obj/effect/landmark/start/f13/postmastergeneral
+	name = "Postmaster General"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/postalworker
+	name = "Mail Carrier"
+	icon_state = "Medical Doctor"
+
+// 80s
+/obj/effect/landmark/start/f13/warboss
+	name = "Warboss"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/arenamaster
+	name = "Arena Master"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/laymechanic
+	name = "Lay Mechanic"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/blackfinger
+	name = "Blackfinger"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/blueteam
+	name = "Blue Team"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/redteam
+	name = "Red Team"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/eighty
+	name = "80"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/roadie
+	name = "Roadie"
+	icon_state = "Security Officer"
+
+// White Legs
+/obj/effect/landmark/start/f13/warchief
+	name = "War Chief"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/lightbringer
+	name = "Light-bringer"
+	icon_state = "Medical Doctor"
+
+/obj/effect/landmark/start/f13/sapper
+	name = "Sapper"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/bonebreaker
+	name = "Bone-breaker"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/painmaker
+	name = "Pain-maker"
+	icon_state = "Security Officer"
+
+/obj/effect/landmark/start/f13/stormdrummer
+	name = "Storm-drummer"
+	icon_state = "Security Officer"
 
 // Wasteland
 
