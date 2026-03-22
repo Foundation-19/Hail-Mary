@@ -88,7 +88,7 @@
 #define EXP_TYPE_FOLLOWERSCOMMAND   "Followers Command"
 
 /// Tier names used as the right-hand side of "Faction/Tier" compound exemption keys.
-#define EXP_TIER_ADMIN    "Admin"
+#define EXP_TIER_COMMANDER   "Commander"
 #define EXP_TIER_OFFICER  "Officer"
 #define EXP_TIER_SNCO     "Senior NCO"
 #define EXP_TIER_NCO      "NCO"

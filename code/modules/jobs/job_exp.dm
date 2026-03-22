@@ -204,7 +204,7 @@ GLOBAL_PROTECT(exp_to_update)
 			else
 				return_text += "<LI>[dep] [get_exp_format(exp_data[dep])] </LI>"
 	if(CONFIG_GET(flag/use_exp_restrictions_admin_bypass) && check_rights_for(src,R_ADMIN))
-		return_text += "<LI>Admin (all jobs auto-unlocked)</LI>"
+		return_text += "<LI>Commander (all jobs auto-unlocked)</LI>"
 	return_text += "</UL>"
 	var/list/jobs_locked = list()
 	var/list/jobs_unlocked = list()
