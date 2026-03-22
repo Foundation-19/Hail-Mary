@@ -10,7 +10,7 @@
       Wasteland playtime.
   - rscadd: Officer roles now require 55 hours in the faction and 12 hours in any
       other faction.
-  - rscadd: Admin-tier roles now require 75 hours in the faction and 35 hours in
+  - rscadd: Commander-tier roles now require 75 hours in the faction and 35 hours in
       any other faction.
   - qol: The locked job tooltip in the Join Game menu now shows progress bars for
       faction hours, Wasteland hours, and other-faction hours when a tier prerequisite
