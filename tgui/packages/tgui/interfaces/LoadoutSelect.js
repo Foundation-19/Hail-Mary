@@ -41,7 +41,8 @@ export const LoadoutSelect = (props, context) => {
                   <div style={{ "margin": "10px 10px", "text-align": "center" }} key={`${item.name}`}>
                     <div style={{ "transform": "scale(1.5)", "vertical-align": "middle", "float": "left", "clear": "left", "height": "32px", "width": "32px" }} class={item.icon} />
                     <div style={{ "display": "block", "vertical-align": "middle", "float": "left", "width": "calc(100% - 32px)", "line-height": "32px", "margin": "auto" }}>
-                      {item.name} {item.quantity > 1 && (`x${item.quantity}`)}<br />
+                      {item.name}{' '}
+                      {item.quantity > 1 && (`x${item.quantity}`)}<br />
                     </div>
                   </div>
                 ))}
