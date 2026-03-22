@@ -93,6 +93,11 @@ $phosphor-text: #a8d8a8;
     color: #c8ffc8;
   }
 
+  .ProgressBar__content {
+    color: $phosphor;
+    mix-blend-mode: difference;
+  }
+
   .Section__title {
     border-color: $phosphor-dim;
     background: transparent;
