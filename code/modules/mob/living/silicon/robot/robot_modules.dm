@@ -1465,6 +1465,7 @@
 		/obj/item/reagent_containers/borghypo/epi,   // emergency revive
 		/obj/item/surgical_drapes,            // emergency surgery
 		/obj/item/scalpel,                    // surgical capability
+		/obj/item/retractor,                  // surgical capability
 		/obj/item/hemostat,                   // surgical capability
 		/obj/item/cautery,                    // surgical capability
 		/obj/item/restraints/handcuffs/cable/zipties,  // detain downed targets

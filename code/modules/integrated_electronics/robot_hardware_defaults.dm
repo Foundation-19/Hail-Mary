@@ -213,6 +213,7 @@
 	hardware_entries = list(
 		list(/datum/robot_hardware/clock,          list("tick_interval" = 20)),
 		list(/datum/robot_hardware/grabber,        list("max_items" = 8)),
+		list(/datum/robot_hardware/mop_module,     list("clean_range" = 1)),
 		list(/datum/robot_hardware/harvester,      list("harvest_range" = 3, "auto_replant" = TRUE)),
 		list(/datum/robot_hardware/reagent_tank,   list("tank_capacity" = 60, "reagent_type" = /datum/reagent/water, "prefill_volume" = 60)),
 		list(/datum/robot_hardware/injector,       list("dose_per_use" = 5, "target_friendly" = TRUE)),
@@ -248,8 +249,8 @@
 		list(/datum/robot_hardware/weapon,         list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = FALSE, "fire_range" = 6)),
 		list(/datum/robot_hardware/stun_module,    list("stun_duration" = 30, "stun_range" = 1)),
 		list(/datum/robot_hardware/health_scanner, list("scan_range" = 5, "scan_target" = "all")),
-		list(/datum/robot_hardware/speaker,        list("tts_mode" = TRUE, "tts_text" = "Halt. Violators will be prosecuted.")),
-		list(/datum/robot_hardware/locomotion,     list("patrol_mode" = "none"))
+		list(/datum/robot_hardware/locomotion,     list("patrol_mode" = "none")),
+		list(/datum/robot_hardware/speaker,        list("tts_mode" = TRUE, "tts_text" = "Halt. Violators will be prosecuted."))
 	)
 
 
@@ -263,9 +264,9 @@
 		list(/datum/robot_hardware/clock,           list("tick_interval" = 20)),
 		list(/datum/robot_hardware/weapon,          list("gun_type" = /obj/item/gun/energy/laser, "lethal_mode" = TRUE, "fire_range" = 8)),
 		list(/datum/robot_hardware/stun_module,     list("stun_duration" = 40)),
+		list(/datum/robot_hardware/locomotion,      list("speed_modifier" = -0.3, "patrol_mode" = "none")),
 		list(/datum/robot_hardware/speaker,         list("tts_mode" = TRUE, "tts_text" = "You call that running, maggot?")),
-		list(/datum/robot_hardware/light,           list("light_brightness" = 3)),
-		list(/datum/robot_hardware/locomotion,      list("speed_modifier" = -0.3, "patrol_mode" = "none"))
+		list(/datum/robot_hardware/light,           list("light_brightness" = 3))
 	)
 
 

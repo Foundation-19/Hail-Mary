@@ -649,6 +649,30 @@
 			return
 
 
+// -- ON POINTER CHANGED -------------------------------
+
+/datum/behavior_circuit/trigger/on_pointer_changed
+	needs_hardware = TRUE
+	circuit_name = "Trigger: On Pointer Changed"
+	hardware_slot_name = HW_SLOT_POINTER_DETECTOR
+	required_hardware_type = /datum/robot_hardware/pointer_detector
+	circuit_desc = "Fires when the owner's laser pointer target location changes. Requires Laser Pointer Detector hardware."
+	tutorial_text = "HARDWARE REQUIRED: Laser Pointer Detector. Fires each time the owner's laser pointer moves to a new target turf. The new location is stored in the hardware datum's 'last_pointer_loc' var. Pair with Say Text to acknowledge commands, or chain other responses that read the pointer location."
+	cpu_cost = 1
+
+/datum/behavior_circuit/trigger/on_pointer_changed/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	RegisterSignal(R, COMSIG_ROBOT_POINTER_CHANGED, PROC_REF(on_pointer_signal))
+
+/datum/behavior_circuit/trigger/on_pointer_changed/unregister(mob/living/silicon/robot/R)
+	UnregisterSignal(R, COMSIG_ROBOT_POINTER_CHANGED)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_pointer_changed/proc/on_pointer_signal(mob/living/silicon/robot/R, turf/T)
+	SIGNAL_HANDLER
+	_trigger(R)
+
+
 // -- ON ACCESS GRANTED -------------------------------
 
 /datum/behavior_circuit/trigger/on_access_granted
@@ -1816,17 +1840,23 @@
 // -- CLEAN NEARBY MESS --------------------------------
 
 /datum/behavior_circuit/response/clean_nearby_mess
+	needs_hardware = TRUE
 	circuit_name = "Response: Clean Nearby Mess"
-	circuit_desc = "Cleans blood, spills, and dirt on the robot's tile and adjacent tiles."
-	tutorial_text = "Deletes all cleanable decals (blood, spills, dirt) on the robot's current turf and all adjacent turfs. No hardware required. Pair with Trigger: On Mess Detected for automatic cleaning."
+	hardware_slot_name = HW_SLOT_MOP
+	required_hardware_type = /datum/robot_hardware/mop_module
+	circuit_desc = "Cleans blood, spills, and dirt on nearby turfs. Requires Mop Module hardware."
+	tutorial_text = "HARDWARE REQUIRED: Mop Module. Sweeps all cleanable decals (blood, spills, dirt) within the mop's configured clean_range. Range defaults to 1 tile and can be extended by PER at build time. Pair with Trigger: On Mess Detected for automatic cleaning."
 	cpu_cost = 1
 
 /datum/behavior_circuit/response/clean_nearby_mess/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	var/datum/robot_hardware/mop_module/MOP = get_hardware(R, /datum/robot_hardware/mop_module)
+	if(!MOP)
+		return
 	var/turf/T = get_turf(R)
 	if(!T)
 		return
 	var/cleaned = FALSE
-	for(var/turf/CT in range(1, T))
+	for(var/turf/CT in range(MOP.clean_range, T))
 		SEND_SIGNAL(CT, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_WEAK)
 		for(var/atom/movable/item in CT)
 			if(is_cleanable(item))
@@ -5311,8 +5341,9 @@
 // PRESET: JANITOR PROTOCOL
 // On Mess Detected -> Emote Action ("moves to clean up")
 //                  + Say Text ("This is unacceptable.")
-// On Interval (slow) -> Emote Action ("scrubs the floor")
-// No hardware required.  Mr. Handy natural pairing.
+//                  + Clean Nearby Mess (REQUIRES Mop Module hardware)
+// On Idle (slow) -> Emote Action ("scrubs the floor")
+// Hardware required: Mop Module.  Mr. Handy natural pairing.
 // ====================================================
 
 /obj/item/behavior_assembly/janitor

@@ -12,6 +12,11 @@
 /// Received by behavior circuits via RegisterSignal in their register() proc.
 #define COMSIG_ROBOT_CLOCK_TICK "robot_clock_tick"
 
+/// Sent by /datum/robot_hardware/pointer_detector when the tracked laser pointer
+/// target location changes.
+/// Arguments: (mob/living/silicon/robot/R, turf/new_loc)
+#define COMSIG_ROBOT_POINTER_CHANGED "robot_pointer_changed"
+
 /// Stub proc declared on the base circuit datum so both trigger and response
 /// subtypes can call execute() without dreamchecker errors.
 /// Overridden by /datum/behavior_circuit/response/proc/execute in behavior_circuits.dm.
@@ -54,6 +59,8 @@
 #define HW_SLOT_MEMORY           "/datum/robot_hardware/memory_core"
 #define HW_SLOT_EXTINGUISHER     "/datum/robot_hardware/extinguisher_module"
 #define HW_SLOT_CAMERA_RELAY     "/datum/robot_hardware/camera_relay"
+#define HW_SLOT_MOP              "/datum/robot_hardware/mop_module"
+#define HW_SLOT_POINTER_DETECTOR "/datum/robot_hardware/pointer_detector"
 
 // ====================================================
 // ROBOT COMBAT MODE DEFINES

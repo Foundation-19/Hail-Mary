@@ -209,6 +209,17 @@
 
 
 // ====================================================
+// POINTER DETECTOR - runtime pointer tracking state
+// ====================================================
+
+/datum/robot_hardware/pointer_detector
+	/// Last observed laser pointer target location (turf).
+	/// Updated each process() tick when the owner's pointer target changes.
+	/// Read by On Pointer Changed trigger.
+	var/turf/last_pointer_loc = null
+
+
+// ====================================================
 // MULTITOOL - ID CARD SCAN + FOLLOW TARGET LINKING
 //
 // Usage:

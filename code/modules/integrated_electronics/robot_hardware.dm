@@ -693,6 +693,33 @@
 		charges--
 
 
+// -- MOP MODULE ----------------------------------------
+
+/datum/robot_hardware/mop_module
+	hardware_name    = "Mop Module"
+	hardware_desc    = "An integrated bucket-and-mop arm that scrubs blood, reagent spills, and dirt from adjacent turfs."
+	tutorial_text    = "Enables: Response: Clean Nearby Mess. The robot sweeps its mop arm over all turfs within clean_range, removing cleanable decals. Configure 'clean_range' for reach. PER bonus at build time extends range by 1 for every 3 PER above 5. Natural pairing for Mr. Handy with Janitor Protocol."
+	category         = RHC_SUPPORT
+	min_int          = RH_INT_BASIC
+	core_operations  = 1
+	mat_cost         = list("iron" = 150, "glass" = 50)
+
+	/// Radius of cleaning sweep. PER bonus extends this at build time.
+	var/clean_range = 1
+
+/datum/robot_hardware/mop_module/get_summary()
+	return "[hardware_name] range:[clean_range]"
+
+/datum/robot_hardware/mop_module/New()
+	config_defs = list(
+		"clean_range" = list("Clean Range (tiles)", "number", 1, 1, 3)
+	)
+
+/datum/robot_hardware/mop_module/apply_special(list/S)
+	var/per_bonus = max(0, S["PER"] - 5)
+	clean_range = clamp(clean_range + round(per_bonus / 3), 1, 4)
+
+
 // ====================================================
 // SENSORS
 // ====================================================
@@ -953,6 +980,70 @@
 	if(!QDELETED(R.builtInCamera))
 		R.builtInCamera.network -= relay_network
 	. = ..()
+
+
+// -- POINTER DETECTOR ---------------------------------
+
+/datum/robot_hardware/pointer_detector
+	hardware_name    = "Laser Pointer Detector"
+	hardware_desc    = "Scans for a laser pointer held by the robot's designated owner and tracks the targeted location."
+	tutorial_text    = "Enables: Trigger: On Pointer Changed. Scans for an active laser pointer held by a nearby player matching 'owner_ckey'. When the pointer target changes, fires a signal so linked behavior circuits can react. Leave 'owner_ckey' blank to respond to any laser pointer in scan_range. PER bonus extends scan range at build time."
+	category         = RHC_SENSORS
+	min_int          = RH_INT_STANDARD
+	core_compute     = 2
+	core_energy      = 1
+	mat_cost         = list("iron" = 100, "glass" = 50, "gold" = 100)
+
+	/// If set, only track a laser pointer held by a player with this ckey. Empty = any player.
+	var/owner_ckey = ""
+	/// Scan radius in tiles.
+	var/scan_range = 8
+
+/datum/robot_hardware/pointer_detector/get_summary()
+	var/owner_txt = owner_ckey ? "[owner_ckey]" : "ANY"
+	return "[hardware_name] range:[scan_range] owner:[owner_txt]"
+
+/datum/robot_hardware/pointer_detector/New()
+	config_defs = list(
+		"owner_ckey" = list("Owner Key",  "text",   ""),
+		"scan_range" = list("Scan Range", "number", 8, 2, 12)
+	)
+
+/datum/robot_hardware/pointer_detector/apply_special(list/S)
+	var/per_bonus = max(0, S["PER"] - 5)
+	scan_range = clamp(scan_range + round(per_bonus / 2), 2, 14)
+
+/datum/robot_hardware/pointer_detector/install(mob/living/silicon/robot/R)
+	. = ..()
+	last_pointer_loc = null
+	START_PROCESSING(SSobj, src)
+
+/datum/robot_hardware/pointer_detector/uninstall(mob/living/silicon/robot/R)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
+
+/datum/robot_hardware/pointer_detector/process()
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		return
+	var/turf/new_loc = null
+	for(var/mob/living/carbon/human/H in range(scan_range, R))
+		if(H.stat != CONSCIOUS)
+			continue
+		if(owner_ckey && H.ckey != owner_ckey)
+			continue
+		var/obj/item/laser_pointer/LP = null
+		for(var/obj/item/I in H.held_items)
+			if(istype(I, /obj/item/laser_pointer))
+				LP = I
+				break
+		if(!LP || !LP.pointer_loc)
+			continue
+		new_loc = LP.pointer_loc
+		break
+	if(new_loc != last_pointer_loc)
+		last_pointer_loc = new_loc
+		SEND_SIGNAL(R, COMSIG_ROBOT_POINTER_CHANGED, last_pointer_loc)
 
 
 // ====================================================
