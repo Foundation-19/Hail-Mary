@@ -316,8 +316,8 @@ Proctor
 	exp_requirements = 1500
 
 	loadout_options = list(
-	/datum/outfit/loadout/hsstand,
-	/datum/outfit/loadout/hspract
+	/datum/outfit/loadout/hsstand2,
+	/datum/outfit/loadout/hspract2
 	)
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
@@ -368,14 +368,14 @@ Proctor
 		/obj/item/ammo_box/magazine/m9mm = 2
 		)
 
-/datum/outfit/loadout/hsstand
+/datum/outfit/loadout/hsstand2
 	name = "Medicinal Expert"
 	backpack_contents = list(
 		/obj/item/gun/medbeam = 1,
 		/obj/item/reagent_containers/hypospray/CMO = 1
 		)
 
-/datum/outfit/loadout/hspract
+/datum/outfit/loadout/hspract2
 	name = "Administrative Leader"
 	backpack_contents = list(
 		/obj/item/gun/energy/laser/plasma/pistol = 1,
@@ -619,8 +619,8 @@ Scribe
 	exp_requirements = 30
 
 	loadout_options = list(
-	/datum/outfit/loadout/scribea, //Junior Scribe
-	/datum/outfit/loadout/scribeb, //Scribe
+	/datum/outfit/loadout/scribea2, //Junior Scribe
+	/datum/outfit/loadout/scribeb2, //Scribe
 	)
 
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -657,13 +657,13 @@ Scribe
 		)
 
 
-/datum/outfit/loadout/scribea
+/datum/outfit/loadout/scribea2
 	name = "Junior Scribe"
 	backpack_contents = list(
 		/obj/item/clothing/accessory/bos/juniorscribe = 1
 		)
 
-/datum/outfit/loadout/scribeb
+/datum/outfit/loadout/scribeb2
 	name = "Scribe"
 	backpack_contents = list(
 		/obj/item/clothing/accessory/bos/scribe = 1
@@ -843,8 +843,9 @@ Initiate
 	exp_requirements = 0
 
 	loadout_options = list(
-	/datum/outfit/loadout/initiatek, //Wattz and Engibelt with armor, helmet
-	/datum/outfit/loadout/initiates, //chem knowledge
+	/datum/outfit/loadout/initiatek2, //Wattz and Engibelt with armor, helmet
+	/datum/outfit/loadout/initiates2, //chem knowledge
+	/datum/outfit/loadout/initiatesquire
 	)
 
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -877,7 +878,7 @@ Initiate
 	ADD_TRAIT(H, TRAIT_SURGERY_LOW, src)
 */
 
-/datum/outfit/loadout/initiatek
+/datum/outfit/loadout/initiatek2
 	name = "Knight-Aspirant"
 	belt = /obj/item/storage/belt/utility
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood
@@ -890,7 +891,7 @@ Initiate
 		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
 		)
 
-/datum/outfit/loadout/initiates
+/datum/outfit/loadout/initiates2
 	name = "Scribe-Aspirant"
 	belt = /obj/item/storage/belt/medical
 	suit = /obj/item/clothing/suit/toggle/labcoat
@@ -900,4 +901,15 @@ Initiate
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 		/obj/item/book/granter/trait/chemistry = 1,
 		/obj/item/clothing/accessory/bos/initiateS = 1
+		)
+
+
+/datum/outfit/loadout/initiatesquire
+	name = "Squire"
+	belt = /obj/item/storage/belt/utility
+	suit = /obj/item/clothing/suit/armor/light/duster/bos/squire
+	backpack_contents = list(
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
+		/obj/item/gun/energy/laser/aer9 = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		)

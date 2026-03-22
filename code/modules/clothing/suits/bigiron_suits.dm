@@ -1288,6 +1288,15 @@
 	body_parts_covered = CHEST
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2)
 
+/obj/item/clothing/suit/armor/light/duster/bos/squire
+	name = "Brotherhood Squire jacket"
+	desc = "Rugged, Heavy, and with many pockets. This this the new uniform of the squires."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon_state = "initiate_bomber"
+	item_state = "initiate_bomber"
+	body_parts_covered = CHEST
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_ENV_T2)
+
 /obj/item/clothing/suit/armor/light/duster/bos/knight
 	name = "Brotherhood Knight  bomber jacket"
 	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. This one got the markings of a knight. While not made for combat, its still thick enough to stop a few hits."

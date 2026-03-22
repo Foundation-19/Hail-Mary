@@ -10,6 +10,28 @@
 	icon_state = "derelict"
 	bound_width = 64
 
+/obj/structure/wreck/car/truck
+	name = "wrecked truck"
+	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish13"
+	bound_width = 64
+
+/obj/structure/wreck/car/truck/attacked_by(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_WELDER)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] starts preparing the [src] for a makeover...</span>", \
+							"<span class='notice'>You start preparing the [src] for a makeover...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] dexterly opens up [src]'s space .</span>", \
+							"<span class='notice'>You dexterly open up [src]'s space.</span>")
+		new /obj/item/mecha_parts/chassis/phazon/car(loc)
+		qdel(src)
+		return
+	. = ..()
+
 /obj/structure/wreck/car/bike
 	name = "wrecked motorcycle"
 	desc = "An old pre-war motorcycle, rusted and destroyed with age and weathering."
@@ -224,31 +246,81 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/five_tires
-	name = "tire pile"
+	name = "Tire Pile"
 	desc = "A pile of tires."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "five_t"
 	bound_width = 32
 	bound_height = 32
 
+/obj/structure/wreck/trash/five_tires/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_ANALYZER)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] is checking the [src] for ones of appropiate pressure...</span>", \
+							"<span class='notice'>You start checking the [src] for ones of appropiate pressure...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] finished checking both [src].</span>", \
+							"<span class='notice'>You finish checking both[src].</span>")
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		qdel(src)
+		return
+	. = ..()
+
 /obj/structure/wreck/trash/two_tire
-	name = "tires"
+	name = "Tires"
 	desc = "A set of two tires, now where are the other two?"
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "two_t"
 	bound_width = 32
 	bound_height = 32
 
+/obj/structure/wreck/trash/two_tire/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_ANALYZER)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] is checking the [src] for ones of appropiate pressure...</span>", \
+							"<span class='notice'>You start checking the [src] for ones of appropiate pressure...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] finished checking both [src].</span>", \
+							"<span class='notice'>You finish checking both[src].</span>")
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		qdel(src)
+		return
+	. = ..()
+
 /obj/structure/wreck/trash/one_tire
-	name = "tire"
+	name = "Tire"
 	desc = "A single tire."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "one_t"
 	bound_width = 32
 	bound_height = 32
 
+/obj/structure/wreck/trash/one_tire/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_ANALYZER)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] is checking the [src] for pressure...</span>", \
+							"<span class='notice'>You start checking the [src] for pressure...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] finished checking [src].</span>", \
+							"<span class='notice'>You finish checking [src].</span>")
+		new /obj/item/mecha_parts/part/Car_tire(loc)
+		qdel(src)
+		return
+	. = ..()
+
 /obj/structure/wreck/trash/halftire
-	name = "buried tire"
+	name = "Buried Tire"
 	desc = "Its not treasure, but it is partially buried."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "half_t"
@@ -258,7 +330,7 @@
 	layer = TURF_LAYER
 
 /obj/structure/wreck/trash/four_barrels
-	name = "barrels"
+	name = "Barrels"
 	desc = "Some metal barrels."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "four_b"
@@ -266,7 +338,7 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/three_barrels
-	name = "barrels"
+	name = "Barrels"
 	desc = "Some metal barrels."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "three_b"
@@ -274,7 +346,7 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/two_barrels
-	name = "barrels"
+	name = "Barrels"
 	desc = "Some metal barrels."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "two_b"
@@ -282,7 +354,7 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/one_barrel
-	name = "barrel"
+	name = "Barrels"
 	desc = "Some metal barrels."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "one_b"
@@ -290,15 +362,30 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/engine
-	name = "engine"
+	name = "Engine"
 	desc = "If only you picked the automechanics perk."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "engine"
 	bound_width = 32
 	bound_height = 32
 
+/obj/structure/wreck/trash/engine/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_WRENCH)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] starts disassambling the [src] for easier transport...</span>", \
+							"<span class='notice'>You start disassambling the [src] for easier transport...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] finishes dissasambling the [src].</span>", \
+							"<span class='notice'>You finish dissasambling the [src].</span>")
+		new /obj/item/mecha_parts/part/Car_engine(loc)
+		qdel(src)
+		return
+	. = ..()
+
 /obj/structure/wreck/trash/autoshaft
-	name = "automobile shaft"
+	name = "Automobile Shaft"
 	desc = "It probably was in a vehicle at one time."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "auto_shaft"
@@ -307,8 +394,23 @@
 	density = 0
 	layer = TURF_LAYER
 
+/obj/structure/wreck/trash/autoshaft/attackby(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] starts disassambling the [src] for easier transport...</span>", \
+							"<span class='notice'>You start disassambling the [src] for easier transport...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] finishes dissasambling the [src].</span>", \
+							"<span class='notice'>You finish dissasambling the [src].</span>")
+		new /obj/item/mecha_parts/part/Car_autoshaft(loc)
+		qdel(src)
+		return
+	. = ..()
+
 /obj/structure/wreck/trash/bus_door
-	name = "bus door"
+	name = "Lonely Bus Door"
 	desc = "A bus door, missing the rest of the bus."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "bus_door"
@@ -318,7 +420,7 @@
 	layer = TURF_LAYER
 
 /obj/structure/wreck/trash/secway
-	name = "broken secway"
+	name = "Broken Secway"
 	desc = "Looks like the axle was split in half."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "secwaybroke"
@@ -326,7 +428,7 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/brokenvendor
-	name = "broken vendor"
+	name = "Broken Vendor"
 	desc = "Looks like it it fell down by force."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "technical_pile3"
@@ -334,7 +436,7 @@
 	bound_height = 32
 
 /obj/structure/wreck/trash/machinepile
-	name = "broken machinery"
+	name = "Broken Machinery"
 	desc = "Looks like broken machinery."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "technical_pile1"
@@ -381,7 +483,7 @@
 
 
 /obj/structure/wreck/trash/machinepiletwo
-	name = "broken machinery"
+	name = "Broken Machinery"
 	desc = "Looks like broken machinery."
 	icon = 'icons/fallout/trash.dmi'
 	icon_state = "technical_pile2"

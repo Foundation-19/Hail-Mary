@@ -309,6 +309,33 @@
 	desc="Phazon armor plates. They are layered with plasma to protect the pilot from the stress of phasing and have unusual properties."
 	icon_state = "phazon_armor"
 
+////////// Car
+/obj/item/mecha_parts/chassis/normalvehicle/pickuptruck
+	name = "\improper Car chassis"
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/pickuptruck
+	icon = 'icons/obj/vehicles/medium_vehicles.dmi'
+	icon_state = "car"
+	bound_width = 64
+
+/obj/item/mecha_parts/part/car_autoshaft
+	name="\improper Car Shaft"
+	desc="Used to give a vehicle torque, savaged from the wreckage of the wasteland."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_autoshaft"
+
+/obj/item/mecha_parts/part/car_tire
+	name="\improper Tire"
+	desc="from the caveman days, now covered in 100% recycled rubber, perfect for a post apocalyptic world."
+	var/number = 0
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_tires"
+
+/obj/item/mecha_parts/part/car_engine
+	name="Car Engine"
+	desc="A marvel of the pre-war world, with enough horse power to leave any tribal in the dust."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_engine"
+
 
 ///////// Circuitboards
 
