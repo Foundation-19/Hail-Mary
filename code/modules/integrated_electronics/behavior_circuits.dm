@@ -54,7 +54,6 @@
 	/// trigger rather than the robot-global Logic Core hardware. Allows mixed-condition builds:
 	/// e.g. one assembly fires only when hurt, another fires unconditionally.
 	/// Set by the fabricator's advanced wiring UI; null = fall back to installed hardware.
-	var/datum/robot_hardware/logic_core/local_logic_core = null
 	/// Index into circuit_board.nodes (1-based) whose output must be truthy for responses
 	/// to fire. 0 = no gate. Set in the workshop Programs tab TRIGGER GATES section.
 	var/board_gate_node_idx = 0
@@ -80,9 +79,7 @@
 		if(!assembly_active)
 			return
 	// Logic Core gate
-	var/datum/robot_hardware/logic_core/LC = local_logic_core
-	if(!LC)
-		LC = get_hardware(R, /datum/robot_hardware/logic_core)
+	var/datum/robot_hardware/logic_core/LC = get_hardware(R, /datum/robot_hardware/logic_core)
 	if(LC && !LC.evaluate(R))
 		return
 	// Advanced Circuit Board
@@ -597,7 +594,7 @@
 	tutorial_text = "Fires once per in-game night period. Configure 'night_start' and 'night_end' in ticks. Good for: patrol robots that behave differently after dark, lighting systems, or security bots that activate at night."
 	cpu_cost = 1
 	var/night_start = 180000
-	var/night_end   = 360000
+	var/night_end   = 270000
 	var/already_triggered = FALSE
 	var/last_check = 0
 
@@ -618,8 +615,12 @@
 		STOP_PROCESSING(SSobj, src)
 		return
 	var/t = world.time % 360000
-	// AND: both conditions must hold so "night" is a real window, not always-true
-	var/in_night = (t >= night_start && t < night_end)
+	// Support overnight windows that wrap past t=360000 (e.g. night_start=300000 night_end=60000)
+	var/in_night
+	if(night_start <= night_end)
+		in_night = (t >= night_start && t < night_end)
+	else
+		in_night = (t >= night_start || t < night_end)
 	if(in_night && !already_triggered)
 		already_triggered = TRUE
 		_trigger(R)
@@ -712,6 +713,7 @@
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	var/datum/robot_hardware/id_reader/IDR = get_hardware(R, /datum/robot_hardware/id_reader)
 	if(!IDR)
@@ -753,6 +755,7 @@
 		return
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	var/datum/robot_hardware/microphone/MIC = get_hardware(R, /datum/robot_hardware/microphone)
 	if(!MIC)
@@ -792,6 +795,7 @@
 /datum/behavior_circuit/trigger/on_weapon_fired/process()
 	var/datum/robot_hardware/weapon/WH = cached_weapon
 	if(!WH || QDELETED(WH))
+		STOP_PROCESSING(SSobj, src)
 		return
 	if(WH.last_fire_time && WH.last_fire_time != last_shot)
 		last_shot = WH.last_fire_time
@@ -854,6 +858,7 @@
 /datum/behavior_circuit/trigger/on_signal_received/process()
 	var/datum/robot_hardware/signaler/SIG = cached_signaler
 	if(!SIG || QDELETED(SIG))
+		STOP_PROCESSING(SSobj, src)
 		return
 	if(SIG.last_received_time && SIG.last_received_time > last_received)
 		if(world.time > last_received + signal_cooldown)
@@ -895,6 +900,7 @@
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	var/datum/robot_hardware/gps/GPS = get_hardware(R, /datum/robot_hardware/gps)
 	if(!GPS)
@@ -941,6 +947,7 @@
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	// Fire if the robot itself is irradiated
 	if(R.radiation >= rad_threshold)
@@ -981,6 +988,7 @@
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	var/datum/robot_hardware/health_scanner/HS = get_hardware(R, /datum/robot_hardware/health_scanner)
 	if(!HS)
@@ -1117,6 +1125,7 @@
 /datum/behavior_circuit/trigger/on_combat_sound_nearby/process()
 	var/datum/robot_hardware/microphone/MIC = cached_mic
 	if(!MIC || QDELETED(MIC))
+		STOP_PROCESSING(SSobj, src)
 		return
 	if(MIC.last_combat_time > last_combat_time)
 		last_combat_time = MIC.last_combat_time
@@ -2440,6 +2449,7 @@
 	last_check = world.time
 	var/mob/living/silicon/robot/R = get_robot()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	for(var/obj/item/reagent_containers/RC in range(check_range, R))
 		if(RC.reagents && RC.reagents.total_volume > 0)
@@ -6252,14 +6262,17 @@
 /datum/behavior_circuit/trigger/on_radio_keyword/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	. = ..()
 	robot_ref_kw = WEAKREF(R)
+	START_PROCESSING(SSobj, src)
 
 /datum/behavior_circuit/trigger/on_radio_keyword/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
 	robot_ref_kw = null
 	. = ..()
 
 /datum/behavior_circuit/trigger/on_radio_keyword/process()
 	var/mob/living/silicon/robot/R = robot_ref_kw?.resolve()
 	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
 		return
 	if(!R.installed_hardware)
 		return

@@ -406,6 +406,11 @@
 	/// Node connection state for circuit editor wiring
 	var/list/hw_connect_from = null
 
+	/// Logic Core inline condition builder state (Programs tab)
+	var/lc_build_var = "health_pct"
+	var/lc_build_op  = "<"
+	var/lc_build_val = 0
+
 	/// Whether the machine is currently building
 	var/building = FALSE
 
@@ -1251,6 +1256,43 @@
 					if(gate_links.len)
 						dat += "  set: " + gate_links.Join("  ")
 				dat += "<br>"
+		// LOGIC CORE CONDITIONS -- shown when a logic_core is in pending_hardware
+		var/datum/robot_hardware/logic_core/ptlc = null
+		for(var/slot in pending_hardware)
+			var/datum/robot_hardware/hw = pending_hardware[slot]
+			if(istype(hw, /datum/robot_hardware/logic_core))
+				ptlc = hw
+				break
+		if(ptlc)
+			var/mode_other = ptlc.condition_mode == "AND" ? "OR" : "AND"
+			dat += "<br>LOGIC CORE CONDITIONS  <span class='dim'>// global gate on all triggers — mode: <a href='byond://?src=[REF(src)];lc_set_mode=[mode_other]'>[ptlc.condition_mode]</a>  ([ptlc.conditions.len]/[ptlc.max_conditions])</span><br>"
+			if(ptlc.conditions.len)
+				var/ci = 0
+				for(var/list/cond in ptlc.conditions)
+					ci++
+					dat += "<span class='good'>  [cond[1]] [cond[2]] [cond[3]]</span>"
+					dat += "  <a href='byond://?src=[REF(src)];lc_remove_cond=[ci]'>\[remove\]</a><br>"
+			else
+				dat += "<span class='dim'>  (none — all triggers pass unconditionally)</span><br>"
+			if(ptlc.conditions.len < ptlc.max_conditions)
+				dat += "  add: "
+				var/list/_lc_vars = list("health", "max_health", "health_pct", "enemy_count", "world_time")
+				for(var/v in _lc_vars)
+					if(v == lc_build_var)
+						dat += "<span class='good'>[v]</span>  "
+					else
+						dat += "<a href='byond://?src=[REF(src)];lc_set_bvar=[v]'>[v]</a>  "
+				dat += "  "
+				var/list/_lc_ops = list("<", ">", "==", "!=", ">=", "<=")
+				for(var/i in 1 to _lc_ops.len)
+					var/op = _lc_ops[i]
+					if(op == lc_build_op)
+						dat += "<span class='good'>[op]</span>  "
+					else
+						dat += "<a href='byond://?src=[REF(src)];lc_set_bop=[i]'>[op]</a>  "
+				dat += "  <span class='good'>[lc_build_val]</span>"
+				dat += "  <a href='byond://?src=[REF(src)];lc_set_bval=1'>\[set val\]</a>"
+				dat += "  <a href='byond://?src=[REF(src)];lc_add_cond=1'>\[+ add\]</a><br>"
 		dat += "<a href='byond://?src=[REF(src)];eject_assembly=1'>\[Eject assembly\]</a><br>"
 	else
 		dat += "<span class='dim'>No assembly queued. Insert a behavior_assembly item into the machine.</span><br>"
@@ -1852,6 +1894,75 @@
 		return
 
 
+	// ---- LOGIC CORE CONDITION HANDLERS ----
+	// Manage conditions list on a pending logic_core datum.
+	// The datum is routed through live_hw_datums at build time so these
+	// direct mutations to .conditions survive finalization.
+
+	if(href_list["lc_set_mode"])
+		var/datum/robot_hardware/logic_core/LC = null
+		for(var/slot in pending_hardware)
+			var/datum/robot_hardware/hw = pending_hardware[slot]
+			if(istype(hw, /datum/robot_hardware/logic_core))
+				LC = hw
+				break
+		if(LC)
+			LC.condition_mode = (LC.condition_mode == "AND") ? "OR" : "AND"
+		ui_interact(usr)
+		return
+
+	if(href_list["lc_set_bvar"])
+		var/static/list/_lc_vars = list("health", "max_health", "health_pct", "enemy_count", "world_time")
+		var/v = href_list["lc_set_bvar"]
+		if(v in _lc_vars)
+			lc_build_var = v
+		ui_interact(usr)
+		return
+
+	if(href_list["lc_set_bop"])
+		var/static/list/_lc_ops = list("<", ">", "==", "!=", ">=", "<=")
+		var/idx = text2num(href_list["lc_set_bop"])
+		if(isnum(idx) && idx >= 1 && idx <= _lc_ops.len)
+			lc_build_op = _lc_ops[idx]
+		ui_interact(usr)
+		return
+
+	if(href_list["lc_set_bval"])
+		var/new_val = input(usr, "Enter comparison value:", "Condition Value", "[lc_build_val]") as null|text
+		if(!isnull(new_val))
+			lc_build_val = text2num(new_val) || 0
+		ui_interact(usr)
+		return
+
+	if(href_list["lc_add_cond"])
+		var/datum/robot_hardware/logic_core/LC = null
+		for(var/slot in pending_hardware)
+			var/datum/robot_hardware/hw = pending_hardware[slot]
+			if(istype(hw, /datum/robot_hardware/logic_core))
+				LC = hw
+				break
+		if(LC && LC.conditions.len < LC.max_conditions)
+			var/static/list/_lc_vars = list("health", "max_health", "health_pct", "enemy_count", "world_time")
+			var/static/list/_lc_ops = list("<", ">", "==", "!=", ">=", "<=")
+			if((lc_build_var in _lc_vars) && (lc_build_op in _lc_ops))
+				LC.conditions += list(list(lc_build_var, lc_build_op, lc_build_val))
+		ui_interact(usr)
+		return
+
+	if(href_list["lc_remove_cond"])
+		var/idx = text2num(href_list["lc_remove_cond"])
+		var/datum/robot_hardware/logic_core/LC = null
+		for(var/slot in pending_hardware)
+			var/datum/robot_hardware/hw = pending_hardware[slot]
+			if(istype(hw, /datum/robot_hardware/logic_core))
+				LC = hw
+				break
+		if(LC && isnum(idx) && idx >= 1 && idx <= LC.conditions.len)
+			LC.conditions.Cut(idx, idx + 1)
+		ui_interact(usr)
+		return
+
+
 // ====================================================
 // BUILDING
 // ====================================================
@@ -2038,8 +2149,9 @@
 		for(var/slot in hw_snap)
 			var/datum/robot_hardware/custom = hw_snap[slot]
 			if(!custom) continue
-			if(istype(custom, /datum/robot_hardware/circuit_board))
-				// Hand this datum off directly -- builder SPECIAL still needs applying.
+			if(istype(custom, /datum/robot_hardware/circuit_board) || istype(custom, /datum/robot_hardware/logic_core))
+				// Hand this datum off directly -- runtime state (node graph / conditions list)
+				// is not serializable through config_defs and must survive as-is.
 				live_hw_datums += custom
 				continue
 			// Standard path: snapshot config vars so a fresh datum can be built.
@@ -2077,11 +2189,11 @@
 			"AGI" = builder.special_a,
 			"LCK" = builder.special_l
 		) : list()
-		for(var/datum/robot_hardware/circuit_board/CB in live_hw_datums)
-			if(builder && !check_int_gate(builder, CB))
+		for(var/datum/robot_hardware/H in live_hw_datums)
+			if(builder && !check_int_gate(builder, H))
 				continue
-			CB.apply_special(special_snap)
-			CB.install(R)
+			H.apply_special(special_snap)
+			H.install(R)
 
 	if(R.module)
 		R.module.rebuild_modules()

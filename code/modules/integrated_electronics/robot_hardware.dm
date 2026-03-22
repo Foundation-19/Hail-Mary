@@ -1482,6 +1482,13 @@
 		"idle"     = "All clear."
 	)
 	var/max_phrases = 8
+	/// Declared vars matching phrase_* config_defs keys so vars[key] assignment
+	/// by instantiate_hardware_list / _hw_confirm_slot works correctly.
+	var/phrase_greeting = "Unit online."
+	var/phrase_warning  = "Halt. Identify yourself."
+	var/phrase_alert    = "Hostile detected."
+	var/phrase_help     = "Assistance required."
+	var/phrase_idle     = "All clear."
 
 /datum/robot_hardware/vocabulary_module/get_summary()
 	var/plural_txt = phrases.len != 1 ? "s" : ""
@@ -1504,13 +1511,17 @@
 /datum/robot_hardware/vocabulary_module/install(mob/living/silicon/robot/R)
 	. = ..(R)
 	// Map phrase_* config_defs into the phrases assoc list at install time.
-	// config_defs stores "phrase_greeting" = "text", but the runtime var is phrases["greeting"].
+	// Read from vars[key] — the declared phrase_* vars receive user values through
+	// instantiate_hardware_list's H.vars[key] = config[key] path before install() runs.
+	// Fall through to the config_defs default only if the var is still at its zero value.
 	for(var/key in config_defs)
 		if(copytext(key, 1, 8) != "phrase_")  // skip non-phrase keys like max_phrases
 			continue
 		var/slot = copytext(key, 8)  // strip "phrase_" prefix -> "greeting", "warning" etc
-		var/list/def = config_defs[key]
-		var/val = def.len >= 3 ? def[3] : ""
+		var/val = vars[key]
+		if(isnull(val) || !length("[val]"))
+			var/list/def = config_defs[key]
+			val = (def.len >= 3) ? def[3] : ""
 		if(slot && val)
 			phrases[slot] = val
 
