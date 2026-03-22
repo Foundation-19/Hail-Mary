@@ -1220,6 +1220,37 @@
 				var/hw_note = C.needs_hardware ? "  <span class='warn'>HARDWARE</span>" : ""
 				dat += "<span class='dim'>  [C.circuit_name][hw_note]</span><br>"
 				dat += "<span class='dim'>    [C.circuit_desc]</span><br>"
+		// TRIGGER GATES -- only shown when a circuit_board is installed in hardware
+		var/datum/robot_hardware/circuit_board/ptcb = null
+		for(var/slot in pending_hardware)
+			var/datum/robot_hardware/hw = pending_hardware[slot]
+			if(istype(hw, /datum/robot_hardware/circuit_board))
+				ptcb = hw
+				break
+		if(ptcb && ptcb.nodes.len)
+			dat += "<br>TRIGGER GATES  <span class='dim'>// wire a board node output to gate a trigger's responses</span><br>"
+			var/trig_idx = 0
+			for(var/datum/behavior_circuit/C in A.circuits)
+				if(!istype(C, /datum/behavior_circuit/trigger))
+					continue
+				trig_idx++
+				var/datum/behavior_circuit/trigger/TR = C
+				dat += "<span class='dim'>[TR.circuit_name]</span>  "
+				if(TR.board_gate_node_idx > 0 && TR.board_gate_node_idx <= ptcb.nodes.len)
+					var/datum/circuit_node/GN = ptcb.nodes[TR.board_gate_node_idx]
+					dat += "<span class='good'>gate: [GN.node_name].[TR.board_gate_output]</span>"
+					dat += "  <a href='byond://?src=[REF(src)];prog_clear_gate=[trig_idx]'>\[clear\]</a>"
+				else
+					dat += "<span class='dim'>no gate</span>"
+					// Build picker: list all node outputs available
+					var/list/gate_links = list()
+					for(var/ni in 1 to ptcb.nodes.len)
+						var/datum/circuit_node/N = ptcb.nodes[ni]
+						for(var/outp in N.outputs)
+							gate_links += "<a href='byond://?src=[REF(src)];prog_set_gate=[trig_idx]:[ni]:[outp]'>[N.node_name].[outp]</a>"
+					if(gate_links.len)
+						dat += "  set: " + gate_links.Join("  ")
+				dat += "<br>"
 		dat += "<a href='byond://?src=[REF(src)];eject_assembly=1'>\[Eject assembly\]</a><br>"
 	else
 		dat += "<span class='dim'>No assembly queued. Insert a behavior_assembly item into the machine.</span><br>"
@@ -1768,6 +1799,58 @@
 		ui_interact(usr)
 		return
 
+	// ---- TRIGGER GATE HANDLERS ----
+	// prog_set_gate=trig_idx:node_idx:output_name
+	// Wires a circuit_board node output to gate a trigger's responses.
+
+	if(href_list["prog_set_gate"])
+		if(!behavior_assembly)
+			return
+		var/list/parts = splittext(href_list["prog_set_gate"], ":")
+		if(parts.len == 3)
+			var/trig_target = text2num(parts[1])
+			var/node_idx    = text2num(parts[2])
+			var/outp_name   = parts[3]
+			// Validate the node and output against the pending circuit_board
+			var/datum/robot_hardware/circuit_board/CB = null
+			for(var/slot in pending_hardware)
+				var/datum/robot_hardware/hw = pending_hardware[slot]
+				if(istype(hw, /datum/robot_hardware/circuit_board))
+					CB = hw
+					break
+			if(CB && node_idx >= 1 && node_idx <= CB.nodes.len)
+				var/datum/circuit_node/GN = CB.nodes[node_idx]
+				if(outp_name in GN.outputs)
+					var/trig_count = 0
+					for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
+						if(!istype(C, /datum/behavior_circuit/trigger))
+							continue
+						trig_count++
+						if(trig_count == trig_target)
+							var/datum/behavior_circuit/trigger/TR = C
+							TR.board_gate_node_idx = node_idx
+							TR.board_gate_output   = outp_name
+							break
+		ui_interact(usr)
+		return
+
+	if(href_list["prog_clear_gate"])
+		if(!behavior_assembly)
+			return
+		var/trig_target = text2num(href_list["prog_clear_gate"])
+		var/trig_count  = 0
+		for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
+			if(!istype(C, /datum/behavior_circuit/trigger))
+				continue
+			trig_count++
+			if(trig_count == trig_target)
+				var/datum/behavior_circuit/trigger/TR = C
+				TR.board_gate_node_idx = 0
+				TR.board_gate_output   = "result"
+				break
+		ui_interact(usr)
+		return
+
 
 // ====================================================
 // BUILDING
@@ -1942,12 +2025,24 @@
 	// Recommended hardware is only used to pre-populate the HARDWARE tab UI --
 	// it is never silently installed. If the player didn't touch the HARDWARE tab,
 	// hw_snap is empty and the robot gets no hardware (just its basic_modules items).
+	//
+	// circuit_board is a special case: its node graph (nodes list + connections list)
+	// lives on the datum itself and is NOT serializable through config_defs. We pass
+	// the live datum directly so the node graph survives finalization intact.
+	// The datum is transferred out of pending_hardware so it won't get qdel'd when
+	// the workshop clears its state.
 	var/list/hw_entries = list()
+	/// Carry live circuit_board datums separately so they bypass the type+config path.
+	var/list/live_hw_datums = list()
 	if(hw_snap && hw_snap.len)
 		for(var/slot in hw_snap)
 			var/datum/robot_hardware/custom = hw_snap[slot]
 			if(!custom) continue
-			// Snapshot config vars from the already-configured datum
+			if(istype(custom, /datum/robot_hardware/circuit_board))
+				// Hand this datum off directly -- builder SPECIAL still needs applying.
+				live_hw_datums += custom
+				continue
+			// Standard path: snapshot config vars so a fresh datum can be built.
 			var/list/config = list()
 			for(var/key in custom.config_defs)
 				config[key] = custom.vars[key]
@@ -1968,6 +2063,26 @@
 	// rebuild_modules() is called unconditionally after so basic_modules items always load
 	// even when the player picked no hardware.
 	instantiate_hardware_list(hw_entries, R, builder)
+
+	// Install live circuit_board datums directly (their node graphs can't round-trip through
+	// the type+config snapshot). Apply SPECIAL and install in the same fashion as
+	// instantiate_hardware_list does for normal hardware.
+	if(live_hw_datums.len)
+		var/list/special_snap = builder ? list(
+			"STR" = builder.special_s,
+			"PER" = builder.special_p,
+			"END" = builder.special_e,
+			"CHA" = builder.special_c,
+			"INT" = builder.special_i,
+			"AGI" = builder.special_a,
+			"LCK" = builder.special_l
+		) : list()
+		for(var/datum/robot_hardware/circuit_board/CB in live_hw_datums)
+			if(builder && !check_int_gate(builder, CB))
+				continue
+			CB.apply_special(special_snap)
+			CB.install(R)
+
 	if(R.module)
 		R.module.rebuild_modules()
 

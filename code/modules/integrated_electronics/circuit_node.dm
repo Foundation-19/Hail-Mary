@@ -53,6 +53,18 @@
 /datum/circuit_node/proc/get_board()
 	return board_ref?.resolve()
 
+/// Convenience: find installed hardware of a given type on the robot this node's board is attached to.
+/// Returns null if not found or not attached.
+/datum/circuit_node/proc/get_robot_hardware(hw_type)
+	var/datum/robot_hardware/circuit_board/B = get_board()
+	if(!B) return null
+	var/mob/living/silicon/robot/R = B.get_robot()
+	if(!R || !R.installed_hardware) return null
+	for(var/datum/robot_hardware/HW in R.installed_hardware)
+		if(istype(HW, hw_type))
+			return HW
+	return null
+
 
 // ====================================================
 // MATH NODES
@@ -220,6 +232,96 @@
 	outputs["result"] = round(inputs["value"], places)
 
 
+// -- EXPONENT -----------------------------------------
+
+/datum/circuit_node/math/exponent
+	node_name     = "Exponent"
+	node_category = "Math"
+	node_desc     = "Raises A to the power of B."
+	node_tutorial = "Inputs: A (number), B (number). Output: result = A ^ B."
+
+/datum/circuit_node/math/exponent/New()
+	inputs  = list("A" = 0, "B" = 1)
+	outputs = list("result" = 0)
+
+/datum/circuit_node/math/exponent/evaluate()
+	outputs["result"] = inputs["A"] ** inputs["B"]
+
+
+// -- SIGN ---------------------------------------------
+
+/datum/circuit_node/math/sign
+	node_name     = "Sign"
+	node_category = "Math"
+	node_desc     = "Returns 1 if positive, -1 if negative, 0 if zero."
+	node_tutorial = "Input: value (number). Output: result = sign(value)."
+
+/datum/circuit_node/math/sign/New()
+	inputs  = list("value" = 0)
+	outputs = list("result" = 0)
+
+/datum/circuit_node/math/sign/evaluate()
+	var/v = inputs["value"]
+	outputs["result"] = v > 0 ? 1 : (v < 0 ? -1 : 0)
+
+
+// -- AVERAGE ------------------------------------------
+
+/datum/circuit_node/math/average
+	node_name     = "Average"
+	node_category = "Math"
+	node_desc     = "Computes the average of up to four inputs. Null (0) inputs are skipped."
+	node_tutorial = "Inputs: A, B, C, D (numbers). Output: average of non-zero inputs."
+
+/datum/circuit_node/math/average/New()
+	inputs  = list("A" = 0, "B" = 0, "C" = 0, "D" = 0)
+	outputs = list("result" = 0, "count" = 0)
+
+/datum/circuit_node/math/average/evaluate()
+	var/sum = 0
+	var/n   = 0
+	for(var/key in list("A","B","C","D"))
+		var/v = inputs[key]
+		if(isnum(v) && v != 0)
+			sum += v
+			n++
+	outputs["count"]  = n
+	outputs["result"] = n > 0 ? (sum / n) : 0
+
+
+// -- PI CONSTANT --------------------------------------
+
+/datum/circuit_node/math/pi_const
+	node_name     = "Pi"
+	node_category = "Math"
+	node_desc     = "Outputs the mathematical constant pi (~3.14159)."
+
+/datum/circuit_node/math/pi_const/New()
+	inputs  = list()
+	outputs = list("value" = PI)
+
+/datum/circuit_node/math/pi_const/evaluate()
+	outputs["value"] = PI
+
+
+// -- RANDOM -------------------------------------------
+
+/datum/circuit_node/math/random_node
+	node_name     = "Random"
+	node_category = "Math"
+	node_desc     = "Outputs a random integer between L and H (inclusive)."
+	node_tutorial = "Inputs: L (low), H (high). Output: random integer in range L to H."
+
+/datum/circuit_node/math/random_node/New()
+	inputs  = list("L" = 1, "H" = 10)
+	outputs = list("result" = 0)
+
+/datum/circuit_node/math/random_node/evaluate()
+	var/lo = round(inputs["L"])
+	var/hi = round(inputs["H"])
+	outputs["result"] = rand(min(lo, hi), max(lo, hi))
+
+
 // ====================================================
 // TRIG NODES
 // Replaces: trig.dm
@@ -262,6 +364,19 @@
 
 /datum/circuit_node/math/trig/arctan/evaluate()
 	outputs["angle"] = arctan(inputs["y"], inputs["x"])
+
+
+/datum/circuit_node/math/trig/tan
+	node_name     = "Tangent"
+	node_category = "Math/Trig"
+	node_desc     = "Returns tan(angle) where angle is in degrees."
+
+/datum/circuit_node/math/trig/tan/New()
+	inputs  = list("angle" = 0)
+	outputs = list("result" = 0)
+
+/datum/circuit_node/math/trig/tan/evaluate()
+	outputs["result"] = tan(inputs["angle"])
 
 
 /datum/circuit_node/math/trig/sqrt
@@ -1072,6 +1187,150 @@
 	outputs["time_ds"] = world.time
 
 
+/datum/circuit_node/robot_reader/power
+	node_name     = "Robot Power"
+	node_category = "Robot Reader"
+	node_desc     = "Outputs the robot's current cell charge, max charge, charge percentage, and low-power flag."
+
+/datum/circuit_node/robot_reader/power/New()
+	inputs  = list()
+	outputs = list("charge" = 0, "max_charge" = 0, "charge_pct" = 0, "low_power" = FALSE)
+
+/datum/circuit_node/robot_reader/power/evaluate()
+	var/datum/robot_hardware/circuit_board/B = get_board()
+	if(!B) return
+	var/mob/living/silicon/robot/R = B.get_robot()
+	if(!R) return
+	var/obj/item/stock_parts/cell/C = R.cell
+	if(!C)
+		outputs["charge"]     = 0
+		outputs["max_charge"] = 0
+		outputs["charge_pct"] = 0
+		outputs["low_power"]  = TRUE
+		return
+	outputs["charge"]     = C.charge
+	outputs["max_charge"] = C.maxcharge
+	outputs["charge_pct"] = (C.charge / max(1, C.maxcharge)) * 100
+	outputs["low_power"]  = R.low_power_mode
+
+
+/datum/circuit_node/robot_reader/combat_state
+	node_name     = "Combat State"
+	node_category = "Robot Reader"
+	node_desc     = "Outputs whether the robot is in combat mode and how long since it last took damage."
+
+/datum/circuit_node/robot_reader/combat_state/New()
+	inputs  = list()
+	outputs = list("in_combat" = FALSE, "time_since_damage" = 0)
+
+/datum/circuit_node/robot_reader/combat_state/evaluate()
+	var/datum/robot_hardware/circuit_board/B = get_board()
+	if(!B) return
+	var/mob/living/silicon/robot/R = B.get_robot()
+	if(!R) return
+	outputs["in_combat"] = (R.a_intent == INTENT_HARM)
+	if(R.last_damage_time)
+		outputs["time_since_damage"] = world.time - R.last_damage_time
+	else
+		outputs["time_since_damage"] = 0
+
+
+/datum/circuit_node/robot_reader/friendly_count
+	node_name     = "Nearby Friend Count"
+	node_category = "Robot Reader"
+	node_desc     = "Counts friendly mobs within a configurable radius. Skips neutral/silicon false-positives."
+	var/scan_radius = 10
+
+/datum/circuit_node/robot_reader/friendly_count/New()
+	inputs  = list()
+	outputs = list("count" = 0, "friendlies_present" = FALSE)
+	config_defs = list(
+		"scan_radius" = list("Scan Radius", "number", 10)
+	)
+
+/datum/circuit_node/robot_reader/friendly_count/evaluate()
+	var/datum/robot_hardware/circuit_board/B = get_board()
+	if(!B) return
+	var/mob/living/silicon/robot/R = B.get_robot()
+	if(!R) return
+	var/count = 0
+	for(var/mob/living/M in range(scan_radius, R))
+		if(M == R || M.stat == DEAD) continue
+		if(_is_faction_friend(R, M))
+			count++
+	outputs["count"]             = count
+	outputs["friendlies_present"] = count > 0
+
+
+/datum/circuit_node/robot_reader/nav_state
+	node_name     = "Nav State"
+	node_category = "Robot Reader"
+	node_desc     = "Reads the installed nav_computer state: patrol mode, current waypoint index, and total waypoints."
+
+/datum/circuit_node/robot_reader/nav_state/New()
+	inputs  = list()
+	outputs = list("has_nav" = FALSE, "patrol_mode" = "none", "current_waypoint" = 0, "waypoint_count" = 0)
+
+/datum/circuit_node/robot_reader/nav_state/evaluate()
+	var/datum/robot_hardware/nav_computer/NAV = get_robot_hardware(/datum/robot_hardware/nav_computer)
+	if(!NAV)
+		outputs["has_nav"]          = FALSE
+		outputs["patrol_mode"]      = "none"
+		outputs["current_waypoint"] = 0
+		outputs["waypoint_count"]   = 0
+		return
+	outputs["has_nav"]          = TRUE
+	outputs["patrol_mode"]      = NAV.patrol_mode
+	outputs["current_waypoint"] = NAV.current_waypoint
+	outputs["waypoint_count"]   = NAV.waypoints ? NAV.waypoints.len : 0
+
+
+/datum/circuit_node/robot_reader/memory_key
+	node_name     = "Memory Key"
+	node_category = "Robot Reader"
+	node_desc     = "Reads a named key from the robot's memory_core. Outputs the value as both a number and text."
+	var/key_name  = "key"
+
+/datum/circuit_node/robot_reader/memory_key/New()
+	inputs  = list()
+	outputs = list("num_value" = 0, "text_value" = "", "has_value" = FALSE)
+	config_defs = list(
+		"key_name" = list("Memory Key Name", "text", "key")
+	)
+
+/datum/circuit_node/robot_reader/memory_key/evaluate()
+	var/datum/robot_hardware/memory_core/MEM = get_robot_hardware(/datum/robot_hardware/memory_core)
+	if(!MEM || !MEM.memory || !(key_name in MEM.memory))
+		outputs["num_value"]  = 0
+		outputs["text_value"] = ""
+		outputs["has_value"]  = FALSE
+		return
+	var/val = MEM.memory[key_name]
+	outputs["has_value"]  = TRUE
+	outputs["num_value"]  = isnull(val) ? 0 : text2num("[val]") || 0
+	outputs["text_value"] = isnull(val) ? "" : "[val]"
+
+
+/datum/circuit_node/robot_reader/robot_status
+	node_name     = "Robot Status"
+	node_category = "Robot Reader"
+	node_desc     = "Outputs boolean flags for robot operational state: alive, locked down, emagged, ion-pulsed."
+
+/datum/circuit_node/robot_reader/robot_status/New()
+	inputs  = list()
+	outputs = list("is_alive" = FALSE, "locked_down" = FALSE, "emagged" = FALSE, "ionpulse_active" = FALSE)
+
+/datum/circuit_node/robot_reader/robot_status/evaluate()
+	var/datum/robot_hardware/circuit_board/B = get_board()
+	if(!B) return
+	var/mob/living/silicon/robot/R = B.get_robot()
+	if(!R) return
+	outputs["is_alive"]       = (R.stat != DEAD)
+	outputs["locked_down"]    = R.locked_down
+	outputs["emagged"]        = R.emagged
+	outputs["ionpulse_active"] = R.ionpulse_on
+
+
 // ====================================================
 // NODE CATALOG
 // All available node types grouped by category.
@@ -1091,9 +1350,15 @@
 		/datum/circuit_node/math/min_node,
 		/datum/circuit_node/math/max_node,
 		/datum/circuit_node/math/round_node,
+		/datum/circuit_node/math/exponent,
+		/datum/circuit_node/math/sign,
+		/datum/circuit_node/math/average,
+		/datum/circuit_node/math/pi_const,
+		/datum/circuit_node/math/random_node,
 		// Trig
 		/datum/circuit_node/math/trig/sin,
 		/datum/circuit_node/math/trig/cos,
+		/datum/circuit_node/math/trig/tan,
 		/datum/circuit_node/math/trig/arctan,
 		/datum/circuit_node/math/trig/sqrt,
 		// Logic
@@ -1145,5 +1410,11 @@
 		/datum/circuit_node/robot_reader/health,
 		/datum/circuit_node/robot_reader/position,
 		/datum/circuit_node/robot_reader/enemy_count,
-		/datum/circuit_node/robot_reader/world_time
+		/datum/circuit_node/robot_reader/world_time,
+		/datum/circuit_node/robot_reader/power,
+		/datum/circuit_node/robot_reader/combat_state,
+		/datum/circuit_node/robot_reader/friendly_count,
+		/datum/circuit_node/robot_reader/nav_state,
+		/datum/circuit_node/robot_reader/memory_key,
+		/datum/circuit_node/robot_reader/robot_status
 	)

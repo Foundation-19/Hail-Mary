@@ -55,6 +55,11 @@
 	/// e.g. one assembly fires only when hurt, another fires unconditionally.
 	/// Set by the fabricator's advanced wiring UI; null = fall back to installed hardware.
 	var/datum/robot_hardware/logic_core/local_logic_core = null
+	/// Index into circuit_board.nodes (1-based) whose output must be truthy for responses
+	/// to fire. 0 = no gate. Set in the workshop Programs tab TRIGGER GATES section.
+	var/board_gate_node_idx = 0
+	/// Output pin name on the gated node to read. Defaults to "result".
+	var/board_gate_output = "result"
 
 // Triggers have no execute() � base register() wires _on_clock_tick to every circuit,
 // which calls execute(). Without this no-op, calling execute() on a trigger datum throws
@@ -84,6 +89,12 @@
 	var/datum/robot_hardware/circuit_board/CB = get_hardware(R, /datum/robot_hardware/circuit_board)
 	if(CB && CB.nodes.len)
 		CB.evaluate()
+		// Board gate: if this trigger has a node gate configured, check its output.
+		// A falsy output (0, false, null) suppresses all responses for this tick.
+		if(board_gate_node_idx > 0 && board_gate_node_idx <= CB.nodes.len)
+			var/datum/circuit_node/GN = CB.nodes[board_gate_node_idx]
+			if(!GN.outputs[board_gate_output])
+				return
 	// Fire responses
 	var/obj/item/behavior_assembly/A_exec = get_assembly()
 	if(responses_list && responses_list.len)
