@@ -317,6 +317,12 @@
 	icon_state = "car"
 	bound_width = 64
 
+/obj/item/mecha_parts/chassis/normalvehicle/jeep
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/pickuptruck
+	icon = 'icons/obj/vehicles/medium_vehicles.dmi'
+	icon_state = "car"
+	bound_width = 64
+
 /obj/item/mecha_parts/part/car_autoshaft
 	name="\improper Car Shaft"
 	desc="Used to give a vehicle torque, savaged from the wreckage of the wasteland."

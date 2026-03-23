@@ -27,7 +27,29 @@
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] dexterly opens up [src]'s space .</span>", \
 							"<span class='notice'>You dexterly open up [src]'s space.</span>")
-		new /obj/item/mecha_parts/chassis/phazon/car(loc)
+		new /obj/item/mecha_parts/chassis/normalvehicle/jeep(loc)
+		qdel(src)
+		return
+	. = ..()
+
+/obj/structure/wreck/car/jeep
+	name = "wrecked jeep"
+	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish14"
+	bound_width = 64
+
+/obj/structure/wreck/car/jeep/attacked_by(obj/item/I, mob/living/user, params)
+	if(I.tool_behaviour == TOOL_WELDER)
+		I.play_tool_sound(src)
+		user.visible_message("<span class='notice'>[user] starts preparing the [src] for a makeover...</span>", \
+							"<span class='notice'>You start preparing the [src] for a makeover...</span>")
+		if(!I.use_tool(src, user, 50))
+			return
+		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
+		user.visible_message("<span class='notice'>[user] dexterly opens up [src]'s space .</span>", \
+							"<span class='notice'>You dexterly open up [src]'s space.</span>")
+		new /obj/item/mecha_parts/chassis/normalvehicle/pickuptruck(loc)
 		qdel(src)
 		return
 	. = ..()
@@ -245,6 +267,14 @@
 	bound_width = 32
 	bound_height = 32
 
+/obj/structure/wreck/pulowski
+	name = "wrecked pulowski truck"
+	desc = "An old pre-war vehicle, rusted and destroyed with age and weathering."
+	bound_width = 192
+	bound_height = 64
+	icon = 'icons/obj/vehicles/rustybus.dmi'
+	icon_state = "pulowski"
+
 /obj/structure/wreck/trash/five_tires
 	name = "Tire Pile"
 	desc = "A pile of tires."
@@ -263,11 +293,11 @@
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] finished checking both [src].</span>", \
 							"<span class='notice'>You finish checking both[src].</span>")
-		new /obj/item/mecha_parts/part/Car_tire(loc)
-		new /obj/item/mecha_parts/part/Car_tire(loc)
-		new /obj/item/mecha_parts/part/Car_tire(loc)
-		new /obj/item/mecha_parts/part/Car_tire(loc)
-		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
 		qdel(src)
 		return
 	. = ..()
@@ -290,8 +320,8 @@
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] finished checking both [src].</span>", \
 							"<span class='notice'>You finish checking both[src].</span>")
-		new /obj/item/mecha_parts/part/Car_tire(loc)
-		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
 		qdel(src)
 		return
 	. = ..()
@@ -314,7 +344,7 @@
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] finished checking [src].</span>", \
 							"<span class='notice'>You finish checking [src].</span>")
-		new /obj/item/mecha_parts/part/Car_tire(loc)
+		new /obj/item/mecha_parts/part/car_tire(loc)
 		qdel(src)
 		return
 	. = ..()
@@ -379,7 +409,7 @@
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] finishes dissasambling the [src].</span>", \
 							"<span class='notice'>You finish dissasambling the [src].</span>")
-		new /obj/item/mecha_parts/part/Car_engine(loc)
+		new /obj/item/mecha_parts/part/car_engine(loc)
 		qdel(src)
 		return
 	. = ..()
@@ -404,7 +434,7 @@
 		playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 		user.visible_message("<span class='notice'>[user] finishes dissasambling the [src].</span>", \
 							"<span class='notice'>You finish dissasambling the [src].</span>")
-		new /obj/item/mecha_parts/part/Car_autoshaft(loc)
+		new /obj/item/mecha_parts/part/car_autoshaft(loc)
 		qdel(src)
 		return
 	. = ..()
