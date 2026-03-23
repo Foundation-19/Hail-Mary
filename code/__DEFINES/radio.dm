@@ -100,6 +100,26 @@
 #define RADIO_CHANNEL_CTF_RED "Red Team"
 #define RADIO_CHANNEL_CTF_BLUE "Blue Team"
 
+#define RADIO_CHANNEL_LDS "New Canaan"
+#define RADIO_KEY_LDS "c"
+#define RADIO_TOKEN_LDS ":c"
+
+#define RADIO_CHANNEL_USPS "USPS"
+#define RADIO_KEY_USPS "s"
+#define RADIO_TOKEN_USPS ":s"
+
+#define RADIO_CHANNEL_EIGHTIES "80s"
+#define RADIO_KEY_EIGHTIES "g"
+#define RADIO_TOKEN_EIGHTIES ":g"
+
+#define RADIO_CHANNEL_EIGHTIESB "Blue"
+#define RADIO_KEY_EIGHTIESB "b"
+#define RADIO_TOKEN_EIGHTIESB ":b"
+
+#define RADIO_CHANNEL_EIGHTIESR "Red"
+#define RADIO_KEY_EIGHTIESR "r"
+#define RADIO_TOKEN_EIGHTIESR ":r"
+
 #define MIN_FREE_FREQ 1201 // -------------------------------------------------
 // Frequencies are always odd numbers and range from 1201 to 1599.
 
@@ -126,6 +146,11 @@
 #define FREQ_BIKER 1379 //Bikers
 #define FREQ_LEGION 1381 //Legion
 #define FREQ_KHANS 1383 //Khans
+#define FREQ_LDS 1385 // LDS New Canaanites
+#define FREQ_USPS 1387 // Post office
+#define FREQ_EIGHTIES 1389  // 80s
+#define FREQ_EIGHTIESB 1391 // 80s blue team
+#define FREQ_EIGHTIESR 1393 // 80s red team
 
 ///hey guess what, telecomm's a fuckin cock, so im making the list here
 ///update this list with all the frequenties the fuckin bus fuckin listens to (which is all of them, fuck you its all of them)
@@ -150,7 +175,13 @@
 		FREQ_TOWN_COMMERCE,\
 		FREQ_BIKER,\
 		FREQ_LEGION,\
-		FREQ_KHANS
+		FREQ_KHANS, \
+		FREQ_LDS, \
+		FREQ_USPS, \
+		FREQ_EIGHTIES, \
+		FREQ_EIGHTIESB, \
+		FREQ_EIGHTIESR
+		
 
 #define FREQ_HOLOGRID_SOLUTION 1433
 #define FREQ_STATUS_DISPLAYS 1435
@@ -269,7 +300,12 @@ GLOBAL_LIST_INIT(radiochannels, list(
 	RADIO_CHANNEL_RANGER = FREQ_RANGER,
 	RADIO_CHANNEL_TOWN_COMMERCE = FREQ_TOWN_COMMERCE,
 	RADIO_CHANNEL_LEGION = FREQ_LEGION,
-	RADIO_CHANNEL_KHANS = FREQ_KHANS
+	RADIO_CHANNEL_KHANS = FREQ_KHANS,
+	RADIO_CHANNEL_LDS = FREQ_LDS,
+	RADIO_CHANNEL_USPS = FREQ_USPS,
+	RADIO_CHANNEL_EIGHTIES = FREQ_EIGHTIES,
+	RADIO_CHANNEL_EIGHTIESB = FREQ_EIGHTIESB,
+	RADIO_CHANNEL_EIGHTIESR = FREQ_EIGHTIESR,
 	))
 
 GLOBAL_LIST_INIT(reverseradiochannels, list(
@@ -297,7 +333,12 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	"[FREQ_RANGER]" = RADIO_CHANNEL_RANGER,
 	"[FREQ_TOWN_COMMERCE]" = RADIO_CHANNEL_TOWN_COMMERCE,
 	"[FREQ_LEGION]" = RADIO_CHANNEL_LEGION,
-	"[FREQ_KHANS]" = RADIO_CHANNEL_KHANS
+	"[FREQ_KHANS]" = RADIO_CHANNEL_KHANS,
+	"[FREQ_LDS]" = RADIO_CHANNEL_LDS,
+	"[FREQ_USPS]" = RADIO_CHANNEL_USPS,
+	"[FREQ_EIGHTIES]" = RADIO_CHANNEL_EIGHTIES,
+	"[FREQ_EIGHTIESB]" = RADIO_CHANNEL_EIGHTIESB,
+	"[FREQ_EIGHTIESR]" = RADIO_CHANNEL_EIGHTIESR
 ))
 
 GLOBAL_LIST_INIT(freqtospan, list(
@@ -324,7 +365,12 @@ GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_TOWN_MAYOR]" = "comradio",
 	"[FREQ_RANGER]" = "rangerradio",
 	"[FREQ_LEGION]" = "legionradio",
-	"[FREQ_KHANS]" = "khansradio"
+	"[FREQ_KHANS]" = "khansradio",
+	"[FREQ_LDS]" = "ldsradio",
+	"[FREQ_USPS]" = "uspsradio",
+	"[FREQ_EIGHTIES]" = "eightiesradio",
+	"[FREQ_EIGHTIESB]" = "eightiesblueradio",
+	"[FREQ_EIGHTIESR]" = "eightiesredradio"
 	))
 
 GLOBAL_LIST_INIT(department_radio_prefixes, list(":", "."))
@@ -362,6 +408,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	RADIO_KEY_TOWN_COMMERCE = RADIO_CHANNEL_TOWN_COMMERCE,
 	RADIO_KEY_LEGION = RADIO_CHANNEL_LEGION,
 	RADIO_KEY_KHANS = RADIO_CHANNEL_KHANS,
+	RADIO_KEY_LDS = RADIO_CHANNEL_LDS,
+	RADIO_KEY_USPS = RADIO_CHANNEL_USPS,
+	RADIO_KEY_EIGHTIES = RADIO_CHANNEL_EIGHTIES,
+	RADIO_KEY_EIGHTIESB = RADIO_CHANNEL_EIGHTIESB,
+	RADIO_KEY_EIGHTIESR = RADIO_CHANNEL_EIGHTIESR,
 
 	// Admin
 	MODE_KEY_ADMIN = MODE_ADMIN,

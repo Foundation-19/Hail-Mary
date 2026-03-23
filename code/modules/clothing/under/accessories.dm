@@ -253,6 +253,11 @@
 	desc = "An fancy red armband!"
 	icon_state = "redband"
 
+/obj/item/clothing/accessory/armband/blue
+	name = "blue armband"
+	desc = "An fancy blue armband!"
+	icon_state = "blueband"
+
 /obj/item/clothing/accessory/armband/deputy
 	name = "security deputy armband"
 	desc = "An armband, worn by personnel authorized to act as a deputy to the chief of security."
