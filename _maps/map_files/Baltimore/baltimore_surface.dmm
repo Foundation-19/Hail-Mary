@@ -14524,15 +14524,6 @@
 /obj/item/chair/stool/bar,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
-"eDy" = (
-/obj/effect/decal/waste{
-	icon_state = "goo8";
-	light_color = s
-	},
-/turf/open/indestructible/ground/outside/water{
-	name = "sea water"
-	},
-/area/f13/Ocean)
 "eDJ" = (
 /obj/item/chair/wood/wings,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -115173,7 +115164,7 @@ vua
 vua
 vua
 vua
-eDy
+ydN
 vua
 nBb
 nBb
