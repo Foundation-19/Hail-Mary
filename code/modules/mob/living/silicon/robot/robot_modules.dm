@@ -75,7 +75,8 @@
 	var/perso_greet_last = 0
 	var/perso_greet_check_last = 0
 	var/perso_combat_last = 0
-	/// Weakref list of mobs already greeted this encounter. Pruned when they leave range.
+	/// Associative list (REF string -> weakref) of mobs already greeted this encounter.
+	/// Keyed by REF(mob) so duplicate checks work correctly. Pruned when they leave range.
 	var/list/greeted_refs = null
 	/// Weakref to the host robot, stored at Initialize() for death signal unregistration.
 	var/datum/weakref/personality_host_ref = null
@@ -338,21 +339,23 @@
 			R.say(pick(combat_taunts))
 		return
 	// Greet approaching conscious mobs — each mob greeted only once per encounter.
-	// Prune refs when a mob leaves 5-tile range so they can be greeted again if they return.
+	// Prune entries when a mob leaves 8-tile range so they can be greeted again if they return.
 	if(greet_lines.len && t > perso_greet_check_last + 30)
 		perso_greet_check_last = t
 		if(!greeted_refs) greeted_refs = list()
-		for(var/datum/weakref/W in greeted_refs)
+		// Prune stale entries: remove mobs that have left range or deleted
+		for(var/mref in greeted_refs)
+			var/datum/weakref/W = greeted_refs[mref]
 			var/mob/MG = W.resolve()
-			if(!MG || get_dist(R, MG) > 5)
-				greeted_refs -= W
+			if(!MG || get_dist(R, MG) > 8)
+				greeted_refs -= mref
 		for(var/mob/living/M in range(4, R))
 			if(M == R || M.stat != CONSCIOUS)
 				continue
-			var/datum/weakref/MR = WEAKREF(M)
-			if(MR in greeted_refs)
+			var/mref = REF(M)
+			if(greeted_refs[mref])
 				continue
-			greeted_refs += MR
+			greeted_refs[mref] = WEAKREF(M)
 			R.say(pick(greet_lines))
 			return
 

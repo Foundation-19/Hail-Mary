@@ -345,12 +345,17 @@
 
 	INVOKE_ASYNC(src, PROC_REF(_end_hack_session))
 
-	// Fire any on_hacked trigger circuits in the robot's assembly
+	// Fire any on_hacked trigger circuits in the robot's assembly.
+	// INT roll: higher intelligence means a stealthier hack — trigger is less likely to fire.
+	// INT 0 = 100% chance trigger fires, INT 5 = 50%, INT 10 = 0%
+	var/hacker_int = (ishuman(user) && user.special_i) ? user.special_i : 5
+	var/trigger_chance = max(0, 100 - (hacker_int * 10))
 	if(R.cpu_cert)
 		for(var/datum/cert_upgrade/robot/behavior_assembly/BA in R.cpu_cert.upgrade_slots)
 			if(BA?.assembly)
 				for(var/datum/behavior_circuit/trigger/on_hacked/TH in BA.assembly.circuits)
-					TH.fire_on_hacked()
+					if(prob(trigger_chance))
+						TH.fire_on_hacked()
 				break
 
 	_open_action_menu(R, user, masked)

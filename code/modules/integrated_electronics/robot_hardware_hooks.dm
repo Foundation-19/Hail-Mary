@@ -134,13 +134,13 @@
 // ====================================================
 
 /datum/robot_hardware/injector
-	/// Internal reagent tank. Created at install time.
+	/// Internal reagent tank. Created at install time by install() in robot_hardware.dm.
+	/// The borghypo is filled with reagent_type/reagent_volume and added to the module.
 	var/obj/item/reagent_containers/reagent_tank = null
 
-/datum/robot_hardware/injector/install(mob/living/silicon/robot/R)
-	. = ..()
-	if(!reagent_tank)
-		reagent_tank = new /obj/item/reagent_containers/glass/beaker/large(R)
+// NOTE: install() for injector is defined in robot_hardware.dm.
+// Do NOT redefine it here — duplicate proc definitions in DM shadow the earlier one
+// and would lose the borghypo initialization + module registration logic.
 
 
 // ====================================================

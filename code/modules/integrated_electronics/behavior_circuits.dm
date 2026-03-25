@@ -970,7 +970,6 @@
 	circuit_desc = "Fires when the robot's health scanner detects a critically injured mob."
 	tutorial_text = "HARDWARE REQUIRED: Health Scanner. Fires when the scanner finds a mob with critical injuries in range. More precise than On Mob Injured. Good for medic robots. Pair with Inject Reagent or Say Text."
 	cpu_cost = 2
-	var/damage_threshold = 80
 	var/last_check = 0
 	var/check_cooldown = 30
 
@@ -993,12 +992,24 @@
 	var/datum/robot_hardware/health_scanner/HS = get_hardware(R, /datum/robot_hardware/health_scanner)
 	if(!HS)
 		return
-	var/obj/item/behavior_assembly/A = get_assembly()
-	var/scan_range = A ? A.sensor_range : 5
+	// Use the scanner's own configured range, not the assembly generic sensor_range.
+	var/scan_range = HS.scan_range
+	// critical_threshold is a percent (0-99), convert to a fraction.
+	var/threshold_frac = HS.critical_threshold / 100.0
 	for(var/mob/living/carbon/M in range(scan_range, R))
 		if(M.stat == DEAD)
 			continue
-		if((M.getBruteLoss() + M.getFireLoss() + M.getToxLoss() + M.getOxyLoss()) >= damage_threshold)
+		// Respect scan_target: skip mobs that don't match the configured target faction.
+		switch(HS.scan_target)
+			if("friendly")
+				if(!_is_faction_friend(R, M))
+					continue
+			if("hostile")
+				if(_is_faction_friend(R, M))
+					continue
+			// "all" — no filter
+		// Fire when current health is at or below the critical threshold fraction of max.
+		if(M.health <= M.maxHealth * threshold_frac)
 			_trigger(R)
 			return
 
@@ -1478,6 +1489,28 @@
 			break  // hit a wall � stop early
 
 
+// -- MOVE TO POINTER ---------------------------------
+// Steps the robot one tile toward the last laser
+// pointer target location.  Pointer Detector required.
+
+/datum/behavior_circuit/response/move_to_pointer
+	needs_hardware = TRUE
+	circuit_name = "Response: Move To Pointer"
+	hardware_slot_name = HW_SLOT_POINTER_DETECTOR
+	required_hardware_type = /datum/robot_hardware/pointer_detector
+	circuit_desc = "Steps the robot one tile toward the last laser pointer target location. Requires Pointer Detector hardware."
+	tutorial_text = "HARDWARE REQUIRED: Laser Pointer Detector. Steps the robot one tile toward the location last targeted by the operator's laser pointer. Pair with On Pointer Changed for responsive tracking — the robot moves each time the pointer moves. No pathfinding — steps directly toward the target turf."
+	cpu_cost = 1
+
+/datum/behavior_circuit/response/move_to_pointer/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	if(R.anchored || R.stat == DEAD)
+		return
+	var/datum/robot_hardware/pointer_detector/PD = get_hardware(R, /datum/robot_hardware/pointer_detector)
+	if(!PD || !PD.last_pointer_loc)
+		return
+	step_towards(R, PD.last_pointer_loc)
+
+
 // -- FIRE WEAPON -------------------------------------
 
 /datum/behavior_circuit/response/fire_weapon
@@ -1671,6 +1704,9 @@
 			target = M
 	if(!target)
 		return
+	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
+	if(GR)
+		GR.held_items -= projectile
 	projectile.forceMove(get_turf(R))
 	projectile.throw_at(target, TH.throw_range, TH.throw_force, R)
 
@@ -1773,12 +1809,14 @@
 
 /datum/behavior_circuit/response/drop_all_items/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
-	if(!GR)
+	if(!GR || !GR.held_items.len)
 		return
-	for(var/obj/item/I in R)
-		if(istype(I, /obj/item/electronic_assembly) || istype(I, /obj/item/integrated_circuit))
+	for(var/obj/item/I in GR.held_items.Copy())
+		if(QDELETED(I))
+			GR.held_items -= I
 			continue
 		I.forceMove(get_turf(R))
+		GR.held_items -= I
 
 
 // -- STUN TARGET -------------------------------------
@@ -1811,14 +1849,14 @@
 /datum/behavior_circuit/response/deploy_smoke
 	circuit_name = "Response: Deploy Smoke"
 	circuit_desc = "Releases a smoke cloud around the robot."
-	tutorial_text = "Releases a smoke cloud at the robot's position. No hardware required. Configure 'smoke_range' (default 2 tiles) and 'smoke_duration' (default 15 ticks). Good for: escape when damaged, area denial, or covering allied movement."
+	tutorial_text = "Releases a smoke cloud at the robot's position. No hardware required. Configure 'smoke_range' (1-5 tiles, default 2) and 'smoke_duration' (default 15 ticks). Good for: escape when damaged, area denial, or covering allied movement. Maximum range is capped at 5 tiles."
 	cpu_cost = 2
 	var/smoke_range = 2
 	var/smoke_duration = 15
 
 /datum/behavior_circuit/response/deploy_smoke/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/effect_system/smoke_spread/smoke = new()
-	smoke.set_up(smoke_range, get_turf(R))
+	smoke.set_up(clamp(smoke_range, 1, 5), get_turf(R))
 	smoke.start()
 
 
@@ -1981,7 +2019,7 @@
 			continue
 		if(!_is_faction_friend(R, M))
 			continue
-		R.pulling = M
+		R.start_pulling(M, supress_message = TRUE)
 		R.visible_message(span_notice("[R] begins pulling [M]."))
 		return
 
@@ -3012,6 +3050,7 @@
 
 /obj/item/behavior_assembly/surgical_assistant
 	assembly_label = "Surgical Assistant Protocol"
+	max_circuits = 4
 
 /obj/item/behavior_assembly/surgical_assistant/cert_compatible(datum/cpu_cert/C)
 	return C && (C.capability_flags & CERT_CAN_MEDICAL)
@@ -3058,6 +3097,7 @@
 
 /obj/item/behavior_assembly/infrastructure_monitor
 	assembly_label = "Infrastructure Monitor Protocol"
+	max_circuits = 4
 
 /obj/item/behavior_assembly/infrastructure_monitor/cert_compatible(datum/cpu_cert/C)
 	return C && (C.capability_flags & CERT_CAN_ENGINEERING)
@@ -3088,15 +3128,13 @@
 	var/datum/behavior_circuit/trigger/on_interval/T = new()
 	T.interval_ticks = 80
 	var/datum/behavior_circuit/response/grab_nearest_item/RE = new()
-	var/datum/behavior_circuit/response/emote_action/EA = new()
-	EA.emote_text = "begins cleaning the floor with its utility arm"
 	T.response = RE
 	circuits += T
 	circuits += RE
 
 /obj/item/behavior_assembly/hunter
 	assembly_label = "Hunter Protocol"
-	max_circuits = 5
+	max_circuits = 6
 
 /obj/item/behavior_assembly/hunter/Initialize(mapload)
 	. = ..()
@@ -3266,6 +3304,7 @@
 
 /obj/item/behavior_assembly/greeter
 	assembly_label = "Greeter Protocol"
+	max_circuits = 3
 
 /obj/item/behavior_assembly/greeter/Initialize(mapload)
 	. = ..()
@@ -3434,7 +3473,7 @@
 
 /obj/item/behavior_assembly/sentry_hold
 	assembly_label = "Sentry Hold Protocol"
-	max_circuits = 6
+	max_circuits = 7
 
 /obj/item/behavior_assembly/sentry_hold/Initialize(mapload)
 	. = ..()
@@ -3886,14 +3925,14 @@
 //   Clear Memory Flag("grudge") + Broadcast Distress
 //
 // Implemented as a single multi-trigger assembly
-// using max_circuits = 6.  The robot sees an enemy,
+// using max_circuits = 8.  The robot sees an enemy,
 // names them, chases them persistently, and
 // broadcasts on death.
 // ====================================================
 
 /obj/item/behavior_assembly/grudge
 	assembly_label = "Grudge Protocol"
-	max_circuits = 7
+	max_circuits = 8
 
 /obj/item/behavior_assembly/grudge/Initialize(mapload)
 	. = ..()
@@ -4524,7 +4563,7 @@
 
 /obj/item/behavior_assembly/shadow
 	assembly_label = "Shadow Protocol"
-	max_circuits = 5
+	max_circuits = 6
 
 /obj/item/behavior_assembly/shadow/Initialize(mapload)
 	. = ..()
@@ -4905,7 +4944,7 @@
 
 /obj/item/behavior_assembly/depot
 	assembly_label = "Depot Protocol"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/depot/Initialize(mapload)
 	. = ..()
@@ -5076,7 +5115,7 @@
 			target = M
 	if(!target)
 		return
-	R.pulling = target
+	R.start_pulling(target, supress_message = TRUE)
 	step_towards(R, safe_turf)
 	R.visible_message(span_notice("[R] grabs [target] and drags them toward safety."))
 
@@ -5091,7 +5130,7 @@
 
 /obj/item/behavior_assembly/bodyguard
 	assembly_label = "Bodyguard Protocol"
-	max_circuits = 5
+	max_circuits = 6
 
 /obj/item/behavior_assembly/bodyguard/Initialize(mapload)
 	. = ..()
@@ -5260,7 +5299,7 @@
 
 /obj/item/behavior_assembly/escalation
 	assembly_label = "Escalation Protocol"
-	max_circuits = 8
+	max_circuits = 10
 
 /obj/item/behavior_assembly/escalation/Initialize(mapload)
 	. = ..()
@@ -5317,7 +5356,7 @@
 
 /obj/item/behavior_assembly/dead_man_timer
 	assembly_label = "Dead Man Timer"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/dead_man_timer/Initialize(mapload)
 	. = ..()
@@ -5418,7 +5457,7 @@
 
 /obj/item/behavior_assembly/janitor
 	assembly_label = "Janitor Protocol"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/janitor/Initialize(mapload)
 	. = ..()
@@ -5451,7 +5490,7 @@
 
 /obj/item/behavior_assembly/lamp_bot
 	assembly_label = "Lamp Bot Protocol"
-	max_circuits = 2
+	max_circuits = 4
 
 /obj/item/behavior_assembly/lamp_bot/Initialize(mapload)
 	. = ..()
@@ -5482,7 +5521,7 @@
 
 /obj/item/behavior_assembly/battery_steward
 	assembly_label = "Battery Steward Protocol"
-	max_circuits = 4
+	max_circuits = 7
 
 /obj/item/behavior_assembly/battery_steward/Initialize(mapload)
 	. = ..()
@@ -5521,7 +5560,7 @@
 
 /obj/item/behavior_assembly/chem_runner
 	assembly_label = "Chem Runner Protocol"
-	max_circuits = 3
+	max_circuits = 4
 
 /obj/item/behavior_assembly/chem_runner/Initialize(mapload)
 	. = ..()
@@ -5605,7 +5644,7 @@
 
 /obj/item/behavior_assembly/stun_subdue
 	assembly_label = "Stun & Subdue Protocol"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/stun_subdue/Initialize(mapload)
 	. = ..()
@@ -5637,7 +5676,7 @@
 
 /obj/item/behavior_assembly/combat_response
 	assembly_label = "Combat Response Protocol"
-	max_circuits = 6
+	max_circuits = 7
 
 /obj/item/behavior_assembly/combat_response/Initialize(mapload)
 	. = ..()
@@ -5761,7 +5800,7 @@
 
 /obj/item/behavior_assembly/announce_bot
 	assembly_label = "Announce Bot Protocol"
-	max_circuits = 2
+	max_circuits = 3
 
 /obj/item/behavior_assembly/announce_bot/Initialize(mapload)
 	. = ..()
@@ -5814,7 +5853,7 @@
 
 /obj/item/behavior_assembly/alchemist
 	assembly_label = "Alchemist Protocol"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/alchemist/Initialize(mapload)
 	. = ..()
@@ -5852,7 +5891,7 @@
 
 /obj/item/behavior_assembly/sprint_ambush
 	assembly_label = "Sprint Ambush Protocol"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/sprint_ambush/Initialize(mapload)
 	. = ..()
@@ -5885,7 +5924,7 @@
 
 /obj/item/behavior_assembly/medevac
 	assembly_label = "Medevac Protocol"
-	max_circuits = 5
+	max_circuits = 6
 
 /obj/item/behavior_assembly/medevac/Initialize(mapload)
 	. = ..()
@@ -5921,7 +5960,7 @@
 
 /obj/item/behavior_assembly/riot_control
 	assembly_label = "Riot Control Protocol"
-	max_circuits = 6
+	max_circuits = 7
 
 /obj/item/behavior_assembly/riot_control/Initialize(mapload)
 	. = ..()
@@ -5987,7 +6026,7 @@
 
 /obj/item/behavior_assembly/supply_drop
 	assembly_label = "Supply Drop Protocol"
-	max_circuits = 4
+	max_circuits = 5
 
 /obj/item/behavior_assembly/supply_drop/Initialize(mapload)
 	. = ..()
@@ -6023,7 +6062,7 @@
 
 /obj/item/behavior_assembly/power_relay_bot
 	assembly_label = "Power Relay Protocol"
-	max_circuits = 4
+	max_circuits = 6
 
 /obj/item/behavior_assembly/power_relay_bot/Initialize(mapload)
 	. = ..()
@@ -6059,7 +6098,7 @@
 
 /obj/item/behavior_assembly/collection_sweep
 	assembly_label = "Collection Sweep Protocol"
-	max_circuits = 4
+	max_circuits = 6
 
 /obj/item/behavior_assembly/collection_sweep/Initialize(mapload)
 	. = ..()
@@ -6100,7 +6139,7 @@
 
 /obj/item/behavior_assembly/watchpost
 	assembly_label = "Watchpost Protocol"
-	max_circuits = 7
+	max_circuits = 11
 
 /obj/item/behavior_assembly/watchpost/Initialize(mapload)
 	. = ..()
@@ -6219,7 +6258,7 @@
 
 /obj/item/behavior_assembly/door_patrol
 	assembly_label = "Door Patrol Protocol"
-	max_circuits = 3
+	max_circuits = 4
 
 /obj/item/behavior_assembly/door_patrol/Initialize(mapload)
 	. = ..()
@@ -6374,6 +6413,7 @@
 	circuits += T2
 	circuits += R2
 	circuits += BACK
+	circuits += R3
 
 
 // ====================================================

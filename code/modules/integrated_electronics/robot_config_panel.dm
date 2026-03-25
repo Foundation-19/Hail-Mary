@@ -40,7 +40,7 @@
 // ====================================================
 
 /mob/living/silicon/robot/proc/open_config_panel(mob/user)
-	if(!check_rights_for(user.client, R_ADMIN) && !allowed(user) && !HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER))
+	if(!check_rights_for(user.client, R_ADMIN) && !allowed(user) && !HAS_TRAIT(user, TRAIT_ROBOT_WHISPERER) && !(locked_ckey && user.ckey == locked_ckey))
 		to_chat(user, span_warning("Access denied. Robotics clearance or Robot Whisperer skill required."))
 		return
 	rcp_mode   = RCP_DIAG
@@ -95,8 +95,8 @@
 			to_chat(src, span_notice("Find a CPU Certification Fabricator (green terminal) to print upgrade cards and expand your capabilities."))
 		return
 
-	// Full panel access: admin, robotics-access ID card, or Robot Whisperer trait
-	if(!check_rights_for(U.client, R_ADMIN) && !allowed(U) && !HAS_TRAIT(U, TRAIT_ROBOT_WHISPERER))
+	// Full panel access: admin, robotics-access ID card, Robot Whisperer trait, or registered operator
+	if(!check_rights_for(U.client, R_ADMIN) && !allowed(U) && !HAS_TRAIT(U, TRAIT_ROBOT_WHISPERER) && !(locked_ckey && U.ckey == locked_ckey))
 		return
 
 	// Tab navigation
@@ -268,7 +268,7 @@
 			player_robot_ckey    = null
 
 		if("reboot")
-			if(!check_rights_for(U.client, R_ADMIN) && !allowed(U) && !HAS_TRAIT(U, TRAIT_ROBOT_WHISPERER))
+			if(!check_rights_for(U.client, R_ADMIN) && !allowed(U) && !HAS_TRAIT(U, TRAIT_ROBOT_WHISPERER) && !(locked_ckey && U.ckey == locked_ckey))
 				to_chat(U, span_warning("Access denied."))
 			else
 				log_service("REBOOT -- initiated by [U.name]")

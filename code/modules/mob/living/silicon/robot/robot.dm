@@ -407,6 +407,8 @@
 		builtInCamera.c_tag = real_name	//update the camera name too
 
 /mob/living/silicon/robot/proc/get_standard_name()
+	if(!mmi)
+		return "[(designation ? "[designation] " : "")]Liberator-[ident]"
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
@@ -718,6 +720,8 @@
 		if(opened)
 			to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
 		else
+			if(istype(W, /obj/item/card/id))
+				hardware_on_id_scan(W)  // notify id_reader hardware for on_access_granted trigger
 			if(allowed(usr))
 				locked = !locked
 				to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] [src]'s cover."))

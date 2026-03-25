@@ -124,6 +124,7 @@
 		qdel(U)
 		return
 	if(C.install_upgrade(U, R))
+		assembly_override = TRUE  // allow triggers to fire on player-controlled robots
 		to_chat(user, span_notice("You install [assembly_label] into [R]. Behavior circuits activated."))
 	else
 		to_chat(user, span_warning("Installation failed - upgrade slot rejected."))
@@ -297,7 +298,9 @@
 		var/is_operator = (R.locked_ckey && istype(user, /mob/living/carbon/human))
 		if(is_operator)
 			var/mob/living/carbon/human/H = user
-			is_operator = (H.real_name == R.locked_ckey || H.name == R.locked_ckey)
+			// locked_ckey can be either a ckey (set via config panel) or a registered name (set via ID card terminal).
+			// Check both to handle whichever was used.
+			is_operator = (H.real_name == R.locked_ckey || H.name == R.locked_ckey || (H.client && H.client.ckey == R.locked_ckey))
 		if(!panel_open && !is_operator)
 			// Unauthorized redirect attempt — block and log
 			to_chat(user, span_warning("[R] emits a sharp tone. <b>UNAUTHORIZED REPROGRAMMING ATTEMPT DETECTED.</b>"))
