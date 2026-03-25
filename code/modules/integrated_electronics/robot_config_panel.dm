@@ -277,6 +277,23 @@
 				visible_message(span_warning("[src] reboots."))
 				to_chat(U, span_nicegreen("[real_name] module reset."))
 
+		if("strip_cert")
+			if(!cpu_cert)
+				to_chat(U, span_warning("[real_name] has no certification installed."))
+			else
+				var/datum/cpu_cert/stripped = cpu_cert
+				cpu_cert = null
+				// Reset stats that the cert was applying
+				maxHealth = initial(maxHealth)
+				health = clamp(health, -maxHealth, maxHealth)
+				speed = 0
+				// Wrap the cert datum in a physical card and drop it at the robot's feet
+				var/obj/item/cert_card/ejected = new(get_turf(src))
+				ejected.base_cert = stripped
+				ejected._update_name()
+				log_service("CERT STRIPPED -- [stripped.cert_name] ejected by [U.name]")
+				to_chat(U, span_nicegreen("Certification card ejected: [stripped.cert_name]. Pick it up from the floor."))
+
 	if(!QDELETED(src))
 		_rcp_push(U)
 
@@ -467,6 +484,7 @@
 				d += "&gt; <b>[html_encode(U.upgrade_name)]</b>[delta_txt]<br>"
 		else
 			d += "<span class='dim'>No upgrades installed.</span><br>"
+		d += "<a href='byond://?src=[REF(src)];a=strip_cert'>\[Eject Certification Card\]</a>  <span class='dim'>// removes installed cert and drops it as a physical card</span><br>"
 	else
 		d += "<span class='warn'>No certification installed. Robot may behave unexpectedly.</span><br>"
 	d += "<br>"

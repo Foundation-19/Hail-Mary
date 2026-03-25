@@ -1737,20 +1737,25 @@
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
 	circuit_desc = "Grabs the nearest loose item. Requires Grabber hardware."
-	tutorial_text = "HARDWARE REQUIRED: Grabber hardware datum. Picks up the nearest loose item within range. Configure 'grab_range' (default 2 tiles). The robot can then throw it (Throw Item At Enemy) or carry it."
-	cpu_cost = 2
+	tutorial_text = "HARDWARE REQUIRED: Grabber hardware datum. Picks up the nearest loose item within range and tracks it in the Grabber Arm's held_items list — which is what On Grabber Full and On Grabber Empty watch. Configure 'grab_range' (default 2 tiles). Returns silently if already at max capacity (wait for Deposit To Container to unload first)."
+	cpu_cost = 1
 	var/grab_range = 2
 
 /datum/behavior_circuit/response/grab_nearest_item/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
 	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
 	if(!GR)
 		return
+	if(GR.held_items.len >= GR.max_items)
+		return  // already at capacity — wait for Deposit To Container to unload
 	for(var/obj/item/I in range(grab_range, R))
 		if(istype(I, /obj/item/electronic_assembly) || istype(I, /obj/item/integrated_circuit))
 			continue
 		if(I.anchored)
 			continue
+		if(I.loc == R)
+			continue  // already inside this robot
 		I.forceMove(R)
+		GR.held_items += I
 		R.visible_message(span_notice("[R] picks up [I]."))
 		return
 
@@ -2036,10 +2041,12 @@
 	if(get_dist(R, target_tray) > 1)
 		step_towards(R, target_tray)
 		return
-	// attack_hand() has issilicon(user) guard that blocks robots. Call update_tray() directly
-	// which is the same proc attack_hand() calls internally when harvest == TRUE.
-	target_tray.update_tray(R)
-	R.visible_message(span_notice("[R] harvests [target_tray]."))
+	// myseed.harvest(R) spawns produce items at the robot's tile, then resets the tray.
+	// We call it directly because attack_hand() has an issilicon() guard that blocks robots.
+	// update_tray() alone only resets the tray — it does NOT spawn items.
+	if(target_tray.myseed)
+		target_tray.myseed.harvest(R)
+		R.visible_message(span_notice("[R] harvests [target_tray]."))
 
 
 // ====================================================
@@ -4731,6 +4738,10 @@
 	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
 	if(!GR)
 		return
+	// Prune stale refs — items removed from the robot externally (e.g. player took them)
+	for(var/obj/item/I in GR.held_items)
+		if(QDELETED(I) || I.loc != R)
+			GR.held_items -= I
 	var/is_full = (GR.held_items.len >= GR.max_items)
 	if(is_full && !was_full)
 		was_full = TRUE
@@ -4747,7 +4758,7 @@
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
 	circuit_desc = "Fires when the Grabber Arm drops to zero held items."
-	tutorial_text = "HARDWARE REQUIRED: Grabber Arm. Fires once when held_items drops to zero after having held something. Resets when the grabber acquires items again. Good for: a delivery bot that switches back to collection mode after dropping off cargo, or a scavenger that announces it's ready for more. Pair with Grab Nearest Item or Report Position."
+	tutorial_text = "HARDWARE REQUIRED: Grabber Arm. Fires once when held_items drops to zero after having held something. Resets when the grabber acquires items again. NOTE: this watches the Grabber Arm hardware's item list — it does NOT fire when you ctrl+click to grab a mob. To react to releasing a pulled mob, use Trigger: On Pull Released instead. Good for: a delivery bot that switches back to collection mode after dropping cargo, or a scavenger that announces readiness for more. Pair with Grab Nearest Item or Report Position."
 	cpu_cost = 1
 	var/last_check = 0
 	var/check_cooldown = 20
@@ -4774,12 +4785,55 @@
 	var/datum/robot_hardware/grabber/GR = get_hardware(R, /datum/robot_hardware/grabber)
 	if(!GR)
 		return
+	// Prune stale refs — items removed from the robot externally (e.g. player took them)
+	for(var/obj/item/I in GR.held_items)
+		if(QDELETED(I) || I.loc != R)
+			GR.held_items -= I
 	var/now_empty = (GR.held_items.len == 0)
 	if(now_empty && was_holding)
 		was_holding = FALSE
 		_trigger(R)
 	else if(!now_empty)
 		was_holding = TRUE
+
+
+// -- ON PULL RELEASED --------------------------------
+// Fires once when the robot stops pulling a mob it was
+// dragging via ctrl+click or Pulling Claw hardware.
+// Companion to on_grabber_empty which watches item pickup;
+// this one watches mob-grab.
+
+/datum/behavior_circuit/trigger/on_pull_released
+	circuit_name = "Trigger: On Pull Released"
+	circuit_desc = "Fires once when the robot releases a mob it was pulling."
+	tutorial_text = "Fires once when the robot stops pulling a mob (via ctrl+click grab or the Pulling Claw hardware). Does NOT fire when the Grabber Arm drops items — use On Grabber Empty for that. Good for: deadman detonation on release, rescue robots that announce delivery, or any build that needs to react when you let go of a dragged mob. No hardware required."
+	cpu_cost = 1
+	var/last_check = 0
+	var/check_cooldown = 5
+	var/was_pulling = FALSE
+
+/datum/behavior_circuit/trigger/on_pull_released/register(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
+	. = ..()
+	was_pulling = (R.pulling != null)
+	START_PROCESSING(SSobj, src)
+
+/datum/behavior_circuit/trigger/on_pull_released/unregister(mob/living/silicon/robot/R)
+	STOP_PROCESSING(SSobj, src)
+	. = ..()
+
+/datum/behavior_circuit/trigger/on_pull_released/process()
+	if(world.time < last_check + check_cooldown)
+		return
+	last_check = world.time
+	var/mob/living/silicon/robot/R = get_robot()
+	if(!R || R.stat == DEAD)
+		STOP_PROCESSING(SSobj, src)
+		return
+	if(R.pulling)
+		was_pulling = TRUE
+	else if(was_pulling)
+		was_pulling = FALSE
+		_trigger(R)
 
 
 // -- DEPOSIT TO CONTAINER ----------------------------
@@ -4792,8 +4846,8 @@
 	hardware_slot_name = HW_SLOT_GRABBER
 	required_hardware_type = /datum/robot_hardware/grabber
 	circuit_desc = "Deposits all held items into the nearest container. Requires Grabber Arm."
-	tutorial_text = "HARDWARE REQUIRED: Grabber Arm. Moves all currently held items into the nearest accessible container (crate, locker, bag) within 'deposit_range' tiles. Moves adjacent if needed. Good for: scavenger bots that collect and store, supply bots that stock crates, or any robot that needs a drop-off point. Pair with On Grabber Full for a full collect-deposit loop."
-	cpu_cost = 2
+	tutorial_text = "HARDWARE REQUIRED: Grabber Arm. Moves all currently held items into the nearest accessible container (crate, closet) within 'deposit_range' tiles (default 4). Moves adjacent if needed. Items are removed from the Grabber's held_items list on deposit — On Grabber Empty will fire afterward. Good for: scavenger bots, supply chains, or any automated collect-deposit loop. Pair with On Grabber Full."
+	cpu_cost = 1
 	var/deposit_range = 4
 
 /datum/behavior_circuit/response/deposit_to_container/execute(mob/living/silicon/robot/R, obj/item/behavior_assembly/A)
@@ -5289,18 +5343,16 @@
 
 // ====================================================
 // FARMING BOT PROTOCOL
-// The full autonomous farm loop:
-//   On Interval -> Harvest Nearby Plants
-//                  + Grab Nearest Item (collect yield)
-//   On Grabber Full -> Report Position (loaded) +
-//                      Follow Linked Target (return)
-//   On Grabber Empty -> Report Position (ready)
+// Fully automated harvest-and-store loop:
+//   On Interval     -> Harvest Nearby Plants (spawns items at bot's tile)
+//                    + Grab Nearest Item     (picks up items into Grabber)
+//   On Grabber Full -> Deposit To Container  (dumps items into nearest crate)
 //
-// Designed for Mr. Handy with:
-//   - Harvester Module hardware (auto_replant = TRUE)
+// No multitool setup required. Place a crate or locker within 4 tiles.
+// Requires:
+//   - Harvester Module hardware (set auto_replant = TRUE to keep trays cycling)
 //   - Grabber Arm hardware
-// Link a drop-off target with multitool + ID card
-// so the bot returns when loaded.
+// Total cpu_cost: 6 (fits Standard cert).
 // ====================================================
 
 /obj/item/behavior_assembly/farming_bot
@@ -5309,7 +5361,7 @@
 
 /obj/item/behavior_assembly/farming_bot/Initialize(mapload)
 	. = ..()
-	// Primary loop: harvest then collect yield
+	// Primary loop: harvest trays, then grab yield off the floor
 	var/datum/behavior_circuit/trigger/on_interval/T1 = new()
 	T1.interval_ticks = 50  // ~5s between harvest sweeps
 	var/datum/behavior_circuit/response/harvest_plants/RE1 = new()
@@ -5318,15 +5370,12 @@
 	circuits += T1
 	circuits += RE1
 	circuits += RE2
-	// Full load: report and return to linked target
+	// Full load: walk to nearest crate and deposit everything
 	var/datum/behavior_circuit/trigger/on_grabber_full/T2 = new()
-	var/datum/behavior_circuit/response/report_position/RE3 = new()
-	RE3.position_prefix = "Harvest loaded"
-	var/datum/behavior_circuit/response/follow_target/RE4 = new()
-	T2.responses_list = list(RE3, RE4)
+	var/datum/behavior_circuit/response/deposit_to_container/RE3 = new()
+	T2.response = RE3
 	circuits += T2
 	circuits += RE3
-	circuits += RE4
 
 
 // ====================================================

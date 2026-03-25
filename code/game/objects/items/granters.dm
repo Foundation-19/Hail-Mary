@@ -1076,6 +1076,20 @@
 	traitname = "wirevision"
 	remarks = list("Troubleshooting is a systematic approach to problem solving, do not skip any steps in the process.", "Ensure you have all the required parts before you begin.", "Don't lose track of your tools, or you have a new problem to deal with.", "Make sure you check the colouring of wires extremely carefully- you don't want to be mixing up yellow and lime, or purple and indigo!")
 
+/obj/item/book/granter/trait/robot_whisperer
+	name = "RobCo Unified Robotics Programming Manual"
+	desc = "A dense pre-war technical manual from RobCo Industries. Covers behavioral circuit logic, C.O.R.E. certification hierarchies, personality matrix configuration, and field service protocols. The cover reads: 'FOR AUTHORIZED TECHNICIANS ONLY.'"
+	oneuse = TRUE
+	granted_trait = TRAIT_ROBOT_WHISPERER
+	traitname = "robot programming"
+	remarks = list(
+		"Always power-cycle the chassis before installing a new certification card.",
+		"Behavior circuits operate on a priority stack — higher-priority responses override lower ones.",
+		"Never attempt to flash a personality matrix while the unit is online. You will regret it.",
+		"The C.O.R.E. rating system — Compute, Operations, Resilience, Energy — is the industry standard for all RobCo chassis.",
+		"A robot that keeps greeting you is working as designed. It genuinely is glad to see you."
+	)
+
 /obj/item/book/granter/trait/trekking
 	name = "Wasteland Survival Guide"
 	desc = "This indispensable guidebook contains everything that a survivor in the wasteland would need to know."

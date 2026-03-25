@@ -2004,7 +2004,7 @@
 
 /datum/cpu_fab_design/behavior/farming_bot
 	design_name = "Farming Protocol"
-	design_desc = "Harvests mature plants, collects the yield, then returns to a linked drop-off target when loaded. Requires Harvester Module and Grabber Arm hardware. Link target with multitool."
+	design_desc = "Harvests mature plants, collects the yield from the floor, then auto-deposits into the nearest crate or box when the Grabber is full. Requires Harvester Module and Grabber Arm hardware. Place a crate within 4 tiles of the growing area. No multitool required."
 	id = "behavior_farming_bot"
 	output_path = /obj/item/behavior_assembly/farming_bot
 	starter_build = TRUE

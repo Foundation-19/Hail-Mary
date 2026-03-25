@@ -2448,21 +2448,29 @@
 
 	// Circuit cpu_cost -- sum all circuits in queued assembly vs cert compute
 	if(behavior_assembly && behavior_assembly.circuits.len)
-		var/datum/cpu_cert/cc = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
+		var/cc_temp = FALSE
+		var/datum/cpu_cert/cc = robot_cert ? robot_cert.base_cert : null
+		if(!cc)
+			cc = new /datum/cpu_cert/robot()
+			cc_temp = TRUE
 		var/total_cpu = 0
 		for(var/datum/behavior_circuit/C in behavior_assembly.circuits)
 			total_cpu += C.cpu_cost
 		var/avail_cpu = cc.get_compute()
-		if(!robot_cert) qdel(cc)
+		if(cc_temp) qdel(cc)
 		if(total_cpu > avail_cpu)
 			errors += "Assembly cpu_cost [total_cpu] exceeds cert Compute [avail_cpu]. Remove circuits or use a higher-tier cert."
 
 	// Assembly cert_compatible check -- ensures assembly capability flags match the cert
 	if(behavior_assembly)
-		var/datum/cpu_cert/ac = robot_cert ? robot_cert.base_cert : new /datum/cpu_cert/robot()
+		var/ac_temp = FALSE
+		var/datum/cpu_cert/ac = robot_cert ? robot_cert.base_cert : null
+		if(!ac)
+			ac = new /datum/cpu_cert/robot()
+			ac_temp = TRUE
 		if(!behavior_assembly.cert_compatible(ac))
 			errors += "Assembly '[behavior_assembly.assembly_label]' requires capabilities this cert does not have."
-		if(!robot_cert) qdel(ac)
+		if(ac_temp) qdel(ac)
 
 	// Chassis-module tag compatibility check
 	// The selected module_type must share at least one ROBOT_ROLE_* tag with the chassis design.

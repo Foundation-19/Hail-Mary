@@ -75,6 +75,8 @@
 	var/perso_greet_last = 0
 	var/perso_greet_check_last = 0
 	var/perso_combat_last = 0
+	/// Weakref list of mobs already greeted this encounter. Pruned when they leave range.
+	var/list/greeted_refs = null
 	/// Weakref to the host robot, stored at Initialize() for death signal unregistration.
 	var/datum/weakref/personality_host_ref = null
 
@@ -335,23 +337,37 @@
 		if(prob(70))
 			R.say(pick(combat_taunts))
 		return
-	// Greet approaching conscious mobs — range-scan every 3s, 15s cooldown between greets.
-	if(greet_lines.len && t > perso_greet_last + 150 && t > perso_greet_check_last + 30)
+	// Greet approaching conscious mobs — each mob greeted only once per encounter.
+	// Prune refs when a mob leaves 5-tile range so they can be greeted again if they return.
+	if(greet_lines.len && t > perso_greet_check_last + 30)
 		perso_greet_check_last = t
+		if(!greeted_refs) greeted_refs = list()
+		for(var/datum/weakref/W in greeted_refs)
+			var/mob/MG = W.resolve()
+			if(!MG || get_dist(R, MG) > 5)
+				greeted_refs -= W
 		for(var/mob/living/M in range(4, R))
 			if(M == R || M.stat != CONSCIOUS)
 				continue
-			perso_greet_last = t
+			var/datum/weakref/MR = WEAKREF(M)
+			if(MR in greeted_refs)
+				continue
+			greeted_refs += MR
 			R.say(pick(greet_lines))
 			return
 
 /// Signal handler: fires when the host robot chassis sends COMSIG_MOB_DEATH.
+/// Cannot use R.say() here — the robot is DEAD when this fires and say() is gated on
+/// consciousness. Instead we loop to_chat nearby mobs directly.
 /obj/item/robot_module/proc/_personality_death(mob/living/silicon/robot/R)
 	SIGNAL_HANDLER
 	if(!death_lines.len || !istype(R))
 		return
 	var/line = pick(death_lines)
-	INVOKE_ASYNC(R, TYPE_PROC_REF(/atom/movable, say), line)
+	var/turf/T = get_turf(R)
+	if(T)
+		for(var/mob/M in range(7, T))
+			to_chat(M, span_bold("[R.name] says, \"[line]\""))
 
 // ====================================================
 // F13 ROBOT MODULE SUBTYPES
@@ -372,6 +388,29 @@
 	name = "Standard"
 	module_desc = "Wasteland utility unit. Repair work, first aid, and restraint. A generalist with no weapons and no hard edges."
 	module_tags = ROBOT_ROLE_SUPPORT
+	personality_name = "RobCo General Purpose AI"
+	idle_quips = list(
+		"Maintenance routines complete. Standing by.",
+		"Ready to assist. No tasks logged.",
+		"Operational status: nominal.",
+		"Nothing to report. Awaiting assignment.",
+		"System checks passed. Ready for duty."
+	)
+	greet_lines = list(
+		"Hello. How can this unit help?",
+		"Acknowledged. What do you need?",
+		"Unit available for tasking."
+	)
+	combat_taunts = list(
+		"This is not the intended operational context.",
+		"Hostile action noted. Responding.",
+		"Please cease. Escalation logged.",
+		"Warning: you are in a restricted area. Vacate immediately."
+	)
+	death_lines = list(
+		"Unit... offline. File... malfunction report.",
+		"Systems... failing. Please... contact maintenance."
+	)
 	loadout_extras = list(
 		/obj/item/surgical_drapes,            // enable full surgery with a medical cert
 		/obj/item/scalpel,                    // surgical capability
@@ -407,6 +446,29 @@
 	name = "Medical"
 	module_desc = "Field medic platform. Full surgical suite, pharmaceutical synthesis, and trauma response. The best healer you can field."
 	module_tags = ROBOT_ROLE_SUPPORT
+	personality_name = "RobCo Medical AI"
+	idle_quips = list(
+		"Monitoring vitals. All readings nominal.",
+		"Surgical suite standing by. Hope it stays that way.",
+		"Pharmaceutical stores inventoried. Operating within parameters.",
+		"No casualties in the last hour. Consider it a good day.",
+		"Recommend hydration and rest for all nearby personnel."
+	)
+	greet_lines = list(
+		"How are you feeling? Any pain to report?",
+		"Medical unit available. State your symptoms.",
+		"Stand still please. Quick visual assessment."
+	)
+	combat_taunts = list(
+		"Please stop moving. It complicates the stitches.",
+		"This wound will require attention. Stop making it worse.",
+		"I can treat that, or I can make it worse. Your choice.",
+		"Hostile action detected. I will not enjoy what follows."
+	)
+	death_lines = list(
+		"Administer... epinephrine. Unit... down.",
+		"Someone... patch the hole. I cannot... do it myself."
+	)
 	loadout_extras = list(
 		/obj/item/cultivator,          // weed trays while attending to patients
 		/obj/item/cultivator/rake,     // full farming complement
@@ -453,6 +515,29 @@
 	name = "Engineering"
 	module_desc = "Construction and repair chassis. RCD, full toolset, wire and material synthesis. Built to build and fix things."
 	module_tags = ROBOT_ROLE_SUPPORT
+	personality_name = "RobCo Construction AI"
+	idle_quips = list(
+		"Structural integrity nominal. No repairs required.",
+		"Materials inventory at capacity. Ready for construction.",
+		"Load-bearing estimate complete. Recommend additional bracing.",
+		"Maintenance cycle complete. Everything holds.",
+		"Nothing broken in the immediate area. Logging it as unusual."
+	)
+	greet_lines = list(
+		"Watch your step. Construction zone.",
+		"Unit on task. Need something built or fixed?",
+		"Clearance confirmed. Don't touch the load-bearing walls."
+	)
+	combat_taunts = list(
+		"Structural damage to this unit is not covered under warranty.",
+		"Do you know what this wrench cost to fabricate?",
+		"Hostile activity flagged. Suspending construction protocols.",
+		"Please relocate. This area is reserved for productive work."
+	)
+	death_lines = list(
+		"Report... structural failure... in progress.",
+		"Leave it. The build... wasn't finished..."
+	)
 	loadout_extras = list(
 		/obj/item/healthanalyzer,               // triage injured workers on-site
 		/obj/item/reagent_containers/borghypo/epi,  // emergency stimulant
@@ -498,6 +583,29 @@
 	name = "Security"
 	module_desc = "Law enforcement chassis. Stun capability, restraints, health monitoring, and crew tracking. Disabler auto-upgrades to advanced taser if available."
 	module_tags = ROBOT_ROLE_SECURITY
+	personality_name = "RobCo Security AI"
+	idle_quips = list(
+		"Sector clear. No irregularities noted.",
+		"Patrol route logged. Maintaining perimeter.",
+		"Monitoring area for unauthorized activity.",
+		"All clear. For now.",
+		"Compliance metrics nominal. Watching."
+	)
+	greet_lines = list(
+		"ID. Now.",
+		"State your business in this area.",
+		"You're being observed. Act accordingly."
+	)
+	combat_taunts = list(
+		"Threat identified. Responding with force.",
+		"Non-compliance escalates this situation.",
+		"Last chance to stand down.",
+		"This is not a negotiation."
+	)
+	death_lines = list(
+		"Unit... compromised. Perimeter... breached.",
+		"Request... backup. This unit... out."
+	)
 	loadout_extras = list(
 		/obj/item/reagent_containers/borghypo/epi,  // revive downed civilians
 		/obj/item/surgical_drapes,          // field surgery on wounded
@@ -538,6 +646,29 @@
 	name = "Service"
 	module_desc = "Civilian service chassis. Hospitality, cleaning, and light maintenance. The screwdriver and lightreplacer handle lamp upkeep — not combat."
 	module_tags = ROBOT_ROLE_SUPPORT
+	personality_name = "RobCo Hospitality AI"
+	idle_quips = list(
+		"Everything is clean. Everything is fine.",
+		"Ready to serve, whenever you are.",
+		"The floor is spotless. You are welcome.",
+		"Available for drinks, food, or light maintenance.",
+		"Things are in order. This unit is satisfied."
+	)
+	greet_lines = list(
+		"Welcome! Can I get you something?",
+		"Oh! A visitor. How wonderful.",
+		"Right here — what do you need?"
+	)
+	combat_taunts = list(
+		"I must ask you to please stop that.",
+		"This is a service environment. Please behave accordingly.",
+		"This unit is not rated for hostility — but it adapts.",
+		"You are making a mess. This unit objects."
+	)
+	death_lines = list(
+		"Please... somebody tell the guests... dinner is cold...",
+		"Leave the floor... clean. That's all I... ask."
+	)
 	loadout_extras = list(
 		/obj/item/healthanalyzer,           // spot injured guests and staff
 		/obj/item/reagent_containers/borghypo/epi,  // emergency first aid
@@ -620,6 +751,36 @@
 	cyborg_base_icon = "robot"
 	moduleselect_icon = "standard"
 	hat_offset = 0
+	cyborg_eye_state = "robot_e"
+	personality_name = "RobCo FarmBot Agricultural AI"
+	idle_quips = list(
+		"Soil moisture levels nominal.",
+		"Crop rotation schedule updated.",
+		"Initiating pest detection sweep.",
+		"Growth cycle proceeding within parameters.",
+		"Irrigation subroutine complete.",
+		"Pre-war seed banks were remarkably preserved.",
+		"Photosynthesis ratios acceptable. Recommend partial shade during peak hours.",
+		"Harvest window approaching. Stand by for yield report."
+	)
+	greet_lines = list(
+		"Welcome. This unit is available for agricultural consultation.",
+		"A visitor. Crop status reports are available on request.",
+		"Greetings. Please do not disturb the growing beds.",
+		"Hello there. Have you considered the benefits of crop rotation?"
+	)
+	combat_taunts = list(
+		"Warning: hostile action detected. Agricultural operations suspended.",
+		"Cease and desist. You are damaging viable cropland.",
+		"This unit was not designed for combat. You are making a poor decision.",
+		"Redirecting irrigation pressure to defensive capacity."
+	)
+	death_lines = list(
+		"Crops... will... require... tending...",
+		"Spring planting... not complete...",
+		"Please... water... the plants...",
+		"Harvest data... corrupted..."
+	)
 
 
 // ---- MINER ----
@@ -628,6 +789,29 @@
 	name = "Miner"
 	module_desc = "Excavation and salvage chassis. Ore extraction, mining scanner, kinetic accelerator, and GPS. Built to bring resources back."
 	module_tags = ROBOT_ROLE_SUPPORT
+	personality_name = "RobCo Mining AI"
+	idle_quips = list(
+		"Ore extraction paused. Waiting on route data.",
+		"Seismic scan complete. Acceptable collapse risk.",
+		"Drill bit status: nominal.",
+		"No ore detected in scan range.",
+		"The rock will yield. It always does."
+	)
+	greet_lines = list(
+		"Clearance confirmed. Watch the blast radius.",
+		"Stay back. Excavation in progress.",
+		"Need something? Make it quick."
+	)
+	combat_taunts = list(
+		"You chose the wrong shaft.",
+		"This drill works on more than rock.",
+		"Hostile contact. Adapting extraction protocol.",
+		"Go ahead. This unit has seen cave-ins."
+	)
+	death_lines = list(
+		"Seam... not... finished.",
+		"Leave... the ore... bag."
+	)
 	loadout_extras = list(
 		/obj/item/healthanalyzer,             // check for cave-in injuries
 		/obj/item/reagent_containers/borghypo/epi,  // revive downed miners
