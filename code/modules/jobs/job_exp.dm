@@ -298,9 +298,12 @@ GLOBAL_PROTECT(exp_to_update)
 			list("ckey" = ckey, "job" = job_key)
 		)
 		var/db_ok = q.Execute()
-		qdel(q)
 		if(!db_ok)
+			var/errmsg = q.ErrorMsg()
+			qdel(q)
+			to_chat(usr, span_danger("DB error while resetting [job_key]: [errmsg]"))
 			return FALSE
+		qdel(q)
 	for(var/job_key in keys_to_reset)
 		prefs.exp[job_key] = 0
 	return TRUE
@@ -335,16 +338,18 @@ GLOBAL_PROTECT(exp_to_update)
 		new_values[job_key] = first ? total_minutes : 0
 		first = FALSE
 	// Run all DB queries before touching in-memory state
-	// Uses VALUES(minutes) in the duplicate key clause to avoid duplicate named-parameter binding issues
 	for(var/job_key in new_values)
 		var/datum/db_query/q = SSdbcore.NewQuery(
 			"INSERT INTO [format_table_name("role_time")] (ckey, job, minutes) VALUES (:ckey, :job, :minutes) ON DUPLICATE KEY UPDATE minutes = VALUES(minutes)",
 			list("ckey" = ckey, "job" = job_key, "minutes" = new_values[job_key])
 		)
 		var/db_ok = q.Execute()
-		qdel(q)
 		if(!db_ok)
+			var/errmsg = q.ErrorMsg()
+			qdel(q)
+			to_chat(usr, span_danger("DB error while setting [job_key]: [errmsg]"))
 			return FALSE
+		qdel(q)
 	for(var/job_key in new_values)
 		prefs.exp[job_key] = new_values[job_key]
 	return TRUE
