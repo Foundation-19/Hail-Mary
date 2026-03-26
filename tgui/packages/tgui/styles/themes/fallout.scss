@@ -41,6 +41,7 @@ $phosphor-text: #a8d8a8;
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css('../components/ProgressBar.scss', $with: (
     'background-color': rgba(0, 0, 0, 0.7),
+    'color-default-fill': $phosphor-dim,
   ));
   @include meta.load-css('../components/Section.scss');
 
@@ -71,6 +72,17 @@ $phosphor-text: #a8d8a8;
     background-color: #04100a;
     color: $phosphor;
     border: base.em(1px) solid $phosphor-dim;
+  }
+
+  .NumberInput {
+    color: $phosphor;
+    border-color: $phosphor-dim;
+    background-color: #04100a;
+  }
+
+  .NumberInput__bar {
+    border-color: $phosphor;
+    background-color: $phosphor;
   }
 
   .Layout__content {

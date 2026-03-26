@@ -2,7 +2,7 @@ import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { Fragment } from 'inferno';
 import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Dimmer, Flex, Icon, Input, NoticeBox, NumberInput, Section, Table, Tabs } from '../components';
+import { Box, Button, Dimmer, Flex, Icon, Input, LabeledList, NoticeBox, NumberInput, ProgressBar, Section, Table, Tabs } from '../components';
 import { formatMoney } from '../format';
 import { Window } from '../layouts';
 
@@ -43,6 +43,8 @@ export const BiogeneratorContent = (props, context) => {
   const {
     biomass,
     can_process,
+    beaker_volume,
+    beaker_max_volume,
     categories = [],
   } = data;
   const [
@@ -96,6 +98,16 @@ export const BiogeneratorContent = (props, context) => {
             onClick={() => act('activate')} />
         </Fragment>
       )}>
+      <Box mb={1}>
+        <LabeledList>
+          <LabeledList.Item label="Container">
+            <ProgressBar
+              value={beaker_volume / beaker_max_volume}>
+              {beaker_volume} of {beaker_max_volume} units
+            </ProgressBar>
+          </LabeledList.Item>
+        </LabeledList>
+      </Box>
       <Flex>
         {searchText.length === 0 && (
           <Flex.Item>
