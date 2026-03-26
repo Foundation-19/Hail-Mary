@@ -10,7 +10,8 @@ In any query remember to add a prefix to the table names if you use one.
 
 ----------------------------------------------------
 
-Version 4.9, Added exp_type_exempt table for per-player faction exp exemptions
+Version 4.9, 25 March 2026, by Malerus
+Added exp_type_exempt table for per-player faction exp exemptions
 This table is required by the multi-tier XP and exemption system. Players who are granted admin
 exemptions from XP requirements have their exemptions stored here. Missing table was causing
 ERROR 1146 on every login (load_exp_type_exempts) and on every admin toggle-exempt action.
@@ -21,7 +22,8 @@ INSERT INTO `schema_revision` (`major`, `minor`) VALUES (4, 9);
 
 ----------------------------------------------------
 
-Version 4.8, Fixed role_time trigger unsigned integer underflow
+Version 4.8, 25 March 2026, by Malerus
+Fixed role_time trigger unsigned integer underflow
 The `role_timeTlogupdate` and `role_timeTlogdelete` triggers used raw subtraction on INT UNSIGNED
 columns (`NEW.minutes - OLD.minutes` and `0-OLD.minutes`). In MySQL strict mode (the default since
 MySQL 8.0), subtracting a larger UNSIGNED value from a smaller one produces a BIGINT UNSIGNED
