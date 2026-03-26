@@ -291,17 +291,18 @@ GLOBAL_PROTECT(exp_to_update)
 			// Direct special type stored under its own DB key (Living, Ghost, Admin, etc.)
 			keys_to_reset += exp_type
 
+	// Run all DB queries first; only update in-memory after all succeed
 	for(var/job_key in keys_to_reset)
-		if(!isnull(prefs.exp[job_key]))
-			prefs.exp[job_key] = 0
 		var/datum/db_query/q = SSdbcore.NewQuery(
 			"UPDATE [format_table_name("role_time")] SET minutes = 0 WHERE ckey = :ckey AND job = :job",
 			list("ckey" = ckey, "job" = job_key)
 		)
-		if(!q.Execute())
-			qdel(q)
-			return FALSE
+		var/db_ok = q.Execute()
 		qdel(q)
+		if(!db_ok)
+			return FALSE
+	for(var/job_key in keys_to_reset)
+		prefs.exp[job_key] = 0
 	return TRUE
 
 /// Sets all hours for the given exp type to total_minutes.
@@ -327,19 +328,25 @@ GLOBAL_PROTECT(exp_to_update)
 		else
 			keys_to_set += exp_type
 
+	// Build the planned new values first
+	var/list/new_values = list()
 	var/first = TRUE
 	for(var/job_key in keys_to_set)
-		var/mins_for_key = first ? total_minutes : 0
+		new_values[job_key] = first ? total_minutes : 0
 		first = FALSE
-		prefs.exp[job_key] = mins_for_key
+	// Run all DB queries before touching in-memory state
+	// Uses VALUES(minutes) in the duplicate key clause to avoid duplicate named-parameter binding issues
+	for(var/job_key in new_values)
 		var/datum/db_query/q = SSdbcore.NewQuery(
-			"INSERT INTO [format_table_name("role_time")] (ckey, job, minutes) VALUES (:ckey, :job, :minutes) ON DUPLICATE KEY UPDATE minutes = :minutes",
-			list("ckey" = ckey, "job" = job_key, "minutes" = mins_for_key)
+			"INSERT INTO [format_table_name("role_time")] (ckey, job, minutes) VALUES (:ckey, :job, :minutes) ON DUPLICATE KEY UPDATE minutes = VALUES(minutes)",
+			list("ckey" = ckey, "job" = job_key, "minutes" = new_values[job_key])
 		)
-		if(!q.Execute())
-			qdel(q)
-			return FALSE
+		var/db_ok = q.Execute()
 		qdel(q)
+		if(!db_ok)
+			return FALSE
+	for(var/job_key in new_values)
+		prefs.exp[job_key] = new_values[job_key]
 	return TRUE
 
 /// Loads per-type exp exemptions from the DB into prefs.exp_type_exempt.
