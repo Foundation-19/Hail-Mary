@@ -6,7 +6,29 @@
 	name = "error"
 	icon_state = "error"
 	has_gravity = 1
-//	requires_power = 0
+	// Indoor F13 areas start unpowered.  A faction_generator must cover this area
+	// (via powered_area_types) and be running for machines here to function.
+	// Outdoor/wasteland areas define requires_power = FALSE, which causes
+	// area/Initialize() to set power_equip/light/environ back to TRUE for them.
+	power_equip  = FALSE
+	power_light  = FALSE
+	power_environ = FALSE
+	/// Mirrors power_equip — tracks whether a generator is actively supplying this area.
+	/// Updated automatically by the power_change() override below.
+	var/f13_grid_power = FALSE
+	/// When TRUE, junction boxes will never stamp this area's power state.
+	/// The outdoors flag also triggers this guard automatically.
+	/// Set explicitly on any area that manages its own power or should always be on.
+	var/f13_grid_immune = FALSE
+	/// Runtime flag set by the junction box system on dynamically-allocated
+	/// flood-fill zone datums.  Never set by mappers.  Checked during flood fill
+	/// to prevent two boxes from merging each other's physical zones.
+	var/f13_jbox_zone = FALSE
+
+/// Keep f13_grid_power in sync with the actual SS13 equip-channel state.
+/area/f13/power_change()
+	f13_grid_power = power_equip
+	return ..()
 
 //Wasteland generic areas
 
@@ -187,24 +209,34 @@
 	weather_tags = null
 
 /area/f13/building/sewers/powered
-	requires_power = FALSE
 
-/area/f13/sewer/powered 
-	requires_power = FALSE
+/area/f13/sewer/powered
 
 /area/f13/building/powered
-	requires_power = FALSE
 
 /area/f13/caves
 	name = "Caves"
 	icon_state = "caves"
 	requires_power = TRUE
+	// Natural cave systems are permanently dark — no junction box should
+	// accidentally power them via subtype scanning.  Use /area/f13/caves/powered
+	// for any cave space that a mapper intentionally wants on the grid
+	// (e.g. a raider generator room), which lets players cut the power
+	// strategically by tripping that room's junction box breaker.
+	f13_grid_immune = TRUE
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/cave,
 		/datum/looping_sound/ambient/tunnel,
 	)
 	weather_tags = null
+
+/// Cave area intentionally wired to the power grid.
+/// Use this for underground bases, raider dens, etc. where cutting
+/// the lights is a meaningful tactical option.  Place a junction box
+/// inside and wire it to the local generator as normal.
+/area/f13/caves/powered
+	f13_grid_immune = FALSE
 
 /area/f13/tunnel
 	name = "Tunnel"
@@ -418,7 +450,6 @@
 	icon_state = "bighornbunker"
 
 /area/f13/building/powered
-	requires_power = FALSE
 
 /area/f13/factory
 	name = "robco factory"
@@ -723,7 +754,6 @@
 	grow_chance = 5
 
 /area/f13/casino/powered
-	requires_power = FALSE
 
 /area/f13/clinic
 	name = "Clinic"
@@ -1144,7 +1174,6 @@
 	icon_state = "brotherhoodmining"
 
 /area/f13/brotherhood/powered
-	requires_power = FALSE
 
 /area/f13/enclave
 	name = "Enclave Bunker"
@@ -1197,12 +1226,10 @@
 	blob_allowed = 0
 	environment = 4
 	grow_chance = 5
-	requires_power = FALSE
 
 /area/f13/ncr/powered
 	name = "NCR Outpost"
 	icon_state = "ncr"
-	requires_power = FALSE
 
 /area/f13/legion
 	name = "Legion Fortress"
@@ -1225,7 +1252,6 @@
 /area/f13/legion/powered
 	name = "Legion Fortress"
 	icon_state = "legion"
-	requires_power = FALSE
 
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
@@ -1261,7 +1287,6 @@
 /area/f13/holiday/powered
 	name = "Holiday"
 	icon_state = "holiday"
-	requires_power = FALSE
 
 /area/f13/holiday/powered/deepmine // deepmines for holiday means no infinite power
 	name = "Holiday deep mine"

@@ -168,8 +168,7 @@ mob/proc/set_status(var/status)
 	id = "legate"
 	change_faction = 1
 	can_invite_to = list("recruit", "prime", "decanus", "vexillarius", "centurion")
-//	craft_recipes = list(/datum/table_recipe/legion_legat_armor, /datum/table_recipe/legion_legat_helm, \
-	/datum/table_recipe/legion_legat_gloves, /datum/table_recipe/legion_legat_shoes)
+//	craft_recipes = list(/datum/table_recipe/legion_legat_armor, /datum/table_recipe/legion_legat_helm, /datum/table_recipe/legion_legat_gloves, /datum/table_recipe/legion_legat_shoes)
 	color = "#7A302A"
 
 /datum/status/vranger
@@ -216,8 +215,7 @@ mob/proc/set_status(var/status)
 	can_invite_to = list("raider")
 	color = "#FF0000"
 
-//	craft_recipes = list(/datum/table_recipe/raider_yankee_armor, /datum/table_recipe/raider_supafly_armor, \
-	/datum/table_recipe/raider_supafly_helmet, /datum/table_recipe/raider_yankee_helmet)
+//	craft_recipes = list(/datum/table_recipe/raider_yankee_armor, /datum/table_recipe/raider_supafly_armor, /datum/table_recipe/raider_supafly_helmet, /datum/table_recipe/raider_yankee_helmet)
 
 /datum/status/neutral
 	name = "Neutral"
