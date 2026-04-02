@@ -196,6 +196,8 @@
 
 	for(var/turf/T in turf_map)
 		var/area/orig = turf_map[T]          // original singleton this turf came from
+		if(!istype(orig, /area))             // openspace bridge sentinel — not an ownable tile
+			continue
 		var/atype     = orig.type
 
 		if(!type_to_zone[atype])
@@ -224,38 +226,101 @@
 	// Update watt draw: one unit per zone (matched to grid accounting).
 	grid_watt_draw = grid_watt_draw_per_zone * owned_zones.len
 
-	// ── Boundary wall absorption ──────────────────────────────────────────
-	// Dense tiles directly bordering a claimed interior tile are pulled into
-	// the adjacent zone so objects mounted on them (wall lights, conduit,
-	// etc.) are included in area power — even if the wall tile itself is
-	// mapped as a completely different area (e.g. a shared perimeter wall
-	// mapped as /area/f13/city on the edge of a brotherhood building).
-	// Each wall tile's original area is stored in wall_origins so Destroy()
-	// can repatriate it to the correct singleton rather than the zone's origin.
+	// ── Boundary absorption (iterative BFS) ─────────────────────────────
+	// Expands outward from the flood-fill frontier to absorb border tiles
+	// whose area type differs from the interior — covers both dense wall
+	// tiles (wall-mounted lights) AND non-dense floor tiles that are
+	// physically inside the building but mapped as a foreign area (e.g.
+	// /area/f13/city tiles inside a brotherhood room).
+	//
+	// IMPORTANT: for NON-DENSE tiles the immune check here intentionally does
+	// NOT test the outdoors flag.  Many F13 building areas (e.g. /area/f13/city)
+	// have outdoors = TRUE on their area datum, so city-mapped floor tiles
+	// physically inside a building would be incorrectly blocked.
+	// DENSE wall turfs DO respect the outdoors flag via the full _area_is_immune()
+	// call — outdoor wooden walls / wasteland walls must never be absorbed.
+	//
+	// max_passes = 3 covers chains up to three tiles deep from the
+	// interior boundary:
+	//   [interior floor] → [foreign wall] → [foreign floor+fixture]
+	//
+	// Each absorbed tile's original area is stored in wall_origins so
+	// Destroy() can repatriate it to the correct singleton.
 	wall_origins = list()
+	var/list/bfs_frontier = list()   // turf → zone datum
 	for(var/turf/T in turf_map)
 		var/area/T_orig = turf_map[T]
-		var/area/f13/neighbor_zone = type_to_zone[T_orig.type]
-		if(!neighbor_zone)
+		if(!istype(T_orig, /area))   // openspace sentinel
 			continue
-		for(var/dir in list(NORTH, SOUTH, EAST, WEST))
-			var/turf/W = get_step(T, dir)
-			if(!W || !W.density)
-				continue
-			// Skip: already an interior tile or already absorbed as a wall.
-			if(turf_map[W] || wall_origins[W])
-				continue
-			var/area/W_area = get_area(W)
-			if(!W_area || _area_is_immune(W_area))
-				continue
-			// Skip: already claimed by a different junction box.
-			var/area/f13/fW = W_area
-			if(istype(fW) && fW.f13_jbox_zone)
-				continue
-			// Absorb: remember the real origin, then move into the border zone.
-			wall_origins[W]  = W_area
-			W_area.contents  -= W
-			neighbor_zone.contents += W
+		var/area/f13/z = type_to_zone[T_orig.type]
+		if(z)
+			bfs_frontier[T] = z
+
+	var/max_passes = 3
+	while(bfs_frontier.len && max_passes--)
+		var/list/next_frontier = list()
+		for(var/turf/T in bfs_frontier)
+			var/area/f13/neighbor_zone = bfs_frontier[T]
+			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+				var/turf/W = get_step(T, dir)
+				if(!W)
+					continue
+				// Skip: already interior, already absorbed, in this pass's output.
+				if(turf_map[W] || wall_origins[W] || next_frontier[W])
+					continue
+				// Openspace tiles are z-transparent voids, not ownable area.
+				if(istype(W, /turf/open/transparent/openspace))
+					continue
+				var/area/W_area = get_area(W)
+				if(!W_area)
+					continue
+				// Immune check — split by tile density:
+				//   Dense wall turfs: geometric enclosure check.
+				//     A wall tile W is only absorbed when the tile directly BEYOND it
+				//     (same direction as T→W) is ALSO an interior tile (in turf_map).
+				//     This distinguishes:
+				//       perimeter:  [interior] → [wall] → [exterior]  → skip
+				//       partition:  [interior] → [wall] → [interior]  → absorb
+				//     The perimeter wooden wall (city-area, exterior on the far side)
+				//     correctly skips because get_step(W, dir) is not in turf_map.
+				//     An interior partition wall is correctly absorbed because both
+				//     neighbouring floor tiles are interior.
+				//   Non-dense floor tiles: only block on explicit f13_grid_immune.
+				//     City-mapped (outdoors=1) floor tiles physically inside the
+				//     building must be absorbed so lights on them receive power.
+				var/area/f13/fW = W_area
+				if(istype(fW) && fW.f13_jbox_zone)
+					continue
+				if(W.density)
+					var/turf/opposite = get_step(W, dir)
+					if(!opposite || !turf_map[opposite] || !istype(turf_map[opposite], /area))
+						continue
+					if(istype(fW) && fW.f13_grid_immune)
+						continue
+				else
+					if(istype(fW) && fW.f13_grid_immune)
+						continue
+				// Absorb: remember real origin, move tile into this zone.
+				wall_origins[W]  = W_area
+				W_area.contents  -= W
+				neighbor_zone.contents += W
+				// A dense tile only becomes a frontier node when it is discovered
+				// from an interior tile  (T ∈ turf_map).  This allows:
+				//   [interior floor] → [exterior wall]  wall absorbed + frontier ✓
+				//   [exterior wall]  → [outdoor floor]  floor absorbed, no frontier ✓
+				//   [exterior wall]  → [wooden fence]   fence absorbed but NOT frontier ✓
+				// Without this guard the BFS would walk wall→wall indefinitely,
+				// absorbing every dense structure adjacent to the building exterior.
+				if(W.density && turf_map[T])
+					next_frontier[W] = neighbor_zone
+		bfs_frontier = next_frontier
+
+	// ── Re-stamp if grid was already live before LateInitialize ran ───────
+	// If the box was wired before LateInitialize() fired (possible when
+	// spawning mid-round), on_grid_power_change(TRUE) ran while owned_zones
+	// was still null and did nothing.  Stamp now so areas light up.
+	if(grid_powered && breaker_closed)
+		_stamp_areas(TRUE)
 
 
 /// Depth-first walk from the junction box's turf.
@@ -279,6 +344,21 @@
 		// attribute it to our start area so grouping handles it correctly.
 		var/area/f13/fT = T_area
 		var/area/origin = (istype(fT) && fT.f13_jbox_zone) ? start : T_area
+		// ── Openspace bridge (main-loop) ─────────────────────────────────
+		// Openspace tiles are z-transparent "holes" between floors — they
+		// are not ownable interior area.  Store T as a sentinel (truthy,
+		// non-area value) so revisit checks pass, then bridge DOWN.
+		if(istype(T, /turf/open/transparent/openspace))
+			visited[T] = T   // sentinel: visited/bridged, not owned
+			var/turf/os_below = get_step_multiz(T, DOWN)
+			if(os_below && !visited[os_below])
+				var/area/ob_area = get_area(os_below)
+				if(ob_area && !_area_is_immune(ob_area))
+					var/area/f13/fob = ob_area
+					var/check_ob = (istype(fob) && fob.f13_jbox_zone) ? start : ob_area
+					if(istype(check_ob, root_type))
+						stack += os_below
+			continue
 		visited[T] = origin
 		for(var/dir in list(NORTH, SOUTH, EAST, WEST))
 			var/turf/N = get_step(T, dir)
@@ -289,6 +369,20 @@
 				continue
 			var/area/N_area = get_area(N)
 			if(!N_area)
+				continue
+			// ── Openspace bridge (NSEW) ──────────────────────────────────
+			// Openspace is a z-transparent hole — push the tile below it
+			// instead of trying to own it.  Bypass the immune check since
+			// the openspace tile's own area is irrelevant.
+			if(istype(N, /turf/open/transparent/openspace))
+				var/turf/ns_below = get_step_multiz(N, DOWN)
+				if(ns_below && !visited[ns_below])
+					var/area/nb_area = get_area(ns_below)
+					if(nb_area && !_area_is_immune(nb_area))
+						var/area/f13/fnb = nb_area
+						var/check_nb = (istype(fnb) && fnb.f13_jbox_zone) ? start : nb_area
+						if(istype(check_nb, root_type))
+							stack += ns_below
 				continue
 			// Outdoor or explicitly immune — never cross.
 			if(_area_is_immune(N_area))
@@ -308,6 +402,29 @@
 			if(istype(fN) && fN.f13_jbox_zone)
 				continue
 			stack += N
+
+		// ── Staircase Z-traversal ─────────────────────────────────────────
+		// If this floor tile has staircase objects on it, the floor above is
+		// physically connected.  Compute the landing turf (one step forward
+		// in the stair's facing direction, then up one z-level via multiz)
+		// and push it so the fill continues into upper floors.
+		// The same hierarchy and immune guards are applied before pushing.
+		for(var/obj/structure/stairs/S in T.contents)
+			var/turf/fwd = get_step(T, S.dir)
+			if(!fwd)
+				continue
+			var/turf/landing = get_step_multiz(fwd, UP)
+			if(!landing || visited[landing])
+				continue
+			var/area/L_area = get_area(landing)
+			if(!L_area || _area_is_immune(L_area))
+				continue
+			var/area/f13/fL = L_area
+			var/check_L = (istype(fL) && fL.f13_jbox_zone) ? start : L_area
+			if(!istype(check_L, root_type))
+				continue
+			stack += landing
+
 	return visited
 
 
