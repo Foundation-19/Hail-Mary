@@ -87,6 +87,7 @@ export const Canvas = (props, context) => {
   const [width, height] = getImageSize(data.grid);
   return (
     <Window
+      theme="fallout"
       width={Math.min(400, width * PX_PER_UNIT * 32 + 24)}
       height={Math.min(400, height * PX_PER_UNIT * 32 + 24)}
       resizable>

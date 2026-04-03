@@ -38,6 +38,7 @@ export const Gps = (props, context) => {
   ])(data.signals || []);
   return (
     <Window
+      theme="fallout"
       title="Global Positioning System"
       width={470}
       height={700}

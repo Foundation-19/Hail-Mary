@@ -12,6 +12,7 @@ export const Photocopier = (props, context) => {
 
   return (
     <Window
+      theme="fallout"
       title="Photocopier"
       width={240}
       height={isAI ? 309 : 234}>

@@ -13,6 +13,7 @@ export const TurretControl = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={305}
       height={172}>
       <Window.Content>

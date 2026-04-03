@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 export const NaniteRemote = (props, context) => {
   return (
     <Window
+      theme="fallout"
       width={420}
       height={500}
       resizable>

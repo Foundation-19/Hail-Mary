@@ -16,6 +16,7 @@ export const SolarControl = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={380}
       height={230}>
       <Window.Content>

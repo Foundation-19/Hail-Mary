@@ -13,6 +13,7 @@ export const ChemSynthesizer = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={300}
       height={375}>
       <Window.Content>

@@ -18,6 +18,7 @@ export const NotificationPreferences = (props, context) => {
   });
   return (
     <Window
+      theme="fallout"
       title="Notification Preferences"
       width={270}
       height={360}

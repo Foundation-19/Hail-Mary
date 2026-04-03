@@ -18,6 +18,7 @@ export const AutomatedAnnouncement = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       title="Automated Announcement System"
       width={500}
       height={225}>

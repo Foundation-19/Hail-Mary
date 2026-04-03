@@ -8,6 +8,7 @@ export const OreBox = (props, context) => {
   const { materials } = data;
   return (
     <Window
+      theme="fallout"
       width={335}
       height={415}
       resizable>

@@ -12,6 +12,7 @@ export const TransferValve = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={310}
       height={300}>
       <Window.Content>

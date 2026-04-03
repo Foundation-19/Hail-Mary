@@ -10,6 +10,7 @@ export const GravityGenerator = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={400}
       height={155}>
       <Window.Content>

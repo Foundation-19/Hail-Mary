@@ -26,6 +26,7 @@ export const OperatingComputer = (props, context) => {
   const [tab, setTab] = useSharedState(context, 'tab', 1);
   return (
     <Window
+      theme="fallout"
       width={350}
       height={470}
       resizable>

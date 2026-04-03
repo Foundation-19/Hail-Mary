@@ -12,6 +12,7 @@ export const BankMachine = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={155}>
       <Window.Content>

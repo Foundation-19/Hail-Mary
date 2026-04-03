@@ -142,6 +142,7 @@ export const ExosuitFabricator = (props, context) => {
 
   return (
     <Window
+      theme="fallout"
       resizable
       title="Exosuit Fabricator"
       width={1100}

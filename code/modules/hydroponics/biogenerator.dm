@@ -273,6 +273,9 @@
 	data["beaker"] = beaker ? TRUE : FALSE
 	data["biomass"] = points
 	data["processing"] = processing
+	if(beaker)
+		data["beaker_volume"] = beaker.reagents.total_volume
+		data["beaker_max_volume"] = beaker.reagents.maximum_volume
 	if(locate(/obj/item/reagent_containers/food/snacks/grown) in contents)
 		data["can_process"] = TRUE
 	else

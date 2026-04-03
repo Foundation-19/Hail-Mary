@@ -11,6 +11,45 @@
 	if(prob(10))
 		owner.stuttering = max(10, owner.stuttering)
 
+/datum/mutation/human/whiteleg // this could be implemented better potentially but i'm not a coder
+	name = "White Leg"
+	desc = "A mutation found among the least functional tribe of the Great Basin."
+	quality = MINOR_NEGATIVE
+	locked = TRUE
+	text_gain_indication = span_notice("Yoo sunhai tihda!")
+	text_lose_indication = span_notice("Kale watcha nei conserva oh!")
+
+/datum/mutation/human/whiteleg/on_acquiring(mob/living/carbon/human/owner)
+	. = ..()
+	if(.)
+		return
+	RegisterSignal(owner, COMSIG_MOB_SAY, PROC_REF(handle_speech))
+
+/datum/mutation/human/whiteleg/on_losing(mob/living/carbon/human/owner)
+	. = ..()
+	if(.)
+		return
+	UnregisterSignal(owner, COMSIG_MOB_SAY)
+
+
+/datum/mutation/human/whiteleg/proc/handle_speech(datum/source, list/speech_args)
+	var/message = speech_args[SPEECH_MESSAGE]
+	if(speech_args[SPEECH_LANGUAGE] != /datum/language/tribal)
+		if(message[1] != "*")
+			message = " [message]"
+			var/list/whiteleg_words = strings("whiteleg_replacement.json", "whiteleg") // "I": "Ah" doesn't work without turning I'm to AH'm, just leave it out of the word replacement file
+			for(var/key in whiteleg_words)
+				var/value = whiteleg_words[key]
+				if(islist(value))
+					value = pick(value)
+				message = replacetextEx(message, " [uppertext(key)]", " [uppertext(value)]")
+				message = replacetextEx(message, " [capitalize(key)]", " [capitalize(value)]")
+				message = replacetextEx(message, " [key]", " [value]")
+
+	/*if(prob(3))
+		message += " Kuna-man!"*/
+	speech_args[SPEECH_MESSAGE] = trim(message)
+
 /*
 /datum/mutation/human/wacky
 	name = "Wacky"

@@ -25,6 +25,7 @@ export const AiAirlock = (props, context) => {
   const statusElectrify = dangerMap[data.shock] || dangerMap[0];
   return (
     <Window
+      theme="fallout"
       width={500}
       height={390}>
       <Window.Content>

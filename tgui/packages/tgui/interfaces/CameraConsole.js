@@ -51,6 +51,7 @@ export const CameraConsole = (props, context) => {
   ] = prevNextCamera(cameras, activeCamera);
   return (
     <Window
+      theme="fallout"
       width={870}
       height={708}
       resizable>

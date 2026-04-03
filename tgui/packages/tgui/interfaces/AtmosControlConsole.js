@@ -9,6 +9,7 @@ export const AtmosControlConsole = (props, context) => {
   const sensors = data.sensors || [];
   return (
     <Window
+      theme="fallout"
       width={500}
       height={315}
       resizable>

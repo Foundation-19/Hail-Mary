@@ -13,6 +13,7 @@ export const CargoHoldTerminal = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={600}
       height={230}
       resizable>

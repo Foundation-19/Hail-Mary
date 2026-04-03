@@ -162,6 +162,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/hud_toggle_color = "#ffffff"
 
 	var/list/exp = list()
+	/// exp types for which this player is individually exempt from playtime requirements (assoc: type -> TRUE)
+	var/list/exp_type_exempt = list()
 	var/list/menuoptions
 
 	var/list/job_whitelists = list()

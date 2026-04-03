@@ -14,6 +14,7 @@ export const ChemDebugSynthesizer = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={390}
       height={330}
       resizable>

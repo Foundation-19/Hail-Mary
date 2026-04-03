@@ -8,6 +8,7 @@ export const SpawnersMenu = (props, context) => {
   const spawners = data.spawners || [];
   return (
     <Window
+      theme="fallout"
       title="Spawners Menu"
       width={700}
       height={600}

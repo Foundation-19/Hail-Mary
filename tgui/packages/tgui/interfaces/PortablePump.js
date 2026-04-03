@@ -15,6 +15,7 @@ export const PortablePump = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={300}
       height={315}>
       <Window.Content>

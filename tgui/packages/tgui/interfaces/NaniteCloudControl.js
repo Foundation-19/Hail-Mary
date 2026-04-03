@@ -268,6 +268,7 @@ export const NaniteCloudControl = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={375}
       height={700}
       resizable>

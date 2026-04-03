@@ -6,6 +6,7 @@ export const TankDispenser = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={275}
       height={103}>
       <Window.Content>

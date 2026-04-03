@@ -18,6 +18,7 @@ export const DnaVault = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={400}>
       <Window.Content>

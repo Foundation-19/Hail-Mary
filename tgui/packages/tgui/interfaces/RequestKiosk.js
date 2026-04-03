@@ -7,6 +7,7 @@ import { Window } from '../layouts';
 export const RequestKiosk = (props, context) => {
   return (
     <Window
+      theme="fallout"
       width={550}
       height={600}
       resizable>

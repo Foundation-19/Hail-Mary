@@ -13,6 +13,7 @@ export const AirlockElectronics = (props, context) => {
   const accesses = data.accesses || [];
   return (
     <Window
+      theme="fallout"
       width={420}
       height={485}>
       <Window.Content>

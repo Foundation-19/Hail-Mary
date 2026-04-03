@@ -14,6 +14,7 @@ export const EmergencyShuttleConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={400}
       height={350}>
       <Window.Content>

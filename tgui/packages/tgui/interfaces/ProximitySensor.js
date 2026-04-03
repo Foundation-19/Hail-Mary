@@ -13,6 +13,7 @@ export const ProximitySensor = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={250}
       height={185}>
       <Window.Content>

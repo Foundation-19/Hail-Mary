@@ -6,6 +6,7 @@ export const ChemAcclimator = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={320}
       height={271}>
       <Window.Content>

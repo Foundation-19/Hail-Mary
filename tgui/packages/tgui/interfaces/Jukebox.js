@@ -26,6 +26,7 @@ export const Jukebox = (props, context) => {
   ])(data.disks || []);
   return (
     <Window
+      theme="fallout"
       width={370}
       height={313}>
       <Window.Content>

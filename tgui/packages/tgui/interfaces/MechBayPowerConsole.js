@@ -9,6 +9,7 @@ export const MechBayPowerConsole = (props, context) => {
   const cell = mech && mech.cell;
   return (
     <Window
+      theme="fallout"
       width={400}
       height={200}>
       <Window.Content>
