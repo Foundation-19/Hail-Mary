@@ -1228,6 +1228,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 			hud_used.healthdoll.cut_overlays()
 			if(stat != DEAD)
 				hud_used.healthdoll.icon_state = "healthdoll_OVERLAY"
+				var/healthdoll_color = hud_used.healthdoll.color
 				for(var/X in bodyparts)
 					var/obj/item/bodypart/BP = X
 					var/damage = BP.burn_dam + BP.brute_dam
@@ -1246,11 +1247,20 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 					if(hal_screwyhud == SCREWYHUD_HEALTHY)
 						icon_num = 0
 					if(icon_num)
-						hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone][icon_num]"))
+						var/mutable_appearance/zone_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "[BP.body_zone][icon_num]")
+						if(healthdoll_color)
+							zone_overlay.color = healthdoll_color
+						hud_used.healthdoll.add_overlay(zone_overlay)
 				for(var/t in get_missing_limbs()) //Missing limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]6"))
+					var/mutable_appearance/missing_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "[t]6")
+					if(healthdoll_color)
+						missing_overlay.color = healthdoll_color
+					hud_used.healthdoll.add_overlay(missing_overlay)
 				for(var/t in get_disabled_limbs()) //Disabled limbs
-					hud_used.healthdoll.add_overlay(mutable_appearance('icons/mob/screen_gen.dmi', "[t]7"))
+					var/mutable_appearance/disabled_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "[t]7")
+					if(healthdoll_color)
+						disabled_overlay.color = healthdoll_color
+					hud_used.healthdoll.add_overlay(disabled_overlay)
 			else
 				hud_used.healthdoll.icon_state = "healthdoll_DEAD"
 
