@@ -131,7 +131,6 @@
 	/// (wall lights, etc.) receive area power.  Their real origin area may
 	/// differ from the interior zone (e.g. a city-mapped perimeter wall).
 	/// Used by Destroy() to repatriate each wall tile to its correct singleton.
-	var/list/wall_origins = null
 
 	// ── Breaker state ───────────────────────────────────────
 	/// Master breaker.  When FALSE the whole box is off even if the grid is live.
@@ -225,95 +224,6 @@
 
 	// Update watt draw: one unit per zone (matched to grid accounting).
 	grid_watt_draw = grid_watt_draw_per_zone * owned_zones.len
-
-	// ── Boundary absorption (iterative BFS) ─────────────────────────────
-	// Expands outward from the flood-fill frontier to absorb border tiles
-	// whose area type differs from the interior — covers both dense wall
-	// tiles (wall-mounted lights) AND non-dense floor tiles that are
-	// physically inside the building but mapped as a foreign area (e.g.
-	// /area/f13/city tiles inside a brotherhood room).
-	//
-	// IMPORTANT: for NON-DENSE tiles the immune check here intentionally does
-	// NOT test the outdoors flag.  Many F13 building areas (e.g. /area/f13/city)
-	// have outdoors = TRUE on their area datum, so city-mapped floor tiles
-	// physically inside a building would be incorrectly blocked.
-	// DENSE wall turfs DO respect the outdoors flag via the full _area_is_immune()
-	// call — outdoor wooden walls / wasteland walls must never be absorbed.
-	//
-	// max_passes = 3 covers chains up to three tiles deep from the
-	// interior boundary:
-	//   [interior floor] → [foreign wall] → [foreign floor+fixture]
-	//
-	// Each absorbed tile's original area is stored in wall_origins so
-	// Destroy() can repatriate it to the correct singleton.
-	wall_origins = list()
-	var/list/bfs_frontier = list()   // turf → zone datum
-	for(var/turf/T in turf_map)
-		var/area/T_orig = turf_map[T]
-		if(!istype(T_orig, /area))   // openspace sentinel
-			continue
-		var/area/f13/z = type_to_zone[T_orig.type]
-		if(z)
-			bfs_frontier[T] = z
-
-	var/max_passes = 3
-	while(bfs_frontier.len && max_passes--)
-		var/list/next_frontier = list()
-		for(var/turf/T in bfs_frontier)
-			var/area/f13/neighbor_zone = bfs_frontier[T]
-			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
-				var/turf/W = get_step(T, dir)
-				if(!W)
-					continue
-				// Skip: already interior, already absorbed, in this pass's output.
-				if(turf_map[W] || wall_origins[W] || next_frontier[W])
-					continue
-				// Openspace tiles are z-transparent voids, not ownable area.
-				if(istype(W, /turf/open/transparent/openspace))
-					continue
-				var/area/W_area = get_area(W)
-				if(!W_area)
-					continue
-				// Immune check — split by tile density:
-				//   Dense wall turfs: geometric enclosure check.
-				//     A wall tile W is only absorbed when the tile directly BEYOND it
-				//     (same direction as T→W) is ALSO an interior tile (in turf_map).
-				//     This distinguishes:
-				//       perimeter:  [interior] → [wall] → [exterior]  → skip
-				//       partition:  [interior] → [wall] → [interior]  → absorb
-				//     The perimeter wooden wall (city-area, exterior on the far side)
-				//     correctly skips because get_step(W, dir) is not in turf_map.
-				//     An interior partition wall is correctly absorbed because both
-				//     neighbouring floor tiles are interior.
-				//   Non-dense floor tiles: only block on explicit f13_grid_immune.
-				//     City-mapped (outdoors=1) floor tiles physically inside the
-				//     building must be absorbed so lights on them receive power.
-				var/area/f13/fW = W_area
-				if(istype(fW) && fW.f13_jbox_zone)
-					continue
-				if(W.density)
-					var/turf/opposite = get_step(W, dir)
-					if(!opposite || !turf_map[opposite] || !istype(turf_map[opposite], /area))
-						continue
-					if(istype(fW) && fW.f13_grid_immune)
-						continue
-				else
-					if(istype(fW) && fW.f13_grid_immune)
-						continue
-				// Absorb: remember real origin, move tile into this zone.
-				wall_origins[W]  = W_area
-				W_area.contents  -= W
-				neighbor_zone.contents += W
-				// A dense tile only becomes a frontier node when it is discovered
-				// from an interior tile  (T ∈ turf_map).  This allows:
-				//   [interior floor] → [exterior wall]  wall absorbed + frontier ✓
-				//   [exterior wall]  → [outdoor floor]  floor absorbed, no frontier ✓
-				//   [exterior wall]  → [wooden fence]   fence absorbed but NOT frontier ✓
-				// Without this guard the BFS would walk wall→wall indefinitely,
-				// absorbing every dense structure adjacent to the building exterior.
-				if(W.density && turf_map[T])
-					next_frontier[W] = neighbor_zone
-		bfs_frontier = next_frontier
 
 	// ── Re-stamp if grid was already live before LateInitialize ran ───────
 	// If the box was wired before LateInitialize() fired (possible when
@@ -434,23 +344,18 @@
 
 	// Repatriate flood-fill turfs back to their original singletons
 	// so the world never has orphaned tiles after this box is removed.
-	// Wall turfs may have a different original area than the zone's interior
-	// origin (e.g. a city-mapped perimeter wall bordering a BoS room) —
-	// wall_origins stores the correct destination for those tiles.
 	if(owned_zones)
 		for(var/area/f13/Z in owned_zones)
 			var/area/orig = owned_zones[Z]
 			if(QDELETED(Z) || !orig || QDELETED(orig))
 				continue
 			for(var/turf/T in Z.contents.Copy())
-				var/area/dest = (wall_origins && wall_origins[T]) ? wall_origins[T] : orig
 				Z.contents    -= T
-				dest.contents += T
+				orig.contents += T
 			qdel(Z)
 
 	owned_zones            = null
 	zone_breakers          = null
-	wall_origins           = null
 	powered_area_instances = null
 	return ..()
 
