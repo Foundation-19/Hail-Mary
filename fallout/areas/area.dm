@@ -1192,6 +1192,40 @@
 	environment = 6
 	grow_chance = 5
 
+/area/f13/enclave/rnd
+	name = "Enclave Research and Development"
+	icon_state = "enclave"
+
+/area/f13/enclave/labs
+	name = "Enclave Research Labs"
+	icon_state = "enclave"
+
+/area/f13/enclave/armory
+	name = "Enclave Armory"
+	icon_state = "enclave"
+
+/area/f13/enclave/barracks
+	name = "Enclave Barracks"
+	icon_state = "enclave"
+
+/area/f13/enclave/medical
+	name = "Enclave Medbay"
+	icon_state = "enclave"
+
+/area/f13/enclave/command
+	name = "Enclave Command Center"
+	icon_state = "enclave"
+
+/area/f13/enclave/reactor
+	name = "Enclave Reactor"
+	icon_state = "enclave"
+
+/area/f13/enclave/comms
+	name = "Enclave Communications"
+	icon_state = "enclave"
+
+/area/f13/enclave/powered
+
 /area/f13/ahs
 	name = "Adepts of Hubology Studies"
 	icon_state = "ahs"
@@ -1206,6 +1240,26 @@
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
+
+/area/f13/ahs/temple
+	name = "AHS Temple"
+	icon_state = "ahs"
+
+/area/f13/ahs/study
+	name = "AHS Study Hall"
+	icon_state = "ahs"
+
+/area/f13/ahs/dormitory
+	name = "AHS Dormitory"
+	icon_state = "ahs"
+
+/area/f13/ahs/xenotech
+	name = "AHS Xenoscience Department"
+	icon_state = "ahs"
+
+/area/f13/ahs/command
+	name = "AHS Command"
+	icon_state = "ahs"
 
 /area/f13/ncr
 	name = "NCR Outpost"
@@ -1231,6 +1285,38 @@
 	name = "NCR Outpost"
 	icon_state = "ncr"
 
+/area/f13/ncr/barracks
+	name = "NCR Barracks"
+	icon_state = "ncr"
+
+/area/f13/ncr/armory
+	name = "NCR Armory"
+	icon_state = "ncr"
+
+/area/f13/ncr/command
+	name = "NCR Command Post"
+	icon_state = "ncr"
+
+/area/f13/ncr/medical
+	name = "NCR Medical"
+	icon_state = "ncr"
+
+/area/f13/ncr/storage
+	name = "NCR Storage"
+	icon_state = "ncr"
+
+/area/f13/ncr/mess
+	name = "NCR Mess Hall"
+	icon_state = "ncr"
+
+/area/f13/ncr/entrance
+	name = "NCR Outpost Entrance"
+	icon_state = "ncr"
+
+/area/f13/ncr/jail
+	name = "NCR Holding Cells"
+	icon_state = "ncr"
+
 /area/f13/legion
 	name = "Legion Fortress"
 	icon_state = "legion"
@@ -1253,6 +1339,34 @@
 	name = "Legion Fortress"
 	icon_state = "legion"
 
+/area/f13/legion/barracks
+	name = "Legion Barracks"
+	icon_state = "legion"
+
+/area/f13/legion/armory
+	name = "Legion Armory"
+	icon_state = "legion"
+
+/area/f13/legion/medical
+	name = "Legion Medical"
+	icon_state = "legion"
+
+/area/f13/legion/command
+	name = "Legion Command Tent"
+	icon_state = "legion"
+
+/area/f13/legion/prison
+	name = "Legion Prison"
+	icon_state = "legion"
+
+/area/f13/legion/arena
+	name = "Legion Arena"
+	icon_state = "legion"
+
+/area/f13/legion/forge
+	name = "Legion Forge"
+	icon_state = "legion"
+
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
 	icon_state = "followers"
@@ -1267,6 +1381,30 @@
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
+
+/area/f13/followers/clinic
+	name = "Followers Clinic"
+	icon_state = "followers"
+
+/area/f13/followers/library
+	name = "Followers Library"
+	icon_state = "followers"
+
+/area/f13/followers/surgery
+	name = "Followers Surgery"
+	icon_state = "followers"
+
+/area/f13/followers/storage
+	name = "Followers Storage"
+	icon_state = "followers"
+
+/area/f13/followers/quarters
+	name = "Followers Living Quarters"
+	icon_state = "followers"
+
+/area/f13/followers/lab
+	name = "Followers Laboratory"
+	icon_state = "followers"
 
 /area/f13/wasteland/khans
 	name = "Great Khan Encampment"

@@ -15,6 +15,13 @@
 
 /// Fuel ticks added per fusion core (SSobj wait=20 = ~2s/tick; 450 ticks ≈ 15 min per core).
 #define FUSION_CORE_FUEL        450
+/// Fuel ticks added per 1 reagent-volume unit of diesel poured into a liquid-fuel generator.
+/// At 1:1 a full standard jerrycan (500 vol) = 500 ticks ≈ 16.7 min.
+#define DIESEL_TICKS_PER_VOLUME  1
+/// SSobj ticks between mandatory wrench-service events on a running generator.
+/// 450 ticks × 2 s = 900 s ≈ 15 min.  Overdue generators trigger type-specific hazard effects.
+/// Service by applying a wrench while the unit is running — no shutdown required.
+#define FGEN_MAINTENANCE_INTERVAL 450
 /// Default starting fuel for a generator (1350 ticks ≈ 45 min, i.e. half a ~90 min round).
 #define FGEN_DEFAULT_FUEL       1350
 /// Fuel level at which a low-power warning is broadcast to the faction (~3 min remaining).

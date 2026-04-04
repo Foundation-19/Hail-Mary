@@ -112,6 +112,31 @@
 	// ── Low-fuel fire-once flag
 	var/low_fuel_warned = FALSE
 
+	// ── Fuel abstraction — override these in generator subtypes.
+	/// Item path this generator accepts as fuel. Checked in attackby().
+	var/accepted_fuel_path  = /obj/item/f13/fusion_core
+	/// Item path spawned after fuel eject/consume (null = spawn nothing).
+	var/depleted_fuel_path  = /obj/item/f13/fusion_core/depleted
+	/// Fuel ticks per inserted unit (replaces hard-coded FUSION_CORE_FUEL).
+	var/fuel_per_unit       = FUSION_CORE_FUEL
+	/// Watts produced per loaded fuel unit (replaces hard-coded FGEN_WATTS_PER_CORE).
+	var/watts_per_fuel_unit = FGEN_WATTS_PER_CORE
+	/// Display name for one fuel unit — used in examine messages and UI.
+	var/fuel_unit_name      = "core"
+	/// Set TRUE for generators fuelled by liquid reagents (e.g. diesel).
+	/// When TRUE: available_watts is a flat value; fuel is tracked in reagent-volume units;
+	/// initial(fuel) is used as the starting amount instead of FGEN_DEFAULT_FUEL.
+	var/fuel_is_liquid      = FALSE
+	/// Ticks elapsed since last maintenance service.
+	/// Reset when a player uses a wrench on the generator while it is running.
+	var/maintenance_ticks   = 0
+	/// TRUE when the generator has exceeded FGEN_MAINTENANCE_INTERVAL and needs servicing.
+	/// A wrench applied while running clears this and resets maintenance_ticks.
+	var/needs_maintenance   = FALSE
+	/// Ticks elapsed since needs_maintenance was set.  Drives escalating hazard probability
+	/// and triggers auto-trip when it reaches FGEN_MAINTENANCE_INTERVAL.
+	var/maintenance_severity = 0
+
 
 // ============================================================
 // LIFE CYCLE
@@ -119,12 +144,14 @@
 
 /obj/machinery/f13/faction_generator/Initialize()
 	. = ..()
-	fuel = FGEN_DEFAULT_FUEL
+	// Liquid-fuel variants use their type-level var default; discrete-unit variants
+	// start with FGEN_DEFAULT_FUEL (may exceed max_fuel intentionally for a longer first round).
+	fuel = fuel_is_liquid ? initial(fuel) : FGEN_DEFAULT_FUEL
 	resolve_map_links()
 	// Set powered inline — avoid calling set_power_state() here because turret
 	// toggle_on() -> popDown() sleeps, which is forbidden inside Initialize.
 	powered = TRUE
-	available_watts = FGEN_WATTS_PER_CORE * max(1, round(fuel / FUSION_CORE_FUEL))
+	available_watts = fuel_is_liquid ? watts_per_fuel_unit : (watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit)))
 	update_icon()
 	stamp_zone(TRUE)
 	// Propagate to auto-wired relays and clients asynchronously.
@@ -213,12 +240,32 @@
 	if(fuel > 0)
 		fuel--
 
-		// Recompute available watts so it shrinks as cores burn down.
-		var/cores_loaded = max(1, round(fuel / FUSION_CORE_FUEL))
-		available_watts = FGEN_WATTS_PER_CORE * cores_loaded
+		// Recompute available watts.
+		// Liquid-fuel generators run at a flat output; discrete units scale per slot.
+		if(fuel_is_liquid)
+			available_watts = watts_per_fuel_unit
+		else
+			var/units_loaded = max(1, round(fuel / fuel_per_unit))
+			available_watts = watts_per_fuel_unit * units_loaded
 
 		// Recompute draw, skipping any shed items.
 		recalc_draw()
+
+		// ── Maintenance tracking — advance counter each tick while running.
+		maintenance_ticks++
+		if(!needs_maintenance && maintenance_ticks >= FGEN_MAINTENANCE_INTERVAL)
+			needs_maintenance = TRUE
+			broadcast_to_faction("<span class='warning'>MAINTENANCE: [name] is overdue for service. Apply a wrench while it is running to clear the maintenance log.</span>")
+		if(needs_maintenance)
+			maintenance_severity++
+			if(maintenance_severity == round(FGEN_MAINTENANCE_INTERVAL * 0.5))
+				broadcast_to_faction("<span class='warning'>WARNING: [name] is critically overdue — faults are becoming very likely. Service it immediately.</span>")
+			if(maintenance_severity >= FGEN_MAINTENANCE_INTERVAL)
+				broadcast_to_faction("<span class='warning'>CRITICAL FAULT: [name] has shut itself down due to unaddressed maintenance. Wrench the unit, then restart.</span>")
+				maintenance_severity = 0
+				set_power_state(FALSE)
+				return
+			on_maintenance_hazard()
 
 		// ── Under budget: try restoring previously shed loads.
 		if(current_draw <= available_watts)
@@ -230,7 +277,8 @@
 				// Shedding alone couldn't resolve it — hard grid trip.
 				if(!overloaded)
 					overloaded = TRUE
-					broadcast_to_faction("<span class='warning'>OVERLOAD: [name] grid tripped ([current_draw]W vs [available_watts]W). All load-shedding options exhausted. Insert another fusion core.</span>")
+					var/fgen_refuel_hint = fuel_is_liquid ? "Refuel the generator." : "Insert another [fuel_unit_name]."
+					broadcast_to_faction("<span class='warning'>OVERLOAD: [name] grid tripped ([current_draw]W vs [available_watts]W). All load-shedding options exhausted. [fgen_refuel_hint]</span>")
 					set_power_state(FALSE)
 			return
 
@@ -241,7 +289,8 @@
 
 		if(!low_fuel_warned && fuel <= FGEN_LOW_FUEL_WARN)
 			low_fuel_warned = TRUE
-			broadcast_to_faction("<span class='warning'>WARNING: [name] is running low on fuel. Approximately [fuel * 2] seconds of power remain. Insert a fusion core now.</span>")
+			var/fgen_warn_hint = fuel_is_liquid ? "Refuel the generator now." : "Insert a [fuel_unit_name] now."
+			broadcast_to_faction("<span class='warning'>WARNING: [name] is running low on fuel. Approximately [fuel * 2] seconds of power remain. [fgen_warn_hint]</span>")
 
 		return
 
@@ -520,6 +569,12 @@
 		if(M.social_faction == faction_tag)
 			to_chat(M, msg)
 
+/// Called each process tick when the generator's maintenance interval has elapsed.
+/// Override in fuel-type variants to apply the appropriate hazard effect.
+/// Base type: pre-War engineering quality — no passive hazard on stock units.
+/obj/machinery/f13/faction_generator/proc/on_maintenance_hazard()
+	return
+
 
 // ============================================================
 // ICON UPDATE
@@ -551,6 +606,13 @@
 			. += span_warning("A cable routing is underway — finish connecting it to a fabricator or relay, then get the generator running.")
 		else
 			. += span_warning("No cables lead out from it, and it's offline. Insert a fusion core and wire up some devices to get power flowing.")
+	if(needs_maintenance)
+		if(maintenance_severity >= round(FGEN_MAINTENANCE_INTERVAL * 0.67))
+			. += span_warning("Something is clearly wrong — heat radiating from the housing and an acrid smell. It needs servicing immediately.")
+		else if(maintenance_severity >= round(FGEN_MAINTENANCE_INTERVAL * 0.33))
+			. += span_warning("The unit is running rough and throwing off unusual heat. It needs servicing soon.")
+		else
+			. += span_notice("One of the panel covers is vibrating loose. A quick service with a wrench would clear the maintenance log.")
 
 
 // ============================================================
@@ -558,14 +620,53 @@
 // ============================================================
 
 /obj/machinery/f13/faction_generator/attackby(obj/item/W, mob/user, params)
-	// ── Wrench — anchor / unanchor (must be offline to remove).
+	// ── Water hazard — shock anyone touching a live generator while standing in water.
+	if(powered && isliving(user))
+		var/turf/T = get_turf(user)
+		if(istype(T, /turf/open/water) || IS_WET_OPEN_TURF(T))
+			to_chat(user, span_danger("You touch the generator while standing in water — electricity surges through you!"))
+			var/mob/living/L = user
+			L.electrocute_act(50, src, flags = SHOCK_NOGLOVES)
+			return
+
+	// ── Wrench — service running generator OR anchor / unanchor when offline.
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(powered)
-			to_chat(user, span_warning("Power down the generator before unbolting it."))
+			if(needs_maintenance)
+				needs_maintenance = FALSE
+				maintenance_ticks = 0
+				maintenance_severity = 0
+				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+				to_chat(user, span_notice("You tighten the fittings and check the seals on [src]. Maintenance log cleared."))
+			else if(maintenance_ticks >= FGEN_MAINTENANCE_INTERVAL - 40)
+				// Coming up on the interval — let them service it early.
+				maintenance_ticks = 0
+				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+				to_chat(user, span_notice("You go over the fittings on [src] before they need it — everything feels tight. Maintenance interval reset."))
+			else
+				var/ticks_left = FGEN_MAINTENANCE_INTERVAL - maintenance_ticks
+				var/mins = round(ticks_left / 30)
+				to_chat(user, span_notice("The seals and fittings feel solid — no service needed for another [mins] minute[mins != 1 ? "s" : ""] or so. Power it down first if you want to move it."))
 			return
 		anchored = !anchored
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		to_chat(user, span_notice(anchored ? "You secure [src] to the floor." : "You unbolt [src] from the floor."))
+		return
+
+	// ── Screwdriver — eject remaining fuel units.
+	if(W.tool_behaviour == TOOL_SCREWDRIVER)
+		if(!can_access(user))
+			to_chat(user, span_warning("Access denied."))
+			return
+		if(fuel <= 0)
+			to_chat(user, span_notice("The fuel reservoir is already empty — nothing to eject."))
+			return
+		var/ejected = fuel
+		fuel = 0
+		low_fuel_warned = FALSE
+		if(powered)
+			set_power_state(FALSE)
+		on_fuel_ejected(user, ejected)
 		return
 
 	// ── Cable coil — wiring interface.
@@ -591,6 +692,10 @@
 
 	// ── Wirecutters — sever all wired connections from this generator.
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
+		if(powered && isliving(user))
+			var/mob/living/L = user
+			to_chat(user, span_danger("You cut into a live cable — electricity surges through you!"))
+			L.electrocute_act(40, src, flags = SHOCK_NOGLOVES)
 		var/cut_count = 0
 		if(linked_relays)
 			for(var/obj/machinery/f13/power_relay/R in linked_relays.Copy())
@@ -621,17 +726,24 @@
 		handle_id_card(W, user)
 		return
 
-	// ── Fusion core insertion.
-	if(istype(W, /obj/item/f13/fusion_core))
-		var/obj/item/f13/fusion_core/core = W
-
+	// ── Fuel insertion — accepts whichever item type this generator variant uses.
+	if(accepted_fuel_path && istype(W, accepted_fuel_path))
 		if(!can_access(user))
 			to_chat(user, span_warning("Access denied."))
 			return
 
-		if(core.depleted)
-			to_chat(user, span_warning("That core is depleted. Recycle it in a core fabricator first."))
-			return
+		// Arc flash — inserting into a live (powered) generator contacts live internals.
+		if(powered && isliving(user))
+			to_chat(user, span_danger("You crack open the fuel bay while the generator is live — the contacts arc violently across your hand!"))
+			var/mob/living/L = user
+			L.electrocute_act(35, src, flags = SHOCK_NOGLOVES)
+
+		// Fusion cores have a depleted flag; other fuel types skip this check.
+		if(istype(W, /obj/item/f13/fusion_core))
+			var/obj/item/f13/fusion_core/core = W
+			if(core.depleted)
+				to_chat(user, span_warning("That core is depleted. Recycle it in a core fabricator first."))
+				return
 
 		if(fuel >= max_fuel)
 			to_chat(user, span_warning("[src] already has full fuel reserves."))
@@ -639,19 +751,20 @@
 
 		user.transferItemToLoc(W, src)
 		var/old_fuel = fuel
-		fuel = min(fuel + FUSION_CORE_FUEL, max_fuel)
-		qdel(core)
+		fuel = min(fuel + fuel_per_unit, max_fuel)
+		qdel(W)
 
-		// Eject a depleted shell — the physical casing is returned.
-		new /obj/item/f13/fusion_core/depleted(loc)
+		// Eject a depleted shell / empty container if applicable.
+		if(depleted_fuel_path)
+			new depleted_fuel_path(loc)
 
 		user.visible_message(
-			"[user] slides a fusion core into [src].",
-			span_notice("You insert a fusion core into [src]. ([fuel - old_fuel] fuel added; total: [fuel]/[max_fuel])")
+			"[user] loads a [fuel_unit_name] into [src].",
+			span_notice("You insert a [fuel_unit_name] into [src]. ([fuel - old_fuel] fuel added; total: [fuel]/[max_fuel])")
 		)
 
 		// Recalculate available watts — more fuel = more capacity.
-		available_watts = FGEN_WATTS_PER_CORE * max(1, round(fuel / FUSION_CORE_FUEL))
+		available_watts = watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit))
 		recalc_draw()
 
 		if(!powered)
@@ -764,12 +877,18 @@
 /obj/machinery/f13/faction_generator/attack_hand(mob/living/user)
 	if(!Adjacent(user))
 		return
+	if(powered)
+		var/turf/T = get_turf(user)
+		if(istype(T, /turf/open/water) || IS_WET_OPEN_TURF(T))
+			to_chat(user, span_danger("You reach for the controls — electricity arcs through the water and into you!"))
+			user.electrocute_act(50, src, flags = SHOCK_NOGLOVES)
+			return
 	show_ui(user)
 
 /obj/machinery/f13/faction_generator/proc/show_ui(mob/living/user)
 	var/accessible = can_access(user)
 	var/fuel_pct   = max_fuel > 0 ? round((fuel / max_fuel) * 100) : 0
-	var/cores_remaining = round(fuel / FUSION_CORE_FUEL, 0.1)
+	var/units_remaining = round(fuel / fuel_per_unit, 0.1)
 	var/runtime_secs = fuel * 2  // each fuel unit = 2 s
 	var/runtime_min  = round(runtime_secs / 60)
 	var/runtime_display = runtime_secs < 120 ? "[runtime_secs]s" : "[runtime_min] min"
@@ -800,8 +919,16 @@
 	if(shed_total > 0)
 		status_line += " <span class='warn'>&#91;LOAD SHED: [shed_total] device[shed_total != 1 ? "s" : ""] suspended&#93;</span>"
 	dat += "<pre>  STATUS   : [status_line]</pre>"
-	dat += "<pre>  FUEL     : [fuel] / [max_fuel] <span class='dim'>([fuel_pct]%  ~[cores_remaining] cores  runtime ~[runtime_display])</span></pre>"
-	dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>([max(1,round(fuel/FUSION_CORE_FUEL))] core(s) x [FGEN_WATTS_PER_CORE]W)</span></pre>"
+	if(fuel_is_liquid)
+		dat += "<pre>  FUEL     : [fuel] L / [max_fuel] L <span class='dim'>([fuel_pct]%  runtime ~[runtime_display])</span></pre>"
+		if(accessible)
+			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=eject_fuel'>DRAIN TANK</a>  <span class='dim'>(vent remaining fuel; generator powers down)</span></pre>"
+		dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>(liquid fuel — flat [available_watts]W output)</span></pre>"
+	else
+		dat += "<pre>  FUEL     : [fuel] / [max_fuel] <span class='dim'>([fuel_pct]%  ~[units_remaining] [fuel_unit_name](s)  runtime ~[runtime_display])</span></pre>"
+		if(accessible)
+			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=eject_fuel'>EJECT FUEL</a>  <span class='dim'>(purge remaining fuel; generator powers down)</span></pre>"
+		dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>([max(1,round(fuel/fuel_per_unit))] [fuel_unit_name](s) x [watts_per_fuel_unit]W)</span></pre>"
 	dat += "<pre>  DRAW     : <span class='[load_color]'>[current_draw]W ([load_pct]%)</span></pre>"
 	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [load_pct]%</pre>"
 	dat += "<pre class='dim'>  COST REF.: relay=[RELAY_WATT_DRAW]W  fab=[FAB_WATT_DRAW_IDLE]W idle/[FAB_WATT_DRAW_ACTIVE]W active  turret=[TURRET_WATT_DRAW]W</pre>"
@@ -880,6 +1007,11 @@
 	else
 		dat += "<pre class='bad'>  ACCESS DENIED</pre>"
 
+	// ── Network rescan
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+	dat += "<pre class='head'>  &#91;NETWORK&#93;</pre>"
+	dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=rescan'>Rescan cable network</a>  <span class='dim'>(detects newly-laid cables without rebuilding)</span></pre>"
+
 	dat += "<pre class='sep'>  ================================================================</pre>"
 
 	var/datum/browser/popup = new(user, "f13_generator", null, 620, 560)
@@ -920,5 +1052,378 @@
 			pending_faction_reg = TRUE
 			pending_personal_reg = FALSE
 			to_chat(U, span_notice("Ready to register faction lock. Swipe an ID card on the generator."))
+		if("eject_fuel")
+			if(!can_access(U))
+				to_chat(U, span_warning("Access denied."))
+				return
+			if(fuel <= 0)
+				to_chat(U, span_notice("The fuel reservoir is already empty — nothing to eject."))
+			else
+				var/ejected = fuel
+				fuel = 0
+				low_fuel_warned = FALSE
+				if(powered)
+					set_power_state(FALSE)
+				on_fuel_ejected(U, ejected)
+		if("rescan")
+			var/found = 0
+			var/before_relays  = linked_relays  ? linked_relays.len  : 0
+			var/before_clients = linked_clients ? linked_clients.len : 0
+			_scan_cable_connections()
+			var/after_relays  = linked_relays  ? linked_relays.len  : 0
+			var/after_clients = linked_clients ? linked_clients.len : 0
+			found = (after_relays - before_relays) + (after_clients - before_clients)
+			if(found > 0)
+				to_chat(U, span_notice("Network rescan complete — [found] new device[found != 1 ? "s" : ""] linked."))
+			else
+				to_chat(U, span_notice("Network rescan complete — no new devices found on the cable network."))
 
 	show_ui(U)
+
+
+// ============================================================
+// GENERATOR VARIANTS
+// ============================================================
+//
+//  VARIANT              FUEL TYPE                        W        max_fuel  runtime full
+//  ─────────────────    ──────────────────────────────   ────     ────────  ────────────
+//  (base)               fusion core (discrete)           1000W/core × 2     ~30 min cap
+//  /fusion              fusion core (discrete, named)    1000W/core × 2     ~30 min cap
+//  /diesel              diesel reagent (liquid, jerrycan) 750W flat 1440 L  ~48 min
+//  /atomic              atomic cell (discrete)           1500W × 1 cell     ~22 min
+//  /wastelander         diesel reagent (liquid, jerrycan) 500W flat 1000 L  ~33 min
+//                       — proximity power spread (no wired grid needed)
+//
+// Liquid-fuel variants: set fuel_is_liquid = TRUE, accepted_fuel_path = null,
+//   depleted_fuel_path = null, fuel_per_unit = 1 (1 tick per L).  Override attackby()
+//   to call try_liquid_refuel().  The type-level fuel var default is the round-start amount.
+//
+// Discrete-unit variants: set accepted_fuel_path, fuel_per_unit, watts_per_fuel_unit.
+//   fuel starts at FGEN_DEFAULT_FUEL (may exceed max_fuel for longer initial runtime).
+// ============================================================
+
+/// Called after fuel has been zeroed out by a drain/eject action.  Override in subtypes
+/// for type-specific behaviour (e.g. collecting liquid fuel in a held container).
+/obj/machinery/f13/faction_generator/proc/on_fuel_ejected(mob/user, ejected_vol)
+	var/units_out = max(0, round(ejected_vol / fuel_per_unit))
+	if(accepted_fuel_path && units_out > 0)
+		for(var/i in 1 to units_out)
+			new accepted_fuel_path(drop_location())
+		to_chat(user, span_notice("Fuel purged: [units_out] [fuel_unit_name][units_out != 1 ? "s" : ""] ejected."))
+	else
+		to_chat(user, span_notice("Fuel reservoir vented."))
+
+/// Liquid diesel drain — checks the other hand for a container to catch fuel;
+/// anything that doesn't fit (or if no container is present) spills on the floor.
+/obj/machinery/f13/faction_generator/diesel/on_fuel_ejected(mob/user, ejected_vol)
+	var/captured = 0
+	var/obj/item/reagent_containers/can = null
+	if(isliving(user))
+		var/mob/living/L = user
+		var/obj/item/other = L.get_inactive_held_item()
+		if(istype(other, /obj/item/reagent_containers))
+			can = other
+	if(can && can.reagents)
+		var/space = can.reagents.maximum_volume - can.reagents.total_volume
+		captured = min(round(ejected_vol), space)
+		if(captured > 0)
+			can.reagents.add_reagent(/datum/reagent/fuel, captured)
+	var/overflow = ejected_vol - captured
+	if(overflow > 0)
+		var/turf/T = get_turf(src)
+		if(T && !locate(/obj/effect/decal/cleanable/oil) in T)
+			new /obj/effect/decal/cleanable/oil/slippery(T)
+		if(can)
+			user.visible_message(
+				span_warning("[user] drains [src] — [round(overflow)] L of diesel spills across the floor!"),
+				span_warning("You drain [src]. [round(captured)] L goes into [can.name]; [round(overflow)] L hits the floor — keep ignition sources away.")
+			)
+		else
+			user.visible_message(
+				span_warning("[user] drains [src] — diesel pours across the floor!"),
+				span_warning("You drain [src] without a container — [round(overflow)] L of diesel soaks the floor. Keep ignition sources away.")
+			)
+	else
+		to_chat(user, span_notice("You drain [src]'s tank into [can.name]. ([round(captured)] L)"))
+
+/// Attempt to refuel this generator from a liquid-fuel reagent container (e.g. jerrycan).
+/// Returns TRUE if the interaction was consumed (success or informative failure).
+/obj/machinery/f13/faction_generator/proc/try_liquid_refuel(obj/item/W, mob/user)
+	if(!istype(W, /obj/item/reagent_containers))
+		return FALSE
+	var/obj/item/reagent_containers/container = W
+	if(!container.reagents || !container.reagents.has_reagent(/datum/reagent/fuel))
+		to_chat(user, span_warning("That won't work — [name] runs on petroleum diesel. Substituting anything else risks injector damage or a flash fire."))
+		return TRUE
+	// Hot-refuel guard: diesel generators need ~30 seconds to cool down before refuelling.
+	if(istype(src, /obj/machinery/f13/faction_generator/diesel) && !powered)
+		var/obj/machinery/f13/faction_generator/diesel/D = src
+		if(D.shutdown_time > 0 && (world.time - D.shutdown_time) < 300) // 300 ds = 30 seconds
+			var/secs_left = round((300 - (world.time - D.shutdown_time)) / 10)
+			to_chat(user, span_warning("The engine block is still too hot to refuel safely. Wait about [secs_left] more second[secs_left != 1 ? "s" : ""]."))
+			return TRUE
+	if(!can_access(user))
+		to_chat(user, span_warning("Access denied."))
+		return TRUE
+	if(fuel >= max_fuel)
+		to_chat(user, span_warning("The fuel tank is already full."))
+		return TRUE
+	var/available_vol = container.reagents.get_reagent_amount(/datum/reagent/fuel)
+	var/space = max_fuel - fuel
+	var/transfer = min(available_vol, space)
+	if(transfer < 1)
+		to_chat(user, span_warning("The fuel tank is already full."))
+		return TRUE
+	container.reagents.remove_reagent(/datum/reagent/fuel, transfer)
+	var/old_fuel = fuel
+	fuel = min(fuel + round(transfer * DIESEL_TICKS_PER_VOLUME), max_fuel)
+	available_watts = watts_per_fuel_unit
+	recalc_draw()
+	user.visible_message(
+		"[user] pours diesel fuel into [src].",
+		span_notice("You pour [round(transfer)] L of diesel into [src]. Tank: [fuel]/[max_fuel] L (+[fuel - old_fuel] L).")
+	)
+	if(!powered && fuel > 0)
+		set_power_state(TRUE)
+	else if(overloaded && current_draw <= available_watts)
+		overloaded = FALSE
+		broadcast_to_faction("<span class='notice'>OVERLOAD CLEARED: [name] — power restored at [current_draw]W / [available_watts]W.</span>")
+		set_power_state(TRUE)
+	return TRUE
+
+/// Explicit "fusion core" named variant of the base generator.
+/// Mapper-placed generators that want to make clear they use fusion cores.
+/obj/machinery/f13/faction_generator/fusion
+	name = "fusion core generator"
+	desc = "A pre-War Vault-Tec integrated power plant. High-yield magnetic containment feeds up to two RobCo fusion cores simultaneously. Expensive to operate, but nothing in the wasteland matches its output-to-weight ratio."
+
+
+/// Common post-War diesel generator.  Fuelled by pouring liquid diesel from a jerrycan.
+/// Burns at a flat 750 W as long as there is fuel in the tank.
+/obj/machinery/f13/faction_generator/diesel
+	name = "diesel generator"
+	desc = "A battered pre-War industrial diesel unit — the kind that kept factories running before the war, and keeps settlements alive after it. Loud, thirsty, and mercifully common out here. Feed it diesel straight from a jerrycan to keep it running."
+	accepted_fuel_path   = null   // liquid-fuel pathway — uses try_liquid_refuel() instead
+	depleted_fuel_path   = null   // liquid fuel has no physical casing to eject
+	/// world.time when the generator was last powered down.  Used to enforce the
+	/// hot-refuel cooldown — the manual says don't fuel while the unit is hot.
+	var/shutdown_time = 0
+	fuel_is_liquid       = TRUE
+	fuel_per_unit        = 1      // 1 tick per litre (for residual unit calculations)
+	watts_per_fuel_unit  = 750    // flat output — diesel can't match fusion
+	max_fuel             = 1440   // ~48 min fully loaded (~2.9 jerrycans)
+	fuel                 = 500    // round-start: ~1 jerrycan worth (~17 min)
+	fuel_unit_name       = "L"
+
+/obj/machinery/f13/faction_generator/diesel/attackby(obj/item/W, mob/user, params)
+	if(try_liquid_refuel(W, user))
+		return
+	return ..()
+
+/obj/machinery/f13/faction_generator/diesel/set_power_state(new_powered)
+	if(!new_powered)
+		shutdown_time = world.time
+	return ..()
+
+/obj/machinery/f13/faction_generator/diesel/on_maintenance_hazard()
+	// Degrading fuel lines — fire risk; probability escalates the longer servicing is neglected.
+	if(prob(min(25, 1 + round(maintenance_severity / 45))))
+		var/turf/T = get_turf(src)
+		if(T && !locate(/obj/effect/hotspot) in T)
+			new /obj/effect/hotspot(T)
+
+/obj/machinery/f13/faction_generator/diesel/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	// Diesel autoignition threshold: ~250 degrees C (523K).
+	// Probability scales with how far above threshold the temp is.
+	if(fuel > 0 && exposed_temperature > 523)
+		var/chance = min(90, round((exposed_temperature - 523) / 5))
+		if(prob(chance))
+			playsound(src, 'sound/effects/bang.ogg', 80, TRUE)
+			var/turf/T = get_turf(src)
+			if(T && !locate(/obj/effect/hotspot) in T)
+				new /obj/effect/hotspot(T)
+			for(var/turf/adjacent in orange(1, src))
+				if(!locate(/obj/effect/hotspot) in adjacent)
+					if(prob(50))
+						new /obj/effect/hotspot(adjacent)
+	. = ..()
+
+/// Rare Poseidon Energy atomic generator.  One atomic fuel cell, enormous output.
+/// Cells are the scarcest fuel in the wasteland, but one will run a small base
+/// for a very long time.
+/obj/machinery/f13/faction_generator/atomic
+	name = "Poseidon atomic generator"
+	desc = "A compact Poseidon Energy pre-War atomic generator, originally spec'd for fringe settlements too remote for a grid hook-up. A single atomic fuel cell will run most of a small base for hours — provided you can find a replacement when it burns out."
+	accepted_fuel_path   = /obj/item/f13/atomic_cell
+	depleted_fuel_path   = /obj/item/f13/atomic_cell/depleted
+	fuel_per_unit        = 675    // ~22 min per cell
+	watts_per_fuel_unit  = 1500   // high output — atomic fission beats fusion cores
+	max_fuel             = 675    // single-cell chamber
+	fuel_unit_name       = "fuel cell"
+
+/obj/machinery/f13/faction_generator/atomic/Initialize()
+	. = ..()
+	fuel = 675   // pre-loaded with one atomic cell at round start
+	// Recalculate watts after fixing fuel — parent Initialize sets fuel to FGEN_DEFAULT_FUEL
+	// which is larger than max_fuel=675 for the single-cell chamber.
+	available_watts = watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit))
+
+/obj/machinery/f13/faction_generator/atomic/on_maintenance_hazard()
+	// Ageing containment seals — localised radiation leaks; escalates with neglect.
+	if(prob(min(15, 3 + round(maintenance_severity / 90))))
+		radiation_pulse(src, 35, 2)
+
+/obj/machinery/f13/faction_generator/atomic/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	// Poseidon manual: containment rated to 1,200 degrees F (~649 degrees C, 922K).
+	if(fuel > 0 && exposed_temperature > 922)
+		radiation_pulse(src, 60, 3)
+		if(powered)
+			broadcast_to_faction("<span class='warning'>CONTAINMENT ALERT: [name] -- extreme heat has breached containment. Emergency shutdown. Radiation hazard.</span>")
+			set_power_state(FALSE)
+	. = ..()
+
+// ============================================================
+// WASTELANDER GENERATOR — Wired grid with relay-extended reach
+// ============================================================
+//
+// Works like the fusion core generator (wired relays, junction boxes, breaker panels)
+// but the generator's effective range is limited to power_reach tiles.  Coverage
+// extends via relay chains: any relay within power_reach of the generator (or of
+// another already-reachable relay) becomes a new range anchor, and all devices
+// within power_reach of that anchor receive power.
+//
+// Example: generator at A, relay at B (8 tiles away), relay at C (8 tiles from B
+// but 16 from A).  C is unreachable from A directly but reachable through B — so
+// C and its subtree get power.  Relay posts function as range extenders.
+//
+// stamp_zone() floods the immediate vicinity for ambient lighting.  Pair with a
+// /obj/machinery/f13/power_relay/breaker_box as a manual cutoff.
+//
+// Fuelled by pouring liquid diesel from a jerrycan (same as the diesel variant).
+// ============================================================
+
+/// Jury-rigged wasteland generator.  Requires wiring; each relay post within reach
+/// extends coverage by another power_reach hop.
+/obj/machinery/f13/faction_generator/wastelander
+	name = "jury-rigged generator"
+	desc = "A rattling heap of salvaged parts: an old Chryslus engine block, hydraulic hose, and what might once have been a refrigerator compressor, held together with electrical tape and misplaced optimism. Pour diesel in, run your wiring close, and stand back."
+	accepted_fuel_path   = null   // liquid-fuel pathway — uses try_liquid_refuel() instead
+	depleted_fuel_path   = null
+	fuel_is_liquid       = TRUE
+	fuel_per_unit        = 1
+	watts_per_fuel_unit  = 500    // crude output — less than a proper industrial unit
+	max_fuel             = 1000   // ~33 min fully loaded (~2 jerrycans)
+	fuel                 = 200    // starts nearly empty — wasteland style
+	fuel_unit_name       = "L"
+	/// Base reach in tiles.  Each powered relay within reach becomes its own anchor,
+	/// extending coverage by another power_reach hop in any direction.
+	var/power_reach = 10
+
+/// BFS through the relay network.  Returns a list of reach anchors: the generator
+/// itself plus every relay reachable via a chain of power_reach-tile hops.
+/// Used to propagate power and to determine which clients are in range.
+/obj/machinery/f13/faction_generator/wastelander/proc/_build_relay_reach()
+	var/list/anchors = list(src)
+	var/list/pool    = linked_relays ? linked_relays.Copy() : list()
+	var/changed = TRUE
+	while(changed)
+		changed = FALSE
+		for(var/obj/machinery/f13/power_relay/R in pool)
+			if(QDELETED(R))
+				pool -= R
+				continue
+			for(var/atom/anchor in anchors)
+				if(get_dist(anchor, R) <= power_reach)
+					anchors += R
+					pool    -= R
+					changed  = TRUE
+					break
+	return anchors
+
+/// Returns TRUE if target is within power_reach of any anchor in the reach list.
+/obj/machinery/f13/faction_generator/wastelander/proc/_is_reachable(obj/machinery/target, list/reach)
+	for(var/atom/anchor in reach)
+		if(get_dist(anchor, target) <= power_reach)
+			return TRUE
+	return FALSE
+
+/obj/machinery/f13/faction_generator/wastelander/stamp_zone(state)
+	// Flood-fill owned areas from physical proximity on every stamp call.
+	// Include /area/space in addition to /area/f13 so that wall-mounted machinery
+	// (e.g. door buttons) placed on space-type tiles within range also get stamped.
+	var/list/nearby = list()
+	for(var/turf/T in range(power_reach, src))
+		var/area/A = T.loc
+		if(A && !(A in nearby) && (istype(A, /area/f13) || istype(A, /area/space)))
+			nearby += A
+	powered_area_instances = nearby
+	. = ..()
+	// BYOND's area contents iteration may not reach machinery on closed (wall) turfs
+	// in all runtime configurations.  Walk them explicitly so wall-mounted buttons
+	// and other wall machinery within range always receive the power-state update.
+	for(var/turf/closed/wall/T in range(power_reach, src))
+		for(var/obj/machinery/M in T)
+			M.power_change()
+/obj/machinery/f13/faction_generator/wastelander/set_power_state(new_powered)
+	if(powered == new_powered)
+		return
+	powered = new_powered
+	update_icon()
+	stamp_zone(powered)
+	if(linked_turrets)
+		for(var/obj/machinery/porta_turret/T in linked_turrets)
+			if(!QDELETED(T))
+				T.toggle_on(powered)
+	// Build relay reach; relays IN the reach set get powered, relays outside it don't.
+	// Each powered relay is itself an anchor, so its subtree clients are powered too.
+	var/list/reach = _build_relay_reach()
+	if(linked_relays)
+		for(var/obj/machinery/f13/power_relay/R in linked_relays)
+			if(!QDELETED(R))
+				R.set_relay_power(powered && (R in reach))
+	if(linked_clients)
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(!QDELETED(C))
+				C.on_grid_power_change(powered && _is_reachable(C, reach))
+	if(powered)
+		low_fuel_warned = FALSE
+		broadcast_to_faction("<span class='notice'>POWER RESTORED: [faction_tag ? faction_tag : "Base"] generator is back online.</span>")
+	else
+		broadcast_to_faction("<span class='warning'>POWER FAILURE: [faction_tag ? faction_tag : "Base"] generator has gone offline. Refuel it to restore power.</span>")
+
+/obj/machinery/f13/faction_generator/wastelander/_initial_propagate()
+	if(QDELETED(src) || !powered)
+		return
+	var/list/reach = _build_relay_reach()
+	if(linked_relays)
+		for(var/obj/machinery/f13/power_relay/R in linked_relays)
+			if(!QDELETED(R) && (R in reach))
+				R.set_relay_power(TRUE)
+	if(linked_clients)
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(!QDELETED(C) && _is_reachable(C, reach))
+				C.on_grid_power_change(TRUE)
+	_scan_cable_connections()
+	// Post-scan: rebuild reach (scan may have added more relays) and shut off anything
+	// the cable traversal linked that is outside the actual reach envelope.
+	var/list/reach2 = _build_relay_reach()
+	if(linked_relays)
+		for(var/obj/machinery/f13/power_relay/R in linked_relays)
+			if(!QDELETED(R) && R.relay_powered && !(R in reach2))
+				R.set_relay_power(FALSE)
+	if(linked_clients)
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(!QDELETED(C) && C.grid_powered && !_is_reachable(C, reach2))
+				C.on_grid_power_change(FALSE)
+
+/obj/machinery/f13/faction_generator/wastelander/on_maintenance_hazard()
+	// Worst build quality — fuel vapour ignition; escalates the fastest of all variants.
+	if(prob(min(30, 2 + round(maintenance_severity / 30))))
+		var/turf/T = get_turf(src)
+		if(T && !locate(/obj/effect/hotspot) in T)
+			new /obj/effect/hotspot(T)
+
+/obj/machinery/f13/faction_generator/wastelander/attackby(obj/item/W, mob/user, params)
+	if(try_liquid_refuel(W, user))
+		return
+	return ..()

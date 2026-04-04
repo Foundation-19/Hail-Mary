@@ -168,6 +168,8 @@
 /// Walk this relay's subtree and return total watt draw (self + downstream).
 /// Self draw = RELAY_WATT_DRAW + owned turrets + any wired fabricators if this relay has them.
 /obj/machinery/f13/power_relay/proc/get_subtree_draw()
+	if(!relay_powered)
+		return 0  // offline relay draws nothing
 	var/draw = RELAY_WATT_DRAW
 	if(linked_turrets)
 		for(var/obj/machinery/porta_turret/T in linked_turrets)
@@ -307,6 +309,10 @@
 
 	// ── Wirecutters — sever the upstream connection.
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
+		if(relay_powered && isliving(user))
+			var/mob/living/L = user
+			to_chat(user, span_danger("You cut into a live cable — electricity surges through you!"))
+			L.electrocute_act(30, src, flags = SHOCK_NOGLOVES)
 		if(!upstream_ref)
 			to_chat(user, span_notice("[src] has no upstream cable to cut."))
 			return
@@ -547,3 +553,44 @@
 		return
 	for(var/area/A in powered_area_instances)
 		F13_STAMP_AREA_POWER(A, state)
+
+
+// ============================================================
+// WASTELAND RELAY — Salvage-built distribution node
+// ============================================================
+
+/// Jury-rigged relay post built from scavenged automotive and building parts.
+/// Functionally identical to the standard power relay.  Wire it the same way.
+/obj/machinery/f13/power_relay/wasteland
+	name          = "cobbled relay post"
+	desc          = "Power distribution on a shoestring: an automotive fuse block, lamp cord, and a junction box that has seen better decades, all clamped to a rebar post with pipe fittings. Carries power down the line just as well as the original. Mostly."
+
+
+// ============================================================
+// BREAKER BOX — Inline manual cutoff switch
+// ============================================================
+//
+// Wire it between the generator (or upstream relay) and downstream devices.
+// Activate by hand to toggle power to everything downstream without shutting
+// the generator off.  Useful as the main on/off switch for a jury-rigged setup.
+//
+// Behaves as a standard relay in all other respects: wiring, area stamps,
+// turret links, load-shedding exclusion.
+// ============================================================
+
+/// Inline power cutoff panel.  Wire upstream to the generator; wire downstream
+/// to relays or junction boxes.  Toggle by hand to cut or restore downstream power.
+/obj/machinery/f13/power_relay/breaker_box
+	name          = "main breaker panel"
+	desc          = "A heavy-duty disconnect panel — wired between the generator and the rest of the installation so you can cut power to everything downstream without touching the generator. The lever positions are labelled ON and OFF. Someone scratched them out and wrote LIVE and DEAD."
+
+/obj/machinery/f13/power_relay/breaker_box/attack_hand(mob/living/user)
+	if(!Adjacent(user))
+		return
+	var/new_state = !relay_powered
+	set_relay_power(new_state)
+	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+	user.visible_message(
+		"[user] [new_state ? "closes" : "opens"] the main breaker on [src].",
+		span_notice("You [new_state ? "close the main breaker — power restored downstream." : "open the main breaker — everything downstream is now dead."]")
+	)

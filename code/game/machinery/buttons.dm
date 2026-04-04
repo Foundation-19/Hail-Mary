@@ -186,6 +186,19 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 
 /obj/machinery/button/power_change()
+	var/area/A = get_area(src)
+	// /area/space hardcodes powered()=0 regardless of vars.
+	// /area/f13 areas have no APC, so the standard powered() chain is irrelevant;
+	// F13_STAMP_AREA_POWER writes power_environ directly.
+	// Read power_environ directly for both so wall-mounted buttons always track the
+	// F13 grid state correctly regardless of BYOND's area-contents iteration order.
+	if(istype(A, /area/f13) || istype(A, /area/space))
+		if(A.power_environ)
+			stat &= ~NOPOWER
+		else
+			stat |= NOPOWER
+		update_icon()
+		return
 	..()
 	update_icon()
 

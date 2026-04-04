@@ -8,6 +8,25 @@
 	icon_plating = "plating"
 	icon = 'icons/fallout/turfs/floors.dmi'
 
+// -------------------------------------------------------------------------
+// Vault floor tile restoration
+// -------------------------------------------------------------------------
+// Override baseturfs and floor_tile on the vault_floor root so that:
+//   crowbar → /turf/open/floor/plating/f13_vault  (same DMI as vault floors)
+//   place back → exact subtype + original icon_state are both restored
+// The f13_vault_plating and f13_vault tile types live in fallout/turf/plating.dm.
+
+/turf/open/floor/plasteel/f13/vault_floor
+	baseturfs = /turf/open/floor/plating/f13_vault
+	floor_tile  = /obj/item/stack/tile/f13_vault
+
+/// Spawns an f13_vault tile that remembers the exact vault subtype it was
+/// removed from, so PlaceOnTop can recreate the right type on re-placement.
+/turf/open/floor/plasteel/f13/vault_floor/spawn_tile()
+	var/obj/item/stack/tile/f13_vault/T = new(src)
+	T.saved_turf_type = type
+
+
 /turf/open/floor/f13/ReplaceWithLattice()
 	ChangeTurf(baseturfs)
 
