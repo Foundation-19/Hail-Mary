@@ -16898,12 +16898,6 @@
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plasteel/f13/vault_floor/white,
 /area/f13/building/hospital)
-"bCG" = (
-/obj/structure/flora/rock/pile/largejungle{
-	icon_state = "bush3"
-	},
-/turf/closed/mineral/random/low_chance,
-/area/f13/caves)
 "bCH" = (
 /obj/machinery/vending/cigarette,
 /obj/machinery/light{
@@ -23206,9 +23200,6 @@
 /obj/item/reagent_containers/spray/pepper,
 /turf/open/floor/f13/wood,
 /area/f13/brotherhood)
-"dWQ" = (
-/turf/open/indestructible/ground/inside/dirt/stamped/outside,
-/area/f13/caves)
 "dWS" = (
 /obj/structure/barricade/wooden,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -57998,12 +57989,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"toy" = (
-/obj/structure/flora/grass/wasteland{
-	icon_state = "tall_grass_4"
-	},
-/turf/closed/mineral/random/low_chance,
-/area/f13/caves)
 "toG" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -121010,7 +120995,7 @@ aae
 aae
 aae
 aae
-bCG
+aae
 asS
 aae
 asS
@@ -121024,7 +121009,7 @@ aae
 aak
 aaa
 aae
-dWQ
+aae
 vGl
 jSA
 elV
@@ -127679,7 +127664,7 @@ nkF
 aaa
 aae
 aae
-toy
+aae
 cNP
 asS
 vGl
