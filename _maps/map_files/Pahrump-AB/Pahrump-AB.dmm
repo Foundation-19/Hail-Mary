@@ -35257,9 +35257,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
-"jfB" = (
-/turf/closed/wall/r_wall,
-/area/f13/wasteland)
 "jfF" = (
 /obj/machinery/msgterminal/ncr{
 	dir = 1
@@ -47284,7 +47281,7 @@
 	layer = 3
 	},
 /turf/closed/mineral/random/low_chance,
-/area/f13/wasteland)
+/area/f13/caves)
 "oue" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -50243,9 +50240,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/city)
-"pCP" = (
-/turf/closed/mineral/random/low_chance,
-/area/f13/brotherhood)
 "pCS" = (
 /obj/structure/displaycase,
 /obj/item/clothing/gloves/ring/silver,
@@ -52902,13 +52896,6 @@
 /obj/structure/window/reinforced/fulltile,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/ncr)
-"qRI" = (
-/turf/closed/wall/r_wall/rust{
-	desc = null;
-	icon = 'icons/turf/walls/f13vault_reinforced_wall.dmi';
-	icon_state = "2-i"
-	},
-/area/f13/caves)
 "qRR" = (
 /obj/machinery/light{
 	dir = 8
@@ -106945,7 +106932,7 @@ eLH
 vnO
 sJn
 eEQ
-jfB
+eLH
 aae
 aae
 aaa
@@ -107202,7 +107189,7 @@ eLH
 eLH
 eLH
 eLH
-jfB
+eLH
 aae
 aae
 aae
@@ -107716,7 +107703,7 @@ vnO
 laV
 vnO
 eLH
-tPB
+aae
 aae
 aae
 aaa
@@ -107973,7 +107960,7 @@ vnO
 vnO
 vnO
 eLH
-tPB
+aae
 aae
 aae
 aaa
@@ -108230,7 +108217,7 @@ eLH
 sJn
 eEQ
 eLH
-tPB
+aae
 aae
 aae
 aaa
@@ -108487,7 +108474,7 @@ eLH
 eLH
 eLH
 eLH
-tPB
+aae
 aae
 aae
 aaa
@@ -108744,7 +108731,7 @@ vgm
 vsR
 vgm
 vgm
-pCP
+aae
 aae
 aae
 aaa
@@ -109259,7 +109246,7 @@ bOb
 iSL
 qIN
 vgm
-qRI
+vgm
 aae
 aae
 aaa
@@ -109516,7 +109503,7 @@ cIM
 bOb
 uyu
 pNM
-qRI
+vgm
 aae
 aae
 aae
@@ -109773,7 +109760,7 @@ fJT
 bOb
 bOb
 rUr
-qRI
+vgm
 aae
 aae
 aae
@@ -110030,7 +110017,7 @@ mFo
 bOb
 bOb
 rUr
-qRI
+vgm
 aae
 aae
 aae
@@ -110287,7 +110274,7 @@ mFo
 bOb
 qek
 pSC
-qRI
+vgm
 aae
 aaa
 aae
@@ -110544,7 +110531,7 @@ uPl
 czZ
 aUt
 vgm
-qRI
+vgm
 aae
 aae
 aaa
