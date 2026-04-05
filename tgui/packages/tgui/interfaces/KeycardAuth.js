@@ -7,6 +7,7 @@ export const KeycardAuth = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={375}
       height={125}>
       <Window.Content>

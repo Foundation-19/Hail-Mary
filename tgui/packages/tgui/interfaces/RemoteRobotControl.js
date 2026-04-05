@@ -7,6 +7,7 @@ import { Window } from '../layouts';
 export const RemoteRobotControl = (props, context) => {
   return (
     <Window
+      theme="fallout"
       title="Remote Robot Control"
       width={500}
       height={500}

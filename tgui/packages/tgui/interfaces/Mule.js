@@ -25,6 +25,7 @@ export const Mule = (props, context) => {
   const locked = data.locked && !data.siliconUser;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={425}>
       <Window.Content>

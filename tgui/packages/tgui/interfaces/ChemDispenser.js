@@ -27,6 +27,7 @@ export const ChemDispenser = (props, context) => {
     || [];
   return (
     <Window
+      theme="fallout"
       width={565}
       height={620}
       resizable>

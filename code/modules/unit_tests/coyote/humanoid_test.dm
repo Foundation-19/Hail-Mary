@@ -3,6 +3,8 @@
 
 /datum/unit_test/screenshot_humanoids/Run()
 	for (var/datum/species/species_type as anything in subtypesof(/datum/species))
+		if(!initial(species_type.id))
+			continue // skip abstract base types and behavior-only subtypes with no explicit id
 		test_screenshot("[species_type]", get_flat_icon_for_all_directions(make_dummy(species_type, /datum/outfit/job)))
 
 /datum/unit_test/screenshot_humanoids/proc/get_flat_icon_for_all_directions(atom/thing)

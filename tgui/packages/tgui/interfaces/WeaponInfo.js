@@ -33,6 +33,7 @@ export const WeaponInfo = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={550}
       height={700}
       resizable>

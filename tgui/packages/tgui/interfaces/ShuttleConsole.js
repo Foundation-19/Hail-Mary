@@ -9,6 +9,7 @@ export const ShuttleConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={230}>
       {!!authorization_required && (

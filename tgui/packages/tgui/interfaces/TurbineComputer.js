@@ -11,6 +11,7 @@ export const TurbineComputer = (props, context) => {
     && !data.turbine_broke);
   return (
     <Window
+      theme="fallout"
       width={310}
       height={150}>
       <Window.Content>

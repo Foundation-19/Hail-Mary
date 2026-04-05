@@ -14,6 +14,7 @@ export const LaborClaimConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={315}
       height={440}>
       <Window.Content>

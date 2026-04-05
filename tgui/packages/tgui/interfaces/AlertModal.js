@@ -67,6 +67,7 @@ export class AlertModal extends Component {
 
     return (
       <Window
+        theme="fallout"
         title={title}
         width={350}
         height={150}

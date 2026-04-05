@@ -18,6 +18,7 @@ export const SkillPanel = (props, context) => {
   const skills = data.skills || [];
   return (
     <Window
+      theme="fallout"
       title="Manage Skills"
       width={600}
       height={500}

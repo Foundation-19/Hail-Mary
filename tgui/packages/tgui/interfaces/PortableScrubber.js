@@ -9,6 +9,7 @@ export const PortableScrubber = (props, context) => {
   const filter_types = data.filter_types || [];
   return (
     <Window
+      theme="fallout"
       width={320}
       height={350}>
       <Window.Content>

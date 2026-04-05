@@ -41,6 +41,7 @@ $phosphor-text: #a8d8a8;
   @include meta.load-css('../components/Modal.scss');
   @include meta.load-css('../components/ProgressBar.scss', $with: (
     'background-color': rgba(0, 0, 0, 0.7),
+    'color-default-fill': $phosphor-dim,
   ));
   @include meta.load-css('../components/Section.scss');
 
@@ -56,6 +57,14 @@ $phosphor-text: #a8d8a8;
 
   .Window {
     color: $phosphor-text;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.1) 3px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+    background-attachment: local;
   }
 
   .Button {
@@ -65,14 +74,19 @@ $phosphor-text: #a8d8a8;
     border: base.em(1px) solid $phosphor-dim;
   }
 
+  .NumberInput {
+    color: $phosphor;
+    border-color: $phosphor-dim;
+    background-color: #04100a;
+  }
+
+  .NumberInput__bar {
+    border-color: $phosphor;
+    background-color: $phosphor;
+  }
+
   .Layout__content {
-    background-image: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0, 0, 0, 0.1) 3px,
-      rgba(0, 0, 0, 0.1) 4px
-    );
+    background-image: none;
   }
 
   h1, h2, h3, h4, h5 {
@@ -89,6 +103,11 @@ $phosphor-text: #a8d8a8;
 
   a:hover {
     color: #c8ffc8;
+  }
+
+  .ProgressBar__content {
+    color: $phosphor;
+    mix-blend-mode: difference;
   }
 
   .Section__title {
@@ -108,5 +127,34 @@ $phosphor-text: #a8d8a8;
     background: transparent;
     box-shadow: none;
     border: none;
+  }
+
+  .Tabs {
+    background-color: transparent;
+  }
+
+  .Tab {
+    color: $phosphor-dim;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+
+    &:hover {
+      color: $phosphor;
+      background-color: rgba(74, 237, 146, 0.08);
+    }
+  }
+
+  .Tab--selected {
+    color: #041a0e;
+    background-color: $phosphor-dim;
+    font-weight: bold;
+
+    &:hover {
+      background-color: $phosphor;
+    }
+  }
+
+  .Tabs--vertical .Tab--selected {
+    border-right-color: $phosphor;
   }
 }

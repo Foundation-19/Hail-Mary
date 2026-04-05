@@ -16,6 +16,7 @@ export const AtmosControlPanel = (props, context) => {
   ])(data.excited_groups);
   return (
     <Window
+      theme="fallout"
       title="SSAir Control Panel"
       width={900}
       height={500}

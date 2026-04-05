@@ -198,6 +198,7 @@ export const LaunchpadConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={475}
       height={260}
       resizable>

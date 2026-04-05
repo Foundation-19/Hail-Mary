@@ -12,6 +12,7 @@ export const ChemSplitter = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={220}
       height={105}>
       <Window.Content>

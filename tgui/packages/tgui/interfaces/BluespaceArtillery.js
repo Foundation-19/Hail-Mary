@@ -13,6 +13,7 @@ export const BluespaceArtillery = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={400}
       height={220}>
       <Window.Content>

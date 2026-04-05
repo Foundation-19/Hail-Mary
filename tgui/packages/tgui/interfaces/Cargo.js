@@ -15,6 +15,7 @@ export const Cargo = (props, context) => {
   const requests = data.requests || [];
   return (
     <Window
+      theme="fallout"
       width={780}
       height={750}
       resizable>

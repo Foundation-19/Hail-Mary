@@ -10,6 +10,7 @@ export const TachyonArray = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={500}
       height={225}
       resizable>

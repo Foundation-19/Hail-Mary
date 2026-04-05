@@ -31,6 +31,7 @@ export const TelecommsInteraction = (props, context) => {
   } = machine;
   return (
     <Window
+      theme="fallout"
       resizable
       width={520}
       height={500}>

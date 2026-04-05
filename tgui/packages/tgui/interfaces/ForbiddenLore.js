@@ -15,6 +15,7 @@ export const ForbiddenLore = (props, context) => {
   ])(data.to_know || []);
   return (
     <Window
+      theme="fallout"
       width={500}
       height={900}
       resizable>

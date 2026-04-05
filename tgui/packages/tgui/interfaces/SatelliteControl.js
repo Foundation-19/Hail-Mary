@@ -8,6 +8,7 @@ export const SatelliteControl = (props, context) => {
   const satellites = data.satellites || [];
   return (
     <Window
+      theme="fallout"
       width={400}
       height={305}>
       <Window.Content>

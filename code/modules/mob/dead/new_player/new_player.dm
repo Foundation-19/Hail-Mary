@@ -749,46 +749,142 @@
 
 
 /mob/dead/new_player/proc/LateChoices()
+	if(!client?.prefs)
+		return
 	var/list/dat = list()
 
-	dat += "<div class='notice'>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</div>"
+	dat += "<style>"
+	dat += ".lj-hdr{text-align:center;margin:0 0 10px;}"
+	dat += ".lj-hdr p{color:#2a7a52;font-size:12px;margin:2px 0;}"
+	dat += ".occ-grid{display:flex;flex-wrap:wrap;gap:10px;padding:4px 6px 10px 6px;}"
+	dat += ".faction-block{flex:1 1 200px;min-width:185px;max-width:270px;border:1px solid #1a5e38;background:#041a0e;}"
+	dat += ".faction-hdr{background:#0a3e20;font-weight:bold;letter-spacing:1px;font-size:11px;padding:4px 8px;border-bottom:1px solid #1a5e38;text-align:center;}"
+	dat += ".job-row{display:flex;justify-content:space-between;align-items:center;padding:2px 6px;border-bottom:1px solid #081e10;font-size:12px;}"
+	dat += ".job-row:last-child{border-bottom:none;}"
+	dat += ".job-row a{color:#4aed92;text-decoration:none;flex:1;display:block;padding:1px 0;}"
+	dat += ".job-row a:hover{color:#062113;background:#4aed92;}"
+	dat += ".job-row a b{color:#6af5aa;}"
+	dat += ".job-row a:hover b,.job-row a:hover *{color:#041a0e;}"
+	dat += ".jlocked{color:#2a4a38;flex:1;padding-right:4px;}"
+	dat += ".jbadge{display:inline-block;font-size:10px;font-weight:bold;padding:1px 5px;min-width:50px;text-align:center;letter-spacing:1px;background:#160606;color:#5a1a10;border:1px solid #2a0808;}"
+	dat += ".has-tip{position:relative;cursor:default;}"
+	dat += ".tip{display:none;position:absolute;right:0;bottom:calc(100% + 4px);background:#041a0e;border:1px solid #1a5e38;padding:8px 10px;min-width:190px;z-index:9999;}"
+	dat += ".has-tip:hover .tip{display:block;}"
+	dat += ".tip-title{font-size:10px;color:#6af5aa;letter-spacing:1px;margin-bottom:6px;text-align:center;border-bottom:1px solid #1a5e38;padding-bottom:4px;}"
+	dat += ".bar-row{margin-bottom:5px;}"
+	dat += ".bar-label{font-size:10px;color:#4aed92;margin-bottom:2px;}"
+	dat += ".bar-track{background:#081e10;border:1px solid #1a5e38;height:8px;width:170px;}"
+	dat += ".bar-fill{background:#4aed92;height:100%;}"
+	dat += ".bar-pct{font-size:10px;color:#2a7a52;margin-top:1px;text-align:right;}"
+	dat += "</style>"
 
+	dat += "<div class='lj-hdr'>"
+	dat += "<p>Round Duration: [DisplayTimeText(world.time - SSticker.round_start_time)]</p>"
 	if(SSshuttle.emergency)
 		switch(SSshuttle.emergency.mode)
 			if(SHUTTLE_ESCAPE)
-				dat += "<div class='notice red'>The area has been evacuated.</div><br>"
+				dat += "<p style='color:#c8160a;'>The area has been evacuated.</p>"
 			if(SHUTTLE_CALL)
 				if(!SSshuttle.canRecall())
-					dat += "<div class='notice red'>The area is currently undergoing evacuation procedures.</div><br>"
+					dat += "<p style='color:#c8160a;'>The area is currently undergoing evacuation procedures.</p>"
+	dat += "</div>"
 
-	dat += "<table><tr><td valign='top'>"
-	var/column_counter = 0
-	// render each category's available jobs
+	dat += "<div class='occ-grid'>"
 	for(var/category in GLOB.position_categories)
-		// position_categories contains category names mapped to available jobs and an appropriate color
+		var/list/jobs_in_cat = GLOB.position_categories[category]["jobs"]
 		var/list/dept_dat = list()
-		for(var/job in GLOB.position_categories[category]["jobs"])
+
+		for(var/job in jobs_in_cat)
 			var/datum/job/job_datum = SSjob.name_occupations[job]
-			if(job_datum && IsJobUnavailable(job_datum.title, TRUE) == JOB_AVAILABLE)
-				var/command_bold = ""
+			if(!job_datum)
+				continue
+			var/availability = IsJobUnavailable(job_datum.title, TRUE)
+			if(availability == JOB_AVAILABLE)
+				dept_dat += "<div class='job-row'>"
 				if(job in GLOB.command_positions)
-					command_bold = " command"
-				dept_dat += "<a class='job[command_bold]' href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
+					dept_dat += "<a href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'><b>[job_datum.title]</b> ([job_datum.current_positions])</a>"
+				else
+					dept_dat += "<a href='byond://?src=[REF(src)];SelectedJob=[job_datum.title]'>[job_datum.title] ([job_datum.current_positions])</a>"
+				dept_dat += "</div>"
+			else if(availability == JOB_UNAVAILABLE_PLAYTIME)
+				// Build progress bar HTML for each exp requirement
+				var/list/bars = list()
+				if(job_datum.exp_requirements && job_datum.exp_type)
+					var/req_type = job_datum.get_exp_req_type()
+					var/req_amount = job_datum.get_exp_req_amount()
+					var/my_exp = max(0, client.calc_exp_type(req_type))
+					var/pct = min(100, round(my_exp / req_amount * 100))
+					bars += "<div class='bar-row'>"
+					bars += "<div class='bar-label'>[req_type]</div>"
+					bars += "<div class='bar-track'><div class='bar-fill' style='width:[pct]%'></div></div>"
+					bars += "<div class='bar-pct'>[pct]% &bull; [get_exp_format(my_exp)] / [get_exp_format(req_amount)]</div>"
+					bars += "</div>"
+				if(job_datum.multi_exp_requirements)
+					for(var/req_type in job_datum.multi_exp_requirements)
+						var/req_amount = job_datum.multi_exp_requirements[req_type]
+						var/my_exp = max(0, client.calc_exp_type(req_type))
+						var/pct = min(100, round(my_exp / req_amount * 100))
+						bars += "<div class='bar-row'>"
+						bars += "<div class='bar-label'>[req_type]</div>"
+						bars += "<div class='bar-track'><div class='bar-fill' style='width:[pct]%'></div></div>"
+						bars += "<div class='bar-pct'>[pct]% &bull; [get_exp_format(my_exp)] / [get_exp_format(req_amount)]</div>"
+						bars += "</div>"
+				// Tier prereq bars
+				var/tier_key_ui = get_tier_key_for_job(job_datum.title)
+				if(tier_key_ui && !(tier_key_ui in client.prefs.exp_type_exempt))
+					var/sep_ui = findtext(tier_key_ui, EXP_TIER_SEP)
+					var/faction_ui = copytext(tier_key_ui, 1, sep_ui)
+					var/tier_name_ui = copytext(tier_key_ui, sep_ui + 1)
+					if(!(faction_ui in client.prefs.exp_type_exempt))
+						var/list/reqs_ui = GLOB.exp_tier_requirements[tier_name_ui]
+						if(reqs_ui)
+							var/faction_req_ui = text2num(reqs_ui["faction"])
+							if(faction_req_ui)
+								var/have = _get_tier_faction_minutes(client, faction_ui)
+								var/pct = min(100, round(have / faction_req_ui * 100))
+								bars += "<div class='bar-row'>"
+								bars += "<div class='bar-label'>[faction_ui] hours</div>"
+								bars += "<div class='bar-track'><div class='bar-fill' style='width:[pct]%'></div></div>"
+								bars += "<div class='bar-pct'>[pct]% &bull; [get_exp_format(have)] / [get_exp_format(faction_req_ui)]</div>"
+								bars += "</div>"
+							var/wasteland_req_ui = text2num(reqs_ui["wasteland"])
+							if(wasteland_req_ui && faction_ui != "Wasteland" && !("Wasteland" in client.prefs.exp_type_exempt))
+								var/have = _get_tier_faction_minutes(client, "Wasteland")
+								var/pct = min(100, round(have / wasteland_req_ui * 100))
+								bars += "<div class='bar-row'>"
+								bars += "<div class='bar-label'>Wasteland hours</div>"
+								bars += "<div class='bar-track'><div class='bar-fill' style='width:[pct]%'></div></div>"
+								bars += "<div class='bar-pct'>[pct]% &bull; [get_exp_format(have)] / [get_exp_format(wasteland_req_ui)]</div>"
+								bars += "</div>"
+							var/other_req_ui = text2num(reqs_ui["other_faction"])
+							if(other_req_ui)
+								var/have = _get_best_other_faction_minutes(client, faction_ui)
+								var/pct = min(100, round(have / other_req_ui * 100))
+								bars += "<div class='bar-row'>"
+								bars += "<div class='bar-label'>Other faction hours (best)</div>"
+								bars += "<div class='bar-track'><div class='bar-fill' style='width:[pct]%'></div></div>"
+								bars += "<div class='bar-pct'>[pct]% &bull; [get_exp_format(have)] / [get_exp_format(other_req_ui)]</div>"
+								bars += "</div>"
+				dept_dat += "<div class='job-row'>"
+				dept_dat += "<span class='jlocked'>[job_datum.title]</span>"
+				dept_dat += "<span class='jbadge has-tip'>LOCKED"
+				dept_dat += "<span class='tip'>"
+				dept_dat += "<div class='tip-title'>XP REQUIRED</div>"
+				dept_dat += jointext(bars, "")
+				dept_dat += "</span>"
+				dept_dat += "</span>"
+				dept_dat += "</div>"
+			// All other unavailability reasons (banned, full, whitelist, etc.) are omitted
+
 		if(dept_dat.len)
-			var/cat_color = GLOB.position_categories[category]["color"]
-			dat += "<fieldset style='width: 185px; border: 2px solid [cat_color]; display: inline'>"
-			dat += "<legend align='center' style='color: [cat_color]'>[category]</legend>"
+			dat += "<div class='faction-block'>"
+			dat += "<div class='faction-hdr'>&#9658; [category] &#9664;</div>"
 			dat += jointext(dept_dat, "")
-			dat += "</fieldset><br>"
-			column_counter++
-		if(column_counter > 0 && (column_counter % 3 == 0))
-			dat += "</td><td valign='top'>"
-	dat += "</td></tr></table></center>"
-	dat += "</div></div>"
-	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 680, 580)
-	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
-	popup.set_content(jointext(dat, ""))
-	popup.open(FALSE) // 0 is passed to open so that it doesn't use the onclose() proc
+			dat += "</div>"
+
+	dat += "</div>" // end occ-grid
+
+	src << browse(client.prefs.get_terminal_page(dat.Join(), "&#9654; JOIN GAME &#9664;"), "window=latechoices;size=960x720;can_close=1;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 
 
 /mob/dead/new_player/proc/create_character(transfer_after)

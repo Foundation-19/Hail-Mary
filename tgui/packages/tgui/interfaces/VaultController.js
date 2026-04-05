@@ -7,6 +7,7 @@ export const VaultController = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={300}
       height={120}>
       <Window.Content>

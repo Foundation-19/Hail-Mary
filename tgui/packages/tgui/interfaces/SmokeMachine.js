@@ -16,6 +16,7 @@ export const SmokeMachine = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={350}>
       <Window.Content>

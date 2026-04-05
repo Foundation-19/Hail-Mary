@@ -72,6 +72,7 @@ export const ScannerGate = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={400}
       height={300}
       resizable>

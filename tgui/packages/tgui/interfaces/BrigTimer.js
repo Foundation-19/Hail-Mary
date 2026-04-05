@@ -7,6 +7,7 @@ export const BrigTimer = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={300}
       height={138}
       resizable>

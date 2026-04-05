@@ -7,6 +7,7 @@ import { Window } from '../layouts';
 export const CentcomPodLauncher = () => {
   return (
     <Window
+      theme="fallout"
       title="Config/Launch Supply Pod"
       width={700}
       height={700}

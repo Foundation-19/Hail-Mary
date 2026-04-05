@@ -11,6 +11,7 @@ export const AirAlarm = (props, context) => {
   const locked = data.locked && !data.siliconUser;
   return (
     <Window
+      theme="fallout"
       width={440}
       height={650}
       resizable>
