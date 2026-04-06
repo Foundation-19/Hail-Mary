@@ -26,8 +26,29 @@
 	var/f13_jbox_zone = FALSE
 
 /// Keep f13_grid_power in sync with the actual SS13 equip-channel state.
+/// Also explicitly notify any door/access buttons inside or adjacent to this area.
+/// F13 areas have no APC, so buttons are never iterated by the normal
+/// machinery-notification path — we must push the update ourselves.
 /area/f13/power_change()
 	f13_grid_power = power_equip
+	// Notify buttons on any turf (open or closed) WITHIN this area.
+	for(var/obj/machinery/button/B in src)
+		B.power_change()
+	// Sweep closed (wall) tiles adjacent to this area and notify buttons there.
+	// Wall tiles are frequently in /area/space or a parent f13 area type rather
+	// than the stamped subzone, so they are not reachable by the loop above.
+	// Skipped for outdoor areas — they have no enclosed walls and iterating
+	// thousands of wasteland tiles here would stall the server.
+	if(!outdoors)
+		var/list/swept = list()
+		for(var/turf/T in src)
+			for(var/turf/W in RANGE_TURFS(2, T))
+				if(!swept[W] && isclosedturf(W))
+					swept[W] = TRUE
+					var/area/WA = get_area(W)
+					if(istype(WA, /area/space) || (istype(WA, /area/f13) && WA != src))
+						for(var/obj/machinery/button/B in W)
+							B.power_change()
 	return ..()
 
 //Wasteland generic areas
@@ -68,6 +89,11 @@
 /area/f13/wasteland/cold
 	icon_state = "wastelandcold"
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/wasteland/cold/powered
+	requires_power = FALSE
+
+/// Legacy alias kept for Tipton map compatibility.  Do not use for new maps.
 /area/f13/wasteland/cold/power
 	requires_power = FALSE
 
@@ -632,6 +658,8 @@
 		AREA_SOUND('sound/f13ambience/bird_2.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_3.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_4.ogg', 10 SECONDS))
+	outdoors = 1
+	open_space = 1
 	blob_allowed = 0
 	environment = 15
 	grow_chance = 5
@@ -650,6 +678,8 @@
 		AREA_SOUND('sound/f13ambience/bird_2.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_3.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_4.ogg', 10 SECONDS))
+	outdoors = 1
+	open_space = 1
 	blob_allowed = 0
 	environment = 16
 	grow_chance = 5
@@ -903,6 +933,7 @@
 /area/f13/sewer
 	name = "Sewer"
 	icon_state = "sewer"
+	requires_power = TRUE
 
 //	ambientmusic = list('sound/f13music/fo2_tunnels.ogg','sound/f13music/fo2_caves.ogg','sound/f13music/fo2_desert.ogg','sound/f13music/fo2_vats.ogg','sound/misc/null.ogg')
 	ambientsounds = list(

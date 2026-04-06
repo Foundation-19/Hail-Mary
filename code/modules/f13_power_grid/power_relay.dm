@@ -73,6 +73,9 @@
 	var/load_shed = FALSE
 	/// Set TRUE after the first power-on cable scan so we don't re-scan on every toggle.
 	var/cable_scan_done = FALSE
+	/// Cached list of /area/space border turfs that contain door buttons adjacent to owned areas.
+	/// Built once by the first stamp_zone() call; reused on every subsequent toggle.
+	var/list/button_sweep_cache = null
 
 
 // ============================================================
@@ -553,6 +556,23 @@
 		return
 	for(var/area/A in powered_area_instances)
 		F13_STAMP_AREA_POWER(A, state)
+	// Notify machinery (e.g. door buttons) on /area/space tiles adjacent to owned areas.
+	// The border-turf list is built once on the first call and cached; subsequent toggles
+	// skip the area-scan entirely and iterate only the small cached turf list.
+	if(button_sweep_cache == null)
+		button_sweep_cache = list()
+		var/list/swept = list()
+		for(var/area/A in powered_area_instances)
+			if(A.outdoors)
+				continue  // no enclosed walls in outdoor zones
+			for(var/turf/T in A)
+				for(var/turf/W in RANGE_TURFS(2, T))
+					if(!swept[W] && istype(get_area(W), /area/space))
+						swept[W] = TRUE
+						button_sweep_cache += W
+	for(var/turf/W in button_sweep_cache)
+		for(var/obj/machinery/M in W)
+			M.power_change()
 
 
 // ============================================================
@@ -560,10 +580,48 @@
 // ============================================================
 
 /// Jury-rigged relay post built from scavenged automotive and building parts.
-/// Functionally identical to the standard power relay.  Wire it the same way.
+/// When powered, automatically stamps the area it physically sits in so that
+/// lights and doors in that space work without needing powered_area_types entries
+/// on every post.  Outdoor/wasteland areas are skipped — they are always-powered
+/// and stamping them would iterate every machine in the area.
+/// If the mapper explicitly sets powered_area_types, that configuration is used
+/// instead of the auto-stamp (allows sub-zone overrides on specific posts).
 /obj/machinery/f13/power_relay/wasteland
 	name          = "cobbled relay post"
 	desc          = "Power distribution on a shoestring: an automotive fuse block, lamp cord, and a junction box that has seen better decades, all clamped to a rebar post with pipe fittings. Carries power down the line just as well as the original. Mostly."
+	/// Radius in tiles — must match the wastelander generator's power_reach.
+	var/power_reach = 10
+	/// Cached list of /obj/machinery/light within power_reach in the relay's own area.
+	/// Built once on the first stamp_zone() call; reused on every subsequent toggle.
+	var/list/range_light_cache = null
+
+/// Before delegating to the base set_relay_power(), fix powered_area_instances to empty
+/// so no area-level stamp fires.  Lights are handled by stamp_zone() override instead.
+/obj/machinery/f13/power_relay/wasteland/set_relay_power(new_state)
+	// Early-exit before any work — mirrors the guard in the base proc.
+	if(relay_powered == new_state)
+		return
+	// Ensure powered_area_instances is resolved (empty — no area stamp).
+	if(powered_area_instances == null && !powered_area_types)
+		powered_area_instances = list()
+	..()  // sets relay_powered, cascades downstream
+	// Power lights within range in own area only.
+	stamp_zone(relay_powered)
+
+/// Override: directly seton() lights within power_reach in own area only.
+/// Does NOT call ..() so base area-stamp logic is bypassed entirely.
+/obj/machinery/f13/power_relay/wasteland/stamp_zone(state)
+	var/area/own_area = get_area(src)
+	if(range_light_cache == null)
+		range_light_cache = list()
+		for(var/turf/T in RANGE_TURFS(power_reach, src))
+			if(get_area(T) != own_area)
+				continue  // different area — skip (no bleed)
+			for(var/obj/machinery/light/L in T)
+				range_light_cache += L
+	for(var/obj/machinery/light/L in range_light_cache)
+		if(!QDELETED(L))
+			L.seton(state && L.status == LIGHT_OK)
 
 
 // ============================================================
@@ -584,10 +642,36 @@
 	name          = "main breaker panel"
 	desc          = "A heavy-duty disconnect panel — wired between the generator and the rest of the installation so you can cut power to everything downstream without touching the generator. The lever positions are labelled ON and OFF. Someone scratched them out and wrote LIVE and DEAD."
 
+	/// TRUE when the player has manually opened (tripped) this breaker.
+	/// While set, upstream power-restore cascades are ignored — only a direct
+	/// hand interaction can bring it back online.
+	var/manually_tripped = FALSE
+
+/// Override: honour manually_tripped so upstream cascades don't silently restore
+/// a breaker the player deliberately opened.
+/obj/machinery/f13/power_relay/breaker_box/set_relay_power(new_state)
+	// If the grid is trying to turn us ON but the player left the breaker open, refuse.
+	if(new_state && manually_tripped)
+		// Still cut downstream in case something previously sneaked through.
+		if(relay_powered)
+			relay_powered = FALSE
+			update_icon()
+			if(downstream_relays)
+				for(var/obj/machinery/f13/power_relay/R in downstream_relays)
+					if(!QDELETED(R))
+						R.set_relay_power(FALSE)
+			if(linked_clients)
+				for(var/obj/machinery/f13/grid_client/C in linked_clients)
+					if(!QDELETED(C))
+						C.on_grid_power_change(FALSE)
+		return
+	return ..()
+
 /obj/machinery/f13/power_relay/breaker_box/attack_hand(mob/living/user)
 	if(!Adjacent(user))
 		return
 	var/new_state = !relay_powered
+	manually_tripped = !new_state   // opening the breaker = manually tripped; closing = cleared
 	set_relay_power(new_state)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	user.visible_message(

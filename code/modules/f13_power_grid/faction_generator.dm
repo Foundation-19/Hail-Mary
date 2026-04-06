@@ -61,6 +61,9 @@
 	var/list/powered_area_types = null
 	/// Resolved live area datum instances (populated in Initialize).
 	var/list/powered_area_instances = null
+	/// Cached list of /area/space border turfs that contain door buttons adjacent to owned areas.
+	/// Built once by the first stamp_zone() call; reused on every subsequent toggle.
+	var/list/button_sweep_cache = null
 
 	// ── Turret linkage (mapper sets map_turret_tags, same pattern as terminal.dm)
 	/// Comma-separated turret tag strings to auto-link on init.
@@ -136,6 +139,12 @@
 	/// Ticks elapsed since needs_maintenance was set.  Drives escalating hazard probability
 	/// and triggers auto-trip when it reaches FGEN_MAINTENANCE_INTERVAL.
 	var/maintenance_severity = 0
+	/// Accumulated heat from external hot items (welder, lighter).  Decays each process() tick.
+	/// Subtypes override on_heat_exposure() to react when this crosses a threshold.
+	var/heat_exposure = 0
+	/// Heat total at which this subtype ignites/reacts.  0 means no heat hazard.
+	/// Used by attackby() to generate escalating warning messages.
+	var/heat_ignition_threshold = 0
 
 
 // ============================================================
@@ -237,6 +246,9 @@
 // ============================================================
 
 /obj/machinery/f13/faction_generator/process()
+	// Cool down any accumulated external heat each tick.
+	if(heat_exposure > 0)
+		heat_exposure = max(0, heat_exposure - 1000)
 	if(fuel > 0)
 		fuel--
 
@@ -348,6 +360,23 @@
 		return
 	for(var/area/A in powered_area_instances)
 		F13_STAMP_AREA_POWER(A, state)
+	// Notify machinery (e.g. door buttons) on /area/space tiles adjacent to owned areas.
+	// The border-turf list is built once on the first call and cached; subsequent toggles
+	// skip the area-scan entirely and iterate only the small cached turf list.
+	if(button_sweep_cache == null)
+		button_sweep_cache = list()
+		var/list/swept = list()
+		for(var/area/A in powered_area_instances)
+			if(A.outdoors)
+				continue  // no enclosed walls in outdoor zones
+			for(var/turf/T in A)
+				for(var/turf/W in RANGE_TURFS(2, T))
+					if(!swept[W] && istype(get_area(W), /area/space))
+						swept[W] = TRUE
+						button_sweep_cache += W
+	for(var/turf/W in button_sweep_cache)
+		for(var/obj/machinery/M in W)
+			M.power_change()
 
 
 // ============================================================
@@ -619,7 +648,28 @@
 // INTERACTION — ATTACKBY (core insertion + cable wiring + ID card)
 // ============================================================
 
+/obj/machinery/f13/faction_generator/proc/on_heat_exposure()
+	return  // Base: no reaction. Subtypes override.
+
 /obj/machinery/f13/faction_generator/attackby(obj/item/W, mob/user, params)
+	// ── Heat hazard — a lit welder or open flame held against the generator builds heat.
+	var/item_heat = W.get_temperature()
+	if(item_heat > 0 && isliving(user))
+		heat_exposure += item_heat
+		if(heat_ignition_threshold > 0)
+			var/pct = heat_exposure / heat_ignition_threshold
+			if(pct < 0.3)
+				to_chat(user, span_warning("You hold [W] against [src] — the casing begins to warm."))
+			else if(pct < 0.6)
+				to_chat(user, span_warning("You press [W] against [src] — the casing grows hot to the touch."))
+			else if(pct < 0.9)
+				to_chat(user, span_danger("You press [W] against [src] — the casing radiates scorching heat. Something inside groans."))
+			else
+				to_chat(user, span_danger("You press [W] against [src] — the metal is scalding hot. [src] groans under the strain. Get back!"))
+		else
+			to_chat(user, span_warning("You hold [W] against [src] — the casing grows warm."))
+		on_heat_exposure()
+
 	// ── Water hazard — shock anyone touching a live generator while standing in water.
 	if(powered && isliving(user))
 		var/turf/T = get_turf(user)
@@ -1214,6 +1264,10 @@
 	max_fuel             = 1440   // ~48 min fully loaded (~2.9 jerrycans)
 	fuel                 = 500    // round-start: ~1 jerrycan worth (~17 min)
 	fuel_unit_name       = "L"
+	heat_ignition_threshold = 7600  // ~2-3 welder applications to ignite the fuel tank
+	/// Accumulated exhaust exposure for each mob near the generator.
+	/// Keyed by mob reference; value is ticks of continuous indoor exposure.
+	var/list/co_exposure_map = null
 
 /obj/machinery/f13/faction_generator/diesel/attackby(obj/item/W, mob/user, params)
 	if(try_liquid_refuel(W, user))
@@ -1223,7 +1277,79 @@
 /obj/machinery/f13/faction_generator/diesel/set_power_state(new_powered)
 	if(!new_powered)
 		shutdown_time = world.time
+		// Clear CO tracking when the generator goes offline.
+		co_exposure_map = null
 	return ..()
+
+// ============================================================
+// EXHAUST / CO HAZARD
+// ============================================================
+// A running diesel generator in an enclosed space is a silent killer.
+// Real-world CO concentrations from a generator exhaust become dangerous
+// within minutes indoors — here modelled as per-tick tox+oxy damage that
+// escalates with sustained exposure.
+//
+// "Outdoors" is any turf under /turf/open/indestructible/ground/outside.
+// Wearing internals (any active breathing tank) blocks the effect entirely.
+//
+// CO exposure ticks per mob:
+//   1-3   ticks: "The air smells faintly of exhaust."
+//   4-7   ticks: Mild damage — headache warning.
+//   8-14  ticks: Moderate — dizziness, nausea.
+//   15+   ticks: Heavy — staggering.
+//   Each tick: adjustOxyLoss(1) + adjustToxLoss(1).  At 15+ ticks both values
+//   double so unconsciousness arrives within ~30 more seconds if unchecked.
+//
+/obj/machinery/f13/faction_generator/diesel/process()
+	// Run the normal fuel/maintenance logic first.
+	. = ..()
+	// Only emit exhaust while actually running with fuel.
+	if(!powered || fuel <= 0)
+		co_exposure_map = null
+		return
+	// Check whether the generator is outdoors — exhaust disperses in open air.
+	var/turf/own_turf = get_turf(src)
+	if(!own_turf || istype(own_turf, /turf/open/indestructible/ground/outside))
+		co_exposure_map = null
+		return
+	if(!co_exposure_map)
+		co_exposure_map = list()
+	// Advance or clear exposure for every living mob in range.
+	var/list/seen_this_tick = list()
+	for(var/mob/living/carbon/human/H in range(4, src))
+		if(H.stat == DEAD)
+			continue
+		seen_this_tick += H
+		// Internals block CO — they're breathing from a sealed tank.
+		if(H.internal)
+			co_exposure_map -= H
+			continue
+		// Outdoor mob on an outside turf despite being near the generator — skip.
+		var/turf/mob_turf = get_turf(H)
+		if(mob_turf && istype(mob_turf, /turf/open/indestructible/ground/outside))
+			co_exposure_map -= H
+			continue
+		var/ticks = co_exposure_map[H] || 0
+		ticks++
+		co_exposure_map[H] = ticks
+		// Damage scales with cumulative exposure.
+		var/dmg = (ticks >= 15) ? 2 : 1
+		H.adjustOxyLoss(dmg, 0)
+		H.adjustToxLoss(dmg, 0)
+		// Staged warning messages — sent at threshold crossings only.
+		switch(ticks)
+			if(1)
+				to_chat(H, span_warning("The air near [src] carries a faint smell of exhaust fumes."))
+			if(4)
+				to_chat(H, span_danger("You feel a dull throb behind your eyes. The exhaust from [src] is getting to you."))
+			if(8)
+				to_chat(H, span_danger("Your head swims and your stomach turns. The exhaust fumes are building up in here — you need fresh air."))
+			if(15)
+				to_chat(H, span_userdanger("You can barely think straight. The carbon monoxide from [src] is suffocating you slowly. Get out NOW."))
+	// Remove mobs that moved out of range or died this tick.
+	for(var/mob/M in co_exposure_map)
+		if(!(M in seen_this_tick))
+			co_exposure_map -= M
 
 /obj/machinery/f13/faction_generator/diesel/on_maintenance_hazard()
 	// Degrading fuel lines — fire risk; probability escalates the longer servicing is neglected.
@@ -1232,20 +1358,32 @@
 		if(T && !locate(/obj/effect/hotspot) in T)
 			new /obj/effect/hotspot(T)
 
-/obj/machinery/f13/faction_generator/diesel/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	// Diesel autoignition threshold: ~250 degrees C (523K).
-	// Probability scales with how far above threshold the temp is.
-	if(fuel > 0 && exposed_temperature > 523)
-		var/chance = min(90, round((exposed_temperature - 523) / 5))
-		if(prob(chance))
-			playsound(src, 'sound/effects/bang.ogg', 80, TRUE)
-			var/turf/T = get_turf(src)
-			if(T && !locate(/obj/effect/hotspot) in T)
-				new /obj/effect/hotspot(T)
-			for(var/turf/adjacent in orange(1, src))
-				if(!locate(/obj/effect/hotspot) in adjacent)
-					if(prob(50))
-						new /obj/effect/hotspot(adjacent)
+/obj/machinery/f13/faction_generator/diesel/on_heat_exposure()
+	// ~2 sustained welder applications will ignite the fuel tank.
+	if(fuel > 0 && heat_exposure >= 7600)
+		heat_exposure = 0
+		fire_act(3800, 1)
+
+/obj/machinery/f13/faction_generator/diesel/fire_act(exposed_temperature, exposed_volume)
+	// Diesel is flammable — direct contact with fire ruptures the tank.
+	// A diesel fire is a sustained localized blaze, not a spray-blast.
+	// 25% neighbour spread reflects vapour flare-off, not an explosive detonation.
+	if(fuel > 0)
+		playsound(src, pick('sound/effects/explosion1.ogg', 'sound/effects/explosion2.ogg'), 100, TRUE)
+		do_sparks(10, FALSE, src)
+		var/turf/T = get_turf(src)
+		if(T)
+			new /obj/effect/hotspot(T)
+		for(var/turf/adjacent in orange(1, src))
+			if(prob(25))  // 25% spread — diesel burns hard but doesn't spray like petrol
+				new /obj/effect/hotspot(adjacent)
+		// Tank is destroyed — generator is scrap.
+		fuel = 0
+		co_exposure_map = null
+		set_power_state(FALSE)
+		stat |= BROKEN
+		if(T)
+			new /obj/effect/decal/cleanable/ash(T)
 	. = ..()
 
 /// Rare Poseidon Energy atomic generator.  One atomic fuel cell, enormous output.
@@ -1260,6 +1398,7 @@
 	watts_per_fuel_unit  = 1500   // high output — atomic fission beats fusion cores
 	max_fuel             = 675    // single-cell chamber
 	fuel_unit_name       = "fuel cell"
+	heat_ignition_threshold = 15200  // ~4-5 welder applications to breach containment
 
 /obj/machinery/f13/faction_generator/atomic/Initialize()
 	. = ..()
@@ -1273,13 +1412,27 @@
 	if(prob(min(15, 3 + round(maintenance_severity / 90))))
 		radiation_pulse(src, 35, 2)
 
-/obj/machinery/f13/faction_generator/atomic/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
-	// Poseidon manual: containment rated to 1,200 degrees F (~649 degrees C, 922K).
-	if(fuel > 0 && exposed_temperature > 922)
-		radiation_pulse(src, 60, 3)
-		if(powered)
-			broadcast_to_faction("<span class='warning'>CONTAINMENT ALERT: [name] -- extreme heat has breached containment. Emergency shutdown. Radiation hazard.</span>")
-			set_power_state(FALSE)
+/obj/machinery/f13/faction_generator/atomic/on_heat_exposure()
+	// ~4 sustained welder applications overheat the containment vessel.
+	if(fuel > 0 && heat_exposure >= 15200)
+		heat_exposure = 0
+		fire_act(3800, 1)
+
+/obj/machinery/f13/faction_generator/atomic/fire_act(exposed_temperature, exposed_volume)
+	// Poseidon manual: do not expose to extreme heat — containment seals will fail.
+	// A containment breach dumps the cell, emits a radiation pulse, and writes off the unit.
+	if(fuel > 0)
+		playsound(src, pick('sound/effects/explosioncreak1.ogg', 'sound/effects/explosioncreak2.ogg'), 100, TRUE)
+		do_sparks(12, FALSE, src)
+		radiation_pulse(src, 80, 5)  // catastrophic breach — wide radiation plume
+		var/turf/T = get_turf(src)
+		if(T)
+			new /obj/effect/decal/cleanable/ash(T)
+		// Cell is destroyed; generator is permanently condemned.
+		fuel = 0
+		set_power_state(FALSE)
+		stat |= BROKEN
+		broadcast_to_faction("<span class='warning'>CONTAINMENT ALERT: [name] -- fire has breached containment. Emergency shutdown engaged. Severe radiation hazard. Unit is destroyed -- evacuate the area immediately.</span>")
 	. = ..()
 
 // ============================================================
@@ -1318,26 +1471,51 @@
 	/// Base reach in tiles.  Each powered relay within reach becomes its own anchor,
 	/// extending coverage by another power_reach hop in any direction.
 	var/power_reach = 10
+	/// Cached list of /obj/machinery/light within power_reach in the generator's own area.
+	/// Built once on the first stamp_zone() call; reused on every subsequent toggle.
+	var/list/range_light_cache = null
 
 /// BFS through the relay network.  Returns a list of reach anchors: the generator
 /// itself plus every relay reachable via a chain of power_reach-tile hops.
-/// Used to propagate power and to determine which clients are in range.
+/// Collects ALL relays in the wired tree (direct + all downstream_relays children,
+/// recursively) so that chain-topology relay posts can serve as range anchors.
 /obj/machinery/f13/faction_generator/wastelander/proc/_build_relay_reach()
 	var/list/anchors = list(src)
-	var/list/pool    = linked_relays ? linked_relays.Copy() : list()
-	var/changed = TRUE
-	while(changed)
-		changed = FALSE
-		for(var/obj/machinery/f13/power_relay/R in pool)
-			if(QDELETED(R))
-				pool -= R
+	// Collect every relay in the full tree: generator.linked_relays (first tier)
+	// + each relay's downstream_relays recursively.  This means a relay wired to
+	// another relay (not directly to the generator) is still a candidate anchor.
+	var/list/pool = list()
+	if(linked_relays)
+		var/list/to_visit = linked_relays.Copy()
+		while(to_visit.len)
+			var/obj/machinery/f13/power_relay/R = to_visit[to_visit.len]
+			to_visit.len--
+			if(QDELETED(R) || (R in pool))
 				continue
+			pool += R
+			if(R.downstream_relays)
+				for(var/obj/machinery/f13/power_relay/D in R.downstream_relays)
+					if(!(D in pool))
+						to_visit += D
+	// BFS: a relay becomes a reach anchor if within power_reach of any existing
+	// anchor (generator or already-promoted relay).  Use next_pool swap to avoid
+	// mutating the list being iterated — safer and avoids skipped items.
+	var/changed = TRUE
+	while(changed && pool.len)
+		changed = FALSE
+		var/list/next_pool = list()
+		for(var/obj/machinery/f13/power_relay/R in pool)
+			var/in_reach = FALSE
 			for(var/atom/anchor in anchors)
 				if(get_dist(anchor, R) <= power_reach)
-					anchors += R
-					pool    -= R
-					changed  = TRUE
+					in_reach = TRUE
 					break
+			if(in_reach)
+				anchors += R
+				changed = TRUE
+			else
+				next_pool += R
+		pool = next_pool
 	return anchors
 
 /// Returns TRUE if target is within power_reach of any anchor in the reach list.
@@ -1347,23 +1525,30 @@
 			return TRUE
 	return FALSE
 
+/// Wastelander generators do NOT use area-level stamping — they directly control
+/// individual lights within power_reach in the same BYOND area.  This prevents
+/// powering an entire huge wasteland/building area while still lighting nearby lamps.
+/obj/machinery/f13/faction_generator/wastelander/proc/_build_area_instances()
+	if(powered_area_types)
+		return  // mapper-set areas — don't override
+	powered_area_instances = list()  // empty: base stamp_zone does nothing; override handles lights
+
+/// Override: directly seton() lights within power_reach in own area only.
+/// Does NOT call ..() so base area-stamp logic is bypassed entirely.
+/// Cache is built once on the first call (generator is anchored — position never changes).
 /obj/machinery/f13/faction_generator/wastelander/stamp_zone(state)
-	// Flood-fill owned areas from physical proximity on every stamp call.
-	// Include /area/space in addition to /area/f13 so that wall-mounted machinery
-	// (e.g. door buttons) placed on space-type tiles within range also get stamped.
-	var/list/nearby = list()
-	for(var/turf/T in range(power_reach, src))
-		var/area/A = T.loc
-		if(A && !(A in nearby) && (istype(A, /area/f13) || istype(A, /area/space)))
-			nearby += A
-	powered_area_instances = nearby
-	. = ..()
-	// BYOND's area contents iteration may not reach machinery on closed (wall) turfs
-	// in all runtime configurations.  Walk them explicitly so wall-mounted buttons
-	// and other wall machinery within range always receive the power-state update.
-	for(var/turf/closed/wall/T in range(power_reach, src))
-		for(var/obj/machinery/M in T)
-			M.power_change()
+	var/area/own_area = get_area(src)
+	if(range_light_cache == null)
+		range_light_cache = list()
+		for(var/turf/T in RANGE_TURFS(power_reach, src))
+			if(get_area(T) != own_area)
+				continue  // different area — skip (no bleed)
+			for(var/obj/machinery/light/L in T)
+				range_light_cache += L
+	for(var/obj/machinery/light/L in range_light_cache)
+		if(!QDELETED(L))
+			L.seton(state && L.status == LIGHT_OK)
+
 /obj/machinery/f13/faction_generator/wastelander/set_power_state(new_powered)
 	if(powered == new_powered)
 		return
@@ -1374,13 +1559,28 @@
 		for(var/obj/machinery/porta_turret/T in linked_turrets)
 			if(!QDELETED(T))
 				T.toggle_on(powered)
-	// Build relay reach; relays IN the reach set get powered, relays outside it don't.
-	// Each powered relay is itself an anchor, so its subtree clients are powered too.
+	// Build reach from the FULL relay tree so chain-topology relay posts
+	// serve as range anchors when checking client reachability.
 	var/list/reach = _build_relay_reach()
+	// Walk every relay in the tree depth-first, enforcing range at each node.
+	// Relays inside the reach envelope: powered on/off with the generator.
+	// Relays outside the envelope: always cut, even if a parent relay is live.
+	// set_relay_power(FALSE) cascades downstream automatically; we only need
+	// to continue visiting children when powering ON.
 	if(linked_relays)
-		for(var/obj/machinery/f13/power_relay/R in linked_relays)
-			if(!QDELETED(R))
-				R.set_relay_power(powered && (R in reach))
+		var/list/to_visit = linked_relays.Copy()
+		while(to_visit.len)
+			var/obj/machinery/f13/power_relay/R = to_visit[to_visit.len]
+			to_visit.len--
+			if(QDELETED(R))
+				continue
+			var/should_power = powered && (R in reach)
+			R.set_relay_power(should_power)
+			// Only descend into children when turning on — the cascade from
+			// set_relay_power(FALSE) already handles shutting off downstream.
+			if(should_power && R.downstream_relays)
+				for(var/obj/machinery/f13/power_relay/D in R.downstream_relays)
+					to_visit += D
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
@@ -1394,6 +1594,13 @@
 /obj/machinery/f13/faction_generator/wastelander/_initial_propagate()
 	if(QDELETED(src) || !powered)
 		return
+	_build_area_instances()
+	// area/LateInitialize() fires area.power_change() on all machines AFTER Initialize()
+	// but BEFORE this async proc runs, resetting all lights back to the area's power state
+	// (off for wasteland).  Clear the cache so it picks up any lights that were also
+	// placed after the generator, then re-run stamp_zone to restore powered lights.
+	range_light_cache = null
+	stamp_zone(TRUE)
 	var/list/reach = _build_relay_reach()
 	if(linked_relays)
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
@@ -1404,13 +1611,25 @@
 			if(!QDELETED(C) && _is_reachable(C, reach))
 				C.on_grid_power_change(TRUE)
 	_scan_cable_connections()
-	// Post-scan: rebuild reach (scan may have added more relays) and shut off anything
-	// the cable traversal linked that is outside the actual reach envelope.
+	// Post-scan: rebuild reach (scan may have added relays via cable discovery)
+	// then trim every relay in the full tree that falls outside the reach envelope.
+	// The base code only trimmed generator.linked_relays; this walk covers every
+	// downstream relay too, so chain-topology relays beyond power_reach get cut.
 	var/list/reach2 = _build_relay_reach()
 	if(linked_relays)
+		var/list/to_visit = list()
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
-			if(!QDELETED(R) && R.relay_powered && !(R in reach2))
+			to_visit += R
+		while(to_visit.len)
+			var/obj/machinery/f13/power_relay/R = to_visit[to_visit.len]
+			to_visit.len--
+			if(QDELETED(R))
+				continue
+			if(R.relay_powered && !(R in reach2))
 				R.set_relay_power(FALSE)
+			if(R.downstream_relays)
+				for(var/obj/machinery/f13/power_relay/D in R.downstream_relays)
+					to_visit += D
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C) && C.grid_powered && !_is_reachable(C, reach2))

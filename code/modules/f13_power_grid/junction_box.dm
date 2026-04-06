@@ -112,6 +112,10 @@
 	grid_watt_draw = JUNCTION_BOX_WATT_DRAW
 	/// Per-zone watt cost.  Summed at LateInitialize; override on subtypes.
 	var/grid_watt_draw_per_zone = JUNCTION_BOX_WATT_DRAW
+	/// Light reach (tiles) used when the box is placed in an outdoor area (e.g. wasteland).
+	/// Lights within this distance receive seton()/setoff() individually instead of a
+	/// whole-map F13_STAMP_AREA_POWER call on the shared area datum.  Override on subtypes.
+	var/power_reach = 10
 
 	// ── Area ownership ──────────────────────────────────────
 	/// Optional mapper override: explicit list of area type paths this box controls.
@@ -141,11 +145,10 @@
 	var/list/zone_breakers = null
 
 
-/// Returns TRUE if the given area should never be stamped by a junction box:
-/// outdoor areas (always self-powered) or any /area/f13 with f13_grid_immune set.
+/// Returns TRUE if the given area should never be stamped by a junction box.
+/// Only areas with f13_grid_immune explicitly set are permanently blocked.
+/// Outdoor areas CAN be powered — the wasteland generator is designed for this.
 /obj/machinery/f13/junction_box/proc/_area_is_immune(area/A)
-	if(A.outdoors)
-		return TRUE
 	var/area/f13/farea = A
 	if(istype(farea) && farea.f13_grid_immune)
 		return TRUE
@@ -176,11 +179,24 @@
 				powered_area_instances += A
 		return
 
-	// ── Flood-fill / multi-zone path ────────────────────────────────────
+	// ── Outdoor area shortpath ─────────────────────────────────────────────
+	// Outdoor areas (wasteland, open ground, etc.) must never be flood-filled:
+	// the fill would traverse thousands of turfs and stall the server.
+	// Instead, claim the generator's current area directly — same as if the
+	// mapper had set powered_area_types = list(<area.type>).
 	var/area/here = get_area(src)
-	if(!here || _area_is_immune(here))
+	if(!here)
+		return
+	if(_area_is_immune(here))
+		return
+	if(here.outdoors)
+		powered_area_instances = list(here)
+		grid_watt_draw = grid_watt_draw_per_zone
+		if(grid_powered && breaker_closed)
+			_stamp_areas(TRUE)
 		return
 
+	// ── Flood-fill / multi-zone path ────────────────────────────────────────
 	// Walk every physically-connected turf within the same area hierarchy.
 	// Pass here.type as the root so the fill respects the type boundary.
 	var/list/turf_map = _flood_fill_turfs(here.type)
@@ -390,6 +406,17 @@
 		for(var/area/A in powered_area_instances)
 			if(_area_is_immune(A))
 				continue
+			// Outdoor areas (e.g. wasteland) must NOT be stamped wholesale —
+			// F13_STAMP_AREA_POWER on a shared outdoor area datum lights up every
+			// light of that type across the entire map.  Toggle only lights
+			// within power_reach of this box instead.
+			if(A.outdoors)
+				for(var/turf/T in RANGE_TURFS(power_reach, src))
+					if(get_area(T) != A)
+						continue
+					for(var/obj/machinery/light/L in T)
+						L.seton(state && L.status == LIGHT_OK)
+				continue
 			if(A.power_equip == state)
 				continue
 			F13_STAMP_AREA_POWER(A, state)
@@ -436,13 +463,13 @@
 	. = ..()
 	var/area/here = get_area(src)
 	if(here && _area_is_immune(here))
-		. += span_warning("Warning: this box is mounted in an outdoor area ([here.name]) and cannot power it. Move it inside a building.")
+		. += span_warning("Warning: this area ([here.name]) is marked grid-immune — the box will not power it.")
 		return
 	if(powered_area_instances && powered_area_instances.len)
 		var/list/names = list()
 		for(var/area/A in powered_area_instances)
 			names += A.name
-		. += span_notice("Coverage (explicit): [english_list(names)].")
+		. += span_notice("Coverage: [english_list(names)].")
 	else if(owned_zones && owned_zones.len)
 		. += span_notice("Controls [owned_zones.len] power zone[owned_zones.len == 1 ? "" : "s"]. Interact to manage breakers.")
 	else
