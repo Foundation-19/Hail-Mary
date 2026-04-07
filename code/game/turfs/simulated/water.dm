@@ -231,3 +231,38 @@
 /turf/open/water/vrocean/Initialize(mapload)
 	. = ..()
 	watereffect = new /obj/effect/overlay/water(src)
+
+/turf/open/water/baltimore
+	name = "Shallow water"
+	desc = "Shallow water."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "ocean"
+
+
+/turf/open/water/baltimore/middeep
+	name = "Ocean water"
+	desc = "Ocean water."
+	icon = 'icons/turf/floors.dmi'
+	color = "#ccffb0"
+	light_color= "#64C864"
+	depth = 1
+
+/turf/open/water/baltimore/deep
+	name = "Deep Ocean water"
+	desc = "Deep Ocean  water."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "ocean"
+	depth = 2
+	color = "#bdeba2"
+	light_color= "#64C864"
+	slowdown = 4
+
+/turf/open/water/baltimore/shadow
+	name = "Deep Ocean water"
+	desc = "Deep Ocean  water."
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "ocean"
+	depth = 2
+	color = "#aaaaaa"
+	light_color= "#64C864"
+	slowdown = 2

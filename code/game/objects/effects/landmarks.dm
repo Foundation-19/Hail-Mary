@@ -955,6 +955,18 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 	name = "Minuteman"
 	icon_state = "Wastelander"
 
+/obj/effect/landmark/start/f13/minutemenmajor
+	name = "Minuteman Major"
+	icon_state = "Wastelander"
+
+/obj/effect/landmark/start/f13/minutemencaptain
+	name = "Minuteman Captain"
+	icon_state = "Wastelander"
+
+/obj/effect/landmark/start/f13/minutemenvet
+	name = "Minuteman Captain Veteran"
+	icon_state = "Wastelander"
+
 // Enclave
 /obj/effect/landmark/start/f13/usspy
 	name = "Enclave Private"

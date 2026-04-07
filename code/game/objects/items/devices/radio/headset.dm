@@ -444,6 +444,33 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	command = TRUE
 	keyslot = new /obj/item/encryptionkey/headset_town/lawman
 
+/obj/item/radio/headset/minutemen
+	name = "Ranger radio headset"
+	desc = "This is used by Town's local sheriff force. Protects ears from flashbangs.\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l."
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	bowman = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_town/lawman
+	linked_faction = FACTION_MINUTEMEN
+	factionized = TRUE
+
+
+/obj/item/radio/headset/minutemen/command
+	name = "NCR Command radio headset"
+	desc = "This is used by Town's local sheriff force. Protects ears from flashbangs. Got a loudspeaker\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l."
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+	bowman = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_town/lawman
+	linked_faction = FACTION_MINUTEMEN
+	factionized = TRUE
+	command = TRUE
+	
+
 /obj/item/radio/headset/headset_town/commerce
 	name = "Town commerce radio headset"
 	desc = "This is used by Town's small business owners.\

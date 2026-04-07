@@ -114,7 +114,7 @@ Elder Envoy
 Lancer Captain
 */
 
-/datum/job/bos/f13lancercaptain
+/datum/job/baltimore_bos/f13lancercaptain
 	title = "Lancer Captain"
 	flag = F13LANCERCAPTAIN
 	display_order = JOB_DISPLAY_ORDER_LANCERCAPTAIN
@@ -134,7 +134,7 @@ Lancer Captain
 	
 /datum/outfit/job/bos/f13lancercaptain
 	name = "Lancer Captain"
-	jobtype = /datum/job/bos/f13lancer
+	jobtype = /datum/job/baltimore_bos/f13lancercaptain
 	ears = /obj/item/radio/headset/headset_bos
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/lancer
 	suit_store = /obj/item/gun/energy/laser/aer12
@@ -150,12 +150,41 @@ Lancer Captain
 		/obj/item/clothing/head/helmet/f13/combat/brotherhood = 1
 		)
 
+/datum/outfit/job/bos/f13lancercaptain/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/jet)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/turbo)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/psycho)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/medx/chemistry)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/buffout)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_st45_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_t51helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
+	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
+	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
+	ADD_TRAIT(H, TRAIT_IRONFIST, src)
+	if(H.mind)
+		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
+		H.mind.AddSpell(S)
+
 /*
 Lancer
 */
 
 
-/datum/job/bos/f13lancer
+/datum/job/baltimore_bos/f13lancer
 	title = "Lancer"
 	flag = F13LANCER
 	display_order = JOB_DISPLAY_ORDER_LANCER
@@ -171,7 +200,7 @@ Lancer
 	
 /datum/outfit/job/bos/f13lancer
 	name = "Lancer"
-	jobtype = /datum/job/bos/f13lancer
+	jobtype = /datum/job/baltimore_bos/f13lancer
 	ears = /obj/item/radio/headset/headset_bos
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/lancer
 	suit_store = /obj/item/gun/energy/laser/aer9
@@ -260,7 +289,6 @@ Paladin Commander
 	belt = /obj/item/storage/belt/army/assault
 	accessory = /obj/item/clothing/accessory/bos/sentinel
 	glasses = /obj/item/clothing/glasses/sunglasses
-	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
 	suit_store = /obj/item/shield/riot/bullet_proof
@@ -433,7 +461,6 @@ Knight-Captain
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
 	l_pocket = /obj/item/storage/belt/sabre/heavy
-	mask = /obj/item/clothing/mask/gas/sechailer
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/captain
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
@@ -514,7 +541,6 @@ Paladin
 	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	uniform =	/obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
-	mask =	/obj/item/clothing/mask/gas/sechailer
 	neck =	/obj/item/clothing/neck/mantle/bos/paladin
 	backpack_contents = list(
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 4,
@@ -741,16 +767,15 @@ Knight Sarge
 	suit_store = /obj/item/gun/energy/laser/aer9
 	accessory = /obj/item/clothing/accessory/bos/knightsarge
 	glasses = /obj/item/clothing/glasses/night
-	mask = /obj/item/clothing/mask/gas/sechailer
 	belt = /obj/item/storage/belt/army/assault
 	l_pocket = /obj/item/storage/belt/shoulderholster
-	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
 	gunsmith_one = TRUE
 	gunsmith_two = TRUE
 	gunsmith_three = TRUE
 	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
+		/obj/item/clothing/head/helmet/f13/combat/brotherhood/senior = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
 		/obj/item/storage/box/bos/senior = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,

@@ -700,3 +700,8 @@ GLOBAL_LIST_EMPTY(allCasters)
 	desc = "An old, beaten up, yet still functional terminal for the viewing, writing and printing of news media."
 	icon = 'icons/obj/machines/sheetifier.dmi'
 	icon_state = "base_machine"
+
+/obj/machinery/newscaster/old
+	name = "news terminal"
+	desc = "An old, beaten up, yet still functional terminal for the viewing, writing and printing of news media."
+	icon_state = "production_console_old"

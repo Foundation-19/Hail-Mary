@@ -1,39 +1,39 @@
 /// Subsection of Outlaws.dm is for wasteland-ish raiders / outlaws.
 
-/datum/job/baltimoreoutlaw //do NOT use this for anything, it's just to store faction datums
+/datum/job/baltimore_outlaw //do NOT use this for anything, it's just to store faction datums
 	department_flag = NONE
 	faction = FACTION_RAIDERS
 	exp_type = EXP_TYPE_OUTLAW
 
-/datum/job/baltimoreoutlaw/baltimoreoutlaws
+/datum/job/baltimore_outlaw/baltimoreoutlaws
 	title = "Outlaw"
 	flag = F13BALTIMORERAIDER
 	department_head = list("Captain")
 	head_announce = list("Security")
 	total_positions = 10
 	spawn_positions = 10
-	description = "You are an Outlaw - the choice of why is up to you. While you are free to do what ever you want, you can also fall in the ranks of the Warboss in Vault 125. This is optional."
+	description = "You are an Outlaw - the choice of why is up to you. While you are free to do what ever you want."
 	supervisors = "your conscious if you have one"
 	selection_color = "#df80af"
 	exp_requirements = 0
 	exp_type = EXP_TYPE_OUTLAW
 
-	outfit = /datum/outfit/job/baltimoreoutlaw
+	outfit = /datum/outfit/job/baltimore_outlaw
 
 	access = list()
 	minimal_access = list()
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/patron = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/protegee = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/outlaw = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/bounty_hunter = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 	)
 	loadout_options = list(
@@ -52,9 +52,9 @@
 	
 
 
-/datum/outfit/job/baltimoreoutlaw
+/datum/outfit/job/baltimore_outlaw
 	name = "Outlaw"
-	jobtype = /datum/job/baltimoreoutlaw
+	jobtype = /datum/job/baltimore_outlaw
 	id = null
 	ears = null
 	belt = null
@@ -74,13 +74,13 @@
 		/obj/item/kit_spawner/tools,
 		)
 
-/datum/outfit/job/baltimoreoutlaw/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/baltimore_outlaw/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)	
 
-/datum/outfit/job/baltimoreoutlaw/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/baltimore_outlaw/pre_equip(mob/living/carbon/human/H)
 	. = ..()
 	uniform = pick(
 		/obj/item/clothing/under/f13/merca, \
@@ -314,7 +314,7 @@
 		/obj/item/radio/headset = 1
 		)
 
-/datum/job/baltimoreoutlaw/warlord
+/datum/job/baltimore_outlaw/warlord
 	title = "Mercenary Warlord"
 	flag = F13WARLORD
 	department_head = list("Captain")
@@ -330,22 +330,22 @@
 		"special_c" = 5,
 		)
 
-	outfit = /datum/outfit/job/baltimoreoutlaw/warlord
+	outfit = /datum/outfit/job/baltimore_outlaw/warlord
 
 	access = list()
 	minimal_access = list()
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/patron = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/protegee = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/outlaw = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/bounty_hunter = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 	)
 
@@ -356,9 +356,9 @@
 		/datum/outfit/loadout/slaverlord
 	)
 
-/datum/outfit/job/baltimoreoutlaw/warlord
+/datum/outfit/job/baltimore_outlaw/warlord
 	name =	"Warlord"
-	jobtype = /datum/job/baltimoreoutlaw/warlord
+	jobtype = /datum/job/baltimore_outlaw/warlord
 	uniform =	/obj/item/clothing/under/f13/combat
 	ears = /obj/item/radio/headset/headset_vault
 	shoes =	/obj/item/clothing/shoes/jackboots
@@ -374,7 +374,7 @@
 		/obj/item/storage/wallet/stash/high = 1
 	)
 
-/datum/outfit/job/baltimoreoutlaw/warlord/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/baltimore_outlaw/warlord/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return
@@ -431,15 +431,15 @@
 // MERCENARY //
 
 
-/datum/job/baltimoreoutlaw/mercenary
+/datum/job/baltimore_outlaw/mercenary
 	title = "Mercenary Soldier"
 	flag = F13MERCENARY
 	department_head = list("Captain")
 	head_announce = list("Security")
-	total_positions = 6
-	spawn_positions = 6
+	total_positions = 5
+	spawn_positions = 5
 	description = "Either a slaver, a Gunner, a Talon or even a Vault 125 vault dweller, your goal ? Distabilise the region."
-	supervisors = "Your employer, Vault 125 overseer and the Mercenary War lord."
+	supervisors = "Your employer, Vault 125 overseer or the Mercenary War lord."
 	selection_color = "#df80af"
 	exp_requirements = 0
 	exp_type = EXP_TYPE_OUTLAW
@@ -451,16 +451,16 @@
 	minimal_access = list()
 	matchmaking_allowed = list(
 		/datum/matchmaking_pref/patron = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/protegee = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/outlaw = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 		/datum/matchmaking_pref/bounty_hunter = list(
-			/datum/job/baltimoreoutlaw/baltimoreoutlaws,
+			/datum/job/baltimore_outlaw/baltimoreoutlaws,
 		),
 	)
 
@@ -472,7 +472,7 @@
 
 /datum/outfit/job/mercenary
 	name =	"Mercenary"
-	jobtype =	/datum/job/baltimoreoutlaw/mercenary
+	jobtype =	/datum/job/baltimore_outlaw/mercenary
 	uniform =	/obj/item/clothing/under/f13/combat
 	ears = /obj/item/radio/headset/headset_vault
 	shoes =	/obj/item/clothing/shoes/jackboots
@@ -485,7 +485,7 @@
 		/obj/item/reagent_containers/medspray/synthflesh = 2
 	)
 
-/datum/outfit/job/baltimoreoutlaw/warlord/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+/datum/outfit/job/baltimore_outlaw/warlord/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	if(visualsOnly)
 		return

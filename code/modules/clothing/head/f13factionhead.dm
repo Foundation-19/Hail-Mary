@@ -862,8 +862,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/f13/boscap/lancercap
 	name = "brotherhood lancer captain cap"
 	desc = "A cap typically worn by lancer captains of the Brotherhood of Steel Chapter."
-	icon_state = "lancercap"
-	item_state = "lancercap"
+	icon_state = "army_officer"
+	item_state = "army_officer"
 	icon = 'icons/fallout/onmob/clothes/head.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	armor = ARMOR_VALUE_MEDIUM
@@ -872,8 +872,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/f13/boscap/lancerhelmet
 	name = "brotherhood lancer helmet"
 	desc = "A prewar pilot helmet. The Visor is gone, so the goggles have been installed instead."
-	icon_state = "lancer_helmet"
-	item_state = "lancer_helmet"
+	icon_state = "combat_helmet_ncr"
+	item_state = "combat_helmet_ncr"
 	icon = 'icons/fallout/onmob/clothes/head.dmi'
 	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
 	armor = ARMOR_VALUE_MEDIUM

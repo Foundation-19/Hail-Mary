@@ -2700,7 +2700,7 @@
 
 //TRUCK
 /datum/component/construction/unordered/mecha_chassis/normalvehicle/pickuptruck
-	result = /datum/component/construction/mecha/phazon/pickuptruck
+	result = /datum/component/construction/mecha/normalvehicle/pickuptruck
 	steps = list(
 		/obj/item/mecha_parts/part/car_autoshaft,
 		/obj/item/mecha_parts/part/car_tire,
@@ -2711,7 +2711,7 @@
 		/obj/item/defibrillator/primitive
 	)
 
-/datum/component/construction/mecha/phazon/pickuptruck
+/datum/component/construction/mecha/normalvehicle/pickuptruck
 	result = /obj/mecha/working/normalvehicle/pickuptruck/loaded
 	base_icon = "car"
 	steps = list(
@@ -2919,7 +2919,7 @@
 	)
 
 
-/datum/component/construction/mecha/phazon/pickuptruck/custom_action(obj/item/I, mob/living/user, diff)
+/datum/component/construction/mecha/normalvehicle/pickuptruck/custom_action(obj/item/I, mob/living/user, diff)
 	if(!..())
 		return FALSE
 
@@ -3053,3 +3053,1414 @@
 	return TRUE
 
 
+/datum/component/construction/unordered/mecha_chassis/normalvehicle/jeep
+	result = /datum/component/construction/mecha/normalvehicle/jeep
+	steps = list(
+		/obj/item/mecha_parts/part/car_autoshaft,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_engine,
+		/obj/item/defibrillator/primitive
+	)
+
+/datum/component/construction/mecha/normalvehicle/jeep
+	result = /obj/mecha/working/normalvehicle/jeep/loaded
+	base_icon = "car"
+	steps = list(
+		//1
+		list(
+			"key" = TOOL_WRENCH,
+			"desc" = "The shaft is removed."
+		),
+
+		//2
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The hydraulic systems are connected."
+		),
+
+		//3
+		list(
+			"key" = /obj/item/assembly/igniter,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The Hydraulic system is secured."
+		),
+
+		//4
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The the spark plug is installed."
+		),
+
+		//5
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The Spark Plug is secured."
+		),
+
+		//6
+		list(
+			"key" = /obj/item/stack/sheet/leather,
+			"amount" = 5,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The engine is wired into the ignition."
+		),
+
+		//7
+		list(
+			"key" = /obj/item/electronics/airalarm,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "the seat is refubished."
+		),
+
+		//8
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is installed"
+		),
+
+		//9
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 1,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is secured."
+		),
+
+		//10
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is covered by glass."
+		),
+
+		//11
+		list(
+			"key" = /obj/item/conveyor_switch_construct,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The glass is secured."
+		),
+
+		//12
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the gearbox is replaced."
+		),
+
+		//13
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The gearbox is installed."
+		),
+
+		//14
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the Windshield is installed."
+		),
+
+		//15
+		list(
+			"key" = /obj/item/light/bulb,
+			"back_key" = TOOL_CROWBAR,
+			"action" = ITEM_MOVE_INSIDE,
+			"desc" = "The Windshield is secured."
+		),
+
+		//16
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The busted light is replaced."
+		),
+
+		//17
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The headlights are wired."
+		),
+
+		//18
+		list(
+			"key" = /obj/item/stock_parts/cell,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The headlights are installed."
+		),
+
+		//19
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The power cell is installed.",
+			"icon_state" = "car17"
+			// This is the point where a step icon is skipped, so "icon_state" had to be set manually starting from here.
+		),
+
+		//20
+		list(
+			"key" = /obj/item/stack/sheet/metal,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The power cell is secured.",
+			"icon_state" = "car18"
+		),
+
+		//21
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the chasis is reinforced.",
+			"icon_state" = "car19"
+		),
+
+		//22
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "the Chasis is reinforced.",
+			"icon_state" = "car20"
+		),
+
+		//23
+		list(
+			"key" = /obj/item/stack/rods,
+			"amount" = 5,
+			"back_key" = TOOL_WELDER,
+			"desc" = "the chasis is welded.",
+			"icon_state" = "car21"
+		),
+
+		//24
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the wheel rim is added.",
+			"icon_state" = "car22"
+		),
+
+		//25
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "wheel's rim is adjusted.",
+			"icon_state" = "car23"
+		),
+
+		//26
+		list(
+			"key" = /obj/item/airlock_painter,
+			"back_key" = TOOL_WELDER,
+			"desc" = "wheel's rim is repaired.",
+			"icon_state" = "car24"
+		),
+	)
+
+
+/datum/component/construction/mecha/normalvehicle/jeep/custom_action(obj/item/I, mob/living/user, diff)
+	if(!..())
+		return FALSE
+
+	//TODO: better messages.
+	switch(index)
+		if(1)
+			user.visible_message("[user] connects [parent] hydraulic systems", span_notice("You connect [parent] hydraulic systems."))
+		if(2)
+			if(diff==FORWARD)
+				user.visible_message("[user] activates [parent] hydraulic systems.", span_notice("You activate [parent] hydraulic systems."))
+			else
+				user.visible_message("[user] disconnects [parent] hydraulic systems", span_notice("You disconnect [parent] hydraulic systems."))
+		if(3)
+			if(diff==FORWARD)
+				user.visible_message("[user] adds the spark plug to [parent].", span_notice("You add the spark plug to [parent]."))
+			else
+				user.visible_message("[user] deactivates [parent] hydraulic systems.", span_notice("You deactivate [parent] hydraulic systems."))
+		if(4)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the spark plug of [parent].", span_notice("You install the spark plug  of [parent]."))
+			else
+				user.visible_message("[user]  removes the spark plug from[parent].", span_notice("You remove the spark from [parent]."))
+		if(5)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the engine into the [parent].", span_notice("You wire the engine into the [parent]."))
+			else
+				user.visible_message("[user] uninstalls the spark plug.", span_notice("You uninstall the spark plug."))
+		if(6)
+			if(diff==FORWARD)
+				user.visible_message("[user] refurbishes the leather seats.", span_notice("You refurbish the leather seats."))
+			else
+				user.visible_message("[user] unwires the engine.", span_notice("You unwire the engine."))
+		if(7)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the dashboard into [parent].", span_notice("You install the dashboard into [parent]."))
+			else
+				user.visible_message("[user] removes the leather off the seat.", span_notice("You remove the leather of the seats."))
+		if(8)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the dashboard.", span_notice("You secure the dashboard."))
+			else
+				user.visible_message("[user] removes the dashboard.", span_notice("You remove the dashboard."))
+		if(9)
+			if(diff==FORWARD)
+				user.visible_message("[user] protects the dashboard with a glass screen.", span_notice("You protect the dashboard with a glass screen."))
+			else
+				user.visible_message("[user] disconnects the dashboard.", span_notice("You disconnects the dashboard."))
+		if(10)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the glass.", span_notice("You secure the glass."))
+			else
+				user.visible_message("[user] removes the glass from the dashboard.", span_notice("You remove the glass from the dashboard."))
+		if(11)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the damaged parts of the gearbox.", span_notice("You replace the damaged parts of the gearbox."))
+			else
+				user.visible_message("[user] uninstalls the dashboard glass.", span_notice("You uninstall the dashboard glass."))
+		if(12)
+			if(diff==FORWARD)
+				user.visible_message("[user] reinstalls the gearbox .", span_notice("You reinstall the gearbox ."))
+			else
+				user.visible_message("[user]  takes back the gearbox repleacements.", span_notice(" take back the gearbox repleacements."))
+		if(13)
+			if(diff==FORWARD)
+				user.visible_message("[user] puts on the windshield.", span_notice("You put on the windshield."))
+			else
+				user.visible_message("[user] uninstalls the gearbox.", span_notice("uninstall the gearbox."))
+		if(14)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the windshield.", span_notice("You secure the windshield."))
+			else
+				user.visible_message("[user] takes out the windshield.", span_notice("You takes out the windshield from."))
+		if(15)
+			if(diff==FORWARD)
+				user.visible_message("[user] replace the busted headlight.", span_notice("You replace the busted headlight."))
+			else
+				user.visible_message("[user] unsecures the windshield from [parent].", span_notice("You unsecure the windshield from [parent]."))
+		if(16)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the busted headlight.", span_notice("You connect the wire the busted headlight."))
+			else
+				user.visible_message("[user] takes out the busted headlight's replacement.", span_notice("You take out the busted headlight's replacement."))
+		if(17)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the headlights.", span_notice("You install the headlights."))
+			else
+				user.visible_message("[user] cut the wires around the headlight.", span_notice("You disconnect the wire from the headlights."))
+		if(18)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs [I] into [parent].", span_notice("You install [I] into [parent]."))
+			else
+				user.visible_message("[user] disconnects the headlights.", span_notice("You disconnect the headlights."))
+		if(19)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the power cell.", span_notice("You secure the power cell."))
+			else
+				user.visible_message("[user] pries the power cell from [parent].", span_notice("You pry the power cell from [parent]."))
+		if(20)
+			if(diff==FORWARD)
+				user.visible_message("[user] Reinforces the Chasis of [parent].", span_notice("You Reinforce the Chasis of [parent]."))
+			else
+				user.visible_message("[user] unfastens the power cell.", span_notice("You unfasten the power cell."))
+		if(21)
+			if(diff==FORWARD)
+				user.visible_message("[user] adjusts the chassis reinforcements.", span_notice("You adjust the chassis reinforcements."))
+			else
+				user.visible_message("[user] pries the chassis reinforcementsoff [parent].", span_notice("You pry the chassis reinforcements off [parent]."))
+		if(22)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the chassis reinforcement of [parent].", span_notice("You welds the chassis reinforcement of [parent]."))
+			else
+				user.visible_message("[user] unfastens the chassis reinforcements.", span_notice("You unfasten the chassis reinforcements."))
+		if(23)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the wheel's grille.", span_notice("You replace the wheel's grille."))
+			else
+				user.visible_message("[user] cuts chassis reinforcements from [parent].", span_notice("You cut the chassis reinforcements from [parent]."))
+		if(24)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the wheel's grille.", span_notice("You secure the wheel's grille."))
+			else
+				user.visible_message("[user] pries the wheel's grille from [parent].", span_notice("You pry the wheel's grille from [parent]."))
+		if(25)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the wheel's grille to [parent].", span_notice("You weld the wheel's grille to [parent]."))
+			else
+				user.visible_message("[user] unfastens the wheel's grille.", span_notice("You unfasten the wheel's grille."))
+		if(26)
+			if(diff==FORWARD)
+				user.visible_message("[user] paints [parent] as a finishing touch.", span_notice(" You paint [parent] as a finishing touch."))
+	return TRUE
+
+/datum/component/construction/unordered/mecha_chassis/normalvehicle/corvega
+	result = /datum/component/construction/mecha/normalvehicle/corvega
+	steps = list(
+		/obj/item/mecha_parts/part/car_autoshaft,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_engine,
+		/obj/item/defibrillator/primitive
+	)
+
+/datum/component/construction/mecha/normalvehicle/corvega
+	result = /obj/mecha/working/normalvehicle/corvega/loaded
+	base_icon = "car"
+	steps = list(
+		//1
+		list(
+			"key" = TOOL_WRENCH,
+			"desc" = "The shaft is removed."
+		),
+
+		//2
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The hydraulic systems are connected."
+		),
+
+		//3
+		list(
+			"key" = /obj/item/assembly/igniter,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The Hydraulic system is secured."
+		),
+
+		//4
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The the spark plug is installed."
+		),
+
+		//5
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The Spark Plug is secured."
+		),
+
+		//6
+		list(
+			"key" = /obj/item/stack/sheet/leather,
+			"amount" = 5,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The engine is wired into the ignition."
+		),
+
+		//7
+		list(
+			"key" = /obj/item/electronics/airalarm,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "the seat is refubished."
+		),
+
+		//8
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is installed"
+		),
+
+		//9
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 1,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is secured."
+		),
+
+		//10
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is covered by glass."
+		),
+
+		//11
+		list(
+			"key" = /obj/item/conveyor_switch_construct,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The glass is secured."
+		),
+
+		//12
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the gearbox is replaced."
+		),
+
+		//13
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The gearbox is installed."
+		),
+
+		//14
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the Windshield is installed."
+		),
+
+		//15
+		list(
+			"key" = /obj/item/light/bulb,
+			"back_key" = TOOL_CROWBAR,
+			"action" = ITEM_MOVE_INSIDE,
+			"desc" = "The Windshield is secured."
+		),
+
+		//16
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The busted light is replaced."
+		),
+
+		//17
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The headlights are wired."
+		),
+
+		//18
+		list(
+			"key" = /obj/item/stock_parts/cell,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The headlights are installed."
+		),
+
+		//19
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The power cell is installed.",
+			"icon_state" = "car17"
+			// This is the point where a step icon is skipped, so "icon_state" had to be set manually starting from here.
+		),
+
+		//20
+		list(
+			"key" = /obj/item/stack/sheet/metal,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The power cell is secured.",
+			"icon_state" = "car18"
+		),
+
+		//21
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the chasis is reinforced.",
+			"icon_state" = "car19"
+		),
+
+		//22
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "the Chasis is reinforced.",
+			"icon_state" = "car20"
+		),
+
+		//23
+		list(
+			"key" = /obj/item/stack/rods,
+			"amount" = 5,
+			"back_key" = TOOL_WELDER,
+			"desc" = "the chasis is welded.",
+			"icon_state" = "car21"
+		),
+
+		//24
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the wheel rim is added.",
+			"icon_state" = "car22"
+		),
+
+		//25
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "wheel's rim is adjusted.",
+			"icon_state" = "car23"
+		),
+
+		//26
+		list(
+			"key" = /obj/item/airlock_painter,
+			"back_key" = TOOL_WELDER,
+			"desc" = "wheel's rim is repaired.",
+			"icon_state" = "car24"
+		),
+	)
+
+
+/datum/component/construction/mecha/normalvehicle/corvega/custom_action(obj/item/I, mob/living/user, diff)
+	if(!..())
+		return FALSE
+
+	//TODO: better messages.
+	switch(index)
+		if(1)
+			user.visible_message("[user] connects [parent] hydraulic systems", span_notice("You connect [parent] hydraulic systems."))
+		if(2)
+			if(diff==FORWARD)
+				user.visible_message("[user] activates [parent] hydraulic systems.", span_notice("You activate [parent] hydraulic systems."))
+			else
+				user.visible_message("[user] disconnects [parent] hydraulic systems", span_notice("You disconnect [parent] hydraulic systems."))
+		if(3)
+			if(diff==FORWARD)
+				user.visible_message("[user] adds the spark plug to [parent].", span_notice("You add the spark plug to [parent]."))
+			else
+				user.visible_message("[user] deactivates [parent] hydraulic systems.", span_notice("You deactivate [parent] hydraulic systems."))
+		if(4)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the spark plug of [parent].", span_notice("You install the spark plug  of [parent]."))
+			else
+				user.visible_message("[user]  removes the spark plug from[parent].", span_notice("You remove the spark from [parent]."))
+		if(5)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the engine into the [parent].", span_notice("You wire the engine into the [parent]."))
+			else
+				user.visible_message("[user] uninstalls the spark plug.", span_notice("You uninstall the spark plug."))
+		if(6)
+			if(diff==FORWARD)
+				user.visible_message("[user] refurbishes the leather seats.", span_notice("You refurbish the leather seats."))
+			else
+				user.visible_message("[user] unwires the engine.", span_notice("You unwire the engine."))
+		if(7)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the dashboard into [parent].", span_notice("You install the dashboard into [parent]."))
+			else
+				user.visible_message("[user] removes the leather off the seat.", span_notice("You remove the leather of the seats."))
+		if(8)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the dashboard.", span_notice("You secure the dashboard."))
+			else
+				user.visible_message("[user] removes the dashboard.", span_notice("You remove the dashboard."))
+		if(9)
+			if(diff==FORWARD)
+				user.visible_message("[user] protects the dashboard with a glass screen.", span_notice("You protect the dashboard with a glass screen."))
+			else
+				user.visible_message("[user] disconnects the dashboard.", span_notice("You disconnects the dashboard."))
+		if(10)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the glass.", span_notice("You secure the glass."))
+			else
+				user.visible_message("[user] removes the glass from the dashboard.", span_notice("You remove the glass from the dashboard."))
+		if(11)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the damaged parts of the gearbox.", span_notice("You replace the damaged parts of the gearbox."))
+			else
+				user.visible_message("[user] uninstalls the dashboard glass.", span_notice("You uninstall the dashboard glass."))
+		if(12)
+			if(diff==FORWARD)
+				user.visible_message("[user] reinstalls the gearbox .", span_notice("You reinstall the gearbox ."))
+			else
+				user.visible_message("[user]  takes back the gearbox repleacements.", span_notice(" take back the gearbox repleacements."))
+		if(13)
+			if(diff==FORWARD)
+				user.visible_message("[user] puts on the windshield.", span_notice("You put on the windshield."))
+			else
+				user.visible_message("[user] uninstalls the gearbox.", span_notice("uninstall the gearbox."))
+		if(14)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the windshield.", span_notice("You secure the windshield."))
+			else
+				user.visible_message("[user] takes out the windshield.", span_notice("You takes out the windshield from."))
+		if(15)
+			if(diff==FORWARD)
+				user.visible_message("[user] replace the busted headlight.", span_notice("You replace the busted headlight."))
+			else
+				user.visible_message("[user] unsecures the windshield from [parent].", span_notice("You unsecure the windshield from [parent]."))
+		if(16)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the busted headlight.", span_notice("You connect the wire the busted headlight."))
+			else
+				user.visible_message("[user] takes out the busted headlight's replacement.", span_notice("You take out the busted headlight's replacement."))
+		if(17)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the headlights.", span_notice("You install the headlights."))
+			else
+				user.visible_message("[user] cut the wires around the headlight.", span_notice("You disconnect the wire from the headlights."))
+		if(18)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs [I] into [parent].", span_notice("You install [I] into [parent]."))
+			else
+				user.visible_message("[user] disconnects the headlights.", span_notice("You disconnect the headlights."))
+		if(19)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the power cell.", span_notice("You secure the power cell."))
+			else
+				user.visible_message("[user] pries the power cell from [parent].", span_notice("You pry the power cell from [parent]."))
+		if(20)
+			if(diff==FORWARD)
+				user.visible_message("[user] Reinforces the Chasis of [parent].", span_notice("You Reinforce the Chasis of [parent]."))
+			else
+				user.visible_message("[user] unfastens the power cell.", span_notice("You unfasten the power cell."))
+		if(21)
+			if(diff==FORWARD)
+				user.visible_message("[user] adjusts the chassis reinforcements.", span_notice("You adjust the chassis reinforcements."))
+			else
+				user.visible_message("[user] pries the chassis reinforcementsoff [parent].", span_notice("You pry the chassis reinforcements off [parent]."))
+		if(22)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the chassis reinforcement of [parent].", span_notice("You welds the chassis reinforcement of [parent]."))
+			else
+				user.visible_message("[user] unfastens the chassis reinforcements.", span_notice("You unfasten the chassis reinforcements."))
+		if(23)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the wheel's grille.", span_notice("You replace the wheel's grille."))
+			else
+				user.visible_message("[user] cuts chassis reinforcements from [parent].", span_notice("You cut the chassis reinforcements from [parent]."))
+		if(24)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the wheel's grille.", span_notice("You secure the wheel's grille."))
+			else
+				user.visible_message("[user] pries the wheel's grille from [parent].", span_notice("You pry the wheel's grille from [parent]."))
+		if(25)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the wheel's grille to [parent].", span_notice("You weld the wheel's grille to [parent]."))
+			else
+				user.visible_message("[user] unfastens the wheel's grille.", span_notice("You unfasten the wheel's grille."))
+		if(26)
+			if(diff==FORWARD)
+				user.visible_message("[user] paints [parent] as a finishing touch.", span_notice(" You paint [parent] as a finishing touch."))
+	return TRUE
+
+/datum/component/construction/unordered/mecha_chassis/normalvehicle/highwayman
+	result = /datum/component/construction/mecha/normalvehicle/highwayman
+	steps = list(
+		/obj/item/mecha_parts/part/car_autoshaft,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_engine,
+		/obj/item/defibrillator/primitive
+	)
+
+/datum/component/construction/mecha/normalvehicle/highwayman
+	result = /obj/mecha/working/normalvehicle/highwayman/loaded
+	base_icon = "car"
+	steps = list(
+		//1
+		list(
+			"key" = TOOL_WRENCH,
+			"desc" = "The shaft is removed."
+		),
+
+		//2
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The hydraulic systems are connected."
+		),
+
+		//3
+		list(
+			"key" = /obj/item/assembly/igniter,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The Hydraulic system is secured."
+		),
+
+		//4
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The the spark plug is installed."
+		),
+
+		//5
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The Spark Plug is secured."
+		),
+
+		//6
+		list(
+			"key" = /obj/item/stack/sheet/leather,
+			"amount" = 5,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The engine is wired into the ignition."
+		),
+
+		//7
+		list(
+			"key" = /obj/item/electronics/airalarm,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "the seat is refubished."
+		),
+
+		//8
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is installed"
+		),
+
+		//9
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 1,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is secured."
+		),
+
+		//10
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is covered by glass."
+		),
+
+		//11
+		list(
+			"key" = /obj/item/conveyor_switch_construct,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The glass is secured."
+		),
+
+		//12
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the gearbox is replaced."
+		),
+
+		//13
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The gearbox is installed."
+		),
+
+		//14
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the Windshield is installed."
+		),
+
+		//15
+		list(
+			"key" = /obj/item/light/bulb,
+			"back_key" = TOOL_CROWBAR,
+			"action" = ITEM_MOVE_INSIDE,
+			"desc" = "The Windshield is secured."
+		),
+
+		//16
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The busted light is replaced."
+		),
+
+		//17
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The headlights are wired."
+		),
+
+		//18
+		list(
+			"key" = /obj/item/stock_parts/cell,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The headlights are installed."
+		),
+
+		//19
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The power cell is installed.",
+			"icon_state" = "car17"
+			// This is the point where a step icon is skipped, so "icon_state" had to be set manually starting from here.
+		),
+
+		//20
+		list(
+			"key" = /obj/item/stack/sheet/metal,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The power cell is secured.",
+			"icon_state" = "car18"
+		),
+
+		//21
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the chasis is reinforced.",
+			"icon_state" = "car19"
+		),
+
+		//22
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "the Chasis is reinforced.",
+			"icon_state" = "car20"
+		),
+
+		//23
+		list(
+			"key" = /obj/item/stack/rods,
+			"amount" = 5,
+			"back_key" = TOOL_WELDER,
+			"desc" = "the chasis is welded.",
+			"icon_state" = "car21"
+		),
+
+		//24
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the wheel rim is added.",
+			"icon_state" = "car22"
+		),
+
+		//25
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "wheel's rim is adjusted.",
+			"icon_state" = "car23"
+		),
+
+		//26
+		list(
+			"key" = /obj/item/airlock_painter,
+			"back_key" = TOOL_WELDER,
+			"desc" = "wheel's rim is repaired.",
+			"icon_state" = "car24"
+		),
+	)
+
+
+/datum/component/construction/mecha/normalvehicle/highwayman/custom_action(obj/item/I, mob/living/user, diff)
+	if(!..())
+		return FALSE
+
+	//TODO: better messages.
+	switch(index)
+		if(1)
+			user.visible_message("[user] connects [parent] hydraulic systems", span_notice("You connect [parent] hydraulic systems."))
+		if(2)
+			if(diff==FORWARD)
+				user.visible_message("[user] activates [parent] hydraulic systems.", span_notice("You activate [parent] hydraulic systems."))
+			else
+				user.visible_message("[user] disconnects [parent] hydraulic systems", span_notice("You disconnect [parent] hydraulic systems."))
+		if(3)
+			if(diff==FORWARD)
+				user.visible_message("[user] adds the spark plug to [parent].", span_notice("You add the spark plug to [parent]."))
+			else
+				user.visible_message("[user] deactivates [parent] hydraulic systems.", span_notice("You deactivate [parent] hydraulic systems."))
+		if(4)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the spark plug of [parent].", span_notice("You install the spark plug  of [parent]."))
+			else
+				user.visible_message("[user]  removes the spark plug from[parent].", span_notice("You remove the spark from [parent]."))
+		if(5)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the engine into the [parent].", span_notice("You wire the engine into the [parent]."))
+			else
+				user.visible_message("[user] uninstalls the spark plug.", span_notice("You uninstall the spark plug."))
+		if(6)
+			if(diff==FORWARD)
+				user.visible_message("[user] refurbishes the leather seats.", span_notice("You refurbish the leather seats."))
+			else
+				user.visible_message("[user] unwires the engine.", span_notice("You unwire the engine."))
+		if(7)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the dashboard into [parent].", span_notice("You install the dashboard into [parent]."))
+			else
+				user.visible_message("[user] removes the leather off the seat.", span_notice("You remove the leather of the seats."))
+		if(8)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the dashboard.", span_notice("You secure the dashboard."))
+			else
+				user.visible_message("[user] removes the dashboard.", span_notice("You remove the dashboard."))
+		if(9)
+			if(diff==FORWARD)
+				user.visible_message("[user] protects the dashboard with a glass screen.", span_notice("You protect the dashboard with a glass screen."))
+			else
+				user.visible_message("[user] disconnects the dashboard.", span_notice("You disconnects the dashboard."))
+		if(10)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the glass.", span_notice("You secure the glass."))
+			else
+				user.visible_message("[user] removes the glass from the dashboard.", span_notice("You remove the glass from the dashboard."))
+		if(11)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the damaged parts of the gearbox.", span_notice("You replace the damaged parts of the gearbox."))
+			else
+				user.visible_message("[user] uninstalls the dashboard glass.", span_notice("You uninstall the dashboard glass."))
+		if(12)
+			if(diff==FORWARD)
+				user.visible_message("[user] reinstalls the gearbox .", span_notice("You reinstall the gearbox ."))
+			else
+				user.visible_message("[user]  takes back the gearbox repleacements.", span_notice(" take back the gearbox repleacements."))
+		if(13)
+			if(diff==FORWARD)
+				user.visible_message("[user] puts on the windshield.", span_notice("You put on the windshield."))
+			else
+				user.visible_message("[user] uninstalls the gearbox.", span_notice("uninstall the gearbox."))
+		if(14)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the windshield.", span_notice("You secure the windshield."))
+			else
+				user.visible_message("[user] takes out the windshield.", span_notice("You takes out the windshield from."))
+		if(15)
+			if(diff==FORWARD)
+				user.visible_message("[user] replace the busted headlight.", span_notice("You replace the busted headlight."))
+			else
+				user.visible_message("[user] unsecures the windshield from [parent].", span_notice("You unsecure the windshield from [parent]."))
+		if(16)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the busted headlight.", span_notice("You connect the wire the busted headlight."))
+			else
+				user.visible_message("[user] takes out the busted headlight's replacement.", span_notice("You take out the busted headlight's replacement."))
+		if(17)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the headlights.", span_notice("You install the headlights."))
+			else
+				user.visible_message("[user] cut the wires around the headlight.", span_notice("You disconnect the wire from the headlights."))
+		if(18)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs [I] into [parent].", span_notice("You install [I] into [parent]."))
+			else
+				user.visible_message("[user] disconnects the headlights.", span_notice("You disconnect the headlights."))
+		if(19)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the power cell.", span_notice("You secure the power cell."))
+			else
+				user.visible_message("[user] pries the power cell from [parent].", span_notice("You pry the power cell from [parent]."))
+		if(20)
+			if(diff==FORWARD)
+				user.visible_message("[user] Reinforces the Chasis of [parent].", span_notice("You Reinforce the Chasis of [parent]."))
+			else
+				user.visible_message("[user] unfastens the power cell.", span_notice("You unfasten the power cell."))
+		if(21)
+			if(diff==FORWARD)
+				user.visible_message("[user] adjusts the chassis reinforcements.", span_notice("You adjust the chassis reinforcements."))
+			else
+				user.visible_message("[user] pries the chassis reinforcementsoff [parent].", span_notice("You pry the chassis reinforcements off [parent]."))
+		if(22)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the chassis reinforcement of [parent].", span_notice("You welds the chassis reinforcement of [parent]."))
+			else
+				user.visible_message("[user] unfastens the chassis reinforcements.", span_notice("You unfasten the chassis reinforcements."))
+		if(23)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the wheel's grille.", span_notice("You replace the wheel's grille."))
+			else
+				user.visible_message("[user] cuts chassis reinforcements from [parent].", span_notice("You cut the chassis reinforcements from [parent]."))
+		if(24)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the wheel's grille.", span_notice("You secure the wheel's grille."))
+			else
+				user.visible_message("[user] pries the wheel's grille from [parent].", span_notice("You pry the wheel's grille from [parent]."))
+		if(25)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the wheel's grille to [parent].", span_notice("You weld the wheel's grille to [parent]."))
+			else
+				user.visible_message("[user] unfastens the wheel's grille.", span_notice("You unfasten the wheel's grille."))
+		if(26)
+			if(diff==FORWARD)
+				user.visible_message("[user] paints [parent] as a finishing touch.", span_notice(" You paint [parent] as a finishing touch."))
+	return TRUE
+
+/datum/component/construction/unordered/mecha_chassis/normalvehicle/buggy
+	result = /datum/component/construction/mecha/normalvehicle/buggy
+	steps = list(
+		/obj/item/mecha_parts/part/car_autoshaft,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_tire,
+		/obj/item/mecha_parts/part/car_engine,
+		/obj/item/defibrillator/primitive
+	)
+
+/datum/component/construction/mecha/normalvehicle/buggy
+	result = /obj/mecha/working/normalvehicle/buggy/loaded
+	base_icon = "car"
+	steps = list(
+		//1
+		list(
+			"key" = TOOL_WRENCH,
+			"desc" = "The shaft is removed."
+		),
+
+		//2
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The hydraulic systems are connected."
+		),
+
+		//3
+		list(
+			"key" = /obj/item/assembly/igniter,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "The Hydraulic system is secured."
+		),
+
+		//4
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The the spark plug is installed."
+		),
+
+		//5
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The Spark Plug is secured."
+		),
+
+		//6
+		list(
+			"key" = /obj/item/stack/sheet/leather,
+			"amount" = 5,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The engine is wired into the ignition."
+		),
+
+		//7
+		list(
+			"key" = /obj/item/electronics/airalarm,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "the seat is refubished."
+		),
+
+		//8
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is installed"
+		),
+
+		//9
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 1,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is secured."
+		),
+
+		//10
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the dashboard is covered by glass."
+		),
+
+		//11
+		list(
+			"key" = /obj/item/conveyor_switch_construct,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The glass is secured."
+		),
+
+		//12
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the gearbox is replaced."
+		),
+
+		//13
+		list(
+			"key" = /obj/item/stack/sheet/glass,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The gearbox is installed."
+		),
+
+		//14
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the Windshield is installed."
+		),
+
+		//15
+		list(
+			"key" = /obj/item/light/bulb,
+			"back_key" = TOOL_CROWBAR,
+			"action" = ITEM_MOVE_INSIDE,
+			"desc" = "The Windshield is secured."
+		),
+
+		//16
+		list(
+			"key" = /obj/item/stack/cable_coil,
+			"amount" = 5,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The busted light is replaced."
+		),
+
+		//17
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_WIRECUTTER,
+			"desc" = "The headlights are wired."
+		),
+
+		//18
+		list(
+			"key" = /obj/item/stock_parts/cell,
+			"action" = ITEM_MOVE_INSIDE,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The headlights are installed."
+		),
+
+		//19
+		list(
+			"key" = TOOL_SCREWDRIVER,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "The power cell is installed.",
+			"icon_state" = "car17"
+			// This is the point where a step icon is skipped, so "icon_state" had to be set manually starting from here.
+		),
+
+		//20
+		list(
+			"key" = /obj/item/stack/sheet/metal,
+			"amount" = 5,
+			"back_key" = TOOL_SCREWDRIVER,
+			"desc" = "The power cell is secured.",
+			"icon_state" = "car18"
+		),
+
+		//21
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the chasis is reinforced.",
+			"icon_state" = "car19"
+		),
+
+		//22
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "the Chasis is reinforced.",
+			"icon_state" = "car20"
+		),
+
+		//23
+		list(
+			"key" = /obj/item/stack/rods,
+			"amount" = 5,
+			"back_key" = TOOL_WELDER,
+			"desc" = "the chasis is welded.",
+			"icon_state" = "car21"
+		),
+
+		//24
+		list(
+			"key" = TOOL_WRENCH,
+			"back_key" = TOOL_CROWBAR,
+			"desc" = "the wheel rim is added.",
+			"icon_state" = "car22"
+		),
+
+		//25
+		list(
+			"key" = TOOL_WELDER,
+			"back_key" = TOOL_WRENCH,
+			"desc" = "wheel's rim is adjusted.",
+			"icon_state" = "car23"
+		),
+
+		//26
+		list(
+			"key" = /obj/item/airlock_painter,
+			"back_key" = TOOL_WELDER,
+			"desc" = "wheel's rim is repaired.",
+			"icon_state" = "car24"
+		),
+	)
+
+
+/datum/component/construction/mecha/normalvehicle/buggy/custom_action(obj/item/I, mob/living/user, diff)
+	if(!..())
+		return FALSE
+
+	//TODO: better messages.
+	switch(index)
+		if(1)
+			user.visible_message("[user] connects [parent] hydraulic systems", span_notice("You connect [parent] hydraulic systems."))
+		if(2)
+			if(diff==FORWARD)
+				user.visible_message("[user] activates [parent] hydraulic systems.", span_notice("You activate [parent] hydraulic systems."))
+			else
+				user.visible_message("[user] disconnects [parent] hydraulic systems", span_notice("You disconnect [parent] hydraulic systems."))
+		if(3)
+			if(diff==FORWARD)
+				user.visible_message("[user] adds the spark plug to [parent].", span_notice("You add the spark plug to [parent]."))
+			else
+				user.visible_message("[user] deactivates [parent] hydraulic systems.", span_notice("You deactivate [parent] hydraulic systems."))
+		if(4)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the spark plug of [parent].", span_notice("You install the spark plug  of [parent]."))
+			else
+				user.visible_message("[user]  removes the spark plug from[parent].", span_notice("You remove the spark from [parent]."))
+		if(5)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the engine into the [parent].", span_notice("You wire the engine into the [parent]."))
+			else
+				user.visible_message("[user] uninstalls the spark plug.", span_notice("You uninstall the spark plug."))
+		if(6)
+			if(diff==FORWARD)
+				user.visible_message("[user] refurbishes the leather seats.", span_notice("You refurbish the leather seats."))
+			else
+				user.visible_message("[user] unwires the engine.", span_notice("You unwire the engine."))
+		if(7)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the dashboard into [parent].", span_notice("You install the dashboard into [parent]."))
+			else
+				user.visible_message("[user] removes the leather off the seat.", span_notice("You remove the leather of the seats."))
+		if(8)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the dashboard.", span_notice("You secure the dashboard."))
+			else
+				user.visible_message("[user] removes the dashboard.", span_notice("You remove the dashboard."))
+		if(9)
+			if(diff==FORWARD)
+				user.visible_message("[user] protects the dashboard with a glass screen.", span_notice("You protect the dashboard with a glass screen."))
+			else
+				user.visible_message("[user] disconnects the dashboard.", span_notice("You disconnects the dashboard."))
+		if(10)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the glass.", span_notice("You secure the glass."))
+			else
+				user.visible_message("[user] removes the glass from the dashboard.", span_notice("You remove the glass from the dashboard."))
+		if(11)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the damaged parts of the gearbox.", span_notice("You replace the damaged parts of the gearbox."))
+			else
+				user.visible_message("[user] uninstalls the dashboard glass.", span_notice("You uninstall the dashboard glass."))
+		if(12)
+			if(diff==FORWARD)
+				user.visible_message("[user] reinstalls the gearbox .", span_notice("You reinstall the gearbox ."))
+			else
+				user.visible_message("[user]  takes back the gearbox repleacements.", span_notice(" take back the gearbox repleacements."))
+		if(13)
+			if(diff==FORWARD)
+				user.visible_message("[user] puts on the windshield.", span_notice("You put on the windshield."))
+			else
+				user.visible_message("[user] uninstalls the gearbox.", span_notice("uninstall the gearbox."))
+		if(14)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the windshield.", span_notice("You secure the windshield."))
+			else
+				user.visible_message("[user] takes out the windshield.", span_notice("You takes out the windshield from."))
+		if(15)
+			if(diff==FORWARD)
+				user.visible_message("[user] replace the busted headlight.", span_notice("You replace the busted headlight."))
+			else
+				user.visible_message("[user] unsecures the windshield from [parent].", span_notice("You unsecure the windshield from [parent]."))
+		if(16)
+			if(diff==FORWARD)
+				user.visible_message("[user] wires the busted headlight.", span_notice("You connect the wire the busted headlight."))
+			else
+				user.visible_message("[user] takes out the busted headlight's replacement.", span_notice("You take out the busted headlight's replacement."))
+		if(17)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs the headlights.", span_notice("You install the headlights."))
+			else
+				user.visible_message("[user] cut the wires around the headlight.", span_notice("You disconnect the wire from the headlights."))
+		if(18)
+			if(diff==FORWARD)
+				user.visible_message("[user] installs [I] into [parent].", span_notice("You install [I] into [parent]."))
+			else
+				user.visible_message("[user] disconnects the headlights.", span_notice("You disconnect the headlights."))
+		if(19)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the power cell.", span_notice("You secure the power cell."))
+			else
+				user.visible_message("[user] pries the power cell from [parent].", span_notice("You pry the power cell from [parent]."))
+		if(20)
+			if(diff==FORWARD)
+				user.visible_message("[user] Reinforces the Chasis of [parent].", span_notice("You Reinforce the Chasis of [parent]."))
+			else
+				user.visible_message("[user] unfastens the power cell.", span_notice("You unfasten the power cell."))
+		if(21)
+			if(diff==FORWARD)
+				user.visible_message("[user] adjusts the chassis reinforcements.", span_notice("You adjust the chassis reinforcements."))
+			else
+				user.visible_message("[user] pries the chassis reinforcementsoff [parent].", span_notice("You pry the chassis reinforcements off [parent]."))
+		if(22)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the chassis reinforcement of [parent].", span_notice("You welds the chassis reinforcement of [parent]."))
+			else
+				user.visible_message("[user] unfastens the chassis reinforcements.", span_notice("You unfasten the chassis reinforcements."))
+		if(23)
+			if(diff==FORWARD)
+				user.visible_message("[user] replaces the wheel's grille.", span_notice("You replace the wheel's grille."))
+			else
+				user.visible_message("[user] cuts chassis reinforcements from [parent].", span_notice("You cut the chassis reinforcements from [parent]."))
+		if(24)
+			if(diff==FORWARD)
+				user.visible_message("[user] secures the wheel's grille.", span_notice("You secure the wheel's grille."))
+			else
+				user.visible_message("[user] pries the wheel's grille from [parent].", span_notice("You pry the wheel's grille from [parent]."))
+		if(25)
+			if(diff==FORWARD)
+				user.visible_message("[user] welds the wheel's grille to [parent].", span_notice("You weld the wheel's grille to [parent]."))
+			else
+				user.visible_message("[user] unfastens the wheel's grille.", span_notice("You unfasten the wheel's grille."))
+		if(26)
+			if(diff==FORWARD)
+				user.visible_message("[user] paints [parent] as a finishing touch.", span_notice(" You paint [parent] as a finishing touch."))
+	return TRUE

@@ -81,10 +81,20 @@
 		"enclave.dm",
 		"bos.dm",
 		"eastwood.dm",
-		"ncr.dm",
+		"ncra.dm",
 		"legion.dm",
 		"vault.dm",
 		"outlaws.dm",
-		"khan.dm"
+		"khan.dm",
+		"rangers.dm",
+		"whitelegs.dm",
+		"tribals.dm",
+		"lds.dm",
+		"khan.dm",
+		"outlaws.dm",
+		"usps.dm",
+		"eighties.dm",
+		"followers.dm",
+		"mutants.dm"
 	]
 }

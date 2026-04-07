@@ -48,6 +48,7 @@ Administrator
 	selection_color = "#FF95FF"
 	min_required_special = list(
 		"special_c" = 4,
+		"special_i" = 4,
 		)
 
 	outfit = /datum/outfit/job/atlantic/f13atlanticcap
@@ -110,6 +111,9 @@ Doctor
 	enforces = "Based on a christan association, and remants of the navy, the Atlantic Cross tries to fight against drugs and raiders. Don't forget to ask for a pay ! Revival is arround 100 caps, And healing people arround 50 caps. Why ? Maintaining those ship are a pain !."
 	selection_color = "#FFDDFF"
 	exp_requirements = 0
+	min_required_special = list(
+		"special_i" = 5,
+		)
 
 	outfit = /datum/outfit/job/atlantic/f13atlanticdoc
 	matchmaking_allowed = list(

@@ -103,6 +103,8 @@
 				LAZYREMOVE(GLOB.bos_radios, src)
 			if(FACTION_ENCLAVE)
 				LAZYREMOVE(GLOB.enclave_radios, src)
+			if(FACTION_MINUTEMEN)
+				LAZYREMOVE(GLOB.minutemen_radios, src)
 	GLOB.radio_list -= src //Big-Iron, removes radio from radio list lmao
 	remove_radio_all(src) //Just to be sure
 	QDEL_NULL(wires)
@@ -147,6 +149,8 @@
 				LAZYADD(GLOB.bos_radios, src)
 			if(FACTION_ENCLAVE)
 				LAZYADD(GLOB.enclave_radios, src)
+			if(FACTION_MINUTEMEN)
+				LAZYADD(GLOB.minutemen_radios, src)
 
 /obj/item/radio/ComponentInitialize()
 	. = ..()

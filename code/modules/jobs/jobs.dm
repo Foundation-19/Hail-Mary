@@ -289,6 +289,7 @@ GLOBAL_LIST_INIT(locust_positions, list(
 GLOBAL_LIST_INIT(minutemen_positions, list(
 	"Minuteman",
 	"Minuteman Captain",
+	"Minuteman Veteran",
 	"Minuteman Major",
 ))
 

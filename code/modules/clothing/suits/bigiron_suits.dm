@@ -1961,6 +1961,28 @@
 	body_parts_covered = CHEST|ARMS|LEGS
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
 
+/obj/item/clothing/suit/armor/medium/duster/minutemen/alt2
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_coat_alt2"
+	item_state = "mm_coat_alt2"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/medium/duster/minutemen/alt3
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmom_coat"
+	item_state = "mmom_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
+
 /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
 	name = "minutemen officer coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs. This one has officer insignia"
@@ -1968,6 +1990,17 @@
 	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
 	icon_state = "mmo_coat"
 	item_state = "mmo_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2,ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/medium/duster/minutemen/major
+	name = "minutemen major coat"
+	desc = "A traditionial minutemen colonel coat, with armor underneath."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmm_coat"
+	item_state = "mmm_coat"
 	mutantrace_variation = NONE
 	body_parts_covered = CHEST|ARMS|LEGS
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_MELEE_T2,ARMOR_MODIFIER_UP_LASER_T2)
@@ -2594,6 +2627,22 @@
 	desc = "An old set of pre-war combat armor, painted black."
 	icon_state = "enclave_new"
 	item_state = "enclave_new"
+
+/obj/item/clothing/suit/armor/medium/combat/minutemen
+	name = "Minutement combat armor"
+	desc = "An old set of pre-war combat armor, painted blue, with pieces missing."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_armor"
+	item_state = "mm_armor"
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/minutemen
+	name = "Minutement combat armor"
+	desc = "An old set of pre-war combat armor, painted blue, with pieces missing."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_armor_2"
+	item_state = "mm_armor_2"
 
 ///////////////////
 // MEDIUM RAIDER //

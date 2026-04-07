@@ -174,7 +174,7 @@ Mayor
 /*--------------------------------------------------------------*/
 
 /datum/job/locust_point/f13baltimorefarmer
-	title = "Servant workers of town"
+	title = "Servant worker of town"
 	flag = F13BALTIMOREFARMER
 	department_flag = DEP_LOCUST
 	total_positions = -1
@@ -840,8 +840,8 @@ Mayor
 	title = "Minuteman"
 	flag = F13MINUTEMEN
 	faction = DEP_MINUTEMEN
-	total_positions = 12
-	spawn_positions = 12
+	total_positions = 10
+	spawn_positions = 10
 	description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place."
 	supervisors = "The Castle Command, and the Town Dockmaster"
 	
@@ -850,6 +850,11 @@ Mayor
 	objectivesList = list("Leadership recommends the following goal for this week: Organise training for the soldiers","Leadership recommends the following goal for this week: Neutralize and capture dangerous criminals", "Leadership recommends the following goal for this week: Free slaves and establish good relations with unaligned individuals.")
 
 	outfit = /datum/outfit/job/locust/f13minutemen
+
+	loadout_options = list(
+		/datum/outfit/loadout/minutemenlaser,
+		/datum/outfit/loadout/minutemenballistic,
+	)
 
 	access = list(ACCESS_MINUTEMEN)
 	minimal_access = list(ACCESS_MINUTEMEN)
@@ -865,25 +870,48 @@ Mayor
 	)
 
 /datum/outfit/job/locust/f13minutemen
-	ears = /obj/item/radio/headset/headset_town/lawman
+	ears = /obj/item/radio/headset/minutemen
 	shoes = /obj/item/clothing/shoes/f13/minutemen
 	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	l_pocket = /obj/item/storage/belt/legholster
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	belt = /obj/item/storage/belt/holster/rugged/revolver_357
-	uniform = /obj/item/clothing/under/f13/minutemen
 	id = /obj/item/card/id/dogtag/minutemen
 	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen
-	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen
 	neck = /obj/item/clothing/neck/scarf/f13/minutemen
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
-		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
-		/obj/item/ammo_box/lasmusket = 3
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1
 	)
+
+/datum/outfit/job/locust/f13minutemen/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+			/obj/item/clothing/under/civ/portuguese_sailor1, \
+			/obj/item/clothing/under/f13/minutemen, \
+			/obj/item/clothing/under/f13/cowboyb, \
+			/obj/item/clothing/under/f13/doctorm, \
+			/obj/item/clothing/under/f13/rustic, \
+			/obj/item/clothing/under/rank/security/detective/brown)
+
+//There is technically no uniform requirement for the minutemens
+
+/datum/outfit/loadout/minutemenlaser
+	name = "Classic Laser weaponery"
+	backpack_contents = list(/obj/item/gun/ballistic/rifle/hobo/lasmusket = 1,
+	/obj/item/ammo_box/lasmusket = 3,
+	)
+
+/datum/outfit/loadout/minutemenballistic
+	name = "Classic Ballistic weaponery"
+	backpack_contents = list(/obj/item/gun/ballistic/automatic/m1carbine/compact = 1,
+	/obj/item/ammo_box/magazine/m10mm/adv/simple = 3,
+	)
+
+
 
 /datum/job/locust/f13minutemencaptain
 	title = "Minuteman Captain"
@@ -898,18 +926,80 @@ Mayor
 
 	access = list(ACCESS_MINUTEMEN)
 	minimal_access = list(ACCESS_MINUTEMEN)
+	min_required_special = list(
+		"special_c" = 4,
+		)
+
+	loadout_options = list(
+		/datum/outfit/loadout/minutemenlaser2,
+		/datum/outfit/loadout/minutemenballistic2,
+	)
 
 /datum/outfit/job/locust/f13minutemen/captain
-	ears = /obj/item/radio/headset/headset_town/lawman/command
+	ears = /obj/item/radio/headset/minutemen/command
+	shoes = /obj/item/clothing/shoes/f13/minutemen
+	head = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/minutemen
+	l_pocket = /obj/item/storage/belt/legholster
+	backpack = /obj/item/storage/backpack/satchel/explorer
+	satchel = /obj/item/storage/backpack/satchel/explorer
+	belt = /obj/item/melee/sabre
+	uniform = /obj/item/clothing/under/f13/minutemen
+	suit = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/minutemen
+	r_pocket = /obj/item/flashlight/seclite
+	gloves = /obj/item/clothing/gloves/f13/minutemen
+	neck = /obj/item/clothing/neck/scarf/f13/minutemen
+	id = /obj/item/card/id/dogtag/minutemen/officer
+	backpack_contents = list(
+		/obj/item/reagent_containers/food/snacks/f13/mre = 1,
+		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
+		/obj/item/storage/belt/army/assault = 1
+	)
+
+/datum/outfit/job/locust/f13minutemen/captain/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+			/obj/item/clothing/under/f13/minutemen)
+
+/datum/outfit/loadout/minutemenballistic2
+	name = "Officer Ballistic weaponery"
+	backpack_contents = list(/obj/item/gun/ballistic/automatic/m1garand = 1,
+	/obj/item/ammo_box/magazine/garand3006 = 3,
+	)
+
+/datum/outfit/loadout/minutemenlaser2
+	name = "Officer Laser weaponery"
+	backpack_contents = list(/obj/item/gun/ballistic/rifle/hobo/plasmacaster = 1,
+	/obj/item/ammo_box/plasmamusket = 3,
+	)
+
+
+/datum/job/locust/f13minutemen/veteran
+	title = "Minuteman Veteran"
+	flag = F13MINUTEMENVET
+	faction = DEP_MINUTEMEN
+	total_positions = 1
+	spawn_positions = 1
+	description = "Militian needs training and for someone to guide them into battle and victory. You are that man. May it be from past battles with the minutemens, or any kind of factions, you decided to give your knowledge in a good cause."
+	supervisors = "The Minutemen Major"
+	min_required_special = list(
+		"special_c" = 4,
+		)
+
+	outfit = /datum/outfit/job/locust/f13minutemen/vet
+
+	access = list(ACCESS_MINUTEMEN)
+	minimal_access = list(ACCESS_MINUTEMEN)
+
+/datum/outfit/job/locust/f13minutemen/vet
+	ears = /obj/item/radio/headset/minutemen/command
 	shoes = /obj/item/clothing/shoes/f13/minutemen
 	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	l_pocket = /obj/item/storage/belt/legholster
 	backpack = /obj/item/storage/backpack/satchel/explorer
 	satchel = /obj/item/storage/backpack/satchel/explorer
-	belt = /obj/item/melee/coyote/oldlongsword/spadroon
 	uniform = /obj/item/clothing/under/f13/minutemen
-	suit = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/minutemen
-	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
+	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
+	suit_store = /obj/item/melee/sabre
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen
 	neck = /obj/item/clothing/neck/scarf/f13/minutemen
@@ -920,6 +1010,10 @@ Mayor
 		/obj/item/storage/belt/army/assault = 1,
 		/obj/item/ammo_box/lasmusket = 3
 	)
+/datum/outfit/job/locust/f13minutemen/vet/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+			/obj/item/clothing/under/f13/minutemen)
 
 
 /datum/job/locust/f13minutemenmajor
@@ -930,11 +1024,19 @@ Mayor
 	spawn_positions = 1
 	description = "The highest ranking Minutemen and the flagbearer of the organisation. You organise the squad, gives, orders, plan operations."
 	supervisors = "The generals"
+	min_required_special = list(
+		"special_c" = 5,
+		)
 
 	outfit = /datum/outfit/job/locust/f13minutemen/major
 
 	access = list(ACCESS_MINUTEMEN)
 	minimal_access = list(ACCESS_MINUTEMEN)
+
+	loadout_options = list(
+		/datum/outfit/loadout/minutemenlaser2,
+		/datum/outfit/loadout/minutemenballistic2,
+	)
 
 /datum/outfit/job/locust/f13minutemen/major
 	ears = /obj/item/radio/headset/headset_town
@@ -945,8 +1047,8 @@ Mayor
 	satchel = /obj/item/storage/backpack/satchel/explorer
 	belt = /obj/item/storage/belt/army/assault
 	uniform = /obj/item/clothing/under/f13/minutemen
-	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
-	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
+	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen/major
+	belt = /obj/item/melee/sabre
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen
 	neck = /obj/item/clothing/neck/scarf/f13/minutemen
@@ -958,6 +1060,10 @@ Mayor
 		/obj/item/ammo_box/lasmusket = 3
 	)
 
+/datum/outfit/job/locust/f13minutemen/vet/pre_equip(mob/living/carbon/human/H)
+	..()
+	uniform = pick(
+			/datum/outfit/job/locust/f13minutemen/major)
 
 //Admin role
 
@@ -976,19 +1082,18 @@ Mayor
 	minimal_access = list(ACCESS_MINUTEMEN)
 
 /datum/outfit/job/locust/f13minutemen/ltcolonel
-	ears = /obj/item/radio/headset/headset_town
+	ears = /obj/item/radio/headset/minutemen/command
 	shoes = /obj/item/clothing/shoes/f13/minutemen
 	head = /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	l_pocket = /obj/item/storage/belt/legholster
-	backpack = /obj/item/storage/backpack/satchel/explorer
-	satchel = /obj/item/storage/backpack/satchel/explorer
+	backpack = /obj/item/minigunpack
 	belt = /obj/item/storage/belt/army/assault
 	uniform = /obj/item/clothing/under/f13/minutemen
-	suit = /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
+	suit = /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/minutemen
 	suit_store = /obj/item/gun/ballistic/rifle/hobo/lasmusket
 	r_pocket = /obj/item/flashlight/seclite
 	gloves = /obj/item/clothing/gloves/f13/minutemen
-	neck = /obj/item/clothing/neck/scarf/f13/minutemen
+	neck = /obj/item/clothing/neck/mantle/commander
 	id = /obj/item/card/id/dogtag/minutemen/officer
 	backpack_contents = list(
 		/obj/item/reagent_containers/food/snacks/f13/mre = 1,

@@ -301,12 +301,56 @@
 						/obj/item/paper/fluff/institute = 500,)
 
 /obj/machinery/mineral/wasteland_trader/special/vault125
-	name = "Vault125 exchange system"
-	desc = "Place weapon package inside. And get the caps."
+	name = "Vault125 Zax Computer system"
+	desc = "The leader of the operation. A inteligent AI unit, the one paying the mercenary groups for now more than 30 years. You can give them secret information here."
+	icon = 'icons/obj/machines/zax.dmi'
+	icon_state = "center"
 	goods_list = list(/obj/item/paper/fluff/minutemen = 500,
 						/obj/item/paper/fluff/brotherhood = 500,
 						/obj/item/paper/fluff/enclave = 500,
 						/obj/item/paper/fluff/institute = 500,)
+
+/obj/machinery/mineral/wasteland_trader/special/vault125/Topic(href, href_list)
+	if(..())
+		return
+	if(href_list["choice"] == "eject")
+		remove_all_caps()
+	if(href_list["purchase"])
+		var/datum/data/wasteland_equipment/prize = locate(href_list["purchase"])
+		if (!prize || !(prize in prize_list))
+			to_chat(usr, span_warning("Error: Invalid choice!"))
+			return
+		if(prize.cost > stored_caps)
+			to_chat(usr, span_warning("Error: Insufficent bottle caps value for [prize.equipment_name]!"))
+		else
+			stored_caps -= prize.cost
+			GLOB.vendor_cash += prize.cost
+			to_chat(usr, span_notice("[src] clanks to life briefly before vending [prize.equipment_name]!"))
+			new prize.equipment_path(src.loc)
+			SSblackbox.record_feedback("nested tally", "wasteland_equipment_bought", 1, list("[type]", "[prize.equipment_path]"))
+	updateUsrDialog()
+	return
+
+/obj/machinery/mineral/wasteland_trader/special/vault125/ui_interact(mob/user)
+	. = ..()
+	var/dat
+	dat +="<div class='statusDisplay'>"
+	dat += "<b>Bottle caps stored:</b> [stored_caps]. <A href='?src=[REF(src)];choice=eject'>Eject caps</A><br>"
+	dat += "</div>"
+	dat += "<br>"
+	dat +="<div class='statusDisplay'>"
+	dat += "<b>To have Order, you need Chaos. My orders are to make Chaos. You are my soldiers.</b><br>"
+	dat += "<b>Bring me plans and items of interess. Calculation need basis.</b><br>"
+	dat += "<b>Put the items in.</b><br>"
+	dat += "</div>"
+
+	var/datum/browser/popup = new(user, "tradingvendor", "Trading point", 400, 500)
+	popup.set_content(dat)
+	popup.open()
+	return
+
+/obj/machinery/mineral/wasteland_trader/special/vault125/attackby(obj/item/I, mob/user, params)
+	add_caps(I)
 
 
 /obj/machinery/vending/caravan
@@ -324,32 +368,32 @@
 	name = "\improper South Caravan package trader"
 	desc = "Here you can buy south caravan packages."
 
-	products = list(/obj/item/package/south)
+	products = list(/obj/item/package/south = 500)
 
 /obj/machinery/vending/caravan/fells
 	name = "\improper Fells Caravan package trader"
 	desc = "Here you can buy Fells caravan packages."
 
-	products = list(/obj/item/package/fells)
+	products = list(/obj/item/package/fells = 500)
 
 /obj/machinery/vending/caravan/train
 	name = "\improper Train Station Caravan package trader"
 	desc = "Here you can buy Train Station caravan packages."
 
-	products = list(/obj/item/package/train)
+	products = list(/obj/item/package/train = 500)
 
 
 /obj/machinery/vending/caravan/mchenry
 	name = "\improper McHenry Caravan package trader"
 	desc = "Here you can buy McHenry caravan packages."
 
-	products = list(/obj/item/package/mchenry)
+	products = list(/obj/item/package/mchenry = 500)
 
 /obj/machinery/vending/caravan/town
 	name = "\improper Town Caravan package trader"
 	desc = "Here you can buy Town caravan packages."
 
-	products = list(/obj/item/package/town)
+	products = list(/obj/item/package/town = 500)
 
 /obj/item/vending_refill/caravan
 	machine_name = "Package refilling"

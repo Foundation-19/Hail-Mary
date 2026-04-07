@@ -49,8 +49,6 @@
 /area/f13/wasteland/cold/power
 	requires_power = FALSE
 	
-// BALTIMORE AREAS
-
 /area/f13/Ocean
 	name = "Ocean"
 	icon_state = "blue"
@@ -65,44 +63,26 @@
 	weather_tags = list(WEATHER_ALL)
 
 /area/f13/wasteland/city
-	name = "Ruined City Coast"
+	name = "Ruined City"
 	icon_state = "city"
-	ambience_area = list(
-		/datum/looping_sound/ambient/ocean_a,
-		)
-	ambientmusic = list('sound/f13music/thecoastpart1fo4.ogg')
 	grow_chance = 45
 	environment = 10
 
 /area/f13/wasteland/city/citycenter
 	name = "Ruined Center City"
 	icon_state = "citycaves"
-	ambience_area = list(
-		/datum/looping_sound/ambient/critters,
-		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/critters/birds,
-		/datum/looping_sound/ambient/critters/birds/crow,
-		)
-	ambientmusic = list('sound/f13music/nomoresailsfo4.ogg')
 	grow_chance = 45
 	environment = 10
 
 /area/f13/wasteland/town
 	name = "Town"
 	icon_state = "green"
-	ambience_area = list(
-		/datum/looping_sound/ambient/harbor_b,
-		)
-	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
 	grow_chance = 5
 
 
 /area/f13/building
 	name = "Building"
 	icon_state = "building"
-	ambience_area = list(
-		/datum/looping_sound/ambient/harbor_interior,
-		)
 	weather_tags = null
 	outdoors = FALSE
 
@@ -1286,6 +1266,9 @@
 	environment = 15
 	grow_chance = 75
 
+
+
+
 // BALTIMORE V2 AREAS
 /area/f13/baltimore
 	name = "Baltimore general area"
@@ -1343,6 +1326,23 @@
 		)
 	ambientmusic = list('sound/f13music/endlessoceanfo4.ogg')
 	grow_chance = 5
+
+/area/f13/baltimore/wasteland/citywasteland/town/building
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/wasteland/citywasteland/town/building/houselot1
+	name = "Locust point House lot 1"
+
+/area/f13/baltimore/wasteland/citywasteland/town/building/houselot2
+	name = "Locust point House lot 2"
+
+/area/f13/baltimore/wasteland/citywasteland/town/building/houselot3
+	name = "Locust point House lot 3"
 
 /area/f13/baltimore/wasteland/citywasteland/minutemen
 	name = "Miutemen controled point"

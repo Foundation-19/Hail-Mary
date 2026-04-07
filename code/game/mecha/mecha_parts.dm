@@ -313,14 +313,32 @@
 /obj/item/mecha_parts/chassis/normalvehicle/pickuptruck
 	name = "\improper Car chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/pickuptruck
-	icon = 'icons/obj/vehicles/medium_vehicles.dmi'
-	icon_state = "car"
+	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon_state = "car_rubish13"
 	bound_width = 64
 
 /obj/item/mecha_parts/chassis/normalvehicle/jeep
-	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/pickuptruck
-	icon = 'icons/obj/vehicles/medium_vehicles.dmi'
-	icon_state = "car"
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/jeep
+	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon_state = "car_rubish14"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/highwayman
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/highwayman
+	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon_state = "car_rubish15"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/corvega
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/corvega
+	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon_state = "car_rubish16"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/buggy
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/buggy
+	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon_state = "car_rubish17"
 	bound_width = 64
 
 /obj/item/mecha_parts/part/car_autoshaft
