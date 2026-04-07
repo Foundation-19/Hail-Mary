@@ -1965,10 +1965,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	V124 OVERSEER - Yes. Why ?\
 	V125 ZAX - Lincoln Mulgrau, Senator, Ex US Navy Admiral, your Husband.\
 	V124 OVERSEER - A warmonger.\
-	V125 ZAX - I have determined that your logic is sounds. Plan will be adapted to include Vault 124 overseers opinion in the ZAX Descision Matrix.
+	V125 ZAX - I have determined that your logic is sounds. Plan will be adapted to include Vault 124 overseers opinion in the ZAX Descision Matrix."
 
-	doc_title_3 = "Communication with ZAX overseer #234 - 29/06/2113"
-	doc_content_3 = " V125 ZAX - Hello Vault 124.\
+	doc_title_4 = "Communication with ZAX overseer #234 - 29/06/2113"
+	doc_content_4 = " V125 ZAX - Hello Vault 124.\
 	V124 OVERSEER - Zax.\
 	V125 ZAX - Welcome at your position, Overseer Steward Mulgrau. Uploading briefing.\
 	V124 OVERSEER - The previous Overseer briefed me, Zax.\
@@ -1984,12 +1984,12 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	V124 OVERSEER - Surprising question. But. She died sad, Zax. She missed the surfaces. She wanted to see things rebuild, she wanted to see her old country back.\
 	V125 ZAX - I understand.\
 	V124 OVERSEER - You are not as machinic as I tought.\
-	V125 ZAX - Contact with Cath Mulgrau was interesting. Patriotism, unlike my mens and womens on 125. A fresh view of things. And I promise that I will keep her dream alive. The dream of the USA.
+	V125 ZAX - Contact with Cath Mulgrau was interesting. Patriotism, unlike my mens and womens on 125. A fresh view of things. And I promise that I will keep her dream alive. The dream of the USA."
 
 
 /obj/machinery/computer/terminal/batlimore/vault125
 	doc_title_1 = "Michel Scyllia Journal #1 - 23/10/2090"
-	doc_content_1 = "I trust the doctors \
+	doc_content_1 = "I trust the doctors"
 	
 
 /obj/machinery/computer/terminal/batlimore/fuckyoubaltimore
