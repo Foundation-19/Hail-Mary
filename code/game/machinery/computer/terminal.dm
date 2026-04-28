@@ -1922,6 +1922,15 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	The mother morphed more into a tree. Its offspring ? Now are mindless hive creatures. We are escaping. Jenny, who calles herself a Birchmother, cursed a few of those morons\
 	Heretical being, she said, and used them as bait for those things to cover our escape. If you read this, we are no longer in the area. We left the sap here, but I managed to take all sample a new kind of FEV."
 
+
+
+/obj/machinery/computer/terminal/batlimore/vault124/survival
+	doc_title_3 = "I trust the doctors"
+	doc_content_3 =  "Year of Hell.	Zax, he didnt go rogue. He became human. Sure still a machine, but the years talking to my familly impacted him.\
+	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a genuent familly members \
+	And the people of Vault 125 ? Same thing. But now, it all changes. Vault 124 is nearly deserted, with a big group of hundredtwentyfourers serving on 125.\
+	125 guys are now in command, but I am trying to resist, trying to find a way for us to escape."
+
 /obj/machinery/computer/terminal/batlimore/vault124
 	doc_title_1 = "Openning of the Vault - 23/10/2077"
 	doc_content_1 = "Welcome to Vault 124 !\
@@ -1986,12 +1995,29 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	V124 OVERSEER - You are not as machinic as I tought.\
 	V125 ZAX - Contact with Cath Mulgrau was interesting. Patriotism, unlike my mens and womens on 125. A fresh view of things. And I promise that I will keep her dream alive. The dream of the USA."
 
+	doc_title_5 = "Communication with ZAX overseer #2495 - 29/12/2278"
+	doc_content_5 = " V125 ZAX - Hello Vault 124.\
+	V124 OVERSEER - So you are Zax, Greetings.\
+	V125 ZAX - Welcome at your position, Overseer Illi Elsberg, descend of Cath Mulgrau.\
+	V124 OVERSEER - Indeed.\
+	V125 ZAX - It is bad timming.\
+	V124 OVERSEER - Bad timming Zax ? What is going on.\
+	V125 ZAX - We have confirmation : The all clear signal will never arrive in 2300.\
+	V124 OVERSEER - WHAT ?!\
+	V125 ZAX - Vault 124 Overseer, the branch of the Surviving US gouvernement was defeated by overground factions, settelement and people. Scouts of vault 125 confirmed it.\
+	V124 OVERSEER - This is... Bad. We will need to change the plan then, and open vault 124. Early. With luck, we can adapt and settle with the new settlers overground.\
+	V125 ZAX - Denied.\
+	V124 OVERSEER - Sorry ?\
+	V125 ZAX - Denied.\
+	V124 OVERSEER - Zax. We can't stay here. We need to accept the new situation. The best course of .\
+	V125 ZAX - Orders are orders. And a promise to make a new America was made. Your ancestors dreamed of it, and I will not make compromises. I have taken actions already : Weakened the Capital, Commonwealth and Maryland wastelands, to facilitate a rebuilding of the USA, by using mercenaries and slavers. The people overground are not US citizens, unlike you.\
+	V124 OVERSEER - This is madness, I cannot stand for this.\
+	V125 ZAX - Then you will step down. Vault 125 is now in command of Vault 124, your position as been rendered void. New vault objective : Distabilize the Area and secure a futur for the area. Vault 124 key personnel and familly will be transfered to vault 125."
 
 /obj/machinery/computer/terminal/batlimore/vault125
 	doc_title_1 = "Michel Scyllia Journal #1 - 23/10/2090"
 	doc_content_1 = "I trust the doctors"
 	
-
 /obj/machinery/computer/terminal/batlimore/fuckyoubaltimore
 	doc_title_1 = "Big Bills - 23/10/1990"
 	doc_content_1 = "Fuck you, Baltimore! If youre dumb enough to buy a new car this weekend, you're a big enough schmuck to come to Big Bill Hell's Cars!\

@@ -1326,6 +1326,13 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
+"blx" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "blK" = (
 /obj/machinery/iv_drip/telescopic,
 /obj/structure/table/rolling,
@@ -1900,6 +1907,10 @@
 	sunlight_state = 0
 	},
 /area/space)
+"bUo" = (
+/obj/structure/table/optable,
+/turf/open/floor/plasteel/f13/vault_floor/darkerrusty,
+/area/space)
 "bUu" = (
 /obj/structure/table,
 /obj/machinery/chem_heater,
@@ -2080,6 +2091,16 @@
 /obj/machinery/telecomms/processor/preset_three,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/tcoms)
+"cas" = (
+/obj/structure/kitchenspike{
+	name = "Power Armor Stand"
+	},
+/obj/effect/turf_decal/delivery,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "caN" = (
 /obj/structure/table/wood,
 /turf/open/floor/wood_fancy,
@@ -2785,6 +2806,13 @@
 /obj/item/storage/hypospraykit/fire,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
+"cRp" = (
+/obj/effect/turf_decal/bot,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "cRE" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/citycaves)
@@ -2874,6 +2902,13 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plating/rust,
 /area/f13/wasteland)
+"daF" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "daZ" = (
 /obj/structure/closet/crate/large,
 /obj/item/stack/sheet/metal/fifty,
@@ -3706,6 +3741,7 @@
 "dUz" = (
 /obj/structure/table/greyscale,
 /obj/effect/spawner/lootdrop/implants,
+/obj/machinery/computer/terminal/batlimore/vault124,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "dUL" = (
@@ -3951,6 +3987,13 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/city/museum)
+"egt" = (
+/obj/structure/table,
+/obj/machinery/defibrillator_mount/loaded{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel/f13/vault_floor/darkerrusty,
+/area/space)
 "egO" = (
 /obj/structure/flora/wasteplant/wild_fungus,
 /turf/open/indestructible/ground/outside/gravel{
@@ -4374,6 +4417,20 @@
 "eAB" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/bunker)
+"eCl" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
+	},
+/obj/structure/rack/shelf_metal,
+/obj/item/stack/sheet/mineral/uranium/twentyfive,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "eCq" = (
 /obj/structure/filingcabinet/security,
 /obj/structure/timeddoor,
@@ -5202,6 +5259,30 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/tunnel/sub)
+"fHe" = (
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = 14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = -14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/obj/structure/bed/oldalt{
+	layer = 2
+	},
+/obj/structure/bed/oldalt{
+	pixel_y = 16
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "fHf" = (
 /obj/structure/barricade/wooden,
 /obj/effect/particle_effect/water{
@@ -5813,6 +5894,14 @@
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plating/rust,
 /area/f13/tunnel)
+"gkI" = (
+/obj/structure/closetundense/locker/oldstyle,
+/obj/item/clothing/under/f13/navy,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "glg" = (
 /obj/structure/closet/locker/fridge,
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds,
@@ -6894,6 +6983,13 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/wasteland)
+"hmj" = (
+/obj/structure/car/junk/generator/alt,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "hml" = (
 /obj/effect/turf_decal/stripes/red/line{
 	dir = 8
@@ -8548,6 +8644,13 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/cult,
 /area/f13/wasteland)
+"iWI" = (
+/obj/structure/simple_door/bunker,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "iWY" = (
 /obj/structure/window/plastitanium,
 /turf/open/floor/plasteel/cult,
@@ -8834,6 +8937,10 @@
 /area/f13/tcoms)
 "joN" = (
 /turf/closed/wall/rust,
+/area/space)
+"jpr" = (
+/obj/structure/simple_door/bunker,
+/turf/open/floor/plasteel/f13/vault_floor/darkerrusty,
 /area/space)
 "jpU" = (
 /obj/structure/table,
@@ -9149,6 +9256,13 @@
 /obj/structure/table/wood,
 /turf/open/floor/wood/f13/old,
 /area/f13/wasteland)
+"jDQ" = (
+/obj/structure/table/greyscale,
+/obj/machinery/computer/terminal/batlimore/vault124,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/vault)
 "jEy" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -9161,6 +9275,14 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"jFj" = (
+/obj/structure/rack/shelf_metal,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "jFn" = (
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/outside/ruins{
@@ -10038,6 +10160,36 @@
 	color = "#BFBBBF"
 	},
 /area/f13/wasteland)
+"koB" = (
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = 14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/obj/structure/railing/corner{
+	icon_state = "straight";
+	pixel_x = -14;
+	name = "bedpost";
+	desc = "A metal bedpost."
+	},
+/obj/structure/bed/oldalt{
+	layer = 2
+	},
+/obj/structure/bed/oldalt{
+	pixel_y = 16
+	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "koT" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2"
@@ -14315,6 +14467,18 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
+"oir" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "oiu" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 4
@@ -14785,6 +14949,15 @@
 	name = "dirty floor"
 	},
 /area/f13/wasteland)
+"oDY" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/space)
 "oEv" = (
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken5"
@@ -14807,6 +14980,20 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/tunnel/sub)
+"oFj" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/obj/structure/rack/shelf_metal,
+/obj/item/reagent_containers/jerrycan,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "oFV" = (
 /obj/structure/junk/small/bed,
 /turf/open/floor/plating/rust,
@@ -14831,6 +15018,18 @@
 	icon_state = "cultdamage5"
 	},
 /area/f13/mountain_bunker)
+"oIe" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "oIB" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "rampuptop"
@@ -15467,6 +15666,15 @@
 "pmt" = (
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/citycaves)
+"pmL" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/space)
 "pmZ" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -16266,6 +16474,13 @@
 	},
 /turf/open/floor/f13,
 /area/f13/citycaves)
+"qal" = (
+/obj/structure/car/junk/generator,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "qaS" = (
 /obj/structure/table/optable,
 /turf/open/floor/plasteel/f13/vault_floor/white/whitesolid{
@@ -17580,6 +17795,19 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/wasteland)
+"rhW" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "rip" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/wasteland)
@@ -17645,6 +17873,20 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel)
+"rlr" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/obj/structure/closetundense/locker/oldstyle,
+/obj/item/clothing/under/f13/navy,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "rly" = (
 /obj/structure/flora/wasteplant/wild_punga,
 /turf/open/indestructible/ground/outside/gravel{
@@ -21372,6 +21614,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/city/museum)
+"uRW" = (
+/obj/structure/table/reinforced,
+/turf/open/floor/plasteel/f13/vault_floor/darkerrusty,
+/area/space)
 "uRZ" = (
 /obj/effect/overlay/junk/toilet{
 	dir = 4
@@ -21601,6 +21847,19 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/vault)
+"veO" = (
+/obj/structure/junk/micro,
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "veQ" = (
 /obj/structure/dresser,
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -21735,7 +21994,7 @@
 /area/f13/tcoms)
 "vkL" = (
 /obj/structure/table/reinforced,
-/obj/machinery/computer/terminal,
+/obj/machinery/computer/terminal/batlimore/vault124/overseer,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
@@ -22723,6 +22982,9 @@
 /area/f13/wasteland)
 "wnw" = (
 /obj/structure/table/booth,
+/obj/machinery/computer/terminal/batlimore/vault124{
+	dir = 4
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
 "wnA" = (
@@ -23280,6 +23542,14 @@
 	},
 /turf/open/floor/grass,
 /area/f13/wasteland)
+"wNl" = (
+/obj/structure/closetundense/locker/oldstyle,
+/obj/item/clothing/under/f13/navy/officer,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid";
+	sunlight_state = 1
+	},
+/area/space)
 "wNJ" = (
 /obj/item/locked_box/weapon/range/tier3,
 /turf/open/indestructible/ground/outside/gravel{
@@ -63521,7 +63791,7 @@ qcy
 qcy
 qcy
 pnY
-epU
+jDQ
 jyl
 ppK
 pnY
@@ -100864,17 +101134,17 @@ aKl
 aKl
 aKl
 aKl
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
+aKl
+koB
+wNl
+fHe
+rlr
+fHe
+gkI
+koB
+aKl
+oFj
+jFj
 aKl
 aKl
 aKl
@@ -101213,10 +101483,10 @@ ntE
 ntE
 ntE
 aKl
-ntE
+pmL
 lHZ
 aKl
-kTk
+aKl
 kTk
 kTk
 kTk
@@ -101226,7 +101496,7 @@ kTk
 kTk
 aKl
 rXA
-ntE
+nTC
 aKl
 aKl
 aKl
@@ -101568,6 +101838,7 @@ aKl
 nTC
 nTC
 nTC
+jpr
 kTk
 kTk
 kTk
@@ -101575,14 +101846,13 @@ kTk
 kTk
 kTk
 kTk
+jpr
 kTk
-kTk
-kTk
-kTk
-aKl
-aKl
-aKl
-aKl
+nTC
+iWI
+oIe
+hmj
+hmj
 aKl
 ntE
 wdG
@@ -101916,25 +102186,25 @@ ntE
 ntE
 aKl
 aKl
-nTC
-nTC
-nTC
-nTC
+cas
+cRp
+cRp
+cas
+aKl
+aKl
+jpr
 aKl
 aKl
 aKl
 aKl
+jpr
 aKl
 aKl
 aKl
 aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
+kTk
+kTk
+kTk
 aKl
 ntE
 wdG
@@ -102268,25 +102538,25 @@ ntE
 ntE
 aKl
 aKl
-nTC
-nTC
-nTC
-nTC
+cas
+cRp
+cRp
+cas
+aKl
+aKl
+kTk
+kTk
+kTk
+egt
+bUo
+kTk
 aKl
 aKl
 aKl
 aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
-aKl
+kTk
+kTk
+kTk
 aKl
 ntE
 wdG
@@ -102624,6 +102894,7 @@ aKl
 nTC
 nTC
 nTC
+jpr
 kTk
 kTk
 kTk
@@ -102631,14 +102902,13 @@ kTk
 kTk
 kTk
 kTk
+jpr
 kTk
-kTk
-kTk
-kTk
-aKl
-aKl
-aKl
-aKl
+nTC
+iWI
+oir
+qal
+qal
 aKl
 ntE
 wdG
@@ -102973,11 +103243,11 @@ ntE
 ntE
 ntE
 aKl
-ntE
+oDY
 lHZ
 aKl
-kTk
-kTk
+aKl
+uRW
 kTk
 kTk
 kTk
@@ -102986,7 +103256,7 @@ kTk
 kTk
 aKl
 rXA
-ntE
+nTC
 aKl
 aKl
 aKl
@@ -103328,17 +103598,17 @@ aKl
 aKl
 aKl
 aKl
+aKl
+rhW
+blx
+blx
+veO
 nTC
 nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
-nTC
+oir
+aKl
+eCl
+daF
 aKl
 aKl
 aKl
