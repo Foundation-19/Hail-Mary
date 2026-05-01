@@ -744,24 +744,6 @@
 	construction_time = 120
 	category = list("Cyborg Upgrade Modules")
 
-/datum/design/borg_upgrade_lavaproof
-	name = "Cyborg Upgrade (Lavaproof Tracks)"
-	id = "borg_upgrade_lavaproof"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/lavaproof
-	materials = list(/datum/material/iron = 10000, /datum/material/plasma = 4000, /datum/material/titanium = 5000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
-/datum/design/borg_syndicate_module
-	name = "Cyborg Upgrade (Illegal Modules)"
-	id = "borg_syndicate_module"
-	build_type = MECHFAB
-	build_path = /obj/item/borg/upgrade/syndicate
-	materials = list(/datum/material/iron=10000,/datum/material/glass=15000,/datum/material/diamond = 10000)
-	construction_time = 120
-	category = list("Cyborg Upgrade Modules")
-
 /datum/design/borg_upgrade_selfrepair
 	name = "Cyborg Upgrade (Self-repair)"
 	id = "borg_upgrade_selfrepair"

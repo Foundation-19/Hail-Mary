@@ -97,6 +97,8 @@
 	var/display_icon_override
 	var/emote_display = "Neutral" //text string of the current emote we set for the status displays, to prevent logins resetting it.
 
+	var/datum/cpu_cert/cpu_cert = null
+
 /mob/living/silicon/ai/Initialize(mapload, datum/ai_laws/L, mob/target_ai)
 	. = ..()
 	if(!target_ai) //If there is no player/brain inside.

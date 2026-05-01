@@ -1,5 +1,5 @@
 /obj/screen/human
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/fallout/UI/screen_fallout2_dark.dmi'
 
 /obj/screen/human/toggle
 	name = "toggle"
@@ -344,6 +344,10 @@
 
 	healthdoll = new /obj/screen/healthdoll()
 	healthdoll.hud = src
+	// Fallout UI uses screen_gen.dmi sprites (no fallout-specific healthdoll art exists).
+	// Apply amber tint to match the fallout UI palette.
+	if(ui_style == 'icons/fallout/UI/screen_fallout2_dark.dmi')
+		healthdoll.color = "#C8A000"
 	infodisplay += healthdoll
 
 	pull_icon = new /obj/screen/pull()

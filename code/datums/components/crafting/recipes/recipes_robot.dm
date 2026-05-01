@@ -74,6 +74,106 @@
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
 
+// -- CYBORG BODYPARTS --
+// Blueprint-gated recipes replacing the absent mechfab path.
+// Crafted at an Advanced Workbench; assemble all six onto a robot_suit
+// endoskeleton via the existing click-assembly mechanic, then insert an MMI.
+
+/datum/crafting_recipe/cyborg_robot_suit
+	name = "Cyborg Endoskeleton"
+	result = /obj/item/robot_suit
+	reqs = list(
+				/obj/item/stack/sheet/metal = 8,
+				/obj/item/stack/crafting/metalparts = 2,
+				/obj/item/stack/crafting/goodparts = 1
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 120
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
+/datum/crafting_recipe/cyborg_torso
+	name = "Cyborg Torso"
+	result = /obj/item/bodypart/chest/robot
+	reqs = list(
+				/obj/item/stack/sheet/metal = 15,
+				/obj/item/stack/crafting/metalparts = 3,
+				/obj/item/stack/crafting/electronicparts = 2,
+				/obj/item/stack/crafting/goodparts = 1
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 180
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
+/datum/crafting_recipe/cyborg_head
+	name = "Cyborg Head"
+	result = /obj/item/bodypart/head/robot
+	reqs = list(
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 1,
+				/obj/item/stack/crafting/electronicparts = 3
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 120
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
+/datum/crafting_recipe/cyborg_l_arm
+	name = "Cyborg Left Arm"
+	result = /obj/item/bodypart/l_arm/robot
+	reqs = list(
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 2
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 90
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
+/datum/crafting_recipe/cyborg_r_arm
+	name = "Cyborg Right Arm"
+	result = /obj/item/bodypart/r_arm/robot
+	reqs = list(
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 2
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 90
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
+/datum/crafting_recipe/cyborg_l_leg
+	name = "Cyborg Left Leg"
+	result = /obj/item/bodypart/l_leg/robot
+	reqs = list(
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 2
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 90
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
+/datum/crafting_recipe/cyborg_r_leg
+	name = "Cyborg Right Leg"
+	result = /obj/item/bodypart/r_leg/robot
+	reqs = list(
+				/obj/item/stack/sheet/metal = 5,
+				/obj/item/stack/crafting/metalparts = 2
+				)
+	tools = list(TOOL_AWORKBENCH)
+	time = 90
+	category = CAT_MISC
+	subcategory = CAT_MISCELLANEOUS
+	always_available = FALSE
+
 /datum/crafting_recipe/aitater
 	name = "intelliTater"
 	result = /obj/item/aicard/aitater

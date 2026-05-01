@@ -88,7 +88,7 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	// 3 = door control, 4 = turret list, 5 = turret detail,
 	// 6 = admin panel (lock/set difficulty)
 
-	// ── Document vars (legacy 5-slot, migrated to datum list on init)
+	// ?? Document vars (legacy 5-slot, migrated to datum list on init)
 	var/doc_title_1 = "readme"
 	var/doc_content_1 = ""
 	var/doc_title_2 = ""
@@ -103,11 +103,11 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	var/loaded_content = ""
 	var/list/terminal_documents = null
 
-	// ── Notekeeper
+	// ?? Notekeeper
 	var/notehtml = ""
 	var/note = "ERR://null-data #236XF51"
 
-	// ── Hacking vars
+	// ?? Hacking vars
 	var/locked              = FALSE
 	var/hack_difficulty     = 2
 	var/hack_solved         = FALSE
@@ -123,21 +123,32 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	var/hack_refill_charges = 1
 	var/on_hack_success     = null
 
-	// ── Security linkage
-	var/list/linked_door_ids  = null  // List of airlock id strings — set in map editor
-	var/list/linked_buttons   = null  // Live button refs — populated at runtime
-	var/list/linked_turrets   = null  // Live turret refs — populated at runtime
+	// ?? Security linkage
+	var/list/linked_door_ids  = null  // List of airlock id strings -- set in map editor
+	var/list/linked_buttons   = null  // Live button refs -- populated at runtime
+	var/list/linked_turrets   = null  // Live turret refs -- populated at runtime
 	var/turret_detail_ref     = null
+	var/list/linked_robots    = null
+	var/robot_detail_ref      = null
 
-	// ── Map-editor linkage vars (resolved to live refs in Initialize)
+	// ?? Map-editor linkage vars (resolved to live refs in Initialize)
 	/// Comma-separated button IDs to auto-link on init, e.g. "btn_vault,btn_armory"
 	var/map_button_ids  = null
 	/// Comma-separated turret tag strings to auto-link on init, e.g. "turret_guard,turret_east"
 	var/map_turret_tags = null
+	/// Comma-separated robot names to auto-link on init
+	var/map_robot_tags = null
 	/// When non-null, the next ID card swiped will be registered to this turret's whitelist
 	var/pending_whitelist_tref = null
 	/// When non-null, the next ID card swiped will register its faction to this turret
 	var/pending_faction_tref = null
+	/// When non-null, the next ID card swiped adds its faction to this robot
+	var/pending_robot_faction_rref = null
+	/// When non-null, the next ID card swiped locks this robot to that card's registered ckey
+	var/pending_robot_lock_rref = null
+	/// Sub-page for robot hardware add picker: null | "cat" | "type"
+	var/robot_hw_add_mode = null
+	var/robot_hw_add_cat  = null
 
 /obj/machinery/computer/terminal/Initialize()
 	. = ..()
@@ -149,6 +160,19 @@ GLOBAL_LIST_INIT(HACK_JUNK_CHARS, list(
 	write_documents()
 	resolve_map_links()
 
+/obj/machinery/computer/terminal/Destroy()
+	// Clear all pending ID-card states so nothing is left dangling
+	pending_whitelist_tref        = null
+	pending_faction_tref          = null
+	pending_robot_faction_rref    = null
+	pending_robot_lock_rref       = null
+	robot_hw_add_mode             = null
+	robot_hw_add_cat              = null
+	linked_buttons                = null
+	linked_turrets                = null
+	linked_robots                 = null
+	return ..()
+
 /* 
 
 MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
@@ -158,13 +182,13 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	termtag = "Security"
 	hack_difficulty = 3          // HARD
 
-	// Airlocks — matched by their var/id
+	// Airlocks -- matched by their var/id
 	linked_door_ids = list("vault_main", "vault_armory")
 
-	// Buttons — matched by their var/id (same id as the airlocks they control)
+	// Buttons -- matched by their var/id (same id as the airlocks they control)
 	map_button_ids = "btn_main,btn_armory"
 
-	// Turrets — matched by their var/tag (set tag on each turret in the map editor)
+	// Turrets -- matched by their var/tag (set tag on each turret in the map editor)
 	map_turret_tags = "turret_entrance,turret_east_hall"
 
 	// Documents
@@ -200,6 +224,16 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				if(T.tag == target_tag)
 					if(!(T in linked_turrets))
 						linked_turrets += T
+
+	if(map_robot_tags && length(map_robot_tags))
+		if(!linked_robots) linked_robots = list()
+		var/list/rtags = splittext(map_robot_tags, ",")
+		for(var/rtag in rtags)
+			rtag = trim(rtag)
+			for(var/mob/living/silicon/robot/R in world)
+				if(R.name == rtag || R.real_name == rtag)
+					if(!(R in linked_robots))
+						linked_robots += R
 
 // ============================================================
 // SHARED CSS HELPER
@@ -290,6 +324,17 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			dat += render_admin_page(user)
 			dat += get_terminal_footer()
 
+		if(7)
+			dat += get_terminal_header("Robotics Network")
+			dat += render_robot_list_page()
+			dat += get_terminal_footer()
+
+		if(8)
+			var/mob/living/silicon/robot/RR = get_linked_robot(robot_detail_ref)
+			dat += get_terminal_header("Unit Configuration")
+			dat += render_robot_detail_page(RR)
+			dat += get_terminal_footer("<a href='byond://?src=[REF(src)];choice=goto_robots'>&gt;  Back to Robotics Network</a><br>")
+
 	if(!mode)
 		dat += "</font></div>"
 
@@ -321,14 +366,14 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 	switch(href_list["choice"])
 
-		// ── Notekeeper
+		// ?? Notekeeper
 		if("Edit")
 			var/n = stripped_multiline_input(U, "Please enter message", name, note, max_length=MAX_MESSAGE_LEN * 4)
 			if(in_range(src, U) && mode == 1 && n)
 				note = n
 				notehtml = parsemarkdown(n, U)
 
-		// ── Navigation
+		// ?? Navigation
 		if("Return")
 			if(mode) mode = 0
 		if("1")
@@ -337,12 +382,19 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			mode = 3
 		if("goto_turrets")
 			mode = 4
+		if("goto_robots")
+			robot_hw_add_mode = null
+			robot_hw_add_cat  = null
+			mode = 7
+		if("robot_detail")
+			robot_detail_ref = href_list["rref"]
+			mode = 8
 		if("goto_admin")
 			// Only allow if terminal is unlocked/solved
 			if(!locked || hack_solved)
 				mode = 6
 
-		// ── Hacking
+		// ?? Hacking
 		if("hack_word")
 			process_hack_attempt(U, href_list["word"])
 			return
@@ -359,7 +411,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			reset_hack(U)
 			return
 
-		// ── Door controls
+		// ?? Door controls
 		if("door_pulse")
 			door_pulse_button(U, href_list["btn"])
 		if("door_lock")
@@ -367,13 +419,177 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		if("door_unlock")
 			door_unlock_by_id(U, href_list["id"])
 
-		// ── Turret list
-		if("turret_toggle")
-			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
-			if(T) T.toggle_on()
-		if("turret_mode")
-			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
-			if(T) T.setState(T.on, !T.mode)
+		// ?? Turret list
+		if("robot_rename")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/newname = stripped_input(U, "Enter new robot name:", R.name, R.name, max_length=50)
+				if(in_range(src, U) && newname)
+					R.log_service("RENAME -- [R.name] ? [newname]")
+					R.name = newname
+					R.real_name = newname
+		if("robot_reboot")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R && R.stat != DEAD)
+				R.log_reboot()
+				R.visible_message(span_warning("[R] reboots."))
+				R.Stun(30)
+
+		if("robot_view_camera")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R && !QDELETED(R.builtInCamera) && R.builtInCamera.status)
+				U.reset_perspective(R.builtInCamera)
+				to_chat(U, span_notice("Camera uplink established: [R.name]. Click \[stop viewing\] to disconnect."))
+			else
+				to_chat(U, span_warning("Camera relay failed -- camera offline or not available."))
+			return
+
+		if("robot_stop_camera")
+			U.reset_perspective(null)
+			to_chat(U, span_notice("Camera uplink closed."))
+
+		if("robot_add_faction_card")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				pending_robot_faction_rref = href_list["rref"]
+				pending_robot_lock_rref = null
+				to_chat(U, span_notice("Swipe an ID card on the terminal to register its faction to [R.name]."))
+		if("robot_lock_card")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				pending_robot_lock_rref = href_list["rref"]
+				pending_robot_faction_rref = null
+				to_chat(U, span_notice("Swipe an ID card on the terminal to lock [R.name] to that operator."))
+		if("robot_pending_cancel")
+			pending_robot_faction_rref = null
+			pending_robot_lock_rref = null
+		if("robot_remove_faction")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/ftag = href_list["faction"]
+				if(ftag && R.faction)
+					R.faction -= ftag
+					R.log_service("FACTION REMOVED -- [ftag]")
+		if("robot_apply_preset")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/design_path = text2path(href_list["dtype"])
+				if(design_path)
+					var/list/entries = get_recommended_hardware(design_path)
+					for(var/list/E in entries)
+						var/hw_type = E[1]
+						var/already = FALSE
+						for(var/datum/robot_hardware/ex in R.installed_hardware)
+							if(istype(ex, hw_type))
+								already = TRUE
+								break
+						if(already) continue
+						var/datum/robot_hardware/NHW = new hw_type()
+						if(E.len >= 2 && islist(E[2]))
+							for(var/key in E[2])
+								NHW.vars[key] = E[2][key]
+						R.installed_hardware += NHW
+						NHW.install(R)
+		if("robot_sync_log")
+			var/mob/living/silicon/robot/RSL = get_linked_robot(href_list["rref"])
+			if(RSL)
+				snapshot_robot_log(RSL)
+
+		if("robot_clear_log")
+			var/mob/living/silicon/robot/RCL = get_linked_robot(href_list["rref"])
+			if(RCL)
+				RCL.activity_log = list()
+				if(robot_log_cache) robot_log_cache.Remove(href_list["rref"])
+
+		if("robot_ctrl_clear")
+			var/mob/living/silicon/robot/RCC = get_linked_robot(href_list["rref"])
+			if(RCC)
+				RCC.control_mode         = null
+				RCC.player_robot_control = "npc"
+				RCC.locked_ckey          = null
+				RCC.player_robot_ckey    = null
+				RCC.log_service("CONTROL MODE -- AUTONOMOUS (lock cleared via terminal)")
+
+		if("robot_set_security")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/new_diff = text2num(href_list["diff"])
+				var/list/sec_min_int = list(1, 3, 5, 7, 9)
+				var/list/sec_labels = list("VERY EASY","EASY","AVERAGE","HARD","VERY HARD")
+				if(isnull(new_diff) || new_diff < 0 || new_diff > 4)
+					to_chat(U, span_warning("Invalid difficulty."))
+				else if(istype(U, /mob/living) && U.special_i < sec_min_int[new_diff + 1])
+					to_chat(U, span_warning("Your Intelligence ([U.special_i]) is too low to configure [sec_labels[new_diff + 1]] security."))
+				else
+					R.security_difficulty = new_diff
+					R.log_service("SECURITY DIFFICULTY -- set to [sec_labels[new_diff + 1]] by [U.name]")
+					to_chat(U, span_nicegreen("[R.name] security software updated: [sec_labels[new_diff + 1]]."))
+
+		if("robot_link_toggle")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				linked_robots -= R
+				robot_detail_ref = null
+				mode = 7
+
+		// ?? Remote hardware add picker navigation ?????????????????????????????
+		if("robot_hw_nav")
+			var/new_mode = href_list["hwmode"]
+			robot_hw_add_mode = (new_mode && new_mode != "null") ? new_mode : null
+			robot_hw_add_cat  = robot_hw_add_mode ? (href_list["hwcat"] || null) : null
+			robot_detail_ref  = href_list["rref"]
+			mode = 8
+
+		// ?? Remote hardware install ???????????????????????????????????????????
+		if("robot_hw_add")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/hwtype = text2path(url_decode(href_list["hwtype"]))
+				if(hwtype && ispath(hwtype, /datum/robot_hardware))
+					var/already = FALSE
+					for(var/datum/robot_hardware/IHW in R.installed_hardware)
+						if(IHW.type == hwtype) { already = TRUE; break }
+					if(!already)
+						var/datum/robot_hardware/HW = new hwtype()
+						HW.install(R)
+						to_chat(U, span_notice("Installed [HW.hardware_name] on [R.name]."))
+			robot_hw_add_mode = null
+			robot_hw_add_cat  = null
+			robot_detail_ref  = href_list["rref"]
+			mode = 8
+
+		// ?? Remote hardware remove ????????????????????????????????????????????
+		if("robot_hw_remove")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R)
+				var/datum/robot_hardware/HW = locate(href_list["hwref"]) in R.installed_hardware
+				if(HW)
+					var/hwname = HW.hardware_name
+					HW.uninstall(R)
+					to_chat(U, span_notice("Removed [hwname] from [R.name]."))
+			robot_hw_add_mode = null
+			robot_hw_add_cat  = null
+			robot_detail_ref  = href_list["rref"]
+			mode = 8
+
+		// ?? Loadout equipment swap ????????????????????????????????????????????
+		if("robot_loadout_swap")
+			var/mob/living/silicon/robot/R = get_linked_robot(href_list["rref"])
+			if(R && R.module)
+				var/obj/item/old_item = locate(href_list["oldref"]) in R.module.basic_modules
+				var/obj/item/new_item = locate(href_list["newref"])
+				if(old_item && new_item && !QDELETED(new_item))
+					if(istype(new_item, old_item.type) || istype(old_item, new_item.type))
+						var/new_loc = new_item.loc
+						// Swap: move old out of module, move new in
+						R.module.basic_modules -= old_item
+						old_item.forceMove(new_loc)
+						new_item.forceMove(R.module)
+						R.module.basic_modules += new_item
+						R.module.rebuild_modules()
+						to_chat(U, span_notice("Swapped [old_item.name] ? [new_item.name] on [R.name]."))
+				robot_detail_ref = href_list["rref"]
+				mode = 8
 		if("turret_all_on")
 			if(linked_turrets)
 				for(var/obj/machinery/porta_turret/T in linked_turrets)
@@ -386,7 +602,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			turret_detail_ref = href_list["tref"]
 			mode = 5
 
-		// ── Turret detail / ownership
+		// ?? Turret detail / ownership
 		if("turret_add_faction")
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T)
@@ -402,7 +618,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T)
 				T.faction = list()
-				to_chat(U, span_notice("Faction registry cleared — unit hostile to all."))
+				to_chat(U, span_notice("Faction registry cleared -- unit hostile to all."))
 		if("turret_flag_players")
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T) T.turret_flags ^= TF_SHOOT_PLAYERS
@@ -425,7 +641,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			var/obj/machinery/porta_turret/T = get_linked_turret(href_list["tref"])
 			if(T) T.turret_flags ^= TF_BE_REALLY_LOUD
 
-		// ── Turret whitelist
+		// ?? Turret whitelist
 		if("turret_whitelist_add")
 			pending_whitelist_tref = href_list["tref"]
 			to_chat(U, span_notice("Ready to register. Swipe an ID card on the terminal."))
@@ -442,7 +658,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			if(T)
 				turret_whitelist_toggle(T, U)
 
-		// ── Admin panel actions
+		// ?? Admin panel actions
 		if("admin_lock")
 			admin_lock_terminal(U)
 		if("admin_set_difficulty")
@@ -452,19 +668,19 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	return
 
 // ============================================================
-// ATTACKBY — multitool linkage
+// ATTACKBY -- multitool linkage
 // ============================================================
 
 /obj/machinery/computer/terminal/attackby(obj/item/W, mob/user, params)
-	// Hacking device — used to bypass lockouts
+	// Hacking device -- used to bypass lockouts
 	if(istype(W, /obj/item/hacking_device))
 		reset_hack(user)
 		return
-	// ID card — register to turret whitelist if pending
+	// ID card -- register to turret whitelist if pending
 	if(istype(W, /obj/item/card/id))
 		register_id_to_whitelist(W, user)
 		return
-	// Multitool — used for door/turret linking
+	// Multitool -- used for door/turret linking
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
 		// Correct direction: buffer has button/turret, swipe terminal to link
@@ -474,18 +690,21 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		if(istype(M.buffer, /obj/machinery/porta_turret))
 			link_turret_from_multitool(M, user)
 			return
+		if(istype(M.buffer, /mob/living/silicon/robot))
+			link_robot_from_multitool(M, user)
+			return
 		// Wrong direction: buffer has the terminal itself (player hit terminal first)
 		// Just tell them what to do instead of silently overwriting
 		if(M.buffer == src)
 			to_chat(user, span_warning("The terminal is already in the buffer. Swipe a door button or turret first, then swipe this terminal."))
 			return
-		// Buffer has something else or is empty — store the terminal
+		// Buffer has something else or is empty -- store the terminal
 		M.buffer = src
-		to_chat(user, span_notice("You add [src] to multitool buffer. Now swipe a door button or turret, then swipe this terminal again to link it."))
+		to_chat(user, span_notice("You add [src] to multitool buffer. Now swipe a door button, turret, or robot, then swipe this terminal again to link it."))
 		return
 	return ..()
 
-// ── Reverse-direction linking: multitool buffer has terminal, swipe the button
+// ?? Reverse-direction linking: multitool buffer has terminal, swipe the button
 /obj/machinery/button/door/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
@@ -502,7 +721,22 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			return
 	return ..()
 
-// ── Reverse-direction linking: multitool buffer has terminal, swipe the turret
+// ?? Reverse-direction linking: multitool buffer has terminal, swipe the robot
+/mob/living/silicon/robot/proc/attackby_terminal_link(obj/item/multitool/M, mob/user)
+	if(!istype(M.buffer, /obj/machinery/computer/terminal))
+		return FALSE
+	var/obj/machinery/computer/terminal/T = M.buffer
+	if(!T.linked_robots) T.linked_robots = list()
+	if(src in T.linked_robots)
+		T.linked_robots -= src
+		to_chat(user, span_notice("Unlinked [name] from [T.name]."))
+	else
+		T.linked_robots += src
+		to_chat(user, span_notice("Linked [name] to [T.name]."))
+	M.buffer = null
+	return TRUE
+
+// ?? Reverse-direction linking: multitool buffer has terminal, swipe the turret
 /obj/machinery/porta_turret/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/multitool))
 		var/obj/item/multitool/M = W
@@ -520,7 +754,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	return ..()
 
 // ============================================================
-// ADMIN PANEL — lock / password display / difficulty
+// ADMIN PANEL -- lock / password display / difficulty
 // ============================================================
 
 /// Returns whether to show the admin menu item at all.
@@ -537,13 +771,13 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 	dat += "<b>TERMINAL ADMINISTRATION</b><br><br>"
 
-	// ── Lock status
+	// ?? Lock status
 	if(!locked || hack_solved)
 		dat += "<span class='good'>&gt; STATUS: UNLOCKED</span><br>"
 	else
 		dat += "<span class='bad'>&gt; STATUS: LOCKED</span><br>"
 
-	// ── Current password (only visible when unlocked)
+	// ?? Current password (only visible when unlocked)
 	if(!locked || hack_solved)
 		if(hack_answer && length(hack_answer))
 			dat += "<span class='dim'>&gt; CURRENT PASSWORD: </span><span class='warn'>[hack_answer]</span><br>"
@@ -552,7 +786,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 	dat += "<br>"
 
-	// ── Difficulty display + change (gated by INT)
+	// ?? Difficulty display + change (gated by INT)
 	dat += "<b>SECURITY DIFFICULTY</b><br>"
 	dat += "<span class='dim'>&gt; Current difficulty: </span><b>[diff_name]</b> (level [hack_difficulty])<br>"
 
@@ -560,7 +794,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	if(istype(user, /mob/living))
 		var/mob/living/L = user
 		var/int_val = L.special_i
-		dat += "<span class='dim'>&gt; Your Intelligence: [int_val] — unlocks difficulties up to: "
+		dat += "<span class='dim'>&gt; Your Intelligence: [int_val] -- unlocks difficulties up to: "
 		var/max_diff = get_max_settable_difficulty(L)
 		switch(max_diff)
 			if(0) dat += "VERY EASY"
@@ -621,7 +855,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	to_chat(user, span_notice("Terminal locked. Password set to: <b>[hack_answer]</b>"))
 	mode = 0
 
-/// Set difficulty — regenerates the hack session. new_diff passed as 0-4 from Topic href
+/// Set difficulty -- regenerates the hack session. new_diff passed as 0-4 from Topic href
 /obj/machinery/computer/terminal/proc/admin_set_difficulty(mob/user, new_diff)
 	new_diff = text2num(new_diff)
 	if(isnull(new_diff) || new_diff < 0 || new_diff > 4)
@@ -651,13 +885,16 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 /obj/machinery/computer/terminal/proc/render_security_menu_items()
 	var/has_doors   = (linked_buttons && linked_buttons.len) || (linked_door_ids && linked_door_ids.len)
 	var/has_turrets = (linked_turrets && linked_turrets.len)
-	if(!has_doors && !has_turrets)
+	var/has_robots = (linked_robots && linked_robots.len)
+	if(!has_doors && !has_turrets && !has_robots)
 		return ""
 	var/dat = "<br><br>SECURITY SYSTEMS"
 	if(has_doors)
 		dat += "<br><a href='byond://?src=[REF(src)];choice=goto_doors'>&gt;  Door Control</a>"
 	if(has_turrets)
 		dat += "<br><a href='byond://?src=[REF(src)];choice=goto_turrets'>&gt;  Automated Defense</a>"
+	if(has_robots)
+		dat += "<br><a href='byond://?src=[REF(src)];choice=goto_robots'>&gt;  Robotics Network</a>"
 	return dat
 
 // ============================================================
@@ -683,7 +920,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 						if(D.vars["id"] == A.id)
 							door_state = D.density ? "CLOSED" : "OPEN"
 							break
-			dat += "&gt; [B.name] — <span class='[door_state == "OPEN" ? "good" : "dim"]'>[door_state]</span> "
+			dat += "&gt; [B.name] -- <span class='[door_state == "OPEN" ? "good" : "dim"]'>[door_state]</span> "
 			dat += "<a href='byond://?src=[REF(src)];choice=door_pulse;btn=[REF(B)]'>\[PULSE\]</a><br>"
 	else
 		dat += "<span class='dim'>&gt; No buttons linked. Multitool a door button then swipe this terminal.</span><br>"
@@ -791,7 +1028,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		for(var/f in T.faction)
 			dat += "&gt; [f] <a href='byond://?src=[REF(src)];choice=turret_remove_faction;tref=[REF(T)];faction=[f]'>\[REMOVE\]</a><br>"
 	else
-		dat += "<span class='dim'>&gt; No faction — unit hostile to all.</span><br>"
+		dat += "<span class='dim'>&gt; No faction -- unit hostile to all.</span><br>"
 	dat += "<a href='byond://?src=[REF(src)];choice=turret_add_faction;tref=[REF(T)]'>&gt; Add faction</a><br>"
 	dat += "<a href='byond://?src=[REF(src)];choice=turret_clear_faction;tref=[REF(T)]'>&gt; CLEAR ALL FACTIONS</a><br>"
 	dat += "<br>"
@@ -818,14 +1055,14 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	var/list/wl = T.vars["id_whitelist"]
 	if(wl && wl.len)
 		var/wl_active = T.vars["whitelist_active"]
-		dat += "<span class='dim'>&gt; Enforcement: </span><span class='[wl_active ? "bad" : "dim"]'>[wl_active ? "ACTIVE — unlisted targets shot" : "INACTIVE — whitelist ignored"]</span> "
+		dat += "<span class='dim'>&gt; Enforcement: </span><span class='[wl_active ? "bad" : "dim"]'>[wl_active ? "ACTIVE -- unlisted targets shot" : "INACTIVE -- whitelist ignored"]</span> "
 		dat += "<a href='byond://?src=[REF(src)];choice=turret_whitelist_toggle;tref=[REF(T)]'>\[TOGGLE\]</a><br>"
 		for(var/entry in wl)
 			dat += "&gt; [entry] <a href='byond://?src=[REF(src)];choice=turret_whitelist_remove;tref=[REF(T)];entry=[entry]'>\[REMOVE\]</a><br>"
 	else
 		dat += "<span class='dim'>&gt; No personnel registered.</span><br>"
 	if(pending_whitelist_tref == REF(T))
-		dat += "<span class='warn'>&gt; AWAITING ID CARD — swipe a card on this terminal to register the holder.</span><br>"
+		dat += "<span class='warn'>&gt; AWAITING ID CARD -- swipe a card on this terminal to register the holder.</span><br>"
 		dat += "<a href='byond://?src=[REF(src)];choice=turret_whitelist_cancel'>&gt; Cancel</a><br>"
 	else
 		dat += "<a href='byond://?src=[REF(src)];choice=turret_whitelist_add;tref=[REF(T)]'>&gt; Register ID card...</a><br>"
@@ -856,13 +1093,331 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	return T
 
 // ============================================================
+// ROBOT LINKAGE
+// ============================================================
+
+/obj/machinery/computer/terminal/proc/link_robot_from_multitool(obj/item/multitool/M, mob/user)
+	if(!istype(M.buffer, /mob/living/silicon/robot))
+		to_chat(user, span_warning("No robot in multitool buffer."))
+		return
+	if(!linked_robots) linked_robots = list()
+	var/mob/living/silicon/robot/R = M.buffer
+	if(R in linked_robots)
+		linked_robots -= R
+		to_chat(user, span_notice("Unlinked [R.name] from terminal."))
+	else
+		linked_robots += R
+		to_chat(user, span_notice("Linked [R.name] to terminal."))
+	M.buffer = null
+
+/obj/machinery/computer/terminal/proc/get_linked_robot(rref)
+	if(!linked_robots) return null
+	var/mob/living/silicon/robot/R = locate(rref)
+	if(!istype(R) || !(R in linked_robots)) return null
+	return R
+
+/obj/machinery/computer/terminal/proc/render_robot_list_page()
+	var/dat = "<b>ROBOTICS NETWORK</b><br>"
+	dat += "<span class='dim'>Linked units. Select a unit to view its service record.</span><br><br>"
+	if(!linked_robots || !linked_robots.len)
+		dat += "<span class='dim'>&gt; No units linked.</span><br>"
+		dat += "<span class='dim'>To link a unit: scan it with a multitool, then swipe the multitool on this terminal.</span><br>"
+		return dat
+	dat += "<table style='border-spacing:4px 2px;'>"
+	dat += "<tr><th>UNIT</th><th>ROLE</th><th>INTEGRITY</th><th>POWER</th><th>STATUS</th><th>&nbsp;</th></tr>"
+	for(var/mob/living/silicon/robot/R in linked_robots)
+		if(!R || QDELETED(R)) continue
+		var/online = (R.stat != DEAD)
+		var/st     = online ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
+		var/hp     = round((R.health / max(1, R.maxHealth)) * 100)
+		var/cp     = R.cell ? round((R.cell.charge / max(1, R.cell.maxcharge)) * 100) : 0
+		var/mname  = R.module ? R.module.name : "<span class='dim'>unknown</span>"
+		// Flag units that need attention
+		var/flag = ""
+		if(hp < 50)  flag += " <span class='bad'>\[DMGD\]</span>"
+		if(cp < 20)  flag += " <span class='warn'>\[LOW PWR\]</span>"
+		if(!online)  flag += " <span class='bad'>\[OFFLINE\]</span>"
+		dat += "<tr>"
+		dat += "<td>[R.name][flag]</td>"
+		dat += "<td><span class='dim'>[mname]</span></td>"
+		dat += "<td>[hp]%</td>"
+		dat += "<td>[cp]%</td>"
+		dat += "<td>[st]</td>"
+		dat += "<td><a href='byond://?src=[REF(src)];choice=robot_detail;rref=[REF(R)]'>&gt; SERVICE</a></td>"
+		dat += "</tr>"
+	dat += "</table>"
+	return dat
+
+/obj/machinery/computer/terminal/proc/render_robot_detail_page(mob/living/silicon/robot/R)
+	if(!R || QDELETED(R))
+		return "<span class='bad'>ERROR: Unit offline or not found.</span><br>"
+
+	var/dat = ""
+	var/hp    = round((R.health / max(1, R.maxHealth)) * 100)
+	var/cp    = R.cell ? round((R.cell.charge / max(1, R.cell.maxcharge)) * 100) : 0
+	var/mname = R.module ? R.module.name : "none"
+	var/online = (R.stat != DEAD)
+	var/st     = online ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
+
+	// ?? Service record header ???????????????????????????????????????????????
+	dat += "<b>SERVICE RECORD -- [html_encode(R.name)]</b><br>"
+	dat += "<span class='dim'>Role: [mname]  |  Integrity: [hp]%  |  Power: [cp]%  |  Status: [st]</span><br>"
+	dat += "<span class='dim'>Location: ([R.x],[R.y],[R.z])</span><br>"
+	dat += "<br>"
+
+	// ?? Faction alignment ??????????????????????????????????????????????????
+	dat += "<b>FACTION ALIGNMENT</b><br>"
+	if(R.faction && R.faction.len)
+		dat += "<table>"
+		for(var/f in R.faction)
+			// Skip malformed tags (raw refs like [mob_1929] that got stored accidentally)
+			if(findtext(f, "\[") || !length(f)) continue
+			dat += "<tr>"
+			dat += "<td>&gt; <b>[html_encode(f)]</b></td>"
+			dat += "<td>&nbsp;&nbsp;<a href='byond://?src=[REF(src)];choice=robot_remove_faction;rref=[REF(R)];faction=[url_encode(f)]'>\[remove\]</a></td>"
+			dat += "</tr>"
+		dat += "</table>"
+	else
+		dat += "<span class='warn'>&gt; None -- unit will engage all targets.</span><br>"
+	dat += "<br>"
+	// Add options / pending state
+	if(pending_robot_faction_rref == REF(R))
+		dat += "<span class='warn'>&gt; Waiting for ID card swipe...</span>  <a href='byond://?src=[REF(src)];choice=robot_pending_cancel'>\[cancel\]</a><br>"
+	else
+		dat += "<a href='byond://?src=[REF(src)];choice=robot_add_faction_card;rref=[REF(R)]'>&gt; Swipe ID card to register faction</a><br>"
+	dat += "<br>"
+
+	// ?? Installed hardware -- add / remove ??????????????????????????????????
+	dat += "<b>INSTALLED HARDWARE</b><br>"
+	if(R.installed_hardware && R.installed_hardware.len)
+		dat += "<table><tr><th>Module</th><th>Category</th><th>Status</th><th>&nbsp;</th></tr>"
+		for(var/datum/robot_hardware/HW in R.installed_hardware)
+			dat += "<tr>"
+			dat += "<td><b>[html_encode(HW.hardware_name)]</b></td>"
+			dat += "<td class='dim'>[html_encode(HW.category ? HW.category : "--")]</td>"
+			dat += "<td class='dim'>[html_encode(HW.get_summary())]</td>"
+			dat += "<td><a href='byond://?src=[REF(src)];choice=robot_hw_remove;hwref=[REF(HW)];rref=[REF(R)]'>\[remove\]</a></td>"
+			dat += "</tr>"
+		dat += "</table>"
+	else
+		dat += "<span class='dim'>&gt; No hardware installed.</span><br>"
+	dat += "<br>"
+
+	// Hardware add picker -- driven by robot_hw_add_mode state
+	if(robot_detail_ref == REF(R))
+		if(robot_hw_add_mode == "cat")
+			// Category picker
+			dat += "<b>ADD HARDWARE -- Select Category</b><br>"
+			var/list/cats = list()
+			for(var/T in subtypesof(/datum/robot_hardware))
+				var/datum/robot_hardware/inst = new T()
+				if(inst.hardware_name == "Unknown Hardware")
+					qdel(inst)
+					continue
+				var/cat = inst.category ? inst.category : "Other"
+				if(!(cat in cats)) cats[cat] = TRUE
+				qdel(inst)
+			for(var/cat in cats)
+				dat += "<a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=type;hwcat=[url_encode(cat)];rref=[REF(R)]'>&gt; [html_encode(cat)]</a><br>"
+			dat += "<br><a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=null;rref=[REF(R)]'>&gt; Cancel</a><br>"
+
+		else if(robot_hw_add_mode == "type" && robot_hw_add_cat)
+			// Type picker for selected category
+			dat += "<b>ADD HARDWARE -- [html_encode(robot_hw_add_cat)]</b><br>"
+			for(var/T in subtypesof(/datum/robot_hardware))
+				var/datum/robot_hardware/inst = new T()
+				if(inst.hardware_name == "Unknown Hardware")
+					qdel(inst)
+					continue
+				if(inst.category != robot_hw_add_cat)
+					qdel(inst)
+					continue
+				// Check if already installed
+				var/already = FALSE
+				for(var/datum/robot_hardware/IHW in R.installed_hardware)
+					if(IHW.type == T) { already = TRUE; break }
+				if(already)
+					dat += "<span class='dim'>&gt; [html_encode(inst.hardware_name)] -- INSTALLED</span><br>"
+				else
+					dat += "<a href='byond://?src=[REF(src)];choice=robot_hw_add;hwtype=[url_encode("[T]")];rref=[REF(R)]'>&gt; [html_encode(inst.hardware_name)]</a>"
+					dat += "  <span class='dim'>// [html_encode(inst.hardware_desc)]</span><br>"
+				qdel(inst)
+			dat += "<br><a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=cat;rref=[REF(R)]'>&gt; Back</a><br>"
+
+		else
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_hw_nav;hwmode=cat;rref=[REF(R)]'>&gt; Add hardware module...</a><br>"
+	dat += "<br>"
+
+	// ?? Module loadout swaps ????????????????????????????????????????????????
+	// A technician can swap out a physical loadout item for one sitting nearby.
+	if(R.module)
+		dat += "<b>LOADOUT ITEMS</b><br>"
+		dat += "<span class='dim'>Swap a loadout item with a compatible one in range.</span><br>"
+		var/list/equipped_items = list()
+		for(var/obj/item/I in R.module.basic_modules)
+			equipped_items += I
+		if(!equipped_items.len)
+			dat += "<span class='dim'>&gt; No loadout items.</span><br>"
+		else
+			for(var/obj/item/equipped in equipped_items)
+				var/list/candidates = list()
+				for(var/obj/item/candidate in range(2, R))
+					if(candidate == equipped) continue
+					if(istype(candidate, /obj/item/borg/upgrade)) continue
+					if(istype(candidate, equipped.type))
+						candidates += candidate
+				dat += "&gt; [html_encode(equipped.name)]"
+				if(candidates.len)
+					for(var/obj/item/cand in candidates)
+						dat += "  <a href='byond://?src=[REF(src)];choice=robot_loadout_swap;rref=[REF(R)];oldref=[REF(equipped)];newref=[REF(cand)]'>\[? [html_encode(cand.name)]\]</a>"
+				else
+					dat += "  <span class='dim'>(no compatible items in range)</span>"
+				dat += "<br>"
+		dat += "<br>"
+
+	// ?? Behavior assembly ???????????????????????????????????????????????????
+	var/datum/cert_upgrade/robot/behavior_assembly/BA = null
+	if(R.cpu_cert)
+		for(var/datum/cert_upgrade/robot/behavior_assembly/U2 in R.cpu_cert.upgrade_slots)
+			BA = U2
+			break
+	dat += "<b>BEHAVIOR ASSEMBLY</b><br>"
+	if(BA?.assembly)
+		dat += "<span class='dim'>&gt; [BA.assembly.assembly_label]  ([BA.assembly.circuits.len] circuits loaded)</span><br>"
+	else
+		dat += "<span class='dim'>&gt; No assembly installed.</span><br>"
+	dat += "<br>"
+
+	// ?? Camera uplink ???????????????????????????????????????????????????
+	dat += "<b>CAMERA UPLINK</b><br>"
+	var/has_cam_hardware = FALSE
+	for(var/datum/robot_hardware/HW in R.installed_hardware)
+		if(istype(HW, /datum/robot_hardware/camera_relay))
+			has_cam_hardware = TRUE
+			break
+	if(has_cam_hardware)
+		if(!QDELETED(R.builtInCamera) && R.builtInCamera.status)
+			dat += "&gt; Camera active. "
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_view_camera;rref=[REF(R)]'>\[view feed\]</a>"
+			dat += "  <a href='byond://?src=[REF(src)];choice=robot_stop_camera'>\[stop viewing\]</a><br>"
+		else
+			dat += "<span class='dim'>&gt; Camera offline.</span>  "
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_stop_camera'>\[stop viewing\]</a><br>"
+	else
+		dat += "<span class='dim'>&gt; No Camera Relay Module installed.</span><br>"
+	dat += "<br>"
+
+	// ?? Service actions ?????????????????????????????????????????????????????
+	dat += "<b>SERVICE ACTIONS</b><br>"
+	dat += "<a href='byond://?src=[REF(src)];choice=robot_rename;rref=[REF(R)]'>&gt; Rename unit</a><br>"
+	if(R.stat != DEAD)
+		dat += "<a href='byond://?src=[REF(src)];choice=robot_reboot;rref=[REF(R)]'>&gt; Reboot unit</a>  <span class='dim'>// soft reset -- does not wipe hardware</span><br>"
+	// Operator lock -- mirrors turret whitelist but for robot control mode
+	var/cmode = R.control_mode ? R.control_mode : "npc"
+	if(cmode == "locked" && R.locked_ckey)
+		dat += "&gt; Operator lock: <b>[html_encode(R.locked_ckey)]</b>  "
+		dat += "<a href='byond://?src=[REF(src)];choice=robot_ctrl_clear;rref=[REF(R)]'>\[clear\]</a><br>"
+	else
+		if(pending_robot_lock_rref == REF(R))
+			dat += "<span class='warn'>&gt; Waiting for ID card swipe...</span>  <a href='byond://?src=[REF(src)];choice=robot_pending_cancel'>\[cancel\]</a><br>"
+		else
+			dat += "<a href='byond://?src=[REF(src)];choice=robot_lock_card;rref=[REF(R)]'>&gt; Lock to operator -- swipe ID card</a><br>"
+	dat += "<a href='byond://?src=[REF(src)];choice=robot_link_toggle;rref=[REF(R)]'>&gt; Unlink from network</a>  <span class='dim'>// removes this unit from your terminal</span><br>"
+	dat += "<br>"
+
+	// ?? Security software difficulty ??????????????????????????????????????????????
+	dat += "<b>SECURITY SOFTWARE</b><br>"
+	dat += "<span class='dim'>Sets how hard this robot is to hack. Higher difficulty requires more Intelligence to crack.</span><br>"
+	var/list/sec_labels = list("VERY EASY","EASY","AVERAGE","HARD","VERY HARD")
+	var/list/sec_min_int = list(1, 3, 5, 7, 9)
+	dat += "<span class='dim'>&gt; Current: </span><b>[sec_labels[R.security_difficulty + 1]]</b><br>"
+	for(var/i = 0 to 4)
+		var/can_set = TRUE
+		var/locked_txt = ""
+		if(istype(usr, /mob/living))
+			var/mob/living/L = usr
+			if(L.special_i < sec_min_int[i+1])
+				can_set = FALSE
+				locked_txt = " <span class='dim'>(INT [sec_min_int[i+1]]+ required)</span>"
+		var/selected_txt = (R.security_difficulty == i) ? " <span class='good'>\[active\]</span>" : ""
+		if(can_set)
+			dat += "&gt; <a href='byond://?src=[REF(src)];choice=robot_set_security;rref=[REF(R)];diff=[i]'>[sec_labels[i+1]]</a>[selected_txt]<br>"
+		else
+			dat += "&gt; <span class='dim'>[sec_labels[i+1]]</span>[locked_txt][selected_txt]<br>"
+	dat += "<br>"
+
+	// ?? Activity log ????????????????????????????????????????????????????????
+	// Shows cached snapshot. Technician hits [sync] to pull fresh data.
+	dat += render_robot_log(R)
+
+	return dat
+
+// ============================================================
+// ROBOT ID CARD HELPERS
+// ============================================================
+
+/// Called when an ID card is swiped while pending_robot_faction_rref is set.
+/// Extracts the faction from the card's assignment and adds it to the robot.
+/obj/machinery/computer/terminal/proc/register_id_robot_faction(obj/item/card/id/card, mob/user)
+	var/rref = pending_robot_faction_rref
+	pending_robot_faction_rref = null
+	var/mob/living/silicon/robot/R = get_linked_robot(rref)
+	if(!R)
+		to_chat(user, span_warning("Target robot is no longer linked."))
+		return
+	var/faction_tag = get_faction_from_card(card)
+	if(!faction_tag)
+		to_chat(user, span_warning("Could not determine faction from this ID card. Assignment '[card.assignment ? card.assignment : "(blank)"]' not recognised."))
+		return
+	if(!R.faction) R.faction = list()
+	if(faction_tag in R.faction)
+		to_chat(user, span_warning("[faction_tag] is already in [R.name]'s faction list."))
+		return
+	R.faction += faction_tag
+	R.log_service("FACTION ADDED -- [faction_tag] (via ID card: [card.registered_name ? card.registered_name : "(unnamed)"])")
+	to_chat(user, span_nicegreen("Registered faction '[faction_tag]' to [R.name] based on: [card.registered_name ? card.registered_name : "(unnamed)"] ([card.assignment])."))
+	updateUsrDialog()
+
+/// Called when an ID card is swiped while pending_robot_lock_rref is set.
+/// Locks the robot to the ckey associated with the card's registered name.
+/// Note: maps registered_name to ckey -- requires the player to have logged in
+/// with that character name at least once, otherwise the lock uses the name directly.
+/obj/machinery/computer/terminal/proc/register_id_robot_lock(obj/item/card/id/card, mob/user)
+	var/rref = pending_robot_lock_rref
+	pending_robot_lock_rref = null
+	var/mob/living/silicon/robot/R = get_linked_robot(rref)
+	if(!R)
+		to_chat(user, span_warning("Target robot is no longer linked."))
+		return
+	var/person_name = card.registered_name
+	if(!person_name || !length(person_name))
+		to_chat(user, span_warning("This ID card has no registered name."))
+		return
+	R.control_mode         = "locked"
+	R.player_robot_control = "locked"
+	R.locked_ckey          = person_name
+	R.player_robot_ckey    = person_name   // name-based; attack_ghost also checks real_name
+	R.log_service("CONTROL MODE -- LOCKED ([person_name]) via ID card")
+	to_chat(user, span_nicegreen("Robot [R.name] locked to operator: [person_name]."))
+	updateUsrDialog()
+
+
+// ============================================================
 // TURRET WHITELIST HELPERS
 // ============================================================
 
 /// Called when an ID card is swiped on the terminal.
 /// Handles both whitelist registration and faction registration depending on pending state.
 /obj/machinery/computer/terminal/proc/register_id_to_whitelist(obj/item/card/id/card, mob/user)
-	// Faction registration takes priority
+	// Robot faction registration
+	if(pending_robot_faction_rref)
+		register_id_robot_faction(card, user)
+		return
+	// Robot operator lock
+	if(pending_robot_lock_rref)
+		register_id_robot_lock(card, user)
+		return
+	// Turret faction registration takes priority over whitelist
 	if(pending_faction_tref)
 		register_id_faction(card, user)
 		return
@@ -911,16 +1466,19 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	to_chat(user, span_nicegreen("Registered faction '[faction_tag]' to [T.name] based on ID card: [card.registered_name ? card.registered_name : "(unnamed)"] ([card.assignment])."))
 	updateUsrDialog()
 
-/// Maps a card's assignment string to a canonical Fallout 13 faction tag.
-/// Returns null if the assignment doesn't match any known faction.
-/obj/machinery/computer/terminal/proc/get_faction_from_card(obj/item/card/id/card)
+/// Resolves an ID card's assignment string to a canonical Fallout 13 faction tag.
+/// Global proc -- callable from any context (robot mob, terminal obj, etc.).
+/// The terminal's get_faction_from_card() and the panel's _rcp_faction_from_card()
+/// both delegate here. Single authoritative implementation; edit only this one.
+/proc/resolve_faction_from_card(obj/item/card/id/card)
 	if(!card.assignment) return null
 	var/assign = lowertext(trim(card.assignment))
-	// NCR / Rangers
-	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger") && !findtext(assign, "veteran"))
-		return FACTION_NCR
+	// Veteran Ranger must be checked BEFORE general ranger to avoid misclassification
 	if(findtext(assign, "veteran ranger") || findtext(assign, "vet ranger"))
 		return FACTION_RANGER
+	// NCR
+	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger"))
+		return FACTION_NCR
 	// Legion
 	if(findtext(assign, "legion") || findtext(assign, "centurion") || findtext(assign, "prime") || findtext(assign, "recruit medallion") || findtext(assign, "veteran medallion") || findtext(assign, "auxilia"))
 		return FACTION_LEGION
@@ -931,7 +1489,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	if(findtext(assign, "enclave") || findtext(assign, "us officer") || findtext(assign, "us dogtag") || findtext(assign, "american"))
 		return FACTION_ENCLAVE
 	// Town / Eastwood
-	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff") || findtext(assign, "deputy"))
+	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff"))
 		return FACTION_EASTWOOD
 	// Raiders
 	if(findtext(assign, "raider") || findtext(assign, "outlaw") || findtext(assign, "bandit"))
@@ -956,6 +1514,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		return FACTION_WASTELAND
 	return null
 
+/// Terminal-scoped wrapper. Delegates to the global resolve_faction_from_card().
+/obj/machinery/computer/terminal/proc/get_faction_from_card(obj/item/card/id/card)
+	return resolve_faction_from_card(card)
+
 /// Remove a name from a turret's whitelist.
 /obj/machinery/computer/terminal/proc/turret_whitelist_remove(obj/machinery/porta_turret/T, entry, mob/user)
 	var/list/wl = T.vars["id_whitelist"]
@@ -969,7 +1531,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 /obj/machinery/computer/terminal/proc/turret_whitelist_toggle(obj/machinery/porta_turret/T, mob/user)
 	var/current = T.vars["whitelist_active"]
 	T.vars["whitelist_active"] = !current
-	to_chat(user, span_notice("[T.name] whitelist enforcement [!current ? "ENABLED — unlisted players will be targeted" : "DISABLED — whitelist ignored"]."))
+	to_chat(user, span_notice("[T.name] whitelist enforcement [!current ? "ENABLED -- unlisted players will be targeted" : "DISABLED -- whitelist ignored"]."))
 
 // ============================================================
 // DOCUMENT SYSTEM
@@ -1025,7 +1587,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	return TRUE
 
 // ============================================================
-// HACKING — SPECIAL INTEGRATION
+// HACKING -- SPECIAL INTEGRATION
 // ============================================================
 
 /obj/machinery/computer/terminal/proc/get_difficulty_config()
@@ -1159,7 +1721,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	hack_removed = list()
 	hack_history = list()
 
-// ── Junk / bracket line builder
+// ?? Junk / bracket line builder
 /obj/machinery/computer/terminal/proc/gen_junk_line(place_bracket)
 	if(!place_bracket)
 		var/line = ""
@@ -1194,12 +1756,12 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	var/full_line = pre_junk + bracket_str + post_junk
 	return list(full_line, pre_len + 1, pre_len + bracket_vis)
 
-// ── Word line builder
+// ?? Word line builder
 /obj/machinery/computer/terminal/proc/gen_word_line(word)
 	var/wlen = length(word)
 
 	// Always space letters: "LETHAL" -> "L E T H A L "
-	// Spaces are free — junk budget is based on wlen, not visual width.
+	// Spaces are free -- junk budget is based on wlen, not visual width.
 	// Long words (8+) just have zero junk padding, which is fine.
 	var/spaced_width = (wlen > 1) ? (2 * wlen - 1) : wlen
 	var/display_word = ""
@@ -1222,7 +1784,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 	return list(pre_junk, display_word, post_junk, vis_width)
 
-// ── Junk to clickable
+// ?? Junk to clickable
 /obj/machinery/computer/terminal/proc/junk_to_clickable(str)
 	if(!str || !length(str)) return ""
 	var/result = ""
@@ -1285,7 +1847,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	dat += "= PASSWORD REQUIRED =</center><br>"
 
 	if(hack_locked_out)
-		dat += "<center><span class='bad'>!!! TERMINAL LOCKED — TOO MANY FAILED ATTEMPTS !!!</span><br><br>"
+		dat += "<center><span class='bad'>!!! TERMINAL LOCKED -- TOO MANY FAILED ATTEMPTS !!!</span><br><br>"
 		dat += "<span class='dim'>Use a <b>hacking device</b> on this terminal to attempt a bypass.</span><br>"
 		dat += "<span class='dim'>Higher Intelligence improves your speed and success chance.</span><br><br>"
 		dat += "<a href='byond://?src=[REF(src)];choice=hack_reset'>&gt; \[ATTEMPT BYPASS\]</a>"
@@ -1309,7 +1871,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 				dat += "<span class='dim'>&gt; Your limited intelligence reduces your attempts.</span><br>"
 		dat += "<br>"
 
-		// ── Build columns
+		// ?? Build columns
 
 		var/mid = round(hack_words.len / 2)
 		var/list/left_words  = list()
@@ -1505,7 +2067,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	hack_history += "&gt;Tries replenished."
 	updateUsrDialog()
 
-// ── Reset / repair the lockout.
+// ?? Reset / repair the lockout.
 // Requires the user to be holding a /obj/item/hacking_device AND pass an INT check.
 // INT 4 or below: cannot attempt at all.
 // INT 5-6: 30s, 40% chance of success per attempt.
@@ -1516,14 +2078,14 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	if(!user)
 		return
 
-	// Must be holding a hacking device — use untyped var to avoid forward-reference errors
+	// Must be holding a hacking device -- use untyped var to avoid forward-reference errors
 	// (hacking_device.dm may be compiled after terminal.dm)
 	var/obj/item/H = user.get_active_held_item()
 	if(!istype(H, /obj/item/hacking_device))
 		to_chat(user, span_warning("You need a hacking device to bypass the lockout."))
 		return
 
-	// INT gate — too dumb to even try
+	// INT gate -- too dumb to even try
 	var/int_val = istype(user) ? user.special_i : 5
 	if(int_val <= 4)
 		to_chat(user, span_warning("You wave the hacking device at the terminal helplessly. You have no idea what you're doing."))

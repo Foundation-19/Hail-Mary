@@ -942,6 +942,40 @@
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/gaussrifle)
 
+// -- CYBORG CONSTRUCTION BLUEPRINTS --
+// Teach the advanced-workbench recipes needed to hand-fabricate robot bodyparts.
+// Assemble all six onto a cyborg endoskeleton; insert MMI to bring it to life.
+
+/obj/item/book/granter/crafting_recipe/blueprint/cyborg_endoskeleton
+	name = "cyborg endoskeleton blueprint"
+	desc = "Detailed schematics for fabricating the metal backbone of a cyborg chassis. Without a frame nothing else can attach."
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/cyborg_robot_suit)
+
+/obj/item/book/granter/crafting_recipe/blueprint/cyborg_torso
+	name = "cyborg torso blueprint"
+	desc = "Schematics for a reinforced cyborg torso housing, with space for a logic board, power cell, and wiring bundle."
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/cyborg_torso)
+
+/obj/item/book/granter/crafting_recipe/blueprint/cyborg_head
+	name = "cyborg head blueprint"
+	desc = "Schematics for a cyborg sensor braincase with spine-plug socket and optical gimbals."
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/cyborg_head)
+
+/obj/item/book/granter/crafting_recipe/blueprint/cyborg_arms
+	name = "cyborg arm blueprint"
+	desc = "Schematics for both left and right cyborg arms — skeletal pseudomuscle limbs in matching pairs."
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/cyborg_l_arm, /datum/crafting_recipe/cyborg_r_arm)
+
+/obj/item/book/granter/crafting_recipe/blueprint/cyborg_legs
+	name = "cyborg leg blueprint"
+	desc = "Schematics for both left and right cyborg legs — locomotion struts in matching pairs."
+	icon_state = "blueprint2"
+	crafting_recipe_types = list(/datum/crafting_recipe/cyborg_l_leg, /datum/crafting_recipe/cyborg_r_leg)
+
 /obj/item/book/granter/crafting_recipe/manual/denvr
 	name = "den vr configuration"
 	icon_state = "book"
@@ -1041,6 +1075,20 @@
 	granted_trait = TRAIT_WIREVISION
 	traitname = "wirevision"
 	remarks = list("Troubleshooting is a systematic approach to problem solving, do not skip any steps in the process.", "Ensure you have all the required parts before you begin.", "Don't lose track of your tools, or you have a new problem to deal with.", "Make sure you check the colouring of wires extremely carefully- you don't want to be mixing up yellow and lime, or purple and indigo!")
+
+/obj/item/book/granter/trait/robot_whisperer
+	name = "RobCo Unified Robotics Programming Manual"
+	desc = "A dense pre-war technical manual from RobCo Industries. Covers behavioral circuit logic, C.O.R.E. certification hierarchies, personality matrix configuration, and field service protocols. The cover reads: 'FOR AUTHORIZED TECHNICIANS ONLY.'"
+	oneuse = TRUE
+	granted_trait = TRAIT_ROBOT_WHISPERER
+	traitname = "robot programming"
+	remarks = list(
+		"Always power-cycle the chassis before installing a new certification card.",
+		"Behavior circuits operate on a priority stack — higher-priority responses override lower ones.",
+		"Never attempt to flash a personality matrix while the unit is online. You will regret it.",
+		"The C.O.R.E. rating system — Compute, Operations, Resilience, Energy — is the industry standard for all RobCo chassis.",
+		"A robot that keeps greeting you is working as designed. It genuinely is glad to see you."
+	)
 
 /obj/item/book/granter/trait/trekking
 	name = "Wasteland Survival Guide"

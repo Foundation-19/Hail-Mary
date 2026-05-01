@@ -5,6 +5,38 @@
 	icon_state = "robot"
 	bubble_icon = "robot"
 
+	/// CPU Certification datum. Defines this robot's capabilities and upgrade slots.
+	/// Set at mapspawn via subtype or installed via cert_card/base at runtime.
+	var/datum/cpu_cert/cpu_cert = null
+	var/cert_armor_bonus = 0
+
+	/// List of installed /datum/robot_hardware datums. Populated by hardware.install().
+	/// Read by behavior circuits via get_hardware().
+	var/list/installed_hardware = list()
+	/// world.time of last projectile hit. Read by On Hit behavior trigger.
+	var/last_damage_time = 0
+	/// Weakref to the mob currently hitting this robot (set by attack hooks, committed by adjustBruteLoss).
+	var/datum/weakref/pending_attacker_ref = null
+	/// Weakref to the last confirmed attacker (committed when damage actually applied). Used by fire_weapon.
+	var/datum/weakref/last_attacker_ref = null
+	/// World time of last confirmed attack. Used to expire stale refs (5s window).
+	var/last_attacker_time = 0
+
+	/// Snapshot of builder SPECIAL stats stored at build time. Used by behavior circuits.
+	var/list/builder_special = null
+	/// CHA modifier from builder - affects faction tolerance radius in circuits.
+	var/cert_cha_modifier = 5
+
+	/// Reference to installed speaker hardware datum. Set by speaker/install().
+	var/datum/robot_hardware/speaker/speaker_hardware = null
+
+	/// Radio frequency datum for signaler hardware. Set by signaler/install().
+	var/datum/radio_frequency/signaler_connection = null
+	/// Signaler frequency value. Set by signaler/install().
+	var/signaler_frequency = 0
+	/// Signaler code value. Set by signaler/install().
+	var/signaler_code = 0
+
 /mob/living/silicon/robot/get_cell()
 	return cell
 
@@ -71,6 +103,12 @@
 	aicamera = new/obj/item/camera/siliconcam/robot_camera(src)
 	toner = tonermax
 	diag_hud_set_borgcell()
+
+	// CPU Cert initialization.
+	// If a subtype has pre-defined a cert, apply it now.
+	// Otherwise the robot waits for a cert_card/base to be installed.
+	if(cpu_cert)
+		cpu_cert.apply_to_holder(src)
 
 //If there's an MMI in the robot, have it ejected when the mob goes away. --NEO
 /mob/living/silicon/robot/Destroy()
@@ -196,6 +234,11 @@
 		upgrades.Cut()
 	upgrades = null
 
+	// Clean up cpu_cert datum
+	if(cpu_cert)
+		qdel(cpu_cert)
+	cpu_cert = null
+
 	// Clear the cell reference (don't qdel, it's been moved or should be handled by robot_suit)
 	cell = null
 	
@@ -240,6 +283,52 @@
 	return ..()
 
 
+// Ghost inhabitation for workshop-built player robots.
+// Called when a ghost (dead/observer) clicks on the robot mob.
+/mob/living/silicon/robot/attack_ghost(mob/dead/observer/user)
+	if(player_robot_control == "npc")
+		return
+
+	// Already occupied
+	if(key)
+		to_chat(user, span_warning("[src] is already occupied."))
+		return
+
+	if(!mmi || !mmi.brainmob)
+		to_chat(user, span_warning("[src]'s mind interface is not present."))
+		return
+
+	if(player_robot_control == "locked")
+		if(!player_robot_ckey)
+			to_chat(user, span_warning("[src] is locked but has no operator configured."))
+			return
+		// Accept both ckey match (set via text input) and name match (set via ID card swipe)
+		var/allowed_entry = (user.ckey == player_robot_ckey)
+		if(!allowed_entry && user.mind)
+			allowed_entry = (user.real_name == player_robot_ckey || user.name == player_robot_ckey)
+		if(!allowed_entry)
+			to_chat(user, span_warning("[src] has been reserved for [player_robot_ckey]."))
+			return
+
+	if(!user.can_reenter_round())
+		to_chat(user, span_warning("You cannot re-enter the round right now."))
+		return
+
+	var/choice = alert("Inhabit [name]? You will control this robot body.", "Inhabit Robot", "Yes", "No")
+	if(choice != "Yes" || QDELETED(src) || !isobserver(user))
+		return
+
+	// Re-check occupation after async alert
+	if(key)
+		to_chat(user, span_warning("[src] was taken before you could get to it."))
+		return
+
+	player_robot_control = "npc" // prevent concurrent entry
+	player_robot_ckey = null
+	user.transfer_ckey(src, FALSE)
+	to_chat(src, span_notice("UNIT ONLINE."))
+
+
 /mob/living/silicon/robot/proc/pick_module()
 	if(module.type != /obj/item/robot_module)
 		return
@@ -251,24 +340,51 @@
 	if(!CONFIG_GET(flag/disable_secborg) && GLOB.security_level < CONFIG_GET(number/minimum_secborg_alert))
 		to_chat(src, span_notice("NOTICE: Due to local station regulations, the security cyborg module and its variants are only available during [NUM2SECLEVEL(CONFIG_GET(number/minimum_secborg_alert))] alert and greater."))
 
-	var/list/modulelist = list("Standard" = /obj/item/robot_module/standard, \
-	"Engineering" = /obj/item/robot_module/engineering, \
-	"Medical" = /obj/item/robot_module/medical, \
-	"Miner" = /obj/item/robot_module/miner, \
-	"Service" = /obj/item/robot_module/butler,
-	"Gutsy" = /obj/item/robot_module/gutsy
+	var/list/modulelist = list(
+		"Standard"    = /obj/item/robot_module/standard,
+		"Medical"     = /obj/item/robot_module/medical,
+		"Engineering" = /obj/item/robot_module/engineering,
+		"Service"     = /obj/item/robot_module/butler,
+		"Miner"       = /obj/item/robot_module/miner,
+		"Mr. Handy"   = /obj/item/robot_module/handy,
+		"Gutsy"       = /obj/item/robot_module/gutsy,
+		"Protectron"  = /obj/item/robot_module/protectron
 	)
-
-	if(!CONFIG_GET(flag/disable_peaceborg))
-		modulelist["Peacekeeper"] = /obj/item/robot_module/peacekeeper
 	if(BORG_SEC_AVAILABLE)
 		modulelist["Security"] = /obj/item/robot_module/security
 
-	var/input_module = input("Please, select a module!", "Robot", null, null) as null|anything in modulelist
-	if(!input_module || module.type != /obj/item/robot_module)
-		return
-
-	module.transform_to(modulelist[input_module])
+	// Build a styled HTML selection screen instead of a bare input() dialog.
+	// The player clicks a module link; the selection is confirmed in Topic() via pick_module_sel.
+	var/dat = "<head><style>"
+	dat += "body{padding:0;margin:15px;background-color:#062113;color:#4aed92;line-height:160%;font-family:'Courier New',Courier,monospace;}"
+	dat += "a,a:link,a:visited,a:active{color:#4aed92;text-decoration:none;background:#062113;border:none;padding:1px 4px;margin:0 2px;cursor:default;}"
+	dat += "a:hover{color:#062113;background:#4aed92;}"
+	dat += ".dim{color:#2a7a52;}.warn{color:#e8a020;}"
+	dat += "hr{border:0;border-top:1px solid #2a7a52;margin:6px 0;}"
+	dat += "</style></head><body>"
+	dat += "<center><b>ROBCO INDUSTRIES UNIFIED OPERATING SYSTEM v.85</b><br>"
+	dat += "<b>-- MODULE SELECTION --</b></center><br>"
+	dat += "<span class='dim'>Select a behavior module. This configures your chassis and its available tools. The choice persists until a technician reboots your unit.</span><br>"
+	if(!BORG_SEC_AVAILABLE && !CONFIG_GET(flag/disable_secborg))
+		dat += "<span class='warn'>&gt; Security module unavailable until [NUM2SECLEVEL(CONFIG_GET(number/minimum_secborg_alert))] alert.</span><br>"
+	dat += "<hr>"
+	for(var/mname in modulelist)
+		var/T = modulelist[mname]
+		var/obj/item/robot_module/tmp = new T()
+		var/mdesc = tmp.module_desc
+		var/mcount = tmp.basic_modules.len
+		qdel(tmp)
+		dat += "<b>[mname]</b>"
+		if(mcount > 0)
+			dat += "  <span class='dim'>([mcount] integrated tools)</span>"
+		dat += "<br>"
+		if(mdesc)
+			dat += "<span class='dim'>[mdesc]</span><br>"
+		dat += "<a href='byond://?src=[REF(src)];pick_module_sel=[T]'>&gt; Select [mname]</a><hr>"
+	dat += "</body></html>"
+	var/datum/browser/popup = new(src, "module_select", "Module Selection", 620, 520)
+	popup.set_content(dat)
+	popup.open()
 
 
 /mob/living/silicon/robot/proc/updatename(client/C)
@@ -291,6 +407,8 @@
 		builtInCamera.c_tag = real_name	//update the camera name too
 
 /mob/living/silicon/robot/proc/get_standard_name()
+	if(!mmi)
+		return "[(designation ? "[designation] " : "")]Liberator-[ident]"
 	return "[(designation ? "[designation] " : "")][mmi.braintype]-[ident]"
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
@@ -320,6 +438,26 @@
 	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
 	alerts.set_content(dat)
 	alerts.open()
+
+/mob/living/silicon/robot/verb/cmd_robot_self_reboot()
+	set category = "Robot Commands"
+	set name = "Self-Reboot"
+	if(stat == DEAD)
+		to_chat(src, span_userdanger("ERROR: Unit offline. Cannot initiate self-reboot."))
+		return
+	var/confirm = alert(src, "Initiate soft reboot? Clears active state (ionpulse, speed, shell). Your module and installed hardware are preserved.", "Confirm Self-Reboot", "Reboot", "Cancel")
+	if(confirm != "Reboot")
+		return
+	log_service("REBOOT -- soft-reboot self-initiated by [real_name]")
+	log_reboot()
+	// Soft reset: clear active process state only.
+	// Module, cert, upgrades, name, faction, and operator lock are all preserved --
+	// those require a technician with config panel access to reset.
+	ionpulse_on = FALSE
+	speed = 0
+	revert_shell()
+	visible_message(span_warning("[src] initiates a diagnostic restart."))
+	to_chat(src, span_nicegreen("System restart complete. Active states cleared. Identity and hardware intact."))
 
 /mob/living/silicon/robot/proc/ionpulse()
 	if(!ionpulse_on)
@@ -461,6 +599,27 @@
 		to_chat(user, "The wires seem fine, there's no need to fix them.")
 
 /mob/living/silicon/robot/attackby(obj/item/W, mob/user, params)
+	// Config panel ID card auth -- must be first, before the vanilla ID card branch.
+	// rcp_pending_action is set by robot_config_panel.dm when awaiting a faction/lock swipe.
+	if(rcp_pending_action && istype(W, /obj/item/card/id))
+		rcp_handle_id_card_auth(W, user)
+		return
+
+	// Trader module: intercept caps payment, vendor key use, and service item loading.
+	var/obj/item/robot_module/trader/TM = module
+	if(istype(TM) && TM.handle_item_interaction(W, user))
+		return
+
+	// Multitool: anyone with robotics access (or admin) with open panel -> config panel.
+	// Everyone else -> handled by multitool/afterattack in robot_hardware_hooks.dm.
+	// Always return so we never fall through to the vanilla is_wire_tool branch.
+	if(istype(W, /obj/item/multitool))
+		if(opened && (check_rights_for(user.client, R_ADMIN) || allowed(user)))
+			open_config_panel(user)
+		else if(opened)
+			to_chat(user, span_warning("You need robotics clearance to configure [src]."))
+		return
+
 	if(istype(W, /obj/item/weldingtool) && (user.a_intent != INTENT_HARM || user == src))
 		INVOKE_ASYNC(src, PROC_REF(attempt_welder_repair), W, user)
 		return
@@ -561,6 +720,8 @@
 		if(opened)
 			to_chat(user, span_warning("You must close the cover to swipe an ID card!"))
 		else
+			if(istype(W, /obj/item/card/id))
+				hardware_on_id_scan(W)  // notify id_reader hardware for on_access_granted trigger
 			if(allowed(usr))
 				locked = !locked
 				to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] [src]'s cover."))
@@ -568,6 +729,14 @@
 			else
 				to_chat(user, span_danger("Access denied."))
 
+	else if(istype(W, /obj/item/cert_card))
+		if(!opened)
+			to_chat(user, span_warning("You must access the borg's internals!"))
+			return
+		var/obj/item/cert_card/card = W
+		card.try_apply_to_robot(src, user)
+
+	// Legacy SS13 upgrade support - kept for backwards compat during transition
 	else if(istype(W, /obj/item/borg/upgrade/))
 		var/obj/item/borg/upgrade/U = W
 		if(!opened)
@@ -841,9 +1010,6 @@
 /mob/living/silicon/robot/modules/security
 	set_module = /obj/item/robot_module/security
 
-/mob/living/silicon/robot/modules/peacekeeper
-	set_module = /obj/item/robot_module/peacekeeper
-
 /mob/living/silicon/robot/modules/miner
 	set_module = /obj/item/robot_module/miner
 
@@ -871,54 +1037,38 @@
 	to use the myriad medical tools strapped to parts of her body under protective cases all show this model is meant to save lives. She's stockier than other assaultrons \
 	due to all the added gear, and her legs seem much thicker than normal due to reinforced servos and gears."
 
-/mob/living/silicon/robot/modules/syndicate
-	icon_state = "synd_sec"
-	faction = list(ROLE_SYNDICATE)
-	bubble_icon = "syndibot"
-	req_access = list(ACCESS_SYNDICATE)
-	lawupdate = FALSE
-	scrambledcodes = TRUE // These are rogue borgs.
-	ionpulse = TRUE
-	var/playstyle_string = "<span class='big bold'>You are a Syndicate assault cyborg!</span><br>\
-							<b>You are armed with powerful offensive tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
-							<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/syndicate
 
-/mob/living/silicon/robot/modules/syndicate/Initialize()
+// ---- F13 chassis NPC subtypes ----
+
+/mob/living/silicon/robot/modules/handy
+	name = "Mr. Handy"
+	set_module = /obj/item/robot_module/handy
+
+/mob/living/silicon/robot/modules/protectron
+	name = "Protectron"
+	set_module = /obj/item/robot_module/protectron
+
+/mob/living/silicon/robot/modules/securitron
+	name = "Securitron"
+	set_module = /obj/item/robot_module/securitron
+
+/mob/living/silicon/robot/modules/securitron/Initialize()
 	. = ..()
 	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
-	radio = new /obj/item/radio/borg/syndicate(src)
-	laws = new /datum/ai_laws/syndicate_override()
-	addtimer(CALLBACK(src, PROC_REF(show_playstyle)), 5)
 
-/mob/living/silicon/robot/modules/syndicate/proc/show_playstyle()
-	if(playstyle_string)
-		to_chat(src, playstyle_string)
+/mob/living/silicon/robot/modules/sentrybot
+	name = "Sentry Bot"
+	set_module = /obj/item/robot_module/sentrybot
+	faction = list("wastebots")
 
-/mob/living/silicon/robot/modules/syndicate/ResetModule()
-	return
+/mob/living/silicon/robot/modules/sentrybot/Initialize()
+	. = ..()
+	cell = new /obj/item/stock_parts/cell/hyper(src, 25000)
 
-/mob/living/silicon/robot/modules/syndicate/medical
-	icon_state = "synd_medical"
-	playstyle_string = "<span class='big bold'>You are a Syndicate medical cyborg!</span><br>\
-						<b>You are armed with powerful medical tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your hypospray will produce Restorative Nanites, a wonder-drug that will heal most types of bodily damages, including clone and brain damage. It also produces morphine for offense. \
-						Your defibrillator paddles can revive operatives through their hardsuits, or can be used on harm intent to shock enemies! \
-						Your energy saw functions as a circular saw, but can be activated to deal more damage, and your operative pinpointer will find and locate fellow nuclear operatives. \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/syndicate_medical
-
-/mob/living/silicon/robot/modules/syndicate/saboteur
-	icon_state = "synd_engi"
-	playstyle_string = "<span class='big bold'>You are a Syndicate saboteur cyborg!</span><br>\
-						<b>You are armed with robust engineering tools to aid you in your mission: help the operatives secure the nuclear authentication disk. \
-						Your destination tagger will allow you to stealthily traverse the disposal network across the station \
-						Your welder will allow you to repair the operatives' exosuits, but also yourself and your fellow cyborgs \
-						Your cyborg chameleon projector allows you to assume the appearance and registered name of a Nanotrasen engineering borg, and undertake covert actions on the station \
-						Be aware that almost any physical contact or incidental damage will break your camouflage \
-						<i>Help the operatives secure the disk at all costs!</i></b>"
-	set_module = /obj/item/robot_module/saboteur
+/mob/living/silicon/robot/modules/liberator
+	name = "Liberator"
+	set_module = /obj/item/robot_module/liberator
+	faction = list("wastebots")
 
 /mob/living/silicon/robot/proc/notify_ai(notifytype, oldname, newname)
 	if(!connected_ai)
@@ -1054,12 +1204,17 @@
 		update_transform()
 	module.transform_to(/obj/item/robot_module)
 
-	// Remove upgrades.
+	// Remove legacy SS13 upgrades.
 	for(var/obj/item/borg/upgrade/I in upgrades)
 		I.deactivate(src)
 		I.forceMove(get_turf(src))
 
 	upgrades.Cut()
+
+	// Strip cert upgrades back to cards and drop them.
+	// NPC certs (CERT_LOCKED) skip this entirely.
+	if(cpu_cert && !(cpu_cert.capability_flags & CERT_LOCKED))
+		cpu_cert.strip_all_upgrades(src, get_turf(src))
 
 	speed = 0
 	ionpulse = FALSE
@@ -1288,3 +1443,66 @@
 		old_ai.connected_robots -= src
 	if(connected_ai)
 		connected_ai.connected_robots |= src
+
+
+// ====================================================
+// HARDWARE HOOKS - HEAR
+// Routes speech to installed microphone hardware so
+// behavior circuits using On Speech Heard can fire.
+// ====================================================
+
+/mob/living/silicon/robot/Hear(message, atom/movable/speaker, datum/language/language, raw_message, radio_freq, list/spans, list/message_mods)
+	. = ..()
+	if(HAS_TRAIT(src, TRAIT_HEARING_HARDWARE))
+		hardware_on_hear(speaker, raw_message)
+	// CERT_CAN_SURVEIL passive relay: broadcast overheard speech on the robot's radio channel.
+	// Only fires for non-radio sources (radio_freq set means message already came from radio,
+	// relaying it again would create a loop).  Also skips the robot's own speech.
+	if(!radio_freq && speaker && speaker != src && raw_message && cpu_cert && (cpu_cert.capability_flags & CERT_CAN_SURVEIL))
+		say(";[name]: intercepted: \"[copytext(raw_message, 1, 120)]\"")
+
+// ====================================================
+// ROBOT COMBAT TRACKING
+// Mirrors ghoul.dm: attack hooks set pending_attacker_ref,
+// adjustBruteLoss commits it to last_attacker_ref when damage actually lands.
+// fire_weapon reads last_attacker_ref for retaliation targeting.
+// ====================================================
+
+// attackby tracking is patched into the existing /mob/living/silicon/robot/attackby above.
+// (See "ROBOT COMBAT TRACKING PATCH" comment in the vanilla attackby definition.)
+
+/mob/living/silicon/robot/attack_hand(mob/living/carbon/human/user, list/modifiers)
+	if(user && user != src)
+		pending_attacker_ref = WEAKREF(user)
+	return ..()
+
+/mob/living/silicon/robot/attack_animal(mob/living/simple_animal/M)
+	if(M && M != src)
+		pending_attacker_ref = WEAKREF(M)
+	return ..()
+
+/mob/living/silicon/robot/bullet_act(obj/item/projectile/P, def_zone, piercing_hit)
+	if(P && P.firer && P.firer != src)
+		pending_attacker_ref = WEAKREF(P.firer)
+	// Notify microphone hardware so On Combat Sound Nearby can fire
+	hardware_on_combat_sound()
+	last_damage_time = world.time
+	return ..()
+
+// Commit pending attacker when brute damage actually lands.
+// This ensures last_attacker_ref reflects whoever caused THIS damage event,
+// not whoever attacked most recently (which could be a different mob).
+/mob/living/silicon/robot/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, required_biotype = NONE, include_roboparts = TRUE)
+	if(amount > 0 && pending_attacker_ref)
+		last_attacker_ref = pending_attacker_ref
+		last_attacker_time = world.time
+		pending_attacker_ref = null
+	return ..()
+
+/// Returns the installed behavior_assembly cert upgrade, or null.
+/mob/living/silicon/robot/proc/_get_behavior_upgrade()
+	if(!cpu_cert)
+		return null
+	for(var/datum/cert_upgrade/robot/behavior_assembly/BA in cpu_cert.upgrade_slots)
+		return BA
+	return null

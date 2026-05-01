@@ -79,6 +79,13 @@
 	var/lamp_intensity = 0 //Luminosity of the headlamp. 0 is off. Higher settings than the minimum require power.
 	var/lamp_cooldown = 0 //Flag for if the lamp is on cooldown after being forcibly disabled.
 
+	/// Set by the workshop build proc. "npc", "open", or "locked".
+	/// "open" = any ghost can inhabit; "locked" = only player_robot_ckey.
+	/// Cleared to "npc" once a player enters.
+	var/player_robot_control = "npc"
+	/// The specific ckey allowed to enter when player_robot_control == "locked".
+	var/player_robot_ckey = null
+
 	var/sight_mode = 0
 	hud_possible = list(ANTAG_HUD, DIAG_STAT_HUD, DIAG_HUD, DIAG_BATT_HUD, DIAG_TRACK_HUD)
 
@@ -115,3 +122,9 @@
 	var/cansprint = 1
 
 	var/orebox = null
+
+	/// Security difficulty for hacking device minigame.
+	/// 0=VERY EASY, 1=EASY, 2=AVERAGE, 3=HARD, 4=VERY HARD.
+	/// Set by the operator via terminal or config panel.
+	/// Overrides cert-derived difficulty when higher.
+	var/security_difficulty = 1  // default EASY — basic robots aren't hardened

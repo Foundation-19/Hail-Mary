@@ -1267,6 +1267,24 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)
 
+// ====================================================
+// ROBOT WHISPERER
+// Gates access to behavior assembly printing at the
+// CPU Cert Fabricator. The fabricator checks for
+// TRAIT_ROBOT_WHISPERER + special_i >= required_int
+// directly — no crafting recipe list needed.
+// ====================================================
+
+/datum/quirk/robot_whisperer
+	name = "Robot Whisperer"
+	desc = "You have a knack for understanding and programming robotic systems. \
+		Allows you to print behavior assemblies at a CPU Cert Fabricator, \
+		provided you're smart enough. Requires Intelligence 6."
+	value = 5
+	mob_trait = TRAIT_ROBOT_WHISPERER
+	gain_text = span_notice("You feel like you understand machines on a deeper level.")
+	lose_text = span_danger("Robots suddenly seem a lot more inscrutable.")
+	locked = TRUE
 /datum/quirk/assassin
 	name = "Assassin"
 	desc = "Years of practice have made you lethal at close range. While sneaking with a melee weapon in your active hand, you can assassinate unaware enemies within 2 tiles by attacking from behind."

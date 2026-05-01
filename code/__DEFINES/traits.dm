@@ -313,6 +313,7 @@
 #define TRAIT_TRIBAL			"Tribalistic Person" //has access to tribal crafting recipes
 #define TRAIT_BERSERKER			"berserker" //currently unused
 #define TRAIT_TECHNOPHREAK		"technophreak"	//boosts salvage return
+#define TRAIT_ROBOT_WHISPERER "robot_whisperer"
 #define TRAIT_WEAPONCRAFTING	"weapon_crafting"	// You spawn with various unlocked gun/armor crafts
 #define TRAIT_PA_WEAR           "pa_wear" //guess
 #define TRAIT_C27           "c27_wear" //guess
