@@ -49,6 +49,14 @@
 
 			to_chat(user, span_notice("[trans] unit\s injected.  [reagents.total_volume] unit\s remaining in [src]."))
 
+			// Karma: Healing others grants karma
+			if(M != user && isliving(M) && ishuman(user))
+				var/mob/living/carbon/human/H = M
+				if(H.stat != DEAD)
+					if(H.client)
+						modify_karma_by_action(user.ckey, "heal_player", null, "Healed a player with hypospray")
+					else
+						modify_karma_by_action(user.ckey, "heal_npc", null, "Healed an NPC with hypospray")
 
 			log_combat(user, M, "injected", src, "([contained])")
 
@@ -127,6 +135,10 @@
 							span_userdanger("[user] attempts to use [src] on [M]."))
 		if(!do_mob(user, M))
 			return 0
+		
+		// Trigger karma for healing others
+		if(isliving(M))
+			on_player_heal(M, user, 10)
 
 	..()
 	if(!iscyborg(user))

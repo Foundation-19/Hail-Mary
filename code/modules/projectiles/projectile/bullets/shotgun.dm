@@ -280,6 +280,9 @@
 
 /obj/item/projectile/incendiary/flamethrower/on_hit(atom/target)
 	. = ..()
+	var/turf/T = get_turf(target)
+	if(T)
+		T.hotspot_expose(700, 125, 1)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.adjust_fire_stacks(3)

@@ -21,6 +21,7 @@
 	var/obj/item/assembly/igniter/igniter = null
 	var/obj/item/tank/internals/plasma/ptank = null
 	var/warned_admins = FALSE //for the message_admins() when lit
+	var/fuel = 100
 	//variables for prebuilt flamethrowers
 	var/create_full = FALSE
 	var/create_with_tank = FALSE
@@ -46,11 +47,7 @@
 		return null
 	var/turf/location = loc
 	if(istype(location, /mob/))
-		var/mob/M = location
-		if(M.is_holding(src))
-			location = M.loc
-	if(isturf(location)) //start a fire if possible
-		igniter.flamethrower_process(location)
+		return
 
 /obj/item/flamethrower/update_icon_state()
 	item_state = "flamethrower_[lit]"
@@ -117,11 +114,13 @@
 			if(user.transferItemToLoc(W,src))
 				ptank.forceMove(get_turf(src))
 				ptank = W
-				to_chat(user, span_notice("You swap the plasma tank in [src]!"))
+				fuel = 100
+				to_chat(user, span_notice("You swap the plasma tank in [src], refueling it!"))
 			return
 		if(!user.transferItemToLoc(W, src))
 			return
 		ptank = W
+		fuel = 100
 		update_icon()
 		return
 
@@ -202,14 +201,21 @@
 
 
 /obj/item/flamethrower/proc/default_ignite(turf/target, release_amount = 0.05)
-	//TODO: DEFERRED Consider checking to make sure tank pressure is high enough before doing this...
-	//Transfer 5% of current tank air contents to turf
-	var/datum/gas_mixture/air_transfer = ptank.air_contents.remove_ratio(release_amount)
-	air_transfer.set_moles(GAS_PLASMA, air_transfer.get_moles(GAS_PLASMA) * 5)
-	target.assume_air(air_transfer)
-	//Burn it based on transfered gas
-	target.hotspot_expose((ptank.air_contents.return_temperature()*2) + 380,500)
-	//location.hotspot_expose(1000,500,1)
+	if(!ptank)
+		return
+	if(fuel <= 0)
+		visible_message(span_warning("[src] sputters - the tank is empty!"))
+		lit = FALSE
+		STOP_PROCESSING(SSobj, src)
+		update_icon()
+		return
+	fuel -= 10
+	target.hotspot_expose(800, 125, 1)
+	for(var/A in target)
+		if(ismob(A))
+			var/mob/living/M = A
+			M.adjust_fire_stacks(3)
+			M.IgniteMob()
 
 /obj/item/flamethrower/Initialize(mapload)
 	. = ..()

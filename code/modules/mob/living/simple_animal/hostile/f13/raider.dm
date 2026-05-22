@@ -54,6 +54,13 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
+	can_retreat = TRUE
+	retreat_health_threshold = 0.3
+	can_use_stimpak = TRUE
+	stimpak_threshold = 0.4
+	stimpak_cooldown = 600
 
 	variation_list = list(
 		MOB_NAME_FROM_GLOBAL_LIST(MOB_RANDOM_NAME(MOB_NAME_RANDOM_MALE, 1))
@@ -134,6 +141,9 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
+	uses_cover = TRUE
+	can_throw_grenades = TRUE
+	can_suppress = TRUE
 
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL

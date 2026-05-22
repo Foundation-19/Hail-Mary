@@ -1,0 +1,123 @@
+{
+  "brotherhood": {
+    "faction": "brotherhood",
+    "default_greeting": "State your business, outsider. This is Brotherhood territory.",
+    "barks": {
+      "idle": [
+        "Semper Invicta.",
+        "Technology must be preserved.",
+        "The Brotherhood endures.",
+        "We are the guardians of knowledge.",
+        "Ad Victoriam.",
+        "Our mission continues.",
+        "The Elders guide us."
+      ],
+      "combat": [
+        "For the Brotherhood!",
+        "Protect the tech!",
+        "Tactical engagement!",
+        "Eliminate the threat!",
+        "Power armor engaged!",
+        "They threaten our mission!"
+      ],
+      "greeting": [
+        "Halt, outsider.",
+        "Identify yourself.",
+        "This is Brotherhood territory.",
+        "State your purpose."
+      ]
+    },
+    "bark_chance": 0.02,
+    "bark_cooldown": 60,
+    "bark_range": 6,
+    "rank_greetings": {
+      "Idolized": "Welcome, ally of the Brotherhood. Technology and knowledge are yours to share. How may we assist?",
+      "Admired": "You have proven yourself a friend to the Brotherhood. What brings you to our doors?",
+      "Liked": "Good to see you. What do you need?",
+      "Accepted": "You're welcome here as a friend. What is your business?",
+      "Neutral": "State your business, outsider. This is Brotherhood territory.",
+      "Shunned": "Your reputation is known to us. Make this quick.",
+      "Disliked": "We know what you've done. Don't try our patience.",
+      "Hated": "You're not welcome. Leave now.",
+      "Vilified": "Guards! We have an enemy of the Brotherhood!"
+    },
+    "nodes": {
+      "start": {
+        "text": "State your business, outsider. This is Brotherhood territory.",
+        "responses": [
+          {"text": "I bring technology", "next": "donate_tech"},
+          {"text": "Seeking knowledge", "next": "knowledge"},
+          {"text": "Just passing through", "next": "passing"},
+          {"text": "Looking for work", "next": "work"}
+        ]
+      },
+      "donate_tech": {
+        "text": "Technology belongs to the Brotherhood. What do you have to offer?",
+        "requirements": {
+          "has_tech": true
+        },
+        "responses": [
+          {"text": "I have some items", "next": "donate_items"}
+        ]
+      },
+      "donate_tech_denied": {
+        "text": "You don't appear to have any technology to offer. Return when you do."
+      },
+      "donate_items": {
+        "text": "This is valuable. The Brotherhood remembers its friends. Here, take this as payment.",
+        "rewards": {
+          "rep": {"bos": 15},
+          "caps": 100
+        }
+      },
+      "knowledge": {
+        "text": "Knowledge is power. But some knowledge is too dangerous. What do you seek?",
+        "responses": [
+          {"text": "Pre-war history", "next": "history"},
+          {"text": "Technology", "next": "tech_info"}
+        ]
+      },
+      "history": {
+        "text": "The old world fell because of its arrogance. We preserve what knowledge remains to prevent another collapse."
+      },
+      "tech_info": {
+        "text": "We have technology from before the war. Some is too dangerous to use. But we share what we can with allies."
+      },
+      "passing": {
+        "text": "Then move along quickly. Our patience is limited."
+      },
+      "work": {
+        "text": "We always need help... securing technology. There's an old pre-war facility nearby with valuable tech.",
+        "rewards": {
+          "quest": "bos_tech"
+        },
+        "responses": [
+          {"text": "I'll help", "next": "end"}
+        ]
+      },
+      "end": {
+        "text": "Stay out of trouble, outsider."
+      }
+    }
+  },
+  "brotherhood_elder": {
+    "faction": "brotherhood",
+    "default_greeting": "I am the Elder. You speak with the leader of this bunker.",
+    "rank_greetings": {
+      "Idolized": "Hero of the wasteland! We are honored by your presence. What does the outside world need?",
+      "Neutral": "I am the Elder. You speak with the leader of this bunker.",
+      "Vilified": "You are not welcome here. Guards, remove this threat."
+    },
+    "nodes": {
+      "start": {
+        "text": "I am the Elder. You speak with the leader of this bunker.",
+        "responses": [
+          {"text": "I seek an audience", "next": "audience"}
+        ]
+      },
+      "audience": {
+        "text": "Speak, then. But choose your words carefully."
+      }
+    }
+  }
+}

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ROBCO TERMINAL</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0a0f0a;
+      color: #4cff4c;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      padding: 10px;
+    }
+    .header {
+      font-size: 11px;
+      color: #2a7a52;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 8px;
+      border-bottom: 1px solid #1a5e38;
+      margin-bottom: 10px;
+    }
+    .title {
+      font-size: 16px;
+      color: #4cff4c;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .row { margin-bottom: 8px; }
+    label {
+      color: #4cff4c;
+      display: inline-block;
+      min-width: 60px;
+    }
+    input[type="text"], select {
+      background: #062113;
+      border: 1px solid #1a5e38;
+      color: #4cff4c;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      padding: 4px 6px;
+    }
+    input[type="text"]:focus, select:focus {
+      border-color: #4cff4c;
+      outline: none;
+    }
+    input[type="radio"] { accent-color: #4cff4c; }
+    input[type="submit"] {
+      background: #062113;
+      border: 1px solid #4cff4c;
+      color: #4cff4c;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      padding: 6px 16px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+    input[type="submit"]:hover {
+      background: #4cff4c;
+      color: #0a0f0a;
+    }
+    #object_list {
+      background: #062113;
+      border: 1px solid #1a5e38;
+      color: #4cff4c;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 11px;
+      margin-top: 10px;
+    }
+    #object_list option {
+      background: #062113;
+      color: #4cff4c;
+    }
+    #object_list option:checked {
+      background: #1a5e38;
+      color: #4cff4c;
+    }
+    .footer {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid #1a5e38;
+      font-size: 10px;
+      color: #2a7a52;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">ROBCO INDUSTRIES (TM) TERMLINK PROTOCOL</div>
+  <div class="title">&gt; <!-- TITLE --></div>
+  
+  <form name="spawner" action="byond://?src=/* ref src */" method="get">
+    <input type="hidden" name="src" value="/* ref src */">
+    /* hreftokenfield */
+    
+    <div class="row">
+      <label>SEARCH:</label>
+      <input type="text" name="filter" value="" style="width:200px">
+      <input type="submit" value="SCAN" onclick="updateSearch()">
+    </div>
+    
+    <div class="row">
+      <label>OFFSET:</label>
+      <input type="text" name="offset" value="x,y,z" style="width:120px">
+      <label style="min-width:20px"><input type="radio" name="offset_type" value="absolute"> ABS</label>
+      <label style="min-width:20px"><input type="radio" name="offset_type" value="relative" checked> REL</label>
+    </div>
+    
+    <div class="row">
+      <label>COUNT:</label>
+      <input type="text" name="object_count" value="1" style="width:40px">
+      <label>DIR:</label>
+      <input type="text" name="object_dir" value="" style="width:40px">
+    </div>
+    
+    <div class="row">
+      <label>NAME:</label>
+      <input type="text" name="object_name" value="" style="width:200px">
+    </div>
+    
+    <div class="row">
+      <label>WHERE:</label>
+      <select name="object_where" style="width:260px">
+        <option value="onfloor">On floor below own mob</option>
+        <option value="frompod">On floor via supply pod</option>
+        <option value="inhand">In own mob's hand</option>
+        <option value="inmarked">In marked object</option>
+      </select>
+    </div>
+    
+    <div class="row">
+      <input type="submit" value="&gt; SPAWN">
+    </div>
+    
+    <select name="object_list" id="object_list" size="16" multiple style="width:100%"></select>
+  </form>
+  
+  <div class="footer">ROBCO INDUSTRIES TERMINAL v2.3</div>
+  
+  <script>
+    var old_search = "";
+    var object_list = document.spawner.object_list;
+    var object_paths = null /* object types */;
+    var objects = object_paths == null ? new Array() : object_paths.split(";");
+    
+    document.spawner.filter.focus();
+    
+    function populateList(from_list) {
+      object_list.options.length = 0;
+      for (var i in from_list) {
+        var new_option = document.createElement("option");
+        new_option.value = from_list[i];
+        new_option.text = from_list[i];
+        object_list.options.add(new_option);
+      }
+    }
+    
+    function updateSearch() {
+      old_search = document.spawner.filter.value.toLowerCase();
+      if (!old_search) return;
+      
+      var filtered = new Array();
+      for (var i in objects) {
+        var caseInsensitiveObject = objects[i].toLowerCase();
+        if (caseInsensitiveObject.search(old_search) < 0) continue;
+        filtered.push(objects[i]);
+      }
+      populateList(filtered);
+    }
+  </script>
+</body>
+</html>

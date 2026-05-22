@@ -69,6 +69,7 @@
 /datum/job/enclave/enclavecpt
 	title = "Enclave Captain"
 	flag = F13USCPT
+	caps_paycheck = PAYCHECK_CAPS_COMMAND
 	total_positions = 0
 	spawn_positions = 0
 	access = list(ACCESS_ENCLAVE, ACCESS_CHANGE_IDS)
@@ -126,6 +127,7 @@
 /datum/job/enclave/enclavelt
 	title = "Enclave Lieutenant"
 	flag = F13USLT
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 1
 	spawn_positions = 1
 	access = list(ACCESS_ENCLAVE, ACCESS_CHANGE_IDS)
@@ -269,6 +271,7 @@
 /datum/job/enclave/f13specialist
 	title = "Enclave Specialist"
 	flag = F13USSPECIALIST
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 2
 	spawn_positions = 2
 	display_order = JOB_DISPLAY_ORDER_F13USSPC
@@ -324,6 +327,7 @@
 /datum/job/enclave/enclavespy
 	title = "Enclave Private"
 	flag = F13USPRIVATE
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	display_order = JOB_DISPLAY_ORDER_F13USPVT
 	total_positions = 4
 	spawn_positions = 4
@@ -356,6 +360,7 @@
 /datum/job/enclave/enclavesci
 	title = "Enclave Scientist"
 	flag = F13USSCIENTIST
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	display_order = JOB_DISPLAY_ORDER_F13USSCI
 	total_positions = 2
 	spawn_positions = 2

@@ -1,6 +1,7 @@
 /**
  * Copyright (c) 2020 Aleksej Komarov
  * SPDX-License-Identifier: MIT
+ * Modified for Fallout Terminal Theme
  */
 
 .Notifications {
@@ -11,10 +12,13 @@
 }
 
 .Notification {
-  color: #fff;
-  background-color: crimson;
+  color: #0a0f0a;
+  background-color: #4cff4c;
   padding: 0.5em;
   margin: 1em 0;
+  font-family: 'VT323', 'Courier New', monospace;
+  border: 1px solid #3ac83a;
+  box-shadow: 0 0 10px rgba(76, 255, 76, 0.3);
 
   &:first-child {
     margin-top: 0;

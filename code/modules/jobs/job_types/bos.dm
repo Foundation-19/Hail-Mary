@@ -72,6 +72,7 @@ Elder Envoy
 /datum/job/bos/f13envoy
 	title = "Elder Envoy"
 	flag = F13ENVOY
+	caps_paycheck = PAYCHECK_CAPS_LEADERSHIP
 	display_order = JOB_DISPLAY_ORDER_ENVOY
 	head_announce = list("Security")
 	total_positions = 1
@@ -134,6 +135,10 @@ Sentinel
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
+	
+	// Roleplay: Requires BoS reputation
+	required_faction = "bos"
+	required_faction_rep = 150
 
 /datum/outfit/job/bos/f13sentinel/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
@@ -182,6 +187,7 @@ Paladin Commander
 /datum/job/bos/f13paladincommander
 	title = "Paladin Commander"
 	flag = F13PALADINCOMMANDER
+	caps_paycheck = PAYCHECK_CAPS_COMMAND
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
@@ -292,6 +298,7 @@ Proctor
 /datum/job/bos/f13headscribe
 	title = "Head Scribe"
 	flag = F13HEADSCRIBE
+	caps_paycheck = PAYCHECK_CAPS_COMMAND
 	head_announce = list("Security")
 	total_positions = 0
 	spawn_positions = 0
@@ -510,6 +517,7 @@ Paladin
 /datum/job/bos/f13paladin
 	title = "Paladin"
 	flag = F13PALADIN
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are a paladin. Assigned to the expeditionary force through sheer luck or skill. You're one of two power-armor wearers within the force and as such you're to treat it with care. Your posting as a paladin allows you rank over the senior knights and senior scribes. But the Head-Knight, as assigned Second In Command, is above you in rank."
@@ -517,6 +525,10 @@ Paladin
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
 	exp_requirements = 1680
+	
+	// Roleplay: Requires BoS reputation
+	required_faction = "bos"
+	required_faction_rep = 75
 /*
 	loadout_options = list(
 	/datum/outfit/loadout/paladina, //Minigun
@@ -661,6 +673,7 @@ Scribe
 /datum/job/bos/f13scribe
 	title = "Scribe"
 	flag = F13SCRIBE
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 3
 	spawn_positions = 3
 	description = "You answer to senior members, tasked with researching and reverse-engineering recovered technologies from the old world, while maintaining the brotherhoods scientific archives. You may also be given a trainee to assign duties to."
@@ -921,6 +934,7 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 6
 	spawn_positions = 6
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
@@ -1008,6 +1022,7 @@ Initiate
 /datum/job/bos/f13initiate
 	title = "Initiate"
 	flag = F13INITIATE
+	caps_paycheck = PAYCHECK_CAPS_LOW
 	total_positions = 5
 	spawn_positions = 5
 	description = "Either recently inducted or born into the Brotherhood, you have since proven yourself worthy of assignment to the Chapter. You are to assist your superiors and receive training how they deem fit. You are NEVER allowed to leave the bunker without the direct supervision of a superior; doing so may result in exile."

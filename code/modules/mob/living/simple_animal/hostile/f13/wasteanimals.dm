@@ -82,6 +82,16 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 2
+	lunge_range_max = 4
+	lunge_cooldown = 80
+	lunge_chance = 20
+	lunge_is_teleport = FALSE
+	veer_chance = 25
+	dodge_chance = 15
+	can_retreat = TRUE
+	retreat_health_threshold = 0.2
 	
 	variation_list = list(
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
@@ -383,6 +393,14 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 6
+	lunge_cooldown = 60
+	lunge_chance = 30
+	lunge_is_teleport = FALSE
+	veer_chance = 30
+	dodge_chance = 25
 
 /mob/living/simple_animal/hostile/stalker/Aggro()
 	. = ..()
@@ -616,6 +634,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 10
 	
 	variation_list = list(
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
@@ -720,6 +740,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 0
+	dodge_chance = 0
 
 /mob/living/simple_animal/hostile/gelcube/Initialize()
 	. = ..()
@@ -817,6 +839,14 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 5
+	lunge_cooldown = 60
+	lunge_chance = 30
+	lunge_is_teleport = FALSE
+	veer_chance = 35
+	dodge_chance = 25
 	
 	variation_list = list(
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),

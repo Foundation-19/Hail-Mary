@@ -329,6 +329,7 @@ Vault Engineer
 /datum/job/vault/f13vaultDweller
 	title = "Vault Dweller"
 	flag = ASSISTANT
+	caps_paycheck = PAYCHECK_CAPS_MINIMAL
 	total_positions = 0 //was 12-11
 	spawn_positions = 0
 	forbids = "The Vault forbids: Disobeying the Overseer. Deserting the Vault unless it is rendered unhospitable. Killing fellow Vault Dwellers. Betraying the Vault and its people."

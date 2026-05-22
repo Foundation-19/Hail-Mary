@@ -161,7 +161,7 @@ SUBSYSTEM_DEF(statpanels)
 		list("[config]:", config.stat_entry(), "\ref[config]"),
 		list("Byond:", "(FPS:[world.fps]) (TickCount:[world.time/world.tick_lag]) (TickDrift:[round(Master.tickdrift,1)]([round((Master.tickdrift/(world.time/world.tick_lag))*100,0.1)]%)) (Internal Tick Usage: [round(MAPTICK_LAST_INTERNAL_TICK_USAGE,0.1)]%)"),
 		list("Master Controller:", Master.stat_entry(), "\ref[Master]"),
-		list("Failsafe Controller:", Failsafe.stat_entry(), "\ref[Failsafe]"),
+		list("Failsafe Controller:", Failsafe ? Failsafe.stat_entry() : "Not started", Failsafe ? "\ref[Failsafe]" : ""),
 		list("","")
 	)
 	for(var/ss in Master.subsystems)

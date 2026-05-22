@@ -628,6 +628,12 @@
 					//if(tplus > tloss)
 					//	H.adjustOrganLoss(ORGAN_SLOT_BRAIN,  max(0, min(99, ((tlimit - tplus) / tlimit * 100))), 150)
 					log_combat(user, H, "revived", defib)
+					
+					// Karma for reviving
+					if(user.ckey)
+						var/karma_action = H.client ? "revive_player" : "revive_npc"
+						modify_karma_by_action(user.ckey, karma_action, null, "Revived [H.real_name] with defib")
+					
 					if(req_defib)
 						if(defib.healdisk)
 							H.heal_overall_damage(25, 25)

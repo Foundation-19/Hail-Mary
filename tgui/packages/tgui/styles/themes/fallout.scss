@@ -2,6 +2,14 @@
  * Fallout 1 phosphor green terminal theme for Hail Mary Station 13
  * Monochrome green CRT phosphor (#4cff4c) on near-black (#050c05).
  * Matches classic Fallout 1 / RobCo terminal aesthetic.
+ * 
+ * Features:
+ * - CRT scanlines
+ * - Phosphor glow effect
+ * - Screen curvature simulation
+ * - Vignette effect
+ * - Subtle flicker animation
+ * - Screen noise
  */
 
 @use 'sass:color';
@@ -10,6 +18,10 @@
 $phosphor: #4cff4c;
 $phosphor-dim: #3ac83a;
 $phosphor-text: #a8d8a8;
+$phosphor-glow: rgba(76, 255, 76, 0.6);
+$phosphor-bloom: rgba(76, 255, 76, 0.15);
+$crt-bg: #050c05;
+$crt-bg-light: #0a1a0a;
 
 @use '../colors.scss' with (
   $primary: $phosphor,
@@ -17,10 +29,47 @@ $phosphor-text: #a8d8a8;
   $bg-map-keys: (),
 );
 @use '../base.scss' with (
-  $color-bg: #1a1f1a,
+  $color-bg: $crt-bg,
   $color-bg-grad-spread: 0%,
   $border-radius: 0,
 );
+
+// CRT Flicker Animation
+@keyframes crt-flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.98; }
+  15% { opacity: 0.96; }
+  20% { opacity: 0.99; }
+  25% { opacity: 0.97; }
+  30% { opacity: 0.98; }
+  35% { opacity: 0.95; }
+  40% { opacity: 0.97; }
+  45% { opacity: 0.99; }
+  50% { opacity: 0.98; }
+  55% { opacity: 0.96; }
+  60% { opacity: 0.98; }
+  65% { opacity: 0.97; }
+  70% { opacity: 0.99; }
+  75% { opacity: 0.96; }
+  80% { opacity: 0.98; }
+  85% { opacity: 0.97; }
+  90% { opacity: 0.99; }
+  95% { opacity: 0.96; }
+  100% { opacity: 0.98; }
+}
+
+// Blinking cursor animation
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+// Text glow pulse
+@keyframes glow-pulse {
+  0%, 100% { text-shadow: 0 0 4px $phosphor-glow, 0 0 8px $phosphor-bloom; }
+  50% { text-shadow: 0 0 6px $phosphor-glow, 0 0 12px $phosphor-bloom; }
+}
 
 .theme-fallout {
   // Atomic classes
@@ -52,32 +101,101 @@ $phosphor-text: #a8d8a8;
     'background-color': #030703,
   ));
 
-  font-family: 'Courier New', Courier, monospace;
+  font-family: 'VT323', 'Courier New', Courier, monospace;
   color: $phosphor-text;
+  font-size: 16px;
+  letter-spacing: 0.02em;
 
+  // Main window with CRT effects
   .Window {
     color: $phosphor-text;
-    background-image: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 3px,
-      rgba(0, 0, 0, 0.1) 3px,
-      rgba(0, 0, 0, 0.1) 4px
-    );
-    background-attachment: local;
+    background-color: $crt-bg;
+    position: relative;
+    overflow: hidden;
+    
+    // Scanlines overlay
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      pointer-events: none;
+      z-index: 1000;
+    }
+    
+    // Vignette effect
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        transparent 60%,
+        rgba(0, 0, 0, 0.4) 100%
+      );
+      pointer-events: none;
+      z-index: 1001;
+    }
+  }
+
+  // Window content with flicker
+  .Window__content {
+    animation: crt-flicker 0.15s infinite;
   }
 
   .Button {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #04100a;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+    font-size: 18px;
+    background-color: transparent;
     color: $phosphor;
-    border: base.em(1px) solid $phosphor-dim;
+    border: 1px solid $phosphor-dim;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: all 0.1s ease;
+    
+    &:hover {
+      background-color: rgba(76, 255, 76, 0.1);
+      text-shadow: 0 0 8px $phosphor-glow;
+      border-color: $phosphor;
+    }
+    
+    &:active {
+      background-color: rgba(76, 255, 76, 0.2);
+    }
+    
+    &:disabled {
+      color: #2a3a2a;
+      border-color: #1a2a1a;
+    }
+  }
+
+  .Button--selected {
+    background-color: $phosphor-dim !important;
+    color: $crt-bg !important;
+    text-shadow: none !important;
+    
+    &:hover {
+      background-color: $phosphor !important;
+    }
   }
 
   .NumberInput {
     color: $phosphor;
     border-color: $phosphor-dim;
-    background-color: #04100a;
+    background-color: rgba(0, 0, 0, 0.3);
   }
 
   .NumberInput__bar {
@@ -87,74 +205,247 @@ $phosphor-text: #a8d8a8;
 
   .Layout__content {
     background-image: none;
+    background-color: $crt-bg;
   }
 
   h1, h2, h3, h4, h5 {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
     color: $phosphor;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 4px rgba(77, 255, 77, 0.2);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 8px $phosphor-glow, 0 0 16px $phosphor-bloom;
+    margin: 0;
+    padding: 0;
   }
 
   a {
     color: $phosphor;
-  }
-
-  a:hover {
-    color: #c8ffc8;
+    text-shadow: 0 0 4px $phosphor-glow;
+    
+    &:hover {
+      color: #c8ffc8;
+      text-shadow: 0 0 8px $phosphor-glow;
+    }
   }
 
   .ProgressBar__content {
     color: $phosphor;
-    mix-blend-mode: difference;
+    mix-blend-mode: normal;
+    text-shadow: 0 0 4px $phosphor-glow;
+  }
+  
+  .ProgressBar {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid $phosphor-dim;
   }
 
   .Section__title {
     border-color: $phosphor-dim;
+    border-bottom: 1px solid $phosphor-dim;
     background: transparent;
+    padding: 4px 8px;
   }
 
   .Section__titleText {
     color: $phosphor;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-shadow: 0 0 3px rgba(77, 255, 77, 0.2);
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 6px $phosphor-glow;
+    font-size: 18px;
   }
 
   .Section {
     background: transparent;
     box-shadow: none;
     border: none;
+    margin: 4px 0;
   }
 
   .Tabs {
     background-color: transparent;
+    border-bottom: 1px solid $phosphor-dim;
   }
 
   .Tab {
     color: $phosphor-dim;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 1em;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: 1px solid transparent;
+    border-bottom: none;
+    transition: all 0.1s ease;
 
     &:hover {
       color: $phosphor;
       background-color: rgba(74, 237, 146, 0.08);
+      text-shadow: 0 0 6px $phosphor-glow;
     }
   }
 
   .Tab--selected {
-    color: #041a0e;
+    color: $crt-bg;
     background-color: $phosphor-dim;
-    font-weight: bold;
+    font-weight: normal;
+    text-shadow: none !important;
+    border-color: $phosphor-dim;
 
     &:hover {
       background-color: $phosphor;
+      color: $crt-bg;
     }
   }
 
   .Tabs--vertical .Tab--selected {
     border-right-color: $phosphor;
+  }
+
+  // Input styling
+  .Input {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid $phosphor-dim;
+    color: $phosphor;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+    font-size: 16px;
+    
+    &:focus {
+      border-color: $phosphor;
+      box-shadow: 0 0 8px $phosphor-bloom;
+      outline: none;
+    }
+  }
+
+  // Dropdown styling
+  .Dropdown {
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid $phosphor-dim;
+    color: $phosphor;
+    
+    &:hover {
+      border-color: $phosphor;
+    }
+  }
+
+  .Dropdown__content {
+    background-color: $crt-bg;
+    border: 1px solid $phosphor-dim;
+  }
+
+  .Dropdown__option {
+    color: $phosphor;
+    
+    &:hover {
+      background-color: rgba(76, 255, 76, 0.1);
+    }
+  }
+
+  // TextArea styling
+  .TextArea {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid $phosphor-dim;
+    color: $phosphor;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+    font-size: 16px;
+    
+    &:focus {
+      border-color: $phosphor;
+      box-shadow: 0 0 8px $phosphor-bloom;
+      outline: none;
+    }
+  }
+
+  // Custom terminal cursor
+  .terminal-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background-color: $phosphor;
+    animation: cursor-blink 1s step-end infinite;
+    margin-left: 2px;
+    vertical-align: middle;
+  }
+
+  // ASCII box drawing characters
+  .terminal-box {
+    border: none;
+    position: relative;
+    padding: 8px 12px;
+    margin: 8px 0;
+    
+    &::before {
+      content: '╔';
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: $phosphor;
+      font-size: 16px;
+    }
+  }
+
+  // Terminal header style
+  .terminal-header {
+    border-top: 1px solid $phosphor-dim;
+    border-bottom: 1px solid $phosphor-dim;
+    padding: 8px 0;
+    text-align: center;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: $phosphor;
+    text-shadow: 0 0 8px $phosphor-glow;
+    margin: 4px 0;
+  }
+
+  // Terminal footer style
+  .terminal-footer {
+    border-top: 1px solid $phosphor-dim;
+    padding: 8px 0;
+    font-family: 'VT323', 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: $phosphor-dim;
+    font-size: 14px;
+  }
+
+  // Selected menu item
+  .menu-item-selected {
+    background-color: $phosphor-dim;
+    color: $crt-bg;
+    padding: 2px 8px;
+    
+    &::before {
+      content: '► ';
+    }
+  }
+
+  // Menu item hover
+  .menu-item {
+    cursor: pointer;
+    padding: 2px 8px;
+    transition: all 0.1s ease;
+    
+    &:hover {
+      background-color: rgba(76, 255, 76, 0.15);
+      text-shadow: 0 0 6px $phosphor-glow;
+      
+      &::before {
+        content: '► ';
+      }
+    }
+  }
+
+  // Divider line
+  .terminal-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      $phosphor-dim 5%,
+      $phosphor-dim 95%,
+      transparent 100%
+    );
+    margin: 8px 0;
   }
 }

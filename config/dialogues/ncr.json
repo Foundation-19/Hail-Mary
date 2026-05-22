@@ -1,0 +1,128 @@
+{
+  "ncr": {
+    "faction": "ncr",
+    "default_greeting": "What do you want, civilian? We're busy here.",
+    "barks": {
+      "idle": [
+        "Patrolling the Mojave almost makes you wish for a nuclear winter.",
+        "When I got this assignment I was hoping there would be more gambling.",
+        "It's been a long tour, all I can think about now is going back home.",
+        "You know, if you were serving, you'd probably be halfway to general by now.",
+        "You oughtta think about enlisting. We need good people here.",
+        "For the Republic!",
+        "Just another day in the Mojave.",
+        "I heard the Legion's been moving troops again."
+      ],
+      "combat": [
+        "Contact! Contact!",
+        "Suppressing fire!",
+        "For the Republic!",
+        "Take cover!",
+        "Medic! We need a medic!",
+        "Flank them!",
+        "They've got us pinned!"
+      ],
+      "greeting": [
+        "Hold it right there, civilian.",
+        "Keep your hands where I can see them.",
+        "What's your business here?",
+        "Move along, nothing to see."
+      ]
+    },
+    "bark_chance": 0.02,
+    "bark_cooldown": 60,
+    "bark_range": 7,
+    "rank_greetings": {
+      "Idolized": "Welcome, hero of the Republic! The NCR owes you a debt of gratitude. How can we assist?",
+      "Admired": "It's good to see a friend of the NCR. What brings you to us?",
+      "Liked": "Welcome back, ally. What do you need?",
+      "Accepted": "Good to see a friendly face. What's your business?",
+      "Neutral": "What do you want, civilian? We're busy here.",
+      "Shunned": "I've heard about your... activities. Watch yourself around here.",
+      "Disliked": "You're not welcome at this NCR installation. Leave.",
+      "Hated": "Leave immediately. You're an enemy of the Republic.",
+      "Vilified": "Guards! This enemy of the NCR is on base!"
+    },
+    "nodes": {
+      "start": {
+        "text": "What do you want, civilian? We're busy here.",
+        "responses": [
+          {"text": "Looking for work", "next": "work"},
+          {"text": "Need supplies", "next": "supplies"},
+          {"text": "Any missions?", "next": "missions"},
+          {"text": "How's the situation?", "next": "situation"}
+        ]
+      },
+      "work": {
+        "text": "Good to hear. We always need help with various tasks around here.",
+        "responses": [
+          {"text": "What kind of tasks?", "next": "missions"},
+          {"text": "I'm ready to help", "next": "volunteer"}
+        ]
+      },
+      "volunteer": {
+        "text": "Talk to the quartermaster. He'll have something for you. Good luck, soldier.",
+        "rewards": {
+          "rep": {"ncr": 5}
+        },
+        "responses": [
+          {"text": "Thank you", "next": "end"}
+        ]
+      },
+      "supplies": {
+        "text": "The quartermaster tent is to the east. We're short on everything, but he'll find you something if he can.",
+        "responses": [
+          {"text": "Where exactly?", "next": "supplies_location"}
+        ]
+      },
+      "supplies_location": {
+        "text": "Head east past the command tent. You can't miss it - there's a big 'Q' painted on the canvas."
+      },
+      "missions": {
+        "text": "We've got raiders causing trouble to the east. Also, Legion scouts have been spotted north. It's been quiet... too quiet.",
+        "responses": [
+          {"text": "Raiders? I can help", "next": "raiders"},
+          {"text": "Legion? Tell me more", "next": "legion_info"}
+        ]
+      },
+      "raiders": {
+        "text": "Clear out the raider camp at the old gas station. Bring back proof of elimination and you'll be rewarded.",
+        "rewards": {
+          "quest": "ncr_raiders"
+        },
+        "responses": [
+          {"text": "Consider it done", "next": "end"}
+        ]
+      },
+      "legion_info": {
+        "text": "Just scouts so far. No main force, but we're watching the borders closely. Report any Legion activity immediately."
+      },
+      "situation": {
+        "text": "Raiders to the east, Legion to the north. It's been quiet... too quiet. Stay alert out there, civilian."
+      },
+      "end": {
+        "text": "Stay safe out there."
+      }
+    }
+  },
+  "ncr_ranger": {
+    "faction": "ncr",
+    "default_greeting": "Keep your head down, civilian.",
+    "rank_greetings": {
+      "Idolized": "Command says you're one of us. What do you need, hero?",
+      "Neutral": "Keep your head down, civilian.",
+      "Vilified": "I should take you in right now."
+    },
+    "nodes": {
+      "start": {
+        "text": "Keep your head down, civilian.",
+        "responses": [
+          {"text": "Need any help?", "next": "help"}
+        ]
+      },
+      "help": {
+        "text": "If you can fight, there's always use for another gun. Check with the sergeant for assignments."
+      }
+    }
+  }
+}

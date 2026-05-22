@@ -22,6 +22,8 @@
 
 	var/employer_icon = "employer_00.png"
 
+	var/karma_type = "neutral"
+
 /datum/bounty_quest/proc/ItsATarget(var/target)
 	for(var/target_type in target_items)
 		if(istype(target, target_type))
@@ -40,6 +42,7 @@
 	end_message = "Superb job, thanks for that. Here's your caps"
 	target_items = list(/mob/living/simple_animal/hostile/ghoul = 5)
 	caps_reward = 850
+	karma_type = "good"
 
 /datum/bounty_quest/faction/wasteland/qst_1
 	name = "Wasteland Bounties"
@@ -91,6 +94,7 @@
 	need_message = "Caesar's Legion seeks the aid of locals willing to serve mighty Caesar. We seek the death of the NCR dogs in the area. Bring us three of their dogtags and we will give you 800 caps"
 	target_items = list(/obj/item/stack/sheet/animalhide = 5)
 	caps_reward = 103
+	karma_type = "evil"
 
 /datum/bounty_quest/faction/wasteland/qst_7
 	name = "Wasteland Bounties"

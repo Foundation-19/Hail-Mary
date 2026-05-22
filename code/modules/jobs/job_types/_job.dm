@@ -64,6 +64,10 @@
 
 	//Special faction system
 	var/social_faction = null
+	
+	// Roleplay: Faction reputation requirement
+	var/required_faction_rep = 0
+	var/required_faction = null
 
 
 	//The amount of good boy points playing this role will earn you towards a higher chance to roll antagonist next round
@@ -72,6 +76,7 @@
 
 	var/paycheck = PAYCHECK_MINIMAL
 	var/paycheck_department = ACCOUNT_CIV
+	var/caps_paycheck = PAYCHECK_CAPS_MINIMAL
 
 	var/list/mind_traits // Traits added to the mind of the mob assigned this job
 	var/list/blacklisted_quirks		//list of quirk typepaths blacklisted.
@@ -210,6 +215,7 @@
 		H.special_i = clamp(H.special_i + modify_special["special_i"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 		H.special_a = clamp(H.special_a + modify_special["special_a"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 		H.special_l = clamp(H.special_l + modify_special["special_l"], SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+		H.update_perk_traits()
 
 	var/datum/outfit/job/O = outfit_override || outfit
 	if(O)
@@ -410,6 +416,13 @@
 		if(istype(T) && T.factionized)
 			T.linked_mob = H
 	//Fortuna edit end. radio management
+	
+	// Apply character background
+	var/list/bg_data = get_character_background(H.ckey)
+	if(bg_data)
+		var/datum/background/B = GLOB.character_backgrounds[bg_data["type"]]
+		if(B)
+			B.apply_background(H)
 
 /datum/outfit/job/get_chameleon_disguise_info()
 	var/list/types = ..()

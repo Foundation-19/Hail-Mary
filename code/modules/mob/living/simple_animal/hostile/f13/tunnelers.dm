@@ -68,6 +68,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
 
 /mob/living/simple_animal/hostile/trog/Aggro()
 	. = ..()
@@ -158,6 +160,15 @@
 	)
 	
 	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 5
+	lunge_cooldown = 70
+	lunge_chance = 25
+	lunge_is_teleport = FALSE
+	veer_chance = 25
+	dodge_chance = 20
+	can_ambush = TRUE
 
 /mob/living/simple_animal/hostile/trog/tunneler/Aggro()
 	. = ..()

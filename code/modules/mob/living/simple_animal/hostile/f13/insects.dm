@@ -83,6 +83,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 10
 
 /mob/living/simple_animal/hostile/giantant/Aggro()
 	. = ..()
@@ -406,6 +408,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 15
+	dodge_chance = 10
 	
 	// Color randomization
 	var/scorpion_color = "radscorpion"
@@ -556,6 +560,19 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+
+	// Anti-kite AI - cazadors lunge, dodge, and veer while chasing
+	anti_kite = TRUE
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 7
+	lunge_cooldown = 50
+	lunge_chance = 35
+	lunge_is_teleport = TRUE
+	can_dodge_shots = TRUE
+	dodge_chance = 35
+	dodge_cooldown = 15
+	veer_chance = 40
 
 /mob/living/simple_animal/hostile/cazador/Aggro()
 	. = ..()
@@ -710,6 +727,14 @@
 	ranged = TRUE
 	retreat_distance = 4
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 6
+	lunge_cooldown = 50
+	lunge_chance = 30
+	lunge_is_teleport = TRUE
+	veer_chance = 35
+	dodge_chance = 25
 	
 	ranged_cooldown_time = 3 SECONDS
 	auto_fire_delay = GUN_BURSTFIRE_DELAY_NORMAL
@@ -829,6 +854,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 10
 	
 	variation_list = list(
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),

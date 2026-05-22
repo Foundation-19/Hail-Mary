@@ -81,6 +81,8 @@
 	ranged = TRUE
 	retreat_distance = 14
 	minimum_distance = 1
+	veer_chance = 25
+	dodge_chance = 20
 	
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/beam/laser/pistol/wattz

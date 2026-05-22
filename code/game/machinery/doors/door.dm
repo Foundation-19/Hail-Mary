@@ -34,6 +34,8 @@
 	var/assemblytype //the type of door frame to drop during deconstruction
 	var/datum/effect_system/spark_spread/spark_system
 	var/damage_deflection = 10
+	var/faction_access = null // Faction name required for access (e.g., "ncr", "legion", "bos")
+	var/faction_access_level = 0 // Minimum reputation level required (New Vegas style: -100=Vilified to 100=Idolized)
 	var/real_explosion_block	//ignore this, just use explosion_block
 	var/red_alert_access = FALSE //if TRUE, this door will always open on red alert
 	var/poddoor = FALSE
@@ -257,6 +259,21 @@
 		return TRUE
 	if(unrestricted_side(M))
 		return TRUE
+	if(faction_access && isliving(M))
+		var/mob/living/L = M
+		if(L.ckey)
+			var/reputation = get_faction_reputation(L.ckey, faction_access)
+			if(reputation >= faction_access_level)
+				return TRUE
+			if(faction_access == "ncr")
+				to_chat(L, span_warning("The NCR soldier blocks your path. You need a better reputation with the NCR."))
+			else if(faction_access == "legion")
+				to_chat(L, span_warning("The Legion soldier blocks your path. You need a better reputation with the Legion."))
+			else if(faction_access == "bos")
+				to_chat(L, span_warning("The Brotherhood paladin blocks your path. You need a better reputation with the Brotherhood."))
+			else
+				to_chat(L, span_warning("You need a better reputation with [faction_access] to access this area."))
+			return FALSE
 	return ..()
 
 /obj/machinery/door/proc/unrestricted_side(mob/M) //Allows for specific side of airlocks to be unrestrected (IE, can exit maint freely, but need access to enter)

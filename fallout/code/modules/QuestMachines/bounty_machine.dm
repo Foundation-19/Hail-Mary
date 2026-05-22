@@ -129,7 +129,10 @@
 	C.add(current_quest.caps_reward - 1)
 	C.forceMove(connected_pod.loc)
 
-	// 3. Delete quest
+	// 3. Apply karma and reputation based on quest employer
+	apply_bounty_quest_rewards(user, current_quest)
+
+	// 4. Delete quest
 	to_chat(user, current_quest.end_message)
 	active_quests -= current_quest
 	qdel(current_quest)
@@ -209,6 +212,25 @@
 */
 /obj/machinery/bounty_machine/attack_hand(mob/user)
 	ShowUI()
+
+/proc/apply_bounty_quest_rewards(mob/user, datum/bounty_quest/quest)
+	if(!user?.ckey || !quest)
+		return
+	
+	var/ckey = user.ckey
+	var/employer = lowertext(quest.employer)
+	var/karma_type = quest.karma_type || "neutral"
+	
+	modify_karma_by_action(ckey, "complete_[karma_type]_quest", null, "Completed bounty: [quest.name]")
+	
+	if(findtext(employer, "ncr") || findtext(employer, "department"))
+		adjust_faction_reputation(ckey, "ncr", 10)
+	else if(findtext(employer, "caesar") || findtext(employer, "legion"))
+		adjust_faction_reputation(ckey, "legion", 10)
+	else if(findtext(employer, "brotherhood") || findtext(employer, "bos"))
+		adjust_faction_reputation(ckey, "bos", 10)
+	else if(findtext(employer, "raider") || findtext(employer, "vipers") || findtext(employer, "jackals"))
+		adjust_faction_reputation(ckey, "raiders", 10)
 
 #undef STATE_IDLE
 #undef STATE_VEND

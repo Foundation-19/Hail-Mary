@@ -1,0 +1,123 @@
+{
+  "bighorn": {
+    "faction": "city",
+    "default_greeting": "Welcome to Bighorn. Keep the peace here, you hear?",
+    "rank_greetings": {
+      "Idolized": "Our hero! Bighorn owes you everything! How can we help?",
+      "Admired": "Welcome back, friend of Bighorn. The town is in your debt.",
+      "Liked": "Good to see you! Want a drink on the house?",
+      "Accepted": "Hello there. What brings you to Bighorn?",
+      "Neutral": "Welcome to Bighorn. Keep the peace here, you hear?",
+      "Shunned": "I've heard things about you. Don't cause trouble.",
+      "Disliked": "You're not welcome here. Move along.",
+      "Hated": "Get out of here. Now.",
+      "Vilified": "Sheriff! We got a problem!"
+    },
+    "nodes": {
+      "start": {
+        "text": "Welcome to Bighorn. Keep the peace here, you hear?",
+        "responses": [
+          {"text": "Looking for work", "next": "work"},
+          {"text": "Need supplies", "next": "supplies"},
+          {"text": "What's happening?", "next": "news"},
+          {"text": "Just passing through", "next": "passing"}
+        ]
+      },
+      "work": {
+        "text": "We could always use help around here. Raiders, mutants, you name it.",
+        "responses": [
+          {"text": "What kind of help?", "next": "work_details"},
+          {"text": "I can help", "next": "work_accept"}
+        ]
+      },
+      "work_details": {
+        "text": "The old farm to the east has ghouls. Bunch of them. Clear them out and the farmer'll pay."
+      },
+      "work_accept": {
+        "text": "Good citizen. Here's a little something to start.",
+        "rewards": {
+          "rep": {"city": 5},
+          "caps": 20
+        }
+      },
+      "supplies": {
+        "text": "The general store's got most things. Trader comes through every few days too.",
+        "responses": [
+          {"text": "Where is it?", "next": "store_location"}
+        ]
+      },
+      "store_location": {
+        "text": "Down the main road, can't miss it. Big sign says 'General Store'."
+      },
+      "news": {
+        "text": "Raiders been getting bolder. NCR and Legion are both sniffing around. And that casino...",
+        "responses": [
+          {"text": "What about the casino?", "next": "casino"}
+        ]
+      },
+      "casino": {
+        "text": "Boneyard Casino. Fancy place, lots of caps. Word is they got ties to some shady folks."
+      },
+      "passing": {
+        "text": "Safe travels then. Watch yourself on the roads."
+      },
+      "end": {
+        "text": "See you around, stranger."
+      }
+    }
+  },
+  "bighorn_mayor": {
+    "faction": "city",
+    "default_greeting": "I am the Mayor. Bighorn is my responsibility.",
+    "rank_greetings": {
+      "Idolized": "Our greatest friend! Please, come in. How may the city honor you?",
+      "Neutral": "I am the Mayor. Bighorn is my responsibility.",
+      "Vilified": "You are not welcome in my office."
+    },
+    "nodes": {
+      "start": {
+        "text": "I am the Mayor. Bighorn is my responsibility. What do you need?",
+        "responses": [
+          {"text": "The town needs help", "next": "help_town"},
+          {"text": "Just checking in", "next": "checking"}
+        ]
+      },
+      "help_town": {
+        "text": "We need supplies, protection, everything really. If you can help, Bighorn won't forget it.",
+        "rewards": {
+          "quest": "protect_town"
+        }
+      },
+      "checking": {
+        "text": "Things are... holding. The NCR wants us to join them. The Legion too. Hard to choose."
+      }
+    }
+  },
+  "bighorn_sheriff": {
+    "faction": "city",
+    "default_greeting": "I'm the law in Bighorn. Don't make me show you what that means.",
+    "rank_greetings": {
+      "Idolized": "Hero! Good to see you. Anything I can help with?",
+      "Neutral": "I'm the law in Bighorn. Don't make me show you what that means.",
+      "Vilified": "I've got my eye on you. Don't slip up."
+    },
+    "nodes": {
+      "start": {
+        "text": "I'm the law in Bighorn. Don't make me show you what that means. What do you want?",
+        "responses": [
+          {"text": "Need any help?", "next": "deputy"},
+          {"text": "Just passing through", "next": "passing"}
+        ]
+      },
+      "deputy": {
+        "text": "Could use another gun. Those ghouls on the eastern farm won't clear themselves.",
+        "rewards": {
+          "quest": "kill_ghouls"
+        }
+      },
+      "passing": {
+        "text": "Keep your nose clean."
+      }
+    }
+  }
+}

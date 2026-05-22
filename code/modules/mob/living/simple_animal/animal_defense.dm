@@ -1,4 +1,12 @@
 
+/mob/living/simple_animal/alt_attack_hand(mob/living/carbon/human/user)
+	// Right-click opens dialogue for NPCs with dialogue_type
+	if(istype(src, /mob/living/simple_animal/hostile))
+		var/mob/living/simple_animal/hostile/H = src
+		if(H.dialogue_type && H.stat == CONSCIOUS)
+			start_dialogue(user, H.dialogue_type)
+			return TRUE
+	return ..()
 
 /mob/living/simple_animal/on_attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -13,6 +21,7 @@
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			if (health > 0)
+				// Default help response
 				visible_message(span_notice("[M] [response_help_continuous] [src]."), \
 								span_notice("[M] [response_help_continuous] you."), null, null, null,
 								M, span_notice("You [response_help_simple] [src]."))

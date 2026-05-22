@@ -1,0 +1,185 @@
+{
+  "trader": {
+    "faction": "neutral",
+    "default_greeting": "Take a look at my wares. Best prices in the wasteland!",
+    "barks": {
+      "idle": [
+        "Best prices in the wasteland!",
+        "Got stimpaks, ammo, food - you name it!",
+        "Step right up, step right up!",
+        "Fresh supplies, just arrived!",
+        "Caps talk, friend. What'll it be?",
+        "Quality goods, fair prices.",
+        "Looking for something specific?"
+      ],
+      "combat": [
+        "Hey! That's my merchandise!",
+        "Get away from my stand!",
+        "Help! Bandits!",
+        "You'll pay for that!",
+        "Not my goods!"
+      ],
+      "greeting": [
+        "Welcome, customer!",
+        "Take a look around.",
+        "Fresh stock today.",
+        "Deals to be made."
+      ]
+    },
+    "bark_chance": 0.025,
+    "bark_cooldown": 50,
+    "bark_range": 6,
+    "rank_greetings": {
+      "Idolized": "The hero! What can I do for you? First round's on me!",
+      "Admired": "Welcome, friend! Got some premium stock just for you.",
+      "Liked": "Good to see you! Let me give you a good deal.",
+      "Accepted": "Hello there. Take a look around.",
+      "Neutral": "Take a look at my wares. Best prices in the wasteland!",
+      "Shunned": "I know who you are. Prices are higher for... certain people.",
+      "Disliked": "You... you can look, but don't touch anything.",
+      "Hated": "Get away from my stand!",
+      "Vilified": "Guards! Help!"
+    },
+    "nodes": {
+      "start": {
+        "text": "Take a look at my wares. Best prices in the wasteland!",
+        "responses": [
+          {"text": "What do you have?", "next": "wares"},
+          {"text": "Any rumors?", "next": "rumors"},
+          {"text": "I'm looking to sell", "next": "sell"},
+          {"text": "Any discounts?", "next": "discount"}
+        ]
+      },
+      "wares": {
+        "text": "Stimpaks, Rad-Away, food, ammo - you name it! Prices are negotiable for friends."
+      },
+      "rumors": {
+        "text": "Word is there's a cache of pre-war tech somewhere to the south. Raiders are guarding it. Could be worth a fortune...",
+        "cost": 20,
+        "rewards": {
+          "info": "tech_cache"
+        }
+      },
+      "rumors_free": {
+        "text": "Well, I heard there's some pre-war tech to the south. Raiders near it though."
+      },
+      "sell": {
+        "text": "What do you have? Caps talks, friend."
+      },
+      "discount": {
+        "text": "Hmm, you've got a reputation. 10% off, consider it a thank you.",
+        "rewards": {
+          "rep": {"city": 1}
+        }
+      },
+      "hero_deal": {
+        "text": "25% off! Tell your friends about me, hero. You've earned it.",
+        "rewards": {
+          "rep": {"city": 5}
+        }
+      },
+      "end": {
+        "text": "Come back anytime!"
+      }
+    }
+  },
+  "hub": {
+    "faction": "hubologists",
+    "default_greeting": "Greetings, traveler. Have you found peace?",
+    "rank_greetings": {
+      "Idolized": "Enlightened one! The Great Spirits smile upon you!",
+      "Neutral": "Greetings, traveler. Have you found peace?",
+      "Vilified": "You carry much darkness. Leave us."
+    },
+    "nodes": {
+      "start": {
+        "text": "Greetings, traveler. Have you found peace? The Great spirits watch over us.",
+        "responses": [
+          {"text": "What is this place?", "next": "about"},
+          {"text": "Need supplies", "next": "supplies"},
+          {"text": "Looking for work", "next": "work"}
+        ]
+      },
+      "about": {
+        "text": "We are the Adepts of Hubology. We seek peace through understanding the spirits of the wasteland."
+      },
+      "supplies": {
+        "text": "We have basic supplies. Medicine, food. We share what we can with those seeking enlightenment."
+      },
+      "work": {
+        "text": "There are many in need. Help others, and the Great Spirits will reward you.",
+        "rewards": {
+          "quest": "help_nomads"
+        }
+      }
+    }
+  },
+  "rockspring": {
+    "faction": "village",
+    "default_greeting": "Howdy, stranger. Welcome to Rockspring.",
+    "rank_greetings": {
+      "Idolized": "Our guardian angel! Come on in, make yourself at home!",
+      "Neutral": "Howdy, stranger. Welcome to Rockspring.",
+      "Vilified": "We don't want any trouble here. Move along."
+    },
+    "nodes": {
+      "start": {
+        "text": "Howdy, stranger. Welcome to Rockspring. We ain't much, but we're friendly.",
+        "responses": [
+          {"text": "Nice place", "next": "nice"},
+          {"text": "Need anything?", "next": "help"},
+          {"text": "What's the news?", "next": "news"}
+        ]
+      },
+      "nice": {
+        "text": "Thanks. We do what we can. The motel and diner keep us going."
+      },
+      "help": {
+        "text": "Always need help with something. Raiders, mutants, just general survival.",
+        "responses": [
+          {"text": "I can help", "next": "help_accept"}
+        ]
+      },
+      "help_accept": {
+        "text": "God bless you, friend. Talk to the folks at the diner - they know who needs help.",
+        "rewards": {
+          "rep": {"village": 5}
+        }
+      },
+      "news": {
+        "text": "Bighorn's been growing. NCR's pushing east. It's a changing world out there."
+      }
+    }
+  },
+  "generic": {
+    "faction": "neutral",
+    "default_greeting": "What do you want?",
+    "rank_greetings": {
+      "Idolized": "Oh! It's you! How can I help, hero?",
+      "Neutral": "What do you want?",
+      "Vilified": "I don't want any trouble. Leave me alone."
+    },
+    "nodes": {
+      "start": {
+        "text": "What do you want?",
+        "responses": [
+          {"text": "Just checking in", "next": "checking"},
+          {"text": "Looking for work", "next": "work"},
+          {"text": "None of your business", "next": "rude"}
+        ]
+      },
+      "checking": {
+        "text": "Fine. Fine. Nothing much happening here."
+      },
+      "work": {
+        "text": "Check with the local leader. They always need help with something."
+      },
+      "rude": {
+        "text": "Well, excuse me!"
+      },
+      "end": {
+        "text": "See ya."
+      }
+    }
+  }
+}

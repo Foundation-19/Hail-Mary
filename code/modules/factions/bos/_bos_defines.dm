@@ -1,0 +1,51 @@
+// Brotherhood of Steel Defines
+
+// Ranks
+#define BOS_RANK_INITIATE 1
+#define BOS_RANK_KNIGHT 2
+#define BOS_RANK_KNIGHT_SERGEANT 3
+#define BOS_RANK_PALADIN 4
+#define BOS_RANK_PALADIN_COMMANDER 5
+#define BOS_RANK_HEAD_PALADIN 6
+#define BOS_RANK_ELDER 7
+
+// Paladin Tiers
+#define PALADIN_TIER_INITIATE 0
+#define PALADIN_TIER_KNIGHT 1
+#define PALADIN_TIER_KNIGHT_SERGEANT 2
+#define PALADIN_TIER_PALADIN 3
+#define PALADIN_TIER_SENIOR_PALADIN 4
+#define PALADIN_TIER_PALADIN_COMMANDER 5
+#define PALADIN_TIER_HEAD_PALADIN 6
+
+// Paladin Reputation Requirements
+#define PALADIN_REP_KNIGHT 50
+#define PALADIN_REP_KNIGHT_SERGEANT 150
+#define PALADIN_REP_PALADIN 300
+#define PALADIN_REP_SENIOR_PALADIN 500
+#define PALADIN_REP_PALADIN_COMMANDER 750
+#define PALADIN_REP_HEAD_PALADIN 1000
+
+// Ability Cooldowns
+#define PALADIN_COMBAT_COOLDOWN (15 MINUTES)
+#define PALADIN_TACTICAL_COOLDOWN (20 MINUTES)
+#define PALADIN_PA_COOLDOWN (30 MINUTES)
+
+// Mission Status
+#define BOS_MISSION_AVAILABLE "available"
+#define BOS_MISSION_IN_PROGRESS "in_progress"
+#define BOS_MISSION_COMPLETED "completed"
+#define BOS_MISSION_FAILED "failed"
+
+// Tech Rarity
+#define BOS_TECH_COMMON "common"
+#define BOS_TECH_UNCOMMON "uncommon"
+#define BOS_TECH_RARE "rare"
+#define BOS_TECH_LEGENDARY "legendary"
+
+// Difficulty Stars (for UI display)
+#define BOS_DIFFICULTY_EASY 1
+#define BOS_DIFFICULTY_MEDIUM 2
+#define BOS_DIFFICULTY_HARD 3
+#define BOS_DIFFICULTY_VERY_HARD 4
+#define BOS_DIFFICULTY_EXTREME 5

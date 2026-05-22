@@ -97,6 +97,17 @@
 	retreat_distance = null
 	minimum_distance = 1
 
+	// Anti-kite AI - deathclaws are apex predators that charge and lunge
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 6
+	lunge_cooldown = 80
+	lunge_chance = 25
+	lunge_is_teleport = FALSE
+	veer_chance = 20
+	dodge_chance = 10
+	can_ambush = TRUE
+
 /mob/living/simple_animal/hostile/deathclaw/playable
 	emote_taunt_sound = null
 	emote_taunt = null

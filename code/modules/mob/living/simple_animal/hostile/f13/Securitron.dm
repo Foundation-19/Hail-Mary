@@ -86,6 +86,10 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
+	veer_chance = 10
+	dodge_chance = 5
+	uses_cover = TRUE
+	can_suppress = TRUE
 	
 	ranged_ignores_vision = TRUE
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOW

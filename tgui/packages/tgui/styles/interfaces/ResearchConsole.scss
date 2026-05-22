@@ -1,0 +1,58 @@
+.ResearchConsole__header {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1em;
+  color: #4cff4c;
+  background: #041a0e;
+  padding: 10px 12px;
+  border-bottom: 1px solid #3ac83a;
+  margin-bottom: 10px;
+}
+
+.ResearchConsole__footer {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  color: #3ac83a;
+  background: #030a03;
+  padding: 8px 12px;
+  border-top: 1px solid #1a5e38;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.ResearchConsole__node--researched {
+  border-left: 3px solid #4cff4c;
+  padding-left: 10px;
+  background: #0a2a0a;
+}
+
+.ResearchConsole__node--available {
+  border-left: 3px solid #ffcc00;
+  padding-left: 10px;
+  background: #1a1a04;
+}
+
+.ResearchConsole__node--locked {
+  border-left: 3px solid #444;
+  padding-left: 10px;
+  background: #0a0a0a;
+}
+
+.ResearchConsole__tier-header {
+  font-family: 'Courier New', Courier, monospace;
+  color: #4cff4c;
+  text-transform: uppercase;
+  margin: 15px 0 10px 0;
+  letter-spacing: 0.1em;
+}
+
+.ResearchConsole__points-display {
+  font-family: 'Courier New', Courier, monospace;
+  color: #ffcc00;
+  font-size: 1.2em;
+}
+
+.ResearchConsole__income-display {
+  font-family: 'Courier New', Courier, monospace;
+  color: #4cff4c;
+  font-size: 0.95em;
+}

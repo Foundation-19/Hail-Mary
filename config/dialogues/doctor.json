@@ -1,0 +1,192 @@
+{
+  "doctor": {
+    "faction": "neutral",
+    "default_greeting": "You look like you need medical attention. Step into my clinic.",
+    "barks": {
+      "idle": [
+        "Health is wealth, friend.",
+        "Step right up if you're injured.",
+        "I've got stimpaks and RadAway.",
+        "Best medical care in the wasteland.",
+        "Don't let those rads pile up.",
+        "I've seen worse. Much worse."
+      ],
+      "combat": [
+        "Get down!",
+        "I need cover!",
+        "Medical emergency!",
+        "This one's critical!"
+      ],
+      "greeting": [
+        "Welcome to the clinic.",
+        "Are you injured?",
+        "How can I help you today?",
+        "The doctor is in."
+      ]
+    },
+    "bark_chance": 0.015,
+    "bark_cooldown": 70,
+    "bark_range": 5,
+    "rank_greetings": {
+      "Idolized": "My finest patient! Whatever you need, it's on the house.",
+      "Admired": "Good to see a healthy face. What can I do for you?",
+      "Liked": "Welcome back. Keeping out of trouble?",
+      "Accepted": "You look like you could use some medical attention.",
+      "Neutral": "You look like you need medical attention. Step into my clinic.",
+      "Shunned": "I'll treat you, but prices are double.",
+      "Disliked": "You're lucky I took an oath.",
+      "Hated": "Get out. Find another doctor.",
+      "Vilified": "I'm calling the guards!"
+    },
+    "services": {
+      "heal_minor": {
+        "name": "Minor Treatment",
+        "description": "Heal minor wounds and bruises",
+        "cost_type": "caps",
+        "cost": 25,
+        "effect": "heal_50"
+      },
+      "heal_full": {
+        "name": "Full Treatment",
+        "description": "Complete medical care - heal all wounds",
+        "cost_type": "caps",
+        "cost": 75,
+        "effect": "heal_all"
+      },
+      "cure_rads": {
+        "name": "Radiation Treatment",
+        "description": "Remove all radiation poisoning",
+        "cost_type": "caps",
+        "cost": 100,
+        "effect": "cure_radiation"
+      }
+    },
+    "nodes": {
+      "start": {
+        "text": "You look like you need medical attention. What can I help you with?",
+        "responses": [
+          {"text": "I need healing", "next": "services"},
+          {"text": "How much do you charge?", "next": "prices"},
+          {"text": "Just passing through", "next": "end"}
+        ]
+      },
+      "services": {
+        "text": "I can patch you up. Here are my services:",
+        "responses": [
+          {"text": "Minor Treatment (25 caps)", "next": "service_heal_minor", "service": "heal_minor"},
+          {"text": "Full Treatment (75 caps)", "next": "service_heal_full", "service": "heal_full"},
+          {"text": "Radiation Treatment (100 caps)", "next": "service_cure_rads", "service": "cure_rads"},
+          {"text": "Never mind", "next": "start"}
+        ]
+      },
+      "service_heal_minor": {
+        "text": "There, that should help. Come back if you need more.",
+        "service": "heal_minor"
+      },
+      "service_heal_full": {
+        "text": "All patched up. You're good as new. Almost.",
+        "service": "heal_full"
+      },
+      "service_cure_rads": {
+        "text": "Radiation cleared. Stay away from glowing things.",
+        "service": "cure_rads"
+      },
+      "prices": {
+        "text": "Minor treatment is 25 caps. Full treatment is 75. Radiation treatment is 100 caps. I take payment up front.",
+        "responses": [
+          {"text": "I need healing", "next": "services"}
+        ]
+      },
+      "end": {
+        "text": "Stay healthy out there. The wasteland isn't kind to the injured."
+      }
+    }
+  },
+  "follower_doctor": {
+    "faction": "followers",
+    "default_greeting": "The Followers offer aid to all who seek it. How can we help?",
+    "barks": {
+      "idle": [
+        "The Followers welcome all.",
+        "Knowledge and medicine for everyone.",
+        "We help those in need.",
+        "Have you considered donating to our cause?"
+      ],
+      "combat": [
+        "Protect the patients!",
+        "We need help here!",
+        "Don't let them reach the supplies!"
+      ],
+      "greeting": [
+        "Welcome, traveler.",
+        "Do you need medical assistance?",
+        "The Followers are here to help."
+      ]
+    },
+    "bark_chance": 0.015,
+    "bark_cooldown": 80,
+    "bark_range": 5,
+    "services": {
+      "heal_free": {
+        "name": "Free Treatment",
+        "description": "Basic healing provided by the Followers",
+        "cost_type": "free",
+        "cost": 0,
+        "effect": "heal_50"
+      }
+    },
+    "rank_greetings": {
+      "Idolized": "Our greatest supporter! We have much to thank you for.",
+      "Admired": "Welcome, friend of the Followers. Your help has been invaluable.",
+      "Liked": "Good to see you again. How can we assist?",
+      "Accepted": "Welcome to our clinic. We help all who need it.",
+      "Neutral": "The Followers offer aid to all who seek it. How can we help?",
+      "Shunned": "We help all... but donations would be appreciated.",
+      "Disliked": "We don't turn anyone away. But please don't cause trouble.",
+      "Hated": "We must help you, but I'd prefer you left quickly.",
+      "Vilified": "Even you deserve medical care... just take it and go."
+    },
+    "nodes": {
+      "start": {
+        "text": "The Followers offer aid to all who seek it. We have basic medical supplies and knowledge to share.",
+        "responses": [
+          {"text": "I need healing", "next": "heal"},
+          {"text": "What do the Followers do?", "next": "about"},
+          {"text": "Can I help?", "next": "help"},
+          {"text": "Thank you", "next": "end"}
+        ]
+      },
+      "heal": {
+        "text": "We can provide basic treatment at no cost. Donations are always welcome, of course.",
+        "service": "heal_free",
+        "responses": [
+          {"text": "I'd like to donate", "next": "donate"},
+          {"text": "Thank you", "next": "end"}
+        ]
+      },
+      "donate": {
+        "text": "Your generosity will help many. Thank you.",
+        "rewards": {
+          "rep": {"followers": 10},
+          "karma": 5
+        }
+      },
+      "about": {
+        "text": "We are the Followers of the Apocalypse. We preserve knowledge, heal the sick, and try to make the wasteland a better place. Education and medicine are our primary tools.",
+        "responses": [
+          {"text": "Noble cause", "next": "end"}
+        ]
+      },
+      "help": {
+        "text": "We always need supplies - medicine, food, books. Or you can spread knowledge. Every little bit helps.",
+        "rewards": {
+          "quest": "followers_supplies",
+          "rep": {"followers": 5}
+        }
+      },
+      "end": {
+        "text": "Stay safe out there. Remember: knowledge is power."
+      }
+    }
+  }
+}

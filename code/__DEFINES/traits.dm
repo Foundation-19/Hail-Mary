@@ -465,3 +465,61 @@
 
 /// just a little helper to see if we're not a druggie
 #define NODRUGS(m) (HAS_TRAIT(m, TRAIT_NODRUGS))
+
+// ==========================================
+// PERK SYSTEM TRAITS
+// Strength Perks
+#define TRAIT_PERK_IRON_FIST "perk_iron_fist"
+#define TRAIT_PERK_BIG_LEAGUES "perk_big_leagues"
+#define TRAIT_PERK_STEELFIST "perk_steelfist"
+#define TRAIT_PERK_TANK "perk_tank"
+#define TRAIT_PERK_PIERCING_STRIKE "perk_piercing_strike"
+#define TRAIT_PERK_MARTIAL_ARTS "perk_martial_arts"
+
+// Perception Perks
+#define TRAIT_PERK_AWARENESS "perk_awareness"
+#define TRAIT_PERK_SNIPER "perk_sniper"
+#define TRAIT_PERK_NIGHT_SIGHT "perk_night_sight"
+#define TRAIT_PERK_TARGETED "perk_targeted"
+#define TRAIT_PERK_DETECTIVE "perk_detective"
+#define TRAIT_PERK_EXPLORER "perk_explorer"
+
+// Endurance Perks
+#define TRAIT_PERK_RAD_RESIST "perk_rad_resist"
+#define TRAIT_PERK_TOXICITY "perk_toxicity"
+#define TRAIT_PERK_TOUGHNESS "perk_toughness"
+#define TRAIT_PERK_FAST_HEALER "perk_fast_healer"
+#define TRAIT_PERK_WATER_BREATHING "perk_water_breathing"
+#define TRAIT_PERK_LIVING_LEGEND "perk_living_legend"
+
+// Charisma Perks
+#define TRAIT_PERK_SPEAKER "perk_speaker"
+#define TRAIT_PERK_ANIMAL_FRIEND "perk_animal_friend"
+#define TRAIT_PERK_MERCHANT "perk_merchant"
+#define TRAIT_PERK_LEADER "perk_leader"
+#define TRAIT_PERK_INTIMIDATOR "perk_intimidator"
+#define TRAIT_PERK_VOICE_OF_CHARISMA "perk_voice_of_charisma"
+
+// Intelligence Perks
+#define TRAIT_PERK_SCAVENGER "perk_scavenger"
+#define TRAIT_PERK_MEDIC "perk_medic"
+#define TRAIT_PERK_CHEMIST "perk_chemist"
+#define TRAIT_PERK_HACKER "perk_hacker"
+#define TRAIT_PERK_WEAPONSMITH "perk_weaponsmith"
+#define TRAIT_PERK_GREEDY_GIFT "perk_greedy_gift"
+
+// Agility Perks
+#define TRAIT_PERK_ACTION_GIRL "perk_action_girl"
+#define TRAIT_PERK_MOVING_TARGET "perk_moving_target"
+#define TRAIT_PERK_DODGER "perk_dodger"
+#define TRAIT_PERK_SPEED_DEMON "perk_speed_demon"
+#define TRAIT_PERK_SILENT_RUNNING "perk_silent_running"
+#define TRAIT_PERK_LIGHT_STEP "perk_light_step"
+
+// Luck Perks
+#define TRAIT_PERK_FORTUNE_FINDER "perk_fortune_finder"
+#define TRAIT_PERK_MYSTERIOUS_STRANGER "perk_mysterious_stranger"
+#define TRAIT_PERK_LOOTER "perk_looter"
+#define TRAIT_PERK_CRITICAL_EYE "perk_critical_eye"
+#define TRAIT_PERK_SAFE_FOR_WORK "perk_safe_for_work"
+#define TRAIT_PERK_CASINO "perk_casino"

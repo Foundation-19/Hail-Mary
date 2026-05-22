@@ -8,8 +8,8 @@
 
 @use '~tgui/styles/colors.scss';
 @use '~tgui/styles/base.scss' with (
-  $color-bg: #202020,
-  $color-bg-section: color.adjust(#202020, $lightness: -5%),
+  $color-bg: #0a0f0a,
+  $color-bg-section: color.adjust(#0a0f0a, $lightness: 3%),
   $color-bg-grad-spread: 0%,
 );
 
@@ -58,3 +58,53 @@
 
 // Goonchat styles
 @include meta.load-css('./goon/chat-dark.scss');
+
+// Fallout Terminal Theme - Base Styles
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  --phosphor: #4cff4c;
+  --phosphor-bright: #6bff6b;
+  --phosphor-dim: #3ac83a;
+  --phosphor-text: #a8d8a8;
+  --terminal-bg: #0a0f0a;
+  --terminal-bg-light: #121a12;
+  --terminal-border: #1a2a1a;
+}
+
+html, body {
+  background-color: var(--terminal-bg) !important;
+  color: var(--phosphor-text) !important;
+  font-family: 'VT323', 'Courier New', monospace !important;
+  text-shadow: 0 0 5px rgba(74, 255, 76, 0.3);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  z-index: 9999;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+  z-index: 9998;
+}

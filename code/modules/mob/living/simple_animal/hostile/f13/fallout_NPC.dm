@@ -13,6 +13,8 @@
 	icon_living = "vault_dweller"
 	icon_dead = "vault_dweller"
 	
+	dialogue_type = "vault"
+	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	
 	maxHealth = 100
@@ -60,6 +62,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
 
 /mob/living/simple_animal/hostile/vault/CanAttack(atom/the_target)
 	if(isliving(the_target))
@@ -189,6 +193,8 @@
 	icon_living = "enclave_specialist"
 	icon_dead = "enclave_specialist"
 	
+	dialogue_type = "enclave"
+	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_ENCLAVE
 	
@@ -239,6 +245,12 @@
 	ranged = TRUE
 	retreat_distance = 6
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
+	can_retreat = TRUE
+	retreat_health_threshold = 0.3
+	can_use_stimpak = TRUE
+	stimpak_threshold = 0.4
 	
 	ranged_cooldown_time = 22
 	extra_projectiles = 2
@@ -340,7 +352,10 @@
 	combat_mode = COMBAT_MODE_RANGED
 	retreat_distance = 3
 	minimum_distance = 1
-	
+	uses_cover = TRUE
+	can_throw_grenades = TRUE
+	can_suppress = TRUE
+
 	ranged_cooldown_time = 12
 	extra_projectiles = 2
 	attack_verb_simple = "power-fists"
@@ -394,6 +409,8 @@
 	icon_living = "bs_knight"
 	icon_dead = "bs_knight"
 	
+	dialogue_type = "brotherhood"
+	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_BOS
 	
@@ -444,6 +461,12 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
+	can_retreat = TRUE
+	retreat_health_threshold = 0.3
+	can_use_stimpak = TRUE
+	stimpak_threshold = 0.4
 
 /mob/living/simple_animal/hostile/bs/Aggro()
 	. = ..()
@@ -517,7 +540,8 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
-	
+	uses_cover = TRUE
+
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/beam/laser/lasgun/hitscan
 	projectilesound = 'sound/f13weapons/aer9fire.ogg'
@@ -565,6 +589,8 @@
 	icon_state = "ncr_trooper"
 	icon_living = "ncr_trooper"
 	icon_dead = "ncr_trooper"
+	
+	dialogue_type = "ncr"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_NCR
@@ -616,6 +642,12 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
+	can_retreat = TRUE
+	retreat_health_threshold = 0.3
+	can_use_stimpak = TRUE
+	stimpak_threshold = 0.4
 
 /mob/living/simple_animal/hostile/ncr/Aggro()
 	. = ..()
@@ -689,7 +721,9 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
-	
+	uses_cover = TRUE
+	can_throw_grenades = TRUE
+
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/m44/simple
 	projectilesound = 'sound/f13weapons/44mag.ogg'
@@ -734,6 +768,8 @@
 	icon_state = "legion_prime"
 	icon_living = "legion_prime"
 	icon_dead = "legion_prime"
+	
+	dialogue_type = "legion"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_LEGION
@@ -785,6 +821,10 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
+	can_retreat = TRUE
+	retreat_health_threshold = 0.3
 
 /mob/living/simple_animal/hostile/legion/Aggro()
 	. = ..()
@@ -859,7 +899,8 @@
 	ranged = TRUE
 	retreat_distance = 5
 	minimum_distance = 1
-	
+	uses_cover = TRUE
+
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
@@ -902,6 +943,8 @@
 	icon_state = "tribal_raider"
 	icon_living = "tribal_raider"
 	icon_dead = "tribal_raider_dead"
+	
+	dialogue_type = "tribal"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_TRIBAL
@@ -949,6 +992,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
 
 /mob/living/simple_animal/hostile/tribe/Aggro()
 	. = ..()

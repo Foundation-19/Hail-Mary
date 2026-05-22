@@ -42,6 +42,8 @@
 #define UNIT_TEST_SKIPPED 2
 
 //Keep this sorted alphabetically
+// unit_test.dm must be first as it defines the base class
+#include "unit_test.dm"
 #include "anchored_mobs.dm"
 #include "character_saving.dm"
 #include "combat.dm"
@@ -57,11 +59,11 @@
 #include "reagent_mod_procs.dm"
 #include "reagent_recipe_collisions.dm"
 #include "resist.dm"
+#include "roleplay_tests.dm"
 #include "spawn_mobs.dm"
 #include "subsystem_init.dm"
 #include "surgeries.dm"
 #include "timer_sanity.dm"
-#include "unit_test.dm"
 #include "_coyote_tests.dm"
 
 #undef TEST_ASSERT

@@ -468,6 +468,101 @@ CREATE TABLE `schema_revision` (
   PRIMARY KEY (`major`, `minor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `faction_reputation`
+--
+
+DROP TABLE IF EXISTS `faction_reputation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `faction_reputation` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `faction_id` varchar(50) NOT NULL,
+  `reputation_value` int(11) NOT NULL DEFAULT 0,
+  `rank_title` varchar(50) DEFAULT NULL,
+  `last_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_faction` (`ckey`, `faction_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `player_karma`
+--
+
+DROP TABLE IF EXISTS `player_karma`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player_karma` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `karma_value` int(11) NOT NULL DEFAULT 0,
+  `ncr_karma` int(11) NOT NULL DEFAULT 0,
+  `legion_karma` int(11) NOT NULL DEFAULT 0,
+  `last_updated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ckey` (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `character_background`
+--
+
+DROP TABLE IF EXISTS `character_background`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `character_background` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `background_type` varchar(50) DEFAULT NULL,
+  `backstory` text,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ckey` (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `character_relationships`
+--
+
+DROP TABLE IF EXISTS `character_relationships`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `character_relationships` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `char_1` varchar(32) NOT NULL,
+  `char_2` varchar(32) NOT NULL,
+  `relationship_type` enum('friend','enemy','family','rival','mentor','student') DEFAULT NULL,
+  `description` text,
+  `is_secret` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_relationship` (`char_1`, `char_2`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `player_levels`
+--
+
+DROP TABLE IF EXISTS `player_levels`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player_levels` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ckey` varchar(32) NOT NULL,
+  `xp` bigint NOT NULL DEFAULT 0,
+  `level` int NOT NULL DEFAULT 1,
+  `special_bonuses` varchar(20) DEFAULT '',
+  `bonus_perk_points` int NOT NULL DEFAULT 0,
+  `last_xp_gain` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ckey` (`ckey`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 DELIMITER $$
 CREATE TRIGGER `role_timeTlogupdate` AFTER UPDATE ON `role_time` FOR EACH ROW BEGIN INSERT into role_time_log (ckey, job, delta) VALUES (NEW.ckey, NEW.job, CAST(NEW.minutes AS SIGNED) - CAST(OLD.minutes AS SIGNED));
 END

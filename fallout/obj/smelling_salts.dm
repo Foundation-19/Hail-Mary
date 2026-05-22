@@ -129,4 +129,12 @@
 		to_chat(revived_mob, policy)
 	revived_mob.log_message("revived using smelling salts, [time_since_death / 10] seconds from time of death, considered [late? "late" : "memory-intact"] revival under configured policy limits.", LOG_GAME)
 	//add_logs(user, revived_mob, "revived (smelling salts)", src)
+
+	// Karma: Reviving others grants significant karma
+	if(revived_mob != user && user && user.ckey)
+		if(revived_mob.client)
+			modify_karma_by_action(user.ckey, "revive_player", null, "Revived a player with smelling salts")
+		else
+			modify_karma_by_action(user.ckey, "revive_npc", null, "Revived an NPC with smelling salts")
+
 	in_use = FALSE

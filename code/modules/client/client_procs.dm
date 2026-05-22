@@ -117,6 +117,10 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 	if (citadel_client_procs(href_list))
 		return
 
+	// Roleplay system Topic handlers
+	if(handle_roleplay_topic(src, href_list))
+		return
+
 	switch(href_list["_src_"])
 		if("holder")
 			hsrc = holder

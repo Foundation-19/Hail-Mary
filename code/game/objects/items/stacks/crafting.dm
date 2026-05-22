@@ -89,9 +89,6 @@ GLOBAL_LIST_INIT(electronicparts_recipes, list ( \
 	. = ..()
 	. += GLOB.electronicparts_recipes
 //BIG IRON EDIT end
-/obj/item/stack/crafting/electronicparts/get_main_recipes()
-	. = ..()
-	. += GLOB.electronicparts_recipes
 
 /obj/item/stack/crafting/powder
 	name = "bullet remnants"

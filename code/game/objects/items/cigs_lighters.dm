@@ -215,14 +215,11 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/clothing/mask/cigarette/process()
 	var/turf/location = get_turf(src)
-	var/mob/living/M = loc
-	if(isliving(loc))
-		M.IgniteMob()
 	smoketime--
 	if(smoketime < 1)
 		new type_butt(location)
 		if(ismob(loc))
-			to_chat(M, span_notice("Your [name] goes out."))
+			to_chat(loc, span_notice("Your [name] goes out."))
 		qdel(src)
 		return
 	open_flame()

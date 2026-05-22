@@ -221,9 +221,12 @@
 			span_warning("[M] pushes you out of the way."), null, COMBAT_MESSAGE_RANGE, null,
 			M.occupant, span_warning("You push [src] out of the way with your [M.name]."))
 
-/mob/living/fire_act()
-	adjust_fire_stacks(3)
-	IgniteMob()
+/mob/living/fire_act(exposed_temperature, exposed_volume)
+	if(on_fire)
+		return
+	if(exposed_temperature > FIRE_MINIMUM_TEMPERATURE_TO_EXIST && exposed_volume >= 50)
+		adjust_fire_stacks(min(exposed_temperature / 100, 5))
+		IgniteMob()
 
 /// SRC is GRABBED by USER
 /mob/living/proc/grabbedby(mob/living/carbon/user, supress_message = FALSE)

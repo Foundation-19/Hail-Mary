@@ -67,6 +67,14 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 2
+	lunge_range_max = 4
+	lunge_cooldown = 70
+	lunge_chance = 30
+	lunge_is_teleport = FALSE
+	veer_chance = 25
+	dodge_chance = 20
 
 /mob/living/simple_animal/hostile/texas_rattler/Aggro()
 	. = ..()

@@ -24,6 +24,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/vision_cone_timer = null // Timer for periodic cone updates
 	var/previous_move_intent = null // Saves movement speed before sneak mode
 
+	// Dialogue system - allows specific NPCs to have custom dialogue
+	var/dialogue_type = null // Set to dialogue tree name for custom dialogue
+
+	// Quest tracking
+	var/recent_hostile_kill_time = 0
+
 /mob/living/carbon/human/Initialize()
 	add_verb(src, /mob/living/proc/mob_sleep)
 	add_verb(src, /mob/living/proc/lay_down)
@@ -686,6 +692,10 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 						if(!usr.can_hold_items() || !usr.put_in_hands(pocket_item))
 							pocket_item.forceMove(drop_location())
 						log_combat(usr, src, "pickpocketed of item: [pocket_item]")
+						
+						// Karma penalty for pickpocketing
+						if(usr.ckey)
+							modify_karma_by_action(usr.ckey, "pickpocket", null, "Pickpocketed [src]")
 				else
 					if(place_item)
 						if(place_item.mob_can_equip(src, usr, pocket_id, FALSE, TRUE))

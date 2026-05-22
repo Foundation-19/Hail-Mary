@@ -3,35 +3,28 @@
 /atom/proc/temperature_expose(datum/gas_mixture/air, exposed_temperature, exposed_volume)
 	return null
 
-
+#define FIRE_SPREAD_RANGE 1
+#define FIRE_BURN_DAMAGE 20
+#define FIRE_OBJECT_DAMAGE 30
+#define FIRE_SPREAD_CHANCE 30
+#define FIRE_DECAY_RATE 0.04
+#define FIRE_MIN_STACKS_TO_SPREAD 2
+#define FIRE_SPREAD_TEMP_THRESHOLD (FIRE_MINIMUM_TEMPERATURE_TO_EXIST + 50)
 
 /turf/proc/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
-	return
-
-
-/*
-/turf/open/hotspot_expose(exposed_temperature, exposed_volume, soh)
-	if(!air)
+	if(exposed_temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST)
 		return
-
-	if (air.get_oxidation_power(exposed_temperature) < 0.5)
+	if(exposed_volume < 25)
 		return
-	var/has_fuel = air.get_moles(GAS_PLASMA) > 0.5 || air.get_moles(GAS_TRITIUM) > 0.5 || air.get_fuel_amount(exposed_temperature) > 0.5
 	if(active_hotspot)
-		if(soh)
-			if(has_fuel)
-				if(active_hotspot.temperature < exposed_temperature)
-					active_hotspot.temperature = exposed_temperature
-				if(active_hotspot.volume < exposed_volume)
-					active_hotspot.volume = exposed_volume
+		if(soh && active_hotspot.temperature < exposed_temperature)
+			active_hotspot.temperature = exposed_temperature
 		return
+	active_hotspot = new /obj/effect/hotspot(src, exposed_volume, exposed_temperature)
 
+/turf/open/hotspot_expose(exposed_temperature, exposed_volume, soh = 0)
+	..()
 
-	if((exposed_temperature > PLASMA_MINIMUM_BURN_TEMPERATURE) && has_fuel)
-		active_hotspot = new /obj/effect/hotspot(src, exposed_volume*25, exposed_temperature)
- */
-
-//This is the icon for fire on turfs, also helps for nurturing small fires until they are full tile
 /obj/effect/hotspot
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -46,46 +39,93 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
+	var/duration = 200
+	var/ticks = 0
 
 /obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
 	. = ..()
-	// SSair.hotspots += src
 	if(!isnull(starting_volume))
 		volume = starting_volume
 	if(!isnull(starting_temperature))
 		temperature = starting_temperature
 	perform_exposure()
 	setDir(pick(GLOB.cardinals))
-	// air_update_turf()
-	QDEL_IN(src, 10)
+	START_PROCESSING(SSobj, src)
 
+/obj/effect/hotspot/Destroy()
+	STOP_PROCESSING(SSobj, src)
+	set_light(0)
+	var/turf/T = loc
+	if(istype(T) && T.active_hotspot == src)
+		T.active_hotspot = null
+	return ..()
+
+/obj/effect/hotspot/process()
+	var/turf/location = loc
+	if(!istype(location))
+		qdel(src)
+		return
+
+	ticks++
+	if(ticks >= duration)
+		qdel(src)
+		return
+
+	if(temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST || volume <= 1)
+		qdel(src)
+		return
+
+	perform_exposure()
+
+	volume -= FIRE_DECAY_RATE * volume
+	temperature -= 3
+
+	if(volume > CELL_VOLUME * 0.95)
+		icon_state = "3"
+		if(istype(location, /turf/open))
+			location.burn_tile()
+	else if(volume > CELL_VOLUME * 0.4)
+		icon_state = "2"
+	else
+		icon_state = "1"
+
+	if((visual_update_tick++ % 7) == 0)
+		update_color()
+
+	if(prob(FIRE_SPREAD_CHANCE) && temperature > FIRE_SPREAD_TEMP_THRESHOLD)
+		for(var/t in RANGE_TURFS(FIRE_SPREAD_RANGE, location))
+			var/turf/T = t
+			if(T == location)
+				continue
+			if(!T.active_hotspot && istype(T, /turf/open))
+				var/has_flammable = FALSE
+				for(var/obj/item/I in T)
+					if(I.resistance_flags & FLAMMABLE)
+						has_flammable = TRUE
+						break
+				for(var/obj/structure/S in T)
+					if(S.resistance_flags & FLAMMABLE)
+						has_flammable = TRUE
+						break
+				for(var/mob/living/L in T)
+					if(L.on_fire)
+						has_flammable = TRUE
+						break
+				if(has_flammable || prob(15))
+					T.hotspot_expose(temperature * 0.7, volume / 2)
+
+	return TRUE
 
 /obj/effect/hotspot/proc/perform_exposure()
-	var/turf/open/location = loc
-	if(!istype(location) || !(location.air))
+	var/turf/location = loc
+	if(!istype(location))
 		return
 
 	location.active_hotspot = src
 
-	bypassing = volume > CELL_VOLUME*0.95
-
-	/*
-	if(bypassing)
-		volume = location.air.reaction_results["fire"]*FIRE_GROWTH_RATE
-		temperature = location.air.return_temperature()
-	else
-		var/datum/gas_mixture/affected = location.air.remove_ratio(volume/location.air.return_volume())
-		if(affected) //in case volume is 0
-			affected.set_temperature(temperature)
-			affected.react(src)
-			temperature = affected.return_temperature()
-			volume = affected.reaction_results["fire"]*FIRE_GROWTH_RATE
-			location.assume_air(affected)
-	*/
-
 	for(var/A in location)
 		var/atom/AT = A
-		if(!QDELETED(AT) && AT != src) // It's possible that the item is deleted in temperature_expose
+		if(!QDELETED(AT) && AT != src)
 			AT.fire_act(temperature, volume)
 	return
 
@@ -101,42 +141,18 @@
 	var/heat_g = heat2colour_g(temperature)
 	var/heat_b = heat2colour_b(temperature)
 	var/heat_a = 255
-	var/greyscale_fire = 1 //This determines how greyscaled the fire is.
+	var/greyscale_fire = 1
 
-	if(temperature < 5000) //This is where fire is very orange, we turn it into the normal fire texture here.
+	if(temperature < 5000)
 		var/normal_amt = gauss_lerp(temperature, 1000, 3000)
 		heat_r = LERP(heat_r,255,normal_amt)
 		heat_g = LERP(heat_g,255,normal_amt)
 		heat_b = LERP(heat_b,255,normal_amt)
 		heat_a -= gauss_lerp(temperature, -5000, 5000) * 128
 		greyscale_fire -= normal_amt
-	if(temperature > 40000) //Past this temperature the fire will gradually turn a bright purple
+	if(temperature > 40000)
 		var/purple_amt = temperature < LERP(40000,200000,0.5) ? gauss_lerp(temperature, 40000, 200000) : 1
 		heat_r = LERP(heat_r,255,purple_amt)
-	if(temperature > 200000 && temperature < 500000) //Somewhere at this temperature nitryl happens.
-		var/sparkle_amt = gauss_lerp(temperature, 200000, 500000)
-		var/mutable_appearance/sparkle_overlay = mutable_appearance('icons/effects/effects.dmi', "shieldsparkles")
-		sparkle_overlay.blend_mode = BLEND_ADD
-		sparkle_overlay.alpha = sparkle_amt * 255
-		add_overlay(sparkle_overlay)
-	if(temperature > 400000 && temperature < 1500000) //Lightning because very anime.
-		var/mutable_appearance/lightning_overlay = mutable_appearance(icon, "overcharged")
-		lightning_overlay.blend_mode = BLEND_ADD
-		add_overlay(lightning_overlay)
-	if(temperature > 4500000) //This is where noblium happens. Some fusion-y effects.
-		var/fusion_amt = temperature < LERP(4500000,12000000,0.5) ? gauss_lerp(temperature, 4500000, 12000000) : 1
-		var/mutable_appearance/fusion_overlay = mutable_appearance('icons/effects/atmospherics.dmi', "fusion_gas")
-		fusion_overlay.blend_mode = BLEND_ADD
-		fusion_overlay.alpha = fusion_amt * 255
-		var/mutable_appearance/rainbow_overlay = mutable_appearance('icons/mob/screen_gen.dmi', "druggy")
-		rainbow_overlay.blend_mode = BLEND_ADD
-		rainbow_overlay.alpha = fusion_amt * 255
-		rainbow_overlay.appearance_flags = RESET_COLOR
-		heat_r = LERP(heat_r,150,fusion_amt)
-		heat_g = LERP(heat_g,150,fusion_amt)
-		heat_b = LERP(heat_b,150,fusion_amt)
-		add_overlay(fusion_overlay)
-		add_overlay(rainbow_overlay)
 
 	set_light(l_color = rgb(LERP(250,heat_r,greyscale_fire),LERP(160,heat_g,greyscale_fire),LERP(25,heat_b,greyscale_fire)))
 
@@ -147,82 +163,6 @@
 	color = list(LERP(0.3, 1, 1-greyscale_fire) * heat_r,0.3 * heat_g * greyscale_fire,0.3 * heat_b * greyscale_fire, 0.59 * heat_r * greyscale_fire,LERP(0.59, 1, 1-greyscale_fire) * heat_g,0.59 * heat_b * greyscale_fire, 0.11 * heat_r * greyscale_fire,0.11 * heat_g * greyscale_fire,LERP(0.11, 1, 1-greyscale_fire) * heat_b, 0,0,0)
 	alpha = heat_a
 
-#define INSUFFICIENT(path) (location.air.get_moles(path) < 0.5)
-
-/obj/effect/hotspot/process()
-	var/turf/open/location = loc
-	if(!istype(location))
-		qdel(src)
-		return
-
-	location.eg_reset_cooldowns()
-
-	if((temperature < FIRE_MINIMUM_TEMPERATURE_TO_EXIST) || (volume <= 1))
-		qdel(src)
-		return
-	if(!location.air || location.air.get_oxidation_power() < 0.5 || (INSUFFICIENT(GAS_PLASMA) && INSUFFICIENT(GAS_TRITIUM) && location.air.get_fuel_amount() < 0.5))
-		qdel(src)
-		return
-
-	perform_exposure()
-
-	if(bypassing)
-		icon_state = "3"
-		location.burn_tile()
-
-		//Possible spread due to radiated heat
-		if(location.air.return_temperature() > FIRE_MINIMUM_TEMPERATURE_TO_SPREAD)
-			var/radiated_temperature = location.air.return_temperature()*FIRE_SPREAD_RADIOSITY_SCALE
-			for(var/t in location.atmos_adjacent_turfs)
-				var/turf/open/T = t
-				if(!T.active_hotspot)
-					T.hotspot_expose(radiated_temperature, CELL_VOLUME/4)
-
-	else
-		if(volume > CELL_VOLUME*0.4)
-			icon_state = "2"
-		else
-			icon_state = "1"
-
-	if((visual_update_tick++ % 7) == 0)
-		update_color()
-
-	if(temperature > location.max_fire_temperature_sustained)
-		location.max_fire_temperature_sustained = temperature
-
-	if(location.heat_capacity && temperature > location.heat_capacity)
-		location.to_be_destroyed = TRUE
-	return TRUE
-
-/obj/effect/hotspot/Destroy()
-	set_light(0)
-	// SSair.hotspots -= src
-	var/turf/open/T = loc
-	if(istype(T) && T.active_hotspot == src)
-		T.active_hotspot = null
-	DestroyTurf()
-	return ..()
-
-/obj/effect/hotspot/proc/DestroyTurf()
-	if(isturf(loc))
-		var/turf/T = loc
-		if(T.to_be_destroyed && !T.changing_turf)
-			var/chance_of_deletion
-			if (T.heat_capacity) //beware of division by zero
-				chance_of_deletion = T.max_fire_temperature_sustained / T.heat_capacity * 8 //there is no problem with prob(23456), min() was redundant --rastaf0
-			else
-				chance_of_deletion = 100
-			if(prob(chance_of_deletion))
-				T.Melt()
-			else
-				T.to_be_destroyed = FALSE
-				T.max_fire_temperature_sustained = 0
-
-/obj/effect/hotspot/proc/on_entered(atom/movable/AM, oldLoc)
-	SIGNAL_HANDLER
-	if(isliving(AM))
-		INVOKE_ASYNC(AM, TYPE_PROC_REF(/atom, fire_act), temperature, volume)
-
 /obj/effect/hotspot/singularity_pull()
 	return
 
@@ -231,4 +171,10 @@
 	light_color = LIGHT_COLOR_FIRE
 	light_range = LIGHT_RANGE_FIRE
 
-#undef INSUFFICIENT
+#undef FIRE_SPREAD_RANGE
+#undef FIRE_BURN_DAMAGE
+#undef FIRE_OBJECT_DAMAGE
+#undef FIRE_SPREAD_CHANCE
+#undef FIRE_DECAY_RATE
+#undef FIRE_MIN_STACKS_TO_SPREAD
+#undef FIRE_SPREAD_TEMP_THRESHOLD

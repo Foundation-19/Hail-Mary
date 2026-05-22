@@ -1,11 +1,12 @@
 /**
  * Copyright (c) 2020 Aleksej Komarov
  * SPDX-License-Identifier: MIT
+ * Modified for Fallout Terminal Theme
  */
 
 @use "sass:math";
 
-$border-color: rgba(140, 140, 140, 0.5) !default;
+$border-color: rgba(76, 255, 76, 0.5) !default;
 
 .Ping {
   position: relative;
@@ -14,6 +15,8 @@ $border-color: rgba(140, 140, 140, 0.5) !default;
   border-radius: 0.25em;
   width: 3.75em;
   text-align: right;
+  color: #a8d8a8;
+  font-family: 'VT323', 'Courier New', monospace;
 }
 
 .Ping__indicator {
@@ -23,6 +26,7 @@ $border-color: rgba(140, 140, 140, 0.5) !default;
   left: 0.5em;
   width: 0.5em;
   height: 0.5em;
-  background-color: #888;
+  background-color: #4cff4c;
   border-radius: 0.25em;
+  box-shadow: 0 0 5px rgba(76, 255, 76, 0.5);
 }

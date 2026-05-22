@@ -2,21 +2,21 @@ macro "default"
 
 
 menu "menu"
-	elem 
+	elem
 		name = "&File"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Quick screenshot\tF2"
 		command = ".screenshot auto"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Save screenshot as...\tShift+F2"
 		command = ".screenshot"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = ""
 		command = ""
 		category = "&File"
@@ -26,21 +26,21 @@ menu "menu"
 		command = ".reconnect"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Quit\tAlt-F4"
 		command = ".quit"
 		category = "&File"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Help"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Admin Help\tF1"
 		command = "adminhelp"
 		category = "&Help"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Hotkeys"
 		command = "hotkeys-help"
 		category = "&Help"
@@ -56,10 +56,11 @@ window "mainwindow"
 		anchor2 = -1,-1
 		is-default = true
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Hail Mary"
+		title = "RobCo Terminal - Hail Mary"
 		icon = 'icons\\deathclawlogo.png'
 		macro = "default"
 		menu = "menu"
+		background-color = #0a0f0a
 	elem "split"
 		type = CHILD
 		pos = 3,0
@@ -96,18 +97,19 @@ window "mapwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		background-color = #0a0f0a
 	elem "map"
 		type = MAP
 		pos = 0,0
 		size = 1024x1024
 		anchor1 = 0,0
 		anchor2 = 100,100
-		font-family = "Arial"
+		font-family = "Courier New"
 		font-size = 7
 		text-color = none
 		is-default = true
 		saved-params = "zoom;letterbox;zoom-mode"
-		style = ".center { text-align: center; } .maptext { font-family: 'Small Fonts'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .command_headset { font-weight: bold;\tfont-size: 8px; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .greentext { color: #00FF00; font-size: 7px; } .redtext { color: #FF0000; font-size: 7px; } .clown { color: #FF69Bf; font-size: 7px;  font-weight: bold; } .his_grace { color: #15D512; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-size: 6px; }"
+		style = ".center { text-align: center; } .maptext { font-family: 'Courier New'; font-size: 7px; -dm-text-outline: 1px black; color: white; line-height: 1.1; } .command_headset { font-weight: bold;	font-size: 8px; } .small { font-size: 6px; } .big { font-size: 8px; } .reallybig { font-size: 8px; } .extremelybig { font-size: 8px; } .greentext { color: #4cff4c; font-size: 7px; } .redtext { color: #FF3333; font-size: 7px; } .clown { color: #FF69Bf; font-size: 7px;  font-weight: bold; } .his_grace { color: #4cff4c; } .hypnophrase { color: #0d0d0d; font-weight: bold; } .yell { font-weight: bold; } .italics { font-size: 6px; }"
 
 window "infowindow"
 	elem "infowindow"
@@ -116,7 +118,7 @@ window "infowindow"
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = none
+		background-color = #0a0f0a
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 		image = 'icons\\bigironserverbanner.png'
@@ -128,11 +130,11 @@ window "infowindow"
 		size = 160x20
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #0a1a0a
+		text-color = #4cff4c
 		font-family = "Courier New"
 		font-size = 10
-		text = "Set OOC Status"
+		text = ">SET OOC STATUS"
 		command = "setoocstatus"
 	elem "info"
 		type = CHILD
@@ -140,7 +142,7 @@ window "infowindow"
 		size = 640x445
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = none
+		background-color = #0a0f0a
 		saved-params = "splitter"
 		left = "statwindow"
 		right = "outputwindow"
@@ -151,11 +153,11 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 34,0
 		anchor2 = 50,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #0a1a0a
+		text-color = #4cff4c
 		font-family = "Courier New"
 		font-size = 10
-		text = "Wiki"
+		text = ">WIKI"
 		command = "openwiki"
 	elem "changelog"
 		type = BUTTON
@@ -163,11 +165,11 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 50,0
 		anchor2 = 66,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #0a1a0a
+		text-color = #4cff4c
 		font-family = "Courier New"
 		font-size = 10
-		text = "Changelog"
+		text = ">CHANGELOG"
 		command = "Changelog"
 	elem "github"
 		type = BUTTON
@@ -175,11 +177,11 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 66,0
 		anchor2 = 81,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #0a1a0a
+		text-color = #4cff4c
 		font-family = "Courier New"
 		font-size = 10
-		text = "Github"
+		text = ">GITHUB"
 		command = "github"
 	elem "discord"
 		type = BUTTON
@@ -187,11 +189,11 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 81,0
 		anchor2 = 97,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #0a1a0a
+		text-color = #4cff4c
 		font-family = "Courier New"
 		font-size = 10
-		text = "Discord/Rules"
+		text = ">DISCORD"
 		command = "discord"
 
 window "outputwindow"
@@ -203,13 +205,17 @@ window "outputwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		background-color = #0a0f0a
 	elem "input"
 		type = INPUT
 		pos = 2,460
 		size = 595x20
 		anchor1 = 0,100
 		anchor2 = 100,100
+		font-family = "Courier New"
 		font-style = "bold"
+		text-color = #4cff4c
+		background-color = #0a1a0a
 		is-default = true
 		border = sunken
 		saved-params = "command"
@@ -220,8 +226,11 @@ window "outputwindow"
 		anchor1 = 100,100
 		anchor2 = -1,-1
 		saved-params = "is-checked"
-		text = "Chat"
-		command = ".winset \"saybutton.is-checked=true ? input.command=\"!say \\\"\" : input.command=\""
+		text = ">"
+		background-color = #0a1a0a
+		text-color = #4cff4c
+		font-family = "Courier New"
+		command = ".winset \"saybutton.is-checked=true ? input.command=\"!say \\\"\" : input.command=\"\""
 		is-flat = true
 		button-type = pushbox
 	elem "browseroutput"
@@ -230,7 +239,7 @@ window "outputwindow"
 		size = 640x456
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #ffffff
+		background-color = #0a0f0a
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
@@ -254,6 +263,7 @@ window "popupwindow"
 		saved-params = "pos;size;is-minimized;is-maximized"
 		statusbar = false
 		can-resize = false
+		background-color = #0a0f0a
 
 window "preferences_window"
 	elem "preferences_window"
@@ -265,6 +275,7 @@ window "preferences_window"
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		statusbar = false
+		background-color = #0a0f0a
 		image = 'icons\\CharacterCreator.png'
 	elem "Powerbutton"
 		type = BUTTON
@@ -301,6 +312,7 @@ window "statwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		background-color = #0a0f0a
 		image = 'icons\\pipscreen.png'
 	elem "statbrowser"
 		type = BROWSER
@@ -310,4 +322,3 @@ window "statwindow"
 		anchor2 = 100,100
 		is-visible = false
 		saved-params = ""
-

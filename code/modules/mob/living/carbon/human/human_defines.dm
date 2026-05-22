@@ -38,6 +38,9 @@
 	var/facial_hair_color = "000"
 	var/facial_hair_style = "Shaved"
 
+	// Roleplay: Speech accent
+	var/accent_type = "none"
+
 	//Eye colour
 	var/left_eye_color = "000"
 	var/right_eye_color = "000"

@@ -80,6 +80,8 @@
 	ranged = TRUE
 	retreat_distance = 3
 	minimum_distance = 1
+	veer_chance = 15
+	dodge_chance = 15
 	
 	ranged_message = "spits poison"
 	ranged_cooldown_time = 3 SECONDS

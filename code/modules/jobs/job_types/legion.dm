@@ -101,6 +101,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13legate
 	title = "Legion Legate"
 	flag = F13LEGATE
+	caps_paycheck = PAYCHECK_CAPS_LEADERSHIP
 	head_announce = list("Security")
 	supervisors = "Caesar"
 	selection_color = "#ffdddd"
@@ -158,6 +159,10 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
 	exp_requirements = 750
+	
+	// Roleplay: Requires Legion reputation
+	required_faction = "legion"
+	required_faction_rep = 50
 
 
 /datum/outfit/job/CaesarsLegion/Legionnaire/f13orator	// .357 Revolver, Spatha
@@ -198,6 +203,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13centurion
 	title = "Legion Centurion"
 	flag = F13CENTURION
+	caps_paycheck = PAYCHECK_CAPS_COMMAND
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
@@ -211,6 +217,10 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 
 	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
+	
+	// Roleplay: Requires Legion reputation
+	required_faction = "legion"
+	required_faction_rep = 100
 
 	loadout_options = list(
 		/datum/outfit/loadout/palacent,		// Lewis Gun Mk2 + 14mm Pistol, armor plates
@@ -299,6 +309,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13lictor
 	title = "Legion Lictor"
 	flag = F13LICTOR
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 1
 	spawn_positions = 1
 	description = "A martial arts, unarmed fighter. You answer directly to the Centurion or the Orator. You will heed to personally protect the high-value noncombatants of the Legion, such as the Orator, the Forgemaster, or any other noncombatants that leave the camp for offiical diplomatic business."
@@ -377,6 +388,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13decanvet
 	title = "Legion Veteran Decanus"
 	flag = F13DECANVET
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 1
 	spawn_positions = 1
 	description = "You answer directly to the Centurion, his second in command. Lead the camp, ensure its defended, keep track of the Explorers and use your veterans to their full potential."
@@ -478,6 +490,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13decan
 	title = "Legion Prime Decanus"
 	flag = F13DECAN
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 1
 	spawn_positions = 1
 	description = "A experienced officer, often commanding the camp. Give orders, lead patrols."
@@ -744,6 +757,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13explorer
 	title = "Legion Explorer"
 	flag = F13EXPLORER
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 3
 	spawn_positions = 3
 	description = "Scout the area, secure key points, but do not ignore orders or wordlessly die some place. A good explorer helps his unit by taking initiative and helping the commander without needing micro-managment."
@@ -914,6 +928,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13legionary
 	title = "Prime Legionnaire"
 	flag = F13LEGIONARY
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 4
 	spawn_positions = 4
 	description = "A front line soldier who has shown ability to obey and fought in some battles. The Legions muscle, the young men who will build the future with their own blood and sacrifice, for Caesar."
@@ -990,6 +1005,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 /datum/job/CaesarsLegion/Legionnaire/f13recleg
 	title = "Recruit Legionnaire"
 	flag = F13RECRUITLEG
+	caps_paycheck = PAYCHECK_CAPS_LOW
 	display_order = JOB_DISPLAY_ORDER_RECRUITLEG
 	total_positions = -1
 	spawn_positions = -1
@@ -1353,6 +1369,7 @@ Venator  - Zero slots, role built on cloning vet ranger, linear just vastly bett
 /datum/job/CaesarsLegion/Legionnaire/f13venator
 	title = "Legion Venator"
 	flag = F13VENATOR
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 0
 	spawn_positions = 0
 	description = "You are the Venator -- the Hunter. With your powerful rifle and your many years of experience, you are a formidable killing machine, capable of taking down even the most formidable targets. Note that you are not a rank-and-file legionary, and you should not be operating as such -- your job is special operations, not fighting alongside the hordes of the Legion."

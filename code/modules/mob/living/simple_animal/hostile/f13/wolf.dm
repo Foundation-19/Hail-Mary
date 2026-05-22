@@ -90,6 +90,17 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 5
+	lunge_cooldown = 70
+	lunge_chance = 25
+	lunge_is_teleport = FALSE
+	veer_chance = 30
+	dodge_chance = 20
+	can_ambush = TRUE
+	can_retreat = TRUE
+	retreat_health_threshold = 0.2
 
 /mob/living/simple_animal/hostile/wolf/Aggro()
 	. = ..()

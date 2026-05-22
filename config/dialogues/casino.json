@@ -1,0 +1,91 @@
+{
+  "casino": {
+    "faction": "neutral",
+    "default_greeting": "Welcome to the Boneyard Casino. Fortune favors the bold.",
+    "rank_greetings": {
+      "Idolized": "Our biggest spender! The VIP room is open for you.",
+      "Neutral": "Welcome to the Boneyard Casino. Fortune favors the bold.",
+      "Vilified": "We don't serve your kind here. Get out."
+    },
+    "nodes": {
+      "start": {
+        "text": "Welcome to the Boneyard Casino. Try your luck at the tables, or maybe you're here for other... business?",
+        "responses": [
+          {"text": "I want to gamble", "next": "gamble"},
+          {"text": "Who runs this place?", "next": "owner"},
+          {"text": "Looking for work", "next": "work"}
+        ]
+      },
+      "gamble": {
+        "text": "The tables are over there. Don't bet more than you can afford to lose... or do, I don't care."
+      },
+      "owner": {
+        "text": "Let's just say we have... influential friends. Best not to ask questions."
+      },
+      "work": {
+        "text": "We always need muscle. Security, collections, some 'special' jobs. Talk to the manager if you're interested."
+      }
+    }
+  },
+  "clinic": {
+    "faction": "neutral",
+    "default_greeting": "Welcome. How can I help you today?",
+    "rank_greetings": {
+      "Idolized": "Our hero! Come in, I'll give you a full checkup free of charge.",
+      "Neutral": "Welcome. How can I help you today?",
+      "Vilified": "I don't treat people like you. Find another doctor."
+    },
+    "nodes": {
+      "start": {
+        "text": "Welcome to the clinic. Radiation poisoning? Bullet wounds? I'm sure we can help... for a price.",
+        "responses": [
+          {"text": "I need medical treatment", "next": "treatment"},
+          {"text": "Looking for supplies", "next": "supplies"},
+          {"text": "Any work available?", "next": "work"}
+        ]
+      },
+      "treatment": {
+        "text": "Let's see... Stimpaks are 50 caps, Rad-Away is 75. Major treatments cost more. What do you need?",
+        "rewards": {
+          "heal": true
+        }
+      },
+      "supplies": {
+        "text": "Medical supplies are in high demand. I can sell you Stimpaks, Rad-Away, bandages. Best prices in town."
+      },
+      "work": {
+        "text": "I could use help getting more medical supplies. Dangerous territory out there. Interested?",
+        "rewards": {
+          "quest": "medical_supplies"
+        }
+      }
+    }
+  },
+  "bunker": {
+    "faction": "neutral",
+    "default_greeting": "This is a secure facility. State your business.",
+    "rank_greetings": {
+      "Idolized": "Welcome, ally. The bunker is open to you.",
+      "Neutral": "This is a secure facility. State your business.",
+      "Vilified": "This area is restricted. Leave now."
+    },
+    "nodes": {
+      "start": {
+        "text": "This bunker has been here since before the war. Plenty of secrets... and dangers.",
+        "responses": [
+          {"text": "What's inside?", "next": "inside"},
+          {"text": "Looking for work", "next": "work"}
+        ]
+      },
+      "inside": {
+        "text": "Old tech, pre-war weapons, maybe some vaults worth of supplies. But there's also... things. Mutants, traps."
+      },
+      "work": {
+        "text": "Clear out the lower levels and I'll give you a share of what we find. Deal?",
+        "rewards": {
+          "quest": "clear_bunker"
+        }
+      }
+    }
+  }
+}

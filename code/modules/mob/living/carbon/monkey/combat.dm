@@ -290,6 +290,9 @@
 				if(M.temporarilyRemoveItemFromInventory(pickupTarget) && !QDELETED(pickupTarget))
 					if(!equip_item(pickupTarget))
 						dropItemToGround(pickupTarget)
+					// Karma for pickpocketing (only if player)
+					if(M.ckey && ckey)
+						modify_karma_by_action(ckey, "pickpocket", null, "Pickpocketed [M]")
 				else
 					M.visible_message(span_danger("[src] tried to snatch [pickupTarget] from [M], but failed!"), span_userdanger("[src] tried to grab [pickupTarget]!"))
 	pickpocketing = FALSE

@@ -109,6 +109,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 15
+	dodge_chance = 20
 
 /mob/living/simple_animal/hostile/handy/Initialize()
 	. = ..()
@@ -620,6 +622,14 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 5
+	lunge_cooldown = 60
+	lunge_chance = 30
+	lunge_is_teleport = FALSE
+	veer_chance = 30
+	dodge_chance = 25
 
 // NSB ASSAULTRON
 /mob/living/simple_animal/hostile/handy/assaultron/nsb

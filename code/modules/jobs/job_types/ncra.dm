@@ -25,6 +25,8 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	forbids = "The NCR forbids: Chem and drug use such as jet or alcohol while on duty. Execution of unarmed or otherwise subdued targets without authorisation."
 	enforces = "The NCR expects: Obeying the lawful orders of superiors. Proper treatment of prisoners.  Good conduct within the Republic's laws. Wearing the uniform."
 	objectivesList = list("Leadership recommends the following goal for this week: Establish an outpost at the radio tower","Leadership recommends the following goal for this week: Neutralize and capture dangerous criminals", "Leadership recommends the following goal for this week: Free slaves and establish good relations with unaligned individuals.")
+	
+	// Roleplay: Base jobs have no rep requirement (see specific jobs for tiered requirements)
 
 /datum/outfit/job/ncr
 	name = "NCRdatums"
@@ -61,6 +63,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13colonel
 	title = "NCR Colonel"
 	flag = F13COLONEL
+	caps_paycheck = PAYCHECK_CAPS_COMMAND
 	head_announce = list("Security")
 	supervisors = "The Republic Senate, High Command"
 	access = list(ACCESS_NCR, ACCESS_NCR_ARMORY, ACCESS_CHANGE_IDS, ACCESS_NCR_COMMAND)
@@ -145,6 +148,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13captain
 	title = "NCR Captain"
 	flag = F13CAPTAIN
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	head_announce = list("Security")
 	total_positions = 1
 	spawn_positions = 1
@@ -226,6 +230,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13lieutenant
 	title = "NCR Lieutenant"
 	flag = F13LIEUTENANT
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the direct superior to the NCOs and Enlisted, and under special circumstances, Rangers. You are the XO of Camp Miller. You plan patrols, training and missions, working in some cases with Rangers in accomplishing objectives otherwise beyond the capabilities of ordinary enlisted personnel."
@@ -285,6 +290,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13sergeant
 	title = "NCR Sergeant"
 	flag = F13SERGEANT
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 2
 	spawn_positions = 2
 	description = "You are the direct superior to the enlisted troops, working with the chain of command you echo the orders of your superiors and ensure that the enlisted follow them to the letter. Additionally, you are responsible for the wellbeing of the troops and their ongoing training with the NCR."
@@ -294,6 +300,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	display_order = JOB_DISPLAY_ORDER_SERGEANT
 	outfit = /datum/outfit/job/ncr/f13sergeant
 	exp_requirements = 500
+	
+	// Roleplay: Require NCR reputation
+	required_faction = "ncr"
+	required_faction_rep = 50
 
 	loadout_options = list( 
 		/datum/outfit/loadout/sergeantrifleman,	// standard service rifle with an added revolver
@@ -445,6 +455,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13representative
 	title = "NCR Brahmin Baron"
 	flag = F13REP
+	caps_paycheck = PAYCHECK_CAPS_LEADERSHIP
 	access = list(ACCESS_NCR, ACCESS_NCR_ARMORY, ACCESS_NCRREP)
 	total_positions = 1
 	spawn_positions = 1
@@ -524,6 +535,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13heavytrooper
 	title = "NCR Heavy Trooper"
 	flag = F13HEAVYTROOPER
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 1
 	spawn_positions = 1
 	description = "You are the most elite of the enlisted, sergeant in rank forgoing regular command roles to lead in battle only. You are expected to guard the Baron, and to provide firing support for the rank and file. Your power armor lacks the protection the full working sets have, but you have trained with it and can use it in battle well. General Oliver praises you and your other Heavy Troopers, prove to him you're no exception to the rule."
@@ -891,6 +903,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13trooper
 	title = "NCR Trooper"
 	flag = F13TROOPER
+	caps_paycheck = PAYCHECK_CAPS_LOW
 	total_positions = 6
 	spawn_positions = 6
 	description = "You are a professional soldier of the NCR Army. Obey your the NCOs and officers, no matter what you are expected to follow military discipline."
@@ -1151,6 +1164,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 /datum/job/ncr/f13rearechelon
 	title = "NCR Rear Echelon"
 	flag = F13REARECHELON
+	caps_paycheck = PAYCHECK_CAPS_MINIMAL
 	total_positions = 4
 	spawn_positions = 4
 	description = "You are the support element sent to assist the Camp Miller garrison. You are essential specialized support staff to help sustain the base via supply or specialized skills. You are not allowed to leave base unless given an explicit order by the current acting CO."

@@ -1,0 +1,176 @@
+@use '../base.scss';
+
+$phosphor: #4cff4c;
+$phosphor-dim: #3ac83a;
+$phosphor-text: #a8d8a8;
+$phosphor-glow: rgba(76, 255, 76, 0.6);
+$crt-bg: #050c05;
+
+.LobbyMenu__container {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  color: $phosphor-text;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.LobbyMenu__boot {
+  padding: 20px;
+  min-height: 200px;
+}
+
+.LobbyMenu__boot-header {
+  font-size: 16px;
+  color: $phosphor;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px $phosphor-glow;
+  border-bottom: 1px solid $phosphor-dim;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.LobbyMenu__boot-messages {
+  padding: 10px 0;
+}
+
+.LobbyMenu__boot-line {
+  color: $phosphor-text;
+  font-size: 16px;
+  letter-spacing: 0.02em;
+  margin: 4px 0;
+  animation: fadeIn 0.1s ease;
+}
+
+.LobbyMenu__boot-cursor {
+  color: $phosphor;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.LobbyMenu__header-line {
+  font-size: 16px;
+  color: $phosphor;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px $phosphor-glow;
+}
+
+.LobbyMenu__subheader {
+  font-size: 14px;
+  color: $phosphor-dim;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.LobbyMenu__section {
+  margin: 12px 0;
+}
+
+.LobbyMenu__section-title {
+  color: $phosphor;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  text-shadow: 0 0 4px $phosphor-glow;
+}
+
+.LobbyMenu__info {
+  padding: 4px 8px;
+}
+
+.LobbyMenu__info-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+}
+
+.LobbyMenu__label {
+  color: $phosphor-dim;
+  width: 80px;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.LobbyMenu__value {
+  color: $phosphor-text;
+  font-size: 18px;
+  text-shadow: 0 0 4px rgba(76, 255, 76, 0.3);
+}
+
+.LobbyMenu__menu {
+  padding: 4px 0;
+}
+
+.LobbyMenu__menu-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  border-left: 2px solid transparent;
+  
+  &:hover {
+    background-color: rgba(76, 255, 76, 0.1);
+    border-left-color: $phosphor;
+    
+    .LobbyMenu__menu-text {
+      color: $phosphor;
+      text-shadow: 0 0 8px $phosphor-glow;
+    }
+    
+    &::before {
+      content: '► ';
+      position: absolute;
+      left: 4px;
+      color: $phosphor;
+    }
+  }
+  
+  &:active {
+    background-color: rgba(76, 255, 76, 0.2);
+  }
+}
+
+.LobbyMenu__menu-item--highlight {
+  border-left-color: $phosphor-dim;
+  background-color: rgba(76, 255, 76, 0.05);
+  
+  .LobbyMenu__menu-text {
+    color: $phosphor;
+    font-weight: bold;
+  }
+}
+
+.LobbyMenu__menu-number {
+  color: $phosphor-dim;
+  width: 30px;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+.LobbyMenu__menu-text {
+  color: $phosphor-text;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  transition: all 0.1s ease;
+}
+
+.LobbyMenu__status-message {
+  color: #e8a020;
+  padding: 8px;
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  background-color: rgba(232, 160, 32, 0.05);
+  border-left: 2px solid #e8a020;
+  margin: 8px 0;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

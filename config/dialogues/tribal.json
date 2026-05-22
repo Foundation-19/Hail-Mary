@@ -1,0 +1,93 @@
+{
+  "tribal": {
+    "faction": "tribe",
+    "default_greeting": "Greetings, wanderer. The spirits guide your path.",
+    "barks": {
+      "idle": [
+        "The ancestors speak to me.",
+        "A good hunt is coming.",
+        "The spirits are restless tonight.",
+        "Our ways are old, but true.",
+        "The land provides.",
+        "For our kin!",
+        "The gods look upon me today."
+      ],
+      "combat": [
+        "For the ancestors!",
+        "Spirits, guide my spear!",
+        "Blood for the gods!",
+        "This will be a good hunt!",
+        "Defend the tribe!",
+        "Your spirit will fall!"
+      ],
+      "greeting": [
+        "Walk with the spirits.",
+        "Peace, wanderer.",
+        "The ancestors welcome you.",
+        "May your path be true."
+      ]
+    },
+    "bark_chance": 0.02,
+    "bark_cooldown": 60,
+    "bark_range": 6,
+    "rank_greetings": {
+      "Idolized": "The great one returns! Our tribe honors you. What do you need?",
+      "Admired": "You carry the blessings of our ancestors. How can we help?",
+      "Liked": "Friend of the tribe! Welcome to our lands.",
+      "Accepted": "You are welcome here, outsider. Respect our ways.",
+      "Neutral": "Greetings, wanderer. The spirits guide your path.",
+      "Shunned": "You bring bad medicine. Be careful here.",
+      "Disliked": "Your spirit is dark. Leave our lands.",
+      "Hated": "You are enemy to our people. Go now.",
+      "Vilified": "Warriors! Defend the tribe!"
+    },
+    "nodes": {
+      "start": {
+        "text": "Greetings, wanderer. The spirits guide your path. Do you seek wisdom, or trade?",
+        "responses": [
+          {"text": "Tell me about your tribe", "next": "about"},
+          {"text": "I seek knowledge", "next": "knowledge"},
+          {"text": "Do you need help?", "next": "help"},
+          {"text": "Safe travels", "next": "end"}
+        ]
+      },
+      "about": {
+        "text": "We are the Wayfarer tribe. For generations we have walked these lands, hunting, gathering, honoring the old ways. The ancestors watch over us.",
+        "responses": [
+          {"text": "What ancestors?", "next": "ancestors"},
+          {"text": "I should go", "next": "end"}
+        ]
+      },
+      "ancestors": {
+        "text": "Those who came before. They built the great machines, then the fire came. We survived. We remember. Their spirits guide our hands in the hunt."
+      },
+      "knowledge": {
+        "text": "The elders hold the old wisdom. Some say the spirits of the ancestors still speak in certain places. Seek them out if you are worthy.",
+        "responses": [
+          {"text": "Where?", "next": "sacred_places"},
+          {"text": "Thank you", "next": "end"}
+        ]
+      },
+      "sacred_places": {
+        "text": "The old ruins hold power. But be warned - not all spirits are friendly. Some are twisted, hungry. Carry sage and salt."
+      },
+      "help": {
+        "text": "Our hunters seek game in the eastern hills. Strange creatures have appeared. If you can clear them, the tribe would be grateful.",
+        "responses": [
+          {"text": "I'll help", "next": "help_accept"},
+          {"text": "Not right now", "next": "end"}
+        ]
+      },
+      "help_accept": {
+        "text": "You carry a good spirit. The creatures lurk in the eastern canyon. Bring proof of their defeat, and you will be honored.",
+        "rewards": {
+          "quest": "tribal_hunt",
+          "rep": {"tribe": 10}
+        }
+      },
+      "end": {
+        "text": "May the spirits watch over you, wanderer."
+      }
+    }
+  }
+}

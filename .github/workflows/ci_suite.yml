@@ -20,7 +20,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/SpacemanDMM
-          key: ${{ runner.os }}-spacemandmm-${{ secrets.CACHE_PURGE_KEY }}
+          key: ${{ runner.os }}-spacemandmm-v1
       - name: Install Tools
         run: bash tools/ci/install_spaceman_dmm.sh
 
@@ -62,7 +62,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/BYOND
-          key: ${{ runner.os }}-byond-${{ secrets.CACHE_PURGE_KEY }}
+          key: ${{ runner.os }}-byond-v1
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -151,14 +151,14 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/BYOND
-          key: ${{ runner.os }}-byond-${{ secrets.CACHE_PURGE_KEY }}
+          key: ${{ runner.os }}-byond-v1
       - name: Restore Yarn cache
         uses: actions/cache@v4
         with:
           path: tgui/.yarn/cache
-          key: ${{ runner.os }}-yarn-${{ secrets.CACHE_PURGE_KEY }}-${{ hashFiles('tgui/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-v1-${{ hashFiles('tgui/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ secrets.CACHE_PURGE_KEY }}-
+            ${{ runner.os }}-build-v1-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Setup database

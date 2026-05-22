@@ -301,6 +301,12 @@
 				playsound(src, 'sound/weapons/dink.ogg', 30, 1)
 		L.on_hit(src)
 
+		// Set attacker for karma/reputation tracking
+		if(isliving(firer) && firer != L)
+			var/mob/living/attacker = firer
+			if(attacker.ckey)
+				L.lastattackerckey = attacker.ckey
+
 	var/reagent_note
 	if(reagents)
 		reagent_note = reagents.log_list()

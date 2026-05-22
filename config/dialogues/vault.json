@@ -1,0 +1,119 @@
+{
+  "vault": {
+    "faction": "vault",
+    "default_greeting": "Oh, a visitor! We don't get many from outside.",
+    "barks": {
+      "idle": [
+        "The Overseer knows best.",
+        "I wonder what's outside...",
+        "Another day, another shift.",
+        "The water chip's acting up again.",
+        "Have you seen my PIP-boy?",
+        "Vault life, vault life...",
+        "The rules are there for a reason."
+      ],
+      "combat": [
+        "Security! Help!",
+        "Get back!",
+        "The vault is under attack!",
+        "Protect the Overseer!",
+        "We need backup!",
+        "Don't let them in!"
+      ],
+      "greeting": [
+        "Welcome to the vault.",
+        "Don't cause trouble.",
+        "The Overseer doesn't like visitors.",
+        "Follow the rules."
+      ]
+    },
+    "bark_chance": 0.015,
+    "bark_cooldown": 70,
+    "bark_range": 5,
+    "rank_greetings": {
+      "Idolized": "It's you! The whole vault talks about your deeds. What can we do for you?",
+      "Admired": "Welcome back, friend of the vault. The Overseer speaks highly of you.",
+      "Liked": "Good to see a friendly face. What brings you to our vault?",
+      "Accepted": "You're welcome here. Just... follow the rules.",
+      "Neutral": "Oh, a visitor! We don't get many from outside.",
+      "Shunned": "I've heard things about you. Stay out of trouble.",
+      "Disliked": "You're causing problems for everyone. Please leave.",
+      "Hated": "Get out of our vault. You're not welcome here.",
+      "Vilified": "Security! We have an intruder!"
+    },
+    "nodes": {
+      "start": {
+        "text": "Oh, a visitor! We don't get many from outside. The Overseer keeps things... regulated.",
+        "responses": [
+          {"text": "Tell me about this vault", "next": "about"},
+          {"text": "Any work available?", "next": "work"},
+          {"text": "Need any supplies?", "next": "supplies"},
+          {"text": "Just passing through", "next": "end"}
+        ]
+      },
+      "about": {
+        "text": "We've been here since the bombs fell. The Overseer keeps us safe, keeps us organized. Not everyone agrees with his methods, but... it works.",
+        "responses": [
+          {"text": "What about the outside?", "next": "outside"},
+          {"text": "I should go", "next": "end"}
+        ]
+      },
+      "outside": {
+        "text": "The outside world is dangerous. Raiders, mutants, the Legion... Some of us dream of leaving, but the Overseer says it's suicide."
+      },
+      "work": {
+        "text": "The Overseer might have tasks for outsiders. He's usually in his office. Just... be respectful.",
+        "responses": [
+          {"text": "I'll speak to him", "next": "end"}
+        ]
+      },
+      "supplies": {
+        "text": "We're low on everything. The quartermaster might spare something for the right price... or if you can help us out.",
+        "responses": [
+          {"text": "What do you need?", "next": "needs"},
+          {"text": "I'll check back later", "next": "end"}
+        ]
+      },
+      "needs": {
+        "text": "Medicine, water chips, ammunition for security. If you find any of those in your travels, bring them back. The vault rewards its friends."
+      },
+      "end": {
+        "text": "Stay safe out there. And remember - vault rules apply even to visitors."
+      }
+    }
+  },
+  "vault_security": {
+    "faction": "vault",
+    "default_greeting": "State your business. This is a secure area.",
+    "rank_greetings": {
+      "Idolized": "Sir! It's an honor. Let me know if you need anything.",
+      "Admired": "Welcome back. You have full clearance.",
+      "Liked": "Good to see you. Stay out of restricted areas.",
+      "Accepted": "You're cleared for entry. Behave yourself.",
+      "Neutral": "State your business. This is a secure area.",
+      "Shunned": "I'm watching you. One wrong move...",
+      "Disliked": "You should leave. Now.",
+      "Hated": "You're trespassing. Last warning.",
+      "Vilified": "Intruder alert! Open fire!"
+    },
+    "nodes": {
+      "start": {
+        "text": "State your business. This is a secure area.",
+        "responses": [
+          {"text": "Just visiting", "next": "visit"},
+          {"text": "Looking for work", "next": "work"},
+          {"text": "Any threats nearby?", "next": "threats"}
+        ]
+      },
+      "visit": {
+        "text": "Keep your hands visible and follow the rules. We don't tolerate troublemakers."
+      },
+      "work": {
+        "text": "Security positions are for vault residents only. But if you want to help... we could use intel on outside threats."
+      },
+      "threats": {
+        "text": "Raiders sometimes probe our perimeter. The Legion is far, but they have spies everywhere. Stay vigilant."
+      }
+    }
+  }
+}

@@ -996,11 +996,17 @@
 						if(!put_in_hands(what))
 							what.forceMove(drop_location())
 						log_combat(src, who, "stripped [what] off")
+						// Karma for looting from player
+						if(who.ckey && src.ckey && who != src && who.stat == DEAD)
+							modify_karma_by_action(src.ckey, "loot_corpses", null, "Looted [what] from dead [who]")
 			if(what == who.get_item_by_slot(where))
 				if(who.dropItemToGround(what))
 					if(!can_hold_items() || !put_in_hands(what))
 						what.forceMove(drop_location())
 					log_combat(src, who, "stripped [what] off")
+					// Karma for looting from player
+					if(who.ckey && src.ckey && who != src && who.stat == DEAD)
+						modify_karma_by_action(src.ckey, "loot_corpses", null, "Looted [what] from dead [who]")
 
 	if(Adjacent(who)) //update inventory window
 		who.show_inv(src)
@@ -1541,6 +1547,10 @@
 		"<b>[src]</b> hands [target] \a [gift].",
 		span_notice("You give \the [target] a [gift].")
 		)
+	
+	// Karma for sharing items
+	if(src.ckey)
+		modify_karma_by_action(src.ckey, "share_item", null, "Gave [gift] to [target.real_name]")
 
 
 /mob/living/proc/update_water()

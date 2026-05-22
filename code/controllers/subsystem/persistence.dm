@@ -1,4 +1,9 @@
 #define FILE_ANTAG_REP "data/AntagReputation.json"
+#define FILE_KARMA "data/karma.json"
+#define FILE_KARMA_HISTORY "data/karma_history.json"
+#define FILE_PLAYER_LEVELS "data/player_levels.json"
+#define FILE_FACTION_REP "data/faction_reputation.json"
+#define FILE_BACKGROUNDS "data/character_backgrounds.json"
 #define MAX_RECENT_MAP_RECORD 10
 
 SUBSYSTEM_DEF(persistence)
@@ -28,6 +33,15 @@ SUBSYSTEM_DEF(persistence)
 	var/list/paintings = list()
 	var/list/obj/structure/noticeboard/noticeBoards = list()
 	var/list/obj/item/folder/folders = list()
+	// Karma system
+	var/list/karma_data = list()
+	var/list/karma_history_data = list()
+	// Level system fallback
+	var/list/player_level_data = list()
+	// Faction reputation fallback
+	var/list/faction_reputation_data = list()
+	// Character backgrounds fallback
+	var/list/background_data = list()
 
 /datum/controller/subsystem/persistence/Initialize()
 	LoadSatchels()
@@ -48,6 +62,11 @@ SUBSYSTEM_DEF(persistence)
 	LoadPanicBunker()
 	SSjob.AddMapJobs() //shut up
 	LoadPaintings() //i am in physical pain
+	LoadKarma()
+	LoadKarmaHistory()
+	LoadPlayerLevels()
+	LoadFactionReputation()
+	LoadBackgrounds()
 	return ..()
 
 /datum/controller/subsystem/persistence/proc/LoadSatchels()
@@ -251,6 +270,11 @@ SUBSYSTEM_DEF(persistence)
 	SavePhotoPersistence()						//THIS IS PERSISTENCE, NOT THE LOGGING PORTION.
 	if(CONFIG_GET(flag/use_antag_rep))
 		CollectAntagReputation()
+	CollectKarma()
+	CollectKarmaHistory()
+	CollectPlayerLevels()
+	CollectFactionReputation()
+	CollectBackgrounds()
 	SaveRandomizedRecipes()
 	SavePanicBunker()
 	SavePaintings()
@@ -467,6 +491,127 @@ SUBSYSTEM_DEF(persistence)
 		data["message"] = T.trophy_message
 		data["placer_key"] = T.placer_key
 		saved_trophies += list(data)
+
+// ============ KARMA SYSTEM ============
+
+/datum/controller/subsystem/persistence/proc/LoadKarma()
+	if(karma_use_db())
+		return
+	
+	var/json_file = file(FILE_KARMA)
+	if(fexists(json_file))
+		var/json = json_decode(file2text(json_file))
+		if(islist(json))
+			karma_data = json
+			log_world("Loaded [karma_data.len] karma entries")
+
+/datum/controller/subsystem/persistence/proc/LoadKarmaHistory()
+	if(karma_use_db())
+		return
+	
+	var/json_file = file(FILE_KARMA_HISTORY)
+	if(fexists(json_file))
+		var/json = json_decode(file2text(json_file))
+		if(islist(json))
+			karma_history_data = json
+			log_world("Loaded karma history for [karma_history_data.len] players")
+
+/datum/controller/subsystem/persistence/proc/CollectKarma()
+	if(karma_use_db())
+		return
+	
+	if(length(karma_data) > 0)
+		var/json_file = file(FILE_KARMA)
+		fdel(json_file)
+		WRITE_FILE(json_file, json_encode(karma_data))
+		log_world("Saved [karma_data.len] karma entries")
+
+/datum/controller/subsystem/persistence/proc/CollectKarmaHistory()
+	if(karma_use_db())
+		return
+	
+	if(length(karma_history_data) > 0)
+		var/json_file = file(FILE_KARMA_HISTORY)
+		fdel(json_file)
+		WRITE_FILE(json_file, json_encode(karma_history_data))
+		log_world("Saved karma history for [karma_history_data.len] players")
+
+// ============ LEVEL SYSTEM ============
+
+/datum/controller/subsystem/persistence/proc/LoadPlayerLevels()
+	if(SSdbcore.Connect())
+		return
+	
+	var/json_file = file(FILE_PLAYER_LEVELS)
+	if(fexists(json_file))
+		var/json = json_decode(file2text(json_file))
+		if(islist(json))
+			player_level_data = json
+			log_world("Loaded [player_level_data.len] player level entries")
+
+/datum/controller/subsystem/persistence/proc/CollectPlayerLevels()
+	if(SSdbcore.Connect())
+		return
+	
+	if(length(player_level_data) > 0)
+		var/json_file = file(FILE_PLAYER_LEVELS)
+		fdel(json_file)
+		WRITE_FILE(json_file, json_encode(player_level_data))
+		log_world("Saved [player_level_data.len] player level entries")
+
+// ============ FACTION REPUTATION ============
+
+/datum/controller/subsystem/persistence/proc/LoadFactionReputation()
+	if(SSdbcore.Connect())
+		return
+	
+	var/json_file = file(FILE_FACTION_REP)
+	if(fexists(json_file))
+		var/json = json_decode(file2text(json_file))
+		if(islist(json))
+			faction_reputation_data = json
+			// Sync to global cache
+			GLOB.faction_reputation_cache = faction_reputation_data
+			log_world("Loaded faction reputation for [faction_reputation_data.len] players")
+
+/datum/controller/subsystem/persistence/proc/CollectFactionReputation()
+	if(SSdbcore.Connect())
+		return
+	
+	// Sync from global cache
+	faction_reputation_data = GLOB.faction_reputation_cache
+	
+	if(length(faction_reputation_data) > 0)
+		var/json_file = file(FILE_FACTION_REP)
+		fdel(json_file)
+		WRITE_FILE(json_file, json_encode(faction_reputation_data))
+		log_world("Saved faction reputation for [faction_reputation_data.len] players")
+
+// ============ CHARACTER BACKGROUNDS ============
+
+/datum/controller/subsystem/persistence/proc/LoadBackgrounds()
+	if(SSdbcore.Connect())
+		return
+	
+	var/json_file = file(FILE_BACKGROUNDS)
+	if(fexists(json_file))
+		var/json = json_decode(file2text(json_file))
+		if(islist(json))
+			background_data = json
+			GLOB.background_cache = background_data
+			log_world("Loaded backgrounds for [background_data.len] players")
+
+/datum/controller/subsystem/persistence/proc/CollectBackgrounds()
+	if(SSdbcore.Connect())
+		return
+	
+	background_data = GLOB.background_cache
+	
+	if(length(background_data) > 0)
+		var/json_file = file(FILE_BACKGROUNDS)
+		fdel(json_file)
+		WRITE_FILE(json_file, json_encode(background_data))
+		log_world("Saved backgrounds for [background_data.len] players")
 
 /datum/controller/subsystem/persistence/proc/CollectRoundtype()
 	saved_modes[3] = saved_modes[2]

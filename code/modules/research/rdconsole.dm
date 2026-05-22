@@ -1073,16 +1073,6 @@ Nothing else in the console has ID requirements.
 
 	updateUsrDialog()
 
-/obj/machinery/computer/rdconsole/ui_interact(mob/user)
-	. = ..()
-	var/datum/browser/popup = new(user, "rndconsole", name, 900, 600)
-	var/datum/asset/spritesheet/assets = get_asset_datum(/datum/asset/spritesheet/research_designs)
-
-	popup.add_head_content("<link rel='stylesheet' type='text/css' href='[assets.css_tag()]'>")
-	popup.add_stylesheet("techwebs", 'html/browser/techwebs.css')
-	popup.set_content(generate_ui())
-	popup.open()
-
 /obj/machinery/computer/rdconsole/proc/tdisk_uple_complete()
 	tdisk_uple = FALSE
 	updateUsrDialog()

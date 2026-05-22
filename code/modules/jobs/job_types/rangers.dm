@@ -41,6 +41,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 /datum/job/ranger/f13vetranger
 	title = "NCR Veteran Ranger"
 	flag = F13VETRANGER
+	caps_paycheck = PAYCHECK_CAPS_COMMAND
 	total_positions = 1
 	spawn_positions = 1
 	description = "You answer directly to the Captain, working either independently or in a team to complete your mission objectives however required, operating either alone, in a squad or with the NCR Army. Your primary mission is to improve general opinion of the Republic and to neutralize slavers and raiders operating in the area."
@@ -97,6 +98,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 /datum/job/ranger/f13rangerpatrol
 	title = "NCR Patrol Ranger"
 	flag = F13PATROLRANGER
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	total_positions = 3
 	spawn_positions = 3
 	description = "As an NCR Ranger, you are the premier special forces unit of the NCR. You are the forward observations and support the Army in it's campaigns, as well as continuing the tradition of stopping slavery in it's tracks."

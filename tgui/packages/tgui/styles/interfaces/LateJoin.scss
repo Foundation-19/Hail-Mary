@@ -1,0 +1,160 @@
+@use '../base.scss';
+
+$phosphor: #4cff4c;
+$phosphor-dim: #3ac83a;
+$phosphor-text: #a8d8a8;
+$phosphor-glow: rgba(76, 255, 76, 0.6);
+$crt-bg: #050c05;
+
+.LateJoin__container {
+  font-family: 'VT323', 'Courier New', monospace;
+  font-size: 18px;
+  color: $phosphor-text;
+  padding: 0;
+  line-height: 1.4;
+}
+
+.LateJoin__header-line {
+  font-size: 16px;
+  color: $phosphor;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 8px $phosphor-glow;
+}
+
+.LateJoin__subheader {
+  font-size: 14px;
+  color: $phosphor-dim;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.LateJoin__status-bar {
+  background-color: rgba(76, 255, 76, 0.05);
+  border-bottom: 1px solid $phosphor-dim;
+  border-top: 1px solid $phosphor-dim;
+  padding: 8px 12px;
+  margin: 8px 0;
+}
+
+.LateJoin__status-item {
+  color: $phosphor-dim;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  
+  &--alert {
+    color: #ff6b6b;
+    animation: blink 1s step-end infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.5; }
+}
+
+.LateJoin__section {
+  margin: 12px 0;
+}
+
+.LateJoin__section-title {
+  color: $phosphor;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  text-shadow: 0 0 4px $phosphor-glow;
+}
+
+.LateJoin__faction {
+  margin: 12px 0;
+  border: 1px solid $phosphor-dim;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.LateJoin__faction-header {
+  background-color: rgba(76, 255, 76, 0.1);
+  border-bottom: 1px solid $phosphor-dim;
+  padding: 8px 12px;
+  color: $phosphor;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-shadow: 0 0 4px $phosphor-glow;
+}
+
+.LateJoin__faction-jobs {
+  padding: 4px 0;
+}
+
+.LateJoin__job-row {
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  border-left: 2px solid transparent;
+  
+  &:hover {
+    background-color: rgba(76, 255, 76, 0.1);
+    border-left-color: $phosphor;
+    
+    .LateJoin__job-title {
+      color: $phosphor;
+      text-shadow: 0 0 8px $phosphor-glow;
+    }
+    
+    .LateJoin__status--available {
+      background-color: $phosphor-dim;
+      color: $crt-bg;
+    }
+  }
+}
+
+.LateJoin__job-number {
+  color: $phosphor-dim;
+  width: 40px;
+  flex-shrink: 0;
+  font-size: 14px;
+}
+
+.LateJoin__job-title {
+  color: $phosphor-text;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  transition: all 0.1s ease;
+  
+  &--locked {
+    color: #4a5a4a;
+    text-decoration: line-through;
+  }
+  
+  &--full {
+    color: #6a7a6a;
+  }
+}
+
+.LateJoin__job-status {
+  margin-left: 12px;
+}
+
+.LateJoin__status {
+  padding: 2px 8px;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+  
+  &--locked {
+    color: #ff6b6b;
+    border-color: #7a1a1a;
+    background-color: rgba(255, 107, 107, 0.1);
+  }
+  
+  &--available {
+    color: $phosphor;
+    border-color: $phosphor-dim;
+    background-color: rgba(76, 255, 76, 0.1);
+    transition: all 0.1s ease;
+  }
+  
+  &--full {
+    color: #6a7a6a;
+    border-color: #3a4a3a;
+  }
+}

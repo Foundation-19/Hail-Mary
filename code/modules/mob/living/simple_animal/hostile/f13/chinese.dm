@@ -65,6 +65,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 20
+	dodge_chance = 15
 
 /mob/living/simple_animal/hostile/chinese/Aggro()
 	. = ..()

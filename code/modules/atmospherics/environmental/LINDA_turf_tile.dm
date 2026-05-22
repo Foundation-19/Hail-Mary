@@ -1,8 +1,7 @@
 /turf
-	//used for temperature calculations
-	//conductivity is divided by 10 when interacting with air for balance purposes
 	var/thermal_conductivity = 0.05
 	var/heat_capacity = 1
+	var/obj/effect/hotspot/active_hotspot
 
 	//list of open turfs adjacent to us
 	var/list/atmos_adjacent_turfs
@@ -16,15 +15,13 @@
 	// If someone will place 0 of some gas there, SHIT WILL BREAK. Do not do that.
 
 /turf/open
-	//used for spacewind
 	var/pressure_difference = 0
 	var/pressure_direction = 0
 	var/turf/pressure_specific_target
 
 	var/datum/gas_mixture/turf/air
 
-	var/obj/effect/hotspot/active_hotspot
-	var/planetary_atmos = FALSE //air will revert to initial_gas_mix over time
+	var/planetary_atmos = FALSE
 
 	var/list/atmos_overlay_types //gas IDs of current active gas overlays
 

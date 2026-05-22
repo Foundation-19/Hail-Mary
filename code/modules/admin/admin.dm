@@ -449,8 +449,8 @@
 		return
 
 	var/dat = {"
-		<center><B>Game Panel</B></center><hr>\n
-		<A href='?src=[REF(src)];[HrefToken()];c_mode=1'>Change Game Mode</A><br>
+		<pre style="font-size:20px;letter-spacing:3px;border-bottom:2px solid #3ac83a;padding-bottom:10px;">ROBCO TERMINAL - GAME PANEL</pre><hr>\n
+		<A href='?src=[REF(src)];[HrefToken()];c_mode=1'>> CHANGE GAME MODE</A><br>
 		"}
 	if(GLOB.master_mode == "secret")
 		dat += "<A href='?src=[REF(src)];[HrefToken()];f_secret=1'>(Force Secret Mode)</A><br>"
@@ -478,14 +478,14 @@
 		dat += "<a href='?src=[REF(src)];[HrefToken()];gamemode_panel=1'>(Game Mode Panel)</a><BR>"
 	dat += {"
 		<BR>
-		<A href='?src=[REF(src)];[HrefToken()];create_object=1'>Create Object</A><br>
-		<A href='?src=[REF(src)];[HrefToken()];quick_create_object=1'>Quick Create Object</A><br>
-		<A href='?src=[REF(src)];[HrefToken()];create_turf=1'>Create Turf</A><br>
-		<A href='?src=[REF(src)];[HrefToken()];create_mob=1'>Create Mob</A><br>
+		<A href='?src=[REF(src)];[HrefToken()];create_object=1'>> CREATE OBJECT</A><br>
+		<A href='?src=[REF(src)];[HrefToken()];quick_create_object=1'>> QUICK CREATE OBJECT</A><br>
+		<A href='?src=[REF(src)];[HrefToken()];create_turf=1'>> CREATE TURF</A><br>
+		<A href='?src=[REF(src)];[HrefToken()];create_mob=1'>> CREATE MOB</A><br>
 		"}
 
 	if(marked_datum && istype(marked_datum, /atom))
-		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
+		dat += "<A href='?src=[REF(src)];[HrefToken()];dupe_marked_datum=1'>> DUPLICATE MARKED DATUM</A><br>"
 
 	usr << browse(HTML_SKELETON(dat), "window=admin2;size=240x280")
 	return

@@ -318,6 +318,9 @@ SUBSYSTEM_DEF(ticker)
 	if(CONFIG_GET(flag/shift_time_realtime) && !CONFIG_GET(flag/randomize_shift_time))
 		gametime_offset = world.timeofday + timezone_offset_positive - timezone_offset_negative
 	SSdbcore.SetRoundStart()
+	start_caps_paychecks()
+	init_bounty_system()
+	start_territory_processing()
 
 	to_chat(world, "<span class='notice'><B>Welcome to [station_name()], enjoy your stay!</B></span>")
 	SEND_SOUND(world, sound(begin_music))

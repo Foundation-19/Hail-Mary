@@ -1,0 +1,82 @@
+{
+  "enclave": {
+    "faction": "enclave",
+    "default_greeting": "Identify yourself immediately. This is Enclave territory.",
+    "barks": {
+      "idle": [
+        "For the Enclave!",
+        "Stars and Stripes!",
+        "Liberty or death!",
+        "America will rise again.",
+        "Democracy is non-negotiable.",
+        "The old world will be restored.",
+        "Order through strength."
+      ],
+      "combat": [
+        "For the Enclave!",
+        "Target acquired!",
+        "Eliminate the threat!",
+        "Democracy in action!",
+        "Remember the Alamo!",
+        "Restore America!"
+      ],
+      "greeting": [
+        "Identify yourself.",
+        "This is Enclave territory.",
+        "Citizen, halt.",
+        "Papers, please."
+      ]
+    },
+    "bark_chance": 0.02,
+    "bark_cooldown": 60,
+    "bark_range": 6,
+    "rank_greetings": {
+      "Idolized": "Your assistance has been noted. The Enclave remembers its allies.",
+      "Neutral": "Identify yourself immediately. This is Enclave territory.",
+      "Vilified": "You are a threat to national security. Guards, neutralize this target."
+    },
+    "nodes": {
+      "start": {
+        "text": "Identify yourself immediately. This is Enclave territory. You have five seconds to comply.",
+        "responses": [
+          {"text": "I'm just passing through", "next": "passing"},
+          {"text": "I have information", "next": "info"}
+        ]
+      },
+      "passing": {
+        "text": "This area is restricted. Leave now, or face detention."
+      },
+      "info": {
+        "text": "Speak. What do you know?"
+      }
+    }
+  },
+  "vault": {
+    "faction": "vault",
+    "default_greeting": "Welcome to the Vault. May you live long.",
+    "rank_greetings": {
+      "Idolized": "Our benefactor! The Vault is honored by your presence.",
+      "Neutral": "Welcome to the Vault. May you live long.",
+      "Vilified": "You are not welcome here. Leave immediately."
+    },
+    "nodes": {
+      "start": {
+        "text": "Welcome to the Vault. May you live long and prosper.",
+        "responses": [
+          {"text": "What's this place?", "next": "about"},
+          {"text": "Looking for work", "next": "work"},
+          {"text": "Need supplies", "next": "supplies"}
+        ]
+      },
+      "about": {
+        "text": "We are Vault 13... I mean, this is our home. A sanctuary from the wasteland."
+      },
+      "work": {
+        "text": "The Overseer handles assignments. Check the job board."
+      },
+      "supplies": {
+        "text": "The quartermaster handles supplies. Credits or caps accepted."
+      }
+    }
+  }
+}

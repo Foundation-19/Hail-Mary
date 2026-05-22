@@ -102,6 +102,20 @@
 	retreat_distance = null
 	minimum_distance = 1
 
+	// Anti-kite AI - ghouls charge, dodge, and veer while chasing
+	anti_kite = TRUE
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 5
+	lunge_cooldown = 80
+	lunge_chance = 20
+	lunge_is_teleport = FALSE
+	can_dodge_shots = TRUE
+	dodge_chance = 20
+	dodge_cooldown = 25
+	veer_chance = 25
+	can_ambush = TRUE
+
 /mob/living/simple_animal/hostile/ghoul/Initialize()
 	. = ..()
 	if(random_trash_loot)

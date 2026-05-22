@@ -42,6 +42,7 @@ Mayor
 /datum/job/eastwood/f13mayor // /obj/item/card/id/captains_spare for any elected mayors. - Blue
 	title = "Warden"
 	flag = F13MAYOR
+	caps_paycheck = PAYCHECK_CAPS_LEADERSHIP
 	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
@@ -204,6 +205,7 @@ Mayor
 /datum/job/eastwood/f13secretary
 	title = "Secretary"
 	flag = F13SECRETARY
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1
@@ -299,6 +301,7 @@ Mayor
 /datum/job/eastwood/f13sheriff
 	title = "Head of the Watch"
 	flag = F13SHERIFF
+	caps_paycheck = PAYCHECK_CAPS_HIGH
 	department_flag = DEP_EASTWOOD
 	head_announce = list("Security")
 	total_positions = 1
@@ -402,6 +405,7 @@ Mayor
 /datum/job/eastwood/f13deputy
 	title = "Watchman"
 	flag = F13DEPUTY
+	caps_paycheck = PAYCHECK_CAPS_LOW
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
@@ -521,6 +525,7 @@ Mayor
 /datum/job/eastwood/f13farmer
 	title = "Farmer"
 	flag = F13FARMER
+	caps_paycheck = PAYCHECK_CAPS_MINIMAL
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
@@ -603,6 +608,7 @@ Mayor
 /datum/job/eastwood/f13prospector
 	title = "Blacksmith"
 	flag = F13PROSPECTOR
+	caps_paycheck = PAYCHECK_CAPS_MINIMAL
 	department_flag = DEP_EASTWOOD
 	total_positions = 4
 	spawn_positions = 4
@@ -690,6 +696,7 @@ Mayor
 /datum/job/eastwood/f13dendoc
 	title = "Apothecary"
 	flag = F13DENDOC
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	department_flag = DEP_EASTWOOD
 	total_positions = 3
 	spawn_positions = 3
@@ -801,6 +808,7 @@ Mayor
 /datum/job/eastwood/f13barkeep
 	title = "Tavern Keeper"
 	flag = F13BARKEEP
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	department_flag = DEP_EASTWOOD
 	total_positions = 2
 	spawn_positions = 2
@@ -886,6 +894,7 @@ Mayor
 /datum/job/eastwood/f13settler
 	title = "Citizen"
 	flag = F13SETTLER
+	caps_paycheck = PAYCHECK_CAPS_LOW
 	department_flag = DEP_EASTWOOD
 	total_positions = -1
 	spawn_positions =-1
@@ -1162,6 +1171,7 @@ Mayor
 /datum/job/eastwood/f13detective
 	title = "Detective"
 	flag = F13DETECTIVE
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	total_positions = 0
 	spawn_positions = 0
 	supervisors = "paying clients and Eastwood's laws"
@@ -1215,6 +1225,7 @@ Mayor
 /datum/job/eastwood/f13banker
 	title = "Banker"
 	flag = F13BANKER
+	caps_paycheck = PAYCHECK_CAPS_MEDIUM
 	department_flag = DEP_EASTWOOD
 	total_positions = 0
 	spawn_positions = 0
@@ -1295,6 +1306,7 @@ Mayor
 /datum/job/eastwood/f13quartermaster
 	title = "Merchant"
 	flag = F13QUARTERMASTER
+	caps_paycheck = PAYCHECK_CAPS_LOW
 	department_flag = DEP_EASTWOOD
 	total_positions = 1
 	spawn_positions = 1

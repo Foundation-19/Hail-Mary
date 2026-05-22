@@ -1,84 +1,152 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Stat Browser</title>
+<title>RobCo Industries Terminal OS</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta http-equiv="Cache-Control" content="max-age=15; must-revalidate" />
 <link id="goonStyle" rel="stylesheet" type="text/css" href="browserOutput_white.css" media="all" />
 <style>
+	@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+	
+	:root {
+		--phosphor: #4cff4c;
+		--phosphor-bright: #6bff6b;
+		--phosphor-dim: #3ac83a;
+		--phosphor-text: #a8d8a8;
+		--terminal-bg: #0a0f0a;
+		--terminal-bg-light: #121a12;
+		--terminal-border: #1a2a1a;
+	}
+	
+	* {
+		box-sizing: border-box;
+	}
+	
 	body {
-		font-family: Verdana, Geneva, Tahoma, sans-serif;
-		font-size: 12px !important;
+		font-family: 'VT323', 'Courier New', Courier, monospace;
+		font-size: 16px !important;
 		margin: 0 !important;
 		padding: 0 !important;
 		overflow-x: hidden;
 		overflow-y: scroll;
+		background-color: var(--terminal-bg);
+		color: var(--phosphor-text);
+		scrollbar-base-color: var(--terminal-bg);
+		scrollbar-face-color: var(--terminal-border);
+		scrollbar-3dlight-color: var(--terminal-border);
+		scrollbar-highlight-color: var(--terminal-bg-light);
+		scrollbar-track-color: var(--terminal-bg);
+		scrollbar-arrow-color: var(--phosphor);
+		scrollbar-shadow-color: var(--terminal-border);
 	}
-
+	
+	body::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background: repeating-linear-gradient(
+			0deg,
+			transparent,
+			transparent 2px,
+			rgba(0, 0, 0, 0.15) 2px,
+			rgba(0, 0, 0, 0.15) 4px
+		);
+		z-index: 9999;
+	}
+	
+	body::after {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+		background: radial-gradient(
+			ellipse at center,
+			transparent 0%,
+			rgba(0, 0, 0, 0.3) 100%
+		);
+		z-index: 9998;
+	}
+	
 	body.dark {
-		background-color: #131313;
-		color: #b2c4dd;
-		scrollbar-base-color: #1c1c1c;
-		scrollbar-face-color: #3b3b3b;
-		scrollbar-3dlight-color: #252525;
-		scrollbar-highlight-color: #252525;
-		scrollbar-track-color: #1c1c1c;
-		scrollbar-arrow-color: #929292;
-		scrollbar-shadow-color: #3b3b3b;
+		background-color: var(--terminal-bg);
+		color: var(--phosphor-text);
+		scrollbar-base-color: var(--terminal-bg);
+		scrollbar-face-color: var(--terminal-border);
+		scrollbar-3dlight-color: var(--terminal-border);
+		scrollbar-highlight-color: var(--terminal-bg-light);
+		scrollbar-track-color: var(--terminal-bg);
+		scrollbar-arrow-color: var(--phosphor);
+		scrollbar-shadow-color: var(--terminal-border);
 	}
-
+	
 	#menu {
-		background-color: #F0F0F0;
+		background-color: var(--terminal-bg);
+		border-bottom: 2px solid var(--phosphor-dim);
 		position: fixed;
 		width: 100%;
 		z-index: 100;
+		padding: 4px 0;
 	}
-
+	
 	.dark #menu {
-		background-color: #202020;
+		background-color: var(--terminal-bg);
 	}
-
+	
 	#statcontent {
-		padding: 7px 7px 7px 7px;
+		padding: 10px 12px;
+		text-shadow: 0 0 5px rgba(74, 255, 76, 0.3);
 	}
-
+	
 	a {
-		color: black;
-		text-decoration: none
+		color: var(--phosphor);
+		text-decoration: none;
+		text-shadow: 0 0 5px rgba(74, 255, 76, 0.3);
 	}
-
+	
 	.dark a {
-		color: #b2c4dd;
+		color: var(--phosphor);
 	}
-
+	
 	a:hover, .dark a:hover {
 		text-decoration: underline;
+		color: var(--phosphor-bright);
+		text-shadow: 0 0 8px rgba(74, 255, 76, 0.5);
 	}
-
+	
 	ul {
 		list-style-type: none;
 		margin: 0;
-		padding: 0;
-		background-color: #333;
+		padding: 0 8px;
+		background-color: transparent;
 	}
-
+	
 	li {
 		float: left;
 	}
-
+	
 	li a {
 		display: block;
-		color: white;
+		color: var(--phosphor);
 		text-align: center;
-		padding: 14px 16px;
+		padding: 8px 12px;
 		text-decoration: none;
+		text-transform: uppercase;
+		font-size: 14px;
+		letter-spacing: 1px;
 	}
-
+	
 	li a:hover:not(.active) {
-		background-color: #111;
+		background-color: rgba(74, 255, 76, 0.1);
 	}
-
+	
 	.button-container {
 		display: inline-flex;
 		flex-wrap: wrap-reverse;
@@ -88,147 +156,177 @@
 		white-space: pre-wrap;
 		padding: 0 4px;
 	}
-
+	
 	.button {
-		background-color: #dfdfdf;
-		border: 1px solid #cecece;
-		border-bottom-width: 2px;
-		color: rgba(0, 0, 0, 0.7);
-		padding: 6px 4px 4px;
+		background-color: var(--terminal-bg-light);
+		border: 1px solid var(--phosphor-dim);
+		border-bottom-width: 1px;
+		color: var(--phosphor);
+		padding: 6px 10px;
 		text-align: center;
 		text-decoration: none;
-		font-size: 12px;
-		margin: 0;
+		font-size: 14px;
+		font-family: 'VT323', 'Courier New', monospace;
+		margin: 2px;
 		cursor: pointer;
 		transition-duration: 100ms;
 		order: 3;
-		min-width: 40px;
+		min-width: 50px;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
 	}
-
+	
 	.dark button {
-		background-color: #222222;
-		border-color: #343434;
-		color: rgba(255, 255, 255, 0.5);
+		background-color: var(--terminal-bg-light);
+		border-color: var(--phosphor-dim);
+		color: var(--phosphor);
 	}
-
+	
 	.button:hover {
-		background-color: #ececec;
-		transition-duration: 0;
+		background-color: rgba(74, 255, 76, 0.15);
+		border-color: var(--phosphor);
+		color: var(--phosphor-bright);
 	}
-
+	
 	.dark button:hover {
-		background-color:  #2e2e2e;
+		background-color: rgba(74, 255, 76, 0.15);
+		border-color: var(--phosphor);
 	}
-
+	
 	.button:active, .button.active {
-		background-color: #ffffff;
-		color: black;
-		border-top-color: #cecece;
-		border-left-color: #cecece;
-		border-right-color: #cecece;
-		border-bottom-color: #ffffff;
+		background-color: var(--phosphor);
+		color: var(--terminal-bg);
+		border-color: var(--phosphor);
+		text-shadow: none;
 	}
-
+	
 	.dark .button:active, .dark .button.active {
-		background-color: #444444;
-		color: white;
-		border-top-color: #343434;
-		border-left-color: #343434;
-		border-right-color: #343434;
-		border-bottom-color: #ffffff;
+		background-color: var(--phosphor);
+		color: var(--terminal-bg);
+		border-color: var(--phosphor);
 	}
-
+	
 	.grid-container {
 		margin: -2px;
 		margin-right: -15px;
 	}
-
+	
 	.grid-item {
 		position: relative;
 		display: inline-block;
 		width: 100%;
 		box-sizing: border-box;
 		overflow: visible;
-		padding: 3px 2px;
+		padding: 4px 6px;
 		text-decoration: none;
 	}
-
+	
 	@media only screen and (min-width: 300px) {
 		.grid-item {
 			width: 50%;
 		}
 	}
-
+	
 	@media only screen and (min-width: 430px) {
 		.grid-item {
 			width: 33%;
 		}
 	}
-
+	
 	@media only screen and (min-width: 560px) {
 		.grid-item {
 			width: 25%;
 		}
 	}
-
+	
 	@media only screen and (min-width: 770px) {
 		.grid-item {
 			width: 20%;
 		}
 	}
-
+	
 	.grid-item:hover {
 		z-index: 1;
 	}
-
+	
 	.grid-item:hover .grid-item-text {
 		width: auto;
 		text-decoration: underline;
+		background-color: rgba(74, 255, 76, 0.1);
 	}
-
+	
 	.grid-item-text {
 		display: inline-block;
 		width: 100%;
-		background-color: #ffffff;
-		margin: 0 -6px;
-		padding: 0 6px;
+		background-color: transparent;
+		margin: 0 -4px;
+		padding: 2px 4px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		pointer-events: none;
+		border-left: 2px solid var(--phosphor-dim);
 	}
-
+	
 	.dark .grid-item-text {
-		background-color: #131313;
+		background-color: transparent;
+		border-left: 2px solid var(--phosphor-dim);
 	}
-
+	
 	.link {
 		display: inline;
 		background: none;
 		border: none;
-		padding: 7px 14px;
-		color: black;
+		padding: 6px 12px;
+		color: var(--phosphor);
 		text-decoration: none;
 		cursor: pointer;
-		font-size: 13px;
+		font-size: 16px;
+		font-family: 'VT323', 'Courier New', monospace;
 		margin: 2px 2px;
 	}
-
+	
 	.dark .link {
-		color: #abc6ec;
+		color: var(--phosphor);
 	}
-
+	
 	.link:hover {
 		text-decoration: underline;
+		color: var(--phosphor-bright);
 	}
-
+	
 	img {
 		-ms-interpolation-mode: nearest-neighbor;
 		image-rendering: pixelated;
 	}
-
+	
 	.interview_panel_controls, .interview_panel_stats {
 		margin-bottom: 10px;
+	}
+	
+	table {
+		border-collapse: collapse;
+		width: 100%;
+	}
+	
+	td {
+		padding: 4px 8px;
+		border-bottom: 1px solid rgba(74, 255, 76, 0.1);
+	}
+	
+	h3 {
+		color: var(--phosphor);
+		font-family: 'VT323', 'Courier New', monospace;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		border-bottom: 1px solid var(--phosphor-dim);
+		padding-bottom: 4px;
+		margin-top: 16px;
+		text-shadow: 0 0 5px rgba(74, 255, 76, 0.3);
+	}
+	
+	.interview_panel_table {
+		border: 1px solid var(--phosphor-dim);
 	}
 </style>
 </head>
@@ -239,7 +337,7 @@
 <script>
 // Polyfills and compatibility ------------------------------------------------
 var decoder = decodeURIComponent || unescape;
-var addEventListenerKey = (document.addEventListener ? 'addEventListener' : 'attachEvent'); // IE8 handling for Wine users
+var addEventListenerKey = (document.addEventListener ? 'addEventListener' : 'attachEvent');
 var textContentKey = (typeof document.body.textContent != 'undefined') ? 'textContent' : 'innerText';
 if(!Array.prototype.includes) {
 	Array.prototype.includes = function(thing) {
@@ -271,7 +369,6 @@ if (!String.prototype.trim) {
 (function() {
   setTimeout(function(arg1) {
     if (arg1 === 'test') {
-      // feature test is passed, no need for polyfill
       return;
     }
     var __nativeST__ = window.setTimeout;
@@ -286,7 +383,6 @@ if (!String.prototype.trim) {
   var interval = setInterval(function(arg1) {
     clearInterval(interval);
     if (arg1 === 'test') {
-      // feature test is passed, no need for polyfill
       return;
     }
     var __nativeSI__ = window.setInterval;
@@ -307,11 +403,11 @@ var href_token = null;
 var spells = [];
 var spell_tabs = [];
 var verb_tabs = [];
-var verbs = [["", ""]]; // list with a list inside
+var verbs = [["", ""]];
 var tickets = [];
 var interviewManager = {status: "", interviews: []};
 var sdql2 = [];
-var permanent_tabs = []; // tabs that won't be cleared by wipes
+var permanent_tabs = [];
 var turfcontents = [];
 var turfname = "";
 var imageRetryDelay = 500;
@@ -325,13 +421,8 @@ var split_admin_tabs = false;
 var connected = false;
 var commandQueue = [];
 
-// Any BYOND verb call must go through this, as if a verb is sent during reconnect then
-// it will cause the reconnect to fail.
-// This function will either call immediately, or queue until
-// BYOND confirms we are connected.
 function send_byond_command(command) {
 	var href = "byond://winset?command=" + command;
-
 	if (connected) {
 		window.location.href = href;
 	} else {
@@ -339,9 +430,6 @@ function send_byond_command(command) {
 	}
 }
 
-// Any BYOND commands that could result in the client's focus changing go through this
-// to ensure that when we relinquish our focus, we don't do it after the result of
-// a command has already taken focus for itself.
 function run_after_focus(callback) {
 	setTimeout(callback, 0);
 }
@@ -350,20 +438,15 @@ function connected_to_server() {
 	if (connected) {
 		return;
 	}
-
 	connected = true;
-
 	for (var index = 0; index < commandQueue.length; index++) {
-		// This is just setting it a lot, is this not going to cancel?
 		window.location.href = commandQueue[index];
 	}
-
 	commandQueue = [];
 }
 
 function update_split_admin_tabs(status) {
 	status = (status == true);
-
 	if (split_admin_tabs !== status) {
 		if (split_admin_tabs === true) {
 			removeStatusTab("Events");
@@ -395,11 +478,9 @@ function createStatusTab(name) {
 	B.id = name;
 	B[textContentKey] = name;
 	B.className = "button";
-	//ORDERING ALPHABETICALLY
 	B.style.order = name.charCodeAt(0);
 	if(name == "Status" || name == "MC")
 		B.style.order = name == "Status" ? 1 : 2;
-	//END ORDERING
 	menu.appendChild(B);
 	SendTabToByond(name);
 	under_menu.style.height = menu.clientHeight + 'px';
@@ -451,7 +532,6 @@ function removePermanentTab(name) {
 }
 
 function checkStatusTab() {
-	// Iterate backwards to avoid skipping elements when removing
 	for(var i = menu.children.length - 1; i >= 0; i--) {
 		var child = menu.children[i];
 		if(child.id && !verb_tabs.includes(child.id) && !permanent_tabs.includes(child.id))
@@ -460,7 +540,7 @@ function checkStatusTab() {
 }
 
 function remove_verb(v) {
-	var verb_to_remove = v; // to_remove = [verb:category, verb:name]
+	var verb_to_remove = v;
 	for(var i = verbs.length - 1; i >= 0; i--){
 		var part_to_remove = verbs[i];
 		if(part_to_remove[1] == verb_to_remove[1]){
@@ -505,7 +585,7 @@ function verbs_cat_check(cat) {
 		}
 		else{
 			verbs_in_cat = 1;
-			break; // we only need one
+			break;
 		}
 	}
 	if(verbs_in_cat != 1) {
@@ -525,7 +605,7 @@ function findVerbindex(name, verblist) {
 function wipe_verbs() {
 	verbs = [["", ""]];
 	verb_tabs = [];
-	checkStatusTab(); // remove all empty verb tabs
+	checkStatusTab();
 }
 
 function update_verbs() {
@@ -534,8 +614,8 @@ function update_verbs() {
 }
 
 function add_verb_list(v) {
-	var to_add = JSON.parse(v); // list of a list with category and verb inside it
-	to_add.sort(); // sort what we're adding
+	var to_add = JSON.parse(v);
+	to_add.sort();
 	for(var i = 0; i < to_add.length; i++) {
 		var part = to_add[i];
 		if(!part[0])
@@ -553,7 +633,7 @@ function add_verb_list(v) {
 		if(verb_tabs.includes(category)){
 			verbs.push(part);
 			if(current_tab == category) {
-				draw_verbs(category); // redraw if we added a verb to the tab we're currently in
+				draw_verbs(category);
 			}
 		} else if(category) {
 			verb_tabs.push(category);
@@ -574,32 +654,28 @@ function remove_verb_list(v) {
 		draw_verbs(current_tab);
 }
 
-// passes a 2D list of (verbcategory, verbname) creates tabs and adds verbs to respective list
-// example (IC, Say)
 function init_verbs(c, v) {
 	connected_to_server();
-	wipe_verbs(); // remove all verb categories so we can replace them
-	checkStatusTab(); // remove all status tabs
+	wipe_verbs();
+	checkStatusTab();
 	verb_tabs = JSON.parse(c);
-	verb_tabs.sort(); // sort it
+	verb_tabs.sort();
 	var do_update = false;
 	var cat = "";
 	for(var i = 0; i < verb_tabs.length; i++){
 		cat = verb_tabs[i];
-		createStatusTab(cat); // create a category if the verb doesn't exist yet
+		createStatusTab(cat);
 	}
 	if(verb_tabs.includes(current_tab)) {
 		do_update = true;
 	}
 	if(v) {
 		add_verb_list(v);
-		sortVerbs(); // sort them
+		sortVerbs();
 		if(do_update) {
 			draw_verbs(current_tab);
 		}
 	}
-	// In BYOND 516 with Chromium/WebView2, delay SendTabsToByond to ensure bridge is ready
-	// This prevents tabs from becoming empty during lobby/reconnect scenarios
 	if (window.BLINK !== null) {
 		setTimeout(function() {
 			SendTabsToByond();
@@ -621,7 +697,6 @@ function SendTabToByond(tab) {
 	send_byond_command("Send-Tabs " + tab);
 }
 
-//Byond can't have this tab anymore since we're removing it
 function TakeTabFromByond(tab) {
 	send_byond_command("Remove-Tabs " + tab);
 }
@@ -708,11 +783,11 @@ function update_spells(t, s) {
 function tab_change(tab) {
 	if(tab == current_tab) return;
 	if(document.getElementById(current_tab))
-		document.getElementById(current_tab).className = "button"; // disable active on last button
+		document.getElementById(current_tab).className = "button";
 	current_tab = tab;
 	set_byond_tab(tab);
 	if(document.getElementById(tab))
-		document.getElementById(tab).className = "button active"; // make current button active
+		document.getElementById(tab).className = "button active";
 	var spell_tabs_thingy = (spell_tabs.includes(tab));
 	var verb_tabs_thingy = (verb_tabs.includes(tab));
 	if(tab == "Status") {
@@ -762,7 +837,6 @@ function draw_debug() {
 	var table1 = document.createElement("table");
 	for(var i=0; i < verb_tabs.length ; i++) {
 		var part = verb_tabs[i];
-		// Hide subgroups except admin subgroups if they are split
 		if (verb_tabs[i].lastIndexOf(".") != -1) {
 			var splitName = verb_tabs[i].split(".");
 			if (split_admin_tabs && splitName[0] === "Admin")
@@ -909,7 +983,6 @@ function remove_interviews() {
 	checkStatusTab();
 }
 
-// removes MC, Tickets and MC tabs.
 function remove_admin_tabs() {
 	href_token = null;
 	remove_mc();
@@ -924,7 +997,7 @@ function add_admin_tabs(ht) {
 	addPermanentTab("Tickets");
 }
 function create_listedturf(TN) {
-	remove_listedturf(); // remove the last one if we had one
+	remove_listedturf();
 	turfname = JSON.parse(TN);
 	addPermanentTab(turfname);
 	tab_change(turfname);
@@ -937,7 +1010,7 @@ function update_listedturf(TC) {
 function iconError() {
 	var that = this;
 	setTimeout(function() {
-		var current_attempts = that.id; // a bit of a hack, change this if we need to call on img id's later
+		var current_attempts = that.id;
 		if(!current_attempts)
 			that.id = 1;
 		if (current_attempts > imageRetryLimit)
@@ -976,8 +1049,6 @@ function draw_listedturf() {
 		var clickcatcher = "";
 		b.className = "link";
 		b.onmousedown = function (part) {
-			// The outer function is used to close over a fresh "part" variable,
-			// rather than every onmousedown getting the "part" of the last entry.
 			return function(e) {
 				e.preventDefault();
 				clickcatcher = "?src=" + part[1];
@@ -1084,7 +1155,6 @@ function draw_interviews() {
 	manDiv.appendChild(manLink);
 	body.appendChild(manDiv);
 
-	// List interview stats
 	var statsDiv = document.createElement("table");
 	statsDiv.className="interview_panel_stats";
 	for (var key in interviewManager.status) {
@@ -1101,7 +1171,6 @@ function draw_interviews() {
 	body.appendChild(statsDiv);
 	document.getElementById("statcontent").appendChild(body);
 
-	// List interviews if any are open
 	var table = document.createElement("table");
 	table.className = "interview_panel_table";
 	if(!interviewManager)
@@ -1156,7 +1225,7 @@ function make_verb_onclick(command) {
 function draw_verbs(cat){
 	statcontentdiv[textContentKey] = "";
 	var table = document.createElement("div");
-	var additions = {}; // additional sub-categories to be rendered
+	var additions = {};
 	table.className = "grid-container";
 	sortVerbs();
 	if (split_admin_tabs && cat.lastIndexOf(".") != -1) {
@@ -1164,7 +1233,7 @@ function draw_verbs(cat){
 		if (splitName[0] === "Admin")
 			cat = splitName[1];
 	}
-	verbs.reverse(); // sort verbs backwards before we draw
+	verbs.reverse();
 	for (var i = 0; i < verbs.length; ++i) {
 		var part = verbs[i];
 		var name = part[0];
@@ -1195,14 +1264,11 @@ function draw_verbs(cat){
 		}
 	}
 
-	// Append base table to view
 	var content = document.getElementById("statcontent");
 	content.appendChild(table);
 
-	// Append additional sub-categories if relevant
 	for (var cat in additions) {
 		if (additions.hasOwnProperty(cat)) {
-			// do addition here
 			var header = document.createElement("h3");
 			header[textContentKey] = cat;
 			content.appendChild(header);

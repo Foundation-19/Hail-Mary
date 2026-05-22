@@ -1,0 +1,233 @@
+@use '../base.scss';
+
+$phosphor: #4cff4c;
+$phosphor-dim: #3ac83a;
+$phosphor-text: #a8d8a8;
+$phosphor-glow: rgba(76, 255, 76, 0.6);
+$crt-bg: #050c05;
+
+.CharacterSetup__left {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: base.em(480px);
+  overflow: hidden;
+}
+
+.CharacterSetup__right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: base.em(480px);
+  right: 0;
+  background-color: $crt-bg;
+  border-left: 1px solid $phosphor-dim;
+  display: flex;
+  flex-direction: column;
+}
+
+.CharacterSetup__preview-label {
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  color: $phosphor;
+  padding: 10px;
+  border-bottom: 1px solid $phosphor-dim;
+  background-color: rgba(76, 255, 76, 0.05);
+  flex-shrink: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.CharacterSetup__preview {
+  flex: 1;
+  margin: 10px;
+  background-color: $crt-bg;
+  border: 1px solid $phosphor-dim;
+  position: relative;
+}
+
+.CharacterSetup__map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.CharacterSetup__preview-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $phosphor;
+  font-family: 'VT323', monospace;
+}
+
+.CharacterSetup__header {
+  font-family: 'VT323', monospace;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid $phosphor-dim;
+  background-color: rgba(76, 255, 76, 0.05);
+  color: $phosphor;
+  margin-bottom: 0;
+  letter-spacing: 0.05em;
+}
+
+.CharacterSetup__footer {
+  font-family: 'VT323', monospace;
+  font-size: 12px;
+  padding: 8px 12px;
+  border-top: 1px solid $phosphor-dim;
+  background-color: rgba(76, 255, 76, 0.05);
+  color: $phosphor-dim;
+  margin-top: 0;
+  letter-spacing: 0.05em;
+}
+
+.CharacterSetup__section-title {
+  color: $phosphor;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+  text-shadow: 0 0 4px $phosphor-glow;
+  display: flex;
+  align-items: center;
+  
+  &::before {
+    content: '>';
+    margin-right: 8px;
+  }
+}
+
+.CharacterSetup__divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    $phosphor-dim 5%,
+    $phosphor-dim 95%,
+    transparent 100%
+  );
+  margin: 8px 0;
+}
+
+.CharacterSetup__label {
+  color: $phosphor-dim;
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+}
+
+.CharacterSetup__value {
+  color: $phosphor-text;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  text-shadow: 0 0 4px rgba(76, 255, 76, 0.3);
+}
+
+.CharacterSetup__row {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(58, 200, 58, 0.2);
+  
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.CharacterSetup__special-bar {
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid $phosphor-dim;
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+  
+  .fill {
+    background: linear-gradient(90deg, $phosphor-dim, $phosphor);
+    height: 100%;
+    transition: width 0.2s ease;
+    box-shadow: 0 0 8px $phosphor-glow;
+  }
+  
+  .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: $phosphor;
+    font-family: 'VT323', monospace;
+    font-size: 14px;
+    text-shadow: 0 0 4px $crt-bg;
+  }
+}
+
+.CharacterSetup__menu-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  border-left: 2px solid transparent;
+  background-color: transparent;
+  
+  &:hover {
+    background-color: rgba(76, 255, 76, 0.1);
+    border-left-color: $phosphor;
+  }
+  
+  &:active {
+    background-color: rgba(76, 255, 76, 0.2);
+  }
+}
+
+.CharacterSetup__menu-number {
+  color: $phosphor-dim;
+  width: 35px;
+  flex-shrink: 0;
+  font-family: 'VT323', monospace;
+  font-size: 16px;
+}
+
+.CharacterSetup__menu-text {
+  color: $phosphor-text;
+  font-family: 'VT323', monospace;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  transition: all 0.1s ease;
+}
+
+.CharacterSetup__status {
+  padding: 4px 8px;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  
+  &--warning {
+    color: #e8a020;
+    background-color: rgba(232, 160, 32, 0.05);
+    border-left: 2px solid #e8a020;
+  }
+  
+  &--success {
+    color: $phosphor;
+    background-color: rgba(76, 255, 76, 0.05);
+    border-left: 2px solid $phosphor;
+  }
+  
+  &--error {
+    color: #ff6b6b;
+    background-color: rgba(255, 107, 107, 0.05);
+    border-left: 2px solid #ff6b6b;
+  }
+}
+
+.FlavorTextModal {
+  background-color: $crt-bg !important;
+  border: 1px solid $phosphor-dim !important;
+  padding: 20px !important;
+  font-family: 'VT323', monospace;
+}

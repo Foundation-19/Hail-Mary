@@ -200,10 +200,10 @@
 		<table width='560' align='center' cellspacing='0' cellpadding='5' id='maintable'>
 			<tr id='title_tr'>
 				<td align='center'>
-					<font size='5'><b>Player panel</b></font>
+					<pre style="font-size:20px;letter-spacing:3px;">ROBCO TERMINAL</pre>
 					<br>Hover over a line to see more information
-					<br><a href='?_src_=holder;[HrefToken()];check_antagonist=1'>Check antagonists</a>
-					<br>Kick <a href='?_src_=holder;[HrefToken()];kick_all_from_lobby=1;afkonly=0'>everyone</a>/<a href='?_src_=holder;[HrefToken()];kick_all_from_lobby=1;afkonly=1'>AFKers</a> in lobby
+					<br><a href='?_src_=holder;[HrefToken()];check_antagonist=1'>> CHECK ANTAGONISTS</a>
+					<br>Kick <a href='?_src_=holder;[HrefToken()];kick_all_from_lobby=1;afkonly=0'>ALL</a>/<a href='?_src_=holder;[HrefToken()];kick_all_from_lobby=1;afkonly=1'>AFK ONLY</a> in lobby
 					<p>
 				</td>
 			</tr>

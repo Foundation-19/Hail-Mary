@@ -26,6 +26,21 @@
 	var/auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
 	var/projectiletype	//set ONLY it and NULLIFY casingtype var, if we have ONLY projectile
 	var/projectilesound
+	
+	// Dialogue system - allows specific NPCs to have custom dialogue
+	var/dialogue_type = null // Set to dialogue tree name for custom dialogue
+	var/dialogue_range = 3 // Range to auto-initiate dialogue with players
+	var/dialogue_cooldown = 0 // Cooldown between auto-dialogue triggers
+	var/dialogue_cooldown_time = 60 SECONDS // Time between dialogue triggers
+	
+	// Random Bark System - NPCs speak ambient lines when players are nearby
+	var/list/bark_strings = list() // Loaded from JSON dialogue files
+	var/list/bark_combat = list() // Combat barks
+	var/list/bark_greeting = list() // Greeting barks when player approaches
+	var/bark_chance = 0.03 // Probability per tick to bark (3%)
+	var/bark_cooldown = 0 // Cooldown tracker
+	var/bark_cooldown_time = 45 SECONDS // Time between barks
+	var/bark_range = 5 // Range to hear barks
 	/// Play a sound after they shoot?
 	var/sound_after_shooting
 	/// How long after shooting should it play?
@@ -390,6 +405,150 @@
 	/// How long between chain alerts (deciseconds)
 	var/chain_alert_delay = 30 // 3 seconds
 
+	// SMART AI SYSTEM VARIABLES
+	/// Cover system - are we in cover?
+	var/in_cover = FALSE
+	/// Cover system - current cover object
+	var/obj/structure/current_cover = null
+	/// Cover system - should this mob use cover?
+	var/uses_cover = FALSE
+	/// Cover system - range to search for cover
+	var/cover_search_range = 7
+	/// Cover system - health threshold to seek cover
+	var/cover_health_threshold = 0.5
+	/// Cover system - last seek time
+	var/last_cover_seek = 0
+	/// Cover system - cooldown between seeks
+	var/cover_seek_cooldown = 50
+	/// Cover system - stay duration in cover
+	var/cover_stay_duration = 30
+	/// Cover system - when we entered cover
+	var/cover_entered_time = 0
+	/// Cover system - are we peeking?
+	var/peeking_from_cover = FALSE
+
+	/// Target prioritization - threat scores
+	var/list/target_threat_scores = list()
+	/// Target prioritization - memory duration
+	var/target_threat_memory = 300
+
+	/// Flanking - are we flanking?
+	var/flanking = FALSE
+	/// Flanking - direction (LEFT=1, RIGHT=2)
+	var/flank_direction = 0
+	/// Flanking - start position
+	var/turf/flank_start_pos = null
+	/// Flanking - distance to move
+	var/flank_distance = 5
+	/// Flanking - last movement time
+	var/last_flank_time = 0
+	/// Flanking - cooldown
+	var/flank_cooldown = 30
+
+	/// Group coordination - combat role (1=attacker, 2=tank, 3=flanker, 4=support)
+	var/combat_role = 1
+	/// Group coordination - group leader
+	var/mob/living/simple_animal/hostile/group_leader = null
+	/// Group coordination - members list
+	var/list/group_members = list()
+	/// Group coordination - last coordination time
+	var/last_coordination_time = 0
+	/// Group coordination - interval
+	var/coordination_interval = 50
+
+	/// Investigation - current target
+	var/atom/investigation_target = null
+	/// Investigation - reason
+	var/investigation_reason = ""
+	/// Investigation - start time
+	var/investigation_start_time = 0
+	/// Investigation - max time
+	var/max_investigation_time = 200
+	/// Investigation - last suspicious sound
+	var/turf/last_suspicious_sound = null
+	/// Investigation - last suspicious movement
+	var/turf/last_suspicious_movement = null
+
+	// ANTI-KITE AI VARIABLES
+	/// Anti-kite: does this mob use anti-kite behavior? (veer, lunge, dodge)
+	var/anti_kite = TRUE
+	/// Anti-kite: can this mob lunge/charge to close distance?
+	var/can_lunge = FALSE
+	/// Anti-kite: minimum distance to attempt lunge
+	var/lunge_range_min = 3
+	/// Anti-kite: maximum distance to attempt lunge
+	var/lunge_range_max = 6
+	/// Anti-kite: cooldown between lunges (deciseconds)
+	var/lunge_cooldown = 60
+	/// Anti-kite: last lunge time
+	var/last_lunge = 0
+	/// Anti-kite: chance per tick to lunge when target is in range
+	var/lunge_chance = 30
+	/// Anti-kite: does lunge teleport (flying) or rush (ground)?
+	var/lunge_is_teleport = FALSE
+	/// Anti-kite: can this mob dodge projectiles by sidestepping?
+	var/can_dodge_shots = TRUE
+	/// Anti-kite: chance to dodge when shot at (0-100)
+	var/dodge_chance = 15
+	/// Anti-kite: cooldown between dodges (deciseconds)
+	var/dodge_cooldown = 20
+	/// Anti-kite: last dodge time
+	var/last_dodge = 0
+	/// Anti-kite: chance per step to veer sideways while chasing (0-100)
+	var/veer_chance = 15
+	/// Anti-kite: are we currently veering? (sidesteps in progress)
+	var/veering = FALSE
+
+	// TACTICAL AI VARIABLES
+	/// Tactical: can this mob throw grenades?
+	var/can_throw_grenades = FALSE
+	/// Tactical: grenade type to throw
+	var/grenade_type = /obj/item/grenade/frag
+	/// Tactical: cooldown between grenade throws (deciseconds)
+	var/grenade_cooldown = 300
+	/// Tactical: last grenade throw time
+	var/last_grenade_throw = 0
+	/// Tactical: minimum targets clustered to throw grenade
+	var/grenade_min_targets = 2
+	/// Tactical: range to detect clustered targets
+	var/grenade_cluster_range = 2
+
+	/// Tactical: can this mob retreat when badly hurt?
+	var/can_retreat = TRUE
+	/// Tactical: health threshold to start retreating (0-1)
+	var/retreat_health_threshold = 0.25
+	/// Tactical: is this mob currently retreating?
+	var/retreating = FALSE
+
+	/// Tactical: can this mob use healing items on itself?
+	var/can_use_stimpak = FALSE
+	/// Tactical: stimpak type to use
+	var/stimpak_type = /obj/item/reagent_containers/pill/patch/healpoultice
+	/// Tactical: health threshold to use stimpak (0-1)
+	var/stimpak_threshold = 0.4
+	/// Tactical: cooldown between stimpak uses (deciseconds)
+	var/stimpak_cooldown = 600
+	/// Tactical: last stimpak use time
+	var/last_stimpak_use = 0
+
+	/// Tactical: can this mob suppress targets with rapid fire?
+	var/can_suppress = FALSE
+	/// Tactical: range at which suppression is effective
+	var/suppress_range = 7
+	/// Tactical: cooldown between suppression bursts (deciseconds)
+	var/suppress_cooldown = 100
+	/// Tactical: last suppression time
+	var/last_suppress = 0
+
+	/// Tactical: can this mob set ambushes?
+	var/can_ambush = FALSE
+	/// Tactical: is this mob currently in ambush position?
+	var/ambush_waiting = FALSE
+	/// Tactical: how long to wait in ambush before giving up (deciseconds)
+	var/ambush_patience = 300
+	/// Tactical: when did ambush start?
+	var/ambush_start_time = 0
+
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
 
@@ -399,6 +558,9 @@
 	if(MOB_EMP_DAMAGE in emp_flags)
 		smoke = new /datum/effect_system/smoke_spread/bad
 		smoke.attach(src)
+	
+	// Load barks from dialogue files if dialogue_type is set (lazy loaded via proc call)
+	load_npc_barks(src)
 
 /mob/living/simple_animal/hostile/Destroy()
 	// Clear target reference with signal cleanup
@@ -427,6 +589,19 @@
 	if(searched_doors)
 		searched_doors.Cut()
 	searched_doors = null
+	
+	// SMART AI: Clean up new systems
+	if(target_threat_scores)
+		target_threat_scores.Cut()
+	target_threat_scores = null
+	
+	current_cover = null
+	group_leader = null
+	group_members = null
+	investigation_target = null
+	flank_start_pos = null
+	last_suspicious_sound = null
+	last_suspicious_movement = null
 	
 	search_expansion = 0
 	
@@ -491,6 +666,63 @@
 				gib(FALSE, FALSE, FALSE, TRUE)
 		return
 	check_health()
+	try_bark()
+
+/mob/living/simple_animal/hostile/proc/check_auto_dialogue()
+	if(!dialogue_type || dialogue_cooldown > world.time)
+		return
+	
+	for(var/mob/living/carbon/human/player in view(dialogue_range, src))
+		if(!player.client)
+			continue
+		if(stat != CONSCIOUS)
+			continue
+		
+		record_npc_interaction(src, player, "talked")
+		start_dialogue(player, dialogue_type)
+		dialogue_cooldown = world.time + dialogue_cooldown_time
+		return
+
+/mob/living/simple_animal/hostile/proc/try_bark()
+	if(stat != CONSCIOUS)
+		return
+	if(bark_cooldown > world.time)
+		return
+	
+	var/list/barks_to_use = list()
+	
+	
+	// Determine bark context
+	if(target && (AIStatus == AI_ON))
+		
+		if(bark_combat.len > 0)
+			barks_to_use = bark_combat
+		else
+			return // No combat barks
+	else
+		if(bark_strings.len > 0)
+			barks_to_use = bark_strings
+		else
+			return // No idle barks
+	
+	// Check for nearby players
+	var/player_nearby = FALSE
+	for(var/mob/living/carbon/human/H in view(bark_range, src))
+		if(H.client)
+			player_nearby = TRUE
+			break
+	
+	if(!player_nearby)
+		return
+	
+	// Random chance to bark
+	if(!prob(bark_chance))
+		return
+	
+	// Pick a bark and say it
+	var/message = pick(barks_to_use)
+	say(message)
+	bark_cooldown = world.time + bark_cooldown_time
 
 /mob/living/simple_animal/hostile/proc/check_health()
 	if(low_health_threshold <= 0)
@@ -707,6 +939,24 @@
 			patrol_check_timer = world.time
 			check_light_patrol()
 
+	// SMART AI: Handle cover, flanking, coordination, anti-kite, and tactical AI
+	if(target && AIStatus == AI_ON)
+		handle_cover_behavior()
+		handle_group_coordination()
+		check_investigation()
+		handle_anti_kite()
+		handle_tactical_ai()
+
+	// AMBUSH: Set up or check ambush when idle
+	if(can_ambush && AIStatus == AI_IDLE)
+		handle_ambush()
+	if(ambush_waiting)
+		check_ambush()
+		
+		// Flanking behavior
+		if(flanking && !check_flank_complete())
+			move_to_flank_position()
+
 	if(AICanContinue(possible_targets))
 		if(!QDELETED(target) && !targets_from.Adjacent(target))
 			if(is_stuck)
@@ -800,12 +1050,22 @@
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client && user)
 		FindTarget(list(user), 1)
 		COOLDOWN_RESET(src, sight_shoot_delay) // Let them shoot back immediately when attacked
+		instant_react_to_attack(user)
+		
+		// Record attack in NPC memory
+		if(ishuman(user))
+			record_npc_interaction(src, user, "attacked")
 		
 		// CHAIN REACTION: This mob just woke up, alert nearby allies
 		trigger_chain_alert(user)
 	return ..()
 
 /mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+	// Anti-kite: try to dodge the shot
+	if(can_dodge_shots && stat == CONSCIOUS && try_dodge_shot())
+		visible_message(span_danger("[src] dodges [P]!"))
+		return BULLET_ACT_FORCE_PIERCE
+
 	// ALERT NEARBY ALLIES ABOUT COMBAT - alert at multiple locations
 	if(P.firer)
 		// Alert from shooter location (full range, muffled by walls)
@@ -845,6 +1105,8 @@
 				COOLDOWN_RESET(src, sight_shoot_delay)
 				trigger_chain_alert(P.firer)
 				visible_message(span_danger("[src] turns its attention to [P.firer]!"))
+				// INSTANT REACTION: Don't wait for next SSnpcpool tick
+				instant_react_to_attack(P.firer)
 				return
 				
 		if(!target) // Only run to projectile source if we have no target after all checks
@@ -1605,6 +1867,12 @@
 	return
 
 /mob/living/simple_animal/hostile/proc/PickTarget(list/Targets)//Step 3, pick amongst the possible, attackable targets
+	// SMART AI: Use threat-based prioritization if available
+	if(uses_cover || flanking)
+		var/atom/priority_target = smart_pick_target(Targets)
+		if(priority_target)
+			return priority_target
+	
 	if(target != null)//If we already have a target, but are told to pick again, calculate the lowest distance between all possible, and pick from the lowest distance targets
 		for(var/pos_targ in Targets)
 			var/atom/A = pos_targ
@@ -2092,7 +2360,6 @@
 		approaching_target = FALSE
 	if(CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
 		set_glide_size(DELAY_TO_GLIDE_SIZE(move_to_delay))
-		// Try pathfinding with walk_to - it handles basic pathing
 		walk_to(src, target, minimum_distance, delay)
 	if(variation_list[MOB_MINIMUM_DISTANCE_CHANCE] && LAZYLEN(variation_list[MOB_MINIMUM_DISTANCE]) && prob(variation_list[MOB_MINIMUM_DISTANCE_CHANCE]))
 		minimum_distance = vary_from_list(variation_list[MOB_MINIMUM_DISTANCE])
@@ -2101,6 +2368,9 @@
 
 /mob/living/simple_animal/hostile/adjustHealth(amount, updating_health = TRUE, forced = FALSE)
 	. = ..()
+	// Instant reaction when hit - bypass 1-second tick delay
+	if(!ckey && stat == CONSCIOUS && . > 0 && target)
+		instant_react_to_attack(target)
 	if(!ckey && !stat && search_objects < 3 && . > 0)
 		if(searching)
 			exit_search_mode(FALSE, found_target = TRUE)
@@ -4233,6 +4503,13 @@
 
 /mob/living/simple_animal/hostile/death(gibbed)
 	LoseTarget()
+	if(lastattacker && ishuman(lastattacker))
+		var/mob/living/carbon/human/H = lastattacker
+		H.recent_hostile_kill_time = world.time
+		if(H.ckey)
+			var/xp_amount = get_xp_for_mob_kill(src)
+			if(xp_amount)
+				add_xp(H.ckey, xp_amount, "kill:[name]")
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
@@ -4531,6 +4808,22 @@
 	// FIX: Set facing direction when we move (so mobs turn naturally)
 	if(dir && dir != src.dir && !dodging)
 		setDir(dir)
+	
+	// Anti-kite: veer sideways while chasing to avoid beelining
+	if(anti_kite && veer_chance && !veering && target && !client && approaching_target && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
+		var/dist = get_dist(src, target)
+		if(dist > minimum_distance + 1 && prob(veer_chance))
+			var/dir_to_target = get_dir(src, target)
+			if(dir_to_target)
+				var/veer_dir = pick(turn(dir_to_target, 90), turn(dir_to_target, -90))
+				var/turf/veer_turf = get_step(src, veer_dir)
+				if(veer_turf && !veer_turf.density)
+					veering = TRUE
+					. = ..(veer_turf, veer_dir)
+					veering = FALSE
+					// After veering, immediately step toward target next
+					addtimer(CALLBACK(src, PROC_REF(step_toward_target)), move_to_delay, TIMER_DELETE_ME|TIMER_UNIQUE)
+					return .
 	
 	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
 		return dodge(newloc,dir)

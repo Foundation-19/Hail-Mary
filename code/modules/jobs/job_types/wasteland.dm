@@ -10,6 +10,7 @@
 /datum/job/wasteland/f13wastelander
 	title = "Wastelander"
 	flag = F13WASTELANDER
+	caps_paycheck = PAYCHECK_CAPS_NONE
 	faction = FACTION_WASTELAND
 	total_positions = -1
 	spawn_positions = -1
@@ -451,6 +452,7 @@
 /datum/job/wasteland/f13preacher
 	title = "Preacher"
 	flag = F13PREACHER
+	caps_paycheck = PAYCHECK_CAPS_MINIMAL
 	faction = FACTION_WASTELAND
 	total_positions = 1
 	spawn_positions = 1
@@ -769,6 +771,7 @@
 /datum/job/wasteland/f13tribal
 	title = "Far-Lands Tribals"
 	flag = F13TRIBAL
+	caps_paycheck = PAYCHECK_CAPS_NONE
 	display_order = JOB_DISPLAY_ORDER_TRIBAL
 	faction = FACTION_WASTELAND
 	total_positions = -1

@@ -1,0 +1,127 @@
+{
+  "legion": {
+    "faction": "legion",
+    "default_greeting": "Are you here to join the Legion, or do you seek information?",
+    "barks": {
+      "idle": [
+        "Ave, true to Caesar.",
+        "True to Caesar.",
+        "Ave, Amicus.",
+        "The new slaves will serve the Legion well.",
+        "Give me cause, Profligate.",
+        "Degenerates like you belong on a cross.",
+        "Caesar's will be done.",
+        "The Bull marches forward."
+      ],
+      "combat": [
+        "For Caesar!",
+        "The Bull demands blood!",
+        "Strike them down!",
+        "No mercy for profligates!",
+        "Render unto Caesar!",
+        "Victory or death!",
+        "Burn the infidels!"
+      ],
+      "greeting": [
+        "Ave, traveler.",
+        "State your business.",
+        "The Legion welcomes those with strength.",
+        "Are you friend or foe to Caesar?"
+      ]
+    },
+    "bark_chance": 0.02,
+    "bark_cooldown": 60,
+    "bark_range": 7,
+    "rank_greetings": {
+      "Idolized": "Hail, friend of Caesar! The Legion welcomes you with open arms. What do you require?",
+      "Admired": "You have proven yourself a valuable ally. How may we serve Caesar?",
+      "Liked": "Greetings, friend. What brings you to our camp?",
+      "Accepted": "You are welcome here, outsider. State your business.",
+      "Neutral": "Are you here to join the Legion, or do you seek information?",
+      "Shunned": "Your reputation precedes you. Speak quickly and leave.",
+      "Disliked": "You have done much against Caesar. Be grateful I don't cut you down now.",
+      "Hated": "You are an enemy of Caesar. Any last words?",
+      "Vilified": "Die, dog!"
+    },
+    "nodes": {
+      "start": {
+        "text": "Are you here to join the Legion, or do you seek information?",
+        "responses": [
+          {"text": "I seek information", "next": "information"},
+          {"text": "I wish to join", "next": "join"},
+          {"text": "Any work available?", "next": "work"}
+        ]
+      },
+      "information": {
+        "text": "The wasteland belongs to Caesar. The NCR rots from within - their democracy is their weakness. We bring order through strength.",
+        "responses": [
+          {"text": "And the Brotherhood?", "next": "brotherhood"},
+          {"text": "I see...", "next": "end"}
+        ]
+      },
+      "brotherhood": {
+        "text": "The Brotherhood hides in their bunkers, hoarding technology they fear to use. They will be crushed in time."
+      },
+      "join": {
+        "text": "The Legion welcomes those with strength. Prove yourself in battle, and you may rise among us.",
+        "requirements": {
+          "min_rep": {"legion": 10}
+        },
+        "rewards": {
+          "quest": "legion_tribal"
+        },
+        "responses": [
+          {"text": "I'm ready to prove myself", "next": "end"}
+        ]
+      },
+      "join_denied": {
+        "text": "You have not yet proven yourself worthy. Return when you have served Caesar in some way."
+      },
+      "work": {
+        "text": "The Legion always needs supplies. Bring us weapons, medicine, and we will reward you. Also, NCR dogtags are always welcome.",
+        "responses": [
+          {"text": "I can help with that", "next": "work_accept"},
+          {"text": "What about NCR?", "next": "ncr_work"}
+        ]
+      },
+      "work_accept": {
+        "text": "Good. Bring what you can. Caesar rewards those who serve.",
+        "rewards": {
+          "rep": {"legion": 5}
+        }
+      },
+      "ncr_work": {
+        "text": "We need NCR supplies... and information. Bring us dogtags from NCR soldiers and you'll be well rewarded.",
+        "rewards": {
+          "quest": "legion_kill_ncr"
+        },
+        "responses": [
+          {"text": "Consider it done", "next": "end"}
+        ]
+      },
+      "end": {
+        "text": "Walk wisely, wasteland walker."
+      }
+    }
+  },
+  "legion_centurion": {
+    "faction": "legion",
+    "default_greeting": "You stand before a Centurion. Speak quickly.",
+    "rank_greetings": {
+      "Idolized": "Ah, the hero of the wastes. Caesar will hear of your visit. How may we honor you?",
+      "Neutral": "You stand before a Centurion. Speak quickly.",
+      "Vilified": "Guards! Seize this enemy of Caesar!"
+    },
+    "nodes": {
+      "start": {
+        "text": "You stand before a Centurion. Speak quickly.",
+        "responses": [
+          {"text": "I bring offerings", "next": "offerings"}
+        ]
+      },
+      "offerings": {
+        "text": "Good. Weapons, medicine, NCR tags - all are welcome. What do you bring?"
+      }
+    }
+  }
+}

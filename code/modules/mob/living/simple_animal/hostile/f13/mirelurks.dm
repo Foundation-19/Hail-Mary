@@ -70,6 +70,8 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	veer_chance = 15
+	dodge_chance = 20
 	
 	// Sound effects - using existing crustacean/creature sounds
 	emote_taunt_sound = list('sound/creatures/radscorpion_snip.ogg')

@@ -89,6 +89,14 @@
 	combat_mode = COMBAT_MODE_MELEE
 	retreat_distance = null
 	minimum_distance = 1
+	can_lunge = TRUE
+	lunge_range_min = 3
+	lunge_range_max = 5
+	lunge_cooldown = 80
+	lunge_chance = 20
+	lunge_is_teleport = FALSE
+	veer_chance = 15
+	dodge_chance = 15
 
 // FIX: Consolidated death() icon swap here so all subtypes inherit it.
 // Previously every subtype copy-pasted: icon = dead_dmi, icon_state = icon_dead, anchored = FALSE.
