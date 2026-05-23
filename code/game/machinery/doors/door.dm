@@ -39,6 +39,10 @@
 	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/proj_resist = 10
+	/// Lock difficulty for lockpicking mini-game (1 = very easy, 5 = very hard)
+	var/lock_tier = 2
+	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
+	var/lockpick_jammed = FALSE
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
@@ -157,85 +161,53 @@
 /obj/machinery/door/proc/try_to_lockpick(obj/item/lockpick_set/picking, mob/user)
 	if(!istype(picking))
 		return FALSE
+	if(lockpick_jammed)
+		to_chat(user, span_warning("The lock is jammed solid. Use a crowbar to reset the mechanism first."))
+		return FALSE
+	if(picking.in_use)
+		to_chat(user, span_warning("Your lockpick is already in use."))
+		return FALSE
 
 	picking.in_use = TRUE
 
-	var/list/pick_messages = list(
-		"otherpicking" = list(
-			"[user] starts to pick a lock!",
-			"[user] begins picking a lock!",
-			"[user] begins to jimmy a lock!",
-			"[user] begins to try and open a lock!"
-		),
-		"mepicking" = list(
-			"You slide your tools into the lock...",
-			"You begin trying to jimmy the lock...",
-			"You begin raking the tumblers...",
-			"This lock shouldn't take much longer..."
-		),
-		"blindpicking" = list(
-			"Is that metal clicking?",
-			"Is someone tapping metal together?",
-			"You hear an odd mechanical picking and scraping sound.",
-			"That's an odd metal noise..."
-		),
-		"failmessages" = list(
-			"Wrist slipped... try again...",
-			"Almost got it...",
-			"One more tumbler...",
-			"Come on...",
-			"Anytime now..."
-		),
-		"successmessages" = list(
-			"Got it!",
-			"Phew!",
-			"Easy!",
-			"Done!"
-		)
+	var/list/start_messages_other = list(
+		"[user] starts to pick a lock!",
+		"[user] begins picking a lock!",
+		"[user] begins to jimmy a lock!"
+	)
+	var/list/start_messages_self = list(
+		"You slide your tools into the lock...",
+		"You begin trying to jimmy the lock...",
+		"You begin raking the tumblers..."
+	)
+	var/list/start_messages_blind = list(
+		"Is that metal clicking?",
+		"Is someone tapping metal together?",
+		"You hear an odd mechanical picking and scraping sound."
 	)
 
 	user.visible_message(
-		pick(pick_messages["otherpicking"]),
-		pick(pick_messages["mepicking"]),
-		pick(pick_messages["blindpicking"])
-		)
-	playsound(
-		get_turf(src),
-		pick('sound/items/screwdriver.ogg','sound/items/screwdriver2.ogg'),
-		25,
-		1,
-		ignore_walls = FALSE
-		)
+		pick(start_messages_other),
+		pick(start_messages_self),
+		pick(start_messages_blind)
+	)
+	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, ignore_walls = FALSE)
 
-	if(!do_after(user, 4 SECONDS, target = src))
-		user.show_message(span_alert(pick(pick_messages["failmessages"])))
-		playsound(
-			get_turf(src),
-			pick('sound/items/screwdriver.ogg','sound/items/screwdriver2.ogg'),
-			25,
-			1,
-			ignore_walls = FALSE
-			)
-		picking.in_use = FALSE
-		picking.use_pick(user)
-		return
+	// Start the interactive mini-game
+	var/datum/lockpicking_minigame/game = new(src, user, picking, lock_tier)
+	game.wait()
 
-	playsound(
-		get_turf(src),
-		pick('sound/items/screwdriver.ogg','sound/items/screwdriver2.ogg'),
-		25,
-		1,
-		ignore_walls = FALSE
-		)
-	
-	if(prob(15))
-		user.show_message(span_green(pick(pick_messages["successmessages"])))
+	var/success = game.result
+	game.finalize(user)
+	if(!QDELETED(game))
+		qdel(game)
+
+	if(success)
+		user.show_message(span_green("You feel the lock give way. It's open!"))
 		try_to_activate_door(user, TRUE)
 		. = TRUE
-	else
-		user.show_message(span_alert(pick(pick_messages["failmessages"])))
-	picking.in_use = FALSE
-	picking.use_pick(user)
+	else if(lockpick_jammed)
+		to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it."))
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user, force_open)
 	add_fingerprint(user)

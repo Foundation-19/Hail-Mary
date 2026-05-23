@@ -49,6 +49,8 @@
 	var/trapped = FALSE
 	//whether its locked or not, will allow it to either open or not
 	var/locked = TRUE
+	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
+	var/lockpick_jammed = FALSE
 	//so you can't spam click the locked crate
 	var/used = FALSE
 	//this will just add whatever is here right before locked crate
@@ -115,6 +117,13 @@
 	qdel(src) //NO MORE, YOU MUST DIE AFTER SPAWNING
 
 /obj/item/locked_box/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/crowbar))
+		if(lockpick_jammed)
+			lockpick_jammed = FALSE
+			to_chat(user, span_notice("You pry the mechanism loose — the lock resets. You can try picking it again."))
+			playsound(get_turf(src), 'sound/items/Screwdriver.ogg', 50, TRUE)
+			return TRUE
+		return ..() // normal crowbar behavior if not jammed
 	if(istype(W, /obj/item/screwdriver))
 		if(!locked)
 			return
@@ -131,15 +140,29 @@
 		locked = FALSE
 		return
 	else if(istype(W, /obj/item/lockpick_set))
+		var/obj/item/lockpick_set/the_pick = W
 		if(!locked)
 			return
-		var/success_after_tier = max(100 - (lock_tier * 20), 0) //the higher the lock tier, the harder it is, down to a max of 0
-		var/success_after_skill = min((user.client.prefs.special_l * 5) + success_after_tier, 100) //the higher the persons luck, the better, up to a max of 100, with 50 added
-		if(!prob(success_after_skill))
-			to_chat(user, span_warning("You fail to pick [src]."))
+		if(lockpick_jammed)
+			to_chat(user, span_warning("[src]'s lock is jammed solid. Use a crowbar to reset the mechanism first."))
 			return
-		to_chat(user, span_green("You successfully unlock [src]."))
-		locked = FALSE
+		if(the_pick.in_use)
+			to_chat(user, span_warning("The lockpick is already in use."))
+			return
+		the_pick.in_use = TRUE
+		var/datum/lockpicking_minigame/game = new(src, user, the_pick, lock_tier)
+		game.wait()
+		var/success = game.result
+		game.finalize(user)
+		if(!QDELETED(game))
+			qdel(game)
+		if(QDELETED(src))
+			return
+		if(success)
+			to_chat(user, span_green("You successfully unlock [src]."))
+			locked = FALSE
+		else if(lockpick_jammed)
+			to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it before trying again."))
 		return
 	else
 		return ..()

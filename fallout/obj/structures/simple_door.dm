@@ -20,6 +20,9 @@
 	explosion_block = 0.5
 	var/can_hold_padlock = FALSE
 	var/obj/item/lock_construct/padlock
+	var/lock_tier = 2
+	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
+	var/lockpick_jammed = FALSE
 	var/door_type = "house"
 	var/base_opacity = TRUE
 	var/manual_opened = 0
@@ -116,6 +119,14 @@
 
 /* can crowbar off a lock, to force a door open. This is overriden in airlock so shouldnt be an issue */
 /obj/structure/simple_door/proc/try_to_crowbar(obj/item/I, mob/user)
+	// Clear a jammed lock first
+	if(lockpick_jammed)
+		lockpick_jammed = FALSE
+		user.visible_message(
+			span_notice("[user] pries the jammed lock mechanism loose on [src]."),
+			span_notice("You pry the jammed mechanism loose — the lock resets.")
+		)
+		return
 	if(padlock) /* attempt to pry the lock off */
 		if(padlock.pry_off(user,src))
 			qdel(padlock)
@@ -191,6 +202,9 @@
 			return
 		else
 			return padlock.check_key(I,user)
+	if(istype(I, /obj/item/lockpick_set))
+		try_to_lockpick(I, user)
+		return TRUE
 	if(user.a_intent == INTENT_HARM)
 //		if(padlock)
 //			add_logs(user, src, "attacked", src)
@@ -198,6 +212,44 @@
 	attack_hand(user)
 
 
+
+/obj/structure/simple_door/proc/try_to_lockpick(obj/item/lockpick_set/picking, mob/user)
+	if(!padlock || !padlock.locked)
+		to_chat(user, span_warning("There's no locked lock to pick."))
+		return FALSE
+	if(lockpick_jammed)
+		to_chat(user, span_warning("The lock is jammed solid. Use a crowbar to reset the mechanism first."))
+		return FALSE
+	if(picking.in_use)
+		to_chat(user, span_warning("Your lockpick is already in use."))
+		return FALSE
+
+	picking.in_use = TRUE
+
+	user.visible_message(
+		"[user] begins picking a lock!",
+		"You begin raking the tumblers...",
+		"You hear an odd mechanical picking and scraping sound."
+	)
+	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, ignore_walls = FALSE)
+
+	var/datum/lockpicking_minigame/game = new(src, user, picking, lock_tier)
+	game.wait()
+
+	var/success = game.result
+	game.finalize(user)
+	if(!QDELETED(game))
+		qdel(game)
+
+	if(success)
+		if(QDELETED(src) || !padlock)
+			return
+		user.show_message(span_green("You feel the lock give way. It's open!"))
+		padlock.locked = FALSE
+		SwitchState(TRUE)
+		return TRUE
+	else if(lockpick_jammed)
+		to_chat(user, span_warning("The lock jammed! Use a crowbar to reset [src]'s mechanism."))
 
 /obj/structure/simple_door/proc/TryToSwitchState(atom/user, animate)
 	if(moving)
