@@ -105,6 +105,18 @@ $phosphor-text: #a8d8a8;
     color: #c8ffc8;
   }
 
+  // All fills unified to phosphor-dim so mix-blend-mode:difference produces
+  // near-black text over the fill and bright phosphor text on the dark track.
+  .ProgressBar--color--good,
+  .ProgressBar--color--average,
+  .ProgressBar--color--bad {
+    border-color: $phosphor-dim !important;
+
+    .ProgressBar__fill {
+      background-color: $phosphor-dim;
+    }
+  }
+
   .ProgressBar__content {
     color: $phosphor;
     mix-blend-mode: difference;
