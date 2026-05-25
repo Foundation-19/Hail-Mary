@@ -34,6 +34,7 @@
 	assemblytype = /obj/item/stack/sheet/mineral/wood/five
 	opacity = TRUE
 	explosion_block = TRUE
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/securedoor/update_icon()
 	if(density)
@@ -56,16 +57,19 @@
 /obj/machinery/door/unpowered/securedoor/legion
 	name = "Legion Castrum"
 	req_access_txt = "123"
+	lock_tier = 5
 
 //khoor
 /obj/machinery/door/unpowered/securedoor/khandoor
 	name = "khan door"
 	req_access_txt = "125"
+	lock_tier = 4
 
 //bikoor
 /obj/machinery/door/unpowered/securedoor/bikerdoor
 	name = "Hell's Nomad door"
 	req_access = list(ACCESS_BIKER)
+	lock_tier = 4
 
 
 // ------------------------------------
@@ -108,6 +112,7 @@
 	max_integrity = 1000
 	obj_integrity = 1000
 	explosion_block = TRUE
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/secure_steeldoor/update_icon()
 	if(density)
@@ -139,6 +144,7 @@
 	explosion_block = FALSE
 	pass_flags = LETPASSTHROW  // would be great but the var is not functional for some reason.
 	proj_pass_rate = 95
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/celldoor/update_icon()
 	if(density)
@@ -177,6 +183,7 @@
 	explosion_block = FALSE
 	proj_pass_rate = 95
 	req_access_txt = "123"
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/secure_legion/update_icon()
 	if(density)
