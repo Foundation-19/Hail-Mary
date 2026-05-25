@@ -133,14 +133,37 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	var/feedback = ""
 	/// null = in progress, TRUE = success, FALSE = fail/cancel
 	var/result = null
+	/// Set to TRUE when the player voluntarily gives up (vs. actual failure)
+	var/gave_up = FALSE
 	/// Whether the user was anchored before lockpicking began (restored on Destroy)
 	var/was_anchored = FALSE
+	/// Noise emitted per failed set attempt: 0=silent, 1=quiet, 2=loud, 3=jangling
+	var/pick_noise_level = 1
+	/// Accumulated noise tally — resets to 0 after alerting nearby listeners
+	var/accumulated_noise = 0
+	/// world.time when the minigame began (for tension-fatigue timer)
+	var/timer_start = 0
+	/// Total timer duration in ticks (0 = no timer; only tier 3+ locks)
+	var/timer_duration = 0
+	/// TRUE once the 30-second cramp warning has been issued
+	var/timer_warning_sent = FALSE
+	/// Whether the user has TRAIT_LOCKPICKING
+	var/has_lockpick_trait = FALSE
+	/// Shuffled list of pin indices determining binding order for this lock
+	var/list/bind_order = null
+	/// uses_left when the pick was first inserted (baseline for wear calculation)
+	var/pick_initial_uses = 0
+	/// Reference to the physical lock object — used to persist pin solution
+	var/obj/item/lock_construct/the_lock = null
+	/// Overhead icon overlay displayed above the user's mob while picking
+	var/mutable_appearance/pick_overlay = null
 
-/datum/lockpicking_minigame/New(atom/the_target, mob/the_user, obj/item/lockpick_set/the_pick, tier)
+/datum/lockpicking_minigame/New(atom/the_target, mob/the_user, obj/item/lockpick_set/the_pick, tier, obj/item/lock_construct/lock_ref = null)
 	target    = the_target
 	user      = the_user
 	pick      = the_pick
 	lock_tier = clamp(tier, 1, 5)
+	the_lock  = lock_ref
 	luck      = the_user.special_l
 	if(isliving(the_user))
 		agility    = the_user.special_a
@@ -163,6 +186,23 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	is_bobby_pin       = istype(the_pick, /obj/item/lockpick_set/bobby_pin)
 	is_electronic_pick = istype(the_pick, /obj/item/lockpick_set/electronic_pick)
 
+	// Noise per failed event — masters are near-silent; bobby pins jangle
+	if(is_bobby_pin)
+		pick_noise_level = 3
+	else if(is_master_pick)
+		pick_noise_level = 0
+	else
+		pick_noise_level = 1
+
+	// Record initial uses for pick wear calculation
+	pick_initial_uses = pick.uses_left
+
+	// TRAIT_LOCKPICKING: professional muscle memory — wider feel, quieter work
+	if(isliving(the_user) && HAS_TRAIT(the_user, TRAIT_LOCKPICKING))
+		has_lockpick_trait = TRUE
+		luck       = min(10, luck + 2)
+		perception = min(10, perception + 2)
+
 	// Bobby pin cannot handle tier 3+ locks
 	if(is_bobby_pin && lock_tier > 2)
 		feedback = "Your bobby pin is too flimsy for this lock — it needs a proper pick."
@@ -171,6 +211,17 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		ui_interact(the_user)
 		addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
 		return
+
+	// Broken pick fragment check — a snapped tip jams the lock until fished out
+	var/turf/frag_turf = get_turf(the_target)
+	for(var/obj/item/pick_fragment/frag in frag_turf)
+		if(frag.stuck_in == the_target)
+			feedback = "A broken pick tip is jammed in the lock. Fish it out with a screwdriver first."
+			phase = "failed"
+			result = FALSE
+			ui_interact(the_user)
+			addtimer(CALLBACK(src, PROC_REF(close_ui)), 2.5 SECONDS)
+			return
 
 	generate_pins()
 
@@ -188,11 +239,12 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	// Electronic pick auto-sets pin 1
 	if(is_electronic_pick && pins.len >= 1)
 		pins[1]["set"] = TRUE
-		current_pin = 2
-		feedback = "The electronic pick buzzes — pin 1 located automatically! Handle the rest manually."
+		current_pin = get_binding_pin()
+		feedback = "The electronic pick buzzes — pin 1 set! Pin [current_pin] is now binding."
 		playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -3)
 	else
-		feedback = "Insert your pick and find the correct position for each pin. You can focus any pin freely."
+		current_pin = get_binding_pin()
+		feedback = "Pin [current_pin] is binding — the cylinder presses on it. Find the right height and set it."
 
 	// Load partial save state from a previous give_up (tension wrench only), if any
 	var/ref = "\ref[the_target]"
@@ -219,13 +271,25 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 						pins[idx2]["tried"] = tried_restore
 					if(mem["tried_hints"])
 						pins[idx2]["tried_hints"] = mem["tried_hints"]
-		// Advance current_pin to the first unset pin
-		current_pin = 1
-		while(current_pin <= pins.len && pins[current_pin]["set"])
-			current_pin++
+		// Advance current_pin to the binding pin (skips already-restored set pins)
+		var/restored_binding = get_binding_pin()
+		current_pin = restored_binding ? restored_binding : pins.len
 		var/loaded = set_indices.len
 		if(current_pin <= pins.len)
-			feedback = "Your tension wrench held — [loaded] [loaded == 1 ? "pin" : "pins"] already set. You remember your previous attempts."
+			feedback = "Tension held — [loaded] [loaded == 1 ? "pin" : "pins"] still set. Pin [current_pin] is now binding."
+
+	// Tension-fatigue timer: tier 3+ locks require sustained hand pressure.
+	// Your grip eventually cramps, dropping set pins.
+	timer_start = world.time
+	var/base_timer = 0
+	switch(lock_tier)
+		if(3) base_timer = 1800  // 180 s
+		if(4) base_timer = 1200  // 120 s
+		if(5) base_timer = 900   // 90 s
+	if(base_timer > 0)
+		if(has_lockpick_trait) base_timer += 600  // +60 s
+		if(is_master_pick)     base_timer += 300  // +30 s (ergonomic grip)
+		timer_duration = base_timer
 
 	// Anchor the user — prevents Move() from being called at all by the BYOND
 	// client, which stops bump sounds when pressing movement keys near the door.
@@ -240,11 +304,22 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	RegisterSignal(user, COMSIG_MOB_ATTACK_HAND, PROC_REF(on_user_hit))
 	RegisterSignal(user, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_user_hit))
 
+	// Overhead icon so bystanders can see the player is lockpicking
+	pick_overlay = mutable_appearance('icons/mob/actions/actions_flightsuit.dmi', "flightsuit_lock")
+	pick_overlay.pixel_y = 28
+	pick_overlay.alpha = 195
+	var/matrix/M = matrix()
+	M.Scale(0.55)
+	pick_overlay.transform = M
+	user.add_overlay(pick_overlay)
+
 	ui_interact(the_user)
 
 /datum/lockpicking_minigame/Destroy()
 	if(user && !QDELETED(user))
 		user.anchored = was_anchored
+		if(pick_overlay)
+			user.cut_overlay(pick_overlay)
 		UnregisterSignal(user, list(COMSIG_MOB_DEATH, COMSIG_MOVABLE_PRE_MOVE, COMSIG_MOB_ATTACK_HAND, COMSIG_MOB_ITEM_ATTACK))
 	SStgui.close_uis(src)
 	return ..()
@@ -296,61 +371,170 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	attempts_left = max_attempts
 
 	pins = list()
+	// If the lock already has a stored solution (same pin count), reuse it so
+	// the combination stays consistent across attempts.  Per-picker stats still
+	// affect zone_size, attempts_left, and hint detail — only the raw
+	// positions/types are fixed to the physical lock.
+	var/use_stored = the_lock && the_lock.pin_solution \
+		&& (the_lock.pin_solution.len == num_pins)
 	for(var/i in 1 to num_pins)
-		var/max_start = max(10 - zone_size, 1)
-		var/min_pos   = rand(1, max_start)
-		var/max_pos   = min(min_pos + zone_size - 1, 10)
-		// False zone for tier 4+ — a single non-overlapping decoy position
+		var/min_pos
+		var/max_pos
 		var/false_min = 0
 		var/false_max = 0
-		if(lock_tier >= 4)
-			var/tries = 10
-			while(tries > 0)
-				var/candidate = rand(1, 10)
-				if(candidate < min_pos - 1 || candidate > max_pos + 1)
-					false_min = candidate
-					false_max = candidate
-					break
-				tries--
-		// Spool pins (tier 3+): must be approached from below (last move upward) to set.
 		var/is_spool = FALSE
-		if(lock_tier >= 3 && !is_bobby_pin)
-			var/spool_chance = (lock_tier - 2) * 20  // 20% / 40% / 60% for tiers 3/4/5
-			if(prob(spool_chance))
-				is_spool = TRUE
-				min_pos = max(min_pos, 3)  // ensure room to approach from below
-				max_pos = min(min_pos + zone_size - 1, 10)
-		// Security pins (tier 4+): a failed set attempt jars loose a neighboring set pin.
-		// A pin cannot be both spool and security.
 		var/is_security = FALSE
-		if(lock_tier >= 4 && !is_spool && !is_bobby_pin)
-			var/sec_chance = (lock_tier - 3) * 30  // 30% / 60% for tiers 4/5
-			is_security = prob(sec_chance)
+		var/stack_height
+		if(use_stored)
+			var/list/sp = the_lock.pin_solution[i]
+			stack_height = sp["stack_height"]
+			false_min    = sp["false_min"]
+			false_max    = sp["false_max"]
+			is_spool     = sp["spool"]
+			is_security  = sp["security"]
+			// Recompute zone around the stored center using THIS picker's zone_size.
+			// This keeps the combination fixed while still rewarding skilled pickers
+			// with a more forgiving window.
+			var/true_center = sp["true_center"]
+			var/max_start   = max(10 - zone_size, 1)
+			min_pos = clamp(true_center - round(zone_size / 2), 1, max_start)
+			max_pos = min(min_pos + zone_size - 1, 10)
+		else
+			// Stack height (1–5) biases where the pin's zone sits vertically.
+			// Short key pins (1–2) have zones near the bottom; tall (4–5) near the top.
+			stack_height  = rand(1, 5)
+			var/height_center = clamp(stack_height + 2, 1 + round(zone_size / 2), 10 - round(zone_size / 2) + 1)
+			var/max_start     = max(10 - zone_size, 1)
+			min_pos       = clamp(height_center - round(zone_size / 2) + rand(-1, 1), 1, max_start)
+			max_pos       = min(min_pos + zone_size - 1, 10)
+			// False zone for tier 4+ — a single non-overlapping decoy position
+			if(lock_tier >= 4)
+				var/tries = 10
+				while(tries > 0)
+					var/candidate = rand(1, 10)
+					if(candidate < min_pos - 1 || candidate > max_pos + 1)
+						false_min = candidate
+						false_max = candidate
+						break
+					tries--
+			// Spool pins (tier 3+): must be approached from below (last move upward) to set.
+			if(lock_tier >= 3 && !is_bobby_pin)
+				var/spool_chance = (lock_tier - 2) * 20  // 20% / 40% / 60% for tiers 3/4/5
+				if(prob(spool_chance))
+					is_spool = TRUE
+					min_pos = max(min_pos, 3)  // ensure room to approach from below
+					max_pos = min(min_pos + zone_size - 1, 10)
+			// Security pins (tier 4+): a failed set attempt jars loose a neighboring set pin.
+			// A pin cannot be both spool and security.
+			if(lock_tier >= 4 && !is_spool && !is_bobby_pin)
+				var/sec_chance = (lock_tier - 3) * 30  // 30% / 60% for tiers 4/5
+				is_security = prob(sec_chance)
 		pins += list(list(
-			"pos"         = 5,
-			"min"         = min_pos,
-			"max"         = max_pos,
-			"set"         = FALSE,
-			"hint"        = -1,         // distance from real zone on last attempt; -1 = no attempt
-			"last_dir"    = 0,          // 1 = go up, -1 = go down
-			"last_pos"    = 0,          // pin position at time of last failed set attempt
-			"last_move"   = 0,          // direction of last move on this pin (1 = up, -1 = down)
-			"moves"       = 0,          // move count for tension mechanic
-			"false_min"   = false_min,
-			"false_max"   = false_max,
-			"tried"       = list(),     // positions that produced a failed set_pin
-			"tried_hints" = list(),     // assoc: position string -> hint distance
-			"spool"       = is_spool,   // must approach from below to set correctly
-			"security"    = is_security,// failed set jars loose a neighboring set pin
-			"decayed"     = FALSE       // was previously set then vibrated loose
+			"pos"          = 5,
+			"min"          = min_pos,
+			"max"          = max_pos,
+			"set"          = FALSE,
+			"hint"         = -1,
+			"last_dir"     = 0,
+			"last_pos"     = 0,
+			"last_move"    = 0,
+			"moves"        = 0,
+			"false_min"    = false_min,
+			"false_max"    = false_max,
+			"tried"        = list(),
+			"tried_hints"  = list(),
+			"spool"        = is_spool,
+			"security"     = is_security,
+			"decayed"      = FALSE,
+			"overset"      = FALSE,
+			"stack_height" = stack_height
 		))
+
+	// Binding order
+	if(use_stored)
+		bind_order = the_lock.pin_bind_order.Copy()
+	else
+		bind_order = list()
+		for(var/j in 1 to pins.len)
+			bind_order += j
+		bind_order = shuffle(bind_order)
+		// Persist solution on the lock for all future attempts
+		if(the_lock)
+			var/list/solution = list()
+			for(var/k in 1 to pins.len)
+				solution += list(list(
+					"true_center"  = pins[k]["min"] + round((zone_size - 1) / 2),
+					"false_min"    = pins[k]["false_min"],
+					"false_max"    = pins[k]["false_max"],
+					"spool"        = pins[k]["spool"],
+					"security"     = pins[k]["security"],
+					"stack_height" = pins[k]["stack_height"]
+				))
+			the_lock.pin_solution   = solution
+			the_lock.pin_bind_order = bind_order.Copy()
+
+/**
+ * Returns the 1-indexed number of the currently binding pin.
+ * The binding pin is the first unset pin in bind_order — the one
+ * the cylinder's rotational force is pressing against under tension.
+ * Returns 0 when all pins are set.
+ */
+/datum/lockpicking_minigame/proc/get_binding_pin()
+	for(var/i in 1 to bind_order.len)
+		if(!pins[bind_order[i]]["set"])
+			return bind_order[i]
+	return 0
 
 /// Sleeps until the mini-game is fully resolved (closed = TRUE).
 /datum/lockpicking_minigame/proc/wait()
 	while(!closed && !QDELETED(src))
 		if(!QDELETED(user) && user.stat >= UNCONSCIOUS && phase == "picking")
 			on_user_incapacitated()
+		if(phase == "picking" && timer_duration > 0)
+			var/elapsed = world.time - timer_start
+			var/remaining = timer_duration - elapsed
+			if(remaining <= 300 && !timer_warning_sent)
+				timer_warning_sent = TRUE
+				feedback = "WARNING: Your hand is cramping — you have about 30 seconds before tension slips!"
+				SStgui.update_uis(src)
+			if(remaining <= 0)
+				on_tension_fatigue()
 		stoplag(1)
+
+/**
+ * Fires when the tension-fatigue timer expires.
+ * Realistically: your wrist cramps from holding the wrench — pins slip.
+ */
+/datum/lockpicking_minigame/proc/on_tension_fatigue()
+	if(phase != "picking")
+		return
+	// Reset the timer for the next round of fatigue
+	timer_start = world.time
+	timer_warning_sent = FALSE
+	attempts_left--
+	// Every set pin drops — the spring overcomes the tension wrench
+	var/lost = 0
+	for(var/list/pin in pins)
+		if(pin["set"])
+			pin["set"]   = FALSE
+			pin["pos"]   = 5
+			pin["moves"] = 0
+			pin["decayed"] = TRUE
+			lost++
+	playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 70, TRUE, -1)
+	if(lost > 0)
+		feedback = "Your hand cramps! The tension wrench slips — [lost] pin[lost != 1 ? "s" : ""] drop[lost == 1 ? "s" : ""]!"
+	else
+		feedback = "Your hand cramps but you barely hold tension — nothing drops."
+	if(attempts_left <= 0)
+		phase  = "failed"
+		result = FALSE
+		feedback = "Your grip gives out completely. The lock defeats you."
+		jam_target()
+		SStgui.update_uis(src)
+		addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
+	else
+		SStgui.update_uis(src)
 
 /// Called when the user goes unconscious mid-pick (detected in wait loop).
 /datum/lockpicking_minigame/proc/on_user_incapacitated()
@@ -490,19 +674,22 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		var/tension = clamp(round(pin["moves"] / 2.0), 0, 5)
 		var/list/pin_tried_ui = pin["tried"]
 		pin_data += list(list(
-			"pos"        = pin["pos"],
-			"set"        = pin["set"],
-			"active"     = (i == current_pin && phase == "picking" && !pin["set"]),
-			"hint"       = pin["hint"],
-			"lastDir"    = pin["last_dir"],
-			"lastPos"    = pin["last_pos"],
-			"lastMove"   = pin["last_move"],
-			"tension"    = tension,
-			"tried"      = pin_tried_ui,
-			"triedHints" = pin["tried_hints"],
-			"spool"      = pin["spool"],
-			"security"   = pin["security"],
-			"decayed"    = pin["decayed"]
+			"pos"         = pin["pos"],
+			"set"         = pin["set"],
+			"active"      = (i == current_pin && phase == "picking" && !pin["set"]),
+			"hint"        = pin["hint"],
+			"lastDir"     = pin["last_dir"],
+			"lastPos"     = pin["last_pos"],
+			"lastMove"    = pin["last_move"],
+			"tension"     = tension,
+			"tried"       = pin_tried_ui,
+			"triedHints"  = pin["tried_hints"],
+			"spool"       = pin["spool"],
+			"security"    = pin["security"],
+			"decayed"     = pin["decayed"],
+			"overset"     = pin["overset"],
+			"spoolFeel"   = pin["spool"] && !pin["set"] && pin["pos"] >= pin["min"] && pin["pos"] <= pin["max"] && pin["last_move"] == -1,
+			"stackHeight" = pin["stack_height"]
 		))
 	data["pins"]         = pin_data
 	data["pinsSet"]      = pins_set
@@ -519,6 +706,16 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	data["isDark"]        = dark_penalty
 	data["isHurt"]        = pain_penalty
 	data["wearingGloves"] = glove_penalty
+	data["hasTrait"]      = has_lockpick_trait
+	data["noiseLevel"]    = accumulated_noise
+	data["timerDuration"] = timer_duration
+	data["timerElapsed"]  = (timer_duration > 0) ? min(timer_duration, world.time - timer_start) : 0
+	data["bindingPin"]    = get_binding_pin()
+	var/pick_wear = 0
+	if(!QDELETED(pick) && pick_initial_uses > 0)
+		var/wear_ratio = 1.0 - (pick.uses_left / pick_initial_uses)
+		pick_wear = clamp(round(wear_ratio * 4), 0, 3)
+	data["pickWear"]      = pick_wear
 	return data
 
 /datum/lockpicking_minigame/ui_close(mob/user)
@@ -539,57 +736,101 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 
 	switch(action)
 		if("move_up")
-			// Tension snap check before moving
-			if(cur_pin["moves"] >= 10)
-				snap_pick()
-				return TRUE
-			var/up_cost = agility_tension_cost()
-			// Electronic pick motor stall: pins 3+ have a 15% chance of extra tension per move
-			if(is_electronic_pick && current_pin >= 3 && prob(15))
+			var/binding_num = get_binding_pin()
+			var/is_binding  = (binding_num > 0 && current_pin == binding_num)
+			// Non-binding pins feel loose — no cylinder pressure, no pick stress
+			var/up_cost = is_binding ? agility_tension_cost() : 0
+			// Electronic pick stall only applies to the binding pin
+			if(is_binding && is_electronic_pick && current_pin >= 3 && prob(15))
 				up_cost++
 				feedback = "The pick's motor stutters — extra tension!"
-			cur_pin["moves"] = min(cur_pin["moves"] + up_cost, 10)
+			// Snap only possible under cylinder pressure
+			if(is_binding && cur_pin["moves"] >= 10)
+				snap_pick()
+				return TRUE
+			if(up_cost > 0)
+				cur_pin["moves"] = min(cur_pin["moves"] + up_cost, 10)
 			if(cur_pin["pos"] < 10)
 				cur_pin["pos"]++
+			else if(is_binding && !cur_pin["overset"])
+				// Overset: driver pin slides below the shear line, jamming the pin
+				cur_pin["overset"] = TRUE
+				feedback = "Overdriven! The driver pin drops below the shear line — lower the pin all the way to free it."
 			cur_pin["last_move"] = 1
 			total_moves++
-			update_tension_feedback(cur_pin["moves"])
+			if(is_binding)
+				update_tension_feedback(cur_pin["moves"])
 			. = TRUE
 
 		if("move_down")
-			// Tension snap check before moving
-			if(cur_pin["moves"] >= 10)
-				snap_pick()
-				return TRUE
-			var/down_cost = agility_tension_cost()
-			// Electronic pick motor stall: pins 3+ have a 15% chance of extra tension per move
-			if(is_electronic_pick && current_pin >= 3 && prob(15))
+			var/binding_num = get_binding_pin()
+			var/is_binding  = (binding_num > 0 && current_pin == binding_num)
+			var/down_cost   = is_binding ? agility_tension_cost() : 0
+			if(is_binding && is_electronic_pick && current_pin >= 3 && prob(15))
 				down_cost++
 				feedback = "The pick's motor stutters — extra tension!"
-			cur_pin["moves"] = min(cur_pin["moves"] + down_cost, 10)
+			if(is_binding && cur_pin["moves"] >= 10)
+				snap_pick()
+				return TRUE
+			if(down_cost > 0)
+				cur_pin["moves"] = min(cur_pin["moves"] + down_cost, 10)
 			if(cur_pin["pos"] > 1)
 				cur_pin["pos"]--
+				// Clear overset once fully lowered — driver pin is free again
+				if(cur_pin["overset"] && cur_pin["pos"] <= 1)
+					cur_pin["overset"] = FALSE
+					feedback = "The driver pin pops free — you can set this pin again."
+			// Spool false-set feel: entering the zone from above creates a subtle
+			// counter-rotation — the cylinder gives slightly, then the spool catches.
+			if(cur_pin["spool"] && !cur_pin["set"] && !cur_pin["overset"] \
+				&& cur_pin["pos"] >= cur_pin["min"] && cur_pin["pos"] <= cur_pin["max"] \
+				&& cur_pin["last_move"] != 1)
+				playsound(get_turf(target), 'sound/machines/button1.ogg', 25, FALSE, -6)
+				if(is_binding)
+					feedback = "The cylinder gives slightly... then catches. Something's different about this pin."
 			cur_pin["last_move"] = -1
 			total_moves++
-			update_tension_feedback(cur_pin["moves"])
+			if(is_binding)
+				update_tension_feedback(cur_pin["moves"])
 			. = TRUE
 
 		if("select_pin")
-			// Non-linear pin focus: player can work on any unset pin freely
+			// Non-linear pin focus: player can scout any unset pin
 			var/pin_idx = text2num(params["pin"])
 			if(!pin_idx || pin_idx < 1 || pin_idx > pins.len)
 				return
 			if(pins[pin_idx]["set"])
 				return  // already set, nothing to do
 			current_pin = pin_idx
-			var/list/tpin = pins[pin_idx]
-			if(tpin["hint"] >= 0)
-				feedback = "Focusing pin [pin_idx]. You remember it last went [tpin["last_dir"] > 0 ? "too low" : "too high"]."
+			var/binding_sel = get_binding_pin()
+			var/list/tpin   = pins[pin_idx]
+			if(pin_idx == binding_sel)
+				if(tpin["hint"] >= 0)
+					feedback = "Pin [pin_idx] (BINDING). Last attempt: [tpin["last_dir"] > 0 ? "too low" : "too high"]."
+				else
+					feedback = "Pin [pin_idx] is binding — this is your target. Work it carefully."
 			else
-				feedback = "Focusing pin [pin_idx]."
+				if(tpin["hint"] >= 0)
+					feedback = "Pin [pin_idx] is loose. (Last: [tpin["last_dir"] > 0 ? "needed higher" : "needed lower"]) Binding pin is [binding_sel]."
+				else
+					feedback = "Pin [pin_idx] is loose — not binding right now. Binding pin is pin [binding_sel]."
 			. = TRUE
 
 		if("set_pin")
+			// Non-binding pin: springs back instantly, no attempt consumed.
+			// The cylinder isn't pressing on it — it has nothing to catch on.
+			var/binding_check = get_binding_pin()
+			if(binding_check > 0 && current_pin != binding_check)
+				cur_pin["pos"]       = 5
+				cur_pin["last_move"] = 0
+				feedback = "The pin springs free — it's loose under current tension. The binding pin is pin [binding_check]."
+				. = TRUE
+				return .
+			// Overset: driver pin is jammed below the shear line.
+			if(cur_pin["overset"])
+				feedback = "The pin is overdriven — lower it all the way to position 1 to free the driver pin."
+				. = TRUE
+				return .
 			var/pos = cur_pin["pos"]
 			attempt_made = TRUE
 
@@ -630,17 +871,10 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				cur_pin["set"]   = TRUE
 				cur_pin["moves"] = 0
 				playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -3)
-				// Advance past already-set pins
 				var/just_set = current_pin
-				current_pin++
-				while(current_pin <= pins.len && pins[current_pin]["set"])
-					current_pin++
-				// If we overshot (non-linear play left earlier pins unset), wrap to first unset pin
-				if(current_pin > pins.len)
-					for(var/j in 1 to pins.len)
-						if(!pins[j]["set"])
-							current_pin = j
-							break
+				// Advance focus to the next binding pin in the shuffled bind_order
+				var/next_binding = get_binding_pin()
+				current_pin = (next_binding > 0) ? next_binding : 1
 				// Check for pin decay on tier 3+ locks
 				var/decayed = maybe_decay_pins(just_set)
 				if(all_pins_set())
@@ -681,6 +915,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					playsound(get_turf(target), 'sound/items/screwdriver2.ogg', 45, TRUE, -4)
 				else
 					playsound(get_turf(target), 'sound/items/screwdriver.ogg', 55, TRUE, -4)
+				// Noise alert: failed sets scrape and click. Loud picks alert bystanders.
+				check_noise(dist_to_zone <= 2 ? 1 : 2)
 
 				var/dir_text = direction == 1 ? "too low — try going higher" : "too high — try going lower"
 				switch(dist_to_zone)
@@ -738,6 +974,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			phase    = "failed"
 			feedback = "You carefully withdraw your lockpick."
 			result   = FALSE
+			gave_up  = TRUE
 			addtimer(CALLBACK(src, PROC_REF(close_ui)), 0.5 SECONDS)
 			. = TRUE
 
@@ -765,13 +1002,16 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	else if(moves >= 6)
 		feedback = "The tension is building... set the pin soon or risk snapping the pick!"
 
-/// Snaps the pick from excessive tension. Jams the lock and destroys the pick.
+/// Snaps the pick from excessive tension. Leaves a fragment in the lock.
 /datum/lockpicking_minigame/proc/snap_pick()
 	phase    = "failed"
 	result   = FALSE
-	feedback = "You overtorque the pick — SNAP! The mechanism jams. You'll need a crowbar."
+	feedback = "You overtorque the pick — SNAP! A fragment is stuck in the lock. Fish it out before trying again."
 	playsound(get_turf(target), 'sound/items/Wirecutter.ogg', 100, TRUE, -2)
-	jam_target()
+	// Spawn pick fragment — physically blocks the lock until removed
+	var/obj/item/pick_fragment/frag = new(get_turf(target))
+	frag.stuck_in = target
+	target.visible_message(span_warning("A piece of [user ? user.name + "'s" : "a"] pick snaps off inside [target]'s lock!"))
 	if(!QDELETED(pick))
 		qdel(pick)
 	addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
@@ -805,6 +1045,75 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			return i
 	return 0
 
+/**
+ * Accumulates noise from failed attempts and loud picks.
+ * When the tally passes the alert threshold, nearby bystanders hear the
+ * scraping and get a chat message — the volume and range scale with pick type.
+ */
+/datum/lockpicking_minigame/proc/check_noise(events)
+	var/effective = pick_noise_level * events
+	if(has_lockpick_trait)
+		effective = max(0, effective - 1)  // trained hands are quieter
+	accumulated_noise += effective
+	if(accumulated_noise < 5)
+		return
+	accumulated_noise = 0
+	// Range and message scale with how loud the pick type is
+	var/alert_range
+	var/sound_msg
+	switch(pick_noise_level)
+		if(3)  // bobby pin
+			alert_range = 8
+			sound_msg = "There's loud metallic scraping coming from [target]!"
+		if(2)
+			alert_range = 5
+			sound_msg = "You hear suspicious scraping near [target]."
+		if(1)
+			alert_range = 3
+			sound_msg = "There's a faint metallic click from [target]."
+		else  // master pick: silent, no alert
+			return
+	for(var/mob/M in view(alert_range, get_turf(target)))
+		if(M == user)
+			continue
+		to_chat(M, span_warning(sound_msg))
+
 /// Closes the TGUI after a short delay so the player can read the outcome.
 /datum/lockpicking_minigame/proc/close_ui()
 	SStgui.close_uis(src)
+
+// =====================================================
+// PICK FRAGMENT ITEM
+// =====================================================
+
+/**
+ * A broken pick tip wedged inside a lock cylinder.
+ * Blocks all further picking attempts until removed with a screwdriver
+ * or similar fine tool. Spawned when snap_pick() fires.
+ */
+/obj/item/pick_fragment
+	name = "pick fragment"
+	desc = "A jagged metal shard snapped from a lockpick inside the lock cylinder. \
+			You could fish it out with a screwdriver."
+	icon = 'icons/obj/fallout/lockbox.dmi'
+	icon_state = "basic_lockpick"
+	w_class = WEIGHT_CLASS_TINY
+	/// The lock object this fragment is stuck inside (null once removed).
+	var/atom/stuck_in = null
+
+/obj/item/pick_fragment/examine(mob/user)
+	. = ..()
+	if(stuck_in)
+		. += span_warning("It's lodged inside [stuck_in]'s lock mechanism. Use a screwdriver to extract it.")
+
+/// A screwdriver extracts the fragment from the lock.
+/obj/item/pick_fragment/attackby(obj/item/tool, mob/user, params)
+	if(istype(tool, /obj/item/screwdriver))
+		if(stuck_in)
+			to_chat(user, span_notice("You carefully work the pick fragment free from [stuck_in]."))
+			stuck_in = null
+		else
+			to_chat(user, span_notice("You pry the fragment loose."))
+		user.put_in_hands(src)
+		return
+	return ..()

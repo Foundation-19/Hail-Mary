@@ -10,6 +10,9 @@
 	if(!newloc || newloc == loc)
 		return
 
+	if(anchored)
+		return
+
 	if(!direction)
 		direction = get_dir(src, newloc)
 

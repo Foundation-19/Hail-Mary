@@ -121,6 +121,33 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_TOOL
 
+/datum/crafting_recipe/lock_tier3
+	name = "Reinforced Lock"
+	result = /obj/item/lock_construct/tier3
+	time = 100
+	reqs = list(/obj/item/stack/sheet/metal = 3, /obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lock_tier4
+	name = "Security Lock"
+	result = /obj/item/lock_construct/tier4
+	time = 140
+	reqs = list(/obj/item/stack/sheet/metal = 4, /obj/item/stack/rods = 3, /obj/item/stack/crafting/metalparts = 1)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lock_tier5
+	name = "Master Security Lock"
+	result = /obj/item/lock_construct/tier5
+	time = 180
+	reqs = list(/obj/item/stack/sheet/metal = 5, /obj/item/stack/rods = 4, /obj/item/stack/crafting/metalparts = 2)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
 /datum/crafting_recipe/msreloader
 	name = "Makeshift Reloading Press"
 	result = /obj/item/circuitboard/machine/autolathe/ammo/improvised

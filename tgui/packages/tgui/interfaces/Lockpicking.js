@@ -21,6 +21,12 @@ import { Box, Button, LabeledList, NoticeBox, ProgressBar, Section } from '../co
 import { Window } from '../layouts';
 
 const TIER_LABELS = ['', 'Very Easy', 'Easy', 'Average', 'Hard', 'Very Hard'];
+const PICK_WEAR_LABELS = [
+  '',
+  'Light wear \u2014 feel is slightly muffled',
+  'Worn \u2014 zone estimates less precise',
+  'Nearly spent \u2014 feel is very rough',
+];
 
 // CSS animation for the active pin glow pulse (injected via a <style> tag).
 const PIN_PULSE_CSS = (
@@ -41,11 +47,15 @@ let _lpKeyHandler = null;
  *   PER 7-8: exact distance number
  *   PER 9-10: exact distance + estimated zone range text
  */
-const hintInfo = (hint, lastDir, lastPos, perception) => {
+const hintInfo = (hint, lastDir, lastPos, perception, pickWear = 0) => {
   const arrow = lastDir > 0 ? '\u25B2' : lastDir < 0 ? '\u25BC' : '';
   if (hint < 0) return null; // no attempt yet
 
-  const per = perception || 5;
+  // Worn picks lose tactile resolution \u2014 bent tip = vaguer finger-feel
+  let per = perception || 5;
+  if (pickWear >= 3) per = Math.min(per, 3);
+  else if (pickWear >= 2) per = Math.min(per, 4);
+  else if (pickWear >= 1) per = Math.min(per, 5);
 
   if (per <= 3) {
     // Very low PER \u2014 just a direction
@@ -108,6 +118,12 @@ export const Lockpicking = (props, context) => {
     isDark,
     isHurt,
     wearingGloves,
+    hasTrait,
+    noiseLevel = 0,
+    timerDuration = 0,
+    timerElapsed = 0,
+    bindingPin = 0,
+    pickWear = 0,
   } = data;
 
   const isFinished = phase !== 'picking';
@@ -151,7 +167,7 @@ export const Lockpicking = (props, context) => {
       theme="fallout"
       title="Lock Picking"
       width={500}
-      height={580}>
+      height={640}>
       <Window.Content>
         <style>{PIN_PULSE_CSS}</style>
 
@@ -197,10 +213,43 @@ export const Lockpicking = (props, context) => {
                 {attemptsLeft} / {maxAttempts}
               </ProgressBar>
             </LabeledList.Item>
+            {!!timerDuration && (
+              <LabeledList.Item label="Hand Tension">
+                <ProgressBar
+                  value={timerDuration - timerElapsed}
+                  minValue={0}
+                  maxValue={timerDuration}
+                  ranges={{
+                    good: [timerDuration * 0.5, Infinity],
+                    average: [timerDuration * 0.2, timerDuration * 0.5],
+                    bad: [-Infinity, timerDuration * 0.2],
+                  }}>
+                  {/* eslint-disable-next-line max-len */}
+                  {Math.max(0, Math.ceil((timerDuration - timerElapsed) / 10))}s
+                  {' '}before hand cramps
+                </ProgressBar>
+              </LabeledList.Item>
+            )}
+            {!!pickWear && (
+              <LabeledList.Item label="Pick Condition">
+                <ProgressBar
+                  value={3 - pickWear}
+                  minValue={0}
+                  maxValue={3}
+                  ranges={{
+                    good: [2, Infinity],
+                    average: [1, 2],
+                    bad: [-Infinity, 1],
+                  }}>
+                  {PICK_WEAR_LABELS[pickWear]}
+                </ProgressBar>
+              </LabeledList.Item>
+            )}
           </LabeledList>
 
-          {/* Environmental penalty badges */}
-          {!!(isDark || isHurt || wearingGloves) && (
+          {/* Environmental penalty badges + trait bonus */}
+          {!!(isDark || isHurt || wearingGloves
+            || hasTrait || noiseLevel >= 3) && (
             <Box mt="4px" style={{ 'display': 'flex', 'gap': '4px', 'flex-wrap': 'wrap' }}>
               {!!isDark && (
                 <Box
@@ -239,6 +288,32 @@ export const Lockpicking = (props, context) => {
                     'color': '#80c080',
                   }}>
                   Glove penalty
+                </Box>
+              )}
+              {!!hasTrait && (
+                <Box
+                  fontSize="11px"
+                  style={{
+                    'background': '#002222',
+                    'border': '1px solid #00aaaa',
+                    'border-radius': '3px',
+                    'padding': '1px 5px',
+                    'color': '#00dddd',
+                  }}>
+                  Locksmith
+                </Box>
+              )}
+              {noiseLevel >= 3 && (
+                <Box
+                  fontSize="11px"
+                  style={{
+                    'background': '#2e2200',
+                    'border': '1px solid #8a6000',
+                    'border-radius': '3px',
+                    'padding': '1px 5px',
+                    'color': '#ddaa00',
+                  }}>
+                  Making noise ({noiseLevel}/5)
                 </Box>
               )}
             </Box>
@@ -281,7 +356,7 @@ export const Lockpicking = (props, context) => {
           <Box style={{ 'display': 'flex', 'justify-content': 'center', 'align-items': 'flex-start', 'flex-wrap': 'wrap' }}>
             {pins.map((pin, i) => {
               const heat = hintInfo(
-                pin.hint, pin.lastDir, pin.lastPos, perception
+                pin.hint, pin.lastDir, pin.lastPos, perception, pickWear
               );
               const isClickable = !isFinished && !pin.active && !pin.set;
               return (
@@ -291,22 +366,26 @@ export const Lockpicking = (props, context) => {
                   textAlign="center"
                   onClick={isClickable ? () => act('select_pin', { pin: i + 1 }) : undefined}
                   style={{
-                    'border': pin.active
-                      ? '1px solid #ffaa00'
-                      : pin.set
-                        ? '1px solid #00c853'
-                        : pin.security
-                          ? '1px solid #7a2a0a'
-                          : (pin.decayed && !pin.set)
-                            ? '1px solid #5a3a00'
-                            : '1px solid #333',
+                    'border': pin.set
+                      ? '1px solid #00c853'
+                      : (pin.active && i + 1 === bindingPin)
+                        ? '1px solid #ffaa00'
+                        : pin.active
+                          ? '1px solid #336633'
+                          : (i + 1 === bindingPin)
+                            ? '1px solid #aa7700'
+                            : (pin.decayed && !pin.set)
+                              ? '1px solid #5a3a00'
+                              : '1px solid #333',
                     'border-radius': '4px',
                     'padding': '4px 4px 6px 4px',
-                    'background': pin.active
+                    'background': (pin.active && i + 1 === bindingPin)
                       ? 'rgba(255,170,0,0.06)'
-                      : (pin.decayed && !pin.set)
-                        ? 'rgba(90,58,0,0.12)'
-                        : 'transparent',
+                      : pin.active
+                        ? 'rgba(76,255,76,0.03)'
+                        : (pin.decayed && !pin.set)
+                          ? 'rgba(90,58,0,0.12)'
+                          : 'transparent',
                     'animation': pin.active ? 'lpPinPulse 1.5s ease-in-out infinite' : undefined,
                     'min-width': '48px',
                     'cursor': isClickable ? 'pointer' : 'default',
@@ -320,11 +399,14 @@ export const Lockpicking = (props, context) => {
                     color={pin.set ? 'good' : pin.active ? 'yellow' : 'grey'}>
                     PIN {i + 1}
                   </Box>
-                  {!!pin.spool && !pin.set && (
-                    <Box fontSize="9px" color="yellow" italic>spool</Box>
+                  {!pin.set && i + 1 === bindingPin && (
+                    <Box fontSize="9px" color="#ffaa00" bold>BINDING</Box>
                   )}
-                  {!!pin.security && !pin.set && (
-                    <Box fontSize="9px" color="bad" italic>serrated</Box>
+                  {!pin.set && !!pin.active && i + 1 !== bindingPin && (
+                    <Box fontSize="9px" color="#4a7a4a">LOOSE</Box>
+                  )}
+                  {!!pin.overset && !pin.set && (
+                    <Box fontSize="9px" color="bad" bold>OVERDRIVEN</Box>
                   )}
 
                   {/* Segments \u2014 column-reverse so pos 1 = bottom */}
@@ -343,15 +425,23 @@ export const Lockpicking = (props, context) => {
                       if (pin.set) {
                         bg = '#00c853';
                       } else if (isCurrent && pin.active) {
-                        bg = '#ffaa00';
+                        if (pin.overset) {
+                          bg = '#aa2200'; // overdriven — blocked red
+                        } else if (pin.spoolFeel) {
+                          bg = '#cc7700'; // spool false-set feel — amber
+                        } else if (i + 1 !== bindingPin) {
+                          bg = '#1a3a1a'; // loose pin — dim green
+                        } else {
+                          bg = '#ffaa00'; // binding, normal — orange
+                        }
                       } else if (isCurrent) {
-                        bg = '#1e3060'; // subtle: shows where pin is parked
+                        bg = '#1a2a1a'; // subtle: shows where pin is parked
                       } else if (wasTried) {
                         const th = pin.triedHints && pin.triedHints[segPos];
                         if (th === 1) bg = '#7a2a0a'; // hot: one off
                         else if (th === 2) bg = '#5a3a00'; // warm: two off
-                        else if (th === 3) bg = '#1e2a4a'; // cool: three off
-                        else bg = '#1a1a3a'; // cold: far away
+                        else if (th === 3) bg = '#1e2a1e'; // cool: three off
+                        else bg = '#181a18'; // cold: far away
                       } else {
                         bg = '#1e1e1e';
                       }

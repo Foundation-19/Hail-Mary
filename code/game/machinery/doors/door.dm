@@ -40,9 +40,11 @@
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/proj_resist = 10
 	/// Lock difficulty for lockpicking mini-game (1 = very easy, 5 = very hard)
-	var/lock_tier = 2
+	var/lock_tier = 5
 	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
 	var/lockpick_jammed = FALSE
+	/// Set TRUE after a successful lockpick; cleared when an authorized user re-closes the door.
+	var/tampered = FALSE
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
@@ -53,6 +55,8 @@
 			. += span_notice("In the event of a red alert, its access requirements will automatically lift.")
 	if(!poddoor)
 		. += "<span class='notice'>Its maintenance panel is <b>screwed</b> in place.</span>"
+	if(tampered)
+		. += span_warning("The lock looks like it's been worked — someone forced their way through.")
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
@@ -140,11 +144,14 @@
 	if(operating)
 		return
 	src.add_fingerprint(user)
+	var/mob/original_user = user
 	if(!src.requiresID())
 		user = null
 
 	if(density && !(obj_flags & EMAGGED))
 		if(allowed(user))
+			if(tampered && original_user)
+				to_chat(original_user, span_warning("The lock looks like it's been worked \u2014 someone forced their way through."))
 			open()
 		else
 			do_animate("deny")
@@ -204,6 +211,7 @@
 
 	if(success)
 		user.show_message(span_green("You feel the lock give way. It's open!"))
+		tampered = TRUE
 		try_to_activate_door(user, TRUE)
 		. = TRUE
 	else if(lockpick_jammed)
@@ -217,8 +225,22 @@
 		user = null //so allowed(user) always succeeds
 	if(allowed(user) || force_open)
 		if(density)
+			if(tampered && !force_open && user)
+				to_chat(user, span_warning("The lock looks like it's been worked \u2014 someone forced their way through."))
 			open()
 		else
+			if(!force_open && tampered && user)
+				user.visible_message(
+					span_notice("[user] starts re-securing [src]'s lock."),
+					span_notice("You start re-securing the lock..."),
+					span_notice("You hear careful metallic clicking from [src].")
+				)
+				if(!do_after(user, 20, target = src))
+					return TRUE
+				if(QDELETED(src))
+					return TRUE
+				to_chat(user, span_notice("You re-secure the lock."))
+				tampered = FALSE
 			close()
 		return TRUE
 	if(density)

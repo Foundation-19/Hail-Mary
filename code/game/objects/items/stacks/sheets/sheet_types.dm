@@ -33,7 +33,10 @@ GLOBAL_LIST_INIT(metal_recipes, list ( \
 	new/datum/stack_recipe("metal arrowhead", /obj/item/stack/arrowhead/metal, 2, 1, time = 2.5 SECONDS), \
 	new/datum/stack_recipe("field arrowhead", /obj/item/stack/arrowhead/field, 1, 1, time = 1 SECONDS), \
 	null, \
-	new/datum/stack_recipe("lock", /obj/item/lock_construct, 1), \
+	new/datum/stack_recipe_list("locks", list(
+		new/datum/stack_recipe("basic lock", /obj/item/lock_construct, 1),
+		new/datum/stack_recipe("standard lock", /obj/item/lock_construct/tier2, 2),
+	)), \
 	new/datum/stack_recipe("coffee pot", /obj/item/crafting/coffee_pot, 1), \
 	new/datum/stack_recipe("lunchbox", /obj/item/crafting/lunchbox, 1), \
 	new/datum/stack_recipe("key", /obj/item/key, 1), \
