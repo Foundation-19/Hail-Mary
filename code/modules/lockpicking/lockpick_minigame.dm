@@ -153,12 +153,13 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	var/list/bind_order = null
 	/// uses_left when the pick was first inserted (baseline for wear calculation)
 	var/pick_initial_uses = 0
-	/// Reference to the physical lock object — used to persist pin solution
-	var/obj/item/lock_construct/the_lock = null
+	/// Reference to the lockable object — used to persist pin solution.
+	/// May be a /obj/item/lock_construct (padlock) or /obj/machinery/door (faction door).
+	var/atom/the_lock = null
 	/// Overhead icon overlay displayed above the user's mob while picking
 	var/mutable_appearance/pick_overlay = null
 
-/datum/lockpicking_minigame/New(atom/the_target, mob/the_user, obj/item/lockpick_set/the_pick, tier, obj/item/lock_construct/lock_ref = null)
+/datum/lockpicking_minigame/New(atom/the_target, mob/the_user, obj/item/lockpick_set/the_pick, tier, atom/lock_ref = null)
 	target    = the_target
 	user      = the_user
 	pick      = the_pick
@@ -375,8 +376,9 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	// the combination stays consistent across attempts.  Per-picker stats still
 	// affect zone_size, attempts_left, and hint detail — only the raw
 	// positions/types are fixed to the physical lock.
-	var/use_stored = the_lock && the_lock.pin_solution \
-		&& (the_lock.pin_solution.len == num_pins)
+	var/list/stored_sol  = the_lock ? the_lock.vars["pin_solution"]  : null
+	var/list/stored_bind = the_lock ? the_lock.vars["pin_bind_order"] : null
+	var/use_stored = islist(stored_sol) && (stored_sol.len == num_pins)
 	for(var/i in 1 to num_pins)
 		var/min_pos
 		var/max_pos
@@ -386,7 +388,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		var/is_security = FALSE
 		var/stack_height
 		if(use_stored)
-			var/list/sp = the_lock.pin_solution[i]
+			var/list/sp = stored_sol[i]
 			stack_height = sp["stack_height"]
 			false_min    = sp["false_min"]
 			false_max    = sp["false_max"]
@@ -396,17 +398,15 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			// This keeps the combination fixed while still rewarding skilled pickers
 			// with a more forgiving window.
 			var/true_center = sp["true_center"]
-			var/max_start   = max(10 - zone_size, 1)
-			min_pos = clamp(true_center - round(zone_size / 2), 1, max_start)
+			var/max_start   = max(10 - zone_size + 1, 1)
+			min_pos = clamp(true_center - zone_size / 2, 1, max_start)
 			max_pos = min(min_pos + zone_size - 1, 10)
 		else
-			// Stack height (1–5) biases where the pin's zone sits vertically.
-			// Short key pins (1–2) have zones near the bottom; tall (4–5) near the top.
-			stack_height  = rand(1, 5)
-			var/height_center = clamp(stack_height + 2, 1 + round(zone_size / 2), 10 - round(zone_size / 2) + 1)
-			var/max_start     = max(10 - zone_size, 1)
-			min_pos       = clamp(height_center - round(zone_size / 2) + rand(-1, 1), 1, max_start)
-			max_pos       = min(min_pos + zone_size - 1, 10)
+			// Zone placed uniformly across the full 1–10 range — no center bias.
+			stack_height = rand(1, 5)  // cosmetic: kept for TGUI stack-height display
+			var/max_start = max(10 - zone_size + 1, 1)
+			min_pos = rand(1, max_start)
+			max_pos = min(min_pos + zone_size - 1, 10)
 			// False zone for tier 4+ — a single non-overlapping decoy position
 			if(lock_tier >= 4)
 				var/tries = 10
@@ -430,7 +430,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				var/sec_chance = (lock_tier - 3) * 30  // 30% / 60% for tiers 4/5
 				is_security = prob(sec_chance)
 		pins += list(list(
-			"pos"          = 5,
+			"pos"          = 1,
 			"min"          = min_pos,
 			"max"          = max_pos,
 			"set"          = FALSE,
@@ -452,7 +452,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 
 	// Binding order
 	if(use_stored)
-		bind_order = the_lock.pin_bind_order.Copy()
+		bind_order = stored_bind.Copy()
 	else
 		bind_order = list()
 		for(var/j in 1 to pins.len)
@@ -463,15 +463,15 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			var/list/solution = list()
 			for(var/k in 1 to pins.len)
 				solution += list(list(
-					"true_center"  = pins[k]["min"] + round((zone_size - 1) / 2),
+					"true_center"  = pins[k]["min"] + zone_size / 2,
 					"false_min"    = pins[k]["false_min"],
 					"false_max"    = pins[k]["false_max"],
 					"spool"        = pins[k]["spool"],
 					"security"     = pins[k]["security"],
 					"stack_height" = pins[k]["stack_height"]
 				))
-			the_lock.pin_solution   = solution
-			the_lock.pin_bind_order = bind_order.Copy()
+			the_lock.vars["pin_solution"]   = solution
+			the_lock.vars["pin_bind_order"] = bind_order.Copy()
 
 /**
  * Returns the 1-indexed number of the currently binding pin.
@@ -517,7 +517,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	for(var/list/pin in pins)
 		if(pin["set"])
 			pin["set"]   = FALSE
-			pin["pos"]   = 5
+			pin["pos"]   = 1
 			pin["moves"] = 0
 			pin["decayed"] = TRUE
 			lost++
@@ -821,7 +821,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			// The cylinder isn't pressing on it — it has nothing to catch on.
 			var/binding_check = get_binding_pin()
 			if(binding_check > 0 && current_pin != binding_check)
-				cur_pin["pos"]       = 5
+				cur_pin["pos"]       = 1
 				cur_pin["last_move"] = 0
 				feedback = "The pin springs free — it's loose under current tension. The binding pin is pin [binding_check]."
 				. = TRUE
@@ -837,7 +837,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			// --- False zone check (tier 4+ only) ---
 			if(cur_pin["false_min"] > 0 && pos >= cur_pin["false_min"] && pos <= cur_pin["false_max"])
 				attempts_left--
-				cur_pin["pos"]   = 5
+				cur_pin["pos"]   = 1
 				cur_pin["moves"] = 0
 				// Brief success click then a rejection scrape
 				playsound(get_turf(target), 'sound/machines/button1.ogg', 40, FALSE, -3)
@@ -907,7 +907,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				if(!(cur_pin["tried"] ~! pos))  // only add to tried if not already there
 					cur_pin["tried"] += pos
 					cur_pin["tried_hints"]["[pos]"] = dist_to_zone
-				cur_pin["pos"]      = 5
+				cur_pin["pos"]      = 1
 				cur_pin["moves"]    = 0  // reset tension after a set attempt
 
 				// Warmer sound for close attempts, colder thud for far misses
@@ -941,7 +941,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 								reset_idx = j
 					if(reset_idx > 0)
 						pins[reset_idx]["set"]     = FALSE
-						pins[reset_idx]["pos"]     = 5
+						pins[reset_idx]["pos"]     = 1
 						pins[reset_idx]["moves"]   = 0
 						pins[reset_idx]["decayed"] = TRUE
 						if(current_pin > pins.len || pins[current_pin]["set"])
@@ -1038,7 +1038,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	for(var/i in 1 to just_set_pin - 1)
 		if(pins[i]["set"] && prob(decay_chance))
 			pins[i]["set"]     = FALSE
-			pins[i]["pos"]     = 5
+			pins[i]["pos"]     = 1
 			pins[i]["moves"]   = 0
 			pins[i]["decayed"] = TRUE
 			// Keep hint/last_dir so the player retains positional memory

@@ -153,6 +153,7 @@
 		var/datum/lockpicking_minigame/game = new(src, user, the_pick, lock_tier)
 		game.wait()
 		var/success = game.result
+		var/gave_up = game.gave_up
 		game.finalize(user)
 		if(!QDELETED(game))
 			qdel(game)
@@ -161,8 +162,16 @@
 		if(success)
 			to_chat(user, span_green("You successfully unlock [src]."))
 			locked = FALSE
-		else if(lockpick_jammed)
-			to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it before trying again."))
+		else
+			if(!QDELETED(src) && !lockpick_jammed && !gave_up)
+				to_chat(user, span_notice("You work the pins back to their resting position."))
+				if(!do_after(user, 30, target = src))
+					return
+				if(QDELETED(src))
+					return
+				to_chat(user, span_notice("The mechanism is reset. You can try again."))
+			if(lockpick_jammed)
+				to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it before trying again."))
 		return
 	else
 		return ..()

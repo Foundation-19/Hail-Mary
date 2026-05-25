@@ -45,6 +45,10 @@
 	var/lockpick_jammed = FALSE
 	/// Set TRUE after a successful lockpick; cleared when an authorized user re-closes the door.
 	var/tampered = FALSE
+	/// Stored pin solution — ensures the same combination each time this door is lockpicked.
+	var/list/pin_solution = null
+	/// Stored binding order for pin solution persistence.
+	var/list/pin_bind_order = null
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
@@ -200,11 +204,12 @@
 	)
 	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, ignore_walls = FALSE)
 
-	// Start the interactive mini-game
-	var/datum/lockpicking_minigame/game = new(src, user, picking, lock_tier)
+	// Pass src as lock_ref so the pin combination stays consistent across attempts.
+	var/datum/lockpicking_minigame/game = new(src, user, picking, lock_tier, src)
 	game.wait()
 
 	var/success = game.result
+	var/gave_up = game.gave_up
 	game.finalize(user)
 	if(!QDELETED(game))
 		qdel(game)
@@ -212,10 +217,31 @@
 	if(success)
 		user.show_message(span_green("You feel the lock give way. It's open!"))
 		tampered = TRUE
+		pin_solution   = null
+		pin_bind_order = null
 		try_to_activate_door(user, TRUE)
 		. = TRUE
-	else if(lockpick_jammed)
-		to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it."))
+	else
+		// After a failed attempt the pins must walk back to resting position before
+		// a new attempt can begin (mirrors simple_door pry-off behaviour).
+		// Voluntary give-up withdraws cleanly — no reset needed.
+		if(!QDELETED(src) && !lockpick_jammed && !gave_up)
+			user.visible_message(
+				span_notice("[user] starts working the pins in [src]'s lock back into position."),
+				span_notice("You start working the pins back into position..."),
+				span_notice("You hear a careful series of soft clicks from [src].")
+			)
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, TRUE, ignore_walls = FALSE)
+			if(!do_after(user, 50, target = src))
+				return FALSE
+			if(QDELETED(src))
+				return FALSE
+			user.visible_message(
+				span_notice("[user] finishes resetting [src]'s lock mechanism."),
+				span_notice("The mechanism is reset. Try again.")
+			)
+		if(lockpick_jammed)
+			to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it."))
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user, force_open)
 	add_fingerprint(user)
@@ -241,6 +267,8 @@
 					return TRUE
 				to_chat(user, span_notice("You re-secure the lock."))
 				tampered = FALSE
+				pin_solution   = null
+				pin_bind_order = null
 			close()
 		return TRUE
 	if(density)
@@ -260,6 +288,22 @@
 	return
 
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
+	if(lockpick_jammed)
+		user.visible_message(
+			span_notice("[user] starts working [src]'s jammed lock mechanism loose."),
+			span_notice("You start working the jammed mechanism loose..."),
+			span_notice("You hear a grinding scrape of metal from [src].")
+		)
+		playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 60, TRUE, ignore_walls = FALSE)
+		if(!do_after(user, 35, target = src))
+			return
+		if(QDELETED(src))
+			return
+		lockpick_jammed = FALSE
+		user.visible_message(
+			span_notice("[user] pries the jammed lock mechanism loose on [src]."),
+			span_notice("You pry the jammed mechanism loose — the lock resets.")
+		)
 	return
 
 /obj/machinery/door/proc/is_holding_pressure()
