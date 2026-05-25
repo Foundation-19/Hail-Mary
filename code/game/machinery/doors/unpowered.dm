@@ -16,6 +16,8 @@
 	return
 
 /obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/lockpick_set))
+		return ..()  // always forward lockpicks to the parent's try_to_lockpick dispatch
 	if(locked)
 		return
 	else

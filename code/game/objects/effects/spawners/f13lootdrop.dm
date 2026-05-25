@@ -1896,6 +1896,8 @@
 				/obj/effect/decal/cleanable/oil/slippery, //oh dear
 				/obj/effect/gibspawner/human,
 				/obj/effect/gibspawner/generic/animal,
+				/obj/item/lockpick_set,
+				/obj/item/lockpick_set/bobby_pin,
 				)
 
 /obj/effect/spawner/lootdrop/f13/seedspawner
