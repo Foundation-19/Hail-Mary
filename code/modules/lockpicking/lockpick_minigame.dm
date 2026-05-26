@@ -237,11 +237,12 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	if(penalty_warnings.len)
 		to_chat(the_user, span_warning("WARNING: [english_list(penalty_warnings)] will make this harder."))
 
-	// Electronic pick auto-sets pin 1
+	// Electronic pick auto-sets the first binding pin (vibration finds the most-stressed tumbler)
 	if(is_electronic_pick && pins.len >= 1)
-		pins[1]["set"] = TRUE
+		var/auto_pin = bind_order[1]
+		pins[auto_pin]["set"] = TRUE
 		current_pin = get_binding_pin()
-		feedback = "The electronic pick buzzes — pin 1 set! Pin [current_pin] is now binding."
+		feedback = "The electronic pick buzzes — pin [auto_pin] auto-set! Pin [current_pin] is now binding."
 		playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -3)
 	else
 		current_pin = get_binding_pin()
@@ -422,7 +423,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				var/spool_chance = (lock_tier - 2) * 20  // 20% / 40% / 60% for tiers 3/4/5
 				if(prob(spool_chance))
 					is_spool = TRUE
-					min_pos = max(min_pos, 3)  // ensure room to approach from below
+					min_pos = max(min_pos, 2)  // ensure one position below for upward approach
 					max_pos = min(min_pos + zone_size - 1, 10)
 			// Security pins (tier 4+): a failed set attempt jars loose a neighboring set pin.
 			// A pin cannot be both spool and security.
@@ -741,7 +742,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			// Non-binding pins feel loose — no cylinder pressure, no pick stress
 			var/up_cost = is_binding ? agility_tension_cost() : 0
 			// Electronic pick stall only applies to the binding pin
-			if(is_binding && is_electronic_pick && current_pin >= 3 && prob(15))
+			if(is_binding && is_electronic_pick && current_pin >= 3 && prob(10))
 				up_cost++
 				feedback = "The pick's motor stutters — extra tension!"
 			// Snap only possible under cylinder pressure
@@ -766,7 +767,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			var/binding_num = get_binding_pin()
 			var/is_binding  = (binding_num > 0 && current_pin == binding_num)
 			var/down_cost   = is_binding ? agility_tension_cost() : 0
-			if(is_binding && is_electronic_pick && current_pin >= 3 && prob(15))
+			if(is_binding && is_electronic_pick && current_pin >= 3 && prob(10))
 				down_cost++
 				feedback = "The pick's motor stutters — extra tension!"
 			if(is_binding && cur_pin["moves"] >= 10)
@@ -833,6 +834,15 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				return .
 			var/pos = cur_pin["pos"]
 			attempt_made = TRUE
+
+			// Electronic pick: vibration sensors detect false grooves before committing
+			if(is_electronic_pick && cur_pin["false_min"] > 0 && pos >= cur_pin["false_min"] && pos <= cur_pin["false_max"])
+				cur_pin["pos"]   = 1
+				cur_pin["moves"] = 0
+				feedback = "The pick's frequency shifts — the electronics detect a false groove! No attempt wasted."
+				playsound(get_turf(target), 'sound/machines/button1.ogg', 30, FALSE, -6)
+				. = TRUE
+				return .
 
 			// --- False zone check (tier 4+ only) ---
 			if(cur_pin["false_min"] > 0 && pos >= cur_pin["false_min"] && pos <= cur_pin["false_max"])
@@ -1058,25 +1068,32 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	if(accumulated_noise < 5)
 		return
 	accumulated_noise = 0
-	// Range and message scale with how loud the pick type is
+	// Range and message scale with noise level; closer listeners get more precise alerts
 	var/alert_range
-	var/sound_msg
+	var/near_msg  // within 2 tiles — source is identifiable
+	var/far_msg   // at the outer edge — vague, hard to place
 	switch(pick_noise_level)
-		if(3)  // bobby pin
-			alert_range = 8
-			sound_msg = "There's loud metallic scraping coming from [target]!"
-		if(2)
+		if(3)  // bobby pin — jangling metal, hard to miss
 			alert_range = 5
-			sound_msg = "You hear suspicious scraping near [target]."
+			near_msg = span_warning("There's loud metallic scraping coming from [target]!")
+			far_msg  = span_notice("You catch a distant scraping sound.")
+		if(2)
+			alert_range = 3
+			near_msg = span_warning("You hear suspicious scraping near [target].")
+			far_msg  = span_notice("You barely make out a faint click nearby.")
 		if(1)
 			alert_range = 3
-			sound_msg = "There's a faint metallic click from [target]."
+			near_msg = span_notice("There's a faint metallic click from [target].")
+			far_msg  = null  // at the edge, too quiet to be distinct
 		else  // master pick: silent, no alert
 			return
 	for(var/mob/M in view(alert_range, get_turf(target)))
 		if(M == user)
 			continue
-		to_chat(M, span_warning(sound_msg))
+		var/dist = get_dist(M, get_turf(target))
+		var/msg = (dist <= 2) ? near_msg : far_msg
+		if(msg)
+			to_chat(M, msg)
 
 /// Closes the TGUI after a short delay so the player can read the outcome.
 /datum/lockpicking_minigame/proc/close_ui()

@@ -142,8 +142,8 @@
 /datum/crafting_recipe/lock_tier5
 	name = "Master Security Lock"
 	result = /obj/item/lock_construct/tier5
-	time = 180
-	reqs = list(/obj/item/stack/sheet/metal = 5, /obj/item/stack/rods = 4, /obj/item/stack/crafting/metalparts = 2)
+	time = 200
+	reqs = list(/obj/item/stack/sheet/metal = 6, /obj/item/stack/rods = 5, /obj/item/stack/crafting/metalparts = 3)
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_CRAFTING
 	subcategory = CAT_TOOL
@@ -160,8 +160,8 @@
 /datum/crafting_recipe/lockpick_master
 	name = "Master Lockpick Set"
 	result = /obj/item/lockpick_set/master
-	time = 120
-	reqs = list(/obj/item/stack/sheet/metal = 5, /obj/item/stack/crafting/metalparts = 2)
+	time = 150
+	reqs = list(/obj/item/stack/sheet/metal = 5, /obj/item/stack/crafting/metalparts = 4)
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_CRAFTING
 	subcategory = CAT_TOOL
@@ -187,8 +187,8 @@
 /datum/crafting_recipe/lockpick_electronic
 	name = "Electronic Lock Pick"
 	result = /obj/item/lockpick_set/electronic_pick
-	time = 160
-	reqs = list(/obj/item/stack/sheet/metal = 3, /obj/item/stack/crafting/metalparts = 3, /obj/item/stock_parts/cell = 1)
+	time = 180
+	reqs = list(/obj/item/stack/sheet/metal = 3, /obj/item/stack/crafting/metalparts = 4, /obj/item/stock_parts/cell/high = 1)
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_CRAFTING
 	subcategory = CAT_TOOL

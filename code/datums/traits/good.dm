@@ -1267,6 +1267,17 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)
 
+/datum/quirk/locksmith
+	name = "Locksmith"
+	desc = "Years of practice with tumblers and tension wrenches have given you a professional edge. \
+			Lockpicking zones feel wider, your hands are quieter, and your instincts for lock anatomy are sharper."
+	value = 4
+	mob_trait = TRAIT_LOCKPICKING
+	gain_text = span_notice("Your fingers remember a hundred locks. Every cylinder has a story.")
+	lose_text = span_danger("Your feel for tumblers fades — just another amateur with a bent wire.")
+	medical_record_text = "Patient demonstrates fine motor skill consistent with professional locksmithing experience."
+	locked = FALSE
+
 /datum/quirk/assassin
 	name = "Assassin"
 	desc = "Years of practice have made you lethal at close range. While sneaking with a melee weapon in your active hand, you can assassinate unaware enemies within 2 tiles by attacking from behind."

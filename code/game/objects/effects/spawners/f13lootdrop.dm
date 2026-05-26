@@ -2359,7 +2359,7 @@
 				/obj/item/book/granter/trait/explosives = 10,
 				/obj/item/book/granter/trait/explosives_advanced = 5,
 				/obj/item/book/granter/trait/rifleman = 5,
-				/obj/item/book/granter/trait/lockpicking = 5,
+				/obj/item/book/granter/trait/lockpicking = 3,
 				/obj/item/book/granter/crafting_recipe/gunsmith_three = 10,
 				/obj/item/book/granter/crafting_recipe/gunsmith_four = 10,
 //				/obj/item/book/granter/crafting_recipe/gunsmith_five = 5
@@ -2377,7 +2377,7 @@
 				/obj/item/book/granter/trait/explosives = 10,
 				/obj/item/book/granter/trait/explosives_advanced = 5,
 				/obj/item/book/granter/trait/rifleman = 5,
-				/obj/item/book/granter/trait/lockpicking = 5,
+				/obj/item/book/granter/trait/lockpicking = 3,
 				/obj/item/book/granter/crafting_recipe/gunsmith_two = 20,
 				/obj/item/book/granter/crafting_recipe/gunsmith_three = 10,
 				/obj/item/book/granter/crafting_recipe/gunsmith_four = 10,)
