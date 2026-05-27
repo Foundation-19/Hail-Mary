@@ -294,8 +294,9 @@
 			span_notice("You start working the jammed mechanism loose..."),
 			span_notice("You hear a grinding scrape of metal from [src].")
 		)
-		playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 60, TRUE, ignore_walls = FALSE)
-		if(!do_after(user, 35, target = src))
+		if(!istype(I, /obj/item/crowbar/power))
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 60, TRUE, ignore_walls = FALSE)
+		if(!do_after(user, 35 * I.toolspeed, target = src))
 			return
 		if(QDELETED(src))
 			return

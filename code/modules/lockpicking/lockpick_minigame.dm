@@ -135,6 +135,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	var/result = null
 	/// Set to TRUE when the player voluntarily gives up (vs. actual failure)
 	var/gave_up = FALSE
+	/// world.time of last processed ui_act — gates click spam (2-tick cooldown)
+	var/last_action_time = 0
 	/// Whether the user was anchored before lockpicking began (restored on Destroy)
 	var/was_anchored = FALSE
 	/// Noise emitted per failed set attempt: 0=silent, 1=quiet, 2=loud, 3=jangling
@@ -243,7 +245,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		pins[auto_pin]["set"] = TRUE
 		current_pin = get_binding_pin()
 		feedback = "The electronic pick buzzes — pin [auto_pin] auto-set! Pin [current_pin] is now binding."
-		playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -3)
+		playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -14)
 	else
 		current_pin = get_binding_pin()
 		feedback = "Pin [current_pin] is binding — the cylinder presses on it. Find the right height and set it."
@@ -448,7 +450,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			"security"     = is_security,
 			"decayed"      = FALSE,
 			"overset"      = FALSE,
-			"stack_height" = stack_height
+			"stack_height" = stack_height,
+			"pin_attempts" = 2
 		))
 
 	// Binding order
@@ -481,6 +484,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
  * Returns 0 when all pins are set.
  */
 /datum/lockpicking_minigame/proc/get_binding_pin()
+	if(!pins || !bind_order)
+		return 0
 	for(var/i in 1 to bind_order.len)
 		if(!pins[bind_order[i]]["set"])
 			return bind_order[i]
@@ -522,7 +527,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			pin["moves"] = 0
 			pin["decayed"] = TRUE
 			lost++
-	playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 70, TRUE, -1)
+	playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 70, TRUE, -11)
 	if(lost > 0)
 		feedback = "Your hand cramps! The tension wrench slips — [lost] pin[lost != 1 ? "s" : ""] drop[lost == 1 ? "s" : ""]!"
 	else
@@ -667,31 +672,33 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	var/list/data = list()
 	var/list/pin_data = list()
 	var/pins_set = 0
-	for(var/i in 1 to pins.len)
-		var/list/pin = pins[i]
-		if(pin["set"])
-			pins_set++
-		// Tension: 0–5 scale (moves / 2, clamped)
-		var/tension = clamp(round(pin["moves"] / 2.0), 0, 5)
-		var/list/pin_tried_ui = pin["tried"]
-		pin_data += list(list(
-			"pos"         = pin["pos"],
-			"set"         = pin["set"],
-			"active"      = (i == current_pin && phase == "picking" && !pin["set"]),
-			"hint"        = pin["hint"],
-			"lastDir"     = pin["last_dir"],
-			"lastPos"     = pin["last_pos"],
-			"lastMove"    = pin["last_move"],
-			"tension"     = tension,
-			"tried"       = pin_tried_ui,
-			"triedHints"  = pin["tried_hints"],
-			"spool"       = pin["spool"],
-			"security"    = pin["security"],
-			"decayed"     = pin["decayed"],
-			"overset"     = pin["overset"],
-			"spoolFeel"   = pin["spool"] && !pin["set"] && pin["pos"] >= pin["min"] && pin["pos"] <= pin["max"] && pin["last_move"] == -1,
-			"stackHeight" = pin["stack_height"]
-		))
+	if(pins)
+		for(var/i in 1 to pins.len)
+			var/list/pin = pins[i]
+			if(pin["set"])
+				pins_set++
+			// Tension: 0–5 scale (moves / 2, clamped)
+			var/tension = clamp(round(pin["moves"] / 2.0), 0, 5)
+			var/list/pin_tried_ui = pin["tried"]
+			pin_data += list(list(
+				"pos"         = pin["pos"],
+				"set"         = pin["set"],
+				"active"      = (i == current_pin && phase == "picking" && !pin["set"]),
+				"hint"        = pin["hint"],
+				"lastDir"     = pin["last_dir"],
+				"lastPos"     = pin["last_pos"],
+				"lastMove"    = pin["last_move"],
+				"tension"     = tension,
+				"tried"       = pin_tried_ui,
+				"triedHints"  = pin["tried_hints"],
+				"spool"       = pin["spool"],
+				"security"    = pin["security"],
+				"decayed"     = pin["decayed"],
+				"overset"     = pin["overset"],
+				"spoolFeel"   = pin["spool"] && !pin["set"] && pin["pos"] >= pin["min"] && pin["pos"] <= pin["max"] && pin["last_move"] == -1,
+				"stackHeight" = pin["stack_height"],
+				"pinAttempts" = pin["pin_attempts"]
+			))
 	data["pins"]         = pin_data
 	data["pinsSet"]      = pins_set
 	data["currentPin"]   = current_pin
@@ -703,7 +710,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	data["luck"]         = luck
 	data["perception"]    = perception
 	data["isMasterPick"]  = is_master_pick
-	data["totalPins"]     = pins.len
+	data["totalPins"]     = pins ? pins.len : 0
 	data["isDark"]        = dark_penalty
 	data["isHurt"]        = pain_penalty
 	data["wearingGloves"] = glove_penalty
@@ -731,6 +738,9 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		return
 	if(phase != "picking")
 		return
+	if(world.time - last_action_time < 2)  // 2-tick (0.2s) cooldown — prevents click spam consuming multiple attempts
+		return
+	last_action_time = world.time
 
 	// Guard: after non-linear play current_pin may sit past the end of the list.
 	var/list/cur_pin = (current_pin >= 1 && current_pin <= pins.len) ? pins[current_pin] : null
@@ -786,7 +796,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 			if(cur_pin["spool"] && !cur_pin["set"] && !cur_pin["overset"] \
 				&& cur_pin["pos"] >= cur_pin["min"] && cur_pin["pos"] <= cur_pin["max"] \
 				&& cur_pin["last_move"] != 1)
-				playsound(get_turf(target), 'sound/machines/button1.ogg', 25, FALSE, -6)
+				playsound(get_turf(target), 'sound/machines/button1.ogg', 25, FALSE, -15)
 				if(is_binding)
 					feedback = "The cylinder gives slightly... then catches. Something's different about this pin."
 			cur_pin["last_move"] = -1
@@ -840,7 +850,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				cur_pin["pos"]   = 1
 				cur_pin["moves"] = 0
 				feedback = "The pick's frequency shifts — the electronics detect a false groove! No attempt wasted."
-				playsound(get_turf(target), 'sound/machines/button1.ogg', 30, FALSE, -6)
+				playsound(get_turf(target), 'sound/machines/button1.ogg', 30, FALSE, -15)
 				. = TRUE
 				return .
 
@@ -850,8 +860,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				cur_pin["pos"]   = 1
 				cur_pin["moves"] = 0
 				// Brief success click then a rejection scrape
-				playsound(get_turf(target), 'sound/machines/button1.ogg', 40, FALSE, -3)
-				playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 50, TRUE, -4)
+				playsound(get_turf(target), 'sound/machines/button1.ogg', 40, FALSE, -14)
+				playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 50, TRUE, -14)
 				if(attempts_left <= 0)
 					feedback = "The false groove fools you once too often — you're out of attempts."
 					phase    = "failed"
@@ -873,14 +883,14 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					cur_pin["pos"]   = max(cur_pin["min"] - 2, 1)
 					cur_pin["moves"] = 0
 					cur_pin["last_move"] = 0
-					playsound(get_turf(target), 'sound/machines/button1.ogg', 40, FALSE, -3)
-					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 45, TRUE, -4)
+					playsound(get_turf(target), 'sound/machines/button1.ogg', 40, FALSE, -14)
+					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 45, TRUE, -14)
 					feedback = "The pin clicks... then springs back! It's a spool pin — approach from lower positions (move up into the zone)."
 					. = TRUE
 					return .
 				cur_pin["set"]   = TRUE
 				cur_pin["moves"] = 0
-				playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -3)
+				playsound(get_turf(target), 'sound/machines/button1.ogg', 50, FALSE, -14)
 				var/just_set = current_pin
 				// Advance focus to the next binding pin in the shuffled bind_order
 				var/next_binding = get_binding_pin()
@@ -891,18 +901,18 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					phase    = "success"
 					feedback = "The lock clicks open!"
 					result   = TRUE
-					playsound(get_turf(target), 'sound/machines/BoltsUp.ogg', 60, FALSE, -4)
+					playsound(get_turf(target), 'sound/machines/BoltsUp.ogg', 60, FALSE, -12)
 					addtimer(CALLBACK(src, PROC_REF(close_ui)), 1.5 SECONDS)
 				else if(decayed > 0)
 					current_pin = decayed
 					feedback = "Pin [just_set] set — but pin [decayed] vibrates loose and slips back! Refocus."
-					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 40, TRUE, -4)
+					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 40, TRUE, -14)
 				else
 					feedback = "Pin [just_set] set. Moving to pin [current_pin]..."
 
 			else
-				// Wrong position — spring back and consume an attempt
-				attempts_left--
+				// Wrong position — spring back and consume this pin's one allowed attempt
+				cur_pin["pin_attempts"]--
 				var/dist_to_zone
 				var/direction
 				if(pos < cur_pin["min"])
@@ -922,9 +932,9 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 
 				// Warmer sound for close attempts, colder thud for far misses
 				if(dist_to_zone <= 2)
-					playsound(get_turf(target), 'sound/items/screwdriver2.ogg', 45, TRUE, -4)
+					playsound(get_turf(target), 'sound/items/screwdriver2.ogg', 45, TRUE, -14)
 				else
-					playsound(get_turf(target), 'sound/items/screwdriver.ogg', 55, TRUE, -4)
+					playsound(get_turf(target), 'sound/items/screwdriver.ogg', 55, TRUE, -14)
 				// Noise alert: failed sets scrape and click. Loud picks alert bystanders.
 				check_noise(dist_to_zone <= 2 ? 1 : 2)
 
@@ -957,10 +967,10 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 						if(current_pin > pins.len || pins[current_pin]["set"])
 							current_pin = reset_idx
 						feedback += " The serrated pin catches — pin [reset_idx] jolts loose!"
-						playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 60, TRUE, -3)
+						playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 60, TRUE, -12)
 
 				// Bobby pin breakage: 25% chance to snap on each failed attempt
-				if(is_bobby_pin && attempts_left > 0 && prob(25))
+				if(is_bobby_pin && prob(25))
 					feedback += " The bobby pin snaps!"
 					phase  = "failed"
 					result = FALSE
@@ -969,14 +979,14 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
 					. = TRUE
 					return .
-				if(attempts_left <= 0)
+				if(cur_pin["pin_attempts"] <= 0)
 					phase    = "failed"
 					result   = FALSE
-					feedback = "You've exhausted your attempts. The lock defeats you."
+					feedback = "You've botched pin [current_pin] twice — the cylinder slams shut."
 					jam_target()
 					addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
-				else if(attempts_left == 1)
-					feedback += " (WARNING: One attempt left!)"
+				else if(cur_pin["pin_attempts"] == 1)
+					feedback += " (WARNING: Last chance on this pin!)"
 			. = TRUE
 
 		if("give_up")
@@ -1017,7 +1027,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	phase    = "failed"
 	result   = FALSE
 	feedback = "You overtorque the pick — SNAP! A fragment is stuck in the lock. Fish it out before trying again."
-	playsound(get_turf(target), 'sound/items/Wirecutter.ogg', 100, TRUE, -2)
+	playsound(get_turf(target), 'sound/items/Wirecutter.ogg', 100, TRUE, -10)
 	// Spawn pick fragment — physically blocks the lock until removed
 	var/obj/item/pick_fragment/frag = new(get_turf(target))
 	frag.stuck_in = target

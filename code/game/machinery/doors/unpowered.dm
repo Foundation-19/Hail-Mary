@@ -18,6 +18,8 @@
 /obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/lockpick_set))
 		return ..()  // always forward lockpicks to the parent's try_to_lockpick dispatch
+	if(I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/twohanded/fireaxe))
+		return ..()  // always forward crowbars so try_to_crowbar works even on locked/jammed doors
 	if(locked)
 		return
 	else
