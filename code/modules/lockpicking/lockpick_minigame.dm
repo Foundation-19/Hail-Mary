@@ -980,13 +980,28 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					. = TRUE
 					return .
 				if(cur_pin["pin_attempts"] <= 0)
-					phase    = "failed"
-					result   = FALSE
-					feedback = "You've botched pin [current_pin] twice — the cylinder slams shut."
-					jam_target()
-					addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
+					// All pins spring back — cylinder drops. Lose one global attempt.
+					attempts_left--
+					for(var/j in 1 to pins.len)
+						pins[j]["set"]          = FALSE
+						pins[j]["pos"]          = 1
+						pins[j]["moves"]        = 0
+						pins[j]["decayed"]      = FALSE
+						pins[j]["overset"]      = FALSE
+						pins[j]["last_move"]    = 0
+						pins[j]["pin_attempts"] = 2
+					current_pin = get_binding_pin()
+					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 65, TRUE, -12)
+					if(attempts_left <= 0)
+						feedback = "The cylinder slams shut — you're out of attempts."
+						phase    = "failed"
+						result   = FALSE
+						jam_target()
+						addtimer(CALLBACK(src, PROC_REF(close_ui)), 2 SECONDS)
+					else
+						feedback = "You botch pin [current_pin] badly — the cylinder drops and all pins spring back! ([attempts_left] attempt[attempts_left == 1 ? "" : "s"] left.)"
 				else if(cur_pin["pin_attempts"] == 1)
-					feedback += " (WARNING: Last chance on this pin!)"
+					feedback += " (WARNING: Last chance on this pin before the cylinder drops!)"
 			. = TRUE
 
 		if("give_up")

@@ -200,7 +200,7 @@ export const Lockpicking = (props, context) => {
                 {luck} / 10{isMasterPick ? ' \u2014 Master Pick' : ''}
               </ProgressBar>
             </LabeledList.Item>
-            <LabeledList.Item label="Attempts Left">
+            <LabeledList.Item label="Attempts">
               <ProgressBar
                 value={attemptsLeft}
                 minValue={0}
@@ -476,6 +476,26 @@ export const Lockpicking = (props, context) => {
                       <Box color="grey">{'—'}</Box>
                     )}
                   </Box>
+
+                  {/* Per-pin try meter — separate from the global trap-attempt bar */}
+                  {!pin.set && (
+                    <Box mt="2px" style={{ 'display': 'flex', 'justify-content': 'center', 'gap': '3px' }}>
+                      {Array.from({ length: 2 }, (_, ai) => (
+                        <Box
+                          key={ai}
+                          style={{
+                            'width': '8px',
+                            'height': '8px',
+                            'border-radius': '50%',
+                            'background-color': ai < (pin.pinAttempts || 0)
+                              ? ((pin.pinAttempts || 0) <= 1 ? '#ff5722' : '#ffcc00')
+                              : '#2e2e2e',
+                            'border': `1px solid ${ai < (pin.pinAttempts || 0) ? '#888' : '#444'}`,
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  )}
 
                   {/* Heat hint (inactive pins show faded hint) */}
                   <Box style={{ 'min-height': '30px' }}>
