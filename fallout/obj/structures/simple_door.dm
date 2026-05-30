@@ -141,6 +141,9 @@
 		)
 		return
 	if(padlock) /* attempt to pry the lock off */
+		if(padlock.locked)
+			to_chat(user, span_warning("The padlock is locked — you can't pry it off while it's locked."))
+			return
 		if(padlock.pry_off(user,src))
 			qdel(padlock)
 			padlock = null

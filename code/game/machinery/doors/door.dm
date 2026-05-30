@@ -202,7 +202,7 @@
 		pick(start_messages_self),
 		pick(start_messages_blind)
 	)
-	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, ignore_walls = FALSE)
+	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 18, TRUE, -10)
 
 	// Pass src as lock_ref so the pin combination stays consistent across attempts.
 	var/datum/lockpicking_minigame/game = new(src, user, picking, lock_tier, src)
@@ -231,7 +231,7 @@
 				span_notice("You start working the pins back into position..."),
 				span_notice("You hear a careful series of soft clicks from [src].")
 			)
-			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, TRUE, ignore_walls = FALSE)
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 35, TRUE, -10)
 			if(!do_after(user, 50, target = src))
 				return FALSE
 			if(QDELETED(src))

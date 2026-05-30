@@ -308,10 +308,11 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	RegisterSignal(user, COMSIG_MOB_ATTACK_HAND, PROC_REF(on_user_hit))
 	RegisterSignal(user, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_user_hit))
 
-	// Overhead icon so bystanders can see the player is lockpicking
+	// Overhead icon so bystanders can see the player is lockpicking.
+	// Alpha scales with picker skill: high perception+agility = subtler (lower alpha).
 	pick_overlay = mutable_appearance('icons/mob/actions/actions_flightsuit.dmi', "flightsuit_lock")
 	pick_overlay.pixel_y = 28
-	pick_overlay.alpha = 195
+	pick_overlay.alpha = clamp(240 - (perception + agility - 2) * 10, 80, 240)
 	var/matrix/M = matrix()
 	M.Scale(0.55)
 	pick_overlay.transform = M
@@ -897,6 +898,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 				current_pin = (next_binding > 0) ? next_binding : 1
 				// Check for pin decay on tier 3+ locks
 				var/decayed = maybe_decay_pins(just_set)
+				// Observers with good hearing catch the clean set-click
+				broadcast_pin_attempt(just_set, 0, TRUE)
 				if(all_pins_set())
 					phase    = "success"
 					feedback = "The lock clicks open!"
@@ -937,6 +940,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					playsound(get_turf(target), 'sound/items/screwdriver.ogg', 55, TRUE, -14)
 				// Noise alert: failed sets scrape and click. Loud picks alert bystanders.
 				check_noise(dist_to_zone <= 2 ? 1 : 2)
+				// Perception-gated detail for nearby observers
+				broadcast_pin_attempt(current_pin, dist_to_zone, FALSE)
 
 				var/dir_text = direction == 1 ? "too low — try going higher" : "too high — try going lower"
 				switch(dist_to_zone)
@@ -1087,6 +1092,11 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
  */
 /datum/lockpicking_minigame/proc/check_noise(events)
 	var/effective = pick_noise_level * events
+	// Sneaking (walk intent) muffles the sounds of picking
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.m_intent == MOVE_INTENT_WALK)
+			effective = round(effective * 0.5)
 	if(has_lockpick_trait)
 		effective = max(0, effective - 1)  // trained hands are quieter
 	accumulated_noise += effective
@@ -1115,10 +1125,89 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	for(var/mob/M in view(alert_range, get_turf(target)))
 		if(M == user)
 			continue
+		if(!isliving(M))
+			continue
 		var/dist = get_dist(M, get_turf(target))
+		var/obs_perc = M.special_p
+		// Distance degrades effective perception: each tile beyond 2 costs 1 point.
+		// Bobby pin noise (level 3) is obvious enough that perception only matters
+		// at the far edge. Quieter picks require more attentiveness to notice at all.
+		var/perc_needed
+		if(dist <= 2)
+			perc_needed = (pick_noise_level >= 3) ? 1 : 2  // loud = anyone; quiet = basic awareness
+		else
+			perc_needed = (pick_noise_level >= 3) ? 2 : 4  // loud far = needs some awareness; quiet far = needs good senses
+		if(obs_perc < perc_needed)
+			continue
 		var/msg = (dist <= 2) ? near_msg : far_msg
 		if(msg)
 			to_chat(M, msg)
+
+/**
+ * Broadcasts a perception-gated message to observers when the picker makes a
+ * pin set attempt (hit or miss). In real life a trained ear can tell which pin
+ * is being worked and roughly how close the picker is to setting it — the pin
+ * produces a distinct click when it reaches shear-line height, and the quality
+ * of that click changes as the picker homes in on the correct position.
+ *
+ * obs_perception tiers:
+ *   1–3  — Hear a vague metallic click; can't tell anything more.
+ *   4–5  — Can tell whether the picked pin is in the front or back half of the cylinder.
+ *   6–7  — Can identify the pin number by the relative position of the sound
+ *           along the lock body and the effort the picker exerts.
+ *   8–10 — Also distinguishes a "near miss" click (crisp and clean) from a
+ *           "far miss" scrape (dull grind), and hears a firm click on success.
+ *
+ * Range: 4 tiles (must be nearby to hear the subtle sound).
+ */
+/datum/lockpicking_minigame/proc/broadcast_pin_attempt(pin_num, dist_to_zone, was_set)
+	var/turf/T = get_turf(target)
+	var/total_pins = pins ? pins.len : 1
+	// Categorise the pin's position in the cylinder as "front" or "back"
+	// so mid-perception observers get useful directional context.
+	var/half = (pin_num <= round(total_pins / 2)) ? "front" : "back"
+	for(var/mob/M in view(4, T))
+		if(M == user)
+			continue
+		if(!isliving(M))
+			continue
+		var/obs_perc = M.special_p
+		if(obs_perc <= 0)
+			continue
+		// Distance penalty: each tile beyond 2 costs 2 effective perception.
+		// Being right next to the lock (1-2 tiles) costs nothing — you can press
+		// your ear to the door. At 3-4 tiles the sound is muffled by air and
+		// ambient noise; you need sharper senses to pull the same detail.
+		var/obs_dist = get_dist(M, T)
+		if(obs_dist > 2)
+			obs_perc -= (obs_dist - 2) * 2
+		if(obs_perc <= 0)
+			continue
+		// Identifying the picker by name requires line of sight — you need to see
+		// their face. If the observer can't see the user mob, they only know "someone".
+		var/picker_name = (user in view(M)) ? "[user]" : "someone"
+		var/msg
+		if(obs_perc <= 3)
+			// Just the raw sound — no interpretation possible.
+			msg = span_notice("You hear a faint metallic click from [target].")
+		else if(obs_perc <= 5)
+			// Front/back of the lock cylinder.
+			msg = span_notice("You hear a [was_set ? "firm" : "dry"] click from the [half] of [target]'s lock.")
+		else if(obs_perc <= 7)
+			// Pin number identifiable from sound position along the cylinder.
+			if(was_set)
+				msg = span_notice("A crisp click — pin [pin_num] of [total_pins] in [target] just fell into place.")
+			else
+				msg = span_notice("You pick out pin [pin_num] of [total_pins] in [target] — [picker_name] is working it.")
+		else
+			// Near/far miss distinguishable; success is unmistakable.
+			if(was_set)
+				msg = span_notice("A clean, deliberate click — [picker_name] just set pin [pin_num] of [total_pins] in [target].")
+			else if(dist_to_zone <= 2)
+				msg = span_notice("Almost — you hear a near-miss scrape on pin [pin_num] of [total_pins]. [picker_name] is close.")
+			else
+				msg = span_notice("A dull grinding scrape: [picker_name] is far off on pin [pin_num] of [total_pins] in [target].")
+		to_chat(M, msg)
 
 /// Closes the TGUI after a short delay so the player can read the outcome.
 /datum/lockpicking_minigame/proc/close_ui()
