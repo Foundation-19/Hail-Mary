@@ -166,8 +166,8 @@ export const Lockpicking = (props, context) => {
     <Window
       theme="fallout"
       title="Lock Picking"
-      width={500}
-      height={640}>
+      width={620}
+      height={700}>
       <Window.Content>
         <style>{PIN_PULSE_CSS}</style>
 
@@ -320,12 +320,15 @@ export const Lockpicking = (props, context) => {
           )}
         </Section>
 
-        {/* Feedback */}
-        <NoticeBox
-          success={phase === 'success'}
-          danger={phase === 'failed'}>
-          {feedback}
-        </NoticeBox>
+        {/* Feedback — fixed min-height prevents the pin section shifting
+             when short (1-line) messages swap for long (2-line) messages */}
+        <Box style={{ 'min-height': '50px' }}>
+          <NoticeBox
+            success={phase === 'success'}
+            danger={phase === 'failed'}>
+            {feedback}
+          </NoticeBox>
+        </Box>
 
         {/* Pins */}
         <Section title={`Pins \u2014 ${pinsSet} / ${totalPins} Set`}>
@@ -353,7 +356,19 @@ export const Lockpicking = (props, context) => {
               </ProgressBar>
             </Box>
           )}
-          <Box style={{ 'display': 'flex', 'justify-content': 'center', 'align-items': 'flex-start', 'flex-wrap': 'wrap' }}>
+          {/* No-wrap row: pins never reflow to a second row.
+               overflow-x:auto is a safety net for very high pin counts.
+               min-height reserves consistent space so controls don't jump. */}
+          <Box style={{
+            'display': 'flex',
+            'justify-content': 'center',
+            'align-items': 'flex-start',
+            'flex-wrap': 'nowrap',
+            'overflow-x': 'auto',
+            'overflow-y': 'visible',
+            'min-height': '225px',
+            'padding-bottom': '4px',
+          }}>
             {pins.map((pin, i) => {
               const heat = hintInfo(
                 pin.hint, pin.lastDir, pin.lastPos, perception, pickWear
@@ -387,7 +402,8 @@ export const Lockpicking = (props, context) => {
                           ? 'rgba(90,58,0,0.12)'
                           : 'transparent',
                     'animation': pin.active ? 'lpPinPulse 1.5s ease-in-out infinite' : undefined,
-                    'min-width': '48px',
+                    'width': '88px',
+                    'flex-shrink': '0',
                     'cursor': isClickable ? 'pointer' : 'default',
                   }}>
 
@@ -497,8 +513,9 @@ export const Lockpicking = (props, context) => {
                     </Box>
                   )}
 
-                  {/* Heat hint (inactive pins show faded hint) */}
-                  <Box style={{ 'min-height': '30px' }}>
+                  {/* Heat hint — word-break ensures long range labels
+                       wrap inside the fixed-width card */}
+                  <Box style={{ 'min-height': '30px', 'word-break': 'break-word', 'overflow-wrap': 'break-word' }}>
                     {!!pin.active && heat && (
                       <Box mt="3px" fontSize="11px" color={heat.color} bold>
                         {heat.arrow} {heat.label}
