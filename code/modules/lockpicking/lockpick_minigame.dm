@@ -310,14 +310,19 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	RegisterSignal(user, COMSIG_MOB_ATTACK_HAND, PROC_REF(on_user_hit))
 	RegisterSignal(user, COMSIG_MOB_ITEM_ATTACK, PROC_REF(on_user_hit))
 
-	// Overhead icon so bystanders can see the player is lockpicking.
-	// Alpha scales with picker skill: high perception+agility = subtler (lower alpha).
-	// mouse_opacity = 0 makes the overlay non-interactive — BYOND passes clicks
-	// through it to the tile below, so observers standing nearby aren't bumped north.
-	pick_overlay = mutable_appearance('icons/mob/actions/actions_flightsuit.dmi', "flightsuit_lock")
+	// Overhead icon above the picker — bystanders see who is working the lock.
+	// TILE_BOUND clamps the overlay's interactive area to the picker's tile so clicks
+	// on the portion extending above the head don't register as the northern tile
+	// (same technique used by the sneak indicator).
+	// Alpha scales with picker skill: clumsy pickers fidget visibly; skilled pickers
+	// move with precision and draw less attention.
+	// Range: alpha 180 (low skill, clearly visible) to 60 (max skill, subtle but seeable).
+	// ABOVE_MOB_LAYER as third arg ensures the overlay renders above the mob sprite.
+	pick_overlay = mutable_appearance('icons/mob/actions/actions_flightsuit.dmi', "flightsuit_lock", ABOVE_MOB_LAYER)
 	pick_overlay.pixel_y = 28
-	pick_overlay.mouse_opacity = 0
-	pick_overlay.alpha = clamp(240 - (perception + agility - 2) * 15, 20, 240)
+	pick_overlay.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	pick_overlay.appearance_flags = RESET_COLOR | PIXEL_SCALE
+	pick_overlay.alpha = clamp(190 - (perception + agility - 2) * 7, 60, 190)
 	var/matrix/M = matrix()
 	M.Scale(0.55)
 	pick_overlay.transform = M
@@ -1194,10 +1199,12 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	// Sneaking (walk intent) makes the picker's movements quieter — the sounds are
 	// physically softer, so the effective range AND detail level drop for observers.
 	var/sneak_penalty = (isliving(user) && user:m_intent == MOVE_INTENT_WALK) ? 3 : 0
-	// Extended range: high-perception observers (7+) can pick out subtle sounds from
-	// further away. Past 4 tiles requires at least perception 7 just to catch anything.
-	// Sneaking shrinks the broadcast radius to 5 tiles.
-	var/broadcast_range = sneak_penalty ? 5 : 8
+	// Successful pin sets (the pin quietly drops into the shear line) are the
+	// QUIETEST moment — no spring-back, no scrape. Only close observers catch it.
+	// Failed sets (spring-back scraping) carry further; Joseph's longer-range
+	// awareness reward applies to those, not to the subtle success click.
+	var/broadcast_range = was_set ? 4 : (sneak_penalty ? 5 : 8)
+	var/far_threshold   = was_set ? 2 : (sneak_penalty ? 2 : 4)
 	for(var/mob/M in view(broadcast_range, T))
 		if(M == user)
 			continue
@@ -1207,9 +1214,6 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		if(obs_perc <= 0)
 			continue
 		var/obs_dist = get_dist(M, T)
-		// Past 4 tiles only perception 7+ can catch anything — the sound is too faint.
-		// When the picker is sneaking, that threshold tightens to 2 tiles.
-		var/far_threshold = sneak_penalty ? 2 : 4
 		if(obs_dist > far_threshold && obs_perc < 7)
 			continue
 		// Distance penalty: each tile beyond 2 costs 2 effective perception.
