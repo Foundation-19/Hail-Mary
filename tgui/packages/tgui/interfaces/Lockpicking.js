@@ -40,7 +40,8 @@ const PIN_PULSE_CSS = (
 let _lpKeyHandler = null;
 // Throttle: movement keys are capped at one topic call per 250ms (~4/s).
 // BYOND enforces a 100-topic/minute hard limit; rapid key-hold would blow past
-// it in seconds without this guard. Set/select pins are unthrottled (rare, intentional clicks).
+// it in seconds without this guard. Set/select pins are unthrottled
+// (rare, intentional clicks).
 let _lpLastMoveTime = 0;
 const LP_MOVE_THROTTLE_MS = 250;
 
@@ -520,7 +521,11 @@ export const Lockpicking = (props, context) => {
 
                   {/* Per-pin try meter — separate from the global trap-attempt bar */}
                   {!pin.set && (
-                    <Box mt="2px" style={{ 'display': 'flex', 'justify-content': 'center', 'gap': '3px' }}>
+                    <Box mt="2px" style={{
+                      'display': 'flex',
+                      'justify-content': 'center',
+                      'gap': '3px',
+                    }}>
                       {Array.from({ length: 2 }, (_, ai) => (
                         <Box
                           key={ai}
