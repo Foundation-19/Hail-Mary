@@ -45,6 +45,8 @@
 	var/lockpick_jammed = FALSE
 	/// Set TRUE after a successful lockpick; cleared when an authorized user re-closes the door.
 	var/tampered = FALSE
+	/// Transient flag: set by try_to_lockpick before opening so do_animate can muffle the door-open sound.
+	var/lockpick_muffled = FALSE
 	/// Stored pin solution — ensures the same combination each time this door is lockpicked.
 	var/list/pin_solution = null
 	/// Stored binding order for pin solution persistence.
@@ -219,7 +221,9 @@
 		tampered = TRUE
 		pin_solution   = null
 		pin_bind_order = null
+		lockpick_muffled = TRUE   // muffle the door-open sound — a skilled lockpick is quiet
 		try_to_activate_door(user, TRUE)
+		lockpick_muffled = FALSE  // safety reset in case open() didn't consume it
 		. = TRUE
 	else
 		// After a failed attempt the pins must walk back to resting position before

@@ -149,6 +149,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	var/timer_duration = 0
 	/// TRUE once the 30-second cramp warning has been issued
 	var/timer_warning_sent = FALSE
+	/// Fractional tick accumulator for sneak-cramp drain (30% faster fatigue while sneaking)
+	var/sneak_drain_accum = 0
 	/// Whether the user has TRAIT_LOCKPICKING
 	var/has_lockpick_trait = FALSE
 	/// Shuffled list of pin indices determining binding order for this lock
@@ -310,9 +312,12 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 
 	// Overhead icon so bystanders can see the player is lockpicking.
 	// Alpha scales with picker skill: high perception+agility = subtler (lower alpha).
+	// mouse_opacity = 0 makes the overlay non-interactive — BYOND passes clicks
+	// through it to the tile below, so observers standing nearby aren't bumped north.
 	pick_overlay = mutable_appearance('icons/mob/actions/actions_flightsuit.dmi', "flightsuit_lock")
 	pick_overlay.pixel_y = 28
-	pick_overlay.alpha = clamp(240 - (perception + agility - 2) * 10, 80, 240)
+	pick_overlay.mouse_opacity = 0
+	pick_overlay.alpha = clamp(240 - (perception + agility - 2) * 15, 20, 240)
 	var/matrix/M = matrix()
 	M.Scale(0.55)
 	pick_overlay.transform = M
@@ -498,11 +503,22 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		if(!QDELETED(user) && user.stat >= UNCONSCIOUS && phase == "picking")
 			on_user_incapacitated()
 		if(phase == "picking" && timer_duration > 0)
+			// Sneaking posture (walk intent) tenses the shoulders and forearms —
+			// the timer burns 30% faster, draining in whole-tick increments.
+			if(isliving(user) && !QDELETED(user) && user:m_intent == MOVE_INTENT_WALK)
+				sneak_drain_accum += 0.3
+				if(sneak_drain_accum >= 1)
+					var/drain = round(sneak_drain_accum)
+					sneak_drain_accum -= drain
+					timer_start -= drain  // shift start backward = more elapsed time
 			var/elapsed = world.time - timer_start
 			var/remaining = timer_duration - elapsed
 			if(remaining <= 300 && !timer_warning_sent)
 				timer_warning_sent = TRUE
-				feedback = "WARNING: Your hand is cramping — you have about 30 seconds before tension slips!"
+				var/cramp_msg = "WARNING: Your hand is cramping — you have about 30 seconds before tension slips!"
+				if(isliving(user) && !QDELETED(user) && user:m_intent == MOVE_INTENT_WALK)
+					cramp_msg += " (Sneaking is tensing your whole arm — stand normally if you can.)"
+				feedback = cramp_msg
 				SStgui.update_uis(src)
 			if(remaining <= 0)
 				on_tension_fatigue()
@@ -725,6 +741,11 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		var/wear_ratio = 1.0 - (pick.uses_left / pick_initial_uses)
 		pick_wear = clamp(round(wear_ratio * 4), 0, 3)
 	data["pickWear"]      = pick_wear
+	var/is_sneaking = FALSE
+	if(isliving(user))
+		var/mob/living/L = user
+		is_sneaking = (L.m_intent == MOVE_INTENT_WALK)
+	data["isSneaking"] = is_sneaking
 	return data
 
 /datum/lockpicking_minigame/ui_close(mob/user)
@@ -745,6 +766,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 
 	// Guard: after non-linear play current_pin may sit past the end of the list.
 	var/list/cur_pin = (current_pin >= 1 && current_pin <= pins.len) ? pins[current_pin] : null
+	// Sneak (walk intent) muffles the picker's physical sounds — checked once per action.
+	var/sneaking = isliving(user) && (user:m_intent == MOVE_INTENT_WALK)
 
 	switch(action)
 		if("move_up")
@@ -904,12 +927,14 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 					phase    = "success"
 					feedback = "The lock clicks open!"
 					result   = TRUE
-					playsound(get_turf(target), 'sound/machines/BoltsUp.ogg', 60, FALSE, -12)
+					// Final click: quiet enough that only nearby listeners catch it.
+					// Sneaking makes it even subtler — just a faint mechanical release.
+					playsound(get_turf(target), 'sound/machines/BoltsUp.ogg', sneaking ? 20 : 35, FALSE, -14)
 					addtimer(CALLBACK(src, PROC_REF(close_ui)), 1.5 SECONDS)
 				else if(decayed > 0)
 					current_pin = decayed
 					feedback = "Pin [just_set] set — but pin [decayed] vibrates loose and slips back! Refocus."
-					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 40, TRUE, -14)
+					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), sneaking ? 20 : 40, TRUE, -14)
 				else
 					feedback = "Pin [just_set] set. Moving to pin [current_pin]..."
 
@@ -935,9 +960,9 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 
 				// Warmer sound for close attempts, colder thud for far misses
 				if(dist_to_zone <= 2)
-					playsound(get_turf(target), 'sound/items/screwdriver2.ogg', 45, TRUE, -14)
+					playsound(get_turf(target), 'sound/items/screwdriver2.ogg', sneaking ? 22 : 45, TRUE, -14)
 				else
-					playsound(get_turf(target), 'sound/items/screwdriver.ogg', 55, TRUE, -14)
+					playsound(get_turf(target), 'sound/items/screwdriver.ogg', sneaking ? 28 : 55, TRUE, -14)
 				// Noise alert: failed sets scrape and click. Loud picks alert bystanders.
 				check_noise(dist_to_zone <= 2 ? 1 : 2)
 				// Perception-gated detail for nearby observers
@@ -972,7 +997,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 						if(current_pin > pins.len || pins[current_pin]["set"])
 							current_pin = reset_idx
 						feedback += " The serrated pin catches — pin [reset_idx] jolts loose!"
-						playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 60, TRUE, -12)
+						playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), sneaking ? 30 : 60, TRUE, -12)
 
 				// Bobby pin breakage: 25% chance to snap on each failed attempt
 				if(is_bobby_pin && prob(25))
@@ -996,7 +1021,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 						pins[j]["last_move"]    = 0
 						pins[j]["pin_attempts"] = 2
 					current_pin = get_binding_pin()
-					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 65, TRUE, -12)
+					playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), sneaking ? 32 : 65, TRUE, -12)
 					if(attempts_left <= 0)
 						feedback = "The cylinder slams shut — you're out of attempts."
 						phase    = "failed"
@@ -1096,7 +1121,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	if(isliving(user))
 		var/mob/living/L = user
 		if(L.m_intent == MOVE_INTENT_WALK)
-			effective = round(effective * 0.5)
+			effective = round(effective * 0.25)  // sneaking cuts noise to 25% — very hard to hear
 	if(has_lockpick_trait)
 		effective = max(0, effective - 1)  // trained hands are quieter
 	accumulated_noise += effective
@@ -1166,7 +1191,14 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	// Categorise the pin's position in the cylinder as "front" or "back"
 	// so mid-perception observers get useful directional context.
 	var/half = (pin_num <= round(total_pins / 2)) ? "front" : "back"
-	for(var/mob/M in view(4, T))
+	// Sneaking (walk intent) makes the picker's movements quieter — the sounds are
+	// physically softer, so the effective range AND detail level drop for observers.
+	var/sneak_penalty = (isliving(user) && user:m_intent == MOVE_INTENT_WALK) ? 3 : 0
+	// Extended range: high-perception observers (7+) can pick out subtle sounds from
+	// further away. Past 4 tiles requires at least perception 7 just to catch anything.
+	// Sneaking shrinks the broadcast radius to 5 tiles.
+	var/broadcast_range = sneak_penalty ? 5 : 8
+	for(var/mob/M in view(broadcast_range, T))
 		if(M == user)
 			continue
 		if(!isliving(M))
@@ -1174,13 +1206,17 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 		var/obs_perc = M.special_p
 		if(obs_perc <= 0)
 			continue
-		// Distance penalty: each tile beyond 2 costs 2 effective perception.
-		// Being right next to the lock (1-2 tiles) costs nothing — you can press
-		// your ear to the door. At 3-4 tiles the sound is muffled by air and
-		// ambient noise; you need sharper senses to pull the same detail.
 		var/obs_dist = get_dist(M, T)
+		// Past 4 tiles only perception 7+ can catch anything — the sound is too faint.
+		// When the picker is sneaking, that threshold tightens to 2 tiles.
+		var/far_threshold = sneak_penalty ? 2 : 4
+		if(obs_dist > far_threshold && obs_perc < 7)
+			continue
+		// Distance penalty: each tile beyond 2 costs 2 effective perception.
 		if(obs_dist > 2)
 			obs_perc -= (obs_dist - 2) * 2
+		// Sneak penalty: quieter sounds = harder to extract detail from them.
+		obs_perc -= sneak_penalty
 		if(obs_perc <= 0)
 			continue
 		// Identifying the picker by name requires line of sight — you need to see

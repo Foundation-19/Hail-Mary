@@ -23,6 +23,8 @@
 	var/lock_tier = 2
 	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
 	var/lockpick_jammed = FALSE
+	/// Transient flag: set by try_to_lockpick before opening so Open() can muffle the door-open sound.
+	var/lockpick_muffled = FALSE
 	var/door_type = "house"
 	var/base_opacity = TRUE
 	var/manual_opened = 0
@@ -86,7 +88,12 @@
 	return
 
 /obj/structure/simple_door/proc/Open(animate)
-	playsound(src.loc, open_sound, 30, 0, 0)
+	// When triggered by a lockpick, muffle the open sound to a short range.
+	if(lockpick_muffled)
+		lockpick_muffled = FALSE
+		playsound(src.loc, open_sound, 25, 0, -13)
+	else
+		playsound(src.loc, open_sound, 30, 0, 0)
 	if(animate)
 		moving = 1
 		flick("[door_type]opening", src)
@@ -247,7 +254,7 @@
 		"You begin raking the tumblers...",
 		"You hear an odd mechanical picking and scraping sound."
 	)
-	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, ignore_walls = FALSE)
+	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, -9)
 
 	// Use the physical lock's tier — it determines how complex the mechanism is.
 	var/datum/lockpicking_minigame/game = new(src, user, picking, padlock.lock_tier, padlock)
@@ -273,7 +280,9 @@
 		// Clear stored solution — lock will get a fresh combination if re-locked.
 		padlock.pin_solution    = null
 		padlock.pin_bind_order  = null
+		lockpick_muffled = TRUE   // door-open sound should be muffled after a quiet lockpick
 		SwitchState(TRUE)
+		lockpick_muffled = FALSE  // safety reset
 		return TRUE
 	else
 		// After failure the pins are jostled — they must be physically walked back
@@ -285,7 +294,7 @@
 				"You start working the pins back into position...",
 				"You hear a careful series of soft clicks from [src]."
 			)
-			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 50, TRUE, ignore_walls = FALSE)
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -10)
 			if(!do_after(user, 50, target = src))
 				return FALSE
 			if(QDELETED(src) || !padlock)

@@ -124,6 +124,7 @@ export const Lockpicking = (props, context) => {
     timerElapsed = 0,
     bindingPin = 0,
     pickWear = 0,
+    isSneaking = false,
   } = data;
 
   const isFinished = phase !== 'picking';
@@ -249,7 +250,7 @@ export const Lockpicking = (props, context) => {
 
           {/* Environmental penalty badges + trait bonus */}
           {!!(isDark || isHurt || wearingGloves
-            || hasTrait || noiseLevel >= 3) && (
+            || hasTrait || noiseLevel >= 3 || isSneaking) && (
             <Box mt="4px" style={{ 'display': 'flex', 'gap': '4px', 'flex-wrap': 'wrap' }}>
               {!!isDark && (
                 <Box
@@ -314,6 +315,19 @@ export const Lockpicking = (props, context) => {
                     'color': '#ddaa00',
                   }}>
                   Making noise ({noiseLevel}/5)
+                </Box>
+              )}
+              {!!isSneaking && (
+                <Box
+                  fontSize="11px"
+                  style={{
+                    'background': '#001a1a',
+                    'border': '1px solid #006666',
+                    'border-radius': '3px',
+                    'padding': '1px 5px',
+                    'color': '#00cccc',
+                  }}>
+                  Walk mode — muffled
                 </Box>
               )}
             </Box>
