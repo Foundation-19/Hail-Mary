@@ -38,6 +38,11 @@ const PIN_PULSE_CSS = (
 // Module-level keyboard handler — Inferno v7 has no hooks,
 // so we manage the listener directly (single-instance interface).
 let _lpKeyHandler = null;
+// Throttle: movement keys are capped at one topic call per 250ms (~4/s).
+// BYOND enforces a 100-topic/minute hard limit; rapid key-hold would blow past
+// it in seconds without this guard. Set/select pins are unthrottled (rare, intentional clicks).
+let _lpLastMoveTime = 0;
+const LP_MOVE_THROTTLE_MS = 250;
 
 /**
  * Returns display info for the heat indicator.
@@ -140,9 +145,15 @@ export const Lockpicking = (props, context) => {
     _lpKeyHandler = (e) => {
       if (e.key === 'w' || e.key === 'W' || e.key === 'ArrowUp') {
         e.preventDefault();
+        const now = Date.now();
+        if (now - _lpLastMoveTime < LP_MOVE_THROTTLE_MS) return;
+        _lpLastMoveTime = now;
         act('move_up');
       } else if (e.key === 's' || e.key === 'S' || e.key === 'ArrowDown') {
         e.preventDefault();
+        const now = Date.now();
+        if (now - _lpLastMoveTime < LP_MOVE_THROTTLE_MS) return;
+        _lpLastMoveTime = now;
         act('move_down');
       } else if (e.key === ' ' || e.key === 'Enter') {
         e.preventDefault();
@@ -554,13 +565,23 @@ export const Lockpicking = (props, context) => {
               <Button
                 icon="arrow-up"
                 mr={1}
-                onClick={() => act('move_up')}>
+                onClick={() => {
+                  const now = Date.now();
+                  if (now - _lpLastMoveTime < LP_MOVE_THROTTLE_MS) return;
+                  _lpLastMoveTime = now;
+                  act('move_up');
+                }}>
                 Move Up
               </Button>
               <Button
                 icon="arrow-down"
                 mr={1}
-                onClick={() => act('move_down')}>
+                onClick={() => {
+                  const now = Date.now();
+                  if (now - _lpLastMoveTime < LP_MOVE_THROTTLE_MS) return;
+                  _lpLastMoveTime = now;
+                  act('move_down');
+                }}>
                 Move Down
               </Button>
               <Button
