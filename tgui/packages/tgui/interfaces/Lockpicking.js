@@ -519,7 +519,7 @@ export const Lockpicking = (props, context) => {
                     )}
                   </Box>
 
-                  {/* Per-pin try meter — separate from the global trap-attempt bar */}
+                  {/* Per-pin try meter — separate from global trap-attempt bar */}
                   {!pin.set && (
                     <Box mt="2px" style={{
                       'display': 'flex',
