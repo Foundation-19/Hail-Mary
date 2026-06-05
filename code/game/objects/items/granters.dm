@@ -101,6 +101,22 @@
 	icon_state = "book1"
 	remarks = list("One smooth motion...", "Palm the bolt...", "Push up, rotate back, push forward, down...", "Don't slap yourself with the bolt...", "Wait, what's this about pumping?", "Who just scribbled \"Z\" and \"LMB\" on this page?")
 
+/obj/item/book/granter/trait/lockpicking
+	name = "Confidential: The Art of the Open Door"
+	desc = "A slim, dog-eared manual with no author listed. Chapters cover pin-tumbler theory, tension control, and reading binding order by feel. Someone has underlined the words 'patience' and 'don\'t rush' in every chapter."
+	oneuse = TRUE
+	granted_trait = TRAIT_LOCKPICKING
+	traitname = "lockpicking"
+	icon_state = "book2"
+	remarks = list(
+		"Single-pin picking: apply light tension, find the binding pin...",
+		"The binding pin is the one the cylinder is pressing on hardest...",
+		"Set it, move to the next. Don\'t rush — the cylinder remembers...",
+		"False sets feel almost right. Trust the feedback, not the click...",
+		"If it jams, you pushed too fast. The pick is now your enemy...",
+		"The last pin drops and something clicks. That\'s the feeling."
+	)
+
 ///ACTION BUTTONS///
 
 /obj/item/book/granter/action

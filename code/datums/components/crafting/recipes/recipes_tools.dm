@@ -121,6 +121,78 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_TOOL
 
+/datum/crafting_recipe/lock_tier3
+	name = "Reinforced Lock"
+	result = /obj/item/lock_construct/tier3
+	time = 100
+	reqs = list(/obj/item/stack/sheet/metal = 3, /obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lock_tier4
+	name = "Security Lock"
+	result = /obj/item/lock_construct/tier4
+	time = 140
+	reqs = list(/obj/item/stack/sheet/metal = 4, /obj/item/stack/rods = 3, /obj/item/stack/crafting/metalparts = 1)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lock_tier5
+	name = "Master Security Lock"
+	result = /obj/item/lock_construct/tier5
+	time = 220
+	reqs = list(/obj/item/stack/sheet/metal = 5, /obj/item/stack/rods = 3, /obj/item/stack/crafting/metalparts = 2, /obj/item/advanced_crafting_components/alloys = 2)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lock_tier2
+	name = "Standard Lock"
+	result = /obj/item/lock_construct/tier2
+	time = 90
+	reqs = list(/obj/item/stack/sheet/metal = 2, /obj/item/stack/rods = 1)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lockpick_master
+	name = "Master Lockpick Set"
+	result = /obj/item/lockpick_set/master
+	time = 180
+	reqs = list(/obj/item/stack/sheet/metal = 3, /obj/item/stack/crafting/metalparts = 2, /obj/item/advanced_crafting_components/alloys = 1)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lockpick_tension
+	name = "Tension Wrench Kit"
+	result = /obj/item/lockpick_set/tension_wrench
+	time = 100
+	reqs = list(/obj/item/stack/sheet/metal = 4, /obj/item/stack/rods = 2)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lockpick_bobby
+	name = "Bobby Pin"
+	result = /obj/item/lockpick_set/bobby_pin
+	time = 30
+	reqs = list(/obj/item/stack/sheet/metal = 1)
+	tools = list()
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
+/datum/crafting_recipe/lockpick_electronic
+	name = "Electronic Lock Pick"
+	result = /obj/item/lockpick_set/electronic_pick
+	time = 180
+	reqs = list(/obj/item/stack/sheet/metal = 3, /obj/item/stack/crafting/metalparts = 4, /obj/item/stock_parts/cell/high = 1)
+	tools = list(TOOL_WORKBENCH)
+	category = CAT_CRAFTING
+	subcategory = CAT_TOOL
+
 /datum/crafting_recipe/msreloader
 	name = "Makeshift Reloading Press"
 	result = /obj/item/circuitboard/machine/autolathe/ammo/improvised
