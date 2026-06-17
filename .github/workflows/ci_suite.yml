@@ -37,6 +37,10 @@ jobs:
       - name: Install TGUI dependencies
         run: yarn install
         working-directory: tgui
+      - name: Verify TGUI bundled artifacts
+        run: |
+          tgui/bin/tgui --build
+          git diff --exit-code -- tgui/public
 
       - run: pip install -r tools/requirements.txt
       - name: Run Linters
