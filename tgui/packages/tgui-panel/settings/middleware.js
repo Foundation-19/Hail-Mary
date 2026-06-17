@@ -10,6 +10,24 @@ import { loadSettings, updateSettings } from './actions';
 import { selectSettings } from './selectors';
 import { FONTS_DISABLED } from './constants';
 
+// ── Synchronous early theme application ─────────────────────────────────────
+// Read localStorage directly (synchronous) and apply the correct BYOND winset
+// colors BEFORE the async storage.get resolves. This eliminates the flash of
+// wrong skin colors that would otherwise appear during the Redux boot cycle.
+// Mirrors the dark→fallout migration that the reducer applies asynchronously.
+(function applyThemeEarly() {
+  try {
+    const raw = window.localStorage && window.localStorage.getItem('panel-settings');
+    const parsed = raw ? JSON.parse(raw) : null;
+    const theme = (parsed && parsed.theme && parsed.theme !== 'dark')
+      ? parsed.theme
+      : 'fallout';
+    setClientTheme(theme);
+  } catch (_) {
+    setClientTheme('fallout');
+  }
+}());
+
 const setGlobalFontSize = fontSize => {
   document.documentElement.style
     .setProperty('font-size', fontSize + 'px');
@@ -32,19 +50,20 @@ export const settingsMiddleware = store => {
     const { type, payload } = action;
     if (!initialized) {
       initialized = true;
+      // Apply the default theme immediately (synchronously) so the UI is
+      // already in the right color palette before storage resolves.
+      const initialTheme = selectSettings(store.getState()).theme;
+      setClientTheme(initialTheme);
       storage.get('panel-settings').then(settings => {
         store.dispatch(loadSettings(settings));
       });
     }
     if (type === updateSettings.type || type === loadSettings.type) {
-      // Set client theme
-      const theme = payload?.theme;
-      if (theme) {
-        setClientTheme(theme);
-      }
-      // Pass action to get an updated state
+      // Pass action first so the reducer updates state before we read it
       next(action);
       const settings = selectSettings(store.getState());
+      // Always apply the active theme (covers null-payload / first-ever load)
+      setClientTheme(settings.theme);
       // Update global UI font size
       setGlobalFontSize(settings.fontSize);
       setGlobalFontFamily(settings.fontFamily);

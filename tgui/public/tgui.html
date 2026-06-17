@@ -3,6 +3,22 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
+<!-- Dark background applied before ANY JS/CSS loads to prevent white flash.
+      Scrollbar styles use !important so they cannot be overridden by
+      external stylesheets (tgui.bundle.css loads after and would win otherwise
+      due to source order for equal specificity). -->
+<style>
+html,body{background:#050c05;color:#a0d0a0}
+*::-webkit-scrollbar{width:8px!important;height:8px!important;background:#030a03!important}
+*::-webkit-scrollbar-track{background:#030a03!important;border-left:1px solid rgba(76,255,76,.08)!important}
+*::-webkit-scrollbar-thumb{background:rgba(76,255,76,.38)!important;border-radius:0!important;border:1px solid rgba(76,255,76,.15)!important}
+*::-webkit-scrollbar-thumb:hover{background:rgba(76,255,76,.65)!important;box-shadow:0 0 4px rgba(76,255,76,.3)!important}
+*::-webkit-scrollbar-thumb:active{background:#4cff4c!important}
+*::-webkit-scrollbar-corner{background:#030a03!important}
+/* force all native input fields dark before React mounts */
+input,textarea,select{background:#030a03!important;color:#a0d0a0!important;border:1px solid rgba(76,255,76,.28)!important;font-family:"Courier New",Courier,monospace!important;outline:none!important}
+input::placeholder,textarea::placeholder{color:rgba(76,255,76,.3)!important}
+</style>
 
 <!-- Inlined data -->
 <meta id="tgui:windowId" content="[tgui:windowId]">
