@@ -54,6 +54,16 @@ Run `bin/tgui --install-git-hooks` to install merge drivers which will
 assist you in conflict resolution when rebasing your branches. Only has
 to be done once.
 
+If you do not work on generated frontend artifacts directly and want to avoid
+accidental commits from local rebuilds (for example in GitHub Desktop), you can
+hide them locally:
+
+`git update-index --skip-worktree tgui/public/*.bundle.* tgui/public/*.chunk.*`
+
+To intentionally update and commit generated artifacts later, unhide them first:
+
+`git update-index --no-skip-worktree tgui/public/*.bundle.* tgui/public/*.chunk.*`
+
 Run `bin/tgui` with any of the options listed below.
 
 **For Windows CMD or PowerShell users:**
