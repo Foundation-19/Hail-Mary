@@ -13102,7 +13102,7 @@
 /area/f13/wasteland)
 "baJ" = (
 /obj/machinery/button/door{
-	id = "bosfrontgate";
+	id = "bossouthgate";
 	name = "Brotherhood Southern Gate";
 	pixel_y = 32;
 	pixel_x = 8
@@ -65240,7 +65240,7 @@
 /area/f13/city)
 "ykA" = (
 /obj/machinery/door/poddoor/gate/bunker{
-	id = s;
+	id = "bossouthgate";
 	name = "brotherhood blue-steel gate"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
