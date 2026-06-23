@@ -10452,8 +10452,10 @@
 /area/f13/brotherhood/rnd)
 "eWm" = (
 /obj/structure/ladder/unbreakable{
-	id = "Supmut"
+	id = "supmut";
+	height = 1
 	},
+/obj/machinery/light/small,
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
 	icon_state = "bluerustychess2"
@@ -16164,7 +16166,9 @@
 /area/f13/bunker)
 "hHb" = (
 /obj/structure/ladder/unbreakable{
-	id = "sunsetdung1"
+	id = "robodungeon";
+	up = "sunsetdungent";
+	height = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/green/side{
 	dir = 4
@@ -27668,6 +27672,15 @@
 	icon_state = "darkdirtysolid"
 	},
 /area/f13/bunker)
+"nkY" = (
+/obj/machinery/light/small{
+	dir = 4;
+	light_color = "#ad1b1b"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/green/side{
+	dir = 4
+	},
+/area/f13/bunker)
 "nla" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/gibs/human/lizard/torso,
@@ -35972,6 +35985,15 @@
 "rck" = (
 /turf/open/space/basic,
 /area/f13/underground/cave)
+"rcr" = (
+/obj/machinery/light/small{
+	dir = 8;
+	light_color = "#d8b1b1"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/green/side{
+	dir = 4
+	},
+/area/f13/bunker)
 "rcu" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -86697,7 +86719,7 @@ ctX
 ctX
 ctX
 tFd
-tFd
+rcr
 tFd
 ctX
 ctX
@@ -87467,9 +87489,9 @@ whv
 ctX
 ctX
 tFd
+nkY
 tFd
-tFd
-tFd
+nkY
 tFd
 ctX
 whv

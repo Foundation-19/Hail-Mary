@@ -24576,7 +24576,8 @@
 /area/f13/caves)
 "vPx" = (
 /obj/structure/ladder/unbreakable{
-	id = "sunsetdung1"
+	id = "robodungeon";
+	height = 2
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/tunnel)

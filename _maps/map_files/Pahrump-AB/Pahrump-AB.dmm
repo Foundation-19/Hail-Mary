@@ -63271,7 +63271,8 @@
 /area/f13/caves)
 "xkQ" = (
 /obj/structure/ladder/unbreakable{
-	id = "Supmut"
+	id = "supmut";
+	height = 2
 	},
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
