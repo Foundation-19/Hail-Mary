@@ -433,7 +433,7 @@
 	department_flag = CYBORG
 	faction = FACTION_WASTELAND
 	total_positions = 0 //Leave this to zero until it gets fixed
-	spawn_positions = 1
+	spawn_positions = 0
 	selection_color = "#3a3a3a"
 
 
