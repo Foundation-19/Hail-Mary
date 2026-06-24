@@ -84,26 +84,37 @@
 	name = "Minutemen operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
 	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon_state = "docs_verified"
 
 /obj/item/paper/fluff/brotherhood
 	name = "Brotherhood operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
 	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon_state = "docs_verified"
 
 /obj/item/paper/fluff/vault125
 	name = "Vault 125 operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
 	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon_state = "docs_verified"
 
 /obj/item/paper/fluff/enclave
 	name = "Enclave operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
 	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon_state = "docs_verified"
 
 /obj/item/paper/fluff/institute
 	name = "Institute operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
 	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon_state = "docs_verified"
+
+/obj/item/paper/fluff/prewar
+	name = "Prewar plans"
+	desc = "Important documents from the pre war era. Can be blueprints, informations... You can sell this to bigger factions."
+	info = "<b> THIS DOCUMENT CONTAINS IMPORTANT PREWAR BLUEPRINT AND PLANS </b>"
+	icon_state = "docs_verified"
 
 //GUN BUYER
 

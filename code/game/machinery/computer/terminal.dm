@@ -1707,13 +1707,13 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	updateUsrDialog()
 	return
 
-/obj/machinery/computer/terminal/batlimore
+/obj/machinery/computer/terminal/baltimore
 	name = "Baltimore Robco Terminal"
 	desc = "A RobCo Industries terminal, widely available for commercial and private use before the war. Unlike the other more standart one, those often have written logs."
 	light_color = LIGHT_COLOR_BLUE
 	color = "#bfbfff"
 
-/obj/machinery/computer/terminal/batlimore/atlanticcross
+/obj/machinery/computer/terminal/baltimore/atlanticcross
 	doc_title_1 = "Operation in Area - 01/01/2288"
 	doc_content_1 = "01/01/2288 - (FROM : Fleet Captain Annie Helo) (TO: ACHS Aegis).\
 	\
@@ -1727,7 +1727,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	Revival : 50 caps \
 	Don't hesiate to take the caps, leave a note of payement."
 
-/obj/machinery/computer/terminal/batlimore/minutemen
+/obj/machinery/computer/terminal/baltimore/minutemen
 	doc_title_1 = " First Maryland Company and Locust town Settelment - 04/02/2288"
 	doc_content_1 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
 	\
@@ -1747,7 +1747,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	that mens are being deployed there and make patrols.\
 	If the town falls, the town people must be evacuated to the fort. But make sure it never happens."
 
-/obj/machinery/computer/terminal/batlimore/minutemen/town
+/obj/machinery/computer/terminal/baltimore/minutemen/town
 	doc_title_1 = " First Maryland Company and Locust town Settelment - 04/02/2288"
 	doc_content_1 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
 	\
@@ -1774,7 +1774,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	that mens are being deployed there and make patrols.\
 	If the town falls, the town people must be evacuated to the fort. But make sure it never happens."
 
-/obj/machinery/computer/terminal/batlimore/portmary
+/obj/machinery/computer/terminal/baltimore/portmary
 	doc_title_1 = "ET MERDE LES FEDERAUX - 08/10/2077"
 	doc_content_1 = "08/07/2077 - (DE : Captain Lucas) (A : Marseille Fast Transit)\
 	\
@@ -1791,14 +1791,14 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	ON NOUS NUKE !!! LES CONTENEUR SONT A PEINE ARRIVER, ON NOUS NUKE !!! PUTAIN DE MERD-\
 	(Robco Translation :) We are getting nuked. The cargo containers just arrived, and we got nuked. Fucking bitc-"
 
-/obj/machinery/computer/terminal/batlimore/recruitementcenter
+/obj/machinery/computer/terminal/baltimore/recruitementcenter
 	doc_title_1 = "Welcome to the Naval Reserve center ! - 12/01/2076"
 	doc_content_1 = "Greetings ! And welcome ! Ready to start your sailor adventure ?\
 	\
 	Head on down to the base ! And start your training. We are happy that you are willing to joint the fight on our seas.\
 	Be carefull however ! We have a classified vessel in the drydock ! Do not come close, or Ensign DEADLOCK will have you shot !"
 
-/obj/machinery/computer/terminal/batlimore/recruitementcenter/officer
+/obj/machinery/computer/terminal/baltimore/recruitementcenter/officer
 	doc_title_1 = "Issue with the Ironclad Lander 'USS Iron Shadow' - 21/12/2076"
 	doc_content_1 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
 	\
@@ -1812,7 +1812,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	I don't know what you are planning, but it should grant us more space. Since the local base is staffed by low ranking recruit, we put down turrets. However. Please note the calibers have been reduced to 22LR. It should detert any curious civilian without straight up killing them.\
 	The squad of Gutsy we got should deal with any armed oposition."
 
-/obj/machinery/computer/terminal/batlimore/brotherhood
+/obj/machinery/computer/terminal/baltimore/brotherhood
 	doc_title_1 = "Avalonian Airship history"
 	doc_content_1 = " The Avalonian is the first and only vessel of the Avalonian Class.\
 	After the creation of the Pridwen, the brotherhood needed to build a quick airship. It recovered parts of the firsts brotherhood airships and build with the new standarts.\
@@ -1850,7 +1850,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	In the case that those theory are wrong, still. You have to keep in mind that the people on the ground are scared of the brotherhood. If the West fought us, they might fought us here.\
 	Our alliance with them isn't set in stone. Ad Victorium."
 
-/obj/machinery/computer/terminal/batlimore/ghoultown
+/obj/machinery/computer/terminal/baltimore/ghoultown
 	doc_title_1 = "Instruction to the director's team - 15/05/2061"
 	doc_content_1 = "15/05/2061 (FROM : Set Director Gummincs) (TO : Director's Nalon and filming crew)\
 	I do welcome you to the town of Nothingultch. My team and I did our best with the awfull criteria the suits at Outlook Studios gave us.\
@@ -1865,7 +1865,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	- Do not let any people from the actor's right syndicate knows about this."
 
 	doc_title_2 = "End of the TV show - 01/02/2066"
-	doc_content_2 = "15/05/2061 (FROM : Prod. Nate Yverythin) (TO : Director's Nalon)\
+	doc_content_2 = "01/02/2066 (FROM : Prod. Nate Yverythin) (TO : Director's Nalon)\
 	Due to one third of the filming crew being under arrest by the House Un-American Activities Committee, we have canceled season 7 of the TV show.\
 	It was a good run, but I can finaly admit to you a few things.\
 	\
@@ -1887,7 +1887,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	Only let Blue aid Personel, Patient, but also let West-tek and Med-tek personel come in for study."
 
 
-/obj/machinery/computer/terminal/batlimore/treeminders
+/obj/machinery/computer/terminal/baltimore/treeminders
 	doc_title_1 = "Doctor Paul Journal #1 - 12/02/2278"
 	doc_content_1 = " If anyone of the enclave read this, know that deathclaw research team 2 is mostly dead. Only Corporal Liddi, Assistant Jenny and myself managed to flee the crawler.\
 	We managed to hide with remains of some tribal cult that healed the corporal's wound. They call themself with tree related names... Or ranks. I am not sure.\
@@ -1924,14 +1924,14 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 
 
-/obj/machinery/computer/terminal/batlimore/vault124/survival
+/obj/machinery/computer/terminal/baltimore/vault124/survival
 	doc_title_3 = "I trust the doctors"
 	doc_content_3 =  "Year of Hell.	Zax, he didnt go rogue. He became human. Sure still a machine, but the years talking to my familly impacted him.\
 	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a genuent familly members \
 	And the people of Vault 125 ? Same thing. But now, it all changes. Vault 124 is nearly deserted, with a big group of hundredtwentyfourers serving on 125.\
 	125 guys are now in command, but I am trying to resist, trying to find a way for us to escape."
 
-/obj/machinery/computer/terminal/batlimore/vault124
+/obj/machinery/computer/terminal/baltimore/vault124
 	doc_title_1 = "Openning of the Vault - 23/10/2077"
 	doc_content_1 = "Welcome to Vault 124 !\
 	Your own undersea paradise and shelter !\
@@ -1947,8 +1947,31 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	The futur of Vault 124, and 125 will be bright. Our grand kids will rebuild America, witha  reclamation day in 2300 !\
 	- Overseer Cath Mulgrau"
 
+/obj/machinery/computer/terminal/baltimore/vault121
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 121 !\
+	A new page of your life turns ! You are now safe, now a survivor, now a member of the elite !\
+	Vault is now active ! Please see overseer Donald Letto for the initial vault presentation in the cafetaria."
 
-/obj/machinery/computer/terminal/batlimore/vault124/overseer
+	doc_title_1 = "INTRUSION ALERT - 24/10/2077"
+	doc_content_1 = "ALERT : ALERT : MAIN DOORS ARE COMPROMISED. INTRUDER ALERT."
+
+
+/obj/machinery/computer/terminal/baltimore/vault121/foreman
+	doc_title_1 = "Question - 23/10/2075"
+	doc_content_1 = "23/10/2075 (FROM : Forman Elvis) (TO : Vault Architect Hullman)\
+	Greetings,\
+	The construction of the vault is going well. Altho, I have a question.\
+	One of my crew is from california. He noted that the vault here is build exactly like those on the west coast. How come ? I must admit that it looks nothing like any other project we had here."
+
+	doc_title_2 = "(RE)Question - 27/10/2075"
+	doc_content_2 = "27/10/2075 (FROM : Vault Architect Hullman) (TO : Forman Elvis)\
+	Hey good question.\
+	Basically, the budget allocated in the area is missing. Vault 124 and 125 are money black holes. Both underwater, both costly to build.\
+	So, I did my homework, and found out that west coast vault were simply better and cheaper to produce while also giving us a good vault."
+
+
+/obj/machinery/computer/terminal/baltimore/vault124/overseer
 	doc_title_1 = "Openning of the Vault - 23/10/2077"
 	doc_content_1 = "Welcome to Vault 124 !\
 	Your own undersea paradise and shelter !\
@@ -2014,11 +2037,11 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	V124 OVERSEER - This is madness, I cannot stand for this.\
 	V125 ZAX - Then you will step down. Vault 125 is now in command of Vault 124, your position as been rendered void. New vault objective : Distabilize the Area and secure a futur for the area. Vault 124 key personnel and familly will be transfered to vault 125."
 
-/obj/machinery/computer/terminal/batlimore/vault125
+/obj/machinery/computer/terminal/baltimore/vault125
 	doc_title_1 = "Michel Scyllia Journal #1 - 23/10/2090"
 	doc_content_1 = "I trust the doctors"
 	
-/obj/machinery/computer/terminal/batlimore/fuckyoubaltimore
+/obj/machinery/computer/terminal/baltimore/fuckyoubaltimore
 	doc_title_1 = "Big Bills - 23/10/1990"
 	doc_content_1 = "Fuck you, Baltimore! If youre dumb enough to buy a new car this weekend, you're a big enough schmuck to come to Big Bill Hell's Cars!\
 	Bad deals! Cars that break down! Thieves! If you think you re going to find a bargain at Big Bill's, you can kiss my ass!\

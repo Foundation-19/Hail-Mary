@@ -1016,12 +1016,6 @@
 	slowdown = 0
 	},
 /area/f13/baltimore/wasteland/city)
-"arS" = (
-/obj/structure/lattice/catwalk,
-/turf/open/floor/plasteel/f13{
-	icon_state = "darkrusty"
-	},
-/area/f13/baltimore/building/abandoned)
 "arY" = (
 /obj/item/clothing/under/rank/engineering/engineer/hazard/white,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -4343,6 +4337,9 @@
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
+/area/f13/baltimore/wasteland/city)
+"bsp" = (
+/turf/closed/indestructible/opshuttle,
 /area/f13/baltimore/wasteland/city)
 "bst" = (
 /obj/effect/decal/cleanable/greenglow,
@@ -13757,6 +13754,15 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/baltimore/building/abandoned)
+"eiO" = (
+/obj/structure/simple_door/bunker,
+/obj/structure/ladder/unbreakable{
+	icon_state = "manhole_open";
+	height = 2;
+	id = "vaultadder"
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
 "eiS" = (
 /obj/structure/stairs/south{
 	color = "#A47449"
@@ -30666,6 +30672,12 @@
 	icon_state = "road_center"
 	},
 /area/f13/baltimore/wasteland/city)
+"jCf" = (
+/obj/structure/simple_door/bunker/glass,
+/turf/open/floor/plasteel/barber{
+	icon_state = "plating"
+	},
+/area/f13/baltimore/building/abandoned)
 "jCq" = (
 /obj/structure/closet/crate/wooden,
 /obj/effect/spawner/lootdrop/f13/weapon/vault,
@@ -35380,9 +35392,6 @@
 	icon_state = "yellowrustychess"
 	},
 /area/f13/baltimore/building/abandoned)
-"leQ" = (
-/turf/open/floor/plasteel/stairs,
-/area/f13/baltimore/building/abandoned)
 "leR" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
@@ -38968,14 +38977,6 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/building/center)
-"miK" = (
-/obj/structure/stairs{
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13{
-	icon_state = "darkrusty"
-	},
-/area/f13/baltimore/building/abandoned)
 "miP" = (
 /obj/structure/barricade/wooden,
 /obj/effect/turf_decal/road_end{
@@ -53897,6 +53898,13 @@
 /obj/structure/flora/grass/saltlakesparse/bunchone,
 /turf/open/floor/grass,
 /area/f13/building/boat)
+"qWZ" = (
+/obj/structure/ladder/unbreakable{
+	height = 2;
+	id = "robotden"
+	},
+/turf/open/floor/plasteel/elevatorshaft,
+/area/f13/baltimore/wasteland/city)
 "qXm" = (
 /obj/structure/table/booth,
 /obj/machinery/computer/terminal{
@@ -69913,8 +69921,7 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/ladder/unbreakable{
-	height = 1;
-	icon_state = "ladder10";
+	height = 2;
 	id = "powerplantleft"
 	},
 /turf/open/floor/plasteel/f13{
@@ -70482,8 +70489,7 @@
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/ladder/unbreakable{
-	height = 1;
-	icon_state = "ladder10";
+	height = 2;
 	id = "powerplantright"
 	},
 /turf/open/floor/plasteel/f13{
@@ -75396,14 +75402,6 @@
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
-"xyY" = (
-/obj/structure/stairs{
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13{
-	icon_state = "darkrusty"
-	},
-/area/f13/baltimore/building/abandoned)
 "xyZ" = (
 /obj/effect/turf_decal/delivery/white,
 /turf/open/floor/plasteel/dark,
@@ -115329,7 +115327,7 @@ wba
 tuP
 azh
 aCr
-qaM
+eiO
 niX
 rCv
 wba
@@ -154634,12 +154632,12 @@ goo
 mHI
 oss
 upF
-upF
-plw
-upF
-upF
-upF
-upF
+kzZ
+skj
+jCf
+jCf
+skj
+kzZ
 upF
 upF
 upF
@@ -154986,12 +154984,12 @@ goo
 mHI
 wba
 wba
-wba
-wba
-wba
-fgk
-qHZ
-qHZ
+bsp
+oJP
+oJP
+oJP
+oJP
+bsp
 sdZ
 qHZ
 qHZ
@@ -155338,12 +155336,12 @@ goo
 mHI
 wba
 wba
-wba
-dEs
-wba
-aPU
-qHZ
-qHZ
+bsp
+oJP
+qWZ
+oJP
+oJP
+bsp
 qHZ
 qHZ
 fgk
@@ -155690,12 +155688,12 @@ goo
 mHI
 wba
 wba
-wba
-wba
-wba
-qHZ
-qHZ
-tLw
+bsp
+oJP
+oJP
+oJP
+oJP
+bsp
 qHZ
 qHZ
 fgk
@@ -156042,12 +156040,12 @@ goo
 mHI
 wba
 wba
-bDp
-wba
-bDp
-qHZ
-qHZ
-qHZ
+bsp
+bsp
+bsp
+bsp
+bsp
+bsp
 qHZ
 qHZ
 qHZ
@@ -189625,9 +189623,9 @@ tNY
 tNY
 rDN
 suh
-arS
-leQ
-leQ
+xfO
+xfO
+xfO
 rvO
 mvl
 rIk
@@ -189977,7 +189975,7 @@ tNY
 hPi
 rDN
 suh
-xyY
+xfO
 nKr
 vMF
 tho
@@ -192793,7 +192791,7 @@ nBf
 rDN
 tNY
 suh
-miK
+xfO
 jBU
 gyI
 jtO
@@ -193145,9 +193143,9 @@ hPi
 rDN
 rDN
 suh
-arS
-leQ
-leQ
+xfO
+xfO
+xfO
 hel
 gwX
 qaX
