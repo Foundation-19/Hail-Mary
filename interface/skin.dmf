@@ -55,6 +55,7 @@ window "mainwindow"
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		is-default = true
+		background-color = #050c05
 		saved-params = "pos;size;is-minimized;is-maximized"
 		title = "Hail Mary"
 		icon = 'icons\\deathclawlogo.png'
@@ -66,6 +67,7 @@ window "mainwindow"
 		size = 637x440
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = #050c05
 		saved-params = "splitter"
 		left = "mapwindow"
 		right = "infowindow"
@@ -94,6 +96,7 @@ window "mapwindow"
 		size = 1024x1024
 		anchor1 = -1,-1
 		anchor2 = -1,-1
+		background-color = #050c05
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "map"
@@ -116,10 +119,10 @@ window "infowindow"
 		size = 640x480
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = none
+		background-color = #050c05
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-		image = 'icons\\bigironserverbanner.png'
+		statusbar = false
 		outer-size = 656x538
 		inner-size = 640x499
 	elem "setoocstatus"
@@ -128,19 +131,19 @@ window "infowindow"
 		size = 160x20
 		anchor1 = -1,-1
 		anchor2 = -1,-1
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #030a03
+		text-color = #4cff4c
 		font-family = "Courier New"
-		font-size = 10
+		font-size = 9
 		text = "Set OOC Status"
 		command = "setoocstatus"
 	elem "info"
-		type = CHILD
-		pos = 0,30
-		size = 640x445
+			type = CHILD
+			pos = 0,30
+			size = 640x445
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = none
+		background-color = #050c05
 		saved-params = "splitter"
 		left = "statwindow"
 		right = "outputwindow"
@@ -151,10 +154,10 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 34,0
 		anchor2 = 50,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #030a03
+		text-color = #4cff4c
 		font-family = "Courier New"
-		font-size = 10
+		font-size = 9
 		text = "Wiki"
 		command = "openwiki"
 	elem "changelog"
@@ -163,10 +166,10 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 50,0
 		anchor2 = 66,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #030a03
+		text-color = #4cff4c
 		font-family = "Courier New"
-		font-size = 10
+		font-size = 9
 		text = "Changelog"
 		command = "Changelog"
 	elem "github"
@@ -175,10 +178,10 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 66,0
 		anchor2 = 81,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #030a03
+		text-color = #4cff4c
 		font-family = "Courier New"
-		font-size = 10
+		font-size = 9
 		text = "Github"
 		command = "github"
 	elem "discord"
@@ -187,10 +190,10 @@ window "infowindow"
 		size = 100x20
 		anchor1 = 81,0
 		anchor2 = 97,0
-		background-color = #141410
-		text-color = #c8960a
+		background-color = #030a03
+		text-color = #4cff4c
 		font-family = "Courier New"
-		font-size = 10
+		font-size = 9
 		text = "Discord/Rules"
 		command = "discord"
 
@@ -203,15 +206,20 @@ window "outputwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
+		statusbar = false
+		background-color = #050c05
 	elem "input"
 		type = INPUT
 		pos = 2,460
 		size = 595x20
 		anchor1 = 0,100
 		anchor2 = 100,100
-		font-style = "bold"
+		background-color = #030a03
+		text-color = #a0d0a0
+		font-family = "Courier New"
+		font-size = 9
 		is-default = true
-		border = sunken
+		border-color = #1a4a1a
 		saved-params = "command"
 	elem "saybutton"
 		type = BUTTON
@@ -222,7 +230,10 @@ window "outputwindow"
 		saved-params = "is-checked"
 		text = "Chat"
 		command = ".winset \"saybutton.is-checked=true ? input.command=\"!say \\\"\" : input.command=\""
-		is-flat = true
+		background-color = #030a03
+		text-color = #4cff4c
+		font-family = "Courier New"
+		font-size = 9
 		button-type = pushbox
 	elem "browseroutput"
 		type = BROWSER
@@ -230,7 +241,7 @@ window "outputwindow"
 		size = 640x456
 		anchor1 = 0,0
 		anchor2 = 100,100
-		background-color = #ffffff
+		background-color = #050c05
 		is-visible = false
 		is-disabled = true
 		saved-params = ""
@@ -240,6 +251,8 @@ window "outputwindow"
 		size = 640x456
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = #050c05
+		text-color = #a0d0a0
 		is-default = true
 		saved-params = ""
 
@@ -250,6 +263,7 @@ window "popupwindow"
 		size = 549x549
 		anchor1 = -1,-1
 		anchor2 = -1,-1
+		background-color = #050c05
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		statusbar = false
@@ -262,6 +276,7 @@ window "preferences_window"
 		size = 1280x1001
 		anchor1 = -1,-1
 		anchor2 = -1,-1
+		background-color = #050c05
 		is-visible = false
 		saved-params = "pos;size;is-minimized;is-maximized"
 		statusbar = false
@@ -282,6 +297,7 @@ window "preferences_window"
 		size = 830x837
 		anchor1 = 0,0
 		anchor2 = 75,100
+		background-color = #050c05
 		saved-params = ""
 	elem "character_preview_map"
 		type = MAP
@@ -301,13 +317,15 @@ window "statwindow"
 		anchor2 = -1,-1
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
-		image = 'icons\\pipscreen.png'
+		statusbar = false
+		background-color = #050c05
 	elem "statbrowser"
 		type = BROWSER
-		pos = 18,14
-		size = 1077x792
+		pos = 0,0
+		size = 1121x827
 		anchor1 = 0,0
 		anchor2 = 100,100
+		background-color = #050c05
 		is-visible = false
 		saved-params = ""
 

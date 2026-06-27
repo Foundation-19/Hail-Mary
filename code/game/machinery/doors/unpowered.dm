@@ -16,6 +16,10 @@
 	return
 
 /obj/machinery/door/unpowered/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/lockpick_set))
+		return ..()  // always forward lockpicks to the parent's try_to_lockpick dispatch
+	if(I.tool_behaviour == TOOL_CROWBAR || istype(I, /obj/item/twohanded/fireaxe))
+		return ..()  // always forward crowbars so try_to_crowbar works even on locked/jammed doors
 	if(locked)
 		return
 	else
@@ -32,6 +36,7 @@
 	assemblytype = /obj/item/stack/sheet/mineral/wood/five
 	opacity = TRUE
 	explosion_block = TRUE
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/securedoor/update_icon()
 	if(density)
@@ -54,16 +59,19 @@
 /obj/machinery/door/unpowered/securedoor/legion
 	name = "Legion Castrum"
 	req_access_txt = "123"
+	lock_tier = 5
 
 //khoor
 /obj/machinery/door/unpowered/securedoor/khandoor
 	name = "khan door"
 	req_access_txt = "125"
+	lock_tier = 4
 
 //bikoor
 /obj/machinery/door/unpowered/securedoor/bikerdoor
 	name = "Hell's Nomad door"
 	req_access = list(ACCESS_BIKER)
+	lock_tier = 4
 
 /obj/machinery/door/unpowered/securedoor/minutemen
 	name = "Minutemen door"
@@ -109,6 +117,7 @@
 	max_integrity = 1000
 	obj_integrity = 1000
 	explosion_block = TRUE
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/secure_steeldoor/update_icon()
 	if(density)
@@ -140,6 +149,7 @@
 	explosion_block = FALSE
 	pass_flags = LETPASSTHROW  // would be great but the var is not functional for some reason.
 	proj_pass_rate = 95
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/celldoor/update_icon()
 	if(density)
@@ -178,6 +188,7 @@
 	explosion_block = FALSE
 	proj_pass_rate = 95
 	req_access_txt = "123"
+	lock_tier = 3
 
 /obj/machinery/door/unpowered/secure_legion/update_icon()
 	if(density)

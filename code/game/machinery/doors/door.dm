@@ -39,6 +39,18 @@
 	var/poddoor = FALSE
 	var/unres_sides = 0 //Unrestricted sides. A bitflag for which direction (if any) can open the door with no access
 	var/proj_resist = 10
+	/// Lock difficulty for lockpicking mini-game (1 = very easy, 5 = very hard)
+	var/lock_tier = 5
+	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
+	var/lockpick_jammed = FALSE
+	/// Set TRUE after a successful lockpick; cleared when an authorized user re-closes the door.
+	var/tampered = FALSE
+	/// Transient flag: set by try_to_lockpick before opening so do_animate can muffle the door-open sound.
+	var/lockpick_muffled = FALSE
+	/// Stored pin solution — ensures the same combination each time this door is lockpicked.
+	var/list/pin_solution = null
+	/// Stored binding order for pin solution persistence.
+	var/list/pin_bind_order = null
 
 /obj/machinery/door/examine(mob/user)
 	. = ..()
@@ -49,6 +61,8 @@
 			. += span_notice("In the event of a red alert, its access requirements will automatically lift.")
 	if(!poddoor)
 		. += "<span class='notice'>Its maintenance panel is <b>screwed</b> in place.</span>"
+	if(tampered)
+		. += span_warning("The lock looks like it's been worked — someone forced their way through.")
 
 /obj/machinery/door/check_access_list(list/access_list)
 	if(red_alert_access && GLOB.security_level >= SEC_LEVEL_RED)
@@ -136,11 +150,14 @@
 	if(operating)
 		return
 	src.add_fingerprint(user)
+	var/mob/original_user = user
 	if(!src.requiresID())
 		user = null
 
 	if(density && !(obj_flags & EMAGGED))
 		if(allowed(user))
+			if(tampered && original_user)
+				to_chat(original_user, span_warning("The lock looks like it's been worked \u2014 someone forced their way through."))
 			open()
 		else
 			do_animate("deny")
@@ -157,85 +174,78 @@
 /obj/machinery/door/proc/try_to_lockpick(obj/item/lockpick_set/picking, mob/user)
 	if(!istype(picking))
 		return FALSE
+	if(lockpick_jammed)
+		to_chat(user, span_warning("The lock is jammed solid. Use a crowbar to reset the mechanism first."))
+		return FALSE
+	if(picking.in_use)
+		to_chat(user, span_warning("Your lockpick is already in use."))
+		return FALSE
 
 	picking.in_use = TRUE
 
-	var/list/pick_messages = list(
-		"otherpicking" = list(
-			"[user] starts to pick a lock!",
-			"[user] begins picking a lock!",
-			"[user] begins to jimmy a lock!",
-			"[user] begins to try and open a lock!"
-		),
-		"mepicking" = list(
-			"You slide your tools into the lock...",
-			"You begin trying to jimmy the lock...",
-			"You begin raking the tumblers...",
-			"This lock shouldn't take much longer..."
-		),
-		"blindpicking" = list(
-			"Is that metal clicking?",
-			"Is someone tapping metal together?",
-			"You hear an odd mechanical picking and scraping sound.",
-			"That's an odd metal noise..."
-		),
-		"failmessages" = list(
-			"Wrist slipped... try again...",
-			"Almost got it...",
-			"One more tumbler...",
-			"Come on...",
-			"Anytime now..."
-		),
-		"successmessages" = list(
-			"Got it!",
-			"Phew!",
-			"Easy!",
-			"Done!"
-		)
+	var/list/start_messages_other = list(
+		"[user] starts to pick a lock!",
+		"[user] begins picking a lock!",
+		"[user] begins to jimmy a lock!"
+	)
+	var/list/start_messages_self = list(
+		"You slide your tools into the lock...",
+		"You begin trying to jimmy the lock...",
+		"You begin raking the tumblers..."
+	)
+	var/list/start_messages_blind = list(
+		"Is that metal clicking?",
+		"Is someone tapping metal together?",
+		"You hear an odd mechanical picking and scraping sound."
 	)
 
 	user.visible_message(
-		pick(pick_messages["otherpicking"]),
-		pick(pick_messages["mepicking"]),
-		pick(pick_messages["blindpicking"])
-		)
-	playsound(
-		get_turf(src),
-		pick('sound/items/screwdriver.ogg','sound/items/screwdriver2.ogg'),
-		25,
-		1,
-		ignore_walls = FALSE
-		)
+		pick(start_messages_other),
+		pick(start_messages_self),
+		pick(start_messages_blind)
+	)
+	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 18, TRUE, -10)
 
-	if(!do_after(user, 4 SECONDS, target = src))
-		user.show_message(span_alert(pick(pick_messages["failmessages"])))
-		playsound(
-			get_turf(src),
-			pick('sound/items/screwdriver.ogg','sound/items/screwdriver2.ogg'),
-			25,
-			1,
-			ignore_walls = FALSE
-			)
-		picking.in_use = FALSE
-		picking.use_pick(user)
-		return
+	// Pass src as lock_ref so the pin combination stays consistent across attempts.
+	var/datum/lockpicking_minigame/game = new(src, user, picking, lock_tier, src)
+	game.wait()
 
-	playsound(
-		get_turf(src),
-		pick('sound/items/screwdriver.ogg','sound/items/screwdriver2.ogg'),
-		25,
-		1,
-		ignore_walls = FALSE
-		)
-	
-	if(prob(15))
-		user.show_message(span_green(pick(pick_messages["successmessages"])))
+	var/success = game.result
+	var/gave_up = game.gave_up
+	game.finalize(user)
+	if(!QDELETED(game))
+		qdel(game)
+
+	if(success)
+		user.show_message(span_green("You feel the lock give way. It's open!"))
+		tampered = TRUE
+		pin_solution   = null
+		pin_bind_order = null
+		lockpick_muffled = TRUE   // muffle the door-open sound — a skilled lockpick is quiet
 		try_to_activate_door(user, TRUE)
+		lockpick_muffled = FALSE  // safety reset in case open() didn't consume it
 		. = TRUE
 	else
-		user.show_message(span_alert(pick(pick_messages["failmessages"])))
-	picking.in_use = FALSE
-	picking.use_pick(user)
+		// After a failed attempt the pins must walk back to resting position before
+		// a new attempt can begin (mirrors simple_door pry-off behaviour).
+		// Voluntary give-up withdraws cleanly — no reset needed.
+		if(!QDELETED(src) && !lockpick_jammed && !gave_up)
+			user.visible_message(
+				span_notice("[user] starts working the pins in [src]'s lock back into position."),
+				span_notice("You start working the pins back into position..."),
+				span_notice("You hear a careful series of soft clicks from [src].")
+			)
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 35, TRUE, -10)
+			if(!do_after(user, 50, target = src))
+				return FALSE
+			if(QDELETED(src))
+				return FALSE
+			user.visible_message(
+				span_notice("[user] finishes resetting [src]'s lock mechanism."),
+				span_notice("The mechanism is reset. Try again.")
+			)
+		if(lockpick_jammed)
+			to_chat(user, span_warning("The lock jammed! Use a crowbar to reset it."))
 
 /obj/machinery/door/proc/try_to_activate_door(mob/user, force_open)
 	add_fingerprint(user)
@@ -245,8 +255,24 @@
 		user = null //so allowed(user) always succeeds
 	if(allowed(user) || force_open)
 		if(density)
+			if(tampered && !force_open && user)
+				to_chat(user, span_warning("The lock looks like it's been worked \u2014 someone forced their way through."))
 			open()
 		else
+			if(!force_open && tampered && user)
+				user.visible_message(
+					span_notice("[user] starts re-securing [src]'s lock."),
+					span_notice("You start re-securing the lock..."),
+					span_notice("You hear careful metallic clicking from [src].")
+				)
+				if(!do_after(user, 20, target = src))
+					return TRUE
+				if(QDELETED(src))
+					return TRUE
+				to_chat(user, span_notice("You re-secure the lock."))
+				tampered = FALSE
+				pin_solution   = null
+				pin_bind_order = null
 			close()
 		return TRUE
 	if(density)
@@ -266,6 +292,23 @@
 	return
 
 /obj/machinery/door/proc/try_to_crowbar(obj/item/I, mob/user)
+	if(lockpick_jammed)
+		user.visible_message(
+			span_notice("[user] starts working [src]'s jammed lock mechanism loose."),
+			span_notice("You start working the jammed mechanism loose..."),
+			span_notice("You hear a grinding scrape of metal from [src].")
+		)
+		if(!istype(I, /obj/item/crowbar/power))
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 60, TRUE, ignore_walls = FALSE)
+		if(!do_after(user, 35 * I.toolspeed, target = src))
+			return
+		if(QDELETED(src))
+			return
+		lockpick_jammed = FALSE
+		user.visible_message(
+			span_notice("[user] pries the jammed lock mechanism loose on [src]."),
+			span_notice("You pry the jammed mechanism loose — the lock resets.")
+		)
 	return
 
 /obj/machinery/door/proc/is_holding_pressure()

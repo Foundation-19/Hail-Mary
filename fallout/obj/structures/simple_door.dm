@@ -20,6 +20,11 @@
 	explosion_block = 0.5
 	var/can_hold_padlock = FALSE
 	var/obj/item/lock_construct/padlock
+	var/lock_tier = 2
+	/// Set TRUE when a lockpick snap or exhausted attempts jams the mechanism.
+	var/lockpick_jammed = FALSE
+	/// Transient flag: set by try_to_lockpick before opening so Open() can muffle the door-open sound.
+	var/lockpick_muffled = FALSE
 	var/door_type = "house"
 	var/base_opacity = TRUE
 	var/manual_opened = 0
@@ -34,9 +39,12 @@
 	var/closing_time = 4
 	var/autoclose = 5 SECONDS
 
-/obj/structure/simple_door/Initialize()
+/obj/structure/simple_door/examine(mob/user)
 	. = ..()
-	icon_state = door_type
+	if(padlock && padlock.tampered)
+		. += span_warning("The lock looks like it's been worked — someone forced their way through.")
+
+
 
 
 /obj/structure/simple_door/Destroy()
@@ -80,7 +88,12 @@
 	return
 
 /obj/structure/simple_door/proc/Open(animate)
-	playsound(src.loc, open_sound, 30, 0, 0)
+	// When triggered by a lockpick, muffle the open sound to a short range.
+	if(lockpick_muffled)
+		lockpick_muffled = FALSE
+		playsound(src.loc, open_sound, 25, 0, -13)
+	else
+		playsound(src.loc, open_sound, 30, 0, 0)
 	if(animate)
 		moving = 1
 		flick("[door_type]opening", src)
@@ -116,7 +129,28 @@
 
 /* can crowbar off a lock, to force a door open. This is overriden in airlock so shouldnt be an issue */
 /obj/structure/simple_door/proc/try_to_crowbar(obj/item/I, mob/user)
+	// Clear a jammed lock first
+	if(lockpick_jammed)
+		user.visible_message(
+			span_notice("[user] starts working [src]'s jammed lock mechanism loose."),
+			span_notice("You start working the jammed mechanism loose..."),
+			span_notice("You hear a grinding scrape of metal from [src].")
+		)
+		playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 60, TRUE, ignore_walls = FALSE)
+		if(!do_after(user, 35, target = src))
+			return
+		if(QDELETED(src))
+			return
+		lockpick_jammed = FALSE
+		user.visible_message(
+			span_notice("[user] pries the jammed lock mechanism loose on [src]."),
+			span_notice("You pry the jammed mechanism loose — the lock resets.")
+		)
+		return
 	if(padlock) /* attempt to pry the lock off */
+		if(padlock.locked)
+			to_chat(user, span_warning("The padlock is locked — you can't pry it off while it's locked."))
+			return
 		if(padlock.pry_off(user,src))
 			qdel(padlock)
 			padlock = null
@@ -191,6 +225,9 @@
 			return
 		else
 			return padlock.check_key(I,user)
+	if(istype(I, /obj/item/lockpick_set))
+		try_to_lockpick(I, user)
+		return TRUE
 	if(user.a_intent == INTENT_HARM)
 //		if(padlock)
 //			add_logs(user, src, "attacked", src)
@@ -198,6 +235,76 @@
 	attack_hand(user)
 
 
+
+/obj/structure/simple_door/proc/try_to_lockpick(obj/item/lockpick_set/picking, mob/user)
+	if(!padlock || !padlock.locked)
+		to_chat(user, span_warning("There's no locked lock to pick."))
+		return FALSE
+	if(lockpick_jammed)
+		to_chat(user, span_warning("The lock is jammed solid. Use a crowbar to reset the mechanism first."))
+		return FALSE
+	if(picking.in_use)
+		to_chat(user, span_warning("Your lockpick is already in use."))
+		return FALSE
+
+	picking.in_use = TRUE
+
+	user.visible_message(
+		"[user] begins picking a lock!",
+		"You begin raking the tumblers...",
+		"You hear an odd mechanical picking and scraping sound."
+	)
+	playsound(get_turf(src), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), 25, TRUE, -9)
+
+	// Use the physical lock's tier — it determines how complex the mechanism is.
+	var/datum/lockpicking_minigame/game = new(src, user, picking, padlock.lock_tier, padlock)
+	game.wait()
+
+	var/success = game.result
+	var/gave_up = game.gave_up
+	game.finalize(user)
+	if(!QDELETED(game))
+		qdel(game)
+
+	if(success)
+		if(QDELETED(src) || !padlock)
+			return
+		user.show_message(span_green("You feel the lock give way. It's open!"))
+		padlock.locked = FALSE
+		padlock.tampered = TRUE
+		// For old-style /obj/item/lock (faction doors): also flip open state and refresh icon.
+		if(istype(padlock, /obj/item/lock))
+			var/obj/item/lock/L = padlock
+			L.open = TRUE
+			L.update_icon()
+		// Clear stored solution — lock will get a fresh combination if re-locked.
+		padlock.pin_solution    = null
+		padlock.pin_bind_order  = null
+		lockpick_muffled = TRUE   // door-open sound should be muffled after a quiet lockpick
+		SwitchState(TRUE)
+		lockpick_muffled = FALSE  // safety reset
+		return TRUE
+	else
+		// After failure the pins are jostled — they must be physically walked back
+		// into position before a new attempt can begin (mirrors pry_off behaviour).
+		// Voluntary give-up withdraws cleanly — no reset needed.
+		if(!QDELETED(src) && padlock && !lockpick_jammed && !gave_up)
+			user.visible_message(
+				"[user] starts working the pins in [src]'s lock back into position.",
+				"You start working the pins back into position...",
+				"You hear a careful series of soft clicks from [src]."
+			)
+			playsound(get_turf(src), 'sound/machines/airlock_alien_prying.ogg', 40, TRUE, -10)
+			if(!do_after(user, 50, target = src))
+				return FALSE
+			if(QDELETED(src) || !padlock)
+				return FALSE
+			user.visible_message(
+				span_notice("[user] finishes resetting [src]'s lock mechanism."),
+				span_notice("The mechanism is reset. Try again."),
+			)
+		if(lockpick_jammed)
+			to_chat(user, span_warning("The lock jammed! Use a crowbar to reset [src]'s mechanism."))
 
 /obj/structure/simple_door/proc/TryToSwitchState(atom/user, animate)
 	if(moving)
