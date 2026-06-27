@@ -3120,15 +3120,9 @@
 	},
 /area/f13/bunker)
 "bEK" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/randomized{
-	randomizer_difficulty = 1;
-	randomizer_kind = "high level robots";
-	randomizer_tag = "Radioshack Radicals"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
+/obj/structure/table/reinforced,
+/obj/item/storage/firstaid/bandagekit,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/bunker)
 "bFm" = (
 /obj/structure/obstacle/barbedwire/end,
@@ -3477,8 +3471,11 @@
 /turf/open/floor/plating/f13/inside,
 /area/f13/brotherhood/offices2nd)
 "bPL" = (
-/obj/structure/reagent_dispensers/barrel/three,
 /obj/effect/decal/marking,
+/obj/machinery/autolathe/ammo,
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_three,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -4615,9 +4612,7 @@
 /area/f13/bunker)
 "csF" = (
 /mob/living/simple_animal/hostile/handy/assaultron{
-	color = "#75705a";
-	health = 600;
-	name = "assaultron dominator"
+	health = 750
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/bunker)
@@ -4825,7 +4820,6 @@
 "cyC" = (
 /obj/structure/closet/crate/secure/engineering,
 /obj/effect/turf_decal/bot,
-/obj/item/clothing/suit/armor/power_armor/t45d,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/bunker)
 "cyH" = (
@@ -8063,14 +8057,6 @@
 /obj/structure/grille,
 /turf/open/floor/plating/f13/inside,
 /area/f13/brotherhood/operating)
-"dPk" = (
-/obj/structure/nest/protectron{
-	max_mobs = 1
-	},
-/turf/open/floor/plasteel/barber{
-	icon_state = "plating"
-	},
-/area/f13/bunker)
 "dPn" = (
 /obj/structure/table,
 /turf/open/floor/wood_common,
@@ -10863,6 +10849,10 @@
 /area/f13/vault)
 "fgN" = (
 /obj/machinery/autolathe/ammobench,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/obj/item/stack/sheet/glass/fifty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -12675,17 +12665,14 @@
 	},
 /area/f13/underground/cave)
 "fZj" = (
-/obj/structure/closet/secure_closet/goodies{
-	anchorable = 0;
-	anchored = 1;
-	name = "loot locker";
-	req_access_txt = "150";
-	req_one_access_txt = "150"
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/handy/protectron{
+	health = 260;
+	name = "protectron guardian"
 	},
-/obj/effect/spawner/lootdrop/f13/armor/tier4,
-/obj/effect/spawner/lootdrop/f13/armor/tier4,
-/obj/effect/turf_decal/bot,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
+/turf/open/floor/plasteel/f13/vault_floor/green/side{
+	dir = 8
+	},
 /area/f13/bunker)
 "fZr" = (
 /obj/effect/decal/cleanable/dirt,
@@ -13324,10 +13311,8 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/operations)
 "gox" = (
-/obj/structure/nest/protectron{
-	max_mobs = 2
-	},
-/turf/open/floor/plasteel/f13/vault_floor/green/side,
+/obj/item/reagent_containers/hypospray/medipen/stimpak,
+/turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/bunker)
 "goN" = (
 /obj/item/ammo_casing/caseless{
@@ -18220,9 +18205,7 @@
 /area/f13/brotherhood/operations)
 "iLm" = (
 /mob/living/simple_animal/hostile/handy/assaultron{
-	color = "#75705a";
-	health = 600;
-	name = "assaultron dominator"
+	health = 750
 	},
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
@@ -19867,16 +19850,6 @@
 	icon_state = "tunnelrusty"
 	},
 /area/f13/caves)
-"jAk" = (
-/obj/structure/chair{
-	dir = 4
-	},
-/obj/structure/nest/supermutant,
-/turf/open/floor/plasteel/barber{
-	icon = 'icons/turf/f13floors2.dmi';
-	icon_state = "bluerustychess2"
-	},
-/area/f13/bunker)
 "jAl" = (
 /obj/structure/easel,
 /obj/item/paper/pamphlet/ruin/originalcontent/yelling,
@@ -24930,14 +24903,13 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/brotherhood/chemistry)
 "lVG" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/randomized{
-	randomizer_difficulty = 1;
-	randomizer_kind = "high level robots";
-	randomizer_tag = "Radioshack Radicals"
+/obj/machinery/autolathe/ammobench,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/glass/fifty,
+/turf/open/floor/plasteel/barber{
+	icon = 'icons/turf/f13floors2.dmi';
+	icon_state = "bluerustychess2"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/green/greenchess/greenchess2,
 /area/f13/bunker)
 "lVH" = (
 /obj/effect/spawner/lootdrop/trash,
@@ -26187,11 +26159,9 @@
 	},
 /area/f13/bunker)
 "mBf" = (
-/obj/structure/nest/scorpion,
-/turf/open/floor/plasteel/barber{
-	icon = 'icons/turf/f13floors2.dmi';
-	icon_state = "bluerustychess2"
-	},
+/obj/effect/decal/cleanable/oil/slippery,
+/obj/item/reagent_containers/hypospray/medipen/stimpak,
+/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/bunker)
 "mBm" = (
 /turf/closed/wall/r_wall,
@@ -26522,8 +26492,12 @@
 /area/f13/enclave)
 "mJh" = (
 /obj/machinery/autolathe/ammo,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
+/obj/item/book/granter/crafting_recipe/gunsmith_one,
+/obj/item/book/granter/crafting_recipe/gunsmith_two,
+/obj/item/book/granter/crafting_recipe/gunsmith_three,
+/turf/open/floor/plasteel/barber{
+	icon = 'icons/turf/f13floors2.dmi';
+	icon_state = "bluerustychess2"
 	},
 /area/f13/bunker)
 "mJk" = (
@@ -27695,10 +27669,6 @@
 /obj/structure/reagent_dispensers/barrel/old,
 /turf/open/floor/plating,
 /area/f13/bunker)
-"nlm" = (
-/obj/structure/nest/securitron,
-/turf/open/indestructible/ground/outside/sidewalk,
-/area/f13/bunker)
 "nlr" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 1
@@ -28169,12 +28139,6 @@
 /mob/living/simple_animal/hostile/retaliate/poison/snake,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"nya" = (
-/obj/structure/nest/supermutant,
-/turf/open/floor/plasteel/barber{
-	icon_state = "plating"
-	},
-/area/f13/bunker)
 "nyg" = (
 /obj/machinery/computer/aifixer{
 	dir = 1
@@ -32429,9 +32393,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/green,
 /area/f13/enclave)
 "puL" = (
-/obj/structure/nest/protectron{
-	max_mobs = 2
-	},
 /turf/open/floor/plasteel/f13/vault_floor/green/side{
 	dir = 1
 	},
@@ -40770,6 +40731,7 @@
 /obj/structure/closet/decay,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/hypospray/medipen/stimpak,
 /turf/open/floor/plasteel/f13/vault_floor/green/white/whitegreenchess,
 /area/f13/bunker)
 "tpW" = (
@@ -41098,9 +41060,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/hostile/handy/assaultron{
-	color = "#75705a";
-	health = 600;
-	name = "assaultron dominator"
+	health = 750
 	},
 /turf/open/floor/plasteel/barber{
 	icon = 'icons/turf/f13floors2.dmi';
@@ -41674,11 +41634,6 @@
 	dir = 8
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/nest/randomized{
-	randomizer_difficulty = 1;
-	randomizer_kind = "high level robots";
-	randomizer_tag = "Radioshack Radicals"
-	},
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/bunker)
 "tMo" = (
@@ -42532,14 +42487,6 @@
 /obj/structure/nest/ghoul,
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker/bighornbunker)
-"ufE" = (
-/obj/structure/nest/protectron{
-	layer = 3;
-	max_mobs = 2;
-	pixel_y = 20
-	},
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
-/area/f13/bunker)
 "ufL" = (
 /turf/open/floor/plasteel/yellow/side{
 	dir = 1
@@ -42957,13 +42904,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/vault)
-"uqD" = (
-/obj/structure/nest/supermutant,
-/turf/open/floor/plasteel/barber{
-	icon = 'icons/turf/f13floors2.dmi';
-	icon_state = "bluerustychess2"
-	},
-/area/f13/bunker)
 "uqH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -48128,14 +48068,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/tunnel,
 /area/f13/bunker)
-"wRq" = (
-/obj/effect/spawner/lootdrop/trash,
-/obj/structure/nest/supermutant,
-/turf/open/floor/plasteel/barber{
-	icon = 'icons/turf/f13floors2.dmi';
-	icon_state = "bluerustychess2"
-	},
-/area/f13/bunker)
 "wRz" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_3"
@@ -50502,15 +50434,6 @@
 	dir = 8
 	},
 /area/f13/vault)
-"ycv" = (
-/obj/structure/nest/protectron{
-	layer = 3;
-	max_mobs = 2;
-	pixel_y = 20
-	},
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
-/area/f13/bunker)
 "ycw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/glass,
@@ -80563,7 +80486,7 @@ ctX
 cyC
 ijt
 ctX
-fZj
+cyL
 ijt
 ctX
 dJY
@@ -82105,7 +82028,7 @@ ctX
 gMH
 ijt
 ctX
-cyL
+man
 ijt
 ctX
 aqu
@@ -82967,7 +82890,7 @@ gZb
 wqu
 gZb
 vfE
-nlm
+gZb
 sME
 whv
 whv
@@ -83133,7 +83056,7 @@ ctX
 fgN
 vUd
 cof
-bEK
+tGZ
 tGZ
 dKr
 tqQ
@@ -84011,7 +83934,7 @@ gtl
 dpB
 nFu
 mLO
-wRq
+gtl
 ctX
 whv
 whv
@@ -84164,7 +84087,7 @@ jOv
 tGZ
 rSI
 cGz
-mJh
+tqQ
 tqQ
 ctX
 uVu
@@ -85707,7 +85630,7 @@ ctX
 btQ
 btQ
 btQ
-lVG
+fAx
 ctX
 kIM
 svA
@@ -85958,7 +85881,7 @@ whv
 whv
 whv
 ctX
-ycv
+xAk
 xAk
 ctX
 yay
@@ -86824,7 +86747,7 @@ ctX
 lFN
 ctX
 ctX
-mBf
+gtl
 deK
 gtl
 ctX
@@ -87071,7 +86994,7 @@ whv
 whv
 whv
 ctX
-uqD
+gtl
 lDB
 kJW
 aal
@@ -87508,7 +87431,7 @@ qqp
 nrR
 btQ
 ctX
-ufE
+svA
 aqV
 ctX
 whv
@@ -87591,9 +87514,9 @@ lFN
 ctX
 ctX
 ctX
-gtl
+mJh
 iMj
-gtl
+lVG
 ctX
 bNE
 gtl
@@ -88615,7 +88538,7 @@ lDB
 ctX
 afY
 gtl
-jAk
+idx
 bNE
 gtl
 ctX
@@ -89390,7 +89313,7 @@ sXB
 sXB
 sXB
 ctX
-mBf
+gtl
 gtl
 gtl
 gtl
@@ -89801,7 +89724,7 @@ whv
 whv
 ctX
 pEv
-lBc
+gox
 tEa
 bxb
 rXa
@@ -89809,7 +89732,7 @@ gGC
 daI
 jCC
 wLy
-oKf
+bEK
 vYB
 lBc
 ctX
@@ -90412,7 +90335,7 @@ whv
 nyZ
 opJ
 ctX
-nya
+yfO
 eqE
 aol
 pHy
@@ -90828,7 +90751,7 @@ whv
 whv
 whv
 ctX
-gox
+jqZ
 lwU
 xKA
 eQN
@@ -91451,7 +91374,7 @@ bcL
 opJ
 ctX
 vEO
-mBf
+gtl
 pSP
 ctX
 whv
@@ -91603,7 +91526,7 @@ vCG
 sqn
 pLp
 pLp
-pLp
+fZj
 qza
 ctX
 whv
@@ -92213,7 +92136,7 @@ whv
 whv
 whv
 pHy
-nya
+yfO
 bAM
 xgU
 ctX
@@ -92629,14 +92552,14 @@ whv
 whv
 whv
 ctX
-ycv
+xAk
 dIW
 dIW
 uzA
 hiU
 irt
 svA
-pKa
+mBf
 xAk
 xAk
 wJh
@@ -96856,7 +96779,7 @@ whv
 whv
 whv
 yfO
-dPk
+yfO
 yfO
 mOM
 ctX
