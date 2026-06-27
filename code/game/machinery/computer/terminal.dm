@@ -1967,7 +1967,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	doc_title_2 = "(RE)Question - 27/10/2075"
 	doc_content_2 = "27/10/2075 (FROM : Vault Architect Hullman) (TO : Forman Elvis)\
 	Hey good question.\
-	Basically, the budget allocated in the area is missing. Vault 124 and 125 are money black holes. Both underwater, both costly to build.\
+	Basically, the budget allocated in the area is missing. Vault 124 and 125 are a money black holes. Both underwater, both costly to build.\
 	So, I did my homework, and found out that west coast vault were simply better and cheaper to produce while also giving us a good vault."
 
 

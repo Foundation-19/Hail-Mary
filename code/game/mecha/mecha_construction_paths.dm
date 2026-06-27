@@ -3052,6 +3052,7 @@
 				user.visible_message("[user] paints [parent] as a finishing touch.", span_notice(" You paint [parent] as a finishing touch."))
 	return TRUE
 
+//JEEP
 
 /datum/component/construction/unordered/mecha_chassis/normalvehicle/jeep
 	result = /datum/component/construction/mecha/normalvehicle/jeep
