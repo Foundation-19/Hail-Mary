@@ -191,7 +191,12 @@
 	/// Cooldown between backup calls to prevent spam
 	COOLDOWN_DECLARE(backup_call_cooldown)
 	/// How long between backup calls (deciseconds)
-	var/backup_call_delay = 50 // 5 seconds
+	var/backup_call_delay = 300 // 30 seconds
+
+	/// Rate-limit search chatter visible_messages (looks around, resumes hunt, moves to investigate)
+	/// Prevents spam when many mobs cycle search mode simultaneously
+	COOLDOWN_DECLARE(search_chatter_cooldown)
+	var/search_chatter_delay = 300 // 30 seconds
 
 	/// Are we currently rallying to allies?
 	var/rallying = FALSE
@@ -3114,7 +3119,9 @@
 	recently_opened_door = null
 	investigating_container = null
 
-	visible_message(span_warning("[src] looks around suspiciously..."))
+	if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
+		COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
+		visible_message(span_warning("[src] looks around suspiciously..."))
 
 	if(is_alpha_alerter)
 		if(target)
@@ -3149,7 +3156,9 @@
 			visible_message(span_notice("[src] gives up the search."))
 		LoseTarget()
 	else
-		visible_message(span_danger("[src] resumes the hunt!"))
+		if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
+			COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
+			visible_message(span_danger("[src] resumes the hunt!"))
 		// is_alpha_alerter stays as-is - if we found the target we may now broadcast
 
 /mob/living/simple_animal/hostile/proc/search_for_target()
@@ -3370,7 +3379,9 @@
 					attempt_z_pursuit()
 				addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 				return
-			visible_message(span_warning("[src] moves to investigate the last known position..."))
+			if(COOLDOWN_FINISHED(src, search_chatter_cooldown))
+				COOLDOWN_START(src, search_chatter_cooldown, search_chatter_delay)
+				visible_message(span_warning("[src] moves to investigate the last known position..."))
 			Goto(last_known_location, move_to_delay, 0)
 			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
 			return
