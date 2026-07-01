@@ -636,10 +636,12 @@
 	if(on_stairs)
 		if(time_on_stairs == 0)
 			time_on_stairs = world.time
-		else if((world.time - time_on_stairs) > max_stairs_time)
+		else if((world.time - time_on_stairs) > max_stairs_time && !pursuing_z_target)
+			// Don't abort if the mob is actively climbing - it's on these stairs on purpose
 			commit_to_z_level()
 			pursuing_z_target = FALSE
 			z_pursuit_structure = null
+			consecutive_stair_steps = 0
 			time_on_stairs = 0
 			var/list/escape_turfs = list()
 			for(var/turf/T in range(3, src))
@@ -824,7 +826,7 @@
 	
 	// IMPROVED RETARGETING: Switch targets if being shot by someone closer or while searching
 	if(stat == CONSCIOUS && AIStatus != AI_OFF && !client && P.firer)
-		if(get_dist(src, P.firer) <= aggro_vision_range)
+		if(get_dist(src, P.firer) <= aggro_vision_range && CanAttack(P.firer)) // Ignore friendly fire
 			var/should_retarget = FALSE
 			
 			if(!target)
@@ -1769,19 +1771,13 @@
 
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
-	// Vision check before attempting melee
-	if(target)
-		var/effective_range = get_effective_vision_range(target)
-		if(effective_range == 0)
-			// Target is behind us - lose target
+	// Stop immediately if target is dead or unconscious
+	if(target && isliving(target))
+		var/mob/living/LT = target
+		if(LT.stat != CONSCIOUS)
 			LoseTarget()
 			return
-		var/dist = get_dist(src, target)
-		if(dist > effective_range)
-			// Target is beyond our vision range - lose target
-			LoseTarget()
-			return
-	
+
 	if(rapid_melee > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
@@ -1794,13 +1790,11 @@
 
 /mob/living/simple_animal/hostile/proc/CheckAndAttack()
 	if(target && targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from) && !incapacitated())
-		// Vision check before rapid melee attack
-		var/effective_range = get_effective_vision_range(target)
-		if(effective_range == 0)
-			return // Can't see target (behind us)
-		var/dist = get_dist(src, target)
-		if(dist > effective_range)
-			return // Target beyond vision range
+		// Don't attack dead or unconscious targets (handles rapid-melee timers that fire after death)
+		if(isliving(target))
+			var/mob/living/LT = target
+			if(LT.stat != CONSCIOUS)
+				return
 		AttackingTarget()
 
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)
@@ -1869,12 +1863,20 @@
 			return 1
 
 	if(searching)
-		if(target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
+		// Tracking check: use plain view() (no vision cone) so the mob can recover its
+		// target regardless of which direction it's currently facing.
+		var/found_target_now = target && target.z == z && (target in view(vision_range, src))
+		// Within aggro range on same Z: always found (mirrors the has_los bypass above)
+		if(!found_target_now && target && target.z == z && get_dist(src, target) <= aggro_vision_range)
+			found_target_now = TRUE
+		if(found_target_now)
 			exit_search_mode(found_target = TRUE)
 			last_target_sighting = world.time
 			call_for_backup(target, "found")
-		else
+		else if(!pursuing_z_target)
 			return 1
+		// When pursuing_z_target is TRUE while searching, fall through to the
+		// Z-pursuit execution block below so the mob physically walks to the stairs.
 
 	if(rallying)
 		if(target && (target in possible_targets) && can_see(src, target, get_effective_vision_range(target)))
@@ -1895,14 +1897,40 @@
 		return 0
 
 	if(!CanAttack(target))
-		if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
-			if(!searching)
-				enter_search_mode()
-			return 1
-		LoseTarget()
-		return 0
+		// If blocked only because the target is on a different Z level, skip search mode
+		// and fall through to the Z-pursuit section which handles cross-Z chasing.
+		if(!(can_z_move && target.z != z))
+			// If target is still within aggro range on the same Z AND conscious (e.g. fleeing),
+			// keep chasing instead of entering search mode.
+			var/target_is_close = FALSE
+			if(isliving(target) && target.z == z && get_dist(src, target) <= aggro_vision_range)
+				var/mob/living/LT = target
+				target_is_close = (LT.stat == CONSCIOUS)
+			if(!target_is_close)
+				if(remembered_target && (world.time - last_target_sighting) < target_memory_duration)
+					if(!searching)
+						enter_search_mode()
+					return 1
+				LoseTarget()
+				return 0
 
-	var/has_los = (target in possible_targets) && can_see(src, target, get_effective_vision_range(target))
+	// TRACKING LOS: Use plain BYOND view() without vision-cone restrictions.
+	// Vision cones are for initial detection (idle mob scanning for threats).
+	// An already-engaged mob tracks its target regardless of facing direction.
+	var/has_los = target && target.z == z && (target in view(vision_range, src))
+	// Stealth boy: drastically reduce tracking range for heavily cloaked targets
+	if(has_los && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.alpha < 100)
+			has_los = (get_dist(src, target) <= max(round(vision_range * 0.2), 1))
+	// Adjacency (dist<=2) always counts as LOS.
+	// Within aggro_vision_range on the same Z: also always treat as LOS.
+	// The mob can hear/sense the target even through doors/walls at close range.
+	// Only when the target escapes beyond aggro range does LOS tracking actually lapse.
+	if(!has_los && target && target.z == z)
+		var/dist_now = get_dist(src, target)
+		if(dist_now <= aggro_vision_range)
+			has_los = TRUE
 
 	if(has_los)
 		last_target_sighting = world.time
@@ -1910,7 +1938,13 @@
 		last_known_location = get_turf(target)
 	else
 		var/time_since_seen = world.time - last_target_sighting
-		if(time_since_seen > 30)
+		// Use a longer timeout when target is on a different Z level so the mob can
+		// wait out the z_move_success_cooldown (30 ds) and still initiate pursuit.
+		// Same-Z timeout is 60 ds (6 s) — long enough to survive dense-melee occlusion
+		// without being so long it prevents real LOS loss from registering.
+		var/los_timeout = (can_z_move && target && target.z != z) ? 80 : 60
+		// Never enter search mode while actively climbing - the mob KNOWS where the target went
+		if(time_since_seen > los_timeout && !pursuing_z_target)
 			if(!searching)
 				enter_search_mode()
 			var/saved_remembered = remembered_target
@@ -1933,7 +1967,35 @@
 
 	if(pursuing_z_target && z_pursuit_structure && target && target.z != z)
 		var/dist = get_dist(src, z_pursuit_structure)
-		if(dist <= 1 && istype(z_pursuit_structure, /obj/structure/ladder))
+		if(dist == 0)
+			// Mob has ARRIVED at the structure - trigger the actual climb
+			if(can_climb_ladders && istype(z_pursuit_structure, /obj/structure/ladder))
+				var/obj/structure/ladder/unbreakable/L = z_pursuit_structure
+				var/went_up_now = (target.z > z)
+				var/went_down_now = (target.z < z)
+				if(went_up_now && L.up)
+					visible_message(span_warning("[src] climbs up!"))
+					zMove(target = get_turf(L.up), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+					pursuing_z_target = FALSE
+					z_pursuit_structure = null
+					last_z_move_attempt = world.time
+					last_successful_z_move = world.time
+					record_z_level_change()
+				else if(went_down_now && L.down)
+					visible_message(span_warning("[src] climbs down!"))
+					zMove(target = get_turf(L.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+					pursuing_z_target = FALSE
+					z_pursuit_structure = null
+					last_z_move_attempt = world.time
+					last_successful_z_move = world.time
+					record_z_level_change()
+				else
+					pursuing_z_target = FALSE
+					z_pursuit_structure = null
+			else if(can_climb_stairs && istype(z_pursuit_structure, /obj/structure/stairs))
+				var/obj/structure/stairs/S = z_pursuit_structure
+				step(src, S.dir) // triggers on_exit → stair_ascend via INVOKE_ASYNC
+		else if(dist <= 1 && istype(z_pursuit_structure, /obj/structure/ladder))
 			walk(src, 0)
 			step(src, get_dir(src, z_pursuit_structure))
 		else
@@ -2021,11 +2083,35 @@
 				Goto(target, move_to_delay, retreat_distance)
 			else
 				walk(src, 0)
-		else
-			if(target_distance > minimum_distance)
-				Goto(target, move_to_delay, minimum_distance)
+		else {
+			// Stop moving once adjacent — don't push into the target tile (causes oscillation)
+			if(target.Adjacent(src))
+				walk(src, 0)
+				// Face the target now that we've stopped to attack
+				var/face_dir = get_dir(src, target)
+				if(face_dir)
+					setDir(face_dir)
+			else if(target_distance > minimum_distance)
+				// ALLY FLANKING: if the next tile toward the target holds a dense ally,
+				// route around them instead of piling up.
+				var/turf/next_tile = get_step(get_turf(src), get_dir(src, target))
+				var/ally_blocking = FALSE
+				if(next_tile)
+					for(var/mob/living/simple_animal/hostile/BM in next_tile)
+						if(BM != src && BM.stat != DEAD && BM.density && faction_check_mob(BM, TRUE))
+							ally_blocking = TRUE
+							break
+				if(ally_blocking)
+					var/turf/flank_tile = find_open_flank(target)
+					if(flank_tile)
+						Goto(flank_tile, move_to_delay, 0)
+					else
+						Goto(target, move_to_delay, minimum_distance)
+				else
+					Goto(target, move_to_delay, minimum_distance)
 			else
 				walk(src, 0)
+		}
 
 		// MELEE ATTACK
 		if(COOLDOWN_TIMELEFT(src, melee_cooldown))
@@ -2084,10 +2170,6 @@
 /mob/living/simple_animal/hostile/proc/Goto(target, delay, minimum_distance)
 	if(target == src.target)
 		approaching_target = TRUE
-		// FIX: Turn to face target while pursuing
-		var/face_dir = get_dir(src, target)
-		if(face_dir && face_dir != dir)
-			setDir(face_dir)
 	else
 		approaching_target = FALSE
 	if(CHECK_BITFIELD(mobility_flags, MOBILITY_MOVE))
@@ -2668,26 +2750,6 @@
 					Goto(destruction_location, move_to_delay, 0)
 
 /mob/living/simple_animal/hostile/proc/AttackingTarget()
-	// VISION CHECK: Don't attack if we can't see the target
-	if(target)
-		var/effective_range = get_effective_vision_range(target)
-		// If effective range is 0, target is completely out of vision (behind us)
-		if(effective_range == 0)
-			if(isliving(target))
-				var/mob/living/L = target
-				if(L.client)
-					to_chat(L, span_notice("DEBUG: [src] cannot attack - you are behind them (range=0)"))
-			return FALSE
-		
-		// Check if target is within our effective vision range
-		var/dist = get_dist(src, target)
-		if(dist > effective_range)
-			if(isliving(target))
-				var/mob/living/L = target
-				if(L.client)
-					to_chat(L, span_notice("DEBUG: [src] cannot attack - beyond vision range (dist=[dist], range=[effective_range])"))
-			return FALSE
-	
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	in_melee = TRUE
 	if(prob(alternate_attack_prob) && AlternateAttackingTarget(target))
@@ -2879,13 +2941,14 @@
 	
 	if(went_up)
 		// Target went UP - look for stairs and ladders going up
+		// Use range() instead of view() so walls don't hide interior stairs/ladders
 		if(can_climb_stairs)
-			for(var/obj/structure/stairs/S in view(vision_range, src))
+			for(var/obj/structure/stairs/S in range(vision_range, src))
 				if(S.isTerminator())
 					z_structures += S
 		
 		if(can_climb_ladders)
-			for(var/obj/structure/ladder/LD in view(vision_range, src))
+			for(var/obj/structure/ladder/LD in range(vision_range, src))
 				if(LD.up)
 					z_structures += LD
 	
@@ -2917,6 +2980,7 @@
 	pursuing_z_target = TRUE
 	z_pursuit_structure = nearest
 	z_pursuit_started = world.time
+	time_on_stairs = 0  // Reset stair timeout so it doesn't abort the climb mid-chain
 	
 	visible_message(span_danger("[src] pursues [target] [went_up ? "upward" : "downward"]!"))
 	
@@ -3014,6 +3078,14 @@
 	if(searching)
 		return
 
+	// Never enter search mode when the active target is alive and still within aggro range.
+	// This single guard covers all 17+ call sites and prevents announcing search mode
+	// while the mob is visibly chasing or fighting the player.
+	if(target && !QDELETED(target) && isliving(target))
+		var/mob/living/LT = target
+		if(LT.stat == CONSCIOUS && LT.z == z && get_dist(src, LT) <= aggro_vision_range)
+			return
+
 	// Don't start searching if the remembered target is dead OR CRIT
 	if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
 		var/mob/living/L = remembered_target
@@ -3110,7 +3182,8 @@
 				var/mob/living/L = possible_target
 				if(L.stat == DEAD || L.ckey && !L.client) // Dead or ghosted
 					continue
-			if(!can_see(src, possible_target, get_effective_vision_range(possible_target)))
+			// Use view() (no cone restriction) so we immediately spot targets in any direction
+			if(!(possible_target in view(vision_range, src)))
 				continue
 			if(!CanAttack(possible_target))
 				continue
@@ -3145,7 +3218,73 @@
 	var/turf/current_pos = get_turf(src)
 	var/dist_to_last_known = get_dist(current_pos, last_known_location)
 
-	// PRIORITY 0: Move to last_known_location if we're far from it
+	// CROSS-Z CHECK: If we need to change Z levels, do it now before any same-Z navigation.
+	// get_dist() is 2D-only, so a Z4 last_known_location looks "distance 0" to a Z3 mob —
+	// without this check, the mob thinks it's already there and searches the wrong floor.
+	if(!pursuing_z_target && can_z_move)
+		// Case 1: Remembered target is currently on a different Z level (followed stairs)
+		if(remembered_target && !QDELETED(remembered_target) && isliving(remembered_target))
+			var/mob/living/RT = remembered_target
+			if(RT.stat != DEAD && RT.z != z)
+				GiveTarget(RT)
+				is_alpha_alerter = FALSE
+				if(attempt_z_pursuit())
+					addtimer(CALLBACK(src, PROC_REF(search_for_target)), 2 SECONDS, TIMER_DELETE_ME)
+					return
+		// Case 2: No remembered target, but last_known_location is on a different Z level
+		// (heard combat sounds from above/below).  Navigate directly to nearest staircase/ladder.
+		else if(!remembered_target && last_known_location && last_known_location.z != z)
+			var/went_up = (last_known_location.z > z)
+			var/list/z_structures = list()
+			if(went_up)
+				if(can_climb_stairs)
+					for(var/obj/structure/stairs/S in range(vision_range, src))
+						if(S.isTerminator())
+							z_structures += S
+				if(can_climb_ladders)
+					for(var/obj/structure/ladder/LD in range(vision_range, src))
+						if(LD.up)
+							z_structures += LD
+			else
+				if(can_jump_down)
+					for(var/turf/open/transparent/openspace/OS in view(vision_range, src))
+						z_structures += OS
+				if(can_climb_ladders)
+					for(var/obj/structure/ladder/LD in view(vision_range, src))
+						if(LD.down)
+							z_structures += LD
+			if(z_structures.len)
+				var/atom/nearest = get_closest_atom(/atom, z_structures, src)
+				var/dist_to_structure = get_dist(src, nearest)
+				if(dist_to_structure == 0)
+					// Already on the structure tile - trigger the climb directly
+					if(went_up && istype(nearest, /obj/structure/stairs))
+						var/obj/structure/stairs/S = nearest
+						step(src, S.dir) // triggers on_exit → stair_ascend
+						last_known_location = null
+					else if(went_up && istype(nearest, /obj/structure/ladder))
+						var/obj/structure/ladder/unbreakable/L = nearest
+						if(L.up)
+							zMove(target = get_turf(L.up), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+							record_z_level_change()
+							last_known_location = null
+					else if(!went_up && istype(nearest, /turf/open/transparent/openspace))
+						zMove(target = get_step_multiz(nearest, DOWN), z_move_flags = ZMOVE_FALL_FLAGS)
+						record_z_level_change()
+						last_known_location = null
+					else if(!went_up && istype(nearest, /obj/structure/ladder))
+						var/obj/structure/ladder/unbreakable/L2 = nearest
+						if(L2.down)
+							zMove(target = get_turf(L2.down), z_move_flags = ZMOVE_CHECK_PULLEDBY|ZMOVE_ALLOW_BUCKLED|ZMOVE_INCLUDE_PULLED)
+							record_z_level_change()
+							last_known_location = null
+					addtimer(CALLBACK(src, PROC_REF(search_for_target)), 2 SECONDS, TIMER_DELETE_ME)
+					return
+				// Not there yet - navigate to the staircase/ladder
+				visible_message(span_notice("[src] heads toward the commotion..."))
+				Goto(nearest, move_to_delay, 0)
+				addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
+				return
 	// This ensures we search where the player was last seen, not random areas
 	if(dist_to_last_known > 3)
 		// Check for doors blocking the path to last_known_location
@@ -3222,6 +3361,15 @@
 		// We're too far from where we last saw them - move closer first
 		if(!(last_known_location in searched_turfs))
 			searched_turfs += last_known_location
+			// If the last known location is on a different Z level, don't Goto across Z -
+			// use Z-pursuit to find a staircase/ladder instead.
+			if(last_known_location.z != z && can_z_move)
+				if(remembered_target && !QDELETED(remembered_target))
+					GiveTarget(remembered_target)
+					is_alpha_alerter = FALSE
+					attempt_z_pursuit()
+				addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
+				return
 			visible_message(span_warning("[src] moves to investigate the last known position..."))
 			Goto(last_known_location, move_to_delay, 0)
 			addtimer(CALLBACK(src, PROC_REF(search_for_target)), 3 SECONDS, TIMER_DELETE_ME)
@@ -3548,7 +3696,9 @@
 		last_known_location = target_location
 		if(AIStatus != AI_ON)
 			toggle_ai(AI_ON)
-		visible_message(span_danger("[src] responds to the alert!"))
+		// Only announce response if not already actively fighting this target
+		if(!target || target != alert_target)
+			visible_message(span_danger("[src] responds to the alert!"))
 		return
 
 	// Can't see them - search quietly, no cascade
@@ -3559,6 +3709,15 @@
 
 	if(AIStatus == AI_IDLE || AIStatus == AI_Z_OFF)
 		toggle_ai(AI_ON)
+
+	// If the target is on a different Z level, pursue across Z instead of
+	// trying to Goto() a location on the wrong Z (which does nothing useful).
+	if(can_z_move && target_location && target_location.z != z && !pursuing_z_target)
+		GiveTarget(alert_target)  // set target so attempt_z_pursuit() can check it
+		is_alpha_alerter = FALSE  // stay secondary - prevent alert cascade
+		visible_message(span_danger("[src] responds to the alert!"))
+		attempt_z_pursuit()
+		return
 
 	if(!searching && !target)
 		// enter_search_mode() will see is_alpha_alerter=FALSE and NOT broadcast
@@ -3953,8 +4112,24 @@
 	
 	// ACTIVELY INVESTIGATE - move toward the sound!
 	if(!target) // Only investigate if we don't have a target
+		// If the combat is on a DIFFERENT Z level and the attacker is a valid enemy,
+		// give them as target and use Z-pursuit instead of setting a cross-Z last_known_location
+		// (get_dist is 2D-only, so a Z4 location looks like dist=0 to a Z3 mob).
+		if(sound_location.z != z && can_z_move && isliving(sound_source) && !QDELETED(sound_source))
+			var/mob/living/LS = sound_source
+			if(LS.stat != DEAD && CanAttack(LS))
+				remembered_target = LS
+				last_target_sighting = world.time
+				last_known_location = get_turf(LS)
+				GiveTarget(LS)
+				is_alpha_alerter = FALSE
+				if(!searching)
+					enter_search_mode()
+					visible_message(span_notice("[src] hears fighting and investigates!"))
+				attempt_z_pursuit()
+				return
+		// Same-Z or no usable attacker source: investigate the sound location normally
 		last_known_location = investigation_spot
-		
 		if(!searching)
 			enter_search_mode()
 			visible_message(span_notice("[src] starts investigating the commotion..."))
@@ -4528,10 +4703,6 @@
 
 
 /mob/living/simple_animal/hostile/Move(atom/newloc, dir, step_x, step_y)
-	// FIX: Set facing direction when we move (so mobs turn naturally)
-	if(dir && dir != src.dir && !dodging)
-		setDir(dir)
-	
 	if(dodging && approaching_target && prob(dodge_prob) && moving_diagonally == 0 && isturf(loc) && isturf(newloc))
 		return dodge(newloc,dir)
 	
@@ -4547,18 +4718,21 @@
 		break
 	
 	// ANTI-LOOP: Count consecutive stair steps
+	// Skip this check when actively pursuing a Z-level change via stairs,
+	// or when searching (the mob may legitimately cross stair tiles to reach last_known_location).
 	if(was_on_stairs || moving_to_stairs)
-		consecutive_stair_steps++
-		
-		if(consecutive_stair_steps >= max_consecutive_stair_steps)
-			// Too many stair steps! Force commit and stop pursuing
-			commit_to_z_level()
-			pursuing_z_target = FALSE
-			z_pursuit_structure = null
-			consecutive_stair_steps = 0
+		if(!pursuing_z_target && !searching)
+			consecutive_stair_steps++
 			
-			visible_message(span_notice("[src] stops at the stairs."))
-			return FALSE // Don't move onto stairs
+			if(consecutive_stair_steps >= max_consecutive_stair_steps)
+				// Too many stair steps! Force commit and stop pursuing
+				commit_to_z_level()
+				pursuing_z_target = FALSE
+				z_pursuit_structure = null
+				consecutive_stair_steps = 0
+				
+				visible_message(span_notice("[src] stops at the stairs."))
+				return FALSE // Don't move onto stairs
 	else
 		consecutive_stair_steps = 0
 	
@@ -4683,9 +4857,68 @@
 				return
 
 
+/mob/living/simple_animal/hostile/proc/find_open_flank(atom/flank_target)
+	var/turf/target_turf = get_turf(flank_target)
+	if(!target_turf) return null
+
+	var/turf/my_turf = get_turf(src)
+	var/list/candidates = list()
+
+	// Check all 8 surrounding tiles of the target for open spots not held by allies
+	for(var/dir in GLOB.alldirs)
+		var/turf/T = get_step(target_turf, dir)
+		if(!T || T == my_turf) continue
+		if(T.density) continue
+		var/clear = TRUE
+		for(var/atom/movable/AM in T)
+			if(AM.density)
+				clear = FALSE
+				break
+			if(istype(AM, /mob/living/simple_animal/hostile))
+				var/mob/living/simple_animal/hostile/BM = AM
+				if(BM != src && BM.stat != DEAD && faction_check_mob(BM, TRUE))
+					clear = FALSE
+					break
+		if(clear)
+			candidates += T
+
+	if(!candidates.len) return null
+
+	// Prefer the tile that matches our approach direction — stable as we move toward target
+	var/approach_dir = get_dir(target_turf, my_turf)
+	for(var/turf/T in candidates)
+		if(get_dir(target_turf, T) == approach_dir)
+			return T
+
+	// Fallback: closest open tile
+	return get_closest_atom(/turf, candidates, src)
+
 /mob/living/simple_animal/hostile/proc/DestroyPathToTarget()
 	// This should only be called when we're REALLY stuck (after 15 seconds of trying)
-	
+
+	// PRIORITY 0: Ally flanking — if friendly mobs are the obstacle, find a side angle
+	// rather than trying to open doors or smash through walls.
+	if(target && !searching)
+		var/turf/my_turf = get_turf(src)
+		var/ally_is_blocking = FALSE
+		for(var/dir in GLOB.cardinals)
+			var/turf/T = get_step(my_turf, dir)
+			if(!T) continue
+			for(var/mob/living/simple_animal/hostile/BM in T)
+				if(BM != src && BM.stat != DEAD && BM.density && faction_check_mob(BM, TRUE))
+					ally_is_blocking = TRUE
+					break
+			if(ally_is_blocking) break
+		if(ally_is_blocking)
+			var/turf/flank_tile = find_open_flank(target)
+			if(flank_tile)
+				is_stuck = FALSE
+				stuck_position = null
+				stuck_time = 0
+				path_attempts = 0
+				Goto(flank_tile, move_to_delay, 0)
+				return
+
 	// SPECIAL CASE: If searching, mark current location as unreachable and let search continue
 	if(searching)
 		// Mark our stuck position as searched so we don't try to go there again
