@@ -217,7 +217,7 @@ window "outputwindow"
 		background-color = #030a03
 		text-color = #a0d0a0
 		font-family = "Courier New"
-		font-size = 9
+		font-size = 12
 		is-default = true
 		border-color = #1a4a1a
 		saved-params = "command"
@@ -233,7 +233,7 @@ window "outputwindow"
 		background-color = #030a03
 		text-color = #4cff4c
 		font-family = "Courier New"
-		font-size = 9
+		font-size = 12
 		button-type = pushbox
 	elem "browseroutput"
 		type = BROWSER

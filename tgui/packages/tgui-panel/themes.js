@@ -143,7 +143,7 @@ export const setClientTheme = name => {
       'input.text-color': COLOR_FALLOUT_TEXT,
       'input.border-color': COLOR_FALLOUT_PHOSPHOR,
       'input.font-family': '"Courier New"',
-      'input.font-size': 9,
+      'input.font-size': 12,
       // Ensure saybutton is NOT flat so background-color applies
       'saybutton.is-flat': false,
     });

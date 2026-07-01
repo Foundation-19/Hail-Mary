@@ -116,7 +116,7 @@
 	var/turf/checking = get_step_multiz(get_turf(src), UP)
 	if(!istype(checking))
 		return
-	if(!checking.zPassIn(climber, UP, get_turf(src)))
+	if(!istype(checking, /turf/open)) // Can't ascend through closed turfs (walls, rock, etc.)
 		return
 	
 	// Use get_step() first, then get the Z-level above that

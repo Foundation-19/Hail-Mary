@@ -383,7 +383,17 @@
 /obj/machinery/chem_dispenser/attackby(obj/item/I, mob/user, params)
 	if(default_unfasten_wrench(user, I))
 		return
-	if(default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+	// Allow screwdriver panel access even on NODECONSTRUCT machines (crowbar deconstruction is still blocked)
+	if(I.tool_behaviour == TOOL_SCREWDRIVER)
+		if(!default_deconstruction_screwdriver(user, icon_state, icon_state, I))
+			// Machine has NODECONSTRUCT but panel access is always permitted for maintenance
+			I.play_tool_sound(src, 50)
+			if(!panel_open)
+				panel_open = TRUE
+				to_chat(user, span_notice("You open the maintenance hatch of [src]."))
+			else
+				panel_open = FALSE
+				to_chat(user, span_notice("You close the maintenance hatch of [src]."))
 		update_icon()
 		return
 	if(default_deconstruction_crowbar(I))
