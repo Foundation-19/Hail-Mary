@@ -212,6 +212,11 @@
 	if(current_suture)
 		suture_heal()
 		needs_processing = TRUE
+	// Natural wound healing when no bandage/suture is applied.
+	// Very slow; relies on nutrition. Only active if there is actual wound damage to heal.
+	else if(!current_gauze && bleed_dam > 0)
+		covering_heal_nutrition_mod(0.025, 0) // ~100-200 ticks (~3-7 min well-fed) to clear a moderate wound
+		needs_processing = TRUE
 	if(status == BODYPART_ROBOTIC)
 		bleed_dam = 0
 	if(stam_heal_tick && stamina_dam > DAMAGE_PRECISION) //DO NOT update health here, it'll be done in the carbon's life.
