@@ -232,7 +232,15 @@
 	show_to(O)
 
 /obj/item/book/proc/show_to(mob/user)
-	user << browse("<TT><I>Penned by [author].</I></TT> <BR>" + "[dat]", "window=book[window_size != null ? ";size=[window_size]" : ""]")
+	var/book_header = author ? "<h3>Penned by <i>[author]</i></h3><hr>" : ""
+	var/content
+	if(dat && findtext(dat, "<html") == 1)
+		// dat is already a full HTML document; inject the author header after <body>
+		content = replacetext(dat, "<body>", "<body>[book_header]")
+	else
+		// dat has HTML fragments; wrap in a proper HTML5 skeleton for Chromium compatibility
+		content = HTML_SKELETON_TITLE("[title]", "[book_header][dat]")
+	user << browse(content, "window=book[window_size != null ? ";size=[window_size]" : ""]")
 
 /obj/item/book/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/pen))
