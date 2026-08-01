@@ -145,7 +145,6 @@
 /obj/structure/noticeboard{
 	pixel_x = -32
 	},
-/obj/machinery/vending/caravan/town,
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_north_w"
 	},
@@ -233,6 +232,13 @@
 	icon_state = "grass_8d"
 	},
 /turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
+"adB" = (
+/obj/structure/table/wood,
+/obj/machinery/mineral/wasteland_trader/caravan/minutemen,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
 /area/f13/baltimore/wasteland/city)
 "adG" = (
 /obj/structure/cargocrate{
@@ -499,6 +505,15 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/building/abandoned)
+"ahc" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal";
+	dir = 1
+	},
+/obj/machinery/light/sign/shed,
+/obj/structure/barricade/wooden,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "aho" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalleftborderleft2"
@@ -774,6 +789,12 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
+"amH" = (
+/obj/item/flag/minutemen,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "amQ" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/blood/gibs/down{
@@ -2172,6 +2193,16 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"aHp" = (
+/obj/structure/fluff/railsnew{
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city/citycenter)
 "aHq" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_7d"
@@ -2289,6 +2320,14 @@
 	name = "rusted Docks"
 	},
 /area/f13/baltimore/wasteland/city)
+"aJr" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2bottom"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "aJw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -3116,6 +3155,15 @@
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
+"aXs" = (
+/obj/structure/fluff/railsnew{
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
 "aXt" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
 /area/f13/building/center)
@@ -4681,6 +4729,14 @@
 	},
 /turf/open/floor/f13/brick/lit,
 /area/f13/baltimore/wasteland/city)
+"bya" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2bottom"
+	},
+/area/f13/baltimore/wasteland/city)
 "byb" = (
 /obj/structure/stairs/north{
 	color = "#A47449"
@@ -4689,6 +4745,15 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/building/abandoned)
+"byn" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain2"
+	},
+/area/f13/baltimore/wasteland/city)
 "byp" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -6081,6 +6146,12 @@
 "bVj" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/clinic)
+"bVp" = (
+/obj/effect/turf_decal/dirt{
+	dir = 6
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city/citycenter)
 "bVq" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -6311,6 +6382,15 @@
 	dir = 6
 	},
 /turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
+"bYU" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2"
+	},
 /area/f13/baltimore/wasteland/city)
 "bZc" = (
 /obj/structure/rack/shelf_metal,
@@ -6853,6 +6933,15 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/building/citycenter)
+"chk" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "chl" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -7387,9 +7476,6 @@
 "cpo" = (
 /obj/effect/turf_decal/stripes/asteroid/corner{
 	dir = 4
-	},
-/obj/structure/railing/tg/corner{
-	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -8223,6 +8309,14 @@
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_mosaic,
 /area/f13/baltimore/building/abandoned)
+"cBr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/wasteland_trader/caravan/town,
+/obj/structure/table/wood,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "cBs" = (
 /obj/structure/railing/corrugated{
 	pixel_y = 6
@@ -9304,6 +9398,15 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
+"cSN" = (
+/obj/effect/turf_decal/dirt{
+	dir = 5;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "cSU" = (
 /obj/structure/window/fulltile/ruins,
 /obj/structure/timeddoor,
@@ -10116,6 +10219,14 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city)
+"dgP" = (
+/obj/structure/destructible/tribal_torch/lit,
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city/citycenter)
 "dgZ" = (
 /obj/structure/fence/corner{
 	dir = 1
@@ -10661,6 +10772,19 @@
 	dir = 8
 	},
 /area/f13/building/center)
+"dnx" = (
+/obj/effect/turf_decal/road_end{
+	dir = 8;
+	pixel_y = -12
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "dnA" = (
 /obj/structure/flora/grass/saltlakesparse/three,
 /mob/living/simple_animal/hostile/bloatfly,
@@ -11733,6 +11857,14 @@
 	icon_state = "mosaic_dark-broken5"
 	},
 /area/f13/baltimore/building)
+"dDt" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "dDx" = (
 /obj/structure/flora/roadplant{
 	icon_state = "shrub_decals_3"
@@ -12214,6 +12346,12 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/building/center)
+"dJt" = (
+/obj/effect/turf_decal/dirt{
+	dir = 10
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city)
 "dJA" = (
 /obj/effect/turf_decal/stripes,
 /obj/structure/railing{
@@ -12479,6 +12617,16 @@
 	dir = 8
 	},
 /area/f13/baltimore/building/abandoned/hospital)
+"dMN" = (
+/obj/effect/decal/marking{
+	icon_state = "dottedhorizontalcorroded";
+	pixel_y = 15
+	},
+/obj/structure/table/wood,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "dMS" = (
 /obj/item/reagent_containers/glass/bucket/wood,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -12495,13 +12643,6 @@
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/baltimore/wasteland/city)
-"dNq" = (
-/obj/effect/turf_decal/road_end{
-	dir = 2
-	},
-/obj/structure/wreck/car/buggy,
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "dNF" = (
 /obj/machinery/vending/coffee,
 /turf/open/floor/carpet/green,
@@ -13480,18 +13621,6 @@
 /obj/structure/stairs/south,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/building/abandoned)
-"eeF" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedhorizontalcorroded";
-	pixel_y = 15
-	},
-/obj/structure/flora/roadplant{
-	icon_state = "grass_3d"
-	},
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/baltimore/wasteland/citywasteland/town)
 "eeH" = (
 /obj/structure/rug/big/rug_red,
 /turf/open/floor/wood_fancy,
@@ -13529,6 +13658,17 @@
 	icon_state = "road_crosswalk_northsouth"
 	},
 /area/f13/baltimore/wasteland/city)
+"eeV" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
 "eeW" = (
 /obj/machinery/light/broken{
 	dir = 1
@@ -13542,6 +13682,15 @@
 	smooth = 1
 	},
 /area/f13/baltimore/building/abandoned)
+"efh" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "horizontalbottomborderbottom1"
+	},
+/area/f13/baltimore/wasteland/city)
 "eft" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -14795,6 +14944,16 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall/f13/ruins,
 /area/f13/building/center)
+"eye" = (
+/obj/structure/fluff/railsnew{
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/dirt/harsh,
+/area/f13/baltimore/wasteland/city/citycenter)
 "eyn" = (
 /obj/structure/flora/ausbushes/pointybush,
 /obj/structure/flora/ausbushes/ppflowers,
@@ -15286,6 +15445,15 @@
 /obj/structure/junk/drawer,
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
+"eGd" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalleftborderleft2"
 	},
 /area/f13/baltimore/wasteland/city)
 "eGi" = (
@@ -15957,6 +16125,15 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/baltimore/building/abandoned)
+"ePz" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "ePB" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/plating/dirt/dirt_maryland{
@@ -16997,6 +17174,14 @@
 	},
 /turf/open/floor/carpet/green,
 /area/f13/baltimore/building/abandoned)
+"ffF" = (
+/obj/effect/turf_decal/dirt{
+	dir = 10
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "ffV" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "verticalrightborderright2top"
@@ -17853,6 +18038,16 @@
 	icon_state = "floorscorched1"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"ftD" = (
+/obj/effect/turf_decal/road_end{
+	dir = 4
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
 "ftE" = (
 /obj/structure/fence{
 	dir = 8
@@ -18210,6 +18405,10 @@
 "fzp" = (
 /obj/structure/fluff/railsnew,
 /obj/effect/overlay/gravel/edge/south,
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/wasteland/city/citycenter)
 "fzC" = (
@@ -18927,6 +19126,12 @@
 	icon_state = "housewood4-broken"
 	},
 /area/f13/building/center)
+"fJG" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_east_w"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "fJM" = (
 /obj/structure/table,
 /obj/effect/overlay/junk/curtain,
@@ -18981,6 +19186,14 @@
 /area/f13/baltimore/wasteland/city)
 "fKa" = (
 /turf/open/floor/wood_fancy,
+/area/f13/baltimore/wasteland/city)
+"fKc" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "horizontalbottomborderbottom2right"
+	},
 /area/f13/baltimore/wasteland/city)
 "fKf" = (
 /obj/structure/flora/roadplant{
@@ -21136,6 +21349,12 @@
 	},
 /turf/closed/wall/mineral/concrete/blastproof,
 /area/f13/building/center)
+"gsY" = (
+/mob/living/simple_animal/hostile/chinese/ranged/stealth,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/building/abandoned)
 "gto" = (
 /obj/effect/turf_decal/road_end{
 	dir = 2;
@@ -21407,6 +21626,10 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/baltimore/building/abandoned)
+"gxc" = (
+/obj/effect/turf_decal/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city/citycenter)
 "gxd" = (
 /obj/machinery/porta_turret/f13/turret_9mm/burstfire,
 /turf/open/floor/f13/dark,
@@ -22994,6 +23217,15 @@
 	icon_state = "horizontaloutermain1"
 	},
 /area/f13/baltimore/wasteland/city)
+"gXh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/mineral/wasteland_trader/caravan/town,
+/obj/structure/table/wood,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "gXj" = (
 /obj/structure/closet/crate/large,
 /obj/item/stack/sheet/leather,
@@ -24741,6 +24973,14 @@
 /obj/structure/fence/wooden,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/city/citycenter)
+"hzj" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/mob/living/simple_animal/hostile/wolf,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city)
 "hzk" = (
 /obj/structure/wreck/trash/brokenvendor,
 /turf/open/floor/carpet/green,
@@ -25211,6 +25451,17 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city)
+"hHA" = (
+/obj/effect/turf_decal/road_end{
+	dir = 4
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "hHC" = (
 /obj/structure/rack/shelf_wood,
 /obj/item/clothing/head/ushanka{
@@ -25597,15 +25848,6 @@
 	icon_state = "wide_dark-broken5"
 	},
 /area/f13/building/center)
-"hOk" = (
-/obj/effect/decal/marking{
-	icon_state = "dottedverticalcorroded"
-	},
-/obj/machinery/mineral/wasteland_trader/caravan/minutemen,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_center"
-	},
-/area/f13/baltimore/wasteland/city)
 "hOu" = (
 /turf/open/indestructible/ground/outside/water/running,
 /area/f13/baltimore/building/abandoned)
@@ -27541,6 +27783,9 @@
 "iuw" = (
 /obj/effect/turf_decal/road_end{
 	dir = 4
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -29923,12 +30168,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/baltimore/building/abandoned)
-"jnp" = (
-/obj/item/flag/baltimore,
-/turf/open/indestructible/ground/outside/sidewalkdirt{
-	icon_state = "horizontaltopbordertop1"
-	},
-/area/f13/baltimore/wasteland/citywasteland/town)
 "jnt" = (
 /obj/effect/turf_decal/road_end{
 	icon_state = "road_end_decal_2";
@@ -30003,6 +30242,12 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/city)
+"joo" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "jor" = (
 /obj/effect/overlay/docks{
 	dir = 8
@@ -30904,6 +31149,10 @@
 	},
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/baltimore/wasteland/city)
+"jDn" = (
+/obj/structure/car/rubbish1,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "jDo" = (
 /obj/structure/rack/large/shelf{
 	pixel_x = 1
@@ -31775,10 +32024,6 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/baltimore/building/abandoned)
-"jRX" = (
-/obj/machinery/door/unpowered/securedoor/minutemen,
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/baltimore/building/abandoned/mchenryfort)
 "jSi" = (
 /obj/effect/overlay/docks/rust{
 	icon_state = "rustdock"
@@ -32414,6 +32659,15 @@
 	icon_state = "road_center"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"kcj" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2top"
+	},
+/area/f13/baltimore/wasteland/city)
 "kcC" = (
 /obj/effect/decal/waste{
 	icon_state = "goo5"
@@ -32478,6 +32732,17 @@
 	icon_state = "mosaic-broken3"
 	},
 /area/f13/building/center)
+"kdI" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city/citycenter)
 "kdM" = (
 /obj/effect/mob_spawn/human/corpse/raiderboss,
 /turf/open/floor/plating/rust,
@@ -32502,6 +32767,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/baltimore/building/abandoned)
+"kel" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalleftborderleft3"
+	},
+/area/f13/baltimore/wasteland/city)
 "kep" = (
 /obj/structure/wreck/trash/one_barrel,
 /turf/open/floor/plating/rust,
@@ -33113,6 +33387,11 @@
 	icon_state = "horizontalbottomborderbottom2"
 	},
 /area/f13/baltimore/wasteland/city)
+"kps" = (
+/obj/effect/overlay/gravel/edge/south,
+/obj/structure/wreck/car/buggy,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "kpC" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -33174,6 +33453,12 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/city)
+"kqq" = (
+/mob/living/simple_animal/hostile/raider/baseball,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "kqw" = (
 /obj/structure/mirror{
 	pixel_y = -6
@@ -33556,6 +33841,15 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/building/abandoned)
+"kwm" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "horizontalbottomborderbottom2right"
+	},
+/area/f13/baltimore/wasteland/city)
 "kww" = (
 /obj/effect/overlay/junk/oldpipes{
 	pixel_x = 16;
@@ -34302,6 +34596,14 @@
 "kIL" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/indestructible/ground/outside/ruins,
+/area/f13/baltimore/wasteland/city/citycenter)
+"kIW" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2"
+	},
 /area/f13/baltimore/wasteland/city/citycenter)
 "kJb" = (
 /obj/structure/car/rubbish2,
@@ -35200,6 +35502,12 @@
 	icon_state = "bluerustychess2"
 	},
 /area/f13/baltimore/building/abandoned)
+"kXK" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city)
 "kXU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/vomit/old,
@@ -35852,12 +36160,6 @@
 /obj/structure/barricade/bars,
 /turf/open/floor/plasteel/f13/vault_floor/darkrusty,
 /area/f13/baltimore/building/abandoned)
-"ljM" = (
-/obj/machinery/vending/caravan/town,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_south_w"
-	},
-/area/f13/baltimore/wasteland/citywasteland/town)
 "ljP" = (
 /turf/closed/wall/f13/wood/house,
 /area/f13/baltimore/building/town)
@@ -36239,6 +36541,15 @@
 /obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/city)
+"loT" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalleftborderleft2top"
 	},
 /area/f13/baltimore/wasteland/city)
 "loU" = (
@@ -37595,6 +37906,14 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/baltimore/wasteland/city/citycenter)
+"lKM" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain3"
+	},
+/area/f13/baltimore/wasteland/city)
 "lKO" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -38664,6 +38983,18 @@
 /obj/structure/timeddoor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
+"mbD" = (
+/obj/effect/turf_decal/road_end{
+	dir = 4
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "mbE" = (
 /obj/structure/bed/old{
 	pixel_y = 15
@@ -42028,12 +42359,6 @@
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/building/abandoned)
-"mZN" = (
-/obj/machinery/mineral/wasteland_trader/caravan/town,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_south_w"
-	},
-/area/f13/baltimore/wasteland/citywasteland/town)
 "mZQ" = (
 /obj/structure/window/fulltile/wood/broken,
 /obj/structure/barricade/wooden/planks,
@@ -42607,6 +42932,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"nji" = (
+/mob/living/simple_animal/hostile/bloatfly,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "njq" = (
 /obj/structure/simple_door/wood,
 /turf/open/indestructible/ground/outside/ruins,
@@ -43689,6 +44020,10 @@
 /area/f13/baltimore/wasteland/city/citycenter)
 "nzf" = (
 /obj/structure/barricade/sandbags,
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "outerbordercorner";
 	dir = 1
@@ -45175,6 +45510,13 @@
 /obj/item/chair,
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
+"nYQ" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city/citycenter)
 "nYR" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -45490,6 +45832,15 @@
 /obj/machinery/smartfridge/bottlerack/seedbin/primitive,
 /turf/open/floor/wood_mosaic,
 /area/f13/building/center)
+"odl" = (
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plasteel/f13/vault_floor,
+/area/f13/baltimore/building/mayorial)
 "odm" = (
 /obj/structure/wreck/trash/engine,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -45710,6 +46061,12 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/baltimore/wasteland/city)
+"oib" = (
+/mob/living/simple_animal/hostile/wolf,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/building/abandoned)
 "oii" = (
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/baltimore/wasteland/city)
@@ -46662,10 +47019,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/baltimore/building/mayorial)
-"oxH" = (
-/obj/item/flag/baltimore,
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/baltimore/wasteland/city/citycenter)
 "oxU" = (
 /obj/structure/lattice/catwalk{
 	layer = 30
@@ -47719,6 +48072,15 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/baltimore/building/citycenter)
+"oOL" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/effect/turf_decal/dirt,
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city/citycenter)
 "oOT" = (
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_south_2"
@@ -49025,6 +49387,14 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/abandoned)
+"plN" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain3"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "plO" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_mosaic{
@@ -49654,6 +50024,15 @@
 	icon_state = "floorscorched2"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"pwd" = (
+/obj/effect/turf_decal/dirt{
+	dir = 5
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "outerborder";
+	dir = 4
+	},
+/area/f13/baltimore/wasteland/city)
 "pwh" = (
 /obj/structure/car/junk/generator/alt,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -50264,6 +50643,14 @@
 	icon_state = "common_dark-broken4"
 	},
 /area/f13/building/center)
+"pFX" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain2top"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "pFY" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/Ocean)
@@ -50326,6 +50713,15 @@
 	icon_state = "redrustychess2"
 	},
 /area/f13/baltimore/building/abandoned)
+"pGX" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2bottom"
+	},
+/area/f13/baltimore/wasteland/city)
 "pHf" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plating/rust,
@@ -51126,6 +51522,12 @@
 	icon_state = "road_center"
 	},
 /area/f13/baltimore/wasteland/city)
+"pTz" = (
+/mob/living/simple_animal/hostile/wolf/alpha,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "pTL" = (
 /obj/structure/reagent_dispensers/barrel/three,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -51542,6 +51944,14 @@
 /obj/structure/barricade/wooden/planks,
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
 /area/f13/building/center)
+"qaF" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2top"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "qaH" = (
 /obj/structure/fluff/railsnew,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -51643,6 +52053,15 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city)
+"qco" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "horizontalbottomborderbottom2left"
+	},
+/area/f13/baltimore/wasteland/city)
 "qcv" = (
 /obj/structure/bookcase/random,
 /obj/structure/railing/tg{
@@ -51738,6 +52157,14 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/wasteland/city)
+"qdY" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/mob/living/simple_animal/hostile/wolf,
+/turf/open/indestructible/ground/outside/ruins,
+/area/f13/baltimore/wasteland/city/citycenter)
 "qea" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -52353,6 +52780,11 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/building/citycenter)
+"qov" = (
+/obj/effect/decal/remains/human,
+/obj/effect/turf_decal/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
 "qoy" = (
 /obj/effect/spawner/lootdrop/druggie_pill,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -53514,6 +53946,19 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/abandoned)
+"qID" = (
+/obj/effect/turf_decal/road_end{
+	icon_state = "road_end_decal_2";
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "qIE" = (
 /obj/effect/overlay/docks/rust,
 /turf/open/indestructible/ground/outside/gravel,
@@ -54174,6 +54619,10 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city)
+"qUN" = (
+/obj/effect/turf_decal/dirt,
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city/citycenter)
 "qUQ" = (
 /obj/machinery/light/floor{
 	color = "#4b6849";
@@ -54463,6 +54912,15 @@
 /obj/structure/car/rubbish3,
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/Ocean)
+"qZu" = (
+/obj/effect/turf_decal/dirt{
+	dir = 9
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "outerborder";
+	dir = 1
+	},
+/area/f13/baltimore/wasteland/city)
 "qZw" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/building/center)
@@ -54956,6 +55414,14 @@
 	name = "rusted Docks"
 	},
 /area/f13/baltimore/wasteland/city)
+"rgJ" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain2bottom"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "rgO" = (
 /obj/effect/turf_decal/stripes{
 	dir = 8
@@ -55022,7 +55488,8 @@
 "rie" = (
 /obj/structure/ladder/unbreakable{
 	icon_state = "manhole_open";
-	height = 2
+	height = 2;
+	id = "highwaytunnel"
 	},
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
@@ -55150,6 +55617,10 @@
 /area/f13/baltimore/building/abandoned)
 "rkI" = (
 /obj/effect/overlay/gravel/edge/south,
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
 	},
@@ -55884,6 +56355,14 @@
 	icon_state = "common1"
 	},
 /area/f13/building/center)
+"rwK" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city)
 "rwM" = (
 /obj/structure/stairs/east,
 /turf/open/floor/plasteel/f13/vault_floor/blue/side,
@@ -56094,6 +56573,14 @@
 	},
 /turf/closed/wall/f13/store/constructed,
 /area/f13/baltimore/building/abandoned)
+"rzs" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2"
+	},
+/area/f13/baltimore/wasteland/city)
 "rzB" = (
 /obj/structure/barricade/tentclothcorner{
 	dir = 4
@@ -56582,6 +57069,15 @@
 	icon_state = "verticalrightborderright1"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"rGR" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalleftborderleft2bottom"
+	},
+/area/f13/baltimore/wasteland/city)
 "rGV" = (
 /obj/structure/rack/shelf_metal,
 /obj/structure/junk/micro,
@@ -56669,6 +57165,12 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/baltimore/building/abandoned)
+"rIq" = (
+/obj/item/flag/baltimore,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "rIC" = (
 /obj/effect/decal/cleanable/blood/footprints{
 	icon_state = "blood2";
@@ -57280,6 +57782,14 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city)
+"rSW" = (
+/obj/structure/flora/roadplant{
+	icon_state = "grass_3d"
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_south_w"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "rTb" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13{
@@ -57345,6 +57855,8 @@
 /obj/structure/flora/roadplant{
 	icon_state = "shrub_decals"
 	},
+/obj/machinery/vending/caravan/town,
+/obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_north_w"
 	},
@@ -58592,6 +59104,15 @@
 "sny" = (
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/raider_mall)
+"snF" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "snK" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 4
@@ -58879,12 +59400,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/abandoned/hospital)
-"sqR" = (
-/obj/item/flag/atlantic,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_eastwest_y"
-	},
-/area/f13/baltimore/wasteland/city/citycenter)
 "sqW" = (
 /obj/structure/fence{
 	dir = 8
@@ -58953,7 +59468,6 @@
 	},
 /area/f13/baltimore/wasteland/city)
 "srR" = (
-/obj/structure/car/rubbish1,
 /obj/effect/overlay/gravel/edge/north,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
 	icon_state = "horizontalbottomborderbottom1"
@@ -59138,15 +59652,6 @@
 	name = "rusted Docks"
 	},
 /area/f13/baltimore/wasteland/city)
-"sue" = (
-/obj/structure/railing/tg/corner{
-	color = "#A47449";
-	dir = 1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/baltimore/building/abandoned)
 "suh" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/baltimore/building/abandoned)
@@ -59169,10 +59674,6 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/grass,
 /area/f13/baltimore/wasteland/city)
-"suu" = (
-/obj/item/flag/atlantic,
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/baltimore/wasteland/city/citycenter)
 "suL" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/white/corner{
@@ -59298,6 +59799,7 @@
 	pixel_x = 4
 	},
 /obj/structure/rack/shelf_wood,
+/obj/item/key,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
 "swO" = (
@@ -60239,11 +60741,6 @@
 	},
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/wasteland/city)
-"sNe" = (
-/obj/structure/table,
-/obj/item/trash/f13,
-/turf/open/floor/wood_mosaic,
-/area/f13/building/center)
 "sNj" = (
 /obj/structure/car/rubbish4,
 /obj/structure/car/rubbish4,
@@ -60459,15 +60956,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
-"sQU" = (
-/obj/structure/railing/tg/corner{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/baltimore/building/abandoned)
 "sRa" = (
 /obj/structure/closet/cardboard,
 /turf/open/floor/f13{
@@ -61031,6 +61519,13 @@
 	dir = 5
 	},
 /area/f13/building/center)
+"tap" = (
+/obj/machinery/vending/caravan/town,
+/obj/structure/table/wood,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_north_w"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "taq" = (
 /obj/machinery/smartfridge/chemistry/virology/preloaded,
 /turf/open/floor/plating/rust{
@@ -61914,6 +62409,11 @@
 	opacity = 0
 	},
 /area/f13/baltimore/wasteland/city)
+"tok" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/effect/turf_decal/dirt,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city/citycenter)
 "tor" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -63951,10 +64451,6 @@
 	},
 /turf/open/floor/grass,
 /area/f13/Ocean)
-"tRh" = (
-/obj/item/flag/minutemen,
-/turf/closed/indestructible/f13vaultrusted,
-/area/f13/baltimore/wasteland/city/citycenter)
 "tRp" = (
 /obj/structure/table/reinforced,
 /obj/structure/window/spawner/west,
@@ -64550,6 +65046,15 @@
 	},
 /turf/closed/wall/f13/sunset/brick_small{
 	opacity = 0
+	},
+/area/f13/baltimore/wasteland/city)
+"tZP" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalk{
+	icon_state = "horizontaloutermain1"
 	},
 /area/f13/baltimore/wasteland/city)
 "uaf" = (
@@ -68136,10 +68641,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/abandoned)
-"vcQ" = (
-/obj/machinery/door/unpowered/securedoor/minutemen,
-/turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
-/area/f13/baltimore/building/abandoned/mchenryfort)
 "vcW" = (
 /obj/structure/window/fulltile/wood/boat,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -68322,6 +68823,14 @@
 /obj/structure/table/wood,
 /turf/open/floor/carpet/red,
 /area/f13/baltimore/building/boat)
+"vgr" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright2top"
+	},
+/area/f13/baltimore/wasteland/city)
 "vgA" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/indestructible/ground/outside/sidewalkdirt{
@@ -68776,6 +69285,15 @@
 	icon_state = "road_center"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"vnW" = (
+/obj/effect/turf_decal/road_end{
+	dir = 4
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/city)
 "von" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -68841,6 +69359,10 @@
 /obj/structure/sign/directions/medical,
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
 /area/f13/clinic)
+"voQ" = (
+/obj/item/flag/baltimore,
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "voR" = (
 /obj/structure/window/fulltile/ruins,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -68901,12 +69423,6 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/baltimore/building/abandoned)
-"vpQ" = (
-/obj/machinery/mineral/wasteland_trader/caravan/town,
-/turf/open/indestructible/ground/outside/baltimore{
-	icon_state = "road_north_w"
-	},
-/area/f13/baltimore/wasteland/citywasteland/town)
 "vpR" = (
 /obj/machinery/door/airlock/grunge/abandoned{
 	locked = 1
@@ -69078,9 +69594,7 @@
 	icon_state = "dottedhorizontalcorroded";
 	pixel_y = 15
 	},
-/obj/structure/flora/roadplant{
-	icon_state = "grass_9d"
-	},
+/obj/structure/table/wood,
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_center"
 	},
@@ -69435,6 +69949,18 @@
 	icon_state = "road_center"
 	},
 /area/f13/raider_mall)
+"vxe" = (
+/obj/effect/turf_decal/road_end{
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city)
 "vxj" = (
 /obj/structure/falsewall/brick,
 /turf/open/floor/plasteel/freezer,
@@ -70776,6 +71302,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/plasteel/bar,
 /area/f13/building/center)
+"vSb" = (
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt/harsh,
+/area/f13/baltimore/wasteland/city)
 "vSc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/fence/wooden{
@@ -71260,6 +71792,12 @@
 /obj/item/storage/box/stockparts/deluxe,
 /turf/open/floor/plasteel/f13/vault_floor/darkrusty,
 /area/f13/baltimore/building/abandoned)
+"vZJ" = (
+/mob/living/simple_animal/hostile/raider/ranged,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/raider_mall)
 "vZN" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/radio/headset,
@@ -71737,6 +72275,14 @@
 /obj/effect/spawner/bundle/f13/armor/sadist,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/raider_mall)
+"wgq" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "wgv" = (
 /obj/structure/railing/tg{
 	dir = 8
@@ -72203,6 +72749,14 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"woi" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "wol" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -72614,6 +73168,9 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
+/obj/item/lock_construct,
+/obj/item/key,
+/obj/item/key,
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/building/boat)
 "wvk" = (
@@ -73137,6 +73694,10 @@
 /obj/effect/turf_decal/road_end{
 	dir = 8
 	},
+/obj/effect/turf_decal/dirt{
+	dir = 4;
+	layer = 1
+	},
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -73274,6 +73835,10 @@
 /area/f13/baltimore/building/abandoned)
 "wGH" = (
 /obj/structure/fluff/railsnew,
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain1"
 	},
@@ -73570,6 +74135,15 @@
 	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/city)
+"wMO" = (
+/obj/structure/fluff/railsnew{
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt/harsh,
+/area/f13/baltimore/wasteland/city)
 "wMV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -73831,6 +74405,13 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/low,
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/building/abandoned)
+"wQV" = (
+/obj/effect/turf_decal/dirt{
+	dir = 1;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt,
+/area/f13/baltimore/wasteland/city)
 "wRf" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -74507,7 +75088,7 @@
 "xbw" = (
 /obj/machinery/button/door{
 	pixel_x = 24;
-	id = "mchenryfort1"
+	id = "mchenryfort2"
 	},
 /turf/open/floor/wood/f13/housewoodbroken4,
 /area/f13/baltimore/building/abandoned/mchenryfort)
@@ -75831,6 +76412,12 @@
 /obj/structure/flora/wasteplant/wild_broc,
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/baltimore/wasteland/city)
+"xwS" = (
+/mob/living/simple_animal/hostile/wolf,
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "xwU" = (
 /obj/structure/table,
 /obj/item/trash/f13/electronic/toaster,
@@ -75871,6 +76458,18 @@
 	sunlight_state = 1
 	},
 /area/f13/baltimore/building/abandoned)
+"xxE" = (
+/obj/effect/decal/marking{
+	icon_state = "dottedhorizontalcorroded";
+	pixel_y = 15
+	},
+/obj/structure/flora/roadplant{
+	icon_state = "grass_9d"
+	},
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "xxH" = (
 /obj/structure/fence{
 	dir = 1;
@@ -76200,6 +76799,7 @@
 	icon_state = "road_end_decal";
 	dir = 1
 	},
+/obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "xDm" = (
@@ -77319,6 +77919,14 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/baltimore/building/town)
+"xVH" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticaloutermain1"
+	},
+/area/f13/baltimore/wasteland/city)
 "xWi" = (
 /obj/structure/sign/gas,
 /turf/closed/wall/rust,
@@ -77957,6 +78565,15 @@
 	},
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/baltimore/building/town)
+"ygD" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8;
+	layer = 1
+	},
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright3"
+	},
+/area/f13/baltimore/wasteland/city)
 "ygG" = (
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken2"
@@ -78007,6 +78624,12 @@
 	icon_state = "road_east_w"
 	},
 /area/f13/baltimore/wasteland/city)
+"yhI" = (
+/obj/item/flag/atlantic,
+/turf/open/indestructible/ground/outside/baltimore{
+	icon_state = "road_center"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "yhL" = (
 /obj/structure/debris/v2,
 /turf/open/floor/wood_fancy,
@@ -84599,7 +85222,7 @@ fpu
 cOu
 plw
 dtF
-sQU
+pkg
 cOu
 dDf
 nmG
@@ -85303,7 +85926,7 @@ fpu
 cOu
 cOu
 qLL
-sue
+pkg
 cOu
 dDf
 iiY
@@ -86146,7 +86769,7 @@ kXr
 xAz
 wpB
 aPB
-xAz
+hzj
 bgc
 wba
 wba
@@ -86838,7 +87461,7 @@ goo
 oxp
 hPi
 hsi
-hPi
+oib
 hPi
 oxp
 tBt
@@ -87197,7 +87820,7 @@ uYX
 fOp
 eUS
 uYX
-uYX
+pTz
 qqj
 idI
 wlR
@@ -87556,7 +88179,7 @@ diU
 rDN
 hGN
 pHM
-hPi
+oib
 eqD
 oXp
 wrZ
@@ -87899,7 +88522,7 @@ oXp
 rvm
 idI
 idI
-eUS
+qdY
 uYX
 oes
 idI
@@ -88610,7 +89233,7 @@ uYX
 fOp
 ari
 ari
-uYX
+xwS
 rDN
 kAP
 hPi
@@ -88951,7 +89574,7 @@ oxp
 xDk
 rhK
 tXo
-hPi
+oib
 aDP
 jhw
 rGN
@@ -89232,7 +89855,7 @@ xpa
 mcH
 gEH
 nCk
-sNe
+nCk
 qLg
 nLE
 nwE
@@ -94302,28 +94925,28 @@ eeQ
 eeQ
 eeQ
 eeQ
-izM
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-sqH
-jKJ
-jKJ
-jKJ
-vMX
-bvH
-jKJ
-jKJ
-jKJ
-peB
-ckQ
-jKJ
-jKJ
-jKJ
-jKJ
+fKc
+rwK
+rwK
+rwK
+rwK
+rwK
+rwK
+lKM
+rwK
+rwK
+rwK
+vSb
+aXs
+rwK
+rwK
+rwK
+wMO
+kXK
+rwK
+rwK
+rwK
+rwK
 jKJ
 jKJ
 jKJ
@@ -95250,14 +95873,14 @@ nJw
 qMv
 qYu
 nJw
-nJw
+kqq
 eyA
 tmO
 kDR
 tmO
 iiJ
 nJw
-nJw
+kqq
 nJw
 dHU
 nJw
@@ -95960,7 +96583,7 @@ nJw
 nJw
 nJw
 qMv
-nJw
+joo
 nJw
 nJw
 kav
@@ -96307,7 +96930,7 @@ aiW
 mbU
 mbU
 mbU
-mbU
+fJG
 mbU
 mbU
 mbU
@@ -97128,13 +97751,13 @@ mHI
 mHI
 mHI
 mHI
-mHI
-fkG
-fkG
-drc
-drc
-rib
-vNL
+chk
+eye
+eye
+nYQ
+nYQ
+aHp
+dgP
 kcY
 kcY
 kcY
@@ -97155,8 +97778,8 @@ mHI
 mHI
 mHI
 aeY
-jYg
-lLb
+rgJ
+fKR
 lLb
 lLb
 lLb
@@ -97368,7 +97991,7 @@ uvW
 oot
 qUi
 nJw
-nJw
+kqq
 hRB
 bho
 bho
@@ -97509,7 +98132,7 @@ vcp
 jdh
 uYX
 wba
-lLb
+caA
 cUF
 lLb
 wba
@@ -97859,9 +98482,9 @@ ijz
 ijz
 uYX
 uYX
-stx
+kdI
 wba
-tkm
+qov
 lLb
 lLb
 lLb
@@ -98212,7 +98835,7 @@ bnf
 xIR
 stx
 stx
-lLb
+xJq
 lLb
 wba
 lLb
@@ -100534,7 +101157,7 @@ vaW
 eIZ
 xon
 bkW
-pjB
+vZJ
 xxq
 nka
 nsu
@@ -100702,16 +101325,16 @@ eAy
 nRf
 jtL
 eAy
-mVZ
-sPZ
-sPZ
-nUL
-aOJ
-qtG
-rGc
-aOJ
-khe
-qtG
+qZu
+ftD
+ftD
+bYU
+mbD
+ygD
+pGX
+mbD
+kcj
+ygD
 nzf
 lLb
 rSI
@@ -101054,7 +101677,7 @@ eAy
 pux
 jtL
 wco
-fpu
+efh
 wba
 wba
 wba
@@ -101406,7 +102029,7 @@ eAy
 nRf
 jtL
 eAy
-vZb
+qco
 irM
 cqD
 wba
@@ -101566,7 +102189,7 @@ eAy
 eAy
 eAy
 kKm
-ckQ
+wQV
 djm
 wba
 wba
@@ -101758,7 +102381,7 @@ eAy
 nRf
 jtL
 eAy
-fpu
+efh
 wVn
 wba
 bBQ
@@ -101918,7 +102541,7 @@ eAy
 qZU
 eAy
 kKm
-soX
+byn
 ixf
 qgn
 wba
@@ -102110,7 +102733,7 @@ eAy
 nRf
 jtL
 eAy
-fpu
+efh
 wba
 wba
 wba
@@ -102270,7 +102893,7 @@ eAy
 qZU
 eAy
 kKm
-ckQ
+wQV
 wba
 wba
 hCG
@@ -102290,7 +102913,7 @@ klX
 waC
 spX
 aTt
-pjB
+vZJ
 eIZ
 lGC
 eOZ
@@ -102462,7 +103085,7 @@ eAy
 nRf
 jtL
 eAy
-vZb
+qco
 wba
 irM
 wba
@@ -102622,7 +103245,7 @@ eAy
 qZU
 eAy
 kUi
-xpH
+tZP
 wba
 fHG
 wba
@@ -102814,7 +103437,7 @@ eAy
 nRf
 jtL
 eAy
-izM
+kwm
 lLb
 fFE
 wba
@@ -102974,7 +103597,7 @@ eAy
 qZU
 eAy
 jWh
-xpH
+tZP
 wba
 wba
 irM
@@ -103166,31 +103789,31 @@ eAy
 nRf
 jtL
 eAy
-pOI
-xLl
-cVS
-sVc
-xLl
-cVS
-onR
-onR
-cVS
-mUt
-sVc
-xLl
-cVS
-cVS
+pwd
+rGR
+eeV
+kel
+rGR
+eeV
+eGd
+eGd
+eeV
+loT
+kel
+rGR
+eeV
+eeV
 wEk
-ubP
-lJN
-lJN
-lJN
-lJN
-cVS
-cVS
-bCY
-cVS
-cVS
+dnx
+vxe
+vxe
+vxe
+vxe
+eeV
+eeV
+qID
+eeV
+eeV
 lJN
 lJN
 bCY
@@ -103326,7 +103949,7 @@ eAy
 qZU
 eAy
 kUi
-wba
+snF
 wba
 wba
 wba
@@ -103678,7 +104301,7 @@ eAy
 qZU
 eAy
 kKm
-ckQ
+wQV
 hxc
 wba
 wba
@@ -104189,39 +104812,39 @@ nwa
 nwa
 nwa
 rNP
-nwa
-nwa
-iWL
-vxu
-rNP
+woi
+woi
+qaF
+kIW
+aJr
 iuw
 iuw
 iuw
 iuw
 iuw
-vxu
-rGc
-sPZ
-sPZ
-sPZ
-sPZ
-sPZ
-sPZ
-khe
-nUL
-rGc
+kIW
+bya
+vnW
+vnW
+vnW
+vnW
+vnW
+vnW
+vgr
+rzs
+bya
 aOJ
 aOJ
-sPZ
-sPZ
-sPZ
-aOJ
-aOJ
-sPZ
-sPZ
-sPZ
-sPZ
-ckQ
+vnW
+vnW
+vnW
+hHA
+hHA
+vnW
+vnW
+vnW
+vnW
+dJt
 ckQ
 kUc
 kUc
@@ -133685,12 +134308,12 @@ eCP
 eCP
 jfl
 dcU
-lMO
-jnp
+voQ
+tvR
 abZ
 shY
-fGC
-ljM
+xxE
+waV
 drC
 sMl
 rXv
@@ -134039,10 +134662,10 @@ fZx
 jRj
 eWI
 tqw
-vpQ
+aix
 wTu
 vsv
-mZN
+waV
 dlR
 sMl
 opP
@@ -134391,9 +135014,9 @@ mXj
 dcU
 lMO
 oCd
-aix
+pyK
 iio
-gSd
+vsv
 waV
 inv
 qRq
@@ -134743,9 +135366,9 @@ mXj
 ijA
 lMO
 xHj
-pyK
-shY
-gSd
+tap
+cBr
+vsv
 waV
 uEN
 toQ
@@ -135094,13 +135717,13 @@ rOV
 rPr
 dcU
 lMO
-oCd
+ahc
 pyK
 shY
 gSd
 rab
 srR
-lMO
+jDn
 wXt
 wXt
 wXt
@@ -135800,8 +136423,8 @@ dcU
 lMO
 ubL
 rTW
-iio
-fGC
+gXh
+dMN
 waV
 bOR
 lMO
@@ -136153,7 +136776,7 @@ lMO
 gRj
 pyK
 iio
-fGC
+dMN
 waV
 kwa
 iUn
@@ -136505,9 +137128,9 @@ lMO
 gIy
 pyK
 iio
-eeF
+dMN
 waV
-dNq
+dlR
 fdE
 xKf
 nqG
@@ -136858,7 +137481,7 @@ rlz
 rMW
 iio
 hQY
-waV
+rSW
 dlR
 lOV
 yln
@@ -137212,7 +137835,7 @@ shY
 gSd
 waV
 wDC
-sMl
+kps
 yeL
 yeL
 yeL
@@ -137242,8 +137865,8 @@ rOq
 gsC
 qiZ
 nJw
-sqR
-nJw
+vAq
+yhI
 dkK
 xHx
 stx
@@ -137594,8 +138217,8 @@ eGK
 gsC
 gsC
 sKU
-tRh
-nJw
+sKU
+amH
 dkK
 drc
 fwT
@@ -137946,8 +138569,8 @@ mXx
 gsC
 gsC
 sKU
-oxH
-nJw
+sKU
+rIq
 cLt
 hig
 sVR
@@ -140058,8 +140681,8 @@ iUn
 nqG
 jDf
 kDi
-oxH
-nJw
+sKU
+rIq
 goo
 stx
 opO
@@ -140410,8 +141033,8 @@ mgR
 gsC
 jDf
 kDi
-tRh
-nJw
+sKU
+amH
 sDY
 drc
 uYX
@@ -140762,8 +141385,8 @@ mgR
 gsC
 gsC
 sKU
-suu
-nJw
+sKU
+yhI
 goo
 rxT
 uYX
@@ -143904,7 +144527,7 @@ sgv
 dgh
 rXQ
 jVo
-jVo
+odl
 jVo
 khw
 dgh
@@ -148861,7 +149484,7 @@ nJw
 nJw
 nJw
 dkK
-xDb
+ePz
 uYX
 uYX
 qbr
@@ -149213,7 +149836,7 @@ nJw
 nJw
 nJw
 dkK
-xDb
+ePz
 uYX
 ufS
 qbr
@@ -150269,7 +150892,7 @@ jHq
 nJw
 nJw
 usB
-xDb
+ePz
 ufS
 uYX
 rib
@@ -150973,7 +151596,7 @@ nJw
 aAK
 aAK
 dkK
-xDb
+ePz
 ufS
 stx
 stx
@@ -151325,7 +151948,7 @@ aAK
 nJw
 nJw
 dkK
-xDb
+ePz
 uYX
 ufS
 rib
@@ -152381,7 +153004,7 @@ aAK
 aAK
 aAK
 dkK
-xDb
+ePz
 uYX
 stx
 jwr
@@ -152733,7 +153356,7 @@ nJw
 nJw
 nJw
 dkK
-xDb
+ePz
 uYX
 stx
 jwr
@@ -152755,7 +153378,7 @@ uYX
 uYX
 uYX
 uYX
-drc
+qUN
 cKA
 aUJ
 uER
@@ -153085,7 +153708,7 @@ nJw
 nJw
 gUt
 dkK
-xDb
+ePz
 uYX
 stx
 jwr
@@ -153107,7 +153730,7 @@ bOv
 uYX
 uYX
 uYX
-stx
+gxc
 jFw
 aUJ
 uER
@@ -153437,7 +154060,7 @@ nJw
 nJw
 nJw
 dkK
-xDb
+ePz
 uYX
 stx
 ufS
@@ -153459,7 +154082,7 @@ uYX
 uYX
 uYX
 uYX
-stx
+gxc
 jFw
 aUJ
 uER
@@ -153789,7 +154412,7 @@ aAK
 aAK
 aAK
 dkK
-xDb
+ePz
 uYX
 stx
 ufS
@@ -153802,7 +154425,7 @@ uYX
 uYX
 uYX
 uYX
-uYX
+fIq
 uYX
 uYX
 uYX
@@ -153811,7 +154434,7 @@ ukQ
 uYX
 uYX
 uYX
-drc
+qUN
 mcG
 sTJ
 uER
@@ -154163,7 +154786,7 @@ uYX
 uYX
 uYX
 uYX
-drc
+qUN
 bza
 aUJ
 pKS
@@ -154515,7 +155138,7 @@ uYX
 uYX
 coI
 uYX
-drc
+qUN
 cKA
 aUJ
 nJw
@@ -154845,7 +155468,7 @@ aAK
 nJw
 aAK
 dkK
-xDb
+ePz
 stx
 stx
 ufS
@@ -154867,7 +155490,7 @@ uYX
 uYX
 uYX
 uYX
-stx
+gxc
 jFw
 aUJ
 nJw
@@ -155197,7 +155820,7 @@ nJw
 aAK
 nJw
 dkK
-xDb
+ePz
 stx
 ufS
 ufS
@@ -155206,6 +155829,7 @@ stx
 aHZ
 ufS
 uYX
+fIq
 uYX
 uYX
 uYX
@@ -155218,8 +155842,7 @@ uYX
 uYX
 uYX
 uYX
-uYX
-drc
+qUN
 bza
 sTJ
 uER
@@ -155571,7 +156194,7 @@ haX
 uYX
 uYX
 uYX
-drc
+qUN
 cKA
 aUJ
 pKS
@@ -155923,7 +156546,7 @@ uYX
 uYX
 uYX
 oFj
-stx
+gxc
 jFw
 sTJ
 uER
@@ -156253,7 +156876,7 @@ aAK
 aAK
 aAK
 dkK
-xDb
+ePz
 uYX
 uYX
 uYX
@@ -156275,7 +156898,7 @@ uYX
 uYX
 uYX
 uYX
-drc
+qUN
 mAd
 aUJ
 pKS
@@ -156605,29 +157228,29 @@ nJw
 nJw
 nJw
 dkK
-xDb
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-aeY
-npC
-npC
-mHI
-mHI
-mHI
-mHI
-mHI
-drc
+cSN
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+dDt
+pFX
+plN
+plN
+dDt
+dDt
+dDt
+dDt
+dDt
+bVp
 mAd
 aUJ
 nJw
@@ -159407,43 +160030,43 @@ jKJ
 jKJ
 jKJ
 jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-jKJ
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
-mHI
+xVH
+xVH
+xVH
+xVH
+xVH
+xVH
+xVH
+xVH
+xVH
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+wgq
+ffF
 mAd
 aUJ
 nJw
@@ -159795,7 +160418,7 @@ uYX
 uYX
 uYX
 uYX
-rvU
+tok
 ltN
 cux
 nJw
@@ -160147,7 +160770,7 @@ uYX
 uYX
 uYX
 uYX
-drc
+qUN
 jcR
 stx
 uYX
@@ -160499,7 +161122,7 @@ uYX
 uYX
 uYX
 uYX
-drc
+qUN
 jcR
 mGR
 rie
@@ -160851,7 +161474,7 @@ uYX
 uYX
 uYX
 uYX
-stx
+gxc
 jcR
 stx
 tqY
@@ -161177,7 +161800,7 @@ wba
 wba
 wba
 uYX
-uYX
+fIq
 uYX
 uYX
 uYX
@@ -161203,7 +161826,7 @@ uYX
 uYX
 uYX
 uYX
-drc
+qUN
 jcR
 qLu
 eTu
@@ -161555,7 +162178,7 @@ uYX
 uYX
 uYX
 uYX
-rvU
+oOL
 jcR
 stx
 qLu
@@ -162550,12 +163173,12 @@ ybw
 vML
 iJS
 eAy
-jps
+adB
 loH
 vML
 eAy
 eAy
-hOk
+vML
 vML
 gZs
 jKJ
@@ -163606,7 +164229,7 @@ ybw
 eAy
 fsi
 eAy
-jps
+adB
 jps
 eAy
 eAy
@@ -164352,7 +164975,7 @@ wba
 wba
 wba
 wba
-wba
+nji
 wba
 wba
 wba
@@ -166141,7 +166764,7 @@ wba
 wba
 wba
 wba
-wba
+nji
 wba
 wba
 wba
@@ -173540,7 +174163,7 @@ wba
 wba
 wba
 wba
-wba
+nji
 wba
 mAM
 xPe
@@ -178259,7 +178882,7 @@ bnR
 bMM
 bnR
 bnR
-bnR
+gsY
 bnR
 bnR
 xJY
@@ -178960,7 +179583,7 @@ avR
 faH
 bnR
 bnR
-bnR
+gsY
 bnR
 bnR
 bnR
@@ -183344,7 +183967,7 @@ cev
 eYJ
 eYJ
 cev
-jRX
+vDA
 ehy
 wba
 uQG
@@ -184752,7 +185375,7 @@ cev
 eYJ
 eYJ
 cev
-jRX
+vDA
 ehy
 wba
 nXd
@@ -185099,13 +185722,13 @@ jyB
 caA
 mrd
 mrd
-vcQ
+vDA
 dRq
 dRq
 dRq
 dRq
 dRq
-vcQ
+vDA
 wba
 wba
 nXd

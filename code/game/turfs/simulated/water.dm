@@ -255,7 +255,7 @@
 	depth = 2
 	color = "#bdeba2"
 	light_color= "#64C864"
-	slowdown = 4
+	slowdown = 8
 
 /turf/open/water/baltimore/shadow
 	name = "Deep Ocean water"
@@ -265,4 +265,4 @@
 	depth = 2
 	color = "#aaaaaa"
 	light_color= "#64C864"
-	slowdown = 2
+	slowdown = 8

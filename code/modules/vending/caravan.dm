@@ -300,16 +300,16 @@
 	desc = "Place weapon package inside. And get the caps."
 	goods_list = list(/obj/item/paper/fluff/brotherhood = 500,
 						/obj/item/paper/fluff/vault125 = 500,
-						/obj/item/paper/fluff/enclave = 500,
-						/obj/item/paper/fluff/institute = 500,)
+						/obj/item/paper/fluff/enclave = 250,
+						/obj/item/paper/fluff/institute = 250,)
 
 /obj/machinery/mineral/wasteland_trader/special/brotherhood
 	name = "Brotherhood exchange system"
 	desc = "Place weapon package inside. And get the caps."
 	goods_list = list(/obj/item/paper/fluff/minutemen = 500,
 						/obj/item/paper/fluff/vault125 = 500,
-						/obj/item/paper/fluff/enclave = 500,
-						/obj/item/paper/fluff/institute = 500,)
+						/obj/item/paper/fluff/enclave = 250,
+						/obj/item/paper/fluff/institute = 250,)
 
 /obj/machinery/mineral/wasteland_trader/special/vault125
 	name = "Vault125 Zax Computer system"
@@ -318,8 +318,8 @@
 	icon_state = "center"
 	goods_list = list(/obj/item/paper/fluff/minutemen = 500,
 						/obj/item/paper/fluff/brotherhood = 500,
-						/obj/item/paper/fluff/enclave = 500,
-						/obj/item/paper/fluff/institute = 500,)
+						/obj/item/paper/fluff/enclave = 250,
+						/obj/item/paper/fluff/institute = 250,)
 
 /obj/machinery/mineral/wasteland_trader/special/vault125/Topic(href, href_list)
 	if(..())

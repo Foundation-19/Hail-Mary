@@ -218,6 +218,12 @@
 	color = "#A47449";
 	dir = 4
 	},
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
@@ -862,6 +868,7 @@
 	icon_state = "8-9";
 	anchored = 1
 	},
+/obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
 "hI" = (
@@ -921,6 +928,48 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
+"ij" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/structure/fermenting_barrel/tank{
+	layer = 1
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/building/brotherhood)
 "il" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
 /area/f13/baltimore/building/abandoned/hospital)
@@ -1304,6 +1353,12 @@
 /obj/structure/fermenting_barrel/tank{
 	layer = 1
 	},
+/obj/machinery/light/small{
+	dir = 2;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/building/brotherhood)
 "mc" = (
@@ -1548,6 +1603,7 @@
 	icon_state = "5-6";
 	anchored = 1
 	},
+/obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
 "oT" = (
@@ -1763,6 +1819,12 @@
 	color = "#A47449";
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 1;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/building/brotherhood)
 "qR" = (
@@ -1827,6 +1889,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/brotherhood)
+"rE" = (
+/obj/structure/lattice,
+/turf/open/transparent/openspace,
+/area/f13/baltimore/wasteland/city)
 "rH" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1974,6 +2040,18 @@
 "sX" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/mayorial)
+"sZ" = (
+/obj/machinery/light/small{
+	dir = 2;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/building/brotherhood)
 "te" = (
 /obj/structure/bed{
 	layer = 2.7
@@ -2182,6 +2260,10 @@
 	pixel_x = -31;
 	anchored = 1
 	},
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture"
+	},
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
@@ -2231,6 +2313,7 @@
 	icon_state = "9-10";
 	anchored = 1
 	},
+/obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
 "vY" = (
@@ -2360,6 +2443,13 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
+/area/f13/baltimore/building/brotherhood)
+"wW" = (
+/obj/structure/table,
+/obj/item/hacking_device,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
 /area/f13/baltimore/building/brotherhood)
 "xa" = (
 /obj/structure/simple_door/repaired,
@@ -2568,6 +2658,13 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/baltimore/building/mayorial)
+"zg" = (
+/obj/structure/table,
+/obj/item/paper/fluff/brotherhood,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/building/brotherhood)
 "zo" = (
 /turf/closed/wall/rust,
 /area/f13/baltimore/building/mayorial)
@@ -3544,6 +3641,33 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/Ocean)
+"Jp" = (
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/obj/machinery/light/small{
+	dir = 2;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/building/brotherhood)
 "Ju" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4718,6 +4842,7 @@
 /obj/effect/overlay/rope{
 	icon_state = "6-9"
 	},
+/obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
 "Vr" = (
@@ -11424,7 +11549,7 @@ lq
 lq
 lq
 lq
-lq
+sZ
 cd
 ts
 Yy
@@ -11750,9 +11875,9 @@ lq
 lq
 kk
 zV
-Sj
+Jp
 ts
-ky
+ij
 xs
 gX
 gX
@@ -12092,7 +12217,7 @@ lq
 ys
 lq
 lq
-lq
+ys
 lq
 Ak
 uq
@@ -12128,7 +12253,7 @@ lq
 lq
 lq
 lq
-lq
+sZ
 ts
 cd
 Yy
@@ -12493,7 +12618,7 @@ XP
 XP
 ts
 MC
-Ds
+rE
 vJ
 Ds
 Vp
@@ -12800,7 +12925,7 @@ dh
 ex
 ex
 MQ
-uI
+wW
 ts
 ED
 ex
@@ -13504,7 +13629,7 @@ ts
 og
 ex
 MQ
-uI
+zg
 ts
 ED
 ex
