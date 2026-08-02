@@ -6,13 +6,70 @@ GLOBAL_LIST_EMPTY(global_locks)
 	var/lock_data
 	var/static/lock_uid = 1
 	var/locked = FALSE
+	/// Lock difficulty for lockpicking mini-game (1 = trivial, 5 = master-security).
+	var/lock_tier = 1
 	var/prying = FALSE //if somebody is trying to pry us off
+	/// Set TRUE when the lock is bypassed by lockpicking — cleared when re-locked with a key.
+	var/tampered = FALSE
+	/// Stored tumbler solution — per-pin min/max/type/false-zone/stack-height.
+	/// Generated on the first lockpick attempt and reused on all subsequent ones
+	/// so the lock has a consistent combination. Cleared on successful pick.
+	var/list/pin_solution = null
+	/// Stored binding order for the pin solution.
+	var/list/pin_bind_order = null
+	/// world.time after which a new pick attempt may begin.
+	/// Set after every non-success ending to impose a mechanism-reset delay.
+	var/pick_reset_until = 0
 
-/obj/item/lock_construct/Initialize() // Same system machines use for UID. Could probably add a global UID for everything if you wanted and use it for shenanigans, or simpler loading.
+/obj/item/lock_construct/Initialize()
 	. = ..()
 	lock_data = lock_uid++
-	desc = "A heavy-duty lock for doors. It has [lock_data] engraved on it."
+	desc = "A basic lock for doors. It has [lock_data] engraved on it."
 	GLOB.global_locks += src
+
+/obj/item/lock_construct/examine(mob/user)
+	. = ..()
+	switch(lock_tier)
+		if(1) . += span_notice("The mechanism is simple — basic tumbler, easy to pick.")
+		if(2) . += span_notice("The mechanism looks sturdy — standard quality.")
+		if(3) . += span_notice("The mechanism looks heavy-duty — reinforced internals.")
+		if(4) . += span_notice("The mechanism is complex — security-grade pins.")
+		if(5) . += span_notice("The mechanism looks formidable — master-security grade.")
+
+// Tier subtypes — each has a distinct name, description, and lock_tier.
+// Tier 1 is the base type. Tiers 2–5 are crafted at a workbench.
+
+/obj/item/lock_construct/tier2
+	name = "\improper standard lock"
+	lock_tier = 2
+
+/obj/item/lock_construct/tier2/Initialize()
+	. = ..()
+	desc = "A well-made standard lock. It has [lock_data] engraved on it."
+
+/obj/item/lock_construct/tier3
+	name = "\improper reinforced lock"
+	lock_tier = 3
+
+/obj/item/lock_construct/tier3/Initialize()
+	. = ..()
+	desc = "A reinforced lock with hardened internals. It has [lock_data] engraved on it."
+
+/obj/item/lock_construct/tier4
+	name = "\improper security lock"
+	lock_tier = 4
+
+/obj/item/lock_construct/tier4/Initialize()
+	. = ..()
+	desc = "A security-grade lock with precision-machined pins. It has [lock_data] engraved on it."
+
+/obj/item/lock_construct/tier5
+	name = "\improper master security lock"
+	lock_tier = 5
+
+/obj/item/lock_construct/tier5/Initialize()
+	. = ..()
+	desc = "A formidable vault-quality lock. Almost nothing short of a master pick will open this. It has [lock_data] engraved on it."
 
 /obj/item/lock_construct/Destroy()
 	..()
@@ -44,6 +101,7 @@ GLOBAL_LIST_EMPTY(global_locks)
 		else
 			user.visible_message(span_warning("[user] locks \the [src]."))
 			locked = TRUE
+			tampered = FALSE  // faction member re-locked it — tampering acknowledged
 	else
 		to_chat(user, span_warning("This is the wrong key!"))
 

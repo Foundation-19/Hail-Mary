@@ -1,12 +1,52 @@
 Any time you make a change to the schema files, remember to increment the database schema version. Generally increment the minor number, major should be reserved for significant changes to the schema. Both values go up to 255.
 
-The latest database version is 4.7; The query to update the schema revision table is:
+The latest database version is 4.9; The query to update the schema revision table is:
 
-INSERT INTO `schema_revision` (`major`, `minor`) VALUES (4, 7);
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (4, 9);
 or
-INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (4, 7);
+INSERT INTO `SS13_schema_revision` (`major`, `minor`) VALUES (4, 9);
 
 In any query remember to add a prefix to the table names if you use one.
+
+----------------------------------------------------
+
+Version 4.9, 25 March 2026, by Malerus
+Added exp_type_exempt table for per-player faction exp exemptions
+This table is required by the multi-tier XP and exemption system. Players who are granted admin
+exemptions from XP requirements have their exemptions stored here. Missing table was causing
+ERROR 1146 on every login (load_exp_type_exempts) and on every admin toggle-exempt action.
+
+CREATE TABLE `exp_type_exempt` ( `ckey` VARCHAR(32) NOT NULL , `exp_type` VARCHAR(64) NOT NULL , PRIMARY KEY (`ckey`, `exp_type`) ) ENGINE = InnoDB;
+
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (4, 9);
+
+----------------------------------------------------
+
+Version 4.8, 25 March 2026, by Malerus
+Fixed role_time trigger unsigned integer underflow
+The `role_timeTlogupdate` and `role_timeTlogdelete` triggers used raw subtraction on INT UNSIGNED
+columns (`NEW.minutes - OLD.minutes` and `0-OLD.minutes`). In MySQL strict mode (the default since
+MySQL 8.0), subtracting a larger UNSIGNED value from a smaller one produces a BIGINT UNSIGNED
+out-of-range error, which propagates through the trigger and causes the parent UPDATE/DELETE to
+fail. This broke the admin "Reset Hours" and "Set Hours" features whenever hours were decreased.
+
+Fix: cast both operands to SIGNED before subtraction.
+
+DROP TRIGGER IF EXISTS `role_timeTlogupdate`;
+DROP TRIGGER IF EXISTS `role_timeTlogdelete`;
+
+DELIMITER $$
+CREATE TRIGGER `role_timeTlogupdate` AFTER UPDATE ON `role_time` FOR EACH ROW BEGIN INSERT into role_time_log (ckey, job, delta) VALUES (NEW.ckey, NEW.job, CAST(NEW.minutes AS SIGNED) - CAST(OLD.minutes AS SIGNED));
+END
+$$
+CREATE TRIGGER `role_timeTlogdelete` AFTER DELETE ON `role_time` FOR EACH ROW BEGIN INSERT into role_time_log (ckey, job, delta) VALUES (OLD.ckey, OLD.job, -CAST(OLD.minutes AS SIGNED));
+END
+$$
+
+For prefixed installations replace `role_time` / `role_time_log` with `SS13_role_time` / `SS13_role_time_log`
+and the trigger names with `SS13_role_timeTlogupdate` / `SS13_role_timeTlogdelete`.
+
+INSERT INTO `schema_revision` (`major`, `minor`) VALUES (4, 8);
 
 ----------------------------------------------------
 

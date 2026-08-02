@@ -272,6 +272,9 @@
 	return ..()
 
 /datum/effect_system/smoke_spread/chem/set_up(datum/reagents/carry = null, radius = 1, loca, silent = FALSE)
+	if(!istype(carry, /datum/reagents))
+		stack_trace("smoke_spread/chem/set_up called with invalid reagents (got [carry])")
+		return
 	if(isturf(loca))
 		location = loca
 	else

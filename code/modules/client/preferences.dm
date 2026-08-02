@@ -162,6 +162,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/hud_toggle_color = "#ffffff"
 
 	var/list/exp = list()
+	/// exp types for which this player is individually exempt from playtime requirements (assoc: type -> TRUE)
+	var/list/exp_type_exempt = list()
 	var/list/menuoptions
 
 	var/list/job_whitelists = list()
@@ -876,6 +878,12 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	return {"<!DOCTYPE html>
 <html><head><meta charset='UTF-8'><style>
 * { box-sizing: border-box; }
+::-webkit-scrollbar { width: 8px; height: 8px; background: #030a03; }
+::-webkit-scrollbar-track { background: #030a03; border-left: 1px solid rgba(76,255,76,0.08); }
+::-webkit-scrollbar-thumb { background: rgba(76,255,76,0.38); border-radius: 0; border: 1px solid rgba(76,255,76,0.15); }
+::-webkit-scrollbar-thumb:hover { background: rgba(76,255,76,0.65); }
+::-webkit-scrollbar-thumb:active { background: #4cff4c; }
+::-webkit-scrollbar-corner { background: #030a03; }
 body { background: #062113; color: #4aed92; font-family: 'Courier New',Courier,monospace; font-size: 13px; line-height: 1.6; padding: 8px 12px 12px; animation: flicker 10s infinite; }
 a, a:link, a:visited, a:active, .linkOn, .linkOff { color: #4aed92; text-decoration: none; background: #062113; border: none; padding: 1px 5px; cursor: default; }
 a:hover { color: #062113; background: #4aed92; }

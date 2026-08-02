@@ -157,8 +157,11 @@
 	else
 		icon_state = "open"
 
-/obj/machinery/door/poddoor/try_to_activate_door(mob/user)
-	return
+/obj/machinery/door/poddoor/try_to_activate_door(mob/user, force_open)
+	if(force_open && density)
+		open()
+		return TRUE
+	// Poddoors don't respond to manual bumping — use a linked button
 
 /obj/machinery/door/poddoor/try_to_crowbar(obj/item/I, mob/user)
 	if(stat & NOPOWER)

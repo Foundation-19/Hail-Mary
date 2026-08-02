@@ -101,6 +101,22 @@
 	icon_state = "book1"
 	remarks = list("One smooth motion...", "Palm the bolt...", "Push up, rotate back, push forward, down...", "Don't slap yourself with the bolt...", "Wait, what's this about pumping?", "Who just scribbled \"Z\" and \"LMB\" on this page?")
 
+/obj/item/book/granter/trait/lockpicking
+	name = "Confidential: The Art of the Open Door"
+	desc = "A slim, dog-eared manual with no author listed. Chapters cover pin-tumbler theory, tension control, and reading binding order by feel. Someone has underlined the words 'patience' and 'don\'t rush' in every chapter."
+	oneuse = TRUE
+	granted_trait = TRAIT_LOCKPICKING
+	traitname = "lockpicking"
+	icon_state = "book2"
+	remarks = list(
+		"Single-pin picking: apply light tension, find the binding pin...",
+		"The binding pin is the one the cylinder is pressing on hardest...",
+		"Set it, move to the next. Don\'t rush — the cylinder remembers...",
+		"False sets feel almost right. Trust the feedback, not the click...",
+		"If it jams, you pushed too fast. The pick is now your enemy...",
+		"The last pin drops and something clicks. That\'s the feeling."
+	)
+
 ///ACTION BUTTONS///
 
 /obj/item/book/granter/action
@@ -1057,6 +1073,14 @@
 	granted_trait = TRAIT_PA_WEAR
 	traitname = "Power Armor"
 	remarks = list("Daily maintenance is essential, clean and repair your suit often.", "Don't let overconfidence kill you, you are not invincible.", "Mechanized infantry should always be supported by regular infantry.", "You move slowly, pay attention to your position relative to the enemy.", "You are always vulnerable to ambush, do not rest in the field.", "AP rounds will shred your suit, you are not invincible.")
+
+/obj/item/book/granter/trait/pilot
+	name = "Vertibird Valkiries : The Balkan War"
+	desc = "A comic book, with a guide to learn how to fly vertibirds. And balloons."
+	oneuse = TRUE
+	granted_trait = TRAIT_PILOT
+	traitname = "Pilot"
+	remarks = list("You feel the need for speed.", "The transition between horizontal and vertical flight is tricky, rotor angle is key.", "Stalling is a risk", "Yo buddy, Still alive ?", "Watch out, the skys are yours.", "... Hold on, there is a page on baloons ?!",)
 
 /obj/item/book/granter/trait/explosives
 	name = "Industrial Society and Its Future"

@@ -1,0 +1,549 @@
+/**
+ * Fallout / RobCo Industries terminal theme for tgui-panel.
+ * Phosphor green (#4cff4c) on near-black (#050c05).
+ * CRT scanlines, monospace font, subtle flicker animation.
+ */
+
+@use 'sass:math';
+@use 'sass:color';
+
+$phosphor:      #4cff4c;
+$phosphor-dim:  #2d8c2d;
+$phosphor-text: #a0d0a0;
+$phosphor-bg:   #050c05;
+$phosphor-bg2:  #071507;
+$phosphor-dark: #030a03;
+
+@keyframes panel-crt-flicker {
+  0%, 100% { opacity: 1; }
+  87%       { opacity: 1; }
+  88%       { opacity: 0.84; }
+  89%       { opacity: 1; }
+  97%       { opacity: 1; }
+  98%       { opacity: 0.90; }
+  99%       { opacity: 1; }
+}
+
+@keyframes tab-pulse {
+  0%, 100% { text-shadow: 0 0 5px rgba(76, 255, 76, 0.65); }
+  50%       { text-shadow: 0 0 8px rgba(76, 255, 76, 0.95), 0 0 16px rgba(76, 255, 76, 0.35); }
+}
+
+@keyframes msg-appear {
+  from { opacity: 0; transform: translateY(2px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.theme-fallout {
+  background-color: $phosphor-bg;
+  color: $phosphor-text;
+  font-family: 'Courier New', Courier, monospace;
+  animation: panel-crt-flicker 14s infinite;
+
+  // CRT scanline overlay
+  &::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.045) 2px,
+      rgba(0, 0, 0, 0.045) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  // ── Layout / Pane ─────────────────────────────────────────
+  .Pane {
+    background-color: $phosphor-bg;
+  }
+
+  // Ensure full height background is always dark so no white bleeds
+  html,
+  body {
+    background-color: $phosphor-bg !important;
+  }
+
+  .Layout__content {
+    background-image: none;
+    background-color: $phosphor-bg;
+  }
+
+  // ── Section ───────────────────────────────────────────────
+  .Section {
+    background: transparent;
+    border-color: rgba(76, 255, 76, 0.18);
+    box-shadow: none;
+    border-left: 2px solid rgba(76, 255, 76, 0.1);
+  }
+
+  .Section__title {
+    background: transparent;
+    border-bottom: 1px solid rgba(76, 255, 76, 0.22);
+    padding-bottom: 2px;
+  }
+
+  .Section__titleText {
+    color: $phosphor;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.82em;
+    text-shadow: 0 0 6px rgba(76, 255, 76, 0.45);
+
+    &::before {
+      content: '[ ';
+      color: $phosphor-dim;
+    }
+
+    &::after {
+      content: ' ]';
+      color: $phosphor-dim;
+    }
+  }
+
+  .Section__content {
+    background: transparent;
+  }
+
+  // ── Tabs (chat page tabs) ─────────────────────────────────
+  .Tabs {
+    background: transparent;
+    border-bottom: 1px solid rgba(76, 255, 76, 0.2);
+  }
+
+  .Tab {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82em;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: rgba(76, 255, 76, 0.45);
+    border-bottom: 2px solid transparent;
+    padding: 0.35em 0.8em;
+    transition: color 80ms, background 80ms;
+
+    &:hover {
+      background: rgba(76, 255, 76, 0.06);
+      color: rgba(76, 255, 76, 0.8);
+    }
+  }
+
+  .Tab--selected {
+    color: $phosphor;
+    background: rgba(76, 255, 76, 0.09);
+    border-bottom-color: $phosphor;
+    animation: tab-pulse 2.8s ease-in-out infinite;
+  }
+
+  // ── Buttons ───────────────────────────────────────────────
+  .Button {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.82em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: $phosphor-dark;
+    color: rgba(76, 255, 76, 0.5);
+    border: 1px solid rgba(76, 255, 76, 0.22);
+    border-radius: 0;
+    transition: color 80ms, border-color 80ms, background 80ms, text-shadow 80ms;
+
+    &:hover {
+      background: $phosphor-bg2;
+      color: rgba(76, 255, 76, 0.85);
+      text-shadow: 0 0 5px rgba(76, 255, 76, 0.5);
+      border-color: rgba(76, 255, 76, 0.42);
+    }
+
+    &.Button--selected {
+      background: $phosphor-bg2;
+      color: $phosphor;
+      text-shadow: 0 0 6px rgba(76, 255, 76, 0.8);
+      border-color: rgba(76, 255, 76, 0.6);
+    }
+
+    &.Button--color--good {
+      color: $phosphor;
+      border-color: rgba(76, 255, 76, 0.4);
+    }
+
+    &.Button--color--bad {
+      color: #ff5c5c;
+      border-color: rgba(255, 60, 60, 0.3);
+    }
+
+    &.Button--color--caution {
+      color: #c8b428;
+      border-color: rgba(200, 180, 40, 0.3);
+    }
+
+    &.Button--color--transparent {
+      background: transparent;
+      border-color: transparent;
+      color: rgba(76, 255, 76, 0.5);
+
+      &:hover {
+        color: $phosphor;
+        background: rgba(76, 255, 76, 0.08);
+        border-color: transparent;
+      }
+    }
+
+    &.Button--color--grey {
+      background: $phosphor-dark;
+      color: rgba(76, 255, 76, 0.4);
+      border-color: rgba(76, 255, 76, 0.15);
+    }
+  }
+
+  // ── Chat panel ────────────────────────────────────────────
+  .Chat {
+    color: $phosphor-text;
+    font-family: 'Courier New', Courier, monospace;
+    // Subtle scanline over chat content only
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  }
+
+  .ChatMessage {
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.6;
+    animation: msg-appear 120ms ease-out both;
+  }
+
+  .ChatMessage--highlighted {
+    border-left-color: $phosphor;
+
+    &::after {
+      background-color: rgba(76, 255, 76, 0.07);
+    }
+  }
+
+  .Chat__scrollButton {
+    right: 1.2em;
+    bottom: 0.8em;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.75em;
+    letter-spacing: 0.06em;
+  }
+
+  .Chat__badge {
+    background-color: rgba(160, 30, 30, 0.9);
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .Chat__reconnected {
+    &::before {
+      color: #ff5c5c;
+      background-color: $phosphor-dark;
+      font-family: 'Courier New', Courier, monospace;
+      letter-spacing: 0.1em;
+    }
+
+    &::after {
+      border-color: #ff5c5c;
+    }
+  }
+
+  // ── Input / TextArea / NumberInput ────────────────────────
+  .Input {
+    background: $phosphor-dark;
+    border-color: rgba(76, 255, 76, 0.28);
+    border-radius: 0;
+    color: $phosphor-text;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+
+    &:focus-within {
+      border-color: rgba(76, 255, 76, 0.6);
+      box-shadow: 0 0 5px rgba(76, 255, 76, 0.15);
+    }
+  }
+
+  .Input__input {
+    color: $phosphor-text;
+    background-color: $phosphor-dark; // explicit dark bg — native <input> can show white without this
+    font-family: 'Courier New', Courier, monospace;
+
+    &::placeholder {
+      color: rgba(76, 255, 76, 0.25);
+    }
+  }
+
+  .NumberInput {
+    background: $phosphor-dark;
+    border-color: rgba(76, 255, 76, 0.28);
+    border-radius: 0;
+    color: $phosphor;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .NumberInput__bar {
+    background: $phosphor-dim;
+    border-color: $phosphor-dim;
+  }
+
+  .TextArea {
+    background: $phosphor-dark;
+    border-color: rgba(76, 255, 76, 0.28);
+    color: $phosphor-text;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  // ── Dropdown ──────────────────────────────────────────────
+  .Dropdown {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .Dropdown__control {
+    background: $phosphor-dark;
+    border-color: rgba(76, 255, 76, 0.28);
+    border-radius: 0;
+    color: $phosphor-text;
+
+    &:hover {
+      border-color: rgba(76, 255, 76, 0.5);
+      background: $phosphor-bg2;
+    }
+  }
+
+  .Dropdown__menu {
+    background: $phosphor-dark;
+    border: 1px solid rgba(76, 255, 76, 0.28);
+    border-radius: 0;
+  }
+
+  .Dropdown__option {
+    color: $phosphor-text;
+    font-family: 'Courier New', Courier, monospace;
+
+    &:hover {
+      background: rgba(76, 255, 76, 0.1);
+      color: $phosphor;
+    }
+
+    &--selected {
+      background: rgba(76, 255, 76, 0.12);
+      color: $phosphor;
+      text-shadow: 0 0 4px rgba(76, 255, 76, 0.4);
+    }
+  }
+
+  // ── LabeledList ───────────────────────────────────────────
+  .LabeledList__label {
+    color: rgba(76, 255, 76, 0.55);
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  // ── Ping indicator ────────────────────────────────────────
+  .Ping {
+    border-color: rgba(76, 255, 76, 0.22);
+    font-family: 'Courier New', Courier, monospace;
+    color: rgba(76, 255, 76, 0.55);
+    font-size: 0.78em;
+    letter-spacing: 0.04em;
+  }
+
+  .Ping__indicator {
+    background-color: $phosphor-dim;
+    border-radius: 0;
+    box-shadow: 0 0 4px rgba(76, 255, 76, 0.4);
+  }
+
+  // ── Notification bar ──────────────────────────────────────
+  .Notification {
+    background-color: rgba(100, 20, 20, 0.85);
+    color: $phosphor-text;
+    border-left: 2px solid #ff4c4c;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  // ── Divider ───────────────────────────────────────────────
+  .Divider {
+    border-color: rgba(76, 255, 76, 0.14);
+  }
+
+  // ── Links ─────────────────────────────────────────────────
+  a {
+    color: $phosphor;
+    text-decoration: none;
+
+    &:hover {
+      color: #c8ffc8;
+      text-shadow: 0 0 4px rgba(76, 255, 76, 0.55);
+    }
+  }
+
+  // ── Scrollbars (webkit + IE legacy) ──────────────────────
+  *,
+  .Layout,
+  .Layout * {
+    // NOTE: do NOT set scrollbar-color here. Chrome 121+ treats it as
+    // authoritative and ignores all ::-webkit-scrollbar pseudo-element rules.
+    // IE/legacy scrollbar properties
+    scrollbar-base-color: #030a03;
+    scrollbar-face-color: #1a4a1a;
+    scrollbar-3dlight-color: #030a03;
+    scrollbar-highlight-color: #030a03;
+    scrollbar-track-color: #030a03;
+    scrollbar-arrow-color: $phosphor-dim;
+    scrollbar-shadow-color: #0a2a0a;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    background: #030a03;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #030a03;
+    border-left: 1px solid rgba(76, 255, 76, 0.08);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(76, 255, 76, 0.38);
+    border-radius: 0;
+    border: 1px solid rgba(76, 255, 76, 0.15);
+
+    &:hover {
+      background: rgba(76, 255, 76, 0.65);
+      box-shadow: 0 0 4px rgba(76, 255, 76, 0.30);
+    }
+
+    &:active {
+      background: $phosphor;
+    }
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: #030a03;
+  }
+
+  // ── NowPlayingWidget ──────────────────────────────────────
+  .NowPlaying {
+    color: $phosphor-text;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  // ── In-game chat message span classes ────────────────────
+  .Chat {
+    // Local speech
+    .say        { color: #c8ffc8; }
+    .bold       { color: #c8ffc8; font-weight: bold; }
+    // Emotes / subtle
+    .emote      { color: rgba(160, 208, 160, 0.72); font-style: italic; }
+    .subtle     { color: rgba(76, 255, 76, 0.45); font-style: italic; }
+    .me         { color: rgba(160, 255, 160, 0.72); font-style: italic; }
+    .game-me    { color: rgba(160, 255, 160, 0.72); font-style: italic; }
+    // Whisper
+    .whisper    { color: rgba(160, 208, 160, 0.5); font-style: italic; }
+    // Radio
+    .radio      { color: $phosphor-text; }
+    // OOC / LOOC
+    .ooc        { color: #a0a0ff; }
+    .looc       { color: #b8b8f0; }
+    // Admin / Mod
+    .admin      { color: #ffb0b0; }
+    .adminPriv  { color: #ff8888; }
+    // System / Alert
+    .boldannounce { color: #fff066; font-weight: bold; letter-spacing: 0.03em; }
+    .alert      { color: #ff5c5c; }
+    .danger     { color: #ff5c5c; font-weight: bold; }
+    // Info / warn
+    .notice     { color: #a0d0a0; }
+    .warning    { color: #c8b428; }
+    // Timestamp
+    .timestamp, .Chat__timestamp {
+      color: rgba(76, 255, 76, 0.25);
+      font-size: 0.78em;
+      letter-spacing: 0.03em;
+    }
+  }
+
+  // ── Chat message hover glow ───────────────────────────────
+  .ChatMessage {
+    font-family: 'Courier New', Courier, monospace;
+    line-height: 1.6;
+    animation: msg-appear 120ms ease-out both;
+    padding-left: 2px;
+    transition: background 80ms;
+
+    &:hover {
+      background: rgba(76, 255, 76, 0.03);
+    }
+  }
+
+  // ── Text selection colour ─────────────────────────────────
+  ::selection {
+    background: rgba(76, 255, 76, 0.28);
+    color: $phosphor;
+  }
+
+  // ── Knob (volume control) ─────────────────────────────────
+  .Knob {
+    color: $phosphor;
+
+    &__pointer {
+      background: $phosphor !important;
+      box-shadow: 0 0 4px rgba(76, 255, 76, 0.6) !important;
+    }
+  }
+
+  // ── Pane outer glow ───────────────────────────────────────
+  .Pane {
+    background-color: $phosphor-bg;
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(76, 255, 76, 0.07);
+  }
+
+  // ── Chat scroll button terminal style ─────────────────────
+  .Chat__scrollButton {
+    background: $phosphor-dark !important;
+    border: 1px solid rgba(76, 255, 76, 0.4) !important;
+    color: $phosphor !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 0.75em !important;
+    letter-spacing: 0.04em !important;
+    text-shadow: 0 0 4px rgba(76, 255, 76, 0.4) !important;
+    padding: 2px 8px !important;
+    text-transform: uppercase !important;
+
+    &:hover {
+      background: $phosphor-bg2 !important;
+      box-shadow: 0 0 6px rgba(76, 255, 76, 0.3) !important;
+    }
+  }
+
+  // ── Chat reconnected marker ───────────────────────────────
+  .Chat__reconnected::before {
+    content: '>> RECONNECTED' !important;
+    color: $phosphor !important;
+    background: $phosphor-dark !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    letter-spacing: 0.14em !important;
+    font-size: 0.78em !important;
+  }
+
+  // ── Top-bar Section (chat tabs area) ─────────────────────
+  .Section--fitted {
+    border-bottom: 1px solid rgba(76, 255, 76, 0.12) !important;
+    background: $phosphor-dark !important;
+  }
+}

@@ -386,6 +386,81 @@ GLOBAL_LIST_INIT(exp_specialmap, list(
 GLOBAL_PROTECT(exp_jobsmap)
 GLOBAL_PROTECT(exp_specialmap)
 
+/// Maps "Faction/Tier" compound keys → list of job titles in that tier.
+/// These compound keys are valid entries in exp_type_exempt alongside full-faction keys.
+/// Tier names: Commander, Officer, Senior NCO, NCO, Misc, Enlisted.
+GLOBAL_LIST_INIT(exp_tiermap, list(
+	// NCR
+	"NCR/Officer"     = list("NCR Captain", "NCR Lieutenant", "NCR Medical Officer", "NCR Logistics Officer"),
+	"NCR/Senior NCO"  = list("NCR Sergeant First Class", "NCR Heavy Trooper", "NCR Drill Sergeant"),
+	"NCR/NCO"         = list("NCR Sergeant", "NCR Corporal", "NCR Combat Medic", "NCR Combat Engineer"),
+	"NCR/Misc"        = list("NCR Brahmin Baron", "NCR Military Police", "NCR Rear Echelon"),
+	"NCR/Enlisted"    = list("NCR Trooper", "NCR Conscript"),
+	// Ranger
+	"Ranger/Officer"  = list("NCR Veteran Ranger"),
+	"Ranger/Enlisted" = list("NCR Ranger"),
+	// Brotherhood of Steel
+	"Brotherhood of Steel/Commander"      = list("Elder Envoy", "Sentinel"),
+	"Brotherhood of Steel/Officer"    = list("Paladin Commander", "Knight-Captain", "Proctor", "Star Paladin"),
+	"Brotherhood of Steel/Senior NCO" = list("Paladin", "Senior Knight", "Senior Scribe"),
+	"Brotherhood of Steel/NCO"        = list("Knight Sergeant", "Knight", "Scribe"),
+	"Brotherhood of Steel/Enlisted"   = list("Initiate"),
+	// Legion
+	"Legion/Commander"      = list("Legion Orator", "Legion Centurion"),
+	"Legion/Officer"    = list("Legion Lictor", "Legion Veteran Decanus"),
+	"Legion/Senior NCO" = list("Legion Prime Decanus", "Legion Vexillarius"),
+	"Legion/NCO"        = list("Legion Recruit Decanus", "Legion Scout", "Legion Explorer"),
+	"Legion/Misc"       = list("Legion Forgemaster", "Legion Immune", "Legion Auxilia", "Legion Slavemaster"),
+	"Legion/Enlisted"   = list("Veteran Legionnaire", "Prime Legionnaire", "Recruit Legionnaire", "Legion Slave"),
+	// Vault
+	"Vault/Commander"    = list("Overseer", "Chief of Security"),
+	"Vault/Misc"     = list("Vault-tec Doctor", "Vault-tec Scientist", "Vault-tec Engineer"),
+	"Vault/Enlisted" = list("Vault-tec Security", "Vault Dweller", "Cyborg"),
+	// Enclave
+	"Enclave/Officer"    = list("Enclave Captain", "Enclave Lieutenant"),
+	"Enclave/Senior NCO" = list("Enclave Sergeant"),
+	"Enclave/NCO"        = list("Enclave Corporal", "Enclave Specialist"),
+	"Enclave/Misc"       = list("Enclave Scientist"),
+	"Enclave/Enlisted"   = list("Enclave Private"),
+	// Eastwood
+	"Eastwood/Commander"    = list("Warden", "Secretary", "Head of the Watch"),
+	"Eastwood/Officer"  = list("Detective", "Banker", "Merchant"),
+	"Eastwood/Misc"     = list("Blacksmith", "Apothecary", "Tavern Keeper", "Merchants Mercenary", "Vertibird Pilot", "Jester"),
+	"Eastwood/Enlisted" = list("Watchmen", "Farmer", "Citizen"),
+	// Wasteland
+	"Wasteland/Commander"    = list("Den Mob Boss", "Preacher"),
+	"Wasteland/Misc"     = list("Den Mob Enforcer", "Den Doctor", "Faithful", "Vigilante"),
+	"Wasteland/Enlisted" = list("Wastelander", "Far-Lands Tribals"),
+	// Great Khans
+	"Great Khans/Enlisted" = list("Great Khans"),
+	// Tribal
+	"Tribal/Commander"    = list("Chief", "Shaman"),
+	"Tribal/NCO"      = list("Head Hunter"),
+	"Tribal/Misc"     = list("Druid", "Guardian"),
+	"Tribal/Enlisted" = list("Villager", "Hunter", "Spirit-Pledged"),
+	// Followers
+	"Followers/Commander"    = list("Senior Doctor"),
+	"Followers/Misc"     = list("Town Doctor", "Town Scientist"),
+	"Followers/Enlisted" = list("Town Paramedic", "Nurse"),
+))
+GLOBAL_PROTECT(exp_tiermap)
+
+/// Ordered tier name chain from lowest to highest. "Misc" sits outside this chain.
+GLOBAL_LIST_INIT(exp_tier_order, list(EXP_TIER_ENLISTED, EXP_TIER_NCO, EXP_TIER_SNCO, EXP_TIER_OFFICER, EXP_TIER_COMMANDER))
+
+/// Per-tier requirements to access roles at that tier.
+/// "faction" = minutes summed across ALL jobs in the target faction.
+/// "wasteland" = minutes summed across all Wasteland jobs.
+/// "other_faction" = minutes in the single best other faction (any faction except the target).
+GLOBAL_LIST_INIT(exp_tier_requirements, list(
+	EXP_TIER_ENLISTED = list("wasteland" = 720),                          // 12h Wasteland
+	EXP_TIER_MISC     = list("faction" = 900),                            // 15h own faction
+	EXP_TIER_NCO      = list("faction" = 1500),                           // 25h own faction
+	EXP_TIER_SNCO     = list("faction" = 1800, "wasteland" = 1800),       // 30h own faction + 30h Wasteland
+	EXP_TIER_OFFICER  = list("faction" = 3300, "other_faction" = 720),    // 55h own faction + 12h any other faction
+	EXP_TIER_COMMANDER    = list("faction" = 4500, "other_faction" = 2100),   // 75h own faction + 35h any other faction
+))
+
 /proc/guest_jobbans(job)
 	return ((job in GLOB.command_positions) || (job in GLOB.nonhuman_positions) || (job in GLOB.security_positions))
 

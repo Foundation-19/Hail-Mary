@@ -4,11 +4,17 @@
  * @license MIT
  */
 
-export const THEMES = ['light', 'dark'];
+export const THEMES = ['fallout', 'dark', 'light'];
 
 const COLOR_DARK_BG = '#202020';
 const COLOR_DARK_BG_DARKER = '#171717';
 const COLOR_DARK_TEXT = '#a4bad6';
+
+const COLOR_FALLOUT_BG = '#050c05';
+const COLOR_FALLOUT_BG_DARKER = '#030a03';
+const COLOR_FALLOUT_TEXT = '#a0d0a0';
+const COLOR_FALLOUT_PHOSPHOR = '#4cff4c';
+const COLOR_FALLOUT_BTN = '#0a1f0a';
 
 let setClientThemeTimer = null;
 
@@ -75,6 +81,71 @@ export const setClientTheme = name => {
       'asset_cache_browser.text-color': '#000000',
       'tooltip.background-color': 'none',
       'tooltip.text-color': '#000000',
+    });
+  }
+  if (name === 'fallout') {
+    Byond.winset({
+      // Main windows
+      'infowindow.background-color': COLOR_FALLOUT_BG,
+      'infowindow.text-color': COLOR_FALLOUT_TEXT,
+      'info.background-color': COLOR_FALLOUT_BG,
+      'info.text-color': COLOR_FALLOUT_TEXT,
+      'browseroutput.background-color': COLOR_FALLOUT_BG,
+      'browseroutput.text-color': COLOR_FALLOUT_TEXT,
+      'outputwindow.background-color': COLOR_FALLOUT_BG,
+      'outputwindow.text-color': COLOR_FALLOUT_TEXT,
+      'mainwindow.background-color': COLOR_FALLOUT_BG,
+      'split.background-color': COLOR_FALLOUT_BG,
+      // Top-bar buttons (Wiki, Changelog, Discord etc.)
+      'rules.background-color': COLOR_FALLOUT_BG_DARKER,
+      'rules.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'wiki.background-color': COLOR_FALLOUT_BG_DARKER,
+      'wiki.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'forum.background-color': COLOR_FALLOUT_BG_DARKER,
+      'forum.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'report-issue.background-color': COLOR_FALLOUT_BG_DARKER,
+      'report-issue.text-color': COLOR_FALLOUT_PHOSPHOR,
+      // Status and verb tabs
+      'output.background-color': COLOR_FALLOUT_BG_DARKER,
+      'output.text-color': COLOR_FALLOUT_TEXT,
+      'statwindow.background-color': COLOR_FALLOUT_BG_DARKER,
+      'statwindow.text-color': COLOR_FALLOUT_TEXT,
+      'stat.background-color': COLOR_FALLOUT_BG_DARKER,
+      'stat.tab-background-color': COLOR_FALLOUT_BG,
+      'stat.text-color': COLOR_FALLOUT_TEXT,
+      'stat.tab-text-color': COLOR_FALLOUT_PHOSPHOR,
+      'stat.prefix-color': COLOR_FALLOUT_TEXT,
+      'stat.suffix-color': COLOR_FALLOUT_TEXT,
+      // Say, OOC, me buttons etc.
+      'saybutton.background-color': COLOR_FALLOUT_BTN,
+      'saybutton.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'oocbutton.background-color': COLOR_FALLOUT_BTN,
+      'oocbutton.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'mebutton.background-color': COLOR_FALLOUT_BTN,
+      'mebutton.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'asset_cache_browser.background-color': COLOR_FALLOUT_BG,
+      'asset_cache_browser.text-color': COLOR_FALLOUT_TEXT,
+      'tooltip.background-color': COLOR_FALLOUT_BG_DARKER,
+      'tooltip.text-color': COLOR_FALLOUT_PHOSPHOR,
+      // Fork-specific top-nav buttons (skin.dmf element names)
+      'setoocstatus.background-color': COLOR_FALLOUT_BG_DARKER,
+      'setoocstatus.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'tgwiki.background-color': COLOR_FALLOUT_BG_DARKER,
+      'tgwiki.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'changelog.background-color': COLOR_FALLOUT_BG_DARKER,
+      'changelog.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'github.background-color': COLOR_FALLOUT_BG_DARKER,
+      'github.text-color': COLOR_FALLOUT_PHOSPHOR,
+      'discord.background-color': COLOR_FALLOUT_BG_DARKER,
+      'discord.text-color': COLOR_FALLOUT_PHOSPHOR,
+      // Chat input box
+      'input.background-color': COLOR_FALLOUT_BG_DARKER,
+      'input.text-color': COLOR_FALLOUT_TEXT,
+      'input.border-color': COLOR_FALLOUT_PHOSPHOR,
+      'input.font-family': '"Courier New"',
+      'input.font-size': 12,
+      // Ensure saybutton is NOT flat so background-color applies
+      'saybutton.is-flat': false,
     });
   }
   if (name === 'dark') {

@@ -978,6 +978,15 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("The thought of barbed wire horrifies you.")
 	locked = FALSE
 
+/datum/quirk/pilot
+	name = "Pilot"
+	desc = "You know how to fly Vertibird (and balloons)."
+	value = 2
+	mob_trait = TRAIT_PILOT
+	gain_text = span_notice("You know how to fly Vertbirds.")
+	lose_text = span_danger("You know how to crash Vertibirds")
+	locked = FALSE
+
 /datum/quirk/quickercarry
 	name = "Quicker Carry"
 	desc = "You're real good at just scooping people up."
@@ -1257,6 +1266,17 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)
+
+/datum/quirk/locksmith
+	name = "Locksmith"
+	desc = "Years of practice with tumblers and tension wrenches have given you a professional edge. \
+			Lockpicking zones feel wider, your hands are quieter, and your instincts for lock anatomy are sharper."
+	value = 4
+	mob_trait = TRAIT_LOCKPICKING
+	gain_text = span_notice("Your fingers remember a hundred locks. Every cylinder has a story.")
+	lose_text = span_danger("Your feel for tumblers fades — just another amateur with a bent wire.")
+	medical_record_text = "Patient demonstrates fine motor skill consistent with professional locksmithing experience."
+	locked = FALSE
 
 /datum/quirk/assassin
 	name = "Assassin"

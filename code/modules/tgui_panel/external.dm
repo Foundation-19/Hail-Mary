@@ -30,8 +30,8 @@
 		if(holder)
 			src << output("[url_encode(holder.href_token)]", "statbrowser:add_admin_tabs")
 		
-		// Set theme to dark mode
-		src << output("dark", "statbrowser:set_theme")
+		// Set theme to fallout (RobCo terminal aesthetic)
+		src << output("fallout", "statbrowser:set_theme")
 
 /**
  * tgui panel / chat troubleshooting verb
