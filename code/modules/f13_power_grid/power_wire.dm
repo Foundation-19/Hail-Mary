@@ -111,6 +111,41 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 // BFS PATH FINDER
 // ============================================================
 
+/// Returns TRUE if a live F13 generator or relay is reachable within max_steps cable tiles of start.
+/proc/f13_cable_is_live(turf/start, max_steps = 8)
+	if(!start)
+		return FALSE
+	var/list/visited = list(start)
+	var/list/frontier = list(start)
+	var/steps = 0
+	while(frontier.len && steps < max_steps)
+		var/list/next_frontier = list()
+		for(var/turf/T in frontier)
+			for(var/obj/machinery/f13/faction_generator/G in T)
+				if(!QDELETED(G) && G.powered)
+					return TRUE
+			for(var/obj/machinery/f13/power_relay/R in T)
+				if(!QDELETED(R) && R.relay_powered)
+					return TRUE
+			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+				var/turf/N = get_step(T, dir)
+				if(!N || (N in visited))
+					continue
+				if(locate(/obj/structure/cable) in N)
+					visited += N
+					next_frontier += N
+		frontier = next_frontier
+		steps++
+	return FALSE
+
+/obj/structure/cable/handlecable(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/wirecutters) && isliving(user))
+		if(f13_cable_is_live(get_turf(src)))
+			to_chat(user, span_danger("You cut a live power cable — electricity surges through you!"))
+			var/mob/living/L = user
+			L.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
+	..()
+
 /// Returns TRUE if a continuous cable path exists from start to end
 /// within F13_WIRE_MAX_PATH steps, checking only cardinal directions.
 /// A tile is traversable if it contains any /obj/structure/cable.

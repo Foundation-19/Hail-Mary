@@ -33,8 +33,8 @@
 	parent_type = /obj/machinery/f13/grid_client
 	name = "core fabricator"
 	desc = "A heavy industrial fabricator that assembles or recycles fusion cores. Requires a wired power connection to a faction base generator."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "portgen1_0"
+	icon = 'icons/fallout/machines/64x32.dmi'
+	icon_state = "generator_off"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 500
@@ -186,7 +186,12 @@
 // ============================================================
 
 /obj/machinery/f13/core_fabricator/update_icon_state()
-	icon_state = fab_state == FAB_STATE_CRAFTING ? "portgen1_1" : "portgen1_0"
+	if(fab_state == FAB_STATE_CRAFTING)
+		icon_state = "generator_cycle"
+	else if(grid_powered)
+		icon_state = "generator_on"
+	else
+		icon_state = "generator_off"
 
 /obj/machinery/f13/core_fabricator/examine(mob/user)
 	. = ..()

@@ -81,15 +81,47 @@
 /// Relay must be offline (relay_powered == FALSE) to be repaired from destroyed state.
 
 // ── Power-channel shorthand (mirrors SS13 EQUIP/LIGHT/ENVIRON)
-/// Set all three SS13 power channels on an area to the given state and fire power_change().
-#define F13_STAMP_AREA_POWER(area_ref, state) \
-	if(!QDELETED(area_ref)) { \
-		(area_ref).power_equip   = state; \
-		(area_ref).power_light   = state; \
-		(area_ref).power_environ = state; \
-		(area_ref).power_change(); \
-	}
+// Calls the proc below rather than inlining to avoid the async sub_area timing bug.
+#define F13_STAMP_AREA_POWER(area_ref, state) f13_stamp_area_power((area_ref), (state))
 
+/// Stamp power onto an area and all its sub_areas synchronously.
+/// On power-off: lights are killed directly (emergency_mode cleared, light source zeroed)
+/// so they go dark instead of entering SS13's default red emergency standby.
+/// area.power_change() uses INVOKE_ASYNC on sub_areas, which would undo our light cleanup;
+/// this proc handles the full tree synchronously to avoid that race.
+/proc/f13_stamp_area_power(area/A, state)
+	if(QDELETED(A))
+		return
+	A.power_equip   = state
+	A.power_light   = state
+	A.power_environ = state
+	// Power on: let the normal power_change machinery handle everything (it's safe async here).
+	if(state)
+		A.power_change()
+		return
+	// Power off: call power_change on all non-light machinery for doors, buttons, etc.
+	// Handle lights ourselves to suppress the emergency-mode (red) path.
+	for(var/obj/machinery/M in A)
+		if(!istype(M, /obj/machinery/light))
+			M.power_change()
+	for(var/obj/machinery/light/L in A)
+		if(!QDELETED(L))
+			L.on = FALSE
+			L.emergency_mode = FALSE
+			L.set_light(0)
+			L.update_icon()
+	// Sub_areas: stamp synchronously so our light cleanup isn't undone by a later INVOKE_ASYNC.
+	if(A.sub_areas)
+		for(var/area/sub in A.sub_areas)
+			f13_stamp_area_power(sub, state)
+	A.update_icon()
+
+// F13 area lights have no backup cells — go dark instead of emergency-red when unpowered.
+/obj/machinery/light/Initialize(mapload)
+	. = ..()
+	if(istype(get_area(src), /area/f13) && cell)
+		qdel(cell)
+		cell = null
 
 // ============================================================
 // SHARED TERMINAL-STYLE UI HELPERS

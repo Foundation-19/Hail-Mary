@@ -31,8 +31,8 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 /obj/machinery/f13/master_breaker
 	name          = "F13 master grid breaker"
 	desc          = "Controls the map-wide 'always powered' override on all F13 areas. Toggle this to test the fusion core grid in isolation."
-	icon          = 'icons/obj/power.dmi'
-	icon_state    = "portgen0_1"   // icon: ON by default
+	icon          = 'icons/fallout/machines/power_grid/faction_generator.dmi'
+	icon_state    = "generator_on"   // icon: ON by default
 	density       = FALSE
 	anchored      = TRUE
 
@@ -71,7 +71,8 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	message_admins("F13 magic power toggled [state_msg][user ? " by [key_name(user)]" : ""].")
 
 /obj/machinery/f13/master_breaker/update_icon_state()
-	icon_state = GLOB.f13_magic_power ? "portgen0_1" : "portgen0_0"
+	icon_state = GLOB.f13_magic_power ? "generator_on" : "generator_off"
+
 
 
 // --- Admin verb (alternate access without placing the object)

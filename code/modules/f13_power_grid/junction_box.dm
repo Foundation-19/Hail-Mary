@@ -100,8 +100,8 @@
 	parent_type   = /obj/machinery/f13/grid_client
 	name          = "electrical junction box"
 	desc          = "A breaker panel that connects a building's internal wiring to the external generator grid. Wire it to a generator or relay to restore power to the structure."
-	icon          = 'icons/obj/power.dmi'
-	icon_state    = "apc0"
+	icon          = 'icons/fallout/machines/power_grid/junction_box.dmi'
+	icon_state    = ""
 	density       = FALSE   // Wall-mounted — doesn't block movement.
 	anchored      = TRUE
 	max_integrity = 200
@@ -177,6 +177,10 @@
 			var/area/A = locate(atype) in world
 			if(A && !QDELETED(A) && !_area_is_immune(A))
 				powered_area_instances += A
+		if(!(grid_powered && breaker_closed))
+			spawn(4)
+				if(!QDELETED(src) && !grid_powered)
+					_stamp_areas(FALSE)
 		return
 
 	// ── Outdoor area shortpath ─────────────────────────────────────────────
@@ -194,6 +198,10 @@
 		grid_watt_draw = grid_watt_draw_per_zone
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)
+		else
+			spawn(4)
+				if(!QDELETED(src) && !grid_powered)
+					_stamp_areas(FALSE)
 		return
 
 	// ── Flood-fill / multi-zone path ────────────────────────────────────────
@@ -247,6 +255,10 @@
 	// was still null and did nothing.  Stamp now so areas light up.
 	if(grid_powered && breaker_closed)
 		_stamp_areas(TRUE)
+	else
+		spawn(4)
+			if(!QDELETED(src) && !grid_powered)
+				_stamp_areas(FALSE)
 
 
 /// Depth-first walk from the junction box's turf.
@@ -415,7 +427,14 @@
 					if(get_area(T) != A)
 						continue
 					for(var/obj/machinery/light/L in T)
-						L.seton(state && L.status == LIGHT_OK)
+						if(!QDELETED(L))
+							if(state)
+								L.seton(L.status == LIGHT_OK)
+							else
+								L.on = FALSE
+								L.emergency_mode = FALSE
+								L.set_light(0)
+								L.update_icon()
 				continue
 			if(A.power_equip == state)
 				continue
@@ -445,8 +464,7 @@
 // ============================================================
 
 /obj/machinery/f13/junction_box/update_icon_state()
-	// Always use the APC panel sprite; express state via colour tinting.
-	icon_state = "apc0"
+	icon_state = ""
 	if(grid_powered && breaker_closed)
 		color = "#4aed92"   // terminal green — circuit live
 	else if(upstream_ref)
@@ -574,9 +592,11 @@
 					zone_breakers[Z] = TRUE
 			if(grid_powered)
 				_stamp_areas(TRUE)
+			_set_upstream_relay_power(TRUE)
 		else
-			// Tripping master: kill all zones.
+			// Tripping master: kill all zones and cut the upstream relay.
 			_stamp_areas(FALSE)
+			_set_upstream_relay_power(FALSE)
 		update_icon()
 		var/msg = breaker_closed ? "You close the master breaker — all circuits restored." : "You trip the master breaker — all building power cut."
 		to_chat(usr, span_notice(msg))
@@ -599,6 +619,29 @@
 		to_chat(usr, span_notice(msg))
 		show_ui(usr)
 
+
+/// Trip or restore the upstream relay when the master breaker is toggled.
+/// Makes the junction box a true master cutoff for the relay subtree feeding it.
+/obj/machinery/f13/junction_box/proc/_set_upstream_relay_power(state)
+	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
+	if(!upstream || !istype(upstream, /obj/machinery/f13/power_relay))
+		return
+	var/obj/machinery/f13/power_relay/R = upstream
+	if(state)
+		// Only restore if the relay's own upstream is still live.
+		var/obj/up2 = R.upstream_ref ? R.upstream_ref.resolve() : null
+		if(!up2)
+			return
+		var/live = FALSE
+		if(istype(up2, /obj/machinery/f13/faction_generator))
+			live = up2:powered
+		else if(istype(up2, /obj/machinery/f13/power_relay))
+			live = up2:relay_powered
+		if(live && !R.relay_powered)
+			R.set_relay_power(TRUE)
+	else
+		if(R.relay_powered)
+			R.set_relay_power(FALSE)
 
 // ============================================================
 // SUBTYPES — common pre-watt configurations

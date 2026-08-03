@@ -34,8 +34,8 @@
 /obj/machinery/f13/faction_generator
 	name = "faction base generator"
 	desc = "A heavy-duty power plant that sustains a faction's base infrastructure. Insert fusion cores to keep it running."
-	icon = 'icons/obj/power.dmi'
-	icon_state = "portgen0_0"
+	icon = 'icons/fallout/machines/power_grid/faction_generator.dmi'
+	icon_state = "generator_off"
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 750
@@ -91,6 +91,11 @@
 	var/pending_personal_reg = FALSE
 	/// When TRUE the next ID-card swipe registers a faction owner.
 	var/pending_faction_reg  = FALSE
+	/// When TRUE the lock/access-control system is available on this generator.
+	/// Standard (faction-grade) generators have it built in.  Salvage/wasteland
+	/// variants start with it FALSE; players can install a blank ID card reader
+	/// to upgrade the unit in the field.
+	var/has_lock_upgrade = TRUE
 
 	// ── Wattage budget (Factorio-style power accounting)
 	/// Watts available — grows by FGEN_WATTS_PER_CORE for each inserted core slot in use.
@@ -100,6 +105,10 @@
 	var/current_draw = 0
 	/// TRUE when the generator has tripped due to overload.
 	var/overloaded = FALSE
+	/// TRUE when an operator manually shut the generator down via the UI.
+	/// While set the generator will not auto-restart even if fuel and capacity are available.
+	/// Cleared automatically when fuel runs out so that inserting new fuel triggers a normal start.
+	var/manually_shutdown = FALSE
 
 	// ── Load shedding — soft power management before hard-tripping the grid
 	/// Direct relays currently suspended by load-shedding.  Draw = 0 while here.
@@ -196,29 +205,49 @@
 	if(!src_turf)
 		return
 
-	// Relays first — they may spawn their own downstream scan when powered.
-	for(var/obj/machinery/f13/power_relay/R in world)
-		if(QDELETED(R) || R.upstream_ref)
-			continue
-		if(f13_cable_path_exists(src_turf, get_turf(R)))
-			if(!linked_relays)
-				linked_relays = list()
-			if(!(R in linked_relays))
-				linked_relays += R
-				R.upstream_ref = WEAKREF(src)
-				R.set_relay_power(powered)
+	// BFS from this generator's turf, stopping the frontier when a relay or client
+	// tile is found.  Nodes behind another relay are left for that relay's own scan,
+	// which preserves the breaker-box cascade topology regardless of BYOND's world
+	// iteration order.
+	var/list/visited = list(src_turf)
+	var/list/frontier = list(src_turf)
 
-	// Generic grid clients (junction boxes, fabricators, etc.).
-	for(var/obj/machinery/f13/grid_client/C in world)
-		if(QDELETED(C) || C.upstream_ref)
-			continue
-		if(f13_cable_path_exists(src_turf, get_turf(C)))
-			if(!linked_clients)
-				linked_clients = list()
-			if(!(C in linked_clients))
-				linked_clients += C
-				C.upstream_ref = WEAKREF(src)
-				C.on_grid_power_change(powered)
+	while(frontier.len)
+		var/list/next_frontier = list()
+		for(var/turf/T in frontier)
+			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+				var/turf/N = get_step(T, dir)
+				if(!N || (N in visited))
+					continue
+				visited += N
+				var/blocked = FALSE
+				for(var/obj/machinery/f13/power_relay/R in N)
+					if(!QDELETED(R) && !R.upstream_ref)
+						if(!linked_relays)
+							linked_relays = list()
+						if(!(R in linked_relays))
+							linked_relays += R
+							R.upstream_ref = WEAKREF(src)
+							R.set_relay_power(powered)
+					blocked = TRUE
+					break
+				if(blocked)
+					continue
+				for(var/obj/machinery/f13/grid_client/C in N)
+					if(!QDELETED(C) && !C.upstream_ref)
+						if(!linked_clients)
+							linked_clients = list()
+						if(!(C in linked_clients))
+							linked_clients += C
+							C.upstream_ref = WEAKREF(src)
+							C.on_grid_power_change(powered)
+					blocked = TRUE
+					break
+				if(blocked)
+					continue
+				if(locate(/obj/structure/cable) in N)
+					next_frontier += N
+		frontier = next_frontier
 
 	recalc_draw()
 
@@ -297,7 +326,8 @@
 		// ── Under budget and stable — clear any hard-trip state.
 		if(overloaded)
 			overloaded = FALSE
-			set_power_state(TRUE)
+			if(!manually_shutdown)
+				set_power_state(TRUE)
 
 		if(!low_fuel_warned && fuel <= FGEN_LOW_FUEL_WARN)
 			low_fuel_warned = TRUE
@@ -309,6 +339,9 @@
 	// Fuel exhausted — only transition once.
 	if(powered)
 		set_power_state(FALSE)
+	if(depleted_fuel_path)
+		new depleted_fuel_path(drop_location())
+	manually_shutdown = FALSE  // reset so inserting new fuel triggers normal auto-start
 
 
 // ============================================================
@@ -610,7 +643,7 @@
 // ============================================================
 
 /obj/machinery/f13/faction_generator/update_icon_state()
-	icon_state = powered ? "portgen0_1" : "portgen0_0"
+	icon_state = powered ? "generator_on" : "generator_off"
 
 /obj/machinery/f13/faction_generator/examine(mob/user)
 	. = ..()
@@ -679,7 +712,7 @@
 			L.electrocute_act(50, src, flags = SHOCK_NOGLOVES)
 			return
 
-	// ── Wrench — service running generator OR anchor / unanchor when offline.
+	// ── Wrench — service running generator; repair broken offline unit; or anchor.
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(powered)
 			if(needs_maintenance)
@@ -689,7 +722,6 @@
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				to_chat(user, span_notice("You tighten the fittings and check the seals on [src]. Maintenance log cleared."))
 			else if(maintenance_ticks >= FGEN_MAINTENANCE_INTERVAL - 40)
-				// Coming up on the interval — let them service it early.
 				maintenance_ticks = 0
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				to_chat(user, span_notice("You go over the fittings on [src] before they need it — everything feels tight. Maintenance interval reset."))
@@ -697,6 +729,19 @@
 				var/ticks_left = FGEN_MAINTENANCE_INTERVAL - maintenance_ticks
 				var/mins = round(ticks_left / 30)
 				to_chat(user, span_notice("The seals and fittings feel solid — no service needed for another [mins] minute[mins != 1 ? "s" : ""] or so. Power it down first if you want to move it."))
+			return
+		// Offline — repair if damaged/broken, otherwise anchor toggle.
+		if((stat & BROKEN) || obj_integrity < max_integrity)
+			if(!W.use_tool(src, user, 30, volume=50))
+				return
+			stat &= ~BROKEN
+			needs_maintenance = FALSE
+			maintenance_ticks = 0
+			maintenance_severity = 0
+			obj_integrity = max_integrity
+			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+			to_chat(user, span_notice("You patch up [src]. The unit looks functional again — insert fuel to restart."))
+			update_icon()
 			return
 		anchored = !anchored
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -853,6 +898,10 @@
 
 	linked_clients += C
 	C.upstream_ref = WEAKREF(src)
+	if(powered && isliving(user))
+		to_chat(user, span_danger("You connect a cable to a live generator — electricity arcs across your hand!"))
+		var/mob/living/UL = user
+		UL.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
 	C.on_grid_power_change(powered)
 	recalc_draw()
 	to_chat(user, span_notice("Wired: [C.name] is now linked to [name]."))
@@ -876,6 +925,10 @@
 	linked_relays += R
 	R.upstream_ref = WEAKREF(src)
 	R.update_icon()
+	if(powered && isliving(user))
+		to_chat(user, span_danger("You connect a cable to a live generator — electricity arcs across your hand!"))
+		var/mob/living/UL = user
+		UL.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
 	to_chat(user, span_notice("Wired: [R.name] linked to [name]. Power: [powered ? "ONLINE" : "OFFLINE"]."))
 	R.set_relay_power(powered)
 
@@ -982,6 +1035,8 @@
 	dat += "<pre>  DRAW     : <span class='[load_color]'>[current_draw]W ([load_pct]%)</span></pre>"
 	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [load_pct]%</pre>"
 	dat += "<pre class='dim'>  COST REF.: relay=[RELAY_WATT_DRAW]W  fab=[FAB_WATT_DRAW_IDLE]W idle/[FAB_WATT_DRAW_ACTIVE]W active  turret=[TURRET_WATT_DRAW]W</pre>"
+	var/integrity_color = obj_integrity < max_integrity * 0.33 ? "bad" : (obj_integrity < max_integrity * 0.67 ? "warn" : "good")
+	dat += "<pre>  INTEGRITY: <span class='[integrity_color]'>[obj_integrity] / [max_integrity]</span>  <span class='dim'>(wrench while offline to repair)</span></pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Powered areas
@@ -1038,26 +1093,42 @@
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Lock settings
-	var/lock_owner_display   = owner_name   ? owner_name   : "<span class='dim'>(not set)</span>"
-	var/lock_faction_display = owner_faction ? owner_faction : "<span class='dim'>(not set)</span>"
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 	dat += "<pre class='head'>  &#91;ACCESS CONTROL&#93;</pre>"
-	switch(lock_mode)
-		if(GENERATOR_LOCK_NONE)
-			dat += "<pre>  MODE: <span class='dim'>OPEN  (no restrictions)</span></pre>"
-		if(GENERATOR_LOCK_PERSONAL)
-			dat += "<pre>  MODE: PERSONAL  owner=[lock_owner_display]</pre>"
-		if(GENERATOR_LOCK_FACTION)
-			dat += "<pre>  MODE: FACTION   faction=[lock_faction_display]</pre>"
-
-	if(accessible)
-		dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=lock_none'>UNLOCK</a>  "
-		dat += "<a href='byond://?src=[REF(src)];choice=lock_personal'>PERSONAL LOCK</a>  "
-		dat += "<a href='byond://?src=[REF(src)];choice=lock_faction'>FACTION LOCK</a>  "
-		dat += "<span class='dim'>(swipe ID card after selecting)</span></pre>"
+	if(has_lock_upgrade)
+		var/lock_owner_display   = owner_name   ? owner_name   : "<span class='dim'>(not set)</span>"
+		var/lock_faction_display = owner_faction ? owner_faction : "<span class='dim'>(not set)</span>"
+		switch(lock_mode)
+			if(GENERATOR_LOCK_NONE)
+				dat += "<pre>  MODE: <span class='dim'>OPEN  (no restrictions)</span></pre>"
+			if(GENERATOR_LOCK_PERSONAL)
+				dat += "<pre>  MODE: PERSONAL  owner=[lock_owner_display]</pre>"
+			if(GENERATOR_LOCK_FACTION)
+				dat += "<pre>  MODE: FACTION   faction=[lock_faction_display]</pre>"
+		if(accessible)
+			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=lock_none'>UNLOCK</a>  "
+			dat += "<a href='byond://?src=[REF(src)];choice=lock_personal'>PERSONAL LOCK</a>  "
+			dat += "<a href='byond://?src=[REF(src)];choice=lock_faction'>FACTION LOCK</a>  "
+			dat += "<span class='dim'>(swipe ID card after selecting)</span></pre>"
+		else
+			dat += "<pre class='bad'>  ACCESS DENIED</pre>"
 	else
-		dat += "<pre class='bad'>  ACCESS DENIED</pre>"
+		dat += "<pre class='dim'>  No ID card reader installed. Apply a blank ID card to the generator to add one.</pre>"
 
 	// ── Network rescan
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+	dat += "<pre class='head'>  &#91;POWER CONTROL&#93;</pre>"
+	if(accessible)
+		if(powered)
+			dat += "<pre>  <a href='byond://?src=[REF(src)];choice=shutdown'>&#91; EMERGENCY SHUTDOWN &#93;</a>  <span class='dim'>(cuts output; fuel consumption continues)</span></pre>"
+		else if(fuel > 0 && !overloaded)
+			dat += "<pre>  <a href='byond://?src=[REF(src)];choice=startup'>&#91; START GENERATOR &#93;</a>  <span class='dim'>(bring output back online)</span></pre>"
+		else if(fuel <= 0)
+			dat += "<pre class='dim'>  Generator offline — no fuel.  Insert a [fuel_unit_name] to start.</pre>"
+		else
+			dat += "<pre class='dim'>  Generator offline — overloaded.  Reduce load then rescan.</pre>"
+	else
+		dat += "<pre class='bad'>  ACCESS DENIED</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 	dat += "<pre class='head'>  &#91;NETWORK&#93;</pre>"
 	dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=rescan'>Rescan cable network</a>  <span class='dim'>(detects newly-laid cables without rebuilding)</span></pre>"
@@ -1081,6 +1152,7 @@
 
 	switch(href_list["choice"])
 		if("lock_none")
+			if(!has_lock_upgrade) return
 			lock_mode = GENERATOR_LOCK_NONE
 			owner_ckey = null
 			owner_name = null
@@ -1089,6 +1161,7 @@
 			pending_faction_reg = FALSE
 			to_chat(U, span_notice("Lock removed — generator is now open to all."))
 		if("lock_personal")
+			if(!has_lock_upgrade) return
 			if(!can_access(U))
 				to_chat(U, span_warning("Access denied."))
 				return
@@ -1096,6 +1169,7 @@
 			pending_faction_reg = FALSE
 			to_chat(U, span_notice("Ready to register personal owner. Swipe an ID card on the generator."))
 		if("lock_faction")
+			if(!has_lock_upgrade) return
 			if(!can_access(U))
 				to_chat(U, span_warning("Access denied."))
 				return
@@ -1127,6 +1201,31 @@
 				to_chat(U, span_notice("Network rescan complete — [found] new device[found != 1 ? "s" : ""] linked."))
 			else
 				to_chat(U, span_notice("Network rescan complete — no new devices found on the cable network."))
+
+		if("shutdown")
+			if(!can_access(U))
+				to_chat(U, span_warning("Access denied."))
+				return
+			if(!powered)
+				to_chat(U, span_notice("Generator is already offline."))
+			else
+				manually_shutdown = TRUE
+				set_power_state(FALSE)
+				to_chat(U, span_notice("Generator output cut. Fuel consumption continues. Use 'START GENERATOR' to bring it back online."))
+		if("startup")
+			if(!can_access(U))
+				to_chat(U, span_warning("Access denied."))
+				return
+			if(powered)
+				to_chat(U, span_notice("Generator is already online."))
+			else if(fuel <= 0)
+				to_chat(U, span_notice("No fuel — insert a [fuel_unit_name] first."))
+			else if(overloaded)
+				to_chat(U, span_notice("Overload condition active — reduce network load before restarting."))
+			else
+				manually_shutdown = FALSE
+				set_power_state(TRUE)
+				to_chat(U, span_notice("Generator output restored."))
 
 	show_ui(U)
 
@@ -1244,13 +1343,20 @@
 /// Explicit "fusion core" named variant of the base generator.
 /// Mapper-placed generators that want to make clear they use fusion cores.
 /obj/machinery/f13/faction_generator/fusion
+	icon       = 'icons/fallout/machines/power_grid/faction_generator.dmi'
+	icon_state = "generator_off"
 	name = "fusion core generator"
 	desc = "A pre-War Vault-Tec integrated power plant. High-yield magnetic containment feeds up to two RobCo fusion cores simultaneously. Expensive to operate, but nothing in the wasteland matches its output-to-weight ratio."
+
+/obj/machinery/f13/faction_generator/fusion/update_icon_state()
+	icon_state = powered ? "generator_cycle" : "generator_off"
 
 
 /// Common post-War diesel generator.  Fuelled by pouring liquid diesel from a jerrycan.
 /// Burns at a flat 750 W as long as there is fuel in the tank.
 /obj/machinery/f13/faction_generator/diesel
+	icon = 'icons/fallout/machines/power.dmi'
+	icon_state = "diesel-off"
 	name = "diesel generator"
 	desc = "A battered pre-War industrial diesel unit — the kind that kept factories running before the war, and keeps settlements alive after it. Loud, thirsty, and mercifully common out here. Feed it diesel straight from a jerrycan to keep it running."
 	accepted_fuel_path   = null   // liquid-fuel pathway — uses try_liquid_refuel() instead
@@ -1268,6 +1374,9 @@
 	/// Accumulated exhaust exposure for each mob near the generator.
 	/// Keyed by mob reference; value is ticks of continuous indoor exposure.
 	var/list/co_exposure_map = null
+
+/obj/machinery/f13/faction_generator/diesel/update_icon_state()
+	icon_state = powered ? "diesel-on" : "diesel-off"
 
 /obj/machinery/f13/faction_generator/diesel/attackby(obj/item/W, mob/user, params)
 	if(try_liquid_refuel(W, user))
@@ -1390,6 +1499,7 @@
 /// Cells are the scarcest fuel in the wasteland, but one will run a small base
 /// for a very long time.
 /obj/machinery/f13/faction_generator/atomic
+	icon_state = "generator_off"
 	name = "Poseidon atomic generator"
 	desc = "A compact Poseidon Energy pre-War atomic generator, originally spec'd for fringe settlements too remote for a grid hook-up. A single atomic fuel cell will run most of a small base for hours — provided you can find a replacement when it burns out."
 	accepted_fuel_path   = /obj/item/f13/atomic_cell
@@ -1406,6 +1516,9 @@
 	// Recalculate watts after fixing fuel — parent Initialize sets fuel to FGEN_DEFAULT_FUEL
 	// which is larger than max_fuel=675 for the single-cell chamber.
 	available_watts = watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit))
+
+/obj/machinery/f13/faction_generator/atomic/update_icon_state()
+	icon_state = powered ? "generator_uranium" : "generator_off"
 
 /obj/machinery/f13/faction_generator/atomic/on_maintenance_hazard()
 	// Ageing containment seals — localised radiation leaks; escalates with neglect.
@@ -1458,8 +1571,10 @@
 /// Jury-rigged wasteland generator.  Requires wiring; each relay post within reach
 /// extends coverage by another power_reach hop.
 /obj/machinery/f13/faction_generator/wastelander
+	icon = 'icons/fallout/machines/power.dmi'
+	icon_state = "diesel-off"
 	name = "jury-rigged generator"
-	desc = "A rattling heap of salvaged parts: an old Chryslus engine block, hydraulic hose, and what might once have been a refrigerator compressor, held together with electrical tape and misplaced optimism. Pour diesel in, run your wiring close, and stand back."
+	desc = "A rattling heap of salvaged parts: an old Chryslus engine block, hydraulic hose, and what might once have been a refrigerator compressor, held together with electrical tape and misplaced optimism. Pour diesel in, run your wiring close, and stand back. Powers lights and devices within 10 tiles; each relay post extends that range by another 10 tiles."
 	accepted_fuel_path   = null   // liquid-fuel pathway — uses try_liquid_refuel() instead
 	depleted_fuel_path   = null
 	fuel_is_liquid       = TRUE
@@ -1468,6 +1583,7 @@
 	max_fuel             = 1000   // ~33 min fully loaded (~2 jerrycans)
 	fuel                 = 200    // starts nearly empty — wasteland style
 	fuel_unit_name       = "L"
+	has_lock_upgrade     = FALSE  // no built-in access control; install a blank ID card to unlock
 	/// Base reach in tiles.  Each powered relay within reach becomes its own anchor,
 	/// extending coverage by another power_reach hop in any direction.
 	var/power_reach = 10
@@ -1475,55 +1591,8 @@
 	/// Built once on the first stamp_zone() call; reused on every subsequent toggle.
 	var/list/range_light_cache = null
 
-/// BFS through the relay network.  Returns a list of reach anchors: the generator
-/// itself plus every relay reachable via a chain of power_reach-tile hops.
-/// Collects ALL relays in the wired tree (direct + all downstream_relays children,
-/// recursively) so that chain-topology relay posts can serve as range anchors.
-/obj/machinery/f13/faction_generator/wastelander/proc/_build_relay_reach()
-	var/list/anchors = list(src)
-	// Collect every relay in the full tree: generator.linked_relays (first tier)
-	// + each relay's downstream_relays recursively.  This means a relay wired to
-	// another relay (not directly to the generator) is still a candidate anchor.
-	var/list/pool = list()
-	if(linked_relays)
-		var/list/to_visit = linked_relays.Copy()
-		while(to_visit.len)
-			var/obj/machinery/f13/power_relay/R = to_visit[to_visit.len]
-			to_visit.len--
-			if(QDELETED(R) || (R in pool))
-				continue
-			pool += R
-			if(R.downstream_relays)
-				for(var/obj/machinery/f13/power_relay/D in R.downstream_relays)
-					if(!(D in pool))
-						to_visit += D
-	// BFS: a relay becomes a reach anchor if within power_reach of any existing
-	// anchor (generator or already-promoted relay).  Use next_pool swap to avoid
-	// mutating the list being iterated — safer and avoids skipped items.
-	var/changed = TRUE
-	while(changed && pool.len)
-		changed = FALSE
-		var/list/next_pool = list()
-		for(var/obj/machinery/f13/power_relay/R in pool)
-			var/in_reach = FALSE
-			for(var/atom/anchor in anchors)
-				if(get_dist(anchor, R) <= power_reach)
-					in_reach = TRUE
-					break
-			if(in_reach)
-				anchors += R
-				changed = TRUE
-			else
-				next_pool += R
-		pool = next_pool
-	return anchors
-
-/// Returns TRUE if target is within power_reach of any anchor in the reach list.
-/obj/machinery/f13/faction_generator/wastelander/proc/_is_reachable(obj/machinery/target, list/reach)
-	for(var/atom/anchor in reach)
-		if(get_dist(anchor, target) <= power_reach)
-			return TRUE
-	return FALSE
+/obj/machinery/f13/faction_generator/wastelander/update_icon_state()
+	icon_state = powered ? "diesel-on" : "diesel-off"
 
 /// Wastelander generators do NOT use area-level stamping — they directly control
 /// individual lights within power_reach in the same BYOND area.  This prevents
@@ -1547,93 +1616,34 @@
 				range_light_cache += L
 	for(var/obj/machinery/light/L in range_light_cache)
 		if(!QDELETED(L))
-			L.seton(state && L.status == LIGHT_OK)
+			if(state)
+				L.seton(L.status == LIGHT_OK)
+			else
+				// seton(FALSE) triggers update() which re-enables emergency_mode.
+				// Kill the light directly so it goes dark instead of red.
+				L.on = FALSE
+				L.emergency_mode = FALSE
+				L.set_light(0)
+				L.update_icon()
 
-/obj/machinery/f13/faction_generator/wastelander/set_power_state(new_powered)
-	if(powered == new_powered)
-		return
-	powered = new_powered
-	update_icon()
-	stamp_zone(powered)
-	if(linked_turrets)
-		for(var/obj/machinery/porta_turret/T in linked_turrets)
-			if(!QDELETED(T))
-				T.toggle_on(powered)
-	// Build reach from the FULL relay tree so chain-topology relay posts
-	// serve as range anchors when checking client reachability.
-	var/list/reach = _build_relay_reach()
-	// Walk every relay in the tree depth-first, enforcing range at each node.
-	// Relays inside the reach envelope: powered on/off with the generator.
-	// Relays outside the envelope: always cut, even if a parent relay is live.
-	// set_relay_power(FALSE) cascades downstream automatically; we only need
-	// to continue visiting children when powering ON.
-	if(linked_relays)
-		var/list/to_visit = linked_relays.Copy()
-		while(to_visit.len)
-			var/obj/machinery/f13/power_relay/R = to_visit[to_visit.len]
-			to_visit.len--
-			if(QDELETED(R))
-				continue
-			var/should_power = powered && (R in reach)
-			R.set_relay_power(should_power)
-			// Only descend into children when turning on — the cascade from
-			// set_relay_power(FALSE) already handles shutting off downstream.
-			if(should_power && R.downstream_relays)
-				for(var/obj/machinery/f13/power_relay/D in R.downstream_relays)
-					to_visit += D
-	if(linked_clients)
-		for(var/obj/machinery/f13/grid_client/C in linked_clients)
-			if(!QDELETED(C))
-				C.on_grid_power_change(powered && _is_reachable(C, reach))
-	if(powered)
-		low_fuel_warned = FALSE
-		broadcast_to_faction("<span class='notice'>POWER RESTORED: [faction_tag ? faction_tag : "Base"] generator is back online.</span>")
-	else
-		broadcast_to_faction("<span class='warning'>POWER FAILURE: [faction_tag ? faction_tag : "Base"] generator has gone offline. Refuel it to restore power.</span>")
+// set_power_state: inherited from base — all wired relays/clients are powered unconditionally.
+// power_reach only controls stamp_zone (ambient lighting), not cable-wired devices.
 
 /obj/machinery/f13/faction_generator/wastelander/_initial_propagate()
-	if(QDELETED(src) || !powered)
+	if(QDELETED(src))
+		return
+	if(!powered)
+		// Lights call update(0) ~one tick after our spawn(2) fires; wait for them then kill emergency mode.
+		spawn(2)
+			if(!QDELETED(src) && !powered)
+				range_light_cache = null
+				stamp_zone(FALSE)
 		return
 	_build_area_instances()
-	// area/LateInitialize() fires area.power_change() on all machines AFTER Initialize()
-	// but BEFORE this async proc runs, resetting all lights back to the area's power state
-	// (off for wasteland).  Clear the cache so it picks up any lights that were also
-	// placed after the generator, then re-run stamp_zone to restore powered lights.
+	// LateInitialize resets area power before this proc runs; re-stamp to restore lights.
 	range_light_cache = null
 	stamp_zone(TRUE)
-	var/list/reach = _build_relay_reach()
-	if(linked_relays)
-		for(var/obj/machinery/f13/power_relay/R in linked_relays)
-			if(!QDELETED(R) && (R in reach))
-				R.set_relay_power(TRUE)
-	if(linked_clients)
-		for(var/obj/machinery/f13/grid_client/C in linked_clients)
-			if(!QDELETED(C) && _is_reachable(C, reach))
-				C.on_grid_power_change(TRUE)
-	_scan_cable_connections()
-	// Post-scan: rebuild reach (scan may have added relays via cable discovery)
-	// then trim every relay in the full tree that falls outside the reach envelope.
-	// The base code only trimmed generator.linked_relays; this walk covers every
-	// downstream relay too, so chain-topology relays beyond power_reach get cut.
-	var/list/reach2 = _build_relay_reach()
-	if(linked_relays)
-		var/list/to_visit = list()
-		for(var/obj/machinery/f13/power_relay/R in linked_relays)
-			to_visit += R
-		while(to_visit.len)
-			var/obj/machinery/f13/power_relay/R = to_visit[to_visit.len]
-			to_visit.len--
-			if(QDELETED(R))
-				continue
-			if(R.relay_powered && !(R in reach2))
-				R.set_relay_power(FALSE)
-			if(R.downstream_relays)
-				for(var/obj/machinery/f13/power_relay/D in R.downstream_relays)
-					to_visit += D
-	if(linked_clients)
-		for(var/obj/machinery/f13/grid_client/C in linked_clients)
-			if(!QDELETED(C) && C.grid_powered && !_is_reachable(C, reach2))
-				C.on_grid_power_change(FALSE)
+	..()  // powers linked_relays, linked_clients, runs cable scan
 
 /obj/machinery/f13/faction_generator/wastelander/on_maintenance_hazard()
 	// Worst build quality — fuel vapour ignition; escalates the fastest of all variants.
@@ -1645,4 +1655,35 @@
 /obj/machinery/f13/faction_generator/wastelander/attackby(obj/item/W, mob/user, params)
 	if(try_liquid_refuel(W, user))
 		return
+	// Security module + screwdriver installs the lock-reader upgrade.
+	if(!has_lock_upgrade && istype(W, /obj/item/f13/security_module))
+		to_chat(user, span_notice("You hold the RobCo security module against [src]'s panel. Use a screwdriver to wire it in."))
+		return
+	if(!has_lock_upgrade && W.tool_behaviour == TOOL_SCREWDRIVER)
+		// Check the other hand for the security module.
+		var/obj/item/f13/security_module/mod = null
+		if(isliving(user))
+			var/mob/living/L = user
+			var/obj/item/other = L.get_inactive_held_item()
+			if(istype(other, /obj/item/f13/security_module))
+				mod = other
+		if(!mod)
+			to_chat(user, span_notice("The panel is sealed. Hold a RobCo security module in your other hand, then use the screwdriver."))
+			return
+		if(!W.use_tool(src, user, 30, volume=50))
+			return
+		user.temporarilyRemoveItemFromInventory(mod)
+		qdel(mod)
+		has_lock_upgrade = TRUE
+		to_chat(user, span_notice("You wire the RobCo security module into [src]'s control panel. Access control is now available."))
+		show_ui(user)
+		return
 	return ..()
+
+/// After the base rescan runs, rebuild the light cache so newly in-range lamps are included.
+/obj/machinery/f13/faction_generator/wastelander/Topic(href, href_list)
+	. = ..()
+	if(href_list["choice"] == "rescan" && powered)
+		// Rebuild light cache so newly laid cables to range lamps are included.
+		range_light_cache = null
+		stamp_zone(TRUE)

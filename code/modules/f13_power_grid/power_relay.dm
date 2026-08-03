@@ -35,8 +35,8 @@
 /obj/machinery/f13/power_relay
 	name          = "power relay"
 	desc          = "A power distribution node. Wire it to a base generator or another relay with a multitool to extend the grid."
-	icon          = 'icons/obj/power.dmi'
-	icon_state    = "portgen0_0"
+	icon          = 'icons/fallout/machines/power_grid/power_relay.dmi'
+	icon_state    = ""
 	density       = TRUE
 	anchored      = TRUE
 	max_integrity = 350
@@ -244,29 +244,45 @@
 	if(!src_turf)
 		return
 
-	// Downstream relays — their set_relay_power will trigger their own scans.
-	for(var/obj/machinery/f13/power_relay/R in world)
-		if(QDELETED(R) || R.upstream_ref || R == src)
-			continue
-		if(f13_cable_path_exists(src_turf, get_turf(R)))
-			if(!downstream_relays)
-				downstream_relays = list()
-			if(!(R in downstream_relays))
-				downstream_relays += R
-				R.upstream_ref = WEAKREF(src)
-				// set_relay_power is called in the cascade below
+	// BFS from this relay's turf, stopping the frontier at relay/client tiles.
+	// set_relay_power / on_grid_power_change fire via the cascade after this returns.
+	var/list/visited = list(src_turf)
+	var/list/frontier = list(src_turf)
 
-	// Generic grid clients (junction boxes, etc.).
-	for(var/obj/machinery/f13/grid_client/C in world)
-		if(QDELETED(C) || C.upstream_ref)
-			continue
-		if(f13_cable_path_exists(src_turf, get_turf(C)))
-			if(!linked_clients)
-				linked_clients = list()
-			if(!(C in linked_clients))
-				linked_clients += C
-				C.upstream_ref = WEAKREF(src)
-				// on_grid_power_change is called in the cascade below
+	while(frontier.len)
+		var/list/next_frontier = list()
+		for(var/turf/T in frontier)
+			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+				var/turf/N = get_step(T, dir)
+				if(!N || (N in visited))
+					continue
+				visited += N
+				var/blocked = FALSE
+				for(var/obj/machinery/f13/power_relay/R in N)
+					if(!QDELETED(R) && R != src && !R.upstream_ref)
+						if(!downstream_relays)
+							downstream_relays = list()
+						if(!(R in downstream_relays))
+							downstream_relays += R
+							R.upstream_ref = WEAKREF(src)
+					blocked = TRUE
+					break
+				if(blocked)
+					continue
+				for(var/obj/machinery/f13/grid_client/C in N)
+					if(!QDELETED(C) && !C.upstream_ref)
+						if(!linked_clients)
+							linked_clients = list()
+						if(!(C in linked_clients))
+							linked_clients += C
+							C.upstream_ref = WEAKREF(src)
+					blocked = TRUE
+					break
+				if(blocked)
+					continue
+				if(locate(/obj/structure/cable) in N)
+					next_frontier += N
+		frontier = next_frontier
 
 /obj/machinery/f13/power_relay/attackby(obj/item/W, mob/user, params)
 	// Wrench: when ONLINE → anchor/unanchor; when OFFLINE → repair.
@@ -359,6 +375,10 @@
 
 	linked_clients += C
 	C.upstream_ref = WEAKREF(src)
+	if(relay_powered && isliving(user))
+		to_chat(user, span_danger("You connect a cable to a live relay — electricity arcs across your hand!"))
+		var/mob/living/UL = user
+		UL.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	C.on_grid_power_change(relay_powered)
 	to_chat(user, span_notice("Wired: [C.name] linked to [name]."))
 	// Tell the generator upstream to recalc its watt budget.
@@ -393,6 +413,10 @@
 	parent.downstream_relays += src
 	upstream_ref = WEAKREF(parent)
 	update_icon()
+	if(parent.relay_powered && isliving(user))
+		to_chat(user, span_danger("You connect a cable to a live relay — electricity arcs across your hand!"))
+		var/mob/living/UL = user
+		UL.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	to_chat(user, span_notice("Wired: [name] → [parent.name]. Power: [parent.relay_powered ? "ONLINE" : "OFFLINE"]."))
 	set_relay_power(parent.relay_powered)
 
@@ -532,7 +556,8 @@
 // ============================================================
 
 /obj/machinery/f13/power_relay/update_icon_state()
-	icon_state = relay_powered ? "portgen0_1" : "portgen0_0"
+	icon_state = ""
+	color = relay_powered ? "#5ddb8a" : null
 
 /obj/machinery/f13/power_relay/examine(mob/user)
 	. = ..()
@@ -608,6 +633,15 @@
 	// Power lights within range in own area only.
 	stamp_zone(relay_powered)
 
+/// Kill emergency mode on nearby lights at round-start when this relay starts offline.
+/obj/machinery/f13/power_relay/wasteland/LateInitialize()
+	. = ..()
+	if(relay_powered)
+		return  // generator already stamped these lights live
+	spawn(4)  // after lights' deferred update(0) fires (~0.3s from init)
+		if(!QDELETED(src) && !relay_powered)
+			stamp_zone(FALSE)
+
 /// Override: directly seton() lights within power_reach in own area only.
 /// Does NOT call ..() so base area-stamp logic is bypassed entirely.
 /obj/machinery/f13/power_relay/wasteland/stamp_zone(state)
@@ -621,7 +655,15 @@
 				range_light_cache += L
 	for(var/obj/machinery/light/L in range_light_cache)
 		if(!QDELETED(L))
-			L.seton(state && L.status == LIGHT_OK)
+			if(state)
+				L.seton(L.status == LIGHT_OK)
+			else
+				// seton(FALSE) triggers update() which re-enables emergency_mode.
+				// Kill the light directly so it goes dark instead of red.
+				L.on = FALSE
+				L.emergency_mode = FALSE
+				L.set_light(0)
+				L.update_icon()
 
 
 // ============================================================
@@ -629,30 +671,34 @@
 // ============================================================
 //
 // Wire it between the generator (or upstream relay) and downstream devices.
-// Activate by hand to toggle power to everything downstream without shutting
-// the generator off.  Useful as the main on/off switch for a jury-rigged setup.
+// Acts as a parallel cut switch for its subtree — opening this panel kills
+// everything downstream without affecting the generator or sibling branches.
+// When closed, power flows normally and each downstream junction box honours
+// its own master breaker and per-zone breakers.
 //
 // Behaves as a standard relay in all other respects: wiring, area stamps,
 // turret links, load-shedding exclusion.
 // ============================================================
 
 /// Inline power cutoff panel.  Wire upstream to the generator; wire downstream
-/// to relays or junction boxes.  Toggle by hand to cut or restore downstream power.
+/// to relays or junction boxes.  Click to open the panel UI; toggle the lever
+/// there to cut or restore the downstream subtree.
 /obj/machinery/f13/power_relay/breaker_box
 	name          = "main breaker panel"
 	desc          = "A heavy-duty disconnect panel — wired between the generator and the rest of the installation so you can cut power to everything downstream without touching the generator. The lever positions are labelled ON and OFF. Someone scratched them out and wrote LIVE and DEAD."
 
 	/// TRUE when the player has manually opened (tripped) this breaker.
 	/// While set, upstream power-restore cascades are ignored — only a direct
-	/// hand interaction can bring it back online.
+	/// hand interaction via the panel UI can bring it back online.
 	var/manually_tripped = FALSE
 
 /// Override: honour manually_tripped so upstream cascades don't silently restore
-/// a breaker the player deliberately opened.
+/// a breaker the player deliberately opened.  When the grid tries to turn us ON
+/// but the breaker is open, the downstream is kept dead; when the grid dies we
+/// always propagate the outage regardless of the manual flag.
 /obj/machinery/f13/power_relay/breaker_box/set_relay_power(new_state)
-	// If the grid is trying to turn us ON but the player left the breaker open, refuse.
 	if(new_state && manually_tripped)
-		// Still cut downstream in case something previously sneaked through.
+		// Grid trying to restore but player left the breaker open — keep downstream dead.
 		if(relay_powered)
 			relay_powered = FALSE
 			update_icon()
@@ -667,14 +713,134 @@
 		return
 	return ..()
 
+/// Override: amber tint when manually tripped so the panel is visually distinct
+/// from a relay that is simply offline due to a dead upstream.
+/obj/machinery/f13/power_relay/breaker_box/update_icon_state()
+	icon_state = ""
+	if(relay_powered)
+		color = "#5ddb8a"    // green — circuit live
+	else if(manually_tripped)
+		color = "#e8a020"    // amber — operator has opened this panel
+	else
+		color = null         // no tint — upstream is dead
+
+/// Open the breaker panel UI instead of toggling directly.
 /obj/machinery/f13/power_relay/breaker_box/attack_hand(mob/living/user)
 	if(!Adjacent(user))
 		return
-	var/new_state = !relay_powered
-	manually_tripped = !new_state   // opening the breaker = manually tripped; closing = cleared
-	set_relay_power(new_state)
-	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-	user.visible_message(
-		"[user] [new_state ? "closes" : "opens"] the main breaker on [src].",
-		span_notice("You [new_state ? "close the main breaker — power restored downstream." : "open the main breaker — everything downstream is now dead."]")
-	)
+	show_ui(user)
+
+/// Terminal-style panel UI that shows circuit state and downstream junction-box
+/// zone detail, then offers a single close/open lever control.
+/obj/machinery/f13/power_relay/breaker_box/show_ui(mob/living/user)
+	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
+	var/upstream_name = upstream ? upstream.name : "NONE"
+	var/upstream_live = FALSE
+	if(upstream)
+		if(istype(upstream, /obj/machinery/f13/faction_generator))
+			upstream_live = upstream:powered
+		else if(istype(upstream, /obj/machinery/f13/power_relay))
+			upstream_live = upstream:relay_powered
+
+	var/dat = get_terminal_css()
+	dat += get_terminal_header("Main Breaker Panel")
+	dat += "<pre class='dim'>  UNIT: [tag ? tag : name]</pre>"
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
+	// ── Circuit status
+	var/circuit_str
+	if(manually_tripped)
+		circuit_str = "<span class='warn'>&#91;CIRCUIT OPEN — MANUALLY TRIPPED&#93;</span>"
+	else if(relay_powered)
+		circuit_str = "<span class='good'>&#91;CIRCUIT CLOSED — LIVE&#93;</span>"
+	else
+		circuit_str = "<span class='bad'>&#91;CIRCUIT OPEN — UPSTREAM DEAD&#93;</span>"
+	dat += "<pre>  CIRCUIT  : [circuit_str]</pre>"
+	dat += "<pre>  UPSTREAM : [upstream_name]  [upstream ? "<span class='[(upstream_live ? "good" : "bad")]'>[upstream_live ? "ONLINE" : "OFFLINE"]</span>" : "<span class='dim'>NOT WIRED</span>"]</pre>"
+	dat += "<pre class='dim'>             Upstream stays live when this breaker opens — it feeds the rest of the grid.</pre>"
+	dat += "<pre class='dim'>             Only devices wired <b>to this panel</b> lose power when the breaker is opened.</pre>"
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
+	// ── Lever control
+	dat += "<pre class='head'>  &#91;BREAKER CONTROL&#93;</pre>"
+	if(!upstream_ref)
+		dat += "<pre class='dim'>    Panel not wired to an upstream source.</pre>"
+	else if(manually_tripped)
+		dat += "<pre>    <a href='byond://?src=[REF(src)];breaker_toggle=1'>&#91; CLOSE BREAKER — RESTORE DOWNSTREAM &#93;</a></pre>"
+		dat += "<pre class='dim'>    Downstream junction boxes will restore only their closed-breaker zones.</pre>"
+	else
+		dat += "<pre>    <a href='byond://?src=[REF(src)];breaker_toggle=1'>&#91; OPEN BREAKER — CUT DOWNSTREAM &#93;</a></pre>"
+		dat += "<pre class='dim'>    Kills all downstream circuits; junction-box zone-breaker states are preserved.</pre>"
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
+	// ── Downstream circuit inventory
+	dat += "<pre class='head'>  &#91;DOWNSTREAM CIRCUITS&#93;</pre>"
+	var/found_any = FALSE
+	// Direct downstream relays (non-junction-box relay nodes)
+	if(downstream_relays && downstream_relays.len)
+		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
+			if(QDELETED(R))
+				continue
+			var/rstate = R.relay_powered ? "<span class='good'>LIVE</span>" : "<span class='bad'>DEAD</span>"
+			dat += "<pre>  RELAY: [R.name]  [rstate]  [R.get_subtree_draw()]W</pre>"
+			found_any = TRUE
+	// Direct grid clients — show junction boxes with zone detail, others briefly
+	if(linked_clients && linked_clients.len)
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(QDELETED(C))
+				continue
+			found_any = TRUE
+			if(istype(C, /obj/machinery/f13/junction_box))
+				var/obj/machinery/f13/junction_box/JB = C
+				var/jstate = (JB.grid_powered && JB.breaker_closed) ? "<span class='good'>LIVE</span>" : "<span class='bad'>DEAD</span>"
+				var/mstate = JB.breaker_closed ? "<span class='good'>CLOSED</span>" : "<span class='warn'>TRIPPED</span>"
+				dat += "<pre>  JBOX : [JB.name]  [jstate]  master: [mstate]  [JB.grid_watt_draw]W</pre>"
+				if(JB.owned_zones && JB.zone_breakers)
+					for(var/area/f13/Z in JB.owned_zones)
+						if(!QDELETED(Z))
+							var/zb     = JB.zone_breakers[Z]
+							var/zlive  = Z.power_equip
+							var/zstate = zlive ? "<span class='good'>LIVE  </span>" : "<span class='bad'>DEAD  </span>"
+							var/zbstr  = zb    ? "<span class='good'>&#91;CLOSED&#93; </span>" : "<span class='warn'>&#91;TRIPPED&#93;</span>"
+							dat += "<pre class='dim'>           |-- [zstate] [zbstr]  [Z.name]</pre>"
+			else
+				var/cstate = C.grid_powered ? "<span class='good'>LIVE</span>" : "<span class='bad'>DEAD</span>"
+				dat += "<pre>  DEV  : [C.name]  [cstate]  [C.grid_watt_draw]W</pre>"
+	if(!found_any)
+		dat += "<pre class='dim'>    No downstream devices wired.</pre>"
+	dat += "<pre class='sep'>  ================================================================</pre>"
+
+	var/datum/browser/popup = new(user, "f13_breaker_[REF(src)]", null, 560, 460)
+	popup.set_content(dat)
+	popup.open()
+
+/// Handle lever-toggle clicks from the panel UI.
+/obj/machinery/f13/power_relay/breaker_box/Topic(href, href_list)
+	var/mob/living/U = usr
+	if(!U || !istype(U))
+		return
+	if(!in_range(src, U) && !isobserver(U))
+		return
+
+	if(href_list["breaker_toggle"])
+		var/new_state = !relay_powered
+		manually_tripped = !new_state   // opening = tripped; closing = cleared
+		set_relay_power(new_state)
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		U.visible_message(
+			"[U] [new_state ? "closes" : "opens"] the main breaker on [src].",
+			span_notice("You [new_state ? "close the main breaker — power restored to downstream circuits." : "open the main breaker — everything downstream is now dead."]")
+		)
+		// Notify the upstream generator immediately so watt accounting stays current.
+		var/obj/up = upstream_ref ? upstream_ref.resolve() : null
+		while(up)
+			if(istype(up, /obj/machinery/f13/faction_generator))
+				var/obj/machinery/f13/faction_generator/G = up
+				G.recalc_draw()
+				break
+			else if(istype(up, /obj/machinery/f13/power_relay))
+				var/obj/machinery/f13/power_relay/R = up
+				up = R.upstream_ref ? R.upstream_ref.resolve() : null
+			else
+				break
+		show_ui(U)
