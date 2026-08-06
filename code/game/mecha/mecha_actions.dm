@@ -287,15 +287,23 @@
 /datum/action/innate/mecha/klaxon
 	name = "Klaxon"
 	button_icon_state = "mech_damtype_brute"
+	var/next_use_time = 0
 
 /datum/action/innate/mecha/klaxon/Activate()
+	if(world.time < next_use_time)
+		return
+	next_use_time = world.time + 18 // matches klaxon.ogg duration (~1.7s) to prevent stacking
 	playsound(chassis,'sound/f13machines/klaxon.ogg', 50, 1)
 
 /datum/action/innate/mecha/sirens
 	name = "Sirens"
 	button_icon_state = "mech_damtype_brute"
+	var/next_use_time = 0
 
 /datum/action/innate/mecha/sirens/Activate()
+	if(world.time < next_use_time)
+		return
+	next_use_time = world.time + 300 // police.ogg duration (~20.9s) + buffer for client latency
 	playsound(chassis,'sound/f13machines/police.ogg', 50, 1)
 
 // LAND BIRD LAND
