@@ -401,12 +401,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
-"arG" = (
-/obj/machinery/door/airlock/grunge{
-	req_access_txt = "31"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/citycaves)
 "arH" = (
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/f13{
@@ -5209,8 +5203,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
 "dPE" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/simple_door/bunker,
+/obj/machinery/door/airlock/highsecurity{
+	id_tag = "treeminderboss";
+	locked = 1
+	},
 /turf/open/floor/plasteel/cult,
 /area/f13/citycaves)
 "dPP" = (
@@ -13482,7 +13478,8 @@
 /area/f13/citycaves)
 "jHv" = (
 /obj/machinery/door/airlock/highsecurity{
-	req_access_txt = "63"
+	id_tag = "treeminderboss";
+	locked = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -18705,18 +18702,10 @@
 /obj/structure/car/junk/pod,
 /turf/open/floor/plating/rust,
 /area/f13/raiders)
-"nbE" = (
-/obj/effect/turf_decal/trimline/purple/line{
-	dir = 8
-	},
-/obj/effect/landmark/start/ai/secondary,
-/turf/open/floor/plating/rust,
-/area/f13/citycaves)
 "nbJ" = (
 /obj/effect/turf_decal/trimline/purple/line{
 	dir = 8
 	},
-/mob/living/silicon/robot/shell,
 /turf/open/floor/plating/rust,
 /area/f13/citycaves)
 "ncI" = (
@@ -21959,9 +21948,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ruins)
 "phw" = (
-/obj/machinery/door/airlock/grunge{
-	req_access_txt = "31"
-	},
+/obj/machinery/door/airlock/grunge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -22594,9 +22581,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "vaultshutter2"
 	},
-/obj/machinery/door/airlock/grunge{
-	req_access_txt = "31"
-	},
+/obj/machinery/door/airlock/grunge,
 /turf/open/floor/plasteel/f13/vault_floor/misc,
 /area/f13/citycaves)
 "pBl" = (
@@ -24780,9 +24765,7 @@
 /turf/open/floor/plasteel/floorgrime,
 /area/f13/ruins)
 "qYO" = (
-/obj/machinery/door/airlock/grunge{
-	req_access_txt = "31"
-	},
+/obj/machinery/door/airlock/grunge,
 /turf/open/floor/circuit/red/off,
 /area/f13/citycaves)
 "qZd" = (
@@ -29213,9 +29196,7 @@
 /obj/machinery/door/poddoor/shutters/preopen{
 	id = "vaultshutter3"
 	},
-/obj/machinery/door/airlock/grunge{
-	req_access_txt = "31"
-	},
+/obj/machinery/door/airlock/grunge,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
@@ -29571,7 +29552,6 @@
 	},
 /area/f13/citycaves)
 "umA" = (
-/obj/effect/landmark/start/cyborg,
 /obj/machinery/light/small{
 	light_color = "#ff8000";
 	color = "#ff8000";
@@ -32016,7 +31996,9 @@
 	},
 /area/f13/bunker)
 "vPa" = (
-/obj/machinery/computer/terminal/baltimore/treeminders,
+/obj/machinery/computer/terminal/baltimore/treeminders{
+	linked_door_ids = "treeminderboss"
+	},
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/cult,
 /area/f13/citycaves)
@@ -32236,10 +32218,6 @@
 	color = "#c1ac99";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/citycaves)
-"vZm" = (
-/obj/effect/landmark/start/ai,
-/turf/open/floor/circuit/f13_blue,
 /area/f13/citycaves)
 "vZT" = (
 /obj/structure/table,
@@ -113164,7 +113142,7 @@ nhZ
 kpt
 nAG
 nAG
-arG
+gpM
 mwi
 xKS
 brs
@@ -116330,7 +116308,7 @@ nhZ
 nhZ
 nhZ
 nhZ
-arG
+gpM
 nhZ
 nhZ
 kgo
@@ -116677,7 +116655,7 @@ euM
 euM
 euM
 nhZ
-arG
+gpM
 nhZ
 nhZ
 nhZ
@@ -118783,7 +118761,7 @@ nhZ
 eDI
 nAG
 nAG
-arG
+gpM
 sQj
 afR
 afR
@@ -119837,7 +119815,7 @@ eSl
 eSl
 nhZ
 nhZ
-arG
+gpM
 nhZ
 nhZ
 euM
@@ -119846,7 +119824,7 @@ euM
 euM
 euM
 euM
-arG
+gpM
 nhZ
 nhZ
 wKU
@@ -122673,7 +122651,7 @@ quI
 xKS
 nAG
 lSq
-nbE
+nbJ
 mBY
 hnI
 nbJ
@@ -123719,7 +123697,7 @@ eSl
 eSl
 nhZ
 jdj
-vZm
+vaQ
 aDo
 uNU
 uea
@@ -130755,7 +130733,7 @@ nhZ
 lpk
 sQj
 sQj
-arG
+gpM
 mwi
 kiK
 sQj
@@ -130767,7 +130745,7 @@ xKS
 xKS
 nAG
 wjB
-arG
+gpM
 sQj
 sQj
 lpk
@@ -132163,7 +132141,7 @@ nhZ
 lpk
 sQj
 sQj
-arG
+gpM
 mwi
 xKS
 kVw
@@ -132171,7 +132149,7 @@ dAa
 wTI
 igk
 uQJ
-arG
+gpM
 tVa
 xKS
 vTs
@@ -133571,7 +133549,7 @@ nhZ
 chh
 sQj
 sQj
-arG
+gpM
 evT
 sQj
 uCO
@@ -133583,7 +133561,7 @@ xKS
 sQj
 sQj
 wjB
-arG
+gpM
 nAG
 nAG
 xSv
@@ -134281,7 +134259,7 @@ nhZ
 pdg
 nhZ
 nhZ
-arG
+gpM
 nhZ
 nhZ
 sQj

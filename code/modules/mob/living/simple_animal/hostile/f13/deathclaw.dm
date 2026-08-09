@@ -182,8 +182,8 @@
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is an angry mother."
 	gender = FEMALE
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 1500
-	health = 1500
+	maxHealth = 1000
+	health = 1000
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 25
 	melee_damage_upper = 55
@@ -217,11 +217,11 @@
 	icon_state = "inflicted"
 	icon_living = "inflicted"
 	color_mad = rgb(255, 125, 85)
-	maxHealth = 400
-	health = 400
+	maxHealth = 100
+	health = 100
 	stat_attack = UNCONSCIOUS
 	reach = 2
-	speed = 4
+	speed = 1.8
 
 //Legendary Deathclaw
 /mob/living/simple_animal/hostile/deathclaw/legendary

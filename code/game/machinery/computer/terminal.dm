@@ -1956,6 +1956,19 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	doc_title_1 = "INTRUSION ALERT - 24/10/2077"
 	doc_content_1 = "ALERT : ALERT : MAIN DOORS ARE COMPROMISED. INTRUDER ALERT."
 
+/obj/machinery/computer/terminal/baltimore/vault121/overseer
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 121 !\
+	A new page of your life turns ! You are now safe, now a survivor, now a member of the elite !\
+	Vault is now active ! Please see overseer Donald Letto for the initial vault presentation in the cafetaria."
+
+	doc_title_1 = "MESSAGE TO VAULT OVERSEER - 23/10/2077"
+	doc_content_1 = "Greetings overseer. Here is the vault experiment : In order to judge the security of vaults back in the west, we creates a series 1000 vault on this coast in order to judges its defenses against intruders.\
+	As such, the vault will emmit a signal in a few hours, attracting all kind of people, we do expect a lot of military personal, bandit. You are tasked to do your best. Your success and failure will be studied."
+
+	doc_title_2 = "INTRUSION ALERT - 24/10/2077"
+	doc_content_2 = "ALERT : ALERT : MAIN DOORS ARE COMPROMISED. INTRUDER ALERT."
+
 
 /obj/machinery/computer/terminal/baltimore/vault121/foreman
 	doc_title_1 = "Question - 23/10/2075"
