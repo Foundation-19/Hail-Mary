@@ -3086,6 +3086,12 @@
 /obj/effect/spawner/lootdrop/f13/traitbooks,
 /turf/open/floor/wood/f13/old,
 /area/f13/baltimore/building/abandoned)
+"aVQ" = (
+/mob/living/simple_animal/hostile/handy/protectron,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/building/abandoned)
 "aVZ" = (
 /obj/item/stack/spacecash/c1000,
 /obj/effect/spawner/lootdrop/f13/cash_random_high,
@@ -3249,6 +3255,10 @@
 	name = "rusted Docks"
 	},
 /area/f13/baltimore/wasteland/city)
+"aYz" = (
+/mob/living/simple_animal/hostile/handy/protectron,
+/turf/open/floor/plasteel/f13/vault_floor/darkrusty,
+/area/f13/baltimore/building/abandoned)
 "aYZ" = (
 /obj/structure/car/rubbish1alt,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -41103,6 +41113,12 @@
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/wasteland/city/citycenter)
+"mFW" = (
+/mob/living/simple_animal/hostile/handy/protectron,
+/turf/open/floor/f13{
+	icon_state = "floorrusty"
+	},
+/area/f13/baltimore/building/abandoned)
 "mGa" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -49464,6 +49480,7 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
+/mob/living/simple_animal/hostile/handy/protectron,
 /turf/open/floor/plasteel/f13/vault_floor/darkrusty,
 /area/f13/baltimore/building/abandoned)
 "pmX" = (
@@ -72379,6 +72396,10 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"wiy" = (
+/mob/living/simple_animal/hostile/handy/protectron,
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/building/abandoned)
 "wiQ" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_fancy/wood_fancy_light{
@@ -106625,7 +106646,7 @@ qpJ
 upF
 upF
 jHu
-jHu
+wiy
 qwb
 nnI
 kdM
@@ -107675,7 +107696,7 @@ spX
 upF
 upF
 upF
-jHu
+wiy
 jHu
 upF
 lus
@@ -108015,7 +108036,7 @@ wba
 spX
 jHu
 pkg
-pkg
+aVQ
 xKa
 xxC
 gzJ
@@ -108725,7 +108746,7 @@ jHu
 lkl
 pkg
 apq
-pkg
+aVQ
 fpT
 spX
 upF
@@ -135561,7 +135582,7 @@ twx
 jXo
 jXo
 kOr
-jXo
+mFW
 cQJ
 car
 jXo
@@ -138731,7 +138752,7 @@ qpK
 xDm
 twx
 fGc
-jHu
+wiy
 rca
 lXO
 xdc
@@ -146466,7 +146487,7 @@ ePi
 xdc
 cZV
 xDm
-cZV
+aYz
 cZV
 cZV
 xdc
