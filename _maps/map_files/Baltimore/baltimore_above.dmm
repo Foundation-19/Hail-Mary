@@ -21394,6 +21394,11 @@
 	icon_state = "common1"
 	},
 /area/f13/building/center)
+"vfo" = (
+/obj/effect/decal/cleanable/dirt,
+/mob/living/simple_animal/hostile/ghoul/glowing/strong,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/building/boat)
 "vfC" = (
 /obj/structure/mecha_wreckage/vertibird,
 /turf/open/indestructible/ground/outside/roaddirt,
@@ -21758,10 +21763,14 @@
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/bar)
 "vBD" = (
-/mob/living/simple_animal/hostile/ghoul/glowing/strong,
 /obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/building/boat)
+/mob/living/simple_animal/hostile/ghoul/glowing/strong,
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "worn_light1"
+	},
+/area/f13/Ocean)
 "vCj" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowbrokenvertical"
@@ -68007,7 +68016,7 @@ ukf
 ukf
 jHG
 jHG
-vPx
+vBD
 urY
 urY
 ckU
@@ -69044,7 +69053,7 @@ kmz
 tqe
 pmS
 pmS
-eXP
+vfo
 bpL
 ctq
 sIv
@@ -69411,7 +69420,7 @@ vle
 kDL
 eXP
 pmS
-vBD
+eXP
 eXP
 jVB
 bUl
@@ -69756,7 +69765,7 @@ eXP
 eXP
 klK
 pmS
-eXP
+vfo
 eXP
 pmS
 eUf
@@ -70115,7 +70124,7 @@ mgN
 kDL
 eXP
 pmS
-vBD
+eXP
 eXP
 eXP
 eXP
