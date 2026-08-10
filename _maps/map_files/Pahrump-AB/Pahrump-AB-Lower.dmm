@@ -10626,6 +10626,12 @@
 	icon_state = "greenrustyfull"
 	},
 /area/f13/tunnel)
+"gWg" = (
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood/mining)
 "gXq" = (
 /obj/structure/decoration/rag,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
@@ -12545,6 +12551,10 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/bunker)
+"iOj" = (
+/obj/machinery/light/small,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood/mining)
 "iOS" = (
 /obj/structure/chair/f13chair1,
 /obj/effect/decal/cleanable/dirt,
@@ -22979,6 +22989,9 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/bunker)
+"sOH" = (
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/brotherhood/mining)
 "sOK" = (
 /obj/effect/decal/cleanable/blood/gibs/down{
 	icon_state = "gib6-old"
@@ -27030,6 +27043,13 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/building/massfusion)
+"wJR" = (
+/obj/machinery/light/small{
+	dir = 8;
+	light_color = "red"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/brotherhood/mining)
 "wKp" = (
 /obj/effect/decal/waste{
 	icon_state = "goo10"
@@ -28206,6 +28226,13 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/radiation)
+"xQR" = (
+/obj/structure/ore_box,
+/obj/machinery/light/small{
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/brotherhood/mining)
 "xQV" = (
 /obj/effect/decal/remains{
 	icon_state = "remains"
@@ -86474,9 +86501,9 @@ xwF
 aae
 aaa
 kws
+gWg
 iaq
-iaq
-iaq
+iOj
 kws
 kws
 aae
@@ -87245,9 +87272,9 @@ xwF
 aaa
 aaa
 kws
-gJx
+xQR
 iaq
-iaq
+iOj
 kws
 kws
 aae
@@ -88016,10 +88043,10 @@ xwF
 aaa
 aae
 aae
-adz
-adz
-adz
-adz
+wJR
+sOH
+sOH
+wJR
 adz
 adz
 adz

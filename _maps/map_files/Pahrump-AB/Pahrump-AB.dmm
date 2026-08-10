@@ -13234,7 +13234,7 @@
 	},
 /obj/machinery/button/door{
 	id = "bosfrontgate";
-	name = "Brotherhood Gate";
+	name = "Brotherhood Northern Gate";
 	pixel_y = 32;
 	pixel_x = -8
 	},
@@ -13242,8 +13242,8 @@
 	dir = 8
 	},
 /obj/machinery/button/door{
-	id = "bossouthgate";
-	name = "Brotherhood Southern Gate";
+	id = "bosshutter";
+	name = "Brotherhood Shutter";
 	pixel_y = 22;
 	pixel_x = 8
 	},
@@ -128806,7 +128806,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 hEK
 hEK
@@ -129063,7 +129063,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 hEK
 hEK
@@ -129320,7 +129320,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 mhA
 mhA
@@ -129577,7 +129577,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 hEK
 hEK
@@ -129834,7 +129834,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 hEK
 hEK
@@ -130091,18 +130091,18 @@ aae
 aae
 aae
 aae
+aaa
+exh
+mhA
+mhA
+mhA
+mhA
+mhA
+hEK
+hEK
+exh
 aae
-exh
-mhA
-mhA
-mhA
-mhA
-mhA
-hEK
-hEK
-exh
-aaa
-aaa
+aae
 tBc
 tBc
 tBc
@@ -130348,7 +130348,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 hEK
 hEK
@@ -130358,7 +130358,7 @@ mhA
 hEK
 hEK
 exh
-aae
+aaa
 aaa
 aaa
 aaa
@@ -130605,7 +130605,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 hEK
 hEK
@@ -130615,7 +130615,7 @@ mhA
 hEK
 hEK
 exh
-aae
+aaa
 aae
 aae
 aae
@@ -130862,7 +130862,7 @@ aae
 aae
 aae
 aae
-aae
+aaa
 exh
 exh
 exh
@@ -130872,7 +130872,7 @@ exh
 exh
 exh
 exh
-aae
+aaa
 aae
 aae
 aae
@@ -131119,17 +131119,17 @@ aae
 aae
 aae
 aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
-aae
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
+aaa
 aae
 aae
 aae
