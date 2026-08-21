@@ -76,13 +76,13 @@
 
 /// Resolve the upstream generator.  Returns null if unwired or the upstream is not a generator.
 /obj/machinery/f13/core_fabricator/proc/get_linked_generator()
-	if(!upstream_ref)
+	if(!upstream_refs || !upstream_refs.len)
 		return null
-	var/obj/machinery/f13/faction_generator/G = upstream_ref.resolve()
-	if(!G || QDELETED(G))
-		upstream_ref = null
-		return null
-	return G
+	for(var/datum/weakref/W in upstream_refs)
+		var/obj/machinery/f13/faction_generator/G = W.resolve()
+		if(G && !QDELETED(G) && istype(G, /obj/machinery/f13/faction_generator))
+			return G
+	return null
 
 /// Override: react to upstream going on or off (hard power failure or reconnect).
 /obj/machinery/f13/core_fabricator/on_grid_power_change(new_state)
@@ -125,7 +125,11 @@
 /// Tell the upstream node to re-tally its watt budget.
 /// Called whenever fab_state changes so overload is detected immediately.
 /obj/machinery/f13/core_fabricator/proc/_notify_generator_draw_changed()
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
+	var/obj/upstream = null
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(up && !QDELETED(up)) { upstream = up; break }
 	if(!upstream || QDELETED(upstream))
 		return
 	if(istype(upstream, /obj/machinery/f13/faction_generator))
@@ -141,7 +145,7 @@
 	if(fab_state == FAB_STATE_CRAFTING)
 		STOP_PROCESSING(SSobj, src)
 	ui_watchers = list()
-	return ..()  // grid_client.Destroy() handles upstream_ref / linked_clients cleanup
+	return ..()  // grid_client.Destroy() handles upstream_refs / linked_clients cleanup
 
 
 // ============================================================

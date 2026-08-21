@@ -33,7 +33,7 @@
 /turf/open/floor/f13/wood
 	icon_state = "housewood1"
 	icon = 'icons/fallout/turfs/ground.dmi'
-	floor_tile = /obj/item/stack/tile/wood
+	floor_tile = /obj/item/stack/tile/f13_wood
 	icon_plating = "housebase"
 //	step_sounds = list("human" = "woodfootsteps")
 	broken_states = list("housewood1-broken", "housewood2-broken", "housewood3-broken", "housewood4-broken")
@@ -49,6 +49,12 @@
 /turf/open/floor/f13/wood/make_plating()
 	return ChangeTurf(/turf/open/floor/plating/wooden)
 
+/// Drop a tile that remembers which visual variant this plank was.
+/turf/open/floor/f13/wood/spawn_tile()
+	var/obj/item/stack/tile/f13_wood/T = new(src)
+	if(!broken && !burnt)
+		T.saved_icon_state = icon_state
+
 /turf/open/floor/f13/wood/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
@@ -56,7 +62,8 @@
 		if(broken || burnt)
 			new /obj/item/stack/sheet/mineral/wood(src)
 		else
-			new floor_tile(src)
+			var/obj/item/stack/tile/f13_wood/T = new(src)
+			T.saved_icon_state = icon_state
 		to_chat(user, span_danger("You unscrew the planks."))
 		make_plating()
 		playsound(src, C.usesound, 80, 1)

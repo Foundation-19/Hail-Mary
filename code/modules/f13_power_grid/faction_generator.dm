@@ -51,6 +51,9 @@
 	// ── Power state
 	/// Whether the generator is currently supplying power.
 	var/powered = FALSE
+	/// FALSE when this unit was field-assembled and has not had a grounding rod installed.
+	/// Map-placed generators default TRUE; crafted ones start FALSE until a rod is applied.
+	var/grounded = TRUE
 	/// Remaining fuel in SSobj ticks.
 	var/fuel = 0
 	/// Maximum fuel capacity (two cores — hard ceiling on insertion).
@@ -123,6 +126,8 @@
 
 	// ── Low-fuel fire-once flag
 	var/low_fuel_warned = FALSE
+	/// world.time when the generator last powered down; used for hot-refuel cooldown.
+	var/shutdown_time = 0
 
 	// ── Fuel abstraction — override these in generator subtypes.
 	/// Item path this generator accepts as fuel. Checked in attackby().
@@ -222,25 +227,27 @@
 				visited += N
 				var/blocked = FALSE
 				for(var/obj/machinery/f13/power_relay/R in N)
-					if(!QDELETED(R) && !R.upstream_ref)
+					if(!QDELETED(R) && !R.upstream_refs)
 						if(!linked_relays)
 							linked_relays = list()
 						if(!(R in linked_relays))
 							linked_relays += R
-							R.upstream_ref = WEAKREF(src)
-							R.set_relay_power(powered)
+							if(!R.upstream_refs) R.upstream_refs = list()
+							R.upstream_refs += WEAKREF(src)
+							R.on_upstream_changed()
 					blocked = TRUE
 					break
 				if(blocked)
 					continue
 				for(var/obj/machinery/f13/grid_client/C in N)
-					if(!QDELETED(C) && !C.upstream_ref)
+					if(!QDELETED(C) && !C.upstream_refs)
 						if(!linked_clients)
 							linked_clients = list()
 						if(!(C in linked_clients))
 							linked_clients += C
-							C.upstream_ref = WEAKREF(src)
-							C.on_grid_power_change(powered)
+							if(!C.upstream_refs) C.upstream_refs = list()
+							C.upstream_refs += WEAKREF(src)
+							C.on_upstream_changed()
 					blocked = TRUE
 					break
 				if(blocked)
@@ -251,21 +258,54 @@
 
 	recalc_draw()
 
+/// Validate every existing logical connection against the current cable layout.
+/// Any relay or client whose cable path is gone gets unpowered and unlinked.
+/// Returns the number of connections removed.
+/obj/machinery/f13/faction_generator/proc/_prune_dead_links()
+	var/turf/src_turf = get_turf(src)
+	if(!src_turf)
+		return 0
+	var/removed = 0
+	if(linked_relays)
+		var/list/to_remove = list()
+		for(var/obj/machinery/f13/power_relay/R in linked_relays)
+			if(QDELETED(R) || !f13_cable_path_exists(src_turf, get_turf(R)))
+				to_remove += R
+		for(var/obj/machinery/f13/power_relay/R in to_remove)
+			f13_remove_upstream_ref(R.upstream_refs, src)
+			R.on_upstream_changed()
+			linked_relays -= R
+			removed++
+	if(linked_clients)
+		var/list/to_remove = list()
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(QDELETED(C) || !f13_cable_path_exists(src_turf, get_turf(C)))
+				to_remove += C
+		for(var/obj/machinery/f13/grid_client/C in to_remove)
+			f13_remove_upstream_ref(C.upstream_refs, src)
+			C.on_upstream_changed()
+			linked_clients -= C
+			removed++
+	if(removed)
+		recalc_draw()
+	return removed
+
 /obj/machinery/f13/faction_generator/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	set_power_state(FALSE)
-	// Kill relay chain — relays cut themselves from the list inside Destroy().
+	// Kill relay chain — remove self from each relay's upstream_refs, let OR logic decide.
 	if(linked_relays)
 		var/list/relay_copy = linked_relays.Copy()
 		for(var/obj/machinery/f13/power_relay/R in relay_copy)
 			if(!QDELETED(R))
-				R.upstream_ref = null
-				R.set_relay_power(FALSE)
+				f13_remove_upstream_ref(R.upstream_refs, src)
+				R.on_upstream_changed()
 	// Clear generic grid client back-refs.
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				C.upstream_ref = null
+				f13_remove_upstream_ref(C.upstream_refs, src)
+				C.on_upstream_changed()
 		linked_clients = null
 	return ..()
 
@@ -278,6 +318,14 @@
 	// Cool down any accumulated external heat each tick.
 	if(heat_exposure > 0)
 		heat_exposure = max(0, heat_exposure - 1000)
+	// Ungrounded frame leaks stray current — arc discharge near wet ground.
+	if(powered && !grounded && prob(3))
+		do_sparks(4, FALSE, src)
+		for(var/mob/living/L in view(1, src))
+			var/turf/LT = get_turf(L)
+			if(istype(LT, /turf/open/water) || IS_WET_OPEN_TURF(LT))
+				to_chat(L, span_danger("Stray current arcs through the ungrounded generator frame and into you!"))
+				L.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	if(fuel > 0)
 		fuel--
 
@@ -352,6 +400,8 @@
 	if(powered == new_powered)
 		return
 
+	if(powered && !new_powered)
+		_check_backfeed()
 	powered = new_powered
 	update_icon()
 
@@ -364,20 +414,20 @@
 			if(!QDELETED(T))
 				T.toggle_on(powered)
 
-	// Propagate to directly-wired relays.
+	// Propagate to directly-wired relays — each recalculates via OR logic.
 	if(linked_relays)
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
 			if(!QDELETED(R))
-				R.set_relay_power(powered)
+				R.on_upstream_changed()
 
 	// Notify wired fabricators of the power change.
-	// (Fabricators are now grid_client — they receive on_grid_power_change via linked_clients below.)
+	// (Fabricators are now grid_client — they receive on_upstream_changed via linked_clients below.)
 
 	// Notify generic grid clients.
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				C.on_grid_power_change(powered)
+				C.on_upstream_changed()
 
 	// Announce to faction members.
 	if(powered)
@@ -386,12 +436,46 @@
 	else
 		broadcast_to_faction("<span class='warning'>POWER FAILURE: [faction_tag ? faction_tag : "Base"] generator has gone offline. Insert a fusion core to restore power.</span>")
 
+/// Fires when this generator goes offline and any shared relay still has a live parallel generator upstream.
+/obj/machinery/f13/faction_generator/proc/_check_backfeed()
+	if(!linked_relays)
+		return
+	for(var/obj/machinery/f13/power_relay/R in linked_relays)
+		if(QDELETED(R) || !R.upstream_refs)
+			continue
+		for(var/datum/weakref/W in R.upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up) || up == src)
+				continue
+			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
+				do_sparks(8, FALSE, R)
+				var/turf/T = get_turf(R)
+				for(var/mob/living/L in view(1, T))
+					L.electrocute_act(25, R, flags = SHOCK_NOGLOVES)
+				for(var/mob/living/L in view(3, T))
+					to_chat(L, span_danger("BACKFEED: [R.name] — parallel generator isolation failure. Surge at the relay."))
+				break
+
 /// Stamp actual SS13 power-channel vars on every owned area and fire power_change().
 /// Called directly by set_power_state() and by the master breaker when magic power is toggled.
+/// TRUE if any junction box with an open master breaker owns this area.
+/obj/machinery/f13/faction_generator/proc/_area_in_tripped_jbox(area/A)
+	for(var/obj/machinery/f13/junction_box/JB in world)
+		if(JB.breaker_closed)
+			continue
+		if(JB.owned_zones && (A in JB.owned_zones))
+			return TRUE
+		if(JB.powered_area_instances && (A in JB.powered_area_instances))
+			return TRUE
+	return FALSE
+
 /obj/machinery/f13/faction_generator/proc/stamp_zone(state)
 	if(!powered_area_instances)
 		return
 	for(var/area/A in powered_area_instances)
+		// Don't re-energise areas held dark by a tripped (non-auto-reset) breaker.
+		if(state && _area_in_tripped_jbox(A))
+			continue
 		F13_STAMP_AREA_POWER(A, state)
 	// Notify machinery (e.g. door buttons) on /area/space tiles adjacent to owned areas.
 	// The border-turf list is built once on the first call and cached; subsequent toggles
@@ -588,7 +672,8 @@
 			for(var/obj/machinery/f13/power_relay/R in world)
 				if(R.tag == target_tag && !(R in linked_relays))
 					linked_relays += R
-					R.upstream_ref = WEAKREF(src)
+					if(!R.upstream_refs) R.upstream_refs = list()
+					R.upstream_refs += WEAKREF(src)
 
 	// Auto-wire fabricators by tag.
 	// Fabricators are now grid_client — use map_client_tags to pre-wire them alongside junction boxes.
@@ -602,10 +687,8 @@
 			for(var/obj/machinery/f13/grid_client/C in world)
 				if(C.tag == target_tag && !(C in linked_clients))
 					linked_clients += C
-					C.upstream_ref = WEAKREF(src)
-
-
-// ============================================================
+					if(!C.upstream_refs) C.upstream_refs = list()
+					C.upstream_refs += WEAKREF(src)
 // LOCK ACCESS CHECK
 // ============================================================
 
@@ -685,6 +768,20 @@
 	return  // Base: no reaction. Subtypes override.
 
 /obj/machinery/f13/faction_generator/attackby(obj/item/W, mob/user, params)
+	// ── Grounding rod — bonds the frame to earth, clearing leakage risk.
+	if(istype(W, /obj/item/f13/grounding_rod))
+		if(grounded)
+			to_chat(user, span_notice("[src] is already grounded."))
+			return
+		if(!anchored)
+			to_chat(user, span_warning("Anchor the generator first — the grounding rod needs a fixed frame to bond to."))
+			return
+		grounded = TRUE
+		qdel(W)
+		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		do_sparks(3, FALSE, src)
+		to_chat(user, span_notice("You drive the grounding rod into the floor and bond it to [src]'s frame. The leakage risk clears."))
+		return
 	// ── Heat hazard — a lit welder or open flame held against the generator builds heat.
 	var/item_heat = W.get_temperature()
 	if(item_heat > 0 && isliving(user))
@@ -795,16 +892,16 @@
 		if(linked_relays)
 			for(var/obj/machinery/f13/power_relay/R in linked_relays.Copy())
 				if(!QDELETED(R))
-					R.upstream_ref = null
+					f13_remove_upstream_ref(R.upstream_refs, src)
 					R.update_icon()
-					R.set_relay_power(FALSE)
+					R.on_upstream_changed()
 					cut_count++
 			linked_relays = null
 		if(linked_clients)
 			for(var/obj/machinery/f13/grid_client/C in linked_clients.Copy())
 				if(!QDELETED(C))
-					C.upstream_ref = null
-					C.on_grid_power_change(FALSE)
+					f13_remove_upstream_ref(C.upstream_refs, src)
+					C.on_upstream_changed()
 					cut_count++
 			linked_clients = null
 		shed_relays = null
@@ -886,23 +983,14 @@
 		to_chat(user, span_notice("[C.name] is already wired to [name]. Use wirecutters to disconnect."))
 		return
 
-	// Sever any existing upstream the client is already connected to.
-	var/obj/old_up = C.upstream_ref ? C.upstream_ref.resolve() : null
-	if(old_up && old_up != src)
-		if(istype(old_up, /obj/machinery/f13/faction_generator))
-			var/obj/machinery/f13/faction_generator/OG = old_up
-			if(OG.linked_clients) OG.linked_clients -= C
-		else if(istype(old_up, /obj/machinery/f13/power_relay))
-			var/obj/machinery/f13/power_relay/OR = old_up
-			if(OR.linked_clients) OR.linked_clients -= C
-
 	linked_clients += C
-	C.upstream_ref = WEAKREF(src)
+	if(!C.upstream_refs) C.upstream_refs = list()
+	if(!C._has_upstream(src)) C.upstream_refs += WEAKREF(src)
 	if(powered && isliving(user))
 		to_chat(user, span_danger("You connect a cable to a live generator — electricity arcs across your hand!"))
 		var/mob/living/UL = user
 		UL.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
-	C.on_grid_power_change(powered)
+	C.on_upstream_changed()
 	recalc_draw()
 	to_chat(user, span_notice("Wired: [C.name] is now linked to [name]."))
 
@@ -919,18 +1007,16 @@
 		to_chat(user, span_notice("[R.name] is already wired to [name]. Use wirecutters to disconnect."))
 		return
 
-	// Sever any existing upstream the relay is already connected to.
-	R._sever_upstream()
-
 	linked_relays += R
-	R.upstream_ref = WEAKREF(src)
+	if(!R.upstream_refs) R.upstream_refs = list()
+	if(!R._has_upstream(src)) R.upstream_refs += WEAKREF(src)
 	R.update_icon()
 	if(powered && isliving(user))
 		to_chat(user, span_danger("You connect a cable to a live generator — electricity arcs across your hand!"))
 		var/mob/living/UL = user
 		UL.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
 	to_chat(user, span_notice("Wired: [R.name] linked to [name]. Power: [powered ? "ONLINE" : "OFFLINE"]."))
-	R.set_relay_power(powered)
+	R.on_upstream_changed()
 
 
 // ── Handle ID card swipe for personal / faction locking.
@@ -1022,6 +1108,8 @@
 	if(shed_total > 0)
 		status_line += " <span class='warn'>&#91;LOAD SHED: [shed_total] device[shed_total != 1 ? "s" : ""] suspended&#93;</span>"
 	dat += "<pre>  STATUS   : [status_line]</pre>"
+	if(!grounded)
+		dat += "<pre>  <span style='color:#ff8c00'>  &#9888; UNGROUNDED  &mdash;  install a grounding rod to prevent leakage current hazards</span></pre>"
 	if(fuel_is_liquid)
 		dat += "<pre>  FUEL     : [fuel] L / [max_fuel] L <span class='dim'>([fuel_pct]%  runtime ~[runtime_display])</span></pre>"
 		if(accessible)
@@ -1190,17 +1278,21 @@
 					set_power_state(FALSE)
 				on_fuel_ejected(U, ejected)
 		if("rescan")
-			var/found = 0
+			var/pruned = _prune_dead_links()
 			var/before_relays  = linked_relays  ? linked_relays.len  : 0
 			var/before_clients = linked_clients ? linked_clients.len : 0
 			_scan_cable_connections()
 			var/after_relays  = linked_relays  ? linked_relays.len  : 0
 			var/after_clients = linked_clients ? linked_clients.len : 0
-			found = (after_relays - before_relays) + (after_clients - before_clients)
-			if(found > 0)
+			var/found = (after_relays - before_relays) + (after_clients - before_clients)
+			if(found > 0 && pruned > 0)
+				to_chat(U, span_notice("Network rescan complete — [found] new device[found != 1 ? "s" : ""] linked, [pruned] stale link[pruned != 1 ? "s" : ""] cleared."))
+			else if(found > 0)
 				to_chat(U, span_notice("Network rescan complete — [found] new device[found != 1 ? "s" : ""] linked."))
+			else if(pruned > 0)
+				to_chat(U, span_notice("Network rescan complete — [pruned] stale link[pruned != 1 ? "s" : ""] cleared."))
 			else
-				to_chat(U, span_notice("Network rescan complete — no new devices found on the cable network."))
+				to_chat(U, span_notice("Network rescan complete — no changes."))
 
 		if("shutdown")
 			if(!can_access(U))
@@ -1304,13 +1396,17 @@
 	if(!container.reagents || !container.reagents.has_reagent(/datum/reagent/fuel))
 		to_chat(user, span_warning("That won't work — [name] runs on petroleum diesel. Substituting anything else risks injector damage or a flash fire."))
 		return TRUE
-	// Hot-refuel guard: diesel generators need ~30 seconds to cool down before refuelling.
-	if(istype(src, /obj/machinery/f13/faction_generator/diesel) && !powered)
-		var/obj/machinery/f13/faction_generator/diesel/D = src
-		if(D.shutdown_time > 0 && (world.time - D.shutdown_time) < 300) // 300 ds = 30 seconds
-			var/secs_left = round((300 - (world.time - D.shutdown_time)) / 10)
-			to_chat(user, span_warning("The engine block is still too hot to refuel safely. Wait about [secs_left] more second[secs_left != 1 ? "s" : ""]."))
-			return TRUE
+	// Fuel flash — pouring into a running engine vaporises fuel against hot internals.
+	if(powered && isliving(user))
+		var/mob/living/L = user
+		to_chat(user, span_danger("You pour fuel into [src] while it's running — a vapour flash scorches your hands!"))
+		L.adjustFireLoss(10)
+		L.IgniteMob()
+	// Hot-refuel guard: engine needs ~30 seconds to cool after shutdown before refuelling.
+	if(!powered && shutdown_time > 0 && (world.time - shutdown_time) < 300)
+		var/secs_left = round((300 - (world.time - shutdown_time)) / 10)
+		to_chat(user, span_warning("The engine block is still too hot to refuel safely. Wait about [secs_left] more second[secs_left != 1 ? "s" : ""]."))
+		return TRUE
 	if(!can_access(user))
 		to_chat(user, span_warning("Access denied."))
 		return TRUE
@@ -1361,9 +1457,6 @@
 	desc = "A battered pre-War industrial diesel unit — the kind that kept factories running before the war, and keeps settlements alive after it. Loud, thirsty, and mercifully common out here. Feed it diesel straight from a jerrycan to keep it running."
 	accepted_fuel_path   = null   // liquid-fuel pathway — uses try_liquid_refuel() instead
 	depleted_fuel_path   = null   // liquid fuel has no physical casing to eject
-	/// world.time when the generator was last powered down.  Used to enforce the
-	/// hot-refuel cooldown — the manual says don't fuel while the unit is hot.
-	var/shutdown_time = 0
 	fuel_is_liquid       = TRUE
 	fuel_per_unit        = 1      // 1 tick per litre (for residual unit calculations)
 	watts_per_fuel_unit  = 750    // flat output — diesel can't match fusion
@@ -1431,6 +1524,14 @@
 		seen_this_tick += H
 		// Internals block CO — they're breathing from a sealed tank.
 		if(H.internal)
+			co_exposure_map -= H
+			continue
+		// Gas mask filters out exhaust fumes.
+		if(H.wear_mask && istype(H.wear_mask, /obj/item/clothing/mask/gas))
+			co_exposure_map -= H
+			continue
+		// Powered armor is an airtight sealed suit — no CO penetration.
+		if(H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/armor/power_armor))
 			co_exposure_map -= H
 			continue
 		// Outdoor mob on an outside turf despite being near the generator — skip.
@@ -1590,6 +1691,8 @@
 	/// Cached list of /obj/machinery/light within power_reach in the generator's own area.
 	/// Built once on the first stamp_zone() call; reused on every subsequent toggle.
 	var/list/range_light_cache = null
+	/// Accumulated exhaust exposure per nearby mob — same hazard as the diesel variant.
+	var/list/co_exposure_map = null
 
 /obj/machinery/f13/faction_generator/wastelander/update_icon_state()
 	icon_state = powered ? "diesel-on" : "diesel-off"
@@ -1617,6 +1720,9 @@
 	for(var/obj/machinery/light/L in range_light_cache)
 		if(!QDELETED(L))
 			if(state)
+				// Don't restore lights in a zone held dark by a tripped breaker.
+				if(_area_in_tripped_jbox(get_area(L)))
+					continue
 				L.seton(L.status == LIGHT_OK)
 			else
 				// seton(FALSE) triggers update() which re-enables emergency_mode.
@@ -1645,12 +1751,67 @@
 	stamp_zone(TRUE)
 	..()  // powers linked_relays, linked_clients, runs cable scan
 
+/obj/machinery/f13/faction_generator/wastelander/set_power_state(new_powered)
+	if(!new_powered)
+		shutdown_time = world.time
+		co_exposure_map = null
+	return ..()
+
 /obj/machinery/f13/faction_generator/wastelander/on_maintenance_hazard()
 	// Worst build quality — fuel vapour ignition; escalates the fastest of all variants.
 	if(prob(min(30, 2 + round(maintenance_severity / 30))))
 		var/turf/T = get_turf(src)
 		if(T && !locate(/obj/effect/hotspot) in T)
 			new /obj/effect/hotspot(T)
+
+// Jury-rigged exhaust has no muffler — same CO risk as the diesel variant.
+/obj/machinery/f13/faction_generator/wastelander/process()
+	. = ..()
+	if(!powered || fuel <= 0)
+		co_exposure_map = null
+		return
+	var/turf/own_turf = get_turf(src)
+	if(!own_turf || istype(own_turf, /turf/open/indestructible/ground/outside))
+		co_exposure_map = null
+		return
+	if(!co_exposure_map)
+		co_exposure_map = list()
+	var/list/seen_this_tick = list()
+	for(var/mob/living/carbon/human/H in range(4, src))
+		if(H.stat == DEAD)
+			continue
+		seen_this_tick += H
+		if(H.internal)
+			co_exposure_map -= H
+			continue
+		if(H.wear_mask && istype(H.wear_mask, /obj/item/clothing/mask/gas))
+			co_exposure_map -= H
+			continue
+		if(H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/armor/power_armor))
+			co_exposure_map -= H
+			continue
+		var/turf/mob_turf = get_turf(H)
+		if(mob_turf && istype(mob_turf, /turf/open/indestructible/ground/outside))
+			co_exposure_map -= H
+			continue
+		var/ticks = co_exposure_map[H] || 0
+		ticks++
+		co_exposure_map[H] = ticks
+		var/dmg = (ticks >= 15) ? 2 : 1
+		H.adjustOxyLoss(dmg, 0)
+		H.adjustToxLoss(dmg, 0)
+		switch(ticks)
+			if(1)
+				to_chat(H, span_warning("The air near [src] carries a faint smell of exhaust fumes."))
+			if(4)
+				to_chat(H, span_danger("You feel a dull throb behind your eyes. The exhaust from [src] is getting to you."))
+			if(8)
+				to_chat(H, span_danger("Your head swims and your stomach turns. The exhaust fumes are building up in here — you need fresh air."))
+			if(15)
+				to_chat(H, span_userdanger("You can barely think straight. The carbon monoxide from [src] is suffocating you slowly. Get out NOW."))
+	for(var/mob/M in co_exposure_map)
+		if(!(M in seen_this_tick))
+			co_exposure_map -= M
 
 /obj/machinery/f13/faction_generator/wastelander/attackby(obj/item/W, mob/user, params)
 	if(try_liquid_refuel(W, user))

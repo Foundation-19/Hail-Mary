@@ -195,6 +195,9 @@ GLOBAL_LIST_INIT(admin_verbs_debug, world.AVerbsDebug())
 	///datum/admins/proc/view_del_failures,
 #endif
 	/client/proc/generate_wikichem_list, //DO NOT PRESS UNLESS YOU WANT SUPERLAG
+	/client/proc/f13_toggle_magic_power,
+	/client/proc/f13_area_power_panel,
+	/client/proc/f13_trace_dump,
 	)
 GLOBAL_PROTECT(admin_verbs_debug)
 //GLOBAL_LIST_INIT(admin_verbs_possess, list(GLOBAL_PROC_REF(possess), GLOBAL_PROC_REF(release)))

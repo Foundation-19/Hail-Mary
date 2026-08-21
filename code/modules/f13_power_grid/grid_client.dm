@@ -28,8 +28,9 @@
 // ============================================================
 
 /obj/machinery/f13/grid_client
-	/// Weakref to the generator or relay feeding this machine.
-	var/datum/weakref/upstream_ref = null
+	/// List of WEAKREFs to every generator or relay feeding this machine.
+	/// Multiple entries allow parallel / redundant feeds (OR logic).
+	var/list/upstream_refs = null
 	/// Current power state as set by the upstream grid node.
 	var/grid_powered = FALSE
 	/// Watts this machine draws continuously from the grid.
@@ -65,24 +66,51 @@
 /obj/machinery/f13/grid_client/proc/on_load_shed_restore()
 	on_grid_power_change(TRUE)
 
+/// Recalculate this client's power state from all registered upstream nodes.
+/// Uses OR logic: powered if ANY upstream is live.  Called when upstream topology changes.
+/obj/machinery/f13/grid_client/proc/on_upstream_changed()
+	var/any_live = FALSE
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up))
+				continue
+			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
+				any_live = TRUE
+				break
+			if(istype(up, /obj/machinery/f13/power_relay) && up:relay_powered)
+				any_live = TRUE
+				break
+	on_grid_power_change(any_live)
+
+/// Returns TRUE if /obj/target is already registered in upstream_refs.
+/obj/machinery/f13/grid_client/proc/_has_upstream(obj/target)
+	if(!upstream_refs || !target)
+		return FALSE
+	for(var/datum/weakref/W in upstream_refs)
+		if(W.resolve() == target)
+			return TRUE
+	return FALSE
+
 
 // ============================================================
 // LIFE CYCLE
 // ============================================================
 
 /obj/machinery/f13/grid_client/Destroy()
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
-	if(upstream)
-		if(istype(upstream, /obj/machinery/f13/faction_generator))
-			var/obj/machinery/f13/faction_generator/G = upstream
-			if(G.linked_clients)
-				G.linked_clients -= src
-			G.recalc_draw()
-		else if(istype(upstream, /obj/machinery/f13/power_relay))
-			var/obj/machinery/f13/power_relay/R = upstream
-			if(R.linked_clients)
-				R.linked_clients -= src
-	upstream_ref = null
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/upstream = W.resolve()
+			if(!upstream || QDELETED(upstream))
+				continue
+			if(istype(upstream, /obj/machinery/f13/faction_generator))
+				var/obj/machinery/f13/faction_generator/G = upstream
+				if(G.linked_clients) G.linked_clients -= src
+				G.recalc_draw()
+			else if(istype(upstream, /obj/machinery/f13/power_relay))
+				var/obj/machinery/f13/power_relay/R = upstream
+				if(R.linked_clients) R.linked_clients -= src
+		upstream_refs = null
 	return ..()
 
 
@@ -92,11 +120,15 @@
 
 /obj/machinery/f13/grid_client/examine(mob/user)
 	. = ..()
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
+	var/list/up_names = list()
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(up && !QDELETED(up)) up_names += up.name
 	if(grid_powered)
-		. += span_notice("Power cables connect it to [upstream ? upstream.name : "the grid"]. Indicator lights confirm it's live.")
-	else if(upstream)
-		. += span_notice("Cables run to [upstream.name], but no power is currently flowing through the line.")
+		. += span_notice("Power cables connect it to [up_names.len ? english_list(up_names) : "the grid"]. Indicator lights confirm it's live.")
+	else if(up_names.len)
+		. += span_notice("Cables run to [english_list(up_names)], but no power is currently flowing through the line.")
 	else
 		. += span_warning("No power cables are attached. Wire it to a generator or relay to bring it online.")
 
@@ -127,26 +159,28 @@
 			f13_start_wire_session(src, L)
 		return
 
-	// ── Wirecutters — sever the upstream connection.
+	// ── Wirecutters — sever all upstream connections.
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
-		var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
-		if(upstream)
+		if(!upstream_refs || !upstream_refs.len)
+			to_chat(user, span_notice("No cable connection to cut."))
+			return
+		var/list/cut_names = list()
+		for(var/datum/weakref/WC in upstream_refs)
+			var/obj/upstream = WC.resolve()
+			if(!upstream || QDELETED(upstream))
+				continue
+			cut_names += upstream.name
 			if(istype(upstream, /obj/machinery/f13/faction_generator))
 				var/obj/machinery/f13/faction_generator/G = upstream
-				if(G.linked_clients)
-					G.linked_clients -= src
-				if(G.shed_clients)
-					G.shed_clients -= src
+				if(G.linked_clients) G.linked_clients -= src
+				if(G.shed_clients) G.shed_clients -= src
 				G.recalc_draw()
 			else if(istype(upstream, /obj/machinery/f13/power_relay))
 				var/obj/machinery/f13/power_relay/R = upstream
-				if(R.linked_clients)
-					R.linked_clients -= src
-			upstream_ref = null
-			on_grid_power_change(FALSE)
-			to_chat(user, span_notice("You cut the cable connection to [upstream.name]."))
-		else
-			to_chat(user, span_notice("No cable connection to cut."))
+				if(R.linked_clients) R.linked_clients -= src
+		upstream_refs = null
+		on_grid_power_change(FALSE)
+		to_chat(user, span_notice("You cut the cable connection[cut_names.len > 1 ? "s" : ""] to [cut_names.len ? english_list(cut_names) : "upstream"]."))
 		return
 
 	return ..()

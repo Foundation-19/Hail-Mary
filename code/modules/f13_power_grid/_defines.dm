@@ -74,6 +74,15 @@
 /// Use /junction_box/small (75 W) for shacks, /junction_box/large (250 W) for compounds.
 #define JUNCTION_BOX_WATT_DRAW  150
 
+// ── Logic gate types
+var/const/GATE_OR   = 1
+var/const/GATE_AND  = 2
+var/const/GATE_NOT  = 3
+var/const/GATE_NAND = 4
+var/const/GATE_NOR  = 5
+var/const/GATE_XOR  = 6
+var/const/GATE_XNOR = 7
+
 // ── Relay repair constants
 /// HP restored per wrench hit on a damaged relay.
 #define RELAY_REPAIR_AMOUNT     50
@@ -84,37 +93,86 @@
 // Calls the proc below rather than inlining to avoid the async sub_area timing bug.
 #define F13_STAMP_AREA_POWER(area_ref, state) f13_stamp_area_power((area_ref), (state))
 
-/// Stamp power onto an area and all its sub_areas synchronously.
-/// On power-off: lights are killed directly (emergency_mode cleared, light source zeroed)
-/// so they go dark instead of entering SS13's default red emergency standby.
-/// area.power_change() uses INVOKE_ASYNC on sub_areas, which would undo our light cleanup;
-/// this proc handles the full tree synchronously to avoid that race.
+// ============================================================
+// POWER-GRID TRACE LOG
+// Rolling log of the last 50 power-grid events.  After an MC
+// stall/restart, use the "F13 Power Trace Dump" admin verb to
+// read out what was running when the server locked up.
+// ============================================================
+
+GLOBAL_LIST_EMPTY(f13_trace_log)
+
+/// Append a timestamped message to the rolling trace log AND to
+/// game/log so it also shows up in the log files on disk.
+/proc/f13_log_op(msg)
+	var/entry = "[world.time]ds: [msg]"
+	GLOB.f13_trace_log += entry
+	// Keep the list capped at 50 entries (trim from the front).
+	if(GLOB.f13_trace_log.len > 50)
+		GLOB.f13_trace_log.Cut(1, GLOB.f13_trace_log.len - 49)
+	log_game("F13_PWR: [msg]")
+
+// ── area/f13/power_change() override
+// The base area/power_change() iterates machines with no yield points.
+// For large zones (hundreds–thousands of machines) that loop blocks the
+// MC for 80+ ticks, triggering SSobj watchdog restarts.
+// This override inserts CHECK_TICK every 25 machines so BYOND can let
+// the MC fire between batches, and logs begin/end for post-mortem diagnosis.
+/area/f13/power_change()
+	f13_log_op("power_change BEGIN [name] equip=[power_equip]")
+	var/mcount = 0
+	var/last_type = "none"
+	for(var/obj/machinery/M in src)
+		last_type = M.type
+		M.power_change()
+		if(++mcount % 25 == 0)
+			CHECK_TICK
+	if(sub_areas)
+		for(var/i in sub_areas)
+			var/area/A = i
+			A.power_light   = power_light
+			A.power_equip   = power_equip
+			A.power_environ = power_environ
+			INVOKE_ASYNC(A, PROC_REF(power_change))
+	update_icon()
+	f13_log_op("power_change END [name] machines=[mcount] last=[last_type]")
+
+// Power-off iteration for f13 areas.  Called via INVOKE_ASYNC so CHECK_TICK is safe here.
+// Lights are handled directly to suppress SS13's emergency-red path.
+/area/f13/proc/f13_power_off_async()
+	f13_log_op("stamp_area OFF [name] (start)")
+	var/count = 0
+	for(var/obj/machinery/M in src)
+		if(!istype(M, /obj/machinery/light))
+			M.power_change()
+		if(++count % 25 == 0)
+			CHECK_TICK
+	for(var/obj/machinery/light/L in src)
+		if(!QDELETED(L))
+			L.on = FALSE
+			L.emergency_mode = FALSE
+			L.set_light(0)
+			L.update_icon()
+	if(sub_areas)
+		for(var/area/sub in sub_areas)
+			f13_stamp_area_power(sub, FALSE)
+	update_icon()
+	f13_log_op("stamp_area OFF [name] (done, [count] machines)")
+
+/// Stamp power onto an area and kick off async machine iteration.
+/// Both on and off paths use INVOKE_ASYNC so this proc never directly sleeps.
 /proc/f13_stamp_area_power(area/A, state)
 	if(QDELETED(A))
 		return
 	A.power_equip   = state
 	A.power_light   = state
 	A.power_environ = state
-	// Power on: let the normal power_change machinery handle everything (it's safe async here).
 	if(state)
-		A.power_change()
-		return
-	// Power off: call power_change on all non-light machinery for doors, buttons, etc.
-	// Handle lights ourselves to suppress the emergency-mode (red) path.
-	for(var/obj/machinery/M in A)
-		if(!istype(M, /obj/machinery/light))
-			M.power_change()
-	for(var/obj/machinery/light/L in A)
-		if(!QDELETED(L))
-			L.on = FALSE
-			L.emergency_mode = FALSE
-			L.set_light(0)
-			L.update_icon()
-	// Sub_areas: stamp synchronously so our light cleanup isn't undone by a later INVOKE_ASYNC.
-	if(A.sub_areas)
-		for(var/area/sub in A.sub_areas)
-			f13_stamp_area_power(sub, state)
-	A.update_icon()
+		f13_log_op("stamp_area ON [A.name] (async queued)")
+		INVOKE_ASYNC(A, TYPE_PROC_REF(/area, power_change))
+	else
+		f13_log_op("stamp_area OFF [A.name] (async queued)")
+		INVOKE_ASYNC(A, TYPE_PROC_REF(/area/f13, f13_power_off_async))
 
 // F13 area lights have no backup cells — go dark instead of emergency-red when unpowered.
 /obj/machinery/light/Initialize(mapload)
@@ -150,4 +208,8 @@
 	h += "<b>COPYRIGHT 2075-2077 ROBCO INDUSTRIES</b><br>"
 	h += "= [title_line] =</center><br>"
 	return h
+
+// F13 machines manage their own power — never let APC power_change() set NOPOWER on them.
+/obj/machinery/f13/power_change()
+	return
 

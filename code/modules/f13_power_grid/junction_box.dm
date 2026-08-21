@@ -467,7 +467,7 @@
 	icon_state = ""
 	if(grid_powered && breaker_closed)
 		color = "#4aed92"   // terminal green — circuit live
-	else if(upstream_ref)
+	else if(upstream_refs && upstream_refs.len)
 		color = "#e8a020"   // amber — wired but no power / breaker tripped
 	else
 		color = null        // no tint — not wired
@@ -515,7 +515,7 @@
 	var/status_str
 	if(grid_powered && breaker_closed)
 		status_str = "<span class='good'>&#91;ONLINE&#93;</span>  — building circuit energised"
-	else if(!upstream_ref)
+	else if(!upstream_refs || !upstream_refs.len)
 		status_str = "<span class='bad'>&#91;NOT WIRED&#93;</span>  — connect to a generator or relay"
 	else if(!grid_powered)
 		status_str = "<span class='bad'>&#91;NO GRID POWER&#93;</span>  — grid feed is dead"
@@ -525,8 +525,16 @@
 	dat += "<pre>  LOAD    : [grid_watt_draw]W</pre>"
 
 	// ── Upstream feed
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
-	dat += "<pre>  FEED    : [upstream ? upstream.name : "<span class='bad'>NOT WIRED — use a cable coil</span>"]</pre>"
+	var/list/up_names = list()
+	var/obj/machinery/f13/power_relay/feed_relay = null
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up)) continue
+			up_names += up.name
+			if(!feed_relay && istype(up, /obj/machinery/f13/power_relay))
+				feed_relay = up
+	dat += "<pre>  FEED    : [up_names.len ? english_list(up_names) : "<span class='bad'>NOT WIRED — use a cable coil</span>"]</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Master breaker control
@@ -538,6 +546,15 @@
 	else
 		dat += "<pre class='dim'>    Master control unavailable — no grid power.</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
+	// ── Upstream relay cutoff (shown when at least one upstream is a relay)
+	if(feed_relay)
+		dat += "<pre class='head'>  &#91;UPSTREAM RELAY&#93;</pre>"
+		var/rlbl = feed_relay.relay_powered ? "&#91; CUT RELAY &#93;" : "&#91; RESTORE RELAY &#93;"
+		var/rstate = feed_relay.relay_powered ? "<span class='good'>ENERGISED</span>" : "<span class='warn'>CUT</span>"
+		dat += "<pre>    [rstate]  [feed_relay.name]</pre>"
+		dat += "<pre>    <a href='byond://?src=[REF(src)];toggle_relay=1'>[rlbl]</a>  <span class='dim'>(affects all buildings on this relay)</span></pre>"
+		dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Per-zone section
 	dat += "<pre class='head'>  &#91;CIRCUIT ZONES&#93;</pre>"
@@ -584,22 +601,35 @@
 
 	if(href_list["toggle_breaker"])
 		// ── Master breaker toggle ────────────────────────────────────────
+		// Gate logic: the junction box only controls its own building zones.
+		// The upstream relay is shared infrastructure and is never touched here.
 		breaker_closed = !breaker_closed
 		if(breaker_closed)
-			// Closing master: reset all zone breakers then restore power.
+			// Closing master: reset all zone breakers then restore power if the grid is live.
 			if(zone_breakers)
 				for(var/area/f13/Z in zone_breakers)
 					zone_breakers[Z] = TRUE
 			if(grid_powered)
 				_stamp_areas(TRUE)
-			_set_upstream_relay_power(TRUE)
 		else
-			// Tripping master: kill all zones and cut the upstream relay.
+			// Tripping master: kill all zones only.
 			_stamp_areas(FALSE)
-			_set_upstream_relay_power(FALSE)
 		update_icon()
 		var/msg = breaker_closed ? "You close the master breaker — all circuits restored." : "You trip the master breaker — all building power cut."
 		to_chat(usr, span_notice(msg))
+		show_ui(usr)
+
+	if(href_list["toggle_relay"])
+		// ── Explicit upstream relay cutoff ────────────────────────────
+		var/obj/machinery/f13/power_relay/R = null
+		if(upstream_refs)
+			for(var/datum/weakref/W in upstream_refs)
+				var/obj/up = W.resolve()
+				if(istype(up, /obj/machinery/f13/power_relay)) { R = up; break }
+		if(!R || QDELETED(R)) return
+		_set_upstream_relay_power(!R.relay_powered || R.relay_isolated)
+		var/msg2 = R.relay_powered ? "Relay restored — all downstream buildings re-energised." : "Relay cut — all downstream buildings de-energised."
+		to_chat(usr, span_notice(msg2))
 		show_ui(usr)
 
 	if(href_list["zone_breaker"] && owned_zones && zone_breakers)
@@ -623,25 +653,21 @@
 /// Trip or restore the upstream relay when the master breaker is toggled.
 /// Makes the junction box a true master cutoff for the relay subtree feeding it.
 /obj/machinery/f13/junction_box/proc/_set_upstream_relay_power(state)
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
-	if(!upstream || !istype(upstream, /obj/machinery/f13/power_relay))
+	var/obj/machinery/f13/power_relay/R = null
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(istype(up, /obj/machinery/f13/power_relay)) { R = up; break }
+	if(!R || QDELETED(R))
 		return
-	var/obj/machinery/f13/power_relay/R = upstream
 	if(state)
-		// Only restore if the relay's own upstream is still live.
-		var/obj/up2 = R.upstream_ref ? R.upstream_ref.resolve() : null
-		if(!up2)
-			return
-		var/live = FALSE
-		if(istype(up2, /obj/machinery/f13/faction_generator))
-			live = up2:powered
-		else if(istype(up2, /obj/machinery/f13/power_relay))
-			live = up2:relay_powered
-		if(live && !R.relay_powered)
-			R.set_relay_power(TRUE)
+		// Restore: clear isolation flag and let OR logic decide.
+		R.relay_isolated = FALSE
+		R.on_upstream_changed()
 	else
-		if(R.relay_powered)
-			R.set_relay_power(FALSE)
+		// Cut: mark isolated and force offline regardless of other upstreams.
+		R.relay_isolated = TRUE
+		R.set_relay_power(FALSE)
 
 // ============================================================
 // SUBTYPES — common pre-watt configurations

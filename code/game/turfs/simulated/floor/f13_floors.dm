@@ -126,9 +126,17 @@
 
 //New standard wood floor for most areas, oak for Legion and pure log cabins only, maple for NCR and mayor only, maybe a diner.
 
+// Only wood tiles may be placed on f13 wood floors — blocks checkerboard from incompatible materials.
+/turf/open/floor/wood/f13/try_replace_tile(obj/item/stack/tile/T, mob/user, params)
+	if(!istype(T, /obj/item/stack/tile/wood))
+		to_chat(user, span_warning("That material doesn't match the wood flooring."))
+		return
+	. = ..()
+
 /turf/open/floor/wood/f13
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "housewood1"
+	floor_tile = /obj/item/stack/tile/wood/f13
 
 /turf/open/floor/wood/f13/lit
 	name = "floor"
@@ -137,6 +145,7 @@
 /turf/open/floor/wood/f13/oak
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "oakfloor1"
+	floor_tile = /obj/item/stack/tile/wood/f13/oak
 
 /turf/open/floor/wood/f13/oak/Initialize(mapload)
 	. = ..()
@@ -232,6 +241,7 @@
 
 /turf/open/floor/wood/f13/maple
 	icon_state = "maplefloor1"
+	floor_tile = /obj/item/stack/tile/wood/f13/maple
 
 /turf/open/floor/wood/f13/maple/lit
 	name = "floor"
@@ -239,6 +249,7 @@
 
 /turf/open/floor/wood/f13/carpet
 	icon_state = "carpet"
+	floor_tile = /obj/item/stack/tile/wood/f13/carpet
 
 /turf/open/floor/wood/f13/carpet/lit
 	name = "floor"

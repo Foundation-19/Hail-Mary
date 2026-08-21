@@ -45,8 +45,9 @@
 	use_power     = NO_POWER_USE
 
 	// ── Wiring ─────────────────────────────────────────────
-	/// Weakref to the upstream generator or relay feeding this node.
-	var/datum/weakref/upstream_ref = null
+	/// List of WEAKREFs to all upstream generators/relays feeding this node.
+	/// Multiple entries allow parallel / redundant feeds (OR logic).
+	var/list/upstream_refs = null
 	/// Relays this node feeds downstream.
 	var/list/downstream_relays = null
 	/// Any /obj/machinery/f13/grid_client directly wired to this relay.
@@ -71,6 +72,9 @@
 	/// TRUE when this relay was taken offline deliberately by the generator's load-shedding.
 	/// Distinguishes a managed suspension from a wiring fault or generator failure.
 	var/load_shed = FALSE
+	/// Set TRUE when this relay has been manually isolated (e.g. via junction box CUT RELAY).
+	/// While isolated, on_upstream_changed() keeps the relay offline even if upstreams are live.
+	var/relay_isolated = FALSE
 	/// Set TRUE after the first power-on cable scan so we don't re-scan on every toggle.
 	var/cable_scan_done = FALSE
 	/// Cached list of /area/space border turfs that contain door buttons adjacent to owned areas.
@@ -88,32 +92,22 @@
 	// Relay starts unpowered; the upstream must wire in and send power.
 
 /obj/machinery/f13/power_relay/Destroy()
-	// Cut upstream link.
-	var/upstream = upstream_ref ? upstream_ref.resolve() : null
-	if(upstream)
-		if(istype(upstream, /obj/machinery/f13/faction_generator))
-			var/obj/machinery/f13/faction_generator/G = upstream
-			if(G.linked_relays)
-				G.linked_relays -= src
-		else if(istype(upstream, /obj/machinery/f13/power_relay))
-			var/obj/machinery/f13/power_relay/P = upstream
-			if(P.downstream_relays)
-				P.downstream_relays -= src
-	upstream_ref = null
+	// Sever all upstream links cleanly.
+	_sever_upstream()
 
-	// Kill downstream chain before we vanish.
+	// Notify downstream relays they lost one upstream — each recalculates via OR logic.
 	if(downstream_relays)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(!QDELETED(R))
-				R.upstream_ref = null
-				R.set_relay_power(FALSE)
+				f13_remove_upstream_ref(R.upstream_refs, src)
+				R.on_upstream_changed()
 
 	// Disconnect generic grid clients.
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				C.upstream_ref = null
-				C.on_grid_power_change(FALSE)
+				f13_remove_upstream_ref(C.upstream_refs, src)
+				C.on_upstream_changed()
 		linked_clients = null
 
 	return ..()
@@ -150,9 +144,10 @@
 			if(!length(target_tag))
 				continue
 			for(var/obj/machinery/f13/power_relay/R in world)
-				if(R.tag == target_tag && !(R in downstream_relays))
+				if(R.tag == target_tag && !(R in downstream_relays) && !src._has_upstream(R))
 					downstream_relays += R
-					R.upstream_ref = WEAKREF(src)
+					if(!R.upstream_refs) R.upstream_refs = list()
+					R.upstream_refs += WEAKREF(src)
 
 	// Auto-wire generic grid clients (including junction boxes) by tag.
 	if(map_client_tags && length(map_client_tags))
@@ -165,14 +160,16 @@
 			for(var/obj/machinery/f13/grid_client/C in world)
 				if(C.tag == target_tag && !(C in linked_clients))
 					linked_clients += C
-					C.upstream_ref = WEAKREF(src)
+					if(!C.upstream_refs) C.upstream_refs = list()
+					C.upstream_refs += WEAKREF(src)
 
 
 /// Walk this relay's subtree and return total watt draw (self + downstream).
 /// Self draw = RELAY_WATT_DRAW + owned turrets + any wired fabricators if this relay has them.
-/obj/machinery/f13/power_relay/proc/get_subtree_draw()
+// visited guards against cycles in downstream_relays (e.g. two relays each wired to the other).
+/obj/machinery/f13/power_relay/proc/get_subtree_draw(list/visited)
 	if(!relay_powered)
-		return 0  // offline relay draws nothing
+		return 0
 	var/draw = RELAY_WATT_DRAW
 	if(linked_turrets)
 		for(var/obj/machinery/porta_turret/T in linked_turrets)
@@ -183,10 +180,43 @@
 			if(!QDELETED(C))
 				draw += C.grid_watt_draw
 	if(downstream_relays)
+		if(!visited)
+			visited = list(src)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
-			if(!QDELETED(R))
-				draw += R.get_subtree_draw()
+			if(!QDELETED(R) && !(R in visited))
+				visited += R
+				draw += R.get_subtree_draw(visited)
 	return draw
+
+/// Recalculate this relay's power state from all registered upstream nodes.
+/// Uses OR logic: relay is powered if ANY upstream is live AND relay_isolated is FALSE.
+/// Cascades downstream so every node in the subtree also recalculates.
+/obj/machinery/f13/power_relay/proc/on_upstream_changed()
+	if(relay_isolated)
+		set_relay_power(FALSE)
+		return
+	var/any_live = FALSE
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up))
+				continue
+			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
+				any_live = TRUE
+				break
+			if(istype(up, /obj/machinery/f13/power_relay) && up:relay_powered)
+				any_live = TRUE
+				break
+	set_relay_power(any_live)
+
+/// Returns TRUE if /obj/target is already registered in upstream_refs.
+/obj/machinery/f13/power_relay/proc/_has_upstream(obj/target)
+	if(!upstream_refs || !target)
+		return FALSE
+	for(var/datum/weakref/W in upstream_refs)
+		if(W.resolve() == target)
+			return TRUE
+	return FALSE
 
 
 // ============================================================
@@ -219,17 +249,17 @@
 			if(!QDELETED(T))
 				T.toggle_on(relay_powered)
 
-	// Cascade to downstream relays.
+	// Cascade to downstream relays — each recalculates from its own upstreams (OR logic).
 	if(downstream_relays)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(!QDELETED(R))
-				R.set_relay_power(relay_powered)
+				R.on_upstream_changed()
 
-	// Propagate to generic grid clients.
+	// Propagate to generic grid clients — same OR recalculation.
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				C.on_grid_power_change(relay_powered)
+				C.on_upstream_changed()
 
 
 // ============================================================
@@ -259,30 +289,61 @@
 				visited += N
 				var/blocked = FALSE
 				for(var/obj/machinery/f13/power_relay/R in N)
-					if(!QDELETED(R) && R != src && !R.upstream_ref)
-						if(!downstream_relays)
-							downstream_relays = list()
-						if(!(R in downstream_relays))
+					if(!QDELETED(R) && R != src)
+						// Skip if R is already our upstream — wiring it downstream too would form a cycle.
+						if(!(R in downstream_relays) && !src._has_upstream(R))
+							if(!downstream_relays) downstream_relays = list()
 							downstream_relays += R
-							R.upstream_ref = WEAKREF(src)
-					blocked = TRUE
-					break
+							if(!R.upstream_refs) R.upstream_refs = list()
+							if(!R._has_upstream(src)) R.upstream_refs += WEAKREF(src)
+						blocked = TRUE
+						break
 				if(blocked)
 					continue
 				for(var/obj/machinery/f13/grid_client/C in N)
-					if(!QDELETED(C) && !C.upstream_ref)
-						if(!linked_clients)
-							linked_clients = list()
+					if(!QDELETED(C))
 						if(!(C in linked_clients))
+							if(!linked_clients) linked_clients = list()
 							linked_clients += C
-							C.upstream_ref = WEAKREF(src)
-					blocked = TRUE
-					break
+							if(!C.upstream_refs) C.upstream_refs = list()
+							if(!C._has_upstream(src)) C.upstream_refs += WEAKREF(src)
+						blocked = TRUE
+						break
 				if(blocked)
 					continue
 				if(locate(/obj/structure/cable) in N)
 					next_frontier += N
 		frontier = next_frontier
+
+/// Validate every existing logical connection from this relay against the current cable layout.
+/// Any downstream relay or client whose cable path is gone gets unpowered and unlinked.
+/// Returns the number of connections removed.
+/obj/machinery/f13/power_relay/proc/_prune_dead_links()
+	var/turf/src_turf = get_turf(src)
+	if(!src_turf)
+		return 0
+	var/removed = 0
+	if(downstream_relays)
+		var/list/to_remove = list()
+		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
+			if(QDELETED(R) || !f13_cable_path_exists(src_turf, get_turf(R)))
+				to_remove += R
+		for(var/obj/machinery/f13/power_relay/R in to_remove)
+			f13_remove_upstream_ref(R.upstream_refs, src)
+			R.on_upstream_changed()
+			downstream_relays -= R
+			removed++
+	if(linked_clients)
+		var/list/to_remove = list()
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(QDELETED(C) || !f13_cable_path_exists(src_turf, get_turf(C)))
+				to_remove += C
+		for(var/obj/machinery/f13/grid_client/C in to_remove)
+			f13_remove_upstream_ref(C.upstream_refs, src)
+			C.on_upstream_changed()
+			linked_clients -= C
+			removed++
+	return removed
 
 /obj/machinery/f13/power_relay/attackby(obj/item/W, mob/user, params)
 	// Wrench: when ONLINE → anchor/unanchor; when OFFLINE → repair.
@@ -326,26 +387,30 @@
 			f13_start_wire_session(src, L)
 		return
 
-	// ── Wirecutters — sever the upstream connection.
+	// ── Wirecutters — sever ALL upstream connections.
 	if(W.tool_behaviour == TOOL_WIRECUTTER)
 		if(relay_powered && isliving(user))
 			var/mob/living/L = user
 			to_chat(user, span_danger("You cut into a live cable — electricity surges through you!"))
 			L.electrocute_act(30, src, flags = SHOCK_NOGLOVES)
-		if(!upstream_ref)
+		if(!upstream_refs || !upstream_refs.len)
 			to_chat(user, span_notice("[src] has no upstream cable to cut."))
 			return
-		var/obj/upstream_obj = upstream_ref.resolve()
-		var/upstream_name = upstream_obj ? upstream_obj.name : "upstream"
-		// Remove from generator's shed tracking before severing.
-		if(istype(upstream_obj, /obj/machinery/f13/faction_generator))
-			var/obj/machinery/f13/faction_generator/G = upstream_obj
-			if(G.shed_relays) G.shed_relays -= src
+		// Collect names and clear shed tracking before severing.
+		var/list/cut_names = list()
+		for(var/datum/weakref/W2 in upstream_refs)
+			var/obj/upstream_obj = W2.resolve()
+			if(!upstream_obj || QDELETED(upstream_obj)) continue
+			cut_names += upstream_obj.name
+			if(istype(upstream_obj, /obj/machinery/f13/faction_generator))
+				var/obj/machinery/f13/faction_generator/G = upstream_obj
+				if(G.shed_relays) G.shed_relays -= src
 		load_shed = FALSE
 		_sever_upstream()
+		relay_isolated = FALSE
 		set_relay_power(FALSE)
-		update_icon()  // ensure wired-but-offline tint clears if generator was already offline
-		to_chat(user, span_notice("You cut the cable from [src] to [upstream_name]. [src] and all downstream nodes are now offline."))
+		update_icon()
+		to_chat(user, span_notice("You cut the cable[cut_names.len > 1 ? "s" : ""] from [src] to [english_list(cut_names)]. [src] and all downstream nodes are now offline."))
 		return
 
 	return ..()
@@ -363,80 +428,57 @@
 		to_chat(user, span_notice("[C.name] is already wired to [name]. Use wirecutters to disconnect."))
 		return
 
-	// Sever any existing upstream the client is already connected to.
-	var/obj/old_up = C.upstream_ref ? C.upstream_ref.resolve() : null
-	if(old_up && old_up != src)
-		if(istype(old_up, /obj/machinery/f13/faction_generator))
-			var/obj/machinery/f13/faction_generator/OG = old_up
-			if(OG.linked_clients) OG.linked_clients -= C
-		else if(istype(old_up, /obj/machinery/f13/power_relay))
-			var/obj/machinery/f13/power_relay/OR = old_up
-			if(OR.linked_clients) OR.linked_clients -= C
-
 	linked_clients += C
-	C.upstream_ref = WEAKREF(src)
+	if(!C.upstream_refs) C.upstream_refs = list()
+	if(!C._has_upstream(src)) C.upstream_refs += WEAKREF(src)
 	if(relay_powered && isliving(user))
 		to_chat(user, span_danger("You connect a cable to a live relay — electricity arcs across your hand!"))
 		var/mob/living/UL = user
 		UL.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
-	C.on_grid_power_change(relay_powered)
+	C.on_upstream_changed()
 	to_chat(user, span_notice("Wired: [C.name] linked to [name]."))
-	// Tell the generator upstream to recalc its watt budget.
-	var/obj/up = upstream_ref ? upstream_ref.resolve() : null
-	while(up)
-		if(istype(up, /obj/machinery/f13/faction_generator))
-			var/obj/machinery/f13/faction_generator/G = up
-			G.recalc_draw()
-			break
-		else if(istype(up, /obj/machinery/f13/power_relay))
-			var/obj/machinery/f13/power_relay/R = up
-			up = R.upstream_ref ? R.upstream_ref.resolve() : null
-		else
-			break
+	f13_recalc_all_generators()
 
 
 /// Link this relay as a downstream child of another relay.
+/// Supports multiple upstreams — does NOT sever existing upstream connections.
 /obj/machinery/f13/power_relay/proc/set_upstream_relay(obj/machinery/f13/power_relay/parent, mob/user)
 	if(!parent || QDELETED(parent))
 		return
 
 	// Already wired to this parent — confirm to the player (use wirecutters to disconnect).
-	if(upstream_ref && upstream_ref.resolve() == parent)
+	if(_has_upstream(parent))
 		to_chat(user, span_notice("[name] is already wired to [parent.name]. Use wirecutters to disconnect."))
 		return
 
-	// Cut any existing upstream.
-	_sever_upstream()
-
 	if(!parent.downstream_relays)
 		parent.downstream_relays = list()
-	parent.downstream_relays += src
-	upstream_ref = WEAKREF(parent)
+	if(!(src in parent.downstream_relays))
+		parent.downstream_relays += src
+	if(!upstream_refs) upstream_refs = list()
+	upstream_refs += WEAKREF(parent)
 	update_icon()
 	if(parent.relay_powered && isliving(user))
 		to_chat(user, span_danger("You connect a cable to a live relay — electricity arcs across your hand!"))
 		var/mob/living/UL = user
 		UL.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	to_chat(user, span_notice("Wired: [name] → [parent.name]. Power: [parent.relay_powered ? "ONLINE" : "OFFLINE"]."))
-	set_relay_power(parent.relay_powered)
+	on_upstream_changed()
 
-/// Remove self from whatever upstream currently owns us.
+/// Remove self from ALL upstream owners.
 /obj/machinery/f13/power_relay/proc/_sever_upstream()
-	if(!upstream_ref)
+	if(!upstream_refs)
 		return
-	var/upstream = upstream_ref.resolve()
-	if(!upstream)
-		upstream_ref = null
-		return
-	if(istype(upstream, /obj/machinery/f13/faction_generator))
-		var/obj/machinery/f13/faction_generator/G = upstream
-		if(G.linked_relays)
-			G.linked_relays -= src
-	else if(istype(upstream, /obj/machinery/f13/power_relay))
-		var/obj/machinery/f13/power_relay/P = upstream
-		if(P.downstream_relays)
-			P.downstream_relays -= src
-	upstream_ref = null
+	for(var/datum/weakref/W in upstream_refs)
+		var/upstream = W.resolve()
+		if(!upstream) continue
+		if(istype(upstream, /obj/machinery/f13/faction_generator))
+			var/obj/machinery/f13/faction_generator/G = upstream
+			if(G.linked_relays) G.linked_relays -= src
+		else if(istype(upstream, /obj/machinery/f13/power_relay))
+			var/obj/machinery/f13/power_relay/P = upstream
+			if(P.downstream_relays) P.downstream_relays -= src
+	upstream_refs = null
 
 
 // ============================================================
@@ -449,15 +491,26 @@
 	show_ui(user)
 
 /obj/machinery/f13/power_relay/proc/show_ui(mob/living/user)
-	var/upstream = upstream_ref ? upstream_ref.resolve() : null
-	var/obj/upstream_obj = upstream
-	var/upstream_name  = upstream_obj ? upstream_obj.name : "NONE"
-	var/upstream_state = "OFFLINE"
-	if(upstream)
-		if(istype(upstream, /obj/machinery/f13/faction_generator))
-			upstream_state = (upstream:powered) ? "ONLINE" : "OFFLINE"
-		else if(istype(upstream, /obj/machinery/f13/power_relay))
-			upstream_state = (upstream:relay_powered) ? "ONLINE" : "OFFLINE"
+	// Build upstream summary from all registered upstream nodes.
+	var/list/up_names = list()
+	var/list/up_states = list()
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up)) continue
+			up_names += up.name
+			var/live = FALSE
+			if(istype(up, /obj/machinery/f13/faction_generator)) live = up:powered
+			else if(istype(up, /obj/machinery/f13/power_relay)) live = up:relay_powered
+			up_states += live ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
+	var/upstream_str
+	if(!up_names.len)
+		upstream_str = "<span class='dim'>NOT WIRED</span>"
+	else
+		var/list/parts = list()
+		for(var/i = 1; i <= up_names.len; i++)
+			parts += "[up_names[i]] [up_states[i]]"
+		upstream_str = parts.Join("  |  ")
 
 	// Break down this node's own draw for the UI
 	var/self_draw   = RELAY_WATT_DRAW
@@ -470,9 +523,11 @@
 				turret_draw += TURRET_WATT_DRAW
 	var/downstream_draw = 0
 	if(downstream_relays)
+		var/list/ui_visited = list(src)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
-			if(!QDELETED(R))
-				downstream_draw += R.get_subtree_draw()
+			if(!QDELETED(R) && !(R in ui_visited))
+				ui_visited += R
+				downstream_draw += R.get_subtree_draw(ui_visited)
 	var/my_draw = self_draw + turret_draw + downstream_draw
 
 	var/dat = get_terminal_css()
@@ -489,7 +544,7 @@
 	else
 		relay_status_str = "<span class='bad'>&#91;OFFLINE&#93;</span>"
 	dat += "<pre>  STATUS   : [relay_status_str]</pre>"
-	dat += "<pre>  UPSTREAM : [upstream_name]  [upstream ? "<span class='[(upstream_state == "ONLINE") ? "good" : "bad"]'>[upstream_state]</span>" : "<span class='dim'>NOT WIRED</span>"]</pre>"
+	dat += "<pre>  UPSTREAM : [upstream_str]</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Power draw breakdown
@@ -516,6 +571,7 @@
 	// ── Downstream relays
 	dat += "<pre class='head'>  &#91;DOWNSTREAM RELAYS&#93;</pre>"
 	if(downstream_relays && downstream_relays.len)
+		var/list/ds_visited = list(src)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(!QDELETED(R))
 				var/rstate
@@ -525,7 +581,8 @@
 					rstate = "<span class='warn'>&#91;SHED&#93; </span>"
 				else
 					rstate = "<span class='bad'>OFFLINE</span>"
-				dat += "<pre>    &gt; [R.name]  [rstate]  [R.get_subtree_draw()]W</pre>"
+				ds_visited += R
+				dat += "<pre>    &gt; [R.name]  [rstate]  [R.get_subtree_draw(ds_visited)]W</pre>"
 	else
 		dat += "<pre class='dim'>    &gt; none  (use a cable coil on this relay, then on a downstream relay)</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
@@ -561,11 +618,15 @@
 
 /obj/machinery/f13/power_relay/examine(mob/user)
 	. = ..()
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
+	var/list/up_names = list()
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(up && !QDELETED(up)) up_names += up.name
 	if(relay_powered)
 		. += span_notice("A bundle of thick cables connects it to the power grid. Indicator lights glow steadily — it's live.")
-	else if(upstream)
-		. += span_notice("Cables run from its base toward [upstream.name], but the connection isn't carrying any power right now.")
+	else if(up_names.len)
+		. += span_notice("Cables run from its base toward [english_list(up_names)], but the connection isn't carrying any power right now.")
 	else
 		. += span_warning("No power cables are attached. Wire it to a generator or upstream relay to bring it online.")
 
@@ -733,7 +794,13 @@
 /// Terminal-style panel UI that shows circuit state and downstream junction-box
 /// zone detail, then offers a single close/open lever control.
 /obj/machinery/f13/power_relay/breaker_box/show_ui(mob/living/user)
-	var/obj/upstream = upstream_ref ? upstream_ref.resolve() : null
+	// Use first registered upstream for display (same as old single-upstream behaviour).
+	var/obj/upstream = null
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			upstream = W.resolve()
+			if(upstream && !QDELETED(upstream)) break
+			upstream = null
 	var/upstream_name = upstream ? upstream.name : "NONE"
 	var/upstream_live = FALSE
 	if(upstream)
@@ -763,14 +830,14 @@
 
 	// ── Lever control
 	dat += "<pre class='head'>  &#91;BREAKER CONTROL&#93;</pre>"
-	if(!upstream_ref)
-		dat += "<pre class='dim'>    Panel not wired to an upstream source.</pre>"
-	else if(manually_tripped)
-		dat += "<pre>    <a href='byond://?src=[REF(src)];breaker_toggle=1'>&#91; CLOSE BREAKER — RESTORE DOWNSTREAM &#93;</a></pre>"
-		dat += "<pre class='dim'>    Downstream junction boxes will restore only their closed-breaker zones.</pre>"
-	else
+	if(!upstream_refs || !upstream_refs.len)
+		dat += "<pre class='dim'>    Panel not wired to an upstream source — cannot operate.</pre>"
+	else if(relay_powered)
 		dat += "<pre>    <a href='byond://?src=[REF(src)];breaker_toggle=1'>&#91; OPEN BREAKER — CUT DOWNSTREAM &#93;</a></pre>"
 		dat += "<pre class='dim'>    Kills all downstream circuits; junction-box zone-breaker states are preserved.</pre>"
+	else
+		dat += "<pre>    <a href='byond://?src=[REF(src)];breaker_toggle=1'>&#91; CLOSE BREAKER — RESTORE DOWNSTREAM &#93;</a></pre>"
+		dat += "<pre class='dim'>    Downstream junction boxes will restore only their closed-breaker zones.</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Downstream circuit inventory
@@ -778,11 +845,13 @@
 	var/found_any = FALSE
 	// Direct downstream relays (non-junction-box relay nodes)
 	if(downstream_relays && downstream_relays.len)
+		var/list/inv_visited = list(src)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(QDELETED(R))
 				continue
 			var/rstate = R.relay_powered ? "<span class='good'>LIVE</span>" : "<span class='bad'>DEAD</span>"
-			dat += "<pre>  RELAY: [R.name]  [rstate]  [R.get_subtree_draw()]W</pre>"
+			inv_visited += R
+			dat += "<pre>  RELAY: [R.name]  [rstate]  [R.get_subtree_draw(inv_visited)]W</pre>"
 			found_any = TRUE
 	// Direct grid clients — show junction boxes with zone detail, others briefly
 	if(linked_clients && linked_clients.len)
@@ -832,15 +901,5 @@
 			span_notice("You [new_state ? "close the main breaker — power restored to downstream circuits." : "open the main breaker — everything downstream is now dead."]")
 		)
 		// Notify the upstream generator immediately so watt accounting stays current.
-		var/obj/up = upstream_ref ? upstream_ref.resolve() : null
-		while(up)
-			if(istype(up, /obj/machinery/f13/faction_generator))
-				var/obj/machinery/f13/faction_generator/G = up
-				G.recalc_draw()
-				break
-			else if(istype(up, /obj/machinery/f13/power_relay))
-				var/obj/machinery/f13/power_relay/R = up
-				up = R.upstream_ref ? R.upstream_ref.resolve() : null
-			else
-				break
+		f13_recalc_all_generators()
 		show_ui(U)

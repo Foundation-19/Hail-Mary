@@ -124,6 +124,8 @@
 #define CAT_VEHICLECOREPARTS "Vehicle Core Parts"
 #define CAT_CARS "Cars"
 #define CAT_VERTIBIRD "Vertibirds"
+#define CAT_SETTLEMENT "Settlement"
+#define CAT_ELECTRICAL "Electrical Systems"
 
 #define RCD_FLOORWALL 1
 #define RCD_AIRLOCK 2

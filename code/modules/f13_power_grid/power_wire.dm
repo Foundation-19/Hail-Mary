@@ -138,13 +138,58 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 		steps++
 	return FALSE
 
+/// Touching a live cable while laying wire shocks the player.
+/// Fires on every new cable placed outside of map-load (player-placed tiles only).
+/obj/structure/cable/Initialize(mapload, param_color, _d1, _d2)
+	. = ..()
+	if(!mapload && isliving(usr))
+		var/turf/T = get_turf(src)
+		if(T && f13_cable_is_live(T))
+			to_chat(usr, span_danger("You touch a live power cable — electricity surges through you!"))
+			var/mob/living/L = usr
+			L.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
+
 /obj/structure/cable/handlecable(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/wirecutters) && isliving(user))
 		if(f13_cable_is_live(get_turf(src)))
 			to_chat(user, span_danger("You cut a live power cable — electricity surges through you!"))
 			var/mob/living/L = user
 			L.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
+	// Capture turf before ..() deletes the cable via deconstruct().
+	var/turf/cut_turf = istype(W, /obj/item/wirecutters) ? get_turf(src) : null
 	..()
+	// After cut: notify all F13 machines to prune any connection that relied on this cable.
+	if(cut_turf)
+		f13_notify_cable_cut(cut_turf)
+
+/// Notify all F13 generators and relays that a cable was removed at turf T so they
+/// can prune any logical connections that no longer have a physical cable path.
+/proc/f13_notify_cable_cut(turf/T)
+	if(!T)
+		return
+	for(var/obj/machinery/f13/faction_generator/G in world)
+		if(!QDELETED(G))
+			G._prune_dead_links()
+	for(var/obj/machinery/f13/power_relay/R in world)
+		if(!QDELETED(R))
+			R._prune_dead_links()
+
+/// Remove the first WEAKREF in /list/refs whose resolved value equals /obj/target.
+/// Safe to call even if refs is null or target is not in the list.
+/proc/f13_remove_upstream_ref(list/refs, obj/target)
+	if(!refs || !target)
+		return
+	for(var/datum/weakref/W in refs)
+		if(W.resolve() == target)
+			refs -= W
+			return
+
+/// Trigger recalc_draw() on every live faction generator.
+/// Cheap because there are very few generators per map.
+/proc/f13_recalc_all_generators()
+	for(var/obj/machinery/f13/faction_generator/G in world)
+		if(!QDELETED(G))
+			G.recalc_draw()
 
 /// Returns TRUE if a continuous cable path exists from start to end
 /// within F13_WIRE_MAX_PATH steps, checking only cardinal directions.

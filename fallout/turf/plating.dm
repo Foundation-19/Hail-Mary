@@ -4,10 +4,10 @@
 // Vault floor tile & plating
 // -------------------------------------------------------------------------
 
-/// Add saved-state vars to the base tile type so any f13 spawn_tile override
-/// can record exactly which turf subtype the tile came from.
+/// Saved-state vars used by F13 spawn_tile overrides.
 /obj/item/stack/tile
 	var/saved_turf_type = null
+	var/saved_icon_state = null
 
 /// Tile item dropped when an F13 vault floor is crowbarred.
 /// Carries a saved_turf_type so the exact vault subtype (e.g. /red/redchess)
@@ -52,6 +52,21 @@
 	return ..()
 
 // -------------------------------------------------------------------------
+// F13 wood floor tile
+// -------------------------------------------------------------------------
+
+/// Dropped when an F13 wood floor is removed with screwdriver or crowbar.
+/// saved_icon_state carries the variant (housewood1–4) so re-placement restores it.
+/obj/item/stack/tile/f13_wood
+	name = "wooden floor tile"
+	singular_name = "wooden floor tile"
+	desc = "An easy to fit wood floor tile."
+	icon_state = "tile-wood"
+	turf_type = /turf/open/floor/f13/wood
+	resistance_flags = FLAMMABLE
+	merge_type = /obj/item/stack/tile/f13_wood
+
+// -------------------------------------------------------------------------
 
 /turf/open/floor/plating/wooden
 	name = "house base"
@@ -61,6 +76,24 @@
 	broken_states = list("housebase1-broken", "housebase2-broken", "housebase3-broken", "housebase4-broken")
 	burnt_states = list("housebase_burnt")
 //	step_sounds = list("human" = "woodfootsteps")
+
+/// Re-place an f13 wood tile, restoring the exact visual variant it had before removal.
+/turf/open/floor/plating/wooden/attackby(obj/item/C, mob/user, params)
+	if(istype(C, /obj/item/stack/tile/f13_wood))
+		var/obj/item/stack/tile/f13_wood/W = C
+		if(!W.use(1))
+			return
+		var/saved = W.saved_icon_state
+		var/px = x; var/py = y; var/pz = z
+		PlaceOnTop(/turf/open/floor/f13/wood, flags = CHANGETURF_INHERIT_AIR)
+		if(saved)
+			var/turf/open/floor/f13/wood/new_floor = locate(px, py, pz)
+			if(new_floor)
+				new_floor.icon_state = saved
+				new_floor.update_icon()
+		playsound(locate(px, py, pz), 'sound/weapons/genhit.ogg', 50, 1)
+		return
+	return ..()
 
 /turf/open/floor/plating/wooden/make_plating()
 	return src

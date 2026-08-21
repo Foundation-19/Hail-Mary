@@ -2162,6 +2162,8 @@
 #include "code\modules\events\wizard\rpgloot.dm"
 #include "code\modules\events\wizard\shuffle.dm"
 #include "code\modules\events\wizard\summons.dm"
+#include "code\modules\f13_power_grid\crafting_recipes.dm"
+#include "code\modules\f13_power_grid\logic_gate.dm"
 #include "code\modules\farming\farming_structures.dm"
 #include "code\modules\farming\farming_tools.dm"
 #include "code\modules\fields\fields.dm"

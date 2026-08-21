@@ -32,29 +32,24 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	name          = "F13 master grid breaker"
 	desc          = "Controls the map-wide 'always powered' override on all F13 areas. Toggle this to test the fusion core grid in isolation."
 	icon          = 'icons/fallout/machines/power_grid/faction_generator.dmi'
-	icon_state    = "generator_on"   // icon: ON by default
+	icon_state    = "generator_on"
 	density       = FALSE
 	anchored      = TRUE
-
 
 /obj/machinery/f13/master_breaker/attack_hand(mob/living/user)
 	if(!Adjacent(user))
 		return
-	toggle_magic_power(user)
+	show_panel(user)
 
-/// Toggle magic power for all /area/f13 instances.
+/// Toggle the map-wide always-powered override on all F13 areas.
 /obj/machinery/f13/master_breaker/proc/toggle_magic_power(mob/user)
 	GLOB.f13_magic_power = !GLOB.f13_magic_power
 
-	// First pass -- set every f13 area to the new baseline.
+	// Stamp every f13 area to the new baseline using the shared macro (handles async power-on).
 	for(var/area/f13/A in world)
-		A.power_equip   = GLOB.f13_magic_power
-		A.power_light   = GLOB.f13_magic_power
-		A.power_environ = GLOB.f13_magic_power
-		A.power_change()
+		F13_STAMP_AREA_POWER(A, GLOB.f13_magic_power)
 
-	// Second pass (only when magic is OFF) -- re-stamp zones that are
-	// genuinely fed by a live generator or relay chain so they stay lit.
+	// When switching to grid-only: re-stamp areas genuinely fed by the live grid.
 	if(!GLOB.f13_magic_power)
 		for(var/obj/machinery/f13/faction_generator/G in world)
 			if(!QDELETED(G) && G.powered)
@@ -62,6 +57,9 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 		for(var/obj/machinery/f13/power_relay/R in world)
 			if(!QDELETED(R) && R.relay_powered)
 				R.stamp_zone(TRUE)
+		for(var/obj/machinery/f13/junction_box/JB in world)
+			if(!QDELETED(JB) && JB.grid_powered && JB.breaker_closed)
+				JB._stamp_areas(TRUE)
 
 	update_icon_state()
 
@@ -74,8 +72,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	icon_state = GLOB.f13_magic_power ? "generator_on" : "generator_off"
 
 
-
-// --- Admin verb (alternate access without placing the object)
+// --- Admin verbs
 
 /client/proc/f13_toggle_magic_power()
 	set category  = "Debug"
@@ -85,29 +82,13 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	if(!check_rights(R_ADMIN))
 		return
 
-	// Reuse master_breaker logic -- find any placed instance, or run inline.
 	var/obj/machinery/f13/master_breaker/B = locate(/obj/machinery/f13/master_breaker) in world
-	if(B)
+	if(!B)
+		B = new /obj/machinery/f13/master_breaker(null)
 		B.toggle_magic_power(usr)
-	else
-		// No breaker placed -- run the toggle directly.
-		GLOB.f13_magic_power = !GLOB.f13_magic_power
-		for(var/area/f13/A in world)
-			A.power_equip   = GLOB.f13_magic_power
-			A.power_light   = GLOB.f13_magic_power
-			A.power_environ = GLOB.f13_magic_power
-			A.power_change()
-		if(!GLOB.f13_magic_power)
-			for(var/obj/machinery/f13/faction_generator/G in world)
-				if(!QDELETED(G) && G.powered)
-					G.stamp_zone(TRUE)
-			for(var/obj/machinery/f13/power_relay/R in world)
-				if(!QDELETED(R) && R.relay_powered)
-					R.stamp_zone(TRUE)
-		message_admins("F13 magic power toggled [GLOB.f13_magic_power ? "ON" : "OFF"] by [key_name(usr)].")
-
-
-// --- Admin verb -- per-area control panel
+		qdel(B)
+		return
+	B.toggle_magic_power(usr)
 
 /client/proc/f13_area_power_panel()
 	set category  = "Debug"
@@ -118,23 +99,49 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 		return
 
 	var/obj/machinery/f13/master_breaker/B = locate(/obj/machinery/f13/master_breaker) in world
-	if(B)
+	if(!B)
+		B = new /obj/machinery/f13/master_breaker(null)
 		B.show_panel(usr)
-	else
-		// No placed breaker -- create a temporary one, show UI, then clean up.
-		var/obj/machinery/f13/master_breaker/T = new /obj/machinery/f13/master_breaker(null)
-		T.show_panel(usr)
-		qdel(T)
-
-
-// ============================================================
-// MASTER BREAKER -- UPGRADED UI
-// ============================================================
-
-/obj/machinery/f13/master_breaker/attack_hand(mob/living/user)
-	if(!Adjacent(user))
+		qdel(B)
 		return
-	show_panel(user)
+	B.show_panel(usr)
+
+/client/proc/f13_trace_dump()
+	set category  = "Debug"
+	set name      = "F13 Power Trace Dump"
+	set desc      = "Print the last 50 F13 power-grid trace events. Use after an MC stall to see what was running."
+
+	if(!check_rights(R_ADMIN))
+		return
+
+	var/list/log = GLOB.f13_trace_log
+	var/html  = "<html><head><style>"
+	html += "body{background:#062113;color:#4aed92;font-family:'Courier New',monospace;padding:12px;line-height:160%;}"
+	html += "b{color:#fff;} .dim{color:#2a7a52;} .warn{color:#e8a020;font-weight:bold;}"
+	html += "</style></head><body>"
+	html += "<b>F13 POWER TRACE LOG</b> &mdash; last [log.len] events (newest at bottom)<br>"
+	html += "<span class='dim'>────────────────────────────────────────────────</span><br>"
+
+	if(!log.len)
+		html += "<span class='dim'>(no events recorded yet)</span>"
+	else
+		for(var/entry in log)
+			var/colour = "4aed92"
+			if(findtext(entry, "BEGIN"))
+				colour = "e8a020"
+			else if(findtext(entry, "END") || findtext(entry, "done"))
+				colour = "4aed92"
+			else if(findtext(entry, "OFF"))
+				colour = "c0392b"
+			html += "<span style='color:#[colour]'>[entry]</span><br>"
+
+	html += "</body></html>"
+	usr << browse(html, "window=f13_trace;size=700x500")
+
+
+// ============================================================
+// MASTER BREAKER -- PANEL UI
+// ============================================================
 
 /// Open the per-area power control panel.
 /obj/machinery/f13/master_breaker/proc/show_panel(mob/user)
@@ -147,39 +154,81 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	dat += "<pre class='head'>  &#91;GLOBAL OVERRIDE&#93;</pre>"
 	dat += "<pre>  Magic power  : [global_state]</pre>"
 	dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=global_toggle'>Toggle global magic power</a></pre>"
-	dat += "<pre class='dim'>  When ON every F13 area is always lit regardless of generators.</pre>"
+	dat += "<pre class='warn'>  WARNING: global toggle runs power_change() across all machines — expect brief lag.</pre>"
+	dat += "<pre class='dim'>  When ON, every F13 area is lit regardless of generators or junction boxes.</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
-	// --- Per-generator area listing
-	dat += "<pre class='head'>  &#91;CONNECTED GENERATORS&#93;</pre>"
+	// --- Junction box zones
+	dat += "<pre class='head'>  &#91;JUNCTION BOX ZONES&#93;</pre>"
+	var/jbox_count = 0
+	for(var/obj/machinery/f13/junction_box/JB in world)
+		if(QDELETED(JB) || !JB.owned_zones || !JB.owned_zones.len)
+			continue
+		jbox_count++
+		var/jb_tag  = JB.tag ? JB.tag : JB.name
+		var/jb_live = (JB.grid_powered && JB.breaker_closed)
+		var/jb_state = jb_live ? "<span class='good'>LIVE</span>" : "<span class='bad'>DARK</span>"
+		dat += "<pre>  JBox: [jb_tag]  [jb_state]  [JB.owned_zones.len] zone(s)</pre>"
+		for(var/area/f13/Z in JB.owned_zones)
+			if(QDELETED(Z))
+				continue
+			var/pstate  = Z.power_equip ? "<span class='good'>on </span>" : "<span class='bad'>off</span>"
+			var/bstate  = JB.zone_breakers[Z] ? "" : " <span class='warn'>\[BREAKER TRIPPED\]</span>"
+			dat += "<pre>    &gt; [pstate][bstate]  [Z.name]  <a href='byond://?src=[REF(src)];choice=toggle_area;target=[REF(Z)]'>Toggle</a></pre>"
+		dat += "<pre class='dim'>  ---</pre>"
+	if(!jbox_count)
+		dat += "<pre class='dim'>  No junction boxes with active zones found.</pre>"
+
+	// --- Generator-owned areas
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+	dat += "<pre class='head'>  &#91;GENERATOR AREAS&#93;</pre>"
 	var/gen_count = 0
 	for(var/obj/machinery/f13/faction_generator/G in world)
 		if(QDELETED(G) || !G.powered_area_instances || !G.powered_area_instances.len)
 			continue
 		gen_count++
-		var/state = G.powered ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
-		dat += "<pre>  Generator: [G.name ? G.name : "unnamed"]  [state]</pre>"
+		var/gstate = G.powered ? "<span class='good'>ONLINE</span>" : "<span class='bad'>OFFLINE</span>"
+		dat += "<pre>  Generator: [G.name ? G.name : "unnamed"]  [gstate]</pre>"
 		for(var/area/A in G.powered_area_instances)
 			if(QDELETED(A))
 				continue
-			var/pstate = A.power_equip ? "<span class='good'>powered</span>" : "<span class='bad'>unpowered</span>"
-			dat += "<pre>    &gt; [A.name]  [pstate]  <a href='byond://?src=[REF(src)];choice=toggle_area;target=[REF(A)]'>Toggle</a></pre>"
+			var/pstate = A.power_equip ? "<span class='good'>on </span>" : "<span class='bad'>off</span>"
+			dat += "<pre>    &gt; [pstate]  [A.name]  <a href='byond://?src=[REF(src)];choice=toggle_area;target=[REF(A)]'>Toggle</a></pre>"
 		dat += "<pre class='dim'>  ---</pre>"
 	if(!gen_count)
 		dat += "<pre class='dim'>  No generators with configured area lists found.</pre>"
 
-	// --- Flat area listing (all /area/f13 not belonging to any generator)
+	// --- Other F13 areas (not owned by any jbox or generator, not zone datums)
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
-	dat += "<pre class='head'>  &#91;ALL F13 AREAS&#93;</pre>"
-	for(var/area/f13/A in world)
-		if(QDELETED(A) || A.f13_grid_immune || A.outdoors)
+	dat += "<pre class='head'>  &#91;OTHER F13 AREAS&#93;</pre>"
+	// Build exclusion set from areas already shown above.
+	var/list/already_shown = list()
+	for(var/obj/machinery/f13/junction_box/JB in world)
+		if(QDELETED(JB) || !JB.owned_zones)
 			continue
+		for(var/area/f13/Z in JB.owned_zones)
+			already_shown[Z] = TRUE
+		for(var/area/f13/Z in JB.owned_zones)
+			var/area/orig = JB.owned_zones[Z]
+			if(orig) already_shown[orig] = TRUE
+	for(var/obj/machinery/f13/faction_generator/G in world)
+		if(QDELETED(G) || !G.powered_area_instances)
+			continue
+		for(var/area/A in G.powered_area_instances)
+			already_shown[A] = TRUE
+	var/other_count = 0
+	for(var/area/f13/A in world)
+		if(QDELETED(A) || A.f13_grid_immune || A.outdoors || A.f13_jbox_zone || already_shown[A])
+			continue
+		other_count++
 		var/pstate = A.power_equip ? "<span class='good'>on </span>" : "<span class='bad'>off</span>"
 		dat += "<pre>    [pstate]  [A.name]  <a href='byond://?src=[REF(src)];choice=toggle_area;target=[REF(A)]'>Toggle</a></pre>"
+	if(!other_count)
+		dat += "<pre class='dim'>  All areas accounted for above.</pre>"
 
 	dat += "<pre class='sep'>  ================================================================</pre>"
 
-	var/datum/browser/popup = new(user, "f13_breaker", null, 640, 580)
+	var/datum/browser/popup = new(user, "f13_breaker", null, 640, 600)
 	popup.set_content(dat)
 	popup.open()
 
@@ -260,6 +309,20 @@ potentially interesting radiation levels.
 <br>&nbsp;&nbsp; (e)&nbsp; DO NOT attempt to re-activate an overloaded Unit without first identifying and
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; resolving the overload condition.  Repeated cycling under overload will
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; damage connected equipment.
+<br>&nbsp;&nbsp; (f)&nbsp; FIELD-INSTALLED UNITS: Install a grounding rod before startup.  An ungrounded
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; frame presents a leakage-current hazard to personnel on wet surfaces within
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 tile.  Fabricate a grounding rod (2 metal sheets + 2 cable, wirecutters)
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and apply it while the Unit is anchored.  Factory-installed units are
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pre-bonded; this step is not required.
+<br>&nbsp;&nbsp; (g)&nbsp; DO NOT connect two generators to the same relay or junction box.  If one
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; generator shuts down, the surviving unit's output will backfeed through the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; dead generator's output stage, producing a voltage surge at the shared relay.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Personnel within 1 tile of the relay are at risk.  Each generator should
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; feed its own independent cable chain.
+<br>&nbsp;&nbsp; (h)&nbsp; DO NOT connect or cut cables while the Unit is online.  Wiring a cable to a
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; live generator or relay produces an arc flash.  Cutting a live cable with
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; wirecutters delivers a larger discharge.  Power the Unit down before any
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; cable installation or removal.
 <br>
 <br><b>2.2 &nbsp; FUEL PRECAUTIONS (FUSION CORE)</b>
 <br>
@@ -318,6 +381,41 @@ potentially interesting radiation levels.
 <br>&nbsp;&nbsp; Wiring required:&nbsp; Must be wired directly to a generator.
 <br>&nbsp;&nbsp; Draw:&nbsp; 50 W idle / 300 W during fabrication.
 <br>
+<br><b>3.7 &nbsp; GROUNDING ROD</b>
+<br>
+<br>&nbsp;&nbsp; Function:&nbsp; Bonds the generator frame to earth potential.
+<br>&nbsp;&nbsp; Required for:&nbsp; Field-assembled generators only.  Factory-installed units are pre-bonded.
+<br>&nbsp;&nbsp; Fabrication:&nbsp; 2 metal sheets + 2 cable.  Wirecutters only; no workbench required.
+<br>&nbsp;&nbsp; Installation:&nbsp; Apply the rod to an anchored generator.  Consumed on use.
+<br>&nbsp;&nbsp; Effect:&nbsp; Clears the UNGROUNDED warning in the terminal.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Eliminates passive leakage current discharge hazard.
+<br>
+<br><b>3.8 &nbsp; MAIN BREAKER PANEL</b>
+<br>
+<br>&nbsp;&nbsp; Function:&nbsp; Inline manual cutoff for the downstream circuit.
+<br>&nbsp;&nbsp; Draw:&nbsp; 50 W (relay equivalent).
+<br>&nbsp;&nbsp; Install:&nbsp; Wire between the generator and any downstream relay chain.
+<br>&nbsp;&nbsp; Operation:&nbsp; OPEN BREAKER kills all downstream circuits immediately.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CLOSE BREAKER restores them.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A tripped (open) breaker will NOT close automatically when the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; generator restores power.  Must be closed manually via the panel UI.
+<br>&nbsp;&nbsp; Use case:&nbsp; Emergency power cutoff without touching the generator.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Per-building isolation during maintenance or emergencies.
+<br>
+<br><b>3.9 &nbsp; POWER LOGIC GATE</b>
+<br>
+<br>&nbsp;&nbsp; Function:&nbsp; Programmable relay that conditions downstream power on a logic function.
+<br>&nbsp;&nbsp; Draw:&nbsp; 50 W (relay equivalent).
+<br>&nbsp;&nbsp; Gate types:&nbsp; AND | OR | NOT | NAND | NOR | XOR | XNOR.
+<br>&nbsp;&nbsp; Operation:&nbsp; Wire one or two upstream sources into the gate.  The gate evaluates
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; the selected function and passes power downstream only when the
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result is logical 1.  Gate type is set via the integrated UI.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR: passes if any upstream is live (standard relay behaviour).
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND: requires all upstreams live simultaneously.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOT: inverts the single upstream state.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XOR / XNOR: require exactly two upstream inputs.
+<br>&nbsp;&nbsp; Use case:&nbsp; Automated conditional power routing, alarm logic, deadman circuits.
+<br>
 <br>
 <hr>
 <b>4.0 &nbsp; INSTALLATION PROCEDURE</b>
@@ -329,6 +427,11 @@ potentially interesting radiation levels.
 <br>&nbsp;&nbsp; STEP 2.&nbsp; Anchor the Unit.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Use a wrench on the Generator to secure it to the floor.  The Unit
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; must be powered down before it can be unanchored for relocation.
+<br>
+<br>&nbsp;&nbsp; STEP 2a. Install grounding rod (field-assembled units only).
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Apply a grounding rod to the anchored Unit to bond the frame to earth.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Factory-installed Units are pre-bonded; omit this step.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; The terminal will display UNGROUNDED if this step is needed.
 <br>
 <br>&nbsp;&nbsp; STEP 3.&nbsp; Load a fusion core.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Load a fusion core into the upper fuel port; the loader mechanism is
@@ -375,6 +478,7 @@ potentially interesting radiation levels.
 <b>6.0 &nbsp; OPERATIONAL CHECKS -" INITIAL STARTUP SEQUENCE</b>
 <br>
 <br>&nbsp;&nbsp; 6.1.&nbsp; Confirm anchor status (wrench applied, Unit immobile).
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Confirm no UNGROUNDED warning in the terminal (apply grounding rod if shown).
 <br>&nbsp;&nbsp; 6.2.&nbsp; Confirm fuel load (FUEL indicator &gt; 0%).
 <br>&nbsp;&nbsp; 6.3.&nbsp; Open the integrated access panel.  Verify STATUS = ONLINE.
 <br>&nbsp;&nbsp; 6.4.&nbsp; Confirm all expected devices appear in WIRED DEVICES or RELAY NETWORK.
@@ -408,6 +512,9 @@ Critical devices should be wired directly to the generator or a high-priority re
 <br>&nbsp;&nbsp; STATUS = OVERLOAD&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Draw exceeds generation capacity&nbsp; Insert another core or reduce load
 <br>&nbsp;&nbsp; Core ejected on insert&nbsp;&nbsp;&nbsp;&nbsp; Core was already depleted&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Recycle in core fabricator
 <br>&nbsp;&nbsp; Cannot anchor / unanchor&nbsp;&nbsp; Generator is online&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Power down before servicing
+<br>&nbsp;&nbsp; UNGROUNDED in terminal&nbsp;&nbsp;&nbsp;&nbsp; No grounding rod installed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Apply a grounding rod while anchored
+<br>&nbsp;&nbsp; Sparks + shock at relay&nbsp;&nbsp;&nbsp; Parallel generators share relay&nbsp;&nbsp;&nbsp; Rewire: one generator per cable chain
+<br>&nbsp;&nbsp; Arc flash on cable work&nbsp;&nbsp;&nbsp; Generator or relay was live&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Power down before any cable work
 <br>
 <br>
 <hr>
@@ -457,10 +564,22 @@ indefinitely as long as the fuel supply is maintained.
 <br>&nbsp;&nbsp; (b) Keep the exhaust clear.  Carbon monoxide accumulation indoors is lethal.
 <br>&nbsp;&nbsp;    Operator is responsible for ventilation.
 <br>&nbsp;&nbsp; (c) Do not refuel while the unit is hot.  Allow cooling before adding fuel.
+<br>&nbsp;&nbsp;    Pouring diesel into a hot engine causes vapour flash ignition:
+<br>&nbsp;&nbsp;    the operator's hands are scorched and the area ignites.
+<br>&nbsp;&nbsp;    Wait at least 30 seconds after shutdown before opening the fill port.
 <br>&nbsp;&nbsp; (d) Fuel spills must be cleaned up promptly.
 <br>&nbsp;&nbsp; (e) DO NOT substitute vegetable oil, water, or improvised liquids.
 <br>&nbsp;&nbsp;    Injector damage from bad fuel is not covered under service.
 <br>&nbsp;&nbsp;    (Note: warranty service is unlikely to be available in your area.)
+<br>&nbsp;&nbsp; (f) FIELD-INSTALLED UNITS: Install a grounding rod before startup.
+<br>&nbsp;&nbsp;    Ungrounded frame leaks current and can shock personnel on wet ground within 1 tile.
+<br>&nbsp;&nbsp;    Fabricate a grounding rod (2 metal + 2 cable, wirecutters) and apply while anchored.
+<br>&nbsp;&nbsp; (g) DO NOT wire two generators to the same relay.  When one drops, the other
+<br>&nbsp;&nbsp;    backfeeds through the shared node.  Sparks and surge at the relay; personnel risk.
+<br>&nbsp;&nbsp; (h) DO NOT connect or cut cables while the unit is online.  Arc flash risk.
+<br>&nbsp;&nbsp;    Power down before any cable installation or removal.
+<br>&nbsp;&nbsp; (i) DO NOT use welding equipment near the fuel tank.  Sustained heat will
+<br>&nbsp;&nbsp;    rupture the tank.  A tank rupture causes a fire that spreads to adjacent tiles.
 <br>
 <br>
 <b>3. FUEL REQUIREMENTS</b>
@@ -482,6 +601,7 @@ Warning -" drained fuel is vented.  It cannot be recovered.  Shut down first.
 <br>
 <br>&nbsp;&nbsp; 1.&nbsp; Position the unit.  Leave at least 1 tile exhaust clearance.
 <br>&nbsp;&nbsp; 2.&nbsp; Anchor to floor with a wrench.
+<br>&nbsp;&nbsp; 2a.&nbsp; Install a grounding rod (field-built units only) -- apply to anchored generator.
 <br>&nbsp;&nbsp; 3.&nbsp; Run cable from the generator's output terminal to junction boxes, relays, and clients.
 <br>&nbsp;&nbsp; 4.&nbsp; Load diesel fuel.  Generator starts automatically on first load.
 <br>&nbsp;&nbsp; 5.&nbsp; Open the integrated access panel.  Verify STATUS = ONLINE.
@@ -510,6 +630,10 @@ risk fuel vapour accumulation and ignition near the tank.
 <br>&nbsp;&nbsp; Zone stays dark .......... junction box not wired, or relay offline
 <br>&nbsp;&nbsp; Device missing from UI ... use Rescan Network button in access panel
 <br>&nbsp;&nbsp; Maintenance due .......... apply a wrench while running -- no shutdown needed
+<br>&nbsp;&nbsp; UNGROUNDED warning ....... install a grounding rod while anchored
+<br>&nbsp;&nbsp; Sparks + shock at relay .. parallel generators sharing relay -- rewire independently
+<br>&nbsp;&nbsp; Vapour flash on refuel ... unit still hot -- wait 30 seconds after shutdown
+<br>&nbsp;&nbsp; Arc flash on cable work .. cut power before any wiring changes
 <br>
 <br>
 <b>7. SPECIFICATIONS</b>
@@ -575,12 +699,22 @@ integrated into the cell casing.
 <br>&nbsp;&nbsp; (e) In the event of visible cell casing damage, evacuate immediately and
 <br>&nbsp;&nbsp;    contact Poseidon Energy Emergency Services.
 <br>&nbsp;&nbsp;    (Poseidon Energy Emergency Services may not currently be available.)
+<br>&nbsp;&nbsp; (f) FIELD-INSTALLED UNITS: Install a grounding rod before startup.
+<br>&nbsp;&nbsp;    Ungrounded frame leaks stray current; personnel on wet surfaces within
+<br>&nbsp;&nbsp;    1 tile are at risk.  Grounding rod: 2 metal + 2 cable, wirecutters.
+<br>&nbsp;&nbsp; (g) DO NOT connect two generators to the same relay.  Backfeed surge risk
+<br>&nbsp;&nbsp;    when one generator powers down.  Each generator needs its own cable chain.
+<br>&nbsp;&nbsp; (h) DO NOT use welding equipment near the PEAG-5.  Sustained heat overwhelms
+<br>&nbsp;&nbsp;    the containment seals, causing a catastrophic breach: wide-area radiation
+<br>&nbsp;&nbsp;    pulse and total unit loss.  This is not recoverable.  Keep welders clear.
+<br>&nbsp;&nbsp; (i) DO NOT connect or cut cables while the unit is online.  Arc flash risk.
 <br>
 <br>
 <b>3. INSTALLATION</b>
 <br>
 <br>&nbsp;&nbsp; Step 1.&nbsp; Position on a stable, level surface.
 <br>&nbsp;&nbsp; Step 2.&nbsp; Anchor to floor with a wrench.
+<br>&nbsp;&nbsp; Step 2a.&nbsp; Install grounding rod (field-assembled only) -- apply to anchored generator.
 <br>&nbsp;&nbsp; Step 3.&nbsp; Wire downstream devices with a cable coil (optional but recommended).
 <br>&nbsp;&nbsp; Step 4.&nbsp; Load the POS-7R atomic fuel cell through the top-facing insertion port.
 <br>&nbsp;&nbsp; Step 5.&nbsp; Generator starts immediately.  Depleted casing is ejected from the port.
@@ -626,6 +760,9 @@ radiation leakage from aged seals.
 <br>&nbsp;&nbsp; Unusual radiation ........ containment seals may need service.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Apply a wrench while running to clear the maintenance log.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; If leakage persists, contact Poseidon Energy technical support.
+<br>&nbsp;&nbsp; UNGROUNDED in terminal ... install a grounding rod while anchored
+<br>&nbsp;&nbsp; Sparks + shock at relay .. parallel generators sharing relay -- rewire independently
+<br>&nbsp;&nbsp; Arc flash on cable work .. power down before any wiring changes
 <br>
 <br>
 <b>7. SPECIFICATIONS</b>
@@ -683,6 +820,10 @@ radiation leakage from aged seals.
 <br>check the gauge on the side panel to see how much fuel is left.
 <br>when its low it will send a message out. dont ignore it.
 <br>
+<br>one more thing: if it just shut down and is still warm, DO NOT refuel yet.
+<br>diesel vapour hitting hot internals flashes over. it will burn you.
+<br>wait about 30 seconds after the engine noise stops before you fill it.
+<br>
 <br>---
 <br>
 <br><b>WIRING IT UP</b>
@@ -697,6 +838,24 @@ radiation leakage from aged seals.
 <br>the breaker panel is useful. flip the lever on it to cut power to
 <br>everything downstream without touching the generator.
 <br>good for when something catches fire and you need to isolate fast.
+<br>
+<br>DO NOT hook up or cut cable while its running. live cable will arc into your
+<br>hands and running wirecutters on a live line is worse. shut it down first.
+<br>
+<br>---
+<br>
+<br><b>GROUNDING IT</b>
+<br>
+<br>if you BUILT THIS from scratch (not found it already running) you need to
+<br>ground it before starting it up.
+<br>an ungrounded generator leaks current through the casing.
+<br>if you or anyone else is standing in water near it it will arc into them.
+<br>
+<br>grounding rod: 2 metal sheets + 2 cable. wirecutters to make it.
+<br>once you have it, use it on the generator while its bolted to the floor.
+<br>it bonds in and the warning in the panel clears.
+<br>if you found this generator already running and installed, its already grounded.
+<br>dont bother.
 <br>
 <br>---
 <br>
@@ -738,6 +897,21 @@ radiation leakage from aged seals.
 <br>
 <br>---
 <br>
+<br><b>TWO GENERATORS ON ONE RELAY: DO NOT</b>
+<br>
+<br>i have heard of people wiring two generators into the same relay
+<br>for redundancy. DO NOT DO THIS.
+<br>when one generator shuts off, the other backfeeds through the dead
+<br>output stage and surges the relay. sparks. anyone standing next to
+<br>the relay gets an arc flash. i have seen it firsthand.
+<br>
+<br>if you want backup power, run two separate cable chains to two
+<br>separate relays. keep the chains completely independent.
+<br>
+<br>- W. Tucker
+<br>
+<br>---
+<br>
 <br><b>IF IT STOPS WORKING</b>
 <br>
 <br>no fuel = add fuel.
@@ -745,6 +919,9 @@ radiation leakage from aged seals.
 <br>lights out but gauge says running = check the breaker panel lever.
 <br>device not getting power but wired = check if its within 10 tiles.
 <br>wont restart after move = unbolt, shift one tile, rebolt, try again.
+<br>UNGROUNDED warning = apply a grounding rod while its bolted down.
+<br>got burned refueling = unit was still hot, wait 30 seconds next time.
+<br>arc flash when wiring = dont do cable work while its running.
 <br>
 <br>---
 <br>
