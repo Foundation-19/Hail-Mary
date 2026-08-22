@@ -1533,6 +1533,14 @@
 	stun_projectile_sound = 'sound/f13weapons/9mm.ogg'
 	faction = null
 
+/// F13 turrets are powered only when the F13 power grid supplies their area.
+/// Outdoor and grid-immune areas are always considered powered (no generator needed).
+/obj/machinery/porta_turret/f13/powered()
+	var/area/f13/A = get_area(src)
+	if(A && !A.f13_grid_immune && !A.outdoors)
+		return A.f13_grid_power
+	return TRUE
+
 /// .22LR turret
 /obj/machinery/porta_turret/f13/turret_22lr
 	name = "salvaged mini-plink turret"

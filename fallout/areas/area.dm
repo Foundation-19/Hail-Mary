@@ -6,7 +6,50 @@
 	name = "error"
 	icon_state = "error"
 	has_gravity = 1
-//	requires_power = 0
+	// Indoor F13 areas start unpowered.  A faction_generator must cover this area
+	// (via powered_area_types) and be running for machines here to function.
+	// Outdoor/wasteland areas define requires_power = FALSE, which causes
+	// area/Initialize() to set power_equip/light/environ back to TRUE for them.
+	power_equip  = FALSE
+	power_light  = FALSE
+	power_environ = FALSE
+	/// Mirrors power_equip — tracks whether a generator is actively supplying this area.
+	/// Updated automatically by the power_change() override below.
+	var/f13_grid_power = FALSE
+	/// When TRUE, junction boxes will never stamp this area's power state.
+	/// The outdoors flag also triggers this guard automatically.
+	/// Set explicitly on any area that manages its own power or should always be on.
+	var/f13_grid_immune = FALSE
+	/// Runtime flag set by the junction box system on dynamically-allocated
+	/// flood-fill zone datums.  Never set by mappers.  Checked during flood fill
+	/// to prevent two boxes from merging each other's physical zones.
+	var/f13_jbox_zone = FALSE
+
+/// Keep f13_grid_power in sync with the actual SS13 equip-channel state.
+/// Also explicitly notify any door/access buttons inside or adjacent to this area.
+/// F13 areas have no APC, so buttons are never iterated by the normal
+/// machinery-notification path — we must push the update ourselves.
+/area/f13/power_change()
+	f13_grid_power = power_equip
+	// Notify buttons on any turf (open or closed) WITHIN this area.
+	for(var/obj/machinery/button/B in src)
+		B.power_change()
+	// Sweep closed (wall) tiles adjacent to this area and notify buttons there.
+	// Wall tiles are frequently in /area/space or a parent f13 area type rather
+	// than the stamped subzone, so they are not reachable by the loop above.
+	// Skipped for outdoor areas — they have no enclosed walls and iterating
+	// thousands of wasteland tiles here would stall the server.
+	if(!outdoors)
+		var/list/swept = list()
+		for(var/turf/T in src)
+			for(var/turf/W in RANGE_TURFS(2, T))
+				if(!swept[W] && isclosedturf(W))
+					swept[W] = TRUE
+					var/area/WA = get_area(W)
+					if(istype(WA, /area/space) || (istype(WA, /area/f13) && WA != src))
+						for(var/obj/machinery/button/B in W)
+							B.power_change()
+	return ..()
 
 //Wasteland generic areas
 
@@ -46,6 +89,11 @@
 /area/f13/wasteland/cold
 	icon_state = "wastelandcold"
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/wasteland/cold/powered
+	requires_power = FALSE
+
+/// Legacy alias kept for Tipton map compatibility.  Do not use for new maps.
 /area/f13/wasteland/cold/power
 	requires_power = FALSE
 
@@ -187,24 +235,34 @@
 	weather_tags = null
 
 /area/f13/building/sewers/powered
-	requires_power = FALSE
 
-/area/f13/sewer/powered 
-	requires_power = FALSE
+/area/f13/sewer/powered
 
 /area/f13/building/powered
-	requires_power = FALSE
 
 /area/f13/caves
 	name = "Caves"
 	icon_state = "caves"
 	requires_power = TRUE
+	// Natural cave systems are permanently dark — no junction box should
+	// accidentally power them via subtype scanning.  Use /area/f13/caves/powered
+	// for any cave space that a mapper intentionally wants on the grid
+	// (e.g. a raider generator room), which lets players cut the power
+	// strategically by tripping that room's junction box breaker.
+	f13_grid_immune = TRUE
 	ambience_area = list(
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/cave,
 		/datum/looping_sound/ambient/tunnel,
 	)
 	weather_tags = null
+
+/// Cave area intentionally wired to the power grid.
+/// Use this for underground bases, raider dens, etc. where cutting
+/// the lights is a meaningful tactical option.  Place a junction box
+/// inside and wire it to the local generator as normal.
+/area/f13/caves/powered
+	f13_grid_immune = FALSE
 
 /area/f13/tunnel
 	name = "Tunnel"
@@ -418,7 +476,6 @@
 	icon_state = "bighornbunker"
 
 /area/f13/building/powered
-	requires_power = FALSE
 
 /area/f13/factory
 	name = "robco factory"
@@ -601,6 +658,8 @@
 		AREA_SOUND('sound/f13ambience/bird_2.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_3.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_4.ogg', 10 SECONDS))
+	outdoors = 1
+	open_space = 1
 	blob_allowed = 0
 	environment = 15
 	grow_chance = 5
@@ -619,6 +678,8 @@
 		AREA_SOUND('sound/f13ambience/bird_2.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_3.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/bird_4.ogg', 10 SECONDS))
+	outdoors = 1
+	open_space = 1
 	blob_allowed = 0
 	environment = 16
 	grow_chance = 5
@@ -723,7 +784,6 @@
 	grow_chance = 5
 
 /area/f13/casino/powered
-	requires_power = FALSE
 
 /area/f13/clinic
 	name = "Clinic"
@@ -873,6 +933,7 @@
 /area/f13/sewer
 	name = "Sewer"
 	icon_state = "sewer"
+	requires_power = TRUE
 
 //	ambientmusic = list('sound/f13music/fo2_tunnels.ogg','sound/f13music/fo2_caves.ogg','sound/f13music/fo2_desert.ogg','sound/f13music/fo2_vats.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1144,7 +1205,6 @@
 	icon_state = "brotherhoodmining"
 
 /area/f13/brotherhood/powered
-	requires_power = FALSE
 
 /area/f13/enclave
 	name = "Enclave Bunker"
@@ -1163,6 +1223,40 @@
 	environment = 6
 	grow_chance = 5
 
+/area/f13/enclave/rnd
+	name = "Enclave Research and Development"
+	icon_state = "enclave"
+
+/area/f13/enclave/labs
+	name = "Enclave Research Labs"
+	icon_state = "enclave"
+
+/area/f13/enclave/armory
+	name = "Enclave Armory"
+	icon_state = "enclave"
+
+/area/f13/enclave/barracks
+	name = "Enclave Barracks"
+	icon_state = "enclave"
+
+/area/f13/enclave/medical
+	name = "Enclave Medbay"
+	icon_state = "enclave"
+
+/area/f13/enclave/command
+	name = "Enclave Command Center"
+	icon_state = "enclave"
+
+/area/f13/enclave/reactor
+	name = "Enclave Reactor"
+	icon_state = "enclave"
+
+/area/f13/enclave/comms
+	name = "Enclave Communications"
+	icon_state = "enclave"
+
+/area/f13/enclave/powered
+
 /area/f13/ahs
 	name = "Adepts of Hubology Studies"
 	icon_state = "ahs"
@@ -1177,6 +1271,26 @@
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
+
+/area/f13/ahs/temple
+	name = "AHS Temple"
+	icon_state = "ahs"
+
+/area/f13/ahs/study
+	name = "AHS Study Hall"
+	icon_state = "ahs"
+
+/area/f13/ahs/dormitory
+	name = "AHS Dormitory"
+	icon_state = "ahs"
+
+/area/f13/ahs/xenotech
+	name = "AHS Xenoscience Department"
+	icon_state = "ahs"
+
+/area/f13/ahs/command
+	name = "AHS Command"
+	icon_state = "ahs"
 
 /area/f13/ncr
 	name = "NCR Outpost"
@@ -1197,12 +1311,42 @@
 	blob_allowed = 0
 	environment = 4
 	grow_chance = 5
-	requires_power = FALSE
 
 /area/f13/ncr/powered
 	name = "NCR Outpost"
 	icon_state = "ncr"
-	requires_power = FALSE
+
+/area/f13/ncr/barracks
+	name = "NCR Barracks"
+	icon_state = "ncr"
+
+/area/f13/ncr/armory
+	name = "NCR Armory"
+	icon_state = "ncr"
+
+/area/f13/ncr/command
+	name = "NCR Command Post"
+	icon_state = "ncr"
+
+/area/f13/ncr/medical
+	name = "NCR Medical"
+	icon_state = "ncr"
+
+/area/f13/ncr/storage
+	name = "NCR Storage"
+	icon_state = "ncr"
+
+/area/f13/ncr/mess
+	name = "NCR Mess Hall"
+	icon_state = "ncr"
+
+/area/f13/ncr/entrance
+	name = "NCR Outpost Entrance"
+	icon_state = "ncr"
+
+/area/f13/ncr/jail
+	name = "NCR Holding Cells"
+	icon_state = "ncr"
 
 /area/f13/legion
 	name = "Legion Fortress"
@@ -1225,7 +1369,34 @@
 /area/f13/legion/powered
 	name = "Legion Fortress"
 	icon_state = "legion"
-	requires_power = FALSE
+
+/area/f13/legion/barracks
+	name = "Legion Barracks"
+	icon_state = "legion"
+
+/area/f13/legion/armory
+	name = "Legion Armory"
+	icon_state = "legion"
+
+/area/f13/legion/medical
+	name = "Legion Medical"
+	icon_state = "legion"
+
+/area/f13/legion/command
+	name = "Legion Command Tent"
+	icon_state = "legion"
+
+/area/f13/legion/prison
+	name = "Legion Prison"
+	icon_state = "legion"
+
+/area/f13/legion/arena
+	name = "Legion Arena"
+	icon_state = "legion"
+
+/area/f13/legion/forge
+	name = "Legion Forge"
+	icon_state = "legion"
 
 /area/f13/followers
 	name = "Followers of the Apocalypse Clinic"
@@ -1241,6 +1412,30 @@
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
+
+/area/f13/followers/clinic
+	name = "Followers Clinic"
+	icon_state = "followers"
+
+/area/f13/followers/library
+	name = "Followers Library"
+	icon_state = "followers"
+
+/area/f13/followers/surgery
+	name = "Followers Surgery"
+	icon_state = "followers"
+
+/area/f13/followers/storage
+	name = "Followers Storage"
+	icon_state = "followers"
+
+/area/f13/followers/quarters
+	name = "Followers Living Quarters"
+	icon_state = "followers"
+
+/area/f13/followers/lab
+	name = "Followers Laboratory"
+	icon_state = "followers"
 
 /area/f13/wasteland/khans
 	name = "Great Khan Encampment"
@@ -1261,7 +1456,6 @@
 /area/f13/holiday/powered
 	name = "Holiday"
 	icon_state = "holiday"
-	requires_power = FALSE
 
 /area/f13/holiday/powered/deepmine // deepmines for holiday means no infinite power
 	name = "Holiday deep mine"

@@ -186,6 +186,36 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 15)
 
 /obj/machinery/button/power_change()
+	var/area/A = get_area(src)
+	// /area/space hardcodes powered()=0 regardless of vars.
+	// /area/f13 areas have no APC, so the standard powered() chain is irrelevant;
+	// F13_STAMP_AREA_POWER writes power_environ directly.
+	// Read power_environ directly for f13 areas.  For /area/space (wall turfs not
+	// explicitly painted into a room area), walk adjacent non-wall turfs: if any
+	// neighbour belongs to a powered /area/f13 zone treat this button as powered.
+	if(istype(A, /area/f13) || istype(A, /area/space))
+		var/powered_state = FALSE
+		if(istype(A, /area/f13) && A.power_environ)
+			// Fast path: button is directly in a powered f13 zone.
+			powered_state = TRUE
+		else
+			// Fallback neighbor scan.  Handles:
+			//  • /area/space wall tiles (no APC, power never propagates there)
+			//  • wall tiles painted as a PARENT f13 area (e.g. /area/f13/brotherhood)
+			//    adjacent to the stamped subzone (/area/f13/brotherhood/powered)
+			// Closed tiles are intentionally included so wall-tile f13 areas count.
+			var/turf/T = get_turf(src)
+			for(var/turf/N in RANGE_TURFS(2, T))
+				var/area/NA = get_area(N)
+				if(istype(NA, /area/f13) && NA.power_environ)
+					powered_state = TRUE
+					break
+		if(powered_state)
+			stat &= ~NOPOWER
+		else
+			stat |= NOPOWER
+		update_icon()
+		return
 	..()
 	update_icon()
 

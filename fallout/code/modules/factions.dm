@@ -310,8 +310,7 @@ mob/proc/set_faction(var/faction)
 	color = "#C24D44"
 	area = /area/f13/legion
 	karma = -5
-//	craft_recipes = list(/datum/table_recipe/legion_recruit_armor, /datum/table_recipe/legion_recruit_helm, \
-						 /datum/table_recipe/legion_encryption_key)
+//	craft_recipes = list(/datum/table_recipe/legion_recruit_armor, /datum/table_recipe/legion_recruit_helm, /datum/table_recipe/legion_encryption_key)
 	welcome_text = "Your current objectives:<br>\
 	1. As a member of the Legion you must obey all orders given by anyone outranking you.<br>\
 	2. You must enslave the occupants of the wasteland, and suppress any resistance unless they can't be overpowered.<br>\
