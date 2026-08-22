@@ -75,13 +75,13 @@
 #define JUNCTION_BOX_WATT_DRAW  150
 
 // ── Logic gate types
-var/const/GATE_OR   = 1
-var/const/GATE_AND  = 2
-var/const/GATE_NOT  = 3
-var/const/GATE_NAND = 4
-var/const/GATE_NOR  = 5
-var/const/GATE_XOR  = 6
-var/const/GATE_XNOR = 7
+#define GATE_OR   1
+#define GATE_AND  2
+#define GATE_NOT  3
+#define GATE_NAND 4
+#define GATE_NOR  5
+#define GATE_XOR  6
+#define GATE_XNOR 7
 
 // ── Relay repair constants
 /// HP restored per wrench hit on a damaged relay.
