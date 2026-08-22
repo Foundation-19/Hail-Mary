@@ -56,20 +56,32 @@
 /obj/item/grenade/f13/prime(mob/living/lanced_by)
 	if(QDELETED(src))
 		return
-	
+
+	// Zero out explosion vars before calling parent prime() so it doesn't fire an immediate explosion.
+	// The parent proc fires explosion() directly if any ex_* values are non-zero, which would cause
+	// a double explosion alongside the queued one below.
+	var/saved_dev = ex_dev
+	var/saved_heavy = ex_heavy
+	var/saved_light = ex_light
+	var/saved_flame = ex_flame
+	ex_dev = 0
+	ex_heavy = 0
+	ex_light = 0
+	ex_flame = 0
+
 	. = ..()
 	update_mob()
-	
+
 	// Decrement counter
 	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
-	
+
 	// Store location before deletion
 	var/turf/epicenter = get_turf(src)
-	
-	// Queue explosion if there are any damage values
-	if(ex_dev || ex_heavy || ex_light || ex_flame)
-		SSexplosion_spam.queue_explosion(epicenter, ex_dev, ex_heavy, ex_light, flash = 0, flame_range = ex_flame, source = null)
-	
+
+	// Queue the single explosion using saved values
+	if(saved_dev || saved_heavy || saved_light || saved_flame)
+		SSexplosion_spam.queue_explosion(epicenter, saved_dev, saved_heavy, saved_light, flash = 0, flame_range = saved_flame, source = null)
+
 	qdel(src)
 
 /obj/item/grenade/f13/stinger
@@ -115,23 +127,15 @@
 /obj/item/grenade/f13/plasma/prime(mob/living/lanced_by)
 	if(QDELETED(src))
 		return
-	
-	. = ..()
-	update_mob()
-	
-	// Decrement counter
-	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
-	
-	// Store location before deletion
+
+	// Store location for special effects before ..() queues explosion and qdels src
 	var/turf/epicenter = get_turf(src)
-	
+
+	// ..() handles: update_mob(), spam counter decrement, queue_explosion(), qdel(src)
+	. = ..()
+
 	playsound(epicenter, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, 300)
-	
-	// Queue explosion
-	SSexplosion_spam.queue_explosion(epicenter, ex_dev, ex_heavy, ex_light, flash = 0, flame_range = ex_flame, source = null)
-	
-	qdel(src)
 
 /obj/item/grenade/f13/incendiary
 	name = "incendinary grenade"
@@ -150,16 +154,13 @@
 /obj/item/grenade/f13/incendiary/prime(mob/living/lanced_by)
 	if(QDELETED(src))
 		return
-	
-	. = ..()
-	update_mob()
-	
-	// Decrement counter
-	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
-	
-	// Store location and do fire effects
+
+	// Store location for fire effects before ..() queues explosion and qdels src
 	var/turf/epicenter = get_turf(src)
-	
+
+	// ..() handles: update_mob(), spam counter decrement, queue_explosion(), qdel(src)
+	. = ..()
+
 	for(var/turf/T in view(range, epicenter))
 		if(isfloorturf(T))
 			var/turf/open/floor/F = T
@@ -169,11 +170,6 @@
 				C.IgniteMob()
 				to_chat(C, span_userdanger("The incendiary grenade sets you ablaze!"))
 				C.emote("scream")
-	
-	// Queue explosion
-	SSexplosion_spam.queue_explosion(epicenter, ex_dev, ex_heavy, ex_light, flash = 0, flame_range = ex_flame, source = null)
-	
-	qdel(src)
 
 /obj/item/grenade/f13/radiation
 	name = "radiation grenade"
@@ -189,21 +185,16 @@
 /obj/item/grenade/f13/radiation/prime(mob/living/lanced_by)
 	if(QDELETED(src))
 		return
-	
-	. = ..()
-	update_mob()
-	
-	// Decrement counter
-	GLOB.active_explosion_spam = max(0, GLOB.active_explosion_spam - 1)
-	
-	// Store location and do radiation
+
+	// Store location for radiation effect before ..() qdels src
 	var/turf/epicenter = get_turf(src)
-	
+
+	// ..() handles: update_mob(), spam counter decrement, qdel(src)
+	// (radiation has no ex_* values so no explosion is queued)
+	. = ..()
+
 	playsound(epicenter, 'sound/effects/empulse.ogg', 50, 1)
 	radiation_pulse(src, rad_damage)
-	
-	// These don't have normal explosions, so don't queue one
-	qdel(src)
 
 /obj/item/grenade/f13/dynamite
 	name = "stick of dynamite"

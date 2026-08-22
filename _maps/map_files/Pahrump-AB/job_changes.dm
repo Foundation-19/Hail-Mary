@@ -35,3 +35,5 @@ MAP_REMOVE_JOB(latterdaysaints)
 MAP_REMOVE_JOB(usps)
 MAP_REMOVE_JOB(baltimore_bos)
 MAP_REMOVE_JOB(baltimore_outlaw)
+MAP_REMOVE_JOB(CaesarsLegion)smutant
+MAP_REMOVE_JOB(smutant)

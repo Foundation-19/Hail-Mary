@@ -75,6 +75,8 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			user.add_quirk(Q, spawn_effects)
 		else
 			log_admin("Invalid quirk \"[V]\" in client [cli.ckey] preferences")
+			if(to_chat_target || user)
+				to_chat(to_chat_target || user, span_boldwarning("Your quirk '[V]' no longer exists and has been removed from your character. Please reconfigure your quirks in the character menu."))
 			cli.prefs.all_quirks -= V
 			badquirk = TRUE
 	if(badquirk)

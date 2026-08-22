@@ -672,6 +672,9 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	if(QDELETED(pick))
 		return
 	pick.in_use = FALSE
+	// If no moves were made (UI closed immediately without interaction), don't degrade the pick.
+	if(total_moves == 0)
+		return
 	// Extra durability drain: every 5 total moves = 1 extra use beyond the standard 1
 	var/extra_uses = max(0, round(total_moves / 5) - 1)
 	for(var/i in 1 to extra_uses)

@@ -74,11 +74,11 @@ Elder Envoy
 	flag = F13ENVOY
 	display_order = JOB_DISPLAY_ORDER_ENVOY
 	head_announce = list("Security")
-	total_positions = 1
-	spawn_positions = 1
+	total_positions = 0
+	spawn_positions = 0
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
-	exp_requirements = 3600
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 4500)
 
 	min_required_special = list(
 		"special_c" = 7,
@@ -190,7 +190,7 @@ Paladin Commander
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	exp_requirements = 2280
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 4500)
 
 	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
@@ -300,7 +300,7 @@ Proctor
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_HEADSCRIBE
 	outfit = /datum/outfit/job/bos/f13headscribe
-	exp_requirements = 1500
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3300)
 
 	loadout_options = list(
 	/datum/outfit/loadout/hsstand,
@@ -381,7 +381,7 @@ Knight-Captain
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
-	exp_requirements = 1920
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3300)
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
@@ -516,7 +516,7 @@ Paladin
 	supervisors = "the Elders or the Paladin Commander if he is present"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
-	exp_requirements = 1680
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_BOS = 2400)
 /*
 	loadout_options = list(
 	/datum/outfit/loadout/paladina, //Minigun
@@ -601,7 +601,7 @@ Senior Scribe
 	supervisors = "the Proctor"
 	display_order = JOB_DISPLAY_ORDER_SENIORSCRIBE
 	outfit = /datum/outfit/job/bos/f13seniorscribe
-	exp_requirements = 1200
+	exp_requirements = 1800
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -667,7 +667,7 @@ Scribe
 	supervisors = "the Head and Senior Scribe"
 	display_order = JOB_DISPLAY_ORDER_SCRIBE
 	outfit = /datum/outfit/job/bos/f13scribe
-	exp_requirements = 30
+	exp_requirements = 900
 
 	loadout_options = list(
 	/datum/outfit/loadout/scribea, //Junior Scribe
@@ -751,7 +751,7 @@ Knight Sarge
 	supervisors = "the Knight-Captain and Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
 	outfit = /datum/outfit/job/bos/f13knightsarge
-	exp_requirements = 1440
+	exp_requirements = 1800
 /*
 	loadout_options = list(
 	/datum/outfit/loadout/sknightb, //Police Shotgun
@@ -927,7 +927,7 @@ Knight
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
 	outfit = /datum/outfit/job/bos/f13knight
-	exp_requirements = 300
+	exp_requirements = 720
 
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -1014,7 +1014,7 @@ Initiate
 	supervisors = "the Scribes, Knights, or Paladins"
 	display_order = JOB_DISPLAY_ORDER_INITIATE
 	outfit = /datum/outfit/job/bos/f13initiate
-	exp_requirements = 0
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720)
 
 	loadout_options = list(
 	/datum/outfit/loadout/initiatek, //Wattz and Engibelt with armor, helmet
