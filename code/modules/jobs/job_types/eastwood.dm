@@ -50,7 +50,7 @@ Mayor
 	enforces = "The Head of the Watch is your replacement, may you fall he shall step in to maintain order."
 	selection_color = "#d7b088"
 
-	exp_requirements = 600
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1250, EXP_TYPE_EASTWOOD = 2160)
 
 	outfit = /datum/outfit/job/den/f13mayor
 	access = list(ACCESS_BAR, ACCESS_CLONING, ACCESS_GATEWAY, ACCESS_CARGO_BOT, ACCESS_MINT_VAULT, ACCESS_CLINIC, ACCESS_KITCHEN, ACCESS_MINING, ACCESS_FORENSICS_LOCKERS, ACCESS_FOLLOWER, ACCESS_TOWN, ACCESS_TOWN_CIV, ACCESS_TOWN_BAR, ACCESS_TOWN_MERCH, ACCESS_TOWN_PROSP, ACCESS_TOWN_PREACH, ACCESS_TOWN_SCIENCE, ACCESS_TOWN_DOC, ACCESS_TOWN_SEC, ACCESS_TOWN_HOS, ACCESS_TOWN_CMO, ACCESS_TOWN_COMMAND)
@@ -211,7 +211,7 @@ Mayor
 	description = "The settlement of Eastwood is a busy place, and the Mayor often can't handle everything by themselves. You are here to help them with anything and everything they require, and make sure the more trivial problems do not concern them. You handle clerical work, hear complaints, and set meetings within the manor. An efficient and smooth running town means a happy Mayor - just remember that if things go wrong, you're a convenient scapegoat."
 	enforces = "You are the stand-in leader of Eastwood if a Mayor does not exist."
 	selection_color = "#d7b088"
-	exp_requirements = 0
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 900, EXP_TYPE_EASTWOOD = 1800)
 
 	outfit = /datum/outfit/job/den/f13secretary
 
@@ -307,7 +307,7 @@ Mayor
 	description = "You are the head of the Watch, appointed by the warden and entrusted with protecting the town. You are second to the Warden, should he fall you will take his place."
 	enforces = "You are the stand-in leader of Eastwood if a warden should fall."
 	selection_color = "#d7b088"
-	exp_requirements = 400
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 900, EXP_TYPE_EASTWOOD = 1650)
 
 	outfit = /datum/outfit/job/den/f13sheriff
 
@@ -410,7 +410,7 @@ Mayor
 	enforces = "You may be elected temporary Head of the Watch should none exist."
 	selection_color = "#dcba97"
 	exp_type = EXP_TYPE_EASTWOOD
-	exp_requirements = 0
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_EASTWOOD = 1250)
 
 	loadout_options = list(
 	/datum/outfit/loadout/frontierjustice, //Trail Carbine + Revolver
@@ -697,6 +697,7 @@ Mayor
 	description = "Handy with a scalpel and scanner, your expertise in the practice of medicine makes you an indispensible asset to the settlement of Eastwood. Just remember that you're not a Follower - medicine doesn't come for free, and you aren't here out of the kindness of your heart. Make sure to turn a profit on your services, or the Mayor might reconsider your position, if you're bad enough the Warden might even kick you out!"
 	enforces = "Medicine is a public service, and you are under control of local governance - but remember public doesn't equate to free."
 	selection_color = "#dcba97"
+	exp_requirements = 720
 
 	loadout_options = list(
 	/datum/outfit/loadout/rescueranger, //auto5 shotgun
@@ -1116,6 +1117,7 @@ Mayor
 	description = "You are the Jester of Eastwood. You are expected to risk neck and reputation to get the latest scoop in the region. and since news alone don't pay the bills you can move around as the towns clown. Pranking and Clowning on through history to make your mark. Should you choose."
 	enforces = "Although very independant and vocal  you are still under control of local governance - try to keep a good relationship with them but don't risk your journalist integrity to please the boss."
 	selection_color = "#dcba97"
+	exp_requirements = 720
 
 	outfit = /datum/outfit/job/den/f13radio_host
 
@@ -1302,7 +1304,7 @@ Mayor
 	description = "You are the team leader for your various workers in the shop. Guide them as you see fit towards a profitable future."
 	enforces = "The Eastwood store is part of your workplace, but it is not your workplace alone. You should try to work with your team in order to turn a profit."
 	selection_color = "#dcba97"
-	exp_requirements = 0
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_EASTWOOD = 1250)
 
 	loadout_options = list(
 	/datum/outfit/loadout/laser_master, //plasma rifle blueprint
@@ -1398,7 +1400,7 @@ Mayor
 	description = "You are one of the many workers who live in the city of Eastwood. Working with the town council you have rented out a space in the shop for you to make your living."
 	enforces = "The Eastwood store is part of your workplace, but it is not your workplace alone. You should try work with the other trade workers to try and turn a profit."
 	selection_color = "#dcba97"
-	exp_requirements = 0
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_EASTWOOD = 900)
 
 	loadout_options = list(
 	/datum/outfit/loadout/energy_specialist, //AER9 + light plasma pistol blueprint
