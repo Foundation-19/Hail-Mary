@@ -145,9 +145,16 @@
 	if(!ispath(path, /turf/open/floor))
 		return ..()
 	var/old_icon = icon_regular_floor
+	var/old_icon_file = icon // Save current DMI before src may switch during ..()
 	var/old_dir = dir
 	var/turf/open/floor/W = ..()
 	W.icon_regular_floor = old_icon
+	// Restore the exact visual appearance when replacing a tile, but only when:
+	// - the destination and source share the same icon file (prevents cross-DMI sprite corruption)
+	// - not converting to plating (plating manages its own appearance via icon_plating/update_icon)
+	// - tile is not damaged
+	if(old_icon && !W.broken && !W.burnt && W.icon == old_icon_file && !ispath(path, /turf/open/floor/plating))
+		W.icon_state = old_icon
 	W.setDir(old_dir)
 	W.update_icon()
 	return W

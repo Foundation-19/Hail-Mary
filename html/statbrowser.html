@@ -778,6 +778,12 @@ var turfcontents = [];
 var turfname = "";
 var imageRetryDelay = 500;
 var imageRetryLimit = 50;
+// Per-REF retry counter for icon loading. Avoids the bug where calling iconError() as a plain
+// function made `this` = window, causing all images in a single redraw to share one counter
+// and exhaust imageRetryLimit almost instantly.
+var iconRetryCounts = {};
+// Debounce flag: prevents multiple simultaneous failing images scheduling N timers per redraw.
+var imagePendingRetry = false;
 var menu = document.getElementById('menu');
 var under_menu = document.getElementById('under_menu');
 var statcontentdiv = document.getElementById('statcontent');
@@ -991,7 +997,9 @@ function wipe_verbs() {
 }
 
 function update_verbs() {
-	wipe_verbs();
+	// Do NOT wipe_verbs() here — the DM response (statbrowser:init_verbs) will
+	// call init_verbs(c,v) which wipes + repopulates atomically.  Pre-wiping
+	// creates a visible blank window while waiting for the round-trip.
 	send_byond_command("Update-Verbs");
 }
 
@@ -1089,11 +1097,19 @@ function TakeTabFromByond(tab) {
 }
 
 function update(global_data, ping_entry, other_entries) {
+	// Break the reconnect deadlock after a mid-session page reload (e.g. from tile-tab item clicks in
+	// Chromium).  On reload, connected=false and Panel-Ready is stuck in commandQueue — nothing else
+	// calls connected_to_server(), so the queue never drains and the panel stays blank permanently.
+	// statbrowser:update fires every SSstatpanels tick regardless of panel state, so this reliably
+	// flushes the queue (including Panel-Ready) within one tick of the new page being ready.
+	connected_to_server();
 	status_tab_parts = [ping_entry];
 	var parsed = JSON.parse(global_data);
 	for(var i = 0; i < parsed.length; i++) if(parsed[i] != null) status_tab_parts.push(parsed[i]);
 	parsed = JSON.parse(other_entries);
 	for(var i = 0; i < parsed.length; i++) if(parsed[i] != null) status_tab_parts.push(parsed[i]);
+	if(connected && verb_tabs.length == 0)
+		send_byond_command("Fix-Stat-Panel");
 	if(current_tab == "Status")
 		draw_status();
 	else if(current_tab == "Debug Stat Panel")
@@ -1433,23 +1449,25 @@ function create_listedturf(TN) {
 }
 function update_listedturf(TC) {
 	turfcontents = JSON.parse(TC);
+	iconRetryCounts = {}; // reset per-REF retry counters for the new content
 	if(current_tab == turfname)
 		draw_listedturf();
 }
+// Called as img.onerror = iconError so `this` is the img element.
+// Tracks retry attempts per REF (img.id) so multiple failing icons in the same
+// draw pass don't exhaust the shared limit immediately.
 function iconError() {
-	var that = this;
-	setTimeout(function() {
-		var current_attempts = that.id; // a bit of a hack, change this if we need to call on img id's later
-		if(!current_attempts)
-			that.id = 1;
-		if (current_attempts > imageRetryLimit)
-			return;
-		var src = that.src;
-		that.src = null;
-		that.src = src + '#' + current_attempts;
-		that.id++;
-		draw_listedturf();
-	}, imageRetryDelay);
+	var ref = this.id;
+	iconRetryCounts[ref] = (iconRetryCounts[ref] || 0) + 1;
+	if (iconRetryCounts[ref] > imageRetryLimit)
+		return;
+	if (!imagePendingRetry) {
+		imagePendingRetry = true;
+		setTimeout(function() {
+			imagePendingRetry = false;
+			draw_listedturf();
+		}, imageRetryDelay);
+	}
 }
 function draw_listedturf() {
 	statcontentdiv[textContentKey] = "";
@@ -1461,52 +1479,36 @@ function draw_listedturf() {
 			img.src = part[2];
 			img.id = part[1];
 			storedimages[part[1]] = part[2];
-			img.onerror = function() {
-				iconError();
-			};
+			img.onerror = iconError;
 			table.appendChild(img);
-		} else {
+		} else if(storedimages[part[1]]) {
 			var img = document.createElement("img");
-			img.onerror = function() {
-				iconError();
-			};
 			img.src = storedimages[part[1]];
 			img.id = part[1];
+			img.onerror = iconError;
 			table.appendChild(img);
 		}
 		var b = document.createElement("div");
-		var clickcatcher = "";
 		b.className = "link";
 		b.onmousedown = function (part) {
 			// The outer function is used to close over a fresh "part" variable,
 			// rather than every onmousedown getting the "part" of the last entry.
 			return function(e) {
 				e.preventDefault();
-				clickcatcher = "?src=" + part[1];
-				switch(e.button){
-					case 1:
-						clickcatcher += ";statpanel_item_click=middle"
-						break;
-					case 2:
-						clickcatcher += ";statpanel_item_click=right"
-						break;
-					default:
-						clickcatcher += ";statpanel_item_click=left"
-				}
-				if(e.shiftKey){
-					clickcatcher += ";statpanel_item_shiftclick=1";
-				}
-				if(e.ctrlKey){
-					clickcatcher += ";statpanel_item_ctrlclick=1";
-				}
-				if(e.altKey) {
-					clickcatcher += ";statpanel_item_altclick=1";
-				}
-				window.location.href = clickcatcher;
+				// Encode modifier keys as a compact flags string (s=shift, c=ctrl, a=alt).
+				var mods = "";
+				if(e.shiftKey) mods += "s";
+				if(e.ctrlKey)  mods += "c";
+				if(e.altKey)   mods += "a";
+				// Pass the REF as-is (e.g. "[0x20a0050]") — BYOND's winset URL
+				// parser handles brackets in the command value the same way it
+				// handles them in ?src= hrefs, so no encoding is needed.
+				send_byond_command("Tile-Item-Click " + part[1] + ";" + mods);
 			}
 		}(part);
 		b[textContentKey] = part[0];
 		table.appendChild(b);
+		table.appendChild(document.createElement("br"));
 		table.appendChild(document.createElement("br"));
 	}
 	document.getElementById("statcontent").appendChild(table);
@@ -1741,6 +1743,9 @@ function set_theme(which) {
 		document.body.className = "dark";
 		set_style_sheet("browserOutput");
 	}
+	// Persist so page reloads (e.g. Chromium tile-tab navigation) can restore the theme
+	// without waiting for a tgui-panel re-broadcast.
+	document.cookie = "statbrowser_theme=" + which + ";path=/;max-age=31536000";
 }
 
 function set_style_sheet(sheet) {
@@ -1804,6 +1809,13 @@ function getCookie(cname) {
 	}
 	return '';
 }
+
+// Restore persisted theme immediately so there's no flash of unstyled content
+// on Chromium tile-tab reloads (tgui-panel won't re-broadcast until user action).
+(function() {
+	var savedTheme = getCookie("statbrowser_theme");
+	if (savedTheme) { set_theme(savedTheme); }
+})();
 </script>
 </body>
 </html>

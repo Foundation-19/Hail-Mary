@@ -171,6 +171,92 @@
 	resistance_flags = FLAMMABLE
 	merge_type = /obj/item/stack/tile/wood
 
+// F13 wood floor variants — each remembers its source floor type.
+/obj/item/stack/tile/wood/f13
+	name = "wood plank"
+	singular_name = "wood plank"
+	desc = "A salvaged wooden floor plank."
+	turf_type = /turf/open/floor/wood/f13
+	merge_type = /obj/item/stack/tile/wood/f13
+
+/obj/item/stack/tile/wood/f13/oak
+	name = "oak plank"
+	singular_name = "oak plank"
+	desc = "A salvaged oak floor plank."
+	turf_type = /turf/open/floor/wood/f13/oak
+	merge_type = /obj/item/stack/tile/wood/f13/oak
+
+/obj/item/stack/tile/wood/f13/maple
+	name = "maple plank"
+	singular_name = "maple plank"
+	desc = "A salvaged maple floor plank."
+	turf_type = /turf/open/floor/wood/f13/maple
+	merge_type = /obj/item/stack/tile/wood/f13/maple
+
+/obj/item/stack/tile/wood/f13/carpet
+	name = "carpet tile"
+	singular_name = "carpet tile"
+	desc = "A worn carpet tile."
+	turf_type = /turf/open/floor/wood/f13/carpet
+	merge_type = /obj/item/stack/tile/wood/f13/carpet
+
+// Sunset wood floor variants — light/dark remember their specific floor type.
+/obj/item/stack/tile/wood/common_light
+	turf_type = /turf/open/floor/wood_common/wood_common_light
+	merge_type = /obj/item/stack/tile/wood/common_light
+
+/obj/item/stack/tile/wood/common_dark
+	turf_type = /turf/open/floor/wood_common/wood_common_dark
+	merge_type = /obj/item/stack/tile/wood/common_dark
+
+/obj/item/stack/tile/wood/worn
+	turf_type = /turf/open/floor/wood_worn
+	merge_type = /obj/item/stack/tile/wood/worn
+
+/obj/item/stack/tile/wood/worn/light
+	turf_type = /turf/open/floor/wood_worn/wood_worn_light
+	merge_type = /obj/item/stack/tile/wood/worn/light
+
+/obj/item/stack/tile/wood/worn/dark
+	turf_type = /turf/open/floor/wood_worn/wood_worn_dark
+	merge_type = /obj/item/stack/tile/wood/worn/dark
+
+/obj/item/stack/tile/wood/fancy
+	turf_type = /turf/open/floor/wood_fancy
+	merge_type = /obj/item/stack/tile/wood/fancy
+
+/obj/item/stack/tile/wood/fancy/light
+	turf_type = /turf/open/floor/wood_fancy/wood_fancy_light
+	merge_type = /obj/item/stack/tile/wood/fancy/light
+
+/obj/item/stack/tile/wood/fancy/dark
+	turf_type = /turf/open/floor/wood_fancy/wood_fancy_dark
+	merge_type = /obj/item/stack/tile/wood/fancy/dark
+
+/obj/item/stack/tile/wood/wide
+	turf_type = /turf/open/floor/wood_wide
+	merge_type = /obj/item/stack/tile/wood/wide
+
+/obj/item/stack/tile/wood/wide/light
+	turf_type = /turf/open/floor/wood_wide/wood_wide_light
+	merge_type = /obj/item/stack/tile/wood/wide/light
+
+/obj/item/stack/tile/wood/wide/dark
+	turf_type = /turf/open/floor/wood_wide/wood_wide_dark
+	merge_type = /obj/item/stack/tile/wood/wide/dark
+
+/obj/item/stack/tile/wood/mosaic
+	turf_type = /turf/open/floor/wood_mosaic
+	merge_type = /obj/item/stack/tile/wood/mosaic
+
+/obj/item/stack/tile/wood/mosaic/light
+	turf_type = /turf/open/floor/wood_mosaic/wood_mosaic_light
+	merge_type = /obj/item/stack/tile/wood/mosaic/light
+
+/obj/item/stack/tile/wood/mosaic/dark
+	turf_type = /turf/open/floor/wood_mosaic/wood_mosaic_dark
+	merge_type = /obj/item/stack/tile/wood/mosaic/dark
+
 
 //Cloth Floors
 
