@@ -167,6 +167,10 @@ GLOBAL_LIST_EMPTY(f13_trace_log)
 	A.power_equip   = state
 	A.power_light   = state
 	A.power_environ = state
+	// Sync immediately so checks never see stale state regardless of which async path fires.
+	var/area/f13/fa = A
+	if(istype(fa))
+		fa.f13_grid_power = state
 	if(state)
 		f13_log_op("stamp_area ON [A.name] (async queued)")
 		INVOKE_ASYNC(A, TYPE_PROC_REF(/area, power_change))
