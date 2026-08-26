@@ -478,7 +478,7 @@
 	name = "Alter Form"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "alter_form" //placeholder
-	icon_icon = 'fallout/icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/mob/actions/actions_slime_f13.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/slime_change/Activate()

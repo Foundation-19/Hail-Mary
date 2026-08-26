@@ -3,7 +3,7 @@
 /obj/structure/tires
 	name = "tire"
 	desc = "A ring-shaped vehicle component that covers the wheel's rim to protect it and enable better vehicle performance."
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "one_t"
 	obj_integrity = 50
 	max_integrity = 50

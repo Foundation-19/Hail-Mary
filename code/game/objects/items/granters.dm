@@ -716,7 +716,7 @@
 // New Blueprints, yay! -Superballs
 /obj/item/book/granter/crafting_recipe/blueprint
 	name = "blueprint"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	desc = "A detailed schematic for crafting an item."
 	w_class = WEIGHT_CLASS_TINY

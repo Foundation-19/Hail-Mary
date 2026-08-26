@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/megafauna/behemoth
 	name = "supermutant behemoth"
 	desc = "A super mutant who has grown to an incredible size, it's skin is pulled tight! This one wields two lamposts that have had car doors tied to the ends creating deadly axes."
-	icon = 'icons/fallout/mobs/behemoth.dmi'
+	icon = 'icons/mob/behemoth.dmi'
 	icon_state = "behemoth_axe"
 	icon_living = "behemoth_axe"
 	icon_dead = "behemoth_dead"

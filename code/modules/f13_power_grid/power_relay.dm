@@ -35,7 +35,7 @@
 /obj/machinery/f13/power_relay
 	name          = "power relay"
 	desc          = "A power distribution node. Wire it to a base generator or another relay with a multitool to extend the grid."
-	icon          = 'icons/fallout/machines/power_grid/power_relay.dmi'
+	icon          = 'icons/machines/power_grid/power_relay.dmi'
 	icon_state    = ""
 	density       = TRUE
 	anchored      = TRUE

@@ -1,7 +1,7 @@
 /obj/item/storage/trash_stack
 	name = "pile of garbage"
 	desc = "A pile of garbage. Smells as good as it looks, though it may contain something useful. Or rats. Probably rats."
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "trash_1"
 	anchored = TRUE
 	density = FALSE
@@ -109,7 +109,7 @@
 /obj/item/storage/trash_stack/debug_rats
 	name = "pile of rats"
 	desc = "a pile of rats!"
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "trash_1"
 
 /obj/item/storage/trash_stack/debug_rats/initialize_lootable_trash()

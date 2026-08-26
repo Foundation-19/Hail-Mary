@@ -31,7 +31,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 /obj/machinery/f13/master_breaker
 	name          = "F13 master grid breaker"
 	desc          = "Controls the map-wide 'always powered' override on all F13 areas. Toggle this to test the fusion core grid in isolation."
-	icon          = 'icons/fallout/machines/power_grid/faction_generator.dmi'
+	icon          = 'icons/machines/power_grid/faction_generator.dmi'
 	icon_state    = "generator_on"
 	density       = FALSE
 	anchored      = TRUE

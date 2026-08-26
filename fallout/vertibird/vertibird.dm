@@ -1,6 +1,6 @@
 /obj/vertibird
 	name = "VB-02"
-	icon = 'icons/fallout/vehicles/vertibird.dmi'
+	icon = 'icons/vehicles/vertibird.dmi'
 	icon_state = "vb-static"
 	pixel_x = -128
 	pixel_y = -64

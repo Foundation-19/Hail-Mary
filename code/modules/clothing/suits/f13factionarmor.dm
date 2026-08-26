@@ -124,8 +124,8 @@
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
 	armor = list("melee" = 35, "bullet" = 35, "laser" = 35, "energy" = 20, "bomb" = 40, "bio" = 40, "rad" = 20, "fire" = 60, "acid" = 20)
 	strip_delay = 30
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 
 /obj/item/clothing/suit/armor/exile/ncrexile
 	name = "modified NCR armor"
@@ -151,8 +151,8 @@
 /obj/item/clothing/suit/armor/medium/combat/brotherhood/exile
 	name = "modified Brotherhood armor"
 	desc = "A modified detoriated armor kit consisting of brotherhood combat armor and scrap metal."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "exile_bos"
 	item_state = "exile_bos"
 
@@ -184,8 +184,8 @@
 /obj/item/clothing/suit/armor/legion
 	name = "legion armor template"
 	desc = "should not exist. Bugreport."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "legrecruit"
 	item_state = "legarmor"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS
@@ -264,8 +264,8 @@
 /obj/item/clothing/suit/armor/legion/heavy
 	name = "legion veteran decan armor"
 	desc = "A Legion veterans armor reinforced with a patched bulletproof vest, the wearer has the markings of a Decanus."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_heavy"
 	item_state = "legion_heavy"
 	armor = list("melee" = 70, "bullet" = 50, "laser" = 25, "energy" = 15, "bomb" = 25, "bio" = 50, "rad" = 20, "fire" = 70, "acid" = 0, "wound" = 50)
@@ -286,7 +286,7 @@
 
 /obj/item/clothing/suit/armor/legion/vet/vexil
 	name = "legion vexillarius armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
 	desc = " Worn by Vexillarius, this armor has been reinforced with circular metal plates on the chest and a back mounted pole for the flag of the Bull, making the wearer easy to see at a distance."
 	icon_state = "armor_vexillarius"
 	item_state = "armor_vexillarius"
@@ -304,8 +304,8 @@
 /obj/item/clothing/suit/armor/legion/centurion //good all around
 	name = "legion centurion armor"
 	desc = "Every Centurion is issued some of the best armor available in the Legion, and adds better pieces from slain opponents over time."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_centurion"
 	item_state = "legion_centurion"
 	armor = list("melee" = 70, "bullet" = 45, "laser" = 45, "energy" = 25, "bomb" = 45, "bio" = 20, "rad" = 20, "fire" = 45, "acid" = 45, "wound" = 55)
@@ -314,8 +314,8 @@
 
 /obj/item/clothing/suit/armor/legion/palacent //laser resist spec
 	name = "paladin-slayer centurion armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi' // Inconsistent naming, clean all of the sprites and code up sometime
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi' // Inconsistent naming, clean all of the sprites and code up sometime
 	desc = "A Centurion able to defeat a Brotherhood Paladin gets the honorific title 'Paladin-Slayer', and adds bits of the looted armor to his own."
 	icon_state = "legion_palacent"
 	item_state = "legion_palacent"
@@ -325,8 +325,8 @@
 
 /obj/item/clothing/suit/armor/legion/rangercent //speed and bullet resist, sacrifices all else
 	name = "ranger-hunter centurion armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	desc = "Centurions who have led many patrols and ambushes against NCR Rangers have a distinct look from the many looted pieces of Ranger armor, and are often experienced in skirmishing."
 	icon_state = "legion_rangercent"
 	item_state = "legion_rangercent"
@@ -336,8 +336,8 @@
 /obj/item/clothing/suit/armor/legion/legate
 	name = "legion legate armor"
 	desc = " Made by the most skilled blacksmiths in Arizona, the bronzed steel of this rare armor offers good protection, and the scars on its metal proves it has seen use on the field."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_legate"
 	item_state = "legion_legate"
 	body_parts_covered = CHEST|GROIN|LEGS|FEET|ARMS
@@ -347,15 +347,15 @@
 /obj/item/clothing/suit/armor/medium/combat/legion
 	name = "Legion combat armor"
 	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for Caesar's Legion."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "legion_combat"
 	item_state = "legion_combat"
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/legion
 	name = "reinforced Legion combat armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for Caesar's Legion."
 	icon_state = "legion_combat2"
 	item_state = "legion_combat2"
@@ -363,8 +363,8 @@
 /obj/item/clothing/suit/armor/outfit/slavelabor
 	name = "old leather strips"
 	desc = "Worn leather strips, used as makeshift protection from chafing and sharp stones by labor slaves."
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	icon_state = "legion_slaveleather"
 	item_state = "legion_slaveleather"
 	allowed = list(/obj/item/hatchet, /obj/item/scythe, /obj/item/cultivator, /obj/item/shovel)
@@ -374,8 +374,8 @@
 /obj/item/clothing/suit/armor/legion/vet/explorercanada
 	name = "custom explorer armor"
 	desc = "Armor based on layered strips of laminated linen and leather, the technique giving it surprising resilience for low weight. This one has been custom made."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "legion-explorercustom"
 	item_state = "legion-explorercustom"
 	armor = list("melee" = 45, "bullet" = 35, "laser" = 15, "energy" = 10, "bomb" = 40, "bio" = 20, "rad" = 20, "fire" = 25, "acid" = 0, "wound" = 40)
@@ -399,8 +399,8 @@
 	desc = "A practical vest with pockets for tools and such."
 	icon_state = "vest_utility"
 	item_state = "vest_utility"
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	armor = list("melee" = 20, "bullet" = 20, "laser" = 20, "energy" = 10, "bomb" = 15, "bio" = 10, "rad" = 20, "fire" = 30, "acid" = 0, "wound" = 30)
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/utility
 	slowdown = 0.02
@@ -728,8 +728,8 @@
 /obj/item/clothing/suit/armor/medium/duster/town/chief
 	name = "OPD Chief's jacket"
 	desc = "A navy-blue jacket with blue shoulder designations, '/OPD/' stitched into one of the chest pockets, and hidden ceramic trauma plates. It has a small compartment for a holdout pistol."
-	icon = 'icons/fallout/clothing/suits_cosmetic.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	icon = 'icons/clothing/suits_cosmetic.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_cosmetic.dmi'
 	icon_state = "police_chief"
 	item_state = "police_chief"
 	armor = list("melee" = 45, "bullet" = 65, "laser" = 45,  "energy" = 35, "bomb" = 40, "bio" = 40, "rad" = 40, "fire" = 50, "acid" = 10, "wound" = 55)
@@ -815,8 +815,8 @@
 /obj/item/clothing/suit/armor/medium/tribal/tribe_heavy_armor
 	name = "heavy tribal armor"
 	desc = "Heavy armor make of sturdy leather and pieces of bone. Worn by seasoned veterans within the Wayfinder tribe."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "tribal_heavy"
 	item_state = "tribal_heavy"
 	armor = list("melee" = 40, "bullet" = 40, "laser" = 35, "energy" = 30, "bomb" = 55, "bio" = 60, "rad" = 15, "fire" = 60, "acid" = 30, "wound" = 50)
@@ -859,8 +859,8 @@
 /obj/item/clothing/suit/armor/outfit/jacket/police
 	name = "police officer's jacket"
 	desc = "A simple dark navy jacket, worn by police."
-	icon = 'icons/fallout/clothing/suits_cosmetic.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	icon = 'icons/clothing/suits_cosmetic.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_cosmetic.dmi'
 	icon_state = "police_officer"
 	item_state = "police_officer"
 	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 20, "bio" = 5, "rad" = 0, "fire" = 15, "acid" = 5, "wound" = 30)
@@ -868,8 +868,8 @@
 /obj/item/clothing/suit/armor/outfit/jacket/police/lieutenant
 	name = "police lieutenant's jacket"
 	desc = " A simple dark navy jacket, worn by police."
-	icon = 'icons/fallout/clothing/suits_cosmetic.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	icon = 'icons/clothing/suits_cosmetic.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_cosmetic.dmi'
 	icon_state = "police_lieutenant"
 	item_state = "police_lieutenant"
 	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 20, "bio" = 5, "rad" = 0, "fire" = 15, "acid" = 5, "wound" = 30)
@@ -877,8 +877,8 @@
 /obj/item/clothing/suit/armor/outfit/jacket/police/chief
 	name = "police chief's jacket"
 	desc = "A simple dark navy jacket, worn by police."
-	icon = 'icons/fallout/clothing/suits_cosmetic.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	icon = 'icons/clothing/suits_cosmetic.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_cosmetic.dmi'
 	icon_state = "police_chief"
 	item_state = "police_chief"
 	armor = list("melee" = 15, "bullet" = 15, "laser" = 15, "energy" = 15, "bomb" = 20, "bio" = 5, "rad" = 0, "fire" = 15, "acid" = 5, "wound" = 30)

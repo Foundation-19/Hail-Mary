@@ -6,7 +6,7 @@
 	icon_state = "bus"
 	anchored = TRUE
 	layer = ABOVE_MOB_LAYER
-	icon = 'icons/fallout/vehicles/bus.dmi'
+	icon = 'icons/vehicles/bus.dmi'
 	bound_width = 224
 	bound_height = 96
 	density = TRUE
@@ -45,7 +45,7 @@
 
 /obj/structure/bus_door
 	name = "broken bus door"
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "bus_door"
 	anchored = 1
 	density = 0

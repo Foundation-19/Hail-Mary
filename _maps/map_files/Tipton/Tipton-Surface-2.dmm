@@ -668,7 +668,7 @@
 "amy" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "dirtyroad";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 10
 	},
 /area/f13/wasteland)
@@ -9788,7 +9788,7 @@
 /obj/effect/overlay/desert/sonora/edge/south,
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "desertongravel";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 4
 	},
 /area/f13/wasteland)
@@ -10620,13 +10620,13 @@
 /area/f13/ncr/powered)
 "dWg" = (
 /obj/effect/overlay/shadow/tarp{
-	icon = 'icons/fallout/objects/tarpaulinhorizontal.dmi';
+	icon = 'icons/obj/tarpaulinhorizontal.dmi';
 	icon_state = "shadow";
 	layer = 4.9;
 	pixel_x = -64
 	},
 /obj/effect/overlay/shadow/tarp{
-	icon = 'icons/fallout/objects/tarpaulinhorizontal.dmi';
+	icon = 'icons/obj/tarpaulinhorizontal.dmi';
 	icon_state = "shadowcorner";
 	layer = 2.1;
 	pixel_x = -64
@@ -15367,7 +15367,7 @@
 	name = "trough";
 	desc = null;
 	tank_volume = 100;
-	icon = 'icons/fallout/farming/trough.dmi';
+	icon = 'icons/farming/trough.dmi';
 	pixel_x = -16;
 	density = 0
 	},
@@ -17016,7 +17016,7 @@
 /obj/structure/table/wood/settler,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_x = 14
@@ -18674,7 +18674,7 @@
 "hbG" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "dirtyroad3";
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	},
 /area/f13/wasteland)
 "hbO" = (
@@ -19651,7 +19651,7 @@
 /area/f13/holiday)
 "hvN" = (
 /obj/effect/decal/cleanable/oil/slippery{
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	icon_state = "brahminshit";
 	name = "brahmin shit"
 	},
@@ -21943,7 +21943,7 @@
 /area/f13/ambientlighting/building/g)
 "ioW" = (
 /obj/effect/decal/cleanable/oil/slippery{
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	icon_state = "brahminshit";
 	name = "brahmin shit";
 	dir = 1;
@@ -23307,7 +23307,7 @@
 /obj/effect/overlay/desert/sonora/edge/east,
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "dirtyroad";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 5;
 	footstep = "dirt";
 	barefootstep = "dirt";
@@ -24931,7 +24931,7 @@
 "jtF" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -28097,7 +28097,7 @@
 	pixel_y = -9
 	},
 /obj/item/salvage/high{
-	icon = 'icons/fallout/mobs/robots/protectrons.dmi';
+	icon = 'icons/mob/robots/protectrons.dmi';
 	icon_state = "protectron_k_d"
 	},
 /turf/open/indestructible/ground/outside/road{
@@ -40597,7 +40597,7 @@
 "piq" = (
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "desertongravel";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 4
 	},
 /area/f13/wasteland)
@@ -43509,7 +43509,7 @@
 /area/f13/tunnel)
 "qmE" = (
 /obj/effect/decal/cleanable/oil/slippery{
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	icon_state = "brahminshit";
 	name = "brahmin shit";
 	dir = 8
@@ -45378,7 +45378,7 @@
 /obj/effect/overlay/desert/sonora/edge/south,
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "desertongravel";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 8
 	},
 /area/f13/wasteland)
@@ -46169,7 +46169,7 @@
 "rmr" = (
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "desertongravel";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 1;
 	clawfootstep = "dirt";
 	footstep = "dirt"
@@ -55358,7 +55358,7 @@
 "uHo" = (
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "desertongravel";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 8
 	},
 /area/f13/wasteland)
@@ -58756,7 +58756,7 @@
 "vUq" = (
 /turf/open/indestructible/ground/outside/gravel{
 	icon_state = "desertongravel";
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	},
 /area/f13/wasteland)
 "vUv" = (
@@ -60676,7 +60676,7 @@
 "wFb" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -61005,7 +61005,7 @@
 "wLQ" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 15
@@ -63708,7 +63708,7 @@
 "xND" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "dirtyroad";
-	icon = 'icons/fallout/objects/wendover.dmi';
+	icon = 'icons/obj/wendover.dmi';
 	dir = 5;
 	footstep = "dirt";
 	barefootstep = "dirt";
@@ -64170,13 +64170,13 @@
 /area/f13/ambientlighting/building/i)
 "xXE" = (
 /obj/item/salvage/low{
-	icon = 'icons/fallout/trash.dmi';
+	icon = 'icons/trash.dmi';
 	icon_state = "scrap";
 	pixel_y = 19;
 	pixel_x = 1
 	},
 /obj/item/salvage/low{
-	icon = 'icons/fallout/objects/crafting/parts.dmi';
+	icon = 'icons/obj/crafting/parts.dmi';
 	icon_state = "resistor_3";
 	pixel_y = 1
 	},

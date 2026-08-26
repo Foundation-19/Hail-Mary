@@ -668,7 +668,7 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 
 /obj/structure/window/reinforced/fulltile/airport
 	name = "window"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "window"
 	color = "#e4f7f6"
 	smooth = SMOOTH_FALSE

@@ -275,7 +275,7 @@
 /obj/machinery/power/port_gen/pacman/super/vault
 	icon_state = "core0"
 	base_icon = "core"
-	icon = 'icons/fallout/machines/power.dmi'
+	icon = 'icons/machines/power.dmi'
 
 /obj/machinery/power/port_gen/pacman/super/vault/update_icon_state()
 	var/addon = active ? "" : "0"
@@ -301,14 +301,14 @@
 /obj/machinery/power/port_gen/pacman/diesel
 	name = "diesel generator"
 	desc = "A portable generator for emergency backup power."
-	icon = 'icons/fallout/machines/power.dmi'
+	icon = 'icons/machines/power.dmi'
 	icon_state = "diesel-off"
 	base_icon = "diesel"
 
 /obj/machinery/power/port_gen/infinite/diesel
 	name = "diesel generator"
 	desc = "A portable generator for emergency backup power."
-	icon = 'icons/fallout/machines/power.dmi'
+	icon = 'icons/machines/power.dmi'
 	icon_state = "diesel-off"
 	base_icon = "diesel"
 

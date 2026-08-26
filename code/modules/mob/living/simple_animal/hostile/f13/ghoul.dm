@@ -9,7 +9,7 @@
 /mob/living/simple_animal/hostile/ghoul
 	name = "feral ghoul"
 	desc = "A ghoul that has lost its mind and become aggressive."
-	icon = 'icons/fallout/mobs/humans/ghouls.dmi'
+	icon = 'icons/mob/humans/ghouls.dmi'
 	icon_state = "feralghoul"
 	icon_living = "feralghoul"
 	icon_dead = "feralghoul_dead"

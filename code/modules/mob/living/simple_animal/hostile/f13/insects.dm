@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/giantant
 	name = "giant ant"
 	desc = "A giant ant with twitching, darting antennae. Its outsides are a mixture of crusted, unrotting rock and chitin that bounce off bullets and melee weapons. Hardened insides compact once valueless sand and dirt to gemstones. Can be butchered down the thorax for minerals and shinies."
-	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon = 'icons/mob/animals/insects.dmi'
 	icon_state = "GiantAnt"
 	icon_living = "GiantAnt"
 	icon_dead = "GiantAnt_dead"
@@ -101,7 +101,7 @@
 /mob/living/simple_animal/hostile/fireant
 	name = "fire ant"
 	desc = "A large reddish ant. The furnace it holds inside itself blasts intruders and the dirt it chews with flaming heat. Its insides contain more gemstones than its unremarkable kin."
-	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon = 'icons/mob/animals/insects.dmi'
 	icon_state = "FireAnt"
 	icon_living = "FireAnt"
 	icon_dead = "FireAnt_dead"
@@ -197,7 +197,7 @@
 /mob/living/simple_animal/hostile/giantantqueen
 	name = "giant ant queen"
 	desc = "The queen of a giant ant colony. Butchering it seems like a good way to make a pretty penny."
-	icon = 'icons/fallout/mobs/animals/antqueen.dmi'
+	icon = 'icons/mob/animals/antqueen.dmi'
 	icon_state = "antqueen"
 	icon_living = "antqueen"
 	icon_dead = "antqueen_dead"
@@ -331,7 +331,7 @@
 /mob/living/simple_animal/hostile/radscorpion
 	name = "giant radscorpion"
 	desc = "A mutated arthropod with an armored carapace and a powerful sting."
-	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon = 'icons/mob/animals/insects.dmi'
 	icon_state = "radscorpion"
 	icon_living = "radscorpion"
 	icon_dead = "radscorpion_dead"
@@ -479,7 +479,7 @@
 /mob/living/simple_animal/hostile/cazador
 	name = "cazador"
 	desc = "A mutated insect known for its fast speed, deadly sting, and being huge bastards."
-	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon = 'icons/mob/animals/insects.dmi'
 	icon_state = "cazador"
 	icon_living = "cazador"
 	icon_dead = "cazador_dead1"
@@ -639,7 +639,7 @@
 /mob/living/simple_animal/hostile/bloatfly
 	name = "bloatfly"
 	desc = "A common mutated pest resembling an oversized blow-fly."
-	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon = 'icons/mob/animals/insects.dmi'
 	icon_state = "bloatfly"
 	icon_living = "bloatfly"
 	icon_dead = "bloatfly_dead"
@@ -760,7 +760,7 @@
 /mob/living/simple_animal/hostile/radroach
 	name = "radroach"
 	desc = "A large mutated insect that finds its way everywhere."
-	icon = 'icons/fallout/mobs/animals/insects.dmi'
+	icon = 'icons/mob/animals/insects.dmi'
 	icon_state = "radroach"
 	icon_living = "radroach"
 	icon_dead = "radroach_dead"

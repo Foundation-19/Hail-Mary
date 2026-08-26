@@ -18,7 +18,7 @@
 	gender = PLURAL
 	density = 0
 	layer = ABOVE_NORMAL_TURF_LAYER
-	icon = 'fallout/icons/obj/genitals/effects.dmi'
+	icon = 'icons/obj/genitals/effects.dmi'
 	icon_state = "milk1"
 	random_icon_states = list("milk1", "milk2", "milk3", "milk4")
 

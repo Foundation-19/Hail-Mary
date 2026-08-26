@@ -1,8 +1,8 @@
 /*
 Just leaving this here for quick copy-pasting, for future contributors.
-	icon = 'fallout/icons/obj/clothing/uniforms.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/uniform.dmi'
-	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/uniform_digi.dmi'
+	icon = 'icons/obj/clothing/uniforms_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/uniform_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/uniform_digi_f13.dmi'
 	mutantrace_variation = STYLE_DIGITIGRADE
 	!!If you don't have digi-adapted sprites use `mutantrace_variation = NONE` instead. Should snap legs sprites to planti when related clothing is worn.
 	(unless uniform doesn't cover legs)
@@ -11,9 +11,9 @@ Just leaving this here for quick copy-pasting, for future contributors.
 /obj/item/clothing/under/f13/goner
 	name = "dev-collared utility uniform"
 	desc = "A non-existent utilitarian uniform."
-	icon = 'fallout/icons/obj/clothing/uniforms.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/uniform.dmi'
-	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/uniform_digi.dmi'
+	icon = 'icons/obj/clothing/uniforms_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/uniform_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/uniform_digi_f13.dmi'
 	icon_state = "goner_uniform"
 	mutantrace_variation = STYLE_DIGITIGRADE
 

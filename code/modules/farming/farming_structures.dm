@@ -10,7 +10,7 @@
 /obj/structure/fermenting_barrel
 	name = "wooden barrel"
 	desc = "A large wooden barrel. You can ferment fruits and such inside it, or just use it to hold liquid."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "barrel"
 	density = TRUE
 	anchored = FALSE
@@ -42,7 +42,7 @@
 		. += "cactus"
 
 	if(reagents.total_volume && open)
-		var/mutable_appearance/filling = mutable_appearance('icons/fallout/farming/farming_structures.dmi', "[icon_state]10", color = mix_color_from_reagents(reagents.reagent_list))
+		var/mutable_appearance/filling = mutable_appearance('icons/farming/farming_structures.dmi', "[icon_state]10", color = mix_color_from_reagents(reagents.reagent_list))
 		switch (reagents.total_volume)
 			if (0 to 40)
 				filling.icon_state = "[icon_state]-10"
@@ -134,7 +134,7 @@
 /obj/structure/fermenting_barrel/broc // for bitter production without having to label
 	name = "broc fermenting barrel"
 	desc = "A large wooden barrel with a painted broc flower on it. You can ferment fruits and such inside it, or just use it to hold liquid."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	broc = TRUE
 
 /obj/structure/fermenting_barrel/broc/xander // for bitter production without having to label
@@ -150,7 +150,7 @@
 /obj/structure/fermenting_barrel/steeldrum
 	name = "steel drum"
 	desc = "A large steel drum. You can ferment fruits and such inside it, or just use it to hold liquid."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "single"
 
 /obj/structure/fermenting_barrel/steeldrum/update_icon_state()
@@ -162,7 +162,7 @@
 /obj/structure/fermenting_barrel/tank
 	name = "Empty Tank"
 	desc = "A large tank used in the brewing of alcohol."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "rainwater_tank"
 
 /obj/structure/fermenting_barrel/tank/update_icon_state()
@@ -215,7 +215,7 @@
 /obj/structure/loom
 	name = "loom"
 	desc = "A simple device used to weave cloth and other thread-based fabrics together into usable material."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "loom"
 	density = TRUE
 	anchored = TRUE
@@ -261,7 +261,7 @@
 /obj/structure/reagent_dispensers/compostbin
 	name = "compost bin"
 	desc = "A smelly structure made of wooden slats where refuse is thrown. Dump unwanted seeds and produce in, pull usable compost out."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "compostbin"
 	anchored = TRUE
 	reagent_id = /datum/reagent/compost
@@ -338,7 +338,7 @@
 /obj/structure/reagent_dispensers/rainwater_tank
 	name = "rainwater tank"
 	desc = "A huge metal tank with a tap on the front. Rainwater is collected on larger surfaces then poured into a tank like this for storage."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "rainwater_tank"
 	anchored = TRUE
 
@@ -350,7 +350,7 @@
 /obj/structure/legion_extractor
 	name = "seed grinder"
 	desc = "A crude grinding machine repurposed from kitchen appliances. Plants go in, seeds come out."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "sextractor_manual"
 	density = FALSE
 	anchored = TRUE
@@ -426,7 +426,7 @@
 /obj/structure/butter_churn
 	name = "butter churn"
 	desc = "An old-fashioned wooden butter churn. A little bit of milk, and you'll have fresh butter! Just add an inordinate amount of effort."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "butter_churn"
 	density = TRUE
 	anchored = FALSE

@@ -172,7 +172,7 @@
 /obj/item/reagent_containers/hypospray/medipen/stimpak // 20hp instantly, plus 30hp over 20 seconds. stims in fallout contain a whole cocktail of chems, and this mix prevents them from stacking with healing powder and bitter drink.
 	name = "stimpak"
 	desc = "A handheld delivery system for medicine, used to rapidly heal physical damage to the body."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "hypo_stimpak"
 	syringe_self_delay = 5 //Used to be double the time of powder at 10
 	custom_price = PRICE_STIMPAK
@@ -259,7 +259,7 @@
 /obj/item/reagent_containers/hypospray/medipen/medx
 	name = "Med-X"
 	desc = "A short-lasting shot of Med-X applied via hypodermic needle."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "hypo_medx"
 	volume = 10
 	amount_per_transfer_from_this = 10
@@ -272,7 +272,7 @@
 /obj/item/reagent_containers/hypospray/medipen/psycho
 	name = "Psycho"
 	desc = "Contains Psycho, a drug that makes the user hit harder and shrug off slight stuns, but causes slight brain damage and carries a risk of addiction."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "hypo_psycho"
 	volume = 10
 	amount_per_transfer_from_this = 10
@@ -284,7 +284,7 @@
 /obj/item/reagent_containers/hypospray/medipen/steady
 	name = "Steady"
 	desc = "An inhaler of Steady, a combat drug which provides the user with a steady aim that makes it impossible to miss in sharpshooting. However, it is also highly addictive"
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "hypo_steady"
 	volume = 10
 	amount_per_transfer_from_this = 10

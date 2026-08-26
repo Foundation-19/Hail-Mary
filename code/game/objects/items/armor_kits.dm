@@ -48,9 +48,9 @@
 //////////////  Kind of temporary placement for now until implemented properly.
 
 /obj/item/crafting
-	icon = 'icons/fallout/objects/crafting/tool.dmi'
-	lefthand_file = 'icons/fallout/onmob/tools/kit_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/kit_righthand.dmi'
+	icon = 'icons/obj/crafting/tool.dmi'
+	lefthand_file = 'icons/onmob/tools/kit_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/kit_righthand.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 
 /obj/item/crafting/tailoring/sewingkit

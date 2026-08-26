@@ -51,7 +51,7 @@
 
 /obj/structure/closet/crate/bin/trashbin
 	desc = "Beat up old trash bin."
-	icon = 'icons/fallout/objects/crates.dmi'
+	icon = 'icons/obj/crates_f13.dmi'
 	icon_state = "trashbin"
 	density = FALSE
 	dense_when_open = FALSE

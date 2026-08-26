@@ -925,7 +925,7 @@
 	name = "mourning dust"
 	singular_name = "mourning dust"
 	desc = "A type of primitive herbal powder.\nWhile traditionally used to prepare corpses for the mourning feast, it can also treat scrapes and burns on the living.\nIt is imbued with ancient wisdom."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "mourningdust"
 	amount = 15
 	max_amount = 15
@@ -957,7 +957,7 @@
 	name = "\improper bloodleaf salve"
 	singular_name = "bloodleaf salve"
 	desc = "A cooling salve, made from the bloodleaf plant and water. Heals your wounds at a slow but steady rate."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "bloodleaf_salve"
 	self_delay = 5
 	other_delay = 5

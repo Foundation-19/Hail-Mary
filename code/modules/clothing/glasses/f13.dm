@@ -45,14 +45,14 @@
 //Fallout 13 sunglasses
 
 /obj/item/clothing/glasses/sunglasses/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 
 //Fallout 13 thermals
 
 /obj/item/clothing/glasses/thermal/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 /obj/item/clothing/glasses/thermal/f13/doctorwho
@@ -66,7 +66,7 @@
 //Fallout 13 science goggles
 
 /obj/item/clothing/glasses/science/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 /obj/item/clothing/glasses/science/f13/steampunk

@@ -3,7 +3,7 @@
 /obj/vehicle/ridden/fuel/motorcycle
 	name = "motorcycle"
 	desc = "Wanderer Motors LLC."
-	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon = 'icons/vehicles/medium_vehicles.dmi'
 	icon_state = "bike"
 	pixel_x = -16
 	pixel_y = -2
@@ -40,7 +40,7 @@
 /obj/item/key/motorcycle
 	name = "motorcycle key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts it likely belongs to a motorcycle."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 
 /obj/item/key/motorcycle/New()
 	..()

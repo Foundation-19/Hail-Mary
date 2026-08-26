@@ -11,7 +11,7 @@ Snek for Enclave East*/
 /mob/living/simple_animal/pet/dog/kaiser
 	name = "Kaiser"
 	desc = "A rare pure breed rottweiler, named Kaiser."
-	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon = 'icons/mob/animals/dogs.dmi'
 	icon_state = "rottweiler"
 	icon_living = "rottweiler"
 	icon_dead = "rottweiler_dead"
@@ -96,7 +96,7 @@ Snek for Enclave East*/
 /mob/living/simple_animal/pet/dog/serdy
 	name = "Serdy"
 	desc = "The bestest boy."
-	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon = 'icons/mob/animals/dogs.dmi'
 	icon_state = "shepherd"
 	icon_living = "shepherd"
 	icon_dead = "shepherd_dead"

@@ -29,7 +29,7 @@
 /obj/item/gun/ballistic/shotgun/grenade
 	name = "pump grenade launcher"
 	desc = "A bulky but surprisingly lightweight grenade launcher with a stiff pump."
-	icon = 'fallout/icons/objects/ncrrangersguns.dmi'
+	icon = 'icons/obj/ncrrangersguns.dmi'
 	icon_state = "china_lake"
 	item_state = "shotguntrench"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/grenade
@@ -230,7 +230,7 @@
 /obj/item/gun/ballistic/rocketlauncher/brick
 	name = "\improper brick launcher"
 	desc = "An old rocket launcher that has somehow been repurposed to fire bricks at high velocity."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "launcher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/brick

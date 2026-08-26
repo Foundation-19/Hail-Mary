@@ -5186,7 +5186,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -5195,7 +5195,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
@@ -5594,7 +5594,7 @@
 "ffw" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 7
@@ -6671,7 +6671,7 @@
 /obj/structure/table/booth,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 7
@@ -12969,7 +12969,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -12978,7 +12978,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
@@ -14097,7 +14097,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -14106,7 +14106,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
@@ -16253,7 +16253,7 @@
 /obj/structure/table,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 7
@@ -16557,7 +16557,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -16566,7 +16566,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
@@ -17604,7 +17604,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -17613,7 +17613,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
@@ -19498,7 +19498,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -19507,7 +19507,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
@@ -21943,7 +21943,7 @@
 /obj/structure/table/reinforced,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 7
@@ -24533,7 +24533,7 @@
 /obj/structure/bed/wooden,
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = 1;
 	color = "#C4897D";
@@ -24542,7 +24542,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";

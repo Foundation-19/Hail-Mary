@@ -12,7 +12,7 @@
 /obj/structure/light_construct/lamp_post
 	name = "lamp post frame"
 	desc = "A lamp post under construction."
-	icon = 'icons/fallout/objects/96x160_street_decore.dmi'
+	icon = 'icons/obj/96x160_street_decore.dmi'
 	icon_state = "nvlamp-singles"
 	max_integrity = 200
 	sheets_refunded = 5
@@ -124,7 +124,7 @@
 /obj/machinery/light/lamp_post
 	name = "lamp post"
 	desc = "A relic of the past that continues to illuminate the darkness."
-	icon = 'icons/fallout/objects/96x160_street_decore.dmi'
+	icon = 'icons/obj/96x160_street_decore.dmi'
 	base_state = "nvlamp-singles"
 	icon_state = "nvlamp-singles-on"
 	layer = GASFIRE_LAYER
@@ -313,7 +313,7 @@
 /obj/effect/lamp_post/traffic_light
 	name = "traffic light"
 	desc = "A relic of the past, associated with sirens of justice and tickets."
-	icon = 'icons/fallout/objects/96x160_street_decore.dmi'
+	icon = 'icons/obj/96x160_street_decore.dmi'
 
 	anchored = TRUE
 	opacity = 0

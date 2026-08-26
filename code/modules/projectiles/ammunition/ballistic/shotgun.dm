@@ -3,7 +3,7 @@
 /obj/item/ammo_casing/shotgun
 	name = "shotgun slug"
 	desc = "A 12 gauge lead slug."
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "bbshell"
 	caliber = CALIBER_SHOTGUN
 	projectile_type = /obj/item/projectile/bullet/shotgun_slug

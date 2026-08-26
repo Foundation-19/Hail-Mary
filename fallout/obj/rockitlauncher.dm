@@ -6,7 +6,7 @@
 /obj/item/rockitlauncher_pack
 	name = "\improper Rock-It-Launcher"
 	desc = "Homemade pneumatic cannon made from a vacuum cleaner, firehose, and a leaf blower."
-	icon = 'icons/fallout/objects/guns/rockitlauncher.dmi'
+	icon = 'icons/obj/guns/rockitlauncher.dmi'
 	icon_state = "rockitlauncher_back"
 	item_state = "rockitlauncher_back"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
@@ -215,7 +215,7 @@ Possible solution: Only add the minimum weight class of a stack (which is basica
 /obj/item/pneumatic_cannon/rockitlauncher
 	name = "\improper Rock-It-Launcher nozzle"
 	desc = "The nozzle of a Rock-It-Launcher pneumatic cannon. Point towards target."
-	icon = 'icons/fallout/objects/guns/rockitlauncher.dmi'
+	icon = 'icons/obj/guns/rockitlauncher.dmi'
 	icon_state = "rockitlauncher_nozzle"
 	checktank = FALSE
 	fire_mode = PCANNON_FIFO

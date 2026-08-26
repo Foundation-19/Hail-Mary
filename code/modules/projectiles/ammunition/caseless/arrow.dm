@@ -149,13 +149,13 @@
 /obj/item/ammo_casing/caseless/arrow/broadhead
 	name = "broadhead arrow"
 	desc = "A sharp metal arrow with a broad head. Likely to stick in a wound."
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "arrow_broadhead"
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/broadhead
 
 /obj/item/ammo_casing/caseless/arrow/serrated
 	name = "serrated arrow"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	desc = "A sharp metal arrow with a wicked sharp serrated teeth. Likely to shred an artery."
 	icon_state = "arrow_serrated"
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/serrated
@@ -193,12 +193,12 @@
 	name = "spirit arrow"
 	desc = "A heavy synthetic shaft, a payload full of spirits and dazzling light. Send payment to the Old World metallic ghosts. Slower than other arrows due to its weight."
 	icon_state = "arrow_emp"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	projectile_type = /obj/item/projectile/ion/arrow
 
 /obj/item/ammo_casing/caseless/arrow/blunt
 	name = "blunt arrow"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	desc = "An arrow with a sturdy cloth sack at the end of it, meant to incapacitate and knock out instead of kill. How merciful you are, aristocrat!"
 	icon_state = "arrow_stam"
 	projectile_type = /obj/item/projectile/bullet/reusable/arrow/blunt */

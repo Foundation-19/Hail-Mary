@@ -11,7 +11,7 @@
 /obj/structure/barricade
 	name = "boarded up"
 	desc = "Bunch of planks nailed to something."
-	icon = 'icons/fallout/structures/barricades.dmi'
+	icon = 'icons/structures/barricades.dmi'
 	icon_state = "boarded"
 	anchored = TRUE
 	density = TRUE
@@ -55,26 +55,26 @@
 
 /obj/structure/barricade/tentleathercorner
 	name = "brahmin skin tent"
-	icon = 'icons/fallout/turfs/walls/tents.dmi'
+	icon = 'icons/turf/walls/tents.dmi'
 	icon_state = "leather_corner"
 	opacity = TRUE
 
 /obj/structure/barricade/tentleatheredge
 	name = "brahmin skin tent"
-	icon = 'icons/fallout/turfs/walls/tents.dmi'
+	icon = 'icons/turf/walls/tents.dmi'
 	icon_state = "leather_edge"
 	opacity = TRUE
 
 /obj/structure/barricade/tentclothcorner
 	name = "cotton tent"
-	icon = 'icons/fallout/turfs/walls/tents.dmi'
+	icon = 'icons/turf/walls/tents.dmi'
 	icon_state = "cloth_corner"
 	max_integrity = 80
 	opacity = TRUE
 
 /obj/structure/barricade/tentclothedge
 	name = "cotton tent"
-	icon = 'icons/fallout/turfs/walls/tents.dmi'
+	icon = 'icons/turf/walls/tents.dmi'
 	icon_state = "cloth_edge"
 	max_integrity = 80
 	opacity = TRUE
@@ -239,9 +239,9 @@
 				var/obj/item/stack/sheet/mineral/wood/W = I
 				if(W.amount >= 3)
 					var/list/walls = list(
-						"Wooden Wall" = image(icon = 'icons/fallout/turfs/walls/wood.dmi', icon_state = "wood0"),
-						"Interior Wall" = image(icon = 'icons/fallout/turfs/walls/interior.dmi', icon_state = "interior0"),
-						"House Wall" = image(icon = 'icons/fallout/turfs/walls/house.dmi', icon_state = "house0")
+						"Wooden Wall" = image(icon = 'icons/turf/walls/wood.dmi', icon_state = "wood0"),
+						"Interior Wall" = image(icon = 'icons/turf/walls/interior.dmi', icon_state = "interior0"),
+						"House Wall" = image(icon = 'icons/turf/walls/house.dmi', icon_state = "house0")
 					)
 					var/chosen_wall = show_radial_menu(user, src, walls, custom_check = CALLBACK(src, PROC_REF(check_menu), user, I), require_near = TRUE, tooltips = TRUE)
 					if(!check_menu(user, I))
@@ -301,8 +301,8 @@
 				var/obj/item/stack/sheet/cloth/C = I
 				if(C.amount >= 3)
 					var/list/tentwalls = list(
-						"Tent Wall" = image(icon = 'icons/fallout/turfs/walls/tent.dmi', icon_state = "tent0"),
-						"Tent Flaps" = image(icon = 'icons/fallout/structures/doors.dmi', icon_state = "tent")
+						"Tent Wall" = image(icon = 'icons/turf/walls/tent.dmi', icon_state = "tent0"),
+						"Tent Flaps" = image(icon = 'icons/structures/doors.dmi', icon_state = "tent")
 					)
 					var/chosen_tent = show_radial_menu(user, src, tentwalls, custom_check = CALLBACK(src, PROC_REF(check_menu), user, I), require_near = TRUE, tooltips = TRUE)
 					if(!check_menu(user, I))
@@ -413,7 +413,7 @@
 /obj/structure/obstacle
 	name = "obstacle template"
 	desc = "don't use"
-	icon = 'icons/fallout/structures/barricades.dmi'
+	icon = 'icons/structures/barricades.dmi'
 	anchored = TRUE
 	density = TRUE
 	pass_flags_self = LETPASSTHROW
@@ -495,7 +495,7 @@
 //For adding to tops of fences/walls etc
 /obj/effect/overlay/barbed
 	name = "razorwire"
-	icon = 'icons/fallout/structures/barricades.dmi'
+	icon = 'icons/structures/barricades.dmi'
 	icon_state = "barbed_single"
 	plane = MOB_PLANE
 	layer = ABOVE_ALL_MOB_LAYER
@@ -509,7 +509,7 @@
 //small junk = Slows movement, worthless for cover, cleaned with soap etc. Having difficulty making the slowdown work =(
 
 /obj/structure/junk
-	icon = 'icons/fallout/objects/furniture/junk.dmi'
+	icon = 'icons/obj/furniture/junk.dmi'
 	obj_integrity = 100
 	max_integrity = 100
 	anchored = 1
@@ -545,7 +545,7 @@
 
 /obj/structure/junk/locker/gray
 	name = "decayed locker"
-	icon = 'icons/fallout/objects/furniture/closet.dmi'
+	icon = 'icons/obj/furniture/closet.dmi'
 	icon_state = "gray"
 	density = FALSE
 
@@ -656,7 +656,7 @@
 //Junk overlays
 /obj/effect/overlay/junk
 	name = "junk"
-	icon = 'icons/fallout/objects/furniture/junk.dmi'
+	icon = 'icons/obj/furniture/junk.dmi'
 	icon_state = "junk_clock"
 	
 /obj/effect/overlay/junk/wrench_act(mob/user, obj/item/tool)

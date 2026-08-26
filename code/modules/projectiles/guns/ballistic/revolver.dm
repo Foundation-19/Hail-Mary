@@ -291,7 +291,7 @@
 /obj/item/gun/ballistic/revolver/police/webley
 	name = "Webley Revolver"
 	desc = "The Webley Revolver was the pre standard issue service pistol for the armed forces of the United Kingdom, and countries of the British Empire."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "webley"
 	item_state = "police"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev357
@@ -462,7 +462,7 @@
 	name = "M2045 Magnum Revolver Rifle"
 	desc = "A relic from before the Great War returns to the wasteland. This rifle uses .308 ammunition and has considerable recoil."
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev308
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
 	item_state = "m2405"
 	icon_state = "m2405"
 	weapon_class = WEAPON_CLASS_CARBINE
@@ -668,7 +668,7 @@
 /obj/item/gun/ballistic/revolver/ghoulgun
 	name = "rusted revolver"
 	desc = "A worn but well-maintained revolver. Uses shotgun rounds, with a heavy barrel for greater velocity."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "ghoulgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/ghoulgun
 	weapon_class = WEAPON_CLASS_SMALL

@@ -72,7 +72,7 @@
 /obj/machinery/nuclearbomb/selfdestruct/fallout
 	name = "Nuclear Bomb"
 	desc = "It looks like an ordinary Chinese atomic bomb. The most common bomb. It’s more a miracle that it didn’t explode . Hieroglyphs can be seen on the side: 憎恨. 美国."
-	icon = 'icons/fallout/objects/fallout_nuke.dmi'
+	icon = 'icons/obj/fallout_nuke.dmi'
 	icon_state = "nuclearbomb_base"
 	anchored = TRUE
 	

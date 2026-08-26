@@ -6,7 +6,7 @@
 /obj/machinery/radio_station
 	name = "radio station"
 	desc = "A specially equipped radio station to broadcast music to every radio in a the waste. Comes pre-coded with over 30 songs!"
-	icon = 'icons/fallout/machines/radio.dmi'
+	icon = 'icons/machines/radio.dmi'
 	icon_state = "gannets_machine21"
 	max_integrity = 150
 	anchored = TRUE

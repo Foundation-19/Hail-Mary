@@ -33,7 +33,7 @@
 //9mm doublestack
 /obj/item/ammo_box/magazine/m9mm/doublestack/unbirth
 	name = "doublestack unbirth magazine (9mm)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "m9mmds"
 	ammo_type = /obj/item/ammo_casing/c9mm/unbirth
 	caliber = list(CALIBER_9MM)

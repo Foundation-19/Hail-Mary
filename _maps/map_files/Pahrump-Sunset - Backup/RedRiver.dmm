@@ -17109,7 +17109,7 @@
 /obj/item/seeds/poppy/broc,
 /obj/structure/reagent_dispensers/compostbin{
 	desc = "A metal barrel filled with compost.";
-	icon = 'icons/fallout/trash.dmi';
+	icon = 'icons/trash.dmi';
 	icon_state = "single";
 	name = "fertilizer barrel";
 	pixel_x = 8;

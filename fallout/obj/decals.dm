@@ -3,7 +3,7 @@
 /obj/effect/decal/waste
 	name = "puddle of goo"
 	desc = "A puddle of sticky, incredibly toxic and likely radioactive green goo."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "goo1"
 	anchored = 1
 	layer = 2.1
@@ -74,7 +74,7 @@
 /obj/effect/decal/marking
 	name = "road marking"
 	desc = "Road surface markings were used on paved roadways to provide guidance and information to drivers and pedestrians.<br>Nowadays, those wandering the wasteland commonly use them as directional landmarks."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "singlevertical" //See decals.dmi for different icon states of road markings.
 	anchored = 1
 	layer = 2.1
@@ -83,7 +83,7 @@
 /obj/effect/decal/riverbank
 	name = "riverbank"
 	desc = "try"
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "riverbank"
 	anchored = 1
 	layer = 2.1
@@ -92,7 +92,7 @@
 /obj/effect/decal/riverbankcorner
 	name = "riverbankcorner"
 	desc = "try2"
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "riverbank2"
 	anchored = 1
 	layer = 2.1

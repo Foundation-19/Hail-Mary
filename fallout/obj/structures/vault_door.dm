@@ -3,7 +3,7 @@
 /obj/structure/vault_door
 	name = "Vault 113 blast door"
 	desc = "A conventional Vault blast door of \"Nine cog\" model.<br>A blast door design incorporates proper sealants against radiation and other hazardous elements that may be created in the event of a nuclear war, to properly protect its inhabitants."
-	icon = 'icons/fallout/machines/gear.dmi'
+	icon = 'icons/machines/gear.dmi'
 	icon_state = "113closed"
 	density = 1
 	opacity = 1
@@ -77,7 +77,7 @@
 /obj/machinery/doorButtons/vaultButton
 	name = "Vault access panel"
 	desc = "Pull the lever to open the door - it's that simple."
-	icon = 'icons/fallout/machines/lever.dmi'
+	icon = 'icons/machines/lever.dmi'
 	icon_state = "lever"
 	anchored = 1
 	density = 1

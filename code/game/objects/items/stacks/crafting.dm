@@ -1,6 +1,6 @@
 /obj/item/stack/crafting
 	name = "crafting part"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	amount = 1
 	max_amount = 50
 	throw_speed = 3

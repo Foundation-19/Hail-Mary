@@ -11,9 +11,9 @@
 /obj/item/gun/ballistic/automatic/pistol
 	name = "pistol template"
 	desc = "should not be here. Bugreport."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	item_state = "gun"
 	weapon_class = WEAPON_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/m10mm/adv/simple
@@ -108,7 +108,7 @@
 /obj/item/gun/ballistic/automatic/pistol/ninemil/skorpion
 	name = "Skorpion 9mm"
 	desc = "A Czech machine pistol developed in the 60s"
-	icon = 'fallout/icons/objects/automatic.dmi'
+	icon = 'icons/obj/automatic.dmi'
 	icon_state = "skorpion"
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
 	mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
@@ -121,7 +121,7 @@
 /obj/item/gun/ballistic/automatic/pistol/ninemil/ruby
 	name = "Ruby"
 	desc = "A petite pocket pistol designed by Colt and used extensively by the French Army until the late '50s"
-	icon = 'fallout/icons/objects/pistols.dmi'
+	icon = 'icons/obj/pistols.dmi'
 	icon_state = "ruby"
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm
 	mag_type = /obj/item/ammo_box/magazine/m9mm
@@ -132,7 +132,7 @@
 /obj/item/gun/ballistic/automatic/pistol/ninemil/c93
 	name = "9mm Borchardt"
 	desc = "The first mass produced semiautomatic pistol, designed before doublestack magazines existed."
-	icon = 'fallout/icons/objects/pistols.dmi'
+	icon = 'icons/obj/pistols.dmi'
 	icon_state = "borchardt"
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm
 	mag_type = /obj/item/ammo_box/magazine/m9mm
@@ -342,7 +342,7 @@
 /obj/item/gun/ballistic/automatic/pistol/n99/crusader/thingpony
 	name = "\improper Painted pistol"
 	desc = "A variant of the n99 with a custom paint job done on it. The paint used is of the highest quality!"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "ponycrusader"
 	item_state = "ponycrusader"
 	init_recoil = HANDGUN_RECOIL(0.8)

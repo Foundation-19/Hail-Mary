@@ -761,9 +761,9 @@ ATTACHMENTS
 	. = ..()
 	if(gun_light)
 		var/state = "[gunlight_state][gun_light.on? "_on":""]"	//Generic state.
-		if(gun_light.icon_state in icon_states('icons/fallout/objects/guns/attachments.dmi'))	//Snowflake state?
+		if(gun_light.icon_state in icon_states('icons/obj/guns/attachments.dmi'))	//Snowflake state?
 			state = gun_light.icon_state
-		flashlight_overlay = mutable_appearance('icons/fallout/objects/guns/attachments.dmi', state)
+		flashlight_overlay = mutable_appearance('icons/obj/guns/attachments.dmi', state)
 		flashlight_overlay.pixel_x = flight_x_offset
 		flashlight_overlay.pixel_y = flight_y_offset
 		. += flashlight_overlay
@@ -771,9 +771,9 @@ ATTACHMENTS
 		flashlight_overlay = null
 
 	if(bayonet)
-		if(bayonet.icon_state in icon_states('icons/fallout/objects/guns/attachments.dmi'))		//Snowflake state?
+		if(bayonet.icon_state in icon_states('icons/obj/guns/attachments.dmi'))		//Snowflake state?
 			knife_overlay = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/fallout/objects/guns/attachments.dmi'
+		var/icon/bayonet_icons = 'icons/obj/guns/attachments.dmi'
 		knife_overlay = mutable_appearance(bayonet_icons, bayonet_state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
@@ -782,9 +782,9 @@ ATTACHMENTS
 		knife_overlay = null
 	/*
 	if(scope)
-		if(scope.icon_state in icon_states('icons/fallout/objects/guns/attachments.dmi'))
+		if(scope.icon_state in icon_states('icons/obj/guns/attachments.dmi'))
 			scope_overlay = scope.icon_state
-		var/icon/scope_icons = 'icons/fallout/objects/guns/attachments.dmi'
+		var/icon/scope_icons = 'icons/obj/guns/attachments.dmi'
 		scope_overlay = mutable_appearance(scope_icons, scope_state)
 		scope_overlay.pixel_x = scope_x_offset
 		scope_overlay.pixel_y = scope_y_offset
@@ -793,7 +793,7 @@ ATTACHMENTS
 		scope_overlay = null
 	*/
 	if(silenced)
-		var/icon/suppressor_icons = 'icons/fallout/objects/guns/attachments.dmi'
+		var/icon/suppressor_icons = 'icons/obj/guns/attachments.dmi'
 		suppressor_overlay = mutable_appearance(suppressor_icons, suppressor_state)
 		suppressor_overlay.pixel_x = suppressor_x_offset
 		suppressor_overlay.pixel_y = suppressor_y_offset
@@ -1728,7 +1728,7 @@ CITADEL MODULAR PISTOL CODE
 /obj/item/gun/ballistic/automatic/pistol/modular
 	name = "modular pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "cde"
 	can_unsuppress = TRUE
 	automatic_burst_overlay = FALSE

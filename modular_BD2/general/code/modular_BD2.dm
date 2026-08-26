@@ -629,7 +629,7 @@ to the below
 // ------------ CRATES ------------------ 
 
 /obj/structure/closet/crate/wicker
-	icon = 'icons/fallout/farming/farming_tools.dmi'
+	icon = 'icons/farming/farming_tools.dmi'
 	open_sound = 'sound/effects/rustle3.ogg'
 	close_sound = 'sound/effects/rustle3.ogg'
 	material_drop = /obj/item/stack/sheet/hay

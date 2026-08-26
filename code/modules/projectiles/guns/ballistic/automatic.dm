@@ -115,8 +115,8 @@
 	desc = "should not exist"
 	icon = 'icons/obj/guns/projectile.dmi'
 	icon_prefix = "uzi"
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	weapon_class = WEAPON_CLASS_CARBINE
 
 /* * * * * * * * * * *
@@ -132,8 +132,8 @@
 /obj/item/gun/ballistic/automatic/smg/american180
 	name = "American 180"
 	desc = "An integrally suppressed submachinegun chambered in the common .22 long rifle. Top loaded drum magazine."
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "smg22"
 	item_state = "american"
 	mag_type = /obj/item/ammo_box/magazine/m22smg
@@ -304,7 +304,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi
 	name = "9mm Uzi"
 	desc = "A lightweight, burst-fire submachine gun, for when you really want someone dead. Uses 9mm rounds."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "uzi"
 	item_state = "uzi"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
@@ -358,7 +358,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp40
 	name = "Maschinenpistole 40"
 	desc = "An open bolt blowback submachine gun that served in the German Army. It's a long way from home."
-	icon = 'fallout/icons/objects/automatic.dmi'
+	icon = 'icons/obj/automatic.dmi'
 	icon_state = "mp40"
 	item_state = "smg9mm"
 	damage_multiplier = GUN_LESS_DAMAGE_T2
@@ -372,7 +372,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp5
 	name = "HK MP-5"
 	desc = "A lightweight submachine gun that earned its place as one of the most popular SMGs in the world"
-	icon = 'fallout/icons/objects/automatic.dmi'
+	icon = 'icons/obj/automatic.dmi'
 	icon_state = "mp5"
 	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
@@ -390,7 +390,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22/tec22
 	name = ".22 machine pistol"
 	desc = "A compact, lightweight way to put a lot of bullets downrange."
-	icon = 'fallout/icons/objects/automatic.dmi'
+	icon = 'icons/obj/automatic.dmi'
 	icon_state = "tec9"
 	item_state = "tec9"
 	mag_type = /obj/item/ammo_box/magazine/m22
@@ -437,7 +437,7 @@
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mac10
 	name = "Ingram Model 10" //I like naming things quirkily
 	desc = "A compact machine pistol that looks terribly designed. The 10mm nature and design of the gun causes issues with keeping recoil low but it effectively functions as a bullet hose."
-	icon = 	'fallout/icons/objects/automatic.dmi'
+	icon = 	'icons/obj/automatic.dmi'
 	icon_state = "mac10"
 	weapon_class = WEAPON_CLASS_NORMAL //kinda bulky for a compact gun
 	damage_multiplier = GUN_LESS_DAMAGE_T1 //this spits lots of bullets and is compact and can be dual wielded
@@ -460,7 +460,7 @@
 /obj/item/gun/ballistic/automatic/smg/cg45
 	name = "Carl Gustaf 10mm"
 	desc = "Post-war submachine gun made in workshops in Phoenix, a copy of a simple old Swedish design that somehow found it's way into the American People's hearts following the Vietnam war."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "cg45"
 	item_state = "cg45"
 	mag_type = /obj/item/ammo_box/magazine/cg45
@@ -539,8 +539,8 @@
 /obj/item/gun/ballistic/automatic/smg/p90
 	name = "FN P90c"
 	desc = "The Fabrique Nationale P90c was just coming into use at the time of the war. The weapon's bullpup layout, and compact design, make it easy to control. The durable P90c is prized for its reliability, and high firepower in a ruggedly-compact package. Chambered in 10mm."
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "p90"
 	item_state = "m90"
 	mag_type = /obj/item/ammo_box/magazine/m10mm_p90
@@ -596,8 +596,8 @@
 /obj/item/gun/ballistic/automatic/smg/mp5
 	name = "MP-5 SD"
 	desc = "An integrally suppressed submachinegun chambered in 9mm."
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "mp5"
 	item_state = "mp5"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
@@ -663,7 +663,7 @@
 			making it a common sight for Boxcar Vixens in the Heap, where the short sightlines more than make up for the gun's \
 			inherently poor accuracy. Doesn't accept awkwardly shaped magazines, though. That's for the PRO model, which isn't \
 			available out here."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "sidewinder"
 	mag_type = /obj/item/ammo_box/magazine/uzim9mm
 	extra_mag_types = /obj/item/ammo_box/magazine/m9mm
@@ -876,7 +876,7 @@
 /obj/item/gun/ballistic/automatic/m1carbine/m2
 	name = "M2 carbine"
 	desc = "An M2 Carbine with faded military markings. Looks beat up but functional."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "ncr-m1carbine"
 	item_state = "rifle"
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm/adv/ext
@@ -995,7 +995,7 @@
 /obj/item/gun/ballistic/automatic/combat
 	name = "American Commonwealth Carbine"
 	desc = "A .45 semi-automatic combat carbine, produced pre-war for National Guard forces."
-	icon = 'icons/fallout/objects/guns/AMERICAN_COMMONWEALTH_CARBINE.dmi'
+	icon = 'icons/obj/guns/AMERICAN_COMMONWEALTH_CARBINE.dmi'
 	icon_state = "combat_rifle"
 	item_state = "combatrifle"
 	icon_prefix = "combatrifle"
@@ -1468,9 +1468,9 @@
 /obj/item/gun/ballistic/automatic/marksman/policerifle
 	name = "Police Rifle"
 	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Eastwood Police Department. Held together by duct tape and prayers, it somehow still shoots."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_prefix = "assault_carbine"
 	icon_state = "rifle-police"
 	item_state = "assault_carbine"
@@ -1532,9 +1532,9 @@
 /obj/item/gun/ballistic/automatic/slr
 	name = "Enfield SLR"
 	desc = "A self-loading rifle in 7.62mm NATO. Semi-auto only."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "slr"
 	item_state = "slr"
 	mag_type = /obj/item/ammo_box/magazine/m308
@@ -1662,8 +1662,8 @@
 	name = "SKS"
 	desc = "Old hunting rifle taken from disovered stockpiles and refurbished in Phoenix workshops. The standard heavy rifle of the Legion, still rare. .308, semi-auto only, internal magazine."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "sks"
 	item_state = "sks"
 	mag_type = /obj/item/ammo_box/magazine/sks
@@ -1746,10 +1746,10 @@
 /obj/item/gun/ballistic/automatic/marksman/sniper/snipervenator
 	name = "Centurion sniper rifle"
 	desc = "The customized sniper rifle, fitted with a telescopic sight for extreme accuracy and chambered for a high-ballistic performance centerfire cartridge. It is a superior version of the regular sniper rifle and is decorated with the flag of the bull and tokens of a hunt."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "venator_sniper"
 	item_state = "venator_sniper"
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -1826,8 +1826,8 @@
 	name = "r91 assault rifle"
 	desc = "The R91 was the standard US Army assault rifle, and so saw wide-spread use after the war. Most are worn out by now."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "assault_rifle"
 	item_state = "r91"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -1862,8 +1862,8 @@
 	name = "infiltrator"
 	desc = "A customized R91 assault rifle, with an integrated suppressor, small scope, cut down stock and polymer furniture. The supressor takes away stopping-power, but a cleaner action allows it to fire faster."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "infiltrator"
 	item_state = "infiltrator"
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -2009,8 +2009,8 @@
 	name = "Handmade Assault Rifle"
 	desc = "A handmade assault rifle, created with a mixture of pre-war and improvised parts. Reliable and trusty, although it tends to kick more than normal. Perfect for raider, scavver and militia alike."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_rifle"
 	item_state = "handmadear"
 	icon_prefix = "handmade_rifle"
@@ -2049,8 +2049,8 @@
 	name = "Handmade Battle Rifle"
 	desc = "A handmade battle rifle, created with a mixture of pre-war and improvised parts. Kicks like a mule but is accurate hits targets hard. A favorite amongst veteran raiders and some mercenaries."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_battle_rifle"
 	item_state = "handmadebr"
 	icon_prefix = "handmade_rifle"
@@ -2082,8 +2082,8 @@
 	name = "Handmade Marksman Rifle"
 	desc = "A handmade Marksman Rifle, created with a mixture of pre-war and improvised parts. Heavy, but is quite accurate and fires .30-06. It is somewhat popular among mercenary, raider, and militia marksmen."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_marksman_rifle"
 	item_state = "handmadedmr"
 	icon_prefix = "handmade_rifle"
@@ -2120,8 +2120,8 @@
 	name = "Handmade Assault Carbine"
 	desc = "A refinement of the usual handmade carbine, this Assault Carbine is significantly better bored and has a wire stock attached. A muzzle booster also has been added to increase fire rate and reliability. It is a surprising favorite amongst post-war vehicle crews, especially vertibird pilots."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "handmade_assault_carbine"
 	item_state = "handmadecar"
 	icon_prefix = "handmade_rifle"
@@ -2155,8 +2155,8 @@
 	name = "Eastern PDW"
 	desc = "A rugged, compact personal defense weapon, commonly found in the hands of Soviet and satellite country crewmen, security forces and auxiliary personnel in the pre-war. It's compact design allows it to be carried in briefcases and backpacks with ease, making it a popular weapon for criminals and assassins alike, both before and after the bombs dropped. Limited production of these firearms continues in workshops across the wasteland, though blueprints are rare to come by, and the ammunition employed is unusual, leaving it reserved for use only by the most resourceful."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "eastern_pdw"
 	item_state = "easternpdw"
 	icon_prefix = "handmade_rifle"
@@ -2192,8 +2192,8 @@
 	name = "Eastern Light Machine Gun"
 	desc = "What can best be described as a rifle pressed into the role of a light machinegun, this weapon boasts incredible firepower at a reasonable weight. Though it tends to kick like a mule compared to similar systems, the weight savings are considerable enough that this weapon sees niche use in some parts of the wasteland by those intent on travelling light but still packing some serious firepower. Of eastern design, this gun's schematics are rare to come by, though it does share a lot of it's parts with the variety of handmade Kalashnikov patterns rifles found stateside in the hands of raiders and mercenaries."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "eastern_light_machine_gun"
 	item_state = "easternlmg"
 	icon_prefix = "handmade_rifle"
@@ -2228,8 +2228,8 @@
 	name = "Eastern Compact Shotgun"
 	desc = "A chopped down shotgun design hailing from the other side of the Iron Curtain. Whoever drew the schematics for this thing forgot to tell people that a long barrel was an option on the design, and so, you now have a carbine length, semi-automatic shotgun feeding from hilariously bulky banana magazines. Due to how huge the magazines are, there is no chance this fits on your pack."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "eastern_compact_shotgun"
 	item_state = "easterncompactshotgun"
 	icon_prefix = "handmade_rifle"
@@ -2259,8 +2259,8 @@
 	name = "Eastern Assassin Rifle"
 	desc = "An Integrally Suppressed Marksman Rifle, created with a mixture of pre-war and improvised parts. Light, rugged and shoots .308, although it seems to kick especially hard due to the rifle's weight, utter lack of recoil mitigation. It is reccomended to be utilized with reduced loads."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "eastern_assassin_rifle"
 	item_state = "easternar"
 	icon_prefix = "handmade_rifle"
@@ -2364,9 +2364,9 @@
 /obj/item/gun/ballistic/automatic/assault_carbine/policerifle
 	name = "Police Assault Rifle"
 	desc = "A pre-war Rifle that has been constantly repaired and rebuilt by the Eastwood Police Department. Held together by duct tape and prayers, it somehow still shoots."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "rifle-police"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
@@ -2516,8 +2516,8 @@
 /obj/item/gun/ballistic/automatic/g11
 	name = "G11"
 	desc = "This experimental gun fires a caseless cartridge consisting of a block of propellant with a bullet buried inside. The weight and space savings allows for a very high magazine capacity. Chambered in 4.73mm."
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "g11"
 	item_state = "h&kg11"
 	mag_type = /obj/item/ammo_box/magazine/m473
@@ -2607,7 +2607,7 @@
 /obj/item/gun/ballistic/automatic/r84
 	name = "R84 LMG"
 	desc = "A light machinegun using 60 round belts fed from an ammobox, its one of the few heavy weapons designs still commonly found."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "R84"
 	item_state = "R84"
 	mag_type = /obj/item/ammo_box/magazine/lmg
@@ -2635,8 +2635,8 @@
 	name = "Light Support Weapon"
 	desc = "This squad-level support weapon has a bullpup design. The bullpup design makes it difficult to use while lying down. Because of this it was remanded to National Guard units. It, however, earned a reputation as a reliable weapon that packs a lot of punch for its size."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "lmg"
 	item_state = "lsw"
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
@@ -2657,9 +2657,9 @@
 /obj/item/gun/ballistic/automatic/lewis
 	name = "Lewis automatic rifle"
 	desc = "A relic of a gun, featuring an obscenely heavy watercooled barrel and a high capacity pan magazine."
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/64x64_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
+	lefthand_file = 'icons/onmob/weapons/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/64x64_righthand.dmi'
 	icon_state = "lewis"
 	item_state = "lewis"
 	inhand_x_dimension = 64
@@ -2679,9 +2679,9 @@
 /obj/item/gun/ballistic/automatic/lewis/lanoe
 	name = "Lewis Mark II"
 	desc = "This machinegun came right off a fightercraft from the first world war. It trades an extra heavy cooling system for an extra heavy magazine."
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/64x64_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
+	lefthand_file = 'icons/onmob/weapons/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/64x64_righthand.dmi'
 	icon_state = "lanoe"
 	item_state = "lanoe"
 	mag_type = /obj/item/ammo_box/magazine/lewis
@@ -2698,9 +2698,9 @@
 /obj/item/gun/ballistic/automatic/bren
 	name = "Bren gun"
 	desc = "A rather heavy gun that served as the primary British infantry LMG throughout the second world war."
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/64x64_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
+	lefthand_file = 'icons/onmob/weapons/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/64x64_righthand.dmi'
 	icon_state = "bren"
 	item_state = "bren"
 	mag_type = /obj/item/ammo_box/magazine/bren
@@ -2809,9 +2809,9 @@
 /obj/item/gun/ballistic/automatic/m72
 	name = "\improper M72 gauss rifle"
 	desc = "The M72 rifle is of German design. It uses an electromagnetic field to propel rounds at tremendous speed... and pierce almost any obstacle. Its range, accuracy and stopping power is almost unparalleled."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "gaussf2"
 	item_state = "gaussrifle"
 	slot_flags = ITEM_SLOT_BACK

@@ -1,7 +1,7 @@
 /obj/structure/chair
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	icon_state = "chair"
 	anchored = TRUE
 	can_buckle = 1
@@ -248,13 +248,13 @@
 
 /obj/structure/chair/wood/hitchingpost
 	name = "hitching post"
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "post_wood"
 	item_chair = /obj/item/chair/wood/hitchingpost
 
 /obj/item/chair/wood/hitchingpost
 	name = "hitching post"
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "post_wood"
 	origin_type = /obj/structure/chair/wood/hitchingpost
 
@@ -286,7 +286,7 @@
 	buildstackamount = 4
 
 /obj/structure/chair/comfy/plywood/GetArmrest()
-	return mutable_appearance('icons/fallout/objects/furniture/chairs_and_beds.dmi', "plywood_chair_armrest")
+	return mutable_appearance('icons/obj/furniture/chairs_and_beds.dmi', "plywood_chair_armrest")
 
 // Pre-war chair
 /obj/structure/chair/comfy/shuttle
@@ -295,7 +295,7 @@
 	icon_state = "shuttle_chair"
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
-	return mutable_appearance('icons/fallout/objects/furniture/chairs_and_beds.dmi', "shuttle_chair_armrest")
+	return mutable_appearance('icons/obj/furniture/chairs_and_beds.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/comfy/modern
 	name = "modern chair"
@@ -306,7 +306,7 @@
 	buildstackamount = 2
 
 /obj/structure/chair/comfy/modern/GetArmrest()
-	return mutable_appearance('icons/fallout/objects/furniture/chairs_and_beds.dmi', "synthetic_chair_armrest")
+	return mutable_appearance('icons/obj/furniture/chairs_and_beds.dmi', "synthetic_chair_armrest")
 
 
 
@@ -332,7 +332,7 @@
 // Bar stools
 /obj/structure/chair/stool/retro
 	name = "bar stool"
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/retro
 
@@ -508,7 +508,7 @@
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	icon_state = "chair_toppled"
 	item_state = "chair"
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'

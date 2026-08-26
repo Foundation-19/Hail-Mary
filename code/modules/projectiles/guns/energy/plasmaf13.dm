@@ -20,7 +20,7 @@
 //Plasma pistol: Eve
 /obj/item/gun/energy/laser/plasma/pistol/eve
 	name ="eve"
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	item_state = "plasma-pistol"
 	icon_state = "eve"
 	desc = "A Plasmophiles wet dream. This meticulously modified pistol has seen every part serviced or improved in some manner."
@@ -36,7 +36,7 @@
 //Eve, Worn version
 /obj/item/gun/energy/laser/plasma/pistol/eve/worn
 	name ="eve"
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	item_state = "plasma-pistol"
 	icon_state = "eve"
 	desc = "A Plasmophiles wet dream. This meticulously modified pistol has seen every part serviced or improved in some manner. This one has seen some age..."
@@ -49,7 +49,7 @@
 //Plasma pistol: Adam
 /obj/item/gun/energy/laser/plasma/pistol/adam
 	name ="adam"
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	item_state = "plasma-pistol"
 	icon_state = "adam"
 	desc = "Love is fundamentally about looking forward, not backward. It's a committment to becoming, not merely being. It's an enlistment in togetherness, not aloneness."
@@ -155,10 +155,10 @@
 
 /obj/item/gun/energy/laser/plasma/spear
 	name = "ergonomic plasmacaster"
-	icon = 'icons/fallout/objects/melee/twohanded.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee2h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee2h_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/melee/twohanded.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee2h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee2h_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	item_state = "plasma"
 	icon_state = "plasma"
 	desc = "An ergonomic pre-war plasmacaster designed for precision mining work. This one appears to be built into a single thick staff, with a bulbous hilt and sharp saturnite alloy blades ringing the caster assembly- strongly resembling sort of spear."

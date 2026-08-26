@@ -72,9 +72,9 @@
 
 /obj/item/gun/energy/disabler/debug
 	name = "debug disabler"
-	icon = 'icons/fallout/objects/guns/energy.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "wattz1000"
 	item_state = "laser-pistol"
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/debug)
