@@ -8,8 +8,8 @@
 	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
 	ammo_x_offset = 2
 	shaded_charge = 1
-	lefthand_file = 'icons/mob/citadel/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/citadel/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/guns_righthand.dmi'
 
 
 /obj/item/gun/energy/plasma/rifle
@@ -58,8 +58,8 @@
 	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 4
-	lefthand_file = 'icons/mob/citadel/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/citadel/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/guns_righthand.dmi'
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_ONLY
 
@@ -72,7 +72,7 @@
 	cell_type = "/obj/item/stock_parts/cell/pulse/carbine"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser)
 	ammo_x_offset = 4
-	lefthand_file = 'icons/mob/citadel/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/citadel/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/guns_righthand.dmi'
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_ONLY
