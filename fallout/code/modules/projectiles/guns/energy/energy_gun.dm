@@ -7,8 +7,8 @@ obj/item/gun/energy/e_gun/cx
 	desc = "An overpriced hybrid energy gun with two settings: disable, and kill. Manufactured by CX Armories. Has a polychromic coating."
 	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "cxe"
-	lefthand_file = 'icons/mob/citadel/guns_lefthand.dmi'
-	righthand_file = 'icons/mob/citadel/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler, /obj/item/ammo_casing/energy/laser)
 	flight_x_offset = 15
 	flight_y_offset = 10
