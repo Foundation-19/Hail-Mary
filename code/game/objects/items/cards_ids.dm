@@ -1204,7 +1204,7 @@
 /obj/item/card/id/khantattoo
 	name = "Great Khan tattoo"
 	desc = "A tattoo of the symbol of the Great Khans."
-	icon = 'icons/fallout/clothing/khans.dmi'
+	icon = 'icons/clothing/khans.dmi'
 	icon_state = "khan_id"
 	item_state = null
 	assignment = "gang tattoo"

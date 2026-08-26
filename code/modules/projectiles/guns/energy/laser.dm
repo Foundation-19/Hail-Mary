@@ -222,9 +222,9 @@
 /obj/item/gun/energy/laser/wattz
 	name = "Wattz 1000 laser pistol"
 	desc = "A Wattz 1000 Laser Pistol. Civilian model of the AEP7. Its capacity is cut by half per cell, and doesn't shoot as fast, but has more powerful beams. Uses small energy cells."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "wattz1000"
 	item_state = "laser-pistol"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pistol/wattz)
@@ -251,11 +251,11 @@
 /obj/item/gun/energy/laser/wattzs
 	name = "Wattz 1000s laser pistol"
 	desc = "The Wattz 1000 Sports Edition was designed as a direct competitor to the AEP7, boasting an optimized emitter that greatly increases cell efficiency."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "wattz1000s"
 	item_state = "laser-pistol"
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pistol/wattzs)
 	cell_type = /obj/item/stock_parts/cell/ammo/ec
 	equipsound = 'sound/f13weapons/equipsounds/aep7equip.ogg'
@@ -360,9 +360,9 @@
 	name = "AEP5-CR Disabling Beam Pistol"
 	desc = "A laser pistol that has been modified for less-than-lethal work."
 	slowdown = 0.2
-	icon = 'icons/fallout/objects/guns/energy.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "AEP5CR"
 	item_state = "AEP5CR"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/stun)
@@ -400,7 +400,7 @@
 	name = "\improper Badland's Special"
 	slowdown = 0.2
 	desc = "A jury-rigged AEP7, this pistol carves out every safety feature and shortens the lenses length to cram a second emitter inside."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "bspecial"
 	item_state = "laser-pistol"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pistol/badlands)
@@ -414,7 +414,7 @@
 	name = "\improper Worn Badland's Special"
 	slowdown = 0.2
 	desc = "A jury-rigged AEP7, this pistol carves out every safety feature and shortens the lenses length to cram a second emitter inside. This ones seems aged."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "bspecial"
 	item_state = "laser-pistol"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pistol/badlands/worn)
@@ -427,7 +427,7 @@
 /obj/item/gun/energy/laser/freeblade
 	name = "\improper Freeblade Blaster"
 	desc = "A special tri-shot pistol. Does decent damage, and is specialty customized for a certain someone."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "freeblade"
 	item_state = "freeblade"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pistol/freeblade)
@@ -441,7 +441,7 @@
 /obj/item/gun/energy/laser/auto
 	name = "compact rcw"
 	desc = "A beefed-up laser pistol manufactured by West Tek, reinforced to allow it to withstand the thermal load of sustained fire."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "protolaser"
 	item_state = "laser"
 	cell_type = /obj/item/stock_parts/cell/ammo/ecp
@@ -457,7 +457,7 @@
 /obj/item/gun/energy/laser/auto/worn
 	name = "worn compact rcw"
 	desc = "A much more compact version of the RCW. Attuned to pierce through most armor with ease, while also being more streamlined."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "protolaser"
 	item_state = "laser"
 	cell_type = /obj/item/stock_parts/cell/ammo/ecp
@@ -517,11 +517,11 @@
 	desc = "A Wattz 1000 Sports Edition that was tampered with by the headscribe XAL, \
 		its body was given a white finish in honor of his partner and also augmented so its cell feeds on radiation decay, \
 		a relationship is made of ups and down after all. The name 'Sida' is etched along the side of its hip."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	icon_state = "sida"
 	item_state = "laser-pistol"
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/pistol/wattzs)
 	cell_type = /obj/item/stock_parts/cell/ammo/breeder
 	can_remove = FALSE
@@ -544,9 +544,9 @@
 	name = "wattz 2000"
 	desc = "Wattz 2000 Laser Rifle. Uses micro fusion cells for more powerful lasers, and an extended barrel for additional range."
 	icon = 'icons/obj/guns/energy.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "wattz2000"
 	item_state = "wattz2k"
 	ammo_type = list(/obj/item/ammo_casing/energy/wattz2k/hitscan)
@@ -563,9 +563,9 @@
 /obj/item/gun/energy/laser/wattz2k/extended
 	name = "wattz 2000e"
 	desc = "This Wattz 2000 laser rifle has had its recharging system upgraded and a special recycling chip installed that reduces the drain on the micro fusion cell by 50%."
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	item_state = "sniper_rifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/wattz2k/extended/hitscan)
 	cell_type = /obj/item/stock_parts/cell/ammo/mfc
@@ -581,10 +581,10 @@
 /obj/item/gun/energy/laser/wattz2ks
 	name = "wattz 2000s"
 	desc = "The Postwar Unicorn of laser rifles, The Wattz 2000 Sports Edition was designed for professional hunting - featuring a state-of-the-art self-charging system that has still endured two hundred years later."
-	icon = 'icons/fallout/objects/guns/energy.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "wattz2ks"
 	item_state = "sniper_rifle"
 	ammo_type = list(/obj/item/ammo_casing/energy/wattz2ks/hitscan)
@@ -605,7 +605,7 @@
 /obj/item/gun/energy/laser/aer9
 	name = "\improper AER9 laser rifle"
 	desc = "A sturdy pre-war laser rifle. Emits beams of concentrated light to kill targets. Fast firing, but not very powerful."
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "aer9"
 	item_state = "aer12new"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan)
@@ -636,10 +636,10 @@
 	name = "\improper Hot-wired AER10 laser rifle"
 	desc = "A pre-war laser rifle prototype that has seen better day, known as a failed attempt at competing with the wattz 2000. Part of it's grip seems broken along it's barrel, and it has cloth wrapped around it's stock and grip."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan/focused)
-	icon = 'icons/fallout/objects/guns/energy.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "hotwiredlaser"
 	item_state = "hotwiredlaser"
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -711,8 +711,8 @@
 /obj/item/gun/energy/laser/aer12
 	name = "\improper AER12 laser rifle"
 	desc = "A cutting-edge, pre-war laser rifle. Its focusing crystal array is housed in gold alloy, making it difficult to maintain."
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "aer12new"
 	item_state = "aer12new"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/aer12/hitscan)

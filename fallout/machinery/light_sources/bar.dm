@@ -4,7 +4,7 @@
 	name = "bar sign"
 	icon_state = "blue"
 	base_state = "blue"
-	icon = 'icons/fallout/machines/64x32.dmi'
+	icon = 'icons/machines/64x32.dmi'
 	bound_width = 64
 	fitting = "bulb"
 	brightness = 4
@@ -52,7 +52,7 @@
 	name = "Kebabtown sign"
 	icon_state = "Kebab"
 	base_state = "Kebab"
-	icon = 'icons/fallout/objects/structures/kebabtown.dmi'
+	icon = 'icons/obj/structures/kebabtown.dmi'
 	density = 1
 	desc = "So awful..."
 	light_color = LIGHT_COLOR_YELLOW
@@ -61,7 +61,7 @@
 	name = "Kebabtown"
 	icon_state = "kebab_sign"
 	base_state = "kebab_sign"
-	icon = 'icons/fallout/objects/structures/kebabtown.dmi'
+	icon = 'icons/obj/structures/kebabtown.dmi'
 	desc = "So awful..."
 	light_color = LIGHT_COLOR_YELLOW
 
@@ -69,7 +69,7 @@
 	name = "Eastwood sign"
 	icon_state = "Eastwood"
 	base_state = "Eastwood"
-	icon = 'icons/fallout/objects/structures/kebabtown.dmi'
+	icon = 'icons/obj/structures/kebabtown.dmi'
 	density = 1
 	desc = "A sign marking the Eastwood Motel. It's remarkably fancy."
 	light_color = LIGHT_COLOR_YELLOW
@@ -78,7 +78,7 @@
 	name = "Eastwood"
 	icon_state = "eastwood_sign"
 	base_state = "eastwood_sign"
-	icon = 'icons/fallout/objects/structures/kebabtown.dmi'
+	icon = 'icons/obj/structures/kebabtown.dmi'
 	desc = "A sign marking the Eastwood Motel. It's remarkably fancy.."
 	light_color = LIGHT_COLOR_YELLOW
 
@@ -86,7 +86,7 @@
 	name = "Chiken Ranch sign"
 	icon_state = "chiken_ranch"
 	base_state = "chiken_ranch"
-	icon = 'icons/fallout/objects/structures/chiken_ranch.dmi'
+	icon = 'icons/obj/structures/chiken_ranch.dmi'
 	density = 1
 	desc = "Where the west is still wild!"
 	light_color = LIGHT_COLOR_PINK
@@ -96,7 +96,7 @@
 	icon_state = "heaven"
 	base_state = "heaven"
 	desc = "A neon sign advertising Heaven's Night in a relaxing hue."
-	icon = 'icons/fallout/objects/structures/heaven.dmi'
+	icon = 'icons/obj/structures/heaven.dmi'
 	light_color = LIGHT_COLOR_PINK
 
 /obj/machinery/light/sign/crimson
@@ -104,7 +104,7 @@
 	icon_state = "crimson"
 	base_state = "crimson"
 	desc = "A lit sign advertising Crimson Caravan - the wasteland trading conglomerate."
-	icon = 'icons/fallout/objects/structures/crimson.dmi'
+	icon = 'icons/obj/structures/crimson.dmi'
 	brightness = 3
 	light_color = LIGHT_COLOR_RED
 
@@ -113,6 +113,6 @@
 	icon_state = "shed"
 	base_state = "shed"
 	desc = "A crude plate sign advertising Trading Shed - a shack of automated vendors."
-	icon = 'icons/fallout/objects/structures/shed.dmi'
+	icon = 'icons/obj/structures/shed.dmi'
 	brightness = 3
 	light_color = LIGHT_COLOR_YELLOW

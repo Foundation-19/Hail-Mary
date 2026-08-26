@@ -6,9 +6,9 @@ GLOBAL_LIST_INIT(recent_primers, list())
 // HOMEMADE BOMB TEMPLATE
 /obj/item/grenade/homemade
 	name = "home-made bomb template "
-	icon = 'icons/fallout/objects/guns/explosives.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/special_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/special_righthand.dmi'
+	icon = 'icons/obj/guns/explosives.dmi'
+	lefthand_file = 'icons/onmob/weapons/special_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/special_righthand.dmi'
 	item_state = "ied"
 	w_class = WEIGHT_CLASS_SMALL
 	flags_1 = CONDUCT_1
@@ -158,9 +158,9 @@ GLOBAL_LIST_INIT(recent_primers, list())
 /obj/item/reagent_containers/food/drinks/bottle/molotov
 	name = "molotov cocktail"
 	desc = "A empty bottle with a rag in it. Needs to be filled with a flammable liquid before being lit on fire and chucked at someone you don't like."
-	icon = 'icons/fallout/objects/guns/explosives.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/special_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/special_righthand.dmi'
+	icon = 'icons/obj/guns/explosives.dmi'
+	lefthand_file = 'icons/onmob/weapons/special_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/special_righthand.dmi'
 	icon_state = "molotov"
 	item_state = "ied"
 	list_reagents = list()

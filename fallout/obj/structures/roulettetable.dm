@@ -2,7 +2,7 @@
 /obj/structure/table/roulette
 	name = "roulette table"
 	desc = "A table with a roulette wheel. The wheel is of a 'single zero' design."
-	icon = 'icons/fallout/machines/roulette_table.dmi'
+	icon = 'icons/machines/roulette_table.dmi'
 	icon_state = "roulette"
 	layer = TABLE_LAYER
 	smooth = SMOOTH_FALSE

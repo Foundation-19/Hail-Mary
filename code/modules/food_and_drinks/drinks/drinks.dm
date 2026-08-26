@@ -527,7 +527,7 @@
 /obj/item/reagent_containers/food/drinks/flask/coffeepot
 	name = "coffee pot"
 	desc = "A pot used in making coffee."
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "coffeepot"
 	custom_materials = list(/datum/material/iron=250)
 	volume = 60
@@ -537,7 +537,7 @@
 /obj/item/reagent_containers/food/drinks/flask/teapot
 	name = "teapot"
 	desc = "A kettle for boiling and pouring water for tea."
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "teapot"
 	custom_materials = list(/datum/material/glass=250)
 	volume = 60

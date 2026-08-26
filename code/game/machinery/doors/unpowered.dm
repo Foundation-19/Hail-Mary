@@ -2,7 +2,7 @@
 // Unpowered being as the name says, simple mechanical doors. Works exactly like airlocks, and less space age, so better.
 
 /obj/machinery/door/unpowered
-	icon = 'icons/fallout/structures/doors.dmi'
+	icon = 'icons/structures/doors.dmi'
 	armor = ARMOR_VALUE_LIGHT
 	autoclose = 5 SECONDS // Difficulty: Monkey to reduce amount of secure doors left open.
 	max_integrity = 500

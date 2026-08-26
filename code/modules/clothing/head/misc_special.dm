@@ -358,8 +358,8 @@
 /obj/item/clothing/head/coyote
 	name = "Coyote Tophat"
 	desc = "A tophat made of coyote fur, weird."
-	mob_overlay_icon = 'fallout/icons/objects/head.dmi'
-	icon = 'fallout/icons/objects/hats.dmi'
+	mob_overlay_icon = 'icons/obj/head.dmi'
+	icon = 'icons/obj/hats.dmi'
 	icon_state = "tophat"
 	item_state = "tophat"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet

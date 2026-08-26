@@ -4,7 +4,7 @@
 /obj/item/gun/ballistic/automatic/x9	//will be adminspawn only so ERT or something can use them
 	name = "\improper X9 Assault Rifle"
 	desc = "A rather old design of a cheap, reliable assault rifle made for combat against unknown enemies. Uses 5.56mm ammo."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "x9"
 	item_state = "arg"
 	slot_flags = 0
@@ -18,7 +18,7 @@
 
 /obj/item/ammo_box/magazine/toy/x9
 	name = "foam force X9 magazine"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "toy9magazine"
 	max_ammo = 30
 	multiple_sprites = 2
@@ -27,7 +27,7 @@
 /obj/item/gun/ballistic/automatic/x9/toy
 	name = "\improper Foam Force X9"
 	desc = "An old but reliable assault rifle made for combat against unknown enemies. Appears to be hastily converted. Ages 8 and up."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "toy9"
 	can_suppress = 0
 	obj_flags = 0
@@ -58,7 +58,7 @@
 
 /obj/item/ammo_box/magazine/toy/x9
 	name = "foam force X9 magazine"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "toy9magazine"
 	max_ammo = 30
 	multiple_sprites = 2
@@ -67,7 +67,7 @@
 /obj/item/gun/ballistic/automatic/x9/toy
 	name = "\improper Foam Force X9"
 	desc = "An old but reliable assault rifle made for combat against unknown enemies. Appears to be hastily converted. Ages 8 and up."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "toy9"
 	can_suppress = 0
 	obj_flags = 0
@@ -121,7 +121,7 @@
 
 /obj/item/ammo_box/magazine/flechette
 	name = "flechette magazine (armor piercing)"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "flechettemag"
 	ammo_type = /obj/item/ammo_casing/caseless/flechetteap
 	caliber = "flechette"
@@ -137,7 +137,7 @@
 /obj/item/gun/ballistic/automatic/flechette
 	name = "\improper CX Flechette Launcher"
 	desc = "A flechette launching machine pistol with an unconventional bullpup frame."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "flechettegun"
 	item_state = "gun"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -187,7 +187,7 @@
 *//////////////////////////////////////////////////////////////
 /obj/item/ammo_box/magazine/toy/AM4B
 	name = "foam force AM4-B magazine"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "AM4MAG-60"
 	max_ammo = 60
 	multiple_sprites = 0
@@ -196,7 +196,7 @@
 /obj/item/gun/ballistic/automatic/AM4B
 	name = "AM4-B"
 	desc = "A relic from a bygone age. Nobody quite knows why it's here. Has a polychromic coating."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "AM4"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/toy/AM4B
@@ -214,7 +214,7 @@
 
 /obj/item/gun/ballistic/automatic/AM4B/update_overlays()
 	. = ..()
-	var/mutable_appearance/body_overlay = mutable_appearance('fallout/icons/obj/guns/cit_guns.dmi', "AM4-Body")
+	var/mutable_appearance/body_overlay = mutable_appearance('icons/obj/guns/cit_guns.dmi', "AM4-Body")
 	if(body_color)
 		body_overlay.color = body_color
 	. += body_overlay
@@ -239,7 +239,7 @@
 
 /obj/item/ammo_box/magazine/toy/AM4C
 	name = "foam force AM4-C magazine"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "AM4MAG-32"
 	max_ammo = 32
 	multiple_sprites = 0
@@ -248,7 +248,7 @@
 /obj/item/gun/ballistic/automatic/AM4C
 	name = "AM4-C"
 	desc = "A Relic from a bygone age. This one seems newer, yet less effective."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "AM4C"
 	item_state = "arg"
 	mag_type = /obj/item/ammo_box/magazine/toy/AM4C

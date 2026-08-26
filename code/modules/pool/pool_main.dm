@@ -225,14 +225,14 @@
 
 /turf/open/pool/channel
 	name = "channel"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond1"
 	sunlight_state = SUNLIGHT_SOURCE
 	dir = NORTHWEST
 
 /turf/open/pool/channeldark
 	name = "channel"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond1"
 	sunlight_state = NO_SUNLIGHT
 	dir = NORTHWEST

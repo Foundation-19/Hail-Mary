@@ -3,7 +3,7 @@
 /obj/vehicle/ridden/motorcycle/buggy
 	name = "dune buggy"
 	desc = "An 80s war buggy."
-	icon = 'icons/fallout/vehicles/centeredsmaller.dmi'
+	icon = 'icons/vehicles/centeredsmaller.dmi'
 	icon_state = "buggy_dune"
 	layer = VEHICLE_FRAME_LAYER
 	anchored = FALSE
@@ -114,42 +114,42 @@ obj/vehicle/ridden/motorcycle/buggy/user_unbuckle_mob(mob/living/buckled_mob, mo
 /obj/item/key/buggy
 	name = "car key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 
 /obj/item/key/buggy/tugbug
 	name = "Tugbug key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key"
 
 /obj/item/key/buggy/greenmachine
 	name = "Green Machine key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key-bike-g"
 
 /obj/item/key/buggy/rustbucket
 	name = "Rustbucket key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key-buggy-b"
 
 /obj/item/key/buggy/rezrocket
 	name = "Fender Bender key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key-buggy-r"
 
 /obj/item/key/buggy/bluebird
 	name = "Bluebird key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key-bike-b"
 
 /obj/item/key/buggy/hotrod
 	name = "Hotrod key"
 	desc = "A keyring with a small steel key.<br>By the look of the key cuts, it likely belongs to an automobile."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key-bike-y"
 
 /obj/item/key/buggy/New()

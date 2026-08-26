@@ -6,7 +6,7 @@
 /obj/structure/chalkboard
 	name = "chalkboard"
 	desc = "A classic chalkboard for various activities involving writing and drawing.<br>Don't eat the chalk."
-	icon = 'icons/fallout/machines/64x32.dmi'
+	icon = 'icons/machines/64x32.dmi'
 	icon_state = "board_clean"
 //	flags = FPRINT
 	density = 0

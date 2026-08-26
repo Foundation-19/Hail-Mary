@@ -249,7 +249,7 @@
 /obj/item/clothing/glasses/f13/sunglasses
 	name = "sunglasses"
 	desc = "Makes the strong desert sun a lot more bearable. Some protection against blinding lights is a bonus."
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	icon_state = "sun"
 	item_state = "sunglasses"
 	darkness_view = 1
@@ -1101,7 +1101,7 @@ added to end of campfire/attackby
 // New roof for tent
 /turf/open/floor/plating/f13/outside/roof/tent_leather 
 	name = "leather tent roof"
-	icon = 'icons/fallout/turfs/walls/tents.dmi'
+	icon = 'icons/turf/walls/tents.dmi'
 	icon_state = "leather_roof"
 
 // shading under the pavillon
@@ -1169,7 +1169,7 @@ added to end of campfire/attackby
 
 // // -------------- OUTSIDE DEAD DIRT ----------------- the shade used in the map, nature free, stamped dirt flooring
 /turf/open/indestructible/ground/inside/dirt/stamped
-	icon = 'icons/fallout/turfs/dirt.dmi'
+	icon = 'icons/turf/dirt.dmi'
 	slowdown = 0.1
 	flags_1 = null
 
@@ -1253,8 +1253,8 @@ added to end of campfire/attackby
 	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
 	icon_state = "shoes_sandals"
 	item_state = "shoes_sandals"
-//	icon = 'icons/fallout/clothing/shoes.dmi'
-//	mob_overlay_icon = 'icons/fallout/onmob/clothes/shoe.dmi'
+//	icon = 'icons/clothing/shoes.dmi'
+//	mob_overlay_icon = 'icons/onmob/clothes/shoe.dmi'
 //	icon_state = "legion_sandals"
 //	item_state = "legion_sandals"
 	strip_delay = 100

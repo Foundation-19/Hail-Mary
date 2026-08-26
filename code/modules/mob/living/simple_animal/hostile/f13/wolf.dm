@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/wolf
 	name = "feral dog"
 	desc = "The dogs that survived the Great War are a larger, and tougher breed, size of a wolf.<br>This one seems to be severely malnourished and its eyes are bloody red."
-	icon = 'icons/fallout/mobs/animals/dogs.dmi'
+	icon = 'icons/mob/animals/dogs.dmi'
 	icon_state = "dog_feral"
 	icon_living = "dog_feral"
 	icon_dead = "dog_feral_dead"

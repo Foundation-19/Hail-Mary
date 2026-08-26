@@ -1,7 +1,7 @@
 /obj/structure/cargocrate
 	name = "cargo crate"
 	desc = "A rusty cargo crate."
-	icon = 'icons/fallout/cargocrate.dmi'
+	icon = 'icons/cargocrate.dmi'
 	icon_state = "cargocrate"
 	anchored = 1
 	density = 1

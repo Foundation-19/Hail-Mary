@@ -15,7 +15,7 @@
 /mob/living/simple_animal/hostile/handy
 	name = "mr. handy"
 	desc = "A crazed pre-war household assistant robot, armed with a cutting saw."
-	icon = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	icon = 'icons/mob/robots/wasterobots.dmi'
 	icon_state = "handy"
 	icon_living = "handy"
 	icon_dead = "robot_dead"
@@ -277,7 +277,7 @@
 /mob/living/simple_animal/hostile/handy/liberator
 	name = "liberator"
 	desc = "A small pre-War drone used by the People's Liberation Army."
-	icon = 'icons/fallout/mobs/robots/weirdrobots.dmi'
+	icon = 'icons/mob/robots/weirdrobots.dmi'
 	icon_state = "liberator"
 	icon_living = "leberator"
 	icon_dead = "liberator_d"
@@ -415,7 +415,7 @@
 /mob/living/simple_animal/hostile/handy/protectron
 	name = "protectron"
 	desc = "A pre-war security robot armed with deadly lasers."
-	icon = 'icons/fallout/mobs/robots/protectrons.dmi'
+	icon = 'icons/mob/robots/protectrons.dmi'
 	icon_state = "protectron"
 	icon_living = "protectron"
 	icon_dead = "protectron_dead"
@@ -529,7 +529,7 @@
 /mob/living/simple_animal/pet/dog/protectron
 	name = "Trading Protectron"
 	desc = "A standard RobCo RX2 V1.16.4 \"Trade-o-Vend\", loaded with Trade protocols.<br>Looks like it was kept operational for an indefinite period of time. Its body is covered in cracks and dents of various sizes.<br>As it has been repaired countless times, it's amazing the machine is still functioning at all."
-	icon = 'icons/fallout/mobs/robots/protectrons.dmi'
+	icon = 'icons/mob/robots/protectrons.dmi'
 	icon_state = "protectron_trade"
 	icon_living = "protectron_trade"
 	icon_dead = "protectron_trade_dead"

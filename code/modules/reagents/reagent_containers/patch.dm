@@ -54,7 +54,7 @@
 	name = "Jet"
 	desc = "A highly addictive meta-amphetamine that produces a fast-acting, intense euphoric high on the user."
 	list_reagents = list(/datum/reagent/drug/jet = 10)
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_jet"
 
 
@@ -64,7 +64,7 @@
 /obj/item/reagent_containers/pill/patch/turbo
 	name = "Turbo"
 	desc = "A chem that vastly increases the user's reflexes and slows their perception of time."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_turbo"
 	list_reagents = list(/datum/reagent/drug/turbo = 5)
 
@@ -75,7 +75,7 @@
 /obj/item/reagent_containers/pill/healingpowder // 50hp over 50 seconds.
 	name = "Healing powder"
 	desc = "A powder used to heal physical wounds derived from ground broc flowers and xander roots, commonly used by tribals."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_healingpowder"
 	list_reagents = list(/datum/reagent/medicine/healing_powder = 10)
 	self_delay = 5
@@ -100,7 +100,7 @@
 	name = "Homebrew powder"
 	desc = "A mysterious mix of powders."
 	list_reagents = null
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_healingpowder"
 	self_delay = 5
 	color = COLOR_PALE_GREEN_GRAY
@@ -111,7 +111,7 @@
 /obj/item/reagent_containers/pill/patch/healpoultice // 100hp over 50 seconds. a bit more potent than just bitters.
 	name = "Healing poultice"
 	desc = "A concoction of broc flower, cave fungus, agrave fruit and xander root."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	list_reagents = list(/datum/reagent/medicine/healing_powder/poultice = 10, /datum/reagent/medicine/healing_powder = 10, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5)
 	icon_state = "patch_healingpoultice"
 	self_delay = 5
@@ -122,7 +122,7 @@
 /obj/item/reagent_containers/pill/bitterdrink // 50hp over 25 seconds
 	name = "Bitter drink"
 	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_bitterdrink"
 	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
 	self_delay = 5
@@ -144,7 +144,7 @@
 /obj/item/reagent_containers/pill/patch/hydra
 	name = "Hydra"
 	desc = "A potent blend of herbs and plants used by Tribals and Legionnaires alike to quickly close wounds."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_hydra"
 	list_reagents = list(/datum/reagent/medicine/hydra = 20)
 	self_delay = 0
@@ -155,7 +155,7 @@
 /obj/item/reagent_containers/pill/animal_salve
 	name = "Animal Healing Salve"
 	desc = "A thick paste made from xander roots and punga juice, specially formulated to treat injured animals and livestock. Apply directly to the animal. The salve continues to work over time."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_healingpoultice"
 	apply_type = PATCH
 	apply_method = "apply"

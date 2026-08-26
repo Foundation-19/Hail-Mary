@@ -6,7 +6,7 @@
 	icon_state = "blaster"
 	name = "pump-action particle blaster"
 	desc = "A pump action energy gun that requires manual racking to charge supercapacitors."
-	icon = 'fallout/icons/obj/guns/pumpactionblaster.dmi'
+	icon = 'icons/obj/guns/pumpactionblaster.dmi'
 	cell_type = /obj/item/stock_parts/cell/pumpaction
 	var/recentpump = 0 // to prevent spammage
 
@@ -116,8 +116,8 @@
 	name = "pump-action particle blaster"
 	desc = "A non-lethal pump-action particle blaster with an overdrive firing mode. Requires manual racking after every shot to charge an integral bank of supercapacitors."
 	item_state = "particleblaster"
-	lefthand_file = 'fallout/icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'fallout/icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler/pump, /obj/item/ammo_casing/energy/disabler/slug)
 	ammo_x_offset = 2
 	modifystate = 1
@@ -129,8 +129,8 @@
 	name = "particle defender"
 	desc = "A pump-action particle blaster with a unique particle focusing chamber optimized for decisive de-escalation. Requires manual racking after every shot to charge an integral bank of supercapacitors."
 	item_state = "particleblaster"
-	lefthand_file = 'fallout/icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'fallout/icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/pump, /obj/item/ammo_casing/energy/laser/pump)
 	ammo_x_offset = 2
 	modifystate = 1

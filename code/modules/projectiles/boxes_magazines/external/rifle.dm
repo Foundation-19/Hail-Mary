@@ -30,7 +30,7 @@
 
 /obj/item/ammo_box/magazine/autopipe
 	name = "pipe rifle ammo belt (.357-ish)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "autopipe_belt"
 	caliber = AUTOPIPE_AMMO_CALIBERS
 	ammo_type = /obj/item/ammo_casing/a357

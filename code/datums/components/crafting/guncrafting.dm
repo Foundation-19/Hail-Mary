@@ -460,7 +460,7 @@
 /obj/machinery/workbench/forge
 	name = "metalworking bench"
 	desc = "A workbench with a drill press, a makeshift blowtorch setup, and various tools for making crude weapons and tools."
-	icon = 'icons/fallout/machines/64x32.dmi'
+	icon = 'icons/machines/64x32.dmi'
 	icon_state = "bench_metal"
 	bound_width = 64
 	machine_tool_behaviour = list(TOOL_WORKBENCH, TOOL_FORGE)

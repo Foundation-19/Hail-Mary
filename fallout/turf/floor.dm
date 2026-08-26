@@ -6,7 +6,7 @@
 	icon_state = "floor"
 	icon_regular_floor = "floor"
 	icon_plating = "plating"
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 
 // -------------------------------------------------------------------------
 // Vault floor tile restoration
@@ -32,7 +32,7 @@
 
 /turf/open/floor/f13/wood
 	icon_state = "housewood1"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	floor_tile = /obj/item/stack/tile/f13_wood
 	icon_plating = "housebase"
 //	step_sounds = list("human" = "woodfootsteps")
@@ -115,7 +115,7 @@
 
 /turf/open/floor/f13/paintwall
 	name = "paint wall"
-	icon = 'icons/fallout/turfs/walls/tunnel.dmi'
+	icon = 'icons/turf/walls/tunnel.dmi'
 	icon_state = "tunnel0"
 	icon_type_smooth = "tunnel"
 	opacity = TRUE

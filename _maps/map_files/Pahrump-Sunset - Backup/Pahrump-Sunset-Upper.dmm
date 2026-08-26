@@ -2416,7 +2416,7 @@
 /obj/structure/table,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -9089,7 +9089,7 @@
 "noa" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -15399,7 +15399,7 @@
 /obj/structure/table,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -15632,7 +15632,7 @@
 /obj/structure/table/wood/fancy/black,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},

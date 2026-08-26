@@ -15,9 +15,9 @@
 /obj/item/gun/ballistic/rifle
 	name = "rifle template"
 	desc = "Should not exist"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "shotgun"
 	item_state = "shotgun"
 	weapon_class = WEAPON_CLASS_RIFLE
@@ -157,7 +157,7 @@
 /obj/item/gun/ballistic/rifle/repeater/trail/tribal
 	name = "rainstick"
 	desc = "A sactified .44 lever action rifle, coated in detailed markings and a carved bead chain that sounds like rain."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "trailcarbinet"
 	item_state = "trailcarbine"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube44
@@ -204,7 +204,7 @@
 /obj/item/gun/ballistic/rifle/repeater/brush/tribal
 	name = "medicine stick"
 	desc = "A heavy .45-70 Lever-action rifle. Beautiful paintings coat the fine weapon, a bead that whistles when spun hangs from a hand woven cord."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "brushgunt"
 	item_state = "brushgun"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/tube4570
@@ -389,7 +389,7 @@
 /obj/item/gun/ballistic/rifle/hunting/paciencia
 	name = "Paciencia"
 	desc = "A modified .30-06 hunting rifle with a reduced magazine but an augmented receiver. A Mexican flag is wrapped around the stock. You only have three shots- make them count."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "paciencia"
 	item_state = "paciencia"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/hunting/paciencia
@@ -461,7 +461,7 @@
 	name = "Lee-Enfield rifle"
 	desc = "A british rifle sometimes known as the SMLE. It seems to have been re-chambered in .308. Can be sawn off."
 	sawn_desc = "This accursed abomination was a common modification for trench warfare. Now some waster is likely using it for close quarters."
-	icon = 'fallout/icons/objects/rifles.dmi'
+	icon = 'icons/obj/rifles.dmi'
 	icon_state = "smle"
 	item_state = "smle"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enfield
@@ -496,7 +496,7 @@
 /obj/item/gun/ballistic/rifle/enfield/jungle
 	name = "Jungle Carbine"
 	desc = "The Rifle No. 5 Mk I, made by the Australian army at Lithgow Small Arms in Australia, its a shortened Enfield used for secondary service in the Australian and New zealand army for jungle warfare other then the L1A1 battle rifle,  made from an SMLE its bolt action holds 10 rounds and sadly cannot fit a scope."
-	icon = 'fallout/icons/objects/rifles.dmi'
+	icon = 'icons/obj/rifles.dmi'
 	icon_state = "junglecarbine"
 	item_state = "308"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction/enfield
@@ -521,12 +521,12 @@
 /obj/item/gun/ballistic/rifle/antique/gras
 	name = "Gras"
 	desc = "A very old black powder cartridge gun of French lineage. How has it gotten here? Or survived this long?"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "gras"
 	item_state = "308"
 	mag_type = /obj/item/ammo_box/magazine/internal/gras
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_T5 // will see if it's too much
@@ -562,7 +562,7 @@
 		and barrel capable of using both 5mm and 5.56mm rifle ammunition with reasonable success. \
 		The magazine is welded to the frame, and the loading port angled <i>just enough</i> to make stripper clips not work. \
 		Apparently these 'features' to the design, being on every instance of this gun."
-	icon = 'fallout/icons/objects/churroguns.dmi'
+	icon = 'icons/obj/churroguns.dmi'
 	icon_state = "salvaged_eastern_rifle"
 	item_state = "marksman"
 	mag_type = /obj/item/ammo_box/magazine/internal/salvaged_eastern_rifle
@@ -651,13 +651,13 @@
 /obj/item/gun/ballistic/rifle/mag/antimateriel
 	name = "anti-materiel rifle"
 	desc = "The Hecate II is a heavy, high-powered bolt action sniper rifle chambered in .50 caliber ammunition. Lacks an iron sight."
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
 	icon_state = "amr"
 	item_state = "amr"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	lefthand_file = 'icons/fallout/onmob/weapons/64x64_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/64x64_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/amr
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
@@ -676,13 +676,13 @@
 /obj/item/gun/ballistic/rifle/mag/boys
 	name = "Boys anti-tank rifle"
 	desc = "A heavy british rifle boasting a strong kick and an even stronger punch."
-	icon = 'icons/fallout/objects/guns/longguns.dmi'
+	icon = 'icons/obj/guns/longguns.dmi'
 	icon_state = "boys"
 	item_state = "boys"
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
-	lefthand_file = 'icons/fallout/onmob/weapons/64x64_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/64x64_righthand.dmi'
 	mag_type = /obj/item/ammo_box/magazine/boys
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY

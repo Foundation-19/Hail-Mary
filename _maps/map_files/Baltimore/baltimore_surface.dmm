@@ -29445,7 +29445,7 @@
 "kBj" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -37831,7 +37831,7 @@
 "nvG" = (
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#669999";
@@ -44100,7 +44100,7 @@
 /obj/item/circuitboard/machine/ore_redemption,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 15
@@ -44726,7 +44726,7 @@
 	},
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 29;
@@ -48450,7 +48450,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#669999";
@@ -50015,7 +50015,7 @@
 	},
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -53202,7 +53202,7 @@
 /obj/structure/rack/large/shelf,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 25;
@@ -54686,7 +54686,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#669999";
@@ -56135,7 +56135,7 @@
 "tSn" = (
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#669999";
@@ -56556,7 +56556,7 @@
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#669999";
@@ -61172,7 +61172,7 @@
 "vBP" = (
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 15
@@ -65880,7 +65880,7 @@
 "xlS" = (
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
+	icon = 'icons/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#669999";

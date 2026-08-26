@@ -13,9 +13,9 @@
 /obj/item/clothing/suit/storage/trek/ds9
 	name = "Padded Overcoat"
 	desc = "The overcoat worn by all officers of the 2380s."
-	icon = 'fallout/icons/obj/clothing/trek_item_icon.dmi'
+	icon = 'icons/obj/clothing/trek_item_icon.dmi'
 	icon_state = "trek_ds9_coat"
-	mob_overlay_icon = 'fallout/icons/mob/clothing/trek_mob_icon.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/trek_mob_icon.dmi'
 	item_state = "trek_ds9_coat"
 	body_parts_covered = CHEST|GROIN|ARMS
 	mutantrace_variation = STYLE_DIGITIGRADE
@@ -43,8 +43,8 @@
 /obj/item/clothing/suit/storage/fluff/fedcoat
 	name = "Federation Uniform Jacket"
 	desc = "A uniform jacket from the United Federation. Set phasers to awesome."
-	icon = 'fallout/icons/obj/clothing/trek_item_icon.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/trek_mob_icon.dmi'
+	icon = 'icons/obj/clothing/trek_item_icon.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/trek_mob_icon.dmi'
 	icon_state = "fedcoat"
 	item_state = "fedcoat"
 	mutantrace_variation = STYLE_DIGITIGRADE
@@ -109,8 +109,8 @@
 /obj/item/clothing/suit/storage/fluff/modernfedcoat
 	name = "Modern Federation Uniform Jacket"
 	desc = "A modern uniform jacket from the United Federation."
-	icon = 'fallout/icons/obj/clothing/trek_item_icon.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/trek_mob_icon.dmi'
+	icon = 'icons/obj/clothing/trek_item_icon.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/trek_mob_icon.dmi'
 	icon_state = "fedmodern"
 	item_state = "fedmodern"
 	mutantrace_variation = STYLE_DIGITIGRADE
@@ -141,9 +141,9 @@
 	name = "Federation Officer's Cap"
 	armor = ARMOR_VALUE_LIGHT
 	desc = "An officer's cap that demands discipline from the one who wears it."
-	icon = 'fallout/icons/obj/clothing/trek_item_icon.dmi'
+	icon = 'icons/obj/clothing/trek_item_icon.dmi'
 	icon_state = "fedcapofficer"
-	mob_overlay_icon = 'fallout/icons/mob/clothing/trek_mob_icon.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/trek_mob_icon.dmi'
 	item_state = "fedcapofficer"
 
 	//Variants

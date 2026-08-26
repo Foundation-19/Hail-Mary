@@ -1,10 +1,10 @@
 // In this document: Axes, Spears, Heavy clubs, Sledgehammers, Advanced twohanded weapons
 
 /obj/item/twohanded // Two handed template. Slower melee speed than onehanders.
-	icon = 'icons/fallout/objects/melee/twohanded.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee2h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee2h_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/melee/twohanded.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee2h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee2h_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	attack_speed = CLICK_CD_MELEE * 1.15 //9.2
 	w_class = WEIGHT_CLASS_BULKY
 	slot_flags = ITEM_SLOT_BACK
@@ -344,9 +344,9 @@
 /obj/item/twohanded/spearaxe
 	name = "deathclaw spear-axe"
 	desc = "An exceptionally crafted, agile spear-axe with a light shaft wrapped in deathclaw leather. It is tipped with a claw from a terrifying beast and well weighted for single-hand use. Attacks fast."
-	icon = 'icons/fallout/objects/melee/twohanded.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee2h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee2h_righthand.dmi'
+	icon = 'icons/obj/melee/twohanded.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee2h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee2h_righthand.dmi'
 	icon_state = "spearaxe"
 	icon_prefix = "spearaxe"
 	wielded_icon = "spearaxe2"
@@ -488,11 +488,11 @@
 /obj/item/twohanded/thermic_lance
 	name = "thermic lance"
 	desc = "A versatile power-welding tool. Useful for cutting apart metal things like airlocks, bars, and probably limbs. Do you know what armor can stop a concentrated blast of superheated plasma? None."
-	icon = 'icons/fallout/objects/melee/twohanded.dmi'
+	icon = 'icons/obj/melee/twohanded.dmi'
 	icon_state = "thermiclance"
 	icon_prefix = "thermiclance"
-	lefthand_file = 'icons/fallout/onmob/weapons/64x64_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/64x64_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/64x64_righthand.dmi'
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	damtype = "fire"
@@ -534,9 +534,9 @@
 /obj/item/melee/transforming/energy/axe/protonaxe
 	name = "proton axe"
 	desc = "The experimental proton axe resembles a futuristic war-axe with a glowing blue blade of electrical energy at its head."
-	icon = 'icons/fallout/objects/melee/twohanded.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee2h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee2h_righthand.dmi'
+	icon = 'icons/obj/melee/twohanded.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee2h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee2h_righthand.dmi'
 	icon_state = "protonaxe"
 	icon_state_on = "protonaxe_on"
 	w_class = WEIGHT_CLASS_BULKY
@@ -766,9 +766,9 @@
 /obj/item/twohanded/steelsaw
 	name = "steel saw"
 	desc = "A long, heavy circular saw with reinforced blades, designed for cutting through I-beams."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee2h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee2h_righthand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee2h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee2h_righthand.dmi'
 	icon_state = "steelsaw"
 	item_state = "steelsaw"
 	icon_prefix = "steelsaw"

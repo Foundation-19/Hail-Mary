@@ -5,7 +5,7 @@
 /obj/item/f13/fusion_core
 	name = "fusion core"
 	desc = "A high-density energy cell used to power advanced machinery and faction base generators. Insert it into a generator to restore base power."
-	icon = 'icons/fallout/objects/power_grid/fusion_core.dmi'
+	icon = 'icons/obj/power_grid/fusion_core.dmi'
 	icon_state = "fusion_core"
 	w_class = WEIGHT_CLASS_SMALL
 	/// Whether this core is spent; depleted cores do not power generators.
@@ -30,7 +30,7 @@
 /obj/item/f13/atomic_cell
 	name = "atomic fuel cell"
 	desc = "A Poseidon Energy POS-7R atomic fuel cell: a shielded alloy rod packed with refined fissile material. Poseidon's safety record was not exactly stellar, but this thing puts out more power than a dozen diesel tanks. Handle with care."
-	icon = 'icons/fallout/objects/power_grid/atomic_cell.dmi'
+	icon = 'icons/obj/power_grid/atomic_cell.dmi'
 	icon_state = "fusion_core"
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -56,6 +56,6 @@
 /obj/item/f13/security_module
 	name = "RobCo security module"
 	desc = "A pre-War RobCo Industries access-control board pulled from a terminal casing. Hard-wire it into a generator's control panel with a screwdriver to add personal or faction ID-lock capability. Not exactly plug-and-play."
-	icon = 'icons/fallout/objects/power_grid/fusion_core.dmi'
+	icon = 'icons/obj/power_grid/fusion_core.dmi'
 	icon_state = "fusion_core-dead"
 	w_class = WEIGHT_CLASS_SMALL

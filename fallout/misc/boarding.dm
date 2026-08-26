@@ -1,7 +1,7 @@
 //Fallout 13 boarding simulation
 
 /obj/structure/barricade/wooden/planks
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "board"
 	obj_integrity = 150
 	max_integrity = 150

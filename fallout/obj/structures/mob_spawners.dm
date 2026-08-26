@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 
 /obj/structure/nest/gecko
 	name = "gecko eggs"
-	icon = 'icons/fallout/mobs/nests.dmi'
+	icon = 'icons/mob/nests.dmi'
 	icon_state = "nest_gecko"
 	desc = "A pile of gecko eggs on top of a clay mound."
 	max_mobs = 3

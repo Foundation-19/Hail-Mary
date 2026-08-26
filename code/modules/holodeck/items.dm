@@ -90,7 +90,7 @@
 
 /obj/item/toy/beach_ball/holoball/baseball
 	name = "baseball"
-	icon = 'icons/fallout/objects/crafting/parts.dmi'
+	icon = 'icons/obj/crafting/parts.dmi'
 	icon_state = "Baseball_ball"
 	item_state = "Baseball_ball"
 	desc = "Batter up."

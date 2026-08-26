@@ -2,7 +2,7 @@
 
 /obj/item/projectile/bullet/spinfusor
 	name ="spinfusor disk"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state= "spinner"
 	damage = 30
 
@@ -16,7 +16,7 @@
 	desc = "A magnetic disk designed specifically for the Stormhammer magnetic cannon. Packs a punch."
 	projectile_type = /obj/item/projectile/bullet/spinfusor
 	caliber = "spinfusor"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "disk"
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 15 //still deadly when thrown
@@ -32,7 +32,7 @@
 /obj/item/gun/ballistic/automatic/spinfusor
 	name = "Stormhammer Magnetic Cannon"
 	desc = "An innovative weapon utilizing mag-lev technology to spin up a magnetic fusor and launch it at extreme velocities."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "spinfusor"
 	item_state = "spinfusor"
 	mag_type = /obj/item/ammo_box/magazine/internal/spinfusor
@@ -58,7 +58,7 @@
 
 /obj/item/ammo_box/aspinfusor
 	name = "ammo box (spinfusor disks)"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "spinfusorbox"
 	ammo_type = /obj/item/ammo_casing/caseless/spinfusor
 	w_class = WEIGHT_CLASS_NORMAL

@@ -11,7 +11,7 @@
 /obj/item/metaldetector
 	name = "metal detector"
 	desc = "Detects burried salvage in a 5 tile radius."
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "metaldetect"
 
 /obj/item/metaldetector/attack_self(mob/user)
@@ -43,25 +43,25 @@
 
 /obj/item/components
 	name = "crafting items"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/blueprint
 	name = "crafting blueprint"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/prefabs
 	name = "crafting prefabs"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/stack/prefabs
 	name = "crafting prefabs"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(blueprint_fluff, list(
 
 /obj/item/advanced_crafting_components
 	name = "crafting blueprint"
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_TINY
 
@@ -250,7 +250,7 @@ GLOBAL_LIST_INIT(blueprint_fluff, list(
 //salvage
 /obj/item/salvage
 	name = "salvage"
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_NORMAL
 	var/list/Loot = list() //List of items

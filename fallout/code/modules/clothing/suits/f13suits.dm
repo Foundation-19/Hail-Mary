@@ -1,8 +1,8 @@
 /*
 Just leaving this here for quick copy-pasting, for future contributors.
-	icon = 'fallout/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/suit.dmi'
-	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/suit_digi.dmi'
+	icon = 'icons/obj/clothing/suits_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/suit_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/suit_digi_f13.dmi'
 	mutantrace_variation = STYLE_DIGITIGRADE
 	!!If you don't have digi-adapted sprites use `mutantrace_variation = NONE` instead. Should snap legs sprites to planti when related clothing is worn.
 	(unless suit doesn't cover legs in `body_parts_covered` var)
@@ -11,9 +11,9 @@ Just leaving this here for quick copy-pasting, for future contributors.
 /obj/item/clothing/suit/armor/light/duster/goner
 	name = "dev-patched dull trenchcoat"
 	desc = "A non-existent dull trenchcoat."
-	icon = 'fallout/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/suit.dmi'
-	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/suit_digi.dmi'
+	icon = 'icons/obj/clothing/suits_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/suit_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/suit_digi_f13.dmi'
 	icon_state = "goner_suit"
 	item_state = "ro_suit"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 15, "energy" = 5, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)

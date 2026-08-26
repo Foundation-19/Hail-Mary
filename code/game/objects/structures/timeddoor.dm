@@ -1,7 +1,7 @@
 /obj/structure/timeddoor // Used for Fallout bunkers
 	name = "mysterious door"
 	desc = "A weird clicking can be heard coming from within the door"
-	icon = 'icons/fallout/structures/doors.dmi'
+	icon = 'icons/structures/doors.dmi'
 	icon_state = "timedoor"
 	density = TRUE
 	anchored = TRUE
