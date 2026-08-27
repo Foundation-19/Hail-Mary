@@ -133,7 +133,7 @@
 		return
 	if(istype(A, /turf/closed/mineral))
 		mineral_scan_pulse(get_turf(user), range)
-		playsound(src, 'modular_BD2/blacksmith/sound/pickaxe_2.ogg', 70, 1)
+		playsound(src, 'code/modules/smithing/sound/pickaxe_2.ogg', 70, 1)
 
 /obj/item/mining_scanner/prospector/attack_self(mob/user)
 	return
@@ -283,7 +283,7 @@
 	slowdown = 4
 	breakouttime = 1200	//Deciseconds = 30s = 0.5 minute
 	strip_delay = 100
-	var/cuffsound = 'modular_BD2/blacksmith/sound/chain.ogg'
+	var/cuffsound = 'code/modules/smithing/sound/chain.ogg'
 	var/trashtype = null //for disposable cuffs
 
 /obj/item/restraints/legcuffs/ballandchain/attack(mob/living/carbon/C, mob/living/user)
@@ -358,7 +358,7 @@
 	throwforce = THROWING_EFFECTIVE
 	w_class = WEIGHT_CLASS_SMALL
 	sharpness = SHARP_EDGED
-	hitsound = 'modular_BD2/blacksmith/sound/hit_knife.ogg'
+	hitsound = 'code/modules/smithing/sound/hit_knife.ogg'
 
 
 // go for the eyes Boo
@@ -367,7 +367,7 @@
 		return ..()
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 		M.apply_damage(7, BRUTE, BODY_ZONE_HEAD)
-		playsound(M, 'modular_BD2/blacksmith/sound/meatslap.ogg', 80, 1)
+		playsound(M, 'code/modules/smithing/sound/meatslap.ogg', 80, 1)
 		return eyestab(M,user)
 	else
 		return ..()
@@ -437,7 +437,7 @@
 	block_parry_data = /datum/block_parry_data/waki
 	sharpness = SHARP_EDGED
 	item_flags = ITEM_CAN_PARRY
-	hitsound = 'modular_BD2/blacksmith/sound/hit_sword.ogg'
+	hitsound = 'code/modules/smithing/sound/hit_sword.ogg'
 
 /datum/block_parry_data/waki
 	parry_stamina_cost = 50
@@ -497,7 +497,7 @@
 	throwforce = THROWING_POOR
 	wound_bonus = WOUNDING_BONUS_HUGE
 	total_mass = (TOTAL_MASS_MEDIEVAL_WEAPON*1.2)
-	hitsound = 'modular_BD2/blacksmith/sound/hit_mace.ogg'
+	hitsound = 'code/modules/smithing/sound/hit_mace.ogg'
 
 /obj/item/melee/smith/mace/afterattack(mob/living/M, mob/living/user)
 	. = ..()
@@ -604,7 +604,7 @@
 	block_chance = 15
 	block_parry_data = /datum/block_parry_data/smithkatana
 	slot_flags = ITEM_SLOT_BELT
-	hitsound = 'modular_BD2/blacksmith/sound/hit_sword.ogg'
+	hitsound = 'code/modules/smithing/sound/hit_sword.ogg'
 
 /datum/block_parry_data/smithkatana
 	parry_stamina_cost = 50
@@ -763,7 +763,7 @@
 	sharpness = SHARP_NONE
 	slot_flags = ITEM_SLOT_BACK
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON * 4
-	hitsound = 'modular_BD2/blacksmith/sound/hit_mace.ogg'
+	hitsound = 'code/modules/smithing/sound/hit_mace.ogg'
 
 /obj/item/twohanded/smithed/crusher/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
