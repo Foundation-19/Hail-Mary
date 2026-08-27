@@ -95,7 +95,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 /obj/structure/blacksmith/anvil
 	name = "anvil template"
 	desc = "This should not be visible - please file a bug report."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	density = TRUE
 	anchored = TRUE
 	max_integrity = 1000
@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	currentsteps = 0
 	outrightfailchance = initial(outrightfailchance)
 	workpiece_state = FALSE
-	cut_overlay(image(icon= 'modular_BD2/blacksmith/icons/blacksmith.dmi',icon_state="workpiece"))
+	cut_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
 	set_busy(FALSE, null)
 
 /obj/structure/blacksmith/anvil/proc/HandleIngot(obj/item/blacksmith/ingot/workpiece, mob/user)
@@ -176,7 +176,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 		currentquality = initial(currentquality)
 
 		if(workpiece_state == WORKPIECE_PRESENT)
-			add_overlay(image(icon= 'modular_BD2/blacksmith/icons/blacksmith.dmi',icon_state="workpiece"))
+			add_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
 			set_light_on(TRUE)
 
 		qdel(workpiece)

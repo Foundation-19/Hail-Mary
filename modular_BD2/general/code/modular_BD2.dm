@@ -29,7 +29,7 @@
 /obj/item/stack/ore/coal // turns to coke when heated in a Furnace or ORM
 	name = "coal"
 	desc = "Pure coal needs heat-processing to become good fuel."
-	icon = 'modular_BD2/general/icons/stackable_items.dmi'
+	icon = 'icons/obj/stackable_items.dmi'
 	icon_state = "ore_coal"
 	singular_name = "lump of coal"
 	points = 2
@@ -42,7 +42,7 @@
 	name = "coke"
 	desc = "Coke is what you get when you heat-treat coal. It's a good fuel for burning."
 	singular_name = "bag of coke"
-	icon = 'modular_BD2/general/icons/stackable_items.dmi'
+	icon = 'icons/obj/stackable_items.dmi'
 	icon_state = "sheet_coke"
 	custom_materials = null
 	throwforce = 2
@@ -99,7 +99,7 @@ UPDATED CODE TO ALLOW FOR COKE AS FUEL
 	..()
 */
 /* Added
-	icon = 'modular_BD2/general/icons/stackable_items.dmi'
+	icon = 'icons/obj/stackable_items.dmi'
 to the below
 /obj/item/stack/sheet/gold
 /obj/item/stack/sheet/silver
@@ -135,7 +135,7 @@ to the below
 /obj/machinery/autolathe/manual
 	name = "manual lathe"
 	desc = "Produce simple items with manually cranked tools."
-	icon = 'modular_BD2/general/icons/autolathe_primitive.dmi'
+	icon = 'icons/machines/autolathe_primitive.dmi'
 	icon_state = "autolathe"
 	use_power = NO_POWER_USE
 	circuit = /obj/item/circuitboard/machine/autolathe/manual
@@ -354,7 +354,7 @@ to the below
 /obj/machinery/autolathe/military
 	name = "military autolathe"
 	desc = "Ancient technology, still works."
-	icon = 'modular_BD2/general/icons/autolathe_military.dmi'
+	icon = 'icons/machines/autolathe_military.dmi'
 	circuit = /obj/item/circuitboard/machine/autolathe/military
 
 /obj/item/circuitboard/machine/autolathe/military
@@ -365,7 +365,7 @@ to the below
 
 /obj/machinery/autolathe/ammo
 	name = "reloading bench"
-	icon = 'modular_BD2/general/icons/ammo_lathe.dmi'
+	icon = 'icons/ammo_lathe.dmi'
 
 /obj/machinery/autolathe/ammo/attackby(obj/item/O, mob/user, params)
 	if(!busy && !stat)
@@ -448,9 +448,9 @@ to the below
 /obj/item/screwdriver/basic
 	name = "basic screwdriver"
 	desc = "Shoddy workmanship, but the tool is fully functional."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "screwdriver_basic"
 	item_state = "screwdriver_basic"
 	toolspeed = 1.1
@@ -459,9 +459,9 @@ to the below
 /obj/item/wrench/basic
 	name = "wrench (basic)"
 	desc = "No movable parts, just a simple wrench."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "wrench_basic"
 	item_state = "wrench_basic"
 	toolspeed = 1.2
@@ -469,9 +469,9 @@ to the below
 /obj/item/crowbar/basic
 	name = "crowbar"
 	desc = "Made of poor quality steel and has a rough finish, but it does get the job done."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "crowbar_basic"
 	item_state = "crowbar_basic"
 	toolspeed = 1.5
@@ -479,9 +479,9 @@ to the below
 /obj/item/wirecutters/basic
 	name = "basic wirecutters"
 	desc = "Almost sharp cutters, maded of various bits of scrap metal."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "wirecutters_basic"
 	item_state = "wirecutters_basic"
 	toolspeed = 1.3
@@ -490,9 +490,9 @@ to the below
 /obj/item/weldingtool/basic
 	name = "basic welding tool"
 	desc = "Has some small fuel leaks and looks like its just some rusty piece of junk, but somehow it works."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "welder_basic"
 	item_state = "welder_basic"
 	toolspeed = 1.1
@@ -503,9 +503,9 @@ to the below
 /obj/item/wirecutters/prewar
 	name = "wirecutters (prewar)"
 	desc = "High quality steel and precise mechanism."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "wirecutters_prewar"
 	item_state = "wirecutters_prewar"
 	toolspeed = 0.4
@@ -514,9 +514,9 @@ to the below
 /obj/item/wrench/prewar // obsolete due to power drill
 	name = "wrench (prewar)"
 	desc = "An torque locking tool thats very good for wrenching."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "wrench_prewar"
 	item_state = "wrench_prewar"
 	toolspeed = 0.5
@@ -524,9 +524,9 @@ to the below
 /obj/item/screwdriver/prewar
 	name = "screwdriver (prewar)"
 	desc = "Polymer handle, blackened steel finish, its a high-quality tool for sure.""
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "screwdriver_prewar"
 	item_state = "screwdriver_prewar"
 	toolspeed = 0.5
@@ -535,33 +535,33 @@ to the below
 /obj/item/crowbar/prewar
 	name = "crowbar (prewar)"
 	desc = "Heat-resistant powder coating, smooth steel surfaces, its a high-quality tool for sure.""
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "crowbar_prewar"
 	item_state = "crowbar_prewar"
 	toolspeed = 0.8
 
 /obj/item/screwdriver/power // obsolete due to power drill
-	icon = 'modular_BD2/general/icons/tools.dmi'
+	icon = 'icons/tools.dmi'
 	icon_state = "drill_screw"
 	item_state = "drill"
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 
 /obj/item/wrench/power
-	icon = 'modular_BD2/general/icons/tools.dmi'
+	icon = 'icons/tools.dmi'
 	icon_state = "drill_bolt"
 	item_state = "drill"
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 
 /obj/item/weldingtool/prewar
 	name = "welding tool (pre-war)"
 	desc = "Comfortable grip, large tank and precise cutting."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "welder_prewar"
 	item_state = "welder_prewar"
 	toolspeed = 0.7
@@ -570,9 +570,9 @@ to the below
 /obj/item/metaldetector
 	name = "metal detector"
 	desc = "Detects buried metals in a 50 metre radius when activated."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "metaldetect"
 
 
@@ -590,7 +590,7 @@ to the below
 /obj/machinery/workbench/forge // should be repathed to worbench/metal
 	name = "metalworking bench"
 	desc = "A workbench with a drill press, a makeshift blowtorch setup, and various tools for making crude weapons and tools."
-	icon = 'modular_BD2/blacksmith/icons/workbench64x32.dmi'
+	icon = 'icons/workbench64x32.dmi'
 	icon_state = "bench_metal"
 
 
@@ -598,7 +598,7 @@ to the below
 
 /obj/machinery/workbench
 	desc = "A basic workbench with a full set of tools for simple to intermediate projects."
-	icon = 'modular_BD2/general/icons/workbench.dmi'
+	icon = 'icons/workbench.dmi'
 	machine_tool_behaviour = list(TOOL_WORKBENCH, TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WIRECUTTER, TOOL_WRENCH)
 	drag_delay = 0.4 SECONDS // Heavy, slow to drag
 
@@ -607,7 +607,7 @@ to the below
 
 /obj/machinery/workbench/advanced
 	desc = "A large and advanced pre-war workbench to tackle any project! Comes with a full set of basic tools and a digital multitool."
-	icon = 'modular_BD2/general/icons/workbench.dmi'
+	icon = 'icons/workbench.dmi'
 	machine_tool_behaviour = list(TOOL_AWORKBENCH, TOOL_WORKBENCH, TOOL_CROWBAR, TOOL_SCREWDRIVER, TOOL_WIRECUTTER, TOOL_WRENCH, TOOL_MULTITOOL)
 
 */
@@ -624,7 +624,7 @@ to the below
 /* Copied to base code
 
 /obj/structure/closet/crate/basic
-	icon = 'modular_BD2/general/icons/crates.dmi'
+	icon = 'icons/crates.dmi'
 
 // ------------ CRATES ------------------ 
 
@@ -635,7 +635,7 @@ to the below
 	material_drop = /obj/item/stack/sheet/hay
 
 /obj/structure/closet/crate/footchest
-	icon = 'modular_BD2/general/icons/crates.dmi'
+	icon = 'icons/crates.dmi'
 	open_sound = 'modular_BD2/sound/creak.ogg'
 	close_sound = 'modular_BD2/sound/creak.ogg'
 	dense_when_open = FALSE
@@ -657,9 +657,9 @@ to the below
 /obj/item/storage/toolbox/prewar
 	name = "toolbox (pre-war)"
 	desc = "Plastic toolbox, made long ago."
-	icon = 'modular_BD2/general/icons/tools.dmi'
-	righthand_file = 'modular_BD2/general/icons/righthand.dmi'
-	lefthand_file = 'modular_BD2/general/icons/lefthand.dmi'
+	icon = 'icons/tools.dmi'
+	righthand_file = 'icons/righthand.dmi'
+	lefthand_file = 'icons/lefthand.dmi'
 	icon_state = "toolbox_prewar"
 	item_state = "toolbox_prewar"
 	custom_materials = list(/datum/material/plastic = 500)
@@ -693,7 +693,7 @@ to the below
 
 /obj/item/reagent_containers/spray/empty
 	desc = "A spray bottle, with an unscrewable top. Meant to be filled with Abraxo for superior cleanliness."
-	icon = 'modular_BD2/general/icons/cleaning.dmi'
+	icon = 'icons/cleaning.dmi'
 
 
 // ------------------------------- MATCHBOX FIX ------------------------------
@@ -810,9 +810,9 @@ hair_face.dm
 /obj/item/melee/onehanded/straight_razor
 	name = "straight razor"
 	desc = "For those smooth close shaves. Better aim for the mouth or the head, or else things might get messy. Could be used as a scalpel in a pinch."
-	icon = 'modular_BD2/fashion/icons/cosmetics.dmi'
-	righthand_file = 'modular_BD2/fashion/icons/onmobright.dmi'
-	lefthand_file = 'modular_BD2/fashion/icons/onmobleft.dmi'
+	icon = 'icons/obj/cosmetics.dmi'
+	righthand_file = 'icons/onmob/fashion_righthand.dmi'
+	lefthand_file = 'icons/onmob/fashion_lefthand.dmi'
 	icon_state = "straight_razor"
 	force = WEAPON_FORCE_BIG_TOOL
 	throwforce = THROWING_PATHETIC
@@ -917,7 +917,7 @@ hair_face.dm
 /obj/structure/table/optable/primitive
 	name = "butchers table"
 	desc = "Used for painful, primitive medical procedures."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 
 
 // ------------------- PRIMITIVE SURGERY STUFF -----------------------------  Could use more janky ghetto stuff feeling, messing about in the wound datums maybe or whatnot. Currently basically reskins with a bit slower speed.
@@ -925,16 +925,16 @@ hair_face.dm
 /obj/item/cautery/primitive
 	name = "primitive cautery"
 	desc = "A welding device tuned down to cauterize wounds. Not very precise."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
 	icon_state = "cautery_primitive"
 	toolspeed = 1.5
 
 /obj/item/circular_saw/primitive
 	name = "handsaw"
 	desc = "For sawing through wood or possibly bones."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "saw"
 	item_state = "saw"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
@@ -951,7 +951,7 @@ hair_face.dm
 	name = "superglue (bonegel)"
 	singular_name = "superglue"
 	desc = "Good for gluing together broken bones!"
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "superglue"
 	lefthand_file = NONE
 	righthand_file = NONE
@@ -960,7 +960,7 @@ hair_face.dm
 /obj/item/reagent_containers/medspray/sterilizine/honey
 	name = "medical honey (sterilizer)"
 	desc = "Pure honey has antiseptic properties, and probably works just as a sterilizing agent."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "sterilizer_honey"
 	apply_method = "smear"
 //	sound_squirt = 'modular_BD2/general/sound/honey.ogg' FIX LATER MARKED FOR DEATH
@@ -976,9 +976,9 @@ Added to proc/attempt_spray
 /obj/item/storage/backpack/duffelbag/med/surgery/primitive
 	name = "surgical duffel bag"
 	desc = "A large duffel bag for holding extra medical supplies - this one seems to be designed for holding surgical tools."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
 	icon_state = "toolbag_primitive"
 
 /obj/item/storage/backpack/duffelbag/med/surgery/primitive/PopulateContents()
@@ -1005,14 +1005,14 @@ Added to proc/attempt_spray
 /obj/machinery/iv_drip/primitive
 	name = "wooden IV drip"
 	desc = "Simple frame for infusing liquids using gravity. Can't suck out fluids."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	anchored = TRUE
 	plane = GAME_PLANE
 
 /* 
 /obj/machinery/iv_drip/verb/toggle_mode() updated
 added this to make the overlay actually work
-			var/mutable_appearance/filling_overlay = mutable_appearance('modular_BD2/icons/primitive_medical.dmi', "reagent")
+			var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/primitive_medical.dmi', "reagent")
 */
 
 
@@ -1020,7 +1020,7 @@ added this to make the overlay actually work
 
 /obj/machinery/defibrillator_mount/primitive
 	desc = "Holds a primitive defibrillator."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "defibrillator_mount"
 	density = FALSE
 	use_power = FALSE
@@ -1038,10 +1038,10 @@ added this to make the overlay actually work
 obj/item/storage/belt/medical/primitive
 	name = "primitive medical toolbelt"
 	desc = "This might look a bit like a toolbelt for a carpenter, but the items inside are meant to be used in surgery. No really."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
 	icon_state = "belt_blacksmith"
 	item_state = "belt_blacksmith"
 
@@ -1057,12 +1057,12 @@ obj/item/storage/belt/medical/primitive
 /obj/item/hemostat/tribal
 	name = "primitive hemostat (flesh-poker)"
 	desc = "A pinching device made from bone to clamp bleedings with"
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "hemostat_primitive"
 
 /obj/item/retractor/tribal
 	name = "primitive retractor (skin-puller)"
 	desc = "Pries the flesh and bones open."
-	icon = 'modular_BD2/general/icons/primitive_medical.dmi'
+	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "retractor_primitive"
 

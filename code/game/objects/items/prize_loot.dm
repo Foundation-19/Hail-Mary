@@ -1,7 +1,7 @@
 /obj/item/lockpick_set
 	name = "lockpicking set"
 	desc = "A set of tools dedicated to lockpicking, intended for the novice to the master."
-	icon = 'icons/obj/fallout/lockbox.dmi'
+	icon = 'icons/obj/lockbox.dmi'
 	icon_state = "basic_lockpick"
 	var/in_use = FALSE
 	w_class = WEIGHT_CLASS_TINY
@@ -28,7 +28,7 @@
 /obj/item/locked_box
 	name = "locked box"
 	desc = "An object that contains objects that may be useful."
-	icon = 'icons/obj/fallout/lockbox.dmi'
+	icon = 'icons/obj/lockbox.dmi'
 	icon_state = "locked_safe"
 
 	//the lists the locked crate will combine

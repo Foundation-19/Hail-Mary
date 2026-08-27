@@ -157,10 +157,10 @@
 /obj/item/clothing/gloves/legion
 	name = "fingerless gloves"
 	desc = "Improves the grip on a machete even when slick with blood, widely used by Legion warriors."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
 	icon_state = "gloves_fingerless"
 	item_state = "gloves_fingerless"
 
