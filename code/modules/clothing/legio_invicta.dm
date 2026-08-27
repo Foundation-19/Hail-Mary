@@ -858,12 +858,12 @@
 	. = ..()
 	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "bathed", /datum/mood_event/bathed)
 	handle_layer()
-	playsound(src, 'modular_BD2/blacksmith/sound/water_splash2.ogg',50, 1)
+	playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
 
 /obj/structure/chair/comfy/bathtub/post_unbuckle_mob()
 	. = ..()
 	handle_layer()
-	playsound(src, 'modular_BD2/blacksmith/sound/water_splash2.ogg',50, 1)
+	playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
 
 /datum/mood_event/bathed
 	description = span_nicegreen("A warm bath felt nice.")
@@ -1044,7 +1044,7 @@
 	if(!do_after(user, 20, TRUE, src))
 		return
 	else	
-		playsound(get_turf(src), 'modular_BD2/general/sound/doorchainsoft_open.ogg', 60, TRUE)
+		playsound(get_turf(src), 'sound/effects/doorchainsoft_open.ogg', 60, TRUE)
 		if(density)
 			icon_state = "handrail_legion_entrance_open"
 			src.density = 0
@@ -1136,15 +1136,15 @@ added to end of campfire/attackby
 	icon = 'icons/structures/door_barred.dmi'
 	icon_state = "barred_left"
 	door_type = "barred_left"
-	open_sound = 'modular_BD2/general/sound/doorchainsoft_open.ogg'
-	close_sound = 'modular_BD2/general/sound/doorchainsoft_close.ogg'
+	open_sound = 'sound/effects/doorchainsoft_open.ogg'
+	close_sound = 'sound/effects/doorchainsoft_close.ogg'
 
 /obj/structure/simple_door/metal/barred/right
 	icon = 'icons/structures/door_barred.dmi'
 	icon_state = "barred_right"
 	door_type = "barred_right"
-	open_sound = 'modular_BD2/general/sound/doorchainsoft_open.ogg'
-	close_sound = 'modular_BD2/general/sound/doorchainsoft_close.ogg'
+	open_sound = 'sound/effects/doorchainsoft_open.ogg'
+	close_sound = 'sound/effects/doorchainsoft_close.ogg'
 
 
 // -------------- PRE-STONE RINGED BONFIRE ----------------- 

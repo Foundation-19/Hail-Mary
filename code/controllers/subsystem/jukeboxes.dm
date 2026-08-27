@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(jukeboxes)
 
 /datum/track/cursed
 	song_name = "Cursed Track"
-	song_path = 'modular_BD2/general/sound/cursed.ogg'
+	song_path = 'sound/music/cursed.ogg'
 	song_length = 1370
 	song_beat = 010
 	song_associated_id = "cursedsong01"

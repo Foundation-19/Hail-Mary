@@ -636,8 +636,8 @@ to the below
 
 /obj/structure/closet/crate/footchest
 	icon = 'icons/crates.dmi'
-	open_sound = 'modular_BD2/sound/creak.ogg'
-	close_sound = 'modular_BD2/sound/creak.ogg'
+	open_sound = 'sound/effects/creak.ogg'
+	close_sound = 'sound/effects/creak.ogg'
 	dense_when_open = FALSE
 */
 
@@ -682,7 +682,7 @@ to the below
 		user.visible_message("[user] begins filling the[src] with Abraxo solution.", \
 				span_notice("You begin filling he [src] with Abraxo. Smells nice."), \
 				span_italic("You hear faint bubbling sounds."))
-		playsound(get_turf(src), 'modular_BD2/sound/abraxo.ogg', 100, TRUE)
+		playsound(get_turf(src), 'sound/effects/abraxo.ogg', 100, TRUE)
 		if(!do_after(user, 40, TRUE, src))
 			return
 		new /obj/item/reagent_containers/spray/cleaner(drop_location())
@@ -851,7 +851,7 @@ hair_face.dm
 				return
 
 			if(H == user) //shaving yourself
-				playsound(loc, 'modular_BD2/fashion/sound/shaving.ogg', 100, 1) // added
+				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
 				user.visible_message("[user] starts to shave [user.p_their()] facial hair with [src].", \
 									span_notice("You take a moment to shave your facial hair with [src]..."))
 				if(do_after(user, 150, target = H))
@@ -860,7 +860,7 @@ hair_face.dm
 					manual_shave(H, location)
 			else
 				var/turf/H_loc = H.loc
-				playsound(loc, 'modular_BD2/fashion/sound/shaving.ogg', 100, 1) // added
+				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
 				user.visible_message(span_warning("[user] tries to shave [H]'s facial hair with [src]."), \
 									span_notice("You start shaving [H]'s facial hair..."))
 				if(do_after(user, 100, target = H))
@@ -881,7 +881,7 @@ hair_face.dm
 				return
 
 			if(H == user) //shaving yourself
-				playsound(loc, 'modular_BD2/fashion/sound/shaving.ogg', 100, 1) // added
+				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
 				user.visible_message("[user] starts to shave [user.p_their()] head with [src].", \
 									span_notice("You start to shave your head with [src]..."))
 				if(do_after(user, 150, target = H)) //edited time
@@ -890,7 +890,7 @@ hair_face.dm
 					manual_shave(H, location)
 			else
 				var/turf/H_loc = H.loc
-				playsound(loc, 'modular_BD2/fashion/sound/shaving.ogg', 100, 1) // added
+				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
 				user.visible_message(span_warning("[user] tries to shave [H]'s head with [src]!"), \
 									span_notice("You start shaving [H]'s head..."))
 				if(do_after(user, 150, target = H)) //edited time
@@ -963,7 +963,7 @@ hair_face.dm
 	icon = 'icons/obj/primitive_medical.dmi'
 	icon_state = "sterilizer_honey"
 	apply_method = "smear"
-//	sound_squirt = 'modular_BD2/general/sound/honey.ogg' FIX LATER MARKED FOR DEATH
+//	sound_squirt = 'sound/effects/honey.ogg' FIX LATER MARKED FOR DEATH
 
 /* Added to base code
 sound_squirt

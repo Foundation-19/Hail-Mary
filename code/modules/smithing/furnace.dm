@@ -63,7 +63,7 @@
 	if(istype(I, /obj/item/stack/ore))
 		var/obj/item/stack/ore/G = I
 		if(working)
-			playsound(src, 'modular_BD2/blacksmith/sound/steam_short.ogg',80, 1)
+			playsound(src, 'code/modules/smithing/sound/steam_short.ogg',80, 1)
 			if(do_after(user, 3 SECONDS, target = src))
 				G.furnace_smelt()
 				return
@@ -90,7 +90,7 @@
 		reagents.clear_reagents()
 
 /datum/looping_sound/furnace
-	mid_sounds = list('modular_BD2/blacksmith/sound/furnace1.ogg'=1)
+	mid_sounds = list('code/modules/smithing/sound/furnace1.ogg'=1)
 	mid_length = 7 SECONDS
 	volume = 80
 

@@ -38,7 +38,7 @@
 			playsound(src, 'sound/effects/water_wade4.ogg',50, 1)
 			return
 		to_chat(user, "You temper the [untempered] by quenching it in the water. There is a loud hiss and a puff of steam.")
-		playsound(src, 'modular_BD2/blacksmith/sound/steam_whoosh.ogg', 40, TRUE)
+		playsound(src, 'code/modules/smithing/sound/steam_whoosh.ogg', 40, TRUE)
 		flick("quench_boil",src)
 		var/datum/effect_system/steam_spread/puff = new /datum/effect_system/steam_spread/()
 		puff.effect_type = /obj/effect/particle_effect/steam
@@ -56,10 +56,10 @@
 	if(istype(I, /obj/item/blacksmith/ingot))
 		var/obj/item/blacksmith/ingot/workpiece = I
 		if(workpiece.workability == FALSE)
-			playsound(src, 'modular_BD2/blacksmith/sound/water_splash2.ogg',50, 1)
+			playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
 			return
 		to_chat(user, "You cool the [workpiece] in the water.")
-		playsound(src, 'modular_BD2/blacksmith/sound/steam_short.ogg',70, 1)
+		playsound(src, 'code/modules/smithing/sound/steam_short.ogg',70, 1)
 		flick("quench_boil",src)
 		var/datum/effect_system/steam_spread/puff = new /datum/effect_system/steam_spread/()
 		puff.effect_type = /obj/effect/particle_effect/steam
