@@ -5,9 +5,9 @@
 //////////////////////////////////////////
 
 /obj/item/blacksmith
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
 	force = WEAPON_FORCE_BIG_TOOL
 	max_integrity = 40
 	w_class = WEIGHT_CLASS_SMALL
@@ -15,7 +15,7 @@
 /obj/item/smithing
 	name = "base class /obj/item/smithing"
 	desc = "Attach a wooden rod."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "unfinished"
 	material_flags = MATERIAL_COLOR | MATERIAL_ADD_PREFIX
 	light_system = MOVABLE_LIGHT
@@ -31,13 +31,13 @@
 	var/finishing_touch // The final step when this item was created
 
 /obj/item/smithing/Initialize()
-	add_overlay(image(icon= 'modular_BD2/blacksmith/icons/blacksmith.dmi',icon_state="[icon_state]_hot"))
+	add_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="[icon_state]_hot"))
 	set_light_on(TRUE)
 	update_icon()
 	return ..()
 
 /obj/item/smithing/proc/istempered()
-	cut_overlay(image(icon= 'modular_BD2/blacksmith/icons/blacksmith.dmi',icon_state="[icon_state]_hot"))
+	cut_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="[icon_state]_hot"))
 	set_light_on(FALSE)
 	update_icon()
 	return
@@ -417,7 +417,7 @@
 //////////////////////////////////////////////////
 
 /obj/item/smithing/special
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	gender = NEUTER
 	w_class = WEIGHT_CLASS_SMALL
 

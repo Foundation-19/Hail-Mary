@@ -377,7 +377,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_state = "railsnone"
 
 /turf/closed/indestructible/f13/matrix/gravel
-	icon = 'modular_BD2/general/icons/tileset_gravel.dmi'
+	icon = 'icons/turf/tileset_gravel.dmi'
 	icon_state = "gravel"
 
 /turf/closed/indestructible/f13/matrix/MouseDrop_T(atom/dropping, mob/user)

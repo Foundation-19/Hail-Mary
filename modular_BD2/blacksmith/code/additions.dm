@@ -24,7 +24,7 @@
 /obj/structure/blacksmith/quenching
 	name = "quenching trough"
 	desc = "Water in a open box, for tempering hot metal in."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "quench"
 	max_integrity = 500
 	density = TRUE
@@ -83,7 +83,7 @@
 
 // ------------ SLAG ------------------ Makes slag more suitable visually for the interactions with the anvil
 /obj/item/stack/ore/slag
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 */
 
 // ------------ BLACKSMITH MITTENS ------------------	Mittens, since finger gloves and heat insulation is a lame combo
@@ -91,9 +91,9 @@
 /obj/item/clothing/gloves/blacksmith_mittens
 	name = "forge mittens"
 	desc = "A pair of heavy duty leather mittens designed to protect the wearer when metalforging. Unsuited for tasks requiring manual dexterity."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "blacksmith_mittens"
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	item_state = "blacksmith_mittens"
 	transfer_prints = FALSE
 	strip_delay = 10
@@ -114,10 +114,10 @@
 
 /obj/item/twohanded/sledgehammer/simple
 	name = "sledgehammer"
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
 	icon_state = "sledgehammer"
 	icon_prefix = "sledgehammer"
 	wielded_icon = "sledgehammer2"
@@ -132,9 +132,9 @@
 /obj/item/book/manual/advice_blacksmith
 	name = "The Forgemasters Primer"
 	desc = "A thin book with some basic advice on how to use a hammer and anvil, copied by hand."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
 	icon_state = "advice_smithing"
 	author = "Forgemaster Gallius"
 	title = "Advice on Blacksmithing - For hotheaded whelps"
@@ -245,7 +245,7 @@
 /obj/machinery/workbench/forge // should be repathed to worbench/metal
 	name = "metalworking bench"
 	desc = "A workbench with a drill press, a makeshift blowtorch setup, and various tools for making crude weapons and tools."
-	icon = 'modular_BD2/blacksmith/icons/workbench64x32.dmi'
+	icon = 'icons/workbench64x32.dmi'
 	icon_state = "bench_metal"
 */
 

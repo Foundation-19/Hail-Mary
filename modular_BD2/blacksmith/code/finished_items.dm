@@ -9,10 +9,10 @@
 /obj/item/melee/smith
 	name = "base class obj/item/melee/smith"
 	desc = "cringe"
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	force = FORCE_SMITH_LOW
 	throwforce = THROWING_DECENT
 	wound_bonus = WOUNDING_BONUS_MODEST
@@ -40,10 +40,10 @@
 
 
 /obj/item/twohanded/smithed // compatible with the Eris wield stuff
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	attack_speed = MELEE_SPEED_SLOW
 	force = FORCE_SMITH_LOW
 	throwforce = THROWING_POOR
@@ -80,11 +80,11 @@
 // -------- BLACKSMITHING HAMMER -------- //
 /obj/item/melee/smith/hammer
 	name = "smithing hammer"
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "hammer"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	item_state = "hammer"
 	overlay_state = "hammerhandle"
 	attack_speed = MELEE_SPEED_SLOWEST
@@ -110,11 +110,11 @@
 	name = "prospectors pick"
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	obj_flags = UNIQUE_RENAME
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "prospect_smith"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	item_state = "prospect_smith"
 	sharpness = SHARP_POINTY
 	slot_flags = ITEM_SLOT_BELT
@@ -145,11 +145,11 @@
 	desc = "A handmade pickaxe."
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
 	obj_flags = UNIQUE_RENAME
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "pickaxe"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	item_state = "pickaxe"
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	sharpness = SHARP_POINTY
@@ -172,11 +172,11 @@
 /obj/item/shovel/smithed
 	name = "shovel"
 	desc = "A shovel."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "shovel"
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	item_state = "shovel"
 	obj_flags = UNIQUE_RENAME
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
@@ -195,7 +195,7 @@
 
 // -------- SMITHED CROWBAR -------- // Tops out at 0.2 Toolspeed, which while very fast, is for a crowbar, so meh. TO DO Force qualmod
 /obj/item/crowbar/smithed
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "crowbar_smith"
 	item_state = "crowbar"
 	obj_flags = UNIQUE_RENAME
@@ -216,10 +216,10 @@
 /obj/item/crowbar/smithedunitool
 	name = "universal tool"
 	desc = "A bizarre combination of a crowbar and some sort of blade."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "unitool_smith"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
 	item_state = "unitool_smith"
 	obj_flags = UNIQUE_RENAME
 	sharpness = SHARP_POINTY
@@ -241,10 +241,10 @@
 /obj/item/kitchen/knife/smithed
 	name = "kitchen knife"
 	desc = "A handmade kitchen knife, best suited to cut stuff that doesn't cut back."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "knife_smith"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
 	item_state = "knife_smith"
 	obj_flags = UNIQUE_RENAME
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
@@ -272,12 +272,12 @@
 	name = "ball and chain"
 	desc = "Use this to keep prisoners in line."
 	gender = PLURAL
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "ballandchain"
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	item_state = "ballandchain"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
 	slowdown = 4
@@ -334,7 +334,7 @@
 	return
 
 /obj/item/restraints/legcuffs/ballandchain/smithed
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "ballandchain"
 	name = "ball and chain"
 	desc = "Clamp it on the prisoners feet. They will need a long time to remove it themselves."
@@ -784,8 +784,8 @@
 // ------------ SPEAR ------------ // [Reach]
 /obj/item/twohanded/smithed/spear
 	name = "spear"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/64x64_lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/64x64_righthand.dmi'
+	lefthand_file = 'icons/onmob/64x64_lefthand.dmi'
+	righthand_file = 'icons/onmob/64x64_righthand.dmi'
 	icon_state = "spear_smith"
 	wielded_icon = "spear_smith"
 	icon_prefix = "spear_smith"
@@ -878,10 +878,10 @@
 /obj/item/restraints/legcuffs/bola/smithed
 	name = "bola"
 	desc = "All-metal bola for strong prey."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
 	icon_state = "bola_smith"
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
 	item_state = "bola_smith"
 	breakouttime = 40 //5 more deciseconds than regular bola
 	material_flags = MATERIAL_COLOR | MATERIAL_AFFECT_STATISTICS
@@ -905,9 +905,9 @@
 /obj/item/clothing/suit/armor/heavy/metal/smithed
 	name = "smithed metal armor"
 	desc = "A set of plates with leather straps, protecting some vital areas."
-	icon = 'modular_BD2/blacksmith/icons/blacksmith.dmi'
-	lefthand_file = 'modular_BD2/blacksmith/icons/onmob/lefthand.dmi'
-	righthand_file = 'modular_BD2/blacksmith/icons/onmob/righthand.dmi'
-	mob_overlay_icon = 'modular_BD2/blacksmith/icons/onmob/slot.dmi'
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	lefthand_file = 'icons/onmob/lefthand.dmi'
+	righthand_file = 'icons/onmob/righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	icon_state = "smithed_armor_metal"
 	item_state = "smithed_armor_metal"
