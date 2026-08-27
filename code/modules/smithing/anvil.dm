@@ -62,7 +62,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	RECIPE_BALLANDCHAIN = /obj/item/smithing/weapon/ballandchain,
 	RECIPE_ARMOR_PIECE = /obj/item/smithing/armor_piece,
 	RECIPE_DAGGER = /obj/item/smithing/weapon/daggerblade,
-   	RECIPE_BOWIE = /obj/item/smithing/weapon/daggerblade/bowieblade,
+	RECIPE_BOWIE = /obj/item/smithing/weapon/daggerblade/bowieblade,
 	RECIPE_MACHETE = /obj/item/smithing/weapon/macheteblade,
 	RECIPE_MACHREFORG = /obj/item/smithing/weapon/macheteblade/macheterblade,
 	RECIPE_SWORD = /obj/item/smithing/weapon/swordblade,
@@ -86,7 +86,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	RECIPE_SPATHA = /obj/item/smithing/weapon/swordblade/spathablade,
 	RECIPE_WARAXE = /obj/item/smithing/waraxehead,
 	RECIPE_LANCE = /obj/item/smithing/spearhead/lancehead,
-    ))
+	))
 
 
 // Logic of smithing recipes: Tools start with bend and have 3 steps. 1h weapons have 3-4 steps. 2h weapons have 4-5 steps. Bigger bladed stuff start with a fold. Pointy stuff generally start with a draw. Unusual stuff migth start with upset.
