@@ -357,6 +357,12 @@
 
 /obj/item/storage/belt/army/assault
 	name = "assault belt"
+	desc = "A sweet tactical belt for holding munitions and the like."
+	icon_state = "assaultbelt"
+	item_state = "security"
+
+/obj/item/storage/belt/army/assault/mfc
+	name = "assault belt"
 	desc = "A sweet tactical belt for holding guns."
 	icon_state = "assaultbelt"
 	item_state = "security"
