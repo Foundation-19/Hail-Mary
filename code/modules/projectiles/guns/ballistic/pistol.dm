@@ -522,11 +522,12 @@
 
 /obj/item/gun/ballistic/automatic/pistol/m1911
 	name = "M1911"
-	desc = "A classic .45 handgun with a small magazine capacity but longer magazines are out there."
+	desc = "A classic .45 handgun with a small magazine capacity."
 	icon_state = "m1911"
 	item_state = "pistolchrome"
 	init_mag_type = /obj/item/ammo_box/magazine/m45
 	mag_type = /obj/item/ammo_box/magazine/m45
+	disallowed_mags = list(/obj/item/ammo_box/magazine/m45/socom, /obj/item/ammo_box/magazine/m45/socom/empty)
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
