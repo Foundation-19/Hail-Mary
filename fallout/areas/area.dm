@@ -30,6 +30,12 @@
 /// F13 areas have no APC, so buttons are never iterated by the normal
 /// machinery-notification path — we must push the update ourselves.
 /area/f13/power_change()
+	// An APC with no powernet cleared power_equip while the F13 grid is live — reject it.
+	if(f13_grid_power && !power_equip)
+		power_equip   = TRUE
+		power_light   = TRUE
+		power_environ = TRUE
+		return
 	f13_grid_power = power_equip
 	// Notify buttons on any turf (open or closed) WITHIN this area.
 	for(var/obj/machinery/button/B in src)
