@@ -425,7 +425,7 @@ Knight-Captain
 		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
-		/obj/item/storage/box/bos/kcaptain = 1,
+//		/obj/item/storage/box/bos/kcaptain = 1,
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -651,7 +651,7 @@ Senior Scribe
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/reagent_containers/hypospray/CMO = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 7,
-		/obj/item/storage/box/bos/scribe/senior = 1
+//		/obj/item/storage/box/bos/scribe/senior = 1
 	)
 
 /*
@@ -704,7 +704,7 @@ Scribe
 		/obj/item/storage/firstaid/regular = 1,
 		/obj/item/gun/energy/laser/pistol = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/storage/box/bos/scribe = 1
+//		/obj/item/storage/box/bos/scribe = 1
 		)
 
 
@@ -805,11 +805,11 @@ Knight Sarge
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
-		/obj/item/storage/box/bos/senior = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
+//		/obj/item/storage/box/bos/senior = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
 		/obj/item/gun/ballistic/automatic/pistol/mk23 = 1,
 		/obj/item/ammo_box/magazine/m45/socom = 3,
 		)
@@ -880,11 +880,11 @@ Senior Knight
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
-		/obj/item/storage/box/bos/senior = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
+//		/obj/item/storage/box/bos/senior = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_three = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_four = 1,
 		)
 /*
 /datum/outfit/loadout/sknightb
@@ -977,9 +977,9 @@ Knight
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
-		/obj/item/storage/box/bos = 1
+//		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1,
+//		/obj/item/storage/box/bos = 1
 		)
 /*
 /datum/outfit/loadout/knighte
@@ -1060,8 +1060,8 @@ Initiate
 		/obj/item/gun/energy/laser/aer9 = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		/obj/item/clothing/accessory/bos/initiateK = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
-		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
+//		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
+//		/obj/item/book/granter/crafting_recipe/gunsmith_two = 1
 		)
 
 /datum/outfit/loadout/initiates
