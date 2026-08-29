@@ -1666,12 +1666,14 @@
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
 	icon_state = "sks"
 	item_state = "sks"
-	mag_type = /obj/item/ammo_box/magazine/sks
-	init_mag_type = /obj/item/ammo_box/magazine/sks
+	mag_type = /obj/item/ammo_box/magazine/internal/sks
+	init_mag_type = /obj/item/ammo_box/magazine/internal/sks
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(1)
+	en_bloc = 0
+	auto_eject = 0
 
 	bayonet_state = "bayonet"
 	knife_x_offset = 24
