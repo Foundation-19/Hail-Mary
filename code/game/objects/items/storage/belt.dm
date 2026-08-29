@@ -361,12 +361,6 @@
 	icon_state = "assaultbelt"
 	item_state = "security"
 
-/obj/item/storage/belt/army/assault/mfc
-	name = "assault belt"
-	desc = "A sweet tactical belt for holding guns."
-	icon_state = "assaultbelt"
-	item_state = "security"
-
 /obj/item/storage/belt/army/assault/legion
 	name = "legionnaire marching belt"
 	desc = "Sturdy leather belt with a red decorative sash."
