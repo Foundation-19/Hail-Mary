@@ -832,15 +832,15 @@
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/AER9)
 
-/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused
-	name = "hotwired aer9 blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/aer9_hotwired)
+// /obj/item/book/granter/crafting_recipe/blueprint/aer9/focused
+//	name = "hotwired aer9 blueprint"
+//	icon_state = "blueprint2"
+//	crafting_recipe_types = list(/datum/crafting_recipe/aer9_hotwired)
 
-/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused/rynn
-	name = "aer10 blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/aer9_hotwired_rynn)
+// /obj/item/book/granter/crafting_recipe/blueprint/aer9/focused/rynn
+//	name = "aer10 blueprint"
+//	icon_state = "blueprint2"
+//	crafting_recipe_types = list(/datum/crafting_recipe/aer9_hotwired_rynn)
 
 /obj/item/book/granter/crafting_recipe/blueprint/plasmarifle
 	name = "plasma rifle blueprint"
