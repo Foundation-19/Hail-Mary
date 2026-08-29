@@ -199,10 +199,10 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 
 /datum/outfit/loadout/captainbackline
 	name = "Lead from the Back"
-	suit_store = /obj/item/gun/ballistic/automatic/pistol/deagle/elcapitan
+	suit_store = /obj/item/gun/ballistic/automatic/pistol/deagle
 	backpack_contents = list(
 		/obj/item/clothing/suit/armor/ncrarmor/captain/ncr_officer_coat = 1,
-		/obj/item/ammo_box/magazine/m14mm = 3,
+		/obj/item/ammo_box/magazine/m44 = 3,
 		/obj/item/grenade/smokebomb = 2,
 		/obj/item/storage/box/ration/menu_two = 1,
 		/obj/item/melee/onehanded/knife/trench = 1
@@ -855,7 +855,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/engineer
 	backpack_contents = list(
 		/obj/item/stack/ore/blackpowder/twenty = 2,
-//		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
+		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
 		/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
 		/obj/item/book/granter/trait/techno = 1
