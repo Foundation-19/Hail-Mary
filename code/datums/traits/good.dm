@@ -379,7 +379,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		H.mind.learned_recipes = list()
 	H.mind.learned_recipes |= GLOB.tier_three_parts
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
-	H.mind.learned_recipes |= GLOB.energyweapon_crafting
+//	H.mind.learned_recipes |= GLOB.energyweapon_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 
 /datum/quirk/technophreak/remove()
@@ -389,7 +389,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.tier_three_parts
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
-		H.mind.learned_recipes -= GLOB.energyweapon_crafting
+//		H.mind.learned_recipes -= GLOB.energyweapon_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 
 /datum/quirk/gunsmith
