@@ -55,6 +55,60 @@
 			return
 		cmd_show_exp_panel(M.client)
 
+	else if(href_list["resetexptype"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use resetexptype without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use resetexptype without admin perms.")
+			return
+		var/client/C = locate(href_list["resetexptype"]) in GLOB.clients
+		var/exp_type = href_list["exp_type"]
+		if(!C)
+			to_chat(usr, span_danger("ERROR: Client not found (they may have disconnected)."))
+			return
+		if(!exp_type)
+			to_chat(usr, span_danger("ERROR: No exp type specified."))
+			return
+		var/confirm = input(usr, "Reset ALL [exp_type] hours for [C.key] to 0? This cannot be undone.", "Confirm Reset") as null|anything in list("Yes, reset them", "Cancel")
+		if(confirm != "Yes, reset them")
+			return
+		if(!C || QDELETED(C))
+			to_chat(usr, span_danger("ERROR: Client disconnected before reset could be applied."))
+			return
+		if(C.reset_exp_for_type(exp_type))
+			message_admins("[key_name_admin(usr)] reset [exp_type] hours for [key_name_admin(C.mob)] to 0.")
+			log_admin("[key_name(usr)] reset [exp_type] hours for [key_name(C)] to 0.")
+			cmd_show_exp_panel(C)
+		else
+			to_chat(usr, span_danger("ERROR: Reset failed. Check DB connection and logs."))
+
+	else if(href_list["setexptype"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use setexptype without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use setexptype without admin perms.")
+			return
+		var/client/C = locate(href_list["setexptype"]) in GLOB.clients
+		var/exp_type = href_list["exp_type"]
+		if(!C)
+			to_chat(usr, span_danger("ERROR: Client not found (they may have disconnected)."))
+			return
+		if(!exp_type)
+			to_chat(usr, span_danger("ERROR: No exp type specified."))
+			return
+		var/hours = input(usr, "Set [exp_type] hours for [C.key] to how many hours?", "Set Hours") as num|null
+		if(isnull(hours))
+			return
+		hours = max(0, round(hours, 0.1))
+		var/total_minutes = round(hours * 60)
+		if(!C || QDELETED(C))
+			to_chat(usr, span_danger("ERROR: Client disconnected before hours could be set."))
+			return
+		if(C.set_exp_for_type(exp_type, total_minutes))
+			message_admins("[key_name_admin(usr)] set [exp_type] hours for [key_name_admin(C.mob)] to [hours]h.")
+			log_admin("[key_name(usr)] set [exp_type] hours for [key_name(C)] to [hours]h ([total_minutes] minutes).")
+			cmd_show_exp_panel(C)
+		else
+			to_chat(usr, span_danger("ERROR: Could not set hours. Check DB connection and logs."))
+
 	else if(href_list["toggleexempt"])
 		if(!check_rights(R_ADMIN))
 			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/searchmessages(): toggleexempt without admin perms.")
@@ -65,6 +119,28 @@
 			to_chat(usr, span_danger("ERROR: Client not found."))
 			return
 		toggle_exempt_status(C)
+
+	else if(href_list["toggleexempttype"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use toggleexempttype without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use toggleexempttype without admin perms.")
+			return
+		var/client/C = locate(href_list["toggleexempttype"]) in GLOB.clients
+		var/exp_type = href_list["exp_type"]
+		var/new_state = text2num(href_list["state"])
+		if(!C)
+			to_chat(usr, span_danger("ERROR: Client not found (they may have disconnected)."))
+			return
+		if(!exp_type)
+			to_chat(usr, span_danger("ERROR: No exp type specified."))
+			return
+		if(C.set_exp_type_exempt(exp_type, new_state))
+			var/action = new_state ? "granted" : "removed"
+			message_admins("[key_name_admin(usr)] [action] [exp_type] playtime exemption for [key_name_admin(C.mob)].")
+			log_admin("[key_name(usr)] [action] [exp_type] playtime exemption for [key_name(C)].")
+			cmd_show_exp_panel(C)
+		else
+			to_chat(usr, span_danger("ERROR: Could not update exemption. Check DB connection and logs."))
 
 	else if(href_list["makeAntag"])
 		if(!check_rights(R_ADMIN))
@@ -778,6 +854,42 @@
 		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
 		dat += "<tr align='center' bgcolor='8ee3b4'><th colspan='[length(GLOB.vault_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=vaultdept;jobban4=[REF(M)]'>Vault Positions</a></th></tr><tr align='center'>"
 		for(var/jobPos in GLOB.vault_positions)
+			if(!jobPos)
+				continue
+			if(jobban_isbanned(M, jobPos))
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'><font color=red>[jobPos]</font></a></td>"
+				counter++
+			else
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'>[jobPos]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				dat += "</tr><tr>"
+				counter = 0
+		dat += "</tr></table>"
+
+	//Eighties (Blue)
+		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		dat += "<tr align='center' bgcolor='0F398B'><th colspan='[length(GLOB.eighties_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=eightiesdept;jobban4=[REF(M)]'>Eighties Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.eighties_positions)
+			if(!jobPos)
+				continue
+			if(jobban_isbanned(M, jobPos))
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'><font color=red>[jobPos]</font></a></td>"
+				counter++
+			else
+				dat += "<td width='15%'><a href='?src=[REF(src)];[HrefToken()];jobban3=[jobPos];jobban4=[REF(M)]'>[jobPos]</a></td>"
+				counter++
+
+			if(counter >= 6) //So things dont get squiiiiished!
+				dat += "</tr><tr>"
+				counter = 0
+		dat += "</tr></table>"
+
+	//Whitelegs (Red)
+		dat += "<table cellpadding='1' cellspacing='0' width='100%'>"
+		dat += "<tr align='center' bgcolor='800000'><th colspan='[length(GLOB.whitelegs_positions)]'><a href='?src=[REF(src)];[HrefToken()];jobban3=whitelegsdept;jobban4=[REF(M)]'>White Legs Positions</a></th></tr><tr align='center'>"
+		for(var/jobPos in GLOB.whitelegs_positions)
 			if(!jobPos)
 				continue
 			if(jobban_isbanned(M, jobPos))
@@ -1947,6 +2059,26 @@
 			to_chat(usr, "this can only be used on instances of type /mob.")
 		if(M.ckey in GLOB.client_ghost_timeouts)
 			GLOB.client_ghost_timeouts -= M.ckey
+
+	else if(href_list["forcerules"])
+		if(!check_rights(R_ADMIN))
+			message_admins("[ADMIN_TPMONTY(usr)] tried to use /datum/admins/proc/CheckAdminHref(): forcerules without admin perms.")
+			log_admin("INVALID ADMIN PROC ACCESS: [key_name(usr)] tried to use /datum/admins/proc/CheckAdminHref(): forcerules without admin perms.")
+			return
+		var/mob/M = locate(href_list["forcerules"])
+		if(!ismob(M) || !M.client)
+			to_chat(usr, "Target has no active client.")
+			return
+		if(M.client.prefs)
+			M.client.prefs.rules_accepted = FALSE
+			M.client.prefs.save_preferences()
+		log_admin("[key_name(usr)] has forced [key_name(M)] to re-accept the server rules.")
+		message_admins("[key_name_admin(usr)] has forced [key_name_admin(M)] to re-accept the server rules.")
+		if(isnewplayer(M))
+			var/mob/dead/new_player/NP = M
+			NP.show_rules_panel(TRUE)
+		else
+			to_chat(M, span_adminnotice("An admin has required you to re-read and accept the server rules. They will be shown the next time you return to the lobby."))
 
 	else if(href_list["sendtoprison"])
 		if(!check_rights(R_ADMIN))

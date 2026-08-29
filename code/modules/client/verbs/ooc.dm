@@ -311,7 +311,43 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 	set name = "Fix Stat Panel"
 	set hidden = TRUE
 
-	init_verbs()
+	// Reset panel_tabs so SSstatpanels re-sends add_admin_tabs (and any other tab-state outputs)
+	// on the next tick. Without this, MC/Tickets don't reappear after a page reload because
+	// DM panel_tabs still holds stale values from before the reload (panel_ready() fires via
+	// the commandQueue but its Panel-Ready command is sent before BYOND is ready to receive it
+	// and is dropped, so panel_tabs never gets cleared by that path).
+	panel_tabs = list()
+	// Null this so the next turf-tab build sends all icon URLs afresh (JS storedimages was wiped
+	// by the page reload, so the cached_images optimisation would otherwise produce broken images).
+	last_turf_items_encoded = null
+	init_verbs(force = TRUE)
+
+/// Receives tile-tab item clicks from the stat browser via byond://winset?command=
+/// so the click is dispatched without navigating (and reloading) the stat browser page.
+/// Mirrors the ?src= Topic() path in /atom/Topic() but via the verb channel.
+/client/verb/tile_item_click(params as text)
+	set name = "Tile-Item-Click"
+	set hidden = TRUE
+
+	var/list/parts = splittext(params, ";")
+	if(parts.len < 1)
+		return
+	// parts[1] is the REF as produced by DM's REF() macro, e.g. "[0x20a0050]".
+	// locate() accepts the bracket-wrapped reference string directly.
+	var/atom/A = locate(parts[1])
+	if(!A)
+		return
+	var/list/paramslist = list()
+	if(parts.len >= 2)
+		var/mods = parts[2]
+		if(findtext(mods, "s")) paramslist["shift"] = "1"
+		if(findtext(mods, "c")) paramslist["ctrl"] = "1"
+		if(findtext(mods, "a")) paramslist["alt"] = "1"
+	// Use mob.CommonClickOn() directly rather than the /client/Click route.
+	// This avoids the last_click spam guard in the custom /client/Click override
+	// and removes any usr-dependency — CommonClickOn only uses src (= mob) internally.
+	if(mob)
+		mob.CommonClickOn(A, list2params(paramslist))
 
 /client/proc/GetOOCName()
 	return key

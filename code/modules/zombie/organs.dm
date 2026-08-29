@@ -43,15 +43,24 @@
 
 /obj/item/organ/zombie_infection/process()
 	if(!owner)
+		STOP_PROCESSING(SSobj, src)
 		return
+	
+	// If we're somehow not in the owner's organs list, stop processing
 	if(!(src in owner.internal_organs))
+		STOP_PROCESSING(SSobj, src)
 		Remove(owner)
-	if(owner.mob_biotypes & MOB_MINERAL)//does not process in inorganic things
 		return
-	if (causes_damage && !iszombie(owner) && owner.stat != DEAD)
+	
+	if(owner.mob_biotypes & MOB_MINERAL)
+		return
+	
+	// Only cause damage if we're supposed to
+	if(causes_damage && !iszombie(owner) && owner.stat != DEAD)
 		owner.adjustToxLoss(1)
-		if (prob(10))
+		if(prob(10))
 			to_chat(owner, span_danger("You feel sick..."))
+	
 	if(timer_id)
 		return
 	if(owner.suiciding)
@@ -106,6 +115,18 @@
 /obj/item/organ/zombie_infection/on_find(mob/living/finder)
 	to_chat(finder, "<span class='warning'>Inside the head is a disgusting tumor \
 		leaking yellow ooze, bound tightly to the brain.</span>")
+
+/obj/item/organ/zombie_infection/ghoul/Remove(special = FALSE)
+	// Stop causing damage when removed
+	causes_damage = FALSE
+	
+	if(owner)
+		if(iszombie(owner) && old_species)
+			owner.set_species(old_species)
+		if(timer_id)
+			deltimer(timer_id)
+	. = ..()
+	STOP_PROCESSING(SSobj, src)
 
 /obj/item/organ/zombie_infection/ghoul/zombify()
 	timer_id = null

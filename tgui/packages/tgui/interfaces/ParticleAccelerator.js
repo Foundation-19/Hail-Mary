@@ -11,6 +11,7 @@ export const ParticleAccelerator = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={350}
       height={185}>
       <Window.Content>

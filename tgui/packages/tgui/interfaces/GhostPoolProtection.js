@@ -13,6 +13,7 @@ export const GhostPoolProtection = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       title="Ghost Pool Protection"
       width={400}
       height={270}>

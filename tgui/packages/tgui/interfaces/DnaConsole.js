@@ -77,6 +77,7 @@ export const DnaConsole = (props, context) => {
   const { consoleMode } = data.view;
   return (
     <Window
+      theme="fallout"
       title="DNA Console"
       width={539}
       height={710}

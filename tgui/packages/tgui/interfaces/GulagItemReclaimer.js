@@ -9,6 +9,7 @@ export const GulagItemReclaimer = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={325}
       height={400}
       resizable>

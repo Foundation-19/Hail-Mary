@@ -10,6 +10,7 @@ export const Holopad = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={440}
       height={245}
       resizable>

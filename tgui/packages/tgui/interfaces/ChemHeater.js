@@ -19,6 +19,7 @@ export const ChemHeater = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={300}
       height={320}
       resizable>

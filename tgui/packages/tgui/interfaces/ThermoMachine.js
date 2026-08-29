@@ -7,6 +7,7 @@ export const ThermoMachine = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={300}
       height={230}>
       <Window.Content>

@@ -13,6 +13,7 @@ export const Signaler = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={280}
       height={132}>
       <Window.Content>

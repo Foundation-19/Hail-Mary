@@ -7,6 +7,7 @@ import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 export const Apc = (props, context) => {
   return (
     <Window
+      theme="fallout"
       width={450}
       height={445}
       resizable>

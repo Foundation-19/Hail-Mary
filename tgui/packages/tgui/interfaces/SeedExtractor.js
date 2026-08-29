@@ -47,6 +47,7 @@ export const SeedExtractor = (props, context) => {
   const seeds = createSeeds(data.seeds);
   return (
     <Window
+      theme="fallout"
       width={1000}
       height={400}
       resizable>

@@ -56,6 +56,7 @@
 		ratvar_modules += I
 		ratvar_modules -= i
 
+// Ensure module properly clears robot reference
 /obj/item/robot_module/Destroy()
 	basic_modules.Cut()
 	emag_modules.Cut()

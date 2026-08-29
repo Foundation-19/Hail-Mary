@@ -13,6 +13,7 @@ export const Holodeck = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={400}
       height={500}
       resizable>

@@ -271,6 +271,7 @@ export const Pandemic = (props, context) => {
   const { data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={520}
       height={550}
       resizable>

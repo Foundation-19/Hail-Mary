@@ -9,6 +9,7 @@ export const CargoExpress = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={600}
       height={700}
       resizable>

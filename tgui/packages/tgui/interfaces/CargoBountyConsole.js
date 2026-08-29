@@ -10,6 +10,7 @@ export const CargoBountyConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={750}
       height={600}
       resizable>

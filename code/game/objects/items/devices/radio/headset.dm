@@ -23,7 +23,12 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	RADIO_CHANNEL_RANGER = RADIO_TOKEN_RANGER,
 	RADIO_CHANNEL_TOWN_COMMERCE = RADIO_TOKEN_TOWN_COMMERCE,
 	RADIO_CHANNEL_LEGION = RADIO_TOKEN_LEGION,
-	RADIO_CHANNEL_KHANS = RADIO_TOKEN_KHANS
+	RADIO_CHANNEL_KHANS = RADIO_TOKEN_KHANS,
+	RADIO_CHANNEL_LDS = RADIO_TOKEN_LDS,
+	RADIO_CHANNEL_USPS = RADIO_TOKEN_USPS,
+	RADIO_CHANNEL_EIGHTIES = RADIO_TOKEN_EIGHTIES,
+	RADIO_CHANNEL_EIGHTIESB = RADIO_TOKEN_EIGHTIESB,
+	RADIO_CHANNEL_EIGHTIESR = RADIO_TOKEN_EIGHTIESR
 ))
 
 /obj/item/radio/headset
@@ -460,6 +465,42 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	desc = "This is used by the Followers.\nTo access the Followers channel, use :m"
 	icon_state = "med_headset"
 	keyslot = new /obj/item/encryptionkey/headset_med
+
+/obj/item/radio/headset/headset_lds
+	name = "church radio headset"
+	desc = "This is used by the church.\nTo access the church channel, use :d. \nTo access the town channel, use :f."
+	icon_state = "med_headset"
+	keyslot = new /obj/item/encryptionkey/headset_lds
+
+/obj/item/radio/headset/headset_usps
+	name = "post office radio headset"
+	desc = "This is used by the town.\nTo access the postal channel, use :p. \nTo access the town channel, use :f."
+	icon_state = "com_headset"
+	keyslot = new /obj/item/encryptionkey/headset_usps
+
+/obj/item/radio/headset/headset_80s
+	name = "80s radio headset"
+	desc = "This is used by the 80s.\nTo access the 80s channel, use :g."
+	icon_state = "headset"
+	keyslot = new /obj/item/encryptionkey/headset_80s
+
+/obj/item/radio/headset/headset_80sb
+	name = "blue team radio headset"
+	desc = "This is used by the blue team.\nTo access the 80s channel, use :g. \nTo access the blue team channel, use :k."
+	icon_state = "com_headset"
+	keyslot = new /obj/item/encryptionkey/headset_80sb
+
+/obj/item/radio/headset/headset_80sr
+	name = "red team radio headset"
+	desc = "This is used by the 80s.\nTo access the 80s channel, use :g. \nTo access the red ream channel, use :x."
+	icon_state = "sec_headset"
+	keyslot = new /obj/item/encryptionkey/headset_80sr
+
+/obj/item/radio/headset/headset_80sc
+	name = "80s boss radio headset"
+	desc = "This is used by the 80s.\nTo access the 80s channel, use :g. \nTo access the blue team channel, use :k. \nTo access the red ream channel, use :x."
+	icon_state = "headset"
+	keyslot = new /obj/item/encryptionkey/headset_80sc
 
 /obj/item/radio/headset/headset_den
 	name = "den radio headset"

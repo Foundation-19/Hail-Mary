@@ -736,6 +736,16 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 					playsound(hit_atom, 'sound/weapons/genhit.ogg',volume, TRUE, -1)
 			else
 				playsound(hit_atom, 'sound/weapons/throwtap.ogg', 1, volume, -1)
+		
+		// HOSTILE MOB DETECTION: Alert nearby hostile mobs about thrown item
+		if(throwingdatum && throwingdatum.thrower)
+			for(var/mob/living/simple_animal/hostile/H in range(7, src))
+				if(H.stat == DEAD || H.ckey)
+					continue
+				// Only alert mobs that can actually SEE the thrown item
+				if(!can_see(H, src, 7))
+					continue
+				H.detect_thrown_item(src, throwingdatum.thrower)
 
 		return hit_atom.hitby(src, 0, itempush, throwingdatum=throwingdatum)
 
@@ -1177,8 +1187,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 /obj/item/proc/updateEmbedding()
 	if(!LAZYLEN(embedding))
-		return
+		// Clean up if no embedding data
+		RemoveElement(/datum/element/embed)
+		return FALSE
 
+	// Remove existing element before adding new one
+	// This prevents duplicate signal registration
+	RemoveElement(/datum/element/embed)
+	
 	AddElement(/datum/element/embed,\
 		embed_chance = (!isnull(embedding["embed_chance"]) ? embedding["embed_chance"] : EMBED_CHANCE),\
 		fall_chance = (!isnull(embedding["fall_chance"]) ? embedding["fall_chance"] : EMBEDDED_ITEM_FALLOUT),\

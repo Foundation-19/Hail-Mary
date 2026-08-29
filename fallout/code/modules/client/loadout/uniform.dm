@@ -985,6 +985,36 @@
 	cost = 1
 	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
 
+/datum/gear/uniform/wasteland/kzs
+	name = "KZS Suit"
+	path = /obj/item/clothing/under/f13/kzs
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/klmk
+	name = "KLMK Suit"
+	path = /obj/item/clothing/under/f13/klmk
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/adiktracksuit
+	name = "Adik Tracksuit"
+	path = /obj/item/clothing/under/f13/adiktracksuit
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/patriot1
+	name = "Cammies and Jeans"
+	path = /obj/item/clothing/under/f13/patriot1
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
+/datum/gear/uniform/wasteland/patriot3
+	name = "USA Shirt"
+	path = /obj/item/clothing/under/f13/patriot3
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_WASTELAND
+
 /datum/gear/uniform/wasteland/khan
 	name = "khan pants"
 	path = /obj/item/clothing/under/f13/khan
@@ -1249,7 +1279,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/uniform/ncr/officer
@@ -1279,7 +1311,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/uniform/ncr/sniper
@@ -1298,7 +1332,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/uniform/ncr/pants
@@ -1317,7 +1353,9 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)
 
 /datum/gear/uniform/ncr/shorts
@@ -1336,5 +1374,28 @@
 							"NCR Combat Medic",
 							"NCR Military Police",
 							"NCR Trooper",
-							"NCR Off-Duty"
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
+						)
+
+/datum/gear/uniform/ncr/ncrcoat
+	name = "NCR Winter Coat"
+	path = /obj/item/clothing/under/f13/ncr/ncrcoat
+	cost = 1
+	subcategory = LOADOUT_SUBCATEGORY_UNIFORM_UNIFORMS
+	restricted_desc = "NCR"
+	restricted_roles = list("NCR Captain",
+							"NCR Lieutenant",
+							"NCR Medical Officer",
+							"NCR Heavy Trooper",
+							"NCR Sergeant",
+							"NCR Corporal",
+							"NCR Combat Engineer",
+							"NCR Combat Medic",
+							"NCR Military Police",
+							"NCR Trooper",
+							"NCR Off-Duty",
+							"NCR Conscript",
+							"NCR Rear Echelon",
 						)

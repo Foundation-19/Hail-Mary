@@ -6,6 +6,7 @@ export const ImplantChair = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={375}
       height={280}>
       <Window.Content>

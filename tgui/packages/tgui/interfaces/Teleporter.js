@@ -14,6 +14,7 @@ export const Teleporter = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={470}
       height={140}>
       <Window.Content>

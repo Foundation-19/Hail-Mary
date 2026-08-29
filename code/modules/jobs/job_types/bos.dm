@@ -72,12 +72,17 @@ Elder Envoy
 /datum/job/bos/f13envoy
 	title = "Elder Envoy"
 	flag = F13ENVOY
+	display_order = JOB_DISPLAY_ORDER_ENVOY
 	head_announce = list("Security")
 	total_positions = 0
 	spawn_positions = 0
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
-	req_admin_notify = 1
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 4500)
+
+	min_required_special = list(
+		"special_c" = 7,
+		)
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_MINERAL_STOREROOM, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_CHANGE_IDS)
@@ -101,13 +106,12 @@ Elder Envoy
 	suit = /obj/item/clothing/suit/armor/light/duster/bos/scribe/elder
 	glasses = /obj/item/clothing/glasses/night
 	accessory = /obj/item/clothing/accessory/bos/elder
-	suit_store = /obj/item/gun/energy/laser/pistol
+	suit_store = /obj/item/gun/energy/laser/laer
 	neck = /obj/item/clothing/neck/mantle/bos/right
 	ears = /obj/item/radio/headset/headset_bos/command
 	backpack_contents = list(
 		/obj/item/stock_parts/cell/ammo/mfc = 2,
 		/obj/item/melee/onehanded/knife/hunting = 1
-
 	)
 
 /*
@@ -186,7 +190,7 @@ Paladin Commander
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	exp_requirements = 2280
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 4500)
 
 	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
@@ -246,7 +250,7 @@ Paladin Commander
 	mask = /obj/item/clothing/mask/gas/sechailer
 	ears = /obj/item/radio/headset/headset_bos/command
 	suit = /obj/item/clothing/suit/armor/power_armor/t51b/hardened
-	suit_store = /obj/item/shield/riot/bullet_proof 
+	suit_store =  /obj/item/gun/energy/laser/aer12
 	head = /obj/item/clothing/head/helmet/f13/power_armor/t51b/bos
 	neck = /obj/item/storage/belt/shoulderholster
 	backpack_contents = list(
@@ -255,6 +259,7 @@ Paladin Commander
 		/obj/item/ammo_box/magazine/m10mm/adv/simple = 5,
 		/obj/item/melee/powered/ripper/prewar = 1,
 		/obj/item/gun/ballistic/automatic/pistol/n99/crusader = 1,
+		/obj/item/stock_parts/cell/ammo/mfc = 3,
 
 		)
 
@@ -295,7 +300,7 @@ Proctor
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_HEADSCRIBE
 	outfit = /datum/outfit/job/bos/f13headscribe
-	exp_requirements = 1500
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3300)
 
 	loadout_options = list(
 	/datum/outfit/loadout/hsstand,
@@ -328,10 +333,7 @@ Proctor
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
-	ADD_TRAIT(H, TRAIT_MEDICALEXPERT, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST_EXPERT, src)
-	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
-	ADD_TRAIT(H, TRAIT_GENERIC, src)
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 
@@ -379,7 +381,7 @@ Knight-Captain
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
-	exp_requirements = 1920
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3300)
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
@@ -411,7 +413,7 @@ Knight-Captain
 	gunsmith_three = TRUE
 	gunsmith_four = TRUE
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
-	suit_store = /obj/item/gun/energy/laser/aer12
+	suit_store = /obj/item/gun/energy/laser/aer9
 	glasses = /obj/item/clothing/glasses/night
 	accessory =	/obj/item/clothing/accessory/bos/knightcaptain
 	l_pocket = /obj/item/storage/belt/sabre/heavy
@@ -423,6 +425,7 @@ Knight-Captain
 		/obj/item/storage/belt/army/security/full = 1,
 		/obj/item/stock_parts/cell/ammo/mfc = 3,
 		/obj/item/melee/powered/ripper/prewar = 1,
+		/obj/item/storage/box/bos/kcaptain = 1,
 		)
 /*
 /datum/outfit/loadout/capalt
@@ -513,7 +516,7 @@ Paladin
 	supervisors = "the Elders or the Paladin Commander if he is present"
 	display_order = JOB_DISPLAY_ORDER_PALADIN
 	outfit = /datum/outfit/job/bos/f13paladin
-	exp_requirements = 1680
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_BOS = 2400)
 /*
 	loadout_options = list(
 	/datum/outfit/loadout/paladina, //Minigun
@@ -557,7 +560,7 @@ Paladin
 	name =	"Paladin"
 	jobtype =	/datum/job/bos/f13paladin
 	suit =	/obj/item/clothing/suit/armor/power_armor/t45d/bos
-	suit_store = /obj/item/gun/energy/laser/aer12
+	suit_store = /obj/item/gun/energy/laser/aer9
 	head =	/obj/item/clothing/head/helmet/f13/power_armor/t45d/bos
 	uniform =	/obj/item/clothing/under/f13/recon
 	belt = /obj/item/storage/belt/army/assault
@@ -598,7 +601,7 @@ Senior Scribe
 	supervisors = "the Proctor"
 	display_order = JOB_DISPLAY_ORDER_SENIORSCRIBE
 	outfit = /datum/outfit/job/bos/f13seniorscribe
-	exp_requirements = 1200
+	exp_requirements = 1800
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -624,7 +627,10 @@ Senior Scribe
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
-	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
+	if(!H.mind.learned_recipes)
+		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -655,13 +661,13 @@ Scribe
 /datum/job/bos/f13scribe
 	title = "Scribe"
 	flag = F13SCRIBE
-	total_positions = 2
-	spawn_positions = 2
+	total_positions = 3
+	spawn_positions = 3
 	description = "You answer to senior members, tasked with researching and reverse-engineering recovered technologies from the old world, while maintaining the brotherhoods scientific archives. You may also be given a trainee to assign duties to."
 	supervisors = "the Head and Senior Scribe"
 	display_order = JOB_DISPLAY_ORDER_SCRIBE
 	outfit = /datum/outfit/job/bos/f13scribe
-	exp_requirements = 30
+	exp_requirements = 900
 
 	loadout_options = list(
 	/datum/outfit/loadout/scribea, //Junior Scribe
@@ -724,7 +730,10 @@ Scribe
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
-	H.mind.teach_crafting_recipe(GLOB.chemwhiz_recipes)
+	if(!H.mind.learned_recipes)
+		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_SURGERY_HIGH, src)
 	ADD_TRAIT(H, TRAIT_CYBERNETICIST, src)
@@ -742,7 +751,7 @@ Knight Sarge
 	supervisors = "the Knight-Captain and Paladin Commander"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTSARGE
 	outfit = /datum/outfit/job/bos/f13knightsarge
-	exp_requirements = 1440
+	exp_requirements = 1800
 /*
 	loadout_options = list(
 	/datum/outfit/loadout/sknightb, //Police Shotgun
@@ -912,13 +921,13 @@ Knight
 /datum/job/bos/f13knight
 	title = "Knight"
 	flag = F13KNIGHT
-	total_positions = 5
-	spawn_positions = 5
+	total_positions = 6
+	spawn_positions = 6
 	description = "You are the Brotherhood Knight, the veritable lifeblood of your organization. You are a versatile and adaptably trained person: from your primary duties of weapon & armor repair to basic combat, survival and stealth skills, the only thing you lack is proper experience. You are also in charge of Initiates."
 	supervisors = "the Head and Knight-Sergeant"
 	display_order = JOB_DISPLAY_ORDER_KNIGHT
 	outfit = /datum/outfit/job/bos/f13knight
-	exp_requirements = 300
+	exp_requirements = 720
 
 	access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
 	minimal_access = list(ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS)
@@ -1005,7 +1014,7 @@ Initiate
 	supervisors = "the Scribes, Knights, or Paladins"
 	display_order = JOB_DISPLAY_ORDER_INITIATE
 	outfit = /datum/outfit/job/bos/f13initiate
-	exp_requirements = 0
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720)
 
 	loadout_options = list(
 	/datum/outfit/loadout/initiatek, //Wattz and Engibelt with armor, helmet

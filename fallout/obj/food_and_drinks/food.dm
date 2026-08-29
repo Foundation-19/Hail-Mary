@@ -386,7 +386,8 @@
 	icon_state = "bubblegum"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 1
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
@@ -401,7 +402,8 @@
 	icon_state = "bubblegum_large"
 	bonus_reagents = list(
 		/datum/reagent/radium = 4,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 4,
@@ -416,7 +418,8 @@
 	icon_state = "cram"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 5
+		/datum/reagent/consumable/nutriment/vitamin = 5,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 20)
 	filling_color = "#B22222"
@@ -428,7 +431,8 @@
 	icon_state = "cram_large"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 10
+		/datum/reagent/consumable/nutriment/vitamin = 10,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 40)
 	filling_color = "#B22222"
@@ -440,7 +444,8 @@
 	icon_state = "yumyum"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
 	filling_color = "#B22222"
@@ -452,7 +457,8 @@
 	icon_state = "fancylads"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 1
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 20)
 	filling_color = "#B22222"
@@ -464,7 +470,8 @@
 	icon_state = "sugarbombs"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
@@ -479,7 +486,8 @@
 	icon_state = "crisps"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 1
+		/datum/reagent/consumable/nutriment/vitamin = 1,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	filling_color = "#B22222"
@@ -491,7 +499,8 @@
 	icon_state = "steak"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 5
+		/datum/reagent/consumable/nutriment/vitamin = 5,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 50)
 	filling_color = "#B22222"
@@ -503,11 +512,11 @@
 	icon_state = "specialapples"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(
-		/datum/reagent/consumable/nutriment = 10,
-		/datum/reagent/medicine/tricordrazine = 10
+		/datum/reagent/consumable/nutriment = 10
 	)
 	filling_color = "#B22222"
 	foodtype = DAIRY | SUGAR
@@ -518,7 +527,8 @@
 	icon_state = "dandyapples"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 10,
@@ -533,7 +543,8 @@
 	icon_state = "blamco"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 15)
 	filling_color = "#B22222"
@@ -545,7 +556,8 @@
 	icon_state = "blamco_large"
 	bonus_reagents = list(
 		/datum/reagent/radium = 4,
-		/datum/reagent/consumable/nutriment/vitamin = 4
+		/datum/reagent/consumable/nutriment/vitamin = 4,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 30)
 	filling_color = "#B22222"
@@ -557,7 +569,8 @@
 	icon_state = "mechanist"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 3
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 15)
 	filling_color = "#B22222"
@@ -569,7 +582,8 @@
 	icon_state = "instamash"
 	bonus_reagents = list(
 		/datum/reagent/radium = 2,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 15)
 	filling_color = "#B22222"
@@ -872,7 +886,8 @@
 	icon_state = "porknbeans"
 	bonus_reagents = list(
 		/datum/reagent/radium = 1,
-		/datum/reagent/consumable/nutriment/vitamin = 2
+		/datum/reagent/consumable/nutriment/vitamin = 2,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 35)
 	filling_color = "#B22222"
@@ -886,7 +901,8 @@
 	icon_state = "borscht"
 	bonus_reagents = list(
 		/datum/reagent/radium = 1,
-		/datum/reagent/consumable/nutriment/vitamin = 3
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 35)
 	filling_color = "#B22222"
@@ -900,7 +916,8 @@
 	icon_state = "dog"
 	bonus_reagents = list(
 		/datum/reagent/radium = 1,
-		/datum/reagent/consumable/nutriment/vitamin = 3
+		/datum/reagent/consumable/nutriment/vitamin = 3,
+		/datum/reagent/toxin = 1
 	)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 35)
 	filling_color = "#B22222"

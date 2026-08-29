@@ -1,0 +1,48 @@
+2026-03-20:
+  Malerus:
+  - rscadd: Faction jobs now require cumulative playtime in their tier before they
+      can be selected.
+  - rscadd: Enlisted roles in non-Wasteland factions now require 12 hours of Wasteland
+      playtime; Wasteland roles themselves are exempt from this requirement.
+  - rscadd: Misc-tier roles now require 15 hours in their own faction.
+  - rscadd: NCO roles now require 25 hours in their own faction.
+  - rscadd: Senior NCO roles now require 30 hours in the faction and 30 hours of
+      Wasteland playtime.
+  - rscadd: Officer roles now require 55 hours in the faction and 12 hours in any
+      other faction.
+  - rscadd: Commander-tier roles now require 75 hours in the faction and 35 hours in
+      any other faction.
+  - qol: The locked job tooltip in the Join Game menu now shows progress bars for
+      faction hours, Wasteland hours, and other-faction hours when a tier prerequisite
+      is not yet met.
+  - admin: The player exp panel now filters out SS13 department types, showing only
+      Fallout faction types.
+  - admin: The player exp panel now has a Tier Exemptions section to exempt players
+      from individual tier prerequisites per faction.
+  - admin: The player exp panel now supports resetting or manually setting hours
+      broken down by faction tier.
+
+2026-03-16:
+  Malerus:
+  - rscadd: Players are now prompted to accept server rules before joining; the prompt
+      only appears once and is saved to their preferences file.
+  - rscadd: Admins can force a player to re-accept the server rules via the existing
+      forcerules command; this now also persists the reset to their savefile.
+  - qol: Occupation picker in character creation is now a faction-grouped card grid
+      instead of a plain list.
+  - qol: Removed the "New Player Options" title bar from the lobby popup.
+  - qol: Lobby popup is now tall enough to avoid a default scrollbar.
+  - bugfix: HUD changelog and github buttons no longer lose their amber color every
+      time the tgui panel loads.
+  - bugfix: Bold and strong text no longer change to the wrong color on hover in
+      browser UI.
+  - code_imp: rules_accepted moved from /client to datum/preferences so acceptance
+      persists across server restarts.
+  - code_imp: Added tools/ss13_genchangelog.py for generating the static changelog
+      archive from yml entries.
+  - qol: In-game Changelog redesigned as a Fallout 1 phosphor-green RobCo terminal
+      with monospace font, scanline effect, and green glow headings.
+  - qol: Changelog header updated to Hail Mary Station branding, removing upstream
+      Coyote Bayou references.
+  - bugfix: Fixed null runtime in explosion.dm when reactionary_explosions config
+      flag is disabled.

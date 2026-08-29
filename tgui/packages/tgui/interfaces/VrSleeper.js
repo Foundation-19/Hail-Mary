@@ -6,6 +6,7 @@ export const VrSleeper = (props, context) => {
   const { act, data } = useBackend(context);
   return (
     <Window
+      theme="fallout"
       width={475}
       height={340}>
       <Window.Content>

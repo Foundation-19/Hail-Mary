@@ -121,6 +121,9 @@ SUBSYSTEM_DEF(statpanels)
 							continue
 						overrides += target_image.loc
 					turfitems[++turfitems.len] = list("[target_mob.listed_turf]", REF(target_mob.listed_turf), icon2html(target_mob.listed_turf, target, sourceonly=TRUE))
+					// cached_images maps REF -> icon URL so we can always include the URL in turfitems.
+					// Previously it was a plain REF list that caused cached items to be sent WITHOUT a URL,
+					// meaning JS storedimages was never populated and icons would never show after reload.
 					for(var/tc in target_mob.listed_turf)
 						var/atom/movable/turf_content = tc
 						if(turf_content.mouse_opacity == MOUSE_OPACITY_TRANSPARENT)
@@ -131,18 +134,20 @@ SUBSYSTEM_DEF(statpanels)
 							continue
 						if(turf_content.IsObscured())
 							continue
+						var/ref = REF(turf_content)
 						if(length(turfitems) < 30) // only create images for the first 30 items on the turf, for performance reasons
-							if(!(REF(turf_content) in cached_images))
-								cached_images += REF(turf_content)
-								turf_content.RegisterSignal(turf_content, COMSIG_PARENT_QDELETING, TYPE_PROC_REF(/atom, remove_from_cache)) // we reset cache if anything in it gets deleted
+							var/icon_url = cached_images[ref]
+							if(!icon_url)
+								// New item: generate the icon URL, cache it, and register a delete signal.
 								if(ismob(turf_content) || length(turf_content.overlays) > 2)
-									turfitems[++turfitems.len] = list("[turf_content.name]", REF(turf_content), costly_icon2html(turf_content, target, sourceonly=TRUE))
+									icon_url = costly_icon2html(turf_content, target, sourceonly=TRUE)
 								else
-									turfitems[++turfitems.len] = list("[turf_content.name]", REF(turf_content), icon2html(turf_content, target, sourceonly=TRUE))
-							else
-								turfitems[++turfitems.len] = list("[turf_content.name]", REF(turf_content))
+									icon_url = icon2html(turf_content, target, sourceonly=TRUE)
+								cached_images[ref] = icon_url
+								RegisterSignal(turf_content, COMSIG_PARENT_QDELETING, PROC_REF(remove_from_cache), override = TRUE)
+							turfitems[++turfitems.len] = list("[turf_content.name]", ref, icon_url)
 						else
-							turfitems[++turfitems.len] = list("[turf_content.name]", REF(turf_content))
+							turfitems[++turfitems.len] = list("[turf_content.name]", ref)
 					turfitems = url_encode(json_encode(turfitems))
 					// Only send if contents changed to prevent constant flashing
 					if(!target.last_turf_items_encoded || target.last_turf_items_encoded != turfitems)
@@ -170,9 +175,9 @@ SUBSYSTEM_DEF(statpanels)
 	mc_data[++mc_data.len] = list("Camera Net", "Cameras: [GLOB.cameranet.cameras.len] | Chunks: [GLOB.cameranet.chunks.len]", "\ref[GLOB.cameranet]")
 	mc_data_encoded = url_encode(json_encode(mc_data))
 
-/atom/proc/remove_from_cache()
+/datum/controller/subsystem/statpanels/proc/remove_from_cache(atom/source)
 	SIGNAL_HANDLER
-	SSstatpanels.cached_images -= REF(src)
+	cached_images.Remove(REF(source)) // cached_images is now an associative list (REF -> URL)
 
 /// verbs that send information from the browser UI
 /client/verb/set_tab(tab as text|null)
@@ -204,10 +209,22 @@ SUBSYSTEM_DEF(statpanels)
 	set hidden = TRUE
 
 	statbrowser_ready = TRUE
-	init_verbs()
+	// Reset panel_tabs so SSstatpanels will re-send add_admin_tabs on the next tick.
+	// Without this, a page reload resets JS permanent_tabs but DM panel_tabs is stale,
+	// so add_admin_tabs is never re-sent and MC/Tickets buttons never come back.
+	panel_tabs = list()
+	// Null this so the next turf-tab build is treated as a fresh send and includes all icon URLs.
+	// After a page reload JS storedimages is empty; without this the cached_images optimisation
+	// skips sending icon URLs for items already seen, producing broken images on the tile tab.
+	last_turf_items_encoded = null
+	init_verbs(force = TRUE) // force ensures JS tab state is fully restored after any page reload (e.g. triggered by statpanel tile-tab item clicks in IE renderer)
+	// Re-send the listed turf tab if one was active — the page reload that triggered panel_ready
+	// would have reset the JS permanent_tabs array, losing the turf tab entirely.
+	if(mob?.listed_turf)
+		src << output("[url_encode(json_encode(mob.listed_turf.name))];", "statbrowser:create_listedturf")
 
 /client/verb/update_verbs()
 	set name = "Update Verbs"
 	set hidden = TRUE
 
-	init_verbs()
+	init_verbs(force = TRUE) // Force full rebuild so JS receives a fresh verb list regardless of hash state

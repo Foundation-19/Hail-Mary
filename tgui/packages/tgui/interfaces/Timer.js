@@ -13,6 +13,7 @@ export const Timer = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={275}
       height={115}>
       <Window.Content>

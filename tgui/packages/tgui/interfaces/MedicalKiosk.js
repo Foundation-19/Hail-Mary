@@ -14,6 +14,7 @@ export const MedicalKiosk = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={575}
       height={420}
       resizable>

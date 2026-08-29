@@ -90,6 +90,15 @@
 	layer = 100
 	var/open = FALSE
 	var/id = null
+	/// Difficulty tier used by the lockpicking minigame — mapper-settable per door.
+	var/lock_tier = 2
+	/// Mirrors !open so the lockpicking system can read a unified 'locked' var.
+	var/locked = TRUE
+	/// Set TRUE when the lock is bypassed by lockpicking — cleared when re-locked with a key.
+	var/tampered = FALSE
+	/// Persistent tumbler solution and binding order — managed by the minigame.
+	var/list/pin_solution = null
+	var/list/pin_bind_order = null
 
 /obj/item/lock/New(location)
 	..()
@@ -135,6 +144,9 @@
 
 /obj/item/lock/proc/toggle()
 	open = !open
+	locked = !open
+	if(!open)  // just re-locked with a key
+		tampered = FALSE
 	update_icon()
 
 /obj/item/lock/update_icon()

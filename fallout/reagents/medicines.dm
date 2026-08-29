@@ -638,6 +638,28 @@
 	. = TRUE
 
 // ---------------------------
+// ANIMAL MEDICINE REAGENT - Broken for now, will expand on this later. Animals don't have metabolism currently.
+
+/*
+/datum/reagent/medicine/animal_medicine
+	name = "Animal Medicine"
+	description = "A veterinary healing compound that rapidly heals wounds on animals and mounts."
+	reagent_state = LIQUID
+	color = "#6B8E23"
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	taste_description = "bitter herbs"
+	ghoulfriendly = TRUE
+
+/datum/reagent/medicine/animal_medicine/on_mob_life(mob/living/M)
+	if(isanimal(M))
+		var/mob/living/simple_animal/SA = M
+		SA.adjustBruteLoss(-4 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		SA.adjustFireLoss(-3 * REAGENTS_EFFECT_MULTIPLIER, FALSE)
+		. = TRUE
+	..()
+*/
+
+// ---------------------------
 // GAIA EXTRACT REAGENT
 
 /datum/reagent/medicine/gaia

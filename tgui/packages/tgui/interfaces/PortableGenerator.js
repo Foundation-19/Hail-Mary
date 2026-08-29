@@ -14,6 +14,7 @@ export const PortableGenerator = (props, context) => {
   );
   return (
     <Window
+      theme="fallout"
       width={450}
       height={340}
       resizable>

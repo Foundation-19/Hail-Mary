@@ -228,6 +228,7 @@ export const NaniteExtraBoolean = (props, context) => {
 export const NaniteProgrammer = (props, context) => {
   return (
     <Window
+      theme="fallout"
       width={420}
       height={550}
       resizable>

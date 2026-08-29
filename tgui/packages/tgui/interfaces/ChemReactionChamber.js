@@ -18,6 +18,7 @@ export const ChemReactionChamber = (props, context) => {
   const reagents = data.reagents || [];
   return (
     <Window
+      theme="fallout"
       width={250}
       height={225}
       resizable>

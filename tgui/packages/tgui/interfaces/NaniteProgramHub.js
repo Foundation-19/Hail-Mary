@@ -22,6 +22,7 @@ export const NaniteProgramHub = (props, context) => {
     || [];
   return (
     <Window
+      theme="fallout"
       width={500}
       height={700}
       resizable>

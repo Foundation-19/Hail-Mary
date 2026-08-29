@@ -11,6 +11,7 @@ export const ExosuitControlConsole = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={500}
       height={500}
       resizable>

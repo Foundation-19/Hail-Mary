@@ -101,6 +101,22 @@
 	icon_state = "book1"
 	remarks = list("One smooth motion...", "Palm the bolt...", "Push up, rotate back, push forward, down...", "Don't slap yourself with the bolt...", "Wait, what's this about pumping?", "Who just scribbled \"Z\" and \"LMB\" on this page?")
 
+/obj/item/book/granter/trait/lockpicking
+	name = "Confidential: The Art of the Open Door"
+	desc = "A slim, dog-eared manual with no author listed. Chapters cover pin-tumbler theory, tension control, and reading binding order by feel. Someone has underlined the words 'patience' and 'don\'t rush' in every chapter."
+	oneuse = TRUE
+	granted_trait = TRAIT_LOCKPICKING
+	traitname = "lockpicking"
+	icon_state = "book2"
+	remarks = list(
+		"Single-pin picking: apply light tension, find the binding pin...",
+		"The binding pin is the one the cylinder is pressing on hardest...",
+		"Set it, move to the next. Don\'t rush — the cylinder remembers...",
+		"False sets feel almost right. Trust the feedback, not the click...",
+		"If it jams, you pushed too fast. The pick is now your enemy...",
+		"The last pin drops and something clicks. That\'s the feeling."
+	)
+
 ///ACTION BUTTONS///
 
 /obj/item/book/granter/action
@@ -642,7 +658,7 @@
 	icon_state = "gab1"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/ninemil, /datum/crafting_recipe/huntingrifle, /datum/crafting_recipe/tec22)
+	crafting_recipe_types = list(/datum/crafting_recipe/ninemil, /datum/crafting_recipe/huntingrifle, /datum/crafting_recipe/tec22, /datum/crafting_recipe/mp5)
 
 /obj/item/book/granter/crafting_recipe/gunsmith_two
 	name = "Guns and Bullets, Part 2"
@@ -658,7 +674,7 @@
 	icon_state = "gab3"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/scope, /datum/crafting_recipe/suppressor, /datum/crafting_recipe/ergonomic_grip, /datum/crafting_recipe/metal_guard, /datum/crafting_recipe/forged_barrel, /datum/crafting_recipe/booster, /datum/crafting_recipe/laserguide, /datum/crafting_recipe/gigalens, /datum/crafting_recipe/battshunt, /datum/crafting_recipe/overdrivemod, /datum/crafting_recipe/ai_tool, /datum/crafting_recipe/handmade_rifle, /datum/crafting_recipe/handmade_battle_rifle, /datum/crafting_recipe/handmade_dmr, /datum/crafting_recipe/handmade_assault_carbine)
+	crafting_recipe_types = list(/datum/crafting_recipe/scope, /datum/crafting_recipe/suppressor, /datum/crafting_recipe/ergonomic_grip, /datum/crafting_recipe/metal_guard, /datum/crafting_recipe/forged_barrel, /datum/crafting_recipe/booster, /datum/crafting_recipe/laserguide, /datum/crafting_recipe/gigalens, /datum/crafting_recipe/battshunt, /datum/crafting_recipe/overdrivemod, /datum/crafting_recipe/ai_tool, /datum/crafting_recipe/handmade_assault_carbine)
 
 /obj/item/book/granter/crafting_recipe/gunsmith_four
 	name = "Guns and Bullets, Part 4"
@@ -666,7 +682,15 @@
 	icon_state = "gab4"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended, /datum/crafting_recipe/drum10mm)
+	crafting_recipe_types = list(/datum/crafting_recipe/flux, /datum/crafting_recipe/lenses, /datum/crafting_recipe/conductors, /datum/crafting_recipe/receiver, /datum/crafting_recipe/assembly, /datum/crafting_recipe/alloys, /datum/crafting_recipe/a556extended, /datum/crafting_recipe/drum10mm, /datum/crafting_recipe/handmade_rifle, /datum/crafting_recipe/handmade_dmr)
+
+/obj/item/book/granter/crafting_recipe/gunsmith_five
+	name = "Soldier of Fortune Magazine, 2074 Edition"
+	desc = "The hottest magazine in the pre-war private and governmental military sectors, the favorite of mercenary, cop, soldier and wannabe alike! The 2077 Edition of the Soldier of Fortune magazine features the newest when it comes to updates in the global military scene and the most recent news on firearms development. This edition seems to have a specific focus on the weapons from the other side of the iron curtain, featuring a deep dive into their mechanics and functionality. Likewise, another item of distinct focus is the newest and brightest when it comes to publically and not-so publically available weapon attachments inside and outside of pre-war america."
+	icon_state = "book1"
+	oneuse = TRUE
+	remarks = list("The first rule of gun safety is to have fun...", ".45 ACP is God's gift to mankind...", "Nyet, rifle is fine...", "That's a gimmick sonny, back in my day...", "Studies show that the higher you set your sights, the harder the bullet hits...")
+	crafting_recipe_types = list(/datum/crafting_recipe/handmade_battle_rifle, /datum/crafting_recipe/eastern_pdw, /datum/crafting_recipe/eastern_compact_shotgun, /datum/crafting_recipe/eastern_light_machine_gun, /datum/crafting_recipe/eastern_assassin_rifle , /datum/crafting_recipe/killer, /datum/crafting_recipe/raidertrigger, /datum/crafting_recipe/blender)
 
 /obj/item/book/granter/crafting_recipe/scav_one
 	name = "SCAV! Issue 1"
@@ -1039,6 +1063,14 @@
 	granted_trait = TRAIT_PA_WEAR
 	traitname = "Power Armor"
 	remarks = list("Daily maintenance is essential, clean and repair your suit often.", "Don't let overconfidence kill you, you are not invincible.", "Mechanized infantry should always be supported by regular infantry.", "You move slowly, pay attention to your position relative to the enemy.", "You are always vulnerable to ambush, do not rest in the field.", "AP rounds will shred your suit, you are not invincible.")
+
+/obj/item/book/granter/trait/pilot
+	name = "Vertibird Valkiries : The Balkan War"
+	desc = "A comic book, with a guide to learn how to fly vertibirds. And balloons."
+	oneuse = TRUE
+	granted_trait = TRAIT_PILOT
+	traitname = "Pilot"
+	remarks = list("You feel the need for speed.", "The transition between horizontal and vertical flight is tricky, rotor angle is key.", "Stalling is a risk", "Yo buddy, Still alive ?", "Watch out, the skys are yours.", "... Hold on, there is a page on baloons ?!",)
 
 /obj/item/book/granter/trait/explosives
 	name = "Industrial Society and Its Future"

@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 export const NaniteChamberControl = (props, context) => {
   return (
     <Window
+      theme="fallout"
       width={380}
       height={570}
       resizable>

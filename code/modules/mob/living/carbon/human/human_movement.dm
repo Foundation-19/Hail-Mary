@@ -1,3 +1,7 @@
+// Sneak mode movement slowdown - makes player move 2x slower
+/datum/movespeed_modifier/sneak_mode
+	multiplicative_slowdown = 1 // 2x slower (base movement + 1 = 2x the delay)
+
 /mob/living/carbon/human/get_movespeed_modifiers()
 	var/list/considering = ..()
 	if(HAS_TRAIT(src, TRAIT_IGNORESLOWDOWN))
@@ -12,15 +16,94 @@
 /mob/living/carbon/human/movement_delay()
 	. = ..()
 	if(CHECK_MOBILITY(src, MOBILITY_STAND) && m_intent == MOVE_INTENT_RUN && (combat_flags & COMBAT_FLAG_SPRINT_ACTIVE))
-		var/static/datum/config_entry/number/movedelay/sprint_speed_increase/SSI
-		if(!SSI)
-			SSI = CONFIG_GET_ENTRY(number/movedelay/sprint_speed_increase)
-		. -= SSI.config_entry_value
+		. -= calc_sprint_speed_mod_from_special()
 	if(m_intent == MOVE_INTENT_WALK && HAS_TRAIT(src, TRAIT_SPEEDY_STEP))
 		. -= 1.25
 	if(HAS_TRAIT(src, TRAIT_SMUTANT))
-		. -= -1.0
-	. += calc_movespeed_mod_from_special() // S.P.E.C.I.A.L.
+		. += 0
+	
+	// Apply strength-based armor penalties to base movement
+	if(istype(wear_suit))
+		var/obj/item/clothing/suit/armor = wear_suit
+		var/str_requirement = 0
+		var/armor_type = ""
+		var/is_penalized = FALSE
+		
+		if(armor.slowdown == ARMOR_SLOWDOWN_SALVAGE)
+			str_requirement = 6
+			armor_type = "salvaged plate"
+			if(special_s < 6)
+				. += 0.5
+				is_penalized = TRUE
+				
+		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+			str_requirement = 4
+			armor_type = "power armor frame"
+			if(special_s < 4)
+				. += 0.4
+				is_penalized = TRUE
+				
+		else if(armor.slowdown == ARMOR_SLOWDOWN_HEAVY)
+			str_requirement = 6
+			armor_type = "heavy plating"
+			if(special_s < 6)
+				. += 0.4
+				is_penalized = TRUE
+				
+		else if(armor.slowdown == ARMOR_SLOWDOWN_MEDIUM)
+			str_requirement = 4
+			armor_type = "combat armor"
+			if(special_s < 4)
+				. += 0.3
+				is_penalized = TRUE
+				
+		else if(armor.slowdown == ARMOR_SLOWDOWN_LIGHT)
+			str_requirement = 3
+			armor_type = "light armor"
+			if(special_s < 3)
+				. += 0.3
+				is_penalized = TRUE
+		
+		// Only warn if penalized AND haven't warned recently
+		if(is_penalized && (last_armor_warning_time == 0 || world.time > last_armor_warning_time + 3000))
+			last_armor_warning_time = world.time
+			
+			// Themed warning messages based on armor type
+			var/message = ""
+			switch(armor_type)
+				if("salvaged plate")
+					message = "<span class='warning'>The [armor] drags on you like a corpse. Your muscles scream. You need [str_requirement] STR to move like you're alive.</span>"
+				if("power armor frame")
+					message = "<span class='warning'>The [armor]'s servos whine uselessly without the strength to guide them. [str_requirement] STR would let the machine work with you, not against you.</span>"
+				if("heavy plating")
+					message = "<span class='warning'>Every step in the [armor] feels like dragging yourself out of a grave. [str_requirement] STR would make this wearable instead of a punishment.</span>"
+				if("combat armor")
+					message = "<span class='warning'>The [armor] fights you with every movement. Your frame can't quite fill it. [str_requirement] STR would let you wear this like it was meant to be worn.</span>"
+				if("light armor")
+					message = "<span class='warning'>Even this [armor] weighs you down. The straps dig in wrong. [str_requirement] STR and it'd sit right.</span>"
+			
+			if(message)
+				to_chat(src, message)
+
+	var/current_time = world.time
+	var/fatigue_cap = 0.3
+
+	if(special_a >= 7)
+		fatigue_cap = 0.5
+
+	if(current_time - last_move_time < 10)
+		movement_fatigue = min(movement_fatigue + 0.05, fatigue_cap)
+		last_move_time = current_time
+	else
+		movement_fatigue = max(movement_fatigue - 0.1, 0)
+		last_move_time = current_time
+
+	. += movement_fatigue
+
+	if(special_a >= 7)
+		. += 0
+	else
+		. += 0.2 // Standard slowdown
 
 /mob/living/carbon/human/slip(knockdown_amount, obj/O, lube)
 	if(HAS_TRAIT(src, TRAIT_NOSLIPALL))
@@ -70,6 +153,26 @@
 			for(var/obj/item/I in held_items)
 				accident(I)
 			DefaultCombatKnockdown(80)
+	
+	// Update vision cones and drain stamina when player moves in sneak mode
+	if(. && sneaking)
+		update_vision_cones() // Update vision cones when we move
+		// Drain sprint buffer while sneaking and moving
+		if(has_gravity(loc) && CHECK_ALL_MOBILITY(src, MOBILITY_MOVE|MOBILITY_STAND))
+			doSprintBufferRegen(FALSE) // Reset idle timer
+			sprint_idle_time = 0
+			var/sneak_cost = 0.5 // 0.5 tiles of sprint buffer per tile moved
+			sprint_buffer = max(0, sprint_buffer - sneak_cost)
+			update_hud_sprint_bar() // Update sprint bar display
+			
+			// Force out of sneak mode if sprint buffer depleted
+			if(sprint_buffer <= 0)
+				force_exit_sneak_mode()
+				to_chat(src, span_warning("You're too exhausted to continue sneaking!"))
+		// Update assassination button availability (position changed)
+		for(var/datum/action/cooldown/assassinate/A in actions)
+			A.UpdateButtonIcon()
+	
 	if(shoes)
 		if(!lying && !buckled)
 			if(loc == NewLoc)
@@ -110,6 +213,7 @@
 /mob/living/carbon/human/Moved()
 	. = ..()
 	if(.)
+		update_turf_movespeed(loc)
 		if(HAS_TRAIT(src, TRAIT_NOHUNGER)) // Let's pretend this trait responds for everything
 			set_thirst(THIRST_LEVEL_FULL)
 		else if(thirst && stat != DEAD)

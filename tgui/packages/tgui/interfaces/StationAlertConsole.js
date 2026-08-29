@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 export const StationAlertConsole = () => {
   return (
     <Window
+      theme="fallout"
       width={325}
       height={500}
       resizable>

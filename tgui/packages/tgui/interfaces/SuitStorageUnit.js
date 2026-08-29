@@ -18,6 +18,7 @@ export const SuitStorageUnit = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={400}
       height={305}>
       <Window.Content>

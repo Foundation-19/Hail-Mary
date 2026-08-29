@@ -6,6 +6,7 @@ import { Window } from '../layouts';
 export const AiRestorer = () => {
   return (
     <Window
+      theme="fallout"
       width={370}
       height={360}
       resizable>

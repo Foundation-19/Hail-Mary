@@ -9,6 +9,7 @@ export const DecalPainter = (props, context) => {
   const dir_list = data.dir_list || [];
   return (
     <Window
+      theme="fallout"
       width={500}
       height={400}>
       <Window.Content>

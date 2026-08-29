@@ -15,6 +15,7 @@ export const OreRedemptionMachine = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       title="Ore Redemption Machine"
       width={440}
       height={550}

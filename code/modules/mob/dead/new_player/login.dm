@@ -5,6 +5,8 @@
 		if(client)
 			client.set_exp_from_db()
 		if(client)
+			client.load_exp_type_exempts()
+		if(client)
 			client.set_db_player_flags()
 	if(CONFIG_GET(flag/use_role_whitelist))
 		if(client)

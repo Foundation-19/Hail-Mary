@@ -12,6 +12,7 @@ export const NtnetRelay = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       title="NtNet Quantum Relay"
       width={400}
       height={300}>

@@ -38,6 +38,7 @@ export const Radio = (props, context) => {
   }
   return (
     <Window
+      theme="fallout"
       width={360}
       height={height}>
       <Window.Content>

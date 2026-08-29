@@ -997,33 +997,33 @@
 				/obj/item/gun/ballistic/automatic/varmint/ratslayer,
 				/obj/item/gun/ballistic/automatic/smg/sidewinder/magnum,
 				/obj/item/gun/ballistic/automatic/wt550,
+				/obj/effect/spawner/bundle/f13/dkssniper,
+				/obj/effect/spawner/bundle/f13/m14,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/high
 	name = "high tier ballistic gun"
-	loot = list(/obj/effect/spawner/bundle/f13/assault_rifle = 10,
-				/obj/effect/spawner/bundle/f13/riotshotgun = 10,
-				/obj/effect/spawner/bundle/f13/brushgun = 20,
-				/obj/effect/spawner/bundle/f13/m14 = 5,
-				/obj/effect/spawner/bundle/f13/assault_carbine = 5,
-				/obj/effect/spawner/bundle/f13/magnumrevolver = 15,
-				/obj/effect/spawner/bundle/f13/dkssniper = 15,
-				/obj/effect/spawner/bundle/f13/pistol14 = 15,
-				/obj/item/gun/ballistic/revolver/grenadelauncher = 5,
-				/obj/item/gun/ballistic/shotgun/automatic/combat/citykiller = 10,
-				/obj/effect/spawner/bundle/f13/guns/p90 = 5,
-				/obj/item/gun/ballistic/automatic/lsw = 5,
-				/obj/item/gun/ballistic/automatic/lewis/lanoe = 5,
-				/obj/item/gun/ballistic/automatic/xl70e3 = 5,
-				/obj/item/gun/ballistic/automatic/shotgun/pancor = 10,
+	loot = list(/obj/effect/spawner/bundle/f13/assault_rifle,
+				/obj/effect/spawner/bundle/f13/riotshotgun,
+				/obj/effect/spawner/bundle/f13/brushgun,
+				/obj/effect/spawner/bundle/f13/assault_carbine,
+				/obj/effect/spawner/bundle/f13/magnumrevolver,
+				/obj/effect/spawner/bundle/f13/pistol14,
+				/obj/item/gun/ballistic/revolver/grenadelauncher,
+				/obj/item/gun/ballistic/shotgun/automatic/combat/citykiller,
+				/obj/effect/spawner/bundle/f13/guns/p90,
+				/obj/item/gun/ballistic/automatic/lsw,
+				/obj/effect/spawner/bundle/f13/r84,
+				/obj/item/gun/ballistic/automatic/xl70e3,
+				/obj/item/gun/ballistic/automatic/shotgun/pancor,
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/superhigh
 	name = "superhigh tier ballistic gun"
-	loot = list(/obj/effect/spawner/bundle/f13/r84 = 10,
-				/obj/item/gun/ballistic/automatic/bozar = 10,
+	loot = list(/obj/item/gun/ballistic/automatic/bozar = 10,
 				/obj/effect/spawner/bundle/f13/amr = 10,
 				/obj/effect/spawner/bundle/f13/bar = 10,
+				/obj/item/gun/ballistic/automatic/lewis/lanoe = 10,
 				/obj/item/gun/ballistic/rocketlauncher = 10,
 				/obj/item/gun/ballistic/automatic/g11 = 5,
 				/obj/item/gun/ballistic/automatic/smg/smg14 = 5,
@@ -1896,6 +1896,8 @@
 				/obj/effect/decal/cleanable/oil/slippery, //oh dear
 				/obj/effect/gibspawner/human,
 				/obj/effect/gibspawner/generic/animal,
+				/obj/item/lockpick_set,
+				/obj/item/lockpick_set/bobby_pin,
 				)
 
 /obj/effect/spawner/lootdrop/f13/seedspawner
@@ -2357,6 +2359,7 @@
 				/obj/item/book/granter/trait/explosives = 10,
 				/obj/item/book/granter/trait/explosives_advanced = 5,
 				/obj/item/book/granter/trait/rifleman = 5,
+				/obj/item/book/granter/trait/lockpicking = 3,
 				/obj/item/book/granter/crafting_recipe/gunsmith_three = 10,
 				/obj/item/book/granter/crafting_recipe/gunsmith_four = 10,
 //				/obj/item/book/granter/crafting_recipe/gunsmith_five = 5
@@ -2374,6 +2377,7 @@
 				/obj/item/book/granter/trait/explosives = 10,
 				/obj/item/book/granter/trait/explosives_advanced = 5,
 				/obj/item/book/granter/trait/rifleman = 5,
+				/obj/item/book/granter/trait/lockpicking = 3,
 				/obj/item/book/granter/crafting_recipe/gunsmith_two = 20,
 				/obj/item/book/granter/crafting_recipe/gunsmith_three = 10,
 				/obj/item/book/granter/crafting_recipe/gunsmith_four = 10,)

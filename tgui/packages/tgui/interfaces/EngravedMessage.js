@@ -19,6 +19,7 @@ export const EngravedMessage = (props, context) => {
   } = data;
   return (
     <Window
+      theme="fallout"
       width={600}
       height={300}
       resizable>

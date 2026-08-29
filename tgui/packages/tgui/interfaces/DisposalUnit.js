@@ -24,6 +24,7 @@ export const DisposalUnit = (props, context) => {
   }
   return (
     <Window
+      theme="fallout"
       width={300}
       height={180}>
       <Window.Content>

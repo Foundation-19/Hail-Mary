@@ -7,7 +7,7 @@ export const Colormate = (props, context) => {
   const { matrixactive, temp } = data;
   const item = data.item || [];
   return (
-    <Window width="980" height="720" resizable>
+    <Window theme="fallout" width="980" height="720" resizable>
       <Window.Content overflow="auto">
         {temp ? (
           <NoticeBox>{temp}</NoticeBox>
@@ -22,6 +22,7 @@ export const Colormate = (props, context) => {
                   width="100%"
                   height="100%"
                   style={{
+                    'image-rendering': 'pixelated',
                     '-ms-interpolation-mode': 'nearest-neighbor',
                   }} />
               </Section>
@@ -32,6 +33,7 @@ export const Colormate = (props, context) => {
                   width="100%"
                   height="100%"
                   style={{
+                    'image-rendering': 'pixelated',
                     '-ms-interpolation-mode': 'nearest-neighbor',
                   }} />
               </Section>

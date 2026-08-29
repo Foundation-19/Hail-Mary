@@ -8,13 +8,32 @@
 	icon_plating = "plating"
 	icon = 'icons/fallout/turfs/floors.dmi'
 
+// -------------------------------------------------------------------------
+// Vault floor tile restoration
+// -------------------------------------------------------------------------
+// Override baseturfs and floor_tile on the vault_floor root so that:
+//   crowbar → /turf/open/floor/plating/f13_vault  (same DMI as vault floors)
+//   place back → exact subtype + original icon_state are both restored
+// The f13_vault_plating and f13_vault tile types live in fallout/turf/plating.dm.
+
+/turf/open/floor/plasteel/f13/vault_floor
+	baseturfs = /turf/open/floor/plating/f13_vault
+	floor_tile  = /obj/item/stack/tile/f13_vault
+
+/// Spawns an f13_vault tile that remembers the exact vault subtype it was
+/// removed from, so PlaceOnTop can recreate the right type on re-placement.
+/turf/open/floor/plasteel/f13/vault_floor/spawn_tile()
+	var/obj/item/stack/tile/f13_vault/T = new(src)
+	T.saved_turf_type = type
+
+
 /turf/open/floor/f13/ReplaceWithLattice()
 	ChangeTurf(baseturfs)
 
 /turf/open/floor/f13/wood
 	icon_state = "housewood1"
 	icon = 'icons/fallout/turfs/ground.dmi'
-	floor_tile = /obj/item/stack/tile/wood
+	floor_tile = /obj/item/stack/tile/f13_wood
 	icon_plating = "housebase"
 //	step_sounds = list("human" = "woodfootsteps")
 	broken_states = list("housewood1-broken", "housewood2-broken", "housewood3-broken", "housewood4-broken")
@@ -30,6 +49,12 @@
 /turf/open/floor/f13/wood/make_plating()
 	return ChangeTurf(/turf/open/floor/plating/wooden)
 
+/// Drop a tile that remembers which visual variant this plank was.
+/turf/open/floor/f13/wood/spawn_tile()
+	var/obj/item/stack/tile/f13_wood/T = new(src)
+	if(!broken && !burnt)
+		T.saved_icon_state = icon_state
+
 /turf/open/floor/f13/wood/attackby(obj/item/C, mob/user, params)
 	if(..())
 		return
@@ -37,7 +62,8 @@
 		if(broken || burnt)
 			new /obj/item/stack/sheet/mineral/wood(src)
 		else
-			new floor_tile(src)
+			var/obj/item/stack/tile/f13_wood/T = new(src)
+			T.saved_icon_state = icon_state
 		to_chat(user, span_danger("You unscrew the planks."))
 		make_plating()
 		playsound(src, C.usesound, 80, 1)

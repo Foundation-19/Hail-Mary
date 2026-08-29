@@ -8,11 +8,11 @@ import { changeSettingsTab, loadSettings, openChatSettings, toggleSettings, upda
 import { FONTS, SETTINGS_TABS } from './constants';
 
 const initialState = {
-  version: 1,
+  version: 3,
   fontSize: 13,
   fontFamily: FONTS[0],
   lineHeight: 1.2,
-  theme: 'dark',
+  theme: 'fallout',
   adminMusicVolume: 0.5,
   highlightText: '',
   highlightColor: '#ffdd44',
@@ -37,10 +37,16 @@ export const settingsReducer = (state = initialState, action) => {
     if (!payload?.version) {
       return state;
     }
-    delete payload.view;
+    // Always migrate 'dark' → 'fallout': this is a Fallout-themed server.
+    // Users can still choose dark per-session but it won't persist as default.
+    const migratedPayload = payload.theme === 'dark'
+      ? { ...payload, theme: 'fallout', version: 3 }
+      : payload;
+    const cleanPayload = { ...migratedPayload };
+    delete cleanPayload.view;
     return {
       ...state,
-      ...payload,
+      ...cleanPayload,
     };
   }
   if (type === toggleSettings.type) {

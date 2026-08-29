@@ -1425,6 +1425,12 @@
 		return
 	..()
 
+/datum/reagent/fuel/reaction_turf(turf/T, reac_volume)
+	if(!istype(T) || reac_volume < 5)
+		return
+	if(!locate(/obj/effect/decal/cleanable/oil) in T)
+		new /obj/effect/decal/cleanable/oil/slippery(T)
+
 /datum/reagent/fuel/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(1, 0)
 	..()

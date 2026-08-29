@@ -35,6 +35,7 @@ export const Smes = (props, context) => {
   );
   return (
     <Window
+      theme="fallout"
       width={340}
       height={350}>
       <Window.Content>

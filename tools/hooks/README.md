@@ -15,6 +15,8 @@ or other script you can run instead - see the links below for details.
 * **Pre-commit**: Runs [mapmerge2] to reduce the diff on any changed maps.
 * **DMI merger**: Attempts to [fix icon conflicts] when performing a Git merge.
 * **DMM merger**: Attempts to [fix map conflicts] when performing a Git merge.
+* **TGUI bundle merger**: Resolves conflicts in generated `*.bundle.*` and
+  `*.chunk.*` frontend artifacts by keeping the current branch's file.
 
 ## Adding New Hooks
 

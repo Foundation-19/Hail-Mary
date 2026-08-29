@@ -49,9 +49,12 @@ if (!(Test-Path $PythonExe -PathType Leaf)) {
 
 	[System.IO.Compression.ZipFile]::ExtractToDirectory($Archive, $PythonDir)
 
-	# Copy a ._pth file without "import site" commented, so pip will work
-	Copy-Item "$Bootstrap/python37._pth" $PythonDir `
-		-ErrorAction Stop
+	# Create a ._pth file without "import site" commented, so pip will work.
+	# The file must be named pythonXY._pth to match the actual Python version.
+	$VersionParts = $PythonVersion.Split('.')
+	$PythonShort = "$($VersionParts[0])$($VersionParts[1])"
+	"python$PythonShort.zip`n.`n..\..\..`n`n# Uncomment to run site.main() automatically`nimport site`n" | `
+		Set-Content -Path "$PythonDir/python$PythonShort._pth" -Encoding Ascii
 
 	Remove-Item $Archive
 }
