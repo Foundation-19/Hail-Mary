@@ -58,9 +58,11 @@
 
 /turf/open/floor/plating/ashplanet/Initialize()
 	if(smooth)
-		var/matrix/M = new
-		M.Translate(-4, -4)
-		transform = M
+		var/static/matrix/rock_offset
+		if(!rock_offset)
+			rock_offset = new /matrix
+			rock_offset.Translate(-4, -4)
+		transform = rock_offset
 		icon = smooth_icon
 	. = ..()
 

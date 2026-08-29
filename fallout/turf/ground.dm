@@ -230,35 +230,19 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 	icon_state = "wasteland"
 	icon = 'icons/fallout/turfs/ground_harsh.dmi'
 
+var/static/list/desert_icons
+
 /turf/open/indestructible/ground/outside/desert/Initialize()
 	. = ..()
+	if(!desert_icons)
+		desert_icons = list()
+		for(var/i in 1 to 31)
+			desert_icons += "wasteland[i]"
 	if(prob(2))
 		var/obj/derp = pickweight(loots)
 		salvage = new derp()
 	if(icon_state != "wasteland")
-		icon_state = "wasteland[rand(1,31)]"
-	for(var/direction in GLOB.cardinals)
-		var/turf/turf_to_check = get_step(src, direction)
-		if(istype(turf_to_check, /turf/open/water))
-			var/obj/effect/overlay/desert_side/DS = new /obj/effect/overlay/desert_side(src)
-			switch(direction)
-				if(NORTH)
-					DS.pixel_y = 32
-				if(SOUTH)
-					DS.pixel_y = -32
-				if(EAST)
-					DS.pixel_x = 32
-				if(WEST)
-					DS.pixel_x = -32
-			DS.dir = dir = turn(direction, 180)
-
-/turf/open/indestructible/ground/outside/desert/harsh/Initialize()
-	. = ..()
-	if(prob(2))
-		var/obj/derp = pickweight(loots)
-		salvage = new derp()
-	if(icon_state != "wasteland")
-		icon_state = "wasteland[rand(1,31)]"
+		icon_state = desert_icons[rand(1,31)]
 
 /obj/effect/overlay/desert_side
 	name = "desert"
@@ -908,20 +892,6 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 			(locate(/obj/structure) in src) || \
 			(locate(/obj/machinery) in src) ))
 		plantShrooms()
-	for(var/direction in GLOB.cardinals)
-		var/turf/turf_to_check = get_step(src, direction)
-		if(istype(turf_to_check, /turf/open/water))
-			var/obj/effect/overlay/rockfloor_side/DS = new /obj/effect/overlay/rockfloor_side(src)
-			switch(direction)
-				if(NORTH)
-					DS.pixel_y = 32
-				if(SOUTH)
-					DS.pixel_y = -32
-				if(EAST)
-					DS.pixel_x = 32
-				if(WEST)
-					DS.pixel_x = -32
-			DS.dir = turn(direction, 180)
 
 /obj/effect/overlay/rockfloor_side
 	name = "cave"
@@ -960,20 +930,6 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 
 /turf/open/indestructible/ground/inside/subway/Initialize()
 	. = ..()
-	for(var/direction in GLOB.cardinals)
-		var/turf/turf_to_check = get_step(src, direction)
-		if(istype(turf_to_check, /turf/open))
-			var/obj/effect/overlay/railsnone_side/DS = new /obj/effect/overlay/railsnone_side(src)
-			switch(direction)
-				if(NORTH)
-					DS.pixel_y = 32
-				if(SOUTH)
-					DS.pixel_y = -32
-				if(EAST)
-					DS.pixel_x = 32
-				if(WEST)
-					DS.pixel_x = -32
-			DS.dir = turn(direction, 180)
 
 /obj/effect/overlay/railsnone_side
 	name = "cave"

@@ -11,25 +11,33 @@
 /obj/effect/spawner/lootdrop/Initialize(mapload)
 	. = ..()
 	if(loot && loot.len)
-		var/atom/A = spawn_on_turf ? get_turf(src) : loc
-		var/loot_spawned = 0
-		while((lootcount-loot_spawned) && loot.len)
-			var/lootspawn = pickweight(loot)
-			if(!lootdoubles)
-				loot.Remove(lootspawn)
-
-			if(lootspawn)
-				var/atom/movable/spawned_loot = new lootspawn(A)
-				if (!fan_out_items)
-					if (pixel_x != 0)
-						spawned_loot.pixel_x = pixel_x
-					if (pixel_y != 0)
-						spawned_loot.pixel_y = pixel_y
-				else
-					if (loot_spawned)
-						spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
-			loot_spawned++
+		if(mapload)
+			addtimer(CALLBACK(src, PROC_REF(do_spawn)), 0)
+			return  // stay alive until timer fires
+		do_spawn()
 	return INITIALIZE_HINT_QDEL
+
+/obj/effect/spawner/lootdrop/proc/do_spawn()
+	if(QDELETED(src))
+		return
+	var/atom/A = spawn_on_turf ? get_turf(src) : loc
+	var/loot_spawned = 0
+	while((lootcount-loot_spawned) && loot.len)
+		var/lootspawn = pickweight(loot)
+		if(!lootdoubles)
+			loot.Remove(lootspawn)
+		if(lootspawn)
+			var/atom/movable/spawned_loot = new lootspawn(A)
+			if (!fan_out_items)
+				if (pixel_x != 0)
+					spawned_loot.pixel_x = pixel_x
+				if (pixel_y != 0)
+					spawned_loot.pixel_y = pixel_y
+			else
+				if (loot_spawned)
+					spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+		loot_spawned++
+	qdel(src)
 
 /obj/effect/spawner/lootdrop/bedsheet
 	icon = 'icons/obj/bedsheets.dmi'
