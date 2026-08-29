@@ -46,3 +46,9 @@
 	caliber = list(CALIBER_556, CALIBER_5MM)
 	max_ammo = 25
 	multiload = FALSE // one at a time~
+
+/obj/item/ammo_box/magazine/internal/sks
+	name = ".308 SKS internal magazine"
+	ammo_type = /obj/item/ammo_casing/a308
+	caliber = list(CALIBER_308)
+	max_ammo = 10
