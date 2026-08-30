@@ -32,7 +32,23 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum,_AddElement), list(/datum/element/beauty, beauty)), 0)
+	if(beauty)
+		if(mapload)
+			return INITIALIZE_HINT_LATELOAD
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/datum,_AddElement), list(/datum/element/beauty, beauty)), 0)
+
+/obj/effect/decal/cleanable/LateInitialize()
+	. = ..()
+	if(beauty)
+		if(!GLOB.pending_beauty_elements.len)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/process_beauty_elements), 0)
+		GLOB.pending_beauty_elements += src
+
+/proc/process_beauty_elements()
+	for(var/obj/effect/decal/cleanable/C in GLOB.pending_beauty_elements)
+		if(!QDELETED(C))
+			C.AddElement(/datum/element/beauty, C.beauty)
+	GLOB.pending_beauty_elements.Cut()
 
 /obj/effect/decal/cleanable/proc/replace_decal(obj/effect/decal/cleanable/C) // Returns true if we should give up in favor of the pre-existing decal
 	if(mergeable_decal)

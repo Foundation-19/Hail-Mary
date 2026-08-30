@@ -134,7 +134,7 @@
 	icon_state = "enbloc-8"
 	ammo_type = /obj/item/ammo_casing/a308
 	caliber = list(CALIBER_308)
-	max_ammo = 8
+	max_ammo = 10
 	custom_materials = list(/datum/material/iron = MATS_STRIPPER)
 	w_class = WEIGHT_CLASS_SMALL
 

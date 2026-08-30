@@ -29,7 +29,17 @@
 /// Also explicitly notify any door/access buttons inside or adjacent to this area.
 /// F13 areas have no APC, so buttons are never iterated by the normal
 /// machinery-notification path — we must push the update ourselves.
+
+// f13 power state is set by junction boxes post-init; skip power_change on all f13 areas.
+/area/f13/LateInitialize()
+	if(!GLOB.f13_magic_power)
+		power_equip   = FALSE
+		power_light   = FALSE
+		power_environ = FALSE
+	update_beauty()
+
 /area/f13/power_change()
+	set background = 1
 	f13_grid_power = power_equip
 	// Notify buttons on any turf (open or closed) WITHIN this area.
 	for(var/obj/machinery/button/B in src)
@@ -42,13 +52,15 @@
 	if(!outdoors)
 		var/list/swept = list()
 		for(var/turf/T in src)
-			for(var/turf/W in RANGE_TURFS(2, T))
-				if(!swept[W] && isclosedturf(W))
-					swept[W] = TRUE
-					var/area/WA = get_area(W)
-					if(istype(WA, /area/space) || (istype(WA, /area/f13) && WA != src))
-						for(var/obj/machinery/button/B in W)
-							B.power_change()
+			for(var/dir in GLOB.alldirs)
+				var/turf/W = get_step(T, dir)
+				if(!W || swept[W] || !isclosedturf(W))
+					continue
+				swept[W] = TRUE
+				var/area/WA = get_area(W)
+				if(istype(WA, /area/space) || (istype(WA, /area/f13) && WA != src))
+					for(var/obj/machinery/button/B in W)
+						B.power_change()
 	return ..()
 
 //Wasteland generic areas
@@ -1118,6 +1130,7 @@
 /area/f13/brotherhood
 	name = "Brotherhood of Steel Bunker"//Brother Hood
 	icon_state = "brotherhood"
+	requires_power = TRUE
 
 //	ambientmusic = list('sound/f13music/fo2_brotherhood.ogg','sound/f13music/fo2_outpost.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1187,6 +1200,7 @@
 	icon_state = "brotherhoodmining"
 
 /area/f13/brotherhood/powered
+	requires_power = TRUE // same as parent — powered by generator only, not always-on
 
 /area/f13/enclave
 	name = "Enclave Bunker"

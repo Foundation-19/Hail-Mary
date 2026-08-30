@@ -66,7 +66,10 @@
 /obj/effect/mob_spawn/Initialize(mapload)
 	. = ..()
 	if(instant || (roundstart && (mapload || (SSticker && SSticker.current_state > GAME_STATE_SETTING_UP))))
-		INVOKE_ASYNC(src, PROC_REF(create))
+		if(mapload)
+			addtimer(CALLBACK(src, PROC_REF(create)), 0)
+		else
+			INVOKE_ASYNC(src, PROC_REF(create))
 	else if(ghost_usable)
 		GLOB.poi_list |= src
 		LAZYADD(GLOB.mob_spawners[job_description ? job_description : name], src)

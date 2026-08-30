@@ -158,6 +158,10 @@
 
 /obj/machinery/power/apc/Initialize(mapload, ndir, building = FALSE)
 	. = ..()
+	// F13 areas have no APC -- power comes from the grid system. A leftover mapped APC
+	// would force area.power_equip/light/environ via update(), bypassing the grid entirely.
+	if(istype(get_area(src), /area/f13))
+		return INITIALIZE_HINT_QDEL
 	tdir = ndir || dir
 	var/area/A = get_base_area(src)
 	if(!building)
@@ -217,10 +221,11 @@
 
 	if(malfai && operating)
 		malfai.malf_picker.processing_time = clamp(malfai.malf_picker.processing_time - 10,0,1000)
-	area.power_light = FALSE
-	area.power_equip = FALSE
-	area.power_environ = FALSE
-	area.power_change()
+	if(area) // null if qdel'd before area assignment (e.g. leftover F13-area APC guard in Initialize)
+		area.power_light = FALSE
+		area.power_equip = FALSE
+		area.power_environ = FALSE
+		area.power_change()
 	if(occupier)
 		malfvacate(1)
 	qdel(wires)

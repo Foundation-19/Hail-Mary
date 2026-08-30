@@ -19,7 +19,8 @@ SUBSYSTEM_DEF(fail2topic)
 	rule_name = CONFIG_GET(string/fail2topic_rule_name)
 	enabled = CONFIG_GET(flag/fail2topic_enabled)
 
-	DropFirewallRule() // Clear the old bans if any still remain
+	// Defer shell command to post-init — DropFirewallRule() blocks for 1-5s on Windows
+	addtimer(CALLBACK(src, PROC_REF(DropFirewallRule)), 0)
 
 	if(!enabled)
 		flags |= SS_NO_FIRE
