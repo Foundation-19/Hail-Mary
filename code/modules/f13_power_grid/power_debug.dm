@@ -26,7 +26,7 @@
 //   /obj/machinery/f13/master_breaker
 // ============================================================
 
-GLOBAL_VAR_INIT(f13_magic_power, TRUE)
+GLOBAL_VAR_INIT(f13_magic_power, FALSE)
 
 /obj/machinery/f13/master_breaker
 	name          = "F13 master grid breaker"
@@ -46,18 +46,22 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	GLOB.f13_magic_power = !GLOB.f13_magic_power
 
 	// Stamp every f13 area to the new baseline using the shared macro (handles async power-on).
-	for(var/area/f13/A in world)
+	// NOTE: must use GLOB.sortedAreas, not "in world" -- iterating world's 300k+ atoms
+	// can trip BYOND's infinite-loop watchdog and abort mid-loop, leaving areas later
+	// in iteration order stuck at their previous power state.
+	for(var/area/f13/A in GLOB.sortedAreas)
 		F13_STAMP_AREA_POWER(A, GLOB.f13_magic_power)
 
 	// When switching to grid-only: re-stamp areas genuinely fed by the live grid.
+	// Use GLOB.machines (registered machines only) instead of "world" -- same watchdog risk as above.
 	if(!GLOB.f13_magic_power)
-		for(var/obj/machinery/f13/faction_generator/G in world)
+		for(var/obj/machinery/f13/faction_generator/G in GLOB.machines)
 			if(!QDELETED(G) && G.powered)
 				G.stamp_zone(TRUE)
-		for(var/obj/machinery/f13/power_relay/R in world)
+		for(var/obj/machinery/f13/power_relay/R in GLOB.machines)
 			if(!QDELETED(R) && R.relay_powered)
 				R.stamp_zone(TRUE)
-		for(var/obj/machinery/f13/junction_box/JB in world)
+		for(var/obj/machinery/f13/junction_box/JB in GLOB.machines)
 			if(!QDELETED(JB) && JB.grid_powered && JB.breaker_closed)
 				JB._stamp_areas(TRUE)
 
@@ -100,10 +104,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 
 	var/obj/machinery/f13/master_breaker/B = locate(/obj/machinery/f13/master_breaker) in world
 	if(!B)
-		B = new /obj/machinery/f13/master_breaker(null)
-		B.show_panel(usr)
-		qdel(B)
-		return
+		B = new /obj/machinery/f13/master_breaker(null) // persists at null loc; found by locate() on future calls
 	B.show_panel(usr)
 
 /client/proc/f13_trace_dump()
@@ -161,7 +162,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	// --- Junction box zones
 	dat += "<pre class='head'>  &#91;JUNCTION BOX ZONES&#93;</pre>"
 	var/jbox_count = 0
-	for(var/obj/machinery/f13/junction_box/JB in world)
+	for(var/obj/machinery/f13/junction_box/JB in GLOB.machines)
 		if(QDELETED(JB) || !JB.owned_zones || !JB.owned_zones.len)
 			continue
 		jbox_count++
@@ -183,7 +184,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 	dat += "<pre class='head'>  &#91;GENERATOR AREAS&#93;</pre>"
 	var/gen_count = 0
-	for(var/obj/machinery/f13/faction_generator/G in world)
+	for(var/obj/machinery/f13/faction_generator/G in GLOB.machines)
 		if(QDELETED(G) || !G.powered_area_instances || !G.powered_area_instances.len)
 			continue
 		gen_count++
@@ -203,7 +204,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	dat += "<pre class='head'>  &#91;OTHER F13 AREAS&#93;</pre>"
 	// Build exclusion set from areas already shown above.
 	var/list/already_shown = list()
-	for(var/obj/machinery/f13/junction_box/JB in world)
+	for(var/obj/machinery/f13/junction_box/JB in GLOB.machines)
 		if(QDELETED(JB) || !JB.owned_zones)
 			continue
 		for(var/area/f13/Z in JB.owned_zones)
@@ -211,13 +212,13 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 		for(var/area/f13/Z in JB.owned_zones)
 			var/area/orig = JB.owned_zones[Z]
 			if(orig) already_shown[orig] = TRUE
-	for(var/obj/machinery/f13/faction_generator/G in world)
+	for(var/obj/machinery/f13/faction_generator/G in GLOB.machines)
 		if(QDELETED(G) || !G.powered_area_instances)
 			continue
 		for(var/area/A in G.powered_area_instances)
 			already_shown[A] = TRUE
 	var/other_count = 0
-	for(var/area/f13/A in world)
+	for(var/area/f13/A in GLOB.sortedAreas)
 		if(QDELETED(A) || A.f13_grid_immune || A.outdoors || A.f13_jbox_zone || already_shown[A])
 			continue
 		other_count++
@@ -233,8 +234,7 @@ GLOBAL_VAR_INIT(f13_magic_power, TRUE)
 	popup.open()
 
 /obj/machinery/f13/master_breaker/Topic(href, href_list)
-	..()
-	if(!check_rights_for(usr.client, R_ADMIN))
+	if(!check_rights_for(usr.client, R_ADMIN)) // skip ..() — no adjacency check needed for admin-only tool
 		return
 
 	switch(href_list["choice"])

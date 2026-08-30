@@ -22,6 +22,10 @@
 	if(A && !(A.flags_1 & CAN_BE_DIRTY_1))
 		return
 
+	// Outdoor areas are visually dirt/wasteland already; spawning cleanable decals is redundant
+	if(A && A.outdoors)
+		return
+
 	//The code below here isn't exactly optimal, but because of the individual decals that each area uses it's still applicable.
 
 				//high dirt - 1/3 chance.

@@ -106,20 +106,8 @@
 	else
 		if(A.outdoors == TRUE)
 			sunlight_state = SUNLIGHT_SOURCE
-		// OPTIMIZATION: Defer sunlight smoothing during mapload - batched after all turfs exist
-		if(mapload)
-			// Store state for batch processing, but skip the expensive neighbor checks
-			if(sunlight_state == SUNLIGHT_SOURCE)
-				vis_contents += SSnightcycle.sunlight_source_object
-				luminosity = 1
-				// Mark neighbors, but don't smooth yet
-				for(var/dir in GLOB.alldirs)
-					var/turf/neighbor = get_step(src, dir)
-					if(!neighbor || !neighbor.type || neighbor?.sunlight_state && neighbor?.sunlight_state != NO_SUNLIGHT)
-						continue
-					neighbor.sunlight_state = SUNLIGHT_BORDER
-		else
-			// Not mapload, do normal smoothing
+		// vis_contents/luminosity for SUNLIGHT_SOURCE and neighbor SUNLIGHT_BORDER marking are batched in SSatoms
+		if(!mapload)
 			switch(sunlight_state)
 				if(SUNLIGHT_SOURCE)
 					setup_sunlight_source()

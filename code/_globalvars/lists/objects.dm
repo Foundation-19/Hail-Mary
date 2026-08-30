@@ -1,4 +1,10 @@
 GLOBAL_LIST_EMPTY(cable_list)					    //Index for all cables, so that powernets don't have to look through the entire world all the time
+GLOBAL_LIST_EMPTY(asset_hash_preload)               // Cached asset md5 hashes keyed by asset name; populated by SSassets on cache hit
+GLOBAL_LIST_EMPTY(pending_waste_irradiation)
+GLOBAL_LIST_EMPTY(pending_beauty_elements)        // Waste decals awaiting irradiate_turfs() post-init
+GLOBAL_LIST_EMPTY(init_sunlight_source_turfs)     // Mapload: turfs with sunlight_state=SUNLIGHT_SOURCE; cleared after SSatoms sunlight pass
+GLOBAL_LIST_EMPTY(init_water_turfs)               // Mapload: water turfs needing adjacency overlays; cleared after SSatoms sunlight pass
+GLOBAL_LIST_EMPTY(init_subway_turfs)              // Mapload: subway turfs needing railsnone_side overlays; cleared after SSatoms sunlight pass
 GLOBAL_LIST_EMPTY(portals)					        //list of all /obj/effect/portal
 GLOBAL_LIST_EMPTY(airlocks)					        //list of all airlocks
 GLOBAL_LIST_EMPTY(mechas_list)				        //list of all mechs. Used by hostile mobs target tracking.

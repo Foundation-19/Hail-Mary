@@ -23,7 +23,18 @@
 //NO BAD. The radiation component SUCKS ASS - these components self-propagate into 500+ "radiation waves"
 	//START_PROCESSING(SSradiation,src) //Let's do this in a far more reasonable way- radiate players around us on a pulse. That's it.
 	//turns out *that* way wasn't really reasonable either. Lets try something else!
-	irradiate_turfs()
+	return INITIALIZE_HINT_LATELOAD
+
+/obj/effect/decal/waste/LateInitialize()
+	if(!GLOB.pending_waste_irradiation.len)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/process_waste_irradiation), 0)
+	GLOB.pending_waste_irradiation += src
+
+/proc/process_waste_irradiation()
+	for(var/obj/effect/decal/waste/W in GLOB.pending_waste_irradiation)
+		if(!QDELETED(W))
+			W.irradiate_turfs()
+	GLOB.pending_waste_irradiation.Cut()
 
 /obj/effect/decal/waste/Destroy()
 	//STOP_PROCESSING(SSradiation,src)

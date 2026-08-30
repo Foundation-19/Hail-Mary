@@ -243,11 +243,12 @@
 		for(var/area/A in powered_area_instances)
 			F13_STAMP_AREA_POWER(A, relay_powered)
 
-	// Toggle owned turrets.
+	// Toggle owned turrets async — toggle_on() sleeps, which would stall the
+	// power cascade and delay lights from being queued before SSLighting fires.
 	if(linked_turrets)
 		for(var/obj/machinery/porta_turret/T in linked_turrets)
 			if(!QDELETED(T))
-				T.toggle_on(relay_powered)
+				INVOKE_ASYNC(T, /obj/machinery/porta_turret/proc/toggle_on, relay_powered)
 
 	// Cascade to downstream relays — each recalculates from its own upstreams (OR logic).
 	if(downstream_relays)
