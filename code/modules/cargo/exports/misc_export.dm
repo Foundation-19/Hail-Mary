@@ -171,7 +171,6 @@
 	cost = 1500
 	unit_name = "automatic rifle"
 	export_types = list(
-		/obj/item/gun/ballistic/automatic/service/r82,
 		/obj/item/gun/ballistic/automatic/assault_rifle,
 		/obj/item/gun/ballistic/automatic/r93,
 		/obj/item/gun/energy/laser/scatter,

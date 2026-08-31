@@ -1507,7 +1507,6 @@ list(/obj/item/stack/sheet/metal = 20,
 	for(var/i in 1 to 3)
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver,
-							/obj/item/book/granter/crafting_recipe/blueprint/r82,
 							/obj/item/book/granter/crafting_recipe/blueprint/leveraction,
 							/obj/item/book/granter/crafting_recipe/blueprint/scoutcarbine,
 							/obj/item/book/granter/crafting_recipe/blueprint/sniper,
@@ -1523,7 +1522,6 @@ list(/obj/item/stack/sheet/metal = 20,
 	for(var/i in 1 to 3)
 		var/randomgun = pick(
 							/obj/item/book/granter/crafting_recipe/blueprint/magnum_revolver,
-							/obj/item/book/granter/crafting_recipe/blueprint/r82,
 							/obj/item/book/granter/crafting_recipe/blueprint/armalite,
 							/obj/item/book/granter/crafting_recipe/blueprint/lsw,
 							/obj/item/book/granter/trait/explosives_advanced,

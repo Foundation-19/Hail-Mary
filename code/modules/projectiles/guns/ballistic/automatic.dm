@@ -1791,33 +1791,6 @@
  * * * * * * * * * * */
 
 /* * * * * * * * * * *
- * R82 heavy service rifle
- * Baseline 5.56mm autorifle
- * .223 / 5.56mm
- * Common
- * * * * * * * * * * */
-
-/obj/item/gun/ballistic/automatic/service/r82
-	name = "R82 heavy service rifle"
-	desc = "The assault rifle variant of the R84, based off the pre-war FN FNC. Issued to high-ranking troopers and specialized units. Chambered in 5.56."
-	icon_state = "R82"
-	item_state = "R84"
-	icon_prefix = "r82"
-	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
-	cock_delay = GUN_COCK_RIFLE_BASE
-	init_recoil = RIFLE_RECOIL(1.2)
-	init_firemodes = list(
-		/datum/firemode/automatic/rpm250,
-		/datum/firemode/semi_auto
-	)
-	can_suppress = TRUE
-	suppressor_state = "rifle_suppressor"
-	suppressor_x_offset = 27
-	suppressor_y_offset = 28
-
-/* * * * * * * * * * *
  * R91 assault rifle
  * Baseline 5.56mm autorifle
  * .223 / 5.56mm
