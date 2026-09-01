@@ -227,6 +227,7 @@
 			// First turf of this type — spawn a private zone datum.
 			var/area/f13/Z = new atype()
 			Z.f13_jbox_zone    = TRUE
+			GLOB.sortedAreas   -= Z  // Keep zone datums out of the global area registry
 			type_to_zone[atype]   = Z
 			type_to_origin[atype] = orig
 

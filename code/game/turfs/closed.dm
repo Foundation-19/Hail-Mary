@@ -184,9 +184,11 @@
 /turf/closed/indestructible/rock/smoothing/Initialize()
 	if (!canSmoothWith)
 		canSmoothWith = list(/turf/closed/mineral, /turf/closed/indestructible)
-	var/matrix/M = new
-	M.Translate(-4, -4)
-	transform = M
+	var/static/matrix/rock_offset
+	if(!rock_offset)
+		rock_offset = new /matrix
+		rock_offset.Translate(-4, -4)
+	transform = rock_offset
 	icon = smooth_icon
 	. = ..()
 

@@ -50,6 +50,11 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/computer/holodeck/LateInitialize()
+	setup_holodeck()
+
+/obj/machinery/computer/holodeck/proc/setup_holodeck()
+	if(QDELETED(src))
+		return
 	if(ispath(holodeck_type, /area))
 		linked = pop(get_areas(holodeck_type, FALSE))
 	if(ispath(offline_program, /area))
@@ -319,6 +324,9 @@
 /obj/machinery/computer/holodeck/virtual
 	name = "VR environment control console"
 	desc = "A console for interacting with the simulation"
+
+/obj/machinery/computer/holodeck/virtual/LateInitialize()
+	addtimer(CALLBACK(src, PROC_REF(setup_holodeck)), 0)
 
 /obj/machinery/computer/holodeck/virtual/derez(obj/O, silent = TRUE, forced = FALSE)
 	// We don't want to ever despawn things that got out of the holodeck area in this case

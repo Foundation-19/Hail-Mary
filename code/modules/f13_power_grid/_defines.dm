@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(f13_trace_log)
 		f13_log_op("stamp_area OFF [A.name] (async queued)")
 		INVOKE_ASYNC(A, TYPE_PROC_REF(/area/f13, f13_power_off_async))
 
-// F13 area lights have no backup cells — go dark instead of emergency-red when unpowered.
+// F13 area lights have no backup cells — delete the emergency cell after parent creates it.
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
 	if(istype(get_area(src), /area/f13) && cell)
