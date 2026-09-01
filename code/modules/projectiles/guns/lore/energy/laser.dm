@@ -592,7 +592,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150
+		/datum/firemode/automatic/rpm300
 	)
 
 /obj/item/gun/energy/laser/aer9/overclocked/rynn
@@ -609,7 +609,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150
+		/datum/firemode/automatic/rpm300
 	)
 
 //Ultracite Laser rifle
