@@ -690,7 +690,7 @@
 	icon_state = "book1"
 	oneuse = TRUE
 	remarks = list("The first rule of gun safety is to have fun...", ".45 ACP is God's gift to mankind...", "Nyet, rifle is fine...", "That's a gimmick sonny, back in my day...", "Studies show that the higher you set your sights, the harder the bullet hits...")
-	crafting_recipe_types = list(/datum/crafting_recipe/eastern_pdw, /datum/crafting_recipe/eastern_compact_shotgun, /datum/crafting_recipe/eastern_light_machine_gun, /datum/crafting_recipe/eastern_assassin_rifle , /datum/crafting_recipe/killer, /datum/crafting_recipe/raidertrigger, /datum/crafting_recipe/blender)
+	crafting_recipe_types = list(/datum/crafting_recipe/eastern_pdw, /datum/crafting_recipe/eastern_compact_shotgun, /datum/crafting_recipe/eastern_light_machine_gun, /datum/crafting_recipe/killer, /datum/crafting_recipe/raidertrigger, /datum/crafting_recipe/blender)
 
 /obj/item/book/granter/crafting_recipe/scav_one
 	name = "SCAV! Issue 1"
@@ -723,20 +723,10 @@
 	oneuse = TRUE
 	remarks = list()
 
-/obj/item/book/granter/crafting_recipe/blueprint/r82
-	name = "r82 heavy service rifle blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/R82)
-
 /obj/item/book/granter/crafting_recipe/blueprint/marksman
 	name = "marksman carbine blueprint"
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/marksmancarbine)
-
-/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn
-	name = "worn marksman carbine blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/marksmancarbine/worn)
 
 /obj/item/book/granter/crafting_recipe/blueprint/combatrifle
 	name = "combat rifle blueprint"

@@ -3527,6 +3527,7 @@
 	icon_state = "advpowerarmor1"
 	item_state = "advpowerarmor1"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 80, "energy" = 50, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 	slowdown = ARMOR_SLOWDOWN_PA * ARMOR_SLOWDOWN_GLOBAL_MULT
 	armor_tier_desc = ARMOR_CLOTHING_PA
 	clothing_flags = CUSHIONED_ARMOR
@@ -3539,6 +3540,7 @@
 	icon_state = "hellfire"
 	item_state = "hellfire"
 	armor = list("melee" = 80, "bullet" = 80, "laser" = 82, "energy" = 55, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 90, "acid" = 100, "wound" = 55,)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T3)
 
 /obj/item/clothing/suit/armor/power_armor/advanced/hellfire/super_advanced_pa//made for admins, do not use.
 	name = "super advanced power armor"
@@ -3554,6 +3556,7 @@
 	icon_state = "ultracitepa"
 	item_state = "ultracitepa"
 	armor = list("melee" = 84, "bullet" = 84, "laser" = 65, "energy" = 20, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 100, "acid" = 100, "wound" = 50,)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T3)
 
 /obj/item/clothing/suit/armor/power_armor/advanced/hellfire/tesla
 	name = "tesla power armor"
@@ -3561,6 +3564,7 @@
 	icon_state = "tesla"
 	item_state = "tesla"
 	armor = list("melee" = 83, "bullet" = 83, "laser" = 83, "energy" = 70, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 50,)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 	deflect_damage = 21
 
 //Peacekeeper armor adjust as needed
@@ -3571,6 +3575,7 @@
 	item_state = "advanced"
 	salvaged_type = /obj/item/clothing/suit/armor/heavy/salvaged_pa/x02 // Oh the misery
 	armor = list("melee" = 81, "bullet" = 81, "laser" = 81, "energy" = 57, "bomb" = 95, "bio" = 95, "rad" = 100, "fire" = 50, "acid" = 100, "wound" = 60,)
+	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/suit/toggle/armor
 	// body_parts_covered = CHEST|GROIN

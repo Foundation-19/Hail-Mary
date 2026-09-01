@@ -182,13 +182,6 @@
 	cost = 50
 	item_path = /obj/item/gun/ballistic/automatic/pistol/type17
 
-/datum/gang_item/weapon/type93
-	name = "Worn Type 93"
-	id = "worntype93"
-	cost = 500
-	item_path = /obj/item/gun/ballistic/automatic/type93/worn
-
-
 ///////////////////
 //EQUIPMENT
 ///////////////////
@@ -269,7 +262,6 @@
 	desc = "Rule the underworld like the Den Mob of old."
 
 /obj/item/storage/box/bundledenboss/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/assault_carbine/worn(src)
 	new /obj/item/reagent_containers/hypospray/medipen/medx(src)
 	new /obj/item/reagent_containers/hypospray/medipen/medx(src)
 	new /obj/item/reagent_containers/hypospray/medipen/medx(src)

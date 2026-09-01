@@ -1081,18 +1081,6 @@
 	subcategory = CAT_WEAPON
 	always_available = FALSE
 
-/datum/crafting_recipe/marksmancarbine/worn
-	name = "Worn Marksman Carbine"
-	result = /obj/item/gun/ballistic/automatic/marksman/worn
-	reqs = list(/obj/item/stack/sheet/metal = 10,
-				/obj/item/advanced_crafting_components/assembly = 1,
-				/obj/item/stack/crafting/goodparts = 3
-				)
-	tools = list(TOOL_WORKBENCH)
-	time = 120
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-	always_available = FALSE
 
 /datum/crafting_recipe/combatrifle
 	name = "Combat Carbine"
@@ -1710,23 +1698,7 @@
 	subcategory = CAT_WEAPON
 	always_available = FALSE
 
-//R82 heavy service rifle
-/datum/crafting_recipe/R82
-	name = "R82 heavy service rifle"
-	result = /obj/item/gun/ballistic/automatic/service/r82
-	reqs = list(/obj/item/stack/sheet/metal = 5,
-				/obj/item/advanced_crafting_components/assembly = 1,
-				/obj/item/advanced_crafting_components/receiver = 1,
-				/obj/item/stack/sheet/mineral/wood = 5,
-				/obj/item/stack/crafting/goodparts = 5,
-				)
-	tools = list(TOOL_WORKBENCH)
-	time = 120
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-	always_available = FALSE
-
-//R82 heavy service rifle
+//R93 PDW
 /datum/crafting_recipe/R93
 	name = "R93 PDW"
 	result = /obj/item/gun/ballistic/automatic/r93
@@ -2312,23 +2284,6 @@ Not implemented due to balance at the moment
 				/obj/item/stack/sheet/mineral/wood = 15,
 				/obj/item/stack/sheet/plastic = 5,
 				/obj/item/advanced_crafting_components/alloys = 2,
-				/obj/item/stack/rods = 10,
-				/obj/item/stack/crafting/goodparts = 10,
-				)
-	tools = list(TOOL_WORKBENCH)
-	time = 120
-	category = CAT_WEAPONRY
-	subcategory = CAT_WEAPON
-	always_available = FALSE
-
-//Eastern Assassin Rifle
-/datum/crafting_recipe/eastern_assassin_rifle
-	name = "Eastern Assassin Rifle"
-	result = /obj/item/gun/ballistic/automatic/eastern_assassin_rifle
-	reqs = list(/obj/item/gun/ballistic/automatic/handmade_dmr = 1,
-				/obj/item/stack/sheet/metal = 15,
-				/obj/item/advanced_crafting_components/receiver = 1,
-				/obj/item/advanced_crafting_components/alloys = 1,
 				/obj/item/stack/rods = 10,
 				/obj/item/stack/crafting/goodparts = 10,
 				)

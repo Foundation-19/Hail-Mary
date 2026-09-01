@@ -581,10 +581,6 @@
 /area/f13/brotherhood/rnd)
 "avB" = (
 /obj/structure/rack,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/enclave)
 "avC" = (
@@ -17532,10 +17528,6 @@
 	light_color = "#e8eaff"
 	},
 /obj/structure/rack,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/enclave)
 "nXb" = (

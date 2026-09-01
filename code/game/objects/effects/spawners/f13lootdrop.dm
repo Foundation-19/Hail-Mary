@@ -993,7 +993,6 @@
 				/obj/effect/spawner/bundle/f13/guns/tommygun,
 				/obj/effect/spawner/bundle/f13/shotgunlever,
 				/obj/effect/spawner/bundle/f13/brushgun,
-				/obj/effect/spawner/bundle/f13/ak112,
 				/obj/item/gun/ballistic/automatic/varmint/ratslayer,
 				/obj/item/gun/ballistic/automatic/smg/sidewinder/magnum,
 				/obj/item/gun/ballistic/automatic/wt550,
@@ -1396,13 +1395,6 @@
 	name = "assault carbine and ammo spawner"
 	items = list(
 				/obj/item/gun/ballistic/automatic/assault_carbine,
-				/obj/item/ammo_box/magazine/m5mm
-				)
-
-/obj/effect/spawner/bundle/f13/ak112
-	name = "ak-112 assault rifle and ammo spawner"
-	items = list(
-				/obj/item/gun/ballistic/automatic/assault_carbine/worn,
 				/obj/item/ammo_box/magazine/m5mm
 				)
 

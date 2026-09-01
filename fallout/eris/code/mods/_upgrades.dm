@@ -281,8 +281,8 @@
 		G.slowdown *= weapon_upgrades[GUN_UPGRADE_MOVE_DELAY_MULT]
 	if(weapon_upgrades[GUN_UPGRADE_RECOIL])
 		G.recoil_dat = G.recoil_dat.modifyAllRatings(weapon_upgrades[GUN_UPGRADE_RECOIL])
-	//if(weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH])
-	//	G.muzzle_flash *= weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH]
+	if(weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH])
+		G.muzzleflash_multiplier *= weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH]
 	if(weapon_upgrades[GUN_UPGRADE_SILENCER])
 		G.silenced = weapon_upgrades[GUN_UPGRADE_SILENCER]
 	if(weapon_upgrades[GUN_UPGRADE_OFFSET])

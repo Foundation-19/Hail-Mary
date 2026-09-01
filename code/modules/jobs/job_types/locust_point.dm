@@ -615,7 +615,6 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/military
 	belt = /obj/item/storage/belt/bandolier
 	backpack_contents = list(
-	/obj/item/gun/ballistic/automatic/combat/worn = 1,
 	/obj/item/ammo_box/magazine/tommygunm45/stick = 2,
 	/obj/item/shovel/trench =1,
 	/obj/item/binoculars = 1,

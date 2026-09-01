@@ -159,6 +159,8 @@ ATTACHMENTS
 	var/rigged = FALSE
 	var/vision_flags = 0
 	var/projectile_speed_multiplier = 1
+	/// Scales the muzzle flash intensity/range of fired projectiles, set by barrel/mechanism upgrades
+	var/muzzleflash_multiplier = 1
 	/// How should this gun prefer to weight what limbs they hit
 	var/gun_accuracy_zone_type = ZONE_WEIGHT_SEMI_AUTO
 	/// What kind of traits should this gun be affected by
@@ -398,7 +400,10 @@ ATTACHMENTS
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
 	. = ..()
-	if(!CheckAttackCooldown(user, target))
+	// Always gate actual firing on the gun's real fire rate, even at adjacent range -
+	// CheckAttackCooldown() substitutes CLICK_CD_MELEE when adjacent (for gun-butt melee attacks),
+	// which let players click-spam point blank to bypass semi/auto fire rate entirely.
+	if(!user.CheckActionCooldown(get_clickcd()))
 		return
 	process_afterattack(target, user, flag, params)
 
@@ -1292,7 +1297,7 @@ ATTACHMENTS
 	fire_delay = initial(fire_delay)
 	burst_shot_delay = initial(burst_shot_delay)
 	//move_delay = initial(move_delay)
-	//muzzle_flash = initial(muzzle_flash)
+	muzzleflash_multiplier = initial(muzzleflash_multiplier)
 	silenced = initial(silenced)
 	restrict_safety = initial(restrict_safety)
 	added_spread = initial(added_spread)

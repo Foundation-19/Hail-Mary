@@ -225,7 +225,6 @@
 
 /obj/item/storage/box/large/custom_kit/brimcon/PopulateContents()
 	new /obj/item/clothing/suit/armor/light/tribal/cloak(src)
-	new /obj/item/gun/ballistic/automatic/combat/worn/brim(src)
 
 /datum/gear/donator/kits/bwoincognito
 	name = "Tasald's Kit"
@@ -302,7 +301,6 @@
 	new /obj/item/melee/onehanded/knife/trench(src)
 	new /obj/item/melee/unarmed/brass/spiked(src)
 	new /obj/item/clothing/suit/armor/light/raider/painspike(src)
-	new /obj/item/gun/ballistic/automatic/pistol/sig/worn(src)
 
 /datum/gear/donator/kits/cavusogluzevk2
 	name = "B.O.S Loadout"
@@ -329,7 +327,6 @@
 	new /obj/item/ammo_box/magazine/m45/rubber(src)
 	new /obj/item/ammo_box/c45/rubber(src)
 	new /obj/item/storage/belt/legholster(src)
-	new /obj/item/gun/ballistic/automatic/marksman/worn(src)
 
 /datum/gear/donator/kits/darknova92
 	name = "Nikolatz BoS"
@@ -402,8 +399,6 @@
 	ckeywhitelist = list("ferisramsay")
 
 /obj/item/storage/box/large/custom_kit/ferisramsay3/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/pistol/sig/worn(src)
-	new /obj/item/gun/ballistic/automatic/pistol/sig/worn(src)
 
 /datum/gear/donator/kits/fuzlet
 	name = "fuzzy supply box"
@@ -519,12 +514,6 @@
 	path = /obj/item/storage/box/large/custom_kit/jackson1112
 	ckeywhitelist = list("jackson1112")
 
-/obj/item/storage/box/large/custom_kit/jackson1112/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/marksman/worn(src)
-	new /obj/item/ammo_box/magazine/m556/rifle(src)
-	new /obj/item/ammo_box/magazine/m556/rifle(src)
-	new /obj/item/melee/onehanded/knife/bayonet(src)
-	new /obj/item/storage/belt/military(src)
 	new /obj/item/storage/box/ration/ranger_breakfast(src)
 	new /obj/item/clothing/head/helmet/f13/combat(src)
 	new /obj/item/flashlight/seclite(src)
@@ -615,7 +604,6 @@
 	new /obj/item/clothing/under/f13/bos/fatigues(src)
 	new /obj/item/gun/energy/laser/wattzs(src)
 	new /obj/item/radio/headset/headset_sci(src)
-	new /obj/item/gun/ballistic/automatic/pistol/n99/executive/worn(src)
 	new /obj/item/clothing/ears/headphones(src)
 	new /obj/item/reagent_containers/food/snacks/grown/tea/catnip(src)
 	new /obj/item/reagent_containers/food/snacks/grown/citrus/lemon(src)
@@ -675,7 +663,6 @@
 	ckeywhitelist = list("pipes_wildin")
 
 /obj/item/storage/box/large/custom_kit/pipes_wildin/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/combat/worn(src)
 
 /datum/gear/donator/kits/pipes_wildin2
 	name = "Zimnt's Kit"
@@ -881,7 +868,6 @@
 	new /obj/item/clothing/mask/surgical/sloaff(src)
 	new /obj/item/lighter/fusion(src)
 	new /obj/item/reagent_containers/pill/patch/jet(src)
-	new /obj/item/gun/energy/laser/badlands/worn(src)
 
 /datum/gear/donator/kits/sloaff3
 	name = "Sloan's Food Pack"

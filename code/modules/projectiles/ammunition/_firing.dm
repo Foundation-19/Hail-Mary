@@ -67,6 +67,8 @@
 		BB.damage_mod = G.damage_multiplier
 		BB.armour_penetration *= G.penetration_multiplier
 		BB.pixels_per_second *= G.projectile_speed_multiplier
+		BB.muzzle_flash_intensity *= G.muzzleflash_multiplier
+		BB.muzzle_flash_range *= G.muzzleflash_multiplier
 		if(BB.zone_accuracy_type == ZONE_WEIGHT_GUNS_CHOICE)
 			BB.zone_accuracy_type = G.get_zone_accuracy_type()
 		/* if(HAS_TRAIT(user, TRAIT_INSANE_AIM)) // imma spend 12 points to shoot myself in the face

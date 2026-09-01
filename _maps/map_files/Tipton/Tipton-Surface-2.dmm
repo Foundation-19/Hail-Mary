@@ -4778,9 +4778,6 @@
 "bOj" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/decal/cleanable/dirt,
-/obj/item/gun/ballistic/automatic/pistol/sig/worn,
-/obj/item/gun/ballistic/automatic/pistol/sig/worn,
-/obj/item/gun/ballistic/automatic/pistol/sig/worn,
 /turf/open/floor/f13/wood,
 /area/f13/casino/powered)
 "bOt" = (
