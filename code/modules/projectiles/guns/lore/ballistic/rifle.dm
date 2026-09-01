@@ -652,7 +652,7 @@
 	mag_type = /obj/item/ammo_box/magazine/amr
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_EXTRA_DAMAGE_T4 // anti-materiel means anti-materiel
 	init_recoil = HMG_RECOIL(3)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	init_firemodes = list(
@@ -677,7 +677,7 @@
 	mag_type = /obj/item/ammo_box/magazine/boys
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_0
+	damage_multiplier = GUN_EXTRA_DAMAGE_T2 // still hits hard, just not as hard as the purpose-built AMR
 	init_recoil = HMG_RECOIL(3)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	init_firemodes = list(

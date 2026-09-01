@@ -457,7 +457,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m10mm_p90
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_LESS_DAMAGE_T1
+	damage_multiplier = GUN_EXTRA_DAMAGE_0 // was T1 (0.9x) - barely differed from the common smg10mm's T2 (0.85x) despite being a much rarer find
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm200,
@@ -1497,7 +1497,8 @@
 	init_mag_type = /obj/item/ammo_box/magazine/w3006
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_LESS_DAMAGE_T1
+	damage_multiplier = GUN_EXTRA_DAMAGE_T3 // a slow bolt-action shouldn't hit softer than a carbine
+	penetration_multiplier = 1.5 // .308 should punch through more than 5.56 does
 	init_recoil = RIFLE_RECOIL(1)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
 	init_firemodes = list(/datum/firemode/semi_auto/slower)
@@ -1524,7 +1525,7 @@
 	item_state = "gold_sniper"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T2
+	damage_multiplier = GUN_EXTRA_DAMAGE_T5 // stays the best sniper now that the base got buffed
 
 /* * * * * * * * * * *
  * Explorer Sniper Rifle

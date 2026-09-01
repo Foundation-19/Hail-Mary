@@ -584,21 +584,21 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
 	)
-/obj/item/gun/energy/laser/aer9/focused
-	name = "\improper Hot-wired AER9 laser rifle"
-	desc = "A sturdy pre-war laser rifle. Emits beams of concentrated light to kill targets. This one has been jury-rigged against common sense to dump more power into its shots."
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan/focused)
+/obj/item/gun/energy/laser/aer9/overclocked
+	name = "\improper Overclocked AER9 laser rifle"
+	desc = "A sturdy pre-war laser rifle, its safeties bypassed to dump its cell in a rapid stream of weaker shots instead of a single strong one."
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan/overclocked)
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/burst/two/slow
+		/datum/firemode/automatic/rpm150
 	)
 
-/obj/item/gun/energy/laser/aer9/focused/rynn
-	name = "\improper Hot-wired AER10 laser rifle"
+/obj/item/gun/energy/laser/aer9/overclocked/rynn
+	name = "\improper Overclocked AER10 laser rifle"
 	desc = "A pre-war laser rifle prototype that has seen better day, known as a failed attempt at competing with the wattz 2000. Part of it's grip seems broken along it's barrel, and it has cloth wrapped around it's stock and grip."
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan/focused)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/lasgun/hitscan/overclocked)
 	icon = 'icons/fallout/objects/guns/energy.dmi'
 	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
@@ -609,7 +609,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
 	init_firemodes = list(
-		/datum/firemode/burst/two/slow
+		/datum/firemode/automatic/rpm150
 	)
 
 //Ultracite Laser rifle

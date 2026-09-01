@@ -229,9 +229,9 @@ also: most hitscan weapons have more charge than their normal projectile counter
 	projectile_type = /obj/item/projectile/beam/laser/lasgun/hitscan
 	e_cost = 80 //25 shots, as per FNV
 
-/obj/item/ammo_casing/energy/laser/lasgun/hitscan/focused
-	projectile_type = /obj/item/projectile/beam/laser/lasgun/hitscan/focused
-	e_cost = 100
+/obj/item/ammo_casing/energy/laser/lasgun/hitscan/overclocked
+	projectile_type = /obj/item/projectile/beam/laser/lasgun/hitscan/overclocked
+	e_cost = 40 //half the cost of a standard shot - 2x the shots per cell
 
 /obj/item/ammo_casing/energy/laser/solar
 	projectile_type = /obj/item/projectile/beam/laser/solar

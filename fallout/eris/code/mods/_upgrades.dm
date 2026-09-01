@@ -267,6 +267,8 @@
 		G.damage_multiplier += weapon_upgrades[GUN_UPGRADE_DAMAGEMOD_PLUS]
 	if(weapon_upgrades[GUN_UPGRADE_PEN_MULT])
 		G.penetration_multiplier *= weapon_upgrades[GUN_UPGRADE_PEN_MULT]
+	if(weapon_upgrades[GUN_UPGRADE_DT_PEN_ADD])
+		G.dt_penetration_bonus += weapon_upgrades[GUN_UPGRADE_DT_PEN_ADD]
 	//if(weapon_upgrades[GUN_UPGRADE_PIERC_MULT])
 	//	G.pierce_multiplier += weapon_upgrades[GUN_UPGRADE_PIERC_MULT]
 	//if(weapon_upgrades[GUN_UPGRADE_RICO_MULT])

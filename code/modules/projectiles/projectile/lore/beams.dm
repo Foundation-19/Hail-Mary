@@ -353,14 +353,13 @@
 	muzzle_type = /obj/effect/projectile/muzzle/laser
 	impact_type = /obj/effect/projectile/impact/laser
 
-/obj/item/projectile/beam/laser/lasgun/hitscan/focused
-	name = "overcharged laser beam"
-	damage = 28
-	armour_penetration = 0.3
+/obj/item/projectile/beam/laser/lasgun/hitscan/overclocked
+	name = "weak laser beam"
+	damage = 12.5 //half of the base 25 - traded for 2x cell capacity and full auto
 
 /obj/item/projectile/beam/laser/gatling/hitscan //Gatling Laser
 	name = "laser beam"
-	damage = 15
+	damage = 26 // was 15 - should out-DPS the mundane 5mm minigun given the permit + backpack power source it requires
 	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
@@ -555,7 +554,8 @@
 	icon_state = "plasma_clot"
 	damage_type = BURN
 	damage = 40 //fucc you normies
-	armour_penetration = 0
+	armour_penetration = 0.3 //plasma is famous for shredding through armor, not bouncing off it
+	damage_threshold_penetration = 3
 	flag = "energy" //checks vs. energy protection
 	wound_bonus = 80 //being hit with plasma is horrific
 	eyeblur = 0
@@ -567,6 +567,8 @@
 	icon_state = "plasma_clot"
 	damage_type = BURN
 	damage = 25
+	armour_penetration = 0.3
+	damage_threshold_penetration = 3
 	flag = "energy" //checks vs. energy protection
 	wound_bonus = 50 //let's not make the carbine horrifying // nah lets make it horrifying
 	eyeblur = 0
@@ -661,7 +663,9 @@
 /obj/item/projectile/beam/laser/laer //Elder's/Unique LAER
 	name = "advanced laser beam"
 	icon_state = "u_laser"
-	damage = 45
+	damage = 60 // was 45 - rarest laser rifle in the game, shouldn't hit softer than a common Wattz2000
+	armour_penetration = 0.25
+	damage_threshold_penetration = 8 //Elder's weapon, pierces better than the common sniper lasers
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
 
@@ -728,7 +732,7 @@
 
 /obj/item/projectile/beam/laser/wattz2k/hitscan
 	name = "sniper laser bolt"
-	damage = 33
+	damage = 45 // was 33 - shouldn't hit softer than an AER9 for a slower single shot
 	armour_penetration = 0.2
 	wound_bonus = 10
 	bare_wound_bonus = 20
@@ -739,7 +743,7 @@
 
 /obj/item/projectile/beam/laser/wattz2k/hitscan/weak //Hits less than the main wattz2k with less AP but has more shots comparable to an aer9
 	name = "weak sniper laser bolt"
-	damage = 30
+	damage = 38
 	armour_penetration = 0.1
 	wound_bonus = 10
 	bare_wound_bonus = 20
@@ -754,7 +758,7 @@
 
 /obj/item/projectile/beam/laser/wattz2ks/hitscan
 	name = "sniper laser bolt"
-	damage = 35
+	damage = 48 // was 35 - shouldn't hit softer than an AER9 for a slower single shot
 	armour_penetration = 0.2
 	wound_bonus = 5
 	bare_wound_bonus = 15

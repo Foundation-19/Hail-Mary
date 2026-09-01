@@ -1458,9 +1458,9 @@
 	subcategory = CAT_WEAPON
 	always_available = FALSE
 
-/datum/crafting_recipe/aer9_hotwired
-	name = "Hotwired AER-9"
-	result = /obj/item/gun/energy/laser/aer9/focused
+/datum/crafting_recipe/aer9_overclocked
+	name = "Overclocked AER-9"
+	result = /obj/item/gun/energy/laser/aer9/overclocked
 	reqs = list(/obj/item/gun/energy/laser/aer9 = 1,
 				/obj/item/advanced_crafting_components/conductors = 1,
 				/obj/item/advanced_crafting_components/lenses = 1,
@@ -1474,9 +1474,9 @@
 	subcategory = CAT_WEAPON
 	always_available = FALSE
 
-/datum/crafting_recipe/aer9_hotwired_rynn
-	name = "Custom Hotwired AER-9"
-	result = /obj/item/gun/energy/laser/aer9/focused/rynn
+/datum/crafting_recipe/aer9_overclocked_rynn
+	name = "Custom Overclocked AER-9"
+	result = /obj/item/gun/energy/laser/aer9/overclocked/rynn
 	reqs = list(/obj/item/gun/energy/laser/aer9 = 1,
 				/obj/item/advanced_crafting_components/conductors = 1,
 				/obj/item/advanced_crafting_components/lenses = 1,
@@ -1828,6 +1828,20 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_PARTS
+
+/datum/crafting_recipe/focusing_lens
+	name = "Focusing Lens"
+	result = /obj/item/tool_upgrade/refinement/focusing_lens
+	reqs = list(
+				/obj/item/stack/sheet/glass = 3,
+				/obj/item/stack/crafting/electronicparts = 3,
+				/obj/item/stack/crafting/metalparts = 2
+	)
+	tools = list(TOOL_WORKBENCH)
+	time = 30
+	category = CAT_WEAPONRY
+	subcategory = CAT_PARTS
+	always_available = FALSE
 	always_available = FALSE
 
 /datum/crafting_recipe/blender

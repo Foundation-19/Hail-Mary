@@ -721,7 +721,7 @@
 	ckeywhitelist = list("radiantflash")
 
 /obj/item/storage/box/large/custom_kit/radiantflash/PopulateContents()
-	new /obj/item/book/granter/crafting_recipe/blueprint/aer9/focused/rynn(src)
+	new /obj/item/book/granter/crafting_recipe/blueprint/aer9/overclocked/rynn(src)
 	new /obj/item/clothing/accessory/bos/seniorscribe(src)
 	new /obj/item/clothing/suit/armor/light/kit/punk/labcoat(src)
 	new /obj/item/card/id/dogtag/radiantflash(src)

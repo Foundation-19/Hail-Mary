@@ -434,6 +434,23 @@
 	I.gun_loc_tag = GUN_BARREL //shares a slot with forged barrel, can no longer stack fire rate bonuses
 	//I.required_qualities = list(QUALITY_WELDING)
 	I.prefix = "ported"
+
+/obj/item/tool_upgrade/refinement/focusing_lens
+	name = "focusing lens"
+	desc = "A precision-ground lens that tightens an energy weapon's beam, letting more of each shot's energy punch through armor plating at the cost of a wider firing signature."
+	icon_state = "compensatedbarrel"
+
+/obj/item/tool_upgrade/refinement/focusing_lens/New()
+	..()
+	var/datum/component/item_upgrade/I = AddComponent(/datum/component/item_upgrade)
+	I.weapon_upgrades = list(
+		GUN_UPGRADE_DT_PEN_ADD = 5,
+		GUN_UPGRADE_MUZZLEFLASH = 1.3,
+		GUN_UPGRADE_CHARGECOST = 1.15
+	)
+	I.req_gun_tags = list(GUN_ENERGY)
+	I.gun_loc_tag = GUN_BARREL
+	I.prefix = "piercing"
 /*
 /obj/item/tool_upgrade/refinement/compensatedbarrel
 	name = "gravity compensated barrel"

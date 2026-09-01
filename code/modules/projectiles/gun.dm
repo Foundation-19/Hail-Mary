@@ -52,6 +52,7 @@ ATTACHMENTS
 
 	var/damage_multiplier = 1 //Multiplies damage of projectiles fired from this gun
 	var/penetration_multiplier = 1 //Multiplies armor penetration of projectiles fired from this gun
+	var/dt_penetration_bonus = 0 //Added to damage_threshold_penetration of projectiles fired from this gun
 
 	/// can we be put into a turret
 	var/can_turret = TRUE
@@ -1289,6 +1290,7 @@ ATTACHMENTS
 	//First of all, lets reset any var that could possibly be altered by an upgrade
 	damage_multiplier = initial(damage_multiplier)
 	penetration_multiplier = initial(penetration_multiplier)
+	dt_penetration_bonus = initial(dt_penetration_bonus)
 	//pierce_multiplier = initial(pierce_multiplier)
 	//ricochet_multiplier = initial(ricochet_multiplier)
 	projectile_speed_multiplier = initial(projectile_speed_multiplier)
