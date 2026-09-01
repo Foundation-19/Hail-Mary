@@ -521,13 +521,13 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
 
-/obj/item/projectile/beam/laser/tribeam //Tribeam laser, fires 3 shots, will melt you
+/obj/item/projectile/beam/laser/tribeam //Tribeam laser, fires as a 3-round burst
 	name = "tribeam laser"
-	damage = 20
+	damage = 22
 
 /obj/item/projectile/beam/laser/tribeam/hitscan
 	name = "tribeam laser"
-	damage = 20 //if all bullets connect, this will do 75.
+	damage = 22 //3-round burst - 66 total if all 3 connect, same as before but no longer range-gated by pellet spread
 	armour_penetration = 0.2
 	hitscan = TRUE
 	bare_wound_bonus = -30 //tribeam is bad at wounding, as basically its only real downside

@@ -101,18 +101,14 @@ also: most hitscan weapons have more charge than their normal projectile counter
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam
 	projectile_type = /obj/item/projectile/beam/laser/tribeam
-	pellets = 3
-	variance = 14
 	select_name = "scatter"
-	e_cost = 180 //11 shots
+	e_cost = 65 //per beam - 3 beams per burst, same total cost as the old 1-shot-of-3-pellets design
 	fire_sound = 'sound/f13weapons/tribeamfire.ogg'
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan
 	projectile_type = /obj/item/projectile/beam/laser/tribeam/hitscan
-	pellets = 3
-	variance = 38
 	select_name = "tribeam"
-	e_cost = 200 //10 shots
+	e_cost = 65 //per beam - 3 beams per burst
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam/laserbuss
 	projectile_type = /obj/item/projectile/beam/laser/tribeam/laserbuss
@@ -131,11 +127,8 @@ also: most hitscan weapons have more charge than their normal projectile counter
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan/nonlethal
 	projectile_type = /obj/item/projectile/beam/laser/pistol/hitscan/stun
-	pellets = 3
-	variance = 38
 	select_name = "tribeam"
-	e_cost = 100 //20 shots
-	harmful = FALSE
+	e_cost = 33 //per beam - 3 beams per burst
 
 /obj/item/ammo_casing/energy/laser/pistol
 	projectile_type = /obj/item/projectile/beam/laser/pistol

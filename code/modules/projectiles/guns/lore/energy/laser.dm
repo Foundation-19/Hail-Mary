@@ -630,9 +630,9 @@
 	)
 
 //Tribeam Laser rifle
-/obj/item/gun/energy/laser/scatter //this needs higher spread
+/obj/item/gun/energy/laser/scatter
 	name = "tribeam laser rifle"
-	desc = "A modified AER9 equipped with a refraction kit that divides the laser shot into three separate beams. While powerful, it has a reputation for friendly fire."
+	desc = "A modified AER9 equipped with a refraction kit that splits each trigger pull into three tightly-timed beams instead of one."
 	icon_state = "tribeam"
 	item_state = "laser-rifle9"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan)
@@ -641,11 +641,11 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slow
+		/datum/firemode/burst/three/faster
 	)
 /obj/item/gun/energy/laser/scatter/nonlethal
 	name = "tribeam stunrifle"
-	desc = "A modified AER9 equipped with a refraction kit that divides the laser shot into three separate beams. This one has its power consumption lowered, delivering only non-lethal strikes and charging faster."
+	desc = "A modified AER9 equipped with a refraction kit that splits each trigger pull into three tightly-timed beams instead of one. This one has its power consumption lowered, delivering only non-lethal strikes and charging faster."
 	icon_state = "tribeam_nonlethal"
 	item_state = "laser-rifle9"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan/nonlethal)
@@ -654,7 +654,7 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	init_firemodes = list(
-		/datum/firemode/semi_auto/slower
+		/datum/firemode/burst/three/fast
 	)
 /obj/item/gun/energy/laser/scatter/laserbuss
 	name = "Laserbuss"
