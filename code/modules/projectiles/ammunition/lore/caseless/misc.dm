@@ -79,7 +79,9 @@
 		for(var/mob/living/L in T)
 			L.adjust_fire_stacks(ignite_fire_stacks)
 			L.IgniteMob()
-			L.adjustFireLoss(direct_burn_damage) //ambient "on fire" damage from body temperature is slow to tick - hosing someone directly needs to hurt right away
+			//run through "fire" armor like any other damage source, instead of a flat adjustFireLoss() bypass - so fire-rated suits (hazmat, power armor) give real counterplay against being hosed
+			var/blocked = L.run_armor_check(null, "fire")
+			L.apply_damage(direct_burn_damage, BURN, null, blocked)
 		previous = T
 		tiles_burned++
 
