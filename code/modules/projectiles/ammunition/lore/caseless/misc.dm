@@ -38,10 +38,27 @@
 	var/direct_burn_damage = 8 //instant burn damage applied per tick you're standing in the stream, on top of the lingering fire - a flamethrower should hurt the second it touches you, not just eventually
 	var/ignite_fire_stacks = 5
 
+//tinted copy of the stock beam effect so the flame stream reads as fire instead of a generic sci-fi beam
+/obj/effect/ebeam/flamethrower
+	name = "jet of flame"
+	color = "#ff9933"
+	alpha = 130 //a flat opaque bar reads as a solid snake - translucent + additive blending makes it read as glowing heat/fire instead
+	blend_mode = BLEND_ADD
+	light_color = LIGHT_COLOR_FIRE
+	light_range = LIGHT_RANGE_FIRE
+
 //guaranteed line-of-fire, no RNG spread - a stream of napalm doesn't miss, it just has a short reach and stops at walls
 /obj/item/ammo_casing/caseless/flamethrower/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
 	var/turf/userloc = get_turf(user)
 	var/turf/targloc = get_turf(target)
+	//held-mouse autofire's "target" arg goes stale mid-drag (BYOND only updates it on certain click events) - read the live cursor instead, so the stream actually follows where you're pointing right now
+	//use the raw screen-loc math (same as click_catcher) instead of mouseObject - mouseObject snaps to whatever atom last got hovered/dragged over and loses diagonal precision near tile edges
+	if(istype(user) && user.client?.mouseParams)
+		var/list/modifiers = params2list(user.client.mouseParams)
+		var/turf/origin = get_turf(user.client.eye || user)
+		var/turf/live_targloc = params2turf(modifiers["screen-loc"], origin, user.client)
+		if(istype(live_targloc))
+			targloc = live_targloc
 	if(!istype(userloc) || !istype(targloc))
 		return FALSE
 
@@ -55,7 +72,8 @@
 			continue
 		if(tiles_burned >= flame_range)
 			break
-		if(!(T in previous.reachableAdjacentTurfs()))
+		//reachableAdjacentTurfs() is an A* pathing helper that only ever returns CARDINAL neighbours - using it here silently capped the stream to N/E/S/W. Just check the tile itself for a wall/dense blocker instead, which works for diagonals too.
+		if(is_blocked_turf(T))
 			break //flame doesn't pass through walls
 		new /obj/effect/hotspot(T, flame_volume, flame_temperature) //turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
 		for(var/mob/living/L in T)
@@ -64,6 +82,10 @@
 			L.adjustFireLoss(direct_burn_damage) //ambient "on fire" damage from body temperature is slow to tick - hosing someone directly needs to hurt right away
 		previous = T
 		tiles_burned++
+
+	//the turf-by-turf hotspots handle the actual game logic (ignite/damage), but on their own they look like disconnected blobs, especially off-angle - draw a real free-angle beam over them so the stream visually arcs to exactly where it stopped
+	if(previous != userloc)
+		user.Beam(previous, icon_state = "b_beam", time = 4, maxdistance = flame_range + 1, beam_type = /obj/effect/ebeam/flamethrower, beam_sleep_time = 1)
 
 	if(istype(user))
 		user.DelayNextAction(considered_action = TRUE, immediate = FALSE)
