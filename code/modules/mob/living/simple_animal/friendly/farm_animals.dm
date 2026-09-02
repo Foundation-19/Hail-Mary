@@ -574,6 +574,19 @@
 	if(stat == CONSCIOUS && is_type_in_list(O, food_types))
 		feed_em(O, user)
 		return
+		/*
+	if (istype(O,/obj/item/brahminbags))
+		if(bags)
+			to_chat(user, span_warning("The mount already has bags attached!"))
+			return
+		if(is_calf)
+			to_chat(user, span_warning("The young animal cannot carry the bags!"))
+			return
+		to_chat(user, span_notice("You add [O] to [src]..."))
+		bags = TRUE
+		qdel(O)
+		ComponentInitialize()
+		return */
 
 	if(istype(O,/obj/item/brahmincollar))
 		if(user != owner)

@@ -417,45 +417,83 @@ GLOBAL_LIST_INIT(channel_tokens, list(
 	keyslot = new /obj/item/encryptionkey/headset_biker
 
 /obj/item/radio/headset/headset_town
-	name = "Eastwood radio headset"
-	desc = "This is used by the town of Eastwood.\
-		\nTo access the Eastwood channel, use :f."
+	name = "Town radio headset"
+	desc = "This is used by the local town.\
+		\nTo access the Town channel, use :f."
 	icon_state = "mine_headset"
 	keyslot = new /obj/item/encryptionkey/headset_town
 
 /obj/item/radio/headset/headset_town/lawman
-	name = "Eastwood sheriff radio headset"
-	desc = "This is used by Eastwood's local sheriff force. Protects ears from flashbangs.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood sheriff channel, use :l."
+	name = "Town sheriff radio headset"
+	desc = "This is used by Town's local sheriff force. Protects ears from flashbangs.\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l."
 	icon_state = "sec_headset_alt"
 	item_state = "sec_headset_alt"
 	bowman = TRUE
 	keyslot = new /obj/item/encryptionkey/headset_town/lawman
 
+/obj/item/radio/headset/headset_town/lawman/command
+	name = "Town sheriff radio headset"
+	desc = "This is used by Town's local sheriff force. Protects ears from flashbangs. This headset got a loudspeaker.\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l."
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	bowman = TRUE
+	command = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_town/lawman
+
+/obj/item/radio/headset/minutemen
+	name = "Ranger radio headset"
+	desc = "This is used by Town's local sheriff force. Protects ears from flashbangs.\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l."
+	icon_state = "sec_headset_alt"
+	item_state = "sec_headset_alt"
+	bowman = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_town/lawman
+	linked_faction = FACTION_MINUTEMEN
+	factionized = TRUE
+
+
+/obj/item/radio/headset/minutemen/command
+	name = "NCR Command radio headset"
+	desc = "This is used by Town's local sheriff force. Protects ears from flashbangs. Got a loudspeaker\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l."
+	icon_state = "com_headset_alt"
+	item_state = "com_headset_alt"
+	bowman = TRUE
+	keyslot = new /obj/item/encryptionkey/headset_town/lawman
+	linked_faction = FACTION_MINUTEMEN
+	factionized = TRUE
+	command = TRUE
+	
+
 /obj/item/radio/headset/headset_town/commerce
-	name = "Eastwood commerce radio headset"
-	desc = "This is used by Eastwood's small business owners.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood commerce channel, use :j."
+	name = "Town commerce radio headset"
+	desc = "This is used by Town's small business owners.\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town commerce channel, use :j."
 	keyslot = new /obj/item/encryptionkey/headset_town/commerce
 
 /obj/item/radio/headset/headset_town/mayor
-	name = "Eastwood mayoral radio headset"
-	desc = "This is used by Eastwood's mayor (and secretary). Protects ears from flashbangs.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood mayor channel, use :y.\
-		\nTo access the Eastwood sheriff channel, use :l.\
-		\nTo access the Eastwood medical channel, use :m.\
-		\nTo access the Eastwood commerce channel, use :j."
+	name = "Town mayoral radio headset"
+	desc = "This is used by Town's mayor (and secretary). Protects ears from flashbangs.\
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town mayor channel, use :y.\
+		\nTo access the Town sheriff channel, use :l.\
+		\nTo access the Town medical channel, use :m.\
+		\nTo access the Town commerce channel, use :j."
 	bowman = TRUE
 	command = TRUE
 	keyslot = new /obj/item/encryptionkey/headset_town/mayor
 
 /obj/item/radio/headset/headset_town/medical
-	name = "Eastwood medical radio headset"
-	desc = "This is used by Eastwood's medical folk.\
-		\nTo access the Eastwood channel, use :f.\
+	name = "Town medical radio headset"
+	desc = "This is used by Town's medical folk.\
+		\nTo access the Town channel, use :f.\
 		\nTo access the medical channel, use :m"
 	icon_state = "med_headset"
 	keyslot = new /obj/item/encryptionkey/headset_town/medical

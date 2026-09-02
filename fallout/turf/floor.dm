@@ -124,6 +124,12 @@
 	canSmoothWith = list(/turf/open/floor/f13/paintwall)
 	var/blocked_dir = list(NORTH, EAST, NORTHEAST)
 
+/turf/open/floor/f13/brick
+	icon_state = "brick"
+
+/turf/open/floor/f13/brick/lit
+	sunlight_state = SUNLIGHT_SOURCE
+
 /turf/open/floor/f13/paintwall/CanPass(atom/movable/mover, border_dir)
 	. = ..()  // capture parent result FIRST
 	if(istype(mover) && (mover.pass_flags & PASSTABLE))

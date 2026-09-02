@@ -546,6 +546,21 @@
 	can_disasemble = 1
 	can_hold_padlock = TRUE
 
+/obj/structure/simple_door/metal/pullowsky
+	name = "Pulowski Preservation Shelter"
+	desc = "Not... Not sure that will work."
+	icon = 'icons/obj/machines/pulowski.dmi'
+	icon_state = "pulowski"
+	door_type = "pulowski"
+	open_sound = "sound/f13machines/pulowsky.ogg"
+	close_sound = "sound/f13machines/doorairlock_forced_close.ogg"
+	opacity = FALSE
+	base_opacity = FALSE
+	can_disasemble = 0
+	can_hold_padlock = FALSE
+	opening_time = 40
+	closing_time = 40
+
 
 // --------------------------------------
 //	BUNKER DOORS

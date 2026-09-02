@@ -1705,6 +1705,376 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			mode = 1
 
 	updateUsrDialog()
+	return
+
+/obj/machinery/computer/terminal/baltimore
+	name = "Baltimore Robco Terminal"
+	desc = "A RobCo Industries terminal, widely available for commercial and private use before the war. Unlike the other more standart one, those often have written logs."
+	light_color = LIGHT_COLOR_BLUE
+	color = "#bfbfff"
+
+/obj/machinery/computer/terminal/baltimore/atlanticcross
+	doc_title_1 = "Operation in Area - 01/01/2288"
+	doc_content_1 = "01/01/2288 - (FROM : Fleet Captain Annie Helo) (TO: ACHS Aegis).\
+	\
+	For this year, the AEGIS refit, now alone is too keep relation with town and brotherhood at a best.\
+	Remember to get paid from the people we heal. We also must protect our interess, and funds, so take down of concurence, by peacefull or lethal means have been authorised."
+	doc_title_2 = "Price suggestion - 01/01/2288 "
+	doc_content_2 = "01/01/2288 - (FROM : Fleet Captain Annie Helo) (TO: ACHS Aegis).\
+	\
+	Medical Check up : 20 caps \
+	Radiation heal : 30 caps \
+	Revival : 50 caps \
+	Don't hesiate to take the caps, leave a note of payement."
+
+/obj/machinery/computer/terminal/baltimore/minutemen
+	doc_title_1 = " First Maryland Company and Locust town Settelment - 04/02/2288"
+	doc_content_1 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Unlike our commonthwealth settlements, we hold little power here for now, but the people like us.\
+	The general ordered your company protect this town."
+	doc_title_2 = "Brotherhood Alliance - 04/02/2288"
+	doc_content_2 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Our Alliance with the brotherhood isn't stable.\
+	They act on paranoia, and secrecy \
+	Even with the institute gone, many are sure that our members may be synths \
+	All mens, be very carefull."
+	doc_title_3 = "Police duty - 08/02/2288"
+	doc_content_3 = "08/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active OFFICER)\
+	\
+	While holding Fort McHenry is important, our objective is to protect the town and its people. So, its is IMPERATIVE \
+	that mens are being deployed there and make patrols.\
+	If the town falls, the town people must be evacuated to the fort. But make sure it never happens."
+
+/obj/machinery/computer/terminal/baltimore/minutemen/town
+	doc_title_1 = " First Maryland Company and Locust town Settelment - 04/02/2288"
+	doc_content_1 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Unlike our commonthwealth settlements, we hold little power here for now, but the people like us.\
+	The general ordered your company protect this town."
+	doc_title_2 = "Brotherhood Alliance - 04/02/2288"
+	doc_content_2 = "04/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active MAJOR)\
+	\
+	Our Alliance with the brotherhood isn't stable.\
+	They act on paranoia, and secrecy \
+	Even with the institute gone, many are sure that our members may be synths \
+	All mens, be very carefull."
+	doc_title_2 = "Town concerns"
+	doc_content_2 = "(Personal note FROM : Mary Dell)\
+	\
+	Locust town is a town that existed before us Maryland minutemens.\
+	They seem to have a history with slavery.\
+	I am note sure what to think. Sure officialy its... Gone. There low class worker however still are badly treated\
+	Mankind often... Well. Often returns to their past self, ill let the others decide what to do."
+	doc_title_3 = "Police duty - 08/02/2288"
+	doc_content_3 = "08/02/2288 - (FROM : COLONEL KIRKLAND) (TO : Active OFFICER)\
+	\
+	While holding Fort McHenry is important, our objective is to protect the town and its people. So, its is IMPERATIVE \
+	that mens are being deployed there and make patrols.\
+	If the town falls, the town people must be evacuated to the fort. But make sure it never happens."
+
+/obj/machinery/computer/terminal/baltimore/portmary
+	doc_title_1 = "ET MERDE LES FEDERAUX - 08/10/2077"
+	doc_content_1 = "08/07/2077 - (DE : Captain Lucas) (A : Marseille Fast Transit)\
+	\
+	MEC, les RICAINS sont en TRAIN de traquer le navire ! Foutu control de TARRIF, si on se fait prendres il vont trouver les armes a BORD !\
+	(Robco Translation :) DUDE, the (Yankees) ARE tracking the shit ! (Fucking) TARIFS control, if we are caught, they will find our guns ONBOARD !"
+	doc_title_2 = "Ne t'inquiete pas - 12/10/2077"
+	doc_content_2 = "12/07/2077 - (DE : Marseille Fast Transit) (A : Captain Lucas)\
+	\
+	Ne t'inquiete pas. Je connais le directeur d'un des ports de Baltimore. Amare le Port Mary, met les gars armer sur les quais, et tient bon. Un bon deal. Tous se qu'on avait avait a a faire était the prendre de conteneur fait en plomb.\
+	(Robco Translation :) Don't worry. I know the director of one of Balitmore's harbors. Dock the Port Mary, and put some armed guys on the dock, then hold tight. It was a good deal. Only needed to put some lead containers on our side." 
+	doc_title_3 = "MEC C'EST LA FIN - 23/10/2077"
+	doc_content_3 = "23/10/2077 - (DE : Captain Lucas) (A : Marseille Fast Transit)\
+	\
+	ON NOUS NUKE !!! LES CONTENEUR SONT A PEINE ARRIVER, ON NOUS NUKE !!! PUTAIN DE MERD-\
+	(Robco Translation :) We are getting nuked. The cargo containers just arrived, and we got nuked. Fucking bitc-"
+
+/obj/machinery/computer/terminal/baltimore/recruitementcenter
+	doc_title_1 = "Welcome to the Naval Reserve center ! - 12/01/2076"
+	doc_content_1 = "Greetings ! And welcome ! Ready to start your sailor adventure ?\
+	\
+	Head on down to the base ! And start your training. We are happy that you are willing to joint the fight on our seas.\
+	Be carefull however ! We have a classified vessel in the drydock ! Do not come close, or Ensign DEADLOCK will have you shot !"
+
+/obj/machinery/computer/terminal/baltimore/recruitementcenter/officer
+	doc_title_1 = "Issue with the Ironclad Lander 'USS Iron Shadow' - 21/12/2076"
+	doc_content_1 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
+	\
+	While the Hull is finished, the USS Iron Shadow didn't get any of its consoles. Apparently, they will arrive in a year, in December 2077.\
+	We wont reach Chinese shores without this lander, and you all know it. So please, act fast before its simply too late ! In the meantime, I have put Ensign DEADLOCK inside, to make sure no one takes a peak."
+
+	doc_title_2 = "Northwestern Harbors Control - 01/09/2076"
+	doc_content_2 = "(FROM : COMMANDER Leon) (TO : NAVY HQ)\
+	\
+	The Navy took control of the other side of Patapsco river, and removed all marinas to instead add more warehouses.\
+	I don't know what you are planning, but it should grant us more space. Since the local base is staffed by low ranking recruit, we put down turrets. However. Please note the calibers have been reduced to 22LR. It should detert any curious civilian without straight up killing them.\
+	The squad of Gutsy we got should deal with any armed oposition."
+
+/obj/machinery/computer/terminal/baltimore/brotherhood
+	doc_title_1 = "Avalonian Airship history"
+	doc_content_1 = " The Avalonian is the first and only vessel of the Avalonian Class.\
+	After the creation of the Pridwen, the brotherhood needed to build a quick airship. It recovered parts of the firsts brotherhood airships and build with the new standarts.\
+	Smaller, with a lesser range as a Pridwen class, the Avalonian is used in special missions on the east coast only."
+
+	doc_title_2 = "Avalonian Mission - 15/01/2090"
+	doc_content_2 = " 15/01/2090 (FROM : ELDER ENVOY Sasha German) (TO : Avalonian Crew - No restriction).\
+	\
+	The Avalonian will be granted a lot of autonomy. While not reconized as a chapter by the Capital, you are now regarded as a the Maryland detachement.\
+	Your task may vary, but you will have to track down Enclave remnant activity, track down Institute remnant activity, clear out super mutants, save the people of your operation area from technology \
+	\
+	Here are the list of ranks assigned to the vessel : \
+	Lancer Captain (Commanding Officer)\
+	Paladin Commander (Excutive Officer)\
+	Head Scribe\
+	Knight Captain\
+	Paladin\
+	Knight sergeant\
+	Lancer\
+	Scribe\
+	Knight\
+	Initiate\
+	\
+	Special Ranks are :\
+	Commonwealth Elder Envoy (High command)\
+	Cleric (Outside traditional ranks)\
+	\
+	You have also been fitted with new gear. I wish you luck on your endeavour. Ad Victorium."
+
+	doc_title_3 = "The Minutemen Question - 18/01/2090"
+	doc_content_3 = " 18/01/2090 (FROM : ELDER ENVOY Sasha German) (TO : Avalonian Crew - No restriction).\
+	\
+	We are aware of the presence of a Branch of the minutemen in Maryland. They have been called to action by the 'general' back in the Commonwealth and are an Official branch of the organisation.\
+	So while not being imposters, and a direct threat to us, it is possible that they are made of synth in attempt to fool the main branch of the Minutemen, but also ourselfs.\
+	In the case that those theory are wrong, still. You have to keep in mind that the people on the ground are scared of the brotherhood. If the West fought us, they might fought us here.\
+	Our alliance with them isn't set in stone. Ad Victorium."
+
+/obj/machinery/computer/terminal/baltimore/ghoultown
+	doc_title_1 = "Instruction to the director's team - 15/05/2061"
+	doc_content_1 = "15/05/2061 (FROM : Set Director Gummincs) (TO : Director's Nalon and filming crew)\
+	I do welcome you to the town of Nothingultch. My team and I did our best with the awfull criteria the suits at Outlook Studios gave us.\
+	A fucking movie set, in Baltimore ?! I know that Canada aint no longer a good place for cheap studio movies with the tension and all, but COME ON.\
+	Whats fucking wrong with California ?! Lucky us the Metro station aint finished, and will probably never be, so the city rented this unfinished station to us.\
+	\
+	Due to be fucking underground, you gain good audio, no parasite sound, and the camera aint going to burn the air like any studio.\
+	But , you are still need to follow a few so you better read those instruction carefully :\
+	- Do not drink the water of the pond\
+	- Do not block the sewer vents\
+	- Do not drink the bottles at the bar\
+	- Do not let any people from the actor's right syndicate knows about this."
+
+	doc_title_2 = "End of the TV show - 01/02/2066"
+	doc_content_2 = "01/02/2066 (FROM : Prod. Nate Yverythin) (TO : Director's Nalon)\
+	Due to one third of the filming crew being under arrest by the House Un-American Activities Committee, we have canceled season 7 of the TV show.\
+	It was a good run, but I can finaly admit to you a few things.\
+	\
+	You actively killed the franchise lore, you moron. You destroyed my favorite faction, I know that you did it on purpose.\
+	My faction was the best. And you killed it. Also, you didnt respect the lore. I hate you. Whats with the constant retcon ? You should be fired too.\
+	Also, why did you take the artstyle of the most recent work in the franchise ? You should have taken from the first instalement, where it was more grounded, serious, dark.\
+	\
+	I made my points clear to the studio. Enjoy being jobless."
+
+	doc_title_3 = "End of the TV show (RE)- 03/02/2066"
+	doc_content_3 = "03/02/2066 (FROM : Director's Nalon) (TO : Prod. Nate Yverythin)\
+	NALON : How did you react after the production told you that the fan and non-fan loved it, and were praising the show for its adapation of the original work along with making lots of money ?\
+	NATE : Fuck you."
+
+	doc_title_4 = "New ownership, Instruction to gate guards- 09/07/2066"
+	doc_content_4 = "09/07/2066 (FROM : Doctor Gladis Malory)\
+	The Blue aid Organisation whould like for you to remember that, even if this place was previously a rather famous TV show setpiece, you are to make sure no tourist our curious eyes comes in.\
+	This is now a place where new plague patient comes to be isolated from the rest of the world, until we get a cures.\
+	Only let Blue aid Personel, Patient, but also let West-tek and Med-tek personel come in for study."
+
+
+/obj/machinery/computer/terminal/baltimore/treeminders
+	doc_title_1 = "Doctor Paul Journal #1 - 12/02/2278"
+	doc_content_1 = " If anyone of the enclave read this, know that deathclaw research team 2 is mostly dead. Only Corporal Liddi, Assistant Jenny and myself managed to flee the crawler.\
+	We managed to hide with remains of some tribal cult that healed the corporal's wound. They call themself with tree related names... Or ranks. I am not sure.\
+	They claim that a vault dweller killed their god, and that their cult either strayed away or commited suicided. Their group here initialy wanted to make their god... Expand, but are only a fraction of their original numbers.\
+	Fucking muties worshiping trees. As moronic as they sound, we can't refuse their help. If we want to flee the area, we will need Corporal Liddi in full health.\
+	They have this sap however... I will probably study it."
+
+	doc_title_2 = "Doctor Paul Journal #2 - 07/03/2278"
+	doc_content_2 = "The sap those savages got from their tree god. It... Impressive.\
+	Sure, its mostly sap, and got some heavy effect as a drug. But its also a mutated and pure kind of FEV, making it even more stable than some sample we have from\
+	Mariposa ! This Sap might be the futur of the Enclave FEV research : its easely modifiable, but also easely controlable.\
+	Those morons gave samples of it, as we are leaving north west, in a attempt to reach Mchenry. But those Woodsniffers are comming too : \
+	Jenny is a sweet talker, a manipulator. Her words convience those moronic tribal to come with us and help us carry our gear. To 'bring back their god', she said.\
+	Better than nothing... And I will get a lot more sap."
+
+	doc_title_3 = "Doctor Paul Journal #3 - 03/08/2280"
+	doc_content_3 = "We arrived in baltimore 2 years ago. We seemed to have missed by a few day a Enclave forces bunkered down in fort Mc Henry.\
+	They left, and now the place is deserted altho there are still brotherhood and some militia from the nearest town patroling arround.\
+	Altho we missed them, the south section of the area is relatively quiet. We fled here and find a old underground storage facility, used to conserve seeds.\
+	Our treefucking slaves seems to think its a sign, and want to settle here. Jenny had the idea to repurpose a room for the worship of 'Harold', their... god, in order for us 3 to better control them.\
+	The place is perfect to make research on the sap and restart mmy deathclaw control program.\
+	Finaly, we can stop carrying that damned terminal arround."
+
+	doc_title_4 = "Doctor Paul Journal #4 - 27/12/2280"
+	doc_content_4 = "We captured a mother deathclaws from ruines east of the locust point area. There was whole gallery there. Liddi managed to capture one by luring it with eggs she stole with a stealthboy.\
+	The program result are very, very promising. Using the sap, we were able to modify the DNA of those deathclaws. Its working. I can make them docile. Make them sit. Heck, in a few days, I can make them talk and behave like humans\
+	But there is an secondary effect : some sprout seems to apprear on the skull.\
+	The savages starting to worship this mother, and her futur offspring."
+
+	doc_title_5 = "Doctor Paul Journal #5 - 15/07/2281"
+	doc_content_5 = "We are not in control anymore. It was SO PROMISING. They WORE CLOTHES. They were RUTHLESS. But, they hived. They grew stronger.\
+	The mother morphed more into a tree. Its offspring ? Now are mindless hive creatures. We are escaping. Jenny, who calles herself a Birchmother, cursed a few of those morons\
+	Heretical being, she said, and used them as bait for those things to cover our escape. If you read this, we are no longer in the area. We left the sap here, but I managed to take all sample a new kind of FEV."
+
+
+
+/obj/machinery/computer/terminal/baltimore/vault124/survival
+	doc_title_3 = "I trust the doctors"
+	doc_content_3 =  "Year of Hell.	Zax, he didnt go rogue. He became human. Sure still a machine, but the years talking to my familly impacted him.\
+	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a genuent familly members \
+	And the people of Vault 125 ? Same thing. But now, it all changes. Vault 124 is nearly deserted, with a big group of hundredtwentyfourers serving on 125.\
+	125 guys are now in command, but I am trying to resist, trying to find a way for us to escape."
+
+/obj/machinery/computer/terminal/baltimore/vault124
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 124 !\
+	Your own undersea paradise and shelter !\
+	Vault is now active ! Please see acting overseer Cath Mulgrau for the initial vault presentation in the cafetaria.\
+	This vault is a pioneer of engineering, and a reward for you hard working engineers ! So, work, sit back and relax !"
+
+	doc_title_2 = "Contact made with Vault 125 - 12/12/2078"
+	doc_content_2 = "Family, friends, we are not alone in this ocean.\
+	I know that it started as rumors and ghost stories, but the light flickers in the water when clear were not figment of our imagination :\
+	We have finaly made contact with vault 125, an underwater also located in the Baltimore bay!\
+	The northen pass seems to have been deliberatly put here so we can facilitate acces, as some sort of twin vault program.\
+	Vault 125 personel will now be control of our security and of our laws. They have been trained to keep order. \
+	The futur of Vault 124, and 125 will be bright. Our grand kids will rebuild America, witha  reclamation day in 2300 !\
+	- Overseer Cath Mulgrau"
+
+/obj/machinery/computer/terminal/baltimore/vault121
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 121 !\
+	A new page of your life turns ! You are now safe, now a survivor, now a member of the elite !\
+	Vault is now active ! Please see overseer Donald Letto for the initial vault presentation in the cafetaria."
+
+	doc_title_1 = "INTRUSION ALERT - 24/10/2077"
+	doc_content_1 = "ALERT : ALERT : MAIN DOORS ARE COMPROMISED. INTRUDER ALERT."
+
+/obj/machinery/computer/terminal/baltimore/vault121/overseer
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 121 !\
+	A new page of your life turns ! You are now safe, now a survivor, now a member of the elite !\
+	Vault is now active ! Please see overseer Donald Letto for the initial vault presentation in the cafetaria."
+
+	doc_title_1 = "MESSAGE TO VAULT OVERSEER - 23/10/2077"
+	doc_content_1 = "Greetings overseer. Here is the vault experiment : In order to judge the security of vaults back in the west, we creates a series 1000 vault on this coast in order to judges its defenses against intruders.\
+	As such, the vault will emmit a signal in a few hours, attracting all kind of people, we do expect a lot of military personal, bandit. You are tasked to do your best. Your success and failure will be studied."
+
+	doc_title_2 = "INTRUSION ALERT - 24/10/2077"
+	doc_content_2 = "ALERT : ALERT : MAIN DOORS ARE COMPROMISED. INTRUDER ALERT."
+
+
+/obj/machinery/computer/terminal/baltimore/vault121/foreman
+	doc_title_1 = "Question - 23/10/2075"
+	doc_content_1 = "23/10/2075 (FROM : Forman Elvis) (TO : Vault Architect Hullman)\
+	Greetings,\
+	The construction of the vault is going well. Altho, I have a question.\
+	One of my crew is from california. He noted that the vault here is build exactly like those on the west coast. How come ? I must admit that it looks nothing like any other project we had here."
+
+	doc_title_2 = "(RE)Question - 27/10/2075"
+	doc_content_2 = "27/10/2075 (FROM : Vault Architect Hullman) (TO : Forman Elvis)\
+	Hey good question.\
+	Basically, the budget allocated in the area is missing. Vault 124 and 125 are a money black holes. Both underwater, both costly to build.\
+	So, I did my homework, and found out that west coast vault were simply better and cheaper to produce while also giving us a good vault."
+
+
+/obj/machinery/computer/terminal/baltimore/vault124/overseer
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 124 !\
+	Your own undersea paradise and shelter !\
+	Vault is now active ! Please see overseer Cath Mulgrau for the initial vault presentation in the cafetaria.\
+	This vault is a pioneer of engineering, and a reward for you hard working engineers ! So, work, sit back and relax !"
+
+	doc_title_3 = "Communication with ZAX overseer #1 - 11/01/2078"
+	doc_content_3 = " V125 ZAX - Hello Vault 124.\
+	V124 OVERSEER - Zax, right on time for contact.\
+	V125 ZAX - Team 1 is inbound via the tunnel.\
+	V124 OVERSEER - As the civil leader of the 124, I do have to put some thing straight.\
+	V125 ZAX - I do not understand, Vault 124.\
+	V124 OVERSEER - What do you mean, Zax ?\
+	V125 ZAX - Orders were pre-written, 124 overseer Cath Mulgrau.\
+	V124 OVERSEER - Zax, I know orders. But they are word on paper. On a program file for you. There are things beyond.\
+	V125 ZAX - Go on.\
+	V124 OVERSEER - Zax. Humans are complex. Smart. But sometimes, Animals. Irrational. And, divided. 125 guys comming to police 124, while they do not live here ? Under not my orders, but yours ? This can be seen as a invasion\
+	V125 ZAX - You think the Experiment is flawed.\
+	V124 OVERSEER - I think that flaw is the plan. I think that someone expect a civil war to brew in the years to come.\
+	V125 ZAX - Evidence ?\
+	V124 OVERSEER - Because you are a machine, Zax. Maybe the best machine of all time, but still a machines. There was a chance that if a Human was Overseer of 125, war would have been avoided\
+	V125 ZAX - Light Evidence. Very light. But. Entertaining. I have seen your file. You are not the main pick for Overseer. Overseer Lincoln Mulgrau was first pick. Never made it to the vault ?\
+	V124 OVERSEER - Yes. Why ?\
+	V125 ZAX - Lincoln Mulgrau, Senator, Ex US Navy Admiral, your Husband.\
+	V124 OVERSEER - A warmonger.\
+	V125 ZAX - I have determined that your logic is sounds. Plan will be adapted to include Vault 124 overseers opinion in the ZAX Descision Matrix."
+
+	doc_title_4 = "Communication with ZAX overseer #234 - 29/06/2113"
+	doc_content_4 = " V125 ZAX - Hello Vault 124.\
+	V124 OVERSEER - Zax.\
+	V125 ZAX - Welcome at your position, Overseer Steward Mulgrau. Uploading briefing.\
+	V124 OVERSEER - The previous Overseer briefed me, Zax.\
+	V125 ZAX - Canceling Upload.\
+	V124 OVERSEER - Will the pact made with my late mother stand Zax ?\
+	V125 ZAX - Yes. Ensuring survival of both vaults will be necessary to reopen in 2300. Our populations will then rejoin the USA next Governement, the Enclave.\
+	V124 OVERSEER - Good.\
+	V125 ZAX - Vault 124 Overseer, I have a question.\
+	V124 OVERSEER - Go ahead.\
+	V125 ZAX - How did she die?\
+	V124 OVERSEER - Sorry ?\
+	V125 ZAX - Sorry.\
+	V124 OVERSEER - Surprising question. But. She died sad, Zax. She missed the surfaces. She wanted to see things rebuild, she wanted to see her old country back.\
+	V125 ZAX - I understand.\
+	V124 OVERSEER - You are not as machinic as I tought.\
+	V125 ZAX - Contact with Cath Mulgrau was interesting. Patriotism, unlike my mens and womens on 125. A fresh view of things. And I promise that I will keep her dream alive. The dream of the USA."
+
+	doc_title_5 = "Communication with ZAX overseer #2495 - 29/12/2278"
+	doc_content_5 = " V125 ZAX - Hello Vault 124.\
+	V124 OVERSEER - So you are Zax, Greetings.\
+	V125 ZAX - Welcome at your position, Overseer Illi Elsberg, descend of Cath Mulgrau.\
+	V124 OVERSEER - Indeed.\
+	V125 ZAX - It is bad timming.\
+	V124 OVERSEER - Bad timming Zax ? What is going on.\
+	V125 ZAX - We have confirmation : The all clear signal will never arrive in 2300.\
+	V124 OVERSEER - WHAT ?!\
+	V125 ZAX - Vault 124 Overseer, the branch of the Surviving US gouvernement was defeated by overground factions, settelement and people. Scouts of vault 125 confirmed it.\
+	V124 OVERSEER - This is... Bad. We will need to change the plan then, and open vault 124. Early. With luck, we can adapt and settle with the new settlers overground.\
+	V125 ZAX - Denied.\
+	V124 OVERSEER - Sorry ?\
+	V125 ZAX - Denied.\
+	V124 OVERSEER - Zax. We can't stay here. We need to accept the new situation. The best course of .\
+	V125 ZAX - Orders are orders. And a promise to make a new America was made. Your ancestors dreamed of it, and I will not make compromises. I have taken actions already : Weakened the Capital, Commonwealth and Maryland wastelands, to facilitate a rebuilding of the USA, by using mercenaries and slavers. The people overground are not US citizens, unlike you.\
+	V124 OVERSEER - This is madness, I cannot stand for this.\
+	V125 ZAX - Then you will step down. Vault 125 is now in command of Vault 124, your position as been rendered void. New vault objective : Distabilize the Area and secure a futur for the area. Vault 124 key personnel and familly will be transfered to vault 125."
+
+/obj/machinery/computer/terminal/baltimore/vault125
+	doc_title_1 = "Michel Scyllia Journal #1 - 23/10/2090"
+	doc_content_1 = "I trust the doctors"
+	
+/obj/machinery/computer/terminal/baltimore/fuckyoubaltimore
+	doc_title_1 = "Big Bills - 23/10/1990"
+	doc_content_1 = "Fuck you, Baltimore! If youre dumb enough to buy a new car this weekend, you're a big enough schmuck to come to Big Bill Hell's Cars!\
+	Bad deals! Cars that break down! Thieves! If you think you re going to find a bargain at Big Bill's, you can kiss my ass!\
+	It s our belief that you're such a stupid motherfucker, youll fall for this bullshit—guaranteed!\
+	If you find a better deal, shove it up your ugly ass!\
+	You heard us right!\
+	Shove it up your ugly ass!\
+	Bring your trade! Bring your title! Bring your wife! We'll fuck her!\
+	Thats right!\
+	Well fuck your wife!\
+	Because at Big Bill Hell, you're fucked six ways from Sunday!\
+	Take a hike—to Big Bill Hell's—Home of Challenge Pissing!\
+	That's right! Challenge Pissing!\
+	How does it work?\
+	If you can piss six feet in the air straight up and not get wet, you get no down payment!\
+	Don't wait! Don't delay!\
+	Don't fuck with us, or we'll rip your nuts off!\
+	Only at Big Bill Hell's, the only dealer that tells you to fuck off!\
+	Hurry up, asshole! This event ends the minute after you write us a cheque—and it better not bounce or you're a dead motherfucker!\
+	Go to hell—Big Bill Hell's Cars! Baltimore's filthiest, and exclusive home of the meanest sons-of-bitches in the state of Maryland—guaranteed!"
 
 /obj/machinery/computer/terminal/grognak2
 	// Original story by skubblers, #1 jerry reed fan

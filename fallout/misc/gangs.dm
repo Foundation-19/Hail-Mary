@@ -12,7 +12,7 @@ GLOBAL_LIST_INIT(gang_names, list ( \
 ))
 
 //Which social factions are allowed to join gangs?
-GLOBAL_LIST_INIT(allowed_gang_factions, list (FACTION_RAIDERS, FACTION_TRIBE))
+GLOBAL_LIST_INIT(allowed_gang_factions, list (FACTION_RAIDERS, FACTION_TRIBE, FACTION_MERCENARY,FACTION_WASTELAND))
 
 // List of all existing gangs
 GLOBAL_LIST_EMPTY(all_gangs)

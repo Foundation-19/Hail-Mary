@@ -1129,6 +1129,15 @@
 	icon_state = "maxson_battlecoat"
 	item_state = "maxson_battlecoat"
 
+/obj/item/clothing/suit/armor/light/duster/battlecoat/vault/raider
+	name = "Vault 125 battlecoat"
+	desc = "A coat made for the head of security of Vault 125, in order to assist in chaos operations."
+	icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon_state = "overseer"
+	item_state = "overseer"
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
+
 /obj/item/clothing/suit/armor/light/duster/marlowsuit //Raider armour reskin.
 	name = "Marlow gang overcoat"
 	desc = "A heavy raw buckskin overcoat littered with aged bullet holes and frays from regular wear-and-tear."
@@ -1259,6 +1268,52 @@
 	item_state = "brotherhood_armor_light"
 	body_parts_covered = CHEST|GROIN
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_DT_T1)
+
+/obj/item/clothing/suit/armor/light/duster/bos/lancer
+	name = "lancer bomber jacket"
+	desc = "A reinforced bomber jacket. Good against shots and cold, while still very light."
+	icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	icon_state = "bomberalt_t"
+	item_state = "bomberalt_t"
+	body_parts_covered = CHEST|GROIN
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_ENV_T2)
+
+/obj/item/clothing/suit/armor/light/duster/bos/initiate
+	name = "Brotherhood Initiate bomber jacket"
+	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. This one has no mark. While not made for combat, its still thick enough to stop a few hits."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon_state = "bosbomber"
+	item_state = "bosbomber"
+	body_parts_covered = CHEST
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2)
+
+/obj/item/clothing/suit/armor/light/duster/bos/squire
+	name = "Brotherhood Squire jacket"
+	desc = "Rugged, Heavy, and with many pockets. This this the new uniform of the squires."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon_state = "initiate_bomber"
+	item_state = "initiate_bomber"
+	body_parts_covered = CHEST
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_ENV_T2)
+
+/obj/item/clothing/suit/armor/light/duster/bos/knight
+	name = "Brotherhood Knight  bomber jacket"
+	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. This one got the markings of a knight. While not made for combat, its still thick enough to stop a few hits."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon_state = "bosbomber_k"
+	item_state = "bosbomber_k"
+	body_parts_covered = CHEST
+	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2)
+
+/obj/item/clothing/suit/armor/light/duster/bos/officer
+	name = "Brotherhood Officer jacket"
+	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. Unlike the standart bombers, those coats are more protected."
+	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon_state = "bosbomber_kc"
+	item_state = "bosbomber_kc"
+	body_parts_covered = CHEST
+	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1,)
 
 /obj/item/clothing/suit/armor/light/duster/town
 	name = "town trenchcoat"
@@ -1895,6 +1950,61 @@
 	body_parts_covered = CHEST|ARMS|LEGS
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
 
+/obj/item/clothing/suit/armor/medium/duster/minutemen/alt
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmo_alt"
+	item_state = "mmo_alt"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/medium/duster/minutemen/alt2
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_coat_alt2"
+	item_state = "mm_coat_alt2"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/medium/duster/minutemen/alt3
+	name = "minutemen coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmom_coat"
+	item_state = "mmom_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/medium/duster/minutemen/officer
+	name = "minutemen officer coat"
+	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs. This one has officer insignia"
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmo_coat"
+	item_state = "mmo_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2,ARMOR_MODIFIER_UP_LASER_T2)
+
+/obj/item/clothing/suit/armor/medium/duster/minutemen/major
+	name = "minutemen major coat"
+	desc = "A traditionial minutemen colonel coat, with armor underneath."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mmm_coat"
+	item_state = "mmm_coat"
+	mutantrace_variation = NONE
+	body_parts_covered = CHEST|ARMS|LEGS
+	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T2, ARMOR_MODIFIER_DOWN_MELEE_T2,ARMOR_MODIFIER_UP_LASER_T2)
+
 /obj/item/clothing/suit/armor/light/vest/russian
 	name = "russian vest"
 	desc = "A bulletproof vest with forest camo. Good thing there's plenty of forests to hide in around here, right?"
@@ -2300,6 +2410,16 @@
 	item_state = "combat_armor_raider"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_MELEE_T1, ARMOR_MODIFIER_DOWN_LASER_T1, ARMOR_MODIFIER_DOWN_ENV_T1)
 
+/obj/item/clothing/suit/armor/medium/combat/mk2/talon
+	name = "Talon Chief combat armor"
+	desc = "An old set of reinforced combat armor with some parts supplanted with painspike armor. It seems less protective than a mint-condition set of combat armor. Can probably be used to make a better set, though..."
+	item_state = "talon"
+	
+/obj/item/clothing/suit/armor/medium/combat/mk2/raider/talon_inferior
+	name = "Talon combat armor"
+	desc = "An old set of reinforced combat armor with some parts supplanted with painspike armor. It seems less protective than a mint-condition set of combat armor. Can probably be used to make a better set, though..."
+	item_state = "talon_inf"
+
 /obj/item/clothing/suit/armor/medium/combat/mk2/tribal
 	name = "tribal reinforced combat armor"
 	desc = "An old military grade pre-war reinforced combat armor, now decorated with sinew and the bones of the hunted for its new wearer."
@@ -2507,6 +2627,22 @@
 	desc = "An old set of pre-war combat armor, painted black."
 	icon_state = "enclave_new"
 	item_state = "enclave_new"
+
+/obj/item/clothing/suit/armor/medium/combat/minutemen
+	name = "Minutement combat armor"
+	desc = "An old set of pre-war combat armor, painted blue, with pieces missing."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_armor"
+	item_state = "mm_armor"
+
+/obj/item/clothing/suit/armor/medium/combat/mk2/minutemen
+	name = "Minutement combat armor"
+	desc = "An old set of pre-war combat armor, painted blue, with pieces missing."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_armor_2"
+	item_state = "mm_armor_2"
 
 ///////////////////
 // MEDIUM RAIDER //
@@ -2941,7 +3077,7 @@
 	desc = "Heavy armor with ballistic inserts, sewn into a padded riot police coat."
 
 /obj/item/clothing/suit/armor/heavy/riot/vault
-	name = "VTCC riot armour"
+	name = "Heavy vault tec riot armour"
 	desc = "(VII) A suit of riot armour adapted from the design of the pre-war U.S.M.C. armour, painted blue and white."
 	icon_state = "vtcc_riot_gear"
 	item_state = "vtcc_riot_gear"
@@ -3004,6 +3140,12 @@
 	desc = "It's a set of early-model T-45 power armor with a custom air conditioning module and stripped out servomotors. Bulky and slow, but almost as good as the real thing."
 	icon_state = "t45b_salvaged"
 	item_state = "t45b_salvaged"
+
+/obj/item/clothing/suit/armor/heavy/salvaged_pa/gunner
+	name = "salvaged Gunner T-45b power armor"
+	desc = "It's a set of early-model T-45 power armor with a custom air conditioning module and stripped out servomotors. Bulky and slow, but almost as good as the real thing."
+	icon_state = "t45_gunner"
+	item_state = "t45_gunner"
 
 /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/raider
 	name = "salvaged raider power armor"

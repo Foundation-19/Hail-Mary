@@ -35,6 +35,15 @@
 	smooth = 0
 	level = 3
 
+/obj/structure/window/fulltile/wood/boat
+	icon = 'icons/obj/wood_window.dmi'
+	icon_state = "boatwindow"
+	dir = 5
+	max_integrity = 50
+	fulltile = 1
+	smooth = 0
+	level = 3
+
 /obj/structure/window/fulltile/wood/broken
 	icon_state = "woodwindowbroken"
 	max_integrity = 1

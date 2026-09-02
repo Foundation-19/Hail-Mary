@@ -98,3 +98,8 @@
     name = "Boarded up well"
     desc = "An old dryed up well that has been boarded up."
     icon_state = "well" 
+
+/obj/structure/billboard/townthere
+    name = "Billboard with town direction"
+    desc = "Town went that way."
+    icon_state = "town-there" 

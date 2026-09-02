@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(command_positions, list(
 	"Elder Envoy",
 	"Paladin Commander",
 	"Knight-Captain",
+	"Lancer Captain",
 	"Proctor", //Wasn't here before. Still technically command, I put it here - Kitsunemitsu
 
 	"NCR Captain",
@@ -64,6 +65,9 @@ GLOBAL_LIST_INIT(command_positions, list(
 
 	"Dockmaster of Locust Point",
 	"Atlantic Cross Captain",
+	"Minutemen Major",
+
+	"Mercenary Warlord",
 	))
 
 GLOBAL_LIST_INIT(silicon_whitelist_positions, list(
@@ -100,6 +104,8 @@ GLOBAL_LIST_INIT(brotherhood_positions, list(
 	"Senior Knight",
 	"Knight Sergeant",
 	"Knight",
+	"Lancer Captain",
+	"Lancer",
 	"Senior Scribe",
 	"Scribe",
 	"Initiate",
@@ -278,7 +284,18 @@ GLOBAL_LIST_INIT(locust_positions, list(
 	"Gas station Mechanics",
 	"Dealmaker Shopclerc",
 	"Airpoint Transport Pilot",
+))
+
+GLOBAL_LIST_INIT(minutemen_positions, list(
 	"Minuteman",
+	"Minuteman Captain",
+	"Minuteman Veteran",
+	"Minuteman Major",
+))
+
+GLOBAL_LIST_INIT(mercenary_positions, list(
+	"Mercenary Warlord",
+	"Mercenary Soldier",
 ))
 GLOBAL_LIST_INIT(eighties_positions, list(
 	"Warboss",
@@ -336,6 +353,8 @@ GLOBAL_LIST_INIT(position_categories, list(
 	"Outlaw" = list("jobs" = outlaw_positions, "color" = "#e25858"),
 	"Atlantic Cross" = list("jobs" = atlantic_positions, "color" = "#ffeeaa"),
 	"Locust Point" = list("jobs" = locust_positions, "color" = "#d7b088"),
+	"Minutemen" = list("jobs" = minutemen_positions, "color" = "#81b3ff"),
+	"Mercenary" = list("jobs" = mercenary_positions, "color" = "#ff0000"),
 ))
 
 GLOBAL_LIST_INIT(exp_jobsmap, list(

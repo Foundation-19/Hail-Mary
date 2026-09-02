@@ -38,6 +38,10 @@
 				visible_message("<span class='danger'>[src] crashes into [W]!</span>")
 				playsound(src, 'sound/effects/bang.ogg', 50, 1)
 
+/obj/mecha/working/normalvehicle/Initialize()
+	. = ..()
+	forbid_turf_typecache = typecacheof(/turf/open/water)
+
 /obj/mecha/working/normalvehicle/vertibird
 	name = "\improper Cargo Vertibird"
 	desc = "A real useable, and working vertibird, maintained with luck, sweat, and ducktape. This one seems to be more focused toward combat."

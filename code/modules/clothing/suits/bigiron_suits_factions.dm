@@ -1152,6 +1152,14 @@ Just leaving this here for quick copy-pasting, for future contributors.
 	icon_state = "ncr_salvaged"
 	item_state = "ncr_salvaged"
 
+/obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/minutemen
+	name = "salvaged Minutemen power armor"
+	desc = "It's a set of T-45b power armor with a air conditioning module installed, sadly it lacks servomotors to enhance the users strength. Used by the minutemens from pre-war armor."
+	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon_state = "mm_salvager"
+	item_state = "mm_salvager"
+
 /obj/item/clothing/suit/armor/power_armor/t45d/sierra
 	name = "Scorched Sierra power armor"
 	desc = "A captured set of T-45d power armor put into use by the NCR, it's been heavily modified and decorated with the head of a bear and intricate gold trimming. A two headed bear is scorched into the breastplate."
