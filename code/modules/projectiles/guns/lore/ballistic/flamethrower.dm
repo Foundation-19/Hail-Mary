@@ -13,7 +13,9 @@
 	var/armed = 0 //whether the gun is attached, 0 is attached, 1 is the gun is wielded.
 	var/overheat = 0
 	var/overheat_max = 12
-	var/heat_diffusion = 1
+	var/heat_diffusion = 2
+	///liquid fuel units consumed from a reagent container (real jerry cans, drums, etc.) per shot's worth of napalm loaded
+	var/reagent_per_shot = 5
 
 /obj/item/m2flamethrowertank/Initialize()
 	. = ..()
@@ -46,8 +48,33 @@
 /obj/item/m2flamethrowertank/attackby(obj/item/W, mob/user, params)
 	if(W == gun) //Don't need armed check, because if you have the gun assume its armed.
 		user.dropItemToGround(gun, TRUE)
+	else if(gun && istype(W, /obj/item/reagent_containers) && W.reagents?.has_reagent(/datum/reagent/fuel))
+		pour_liquid_fuel(W, user) //real liquid fuel, like a real jerry can - no shell-box nonsense required
+	else if(gun && (istype(W, /obj/item/ammo_box) || istype(W, /obj/item/ammo_casing)))
+		gun.attackby(W, user, params) //let players refuel via the backpack tank, not just the drawn gun
 	else
 		..()
+
+///pour raw liquid fuel from any reagent container directly into the gun's magazine - no special ammo box needed
+/obj/item/m2flamethrowertank/proc/pour_liquid_fuel(obj/item/reagent_containers/can, mob/user)
+	var/obj/item/ammo_box/magazine/mag = gun?.magazine
+	if(!mag)
+		return
+	var/space = mag.max_ammo - length(mag.stored_ammo)
+	if(space <= 0)
+		to_chat(user, span_warning("[gun] is already full of fuel!"))
+		return
+	var/available = can.reagents.get_reagent_amount(/datum/reagent/fuel)
+	var/shots = min(space, round(available / reagent_per_shot))
+	if(shots <= 0)
+		to_chat(user, span_warning("There's not enough fuel left in [can] to load [gun]."))
+		return
+	can.reagents.remove_reagent(/datum/reagent/fuel, shots * reagent_per_shot)
+	for(var/i in 1 to shots)
+		mag.stored_ammo += new mag.ammo_type(mag)
+	to_chat(user, span_notice("You pour [shots * reagent_per_shot] unit\s of fuel into [gun]! ([length(mag.stored_ammo)]/[mag.max_ammo])"))
+	playsound(src, 'sound/effects/refill.ogg', 50, 1)
+	gun.update_icon()
 
 /obj/item/m2flamethrowertank/dropped(mob/user)
 	. = ..()
@@ -102,19 +129,17 @@
 	slot_flags = null
 	w_class = WEIGHT_CLASS_HUGE
 	custom_materials = null
-	burst_size = 2
-	burst_shot_delay = 1
-	//automatic = 0
 	fire_delay = 2
 	weapon_weight = GUN_TWO_HAND_ONLY
 	fire_sound = 'sound/weapons/flamethrower.ogg'
 	mag_type = /obj/item/ammo_box/magazine/internal/m2flamethrower
 	casing_ejector = FALSE
 	item_flags = SLOWS_WHILE_IN_HAND
+	dryfire_text = "*sputter* - out of fuel! Pour liquid fuel from a jerry can into the tank to refuel."
 	var/obj/item/m2flamethrowertank/ammo_pack
+	//a real flamethrower is a continuous stream while the trigger's held, not a burst-and-wait - hold the mouse down to hose an area
 	init_firemodes = list(
-		/datum/firemode/burst/three,
-		/datum/firemode/semi_auto
+		/datum/firemode/automatic/rpm200
 	)
 
 /obj/item/gun/ballistic/m2flamethrower/Initialize()
@@ -125,8 +150,29 @@
 
 	return ..()
 
+//also accept liquid fuel poured directly onto the gun itself, not just the backpack tank
+/obj/item/gun/ballistic/m2flamethrower/attackby(obj/item/W, mob/user, params)
+	if(ammo_pack && istype(W, /obj/item/reagent_containers) && W.reagents?.has_reagent(/datum/reagent/fuel))
+		ammo_pack.pour_liquid_fuel(W, user)
+		return
+	. = ..()
+
+//one-click refuel: activating the gun in-hand grabs any fuel source on you (a real jerry can, drum, whatever) and tops off the tank, no fiddly clicking required
 /obj/item/gun/ballistic/m2flamethrower/attack_self(mob/living/user)
-	return
+	if(!magazine)
+		return
+	if(magazine.ammo_count() >= magazine.max_ammo)
+		to_chat(user, span_notice("[src] is already full of fuel!"))
+		return
+	var/obj/item/reagent_containers/can = locate() in user
+	if(can?.reagents?.has_reagent(/datum/reagent/fuel))
+		attackby(can, user)
+		return
+	var/obj/item/ammo_box/jerrycan/J = locate() in user
+	if(!J)
+		to_chat(user, span_warning("You don't have any liquid fuel to refuel [src] with!"))
+		return
+	attackby(J, user)
 
 /obj/item/gun/ballistic/m2flamethrower/dropped(mob/user)
 	. = ..()

@@ -256,34 +256,15 @@
  * WOUNDS: 0
  * WNAKED: 0
  */
+//never actually fired - the ammo casing handles the flame stream itself via fire_casing(); this only exists so the gun has something to chamber
 /obj/item/projectile/incendiary/flamethrower
-	name = "FIREEEEEEEEEE!!!!!"
+	name = "gout of flame"
 	icon = 'icons/effects/fire.dmi'
 	icon_state = "3"
 	light_range = LIGHT_RANGE_FIRE
 	light_color = LIGHT_COLOR_FIRE
-
-	damage = BULLET_DAMAGE_SHOTGUN_PELLET * BULLET_DAMAGE_FIRE
-	stamina = BULLET_STAMINA_SHOTGUN_PELLET * BULLET_STAMINA_FIRE
-	spread = BULLET_SPREAD_SURPLUS
-	recoil = BULLET_RECOIL_SHOTGUN_PELLET
-
-	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET * BULLET_WOUND_FIRE
-	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT * BULLET_NAKED_WOUND_FIRE
-	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
-	
-	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
-
-	sharpness = SHARP_NONE
-	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
-
-/obj/item/projectile/incendiary/flamethrower/on_hit(atom/target)
-	. = ..()
-	if(iscarbon(target))
-		var/mob/living/carbon/M = target
-		M.adjust_fire_stacks(3)
-		M.IgniteMob()
+	nodamage = TRUE
+	damage = 0
 
 /* 12g slug stun
  * DAMAGE: 5

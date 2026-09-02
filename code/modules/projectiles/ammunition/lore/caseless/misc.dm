@@ -31,9 +31,54 @@
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "floor1"
 	projectile_type = /obj/item/projectile/incendiary/flamethrower
-	pellets = 3
-	variance = 20
 	sound_properties = CSP_MISC
+	var/flame_range = 6 //tiles the stream reaches before fizzling out
+	var/flame_temperature = 700
+	var/flame_volume = 50
+	var/direct_burn_damage = 8 //instant burn damage applied per tick you're standing in the stream, on top of the lingering fire - a flamethrower should hurt the second it touches you, not just eventually
+	var/ignite_fire_stacks = 5
+
+//guaranteed line-of-fire, no RNG spread - a stream of napalm doesn't miss, it just has a short reach and stops at walls
+/obj/item/ammo_casing/caseless/flamethrower/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
+	var/turf/userloc = get_turf(user)
+	var/turf/targloc = get_turf(target)
+	if(!istype(userloc) || !istype(targloc))
+		return FALSE
+
+	QDEL_NULL(BB)
+
+	var/list/turf/line = getline(userloc, targloc)
+	var/turf/previous = userloc
+	var/tiles_burned = 0
+	for(var/turf/T in line)
+		if(T == userloc)
+			continue
+		if(tiles_burned >= flame_range)
+			break
+		if(!(T in previous.reachableAdjacentTurfs()))
+			break //flame doesn't pass through walls
+		new /obj/effect/hotspot(T, flame_volume, flame_temperature) //turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
+		for(var/mob/living/L in T)
+			L.adjust_fire_stacks(ignite_fire_stacks)
+			L.IgniteMob()
+			L.adjustFireLoss(direct_burn_damage) //ambient "on fire" damage from body temperature is slow to tick - hosing someone directly needs to hurt right away
+		previous = T
+		tiles_burned++
+
+	if(istype(user))
+		user.DelayNextAction(considered_action = TRUE, immediate = FALSE)
+	user.newtonian_move(get_dir(target, user))
+	update_icon()
+	deduct_powder_and_bullet_mats()
+
+	//casing_ejector is FALSE (no shells fly out of a flamethrower) so nothing else clears the spent round from the chamber - do it ourselves or the gun jams after one shot
+	if(istype(fired_from, /obj/item/gun))
+		var/obj/item/gun/gonne = fired_from
+		if(gonne.chambered == src)
+			gonne.chambered = null
+			gonne.update_icon()
+	qdel(src)
+	return TRUE
 
 //throwin' rock, for throwin'. obtained via *rocks
 /obj/item/ammo_casing/caseless/rock

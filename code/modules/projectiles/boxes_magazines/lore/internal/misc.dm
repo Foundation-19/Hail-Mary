@@ -26,7 +26,20 @@
 	name = "m2 flamethower fuel tank"
 	ammo_type = /obj/item/ammo_casing/caseless/flamethrower
 	caliber = list(CALIBER_FUEL)
-	max_ammo = 12 //6 bursts, iirc its about the same ammount as the IRL M2
+	max_ammo = 60 //good for several overheat-limited bursts before you need to refuel - a flamer shouldn't run dry after one squeeze of the trigger
+
+//fuel, not shells - refuel with a pour/splash instead of a "shells loaded" shotgun-style message
+/obj/item/ammo_box/magazine/internal/m2flamethrower/load_from_box(obj/item/ammo_box/other_ammobox, mob/user, silent)
+	. = ..(other_ammobox, user, TRUE)
+	if(. && !silent)
+		to_chat(user, span_notice("You pour [.] unit\s of fuel into \the [src]!"))
+		playsound(src, 'sound/effects/refill.ogg', 50, 1)
+
+/obj/item/ammo_box/magazine/internal/m2flamethrower/load_from_casing(obj/item/ammo_casing/other_casing, mob/user, silent)
+	. = ..(other_casing, user, TRUE)
+	if(. && !silent)
+		to_chat(user, span_notice("You pour [.] unit\s of fuel into \the [src]!"))
+		playsound(src, 'sound/effects/refill.ogg', 50, 1)
 
 /obj/item/ammo_box/magazine/internal/cylinder/sling
 	name = "sling pouch"
