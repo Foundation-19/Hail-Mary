@@ -6,23 +6,23 @@
 /obj/item/pda,
 /obj/item/pda,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "al" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 4
 	},
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "an" = (
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "ao" = (
 /obj/structure/closet/locker/oldstyle,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "at" = (
 /turf/closed/wall/mineral/brick,
 /area/f13/building/center)
@@ -31,7 +31,7 @@
 	pixel_y = -16
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "aE" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -76,20 +76,20 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "aI" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/item/pda/chaplain,
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "aN" = (
 /obj/machinery/door/unpowered/secure_bos,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "aO" = (
 /obj/structure/bookcase/random/nonfiction,
 /obj/structure/noticeboard{
@@ -102,7 +102,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "aQ" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/overlay/docks/rust,
@@ -141,13 +141,13 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "bk" = (
 /obj/structure/closet/crate/leftfootlocker,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "bl" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -169,18 +169,27 @@
 	dir = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "bp" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "bs" = (
 /obj/machinery/microwave/stove/fancy,
 /obj/structure/table/glass,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "bv" = (
 /turf/open/floor/plating/f13/outside/roof/blue,
 /area/f13/building/center)
+"bw" = (
+/obj/machinery/light/small{
+	dir = 8;
+	name = "tan light fixture"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "bz" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -196,13 +205,13 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "bB" = (
 /obj/structure/chair/wood{
 	dir = 4
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "bF" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/abandoned/hospital)
@@ -224,27 +233,30 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "bL" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "bO" = (
 /turf/closed/wall/f13/coyote/oldwood,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "bT" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "cd" = (
 /turf/closed/wall/r_wall/f13/vault,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "ce" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/baltimore/wasteland/city)
@@ -268,7 +280,7 @@
 "cq" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "cD" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -276,13 +288,6 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/wasteland/citywasteland/town)
-"cE" = (
-/obj/structure/railing/corner{
-	color = "#A47449";
-	dir = 1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
 "cG" = (
 /obj/effect/overlay/fence{
 	dir = 4
@@ -303,7 +308,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "cW" = (
 /obj/structure/noticeboard{
 	pixel_x = -31
@@ -322,7 +327,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "cY" = (
 /obj/structure/noticeboard{
 	pixel_x = 31
@@ -341,7 +346,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "da" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -355,7 +360,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "de" = (
 /turf/open/transparent/openspace,
 /area/f13/Ocean)
@@ -364,22 +369,22 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "di" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken2"
 	},
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "dm" = (
 /obj/structure/chair/comfy/shuttle,
 /obj/effect/landmark/start/f13/atlanticsailor,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "dq" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken2"
 	},
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "du" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -394,7 +399,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "dI" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/blood/radaway,
@@ -406,17 +411,15 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
-"dJ" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 9
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/baltimore/atlantic_cross/armory)
 "dM" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/building/abandoned/hospital)
+"dO" = (
+/turf/closed/wall/f13/tentwall{
+	name = "Airship envelop"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "dV" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -425,12 +428,16 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "dW" = (
 /turf/open/floor/wood_wide/wood_wide_light{
 	icon_state = "wide_light-broken2"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"ea" = (
+/obj/structure/rack/shelf_metal,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "ec" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -442,6 +449,15 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"eh" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "ei" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -464,20 +480,17 @@
 	dir = 6
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "ek" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
-"eu" = (
-/turf/open/floor/plating/f13/outside/roof/red,
-/area/f13/baltimore/building/minutemen)
+/area/f13/baltimore/brotherhood/kitchen)
 "ev" = (
 /obj/machinery/autolathe/ammo/unlocked,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "ew" = (
 /turf/closed/wall/f13/ruins{
 	unbreakable = 1;
@@ -488,7 +501,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "ez" = (
 /turf/open/transparent/openspace,
 /area/f13/raider_mall)
@@ -499,7 +512,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "eD" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -518,14 +531,14 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "eI" = (
 /turf/open/indestructible/ground/outside/gravel,
-/area/f13/baltimore/wasteland/city/citycenter)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "eW" = (
 /obj/structure/railing,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "fc" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -555,7 +568,7 @@
 	},
 /obj/structure/curtain/stage,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "fl" = (
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -577,20 +590,29 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "fr" = (
 /obj/structure/bookcase/random/religion,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "fv" = (
 /turf/closed/wall/f13/ruins{
 	unbreakable = 1;
 	name = "solid ruins"
 	},
 /area/f13/building/center)
+"fz" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "fD" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "fF" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/citycenter)
@@ -601,10 +623,10 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "fH" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "fK" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -613,7 +635,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "fU" = (
 /obj/machinery/shower{
 	pixel_y = 16
@@ -621,7 +643,7 @@
 /obj/structure/curtain,
 /obj/structure/decoration/vent,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "fY" = (
 /obj/structure/closet/locker/oldstyle,
 /obj/machinery/light/small{
@@ -633,7 +655,7 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "gb" = (
 /obj/structure/table/reinforced,
 /obj/machinery/button/door{
@@ -668,7 +690,7 @@
 	name = "Medical Vending Machine Key"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "gk" = (
 /obj/effect/overlay/docks/rust,
 /obj/structure/railing/tg{
@@ -676,7 +698,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "go" = (
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/raider_mall)
@@ -713,7 +735,14 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"gA" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/doorms)
 "gD" = (
 /obj/effect/overlay/docks{
 	dir = 8
@@ -730,7 +759,23 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"gI" = (
+/obj/structure/chair/booth,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
+"gK" = (
+/turf/closed/wall/r_wall/f13/vault,
+/area/f13/baltimore/brotherhood/doorms)
 "gM" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -791,14 +836,18 @@
 	layer = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "hd" = (
 /obj/structure/chair/comfy/bathtub,
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"hi" = (
+/obj/machinery/door/unpowered/secure_bos,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/f13/baltimore/brotherhood/doorms)
 "hl" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/box/bowls,
@@ -815,7 +864,7 @@
 	pixel_y = 20
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "hq" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -850,7 +899,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "hu" = (
 /turf/open/indestructible,
 /area/f13/baltimore/wasteland/city)
@@ -862,7 +911,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "hE" = (
 /obj/effect/overlay/rope{
 	icon_state = "8-9";
@@ -882,7 +931,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "hU" = (
 /obj/structure/table/wood,
 /obj/structure/barricade/bars{
@@ -891,7 +940,7 @@
 	obj_integrity = 800
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "hY" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/building/abandoned)
@@ -900,10 +949,29 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "ib" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"ic" = (
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "if" = (
 /obj/structure/bookshelf,
 /obj/item/kirbyplants{
@@ -912,7 +980,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "ig" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -969,7 +1037,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "il" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
 /area/f13/baltimore/building/abandoned/hospital)
@@ -978,7 +1046,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "iu" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -997,7 +1065,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "iD" = (
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/baltimore/building/abandoned)
@@ -1012,6 +1080,17 @@
 /obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
+"iI" = (
+/obj/item/f13/fusion_core,
+/obj/item/f13/fusion_core,
+/obj/item/f13/fusion_core,
+/obj/structure/closet/crate/secure,
+/obj/item/f13/fusion_core,
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "iN" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/effect/overlay/docks/fortedge{
@@ -1023,6 +1102,16 @@
 	},
 /turf/open/floor/f13/rusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
+"iW" = (
+/obj/machinery/door/unpowered/secure_bos,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "iZ" = (
 /obj/structure/sacrificealtar{
 	density = 1;
@@ -1032,14 +1121,21 @@
 	},
 /obj/item/storage/book/bible,
 /turf/open/floor/wood_common,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "jb" = (
 /obj/structure/sink{
 	dir = 8;
 	pixel_x = -11
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
+"ji" = (
+/obj/machinery/water_purifier,
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "jn" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/overlay/docks/rust,
@@ -1056,7 +1152,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "jx" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 4
@@ -1080,7 +1176,7 @@
 	dir = 8
 	},
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "jJ" = (
 /obj/structure/chair/booth,
 /obj/structure/railing/tg{
@@ -1093,10 +1189,13 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "jP" = (
 /obj/structure/closet/fridge{
 	anchored = 1;
@@ -1109,21 +1208,29 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "jQ" = (
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
+"jR" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "jT" = (
 /obj/structure/window/fulltile/house,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "jU" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/citycaves)
-"jV" = (
-/obj/machinery/door/unpowered/secure_bos,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
-/area/f13/baltimore/building/brotherhood)
 "jW" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 1
@@ -1158,13 +1265,13 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "kn" = (
 /obj/structure/dresser,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "kv" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/f13/outside/roof/red,
@@ -1204,14 +1311,14 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "kB" = (
 /obj/machinery/workbench/advanced,
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "kC" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/kirbyplants{
@@ -1219,7 +1326,7 @@
 	pixel_x = -5
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "kK" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -1248,13 +1355,13 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "la" = (
 /obj/structure/rug/big/rug_rubber,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "le" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/structure/railing{
@@ -1267,32 +1374,36 @@
 /area/f13/baltimore/building/abandoned/hospital)
 "lf" = (
 /obj/structure/table/booth,
+/obj/structure/cable,
+/obj/machinery/f13/junction_box/large{
+	pixel_x = 30
+	},
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "lg" = (
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken6"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "lh" = (
 /obj/structure/table,
 /obj/machinery/microwave,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "lq" = (
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "lw" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbrokenvertical"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "lz" = (
 /obj/structure/chair/booth,
 /obj/structure/railing/tg{
@@ -1302,17 +1413,17 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "lJ" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/crafting/metalparts/five,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "lM" = (
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken6"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "lR" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1322,7 +1433,7 @@
 	icon_state = "rampuptop";
 	dir = 1
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "ma" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1360,7 +1471,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "mc" = (
 /turf/open/transparent/openspace,
 /area/f13/building/center)
@@ -1370,14 +1481,35 @@
 /obj/item/stack/sheet/glass/fifty,
 /obj/item/stack/ore/blackpowder/twenty,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
+"mj" = (
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
+"mn" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "mp" = (
 /obj/structure/bed,
 /obj/effect/landmark/start/f13/seniorscribe,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
+"mv" = (
+/obj/effect/spawner/structure/window/plastitanium,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "mF" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -1389,16 +1521,19 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "mM" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "mO" = (
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
 	},
 /area/f13/building/boat)
+"mW" = (
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/lab)
 "na" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -1407,7 +1542,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "nf" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -1423,12 +1558,28 @@
 	},
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/baltimore/building/abandoned)
+"nh" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 5
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/doorms)
 "nk" = (
 /obj/machinery/vending/snack/blue,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
+"nm" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/vertibird)
 "no" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/building/abandoned)
@@ -1485,7 +1636,7 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "nY" = (
 /obj/effect/overlay/docks{
 	dir = 1
@@ -1509,7 +1660,19 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
+"oi" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "oj" = (
 /obj/structure/simple_door/metal/fence,
 /turf/open/floor/plating/f13/outside/roof,
@@ -1520,9 +1683,6 @@
 	dir = 4
 	},
 /area/f13/baltimore/building/abandoned/hospital)
-"oo" = (
-/turf/closed/wall/rust,
-/area/f13/Ocean)
 "oq" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1545,7 +1705,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "or" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 4
@@ -1571,25 +1731,61 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
+"ox" = (
+/obj/structure/rug/big/rug_rubber,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "oC" = (
 /obj/structure/rug/big/rug_rubber,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "oG" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken4"
 	},
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
+"oL" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "oN" = (
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris,
 /area/f13/baltimore/building/abandoned)
 "oO" = (
 /obj/structure/window/fulltile/wood/boat,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "oQ" = (
 /obj/structure/guncase,
 /obj/item/gun/energy/laser/complianceregulator,
@@ -1597,7 +1793,7 @@
 /obj/item/gun/energy/laser/complianceregulator,
 /obj/item/gun/energy/laser/complianceregulator,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "oR" = (
 /obj/effect/overlay/rope{
 	icon_state = "5-6";
@@ -1615,7 +1811,19 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"oV" = (
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "oX" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -1641,7 +1849,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "pg" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1657,11 +1865,37 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"pp" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/tank/air{
+	layer = 1
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "pq" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_worn/wood_worn_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "ps" = (
 /obj/machinery/workbench,
 /obj/machinery/cell_charger,
@@ -1672,7 +1906,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "px" = (
 /turf/open/transparent/openspace,
 /area/f13/building/boat)
@@ -1691,12 +1925,15 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "pC" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/pda/botanist,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
+"pF" = (
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/doorms)
 "pO" = (
 /obj/effect/overlay/docks/rust,
 /obj/structure/railing/tg{
@@ -1711,7 +1948,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "pT" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1740,7 +1977,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "qc" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1783,7 +2020,7 @@
 	dir = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "qu" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1793,7 +2030,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "qD" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -1826,12 +2063,12 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "qR" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken5"
 	},
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "qS" = (
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
@@ -1842,7 +2079,7 @@
 	layer = 0.9
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "ra" = (
 /obj/structure/bed{
 	layer = 2.7
@@ -1852,10 +2089,18 @@
 	pixel_y = -1
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "rb" = (
 /turf/closed/wall/r_wall/syndicate,
 /area/f13/citycaves)
+"rj" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/f13/red{
+	icon_state = "redrustysolid"
+	},
+/area/f13/baltimore/brotherhood/lab)
 "rn" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -1874,7 +2119,13 @@
 	dir = 6
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"rt" = (
+/obj/structure/rug/big/rug_rubber,
+/turf/open/floor/f13/red{
+	icon_state = "redrustysolid"
+	},
+/area/f13/baltimore/brotherhood/lab)
 "ru" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1888,7 +2139,19 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"rA" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 2
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "rE" = (
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
@@ -1910,7 +2173,14 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"rY" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/doorms)
 "rZ" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -1937,7 +2207,7 @@
 	name = "Town secure door"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "si" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -1963,7 +2233,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "ss" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/effect/overlay/docks/fortedge{
@@ -2004,7 +2274,7 @@
 /area/f13/baltimore/wasteland/city)
 "sF" = (
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "sL" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -2013,7 +2283,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "sO" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -2031,15 +2301,15 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "sU" = (
 /obj/structure/bed/wooden,
 /obj/item/bedsheet/blanket,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "sX" = (
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "sZ" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -2051,7 +2321,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "te" = (
 /obj/structure/bed{
 	layer = 2.7
@@ -2060,7 +2330,7 @@
 	layer = 2
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "th" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2082,17 +2352,50 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "tl" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
+"to" = (
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
+"tp" = (
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "ts" = (
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"tt" = (
+/obj/machinery/f13/faction_generator/fusion,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "tC" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/building/boat)
+"tD" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "tH" = (
 /obj/structure/bed,
 /obj/effect/landmark/start/f13/knightsarge,
@@ -2100,7 +2403,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "tI" = (
 /obj/structure/chair/pew/right{
 	dir = 8
@@ -2112,7 +2415,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "tN" = (
 /obj/structure/bed,
 /obj/item/bedsheet/blanket,
@@ -2120,14 +2423,26 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "tT" = (
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
+"tZ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "ub" = (
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken5"
@@ -2144,10 +2459,13 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "uh" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/building/center)
+"uk" = (
+/turf/closed/wall/rust,
+/area/f13/baltimore/brotherhood/lab)
 "un" = (
 /obj/structure/timeddoor,
 /turf/open/transparent/openspace,
@@ -2157,11 +2475,14 @@
 	color = "#A47449";
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "ur" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -2169,7 +2490,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/sheet/cloth/thirty,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "ut" = (
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
@@ -2205,17 +2526,17 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "uH" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "uI" = (
 /obj/structure/table,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "uO" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -2228,11 +2549,11 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "uQ" = (
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "uS" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -2241,13 +2562,10 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/mayorial)
-"uV" = (
-/turf/open/floor/plating/f13/outside/roof/red,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/mayorial)
 "vd" = (
 /turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/baltimore/building/boat)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "vf" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -2268,12 +2586,12 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "vh" = (
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "vt" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2299,15 +2617,12 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "vu" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "mosaic-broken3"
 	},
 /area/f13/building/center)
-"vv" = (
-/turf/open/indestructible/ground/outside/roof,
-/area/f13/baltimore/building/town)
 "vJ" = (
 /obj/effect/overlay/rope{
 	icon_state = "9-10";
@@ -2316,6 +2631,16 @@
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
+"vM" = (
+/obj/machinery/rnd/server/bos,
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
+"vO" = (
+/turf/closed/wall/r_wall/f13/vault,
+/area/f13/baltimore/brotherhood/lab)
 "vY" = (
 /obj/structure/chair/booth{
 	dir = 1
@@ -2323,7 +2648,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "vZ" = (
 /obj/structure/rug/big/rug_fancy{
 	pixel_y = -16
@@ -2331,13 +2656,13 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken6"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "wh" = (
 /obj/machinery/jukebox,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "wj" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2363,12 +2688,12 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "wv" = (
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken4"
 	},
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "wD" = (
 /obj/structure/closet/secure_closet/personal/cabinet,
 /obj/item/clothing/suit/chaplain/holidaypriest{
@@ -2384,7 +2709,7 @@
 /obj/item/clothing/suit/chaplain/nun,
 /obj/item/megaphone,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "wH" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -2443,18 +2768,18 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "wW" = (
 /obj/structure/table,
 /obj/item/hacking_device,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "xa" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "xd" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/structure/railing/tg{
@@ -2467,11 +2792,11 @@
 /area/f13/citycaves)
 "xg" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "xk" = (
 /obj/effect/landmark/start/f13/preacher,
 /turf/open/floor/wood_common,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "xn" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/effect/overlay/docks/fortedge{
@@ -2515,7 +2840,12 @@
 	layer = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
+"xu" = (
+/turf/closed/wall/f13/tentwall{
+	name = "Airship envelop"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "xH" = (
 /obj/structure/bookcase/manuals/engineering,
 /obj/machinery/light/small{
@@ -2527,7 +2857,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "xI" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/building/abandoned)
@@ -2554,7 +2884,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "xS" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -2575,13 +2905,13 @@
 "xX" = (
 /obj/structure/table/glass,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "ye" = (
 /obj/machinery/mineral/wasteland_trader/special/brotherhood,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "yh" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -2601,7 +2931,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "ys" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -2609,11 +2939,22 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
+"yv" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "rampuptop"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "yw" = (
 /obj/machinery/newscaster{
 	icon_state = "production_console_old";
@@ -2622,7 +2963,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "yB" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2641,33 +2982,47 @@
 	dir = 5
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "yE" = (
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
+"yH" = (
+/obj/structure/window/fulltile/wood,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "yI" = (
 /turf/open/floor/wood_fancy,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
+"yK" = (
+/obj/structure/table,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "yP" = (
 /obj/structure/railing/corner,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "yS" = (
 /obj/structure/bookshelf{
 	icon_state = "book-3"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"ze" = (
+/obj/structure/simple_door/repaired,
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "zg" = (
 /obj/structure/table,
 /obj/item/paper/fluff/brotherhood,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "zo" = (
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "zq" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -2678,7 +3033,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "zt" = (
 /obj/structure/table/reinforced,
 /obj/item/storage/box/drinkingglasses,
@@ -2686,7 +3041,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "zy" = (
 /turf/open/transparent/glass,
 /area/f13/baltimore/building/abandoned)
@@ -2708,16 +3063,24 @@
 "zC" = (
 /obj/machinery/door/unpowered/secure_bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "zM" = (
 /turf/open/floor/plating/f13/outside/roof/blue,
-/area/f13/baltimore/building/boat)
+/area/f13/baltimore/wasteland/citywasteland/town)
+"zO" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "zT" = (
 /obj/structure/bookcase/random/adult,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "zU" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -2743,7 +3106,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "zW" = (
 /obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
@@ -2751,7 +3114,12 @@
 "Ad" = (
 /obj/machinery/smartfridge/food,
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
+"Ae" = (
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "Af" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -2774,11 +3142,11 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Ai" = (
 /obj/structure/window/fulltile/wood/boat,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Ak" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -2788,17 +3156,20 @@
 	color = "#A47449";
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "An" = (
 /obj/structure/closet/crate/footlocker,
 /obj/item/clothing/under/f13/atlantic/sailor,
 /obj/item/clothing/under/f13/atlantic/sailor/nurse,
 /obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Ap" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2817,7 +3188,19 @@
 	dir = 10
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"Ar" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "At" = (
 /turf/open/floor/wood_wide{
 	icon_state = "wide-broken4"
@@ -2826,13 +3209,13 @@
 "AA" = (
 /obj/structure/curtain/stage,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "AD" = (
 /obj/machinery/modular_computer/console/buildable{
 	dir = 1
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "AT" = (
 /obj/structure/bed/wooden,
 /obj/structure/bed/wooden{
@@ -2853,7 +3236,7 @@
 	layer = 10
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "AU" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/building/abandoned/recruitement)
@@ -2872,7 +3255,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Bc" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -2900,14 +3283,14 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Bi" = (
 /obj/structure/window/fulltile/house{
 	dir = 2;
 	icon_state = "housewindowvertical"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Bm" = (
 /turf/open/indestructible/ground/outside/ruins{
 	icon_state = "rubbleslab"
@@ -2917,13 +3300,13 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "BL" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "BM" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -2932,7 +3315,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "BO" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2955,21 +3338,27 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "BP" = (
 /obj/structure/toilet{
 	dir = 8
+	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 4
 	},
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "BV" = (
 /obj/structure/bed/wooden,
 /obj/item/bedsheet/blanket,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "BY" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/center)
@@ -2982,7 +3371,7 @@
 /area/f13/baltimore/wasteland/citywasteland/town)
 "CE" = (
 /turf/closed/wall/f13/wood/interior,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "CF" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -2999,7 +3388,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "CI" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -3029,7 +3418,34 @@
 /obj/item/clothing/under/suit/burgundy,
 /obj/item/clothing/under/suit/black/skirt,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"CP" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 8
+	},
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
+"CU" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_x = 30
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
+"Dm" = (
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "Ds" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
@@ -3056,12 +3472,12 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "DC" = (
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken4"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "DL" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -3072,11 +3488,11 @@
 	pixel_x = 1
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "DQ" = (
 /obj/machinery/autolathe,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "DS" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3094,7 +3510,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "DT" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
 /area/f13/building/center)
@@ -3103,7 +3519,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "DV" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -3138,6 +3554,18 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"Ea" = (
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "Ei" = (
 /obj/structure/reagent_dispensers/rainwater_tank,
 /turf/open/floor/plating/f13/outside/roof,
@@ -3147,7 +3575,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken2"
 	},
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Eq" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/center)
@@ -3160,7 +3588,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Ez" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
 /area/f13/baltimore/building/abandoned)
@@ -3171,7 +3599,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "EE" = (
 /obj/effect/overlay/docks{
 	dir = 1
@@ -3188,10 +3616,9 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "EM" = (
-/turf/open/floor/plating/f13/outside/roof/wood/old,
-/area/f13/baltimore/building/abandoned/mchenryfort)
+/turf/open/floor/plating/f13/outside/roof/wood/old)
 "EN" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/building/center)
@@ -3201,7 +3628,7 @@
 	dir = 8;
 	sunlight_state = 1
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "EW" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -3246,7 +3673,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Fi" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/outpost)
@@ -3258,11 +3685,28 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"FB" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
+"FC" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "FE" = (
 /obj/structure/closet/locker/fridge,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "FI" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -3277,21 +3721,30 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "FX" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
+"FY" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "Gd" = (
 /turf/open/floor/plasteel/f13/vault_floor/darkerrusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
 "Ge" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Gj" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "Gk" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/clothing/under/f13/bosformgold_f,
@@ -3299,48 +3752,32 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
-"Gp" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/effect/overlay/shadow{
-	layer = 2
-	},
-/obj/effect/overlay/shadow{
-	layer = 2
-	},
-/obj/effect/overlay/shadow{
-	layer = 2
-	},
-/obj/effect/overlay/shadow{
-	layer = 2
-	},
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 4
-	},
-/obj/machinery/atmospherics/components/unary/tank/air{
-	layer = 1
-	},
-/obj/machinery/light/small{
-	light_color = "#FF0000";
-	color = "#FF0000";
-	name = "red light fixture";
-	dir = 1
-	},
-/turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "Gw" = (
 /turf/closed/wall/rust,
 /area/f13/citycaves)
 "Gy" = (
 /turf/closed/wall/f13/coyote/tavern_wall,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"Gz" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "GA" = (
 /turf/open/floor/f13/rusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
+"GD" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/doorms)
 "GL" = (
 /obj/structure/noticeboard{
 	pixel_x = -31
@@ -3353,7 +3790,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "GV" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/wasteland/city)
@@ -3392,7 +3829,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken3"
 	},
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "Hr" = (
 /turf/open/indestructible/ground/outside/ruins{
 	icon_state = "rubbleplate"
@@ -3403,7 +3840,7 @@
 	req_access_txt = "120"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Hx" = (
 /obj/structure/chair/booth{
 	dir = 1
@@ -3415,7 +3852,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Hy" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3430,13 +3867,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
-"HC" = (
-/obj/structure/window/fulltile/wood_window{
-	icon_state = "housewindowvertical"
-	},
-/turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/brotherhood/doorms)
 "HD" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3453,11 +3884,11 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "HJ" = (
 /obj/effect/landmark/start/f13/atlanticmarines,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "HK" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3468,14 +3899,14 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "HM" = (
 /obj/structure/barricade/bars,
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "HN" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -3497,7 +3928,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "HP" = (
 /obj/structure/sink/greyscale{
 	dir = 4;
@@ -3508,7 +3939,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "HR" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3524,14 +3955,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
-"HT" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/baltimore/brotherhood/vertibird)
 "HY" = (
 /obj/structure/railing/tg{
 	color = "#A47449"
@@ -3544,7 +3968,7 @@
 /area/f13/baltimore/wasteland/citywasteland/town)
 "Ia" = (
 /turf/open/transparent/openspace,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Ik" = (
 /turf/closed/wall/f13/store/concretewall,
 /area/f13/baltimore/building/abandoned)
@@ -3552,11 +3976,11 @@
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Io" = (
 /obj/effect/landmark/start/f13/atlanticmarines,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "It" = (
 /obj/structure/decoration/vent/rusty,
 /obj/structure/curtain,
@@ -3567,26 +3991,31 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Iu" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/pda/botanist,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "Ix" = (
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/baltimore/building/abandoned/mchenryfort)
+/turf/open/floor/plating/f13/outside/roof/wood)
 "IK" = (
 /obj/structure/chair/office/dark,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
+"IL" = (
+/obj/structure/table/booth,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "IM" = (
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "IP" = (
 /obj/machinery/smartfridge/bottlerack/gardentool/primitive,
 /turf/open/floor/plating/f13/outside/roof,
@@ -3597,7 +4026,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "IR" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -3611,7 +4040,7 @@
 /area/f13/baltimore/wasteland/citywasteland/town)
 "IS" = (
 /turf/closed/wall/mineral/concrete,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "IW" = (
 /obj/effect/overlay/docks/rust,
 /obj/structure/railing/tg{
@@ -3625,22 +4054,15 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "IZ" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Jd" = (
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken3"
 	},
-/area/f13/baltimore/building/mayorial)
-"Jm" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 8
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/baltimore/building/town/mayorial)
 "Jp" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -3667,7 +4089,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "Ju" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3686,7 +4108,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Jz" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3702,7 +4124,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "JC" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3712,11 +4134,14 @@
 	},
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
+"JE" = (
+/turf/closed/wall/rust,
+/area/f13/baltimore/brotherhood/kitchen)
 "JG" = (
 /obj/structure/chair/sofa/luxury/right,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "JK" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -3727,17 +4152,24 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
-"JQ" = (
-/obj/structure/railing/corner{
-	color = "#A47449";
-	dir = 4
+/area/f13/baltimore/brotherhood/doorms)
+"JL" = (
+/obj/machinery/door/unpowered/secure_bos,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/baltimore/brotherhood/doorms)
 "JV" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"JX" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "Ka" = (
 /turf/open/transparent/openspace,
 /area/f13/brotherhood)
@@ -3762,7 +4194,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Kd" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/building/center)
@@ -3770,7 +4202,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken3"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Km" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -3790,7 +4222,7 @@
 /obj/structure/curtain/stage,
 /obj/structure/barricade/bars,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Kp" = (
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -3819,7 +4251,7 @@
 "Ks" = (
 /obj/structure/table/wood/fancy/royalblack,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Kt" = (
 /turf/open/floor/wood_wide,
 /area/f13/baltimore/wasteland/city)
@@ -3827,14 +4259,14 @@
 /obj/structure/window/fulltile/house,
 /obj/structure/curtain/stage,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Kz" = (
 /obj/structure/simple_door/house,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "KC" = (
 /turf/open/indestructible/ground/outside/roof,
-/area/f13/baltimore/wasteland/city/citycenter)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "KD" = (
 /obj/structure/railing/tg{
 	color = "#A47449"
@@ -3863,7 +4295,16 @@
 	dir = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"KH" = (
+/obj/structure/cable,
+/obj/machinery/f13/junction_box/large{
+	pixel_x = -30
+	},
+/turf/open/floor/f13/red{
+	icon_state = "redrustysolid"
+	},
+/area/f13/baltimore/brotherhood/lab)
 "KM" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -3884,7 +4325,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "KY" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
@@ -3893,13 +4334,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
-"KZ" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 5
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
 "Lf" = (
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
@@ -3911,10 +4345,19 @@
 "Lj" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
+"Lk" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "Lm" = (
 /turf/open/floor/wood_common,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Ln" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
@@ -3928,7 +4371,7 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "Lq" = (
 /obj/structure/dresser,
 /obj/machinery/light/small{
@@ -3938,7 +4381,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Lv" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/Ocean)
@@ -3946,14 +4389,14 @@
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken5"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "LA" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "LI" = (
 /turf/open/transparent/openspace,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "LJ" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/clothing/under/f13/atlantic/sailor,
@@ -3962,7 +4405,7 @@
 /obj/item/clothing/under/f13/atlantic/sailor/nurse,
 /obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "LK" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/boat)
@@ -3970,15 +4413,21 @@
 /obj/structure/toilet{
 	dir = 4
 	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 8
+	},
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "LR" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "LV" = (
 /obj/structure/kitchenspike{
 	name = "Power Armor Stand"
@@ -3986,10 +4435,10 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "LX" = (
 /turf/open/transparent/openspace,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "LY" = (
 /obj/structure/rack/shelf_metal,
 /obj/machinery/light/small{
@@ -4001,7 +4450,7 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "Mc" = (
 /obj/structure/rug/big/rug_red{
 	layer = 1
@@ -4009,17 +4458,36 @@
 /obj/structure/table,
 /obj/machinery/microwave,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Me" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "mosaic-broken6"
 	},
 /area/f13/building/center)
+"Mg" = (
+/obj/structure/chair/booth,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "Mn" = (
 /obj/structure/timeddoor,
 /obj/structure/timeddoor,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
+"Mq" = (
+/turf/closed/wall/r_wall/f13/vault,
+/area/f13/baltimore/brotherhood/kitchen)
 "Mu" = (
 /obj/machinery/hydroponics/soil/plowed,
 /turf/open/indestructible/ground/outside/dirt,
@@ -4031,13 +4499,13 @@
 /turf/closed/wall/f13/tentwall{
 	name = "Airship envelop"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "MQ" = (
 /obj/structure/chair/office/dark,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "MR" = (
 /obj/item/bedsheet/hos,
 /obj/structure/bed,
@@ -4045,7 +4513,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "MS" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10";
@@ -4057,14 +4525,14 @@
 /turf/open/floor/wood_fancy/wood_fancy_light{
 	icon_state = "fancy_light-broken5"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "MY" = (
 /obj/structure/closet/fridge{
 	anchored = 1;
 	can_be_unanchored = 1
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "MZ" = (
 /obj/structure/rug/big/rug_red{
 	layer = 1
@@ -4076,26 +4544,26 @@
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Nd" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "housewindowbroken"
 	},
 /obj/structure/curtain/stage,
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Ne" = (
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Nf" = (
 /obj/machinery/light/small{
 	dir = 8;
 	name = "tan light fixture"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "Ni" = (
 /turf/open/floor/plating/f13/outside/roof/blue,
 /area/f13/baltimore/building/abandoned)
@@ -4104,7 +4572,7 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "No" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -4129,32 +4597,62 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "Ny" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/baltimore/building/boat)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "ND" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/baltimore/wasteland/city/citycenter)
 "NF" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/baltimore/building/abandoned)
+"NP" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "NX" = (
 /turf/closed/wall/f13/ruins{
 	unbreakable = 1;
 	name = "solid ruins"
 	},
 /area/f13/Ocean)
+"Oa" = (
+/obj/machinery/door/unpowered/secure_bos,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/red{
+	icon_state = "redrustysolid"
+	},
+/area/f13/baltimore/brotherhood/lab)
+"Oh" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "Ok" = (
 /obj/structure/window/fulltile/wood_window{
 	icon_state = "housewindowvertical"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Om" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "Or" = (
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris,
 /area/f13/building/center)
@@ -4180,18 +4678,37 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "OP" = (
 /obj/effect/overlay/docks/fort,
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/building/abandoned/hospital)
 "OR" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "OY" = (
 /obj/structure/timeddoor,
 /turf/open/transparent/openspace,
 /area/f13/building/boat)
+"Pa" = (
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 5
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "Pc" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -4246,14 +4763,14 @@
 	layer = 10
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Pm" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Pt" = (
 /obj/structure/chair/booth,
 /obj/structure/railing/tg{
@@ -4267,16 +4784,16 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Pv" = (
 /obj/structure/rug/big/rug_rubber,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Px" = (
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken2"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "PD" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4292,7 +4809,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "PT" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -4322,10 +4839,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
-"PZ" = (
-/turf/open/floor/plating/f13/outside/roof/metal,
-/area/f13/baltimore/building/bar)
+/area/f13/baltimore/atlantic_cross/armory)
 "Qe" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4342,7 +4856,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Qg" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4350,6 +4864,10 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"Qh" = (
+/obj/structure/lattice/catwalk,
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "Qi" = (
 /turf/closed/indestructible/riveted,
 /area/f13/baltimore/wasteland/city)
@@ -4372,11 +4890,14 @@
 	color = "#A47449";
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13{
 	icon_state = "rampuptop";
 	dir = 1
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "Qp" = (
 /turf/open/floor/f13{
 	color = "#818181";
@@ -4409,7 +4930,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Qy" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/building/center)
@@ -4448,10 +4969,29 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/building/abandoned/hospital)
+"QG" = (
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 9
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "QK" = (
 /obj/structure/rug/big/rug_yellow,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "QN" = (
 /obj/effect/overlay/docks/rust,
 /obj/machinery/smartfridge/bottlerack/seedbin/primitive,
@@ -4461,6 +5001,14 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"QP" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/transparent/openspace,
+/area/f13/Ocean)
 "QV" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -4469,22 +5017,58 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "QY" = (
 /obj/structure/chair/pew/right{
 	dir = 8
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
+"Rf" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/effect/overlay/shadow{
+	layer = 2
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/machinery/atmospherics/components/unary/tank/air{
+	layer = 1
+	},
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "Rl" = (
 /obj/structure/barricade/wooden{
 	layer = 5
 	},
 /turf/closed/wall/rust,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Rm" = (
+/obj/structure/railing/corner{
+	color = "#A47449";
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/Ocean)
+/area/f13/baltimore/brotherhood/doorms)
 "Rp" = (
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "120"
@@ -4508,13 +5092,13 @@
 "RA" = (
 /obj/structure/chair/sofa/luxury/left,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment2)
 "RD" = (
 /obj/structure/bookshelf{
 	icon_state = "book-3"
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "RJ" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -4536,7 +5120,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "RN" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/wasteland/city)
@@ -4546,7 +5130,7 @@
 /obj/item/clothing/under/f13/atlantic/sailor/nurse,
 /obj/item/clothing/under/f13/atlantic/uniform,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "RW" = (
 /obj/structure/decoration/vent,
 /obj/structure/curtain,
@@ -4557,7 +5141,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "RZ" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -4579,10 +5163,10 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Sb" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "Si" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated/green,
 /area/f13/baltimore/wasteland/city)
@@ -4606,10 +5190,10 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "Ss" = (
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "Sy" = (
 /obj/structure/noticeboard{
 	pixel_x = -31
@@ -4619,17 +5203,17 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "SE" = (
 /obj/structure/chair/wood{
 	dir = 1
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "SF" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "SL" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -4658,7 +5242,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "SM" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -4681,7 +5265,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "SO" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -4706,7 +5290,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "SW" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -4717,7 +5301,10 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
+"Tb" = (
+/turf/closed/wall/f13/sunset/brick_small/baltimore,
+/area/f13/baltimore/building/town/appartment2)
 "Tk" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
@@ -4749,7 +5336,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Tu" = (
 /obj/structure/dresser,
 /obj/item/kirbyplants{
@@ -4758,7 +5345,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "TC" = (
 /turf/closed/wall/f13/store/concretewall,
 /area/f13/baltimore/building/citycenter)
@@ -4767,7 +5354,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "TP" = (
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
 /area/f13/baltimore/wasteland/city)
@@ -4795,11 +5382,11 @@
 "Um" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "UD" = (
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "UJ" = (
 /obj/machinery/light/small{
 	dir = 2;
@@ -4810,10 +5397,10 @@
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "UM" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "UO" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
@@ -4823,9 +5410,20 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/building/abandoned/hospital)
+"UQ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "UU" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"Vg" = (
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/doorms)
 "Vn" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -4834,7 +5432,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Vo" = (
 /turf/closed/wall/f13/store/constructed,
 /area/f13/baltimore/building/abandoned)
@@ -4851,6 +5449,13 @@
 "Vw" = (
 /turf/open/floor/wood_mosaic,
 /area/f13/building/center)
+"VB" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 9
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/doorms)
 "VD" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/brotherhood)
@@ -4861,7 +5466,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken6"
 	},
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "VG" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4872,7 +5477,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "VK" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -4894,7 +5499,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "VR" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -4904,7 +5509,7 @@
 	},
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "VV" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/overlay/docks/rust,
@@ -4924,13 +5529,25 @@
 /turf/closed/wall/f13/store/constructed{
 	name = "Hospital ship hull"
 	},
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
+"Wo" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "Ww" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Wx" = (
 /obj/effect/overlay/docks/fortedge,
 /turf/open/floor/f13/rusty/lit,
@@ -4951,19 +5568,30 @@
 	name = "solid ruins"
 	},
 /area/f13/baltimore/building/abandoned)
+"WF" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_y = 30
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "WH" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/lab)
 "WJ" = (
 /obj/structure/rug/big/rug_red{
 	layer = 1;
 	pixel_y = -19
 	},
 /turf/open/floor/wood_common/wood_common_dark,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "WK" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -4986,7 +5614,7 @@
 /obj/item/stock_parts/cell/ammo/ec,
 /obj/item/stock_parts/cell/ammo/ec,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "WU" = (
 /obj/structure/lattice/catwalk{
 	icon_state = "walkway";
@@ -5005,7 +5633,7 @@
 "WV" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "Xb" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -5015,7 +5643,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Xd" = (
 /turf/open/transparent/openspace,
 /area/f13/citycaves)
@@ -5026,7 +5654,12 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
+"Xn" = (
+/turf/closed/wall/f13/tentwall{
+	name = "Airship envelop"
+	},
+/area/f13/baltimore/brotherhood/lab)
 "Xq" = (
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/building/center)
@@ -5038,7 +5671,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "XP" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -5061,7 +5694,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "XZ" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated/red,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -5072,14 +5705,22 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/doorms)
 "Yd" = (
 /obj/structure/rack/shelf_metal,
 /obj/structure/rack/shelf_metal,
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/sheet/mineral/concrete/ten,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
+"Yg" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/red{
+	icon_state = "redrustysolid"
+	},
+/area/f13/baltimore/brotherhood/lab)
 "Yi" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/building/center)
@@ -5114,7 +5755,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
-/area/f13/baltimore/building/town)
+/area/f13/baltimore/building/town/appartment1)
 "Yw" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 1
@@ -5135,11 +5776,11 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "YN" = (
 /obj/structure/window/fulltile/wood/boat,
 /turf/open/floor/wood_wide/wood_wide_dark,
-/area/f13/baltimore/building/boat/atlantic_cross)
+/area/f13/baltimore/atlantic_cross/armory)
 "YZ" = (
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/center)
@@ -5154,7 +5795,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/kitchen)
 "Zm" = (
 /obj/effect/overlay/docks/rust,
 /turf/open/floor/plating/f13/outside/roof,
@@ -5186,7 +5827,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "Zz" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -5208,7 +5849,10 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
+"ZG" = (
+/turf/closed/wall/rust,
+/area/f13/baltimore/brotherhood/doorms)
 "ZI" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -5231,11 +5875,11 @@
 	dir = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/building/brotherhood)
+/area/f13/baltimore/brotherhood/vertibird)
 "ZN" = (
 /obj/structure/dresser,
 /turf/open/floor/wood_common/wood_common_light,
-/area/f13/baltimore/building/mayorial)
+/area/f13/baltimore/building/town/mayorial)
 "ZR" = (
 /obj/effect/overlay/docks/rust,
 /obj/machinery/smartfridge/bottlerack/grownbin,
@@ -8344,26 +8988,26 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
+CP
+JX
+JX
+JX
+JX
+JX
+JX
+JX
+JX
+JX
+JX
+JX
+Xn
+Xn
+Xn
+Xn
+Xn
+Xn
+Xn
+Xn
 de
 Ds
 Ds
@@ -8694,29 +9338,29 @@ de
 de
 de
 de
-de
-de
-de
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-cd
-cd
-ts
-ts
-ts
-ts
-ts
-MC
+CP
+JX
+Qh
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+Xn
+vO
+vO
+uk
+uk
+uk
+uk
+uk
+Xn
 Ds
 Ds
 Ds
@@ -9043,33 +9687,33 @@ de
 de
 de
 de
-de
-de
-de
-de
-MC
-MC
-ts
-cd
-cd
-cd
-ts
-ts
-ts
-ts
-ts
-MC
-MC
-ts
+CP
+JX
+JX
+JX
+dO
+dO
+ZG
+gK
+gK
+gK
+ZG
+ZG
+ZG
+ZG
+ZG
+dO
+dO
+uk
 kU
 Nl
 HM
 kU
 Nl
-ts
+uk
 ao
-ts
-MC
+uk
+Xn
 Ds
 Ds
 Ds
@@ -9393,26 +10037,26 @@ de
 de
 de
 de
-de
-de
-de
-MC
-MC
-MC
-ts
-ts
+CP
+JX
+Qh
+dO
+dO
+dO
+ZG
+ZG
 tN
-fK
+bw
 wj
 fG
-fK
+bw
 wj
 ju
-fK
+bw
 ju
-MC
-MC
-cd
+dO
+dO
+vO
 sQ
 kU
 HM
@@ -9421,12 +10065,12 @@ kU
 HM
 kU
 fY
-ts
-MC
-MC
-MC
-MC
-MC
+uk
+Xn
+Xn
+Xn
+Xn
+Xn
 MC
 MC
 MC
@@ -9737,34 +10381,34 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-MC
-ts
-ts
-cd
+CP
+JX
+JX
+JX
+JX
+JX
+JX
+JX
+dO
+dO
+dO
+ZG
+ZG
+gK
 eC
-ts
+ZG
 bk
-ex
+Ae
 qr
 bk
-ex
+Ae
 qr
 bk
-ex
+Ae
 bk
-Tr
+QG
 No
-ts
+uk
 EK
 HM
 HM
@@ -9772,13 +10416,13 @@ EK
 HM
 HM
 EK
-ts
-cd
-cd
-cd
-ts
-ts
-ts
+uk
+vO
+vO
+vO
+uk
+uk
+uk
 MC
 MC
 ts
@@ -10087,50 +10731,50 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-MC
-cd
-cd
-cd
+NP
+JX
+Qh
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+gK
+gK
+gK
 MR
-lq
+tp
 du
-ex
-ts
+Ae
+ZG
 tN
-ex
+Ae
 qr
 fG
-ex
+Ae
 qr
 ju
-ex
+Ae
 ju
-zV
+ic
 Sj
-cd
+vO
 kU
 kU
+rt
+kU
+rt
+rj
 oC
-kU
-oC
-kU
-oC
-kU
+KH
 kU
 aN
 kU
 kU
 kU
-cd
+vO
 RZ
 SR
 Zu
@@ -10439,50 +11083,50 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-cd
+QP
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+gK
 mp
 JK
-ts
+ZG
 kn
-lq
+tp
 iz
-uI
-ts
+yK
+ZG
 bk
-ex
+Ae
 qr
 bk
-ex
+Ae
 qr
 bk
-ex
+Ae
 bk
-zV
+ic
 Sj
-cd
+vO
 sQ
 kU
 kU
 kU
-oC
-kU
-oC
+rt
+Yg
+rt
 kU
 LY
-ts
+uk
 kU
 bT
 UJ
-cd
+vO
 Kb
 KM
 rn
@@ -10786,55 +11430,55 @@ de
 de
 de
 de
+Vg
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-MC
-MC
-cd
+VB
+rY
+ZG
+Rf
+oL
+pp
+oL
+pp
+oL
+pp
+gK
 bk
-ex
-ts
+Ae
+ZG
 LV
-ex
+Ae
 MQ
-ex
-ts
-ex
-ex
+Ae
+ZG
+Ae
+Ae
 qr
-ex
-ex
+Ae
+Ae
 qr
 ju
-ex
+Ae
 ED
-zV
+ic
 Sj
-cd
+vO
 kU
-cd
-LX
+vO
+mW
 kU
 kU
-kU
+Yg
 kU
 kU
 WH
-cd
+vO
 IK
 Lp
 DB
-cd
+vO
 zV
 bl
 hB
@@ -11138,55 +11782,55 @@ de
 de
 de
 de
+Vg
+Vg
 de
-de
-de
-de
+VB
 Rm
-de
-de
-de
-dJ
-Jm
-ts
-Gp
-XP
-XP
-ts
-ts
-dh
-ts
-ts
-dh
-ts
-cd
-cd
-cd
-ex
+Vg
+hi
+tp
+tp
+tp
+tp
+tp
+tp
+ji
+ZG
+ZG
+JL
+ZG
+ZG
+JL
+ZG
+gK
+gK
+gK
+Ae
 wj
-ts
-ex
+ZG
+Ae
 wj
 bk
-ex
+Ae
 bk
 si
 ei
-cd
+vO
 aN
-cd
-cd
-ts
-ts
+vO
+vO
+uk
+uk
+Oa
 aN
-aN
-cd
-cd
-cd
-cd
-cd
-cd
-cd
+vO
+vO
+vO
+vO
+vO
+vO
+vO
 BO
 KF
 ex
@@ -11490,55 +12134,55 @@ de
 de
 de
 de
-de
-de
-de
-de
-Rm
-Rm
-de
-dJ
-cE
-Rm
-jV
-lq
-kk
-lq
-ts
+Vg
+ZG
+ZG
+ZG
+Vg
+ZG
+ZG
+tp
+tt
+tp
+tp
+tt
+tp
+rA
+ZG
 cW
-lq
+tp
 kk
 GL
-lq
+tp
 uO
-lq
-lq
+tp
+tp
 Sy
-lq
+tp
 mF
 vf
-lq
+tp
 nQ
-lq
-lq
+tp
+tp
 kk
 lR
 lR
 Xb
-lq
-lq
-lq
+mj
+mj
+mj
 Xb
-lq
-lq
-lq
+mj
+Lk
+mj
 Xb
-lq
-lq
+mj
+mj
 Xb
-lq
-lq
-lq
+mj
+mj
+mj
 Bx
 Bx
 lq
@@ -11842,55 +12486,55 @@ de
 de
 de
 de
-de
-de
-de
-de
-Rm
-oo
-oo
-oo
-oo
-Rm
-ts
-lq
-kk
-lq
-Yy
-lq
-lq
-kk
-lq
-lq
-kk
-lq
-lq
-kk
-lq
+Vg
+ZG
+ZG
+ZG
+Vg
+ZG
+ZG
+tp
+FY
+fz
+fz
+Wo
+fz
+fz
+iW
+fz
+fz
+ox
+fz
+fz
+ox
+oi
+fz
+ox
+FB
 eD
-LX
-lq
+pF
+tp
 Hy
-lq
-lq
+tp
+tp
 kk
-zV
+ic
 Jp
-ts
+JE
 ij
 xs
 gX
 gX
 hq
-lq
-lq
-lq
+Lk
+mj
+mj
 ky
 gX
 gX
 gX
 ma
-ts
+JE
 qD
 vt
 lq
@@ -11903,7 +12547,7 @@ lq
 lq
 lq
 Yy
-Ge
+nm
 Ge
 Ge
 zC
@@ -12194,59 +12838,59 @@ de
 de
 de
 de
-de
-de
-de
-de
-Rm
-Rm
-de
-KZ
-JQ
-Rm
-jV
-lq
-lq
-lq
-cd
+Vg
+ZG
+ZG
+ZG
+Vg
+ZG
+ZG
+tp
+vM
+tp
+tp
+vM
+tp
+rA
+gK
 cY
-lq
-lq
-lq
-lq
-ys
-lq
-lq
-ys
-lq
+tp
+tp
+tp
+tp
+Ea
+CU
+tp
+Ea
+FY
 Ak
 uq
-lq
+fz
 bG
-lq
-lq
-lq
+fz
+fz
+fz
 Qk
 Qk
 ys
-lq
-lq
-lq
-lq
-lq
-lq
-lq
+Ar
+Gz
+Gz
+Gz
+Gz
+jR
+Gz
 ys
-lq
-lq
+Gz
+Gz
 ys
-lq
-lq
-lq
-Bx
-Bx
-lq
-lq
+Gz
+Gz
+Gz
+yv
+yv
+Oh
+mn
 LX
 VG
 lq
@@ -12546,65 +13190,65 @@ de
 de
 de
 de
+Vg
+Vg
 de
-de
-de
-de
-Rm
-de
-de
-de
-KZ
-HT
-cd
-Gp
-XP
-XP
-cd
-cd
-dh
-cd
-ts
-cd
-cd
-ts
-ts
-ts
-Ww
-dh
-Ww
-Ww
-ts
+nh
+GD
+Vg
+hi
+tp
+tp
+tp
+tp
+tp
+tp
+iI
+gK
+gK
+JL
+gK
+ZG
+gK
+gK
+ZG
+ZG
+ZG
+mv
+JL
+mv
+mv
+ZG
 bk
-ex
+Ae
 bk
 oX
 SM
-ts
-lz
-lf
+JE
+gI
+IL
 vY
 sL
-ex
-ex
+to
+to
 wh
-ts
+JE
 Ww
 Ww
-ts
-ts
+JE
+JE
 dh
-cd
+Mq
 uF
 ZI
 ex
-ex
-hB
-ex
-ex
-ex
-ex
-ex
+zO
+oV
+UQ
+UQ
+UQ
+UQ
+UQ
 lf
 ts
 It
@@ -12898,55 +13542,55 @@ de
 de
 de
 de
+Vg
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-MC
-MC
-ts
+nh
+gA
+gK
+Rf
+oL
+pp
+oL
+pp
+oL
+pp
+ZG
 LV
-ex
+Ae
 Xf
-ts
+ZG
 MQ
 iz
 du
-ex
-dh
-ex
-ex
+Ae
+JL
+Ae
+Ae
 MQ
 wW
-ts
+ZG
 ED
-ex
+Ae
 ED
-zV
+ic
 Sj
-cd
+Mq
 jJ
-lf
+IL
 vY
 sL
-ex
+to
 la
-ex
+to
 BL
-ex
+to
 la
 fK
 os
 la
-cd
+Mq
 zV
 bl
 ue
@@ -13255,50 +13899,50 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-cd
+eh
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+gK
 eC
 SW
 kn
-ts
-ex
+ZG
+Ae
 iz
-lq
-ex
-ts
+tp
+Ae
+ZG
 aO
-ex
-ex
-ex
-ts
+Ae
+Ae
+Ae
+ZG
 bk
-ex
+Ae
 bk
-zV
+ic
 Sj
-cd
-ex
-ex
-ex
-ex
-ex
+Mq
+WF
+to
+to
+to
+to
 la
-ex
+to
 BL
-ex
-ex
-ex
-ex
-ex
-cd
+to
+to
+to
+to
+to
+Mq
 Kb
 th
 Ap
@@ -13607,50 +14251,50 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-MC
-cd
-cd
-cd
-ts
-ex
+tD
+FC
+Qh
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+gK
+gK
+gK
+ZG
+Ae
 SW
-ex
+Ae
 Yb
-ts
+ZG
 og
-ex
+Ae
 MQ
 zg
-ts
+ZG
 ED
-ex
+Ae
 ED
-zV
+ic
 Sj
-cd
+Mq
 nk
 uI
 uI
-ex
-ex
-ex
-ex
+to
+to
+to
+to
 zt
 ek
 TH
 BL
 Zk
 ip
-cd
+Mq
 HN
 Zz
 SL
@@ -13961,48 +14605,48 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-MC
-ts
-cd
-cd
+tZ
+FC
+FC
+FC
+FC
+FC
+FC
+Qh
+dO
+dO
+dO
+ZG
+gK
+gK
 Gk
 kn
-ts
+ZG
 zT
-ex
-ex
-ex
-ts
+Ae
+Ae
+Ae
+ZG
 bk
-ex
+Ae
 bk
-yB
+Pa
 bd
-cd
-ex
-ex
-ex
-ex
-ex
-ex
-ex
+Mq
+to
+to
+to
+to
+to
+to
+to
 Ad
-ts
-ts
-ts
-cd
-cd
-cd
+JE
+JE
+JE
+Mq
+Mq
+Mq
 MC
 MC
 ts
@@ -14320,41 +14964,41 @@ de
 de
 de
 de
-de
-de
-de
-de
-MC
-MC
-MC
-cd
-cd
-ts
+tZ
+FC
+FC
+Qh
+dO
+dO
+dO
+gK
+gK
+ZG
 xH
 yw
 MQ
-uI
-ts
+yK
+ZG
 tH
 SW
 tH
-MC
-MC
-ts
-jJ
-lf
+dO
+dO
+JE
+Mg
+IL
 vY
 sL
 lz
-lf
+IL
 vY
-ts
-MC
-MC
-MC
-MC
-MC
-MC
+JE
+xu
+xu
+xu
+xu
+xu
+xu
 MC
 MC
 MC
@@ -14675,24 +15319,24 @@ de
 de
 de
 de
-de
-de
-de
-de
-MC
-MC
-cd
-cd
-cd
-cd
-cd
-cd
-cd
-cd
-ts
-MC
-MC
-ts
+tZ
+FC
+FC
+Qh
+dO
+dO
+gK
+gK
+gK
+gK
+gK
+gK
+gK
+gK
+ZG
+dO
+dO
+JE
 Pt
 Bb
 Hx
@@ -14700,8 +15344,8 @@ Eu
 Pt
 Bb
 Hx
-ts
-MC
+JE
+xu
 Ds
 Ds
 Ds
@@ -15030,29 +15674,29 @@ de
 de
 de
 de
-de
-de
-de
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-ts
-cd
-cd
-ts
-ts
-ts
-ts
-MC
+tZ
+FC
+Qh
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+dO
+xu
+JE
+Mq
+Mq
+JE
+JE
+JE
+JE
+xu
 Ds
 Ds
 Ds
@@ -15384,26 +16028,26 @@ de
 de
 de
 de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-de
-MC
-MC
-MC
-MC
-MC
-MC
-MC
-MC
+tZ
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+FC
+xu
+xu
+xu
+xu
+xu
+xu
+xu
+xu
 de
 Ds
 Ds
@@ -60311,15 +60955,15 @@ Ss
 Ss
 Ss
 Ss
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
 Tm
@@ -60663,15 +61307,15 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
 Tm
@@ -61015,15 +61659,15 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
 Tm
@@ -61342,18 +61986,18 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -61367,15 +62011,15 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
 Tm
@@ -61694,19 +62338,19 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -61719,15 +62363,15 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
 Tm
@@ -62046,20 +62690,20 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -62071,32 +62715,32 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
-ND
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
+Ss
 eI
 Tm
 Tm
@@ -62398,20 +63042,20 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -62423,15 +63067,15 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
 Ss
 Ss
 Ss
@@ -62446,10 +63090,10 @@ Ss
 Ss
 Ss
 Ss
-ND
-ND
-ND
-ND
+Ss
+Ss
+Ss
+Ss
 ND
 Tm
 Tm
@@ -62750,20 +63394,20 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -62775,32 +63419,32 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -63102,20 +63746,20 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -63127,32 +63771,32 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -63454,19 +64098,19 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -63479,32 +64123,32 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -63806,18 +64450,18 @@ fc
 fc
 fc
 fc
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
-PZ
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
+Li
 fc
 fc
 fc
@@ -63831,32 +64475,32 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -64183,36 +64827,36 @@ fc
 fc
 fc
 fc
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-vv
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
-uV
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+KC
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
-Tm
-Tm
+fc
+fc
 Tm
 Tm
 Tm
@@ -64563,8 +65207,8 @@ fc
 fc
 Ss
 Ss
-Tm
-Tm
+fc
+fc
 Tm
 Tm
 Tm
@@ -64913,8 +65557,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -65265,8 +65909,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -65617,8 +66261,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -65969,8 +66613,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -66321,8 +66965,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -66673,8 +67317,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -67025,8 +67669,8 @@ fc
 fc
 fc
 fc
-vv
-vv
+KC
+KC
 KC
 KC
 Tm
@@ -67367,19 +68011,19 @@ fc
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
-Tm
+fc
 Tm
 Tm
 Tm
@@ -67660,7 +68304,7 @@ Kz
 UM
 yP
 dI
-HC
+Ok
 fc
 fc
 fc
@@ -67719,16 +68363,16 @@ fc
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -68024,13 +68668,13 @@ gD
 gD
 Zm
 UU
-fH
-tl
+Tb
+yH
 cq
-tl
-fH
-fH
-fH
+yH
+Tb
+Tb
+Tb
 UU
 UU
 aQ
@@ -68071,16 +68715,16 @@ fc
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -68376,13 +69020,13 @@ Mu
 Mu
 Zm
 UU
-tl
+yH
 JG
-fD
+Dm
 OR
 yi
-fD
-tl
+Dm
+yH
 UU
 UU
 VV
@@ -68423,16 +69067,16 @@ fc
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -68728,14 +69372,14 @@ Mu
 Mu
 Zm
 UU
-tl
+yH
 RA
 cV
 jQ
-fH
-xa
-fH
-fH
+Tb
+ze
+Tb
+Tb
 UU
 VV
 fc
@@ -68775,16 +69419,16 @@ fc
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -69068,7 +69712,7 @@ Ne
 LI
 mM
 ag
-HC
+Ok
 fc
 fc
 fc
@@ -69080,12 +69724,12 @@ Mu
 Mu
 Zm
 UU
-fH
-fH
-fH
-xa
-fH
-fD
+Tb
+Tb
+Tb
+ze
+Tb
+Dm
 tT
 hU
 UU
@@ -69127,16 +69771,16 @@ fc
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -69432,12 +70076,12 @@ Mu
 Mu
 pO
 UU
-fH
+Tb
 Iu
 Nf
-fD
-fH
-SF
+Dm
+Tb
+ea
 OR
 hU
 UU
@@ -69479,16 +70123,16 @@ IS
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -69784,13 +70428,13 @@ Mu
 Mu
 QN
 UU
-fH
+Tb
 pC
 sU
 BV
-fH
-SF
-fD
+Tb
+ea
+Dm
 hU
 UU
 aQ
@@ -69831,16 +70475,16 @@ jT
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -70136,14 +70780,14 @@ sz
 sz
 ZR
 UU
-fH
-fH
-fH
-fH
-fH
-fH
-fH
-fH
+Tb
+Tb
+Tb
+Tb
+Tb
+Tb
+Tb
+Tb
 qo
 jn
 KY
@@ -70183,16 +70827,16 @@ jT
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -70535,16 +71179,16 @@ jT
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -70887,16 +71531,16 @@ jT
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -71239,16 +71883,16 @@ IS
 fc
 fc
 fc
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
-eu
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
+JV
 Ss
 Ss
 Tm
@@ -71954,7 +72598,7 @@ Ss
 Ss
 Ss
 Ss
-Ss
+ND
 Tm
 Tm
 Tm
@@ -72294,18 +72938,18 @@ Ds
 Ds
 Ds
 Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
 Tm
 Tm
 Tm
@@ -72646,18 +73290,18 @@ Ds
 Ds
 Ds
 Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
 Tm
 Tm
 Tm
@@ -72998,18 +73642,18 @@ Ds
 Ds
 Ds
 Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
-Ds
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
+Tm
 Tm
 Tm
 Tm

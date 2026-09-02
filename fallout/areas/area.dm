@@ -1579,7 +1579,114 @@
 	weather_tags = null
 	outdoors = FALSE
 
-/area/f13/baltimore/building/mayorial
+/area/f13/baltimore/building/town/house1
+	name = "Locust point town Building House 1"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house2
+	name = "Locust point town Building House 2"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house3
+	name = "Locust point town Building House 3"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house4
+	name = "Locust point town Building House 4"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house5
+	name = "Locust point town Building House 5"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment1
+	name = "Locust point town Building Appartment 1"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment2
+	name = "Locust point town Building Appartment 2"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment3
+	name = "Locust point town Building Appartment 3"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment4
+	name = "Locust point town Building Appartment 4"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment5
+	name = "Locust point town Building Appartment 5"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment6
+	name = "Locust point town Building Appartment 6"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/minutemen
+	name = "Locust point town Minuteman Base"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/mayorial
 	name = "Locust point Town hall"
 	icon_state = "building"
 	ambience_area = list(
@@ -1618,7 +1725,7 @@
 	weather_tags = null
 	outdoors = FALSE
 
-/area/f13/baltimore/building/boat/atlantic_cross
+/area/f13/baltimore/atlantic_cross
 	name = "ACHS Aegis"
 	icon_state = "red"
 	ambience_area = list(
@@ -1627,14 +1734,17 @@
 	weather_tags = null
 	outdoors = FALSE
 
-/area/f13/baltimore/building/boat/atlantic_cross
-	name = "SS Rustbucket"
+/area/f13/baltimore/atlantic_cross/hospital
+	name = "ACHS Aegis Hospital rooms"
 	icon_state = "red"
-	ambience_area = list(
-		/datum/looping_sound/ambient/ship_interior,
-		)
-	weather_tags = null
-	outdoors = FALSE
+
+/area/f13/baltimore/atlantic_cross/doorms
+	name = "ACHS Aegis Hospital doorms"
+	icon_state = "red"
+
+/area/f13/baltimore/atlantic_cross/armory
+	name = "ACHS Aegis Hospital armory"
+	icon_state = "red"
 
 /area/f13/baltimore/building/abandoned
 	name = "Abandoned Building"
@@ -1745,16 +1855,6 @@
 		)
 	weather_tags = null
 
-/area/f13/baltimore/building/abandoned/mchenryfort
-	name = "Fort Mc Henry"
-	icon_state = "blue"
-	ambience_area = list(
-		/datum/looping_sound/ambient/general,
-		/datum/looping_sound/ambient/woodcreak,
-		/datum/looping_sound/ambient/harbor_interior,
-		)
-	weather_tags = null
-
 /area/f13/baltimore/building/church
 	name = "Church Building"
 	icon_state = "green"
@@ -1827,7 +1927,29 @@
 	)
 	weather_tags = null
 
-/area/f13/baltimore/building/bar
+/area/f13/baltimore/boatradio
+	name = "SS Rustbucket"
+	icon_state = "bar"
+	ambience_area = list(
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
+		/datum/looping_sound/ambient/woodcreak,
+	)
+	weather_tags = null
+
+/area/f13/baltimore/boatvertibird
+	name = "Airpoint ship"
+	icon_state = "bar"
+	ambience_area = list(
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
+		/datum/looping_sound/ambient/woodcreak,
+	)
+	weather_tags = null
+
+/area/f13/baltimore/boatbar
 	name = "NCS Casablanca Bar"
 	icon_state = "bar"
 	ambience_area = list(
@@ -1838,7 +1960,7 @@
 	)
 	weather_tags = null
 
-/area/f13/baltimore/building/brotherhood
+/area/f13/baltimore/brotherhood
 	name = "Brotherhood of Steel Airship Avalionian"
 	icon_state = "brotherhood"
 	ambientmusic = list('sound/f13music/FOTV Chain of command Ramin Djawadi.ogg')
@@ -1846,10 +1968,95 @@
 		/datum/looping_sound/ambient/airship,
 	)
 
-/area/f13/baltimore/building/minutemen
+/area/f13/baltimore/brotherhood/doorms
+	name = "Brotherhood of Steel Airship Avalionian doorms"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/brotherhood/security
+	name = "Brotherhood of Steel Airship Avalionian Security"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/brotherhood/lab
+	name = "Brotherhood of Steel Airship Avalionian Medical Lab"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/brotherhood/kitchen
+	name = "Brotherhood of Steel Airship Avalionian Messhall"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/brotherhood/commandsection
+	name = "Brotherhood of Steel Airship Avalionian Medical cockpit"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/brotherhood/vertibird
+	name = "Brotherhood of Steel Airship Avalionian Vertibird Launch Bay"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/brotherhood/vertibird
+	name = "Brotherhood of Steel Airship Avalionian Vertibird Commander Launch Bay"
+	icon_state = "brotherhood"
+
+/area/f13/baltimore/minutemen
 	name = "Minutemen Fort McHenry"
 	icon_state = "blue"
 	ambientmusic = list('sound/f13music/FO4 libertylives.ogg')
 	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/harbor_interior,
-	)
+		)
+	weather_tags = null
+
+/area/f13/baltimore/minutemen/north
+	name = "Minutemen Fort McHenry North wing"
+	icon_state = "blue"
+
+/area/f13/baltimore/minutemen/south
+	name = "Minutemen Fort McHenry South wing"
+	icon_state = "blue"
+
+/area/f13/baltimore/minutemen/west
+	name = "Minutemen Fort McHenry West wing"
+	icon_state = "blue"
+
+/area/f13/baltimore/minutemen/east
+	name = "Minutemen Fort McHenry East wing"
+	icon_state = "blue"
+
+/area/f13/baltimore/minutemen/underground
+	name = "Minutemen Fort McHenry Underground"
+	icon_state = "blue"
+
+
+/area/f13/baltimore/vault125
+	name = "Vault 125"
+	icon_state = "blue"
+	ambientsounds = list(
+		AREA_SOUND('sound/f13ambience/ambigen_10.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_11.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_12.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_13.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_14.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13effects/steam_short.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13effects/steam_long.ogg', 10 SECONDS))
+
+
+/area/f13/baltimore/vault125/entry
+	name = "Vault 125 Entry"
+	icon_state = "blue"
+
+/area/f13/baltimore/vault125/casino
+	name = "Vault 125 Luxe Recreation Hall"
+	icon_state = "blue"
+
+/area/f13/baltimore/vault125/doorm
+	name = "Vault 125 doorms"
+	icon_state = "blue"
+
+/area/f13/baltimore/vault125/jail
+	name = "Vault 125 doorms"
+	icon_state = "blue"
+
+/area/f13/baltimore/vault125/jail
+	name = "Vault 125 doorms"
+	icon_state = "blue"
