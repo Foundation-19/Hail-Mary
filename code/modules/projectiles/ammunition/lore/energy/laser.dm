@@ -101,18 +101,36 @@ also: most hitscan weapons have more charge than their normal projectile counter
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam
 	projectile_type = /obj/item/projectile/beam/laser/tribeam
-	pellets = 1
+	pellets = 1 //firing 3 beams manually via fire_casing() below, not through the pellet_cloud/variance system
 	select_name = "scatter"
-	e_cost = 65 //per beam - 3 beams per burst, same total cost as the old 1-shot-of-3-pellets design
+	e_cost = 65 //per beam - 3 beams per pull, same total cost as the old 1-shot-of-3-pellets design
 	fire_sound = 'sound/f13weapons/tribeamfire.ogg'
+	//pellet_cloud's randomspread=FALSE "smart spread" doesn't behave as documented in practice, so we fire the fan manually with hardcoded angles instead
+	//+-2 degrees stays within half a tile of lateral drift out to the projectile's 12-tile range cap, so all 3 beams always land together
+	var/static/list/tribeam_fan_angles = list(-2, 0, 2)
+
+/obj/item/ammo_casing/energy/laser/scatter/tribeam/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
+	var/turf/targloc = get_turf(target)
+	for(var/i in 1 to length(tribeam_fan_angles))
+		ready_proj(target, user, quiet, zone_override, damage_multiplier, penetration_multiplier, projectile_speed_multiplier, fired_from, damage_threshold_penetration)
+		if(!throw_proj(target, targloc, user, params, tribeam_fan_angles[i]))
+			return FALSE
+		if(i != length(tribeam_fan_angles))
+			newshot()
+			sleep(1) //stagger the beams a hair so their tracers render as 3 distinct flashes instead of one overlapping blob
+	if(istype(user))
+		user.DelayNextAction(considered_action = TRUE, immediate = FALSE)
+	user.newtonian_move(get_dir(target, user))
+	update_icon()
+	return TRUE
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan
 	projectile_type = /obj/item/projectile/beam/laser/tribeam/hitscan
 	pellets = 1
 	select_name = "tribeam"
-	e_cost = 65 //per beam - 3 beams per burst
+	e_cost = 65 //per beam - 3 beams per pull
 
-/obj/item/ammo_casing/energy/laser/scatter/tribeam/laserbuss
+/obj/item/ammo_casing/energy/laser/scatter/laserbuss
 	projectile_type = /obj/item/projectile/beam/laser/tribeam/laserbuss
 	pellets = 8
 	variance = 14
@@ -120,7 +138,7 @@ also: most hitscan weapons have more charge than their normal projectile counter
 	e_cost = 187.5 //8 shots
 	fire_sound = 'sound/f13weapons/tribeamfire.ogg'
 
-/obj/item/ammo_casing/energy/laser/scatter/tribeam/laserbuss/hitscan
+/obj/item/ammo_casing/energy/laser/scatter/laserbuss/hitscan
 	projectile_type = /obj/item/projectile/beam/laser/tribeam/laserbuss/hitscan
 	pellets = 8
 	variance = 50
@@ -129,8 +147,9 @@ also: most hitscan weapons have more charge than their normal projectile counter
 
 /obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan/nonlethal
 	projectile_type = /obj/item/projectile/beam/laser/pistol/hitscan/stun
+	pellets = 1 //fires 3 beams via the inherited fire_casing() override, not pellet_cloud
 	select_name = "tribeam"
-	e_cost = 33 //per beam - 3 beams per burst
+	e_cost = 33 //per beam - 3 beams per pull
 
 /obj/item/ammo_casing/energy/laser/pistol
 	projectile_type = /obj/item/projectile/beam/laser/pistol

@@ -632,7 +632,7 @@
 //Tribeam Laser rifle
 /obj/item/gun/energy/laser/scatter
 	name = "tribeam laser rifle"
-	desc = "A modified AER9 equipped with a refraction kit that splits each trigger pull into three tightly-timed beams instead of one."
+	desc = "A modified AER9 equipped with a refraction kit that splits each trigger pull into three tightly-fanned beams. The beams are too tightly clustered to notice apart at range, but the tradeoff is a short effective range."
 	icon_state = "tribeam"
 	item_state = "laser-rifle9"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan)
@@ -641,11 +641,11 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	init_firemodes = list(
-		/datum/firemode/burst/three/faster
+		/datum/firemode/semi_auto/slow
 	)
 /obj/item/gun/energy/laser/scatter/nonlethal
 	name = "tribeam stunrifle"
-	desc = "A modified AER9 equipped with a refraction kit that splits each trigger pull into three tightly-timed beams instead of one. This one has its power consumption lowered, delivering only non-lethal strikes and charging faster."
+	desc = "A modified AER9 equipped with a refraction kit that splits each trigger pull into three tightly-fanned beams. The beams are too tightly clustered to notice apart at range, but the tradeoff is a short effective range. This one has its power consumption lowered, delivering only non-lethal strikes and charging faster."
 	icon_state = "tribeam_nonlethal"
 	item_state = "laser-rifle9"
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/tribeam/hitscan/nonlethal)
@@ -654,14 +654,14 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	init_firemodes = list(
-		/datum/firemode/burst/three/fast
+		/datum/firemode/semi_auto/slower
 	)
 /obj/item/gun/energy/laser/scatter/laserbuss
 	name = "Laserbuss"
 	desc = "A questionably-designed tribeam laser rifle that has been modified to feature a dense array of emitters and scatter lenses."
 	icon_state = "tribeam"
 	item_state = "laser-rifle9"
-	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/tribeam/laserbuss/hitscan)
+	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/laserbuss/hitscan)
 	cell_type = /obj/item/stock_parts/cell/ammo/mfc
 	equipsound = 'sound/f13weapons/equipsounds/tribeamequip.ogg'
 	weapon_class = WEAPON_CLASS_RIFLE

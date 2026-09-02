@@ -521,13 +521,14 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED
 
-/obj/item/projectile/beam/laser/tribeam //Tribeam laser, fires as a 3-round burst
+/obj/item/projectile/beam/laser/tribeam //Tribeam laser, fires 3 beams per trigger pull in a fixed fan
 	name = "tribeam laser"
 	damage = 22
+	range = 12 //short effective range by design - see fire_casing() override on the ammo casing for why this guarantees all 3 beams connect
 
 /obj/item/projectile/beam/laser/tribeam/hitscan
 	name = "tribeam laser"
-	damage = 22 //3-round burst - 66 total if all 3 connect, same as before but no longer range-gated by pellet spread
+	damage = 22 //3 beams per pull, fixed fan not RNG - 66 total if all 3 connect
 	armour_penetration = 0.2
 	hitscan = TRUE
 	bare_wound_bonus = -30 //tribeam is bad at wounding, as basically its only real downside
