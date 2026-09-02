@@ -47,6 +47,16 @@
 	light_color = LIGHT_COLOR_FIRE
 	light_range = LIGHT_RANGE_FIRE
 
+//spawns the fire effect on a tile and burns/ignites everyone standing on it - shared by both the traced line and its widening tiles
+/obj/item/ammo_casing/caseless/flamethrower/proc/ignite_turf(turf/T)
+	new /obj/effect/hotspot(T, flame_volume, flame_temperature) //turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
+	for(var/mob/living/L in T)
+		L.adjust_fire_stacks(ignite_fire_stacks)
+		L.IgniteMob()
+		//run through "fire" armor like any other damage source, instead of a flat adjustFireLoss() bypass - so fire-rated suits (hazmat, power armor) give real counterplay against being hosed
+		var/blocked = L.run_armor_check(null, "fire")
+		L.apply_damage(direct_burn_damage, BURN, null, blocked)
+
 //guaranteed line-of-fire, no RNG spread - a stream of napalm doesn't miss, it just has a short reach and stops at walls
 /obj/item/ammo_casing/caseless/flamethrower/fire_casing(atom/target, mob/living/user, params, distro, quiet, zone_override, spread, damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, atom/fired_from)
 	var/turf/userloc = get_turf(user)
@@ -64,24 +74,29 @@
 
 	QDEL_NULL(BB)
 
-	var/list/turf/line = getline(userloc, targloc)
+	//sample the exact same trigonometric centerline /datum/beam/proc/Draw() uses below, instead of a separate getline() Bresenham guess -
+	//that way the tiles that actually burn are always the tiles the beam graphic is actually drawn over, angle for angle
+	var/Angle = round(Get_Angle(userloc, targloc))
+	var/DX = (32 * targloc.x + targloc.pixel_x) - (32 * userloc.x + userloc.pixel_x)
+	var/DY = (32 * targloc.y + targloc.pixel_y) - (32 * userloc.y + userloc.pixel_y)
+	var/beam_length = round(sqrt(DX ** 2 + DY ** 2))
 	var/turf/previous = userloc
+	var/turf/last_turf = userloc
 	var/tiles_burned = 0
-	for(var/turf/T in line)
-		if(T == userloc)
+	for(var/N = 0, N < beam_length, N += 32)
+		var/Pixel_x = DX ? round(sin(Angle) + 32 * sin(Angle) * (N + 16) / 32) : 0
+		var/Pixel_y = DY ? round(cos(Angle) + 32 * cos(Angle) * (N + 16) / 32) : 0
+		var/turf/T = locate(userloc.x + round(Pixel_x / 32), userloc.y + round(Pixel_y / 32), userloc.z)
+		if(!istype(T) || T == last_turf)
 			continue
+		last_turf = T
 		if(tiles_burned >= flame_range)
 			break
 		//reachableAdjacentTurfs() is an A* pathing helper that only ever returns CARDINAL neighbours - using it here silently capped the stream to N/E/S/W. Just check the tile itself for a wall/dense blocker instead, which works for diagonals too.
-		if(is_blocked_turf(T))
+		//exclude_mobs = TRUE - mobs are dense too, but a flamethrower should wash over a person and keep going, not treat them as a wall
+		if(is_blocked_turf(T, TRUE))
 			break //flame doesn't pass through walls
-		new /obj/effect/hotspot(T, flame_volume, flame_temperature) //turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
-		for(var/mob/living/L in T)
-			L.adjust_fire_stacks(ignite_fire_stacks)
-			L.IgniteMob()
-			//run through "fire" armor like any other damage source, instead of a flat adjustFireLoss() bypass - so fire-rated suits (hazmat, power armor) give real counterplay against being hosed
-			var/blocked = L.run_armor_check(null, "fire")
-			L.apply_damage(direct_burn_damage, BURN, null, blocked)
+		ignite_turf(T)
 		previous = T
 		tiles_burned++
 
