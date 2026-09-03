@@ -71,6 +71,11 @@
 	///What character we spawned in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
 	var/mob/original_character
 
+	/// Points earned from the faction bounty board this round, see code/modules/objectives/bounty/
+	var/bounty_points = 0
+	/// Assoc list of FACTION_* string -> standing earned with that faction's bounty board this round.
+	var/list/bounty_reputation = list()
+
 
 /datum/mind/New(key)
 	skill_holder = new(src)
