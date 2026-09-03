@@ -491,7 +491,8 @@
 	parts += span_header("Bounty Board:")
 	parts += "<ul class='playerlist'>"
 	for(var/datum/mind/bounty_mind in scored_minds)
-		var/line = "<b>[bounty_mind.name]</b>[bounty_mind.hide_ckey ? "" : " (Played by: <b>[bounty_mind.key]</b>)"] earned <b>[bounty_mind.bounty_points]</b> bounty points"
+		// Bounty hunting is anonymous work, unlike the antag reports above - never show the ckey here.
+		var/line = "<b>[bounty_mind.name]</b> earned <b>[bounty_mind.bounty_points]</b> bounty points"
 		if(bounty_mind.bounty_points >= BOUNTY_GREENTEXT_THRESHOLD)
 			line += " - " + span_greentext("<B>Bounty Hunter!</B>")
 		parts += "<li>[line]</li>"
