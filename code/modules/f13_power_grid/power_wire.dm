@@ -149,18 +149,15 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 			var/mob/living/L = usr
 			L.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 
-/obj/structure/cable/handlecable(obj/item/W, mob/user, params)
-	if(istype(W, /obj/item/wirecutters) && isliving(user))
-		if(f13_cable_is_live(get_turf(src)))
-			to_chat(user, span_danger("You cut a live power cable — electricity surges through you!"))
+/obj/structure/cable/attackby(obj/item/W, mob/user, params)
+	. = ..()
+	if(istype(W, /obj/item/wirecutters) && !QDELETED(src))
+		if(f13_cable_is_live(get_turf(src)) && isliving(user))
 			var/mob/living/L = user
 			L.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
-	// Capture turf before ..() deletes the cable via deconstruct().
-	var/turf/cut_turf = istype(W, /obj/item/wirecutters) ? get_turf(src) : null
-	..()
-	// After cut: notify all F13 machines to prune any connection that relied on this cable.
-	if(cut_turf)
-		f13_notify_cable_cut(cut_turf)
+		var/turf/cut_turf = get_turf(src)
+		if(cut_turf)
+			f13_notify_cable_cut(cut_turf)
 
 /// Notify all F13 generators and relays that a cable was removed at turf T so they
 /// can prune any logical connections that no longer have a physical cable path.
