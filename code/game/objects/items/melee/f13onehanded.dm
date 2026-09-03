@@ -324,7 +324,7 @@ obj/item/melee/onehanded/knife/switchblade
 		user.visible_message("[user] begins cleaning the blade of the [src].", \
 				span_notice("You begin scrubbing the [src] with Abraxo. Smells nice."), \
 				span_italic("You hear faint sounds of scrubbing."))
-		playsound(get_turf(src), 'sound/FermiChem/heatdam.ogg', 50, TRUE)
+		playsound(get_turf(src), 'sound/weapons/bladeslice.ogg', 50, TRUE)
 		if(!do_after(user, 60, TRUE, src))
 			return
 		new /obj/item/melee/onehanded/knife/cosmic(drop_location())

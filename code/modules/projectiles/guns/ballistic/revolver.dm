@@ -834,7 +834,6 @@
 
 
 // -------------- HoS Modular Weapon System -------------
-// ---------- Code originally from VoreStation ----------
 /obj/item/gun/ballistic/revolver/mws
 	name = "MWS-01 'Big Iron'"
 	desc = "Modular Weapons System"

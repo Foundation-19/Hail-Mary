@@ -524,10 +524,9 @@
 			else
 				if (C.FermiChem)//Just to make sure, should only proc when grenades are combining.
 					if (chem_temp > C.ExplodeTemp) //To allow fermigrenades
-						var/datum/chemical_reaction/fermi/Ferm = selected_reaction
 						fermiIsReacting = FALSE
-						SSblackbox.record_feedback("tally", "fermi_chem", 1, ("[Ferm] explosion"))
-						Ferm.FermiExplode(src, my_atom, volume = total_volume, temp = chem_temp, pH = pH)
+						SSblackbox.record_feedback("tally", "fermi_chem", 1, ("[C] explosion"))
+						C.FermiExplode(src, my_atom, volume = total_volume, temp = chem_temp, pH = pH)
 					return 0
 
 				for(var/B in cached_required_reagents) //
@@ -887,7 +886,7 @@
 			var/datum/effect_system/smoke_spread/chem/s = new
 			var/turf/T = get_turf(my_atom)
 			var/datum/reagents/R = new/datum/reagents(3000)
-			R.add_reagent(/datum/reagent/fermi/fermiAcid, amount)
+			R.add_reagent(/datum/reagent/toxin/acid, amount)
 			for (var/datum/reagent/reagentgas in reagent_list)
 				R.add_reagent(reagentgas, amount/5)
 				remove_reagent(reagentgas, amount/5)

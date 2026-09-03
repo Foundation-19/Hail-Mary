@@ -358,7 +358,7 @@ GLOBAL_LIST_EMPTY(player_made_nests)
 	mob_types = list(/mob/living/simple_animal/hostile/stalker = 5,
 					/mob/living/simple_animal/hostile/stalkeryoung = 5)
 
-// Nests for mobs that are special and/or dont have any nearby nests to unbirth into
+// Nests for mobs that are special and/or dont have any nearby nests to despawn into
 /obj/structure/nest/special
 	name = "special nest"
 	max_mobs = 20

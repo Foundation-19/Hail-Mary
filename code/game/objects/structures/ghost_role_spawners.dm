@@ -937,7 +937,7 @@
 
 //Pop a human in here to increase the number of uses by 1 and melt the human
 /obj/effect/mob_spawn/human/fev_pit/proc/melt_em(mob/living/carbon/human/M)
-	playsound(get_turf(src), 'sound/FermiChem/acidmelt.ogg', 50, 0, 2)
+	playsound(get_turf(src), 'sound/effects/flesh_impact_1.ogg', 50, 0, 2)
 	uses++
 	qdel(M)
 

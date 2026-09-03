@@ -92,7 +92,6 @@ All foods are distributed among various categories. Use common sense.
 		if(isliving(location))
 			location.put_in_hands(trash_item)
 			return
-		SEND_SIGNAL(location, COMSIG_BELLY_HANDLE_TRASH, trash_item)
 		return
 
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
@@ -103,7 +102,7 @@ All foods are distributed among various categories. Use common sense.
 		return ..()
 	INVOKE_ASYNC(src, PROC_REF(attempt_forcefeed), M, user)
 
-/obj/item/reagent_containers/food/snacks/proc/attempt_forcefeed(mob/living/M, mob/living/user, forced, silent, vorebite)
+/obj/item/reagent_containers/food/snacks/proc/attempt_forcefeed(mob/living/M, mob/living/user, forced, silent)
 	if(!eatverb)
 		eatverb = pick("bite","chew","nibble","gnaw","gobble","chomp")
 	if(!reagents.total_volume) //Shouldn't be needed but it checks to see if it has anything left in it.
@@ -194,11 +193,8 @@ All foods are distributed among various categories. Use common sense.
 				span_danger("[user] forces [M] to eat [src]!</span>"),
 				span_userdanger("[user] forces you to eat [src]!</span>"))
 
-		if(reagents) //Handle ingestion of the reagent.
-			if(vorebite)
-				log_combat(user, M, "vored-fed themself", src.reagents.log_list())
-			else
-				log_combat(user, M, "fed", src.reagents.log_list())
+		if(reagents)
+			log_combat(user, M, "fed", src.reagents.log_list())
 			if(M.satiety > -200)
 				M.satiety -= junkiness
 			if(!silent)
@@ -209,9 +205,8 @@ All foods are distributed among various categories. Use common sense.
 				reagents.reaction(M, INGEST, fraction)
 				reagents.trans_to(M, bitesize, log = TRUE)
 				bitecount++
-				On_Consume(M, vorebite)
-				if(!vorebite)
-					checkLiked(fraction, M)
+				On_Consume(M)
+				checkLiked(fraction, M)
 				return 1
 
 	return 0

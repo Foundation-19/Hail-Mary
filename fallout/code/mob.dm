@@ -221,7 +221,7 @@
 /mob/living/simple_animal/pet/wolf/direwolf
 	name = "dire wolf"
 	desc = "The biggest and baddest wolf around"
-	icon = 'icons/mob/vore64x32.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_dead = "direwolf-dead"
 	icon_living = "direwolf"
 	icon_state = "direwolf"

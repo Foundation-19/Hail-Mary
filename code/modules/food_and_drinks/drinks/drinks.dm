@@ -26,7 +26,7 @@
 /obj/item/reagent_containers/food/drinks/attack(mob/living/M, mob/user, def_zone)
 	INVOKE_ASYNC(src, PROC_REF(attempt_forcedrink), M, user)
 
-/obj/item/reagent_containers/food/drinks/proc/attempt_forcedrink(mob/living/M, mob/user, force, silent, vorebite)
+/obj/item/reagent_containers/food/drinks/proc/attempt_forcedrink(mob/living/M, mob/user, force, silent)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return 0
@@ -38,7 +38,7 @@
 		to_chat(user, span_warning("[src]'s lid hasn't been opened!"))
 		return 0
 
-	if(M == user || vorebite)
+	if(M == user)
 		if(!silent)
 			user.visible_message(span_notice("[user] swallows a gulp of [src]."), span_notice("You swallow a gulp of [src]."))
 	else
@@ -47,14 +47,13 @@
 		if(!do_mob(user, M))
 			return
 		if(!reagents || !reagents.total_volume)
-			return // The drink might be empty after the delay, such as by spam-feeding
+			return
 		if(!silent)
 			M.visible_message(span_danger("[user] feeds the contents of [src] to [M]."), span_userdanger("[user] feeds the contents of [src] to [M]."))
 		log_combat(user, M, "fed", reagents.log_list())
 
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
-	if(!vorebite)
-		checkLiked(fraction, M)
+	checkLiked(fraction, M)
 	reagents.reaction(M, INGEST, fraction)
 	reagents.trans_to(M, gulp_size, log = TRUE)
 	if(!silent)
@@ -586,13 +585,12 @@
 		crush_can(user)
 	..()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/proc/crush_can(mob/user, silent, vorebite)
+/obj/item/reagent_containers/food/drinks/soda_cans/proc/crush_can(mob/user, silent)
 	if(!silent)
 		user.visible_message(span_warning("[user] crushes the can of [src] on [user.p_their()] forehead!"), span_notice("You crush the can of [src] on your forehead."))
 	playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
-	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(vorebite ? loc : get_turf(src))
+	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(get_turf(src))
 	crushed_can.icon_state = icon_state
-	SEND_SIGNAL(loc, COMSIG_BELLY_HANDLE_TRASH, crushed_can)
 	qdel(src)
 
 /obj/item/reagent_containers/food/drinks/soda_cans/attack_self(mob/user)

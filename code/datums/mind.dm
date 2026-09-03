@@ -135,8 +135,7 @@
 		new_character.client.init_verbs() // re-initialize character specific verbs
 	current.update_atom_languages()
 
-//CIT CHANGE - makes arousal update when transfering bodies
-	if(isliving(new_character)) //New humans and such are by default enabled arousal. Let's always use the new mind's prefs.
+	if(isliving(new_character))
 		var/mob/living/L = new_character
 		if(L.client?.prefs && L.client.prefs.auto_ooc && L.client.prefs.chat_toggles & CHAT_OOC)
 			DISABLE_BITFIELD(L.client.prefs.chat_toggles,CHAT_OOC)

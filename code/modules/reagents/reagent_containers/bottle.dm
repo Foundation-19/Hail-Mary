@@ -226,11 +226,6 @@
 	desc = "A small bottle of atropine."
 	list_reagents = list(/datum/reagent/medicine/atropine = 30)
 
-/obj/item/reagent_containers/glass/bottle/zeolites
-	name = "Zeolites bottle"
-	desc = "A small bottle of lab made Zeolite, which removes radiation from people quickly as well as contamination on items."
-	list_reagents = list(/datum/reagent/fermi/zeolites = 30)
-
 // Viro bottles
 
 /obj/item/reagent_containers/glass/bottle/romerol
