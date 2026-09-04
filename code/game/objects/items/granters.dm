@@ -658,7 +658,7 @@
 	icon_state = "gab1"
 	oneuse = TRUE
 	remarks = list("Always keep your gun well lubricated...", "Keep your barrel free of grime...", "Perfect fitment is the key to a good firearm...", "Maintain a proper trigger pull length...", "Keep your sights zeroed to proper range...")
-	crafting_recipe_types = list(/datum/crafting_recipe/ninemil, /datum/crafting_recipe/huntingrifle, /datum/crafting_recipe/tec22, /datum/crafting_recipe/mp5)
+	crafting_recipe_types = list(/datum/crafting_recipe/ninemil, /datum/crafting_recipe/huntingrifle, /datum/crafting_recipe/tec22, /datum/crafting_recipe/mp5, /datum/crafting_recipe/flintlock)
 
 /obj/item/book/granter/crafting_recipe/gunsmith_two
 	name = "Guns and Bullets, Part 2"
@@ -690,7 +690,7 @@
 	icon_state = "book1"
 	oneuse = TRUE
 	remarks = list("The first rule of gun safety is to have fun...", ".45 ACP is God's gift to mankind...", "Nyet, rifle is fine...", "That's a gimmick sonny, back in my day...", "Studies show that the higher you set your sights, the harder the bullet hits...")
-	crafting_recipe_types = list(/datum/crafting_recipe/eastern_pdw, /datum/crafting_recipe/eastern_compact_shotgun, /datum/crafting_recipe/eastern_light_machine_gun, /datum/crafting_recipe/eastern_assassin_rifle , /datum/crafting_recipe/killer, /datum/crafting_recipe/raidertrigger, /datum/crafting_recipe/blender)
+	crafting_recipe_types = list(/datum/crafting_recipe/eastern_pdw, /datum/crafting_recipe/eastern_compact_shotgun, /datum/crafting_recipe/eastern_light_machine_gun, /datum/crafting_recipe/killer, /datum/crafting_recipe/raidertrigger, /datum/crafting_recipe/blender)
 
 /obj/item/book/granter/crafting_recipe/scav_one
 	name = "SCAV! Issue 1"
@@ -723,20 +723,10 @@
 	oneuse = TRUE
 	remarks = list()
 
-/obj/item/book/granter/crafting_recipe/blueprint/r82
-	name = "r82 heavy service rifle blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/R82)
-
 /obj/item/book/granter/crafting_recipe/blueprint/marksman
 	name = "marksman carbine blueprint"
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/marksmancarbine)
-
-/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn
-	name = "worn marksman carbine blueprint"
-	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/marksmancarbine/worn)
 
 /obj/item/book/granter/crafting_recipe/blueprint/combatrifle
 	name = "combat rifle blueprint"
@@ -832,15 +822,15 @@
 	icon_state = "blueprint2"
 	crafting_recipe_types = list(/datum/crafting_recipe/AER9)
 
-/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused
-	name = "hotwired aer9 blueprint"
+/obj/item/book/granter/crafting_recipe/blueprint/aer9/overclocked
+	name = "overclocked aer9 blueprint"
 	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/aer9_hotwired)
+	crafting_recipe_types = list(/datum/crafting_recipe/aer9_overclocked)
 
-/obj/item/book/granter/crafting_recipe/blueprint/aer9/focused/rynn
+/obj/item/book/granter/crafting_recipe/blueprint/aer9/overclocked/rynn
 	name = "aer10 blueprint"
 	icon_state = "blueprint2"
-	crafting_recipe_types = list(/datum/crafting_recipe/aer9_hotwired_rynn)
+	crafting_recipe_types = list(/datum/crafting_recipe/aer9_overclocked_rynn)
 
 /obj/item/book/granter/crafting_recipe/blueprint/plasmarifle
 	name = "plasma rifle blueprint"

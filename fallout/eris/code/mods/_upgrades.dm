@@ -267,6 +267,8 @@
 		G.damage_multiplier += weapon_upgrades[GUN_UPGRADE_DAMAGEMOD_PLUS]
 	if(weapon_upgrades[GUN_UPGRADE_PEN_MULT])
 		G.penetration_multiplier *= weapon_upgrades[GUN_UPGRADE_PEN_MULT]
+	if(weapon_upgrades[GUN_UPGRADE_DT_PEN_ADD])
+		G.dt_penetration_bonus += weapon_upgrades[GUN_UPGRADE_DT_PEN_ADD]
 	//if(weapon_upgrades[GUN_UPGRADE_PIERC_MULT])
 	//	G.pierce_multiplier += weapon_upgrades[GUN_UPGRADE_PIERC_MULT]
 	//if(weapon_upgrades[GUN_UPGRADE_RICO_MULT])
@@ -281,8 +283,8 @@
 		G.slowdown *= weapon_upgrades[GUN_UPGRADE_MOVE_DELAY_MULT]
 	if(weapon_upgrades[GUN_UPGRADE_RECOIL])
 		G.recoil_dat = G.recoil_dat.modifyAllRatings(weapon_upgrades[GUN_UPGRADE_RECOIL])
-	//if(weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH])
-	//	G.muzzle_flash *= weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH]
+	if(weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH])
+		G.muzzleflash_multiplier *= weapon_upgrades[GUN_UPGRADE_MUZZLEFLASH]
 	if(weapon_upgrades[GUN_UPGRADE_SILENCER])
 		G.silenced = weapon_upgrades[GUN_UPGRADE_SILENCER]
 	if(weapon_upgrades[GUN_UPGRADE_OFFSET])

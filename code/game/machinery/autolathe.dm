@@ -772,50 +772,27 @@
 /obj/machinery/autolathe/ammo/can_build(datum/design/D, amount = 1)
 	if(!D)
 		return FALSE
-	if("Handloaded Ammo" in D.category)
-		return ..()
-	if("Handmade Magazines" in D.category)
-		return ..()
-	if("Simple Ammo" in D.category)
-		if(simple == 0)
-			return FALSE
-		else
-			return ..()
-	if("Simple Magazines" in D.category)
-		if(simple == 0)
-			return FALSE
-		else
-			return ..()
-	if("Basic Ammo" in D.category)
-		if(basic == 0)
-			return FALSE
-		else
-			return ..()
-	if("Basic Magazines" in D.category)
-		if(basic == 0)
-			return FALSE
-		else
-			return ..()
-	if("Intermediate Ammo" in D.category)
-		if(intermediate == 0)
-			return FALSE
-		else
-			return ..()
-	if("Intermediate Magazines" in D.category)
-		if(intermediate == 0)
-			return FALSE
-		else
-			return ..()
-	if("Advanced Ammo" in D.category)
+	// Check the highest tier tag present first, so a design that's ALSO tagged
+	// "Handloaded Ammo"/"Handmade Magazines" (the always-available baseline tags)
+	// can't skip its real tier gate and slip through the free improvised bench.
+	if(("Advanced Ammo" in D.category) || ("Advanced Magazines" in D.category))
 		if(advanced == 0)
 			return FALSE
-		else
-			return ..()
-	if("Advanced Magazines" in D.category)
-		if(advanced == 0)
+		return ..()
+	if(("Intermediate Ammo" in D.category) || ("Intermediate Magazines" in D.category))
+		if(intermediate == 0)
 			return FALSE
-		else
-			return ..()
+		return ..()
+	if(("Basic Ammo" in D.category) || ("Basic Magazines" in D.category))
+		if(basic == 0)
+			return FALSE
+		return ..()
+	if(("Simple Ammo" in D.category) || ("Simple Magazines" in D.category))
+		if(simple == 0)
+			return FALSE
+		return ..()
+	if(("Handloaded Ammo" in D.category) || ("Handmade Magazines" in D.category))
+		return ..()
 
 	// Default fallback for designs not in any of the above categories
 	return ..()
@@ -843,11 +820,10 @@
 	add_overlay("book1")
 	add_overlay("book2")
 
+// Used to grant every tier for free; now matches unlocked_basic so top-tier ammo still requires finding parts 3-4 out in the world.
 /obj/machinery/autolathe/ammo/unlocked
 	simple = 1
 	basic = 1
-	intermediate = 1
-	advanced = 1
 
 /obj/machinery/autolathe/ammo/improvised
 	name = "improvised handloader bench"
@@ -912,6 +888,4 @@
 	. = ..()
 	add_overlay("book1")
 	add_overlay("book2")
-	add_overlay("book3")
-	add_overlay("book4")
 

@@ -995,7 +995,7 @@ Mayor
 	/obj/item/mop = 1,
 	/obj/item/reagent_containers/glass/bucket/plastic = 1,
 	/obj/item/broom = 1,
-	/obj/item/stack/sheet/metal/fifty = 1,
+	/obj/item/stack/sheet/metal/ten = 1,
 	/obj/item/lightreplacer = 1,
 	/obj/item/reagent_containers/spray/cleaner = 1
 	)
@@ -1044,7 +1044,6 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/military
 	belt = /obj/item/storage/belt/bandolier
 	backpack_contents = list(
-	/obj/item/gun/ballistic/automatic/combat/worn = 1,
 	/obj/item/ammo_box/magazine/tommygunm45/stick = 2,
 	/obj/item/shovel/trench =1,
 	/obj/item/binoculars = 1,

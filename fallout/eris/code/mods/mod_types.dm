@@ -414,7 +414,7 @@
 */
 /obj/item/tool_upgrade/refinement/ported_barrel
 	name = "ported barrel"
-	desc = "A barrel extension for a welding tool (or gun) which helps manage gas pressure and keep the torch (or barrel) steady. When attached to a gun it allows for greater recoil control and a smaller flash at the cost of stopping power."
+	desc = "A barrel extension for a welding tool (or gun) which helps manage gas pressure and keep the torch (or barrel) steady. When attached to a gun it vents gas to allow faster cycling."
 	icon_state = "ported_barrel"
 
 /obj/item/tool_upgrade/refinement/ported_barrel/New()
@@ -428,14 +428,29 @@
 	)*/
 	I.weapon_upgrades = list(
 		GUN_UPGRADE_FIRE_DELAY_MULT = 0.90,
-		GUN_UPGRADE_PROJ_SPEED_MULT = 1.05,
-		GUN_UPGRADE_MUZZLEFLASH = 0.8,
-		GUN_UPGRADE_RECOIL = 0.8
+		GUN_UPGRADE_PROJ_SPEED_MULT = 1.05
 	)
 	I.req_gun_tags = list(GUN_PROJECTILE)
-	I.gun_loc_tag = GUN_MUZZLE
+	I.gun_loc_tag = GUN_BARREL //shares a slot with forged barrel, can no longer stack fire rate bonuses
 	//I.required_qualities = list(QUALITY_WELDING)
 	I.prefix = "ported"
+
+/obj/item/tool_upgrade/refinement/focusing_lens
+	name = "focusing lens"
+	desc = "A precision-ground lens that tightens an energy weapon's beam, letting more of each shot's energy punch through armor plating at the cost of a wider firing signature."
+	icon_state = "compensatedbarrel"
+
+/obj/item/tool_upgrade/refinement/focusing_lens/New()
+	..()
+	var/datum/component/item_upgrade/I = AddComponent(/datum/component/item_upgrade)
+	I.weapon_upgrades = list(
+		GUN_UPGRADE_DT_PEN_ADD = 5,
+		GUN_UPGRADE_MUZZLEFLASH = 1.3,
+		GUN_UPGRADE_CHARGECOST = 1.15
+	)
+	I.req_gun_tags = list(GUN_ENERGY)
+	I.gun_loc_tag = GUN_BARREL
+	I.prefix = "piercing"
 /*
 /obj/item/tool_upgrade/refinement/compensatedbarrel
 	name = "gravity compensated barrel"

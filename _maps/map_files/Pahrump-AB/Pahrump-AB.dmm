@@ -20610,7 +20610,6 @@
 /area/f13/building/museum)
 "cLb" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/ballistic/automatic/pistol/n99/executive/worn,
 /turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/building)
 "cLe" = (
