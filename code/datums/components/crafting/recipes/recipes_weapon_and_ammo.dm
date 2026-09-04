@@ -251,6 +251,8 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_AMMO
+	// its own gun already requires learning - the ammo shouldn't be free when the gun isn't.
+	always_available = FALSE
 
 /datum/crafting_recipe/field_arrow
 	name = "Field Arrow"

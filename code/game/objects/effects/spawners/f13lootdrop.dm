@@ -2343,6 +2343,7 @@
 	name = "good trait book spawner"
 	icon_state = "book_loot"
 	lootcount = 1
+	// gunsmith_three/four dropped to pa_wear-tier rarity - this spawner is placed 228 times across the maps, so any higher weight makes top-tier gunsmithing common instead of scarce.
 	loot = list(/obj/item/book/granter/trait/lowsurgery = 10,
 				/obj/item/book/granter/trait/chemistry = 10,
 				/obj/item/book/granter/trait/trekking = 10,
@@ -2352,8 +2353,8 @@
 				/obj/item/book/granter/trait/explosives_advanced = 5,
 				/obj/item/book/granter/trait/rifleman = 5,
 				/obj/item/book/granter/trait/lockpicking = 3,
-				/obj/item/book/granter/crafting_recipe/gunsmith_three = 10,
-				/obj/item/book/granter/crafting_recipe/gunsmith_four = 10,
+				/obj/item/book/granter/crafting_recipe/gunsmith_three = 2,
+				/obj/item/book/granter/crafting_recipe/gunsmith_four = 2,
 //				/obj/item/book/granter/crafting_recipe/gunsmith_five = 5
 				)
 
@@ -2387,6 +2388,25 @@
 				/obj/item/book/granter/action/drink_fling = 10,
 				/obj/item/book/granter/crafting_recipe/gunsmith_one = 10,
 				/obj/item/book/granter/crafting_recipe/gunsmith_two = 10,
+				)
+
+// Regenerating variant for mappers who want a book cache that's worth guarding/revisiting instead of a one-time pickup - not placed on any map yet.
+/obj/effect/spawner/lootdrop/regenerating/f13/traitbooks
+	name = "good trait book cache"
+	icon_state = "book_loot"
+	lootcount = 1
+	respawn_time = 45 MINUTES
+	loot = list(/obj/item/book/granter/trait/lowsurgery = 10,
+				/obj/item/book/granter/trait/chemistry = 10,
+				/obj/item/book/granter/trait/trekking = 10,
+				/obj/item/book/granter/trait/techno = 10,
+				/obj/item/book/granter/trait/pa_wear = 1,
+				/obj/item/book/granter/trait/explosives = 10,
+				/obj/item/book/granter/trait/explosives_advanced = 5,
+				/obj/item/book/granter/trait/rifleman = 5,
+				/obj/item/book/granter/trait/lockpicking = 3,
+				/obj/item/book/granter/crafting_recipe/gunsmith_three = 2,
+				/obj/item/book/granter/crafting_recipe/gunsmith_four = 2,
 				)
 
 /obj/effect/spawner/lootdrop/f13/blueprintLow

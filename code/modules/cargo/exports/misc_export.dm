@@ -253,16 +253,14 @@
 /datum/export/item/traitbooks
 	cost = 1000
 	unit_name = "high-quality technical manual"
+	// Gunsmith parts 2-4 are scavenge-only now - selling them here bypassed exploration entirely.
 	export_types = list(/obj/item/book/granter/trait/lowsurgery,
 				/obj/item/book/granter/trait/chemistry,
 				/obj/item/book/granter/trait/trekking,
 				/obj/item/book/granter/trait/pa_wear,
 				/obj/item/book/granter/trait/explosives,
 				/obj/item/book/granter/trait/explosives_advanced,
-				/obj/item/book/granter/trait/rifleman,
-				/obj/item/book/granter/crafting_recipe/gunsmith_two,
-				/obj/item/book/granter/crafting_recipe/gunsmith_three,
-				/obj/item/book/granter/crafting_recipe/gunsmith_four)
+				/obj/item/book/granter/trait/rifleman)
 
 /datum/export/item/crops
 	cost = 50

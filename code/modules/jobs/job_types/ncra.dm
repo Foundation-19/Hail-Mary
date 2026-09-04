@@ -655,9 +655,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/book/granter/trait/explosives = 1,
 		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/stack/sheet/metal/fifty = 1,
+		/obj/item/stack/sheet/metal/twenty = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
-		/obj/item/stack/ore/blackpowder/twenty = 1,
+		// Blackpowder ore removed - no reason a construction specialist starts with free ammo-crafting material.
 		)
 
 /datum/outfit/loadout/combatengineertrapper
