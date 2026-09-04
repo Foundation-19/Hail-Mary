@@ -441,11 +441,10 @@
 //"LEGION" BANDANAS//
 /////////////////////
 
+// Base legion bandana - art redirected in legio_invicta.dm
 /obj/item/clothing/mask/bandana/legion
-	name = "legion mask template"
-	desc = "Should not exist."
-	icon = 'icons/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/onmob/clothes/mask.dmi'
+	name = "legion bandana"
+	desc = "A bandana worn by Legion members."
 	flags_inv = HIDEFACE
 	visor_flags_inv = HIDEFACE
 	adjusted_flags = null
