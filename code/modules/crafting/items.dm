@@ -207,7 +207,7 @@ GLOBAL_LIST_INIT(blueprint_fluff, list(
 
 /obj/item/advanced_crafting_components
 	name = "crafting blueprint"
-	icon = 'icons/obj/items.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "blueprint_empty"
 	w_class = WEIGHT_CLASS_TINY
 
