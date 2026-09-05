@@ -1,20 +1,20 @@
 
-var/human_factions = list()
+GLOBAL_LIST_EMPTY(human_factions)
 
 proc/get_faction_by_freq(freq)
-	for(var/F in human_factions)
+	for(var/F in GLOB.human_factions)
 		var/datum/f13_faction/datum = get_faction_datum(F)
 		if(freq == datum.freq)
 			return datum.id
 	return null
 
 proc/get_faction_datum(faction)
-	if(!human_factions[faction])
+	if(!GLOB.human_factions[faction])
 		return null
 
-	return human_factions[faction]
+	return GLOB.human_factions[faction]
 
-proc/get_faction_members(var/faction)
+proc/get_faction_members(faction)
 	var/list/mobs = list()
 	for(var/mob/M in world)
 		if(M.social_faction == faction)
@@ -167,7 +167,7 @@ mob/proc/begin_head_voting()
 
 	return 1
 
-mob/proc/set_faction(var/faction)
+mob/proc/set_faction(faction)
 	/*if((faction == "bs") || (faction == "enclave"))
 		src:perks.add(/datum/perk_hidden/powerArmor)
 	*/

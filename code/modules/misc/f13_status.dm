@@ -2,12 +2,12 @@
 	var/status = "none"
 	var/list/allow_recipes = list()
 
-var/human_status = list()
+GLOBAL_LIST_EMPTY(human_status)
 
 proc/get_status_datum(status)
-	if(!human_status[status])
+	if(!GLOB.human_status[status])
 		return null
-	return human_status[status]
+	return GLOB.human_status[status]
 
 proc/remove_everyone_from_status(status)
 	var/datum/status/S = get_status_datum(status)
@@ -60,7 +60,7 @@ proc/get_mobs_by_status(status)
 	if(can_invite_to.len)
 		verbs += /mob/proc/convert_to_status
 
-mob/proc/set_status(var/status)
+mob/proc/set_status(status)
 	var/datum/status/S = get_status_datum(status)
 	var/datum/status/last_S = get_status_datum(src.status)
 	if(!S)

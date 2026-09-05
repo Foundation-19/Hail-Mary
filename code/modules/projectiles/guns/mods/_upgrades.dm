@@ -260,7 +260,7 @@
 	T.switched_on_force = initial(T.switched_on_force) * T.force_upgrade_mults + T.force_upgrade_mods
 	T.prefixes |= prefix
 */
-/datum/component/item_upgrade/proc/apply_values_gun(var/obj/item/gun/G)
+/datum/component/item_upgrade/proc/apply_values_gun(obj/item/gun/G)
 	if(weapon_upgrades[GUN_UPGRADE_DAMAGE_MULT])
 		G.damage_multiplier *= weapon_upgrades[GUN_UPGRADE_DAMAGE_MULT]
 	if(weapon_upgrades[GUN_UPGRADE_DAMAGEMOD_PLUS])

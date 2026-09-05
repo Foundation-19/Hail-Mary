@@ -1,16 +1,16 @@
-/mob/living/proc/handle_recoil(var/obj/item/gun/G, var/recoil_buildup)
+/mob/living/proc/handle_recoil(obj/item/gun/G, recoil_buildup)
 	deltimer(recoil_reduction_timer)
 
 	add_recoil(recoil_buildup)
 
-/mob/living/proc/external_recoil(var/recoil_buildup) // Used in human_attackhand.dm
+/mob/living/proc/external_recoil(recoil_buildup) // Used in human_attackhand.dm
 	deltimer(recoil_reduction_timer)
 	add_recoil(recoil_buildup)
 
 mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	return // Ghosts and roaches have no movement recoil
 
-/mob/living/proc/add_recoil(var/recoil_buildup)
+/mob/living/proc/add_recoil(recoil_buildup)
 	if(recoil_buildup)
 		if(HAS_TRAIT(src, SPREAD_CONTROL))
 			recoil_buildup *= 0.5
@@ -32,7 +32,7 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 		recoil *= scale
 	update_recoil()
 
-/mob/living/proc/calculate_offset(var/offset = 0)
+/mob/living/proc/calculate_offset(offset = 0)
 	if(recoil)
 		offset += recoil
 	if(ishuman(src))
@@ -57,7 +57,7 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 			remove_cursor()
 		deltimer(recoil_reduction_timer)
 
-/mob/living/proc/update_cursor(var/obj/item/gun/G)
+/mob/living/proc/update_cursor(obj/item/gun/G)
 	if(!(istype(get_active_held_item(), /obj/item/gun) || recoil > 0))
 		remove_cursor()
 		return
@@ -75,19 +75,19 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	if(client)
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 
-/proc/find_cursor_icon(var/icon_file, var/offset)
+/proc/find_cursor_icon(icon_file, offset)
 	var/list/L = GLOB.cursor_icons[icon_file]
 	if(L)
 		return L["[offset]"]
 
-/proc/add_cursor_icon(var/icon/icon, var/icon_file, var/offset)
+/proc/add_cursor_icon(icon/icon, icon_file, offset)
 	var/list/L = GLOB.cursor_icons[icon_file]
 	if(!L)
 		GLOB.cursor_icons[icon_file] = list()
 		L = GLOB.cursor_icons[icon_file]
 	L["[offset]"] = icon
 
-/proc/make_cursor_icon(var/icon_file, var/offset)
+/proc/make_cursor_icon(icon_file, offset)
 	var/icon/base = icon('icons/effects/96x96_eris.dmi')
 	var/icon/scaled = icon('icons/obj/eris_standard.dmi') //Default cursor, cut into pieces according to their direction
 	base.Blend(scaled, ICON_OVERLAY, x = 32, y = 32)
@@ -108,7 +108,7 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	add_cursor_icon(base, 'icons/obj/eris_standard.dmi', offset)
 	return base
 
-/proc/send_all_cursor_icons(var/client/C)
+/proc/send_all_cursor_icons(client/C)
 	var/list/cursor_icons = GLOB.cursor_icons
 	for(var/icon_file in cursor_icons)
 		var/list/icons = cursor_icons[icon_file]

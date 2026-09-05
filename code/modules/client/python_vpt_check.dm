@@ -1,4 +1,4 @@
-/proc/escape_shell_arg(var/arg)
+/proc/escape_shell_arg(arg)
 	if(world.system_type == MS_WINDOWS)
 		arg = replacetext(arg, "^", "^^") // Escape char
 		arg = replacetext(arg, "%", "%%") // %PATH% -> %%PATH%%
@@ -11,7 +11,7 @@
 		arg = "'[arg]'"
 	return arg
 
-/proc/check_vpt(var/ckey, var/ip)
+/proc/check_vpt(ckey, ip)
 	var/script = "scripts/vptdetect.py"
 	if(world.system_type == MS_WINDOWS)
 		script = replacetext(script, "/", "\\")

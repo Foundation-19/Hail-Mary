@@ -1,18 +1,18 @@
-var/list/eyebots = list()
+GLOBAL_LIST_EMPTY(eyebots)
 
 /mob/living/simple_animal/hostile/eyebot/virtual
 	var/mob/living/carbon/human/pilot
 
 /mob/living/simple_animal/hostile/eyebot/virtual/New()
 	. = ..()
-	eyebots += src
+	GLOB.eyebots += src
 	src.verbs += /mob/living/simple_animal/hostile/eyebot/virtual/proc/leave
 
 /mob/living/simple_animal/hostile/eyebot/virtual/Del()
 	. = ..()
-	eyebots -= src
+	GLOB.eyebots -= src
 
-/mob/living/simple_animal/hostile/eyebot/virtual/proc/enter(var/mob/user)
+/mob/living/simple_animal/hostile/eyebot/virtual/proc/enter(mob/user)
 	if(ckey)
 		to_chat(user, "Eyebot already under control!")
 		return
@@ -30,7 +30,7 @@ var/list/eyebots = list()
 	if(ckey)
 		leave()
 
-	eyebots -= src
+	GLOB.eyebots -= src
 
 	..(gibbed)
 
@@ -50,16 +50,16 @@ var/list/eyebots = list()
 	popup.set_content(getBotsHTML())
 	popup.open()
 
-/obj/machinery/computer/eyebots/proc/control(var/Index)
-	var/mob/living/simple_animal/hostile/eyebot/virtual/bot = eyebots[Index]
+/obj/machinery/computer/eyebots/proc/control(Index)
+	var/mob/living/simple_animal/hostile/eyebot/virtual/bot = GLOB.eyebots[Index]
 
 	bot.enter(usr)
 	popup.close()
 
 /obj/machinery/computer/eyebots/proc/getBotsHTML()
 	var/html
-	for(var/I = 1 to eyebots.len)
-		var/mob/living/simple_animal/hostile/eyebot/virtual/bot = eyebots[I]
+	for(var/I = 1 to GLOB.eyebots.len)
+		var/mob/living/simple_animal/hostile/eyebot/virtual/bot = GLOB.eyebots[I]
 		if(bot.stat != DEAD)
 			html += "<a href='?src=\ref[src];control=[I]'>[bot.name]</a><br>"
 	return html

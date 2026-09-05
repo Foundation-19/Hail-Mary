@@ -1,82 +1,82 @@
 /obj/structure/billboard/hubris1
-    name = "Hubris billboard"
-    desc = "These types of advertisements used to be popular."
-    icon_state = "hubris1"
+	name = "Hubris billboard"
+	desc = "These types of advertisements used to be popular."
+	icon_state = "hubris1"
 
 /obj/structure/billboard/hubris2
-    name = "Hubris billboard"
-    desc = "These types of advertisements used to be popular.This one appears to be vandalized"
-    icon_state = "hubris2"
+	name = "Hubris billboard"
+	desc = "These types of advertisements used to be popular.This one appears to be vandalized"
+	icon_state = "hubris2"
 
 /obj/structure/billboard/robco
-    name = "Robco billboard"
-    desc = "An advertisement for RobCo Industries."
-    icon_state = "robco1"
+	name = "Robco billboard"
+	desc = "An advertisement for RobCo Industries."
+	icon_state = "robco1"
 
 /obj/structure/billboard/poseidenenergy1
-    name = "Poseiden energy billboard"
-    desc = "An advertisement for Poseiden Energy."
-    icon_state = "poseiden1"
+	name = "Poseiden energy billboard"
+	desc = "An advertisement for Poseiden Energy."
+	icon_state = "poseiden1"
 
 /obj/structure/billboard/poseidenenergy2
-    name = "Poseiden energy billboard"
-    desc = "An advertisement for Poseiden Energy.This one appears to be vandalized"
-    icon_state = "poseiden2"
+	name = "Poseiden energy billboard"
+	desc = "An advertisement for Poseiden Energy.This one appears to be vandalized"
+	icon_state = "poseiden2"
 
 /obj/structure/billboard/poseidenenergy3
-    name = "Poseiden energy billboard"
-    desc = "An advertisement for Poseiden Energy.This one appears to be vandalized"
-    icon_state = "poseiden3"
+	name = "Poseiden energy billboard"
+	desc = "An advertisement for Poseiden Energy.This one appears to be vandalized"
+	icon_state = "poseiden3"
 
 /obj/structure/billboard/sunset
-    name = "Sunset sasaparilla billboard"
-    desc = "An advertisement for Sunset Sasaparilla."
-    icon_state = "sunset1"
+	name = "Sunset sasaparilla billboard"
+	desc = "An advertisement for Sunset Sasaparilla."
+	icon_state = "sunset1"
 
 /obj/structure/billboard/generalatomics1
-    name = "General atomics billboard"
-    desc = "An advertisement for RobCo Industries."
-    icon_state = "generalatomics1"
+	name = "General atomics billboard"
+	desc = "An advertisement for RobCo Industries."
+	icon_state = "generalatomics1"
 
 /obj/structure/billboard/generalatomics2
-    name = "General atomics billboard"
-    desc = "An advertisement for RobCo Industries. This one appears to be vandalized"
-    icon_state = "generalatomics2"
+	name = "General atomics billboard"
+	desc = "An advertisement for RobCo Industries. This one appears to be vandalized"
+	icon_state = "generalatomics2"
 
 /obj/structure/billboard/radiationking
-    name = "Radiation king billboard"
-    desc = "An advertisement for Radiation King."
-    icon_state = "radiationking1"
+	name = "Radiation king billboard"
+	desc = "An advertisement for Radiation King."
+	icon_state = "radiationking1"
 
 /obj/structure/billboard/nukagirl
-    name = "Nuka cola billboard"
-    desc = "An advertisement for Nuka Cola, featuring Nuka Girl."
-    icon_state = "nukagirl1"
+	name = "Nuka cola billboard"
+	desc = "An advertisement for Nuka Cola, featuring Nuka Girl."
+	icon_state = "nukagirl1"
 
 /obj/structure/billboard/nukagirl2
-    name = "Nuka cola billboard"
-    desc = "An advertisement for Nuka Cola, featuring Nuka Girl.This one has been worn down by the wasteland"
-    icon_state = "nukagirl2"
+	name = "Nuka cola billboard"
+	desc = "An advertisement for Nuka Cola, featuring Nuka Girl.This one has been worn down by the wasteland"
+	icon_state = "nukagirl2"
 
 /obj/structure/billboard/redrocket1
-    name = "Red rocket billboard"
-    desc = "An advertisement for Red Rocket Fuel Station"
-    icon_state = "redrocket1"
+	name = "Red rocket billboard"
+	desc = "An advertisement for Red Rocket Fuel Station"
+	icon_state = "redrocket1"
 
 /obj/structure/billboard/redrocket2
-    name = "Red rocket billboard"
-    desc = "An advertisement for Red Rocket Fuel Station. It looks like this one has been tagged by the Khans, and is very worn down."
-    icon_state = "redrocket2"
+	name = "Red rocket billboard"
+	desc = "An advertisement for Red Rocket Fuel Station. It looks like this one has been tagged by the Khans, and is very worn down."
+	icon_state = "redrocket2"
 
 /obj/structure/billboard/superduper1
-    name = "Super duper billboard"
-    desc = "An advertisement for Super Duper Mart."
-    icon_state = "superduper1"
+	name = "Super duper billboard"
+	desc = "An advertisement for Super Duper Mart."
+	icon_state = "superduper1"
 
 /obj/structure/billboard/superduper2
-    name = "Super duper billboard"
-    desc = "An advertisement for Super Duper Mart. This one has been vandalized and worn down by the wasteland"
-    icon_state = "superduper2"
+	name = "Super duper billboard"
+	desc = "An advertisement for Super Duper Mart. This one has been vandalized and worn down by the wasteland"
+	icon_state = "superduper2"
 
 /obj/structure/billboard/random/New()
 	..()
@@ -95,6 +95,6 @@
 	density = 0
 
 /obj/structure/billboard/boardedwell
-    name = "Boarded up well"
-    desc = "An old dryed up well that has been boarded up."
-    icon_state = "well" 
+	name = "Boarded up well"
+	desc = "An old dryed up well that has been boarded up."
+	icon_state = "well"

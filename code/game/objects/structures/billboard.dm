@@ -101,7 +101,7 @@
 	resistance_flags = INDESTRUCTIBLE
 	flags_1 = NODECONSTRUCT_1
 
- /*obj/structure/tarphorizontalbase/Initialize()
+/*obj/structure/tarphorizontalbase/Initialize()
 	. = ..()
 	AddComponent(/datum/component/largetransparency, x_size = 3, y_size = 2) */
 

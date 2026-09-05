@@ -229,20 +229,19 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /turf/open/indestructible/ground/outside/desert/harsh
 	icon_state = "wasteland"
 	icon = 'icons/turf/ground_harsh.dmi'
-var/static/list/desert_icons
+GLOBAL_LIST_EMPTY(desert_icons)
 
 
 /turf/open/indestructible/ground/outside/desert/Initialize()
 	. = ..()
-	if(!desert_icons)
-		desert_icons = list()
+	if(!GLOB.desert_icons.len)
 		for(var/i in 1 to 31)
-			desert_icons += "wasteland[i]"
+			GLOB.desert_icons += "wasteland[i]"
 	if(prob(2))
 		var/obj/derp = pickweight(loots)
 		salvage = new derp()
 	if(icon_state != "wasteland")
-		icon_state = desert_icons[rand(1,31)]
+		icon_state = GLOB.desert_icons[rand(1,31)]
 
 /obj/effect/overlay/desert_side
 	name = "desert"
