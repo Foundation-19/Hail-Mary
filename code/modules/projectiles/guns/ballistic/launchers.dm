@@ -134,7 +134,7 @@
 /obj/item/gun/ballistic/rocketlauncher/romket
 	name = "\improper romckit launcher"
 	desc = ""
-	icon_state = "rocketlauncher"
+	icon_state = "missile_launcher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
 	fire_sound = 'sound/weapons/rocketlaunch.ogg'
