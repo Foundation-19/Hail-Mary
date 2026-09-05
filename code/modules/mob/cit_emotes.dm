@@ -26,7 +26,7 @@
 	if(!user.is_muzzled() && !miming)
 		user.nextsoundemote = world.time + 7
 		if(issilicon(user))
-			sound = 'fallout/sound/voice/scream_silicon.ogg'
+			sound = 'sound/voice/scream_silicon.ogg'
 			if(iscyborg(user))
 				var/mob/living/silicon/robot/S = user
 				if(S.cell?.charge < 20)
@@ -34,27 +34,27 @@
 					return
 				S.cell.use(200)
 		if(ismonkey(user))
-			sound = 'fallout/sound/voice/scream_monkey.ogg'
+			sound = 'sound/voice/scream_monkey.ogg'
 		if(istype(user, /mob/living/simple_animal/hostile/gorilla))
 			sound = 'sound/creatures/gorilla.ogg'
 		if(ishuman(user))
 			user.adjustOxyLoss(5)
-			sound = pick('fallout/sound/voice/scream_m1.ogg', 'fallout/sound/voice/scream_m2.ogg')
+			sound = pick('sound/voice/scream_m1.ogg', 'sound/voice/scream_m2.ogg')
 			if(user.gender == FEMALE)
-				sound = pick('fallout/sound/voice/scream_f1.ogg', 'fallout/sound/voice/scream_f2.ogg')
+				sound = pick('sound/voice/scream_f1.ogg', 'sound/voice/scream_f2.ogg')
 			if(is_species(user, /datum/species/jelly))
 				if(user.gender == FEMALE)
-					sound = pick('fallout/sound/voice/scream_jelly_f1.ogg', 'fallout/sound/voice/scream_jelly_f2.ogg')
+					sound = pick('sound/voice/scream_jelly_f1.ogg', 'sound/voice/scream_jelly_f2.ogg')
 				else
-					sound = pick('fallout/sound/voice/scream_jelly_m1.ogg', 'fallout/sound/voice/scream_jelly_m2.ogg')
+					sound = pick('sound/voice/scream_jelly_m1.ogg', 'sound/voice/scream_jelly_m2.ogg')
 			if(is_species(user, /datum/species/android) || is_species(user, /datum/species/synth) || is_species(user, /datum/species/synthfurry/ipc))
-				sound = 'fallout/sound/voice/scream_silicon.ogg'
+				sound = 'sound/voice/scream_silicon.ogg'
 			if(is_species(user, /datum/species/lizard))
-				sound = 'fallout/sound/voice/scream_lizard.ogg'
+				sound = 'sound/voice/scream_lizard.ogg'
 			if(is_species(user, /datum/species/skeleton))
-				sound = 'fallout/sound/voice/scream_skeleton.ogg'
+				sound = 'sound/voice/scream_skeleton.ogg'
 			if (is_species(user, /datum/species/fly) || is_species(user, /datum/species/insect))
-				sound = 'fallout/sound/voice/scream_moth.ogg'
+				sound = 'sound/voice/scream_moth.ogg'
 		if(isalien(user))
 			sound = 'sound/voice/hiss6.ogg'
 		LAZYINITLIST(user.alternate_screams)
@@ -82,7 +82,7 @@
 	if(user.nextsoundemote >= world.time)
 		return
 	user.nextsoundemote = world.time + 7
-	playsound(user, 'fallout/sound/voice/snap.ogg', 50, 1, -1)
+	playsound(user, 'sound/voice/snap.ogg', 50, 1, -1)
 
 /datum/emote/living/snap2
 	key = "snap2"
@@ -98,7 +98,7 @@
 	if(user.nextsoundemote >= world.time)
 		return
 	user.nextsoundemote = world.time + 7
-	playsound(user, 'fallout/sound/voice/snap2.ogg', 50, 1, -1)
+	playsound(user, 'sound/voice/snap2.ogg', 50, 1, -1)
 
 /datum/emote/living/snap3
 	key = "snap3"
@@ -114,4 +114,4 @@
 	if(user.nextsoundemote >= world.time)
 		return
 	user.nextsoundemote = world.time + 7
-	playsound(user, 'fallout/sound/voice/snap3.ogg', 50, 1, -1)
+	playsound(user, 'sound/voice/snap3.ogg', 50, 1, -1)

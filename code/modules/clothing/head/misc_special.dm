@@ -178,7 +178,7 @@
 	icon_state = "cardborg_h"
 	item_state = "cardborg_h"
 	flags_cover = HEADCOVERSEYES
-	alternate_screams = list('fallout/sound/voice/scream_silicon.ogg')
+	alternate_screams = list('sound/voice/scream_silicon.ogg')
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/rushelmet
 

@@ -377,3 +377,633 @@
 				to_chat(user, span_notice("You move upwards."))
 
 
+
+
+// ==================== Merged from fallout (code\modules\fallout\turf\walls.dm) ====================
+//Fallout 13 general destructible walls directory
+
+/turf/closed/wall/f13/
+	name = "glitch"
+	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Something has caused a glitch in the simulation.</font>"
+	icon = 'icons/turf/walls_f13.dmi'
+	icon_state = "matrix"
+
+/turf/closed/wall/f13/ReplaceWithLattice()
+	ChangeTurf(baseturfs)
+
+/turf/closed/wall/f13/ruins
+	name = "ruins"
+	desc = "All what has left from the good old days."
+	icon = 'icons/turf/walls/f13composite.dmi'
+	icon_state = "ruins"
+	icon_type_smooth = "ruins"
+	hardness = 70
+	explosion_block = 2
+	smooth = SMOOTH_TRUE
+	//	disasemblable = 0
+	girder_type = 0
+	baseturfs = /turf/open/indestructible/ground/outside/ruins
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/ruins, /turf/closed/wall)
+	unbreakable = 0
+
+
+/turf/closed/wall/f13/wood
+	name = "wooden wall"
+	desc = "A traditional wooden wall."
+	icon = 'icons/turf/walls/wood.dmi'
+	icon_state = "wood0"
+	icon_type_smooth = "wood"
+	hardness = 60
+	smooth = SMOOTH_OLD
+	unbreakable = 0
+	baseturfs = /turf/open/floor/plating/wooden
+	sheet_type = /obj/item/stack/sheet/mineral/wood
+	sheet_amount = 2
+	girder_type = 0
+	canSmoothWith = list(/turf/closed/wall/f13/wood, /turf/closed/wall)
+
+/turf/closed/wall/f13/woodalt
+	name = "wooden wall"
+	desc = "A traditional wooden wall."
+	icon = 'icons/turf/walls/wood_wall.dmi'
+	icon_state = "wood"
+	icon_type_smooth = "wood"
+	hardness = 60
+	smooth = SMOOTH_TRUE
+	unbreakable = 0
+	baseturfs = /turf/open/floor/plating/wooden
+	sheet_type = /obj/item/stack/sheet/mineral/wood
+	sheet_amount = 2
+	girder_type = 0
+	canSmoothWith = list(/turf/closed/wall/f13/wood, /turf/closed/wall, /turf/closed/wall/f13/woodalt)
+
+/turf/closed/wall/f13/wood/house
+	name = "house wall"
+	desc = "A weathered pre-War house wall."
+	icon = 'icons/turf/walls/house.dmi'
+	icon_state = "house0"
+	icon_type_smooth = "house"
+	hardness = 50
+	var/broken = FALSE
+	var/clean = FALSE
+	canSmoothWith = list(/turf/closed/wall/f13/wood/house, /turf/closed/wall/f13/wood/house/broken, /turf/closed/wall, /turf/closed/wall/f13/wood/house/clean, /turf/closed/wall/f13/wood/house/clean/broken, /turf/closed/wall/f13/wood/house/shack)
+
+/turf/closed/wall/f13/wood/house/shack
+	name = "shack wall"
+
+/turf/closed/wall/f13/wood/house/broken
+	desc = "A broken weathered pre-War house wall."
+	broken = TRUE
+	damage = 21
+	icon_state = "house0-broken"
+
+/turf/closed/wall/f13/wood/house/clean
+	desc = "A freshly painted pre-War house wall."
+	clean = TRUE
+	icon_state = "house0-clean"
+
+/turf/closed/wall/f13/wood/house/clean/broken
+	desc = "A broken freshly painted pre-War house wall."
+	broken = TRUE
+	icon_state = "house0-clean-broken"
+
+/turf/closed/wall/f13/wood/house/take_damage(dam)
+	if(damage + dam > hardness/2)
+		broken = 1
+	..()
+
+/turf/closed/wall/f13/wood/house/relative()
+	icon_state = "[icon_type_smooth][junction][clean ? "-clean" : ""][broken ? "-broken" : ""]"
+
+/turf/closed/wall/f13/wood/house/attackby(obj/item/W, mob/user, params)
+	if(clean && istype(W, /obj/item/paint/paint_remover))
+		playsound(user.loc, 'sound/effects/splat.ogg', 25, 1, 5)
+		user.visible_message("[user] starts removing the paint from [src]!", span_notice("You start removing the paint from [src]."))
+		if(!do_after(user, 1 SECONDS, FALSE, src))
+			to_chat(user, span_warning("You must stand still to remove the paint on the wall!"))
+			return
+		user.visible_message("[user] removes the paint from [src]!", span_notice("You remove the paint from [src]."))
+		if(broken)
+			ChangeTurf(/turf/closed/wall/f13/wood/house/broken)
+		else
+			ChangeTurf(/turf/closed/wall/f13/wood/house)
+		return
+
+	if(istype(W, /obj/item/toy/crayon/spraycan))
+		var/obj/item/toy/crayon/spraycan/I = W
+		if(!I.use_charges(user, 2))
+			to_chat(user, span_warning("[I] is too empty to paint [src]!"))
+			return
+
+		if(I.is_capped)
+			to_chat(user, span_warning("Open the cap first!"))
+			return
+
+		playsound(user.loc, 'sound/effects/spray.ogg', 25, 1, 5)
+		user.visible_message("[user] starts coating [src] with a fresh layer of paint!", span_notice("You start coating [src] with a fresh layer of paint."))
+		if(!do_after(user, 1 SECONDS, FALSE, src))
+			to_chat(user, span_warning("You must stand still to paint the wall!"))
+			return                                      
+		user.visible_message("[user] coats [src] with a fresh layer of paint!", span_notice("You coat [src] with a fresh layer of paint."))
+		if(!clean)
+			if(broken)
+				ChangeTurf(/turf/closed/wall/f13/wood/house/clean/broken)
+			else
+				ChangeTurf(/turf/closed/wall/f13/wood/house/clean)
+		src.add_atom_colour(I.paint_color, WASHABLE_COLOUR_PRIORITY)
+		return
+
+
+	if(broken && istype(W, /obj/item/stack/sheet/mineral/wood))
+		var/obj/item/stack/sheet/mineral/wood/I = W
+		if(I.amount < 2)
+			return
+		if(!do_after(user, 5 SECONDS, FALSE, src))
+			to_chat(user, span_warning("You must stand still to fix the wall!"))
+			return
+		W.use(2)
+		if(clean)
+			ChangeTurf(/turf/closed/wall/f13/wood/house/clean)
+		else
+			ChangeTurf(/turf/closed/wall/f13/wood/house)
+	. = ..()
+
+/turf/closed/wall/f13/wood/house/update_icon()
+	if(broken)
+		set_opacity(0)
+	..()
+
+turf/closed/wall/f13/wood/house/update_damage_overlay()
+	if(broken)
+		return
+	..()
+
+/turf/closed/wall/f13/wood/interior
+	name = "interior wall"
+	desc = "Interesting, what kind of material they have used - these wallpapers still look good after all the centuries..."
+	icon = 'icons/turf/walls/interior.dmi'
+	icon_state = "interior0"
+	icon_type_smooth = "interior"
+	hardness = 10
+	smooth = SMOOTH_OLD
+	canSmoothWith = list(/turf/closed/wall/f13/wood/interior, /turf/closed/wall)
+
+/turf/closed/wall/f13/store
+	name = "store wall"
+	desc = "A pre-War store wall made of solid concrete."
+	icon = 'icons/turf/walls/f13store.dmi'
+	icon_state = "store"
+	icon_type_smooth = "store"
+	hardness = 80
+	smooth = SMOOTH_TRUE
+	//	disasemblable = 0
+	baseturfs = /turf/open/indestructible/ground/outside/ruins
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/store, /turf/closed/wall/f13/store/constructed, /turf/closed/wall,)
+
+/turf/closed/wall/f13/store/concretewall
+	name = "concrete wall"
+	canSmoothWith = list(/turf/closed/wall/f13/store, /turf/closed/wall/f13/store/constructed, /turf/closed/wall, /turf/closed/indestructible/f13/obsidian, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/f13/store/concretewall)
+
+/turf/closed/wall/f13/tentwall
+	name = "tent wall"
+	desc = "The walls of a portable tent."
+	icon = 'icons/turf/walls/tent.dmi'
+	icon_state = "tent0"
+	icon_type_smooth = "tent"
+	hardness = 10
+	unbreakable = 0
+	smooth = SMOOTH_OLD
+	//	disasemblable = 0
+	baseturfs = /turf/open/indestructible/ground/outside/ruins
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/tentwall, /turf/closed/wall)
+
+/turf/closed/wall/f13/scrap
+	name = "scrap wall"
+	desc = "A wall held together by corrugated metal and prayers."
+	icon = 'icons/turf/walls/scrap.dmi'
+	icon_state = "scrap0"
+	icon_type_smooth = "scrap"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
+/turf/closed/wall/f13/scrap/red
+	icon = 'icons/turf/walls/scrap_red.dmi'
+	icon_state = "scrapr0"
+	icon_type_smooth = "scrapr"
+
+/turf/closed/wall/f13/scrap/blue
+	icon = 'icons/turf/walls/scrap_blue.dmi'
+	icon_state = "scrapb0"
+	icon_type_smooth = "scrapb"
+
+/turf/closed/wall/f13/scrap/white
+	icon = 'icons/turf/walls/scrap_white.dmi'
+	icon_state = "scrapw0"
+	icon_type_smooth = "scrapw"
+
+/turf/closed/wall/f13/scrap/junk
+	name = "junk wall"
+	desc = "More a pile of debris and rust than a wall, but it'll hold for now."
+	icon = 'icons/turf/walls/scrap_rough.dmi'
+	icon_state = "scrapro0"
+	icon_type_smooth = "scrapro"
+
+/turf/closed/wall/f13/supermart
+	name = "concrete wall"
+	desc = "A pre-War concrete wall made of reinforced concrete."
+	icon = 'icons/turf/walls/f13superstore.dmi'
+	icon_state = "supermart"
+	icon_type_smooth = "supermart"
+	hardness = 90
+	explosion_block = 2
+	smooth = SMOOTH_TRUE
+	baseturfs = /turf/open/indestructible/ground/outside/ruins
+	//	disasemblable = 0
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/mineral/concrete/blastproof/moresmooth, /turf/closed/wall/mineral/concrete/blastproof/storewall, /turf/closed/indestructible/f13/supermart, /obj/structure/falsewall/concrete, /turf/closed/indestructible/f13/vaultwall/notvaultwall, /turf/closed/indestructible/f13/vaultwall, /turf/closed/indestructible/f13/supermart)
+
+/turf/closed/wall/f13/tunnel
+	name = "utility tunnel wall"
+	desc = "A sturdy metal wall with various pipes and wiring set inside a special groove."
+	icon = 'icons/turf/walls/tunnel.dmi'
+	icon_state = "tunnel0"
+	icon_type_smooth = "tunnel"
+	hardness = 100
+	smooth = SMOOTH_OLD
+	//	disasemblable = 0
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/tunnel, /turf/closed/wall)
+
+/turf/closed/wall/f13/vault
+	name = "vault wall"
+	desc = "A sturdy and cold metal wall."
+	icon = 'icons/turf/walls/vault.dmi'
+	icon_state = "vault0"
+	icon_type_smooth = "vault"
+	hardness = 130
+	explosion_block = 5
+	smooth = SMOOTH_OLD
+	canSmoothWith = list(/turf/closed/wall/f13/vault, /turf/closed/wall/r_wall/f13/vault, /turf/closed/wall)
+
+/turf/closed/wall/r_wall/f13
+	name = "glitch"
+	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Something has caused a glitch in the simulation.</font>"
+	icon = 'icons/turf/walls_f13.dmi'
+	icon_state = "matrix"
+
+/turf/closed/wall/r_wall/f13/vault
+	name = "vault reinforced wall"
+	desc = "A wall built to withstand an atomic explosion."
+	icon = 'icons/turf/walls/vault_reinforced.dmi'
+	icon_state = "vaultrwall0"
+	icon_type_smooth = "vaultrwall"
+	hardness = 230
+	explosion_block = 5
+	smooth = SMOOTH_OLD
+	canSmoothWith = list(/turf/closed/wall/f13/vault, /turf/closed/wall/r_wall/f13/vault, /turf/closed/wall)
+
+//Sunset custom walls
+
+/turf/closed/wall/f13/sunset/brick_small
+	name = "brick wall"
+	desc = "A wall made out of solid brick."
+	icon = 'icons/turf/walls/brick_small.dmi'
+	icon_state = "brick0"
+	icon_type_smooth = "brick"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
+/turf/closed/wall/f13/sunset/brick_small_dark
+	name = "brick wall"
+	desc = "A wall made out of solid brick."
+	icon = 'icons/turf/walls/brick_small_dark.dmi'
+	icon_state = "brick0"
+	icon_type_smooth = "brick"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
+/turf/closed/wall/f13/sunset/brick_small_light
+	name = "brick wall"
+	desc = "A wall made out of solid brick."
+	icon = 'icons/turf/walls/brick_small_light.dmi'
+	icon_state = "brick0"
+	icon_type_smooth = "brick"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall)
+
+//Fallout 13 indestructible walls
+
+/turf/closed/indestructible/f13
+	name = "glitch"
+	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Something has caused a glitch in the simulation.</font>"
+	icon = 'icons/turf/walls_f13.dmi'
+	icon_state = "matrix"
+
+/turf/closed/indestructible/f13/subway
+	name = "tunnel wall"
+	desc = "This wall is made of reinforced concrete.<br>Pre-War engineers knew how to build reliable things."
+	icon = 'icons/turf/walls/subway.dmi'
+	icon_state = "subwaytop"
+
+/turf/closed/indestructible/f13/matrix //The Chosen One from Arroyo!
+	name = "matrix"
+	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Digital simulation ends here.</font>"
+	icon_state = "matrix"
+	var/in_use = FALSE
+
+/turf/closed/indestructible/f13/matrix/dirt
+	icon = 'icons/turf/floors.dmi'
+	icon_state = "dirt"
+
+/turf/closed/indestructible/f13/matrix/saltflats
+	icon = 'icons/turf/snow.dmi'
+	icon_state = "snow"
+
+/turf/closed/indestructible/f13/matrix/desert
+	icon = 'icons/turf/ground.dmi'
+	icon_state = "wasteland"
+
+/turf/closed/indestructible/f13/matrix/wendover
+	icon = 'icons/obj/wendover.dmi'
+	icon_state = "gravelsiding"
+
+/turf/closed/indestructible/f13/matrix/asphalt
+	icon = 'icons/turf/asphalt.dmi'
+	icon_state = "verticalleftborderright1"
+
+/turf/closed/indestructible/f13/matrix/sidewalk
+	icon = 'icons/turf/sidewalk.dmi'
+	icon_state = "horizontalbottomborderbottom0"
+
+/turf/closed/indestructible/f13/matrix/subway
+	icon = 'icons/turf/ground.dmi'
+	icon_state = "railsnone"
+
+/turf/closed/indestructible/f13/matrix/gravel
+	icon = 'icons/turf/tileset_gravel.dmi'
+	icon_state = "gravel"
+
+/turf/closed/indestructible/f13/matrix/MouseDrop_T(atom/dropping, mob/user)
+	. = ..()
+	if(!isliving(user) || user.incapacitated())
+		return //No ghosts or incapacitated folk allowed to do this.
+	if(!ishuman(dropping))
+		return //Only humans have job slots to be freed.
+	if(in_use) // Someone's already going in.
+		return
+	var/mob/living/carbon/human/departing_mob = dropping
+	if(departing_mob != user && departing_mob.client)
+		to_chat(user, span_warning("This one retains their free will. It's their choice if they want to depart or not."))
+		return
+	if(alert("Are you sure you want to [departing_mob == user ? "depart the area for good (you" : "send this person away (they"] will be removed from the current round, the job slot freed)?", "Departing the swamps", "Confirm", "Cancel") != "Confirm")
+		return
+	if(user.incapacitated() || QDELETED(departing_mob) || (departing_mob != user && departing_mob.client) || get_dist(src, dropping) > 2 || get_dist(src, user) > 2)
+		return //Things have changed since the alert happened.
+	if(departing_mob.logout_time && departing_mob.logout_time + 2 MINUTES > world.time)
+		to_chat(user, span_warning("This mind has only recently departed. Wait at most two minutes before sending this character out of the round."))
+		return
+	user.visible_message(span_warning("[user] [departing_mob == user ? "is trying to leave the swamps!" : "is trying to send [departing_mob] away!"]"), span_notice("You [departing_mob == user ? "are trying to leave the swamps." : "are trying to send [departing_mob] away."]"))
+	update_icon()
+	in_use = TRUE
+	if(!do_after(user, 50, target = src))
+		in_use = FALSE
+		return
+	in_use = FALSE
+	update_icon()
+	var/dat = "[key_name(user)] has despawned [departing_mob == user ? "themselves" : departing_mob], job [departing_mob.job], at [AREACOORD(src)]. Contents despawned along:"
+	if(!length(departing_mob.contents))
+		dat += " none."
+	else
+		var/atom/movable/content = departing_mob.contents[1]
+		dat += " [content.name]"
+		for(var/i in 2 to length(departing_mob.contents))
+			content = departing_mob.contents[i]
+			dat += ", [content.name]"
+		dat += "."
+	message_admins(dat)
+	log_admin(dat)
+	if(departing_mob.stat == DEAD)
+		departing_mob.visible_message(span_notice("[user] pushes the body of [departing_mob] over the border. They're someone else's problem now."))
+	else
+		departing_mob.visible_message(span_notice("[departing_mob == user ? "Out of their own volition, " : "Ushered by [user], "][departing_mob] crosses the border and departs the swamps."))
+	departing_mob.despawn()
+
+
+/turf/closed/indestructible/f13/obsidian //Just like that one game studio that worked on the original game, or that block in Minecraft!
+	name = "obsidian"
+	desc = "No matter what you do with this rock, there's not even a scratch left on its surface.<br><font color='#7e0707'>You shall not pass!!!</font>"
+	icon = 'icons/turf/mining_f13.dmi'
+	icon_state = "rock1"
+
+/turf/closed/indestructible/f13/obsidian/New()
+	..()
+	icon_state = "rock[rand(1,6)]"
+
+/turf/closed/indestructible/f13/harshrock //Just like that one game studio that worked on the original game, or that block in Minecraft!
+	name = "cliff"
+	desc = "Harsh desert rock tempered by the scorching wasteland."
+	icon = 'icons/turf/mining_f13.dmi'
+	icon_state = "harshrock"
+	layer = EDGED_TURF_LAYER
+
+/turf/closed/indestructible/f13/vaultwall
+	name = "vault wall"
+	desc = "No matter what you do with this rock, there's not even a scratch left on its surface.<br><font color='#7e0707'>You shall not pass!!!</font>"
+	icon = 'icons/turf/walls/f13superstore.dmi'
+	icon_state = "supermart"
+	icon_type_smooth = "supermart"
+	// plane = GAME_PLANE
+	// layer = LATTICE_LAYER
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/closed/indestructible/f13/vaultwall)
+	plane = GAME_PLANE
+
+/turf/closed/indestructible/f13/vaultwall/notvaultwall
+	name = "wall"
+	canSmoothWith = list(/turf/closed/wall/f13/supermart, /turf/closed/wall/mineral/concrete, /turf/closed/wall, /turf/closed/wall/mineral/concrete/blastproof, /turf/closed/wall/mineral/concrete/blastproof/moresmooth, /turf/closed/wall/mineral/concrete/blastproof/storewall, /turf/closed/indestructible/f13/supermart, /obj/structure/falsewall/concrete, /turf/closed/indestructible/f13/vaultwall/notvaultwall, /turf/closed/indestructible/f13/vaultwall, /turf/closed/indestructible/f13/supermart)
+
+
+/turf/closed/indestructible/f13/supermart
+	name = "concrete wall"
+	desc = "No matter what you do with this rock, there's not even a scratch left on its surface.<br><font color='#7e0707'>You shall not pass!!!</font>"
+	icon = 'icons/turf/walls/f13superstore.dmi'
+	icon_state = "supermart"
+	icon_type_smooth = "supermart"
+	smooth = SMOOTH_TRUE
+	canSmoothWith = list(/turf/closed/indestructible/f13/vaultwall, /turf/closed/wall/mineral/concrete, /turf/closed/indestructible/f13/supermart)
+
+/turf/closed/indestructible/f13/vaultwall/fakeshutter
+	name = "shutter"
+	icon = 'icons/obj/doors/shutters.dmi'
+	icon_state = "closed"
+	smooth = SMOOTH_FALSE
+
+//Splashscreen
+/*
+/turf/closed/indestructible/f13/splashscreen
+	var/tickerPeriod = 300 //in deciseconds
+	var/go/fullDark
+
+turf/closed/indestructible/f13/splashscreen/New()
+	.=..()
+	name = "Fallout 13"
+	desc = "The wasteland is calling!"
+	icon = 'icons/misc/lobby.dmi'
+	icon_state = "title[rand(1,13)]"
+	layer = 60
+	plane = 1
+	src.fullDark = new/go{
+		icon = 'icons/misc/lobby.dmi' //Replace with actual icon
+		icon_state = "transition" //Replace with actual darkness state
+		layer = 61;
+		alpha = 0;
+		}(src)
+	src.fullDark.plane = 1
+	spawn() src.ticker()
+	return
+
+turf/closed/indestructible/f13/splashscreen/proc/ticker()
+	while(src && istype(src,/turf/closed/indestructible/f13/splashscreen))
+		src.swapImage()
+		sleep(src.tickerPeriod)
+	to_chat(world, "Badmins spawn shit and the title screen was deleted.<br>You know... I'm out of here!")
+	return
+
+//Change the time to determine how short/long the fading animation is.
+//Change the easing to determine what interpolation it uses to change the value on a curve: good ones to try are CUBIC, BOUNCE, and ELASTIC as well as CIRCULAR. BOUNCE and ELASTIC both "bounce" or "flicker" a little bit at the end instead of just finishing straight at black.
+
+/turf/closed/indestructible/f13/splashscreen/proc/swapImage()
+	animate(src.fullDark,alpha=255,time=10,easing=CUBIC_EASING)
+	sleep(12) //buffer of about 1/5 of the time of the animation, since they are not synchronized: the sleep happens on the server, but the animation is played for each client using directX. It's good to leave a buffer, but most of the time the directX will be much faster than the server anyway so you probably wont have any problems.
+	src.icon_state = "title[rand(1,13)]"
+	animate(src.fullDark,alpha=0,time=10,easing=CUBIC_EASING)
+	return
+*/
+
+
+// ==================== Merged from fallout (code\modules\fallout\eris\code\walls.dm) ====================
+/turf/closed/wall/f13/coyote/darkwoodwall
+	name = "darkwood wall"
+	desc = "A wall made out of darkwood."
+	icon = 'icons/turf/walls__port.dmi'
+	icon_state = "nordic0"
+	icon_type_smooth = "nordic"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/coyote/darkwoodwall, /turf/closed/wall)
+
+/turf/closed/wall/f13/coyote/fortress_brick
+	name = "fortress brickwall"
+	desc = "An old wall you'd see at a fortress."
+	icon = 'icons/turf/walls__port.dmi'
+	icon_state = "fortress_brickwall0"
+	icon_type_smooth = "fortress_brickwall"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/coyote/fortress_brick, /turf/closed/wall)
+
+
+/turf/closed/wall/f13/coyote/tavern_wall
+	name = "tavern wall"
+	desc = "A wall in a tavern style."
+	icon = 'icons/turf/walls__port.dmi'
+	icon_state = "abashiri0"
+	icon_type_smooth = "abashiri"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/coyote/tavern_wall, /obj/structure/window/fulltile/wood, /turf/closed/wall)
+
+/turf/closed/wall/f13/coyote/oldwood
+	name = "old wood wall"
+	desc = "A wall of very old and rotting wood."
+	icon = 'icons/turf/walls__port.dmi'
+	icon_state = "oldwood0"
+	icon_type_smooth = "oldwood"
+	hardness = 80
+	smooth = SMOOTH_OLD
+	girder_type = 0
+	sheet_type = null
+	canSmoothWith = list(/turf/closed/wall/f13/coyote/oldwood, /turf/closed/wall)
+
+
+// ==================== Merged from fallout (turf/wall_damage.dm) ====================
+//Fallout 13 wall destruction simulation
+
+/turf/closed/wall
+	var/damage = 0
+	var/damage_overlay = 0
+	var/global/damage_overlays[16]
+	var/unbreakable = 1
+
+/turf/closed/wall/proc/take_damage(dam)
+	if(dam)
+		damage = max(0, damage + dam)
+		update_icon()
+	if(damage > hardness)
+		dismantle_wall(1)
+		playsound(src, 'sound/effects/meteorimpact.ogg', rand(50,100), 1)
+		return 1
+	return 0
+
+/turf/closed/wall/proc/update_damage_overlay()
+	if(damage != 0)
+
+		var/overlay = round(damage / hardness * damage_overlays.len) + 1
+		if(overlay > damage_overlays.len)
+			overlay = damage_overlays.len
+
+		overlays += damage_overlays[overlay]
+
+/turf/closed/wall/proc/generate_overlays()
+	var/alpha_inc = 256 / damage_overlays.len
+
+	for(var/i = 1; i <= damage_overlays.len; i++)
+		var/image/img = image(icon = 'icons/turf/walls_overlay.dmi', icon_state = "overlay_damage")
+		img.blend_mode = BLEND_MULTIPLY
+		img.alpha = (i * alpha_inc) - 1
+		damage_overlays[i] = img
+
+/turf/closed/wall/attackby(obj/item/W, mob/user, params)
+	var/holdHardness = initial(hardness) || 70	 // Holds wall hardness before anything changes the src, defaults to 70
+	var/holdUnbreakable = 0
+	if(istype(src, /turf/closed/wall))
+		holdUnbreakable = unbreakable	 // Holds wall unbreakable state before anything changes the src.
+	. = ..()
+	if(!.)
+		user.do_attack_animation(src)
+		if(istype(W, /obj/item/pickaxe)) //stops pickaxes from running needless attack checks on our baseturf
+			return	
+		if(SEND_SIGNAL(W, COMSIG_LICK_RETURN, src, user)) // so I can lick walls like a frickin frick
+			return
+		if(W.force > holdHardness/3 && !holdUnbreakable)
+			//take_damage(W.force * 0.1)
+			to_chat(user, span_warning("You smash the wall with [W]."))
+			playsound(src, 'sound/effects/bang.ogg', 50, 1)
+		else
+			to_chat(user, span_notice("You hit the wall with [W] to no effect."))
+			playsound(src, 'sound/weapons/Genhit.ogg', 25, 1)

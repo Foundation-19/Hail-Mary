@@ -101,7 +101,9 @@
 		return
 	is_browser = winexists(client, id) == "BROWSER"
 	// Instruct the client to signal UI when the window is closed.
-	if(!is_browser || !client)
+	// (Skip embedded panes like "browseroutput", which is a child BROWSER control
+	// inside outputwindow and never a standalone closable window.)
+	if(!is_browser || !client || id == "browseroutput")
 		return
 	winset(client, id, "on-close=\"uiclose [id]\"")
 

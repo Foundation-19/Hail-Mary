@@ -155,7 +155,7 @@ ATTACHMENTS
 	var/gilded = FALSE
 	/*	SILENCER HANDLING */
 	var/silenced = FALSE
-	var/fire_sound_silenced = 'fallout/eris/sound/Gunshot_silenced.ogg' //Firing sound used when silenced
+	var/fire_sound_silenced = 'sound/weapons/Gunshot_silenced.ogg' //Firing sound used when silenced
 	var/zoom_factor = 0 //How much to scope in when using weapons
 	var/rigged = FALSE
 	var/vision_flags = 0
