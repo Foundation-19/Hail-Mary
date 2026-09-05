@@ -84,6 +84,7 @@
 /obj/item/twohanded/fireaxe
 	name = "fire axe"
 	desc = "Heavy fireman axe from the old world, with its distinctive red colour and excellent quality steel. Excellent for smashing doors. A bit slow."
+	icon = 'icons/obj/melee/twohanded.dmi'
 	icon_state = "fireaxe"
 	icon_prefix = "fireaxe"
 	force = 28
@@ -373,6 +374,7 @@
 /obj/item/twohanded/baseball
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
+	icon = 'icons/obj/melee/twohanded.dmi'
 	icon_state = "baseball"
 	icon_prefix = "baseball"
 	force = 25
@@ -724,6 +726,7 @@
 /obj/item/twohanded/chainsaw
 	name = "chainsaw"
 	desc = "A versatile power tool. Useful for limbing trees and delimbing humans."
+	icon = 'icons/obj/melee/twohanded.dmi'
 	icon_state = "chainsaw"
 	icon_prefix = "chainsaw"
 	force = 8

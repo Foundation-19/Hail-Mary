@@ -2492,7 +2492,7 @@
 	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "gaussf2"
-	item_state = "gaussrifle"
+	item_state = "sniper_rifle"
 	slot_flags = ITEM_SLOT_BACK
 	mag_type = /obj/item/ammo_box/magazine/m2mm
 	init_mag_type = /obj/item/ammo_box/magazine/m2mm

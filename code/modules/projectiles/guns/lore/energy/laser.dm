@@ -268,6 +268,7 @@
 /obj/item/gun/energy/laser/wattz/recharger
 	name = "Recharger Pistol"
 	desc = "A recharger pistol manufactured by the Followers of the Apocalpyse. As the name implied, it charges its capacitor banks over time using radioactive decay."
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	can_remove = 0
 	can_charge = 0
 	selfcharge = 1
