@@ -47,7 +47,7 @@
 		if(FOOTSTEP_MOB_CRAWL)
 			footstep_sounds = 'sound/effects/footstep/crawl1.ogg'
 		if(FOOTSTEP_MOB_HOOF)
-			footstep_sounds = 'fallout/sound/mobsounds/horsestep.ogg'
+			footstep_sounds = 'sound/mobsounds/horsestep.ogg'
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(play_simplestep)) //Note that this doesn't get called for humans.
 
 ///Prepares a footstep. Determines if it should get played. Returns the turf it should get played on. Note that it is always a /turf/open
