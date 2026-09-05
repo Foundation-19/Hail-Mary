@@ -113,9 +113,9 @@
 
 /obj/item/gun/ballistic/fatman/update_icon_state()
 	if(!magazine || !get_ammo(TRUE, FALSE) || !chambered?.BB)
-		icon_state = "[initial(icon_state)]_empty" //civ13 used a different empty designator
+		icon_state = "mirv-e"
 	else
-		icon_state = "[initial(icon_state)]"
+		icon_state = "mirv"
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper rocket launcher"
