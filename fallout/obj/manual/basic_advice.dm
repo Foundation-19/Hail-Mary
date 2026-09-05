@@ -7,7 +7,7 @@
 /obj/item/book/manual/advice_farming
 	name = "Advice on Farming from Uncle Bo"
 	desc = "A thin book, handwritten after the Great War and copied in various forms many times."
-	icon = 'icons/fallout/objects/books.dmi'
+	icon = 'icons/obj/books.dmi'
 	icon_state = "advice_farming"
 	author = "Uncle Bo"
 	title = "Advice on Farming - For beginners"
@@ -64,7 +64,7 @@
 /obj/item/book/manual/advice_blacksmith
 	name = "The Forgemasters Primer"
 	desc = "A thin book with some basic advice on how to use a hammer and anvil, copied by hand."
-	icon = 'icons/fallout/objects/books.dmi'
+	icon = 'icons/obj/books.dmi'
 	icon_state = "advice_smithing"
 	author = "Forgemaster Gallius"
 	title = "Advice on Blacksmithing - For hotheaded whelps"
@@ -141,7 +141,7 @@
 /obj/item/book/manual/advice_surival
 	name = "Survival Guide to the Wastes" //Was tempted to name it "Try not to keel over and die"
 	desc = "A survival book! At Last! .. it looks well loved and has a lot of little notes all over in and around its pages"
-	icon = 'fallout/icons/objects/survival_guide.dmi'
+	icon = 'icons/obj/survival_guide.dmi'
 	icon_state = "survbook"
 	title = "Advice on Surviving - How not to get eaten by Gecko's edition"
 	dat = {"<html>

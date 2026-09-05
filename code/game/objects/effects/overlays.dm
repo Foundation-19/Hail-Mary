@@ -83,7 +83,7 @@
 /obj/effect/overlay/curb
 	name = "curb"
 	desc = "A street curb."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "curb"
 	plane = FLOOR_PLANE
 	layer = LATTICE_LAYER
@@ -106,7 +106,7 @@
 
 /obj/effect/overlay/curb/reno
 	name = "curb"
-	icon = 'icons/fallout/turfs/reno_sidewalk.dmi'
+	icon = 'icons/turf/reno_sidewalk.dmi'
 	icon_state = "curb"
 
 /obj/effect/overlay/airplanewing
@@ -150,7 +150,7 @@
 
 /obj/effect/overlay/shoreline
 	name = "shore"
-	icon = 'icons/fallout/turfs/smoothing.dmi'
+	icon = 'icons/turf/smoothing.dmi'
 	icon_state = "rockfloor_side"
 	density = FALSE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -182,7 +182,7 @@
 
 /obj/effect/overlay/whitelegpainting
 	name = "painting"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "wlpaint"
 	layer = ABOVE_WINDOW_LAYER
 
@@ -201,14 +201,14 @@
 
 /obj/effect/overlay/targetpainting
 	name = "painting"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "sniper_zoom"
 	plane = WALL_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/bloodyart
 	name = "art"
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "blood_pic_1"
 	plane = GAME_PLANE
 	layer = LOW_OBJ_LAYER
@@ -216,7 +216,7 @@
 
 /obj/effect/overlay/shadow
 	name = ""
-	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon = 'icons/turf/sidewalk.dmi'
 	icon_state = "outermiddle"
 	color = "#000000"
 	layer = FLY_LAYER
@@ -225,42 +225,42 @@
 
 /obj/effect/overlay/shadow/tarp
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "vertarpaulin2"
 	alpha = 255
 
 /obj/effect/overlay/shadow/tent
 	name = ""
-	icon = 'icons/fallout/turfs/walls/tents.dmi'
+	icon = 'icons/turf/walls/tents.dmi'
 	icon_state = "outermiddle"
 
 /obj/effect/overlay/shadow/redrocketone
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "redrocketbits"
 	alpha = 150
 
 /obj/effect/overlay/shadow/redrockettwo
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "redrocketbits2"
 	alpha = 150
 
 /obj/effect/overlay/shadow/redrocketthree
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "redrocketbits3"
 	alpha = 150
 
 /obj/effect/overlay/shadow/redrocketfour
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "redrocketbits4"
 	alpha = 150
 
 /obj/effect/overlay/shadow/edgeshading
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "edgeshading"
 	plane = FLOOR_PLANE
 	layer = TURF_LAYER
@@ -268,7 +268,7 @@
 
 /obj/effect/overlay/shadow/shading
 	name = ""
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "shading"
 	layer = TURF_LAYER
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -294,21 +294,21 @@
 /obj/effect/overlay/airliner
 	name = "Advertisement"
 	desc = "When was the last time you went on vacation?"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "airlinetext"
 	plane = WALL_PLANE
 
 /obj/effect/overlay/baseball
 	name = "baseball diamond"
 	desc = "Sporting dirt."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "ballpark3"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/concretebase
 	name = "concrete base"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "railingconcrete"
 	plane = GAME_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -319,21 +319,21 @@
 
 /obj/effect/overlay/redrocket
 	name = "Red Rocket"
-	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon = 'icons/obj/redrocketredux.dmi'
 	icon_state = "redrocketbits"
 	plane = GAME_PLANE
 	layer = FLY_LAYER
 
 /obj/effect/overlay/fence
 	name = "fence"
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "straight"
 	plane = WALL_PLANE
 	layer = TRAY_LAYER
 
 /obj/effect/overlay/sidewalk
 	name = "isle"
-	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon = 'icons/turf/sidewalk.dmi'
 	icon_state = "transparent"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -366,7 +366,7 @@
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/plaque
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "memorial"
 	plane = GAME_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -405,14 +405,14 @@
 
 /obj/effect/overlay/canopy
 	name = "canopy"
-	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon = 'icons/turf/sidewalk.dmi'
 	icon_state = "transparent"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/roadmarking
 	name = "road marking"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "whiteroadstripe"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -424,14 +424,14 @@
 
 /obj/effect/overlay/infuriatingroad
 	name = "road"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "infuriatingroad"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/carpile
 	name = "car pile"
-	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon = 'icons/obj/redrocketredux.dmi'
 	icon_state = "carpile_lower"
 	plane = GAME_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -446,7 +446,7 @@
 
 /obj/effect/overlay/fukbus
 	name = "Fuk Bus"
-	icon = 'icons/fallout/objects/fukbus.dmi'
+	icon = 'icons/obj/fukbus.dmi'
 	icon_state = "fukbus"
 	plane = GAME_PLANE
 	layer = OBJ_LAYER
@@ -456,7 +456,7 @@
 
 /obj/effect/overlay/rv
 	name = "RV"
-	icon = 'icons/fallout/vehicles/rv.dmi'
+	icon = 'icons/vehicles/rv.dmi'
 	icon_state = "bottom"
 	plane = GAME_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -464,7 +464,7 @@
 
 /obj/effect/overlay/isle
 	name = "isle"
-	icon = 'icons/fallout/objects/gasstation.dmi'
+	icon = 'icons/obj/gasstation.dmi'
 	icon_state = "isle"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -479,7 +479,7 @@
 
 /obj/effect/overlay/mailarrow
 	name = "concrete arrow"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "mailarrow"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -493,7 +493,7 @@
 
 /obj/effect/overlay/chinesepainting
 	name = "painting"
-	icon = 'icons/fallout/mobs/humans/ghouls.dmi'
+	icon = 'icons/mob/humans/ghouls.dmi'
 	icon_state = "chinesesoldier"
 	plane = WALL_PLANE
 	layer = DISPOSAL_PIPE_LAYER
@@ -522,21 +522,21 @@
 
 /obj/effect/overlay/floor
 	name = "floor"
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	icon_state = "floor"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/metalfloor
 	name = "metal floor"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "tunneldirty"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
 /obj/effect/overlay/metalfloor/alt
 	name = "metal floor"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "plating"
 	pixel_x = 15
 
@@ -551,7 +551,7 @@
 
 /obj/effect/overlay/graveloffset
 	name = "gravel"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "graveldirt"
 	pixel_x = 16
 	plane = FLOOR_PLANE
@@ -559,7 +559,7 @@
 
 /obj/effect/overlay/graveldiagonal
 	name = "gravel"
-	icon = 'icons/fallout/turfs/gravel.dmi'
+	icon = 'icons/turf/gravel.dmi'
 	icon_state = "siding"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -582,7 +582,7 @@
 
 /obj/effect/overlay/denserock
 	name = "rock"
-	icon = 'icons/fallout/turfs/mining.dmi'
+	icon = 'icons/turf/mining_f13.dmi'
 	icon_state = "rock"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = FLOOR_PLANE
@@ -606,7 +606,7 @@
 
 /obj/effect/overlay/rubble
 	name = "rubble"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "rubblefull"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	plane = WALL_PLANE

@@ -3,7 +3,7 @@
 	name = "smelling salts"
 	desc = "A large glass phial of pungent smelling salts, used to revive those who have fainted."
 	w_class = WEIGHT_CLASS_SMALL
-	icon = 'icons/fallout/objects/medicine/primitivedefib.dmi'
+	icon = 'icons/obj/medicine/primitivedefib.dmi'
 	icon_state = "smelling_salts"
 	var/charges = 10
 	var/in_use = FALSE

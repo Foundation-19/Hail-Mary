@@ -34,7 +34,7 @@
 /obj/machinery/f13/faction_generator
 	name = "faction base generator"
 	desc = "A heavy-duty power plant that sustains a faction's base infrastructure. Insert fusion cores to keep it running."
-	icon = 'icons/fallout/machines/power_grid/faction_generator.dmi'
+	icon = 'icons/machines/power_grid/faction_generator.dmi'
 	icon_state = "generator_off"
 	density = TRUE
 	anchored = TRUE
@@ -1439,7 +1439,7 @@
 /// Explicit "fusion core" named variant of the base generator.
 /// Mapper-placed generators that want to make clear they use fusion cores.
 /obj/machinery/f13/faction_generator/fusion
-	icon       = 'icons/fallout/machines/power_grid/faction_generator.dmi'
+	icon       = 'icons/machines/power_grid/faction_generator.dmi'
 	icon_state = "generator_off"
 	name = "fusion core generator"
 	desc = "A pre-War Vault-Tec integrated power plant. High-yield magnetic containment feeds up to two RobCo fusion cores simultaneously. Expensive to operate, but nothing in the wasteland matches its output-to-weight ratio."
@@ -1451,7 +1451,7 @@
 /// Common post-War diesel generator.  Fuelled by pouring liquid diesel from a jerrycan.
 /// Burns at a flat 750 W as long as there is fuel in the tank.
 /obj/machinery/f13/faction_generator/diesel
-	icon = 'icons/fallout/machines/power.dmi'
+	icon = 'icons/machines/power.dmi'
 	icon_state = "diesel-off"
 	name = "diesel generator"
 	desc = "A battered pre-War industrial diesel unit — the kind that kept factories running before the war, and keeps settlements alive after it. Loud, thirsty, and mercifully common out here. Feed it diesel straight from a jerrycan to keep it running."
@@ -1672,7 +1672,7 @@
 /// Jury-rigged wasteland generator.  Requires wiring; each relay post within reach
 /// extends coverage by another power_reach hop.
 /obj/machinery/f13/faction_generator/wastelander
-	icon = 'icons/fallout/machines/power.dmi'
+	icon = 'icons/machines/power.dmi'
 	icon_state = "diesel-off"
 	name = "jury-rigged generator"
 	desc = "A rattling heap of salvaged parts: an old Chryslus engine block, hydraulic hose, and what might once have been a refrigerator compressor, held together with electrical tape and misplaced optimism. Pour diesel in, run your wiring close, and stand back. Powers lights and devices within 10 tiles; each relay post extends that range by another 10 tiles."

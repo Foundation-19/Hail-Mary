@@ -12,7 +12,7 @@
 
 /turf/open/floor/wood_common
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "common1"
 	floor_tile = /obj/item/stack/tile/wood
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -30,7 +30,7 @@
 
 /turf/open/floor/wood_common/wood_common_light
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "common_light1"
 	floor_tile = /obj/item/stack/tile/wood/common_light
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -48,7 +48,7 @@
 
 /turf/open/floor/wood_common/wood_common_dark
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "common_dark1"
 	floor_tile = /obj/item/stack/tile/wood/common_dark
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -74,7 +74,7 @@
 
 /turf/open/floor/wood_worn
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "worn1"
 	floor_tile = /obj/item/stack/tile/wood/worn
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -92,7 +92,7 @@
 
 /turf/open/floor/wood_worn/wood_worn_light
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "worn_light1"
 	floor_tile = /obj/item/stack/tile/wood/worn/light
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -110,7 +110,7 @@
 
 /turf/open/floor/wood_worn/wood_worn_dark
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "worn_dark1"
 	floor_tile = /obj/item/stack/tile/wood/worn/dark
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -136,7 +136,7 @@
 
 /turf/open/floor/wood_fancy
 	desc = "Wood cast in a fancy angled pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "fancy1"
 	floor_tile = /obj/item/stack/tile/wood/fancy
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -154,7 +154,7 @@
 
 /turf/open/floor/wood_fancy/wood_fancy_light
 	desc = "Wood cast in a fancy angled pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "fancy_light1"
 	floor_tile = /obj/item/stack/tile/wood/fancy/light
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -173,7 +173,7 @@
 
 /turf/open/floor/wood_fancy/wood_fancy_dark
 	desc = "Wood cast in a fancy angled pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "fancy_dark1"
 	floor_tile = /obj/item/stack/tile/wood/fancy/dark
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -200,7 +200,7 @@
 
 /turf/open/floor/wood_wide
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "wide1"
 	floor_tile = /obj/item/stack/tile/wood/wide
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -218,7 +218,7 @@
 
 /turf/open/floor/wood_wide/wood_wide_light
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "wide_light1"
 	floor_tile = /obj/item/stack/tile/wood/wide/light
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -236,7 +236,7 @@
 
 /turf/open/floor/wood_wide/wood_wide_dark
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "wide_dark1"
 	floor_tile = /obj/item/stack/tile/wood/wide/dark
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -262,7 +262,7 @@
 
 /turf/open/floor/wood_mosaic
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "mosaic1"
 	floor_tile = /obj/item/stack/tile/wood/mosaic
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -280,7 +280,7 @@
 
 /turf/open/floor/wood_mosaic/wood_mosaic_light
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "mosaic_light1"
 	floor_tile = /obj/item/stack/tile/wood/mosaic/light
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -298,7 +298,7 @@
 
 /turf/open/floor/wood_mosaic/wood_mosaic_dark
 	desc = "Wood cast in a sturdy standard pattern."
-	icon = 'fallout/icons/turfs/wood_floor.dmi'
+	icon = 'icons/turf/wood_floor.dmi'
 	icon_state = "mosaic_dark1"
 	floor_tile = /obj/item/stack/tile/wood/mosaic/dark
 	custom_materials = list(/datum/material/wood = MINERAL_MATERIAL_AMOUNT * 0.25)
@@ -687,7 +687,7 @@
 	canSmoothWith = list(/turf/open/floor/carpet/vault)
 
 /turf/open/floor/carpet/brown
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	icon_state = "tile-carpet_brown"
 	floor_tile = /obj/item/stack/tile/carpet/brown
 	smooth = SMOOTH_FALSE

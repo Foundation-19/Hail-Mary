@@ -17,7 +17,8 @@
 */
 
 //#define TESTING
-
+// Uncomment to write initialize_profile.log at shutdown with per-type atom init timing
+//#define ATOM_INIT_PROFILE
 #ifdef DEBUG
 #define USE_CUSTOM_ERROR_HANDLER
 #endif

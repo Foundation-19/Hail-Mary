@@ -1,7 +1,7 @@
 /obj/item/door_key
 	name = "unusable key"
 	desc = "A small grey key."
-	icon = 'icons/fallout/objects/keys.dmi'
+	icon = 'icons/obj/keys.dmi'
 	icon_state = "empty_key"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = ITEM_SLOT_BELT
@@ -38,7 +38,7 @@
 	src.name = "key"
 	src.icon_state = "key"
 	if(!overlays_cache || !overlays_cache["usable_key"])
-		var/icon/O = icon('icons/fallout/objects/keys.dmi', "key_overlay")
+		var/icon/O = icon('icons/obj/keys.dmi', "key_overlay")
 		if(!used_ids[num2text(id)])
 			var/color = rgb(rand(50,255), rand(50,255), rand(50,255))
 			O.ColorTone(color)
@@ -58,7 +58,7 @@
 /obj/item/storage/keys_set
 	name       = "key chain"
 	desc       = "Put your keys here and make using doors comfortable!"
-	icon       = 'icons/fallout/objects/keys.dmi'
+	icon       = 'icons/obj/keys.dmi'
 	icon_state = "keychain_0"
 	w_class = WEIGHT_CLASS_TINY
 	slot_flags = SLOT_BELT
@@ -84,7 +84,7 @@
 /obj/item/lock
 	name = "unusable padlock"
 	desc = "A small grey lock."
-	icon = 'icons/fallout/objects/keys.dmi'
+	icon = 'icons/obj/keys.dmi'
 	icon_state = "closed_lock"
 	w_class = WEIGHT_CLASS_TINY
 	layer = 100

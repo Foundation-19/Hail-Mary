@@ -291,6 +291,8 @@
 	//parts += goal_report()
 	//Matchmaking!
 	parts += matchmaking_report()
+	//Faction bounty board
+	parts += bounty_report()
 
 	listclearnulls(parts)
 
@@ -471,6 +473,33 @@
 	parts += matches_log
 	return "<div class='panel stationborder'>[parts.Join("<br>")]</div>"
 
+// Bounty points live on /datum/mind/bounty_points, see code/modules/objectives/bounty/
+/datum/controller/subsystem/ticker/proc/bounty_report()
+	var/list/parts = list()
+	var/list/scored_minds = list()
+	for(var/i in GLOB.mob_list)
+		var/mob/M = i
+		if(M.mind && M.mind.bounty_points > 0)
+			scored_minds += M.mind
+
+	if(!length(scored_minds))
+		return ""
+
+	sortTim(scored_minds, GLOBAL_PROC_REF(cmp_bounty_points_dsc))
+
+	parts += "<div class='panel greenborder'>"
+	parts += span_header("Bounty Board:")
+	parts += "<ul class='playerlist'>"
+	for(var/datum/mind/bounty_mind in scored_minds)
+		// Bounty hunting is anonymous work, unlike the antag reports above - never show the ckey here.
+		var/line = "<b>[bounty_mind.name]</b> earned <b>[bounty_mind.bounty_points]</b> bounty points"
+		if(bounty_mind.bounty_points >= BOUNTY_GREENTEXT_THRESHOLD)
+			line += " - " + span_greentext("<B>Bounty Hunter!</B>")
+		parts += "<li>[line]</li>"
+	parts += "</ul>"
+	parts += "</div>"
+	return parts.Join()
+
 /datum/controller/subsystem/ticker/proc/antag_report()
 	var/list/result = list()
 	var/list/all_teams = list()
@@ -519,6 +548,9 @@
 
 /proc/cmp_antag_category(datum/antagonist/A,datum/antagonist/B)
 	return sorttext(B.roundend_category,A.roundend_category)
+
+/proc/cmp_bounty_points_dsc(datum/mind/a, datum/mind/b)
+	return b.bounty_points - a.bounty_points
 
 
 /datum/controller/subsystem/ticker/proc/give_show_report_button(client/C)

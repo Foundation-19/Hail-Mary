@@ -237,7 +237,7 @@
 /obj/machinery/smartfridge/drying_rack
 	name = "drying rack"
 	desc = "A sandstone oven with racks above for hanging produce, used to dry plant products, food and hide."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "drying_rack"
 	use_power = NO_POWER_USE
 	idle_power_usage = 0
@@ -597,7 +597,7 @@
 /obj/machinery/smartfridge/bottlerack/gardentool
 	name = "garden toolrack"
 	desc = "The wasteland farmers organisational tool storage."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "gardentool"
 	layer = ABOVE_OBJ_LAYER
 	max_n_of_items = 30
@@ -634,7 +634,7 @@
 /obj/machinery/smartfridge/bottlerack/seedbin
 	name = "seed bin"
 	desc = "Organised dumping ground for the starters of life."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "seedbin"
 	max_n_of_items = 400
 	proj_pass_rate = 70
@@ -663,7 +663,7 @@
 /obj/machinery/smartfridge/bottlerack/grownbin
 	name = "grownbin"
 	desc = "A large box, to contain the harvest that the Earth has blessed upon you."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "grownbin"
 	max_n_of_items = 1000
 	proj_pass_rate = 70
@@ -703,7 +703,7 @@
 /obj/machinery/smartfridge/bottlerack/drug_storage
 	name = "drug storage"
 	desc = "Rusting metal shelves stocked with various drugs and medicines."
-	icon = 'icons/fallout/structures/racks.dmi'
+	icon = 'icons/structures/racks.dmi'
 	icon_state = "drugrack"
 	max_n_of_items = 100
 

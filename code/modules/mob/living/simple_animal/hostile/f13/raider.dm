@@ -7,7 +7,7 @@
 /mob/living/simple_animal/hostile/raider
 	name = "Raider"
 	desc = "Another murderer churned out by the wastes."
-	icon = 'icons/fallout/mobs/humans/raider.dmi'
+	icon = 'icons/mob/humans/raider.dmi'
 	icon_state = "raider_melee"
 	icon_living = "raider_melee"
 	icon_dead = "raider_dead"

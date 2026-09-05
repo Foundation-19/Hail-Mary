@@ -11,7 +11,7 @@
 /obj/structure/simple_door
 	name = "wooden door"
 	desc = "It opens and closes - nothing out of the ordinary."
-	icon = 'icons/fallout/structures/doors.dmi'
+	icon = 'icons/structures/doors.dmi'
 	icon_state = "house"
 	opacity = TRUE
 	density = TRUE
@@ -563,7 +563,7 @@
 /obj/structure/simple_door/metal/vault
 	name = "vault wall"
 	desc = "A sturdy and cold metal wall."
-	icon = 'icons/fallout/turfs/walls/vault.dmi'
+	icon = 'icons/turf/walls/vault.dmi'
 	icon_state = "vaultfwall"
 	door_type = "vaultfwall"
 	open_sound = "sound/f13items/flashlight_on.ogg"
@@ -572,7 +572,7 @@
 /obj/structure/simple_door/metal/vaultreinforced
 	name = "vault reinforced wall"
 	desc = "A wall built to withstand an atomic explosion."
-	icon = 'icons/fallout/turfs/walls/vault_reinforced.dmi'
+	icon = 'icons/turf/walls/vault_reinforced.dmi'
 	icon_state = "vaultfrwall"
 	door_type = "vaultfrwall"
 	open_sound = "sound/f13items/flashlight_on.ogg"

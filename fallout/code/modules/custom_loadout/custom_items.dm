@@ -10,8 +10,8 @@
 	mob_overlay_icon = 'icons/mob/clothing/custom_w.dmi'
 	icon_state = "darksabre"
 	item_state = "darksabre"
-	lefthand_file = 'fallout/icons/mob/inhands/stunsword_left.dmi'
-	righthand_file = 'fallout/icons/mob/inhands/stunsword_right.dmi'
+	lefthand_file = 'icons/mob/inhands/stunsword_left.dmi'
+	righthand_file = 'icons/mob/inhands/stunsword_right.dmi'
 	attack_verb = list("attacked", "struck", "hit")
 
 /obj/item/toy/darksabre/get_belt_overlay()
@@ -114,7 +114,7 @@
 	desc = "These strange wings look like they once attached to something... or someone...? Whatever the case, their presence makes you feel uneasy.."
 	icon = 'icons/obj/custom.dmi'
 	icon_state = "devilwings"
-	mob_overlay_icon = 'fallout/icons/mob/clothing/devilwings64x64.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/devilwings64x64.dmi'
 	item_state = "devilwings"
 	worn_x_dimension = 64
 	worn_y_dimension = 34

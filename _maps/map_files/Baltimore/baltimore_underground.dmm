@@ -12034,7 +12034,6 @@
 /area/f13/tunnel/sub)
 "rjF" = (
 /obj/structure/table/reinforced,
-/obj/item/gun/ballistic/automatic/pistol/n99/executive/worn,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},

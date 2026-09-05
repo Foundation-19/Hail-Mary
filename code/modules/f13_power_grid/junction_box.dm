@@ -100,7 +100,7 @@
 	parent_type   = /obj/machinery/f13/grid_client
 	name          = "electrical junction box"
 	desc          = "A breaker panel that connects a building's internal wiring to the external generator grid. Wire it to a generator or relay to restore power to the structure."
-	icon          = 'icons/fallout/machines/power_grid/junction_box.dmi'
+	icon          = 'icons/machines/power_grid/junction_box.dmi'
 	icon_state    = ""
 	density       = FALSE   // Wall-mounted — doesn't block movement.
 	anchored      = TRUE
@@ -227,6 +227,7 @@
 			// First turf of this type — spawn a private zone datum.
 			var/area/f13/Z = new atype()
 			Z.f13_jbox_zone    = TRUE
+			GLOB.sortedAreas   -= Z  // Keep zone datums out of the global area registry
 			type_to_zone[atype]   = Z
 			type_to_origin[atype] = orig
 

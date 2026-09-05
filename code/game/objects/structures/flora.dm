@@ -120,7 +120,7 @@
 /obj/structure/flora/tree/tall
 	name = "dead tree"
 	desc = "A rather tall tree that has been dead for a long time.<br>Interestingly it is still standing, as a reminder of its green past."
-	icon = 'icons/fallout/flora/talltrees.dmi'
+	icon = 'icons/flora/talltrees.dmi'
 	icon_state = "tree_1"
 	log_amount = 6
 	obj_integrity = 350

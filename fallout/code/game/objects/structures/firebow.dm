@@ -15,11 +15,11 @@
 /obj/item/firebow
 	name = "firebow"
 	desc = "A firebow! An unreliable yet very useful tool to help start create fires."
-	icon = 'fallout/icons/items/items.dmi'
+	icon = 'icons/items/items.dmi'
 	icon_state = "firebow0"
 	item_state = "firebow"
-	lefthand_file = 'fallout/icons/items/itemlefthand.dmi'
-	righthand_file = 'fallout/icons/items/itemrighthand.dmi'
+	lefthand_file = 'icons/items/itemlefthand.dmi'
+	righthand_file = 'icons/items/itemrighthand.dmi'
 
 
 	var/iconBaseState = "firebow"

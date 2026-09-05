@@ -28,18 +28,7 @@ SUBSYSTEM_DEF(icon_smooth)
 			can_fire = 0
 
 /datum/controller/subsystem/icon_smooth/Initialize()
-	smooth_zlevel(1,TRUE)
-	smooth_zlevel(2,TRUE)
-	var/queue = smooth_queue
-	smooth_queue = list()
-	var/batch_count = 0
-	for(var/V in queue)
-		var/atom/A = V
-		if(!A || A.z <= 2)
-			continue
-		smooth_icon(A)
-		if(++batch_count >= 100)
-			batch_count = 0
-			CHECK_TICK
-
+	// OPTIMIZATION: All smoothable atoms call queue_smooth(src) in their own Initialize().
+	// smooth_queue is already populated. Skip the synchronous smooth_zlevel() passes and
+	// queue processing here — fire() (wait=1) will drain the queue within seconds post-init.
 	return ..()

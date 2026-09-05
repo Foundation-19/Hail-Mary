@@ -929,7 +929,7 @@ GLOBAL_LIST_INIT(storage_tray_can_hold, typecacheof(list(
  * * * * * * */
 
 /// How many items total fit in a backpack
-#define STORAGE_BACKPACK_DEFAULT_MAX_ITEMS 8
+#define STORAGE_BACKPACK_DEFAULT_MAX_ITEMS 6
 /// How big a thing can fit in a backpack
 #define STORAGE_BACKPACK_DEFAULT_MAX_SIZE WEIGHT_CLASS_NORMAL
 /// How much volume fits in a backpack
@@ -951,7 +951,7 @@ GLOBAL_LIST_INIT(storage_tray_can_hold, typecacheof(list(
 #define STORAGE_ROWS_DUFFEL 3
 
 /// How many items total fit in a duffel scav
-#define STORAGE_DUFFEL_SCAV_DEFAULT_MAX_ITEMS 16
+#define STORAGE_DUFFEL_SCAV_DEFAULT_MAX_ITEMS 12
 /// How big a thing can fit in a duffel scav
 #define STORAGE_DUFFEL_SCAV_DEFAULT_MAX_SIZE WEIGHT_CLASS_NORMAL
 /// How much volume fits in a duffel scav

@@ -71,6 +71,11 @@
 	///What character we spawned in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
 	var/mob/original_character
 
+	/// Points earned from the faction bounty board this round, see code/modules/objectives/bounty/
+	var/bounty_points = 0
+	/// Assoc list of FACTION_* string -> standing earned with that faction's bounty board this round.
+	var/list/bounty_reputation = list()
+
 
 /datum/mind/New(key)
 	skill_holder = new(src)
@@ -135,8 +140,7 @@
 		new_character.client.init_verbs() // re-initialize character specific verbs
 	current.update_atom_languages()
 
-//CIT CHANGE - makes arousal update when transfering bodies
-	if(isliving(new_character)) //New humans and such are by default enabled arousal. Let's always use the new mind's prefs.
+	if(isliving(new_character))
 		var/mob/living/L = new_character
 		if(L.client?.prefs && L.client.prefs.auto_ooc && L.client.prefs.chat_toggles & CHAT_OOC)
 			DISABLE_BITFIELD(L.client.prefs.chat_toggles,CHAT_OOC)

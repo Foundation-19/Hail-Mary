@@ -42,8 +42,8 @@
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/trail_carbine)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/varmintrifle)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/combatrifle)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/uzi)
-	H.mind.teach_crafting_recipe(/datum/crafting_recipe/smg10mm)
+//	H.mind.teach_crafting_recipe(/datum/crafting_recipe/uzi)
+//	H.mind.teach_crafting_recipe(/datum/crafting_recipe/smg10mm)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/gate_khanate)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bloodleaf)
 
@@ -78,18 +78,18 @@
 	neck = /obj/item/storage/belt/bandolier
 	backpack_contents = list(
 		/obj/item/ammo_box/shotgun/buck = 2,
-		/obj/item/restraints/legcuffs/bola/tactical = 1,
+		/obj/item/restraints/legcuffs/bola = 1,
 		/obj/item/book/granter/trait/bigleagues = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2)
 
 /datum/outfit/loadout/khanskirmisher //Mid-range SMG user with an autoloader and a bola
 	name = "Skirmisher"
-	r_hand = /obj/item/gun/ballistic/automatic/smg/mini_uzi
+	r_hand = /obj/item/gun/ballistic/automatic/smg/greasegun
 	neck = /obj/item/storage/belt/legholster
 	backpack_contents = list(
-		/obj/item/ammo_box/magazine/uzim9mm = 3,
-		/obj/item/restraints/legcuffs/bola/tactical = 1,
-		/obj/item/gun/ballistic/automatic/pistol/automag = 1,
+		/obj/item/ammo_box/magazine/greasegun = 3,
+		/obj/item/restraints/legcuffs/bola = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2
 		)
 
@@ -99,7 +99,7 @@
 	neck = /obj/item/storage/belt/legholster
 	backpack_contents = list(
 		/obj/item/ammo_box/tube/m44 = 2,
-		/obj/item/gun/ballistic/automatic/pistol/automag = 1,
+		/obj/item/gun/ballistic/automatic/pistol/m1911 = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2
 		)
 

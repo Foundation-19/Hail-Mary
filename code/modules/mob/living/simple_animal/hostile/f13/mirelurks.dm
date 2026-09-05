@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/mirelurk
 	name = "mirelurk"
 	desc = "A giant mutated crustacean, with a hardened exo-skeleton."
-	icon = 'icons/fallout/mobs/animals/mirelurks.dmi'
+	icon = 'icons/mob/animals/mirelurks.dmi'
 	icon_state = "mirelurk"
 	icon_living = "mirelurk"
 	icon_dead = "mirelurk_d"

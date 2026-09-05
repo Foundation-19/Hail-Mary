@@ -397,7 +397,7 @@ LINEN BINS
 
 /obj/item/blanket/rug
 	name = "rug"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "tribaldecoration3"
 	plane = FLOOR_PLANE
 	layer = OPEN_DOOR_LAYER
@@ -408,7 +408,7 @@ LINEN BINS
 
 /obj/item/blanket/tapestry
 	name = "tapestry"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "tribaldecoration2"
 	plane = GAME_PLANE
 	layer = VEHICLE_LAYER
@@ -416,7 +416,7 @@ LINEN BINS
 /obj/item/blanket/ruined
 	name = "ruined bedding"
 	desc = "The kind of bedding preferred by wild animals."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "skin"
 	layer = OBJ_LAYER
 

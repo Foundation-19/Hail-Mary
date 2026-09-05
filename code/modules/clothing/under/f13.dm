@@ -167,8 +167,8 @@
 	name = "NCR Winter Coat"
 	desc = "A tan winter coat utilized by the NCRA when under harsh climatic conditions, worn over the standard trooper uniform."
 	can_adjust = FALSE
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "ncrcoat"
 	item_state = "ncrcoat"
 	item_color = "ncrcoat"
@@ -680,8 +680,8 @@
 /obj/item/clothing/under/f13/khan
 	name = "great khan uniform"
 	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
+	icon = 'icons/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/khaans.dmi'
 	icon_state = "khan_uniform"
 	item_state = "khan_uniform"
 	item_color = "khan_uniform"
@@ -691,7 +691,7 @@
 /obj/item/clothing/under/f13/khan/shorts //Skirt aswell, if you alt click on it, turns into khan skirt.
 	name = "great khan jorts"
 	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants, but jorts is a acceptable alternative."
-	icon = 'icons/fallout/clothing/khans.dmi'
+	icon = 'icons/clothing/khans.dmi'
 	icon_state = "khan_short"
 	item_state = "khan_short"
 	body_parts_hidden = GROIN|LEGS
@@ -699,7 +699,7 @@
 /obj/item/clothing/under/f13/khan/booty
 	name = "great khan booty shorts"
 	desc = "Clothing marking the wearer as one of the the Great Khans. Most common are denim pants, But this pair doesn't seem to leave much to the imagination."
-	icon = 'icons/fallout/clothing/khans.dmi'
+	icon = 'icons/clothing/khans.dmi'
 	icon_state = "khan_booty"
 	item_state = "khan_booty"
 	body_parts_hidden = GROIN|LEGS
@@ -847,9 +847,9 @@
 /obj/item/clothing/under/f13/exile/tribal
 	name = "disheveled loincloth"
 	desc = "Fine handcrafted tribal clothing, now torn and faded. A simple lointcloth that comes with a piece of cloth to cover the chest with as well."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
 	icon_state = "clothing_tribalout"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	item_state = "clothing_tribalout"
 	body_parts_covered = GROIN
 	fitted = FEMALE_UNIFORM_TOP
@@ -925,24 +925,24 @@
 /obj/item/clothing/under/f13/army
 	name = "US Army combat uniform"
 	desc = "Standard issue combat uniform for the Army, worn by enlisted and NCOs."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "army_uniform"
 	item_state = "army_uniform"
 
 /obj/item/clothing/under/f13/army/officer
 	name = "US Army officer's combat uniform"
 	desc = "Standard issue combat uniform for the Army, worn by officers."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "army_officer"
 	item_state = "army_officer"
 
 /obj/item/clothing/under/f13/army/general
 	name = "US Army officer's combat uniform"
 	desc = "Standard issue combat uniform for the Army, worn by general rank officers."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "army_general"
 	item_state = "army_general"
 
@@ -951,8 +951,8 @@
 /obj/item/clothing/under/f13/minutemen
 	name = "minutemen uniform"
 	desc = "A neat, stylish pair of shirt and trousers, the signature outift of the Minutemen."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_uniform"
 	item_state = "mm_uniform"
 
@@ -962,23 +962,23 @@
 	name = "Atlantic Cross Uniform"
 	desc = "A uniform derived from old world war 1 US Navy uniforms. Used and made by the Atlantic Cross. This one was with combat more in mind, and loved by marines, but everyone can wear it really."
 	icon_state = "atlanticuniform"
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	item_color = "atlanticuniform"
 
 /obj/item/clothing/under/f13/atlantic/uniform/captain
 	name = "Atlantic Cross Captain Uniform"
 	desc = "A uniform derived from old world war 1 US Navy uniforms. Shoulder rank insignia have been added, to denote who is the captain."
 	icon_state = "atlanticuniform_captain"
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	item_color = "atlanticuniform_captain"
 
 /obj/item/clothing/under/f13/atlantic/sailor
 	name = "Atlantic Cross Sailor outfit"
 	desc = "The typical sailor outfit. A bit clicher, with this stripped marcel, its still loved by the crewmembers on board."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	icon = 'icons/fallout/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
 	icon_state = "atlanticsailor"
 	item_color = "atlanticsailor"
 
@@ -986,16 +986,16 @@
 	name = "Atlantic Cross warm outfit"
 	desc = "A utilitarian sweater put on when the weather gets cold. Some even find it comfy, and liked by doctors."
 	icon_state = "atlanticdoc"
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	item_color = "atlanticdoc"
 
 /obj/item/clothing/under/f13/atlantic/sailor/nurse
 	name = "Atlantic Cross nurse dress"
 	desc = "Probably the clothes worn by the founders of the Atlantic Cross. Those nurse dress are based on the World war 1 by those same nurses."
 	icon_state = "atlanticnurse"
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	item_color = "atlanticnurse"
 
 //US Navy
@@ -1019,8 +1019,8 @@
 /obj/item/clothing/under/f13/chinese
 	name = "PLA uniform"
 	desc = "An pre-war People's Liberation Army uniform, worn by enlisted and NCOs."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	mutantrace_variation = STYLE_DIGITIGRADE
 	icon_state = "chinese_soldier"
 	item_state = "chinese_soldier"
@@ -1028,8 +1028,8 @@
 /obj/item/clothing/under/f13/chinese/officer
 	name = "PLA officer's uniform"
 	desc = "An pre-war People's Liberation Army uniform, worn by officers."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	mutantrace_variation = STYLE_DIGITIGRADE
 	icon_state = "chinese_officer"
 	item_state = "chinese_officer"
@@ -1039,8 +1039,8 @@
 /obj/item/clothing/under/f13/kzs
 	name = "KZS suit"
 	desc = "A rough burlap suit coated in a flame retardant and radiation protective coating, provides decent camouflage value, surprisingly comfortable and well ventilated."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "sov_kzs"
 	item_state = "sov_kzs"
 	can_adjust = FALSE
@@ -1048,8 +1048,8 @@
 /obj/item/clothing/under/f13/klmk
 	name = "KLMK suit"
 	desc = "A dedicated masking suit often utilized by reconnaisance personnel, snipers and others with a need for concealment. Painted in an unusual blocky camo pattern featuring green and light golden tones."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "sov_klmk"
 	item_state = "sov_klmk"
 	can_adjust = FALSE
@@ -1059,8 +1059,8 @@
 /obj/item/clothing/under/f13/adiktracksuit
 	name = "Adik tracksuit"
 	desc = "A mildly expensive tracksuit from pre-war times. Comes with a single stripe down the pants and sleeves of the top, for some reason, two stripes or even three were either already trademarked or too expensive to produce."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "squatteroutfit"
 	item_state = "squatteroutfit"
 	can_adjust = FALSE
@@ -1068,8 +1068,8 @@
 /obj/item/clothing/under/f13/patriot1
 	name = "Cammies and Jeans"
 	desc = "Q was right all along. A pair of jean pants and a surplus camo jacket. Freedom isn't free."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "boomerwaffen1"
 	item_state = "boomerwaffen1"
 	can_adjust = FALSE
@@ -1077,8 +1077,8 @@
 /obj/item/clothing/under/f13/patriot3
 	name = "USA Shirt"
 	desc = "Q was right all along. A pair of surplus camo pants and a black shirt with USA written on the back. Freedom isn't free."
-	icon = 'icons/fallout/onmob/clothes/uniform.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/onmob/clothes/uniform.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "boomerwaffen3"
 	item_state = "boomerwaffen3"
 	can_adjust = FALSE
@@ -1089,40 +1089,40 @@
 /obj/item/clothing/under/f13/police/officer
 	name = "police officer's uniform"
 	desc = "A classic law enforcement uniform, composed of a dark navy long sleeve shirt, dark navy pants, and a black tie."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "police_officer"
 	item_state = "police_officer"
 
 /obj/item/clothing/under/f13/police/lieutenant
 	name = "police lieutenant's uniform"
 	desc = "A classic law enforcement uniform, composed of a dark navy long sleeve shirt, dark navy pants, and a black tie."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "police_lieutenant"
 	item_state = "police_lieutenant"
 
 /obj/item/clothing/under/f13/police/chief
 	name = "police chief's uniform"
 	desc = "A classic law enforcement uniform, composed of a dark navy long sleeve shirt, dark navy pants, and a black tie."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "police_chief"
 	item_state = "police_chief"
 
 /obj/item/clothing/under/f13/police/formal
 	name = "police formal uniform"
 	desc = "A formal police uniform."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "police_formal"
 	item_state = "police_formal"
 
 /obj/item/clothing/under/f13/police/trooper
 	name = "state police uniform"
 	desc = "The uniform of the State Police force, composed of a a gray long sleeve shirt, gray pants, and a black tie."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "state_trooper"
 	item_state = "state_trooper"
 
@@ -1131,8 +1131,8 @@
 /obj/item/clothing/under/f13/police/swat
 	name = "SWAT officer uniform"
 	desc = "A US Army combat uniform, modified for SWAT team personnel."
-	icon = 'icons/fallout/clothing/uniforms.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/uniform.dmi'
+	icon = 'icons/clothing/uniforms.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/uniform.dmi'
 	icon_state = "army_uniform"
 	item_state = "army_uniform"
 

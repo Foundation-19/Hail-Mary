@@ -79,7 +79,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = FLY_LAYER
-	icon = 'icons/fallout/objects/tarpaulinhorizontal.dmi'
+	icon = 'icons/obj/tarpaulinhorizontal.dmi'
 	bound_width = 64
 	resistance_flags = INDESTRUCTIBLE
 	flags_1 = NODECONSTRUCT_1
@@ -95,7 +95,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = 3.9
-	icon = 'icons/fallout/objects/tarpaulinhorizontal.dmi'
+	icon = 'icons/obj/tarpaulinhorizontal.dmi'
 	bound_width = 96
 	bound_height = 96
 	resistance_flags = INDESTRUCTIBLE
@@ -112,7 +112,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = FLY_LAYER
-	icon = 'icons/fallout/objects/tarpaulin.dmi'
+	icon = 'icons/obj/tarpaulin.dmi'
 	bound_width = 96
 	bound_height = 96
 	resistance_flags = INDESTRUCTIBLE
@@ -128,7 +128,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = FLY_LAYER
-	icon = 'icons/fallout/objects/fukbus.dmi'
+	icon = 'icons/obj/fukbus.dmi'
 	icon_state = "fukbus"
 	bound_width = 256
 	bound_height = 64
@@ -145,7 +145,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = FLY_LAYER
-	icon = 'icons/fallout/objects/fukbus.dmi'
+	icon = 'icons/obj/fukbus.dmi'
 	icon_state = "fukbus"
 	bound_width = 64
 	resistance_flags = INDESTRUCTIBLE
@@ -160,7 +160,7 @@
 	density = FALSE
 	anchored = TRUE
 	layer = FLY_LAYER
-	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon = 'icons/obj/redrocketredux.dmi'
 	icon_state = "redrocketbits"
 	bound_width = 448
 	bound_height = 160
@@ -173,7 +173,7 @@
 	density = TRUE
 	anchored = TRUE
 	layer = LATTICE_LAYER
-	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon = 'icons/obj/redrocketredux.dmi'
 	icon_state = "drivein"
 	bound_width = 224
 	bound_height = 64

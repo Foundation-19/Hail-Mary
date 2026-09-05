@@ -52,6 +52,7 @@ ATTACHMENTS
 
 	var/damage_multiplier = 1 //Multiplies damage of projectiles fired from this gun
 	var/penetration_multiplier = 1 //Multiplies armor penetration of projectiles fired from this gun
+	var/dt_penetration_bonus = 0 //Added to damage_threshold_penetration of projectiles fired from this gun
 
 	/// can we be put into a turret
 	var/can_turret = TRUE
@@ -159,6 +160,8 @@ ATTACHMENTS
 	var/rigged = FALSE
 	var/vision_flags = 0
 	var/projectile_speed_multiplier = 1
+	/// Scales the muzzle flash intensity/range of fired projectiles, set by barrel/mechanism upgrades
+	var/muzzleflash_multiplier = 1
 	/// How should this gun prefer to weight what limbs they hit
 	var/gun_accuracy_zone_type = ZONE_WEIGHT_SEMI_AUTO
 	/// What kind of traits should this gun be affected by
@@ -398,7 +401,10 @@ ATTACHMENTS
 
 /obj/item/gun/afterattack(atom/target, mob/living/user, flag, params)
 	. = ..()
-	if(!CheckAttackCooldown(user, target))
+	// Always gate actual firing on the gun's real fire rate, even at adjacent range -
+	// CheckAttackCooldown() substitutes CLICK_CD_MELEE when adjacent (for gun-butt melee attacks),
+	// which let players click-spam point blank to bypass semi/auto fire rate entirely.
+	if(!user.CheckActionCooldown(get_clickcd(user)))
 		return
 	process_afterattack(target, user, flag, params)
 
@@ -497,22 +503,21 @@ ATTACHMENTS
 
 /obj/item/gun/CanItemAutoclick(object, location, params) // fuck you why wasnt this here to begin with
 	if(automatic)
-		. = get_clickcd()
+		. = get_clickcd(usr)
 
 /obj/item/gun/CheckAttackCooldown(mob/user, atom/target)
 	if(user.Adjacent(target)) //melee
 		return user.CheckActionCooldown(CLICK_CD_MELEE)
-	return user.CheckActionCooldown(get_clickcd())
+	return user.CheckActionCooldown(get_clickcd(user))
 
-/obj/item/gun/proc/get_clickcd()
+/obj/item/gun/proc/get_clickcd(mob/user)
 	if (automatic == 0)
-		return 1
-		//return isnull(chambered?.click_cooldown_override)? get_fire_delay(user) : chambered.click_cooldown_override
+		return isnull(chambered?.click_cooldown_override)? get_fire_delay(user) : chambered.click_cooldown_override
 	if (automatic == 1)
 		return isnull(chambered?.click_cooldown_override)? autofire_shot_delay : chambered.click_cooldown_override
 
 /obj/item/gun/GetEstimatedAttackSpeed(mob/user)
-	return get_clickcd()
+	return get_clickcd(user)
 
 /obj/item/gun/proc/handle_pins(mob/living/user)
 	if(no_pin_required)
@@ -761,9 +766,9 @@ ATTACHMENTS
 	. = ..()
 	if(gun_light)
 		var/state = "[gunlight_state][gun_light.on? "_on":""]"	//Generic state.
-		if(gun_light.icon_state in icon_states('icons/fallout/objects/guns/attachments.dmi'))	//Snowflake state?
+		if(gun_light.icon_state in icon_states('icons/obj/guns/attachments.dmi'))	//Snowflake state?
 			state = gun_light.icon_state
-		flashlight_overlay = mutable_appearance('icons/fallout/objects/guns/attachments.dmi', state)
+		flashlight_overlay = mutable_appearance('icons/obj/guns/attachments.dmi', state)
 		flashlight_overlay.pixel_x = flight_x_offset
 		flashlight_overlay.pixel_y = flight_y_offset
 		. += flashlight_overlay
@@ -771,9 +776,9 @@ ATTACHMENTS
 		flashlight_overlay = null
 
 	if(bayonet)
-		if(bayonet.icon_state in icon_states('icons/fallout/objects/guns/attachments.dmi'))		//Snowflake state?
+		if(bayonet.icon_state in icon_states('icons/obj/guns/attachments.dmi'))		//Snowflake state?
 			knife_overlay = bayonet.icon_state
-		var/icon/bayonet_icons = 'icons/fallout/objects/guns/attachments.dmi'
+		var/icon/bayonet_icons = 'icons/obj/guns/attachments.dmi'
 		knife_overlay = mutable_appearance(bayonet_icons, bayonet_state)
 		knife_overlay.pixel_x = knife_x_offset
 		knife_overlay.pixel_y = knife_y_offset
@@ -782,9 +787,9 @@ ATTACHMENTS
 		knife_overlay = null
 	/*
 	if(scope)
-		if(scope.icon_state in icon_states('icons/fallout/objects/guns/attachments.dmi'))
+		if(scope.icon_state in icon_states('icons/obj/guns/attachments.dmi'))
 			scope_overlay = scope.icon_state
-		var/icon/scope_icons = 'icons/fallout/objects/guns/attachments.dmi'
+		var/icon/scope_icons = 'icons/obj/guns/attachments.dmi'
 		scope_overlay = mutable_appearance(scope_icons, scope_state)
 		scope_overlay.pixel_x = scope_x_offset
 		scope_overlay.pixel_y = scope_y_offset
@@ -793,7 +798,7 @@ ATTACHMENTS
 		scope_overlay = null
 	*/
 	if(silenced)
-		var/icon/suppressor_icons = 'icons/fallout/objects/guns/attachments.dmi'
+		var/icon/suppressor_icons = 'icons/obj/guns/attachments.dmi'
 		suppressor_overlay = mutable_appearance(suppressor_icons, suppressor_state)
 		suppressor_overlay.pixel_x = suppressor_x_offset
 		suppressor_overlay.pixel_y = suppressor_y_offset
@@ -1285,6 +1290,7 @@ ATTACHMENTS
 	//First of all, lets reset any var that could possibly be altered by an upgrade
 	damage_multiplier = initial(damage_multiplier)
 	penetration_multiplier = initial(penetration_multiplier)
+	dt_penetration_bonus = initial(dt_penetration_bonus)
 	//pierce_multiplier = initial(pierce_multiplier)
 	//ricochet_multiplier = initial(ricochet_multiplier)
 	projectile_speed_multiplier = initial(projectile_speed_multiplier)
@@ -1292,7 +1298,7 @@ ATTACHMENTS
 	fire_delay = initial(fire_delay)
 	burst_shot_delay = initial(burst_shot_delay)
 	//move_delay = initial(move_delay)
-	//muzzle_flash = initial(muzzle_flash)
+	muzzleflash_multiplier = initial(muzzleflash_multiplier)
 	silenced = initial(silenced)
 	restrict_safety = initial(restrict_safety)
 	added_spread = initial(added_spread)
@@ -1728,7 +1734,7 @@ CITADEL MODULAR PISTOL CODE
 /obj/item/gun/ballistic/automatic/pistol/modular
 	name = "modular pistol"
 	desc = "A small, easily concealable 10mm handgun. Has a threaded barrel for suppressors."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "cde"
 	can_unsuppress = TRUE
 	automatic_burst_overlay = FALSE

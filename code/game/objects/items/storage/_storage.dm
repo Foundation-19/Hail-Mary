@@ -15,7 +15,6 @@
 
 /obj/item/storage/ComponentInitialize()
 	AddComponent(component_type)
-	//RegisterSignal(src, COMSIG_VORE_ATOM_DIGESTED, PROC_REF(dump_everything)) // TODO: Make this work
 
 /obj/item/storage/AllowDrop()
 	return TRUE

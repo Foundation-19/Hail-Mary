@@ -5,14 +5,14 @@
 /obj/item/weaponcrafting/reciever
 	name = "modular receiver"
 	desc = "A prototype modular receiver and trigger assembly for a firearm."
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "receiver"
 */ //this...tentatively...does nothing? does not appear anywhere? and has an identical twin called /obj/item/weaponcrafting/receiver, which is properly spelled. wtf. like actually w t f
 
 /obj/item/weaponcrafting/stock
 	name = "rifle stock"
 	desc = "A classic rifle stock that doubles as a grip, roughly carved out of wood."
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "riflestock"
 
 /obj/item/rocketshell //only useful for crafting rockets
@@ -26,11 +26,12 @@
 /obj/item/crafting
 	name = "basic crafting components obtained from salvaging"
 	desc = "This should not be visible. Tell someone about it."
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	item_state = "null"
 	w_class = WEIGHT_CLASS_TINY
 
 /obj/item/crafting/diode
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "diode"
 	desc = "It looks like something I saw in that useless broken television set once.<br>That thing is probably used in some electronic devices."
 	icon_state = "diode_1"
@@ -39,6 +40,7 @@
 	icon_state = "diode_[rand(1,3)]"
 
 /obj/item/crafting/transistor
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "transistor"
 	desc = "Popov would love it, but Tesla got to see it.<br>The most useful electrical component."
 	icon_state = "transistor_1"
@@ -47,6 +49,7 @@
 	icon_state = "transistor_[rand(1,3)]"
 
 /obj/item/crafting/capacitor
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "capacitor"
 	desc = "It looks like something I saw inside of the radio once.<br>It seems like it's the most basic electrical component."
 	icon_state = "capacitor_1"
@@ -55,6 +58,7 @@
 	icon_state = "capacitor_[rand(1,3)]"
 
 /obj/item/crafting/fuse
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "fuse"
 	desc = "A tiny glass tube with some wiring stuck inside of it.<br>I have no idea what it is."
 	icon_state = "fuse_1"
@@ -63,6 +67,7 @@
 	icon_state = "fuse_[rand(1,3)]"
 
 /obj/item/crafting/resistor
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "resistor"
 	desc = "Tesla Warrior says, \"Stop right there, criminal electron!\"<br>Electron says, \"You'll never catch me!!!\"<br>*Zoom* *Zoom* *Pew* *Pew* *Pew*"
 	icon_state = "resistor_1"
@@ -71,6 +76,7 @@
 	icon_state = "resistor_[rand(1,3)]"
 
 /obj/item/crafting/switch_crafting //look, "switch" is a built in proc and we can't use it in the path by itself
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "switch"
 	desc = "A common switch, used to light up the flashlight or activate a bomb timer." //Why i code it?
 	icon_state = "switch_1"
@@ -79,6 +85,7 @@
 	icon_state = "switch_[rand(1,3)]"
 
 /obj/item/crafting/bulb
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "bulb"
 	desc = "And at last I see the light,<br>And it's like the fog has lifted,<br>And at last I see the light,<br>And it's like the sky is new,<br>And it's warm and real and bright,<br>And the world has somehow shifted,<br>All at once everything looks different."
 	icon_state = "bulb_1"
@@ -87,6 +94,7 @@
 	icon_state = "bulb_[rand(1,3)]"
 
 /obj/item/crafting/board
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "empty circuit board"
 	desc = "A plastic board used to hold all other electrical components together."
 	icon_state = "board_1"
@@ -95,6 +103,7 @@
 	icon_state = "board_[rand(1,3)]"
 
 /obj/item/crafting/buzzer
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "buzzer"
 	desc = "I can almost hear it buzzing. Except it's not."
 	icon_state = "buzzer"
@@ -105,16 +114,19 @@
 	icon_state = "frame"
 
 /obj/item/crafting/small_gear
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "small gear"
 	desc = "A litle part of a big mechanism."
 	icon_state = "gear_small"
 
 /obj/item/crafting/large_gear
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "large gear"
 	desc = "A big part of a grand mechanism."
 	icon_state = "gear_large"
 
 /obj/item/crafting/duct_tape
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "duct tape"
 	desc = "A pinnacle of engineering - it fixes everything!"
 	icon_state = "duct_tape"
@@ -130,6 +142,7 @@
 	icon_state = "rope"*/
 
 /obj/item/crafting/wonderglue
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "wonder glue"
 	desc = "A pre-War brand of glue that has retained its adhesive qualities.<br>A glue itself is a liquid acrylic adhesive, meant to fix broken plastics and ceramics or used in the assembly of a great assortment of items."
 	icon_state = "wonderglue1"
@@ -139,11 +152,13 @@
 	icon_state = "wonderglue[rand(1,2)]"
 
 /obj/item/crafting/turpentine
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "turpentine"
 	desc = "A liquid distilled from pine resin, can function as an antiseptic or solvent."
 	icon_state = "turpentine"
 
 /obj/item/crafting/abraxo
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "Abraxo"
 	desc = "A pre-War cleaning agent produced by Abraxodyne Chemical.<br>Its powdery flakes seem useful for dealing with toxic spills."
 	icon_state = "abraxo"
@@ -178,12 +193,14 @@
 	user.put_in_hands(jank_board)
 
 /obj/item/crafting/lunchbox
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "lunch box"
 	desc = "This was a promotional item created by Vault-Tec before the Great War and used in the company's advertisements. With the right schematics, it can be used to make bottlecap mines."
 	icon_state = "lunchbox"
 	tool_behaviour = TOOL_LUNCHBOX
 
 /obj/item/crafting/campfirekit
+	icon = 'icons/obj/crafting/parts.dmi'
 	name = "campfire kit"
 	desc = "A small box filled with an assortment of wood and tender. Useful for quickly making a fire."
 	icon_state = "lunchbox"

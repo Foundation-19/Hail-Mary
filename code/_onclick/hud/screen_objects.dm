@@ -52,13 +52,13 @@
 
 /obj/screen/craft
 	name = "crafting menu"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "craft"
 	screen_loc = ui_crafting
 
 /obj/screen/area_creator
 	name = "create new area"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "area_edit"
 	screen_loc = ui_building
 
@@ -73,7 +73,7 @@
 
 /obj/screen/language_menu
 	name = "language menu"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "talk_wheel"
 	screen_loc = ui_language_menu
 
@@ -196,7 +196,7 @@
 
 /obj/screen/drop
 	name = "drop"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "act_drop"
 	layer = HUD_LAYER
 	plane = HUD_PLANE
@@ -308,7 +308,7 @@
 
 /obj/screen/mov_intent
 	name = "run/walk toggle"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "running"
 
 /obj/screen/mov_intent/Click()
@@ -328,7 +328,7 @@
 
 /obj/screen/pull
 	name = "stop pulling"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "pull"
 
 /obj/screen/pull/Click()
@@ -344,7 +344,7 @@
 
 /obj/screen/resist
 	name = "resist"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "act_resist"
 	layer = HUD_LAYER
 	plane = HUD_PLANE
@@ -356,7 +356,7 @@
 
 /obj/screen/rest
 	name = "rest"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "act_rest"
 	layer = HUD_LAYER
 	plane = HUD_PLANE
@@ -377,7 +377,7 @@
 
 /obj/screen/throw_catch
 	name = "throw/catch"
-	icon = 'icons/fallout/UI/screen_fallout2.dmi'
+	icon = 'icons/UI/screen_fallout2.dmi'
 	icon_state = "act_throw_off"
 
 /obj/screen/throw_catch/Click()

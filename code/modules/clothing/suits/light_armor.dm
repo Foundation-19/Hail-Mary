@@ -175,8 +175,8 @@
 /obj/item/clothing/suit/hooded/outcast
 	name = "patched heavy leather cloak"
 	desc = "A robust cloak made from layered gecko skin patched with various bits of leather from dogs and other animals, able to absorb more force than one would expect from leather."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "cloak_outcast"
 	item_state = "cloak_outcast"
 	armor = list("melee" = 35, "bullet" = 20, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 20, "rad" = 30, "fire" = 30, "acid" = 20)
@@ -186,9 +186,9 @@
 /obj/item/clothing/head/hooded/cloakhood/outcast
 	name = "patched leather hood"
 	desc = "Thick layered leather, patched together."
-	icon = 'icons/fallout/clothing/hats.dmi'
+	icon = 'icons/clothing/hats.dmi'
 	icon_state = "hood_tribaloutcast"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	item_state = "hood_tribaloutcast"
 	armor = list("melee" = 35, "bullet" = 20, "laser" = 10, "energy" = 10, "bomb" = 25, "bio" = 20, "rad" = 30, "fire" = 30, "acid" = 20)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR

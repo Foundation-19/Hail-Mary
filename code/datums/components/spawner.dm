@@ -96,7 +96,7 @@
 	RegisterSignal(parent, COMSIG_OBJ_ATTACK_GENERIC, PROC_REF(on_attack_generic))
 	RegisterSignal(parent, COMSIG_SPAWNER_COVERED, PROC_REF(stop_spawning))
 	RegisterSignal(parent, COMSIG_SPAWNER_UNCOVERED, PROC_REF(start_spawning))
-	RegisterSignal(parent, COMSIG_SPAWNER_ABSORB_MOB, PROC_REF(unbirth_mob))
+	RegisterSignal(parent, COMSIG_SPAWNER_ABSORB_MOB, PROC_REF(absorb_mob))
 	RegisterSignal(parent, COMSIG_SPAWNER_EXISTS, PROC_REF(has_spawner))
 	if(istype(parent, /obj/structure/nest/special))
 		RegisterSignal(parent, COMSIG_SPAWNER_SPAWN_NOW, PROC_REF(spawn_mob_special))
@@ -313,7 +313,7 @@
 			GLOB.random_mob_nest_spawner_groups[r_group_datum.group_tag] = r_group_datum
 
 /// Is passed a mob via the signal, and will attempt to despawn the mob and store it in the spawner.
-/datum/component/spawner/proc/unbirth_mob(datum/source, mob/living/simple_animal/despawn_me)
+/datum/component/spawner/proc/absorb_mob(datum/source, mob/living/simple_animal/despawn_me)
 	if(QDELETED(parent))
 		return
 	if(!istype(despawn_me))

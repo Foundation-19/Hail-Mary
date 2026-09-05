@@ -1,7 +1,7 @@
 //Fallout 13 general flora directory
 
 /obj/structure/flora/grass/wasteland
-	icon = 'icons/fallout/flora/flora.dmi'
+	icon = 'icons/flora/flora.dmi'
 	desc = "Some dry, virtually dead grass."
 	icon_state = "tall_grass_1"
 
@@ -25,7 +25,7 @@
 		. = ..()
 
 /obj/structure/flora/grass/saltlake
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	desc = "Some dry, virtually dead grass."
 	icon_state = "grass"
 
@@ -110,7 +110,7 @@
 		. = ..()
 
 /obj/structure/flora/grass/drygrass
-	icon = 'icons/fallout/flora/flora.dmi'
+	icon = 'icons/flora/flora.dmi'
 	desc = "Some dry, virtually dead grass."
 
 /obj/structure/flora/grass/drygrass/eight
@@ -168,7 +168,7 @@
 /obj/structure/flora/tree/wasteland
 	name = "dead tree"
 	desc = "It's a tree. Useful for combustion and/or construction."
-	icon = 'icons/fallout/flora/trees.dmi'
+	icon = 'icons/flora/trees.dmi'
 	icon_state = "deadtree_1"
 	log_amount = 4
 	obj_integrity = 100

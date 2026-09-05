@@ -10,9 +10,9 @@
 /obj/item/melee/onehanded
 	name = "onehand melee template"
 	desc = "should not exist"
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee1h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee1h_righthand.dmi'
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
@@ -147,8 +147,8 @@
 /obj/item/throwing_star/tomahawk
 	name = "tomahawk"
 	desc = "A lightweight axe for heaving at devil-men."
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	icon_state = "tomahawk"
 	item_state = "hatchet_tribal"
 	force = 20
@@ -324,7 +324,7 @@ obj/item/melee/onehanded/knife/switchblade
 		user.visible_message("[user] begins cleaning the blade of the [src].", \
 				span_notice("You begin scrubbing the [src] with Abraxo. Smells nice."), \
 				span_italic("You hear faint sounds of scrubbing."))
-		playsound(get_turf(src), 'sound/FermiChem/heatdam.ogg', 50, TRUE)
+		playsound(get_turf(src), 'sound/weapons/bladeslice.ogg', 50, TRUE)
 		if(!do_after(user, 60, TRUE, src))
 			return
 		new /obj/item/melee/onehanded/knife/cosmic(drop_location())
@@ -579,9 +579,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/classic_baton/militarypolice
 	name = "military baton"
 	desc = "Sturdy stick painted white, used by military police to get unruly troopers into line."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee1h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee1h_righthand.dmi'
 	icon_state = "batonmp"
 	item_state = "batonmp"
 
@@ -589,9 +589,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/classic_baton/police
 	name = "police baton"
 	desc = "A black plastic nightstick, used by police officers to detain rowdy law-breakers."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee1h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee1h_righthand.dmi'
 	icon_state = "batonpolice"
 	item_state = "batonpolice"
 
@@ -685,9 +685,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/unarmed
 	name = "glove weapon template"
 	desc = "should not be here"
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee1h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee1h_righthand.dmi'
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
 	attack_speed = CLICK_CD_MELEE * 0.9
 	w_class = WEIGHT_CLASS_SMALL
@@ -793,9 +793,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/unarmed/sappers/dual
 	name = "sappers"
 	desc = "Lead filled gloves which are ideal for beating the crap out of opponents. Deals significant stamina damage. I mean, I wouldn't want to get punched in the chest with it..."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
-	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "sapper_dual"
 	item_state = "sapper_dual"
 	w_class = WEIGHT_CLASS_BULKY
@@ -833,9 +833,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/unarmed/tigerclaw/dual
 	name = "Dual Tiger Claws"
 	desc = "Gloves with short claws built into the palms."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
-	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "tiger_claw_dual"
 	item_state = "tiger_claw_dual"
 	w_class = WEIGHT_CLASS_BULKY
@@ -872,9 +872,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/unarmed/lacerator/dual
 	name = "Dual Lacerators"
 	desc = "Leather gloves with razor blades built into the back of the hand."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
-	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "lacerator_dual"
 	item_state = "lacerator_dual"
 	w_class = WEIGHT_CLASS_BULKY
@@ -909,9 +909,9 @@ obj/item/melee/onehanded/knife/switchblade
 /obj/item/melee/unarmed/maceglove/dual
 	name = "Dual Mace Gloves"
 	desc = "Weighted metal gloves that are covered in spikes.  Don't expect to grab things with this."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
-	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "mace_glove_dual"
 	item_state = "mace_glove_dual"
 	w_class = WEIGHT_CLASS_BULKY
@@ -965,9 +965,9 @@ obj/item/melee/unarmed/punchdagger/cyborg
 /obj/item/melee/unarmed/deathclawgauntlet/dual
 	name = "Dual Deathclaw Gauntlets"
 	desc = "The severeds hand of a mighty Deathclaw, cured, hollowed out, and given a harness to turn it into the deadliest gauntlet the wastes have ever seen."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
-	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "deathclaw_g_dual"
 	item_state = "deathclaw_g_dual"
 	slot_flags = ITEM_SLOT_GLOVES
@@ -1012,9 +1012,9 @@ obj/item/melee/unarmed/punchdagger/cyborg
 /obj/item/melee/unarmed/yaoguaigauntlet/dual
 	name = "Dual Yao Guai Gauntlets"
 	desc = "The severed hands of a yao guai, the hide cured, the muscles and bone removed, and given a harness to turn it into a deadly gauntlet. A weapon worthy of the Sulfurs."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
-	righthand_file = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/clothes/hand.dmi'
+	righthand_file = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "yao_guai_g_dual"
 	item_state = "deathclaw_g_dual"
 	slot_flags = ITEM_SLOT_GLOVES
@@ -1066,9 +1066,9 @@ obj/item/melee/unarmed/punchdagger/cyborg
 /obj/item/shovel/trench
 	name = "p81 entrenching tool"
 	desc = "The 'Pattern 2281' Entrenching Tool is a new piece of infantry equipment given in limited quantity to infantry troops. An extremely robust shovel with a serrated edge for chopping wood."
-	icon = 'icons/fallout/objects/melee/melee.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
+	icon = 'icons/obj/melee/melee.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee1h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee1h_righthand.dmi'
 	icon_state = "entrenching_tool"
 	item_state = "trench"
 	w_class = WEIGHT_CLASS_NORMAL

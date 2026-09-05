@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(minimaps)
 	if(!CONFIG_GET(flag/minimaps_enabled))
 		to_chat(world, span_boldwarning("Minimaps disabled! Skipping init."))
 		return ..()
-	build_minimaps()
+	addtimer(CALLBACK(src, PROC_REF(build_minimaps)), 0)
 	return ..()
 
 /datum/controller/subsystem/minimaps/proc/build_minimaps()

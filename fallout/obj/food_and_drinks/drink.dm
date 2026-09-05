@@ -2,7 +2,7 @@
 	name = "metal flask"
 	desc = "A metallic liquid container. Never leave home without one."
 	icon_state = "flask"
-	icon = 'icons/fallout/objects/food&drinks/drinks.dmi'
+	icon = 'icons/obj/food&drinks/drinks.dmi'
 	custom_materials = list(/datum/material/iron = 500)
 	volume = 60
 	list_reagents = list(/datum/reagent/water = 50)

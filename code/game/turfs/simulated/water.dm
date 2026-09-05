@@ -114,7 +114,7 @@
 
 /turf/open/water/cavern/diagonal
 	name = "cavern"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "cavernfloor"
 	layer = VISIBLE_FROM_ABOVE_LAYER
 
@@ -128,7 +128,7 @@
 
 /turf/open/water/cavern/sewer
 	name = "river"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "riverwateruhh"
 
 /turf/open/water/cavern/sewer/no_slowdown

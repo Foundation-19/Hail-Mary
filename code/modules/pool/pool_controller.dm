@@ -63,7 +63,7 @@
 /obj/machinery/pool/controller/vent
 	name = "vent"
 	desc = "A trickling stream of water from a source high up in the mountains to the north."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "ventblue"
 	density = FALSE
 	layer = WALL_OBJ_LAYER

@@ -1,7 +1,7 @@
 /obj/structure/railing
 	name = "railing"
 	desc = "Basic railing meant to protect idiots like you from falling."
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "railing"
 	flags_1 = ON_BORDER_1
 	density = TRUE
@@ -129,7 +129,7 @@
 /// TG Sprites
 
 /obj/structure/railing/tg
-	icon = 'icons/fallout/structures/railings.dmi'
+	icon = 'icons/structures/railings.dmi'
 	icon_state = "railing"
 	layer = ABOVE_MOB_LAYER
 	plane = MOB_PLANE
@@ -151,7 +151,7 @@
 /obj/structure/railing/wood
 	name = "wooden fence"
 	desc = "Marks property and prevents accidents."
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "straight_wood"
 	layer = WALL_OBJ_LAYER
 

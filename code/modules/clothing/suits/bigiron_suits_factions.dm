@@ -66,8 +66,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion
 	name = "legion armor template"
 	desc = "should not exist. Bugreport."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "legrecruit"
 	item_state = "legarmor"
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2) // Because shit armor
@@ -124,8 +124,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion/vet
 	name = "legion veteran armor"
 	desc = "Armor worn by veterans, salvaged bits of enemy armor and scrap metal often reinforcing the armor."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "legion_veteran"
 	item_state = "legion_veteran"
 	clothing_flags = CUSHIONED_ARMOR
@@ -138,8 +138,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion/heavy
 	name = "legion veteran decan armor"
 	desc = "A Legion veterans armor reinforced with a patched bulletproof vest, the wearer has the markings of a Decanus."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_heavy"
 	item_state = "legion_heavy"
 	clothing_flags = CUSHIONED_ARMOR
@@ -152,8 +152,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion/vet/explorer
 	name = "legion scout armor"
 	desc = "Armor based on layered strips of laminated linen and leather, the technique giving it surprising resilience for low weight."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "legion_explorer"
 	item_state = "legion_explorer"
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
@@ -162,8 +162,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion/praetorian
 	name = "legion bodyguard armor"
 	desc = "A suit of light armor with reinforced plates and leather added to it, protecting its user. Perfect for combatants specializing in hit-and-run."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "legion_praetorian"
 	item_state = "legion_praetorian"
 	slowdown = ARMOR_SLOWDOWN_LIGHT * ARMOR_SLOWDOWN_GLOBAL_MULT
@@ -171,7 +171,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /obj/item/clothing/suit/armor/legion/vet/vexil
 	name = "legion vexillarius armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
 	desc = " Worn by Vexillarius, this armor has been reinforced with circular metal plates on the chest and a back mounted pole for the flag of the Bull, making the wearer easy to see at a distance."
 	icon_state = "legion_vex"
 	item_state = "legion_vex"
@@ -194,8 +194,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion/centurion //good all around
 	name = "legion centurion armor"
 	desc = "Every Centurion is issued some of the best armor available in the Legion, and adds better pieces from slain opponents over time."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_centurion"
 	item_state = "legion_centurion"
 	clothing_flags = CUSHIONED_ARMOR
@@ -208,8 +208,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /obj/item/clothing/suit/armor/legion/palacent //laser resist spec
 	name = "paladin-slayer centurion armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi' // Inconsistent naming, clean all of the sprites and code up sometime
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi' // Inconsistent naming, clean all of the sprites and code up sometime
 	desc = "A Centurion able to defeat a Brotherhood Paladin gets the honorific title 'Paladin-Slayer', and adds bits of the looted armor to his own."
 	icon_state = "legion_palacent"
 	item_state = "legion_palacent"
@@ -222,8 +222,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /obj/item/clothing/suit/armor/legion/rangercent //speed and bullet resist, sacrifices all else
 	name = "ranger-hunter centurion armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	desc = "Centurions who have led many patrols and ambushes against NCR Rangers have a distinct look from the many looted pieces of Ranger armor, and are often experienced in skirmishing."
 	icon_state = "legion_rangercent"
 	item_state = "legion_rangercent"
@@ -237,8 +237,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/legion/legate
 	name = "legion legate armor"
 	desc = " Made by the most skilled blacksmiths in Arizona, the bronzed steel of this rare armor offers good protection, and the scars on its metal proves it has seen use on the field."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "legion_legate"
 	item_state = "legion_legate"
 	clothing_flags = CUSHIONED_ARMOR
@@ -252,24 +252,24 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/medium/combat/legion
 	name = "Legion combat armor"
 	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for Caesar's Legion."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "combat_armor_legion"
 	item_state = "combat_armor_legion"
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/legion
 	name = "reinforced Legion combat armor"
 	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for Caesar's Legion."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "combat_armor_legion_mk2"
 	item_state = "combat_armor_legion_mk2"
 
 /obj/item/clothing/suit/armor/legion/vet/explorercanada
 	name = "custom explorer armor"
 	desc = "Armor based on layered strips of laminated linen and leather, the technique giving it surprising resilience for low weight. This one has been custom made."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "legion-explorercustom"
 	item_state = "legion-explorercustom"
 
@@ -350,8 +350,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/ncrarmor/heavygunner //NCR Trench Raider Armor
 	name = "NCR Trench Raider Chestplate"
 	desc = "A heavily reinforced NCR vest. Rumors say that the leather for the lining comes from the best-fed Brahmins, and complete with extra armor padding."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "steel_bib_ncra"
 	item_state = "steel_bib_ncra"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_UP_DT_T3)
@@ -414,23 +414,23 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /obj/item/clothing/suit/armor/medium/combat/ncr
 	name = "NCR combat armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	desc = "Pre-war military style armor, patched and missing some parts. Modified and repainted to declare the user a fighter for New California Republic."
 	icon_state = "combat_armor_ncr"
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/ncr
 	name = "reinforced NCR combat armor"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	desc = "Pre-war military style armor, a full set with bracers and reinforcements. Modified and repainted to declare the user a fighter for New California Republic."
 	icon_state = "combat_armor_ncr_mk2"
 
 /obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofcoat
 	name = "heavy NCR bulletproof coat"
 	desc = "A heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry. This one comes with a long coat to boot, styled after the types commonly used by the NCRA and NCRR."
-	icon = 'icons/fallout/onmob/clothes/suit.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon = 'icons/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit.dmi'
 	icon_state = "ncrbulletproofcoat"
 	item_state = "ncrbulletproofcoat"
 	blood_overlay_type = "armor"
@@ -438,8 +438,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/heavy/vest/bulletproof/ncrbulletproofsniper
 	name = "heavy NCR bulletproof sniper armor"
 	desc = "A heavy bulletproof vest that excels in protecting the wearer against traditional projectile weaponry. This one comes with an attached sniper's raincoat, colored to fit the arid environments of the Mojave Desert."
-	icon = 'icons/fallout/onmob/clothes/suit.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit.dmi'
+	icon = 'icons/onmob/clothes/suit.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit.dmi'
 	icon_state = "ncrbulletproofsniper"
 	item_state = "ncrbulletproofsniper"
 	blood_overlay_type = "armor"
@@ -480,8 +480,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/medium/combat/desert_ranger/patrol
 	name = "desert ranger patrol armor"
 	desc = "A set of desert ranger patrol armor, modified to be light and breezy here in the swamps, perfect for making blood sausage."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "ncr_patrol"
 	item_state = "ncr_patrol"
 	clothing_flags = CUSHIONED_ARMOR
@@ -826,8 +826,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/toggle/labcoat/khan_jacket
 	name = "Great Khan jacket"
 	desc = "A black leather jacket. <br>There is an illustration on the back - an aggressive, red-eyed skull wearing a fur hat with horns.<br>The skull has a mongoloid moustache - it's obviously a Great Khans emblem."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
+	icon = 'icons/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/khaans.dmi'
 	icon_state = "khan_jacket"
 	item_state = "khan_jacket"
 	cold_protection = CHEST|GROIN
@@ -889,8 +889,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/exile
 	name = "base faction exile armor"
 	desc = "this is for testing."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 
 /obj/item/clothing/suit/armor/exile/Initialize()
 	. = ..()
@@ -919,8 +919,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/exile/bosexile
 	name = "modified Brotherhood armor"
 	desc = "A modified detoriated armor kit consisting of brotherhood combat armor and scrap metal."
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	icon_state = "exile_bos"
 	item_state = "exile_bos"
 	armor = ARMOR_VALUE_MEDIUM
@@ -990,7 +990,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]")
 		if(blood_DNA)
-			var/file2use = (style_flags & STYLE_ALL_TAURIC) ? 'fallout/icons/mob/64x32_effects.dmi' : 'icons/effects/blood.dmi'
+			var/file2use = (style_flags & STYLE_ALL_TAURIC) ? 'icons/mob/64x32_effects.dmi' : 'icons/effects/blood.dmi'
 			. += mutable_appearance(file2use, "[blood_overlay_type]blood", color = blood_DNA_to_color())
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
@@ -1017,9 +1017,9 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 
 /*
 Just leaving this here for quick copy-pasting, for future contributors.
-	icon = 'fallout/icons/obj/clothing/suits.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/suit.dmi'
-	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/suit_digi.dmi'
+	icon = 'icons/obj/clothing/suits_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/suit_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/suit_digi_f13.dmi'
 	mutantrace_variation = STYLE_DIGITIGRADE
 	!!If you don't have digi-adapted sprites use `mutantrace_variation = NONE` instead. Should snap legs sprites to planti when related clothing is worn.
 	(unless suit doesn't cover legs in `body_parts_covered` var)
@@ -1230,8 +1230,8 @@ Just leaving this here for quick copy-pasting, for future contributors.
 /* /obj/item/clothing/suit/armor/medium/tribal/chitinarmor/old
 	name = "insect chitin armor"
 	desc = " set of light armor made of insect chitin. Tough and light, it provides some moderate protection from trauma while allowing the user to remain mobile and protected from the elements."
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "insect"
 	item_state = "insect"
 	armor = list("melee" = 40, "bullet" = 35,"laser" = 20, "energy" = 25, "bomb" = 25, "bio" = 70, "rad" = 65, "fire" = 80, "acid" = 100)

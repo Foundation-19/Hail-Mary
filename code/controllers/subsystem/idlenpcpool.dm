@@ -54,7 +54,7 @@ SUBSYSTEM_DEF(idlenpcpool)
 		var/mob/living/simple_animal/hostile/simp = RESOLVEWEAKREF(weakie)
 		if(simp)
 			//message_admins("[simp] getting culled~")
-			simp.unbirth_self()
+			simp.despawn_self()
 		mobs_to_cull -= weakie
 		if(MC_TICK_CHECK)
 			return

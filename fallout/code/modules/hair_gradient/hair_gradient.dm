@@ -1,5 +1,5 @@
 // Author: GremlingSS
-// Not all of my work, it's porting over vorestation's gradient system into TG and adapting it basically.
+// Not all of my work, it's a ported gradient system adapted for TG.
 // This is gonna be fun, wish me luck!~
 //
 // Also, as obligated to my coding standards, I must design a shitpost related to the code, but because it's hard to think of a meme

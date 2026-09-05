@@ -723,8 +723,8 @@
 /obj/item/clothing/head/helmet/f13/wastewarhat
 	name = "warrior helmet"
 	desc = "It might have been a cooking pot once, now its a helmet, with a piece of cloth covering the neck from the sun."
-	icon = 'icons/fallout/clothing/helmets.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/helmet.dmi'
+	icon = 'icons/clothing/helmets.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/helmet.dmi'
 	icon_state = "wastewar"
 	item_state = "wastewar"
 	flags_inv = HIDEEARS|HIDEHAIR
@@ -835,7 +835,7 @@
 	desc = "An advanced combat helmet used by the 11th Armored Calvary Regiment before the war. There is a worn and faded 11th Armored Calvary Regiment's insignia just above the visor. The helmet itself has some scratches and dents sustained from battle."
 	icon_state = "rigscustom_helmet"
 	item_state = "rigscustom_helmet"
-	icon = 'icons/fallout/clothing/hats.dmi'
+	icon = 'icons/clothing/hats.dmi'
 
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/pricecustom
 	name = "spider riot helmet"
@@ -986,8 +986,8 @@
 /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	name = "minutemen hat"
 	desc = "A stylish and slightly protective hat, made in the style of the Minutemen."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_hat"
 	item_state = "mm_hat"
 	mutantrace_variation = NONE

@@ -232,10 +232,10 @@
 /obj/item/defibrillator/primitive
 	name = "primitive defibrillator"
 	desc = "The Delco, the name of a box that can deliver shocks to the seriously wounded to revive them."
-	icon = 'icons/fallout/objects/medicine/primitivedefib.dmi'
+	icon = 'icons/obj/medicine/primitivedefib.dmi'
 	icon_state = "defibprimitive"
-	lefthand_file = 'icons/fallout/onmob/tools/medical_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/medical_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/medical_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/medical_righthand.dmi'
 	item_state = "defibunit"
 	cell = /obj/item/stock_parts/cell/high
 
@@ -700,10 +700,10 @@
 /obj/item/shockpaddles/primitive
 	name = "car jumper cables"
 	desc = "Jumper cables attached to a car battery."
-	icon = 'icons/fallout/objects/medicine/primitivedefib.dmi'
+	icon = 'icons/obj/medicine/primitivedefib.dmi'
 	icon_state = "defibpaddles0"
-	lefthand_file = 'icons/fallout/onmob/tools/medical_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/medical_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/medical_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/medical_righthand.dmi'
 	item_state = "defibpaddles0"
 
 /obj/item/shockpaddles/primitive/dropped(mob/user)

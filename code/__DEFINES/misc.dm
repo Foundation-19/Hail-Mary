@@ -4,6 +4,10 @@
 // #define EAST 4
 // #define WEST 8
 
+/// Bounty points needed in a round to count as a "greentext" win for the faction bounty board,
+/// see code/modules/objectives/bounty/.
+#define BOUNTY_GREENTEXT_THRESHOLD 50
+
 #define TEXT_NORTH			"[NORTH]"
 #define TEXT_SOUTH			"[SOUTH]"
 #define TEXT_EAST			"[EAST]"
@@ -537,3 +541,5 @@ GLOBAL_LIST_INIT(pda_reskins, list(PDA_SKIN_CLASSIC = 'icons/obj/pda.dmi'))
 #define SHOES_KNOTTED 2
 
 #define WANTED_FILE "wanted_message.json"
+
+#define CHECK_PREFS(mob, pref) FALSE

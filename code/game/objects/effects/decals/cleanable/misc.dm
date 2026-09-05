@@ -58,7 +58,7 @@
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	beauty = -75
 
-/obj/effect/decal/cleanable/dirt/Initialize()
+/obj/effect/decal/cleanable/dirt/Initialize(mapload)
 	. = ..()
 	var/turf/T = get_turf(src)
 	if(T.tiled_dirt)
@@ -66,7 +66,8 @@
 		icon = 'icons/effects/dirt.dmi'
 		icon_state = ""
 		queue_smooth(src)
-	queue_smooth_neighbors(src)
+	if(!mapload) // at mapload, neighbors already queued themselves in their own Initialize
+		queue_smooth_neighbors(src)
 
 /obj/effect/decal/cleanable/dirt/Destroy()
 	queue_smooth_neighbors(src)
@@ -216,7 +217,7 @@
 /obj/effect/decal/cleanable/stones
 	name = "stones"
 	desc = "You see nothing out of the ordinary."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "stones"
 	plane = GAME_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER

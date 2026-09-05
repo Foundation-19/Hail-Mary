@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
 	/datum/crafting_recipe/warpaint))
 
 GLOBAL_LIST_INIT(energyweapon_crafting, list(
-	/datum/crafting_recipe/aer9_hotwired))
+	/datum/crafting_recipe/aer9_overclocked))
 
 GLOBAL_LIST_INIT(pa_repair, list(
 	/datum/crafting_recipe/repair_t45,

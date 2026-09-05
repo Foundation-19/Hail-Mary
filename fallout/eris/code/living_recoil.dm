@@ -67,7 +67,7 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 			return
 		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
 		var/offset = round(calculate_offset(G.added_spread) * 0.8)
-		var/icon/base = find_cursor_icon('fallout/eris/icons/standard.dmi', offset)
+		var/icon/base = find_cursor_icon('icons/obj/eris_standard.dmi', offset)
 		ASSERT(isicon(base))
 		client.mouse_pointer_icon = base
 
@@ -88,12 +88,12 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	L["[offset]"] = icon
 
 /proc/make_cursor_icon(var/icon_file, var/offset)
-	var/icon/base = icon('fallout/eris/icons/96x96.dmi')
-	var/icon/scaled = icon('fallout/eris/icons/standard.dmi') //Default cursor, cut into pieces according to their direction
+	var/icon/base = icon('icons/effects/96x96_eris.dmi')
+	var/icon/scaled = icon('icons/obj/eris_standard.dmi') //Default cursor, cut into pieces according to their direction
 	base.Blend(scaled, ICON_OVERLAY, x = 32, y = 32)
 
 	for(var/dir in list(NORTHEAST,NORTHWEST,SOUTHEAST,SOUTHWEST))
-		var/icon/overlay = icon('fallout/eris/icons/standard.dmi', "[dir]")
+		var/icon/overlay = icon('icons/obj/eris_standard.dmi', "[dir]")
 		var/pixel_y
 		var/pixel_x
 		if(dir & NORTH)
@@ -105,7 +105,7 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 		if(dir & WEST)
 			pixel_x = CLAMP(-offset, -MAX_ACCURACY_OFFSET, MAX_ACCURACY_OFFSET)
 		base.Blend(overlay, ICON_OVERLAY, x=32+pixel_x, y=32+pixel_y)
-	add_cursor_icon(base, 'fallout/eris/icons/standard.dmi', offset)
+	add_cursor_icon(base, 'icons/obj/eris_standard.dmi', offset)
 	return base
 
 /proc/send_all_cursor_icons(var/client/C)

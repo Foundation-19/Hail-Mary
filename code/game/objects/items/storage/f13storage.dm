@@ -338,7 +338,7 @@
 
 /obj/item/storage/box/medicine
 	name = "empty cardboard box for medicine"
-	icon = 'icons/fallout/objects/storage.dmi'
+	icon = 'icons/obj/storage_f13.dmi'
 	icon_state = "medicinebox"
 	illustration = "overlay_stim"
 
@@ -397,7 +397,7 @@
 /obj/item/storage/box/medicine/bitterdrink5
 	name = "box of bitter drinks"
 	desc = "A box full of bitter drinks."
-	icon = 'icons/fallout/objects/storage.dmi'
+	icon = 'icons/obj/storage_f13.dmi'
 	icon_state = "medicinebox_simple"
 	illustration = "overlay_bitter"
 

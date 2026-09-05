@@ -1193,7 +1193,7 @@
 	name = "makeshift reloader (Machine Board)"
 	desc = "This device allows you to hand-craft your own gun rounds using certain raw materials, and make your own improvised reloading station for making some of the worst ammunition this side of the Radmississip."
 	build_path = /obj/machinery/autolathe/ammo/improvised
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "reloader"
 	req_components = list(
 		/obj/item/stack/sheet/mineral/wood = 3)

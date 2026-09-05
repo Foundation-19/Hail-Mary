@@ -9,6 +9,8 @@
 	var/list/gibtypes = list() //typepaths of the gib decals to spawn
 	var/list/gibamounts = list() //amount to spawn for each gib decal type we'll spawn.
 	var/list/gibdirections = list() //of lists of possible directions to spread each gib decal type towards.
+	/// Cache: "[gib_mob_type]-[gib_mob_species]" -> list(dna_list, body_color_string)
+	var/static/list/mob_dna_cache
 
 /obj/effect/gibspawner/Initialize(mapload, mob/living/source_mob, list/datum/disease/diseases, list/blood_dna)
 	. = ..()
@@ -42,21 +44,30 @@
 				body_coloring = "#[H.dna.features["mcolor"]]"
 
 	else if(gib_mob_type)
-		var/mob/living/temp_mob = new gib_mob_type(src) //generate a fake mob so that we pull the right type of DNA for the gibs.
-		if(gib_mob_species)
-			if(ishuman(temp_mob))
-				var/mob/living/carbon/human/H = temp_mob
-				H.set_species(gib_mob_species)
-				dna_to_add = temp_mob.get_blood_dna_list()
-				if(H.dna.species.use_skintones)
-					body_coloring = SKINTONE2HEX(H.skin_tone)
+		var/cache_key = "[gib_mob_type]-[gib_mob_species]"
+		if(!mob_dna_cache)
+			mob_dna_cache = list()
+		if(mob_dna_cache[cache_key])
+			var/list/cached = mob_dna_cache[cache_key]
+			dna_to_add = cached[1]
+			body_coloring = cached[2]
+		else
+			var/mob/living/temp_mob = new gib_mob_type(src) //generate a fake mob so that we pull the right type of DNA for the gibs.
+			if(gib_mob_species)
+				if(ishuman(temp_mob))
+					var/mob/living/carbon/human/H = temp_mob
+					H.set_species(gib_mob_species)
+					dna_to_add = temp_mob.get_blood_dna_list()
+					if(H.dna.species.use_skintones)
+						body_coloring = SKINTONE2HEX(H.skin_tone)
+					else
+						body_coloring = "#[H.dna.features["mcolor"]]"
 				else
-					body_coloring = "#[H.dna.features["mcolor"]]"
-			else
+					dna_to_add = temp_mob.get_blood_dna_list()
+			else if(!issilicon(temp_mob))
 				dna_to_add = temp_mob.get_blood_dna_list()
-		else if(!issilicon(temp_mob))
-			dna_to_add = temp_mob.get_blood_dna_list()
-		qdel(temp_mob)
+			qdel(temp_mob)
+			mob_dna_cache[cache_key] = list(dna_to_add, body_coloring)
 	else
 		dna_to_add = list("Non-human DNA" = random_blood_type()) //else, generate a random bloodtype for it.
 

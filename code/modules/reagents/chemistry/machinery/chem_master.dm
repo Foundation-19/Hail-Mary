@@ -24,7 +24,7 @@
 	var/analyzeVars[0]
 	var/useramount = 30 // Last used amount
 	var/list/pillStyles
-	var/fermianalyze //Give more detail on fermireactions on analysis
+
 
 /obj/machinery/chem_master/Initialize()
 	create_reagents(basereagents)
@@ -192,7 +192,7 @@
 	data["primitive"] = primitive
 	data["screen"] = screen
 	data["analyzeVars"] = analyzeVars
-	data["fermianalyze"] = fermianalyze
+
 	data["chosenPillStyle"] = chosenPillStyle
 	data["isPillBottleLoaded"] = bottle ? 1 : 0
 	if(bottle)
@@ -246,15 +246,12 @@
 		if (amount == null || amount <= 0)
 			return FALSE
 		if (to_container == "buffer")
-			end_fermi_reaction()
 			beaker.reagents.trans_id_to(src, reagent, amount)
 			return TRUE
 		if (to_container == "beaker" && mode)
-			end_fermi_reaction()
 			reagents.trans_id_to(beaker, reagent, amount)
 			return TRUE
 		if (to_container == "beaker" && !mode)
-			end_fermi_reaction()
 			reagents.remove_reagent(reagent, amount)
 			return TRUE
 		return FALSE
@@ -461,14 +458,7 @@
 				state = "Gas"
 			var/const/P = 3 //The number of seconds between life ticks
 			var/T = initial(R.metabolization_rate) * (60 / P)
-			if(istype(R, /datum/reagent/fermi))
-				fermianalyze = TRUE
-				var/datum/chemical_reaction/Rcr = get_chemical_reaction(reagent)
-				var/pHpeakCache = (Rcr.OptimalpHMin + Rcr.OptimalpHMax)/2
-				analyzeVars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold), "purityF" = R.purity, "inverseRatioF" = initial(R.inverse_chem_val), "purityE" = initial(Rcr.PurityMin), "minTemp" = initial(Rcr.OptimalTempMin), "maxTemp" = initial(Rcr.OptimalTempMax), "eTemp" = initial(Rcr.ExplodeTemp), "pHpeak" = pHpeakCache)
-			else
-				fermianalyze = FALSE
-				analyzeVars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold))
+			analyzeVars = list("name" = initial(R.name), "state" = state, "color" = initial(R.color), "description" = initial(R.description), "metaRate" = T, "overD" = initial(R.overdose_threshold), "addicD" = initial(R.addiction_threshold))
 			screen = "analyze"
 			return TRUE
 
@@ -478,11 +468,6 @@
 
 	return FALSE
 
-
-
-/obj/machinery/chem_master/proc/end_fermi_reaction()//Ends any reactions upon moving.
-	if(beaker && beaker.reagents.fermiIsReacting)
-		beaker.reagents.fermiEnd()
 
 /obj/machinery/chem_master/proc/isgoodnumber(num)
 	if(isnum(num))
@@ -527,7 +512,7 @@
 /obj/machinery/chem_master/primitive
 	name = "alchemy table"
 	desc = "A wooden table with various bone mortars and pistles, as well as other tools."
-	icon = 'modular_BD2/general/icons/alchemy.dmi'
+	icon = 'icons/obj/alchemy.dmi'
 	icon_state = "alchemy_table"
 	primitive = TRUE
 	use_power = FALSE

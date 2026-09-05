@@ -1,7 +1,7 @@
 /obj/item/stealthboy
 	name = "Stealth Boy MK1"
 	desc = "The RobCo Stealth Boy 3001 is a personal stealth device, this one is designed to be worn on your belt and the battery can be taken out if you can find an ALTERNATIVE way to CLICK the back open and take the battery out. (alt click to take the battery out and recharge it)"
-	icon = 'icons/fallout/objects/stealthboy.dmi'
+	icon = 'icons/obj/stealthboy.dmi'
 	icon_state = "stealth_boy"
 	item_flags = NOBLUDGEON
 	slot_flags = ITEM_SLOT_BELT

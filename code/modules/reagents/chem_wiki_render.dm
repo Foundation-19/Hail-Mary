@@ -35,7 +35,7 @@
 	to_chat(usr, "Generating big list")
 	message_admins("Someone pressed the lag button. (Generate Wikichems)")
 	///datum/reagent/medicine, /datum/reagent/toxin, /datum/reagent/consumable, /datum/reagent/plantnutriment, /datum/reagent/uranium,
-	///datum/reagent/colorful_reagent, /datum/reagent/mutationtoxin, /datum/reagent/fermi, /datum/reagent/drug, /datum/reagent/impure
+	///datum/reagent/colorful_reagent, /datum/reagent/mutationtoxin, /datum/reagent/drug, /datum/reagent/impure
 
 	//Probably not the most eligant of solutions.
 	to_chat(usr, "Attempting reagent scan. Length of list [LAZYLEN(GLOB.chemical_reagents_list)*2]")
@@ -49,7 +49,6 @@
 	var/uranium = ""
 	var/colours = ""
 	var/muta = ""
-	var/fermi = ""
 	var/remainder = ""
 	var/drug = ""
 	var/basic = ""
@@ -141,9 +140,6 @@
 			else if(istype(R, /datum/reagent/mutationtoxin))
 				muta += generate_chemwiki_line(R, X, processCR)
 
-			else if(istype(R, /datum/reagent/fermi))
-				fermi += generate_chemwiki_line(R, X, processCR)
-
 			else if(istype(R, /datum/reagent/drug))
 				drug += generate_chemwiki_line(R, X, processCR)
 
@@ -165,7 +161,7 @@
 	to_chat(usr, "finished chems")
 
 	var/wholeString = ("\n# DISPENCEABLE REAGENTS\n\n[prefix][basic]\n\n# COMPONENT REAGENTS\n\n[prefix][upgraded]\n\n# GROUND REAGENTS\n\n[prefix][grinded]\n")
-	wholeString += ("\n# MEDICINE:\n\n[prefix][medicine]\n\n# TOXIN:\n\n[prefix][toxin]\n\n# DRUGS\n\n[prefix][drug]\n\n# FERMI\n\nThese chems lie on the cutting edge of chemical technology, and as such are not recommended for beginners!\n\n[prefix][fermi]\n\n# IMPURE REAGENTS\n\n[prefix][impure]\n\n# GENERAL REAGENTS\n\n[prefix][remainder]\n\n# DISPENCEABLE SOFT DRINKS\n\n[prefix][drinks]\n\n# DISPENCEABLE HARD DRINKS\n\n[prefix][alco]\n\n# CONSUMABLE\n\n[prefix][consumable]\n\n# PLANTS\n\n[prefix][plant]\n\n# URANIUM\n\n[prefix][uranium]\n\n# COLOURS\n\n[prefix][colours]\n\n# RACE MUTATIONS\n\n[prefix][muta]\n\n\n# BLOB REAGENTS\n\n[prefix][blob]\n")
+	wholeString += ("\n# MEDICINE:\n\n[prefix][medicine]\n\n# TOXIN:\n\n[prefix][toxin]\n\n# DRUGS\n\n[prefix][drug]\n\n# IMPURE REAGENTS\n\n[prefix][impure]\n\n# GENERAL REAGENTS\n\n[prefix][remainder]\n\n# DISPENCEABLE SOFT DRINKS\n\n[prefix][drinks]\n\n# DISPENCEABLE HARD DRINKS\n\n[prefix][alco]\n\n# CONSUMABLE\n\n[prefix][consumable]\n\n# PLANTS\n\n[prefix][plant]\n\n# URANIUM\n\n[prefix][uranium]\n\n# COLOURS\n\n[prefix][colours]\n\n# RACE MUTATIONS\n\n[prefix][muta]\n\n\n# BLOB REAGENTS\n\n[prefix][blob]\n")
 
 	prefix = "|Name | Reagents | Reaction vars | Description |\n|---|---|---|----------|\n"
 	var/CRparse = ""

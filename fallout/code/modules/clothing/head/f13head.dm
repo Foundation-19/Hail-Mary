@@ -1,8 +1,8 @@
 /*
 Just leaving this here for quick copy-pasting, for future contributors.
-	icon = 'fallout/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/head.dmi'
-	anthro_mob_worn_overlay = 'fallout/icons/mob/clothing/head_muzzled.dmi'
+	icon = 'icons/obj/clothing/hats_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/head_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/head_muzzled.dmi'
 		!!If your hat/helmet covers face and don't have snout-adapted sprites, then use `mutantrace_variation = NONE` instead. Should hide snout sprite when helmet is worn.
 	!!Or if your sprite covers the snout part anyway, use `mutantrace_variation = STYLE_NO_ANTHRO_ICON` instead.
 */
@@ -10,8 +10,8 @@ Just leaving this here for quick copy-pasting, for future contributors.
 /obj/item/clothing/head/helmet/f13/goner
 	name = "dev-marked generic helmet"
 	desc = "A non-existent cheap-looking helmet."
-	icon = 'fallout/icons/obj/clothing/hats.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/head.dmi'
+	icon = 'icons/obj/clothing/hats_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/head_f13.dmi'
 	icon_state = "goner_helmet"
 	armor = ARMOR_VALUE_LIGHT
 	dynamic_hair_suffix = ""

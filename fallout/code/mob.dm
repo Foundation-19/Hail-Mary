@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/hellpig
 	name = "hellpig"
 	desc = "A mutated American boar, sporting razor sharp tucks and a nasty temper."
-	icon = 'fallout/icons/mob/hellpig.dmi'
+	icon = 'icons/mob/hellpig.dmi'
 	icon_state = "hellpig"
 	icon_living = "hellpig"
 	icon_dead = "hellpig_dead"
@@ -29,7 +29,7 @@
 	icon_state = "catslug"
 	icon_living = "catslug"
 	icon_dead = "catslug_dead"
-	icon = 'fallout/icons/mob/slugcat.dmi'
+	icon = 'icons/mob/slugcat.dmi'
 	rotate_on_lying = FALSE // plop~
 
 	faction = list("catslug", "neutral")
@@ -105,7 +105,7 @@
 /mob/living/simple_animal/pet/pokemon
 	name = "eevee"
 	desc = "It has the ability to alter the composition of its body to suit its surrounding environment."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemon.dmi'
 	icon_state = "eevee"
 	icon_living = "eevee"
 	icon_dead = "eevee_d"
@@ -138,7 +138,7 @@
 /mob/living/simple_animal/pet/pokemon/eevee
 	name = "Eevee"
 	desc = "It has the ability to alter the composition of its body to suit its surrounding environment."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemon.dmi'
 	icon_state = "eevee"
 	icon_living = "eevee"
 	icon_dead = "eevee_d"
@@ -146,7 +146,7 @@
 /mob/living/simple_animal/pet/pokemon/vaporeon
 	name = "Vaporeon"
 	desc = "Lives close to water. Its long tail is ridged with a fin which is often mistaken for a mermaid's."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "vaporeon"
 	icon_living = "vaporeon"
 	icon_dead = "vaporeon_d"
@@ -154,7 +154,7 @@
 /mob/living/simple_animal/pet/pokemon/glaceon
 	name = "Glaceon"
 	desc = "As a protective technique, it can completely freeze its fur to make its hairs stand like needles."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "glaceon"
 	icon_living = "glaceon"
 	icon_dead = "glaceon_d"
@@ -162,7 +162,7 @@
 /mob/living/simple_animal/pet/pokemon/leafeon
 	name = "Leafeon"
 	desc = "Just like a plant, it uses photosynthesis. As a result, it is always enveloped in clear air."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "leafeon"
 	icon_living = "leafeon"
 	icon_dead = "leafeon_d"
@@ -170,7 +170,7 @@
 /mob/living/simple_animal/pet/pokemon/flareon
 	name = "Flareon"
 	desc = "When storing thermal energy in its body, its temperature could soar to over 1600 degrees."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "flareon"
 	icon_living = "flareon"
 	icon_dead = "flareon_d"
@@ -178,7 +178,7 @@
 /mob/living/simple_animal/pet/pokemon/jolteon
 	name = "Jolteon"
 	desc = "It accumulates negative ions in the atmosphere to blast out 10000-volt lightning bolts."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "jolteon"
 	icon_living = "jolteon"
 	icon_dead = "jolteon_d"
@@ -186,7 +186,7 @@
 /mob/living/simple_animal/pet/pokemon/sylveon
 	name = "Sylveon"
 	desc = "It sends a soothing aura from its ribbonlike feelers to calm fights."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "sylveon"
 	icon_living = "sylveon"
 	icon_dead = "sylveon_d"
@@ -194,7 +194,7 @@
 /mob/living/simple_animal/pet/pokemon/espeon
 	name = "Espeon"
 	desc = "It uses the fine hair that covers its body to sense air currents and predict its enemy's actions."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "espeon"
 	icon_living = "espeon"
 	icon_dead = "espeon_d"
@@ -202,7 +202,7 @@
 /mob/living/simple_animal/pet/pokemon/umbreon
 	name = "Umbreon"
 	desc = "When agitated, this Pokémon protects itself by spraying poisonous sweat from its pores."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "umbreon"
 	icon_living = "umbreon"
 	icon_dead = "umbreon_d"
@@ -210,7 +210,7 @@
 /mob/living/simple_animal/pet/pokemon/absol
 	name = "Absol"
 	desc = "Every time Absol appears before people, it is followed by a disaster such as an earthquake or a tidal wave. As a result, it came to be known as the disaster Pokémon."
-	icon = 'fallout/icons/mob/pokemon.dmi'
+	icon = 'icons/mob/pokemonold.dmi'
 	icon_state = "absol"
 	icon_living = "absol"
 	icon_dead = "absol_d"
@@ -221,7 +221,7 @@
 /mob/living/simple_animal/pet/wolf/direwolf
 	name = "dire wolf"
 	desc = "The biggest and baddest wolf around"
-	icon = 'fallout/icons/mob/vore64x32.dmi'
+	icon = 'icons/mob/animal.dmi'
 	icon_dead = "direwolf-dead"
 	icon_living = "direwolf"
 	icon_state = "direwolf"
@@ -264,7 +264,7 @@
 /mob/living/simple_animal/hostile/alligator
 	name = "Alligator"
 	desc = "A large reptile with sharp looking teeth."
-	icon = 'fallout/icons/mob/alligator.dmi'
+	icon = 'icons/mob/alligator.dmi'
 	icon_living = "alligator"
 	icon_state = "alligator"
 	icon_dead = "alligator_dead"
@@ -280,7 +280,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/dinosaur/triceratops/bull
 	name = "Bull Triceratops"
 	desc = "With its 3 horns, a parrot-like beak and a large frill that could reach nearly 1 metre (3 feet) across, the Triceratops skull is one of the largest and most striking of any land animal."
-	icon = 'fallout/icons/mob/dinosaurs68x45.dmi'
+	icon = 'icons/mob/dinosaurs68x45.dmi'
 	icon_state = "triceratops_bull"
 	icon_living = "triceratops_bull"
 	icon_dead = "triceratops_bull_dead"
@@ -295,7 +295,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/dinosaur/triceratops/cow
 	name = "Cow Triceratops"
 	desc = "With its 3 horns, a parrot-like beak and a large frill that could reach nearly 1 metre (3 feet) across, the Triceratops skull is one of the largest and most striking of any land animal."
-	icon = 'fallout/icons/mob/dinosaurs68x45.dmi'
+	icon = 'icons/mob/dinosaurs68x45.dmi'
 	icon_state = "triceratops_cow"
 	icon_living = "triceratops_cow"
 	icon_dead = "triceratops_cow_dead"
@@ -310,7 +310,7 @@
 /mob/living/simple_animal/hostile/dinosaur/velociraptor
 	name = "velociraptor"
 	desc = " Its sleek body was lightweight and built for speed, making it an effective predator. Its head was long and narrow, its snout was somewhat flattened, and it had a fairly large brain."
-	icon = 'fallout/icons/mob/dinosaurs68x45.dmi'
+	icon = 'icons/mob/dinosaurs68x45.dmi'
 	icon_state = "velociraptor"
 	icon_living = "velociraptor"
 	icon_dead = "velociraptor_dead"
@@ -325,7 +325,7 @@
 /mob/living/simple_animal/hostile/dinosaur/pachycephalosaurus
 	name = "pachycephalosaurus"
 	desc = "A biped with strong hind limbs and little developed forelimbs. Featuring a high, domelike skull."
-	icon = 'fallout/icons/mob/dinosaurs45x27.dmi'
+	icon = 'icons/mob/dinosaurs45x27.dmi'
 	icon_state = "pachycephalosaurus"
 	icon_living = "pachycephalosaurus"
 	icon_dead = "pachycephalosaurus_dead"
@@ -337,7 +337,7 @@
 /mob/living/simple_animal/hostile/dinosaur/dimetrodon
 	name = "dimetrodon"
 	desc = "A carnivore with a large sail upon it's back."
-	icon = 'fallout/icons/mob/dinosaurs45x27.dmi'
+	icon = 'icons/mob/dinosaurs45x27.dmi'
 	icon_state = "dimetrodon"
 	icon_living = "dimetrodon"
 	icon_dead = "dimetrodon_dead"
@@ -349,7 +349,7 @@
 /mob/living/simple_animal/hostile/dinosaur/mammoth
 	name = "mammoth"
 	desc = "A large creature with long, curved tusks and thick hair upon it's body."
-	icon = 'fallout/icons/mob/dinosaurs128x96.dmi'
+	icon = 'icons/mob/dinosaurs128x96.dmi'
 	icon_state = "mammoth"
 	icon_living = "mammoth"
 	icon_dead = "mammoth_dead"
@@ -361,7 +361,7 @@
 /mob/living/simple_animal/hostile/dinosaur/rex
 	name = "Rex"
 	desc = "Standing about 40 feet tall, this creature looks rather strong and powerful."
-	icon = 'fallout/icons/mob/dinosaurs128x96.dmi'
+	icon = 'icons/mob/dinosaurs128x96.dmi'
 	icon_state = "rex"
 	icon_living = "rex"
 	icon_dead = "rex_dead"
@@ -375,7 +375,7 @@
 /mob/living/simple_animal/hostile/kangaroo //cause roo's be mean
 	name = "Kangaroo"
 	desc = "A marsupial! One that posseses powerful hind legs, a long strong tail and small front legs."
-	icon = 'fallout/icons/mob/kangaroo.dmi'
+	icon = 'icons/mob/kangaroo.dmi'
 	icon_state = "kangaroo"
 	icon_living = "kangaroo"
 	icon_dead = "kangaroo_dead"
@@ -389,14 +389,14 @@
 
 /mob/living/simple_animal/pet/kiwi
 	name = "Kiwi"
-	icon = 'fallout/icons/mob/kiwi.dmi'
+	icon = 'icons/mob/kiwi.dmi'
 	icon_dead = "kiwi_dead"
 	icon_living = "kiwi"
 	icon_state = "kiwi"
 
 /mob/living/simple_animal/pet/sheep
 	name = "Sheep"
-	icon = 'fallout/icons/mob/sheep.dmi'
+	icon = 'icons/mob/sheep.dmi'
 	icon_dead = "sheep_dead"
 	icon_living = "sheep"
 	icon_state = "sheep"

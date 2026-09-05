@@ -25,7 +25,7 @@
 		if(damaged_clothes)
 			. += mutable_appearance('icons/effects/item_damage.dmi', "damaged[blood_overlay_type]")
 		if(blood_DNA)
-			var/file2use = (style_flags & STYLE_ALL_TAURIC) ? 'fallout/icons/mob/64x32_effects.dmi' : 'icons/effects/blood.dmi'
+			var/file2use = (style_flags & STYLE_ALL_TAURIC) ? 'icons/mob/64x32_effects.dmi' : 'icons/effects/blood.dmi'
 			. += mutable_appearance(file2use, "[blood_overlay_type]blood", color = blood_DNA_to_color())
 		var/mob/living/carbon/human/M = loc
 		if(ishuman(M) && M.w_uniform)
@@ -46,8 +46,8 @@
 /obj/item/clothing/suit/armor/outfit/overalls/farmer
 	name = "overalls"
 	desc = "A set of denim overalls suitable for farming."
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	icon_state = "overalls_farmer"
 	item_state = "overalls_farmer"
 	armor = list("melee" = 15, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 16, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -224,8 +224,8 @@
 /obj/item/clothing/suit/bio_suit/hazmat
 	name = "hazmat suit"
 	desc = "(Yellow Level A , hazmat protective suit.<br>You can see some numbers on the tag: 35 56."
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	icon_state = "hazmat"
 	item_state = "hazmat"
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 30, "energy" = 25, "bomb" = 16, "bio" = 100, "rad" = 100, "fire" = 0, "acid" = 0)
@@ -233,7 +233,7 @@
 /obj/item/clothing/head/bio_hood/hazmat
 	name = "hazmat hood"
 	desc = "My star, my perfect silence."
-	icon = 'icons/fallout/clothing/hats.dmi'
+	icon = 'icons/clothing/hats.dmi'
 	icon_state = "hazmat"
 	item_state = "hazmat_helmet"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
@@ -269,8 +269,8 @@
 /obj/item/clothing/suit/toggle/labcoat/khan_jacket
 	name = "Great Khan jacket"
 	desc = "A black leather jacket. <br>There is an illustration on the back - an aggressive, red-eyed skull wearing a fur hat with horns.<br>The skull has a mongoloid moustache - it's obviously a Great Khans emblem."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
+	icon = 'icons/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/khaans.dmi'
 	icon_state = "khan_jacket"
 	item_state = "khan_jacket"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|HANDS|FEET

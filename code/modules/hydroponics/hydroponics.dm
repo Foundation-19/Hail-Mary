@@ -800,7 +800,7 @@
 /obj/machinery/hydroponics/soil //Not actually hydroponics at all! Honk!
 	name = "soil"
 	desc = "A patch of dirt. <b>Alt-Click</b> to empty the soil's nutrients."
-	icon = 'icons/fallout/farming/farming_structures.dmi'
+	icon = 'icons/farming/farming_structures.dmi'
 	icon_state = "soil"
 	circuit = null
 	density = FALSE
@@ -836,13 +836,13 @@
 /obj/machinery/hydroponics/soil/eightieshydro
 	name = "hydroponics tray"
 	desc = "A makeshift hydroponics tray."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "hydrotray2"
 	density = TRUE
 	pixel_z = 0
 
 /obj/machinery/hydroponics/soil/flat
-	icon = 'icons/fallout/turfs/dirt.dmi'
+	icon = 'icons/turf/dirt.dmi'
 	icon_state = "dirtfull"
 	plane = FLOOR_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -850,7 +850,7 @@
 
 /obj/machinery/hydroponics/soil/flat/dark
 	name = "soil"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "dirtfull"
 
 /obj/machinery/hydroponics/soil/examine(mob/user)

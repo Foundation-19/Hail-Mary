@@ -7,7 +7,7 @@
 /mob/living/simple_animal/hostile/renegade
 	name = "Renegade Prospect"
 	desc = "A raider recently inducted among the Renegades."
-	icon = 'fallout/icons/mob/renegades/renegade.dmi'
+	icon = 'icons/mob/renegades/renegade.dmi'
 	icon_state = "renegade_prospect"
 	icon_living = "renegade_prospect"
 	icon_dead = "renegade_prospect-dead"

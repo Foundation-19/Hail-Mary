@@ -714,7 +714,7 @@
 	mob_species = /datum/species/human
 	roundstart = FALSE
 	death = FALSE
-	icon = 'icons/fallout/turfs/walls.dmi'
+	icon = 'icons/turf/walls_f13.dmi'
 	icon_state = "matrix"
 	uses = 3
 
@@ -906,7 +906,7 @@
 	short_desc = "You are a mutant, risen from the FEV vat stronger and faster than before!"
 	flavour_text = "Follow your new masters, and melt more disgusting humans into the pit."
 	assignedrole = "Mutant"
-	icon = 'icons/fallout/machines/64x32.dmi'
+	icon = 'icons/machines/64x32.dmi'
 	icon_state = "reactoroff"
 	pixel_x = -16
 	mob_type = /mob/living/carbon/human/species/smutant
@@ -937,7 +937,7 @@
 
 //Pop a human in here to increase the number of uses by 1 and melt the human
 /obj/effect/mob_spawn/human/fev_pit/proc/melt_em(mob/living/carbon/human/M)
-	playsound(get_turf(src), 'sound/FermiChem/acidmelt.ogg', 50, 0, 2)
+	playsound(get_turf(src), 'sound/effects/flesh_impact_1.ogg', 50, 0, 2)
 	uses++
 	qdel(M)
 

@@ -16,7 +16,7 @@
 /turf/closed/indestructible/f13/matrix/transition/Initialize()
 	. = ..()
 	if(!is_transition_turf())
-		icon = 'icons/fallout/objects/structures/rubish.dmi'
+		icon = 'icons/obj/structures/rubish.dmi'
 		icon_state = "debris2"
 
 /turf/closed/indestructible/f13/matrix/transition/is_transition_turf()

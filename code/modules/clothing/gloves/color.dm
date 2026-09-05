@@ -4,7 +4,7 @@
 /obj/item/clothing/gloves/color/yellow
 	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
-	icon = 'icons/fallout/clothing/gloves.dmi'
+	icon = 'icons/clothing/gloves.dmi'
 	icon_state = "yellow"
 	item_state = "ygloves"
 	siemens_coefficient = 0
@@ -224,8 +224,8 @@
 /obj/item/clothing/gloves/color/latex
 	name = "latex gloves"
 	desc = "Cheap sterile gloves made from latex."
-	icon = 'icons/fallout/clothing/gloves.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/clothing/gloves.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "surgery"
 	item_state = "surgery"
 	siemens_coefficient = 0.3
@@ -236,8 +236,8 @@
 /obj/item/clothing/gloves/color/latex/nitrile
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex."
-	icon = 'icons/fallout/clothing/gloves.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/hand.dmi'
+	icon = 'icons/clothing/gloves.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/hand.dmi'
 	icon_state = "surgery"
 	item_state = "surgery"
 	transfer_prints = FALSE

@@ -25,7 +25,10 @@
 	if (!isfile(file))
 		file = fcopy_rsc(file)
 
-	hash = md5asfile(file) //icons sent to the rsc sometimes md5 incorrectly
+	if(length(GLOB.asset_hash_preload) && !isnull(GLOB.asset_hash_preload[name]))
+		hash = GLOB.asset_hash_preload[name]
+	else
+		hash = md5asfile(file) //icons sent to the rsc sometimes md5 incorrectly
 	if (!hash)
 		CRASH("invalid asset sent to asset cache")
 	src.name = name

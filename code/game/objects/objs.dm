@@ -6,6 +6,8 @@
 	vis_flags = VIS_INHERIT_PLANE //when this be added to vis_contents of something it inherit something.plane, important for visualisation of obj in openspace.
 	var/obj_flags = CAN_BE_HIT
 	var/set_obj_flags // ONLY FOR MAPPING: Sets flags from a string list, handled in Initialize. Usage: set_obj_flags = "EMAGGED;!CAN_BE_HIT" to set EMAGGED and clear CAN_BE_HIT.
+	/// TRUE if mass-produced by an autolathe/protolathe/other fabricator rather than found or hand-crafted - see autolathe_crafted()/rnd_crafted(). Used to gate systems like the bounty board that shouldn't accept printer-spammed items.
+	var/fabricated = FALSE
 
 	var/damtype = BRUTE
 	var/force = 0
@@ -367,10 +369,10 @@
 //Called when the object is constructed by an autolathe
 //Has a reference to the autolathe so you can do !!FUN!! things with hacked lathes
 /obj/proc/autolathe_crafted(obj/machinery/autolathe/A)
-	return
+	fabricated = TRUE
 
 /obj/proc/rnd_crafted(obj/machinery/rnd/production/P)
-	return
+	fabricated = TRUE
 
 /obj/handle_ricochet(obj/item/projectile/P)
 	. = ..()

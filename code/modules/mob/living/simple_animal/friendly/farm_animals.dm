@@ -7,7 +7,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat
 	name = "goat"
 	desc = "Not known for their pleasant disposition."
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "goat"
 	icon_living = "goat"
 	icon_dead = "goat_dead"
@@ -121,7 +121,7 @@
 /mob/living/simple_animal/cow
 	name = "cow"
 	desc = "Known for their milk, just don't tip them over."
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "brahmin"
 	icon_living = "brahmin"
 	icon_dead = "brahmin_dead"
@@ -1260,7 +1260,7 @@
 /mob/living/simple_animal/chick
 	name = "\improper chick"
 	desc = "Adorable! They make such a racket though."
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "chick"
 	icon_living = "chick"
 	icon_dead = "chick_dead"
@@ -1317,7 +1317,7 @@
 	desc = "Hopefully the eggs are good this season."
 	gender = FEMALE
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
@@ -1446,7 +1446,7 @@
 /mob/living/simple_animal/cow/brahmin
 	name = "brahmin"
 	desc = "Brahmin or brahma are mutated cattle with two heads and looking udderly ridiculous.<br>Known for their milk, just don't tip them over."
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "brahmin"
 	icon_living = "brahmin"
 	icon_dead = "brahmin_dead"
@@ -1482,7 +1482,7 @@
 /mob/living/simple_animal/cow/brahmin/molerat
 	name = "tamed molerat"
 	desc = "That's a big ol' molerat, seems to be able to take a saddle!"
-	icon = 'fallout/icons/mob/mounts.dmi'
+	icon = 'icons/mob/mounts.dmi'
 	icon_state = "molerat"
 	icon_living = "molerat"
 	icon_dead = "molerat_dead"
@@ -1523,7 +1523,7 @@
 /mob/living/simple_animal/cow/brahmin/horse
 	name = "horse"
 	desc = "Horses are commonly used for logistics and transportation over long distances. Surprisingly this horse isn't fully mutated like the rest of the animals."
-	icon = 'fallout/icons/mob/horse.dmi'
+	icon = 'icons/mob/horse.dmi'
 	icon_state = "horse"
 	icon_living = "horse"
 	icon_dead = "horse_dead"
@@ -1567,7 +1567,7 @@
 /mob/living/simple_animal/cow/brahmin/nightstalker
 	name = "tamed nightstalker"
 	desc = "A crazed genetic hybrid of rattlesnake and coyote DNA. This one seems a bit less crazed, at least."
-	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
+	icon = 'icons/mob/animals/nightstalker.dmi'
 	icon_state = "nightstalker-legion"
 	icon_living = "nightstalker-legion"
 	icon_dead = "nightstalker-legion-dead"
@@ -1614,7 +1614,7 @@
 /mob/living/simple_animal/cow/brahmin/nightstalker/hunterspider
 	name = "tamed spider"
 	desc = "SOMEONE TAMED A FUCKING GIANT SPIDER?"
-	icon = 'fallout/icons/mob/mounts.dmi'
+	icon = 'icons/mob/mounts.dmi'
 	icon_state = "hunter"
 	icon_living = "hunter"
 	icon_dead = "hunter_dead"
@@ -1653,19 +1653,19 @@
 /obj/item/brahminbridle
 	name = "mount bridle gear"
 	desc = "A set of headgear used to control and claim a mount. Consists of a bit, reins, and leather straps stored in a satchel."
-	icon = 'icons/fallout/objects/tools.dmi'
+	icon = 'icons/obj/tools_f13.dmi'
 	icon_state = "brahminbridle"
 
 /obj/item/brahminsaddle
 	name = "mount saddle"
 	desc = "A saddle fit for a mutant beast of burden."
-	icon = 'icons/fallout/objects/tools.dmi'
+	icon = 'icons/obj/tools_f13.dmi'
 	icon_state = "brahminsaddle"
 
 /obj/item/brahminbrand
 	name = "mount branding tool"
 	desc = "Use this on a mount to claim it as yours!"
-	icon = 'icons/fallout/objects/tools.dmi'
+	icon = 'icons/obj/tools_f13.dmi'
 	icon_state = "brahminbrand"
 
 /obj/item/storage/backpack/duffelbag/debug_brahmin_kit
@@ -1753,7 +1753,7 @@
 /mob/living/simple_animal/radstag
 	name = "radstag"
 	desc = "a two headed deer that will run at the first sight of danger."
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "radstag"
 	icon_living = "radstag"
 	icon_dead = "radstag_dead"
@@ -1788,7 +1788,7 @@
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn
 	name = "bighorner"
 	desc = "Mutated bighorn sheep that are often found in mountains, and are known for being foul-tempered even at the best of times."
-	icon = 'icons/fallout/mobs/animals/farmanimals.dmi'
+	icon = 'icons/mob/animals/farmanimals.dmi'
 	icon_state = "bighorner"
 	icon_living = "bighorner"
 	icon_dead = "bighorner_dead"

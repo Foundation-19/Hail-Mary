@@ -69,7 +69,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/mirelurk
 	name = "mirelurk meat"
 	desc = "Meat from a mirelurk, still inside its shell.  Going to need pliers for this..."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "mirelurk_meat"
 	bitesize = 4 //Big animal, small part of it
 	filling_color = "#406618" //Very dark green.
@@ -120,7 +120,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/ant_meat
 	name = "ant meat"
 	desc = "A sizable portion of ant flesh taken from the abdomen, almost looks appetizing, almost."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "antmeat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
@@ -136,7 +136,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/fireant_meat
 	name = "fireant meat"
 	desc = "A sizable portion of fire-ant flesh taken from the abdomen, it smellls slightly spicy."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "fireant_meat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
@@ -152,7 +152,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/bloatfly_meat
 	name = "bloatfly meat"
 	desc = "A slab of black-brown flesh from the abdomen of a bloatfly, disgusting."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "bloatfly_meat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 2,
@@ -185,7 +185,7 @@
 /obj/item/reagent_containers/food/snacks/meat/slab/radscorpion_meat
 	name = "radscorpion meat"
 	desc = "Meat from a radscorpion, still inside its chitin.  Going to need pliers for this."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "radscorpion_meat"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 3,
@@ -246,7 +246,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/radroach_meat
 	name = "radroach steak"
 	desc = "A off-color radroach steak.<br>you could have sworn you saw it still twitch."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "moth_steak"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	bonus_reagents = list(
@@ -259,7 +259,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/bloatfly_meat
 	name = "baked bloatfly"
 	desc = "A thoroughly blitzed bloatfly steak, eat it with your eyes closed."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "baked_bloatfly"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	bonus_reagents = list(
@@ -272,7 +272,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/ant_meat
 	name = "fried ant"
 	desc = "A chunk of fried ant flesh."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "cookedantmeat"
 	filling_color = "#967117"
 	tastes = list("bug protein" = 1)
@@ -280,7 +280,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/fireant_meat
 	name = "fried fire-ant"
 	desc = "A chunk of spicy fried fireant flesh."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "cooked_fireant_meat"
 	filling_color = "#967117"
 	tastes = list("bug protein" = 1,"spicyness" = 1)
@@ -288,7 +288,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/cazador_meat
 	name = "cazador steak"
 	desc = "A off-color cazador steak, braized in its own venomous juices."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "moth_steak"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	bonus_reagents = list(
@@ -302,7 +302,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/radscorpion_meat
 	name = "radscoropion roast"
 	desc = "Meat from a radscorpion's chitin, cracked open and carefully roasted to perfection in its own posion."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "mirelurk_roast"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	bonus_reagents = list(
@@ -325,7 +325,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/squirrel
 	name = "squirrel steak"
 	desc = "A steak made from a small slab of squirrel meat. It is, unsurprisingly, small."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "squirrel_steak"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	bonus_reagents = list(
@@ -336,7 +336,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/mirelurk
 	name = "mirelurk roast"
 	desc = "Meat from a mirelurks shell, cracked open and roasted to perfection."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "mirelurk_roast"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
 	bonus_reagents = list(
@@ -348,7 +348,7 @@
 /obj/item/reagent_containers/food/snacks/meat/steak/ghoul
 	name = "ghoul steak"
 	desc = "Twice burnt ghoul meat steak. <br>Why would you even cook this?."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "ghoul_steak"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 3)
 	bonus_reagents = list(
@@ -361,7 +361,7 @@
 
 /obj/item/reagent_containers/food/snacks/meat/steak/centaur
 	name = "centaur steak"
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "ghoul_steak"
 	desc = "No matter how much you cook, it doesn't seem safe to eat."
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
@@ -628,7 +628,7 @@
 /obj/item/reagent_containers/food/snacks/f13/giantantegg
 	name = "giant ant egg"
 	desc = "A giant ant egg.<br>You'd thought it be bigger but its white and squishy to the touch."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "antegg"
 	bonus_reagents = list(/datum/reagent/toxin = 10)
 	list_reagents = list(/datum/reagent/consumable/eggyolk = 15)
@@ -670,7 +670,7 @@
 /obj/item/reagent_containers/food/snacks/breadhard
 	name = "hard bread"
 	desc = "Flat dried bread, stores well."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "breadhard"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = 7)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10)
@@ -682,7 +682,7 @@
 /obj/item/reagent_containers/food/snacks/f13/molejerky
 	name = "molerat wondermeat"
 	desc = "Molerat meat cured with wonderglue. Has a nutty aftertaste."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "wondermeat"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 5)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 12)
@@ -692,7 +692,7 @@
 /obj/item/reagent_containers/food/snacks/f13/caravanlunch
 	name = "caravan lunch"
 	desc = "A collection of food conveniently assembled into a lunchbox with the radiation removed. Simple, fast and filling. Often eaten by merchants."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "caravanlunch"
 	bonus_reagents = list(/datum/reagent/consumable/nutriment/vitamin = 5)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 50)
@@ -702,7 +702,7 @@
 /obj/item/reagent_containers/food/snacks/f13/wastelandwellington
 	name = "wasteland wellington"
 	desc = "Meat from wasteland critters wrapped in puffy pastry. Delicious, rich and certainly high class."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "wasteland_wellington"
 	bonus_reagents = list(
 		/datum/reagent/consumable/nutriment/vitamin = 5,
@@ -715,7 +715,7 @@
 /obj/item/reagent_containers/food/snacks/f13/deathclawomelette
 	name = "deathclaw omelette"
 	desc = "A delicious omelette made from one big deathclaw egg. Hope you're not allergic."
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "deathclawomlette"
 	bonus_reagents = list(
 		/datum/reagent/consumable/nutriment/vitamin = 5,
@@ -748,7 +748,7 @@
 	name = "mirelurk cake"
 	desc = "A savory cake made from the meat of a Mirelurk.  A popular dish from the coastlines."
 	bitesize = 5
-	icon = 'icons/fallout/objects/food&drinks/food.dmi'
+	icon = 'icons/obj/food&drinks/food.dmi'
 	icon_state = "Mirelurk_cake"
 	list_reagents = list(
 		/datum/reagent/consumable/nutriment = 20,
@@ -763,7 +763,7 @@
 /obj/item/reagent_containers/food/snacks/soup/moleratstew
 	name = "molerat stew"
 	desc = "A nice and warm stew. Healthy and strong."
-	icon = 'icons/fallout/objects/food&drinks/soupsalad.dmi'
+	icon = 'icons/obj/food&drinks/soupsalad.dmi'
 	icon_state = "molerat_stew"
 	volume = 35
 	list_reagents = list(
@@ -781,7 +781,7 @@
 /obj/item/reagent_containers/food/snacks/soup/buffalogourd
 	name = "buffalo gourd soup"
 	desc = "A tasty soup made with roasted gourd."
-	icon = 'icons/fallout/objects/food&drinks/soupsalad.dmi'
+	icon = 'icons/obj/food&drinks/soupsalad.dmi'
 	icon_state = "buffalo_soup"
 	volume = 40
 	bonus_reagents = list(
@@ -806,7 +806,7 @@
 /obj/item/reagent_containers/food/snacks/soup/longpork_stew
 	name = "longpork stew"
 	desc = "A thick, oily stew that tastes and smells weird. Has small pieces of raw, chewy meat."
-	icon = 'icons/fallout/objects/food&drinks/soupsalad.dmi'
+	icon = 'icons/obj/food&drinks/soupsalad.dmi'
 	icon_state = "molerat_stew"
 	bitesize = 4
 	volume = 30
@@ -822,7 +822,7 @@
 /obj/item/reagent_containers/food/snacks/soup/mirelurkstew
 	name = "mirelurk stew"
 	desc = "A hearty stew made from de-shelled mirelurk meat, onions, butter, and other such delights."
-	icon = 'icons/fallout/objects/food&drinks/soupsalad.dmi'
+	icon = 'icons/obj/food&drinks/soupsalad.dmi'
 	icon_state = "mirelurk_stew"
 	bitesize = 6
 	volume = 50
@@ -838,7 +838,7 @@
 /obj/item/reagent_containers/food/snacks/soup/rubycasserole
 	name = "ruby's radscorpion casserole"
 	desc = "A flavorsome casserole made from from radscorpion meat, chillipeppers, molerat meat, and love."
-	icon = 'icons/fallout/objects/food&drinks/soupsalad.dmi'
+	icon = 'icons/obj/food&drinks/soupsalad.dmi'
 	icon_state = "radscorpion_casserole"
 	bitesize = 6
 	volume = 50

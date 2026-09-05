@@ -3,8 +3,8 @@
 /obj/item/clothing/neck/mantle
 	name = "mantle template"
 	desc = " worn in accessory slot, no concealing hood, decorative."
-	icon = 'icons/fallout/clothing/mantles.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mantle.dmi'
+	icon = 'icons/clothing/mantles.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/mantle.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -79,8 +79,8 @@
 /obj/item/clothing/neck/mantle/green
 	name = "green decorated mantle"
 	desc = "A mantle with festive green decorative patterns."
-	icon = 'icons/fallout/clothing/custom/custom.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/custom/custom.dmi'
+	icon = 'icons/clothing/custom/custom.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/custom/custom.dmi'
 	icon_state = "mantle_wintergreen"
 	item_state = "mantle_wintergreen"
 

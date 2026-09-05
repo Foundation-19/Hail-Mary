@@ -3,7 +3,7 @@
 /turf/closed/wall/f13/
 	name = "glitch"
 	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Something has caused a glitch in the simulation.</font>"
-	icon = 'icons/fallout/turfs/walls.dmi'
+	icon = 'icons/turf/walls_f13.dmi'
 	icon_state = "matrix"
 
 /turf/closed/wall/f13/ReplaceWithLattice()
@@ -29,7 +29,7 @@
 /turf/closed/wall/f13/wood
 	name = "wooden wall"
 	desc = "A traditional wooden wall."
-	icon = 'icons/fallout/turfs/walls/wood.dmi'
+	icon = 'icons/turf/walls/wood.dmi'
 	icon_state = "wood0"
 	icon_type_smooth = "wood"
 	hardness = 60
@@ -59,7 +59,7 @@
 /turf/closed/wall/f13/wood/house
 	name = "house wall"
 	desc = "A weathered pre-War house wall."
-	icon = 'icons/fallout/turfs/walls/house.dmi'
+	icon = 'icons/turf/walls/house.dmi'
 	icon_state = "house0"
 	icon_type_smooth = "house"
 	hardness = 50
@@ -160,7 +160,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/wood/interior
 	name = "interior wall"
 	desc = "Interesting, what kind of material they have used - these wallpapers still look good after all the centuries..."
-	icon = 'icons/fallout/turfs/walls/interior.dmi'
+	icon = 'icons/turf/walls/interior.dmi'
 	icon_state = "interior0"
 	icon_type_smooth = "interior"
 	hardness = 10
@@ -188,7 +188,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/tentwall
 	name = "tent wall"
 	desc = "The walls of a portable tent."
-	icon = 'icons/fallout/turfs/walls/tent.dmi'
+	icon = 'icons/turf/walls/tent.dmi'
 	icon_state = "tent0"
 	icon_type_smooth = "tent"
 	hardness = 10
@@ -203,7 +203,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/scrap
 	name = "scrap wall"
 	desc = "A wall held together by corrugated metal and prayers."
-	icon = 'icons/fallout/turfs/walls/scrap.dmi'
+	icon = 'icons/turf/walls/scrap.dmi'
 	icon_state = "scrap0"
 	icon_type_smooth = "scrap"
 	hardness = 80
@@ -213,24 +213,24 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	canSmoothWith = list(/turf/closed/wall)
 
 /turf/closed/wall/f13/scrap/red
-	icon = 'icons/fallout/turfs/walls/scrap_red.dmi'
+	icon = 'icons/turf/walls/scrap_red.dmi'
 	icon_state = "scrapr0"
 	icon_type_smooth = "scrapr"
 
 /turf/closed/wall/f13/scrap/blue
-	icon = 'icons/fallout/turfs/walls/scrap_blue.dmi'
+	icon = 'icons/turf/walls/scrap_blue.dmi'
 	icon_state = "scrapb0"
 	icon_type_smooth = "scrapb"
 
 /turf/closed/wall/f13/scrap/white
-	icon = 'icons/fallout/turfs/walls/scrap_white.dmi'
+	icon = 'icons/turf/walls/scrap_white.dmi'
 	icon_state = "scrapw0"
 	icon_type_smooth = "scrapw"
 
 /turf/closed/wall/f13/scrap/junk
 	name = "junk wall"
 	desc = "More a pile of debris and rust than a wall, but it'll hold for now."
-	icon = 'icons/fallout/turfs/walls/scrap_rough.dmi'
+	icon = 'icons/turf/walls/scrap_rough.dmi'
 	icon_state = "scrapro0"
 	icon_type_smooth = "scrapro"
 
@@ -252,7 +252,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/tunnel
 	name = "utility tunnel wall"
 	desc = "A sturdy metal wall with various pipes and wiring set inside a special groove."
-	icon = 'icons/fallout/turfs/walls/tunnel.dmi'
+	icon = 'icons/turf/walls/tunnel.dmi'
 	icon_state = "tunnel0"
 	icon_type_smooth = "tunnel"
 	hardness = 100
@@ -265,7 +265,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/vault
 	name = "vault wall"
 	desc = "A sturdy and cold metal wall."
-	icon = 'icons/fallout/turfs/walls/vault.dmi'
+	icon = 'icons/turf/walls/vault.dmi'
 	icon_state = "vault0"
 	icon_type_smooth = "vault"
 	hardness = 130
@@ -276,13 +276,13 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/r_wall/f13
 	name = "glitch"
 	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Something has caused a glitch in the simulation.</font>"
-	icon = 'icons/fallout/turfs/walls.dmi'
+	icon = 'icons/turf/walls_f13.dmi'
 	icon_state = "matrix"
 
 /turf/closed/wall/r_wall/f13/vault
 	name = "vault reinforced wall"
 	desc = "A wall built to withstand an atomic explosion."
-	icon = 'icons/fallout/turfs/walls/vault_reinforced.dmi'
+	icon = 'icons/turf/walls/vault_reinforced.dmi'
 	icon_state = "vaultrwall0"
 	icon_type_smooth = "vaultrwall"
 	hardness = 230
@@ -295,7 +295,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/sunset/brick_small
 	name = "brick wall"
 	desc = "A wall made out of solid brick."
-	icon = 'fallout/icons/turfs/walls/brick_small.dmi'
+	icon = 'icons/turf/walls/brick_small.dmi'
 	icon_state = "brick0"
 	icon_type_smooth = "brick"
 	hardness = 80
@@ -307,7 +307,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/sunset/brick_small_dark
 	name = "brick wall"
 	desc = "A wall made out of solid brick."
-	icon = 'fallout/icons/turfs/walls/brick_small_dark.dmi'
+	icon = 'icons/turf/walls/brick_small_dark.dmi'
 	icon_state = "brick0"
 	icon_type_smooth = "brick"
 	hardness = 80
@@ -319,7 +319,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/wall/f13/sunset/brick_small_light
 	name = "brick wall"
 	desc = "A wall made out of solid brick."
-	icon = 'fallout/icons/turfs/walls/brick_small_light.dmi'
+	icon = 'icons/turf/walls/brick_small_light.dmi'
 	icon_state = "brick0"
 	icon_type_smooth = "brick"
 	hardness = 80
@@ -333,13 +333,13 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/indestructible/f13
 	name = "glitch"
 	desc = "<font color='#6eaa2c'>You suddenly realize the truth - there is no spoon.<br>Something has caused a glitch in the simulation.</font>"
-	icon = 'icons/fallout/turfs/walls.dmi'
+	icon = 'icons/turf/walls_f13.dmi'
 	icon_state = "matrix"
 
 /turf/closed/indestructible/f13/subway
 	name = "tunnel wall"
 	desc = "This wall is made of reinforced concrete.<br>Pre-War engineers knew how to build reliable things."
-	icon = 'icons/fallout/turfs/walls/subway.dmi'
+	icon = 'icons/turf/walls/subway.dmi'
 	icon_state = "subwaytop"
 
 /turf/closed/indestructible/f13/matrix //The Chosen One from Arroyo!
@@ -357,27 +357,27 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_state = "snow"
 
 /turf/closed/indestructible/f13/matrix/desert
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "wasteland"
 
 /turf/closed/indestructible/f13/matrix/wendover
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "gravelsiding"
 
 /turf/closed/indestructible/f13/matrix/asphalt
-	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon = 'icons/turf/asphalt.dmi'
 	icon_state = "verticalleftborderright1"
 
 /turf/closed/indestructible/f13/matrix/sidewalk
-	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon = 'icons/turf/sidewalk.dmi'
 	icon_state = "horizontalbottomborderbottom0"
 
 /turf/closed/indestructible/f13/matrix/subway
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "railsnone"
 
 /turf/closed/indestructible/f13/matrix/gravel
-	icon = 'modular_BD2/general/icons/tileset_gravel.dmi'
+	icon = 'icons/turf/tileset_gravel.dmi'
 	icon_state = "gravel"
 
 /turf/closed/indestructible/f13/matrix/MouseDrop_T(atom/dropping, mob/user)
@@ -429,7 +429,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/indestructible/f13/obsidian //Just like that one game studio that worked on the original game, or that block in Minecraft!
 	name = "obsidian"
 	desc = "No matter what you do with this rock, there's not even a scratch left on its surface.<br><font color='#7e0707'>You shall not pass!!!</font>"
-	icon = 'icons/fallout/turfs/mining.dmi'
+	icon = 'icons/turf/mining_f13.dmi'
 	icon_state = "rock1"
 
 /turf/closed/indestructible/f13/obsidian/New()
@@ -439,7 +439,7 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 /turf/closed/indestructible/f13/harshrock //Just like that one game studio that worked on the original game, or that block in Minecraft!
 	name = "cliff"
 	desc = "Harsh desert rock tempered by the scorching wasteland."
-	icon = 'icons/fallout/turfs/mining.dmi'
+	icon = 'icons/turf/mining_f13.dmi'
 	icon_state = "harshrock"
 	layer = EDGED_TURF_LAYER
 
@@ -485,12 +485,12 @@ turf/closed/indestructible/f13/splashscreen/New()
 	.=..()
 	name = "Fallout 13"
 	desc = "The wasteland is calling!"
-	icon = 'icons/fallout/misc/lobby.dmi'
+	icon = 'icons/misc/lobby.dmi'
 	icon_state = "title[rand(1,13)]"
 	layer = 60
 	plane = 1
 	src.fullDark = new/go{
-		icon = 'icons/fallout/misc/lobby.dmi' //Replace with actual icon
+		icon = 'icons/misc/lobby.dmi' //Replace with actual icon
 		icon_state = "transition" //Replace with actual darkness state
 		layer = 61;
 		alpha = 0;

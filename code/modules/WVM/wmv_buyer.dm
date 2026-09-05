@@ -238,7 +238,7 @@ ORGAN SELLER
 		final_value = value_per
 
 	stored_caps += final_value
-	playsound(src, 'sound/vore/prey/squish_01.ogg', 60, 1)
+	playsound(src, 'sound/misc/splort.ogg', 60, 1)
 	to_chat(usr, "You sell [final_value] bottle caps value to the [src]. Total caps: [stored_caps].")
 	qdel(I)
 	src.ui_interact(usr)

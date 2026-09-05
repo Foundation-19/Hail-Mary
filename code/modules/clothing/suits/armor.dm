@@ -39,8 +39,8 @@
 /obj/item/clothing/suit/armor/medium/vest/bulletproof/big
 	name = "security vest"
 	desc = "A thick bullet-resistant vest composed of ballistic plates and padding. Common with pre-war security forces."
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "vest_armor"
 	item_state = "vest_armor"
 	armor = list("melee" = 50, "bullet" = 50, "laser" = 25, "energy" = 20, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "wound" = 40)
@@ -376,8 +376,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 //Light armor. 15-30 in its primary value, slowdown 0.05
 /obj/item/clothing/suit/armor/light
 	name = "light armor template"
-	icon = 'icons/fallout/clothing/armored_light.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	icon = 'icons/clothing/armored_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	slowdown = 0.05
 	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/melee/smith,)
 
@@ -393,8 +393,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 // Medium armor. 35-45 in its primary value, slowdown 0.1
 /obj/item/clothing/suit/armor/medium
 	name = "medium armor template"
-	icon = 'icons/fallout/clothing/armored_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/clothing/armored_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	slowdown = 0.1
 	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/melee/smith,)
 	strip_delay = 40
@@ -411,8 +411,8 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 // Heavy armor. 50-65 in its primary value, slowdown 0.15
 /obj/item/clothing/suit/armor/heavy
 	name = "heavy armor template"
-	icon = 'icons/fallout/clothing/armored_heavy.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_heavy.dmi'
+	icon = 'icons/clothing/armored_heavy.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_heavy.dmi'
 	slowdown = 0.15
 	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 	strip_delay = 50

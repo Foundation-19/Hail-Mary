@@ -20,7 +20,7 @@
 /obj/item/storage/survivalkit/khan
 	name = "survival kit"
 	desc = "A robust leather pouch containing essentials a Khan might need in the wasteland."
-	icon = 'icons/fallout/clothing/khans.dmi'
+	icon = 'icons/clothing/khans.dmi'
 	icon_state = "survivalkit"
 
 /obj/item/storage/survivalkit/khan/empty/PopulateContents()

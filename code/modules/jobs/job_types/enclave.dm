@@ -338,7 +338,6 @@
 	jobtype = /datum/job/enclave/enclavespy
 	head = /obj/item/clothing/head/helmet/f13/combat/enclave
 	suit = /obj/item/clothing/suit/armor/medium/combat/enclave
-	suit_store =  /obj/item/gun/ballistic/automatic/assault_carbine/worn
 	accessory = /obj/item/clothing/accessory/enclave
 
 	backpack_contents = list(

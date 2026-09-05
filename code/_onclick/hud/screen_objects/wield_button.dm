@@ -2,7 +2,7 @@
 
 /obj/screen/wield
 	name = "toggle wield"
-	icon = 'icons/fallout/UI/buttons_fallout2.dmi'
+	icon = 'icons/UI/buttons_fallout2.dmi'
 	icon_state = "wield"
 	layer = HUD_LAYER - 0.1
 

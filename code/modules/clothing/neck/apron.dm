@@ -1,8 +1,8 @@
 // Aprons	Specialized pockets, small environmental bonus for some
 /obj/item/clothing/neck/apron
 	name = "apron template"
-	icon = 'icons/fallout/clothing/aprons.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/apron.dmi'
+	icon = 'icons/clothing/aprons.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/apron.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN|LEGS
 	permeability_coefficient = 0.9

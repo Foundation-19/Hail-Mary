@@ -32,12 +32,8 @@ SUBSYSTEM_DEF(bccm)
 /datum/controller/subsystem/bccm/Initialize(timeofday)
 	if(!config.bccm)
 		return ..()
-/*
-	if(!sqlenabled)
-		log_sql("BCCM could not be loaded without SQL enabled")
-		return ..()
-*/
-	Toggle()
+	// Defer heavy DB load — only needed on first client connect, not during world init.
+	addtimer(CALLBACK(src, PROC_REF(Toggle)), 0)
 	return ..()
 
 /datum/controller/subsystem/bccm/stat_entry(msg)

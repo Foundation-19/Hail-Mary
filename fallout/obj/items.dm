@@ -1,7 +1,7 @@
 /obj/item/traumapack
 	name = "trauma pack"
 	desc = "A backpack filled with a blend of healing chemicals that inject automatically upon the wearer being hurt."
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "traumapack"
 	item_state = "welderpack"
 	lefthand_file = 'icons/mob/inhands/equipment/backpack_lefthand.dmi'
