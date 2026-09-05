@@ -212,7 +212,7 @@
 
 /obj/machinery/recharger/pump
 	name = "recharger"
-	icon = 'icons/fallout/objects/furniture/junk.dmi'
+	icon = 'icons/obj/furniture/junk.dmi'
 	icon_state = "rustpipe-vent"
 	desc = "A charging dock for energy based weaponry."
 	use_power = IDLE_POWER_USE

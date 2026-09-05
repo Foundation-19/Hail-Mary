@@ -171,7 +171,7 @@
 /obj/item/gun/ballistic/automatic/toy/pistol/stealth
 	name = "foam force stealth pistol"
 	desc = "A small, easily concealable toy bullpup handgun. Ages 8 and up."
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "foamsp"
 	w_class = WEIGHT_CLASS_SMALL
 	mag_type = /obj/item/ammo_box/magazine/toy/pistol
@@ -193,7 +193,7 @@
 /////////RAYGUN MEMES/////////
 
 /obj/item/projectile/beam/lasertag/ray		//the projectile, compatible with regular laser tag armor
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "ray"
 	name = "ray bolt"
 	eyeblur = 0
@@ -205,7 +205,7 @@
 
 /obj/item/gun/energy/laser/practice/raygun
 	name = "toy ray gun"
-	icon = 'fallout/icons/obj/guns/cit_guns.dmi'
+	icon = 'icons/obj/guns/cit_guns.dmi'
 	icon_state = "raygun"
 	desc = "A toy laser with a classic, retro feel and look. Compatible with existing laser tag systems."
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/raytag)

@@ -3,9 +3,9 @@
 
 
 /obj/item/gun/ballistic/automatic/hobo
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	use_casing_sounds = TRUE
 	misfire_possibilities = list(
 		GUN_MISFIRE_HURTS_USER(1, 5, 15, BRUTELOSS | FIRELOSS | OXYLOSS),
@@ -14,9 +14,9 @@
 	)
 
 /obj/item/gun/ballistic/revolver/hobo
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	use_casing_sounds = TRUE
 	misfire_possibilities = list(
 		GUN_MISFIRE_HURTS_USER(1, 5, 15, BRUTELOSS | FIRELOSS | OXYLOSS),
@@ -25,7 +25,7 @@
 	)
 
 /obj/item/gun/ballistic/rifle/hobo
-	icon = 'icons/fallout/objects/guns/energy.dmi'
+	icon = 'icons/obj/guns/energy_f13.dmi'
 	use_casing_sounds = TRUE
 	misfire_possibilities = list(
 		GUN_MISFIRE_HURTS_USER(1, 5, 15, BRUTELOSS | FIRELOSS | OXYLOSS),
@@ -207,9 +207,9 @@
 		While the bat itself would make for a poor, painful stock, the trigger plate on the other side of the bat \
 		would suggest that, yes, it'll likely shoot someone if you hit them with it. Hopefully that someone isn't you. \
 		Also doubles as a pipebomb when you least expect it. Especially if you stick a .50 MG round in there. Which you totally can do."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "shotgunbat"
 	item_state = "shotgunbat"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised
@@ -322,9 +322,9 @@
 		made from, and its eagerness to fire before fully chambering, many wasters swear by its overwhelming firepower, capable of delivering \
 		24 or so .357 magnum bullets into some unlucky beast before needing to reload. Not only does its loose receiver accept 9mm, .38 special, \
 		and .357 magnum with ease, but it also can survive dozens of premature detonations without a scratch!"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "autopipe"
 	item_state = "autopipe"
 	mag_type = /obj/item/ammo_box/magazine/autopipe
@@ -454,9 +454,9 @@
 /obj/item/gun/ballistic/rifle/hunting/obrez
 	name = "Obrez"
 	desc = "A cut down bolt action rifle. Uses .308."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "308-sawn"
 	item_state = "308-sawn"
 	mag_type = /obj/item/ammo_box/magazine/internal/boltaction
@@ -480,9 +480,9 @@
 		A brave, enterprising waster can change what this gun fires! Simply " + span_notice("unscrew") + " the bolts, " + span_notice("insert") + " \
 		some metal parts into the breech block, " + span_notice("weld") + " it until its good and soft, and then " + span_notice("insert") + " a new \
 		casing in there. Be sure to unload it first!"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "winchesterbore"
 	item_state = "shotgundouble"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/improvised308
@@ -524,7 +524,7 @@
 /obj/item/gun/ballistic/revolver/sling
 	name = "sling"
 	desc = "A simple piece of leather, shaped to hold one rock, and hurl it at a target at high speed."
-	icon = 'fallout/icons/objects/bows.dmi'
+	icon = 'icons/obj/bows.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
 	icon_state = "sling"
@@ -562,7 +562,7 @@
 /obj/item/gun/ballistic/revolver/brick
 	name = "brick launcher"
 	desc = "An old rocket launcher that has somehow been repurposed to fire bricks at high velocity."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "launcher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/brick

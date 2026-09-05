@@ -1,6 +1,6 @@
 /obj/item/projectile/rock
 	name = "rock"
-	icon = 'fallout/icons/objects/c13ammo.dmi'
+	icon = 'icons/obj/c13ammo.dmi'
 	icon_state = "rock"
 	damage = BULLET_DAMAGE_PISTOL_10MM
 	stamina = BULLET_STAMINA_PISTOL_10MM
@@ -20,7 +20,7 @@
 
 /obj/item/projectile/brick
 	name = "brick"
-	icon = 'fallout/icons/objects/brick.dmi'
+	icon = 'icons/obj/brick.dmi'
 	icon_state = "brick"
 	damage = BULLET_DAMAGE_PISTOL_44
 	stamina = BULLET_STAMINA_PISTOL_44

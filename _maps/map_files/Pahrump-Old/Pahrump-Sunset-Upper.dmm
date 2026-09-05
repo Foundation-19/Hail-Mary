@@ -9106,7 +9106,7 @@
 /obj/structure/table/wood,
 /obj/machinery/blackbox_recorder{
 	desc = "The main machine of the Ham Radio that allows you to send and recieve messages from Ranger HQ.";
-	icon = 'icons/fallout/machines/radio.dmi';
+	icon = 'icons/machines/radio.dmi';
 	icon_state = "gannets_machine21";
 	name = "Ham Radio";
 	pixel_y = 10
@@ -9115,7 +9115,7 @@
 	density = 1;
 	desc = "Where messages are sent and received.";
 	dir = 4;
-	icon = 'icons/fallout/machines/radio.dmi';
+	icon = 'icons/machines/radio.dmi';
 	icon_state = "radio_mic3";
 	name = "Ham Radio";
 	pixel_x = 9;
@@ -10936,7 +10936,7 @@
 /area/f13/wasteland)
 "Tm" = (
 /turf/open/indestructible/ground/outside/wood{
-	icon = 'icons/fallout/turfs/floors.dmi';
+	icon = 'icons/turf/floors_f13.dmi';
 	icon_state = "floorrusty";
 	name = "roof"
 	},
@@ -11083,7 +11083,7 @@
 /obj/structure/table/wood/fancy/black,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},

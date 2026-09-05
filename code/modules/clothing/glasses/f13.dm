@@ -22,8 +22,10 @@
 /obj/item/clothing/glasses/night/polarizing
 	name = "polarizing goggles"
 	desc = "Fancy goggles with rare polarizing glass from some old cache, usually reserved for commanders and a few select scouts."
-	icon_state = "legpolarizing"
-	item_state = "legpolarizing"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "goggles_polarizing"
+	item_state = "goggles_polarizing"
 	darkness_view = 12
 	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
@@ -45,14 +47,14 @@
 //Fallout 13 sunglasses
 
 /obj/item/clothing/glasses/sunglasses/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 
 //Fallout 13 thermals
 
 /obj/item/clothing/glasses/thermal/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 /obj/item/clothing/glasses/thermal/f13/doctorwho
@@ -66,7 +68,7 @@
 //Fallout 13 science goggles
 
 /obj/item/clothing/glasses/science/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 /obj/item/clothing/glasses/science/f13/steampunk

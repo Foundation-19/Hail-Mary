@@ -10,7 +10,7 @@
 /obj/machinery/bounty_board
 	name = "bounty board"
 	desc = "A board listing contracted work. Hand over the requested goods to claim a reward."
-	icon = 'icons/fallout/machines/terminals.dmi'
+	icon = 'icons/machines/terminals.dmi'
 	icon_state = "terminal"
 	density = TRUE
 	anchored = TRUE

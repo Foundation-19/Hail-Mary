@@ -8,7 +8,7 @@
 /obj/item/clothing/suit/armor/medium/duster/trenchcoat/cloak
 	name = "armored trenchcloak"
 	desc = "A trenchcoat enchanced with a special lightweight kevlar. This one appears to be designed to be draped over one's shoulders rather than worn normally.."
-	mob_overlay_icon = 'fallout/icons/mob/citadel/suit.dmi'
+	mob_overlay_icon = 'icons/mob/suit.dmi'
 	icon_state = "hostrench"
 	item_state = "hostrench"
 	mutantrace_variation = NONE

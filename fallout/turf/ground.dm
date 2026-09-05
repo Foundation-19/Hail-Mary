@@ -5,7 +5,7 @@
 	var/baseturf_dir = 0
 
 /turf/open/indestructible/ground
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	name = "\proper ground"
 	icon_state = "wasteland1"
 	intact = 0
@@ -111,7 +111,7 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /turf/open/indestructible/ground/outside/mountain
 	name = "rocky floor"
 	icon_state = "rockfloor1"
-	icon = 'icons/fallout/turfs/mining.dmi'
+	icon = 'icons/turf/mining_f13.dmi'
 
 //////////////
 // SAVANNAH //
@@ -120,7 +120,7 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 /turf/open/indestructible/ground/outside/savannah
 	name = "savannah"
 	desc = "Some savannah."
-	icon = 'icons/fallout/turfs/savannah.dmi'
+	icon = 'icons/turf/savannah.dmi'
 	icon_state = "savannahcenter"
 	slowdown = 0.4
 	flags_1 = CAN_HAVE_NATURE | ADJACENCIES_OVERLAY
@@ -199,7 +199,7 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 
 //For sculpting with more precision, the random picking does not work very well. Slowdown 0.5 instead of 1. No random armor or gunpowder or titanium. Use directions for control. - Pebbles
 /turf/open/indestructible/ground/outside/desert/sonora
-	icon = 'icons/fallout/turfs/wasteland.dmi'
+	icon = 'icons/turf/wasteland.dmi'
 	icon_state = "desertsmooth"
 	slowdown = 0.3
 	footstep = FOOTSTEP_LOOSE_SAND
@@ -228,9 +228,9 @@ GLOBAL_LIST_INIT(desolate_plant_spawn_list, list(
 
 /turf/open/indestructible/ground/outside/desert/harsh
 	icon_state = "wasteland"
-	icon = 'icons/fallout/turfs/ground_harsh.dmi'
-
+	icon = 'icons/turf/ground_harsh.dmi'
 var/static/list/desert_icons
+
 
 /turf/open/indestructible/ground/outside/desert/Initialize()
 	. = ..()
@@ -246,7 +246,7 @@ var/static/list/desert_icons
 
 /obj/effect/overlay/desert_side
 	name = "desert"
-	icon = 'icons/fallout/turfs/smoothing.dmi'
+	icon = 'icons/turf/smoothing.dmi'
 	icon_state = "wasteland_side"
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -258,7 +258,7 @@ var/static/list/desert_icons
 // Two edge smootheners for the new desert turf
 /obj/effect/overlay/desert/sonora/edge
 	name = "desert edge"
-	icon = 'icons/fallout/turfs/wasteland.dmi'
+	icon = 'icons/turf/wasteland.dmi'
 	icon_state = "desertedge"
 
 /obj/effect/overlay/desert/sonora/edge/corner
@@ -282,7 +282,7 @@ var/static/list/desert_icons
 
 /obj/effect/overlay/desert/sonora/saltflats
 	name = "salt flats"
-	icon = 'icons/fallout/turfs/f13flatz.dmi'
+	icon = 'icons/turf/f13flatz.dmi'
 	icon_state = "edgebright"
 	plane = FLOOR_PLANE
 	layer = LOW_OBJ_LAYER
@@ -308,7 +308,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/dirt
 	name = "dirt"
-	icon = 'icons/fallout/turfs/dirt.dmi'
+	icon = 'icons/turf/dirt.dmi'
 	icon_state = "dirtfull"
 //	step_sounds = list("human" = "dirtfootsteps")
 //	allowed_plants = list(/obj/item/seeds/poppy/broc, /obj/item/seeds/xander, /obj/item/seeds/mutfruit,
@@ -342,7 +342,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/dirt/dark
 
 /turf/open/indestructible/ground/outside/dirt/harsh
-	icon = 'icons/fallout/turfs/ground_harsh.dmi'
+	icon = 'icons/turf/ground_harsh.dmi'
 	icon_state = "dirtfull"
 
 /turf/open/indestructible/ground/outside/dirt/harsh/side
@@ -354,19 +354,19 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/dirt_s
 	name = "dirt"
 	icon_state = "bottomleft"
-	icon = 'icons/fallout/turfs/dirtsnow.dmi'
+	icon = 'icons/turf/dirtsnow.dmi'
 //	step_sounds = list("human" = "dirtfootsteps")
 
 /turf/open/indestructible/ground/outside/grass_s
 	name = "grass"
 	icon_state = "bottomleft"
-	icon = 'icons/fallout/turfs/snowgrass.dmi'
+	icon = 'icons/turf/snowgrass.dmi'
 //	step_sounds = list("human" = "dirtfootsteps")
 
 /turf/open/indestructible/ground/outside/road
 	name = "\proper road"
 	icon_state = "innermiddle"
-	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon = 'icons/turf/asphalt.dmi'
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
@@ -386,7 +386,7 @@ var/static/list/desert_icons
 	name = "\proper road"
 	desc = "a stretch of road that looks freshly built"
 	icon_state = "innermiddle"
-	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon = 'icons/turf/asphalt.dmi'
 	floor_tile = /obj/item/stack/tile/road
 	sunlight_state = SUNLIGHT_SOURCE
 	footstep = FOOTSTEP_ROAD
@@ -396,7 +396,7 @@ var/static/list/desert_icons
 	name = "road tile"
 	singular_name = "road floor tile"
 	desc = "a piece of road, not from asphalt but from concrete mixed with black coloring"
-	icon = 'icons/fallout/turfs/asphalt.dmi'
+	icon = 'icons/turf/asphalt.dmi'
 	icon_state = "road-tile"
 	turf_type = /turf/open/floor/road
 	resistance_flags = FIRE_PROOF
@@ -451,7 +451,7 @@ var/static/list/desert_icons
 	icon_state = "verticalinnermain2bottom"
 
 /turf/open/indestructible/ground/outside/road/stripyroad
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "wendoverblvd"
 	dir = SOUTHEAST
 
@@ -466,7 +466,7 @@ var/static/list/desert_icons
 	dir = NORTHEAST
 
 /turf/open/indestructible/ground/outside/road/salt
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "saltyroad"
 	dir = EAST
 
@@ -476,7 +476,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/road_s
 	name = "\proper road"
 	icon_state = "innermiddle"
-	icon = 'icons/fallout/turfs/asphalt_s.dmi'
+	icon = 'icons/turf/asphalt_s.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
 
 
@@ -491,35 +491,35 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/roadi80/center
 	name = "\proper road"
 	icon_state = "outermiddlestripe"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 
 /turf/open/indestructible/ground/outside/roadi80/topyellow
 	name = "\proper road"
 	icon_state = "outerstripe"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	dir = 4
 
 /turf/open/indestructible/ground/outside/roadi80/topwhite
 	name = "\proper road"
 	icon_state = "outerstripe"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	dir = 2
 
 /turf/open/indestructible/ground/outside/roadi80/bottomyellow
 	name = "\proper road"
 	icon_state = "outerstripe"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	dir = 8
 
 /turf/open/indestructible/ground/outside/roadi80/bottomwhite
 	name = "\proper road"
 	icon_state = "outerstripe"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	dir = 1
 
 /turf/open/indestructible/ground/outside/road/parking
 	name = "parking lot"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "bayparking"
 
 /turf/open/indestructible/ground/outside/road/parking/two
@@ -560,7 +560,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/road/parkingalt
 	name = "parking lot"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "bayparking2"
 
 /turf/open/indestructible/ground/outside/road/parkingalt/two
@@ -582,7 +582,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/sidewalk
 	name = "\proper sidewalk"
 	icon_state = "outermiddle"
-	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon = 'icons/turf/sidewalk.dmi'
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
@@ -696,7 +696,7 @@ var/static/list/desert_icons
 	icon_state = "sandstonevault"
 
 /turf/open/indestructible/ground/outside/sidewalk/wastelandedge
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "dirtyroad"
 	dir = NORTH
 
@@ -712,7 +712,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/sidewalk
 	name = "\proper sidewalk"
 	icon_state = "outermiddle"
-	icon = 'icons/fallout/turfs/sidewalk.dmi'
+	icon = 'icons/turf/sidewalk.dmi'
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
@@ -720,14 +720,14 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/sidewalk_s
 	name = "\proper sidewalk"
 	icon_state = "outermiddle"
-	icon = 'icons/fallout/turfs/sidewalk_s.dmi'
+	icon = 'icons/turf/sidewalk_s.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
 
 /turf/open/indestructible/ground/outside/ruins
 	name = "ruins"
 	desc = "It's just a pile of concrete rubble."
 	icon_state = "rubblefull"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
@@ -747,7 +747,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/roof
 	name = "roof"
 	icon_state = "floorrusty"
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	//	step_sounds = list("human" = "woodfootsteps")
 
 /turf/open/indestructible/ground/outside/roof/stairs
@@ -790,7 +790,7 @@ var/static/list/desert_icons
 	gender = PLURAL
 	name = "moving river water"
 	desc = "Shallow river water."
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "riverwateruhh"
 	slowdown = 6
 	depth = 1
@@ -881,7 +881,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/inside/mountain
 	name = "cave"
 	icon_state = "rockfloor1"
-	icon = 'icons/fallout/turfs/mining.dmi'
+	icon = 'icons/turf/mining_f13.dmi'
 //	allowed_plants = list(/obj/item/seeds/glow)
 //	step_sounds = list("human" = "erikafootsteps")
 
@@ -895,7 +895,7 @@ var/static/list/desert_icons
 
 /obj/effect/overlay/rockfloor_side
 	name = "cave"
-	icon = 'icons/fallout/turfs/smoothing.dmi'
+	icon = 'icons/turf/smoothing.dmi'
 	icon_state = "rockfloor_side"
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -925,7 +925,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/inside/subway
 	name = "subway tunnel"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "railsnone"
 
 /turf/open/indestructible/ground/inside/subway/Initialize()
@@ -933,7 +933,7 @@ var/static/list/desert_icons
 
 /obj/effect/overlay/railsnone_side
 	name = "cave"
-	icon = 'icons/fallout/turfs/smoothing.dmi'
+	icon = 'icons/turf/smoothing.dmi'
 	icon_state = "railsnone_side"
 	density = FALSE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
@@ -946,7 +946,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/roaddirt
 	name = "road"
 	icon_state = "innermiddle"
-	icon = 'icons/fallout/turfs/asphaltdirt.dmi'
+	icon = 'icons/turf/asphaltdirt.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
 
 /turf/open/indestructible/ground/outside/roaddirt/dark
@@ -971,7 +971,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/sidewalkdirt
 	name = "sidewalk"
 	icon_state = "outermiddle"
-	icon = 'icons/fallout/turfs/sidewalkdirt.dmi'
+	icon = 'icons/turf/sidewalkdirt.dmi'
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 //	step_sounds = list("human" = "erikafootsteps")
@@ -988,7 +988,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/graveldirt
 	name = "gravel"
 	icon_state = "graveldirt"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 //	step_sounds = list("human" = "erikafootsteps")
 
 /turf/open/indestructible/ground/outside/graveldirt/pink
@@ -996,7 +996,7 @@ var/static/list/desert_icons
 	icon_state = "ash"
 
 /turf/open/indestructible/ground/outside/graveldirt/alt
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "gravel"
 
 /turf/open/indestructible/ground/outside/graveldirt/alt/dark
@@ -1006,7 +1006,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/gravel
 	name = "gravel"
 	icon_state = "gravel"
-	icon = 'icons/fallout/turfs/gravel.dmi'
+	icon = 'icons/turf/gravel.dmi'
 	footstep = FOOTSTEP_GRAVEL
 	barefootstep = FOOTSTEP_GRAVEL
 	clawfootstep = FOOTSTEP_GRAVEL
@@ -1047,36 +1047,36 @@ var/static/list/desert_icons
 // Two edge smootheners for the new gravel turf
 /obj/effect/overlay/gravel/edge
 	name = "gravel edge"
-	icon = 'icons/fallout/turfs/gravel.dmi'
+	icon = 'icons/turf/gravel.dmi'
 	icon_state = "graveledge"
 
 /obj/effect/overlay/gravel/edge/corner
 	icon_state = "gravelcorner"
 
 /turf/open/indestructible/ground/outside/gravel/northedge
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "gravelondesert"
 	dir = 1
 
 /turf/open/indestructible/ground/outside/gravel/southedge
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "gravelondesert"
 	dir = 2
 
 /turf/open/indestructible/ground/outside/gravel/roadnorthedge
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "gravelsiding"
 	dir = 2
 
 /turf/open/indestructible/ground/outside/gravel/roadsouthedge
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "gravelsiding"
 	dir = 1
 
 /turf/open/indestructible/ground/outside/gravel/Interstate80
 	name = "Interstate 80"
 	desc = "The sacred symbol of the 80s. Said to be visible from space."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "crippledome6"
 
 /turf/open/indestructible/ground/outside/gravel/Interstate80/letter
@@ -1433,49 +1433,49 @@ var/static/list/desert_icons
 //New Coyote Dirts
 /turf/open/indestructible/ground/outside/dirt/light_grass
 	name = "lightly grassed dirt"
-	icon = 'fallout/icons/turfs/lightgrass.dmi'
+	icon = 'icons/turf/lightgrass.dmi'
 	icon_state = null
 
 /turf/open/indestructible/ground/outside/dirt/bigdirtturf2
 	name = "big dirt turf 2"
-	icon = 'fallout/icons/turfs/Big_Dirt_Turf_2.dmi'
+	icon = 'icons/turf/Big_Dirt_Turf_2.dmi'
 	icon_state = null
 
 /turf/open/indestructible/ground/outside/dirt/bigdirtturf
 	name = "big dirt turf"
-	icon = 'fallout/icons/turfs/Big_Dirt_Turfs.dmi'
+	icon = 'icons/turf/Big_Dirt_Turfs.dmi'
 	icon_state = null
 
 /turf/open/indestructible/ground/outside/dirt/biggrass
 	name = "big grass"
-	icon = 'fallout/icons/turfs/Big_Grass.dmi'
+	icon = 'icons/turf/Big_Grass.dmi'
 	icon_state = null
 
 /turf/open/indestructible/ground/outside/dirt/biggrassdirt2
 	name = "grassier"
-	icon = 'fallout/icons/turfs/Big_Grass_Turf_2.dmi'
+	icon = 'icons/turf/Big_Grass_Turf_2.dmi'
 	icon_state = null
 
 /turf/open/indestructible/ground/outside/dirt/bigiceturf
 	name = "crunchy ice"
-	icon = 'fallout/icons/turfs/Big_Ice_Turf.dmi'
+	icon = 'icons/turf/Big_Ice_Turf.dmi'
 	icon_state = null
 
 
 /turf/open/indestructible/ground/outside/dirt/bigsandturf
 	name = "crunchy sand"
-	icon = 'fallout/icons/turfs/Big_Sand_Turf.dmi'
+	icon = 'icons/turf/Big_Sand_Turf.dmi'
 	icon_state = null
 
 /turf/open/indestructible/ground/outside/dirt/rockysnow
 	name = "snow on rocks"
-	icon = 'fallout/icons/turfs/Big_Snow_and_Rock_Turf.dmi'
+	icon = 'icons/turf/Big_Snow_and_Rock_Turf.dmi'
 	icon_state = null
 
 
 /turf/open/indestructible/ground/outside/dirt/bigsnow
 	name = "thick snow"
-	icon = 'fallout/icons/turfs/Big_Snow_turf.dmi'
+	icon = 'icons/turf/Big_Snow_turf.dmi'
 	icon_state = null
 
 // Salt Flats
@@ -1493,27 +1493,27 @@ var/static/list/desert_icons
 	clawfootstep = FOOTSTEP_GRAVEL
 
 /turf/open/indestructible/ground/outside/saltflats/gravleft
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "flatzsiding"
 	dir = WEST
 
 /turf/open/indestructible/ground/outside/saltflats/gravright
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "flatzsiding"
 	dir = EAST
 
 /turf/open/indestructible/ground/outside/saltflats/gravtop
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "flatzsiding"
 	dir = NORTH
 
 /turf/open/indestructible/ground/outside/saltflats/gravbottom
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "flatzsiding"
 	dir = SOUTH
 
 /turf/open/indestructible/ground/outside/saltflats/old
-	icon = 'icons/fallout/turfs/f13flatz.dmi'
+	icon = 'icons/turf/f13flatz.dmi'
 	icon_state = "flatz"
 	dir = SOUTH
 
@@ -1626,13 +1626,13 @@ var/static/list/desert_icons
 	dir = EAST
 
 /turf/open/indestructible/ground/outside/saltflats/corner
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "saltdesertangle"
 	dir = NORTH
 
 /turf/open/indestructible/ground/outside/saltflats/innercorner
 	name = "desert"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "saltdesertangle"
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
@@ -1677,7 +1677,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/saltflats/path
 	name = "path"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond1"
 	slowdown = 0
 
@@ -1751,33 +1751,33 @@ var/static/list/desert_icons
 	dir = NORTHWEST
 
 /turf/open/indestructible/ground/outside/saltflats/evaporationpond
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond1"
 	dir = NORTHWEST
 
 /turf/open/indestructible/ground/outside/saltflats/evaporationpondleft
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond3"
 	dir = WEST
 
 /turf/open/indestructible/ground/outside/saltflats/evaporationpondright
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond3"
 	dir = EAST
 
 /turf/open/indestructible/ground/outside/saltflats/evaporationpondtop
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond3"
 	dir = NORTH
 
 /turf/open/indestructible/ground/outside/saltflats/evaporationpondbottom
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond3"
 	dir = SOUTH
 
 /turf/open/indestructible/ground/outside/saltflats/evapond
 	name = "salt flats"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond3"
 
 /turf/open/indestructible/ground/outside/saltflats/evapond/topleft
@@ -1798,7 +1798,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/saltflats/evapcorner
 	name = "salt flats"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "evaporationpond4"
 	dir = SOUTH
 
@@ -1816,7 +1816,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/saltflats/diagonal
 	name = "salt flats"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "railroadsalt"
 
 /turf/open/indestructible/ground/outside/saltflats/diagonal/topleft
@@ -1837,14 +1837,14 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/lifelessdesert // temporary fix until someone can make proper deserts tile that doesn't spawn plants
 	name = "desert"
 	icon_state = "wasteland"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
 
 /turf/open/indestructible/ground/outside/lifelessdesert/edge
 	name = "desert"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "hills4"
 
 /turf/open/indestructible/ground/outside/lifelessdesert/edge/hills
@@ -1998,7 +1998,7 @@ var/static/list/desert_icons
 	name = "cave"
 	dir = NORTH
 	icon_state = "cavernfloor"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	sunlight_state = NO_SUNLIGHT
 	footstep = FOOTSTEP_FLOOR
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
@@ -2011,14 +2011,14 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/fakeelevation
 	name = "fake elevation"
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	icon_state = "stagestairs"
 	var/blocked_direction = list(NORTH, NORTHEAST, NORTHWEST) // as an example
 
 /turf/open/indestructible/ground/outside/fakeelevation/desert
 	name = "desert"
 	icon_state = "wasteland"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
@@ -2067,7 +2067,7 @@ var/static/list/desert_icons
 /turf/open/indestructible/ground/outside/fakeelevation/wendoverwillsafecorner
 	name = "desert"
 	icon_state = "wasteland"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	footstep = FOOTSTEP_SAND
 	barefootstep = FOOTSTEP_SAND
 	clawfootstep = FOOTSTEP_SAND
@@ -2075,7 +2075,7 @@ var/static/list/desert_icons
 // Two edge smootheners for the new gravel turf
 /obj/effect/overlay/gravel/edge
 	name = "gravel edge"
-	icon = 'icons/fallout/turfs/gravel.dmi'
+	icon = 'icons/turf/gravel.dmi'
 	icon_state = "gravel_edge"
 	plane = FLOOR_PLANE
 	layer = LOW_OBJ_LAYER
@@ -2103,7 +2103,7 @@ var/static/list/desert_icons
 
 /turf/open/indestructible/ground/outside/lifelessdesert/gravdag
 	name = "desert"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "railroaddesert"
 
 /turf/open/indestructible/ground/outside/lifelessdesert/gravdag/one

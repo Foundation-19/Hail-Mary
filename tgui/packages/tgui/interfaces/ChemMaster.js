@@ -400,7 +400,6 @@ const PackagingControls = (props, context) => {
 
 const AnalysisResults = (props, context) => {
   const { act, data } = useBackend(context);
-  const { fermianalyze } = props;
   const { analyzeVars } = data;
   return (
     <Section
@@ -437,31 +436,6 @@ const AnalysisResults = (props, context) => {
         <LabeledList.Item label="Addiction Threshold">
           {analyzeVars.addicD}
         </LabeledList.Item>
-        {!!fermianalyze && ( // why did you do that before? it's fucking bad.
-          <Fragment>
-            <LabeledList.Item label="Purity">
-              {analyzeVars.purityF}
-            </LabeledList.Item>
-            <LabeledList.Item label="Inverse Ratio">
-              {analyzeVars.inverseRatioF}
-            </LabeledList.Item>
-            <LabeledList.Item label="Purity E">
-              {analyzeVars.purityE}
-            </LabeledList.Item>
-            <LabeledList.Item label="Lower Optimal Temperature">
-              {analyzeVars.minTemp}
-            </LabeledList.Item>
-            <LabeledList.Item label="Upper Optimal Temperature">
-              {analyzeVars.maxTemp}
-            </LabeledList.Item>
-            <LabeledList.Item label="Explosive Temperature">
-              {analyzeVars.eTemp}
-            </LabeledList.Item>
-            <LabeledList.Item label="pH Peak">
-              {analyzeVars.pHpeak}
-            </LabeledList.Item>
-          </Fragment>
-        )}
       </LabeledList>
     </Section>
   );

@@ -1,7 +1,7 @@
 /obj/structure/statue_fal
 	name = "Ranger statue"
 	desc = "A big ranger statue."
-	icon = 'icons/fallout/objects/structures/statue.dmi'
+	icon = 'icons/obj/structures/statue.dmi'
 	icon_state = "statue1"
 	bound_width = 64
 	bound_height = 64
@@ -19,7 +19,7 @@
 /obj/structure/car
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish1"
 	anchored = 1
 	density = 1
@@ -74,7 +74,7 @@
 /obj/structure/car/rubbish1
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish1"
 	anchored = 1
 	density = 1
@@ -88,7 +88,7 @@
 /obj/structure/car/rubbish2
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish2"
 	anchored = 1
 	density = 1
@@ -102,7 +102,7 @@
 /obj/structure/car/rubbish3
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This car might be repairable."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish3"
 	anchored = 1
 	density = 1
@@ -116,7 +116,7 @@
 /obj/structure/car/rubbish4
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This car is damaged beyond repair."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish4"
 	anchored = 1
 	density = 1
@@ -150,7 +150,7 @@
 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/car/rubbish10
-	icon = 'icons/fallout/objects/structures/car_light.dmi'
+	icon = 'icons/obj/structures/car_light.dmi'
 	icon_state = "rubbish10"
 	layer = ABOVE_MOB_LAYER
 
@@ -159,12 +159,12 @@
 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/car/rubbish_lights
-	icon = 'icons/fallout/objects/structures/car_light.dmi'
+	icon = 'icons/obj/structures/car_light.dmi'
 	icon_state = "rubbish_lights"
 	layer = ABOVE_MOB_LAYER
 
 /obj/structure/car/derelict
-	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon = 'icons/vehicles/medium_vehicles.dmi'
 	icon_state = "derelict"
 	bound_height = 32
 	pixel_y = -4
@@ -176,7 +176,7 @@
 /obj/structure/car/motoryclevert
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This motorcycle is damaged beyond repair."
-	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon = 'icons/vehicles/medium_vehicles.dmi'
 	icon_state = "bike_rust_med_no_wheels"
 	bound_height = 32
 	bound_width = 32
@@ -194,7 +194,7 @@
 /obj/structure/car/motoryclehor
 	name = "pre-War rubbish"
 	desc = "A rusty pre-War automobile carcass.<br>This motorcycle is damaged beyond repair."
-	icon = 'icons/fallout/vehicles/medium_vehicles.dmi'
+	icon = 'icons/vehicles/medium_vehicles.dmi'
 	icon_state = "rust_light_no_wheels"
 	bound_height = 32
 	layer = ABOVE_MOB_LAYER
@@ -211,7 +211,7 @@
 /obj/structure/car/totaledbuggy
 	name = "totaled buggy"
 	desc = "A totaled buggy."
-	icon = 'icons/fallout/vehicles/centeredsmaller.dmi'
+	icon = 'icons/vehicles/centeredsmaller.dmi'
 	icon_state = "junk_red"
 	layer = ABOVE_MOB_LAYER
 
@@ -269,7 +269,7 @@
 
 /obj/structure/car/junk/airfilt
 	name = "air filtration system"
-	icon = 'icons/fallout/turfs/walls/subway.dmi'
+	icon = 'icons/turf/walls/subway.dmi'
 	icon_state = "subwaytopmiddlealt"
 	density = FALSE
 	layer = LATTICE_LAYER
@@ -277,7 +277,7 @@
 
 /obj/structure/car/junk/panel
 	name = "pipe panel"
-	icon = 'icons/fallout/objects/structures/wallmounts.dmi'
+	icon = 'icons/obj/structures/wallmounts.dmi'
 	icon_state = "pipes_1"
 	density = FALSE
 	layer = LATTICE_LAYER
@@ -285,7 +285,7 @@
 
 /obj/structure/car/junk/xray
 	name = "film viewer"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "xray"
 	density = FALSE
 	layer = LATTICE_LAYER
@@ -295,7 +295,7 @@
 /obj/structure/debris/v1
 	name = "pre-War building debris"
 	desc = "A pre-War building debris."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "debris1"
 	bound_width = 64
 	bound_height = 64
@@ -308,7 +308,7 @@
 /obj/structure/debris/v2
 	name = "pre-War building debris"
 	desc = "A pre-War building debris."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "debris2"
 	bound_width = 64
 	bound_height = 64
@@ -321,7 +321,7 @@
 /obj/structure/debris/v3
 	name = "pre-War building debris"
 	desc = "A pre-War building debris."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "debris3"
 	bound_width = 64
 	bound_height = 64
@@ -334,7 +334,7 @@
 /obj/structure/debris/v4
 	name = "pre-War building debris"
 	desc = "A pre-War building debris."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "debris4"
 	bound_width = 64
 	bound_height = 64

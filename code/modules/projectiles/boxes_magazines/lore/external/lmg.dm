@@ -54,7 +54,7 @@
 
 /obj/item/ammo_box/magazine/lewis
 	name = "extended pan magazine (.308)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "lanoe"
 	ammo_type = /obj/item/ammo_casing/a308
 	caliber = list(CALIBER_308)
@@ -68,7 +68,7 @@
 
 /obj/item/ammo_box/magazine/lewis/l47
 	name = "pan magazine (.308)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "lewis"
 	ammo_type = /obj/item/ammo_casing/a308
 	caliber = list(CALIBER_308)
@@ -82,7 +82,7 @@
 
 /obj/item/ammo_box/magazine/bren
 	name = "bren magazine (.308)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "bren"
 	ammo_type = /obj/item/ammo_casing/a308
 	caliber = list(CALIBER_308)

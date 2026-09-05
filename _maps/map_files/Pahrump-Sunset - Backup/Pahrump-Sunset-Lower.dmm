@@ -28715,7 +28715,7 @@
 	},
 /obj/item/folder/yellow{
 	desc = "A yellow folder with a red stamp on it.";
-	icon = 'icons/fallout/objects/bureaucracy.dmi';
+	icon = 'icons/obj/bureaucracy_f13.dmi';
 	icon_state = "folder_secret";
 	name = "Reports Folder";
 	pixel_x = 4

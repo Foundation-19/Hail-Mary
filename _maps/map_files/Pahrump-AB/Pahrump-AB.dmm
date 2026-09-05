@@ -4371,7 +4371,7 @@
 /area/f13/building)
 "atv" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontalbottombordertop0"
 	},
 /area/f13/tunnel/southeast)
@@ -5437,7 +5437,7 @@
 /area/f13/wasteland)
 "awW" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontalinnermain0"
 	},
 /area/f13/tunnel/southwest)
@@ -6732,7 +6732,7 @@
 /obj/structure/table/wood,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -17151,7 +17151,7 @@
 /area/f13/wasteland)
 "bHk" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontaltopborderbottom0"
 	},
 /area/f13/tunnel/southeast)
@@ -17424,7 +17424,7 @@
 	},
 /obj/structure/barricade/wooden/strong{
 	desc = "Provides mild weather protection.";
-	icon = 'icons/fallout/turfs/walls/tents.dmi';
+	icon = 'icons/turf/walls/tents.dmi';
 	icon_state = "cloth_edge";
 	layer = 6;
 	name = "awning";
@@ -17906,7 +17906,7 @@
 /area/f13/building/powered)
 "bYm" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontalinnermain0"
 	},
 /area/f13/tunnel/southeast)
@@ -17922,7 +17922,7 @@
 /area/f13/wasteland)
 "bYQ" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontalinnermain1"
 	},
 /area/f13/tunnel/southeast)
@@ -23085,7 +23085,7 @@
 /obj/structure/table/wood/junk,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -24890,7 +24890,7 @@
 /obj/structure/table,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -35698,7 +35698,7 @@
 	},
 /obj/structure/barricade/wooden/strong{
 	desc = "Provides mild weather protection.";
-	icon = 'icons/fallout/turfs/walls/tents.dmi';
+	icon = 'icons/turf/walls/tents.dmi';
 	icon_state = "cloth_edge";
 	layer = 6;
 	name = "awning";
@@ -38178,7 +38178,7 @@
 /area/f13/building/powered)
 "kFW" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontalbottombordertop0"
 	},
 /area/f13/tunnel/southwest)
@@ -44176,7 +44176,7 @@
 /area/f13/building)
 "nhR" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/asphalt.dmi';
+	icon = 'icons/turf/asphalt.dmi';
 	icon_state = "horizontaltopborderbottom0"
 	},
 /area/f13/tunnel/southwest)
@@ -47798,7 +47798,7 @@
 /obj/structure/table/wood,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -61510,7 +61510,7 @@
 	},
 /obj/structure/barricade/wooden/strong{
 	desc = "Provides mild weather protection.";
-	icon = 'icons/fallout/turfs/walls/tents.dmi';
+	icon = 'icons/turf/walls/tents.dmi';
 	icon_state = "cloth_edge";
 	layer = 6;
 	name = "awning";
@@ -61816,7 +61816,7 @@
 /obj/structure/table/wood,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television"
 	},
@@ -66491,7 +66491,7 @@
 	anchored = 1;
 	armor_tier_desc = "This is a suit of power armor, able to withstand a tank shell and still finish a marathon.";
 	desc = "Upgraded pre-war power armor design.  How did this end up in the bar?";
-	icon = 'icons/fallout/clothing/armored_power.dmi';
+	icon = 'icons/clothing/armored_power.dmi';
 	icon_state = "advanced";
 	name = "strange power armor"
 	},

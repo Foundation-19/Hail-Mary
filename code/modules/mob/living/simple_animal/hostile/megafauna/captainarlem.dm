@@ -6,7 +6,7 @@
 	icon_state = "arlem"
 	icon_living = "arlem"
 	icon_dead = "arlem"
-	icon = 'icons/fallout/mobs/bigmob.dmi'
+	icon = 'icons/mob/bigmob.dmi'
 	friendly_verb_continuous = "mutters 'Enclave huh? Get out of here. This is a restricted area by order of President Eden.'"
 	friendly_verb_simple = "mutters 'Enclave huh? Get out of here. This is a restricted area by order of President Eden.'"
 	attack_verb_continuous = "eviscerates"

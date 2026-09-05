@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/securitron
 	name = "securitron"
 	desc = "A pre-War type of securitron.<br>Extremely dangerous machine."
-	icon = 'icons/fallout/mobs/robots/wasterobots.dmi'
+	icon = 'icons/mob/robots/wasterobots.dmi'
 	icon_state = "securitron"
 	icon_living = "securitron"
 	icon_dead = "securitron_dead"

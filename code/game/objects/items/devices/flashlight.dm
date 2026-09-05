@@ -270,7 +270,7 @@
 /obj/item/flashlight/flare
 	name = "flare"
 	desc = "A red emergency flare. There are instructions on the side, it reads 'pull cord, make light'."
-	icon = 'icons/fallout/objects/lamps.dmi'
+	icon = 'icons/obj/lamps.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	light_system = MOVABLE_LIGHT
 	light_range = 7 // Pretty bright.

@@ -5,7 +5,7 @@
 
 /obj/item/ammo_box/magazine/cg45
 	name = "Carl Gustaf magazine (10mm)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "cg45"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = list(CALIBER_10MM)
@@ -19,7 +19,7 @@
 
 /obj/item/ammo_box/magazine/greasegun
 	name = "Grease gun magazine (.45ACP)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "grease"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = list(CALIBER_45ACP)
@@ -33,7 +33,7 @@
 
 /obj/item/ammo_box/magazine/uzim9mm
 	name = "Uzi magazine (9mm)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "uzi9mm"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	max_ammo = 32
@@ -60,7 +60,7 @@
 
 /obj/item/ammo_box/magazine/pps9mm
 	name = "PPSh magazine (9mm)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "ppshDrum"
 	ammo_type = /obj/item/ammo_casing/c9mm
 	caliber = list(CALIBER_9MM)
@@ -74,7 +74,7 @@
 
 /obj/item/ammo_box/magazine/m22smg
 	name = "toploader magazine (.22lr)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "smg22"
 	ammo_type = /obj/item/ammo_casing/a22
 	caliber = list(CALIBER_22LR)
@@ -88,7 +88,7 @@
 
 /obj/item/ammo_box/magazine/b180
 	name = "toploader hive (.22lr)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "smg22"
 	ammo_type = /obj/item/ammo_casing/bee
 	caliber = list(CALIBER_BEE)
@@ -99,7 +99,7 @@
 
 /obj/item/ammo_box/magazine/tommygunm45
 	name = "Thompson drum magazine (.45)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "tommydrum"
 	ammo_type = /obj/item/ammo_casing/c45
 	caliber = list(CALIBER_45ACP)
@@ -109,7 +109,7 @@
 
 /obj/item/ammo_box/magazine/tommygunm45/stick
 	name = "Thompson stick magazine (.45)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "tommystick"
 	ammo_type = /obj/item/ammo_casing/c45
 	max_ammo = 20
@@ -125,7 +125,7 @@
 
 /obj/item/ammo_box/magazine/smg14
 	name = "14mm smg magazine"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "14smg"
 	ammo_type = /obj/item/ammo_casing/p14mm
 	caliber = list(CALIBER_14MM)
@@ -138,7 +138,7 @@
 
 /obj/item/ammo_box/magazine/smg14/stacked
 	name = "14mm smg stacked magazine"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "14smge"
 	ammo_type = /obj/item/ammo_casing/p14mm
 	max_ammo = 27
@@ -150,7 +150,7 @@
 
 /obj/item/ammo_box/magazine/m10mm_p90
 	name = "toploader magazine (10mm)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "5.56m"
 	ammo_type = /obj/item/ammo_casing/c10mm
 	caliber = list(CALIBER_10MM)

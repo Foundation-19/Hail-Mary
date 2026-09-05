@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/vault
 	name = "Vault Dweller"
 	desc = "Just a Vault Dweller."
-	icon = 'icons/fallout/mobs/humans/fallout_npc.dmi'
+	icon = 'icons/mob/humans/fallout_npc.dmi'
 	icon_state = "vault_dweller"
 	icon_living = "vault_dweller"
 	icon_dead = "vault_dweller"
@@ -184,7 +184,7 @@
 /mob/living/simple_animal/hostile/enclave
 	name = "enclave specialist"
 	desc = "An Enclave soldier with combat armor and a G-11 rifle."
-	icon = 'icons/fallout/mobs/humans/fallout_npc.dmi'
+	icon = 'icons/mob/humans/fallout_npc.dmi'
 	icon_state = "enclave_specialist"
 	icon_living = "enclave_specialist"
 	icon_dead = "enclave_specialist"
@@ -389,7 +389,7 @@
 /mob/living/simple_animal/hostile/bs
 	name = "Brotherhood Knight"
 	desc = "The brotherhood never fails."
-	icon = 'icons/fallout/mobs/humans/fallout_npc.dmi'
+	icon = 'icons/mob/humans/fallout_npc.dmi'
 	icon_state = "bs_knight"
 	icon_living = "bs_knight"
 	icon_dead = "bs_knight"
@@ -561,7 +561,7 @@
 /mob/living/simple_animal/hostile/ncr
 	name = "NCR Trooper"
 	desc = "For the Republic!"
-	icon = 'icons/fallout/mobs/humans/fallout_npc.dmi'
+	icon = 'icons/mob/humans/fallout_npc.dmi'
 	icon_state = "ncr_trooper"
 	icon_living = "ncr_trooper"
 	icon_dead = "ncr_trooper"
@@ -730,7 +730,7 @@
 /mob/living/simple_animal/hostile/legion
 	name = "Legion Prime"
 	desc = "True to Caesar."
-	icon = 'icons/fallout/mobs/humans/fallout_npc.dmi'
+	icon = 'icons/mob/humans/fallout_npc.dmi'
 	icon_state = "legion_prime"
 	icon_living = "legion_prime"
 	icon_dead = "legion_prime"
@@ -898,7 +898,7 @@
 /mob/living/simple_animal/hostile/tribe
 	name = "Wayfarer Hunter"
 	desc = "A hunter of the wayfarer tribe, wielding a glaive."
-	icon = 'icons/fallout/mobs/humans/fallout_npc.dmi'
+	icon = 'icons/mob/humans/fallout_npc.dmi'
 	icon_state = "tribal_raider"
 	icon_living = "tribal_raider"
 	icon_dead = "tribal_raider_dead"

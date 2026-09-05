@@ -19,8 +19,8 @@
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
 	desc = "A sterile mask designed to help prevent the spread of diseases."
-	icon = 'icons/fallout/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mask.dmi'
+	icon = 'icons/clothing/masks.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/mask.dmi'
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
@@ -441,11 +441,10 @@
 //"LEGION" BANDANAS//
 /////////////////////
 
+// Base legion bandana - art redirected in legio_invicta.dm
 /obj/item/clothing/mask/bandana/legion
-	name = "legion mask template"
-	desc = "Should not exist."
-	icon = 'icons/fallout/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mask.dmi'
+	name = "legion bandana"
+	desc = "A bandana worn by Legion members."
 	flags_inv = HIDEFACE
 	visor_flags_inv = HIDEFACE
 	adjusted_flags = null
@@ -474,8 +473,8 @@
 /obj/item/clothing/mask/bandana/legion/legdecan
 	name = "outlaw bandana"
 	desc = "A fine bandana in dark red."
-	icon = 'icons/fallout/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mask.dmi'
+	icon = 'icons/clothing/masks.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/mask.dmi'
 	icon_state = "legdecan"
 
 /obj/item/clothing/mask/bandana/legion/legcenturion

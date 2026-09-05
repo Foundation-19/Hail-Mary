@@ -11,9 +11,9 @@
 /obj/item/gun/ballistic/shotgun
 	name = "shotgun template"
 	desc = "Should not exist"
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_prefix = "shotgunpump"
 	icon_state = "shotgun"
 	item_state = "shotgun"
@@ -59,8 +59,8 @@
 	name = "caravan rifle"
 	desc = "An over-under hunting rifle, for large game."
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "caravan"
 	item_state = "shotgundouble"
 	icon_prefix = "shotgundouble"
@@ -106,8 +106,8 @@
 	name = "Winchester Widowmaker"
 	desc = "Old-world Winchester Widowmaker double-barreled 12 gauge shotgun, with mahogany furniture"
 	icon = 'icons/obj/guns/projectile.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "widowmaker"
 	item_state = "shotgundouble"
 	icon_prefix = "shotgundouble"
@@ -157,9 +157,9 @@
 			The rubberized grip helps absorb just enough of the recoil to be fired with one hand, and a sturdy latch locks the breech \
 			open after unloading for easy access. Despite claims to the contrary, this is <i>not</i> just flare gun with extra parts. \
 			Allegedly based on old schematics for the 'tulyak' single-shot pistol shotgun, albeit rechambered to 12-gauge due to availability."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "shotpistol"
 	item_state = "357colt"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/single
@@ -224,7 +224,7 @@
 /obj/item/gun/ballistic/shotgun/police
 	name = "police shotgun"
 	desc = "A pre-war shotgun with large magazine and folding stock, made from steel and polymers. Flashlight attachment rail."
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "shotgunpolice"
 	item_state = "shotgunpolice"
 	icon_prefix = "shotgunpolice"
@@ -420,7 +420,7 @@
 /obj/item/gun/ballistic/shotgun/automatic/combat/shotgunlever/stock/tribal
 	name = "Mourning Sunrise"
 	desc = "A speedy lever action shotgun with a sunrise painted on the furnishings, morbid in context of it's purpose."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "latribal"
 	item_state = "shotgunlever"
 	icon_prefix = "shotgunlever"
@@ -524,10 +524,10 @@
 /obj/item/gun/ballistic/automatic/shotgun/riot
 	name = "Riot shotgun"
 	desc = "A compact riot shotgun with a large ammo drum and semi-automatic fire, designed for sustained fire at medium distances. A barrel designed for less-lethal ammo dulls its punch slightly, but you can't argue with the capacity."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/backslot_weapon.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/backslot_weapon.dmi'
 	icon_state = "shotgunriot"
 	item_state = "shotgunriot"
 	mag_type = /obj/item/ammo_box/magazine/d12g
@@ -555,8 +555,8 @@
 /obj/item/gun/ballistic/automatic/shotgun/pancor
 	name = "Pancor Jackhammer"
 	desc = "A drum-loaded, fully automatic shotgun. The pinnacle of turning things into swiss cheese."
-	lefthand_file = 'icons/fallout/onmob/weapons/guns_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/guns_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	icon_state = "pancor"
 	item_state = "pancor"
 	fire_sound = 'sound/f13weapons/repeater_fire.ogg'

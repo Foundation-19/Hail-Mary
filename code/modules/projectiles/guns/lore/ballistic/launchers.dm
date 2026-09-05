@@ -29,7 +29,7 @@
 /obj/item/gun/ballistic/shotgun/grenade
 	name = "pump grenade launcher"
 	desc = "A bulky but surprisingly lightweight grenade launcher with a stiff pump."
-	icon = 'fallout/icons/objects/ncrrangersguns.dmi'
+	icon = 'icons/obj/ncrrangersguns.dmi'
 	icon_state = "china_lake"
 	item_state = "shotguntrench"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/grenade
@@ -113,9 +113,9 @@
 
 /obj/item/gun/ballistic/fatman/update_icon_state()
 	if(!magazine || !get_ammo(TRUE, FALSE) || !chambered?.BB)
-		icon_state = "[initial(icon_state)]_empty" //civ13 used a different empty designator
+		icon_state = "mirv-e"
 	else
-		icon_state = "[initial(icon_state)]"
+		icon_state = "mirv"
 
 /obj/item/gun/ballistic/rocketlauncher
 	name = "\improper rocket launcher"
@@ -134,7 +134,7 @@
 /obj/item/gun/ballistic/rocketlauncher/romket
 	name = "\improper romckit launcher"
 	desc = ""
-	icon_state = "rocketlauncher"
+	icon_state = "missile_launcher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/rocketlauncher
 	fire_sound = 'sound/weapons/rocketlaunch.ogg'
@@ -230,7 +230,7 @@
 /obj/item/gun/ballistic/rocketlauncher/brick
 	name = "\improper brick launcher"
 	desc = "An old rocket launcher that has somehow been repurposed to fire bricks at high velocity."
-	icon = 'icons/fallout/objects/guns/ballistic.dmi'
+	icon = 'icons/obj/guns/ballistic.dmi'
 	icon_state = "launcher"
 	item_state = "rocketlauncher"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/brick

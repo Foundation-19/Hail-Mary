@@ -6,7 +6,7 @@
 /mob/living/simple_animal/hostile/gecko
 	name = "gecko"
 	desc = "A large mutated reptile with sharp teeth."
-	icon = 'icons/fallout/mobs/animals/wasteanimals.dmi'
+	icon = 'icons/mob/animals/wasteanimals.dmi'
 	icon_state = "gekko"
 	icon_living = "gekko"
 	icon_dead = "gekko_dead"
@@ -145,7 +145,7 @@
 /mob/living/simple_animal/hostile/gecko/legacy
 	name = "newt"
 	desc = "A large dog-sized amphibious biped with an oddly large mouth for its size. Probably related to geckos in some way."
-	icon = 'icons/fallout/mobs/legacymobs.dmi'
+	icon = 'icons/mob/legacymobs.dmi'
 	icon_state = "legacy_gecko"
 	icon_living = "legacy_gecko"
 	icon_dead = "legacy_gecko_dead"
@@ -303,7 +303,7 @@
 /mob/living/simple_animal/hostile/stalker
 	name = "nightstalker"
 	desc = "A crazed genetic hybrid of rattlesnake and coyote DNA."
-	icon = 'icons/fallout/mobs/animals/nightstalker.dmi'
+	icon = 'icons/mob/animals/nightstalker.dmi'
 	icon_state = "nightstalker"
 	icon_living = "nightstalker"
 	icon_dead = "nightstalker-dead"
@@ -428,7 +428,7 @@
 /mob/living/simple_animal/hostile/stalkeryoung
 	name = "young nightstalker"
 	desc = "A juvenile crazed genetic hybrid of rattlesnake and coyote DNA."
-	icon = 'icons/fallout/mobs/animals/wasteanimals.dmi'
+	icon = 'icons/mob/animals/wasteanimals.dmi'
 	icon_state = "nightstalker_cub"
 	icon_living = "nightstalker_cub"
 	icon_dead = "nightstalker_cub_dead"
@@ -548,7 +548,7 @@
 /mob/living/simple_animal/hostile/molerat
 	name = "molerat"
 	desc = "A large mutated rat-mole hybrid that finds its way everywhere. Common in caves and underground areas."
-	icon = 'icons/fallout/mobs/animals/wasteanimals.dmi'
+	icon = 'icons/mob/animals/wasteanimals.dmi'
 	icon_state = "molerat"
 	icon_living = "molerat"
 	icon_dead = "molerat_dead"
@@ -650,7 +650,7 @@
 /mob/living/simple_animal/hostile/gelcube
 	name = "gelatinous cube"
 	desc = "A big green radioactive cube creature. It jiggles with menacing wiggles and is making some sort of goofy face at you."
-	icon = 'fallout/icons/mob/vatgrowing.dmi'
+	icon = 'icons/mob/vatgrowing.dmi'
 	icon_state = "gelatinous"
 	icon_living = "gelatinous"
 	icon_dead = "gelatinous_dead"
@@ -693,7 +693,7 @@
 	emote_taunt_sound = list('sound/effects/bubbles.ogg')
 	taunt_chance = 30
 	aggrosound = list('sound/misc/splort.ogg')
-	idlesound = list('sound/vore/prey/squish_01.ogg')
+	idlesound = list('sound/misc/splort.ogg')
 	death_sound = 'sound/misc/crack.ogg'
 	
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -746,7 +746,7 @@
 /mob/living/simple_animal/hostile/bloodbird
 	name = "blood bird"
 	desc = "A large mutated turkey vulture."
-	icon = 'icons/fallout/mobs/animals/bloodbird.dmi'
+	icon = 'icons/mob/animals/bloodbird.dmi'
 	icon_state = "bloodbird"
 	icon_living = "bloodbird"
 	icon_dead = "bloodbird_dead"

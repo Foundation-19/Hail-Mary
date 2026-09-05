@@ -4,7 +4,7 @@
 /obj/item/key/vending
 	name = "Vending Machine Key"
 	desc = "Vending machine key."
-	icon = 'icons/fallout/vehicles/small_vehicles.dmi'
+	icon = 'icons/vehicles/small_vehicles.dmi'
 	icon_state = "key-door"
 	var/id = 0
 	

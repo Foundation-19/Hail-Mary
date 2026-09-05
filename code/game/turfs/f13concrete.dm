@@ -215,7 +215,7 @@ GLOBAL_LIST_INIT(concrete_recipes, list ( \
 /obj/structure/barricade/concrete
 	name = "concrete barricade"
 	desc = "A small concrete barricade. Could be turned into a concrete wall with some more concrete."
-	icon = 'icons/obj/fallout/concretebarricade.dmi'
+	icon = 'icons/obj/concretebarricade.dmi'
 	icon_state = "concrete_barricade"
 	var/changing_turf = FALSE
 	obj_integrity = 450

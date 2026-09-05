@@ -3,7 +3,7 @@
 /obj/item/weapon/krotchy
 	name = "krotchy doll"
 	desc = "The Bad Touch - Krotchy Doll."
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "doll"
 	item_state = "doll"
 	throwforce = 0
@@ -30,7 +30,7 @@
 //Krotchy's original packaging
 
 /obj/item/weapon/storage/fancy/krotchy_box
-	icon = 'icons/fallout/objects/items.dmi'
+	icon = 'icons/obj/items.dmi'
 	icon_state = "krotchybox1"
 	name = "krotchy doll box"
 

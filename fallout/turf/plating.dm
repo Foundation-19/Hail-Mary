@@ -71,7 +71,7 @@
 /turf/open/floor/plating/wooden
 	name = "house base"
 	icon_state = "housebase"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	intact = 0
 	broken_states = list("housebase1-broken", "housebase2-broken", "housebase3-broken", "housebase4-broken")
 	burnt_states = list("housebase_burnt")
@@ -101,7 +101,7 @@
 /turf/open/floor/plating/tunnel
 	name = "metal floor"
 	icon_state = "tunneldirty"
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	baseturfs = /turf/open/indestructible/ground/inside/mountain
 
 /turf/open/floor/plating/tunnel/curb

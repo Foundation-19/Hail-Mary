@@ -52,8 +52,8 @@
 /obj/item/storage/backpack/spearquiver
 	name = "sturdy quiver"
 	desc = "A leather and iron quiver designed to hold throwing spears and bolas."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "spearquiver"
 	item_state = "spearquiver"
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
@@ -687,10 +687,10 @@ obj/item/storage/backpack/duffelbag/syndie/shredderbundle
 /obj/item/storage/backpack/satchel/old
 	name = "old satchel"
 	desc = "The leather is stiff and cracking, but the satchel still works."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
-	lefthand_file = 'icons/fallout/onmob/items/bags_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/items/bags_righthand.dmi'
+	icon = 'icons/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/khaans.dmi'
+	lefthand_file = 'icons/onmob/items/bags_lefthand.dmi'
+	righthand_file = 'icons/onmob/items/bags_righthand.dmi'
 	icon_state = "satchel_old"
 	item_state = "satchel_old"
 

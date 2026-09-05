@@ -33,7 +33,7 @@
 	parent_type = /obj/machinery/f13/grid_client
 	name = "core fabricator"
 	desc = "A heavy industrial fabricator that assembles or recycles fusion cores. Requires a wired power connection to a faction base generator."
-	icon = 'icons/fallout/machines/64x32.dmi'
+	icon = 'icons/machines/64x32.dmi'
 	icon_state = "generator_off"
 	density = TRUE
 	anchored = TRUE

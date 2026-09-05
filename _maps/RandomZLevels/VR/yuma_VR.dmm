@@ -3212,7 +3212,7 @@
 "vw" = (
 /turf/closed/indestructible/riveted{
 	desc = "A military grade saturnite-reinforced wall. Holy shit.";
-	icon = 'icons/fallout/turfs/walls/vault.dmi';
+	icon = 'icons/turf/walls/vault.dmi';
 	icon_state = "vault0"
 	},
 /area/awaymission/vr/bos/casino)

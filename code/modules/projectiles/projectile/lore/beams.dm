@@ -606,14 +606,14 @@
 	pixels_per_second = TILES_TO_PIXELS(12)
 
 /obj/item/projectile/f13plasma/pistol/eve //Eve
-	icon = 'icons/fallout/objects/guns/projectiles.dmi'
+	icon = 'icons/obj/guns/projectiles.dmi'
 	icon_state = "eve"
 	damage = 45
 	wound_bonus = 75 //being hit with plasma is horrific
 	light_color = LIGHT_COLOR_PINK
 
 /obj/item/projectile/f13plasma/pistol/adam //Adam
-	icon = 'icons/fallout/objects/guns/projectiles.dmi'
+	icon = 'icons/obj/guns/projectiles.dmi'
 	icon_state = "adam"
 	damage = 55
 	wound_bonus = 35 //Adam is stronger, but not in the wounding department.

@@ -8,7 +8,7 @@
 /obj/machinery/autolathe
 	name = "autolathe"
 	desc = "It produces items using metal and glass."
-	icon = 'icons/fallout/machines/autolathe.dmi'
+	icon = 'icons/machines/autolathe.dmi'
 	icon_state = "autolathe"
 	var/icon_state_base = "autolathe"
 	var/icon_state_open = "autolathe_t"
@@ -580,7 +580,7 @@
 
 /obj/machinery/autolathe/ammo
 	name = "reloading bench"
-	icon = 'icons/fallout/machines/reloadingbench.dmi'
+	icon = 'icons/machines/reloadingbench.dmi'
 	desc = "An ammo bench that utilizes metal and other materials to make ammo and magazines."
 	circuit = /obj/item/circuitboard/machine/autolathe/ammo
 	stored_research = /datum/techweb/specialized/autounlocking/autolathe/ammo

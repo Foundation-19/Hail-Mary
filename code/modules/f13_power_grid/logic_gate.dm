@@ -29,7 +29,7 @@
 	parent_type  = /obj/machinery/f13/power_relay
 	name         = "power logic gate"
 	desc         = "A programmable relay node that evaluates a boolean function over its wired inputs. Change the gate type via the panel."
-	icon         = 'icons/fallout/machines/power_grid/power_relay.dmi'
+	icon         = 'icons/machines/power_grid/power_relay.dmi'
 	icon_state   = ""
 
 	var/gate_type = GATE_OR

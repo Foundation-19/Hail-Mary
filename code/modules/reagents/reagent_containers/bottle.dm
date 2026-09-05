@@ -226,11 +226,6 @@
 	desc = "A small bottle of atropine."
 	list_reagents = list(/datum/reagent/medicine/atropine = 30)
 
-/obj/item/reagent_containers/glass/bottle/zeolites
-	name = "Zeolites bottle"
-	desc = "A small bottle of lab made Zeolite, which removes radiation from people quickly as well as contamination on items."
-	list_reagents = list(/datum/reagent/fermi/zeolites = 30)
-
 // Viro bottles
 
 /obj/item/reagent_containers/glass/bottle/romerol
@@ -488,7 +483,7 @@
 	list_reagents = list(/datum/reagent/medicine/coagulant = 30)
 
 /obj/item/reagent_containers/glass/bottle/primitive
-	icon = 'icons/fallout/objects/medicine/drugs.dmi'
+	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "bottle_primitive"
 	possible_transfer_amounts = list(5,10,15,20,30,60)
 	volume = 60

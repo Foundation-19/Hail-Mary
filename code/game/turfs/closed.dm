@@ -163,7 +163,7 @@
 /turf/closed/indestructible/rock
 	name = "dense rock"
 	desc = "An extremely densely-packed rock, most mining tools or explosives would never get through this."
-	icon = 'icons/fallout/turfs/mining.dmi' //fortuna edit. fixing icon path.
+	icon = 'icons/turf/mining_f13.dmi' //fortuna edit. fixing icon path.
 	icon_state = "rock"
 
 /turf/closed/indestructible/rock/lowerplane
@@ -205,13 +205,13 @@
 /turf/closed/indestructible/tunnel
 	name = "rusty vault wall"
 	desc = "A rusty chunk of metal used to separate rooms."
-	icon = 'icons/fallout/turfs/walls/tunnel.dmi'
+	icon = 'icons/turf/walls/tunnel.dmi'
 	icon_state = "tunnel0"
 
 /turf/closed/indestructible/vaultblue
 	name = "wall"
 	desc = "A rusty chunk of metal used to separate rooms."
-	icon = 'icons/fallout/turfs/walls/vault_reinforced.dmi'
+	icon = 'icons/turf/walls/vault_reinforced.dmi'
 	icon_state = "vaultrwall0"
 
 /turf/closed/indestructible/rock/snow
@@ -324,13 +324,13 @@
 /turf/closed/indestructible/invisible
 	name = "nothing"
 	desc = "You see nothing. Out of the ordinary."
-	icon = 'icons/fallout/turfs/mining.dmi'
+	icon = 'icons/turf/mining_f13.dmi'
 	icon_state = "rock"
 	invisibility = INVISIBILITY_ABSTRACT
 
 /turf/closed/indestructible/rock/edge
 	name = "desert"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "hills4"
 	opacity = TRUE
 

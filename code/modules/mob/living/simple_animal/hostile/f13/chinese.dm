@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/chinese
 	name = "chinese remnant soldier"
 	desc = "Chinese soldiers who survived the Great War via ghoulification, and now shoot anything that isn't their own on sight."
-	icon = 'icons/fallout/mobs/humans/ghouls.dmi'
+	icon = 'icons/mob/humans/ghouls.dmi'
 	icon_state = "chinesesoldier"
 	icon_living = "chinesesoldier"
 	icon_gib = "syndicate_gib"

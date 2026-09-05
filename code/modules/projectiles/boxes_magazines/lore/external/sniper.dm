@@ -1,6 +1,6 @@
 /obj/item/ammo_box/magazine/amr
 	name = "Anti-materiel rifle magazine (.50)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "50mag"
 	max_ammo = 8
 	ammo_type = /obj/item/ammo_casing/a50MG
@@ -26,7 +26,7 @@
 
 /obj/item/ammo_box/magazine/boys
 	name = "Boys magazine (.50)"
-	icon = 'icons/fallout/objects/guns/ammo.dmi'
+	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "boys"
 	max_ammo = 5
 	ammo_type = /obj/item/ammo_casing/a50MG

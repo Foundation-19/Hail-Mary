@@ -617,6 +617,6 @@
 
 /obj/item/tool_upgrade
 	name = "tool upgrade"
-	icon = 'fallout/eris/icons/tool_upgrades.dmi'
+	icon = 'icons/obj/guns/tool_upgrades.dmi'
 	force = 0
 	w_class = WEIGHT_CLASS_SMALL

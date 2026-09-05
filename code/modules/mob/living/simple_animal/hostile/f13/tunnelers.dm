@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/trog
 	name = "trog"
 	desc = "A human who has mutated and regressed back to a primal, cannibalistic state. Rumor says they're poisonous as well. Want to find out?"
-	icon = 'icons/fallout/mobs/monsters/tunnelers.dmi'
+	icon = 'icons/mob/monsters/tunnelers.dmi'
 	icon_state = "troglodyte"
 	icon_living = "troglodyte"
 	icon_dead = "trog_dead"

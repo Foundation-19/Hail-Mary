@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/eyebot
 	name = "eyebot"
 	desc = "A hovering, propaganda-spewing reconnaissance and surveillance robot with radio antennas pointing out its back and loudspeakers blaring out the front."
-	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
+	icon = 'icons/mob/robots/eyebots.dmi'
 	icon_state = "eyebot"
 	icon_living = "eyebot"
 	icon_dead = "eyebot_d"
@@ -209,7 +209,7 @@
 /mob/living/simple_animal/pet/dog/eyebot
 	name = "propaganda eyebot"
 	desc = "This eyebot's weapons module has been removed and replaced with a loudspeaker. It appears to be shouting Pre-War propaganda."
-	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
+	icon = 'icons/mob/robots/eyebots.dmi'
 	icon_state = "eyebot"
 	icon_living = "eyebot"
 	icon_dead = "eyebot_d"

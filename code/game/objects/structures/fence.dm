@@ -15,7 +15,7 @@
 	desc = "A chain link fence. Not as effective as a wall, but generally it keeps people out."
 	density = TRUE
 	anchored = TRUE
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "straight"
 	barricade = TRUE
 	proj_pass_rate = 95
@@ -209,7 +209,7 @@
 /obj/structure/simple_door/metal/fence
 	name = "fence gate"
 	desc = "A gate for a fence."
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "fence"
 	door_type = "fence"
 	open_sound = "sound/f13machines/doorchainlink_open.ogg"

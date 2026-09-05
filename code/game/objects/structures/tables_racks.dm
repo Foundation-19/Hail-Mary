@@ -271,7 +271,7 @@
 /obj/structure/table/wood/ruined
 	name = "ruined table"
 	desc = "Do not apply fire to this. Rumour says it burns easily."
-	icon = 'icons/fallout/objects/furniture/junk.dmi'
+	icon = 'icons/obj/furniture/junk.dmi'
 	icon_state = "junk_table"
 	smooth = SMOOTH_FALSE
 
@@ -493,7 +493,7 @@
 /obj/structure/table/wood/junk
 	name = "makeshift bar table"
 	desc = "An improvised table made from a wooden plank and as barrel. Try not to lean on it."
-	icon = 'icons/fallout/objects/structures/junk_table.dmi'
+	icon = 'icons/obj/structures/junk_table.dmi'
 	icon_state = "bar"
 	canSmoothWith = list(/obj/structure/table/wood/junk)
 	buildstack = null
@@ -738,7 +738,7 @@
 /obj/structure/shelf_wood
 	name = "wooden shelf"
 	desc = "For storage."
-	icon = 'icons/fallout/objects/furniture/stationary.dmi'
+	icon = 'icons/obj/furniture/stationary.dmi'
 	icon_state = "shelf_wood"
 	layer = TABLE_LAYER
 	density = TRUE
@@ -752,7 +752,7 @@
 /obj/structure/rack
 	name = "rack"
 	desc = "Different from the Medieval version."
-	icon = 'icons/fallout/objects/furniture/stationary.dmi'
+	icon = 'icons/obj/furniture/stationary.dmi'
 	icon_state = "shelf_wood"
 	layer = TABLE_LAYER
 	density = TRUE
@@ -849,7 +849,7 @@
 /obj/item/rack_parts
 	name = "rack parts"
 	desc = "Parts of a rack."
-	icon = 'icons/fallout/objects/furniture/stationary.dmi'
+	icon = 'icons/obj/furniture/stationary.dmi'
 	icon_state = "rack"
 	flags_1 = CONDUCT_1
 	custom_materials = list(/datum/material/iron=2000)

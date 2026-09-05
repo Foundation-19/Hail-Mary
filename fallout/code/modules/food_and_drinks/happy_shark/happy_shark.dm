@@ -3,7 +3,7 @@
 /obj/item/reagent_containers/food/snacks/sunset/happyshark/jerky
 	name = "Wasteland Mesquite Smoked Jerky"
 	desc = "Specially prepared and well seasoned jerky."
-	icon = 'fallout/icons/obj/food/happy_shark.dmi'
+	icon = 'icons/obj/food/happy_shark.dmi'
 	icon_state = "shark_jerky"
 	bonus_reagents = list(/datum/reagent/consumable/honey = 1, /datum/reagent/consumable/nutriment/vitamin = 2, /datum/reagent/consumable/nutriment = 5, /datum/reagent/drug/happiness = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/honey = 1)
@@ -15,7 +15,7 @@
 /obj/item/reagent_containers/food/snacks/sunset/happyshark/candybar
 	name = "Trail Goers Sweet Bar"
 	desc = "A sweet and nutritious candy bar."
-	icon = 'fallout/icons/obj/food/happy_shark.dmi'
+	icon = 'icons/obj/food/happy_shark.dmi'
 	icon_state = "shark_candy"
 	bonus_reagents = list(/datum/reagent/consumable/yuccajuice = 1, /datum/reagent/consumable/nutriment/vitamin = 5, /datum/reagent/drug/happiness = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/sugar = 10)
@@ -27,7 +27,7 @@
 /obj/item/reagent_containers/food/drinks/sunset/happyshark/bittercola
 	name = "Soothing Soda"
 	desc = "A uniquely mixed cola. - Ice not included."
-	icon = 'fallout/icons/obj/food/happy_shark.dmi'
+	icon = 'icons/obj/food/happy_shark.dmi'
 	icon_state = "shark_drink"
 	list_reagents = list(/datum/reagent/consumable/nuka_cola = 15, /datum/reagent/consumable/sodawater = 15, /datum/reagent/medicine/healing_powder = 10)
 

@@ -6,7 +6,7 @@
 	icon_state = "blaster"
 	name = "pump-action particle blaster"
 	desc = "A pump action energy gun that requires manual racking to charge supercapacitors."
-	icon = 'fallout/icons/obj/guns/pumpactionblaster.dmi'
+	icon = 'icons/obj/guns/pumpactionblaster.dmi'
 	cell_type = /obj/item/stock_parts/cell/pumpaction
 	var/recentpump = 0 // to prevent spammage
 
@@ -116,8 +116,8 @@
 	name = "pump-action particle blaster"
 	desc = "A non-lethal pump-action particle blaster with an overdrive firing mode. Requires manual racking after every shot to charge an integral bank of supercapacitors."
 	item_state = "particleblaster"
-	lefthand_file = 'fallout/icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'fallout/icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter/disabler/pump, /obj/item/ammo_casing/energy/disabler/slug)
 	ammo_x_offset = 2
 	modifystate = 1
@@ -129,8 +129,8 @@
 	name = "particle defender"
 	desc = "A pump-action particle blaster with a unique particle focusing chamber optimized for decisive de-escalation. Requires manual racking after every shot to charge an integral bank of supercapacitors."
 	item_state = "particleblaster"
-	lefthand_file = 'fallout/icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'fallout/icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/disabler/pump, /obj/item/ammo_casing/energy/laser/pump)
 	ammo_x_offset = 2
 	modifystate = 1
@@ -199,8 +199,8 @@
 	name = "pump-action plastic blaster"
 	desc = "A fearsome toy of terrible power. It has the ability to fire beams of pure light in either dispersal mode or overdrive mode. Requires the operation of a 40KW power shunt between every shot to prepare the beam focusing chamber."
 	item_state = "particleblaster"
-	lefthand_file = 'fallout/icons/mob/inhands/guns_lefthand.dmi'
-	righthand_file = 'fallout/icons/mob/inhands/guns_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/dispersal, /obj/item/ammo_casing/energy/laser/wavemotion)
 	ammo_x_offset = 2
 	modifystate = 1
@@ -238,7 +238,7 @@
 	name = "\improper replica F3 Justicar"
 	desc = "An authentic cap-firing reproduction of a F3 Justicar big-bore revolver! Pretend to blow your friend's brains out with this 100% safe toy! Satisfaction guaranteed!"
 	icon_state = "justicar"
-	icon = 'fallout/icons/obj/guns/toys.dmi'
+	icon = 'icons/obj/guns/toys.dmi'
 	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=250)
 
 
@@ -246,5 +246,5 @@
 	name = "Toy M41A Pulse Rifle"
 	desc = "A toy replica of the Corporate Mercenaries' standard issue rifle. For Avtomat is inscribed on the side."
 	icon_state = "toym41"
-	icon = 'fallout/icons/obj/guns/toys.dmi'
+	icon = 'icons/obj/guns/toys.dmi'
 	custom_materials = list(/datum/material/iron=2000, /datum/material/glass=250)
