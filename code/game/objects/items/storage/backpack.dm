@@ -143,6 +143,13 @@
 	icon_state = "explorerpack"
 	item_state = "explorerpack"
 
+/obj/item/storage/backpack/explorer/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_combined_w_class = 21
+	STR.max_volume = 21
+
 /obj/item/storage/backpack/medic
 	name = "medical backpack"
 	desc = "It's a backpack especially designed for use in a sterile environment."
@@ -663,6 +670,13 @@ obj/item/storage/backpack/duffelbag/syndie/shredderbundle
 	desc = "A light and durable pack often seen in use by those prone to wandering the wastes, often alone."
 	icon_state = "trekkerpack"
 	item_state = "trekkerpack"
+
+/obj/item/storage/backpack/trekker/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_combined_w_class = 21
+	STR.max_volume = 21
 
 /obj/item/storage/backpack/satchel/trekker
 	name = "trekkers satchel"

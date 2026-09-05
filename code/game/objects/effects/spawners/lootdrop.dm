@@ -39,6 +39,62 @@
 		loot_spawned++
 	qdel(src)
 
+/// Loot spawner variant that stays on the map and re-rolls its loot after the last drop is gone, instead of one-shotting and deleting itself.
+/obj/effect/spawner/lootdrop/regenerating
+	/// Time between the last spawned item being gone and a fresh batch appearing.
+	var/respawn_time = 30 MINUTES
+	/// How often we poll to see if the loot has been taken.
+	var/check_interval = 1 MINUTES
+	var/list/atom/movable/spawned_atoms = list()
+	var/respawn_queued = FALSE
+
+/obj/effect/spawner/lootdrop/regenerating/Initialize(mapload)
+	. = ..(mapload) // sets up icon/etc, but the parent's do_spawn+qdel won't run since ours overrides do_spawn
+	return INITIALIZE_HINT_NORMAL
+
+/obj/effect/spawner/lootdrop/regenerating/do_spawn()
+	if(QDELETED(src))
+		return
+	spawned_atoms.Cut()
+	var/atom/A = spawn_on_turf ? get_turf(src) : loc
+	var/list/loot_pool = loot.Copy() // never permanently shrink the master table across respawn cycles
+	var/loot_spawned = 0
+	while((lootcount - loot_spawned) && loot_pool.len)
+		var/lootspawn = pickweight(loot_pool)
+		if(!lootdoubles)
+			loot_pool.Remove(lootspawn)
+		if(lootspawn)
+			var/atom/movable/spawned_loot = new lootspawn(A)
+			if(!fan_out_items)
+				if(pixel_x != 0)
+					spawned_loot.pixel_x = pixel_x
+				if(pixel_y != 0)
+					spawned_loot.pixel_y = pixel_y
+			else if(loot_spawned)
+				spawned_loot.pixel_x = spawned_loot.pixel_y = ((!(loot_spawned%2)*loot_spawned/2)*-1)+((loot_spawned%2)*(loot_spawned+1)/2*1)
+			spawned_atoms += spawned_loot
+		loot_spawned++
+	addtimer(CALLBACK(src, PROC_REF(check_loot)), check_interval)
+
+/obj/effect/spawner/lootdrop/regenerating/proc/check_loot()
+	if(QDELETED(src))
+		return
+	var/still_present = FALSE
+	for(var/atom/movable/AM as anything in spawned_atoms)
+		if(QDELETED(AM) || AM.loc != get_turf(src))
+			continue
+		still_present = TRUE
+		break
+	if(still_present)
+		addtimer(CALLBACK(src, PROC_REF(check_loot)), check_interval)
+	else if(!respawn_queued)
+		respawn_queued = TRUE
+		addtimer(CALLBACK(src, PROC_REF(respawn_loot)), respawn_time)
+
+/obj/effect/spawner/lootdrop/regenerating/proc/respawn_loot()
+	respawn_queued = FALSE
+	do_spawn()
+
 /obj/effect/spawner/lootdrop/bedsheet
 	icon = 'icons/obj/bedsheets.dmi'
 	icon_state = "random_bedsheet"

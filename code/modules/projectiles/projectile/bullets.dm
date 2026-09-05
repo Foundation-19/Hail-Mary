@@ -102,3 +102,10 @@
  * Contaminated = -damage, spawns a gas cloud that heavily reduces healing efficiency
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 */
+
+// 4.6x30mm toxin round (merged from former fallout/ bullets/bullets/smg.dm)
+
+/obj/item/projectile/bullet/c46x30mm_tx
+	name = "toxin tipped 4.6x30mm bullet"
+	damage = 10
+	damage_type = TOX
