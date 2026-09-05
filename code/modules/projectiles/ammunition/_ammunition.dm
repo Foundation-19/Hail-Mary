@@ -42,6 +42,10 @@
 	. = ..()
 	deduct_powder_and_bullet_mats()
 
+/obj/item/ammo_casing/spent/examine(mob/user)
+	. = ..()
+	. += span_notice("Still got some good metal in it - feed it to a reloading bench instead of leaving it on the ground.")
+
 /obj/item/ammo_casing/Initialize()
 	setup_sound_datums()
 	. = ..()

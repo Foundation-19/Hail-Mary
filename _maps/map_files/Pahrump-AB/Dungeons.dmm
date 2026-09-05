@@ -978,10 +978,6 @@
 /area/f13/brotherhood/rnd)
 "avB" = (
 /obj/structure/rack,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/enclave)
 "avC" = (
@@ -12811,7 +12807,6 @@
 /obj/structure/window/reinforced/spawner/east,
 /obj/structure/window/reinforced/spawner/north,
 /obj/structure/window/reinforced/spawner/west,
-/obj/effect/spawner/bundle/f13/ak112,
 /turf/open/floor/plasteel/f13{
 	icon_state = "floorrusty"
 	},
@@ -13352,7 +13347,6 @@
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/structure/rack,
-/obj/item/gun/energy/laser/badlands/worn,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/brotherhood/mining)
 "gqK" = (
@@ -14954,7 +14948,6 @@
 /obj/structure/table/wood{
 	pixel_x = 2
 	},
-/obj/item/gun/energy/laser/badlands/worn,
 /turf/open/floor/carpet/black,
 /area/f13/brotherhood/archives)
 "hel" = (
@@ -29166,10 +29159,6 @@
 	light_color = "#e8eaff"
 	},
 /obj/structure/rack,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
-/obj/item/gun/ballistic/automatic/assault_carbine/worn,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/enclave)
 "nXb" = (

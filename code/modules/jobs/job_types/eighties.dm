@@ -425,14 +425,12 @@ Sidearms are 10mm.
 		/obj/item/wrench/power = 1,
 		/obj/item/wirecutters/power = 1,
 		/obj/item/rcl/ghetto = 1,
-		/obj/item/gun/ballistic/automatic/smg/greasegun/worn = 1,
 		/obj/item/ammo_box/magazine/greasegun = 2,
 		)
 
 /datum/outfit/loadout/rigger
 	name = "Rigger"
 	glasses = /obj/item/clothing/glasses/welding
-	suit_store = /obj/item/gun/ballistic/automatic/smg/greasegun/worn
 	backpack_contents = list(
 		/obj/item/book/granter/trait/explosives = 1,
 		/obj/item/book/granter/crafting_recipe/gunsmith_one = 1,
@@ -565,7 +563,6 @@ Sidearms are 10mm.
 	backpack_contents = list(
 		/obj/item/clothing/mask/bandana/blue = 1,
 		/obj/item/clothing/accessory/armband/blue = 1,
-		/obj/item/gun/ballistic/automatic/smg/greasegun/worn = 1,
 		/obj/item/ammo_box/magazine/greasegun = 2,
 		)
 
@@ -647,7 +644,6 @@ Sidearms are 10mm.
 	backpack_contents = list(
 		/obj/item/clothing/mask/bandana/red = 1,
 		/obj/item/clothing/accessory/armband = 1,
-		/obj/item/gun/ballistic/automatic/smg/greasegun/worn = 1,
 		/obj/item/ammo_box/magazine/greasegun = 2,
 		)
 

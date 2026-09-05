@@ -221,7 +221,6 @@ Sidearm is 1911.
 	satchel = /obj/item/storage/backpack/satchel/leather
 	uniform = /obj/item/clothing/under/rank/security/detective/grey
 	suit = /obj/item/clothing/suit/armor/medium/combat/swat
-	suit_store = /obj/item/gun/ballistic/automatic/smg/smg10mm/worn
 	head = /obj/item/clothing/head/helmet/riot
 	neck = /obj/item/storage/belt/legholster
 	gloves = /obj/item/clothing/gloves/combat

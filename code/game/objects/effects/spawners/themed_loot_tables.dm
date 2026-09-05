@@ -16,7 +16,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/vault
 	name = "vault security themed weapons"
 	loot = list(
-	/obj/item/gun/ballistic/automatic/smg/smg10mm/worn = 10,
 	/obj/item/gun/ballistic/automatic/pistol/n99 = 20,
 	/obj/item/gun/energy/laser/complianceregulator = 10,
 	/obj/item/gun/ballistic/automatic/smg/smg10mm = 5,
@@ -86,7 +85,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/junk
 	name = "junk themed weapons"
 	loot = list(
-	/obj/item/gun/ballistic/automatic/smg/smg10mm/worn = 1,
 	/obj/item/gun/ballistic/automatic/assault_carbine/policerifle = 1,
 	/obj/item/gun/ballistic/automatic/hobo/zipgun = 10,
 	/obj/item/gun/ballistic/revolver/hobo/piperifle = 10,
