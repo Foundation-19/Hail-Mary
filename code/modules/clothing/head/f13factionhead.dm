@@ -361,8 +361,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/vexil
 	name = "legion fox vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a desert fox."
-	icon_state = "legion-vex-alt"
-	item_state = "legion-vex-alt"
+	icon_state = "helmet_vexillarius"
+	item_state = "helmet_vexillarius"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/vet/nightvexil
