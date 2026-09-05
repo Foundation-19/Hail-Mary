@@ -1536,9 +1536,11 @@
 /// F13 turrets are powered only when the F13 power grid supplies their area.
 /// Outdoor and grid-immune areas are always considered powered (no generator needed).
 /obj/machinery/porta_turret/f13/powered()
-	var/area/f13/A = get_area(src)
-	if(A && !A.f13_grid_immune && !A.outdoors)
-		return A.f13_grid_power
+	var/area/A = get_area(src)
+	if(istype(A, /area/f13))
+		var/area/f13/FA = A
+		if(!FA.f13_grid_immune && !FA.outdoors)
+			return FA.f13_grid_power
 	return TRUE
 
 /// .22LR turret
