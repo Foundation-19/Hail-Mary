@@ -7,19 +7,7 @@
 #Ignore byond config folder.
 /cfg/**/*
 
-# Ignore compiled rust_g/auxmos/byond-extools libs fetched/built locally (CI/Docker fetch these separately, they aren't source)
-/librust_g.so
-/rust_g.dll
-/libauxmos.so
-/auxmos.dll
-/auxmos.pdb
-/libbyond-extools.so
-/byond-extools.dll
-/byond-extools.pdb
-/debug_server.dll
-/libmariadb.dll
-/_alt-auxmos/auxmos.dll
-/_alt-auxmos/auxmos.pdb
+# Ignore compiled linux libs in the root folder, e.g. librust_g.so
 
 #Ignore compiled files and other files generated during compilation.
 *.mdme
