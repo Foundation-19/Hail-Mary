@@ -997,7 +997,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	supervisors = "the Decani and Centurion."
 	display_order = JOB_DISPLAY_ORDER_RECRUITLEG
 	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13recleg
-multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720)
 	loadout_options = list(	//ALL: Machete
 		/datum/outfit/loadout/recruittribal,	// Fire Axe, Bola, Trekking
 		/datum/outfit/loadout/recruitthug,	// Dual revolvers 

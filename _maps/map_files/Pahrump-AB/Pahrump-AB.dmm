@@ -25416,13 +25416,13 @@
 /obj/effect/turf_decal/gravel_edge{
 	dir = 1
 	},
-/obj/machinery/f13/power_relay,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/f13/power_relay,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/ncr)
 "eNa" = (
@@ -29014,11 +29014,6 @@
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/powered)
-"gqt" = (
-/obj/machinery/f13/junction_box/large,
-/obj/structure/cable,
-/turf/closed/wall/r_wall,
-/area/f13/brotherhood/reactor)
 "gqv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -39791,6 +39786,11 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"kZG" = (
+/obj/machinery/f13/junction_box/large,
+/obj/structure/cable,
+/turf/closed/wall/r_wall,
+/area/f13/brotherhood/reactor)
 "kZH" = (
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "topshadowleft"
@@ -131425,7 +131425,7 @@ trp
 jTb
 hrG
 trp
-gqt
+kZG
 tBc
 tBc
 tBc
