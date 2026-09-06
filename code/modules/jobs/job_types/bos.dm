@@ -190,7 +190,7 @@ Paladin Commander
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_COMMANDER
 	outfit = /datum/outfit/job/bos/f13commander
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 4500)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 3600)
 
 	/*loadout_options = list(
 	/datum/outfit/loadout/sentheavy, //Gauss + Glock
