@@ -20,10 +20,6 @@
 			animate(pixel_x=rand(min,max)+oldx, pixel_y=rand(min,max)+oldy, time=1)
 	animate(pixel_x=oldx, pixel_y=oldy, time=1)
 
-/obj/item/pneumatic_cannon/fire_items(turf/target, mob/user)
-	. = ..()
-	shake_camera(user, (pressureSetting * 0.75 + 1), (pressureSetting * 0.75))
-
 /obj/item/attack_obj(obj/O, mob/living/user)
 	. = ..()
 	if(force >= 20)

@@ -187,6 +187,11 @@
 			if(!throw_item(target, I, user))
 				break
 
+// Camera shake on firing lives here (not cit_screenshake.dm) so the override compiles after this base definition.
+/obj/item/pneumatic_cannon/fire_items(turf/target, mob/user)
+	. = ..()
+	shake_camera(user, (pressureSetting * 0.75 + 1), (pressureSetting * 0.75))
+
 /obj/item/pneumatic_cannon/proc/throw_item(turf/target, obj/item/I, mob/user)
 	if(!istype(I))
 		return FALSE
