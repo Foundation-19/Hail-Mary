@@ -58,6 +58,11 @@
 	var/fuel = 0
 	/// Maximum fuel capacity (two cores — hard ceiling on insertion).
 	var/max_fuel = FUSION_CORE_FUEL * 2
+	/// Physically-inserted fuel-cell items, in slot order (discrete-unit generators only).
+	/// Each item's charge_ticks tracks its own remaining fuel so it can be identified and
+	/// ejected individually with the charge it actually has left. Round-start fuel is seeded
+	/// here as real cores too — there is no separate invisible fuel bucket.
+	var/list/inserted_cores = null
 
 	// ── Area linkage — set by the mapper, resolved to live instances at init
 	/// List of area type paths to power. E.g. list(/area/f13/ncr, /area/f13/ncr/barracks)
@@ -112,6 +117,12 @@
 	/// While set the generator will not auto-restart even if fuel and capacity are available.
 	/// Cleared automatically when fuel runs out so that inserting new fuel triggers a normal start.
 	var/manually_shutdown = FALSE
+	/// TRUE right after a manual screwdriver eject — suppresses the next process() "fuel exhausted"
+	/// depleted-casing spawn, since on_fuel_ejected() already returned the fuel to the user.
+	var/skip_next_depletion_spawn = FALSE
+	/// TRUE once the current empty-tank state has already been handled by process(), so the
+	/// exhaustion transition/casing spawn fires once per depletion instead of every tick at 0 fuel.
+	var/depletion_handled = FALSE
 
 	// ── Load shedding — soft power management before hard-tripping the grid
 	/// Direct relays currently suspended by load-shedding.  Draw = 0 while here.
@@ -167,9 +178,13 @@
 
 /obj/machinery/f13/faction_generator/Initialize()
 	. = ..()
-	// Liquid-fuel variants use their type-level var default; discrete-unit variants
-	// start with FGEN_DEFAULT_FUEL (may exceed max_fuel intentionally for a longer first round).
-	fuel = fuel_is_liquid ? initial(fuel) : FGEN_DEFAULT_FUEL
+	// Liquid-fuel variants use their type-level var default; discrete-unit variants start
+	// with FGEN_DEFAULT_FUEL, capped to max_fuel — a tank can't hold more than it can hold,
+	// so ejecting it back out can never spawn more cores than would actually fit in a slot.
+	fuel = fuel_is_liquid ? initial(fuel) : min(FGEN_DEFAULT_FUEL, max_fuel)
+	if(!fuel_is_liquid)
+		inserted_cores = list()
+		_seed_starting_cores()  // round-start fuel comes pre-loaded as real cores, not a hidden reserve
 	resolve_map_links()
 	// Set powered inline — avoid calling set_power_state() here because turret
 	// toggle_on() -> popDown() sleeps, which is forbidden inside Initialize.
@@ -327,7 +342,8 @@
 				to_chat(L, span_danger("Stray current arcs through the ungrounded generator frame and into you!"))
 				L.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 	if(fuel > 0)
-		fuel--
+		depletion_handled = FALSE
+		_drain_one_tick()
 
 		// Recompute available watts.
 		// Liquid-fuel generators run at a flat output; discrete units scale per slot.
@@ -384,12 +400,62 @@
 
 		return
 
-	// Fuel exhausted — only transition once.
+	// Fuel exhausted — only transition/spawn a casing once per depletion, not every tick at 0 fuel.
+	if(depletion_handled)
+		return
+	depletion_handled = TRUE
 	if(powered)
 		set_power_state(FALSE)
-	if(depleted_fuel_path)
+	// If physical cores are tracked, any depleted one already sits in its slot in place —
+	// only synthesize a shell for the untracked abstract reserve running out.
+	var/has_tracked_cores = inserted_cores && inserted_cores.len
+	if(depleted_fuel_path && !skip_next_depletion_spawn && !has_tracked_cores)
 		new depleted_fuel_path(drop_location())
+	skip_next_depletion_spawn = FALSE
 	manually_shutdown = FALSE  // reset so inserting new fuel triggers normal auto-start
+
+/// Fills empty slots at round start with real cores matching the starting fuel amount,
+/// so players only ever see and manage physical cores — never a hidden fuel bucket.
+/obj/machinery/f13/faction_generator/proc/_seed_starting_cores()
+	if(!accepted_fuel_path || fuel <= 0)
+		return
+	var/remaining = fuel
+	var/slots = max(1, round(max_fuel / fuel_per_unit))
+	for(var/i in 1 to slots)
+		if(remaining <= 0)
+			break
+		var/obj/item/seed_core = new accepted_fuel_path(src)
+		var/seed_amount = min(fuel_per_unit, remaining)
+		seed_core:charge_ticks = seed_amount
+		inserted_cores += seed_core
+		remaining -= seed_amount
+
+/// Consumes one fuel tick from the front physically-tracked core so the inserted
+/// item always reflects its true remaining charge.
+/obj/machinery/f13/faction_generator/proc/_drain_one_tick()
+	fuel--
+	if(fuel_is_liquid)
+		return
+	if(!inserted_cores || !inserted_cores.len)
+		return
+	var/obj/item/core = inserted_cores[1]
+	if(core:charge_ticks > 0)
+		core:charge_ticks--
+	if(core:charge_ticks <= 0 && !core:depleted)
+		_deplete_core(core)
+
+/// Swaps a spent core for its depleted shell in place, keeping the same slot position.
+/obj/machinery/f13/faction_generator/proc/_deplete_core(obj/item/core)
+	var/idx = inserted_cores.Find(core)
+	if(!idx)
+		return
+	if(depleted_fuel_path)
+		var/obj/item/f13/spent = new depleted_fuel_path(src)
+		spent:charge_ticks = 0
+		inserted_cores[idx] = spent
+	else
+		inserted_cores.Cut(idx, idx + 1)
+	qdel(core)
 
 
 // ============================================================
@@ -850,15 +916,7 @@
 		if(!can_access(user))
 			to_chat(user, span_warning("Access denied."))
 			return
-		if(fuel <= 0)
-			to_chat(user, span_notice("The fuel reservoir is already empty — nothing to eject."))
-			return
-		var/ejected = fuel
-		fuel = 0
-		low_fuel_warned = FALSE
-		if(powered)
-			set_power_state(FALSE)
-		on_fuel_ejected(user, ejected)
+		_eject_all_fuel(user)
 		return
 
 	// ── Cable coil — wiring interface.
@@ -930,25 +988,37 @@
 			var/mob/living/L = user
 			L.electrocute_act(35, src, flags = SHOCK_NOGLOVES)
 
-		// Fusion cores have a depleted flag; other fuel types skip this check.
-		if(istype(W, /obj/item/f13/fusion_core))
-			var/obj/item/f13/fusion_core/core = W
-			if(core.depleted)
-				to_chat(user, span_warning("That core is depleted. Recycle it in a core fabricator first."))
-				return
+		// Fusion cores and atomic cells both carry a depleted flag; spent cells must be recycled first.
+		if((istype(W, /obj/item/f13/fusion_core) || istype(W, /obj/item/f13/atomic_cell)) && W:depleted)
+			to_chat(user, span_warning("That core is depleted. Recycle it in a core fabricator first."))
+			return
 
 		if(fuel >= max_fuel)
 			to_chat(user, span_warning("[src] already has full fuel reserves."))
 			return
 
+		var/slots = max(1, round(max_fuel / fuel_per_unit))
+		if(inserted_cores && inserted_cores.len >= slots)
+			to_chat(user, span_warning("[src] has no empty slot — eject a [fuel_unit_name] first."))
+			return
+
+		// Partially-charged cores (from an earlier eject) add only what's left in them.
+		var/add_amount = fuel_per_unit
+		if((istype(W, /obj/item/f13/fusion_core) || istype(W, /obj/item/f13/atomic_cell)) && W:charge_ticks >= 0)
+			add_amount = W:charge_ticks
+
+		// Never truncate a core's real charge down to whatever fits — that destroys the
+		// difference permanently. Reject the insert instead so the charge stays intact.
+		if(add_amount > max_fuel - fuel)
+			to_chat(user, span_warning("[src] doesn't have room for that [fuel_unit_name]'s full charge — eject some fuel first."))
+			return
+
 		user.transferItemToLoc(W, src)
 		var/old_fuel = fuel
-		fuel = min(fuel + fuel_per_unit, max_fuel)
-		qdel(W)
-
-		// Eject a depleted shell / empty container if applicable.
-		if(depleted_fuel_path)
-			new depleted_fuel_path(loc)
+		fuel = min(fuel + add_amount, max_fuel)
+		W:charge_ticks = add_amount
+		if(inserted_cores)
+			inserted_cores += W
 
 		user.visible_message(
 			"[user] loads a [fuel_unit_name] into [src].",
@@ -1117,8 +1187,26 @@
 		dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>(liquid fuel — flat [available_watts]W output)</span></pre>"
 	else
 		dat += "<pre>  FUEL     : [fuel] / [max_fuel] <span class='dim'>([fuel_pct]%  ~[units_remaining] [fuel_unit_name](s)  runtime ~[runtime_display])</span></pre>"
+		var/slots = max(1, round(max_fuel / fuel_per_unit))
+		dat += "<pre class='head'>  &#91;FUEL CELLS&#93;</pre>"
+		for(var/slot_i = 1; slot_i <= slots; slot_i++)
+			if(inserted_cores && slot_i <= inserted_cores.len)
+				var/obj/item/core = inserted_cores[slot_i]
+				var/slot_line
+				if(core:depleted)
+					slot_line = "<span class='bad'>DEPLETED</span>"
+				else
+					var/core_pct = round((core:charge_ticks / fuel_per_unit) * 100)
+					var/core_color = core_pct < 25 ? "warn" : "good"
+					slot_line = "<span class='[core_color]'>[core_pct]% charged</span>"
+				dat += "<pre>    SLOT [slot_i] : [core.name]  [slot_line]"
+				if(accessible)
+					dat += "  <a href='byond://?src=[REF(src)];choice=eject_core;idx=[slot_i]'>&#91;EJECT&#93;</a>"
+				dat += "</pre>"
+			else
+				dat += "<pre class='dim'>    SLOT [slot_i] : -- empty --</pre>"
 		if(accessible)
-			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=eject_fuel'>EJECT FUEL</a>  <span class='dim'>(purge remaining fuel; generator powers down)</span></pre>"
+			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=eject_fuel'>EJECT ALL</a>  <span class='dim'>(purge every slot; generator powers down)</span></pre>"
 		dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>([max(1,round(fuel/fuel_per_unit))] [fuel_unit_name](s) x [watts_per_fuel_unit]W)</span></pre>"
 	dat += "<pre>  DRAW     : <span class='[load_color]'>[current_draw]W ([load_pct]%)</span></pre>"
 	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [load_pct]%</pre>"
@@ -1268,15 +1356,27 @@
 			if(!can_access(U))
 				to_chat(U, span_warning("Access denied."))
 				return
+			_eject_all_fuel(U)
+		if("eject_core")
+			if(!can_access(U))
+				to_chat(U, span_warning("Access denied."))
+				return
+			var/idx = text2num(href_list["idx"])
+			if(!inserted_cores || !idx || idx < 1 || idx > inserted_cores.len)
+				return
+			var/obj/item/core = inserted_cores[idx]
+			inserted_cores.Cut(idx, idx + 1)
+			var/removed_charge = max(0, core:charge_ticks)
+			fuel = max(0, fuel - removed_charge)
+			core.forceMove(drop_location())
+			to_chat(U, span_notice("You eject [core] from slot [idx]."))
+			available_watts = fuel_is_liquid ? watts_per_fuel_unit : (watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit)))
+			recalc_draw()
 			if(fuel <= 0)
-				to_chat(U, span_notice("The fuel reservoir is already empty — nothing to eject."))
-			else
-				var/ejected = fuel
-				fuel = 0
 				low_fuel_warned = FALSE
+				skip_next_depletion_spawn = TRUE  // this eject already returned the core; don't also spawn a depleted casing
 				if(powered)
 					set_power_state(FALSE)
-				on_fuel_ejected(U, ejected)
 		if("rescan")
 			var/pruned = _prune_dead_links()
 			var/before_relays  = linked_relays  ? linked_relays.len  : 0
@@ -1340,19 +1440,43 @@
 //   to call try_liquid_refuel().  The type-level fuel var default is the round-start amount.
 //
 // Discrete-unit variants: set accepted_fuel_path, fuel_per_unit, watts_per_fuel_unit.
-//   fuel starts at FGEN_DEFAULT_FUEL (may exceed max_fuel for longer initial runtime).
+//   fuel starts at FGEN_DEFAULT_FUEL, capped to max_fuel, and is seeded as real slotted cores.
 // ============================================================
 
-/// Called after fuel has been zeroed out by a drain/eject action.  Override in subtypes
-/// for type-specific behaviour (e.g. collecting liquid fuel in a held container).
-/obj/machinery/f13/faction_generator/proc/on_fuel_ejected(mob/user, ejected_vol)
-	var/units_out = max(0, round(ejected_vol / fuel_per_unit))
-	if(accepted_fuel_path && units_out > 0)
-		for(var/i in 1 to units_out)
-			new accepted_fuel_path(drop_location())
-		to_chat(user, span_notice("Fuel purged: [units_out] [fuel_unit_name][units_out != 1 ? "s" : ""] ejected."))
+/// Ejects everything. Liquid variants vent/capture fuel via on_fuel_ejected(); discrete-unit
+/// variants eject every physically-tracked core exactly as it is (full/partial/depleted) —
+/// there's no separate untracked reserve to synthesize, so nothing here can create fuel.
+/obj/machinery/f13/faction_generator/proc/_eject_all_fuel(mob/user)
+	if(fuel <= 0)
+		to_chat(user, span_notice("The fuel reservoir is already empty — nothing to eject."))
+		return
+	low_fuel_warned = FALSE
+	skip_next_depletion_spawn = TRUE  // manual eject already returns the fuel; don't also spawn a depleted casing
+	if(fuel_is_liquid)
+		var/leftover = fuel
+		fuel = 0
+		if(powered)
+			set_power_state(FALSE)
+		on_fuel_ejected(user, leftover)
+		return
+	var/ejected_count = inserted_cores ? inserted_cores.len : 0
+	if(ejected_count)
+		for(var/obj/item/core in inserted_cores)
+			core.forceMove(drop_location())
+		inserted_cores.Cut()
+	fuel = 0
+	if(powered)
+		set_power_state(FALSE)
+	if(ejected_count > 0)
+		to_chat(user, span_notice("Fuel purged: [ejected_count] [fuel_unit_name][ejected_count != 1 ? "s" : ""] ejected."))
 	else
 		to_chat(user, span_notice("Fuel reservoir vented."))
+
+/// Called after a liquid-fuel tank is fully drained. Override in subtypes for type-specific
+/// behaviour (e.g. collecting liquid fuel in a held container). Discrete-unit generators
+/// never call this — their fuel is always ejected directly as real cores above.
+/obj/machinery/f13/faction_generator/proc/on_fuel_ejected(mob/user, ejected_vol)
+	to_chat(user, span_notice("Fuel reservoir vented."))
 
 /// Liquid diesel drain — checks the other hand for a container to catch fuel;
 /// anything that doesn't fit (or if no container is present) spills on the floor.
@@ -1610,13 +1734,6 @@
 	max_fuel             = 675    // single-cell chamber
 	fuel_unit_name       = "fuel cell"
 	heat_ignition_threshold = 15200  // ~4-5 welder applications to breach containment
-
-/obj/machinery/f13/faction_generator/atomic/Initialize()
-	. = ..()
-	fuel = 675   // pre-loaded with one atomic cell at round start
-	// Recalculate watts after fixing fuel — parent Initialize sets fuel to FGEN_DEFAULT_FUEL
-	// which is larger than max_fuel=675 for the single-cell chamber.
-	available_watts = watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit))
 
 /obj/machinery/f13/faction_generator/atomic/update_icon_state()
 	icon_state = powered ? "generator_uranium" : "generator_off"
