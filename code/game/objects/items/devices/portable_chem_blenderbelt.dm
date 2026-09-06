@@ -112,7 +112,7 @@
 	if(memoire?.can_speak != TRUE)
 		return
 	. = ..()
-	playsound(src, "fallout/sound/typing/default.ogg", 70, TRUE)
+	playsound(src, "sound/typing/default.ogg", 70, TRUE)
 
 /obj/item/storage/blender_belt/Hear(message, atom/movable/speaker, message_language, raw_message, radio_freq, list/spans, message_mode, atom/movable/source)
 	. = ..()

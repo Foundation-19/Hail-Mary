@@ -929,3 +929,15 @@
 
 /obj/structure/chair/right/proc/GetOverlay()
 	return mutable_appearance('icons/obj/chairs.dmi', "booth_rightend_overlay")
+
+
+// ==================== Merged from fallout (code\modules\fallout\obj\structures\chair.dm) ====================
+//Fallout 13 unique furniture directory
+
+/obj/structure/chair/bench
+	name = "bench"
+	desc = "A classic wooden bench. It has some dried wax on it..."
+	icon_state = "church"
+	icon = 'icons/obj/objects2.dmi'
+	item_chair = null
+	buildstacktype = /obj/item/stack/sheet/mineral/wood

@@ -26,6 +26,8 @@
 /client/proc/erase_all_macros(datum/preferences/prefs_override = prefs)
 	if(!src)  // Check if client is still valid
 		return
+	if(!macrosets_created) // nothing to erase yet, and querying nonexistent macroset windows just warns
+		return
 	var/erase_output = ""
 	var/list/set_text = list()
 	if(!prefs_override)
@@ -45,6 +47,7 @@
 	ASSERT(name)
 	ASSERT(islist(macroset))
 	winclone(src, "default", name)
+	macrosets_created = TRUE
 	for(var/i in 1 to length(macroset))
 		var/key = macroset[i]
 		var/command = macroset[key]

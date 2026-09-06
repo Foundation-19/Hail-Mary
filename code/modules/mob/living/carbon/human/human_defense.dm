@@ -1107,3 +1107,14 @@
 
 	for(var/obj/item/I in torn_items)
 		I.take_damage(damage_amount, damage_type, damage_flag, 0)
+
+
+// ==================== Merged from fallout (code\modules\fallout\code\modules\mob\living\carbon\human\human_defense.dm) ====================
+/mob/living/carbon/human/alt_attack_hand(mob/user)
+	if(..())
+		return
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		if(!dna.species.alt_spec_attack_hand(H, src))
+			dna.species.spec_attack_hand(H, src)
+		return TRUE

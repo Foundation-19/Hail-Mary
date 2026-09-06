@@ -97,6 +97,8 @@
 
 	/// Last time they used fix macros
 	var/last_macro_fix = 0
+	/// Whether apply_macro_set has run at least once, so erase_all_macros knows the macrosets actually exist
+	var/macrosets_created = FALSE
 	/// Keys currently held
 	var/list/keys_held = list()
 	/// These next two vars are to apply movement for keypresses and releases made while move delayed.
