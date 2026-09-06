@@ -4151,6 +4151,10 @@
 	},
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
+"hSW" = (
+/obj/machinery/f13/junction_box/small,
+/turf/open/transparent/openspace,
+/area/f13/wasteland)
 "hTr" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 1
@@ -34015,7 +34019,7 @@ hYA
 xAL
 xAL
 hYA
-hYA
+tTN
 hYA
 hYA
 nSB
@@ -34272,7 +34276,7 @@ hYA
 xAL
 xAL
 hYA
-hYA
+tTN
 hYA
 hYA
 sHl
@@ -43998,7 +44002,7 @@ oez
 oez
 oez
 oez
-oez
+hSW
 oez
 oez
 oez

@@ -29014,6 +29014,11 @@
 /obj/structure/closet/cabinet,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building/powered)
+"gqt" = (
+/obj/machinery/f13/junction_box/large,
+/obj/structure/cable,
+/turf/closed/wall/r_wall,
+/area/f13/brotherhood/reactor)
 "gqv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -29924,6 +29929,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/machinery/f13/junction_box/small,
 /turf/closed/wall/r_wall,
 /area/f13/brotherhood/armory)
 "gJi" = (
@@ -31482,6 +31488,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/brotherhood/reactor)
@@ -131415,8 +131424,8 @@ pFW
 trp
 jTb
 hrG
-hEK
-exh
+trp
+gqt
 tBc
 tBc
 tBc
