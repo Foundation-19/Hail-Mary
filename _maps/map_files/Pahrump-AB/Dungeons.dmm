@@ -13343,12 +13343,6 @@
 	icon_state = "darkdirtysolid"
 	},
 /area/f13/enclave)
-"gqC" = (
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/effect/spawner/lootdrop/maintenance,
-/obj/structure/rack,
-/turf/open/floor/plasteel/f13/vault_floor/plating,
-/area/f13/brotherhood/mining)
 "gqK" = (
 /obj/machinery/smartfridge/food,
 /obj/structure/window/reinforced{
@@ -111334,7 +111328,7 @@ hJK
 pJc
 pie
 gVN
-gqC
+cbd
 pie
 pie
 wgF
