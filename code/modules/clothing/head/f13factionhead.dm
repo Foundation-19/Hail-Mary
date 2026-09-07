@@ -6,6 +6,7 @@
 	desc = "for testing"
 	icon_state = "supafly"
 	item_state = "supafly"
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
@@ -262,7 +263,7 @@
 	desc = "It's a leather skullcap issued to recruits."
 	icon_state = "legion-recruit"
 	item_state = "legion-recruit"
-	flags_inv = HIDEEARS
+	flags_inv = HIDEEARS|HIDEHAIR
 	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/legion/prime
@@ -270,7 +271,7 @@
 	desc = "A helmet from reinforced leather with a red peak."
 	item_state = "legion-prime"
 	icon_state = "legion-prime"
-	flags_inv = HIDEEARS
+	flags_inv = HIDEEARS|HIDEHAIR
 	dynamic_hair_suffix = ""
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
@@ -360,6 +361,7 @@
 	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-decrec"
 	item_state = "legion-decrec"
+	flags_inv = HIDEEARS|HIDEHAIR
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/prime/decan
