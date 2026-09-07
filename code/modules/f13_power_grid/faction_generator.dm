@@ -117,6 +117,10 @@
 	/// While set the generator will not auto-restart even if fuel and capacity are available.
 	/// Cleared automatically when fuel runs out so that inserting new fuel triggers a normal start.
 	var/manually_shutdown = FALSE
+	/// TRUE once an explosion has forced an emergency shutdown. While set, no fuel is burned
+	/// and no power is distributed — a damaged reactor doesn't calmly keep running. Cleared
+	/// by repairing the unit with a wrench.
+	var/emergency_shutdown = FALSE
 	/// TRUE right after a manual screwdriver eject — suppresses the next process() "fuel exhausted"
 	/// depleted-casing spawn, since on_fuel_ejected() already returned the fuel to the user.
 	var/skip_next_depletion_spawn = FALSE
@@ -158,6 +162,8 @@
 	/// Ticks elapsed since last maintenance service.
 	/// Reset when a player uses a wrench on the generator while it is running.
 	var/maintenance_ticks   = 0
+	/// Ticks elapsed since the last automatic dead-link prune (see FGEN_LINK_PRUNE_INTERVAL).
+	var/link_prune_ticks    = 0
 	/// TRUE when the generator has exceeded FGEN_MAINTENANCE_INTERVAL and needs servicing.
 	/// A wrench applied while running clears this and resets maintenance_ticks.
 	var/needs_maintenance   = FALSE
@@ -324,6 +330,18 @@
 		linked_clients = null
 	return ..()
 
+/// A generator that survives an explosion shouldn't calmly keep burning fuel and pushing
+/// power like nothing happened — force an emergency shutdown until it's repaired.
+/obj/machinery/f13/faction_generator/ex_act(severity, target)
+	. = ..()
+	if(QDELETED(src) || emergency_shutdown)
+		return
+	emergency_shutdown = TRUE
+	manually_shutdown = TRUE
+	if(powered)
+		set_power_state(FALSE)
+	broadcast_to_faction("<span class='warning'>EMERGENCY SHUTDOWN: [name] took explosive damage and has cut fuel and power. Repair with a wrench before restarting.</span>")
+
 
 // ============================================================
 // PROCESSING — fuel drain (SSobj fires every ~2 s)
@@ -341,9 +359,16 @@
 			if(istype(LT, /turf/open/water) || IS_WET_OPEN_TURF(LT))
 				to_chat(L, span_danger("Stray current arcs through the ungrounded generator frame and into you!"))
 				L.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
-	if(fuel > 0)
+	if(fuel > 0 && !emergency_shutdown)
 		depletion_handled = FALSE
 		_drain_one_tick()
+
+		// Periodically re-validate wired links — a cable severed by an explosion (or anything
+		// else) won't otherwise be noticed until someone manually hits rescan.
+		link_prune_ticks++
+		if(link_prune_ticks >= FGEN_LINK_PRUNE_INTERVAL)
+			link_prune_ticks = 0
+			_prune_dead_links()
 
 		// Recompute available watts.
 		// Liquid-fuel generators run at a flat output; discrete units scale per slot.
@@ -430,17 +455,22 @@
 		inserted_cores += seed_core
 		remaining -= seed_amount
 
-/// Consumes one fuel tick from the front physically-tracked core so the inserted
-/// item always reflects its true remaining charge.
+/// Consumes one fuel tick from the first physically-tracked core that still has charge,
+/// so a depleted shell sitting in an earlier slot doesn't block later slots from draining.
 /obj/machinery/f13/faction_generator/proc/_drain_one_tick()
 	fuel--
 	if(fuel_is_liquid)
 		return
 	if(!inserted_cores || !inserted_cores.len)
 		return
-	var/obj/item/core = inserted_cores[1]
-	if(core:charge_ticks > 0)
-		core:charge_ticks--
+	var/obj/item/core
+	for(var/obj/item/candidate in inserted_cores)
+		if(!candidate:depleted && candidate:charge_ticks > 0)
+			core = candidate
+			break
+	if(!core)
+		return
+	core:charge_ticks--
 	if(core:charge_ticks <= 0 && !core:depleted)
 		_deplete_core(core)
 
@@ -901,6 +931,7 @@
 			needs_maintenance = FALSE
 			maintenance_ticks = 0
 			maintenance_severity = 0
+			emergency_shutdown = FALSE
 			obj_integrity = max_integrity
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 			to_chat(user, span_notice("You patch up [src]. The unit looks functional again — insert fuel to restart."))
@@ -1172,6 +1203,8 @@
 
 	// ── Status block
 	var/status_line = powered ? "<span class='good'>&#91;ONLINE&#93;</span>" : "<span class='bad'>&#91;OFFLINE&#93;</span>"
+	if(emergency_shutdown)
+		status_line += " <span class='bad'>&#91;!! EMERGENCY SHUTDOWN — EXPLOSIVE DAMAGE !!&#93;</span>"
 	if(overloaded)
 		status_line += " <span class='bad'>&#91;!! CIRCUIT OVERLOAD !!&#93;</span>"
 	var/shed_total = (shed_clients ? shed_clients.len : 0) + (shed_relays ? shed_relays.len : 0)
@@ -1410,6 +1443,8 @@
 				return
 			if(powered)
 				to_chat(U, span_notice("Generator is already online."))
+			else if(emergency_shutdown)
+				to_chat(U, span_warning("Emergency shutdown latched after explosive damage — repair with a wrench before restarting."))
 			else if(fuel <= 0)
 				to_chat(U, span_notice("No fuel — insert a [fuel_unit_name] first."))
 			else if(overloaded)

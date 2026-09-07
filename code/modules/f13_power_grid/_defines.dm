@@ -26,6 +26,10 @@
 #define FGEN_DEFAULT_FUEL       1350
 /// Fuel level at which a low-power warning is broadcast to the faction (~3 min remaining).
 #define FGEN_LOW_FUEL_WARN      90
+/// SSobj ticks between automatic re-validation of wired links (cable path re-checked against
+/// the live map). 5 ticks × 2 s = 10 s, so a cable severed by an explosion (or anything else)
+/// stops being powered shortly after, without needing a manual rescan.
+#define FGEN_LINK_PRUNE_INTERVAL 5
 
 // ── Fabricator crafting constants
 
