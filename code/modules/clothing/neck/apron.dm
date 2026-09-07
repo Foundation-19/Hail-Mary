@@ -46,6 +46,28 @@
 	icon_state = "forge"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/service
 
+// same as medical apron but visually unique
+/obj/item/clothing/neck/apron/medicus_legion
+	name = "medicus apron"
+	desc = "Waxed cotton apron with a red bull on it. Marks the wearer as a healer following the wisdom of Caesar. Has pockets for some small medical equipment."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "apron_medicus"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/medical
+
+// same as normal labor apron but visually unique
+/obj/item/clothing/neck/apron/labor/blacksmith_legion
+	name = "blacksmith's apron"
+	desc = "A heavy leather apron designed for protecting the user when metalforging and help carry some minor tools. Marked with a yellow bull."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "apron_blacksmith"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
+
 /obj/item/clothing/neck/apron/housewife
 	name = "50s housewife apron"
 	desc = "A cutesy pink checkerboard apron. The pattern is inspired by ancient commercial billboards. Comes with deep pockets to hold everything a homemaker/wrecker could need."

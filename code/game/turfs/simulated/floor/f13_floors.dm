@@ -79,6 +79,12 @@
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris
 	icon_state = "rust_c"
 
+// New roof for tent
+/turf/open/floor/plating/f13/outside/roof/tent_leather
+	name = "leather tent roof"
+	icon = 'icons/turf/walls/tents.dmi'
+	icon_state = "leather_roof"
+
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated
 	icon_state = "shingles_1"
 

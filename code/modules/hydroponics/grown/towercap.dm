@@ -178,6 +178,16 @@
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+// -------------- PRE-STONE RINGED BONFIRE -----------------
+
+/obj/structure/bonfire/safe
+	stones = TRUE  // maybe this needs porting from Atom
+	density = TRUE
+
+/obj/structure/bonfire/safe/Initialize()
+	. = ..()
+	add_overlay("bonfire_stones")
+
 	StartBurning()
 
 /obj/structure/bonfire/CanAllowThrough(atom/movable/mover, border_dir)

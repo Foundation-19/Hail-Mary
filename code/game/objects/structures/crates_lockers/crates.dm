@@ -129,6 +129,7 @@
 	open_sound = 'sound/effects/creak.ogg'
 	close_sound = 'sound/effects/creak.ogg'
 	dense_when_open = FALSE
+	dense_when_open = FALSE
 
 /obj/structure/closet/crate/internals
 	desc = "An internals crate."

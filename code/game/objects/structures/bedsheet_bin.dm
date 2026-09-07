@@ -93,6 +93,14 @@ LINEN BINS
 	name = "patriotic bedsheet"
 	desc = "You've never felt more free than when sleeping on this."
 	icon_state = "sheetUSA"
+
+/obj/item/bedsheet/blanket
+	name = "blanket"
+	desc = "A undyed rough blanket."
+	icon_state = "blanket1"
+
+/obj/item/bedsheet/blanket2
+	icon_state = "blanket2"
 	dream_messages = list("America", "freedom", "fireworks", "bald eagles")
 
 /obj/item/bedsheet/rainbow

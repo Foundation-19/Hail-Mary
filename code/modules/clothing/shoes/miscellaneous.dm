@@ -515,3 +515,17 @@
 	name = "Type three service shoe"
 	desc = "A post second world war design of the American standard boot, with Canvas leggings. Just modernized its specificly used for Jungle combat or in service in Hotter climates it was also lend leased to other nations in the Pacific. And is used by some wasters to this very day as a highly useful footwear garment."
 	icon_state = "ww2_brown"
+
+/obj/item/clothing/shoes/sandals_leather
+	name = "leather sandals"
+	desc = "Sandals with buckled leather straps on it. Good workmanship."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "shoes_sandals"
+	item_state = "shoes_sandals"
+	strip_delay = 100
+	equip_delay_other = 100
+	permeability_coefficient = 0.9
+	can_be_tied = FALSE

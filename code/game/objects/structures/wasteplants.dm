@@ -329,6 +329,15 @@
 	icon_state = "deadtree_[rand(1,6)]"
 	AddComponent(/datum/component/largetransparency, y_offset = 1)
 
+/obj/structure/flora/tree/wasteland/dark
+	color = "#5c5a57"
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/flora/tree/wasteland/dark/Initialize()
+	. = ..()
+	AddComponent(/datum/component/largetransparency, y_offset = 1)
+
 /obj/structure/flora/tree/toppledpowerline
 	name = "toppled power line"
 	desc = "It's a power line. Useful source of wood in the desert. This one seems to have fallen over."
