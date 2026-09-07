@@ -19,7 +19,7 @@
 	icon_state = "legpolarizing"
 	item_state = "legpolarizing"
 
-/obj/item/clothing/glasses/night/polarizing
+/obj/item/clothing/glasses/night/polarizing // possibly it would be better to make this just flash protect or such, and keep NVG to NVG looking goggle thingies. Dunno.
 	name = "polarizing goggles"
 	desc = "Fancy goggles with rare polarizing glass from some old cache, usually reserved for commanders and a few select scouts."
 	icon = 'icons/obj/clothing/icons_legion.dmi'
@@ -29,6 +29,32 @@
 	darkness_view = 12
 	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
+	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_inv = HIDEEYES
+	visor_flags_cover = MASKCOVERSEYES
+	visor_vars_to_toggle = VISOR_TINT | VISOR_DARKNESSVIEW
+	alternate_worn_layer = (HEAD_LAYER-0.1) // so its not hidden
+
+/obj/item/clothing/glasses/night/polarizing/attack_self(mob/user)
+	weldingvisortoggle(user)
+
+/obj/item/clothing/glasses/f13/goggles_sandstorm
+	name = "sandstorm goggles"
+	desc = "Simple, tight-fitting goggles that protect your eyes from dust and sand."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "goggles"
+	item_state = "goggles"
+	toggle_message = "You pull down the"
+	alt_toggle_message = "You push up the"
+	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_inv = HIDEEYES
+	visor_flags_cover = MASKCOVERSEYES
+	visor_vars_to_toggle = VISOR_TINT | VISOR_DARKNESSVIEW
+	alternate_worn_layer = (HEAD_LAYER-0.1) // so its not hidden
+
+/obj/item/clothing/glasses/f13/goggles_sandstorm/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/night/f13/enclave
 	name = "\improper pilot goggles"

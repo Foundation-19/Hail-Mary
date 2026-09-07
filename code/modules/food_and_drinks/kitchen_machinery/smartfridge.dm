@@ -548,6 +548,185 @@
 	//the chance_initial_contents will take each item and give it a 50 percent chance of not spawning
 	var/list/chance_initial_contents
 
+/obj/machinery/smartfridge/bottlerack/wardrobe
+	name = "large clothing rack"
+	desc = "holds clothing and various acessories."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "wardrobe"
+	layer = ABOVE_OBJ_LAYER
+	max_n_of_items = 30
+
+/obj/machinery/smartfridge/bottlerack/wardrobe/accept_check(obj/item/O)
+	if(istype(O, /obj/item/clothing/shoes) || istype(O, /obj/item/clothing/head) || istype(O, /obj/item/clothing/mask) || istype(O, /obj/item/clothing/under) || istype(O, /obj/item/clothing/glasses) || istype(O, /obj/item/clothing/gloves) || istype(O, /obj/item/storage/belt)  || istype(O, /obj/item/clothing/neck))
+		return TRUE
+	return FALSE
+
+/obj/machinery/smartfridge/bottlerack/wardrobe/update_icon_state()
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+	if(!stat)
+		if(visible_contents)
+			switch(contents.len)
+				if(0)
+					icon_state = "[initial(icon_state)]"
+				if(1 to 5)
+					icon_state = "[initial(icon_state)]-1"
+				if(6 to 10)
+					icon_state = "[initial(icon_state)]-2"
+				if(11 to 16)
+					icon_state = "[initial(icon_state)]-3"
+				if(17 to 22)
+					icon_state = "[initial(icon_state)]-4"
+				if(23 to 30)
+					icon_state = "[initial(icon_state)]-5"
+		else
+			icon_state = "[initial(icon_state)]"
+	else
+		icon_state = "[initial(icon_state)]"
+
+// Preloaded Legion wardrobe
+/obj/machinery/smartfridge/bottlerack/wardrobe/legion
+	initial_contents = list(
+		/obj/item/clothing/under/f13/legskirt = 3,
+		/obj/item/clothing/mask/bandana/legion/dark  = 2,
+		/obj/item/clothing/head/f13/servant/auxilia = 1,
+		/obj/item/clothing/head/f13/servant = 1,
+		/obj/item/clothing/gloves/legion = 2,
+		/obj/item/clothing/gloves/blacksmith_mittens = 1,
+		/obj/item/clothing/neck/apron/labor = 1,
+		/obj/item/clothing/shoes/f13/military/legion = 3,
+		/obj/item/clothing/shoes/sandals_leather = 1,
+		/obj/item/storage/belt/military/legion = 1,
+		/obj/item/clothing/glasses/f13/goggles_sandstorm = 1)
+
+/obj/machinery/smartfridge/bottlerack/wardrobe/armor
+	name = "armor hanging rack"
+	desc = "a place to hang your armor and helmet."
+	icon_state = "armordrobe"
+	max_n_of_items = 20
+
+/obj/machinery/smartfridge/bottlerack/wardrobe/armor/accept_check(obj/item/O)
+	if(istype(O, /obj/item/clothing/shoes) || istype(O, /obj/item/clothing/suit/armor) || istype(O, /obj/item/clothing/head/helmet))
+		return TRUE
+	return FALSE
+
+/obj/machinery/smartfridge/bottlerack/wardrobe/armor/update_icon_state()
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+	if(!stat)
+		if(visible_contents)
+			switch(contents.len)
+				if(0)
+					icon_state = "[initial(icon_state)]"
+				if(1 to 3)
+					icon_state = "[initial(icon_state)]-1"
+				if(4 to 6)
+					icon_state = "[initial(icon_state)]-2"
+				if(7 to 10)
+					icon_state = "[initial(icon_state)]-3"
+				if(11 to 14)
+					icon_state = "[initial(icon_state)]-4"
+				if(15 to 20)
+					icon_state = "[initial(icon_state)]-5"
+		else
+			icon_state = "[initial(icon_state)]"
+	else
+		icon_state = "[initial(icon_state)]"
+
+// Preloaded Legion armor rack
+/obj/machinery/smartfridge/bottlerack/wardrobe/armor/legion
+	initial_contents = list(
+		/obj/item/clothing/suit/armor/light/legion/recruit = 2,
+		/obj/item/clothing/head/helmet/f13/legion/recruit = 2)
+
+/obj/machinery/smartfridge/bottlerack/rack_melee
+	name = "melee weapon rack"
+	desc = "holds most melee and throwing weapons."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "rack_melee"
+	layer = ABOVE_OBJ_LAYER
+	max_n_of_items = 15
+
+/obj/machinery/smartfridge/bottlerack/rack_melee/accept_check(obj/item/O)
+	if(istype(O, /obj/item/melee) || istype(O, /obj/item/shishkebabpack) || istype(O, /obj/item/throwing_star) || istype(O, /obj/item/restraints/legcuffs/bola) || istype(O, /obj/item/shovel) || istype(O, /obj/item/twohanded))
+		return TRUE
+	return FALSE
+
+/obj/machinery/smartfridge/bottlerack/rack_melee/update_icon_state()
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+	if(!stat)
+		if(visible_contents)
+			switch(contents.len)
+				if(0)
+					icon_state = "[initial(icon_state)]"
+				if(1 to 2)
+					icon_state = "[initial(icon_state)]-1"
+				if(3 to 5)
+					icon_state = "[initial(icon_state)]-2"
+				if(6 to 8)
+					icon_state = "[initial(icon_state)]-3"
+				if(9 to 12)
+					icon_state = "[initial(icon_state)]-4"
+				if(13 to 15)
+					icon_state = "[initial(icon_state)]-5"
+		else
+			icon_state = "[initial(icon_state)]"
+	else
+		icon_state = "[initial(icon_state)]"
+
+// Preloaded Legion melee rack
+/obj/machinery/smartfridge/bottlerack/rack_melee/legion
+	initial_contents = list(
+		/obj/item/melee/onehanded/machete = 1,
+		/obj/item/restraints/legcuffs/bola = 1)
+
+// Trophy rack for dogtags
+/obj/machinery/smartfridge/bottlerack/legion_offering
+	name = "offerings to Mars"
+	desc = "Hang the dogtags of slain enemies and fallen brothers here so Mars can keep track."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "rack_trophy"
+	max_n_of_items = 12
+
+/obj/machinery/smartfridge/bottlerack/legion_offering/accept_check(obj/item/O)
+	if(istype(O, /obj/item/card/id/dogtag))
+		return TRUE
+	return FALSE
+
+/obj/machinery/smartfridge/bottlerack/legion_offering/update_icon_state()
+	SSvis_overlays.remove_vis_overlay(src, managed_vis_overlays)
+	if(!stat)
+		if(visible_contents)
+			switch(contents.len)
+				if(0)
+					icon_state = "[initial(icon_state)]"
+				if(1)
+					icon_state = "[initial(icon_state)]-1"
+				if(2)
+					icon_state = "[initial(icon_state)]-2"
+				if(3)
+					icon_state = "[initial(icon_state)]-3"
+				if(4)
+					icon_state = "[initial(icon_state)]-4"
+				if(5)
+					icon_state = "[initial(icon_state)]-5"
+				if(6)
+					icon_state = "[initial(icon_state)]-6"
+				if(7)
+					icon_state = "[initial(icon_state)]-7"
+				if(8)
+					icon_state = "[initial(icon_state)]-8"
+				if(9)
+					icon_state = "[initial(icon_state)]-9"
+				if(10)
+					icon_state = "[initial(icon_state)]-10"
+				if(11)
+					icon_state = "[initial(icon_state)]-11"
+				if(12)
+					icon_state = "[initial(icon_state)]-12"
+		else
+			icon_state = "[initial(icon_state)]"
+	else
+		icon_state = "[initial(icon_state)]"
+
 /obj/machinery/smartfridge/bottlerack/Initialize()
 	. = ..()
 	if(component_parts && component_parts.len)

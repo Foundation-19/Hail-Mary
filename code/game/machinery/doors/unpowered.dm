@@ -44,6 +44,15 @@
 	else
 		icon_state = "secureopen"
 
+// ID locked doors by rank
+/obj/machinery/door/unpowered/securedoor/legion/warroom
+	name = "war room"
+	req_access_txt = "254" // ACCESS_LEGION_COMMAND
+
+/obj/machinery/door/unpowered/securedoor/legion/centurion
+	name = "centurions quarters"
+	req_access_txt = "264" // ACCESS_LEGION_CENTURION
+
 /obj/machinery/door/unpowered/securedoor/do_animate(animation)
 	switch(animation)
 		if("opening")

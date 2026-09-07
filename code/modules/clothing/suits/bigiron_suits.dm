@@ -560,6 +560,24 @@
 	stiffness = LIGHT_STIFFNESS
 
 ////////////////////////
+// LIGHT LEGION ARMOR //
+////////////////////////
+/obj/item/clothing/suit/armor/light/legion
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+
+/obj/item/clothing/suit/armor/light/legion/recruit
+	icon_state = "armor_recruit"
+
+/obj/item/clothing/suit/armor/light/legion/prime
+	icon_state = "armor_prime"
+
+/obj/item/clothing/suit/armor/light/legion/explorer
+	icon_state = "armor_explorer"
+
+////////////////////////
 // LIGHT TRIBAL ARMOR //
 ////////////////////////
 /obj/item/clothing/suit/armor/light/tribal
@@ -1685,6 +1703,17 @@
 	clothing_flags = CUSHIONED_ARMOR
 	stiffness = MEDIUM_STIFFNESS
 
+/////////////////////////
+// MEDIUM LEGION ARMOR //
+/////////////////////////
+/obj/item/clothing/suit/armor/medium/legion
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	slowdown = 0.05
+	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/twohanded, /obj/item/melee/smith, /obj/item/twohanded/smithed)
+
 ////////////////////////////
 /// MEDIUM TRIBAL ARMOR ////
 ////////////////////////////
@@ -2663,6 +2692,16 @@
 	armor_tier_desc = ARMOR_CLOTHING_HEAVY
 	clothing_flags = CUSHIONED_ARMOR
 	stiffness = HEAVY_STIFFNESS
+
+////////////////////////
+// HEAVY LEGION ARMOR //
+////////////////////////
+/obj/item/clothing/suit/armor/heavy/legion
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	slowdown = 0.1
 
 /////////////////////
 //// BULLET VEST //// ...?

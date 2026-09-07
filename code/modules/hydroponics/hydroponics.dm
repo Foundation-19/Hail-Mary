@@ -813,6 +813,10 @@
 	desc = "A growing pot. <b>Alt-Click</b> to empty the pot's nutrients."
 	icon_state = "plantpot"
 
+// Finally time to add my old dirt alternative, ploughed dirt
+/obj/machinery/hydroponics/soil/plowed //Just looks different
+	icon_state = "soil_plowexperiment"
+
 /obj/machinery/hydroponics/soil/update_icon_lights()
 	return // Has no lights
 

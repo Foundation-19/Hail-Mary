@@ -48,3 +48,23 @@
 		CRASH("Turf decal initialized in an object/nullspace")
 	var/turn_dir = 180 - dir2angle(T.dir) //Turning a dir by 0 results in a roulette of random dirs.
 	T.AddElement(/datum/element/decal, icon, icon_state, turn_dir ? turn(dir, turn_dir) : dir, CLEAN_GOD, color, null, null, alpha)
+
+// shading under the pavillon
+/obj/effect/turf_decal/shadow
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "shadow"
+
+// Floorshading testing
+/obj/effect/turf_decal/shadow/floor
+	icon_state = "shadow_floor"
+	plane = GAME_PLANE
+
+/obj/effect/turf_decal/gravel_edge
+	icon = 'icons/turf/tileset_gravel.dmi'
+	icon_state = "gravel_edge"
+
+/obj/effect/turf_decal/gravel_edge/corner // outer corner
+	icon_state = "gravel_corner"
+
+/obj/effect/turf_decal/gravel_edge/diagonal // inner corner alt
+	icon_state = "gravel_diagonal"

@@ -29,6 +29,34 @@
 	desc = "An ancient instrument to indicate, keep, and co-ordinate time.<br>You can hear a quiet ticking coming from the clock."
 	icon_state = "clock_act"
 
+//////////
+//LEGION//
+//////////
+
+/obj/structure/decoration/legion
+	name = "legion bull flag of high quality"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "decal_bull"
+
+/obj/structure/decoration/legion/spears
+	name = "decorative weapons"
+	icon_state = "decal_wallweapons"
+
+/obj/structure/decoration/legion/chains
+	name = "chains"
+	icon_state = "decal_chain1"
+
+/obj/structure/decoration/legion/chains2
+	name = "chains"
+	icon_state = "decal_chain2"
+
+/obj/structure/decoration/legion/tentpole
+	name = "tentpole"
+	icon_state = "decal_tentpole"
+
+/obj/structure/decoration/legion/tentpole/rope
+	icon_state = "decal_tentpole_rope"
+
 /obj/structure/decoration/clock/old
 	name = "\improper old clock"
 	desc = "An ancient instrument to indicate, keep, and co-ordinate time.<br>The clock was stopped by a distant nuclear blast on October 23, 2077 at 09:49 a.m."

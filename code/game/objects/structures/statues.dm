@@ -26,6 +26,29 @@
 /obj/structure/statue/proc/can_user_rotate(mob/user)
 	return user.canUseTopic(src, BE_CLOSE, FALSE, !iscyborg(user))
 
+// more fitting mars statue for the Legion players
+/obj/structure/statue/mars
+	name = "statue of mars"
+	desc = "A monument to masculine virtue, made out of plaster and wood with a thin bronze outer layer."
+	icon = 'icons/onmob/64x64_icons.dmi'
+	icon_state = "statue_mars"
+	anchored = TRUE
+	max_integrity = 1000
+	material_drop_type = /obj/item/stack/sheet/bronze
+	impressiveness = 30
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/mars/examine(mob/user)
+	. = ..()
+	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "inspired_art", /datum/mood_event/inspired_art)
+	. += "<span class='notice'>What a inspiring sight.</span>"
+
+/datum/mood_event/inspired_art
+	description = span_nicegreen("I have seen something inspiring.")
+	mood_change = 1
+	timeout = 9000
+
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(!(flags_1 & NODECONSTRUCT_1))

@@ -320,6 +320,54 @@
 	icon_state = "ncr_bandolier"
 	item_state = "ncr_bandolier"
 
+/obj/item/storage/belt/military/legion
+	name = "legion marching belt"
+	desc = "A belt capable of holding various supplies a warrior might need. Comes with a red sash."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "belt_legion"
+	item_state = "belt_legion"
+
+// new style of holsters that show when occupied
+/obj/item/storage/belt/holster/rugged	// some sort of overlay system for the filled holsters would be better naturally but lack the time to figure it out.
+	name = "rugged holster"
+	desc = "A plain holster for a revolver."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "holster_rugged"
+	item_state = "holster_rugged"
+
+// proc to make the holster look empty when empty
+/obj/item/storage/belt/holster/rugged/update_icon_state()
+	. = ..()
+	if(!contents.len)
+		icon_state = "[icon_state]_empty"
+	else
+		icon_state = initial(icon_state)
+
+// some prefilled holsters
+/obj/item/storage/belt/holster/rugged/revolver_357
+	icon_state = "holster_rugged"
+
+/obj/item/storage/belt/holster/rugged/revolver_357/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/colt357(src)
+
+/obj/item/storage/belt/holster/rugged/revolver_45
+	icon_state = "holster_rugged_45"
+
+/obj/item/storage/belt/holster/rugged/revolver_45/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/revolver45(src)
+
+/obj/item/storage/belt/holster/rugged/revolver_hunting
+	icon_state = "holster_rugged_hunting"
+
+/obj/item/storage/belt/holster/rugged/revolver_hunting/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/hunting(src)
+
 /obj/item/storage/belt/army
 	name = "army belt"
 	desc = "A robust belt for holding things like guns."

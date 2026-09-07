@@ -1,6 +1,19 @@
 /obj/effect/overlay
 	name = "overlay"
 
+/obj/effect/overlay/darkwoodfancyedge
+	name = "wood edge"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "darkwood_fancyedge"
+	layer = WALL_PLANE
+
+// Wallshading testing
+/obj/effect/shadow_wall
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "shadow_wall"
+	plane = GAME_PLANE
+	pixel_y = 32
+
 /obj/effect/overlay/singularity_act()
 	return
 

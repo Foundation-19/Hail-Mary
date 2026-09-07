@@ -26,6 +26,10 @@
 #define FGEN_DEFAULT_FUEL       1350
 /// Fuel level at which a low-power warning is broadcast to the faction (~3 min remaining).
 #define FGEN_LOW_FUEL_WARN      90
+/// SSobj ticks between automatic re-validation of wired links (cable path re-checked against
+/// the live map). 5 ticks × 2 s = 10 s, so a cable severed by an explosion (or anything else)
+/// stops being powered shortly after, without needing a manual rescan.
+#define FGEN_LINK_PRUNE_INTERVAL 5
 
 // ── Fabricator crafting constants
 
@@ -51,8 +55,10 @@
 //    If total_draw > available_watts the generator trips the circuit breaker
 //    and calls set_power_state(FALSE) until the overload is cleared.
 
-/// Watts produced per fusion core slot (one core = 1000 W).
-#define FGEN_WATTS_PER_CORE     1000
+/// Watts produced per fusion core slot.
+/// Bumped from 1000 -> 1500 so a single loaded core comfortably covers a
+/// larger multi-zone junction box (7+ zones) without tripping load-shedding.
+#define FGEN_WATTS_PER_CORE     1500
 
 /// Continuous watt draw of each directly-wired relay (transmission overhead).
 #define RELAY_WATT_DRAW         50
@@ -69,10 +75,18 @@
 /// Override grid_watt_draw on the subtype for anything non-standard.
 #define GRID_CLIENT_WATT_DEFAULT 100
 
-/// Baseline watt draw for a standard /obj/machinery/f13/junction_box.
-/// Represents the building's lighting + outlet load (150 W).
-/// Use /junction_box/small (75 W) for shacks, /junction_box/large (250 W) for compounds.
-#define JUNCTION_BOX_WATT_DRAW  150
+/// Fixed overhead watt draw for a junction box, independent of zone count
+/// (panel/transformer standby losses).  Total draw = JUNCTION_BOX_WATT_DRAW_BASE +
+/// (JUNCTION_BOX_WATT_DRAW * zone count).  Larger panels carry more overhead but a
+/// lower per-zone rate, so one large box undercuts a chain of small boxes once a
+/// building has enough zones (e.g. a BOS-sized multi-room compound) -- without this,
+/// small boxes are strictly cheaper than large ones at every scale.
+#define JUNCTION_BOX_WATT_DRAW_BASE 60
+
+/// Baseline watt draw for a standard /obj/machinery/f13/junction_box, PER CLAIMED ZONE.
+/// Use /junction_box/small (90 W/zone, 25 W base) for shacks, /junction_box/large
+/// (50 W/zone, 150 W base) for compounds.
+#define JUNCTION_BOX_WATT_DRAW  70
 
 // ── Logic gate types
 #define GATE_OR   1
