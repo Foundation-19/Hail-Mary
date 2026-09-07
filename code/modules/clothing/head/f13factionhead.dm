@@ -26,7 +26,7 @@
 	name = "wastehound raider helmet"
 	desc = "A sack hood made out of a suspicious leather with tufts of hair sticking out. This mask would make Leatherface proud."
 	icon_state = "wastehound_hood_icon"
-	item_state = "wastehound_hood_icon"
+	item_state = "raider_wastehound_hood"
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
 	dynamic_hair_suffix = ""
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
