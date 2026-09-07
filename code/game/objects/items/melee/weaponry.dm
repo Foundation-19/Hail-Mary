@@ -438,6 +438,13 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	AddElement(/datum/element/art, impressiveness)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/datum,_AddElement), list(/datum/element/beauty, 1000)), 0)
 
+// more fitting bust for the Legion players
+/obj/item/statuebust/legion
+	name = "a bust of the great leader"
+	desc = "Caesar, a magnificent man, depicted in some tacky imitation of marble."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "bust_legion"
+
 /obj/item/tailclub
 	name = "tail club"
 	desc = "For the beating to death of lizards with their own tails."

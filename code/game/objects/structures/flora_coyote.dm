@@ -117,6 +117,11 @@
 	icon = 'icons/obj/flora.dmi'
 	icon_state = "african_acacia_dead"
 	anchored = TRUE
+	plane = GAME_PLANE
+
+/obj/structure/flora/tree/african_acacia_dead/Initialize()
+	. = ..()
+	AddComponent(/datum/component/largetransparency, y_offset = 1)
 
 /obj/structure/flora/tree/african_acacia_alt
 	name = "acacia tree"

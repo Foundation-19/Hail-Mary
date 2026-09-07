@@ -33,7 +33,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	name = "legion breacher armor"
 	desc = "A suit with the standard metal reinforcements of a veteran and a patched bulletproof vest worn over it."
 	icon_state = "legion_heavy"
-	item_state = "legion_heavy"
+	item_state = "legion_heavy"*/
 
 /obj/item/clothing/suit/armor/heavy/legion/centurion
 	name = "legion centurion armor"
@@ -54,7 +54,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 /obj/item/clothing/suit/armor/heavy/legion/legate
 	name = "legion legate armor"
 	desc = "The armor appears to be a full suit of heavy gauge steel and offers full body protection. It also has a cloak in excellent condition, but the armor itself bears numerous battle scars and the helmet is missing half of the left horn. The Legate's suit appears originally crafted, in contrast to other Legion armor which consists of repurposed pre-War sports equipment."
-	icon_state = "legion_legate"*/
+	icon_state = "legion_legate"
 
 //FOR BOTH SUITS AND ARMORS BELONGING TO FACTIONS
 //PLEASE PUT CUSTOM ARMORS IN f13armor.dm. All power armors are found in f13armor.dm.

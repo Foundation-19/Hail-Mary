@@ -730,6 +730,13 @@ turf/closed/wall/f13/wood/house/update_damage_overlay()
 	icon_state = "matrix"
 	var/in_use = FALSE
 
+// Matrix for slaves/prison
+/turf/closed/indestructible/f13/matrix/slave //Less obtrusive matrix for prison
+	name = "mattress of despair"
+	desc = "<font color='#6eaa2c'>This is incredibly filthy. Sleeping here means your spirit is broken, and you submit to be taken far away to a bleak future as a prisoner. Count as dead for respawning rules.</font>"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "despair"
+
 /turf/closed/indestructible/f13/matrix/dirt
 	icon = 'icons/turf/floors.dmi'
 	icon_state = "dirt"

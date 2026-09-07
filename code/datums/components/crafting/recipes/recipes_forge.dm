@@ -97,6 +97,19 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 
+/datum/crafting_recipe/blacksmith/smithed_armor_legion
+	name = "Legion metal armor set"
+	result = /obj/item/clothing/suit/armor/heavy/metal/smithed/legion
+	reqs = list(
+		/obj/item/smithing/armor_piece = 2,
+		/obj/item/stack/sheet/leather = 2,
+		)
+	time = 200
+	tools = list(TOOL_FORGE)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+	always_available = FALSE
+
 //KNIVES//
 
 /datum/crafting_recipe/melee/forged/cleaver

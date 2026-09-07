@@ -364,6 +364,16 @@
 	else
 		icon_state = "housewood[rand(1,4)]"
 
+/turf/open/floor/f13/wood/outside // outside platform with sunlight
+	sunlight_state = SUNLIGHT_SOURCE
+
+// stairs platform to make it prettier
+/turf/open/floor/f13/stairs_platform
+	name = "stairs"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "stairs_platform"
+	color = "#A47449"
+
 /turf/open/floor/f13/wood/make_plating()
 	return ChangeTurf(/turf/open/floor/plating/wooden)
 

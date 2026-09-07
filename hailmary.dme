@@ -2039,7 +2039,6 @@
 #include "code\modules\client\verbs\who.dm"
 #include "code\modules\clothing\chameleon.dm"
 #include "code\modules\clothing\clothing.dm"
-#include "code\modules\clothing\legio_invicta.dm"
 #include "code\modules\clothing\custom\custom_clothing.dm"
 #include "code\modules\clothing\ears\_ears.dm"
 #include "code\modules\clothing\glasses\_glasses.dm"

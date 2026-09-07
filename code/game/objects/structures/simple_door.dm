@@ -493,6 +493,22 @@
 	set_opacity(0)
 	density = 0
 	icon_state = "[door_type]open"
+
+// -------------- DOUBLE BARRED DOORS -----------------
+
+/obj/structure/simple_door/metal/barred/left
+	icon = 'icons/structures/door_barred.dmi'
+	icon_state = "barred_left"
+	door_type = "barred_left"
+	open_sound = 'sound/effects/doorchainsoft_open.ogg'
+	close_sound = 'sound/effects/doorchainsoft_close.ogg'
+
+/obj/structure/simple_door/metal/barred/right
+	icon = 'icons/structures/door_barred.dmi'
+	icon_state = "barred_right"
+	door_type = "barred_right"
+	open_sound = 'sound/effects/doorchainsoft_open.ogg'
+	close_sound = 'sound/effects/doorchainsoft_close.ogg'
 	layer = TABLE_LAYER
 
 /obj/structure/simple_door/metal/barred/lowerlayer/proc/Closelowerlayer(animate)
