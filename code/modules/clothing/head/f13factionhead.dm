@@ -6,7 +6,6 @@
 	desc = "for testing"
 	icon_state = "supafly"
 	item_state = "supafly"
-	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1)
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
@@ -26,8 +25,8 @@
 	name = "wastehound raider helmet"
 	desc = "A sack hood made out of a suspicious leather with tufts of hair sticking out. This mask would make Leatherface proud."
 	icon_state = "wastehound_hood_icon"
-	item_state = "raider_wastehound_hood"
-	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE
+	item_state = "wastehound_hood_icon"
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	dynamic_hair_suffix = ""
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
@@ -40,7 +39,17 @@
 	desc = "Welding mask with rare polarizing glass thats somehow still in working order. A treasured item in the wasteland."
 	icon_state = "arclight"
 	item_state = "arclight"
-	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	toggle_message = "You lower"
+	alt_toggle_message = "You raise"
+	can_toggle = 1
+	flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	dynamic_hair_suffix = ""
+	strip_delay = 80
+	actions_types = list(/datum/action/item_action/toggle)
+	toggle_cooldown = 0
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
 	flash_protect = 2
 	tint = 0.5
 
