@@ -55,8 +55,10 @@
 //    If total_draw > available_watts the generator trips the circuit breaker
 //    and calls set_power_state(FALSE) until the overload is cleared.
 
-/// Watts produced per fusion core slot (one core = 1000 W).
-#define FGEN_WATTS_PER_CORE     1000
+/// Watts produced per fusion core slot.
+/// Bumped from 1000 -> 1500 so a single loaded core comfortably covers a
+/// larger multi-zone junction box (7+ zones) without tripping load-shedding.
+#define FGEN_WATTS_PER_CORE     1500
 
 /// Continuous watt draw of each directly-wired relay (transmission overhead).
 #define RELAY_WATT_DRAW         50

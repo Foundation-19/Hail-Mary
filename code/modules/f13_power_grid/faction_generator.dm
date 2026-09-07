@@ -296,6 +296,11 @@
 			f13_remove_upstream_ref(R.upstream_refs, src)
 			R.on_upstream_changed()
 			linked_relays -= R
+			// Strip any stale shed-list reference too — a relay that's no longer
+			// actually linked must never be silently re-powered by
+			// _try_restore_shed() later without its draw being re-counted.
+			if(shed_relays)
+				shed_relays -= R
 			removed++
 	if(linked_clients)
 		var/list/to_remove = list()
@@ -306,6 +311,8 @@
 			f13_remove_upstream_ref(C.upstream_refs, src)
 			C.on_upstream_changed()
 			linked_clients -= C
+			if(shed_clients)
+				shed_clients -= C
 			removed++
 	if(removed)
 		recalc_draw()
@@ -700,13 +707,20 @@
 			if(QDELETED(R))
 				to_restore += R  // clean up dead refs
 				continue
+			// Defensive: a stale reference can linger here if the relay was
+			// unlinked (cable cut / pruned) while still marked shed — never
+			// restore power to something that isn't actually linked anymore,
+			// or its draw would go uncounted forever (ghost/free power).
+			if(!linked_relays || !(R in linked_relays))
+				to_restore += R  // drop the stale entry, do NOT re-power it
+				continue
 			var/would_draw = R.get_subtree_draw()
 			if(current_draw + would_draw <= available_watts)
 				current_draw += would_draw
 				to_restore += R
 		for(var/obj/machinery/f13/power_relay/R in to_restore)
 			shed_relays -= R
-			if(!QDELETED(R))
+			if(!QDELETED(R) && linked_relays && (R in linked_relays))
 				R.load_shed = FALSE
 				R.set_relay_power(TRUE)
 				restored++
@@ -719,12 +733,15 @@
 			if(QDELETED(C))
 				to_restore += C  // clean up dead refs
 				continue
+			if(!linked_clients || !(C in linked_clients))
+				to_restore += C  // stale entry — drop without re-powering
+				continue
 			if(current_draw + C.grid_watt_draw <= available_watts)
 				current_draw += C.grid_watt_draw
 				to_restore += C
 		for(var/obj/machinery/f13/grid_client/C in to_restore)
 			shed_clients -= C
-			if(!QDELETED(C))
+			if(!QDELETED(C) && linked_clients && (C in linked_clients))
 				C.on_load_shed_restore()
 				restored++
 
@@ -1118,6 +1135,7 @@
 		UL.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
 	to_chat(user, span_notice("Wired: [R.name] linked to [name]. Power: [powered ? "ONLINE" : "OFFLINE"]."))
 	R.on_upstream_changed()
+	recalc_draw()
 
 
 // ── Handle ID card swipe for personal / faction locking.

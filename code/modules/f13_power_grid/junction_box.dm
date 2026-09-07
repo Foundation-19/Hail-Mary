@@ -116,6 +116,12 @@
 	/// Lights within this distance receive seton()/setoff() individually instead of a
 	/// whole-map F13_STAMP_AREA_POWER call on the shared area datum.  Override on subtypes.
 	var/power_reach = 10
+	/// Area type this box was originally placed in, captured in Initialize() before any
+	/// flood-fill zone reassignment can happen.  Every junction box in the world finishes
+	/// Initialize() before ANY of them run LateInitialize()/flood-fill, so this lets a box
+	/// deterministically know about every sibling box's home area regardless of which one's
+	/// LateInitialize() actually runs first — fixes parent/child area boxes racing for tiles.
+	var/home_area_type = null
 
 	// ── Area ownership ──────────────────────────────────────
 	/// Optional mapper override: explicit list of area type paths this box controls.
@@ -154,6 +160,28 @@
 		return TRUE
 	return FALSE
 
+
+/// Resolves the area to use as the flood-fill root.
+/// If the box's own turf is dense (wall-mounted), its area is often whatever
+/// broad area the wall material belongs to, not the specific room the box is
+/// meant to serve.  In that case, fall back to the first adjacent walkable
+/// (non-dense) turf's area instead, so a box gives identical results whether
+/// it's placed on the wall or on the room's floor.
+/obj/machinery/f13/junction_box/proc/_resolve_root_area()
+	var/turf/T = get_turf(src)
+	if(!T)
+		return null
+	if(!T.density)
+		return get_area(T)
+	for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+		var/turf/N = get_step(T, dir)
+		if(N && !N.density)
+			var/area/na = get_area(N)
+			if(na)
+				return na
+	// No walkable neighbour found — fall back to our own (wall) area.
+	return get_area(T)
+
 // ============================================================
 // LIFE CYCLE
 // ============================================================
@@ -164,6 +192,10 @@
 	// INITIALIZE_HINT_LATELOAD ensures LateInitialize() is scheduled even
 	// for boxes spawned mid-round (e.g. admin-spawned or crafted in-game).
 	. = ..()
+	// Captured now (before any flood-fill anywhere in the world can run) so
+	// ownership resolution is independent of LateInitialize() firing order.
+	var/area/home = get_area(src)
+	home_area_type = home ? home.type : null
 	return INITIALIZE_HINT_LATELOAD
 
 
@@ -188,7 +220,15 @@
 	// the fill would traverse thousands of turfs and stall the server.
 	// Instead, claim the generator's current area directly — same as if the
 	// mapper had set powered_area_types = list(<area.type>).
-	var/area/here = get_area(src)
+	//
+	// If the box itself sits on a dense (wall-mounted) turf, its own area may
+	// be whatever broad area the wall material was assigned to (often a big
+	// shared perimeter/hallway area), NOT the specific room it's meant to
+	// serve — flood-filling from that root would claim far more than the same
+	// box placed on the room's floor.  Resolve to an adjacent walkable turf's
+	// area instead so root selection is consistent regardless of which exact
+	// tile (wall or floor) the box was placed on.
+	var/area/here = _resolve_root_area()
 	if(!here)
 		return
 	if(_area_is_immune(here))
@@ -207,7 +247,22 @@
 	// ── Flood-fill / multi-zone path ────────────────────────────────────────
 	// Walk every physically-connected turf within the same area hierarchy.
 	// Pass here.type as the root so the fill respects the type boundary.
-	var/list/turf_map = _flood_fill_turfs(here.type)
+	//
+	// Also collect every OTHER junction box's home area type in the world.
+	// A neighbouring turf whose original area matches another box's home type
+	// is off-limits — that area belongs to its own dedicated box — regardless
+	// of whether that box has run its own LateInitialize()/flood-fill yet.
+	// (home_area_type is set in Initialize(), and every object's Initialize()
+	// finishes before any LateInitialize() runs, so this is always safe to read.)
+	var/list/reserved_home_types = list()
+	for(var/obj/machinery/f13/junction_box/JB in GLOB.machines)
+		if(JB == src || QDELETED(JB) || !JB.home_area_type)
+			continue
+		if(JB.home_area_type == here.type)
+			continue  // shares our exact home type — ambiguous, don't self-exclude
+		reserved_home_types += JB.home_area_type
+
+	var/list/turf_map = _flood_fill_turfs(here.type, reserved_home_types)
 	if(!turf_map || !turf_map.len)
 		return
 
@@ -265,8 +320,11 @@
 /// Depth-first walk from the junction box's turf.
 /// root_type — the area type the box is placed in; only tiles whose area is
 /// a subtype (or the exact type) of root_type will be visited.
+/// reserved_types — optional list of area type paths that belong to OTHER
+/// junction boxes' home areas; the fill will never cross into a turf whose
+/// original area matches one of these, regardless of claim/init order.
 /// Returns an assoc list: turf → original area datum it belonged to at walk time.
-/obj/machinery/f13/junction_box/proc/_flood_fill_turfs(root_type)
+/obj/machinery/f13/junction_box/proc/_flood_fill_turfs(root_type, list/reserved_types)
 	var/list/visited = list()   // turf → original area datum
 	var/list/stack   = list(get_turf(src))
 	var/area/start   = get_area(src)
@@ -334,11 +392,14 @@
 			// We must resolve through any existing jbox zone datum to
 			// get the real underlying type for the check.
 			var/area/f13/fN = N_area
-			var/check_area = (istype(fN) && fN.f13_jbox_zone) ? start : N_area
+			var/area/check_area = (istype(fN) && fN.f13_jbox_zone) ? start : N_area
 			if(!istype(check_area, root_type))
 				continue
 			// Already claimed by a different junction box — respect its boundary.
 			if(istype(fN) && fN.f13_jbox_zone)
+				continue
+			// Reserved for a different box's home area (order-independent boundary).
+			if(reserved_types && reserved_types.len && (check_area.type in reserved_types))
 				continue
 			stack += N
 
@@ -359,8 +420,10 @@
 			if(!L_area || _area_is_immune(L_area))
 				continue
 			var/area/f13/fL = L_area
-			var/check_L = (istype(fL) && fL.f13_jbox_zone) ? start : L_area
+			var/area/check_L = (istype(fL) && fL.f13_jbox_zone) ? start : L_area
 			if(!istype(check_L, root_type))
+				continue
+			if(reserved_types && reserved_types.len && (check_L.type in reserved_types))
 				continue
 			stack += landing
 
