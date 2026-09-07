@@ -352,6 +352,9 @@
 "apR" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/den)
 "aqi" = (
@@ -1178,6 +1181,11 @@
 	pixel_y = 5
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 8
+	},
+/obj/item/stack/cable_coil/random,
+/obj/item/stack/cable_coil/random,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
 "aVU" = (
@@ -1823,6 +1831,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/bunker/bighornbunker)
+"brj" = (
+/obj/machinery/f13/faction_generator/diesel{
+	fuel = 750
+	},
+/obj/structure/cable,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "brm" = (
 /mob/living/simple_animal/hostile/renegade,
 /turf/open/indestructible/ground/inside/subway,
@@ -4341,6 +4356,14 @@
 	},
 /turf/open/water,
 /area/f13/sewer/powered)
+"dqy" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/sewer/powered)
 "dqA" = (
 /obj/structure/handrail/g_central{
 	dir = 8;
@@ -5092,6 +5115,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/holiday)
+"dTq" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/den)
 "dTO" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -5468,6 +5497,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
+"eld" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "elg" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/dirt/dark,
@@ -5980,7 +6016,7 @@
 /turf/open/floor/f13{
 	icon_state = "greendirtyfull"
 	},
-/area/f13/sewer/powered)
+/area/f13/den)
 "eFM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/wood,
@@ -6141,6 +6177,14 @@
 /area/f13/sewer/powered)
 "eLq" = (
 /turf/closed/wall/f13/tunnel,
+/area/f13/sewer/powered)
+"eLO" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
 /area/f13/sewer/powered)
 "eLV" = (
 /mob/living/simple_animal/hostile/supermutant/rangedmutant,
@@ -7354,6 +7398,9 @@
 "fCh" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
@@ -8626,6 +8673,13 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/bunker/bunkerseven)
+"gAl" = (
+/obj/structure/simple_door/metal,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/den)
 "gAw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/autolathe,
@@ -9106,6 +9160,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
+"gWA" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "gWO" = (
 /obj/structure/table/wood,
 /obj/item/gun/ballistic/automatic/autopipe,
@@ -9532,6 +9592,15 @@
 	icon_state = "tunnelchess2"
 	},
 /area/f13/bunker/bighornbunker)
+"hlh" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13/wood{
+	icon_state = "housebase"
+	},
+/area/f13/den)
 "hlk" = (
 /turf/closed/mineral/random/low_chance,
 /area/f13/den)
@@ -9571,6 +9640,13 @@
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
+"hmf" = (
+/obj/machinery/f13/junction_box/large,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/closed/wall/rust,
+/area/f13/den)
 "hml" = (
 /obj/structure/decoration/rag{
 	icon_state = "skin"
@@ -15160,6 +15236,14 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/holiday/mine)
+"lMj" = (
+/obj/structure/table,
+/obj/structure/barricade/bars,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/den)
 "lMr" = (
 /obj/item/storage/trash_stack{
 	icon_state = "Junk_9";
@@ -15461,6 +15545,13 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/radiation)
+"lXh" = (
+/obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "lXr" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 4
@@ -16038,8 +16129,11 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
 "mtI" = (
-/turf/open/indestructible/ground/outside/desert,
-/area/f13/ncr)
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "mtK" = (
 /obj/structure/fence/wooden{
 	dir = 1;
@@ -19547,6 +19641,15 @@
 	icon_state = "floorrusty"
 	},
 /area/f13/bunker/bunkernine)
+"pdk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/f13/wood{
+	icon_state = "housewood2-broken"
+	},
+/area/f13/den)
 "pdo" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/spawner/lootdrop/trash,
@@ -21145,6 +21248,14 @@
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"qum" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/den)
 "quo" = (
 /obj/structure/barricade/wooden,
 /turf/open/indestructible/ground/inside/subway,
@@ -21367,6 +21478,14 @@
 /obj/structure/barricade/wooden/strong,
 /turf/open/floor/plasteel/f13/vault_floor/yellow{
 	icon_state = "yellowdirtyfull"
+	},
+/area/f13/sewer/powered)
+"qCO" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "dark"
 	},
 /area/f13/sewer/powered)
 "qCP" = (
@@ -21661,6 +21780,15 @@
 /obj/structure/fence,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
+"qNm" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "qNq" = (
 /turf/closed/wall/f13/ruins,
 /area/f13/radiation)
@@ -24433,6 +24561,13 @@
 /obj/effect/spawner/lootdrop/f13/weapon/melee/random_high,
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/bunker)
+"sXn" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "sXy" = (
 /obj/structure/reagent_dispensers/barrel/four,
 /obj/effect/decal/cleanable/dirt{
@@ -25819,6 +25954,14 @@
 /obj/structure/flora/junglebush,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
+"tVe" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/sewer/powered)
 "tVv" = (
 /obj/structure/table/wood/settler,
 /obj/item/reagent_containers/glass/beaker/large{
@@ -26145,6 +26288,12 @@
 /obj/structure/reagent_dispensers/barrel/three,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/sewer/powered)
+"uhK" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "uhT" = (
 /obj/structure/disposalpipe/broken,
 /turf/closed/mineral/random/low_chance,
@@ -27312,7 +27461,7 @@
 /turf/open/floor/f13{
 	icon_state = "greenfull"
 	},
-/area/f13/sewer/powered)
+/area/f13/den)
 "uWa" = (
 /obj/effect/turf_decal/arrows/red{
 	dir = 4
@@ -27464,6 +27613,12 @@
 /obj/machinery/telecomms/message_server,
 /turf/open/floor/plasteel/dark/telecomms/mainframe,
 /area/f13/tcoms)
+"vbm" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "vbO" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /obj/effect/decal/cleanable/oil/slippery,
@@ -27686,6 +27841,13 @@
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
+"vjW" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/water,
+/area/f13/den)
 "vka" = (
 /mob/living/simple_animal/hostile/renegade/doc,
 /turf/open/indestructible/ground/inside/subway,
@@ -29180,6 +29342,13 @@
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
+"wmG" = (
+/obj/effect/spawner/lootdrop/trash,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "wmH" = (
 /obj/structure/sink/kitchen{
 	dir = 4;
@@ -29593,6 +29762,14 @@
 	icon_state = "darkrusty"
 	},
 /area/f13/sewer/powered)
+"wCu" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/den)
 "wCT" = (
 /obj/structure/table/wood,
 /obj/item/reagent_containers/food/drinks/trophy,
@@ -29737,8 +29914,8 @@
 /area/f13/caves)
 "wIs" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 8
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
@@ -30722,6 +30899,13 @@
 /obj/structure/simple_door/wood,
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/shack)
+"xoB" = (
+/obj/effect/spawner/lootdrop/trash,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/den)
 "xoH" = (
 /mob/living/simple_animal/hostile/giantantqueen,
 /turf/open/indestructible/ground/inside/mountain,
@@ -51950,7 +52134,7 @@ wEf
 wpz
 lvR
 wvF
-mtI
+gRX
 aHa
 gRX
 wpz
@@ -52205,8 +52389,8 @@ dhU
 iBp
 wEf
 wpz
-mtI
-mtI
+gRX
+gRX
 eNG
 gRX
 gRX
@@ -111318,7 +111502,7 @@ udJ
 udJ
 udJ
 udJ
-udJ
+hmf
 udJ
 udJ
 udJ
@@ -111832,7 +112016,7 @@ glS
 glS
 udJ
 wHA
-xyW
+wIs
 udJ
 nUk
 wDU
@@ -112089,7 +112273,7 @@ iAw
 ikK
 udJ
 jvO
-xyW
+wIs
 udJ
 moQ
 wDU
@@ -112346,7 +112530,7 @@ jvO
 oef
 aAo
 smg
-xyW
+wIs
 ngn
 fgC
 hBa
@@ -112603,7 +112787,7 @@ jvO
 jvO
 ovG
 vIa
-vPg
+lXh
 udJ
 daL
 tzw
@@ -112860,7 +113044,7 @@ jvO
 bhP
 udJ
 udJ
-ngn
+gAl
 udJ
 udJ
 udJ
@@ -113117,7 +113301,7 @@ jvO
 xyW
 udJ
 cVm
-wDU
+dTq
 iRE
 iRE
 gGQ
@@ -113374,7 +113558,7 @@ xyW
 jvO
 udJ
 mJw
-wDU
+dTq
 hBa
 puY
 gGQ
@@ -113631,13 +113815,13 @@ xyW
 jvO
 udJ
 qiU
-lqT
+pdk
 apR
-puY
-gGQ
-cFU
-nyz
-nyz
+hlh
+lMj
+qCO
+eLO
+dqy
 plj
 rUl
 rUl
@@ -113894,7 +114078,7 @@ cdU
 udJ
 qKW
 hbH
-nyz
+tVe
 plj
 rUl
 rUl
@@ -114151,14 +114335,14 @@ udJ
 udJ
 uVU
 eEF
-nyz
-nyz
-kOs
-kOs
-nyz
-jvO
-jvO
-jvO
+qum
+wCu
+vjW
+vjW
+wCu
+mtI
+mtI
+vbm
 udJ
 rfj
 mfj
@@ -114415,7 +114599,7 @@ rUl
 dMr
 jvO
 jvO
-jvO
+uhK
 udJ
 qSr
 wjj
@@ -114672,7 +114856,7 @@ rUl
 dMr
 xyW
 xyW
-xyW
+wIs
 udJ
 udJ
 udJ
@@ -114929,7 +115113,7 @@ rUl
 dMr
 xyW
 xyW
-xyW
+wIs
 jvO
 iAF
 xjk
@@ -115186,7 +115370,7 @@ rUl
 dMr
 xyW
 jvO
-xyW
+wIs
 xjk
 jvO
 jvO
@@ -115443,19 +115627,19 @@ rUl
 dMr
 xyW
 xyW
-xyW
-jvO
+eld
+mtI
 fCh
-jvO
-xyW
-xyW
-xyW
-jvO
+mtI
+sXn
+sXn
+sXn
+mtI
 fCh
-jvO
-jvO
-jvO
-jvO
+mtI
+mtI
+mtI
+vbm
 gin
 xyW
 xyW
@@ -115712,7 +115896,7 @@ udJ
 udJ
 jvO
 jvO
-xjk
+wmG
 iob
 jvO
 jvO
@@ -115969,7 +116153,7 @@ hVj
 udJ
 jvO
 jvO
-jvO
+uhK
 udJ
 hjc
 vsw
@@ -116226,20 +116410,20 @@ wog
 udJ
 jvO
 jvO
-jvO
-jvO
-jvO
-jvO
-xjk
-jvO
-jvO
-xjk
-jvO
-jvO
-jvO
-jvO
-jvO
-jvO
+gWA
+mtI
+mtI
+mtI
+xoB
+mtI
+mtI
+xoB
+mtI
+mtI
+mtI
+mtI
+mtI
+vbm
 jvO
 udJ
 rUl
@@ -116496,7 +116680,7 @@ jvO
 vgQ
 udJ
 jvO
-jvO
+uhK
 jvO
 udJ
 rUl
@@ -116753,8 +116937,8 @@ udJ
 udJ
 udJ
 jvO
-jvO
-jvO
+qNm
+brj
 udJ
 rUl
 iBp
@@ -117010,8 +117194,8 @@ jvO
 udJ
 uXh
 jvO
-jvO
-jvO
+gWA
+brj
 udJ
 rUl
 iBp

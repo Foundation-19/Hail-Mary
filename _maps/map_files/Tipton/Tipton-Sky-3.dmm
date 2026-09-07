@@ -947,6 +947,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
+"byv" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/wasteland/cold)
 "bzi" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
@@ -1051,6 +1057,15 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/ncr/powered)
+"bGc" = (
+/obj/machinery/f13/faction_generator/diesel{
+	fuel = 750
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/wasteland/cold)
 "bGp" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/f13/wood,
@@ -2106,7 +2121,7 @@
 "dgv" = (
 /obj/machinery/autolathe/ammo,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "dgR" = (
 /obj/structure/fluff/railing{
 	dir = 6
@@ -3228,7 +3243,7 @@
 /obj/structure/table/wood/bar,
 /obj/machinery/cell_charger,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "eZh" = (
 /obj/structure/fence/wooden{
 	dir = 4;
@@ -3791,6 +3806,9 @@
 	icon_state = "housebase"
 	},
 /area/f13/building)
+"fPp" = (
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/holiday)
 "fPv" = (
 /obj/structure/table/wood,
 /obj/item/storage/backpack/satchel/old,
@@ -5699,6 +5717,15 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"iHw" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/holiday)
 "iIe" = (
 /obj/machinery/light/small{
 	brightness = 7;
@@ -5878,7 +5905,7 @@
 	pixel_y = 5
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "iTU" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -6066,6 +6093,12 @@
 	icon_state = "housewood2-broken"
 	},
 /area/f13/building/powered)
+"joJ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/holiday)
 "jpq" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/wasteland)
@@ -6207,7 +6240,7 @@
 "jzT" = (
 /obj/machinery/workbench/forge,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "jzY" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -6726,6 +6759,11 @@
 /obj/machinery/smartfridge/chemistry,
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
+"kme" = (
+/obj/machinery/f13/junction_box/large,
+/obj/structure/cable,
+/turf/closed/wall/f13/wood/house,
+/area/f13/holiday)
 "kmi" = (
 /obj/structure/obstacle/barbedwire{
 	dir = 4
@@ -7364,6 +7402,12 @@
 /obj/structure/simple_door/wood,
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
+"ljB" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/holiday)
 "lkD" = (
 /obj/machinery/hydroponics/soil,
 /obj/structure/flora/wasteplant/wild_tato,
@@ -7790,7 +7834,7 @@
 	req_access_txt = "273"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "lUf" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 9
@@ -7942,7 +7986,7 @@
 	},
 /obj/structure/barricade/wooden/planks/pregame,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "mkH" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -8148,7 +8192,7 @@
 	dir = 4
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "mAh" = (
 /obj/structure/table,
 /obj/item/storage/box/beakers{
@@ -9389,6 +9433,15 @@
 	icon_state = "housewood3-broken"
 	},
 /area/f13/building/powered)
+"otu" = (
+/obj/machinery/f13/faction_generator/diesel{
+	fuel = 750
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/holiday)
 "otI" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -9427,7 +9480,7 @@
 /obj/structure/destructible/tribal_torch/wall/lit,
 /obj/structure/reagent_dispensers/fueltank,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "ouT" = (
 /obj/structure/sink/kitchen{
 	pixel_y = 25
@@ -10416,7 +10469,7 @@
 /obj/item/stock_parts/cell/high,
 /obj/item/stock_parts/cell/high,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "pZc" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4";
@@ -11466,6 +11519,16 @@
 	},
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
+"rvH" = (
+/obj/machinery/f13/power_relay,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/holiday)
 "rwj" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
@@ -11670,6 +11733,10 @@
 /obj/structure/table/optable/primitive,
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
+"rSO" = (
+/obj/structure/barricade/wooden,
+/turf/closed/wall/f13/wood,
+/area/f13/holiday)
 "rSQ" = (
 /obj/structure/flora/rock/jungle{
 	pixel_y = -12
@@ -12950,7 +13017,7 @@
 "tLh" = (
 /obj/machinery/autolathe,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "tLu" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /turf/open/floor/plating/dirt,
@@ -13766,7 +13833,7 @@
 "uXN" = (
 /obj/machinery/gear_painter,
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "uZZ" = (
 /obj/item/trash/popcorn,
 /obj/effect/decal/cleanable/dirt,
@@ -15031,7 +15098,7 @@
 	dir = 8
 	},
 /turf/open/floor/f13/wood,
-/area/f13/wasteland/cold)
+/area/f13/holiday)
 "xcz" = (
 /obj/structure/fluff/railing/corner,
 /turf/open/floor/f13{
@@ -55006,9 +55073,9 @@ dnM
 dnM
 dnM
 dnM
-dnM
-dnM
-jlz
+bGc
+otu
+ghu
 jlz
 jlz
 wlp
@@ -55263,9 +55330,9 @@ dnM
 dnM
 dnM
 dnM
-dnM
-dnM
-jlz
+byv
+iHw
+ghu
 wlp
 wlp
 wlp
@@ -55521,8 +55588,8 @@ dnM
 dnM
 dnM
 dnM
-dnM
-jlz
+rvH
+ghu
 wlp
 wlp
 wlp
@@ -55778,8 +55845,8 @@ dnM
 dnM
 dnM
 dnM
-dnM
-jlz
+joJ
+ghu
 wlp
 wlp
 wlp
@@ -56035,8 +56102,8 @@ dnM
 dnM
 dnM
 dnM
-dnM
-jlz
+ljB
+kme
 jlz
 wlp
 wlp
@@ -58598,8 +58665,8 @@ pEV
 pEV
 pEV
 pEV
-dnM
-dnM
+fPp
+fPp
 qNl
 ttb
 uXc
@@ -58852,7 +58919,7 @@ dnM
 dnM
 dnM
 dnM
-dnM
+fPp
 dnM
 dnM
 dnM
@@ -59109,7 +59176,7 @@ dnM
 dnM
 dnM
 dnM
-dnM
+fPp
 dnM
 dnM
 dnM
@@ -59362,13 +59429,13 @@ vfn
 dnM
 dnM
 dnM
-uCz
-lFk
-uCz
-uCz
-uCz
-lFk
-lFk
+pEV
+rSO
+pEV
+pEV
+pEV
+rSO
+rSO
 dnM
 dnM
 qNl
@@ -59620,12 +59687,12 @@ dnM
 dnM
 dnM
 lTP
-cYg
-cYg
+fsq
+fsq
 xbB
-cYg
+fsq
 dgv
-uCz
+pEV
 dnM
 dnM
 qNl
@@ -59876,13 +59943,13 @@ vfn
 dnM
 dnM
 dnM
-uCz
+pEV
 pYJ
-cYg
-cYg
-cYg
+fsq
+fsq
+fsq
 tLh
-uCz
+pEV
 dnM
 dnM
 qNl
@@ -60135,11 +60202,11 @@ dnM
 dnM
 mjt
 iSI
-cYg
-cYg
-cYg
+fsq
+fsq
+fsq
 ouO
-uCz
+pEV
 dnM
 dnM
 qNl
@@ -60390,13 +60457,13 @@ vfn
 dnM
 dnM
 dnM
-uCz
+pEV
 uXN
-cYg
+fsq
 mzr
-cYg
+fsq
 jzT
-uCz
+pEV
 dnM
 dnM
 qNl
@@ -60647,13 +60714,13 @@ vfn
 dnM
 dnM
 dnM
-uCz
-uCz
-uCz
-uCz
+pEV
+pEV
+pEV
+pEV
 eZe
-cYg
-uCz
+fsq
+pEV
 dnM
 dnM
 qNl
@@ -60907,10 +60974,10 @@ dnM
 dnM
 dnM
 dnM
-uCz
-uCz
-uCz
-uCz
+pEV
+pEV
+pEV
+pEV
 dnM
 dnM
 qNl

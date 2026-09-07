@@ -411,7 +411,7 @@
 
 /mob/living/simple_animal/hostile/raider/baseball/outlaw
 	name = "Baseball Outlaw"
-	faction = list("raider", "wastelander")
+	faction = list("Raiders", "wastelander")
 
 /mob/living/simple_animal/hostile/raider/tribal
 	icon_state = "tribal_raider"
