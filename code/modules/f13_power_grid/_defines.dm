@@ -75,10 +75,18 @@
 /// Override grid_watt_draw on the subtype for anything non-standard.
 #define GRID_CLIENT_WATT_DEFAULT 100
 
-/// Baseline watt draw for a standard /obj/machinery/f13/junction_box.
-/// Represents the building's lighting + outlet load (150 W).
-/// Use /junction_box/small (75 W) for shacks, /junction_box/large (250 W) for compounds.
-#define JUNCTION_BOX_WATT_DRAW  150
+/// Fixed overhead watt draw for a junction box, independent of zone count
+/// (panel/transformer standby losses).  Total draw = JUNCTION_BOX_WATT_DRAW_BASE +
+/// (JUNCTION_BOX_WATT_DRAW * zone count).  Larger panels carry more overhead but a
+/// lower per-zone rate, so one large box undercuts a chain of small boxes once a
+/// building has enough zones (e.g. a BOS-sized multi-room compound) -- without this,
+/// small boxes are strictly cheaper than large ones at every scale.
+#define JUNCTION_BOX_WATT_DRAW_BASE 60
+
+/// Baseline watt draw for a standard /obj/machinery/f13/junction_box, PER CLAIMED ZONE.
+/// Use /junction_box/small (90 W/zone, 25 W base) for shacks, /junction_box/large
+/// (50 W/zone, 150 W base) for compounds.
+#define JUNCTION_BOX_WATT_DRAW  70
 
 // ── Logic gate types
 #define GATE_OR   1

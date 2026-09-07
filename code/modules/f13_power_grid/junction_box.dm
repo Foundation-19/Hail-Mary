@@ -107,11 +107,13 @@
 	max_integrity = 200
 	armor         = list(melee = 5, bullet = 5, laser = 5, energy = 5, bomb = 20, bio = 0, rad = 0, fire = 10, acid = 5)
 
-	// Watt draw — base cost per claimed zone.  Total draw = grid_watt_draw_per_zone × zone count.
+	// Watt draw = grid_watt_draw_base + (grid_watt_draw_per_zone × zone count).
 	// The combined value is written to grid_watt_draw in LateInitialize once zones are known.
-	grid_watt_draw = JUNCTION_BOX_WATT_DRAW
+	grid_watt_draw = JUNCTION_BOX_WATT_DRAW_BASE + JUNCTION_BOX_WATT_DRAW
 	/// Per-zone watt cost.  Summed at LateInitialize; override on subtypes.
 	var/grid_watt_draw_per_zone = JUNCTION_BOX_WATT_DRAW
+	/// Fixed overhead watt cost, independent of zone count.  Override on subtypes.
+	var/grid_watt_draw_base = JUNCTION_BOX_WATT_DRAW_BASE
 	/// Light reach (tiles) used when the box is placed in an outdoor area (e.g. wasteland).
 	/// Lights within this distance receive seton()/setoff() individually instead of a
 	/// whole-map F13_STAMP_AREA_POWER call on the shared area datum.  Override on subtypes.
@@ -194,7 +196,11 @@
 	. = ..()
 	// Captured now (before any flood-fill anywhere in the world can run) so
 	// ownership resolution is independent of LateInitialize() firing order.
-	var/area/home = get_area(src)
+	// Must use _resolve_root_area() here, NOT get_area(src) directly — this has
+	// to match whatever LateInitialize() will actually use as its flood-fill
+	// root, or a wall-mounted box's real (floor-resolved) territory wouldn't be
+	// reserved correctly against other boxes.
+	var/area/home = _resolve_root_area()
 	home_area_type = home ? home.type : null
 	return INITIALIZE_HINT_LATELOAD
 
@@ -235,7 +241,7 @@
 		return
 	if(here.outdoors)
 		powered_area_instances = list(here)
-		grid_watt_draw = grid_watt_draw_per_zone
+		grid_watt_draw = grid_watt_draw_base + grid_watt_draw_per_zone
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)
 		else
@@ -302,8 +308,8 @@
 		owned_zones[Z]   = orig
 		zone_breakers[Z] = TRUE    // all sub-breakers start closed
 
-	// Update watt draw: one unit per zone (matched to grid accounting).
-	grid_watt_draw = grid_watt_draw_per_zone * owned_zones.len
+	// Update watt draw: fixed overhead plus one unit per zone (matched to grid accounting).
+	grid_watt_draw = grid_watt_draw_base + (grid_watt_draw_per_zone * owned_zones.len)
 
 	// ── Re-stamp if grid was already live before LateInitialize ran ───────
 	// If the box was wired before LateInitialize() fired (possible when
@@ -737,16 +743,21 @@
 // SUBTYPES — common pre-watt configurations
 // ============================================================
 
-/// Small room / shack — lower per-zone load.
+/// Small room / shack — lower per-zone load, but the least efficient choice once a
+/// building spans several zones (see grid_watt_draw_base comment in _defines.dm).
 /obj/machinery/f13/junction_box/small
 	name  = "electrical junction box"
 	desc  = "A smaller breaker panel for a modest room or shack."
-	grid_watt_draw_per_zone = 75
-	grid_watt_draw          = 75   // pre-set for pre-LateInit cost estimates
+	grid_watt_draw_per_zone = 90
+	grid_watt_draw_base     = 25
+	grid_watt_draw          = 115  // 25 + 90, pre-LateInit single-zone estimate
 
-/// Large complex — workshop, barracks, multi-room building.
+/// Large complex — workshop, barracks, multi-room building.  Higher fixed overhead,
+/// but the cheapest per-zone rate — undercuts small/base once a building has enough
+/// zones (roughly 5+), so it's the right pick for a BOS-sized multi-room compound.
 /obj/machinery/f13/junction_box/large
 	name  = "electrical junction box"
 	desc  = "A heavy-duty breaker panel wired to a large building's internal circuits."
-	grid_watt_draw_per_zone = 250
-	grid_watt_draw          = 250
+	grid_watt_draw_per_zone = 50
+	grid_watt_draw_base     = 150
+	grid_watt_draw          = 200  // 150 + 50, pre-LateInit single-zone estimate
