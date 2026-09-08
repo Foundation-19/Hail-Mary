@@ -11286,7 +11286,6 @@
 /area/f13/wasteland)
 "aQT" = (
 /obj/structure/cable,
-/obj/machinery/f13/junction_box/small,
 /turf/closed/wall/f13/wood/house,
 /area/f13/ncr/storage)
 "aQU" = (
