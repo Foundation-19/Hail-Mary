@@ -922,6 +922,20 @@ GLOBAL_LIST_EMPTY(desert_icons)
 	slowdown = 0.2
 	flags_1 = CAN_HAVE_NATURE
 
+// // -------------- OUTSIDE DEAD DIRT ----------------- the shade used in the map, nature free, stamped dirt flooring
+/turf/open/indestructible/ground/inside/dirt/stamped
+	icon = 'icons/turf/dirt.dmi'
+	slowdown = 0.1
+	flags_1 = null
+
+/turf/open/indestructible/ground/inside/dirt/stamped/outside // criminal solution but whatever. To have dead dirt outside.
+	sunlight_state = SUNLIGHT_SOURCE
+
+/turf/open/indestructible/ground/inside/dirt/stamped/outside/sand // ugly solution but whatever. To have undiggable sand for flooring in a pavillon
+	name = "packed sand"
+	icon = 'icons/turf/tileset_sonora.dmi'
+	icon_state = "desertsmooth"
+
 /turf/open/indestructible/ground/inside/subway
 	name = "subway tunnel"
 	icon = 'icons/turf/ground.dmi'
@@ -1005,10 +1019,16 @@ GLOBAL_LIST_EMPTY(desert_icons)
 /turf/open/indestructible/ground/outside/gravel
 	name = "gravel"
 	icon_state = "gravel"
-	icon = 'icons/turf/gravel.dmi'
+	icon = 'icons/turf/tileset_gravel.dmi'
 	footstep = FOOTSTEP_GRAVEL
 	barefootstep = FOOTSTEP_GRAVEL
 	clawfootstep = FOOTSTEP_GRAVEL
+
+/turf/open/indestructible/ground/outside/gravel/edge
+	icon_state = "graveledge"
+
+/turf/open/indestructible/ground/outside/gravel/corner
+	icon_state = "gravelcorner"
 
 /turf/open/indestructible/ground/outside/gravel/alt
 	name = "gravel"

@@ -441,14 +441,33 @@
 //"LEGION" BANDANAS//
 /////////////////////
 
-// Base legion bandana - art redirected in legio_invicta.dm
 /obj/item/clothing/mask/bandana/legion
 	name = "legion bandana"
 	desc = "A bandana worn by Legion members."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "bandana_legion"
 	flags_inv = HIDEFACE
 	visor_flags_inv = HIDEFACE
 	adjusted_flags = null
 	actions_types = list(/datum/action/item_action/adjust)
+
+/obj/item/clothing/mask/bandana/legion/recruit
+	name = "recruit bandana"
+	desc = "Bandana made from cheap cloth."
+	icon_state = "bandana_recruit"
+
+/obj/item/clothing/mask/bandana/legion/dark
+	name = "dark bandana"
+	desc = "Plain cotton bandana."
+	icon_state = "bandana_dark"
+
+/obj/item/clothing/mask/bandana/legion/centurion
+	name = "centurions bandana"
+	desc = "Made from fine cloth with a distinctive pattern."
+	icon_state = "bandana_centurion"
 
 /obj/item/clothing/mask/bandana/legion/camp
 	name = "desperado bandana"

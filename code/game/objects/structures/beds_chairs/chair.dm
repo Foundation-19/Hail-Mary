@@ -395,6 +395,36 @@
 	QDEL_NULL(armrest)
 	return ..()
 
+// only mood function, just for RP. Would be better if mood boost just fired if not wearing anything in uniform slot, or unable to buckle if dressed.
+/obj/structure/chair/comfy/bathtub
+	name = "bathtub"
+	desc = "A relaxing bath in hot water, or a endurance test in freezing water, depending on how lazy you are."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "bathtub"
+	max_integrity = 200
+	item_chair = null
+	resistance_flags = NONE
+	flags_1 = NODECONSTRUCT_1
+
+/obj/structure/chair/comfy/bathtub/GetArmrest()
+	return mutable_appearance('icons/obj/clothing/icons_legion.dmi', "bathtub_bathing")
+
+/obj/structure/chair/comfy/bathtub/post_buckle_mob(mob/living/M)
+	. = ..()
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "bathed", /datum/mood_event/bathed)
+	handle_layer()
+	playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
+
+/obj/structure/chair/comfy/bathtub/post_unbuckle_mob()
+	. = ..()
+	handle_layer()
+	playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
+
+/datum/mood_event/bathed
+	description = span_nicegreen("A warm bath felt nice.")
+	mood_change = 4
+	timeout = 9000
+
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
 	. = ..()
 	update_armrest()

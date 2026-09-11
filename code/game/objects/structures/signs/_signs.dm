@@ -15,6 +15,89 @@
 	desc = "How can signs be real if our eyes aren't real?"
 	icon_state = "backing"
 
+//////////
+//LEGION//
+//////////
+
+/obj/structure/sign/legion
+	name = "war room"
+	desc = "For planning the next great victory!"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "sign"
+	layer = SIGN_LAYER
+
+/obj/structure/sign/legion/radio
+	name = "radio room"
+	desc = "Spare radios and radio linking equipment are kept here"
+
+/obj/structure/sign/legion/medicus
+	name = "medicus tent"
+	desc = "Caesar approves the methods used here. Degenerates not welcome."
+	icon_state = "sign_medicus"
+	layer = BELOW_MOB_LAYER
+
+/obj/structure/sign/legion/recruit
+	name = "recruit barracks"
+	desc = "The decanus sleeps with his men and keeps track of them."
+	icon_state = "sign_ground"
+
+/obj/structure/sign/legion/smithy
+	name = "smithy"
+	desc = "Where weapons are forged and tools stored"
+
+/obj/structure/sign/legion/armory
+	name = "armory"
+	desc = "Great amounts of weapons and equipment are stored here"
+
+/obj/structure/sign/legion/prime
+	name = "prime barracks"
+	desc = "Primes and their decanus live here"
+	icon_state = "sign_ground"
+
+/obj/structure/sign/legion/veteran
+	name = "veteran barracks"
+	desc = "Experienced troops live here in comparable comfort."
+
+/obj/structure/sign/legion/mess
+	name = "mess pavillion"
+	desc = "Food and a place to talk to brothers in arms."
+	icon_state = "sign_ground"
+
+/obj/structure/sign/legion/gym
+	name = "the temple"
+	desc = "Build your body or use it as a speaking platform."
+
+/obj/structure/sign/legion/latrine
+	name = "latrine"
+	desc = "Has a certain odor."
+	icon_state = "sign_ground"
+
+/obj/structure/sign/legion/mines
+	name = "mines"
+	desc = "Put slave here"
+	icon_state = "sign_chain"
+
+/obj/structure/sign/legion/prison
+	name = "prison"
+	desc = "Lets the prisoner enjoy the local climate without interfering roofing."
+	icon_state = "sign_ground"
+
+/obj/structure/sign/legion/storeroom
+	name = "storeroom"
+	desc = "a place to store low-value goods and slaving equipment."
+
+/obj/structure/sign/legion/records
+	name = "office of records"
+	desc = "Where the Treasurer and other nerds store paperwork about stores and payrolls, and maybe the treasury."
+
+/obj/structure/sign/legion/stronghold
+	name = "stronghold"
+	desc = "Main building, fortified."
+
+/obj/structure/sign/legion/guardhouse
+	name = "guardhouse"
+	desc = "Sit in the gloom and wait for something to happen."
+
 /obj/structure/sign/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
 		if(BRUTE)

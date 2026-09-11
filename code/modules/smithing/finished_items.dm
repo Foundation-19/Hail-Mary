@@ -911,3 +911,17 @@
 	mob_overlay_icon = 'icons/onmob/slot.dmi'
 	icon_state = "smithed_armor_metal"
 	item_state = "smithed_armor_metal"
+
+/obj/item/clothing/suit/armor/heavy/metal/smithed/legion
+	name = "smithed legion armor"
+	desc = "A set of plates with leather straps, protecting some vital areas. This one is combined with football shoulder pads and marked with the red X of Caesars Legion."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "armor_smithed"
+	item_state = "armor_smithed"
+
+/obj/item/clothing/suit/armor/heavy/metal/smithed/legion/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)

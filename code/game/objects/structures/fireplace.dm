@@ -16,6 +16,9 @@
 	var/fuel_added = 0
 	var/flame_expiry_timer
 
+/obj/structure/fireplace/preloaded
+	fuel_added = 1000
+
 /obj/structure/fireplace/New()
 	..()
 	START_PROCESSING(SSobj, src)
