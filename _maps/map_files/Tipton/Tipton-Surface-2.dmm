@@ -2334,12 +2334,6 @@
 	dir = 8
 	},
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/f13/faction_generator/diesel{
-	fuel = 750
-	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
 "aRD" = (
@@ -4710,6 +4704,12 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/carpet/black,
 /area/f13/casino/powered)
+"bLI" = (
+/obj/machinery/light{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/ncr/powered)
 "bLK" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 5
@@ -4718,6 +4718,12 @@
 	initial_gas_mix = "o2=22;n2=82;TEMP=285"
 	},
 /area/f13/wasteland/cold)
+"bLN" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 6
+	},
+/turf/open/floor/plating/dirt,
+/area/f13/ncr/powered)
 "bLP" = (
 /obj/structure/closet/crate/bin/trashbin,
 /obj/machinery/light/small{
@@ -5435,12 +5441,8 @@
 /area/f13/wasteland)
 "bYf" = (
 /obj/structure/flora/ausbushes/sparsegrass,
-/obj/machinery/f13/power_relay,
 /obj/structure/cable{
-	icon_state = "0-8"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "1-4"
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
@@ -8656,6 +8658,13 @@
 /turf/closed/mineral/random/low_chance,
 /turf/closed/mineral/random,
 /area/f13/underground/mountain)
+"dlj" = (
+/obj/structure/flora/grass/both,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "dlI" = (
 /obj/effect/turf_decal/weather/snow/corner{
 	dir = 10
@@ -9091,15 +9100,8 @@
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
 "dtk" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/indestructible/ground/outside/snow,
-/area/f13/wasteland/cold)
+/turf/closed/mineral/snowmountain,
+/area/f13/ncr/powered)
 "dtt" = (
 /obj/structure/table,
 /obj/item/reagent_containers/spray/cleaner,
@@ -10044,10 +10046,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "dKl" = (
-/obj/structure/flora/ausbushes/sparsegrass,
-/obj/effect/landmark/start/f13/ncrsergeant,
+/obj/structure/flora/grass/brown,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "2-4"
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
@@ -13645,7 +13646,7 @@
 	},
 /obj/structure/flora/tree/pine,
 /turf/open/indestructible/ground/outside/snow,
-/area/f13/wasteland/cold)
+/area/f13/ncr/powered)
 "fbD" = (
 /mob/living/simple_animal/chicken,
 /turf/open/floor/plating/dirt,
@@ -18588,7 +18589,7 @@
 "gXl" = (
 /obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/cable{
-	icon_state = "2-8"
+	icon_state = "4-8"
 	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
@@ -24842,6 +24843,11 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"jmw" = (
+/turf/open/indestructible/ground/outside/snow{
+	icon_state = "snow3"
+	},
+/area/f13/ncr/powered)
 "jmB" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/subway{
@@ -25202,6 +25208,13 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/cafeteria,
 /area/f13/holiday)
+"jvc" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "jvl" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/wood,
@@ -28235,9 +28248,6 @@
 /area/f13/holiday)
 "kzN" = (
 /obj/effect/landmark/start/f13/ncrrep,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
 "kzQ" = (
@@ -34115,14 +34125,12 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/legion)
 "mIO" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 8
-	},
+/obj/structure/flora/ausbushes/sparsegrass,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
 /turf/open/floor/plating/dirt,
-/area/f13/wasteland/cold)
+/area/f13/brotherhood)
 "mJi" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/wreck/trash/machinepiletwo,
@@ -34659,6 +34667,13 @@
 	},
 /turf/closed/wall/f13/wood,
 /area/f13/legion)
+"mTd" = (
+/obj/structure/flora/grass/brown,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/ncr/powered)
 "mTk" = (
 /mob/living/simple_animal/hostile/raider/ranged,
 /turf/open/floor/f13{
@@ -37351,6 +37366,11 @@
 /obj/structure/flora/junglebush/large,
 /turf/open/floor/plating/dirt,
 /area/f13/underground/mountain)
+"nQu" = (
+/turf/open/indestructible/ground/outside/snow{
+	icon_state = "snow5"
+	},
+/area/f13/ncr/powered)
 "nQv" = (
 /obj/structure/barricade/wooden,
 /obj/structure/decoration/rag{
@@ -37714,7 +37734,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/snow,
-/area/f13/wasteland/cold)
+/area/f13/ncr/powered)
 "nXN" = (
 /obj/machinery/light/floor,
 /turf/open/indestructible/ground/outside/sidewalk{
@@ -37768,12 +37788,6 @@
 	dir = 4
 	},
 /obj/structure/flora/grass/brown,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/f13/faction_generator/diesel{
-	fuel = 750
-	},
 /turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
 "nZc" = (
@@ -38139,6 +38153,13 @@
 	icon_state = "common-broken2"
 	},
 /area/f13/building)
+"oha" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/ncr/powered)
 "ohk" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/table/booth,
@@ -41454,6 +41475,15 @@
 	},
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
+"ptw" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "ptE" = (
 /obj/structure/closet/crate/large{
 	pixel_x = -7
@@ -42616,6 +42646,15 @@
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft2top"
 	},
+/area/f13/wasteland/cold)
+"pPb" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/f13/faction_generator/diesel{
+	fuel = 750
+	},
+/turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
 "pPi" = (
 /obj/structure/bed,
@@ -49374,6 +49413,12 @@
 /obj/effect/spawner/lootdrop/f13/cash_random_low,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralsolid,
 /area/f13/building/powered)
+"spi" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "spj" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -57997,13 +58042,11 @@
 	},
 /area/f13/wasteland/cold)
 "vvU" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5
-	},
+/obj/structure/flora/grass/brown,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/turf/open/floor/plating/dirt,
+/turf/open/indestructible/ground/outside/snow,
 /area/f13/wasteland/cold)
 "vwb" = (
 /obj/structure/closet/crate/large{
@@ -60281,6 +60324,13 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
 /area/f13/holiday)
+"wmx" = (
+/obj/structure/flora/grass/both,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/outside/snow,
+/area/f13/wasteland/cold)
 "wmI" = (
 /obj/effect/turf_decal/weather/snow/corner,
 /obj/effect/turf_decal/weather/dirt{
@@ -70583,7 +70633,7 @@ uXX
 uXX
 uXX
 uXX
-sof
+jmw
 uJN
 jRd
 jRd
@@ -70849,7 +70899,7 @@ jRd
 jRd
 qXQ
 kIK
-lwG
+bLI
 qXQ
 jRd
 jRd
@@ -71363,7 +71413,7 @@ qXQ
 oxN
 jIq
 uuW
-jIq
+uuW
 jIq
 aWw
 kKb
@@ -72666,7 +72716,7 @@ xyH
 xyH
 cAJ
 jRd
-cAJ
+nQu
 kIK
 jRd
 jRd
@@ -74199,10 +74249,10 @@ vtw
 cSt
 cSt
 qAu
-sTy
-pMk
-pMk
-hPO
+qNq
+rdo
+rdo
+bLN
 yhi
 gAZ
 cSt
@@ -74956,7 +75006,7 @@ slY
 slY
 bZt
 wIg
-xyH
+uVQ
 yhi
 rvm
 cSt
@@ -75993,8 +76043,8 @@ cSt
 ijt
 lmB
 swS
-gXl
-dtk
+kwl
+kwl
 xyH
 jRd
 qXQ
@@ -76251,7 +76301,7 @@ dwW
 yhi
 jAz
 fcA
-lqd
+xyH
 xyH
 xyH
 rcI
@@ -76508,7 +76558,7 @@ chG
 xGg
 kRO
 gYX
-mIO
+gYX
 gYX
 gYX
 gYX
@@ -77022,7 +77072,7 @@ qCE
 yhi
 mhO
 kwl
-vvU
+xdI
 pMk
 hPO
 xyH
@@ -77279,7 +77329,7 @@ yhi
 yhi
 gOg
 swS
-dKl
+hQl
 wsz
 hQl
 kwl
@@ -77526,16 +77576,16 @@ qXQ
 jRd
 jRd
 hFO
-xyH
-kwl
-xyH
-fcA
-xyH
-kwl
-uVQ
-kwl
-xyH
-xyH
+dKl
+jvc
+vvU
+wmx
+vvU
+oha
+mTd
+jvc
+vvU
+vvU
 bYf
 wsz
 kwl
@@ -77783,7 +77833,7 @@ jRd
 qXQ
 uHd
 qXQ
-kwl
+gXl
 yhi
 yhi
 yhi
@@ -78040,7 +78090,7 @@ uXX
 uXX
 uHd
 tVG
-xyH
+lqd
 yhi
 ldS
 gVs
@@ -78297,7 +78347,7 @@ uXX
 uXX
 uHd
 qXQ
-fcA
+dlj
 yhi
 fLv
 nGf
@@ -78554,7 +78604,7 @@ uXX
 uHd
 qXQ
 kwl
-kwl
+gXl
 yhi
 nGf
 cSt
@@ -78811,7 +78861,7 @@ uXX
 uHd
 xyH
 fcA
-xyH
+lqd
 yhi
 mCF
 mrE
@@ -79067,8 +79117,8 @@ uXX
 uXX
 uHd
 kwl
-qXQ
-fcA
+spi
+ptw
 yhi
 rPp
 dWc
@@ -79324,8 +79374,8 @@ uXX
 uXX
 uHd
 uHd
-swS
-kwl
+pPb
+pPb
 yhi
 cSt
 cSt
@@ -80109,11 +80159,11 @@ yhi
 yhi
 yhi
 yhi
-uHd
-uHd
-uHd
-uHd
-uHd
+dtk
+dtk
+dtk
+dtk
+dtk
 yhi
 xWA
 cSt
@@ -80365,12 +80415,12 @@ uHd
 uHd
 uHd
 uHd
-uHd
-uHd
-uHd
-uHd
-uHd
-uHd
+dtk
+dtk
+dtk
+dtk
+dtk
+dtk
 yhi
 xWA
 cSt
@@ -120801,10 +120851,10 @@ iqJ
 iqJ
 bXo
 ulR
-ehI
-jRd
-jRd
-xsW
+nzy
+ubd
+ubd
+pIh
 vpr
 fYC
 fud
@@ -132105,7 +132155,7 @@ pMk
 uoc
 pMk
 pMk
-eoB
+blj
 rvU
 pMk
 eoB
@@ -134694,7 +134744,7 @@ eoB
 pMk
 pMk
 eoB
-pMk
+rvU
 blj
 vwk
 xyH
@@ -135448,7 +135498,7 @@ jRd
 xyH
 mZo
 abu
-geY
+mIO
 kLB
 kLB
 kLB
@@ -135705,7 +135755,7 @@ qXQ
 jRd
 sTy
 blj
-pMk
+rvU
 pMk
 eoB
 pMk

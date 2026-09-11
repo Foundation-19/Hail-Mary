@@ -951,7 +951,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/turf/open/floor/plating/f13/outside/roof,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
 "bzi" = (
 /turf/open/floor/f13/wood{
@@ -1058,13 +1058,10 @@
 /turf/open/transparent/openspace,
 /area/f13/ncr/powered)
 "bGc" = (
-/obj/machinery/f13/faction_generator/diesel{
-	fuel = 750
-	},
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "1-8"
 	},
-/turf/open/floor/plating/f13/outside/roof,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/wasteland/cold)
 "bGp" = (
 /obj/structure/chair/stool/retro,
@@ -2565,6 +2562,12 @@
 /obj/machinery/workbench/forge,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"dTf" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/f13/outside/roof/wood/old,
+/area/f13/holiday)
 "dTy" = (
 /obj/effect/decal/cleanable/dirt,
 /mob/living/simple_animal/hostile/raider,
@@ -2635,6 +2638,12 @@
 	icon_state = "floordirtysolid"
 	},
 /area/f13/building/powered)
+"dZl" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plating/f13/outside/roof/wood/old,
+/area/f13/holiday)
 "eae" = (
 /obj/structure/table,
 /obj/item/toy/cards/deck/unum{
@@ -5718,13 +5727,11 @@
 /turf/open/floor/plating/dirt,
 /area/f13/wasteland/cold)
 "iHw" = (
+/obj/machinery/f13/junction_box/large,
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-4"
 	},
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/turf/open/floor/plating/f13/outside/roof,
+/turf/closed/wall/r_wall/rust,
 /area/f13/holiday)
 "iIe" = (
 /obj/machinery/light/small{
@@ -6095,9 +6102,12 @@
 /area/f13/building/powered)
 "joJ" = (
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-2"
 	},
-/turf/open/floor/plating/f13/outside/roof,
+/obj/machinery/f13/faction_generator/diesel{
+	fuel = 750
+	},
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/holiday)
 "jpq" = (
 /turf/open/floor/plating/f13/outside/roof,
@@ -6760,10 +6770,11 @@
 /turf/open/floor/f13/wood,
 /area/f13/ncr/powered)
 "kme" = (
-/obj/machinery/f13/junction_box/large,
-/obj/structure/cable,
-/turf/closed/wall/f13/wood/house,
-/area/f13/holiday)
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/f13/outside/roof/wood/old,
+/area/f13/wasteland/cold)
 "kmi" = (
 /obj/structure/obstacle/barbedwire{
 	dir = 4
@@ -7403,10 +7414,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/holiday)
 "ljB" = (
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
-/turf/open/floor/plating/f13/outside/roof,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/holiday)
 "lkD" = (
 /obj/machinery/hydroponics/soil,
@@ -9434,13 +9442,10 @@
 	},
 /area/f13/building/powered)
 "otu" = (
-/obj/machinery/f13/faction_generator/diesel{
-	fuel = 750
-	},
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "1-4"
 	},
-/turf/open/floor/plating/f13/outside/roof,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/holiday)
 "otI" = (
 /obj/effect/decal/cleanable/dirt,
@@ -11520,14 +11525,10 @@
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/building/powered)
 "rvH" = (
-/obj/machinery/f13/power_relay,
 /obj/structure/cable{
-	icon_state = "0-8"
+	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/turf/open/floor/plating/f13/outside/roof,
+/turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/holiday)
 "rwj" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
@@ -14358,6 +14359,12 @@
 	},
 /turf/closed/wall/f13/wood/house,
 /area/f13/building/powered)
+"vVi" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/plating/f13/outside/roof/wood/old,
+/area/f13/holiday)
 "vVQ" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -14675,6 +14682,18 @@
 /obj/item/reagent_containers/food/snacks/deadmouse,
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
+"wwj" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/f13/outside/roof/wood/old,
+/area/f13/holiday)
 "wwS" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -50187,11 +50206,11 @@ jLg
 jjg
 qNl
 wlp
-wlp
-wlp
-wlp
-wlp
-wlp
+qNl
+qNl
+qNl
+qNl
+qNl
 qNl
 qNl
 qNl
@@ -50445,10 +50464,10 @@ tCE
 qNl
 qNl
 qNl
-wlp
-wlp
-wlp
-wlp
+joJ
+otu
+ljB
+ljB
 qNl
 pKU
 kbS
@@ -50702,10 +50721,10 @@ jgw
 nsK
 cxO
 qNl
-wlp
-wlp
-wlp
-wlp
+joJ
+wwj
+dTf
+otu
 qNl
 rsC
 tjV
@@ -50959,10 +50978,10 @@ uGs
 uGs
 tFI
 qNl
-wlp
-wlp
-wlp
-wlp
+vVi
+dZl
+ljB
+rvH
 qNl
 aHN
 jvx
@@ -51216,10 +51235,10 @@ uGs
 udR
 bqD
 qNl
-wlp
-wlp
-wlp
-wlp
+ljB
+ljB
+ljB
+rvH
 qNl
 urf
 fQe
@@ -51473,10 +51492,10 @@ uGs
 uGs
 fAx
 qNl
-wlp
-wlp
-wlp
-wlp
+ljB
+ljB
+ljB
+rvH
 qNl
 jNa
 wPP
@@ -51730,13 +51749,13 @@ fsq
 fsq
 sSW
 qNl
-jlz
-jlz
-jlz
-jlz
+ljB
+ljB
+ljB
+rvH
 qNl
 qNl
-qNl
+iHw
 qNl
 qNl
 qNl
@@ -51990,10 +52009,10 @@ qNl
 vfn
 vfn
 vfn
-vfn
-vfn
-jlz
-toA
+byv
+kme
+kme
+bGc
 toA
 eZY
 toA
@@ -55073,9 +55092,9 @@ dnM
 dnM
 dnM
 dnM
-bGc
-otu
-ghu
+dnM
+dnM
+jlz
 jlz
 jlz
 wlp
@@ -55330,9 +55349,9 @@ dnM
 dnM
 dnM
 dnM
-byv
-iHw
-ghu
+dnM
+dnM
+wlp
 wlp
 wlp
 wlp
@@ -55588,8 +55607,8 @@ dnM
 dnM
 dnM
 dnM
-rvH
-ghu
+dnM
+wlp
 wlp
 wlp
 wlp
@@ -55845,8 +55864,8 @@ dnM
 dnM
 dnM
 dnM
-joJ
-ghu
+dnM
+wlp
 wlp
 wlp
 wlp
@@ -56102,9 +56121,9 @@ dnM
 dnM
 dnM
 dnM
-ljB
-kme
-jlz
+dnM
+wlp
+wlp
 wlp
 wlp
 wlp
