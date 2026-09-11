@@ -225,11 +225,8 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "arh" = (
-/obj/structure/obstacle/barbedwire{
-	dir = 4
-	},
-/turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/turf/closed/wall/f13/wood,
+/area/f13/city)
 "atz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -387,7 +384,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "aKa" = (
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/wasteland)
@@ -491,7 +488,7 @@
 "aXB" = (
 /obj/structure/obstacle/barbedwire,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "aXF" = (
 /obj/structure/rack/shelf_metal{
 	dir = 4
@@ -518,7 +515,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "aYm" = (
 /obj/structure/bed/old,
 /obj/machinery/light/small{
@@ -636,7 +633,7 @@
 /obj/structure/obstacle/barbedwire,
 /obj/structure/obstacle/barbedwire,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "bhm" = (
 /turf/closed/indestructible/rock{
 	desc = "A pre-War wall made of solid concrete.";
@@ -1269,7 +1266,7 @@
 	},
 /obj/structure/railing/corner,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "cqy" = (
 /obj/structure/railing{
 	dir = 1
@@ -1912,7 +1909,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "dtb" = (
 /turf/open/floor/f13/wood,
 /area/f13/wasteland)
@@ -3113,7 +3110,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide,
-/area/f13/bar)
+/area/f13/city)
 "fzS" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/wood/house,
@@ -3678,7 +3675,7 @@
 	},
 /obj/structure/obstacle/barbedwire/end,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "gES" = (
 /obj/structure/bookcase,
 /obj/item/book/manual/wiki/infections,
@@ -4777,7 +4774,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "iKG" = (
 /obj/structure/table,
 /obj/item/paper/fluff/cogstation,
@@ -5112,7 +5109,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood_wide,
-/area/f13/bar)
+/area/f13/city)
 "jrI" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -5245,7 +5242,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "jzp" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/defibrillator/loaded,
@@ -5362,7 +5359,7 @@
 	icon_state = "1-8"
 	},
 /turf/closed/wall/r_wall/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "jLE" = (
 /obj/machinery/autolathe/ammo/unlocked_basic,
 /turf/open/floor/f13{
@@ -6465,7 +6462,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "lBB" = (
 /obj/item/kirbyplants,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
@@ -6893,7 +6890,7 @@
 	icon_state = "4-8"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "msp" = (
 /obj/structure/table,
 /obj/item/paper_bin,
@@ -7114,7 +7111,7 @@
 	},
 /obj/structure/railing/corner,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "mLV" = (
 /obj/machinery/light{
 	dir = 1;
@@ -7156,11 +7153,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr/jail)
 "mRP" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/structure/railing/corner{
+	dir = 8
 	},
-/turf/closed/wall/r_wall,
-/area/f13/wasteland)
+/turf/open/floor/plating/rust,
+/area/f13/city)
 "mRZ" = (
 /obj/effect/overlay/junk/sink{
 	pixel_y = 15
@@ -8631,7 +8628,7 @@
 	},
 /obj/structure/railing,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "peZ" = (
 /obj/structure/obstacle/barbedwire{
 	dir = 4
@@ -8640,7 +8637,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "pfO" = (
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
@@ -9005,7 +9002,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "pLf" = (
 /obj/structure/table,
 /obj/item/newspaper{
@@ -9199,7 +9196,7 @@
 	pixel_x = 5
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "qbf" = (
 /turf/open/transparent/openspace{
 	name = "air";
@@ -9602,7 +9599,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "qSh" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
@@ -9853,7 +9850,7 @@
 	},
 /obj/structure/obstacle/barbedwire/end,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "rwk" = (
 /turf/closed/mineral/random/high_chance,
 /area/f13/caves)
@@ -10017,10 +10014,10 @@
 /area/f13/city)
 "rMo" = (
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
 /turf/closed/wall/r_wall/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "rMZ" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/wood,
@@ -10060,7 +10057,7 @@
 	icon_state = "1-8"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "rQT" = (
 /obj/structure/lattice/catwalk,
 /turf/open/floor/plating/rust,
@@ -10146,7 +10143,7 @@
 	icon_state = "1-4"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "rVI" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
@@ -10197,7 +10194,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "sbt" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/plasteel/f13/vault_floor/white,
@@ -10235,7 +10232,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "sdB" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -11760,7 +11757,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "uJn" = (
 /obj/structure/railing{
 	dir = 4
@@ -11978,7 +11975,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "vhg" = (
 /obj/structure/chair/f13foldupchair{
 	dir = 8
@@ -12199,7 +12196,7 @@
 	icon_state = "1-8"
 	},
 /turf/closed/wall/r_wall/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "vHb" = (
 /obj/machinery/light{
 	dir = 4
@@ -12213,7 +12210,7 @@
 	icon_state = "1-4"
 	},
 /turf/closed/wall/r_wall/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "vIr" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
@@ -12456,7 +12453,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/bar)
+/area/f13/city)
 "whe" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -12548,7 +12545,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "wse" = (
 /obj/structure/window/fulltile/house{
 	icon_state = "storewindowhorizontal";
@@ -12775,7 +12772,7 @@
 	dir = 8
 	},
 /turf/open/floor/plating/rust,
-/area/f13/bar)
+/area/f13/city)
 "wWL" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -12984,7 +12981,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "xpn" = (
 /obj/structure/table,
 /obj/item/reagent_containers/hypospray/medipen/stimpak,
@@ -13191,7 +13188,7 @@
 	icon_state = "2-4"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "xFD" = (
 /obj/structure/railing{
 	dir = 4
@@ -13338,7 +13335,7 @@
 /obj/structure/obstacle/barbedwire/end,
 /obj/structure/railing,
 /turf/open/floor/plating/rust,
-/area/f13/wasteland)
+/area/f13/city)
 "xQx" = (
 /obj/structure/window/reinforced/fulltile,
 /obj/structure/grille,
@@ -39321,7 +39318,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 oez
 oez
 oez
@@ -39578,7 +39575,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 oez
 oez
 oez
@@ -39835,7 +39832,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 oez
 oez
 oez
@@ -40092,7 +40089,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 oez
 oez
 oez
@@ -40349,7 +40346,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 orG
 sAH
 sAH
@@ -40606,7 +40603,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 gfT
 oez
 oez
@@ -40863,7 +40860,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 gfT
 oez
 oez
@@ -41120,7 +41117,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 gfT
 oez
 oez
@@ -41377,7 +41374,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 gfT
 oez
 oez
@@ -41634,7 +41631,7 @@ oez
 oez
 oez
 oez
-mRP
+tRy
 orG
 sAH
 sAH
@@ -44723,7 +44720,7 @@ bgX
 cqq
 jqW
 fyP
-lZx
+arh
 lZx
 lZx
 lZx
@@ -44975,7 +44972,7 @@ oez
 oez
 oez
 oez
-arh
+pDx
 lZx
 lZx
 dAC
@@ -45019,7 +45016,7 @@ ioy
 ioy
 nzy
 nkA
-rMo
+hCt
 oez
 oez
 oez
@@ -45533,7 +45530,7 @@ ioy
 ioy
 azF
 nkA
-rMo
+hCt
 rOF
 rOF
 rOF
@@ -45790,7 +45787,7 @@ nkA
 dzr
 stQ
 nkA
-rMo
+hCt
 gKe
 gKe
 gKe
@@ -46003,7 +46000,7 @@ oez
 oez
 oez
 oez
-arh
+pDx
 lZx
 lZx
 lZx
@@ -46047,7 +46044,7 @@ nkA
 nkA
 nkA
 mho
-rMo
+hCt
 gKe
 gKe
 gKe
@@ -46304,7 +46301,7 @@ oez
 oez
 oez
 oez
-rMo
+hCt
 gKe
 gKe
 gKe
@@ -46561,7 +46558,7 @@ vtd
 oez
 oez
 oez
-rMo
+hCt
 gKe
 gKe
 gKe
@@ -46816,7 +46813,7 @@ dMJ
 mpU
 vtd
 ctL
-wvE
+rMo
 wvE
 vGM
 gKe
@@ -47031,7 +47028,7 @@ oez
 oez
 oez
 oez
-arh
+pDx
 lZx
 lZx
 lZx
@@ -47330,7 +47327,7 @@ hBS
 hBS
 hBS
 mcV
-arh
+pDx
 oez
 oez
 gKe
@@ -47587,7 +47584,7 @@ hBS
 vtd
 vtd
 mcV
-arh
+pDx
 oez
 oez
 gKe
@@ -47844,7 +47841,7 @@ hBS
 hBS
 fVR
 mcV
-arh
+pDx
 oez
 oez
 gKe
@@ -50372,7 +50369,7 @@ oez
 oez
 oez
 oez
-rnq
+mRP
 wga
 wga
 wga
@@ -50404,7 +50401,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -50640,7 +50637,7 @@ oez
 oez
 oez
 oez
-arh
+pDx
 oez
 oez
 oez
@@ -50897,7 +50894,7 @@ geI
 geI
 ttz
 oez
-arh
+pDx
 oez
 oez
 oez
@@ -50917,7 +50914,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -51154,7 +51151,7 @@ gCC
 nwX
 hMq
 hMq
-arh
+pDx
 oez
 oez
 oez
@@ -51174,7 +51171,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -51411,7 +51408,7 @@ qzj
 qzj
 ojS
 hMq
-arh
+pDx
 oez
 oez
 oez
@@ -51431,7 +51428,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -51668,7 +51665,7 @@ qzj
 qzj
 qzj
 bcZ
-arh
+pDx
 oez
 oez
 oez
@@ -51688,7 +51685,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -51925,7 +51922,7 @@ qzj
 qzj
 qzj
 gEl
-arh
+pDx
 oez
 oez
 oez
@@ -51945,7 +51942,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -52182,7 +52179,7 @@ xIB
 qzj
 qzj
 wtE
-arh
+pDx
 oez
 oez
 oez
@@ -52202,7 +52199,7 @@ wqm
 wqm
 wqm
 wqm
-arh
+pDx
 oez
 oez
 oez
@@ -52439,7 +52436,7 @@ qzj
 qzj
 qzj
 bcZ
-arh
+pDx
 oez
 oez
 oez
