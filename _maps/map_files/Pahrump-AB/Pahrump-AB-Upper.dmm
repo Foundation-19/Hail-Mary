@@ -224,9 +224,6 @@
 /obj/structure/campfire/barrel,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
-"arh" = (
-/turf/closed/wall/f13/wood,
-/area/f13/city)
 "atz" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 4
@@ -400,7 +397,7 @@
 "aNm" = (
 /obj/structure/chair/f13foldupchair,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "aOm" = (
 /turf/open/transparent/openspace,
 /area/f13/ncr/entrance)
@@ -555,7 +552,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "bah" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -2229,11 +2226,6 @@
 	icon_state = "bluerusty"
 	},
 /area/f13/building/hospital)
-"dXF" = (
-/obj/structure/lattice/catwalk,
-/obj/structure/lattice/catwalk,
-/turf/open/transparent/openspace,
-/area/f13/city)
 "dXM" = (
 /obj/structure/table/wood,
 /obj/item/lock_construct,
@@ -2715,8 +2707,9 @@
 /turf/open/transparent/openspace,
 /area/f13/wasteland)
 "ePI" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/machinery/light,
-/turf/closed/wall/rust,
+/turf/open/transparent/openspace,
 /area/f13/ncr/jail)
 "eRm" = (
 /obj/structure/closet,
@@ -3022,10 +3015,10 @@
 	},
 /area/f13/city)
 "fmy" = (
-/obj/structure/cable{
-	icon_state = "2-8"
+/obj/structure/railing/corner{
+	dir = 8
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/open/floor/plating/rust,
 /area/f13/city)
 "fmJ" = (
 /obj/machinery/workbench,
@@ -3357,7 +3350,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "gcq" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -3417,7 +3410,6 @@
 /area/f13/building/hospital)
 "ggq" = (
 /obj/structure/cable,
-/obj/machinery/f13/junction_box/small,
 /turf/closed/wall/f13/wood/house,
 /area/f13/city)
 "ggY" = (
@@ -3577,13 +3569,6 @@
 /obj/item/hatchet,
 /turf/open/floor/wood_common,
 /area/f13/bar)
-"gqX" = (
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
-/obj/machinery/f13/junction_box/large,
-/turf/closed/wall/r_wall/rust,
-/area/f13/city)
 "gtZ" = (
 /turf/open/floor/wood_wide,
 /area/f13/bar)
@@ -4586,7 +4571,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "itG" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/closed/wall,
@@ -4929,9 +4914,8 @@
 /turf/open/floor/f13/wood,
 /area/f13/building)
 "iYk" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
+/turf/closed/wall/f13/wood,
+/area/f13/city)
 "iYI" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -5279,9 +5263,6 @@
 "jDa" = (
 /obj/structure/cable{
 	icon_state = "0-4"
-	},
-/obj/machinery/f13/junction_box/small{
-	pixel_x = 32
 	},
 /obj/structure/table,
 /turf/open/floor/f13{
@@ -7152,12 +7133,6 @@
 /obj/structure/filingcabinet/chestdrawer,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ncr/jail)
-"mRP" = (
-/obj/structure/railing/corner{
-	dir = 8
-	},
-/turf/open/floor/plating/rust,
-/area/f13/city)
 "mRZ" = (
 /obj/effect/overlay/junk/sink{
 	pixel_y = 15
@@ -7940,9 +7915,6 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/machinery/f13/junction_box/small{
-	pixel_x = 32
-	},
 /turf/closed/wall/r_wall,
 /area/f13/city)
 "nVH" = (
@@ -8158,7 +8130,6 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
-/obj/machinery/f13/junction_box/large,
 /turf/closed/wall/r_wall,
 /area/f13/city)
 "ojS" = (
@@ -8655,18 +8626,6 @@
 	icon_state = "neutralrustyfull"
 	},
 /area/f13/wasteland)
-"pgU" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/city)
 "phh" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4";
@@ -9814,9 +9773,6 @@
 /obj/structure/barricade/wooden,
 /turf/open/transparent/openspace,
 /area/f13/building)
-"rsw" = (
-/turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
 "rsx" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plasteel/f13{
@@ -10011,12 +9967,6 @@
 	pixel_y = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/city)
-"rMo" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/closed/wall/r_wall/rust,
 /area/f13/city)
 "rMZ" = (
 /obj/structure/barricade/wooden,
@@ -11960,13 +11910,6 @@
 	dir = 1
 	},
 /area/f13/building/hospital)
-"vgS" = (
-/obj/structure/cable,
-/obj/machinery/f13/faction_generator/diesel{
-	fuel = 750
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/city)
 "vhc" = (
 /obj/structure/railing/corner{
 	dir = 4
@@ -12401,7 +12344,7 @@
 	light_color = "#e8eaff"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/dark,
-/area/f13/wasteland/ncr)
+/area/f13/ncr)
 "wcb" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -13125,9 +13068,9 @@
 /area/f13/clinic)
 "xAL" = (
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/turf/closed/wall/r_wall/rust,
 /area/f13/city)
 "xAT" = (
 /obj/machinery/light{
@@ -15352,8 +15295,8 @@ wYD
 ujK
 vVF
 sGc
-mph
 ePI
+gkT
 xSN
 oez
 oez
@@ -24311,8 +24254,8 @@ ooN
 ooN
 cwL
 aNm
-rsw
-rsw
+ooN
+ooN
 iqu
 rLB
 rLB
@@ -24568,8 +24511,8 @@ eIR
 ooN
 mUM
 aNm
-rsw
-rsw
+ooN
+ooN
 iqu
 rLB
 rLB
@@ -24824,8 +24767,8 @@ fUw
 ooN
 eCw
 xcQ
-iYk
-rsw
+eIR
+ooN
 ixY
 iqu
 rLB
@@ -25081,9 +25024,9 @@ ixY
 ooN
 ixY
 ixY
-rsw
-rsw
-rsw
+ooN
+ooN
+ooN
 iqu
 rLB
 rLB
@@ -25339,8 +25282,8 @@ eIR
 ooN
 ixY
 wbR
-rsw
-rsw
+ooN
+ooN
 iqu
 rLB
 rLB
@@ -25595,8 +25538,8 @@ ooN
 ooN
 ooN
 aTt
-rsw
-rsw
+ooN
+ooN
 ixY
 iqu
 rLB
@@ -33938,7 +33881,7 @@ oez
 oez
 oez
 kvJ
-gqX
+kvJ
 hCt
 kvJ
 kvJ
@@ -34195,9 +34138,9 @@ pZk
 geI
 geI
 kvJ
-fmy
-pgU
-vgS
+hYA
+hYA
+hYA
 kvJ
 anV
 hYA
@@ -34453,7 +34396,7 @@ wYp
 wYp
 hYA
 hYA
-xAL
+hYA
 hYA
 tTN
 hYA
@@ -34710,7 +34653,7 @@ wYp
 wYp
 hYA
 hYA
-xAL
+hYA
 hYA
 tTN
 hYA
@@ -34967,8 +34910,8 @@ wYp
 wYp
 kvJ
 hYA
-fmy
-vgS
+hYA
+hYA
 nkA
 kWz
 hYA
@@ -35478,7 +35421,7 @@ oez
 oez
 fbK
 wYp
-dXF
+wYp
 wYp
 wYp
 wYp
@@ -35735,7 +35678,7 @@ oez
 oez
 fbK
 wYp
-dXF
+wYp
 wYp
 wYp
 wYp
@@ -44720,7 +44663,7 @@ bgX
 cqq
 jqW
 fyP
-arh
+iYk
 lZx
 lZx
 lZx
@@ -46813,7 +46756,7 @@ dMJ
 mpU
 vtd
 ctL
-rMo
+xAL
 wvE
 vGM
 gKe
@@ -50369,7 +50312,7 @@ oez
 oez
 oez
 oez
-mRP
+fmy
 wga
 wga
 wga
