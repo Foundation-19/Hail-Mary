@@ -250,3 +250,34 @@
 				/obj/item/mecha_parts/part/clarke_left_arm,
 				/obj/item/mecha_parts/part/clarke_right_arm,
 				/obj/item/stack/conveyor)
+
+
+/obj/structure/mecha_wreckage/truck
+	name = "\improper Truck wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish13"
+
+/obj/structure/mecha_wreckage/jeep
+	name = "\improper Jeep wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish14"
+
+/obj/structure/mecha_wreckage/highwayman
+	name = "\improper Highwayman wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish15"
+
+/obj/structure/mecha_wreckage/corvega
+	name = "\improper Corvega wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish16"
+
+/obj/structure/mecha_wreckage/buggy
+	name = "\improper Buggy wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/fallout/trash.dmi'
+	icon_state = "car_rubish17"

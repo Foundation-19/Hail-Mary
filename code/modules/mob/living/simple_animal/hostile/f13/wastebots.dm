@@ -647,6 +647,24 @@
 	
 	emp_flags = list()  // No EMP instakill
 
+
+/mob/living/simple_animal/hostile/handy/assaultron/ensign
+	name = "Ensign DEADLOCK"
+	desc = "Guadrian of the USS Iron Shadow, this assaultron is a heavely armored assaultron."
+	
+	mob_armor = ARMOR_VALUE_ROBOT_MILITARY_HEAVY
+	
+	maxHealth = 300
+	health = 300
+	aggro_vision_range = 15
+	obj_damage = 300
+	
+	faction = list("hostile")
+	can_ghost_into = FALSE
+	color = "#727ff5"  // Dark blue
+	
+	emp_flags = list()  // No EMP instakill
+
 // PLAYABLE ASSAULTRON
 /mob/living/simple_animal/hostile/handy/assaultron/playable
 	see_in_dark = 8

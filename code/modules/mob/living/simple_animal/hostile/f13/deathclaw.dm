@@ -157,6 +157,110 @@
 	playsound(get_turf(throwee), 'sound/effects/Flesh_Break_1.ogg', 50, 1)
 	visible_message(span_danger("[src] hurls [the_target] across the room!"))
 
+/mob/living/simple_animal/hostile/deathclaw/Move()
+	if(is_low_health && health > 0)
+		new /obj/effect/temp_visual/decoy/fading(loc,src)
+		DestroySurroundings()
+	. = ..()
+
+/mob/living/simple_animal/hostile/deathclaw/Bump(atom/A)
+	if(is_low_health)
+		if((isturf(A) || isobj(A)) && A.density)
+			A.ex_act(EXPLODE_HEAVY)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, 1)
+			if(stat || health <= 0)
+				playsound(get_turf(src), 'sound/effects/Flesh_Break_2.ogg', 100, 1, ignore_walls = TRUE)
+				visible_message(span_danger("[src] smashes into \the [A] and explodes in a violent spray of gore![prob(25) ? " Holy shit!" : ""]"))
+				gib()
+				return
+		DestroySurroundings()
+	..()
+
+// Mother death claw
+/mob/living/simple_animal/hostile/deathclaw/mother
+	name = "mother deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is an angry mother."
+	gender = FEMALE
+	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
+	maxHealth = 1000
+	health = 1000
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 25
+	melee_damage_upper = 55
+	footstep_type = FOOTSTEP_MOB_HEAVY
+	color = rgb(95,104,94)
+	color_mad = rgb(113, 105, 100)
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab/deathclaw = 6,
+							/obj/item/stack/sheet/animalhide/deathclaw = 3)
+
+/mob/living/simple_animal/hostile/deathclaw/butter
+	name = "butterclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is...made out of butter?"
+	icon_state = "deathclaw_butter"
+	icon_living = "deathclaw_butter"
+	icon_dead = "deathclaw_butter_dead"
+	color_mad = rgb(133, 98, 87)
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/butter = 10,
+							/obj/item/stack/sheet/animalhide/deathclaw = 3)
+
+// Intelligent deathclaw, for the Baltimore map. NOT TO BE USED UNLESS EVENT. Use the INFLICTED version for maps.
+/mob/living/simple_animal/hostile/deathclaw/inteligent
+	name = "inteligent deathclaw"
+	desc = "A very rare kind of deathclaw, with inteligence and able of speech."
+	icon = 'icons/fallout/mobs/monsters/deathclaw.dmi'
+	icon_state = "inteligent"
+	icon_living = "inteligent"
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
+	name = "inflicted deathclaw"
+	desc = "There was a time where this deathclaw was inteligent, able to thinking, with a mind and reason. You can still hear it, lamentation. Its trying to resist, and save you from what ever is controling him."
+	icon_state = "inflicted"
+	icon_living = "inflicted"
+	color_mad = rgb(255, 125, 85)
+	maxHealth = 100
+	health = 100
+	stat_attack = UNCONSCIOUS
+	reach = 2
+	speed = 1.8
+
+//Legendary Deathclaw
+/mob/living/simple_animal/hostile/deathclaw/legendary
+	name = "legendary deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is a legendary enemy."
+	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
+	maxHealth = 2400
+	health = 2400
+	color = "#FFFF00"
+	color_mad = rgb(133, 98, 87)
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 25
+	melee_damage_upper = 55
+	footstep_type = FOOTSTEP_MOB_HEAVY
+
+/mob/living/simple_animal/hostile/deathclaw/legendary/death(gibbed)
+	var/turf/T = get_turf(src)
+	if(prob(60))
+		new /obj/item/melee/unarmed/deathclawgauntlet(T)
+	. = ..()
+
+//Power Armor Deathclaw the tankest and the scariest deathclaw in the West. One mistake will end you. May the choice be with you.
+/mob/living/simple_animal/hostile/deathclaw/power_armor
+	name = "power armored deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. Someone had managed to put power armor on him."
+	icon_state = "combatclaw"
+	icon_living = "combatclaw"
+	icon_dead = "combatclaw_dead"
+	mob_armor = ARMOR_VALUE_DEATHCLAW_PA // ha get fucked
+	maxHealth = 3000 // ha get turbofucked
+	health = 3000
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 40
+	melee_damage_upper = 60
+	footstep_type = FOOTSTEP_MOB_HEAVY
+
+
+/// Code for deathclaw charging. It barely works
+/* /mob/living/simple_animal/hostile/deathclaw/bullet_act(obj/item/projectile/Proj)
 // CHARGE MECHANIC - trigger on getting shot
 /mob/living/simple_animal/hostile/deathclaw/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
@@ -309,3 +413,4 @@
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60
+*/

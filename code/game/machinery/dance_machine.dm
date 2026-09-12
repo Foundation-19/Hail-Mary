@@ -29,6 +29,13 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 
+/obj/machinery/jukebox/radio
+	name = "Music Radio"
+	desc = "A holotape player combine with a radio. But the radio doesn't work anymore, so I hope you enjoy music"
+	icon = 'icons/fallout/machines/radio.dmi'
+	icon_state = "large_radio_turn_on"
+
+
 //BIG IRON EDIT -start
 /obj/machinery/jukebox/Initialize() //BIG IRON EDIT -start
 	. = ..()

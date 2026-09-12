@@ -289,6 +289,30 @@
 	icon_state = "holidaychristmas"
 	item_state = "holidaychristmas"
 
+/obj/item/flag/holidayflag/atlantic
+	icon_state = "atlanticflag"
+	item_state = "atlanticflag"
+
+/obj/item/flag/holidayflag/baltimore
+	icon_state = "baltiflag"
+	item_state = "baltiflag"
+
+/obj/item/flag/holidayflag/minutemen
+	icon_state = "minutemenflag"
+	item_state = "minutemenflag"
+
+/obj/item/flag/atlantic
+	icon_state = "atlanticflag"
+	item_state = "atlanticflag"
+
+/obj/item/flag/baltimore
+	icon_state = "baltiflag"
+	item_state = "baltiflag"
+
+/obj/item/flag/minutemen
+	icon_state = "minutemenflag"
+	item_state = "minutemenflag"
+
 /obj/item/flag/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/leather) && item_state == "emptyflag")
 		visible_message(span_notice("[user] begins to make a flag."))

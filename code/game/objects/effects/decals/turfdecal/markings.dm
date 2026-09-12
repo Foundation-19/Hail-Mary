@@ -171,3 +171,6 @@
 	icon = 'icons/turf/decalsbig.dmi'
 	icon_state = "energy"
 
+/obj/effect/turf_decal/big/gda
+	icon = 'icons/turf/decalshuge.dmi'
+	icon_state = "gda"
