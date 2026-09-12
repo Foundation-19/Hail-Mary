@@ -16209,9 +16209,7 @@
 	},
 /area/f13/sewer/powered)
 "sSx" = (
-/obj/structure/cable{
-	icon_state = "0-1"
-	},
+/obj/structure/cable,
 /obj/machinery/camera/autoname{
 	dir = 10;
 	network = list("vault")
@@ -16393,14 +16391,10 @@
 /turf/open/water,
 /area/f13/bunker/bunkertwo)
 "tcR" = (
-/obj/machinery/workbench/forge{
-	desc = "A reactor-heated megafurnace used for forging metal items such as swords, spears and shields and more.";
-	icon_state = "generator_on";
-	name = "superheating forge"
-	},
 /obj/machinery/light/small{
 	light_color = "red"
 	},
+/obj/machinery/f13/core_fabricator,
 /turf/open/floor/f13{
 	icon_state = "yellowdirtyfull"
 	},
@@ -17879,9 +17873,7 @@
 /area/f13/bunker/bunkerthree)
 "uPm" = (
 /obj/effect/decal/cleanable/dirt/dust,
-/obj/structure/cable{
-	icon_state = "0-1"
-	},
+/obj/structure/cable,
 /obj/machinery/power/apc/auto_name/south,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 4
@@ -19815,11 +19807,7 @@
 /turf/open/water,
 /area/f13/bunker/bunkertwo)
 "xdt" = (
-/obj/machinery/workbench/forge{
-	desc = "A reactor-heated megafurnace used for forging metal items such as swords, spears and shields and more.";
-	icon_state = "generator_on";
-	name = "superheating forge"
-	},
+/obj/machinery/f13/core_fabricator,
 /turf/open/floor/f13{
 	icon_state = "yellowdirtyfull"
 	},
@@ -38747,7 +38735,7 @@ aRH
 aRH
 aRH
 aRH
-aRH
+vDE
 aRH
 aRH
 aRH
