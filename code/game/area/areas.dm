@@ -1497,7 +1497,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Clinic"
 
 /area/f13/city/buildingparent/jail
-	name = "Sheriff's Office"
+	name = "Police Station"
 
 /area/f13/city/buildingparent/townhall
 	name = "Town Hall"
