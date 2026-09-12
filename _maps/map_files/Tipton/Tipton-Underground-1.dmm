@@ -1059,6 +1059,12 @@
 /obj/machinery/power/port_gen/pacman/super,
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker/bunkersix)
+"aTk" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/holiday/mine)
 "aTl" = (
 /obj/structure/reagent_dispensers/barrel/two,
 /obj/effect/decal/cleanable/dirt{
@@ -1926,6 +1932,16 @@
 "bvQ" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker/bunkerfive)
+"bwg" = (
+/obj/machinery/light/small{
+	dir = 1;
+	light_color = "green"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "bwm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/vending/coffee,
@@ -2331,6 +2347,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
+"bMy" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/holiday/mine)
 "bMD" = (
 /obj/effect/spawner/structure/window/reinforced,
 /obj/structure/cable{
@@ -3361,6 +3385,9 @@
 /obj/structure/chair/wood{
 	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/holiday/mine)
 "cBw" = (
@@ -3377,6 +3404,12 @@
 	icon_state = "neutralrusty"
 	},
 /area/f13/bunker/bunkernine)
+"cBK" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "cCk" = (
 /obj/structure/disposalpipe/segment{
 	dir = 6
@@ -4958,6 +4991,9 @@
 /turf/open/floor/plasteel,
 /area/f13/caves)
 "dMj" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken2"
 	},
@@ -5490,6 +5526,13 @@
 /obj/item/twohanded/sledgehammer/simple,
 /turf/open/floor/f13/wood,
 /area/f13/caves)
+"ekP" = (
+/obj/effect/turf_decal/weather/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "ekZ" = (
 /obj/effect/decal/waste{
 	icon_state = "goo5"
@@ -6537,6 +6580,12 @@
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/caves)
+"eYy" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/holiday/mine)
 "eYK" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 1;
@@ -8868,6 +8917,9 @@
 /area/f13/bunker/bighornbunker)
 "gLH" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/f13{
 	icon_state = "greenfull"
 	},
@@ -8950,9 +9002,11 @@
 	},
 /area/f13/sewer/powered)
 "gNH" = (
-/mob/living/simple_animal/hostile/raider/baseball/outlaw,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/indestructible/ground/inside/subway,
-/area/f13/den)
+/area/f13/holiday/mine)
 "gNO" = (
 /obj/machinery/chem_dispenser/drinks{
 	dir = 1
@@ -9376,7 +9430,6 @@
 	pixel_y = 28
 	},
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/hostile/raider/baseball/outlaw,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
 "heA" = (
@@ -10701,6 +10754,12 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
+"ifU" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "ifV" = (
 /obj/structure/table/booth,
 /obj/item/storage/bag/plants,
@@ -11151,6 +11210,14 @@
 /obj/effect/spawner/lootdrop/f13/traitbooks,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/bunker/bunkerfive)
+"ivA" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenrustyfull"
+	},
+/area/f13/holiday/mine)
 "ivD" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
@@ -11669,6 +11736,13 @@
 /obj/structure/table,
 /turf/open/floor/f13/wood,
 /area/f13/sewer/powered)
+"iRY" = (
+/obj/machinery/f13/faction_generator/diesel{
+	fuel = 750
+	},
+/obj/structure/cable,
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/holiday/mine)
 "iRZ" = (
 /obj/structure/disposalpipe/trunk/multiz/down,
 /obj/structure/simple_door/metal/ventilation,
@@ -12009,6 +12083,15 @@
 /obj/structure/timeddoor,
 /turf/closed/wall/rust,
 /area/f13/bunker/bunkersix)
+"jjz" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "jjG" = (
 /obj/structure/barricade/bars,
 /turf/open/floor/f13{
@@ -12019,6 +12102,15 @@
 /obj/item/pickaxe/emergency,
 /turf/open/water,
 /area/f13/sewer/powered)
+"jke" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenrustyfull"
+	},
+/area/f13/holiday/mine)
 "jkk" = (
 /obj/item/trash/waffles,
 /turf/open/indestructible/ground/inside/subway,
@@ -13307,6 +13399,17 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/sewer/powered)
+"kkF" = (
+/obj/machinery/f13/junction_box/small{
+	pixel_x = -32
+	},
+/obj/structure/cable,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/holiday/mine)
 "kkI" = (
 /obj/structure/disposalpipe/segment,
 /obj/structure/disposalpipe/segment{
@@ -13321,6 +13424,12 @@
 /obj/structure/girder/reinforced,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
+"kle" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "klr" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/f13/traitbooks,
@@ -13555,6 +13664,12 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/f13/stone/rugged,
 /area/f13/shack)
+"kwJ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/closed/wall/r_wall/rust,
+/area/f13/holiday)
 "kxM" = (
 /obj/structure/bonfire/prelit,
 /turf/open/floor/f13{
@@ -13577,6 +13692,12 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/sewer/powered)
+"kyp" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/closed/wall/f13/ruins,
+/area/f13/holiday)
 "kyE" = (
 /obj/structure/rack,
 /obj/item/storage/bag/ore,
@@ -14206,12 +14327,11 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "kXY" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 8
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/mob/living/simple_animal/hostile/raider/baseball/outlaw,
 /turf/open/indestructible/ground/inside/subway,
-/area/f13/den)
+/area/f13/holiday/mine)
 "kYv" = (
 /obj/structure/disposalpipe/broken{
 	dir = 4
@@ -14725,6 +14845,15 @@
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
+"ltH" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/holiday/mine)
 "ltX" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -15093,6 +15222,13 @@
 /obj/machinery/door/airlock/hatch,
 /turf/open/floor/plating,
 /area/f13/bunker/bunkerfive)
+"lId" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "lIn" = (
 /obj/effect/spawner/lootdrop/f13/armor/random,
 /obj/effect/decal/waste,
@@ -15487,6 +15623,14 @@
 /obj/effect/turf_decal/weather/dirt,
 /turf/open/floor/f13/wood,
 /area/f13/sewer/powered)
+"lTZ" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/holiday/mine)
 "lUm" = (
 /obj/structure/rack,
 /obj/item/storage/bag/trash,
@@ -16820,6 +16964,13 @@
 /mob/living/simple_animal/hostile/handy/assaultron,
 /turf/open/floor/plasteel/floorgrime,
 /area/f13/sewer/powered)
+"mVf" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "mVj" = (
 /obj/structure/campfire/barrel{
 	pixel_y = -1;
@@ -16945,6 +17096,13 @@
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
+"nba" = (
+/obj/structure/destructible/tribal_torch/wall/lit,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "nby" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/mid,
@@ -16973,6 +17131,9 @@
 /obj/structure/flora/rock/jungle{
 	pixel_x = 1;
 	pixel_y = 10
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/holiday/mine)
@@ -17315,6 +17476,14 @@
 	},
 /turf/open/water,
 /area/f13/radiation)
+"nnN" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "noy" = (
 /obj/machinery/vending/engineering,
 /obj/effect/decal/cleanable/dirt,
@@ -17764,6 +17933,13 @@
 	name = "dirty floor"
 	},
 /area/f13/den)
+"nEE" = (
+/obj/structure/flora/rock/pile/largejungle,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "nFI" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/structure/rack,
@@ -17772,6 +17948,15 @@
 	icon_state = "yellowdirtysolid"
 	},
 /area/f13/bunker)
+"nFK" = (
+/obj/structure/fence{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/sewer/powered)
 "nFY" = (
 /obj/structure/noticeboard{
 	pixel_y = 32
@@ -18215,6 +18400,12 @@
 /obj/structure/spacevine,
 /turf/closed/wall/rust,
 /area/f13/sewer/powered)
+"nXo" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "nXp" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /turf/open/indestructible/ground/inside/subway,
@@ -18356,6 +18547,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/sewer/powered)
 "ocF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/holiday)
 "ocR" = (
@@ -18439,6 +18633,9 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/holiday/mine)
 "ohp" = (
@@ -18628,6 +18825,13 @@
 /obj/effect/decal/remains/human,
 /turf/open/water,
 /area/f13/radiation)
+"onO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/holiday)
 "onR" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box,
@@ -19190,6 +19394,18 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow{
 	icon_state = "yellowdirtyfull"
+	},
+/area/f13/sewer/powered)
+"oJy" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_x = 32
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
 	},
 /area/f13/sewer/powered)
 "oJA" = (
@@ -20476,6 +20692,17 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
+"pMw" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/holiday/mine)
 "pMD" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/indestructible/ground/inside/subway,
@@ -22029,6 +22256,15 @@
 /obj/structure/simple_door/wood,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/bunker)
+"qYx" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "qYD" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/side{
@@ -22499,6 +22735,40 @@
 /mob/living/simple_animal/hostile/poison/giant_spider,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel)
+"roP" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
+"rpm" = (
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -2
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -7
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = 3
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -18;
+	pixel_x = 4
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = 9
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/holiday/mine)
 "rpJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
@@ -22662,6 +22932,13 @@
 	icon_state = "floordirtysolid"
 	},
 /area/f13/bunker)
+"rxz" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "ryd" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/floor/wood_common,
@@ -22803,6 +23080,9 @@
 /obj/structure/flora/rock/jungle,
 /obj/structure/flora/rock/jungle{
 	pixel_x = 13
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/holiday/mine)
@@ -23184,6 +23464,34 @@
 /obj/structure/wreck/trash/secway,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
+"rSB" = (
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -2
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -7
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = 3
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = -20;
+	pixel_x = 5
+	},
+/obj/structure/barricade/wooden/planks{
+	density = 0;
+	pixel_y = 15;
+	pixel_x = 5
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/holiday/mine)
 "rSR" = (
 /mob/living/simple_animal/hostile/raider/firefighter,
 /obj/effect/decal/cleanable/dirt,
@@ -23444,6 +23752,16 @@
 	icon_state = "yellowdirtyfull"
 	},
 /area/f13/sewer/powered)
+"seg" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/holiday/mine)
 "sei" = (
 /obj/structure/lattice/catwalk,
 /obj/item/storage/trash_stack,
@@ -24257,6 +24575,10 @@
 /turf/open/floor/plating/rust,
 /area/f13/sewer/powered)
 "sJG" = (
+/obj/machinery/f13/junction_box/small{
+	pixel_x = 32
+	},
+/obj/structure/cable,
 /turf/open/floor/plasteel/f13/vault_floor/dark{
 	icon_state = "darkrusty";
 	name = "grimy tile"
@@ -25642,6 +25964,14 @@
 /obj/structure/fence/wooden,
 /turf/open/floor/plating/dirt,
 /area/f13/caves)
+"tKr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/f13/junction_box/small{
+	pixel_x = -32
+	},
+/obj/structure/cable,
+/turf/open/floor/wood_common/wood_common_dark,
+/area/f13/holiday)
 "tKH" = (
 /obj/item/folder{
 	pixel_x = -4
@@ -27713,6 +28043,13 @@
 /obj/structure/wreck/car,
 /turf/open/floor/plating/dirt,
 /area/f13/sewer/powered)
+"vfU" = (
+/obj/structure/flora/ausbushes/sparsegrass,
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/holiday/mine)
 "vfV" = (
 /obj/structure/window/fulltile/ruins/broken,
 /obj/structure/grille/broken,
@@ -30788,6 +31125,12 @@
 /obj/effect/spawner/lootdrop/trash,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/den)
+"xjH" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/indestructible/ground/inside/mountain,
+/area/f13/holiday/mine)
 "xkr" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/indestructible/ground/inside/subway,
@@ -31239,6 +31582,15 @@
 	icon_state = "housebase"
 	},
 /area/f13/bunker/bighornbunker)
+"xBD" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13{
+	icon_state = "greenfull"
+	},
+/area/f13/sewer/powered)
 "xBE" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 9
@@ -31498,7 +31850,6 @@
 /obj/effect/decal/cleanable/dirt{
 	color = "000000"
 	},
-/obj/effect/landmark/start/f13/ncrveteranranger,
 /turf/open/floor/carpet,
 /area/f13/ncr)
 "xLv" = (
@@ -31936,6 +32287,9 @@
 /obj/item/fishingrod{
 	pixel_x = 5;
 	pixel_y = 9
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/holiday/mine)
@@ -69822,9 +70176,9 @@ hTE
 hTE
 hTE
 hTE
-lXx
-aRM
-aRM
+nXo
+eYy
+iRY
 lAo
 vKr
 vKr
@@ -70079,7 +70433,7 @@ hTE
 hTE
 izN
 hTE
-lXx
+ifU
 aRM
 aRM
 vKr
@@ -70336,7 +70690,7 @@ hTE
 hTE
 oSb
 hTE
-lXx
+ifU
 lXx
 hYW
 vKr
@@ -70593,7 +70947,7 @@ hTE
 hTE
 hTE
 hTE
-lXx
+ifU
 jaN
 lAo
 vKr
@@ -70850,7 +71204,7 @@ hTE
 hTE
 hTE
 lXx
-lXx
+ifU
 oEH
 vKr
 vKr
@@ -71107,7 +71461,7 @@ hTE
 hTE
 jkt
 lXx
-lXx
+ifU
 lXx
 vKr
 vKr
@@ -71363,8 +71717,8 @@ flH
 hTE
 hTE
 kBH
-gXe
-lXx
+rxz
+kle
 vKr
 vKr
 vKr
@@ -71877,7 +72231,7 @@ wNp
 hTE
 hTE
 kBH
-kBH
+lTZ
 bDk
 vKr
 vKr
@@ -72134,7 +72488,7 @@ kBH
 hTE
 hTE
 wNp
-wNp
+ltH
 bDk
 vKr
 vKr
@@ -72391,7 +72745,7 @@ wNp
 uRi
 hTE
 wNp
-kBH
+lTZ
 myL
 ofp
 ofp
@@ -72648,7 +73002,7 @@ wNp
 hTE
 hTE
 wNp
-wNp
+ltH
 mKD
 ofp
 fzm
@@ -73162,7 +73516,7 @@ uiW
 oqw
 oqn
 kBH
-uiW
+lId
 nrD
 kgF
 jgB
@@ -73419,9 +73773,9 @@ lXx
 eEv
 eym
 kBH
-lXx
-nrD
-ofp
+qYx
+nnN
+kwJ
 sJG
 nHU
 lTO
@@ -73676,7 +74030,7 @@ lXx
 bOH
 heS
 kBH
-lXx
+ifU
 uiW
 ofp
 ofp
@@ -73933,11 +74287,11 @@ glA
 gPC
 gPC
 ouL
-kBH
-uiW
-ari
-ari
-ari
+pMw
+mVf
+seg
+seg
+kkF
 onF
 ofp
 ofp
@@ -74190,7 +74544,7 @@ hTE
 lah
 hTE
 hTE
-wNp
+ltH
 uiW
 ari
 fSu
@@ -74447,7 +74801,7 @@ hTE
 lah
 lah
 hTE
-kBH
+lTZ
 uiW
 cZO
 mxa
@@ -74704,7 +75058,7 @@ bew
 hTE
 lah
 hTE
-lXx
+ifU
 uiW
 ari
 xTJ
@@ -74961,7 +75315,7 @@ gxc
 hTE
 hTE
 hTE
-lXx
+ifU
 lXx
 cZO
 ari
@@ -75218,8 +75572,8 @@ uiW
 hTE
 hTE
 adw
-lXx
-lXx
+cBK
+gNH
 bHx
 iKQ
 iKQ
@@ -75476,7 +75830,7 @@ dsD
 hTE
 kBH
 fiA
-lXx
+ifU
 kTl
 iKQ
 nDk
@@ -75733,7 +76087,7 @@ hTE
 hTE
 kBH
 dtc
-lXx
+ifU
 lXx
 eHa
 amH
@@ -75990,13 +76344,13 @@ hTE
 hTE
 kBH
 aRM
-lXx
-kTl
-iKQ
+jjz
+nba
+kyp
 ocF
-dTd
+onO
 dMj
-dTd
+tKr
 vLr
 ulG
 yiu
@@ -76247,7 +76601,7 @@ oqn
 oqn
 kBH
 aRM
-lXx
+ifU
 wvs
 pCT
 kXi
@@ -76484,27 +76838,27 @@ tYm
 oUA
 rDH
 nbZ
-mPk
+nEE
 cAP
 ydf
-aRM
-gXe
-lXx
-lXx
-lXx
-lXx
+eYy
+roP
+kXY
+kXY
+kXY
+gNH
 tYm
 lXx
 aRM
 usg
 ahL
-ppO
-kBH
-eEv
-eym
-kBH
-lXx
-aRM
+jke
+bMy
+rSB
+rpm
+bMy
+kXY
+xjH
 osI
 pCT
 cQY
@@ -76739,7 +77093,7 @@ tYm
 tYm
 aJE
 lMe
-aRM
+aTk
 eZI
 gSE
 kGq
@@ -76749,13 +77103,13 @@ gSw
 tYm
 tYm
 tYm
-lXx
-lXx
-aRM
-aRM
-lXx
-lXx
-udC
+cBK
+kXY
+eYy
+eYy
+kXY
+kXY
+ivA
 kBH
 bOH
 heS
@@ -76996,7 +77350,7 @@ qUa
 cnn
 usg
 aRM
-lXx
+ifU
 sgf
 kGq
 hTE
@@ -77253,7 +77607,7 @@ pCU
 cnn
 aRM
 lyt
-lXx
+ifU
 sgf
 uPz
 hTE
@@ -77510,7 +77864,7 @@ cnn
 cnn
 lXx
 lXx
-aRM
+aTk
 rap
 bbt
 hTE
@@ -77767,7 +78121,7 @@ aJE
 tYm
 qUa
 aRM
-lXx
+ifU
 bZG
 uPj
 dHE
@@ -78024,9 +78378,9 @@ tYm
 tYm
 aJE
 aJE
-gXe
-aRM
-lXx
+vfU
+eYy
+gNH
 qDY
 uPz
 hTE
@@ -78283,7 +78637,7 @@ tYm
 aJE
 ggb
 aRM
-lXx
+ifU
 dXl
 uPz
 tYm
@@ -78540,7 +78894,7 @@ tYm
 tYm
 lXx
 lXx
-sgf
+ekP
 dtc
 uPz
 hTE
@@ -78797,7 +79151,7 @@ tYm
 tYm
 fiA
 aRM
-sgf
+ekP
 dtc
 uPz
 hTE
@@ -79054,7 +79408,7 @@ tYm
 tYm
 tYm
 aRM
-aRM
+aTk
 kZF
 bbt
 hTE
@@ -79311,7 +79665,7 @@ tYm
 tYm
 tYm
 tYm
-lXx
+ifU
 iVN
 ahL
 uPz
@@ -79568,7 +79922,7 @@ tYm
 tYm
 tYm
 tYm
-lXx
+ifU
 aRM
 sxF
 eqV
@@ -79825,7 +80179,7 @@ tYm
 tYm
 tYm
 xvl
-lXx
+ifU
 eZI
 mPk
 sxF
@@ -80082,7 +80436,7 @@ mOL
 mOL
 mOL
 mOL
-iQm
+bwg
 lXx
 lXx
 lXx
@@ -80339,7 +80693,7 @@ wBj
 wBj
 wBj
 nSo
-lXx
+ifU
 lXx
 lXx
 lyt
@@ -80593,10 +80947,10 @@ kXF
 wBj
 wBj
 jSs
-wBj
-wBj
-fur
-lXx
+oJy
+xBD
+nFK
+kle
 lXx
 lXx
 lXx
@@ -117397,7 +117751,7 @@ hlk
 hlk
 dQd
 jvO
-kXY
+iAF
 aRw
 udJ
 udJ
@@ -117926,7 +118280,7 @@ xyW
 jvO
 jvO
 gLR
-gNH
+jvO
 xDj
 jvO
 mvg
