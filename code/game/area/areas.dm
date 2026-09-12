@@ -1449,6 +1449,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 16
 	grow_chance = 5
 
+// City streets/plazas — genuinely outdoors, so junction boxes take the
+// single-tile outdoor shortpath here on purpose (no flood-fill/z-travel
+// needed for open ground). Building interiors must NOT use this bare type —
+// subtype /area/f13/city/building instead so they get normal indoor
+// flood-fill and can bridge power between floors.
 /area/f13/city
 	name = "City"
 	icon_state = "city"
@@ -1466,13 +1471,57 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 16
 	grow_chance = 5
 
-/area/f13/city/museum
-	name = "Museum"
+// Base type for any indoor city building. Concrete buildings subtype this
+// (not bare /area/f13/city) so they inherit correct indoor flags — and any
+// future shared building behavior — automatically instead of each needing
+// outdoors/open_space overridden by hand.
+/area/f13/city/buildingparent
+	name = "City Grid"
 	outdoors = FALSE
+	open_space = FALSE
 
-/area/f13/city/bighorn
+/area/f13/city/buildingparent/museum
+	name = "Museum"
+
+/area/f13/city/buildingparent/bighorn
 	name = "Bighorn"
 	icon_state = "bighorn"
+
+/area/f13/city/buildingparent/store
+	name = "General Store"
+
+/area/f13/city/buildingparent/saloon
+	name = "Saloon"
+
+/area/f13/city/buildingparent/clinic
+	name = "Clinic"
+
+/area/f13/city/buildingparent/jail
+	name = "Police Station"
+
+/area/f13/city/buildingparent/townhall
+	name = "Town Hall"
+
+/area/f13/city/buildingparent/hotel
+	name = "Hotel"
+
+/area/f13/city/buildingparent/garage
+	name = "Garage"
+
+/area/f13/city/buildingparent/church
+	name = "Church"
+
+/area/f13/city/buildingparent/bank
+	name = "Bank"
+
+/area/f13/city/buildingparent/farmhouse
+	name = "Farmhouse"
+
+/area/f13/city/buildingparent/residence
+	name = "Residence"
+
+/area/f13/city/buildingparent/building
+	name = "Building"
 
 /area/f13/citycaves
 	name = "City Caves"
