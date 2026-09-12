@@ -92,7 +92,6 @@ All foods are distributed among various categories. Use common sense.
 		if(isliving(location))
 			location.put_in_hands(trash_item)
 			return
-		SEND_SIGNAL(location, COMSIG_BELLY_HANDLE_TRASH, trash_item)
 		return
 
 /obj/item/reagent_containers/food/snacks/attack_self(mob/user)
@@ -103,7 +102,7 @@ All foods are distributed among various categories. Use common sense.
 		return ..()
 	INVOKE_ASYNC(src, PROC_REF(attempt_forcefeed), M, user)
 
-/obj/item/reagent_containers/food/snacks/proc/attempt_forcefeed(mob/living/M, mob/living/user, forced, silent, vorebite)
+/obj/item/reagent_containers/food/snacks/proc/attempt_forcefeed(mob/living/M, mob/living/user, forced, silent)
 	if(!eatverb)
 		eatverb = pick("bite","chew","nibble","gnaw","gobble","chomp")
 	if(!reagents.total_volume) //Shouldn't be needed but it checks to see if it has anything left in it.
@@ -194,11 +193,8 @@ All foods are distributed among various categories. Use common sense.
 				span_danger("[user] forces [M] to eat [src]!</span>"),
 				span_userdanger("[user] forces you to eat [src]!</span>"))
 
-		if(reagents) //Handle ingestion of the reagent.
-			if(vorebite)
-				log_combat(user, M, "vored-fed themself", src.reagents.log_list())
-			else
-				log_combat(user, M, "fed", src.reagents.log_list())
+		if(reagents)
+			log_combat(user, M, "fed", src.reagents.log_list())
 			if(M.satiety > -200)
 				M.satiety -= junkiness
 			if(!silent)
@@ -209,9 +205,8 @@ All foods are distributed among various categories. Use common sense.
 				reagents.reaction(M, INGEST, fraction)
 				reagents.trans_to(M, bitesize, log = TRUE)
 				bitecount++
-				On_Consume(M, vorebite)
-				if(!vorebite)
-					checkLiked(fraction, M)
+				On_Consume(M)
+				checkLiked(fraction, M)
 				return 1
 
 	return 0
@@ -457,3 +452,61 @@ All foods are distributed among various categories. Use common sense.
 			return
 	if(!GetComponent(/datum/component/fried) && (!reagents || isfood(src) || ismob(src)))
 		AddComponent(/datum/component/fried, frying_power = cook_time)
+
+
+// ==================== Merged from fallout (code\modules\fallout\obj\snacks.dm) ====================
+/obj/item/reagent_containers/food/snacks/rawbrahmintongue
+	name = "Raw Brahmin Tongue"
+	desc = "The raw tongue of a brahmin, a wastelander favorite"
+	icon_state = "BrahminTongue"
+	bitesize = 3
+	filling_color = "#CD853F"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
+	cooked_type = /obj/item/reagent_containers/food/snacks/cookedbrahmintongue
+	tastes = list("beef" = 4, "tender meat" = 1)
+//	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/cookedbrahmintongue
+	name = "Brahmin Tongue"
+	desc = "A brahmin tongue slow roasted over an open fire and topped with a large amount of thick brown gravy"
+	icon_state = "stewedsoymeat"
+	bitesize = 3
+	filling_color = "#CD853F"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	cooked_type = /obj/item/reagent_containers/food/snacks/cookedbrahmintongue
+	tastes = list("top quality beef" = 4, "tender meat" = 1, "tasty gravy" = 1)
+//	foodtype = MEAT
+
+
+/obj/item/reagent_containers/food/snacks/rawbrahminliver
+	name = "Raw Brahmin Liver"
+	desc = "The raw liver of a brahmin, a wastelander favorite"
+	icon_state = "Brahmin Liver"
+	bitesize = 3
+	filling_color = "#CD853F"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
+	cooked_type = /obj/item/reagent_containers/food/snacks/cookedbrahminliver
+	tastes = list("beef" = 4, "tender meat" = 1)
+//	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/cookedbrahminliver
+	name = "Charred Brahmin Liver"
+	desc = "A fatty brahmin liver roasted in a cast iron pan over mesquite wood."
+	icon_state = "Charred Brahmin Liver"
+	bitesize = 3
+	filling_color = "#CD853F"
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/consumable/nutriment/vitamin = 4)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 5)
+	tastes = list("slow cooked liver" = 4, "delicious crunch" = 1)
+//	foodtype = MEAT
+
+/obj/item/reagent_containers/food/snacks/rawantbrain
+	name = "Raw Ant Brain"
+	desc = "Goppy reddish-grey flesh dug out of the brain case of a giant ant."
+	icon_state = "AntBrain"
+	bitesize = 3
+	filling_color = "#CD853F"
+	list_reagents = list(/datum/reagent/consumable/nutriment = 3, /datum/reagent/consumable/nutriment/vitamin = 2)
+	tastes = list("fat" = 4, "bitter meat" = 1)
+//	foodtype = MEAT

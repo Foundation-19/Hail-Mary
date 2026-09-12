@@ -21,6 +21,13 @@ GLOBAL_LIST_EMPTY(minutemen_radios)
 	..()
 	update_icon()
 
+// meant to be wall mounted so not solid, and pixel shifted until it looks good on the specific wall
+/obj/machinery/radioterminal/legion/wallmounted
+	name = "Legion radio control"
+	desc = "Cobbled together radio master set for disabling lost radios."
+	icon = 'icons/obj/clothing/icons_64x32_legion.dmi'
+	icon_state = "radio_wall_legion"
+
 /obj/machinery/radioterminal/update_icon_state()
 	if(CHECK_BITFIELD(stat, NOPOWER))
 		set_light(0)

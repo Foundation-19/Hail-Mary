@@ -748,12 +748,12 @@
 		return
 	if(consider_despawning())
 		if(!lonely_timer_id && !QDELETED(src))
-			lonely_timer_id = addtimer(CALLBACK(src, PROC_REF(queue_unbirth)), 30 SECONDS, TIMER_STOPPABLE)
+			lonely_timer_id = addtimer(CALLBACK(src, PROC_REF(queue_despawn)), 30 SECONDS, TIMER_STOPPABLE)
 	else
 		if(lonely_timer_id)
 			deltimer(lonely_timer_id)
 			lonely_timer_id = null	
-		unqueue_unbirth()
+		unqueue_despawn()
 
 /mob/living/simple_animal/hostile/proc/consider_despawning()
 	if(!despawns_when_lonely)
@@ -780,7 +780,7 @@
 	if(lonely_timer_id)
 		deltimer(lonely_timer_id)
 		lonely_timer_id = null	
-	unqueue_unbirth()
+	unqueue_despawn()
 	. = ..()
 
 
@@ -5058,7 +5058,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 /mob/living/simple_animal/hostile/proc/EscapeConfinement()
 	if(buckled)
 		buckled.attack_animal(src)
-	if(!isturf(targets_from.loc) && targets_from.loc != null)//Did someone put us in something?
+	if(targets_from && !isturf(targets_from.loc) && targets_from.loc != null)//Did someone put us in something?
 		var/atom/A = targets_from.loc
 		A.attack_animal(src)//Bang on it till we get out
 
@@ -5170,14 +5170,14 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	if(target)
 		RegisterSignal(target, COMSIG_PARENT_QDELETING, PROC_REF(handle_target_del))
 
-/mob/living/simple_animal/hostile/proc/queue_unbirth()
+/mob/living/simple_animal/hostile/proc/queue_despawn()
 	SSidlenpcpool.add_to_culling(src)
 
-/mob/living/simple_animal/hostile/proc/unqueue_unbirth()
+/mob/living/simple_animal/hostile/proc/unqueue_despawn()
 	SSidlenpcpool.remove_from_culling(src)
 
 /// return to monke-- stuffs a mob into their own special nest
-/mob/living/simple_animal/hostile/proc/unbirth_self(forced)
+/mob/living/simple_animal/hostile/proc/despawn_self(forced)
 	if(!forced && !consider_despawning()) // check again plz
 		return
 	var/obj/structure/nest/my_home

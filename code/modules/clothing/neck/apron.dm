@@ -1,8 +1,8 @@
 // Aprons	Specialized pockets, small environmental bonus for some
 /obj/item/clothing/neck/apron
 	name = "apron template"
-	icon = 'icons/fallout/clothing/aprons.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/apron.dmi'
+	icon = 'icons/clothing/aprons.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/apron.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|GROIN|LEGS
 	permeability_coefficient = 0.9
@@ -45,6 +45,28 @@
 	desc = "A heavy leather apron designed for protecting the user when metalforging and help carry some minor tools."
 	icon_state = "forge"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/service
+
+// same as medical apron but visually unique
+/obj/item/clothing/neck/apron/medicus_legion
+	name = "medicus apron"
+	desc = "Waxed cotton apron with a red bull on it. Marks the wearer as a healer following the wisdom of Caesar. Has pockets for some small medical equipment."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "apron_medicus"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/medical
+
+// same as normal labor apron but visually unique
+/obj/item/clothing/neck/apron/labor/blacksmith_legion
+	name = "blacksmith's apron"
+	desc = "A heavy leather apron designed for protecting the user when metalforging and help carry some minor tools. Marked with a yellow bull."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "apron_blacksmith"
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small
 
 /obj/item/clothing/neck/apron/housewife
 	name = "50s housewife apron"

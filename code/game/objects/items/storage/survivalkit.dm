@@ -20,7 +20,7 @@
 /obj/item/storage/survivalkit/khan
 	name = "survival kit"
 	desc = "A robust leather pouch containing essentials a Khan might need in the wasteland."
-	icon = 'icons/fallout/clothing/khans.dmi'
+	icon = 'icons/clothing/khans.dmi'
 	icon_state = "survivalkit"
 
 /obj/item/storage/survivalkit/khan/empty/PopulateContents()
@@ -135,6 +135,58 @@
 
 /obj/item/storage/survivalkit/medical/tribal/empty/PopulateContents()
 	return
+
+// Ration package is a paper container for food/misc survival stuff
+/obj/item/storage/survivalkit/legion_rations
+	name = "ration package"
+	desc = "Waxed paper package with food and some minor accessories a warrior might need."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "survival_legion"
+
+/obj/item/storage/survivalkit/legion_rations/PopulateContents()
+	new /obj/item/storage/box/matches(src)
+	new /obj/item/reagent_containers/food/snacks/meatsalted(src)
+	new /obj/item/reagent_containers/food/snacks/breadhard(src)
+	new /obj/item/reagent_containers/food/drinks/flask/survival(src)
+
+// proc to make the ration package look empty when empty
+/obj/item/storage/survivalkit/legion_rations/update_icon_state()
+	. = ..()
+	if(!contents.len)
+		icon_state = "[icon_state]_empty"
+	else
+		icon_state = initial(icon_state)
+
+// Leather pouch for medicines
+/obj/item/storage/survivalkit/medical/legion
+	name = "medicine bag"
+	desc = "Medical kit compliant with the laws of Caesar."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "survival_medical"
+
+/obj/item/storage/survivalkit/medical/legion/PopulateContents()
+	new /obj/item/stack/medical/gauze/improvised(src)
+	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/mesh/aloe(src)
+	new /obj/item/reagent_containers/pill/patch/healpoultice(src)
+
+// proc to make the pouch look empty when empty
+/obj/item/storage/survivalkit/medical/legion/update_icon_state()
+	. = ..()
+	if(!contents.len)
+		icon_state = "[icon_state]_empty"
+	else
+		icon_state = initial(icon_state)
+
+/obj/item/storage/survivalkit/medical/legion/advanced
+	desc = "Medical kit compliant with the laws of Caesar, of higher than average quality."
+
+/obj/item/storage/survivalkit/medical/legion/adv/PopulateContents()
+	new /obj/item/stack/medical/gauze(src)
+	new /obj/item/stack/medical/suture(src)
+	new /obj/item/stack/medical/mesh(src)
+	new /obj/item/reagent_containers/pill/bitterdrink(src)
 
 /// Huge pouch!
 /obj/item/storage/survivalkit/triple

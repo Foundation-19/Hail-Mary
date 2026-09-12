@@ -193,7 +193,7 @@
 	var/atom/A = loc // We'd better be swimming and on a turf
 	carunderlay = mutable_appearance(icon, "[icon_state]_underlay", VEHICLE_LAYER)
 	wheelunderlay = mutable_appearance(icon, "[icon_state]wheels", VEHICLE_WHEEL_LAYER)
-	//carwateroverlay = mutable_appearance(icon = 'icons/fallout/vehicles/centeredsmaller.dmi', icon_state = "bottom[depth]")
+	//carwateroverlay = mutable_appearance(icon = 'icons/vehicles/centeredsmaller.dmi', icon_state = "bottom[depth]")
 	carwateroverlay.color = A.color
 	carwateroverlay.blend_mode = BLEND_INSET_OVERLAY
 	caroverlays += carwateroverlay

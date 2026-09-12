@@ -217,7 +217,7 @@
 /obj/effect/decal/cleanable/stones
 	name = "stones"
 	desc = "You see nothing out of the ordinary."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "stones"
 	plane = GAME_PLANE
 	layer = VISIBLE_FROM_ABOVE_LAYER

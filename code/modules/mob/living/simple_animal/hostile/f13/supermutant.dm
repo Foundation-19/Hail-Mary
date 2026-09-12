@@ -8,7 +8,7 @@
 	name = "super mutant"
 	desc = "A gigantic, green, angry-looking humanoid wrapped in a jumpsuit that may have fit him... her? at some point. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. Have fun!"
-	icon = 'icons/fallout/mobs/supermutant.dmi'
+	icon = 'icons/mob/supermutant.dmi'
 	icon_state = "hulk_113_s"
 	icon_living = "hulk_113_s"
 	icon_dead = "hulk_113_s"
@@ -94,7 +94,7 @@
 // Previously every subtype copy-pasted: icon = dead_dmi, icon_state = icon_dead, anchored = FALSE.
 // Now they all inherit this single override.
 /mob/living/simple_animal/hostile/supermutant/death(gibbed)
-	icon = 'icons/fallout/mobs/supermutant_dead.dmi'
+	icon = 'icons/mob/supermutant_dead.dmi'
 	icon_state = icon_dead
 	. = ..()
 
@@ -174,7 +174,7 @@
 /mob/living/simple_animal/pet/dog/mutant
 	name = "Brah-Min"
 	desc = "A large, docile supermutant. Adopted by Shale's Army as a sort of watch dog for their brahmin herd."
-	icon = 'icons/fallout/mobs/supermutant.dmi'
+	icon = 'icons/mob/supermutant.dmi'
 	icon_state = "hulk_113_s"
 	icon_living = "hulk_113_s"
 	icon_dead = "hulk_113_s"
@@ -205,7 +205,7 @@
 	response_harm_simple = "punch"
 
 /mob/living/simple_animal/pet/dog/mutant/death(gibbed)
-	icon = 'icons/fallout/mobs/supermutant_dead.dmi'
+	icon = 'icons/mob/supermutant_dead.dmi'
 	icon_state = icon_dead
 	if(!gibbed)
 		visible_message(span_danger("\the [src] shouts something incoherent about brahmins for the last time and stops moving..."))

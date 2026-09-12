@@ -1,7 +1,7 @@
 /obj/machinery/door/poddoor/gate
 	name = "city gate"
 	desc = "A heavy duty gate that opens mechanically."
-	icon = 'icons/fallout/structures/city_gate.dmi'
+	icon = 'icons/structures/city_gate.dmi'
 	icon_state = "closed"
 	armor = ARMOR_VALUE_PA
 	id = 333
@@ -29,7 +29,7 @@
 
 /obj/machinery/door/poddoor/gate/bunker
 	name = "bunker door"
-	icon = 'icons/fallout/structures/brotherhood_gate.dmi'
+	icon = 'icons/structures/brotherhood_gate.dmi'
 	icon_state = "Brotherhood_gate"
 	id = 444
 

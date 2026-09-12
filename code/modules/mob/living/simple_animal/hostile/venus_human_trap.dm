@@ -69,7 +69,7 @@
 /mob/living/simple_animal/hostile/venus_human_trap
 	name = "venus human trap"
 	desc = "Now you know how the fly feels."
-	icon = 'icons/fallout/mobs/monsters/freaks.dmi'	
+	icon = 'icons/mob/monsters/freaks.dmi'	
 	icon_state = "venus_human_trap"
 	icon_dead = "venus_human_trap_d"
 

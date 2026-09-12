@@ -969,7 +969,7 @@
 /obj/item/projectile/bullet/F13/spear
 	damage = 40
 	icon_state = "spear"
-	icon = 'icons/fallout/objects/guns/projectiles.dmi'
+	icon = 'icons/obj/guns/projectiles.dmi'
 
 //other
 

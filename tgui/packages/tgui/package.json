@@ -6,10 +6,10 @@
     "@popperjs/core": "^2.11.6",
     "common": "workspace:*",
     "dateformat": "^4.6.3",
-    "dompurify": "^2.4.3",
+    "dompurify": "^3.4.13",
     "inferno": "^7.4.11",
     "inferno-vnode-flags": "^7.4.11",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "^4.3.1",
     "marked": "^4.2.5",
     "tgui-dev-server": "workspace:*",
     "tgui-polyfill": "workspace:*"

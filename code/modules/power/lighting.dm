@@ -193,7 +193,7 @@
 	var/rigged = FALSE			// true if rigged to explode
 
 	var/obj/item/stock_parts/cell/cell
-	var/start_with_cell = TRUE	// if true, this fixture generates a very weak cell at roundstart
+	var/start_with_cell = FALSE	// if true, this fixture generates a very weak cell at roundstart
 
 	var/nightshift_enabled = FALSE	//Currently in night shift mode?
 	var/nightshift_allowed = TRUE	//Set to FALSE to never let this light get switched to night mode.
@@ -202,7 +202,7 @@
 	var/nightshift_light_color = "#FFDDCC"
 
 	var/emergency_mode = FALSE	// if true, the light is in emergency mode
-	var/no_emergency = FALSE	// if true, this light cannot ever have an emergency mode
+	var/no_emergency = TRUE	// if true, this light cannot ever have an emergency mode; F13 lights have no backup power, so they stay fully dark without grid power
 	var/bulb_emergency_brightness_mul = 0.25	// multiplier for this light's base brightness in emergency power mode
 	var/bulb_emergency_colour = "#FF3232"	// determines the colour of the light while it's in emergency mode
 	var/bulb_emergency_pow_mul = 0.75	// the multiplier for determining the light's power in emergency mode

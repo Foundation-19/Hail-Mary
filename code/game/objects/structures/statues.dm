@@ -26,6 +26,29 @@
 /obj/structure/statue/proc/can_user_rotate(mob/user)
 	return user.canUseTopic(src, BE_CLOSE, FALSE, !iscyborg(user))
 
+// more fitting mars statue for the Legion players
+/obj/structure/statue/mars
+	name = "statue of mars"
+	desc = "A monument to masculine virtue, made out of plaster and wood with a thin bronze outer layer."
+	icon = 'icons/onmob/64x64_icons.dmi'
+	icon_state = "statue_mars"
+	anchored = TRUE
+	max_integrity = 1000
+	material_drop_type = /obj/item/stack/sheet/bronze
+	impressiveness = 30
+	plane = GAME_PLANE
+	layer = ABOVE_ALL_MOB_LAYER
+
+/obj/structure/statue/mars/examine(mob/user)
+	. = ..()
+	SEND_SIGNAL(user, COMSIG_ADD_MOOD_EVENT, "inspired_art", /datum/mood_event/inspired_art)
+	. += "<span class='notice'>What a inspiring sight.</span>"
+
+/datum/mood_event/inspired_art
+	description = span_nicegreen("I have seen something inspiring.")
+	mood_change = 1
+	timeout = 9000
+
 /obj/structure/statue/attackby(obj/item/W, mob/living/user, params)
 	add_fingerprint(user)
 	if(!(flags_1 & NODECONSTRUCT_1))
@@ -306,17 +329,17 @@
 
 /obj/structure/statue/diamond/indestructible/redrocket/redux
 	name = "Red Rocket"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "redrocketredux"
 
 /obj/structure/statue/diamond/indestructible/redrocket/bits
 	name = "Red Rocket"
-	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon = 'icons/obj/redrocketredux.dmi'
 	icon_state = "redrocketbits"
 
 /obj/structure/statue/diamond/indestructible/redrocket/text
 	name = "Red Rocket"
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "redrockettext"
 	layer = FLY_LAYER
 	density = TRUE
@@ -324,7 +347,7 @@
 /obj/structure/statue/diamond/indestructible/carheap
 	name = "car pile"
 	desc = "A stack of cars built up by the 80s."
-	icon = 'icons/fallout/objects/redrocketredux.dmi'
+	icon = 'icons/obj/redrocketredux.dmi'
 	icon_state = "carpile_lower"
 	anchored = TRUE
 	layer = VISIBLE_FROM_ABOVE_LAYER
@@ -337,7 +360,7 @@
 /obj/structure/statue/diamond/indestructible/landinggear
 	name = "landing gear"
 	desc = "The landing gear of a plane."
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "auto_shaft"
 	anchored = TRUE
 	density = FALSE
@@ -365,7 +388,7 @@
 /obj/structure/statue/diamond/indestructible/seesaw
 	name = "seesaw"
 	desc = "Alt-click to teeter. Alt-click again to totter."
-	icon = 'icons/fallout/objects/playstructure.dmi'
+	icon = 'icons/obj/playstructure.dmi'
 	icon_state = "seesaw"
 	layer = VISIBLE_FROM_ABOVE_LAYER
 	pixel_x = -32
@@ -376,7 +399,7 @@
 /obj/structure/statue/diamond/indestructible/swings
 	name = "swings"
 	desc = "An old pre-war playstructure."
-	icon = 'icons/fallout/objects/playstructure.dmi'
+	icon = 'icons/obj/playstructure.dmi'
 	icon_state = "swingbottom"
 	layer = VISIBLE_FROM_ABOVE_LAYER
 	pixel_x = -64
@@ -396,7 +419,7 @@
 /obj/structure/statue/diamond/indestructible/rocket
 	name = "Rocket"
 	desc = "An old pre-war playstructure."
-	icon = 'icons/fallout/objects/rocket.dmi'
+	icon = 'icons/obj/rocket.dmi'
 	icon_state = "mbottom"
 	layer = VISIBLE_FROM_ABOVE_LAYER
 	pixel_x = -32
@@ -414,7 +437,7 @@
 /obj/structure/statue/diamond/indestructible/ufo
 	name = "UFO"
 	desc = "An out of this world play structure."
-	icon = 'icons/fallout/objects/playstructure2.dmi'
+	icon = 'icons/obj/playstructure2.dmi'
 	icon_state = "UFObottom"
 	layer = VISIBLE_FROM_ABOVE_LAYER
 	bound_width = 96

@@ -199,7 +199,7 @@
 /obj/item/grenade/f13/dynamite
 	name = "stick of dynamite"
 	desc = "A stick of good old-fashioned black-powder dynamite. While it doesnt pack as much of a punch as anything else, it'll give rock walls something to think about."
-	icon = 'icons/fallout/objects/guns/explosives.dmi'
+	icon = 'icons/obj/guns/explosives.dmi'
 	icon_state = "dynamite"
 	preprime_sound = 'sound/effects/fuse.ogg'
 	ex_dev = 0

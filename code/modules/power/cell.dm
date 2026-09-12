@@ -473,7 +473,7 @@
 /obj/item/stock_parts/cell/ammo/mfc
 	name = "microfusion cell"
 	desc = "A microfusion cell, typically used as ammunition for large energy weapons."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "mfc-full"
 	maxcharge = 2000
 	w_class = WEIGHT_CLASS_SMALL
@@ -492,7 +492,7 @@
 /obj/item/stock_parts/cell/ammo/mfc/large
 	name = "enhanced microfusion cell"
 	desc = "A microfusion cell, typically used as ammunition for large energy weapons. This one has been modified to hold double the normal charge."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "mfc-full"
 	maxcharge = 3000
 	w_class = WEIGHT_CLASS_SMALL
@@ -501,7 +501,7 @@
 /obj/item/stock_parts/cell/ammo/mfc/bad
 	name = "shoddy microfusion cell"
 	desc = "A microfusion cell, typically used as ammunition for large energy weapons. This one looks a little dubious though."
-	icon = 'icons/fallout/objects/powercells.dmi' //TODO: give these bad icons
+	icon = 'icons/obj/powercells.dmi' //TODO: give these bad icons
 	icon_state = "mfc-full"
 	maxcharge = 1000
 	w_class = WEIGHT_CLASS_SMALL
@@ -509,7 +509,7 @@
 /obj/item/stock_parts/cell/ammo/ultracite
 	name = "ultracite cell"
 	desc = "An advanced ultracite cell, used as ammunition for special energy weapons."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "ultracite"
 	maxcharge = 2000
 
@@ -517,7 +517,7 @@
 /obj/item/stock_parts/cell/ammo/ec
 	name = "energy cell"
 	desc = "An energy cell, typically used as ammunition for small-arms energy weapons."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "ec-full"
 	maxcharge = 1500
 
@@ -537,7 +537,7 @@
 /obj/item/stock_parts/cell/ammo/ec/large
 	name = "enhanced energy cell"
 	desc = "An energy cell, typically used as ammunition for small-arms energy weapons. This one has been modified to hold far more energy."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "ec-full"
 	maxcharge = 2250
 
@@ -545,7 +545,7 @@
 /obj/item/stock_parts/cell/ammo/ec/bad
 	name = "shoddy energy cell"
 	desc = "An energy cell, typically used as ammunition for small-arms energy weapons. This one looks a little suspect though."
-	icon = 'icons/fallout/objects/powercells.dmi' //TODO: Give these a new icon
+	icon = 'icons/obj/powercells.dmi' //TODO: Give these a new icon
 	icon_state = "ec-full"
 	maxcharge = 750
 
@@ -553,7 +553,7 @@
 /obj/item/stock_parts/cell/ammo/breeder
 	name = "microfusion breeder"
 	desc = "A miniature microfusion reactor connected to capacitor banks. This is not a removable part, you messed up."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "ec-full"
 	maxcharge = 2000
 
@@ -568,7 +568,7 @@
 /obj/item/stock_parts/cell/ammo/ecp
 	name = "electron charge pack"
 	desc = "An electron charge pack, typically used as ammunition for rapidly-firing energy weapons."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "ecp-full"
 	maxcharge = 2400
 	w_class = WEIGHT_CLASS_SMALL
@@ -587,7 +587,7 @@
 /obj/item/stock_parts/cell/ammo/ecp/large
 	name = "enhanced electron charge pack"
 	desc = "An electron charge pack, typically used as ammunition for rapidly-firing energy weapons. This one has been modified to hold far more energy."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "ecp-full"
 	maxcharge = 3600
 	w_class = WEIGHT_CLASS_SMALL
@@ -596,7 +596,7 @@
 /obj/item/stock_parts/cell/ammo/ecp/bad
 	name = "counterfeit electron charge pack"
 	desc = "An electron charge pack, typically used as ammunition for rapidly-firing energy weapons. This one looks slightly off, somehow."
-	icon = 'icons/fallout/objects/powercells.dmi' //TODO: Give a shitty icon
+	icon = 'icons/obj/powercells.dmi' //TODO: Give a shitty icon
 	icon_state = "ecp-full"
 	maxcharge = 1200
 	w_class = WEIGHT_CLASS_SMALL
@@ -605,7 +605,7 @@
 /obj/item/stock_parts/cell/ammo/alien
 	name = "alien weapon cell"
 	desc = "A weapon cell that glows and thrums with unearthly energies. You're not sure you'd be able to recharge it, but it seems very powerful."
-	icon = 'icons/fallout/objects/powercells.dmi'
+	icon = 'icons/obj/powercells.dmi'
 	icon_state = "aliencell"
 	ratingdesc = FALSE
 	maxcharge = 4000

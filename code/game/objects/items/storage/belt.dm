@@ -164,9 +164,9 @@
 /obj/item/storage/belt/utility/gardener
 	name = "gardeners toolbelt"
 	desc = "Leather belt with straps for various smaller farming equipment, bags and hip flasks."
-	icon = 'icons/fallout/clothing/belts.dmi'
+	icon = 'icons/clothing/belts.dmi'
 	icon_state = "gardener"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	component_type = /datum/component/storage/concrete/belt/specialized/utility
 
 /obj/item/storage/belt/janitor
@@ -271,8 +271,8 @@
 /obj/item/storage/belt/legholster
 	name = "hip holster"
 	desc = "A side holster that goes on your belt and rests on your hip, and maybe your neck. Honestly a lot of people should better protect their neck, right? WARNING: Badasses only."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "holster_leg"
 	item_state = "holster_leg"
 	component_type = /datum/component/storage/concrete/belt/specialized/gun
@@ -320,6 +320,54 @@
 	icon_state = "ncr_bandolier"
 	item_state = "ncr_bandolier"
 
+/obj/item/storage/belt/military/legion
+	name = "legion marching belt"
+	desc = "A belt capable of holding various supplies a warrior might need. Comes with a red sash."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "belt_legion"
+	item_state = "belt_legion"
+
+// new style of holsters that show when occupied
+/obj/item/storage/belt/holster/rugged	// some sort of overlay system for the filled holsters would be better naturally but lack the time to figure it out.
+	name = "rugged holster"
+	desc = "A plain holster for a revolver."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "holster_rugged"
+	item_state = "holster_rugged"
+
+// proc to make the holster look empty when empty
+/obj/item/storage/belt/holster/rugged/update_icon_state()
+	. = ..()
+	if(!contents.len)
+		icon_state = "[icon_state]_empty"
+	else
+		icon_state = initial(icon_state)
+
+// some prefilled holsters
+/obj/item/storage/belt/holster/rugged/revolver_357
+	icon_state = "holster_rugged"
+
+/obj/item/storage/belt/holster/rugged/revolver_357/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/colt357(src)
+
+/obj/item/storage/belt/holster/rugged/revolver_45
+	icon_state = "holster_rugged_45"
+
+/obj/item/storage/belt/holster/rugged/revolver_45/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/revolver45(src)
+
+/obj/item/storage/belt/holster/rugged/revolver_hunting
+	icon_state = "holster_rugged_hunting"
+
+/obj/item/storage/belt/holster/rugged/revolver_hunting/PopulateContents()
+	new /obj/item/gun/ballistic/revolver/hunting(src)
+
 /obj/item/storage/belt/army
 	name = "army belt"
 	desc = "A robust belt for holding things like guns."
@@ -364,8 +412,8 @@
 /obj/item/storage/belt/army/assault/legion
 	name = "legionnaire marching belt"
 	desc = "Sturdy leather belt with a red decorative sash."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "belt_legion"
 	item_state = "belt_legion"
 
@@ -463,8 +511,8 @@
 /obj/item/storage/belt/sniperraincoat
 	name = "Sniper Rain Coat"
 	desc = "A sand colored rain coat modified with scrim netting for added camouflage value. Can store ammunition in internal pockets and offers great protection from the elements."
-	icon = 'icons/fallout/onmob/clothes/belt.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/onmob/clothes/belt.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "sniper_rain_coat"
 	item_state = "sniper_rain_coat"
 	slot_flags = ITEM_SLOT_NECK
@@ -476,8 +524,8 @@
 /obj/item/storage/belt/shoulderholster
 	name = "shoulder holster"
 	desc = "An over the shoulder shooter holder. WARNING: Badasses only."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "holster_shoulder"
 	item_state = "holster_shoulder"
 	alternate_worn_layer = UNDER_SUIT_LAYER
@@ -522,8 +570,8 @@
 /obj/item/storage/belt/outlawscloak
 	name = "outlaws cloak"
 	desc = "A sturdy, thick poncho made from burlap. Comes with a salvaged shoulderpad and a hidden armpit holster."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "outlaws_cloak"
 	item_state = "outlaws_cloak"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -533,8 +581,8 @@
 /obj/item/storage/belt/peacefulcoat
 	name = "peacetakers jacket"
 	desc = "A mangy bomber jacket haphazardly patched up and reinforced with old bits of armor and metal plates. Someone spraypainted a peace-sign on its back... Comes with a holster."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "peacefulcoat"
 	item_state = "peacefulcoat"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -544,8 +592,8 @@
 /obj/item/storage/belt/poachercoat
 	name = "poachers coat"
 	desc = "A makeshift coat made out of salvaged vault-suits haphazardly stitched together. Comes with a pelt collar, salvaged armor parts and a hidden holster."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "poachercoat"
 	item_state = "poachercoat"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -555,8 +603,8 @@
 /obj/item/storage/belt/poachervest
 	name = "poachers vest"
 	desc = "A makeshift vest made out of salvaged vault-suits haphazardly stitched together. Comes with a pelt collar, leather bits and a shoulder holster hidden underneath."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "poachervest"
 	item_state = "poachervest"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -566,8 +614,8 @@
 /obj/item/storage/belt/dantecoat
 	name = "mercenary trenchcoat"
 	desc = "A flashy red trenchcoat with rolled back sleeves, brass details and a zipper. Has a twin-holster integrated on the outside. For when there is a storm approaching and you gotta pull your devil trigger."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "dantecoat"
 	item_state = "dantecoat"
 	body_parts_covered = CHEST|GROIN|ARMS
@@ -787,9 +835,9 @@
 /obj/item/storage/belt/sword // new that works
 	name = "sword sheath"
 	desc = "A fine sheath for carrying a sword in style."
-	icon = 'icons/fallout/clothing/belts.dmi'
+	icon = 'icons/clothing/belts.dmi'
 	icon_state = "sheath_sword"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	item_state = "sheath_sword"
 	w_class = WEIGHT_CLASS_BULKY
 	content_overlays = TRUE

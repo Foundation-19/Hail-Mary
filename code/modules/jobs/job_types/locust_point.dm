@@ -479,6 +479,24 @@ Mayor
 	/obj/item/reagent_containers/food/drinks/flask/survival = 1,
 	)
 
+/datum/outfit/loadout/groundskeeper2
+	name = "groundskeeper2"
+	head = /obj/item/clothing/head/soft/grey
+	belt = /obj/item/storage/belt/utility/waster
+	suit = /obj/item/clothing/under/f13/mechanic
+	gloves = /obj/item/clothing/gloves/color/black
+	shoes = /obj/item/clothing/shoes/sneakers/noslip
+	neck = /obj/item/storage/belt/shoulderholster/
+	backpack_contents = list(/obj/item/storage/bag/trash = 1,
+	/obj/item/reagent_containers/spray/cleaner = 1,
+	/obj/item/mop = 1,
+	/obj/item/reagent_containers/glass/bucket/plastic = 1,
+	/obj/item/broom = 1,
+	/obj/item/stack/sheet/metal/ten = 1,
+	/obj/item/lightreplacer = 1,
+	/obj/item/reagent_containers/spray/cleaner = 1
+	)
+
 /datum/outfit/loadout/artisan2
 	name = "artisan2"
 	uniform = /obj/item/clothing/under/f13/cowboyg
@@ -523,7 +541,6 @@ Mayor
 	shoes = /obj/item/clothing/shoes/f13/military
 	belt = /obj/item/storage/belt/bandolier
 	backpack_contents = list(
-	/obj/item/gun/ballistic/automatic/combat/worn = 1,
 	/obj/item/ammo_box/magazine/tommygunm45/stick = 2,
 	/obj/item/shovel/trench =1,
 	/obj/item/binoculars = 1,

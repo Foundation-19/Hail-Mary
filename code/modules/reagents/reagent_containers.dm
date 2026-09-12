@@ -161,7 +161,7 @@
 	reagents.expose_temperature(1000)
 	if(container_flags & TEMP_WEAK)
 		visible_message(span_notice("[icon2html(src, viewers(DEFAULT_MESSAGE_RANGE, src))] [src]'s melts from the temperature!"))
-		playsound(src, 'sound/FermiChem/heatmelt.ogg', 80, 1)
+		playsound(src, 'sound/items/welder.ogg', 80, 1)
 		qdel(src)
 	..()
 
@@ -195,12 +195,12 @@
 		if(reagents.pH < 2)
 			damage = (2 - reagents.pH)/20
 			cause = "from the extreme pH"
-			playsound(get_turf(src), 'sound/FermiChem/bufferadd.ogg', 50, 1)
+			playsound(get_turf(src), 'sound/effects/bubbles.ogg', 50, 1)
 
 		if(reagents.pH > 12)
 			damage = (reagents.pH - 12)/20
 			cause = "from the extreme pH"
-			playsound(get_turf(src), 'sound/FermiChem/bufferadd.ogg', 50, 1)
+			playsound(get_turf(src), 'sound/effects/bubbles.ogg', 50, 1)
 
 	if(container_flags & TEMP_WEAK)
 		if(reagents.chem_temp >= 444)
@@ -211,7 +211,7 @@
 			if(cause)
 				cause += " and "
 			cause += "from the high temperature"
-			playsound(get_turf(src), 'sound/FermiChem/heatdam.ogg', 50, 1)
+			playsound(get_turf(src), 'sound/items/welder.ogg', 50, 1)
 
 	if(!damage || damage <= 0)
 		STOP_PROCESSING(SSobj, src)
@@ -223,7 +223,7 @@
 		if(-INFINITY to 0)
 			warped_glass = FALSE
 			visible_message(span_notice("[icon2html(src, viewers(DEFAULT_MESSAGE_RANGE, src))] [src]'s melts [cause]!"))
-			playsound(src, 'sound/FermiChem/acidmelt.ogg', 80, 1)
+			playsound(src, 'sound/effects/bang.ogg', 80, 1)
 			SSblackbox.record_feedback("tally", "fermi_chem", 1, "Times beakers have melted")
 			STOP_PROCESSING(SSobj, src)
 			qdel(src)

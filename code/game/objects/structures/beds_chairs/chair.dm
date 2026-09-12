@@ -1,7 +1,7 @@
 /obj/structure/chair
 	name = "chair"
 	desc = "You sit in this. Either by will or force."
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	icon_state = "chair"
 	anchored = TRUE
 	can_buckle = 1
@@ -248,13 +248,13 @@
 
 /obj/structure/chair/wood/hitchingpost
 	name = "hitching post"
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "post_wood"
 	item_chair = /obj/item/chair/wood/hitchingpost
 
 /obj/item/chair/wood/hitchingpost
 	name = "hitching post"
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "post_wood"
 	origin_type = /obj/structure/chair/wood/hitchingpost
 
@@ -286,7 +286,7 @@
 	buildstackamount = 4
 
 /obj/structure/chair/comfy/plywood/GetArmrest()
-	return mutable_appearance('icons/fallout/objects/furniture/chairs_and_beds.dmi', "plywood_chair_armrest")
+	return mutable_appearance('icons/obj/furniture/chairs_and_beds.dmi', "plywood_chair_armrest")
 
 // Pre-war chair
 /obj/structure/chair/comfy/shuttle
@@ -295,7 +295,7 @@
 	icon_state = "shuttle_chair"
 
 /obj/structure/chair/comfy/shuttle/GetArmrest()
-	return mutable_appearance('icons/fallout/objects/furniture/chairs_and_beds.dmi', "shuttle_chair_armrest")
+	return mutable_appearance('icons/obj/furniture/chairs_and_beds.dmi', "shuttle_chair_armrest")
 
 /obj/structure/chair/comfy/modern
 	name = "modern chair"
@@ -306,7 +306,7 @@
 	buildstackamount = 2
 
 /obj/structure/chair/comfy/modern/GetArmrest()
-	return mutable_appearance('icons/fallout/objects/furniture/chairs_and_beds.dmi', "synthetic_chair_armrest")
+	return mutable_appearance('icons/obj/furniture/chairs_and_beds.dmi', "synthetic_chair_armrest")
 
 
 
@@ -332,7 +332,7 @@
 // Bar stools
 /obj/structure/chair/stool/retro
 	name = "bar stool"
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	icon_state = "bar"
 	item_chair = /obj/item/chair/stool/retro
 
@@ -394,6 +394,36 @@
 /obj/structure/chair/comfy/Destroy()
 	QDEL_NULL(armrest)
 	return ..()
+
+// only mood function, just for RP. Would be better if mood boost just fired if not wearing anything in uniform slot, or unable to buckle if dressed.
+/obj/structure/chair/comfy/bathtub
+	name = "bathtub"
+	desc = "A relaxing bath in hot water, or a endurance test in freezing water, depending on how lazy you are."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "bathtub"
+	max_integrity = 200
+	item_chair = null
+	resistance_flags = NONE
+	flags_1 = NODECONSTRUCT_1
+
+/obj/structure/chair/comfy/bathtub/GetArmrest()
+	return mutable_appearance('icons/obj/clothing/icons_legion.dmi', "bathtub_bathing")
+
+/obj/structure/chair/comfy/bathtub/post_buckle_mob(mob/living/M)
+	. = ..()
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "bathed", /datum/mood_event/bathed)
+	handle_layer()
+	playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
+
+/obj/structure/chair/comfy/bathtub/post_unbuckle_mob()
+	. = ..()
+	handle_layer()
+	playsound(src, 'code/modules/smithing/sound/water_splash2.ogg',50, 1)
+
+/datum/mood_event/bathed
+	description = span_nicegreen("A warm bath felt nice.")
+	mood_change = 4
+	timeout = 9000
 
 /obj/structure/chair/comfy/post_buckle_mob(mob/living/M)
 	. = ..()
@@ -508,7 +538,7 @@
 /obj/item/chair
 	name = "chair"
 	desc = "Bar brawl essential."
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	icon_state = "chair_toppled"
 	item_state = "chair"
 	lefthand_file = 'icons/mob/inhands/misc/chairs_lefthand.dmi'
@@ -929,3 +959,15 @@
 
 /obj/structure/chair/right/proc/GetOverlay()
 	return mutable_appearance('icons/obj/chairs.dmi', "booth_rightend_overlay")
+
+
+// ==================== Merged from fallout (code\modules\fallout\obj\structures\chair.dm) ====================
+//Fallout 13 unique furniture directory
+
+/obj/structure/chair/bench
+	name = "bench"
+	desc = "A classic wooden bench. It has some dried wax on it..."
+	icon_state = "church"
+	icon = 'icons/obj/objects2.dmi'
+	item_chair = null
+	buildstacktype = /obj/item/stack/sheet/mineral/wood

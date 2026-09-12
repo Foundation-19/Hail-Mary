@@ -10,9 +10,9 @@
  */
 
 /obj/item/kitchen
-	icon = 'icons/fallout/objects/kitchen.dmi'
-	lefthand_file = 'icons/fallout/onmob/tools/kitchen_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/kitchen_righthand.dmi'
+	icon = 'icons/obj/kitchen_f13.dmi'
+	lefthand_file = 'icons/onmob/tools/kitchen_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/kitchen_righthand.dmi'
 
 /obj/item/kitchen/fork
 	name = "fork"
@@ -58,8 +58,8 @@
 /obj/item/kitchen/knife
 	name = "kitchen knife"
 	desc = "A simple knife, best suited to cut stuff that doesn't cut back."
-	lefthand_file = 'icons/fallout/onmob/weapons/melee1h_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/weapons/melee1h_righthand.dmi'
+	lefthand_file = 'icons/onmob/weapons/melee1h_lefthand.dmi'
+	righthand_file = 'icons/onmob/weapons/melee1h_righthand.dmi'
 	icon_state = "knife_kitchen"
 	item_state = "knife"
 	flags_1 = CONDUCT_1

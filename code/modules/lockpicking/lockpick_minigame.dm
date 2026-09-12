@@ -1269,7 +1269,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	name = "pick fragment"
 	desc = "A jagged metal shard snapped from a lockpick inside the lock cylinder. \
 			You could fish it out with a screwdriver."
-	icon = 'icons/obj/fallout/lockbox.dmi'
+	icon = 'icons/obj/lockbox.dmi'
 	icon_state = "basic_lockpick"
 	w_class = WEIGHT_CLASS_TINY
 	/// The lock object this fragment is stuck inside (null once removed).

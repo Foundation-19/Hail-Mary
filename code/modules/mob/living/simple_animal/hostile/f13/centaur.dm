@@ -8,7 +8,7 @@
 /mob/living/simple_animal/hostile/centaur
 	name = "centaur"
 	desc = "The result of infection by FEV gone horribly wrong."
-	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon = 'icons/mob/monsters/freaks.dmi'
 	icon_state = "centaur"
 	icon_living = "centaur"
 	icon_dead = "centaur_dead"
@@ -138,7 +138,7 @@
 /mob/living/simple_animal/pet/dog/centaur
 	name = "Doug"
 	desc = "A docile centaur. Was brought here along with the warband. Isn't he adorable?"
-	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon = 'icons/mob/monsters/freaks.dmi'
 	icon_state = "centaur"
 	icon_living = "centaur"
 	icon_dead = "centaur_dead"
@@ -166,7 +166,7 @@
 /mob/living/simple_animal/hostile/abomination
 	name = "abomination"
 	desc = "A horrible fusion of man, animal, and something entirely different. It quakes and shudders, looking to be in an immense amount of pain. Blood and other fluids oo ze from various gashes and lacerations on its body, punctuated by mouths that gnash and scream."
-	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon = 'icons/mob/monsters/freaks.dmi'
 	icon_state = "abomination"
 	icon_living = "abomination"
 	icon_dead = "abomination_dead"
@@ -279,7 +279,7 @@
 /mob/living/simple_animal/hostile/abomhorror
 	name = "failed experiment"
 	desc = "A terrible fusion of man, animal, and something else entirely. It looks to be in great pain."
-	icon = 'icons/fallout/mobs/monsters/freaks.dmi'
+	icon = 'icons/mob/monsters/freaks.dmi'
 	icon_state = "horror"
 	icon_living = "horror"
 	icon_dead = "horror_dead"

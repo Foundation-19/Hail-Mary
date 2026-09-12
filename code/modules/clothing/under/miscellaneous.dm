@@ -192,8 +192,8 @@
 /obj/item/clothing/under/misc/staffassistant
 	name = "staff assistant's jumpsuit"
 	desc = "It's a generic grey jumpsuit. That's about what assistants are worth, anyway."
-	icon = 'goon/icons/obj/item_js_rank.dmi'
-	mob_overlay_icon = 'goon/icons/mob/worn_js_rank.dmi'
+	icon = 'icons/obj/item_js_rank.dmi'
+	mob_overlay_icon = 'icons/mob/worn_js_rank.dmi'
 	icon_state = "assistant"
 	item_state = "gy_suit"
 

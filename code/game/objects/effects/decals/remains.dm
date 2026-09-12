@@ -72,13 +72,13 @@
 
 /obj/effect/decal/remains/deadeyebot
 	desc = "A destroyed or deactivated eyebot. Best not stick around to see if it's still functioning."
-	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
+	icon = 'icons/mob/robots/eyebots.dmi'
 	icon_state = "eyebot_d"
 
 /obj/effect/decal/remains/skulls
 	name = "decoration"
 	desc = "A string of skulls."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "skulls"
 	drop_amount = 1
 	plane = GAME_PLANE
@@ -87,7 +87,7 @@
 /obj/effect/decal/remains/cloth
 	name = "decoration"
 	desc = "A simple cloth decoration."
-	icon = 'icons/fallout/objects/decals.dmi'
+	icon = 'icons/obj/decals_f13.dmi'
 	icon_state = "skin"
 	drop_amount = 1
 	plane = GAME_PLANE
@@ -97,7 +97,7 @@
 /obj/effect/decal/remains/hay
 	name = "hay bale"
 	desc = "You'd need eight stomachs to eat that."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "haybale"
 	drop_amount = 2
 	plane = GAME_PLANE

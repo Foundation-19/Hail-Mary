@@ -19,14 +19,42 @@
 	icon_state = "legpolarizing"
 	item_state = "legpolarizing"
 
-/obj/item/clothing/glasses/night/polarizing
+/obj/item/clothing/glasses/night/polarizing // possibly it would be better to make this just flash protect or such, and keep NVG to NVG looking goggle thingies. Dunno.
 	name = "polarizing goggles"
 	desc = "Fancy goggles with rare polarizing glass from some old cache, usually reserved for commanders and a few select scouts."
-	icon_state = "legpolarizing"
-	item_state = "legpolarizing"
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "goggles_polarizing"
+	item_state = "goggles_polarizing"
 	darkness_view = 12
 	lighting_alpha = LIGHTING_PLANE_ALPHA_NV_TRAIT
 	glass_colour_type = /datum/client_colour/glass_colour/lightorange
+	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_inv = HIDEEYES
+	visor_flags_cover = MASKCOVERSEYES
+	visor_vars_to_toggle = VISOR_TINT | VISOR_DARKNESSVIEW
+	alternate_worn_layer = (HEAD_LAYER-0.1) // so its not hidden
+
+/obj/item/clothing/glasses/night/polarizing/attack_self(mob/user)
+	weldingvisortoggle(user)
+
+/obj/item/clothing/glasses/f13/goggles_sandstorm
+	name = "sandstorm goggles"
+	desc = "Simple, tight-fitting goggles that protect your eyes from dust and sand."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "goggles"
+	item_state = "goggles"
+	toggle_message = "You pull down the"
+	alt_toggle_message = "You push up the"
+	actions_types = list(/datum/action/item_action/toggle)
+	visor_flags_inv = HIDEEYES
+	visor_flags_cover = MASKCOVERSEYES
+	visor_vars_to_toggle = VISOR_TINT | VISOR_DARKNESSVIEW
+	alternate_worn_layer = (HEAD_LAYER-0.1) // so its not hidden
+
+/obj/item/clothing/glasses/f13/goggles_sandstorm/attack_self(mob/user)
+	weldingvisortoggle(user)
 
 /obj/item/clothing/glasses/night/f13/enclave
 	name = "\improper pilot goggles"
@@ -45,14 +73,14 @@
 //Fallout 13 sunglasses
 
 /obj/item/clothing/glasses/sunglasses/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 
 //Fallout 13 thermals
 
 /obj/item/clothing/glasses/thermal/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 /obj/item/clothing/glasses/thermal/f13/doctorwho
@@ -66,7 +94,7 @@
 //Fallout 13 science goggles
 
 /obj/item/clothing/glasses/science/f13
-	icon = 'icons/fallout/clothing/glasses.dmi'
+	icon = 'icons/clothing/glasses.dmi'
 	armor = list(melee = 10, bullet = 10, laser = 10, energy = 10, bomb = 10, bio = 10, rad = 10, fire = 10, acid = 10)
 
 /obj/item/clothing/glasses/science/f13/steampunk

@@ -442,7 +442,7 @@
 /obj/item/storage/box/medicine/fiery_purgative5
 	name = "box of fiery purgative"
 	desc = "A box full of fiery purgative."
-	icon = 'icons/fallout/objects/storage.dmi'
+	icon = 'icons/obj/storage_f13.dmi'
 	icon_state = "leather_bag"
 	illustration = null
 
@@ -491,7 +491,7 @@
 /obj/item/storage/box/medicine/antivenom5
 	name = "box of antivenom"
 	desc = "A box full of antivenom flasks."
-	icon = 'icons/fallout/objects/storage.dmi'
+	icon = 'icons/obj/storage_f13.dmi'
 	icon_state = "medicinebox_simple"
 	illustration = "overlay_bitter" // eventually will be changed to unique
 
@@ -524,7 +524,7 @@
 /obj/item/storage/box/medicine/animal_salve5
 	name = "box of animal healing salve"
 	desc = "A box full of veterinary healing salves."
-	icon = 'icons/fallout/objects/storage.dmi'
+	icon = 'icons/obj/storage_f13.dmi'
 	icon_state = "medicinebox_simple"
 
 /obj/item/storage/box/medicine/animal_salve5/PopulateContents()

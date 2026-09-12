@@ -52,8 +52,8 @@
 /obj/item/storage/backpack/spearquiver
 	name = "sturdy quiver"
 	desc = "A leather and iron quiver designed to hold throwing spears and bolas."
-	icon = 'icons/fallout/clothing/belts.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
+	icon = 'icons/clothing/belts.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
 	icon_state = "spearquiver"
 	item_state = "spearquiver"
 	slot_flags = ITEM_SLOT_BACK|ITEM_SLOT_BELT
@@ -68,6 +68,32 @@
 
 /obj/item/storage/backpack/spearquiver/empty/PopulateContents()
 	return
+
+// proc to make the quiver look empty when empty
+/obj/item/storage/backpack/spearquiver/update_icon_state()
+	. = ..()
+	if(!contents.len)
+		icon_state = "[icon_state]_empty"
+	else
+		icon_state = initial(icon_state)
+
+// new satchel style that doesnt clutter up the mob so much
+/obj/item/storage/backpack/marching_satchel
+	name = "marching satchel"
+	desc = "A sturdy leather bag attacked to the belt, for carrying necessary supplies."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "satchel_marching"
+	item_state = "satchel_marching"
+
+/obj/item/storage/backpack/marching_satchel/update_icon_state()
+	. = ..()
+	if(!contents.len)
+		icon_state = "[icon_state]_empty"
+	else
+		icon_state = initial(icon_state)
 
 /obj/item/storage/backpack/spearquiver/AltClick(mob/living/carbon/user)
 	. = ..()
@@ -142,6 +168,13 @@
 	desc = "A robust backpack for stashing your loot."
 	icon_state = "explorerpack"
 	item_state = "explorerpack"
+
+/obj/item/storage/backpack/explorer/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_combined_w_class = 21
+	STR.max_volume = 21
 
 /obj/item/storage/backpack/medic
 	name = "medical backpack"
@@ -664,6 +697,13 @@ obj/item/storage/backpack/duffelbag/syndie/shredderbundle
 	icon_state = "trekkerpack"
 	item_state = "trekkerpack"
 
+/obj/item/storage/backpack/trekker/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	STR.max_items = 7
+	STR.max_combined_w_class = 21
+	STR.max_volume = 21
+
 /obj/item/storage/backpack/satchel/trekker
 	name = "trekkers satchel"
 	desc = "A light and durable satchel often seen in use by those prone to wandering the wastes, often alone."
@@ -673,10 +713,10 @@ obj/item/storage/backpack/duffelbag/syndie/shredderbundle
 /obj/item/storage/backpack/satchel/old
 	name = "old satchel"
 	desc = "The leather is stiff and cracking, but the satchel still works."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
-	lefthand_file = 'icons/fallout/onmob/items/bags_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/items/bags_righthand.dmi'
+	icon = 'icons/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/khaans.dmi'
+	lefthand_file = 'icons/onmob/items/bags_lefthand.dmi'
+	righthand_file = 'icons/onmob/items/bags_righthand.dmi'
 	icon_state = "satchel_old"
 	item_state = "satchel_old"
 

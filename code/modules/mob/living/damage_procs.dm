@@ -310,3 +310,8 @@
 		if(!amount)
 			break
 	. -= amount //if there's leftover healing, remove it from what we return
+
+
+// ==================== Merged from fallout (code\modules\fallout\code\modules\mob\living\damage_procs.dm) ====================
+/mob/living/proc/adjustStaminaLossBuffered(amount, updating_health = TRUE, forced = FALSE)
+	return

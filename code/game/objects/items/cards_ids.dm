@@ -1204,7 +1204,7 @@
 /obj/item/card/id/khantattoo
 	name = "Great Khan tattoo"
 	desc = "A tattoo of the symbol of the Great Khans."
-	icon = 'icons/fallout/clothing/khans.dmi'
+	icon = 'icons/clothing/khans.dmi'
 	icon_state = "khan_id"
 	item_state = null
 	assignment = "gang tattoo"
@@ -1431,3 +1431,75 @@ GLOBAL_LIST_INIT(fuzzy_license, list(
 		var/choice = input(user, "Select the license type", "License Type Selection") as null|anything in GLOB.fuzzy_license
 		if(!isnull(choice))
 			name = "license to [choice]"
+
+////////////////////////
+//LEGION ID & MEDALLIONS//
+////////////////////////
+
+/obj/item/card/id/dogtag/legion
+	name = "recruit medallion"
+	desc = "A cheap metal disc stamped with the Legion's bull insignia."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "medallion_recruit"
+	item_state = null
+	assignment = "recruit medallion"
+
+/obj/item/card/id/dogtag/legion/prime
+	name = "prime medallion"
+	desc = "A silver disc stamped with the Legion's bull insignia."
+	icon_state = "medallion_prime"
+	assignment = "prime medallion"
+
+/obj/item/card/id/dogtag/legion/veteran
+	name = "veteran medallion"
+	desc = "A silver disc stamped with the Legion's bull insignia and red honorific markings."
+	icon_state = "medallion_veteran"
+	assignment = "veteran medallion"
+
+/obj/item/card/id/dogtag/legion/centurion
+	name = "centurion medallion"
+	desc = "A golden disc awarded to the most fierce men in the whole legion. If you are close enough to read the insignia you won't be alive much longer."
+	icon_state = "medallion_centurion"
+	assignment = "centurion medallion"
+
+/obj/item/card/id/dogtag/legion/follower
+	name = "camp follower medallion"
+	desc = "A silver disc stamped with the Legion's Bull insignia."
+	icon_state = "medallion_recruit"
+	assignment = "camp follower medallion"
+
+/obj/item/card/id/dogtag/legion/follower/auxilia
+	name = "auxilia medallion"
+	desc = "A silver disc stamped with the Legion's Bull insignia."
+	icon_state = "medallion_prime"
+	assignment = "auxilia medallion"
+
+/obj/item/card/id/dogtag/legion/orator
+	name = "orator medallion"
+	desc = "A golden disc awarded to the one who is a dedicated ambassador for Caesar's Legion."
+	icon_state = "medallion_centurion"
+	assignment = "orator medallion"
+
+/obj/item/card/id/dogtag/legion/offduty
+	name = "off-duty medallion"
+	desc = "The wearer is free from his military duties this week."
+
+/obj/item/card/id/legion_slave
+	name = "Legion slave brand"
+	desc = "Property of the Legion. Burned into the flesh with a cattle-iron."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "brand_slave"
+	assignment = "Slave brand"
+	uses_overlays = FALSE
+
+/obj/item/card/id/legion_slave/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
+
+/obj/item/card/id/rusted/legion_exile
+	name = "rusted medallion"
+	desc = "This Legion medallion is rusted and worn, kept as a memento."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "medallion_exile"

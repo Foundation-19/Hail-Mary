@@ -54,7 +54,7 @@
 	mannequin.delete_equipment()
 	
 	// Apply the Dummy's preview background first so we properly layer everything else on top of it.
-	mannequin.add_overlay(mutable_appearance('fallout/icons/ui/backgrounds.dmi', bgstate, layer = SPACE_LAYER))
+	mannequin.add_overlay(mutable_appearance('icons/ui/backgrounds.dmi', bgstate, layer = SPACE_LAYER))
 	
 	if(current_tab == LOADOUT_TAB)
 		// For loadout tab: apply appearance WITHOUT job equipment, then add loadout

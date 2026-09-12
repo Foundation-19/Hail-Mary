@@ -11,7 +11,7 @@
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
 	icon_state = "bed"
-	icon = 'icons/fallout/objects/furniture/chairs_and_beds.dmi'
+	icon = 'icons/obj/furniture/chairs_and_beds.dmi'
 	anchored = TRUE
 	can_buckle = TRUE
 	buckle_lying = TRUE

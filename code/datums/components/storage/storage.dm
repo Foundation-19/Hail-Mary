@@ -518,17 +518,17 @@
 				to_chat(M, span_warning("[host] has too many things in it, make some space!"))
 			return FALSE //Storage item is full
 	if(storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
-		var/sum_w_class = I.w_class
+		var/sum_w_class = get_nested_w_class(I)
 		for(var/obj/item/_I in real_location)
-			sum_w_class += _I.w_class //Adds up the combined w_classes which will be in the storage item if the item is added to it.
+			sum_w_class += get_nested_w_class(_I) //Adds up the combined w_classes which will be in the storage item if the item is added to it, counting stuffed contents so boxes can't smuggle extra weight for free.
 		if(sum_w_class > max_combined_w_class)
 			if(!stop_messages)
 				to_chat(M, span_warning("[I] won't fit in [host], make some space!"))
 			return FALSE
 	if(storage_flags & STORAGE_LIMIT_VOLUME)
-		var/sum_volume = I.get_w_volume()
+		var/sum_volume = get_nested_w_volume(I)
 		for(var/obj/item/_I in real_location)
-			sum_volume += _I.get_w_volume()
+			sum_volume += get_nested_w_volume(_I)
 		if(sum_volume > get_max_volume())
 			if(!stop_messages)
 				to_chat(M, span_warning("[I] is too spacious to fit in [host], make some space!"))
@@ -552,6 +552,22 @@
 		to_chat(M, span_warning("[host] only allows [tally] in this!"))
 		return FALSE
 	return master.slave_can_insert_object(src, I, stop_messages, M)
+
+/// Weight of an item plus whatever is stuffed inside it, so nesting storage items can't be used to smuggle free capacity.
+/datum/component/storage/proc/get_nested_w_class(obj/item/I)
+	. = I.w_class
+	var/datum/component/storage/nested = I.GetComponent(/datum/component/storage)
+	if(nested)
+		for(var/obj/item/inner in I)
+			. += nested.get_nested_w_class(inner)
+
+/// Volume of an item plus whatever is stuffed inside it, so nesting storage items can't be used to smuggle free capacity.
+/datum/component/storage/proc/get_nested_w_volume(obj/item/I)
+	. = I.get_w_volume()
+	var/datum/component/storage/nested = I.GetComponent(/datum/component/storage)
+	if(nested)
+		for(var/obj/item/inner in I)
+			. += nested.get_nested_w_volume(inner)
 
 /// Has our quota been met?
 /datum/component/storage/proc/check_quota(obj/item/I)

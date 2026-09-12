@@ -52,6 +52,7 @@
 //Int additive
 #define GUN_UPGRADE_DAMAGEMOD_PLUS "damage_plus"
 #define GUN_UPGRADE_MAGUP "magazine_addition"
+#define GUN_UPGRADE_DT_PEN_ADD "dt_pen_add"
 
 #define GUN_UPGRADE_DAMAGE_BRUTE "brute_damage"
 #define GUN_UPGRADE_DAMAGE_BURN "burn_damage"

@@ -46,6 +46,15 @@
 /datum/chemical_reaction/proc/check_special_react(datum/reagents/holder)
 	return
 
+/datum/chemical_reaction/proc/FermiExplode(datum/reagents/holder, atom/my_atom, volume, temp, pH)
+	return
+
+/datum/chemical_reaction/proc/FermiCreate(datum/reagents/holder, amount, purity)
+	return
+
+/datum/chemical_reaction/proc/FermiFinish(datum/reagents/holder, atom/my_atom, reactedVol)
+	return
+
 /*
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon")
 	if(holder && holder.my_atom)

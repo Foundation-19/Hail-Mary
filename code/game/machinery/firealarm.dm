@@ -129,7 +129,7 @@
 	last_alarm = world.time
 	var/area/A = get_base_area(src)
 	A.firealert(src)
-	playsound(loc, 'goon/sound/machinery/FireAlarm.ogg', 75)
+	playsound(loc, 'sound/machines/FireAlarm.ogg', 75)
 	if(user)
 		log_game("[user] triggered a fire alarm at [COORD(src)]")
 

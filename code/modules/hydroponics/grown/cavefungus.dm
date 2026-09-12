@@ -44,7 +44,7 @@
 	growthstages = 3
 	production = 20
 	maturation = 20
-	growing_icon = 'icons/fallout/flora/flora.dmi'
+	growing_icon = 'icons/flora/flora.dmi'
 	icon_grow = "glow-grow"
 	icon_dead = "glow-dead"
 	icon_harvest = "glow-harvest"

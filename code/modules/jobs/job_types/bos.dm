@@ -408,10 +408,6 @@ Knight-Captain
 /datum/outfit/job/bos/f13knightcap
 	name = "Knight-Captain"
 	jobtype = /datum/job/bos/f13knightcap
-	gunsmith_one = TRUE
-	gunsmith_two = TRUE
-	gunsmith_three = TRUE
-	gunsmith_four = TRUE
 	suit = /obj/item/clothing/suit/armor/medium/combat/brotherhood/captain
 	suit_store = /obj/item/gun/energy/laser/aer9
 	glasses = /obj/item/clothing/glasses/night
@@ -798,10 +794,6 @@ Knight Sarge
 	belt = /obj/item/storage/belt/army/assault
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
-	gunsmith_one = TRUE
-	gunsmith_two = TRUE
-	gunsmith_three = TRUE
-	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 2,
@@ -873,10 +865,6 @@ Senior Knight
 	belt = /obj/item/storage/belt/army/assault
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood/senior
-	gunsmith_one = TRUE
-	gunsmith_two = TRUE
-	gunsmith_three = TRUE
-	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/hunting = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 3,
@@ -970,10 +958,6 @@ Knight
 	l_pocket = /obj/item/storage/belt/shoulderholster
 	belt = /obj/item/storage/belt/army/assault
 	head = /obj/item/clothing/head/helmet/f13/combat/brotherhood
-	gunsmith_one = TRUE
-	gunsmith_two = TRUE
-	gunsmith_three = TRUE
-	gunsmith_four = TRUE
 	backpack_contents = list(
 		/obj/item/melee/onehanded/knife/survival = 1,
 		/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,

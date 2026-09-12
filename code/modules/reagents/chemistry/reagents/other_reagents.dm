@@ -2837,3 +2837,255 @@
 /datum/reagent/nutracid/on_mob_life(mob/living/carbon/M)
 	M.adjust_nutrition(-5)
 	..()
+
+
+// ==================== Merged from fallout (code\modules\fallout\reagents\other_reagents.dm) ====================
+/datum/reagent/compost
+	name = "compost"
+	description = "A mixture of waste and rotten plant matter that nurtures plants and keeps them free of pests."
+	reagent_state = "SOLID"
+	color = "#44341F"
+	taste_description = "rot"
+
+//Compost when used on soil
+/datum/reagent/compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
+	. = ..()
+	if(chems.has_reagent(src.type, 1))
+		mytray.adjustPests(-1)
+		if(myseed && chems.has_reagent(src.type, 1))
+			myseed.adjust_yield(round(chems.get_reagent_amount(src.type) * 0.1))
+			myseed.adjust_potency(round(chems.get_reagent_amount(src.type) * 0.25))
+
+// Compost when drunk..?
+/datum/reagent/compost/on_mob_life(mob/living/carbon/M)
+	M.adjustToxLoss(0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
+	. = TRUE
+	..()
+
+// Left-4-Zed Tribal edition
+/datum/reagent/reactive_compost
+	name = "reactive compost"
+	description = "Compost mixed with mutfruit juice and datura tea. The resulting mixture is capable of drawing forth the inner potential of a plant, at the expense of its well being."
+	reagent_state = "LIQUID"
+	color = "#8181E9"
+	taste_description = "sizzling rot"
+
+// Making Left-4-Zed Tribal edition
+/datum/chemical_reaction/reactive_compost
+	id = /datum/reagent/reactive_compost
+	results = list(/datum/reagent/reactive_compost = 3)
+	required_reagents = list(/datum/reagent/compost = 1, /datum/reagent/consumable/mutjuice = 1, /datum/reagent/consumable/ethanol/daturatea = 1)
+	mix_message = "The compost emits a noxious scent"
+
+//If used on trays
+/datum/reagent/reactive_compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
+	. = ..()
+	if(myseed && chems.has_reagent(src.type, 1))
+		mytray.adjustHealth(-round(chems.get_reagent_amount(src.type) * 0.025))
+		myseed.adjust_instability(round(chems.get_reagent_amount(src.type) * 0.3))
+
+// Enduro Grow Tribal Edition
+/datum/reagent/fortifying_compost
+	name = "fortifying compost"
+	description = "Compost mixed with tato juice and yucca juice. The resulting mixture will fortify the plant against weed infestations, toxins, and the toils of gardening."
+	reagent_state = "LIQUID"
+	color = "#AD462C"
+	taste_description = "earthy rot"
+	
+// Making Enduro Grow Tribal edition
+/datum/chemical_reaction/fortifying_compost
+	id = /datum/reagent/fortifying_compost
+	results = list(/datum/reagent/fortifying_compost = 3)
+	required_reagents = list(/datum/reagent/compost = 1, /datum/reagent/consumable/yuccajuice = 1, /datum/reagent/consumable/tato_juice = 1)
+	mix_message = "The compost emits an earthy aroma"
+	
+//If used on trays
+/datum/reagent/fortifying_compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
+	. = ..()
+	if(myseed && chems.has_reagent(src.type, 1))
+		myseed.adjust_endurance(round(chems.get_reagent_amount (src.type) * 0.35))
+		myseed.adjust_weed_chance(-round(chems.get_reagent_amount (src.type) * 0.2))
+		mytray.adjustHealth(round(chems.get_reagent_amount (src.type) * 0.2))
+
+// Saltpetre Tribal Edition
+/datum/reagent/alacritous_compost
+	name = "alacritous compost"
+	description = "A strange mixture of compost, ashes and pink pulque. This potent mixture will hasten the plant's harvest while increasing the yield."
+	reagent_state = "LIQUID"
+	color = "#ECACEC"
+	taste_description = "cool, semisweet rot"
+
+//Making Saltpetre Tribal Edition
+/datum/chemical_reaction/alacritous_compost
+	id = /datum/reagent/alacritous_compost
+	results = list(/datum/reagent/alacritous_compost = 3)
+	required_reagents = list(/datum/reagent/ash = 1, /datum/reagent/consumable/ethanol/pinkpulque = 1, /datum/reagent/compost = 1)
+	mix_message = "The compost starts smelling like manure"
+
+// If added to tray
+/datum/reagent/alacritous_compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
+	. = ..()
+	if(chems.has_reagent(src.type, 1))	
+		var/acompost = chems.get_reagent_amount(src.type)
+		if(myseed)
+			myseed.adjust_production(-round(acompost/8)-prob(acompost%10))
+			myseed.adjust_potency(round(acompost*1.2))
+			myseed.adjust_yield(round(acompost*0.1))
+
+// Stabilizing Compost
+/datum/reagent/stabilizing_compost
+	name = "stabilizing compost"
+	description = "A soothing mixture of compost, milk, and honey. The resulting mixture will stabilize a plant at the cost of potency."
+	reagent_state = "LIQUID"
+	color = "#B5ABAB"
+	taste_description = "sweet rot"
+
+//Making Stabilizing Compost
+/datum/chemical_reaction/stabilizing_compost
+	id = /datum/reagent/stabilizing_compost
+	results = list(/datum/reagent/stabilizing_compost = 3)
+	required_reagents = list(/datum/reagent/compost = 1, /datum/reagent/consumable/honey = 1, /datum/reagent/consumable/milk = 1)
+	mix_message= "The compost emits a sweet smell"
+	
+// If added to tray
+/datum/reagent/stabilizing_compost/on_hydroponics_apply(obj/item/seeds/myseed, datum/reagents/chems, obj/machinery/hydroponics/mytray)
+	. = ..()
+	if(chems.has_reagent(src.type, 1))
+		var/scompost =chems.get_reagent_amount(src.type)
+		if(myseed)
+			myseed.adjust_instability(-round(scompost*1.2))
+			myseed.adjust_potency(-round(scompost*0.5))
+
+
+// ==================== Merged from fallout (reagents/chemistry/reagents/synthtissue.dm) ====================
+/datum/reagent/synthtissue
+	name = "Synthtissue"
+	description = "Synthetic tissue used for grafting onto damaged organs during surgery, or for treating limb damage. Has a very tight growth window between 305-320, any higher and the temperature will cause the cells to die. Additionally, growth time is considerably long, so chemists are encouraged to leave beakers with said reaction ongoing, while they tend to their other duties."
+	pH = 7.6
+	metabolization_rate = 0.05
+	data = list("grown_volume" = 0, "injected_vol" = 0, "borrowed_health" = 0)
+	var/borrowed_health = 0
+	color = "#FFDADA"
+	value = REAGENT_VALUE_COMMON
+
+/datum/reagent/synthtissue/reaction_mob(mob/living/M, method=TOUCH, reac_volume,show_message = 1)
+	if(iscarbon(M))
+		var/mob/living/carbon/C = M
+		var/healing_factor = (((data["grown_volume"] / 100) + 1)*reac_volume)
+		if(method == PATCH)
+			if (C.stat == DEAD)
+				C.visible_message("The synthetic tissue rapidly grafts into [M]'s wounds, attempting to repair the damage as quickly as possible.")
+				var/preheal_brute = C.getBruteLoss()
+				var/preheal_burn = C.getFireLoss()
+				var/preheal_tox = C.getToxLoss()
+				var/preheal_oxy = C.getOxyLoss()
+				C.adjustBruteLoss(-healing_factor*2)
+				C.adjustFireLoss(-healing_factor*2)
+				C.adjustToxLoss(-healing_factor)
+				C.adjustCloneLoss(-healing_factor)
+				borrowed_health += (preheal_brute - C.getBruteLoss()) + (preheal_burn - C.getFireLoss()) + (preheal_tox - C.getToxLoss()) + ((preheal_oxy - C.getOxyLoss()) / 2)
+				C.updatehealth()
+				if(data["grown_volume"] > 135 && ((C.health + C.oxyloss)>=80))
+					var/tplus = world.time - M.timeofdeath
+					if(C.can_revive(ignore_timelimit = TRUE, maximum_brute_dam = MAX_REVIVE_BRUTE_DAMAGE / 2, maximum_fire_dam = MAX_REVIVE_FIRE_DAMAGE / 2, ignore_heart = TRUE) && C.revive())
+						C.grab_ghost()
+						C.emote("gasp")
+						borrowed_health *= 2
+						if(borrowed_health < 100)
+							borrowed_health = 100
+						log_combat(M, M, "revived", src)
+						var/list/policies = CONFIG_GET(keyed_list/policy)
+						var/policy = policies[POLICYCONFIG_ON_DEFIB_LATE]
+						if(policy)
+							to_chat(C, policy)
+						C.log_message("revived using synthtissue, [tplus] deciseconds from time of death, considered late revival due to usage of synthtissue.", LOG_GAME)
+			else
+				var/preheal_brute = C.getBruteLoss()
+				var/preheal_burn = C.getFireLoss()
+				M.adjustBruteLoss(-healing_factor)
+				M.adjustFireLoss(-healing_factor)
+				var/datum/reagent/synthtissue/active_tissue = M.reagents.has_reagent(/datum/reagent/synthtissue)
+				var/imperfect = FALSE
+				if(active_tissue && active_tissue.borrowed_health)
+					borrowed_health += (preheal_brute - C.getBruteLoss()) + (preheal_burn - C.getFireLoss())
+					imperfect = TRUE
+				to_chat(M, span_danger("You feel your flesh [imperfect ? "partially and painfully" : ""] merge with the synthetic tissue! It stings like hell[imperfect ? " and is making you feel terribly sick" : ""]!"))
+		SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "painful_medicine", /datum/mood_event/painful_medicine)
+		data["borrowed_health"] += borrowed_health
+		borrowed_health = 0
+		if(method==INJECT)
+			data["injected_vol"] = reac_volume
+			var/obj/item/organ/heart/H = C.getorganslot(ORGAN_SLOT_HEART)
+			if(H && data["grown_volume"] > 50 && H.organ_flags & ORGAN_FAILING)
+				H.applyOrganDamage(-20)
+	..()
+
+/datum/reagent/synthtissue/on_mob_life(mob/living/carbon/C)
+	if(!iscarbon(C))
+		return ..()
+	if(data["injected_vol"] > 14)
+		if(data["grown_volume"] > 175)
+			if(volume >= 14)
+				if(C.regenerate_organs(only_one = TRUE))
+					C.reagents.remove_reagent(type, 15)
+					to_chat(C, span_notice("You feel something reform inside of you!"))
+
+	data["injected_vol"] = max(0, data["injected_vol"] - metabolization_rate * C.metabolism_efficiency)
+	if(borrowed_health)
+		var/ratio = (current_cycle > SYNTHTISSUE_DAMAGE_FLIP_CYCLES) ? 0 : (1 - (current_cycle / SYNTHTISSUE_DAMAGE_FLIP_CYCLES))
+		var/payback = 2 * C.metabolism_efficiency
+		C.adjustToxLoss((1 - ratio) * payback * REAGENTS_EFFECT_MULTIPLIER, forced = TRUE)
+		C.adjustCloneLoss(ratio * payback * REAGENTS_EFFECT_MULTIPLIER)
+		borrowed_health = max(borrowed_health - payback, 0)
+	..()
+
+/datum/reagent/synthtissue/on_merge(passed_data)
+	if(!passed_data)
+		return ..()
+	borrowed_health += max(0, passed_data["borrowed_health"])
+	if(passed_data["grown_volume"] > data["grown_volume"])
+		data["grown_volume"] = passed_data["grown_volume"]
+	if(iscarbon(holder.my_atom))
+		data["injected_vol"] = data["injected_vol"] + passed_data["injected_vol"]
+		passed_data["injected_vol"] = 0
+	update_name()
+	..()
+
+/datum/reagent/synthtissue/on_new(passed_data)
+	if(!passed_data)
+		return ..()
+	borrowed_health = min(passed_data["borrowed_health"] + borrowed_health, SYNTHTISSUE_BORROW_CAP)
+	if(passed_data["grown_volume"] > data["grown_volume"])
+		data["grown_volume"] = passed_data["grown_volume"]
+	update_name()
+	..()
+
+/datum/reagent/synthtissue/post_copy_data()
+	data["borrowed_health"] = 0
+	return ..()
+
+/datum/reagent/synthtissue/proc/update_name()
+	switch(data["grown_volume"])
+		if(-INFINITY to 50)
+			name = "Induced Synthtissue Colony"
+		if(50 to 80)
+			name = "Oligopotent Synthtissue Colony"
+		if(80 to 135)
+			name = "Pluripotent Synthtissue Colony"
+		if(135 to 175)
+			name = "SuperSomatic Synthtissue Colony"
+		if(175 to INFINITY)
+			name = "Omnipotent Synthtissue Colony"
+
+/datum/reagent/synthtissue/on_mob_delete(mob/living/M)
+	if(!iscarbon(M))
+		return
+	var/mob/living/carbon/C = M
+	C.adjustBruteLoss(borrowed_health*1.25)
+	C.adjustToxLoss(borrowed_health*1.25)
+	C.adjustCloneLoss(borrowed_health*1.25)
+	C.adjustAllOrganLoss(borrowed_health*0.25)
+	M.updatehealth()
+	if(C.stat != DEAD && borrowed_health && C.health < -20)
+		M.visible_message("The synthetic tissue sloughs off [M]'s wounds as they collapse to the floor.")
+		M.death()

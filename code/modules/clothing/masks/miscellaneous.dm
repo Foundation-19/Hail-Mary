@@ -19,8 +19,8 @@
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
 	desc = "A sterile mask designed to help prevent the spread of diseases."
-	icon = 'icons/fallout/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mask.dmi'
+	icon = 'icons/clothing/masks.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/mask.dmi'
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
@@ -442,14 +442,32 @@
 /////////////////////
 
 /obj/item/clothing/mask/bandana/legion
-	name = "legion mask template"
-	desc = "Should not exist."
-	icon = 'icons/fallout/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mask.dmi'
+	name = "legion bandana"
+	desc = "A bandana worn by Legion members."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "bandana_legion"
 	flags_inv = HIDEFACE
 	visor_flags_inv = HIDEFACE
 	adjusted_flags = null
 	actions_types = list(/datum/action/item_action/adjust)
+
+/obj/item/clothing/mask/bandana/legion/recruit
+	name = "recruit bandana"
+	desc = "Bandana made from cheap cloth."
+	icon_state = "bandana_recruit"
+
+/obj/item/clothing/mask/bandana/legion/dark
+	name = "dark bandana"
+	desc = "Plain cotton bandana."
+	icon_state = "bandana_dark"
+
+/obj/item/clothing/mask/bandana/legion/centurion
+	name = "centurions bandana"
+	desc = "Made from fine cloth with a distinctive pattern."
+	icon_state = "bandana_centurion"
 
 /obj/item/clothing/mask/bandana/legion/camp
 	name = "desperado bandana"
@@ -474,8 +492,8 @@
 /obj/item/clothing/mask/bandana/legion/legdecan
 	name = "outlaw bandana"
 	desc = "A fine bandana in dark red."
-	icon = 'icons/fallout/clothing/masks.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mask.dmi'
+	icon = 'icons/clothing/masks.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/mask.dmi'
 	icon_state = "legdecan"
 
 /obj/item/clothing/mask/bandana/legion/legcenturion

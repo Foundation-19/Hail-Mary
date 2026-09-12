@@ -670,14 +670,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	new /obj/item/gun/ballistic/automatic/smg/mini_uzi/rockwell(src)
 	new /obj/item/ammo_box/magazine/uzim9mm/rockwell(src)
 
-/obj/item/storage/box/gun/rifle/sidewinder //should this be allowed? not field tested personally
-	name = "multi-caliber carbine case"
-
-/obj/item/storage/box/gun/rifle/sidewinder/PopulateContents()
-	new /obj/item/gun/ballistic/automatic/smg/sidewinder/worn(src)
-	new /obj/item/ammo_box/magazine/m22(src) //you asked for multicaliber, you get multiple calibers
-	new /obj/item/ammo_box/magazine/m45(src)
-
 /obj/item/storage/box/gun/rifle/sidewinder_magnum //should this be allowed? not field tested personally
 	name = "multi-caliber magnum case"
 
@@ -1277,13 +1269,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /// ENERGY!
 
-/obj/item/storage/box/gun/energy/plasma
-	name = "plasma pistol case"
-
-/obj/item/storage/box/gun/energy/plasma/PopulateContents()
-	new /obj/item/gun/energy/laser/plasma/pistol/worn(src)
-	new /obj/item/stock_parts/cell/ammo/ec(src)
-
 /obj/item/storage/box/gun/energy/stun
 	name = "compliance regulator case"
 
@@ -1303,13 +1288,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/storage/box/gun/energy/wattz1000/PopulateContents()
 	new /obj/item/gun/energy/laser/wattz(src)
-	new /obj/item/stock_parts/cell/ammo/ec(src)
-
-/obj/item/storage/box/gun/energy/wornaep7
-	name = "worn AEP-7 case"
-
-/obj/item/storage/box/gun/energy/wornaep7/PopulateContents()
-	new /obj/item/gun/energy/laser/pistol/worn(src)
 	new /obj/item/stock_parts/cell/ammo/ec(src)
 
 /obj/item/choice_beacon/box/gun //template for sprites
@@ -1337,12 +1315,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_class = LOADOUT_CAT_ENERGY
 	spawn_thing = /obj/item/storage/box/gun/energy
 
-/datum/loadout_box/plasma
-	entry_tag = "Plasma Pistol"
-	entry_flags = LOADOUT_FLAG_PREMIUM
-	entry_class = LOADOUT_CAT_PREMIUM
-	spawn_thing = /obj/item/storage/box/gun/energy/plasma
-
 /datum/loadout_box/aer9
 	entry_tag = "AER-9"
 	entry_flags = LOADOUT_FLAG_PREMIUM
@@ -1366,12 +1338,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_ENERGY
 	spawn_thing = /obj/item/storage/box/gun/energy/wattz1000
-
-/datum/loadout_box/wornaep7
-	entry_tag = "Worn AEP-7"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_ENERGY
-	spawn_thing = /obj/item/storage/box/gun/energy/wornaep7
 
 /// Fancyguns
 
@@ -1534,12 +1500,6 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 	entry_flags = LOADOUT_FLAG_WASTER
 	entry_class = LOADOUT_CAT_LONGGUN
 	spawn_thing = /obj/item/storage/box/gun/rifle/gras
-
-/datum/loadout_box/sidewinder
-	entry_tag = "Multicaliber Carbine"
-	entry_flags = LOADOUT_FLAG_WASTER
-	entry_class = LOADOUT_CAT_LONGGUN
-	spawn_thing = /obj/item/storage/box/gun/rifle/sidewinder
 
 /* /datum/loadout_box/sidewinder_magnum
 	entry_tag = "Multicaliber Magnum"

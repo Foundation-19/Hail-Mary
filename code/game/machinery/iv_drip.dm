@@ -48,7 +48,7 @@
 		else
 			. += "beakeridle"
 		if(beaker.reagents.total_volume)
-			var/mutable_appearance/filling_overlay = mutable_appearance('modular_BD2/general/icons/primitive_medical.dmi', "reagent")
+			var/mutable_appearance/filling_overlay = mutable_appearance('icons/obj/primitive_medical.dmi', "reagent")
 
 			var/percent = round((beaker.reagents.total_volume / beaker.volume) * 100)
 			switch(percent)

@@ -649,13 +649,13 @@
 /obj/structure/closetundense/locker
 	name = "locker"
 	desc = "It's a basic storage unit."
-	icon = 'icons/fallout/objects/furniture/closet.dmi'
+	icon = 'icons/obj/furniture/closet.dmi'
 	icon_state = "gray"
 
 /obj/structure/closetundense/locker/higherlayer
 	name = "locker"
 	desc = "It's a basic storage unit."
-	icon = 'icons/fallout/objects/furniture/closet.dmi'
+	icon = 'icons/obj/furniture/closet.dmi'
 	icon_state = "generic"
 	layer = BELOW_OBJ_LAYER
 

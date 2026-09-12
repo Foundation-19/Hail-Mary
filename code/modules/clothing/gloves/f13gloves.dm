@@ -15,7 +15,7 @@
 /obj/item/clothing/gloves/f13/leather
 	name = "leather gloves"
 	desc = "Gloves made of wasteland animals hides, that were tanned and carefully stiched together."
-	icon = 'icons/fallout/clothing/gloves.dmi'
+	icon = 'icons/clothing/gloves.dmi'
 	icon_state = "leather"
 	item_state = "leather"
 	item_color = null
@@ -137,9 +137,9 @@
 /obj/item/clothing/gloves/botanic_leather
 	name = "farmers gloves"
 	desc = "These thick leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin.  They're also quite warm."
-	icon = 'icons/fallout/clothing/gloves.dmi'
+	icon = 'icons/clothing/gloves.dmi'
 	icon_state = "farmer"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/hand.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/hand.dmi'
 	item_state = "farmer"
 	permeability_coefficient = 0.9
 	cold_protection = HANDS
@@ -157,10 +157,10 @@
 /obj/item/clothing/gloves/legion
 	name = "fingerless gloves"
 	desc = "Improves the grip on a machete even when slick with blood, widely used by Legion warriors."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
 	icon_state = "gloves_fingerless"
 	item_state = "gloves_fingerless"
 
@@ -202,7 +202,7 @@
 /obj/item/clothing/gloves/f13/minutemen
 	name = "minutemen gloves"
 	desc = "Comfortable padded gloves, used by the Minutemen."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_gloves"
 	item_state = "mm_gloves"

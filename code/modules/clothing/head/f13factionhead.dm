@@ -1,51 +1,4 @@
-/*PARENT ITEMS FOR REFERENCE PURPOSES. DO NOT UNCOMMENT
-/obj/item/clothing/head
-	name = BODY_ZONE_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "top_hat"
-	item_state = "that"
-	body_parts_covered = HEAD
-	slot_flags = ITEM_SLOT_HEAD
-	var/blockTracking = 0 //For AI tracking
-	var/can_toggle = null
-	dynamic_hair_suffix = "+generic"
-	var/datum/beepsky_fashion/beepsky_fashion //the associated datum for applying this to a secbot
-	var/list/speechspan = null
-	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "bio" = 0, "bomb" = 10, "rad" = 0, "fire" = 25, "acid" = 25)
-	slowdown = 0
-
-/obj/item/clothing/head/Initialize()
-	. = ..()
-	if(ishuman(loc) && dynamic_hair_suffix)
-		var/mob/living/carbon/human/H = loc
-		H.update_hair()
-
-/obj/item/clothing/head/get_head_speechspans(mob/living/carbon/user)
-	if(speechspan)
-		return speechspan
-	else
-		return
-
-/obj/item/clothing/head/helmet
-	name = "helmet"
-	desc = "Standard Security gear. Protects the head from impacts."
-	icon_state = "helmet"
-	item_state = "helmet"
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, energy = "25", "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50, "wound" = 10)
-	flags_inv = HIDEEARS | HIDEHAIR
-	cold_protection = HEAD
-	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
-	heat_protection = HEAD
-	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
-	strip_delay = 60
-	resistance_flags = NONE
-	flags_cover = HEADCOVERSEYES
-
-	dog_fashion = /datum/dog_fashion/head/helmet
-
-/obj/item/clothing/head/helmet/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_HEAD))*/
+//Parent types /obj/item/clothing/head and /obj/item/clothing/head/helmet live in _head.dm and helmet.dm - check there for inherited defaults (flags_inv, dynamic_hair_suffix, armor, etc).
 
 //Raider
 /obj/item/clothing/head/helmet/f13/raider
@@ -68,12 +21,13 @@
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
-
 /obj/item/clothing/head/helmet/f13/raider/wastehound
 	name = "wastehound raider helmet"
 	desc = "A sack hood made out of a suspicious leather with tufts of hair sticking out. This mask would make Leatherface proud."
 	icon_state = "wastehound_hood_icon"
-	item_state = "raider_wastehound_hood"
+	item_state = "wastehound_hood_icon"
+	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
+	dynamic_hair_suffix = ""
 	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
 
 /obj/item/clothing/head/helmet/f13/raider/wastehound/Initialize() //HQ parts reinforcement
@@ -85,7 +39,17 @@
 	desc = "Welding mask with rare polarizing glass thats somehow still in working order. A treasured item in the wasteland."
 	icon_state = "arclight"
 	item_state = "arclight"
-	visor_flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE
+	toggle_message = "You lower"
+	alt_toggle_message = "You raise"
+	can_toggle = 1
+	flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	dynamic_hair_suffix = ""
+	strip_delay = 80
+	actions_types = list(/datum/action/item_action/toggle)
+	toggle_cooldown = 0
+	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
+	visor_flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
 	flash_protect = 2
 	tint = 0.5
 
@@ -150,7 +114,8 @@
 	desc = "A leather cap cobbled together adorned with a bighorner skull, perfect for any drug-fueled frenzy."
 	icon_state = "fiend"
 	item_state = "fiend"
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/fiend_reinforced
 	name = "reinforced fiend helmet"
@@ -158,7 +123,8 @@
 	icon_state = "fiend"
 	item_state = "fiend"
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2)
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 	slowdown = 0.025
 
 /obj/item/clothing/head/helmet/f13/raidermetal
@@ -182,11 +148,9 @@
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	slowdown = 0.025
 
-
 ///////////
 //ENCLAVE//
 ///////////
-
 
 /obj/item/clothing/head/f13/enclave
 	name = "officer hat"
@@ -250,7 +214,7 @@
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
-obj/item/clothing/head/helmet/f13/enclave/usmcriot
+/obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	name = "old United States Marine Corp riot helmet"
 	desc = "A pre-war riot armor helmet used by the USCM For various tasks and operations, it's handled the nuclear wasteland somewhat better than the rest of the armors you've seen."
 	icon_state = "modified_usmc_riot"
@@ -272,17 +236,15 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "hat_enclave_officer"
 	item_state = "hat_enclave_officer"
 
-
 //////////
 //LEGION//
 //////////
 
-
 /obj/item/clothing/head/helmet/f13/legion
 	name = "legion helmet template"
 	desc = "should not exist."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	lefthand_file = ""
 	righthand_file = ""
 	flags_inv = HIDEEARS|HIDEHAIR
@@ -296,7 +258,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
- 
+
 /obj/item/clothing/head/helmet/f13/legion/marsheaddress
 	name = "priestess' headdress"
 	desc = "A headdress made of feathers and decorated with two golden tassles."
@@ -311,6 +273,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	icon_state = "legion-recruit"
 	item_state = "legion-recruit"
 	flags_inv = HIDEEARS|HIDEHAIR
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/legion/prime
 	name = "legion prime helmet"
@@ -318,6 +281,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	item_state = "legion-prime"
 	icon_state = "legion-prime"
 	flags_inv = HIDEEARS|HIDEHAIR
+	dynamic_hair_suffix = ""
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/head/helmet/f13/legion/prime/slavemaster
@@ -325,7 +289,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "The distinct helmet used by slavemasters."
 	icon_state = "legion-slavemaster"
 	item_state = "legion-slavemaster"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR
 	flags_cover = HEADCOVERSEYES
 	dog_fashion = null
@@ -342,10 +306,10 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/explorer
 	name = "legion scout hood"
 	desc = "It's a leather hood with metal reinforcments and built in headphones to plug the radio into."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
 	icon_state = "helmet_explorer"
 	item_state = "helmet_explorer"
 	armor = list("melee" = 30, "bullet" = 25, "laser" = 5, "energy" = 10, "bomb" = 40, "bio" = 20, "rad" = 20, "fire" = 25, "acid" = 0, "wound" = 40)
@@ -353,7 +317,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/combvexil
 	name = "legion bear vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a ashland bear."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-vex"
 	item_state = "legion-vex"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
@@ -361,14 +325,24 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/vexil
 	name = "legion fox vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a desert fox."
-	icon_state = "legion-vex-alt"
-	item_state = "legion-vex-alt"
+	icon_state = "helmet_vexillarius"
+	item_state = "helmet_vexillarius"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
+
+/obj/item/clothing/head/helmet/f13/legion/explorer
+	name = "legion scout helmet"
+	desc = "A helmet from reinforced leather, worn by scouts."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	icon_state = "helmet_explorer"
+	item_state = "helmet_explorer"
 
 /obj/item/clothing/head/helmet/f13/legion/vet/nightvexil
 	name = "legion nightstalker vexillarius helmet"
 	desc = "This helmet is decorated with the pelt of a nightstalker."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-vex-night"
 	item_state = "legion-vex-night"
 	armor_tokens = list(ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_UP_DT_T2)
@@ -383,8 +357,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/orator
 	name = "laurel wreath"
 	desc = "A laurel wreath is made of branches and leaves of the laurel, a type of evergreen shrub or small tree. This one appears to be out of metal,however. In Ancient Rome, it was worn on the head as a symbol of triumph."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-orator"
 	item_state = "legion-orator"
 	flags_inv = null
@@ -392,17 +366,18 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/recruit/decan
 	name = "legion recruit decanus helmet"
 	desc = "This reinforced leather helmet has a plume of black and dark red feathers."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-decrec"
 	item_state = "legion-decrec"
+	flags_inv = HIDEEARS|HIDEHAIR
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2)
 
 /obj/item/clothing/head/helmet/f13/legion/prime/decan
 	name = "legion prime decanus helmet"
 	desc = "This reinforced leather helmet with a red peak has a plume of black feathers."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	item_state = "legion-decprime"
 	icon_state = "legion-decprime"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_DT_T1)
@@ -425,8 +400,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/legion/vet/decan
 	name = "legion veteran decanus helmet"
 	desc = "It's a metal helmet with an array of red, white and black feathers, unmistakably a Veteran Decanus."
-	icon = 'icons/fallout/onmob/clothes/head.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-decvet-alt"
 	item_state = "legion-decvet-alt"
 	armor = ARMOR_VALUE_MEDIUM
@@ -477,21 +452,27 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/f13/servant
 	name = "servant headwear"
 	desc = "A simple uncoloured linen cloth wrapped around the head, the mark of a servant slave trained in household work."
-	icon = 'modular_BD2/legio_invicta/icons/icons_legion.dmi'
-	righthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_righthand.dmi'
-	lefthand_file = 'modular_BD2/legio_invicta/icons/onmob_legion_lefthand.dmi'
-	mob_overlay_icon = 'modular_BD2/legio_invicta/icons/onmob_legion.dmi'
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
 	icon_state = "hat_servant"
 	item_state = "hat_servant"
 	dynamic_hair_suffix = "+generic"
 	flags_inv = null
 	flags_cover = null
 
+/obj/item/clothing/head/f13/servant/auxilia
+	name = "auxilia headwear"
+	desc = "A soft red cap with a black band, used by Auxilia outside camp."
+	icon_state = "hat_auxilia"
+	item_state = "hat_auxilia"
+
 /obj/item/clothing/head/f13/auxilia
 	name = "auxilia headwear"
 	desc = "A soft red cap with a black band, used by female Auxilia outside camp."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "legion-aux"
 	item_state = "legion-aux"
 	flags_inv = HIDEEARS
@@ -504,6 +485,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "A standard issue NCR steel helmet. Looks like you can write on it and strap a few items on the helmet band."
 	icon_state = "ncr_steelpot"
 	item_state = "ncr_steelpot"
+	dynamic_hair_suffix = "+generic"
 	strip_delay = 50
 	obj_flags = UNIQUE_RENAME
 	unique_reskin = list("M1" = "ncr_old")
@@ -512,7 +494,7 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_DOWN_BULLET_T1) // The NCR is more tanky, but slower
 
 /obj/item/clothing/head/f13/ncr/Initialize()
-	. = ..()	
+	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
 /obj/item/clothing/head/f13/ncr/steelpot_goggles
@@ -554,7 +536,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	name = "NCR trench storm helmet"
 	desc = "A standard issue NCR steel helmet, issued with extra steel for close quarters fighting."
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T3, ARMOR_MODIFIER_UP_DT_T1) // The NCR is more tanky, but slower
-
 
 /obj/item/clothing/head/f13/ncr/steelpot_med
 	name = "NCR medic helmet"
@@ -603,8 +584,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/ncr/heavygunner
 	name = "NCR Trench Raider Helmet"
 	desc = "A heavily reinforced NCR steel-pot helmet. It comes complete with extra leather padding and armored layering."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "ncrarmyhelmetheavy"
 	item_state = "ncrarmyhelmetheavy"
 	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
@@ -753,10 +734,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	armor = ARMOR_VALUE_HEAVY
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T1, ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_LASER_T2)
 
-/* /obj/item/clothing/head/helmet/f13/ncr/rangercombat/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/eliteriot
 	name = "elite riot gear helmet"
 	desc = "An old combat helmet seen in the divide, repurposed for higher ranking Rangers."
@@ -886,24 +863,24 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "Look at you, look at you, you are the captain of a Hospital ship and its escort. Nothing more badass, eh ?"
 	icon_state = "atlanticcap"
 	item_state = "atlanticcap"
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi' 
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1)
 
 /obj/item/clothing/head/helmet/f13/combat/atlantic
 	name = "Atlantic Cross Helmet"
 	desc = "A helmet issued to guards, but also available for doctors and other crewmembers. Based on old helmets."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'	
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "atlantichelmet"
 	item_state = "atlantichelmet"
 
 /obj/item/clothing/head/helmet/f13/atlanticmarines
 	name = "Atlantic Cross Marines Helmet"
 	desc = "Based on riot gear, there is legends about them. Issued to some combat personel of a private naval security company, those soldier then offered to marines after the great war and losing contact with HQ."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'	
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "atlanticriot"
 	item_state = "atlanticriot"
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
@@ -923,7 +900,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "Why are there tricorns in the desert again?"
 	icon_state = "tricorn"
 	item_state = "dethat"
-	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/f13/town/mayor
 	name = "mayoral tricorn"
@@ -946,43 +922,29 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/f13/town/officer
 	name = "Eastwood officer's cap"
 	desc = "A simple dark navy peaked cap, worn by police."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "police_officer"
 	item_state = "police_officer"
 
-/* /obj/item/clothing/head/f13/town/officer/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/f13/town/sheriff
 	name = "sheriff hat"
 	desc = "A black cowboy hat with a snakeskin band."
 	icon_state = "sheriffhat"
 
-/* /obj/item/clothing/head/f13/town/sheriff/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/f13/town/chief
 	name = "NPD Chief's hat"
 	desc = "A blue hat with a silver badge."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "police_chief"
 	item_state = "police_chief"
 
-/* /obj/item/clothing/head/f13/town/chief/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/f13/det_hat_alt
 	name = "detective's fedora"
 	desc = "There's only one man who can sniff out the dirty stench of crime, and he's likely wearing this black hat."
 	icon_state = "detectivealt"
 	item_state = "fedora"
-	flags_inv = HIDEHAIR
-
 
 ////////////////////////
 // GREAT KHAN HELMETS //
@@ -991,8 +953,8 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/helmet/f13/khan
 	name = "Great Khan helmet"
 	desc = "A piece of headwear commonly worn by the horned tribals that appears to resemble stereotypical traditional Mongolian helmets - likely adapted from a pre-War motorcycle helmet.<br>It is black with two horns on either side and a small spike jutting from the top, much like a pickelhaube.<br>A leather covering protects the wearer's neck and ears from sunburn."
-	icon = 'icons/fallout/clothing/khans.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/khaans.dmi'
+	icon = 'icons/clothing/khans.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/khaans.dmi'
 	icon_state = "khan_helmet"
 	item_state = "khan_helmet"
 	armor = ARMOR_VALUE_LIGHT
@@ -1002,20 +964,10 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	dynamic_hair_suffix = "+generic"
 	dynamic_fhair_suffix = null
 
-/* /obj/item/clothing/head/helmet/f13/khan/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
-
 /obj/item/clothing/head/helmet/f13/khan/pelt
 	desc = "A helmet with traditional horns, but wasteland-chique fur trimming instead of the classic leather cover. For the horned tribals who wants to show off their hair."
 	icon_state = "khan_helmetpelt"
 	item_state = "khan_helmetpelt"
-
-/* /obj/item/clothing/head/helmet/f13/khan/pelt/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 
 /obj/item/clothing/head/helmet/f13/khan/bandana
 	name = "Great Khan bandana"
@@ -1028,10 +980,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	dynamic_fhair_suffix = null
 	var/helmettoggled = FALSE
 
-/* /obj/item/clothing/head/helmet/f13/khan/bandana/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 /obj/item/clothing/head/helmet/f13/khan/bandana/AltClick(mob/user)
 	. = ..()
 	if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
@@ -1073,10 +1021,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	strip_delay = 20
 
-/* /obj/item/clothing/head/helmet/f13/khan/fullhelm/Initialize()
-	. = ..()
-	AddComponent(/datum/component/armor_plate)
- */
 //Wayfarer
 /obj/item/clothing/head/helmet/f13/deathskull
 	name = "eerie helm"
@@ -1097,7 +1041,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "An antler skull headdress traditionally worn by the spiritually inclined."
 	icon_state = "antlerhelm"
 	item_state = "antlerhelm"
-
 
 /obj/item/clothing/head/helmet/f13/wayfarer/shamanblue
 	name = "ritual headdress"
@@ -1158,7 +1101,6 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 	desc = "A standard issue vault security helmet, pretty robust."
 	slowdown = 0.01
 
-
 /obj/item/clothing/head/helmet/riot/vaultsec/vc
 	name = "heavy riot helmet"
 	desc = "A riot helmet adapted from the design of most pre-war riot helmets, painted blue."
@@ -1171,58 +1113,57 @@ obj/item/clothing/head/helmet/f13/enclave/usmcriot
 /obj/item/clothing/head/f13/army
 	name = "US Army field cap"
 	desc = "Standard issue US Army field cap."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_cap"
 	item_state = "army_cap"
-	dynamic_hair_suffix = "+generic"
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/f13/army/officer
 	name = "US Army officer's cap"
 	desc = "US Army officer's cap."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_officer"
 	item_state = "army_officer"
-
 
 /obj/item/clothing/head/f13/army/general
 	name = "US Army general's cap"
 	desc = "US Army officer's cap."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_general"
 	item_state = "army_general"
 
-obj/item/clothing/head/f13/army/beret
+/obj/item/clothing/head/f13/army/beret
 	name = "US Army beret"
 	desc = "A black beret, standard issue for all US Army personnel not authorised to wear a different beret."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_beret"
 	item_state = "army_beret"
 
 /obj/item/clothing/head/f13/army/beret/airborne
 	name = "US Army airborne beret"
 	desc = "A red beret, issued to US Army Airborne personnel."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_beret_airborne"
 	item_state = "army_beret_airborne"
 
 /obj/item/clothing/head/f13/army/beret/rangers
 	name = "US Army rangers beret"
 	desc = "A tan beret, issued to US Army Rangers."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_beret_ranger"
 	item_state = "army_beret_ranger"
 
 /obj/item/clothing/head/f13/army/beret/specialforces
 	name = "US Army special forces beret"
 	desc = "A green beret, issued to US Army Special Forces personnel."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "army_beret_specialforces"
 	item_state = "army_beret_specialforces"
 
@@ -1231,16 +1172,16 @@ obj/item/clothing/head/f13/army/beret
 /obj/item/clothing/head/f13/chinese
 	name = "PLA field cap"
 	desc = "A People's Liberation Army cap, worn by enlisted and non-commissioned officers."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "chinese_soldier"
 	item_state = "chinese_soldier"
 
 /obj/item/clothing/head/f13/chinese/officer
 	name = "PLA officer's cap"
 	desc = "A People's Liberation Army peaked cap, worn by officers."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "chinese_officer"
 	item_state = "chinese_officer"
 
@@ -1250,40 +1191,40 @@ obj/item/clothing/head/f13/army/beret
 /obj/item/clothing/head/f13/police/officer
 	name = "police officer's cap"
 	desc = "A simple dark navy peaked cap, worn by police."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "police_officer"
 	item_state = "police_officer"
 
 /obj/item/clothing/head/f13/police/sergeant
 	name = "police campaign hat"
 	desc = "A simple dark navy campaign hat, worn by police."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "police_sergeant"
 	item_state = "police_sergeant"
 
 /obj/item/clothing/head/f13/police/lieutenant
 	name = "police lieutenant's cap"
 	desc = "A simple dark navy peaked cap, worn by police."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "police_lieutenant"
 	item_state = "police_lieutenant"
 
 /obj/item/clothing/head/f13/police/chief
 	name = "police chief's cap"
 	desc = "A simple dark navy peaked cap, worn by police."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "police_chief"
 	item_state = "police_chief"
 
 /obj/item/clothing/head/f13/police/trooper
 	name = "state police campaign hat"
 	desc = "A gray campaign hat, worn by the State Police."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "state_trooper"
 	item_state = "state_trooper"
 
@@ -1296,16 +1237,16 @@ obj/item/clothing/head/f13/army/beret
 /obj/item/clothing/head/helmet/f13/combat/ncr
 	name = "NCR combat helmet"
 	desc = "An old military grade pre-war combat helmet, repainted to the colour scheme of the New California Republic."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "combat_helmet_ncr"
 	item_state = "combat_helmet_ncr"
 
 /obj/item/clothing/head/helmet/f13/combat/mk2/ncr
 	name = "reinforced NCR combat helmet"
 	desc = "An advanced pre-war titanium plated, ceramic coated, kevlar, padded helmet designed to withstand extreme punishment of all forms, repainted to the colour scheme of the New California Republic."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "combat_helmet_ncr_mk2"
 	item_state = "combat_helmet_ncr_mk2"
 
@@ -1362,7 +1303,6 @@ obj/item/clothing/head/f13/army/beret
 	visor_flags_cover = HEADCOVERSEYES
 	dog_fashion = null
 
-
 /obj/item/clothing/head/f13/ncr/goggles/attack_self(mob/user)
 	if(can_toggle && !user.incapacitated())
 		if(world.time > cooldown + toggle_cooldown)
@@ -1389,19 +1329,18 @@ obj/item/clothing/head/f13/army/beret
 /obj/item/clothing/head/helmet/f13/combat/legion
 	name = "Legion combat helmet"
 	desc = "An old military grade pre-war helmet, repainted to the colour scheme of Caesar's Legion."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "combat_helmet_legion"
 	item_state = "combat_helmet_legion"
 
 /obj/item/clothing/head/helmet/f13/combat/mk2/legion
 	name = "reinforced Legion combat helmet"
 	desc = "A pre-war helmet in good condition, made from advanced materialas and paintend in the colors of Caesar's Legion."
-	icon = 'icons/fallout/clothing/hats.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/clothing/hats.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "combat_helmet_legion_mk2"
 	item_state = "combat_helmet_legion_mk2"
-
 
 //Enclave / Remnant
 

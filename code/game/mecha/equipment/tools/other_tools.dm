@@ -287,7 +287,7 @@
 /obj/item/mecha_parts/mecha_equipment/repair_droid
 	name = "Vehicule Repair Eyebot"
 	desc = "An automated repair Eyebot for exosuits. Scans for damage and repairs it. Can fix almost all types of external or internal damage."
-	icon = 'icons/fallout/mobs/robots/eyebots.dmi'
+	icon = 'icons/mob/robots/eyebots.dmi'
 	icon_state = "eyebot"
 	energy_drain = 50
 	range = 0
@@ -592,11 +592,11 @@
 /obj/item/vehiclecorepart/engine
 	name = "Repaired Engine"
 	desc = "A repaired fuel engine. Only use is in repairing a vehicle."
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "engine"
 
 /obj/item/vehiclecorepart/tires
 	name = "Usable tire"
 	desc = "Round and round and round and round. For car repairs."
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "bus_t"

@@ -26,7 +26,7 @@
 /obj/item/reagent_containers/food/drinks/attack(mob/living/M, mob/user, def_zone)
 	INVOKE_ASYNC(src, PROC_REF(attempt_forcedrink), M, user)
 
-/obj/item/reagent_containers/food/drinks/proc/attempt_forcedrink(mob/living/M, mob/user, force, silent, vorebite)
+/obj/item/reagent_containers/food/drinks/proc/attempt_forcedrink(mob/living/M, mob/user, force, silent)
 	if(!reagents || !reagents.total_volume)
 		to_chat(user, span_warning("[src] is empty!"))
 		return 0
@@ -38,7 +38,7 @@
 		to_chat(user, span_warning("[src]'s lid hasn't been opened!"))
 		return 0
 
-	if(M == user || vorebite)
+	if(M == user)
 		if(!silent)
 			user.visible_message(span_notice("[user] swallows a gulp of [src]."), span_notice("You swallow a gulp of [src]."))
 	else
@@ -47,14 +47,13 @@
 		if(!do_mob(user, M))
 			return
 		if(!reagents || !reagents.total_volume)
-			return // The drink might be empty after the delay, such as by spam-feeding
+			return
 		if(!silent)
 			M.visible_message(span_danger("[user] feeds the contents of [src] to [M]."), span_userdanger("[user] feeds the contents of [src] to [M]."))
 		log_combat(user, M, "fed", reagents.log_list())
 
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
-	if(!vorebite)
-		checkLiked(fraction, M)
+	checkLiked(fraction, M)
 	reagents.reaction(M, INGEST, fraction)
 	reagents.trans_to(M, gulp_size, log = TRUE)
 	if(!silent)
@@ -527,7 +526,7 @@
 /obj/item/reagent_containers/food/drinks/flask/coffeepot
 	name = "coffee pot"
 	desc = "A pot used in making coffee."
-	icon = 'icons/fallout/objects/crafting.dmi'
+	icon = 'icons/obj/crafting.dmi'
 	icon_state = "coffeepot"
 	custom_materials = list(/datum/material/iron=250)
 	volume = 60
@@ -537,7 +536,7 @@
 /obj/item/reagent_containers/food/drinks/flask/teapot
 	name = "teapot"
 	desc = "A kettle for boiling and pouring water for tea."
-	icon = 'icons/fallout/trash.dmi'
+	icon = 'icons/trash.dmi'
 	icon_state = "teapot"
 	custom_materials = list(/datum/material/glass=250)
 	volume = 60
@@ -586,13 +585,12 @@
 		crush_can(user)
 	..()
 
-/obj/item/reagent_containers/food/drinks/soda_cans/proc/crush_can(mob/user, silent, vorebite)
+/obj/item/reagent_containers/food/drinks/soda_cans/proc/crush_can(mob/user, silent)
 	if(!silent)
 		user.visible_message(span_warning("[user] crushes the can of [src] on [user.p_their()] forehead!"), span_notice("You crush the can of [src] on your forehead."))
 	playsound(user.loc,'sound/weapons/pierce.ogg', rand(10,50), 1)
-	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(vorebite ? loc : get_turf(src))
+	var/obj/item/trash/can/crushed_can = new /obj/item/trash/can(get_turf(src))
 	crushed_can.icon_state = icon_state
-	SEND_SIGNAL(loc, COMSIG_BELLY_HANDLE_TRASH, crushed_can)
 	qdel(src)
 
 /obj/item/reagent_containers/food/drinks/soda_cans/attack_self(mob/user)
@@ -719,3 +717,48 @@
 	icon_state = "monkey_energy"
 	list_reagents = list(/datum/reagent/consumable/monkey_energy = 50)
 	foodtype = SUGAR | JUNKFOOD
+
+
+// ==================== Merged from fallout (obj/food_and_drinks/drink.dm) ====================
+/obj/item/reagent_containers/food/drinks/flask/survival
+	name = "metal flask"
+	desc = "A metallic liquid container. Essential for survival out in the wastes."
+	list_reagents = list(
+		/datum/reagent/water = 40,
+		/datum/reagent/medicine/silver_sulfadiazine = 10
+	)
+
+/obj/item/reagent_containers/food/drinks/flask/vault13
+	name = "Vault 13 flask"
+	desc = "Take a sip from your trusty Vault 13 canteen."
+	icon_state = "flask13"
+	list_reagents = list(
+		/datum/reagent/water = 30,
+		/datum/reagent/medicine/silver_sulfadiazine = 10,
+		/datum/reagent/medicine/charcoal = 20
+	)
+
+/obj/item/reagent_containers/food/drinks/flask/vault93
+	name = "Vault 93 flask"
+	desc = "Take a sip from your trusty Vault 93 canteen."
+	icon_state = "flask93"
+	list_reagents = list(/datum/reagent/water = 30, /datum/reagent/medicine/silver_sulfadiazine = 10, /datum/reagent/medicine/charcoal = 20)
+
+/obj/item/reagent_containers/food/drinks/flask/vault113
+	name = "Vault 113 flask"
+	desc = "See this large yellow number? It means it's a Vault 113 canteen. Never forget."
+	icon_state = "flask113"
+	list_reagents = list(
+		/datum/reagent/water = 30,
+		/datum/reagent/radium = 10,
+		/datum/reagent/medicine/mine_salve = 20
+	)
+
+/obj/item/reagent_containers/food/drinks/flask/ss13
+	name = "metal flask"
+	desc = "A strange metal flask with some meaningless letters engraved on the side."
+	icon_state = "flaskss13"
+	list_reagents = list(
+		/datum/reagent/medicine/tricordrazine = 40,
+		/datum/reagent/medicine/adminordrazine = 10
+	)

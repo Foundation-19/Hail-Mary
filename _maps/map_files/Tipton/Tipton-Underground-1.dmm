@@ -23192,7 +23192,7 @@
 /area/f13/radiation)
 "rZZ" = (
 /turf/closed/indestructible/f13/matrix{
-	icon = 'icons/fallout/turfs/floors.dmi';
+	icon = 'icons/turf/floors_f13.dmi';
 	icon_state = "greenfull"
 	},
 /area/f13/sewer/powered)
@@ -30037,7 +30037,7 @@
 /obj/structure/table,
 /obj/structure/junk/small/tv{
 	desc = "Advertisements would've played on this tv before the bombs dropped.";
-	icon = 'icons/fallout/objects/decorations.dmi';
+	icon = 'icons/obj/decorations.dmi';
 	icon_state = "television";
 	name = "pre-war advertising television";
 	pixel_y = 15

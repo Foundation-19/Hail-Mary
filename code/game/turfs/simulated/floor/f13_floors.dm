@@ -55,7 +55,7 @@
 	icon_state = "road_northsouth_y"
 
 /turf/open/floor/plating/f13/outside/road/harsh
-	icon = 'icons/fallout/turfs/f13roadharsh.dmi'
+	icon = 'icons/turf/f13roadharsh.dmi'
 	icon_state = "outerpavement"
 
 /// Rooftops
@@ -79,6 +79,12 @@
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris
 	icon_state = "rust_c"
 
+// New roof for tent
+/turf/open/floor/plating/f13/outside/roof/tent_leather
+	name = "leather tent roof"
+	icon = 'icons/turf/walls/tents.dmi'
+	icon_state = "leather_roof"
+
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated
 	icon_state = "shingles_1"
 
@@ -99,7 +105,7 @@
 /turf/open/floor/plating/f13/inside/gravel
 	name = "gravel"
 	desc = "Small pebbles, lots of them."
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "gravel"
 
 /turf/open/floor/plating/f13/inside/gravel/edge
@@ -113,7 +119,7 @@
 /turf/open/floor/plating/f13/inside/gravel
 	name = "gravel"
 	desc = "Small pebbles, lots of them."
-	icon = 'icons/fallout/turfs/ground.dmi'
+	icon = 'icons/turf/ground.dmi'
 	icon_state = "gravel"
 	sunlight_state = SUNLIGHT_SOURCE
 
@@ -416,7 +422,7 @@
 	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/f13/vault_floor/darkrusty
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	icon_state = "floorrustysolid"
 
 /turf/open/floor/plasteel/f13/vault_floor/darkrusty/lit
@@ -425,7 +431,7 @@
 
 /turf/open/floor/plasteel/f13/vault_floor/darkerrusty/
 	name = "floor"
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	icon_state = "floorrustysolid"
 	color = "#818181"
 

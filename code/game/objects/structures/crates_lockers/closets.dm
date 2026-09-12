@@ -647,7 +647,7 @@
 /obj/structure/closet/locker
 	name = "locker"
 	desc = "It's a basic storage unit."
-	icon = 'icons/fallout/objects/furniture/closet.dmi'
+	icon = 'icons/obj/furniture/closet.dmi'
 	icon_state = "gray"
 
 /obj/structure/closet/locker/oldstyle  //modded Eris sprite

@@ -419,16 +419,6 @@
 /mob/living/verb/succumb()
 	set name = "Succumb"
 	set category = "IC"
-	if(src.has_status_effect(/datum/status_effect/chem/enthrall))
-		var/datum/status_effect/chem/enthrall/E = src.has_status_effect(/datum/status_effect/chem/enthrall)
-		if(E.phase < 3)
-			if(HAS_TRAIT(src, TRAIT_MINDSHIELD))
-				to_chat(src, span_notice("Your mindshield prevents your mind from giving in!"))
-			else if(src.mind.assigned_role in GLOB.command_positions)
-				to_chat(src, span_notice("Your dedication to your department prevents you from giving in!"))
-			else
-				E.enthrallTally += 20
-				to_chat(src, span_notice("You give into [E.master]'s influence."))
 	if (InCritical())
 		log_message("Has succumbed to death while in [InFullCritical() ? "hard":"soft"] critical with [round(health, 0.1)] points of health!", LOG_ATTACK)
 		adjustOxyLoss(health - HEALTH_THRESHOLD_DEAD)
@@ -1545,3 +1535,56 @@
 
 /mob/living/proc/update_water()
 	return
+
+
+// ==================== Merged from fallout (code\modules\fallout\code\modules\mob\living\living.dm) ====================
+/mob/living
+
+/atom
+	var/pseudo_z_axis
+
+/atom/proc/get_fake_z()
+	return pseudo_z_axis
+
+/obj/structure/table
+	pseudo_z_axis = 8
+
+/turf/open/get_fake_z()
+	var/objschecked
+	for(var/obj/structure/structurestocheck in contents)
+		objschecked++
+		if(structurestocheck.pseudo_z_axis)
+			return structurestocheck.pseudo_z_axis
+		if(objschecked >= 25)
+			break
+	return pseudo_z_axis
+
+/mob/living/Move(atom/newloc, direct, glide_size_override)
+	. = ..()
+	if(.)
+		pseudo_z_axis = newloc.get_fake_z()
+		pixel_z = pseudo_z_axis
+		last_move_time = world.time // Track movement for sound detection
+
+/mob/living/carbon/update_stamina()
+	var/total_health = getStaminaLoss()
+	if(total_health >= STAMINA_SOFTCRIT)
+		if(!(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT))
+			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+	else
+		if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
+			DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+	if(total_health)
+		if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health >= STAMINA_CRIT && !stat)
+			to_chat(src, span_notice("You're too exhausted to keep going..."))
+			set_resting(TRUE, FALSE, FALSE)
+			SEND_SIGNAL(src, COMSIG_DISABLE_COMBAT_MODE)
+			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
+			filters += CIT_FILTER_STAMINACRIT
+			update_mobility()
+	if((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health <= STAMINA_SOFTCRIT)
+		to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
+		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT | COMBAT_FLAG_SOFT_STAMCRIT)
+		filters -= CIT_FILTER_STAMINACRIT
+		update_mobility()
+	update_health_hud()

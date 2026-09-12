@@ -7,11 +7,11 @@
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
 	desc = "It's a bucket."
-	icon = 'icons/fallout/farming/farming_tools.dmi'
+	icon = 'icons/farming/farming_tools.dmi'
 	icon_state = "bucket"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	custom_materials = list(/datum/material/iron=200)
 	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 20
@@ -126,11 +126,11 @@
 /obj/item/shovel/spade
 	name = "spade"
 	desc = "A small tool for digging and removing plant roots."
-	icon = 'icons/fallout/farming/farming_tools.dmi'
+	icon = 'icons/farming/farming_tools.dmi'
 	icon_state = "spade"
 	item_state = "spade"
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	toolspeed = 0.5
 	force = 5
 	throwforce = 7
@@ -145,11 +145,11 @@
 /obj/item/cultivator
 	name = "cultivator"
 	desc = "It's used for removing weeds, stepping on it might hurt."
-	icon = 'icons/fallout/farming/farming_tools.dmi'
+	icon = 'icons/farming/farming_tools.dmi'
 	icon_state = "cultivator"
 	item_state = "cultivator"
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	resistance_flags = FLAMMABLE
 	flags_1 = CONDUCT_1
 	force = 5
@@ -172,8 +172,8 @@
 	name = "rake"
 	icon_state = "rake"
 	item_state = "rake"
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	flags_1 = null
 	force = 8
 	w_class = WEIGHT_CLASS_BULKY
@@ -188,11 +188,11 @@
 /obj/item/hatchet
 	name = "hatchet"
 	desc = "Simple small metal axehead on a handle made from wood or some other hard material."
-	icon = 'icons/fallout/farming/farming_tools.dmi'
+	icon = 'icons/farming/farming_tools.dmi'
 	icon_state = "hatchet"
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/belt.dmi'
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/belt.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	attack_speed = CLICK_CD_MELEE
 	flags_1 = CONDUCT_1
 	force = 24
@@ -239,10 +239,10 @@
 /obj/item/scythe
 	name = "scythe"
 	desc = "A sharp and curved blade on a long wooden handle, this tool makes it easy to reap what you sow."
-	icon = 'icons/fallout/farming/farming_tools.dmi'
+	icon = 'icons/farming/farming_tools.dmi'
 	icon_state = "scythe"
-	lefthand_file = 'icons/fallout/onmob/tools/farming_lefthand.dmi'
-	righthand_file = 'icons/fallout/onmob/tools/farming_righthand.dmi'
+	lefthand_file = 'icons/onmob/tools/farming_lefthand.dmi'
+	righthand_file = 'icons/onmob/tools/farming_righthand.dmi'
 	force = 15
 	throwforce = 5
 	throw_speed = 2

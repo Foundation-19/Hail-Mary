@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/alien
 	name = "wanamingo"
 	desc = "Hiss!"
-	icon = 'icons/fallout/mobs/monsters/wanamingo.dmi'
+	icon = 'icons/mob/monsters/wanamingo.dmi'
 	icon_state = "wanamingo"
 	icon_living = "wanamingo"
 	icon_dead = "wanamingo_dead"

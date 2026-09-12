@@ -3,8 +3,8 @@
 /obj/item/clothing/neck/mantle
 	name = "mantle template"
 	desc = " worn in accessory slot, no concealing hood, decorative."
-	icon = 'icons/fallout/clothing/mantles.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/mantle.dmi'
+	icon = 'icons/clothing/mantles.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/mantle.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	body_parts_covered = CHEST|ARMS
 	max_heat_protection_temperature = ARMOR_MAX_TEMP_PROTECT
@@ -54,11 +54,36 @@
 	icon_state = "paladin"
 	pocket_storage_component_path = /datum/component/storage/concrete/pockets/bos/paladin
 
+// Mantle for the Orator, also works as a holster since it occupies the accessory slot
 /obj/item/clothing/neck/mantle/legion
-	name = "Legion Cape"
-	desc = "A deep crimson cape woven by fine legionnaire craftsmanship. A shoulder holster is added beneath for utility."
-	icon_state = "legion"
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/bos/paladin
+	name = "legion mantle"
+	desc = "A bull flag adapted to be worn, a honor not given to every warrior. Comes with a holster for a handgun."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	mob_overlay_icon = 'icons/onmob/onmob_legion.dmi'
+	righthand_file = 'icons/onmob/onmob_legion_righthand.dmi'
+	lefthand_file = 'icons/onmob/onmob_legion_lefthand.dmi'
+	icon_state = "mantle_legion"
+	item_state = "mantle_legion"
+	layer = NECK_LAYER
+
+/obj/item/clothing/neck/mantle/legion/ComponentInitialize()
+	. = ..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	if(!STR)
+		return
+	STR.max_items = 1
+	STR.max_w_class = WEIGHT_CLASS_NORMAL
+	STR.can_hold = typecacheof(list(
+		/obj/item/gun/ballistic/automatic/pistol,
+		/obj/item/gun/ballistic/revolver,
+		/obj/item/gun/energy/laser/solar,
+		/obj/item/gun/energy/laser/pistol,
+		/obj/item/gun/energy/laser/plasma/pistol,
+		/obj/item/gun/energy/laser/plasma/glock,
+		/obj/item/gun/energy/laser/plasma/glock/extended,
+		/obj/item/gun/energy/laser/wattz,
+		/obj/item/gun/energy/laser/wattz/magneto,
+		))
 
 /obj/item/clothing/neck/mantle/ranger
 	name = "ranger cape"
@@ -79,8 +104,8 @@
 /obj/item/clothing/neck/mantle/green
 	name = "green decorated mantle"
 	desc = "A mantle with festive green decorative patterns."
-	icon = 'icons/fallout/clothing/custom/custom.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/custom/custom.dmi'
+	icon = 'icons/clothing/custom/custom.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/custom/custom.dmi'
 	icon_state = "mantle_wintergreen"
 	item_state = "mantle_wintergreen"
 

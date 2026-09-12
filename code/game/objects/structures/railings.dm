@@ -1,7 +1,7 @@
 /obj/structure/railing
 	name = "railing"
 	desc = "Basic railing meant to protect idiots like you from falling."
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "railing"
 	flags_1 = ON_BORDER_1
 	density = TRUE
@@ -129,7 +129,7 @@
 /// TG Sprites
 
 /obj/structure/railing/tg
-	icon = 'icons/fallout/structures/railings.dmi'
+	icon = 'icons/structures/railings.dmi'
 	icon_state = "railing"
 	layer = ABOVE_MOB_LAYER
 	plane = MOB_PLANE
@@ -151,7 +151,7 @@
 /obj/structure/railing/wood
 	name = "wooden fence"
 	desc = "Marks property and prevents accidents."
-	icon = 'icons/fallout/structures/fences.dmi'
+	icon = 'icons/structures/fences.dmi'
 	icon_state = "straight_wood"
 	layer = WALL_OBJ_LAYER
 
@@ -238,7 +238,40 @@
 
 /obj/structure/railing/handrail/rusty/end
 	icon_state = "handrail_g_end"
+
+/obj/structure/railing/handrail/legion
+	name = "handrail"
+	desc = "Wooden posts with connecting chain."
+	icon = 'icons/obj/clothing/icons_legion.dmi'
+	icon_state = "handrail_legion"
+
+/obj/structure/railing/handrail/legion/underlayer
+	layer = BELOW_MOB_LAYER
+
+/obj/structure/railing/handrail/legion/overlayer
+	plane = GAME_PLANE
+
+/obj/structure/railing/handrail/legion/end
+	icon_state = "handrail_legion_end"
 	density = FALSE
+
+/obj/structure/railing/handrail/legion/entrance
+	icon_state = "handrail_legion_entrance"
+	layer = BELOW_MOB_LAYER  // comment for underlayer effect
+
+/obj/structure/railing/handrail/legion/entrance/on_attack_hand(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
+	user.visible_message("[user] begins moving the chain of the [src].")
+	if(!do_after(user, 20, TRUE, src))
+		return
+	else
+		playsound(get_turf(src), 'sound/effects/doorchainsoft_open.ogg', 60, TRUE)
+		if(density)
+			icon_state = "handrail_legion_entrance_open"
+			src.density = 0
+		else
+			icon_state = "handrail_legion_entrance_close"
+			src.density = 1
+	return ..()
 
 /obj/structure/railing/handrail/rusty/end/underlayer
 	layer = BELOW_MOB_LAYER

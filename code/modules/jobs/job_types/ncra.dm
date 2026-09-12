@@ -594,9 +594,9 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	exp_requirements = 60
 
 	loadout_options = list( // ALL: Trench tool, Limited blueprints
-		/datum/outfit/loadout/combatengineerbuilder, // R82, X4 explosive, Extra materials
+		/datum/outfit/loadout/combatengineerbuilder, // Service rifle, X4 explosive, Extra materials
 		/datum/outfit/loadout/combatengineertrapper, // 10mm SMG, Minelaying, Explosive Crafting
-		/datum/outfit/loadout/combatengineerflamethrower, // Flamer, R82
+		/datum/outfit/loadout/combatengineerflamethrower, // Flamer, Service rifle
 		/datum/outfit/loadout/combatengineerrocketeer, // Rocket launcher, Explosive Crafting
 		)
 
@@ -650,14 +650,14 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	name = "Construction Specialist"
 	belt = /obj/item/storage/belt/army/assault/ncr/engineer
 	glasses = /obj/item/clothing/glasses/welding
-	suit_store = /obj/item/gun/ballistic/automatic/service/r82
+	suit_store = /obj/item/gun/ballistic/automatic/service
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/book/granter/trait/explosives = 1,
 		/obj/item/grenade/plastic/x4 = 1,
-		/obj/item/stack/sheet/metal/fifty = 1,
+		/obj/item/stack/sheet/metal/twenty = 1,
 		/obj/item/stack/sheet/glass/fifty = 1,
-		/obj/item/stack/ore/blackpowder/twenty = 1,
+		// Blackpowder ore removed - no reason a construction specialist starts with free ammo-crafting material.
 		)
 
 /datum/outfit/loadout/combatengineertrapper
@@ -675,7 +675,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	name = "Combat Sapper"
 	belt = /obj/item/storage/belt/army/assault/ncr
 	glasses	= /obj/item/clothing/glasses/sunglasses
-	suit_store =  /obj/item/gun/ballistic/automatic/service/r82
+	suit_store =  /obj/item/gun/ballistic/automatic/service
 	backpack_contents = list(
 		/obj/item/ammo_box/magazine/m556/rifle = 2,
 		/obj/item/m2flamethrowertank = 1,
@@ -855,8 +855,6 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	suit = /obj/item/clothing/suit/armor/ncrarmor/reinforced/engineer
 	backpack_contents = list(
 		/obj/item/stack/ore/blackpowder/twenty = 2,
-//		/obj/item/book/granter/crafting_recipe/blueprint/r82 = 1,
-		/obj/item/book/granter/crafting_recipe/blueprint/marksman/worn = 1,
 		/obj/item/clothing/head/beret/ncr/ncr_sapper = 1,
 		/obj/item/book/granter/trait/techno = 1
 		)

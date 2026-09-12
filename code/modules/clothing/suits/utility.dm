@@ -10,8 +10,8 @@
 /obj/item/clothing/suit/hooded/surgical
 	name = "surgical scrubs"
 	desc = "A bundle with all the sterile clothing needed to perform safe surgery accoring to the standards set in the Followers' pamphlet on safe surgery. The shoe covers have grip surfaces to prevent slipping in the blood."
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	icon_state = "surgical_scrubs"
 	w_class = WEIGHT_CLASS_BULKY
 	strip_delay = 60
@@ -27,8 +27,8 @@
 /obj/item/clothing/head/hooded/surgical
 	name = "hair net"
 	desc = "It's not a good idea to risk hair falling into open wounds."
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	icon_state = "hood_surgical_scrubs"
 	item_state = "hood_surgical_scrubs"
 	flags_inv = HIDEHAIR
@@ -41,8 +41,8 @@
 /obj/item/clothing/suit/fire
 	name = "firefighters suit"
 	desc = "Faded old asbestos coated suit. Very good protection against fire and heat."
-	icon = 'icons/fallout/clothing/suits_utility.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_utility.dmi'
+	icon = 'icons/clothing/suits_utility.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_utility.dmi'
 	icon_state = "firesuit"
 	item_state = "firesuit"
 	w_class = WEIGHT_CLASS_BULKY

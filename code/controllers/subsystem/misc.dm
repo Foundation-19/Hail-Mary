@@ -11,4 +11,4 @@ GLOBAL_LIST_INIT(cursor_icons, list()) //list of icon files, which point to list
 
 /proc/initialize_cursors()
 	for(var/i = 0 to MAX_ACCURACY_OFFSET)
-		make_cursor_icon('fallout/eris/icons/standard.dmi', i)
+		make_cursor_icon('icons/obj/eris_standard.dmi', i)

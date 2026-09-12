@@ -478,7 +478,7 @@
 	name = "Alter Form"
 	check_flags = AB_CHECK_CONSCIOUS
 	button_icon_state = "alter_form" //placeholder
-	icon_icon = 'fallout/icons/mob/actions/actions_slime.dmi'
+	icon_icon = 'icons/mob/actions/actions_slime_f13.dmi'
 	background_icon_state = "bg_alien"
 
 /datum/action/innate/slime_change/Activate()
@@ -495,7 +495,7 @@
 
 /datum/action/innate/slime_change/proc/change_form()
 	var/mob/living/carbon/human/H = owner
-	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Body Color","Hair Style", "Genitals", "Tail", "Snout", "Markings", "Ears", "Taur body", "Penis", "Vagina", "Penis Length", "Breast Size", "Breast Shape", "Butt Size", "Cancel")
+	var/select_alteration = input(owner, "Select what part of your form to alter", "Form Alteration", "cancel") in list("Body Color","Hair Style", "Tail", "Snout", "Markings", "Ears", "Taur body", "Cancel")
 
 	if(select_alteration == "Body Color")
 		var/new_color = input(owner, "Choose your skin color:", "Race change","#"+H.dna.features["mcolor"]) as color|null

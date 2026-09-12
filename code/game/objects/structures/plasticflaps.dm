@@ -113,7 +113,7 @@
 /obj/structure/plasticflaps/narrowcrevice
 	name = "narrow crevice"
 	desc = "There's just enough room to crawl under the rock here."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "narrowcrevice"
 	resistance_flags = INDESTRUCTIBLE
 	flags_1 = NODECONSTRUCT_1
@@ -133,7 +133,7 @@
 /obj/structure/plasticflaps/tarp
 	name = "tarp"
 	desc = "A small tarp tent with enough room to lie under."
-	icon = 'icons/fallout/objects/wendover.dmi'
+	icon = 'icons/obj/wendover.dmi'
 	icon_state = "vertarpaulin"
 	resistance_flags = INDESTRUCTIBLE
 	flags_1 = NODECONSTRUCT_1

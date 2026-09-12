@@ -107,8 +107,8 @@
 /obj/item/clothing/head/helmet/altyn
 	name = "Altyn Helmet"
 	desc = "A titanium alloy combat helmet with an integrated armored face shield and advanced ballistic protection. Tends to ignite when subjected to heat or particularly hard impacts."
-	icon = 'icons/fallout/onmob/clothes/head.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "altyn"
 	item_state = "altyn"
 	actions_types = list(/datum/action/item_action/toggle)
@@ -117,8 +117,8 @@
 
 /obj/item/clothing/head/helmet/altyn/attack_self(mob/user)
 	weldingvisortoggle(user)
-	icon = 'icons/fallout/onmob/clothes/head.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	icon_state = "altynup"
 	item_state = "altynup"
 
@@ -380,8 +380,8 @@ Intended for use on BoS Town */
 /obj/item/clothing/head/helmet/knight/constable
 	name = "Watchments helmet"
 	desc = "A metal helmet denoting the rank of constable, it appears worn and weathered but still well built."
-	icon = 'fallout/icons/objects/hats.dmi'
-	mob_overlay_icon = 'fallout/icons/objects/hats.dmi'
+	icon = 'icons/obj/hats.dmi'
+	mob_overlay_icon = 'icons/obj/hats.dmi'
 	icon_state = "medieval_helmet1"
 	item_state = "medieval_helmet1"
 	armor = ARMOR_VALUE_MEDIUM
@@ -509,8 +509,8 @@ Intended for use on BoS Town */
 /obj/item/clothing/head/helmet/armyhelmet
 	name = "steel helmet"
 	desc = "A steel helmet, inspired by several pre-war designs. It provides some protection against impacts, cuts, and medium-velocity bullets."
-	icon = 'icons/fallout/clothing/helmets.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/helmet.dmi'
+	icon = 'icons/clothing/helmets.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/helmet.dmi'
 	icon_state = "armyhelmet"
 	item_state = "armyhelmet"
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_BULLET_T1)

@@ -342,7 +342,7 @@
 	sunlight_state = SUNLIGHT_SOURCE
 
 /turf/open/floor/plasteel/casino
-	icon = 'icons/fallout/turfs/floors.dmi'
+	icon = 'icons/turf/floors_f13.dmi'
 	icon_state = "casino"
 
 /turf/open/floor/plasteel/casino/lit

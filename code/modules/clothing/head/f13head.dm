@@ -1,50 +1,4 @@
-/*PARENT ITEMS FOR REFERENCE PURPOSES. DO NOT UNCOMMENT
-
-/obj/item/clothing/head
-	name = BODY_ZONE_HEAD
-	icon = 'icons/obj/clothing/hats.dmi'
-	icon_state = "top_hat"
-	item_state = "that"
-	body_parts_covered = HEAD
-	slot_flags = ITEM_SLOT_HEAD
-	var/blockTracking = 0 //For AI tracking
-	var/can_toggle = null
-	dynamic_hair_suffix = "+generic"
-	var/datum/beepsky_fashion/beepsky_fashion //the associated datum for applying this to a secbot
-	var/list/speechspan = null
-
-/obj/item/clothing/head/Initialize()
-	. = ..()
-	if(ishuman(loc) && dynamic_hair_suffix)
-		var/mob/living/carbon/human/H = loc
-		H.update_hair()
-
-/obj/item/clothing/head/get_head_speechspans(mob/living/carbon/user)
-	if(speechspan)
-		return speechspan
-	else
-		return
-
-/obj/item/clothing/head/helmet
-	name = "helmet"
-	desc = "Standard Security gear. Protects the head from impacts."
-	icon_state = "helmet"
-	item_state = "helmet"
-	armor = list("melee" = 40, "bullet" = 40, "laser" = 40, "energy" = 20, "bomb" = 50, "bio" = 60, "rad" = 10, "fire" = 60, "acid" = 20)
-	flags_inv = HIDEEARS | HIDEHAIR
-	cold_protection = HEAD
-	min_cold_protection_temperature = HELMET_MIN_TEMP_PROTECT
-	heat_protection = HEAD
-	max_heat_protection_temperature = HELMET_MAX_TEMP_PROTECT
-	strip_delay = 60
-	resistance_flags = NONE
-	flags_cover = HEADCOVERSEYES
-
-	dog_fashion = /datum/dog_fashion/head/helmet
-
-/obj/item/clothing/head/helmet/ComponentInitialize()
-	. = ..()
-	AddComponent(/datum/component/wearertargeting/earprotection, list(SLOT_HEAD))*/
+//Parent types /obj/item/clothing/head and /obj/item/clothing/head/helmet live in _head.dm and helmet.dm - check there for inherited defaults (flags_inv, dynamic_hair_suffix, armor, etc).
 
 //Combat Armor FACTION SPECIFIC COMBAT ARMOR IN f13factionhead.dm
 
@@ -68,7 +22,7 @@
 	. = ..()
 	AddComponent(/datum/component/spraycan_paintable)
 	AddComponent(/datum/component/armor_plate)
-	
+
 	START_PROCESSING(SSobj, src)
 
 /obj/item/clothing/head/helmet/f13/combat/Destroy()
@@ -106,39 +60,21 @@
 	dynamic_fhair_suffix = ""
 	flash_protect = 1
 
+//These reskins inherit flags_inv/flags_cover/resistance_flags/dynamic_hair_suffix/flash_protect from rangerbroken above unchanged
 /obj/item/clothing/head/helmet/f13/combat/rangerbroken/enclave
 	name = "Enclave Riot Armor"
 	icon_state = "enclave_broken_riot"
 	desc = "An old riot police helmet, out of use around the time of the war. This one has been modified to show the enclave insignia as well as a new coat of pain."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
-	flash_protect = 1
 
 /obj/item/clothing/head/helmet/f13/combat/rangerbroken/tribal
 	name = "Tribal riot helmet"
 	icon_state = "broken_riot_tribal"
 	desc = "An old riot police helmet, out of use around the time of the war. This one has been stripped and modified heavily to fit bones and dirt all over it."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
-	flash_protect = 1
 
 /obj/item/clothing/head/helmet/f13/combat/rangerbroken/bos
 	name = "Brotherhood riot helmet"
 	icon_state = "broken_riot_bos"
 	desc = "An old riot police helmet, out of use around the time of the war. This one has been adjusted to have some adjusted armor platings and a brotherhood symbol upon it."
-	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEHAIR|HIDEFACIALHAIR|HIDEFACE
-	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	resistance_flags = LAVA_PROOF | FIRE_PROOF
-	dynamic_hair_suffix = ""
-	dynamic_fhair_suffix = ""
-	flash_protect = 1
-
 
 /obj/item/clothing/head/helmet/f13/combat/swat
 	name = "SWAT combat helmet"
@@ -147,7 +83,6 @@
 	item_state = "swatsyndie"
 	clothing_flags = CUSHIONED_ARMOR
 	armor_tokens = list(ARMOR_MODIFIER_UP_MELEE_T2)
-
 
 /obj/item/clothing/head/helmet/f13/combat/environmental
 	name = "environmental armor helmet"
@@ -213,6 +148,7 @@
 	can_toggle = 1
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_BULLET_T3, ARMOR_MODIFIER_UP_MELEE_T1, ARMOR_MODIFIER_UP_LASER_T1, ARMOR_MODIFIER_UP_ENV_T2, ARMOR_MODIFIER_UP_DT_T1)
 	flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	dynamic_hair_suffix = ""
 	strip_delay = 80
 	actions_types = list(/datum/action/item_action/toggle)
 	toggle_cooldown = 0
@@ -302,7 +238,6 @@
 /obj/item/clothing/head/helmet/f13/power_armor/proc/toggle_helmet_light(mob/living/user)
 	set_light_on(!light_on)
 	update_icon()
-
 
 /obj/item/clothing/head/helmet/f13/power_armor/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
@@ -442,7 +377,6 @@
 	icon_state = "t45dhelmet[light_on]"
 	item_state = "t45dhelmet[light_on]"
 
-
 /obj/item/clothing/head/helmet/f13/power_armor/t51b
 	name = "T-51b power helmet"
 	desc = "It's a T-51b power helmet, typically used by the Brotherhood. It looks somewhat charming."
@@ -568,7 +502,6 @@
 	actions_types = list(/datum/action/item_action/toggle_helmet_light)
 	salvaged_type = /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/x02
 
-
 //Generic Tribal - For Wayfarer specific, see f13factionhead.dm
 
 /obj/item/clothing/head/helmet/f13/tribal
@@ -584,13 +517,14 @@
 	dynamic_fhair_suffix = ""
 
 /obj/item/clothing/head/f13
-	flags_inv = HIDEHAIR
+	dynamic_hair_suffix = "" //open hat, show full hair instead of the tucked "+generic" sprite
 
 /obj/item/clothing/head/f13/rastacap
 	name = "rastacap"
 	desc = "<font color='#157206'>Him haffi drop him fork and run,</font><br><font color='green'>Him can't stand up to Jah Jah son,</font><br><font color='#fd680e'>Him haffi lef' ya with him gun,</font><br><font color='red'>Dig off with him bomb.</font>"
 	icon_state = "rastacap"
 	item_state = "fedora"
+	flags_inv = HIDEHAIR
 	cold_protection = HEAD //This tam brings the warm reggae and Jamaican sun with it.
 	min_cold_protection_temperature = FIRE_HELM_MIN_TEMP_PROTECT
 
@@ -649,26 +583,22 @@
 	item_state = "fedora"
 	force = 20
 	hitsound = 'sound/items/trayhit1.ogg'
-	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/f13/cowboy
 	name = "cowboy hat"
 	desc = "I've never seen so many men wasted so badly."
 	icon_state = "cowboy"
 	item_state = "dethat"
-	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/f13/cowboy/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
-
 
 /obj/item/clothing/head/f13/bandit
 	name = "bandit hat"
 	desc = "A black cowboy hat with a large brim that's curved to the sides.<br>A silver eagle pin is attached to the front."
 	icon_state = "bandit"
 	item_state = "fedora"
-	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/f13/bandit/Initialize()
 	. = ..()
@@ -679,12 +609,10 @@
 	desc = "A perfect hat for a ramblin' gamblin' man." //But I got to ramble (ramblin' man) //Oh I got to gamble (gamblin' man) //Got to got to ramble (ramblin' man) //I was born a ramblin' gamblin' man
 	icon_state = "gambler"
 	item_state = "dethat"
-	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/f13/gambler/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
-
 
 /obj/item/clothing/head/helmet/f13/motorcycle
 	name = "motorcycle helmet"
@@ -718,13 +646,14 @@
 	desc = "An old sombrero worn by Vaqueros to keep off the harsh sun."
 	icon_state = "vaquerohat"
 	item_state = "vaquerohat"
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/wastewarhat
 	name = "warrior helmet"
 	desc = "It might have been a cooking pot once, now its a helmet, with a piece of cloth covering the neck from the sun."
-	icon = 'icons/fallout/clothing/helmets.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/helmet.dmi'
+	icon = 'icons/clothing/helmets.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/helmet.dmi'
 	icon_state = "wastewar"
 	item_state = "wastewar"
 	flags_inv = HIDEEARS|HIDEHAIR
@@ -732,7 +661,6 @@
 /obj/item/clothing/head/helmet/f13/wastewarhat/Initialize()
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
-
 
 /obj/item/clothing/head/helmet/f13/hoodedmask
 	name = "hooded mask"
@@ -748,7 +676,8 @@
 	desc = "A cowboy hat made from brahmin hides."
 	icon_state = "brahmin_leather_cowboy_hat"
 	item_state = "brahmin_leather_cowboy_hat"
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/brahmincowboyhat/Initialize()
 	. = ..()
@@ -759,7 +688,8 @@
 	desc = "A hat made from tanned leather hide."
 	icon_state = "rusted_cowboy"
 	item_state = "rusted_cowboy"
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/rustedcowboyhat/Initialize()
 	. = ..()
@@ -770,7 +700,6 @@
 	desc = "The wasteland's finest."
 	icon_state = "retropolice"
 	item_state = "fedora"
-	flags_inv = HIDEHAIR
 
 /obj/item/clothing/head/simplekitty
 	name = "kitty headband"
@@ -792,7 +721,8 @@
 
 //Soft caps
 /obj/item/clothing/head/soft/f13
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/soft/f13/baseball
 	name = "baseball cap"
@@ -829,13 +759,12 @@
 	icon_state = "macarthur"
 	item_state = "macarthur"
 
-
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/rigscustom
 	name = "11th armored calvary helmet"
 	desc = "An advanced combat helmet used by the 11th Armored Calvary Regiment before the war. There is a worn and faded 11th Armored Calvary Regiment's insignia just above the visor. The helmet itself has some scratches and dents sustained from battle."
 	icon_state = "rigscustom_helmet"
 	item_state = "rigscustom_helmet"
-	icon = 'icons/fallout/clothing/hats.dmi'
+	icon = 'icons/clothing/hats.dmi'
 
 /obj/item/clothing/head/helmet/f13/ncr/rangercombat/pricecustom
 	name = "spider riot helmet"
@@ -878,6 +807,8 @@
 	desc = "A metal mask made specifically for jason."
 	icon_state = "jasonmask"
 	item_state = "jasonmask"
+	flags_inv = HIDEMASK|HIDEEYES|HIDEFACE
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/welding/f13/fire
 	name = "cremator welding helmet"
@@ -911,7 +842,8 @@
 	desc = "A thick undyed felt cowboy hat, bleached from excessive sun exposure and creased from heavy usage."
 	icon_state = "marlowhat"
 	item_state = "marlowhat"
-	flags_inv = HIDEEARS|HIDEHAIR
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/helmet/f13/marlowhat/Initialize()
 	. = ..()
@@ -921,8 +853,9 @@
 	name = "grey cowboy hat"
 	desc = "A simple grey cowboy hat."
 	icon_state = "ranger_grey_hat"
-	item_state = "ranger_grey_hat"
-	flags_inv = HIDEEARS|HIDEHAIR
+	item_state = "ranger_hat_grey_banded"
+	flags_inv = HIDEEARS
+	dynamic_hair_suffix = ""
 
 /obj/item/clothing/head/f13/ranger_hat/Initialize() //HQ parts reinforcement
 	. = ..()
@@ -932,7 +865,7 @@
 	name = "banded cowboy hat"
 	desc = "A grey cowboy hat with a hat band decorated with brassen rings."
 	icon = 'icons/mob/clothing/head.dmi'
-	icon_state = "ranger_hat_grey_banded"
+	icon_state = "ranger_grey_hat"
 	item_state = "ranger_hat_grey_banded"
 
 /obj/item/clothing/head/f13/ranger_hat/tan
@@ -963,7 +896,6 @@
 	. = ..()
 	. += "Alt-click on [src] to flip it around."
 
-
 /obj/item/clothing/head/helmet/skull/bone
 	name = "Reinforced skull helmet"
 	desc = "An intimidating tribal helmet reinforced with leather and cloth parts on the inside for more comfort, while styling it on the Bone dancers way."
@@ -986,12 +918,11 @@
 /obj/item/clothing/head/helmet/f13/rustedcowboyhat/minutemen
 	name = "minutemen hat"
 	desc = "A stylish and slightly protective hat, made in the style of the Minutemen."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_hat"
 	item_state = "mm_hat"
 	mutantrace_variation = NONE
-
 
 //c27 helmet
 
@@ -1004,7 +935,6 @@
 	species_exception = list(/datum/species/c27)
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T3, ARMOR_MODIFIER_DOWN_LASER_T2, ARMOR_MODIFIER_DOWN_BULLET_T1, ARMOR_MODIFIER_UP_ENERGY_T2)
 	var/requires_training = TRUE
-
 
 /obj/item/clothing/head/helmet/f13/combat/brotherhood/c27_light/mob_can_equip(mob/user, mob/equipper, slot, disable_warning = 1)
 	var/mob/living/carbon/human/H = user
@@ -1092,3 +1022,73 @@
 	desc = "Heavy C-27 helmet, painted with an NCR theme."
 	icon_state = "helmet_heavy_ncr"
 	item_state = "helmet_heavy_ncr"
+
+// ==================== Merged from fallout (code\modules\fallout\code\modules\clothing\head\f13head.dm) ====================
+/*
+Just leaving this here for quick copy-pasting, for future contributors.
+	icon = 'icons/obj/clothing/hats_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/head_f13.dmi'
+	anthro_mob_worn_overlay = 'icons/mob/clothing/head_muzzled.dmi'
+		!!If your hat/helmet covers face and don't have snout-adapted sprites, then use `mutantrace_variation = NONE` instead. Should hide snout sprite when helmet is worn.
+	!!Or if your sprite covers the snout part anyway, use `mutantrace_variation = STYLE_NO_ANTHRO_ICON` instead.
+*/
+
+/obj/item/clothing/head/helmet/f13/goner
+	name = "dev-marked generic helmet"
+	desc = "A non-existent cheap-looking helmet."
+	icon = 'icons/obj/clothing/hats_f13.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/head_f13.dmi'
+	icon_state = "goner_helmet"
+	armor = ARMOR_VALUE_LIGHT
+	dynamic_hair_suffix = ""
+	flags_inv = HIDEHAIR|HIDEEARS
+
+/obj/item/clothing/head/helmet/f13/goner/Initialize()
+	. = ..()
+	AddComponent(/datum/component/armor_plate)
+
+/obj/item/clothing/head/helmet/f13/goner/red
+	name = "red-marked generic helmet"
+	desc = "A cheap-looking helmet with red paint applied from front to back."
+	icon_state = "goner_helmet_r"
+
+/obj/item/clothing/head/helmet/f13/goner/green
+	name = "green-marked generic helmet"
+	desc = "A cheap-looking helmet with green paint applied from front to back."
+	icon_state = "goner_helmet_g"
+
+/obj/item/clothing/head/helmet/f13/goner/blue
+	name = "blue-marked generic helmet"
+	desc = "A cheap-looking helmet with blue paint applied from front to back."
+	icon_state = "goner_helmet_b"
+
+/obj/item/clothing/head/helmet/f13/goner/yellow
+	name = "yellow-marked generic helmet"
+	desc = "A cheap-looking helmet with yellow paint applied from front to back."
+	icon_state = "goner_helmet_y"
+
+/obj/item/clothing/head/helmet/f13/goner/officer
+	name = "peaked dev cap"
+	desc = "A non-existent militaristic cap."
+	icon_state = "goner_offcap"
+	flags_inv = NONE
+
+/obj/item/clothing/head/helmet/f13/goner/officer/red
+	name = "peaked red cap"
+	desc = "A militaristic cap with red pin on the front."
+	icon_state = "goner_offcap_r"
+
+/obj/item/clothing/head/helmet/f13/goner/officer/green
+	name = "peaked green cap"
+	desc = "A militaristic cap with green pin on the front."
+	icon_state = "goner_offcap_g"
+
+/obj/item/clothing/head/helmet/f13/goner/officer/blue
+	name = "peaked blue cap"
+	desc = "A militaristic cap with blue pin on the front."
+	icon_state = "goner_offcap_b"
+
+/obj/item/clothing/head/helmet/f13/goner/officer/yellow
+	name = "peaked yellow cap"
+	desc = "A militaristic cap with yellow pin on the front."
+	icon_state = "goner_offcap_y"
