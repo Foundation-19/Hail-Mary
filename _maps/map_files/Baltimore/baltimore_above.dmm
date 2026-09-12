@@ -2695,9 +2695,6 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken4"
 	},
@@ -5301,12 +5298,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
 "flz" = (
-/obj/machinery/f13/faction_generator/diesel{
-	faction_tag = "TOWN"
-	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/f13/faction_generator/fusion,
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "flC" = (
@@ -11070,9 +11065,6 @@
 	pixel_y = 26
 	},
 /obj/structure/cable{
-	icon_state = "2-8"
-	},
-/obj/structure/cable{
 	icon_state = "0-8"
 	},
 /turf/open/floor/wood_worn,
@@ -11579,12 +11571,6 @@
 /obj/machinery/light/small{
 	dir = 8;
 	pixel_y = 15
-	},
-/obj/machinery/f13/faction_generator/diesel{
-	faction_tag = "TOWN"
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
 	},
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -15984,6 +15970,7 @@
 	},
 /area/f13/baltimore/building/abandoned)
 "phA" = (
+/obj/structure/simple_door/room,
 /turf/open/floor/wood_common{
 	icon_state = "common-broken3"
 	},
@@ -16111,12 +16098,6 @@
 /obj/structure/window/fulltile/ruins,
 /turf/closed/wall/rust,
 /area/f13/building/boat)
-"ppJ" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/turf/open/floor/wood_worn,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "ppR" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/wood_mosaic,
@@ -21266,7 +21247,7 @@
 /area/f13/baltimore/wasteland/city)
 "utu" = (
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "2-8"
 	},
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -21854,6 +21835,9 @@
 "uVR" = (
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken3"
@@ -22721,10 +22705,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/baltimore/wasteland/city)
-"vUp" = (
-/obj/structure/simple_door/room,
-/turf/open/floor/wood_common,
-/area/f13/baltimore/building/town/house4)
 "vUS" = (
 /obj/machinery/smartfridge/bottlerack/drug_storage,
 /turf/open/floor/wood_common/wood_common_light,
@@ -23661,6 +23641,9 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/baltimore/building/town/appartment1)
 "wYG" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken6"
 	},
@@ -82439,7 +82422,7 @@ vrT
 nkc
 ekt
 fFV
-vUp
+fFV
 fFV
 ekt
 ekt
@@ -82783,7 +82766,7 @@ vPB
 gEn
 nmh
 cOy
-ppJ
+gfF
 gfF
 tiS
 vrT
@@ -134893,7 +134876,7 @@ loq
 loq
 bgy
 iEP
-nlM
+cvF
 iEP
 ilx
 iEP

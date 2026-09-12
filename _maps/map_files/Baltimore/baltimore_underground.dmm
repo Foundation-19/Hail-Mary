@@ -1560,6 +1560,12 @@
 /obj/effect/overlay/docks{
 	dir = 1
 	},
+/obj/machinery/light/small{
+	dir = 1;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/f13/brick,
 /area/f13/baltimore/minutemen/underground)
 "bcX" = (
@@ -2795,6 +2801,18 @@
 /mob/living/simple_animal/hostile/enclave,
 /turf/open/floor/plasteel/cult,
 /area/f13/ruins)
+"bTR" = (
+/obj/effect/overlay/docks{
+	dir = 1
+	},
+/obj/machinery/light/small{
+	dir = 1;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/f13/brick,
+/area/f13/baltimore/minutemen/underground)
 "bTZ" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow{
 	icon_state = "yellowrustyfull"
@@ -9311,6 +9329,9 @@
 /obj/effect/overlay/docks/fortedge,
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
+	},
+/obj/effect/overlay/docks/fortedge{
+	dir = 1
 	},
 /turf/open/floor/wood/f13/old,
 /area/f13/baltimore/minutemen/underground)
@@ -31288,18 +31309,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
-"uEH" = (
-/obj/machinery/light/small{
-	dir = 1;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
-	},
-/obj/effect/overlay/docks{
-	dir = 1
-	},
-/turf/open/floor/f13/brick,
-/area/f13/baltimore/minutemen/underground)
 "uEK" = (
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds,
 /turf/open/floor/plasteel/f13/vault_floor/white,
@@ -141834,7 +141843,7 @@ mEZ
 mEZ
 kzY
 kzY
-uEH
+pUn
 agv
 kzY
 tvX
@@ -142186,7 +142195,7 @@ mEZ
 mEZ
 kzY
 kzY
-pUn
+bTR
 agv
 wEV
 mEZ
@@ -143241,8 +143250,8 @@ qSl
 mEZ
 mEZ
 kzY
-kzY
-uEH
+mqn
+pUn
 agv
 kzY
 tvX
@@ -143945,7 +143954,7 @@ nRg
 nRg
 mEZ
 nRg
-mqn
+kzY
 gyJ
 pHc
 kzY

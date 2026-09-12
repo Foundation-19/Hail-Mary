@@ -196,17 +196,6 @@
 	icon_state = "verticaloutermain1"
 	},
 /area/f13/baltimore/wasteland/city)
-"acH" = (
-/obj/structure/flora/roadplant{
-	icon_state = "shrub_decals_3"
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/baltimore/wasteland/city)
 "acM" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
@@ -1780,6 +1769,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/f13/brick/lit,
 /area/f13/baltimore/wasteland/city)
@@ -5035,6 +5027,14 @@
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/baltimore/building/abandoned)
+"bBT" = (
+/obj/item/f13/fusion_core,
+/obj/item/f13/fusion_core,
+/obj/item/f13/fusion_core,
+/obj/structure/closet/crate/secure,
+/obj/item/f13/fusion_core,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/minutemen/underground)
 "bCe" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -15694,15 +15694,6 @@
 	},
 /turf/open/floor/engine,
 /area/f13/outpost)
-"eHn" = (
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/baltimore/minutemen/underground)
 "eHs" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -20669,6 +20660,12 @@
 	icon_state = "whitedirtysolid"
 	},
 /area/f13/citycaves)
+"geA" = (
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 4
+	},
+/turf/open/transparent/openspace,
+/area/f13/baltimore/minutemen/underground)
 "geK" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
@@ -24134,6 +24131,15 @@
 	dir = 4
 	},
 /area/f13/baltimore/wasteland/city)
+"hiK" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/f13/brick/lit,
+/area/f13/baltimore/wasteland/city)
 "hiZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -24481,15 +24487,6 @@
 /obj/structure/closet/crate/large,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
-"hoI" = (
-/obj/effect/turf_decal/dirt{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/indestructible/ground/outside/desert/harsh,
-/area/f13/baltimore/wasteland/city)
 "hoK" = (
 /obj/structure/flora/roadplant,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
@@ -25228,6 +25225,18 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/abandoned)
+"hzv" = (
+/obj/effect/turf_decal/dirt{
+	dir = 8
+	},
+/obj/effect/turf_decal/dirt{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/f13/brick/lit,
+/area/f13/baltimore/wasteland/city)
 "hzy" = (
 /obj/structure/fence{
 	layer = 10
@@ -27879,9 +27888,6 @@
 	dir = 4
 	},
 /obj/effect/turf_decal/dirt,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/baltimore/wasteland/city)
 "isU" = (
@@ -29119,6 +29125,9 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/minutemen/underground)
 "iOJ" = (
@@ -29192,14 +29201,6 @@
 	icon_state = "fancy_dark-broken6"
 	},
 /area/f13/baltimore/building)
-"iPT" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/baltimore/wasteland/city)
 "iPU" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/wood_mosaic/wood_mosaic_light{
@@ -31246,9 +31247,6 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
 	},
 /turf/open/floor/f13/brick/lit,
 /area/f13/baltimore/wasteland/city)
@@ -33484,6 +33482,9 @@
 	},
 /obj/effect/turf_decal/dirt{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/open/floor/f13/brick/lit,
 /area/f13/baltimore/wasteland/city)
@@ -38900,15 +38901,6 @@
 	icon_state = "horizontaltopbordertop1"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
-"lUn" = (
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/turf/open/floor/plating/dirt/dirt_maryland{
-	icon_state = "dirt_original"
-	},
-/area/f13/baltimore/minutemen/underground)
 "lUs" = (
 /obj/item/storage/trash_stack{
 	icon_state = "trash_3"
@@ -43066,6 +43058,12 @@
 /obj/item/cultivator/rake,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"nfr" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/brick/lit,
+/area/f13/baltimore/wasteland/city)
 "nfs" = (
 /obj/structure/chair/stool/retro/backed{
 	dir = 1
@@ -45757,13 +45755,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
 /area/f13/baltimore/building/abandoned)
-"nXd" = (
-/obj/effect/turf_decal/dirt{
-	dir = 8
-	},
-/obj/effect/turf_decal/dirt,
-/turf/open/floor/f13/brick/lit,
-/area/f13/baltimore/wasteland/city)
 "nXj" = (
 /obj/effect/overlay/junk/oldpipes,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
@@ -46993,6 +46984,9 @@
 "oqz" = (
 /obj/structure/cable{
 	icon_state = "2-4"
+	},
+/obj/structure/destructible/tribal_torch/wall/lit{
+	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/minutemen/underground)
@@ -48255,18 +48249,6 @@
 /obj/structure/table/wood,
 /turf/open/floor/f13/wood/outside,
 /area/f13/baltimore/building/abandoned)
-"oKR" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/machinery/f13/junction_box/small{
-	pixel_x = -28
-	},
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/minutemen/underground)
 "oKX" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/greenglow,
@@ -61768,15 +61750,6 @@
 /obj/effect/turf_decal/caution/white,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"sUQ" = (
-/obj/effect/turf_decal/dirt{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/floor/f13/brick/lit,
-/area/f13/baltimore/wasteland/city)
 "sUW" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -66129,6 +66102,15 @@
 	},
 /turf/open/floor/plasteel/bar,
 /area/f13/building/center)
+"ugO" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_x = 31
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/minutemen/underground)
 "ugR" = (
 /obj/effect/overlay/docks/bricks,
 /obj/structure/railing/tg{
@@ -66989,12 +66971,6 @@
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/baltimore/building/abandoned)
-"uvo" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/turf/open/indestructible/ground/outside/desert/harsh,
-/area/f13/baltimore/wasteland/city)
 "uvv" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 8;
@@ -70860,15 +70836,6 @@
 /obj/item/book/granter/crafting_recipe/gunsmith_one,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
-"vCG" = (
-/obj/structure/destructible/tribal_torch/wall/lit{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/minutemen/underground)
 "vCJ" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
@@ -73012,6 +72979,9 @@
 "wiu" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/minutemen/underground)
@@ -183654,7 +183624,7 @@ wba
 wba
 wba
 xmF
-eHn
+sPa
 sPa
 sPa
 sPa
@@ -183996,7 +183966,7 @@ wba
 uQG
 dSA
 wba
-iPT
+wba
 wba
 wba
 wba
@@ -184348,7 +184318,7 @@ uQG
 dSA
 wba
 wba
-iPT
+wba
 wba
 wba
 wba
@@ -184700,7 +184670,7 @@ dSA
 wba
 wba
 wba
-acH
+bDA
 wba
 wba
 wba
@@ -184711,13 +184681,13 @@ gGS
 mrd
 gmW
 oqz
-vCG
+lPl
 cFE
 lPl
 lPl
 lPl
 lPl
-oKR
+lPl
 kPe
 jjk
 feT
@@ -185072,7 +185042,7 @@ tIK
 gmW
 uHg
 jjk
-jjk
+bBT
 feT
 pgC
 feT
@@ -185398,13 +185368,13 @@ shX
 shX
 shX
 shX
-mrd
+nfr
 wba
 wba
 wba
 wba
 wRy
-uvo
+uXM
 ghv
 sed
 lXg
@@ -185750,13 +185720,13 @@ shX
 shX
 shX
 shX
-xmH
+hiK
 klV
 wba
 wba
 wba
 sKG
-hoI
+dUM
 dUM
 gvU
 wba
@@ -185774,7 +185744,7 @@ vmA
 vmA
 syC
 gmW
-jjk
+uHg
 jjk
 jjk
 feT
@@ -186103,12 +186073,12 @@ rgM
 qaT
 muv
 wba
-nXd
+eDm
 klV
 wba
 wba
 wba
-iPT
+wba
 wba
 wba
 wba
@@ -186118,14 +186088,14 @@ wba
 jKc
 mrd
 gmW
+geA
 jjk
-wiu
 jjk
 vmA
 vmA
 jjk
 jjk
-jjk
+ugO
 wiu
 jjk
 feT
@@ -186456,11 +186426,11 @@ ggJ
 qaT
 wba
 wba
-nXd
+eDm
 klV
 wba
 wba
-iPT
+wba
 wba
 wba
 wba
@@ -186471,7 +186441,7 @@ xmH
 bxY
 gmW
 gmW
-sPa
+jjk
 jjk
 jjk
 jjk
@@ -186809,10 +186779,10 @@ brb
 uQI
 wba
 wba
-nXd
+eDm
 klV
 wba
-iPT
+wba
 wba
 dXM
 wba
@@ -186821,9 +186791,9 @@ fAN
 bxY
 wba
 wba
-osZ
-eVE
+wba
 sPa
+oca
 eMW
 oca
 oca
@@ -187162,9 +187132,9 @@ wba
 wba
 wba
 wba
-nXd
-oAQ
-sUQ
+eDm
+hzv
+xbO
 oAQ
 oAQ
 oAQ
@@ -187173,8 +187143,8 @@ bxY
 wba
 wba
 wba
-boK
-lUn
+wba
+sPa
 sPa
 sPa
 sPa
