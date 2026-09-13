@@ -13,23 +13,52 @@
 
 // ── Fuel constants
 
-/// Fuel ticks added per fusion core (SSobj wait=20 = ~2s/tick; 450 ticks ≈ 15 min per core).
-#define FUSION_CORE_FUEL        450
+/// Fuel ticks added per fusion core (SSobj wait=20 = ~2s/tick; 900 ticks ≈ 30 min per core —
+/// two slots = ~1 hour full tank).
+#define FUSION_CORE_FUEL        900
 /// Fuel ticks added per 1 reagent-volume unit of diesel poured into a liquid-fuel generator.
 /// At 1:1 a full standard jerrycan (500 vol) = 500 ticks ≈ 16.7 min.
 #define DIESEL_TICKS_PER_VOLUME  1
-/// SSobj ticks between mandatory wrench-service events on a running generator.
-/// 450 ticks × 2 s = 900 s ≈ 15 min.  Overdue generators trigger type-specific hazard effects.
-/// Service by applying a wrench while the unit is running — no shutdown required.
-#define FGEN_MAINTENANCE_INTERVAL 450
-/// Default starting fuel for a generator (1350 ticks ≈ 45 min, i.e. half a ~90 min round).
-#define FGEN_DEFAULT_FUEL       1350
+/// SSobj ticks a generator can run after being serviced before wear starts accruing at all.
+/// 2700 ticks × 2 s = 5400 s ≈ 90 min.  A freshly-serviced unit is reliable until this passes.
+#define FGEN_WEAR_GRACE_PERIOD          2700
+/// SSobj ticks between wear rolls once past the grace period. 900 ticks × 2 s = 1800 s ≈ 30 min.
+#define FGEN_WEAR_CHECK_INTERVAL        900
+/// Max wear stacks (100% worn). Reached only after many unlucky/neglected rolls.
+#define FGEN_WEAR_MAX                   10
+/// Base percent chance per check to gain a wear stack, before any existing stacks are counted.
+#define FGEN_WEAR_BASE_CHANCE           8
+/// Extra percent chance per existing wear stack when rolling for another one.
+#define FGEN_WEAR_CHANCE_PER_STACK      4
+/// Wear stacks required before a hazard roll is even possible — hazards are a rare, late-stage
+/// consequence of prolonged neglect, not an early risk.
+#define FGEN_WEAR_HAZARD_THRESHOLD      6
+/// Base percent chance per check for an actual hazard once past FGEN_WEAR_HAZARD_THRESHOLD.
+#define FGEN_WEAR_HAZARD_BASE_CHANCE    3
+/// Extra percent chance per wear stack above the hazard threshold.
+#define FGEN_WEAR_HAZARD_CHANCE_PER_STACK 2
+/// Default starting fuel for a generator (1800 ticks ≈ 60 min — capped to each type's own
+/// max_fuel, so this only matters for types whose tank is at least that big).
+#define FGEN_DEFAULT_FUEL       1800
 /// Fuel level at which a low-power warning is broadcast to the faction (~3 min remaining).
 #define FGEN_LOW_FUEL_WARN      90
 /// SSobj ticks between automatic re-validation of wired links (cable path re-checked against
 /// the live map). 5 ticks × 2 s = 10 s, so a cable severed by an explosion (or anything else)
 /// stops being powered shortly after, without needing a manual rescan.
 #define FGEN_LINK_PRUNE_INTERVAL 5
+/// SSobj ticks between automatic retry attempts for a generator tripped from overload (not
+/// out of fuel, not manually shut down). Retries are fully silent on failure — only a success
+/// is announced — so this can stay short: 10 ticks × 2 s = 20 s.
+#define FGEN_OVERLOAD_RETRY_INTERVAL 10
+/// Minimum fraction of rated fuel burn a running generator always pays per powered area it
+/// owns, even at 0 tracked watts of draw — accounts for the vanilla area equipment (lights/
+/// doors/APCs) that stamp_zone() powers directly and isn't metered through current_draw.
+/// A generator that owns no powered areas AND has no custom wiring pays 0 — there's nothing
+/// unmetered left for it to be secretly running.
+#define FGEN_MIN_LOAD_FRACTION_PER_AREA  0.03
+/// Hard ceiling on the per-area baseline above, so a generator with a huge base attached
+/// never gets floored above half its rated capacity just from unmetered area equipment.
+#define FGEN_MIN_LOAD_FRACTION_CAP       0.6
 
 // ── Fabricator crafting constants
 
