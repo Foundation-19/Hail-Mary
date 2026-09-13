@@ -178,14 +178,17 @@
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				draw += C.grid_watt_draw
+				// A client fed by more than one live upstream splits its draw evenly between them.
+				draw += C.grid_watt_draw / max(1, C.get_live_upstream_count())
 	if(downstream_relays)
 		if(!visited)
 			visited = list(src)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(!QDELETED(R) && !(R in visited))
 				visited += R
-				draw += R.get_subtree_draw(visited)
+				// Same split rule applies recursively — a relay with two live parents only
+				// owes each parent half of its own subtree draw.
+				draw += R.get_subtree_draw(visited) / max(1, R.get_live_upstream_count())
 	return draw
 
 /// Recalculate this relay's power state from all registered upstream nodes.
@@ -217,6 +220,21 @@
 		if(W.resolve() == target)
 			return TRUE
 	return FALSE
+
+/// Returns how many currently-live upstream generators/relays feed this relay directly.
+/// Multiple live feeds (parallel/redundant wiring) split this relay's draw evenly between them.
+/obj/machinery/f13/power_relay/proc/get_live_upstream_count()
+	var/count = 0
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up))
+				continue
+			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
+				count++
+			else if(istype(up, /obj/machinery/f13/power_relay) && up:relay_powered)
+				count++
+	return count
 
 
 // ============================================================

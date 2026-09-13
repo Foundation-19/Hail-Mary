@@ -910,6 +910,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 	outdoors = FALSE
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/center/powered
+	requires_power = FALSE
+
 /area/f13/building/boat
 	name = "Boat"
 	icon_state = "red"
@@ -918,6 +922,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		)
 	weather_tags = null
 	outdoors = FALSE
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/boat/powered
+	requires_power = FALSE
 
 /area/f13/building/abandoned
 	name = "Abandoned Building"
@@ -929,6 +937,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/lightbulb,
 		)
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/abandoned/powered
+	requires_power = FALSE
+
 /area/f13/building/hospital
 	name = "Hospital Building"
 	icon_state = "hospital"
@@ -938,6 +950,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		)
 	weather_tags = null
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/hospital/powered
+	requires_power = FALSE
+
 /area/f13/building/church
 	name = "Church Building"
 	icon_state = "green"
@@ -945,6 +961,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/general,
 		/datum/looping_sound/ambient/woodcreak,
 		)
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/church/powered
+	requires_power = FALSE
 
 /area/f13/building/tribal
 	name = "Tribal Building"
@@ -954,6 +974,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/torch,
 		)
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/tribal/powered
+	requires_power = FALSE
 
 /area/f13/building/tribal/cave
 	name = "Tribal Cave"
@@ -967,6 +991,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/critters/birds,
 		/datum/looping_sound/ambient/critters/birds/crow,
 		)
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/tribal/cave/powered
+	requires_power = FALSE
 
 /area/f13/building/sewers
 	name = "Sewers"
@@ -982,10 +1010,15 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 
 /area/f13/building/sewers/powered
+	requires_power = FALSE
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/sewer/powered
+	requires_power = FALSE
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/building/powered
+	requires_power = FALSE
 
 /area/f13/caves
 	name = "Caves"
@@ -1022,6 +1055,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/tunnel,
 	)
 	weather_tags = null
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/tunnel/powered
+	requires_power = FALSE
 
 /area/f13/bar
 	name = "Bar"
@@ -1190,6 +1227,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Mass Fusion Plant"
 	icon_state = "massfusionin"
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/massfusion/powered
+	requires_power = FALSE
+
 ///area/f13/building/hospital
 //	name = "Christus Saint Michaels Hospital"
 //	icon_state = "hospital"
@@ -1198,31 +1239,57 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Yuma Mall"
 	icon_state = "mall"
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/mall/powered
+	requires_power = FALSE
+
 /area/f13/building/museum
 	name = "Museum of Technology"
 	icon_state = "museum"
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/museum/powered
+	requires_power = FALSE
 
 /area/f13/building/firestation
 	name = "Fire Station"
 	icon_state = "fire"
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/firestation/powered
+	requires_power = FALSE
+
 /area/f13/building/trainstation
 	name = "Train Station"
 	icon_state = "train"
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/trainstation/powered
+	requires_power = FALSE
 
 /area/f13/building/nanotrasen
 	name = "NanoTrasen HQ"
 	icon_state = "nano"
 
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/nanotrasen/powered
+	requires_power = FALSE
+
 /area/f13/building/khanfort
 	name = "Khan Fortress"
 	icon_state = "khanfort"
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/khanfort/powered
+	requires_power = FALSE
 
 /area/f13/building/bighornbunker
 	name = "Bighorn Bunker"
 	icon_state = "bighornbunker"
 
-/area/f13/building/powered
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/bighornbunker/powered
+	requires_power = FALSE
 
 /area/f13/factory
 	name = "robco factory"
@@ -1233,6 +1300,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	'sound/f13ambience/ambigen_6.ogg','sound/f13ambience/ambigen_7.ogg','sound/f13ambience/ambigen_8.ogg','sound/f13ambience/ambigen_9.ogg')
 	environment = 2
 	grow_chance = 5
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/factory/powered
+	requires_power = FALSE
 
 /area/f13/cola
 	name = "rx cola"
@@ -1579,7 +1650,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 6
 	grow_chance = 5
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/casino/powered
+	requires_power = FALSE
 
 /area/f13/clinic
 	name = "Clinic"
@@ -2002,7 +2075,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = "brotherhoodmining"
 
 /area/f13/brotherhood/powered
-	requires_power = TRUE // same as parent — powered by generator only, not always-on
+	requires_power = FALSE
 
 /area/f13/enclave
 	name = "Enclave Bunker"
@@ -2053,7 +2126,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Enclave Communications"
 	icon_state = "enclave"
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/enclave/powered
+	requires_power = FALSE
 
 /area/f13/ahs
 	name = "Adepts of Hubology Studies"
@@ -2110,9 +2185,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 4
 	grow_chance = 5
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/ncr/powered
 	name = "NCR Outpost"
 	icon_state = "ncr"
+	requires_power = FALSE
 
 /area/f13/ncr/barracks
 	name = "NCR Barracks"
@@ -2164,9 +2241,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	grow_chance = 5
 //	weather_tags = list(WEATHER_ALL) tf
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/legion/powered
 	name = "Legion Fortress"
 	icon_state = "legion"
+	requires_power = FALSE
 
 /area/f13/legion/barracks
 	name = "Legion Barracks"
@@ -2251,11 +2330,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Holiday mine"
 	icon_state = "holiday_mine"
 
+/// Consistently-named powered variant — use this for new maps.
 /area/f13/holiday/powered
 	name = "Holiday"
 	icon_state = "holiday"
+	requires_power = FALSE
 
-/area/f13/holiday/powered/deepmine // deepmines for holiday means no infinite power
+/area/f13/holiday/deepmine
 	name = "Holiday deep mine"
 	icon_state = "holiday_mine"
 

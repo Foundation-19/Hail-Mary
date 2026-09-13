@@ -92,6 +92,21 @@
 			return TRUE
 	return FALSE
 
+/// Returns how many currently-live upstream generators/relays feed this client directly.
+/// Multiple live feeds (parallel/redundant wiring) split this client's draw evenly between them.
+/obj/machinery/f13/grid_client/proc/get_live_upstream_count()
+	var/count = 0
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up))
+				continue
+			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
+				count++
+			else if(istype(up, /obj/machinery/f13/power_relay) && up:relay_powered)
+				count++
+	return count
+
 
 // ============================================================
 // LIFE CYCLE
