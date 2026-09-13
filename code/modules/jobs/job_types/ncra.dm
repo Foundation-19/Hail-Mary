@@ -154,7 +154,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	req_admin_notify = 1
 	display_order = JOB_DISPLAY_ORDER_CAPTAIN_NCR
 	outfit = /datum/outfit/job/ncr/f13captain
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_NCR = 4500)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_NCR = 3600)
 
 	loadout_options = list(
 		/datum/outfit/loadout/captainbackline,	// Deagle
