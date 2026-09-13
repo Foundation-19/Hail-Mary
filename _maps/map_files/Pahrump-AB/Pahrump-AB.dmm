@@ -19088,7 +19088,7 @@
 	dir = 9;
 	icon_state = "outerpavement"
 	},
-/area/f13/ncr/entrance)
+/area/f13/brotherhood/surface)
 "cmn" = (
 /obj/structure/flora/grass/jungle,
 /obj/effect/turf_decal/weather/dirt{
@@ -27096,7 +27096,7 @@
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "horizontaloutermain2"
 	},
-/area/f13/ncr/entrance)
+/area/f13/brotherhood/surface)
 "fsP" = (
 /obj/structure/fence/wooden{
 	dir = 1
@@ -49921,7 +49921,7 @@
 "paX" = (
 /obj/machinery/light/small,
 /turf/open/indestructible/ground/outside/desert,
-/area/f13/brotherhood/surface)
+/area/f13/building/powered)
 "pbb" = (
 /turf/closed/wall/r_wall/rust,
 /area/f13/bar)
@@ -50899,8 +50899,13 @@
 	},
 /area/f13/wasteland)
 "pxx" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/effect/turf_decal/trimline/neutral/line{
+	dir = 4;
+	pixel_x = -9
+	},
 /obj/machinery/light,
-/turf/closed/wall/r_wall,
+/turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/ncr/jail)
 "pxI" = (
 /turf/closed/wall/r_wall/rust,
@@ -60919,7 +60924,7 @@
 	dir = 1;
 	icon_state = "outerpavement"
 	},
-/area/f13/ncr/entrance)
+/area/f13/brotherhood/surface)
 "tWG" = (
 /obj/structure/flora/grass/wasteland{
 	icon_state = "tall_grass_6"
@@ -73852,8 +73857,8 @@ qBJ
 ovj
 ovj
 oIT
-ovj
 pxx
+bgy
 aOk
 etg
 xFZ
