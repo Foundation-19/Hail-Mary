@@ -27076,11 +27076,10 @@
 /turf/open/floor/grass,
 /area/f13/ncr)
 "frD" = (
-/obj/machinery/light_switch,
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
+/obj/machinery/light_switch{
+	pixel_x = 32
 	},
+/turf/open/floor/f13/wood,
 /area/f13/city/buildingparent/residence)
 "frL" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
@@ -102815,7 +102814,7 @@ uNJ
 igF
 hEG
 gvN
-rNq
+frD
 vcW
 rNq
 dwX
@@ -103072,7 +103071,7 @@ uNJ
 igF
 hEG
 vME
-frD
+vME
 dGJ
 mlC
 iNK
