@@ -13251,6 +13251,10 @@
 	dir = 8;
 	pixel_y = -16
 	},
+/obj/structure/railing{
+	dir = 4;
+	layer = 4.1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
@@ -28012,15 +28016,6 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
-"xtj" = (
-/obj/structure/railing{
-	dir = 4;
-	layer = 4.1
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
-	name = "metal plating"
-	},
-/area/f13/city)
 "xur" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -64406,8 +64401,8 @@ xjH
 xjH
 xjH
 xjH
-xjH
-xtj
+sVU
+pHz
 xjH
 gqA
 xrd
@@ -64664,8 +64659,8 @@ xjH
 xjH
 xjH
 sVU
-pHz
-xjH
+xrd
+xrd
 xrd
 xrd
 aae
@@ -64921,9 +64916,9 @@ xjH
 xjH
 yfy
 sVU
-bsC
-bsC
-bsC
+bOn
+aae
+aae
 aae
 aak
 aae
@@ -65178,7 +65173,7 @@ xjH
 xjH
 gFr
 sVU
-bsC
+bOn
 aae
 aae
 aae
@@ -65435,7 +65430,7 @@ xjH
 xjH
 wvX
 sVU
-bsC
+bOn
 aae
 aae
 aae
@@ -65692,7 +65687,7 @@ xjH
 vPG
 pGu
 sVU
-bsC
+bOn
 aae
 aae
 aae
