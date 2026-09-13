@@ -22891,9 +22891,6 @@
 /turf/open/indestructible/ground/outside/road,
 /area/f13/wasteland)
 "dGJ" = (
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
@@ -42387,6 +42384,9 @@
 /area/f13/building/museum)
 "lTn" = (
 /obj/effect/landmark/start/f13/radio_host,
+/obj/machinery/light{
+	dir = 8
+	},
 /turf/open/floor/f13/wood,
 /area/f13/city/buildingparent/residence)
 "lTp" = (
@@ -51993,16 +51993,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
-"pRz" = (
-/obj/machinery/light{
-	dir = 4;
-	light_color = "#c1caff"
-	},
-/turf/closed/wall/f13/store{
-	desc = "A pre-War wall made of solid concrete.";
-	name = "concrete wall"
-	},
-/area/f13/city/buildingparent/residence)
 "pRC" = (
 /obj/machinery/hydroponics/soil,
 /obj/structure/flora/grass/wasteland{
@@ -63528,6 +63518,9 @@
 	},
 /obj/machinery/f13/junction_box/small{
 	pixel_x = 32
+	},
+/obj/machinery/light{
+	dir = 4
 	},
 /turf/open/floor/f13/wood,
 /area/f13/city/buildingparent/residence)
@@ -101795,7 +101788,7 @@ igF
 eah
 vME
 vME
-pRz
+vME
 bdd
 uzn
 pKI
