@@ -20645,7 +20645,7 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop0"
 	},
-/area/f13/city/buildingparent/building)
+/area/f13/building/powered)
 "cHe" = (
 /obj/effect/spawner/bundle/f13/autopipe,
 /turf/open/indestructible/ground/outside/dirt,
@@ -47599,7 +47599,7 @@
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/sidewalk,
-/area/f13/wasteland)
+/area/f13/city/buildingparent/jail)
 "ocu" = (
 /obj/structure/flora/tree/cactus,
 /turf/open/indestructible/ground/outside/desert,
@@ -59038,7 +59038,7 @@
 /turf/open/indestructible/ground/outside/road{
 	icon_state = "horizontalbottombordertop2"
 	},
-/area/f13/city/buildingparent/building)
+/area/f13/building/powered)
 "tiR" = (
 /obj/structure/flora/ausbushes/ywflowers,
 /obj/structure/flora/ausbushes/genericbush,
