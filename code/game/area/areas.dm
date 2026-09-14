@@ -766,11 +766,16 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// machinery-notification path — we must push the update ourselves.
 
 // f13 power state is set by junction boxes post-init; skip power_change on all f13 areas.
+// requires_power = FALSE areas (the /powered variants) are always-on and never touched by
+// a junction box, so they must NOT be zeroed here — push their already-TRUE Initialize()
+// state out to machines instead, same as the base /area/LateInitialize() would.
 /area/f13/LateInitialize()
-	if(!GLOB.f13_magic_power)
+	if(requires_power && !GLOB.f13_magic_power)
 		power_equip   = FALSE
 		power_light   = FALSE
 		power_environ = FALSE
+	else if(!requires_power)
+		power_change()
 	update_beauty()
 
 /area/f13/power_change()
