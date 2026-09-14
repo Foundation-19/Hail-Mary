@@ -35,6 +35,11 @@
 	var/grid_powered = FALSE
 	/// Watts this machine draws continuously from the grid.
 	var/grid_watt_draw = GRID_CLIENT_WATT_DEFAULT
+	/// True/apparent power factor for this device's own draw (0 < PF <= 1).
+	/// 1.0 = purely resistive (lights, heaters) — apparent power equals true power.
+	/// Lower values (motors, fabricator drives, mixed building circuits) mean this
+	/// device pulls more apparent power (VA) than its rated wattage for the same work.
+	var/power_factor = 1.0
 	/// Load-shedding priority.  Higher value = shed first when the grid is over capacity.
 	/// Default 0 (shed last).  Set higher on high-draw machines (e.g. fabricators = 10).
 	var/grid_shed_priority = 0
@@ -106,6 +111,21 @@
 			else if(istype(up, /obj/machinery/f13/power_relay) && up:relay_powered)
 				count++
 	return count
+
+/// Watts this client actually pulls from the grid right now — what upstream draw
+/// accounting should charge against a generator/relay's budget. Base implementation
+/// is just the flat rated draw; override on subtypes that can partially de-energise
+/// themselves internally (e.g. a junction box with some zone breakers tripped).
+/obj/machinery/f13/grid_client/proc/get_effective_watt_draw()
+	return grid_watt_draw
+
+/// Apparent power (VA) this client pulls from the grid — true watts divided by power
+/// factor. This is what a generator/relay's capacity should actually be budgeted
+/// against, since apparent power (current) is what stresses wiring and breakers, not
+/// true power alone. Calls get_effective_watt_draw() so it automatically respects any
+/// subtype override (e.g. a tripped junction box zone still draws 0 VA, not just 0W).
+/obj/machinery/f13/grid_client/proc/get_effective_va_draw()
+	return get_effective_watt_draw() / max(0.05, power_factor)
 
 
 // ============================================================
