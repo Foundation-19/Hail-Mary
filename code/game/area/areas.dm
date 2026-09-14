@@ -904,6 +904,17 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 	outdoors = FALSE
 
+/// Open-air rooftop or balcony — flag with outdoors = TRUE to distinguish from an
+/// enclosed top floor sharing the same z-level.
+/area/f13/building/rooftop
+	name = "Rooftop"
+	outdoors = TRUE
+	weather_tags = list(WEATHER_ALL)
+
+/// Consistently-named powered variant — use this for new maps.
+/area/f13/building/rooftop/powered
+	requires_power = FALSE
+
 /area/f13/building/center
 	name = "Ruined city center Building"
 	icon_state = "yellow"
@@ -919,6 +930,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/center/powered
 	requires_power = FALSE
 
+/area/f13/building/center/rooftop
+	name = "Ruined city center Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/boat
 	name = "Boat"
 	icon_state = "red"
@@ -931,6 +946,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/building/boat/powered
 	requires_power = FALSE
+
+/area/f13/building/boat/rooftop
+	name = "Boat Deck"
+	outdoors = TRUE
 
 /area/f13/building/abandoned
 	name = "Abandoned Building"
@@ -946,6 +965,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/abandoned/powered
 	requires_power = FALSE
 
+/area/f13/building/abandoned/rooftop
+	name = "Abandoned Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/hospital
 	name = "Hospital Building"
 	icon_state = "hospital"
@@ -959,6 +982,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/hospital/powered
 	requires_power = FALSE
 
+/area/f13/building/hospital/rooftop
+	name = "Hospital Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/church
 	name = "Church Building"
 	icon_state = "green"
@@ -970,6 +997,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/building/church/powered
 	requires_power = FALSE
+
+/area/f13/building/church/rooftop
+	name = "Church Rooftop"
+	outdoors = TRUE
 
 /area/f13/building/tribal
 	name = "Tribal Building"
@@ -983,6 +1014,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/building/tribal/powered
 	requires_power = FALSE
+
+/area/f13/building/tribal/rooftop
+	name = "Tribal Rooftop"
+	outdoors = TRUE
 
 /area/f13/building/tribal/cave
 	name = "Tribal Cave"
@@ -1075,6 +1110,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/woodcreak,
 	)
 	weather_tags = null
+
+/area/f13/bar/rooftop
+	name = "Bar Rooftop"
+	outdoors = TRUE
 
 ///////////////
 //C O Y O T E//
@@ -1198,6 +1237,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 5
 	grow_chance = 5
 
+/area/f13/ruins/rooftop
+	name = "Ruins Rooftop"
+	outdoors = TRUE
+
 
 /area/f13/shack
 	name = "Shack"
@@ -1215,6 +1258,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 2
 	grow_chance = 5
 
+/area/f13/shack/rooftop
+	name = "Shack Rooftop"
+	outdoors = TRUE
 
 //	ambientmusic = list('sound/f13music/fo2_tunnels.ogg','sound/f13music/fo2_ruins.ogg','sound/misc/null.ogg')
 	ambientsounds = list(
@@ -1236,6 +1282,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/massfusion/powered
 	requires_power = FALSE
 
+/area/f13/building/massfusion/rooftop
+	name = "Mass Fusion Plant Rooftop"
+	outdoors = TRUE
+
 ///area/f13/building/hospital
 //	name = "Christus Saint Michaels Hospital"
 //	icon_state = "hospital"
@@ -1248,6 +1298,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/mall/powered
 	requires_power = FALSE
 
+/area/f13/building/mall/rooftop
+	name = "Yuma Mall Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/museum
 	name = "Museum of Technology"
 	icon_state = "museum"
@@ -1255,6 +1309,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/building/museum/powered
 	requires_power = FALSE
+
+/area/f13/building/museum/rooftop
+	name = "Museum of Technology Rooftop"
+	outdoors = TRUE
 
 /area/f13/building/firestation
 	name = "Fire Station"
@@ -1264,6 +1322,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/firestation/powered
 	requires_power = FALSE
 
+/area/f13/building/firestation/rooftop
+	name = "Fire Station Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/trainstation
 	name = "Train Station"
 	icon_state = "train"
@@ -1271,6 +1333,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/building/trainstation/powered
 	requires_power = FALSE
+
+/area/f13/building/trainstation/rooftop
+	name = "Train Station Rooftop"
+	outdoors = TRUE
 
 /area/f13/building/nanotrasen
 	name = "NanoTrasen HQ"
@@ -1280,6 +1346,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/nanotrasen/powered
 	requires_power = FALSE
 
+/area/f13/building/nanotrasen/rooftop
+	name = "NanoTrasen HQ Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/khanfort
 	name = "Khan Fortress"
 	icon_state = "khanfort"
@@ -1288,6 +1358,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/building/khanfort/powered
 	requires_power = FALSE
 
+/area/f13/building/khanfort/rooftop
+	name = "Khan Fortress Rooftop"
+	outdoors = TRUE
+
 /area/f13/building/bighornbunker
 	name = "Bighorn Bunker"
 	icon_state = "bighornbunker"
@@ -1295,6 +1369,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/building/bighornbunker/powered
 	requires_power = FALSE
+
+/area/f13/building/bighornbunker/rooftop
+	name = "Bighorn Bunker Rooftop"
+	outdoors = TRUE
 
 /area/f13/factory
 	name = "robco factory"
@@ -1309,6 +1387,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /// Consistently-named powered variant — use this for new maps.
 /area/f13/factory/powered
 	requires_power = FALSE
+
+/area/f13/factory/rooftop
+	name = "Robco Factory Rooftop"
+	outdoors = TRUE
 
 /area/f13/cola
 	name = "rx cola"
@@ -1556,48 +1638,93 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	outdoors = FALSE
 	open_space = FALSE
 
+/area/f13/city/buildingparent/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/museum
 	name = "Museum"
+
+/area/f13/city/buildingparent/museum/rooftop
+	outdoors = TRUE
 
 /area/f13/city/buildingparent/bighorn
 	name = "Bighorn"
 	icon_state = "bighorn"
 
+/area/f13/city/buildingparent/bighorn/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/store
 	name = "General Store"
+
+/area/f13/city/buildingparent/store/rooftop
+	outdoors = TRUE
 
 /area/f13/city/buildingparent/saloon
 	name = "Saloon"
 
+/area/f13/city/buildingparent/saloon/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/clinic
 	name = "Clinic"
+
+/area/f13/city/buildingparent/clinic/rooftop
+	outdoors = TRUE
 
 /area/f13/city/buildingparent/jail
 	name = "Police Station"
 
+/area/f13/city/buildingparent/jail/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/townhall
 	name = "Town Hall"
+
+/area/f13/city/buildingparent/townhall/rooftop
+	outdoors = TRUE
 
 /area/f13/city/buildingparent/hotel
 	name = "Hotel"
 
+/area/f13/city/buildingparent/hotel/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/garage
 	name = "Garage"
+
+/area/f13/city/buildingparent/garage/rooftop
+	outdoors = TRUE
 
 /area/f13/city/buildingparent/church
 	name = "Church"
 
+/area/f13/city/buildingparent/church/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/bank
 	name = "Bank"
+
+/area/f13/city/buildingparent/bank/rooftop
+	outdoors = TRUE
 
 /area/f13/city/buildingparent/farmhouse
 	name = "Farmhouse"
 
+/area/f13/city/buildingparent/farmhouse/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/residence
 	name = "Residence"
 
+/area/f13/city/buildingparent/residence/rooftop
+	outdoors = TRUE
+
 /area/f13/city/buildingparent/building
 	name = "Building"
+
+/area/f13/city/buildingparent/building/rooftop
+	outdoors = TRUE
 
 /area/f13/citycaves
 	name = "City Caves"
@@ -1625,6 +1752,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		AREA_SOUND('sound/ambience/ambicha4.ogg', 10 SECONDS))
 	environment = 5
 	grow_chance = 5
+
+/area/f13/chapel/rooftop
+	name = "Chapel Rooftop"
+	outdoors = TRUE
 
 
 
@@ -1659,6 +1790,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/casino/powered
 	requires_power = FALSE
 
+/area/f13/casino/rooftop
+	name = "Casino Rooftop"
+	outdoors = TRUE
+
 /area/f13/clinic
 	name = "Clinic"
 	icon_state = "clinic"
@@ -1680,6 +1815,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 6
 	grow_chance = 5
 
+/area/f13/clinic/rooftop
+	name = "Clinic Rooftop"
+	outdoors = TRUE
+
 /area/f13/office
 	name = "Office"
 	icon_state = "office"
@@ -1695,6 +1834,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 2
 	grow_chance = 5
 
+/area/f13/office/rooftop
+	name = "Office Rooftop"
+	outdoors = TRUE
+
 /area/f13/store
 	name = "Store"
 	icon_state = "store"
@@ -1709,6 +1852,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		AREA_SOUND('sound/f13ambience/ambigen_8.ogg', 10 SECONDS))
 	environment = 4
 	grow_chance = 5
+
+/area/f13/store/rooftop
+	name = "Store Rooftop"
+	outdoors = TRUE
 
 /area/f13/bunker
 	name = "Bunker"
@@ -1911,6 +2058,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	environment = 6
 	grow_chance = 5
 
+/area/f13/vault/rooftop
+	outdoors = TRUE
+
 /area/f13/vault/reactor
 	name = "Reactor"
 	icon_state = "engine"
@@ -2082,6 +2232,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/brotherhood/powered
 	requires_power = FALSE
 
+/area/f13/brotherhood/rooftop
+	outdoors = TRUE
+
 /area/f13/enclave
 	name = "Enclave Bunker"
 	icon_state = "enclave"
@@ -2135,6 +2288,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/f13/enclave/powered
 	requires_power = FALSE
 
+/area/f13/enclave/rooftop
+	outdoors = TRUE
+
 /area/f13/ahs
 	name = "Adepts of Hubology Studies"
 	icon_state = "ahs"
@@ -2149,6 +2305,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
+
+/area/f13/ahs/rooftop
+	outdoors = TRUE
 
 /area/f13/ahs/temple
 	name = "AHS Temple"
@@ -2195,6 +2354,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "NCR Outpost"
 	icon_state = "ncr"
 	requires_power = FALSE
+
+/area/f13/ncr/rooftop
+	outdoors = TRUE
 
 /area/f13/ncr/barracks
 	name = "NCR Barracks"
@@ -2252,6 +2414,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = "legion"
 	requires_power = FALSE
 
+/area/f13/legion/rooftop
+	outdoors = TRUE
+
 /area/f13/legion/barracks
 	name = "Legion Barracks"
 	icon_state = "legion"
@@ -2294,6 +2459,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	blob_allowed = 0
 	environment = 5
 	grow_chance = 5
+
+/area/f13/followers/rooftop
+	outdoors = TRUE
 
 /area/f13/followers/clinic
 	name = "Followers Clinic"
@@ -2340,6 +2508,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Holiday"
 	icon_state = "holiday"
 	requires_power = FALSE
+
+/area/f13/holiday/rooftop
+	outdoors = TRUE
 
 /area/f13/holiday/deepmine
 	name = "Holiday deep mine"
