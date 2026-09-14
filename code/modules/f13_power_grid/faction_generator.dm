@@ -111,6 +111,14 @@
 	var/available_watts = 0
 	/// Current total draw reported by relays, fabricators, and turrets.
 	var/current_draw = 0
+	/// Current total *apparent* draw (VA) — true watts divided by each client's own power
+	/// factor. This is what's actually checked against get_available_va() for overload,
+	/// since apparent power (current) is what stresses wiring/breakers, not true power alone.
+	var/current_va_draw = 0
+	/// This generator's own alternator power-factor rating (0 < PF <= 1). Determines how
+	/// much apparent power (VA) the unit can deliver at its rated true-watt output — 1.0
+	/// means the alternator itself never derates capacity below the engine's true output.
+	var/rated_power_factor = 1.0
 	/// TRUE when the generator has tripped due to overload.
 	var/overloaded = FALSE
 	/// TRUE when an operator manually shut the generator down via the UI.
@@ -412,11 +420,11 @@
 				_roll_wear_check()
 
 		// ── Under budget: try restoring previously shed loads.
-		if(current_draw <= available_watts)
+		if(!_is_over_budget())
 			_try_restore_shed()
 
-		// ── Over budget: try soft load-shedding before hard-tripping.
-		if(current_draw > available_watts)
+		// ── Over budget (true watts OR apparent VA): try soft load-shedding before hard-tripping.
+		if(_is_over_budget())
 			if(!_do_load_shed())
 				// Shedding alone couldn't resolve it — hard grid trip.
 				if(!overloaded)
@@ -563,7 +571,7 @@
 	powered = TRUE
 	available_watts = fuel_is_liquid ? watts_per_fuel_unit : (watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit)))
 	recalc_draw()
-	if(current_draw > available_watts)
+	if(_is_over_budget())
 		powered = FALSE  // still doesn't fit — revert quietly, try again next interval
 		return
 	overloaded = FALSE
@@ -618,11 +626,13 @@
 /// Shed items (in shed_clients / shed_relays) are excluded — they draw 0W while suspended.
 /obj/machinery/f13/faction_generator/proc/recalc_draw()
 	current_draw = 0
+	current_va_draw = 0
 	// Direct turrets on this generator.
 	if(linked_turrets)
 		for(var/obj/machinery/porta_turret/T in linked_turrets)
 			if(!QDELETED(T))
 				current_draw += TURRET_WATT_DRAW
+				current_va_draw += TURRET_WATT_DRAW  // simple electronics — PF 1.0
 	// Generic grid clients (includes fabricators) — skip any that are currently load-shed.
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
@@ -630,30 +640,45 @@
 				if(shed_clients && (C in shed_clients))
 					continue  // shed — counts as 0W
 				// A client fed by more than one live generator/relay splits its draw evenly between them.
-				current_draw += C.grid_watt_draw / max(1, C.get_live_upstream_count())
+				var/live_upstreams = max(1, C.get_live_upstream_count())
+				current_draw += C.get_effective_watt_draw() / live_upstreams
+				current_va_draw += C.get_effective_va_draw() / live_upstreams
 	// Relay chains (recursive) — skip any that are currently load-shed.
 	if(linked_relays)
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
 			if(!QDELETED(R))
 				if(shed_relays && (R in shed_relays))
 					continue  // shed — counts as 0W
-				current_draw += R.get_subtree_draw() / max(1, R.get_live_upstream_count())
+				var/live_upstreams = max(1, R.get_live_upstream_count())
+				current_draw += R.get_subtree_draw() / live_upstreams
+				current_va_draw += R.get_subtree_va_draw() / live_upstreams
+
+/// Apparent power (VA) capacity — the true-watt engine output divided by this unit's own
+/// alternator power-factor rating. Checked against current_va_draw for overload, since
+/// apparent power (current) is what actually stresses wiring and breakers.
+/obj/machinery/f13/faction_generator/proc/get_available_va()
+	return available_watts / max(0.05, rated_power_factor)
 
 /// Return total watts this generator is currently delivering vs. what it can supply.
 /obj/machinery/f13/faction_generator/proc/get_load_summary()
 	return "[round(current_draw)]W / [available_watts]W"
 
 // ── Load shedding — shed loads in priority order to prevent a full grid trip.
-/// Called when current_draw > available_watts.
+/// TRUE if either true-power (engine) or apparent-power (alternator/wiring) capacity
+/// is currently exceeded — either one is a real overload, not just the true-watt figure.
+/obj/machinery/f13/faction_generator/proc/_is_over_budget()
+	return (current_draw > available_watts) || (current_va_draw > get_available_va())
+
+/// Called when the generator is over budget on either true or apparent power.
 /// Returns TRUE if shedding resolved the overload, FALSE if a hard trip is still needed.
 /obj/machinery/f13/faction_generator/proc/_do_load_shed()
 	// PRIORITY 1: high-priority grid clients (e.g. fabricators, grid_shed_priority > 0).
 	// Shed active crafting machines first (highest per-unit watt saving),
 	// then idle high-priority units.
-	if(current_draw > available_watts && linked_clients)
+	if(_is_over_budget() && linked_clients)
 		for(var/pass in 1 to 2)
 			for(var/obj/machinery/f13/grid_client/C in linked_clients)
-				if(current_draw <= available_watts)
+				if(!_is_over_budget())
 					break
 				if(QDELETED(C))
 					continue
@@ -667,11 +692,12 @@
 				if(!shed_clients)
 					shed_clients = list()
 				shed_clients += C
-				current_draw -= C.grid_watt_draw
+				current_draw -= C.get_effective_watt_draw()
+				current_va_draw -= C.get_effective_va_draw()
 
 	// PRIORITY 2: relay subtrees — cut lowest-draw relays first to preserve
 	// turret-heavy nodes as long as possible.
-	if(current_draw > available_watts && linked_relays)
+	if(_is_over_budget() && linked_relays)
 		var/list/relay_cands = list()
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
 			if(QDELETED(R) || !R.relay_powered)
@@ -680,7 +706,7 @@
 				continue
 			relay_cands += R
 		// Each pass: cut the relay with the smallest subtree draw first.
-		while(relay_cands.len > 0 && current_draw > available_watts)
+		while(relay_cands.len > 0 && _is_over_budget())
 			var/obj/machinery/f13/power_relay/pick = null
 			var/pick_draw = 999999
 			for(var/obj/machinery/f13/power_relay/RC in relay_cands)
@@ -690,6 +716,7 @@
 					pick = RC
 			if(!pick)
 				break
+			var/pick_va_draw = pick.get_subtree_va_draw()
 			relay_cands -= pick
 			pick.load_shed = TRUE
 			pick.set_relay_power(FALSE)
@@ -697,8 +724,9 @@
 				shed_relays = list()
 			shed_relays += pick
 			current_draw -= pick_draw
+			current_va_draw -= pick_va_draw
 
-	return (current_draw <= available_watts)
+	return !_is_over_budget()
 
 // ── Restore shed loads when the generator has headroom again.
 /// Called each process() tick before the overload check (only when under budget).
@@ -718,8 +746,10 @@
 				to_restore += R  // drop the stale entry, do NOT re-power it
 				continue
 			var/would_draw = R.get_subtree_draw()
-			if(current_draw + would_draw <= available_watts)
+			var/would_va_draw = R.get_subtree_va_draw()
+			if(current_draw + would_draw <= available_watts && current_va_draw + would_va_draw <= get_available_va())
 				current_draw += would_draw
+				current_va_draw += would_va_draw
 				to_restore += R
 		for(var/obj/machinery/f13/power_relay/R in to_restore)
 			shed_relays -= R
@@ -738,8 +768,9 @@
 			if(!linked_clients || !(C in linked_clients))
 				to_restore += C  // stale entry — drop without re-powering
 				continue
-			if(current_draw + C.grid_watt_draw <= available_watts)
-				current_draw += C.grid_watt_draw
+			if(current_draw + C.get_effective_watt_draw() <= available_watts && current_va_draw + C.get_effective_va_draw() <= get_available_va())
+				current_draw += C.get_effective_watt_draw()
+				current_va_draw += C.get_effective_va_draw()
 				to_restore += C
 		for(var/obj/machinery/f13/grid_client/C in to_restore)
 			shed_clients -= C
@@ -1082,7 +1113,7 @@
 
 		if(!powered)
 			set_power_state(TRUE)
-		else if(overloaded && current_draw <= available_watts)
+		else if(overloaded && !_is_over_budget())
 			overloaded = FALSE
 			set_power_state(TRUE)
 
@@ -1199,16 +1230,25 @@
 	var/accessible = can_access(user)
 	var/fuel_pct   = max_fuel > 0 ? round((fuel / max_fuel) * 100) : 0
 	var/units_remaining = round(fuel / fuel_per_unit, 0.1)
-	var/runtime_secs = fuel * 2  // each fuel unit = 2 s
-	var/runtime_min  = round(runtime_secs / 60)
-	var/runtime_display = runtime_secs < 120 ? "[runtime_secs]s" : "[runtime_min] min"
 
 	recalc_draw()
+	var/available_va = get_available_va()
 	var/load_pct   = available_watts > 0 ? round((current_draw / available_watts) * 100) : 0
-	var/load_color = current_draw > available_watts ? "bad" : (current_draw > available_watts * 0.8 ? "warn" : "good")
+	var/va_pct     = available_va > 0 ? round((current_va_draw / available_va) * 100) : 0
+	var/load_color = _is_over_budget() ? "bad" : ((current_draw > available_watts * 0.8 || current_va_draw > available_va * 0.8) ? "warn" : "good")
 
-	// Build a simple ASCII bar (20 chars wide)
-	var/bar_fill  = available_watts > 0 ? round((current_draw / available_watts) * 20) : 0
+	// Mirror _drain_one_tick()'s actual drain rate so the displayed estimate reflects
+	// current load instead of assuming a constant full-load burn.
+	var/load_fraction = available_watts > 0 ? clamp(current_draw / available_watts, get_min_load_fraction(), 1) : 1
+	var/runtime_display
+	if(load_fraction <= 0)
+		runtime_display = "indefinite"
+	else
+		var/runtime_secs = round((fuel / load_fraction) * 2)  // each fuel unit = 2 s at full load
+		runtime_display = runtime_secs < 120 ? "[runtime_secs]s" : "[round(runtime_secs / 60)] min"
+
+	// Build a simple ASCII bar (20 chars wide) — reflects whichever of true/apparent power is closer to tripping.
+	var/bar_fill  = round(max(load_pct, va_pct) / 5)
 	bar_fill = clamp(bar_fill, 0, 20)
 	var/bar_str = "&#91;"
 	var/f_bi
@@ -1233,6 +1273,36 @@
 	dat += "<pre>  STATUS   : [status_line]</pre>"
 	if(!grounded)
 		dat += "<pre>  <span style='color:#ff8c00'>  &#9888; UNGROUNDED  &mdash;  install a grounding rod to prevent leakage current hazards</span></pre>"
+
+	// ── Diagnostics checklist — the first thing a tech should scan on approach
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+	dat += "<pre class='head'>  &#91;DIAGNOSTICS&#93;</pre>"
+	var/list/diag = list()
+	diag += list(list(grounded ? "good" : "bad", grounded ? "Grounding rod installed" : "Ungrounded — leakage current hazard"))
+	diag += list(list(fuel > 0 ? "good" : "bad", fuel > 0 ? "Fuel supply nominal" : "No fuel — cannot start"))
+	if(fuel > 0 && max_fuel > 0 && (fuel / max_fuel) < 0.15)
+		diag += list(list("warn", "Fuel reserve low — refuel soon"))
+	var/near_capacity = (available_watts > 0 && current_draw > available_watts * 0.9) || (available_va > 0 && current_va_draw > available_va * 0.9)
+	diag += list(list(overloaded ? "bad" : (near_capacity ? "warn" : "good"), \
+		overloaded ? "Circuit overload — output tripped" : (near_capacity ? "Load near rated capacity" : "Load within rated capacity")))
+	var/blended_pf_pct = current_va_draw > 0 ? round((current_draw / current_va_draw) * 100) : 100
+	diag += list(list(blended_pf_pct >= 90 ? "good" : (blended_pf_pct >= 75 ? "warn" : "bad"), \
+		"Grid power factor [blended_pf_pct]%[blended_pf_pct < 90 ? " — low-PF loads are drawing more apparent current than their rated wattage suggests" : " — efficient load mix"]"))
+	diag += list(list(obj_integrity >= max_integrity * 0.67 ? "good" : (obj_integrity >= max_integrity * 0.33 ? "warn" : "bad"), \
+		obj_integrity >= max_integrity * 0.67 ? "Structural integrity nominal" : (obj_integrity >= max_integrity * 0.33 ? "Structural integrity degraded — repair advised" : "Structural integrity critical — repair immediately")))
+	diag += list(list(wear_level >= FGEN_WEAR_MAX ? "bad" : (wear_level >= FGEN_WEAR_HAZARD_THRESHOLD ? "warn" : "good"), \
+		wear_level >= FGEN_WEAR_MAX ? "Wear critical — hazard risk high, service now" : (wear_level >= FGEN_WEAR_HAZARD_THRESHOLD ? "Wear elevated — service recommended" : "Wear nominal")))
+	if(emergency_shutdown)
+		diag += list(list("bad", "Emergency shutdown latched — explosive damage sustained"))
+	if(shed_total > 0)
+		diag += list(list("warn", "[shed_total] device[shed_total != 1 ? "s" : ""] load-shed to stay under capacity"))
+	for(var/entry in diag)
+		var/lvl = entry[1]
+		var/lbl = entry[2]
+		var/tag = lvl == "good" ? "OK  " : (lvl == "warn" ? "WARN" : "FAIL")
+		dat += "<pre>    <span class='[lvl]'>&#91;[tag]&#93;</span>  [lbl]</pre>"
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
 	if(fuel_is_liquid)
 		dat += "<pre>  FUEL     : [fuel] L / [max_fuel] L <span class='dim'>([fuel_pct]%  runtime ~[runtime_display])</span></pre>"
 		if(accessible)
@@ -1261,8 +1331,9 @@
 		if(accessible)
 			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=eject_fuel'>EJECT ALL</a>  <span class='dim'>(purge every slot; generator powers down)</span></pre>"
 		dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>([max(1,round(fuel/fuel_per_unit))] [fuel_unit_name](s) x [watts_per_fuel_unit]W)</span></pre>"
-	dat += "<pre>  DRAW     : <span class='[load_color]'>[round(current_draw)]W ([load_pct]%)</span></pre>"
-	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [load_pct]%</pre>"
+	dat += "<pre>  DRAW     : <span class='[load_color]'>[round(current_draw)]W ([load_pct]%)</span>  <span class='dim'>true power</span></pre>"
+	dat += "<pre>  APPARENT : <span class='[load_color]'>[round(current_va_draw)]VA ([va_pct]%)</span>  <span class='dim'>(alternator rated [round(available_va)]VA @ PF [rated_power_factor])</span></pre>"
+	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [max(load_pct, va_pct)]%</pre>"
 	dat += "<pre class='dim'>  COST REF.: relay=[RELAY_WATT_DRAW]W  fab=[FAB_WATT_DRAW_IDLE]W idle/[FAB_WATT_DRAW_ACTIVE]W active  turret=[TURRET_WATT_DRAW]W</pre>"
 	var/integrity_color = obj_integrity < max_integrity * 0.33 ? "bad" : (obj_integrity < max_integrity * 0.67 ? "warn" : "good")
 	dat += "<pre>  INTEGRITY: <span class='[integrity_color]'>[obj_integrity] / [max_integrity]</span>  <span class='dim'>(wrench while offline to repair)</span></pre>"
@@ -1328,9 +1399,11 @@
 				if(is_shed)
 					cstate = "<span class='warn'>&#91;SHED&#93;   0W</span>"
 				else if(C.grid_powered)
-					cstate = "<span class='good'>ONLINE  [C.grid_watt_draw]W</span>"
+					cstate = "<span class='good'>ONLINE  [C.get_effective_watt_draw()]W</span>"
 				else
-					cstate = "<span class='bad'>OFFLINE [C.grid_watt_draw]W</span>"
+					cstate = "<span class='bad'>OFFLINE [C.get_effective_watt_draw()]W</span>"
+				if(!is_shed && C.power_factor < 1)
+					cstate += " <span class='dim'>([round(C.get_effective_va_draw())]VA @ PF [C.power_factor])</span>"
 				dat += "<pre>    &gt; [C.name]  [cstate]</pre>"
 	else
 		dat += "<pre class='dim'>    &gt; none linked  (use a cable coil on generator, then on any compatible device)</pre>"
@@ -1622,7 +1695,7 @@
 	)
 	if(!powered && fuel > 0)
 		set_power_state(TRUE)
-	else if(overloaded && current_draw <= available_watts)
+	else if(overloaded && !_is_over_budget())
 		overloaded = FALSE
 		set_power_state(TRUE)
 	return TRUE

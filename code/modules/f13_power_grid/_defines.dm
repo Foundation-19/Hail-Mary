@@ -104,18 +104,20 @@
 /// Override grid_watt_draw on the subtype for anything non-standard.
 #define GRID_CLIENT_WATT_DEFAULT 100
 
-/// Fixed overhead watt draw for a junction box, independent of zone count
-/// (panel/transformer standby losses).  Total draw = JUNCTION_BOX_WATT_DRAW_BASE +
-/// (JUNCTION_BOX_WATT_DRAW * zone count).  Larger panels carry more overhead but a
-/// lower per-zone rate, so one large box undercuts a chain of small boxes once a
-/// building has enough zones (e.g. a BOS-sized multi-room compound) -- without this,
-/// small boxes are strictly cheaper than large ones at every scale.
+/// Fixed overhead watt draw for a junction box, independent of size (panel/transformer
+/// standby losses) — charged once per box, not per zone. Total draw = JUNCTION_BOX_WATT_DRAW_BASE
+/// + (JUNCTION_BOX_WATT_PER_TILE * total tiles across all claimed zones). Larger panels
+/// carry more overhead but a lower per-tile rate, so one large box undercuts a chain of
+/// small boxes once a building is big enough (e.g. a BOS-sized multi-room compound) --
+/// without this, small boxes are strictly cheaper than large ones at every scale.
 #define JUNCTION_BOX_WATT_DRAW_BASE 60
 
-/// Baseline watt draw for a standard /obj/machinery/f13/junction_box, PER CLAIMED ZONE.
-/// Use /junction_box/small (90 W/zone, 25 W base) for shacks, /junction_box/large
-/// (50 W/zone, 150 W base) for compounds.
-#define JUNCTION_BOX_WATT_DRAW  70
+/// Watt draw PER TILE across every zone a standard /obj/machinery/f13/junction_box claims —
+/// the entire cost of powering a building scales with its actual floor area, not a flat
+/// per-room charge. Kept small: a 2500-tile bunker should cost a few hundred watts, not
+/// eat an entire generator's rated output by itself. Use /junction_box/small (0.3 W/tile,
+/// 25 W base) for shacks, /junction_box/large (0.1 W/tile, 150 W base) for compounds.
+#define JUNCTION_BOX_WATT_PER_TILE 0.18
 
 // ── Logic gate types
 #define GATE_OR   1
