@@ -1128,7 +1128,7 @@
 	icon_state = "restrooms"
 
 /area/f13/brotherhood
-	name = "Brotherhood of Steel Bunker"//Brother Hood
+	name = "Brotherhood of Steel Bunker"
 	icon_state = "brotherhood"
 	requires_power = TRUE
 
@@ -1144,59 +1144,59 @@
 	grow_chance = 5
 
 /area/f13/brotherhood/rnd
-	name = "Brotherhood of Steel RnD Department"//Brother Hood
+	name = "Brotherhood of Steel RnD Department"
 	icon_state = "brotherhoodrnddepartment"
 
 /area/f13/brotherhood/offices1st
-	name = "Brotherhood of Steel 1st Floor Offices"//Brother Hood
+	name = "Brotherhood of Steel 1st Floor Offices"
 	icon_state = "brotherhoodoffices1st"
 
 /area/f13/brotherhood/offices2nd
-	name = "Brotherhood of Steel 1st Floor Offices"//Brother Hood
+	name = "Brotherhood of Steel 1st Floor Offices"
 	icon_state = "brotherhoodoffices2nd"
 
 /area/f13/brotherhood/surface
-	name = "Brotherhood of Steel Surface Outpost"//Brother Hood
+	name = "Brotherhood of Steel Surface Outpost"
 	icon_state = "brotherhood"
 
 /area/f13/brotherhood/medical
-	name = "Brotherhood of Steel Medbay"//Brother Hood
+	name = "Brotherhood of Steel Medbay"
 	icon_state = "brotherhoodmedbay"
 
 /area/f13/brotherhood/operating
-	name = "Brotherhood of Steel Operating Room"//Brother Hood
+	name = "Brotherhood of Steel Operating Room"
 	icon_state = "brotherhoodoperating"
 
 /area/f13/brotherhood/chemistry
-	name = "Brotherhood of Steel Chemistry Lab"//Brother Hood
+	name = "Brotherhood of Steel Chemistry Lab"
 	icon_state = "brotherhoodchemistry"
 
 /area/f13/brotherhood/dorms
-	name = "Brotherhood of Steel Dormitories"//Brother Hood
+	name = "Brotherhood of Steel Dormitories"
 	icon_state = "brotherhooddorms"
 
 /area/f13/brotherhood/armory
-	name = "Brotherhood of Steel Armory"//Brother Hood
+	name = "Brotherhood of Steel Armory"
 	icon_state = "brotherhoodarmory"
 
-/area/f13/brotherhood/archives
-	name = "Brotherhood of Steel Archives"//Brother Hood
+/area/f13/brotherhood/archive
+	name = "Brotherhood of Steel Archives"
 	icon_state = "brotherhoodarchives"
 
 /area/f13/brotherhood/operations
-	name = "Brotherhood of Steel Operations Department"//Brother Hood
+	name = "Brotherhood of Steel Operations Department"
 	icon_state = "brotherhoodoperationsdepartment"
 
 /area/f13/brotherhood/leisure
-	name = "Brotherhood of Steel Leisure Areas"//Brother Hood
+	name = "Brotherhood of Steel Leisure Areas"
 	icon_state = "brotherhoodleisure"
 
 /area/f13/brotherhood/reactor
-	name = "Brotherhood of Steel Reactor"//Brother Hood
+	name = "Brotherhood of Steel Reactor"
 	icon_state = "brotherhoodreactor"
 
 /area/f13/brotherhood/mining
-	name = "Brotherhood of Steel Mining"//Brother Hood
+	name = "Brotherhood of Steel Mining"
 	icon_state = "brotherhoodmining"
 
 /area/f13/brotherhood/powered

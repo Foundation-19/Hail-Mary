@@ -73,8 +73,8 @@
 /obj/item/clothing/head/helmet/f13/heavy/salvaged_pa/t45b/minutemen
 	name = "minutemen t-45b helmet"
 	desc = "A salvaged T-45b powered armor, with the servos removed and additional paint applied to show that it belongs to the minutemens."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_salvage_helmet"
 	item_state = "mm_salvage_helmet"
 	armor_tokens = list(ARMOR_MODIFIER_DOWN_MELEE_T2, ARMOR_MODIFIER_DOWN_BULLET_T2, ARMOR_MODIFIER_DOWN_LASER_T2)

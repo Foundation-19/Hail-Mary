@@ -5,7 +5,7 @@
 /obj/item/package
 	name = "Courrier package"
 	desc = "A package that must be bought then delivered to another. Notify the devs if you see it."
-	icon = 'icons/obj/fallout/lockbox.dmi'
+	icon = 'icons/obj/lockbox.dmi'
 	icon_state = "caravan"
 	item_state = "caravan"
 	resistance_flags = FLAMMABLE

@@ -1,7 +1,7 @@
 /mob/living/simple_animal/hostile/megafauna/motheroakclaw
 	name = "supermutant motheroakclaw"
 	desc = "An inteligent Deathclaw Alpha that fused with a parasite tree. It lost all reason."
-	icon = 'icons/fallout/mobs/monsters/oakclaw.dmi'
+	icon = 'icons/mob/monsters/oakclaw.dmi' 
 	icon_state = "oakclaw"
 	icon_living = "oakclaw"
 	icon_dead = "oakclaw"

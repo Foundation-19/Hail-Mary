@@ -841,8 +841,8 @@
 	desc = "A cap typically worn by lancer captains of the Brotherhood of Steel Chapter."
 	icon_state = "army_officer"
 	item_state = "army_officer"
-	icon = 'icons/fallout/onmob/clothes/head.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T2, ARMOR_MODIFIER_UP_BULLET_T2) 
 
@@ -851,8 +851,8 @@
 	desc = "A prewar pilot helmet. The Visor is gone, so the goggles have been installed instead."
 	icon_state = "combat_helmet_ncr"
 	item_state = "combat_helmet_ncr"
-	icon = 'icons/fallout/onmob/clothes/head.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/head.dmi'
+	icon = 'icons/onmob/clothes/head.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/head.dmi'
 	armor = ARMOR_VALUE_MEDIUM
 	armor_tokens = list(ARMOR_MODIFIER_UP_DT_T1, ARMOR_MODIFIER_UP_BULLET_T1) 
 

@@ -13,7 +13,7 @@
 /obj/structure/wreck/car/truck
 	name = "wrecked truck"
 	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish13"
 	bound_width = 64
 
@@ -35,7 +35,7 @@
 /obj/structure/wreck/car/jeep
 	name = "wrecked jeep"
 	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish14"
 	bound_width = 64
 
@@ -57,7 +57,7 @@
 /obj/structure/wreck/car/highwayman
 	name = "wrecked highwayman"
 	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish15"
 	bound_width = 64
 
@@ -79,7 +79,7 @@
 /obj/structure/wreck/car/corvega
 	name = "wrecked corvega"
 	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish16"
 	bound_width = 64
 
@@ -101,7 +101,7 @@
 /obj/structure/wreck/car/buggy
 	name = "wrecked buggy"
 	desc = "An old pre-war truck, rusted and destroyed with age and weathering. Its seems repairable."
-	icon = 'icons/fallout/objects/structures/rubish.dmi'
+	icon = 'icons/obj/structures/rubish.dmi'
 	icon_state = "car_rubish17"
 	bound_width = 64
 

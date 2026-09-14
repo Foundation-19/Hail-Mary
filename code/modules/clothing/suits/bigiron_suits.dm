@@ -360,7 +360,7 @@
 	armor_tokens = list(ARMOR_MODIFIER_UP_ENV_T2)
 
 /obj/item/clothing/suit/toggle/labcoat/mad
-	name = "\proper The Mad's labcoat"
+	name = "/proper The Mad's labcoat"
 	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."
 	icon_state = "labgreen"
 	item_state = "labgreen"
@@ -1150,8 +1150,8 @@
 /obj/item/clothing/suit/armor/light/duster/battlecoat/vault/raider
 	name = "Vault 125 battlecoat"
 	desc = "A coat made for the head of security of Vault 125, in order to assist in chaos operations."
-	icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_medium.dmi'
+	icon = 'icons/onmob/clothes/armor_medium.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
 	icon_state = "overseer"
 	item_state = "overseer"
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
@@ -1290,8 +1290,8 @@
 /obj/item/clothing/suit/armor/light/duster/bos/lancer
 	name = "lancer bomber jacket"
 	desc = "A reinforced bomber jacket. Good against shots and cold, while still very light."
-	icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/suit_cosmetic.dmi'
+	icon = 'icons/onmob/clothes/suit_cosmetic.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/suit_cosmetic.dmi'
 	icon_state = "bomberalt_t"
 	item_state = "bomberalt_t"
 	body_parts_covered = CHEST|GROIN
@@ -1300,7 +1300,7 @@
 /obj/item/clothing/suit/armor/light/duster/bos/initiate
 	name = "Brotherhood Initiate bomber jacket"
 	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. This one has no mark. While not made for combat, its still thick enough to stop a few hits."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "bosbomber"
 	item_state = "bosbomber"
 	body_parts_covered = CHEST
@@ -1309,7 +1309,7 @@
 /obj/item/clothing/suit/armor/light/duster/bos/squire
 	name = "Brotherhood Squire jacket"
 	desc = "Rugged, Heavy, and with many pockets. This this the new uniform of the squires."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "initiate_bomber"
 	item_state = "initiate_bomber"
 	body_parts_covered = CHEST
@@ -1318,7 +1318,7 @@
 /obj/item/clothing/suit/armor/light/duster/bos/knight
 	name = "Brotherhood Knight  bomber jacket"
 	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. This one got the markings of a knight. While not made for combat, its still thick enough to stop a few hits."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "bosbomber_k"
 	item_state = "bosbomber_k"
 	body_parts_covered = CHEST
@@ -1327,7 +1327,7 @@
 /obj/item/clothing/suit/armor/light/duster/bos/officer
 	name = "Brotherhood Officer jacket"
 	desc = "The new brotherhood uniform that some chapter started wearing, mainly those equipped with airships. Unlike the standart bombers, those coats are more protected."
-	mob_overlay_icon = 'icons/fallout/onmob/clothes/armor_light.dmi'
+	mob_overlay_icon = 'icons/onmob/clothes/armor_light.dmi'
 	icon_state = "bosbomber_kc"
 	item_state = "bosbomber_kc"
 	body_parts_covered = CHEST
@@ -1982,8 +1982,8 @@
 /obj/item/clothing/suit/armor/medium/duster/minutemen/alt
 	name = "minutemen coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mmo_alt"
 	item_state = "mmo_alt"
 	mutantrace_variation = NONE
@@ -1993,8 +1993,8 @@
 /obj/item/clothing/suit/armor/medium/duster/minutemen/alt2
 	name = "minutemen coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_coat_alt2"
 	item_state = "mm_coat_alt2"
 	mutantrace_variation = NONE
@@ -2004,8 +2004,8 @@
 /obj/item/clothing/suit/armor/medium/duster/minutemen/alt3
 	name = "minutemen coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mmom_coat"
 	item_state = "mmom_coat"
 	mutantrace_variation = NONE
@@ -2015,8 +2015,8 @@
 /obj/item/clothing/suit/armor/medium/duster/minutemen/officer
 	name = "minutemen officer coat"
 	desc = "An armoured trenchcoat, modified and branded with Minutemen insignias and designs. This one has officer insignia"
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mmo_coat"
 	item_state = "mmo_coat"
 	mutantrace_variation = NONE
@@ -2026,8 +2026,8 @@
 /obj/item/clothing/suit/armor/medium/duster/minutemen/major
 	name = "minutemen major coat"
 	desc = "A traditionial minutemen colonel coat, with armor underneath."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mmm_coat"
 	item_state = "mmm_coat"
 	mutantrace_variation = NONE
@@ -2660,16 +2660,16 @@
 /obj/item/clothing/suit/armor/medium/combat/minutemen
 	name = "Minutement combat armor"
 	desc = "An old set of pre-war combat armor, painted blue, with pieces missing."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_armor"
 	item_state = "mm_armor"
 
 /obj/item/clothing/suit/armor/medium/combat/mk2/minutemen
 	name = "Minutement combat armor"
 	desc = "An old set of pre-war combat armor, painted blue, with pieces missing."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_armor_2"
 	item_state = "mm_armor_2"
 
@@ -3390,14 +3390,14 @@
 	if(salvage_step > 1) // Being salvaged
 		to_chat(user, span_warning("Components in [src] require repairs!"))
 	else
-		to_chat(user, span_warning("\The [src] has ran out of charge!"))
+		to_chat(user, span_warning("/The [src] has ran out of charge!"))
 	slowdown += unpowered_slowdown
 	no_power = TRUE
 	remove_traits(user)
 	user.update_equipment_speed_mods()
 
 /obj/item/clothing/suit/armor/power_armor/proc/restore_power(mob/user)
-	to_chat(user, span_notice("\The [src]'s power restored."))
+	to_chat(user, span_notice("/The [src]'s power restored."))
 	slowdown -= unpowered_slowdown
 	no_power = FALSE
 	assign_traits(user)
@@ -3406,11 +3406,11 @@
 /obj/item/clothing/suit/armor/power_armor/attackby(obj/item/I, mob/living/carbon/human/user, params)
 	if(powered && istype(I, /obj/item/stock_parts/cell))
 		if(cell)
-			to_chat(user, span_warning("\The [src] already has a cell installed."))
+			to_chat(user, span_warning("/The [src] already has a cell installed."))
 			return
 		if(user.transferItemToLoc(I, src))
 			cell = I
-			to_chat(user, span_notice("You successfully install \the [cell] into [src]."))
+			to_chat(user, span_notice("You successfully install /the [cell] into [src]."))
 		return
 
 	if(ispath(salvaged_type))
@@ -3528,7 +3528,7 @@
 
 /obj/item/clothing/suit/armor/power_armor/proc/toggle_cell(mob/living/user)
 	if(cell)
-		user.visible_message(span_notice("[user] removes \the [cell] from [src]!"), \
+		user.visible_message(span_notice("[user] removes /the [cell] from [src]!"), \
 			span_notice("You remove [cell]."))
 		cell.add_fingerprint(user)
 		user.put_in_hands(cell)

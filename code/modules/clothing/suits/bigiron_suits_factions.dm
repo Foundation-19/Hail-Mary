@@ -513,7 +513,7 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 //All of the armor below is mostly unused
 
 /obj/item/clothing/suit/armor/centcom
-	name = "\improper CentCom armor"
+	name = "/improper CentCom armor"
 	desc = "A suit that protects against some damage."
 	icon_state = "centcom"
 	item_state = "centcom"
@@ -1155,8 +1155,8 @@ Just leaving this here for quick copy-pasting, for future contributors.
 /obj/item/clothing/suit/armor/heavy/salvaged_pa/t45b/minutemen
 	name = "salvaged Minutemen power armor"
 	desc = "It's a set of T-45b power armor with a air conditioning module installed, sadly it lacks servomotors to enhance the users strength. Used by the minutemens from pre-war armor."
-	icon = 'fallout/icons/obj/clothing/minutemen.dmi'
-	mob_overlay_icon = 'fallout/icons/mob/clothing/minutemen.dmi'
+	icon = 'icons/obj/clothing/minutemen.dmi'
+	mob_overlay_icon = 'icons/mob/clothing/minutemen.dmi'
 	icon_state = "mm_salvager"
 	item_state = "mm_salvager"
 

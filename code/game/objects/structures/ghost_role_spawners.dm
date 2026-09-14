@@ -950,7 +950,7 @@
 	short_desc = "You are MK 2 Synth, and you recall everything of your past life as a Human ! But programming doesn't let you harm any other synth."
 	flavour_text = "Assist the institute remants."
 	assignedrole = "Synth"
-	icon = 'icons/fallout/machines/64x32.dmi'
+	icon = 'icons/machines/64x32.dmi'
 	icon_state = "reactoroff"
 	pixel_x = -16
 	mob_type = /mob/living/simple_animal/hostile/synth/mk2/playable

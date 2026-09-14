@@ -207,7 +207,7 @@
 /mob/living/simple_animal/hostile/deathclaw/inteligent
 	name = "inteligent deathclaw"
 	desc = "A very rare kind of deathclaw, with inteligence and able of speech."
-	icon = 'icons/fallout/mobs/monsters/deathclaw.dmi'
+	icon = 'icons/mob/monsters/deathclaw.dmi' 
 	icon_state = "inteligent"
 	icon_living = "inteligent"
 
