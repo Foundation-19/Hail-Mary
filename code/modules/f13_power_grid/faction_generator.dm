@@ -1756,7 +1756,10 @@
 // within minutes indoors — here modelled as per-tick tox+oxy damage that
 // escalates with sustained exposure.
 //
-// "Outdoors" is any turf under /turf/open/indestructible/ground/outside.
+// "Vented" means the area itself is flagged outdoors (area.outdoors) — the same
+// flag every other outdoor check in the codebase uses — not one specific turf type,
+// so any open terrain counts. The generator's own tile also counts as vented if an
+// adjacent tile opens onto an outdoor area (parked in a garage doorway still vents).
 // Wearing internals (any active breathing tank) blocks the effect entirely.
 //
 // CO exposure ticks per mob:
@@ -1767,6 +1770,27 @@
 //   Each tick: adjustOxyLoss(1) + adjustToxLoss(1).  At 15+ ticks both values
 //   double so unconsciousness arrives within ~30 more seconds if unchecked.
 //
+/obj/machinery/f13/faction_generator/proc/_is_turf_vented(turf/T, check_adjacent = FALSE)
+	if(!T)
+		return FALSE
+	var/area/A = get_area(T)
+	if(A && A.outdoors)
+		return TRUE
+	// No level above (top of the z-stack) or an open multiz gap above — exposed to open sky.
+	var/turf/above = get_step_multiz(T, UP)
+	if(!above || istype(above, /turf/open/transparent/openspace))
+		return TRUE
+	if(!check_adjacent)
+		return FALSE
+	for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+		var/turf/N = get_step(T, dir)
+		if(!N)
+			continue
+		var/area/NA = get_area(N)
+		if(NA && NA.outdoors)
+			return TRUE
+	return FALSE
+
 /obj/machinery/f13/faction_generator/diesel/process()
 	// Run the normal fuel/maintenance logic first.
 	. = ..()
@@ -1774,9 +1798,9 @@
 	if(!powered || fuel <= 0)
 		co_exposure_map = null
 		return
-	// Check whether the generator is outdoors — exhaust disperses in open air.
+	// Check whether the generator itself is vented — exhaust disperses in open air.
 	var/turf/own_turf = get_turf(src)
-	if(!own_turf || istype(own_turf, /turf/open/indestructible/ground/outside))
+	if(!own_turf || _is_turf_vented(own_turf, TRUE))
 		co_exposure_map = null
 		return
 	if(!co_exposure_map)
@@ -1799,9 +1823,9 @@
 		if(H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/armor/power_armor))
 			co_exposure_map -= H
 			continue
-		// Outdoor mob on an outside turf despite being near the generator — skip.
+		// Vented mob despite being near the generator — skip.
 		var/turf/mob_turf = get_turf(H)
-		if(mob_turf && istype(mob_turf, /turf/open/indestructible/ground/outside))
+		if(mob_turf && _is_turf_vented(mob_turf))
 			co_exposure_map -= H
 			continue
 		var/ticks = co_exposure_map[H] || 0
@@ -2027,7 +2051,7 @@
 		co_exposure_map = null
 		return
 	var/turf/own_turf = get_turf(src)
-	if(!own_turf || istype(own_turf, /turf/open/indestructible/ground/outside))
+	if(!own_turf || _is_turf_vented(own_turf, TRUE))
 		co_exposure_map = null
 		return
 	if(!co_exposure_map)
@@ -2047,7 +2071,7 @@
 			co_exposure_map -= H
 			continue
 		var/turf/mob_turf = get_turf(H)
-		if(mob_turf && istype(mob_turf, /turf/open/indestructible/ground/outside))
+		if(mob_turf && _is_turf_vented(mob_turf))
 			co_exposure_map -= H
 			continue
 		var/ticks = co_exposure_map[H] || 0
