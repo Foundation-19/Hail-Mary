@@ -303,3 +303,11 @@
 	cuttable = FALSE
 	density = FALSE
 
+/obj/structure/fence/fancy
+	name = "fancy fence"
+	desc = "A fancy fence"
+	icon = 'icons/obj/fence.dmi'
+	icon_state = "fancy"
+	cuttable = FALSE
+	climbable = TRUE
+	proj_pass_rate = 80

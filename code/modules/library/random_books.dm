@@ -30,7 +30,7 @@
 /obj/structure/bookcase/random
 	var/category = null
 	var/book_count = 2
-	icon_state = "random_bookcase"
+	icon_state = "book-5"
 	anchored = TRUE
 	state = 2
 
