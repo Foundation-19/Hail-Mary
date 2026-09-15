@@ -83,10 +83,10 @@
 //   action required.
 //
 // WATT DRAW:
-//   grid_watt_draw is multiplied by the number of zones this box
-//   claims, so a box covering three sub-areas draws 3× the base
-//   wattage automatically.  Override grid_watt_draw_per_zone on
-//   subtypes to change the per-zone cost (default 150 W).
+//   grid_watt_draw = grid_watt_draw_base (once per box) plus grid_watt_draw_per_tile
+//   multiplied by the total tile count across every zone this box claims, so a
+//   sprawling multi-room building costs more than a closet automatically.
+//   Override grid_watt_draw_per_tile on subtypes to change the per-tile rate.
 //
 // MANUAL BREAKERS:
 //   The UI presents a master breaker (cuts the whole building)
@@ -107,11 +107,14 @@
 	max_integrity = 200
 	armor         = list(melee = 5, bullet = 5, laser = 5, energy = 5, bomb = 20, bio = 0, rad = 0, fire = 10, acid = 5)
 
-	// Watt draw = grid_watt_draw_base + (grid_watt_draw_per_zone × zone count).
-	// The combined value is written to grid_watt_draw in LateInitialize once zones are known.
-	grid_watt_draw = JUNCTION_BOX_WATT_DRAW_BASE + JUNCTION_BOX_WATT_DRAW
-	/// Per-zone watt cost.  Summed at LateInitialize; override on subtypes.
-	var/grid_watt_draw_per_zone = JUNCTION_BOX_WATT_DRAW
+	// Watt draw = grid_watt_draw_base + (grid_watt_draw_per_tile × total claimed tiles).
+	// grid_watt_draw only holds the base estimate until LateInitialize resolves zones/tiles.
+	grid_watt_draw = JUNCTION_BOX_WATT_DRAW_BASE
+	// A building's internal circuit is a mix of resistive (lights, heaters) and
+	// inductive (motors, pumps, compressors) loads — a blended 0.92 is typical.
+	power_factor = 0.92
+	/// Watt cost per tile across every claimed zone.  Summed at LateInitialize; override on subtypes.
+	var/grid_watt_draw_per_tile = JUNCTION_BOX_WATT_PER_TILE
 	/// Fixed overhead watt cost, independent of zone count.  Override on subtypes.
 	var/grid_watt_draw_base = JUNCTION_BOX_WATT_DRAW_BASE
 	/// Light reach (tiles) used when the box is placed in an outdoor area (e.g. wasteland).
@@ -151,6 +154,27 @@
 	/// Per-zone breaker states.  Assoc: zone datum → TRUE (closed) / FALSE (tripped).
 	/// Populated alongside owned_zones.  Ignored when using powered_area_types path.
 	var/list/zone_breakers = null
+
+
+/// A tripped master breaker draws nothing from upstream — none of the building's
+/// zones are being energised. With the master closed, only zones whose own
+/// breaker is still closed count toward the load; a tripped zone stops costing
+/// the grid anything, same as physically disconnecting it.
+/obj/machinery/f13/junction_box/get_effective_watt_draw()
+	if(!breaker_closed)
+		return 0
+	if(!zone_breakers || !zone_breakers.len)
+		return grid_watt_draw  // legacy powered_area_types path — no per-zone breakers
+	var/live_draw = grid_watt_draw_base
+	for(var/area/f13/Z in zone_breakers)
+		if(zone_breakers[Z])
+			live_draw += _zone_watt_cost(Z)
+	return live_draw
+
+/// Watt cost of a single claimed zone: purely proportional to its tile count, so a
+/// sprawling zone costs more than a closet-sized one and a tiny zone costs almost nothing.
+/obj/machinery/f13/junction_box/proc/_zone_watt_cost(area/Z)
+	return grid_watt_draw_per_tile * Z.contents.len
 
 
 /// Returns TRUE if the given area should never be stamped by a junction box.
@@ -241,7 +265,7 @@
 		return
 	if(here.outdoors)
 		powered_area_instances = list(here)
-		grid_watt_draw = grid_watt_draw_base + grid_watt_draw_per_zone
+		grid_watt_draw = grid_watt_draw_base + _zone_watt_cost(here)
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)
 		else
@@ -308,8 +332,10 @@
 		owned_zones[Z]   = orig
 		zone_breakers[Z] = TRUE    // all sub-breakers start closed
 
-	// Update watt draw: fixed overhead plus one unit per zone (matched to grid accounting).
-	grid_watt_draw = grid_watt_draw_base + (grid_watt_draw_per_zone * owned_zones.len)
+	// Update watt draw: fixed box overhead plus every claimed zone's tile-scaled cost.
+	grid_watt_draw = grid_watt_draw_base
+	for(var/area/f13/Z in owned_zones)
+		grid_watt_draw += _zone_watt_cost(Z)
 
 	// ── Re-stamp if grid was already live before LateInitialize ran ───────
 	// If the box was wired before LateInitialize() fired (possible when
@@ -592,7 +618,35 @@
 	else
 		status_str = "<span class='warn'>&#91;MASTER TRIPPED&#93;</span>  — grid live, master breaker open"
 	dat += "<pre>  STATUS  : [status_str]</pre>"
-	dat += "<pre>  LOAD    : [grid_watt_draw]W</pre>"
+	var/live_draw = get_effective_watt_draw()
+	if(live_draw == grid_watt_draw)
+		dat += "<pre>  LOAD    : [grid_watt_draw]W</pre>"
+	else
+		dat += "<pre>  LOAD    : <span class='good'>[live_draw]W</span> drawn  <span class='dim'>([grid_watt_draw]W rated — breakers are cutting [grid_watt_draw - live_draw]W)</span></pre>"
+	dat += "<pre>  APPARENT: [round(get_effective_va_draw())]VA  <span class='dim'>(blended power factor [power_factor] — mixed lighting/motor circuit)</span></pre>"
+
+	// ── Diagnostics checklist — the first thing a tech should scan
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+	dat += "<pre class='head'>  &#91;DIAGNOSTICS&#93;</pre>"
+	var/list/diag = list()
+	diag += list(list((upstream_refs && upstream_refs.len) ? "good" : "bad", (upstream_refs && upstream_refs.len) ? "Upstream wiring intact" : "Not wired — connect a cable coil to a generator or relay"))
+	if(upstream_refs && upstream_refs.len)
+		diag += list(list(grid_powered ? "good" : "bad", grid_powered ? "Grid feed live" : "Grid feed dead — check upstream source"))
+	diag += list(list(breaker_closed ? "good" : "warn", breaker_closed ? "Master breaker closed" : "Master breaker tripped — all zones cut"))
+	if(breaker_closed && zone_breakers && zone_breakers.len)
+		var/tripped_zones = 0
+		for(var/area/f13/Z in zone_breakers)
+			if(!zone_breakers[Z])
+				tripped_zones++
+		if(tripped_zones)
+			diag += list(list("warn", "[tripped_zones] of [zone_breakers.len] zone breaker[zone_breakers.len == 1 ? "" : "s"] tripped"))
+		else
+			diag += list(list("good", "All zone breakers closed"))
+	for(var/entry in diag)
+		var/lvl = entry[1]
+		var/lbl = entry[2]
+		var/tag = lvl == "good" ? "OK  " : (lvl == "warn" ? "WARN" : "FAIL")
+		dat += "<pre>    <span class='[lvl]'>&#91;[tag]&#93;</span>  [lbl]</pre>"
 
 	// ── Upstream feed
 	var/list/up_names = list()
@@ -604,8 +658,10 @@
 			up_names += up.name
 			if(!feed_relay && istype(up, /obj/machinery/f13/power_relay))
 				feed_relay = up
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 	dat += "<pre>  FEED    : [up_names.len ? english_list(up_names) : "<span class='bad'>NOT WIRED — use a cable coil</span>"]</pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
 
 	// ── Master breaker control
 	dat += "<pre class='head'>  &#91;MASTER BREAKER&#93;</pre>"
@@ -644,12 +700,13 @@
 			var/pstate   = z_live ? "<span class='good'>LIVE  </span>" : "<span class='bad'>DEAD  </span>"
 			var/bstate   = z_closed ? "<span class='good'>&#91;CLOSED&#93;</span>" : "<span class='warn'>&#91;TRIPPED&#93;</span>"
 			var/tile_count = Z.contents.len
+			var/zone_cost  = round(_zone_watt_cost(Z))
 			if(grid_powered && breaker_closed)
 				// Per-zone breaker toggle available when master is live.
 				var/zlbl = z_closed ? "trip" : "close"
-				dat += "<pre>    [pstate]  [bstate]  [Z.name]  <span class='dim'>([tile_count] tiles)</span>  <a href='byond://?src=[REF(src)];zone_breaker=[REF(Z)]'>[zlbl]</a></pre>"
+				dat += "<pre>    [pstate]  [bstate]  [Z.name]  <span class='dim'>([tile_count] tiles, [zone_cost]W)</span>  <a href='byond://?src=[REF(src)];zone_breaker=[REF(Z)]'>[zlbl]</a></pre>"
 			else
-				dat += "<pre>    [pstate]  [bstate]  [Z.name]  <span class='dim'>([tile_count] tiles)</span></pre>"
+				dat += "<pre>    [pstate]  [bstate]  [Z.name]  <span class='dim'>([tile_count] tiles, [zone_cost]W)</span></pre>"
 	else
 		var/area/here2 = get_area(src)
 		if(here2 && _area_is_immune(here2))
@@ -748,9 +805,9 @@
 /obj/machinery/f13/junction_box/small
 	name  = "electrical junction box"
 	desc  = "A smaller breaker panel for a modest room or shack."
-	grid_watt_draw_per_zone = 90
+	grid_watt_draw_per_tile = 0.3
 	grid_watt_draw_base     = 25
-	grid_watt_draw          = 115  // 25 + 90, pre-LateInit single-zone estimate
+	grid_watt_draw          = 25  // pre-LateInit estimate; real value depends on claimed tiles
 
 /// Large complex — workshop, barracks, multi-room building.  Higher fixed overhead,
 /// but the cheapest per-zone rate — undercuts small/base once a building has enough
@@ -758,6 +815,6 @@
 /obj/machinery/f13/junction_box/large
 	name  = "electrical junction box"
 	desc  = "A heavy-duty breaker panel wired to a large building's internal circuits."
-	grid_watt_draw_per_zone = 50
+	grid_watt_draw_per_tile = 0.1
 	grid_watt_draw_base     = 150
-	grid_watt_draw          = 200  // 150 + 50, pre-LateInit single-zone estimate
+	grid_watt_draw          = 150  // pre-LateInit estimate; real value depends on claimed tiles

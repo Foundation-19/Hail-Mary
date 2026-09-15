@@ -43,6 +43,9 @@
 	armor         = list(melee = 10, bullet = 10, laser = 5, energy = 5, bomb = 20, bio = 0, rad = 0, fire = 25, acid = 15)
 	// Relay routes power — it doesn't consume from the area power system.
 	use_power     = NO_POWER_USE
+	/// Power factor for the relay's own base draw (RELAY_WATT_DRAW) — its electronics
+	/// are effectively resistive, so 1.0 (no VA/W split) is the correct default.
+	var/power_factor = 1.0
 
 	// ── Wiring ─────────────────────────────────────────────
 	/// List of WEAKREFs to all upstream generators/relays feeding this node.
@@ -178,14 +181,42 @@
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				draw += C.grid_watt_draw
+				// A client fed by more than one live upstream splits its draw evenly between them.
+				draw += C.get_effective_watt_draw() / max(1, C.get_live_upstream_count())
 	if(downstream_relays)
 		if(!visited)
 			visited = list(src)
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(!QDELETED(R) && !(R in visited))
 				visited += R
-				draw += R.get_subtree_draw(visited)
+				// Same split rule applies recursively — a relay with two live parents only
+				// owes each parent half of its own subtree draw.
+				draw += R.get_subtree_draw(visited) / max(1, R.get_live_upstream_count())
+	return draw
+
+/// Same walk as get_subtree_draw(), but in apparent power (VA) — self base draw plus
+/// every client/relay's own VA draw (which already reflects its power factor). This is
+/// what generator/relay capacity should actually be checked against for overload, since
+/// apparent power (current) is what stresses wiring and breakers, not true power alone.
+/obj/machinery/f13/power_relay/proc/get_subtree_va_draw(list/visited)
+	if(!relay_powered)
+		return 0
+	var/draw = RELAY_WATT_DRAW / max(0.05, power_factor)
+	if(linked_turrets)
+		for(var/obj/machinery/porta_turret/T in linked_turrets)
+			if(!QDELETED(T))
+				draw += TURRET_WATT_DRAW
+	if(linked_clients)
+		for(var/obj/machinery/f13/grid_client/C in linked_clients)
+			if(!QDELETED(C))
+				draw += C.get_effective_va_draw() / max(1, C.get_live_upstream_count())
+	if(downstream_relays)
+		if(!visited)
+			visited = list(src)
+		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
+			if(!QDELETED(R) && !(R in visited))
+				visited += R
+				draw += R.get_subtree_va_draw(visited) / max(1, R.get_live_upstream_count())
 	return draw
 
 /// Recalculate this relay's power state from all registered upstream nodes.
@@ -217,6 +248,21 @@
 		if(W.resolve() == target)
 			return TRUE
 	return FALSE
+
+/// Returns how many currently-live upstream generators/relays feed this relay directly.
+/// Multiple live feeds (parallel/redundant wiring) split this relay's draw evenly between them.
+/obj/machinery/f13/power_relay/proc/get_live_upstream_count()
+	var/count = 0
+	if(upstream_refs)
+		for(var/datum/weakref/W in upstream_refs)
+			var/obj/up = W.resolve()
+			if(!up || QDELETED(up))
+				continue
+			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
+				count++
+			else if(istype(up, /obj/machinery/f13/power_relay) && up:relay_powered)
+				count++
+	return count
 
 
 // ============================================================
@@ -593,7 +639,7 @@
 	if(linked_clients && linked_clients.len)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
-				var/cstate = C.grid_powered ? "<span class='good'>ONLINE  [C.grid_watt_draw]W</span>" : "<span class='bad'>OFFLINE [C.grid_watt_draw]W</span>"
+				var/cstate = C.grid_powered ? "<span class='good'>ONLINE  [C.get_effective_watt_draw()]W</span>" : "<span class='bad'>OFFLINE [C.get_effective_watt_draw()]W</span>"
 				dat += "<pre>    &gt; [C.name]  [cstate]</pre>"
 	else
 		dat += "<pre class='dim'>    &gt; none  (use a cable coil on this relay, then on any compatible device)</pre>"
@@ -864,7 +910,7 @@
 				var/obj/machinery/f13/junction_box/JB = C
 				var/jstate = (JB.grid_powered && JB.breaker_closed) ? "<span class='good'>LIVE</span>" : "<span class='bad'>DEAD</span>"
 				var/mstate = JB.breaker_closed ? "<span class='good'>CLOSED</span>" : "<span class='warn'>TRIPPED</span>"
-				dat += "<pre>  JBOX : [JB.name]  [jstate]  master: [mstate]  [JB.grid_watt_draw]W</pre>"
+				dat += "<pre>  JBOX : [JB.name]  [jstate]  master: [mstate]  [JB.get_effective_watt_draw()]W</pre>"
 				if(JB.owned_zones && JB.zone_breakers)
 					for(var/area/f13/Z in JB.owned_zones)
 						if(!QDELETED(Z))
@@ -875,7 +921,7 @@
 							dat += "<pre class='dim'>           |-- [zstate] [zbstr]  [Z.name]</pre>"
 			else
 				var/cstate = C.grid_powered ? "<span class='good'>LIVE</span>" : "<span class='bad'>DEAD</span>"
-				dat += "<pre>  DEV  : [C.name]  [cstate]  [C.grid_watt_draw]W</pre>"
+				dat += "<pre>  DEV  : [C.name]  [cstate]  [C.get_effective_watt_draw()]W</pre>"
 	if(!found_any)
 		dat += "<pre class='dim'>    No downstream devices wired.</pre>"
 	dat += "<pre class='sep'>  ================================================================</pre>"
