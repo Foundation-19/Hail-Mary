@@ -12565,8 +12565,6 @@
 	anchored = 1;
 	name = "formal attire cabinet"
 	},
-/obj/item/clothing/suit/armor/light/duster/bos/scribe/headscribe,
-/obj/item/clothing/accessory/bos/headscribe,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/brotherhood/offices1st)
 "aWX" = (
@@ -18320,9 +18318,6 @@
 "cdy" = (
 /obj/item/folder/red,
 /obj/item/folder/white,
-/obj/item/folder/syndicate/red{
-	desc = "A folder stamped \"Top Secret - Property of The Brotherhood Of Steel.\""
-	},
 /obj/structure/table/wood/fancy/black,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/brotherhood/offices1st)
@@ -29318,7 +29313,7 @@
 "gvx" = (
 /obj/machinery/door/airlock/grunge{
 	id_tag = "headscribedorm";
-	name = "Head Scribe's Office";
+	name = "Envoys Office";
 	req_access_txt = "120"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -40403,7 +40398,7 @@
 /area/f13/ncr)
 "ljQ" = (
 /obj/structure/bed/pod,
-/obj/item/bedsheet/cmo,
+/obj/item/bedsheet/black,
 /turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
 /area/f13/brotherhood/offices1st)
 "lkm" = (
@@ -50920,8 +50915,8 @@
 /area/f13/wasteland)
 "pEp" = (
 /obj/effect/landmark/start/f13/headscribe,
-/turf/open/floor/plasteel/f13/vault_floor/neutral/neutralchess,
-/area/f13/brotherhood/offices1st)
+/turf/open/floor/carpet/black,
+/area/f13/brotherhood/dorms)
 "pEs" = (
 /obj/machinery/light{
 	dir = 8
@@ -125368,7 +125363,7 @@ prV
 njO
 xJd
 exD
-kJC
+pEp
 eUB
 bxu
 hMN
@@ -125888,7 +125883,7 @@ bxu
 aWW
 oRY
 oRY
-pEp
+oRY
 uiX
 hMN
 aae
