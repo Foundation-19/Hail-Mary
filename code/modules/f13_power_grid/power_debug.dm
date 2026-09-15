@@ -355,10 +355,10 @@ potentially interesting radiation levels.
 <br><b>3.3 &nbsp; FUEL ASSEMBLY -" FUSION CORE</b>
 <br>
 <br>&nbsp;&nbsp; Fuel: RobCo-specification fusion core
-<br>&nbsp;&nbsp; Output: 1,000 W per loaded core &nbsp;|&nbsp; Two-core capacity
-<br>&nbsp;&nbsp; Max output: 2,000 W (two cores inserted)
-<br>&nbsp;&nbsp; Runtime per core: approx. 15 minutes
-<br>&nbsp;&nbsp; Runtime at full capacity: approx. 30 minutes
+<br>&nbsp;&nbsp; Output: 1,500 W per loaded core &nbsp;|&nbsp; Two-core capacity
+<br>&nbsp;&nbsp; Max output: 3,000 W (two cores inserted)
+<br>&nbsp;&nbsp; Runtime per core: approx. 30 minutes
+<br>&nbsp;&nbsp; Runtime at full capacity: approx. 60 minutes
 <br>&nbsp;&nbsp; Exhaust: depleted fusion core casing (recoverable for fabricator recycling)
 <br>&nbsp;&nbsp; NOTE: Depleted cores may be recycled in a core fabricator at reduced material cost.
 <br>
@@ -491,7 +491,7 @@ potentially interesting radiation levels.
 <b>7.0 &nbsp; POWER BUDGETING AND LOAD MANAGEMENT</b>
 <br>
 <br>The Generator tracks total downstream draw against available generation capacity.
-Capacity scales with loaded cores: 1,000 W per core, maximum 2 cores (2,000 W).
+Capacity scales with loaded cores: 1,500 W per core, maximum 2 cores (3,000 W).
 When draw exceeds capacity, the Unit attempts the following in sequence:
 <br>
 <br>&nbsp;&nbsp; 1. LOAD SHED -" suspend lowest-priority clients and relays until within budget.
@@ -522,9 +522,9 @@ Critical devices should be wired directly to the generator or a high-priority re
 <br>
 <br>&nbsp;&nbsp; INTERVAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TASK
 <br>&nbsp;&nbsp; \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500&nbsp;&nbsp; \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500
-<br>&nbsp;&nbsp; Every 15 min&nbsp; Service the generator with a wrench while running to seat
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fuel line seals.  No shutdown required.  Overdue units risk
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; progressive seal degradation and possible fuel spill.
+<br>&nbsp;&nbsp; Every ~90 min&nbsp; Service the generator with a wrench while running to seat
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fuel line seals.  No shutdown required.  A freshly-serviced unit is
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; reliable for a while; wear risk climbs the longer it runs unserviced.
 <br>&nbsp;&nbsp; Per fuel load&nbsp; Clear exhaust port.  Retrieve depleted casing promptly.
 <br>&nbsp;&nbsp; Weekly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Run RESCAN NETWORK.  Verify all expected devices listed.
 <br>&nbsp;&nbsp; Monthly&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Inspect cable runs for scorching, kinking, or battle damage.
@@ -586,7 +586,7 @@ indefinitely as long as the fuel supply is maintained.
 <br>
 <br>Fuel type: petroleum diesel distillate.  Standard wasteland-grade is acceptable.
 <br>Delivery: any fuel-rated reagent container.  Standard jerrycan recommended.
-<br>Tank capacity: 1,440 L total.  One full jerrycan (500 L) provides ~17 minutes.
+<br>Tank capacity: 1,800 L total.  One full jerrycan (500 L) provides ~17 minutes.
 <br>
 To refuel: connect a fuel hose or pour directly from any fuel container into the fill
 port on the side panel.  Fuel transfers until the tank is full or the container empties.
@@ -617,9 +617,9 @@ must stay below 750 W; loads are shed automatically before a hard grid trip.
 access panel.  A low-fuel alert is broadcast to faction members when approximately
 3 minutes of runtime remain.
 <br>
-<br>Service the unit with a wrench approximately every 15 minutes while running.
-This seats fuel line connections and clears the maintenance log.  Neglected units
-risk fuel vapour accumulation and ignition near the tank.
+<br>Service the unit with a wrench periodically while running -- it stays reliable for
+a good while after a fresh service, but the longer it runs unserviced the more wear
+it accumulates, and badly worn units risk fuel vapour accumulation and ignition.
 <br>
 <br>
 <b>6. TROUBLESHOOTING</b>
@@ -640,8 +640,8 @@ risk fuel vapour accumulation and ignition near the tank.
 <br>
 <br>&nbsp;&nbsp; Output: 750 W continuous (flat -" does not scale with fuel level)
 <br>&nbsp;&nbsp; Fuel type: petroleum diesel distillate (direct-fill; no canisters required)
-<br>&nbsp;&nbsp; Tank: 1,440 L (~2.9 full jerrycans)
-<br>&nbsp;&nbsp; Runtime: ~48 min full | ~17 min per jerrycan
+<br>&nbsp;&nbsp; Tank: 1,800 L (~3.6 full jerrycans)
+<br>&nbsp;&nbsp; Runtime: ~60 min full | ~17 min per jerrycan
 <br>
 <br>
 <hr>
@@ -681,7 +681,7 @@ directly into 1,500 watts of usable electrical output.
 <br>
 <br>This output exceeds comparable fusion generators by 50% and diesel generators by
 100%, while requiring significantly less frequent refuelling.  One cell powers a
-typical faction installation for approximately 22 minutes.
+typical faction installation for approximately 60 minutes.
 <br>
 <br><i>Poseidon Energy: More Power.  Less Everything Else.</i>
 <br>
@@ -746,9 +746,9 @@ A low-fuel warning is issued approximately 3 minutes before shutdown.
 to downstream relays and junction boxes for extended coverage.  Load-shedding is
 supported.
 <br>
-<br>Service the unit with a wrench approximately every 15 minutes while running.
-This maintains containment seal integrity.  Neglected units may exhibit localised
-radiation leakage from aged seals.
+<br>Service the unit with a wrench periodically while running.  This maintains
+containment seal integrity -- a freshly-serviced unit is reliable for a good while,
+but badly worn units may exhibit localised radiation leakage from aged seals.
 <br>
 <br>
 <b>6. TROUBLESHOOTING</b>
@@ -769,7 +769,7 @@ radiation leakage from aged seals.
 <br>
 <br>&nbsp;&nbsp; Output: 1,500 W continuous (flat per cell)
 <br>&nbsp;&nbsp; Fuel: Poseidon Energy POS-7R atomic fuel cell (one-cell chamber)
-<br>&nbsp;&nbsp; Runtime per cell: ~22 min
+<br>&nbsp;&nbsp; Runtime per cell: ~60 min
 <br>&nbsp;&nbsp; Cell ejection: automatic on depletion; manual via screwdriver or terminal
 <br>
 <br>
@@ -814,7 +814,7 @@ radiation leakage from aged seals.
 <br>runs on DIESEL FUEL. pour it from a jerrycan or any fuel container.
 <br>theres a fill port on top, funnel is already welded on there.
 <br>just tip the container into the funnel and it flows in.
-<br>tank holds about 1000 units.
+<br>tank holds about 1800 units.
 <br>one full jerrycan (500 units) = about 17 minutes.
 <br>
 <br>check the gauge on the side panel to see how much fuel is left.
@@ -886,11 +886,12 @@ radiation leakage from aged seals.
 <br>
 <br><b>MAINTENANCE</b>
 <br>
-<br>HIT IT WITH A WRENCH EVERY 15 MINUTES WHILE RUNNING.
-<br>i know it sounds stupid but the fuel line fittings vibrate loose.
-<br>if you dont tighten them the vapour builds up near the tank.
+<br>HIT IT WITH A WRENCH ONCE IN A WHILE WHILE ITS RUNNING.
+<br>fresh off a service it'll run fine for like an hour and a half, no worries.
+<br>after that the fittings start vibrating loose bit by bit the longer you leave it,
+<br>and the vapour risk climbs the longer you put off checking it.
 <br>i have personally seen one of these catch fire because nobody
-<br>bothered to check it. it is not a small fire.
+<br>bothered to check it in way too long. it is not a small fire.
 <br>
 <br>you do NOT need to shut it down to service it.
 <br>just wrench it while its running. takes two seconds.

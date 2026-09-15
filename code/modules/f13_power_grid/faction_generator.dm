@@ -111,6 +111,14 @@
 	var/available_watts = 0
 	/// Current total draw reported by relays, fabricators, and turrets.
 	var/current_draw = 0
+	/// Current total *apparent* draw (VA) — true watts divided by each client's own power
+	/// factor. This is what's actually checked against get_available_va() for overload,
+	/// since apparent power (current) is what stresses wiring/breakers, not true power alone.
+	var/current_va_draw = 0
+	/// This generator's own alternator power-factor rating (0 < PF <= 1). Determines how
+	/// much apparent power (VA) the unit can deliver at its rated true-watt output — 1.0
+	/// means the alternator itself never derates capacity below the engine's true output.
+	var/rated_power_factor = 1.0
 	/// TRUE when the generator has tripped due to overload.
 	var/overloaded = FALSE
 	/// TRUE when an operator manually shut the generator down via the UI.
@@ -139,10 +147,10 @@
 	/// Comma-separated object tags for grid_clients (e.g. junction boxes, fabricators) to auto-wire on Initialize.
 	var/map_client_tags = null
 
-	// ── Low-fuel fire-once flag
-	var/low_fuel_warned = FALSE
 	/// world.time when the generator last powered down; used for hot-refuel cooldown.
 	var/shutdown_time = 0
+	/// Ticks elapsed since the last automatic restart attempt while tripped from overload.
+	var/overload_retry_ticks = 0
 
 	// ── Fuel abstraction — override these in generator subtypes.
 	/// Item path this generator accepts as fuel. Checked in attackby().
@@ -159,17 +167,25 @@
 	/// When TRUE: available_watts is a flat value; fuel is tracked in reagent-volume units;
 	/// initial(fuel) is used as the starting amount instead of FGEN_DEFAULT_FUEL.
 	var/fuel_is_liquid      = FALSE
-	/// Ticks elapsed since last maintenance service.
-	/// Reset when a player uses a wrench on the generator while it is running.
-	var/maintenance_ticks   = 0
+	/// Ticks the generator has run continuously since it was last serviced (or new).
+	/// Wear doesn't start accruing until this passes FGEN_WEAR_GRACE_PERIOD — a freshly
+	/// serviced unit is reliable for a while.  Reset by a wrench service while running.
+	var/uptime_ticks        = 0
 	/// Ticks elapsed since the last automatic dead-link prune (see FGEN_LINK_PRUNE_INTERVAL).
 	var/link_prune_ticks    = 0
-	/// TRUE when the generator has exceeded FGEN_MAINTENANCE_INTERVAL and needs servicing.
-	/// A wrench applied while running clears this and resets maintenance_ticks.
+	/// TRUE once wear_level > 0 — the generator could use a wrench service.
+	/// A wrench applied while running clears this along with wear_level/uptime_ticks.
 	var/needs_maintenance   = FALSE
-	/// Ticks elapsed since needs_maintenance was set.  Drives escalating hazard probability
-	/// and triggers auto-trip when it reaches FGEN_MAINTENANCE_INTERVAL.
-	var/maintenance_severity = 0
+	/// Ticks elapsed since the last wear-check roll (see FGEN_WEAR_CHECK_INTERVAL).
+	var/wear_check_ticks    = 0
+	/// Accumulated wear stacks (0..FGEN_WEAR_MAX).  Each stack raises the odds of gaining
+	/// another on the next check, and — past FGEN_WEAR_HAZARD_THRESHOLD — the odds of an
+	/// actual type-specific hazard (see on_maintenance_hazard()).  Cleared by a wrench
+	/// service while running.
+	var/wear_level          = 0
+	/// Percent multiplier applied to the hazard roll once past the wear threshold — lets
+	/// subtypes be a safer or riskier build without duplicating the roll math. 100 = normal.
+	var/wear_hazard_multiplier = 100
 	/// Accumulated heat from external hot items (welder, lighter).  Decays each process() tick.
 	/// Subtypes override on_heat_exposure() to react when this crosses a threshold.
 	var/heat_exposure = 0
@@ -248,10 +264,12 @@
 				visited += N
 				var/blocked = FALSE
 				for(var/obj/machinery/f13/power_relay/R in N)
-					if(!QDELETED(R) && !R.upstream_refs)
+					if(!QDELETED(R))
 						if(!linked_relays)
 							linked_relays = list()
-						if(!(R in linked_relays))
+						// Only gate on whether THIS generator already claims R — a relay already
+						// fed by another generator/relay is still fair game for a second, parallel feed.
+						if(!(R in linked_relays) && !R._has_upstream(src))
 							linked_relays += R
 							if(!R.upstream_refs) R.upstream_refs = list()
 							R.upstream_refs += WEAKREF(src)
@@ -261,10 +279,12 @@
 				if(blocked)
 					continue
 				for(var/obj/machinery/f13/grid_client/C in N)
-					if(!QDELETED(C) && !C.upstream_refs)
+					if(!QDELETED(C))
 						if(!linked_clients)
 							linked_clients = list()
-						if(!(C in linked_clients))
+						// Same relaxed gate as above — a client already fed by another upstream
+						// can still take a second, parallel feed from this generator.
+						if(!(C in linked_clients) && !C._has_upstream(src))
 							linked_clients += C
 							if(!C.upstream_refs) C.upstream_refs = list()
 							C.upstream_refs += WEAKREF(src)
@@ -347,7 +367,6 @@
 	manually_shutdown = TRUE
 	if(powered)
 		set_power_state(FALSE)
-	broadcast_to_faction("<span class='warning'>EMERGENCY SHUTDOWN: [name] took explosive damage and has cut fuel and power. Repair with a wrench before restarting.</span>")
 
 
 // ============================================================
@@ -366,7 +385,7 @@
 			if(istype(LT, /turf/open/water) || IS_WET_OPEN_TURF(LT))
 				to_chat(L, span_danger("Stray current arcs through the ungrounded generator frame and into you!"))
 				L.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
-	if(fuel > 0 && !emergency_shutdown)
+	if(powered && fuel > 0 && !emergency_shutdown)
 		depletion_handled = FALSE
 		_drain_one_tick()
 
@@ -388,34 +407,28 @@
 		// Recompute draw, skipping any shed items.
 		recalc_draw()
 
-		// ── Maintenance tracking — advance counter each tick while running.
-		maintenance_ticks++
-		if(!needs_maintenance && maintenance_ticks >= FGEN_MAINTENANCE_INTERVAL)
-			needs_maintenance = TRUE
-			broadcast_to_faction("<span class='warning'>MAINTENANCE: [name] is overdue for service. Apply a wrench while it is running to clear the maintenance log.</span>")
-		if(needs_maintenance)
-			maintenance_severity++
-			if(maintenance_severity == round(FGEN_MAINTENANCE_INTERVAL * 0.5))
-				broadcast_to_faction("<span class='warning'>WARNING: [name] is critically overdue — faults are becoming very likely. Service it immediately.</span>")
-			if(maintenance_severity >= FGEN_MAINTENANCE_INTERVAL)
-				broadcast_to_faction("<span class='warning'>CRITICAL FAULT: [name] has shut itself down due to unaddressed maintenance. Wrench the unit, then restart.</span>")
-				maintenance_severity = 0
-				set_power_state(FALSE)
-				return
-			on_maintenance_hazard()
+		// ── Wear & tear — a fresh/serviced unit is reliable for FGEN_WEAR_GRACE_PERIOD.
+		// Past that, roll for wear every FGEN_WEAR_CHECK_INTERVAL ticks: each existing stack
+		// raises the odds of gaining another, and — once badly worn — a much rarer roll can
+		// trigger an actual type-specific hazard.  There's no auto-shutdown from neglect alone;
+		// only a real hazard (fire, containment breach, ...) ever takes the unit offline.
+		uptime_ticks++
+		if(uptime_ticks >= FGEN_WEAR_GRACE_PERIOD)
+			wear_check_ticks++
+			if(wear_check_ticks >= FGEN_WEAR_CHECK_INTERVAL)
+				wear_check_ticks = 0
+				_roll_wear_check()
 
 		// ── Under budget: try restoring previously shed loads.
-		if(current_draw <= available_watts)
+		if(!_is_over_budget())
 			_try_restore_shed()
 
-		// ── Over budget: try soft load-shedding before hard-tripping.
-		if(current_draw > available_watts)
+		// ── Over budget (true watts OR apparent VA): try soft load-shedding before hard-tripping.
+		if(_is_over_budget())
 			if(!_do_load_shed())
 				// Shedding alone couldn't resolve it — hard grid trip.
 				if(!overloaded)
 					overloaded = TRUE
-					var/fgen_refuel_hint = fuel_is_liquid ? "Refuel the generator." : "Insert another [fuel_unit_name]."
-					broadcast_to_faction("<span class='warning'>OVERLOAD: [name] grid tripped ([current_draw]W vs [available_watts]W). All load-shedding options exhausted. [fgen_refuel_hint]</span>")
 					set_power_state(FALSE)
 			return
 
@@ -425,11 +438,16 @@
 			if(!manually_shutdown)
 				set_power_state(TRUE)
 
-		if(!low_fuel_warned && fuel <= FGEN_LOW_FUEL_WARN)
-			low_fuel_warned = TRUE
-			var/fgen_warn_hint = fuel_is_liquid ? "Refuel the generator now." : "Insert a [fuel_unit_name] now."
-			broadcast_to_faction("<span class='warning'>WARNING: [name] is running low on fuel. Approximately [fuel * 2] seconds of power remain. [fgen_warn_hint]</span>")
+		return
 
+	// Tripped from overload, not manually shut down, not out of fuel, not in emergency
+	// shutdown — periodically retry in case a sibling generator/relay coming online (or
+	// going offline) now leaves this one's share under budget.
+	if(!powered && overloaded && !manually_shutdown && !emergency_shutdown && fuel > 0)
+		overload_retry_ticks++
+		if(overload_retry_ticks >= FGEN_OVERLOAD_RETRY_INTERVAL)
+			overload_retry_ticks = 0
+			_try_overload_retry()
 		return
 
 	// Fuel exhausted — only transition/spawn a casing once per depletion, not every tick at 0 fuel.
@@ -462,10 +480,20 @@
 		inserted_cores += seed_core
 		remaining -= seed_amount
 
-/// Consumes one fuel tick from the first physically-tracked core that still has charge,
-/// so a depleted shell sitting in an earlier slot doesn't block later slots from draining.
+/// Baseline load fraction for unmetered area equipment (lights/doors/APCs), scaled by how
+/// many powered areas this generator owns. Zero if it owns no areas — nothing unmetered to run.
+/obj/machinery/f13/faction_generator/proc/get_min_load_fraction()
+	if(!powered_area_instances || !powered_area_instances.len)
+		return 0
+	return min(FGEN_MIN_LOAD_FRACTION_CAP, powered_area_instances.len * FGEN_MIN_LOAD_FRACTION_PER_AREA)
+
+/// Consumes one fuel tick, scaled by how loaded the generator currently is relative to its
+/// rated capacity — the tuned max_fuel/fuel durations assume 100% rated load, so anything
+/// under that stretches the tank proportionally. Drains from the first physically-tracked
+/// core that still has charge, so a depleted shell in an earlier slot doesn't block later slots.
 /obj/machinery/f13/faction_generator/proc/_drain_one_tick()
-	fuel--
+	var/load_fraction = available_watts > 0 ? clamp(current_draw / available_watts, get_min_load_fraction(), 1) : 1
+	fuel -= load_fraction
 	if(fuel_is_liquid)
 		return
 	if(!inserted_cores || !inserted_cores.len)
@@ -477,7 +505,7 @@
 			break
 	if(!core)
 		return
-	core:charge_ticks--
+	core:charge_ticks -= load_fraction
 	if(core:charge_ticks <= 0 && !core:depleted)
 		_deplete_core(core)
 
@@ -503,9 +531,13 @@
 	if(powered == new_powered)
 		return
 
-	if(powered && !new_powered)
-		_check_backfeed()
 	powered = new_powered
+	_propagate_power_state()
+
+/// Shared side effects of a power-state flip: icon, area stamping, turrets, relays, clients.
+/// Split out from set_power_state() so a silent retry attempt (_try_overload_retry()) can
+/// reuse the same propagation.
+/obj/machinery/f13/faction_generator/proc/_propagate_power_state()
 	update_icon()
 
 	// Stamp real SS13 power channels on owned areas.
@@ -532,32 +564,18 @@
 			if(!QDELETED(C))
 				C.on_upstream_changed()
 
-	// Announce to faction members.
-	if(powered)
-		low_fuel_warned = FALSE
-		broadcast_to_faction("<span class='notice'>POWER RESTORED: [faction_tag ? faction_tag : "Base"] generator is back online.</span>")
-	else
-		broadcast_to_faction("<span class='warning'>POWER FAILURE: [faction_tag ? faction_tag : "Base"] generator has gone offline. Insert a fusion core to restore power.</span>")
-
-/// Fires when this generator goes offline and any shared relay still has a live parallel generator upstream.
-/obj/machinery/f13/faction_generator/proc/_check_backfeed()
-	if(!linked_relays)
+/// Silently tests whether this generator would now fit under budget if brought back online —
+/// e.g. a sibling generator/relay coming online since the trip now splits a shared load enough
+/// to fit. Reverts if it still doesn't fit, so it just quietly retries next interval.
+/obj/machinery/f13/faction_generator/proc/_try_overload_retry()
+	powered = TRUE
+	available_watts = fuel_is_liquid ? watts_per_fuel_unit : (watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit)))
+	recalc_draw()
+	if(_is_over_budget())
+		powered = FALSE  // still doesn't fit — revert quietly, try again next interval
 		return
-	for(var/obj/machinery/f13/power_relay/R in linked_relays)
-		if(QDELETED(R) || !R.upstream_refs)
-			continue
-		for(var/datum/weakref/W in R.upstream_refs)
-			var/obj/up = W.resolve()
-			if(!up || QDELETED(up) || up == src)
-				continue
-			if(istype(up, /obj/machinery/f13/faction_generator) && up:powered)
-				do_sparks(8, FALSE, R)
-				var/turf/T = get_turf(R)
-				for(var/mob/living/L in view(1, T))
-					L.electrocute_act(25, R, flags = SHOCK_NOGLOVES)
-				for(var/mob/living/L in view(3, T))
-					to_chat(L, span_danger("BACKFEED: [R.name] — parallel generator isolation failure. Surge at the relay."))
-				break
+	overloaded = FALSE
+	_propagate_power_state()
 
 /// Stamp actual SS13 power-channel vars on every owned area and fire power_change().
 /// Called directly by set_power_state() and by the master breaker when magic power is toggled.
@@ -608,41 +626,59 @@
 /// Shed items (in shed_clients / shed_relays) are excluded — they draw 0W while suspended.
 /obj/machinery/f13/faction_generator/proc/recalc_draw()
 	current_draw = 0
+	current_va_draw = 0
 	// Direct turrets on this generator.
 	if(linked_turrets)
 		for(var/obj/machinery/porta_turret/T in linked_turrets)
 			if(!QDELETED(T))
 				current_draw += TURRET_WATT_DRAW
+				current_va_draw += TURRET_WATT_DRAW  // simple electronics — PF 1.0
 	// Generic grid clients (includes fabricators) — skip any that are currently load-shed.
 	if(linked_clients)
 		for(var/obj/machinery/f13/grid_client/C in linked_clients)
 			if(!QDELETED(C))
 				if(shed_clients && (C in shed_clients))
 					continue  // shed — counts as 0W
-				current_draw += C.grid_watt_draw
+				// A client fed by more than one live generator/relay splits its draw evenly between them.
+				var/live_upstreams = max(1, C.get_live_upstream_count())
+				current_draw += C.get_effective_watt_draw() / live_upstreams
+				current_va_draw += C.get_effective_va_draw() / live_upstreams
 	// Relay chains (recursive) — skip any that are currently load-shed.
 	if(linked_relays)
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
 			if(!QDELETED(R))
 				if(shed_relays && (R in shed_relays))
 					continue  // shed — counts as 0W
-				current_draw += R.get_subtree_draw()
+				var/live_upstreams = max(1, R.get_live_upstream_count())
+				current_draw += R.get_subtree_draw() / live_upstreams
+				current_va_draw += R.get_subtree_va_draw() / live_upstreams
+
+/// Apparent power (VA) capacity — the true-watt engine output divided by this unit's own
+/// alternator power-factor rating. Checked against current_va_draw for overload, since
+/// apparent power (current) is what actually stresses wiring and breakers.
+/obj/machinery/f13/faction_generator/proc/get_available_va()
+	return available_watts / max(0.05, rated_power_factor)
 
 /// Return total watts this generator is currently delivering vs. what it can supply.
 /obj/machinery/f13/faction_generator/proc/get_load_summary()
-	return "[current_draw]W / [available_watts]W"
+	return "[round(current_draw)]W / [available_watts]W"
 
 // ── Load shedding — shed loads in priority order to prevent a full grid trip.
-/// Called when current_draw > available_watts.
+/// TRUE if either true-power (engine) or apparent-power (alternator/wiring) capacity
+/// is currently exceeded — either one is a real overload, not just the true-watt figure.
+/obj/machinery/f13/faction_generator/proc/_is_over_budget()
+	return (current_draw > available_watts) || (current_va_draw > get_available_va())
+
+/// Called when the generator is over budget on either true or apparent power.
 /// Returns TRUE if shedding resolved the overload, FALSE if a hard trip is still needed.
 /obj/machinery/f13/faction_generator/proc/_do_load_shed()
 	// PRIORITY 1: high-priority grid clients (e.g. fabricators, grid_shed_priority > 0).
 	// Shed active crafting machines first (highest per-unit watt saving),
 	// then idle high-priority units.
-	if(current_draw > available_watts && linked_clients)
+	if(_is_over_budget() && linked_clients)
 		for(var/pass in 1 to 2)
 			for(var/obj/machinery/f13/grid_client/C in linked_clients)
-				if(current_draw <= available_watts)
+				if(!_is_over_budget())
 					break
 				if(QDELETED(C))
 					continue
@@ -656,11 +692,12 @@
 				if(!shed_clients)
 					shed_clients = list()
 				shed_clients += C
-				current_draw -= C.grid_watt_draw
+				current_draw -= C.get_effective_watt_draw()
+				current_va_draw -= C.get_effective_va_draw()
 
 	// PRIORITY 2: relay subtrees — cut lowest-draw relays first to preserve
 	// turret-heavy nodes as long as possible.
-	if(current_draw > available_watts && linked_relays)
+	if(_is_over_budget() && linked_relays)
 		var/list/relay_cands = list()
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
 			if(QDELETED(R) || !R.relay_powered)
@@ -669,7 +706,7 @@
 				continue
 			relay_cands += R
 		// Each pass: cut the relay with the smallest subtree draw first.
-		while(relay_cands.len > 0 && current_draw > available_watts)
+		while(relay_cands.len > 0 && _is_over_budget())
 			var/obj/machinery/f13/power_relay/pick = null
 			var/pick_draw = 999999
 			for(var/obj/machinery/f13/power_relay/RC in relay_cands)
@@ -679,6 +716,7 @@
 					pick = RC
 			if(!pick)
 				break
+			var/pick_va_draw = pick.get_subtree_va_draw()
 			relay_cands -= pick
 			pick.load_shed = TRUE
 			pick.set_relay_power(FALSE)
@@ -686,20 +724,13 @@
 				shed_relays = list()
 			shed_relays += pick
 			current_draw -= pick_draw
+			current_va_draw -= pick_va_draw
 
-	// Announce consolidated shed event.
-	var/relay_n  = shed_relays  ? shed_relays.len  : 0
-	var/client_n = shed_clients ? shed_clients.len : 0
-	if(relay_n > 0 || client_n > 0)
-		broadcast_to_faction("<span class='warning'>LOAD SHED: [name] suspended [client_n] device\s and [relay_n] relay\s to maintain grid stability. Turrets remain active.</span>")
-
-	return (current_draw <= available_watts)
+	return !_is_over_budget()
 
 // ── Restore shed loads when the generator has headroom again.
 /// Called each process() tick before the overload check (only when under budget).
 /obj/machinery/f13/faction_generator/proc/_try_restore_shed()
-	var/restored = 0
-
 	// Restore relays first — area power and turrets have higher in-game impact.
 	if(shed_relays && shed_relays.len)
 		var/list/to_restore = list()
@@ -715,15 +746,16 @@
 				to_restore += R  // drop the stale entry, do NOT re-power it
 				continue
 			var/would_draw = R.get_subtree_draw()
-			if(current_draw + would_draw <= available_watts)
+			var/would_va_draw = R.get_subtree_va_draw()
+			if(current_draw + would_draw <= available_watts && current_va_draw + would_va_draw <= get_available_va())
 				current_draw += would_draw
+				current_va_draw += would_va_draw
 				to_restore += R
 		for(var/obj/machinery/f13/power_relay/R in to_restore)
 			shed_relays -= R
 			if(!QDELETED(R) && linked_relays && (R in linked_relays))
 				R.load_shed = FALSE
 				R.set_relay_power(TRUE)
-				restored++
 
 	// Restore grid clients (fabricators and junction boxes) by draw order —
 	// smallest draw restored first so we fit as many devices back as possible.
@@ -736,17 +768,14 @@
 			if(!linked_clients || !(C in linked_clients))
 				to_restore += C  // stale entry — drop without re-powering
 				continue
-			if(current_draw + C.grid_watt_draw <= available_watts)
-				current_draw += C.grid_watt_draw
+			if(current_draw + C.get_effective_watt_draw() <= available_watts && current_va_draw + C.get_effective_va_draw() <= get_available_va())
+				current_draw += C.get_effective_watt_draw()
+				current_va_draw += C.get_effective_va_draw()
 				to_restore += C
 		for(var/obj/machinery/f13/grid_client/C in to_restore)
 			shed_clients -= C
 			if(!QDELETED(C) && linked_clients && (C in linked_clients))
 				C.on_load_shed_restore()
-				restored++
-
-	if(restored > 0)
-		broadcast_to_faction("<span class='notice'>LOAD RESTORE: [name] returned [restored] device\s to service — grid load nominal.</span>")
 
 
 // ============================================================
@@ -816,18 +845,22 @@
 	return FALSE
 
 
-// ============================================================
-// FACTION BROADCAST HELPER
-// ============================================================
+/// Rolls the periodic wear check once the grace period has elapsed.  Gaining a stack is
+/// probabilistic and escalates with existing stacks; an actual hazard is a separate, much
+/// rarer roll gated behind FGEN_WEAR_HAZARD_THRESHOLD stacks of wear.
+/obj/machinery/f13/faction_generator/proc/_roll_wear_check()
+	if(wear_level < FGEN_WEAR_MAX)
+		var/gain_chance = FGEN_WEAR_BASE_CHANCE + (wear_level * FGEN_WEAR_CHANCE_PER_STACK)
+		if(prob(gain_chance))
+			wear_level++
+			needs_maintenance = TRUE
+	if(wear_level >= FGEN_WEAR_HAZARD_THRESHOLD)
+		var/stacks_over = wear_level - FGEN_WEAR_HAZARD_THRESHOLD
+		var/hazard_chance = (FGEN_WEAR_HAZARD_BASE_CHANCE + (stacks_over * FGEN_WEAR_HAZARD_CHANCE_PER_STACK)) * wear_hazard_multiplier / 100
+		if(prob(hazard_chance))
+			on_maintenance_hazard()
 
-/obj/machinery/f13/faction_generator/proc/broadcast_to_faction(msg)
-	if(!faction_tag)
-		return
-	for(var/mob/M in world)
-		if(M.social_faction == faction_tag)
-			to_chat(M, msg)
-
-/// Called each process tick when the generator's maintenance interval has elapsed.
+/// Called by _roll_wear_check() when a rare hazard roll succeeds at high wear.
 /// Override in fuel-type variants to apply the appropriate hazard effect.
 /// Base type: pre-War engineering quality — no passive hazard on stock units.
 /obj/machinery/f13/faction_generator/proc/on_maintenance_hazard()
@@ -865,9 +898,9 @@
 		else
 			. += span_warning("No cables lead out from it, and it's offline. Insert a fusion core and wire up some devices to get power flowing.")
 	if(needs_maintenance)
-		if(maintenance_severity >= round(FGEN_MAINTENANCE_INTERVAL * 0.67))
+		if(wear_level >= FGEN_WEAR_MAX)
 			. += span_warning("Something is clearly wrong — heat radiating from the housing and an acrid smell. It needs servicing immediately.")
-		else if(maintenance_severity >= round(FGEN_MAINTENANCE_INTERVAL * 0.33))
+		else if(wear_level >= FGEN_WEAR_HAZARD_THRESHOLD)
 			. += span_warning("The unit is running rough and throwing off unusual heat. It needs servicing soon.")
 		else
 			. += span_notice("One of the panel covers is vibrating loose. A quick service with a wrench would clear the maintenance log.")
@@ -927,18 +960,18 @@
 		if(powered)
 			if(needs_maintenance)
 				needs_maintenance = FALSE
-				maintenance_ticks = 0
-				maintenance_severity = 0
+				wear_level = 0
+				uptime_ticks = 0
+				wear_check_ticks = 0
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-				to_chat(user, span_notice("You tighten the fittings and check the seals on [src]. Maintenance log cleared."))
-			else if(maintenance_ticks >= FGEN_MAINTENANCE_INTERVAL - 40)
-				maintenance_ticks = 0
-				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-				to_chat(user, span_notice("You go over the fittings on [src] before they need it — everything feels tight. Maintenance interval reset."))
+				to_chat(user, span_notice("You tighten the fittings and check the seals on [src]. Maintenance log cleared — it feels like new."))
 			else
-				var/ticks_left = FGEN_MAINTENANCE_INTERVAL - maintenance_ticks
-				var/mins = round(ticks_left / 30)
-				to_chat(user, span_notice("The seals and fittings feel solid — no service needed for another [mins] minute[mins != 1 ? "s" : ""] or so. Power it down first if you want to move it."))
+				var/ticks_left = FGEN_WEAR_GRACE_PERIOD - uptime_ticks
+				if(ticks_left > 0)
+					var/mins = round(ticks_left / 30)
+					to_chat(user, span_notice("The unit is fresh from its last service — no wear expected for at least [mins] more minute[mins != 1 ? "s" : ""]."))
+				else
+					to_chat(user, span_notice("The seals and fittings feel solid — no service needed yet. Power it down first if you want to move it."))
 			return
 		// Offline — repair if damaged/broken, otherwise anchor toggle.
 		if((stat & BROKEN) || obj_integrity < max_integrity)
@@ -946,8 +979,9 @@
 				return
 			stat &= ~BROKEN
 			needs_maintenance = FALSE
-			maintenance_ticks = 0
-			maintenance_severity = 0
+			wear_level = 0
+			uptime_ticks = 0
+			wear_check_ticks = 0
 			emergency_shutdown = FALSE
 			obj_integrity = max_integrity
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
@@ -1079,9 +1113,8 @@
 
 		if(!powered)
 			set_power_state(TRUE)
-		else if(overloaded && current_draw <= available_watts)
+		else if(overloaded && !_is_over_budget())
 			overloaded = FALSE
-			broadcast_to_faction("<span class='notice'>OVERLOAD CLEARED: [name] — power restored at [current_draw]W / [available_watts]W.</span>")
 			set_power_state(TRUE)
 
 		return
@@ -1197,16 +1230,25 @@
 	var/accessible = can_access(user)
 	var/fuel_pct   = max_fuel > 0 ? round((fuel / max_fuel) * 100) : 0
 	var/units_remaining = round(fuel / fuel_per_unit, 0.1)
-	var/runtime_secs = fuel * 2  // each fuel unit = 2 s
-	var/runtime_min  = round(runtime_secs / 60)
-	var/runtime_display = runtime_secs < 120 ? "[runtime_secs]s" : "[runtime_min] min"
 
 	recalc_draw()
+	var/available_va = get_available_va()
 	var/load_pct   = available_watts > 0 ? round((current_draw / available_watts) * 100) : 0
-	var/load_color = current_draw > available_watts ? "bad" : (current_draw > available_watts * 0.8 ? "warn" : "good")
+	var/va_pct     = available_va > 0 ? round((current_va_draw / available_va) * 100) : 0
+	var/load_color = _is_over_budget() ? "bad" : ((current_draw > available_watts * 0.8 || current_va_draw > available_va * 0.8) ? "warn" : "good")
 
-	// Build a simple ASCII bar (20 chars wide)
-	var/bar_fill  = available_watts > 0 ? round((current_draw / available_watts) * 20) : 0
+	// Mirror _drain_one_tick()'s actual drain rate so the displayed estimate reflects
+	// current load instead of assuming a constant full-load burn.
+	var/load_fraction = available_watts > 0 ? clamp(current_draw / available_watts, get_min_load_fraction(), 1) : 1
+	var/runtime_display
+	if(load_fraction <= 0)
+		runtime_display = "indefinite"
+	else
+		var/runtime_secs = round((fuel / load_fraction) * 2)  // each fuel unit = 2 s at full load
+		runtime_display = runtime_secs < 120 ? "[runtime_secs]s" : "[round(runtime_secs / 60)] min"
+
+	// Build a simple ASCII bar (20 chars wide) — reflects whichever of true/apparent power is closer to tripping.
+	var/bar_fill  = round(max(load_pct, va_pct) / 5)
 	bar_fill = clamp(bar_fill, 0, 20)
 	var/bar_str = "&#91;"
 	var/f_bi
@@ -1231,6 +1273,36 @@
 	dat += "<pre>  STATUS   : [status_line]</pre>"
 	if(!grounded)
 		dat += "<pre>  <span style='color:#ff8c00'>  &#9888; UNGROUNDED  &mdash;  install a grounding rod to prevent leakage current hazards</span></pre>"
+
+	// ── Diagnostics checklist — the first thing a tech should scan on approach
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+	dat += "<pre class='head'>  &#91;DIAGNOSTICS&#93;</pre>"
+	var/list/diag = list()
+	diag += list(list(grounded ? "good" : "bad", grounded ? "Grounding rod installed" : "Ungrounded — leakage current hazard"))
+	diag += list(list(fuel > 0 ? "good" : "bad", fuel > 0 ? "Fuel supply nominal" : "No fuel — cannot start"))
+	if(fuel > 0 && max_fuel > 0 && (fuel / max_fuel) < 0.15)
+		diag += list(list("warn", "Fuel reserve low — refuel soon"))
+	var/near_capacity = (available_watts > 0 && current_draw > available_watts * 0.9) || (available_va > 0 && current_va_draw > available_va * 0.9)
+	diag += list(list(overloaded ? "bad" : (near_capacity ? "warn" : "good"), \
+		overloaded ? "Circuit overload — output tripped" : (near_capacity ? "Load near rated capacity" : "Load within rated capacity")))
+	var/blended_pf_pct = current_va_draw > 0 ? round((current_draw / current_va_draw) * 100) : 100
+	diag += list(list(blended_pf_pct >= 90 ? "good" : (blended_pf_pct >= 75 ? "warn" : "bad"), \
+		"Grid power factor [blended_pf_pct]%[blended_pf_pct < 90 ? " — low-PF loads are drawing more apparent current than their rated wattage suggests" : " — efficient load mix"]"))
+	diag += list(list(obj_integrity >= max_integrity * 0.67 ? "good" : (obj_integrity >= max_integrity * 0.33 ? "warn" : "bad"), \
+		obj_integrity >= max_integrity * 0.67 ? "Structural integrity nominal" : (obj_integrity >= max_integrity * 0.33 ? "Structural integrity degraded — repair advised" : "Structural integrity critical — repair immediately")))
+	diag += list(list(wear_level >= FGEN_WEAR_MAX ? "bad" : (wear_level >= FGEN_WEAR_HAZARD_THRESHOLD ? "warn" : "good"), \
+		wear_level >= FGEN_WEAR_MAX ? "Wear critical — hazard risk high, service now" : (wear_level >= FGEN_WEAR_HAZARD_THRESHOLD ? "Wear elevated — service recommended" : "Wear nominal")))
+	if(emergency_shutdown)
+		diag += list(list("bad", "Emergency shutdown latched — explosive damage sustained"))
+	if(shed_total > 0)
+		diag += list(list("warn", "[shed_total] device[shed_total != 1 ? "s" : ""] load-shed to stay under capacity"))
+	for(var/entry in diag)
+		var/lvl = entry[1]
+		var/lbl = entry[2]
+		var/tag = lvl == "good" ? "OK  " : (lvl == "warn" ? "WARN" : "FAIL")
+		dat += "<pre>    <span class='[lvl]'>&#91;[tag]&#93;</span>  [lbl]</pre>"
+	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
+
 	if(fuel_is_liquid)
 		dat += "<pre>  FUEL     : [fuel] L / [max_fuel] L <span class='dim'>([fuel_pct]%  runtime ~[runtime_display])</span></pre>"
 		if(accessible)
@@ -1259,11 +1331,27 @@
 		if(accessible)
 			dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=eject_fuel'>EJECT ALL</a>  <span class='dim'>(purge every slot; generator powers down)</span></pre>"
 		dat += "<pre>  CAPACITY : [available_watts]W  <span class='dim'>([max(1,round(fuel/fuel_per_unit))] [fuel_unit_name](s) x [watts_per_fuel_unit]W)</span></pre>"
-	dat += "<pre>  DRAW     : <span class='[load_color]'>[current_draw]W ([load_pct]%)</span></pre>"
-	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [load_pct]%</pre>"
+	dat += "<pre>  DRAW     : <span class='[load_color]'>[round(current_draw)]W ([load_pct]%)</span>  <span class='dim'>true power</span></pre>"
+	dat += "<pre>  APPARENT : <span class='[load_color]'>[round(current_va_draw)]VA ([va_pct]%)</span>  <span class='dim'>(alternator rated [round(available_va)]VA @ PF [rated_power_factor])</span></pre>"
+	dat += "<pre>  LOAD BAR : <span class='[load_color]'>[bar_str]</span> [max(load_pct, va_pct)]%</pre>"
 	dat += "<pre class='dim'>  COST REF.: relay=[RELAY_WATT_DRAW]W  fab=[FAB_WATT_DRAW_IDLE]W idle/[FAB_WATT_DRAW_ACTIVE]W active  turret=[TURRET_WATT_DRAW]W</pre>"
 	var/integrity_color = obj_integrity < max_integrity * 0.33 ? "bad" : (obj_integrity < max_integrity * 0.67 ? "warn" : "good")
 	dat += "<pre>  INTEGRITY: <span class='[integrity_color]'>[obj_integrity] / [max_integrity]</span>  <span class='dim'>(wrench while offline to repair)</span></pre>"
+
+	// ── Maintenance / wear meter
+	var/wear_pct = round((wear_level / FGEN_WEAR_MAX) * 100)
+	var/wear_color = wear_level >= FGEN_WEAR_MAX ? "bad" : (wear_level >= FGEN_WEAR_HAZARD_THRESHOLD ? "warn" : (wear_level > 0 ? "warn" : "good"))
+	var/wear_bar_fill = clamp(wear_level, 0, FGEN_WEAR_MAX)
+	var/wear_bar = "&#91;"
+	var/w_bi
+	for(w_bi = 1; w_bi <= FGEN_WEAR_MAX; w_bi++)
+		wear_bar += w_bi <= wear_bar_fill ? "#" : "."
+	wear_bar += "&#93;"
+	if(uptime_ticks < FGEN_WEAR_GRACE_PERIOD)
+		var/grace_mins_left = round((FGEN_WEAR_GRACE_PERIOD - uptime_ticks) / 30)
+		dat += "<pre>  WEAR     : <span class='good'>[wear_bar] 0%</span>  <span class='dim'>(fresh — no wear expected for ~[grace_mins_left] min)</span></pre>"
+	else
+		dat += "<pre>  WEAR     : <span class='[wear_color]'>[wear_bar] [wear_pct]%</span>  <span class='dim'>(wrench while running to service)</span></pre>"
 	dat += "<pre class='sep'>  ----------------------------------------------------------------</pre>"
 
 	// ── Powered areas
@@ -1311,9 +1399,11 @@
 				if(is_shed)
 					cstate = "<span class='warn'>&#91;SHED&#93;   0W</span>"
 				else if(C.grid_powered)
-					cstate = "<span class='good'>ONLINE  [C.grid_watt_draw]W</span>"
+					cstate = "<span class='good'>ONLINE  [C.get_effective_watt_draw()]W</span>"
 				else
-					cstate = "<span class='bad'>OFFLINE [C.grid_watt_draw]W</span>"
+					cstate = "<span class='bad'>OFFLINE [C.get_effective_watt_draw()]W</span>"
+				if(!is_shed && C.power_factor < 1)
+					cstate += " <span class='dim'>([round(C.get_effective_va_draw())]VA @ PF [C.power_factor])</span>"
 				dat += "<pre>    &gt; [C.name]  [cstate]</pre>"
 	else
 		dat += "<pre class='dim'>    &gt; none linked  (use a cable coil on generator, then on any compatible device)</pre>"
@@ -1424,7 +1514,6 @@
 			available_watts = fuel_is_liquid ? watts_per_fuel_unit : (watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit)))
 			recalc_draw()
 			if(fuel <= 0)
-				low_fuel_warned = FALSE
 				skip_next_depletion_spawn = TRUE  // this eject already returned the core; don't also spawn a depleted casing
 				if(powered)
 					set_power_state(FALSE)
@@ -1503,7 +1592,6 @@
 	if(fuel <= 0)
 		to_chat(user, span_notice("The fuel reservoir is already empty — nothing to eject."))
 		return
-	low_fuel_warned = FALSE
 	skip_next_depletion_spawn = TRUE  // manual eject already returns the fuel; don't also spawn a depleted casing
 	if(fuel_is_liquid)
 		var/leftover = fuel
@@ -1607,9 +1695,8 @@
 	)
 	if(!powered && fuel > 0)
 		set_power_state(TRUE)
-	else if(overloaded && current_draw <= available_watts)
+	else if(overloaded && !_is_over_budget())
 		overloaded = FALSE
-		broadcast_to_faction("<span class='notice'>OVERLOAD CLEARED: [name] — power restored at [current_draw]W / [available_watts]W.</span>")
 		set_power_state(TRUE)
 	return TRUE
 
@@ -1637,10 +1724,11 @@
 	fuel_is_liquid       = TRUE
 	fuel_per_unit        = 1      // 1 tick per litre (for residual unit calculations)
 	watts_per_fuel_unit  = 750    // flat output — diesel can't match fusion
-	max_fuel             = 1440   // ~48 min fully loaded (~2.9 jerrycans)
-	fuel                 = 500    // round-start: ~1 jerrycan worth (~17 min)
+	max_fuel             = 1800   // ~60 min fully loaded (~3.6 jerrycans)
+	fuel                 = 1800   // round-start: full tank — ~60 min before a refuel is needed
 	fuel_unit_name       = "L"
 	heat_ignition_threshold = 7600  // ~2-3 welder applications to ignite the fuel tank
+	wear_hazard_multiplier = 100  // baseline risk once badly worn
 	/// Accumulated exhaust exposure for each mob near the generator.
 	/// Keyed by mob reference; value is ticks of continuous indoor exposure.
 	var/list/co_exposure_map = null
@@ -1668,7 +1756,10 @@
 // within minutes indoors — here modelled as per-tick tox+oxy damage that
 // escalates with sustained exposure.
 //
-// "Outdoors" is any turf under /turf/open/indestructible/ground/outside.
+// "Vented" means the area itself is flagged outdoors (area.outdoors) — the same
+// flag every other outdoor check in the codebase uses — not one specific turf type,
+// so any open terrain counts. The generator's own tile also counts as vented if an
+// adjacent tile opens onto an outdoor area (parked in a garage doorway still vents).
 // Wearing internals (any active breathing tank) blocks the effect entirely.
 //
 // CO exposure ticks per mob:
@@ -1679,6 +1770,27 @@
 //   Each tick: adjustOxyLoss(1) + adjustToxLoss(1).  At 15+ ticks both values
 //   double so unconsciousness arrives within ~30 more seconds if unchecked.
 //
+/obj/machinery/f13/faction_generator/proc/_is_turf_vented(turf/T, check_adjacent = FALSE)
+	if(!T)
+		return FALSE
+	var/area/A = get_area(T)
+	if(A && A.outdoors)
+		return TRUE
+	// No level above (top of the z-stack) or an open multiz gap above — exposed to open sky.
+	var/turf/above = get_step_multiz(T, UP)
+	if(!above || istype(above, /turf/open/transparent/openspace))
+		return TRUE
+	if(!check_adjacent)
+		return FALSE
+	for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+		var/turf/N = get_step(T, dir)
+		if(!N)
+			continue
+		var/area/NA = get_area(N)
+		if(NA && NA.outdoors)
+			return TRUE
+	return FALSE
+
 /obj/machinery/f13/faction_generator/diesel/process()
 	// Run the normal fuel/maintenance logic first.
 	. = ..()
@@ -1686,9 +1798,9 @@
 	if(!powered || fuel <= 0)
 		co_exposure_map = null
 		return
-	// Check whether the generator is outdoors — exhaust disperses in open air.
+	// Check whether the generator itself is vented — exhaust disperses in open air.
 	var/turf/own_turf = get_turf(src)
-	if(!own_turf || istype(own_turf, /turf/open/indestructible/ground/outside))
+	if(!own_turf || _is_turf_vented(own_turf, TRUE))
 		co_exposure_map = null
 		return
 	if(!co_exposure_map)
@@ -1711,9 +1823,9 @@
 		if(H.wear_suit && istype(H.wear_suit, /obj/item/clothing/suit/armor/power_armor))
 			co_exposure_map -= H
 			continue
-		// Outdoor mob on an outside turf despite being near the generator — skip.
+		// Vented mob despite being near the generator — skip.
 		var/turf/mob_turf = get_turf(H)
-		if(mob_turf && istype(mob_turf, /turf/open/indestructible/ground/outside))
+		if(mob_turf && _is_turf_vented(mob_turf))
 			co_exposure_map -= H
 			continue
 		var/ticks = co_exposure_map[H] || 0
@@ -1739,11 +1851,10 @@
 			co_exposure_map -= M
 
 /obj/machinery/f13/faction_generator/diesel/on_maintenance_hazard()
-	// Degrading fuel lines — fire risk; probability escalates the longer servicing is neglected.
-	if(prob(min(25, 1 + round(maintenance_severity / 45))))
-		var/turf/T = get_turf(src)
-		if(T && !locate(/obj/effect/hotspot) in T)
-			new /obj/effect/hotspot(T)
+	// Degrading fuel lines — the wear-check roll already decided this fires; a rare, real fire risk.
+	var/turf/T = get_turf(src)
+	if(T && !locate(/obj/effect/hotspot) in T)
+		new /obj/effect/hotspot(T)
 
 /obj/machinery/f13/faction_generator/diesel/on_heat_exposure()
 	// ~2 sustained welder applications will ignite the fuel tank.
@@ -1782,19 +1893,19 @@
 	desc = "A compact Poseidon Energy pre-War atomic generator, originally spec'd for fringe settlements too remote for a grid hook-up. A single atomic fuel cell will run most of a small base for hours — provided you can find a replacement when it burns out."
 	accepted_fuel_path   = /obj/item/f13/atomic_cell
 	depleted_fuel_path   = /obj/item/f13/atomic_cell/depleted
-	fuel_per_unit        = 675    // ~22 min per cell
+	fuel_per_unit        = 1800   // ~60 min per cell
 	watts_per_fuel_unit  = 1500   // high output — atomic fission beats fusion cores
-	max_fuel             = 675    // single-cell chamber
+	max_fuel             = 1800   // single-cell chamber
 	fuel_unit_name       = "fuel cell"
 	heat_ignition_threshold = 15200  // ~4-5 welder applications to breach containment
+	wear_hazard_multiplier = 60  // sealed, low-maintenance design — safer than diesel/wastelander
 
 /obj/machinery/f13/faction_generator/atomic/update_icon_state()
 	icon_state = powered ? "generator_uranium" : "generator_off"
 
 /obj/machinery/f13/faction_generator/atomic/on_maintenance_hazard()
-	// Ageing containment seals — localised radiation leaks; escalates with neglect.
-	if(prob(min(15, 3 + round(maintenance_severity / 90))))
-		radiation_pulse(src, 35, 2)
+	// Ageing containment seals — the wear-check roll already decided this fires.
+	radiation_pulse(src, 35, 2)
 
 /obj/machinery/f13/faction_generator/atomic/on_heat_exposure()
 	// ~4 sustained welder applications overheat the containment vessel.
@@ -1816,7 +1927,6 @@
 		fuel = 0
 		set_power_state(FALSE)
 		stat |= BROKEN
-		broadcast_to_faction("<span class='warning'>CONTAINMENT ALERT: [name] -- fire has breached containment. Emergency shutdown engaged. Severe radiation hazard. Unit is destroyed -- evacuate the area immediately.</span>")
 	. = ..()
 
 // ============================================================
@@ -1851,10 +1961,11 @@
 	fuel_is_liquid       = TRUE
 	fuel_per_unit        = 1
 	watts_per_fuel_unit  = 500    // crude output — less than a proper industrial unit
-	max_fuel             = 1000   // ~33 min fully loaded (~2 jerrycans)
+	max_fuel             = 1800   // ~60 min fully loaded (~3.6 jerrycans)
 	fuel                 = 200    // starts nearly empty — wasteland style
 	fuel_unit_name       = "L"
 	has_lock_upgrade     = FALSE  // no built-in access control; install a blank ID card to unlock
+	wear_hazard_multiplier = 120  // worst build quality of all variants — riskiest once badly worn
 	/// Base reach in tiles.  Each powered relay within reach becomes its own anchor,
 	/// extending coverage by another power_reach hop in any direction.
 	var/power_reach = 10
@@ -1928,11 +2039,10 @@
 	return ..()
 
 /obj/machinery/f13/faction_generator/wastelander/on_maintenance_hazard()
-	// Worst build quality — fuel vapour ignition; escalates the fastest of all variants.
-	if(prob(min(30, 2 + round(maintenance_severity / 30))))
-		var/turf/T = get_turf(src)
-		if(T && !locate(/obj/effect/hotspot) in T)
-			new /obj/effect/hotspot(T)
+	// Worst build quality of all variants — the wear-check roll already decided this fires.
+	var/turf/T = get_turf(src)
+	if(T && !locate(/obj/effect/hotspot) in T)
+		new /obj/effect/hotspot(T)
 
 // Jury-rigged exhaust has no muffler — same CO risk as the diesel variant.
 /obj/machinery/f13/faction_generator/wastelander/process()
@@ -1941,7 +2051,7 @@
 		co_exposure_map = null
 		return
 	var/turf/own_turf = get_turf(src)
-	if(!own_turf || istype(own_turf, /turf/open/indestructible/ground/outside))
+	if(!own_turf || _is_turf_vented(own_turf, TRUE))
 		co_exposure_map = null
 		return
 	if(!co_exposure_map)
@@ -1961,7 +2071,7 @@
 			co_exposure_map -= H
 			continue
 		var/turf/mob_turf = get_turf(H)
-		if(mob_turf && istype(mob_turf, /turf/open/indestructible/ground/outside))
+		if(mob_turf && _is_turf_vented(mob_turf))
 			co_exposure_map -= H
 			continue
 		var/ticks = co_exposure_map[H] || 0

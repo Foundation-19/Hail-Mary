@@ -43,6 +43,8 @@
 	use_power = NO_POWER_USE
 	// Fabricators draw more when actively crafting; updated whenever fab_state changes.
 	grid_watt_draw = FAB_WATT_DRAW_IDLE
+	// Heavy industrial drive motors — a lower power factor than a purely resistive load.
+	power_factor = 0.85
 	// Shed fabricators before generic low-draw clients (e.g. junction boxes).
 	grid_shed_priority = 10
 
