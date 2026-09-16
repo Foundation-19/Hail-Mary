@@ -11,6 +11,7 @@
 	stamina = BULLET_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0.1 // round pellets are poor penetrators next to a full-caliber bullet
 
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
@@ -29,6 +30,7 @@
 	stamina = BULLET_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0.05 // smaller/lighter than buckshot, penetrates even less
 
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
@@ -52,6 +54,7 @@
 	stamina = RUBBERY_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = RUBBERY_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0 // rubber, shouldn't punch through armor at all
 
 	wound_bonus = RUBBERY_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
@@ -76,6 +79,7 @@
 	stamina = BULLET_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0.05 // crude scrap shot, worse than factory buckshot
 
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT

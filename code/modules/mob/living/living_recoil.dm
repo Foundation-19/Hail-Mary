@@ -1,38 +1,49 @@
 /mob/living/proc/handle_recoil(obj/item/gun/G, recoil_buildup)
-	deltimer(recoil_reduction_timer)
-
 	add_recoil(recoil_buildup)
 
 /mob/living/proc/external_recoil(recoil_buildup) // Used in human_attackhand.dm
-	deltimer(recoil_reduction_timer)
 	add_recoil(recoil_buildup)
 
 mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	return // Ghosts and roaches have no movement recoil
 
+/**
+ * Settles recoil down based on how much real time has actually passed since we last touched it, instead of
+ * relying on a scheduled callback that rapid-fire shots/footsteps kept cancelling and pushing back before it
+ * could ever run. This is what lets aim recover mid-burst instead of only once you stop entirely.
+ */
+/mob/living/proc/decay_recoil()
+	if(!recoil)
+		recoil_last_update = world.time
+		return
+	var/steps = round((world.time - recoil_last_update) / RECOIL_DECAY_TICK)
+	if(steps <= 0)
+		return
+	var/scale = HAS_TRAIT(src, SPREAD_CONTROL) ? 0.5 : RECOIL_DECAY_MULT
+	for(var/i in 1 to min(steps, RECOIL_DECAY_MAX_CATCHUP))
+		if(recoil <= RECOIL_DECAY_FLAT)
+			recoil = 0
+			break
+		recoil -= RECOIL_DECAY_FLAT
+		recoil *= scale
+	recoil_last_update = world.time
+
 /mob/living/proc/add_recoil(recoil_buildup)
+	decay_recoil()
 	if(recoil_buildup)
 		if(HAS_TRAIT(src, SPREAD_CONTROL))
 			recoil_buildup *= 0.5
 		recoil += recoil_buildup
 		update_recoil()
 
+/// Periodic cosmetic nudge so recoil visibly settles back to 0 (and the cursor updates) even if nothing else touches it
 /mob/living/proc/calc_recoil()
-
-	var/base = 0.8
-	var/scale = 0.8
-
-	if(HAS_TRAIT(src, SPREAD_CONTROL))
-		scale = 0.5
-
-	if(recoil <= base)
-		recoil = 0
-	else
-		recoil -= base
-		recoil *= scale
+	recoil_reduction_timer = null
+	decay_recoil()
 	update_recoil()
 
 /mob/living/proc/calculate_offset(offset = 0)
+	decay_recoil()
 	if(recoil)
 		offset += recoil
 	if(ishuman(src))
@@ -51,11 +62,13 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 		G.check_safety_cursor(src)
 
 	if(recoil > 0)
-		recoil_reduction_timer = addtimer(CALLBACK(src, PROC_REF(calc_recoil)), 0.1 SECONDS, TIMER_STOPPABLE)
+		if(!recoil_reduction_timer)
+			recoil_reduction_timer = addtimer(CALLBACK(src, PROC_REF(calc_recoil)), RECOIL_DECAY_TICK, TIMER_STOPPABLE)
 	else
 		if(!istype(G))
 			remove_cursor()
 		deltimer(recoil_reduction_timer)
+		recoil_reduction_timer = null
 
 /mob/living/proc/update_cursor(obj/item/gun/G)
 	if(!(istype(get_active_held_item(), /obj/item/gun) || recoil > 0))

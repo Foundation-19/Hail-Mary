@@ -1127,6 +1127,15 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define MAX_ACCURACY_OFFSET  45 //It's both how big gun recoil can build up, and how hard you can miss
 #define RECOIL_REDUCTION_TIME 1 SECONDS // unused
 
+/// How often, in world.time, recoil gets a chance to settle back down. Decay is caught up based on elapsed time, so this isn't skipped by rapid fire/movement anymore
+#define RECOIL_DECAY_TICK (0.1 SECONDS)
+/// Flat recoil shed per settle step
+#define RECOIL_DECAY_FLAT 0.8
+/// Proportion of remaining recoil kept per settle step
+#define RECOIL_DECAY_MULT 0.8
+/// Safety cap on how many settle steps we crunch through at once after a long gap with no recoil updates
+#define RECOIL_DECAY_MAX_CATCHUP 50
+
 #define EMBEDDED_RECOIL(x)     list(1.3 *x, 0  *x, 0  *x )
 #define HANDGUN_RECOIL(x)      list(1.15*x, 0.1*x, 0.6*x )
 #define SMG_RECOIL(x)          list(1   *x, 0.2*x, 1.2*x )
@@ -1168,6 +1177,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FIRE_RATE_250 2.5
 #define GUN_FIRE_RATE_300 2
 #define GUN_FIRE_RATE_400 1.5
+#define GUN_FIRE_RATE_450 1.33
 #define GUN_FIRE_RATE_600 1
 #define GUN_FIRE_RATE_800 0.8
 #define GUN_FIRE_RATE_1000 0.6

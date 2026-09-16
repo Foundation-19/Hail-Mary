@@ -279,11 +279,12 @@
 	icon_state = "oldpistol"
 	mag_type = /obj/item/ammo_box/magazine/internal/cylinder/rev357
 	weapon_class = WEAPON_CLASS_TINY
+	draw_time = GUN_DRAW_NORMAL // a real .357 magnum shouldn't be ready to fire the instant it's drawn
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = HANDGUN_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/semi_auto/faster
+		/datum/firemode/semi_auto/fast
 	)
 	fire_sound = 'sound/f13weapons/policepistol.ogg'
 	gun_accuracy_zone_type = ZONE_WEIGHT_AUTOMATIC // limbfucker2000

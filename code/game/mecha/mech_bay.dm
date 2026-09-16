@@ -151,6 +151,19 @@
 	reagent_id = /datum/reagent/fuel
 	var/obj/item/key/station_key = new()
 	anchored =  TRUE
+	max_integrity = 500 // a fixed commercial tank is built sturdier than a handheld fuel drum
+
+// Unlike a handheld fuel drum, a stray bullet shouldn't instantly detonate a whole gas
+// station — it needs to actually take enough damage to rupture the tank first.
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/bullet_act(obj/item/projectile/P)
+	playsound(src, P.hitsound, 50, 1)
+	if(P.suppressed != SUPPRESSED_VERY)
+		visible_message(span_danger("[src] is hit by \a [P]!"), null, null, COMBAT_MESSAGE_RANGE)
+	take_damage(P.damage, P.damage_type, P.flag, sound_effect = 0, attack_dir = turn(P.dir, 180), armour_penetration = P.armour_penetration, attacked_by = P.firer)
+	return TRUE
+
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/obj_destruction(damage_flag)
+	boom()
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/Initialize()
 	. = ..()
@@ -179,7 +192,9 @@
 	. = ..()
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/boom()
-	return
+	// Holds far more fuel than a portable tank, so rupturing it is a bigger, deadlier fireball than a regular fueltank's
+	explosion(get_turf(src), 1, 2, 8, flame_range = 8)
+	qdel(src)
 
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station/on_attack_hand(mob/living/user, act_intent, unarmed_attack_flags)
 	if(!deez_nozz.holder)
