@@ -1127,14 +1127,17 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define MAX_ACCURACY_OFFSET  45 //It's both how big gun recoil can build up, and how hard you can miss
 #define RECOIL_REDUCTION_TIME 1 SECONDS // unused
 
-/// How often, in world.time, recoil gets a chance to settle back down. Decay is caught up based on elapsed time, so this isn't skipped by rapid fire/movement anymore
-#define RECOIL_DECAY_TICK (0.1 SECONDS)
-/// Flat recoil shed per settle step
-#define RECOIL_DECAY_FLAT 0.8
-/// Proportion of remaining recoil kept per settle step
-#define RECOIL_DECAY_MULT 0.8
-/// Safety cap on how many settle steps we crunch through at once after a long gap with no recoil updates
-#define RECOIL_DECAY_MAX_CATCHUP 50
+/// How often, in world.time, recoil gets a chance to settle back down. Decay is caught up based on elapsed time, so this isn't skipped by rapid fire/movement anymore.
+/// Needs to be shorter than the fastest gun's per-shot delay (down to GUN_FIRE_RATE_1800 = 0.33) or high-RPM autofire never gets a decay chance between shots and all fast guns feel identically uncontrollable
+#define RECOIL_DECAY_TICK (0.01 SECONDS)
+/// Flat recoil shed per settle step (scaled down 10x alongside RECOIL_DECAY_TICK so the decay-per-second rate for slow/semi-auto guns is unchanged)
+#define RECOIL_DECAY_FLAT 0.08
+/// Proportion of remaining recoil kept per settle step (10th root of the old 0.8/tick so 10 new steps == 1 old step)
+#define RECOIL_DECAY_MULT 0.978
+/// Same idea as RECOIL_DECAY_MULT, but for the SPREAD_CONTROL trait's faster settle rate
+#define RECOIL_DECAY_MULT_SPREAD_CONTROL 0.933
+/// Safety cap on how many settle steps we crunch through at once after a long gap with no recoil updates (scaled up 10x to keep the same real-time catch-up window)
+#define RECOIL_DECAY_MAX_CATCHUP 500
 
 #define EMBEDDED_RECOIL(x)     list(1.3 *x, 0  *x, 0  *x )
 #define HANDGUN_RECOIL(x)      list(1.15*x, 0.1*x, 0.6*x )
@@ -1182,6 +1185,7 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FIRE_RATE_800 0.8
 #define GUN_FIRE_RATE_1000 0.6
 #define GUN_FIRE_RATE_1200 0.5
+#define GUN_FIRE_RATE_1800 0.33 // minigun-class belt/pack-fed weapons only, meant to clearly outpace anything handheld
 
 
 /// Gun fire delay Base

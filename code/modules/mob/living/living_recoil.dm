@@ -19,7 +19,7 @@ mob/proc/handle_movement_recoil() // Used in movement/mob.dm
 	var/steps = round((world.time - recoil_last_update) / RECOIL_DECAY_TICK)
 	if(steps <= 0)
 		return
-	var/scale = HAS_TRAIT(src, SPREAD_CONTROL) ? 0.5 : RECOIL_DECAY_MULT
+	var/scale = HAS_TRAIT(src, SPREAD_CONTROL) ? RECOIL_DECAY_MULT_SPREAD_CONTROL : RECOIL_DECAY_MULT
 	for(var/i in 1 to min(steps, RECOIL_DECAY_MAX_CATCHUP))
 		if(recoil <= RECOIL_DECAY_FLAT)
 			recoil = 0

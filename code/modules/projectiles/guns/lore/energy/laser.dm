@@ -879,7 +879,7 @@
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	var/obj/item/minigunpack/ammo_pack
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm450
+		/datum/firemode/automatic/rpm1800 // match the ballistic minigun's rate - both are pack-fed "incredible rate of fire" weapons
 	)
 
 /obj/item/gun/energy/minigun/Initialize()

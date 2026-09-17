@@ -103,7 +103,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(0.5)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm1800 // a minigun firing at regular-rifle speed isn't "extreme rate of fire" like its own desc claims
 	)
 	
 	flags_1 = CONDUCT_1
