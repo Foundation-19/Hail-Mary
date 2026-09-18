@@ -158,14 +158,17 @@
 	if(accepting)
 		c += "<p class='hint'>&gt; Acknowledge each rule to proceed.</p>"
 
-	// Rules 1-6: straightforward
+	// Rules 1-9: straightforward
 	var/list/simple_rules = list(
-		"Play in good faith. Don't be too much of a dick, don't meta-game, power-game, or abuse exploits.",
-		"Don't harass each other OOC. Banter is fine but don't take it too far.",
-		"Roleplay believably as a member of your faction. Don't be a blatant shitpost. (Some exception for Raiders.)",
-		"Names cannot be obvious references to pop culture. More subtle ones are fine.",
-		"Use escalation when engaging in PvP combat.",
-		"Don't attack other players until the 30-minute grace period is over. You'll see a big notice when it's time to mog."
+		"Play in good faith.",
+		"This server is first and foremost a roleplay server. Make the best attempt you can to stay in character within the fallout universe. ",
+		"No toxicity, griefing or trolling.",
+		"Do not exclusively hunt for a reason to kill.",
+		"Do not intentionally break/abuse/bug/exploit the game for personal or group gain.",
+		"No NSFW content on the server.",
+		"Escalation is required for combat to occur. This includes the combat indicator being used prior to combat start if youre initiating the fight. You can point (Shift + MMB) at players who run and if they do not stop after 3 seconds, they are valid.",
+		"No hostility or public disputes of admin actions; all appeals and admin inquiries must go through #create-a-ticket on Discord",
+		"Assassinations and infiltrations are fine without escalation so long as the reason is an in-round reason and not for something prior/external to the round on-going."
 	)
 	for(var/i = 1; i <= length(simple_rules); i++)
 		c += "<div class='rule'>"
@@ -176,32 +179,32 @@
 			c += "<p><span class='n'>[i].</span> [simple_rules[i]]</p>"
 		c += "</div>"
 
-	// Rule 7: raids (complex with sub-points)
+	// Rule 10: raids (complex with sub-points)
 	c += "<div class='rule'>"
 	if(accepting)
-		c += "<input type='checkbox' class='rc' id='r7' onchange='upd()'>"
-		c += "<label for='r7'><span class='n'>7.</span> Make an ahelp before you raid &mdash; all we require is a good IC reason. &#91;WAIT FOR ADMIN APPROVAL&#93;"
+		c += "<input type='checkbox' class='rc' id='r10' onchange='upd()'>"
+		c += "<label for='r10'><span class='n'>7.</span> Make an ahelp before you raid &mdash; all we require is a good IC reason. &#91;WAIT FOR ADMIN APPROVAL&#93;"
 		c += "<span class='sub'>&bull; Make it known to your target that you are raiding them before going in. (e.g. &ldquo;Hello NCR, we are here to raid you.&rdquo;)</span>"
 		c += "<span class='sub'>&bull; Do not linger too long after the raid is complete, or risk getting admin-killed.</span>"
 		c += "<span class='sub'>&bull; If no admins are online, raids may be permitted 2 hours into the round.</span>"
 		c += "</label>"
 	else
-		c += "<p><span class='n'>7.</span> Make an ahelp before you raid &mdash; all we require is a good IC reason. &#91;WAIT FOR ADMIN APPROVAL&#93;"
+		c += "<p><span class='n'>10.</span> Make an ahelp before you raid &mdash; all we require is a good IC reason. &#91;WAIT FOR ADMIN APPROVAL&#93;"
 		c += "<span class='sub'>&bull; Make it known to your target that you are raiding them before going in. (e.g. &ldquo;Hello NCR, we are here to raid you.&rdquo;)</span>"
 		c += "<span class='sub'>&bull; Do not linger too long after the raid is complete, or risk getting admin-killed.</span>"
 		c += "<span class='sub'>&bull; If no admins are online, raids may be permitted 2 hours into the round.</span>"
 		c += "</p>"
 	c += "</div>"
 
-	// Rules 8-11
+	// Rules 11-15
 	var/list/tail_rules = list(
-		"Stay in your faction armor, or use the colormate to paint found armor to your faction colors. (Legion = red, NCR = brown, etc.)",
-		"Do not mess with AFK players at all unless you are sending-to-matrix (despawning) those who aren't coming back.",
-		"ERP is not allowed. Do not emote anything sexually explicit.",
+		"No cheating.",
+		"Do not interact/abuse/harm AFK players outside of putting them in the matrix.",
+		"18+ Maturity is required to play within the server. Acting in any way less will result in a ban.",
 		"Have fun."
 	)
 	for(var/i = 1; i <= length(tail_rules); i++)
-		var/rule_num = i + 7
+		var/rule_num = i + 10
 		c += "<div class='rule'>"
 		if(accepting)
 			c += "<input type='checkbox' class='rc' id='r[rule_num]' onchange='upd()'>"
@@ -215,9 +218,9 @@
 	// Addendum
 	c += "<div class='addendum'>"
 	c += "<b>&gt; Additional Rulings (Temporary)</b>"
-	c += "Sieges are now considered raids &mdash; ahelp for permission. "
+	c += "Playing a character that is apart of a non-active faction is not allowed. This means no enclave townie or legion waster. "
 	c += "Blocking a bunker with walls is fine; others may break in equally. "
-	c += "Basing in a bunker (e.g. casino) does not require raid permissions, but this only applies before the 1:30 mark."
+	c += "Basing in a bunker (e.g. casino) does not require raid permissions, but this only applies before the 1:00 mark."
 	c += "</div>"
 
 	if(accepting)
