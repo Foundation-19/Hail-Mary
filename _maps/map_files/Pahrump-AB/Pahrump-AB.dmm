@@ -55100,6 +55100,9 @@
 /obj/structure/flora/tree/joshua,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"rGk" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/brotherhood/operations)
 "rGn" = (
 /obj/effect/decal/waste{
 	icon_state = "goo8"
@@ -127918,11 +127921,11 @@ fmQ
 wgS
 aae
 aae
-aae
-aae
-aae
-aae
-aae
+woD
+woD
+woD
+woD
+woD
 woD
 oYF
 dKK
@@ -128176,9 +128179,9 @@ woD
 woD
 woD
 woD
-woD
-woD
-woD
+rGk
+rGk
+rGk
 woD
 woD
 bcw
