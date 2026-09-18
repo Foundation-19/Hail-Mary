@@ -23,6 +23,24 @@
 	var/handedness = GUN_EJECTOR_RIGHT
 	var/cock_sound = "gun_slide_lock"
 	fire_sound = null //null tells the gun to draw from the casing instead of the gun for sound
+
+	/// Current accumulated barrel heat, 0 to GUN_HEAT_MAX
+	var/gun_heat = 0
+	/// world.time heat was last settled - used to catch up decay in real time, same pattern as living_recoil.dm
+	var/heat_last_update = 0
+	/// 0-100 overall mechanical condition. Degrades from jams/cook-offs, restored with a wrench
+	var/gun_condition = GUN_CONDITION_MAX
+	/// Set when a reload gets interrupted - the next shot fired has a guaranteed jam
+	var/pending_jam_next_shot = FALSE
+	/// Time it takes to swap in a new magazine - short, but long enough to be interruptible under fire (see attackby())
+	var/reload_time = 4
+	/// Multiplies heat gained per shot - lower for guns that don't build heat like a sustained-auto weapon would
+	var/heat_per_shot_mult = 1
+	/// Multiplies the jam/cook-off heat thresholds and GUN_HEAT_MAX - higher means more headroom before malfunctions start
+	var/heat_capacity_mult = 1
+	/// Multiplies final jam/cook-off chance once heat is past threshold - independent of heat capacity, for guns that are just jankier or more reliable by design
+	var/jam_chance_mult = 1
+
 /obj/item/gun/ballistic/Initialize()
 	. = ..()
 	if(spawnwithmagazine)
@@ -107,6 +125,10 @@
 		// removable mag, eject the mag
 		if(!is_magazine_allowed(new_mag, user)) // But only if the new mag would fit
 			return FALSE
+		if(!do_after(user, reload_time * user.get_agility_gun_speed_multiplier(), TRUE, src, allow_movement = TRUE))
+			to_chat(user, span_warning("Your reload of \the [src] is interrupted!"))
+			pending_jam_next_shot = TRUE
+			return TRUE
 		var/obj/item/ammo_box/oldmag
 		if(istype(magazine))
 			oldmag = magazine
@@ -211,6 +233,9 @@
 		return TRUE
 
 /obj/item/gun/ballistic/attack_self(mob/living/user)
+	if(jammed)
+		try_clear_jam(user)
+		return
 	if(magazine)
 		if(magazine.fixed_mag || !casing_ejector)
 			pump(user, TRUE)
@@ -226,6 +251,19 @@
 	to_chat(user, span_notice("There's no magazine in \the [src]."))
 	update_icon()
 	return
+
+/// Interruptible action to clear a jam - see gun_malfunction.dm for how the jam happened in the first place
+/obj/item/gun/ballistic/proc/try_clear_jam(mob/living/user)
+	if(!jammed)
+		return
+	to_chat(user, span_notice("You begin clearing the jam in [src]..."))
+	if(!do_after(user, GUN_JAM_CLEAR_TIME * user.get_agility_gun_speed_multiplier(), TRUE, src))
+		to_chat(user, span_warning("You were interrupted while clearing the jam!"))
+		return
+	jammed = FALSE
+	to_chat(user, span_notice("You clear the jam in [src]."))
+	playsound(src, cock_sound, 50, TRUE)
+	update_icon()
 
 ///obj/item/gun/ballistic/AltClick(mob/living/user)
 //	pump(user, TRUE)

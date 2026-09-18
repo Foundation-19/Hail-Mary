@@ -72,6 +72,9 @@
 	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	weapon_class = WEAPON_CLASS_CARBINE
+	// Lighter rounds build less barrel heat, but the simpler blowback feed jams a bit more readily
+	heat_per_shot_mult = 0.85
+	jam_chance_mult = 1.3
 
 /* * * * * * * * * * *
  * American 180 SMG
@@ -167,6 +170,8 @@
 	suppressor_state = "uzi_suppressor"
 	suppressor_x_offset = 26
 	suppressor_y_offset = 19
+	// Real M3/M3A1 had a solid, simple service-reliability record once early extraction issues were fixed in the A1
+	jam_chance_mult = 1.0
 
 /* * * * * * * * * * *
  * 10mm SMG
@@ -199,6 +204,8 @@
 	suppressor_x_offset = 30
 	suppressor_y_offset = 16
 	fire_sound = 'sound/f13weapons/10mm_fire_03.ogg'
+	// Fictional caliber, but open-bolt blowback designs are objectively simpler/fewer precision parts and historically more fouling-tolerant
+	jam_chance_mult = 0.9
 
 /* * * * * * * * * * *
  * Uzi 9mm SMG
@@ -232,6 +239,8 @@
 	suppressor_state = "uzi_suppressor"
 	suppressor_x_offset = 29
 	suppressor_y_offset = 16
+	// Real Uzis have an exceptional reliability record - telescoping bolt wraps the barrel, simple action, adopted worldwide for functioning when dirty
+	jam_chance_mult = 0.8
 
 /* * * * * * * * * * *
  * Uzi .22 SMG
@@ -281,6 +290,8 @@
 		/datum/firemode/automatic/rpm600,
 		/datum/firemode/semi_auto/faster
 	)
+	// Real MP40's single-position magazine feed lips are a well-documented historical weak point that caused feed jams
+	jam_chance_mult = 1.3
 //compact modernize MP5
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/mp5
 	name = "HK MP-5"
@@ -300,6 +311,9 @@
 		/datum/firemode/automatic/rpm800,
 		/datum/firemode/semi_auto/faster
 	)
+	// Real MP5's roller-delayed blowback + HK's precision manufacturing tolerances give it one of the best reliability reputations of any SMG
+	jam_chance_mult = 0.6
+
 //tec-9 but in .22, compared to .22 pistol, is automatic, but less damage, not silenced
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/smg22/tec22
 	name = ".22 machine pistol"
@@ -313,6 +327,8 @@
 	weapon_class = WEAPON_CLASS_SMALL	
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	can_suppress = FALSE
+	// Real TEC-9 has a well-documented reputation for frequent malfunctions/poor build quality
+	jam_chance_mult = 1.4
 
 //rockwell: starter tier bad quality 9mm smg
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/rockwell
@@ -329,6 +345,8 @@
 		/datum/firemode/semi_auto/slow
 	)
 	can_suppress = FALSE
+	// Crude homemade construction has objectively looser tolerances than a factory gun - a mechanical fact, not a narrative detail
+	jam_chance_mult = 1.6
 
 /obj/item/gun/ballistic/automatic/smg/mini_uzi/owengun
 	name = "9mm Owen Gun"
@@ -346,6 +364,8 @@
 		/datum/firemode/semi_auto/fast
 	)
 	can_suppress = FALSE
+	// Documented military history: Australian trials buried Owen Guns in mud/sand and they still fired when other SMGs failed
+	jam_chance_mult = 0.3
 
 
 //mac-10: uzi, but compact, softer hitting, harder to control. needs suppressor location adjusted
@@ -362,6 +382,8 @@
 		/datum/firemode/automatic/rpm1200,
 		/datum/firemode/semi_auto/fastest
 	)
+	// Real MAC-10 civilian/clone manufacturing had inconsistent QC, and its extreme rate of fire stresses the action harder than most SMGs
+	jam_chance_mult = 1.1
 
 /* * * * * * * * * * *
  * Carl Gustaf 10mm SMG
@@ -391,6 +413,8 @@
 		/datum/firemode/semi_auto/fastest
 	)
 	fire_sound = 'sound/f13weapons/10mm_fire_03.ogg'
+	// Real Swedish K (Carl Gustaf m/45) has a rugged, reliable service reputation - widely exported, used by US special forces in Vietnam for that reason
+	jam_chance_mult = 0.85
 
 /* * * * * * * * * * *
  * Thompson SMG
@@ -418,6 +442,8 @@
 	)
 
 	fire_sound = 'sound/weapons/gunshot_smg.ogg'
+	// Real Thompson (esp. with box/stick magazines, this gun's default loadout) has a robust, well-machined reputation - drum-mag Thompsons had more feed issues historically, but that's not the default here
+	jam_chance_mult = 0.85
 
 /* * * * * * * * * * *
  * Whitelegs Thompson SMG
@@ -442,6 +468,8 @@
 		/datum/firemode/automatic/rpm300,
 		/datum/firemode/semi_auto/slower
 	)
+	// Same base design as the factory Thompson, but decades of neglect/salvage wear objectively increases malfunction likelihood regardless of the original design's quality
+	jam_chance_mult = 1.1
 
 
 /* * * * * * * * * * *
@@ -478,6 +506,8 @@
 	suppressor_x_offset = 29
 	suppressor_y_offset = 16
 	fire_sound = 'sound/f13weapons/10mm_fire_03.ogg'
+	// Real P90 has a solid overall reliability reputation, though it's better known for compactness/penetration than being a reliability legend
+	jam_chance_mult = 0.9
 
 /* * * * * * * * * * *
  * MP-5 SD SMG
@@ -510,6 +540,8 @@
 	silenced = TRUE
 	fire_sound = 'sound/weapons/Gunshot_silenced.ogg'
 	fire_sound_silenced = 'sound/weapons/Gunshot_silenced.ogg'
+	// Same real MP5 platform as mini_uzi/mp5 - roller-delayed blowback + precision manufacturing keep it reliable even suppressed
+	jam_chance_mult = 0.6
 
 /* * * * * * * * * * *
  * PPSh SMG
@@ -540,6 +572,8 @@
 	scope_x_offset = 9
 	scope_y_offset = 21
 	can_scope = TRUE
+	// Real PPSh-41 is well-documented as extremely rugged/reliable in harsh conditions (mud, snow, cold) on the Eastern Front
+	jam_chance_mult = 0.75
 
 /* * * * * * * * * * *
  * Sidewinder SMG

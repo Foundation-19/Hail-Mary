@@ -34,6 +34,9 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
 	)
+	// Single-round pump cycling is inherently self-limiting - a pump shotgun basically doesn't overheat or jam from heat
+	heat_capacity_mult = 5
+	jam_chance_mult = 0.3
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
 	. = 0

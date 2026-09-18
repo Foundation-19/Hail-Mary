@@ -375,7 +375,7 @@
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, span_notice("You don't want to hurt anyone!"))
 			return FALSE
-		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper)
+		var/damage = rand(M.melee_damage_lower, M.melee_damage_upper) * NPC_DAMAGE_REALISM_MULT
 		var/list/return_list = list()
 		if(mob_run_block(M, damage, "the [M.name]", ATTACK_TYPE_MELEE, M.armour_penetration, M, check_zone(M.zone_selected), return_list) & BLOCK_SUCCESS)
 			return 0

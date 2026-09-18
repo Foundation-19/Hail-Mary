@@ -1063,6 +1063,9 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_EXTRA_DAMAGE_T4 1.35
 #define GUN_EXTRA_DAMAGE_T5 1.50
 
+/// Multiplies ALL NPC-dealt damage (simple_animal melee rolls + ranged projectile/casing damage).
+#define NPC_DAMAGE_REALISM_MULT 1.35
+
 /// Also multiplies the gun's projectile damage, but so it does less damage
 #define GUN_LESS_DAMAGE_T1 0.90
 #define GUN_LESS_DAMAGE_T2 0.85
@@ -1130,12 +1133,12 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 /// How often, in world.time, recoil gets a chance to settle back down. Decay is caught up based on elapsed time, so this isn't skipped by rapid fire/movement anymore.
 /// Needs to be shorter than the fastest gun's per-shot delay (down to GUN_FIRE_RATE_1800 = 0.33) or high-RPM autofire never gets a decay chance between shots and all fast guns feel identically uncontrollable
 #define RECOIL_DECAY_TICK (0.01 SECONDS)
-/// Flat recoil shed per settle step (scaled down 10x alongside RECOIL_DECAY_TICK so the decay-per-second rate for slow/semi-auto guns is unchanged)
-#define RECOIL_DECAY_FLAT 0.08
-/// Proportion of remaining recoil kept per settle step (10th root of the old 0.8/tick so 10 new steps == 1 old step)
-#define RECOIL_DECAY_MULT 0.978
-/// Same idea as RECOIL_DECAY_MULT, but for the SPREAD_CONTROL trait's faster settle rate
-#define RECOIL_DECAY_MULT_SPREAD_CONTROL 0.933
+/// Flat recoil shed per settle step (bumped from 0.08 -> 0.12 2026-09-17, faster tail-end settle to near-zero once recoil is already low)
+#define RECOIL_DECAY_FLAT 0.12
+/// Proportion of remaining recoil kept per settle step (lowered from 0.978 -> 0.955 2026-09-17: cuts the real-time-to-90%-decayed from ~1.0s to ~0.5s, per user feedback that recoil lingered too long between shots/bursts)
+#define RECOIL_DECAY_MULT 0.955
+/// Same idea as RECOIL_DECAY_MULT, but for the SPREAD_CONTROL trait's faster settle rate (kept at the same ~95.4% ratio to RECOIL_DECAY_MULT as before)
+#define RECOIL_DECAY_MULT_SPREAD_CONTROL 0.911
 /// Safety cap on how many settle steps we crunch through at once after a long gap with no recoil updates (scaled up 10x to keep the same real-time catch-up window)
 #define RECOIL_DECAY_MAX_CATCHUP 500
 
@@ -1329,6 +1332,42 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 
 /// cooldown for being spammed with messages that you shot the gun
 #define GUN_SHOOT_MESSAGE_ANTISPAM_TIME 0.5 SECONDS
+
+/// ==== Gun heat & malfunction system (ballistic guns) ====
+/// Heat added per round fired, before decay is applied for the shot
+#define GUN_HEAT_PER_SHOT 6
+/// How often, in real time, accumulated heat gets a chance to settle back down (same catch-up pattern as RECOIL_DECAY_TICK)
+#define GUN_HEAT_DECAY_TICK (0.1 SECONDS)
+/// Flat heat shed per settle step
+#define GUN_HEAT_DECAY_FLAT 0.5
+/// Proportion of remaining heat kept per settle step (the rest decays away)
+#define GUN_HEAT_DECAY_MULT 0.9
+/// Safety cap on how many settle steps get crunched at once after a long gap without firing
+#define GUN_HEAT_DECAY_MAX_CATCHUP 200
+/// Heat threshold below which sustained fire is safe (no jam chance at all)
+#define GUN_HEAT_JAM_THRESHOLD 60
+/// Heat threshold at which the chambered round can spontaneously cook off
+#define GUN_HEAT_COOKOFF_THRESHOLD 90
+/// Absolute cap on accumulated heat
+#define GUN_HEAT_MAX 100
+/// % jam chance added per point of heat above GUN_HEAT_JAM_THRESHOLD (scaled further by condition)
+#define GUN_HEAT_JAM_CHANCE_PER_POINT 0.6
+/// % cook-off chance added per point of heat above GUN_HEAT_COOKOFF_THRESHOLD
+#define GUN_HEAT_COOKOFF_CHANCE_PER_POINT 1.2
+
+/// Gun condition ceiling (0-100) - a well-maintained gun sits here
+#define GUN_CONDITION_MAX 100
+/// Condition lost from a jam
+#define GUN_CONDITION_LOSS_JAM 3
+/// Condition lost from a cook-off (worse than a plain jam)
+#define GUN_CONDITION_LOSS_COOKOFF 8
+/// Condition restored per successful wrench maintenance pass
+#define GUN_CONDITION_REPAIR_AMOUNT 15
+/// Below this condition, jam chance starts multiplying upward (up to 3x at 0 condition)
+#define GUN_CONDITION_DEGRADED_THRESHOLD 60
+
+/// Time it takes to clear a jam, interruptible like any other do_after
+#define GUN_JAM_CLEAR_TIME (3 SECONDS)
 
 /// Unarmed Damage Defines
 #define PUNCH_DAMAGE_LOW 1

@@ -17,7 +17,9 @@
 		/datum/firemode/semi_auto
 	)
 	handedness = GUN_EJECTOR_ANY
-
+	// Cylinder guns cycle one chamber at a time and don't build sustained-fire heat the way an automatic does
+	heat_capacity_mult = 6
+	jam_chance_mult = 0.4
 
 	var/select = 0 //doesn't do anything?
 	equipsound = 'sound/f13weapons/equipsounds/pistolequip.ogg'

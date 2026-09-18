@@ -31,6 +31,18 @@
 	projectile_type = /obj/item/projectile/bullet/c45/incendiary
 	fire_power = CASING_POWER_MEDIUM_PISTOL * CASING_POWER_MOD_HANDLOAD
 
+/obj/item/ammo_casing/c45/ap
+	name = ".45 armor-piercing bullet casing"
+	desc = "A .45 bullet casing loaded with a steel-core penetrator round."
+	projectile_type = /obj/item/projectile/bullet/c45/ap
+	fire_power = CASING_POWER_MEDIUM_PISTOL * CASING_POWER_MOD_SURPLUS
+
+/obj/item/ammo_casing/c45/hollowpoint
+	name = ".45 hollow-point bullet casing"
+	desc = "A .45 bullet casing loaded with an expanding hollow-point round."
+	projectile_type = /obj/item/projectile/bullet/c45/hollowpoint
+	fire_power = CASING_POWER_MEDIUM_PISTOL * CASING_POWER_MOD_SURPLUS
+
 /obj/item/ammo_casing/c45/rubber
 	name = ".45 rubber bullet casing"
 	desc = "A .45 rubber bullet casing."

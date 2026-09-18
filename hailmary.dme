@@ -3265,6 +3265,7 @@
 #include "code\modules\projectiles\boxes_magazines\stock\external\rechargable.dm"
 #include "code\modules\projectiles\guns\ballistic.dm"
 #include "code\modules\projectiles\guns\energy.dm"
+#include "code\modules\projectiles\guns\gun_malfunction.dm"
 #include "code\modules\projectiles\guns\magic.dm"
 #include "code\modules\projectiles\guns\lore\ballistic\automatic.dm"
 #include "code\modules\projectiles\guns\lore\ballistic\bow.dm"
