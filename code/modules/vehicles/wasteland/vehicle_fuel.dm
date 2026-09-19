@@ -94,6 +94,10 @@
 	var/raggeted = FALSE
 	var/active = FALSE
 
+// Pre-filled variant for easy testing/spawning; the base jerrycan's list_reagents has no amount so it spawns empty
+/obj/item/reagent_containers/jerrycan/full
+	list_reagents = list(/datum/reagent/fuel = 500)
+
 /obj/item/reagent_containers/jerrycan/bullet_act(obj/item/projectile/P)
 	. = ..()
 	make_boom()

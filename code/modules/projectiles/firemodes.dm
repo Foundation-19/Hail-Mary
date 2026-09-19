@@ -106,6 +106,12 @@
 	fire_type = GUN_FIREMODE_AUTO
 	firerate_auto = GUN_FIRE_RATE_1200
 
+/datum/firemode/automatic/rpm1800
+	name = "Fully Automatic"
+	desc = "Automatic - 1800 RPM."
+	fire_type = GUN_FIREMODE_AUTO
+	firerate_auto = GUN_FIRE_RATE_1800
+
 /datum/firemode/automatic/rpm1200
 	name = "Fully Automatic"
 	desc = "Automatic - 1200 RPM."
@@ -135,6 +141,12 @@
 	desc = "Automatic - 400 RPM."
 	fire_type = GUN_FIREMODE_AUTO
 	firerate_auto = GUN_FIRE_RATE_400
+
+/datum/firemode/automatic/rpm450
+	name = "Fully Automatic"
+	desc = "Automatic - 450 RPM."
+	fire_type = GUN_FIREMODE_AUTO
+	firerate_auto = GUN_FIRE_RATE_450
 
 /datum/firemode/automatic/rpm300
 	name = "Fully Automatic"

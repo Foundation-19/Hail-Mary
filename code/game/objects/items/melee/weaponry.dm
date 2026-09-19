@@ -73,6 +73,24 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	resistance_flags = FIRE_PROOF
 	total_mass = TOTAL_MASS_MEDIEVAL_WEAPON
+	item_flags = ITEM_CAN_PARRY
+	block_parry_data = /datum/block_parry_data/katana
+
+/datum/block_parry_data/katana // a disciplined, precise blade - narrow window, unforgiving if missed, but the best riposte around if you land it
+	parry_time_windup = 2
+	parry_time_active = 9
+	parry_time_spindown = 3
+	parry_stamina_cost = 6
+	parry_time_perfect = 1.5
+	parry_time_perfect_leeway = 0.5
+	parry_imperfect_falloff_percent = 15
+	parry_efficiency_perfect = 140
+	parry_efficiency_considered_successful = 55
+	parry_efficiency_to_counterattack = 100
+	parry_data = list(
+		PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 2,
+	)
+	parry_failed_stagger_duration = 3 SECONDS
 
 /obj/item/katana/cursed
 	slot_flags = null

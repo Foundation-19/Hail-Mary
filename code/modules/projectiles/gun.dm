@@ -147,6 +147,11 @@ ATTACHMENTS
 	var/safety = FALSE
 	var/restrict_safety = FALSE //To restrict the users ability to toggle the safety
 
+	/// Whether the gun is currently jammed and needs to be cleared before it'll fire again. See gun_malfunction.dm for the real implementation (ballistic guns only).
+	var/jammed = FALSE
+	/// Severity of the current jam - which clearing flow try_clear_jam() runs. Only meaningful while jammed. See gun_malfunction.dm.
+	var/malfunction_type = GUN_MALFUNCTION_JAM
+
 	var/sel_mode = 1 //index of the currently selected mode
 	var/list/firemodes = list()
 	var/list/init_firemodes = list(/datum/firemode/semi_auto)
@@ -578,6 +583,9 @@ ATTACHMENTS
 		return
 	if(on_cooldown(user))
 		return
+	if(jammed)
+		to_chat(user, span_danger("[src] is jammed!"))
+		return
 	clear_cooldown_mods()
 	if(safety)
 		to_chat(user, span_danger("The gun's safety is on!"))
@@ -623,16 +631,32 @@ ATTACHMENTS
 					shoot_live_shot(user, 1, target, message, stam_cost, BB, casing_sound)
 				else
 					shoot_live_shot(user, 0, target, message, stam_cost, BB, casing_sound)
+				add_heat(GUN_HEAT_PER_SHOT)
+				if(check_malfunction(user))
+					update_icon()
+					return TRUE
 		else
 			shoot_with_empty_chamber(user)
 			update_icon()
 			return
 		if(i < burst_size)
 			sleep(burst_shot_delay)
+			if(!user || user.incapacitated()) // getting stunned/knocked down mid-burst should cut it short, not fire out the rest on rails
+				process_chamber(user)
+				update_icon()
+				return TRUE
 		process_chamber(user)
 		update_icon()
 	SSblackbox.record_feedback("tally", "gun_fired", 1, type)
 	return TRUE
+
+/// Adds heat to the gun after a shot. No-op on the base class - see gun_malfunction.dm for the real (ballistic-only) implementation.
+/obj/item/gun/proc/add_heat(amount)
+	return
+
+/// Rolls for heat/condition-driven jams and cook-offs. Returns TRUE if the gun just jammed or cooked off (stopping the current burst). No-op on the base class.
+/obj/item/gun/proc/check_malfunction(mob/living/user)
+	return FALSE
 
 /obj/item/gun/attackby(obj/item/I, mob/user, params)
 	if(user.a_intent == INTENT_HARM)

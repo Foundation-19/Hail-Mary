@@ -359,7 +359,7 @@
 
 /obj/item/projectile/beam/laser/gatling/hitscan //Gatling Laser
 	name = "laser beam"
-	damage = 26 // was 15 - should out-DPS the mundane 5mm minigun given the permit + backpack power source it requires
+	damage = 15 // 5 less than the laser RCW's 20, offset by a 50% higher fire-rate
 	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser

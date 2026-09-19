@@ -94,6 +94,11 @@
 
 	var/force_modifier = calc_melee_dam_mod_from_special(user) // S.P.E.C.I.A.L.
 
+	if(HAS_TRAIT(user, TRAIT_BLOCK_COUNTER_READY))
+		force_modifier += force * BLOCK_COUNTER_DAMAGE_BONUS
+		REMOVE_TRAIT(user, TRAIT_BLOCK_COUNTER_READY, BLOCK_COUNTER_TRAIT)
+		to_chat(user, span_danger("You capitalize on your block, striking with extra force!"))
+
 	if(force >= 5)
 		if(HAS_TRAIT(user, TRAIT_BIG_LEAGUES))
 			force_modifier += 10
@@ -119,11 +124,13 @@
 		if(HAS_TRAIT(user, TRAIT_GHOULMELEE)) //negative trait
 			force_modifier += (-force * 0.25)
 
-	var/force_out = force + force_modifier
+	var/force_out = (force + force_modifier) * get_melee_condition_force_multiplier()
 	if(force_out <= 0)
 		playsound(loc, pokesound, get_clamped_volume(), 1, -1)
 	else if(hitsound)
 		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+
+	apply_melee_wear()
 
 	target.lastattacker = user.real_name
 	target.lastattackerckey = user.ckey
@@ -136,8 +143,40 @@
 
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])[M != target ? "(Critfail: hit [target] instead)" : ""]")
 
-	target.attacked_by(src, user, attackchain_flags, damage_multiplier, damage_addition = force_modifier)
+	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier(), damage_addition = force_modifier)
 	add_fingerprint(user)
+
+/**
+ * Returns a 0-1 multiplier applied to this item's force based on its accumulated melee wear.
+ * A pristine weapon (melee_condition = MELEE_CONDITION_MAX) returns 1. A fully worn weapon
+ * (melee_condition = 0) returns (1 - MELEE_CONDITION_FORCE_PENALTY_MAX).
+ */
+/obj/item/proc/get_melee_condition_force_multiplier()
+	if(melee_wear_immune || force < MELEE_CONDITION_MIN_FORCE)
+		return 1
+	var/lost_ratio = 1 - (melee_condition / MELEE_CONDITION_MAX)
+	return 1 - (lost_ratio * MELEE_CONDITION_FORCE_PENALTY_MAX)
+
+/**
+ * Ticks a small amount of wear onto this weapon after it's used to land a hit.
+ * No-ops for items too weak to count as "real" weapons, or explicitly wear-immune items.
+ */
+/obj/item/proc/apply_melee_wear()
+	if(melee_wear_immune || force < MELEE_CONDITION_MIN_FORCE)
+		return
+	melee_condition = max(melee_condition - MELEE_CONDITION_LOSS_PER_HIT, 0)
+
+/**
+ * Restores melee wear/condition on this weapon, clamped to MELEE_CONDITION_MAX.
+ * Called by sharpening/maintenance tools.
+ */
+/obj/item/proc/repair_melee_condition(amount = MELEE_CONDITION_REPAIR_AMOUNT)
+	if(melee_wear_immune)
+		return FALSE
+	if(melee_condition >= MELEE_CONDITION_MAX)
+		return FALSE
+	melee_condition = min(melee_condition + amount, MELEE_CONDITION_MAX)
+	return TRUE
 
 //the equivalent of the standard version of attack() but for object targets.
 /obj/item/proc/attack_obj(obj/O, mob/living/user)

@@ -485,7 +485,11 @@
 	
 	ranged_cooldown_time = 2 SECONDS
 	extra_projectiles = 0  // One shot at a time on lowpop
-	projectiletype = /obj/item/projectile/beam/laser/pistol
+	// Was the base beam/laser/pistol (35 dmg, no AP, non-hitscan) - hit harder than Gutsy's actual
+	// plasma gun and read as a slow "plasma bolt" instead of a laser. Hitscan variant matches the
+	// real player-obtainable AEP7 (20 dmg, 0.2 AP) - a basic civilian security bot shouldn't out-damage
+	// a military combat robot's plasma weapon.
+	projectiletype = /obj/item/projectile/beam/laser/pistol/hitscan
 	projectilesound = 'sound/weapons/laser.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
