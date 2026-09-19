@@ -269,6 +269,9 @@
 		to_chat(user, span_warning("You were interrupted while clearing the jam!"))
 		return
 	jammed = FALSE
+	// A jam skips the normal post-shot process_chamber() call, so the spent casing is still stuck
+	// chambered - clear it and rack a fresh round now instead of making the player pump it manually.
+	process_chamber(user)
 	to_chat(user, span_notice("You clear the jam in [src]."))
 	playsound(src, cock_sound, 50, TRUE)
 	update_icon()
