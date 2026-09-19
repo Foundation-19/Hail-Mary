@@ -1369,6 +1369,31 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 /// Time it takes to clear a jam, interruptible like any other do_after
 #define GUN_JAM_CLEAR_TIME (3 SECONDS)
 
+/// Malfunction severity - a quick tap-rack, one continuous do_after
+#define GUN_MALFUNCTION_JAM 1
+/// Malfunction severity - a genuine double-feed, needs the full strip/clear/reseat/rack drill (still just one triggered action, chained internally)
+#define GUN_MALFUNCTION_DOUBLEFEED 2
+/// Time it takes to clear a double-feed, split across the strip and reseat stages of clear_double_feed()
+#define GUN_DOUBLEFEED_CLEAR_TIME (7 SECONDS)
+/// Condition lost from a double-feed - worse than a plain jam, on par with a cook-off
+#define GUN_CONDITION_LOSS_DOUBLEFEED 6
+/// Below this condition, a would-be simple jam has an escalating chance of choking into a full double-feed instead
+#define GUN_CONDITION_DOUBLEFEED_THRESHOLD 35
+
+/// ==== Melee weapon wear & condition system ====
+/// Melee condition ceiling (0-100) - a freshly-sharpened/maintained weapon sits here
+#define MELEE_CONDITION_MAX 100
+/// Condition lost per solid hit landed on a living target (small - a blade takes a long campaign of use to fully dull)
+#define MELEE_CONDITION_LOSS_PER_HIT 0.4
+/// Below this condition, a weapon is visibly "worn" (examine flavor + meaningful force penalty)
+#define MELEE_CONDITION_DEGRADED_THRESHOLD 40
+/// Max proportion of force lost at 0 condition (a fully dulled/worn weapon still hits, just noticeably softer)
+#define MELEE_CONDITION_FORCE_PENALTY_MAX 0.3
+/// Condition restored per successful sharpen/maintenance pass
+#define MELEE_CONDITION_REPAIR_AMOUNT 25
+/// Minimum force a weapon needs before wear is even tracked - skips throwaway/utility items (mirrors the existing force>=5 "real weapon" threshold used for combat traits)
+#define MELEE_CONDITION_MIN_FORCE 5
+
 /// Unarmed Damage Defines
 #define PUNCH_DAMAGE_LOW 1
 #define PUNCH_DAMAGE_MAX 10

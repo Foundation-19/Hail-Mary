@@ -11,9 +11,27 @@
 	max_integrity = 200
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	var/icon_prefix = null
-	block_parry_data = /datum/block_parry_data/bokken
+	block_parry_data = /datum/block_parry_data/heavy_blade
 	item_flags = ITEM_CAN_PARRY
 	block_chance = 5
+
+/datum/block_parry_data/heavy_blade // slow, committal two-handed weapons - big windup/recovery, but a devastating riposte if you land it
+	parry_time_windup = 4
+	parry_time_active = 10
+	parry_time_spindown = 5
+	parry_stamina_cost = 10
+	parry_time_perfect = 3
+	parry_time_perfect_leeway = 1
+	parry_imperfect_falloff_percent = 12
+	parry_efficiency_perfect = 130
+	parry_efficiency_considered_successful = 50
+	parry_efficiency_to_counterattack = 90
+	parry_data = list(
+		PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 1.8,
+		PARRY_STAGGER_ATTACKER = 8,
+	)
+	parry_failed_stagger_duration = 5 SECONDS
+	parry_failed_clickcd_duration = 3 SECONDS
 
 /obj/item/twohanded/Initialize()
 	. = ..()

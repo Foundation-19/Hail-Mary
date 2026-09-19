@@ -55,13 +55,18 @@
 		var/perception_mult = user ? user.get_perception_gun_jam_multiplier() : 1
 		var/chance = (gun_heat - eff_jam_threshold) * GUN_HEAT_JAM_CHANCE_PER_POINT * get_condition_jam_multiplier() * jam_chance_mult * luck_mult * perception_mult
 		if(prob(chance))
-			become_jammed(user)
+			// a badly worn gun can choke into a full double-feed instead of just a simple jam
+			if(gun_condition < GUN_CONDITION_DOUBLEFEED_THRESHOLD && prob((GUN_CONDITION_DOUBLEFEED_THRESHOLD - gun_condition) / GUN_CONDITION_DOUBLEFEED_THRESHOLD * 100))
+				become_jammed(user, "[src] chokes hard - a double-feed jams the action solid!", GUN_MALFUNCTION_DOUBLEFEED)
+			else
+				become_jammed(user)
 			return TRUE
 	return FALSE
 
-/obj/item/gun/ballistic/proc/become_jammed(mob/living/user, custom_message)
+/obj/item/gun/ballistic/proc/become_jammed(mob/living/user, custom_message, malfunction = GUN_MALFUNCTION_JAM)
 	jammed = TRUE
-	gun_condition = max(0, gun_condition - GUN_CONDITION_LOSS_JAM)
+	malfunction_type = malfunction
+	gun_condition = max(0, gun_condition - (malfunction == GUN_MALFUNCTION_DOUBLEFEED ? GUN_CONDITION_LOSS_DOUBLEFEED : GUN_CONDITION_LOSS_JAM))
 	if(user)
 		user.visible_message(span_warning("[user]'s [src] jams!"), span_userdanger(custom_message || "[src] jams!"))
 	do_sparks(1, FALSE, src)
@@ -89,4 +94,12 @@
 		return TRUE
 	gun_condition = min(GUN_CONDITION_MAX, gun_condition + (GUN_CONDITION_REPAIR_AMOUNT * user.get_intelligence_gun_repair_multiplier()))
 	to_chat(user, span_notice("You service [src], improving its condition."))
+	return TRUE
+
+/// Ballistic guns route the old ammo-mismatch misfire "dump" into a double-feed jam instead of physically ejecting the mag onto the ground -
+/// same fluid, single-action clearing flow as a heat-driven double-feed, rather than forcing a separate manual pickup/reload/rack.
+/obj/item/gun/ballistic/misfire_dump_ammo(mob/user, dump_harder)
+	if(!user || !chambered)
+		return FALSE
+	become_jammed(user, "[src] chokes on the mismatched round - a double-feed jams the action solid!", GUN_MALFUNCTION_DOUBLEFEED)
 	return TRUE

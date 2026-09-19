@@ -3281,6 +3281,7 @@
 #include "code\modules\projectiles\guns\lore\ballistic\rifle.dm"
 #include "code\modules\projectiles\guns\lore\ballistic\shotgun.dm"
 #include "code\modules\projectiles\guns\lore\energy\laser.dm"
+#include "code\modules\projectiles\guns\lore\energy\laser_malfunction.dm"
 #include "code\modules\projectiles\guns\lore\energy\mounted.dm"
 #include "code\modules\projectiles\guns\lore\energy\plasmaf13.dm"
 #include "code\modules\projectiles\guns\lore\energy\pulse.dm"

@@ -149,6 +149,8 @@ ATTACHMENTS
 
 	/// Whether the gun is currently jammed and needs to be cleared before it'll fire again. See gun_malfunction.dm for the real implementation (ballistic guns only).
 	var/jammed = FALSE
+	/// Severity of the current jam - which clearing flow try_clear_jam() runs. Only meaningful while jammed. See gun_malfunction.dm.
+	var/malfunction_type = GUN_MALFUNCTION_JAM
 
 	var/sel_mode = 1 //index of the currently selected mode
 	var/list/firemodes = list()

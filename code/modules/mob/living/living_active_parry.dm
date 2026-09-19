@@ -121,10 +121,10 @@
 			break
 	if(!successful)		// didn't parry anything successfully
 		if(data.parry_failed_stagger_duration)
-			Stagger(data.parry_failed_stagger_duration)
+			Stagger(data.parry_failed_stagger_duration * PARRY_FAIL_PUNISHMENT_MULT)
 			effect_text += "staggering themselves"
 		if(data.parry_failed_clickcd_duration)
-			DelayNextAction(data.parry_failed_clickcd_duration, flush = TRUE)
+			DelayNextAction(data.parry_failed_clickcd_duration * PARRY_FAIL_PUNISHMENT_MULT, flush = TRUE)
 			effect_text += "throwing themselves off balance"
 	handle_parry_ending_effects(data, effect_text)
 	parrying = NOT_PARRYING

@@ -252,16 +252,46 @@
 	update_icon()
 	return
 
-/// Interruptible action to clear a jam - see gun_malfunction.dm for how the jam happened in the first place
+/// Interruptible action to clear whatever's stopping the gun from firing - see gun_malfunction.dm for how each malfunction happens.
+/// Severity (malfunction_type) picks the clearing flow: a simple jam is a quick tap-rack, a double-feed is the full drill,
+/// but either way it's ONE triggered action - the player clicks the gun once and the whole thing plays out, not four separate steps.
 /obj/item/gun/ballistic/proc/try_clear_jam(mob/living/user)
 	if(!jammed)
 		return
+	if(malfunction_type == GUN_MALFUNCTION_DOUBLEFEED)
+		clear_double_feed(user)
+	else
+		clear_simple_jam(user)
+
+/obj/item/gun/ballistic/proc/clear_simple_jam(mob/living/user)
 	to_chat(user, span_notice("You begin clearing the jam in [src]..."))
 	if(!do_after(user, GUN_JAM_CLEAR_TIME * user.get_agility_gun_speed_multiplier(), TRUE, src))
 		to_chat(user, span_warning("You were interrupted while clearing the jam!"))
 		return
 	jammed = FALSE
 	to_chat(user, span_notice("You clear the jam in [src]."))
+	playsound(src, cock_sound, 50, TRUE)
+	update_icon()
+
+/// A double-feed needs the real drill - strip the stuck cartridges clear, then reseat the mag and rack a fresh round -
+/// chained as two back-to-back do_afters off a single attack_self, so it stays interruptible under fire without
+/// making the player manually unload/reload/rack it themselves.
+/obj/item/gun/ballistic/proc/clear_double_feed(mob/living/user)
+	to_chat(user, span_warning("[src] has choked hard - you'll need to strip it down to clear it!"))
+	if(!do_after(user, (GUN_DOUBLEFEED_CLEAR_TIME * 0.4) * user.get_agility_gun_speed_multiplier(), TRUE, src))
+		to_chat(user, span_warning("You were interrupted while stripping [src]!"))
+		return
+	if(chambered)
+		chambered.forceMove(drop_location())
+		chambered.bounce_away()
+		chambered = null
+	to_chat(user, span_notice("You rip the stuck cartridges free and clear the action..."))
+	if(!do_after(user, (GUN_DOUBLEFEED_CLEAR_TIME * 0.6) * user.get_agility_gun_speed_multiplier(), TRUE, src))
+		to_chat(user, span_warning("You were interrupted while reseating [src]'s magazine!"))
+		return
+	jammed = FALSE
+	chamber_round()
+	to_chat(user, span_notice("You reseat the magazine and rack [src], clearing the double-feed."))
 	playsound(src, cock_sound, 50, TRUE)
 	update_icon()
 

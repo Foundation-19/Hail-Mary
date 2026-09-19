@@ -42,6 +42,7 @@
 	I.sharpness = SHARP_POINTY
 	I.throwforce = clamp(I.throwforce + increment, 0, max)
 	I.name = "[prefix] [I.name]"
+	I.repair_melee_condition(MELEE_CONDITION_MAX) // a proper sharpening pass restores the edge fully, not just a partial touch-up
 	name = "worn out [name]"
 	desc = "[desc] At least, it used to."
 	used = 1
