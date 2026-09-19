@@ -449,7 +449,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "arv" = (
 /obj/structure/spider/stickyweb,
 /mob/living/simple_animal/hostile/poison/giant_spider,
@@ -1585,7 +1585,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "bvU" = (
 /obj/structure/barricade/bars,
 /obj/structure/table,
@@ -4612,7 +4612,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "bTh" = (
 /obj/structure/chair/stool/retro/black,
 /obj/effect/decal/cleanable/dirt,
@@ -4834,7 +4834,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "bWq" = (
 /mob/living/simple_animal/hostile/ghoul/legendary,
 /turf/open/water,
@@ -6460,7 +6460,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "cRP" = (
 /obj/machinery/light/small,
 /obj/effect/decal/cleanable/dirt,
@@ -7025,7 +7025,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "dyM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/simple_door/bunker,
@@ -7108,7 +7108,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "dDM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
@@ -7133,7 +7133,7 @@
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "dEs" = (
 /mob/living/simple_animal/hostile/ghoul/scorched/ranged,
 /turf/open/indestructible/ground/inside/mountain,
@@ -7710,7 +7710,7 @@
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "edw" = (
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel/f13/vault_floor/floor,
@@ -8627,7 +8627,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "eTB" = (
 /obj/effect/decal/cleanable/blood/gibs/torso,
 /turf/open/floor/f13{
@@ -8738,10 +8738,6 @@
 "eXn" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/f13/power_relay,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "eXK" = (
@@ -9689,13 +9685,13 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "gdC" = (
 /obj/machinery/workbench,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "gep" = (
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /mob/living/simple_animal/hostile/raider/ranged/boss,
@@ -10373,7 +10369,7 @@
 /area/f13/bunker)
 "gIB" = (
 /turf/closed/indestructible/f13/matrix,
-/area/f13/bar)
+/area/f13/bar/heaven)
 "gJb" = (
 /obj/structure/flora/wasteplant/wild_broc,
 /turf/open/indestructible/ground/inside/mountain,
@@ -10410,12 +10406,6 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
-"gJW" = (
-/obj/structure/simple_door/bunker,
-/turf/open/floor/plasteel/f13{
-	icon_state = "darkrusty"
-	},
-/area/f13/bunker)
 "gKn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -10648,7 +10638,7 @@
 /area/f13/bunker)
 "gUq" = (
 /turf/closed/wall/r_wall/rust,
-/area/f13/bar)
+/area/f13/bar/heaven)
 "gUs" = (
 /obj/machinery/door/airlock/grunge,
 /obj/structure/barricade/wooden/planks/pregame,
@@ -11129,7 +11119,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "hsM" = (
 /obj/machinery/door/poddoor/shutters/old,
 /turf/open/indestructible/ground/inside/mountain,
@@ -11316,7 +11306,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "hCA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -11523,7 +11513,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "hNz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -11895,7 +11885,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "ihn" = (
 /obj/structure/nest/raider/melee,
 /turf/open/floor/f13/wood,
@@ -12277,7 +12267,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "iyM" = (
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid{
 	icon_state = "darkrustysolid"
@@ -12701,7 +12691,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "iRN" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/blueprintMid,
@@ -14875,7 +14865,6 @@
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
 	},
-/obj/structure/simple_door/blast,
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13{
@@ -15458,7 +15447,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "lzE" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/lattice{
@@ -15867,7 +15856,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "lQY" = (
 /obj/structure/sign/departments/security,
 /turf/closed/wall/r_wall/f13vault{
@@ -17480,7 +17469,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "nsm" = (
 /obj/structure/bed/mattress{
 	icon_state = "mattress4";
@@ -17973,7 +17962,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "nRd" = (
 /mob/living/simple_animal/hostile/ghoul/legendary,
 /obj/effect/decal/cleanable/dirt{
@@ -18223,7 +18212,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "ocs" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -18295,7 +18284,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "ofX" = (
 /obj/structure/campfire/barrel,
 /obj/machinery/light/small{
@@ -18413,7 +18402,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "okD" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt{
@@ -18471,7 +18460,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "omn" = (
 /obj/structure/table/wood/settler,
 /obj/item/restraints/handcuffs,
@@ -18758,7 +18747,7 @@
 /turf/open/floor/f13{
 	icon_state = "reddirtyfull"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "oDA" = (
 /obj/effect/decal/cleanable/blood/tracks{
 	dir = 4
@@ -19884,10 +19873,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/sewer/powered)
-"pFw" = (
-/obj/structure/simple_door/bunker/glass,
-/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
-/area/f13/bunker)
 "pFA" = (
 /obj/structure/nest/ghoul,
 /turf/open/indestructible/ground/inside/mountain,
@@ -20881,7 +20866,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "qwk" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/dark,
@@ -21458,7 +21443,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "qZN" = (
 /obj/structure/rack,
 /obj/effect/decal/cleanable/dirt,
@@ -22071,7 +22056,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "rIy" = (
 /obj/structure/table,
 /obj/item/stock_parts/cell/high,
@@ -22897,7 +22882,7 @@
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "syG" = (
 /obj/effect/decal/waste{
 	icon_state = "goo8"
@@ -23264,7 +23249,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "sQl" = (
 /obj/structure/chair,
 /turf/open/floor/plasteel/f13/vault_floor/dark{
@@ -23675,7 +23660,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "tiY" = (
 /obj/structure/table,
 /obj/item/melee/onehanded/knife/cosmicdirty,
@@ -24415,7 +24400,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "tVh" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -24531,7 +24516,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "tZY" = (
 /obj/structure/decoration/rag,
 /obj/effect/decal/cleanable/dirt,
@@ -24918,7 +24903,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "utC" = (
 /obj/machinery/light/small{
 	dir = 8
@@ -25217,7 +25202,7 @@
 /turf/open/floor/f13{
 	icon_state = "redrustyfull"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "uFO" = (
 /obj/structure/table/wood,
 /obj/structure/bedsheetbin,
@@ -27106,7 +27091,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "wxL" = (
 /obj/structure/chair/f13chair1{
 	dir = 8
@@ -27467,7 +27452,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	name = "metal plating"
 	},
-/area/f13/bar)
+/area/f13/bar/heaven)
 "wQf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -71124,7 +71109,7 @@ uAC
 ksG
 aaD
 aaD
-gJW
+nOa
 aaD
 aaD
 aae
@@ -71630,7 +71615,7 @@ aaD
 aaD
 aaD
 aaD
-gzA
+rxf
 aaD
 vXv
 rxf
@@ -72909,13 +72894,13 @@ aaD
 aaD
 aaD
 aaD
-rDN
+fXg
 aaD
 aaD
 aaD
 aaD
 aaD
-jiI
+sKs
 aaD
 aaD
 mMU
@@ -72923,7 +72908,7 @@ hkk
 qTv
 aaD
 aaD
-pFw
+qgq
 aaD
 aaD
 aaD
