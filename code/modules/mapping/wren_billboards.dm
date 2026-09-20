@@ -102,4 +102,4 @@
 /obj/structure/billboard/townthere
     name = "Billboard with town direction"
     desc = "Town went that way."
-    icon_state = "town-there" 
+    icon_state = "town-there"
