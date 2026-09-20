@@ -505,7 +505,7 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "acE" = (
-/obj/machinery/porta_turret/f13/turret_556/robot,
+/mob/living/simple_animal/hostile/supermutant/rangedmutant,
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/building)
 "acF" = (
@@ -25815,6 +25815,9 @@
 /turf/open/indestructible/ground/outside/sidewalk,
 /area/f13/wasteland)
 "eUY" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /obj/machinery/f13/faction_generator/atomic,
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/building)
@@ -25886,9 +25889,7 @@
 /turf/open/floor/f13/wood,
 /area/f13/building/powered)
 "eXl" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
+/mob/living/simple_animal/hostile/supermutant,
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/building)
 "eXu" = (
@@ -38155,11 +38156,8 @@
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
 "kml" = (
-/obj/machinery/light{
-	dir = 8
-	},
-/obj/machinery/porta_turret/f13/turret_shotgun/burstfire/robot,
-/turf/open/floor/plasteel/f13/vault_floor/blue,
+/mob/living/simple_animal/hostile/supermutant,
+/turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/building)
 "kmm" = (
 /turf/closed/indestructible/f13/matrix/asphalt{
@@ -41513,8 +41511,7 @@
 /turf/closed/wall/f13/store,
 /area/f13/building/powered)
 "lKK" = (
-/obj/effect/turf_decal/stripes/red/line,
-/obj/machinery/porta_turret/f13/turret_22lr/burstfire/robot,
+/mob/living/simple_animal/hostile/supermutant,
 /turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/building)
 "lKN" = (
@@ -53982,7 +53979,6 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/machinery/porta_turret/f13/turret_22lr/burstfire/robot,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "rbg" = (
@@ -55100,6 +55096,9 @@
 /obj/structure/flora/tree/joshua,
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/wasteland)
+"rGk" = (
+/turf/closed/indestructible/f13/matrix,
+/area/f13/brotherhood/operations)
 "rGn" = (
 /obj/effect/decal/waste{
 	icon_state = "goo8"
@@ -61063,11 +61062,8 @@
 /turf/open/indestructible/ground/outside/desert,
 /area/f13/wasteland)
 "umd" = (
-/obj/machinery/light{
-	dir = 1
-	},
-/obj/machinery/porta_turret/f13/turret_22lr/burstfire/robot,
-/turf/open/floor/plasteel/f13/vault_floor/blue,
+/mob/living/simple_animal/hostile/supermutant,
+/turf/open/floor/plasteel/dark,
 /area/f13/building)
 "umm" = (
 /obj/machinery/atmospherics/components/unary/tank/air,
@@ -62745,8 +62741,11 @@
 	},
 /area/f13/building/powered)
 "uYu" = (
-/obj/machinery/porta_turret/f13/turret_556/robot,
-/turf/open/floor/plasteel/f13/vault_floor,
+/obj/structure/chair/comfy/beige{
+	dir = 8
+	},
+/mob/living/simple_animal/hostile/supermutant,
+/turf/open/floor/plasteel/f13/vault_floor/blue,
 /area/f13/building)
 "uYz" = (
 /mob/living/simple_animal/cow/brahmin,
@@ -67015,7 +67014,6 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/machinery/porta_turret/f13/turret_22lr/burstfire/robot,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building)
 "wZx" = (
@@ -105864,7 +105862,7 @@ ocK
 ocK
 ocK
 ocK
-acE
+ocK
 vgm
 aaa
 aaa
@@ -106380,12 +106378,12 @@ ocK
 ocK
 vgm
 edG
-acE
+ocK
 dVp
 vgm
 eLH
 eLH
-umd
+nLN
 vnO
 vnO
 vnO
@@ -107400,7 +107398,7 @@ aae
 vgm
 xTS
 uwh
-nkU
+kml
 mag
 ocK
 ocK
@@ -107659,7 +107657,7 @@ sxN
 nkU
 nkU
 vgm
-acE
+ocK
 ocK
 ocK
 ocK
@@ -107921,7 +107919,7 @@ ocK
 pxe
 vuc
 aLT
-ocK
+acE
 ocK
 ocK
 vgm
@@ -108445,7 +108443,7 @@ vnO
 vnO
 dBo
 vnO
-laV
+uYu
 vnO
 eLH
 aae
@@ -108954,7 +108952,7 @@ ocK
 ocK
 vgm
 eLH
-kml
+qRR
 vnO
 vnO
 eLH
@@ -109716,7 +109714,7 @@ aak
 vgm
 iml
 iml
-uYu
+iml
 vJk
 iml
 qPG
@@ -109726,7 +109724,7 @@ iml
 iml
 qPG
 vnO
-vnO
+lKK
 vnO
 vgm
 ddA
@@ -110231,7 +110229,7 @@ vgm
 sot
 iml
 eUY
-vJk
+noa
 gEN
 vgm
 aae
@@ -110487,8 +110485,8 @@ aae
 vgm
 cVJ
 iml
-eXl
-noa
+iml
+iml
 aVp
 vgm
 vgm
@@ -110744,8 +110742,8 @@ aae
 vgm
 lzM
 iml
-uYu
 iml
+eXl
 lPB
 vgm
 vgm
@@ -110756,10 +110754,10 @@ vgm
 vnO
 qRR
 vnO
-lKK
+pwY
 vgm
 mFo
-bOb
+umd
 bOb
 rUr
 vgm
@@ -111270,7 +111268,7 @@ vgm
 vnO
 sJn
 vnO
-lKK
+pwY
 vgm
 uPl
 czZ
@@ -127918,11 +127916,11 @@ fmQ
 wgS
 aae
 aae
-aae
-aae
-aae
-aae
-aae
+woD
+woD
+woD
+woD
+woD
 woD
 oYF
 dKK
@@ -128176,9 +128174,9 @@ woD
 woD
 woD
 woD
-woD
-woD
-woD
+rGk
+rGk
+rGk
 woD
 woD
 bcw

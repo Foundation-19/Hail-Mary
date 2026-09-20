@@ -7,6 +7,7 @@
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_on = FALSE
+	melee_wear_immune = TRUE // energy blade has no physical edge to dull
 	var/sword_color
 	total_mass = 0.4 //Survival flashlights typically weigh around 5 ounces.
 

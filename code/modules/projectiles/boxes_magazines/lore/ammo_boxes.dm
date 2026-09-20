@@ -155,6 +155,16 @@
 	icon_state = "improvshotbag"
 	multiple_sprites = 3
 	ammo_type = /obj/item/ammo_casing/c9mm/improvised
+
+/obj/item/ammo_box/c9mm/ap
+	name = "ammo box (9mm armor-piercing)"
+	desc = "A box of 9mm steel-core penetrator rounds. Punches through armor, hits softer."
+	ammo_type = /obj/item/ammo_casing/c9mm/ap
+
+/obj/item/ammo_box/c9mm/hollowpoint
+	name = "ammo box (9mm hollow-point)"
+	desc = "A box of 9mm expanding rounds. Devastating against unarmored targets, useless against armor."
+	ammo_type = /obj/item/ammo_casing/c9mm/hollowpoint
 /*
 /obj/item/ammo_box/c38box
 	name = "ammo box (.38)"
@@ -215,6 +225,16 @@
 	icon_state = "improvshotbag"
 	ammo_type = /obj/item/ammo_casing/c10mm/improvised
 	multiple_sprites = 3
+
+/obj/item/ammo_box/c10mm/ap
+	name = "ammo box (10mm armor-piercing)"
+	desc = "A box of 10mm steel-core penetrator rounds. Punches through armor, hits softer."
+	ammo_type = /obj/item/ammo_casing/c10mm/ap
+
+/obj/item/ammo_box/c10mm/hollowpoint
+	name = "ammo box (10mm hollow-point)"
+	desc = "A box of 10mm expanding rounds. Devastating against unarmored targets, useless against armor."
+	ammo_type = /obj/item/ammo_casing/c10mm/hollowpoint
 
 //.357 Magnum
 /obj/item/ammo_box/a357box
@@ -324,6 +344,16 @@
 	icon_state = "improvshotbag"
 	multiple_sprites = 3
 
+/obj/item/ammo_box/c45/ap
+	name = "ammo box (.45 armor-piercing)"
+	desc = "A box of .45 steel-core penetrator rounds. Punches through armor, hits softer."
+	ammo_type = /obj/item/ammo_casing/c45/ap
+
+/obj/item/ammo_box/c45/hollowpoint
+	name = "ammo box (.45 hollow-point)"
+	desc = "A box of .45 expanding rounds. Devastating against unarmored targets, useless against armor."
+	ammo_type = /obj/item/ammo_casing/c45/hollowpoint
+
 
 //.45-70 Gov't
 /obj/item/ammo_box/c4570box
@@ -428,6 +458,16 @@
 	STOP_PROCESSING(SSradiation,src)
 	..()
 
+/obj/item/ammo_box/a556/ap
+	name = "ammo box (5.56 armor-piercing)"
+	desc = "A box of 5.56 steel-core penetrator rounds. Punches through armor, hits softer."
+	ammo_type = /obj/item/ammo_casing/a556/ap
+
+/obj/item/ammo_box/a556/hollowpoint
+	name = "ammo box (5.56 hollow-point)"
+	desc = "A box of 5.56 expanding rounds. Devastating against unarmored targets, useless against armor."
+	ammo_type = /obj/item/ammo_casing/a556/hollowpoint
+
 /obj/item/ammo_box/a556/improvised
 	name = "bag with reloaded 5.56 bullets"
 	desc = "The casings are worn, the gunpowder some homebrew mix of dubious quality. At least it goes bang."
@@ -522,6 +562,22 @@
 	icon_state = "762box"
 	multiple_sprites = 2
 	ammo_type = /obj/item/ammo_casing/a308/rubber
+
+/obj/item/ammo_box/a308box/ap
+	name = "ammo box (.308 armor-piercing)"
+	desc = "A box of .308 steel-core penetrator rounds. Punches through armor, hits softer."
+	icon = 'icons/obj/guns/ammo.dmi'
+	icon_state = "762box"
+	multiple_sprites = 2
+	ammo_type = /obj/item/ammo_casing/a308/ap
+
+/obj/item/ammo_box/a308box/hollowpoint
+	name = "ammo box (.308 hollow-point)"
+	desc = "A box of .308 expanding rounds. Devastating against unarmored targets, useless against armor."
+	icon = 'icons/obj/guns/ammo.dmi'
+	icon_state = "762box"
+	multiple_sprites = 2
+	ammo_type = /obj/item/ammo_casing/a308/hollowpoint
 
 
 //.50 MG and 14mm

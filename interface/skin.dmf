@@ -57,7 +57,7 @@ window "mainwindow"
 		is-default = true
 		background-color = #050c05
 		saved-params = "pos;size;is-minimized;is-maximized"
-		title = "Hail Mary"
+		title = "The Long Crossing"
 		icon = 'icons\\deathclawlogo.png'
 		macro = "default"
 		menu = "menu"

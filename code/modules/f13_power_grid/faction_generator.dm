@@ -135,6 +135,9 @@
 	/// TRUE once the current empty-tank state has already been handled by process(), so the
 	/// exhaustion transition/casing spawn fires once per depletion instead of every tick at 0 fuel.
 	var/depletion_handled = FALSE
+	/// TRUE while a manual liquid-fuel siphon is in progress, so a second "DRAIN TANK" click
+	/// can't start an overlapping drain loop.
+	var/is_syphoning = FALSE
 
 	// ── Load shedding — soft power management before hard-tripping the grid
 	/// Direct relays currently suspended by load-shedding.  Draw = 0 while here.
@@ -1437,7 +1440,7 @@
 	dat += "<pre class='head'>  &#91;POWER CONTROL&#93;</pre>"
 	if(accessible)
 		if(powered)
-			dat += "<pre>  <a href='byond://?src=[REF(src)];choice=shutdown'>&#91; EMERGENCY SHUTDOWN &#93;</a>  <span class='dim'>(cuts output; fuel consumption continues)</span></pre>"
+			dat += "<pre>  <a href='byond://?src=[REF(src)];choice=shutdown'>&#91; EMERGENCY SHUTDOWN &#93;</a>  <span class='dim'>(cuts output; fuel consumption stops)</span></pre>"
 		else if(fuel > 0 && !overloaded)
 			dat += "<pre>  <a href='byond://?src=[REF(src)];choice=startup'>&#91; START GENERATOR &#93;</a>  <span class='dim'>(bring output back online)</span></pre>"
 		else if(fuel <= 0)
@@ -1543,7 +1546,7 @@
 			else
 				manually_shutdown = TRUE
 				set_power_state(FALSE)
-				to_chat(U, span_notice("Generator output cut. Fuel consumption continues. Use 'START GENERATOR' to bring it back online."))
+				to_chat(U, span_notice("Generator output cut. Fuel consumption stops while offline. Use 'START GENERATOR' to bring it back online."))
 		if("startup")
 			if(!can_access(U))
 				to_chat(U, span_warning("Access denied."))
@@ -1592,14 +1595,10 @@
 	if(fuel <= 0)
 		to_chat(user, span_notice("The fuel reservoir is already empty — nothing to eject."))
 		return
-	skip_next_depletion_spawn = TRUE  // manual eject already returns the fuel; don't also spawn a depleted casing
 	if(fuel_is_liquid)
-		var/leftover = fuel
-		fuel = 0
-		if(powered)
-			set_power_state(FALSE)
-		on_fuel_ejected(user, leftover)
+		_syphon_fuel(user)
 		return
+	skip_next_depletion_spawn = TRUE  // manual eject already returns the fuel; don't also spawn a depleted casing
 	var/ejected_count = inserted_cores ? inserted_cores.len : 0
 	if(ejected_count)
 		for(var/obj/item/core in inserted_cores)
@@ -1613,15 +1612,48 @@
 	else
 		to_chat(user, span_notice("Fuel reservoir vented."))
 
-/// Called after a liquid-fuel tank is fully drained. Override in subtypes for type-specific
-/// behaviour (e.g. collecting liquid fuel in a held container). Discrete-unit generators
-/// never call this — their fuel is always ejected directly as real cores above.
-/obj/machinery/f13/faction_generator/proc/on_fuel_ejected(mob/user, ejected_vol)
-	to_chat(user, span_notice("Fuel reservoir vented."))
+/// Gradual liquid-fuel siphon — drains a fixed amount per pump cycle instead of dumping the
+/// whole tank instantly, mirroring how a real siphon/hand-pump works. Interruptible at any
+/// point; whatever has already been pumped out stays out.
+/obj/machinery/f13/faction_generator/proc/_syphon_fuel(mob/user)
+	if(is_syphoning)
+		return
+	is_syphoning = TRUE
+	skip_next_depletion_spawn = TRUE  // manual drain already returns the fuel; don't also spawn a depleted casing
+	if(powered)
+		set_power_state(FALSE)
+	user.visible_message(span_notice("[user] starts siphoning [src]'s tank."), span_notice("You start siphoning [src]'s tank."))
+	var/total_drained = 0
+	var/total_captured = 0
+	while(fuel > 0)
+		if(!do_after(user, GENERATOR_SYPHON_CYCLE_TIME, target = src))
+			break
+		if(QDELETED(src) || fuel <= 0)
+			break
+		var/amount = min(GENERATOR_SYPHON_RATE, fuel)
+		fuel -= amount
+		total_drained += amount
+		total_captured += on_fuel_ejected(user, amount)
+	is_syphoning = FALSE
+	if(total_drained <= 0)
+		return
+	var/spilled = total_drained - total_captured
+	if(spilled > 0)
+		to_chat(user, span_warning("You siphon [round(total_drained)] L from [src] — [round(total_captured)] L is captured, [round(spilled)] L spills across the floor. Keep ignition sources away."))
+	else
+		to_chat(user, span_notice("You siphon [round(total_drained)] L from [src] into your container."))
 
-/// Liquid diesel drain — checks the other hand for a container to catch fuel;
+/// Called once per siphon cycle after `amount` litres have been drained from the tank.
+/// Override in subtypes for type-specific behaviour (e.g. collecting liquid fuel in a held
+/// container). Returns how much of `amount` was actually captured — the rest is lost/spilled.
+/// Discrete-unit generators never call this — their fuel is always ejected directly as real
+/// cores above.
+/obj/machinery/f13/faction_generator/proc/on_fuel_ejected(mob/user, amount)
+	return 0
+
+/// Liquid diesel siphon — checks the other hand for a container to catch fuel each cycle;
 /// anything that doesn't fit (or if no container is present) spills on the floor.
-/obj/machinery/f13/faction_generator/diesel/on_fuel_ejected(mob/user, ejected_vol)
+/obj/machinery/f13/faction_generator/diesel/on_fuel_ejected(mob/user, amount)
 	var/captured = 0
 	var/obj/item/reagent_containers/can = null
 	if(isliving(user))
@@ -1631,26 +1663,16 @@
 			can = other
 	if(can && can.reagents)
 		var/space = can.reagents.maximum_volume - can.reagents.total_volume
-		captured = min(round(ejected_vol), space)
+		captured = min(round(amount), space)
 		if(captured > 0)
 			can.reagents.add_reagent(/datum/reagent/fuel, captured)
-	var/overflow = ejected_vol - captured
+	var/overflow = amount - captured
 	if(overflow > 0)
 		var/turf/T = get_turf(src)
 		if(T && !locate(/obj/effect/decal/cleanable/oil) in T)
 			new /obj/effect/decal/cleanable/oil/slippery(T)
-		if(can)
-			user.visible_message(
-				span_warning("[user] drains [src] — [round(overflow)] L of diesel spills across the floor!"),
-				span_warning("You drain [src]. [round(captured)] L goes into [can.name]; [round(overflow)] L hits the floor — keep ignition sources away.")
-			)
-		else
-			user.visible_message(
-				span_warning("[user] drains [src] — diesel pours across the floor!"),
-				span_warning("You drain [src] without a container — [round(overflow)] L of diesel soaks the floor. Keep ignition sources away.")
-			)
-	else
-		to_chat(user, span_notice("You drain [src]'s tank into [can.name]. ([round(captured)] L)"))
+	return captured
+
 
 /// Attempt to refuel this generator from a liquid-fuel reagent container (e.g. jerrycan).
 /// Returns TRUE if the interaction was consumed (success or informative failure).

@@ -998,7 +998,7 @@ Initiate
 	supervisors = "the Scribes, Knights, or Paladins"
 	display_order = JOB_DISPLAY_ORDER_INITIATE
 	outfit = /datum/outfit/job/bos/f13initiate
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 360)
 
 	loadout_options = list(
 	/datum/outfit/loadout/initiatek, //Wattz and Engibelt with armor, helmet

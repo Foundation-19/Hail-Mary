@@ -231,6 +231,45 @@
 		M.adjust_fire_stacks(fire_stacks)
 		M.IgniteMob()
 
+/* 9mm AP
+ * DAMAGE: 12 (less than FMJ, penetrator trades stopping power for punching through armor)
+ * RECOIL: 0.5
+ */
+/obj/item/projectile/bullet/c9mm/ap
+	name = "9mm armor-piercing bullet"
+	damage = BULLET_DAMAGE_PISTOL_9MM * 0.8
+	stamina = BULLET_STAMINA_PISTOL_9MM
+	spread = BULLET_SPREAD_SURPLUS
+	recoil = BULLET_RECOIL_PISTOL_9MM
+
+	wound_bonus = BULLET_WOUND_PISTOL_9MM * 0.5
+	bare_wound_bonus = BULLET_WOUND_PISTOL_9MM_NAKED_MULT
+	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+
+	pixels_per_second = BULLET_SPEED_PISTOL_9MM
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	armour_penetration = 0.35 // steel-core penetrator, big jump over the 0.05 FMJ baseline
+
+/* 9mm hollow-point
+ * DAMAGE: 19 (expands on impact, more damage/wounding, shreds unarmored targets, useless vs armor)
+ * RECOIL: 0.5
+ */
+/obj/item/projectile/bullet/c9mm/hollowpoint
+	name = "9mm hollow-point bullet"
+	damage = BULLET_DAMAGE_PISTOL_9MM * 1.25
+	stamina = BULLET_STAMINA_PISTOL_9MM
+	spread = BULLET_SPREAD_SURPLUS
+	recoil = BULLET_RECOIL_PISTOL_9MM
+
+	wound_bonus = BULLET_WOUND_PISTOL_9MM * 1.6
+	bare_wound_bonus = BULLET_WOUND_PISTOL_9MM_NAKED_MULT * 1.4
+	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+
+	pixels_per_second = BULLET_SPEED_PISTOL_9MM
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	sharpness = SHARP_EDGED
+
 /* 9mm op
  * DAMAGE: 20
  * STAMIN: 12.5
@@ -465,7 +504,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_10MM
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /* 10mm handload
  * DAMAGE: 22
@@ -486,7 +525,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_10MM_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /* 10mm simplemob
  * DAMAGE: 18
@@ -507,7 +546,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_10MM_HANDLOAD * 0.5
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /* 10mm rubber
  * DAMAGE: 2.5
@@ -528,7 +567,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_10MM
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 	
 	sharpness = SHARP_NONE
 	zone_accuracy_type = ZONE_WEIGHT_PRECISION // Rubbers go where you want
@@ -552,7 +591,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_10MM
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 	damage_type = BURN // still checks bullet resist
 	sharpness = SHARP_NONE
@@ -565,6 +604,45 @@
 		if(M.fire_stacks < 1)
 			M.adjust_fire_stacks(fire_stacks - M.fire_stacks)
 			M.IgniteMob()
+
+/* 10mm AP
+ * DAMAGE: 24 (less than FMJ, penetrator trades stopping power for punching through armor)
+ * RECOIL: 1
+ */
+/obj/item/projectile/bullet/c10mm/ap
+	name = "10mm armor-piercing bullet"
+	damage = BULLET_DAMAGE_PISTOL_10MM * 0.8
+	armour_penetration = 0.45 // steel-core penetrator, well above the 0.15 FMJ baseline
+	stamina = BULLET_STAMINA_PISTOL_10MM
+	spread = BULLET_SPREAD_SURPLUS
+	recoil = BULLET_RECOIL_PISTOL_10MM
+
+	wound_bonus = BULLET_WOUND_PISTOL_10MM * 0.5
+	bare_wound_bonus = BULLET_WOUND_PISTOL_10MM_NAKED_MULT
+	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+
+	pixels_per_second = BULLET_SPEED_PISTOL_10MM
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
+
+/* 10mm hollow-point
+ * DAMAGE: 37.5 (expands on impact, useless vs armor)
+ * RECOIL: 1
+ */
+/obj/item/projectile/bullet/c10mm/hollowpoint
+	name = "10mm hollow-point bullet"
+	damage = BULLET_DAMAGE_PISTOL_10MM * 1.25
+	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	stamina = BULLET_STAMINA_PISTOL_10MM
+	spread = BULLET_SPREAD_SURPLUS
+	recoil = BULLET_RECOIL_PISTOL_10MM
+
+	wound_bonus = BULLET_WOUND_PISTOL_10MM * 1.6
+	bare_wound_bonus = BULLET_WOUND_PISTOL_10MM_NAKED_MULT * 1.4
+	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+
+	pixels_per_second = BULLET_SPEED_PISTOL_10MM
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
+	sharpness = SHARP_EDGED
 
 
 /////////////
@@ -598,7 +676,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /* 45 handload
  * DAMAGE: less
@@ -619,7 +697,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /obj/item/projectile/bullet/c45/simple
 	name = ".45 FMJ bullet"
@@ -633,10 +711,49 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP_HANDLOAD * 0.65
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /obj/item/projectile/bullet/c45/op
 	name = ".45 +P bullet"
+
+/* 45 AP
+ * DAMAGE: 24 (less than FMJ, penetrator trades stopping power for punching through armor)
+ * RECOIL: 3
+ */
+/obj/item/projectile/bullet/c45/ap
+	name = ".45 armor-piercing bullet"
+	damage = BULLET_DAMAGE_PISTOL_45ACP * 0.8
+	armour_penetration = 0.4 // steel-core penetrator, well above the 0.08 FMJ baseline
+	stamina = BULLET_STAMINA_PISTOL_45ACP
+	spread = BULLET_SPREAD_SURPLUS
+	recoil = BULLET_RECOIL_PISTOL_45ACP
+
+	wound_bonus = BULLET_WOUND_PISTOL_45ACP * 0.5
+	bare_wound_bonus = BULLET_WOUND_PISTOL_45ACP_NAKED_MULT
+	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+
+	pixels_per_second = BULLET_SPEED_PISTOL_45ACP
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
+
+/* 45 hollow-point
+ * DAMAGE: 37.5 (expands on impact, useless vs armor)
+ * RECOIL: 3
+ */
+/obj/item/projectile/bullet/c45/hollowpoint
+	name = ".45 hollow-point bullet"
+	damage = BULLET_DAMAGE_PISTOL_45ACP * 1.25
+	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	stamina = BULLET_STAMINA_PISTOL_45ACP
+	spread = BULLET_SPREAD_SURPLUS
+	recoil = BULLET_RECOIL_PISTOL_45ACP
+
+	wound_bonus = BULLET_WOUND_PISTOL_45ACP * 1.6
+	bare_wound_bonus = BULLET_WOUND_PISTOL_45ACP_NAKED_MULT * 1.4
+	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
+
+	pixels_per_second = BULLET_SPEED_PISTOL_45ACP
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
+	sharpness = SHARP_EDGED
 
 /* 45 rubber
  * DAMAGE: 3
@@ -657,7 +774,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 	sharpness = SHARP_NONE
 	zone_accuracy_type = ZONE_WEIGHT_PRECISION // Rubbers go where you want
@@ -681,7 +798,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 	damage_type = BURN // still checks bullet resist
 	sharpness = SHARP_NONE
@@ -729,7 +846,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_38
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 357 handload
  * DAMAGE: 30
@@ -750,7 +867,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_38_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 357 bounce
  * DAMAGE: 40
@@ -771,7 +888,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_38
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 	ricochets_max = 3
 	ricochet_chance = 140
@@ -798,7 +915,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_38_MATCH
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 	sharpness = SHARP_NONE
 	var/acid_type = /datum/reagent/toxin/acid/fluacid
@@ -834,7 +951,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_38_MATCH
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 	sharpness = SHARP_NONE
 	var/fire_stacks = 2
@@ -877,7 +994,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_44
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 44 handload
  * DAMAGE: less
@@ -898,7 +1015,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_44_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 44 simple
  * DAMAGE: 44
@@ -919,7 +1036,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_44_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 44 fire
  * DAMAGE: 22
@@ -941,7 +1058,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_44
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 	damage_type = BURN // still checks bullet resist
 	sharpness = SHARP_NONE
@@ -984,7 +1101,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_14MM
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 14mm handloaded
  * DAMAGE: less
@@ -1005,7 +1122,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_14MM_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 14mm poison
  * DAMAGE: 24
@@ -1026,7 +1143,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_14MM
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 	var/smoke_radius = 1
 
 /obj/item/projectile/bullet/mm14/contam/Initialize()
@@ -1080,7 +1197,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 	ricochets_max = 3
 	ricochet_incidence_leeway = 130
@@ -1108,7 +1225,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_PISTOL_45ACP_HANDLOAD
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
 /* 69mm rock
  * DAMAGE: 5

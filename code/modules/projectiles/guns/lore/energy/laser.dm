@@ -431,7 +431,7 @@
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
+		/datum/firemode/automatic/rpm600, // reinforced SMG-tier laser pistol - real SMGs built for sustained fire cycle ~600-900rpm, not 300
 		/datum/firemode/semi_auto/fastest
 	)
 /obj/item/gun/energy/laser/auto/nayriin
@@ -442,8 +442,10 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/autolaser/worn)
 	cell_type = /obj/item/stock_parts/cell/ammo/ecp
 	equipsound = 'sound/f13weapons/equipsounds/RCWequip.ogg'
+	heat_per_shot_mult = 1.3 // its own desc calls out a warped, heat-stressed barrel from years of wear
+	jam_chance_mult = 1.2
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm600, // same RCW platform as the base compact rcw - wear affects reliability, not the mechanism's cyclic rate
 		/datum/firemode/semi_auto/faster
 	)
 
@@ -455,7 +457,7 @@
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_AKIMBO
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
+		/datum/firemode/automatic/rpm600, // same RCW platform as the base compact rcw
 		/datum/firemode/semi_auto/fastest
 	)
 //Ultracite Laser pistol
@@ -592,8 +594,10 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
+	heat_per_shot_mult = 1.3 // bypassed safeties means no thermal cutoff protecting the coils anymore
+	jam_chance_mult = 1.3
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm800 // rifle-tier auto rate (matches the R91/AR-platform rifles) - bypassed safeties means no controlled single-shot option anymore
 	)
 
 /obj/item/gun/energy/laser/aer9/overclocked/rynn
@@ -609,8 +613,10 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	can_scope = TRUE
+	heat_per_shot_mult = 1.4 // failed prototype in worse shape than the overclocked AER9
+	jam_chance_mult = 1.5
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm800 // same hotwired rifle platform as the overclocked AER9
 	)
 
 //Ultracite Laser rifle
@@ -738,8 +744,9 @@
 	equipsound = 'sound/f13weapons/equipsounds/RCWequip.ogg'
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
+	heat_capacity_mult = 1.15 // quality laser-Thompson build gives it more thermal headroom than its lower-tier siblings
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
+		/datum/firemode/automatic/rpm1000, // modeled after the Thompson SMG (tuned to the same real rate as the ballistic tommygun) - "rapid-fire" per its own desc
 		/datum/firemode/semi_auto/slow
 	)
 
@@ -879,7 +886,7 @@
 	item_flags = NEEDS_PERMIT | SLOWS_WHILE_IN_HAND
 	var/obj/item/minigunpack/ammo_pack
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm1800 // match the ballistic minigun's rate - both are pack-fed "incredible rate of fire" weapons
 	)
 
 /obj/item/gun/energy/minigun/Initialize()

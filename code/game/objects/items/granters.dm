@@ -1134,11 +1134,6 @@
 	return ..()
 
 
-/obj/item/book/granter/trait/medical/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
-
-
 /obj/item/book/granter/trait/selection
 	name = "Burned Book"
 	desc = "Pulled from the ashes of the old world, it feels warm to the touch. It looks to be in poor condition."
@@ -1181,11 +1176,6 @@
 
 	return ..()
 
-
-/obj/item/book/granter/trait/selection/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
-
 //TRIBAL BOOKS
 
 /obj/item/book/granter/trait/selection/tribal
@@ -1227,10 +1217,6 @@
 		return FALSE
 
 	return ..()
-
-/obj/item/book/granter/trait/selection/tribal/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
 
 /obj/item/book/granter/crafting_recipe/tribal
 	name = "Tribal traditions"
@@ -1351,12 +1337,13 @@
 					/datum/crafting_recipe/food/pemmican,
 					/datum/crafting_recipe/tribal/bonebag
 					)
-		return ..()
 
+	if(HAS_TRAIT(user, granted_trait))
+		to_chat(user, "<span class ='notice'>You already have all the insight you need about [traitname].")
+		granted_trait = null
+		return FALSE
 
-/obj/item/book/granter/trait/tribaltraditions/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
+	return ..()
 
 /obj/item/book/granter/crafting_recipe/tribal/whitelegs
 	name = "White Legs traditions"

@@ -2,7 +2,7 @@
 	var/flavor_text = "" //tired of fucking double checking this
 	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-1.1 dmg in melee for each level above/below 5 ST, certain guns can be STR locked
 	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
-	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // +/-5 maxHealth and increased poison and rad resistance for each level above/below 5 END
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets when they examine you
 	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
 	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 tiles sprint buffer, +/- 10% sprint regen, +/- 0.05 sprint speed, +/- 10% sprint stamina usage per lvl below/above 5 AGI
@@ -66,43 +66,41 @@ proc/get_top_level_mob(mob/S)
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
 	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
 
+/// Strong grip/control trims how badly a gun cook-off burns your hand
+/mob/proc/get_strength_cookoff_burn_multiplier()
+	return CLAMP(1 - ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.05), 0.5, 1.5)
+
 /// PERCEPTION
 
 /obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
 	return ((user.special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 2) // +/- 5 degrees of innate spread per lvl
 
+/// A perceptive shooter manages fire discipline (bursts, cooldown) better, trimming heat-driven jam chance
+/mob/proc/get_perception_gun_jam_multiplier()
+	return CLAMP(1 - ((special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 0.05), 0.5, 1.5)
+
 /// ENDURANCE
 
 /mob/living/carbon/human/initialize_special_endurance()
-	maxHealth = initial(maxHealth) + ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 5)
+	maxHealth = initial(maxHealth) + get_special_endurance_health_bonus()
 	health = maxHealth
+
+/// Non-linear so low END stays genuinely fragile and high END pays off hard, instead of a flat +/-5 per level
+/// Keyed on SPECIAL_MIN/MAX_ATTR_VALUE and clamped, so a future stat-range change extends cleanly instead of silently returning 0
+/mob/living/proc/get_special_endurance_health_bonus()
+	// Index N corresponds directly to a special_e value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/endurance_health_bonus = list(-50, -35, -20, -10, 0, 15, 35, 60, 90, 130)
+	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return endurance_health_bonus[clamped_e] || 0 // falls back to 0 if SPECIAL_MAX_ATTR_VALUE grows past the table without a matching row being added
 
 /mob/living/proc/get_special_rad_resist_multiplier()
 	return ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * -0.1 + 1)
 
 /mob/living/proc/get_special_poison_resist_multiplier()
-	switch(special_e)
-		if(1)
-			return 2
-		if(2)
-			return 1.75
-		if(3)
-			return 1.5
-		if(4)
-			return 1.25
-		if(5)
-			return 1
-		if(6)
-			return 0.9
-		if(7)
-			return 0.8
-		if(8)
-			return 0.7
-		if(9)
-			return 0.6
-		if(10)
-			return 0.5
-	return 1
+	// Index N corresponds directly to a special_e value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/poison_resist_multiplier = list(2, 1.75, 1.5, 1.25, 1, 0.9, 0.8, 0.7, 0.6, 0.5)
+	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return poison_resist_multiplier[clamped_e] || 1
 
 
 /// CHARISMA
@@ -180,6 +178,10 @@ proc/get_top_level_mob(mob/S)
 
 /datum/crafting_recipe/proc/generate_special_req_text()
 	return ", [required_int] Intelligence"
+
+/// Smarter field repairs restore more gun condition per wrench pass
+/mob/proc/get_intelligence_gun_repair_multiplier()
+	return CLAMP(1 + ((special_i - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.5, 1.5)
 
 /// AGILITY
 
@@ -297,32 +299,18 @@ proc/get_top_level_mob(mob/S)
 	if(special_a >= 9)
 		sprint_buffer_regen_ds *= (1.0 + (0.30 * regen_armor_modifier))
 
+/// Nimble hands clear gun jams and swap magazines faster - multiplies the relevant do_after duration
+/mob/proc/get_agility_gun_speed_multiplier()
+	return CLAMP(1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.05), 0.5, 1.5)
+
 /// LUCK
 
 /// Currently affects only money from trashpiles
 /mob/proc/get_luck_loot_amt_multiplier()
-	switch(special_l)
-		if(1)
-			return 0.5
-		if(2)
-			return 0.625
-		if(3)
-			return 0.75
-		if(4)
-			return 0.875
-		if(5)
-			return 1
-		if(6)
-			return 1.1
-		if(7)
-			return 1.2
-		if(8)
-			return 1.3
-		if(9)
-			return 1.4
-		if(10)
-			return 1.5
-	return 1
+	// Index N corresponds directly to a special_l value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/luck_loot_multiplier = list(0.5, 0.625, 0.75, 0.875, 1, 1.1, 1.2, 1.3, 1.4, 1.5)
+	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return luck_loot_multiplier[clamped_l] || 1
 
 /// Chance to drop a gun or hit yourself in melee
 /mob/proc/get_luck_critfail_chance()
@@ -334,6 +322,13 @@ proc/get_top_level_mob(mob/S)
 		if(3)
 			return 1
 	return 0
+
+/// How much heat/condition-driven gun jam & cook-off chance gets scaled by luck - bad luck makes malfunctions more likely, good luck less
+/mob/proc/get_luck_gun_jam_multiplier()
+	// Index N corresponds directly to a special_l value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/luck_jam_multiplier = list(1.8, 1.6, 1.4, 1.2, 1, 0.9, 0.8, 0.7, 0.6, 0.5)
+	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return luck_jam_multiplier[clamped_l] || 1
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()

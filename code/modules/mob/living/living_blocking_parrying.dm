@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
  */
 
 	/// Default damage-to-stamina coefficient, higher is better. This is based on amount of damage BLOCKED, not initial damage, to prevent damage from "double dipping".
-	var/block_stamina_efficiency = 2
+	var/block_stamina_efficiency = 3
 	/// Override damage-to-stamina coefficient, see [block_efficiency], this should be list(ATTACK_TYPE_DEFINE_TEXT = coefficient_number)
 	var/list/block_stamina_efficiency_override
 	/// Ratio of stamina incurred by blocking that goes to the arm holding the object instead of the chest. Has no effect if this is not held in hand.

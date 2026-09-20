@@ -161,6 +161,11 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
  */
 	var/datum/block_parry_data/block_parry_data
 
+	/// Wear-and-tear condition for melee weapons (0-100). Degrades from combat hits, restored by sharpening/maintenance tools. See MELEE_CONDITION_* defines.
+	var/melee_condition = MELEE_CONDITION_MAX
+	/// If TRUE, this item never accrues melee wear (e.g. energy blades, magical weapons with no physical edge to dull).
+	var/melee_wear_immune = FALSE
+
 	///Skills vars
 	//list of skill PATHS exercised when using this item. An associated bitfield can be set to indicate additional ways the skill is used by this specific item.
 	var/list/datum/skill/used_skills
