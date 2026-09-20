@@ -265,7 +265,15 @@
 		return
 	if(here.outdoors)
 		powered_area_instances = list(here)
-		grid_watt_draw = grid_watt_draw_base + _zone_watt_cost(here)
+		// Unlike indoor zones, "here" is a shared outdoor area singleton that can span
+		// huge stretches of the map — costing it by Z.contents.len (like _zone_watt_cost)
+		// would bill this box for every tile of that area type on the whole map. Only
+		// tiles within power_reach are actually stamped, so only bill for those.
+		var/local_tiles = 0
+		for(var/turf/T in RANGE_TURFS(power_reach, src))
+			if(get_area(T) == here)
+				local_tiles++
+		grid_watt_draw = grid_watt_draw_base + (grid_watt_draw_per_tile * local_tiles)
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)
 		else
