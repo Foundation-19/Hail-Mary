@@ -154,7 +154,7 @@ Trail Carbine + .45 for all rangers outside of the veteran.
 	selection_color = "#fff5cc"
 	display_order = JOB_DISPLAY_ORDER_SCOUTRANGER
 	exp_type = EXP_TYPE_FALLOUT
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1200, EXP_TYPE_ALIVE = 900)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 360, EXP_TYPE_ALIVE = 900)
 
 	outfit = /datum/outfit/job/ranger/f13rangerscout
 
