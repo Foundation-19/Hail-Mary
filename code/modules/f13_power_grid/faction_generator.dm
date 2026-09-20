@@ -176,6 +176,8 @@
 	var/uptime_ticks        = 0
 	/// Ticks elapsed since the last automatic dead-link prune (see FGEN_LINK_PRUNE_INTERVAL).
 	var/link_prune_ticks    = 0
+	/// Ticks elapsed since the last recalc_draw() relay-tree walk (see FGEN_DRAW_RECALC_INTERVAL).
+	var/draw_recalc_ticks   = FGEN_DRAW_RECALC_INTERVAL
 	/// TRUE once wear_level > 0 — the generator could use a wrench service.
 	/// A wrench applied while running clears this along with wear_level/uptime_ticks.
 	var/needs_maintenance   = FALSE
@@ -407,8 +409,13 @@
 			var/units_loaded = max(1, round(fuel / fuel_per_unit))
 			available_watts = watts_per_fuel_unit * units_loaded
 
-		// Recompute draw, skipping any shed items.
-		recalc_draw()
+		// Recompute draw, skipping any shed items. This walks the entire downstream relay/client
+		// tree, so it's throttled rather than run every single tick -- staleness up to the
+		// interval is fine, same tradeoff as the existing link-prune throttle above.
+		draw_recalc_ticks++
+		if(draw_recalc_ticks >= FGEN_DRAW_RECALC_INTERVAL)
+			draw_recalc_ticks = 0
+			recalc_draw()
 
 		// ── Wear & tear — a fresh/serviced unit is reliable for FGEN_WEAR_GRACE_PERIOD.
 		// Past that, roll for wear every FGEN_WEAR_CHECK_INTERVAL ticks: each existing stack
