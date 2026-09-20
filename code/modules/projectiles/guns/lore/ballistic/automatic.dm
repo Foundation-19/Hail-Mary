@@ -137,6 +137,7 @@
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/burst/two/slow,
+		/datum/firemode/automatic/rpm400, // this is an SMG archetype like its 9mm/.45 siblings, it shouldn't be burst-only - a heavy 14mm blowback action realistically still cycles, just slowly
 		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/magnum_fire.ogg'
@@ -164,8 +165,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/burst/three/slow, // real M3 Greaseguns are famously slow-cycling (~350-450rpm), not one of the fast SMGs
-		/datum/firemode/semi_auto/fast
+		/datum/firemode/automatic/rpm400 // the real M3 had no selector lever at all - it was a full-auto-only gun firing from an open bolt at ~350-450rpm, not a burst/semi weapon
 	)
 	suppressor_state = "uzi_suppressor"
 	suppressor_x_offset = 26
@@ -198,6 +198,7 @@
 	init_recoil = SMG_RECOIL(1.2)
 	init_firemodes = list(
 		/datum/firemode/burst/three/slow, // the header above calls this out as slower-firing/heavier-recoiling than the 9mm guns - was instead one of the fastest burst rates in the tier
+		/datum/firemode/automatic/rpm450, // was missing a true full-auto option entirely unlike every other mainline SMG here - kept below the 9mm guns' rpm600 to honor the "slower firing" callout
 		/datum/firemode/semi_auto/faster
 	)
 	suppressor_state = "10mm_suppressor" //activate if sprited
@@ -342,6 +343,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_firemodes = list(
 		/datum/firemode/burst/three/slow,
+		/datum/firemode/automatic/rpm600, // it's a crude repro of the Owen gun below, it should share that gun's cyclic rate - the shoddy build is represented by the jam chance, not by missing a firemode
 		/datum/firemode/semi_auto/slow
 	)
 	can_suppress = FALSE
@@ -802,7 +804,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = CARBINE_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm800, // real select-fire M2 Carbines cycle ~750-775rpm
 		/datum/firemode/semi_auto
 	)
 
@@ -1651,7 +1653,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm800, // real M16/M4-pattern rifles cycle ~700-950rpm, not a slow 150
 		/datum/firemode/semi_auto/fast
 	)
 	can_bayonet = FALSE
@@ -1681,11 +1683,11 @@
 	item_state = "infiltrator"
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_ONE_HAND_ONLY
-	damage_multiplier = GUN_EXTRA_DAMAGE_T2 //needs a lil edge at least
+	damage_multiplier = GUN_LESS_DAMAGE_T1 // desc explicitly says the suppressor trades away stopping-power for rate of fire - it shouldn't ALSO hit harder than the R91 per-shot
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm1000, // desc claims "a cleaner action allows it to fire faster" than the base R91 - should beat it, not match its old 150
 		/datum/firemode/semi_auto
 	)
 	can_suppress = FALSE
@@ -1714,7 +1716,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm800, // real compact PDWs (AUG Para/CAR-15 pattern) cycle ~700-950rpm, same tier as the full-size R91
 		/datum/firemode/semi_auto/fast
 	)
 	can_scope = FALSE
@@ -1744,7 +1746,8 @@
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
 		/datum/firemode/burst/two/fastest, // this is the AN-94-style 2-round hyperburst the desc describes, not plain continuous auto
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm600, // real AN-94's sustained/standard auto cycles ~600rpm - the hyperburst is a separate ~1800rpm mechanism, not this rate
+		/datum/firemode/semi_auto // the real AN-94 selector also has a plain single-shot position
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
@@ -1777,7 +1780,8 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.9)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm300, // crude scrap build, but any real gas/blowback action still cycles faster than a near-single-shot 200
+		/datum/firemode/semi_auto/slow // even a select-fire scrap conversion keeps a single-shot position
 	)
 	can_suppress = FALSE
 	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
@@ -1809,7 +1813,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200, // this is an AK-101 clone - real Kalashnikov-pattern rifles have semi/full-auto, not a burst position
+		/datum/firemode/automatic/rpm600, // this is an AK-101 clone - real AK-101/AK-74 pattern rifles cycle ~600rpm, have semi/full-auto not a burst position
 		/datum/firemode/semi_auto
 	)
 	
@@ -1921,7 +1925,8 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm800, // real AKS-74U (Krinkov) short gas system cycles ~600-735rpm, matching this gun's own "Fast RPM" callout
+		/datum/firemode/semi_auto // real Kalashnikov-pattern selectors keep a semi position
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
@@ -1958,7 +1963,8 @@
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
 		/datum/firemode/burst/two/faster,
-		/datum/firemode/automatic/rpm250,
+		/datum/firemode/automatic/rpm600, // real PP-19 Bizon (this gun's basis) cycles ~685rpm
+		/datum/firemode/semi_auto // real Bizon's selector is semi/auto only (the burst above is this gun's own added feature)
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
@@ -1993,8 +1999,9 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300,
-		/datum/firemode/burst/two/fastest
+		/datum/firemode/automatic/rpm600, // real RPK-74 (this gun's basis) cycles ~600rpm
+		/datum/firemode/burst/two/fastest,
+		/datum/firemode/semi_auto/slow // real RPK-74 selector is safe/semi/auto
 	)
 	can_suppress = TRUE
 	suppressor_state = "rifle_suppressor"
@@ -2085,7 +2092,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = CARBINE_RECOIL(1)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm800, // an M4-length carbine off the R91/AR platform should cycle in the ~700-950rpm range like its parent design
 		/datum/firemode/burst/three,
 		/datum/firemode/semi_auto
 	)
@@ -2122,7 +2129,7 @@
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(3)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm800, // same R91/AR-platform carbine as assault_carbine - keep the rate consistent
 		/datum/firemode/semi_auto
 	)
 	can_scope = FALSE
@@ -2147,7 +2154,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm600, // real FN FAL full-auto cycles ~650-700rpm (and is famously hard to control at that rate, not slow)
 		/datum/firemode/semi_auto/slow
 	)
 	fire_sound = 'sound/f13weapons/automaticrifle_BAR.ogg'
@@ -2173,7 +2180,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150, // the real AR-10 was sold and adopted as a select-fire battle rifle, not semi-auto only
+		/datum/firemode/automatic/rpm600, // the real AR-10 was sold and adopted as a select-fire battle rifle cycling ~600-700rpm, not semi-auto only at a slow rate
 		/datum/firemode/semi_auto/slow
 	)
 
@@ -2226,7 +2233,7 @@
 	init_recoil = RIFLE_RECOIL(1.3)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm150,
+		/datum/firemode/automatic/rpm450, // real BAR M1918A2 had a selectable fast cyclic rate of ~500-650rpm - 150 undersold its actual role as an auto rifle
 		/datum/firemode/semi_auto/slow
 	)
 	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION
@@ -2302,7 +2309,8 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = CARBINE_RECOIL(1.2)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/burst/three/fast, // the real G11 this shares its caseless ammo lineage with also has a 3-round burst position
+		/datum/firemode/automatic/rpm450, // shares the caseless-cartridge lineage of the real H&K G11, whose standard auto rate is ~460rpm (separate from its hyperburst)
 		/datum/firemode/semi_auto/fast
 	)
 	can_bayonet = TRUE
@@ -2346,7 +2354,7 @@
 	init_recoil = LMG_RECOIL(1)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300 // an LMG belt-feeding at the same rate as a handmade rifle isn't much of an upgrade
+		/datum/firemode/automatic/rpm800 // real belt-fed SAW-pattern LMGs cycle ~650-1000rpm - 300 wasn't much of an upgrade over a handmade rifle at all
 	)
 	fire_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
 
@@ -2374,7 +2382,8 @@
 	init_recoil = LMG_RECOIL(1)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm600, // real L86 LSW cycles ~610-775rpm
+		/datum/firemode/semi_auto/slow // real L86A1 selector is safe/semi/auto, sharing the L85's trigger group
 	)
 	zoom_factor = 1
 	can_scope = FALSE
@@ -2399,7 +2408,7 @@
 	init_recoil = LMG_RECOIL(1.2)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG * 1.5
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm250
+		/datum/firemode/automatic/rpm600 // real Lewis Gun cycles ~500-600rpm
 	)
 
 //less damage than the M1919, but more compact magazines that hold more
@@ -2419,7 +2428,7 @@
 	init_recoil = LMG_RECOIL(1.2)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG * 1.5
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm250
+		/datum/firemode/automatic/rpm600 // same real Lewis Gun platform as the base version, ~500-600rpm
 	)
 
 /obj/item/gun/ballistic/automatic/bren
@@ -2438,7 +2447,8 @@
 	init_recoil = LMG_RECOIL(1.2)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG // smaller 30-round mag vs R84's 60 is the tradeoff, don't also tax the full 1.5x slowdown
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm450, // real Bren gun cycles ~500-520rpm
+		/datum/firemode/semi_auto/slow // the real Bren has a single-shot/automatic selector, not auto-only
 	)
 
 /* * * * * * * * * * *
@@ -2467,7 +2477,7 @@
 	init_recoil = LMG_RECOIL(1.2)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG * 1.5
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm450 // real M1919A4 cycles ~450-600rpm
 	)
 	var/cover_open = FALSE
 	var/require_twohands = FALSE
@@ -2577,7 +2587,7 @@
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = RIFLE_RECOIL(0.6)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm200,
+		/datum/firemode/automatic/rpm800, // desc explicitly claims "fast firing" - should actually be fast, not a plain 200
 		/datum/firemode/burst/three,
 		/datum/firemode/semi_auto
 	)
