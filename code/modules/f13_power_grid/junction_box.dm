@@ -264,15 +264,25 @@
 	if(_area_is_immune(here))
 		return
 	if(here.outdoors)
-		powered_area_instances = list(here)
-		// Unlike indoor zones, "here" is a shared outdoor area singleton that can span
-		// huge stretches of the map — costing it by Z.contents.len (like _zone_watt_cost)
-		// would bill this box for every tile of that area type on the whole map. Only
-		// tiles within power_reach are actually stamped, so only bill for those.
+		// "here" is a shared outdoor area singleton that can span huge stretches of the
+		// map — stamping or costing it directly would affect (and bill for) every tile of
+		// that area type on the whole map. Instead, carve the tiles within power_reach out
+		// into a private zone (same trick the indoor flood-fill path uses below), so this
+		// box's power state and wattage only ever apply to its own local footprint. Every
+		// machine on those tiles then gets powered through the normal power_change() flow
+		// (correct icons/overlays), instead of us hand-toggling stat bits per-machine.
+		var/area/f13/Z = new here.type()
+		Z.f13_jbox_zone = TRUE
+		GLOB.sortedAreas -= Z
 		var/local_tiles = 0
 		for(var/turf/T in RANGE_TURFS(power_reach, src))
-			if(get_area(T) == here)
-				local_tiles++
+			if(get_area(T) != here)
+				continue
+			here.contents -= T
+			Z.contents += T
+			local_tiles++
+		powered_area_instances = list(Z)
+		owned_zones = list(Z = here)  // so Destroy() repatriates these tiles like any other zone
 		grid_watt_draw = grid_watt_draw_base + (grid_watt_draw_per_tile * local_tiles)
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)
@@ -522,19 +532,19 @@
 		for(var/area/A in powered_area_instances)
 			if(_area_is_immune(A))
 				continue
-			// Outdoor areas (e.g. wasteland) must NOT be stamped wholesale —
-			// F13_STAMP_AREA_POWER on a shared outdoor area datum lights up every
-			// light of that type across the entire map.  Toggle only devices
-			// within power_reach of this box instead, machine by machine.
-			if(A.outdoors)
+			// Defensive fallback only: a shared outdoor area singleton (not one of our own
+			// carved private zones) must NOT be stamped wholesale — F13_STAMP_AREA_POWER on
+			// it would light up every light of that type across the entire map. This should
+			// never trigger in practice since LateInitialize() always carves outdoor claims
+			// into a private zone first, but guard against it in case A ever ends up being
+			// the raw singleton (e.g. legacy save data from before that carving existed).
+			var/area/f13/fA = A
+			if(A.outdoors && !(istype(fA) && fA.f13_jbox_zone))
 				for(var/turf/T in RANGE_TURFS(power_reach, src))
 					if(get_area(T) != A)
 						continue
-					for(var/obj/machinery/M in T)
-						if(QDELETED(M))
-							continue
-						if(istype(M, /obj/machinery/light))
-							var/obj/machinery/light/L = M
+					for(var/obj/machinery/light/L in T)
+						if(!QDELETED(L))
 							if(state)
 								L.seton(L.status == LIGHT_OK)
 							else
@@ -542,19 +552,6 @@
 								L.emergency_mode = FALSE
 								L.set_light(0)
 								L.update_icon()
-							continue
-						// Grid devices manage their own power state via cable wiring,
-						// not area.power_equip — leave them alone here.
-						if(istype(M, /obj/machinery/f13))
-							continue
-						// Everything else (vendors, computers, farming gear, etc.) normally
-						// reads area.power_equip through powered(); since that flag is never
-						// set for a shared outdoor area, flip its NOPOWER stat bit directly.
-						if(state)
-							M.stat &= ~NOPOWER
-						else
-							M.stat |= NOPOWER
-						M.update_icon()
 				continue
 			if(A.power_equip == state)
 				continue
