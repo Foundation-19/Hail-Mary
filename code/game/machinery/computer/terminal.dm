@@ -175,6 +175,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 */
 
 /obj/machinery/computer/terminal/proc/resolve_map_links()
+	// Mappers sometimes set linked_door_ids to a bare string instead of list(...) — coerce it
+	if(linked_door_ids && !islist(linked_door_ids))
+		linked_door_ids = list(linked_door_ids)
+
 	// Resolve map_button_ids -> linked_buttons
 	// Accepts a comma-separated list of button id strings matching var/id on /obj/machinery/button/door
 	if(map_button_ids && length(map_button_ids))
