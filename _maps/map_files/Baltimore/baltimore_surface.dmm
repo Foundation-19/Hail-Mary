@@ -21081,7 +21081,7 @@
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 4
 	},
-/turf/open/transparent/openspace,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/minutemen/underground)
 "geK" = (
 /obj/effect/overlay/docks/fortedge{
