@@ -322,10 +322,11 @@
 	total_positions = 1
 	spawn_positions = 1
 	description = "From the depth of Vault 125, you are the one chosen by your peers to lead the warband. Be carefull, some raiders may try to split, but it is your duty to bring order, and then bring chaos on wastelanders, making slaves and selling them."
-	supervisors = "Your Employer, the Overseer of Vault 125"
+	supervisors = "Your Employer, ZAX 125 the Overseer of Vault 125"
 	selection_color = "#df80af"
-	exp_requirements = 0
+	exp_requirements = 1600
 	exp_type = EXP_TYPE_OUTLAW
+	access = ACCESS_MERCENARY
 	min_required_special = list(
 		"special_c" = 5,
 		)
@@ -439,8 +440,9 @@
 	total_positions = 5
 	spawn_positions = 5
 	description = "Either a slaver, a Gunner, a Talon or even a Vault 125 vault dweller, your goal ? Distabilise the region."
-	supervisors = "Your employer, Vault 125 overseer or the Mercenary War lord."
+	supervisors = "Your employer, ZAX 125 the Vault 125 overseer and the Mercenary War lord."
 	selection_color = "#df80af"
+	access = ACCESS_MERCENARY
 	exp_requirements = 0
 	exp_type = EXP_TYPE_OUTLAW
 	faction = FACTION_MERCENARY
@@ -467,7 +469,8 @@
 	loadout_options = list(
 		/datum/outfit/loadout/gunner,
 		/datum/outfit/loadout/talon,
-		/datum/outfit/loadout/slaver
+		/datum/outfit/loadout/slaver,
+		/datum/outfit/loadout/vaultrenegade
 	)
 
 /datum/outfit/job/mercenary
@@ -525,3 +528,19 @@
 		/obj/item/gun/ballistic/automatic/pistol/ninemil/c93 = 1,
 		/obj/item/ammo_box/magazine/m9mm = 4,
 		)
+
+/datum/outfit/loadout/vaultrenegade
+	name = "Vault Agitator"
+	uniform = /obj/item/clothing/under/f13/vault
+	head = 	/obj/item/clothing/head/helmet/riot/vaultsec
+	suit =	/obj/item/clothing/suit/armor/medium/vest
+	glasses = /obj/item/clothing/glasses/sunglasses
+	shoes = /obj/item/clothing/shoes/jackboots
+	backpack_contents = list(
+	/obj/item/storage/belt/army/security = 1,
+	/obj/item/gun/ballistic/automatic/pistol/n99 = 1,
+	/obj/item/restraints/handcuffs = 1,
+	/obj/item/assembly/flash/handheld = 1,
+	/obj/item/storage/box/security = 1,
+	/obj/item/book/granter/trait/lowsurgery = 1,
+	)

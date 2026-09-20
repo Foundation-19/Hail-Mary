@@ -33,10 +33,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/building/town/mayorial)
 "aE" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -261,10 +258,7 @@
 /turf/closed/wall/mineral/concrete,
 /area/f13/baltimore/wasteland/city)
 "cf" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -294,12 +288,33 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"cI" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "cJ" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/building/abandoned/hospital)
 "cO" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/baltimore/wasteland/city)
+"cU" = (
+/obj/structure/table/reinforced,
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/kitchen)
 "cV" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -439,10 +454,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment2)
 "ec" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 9
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -483,6 +495,12 @@
 /area/f13/baltimore/brotherhood/doorms)
 "ek" = (
 /obj/machinery/microwave/stove,
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
@@ -543,10 +561,7 @@
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "fh" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -776,20 +791,16 @@
 "gK" = (
 /turf/closed/wall/r_wall/f13/vault,
 /area/f13/baltimore/brotherhood/doorms)
-"gM" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 1
+"gN" = (
+/obj/machinery/door/unpowered/secure_bos,
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
-/obj/structure/railing/tg{
-	color = "#A47449"
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
 	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 1
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/brotherhood/vertibird)
 "gS" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 1
@@ -982,10 +993,7 @@
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/town/mayorial)
 "ig" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -1078,7 +1086,10 @@
 /area/f13/baltimore/wasteland/citywasteland/town)
 "iF" = (
 /obj/structure/lattice/catwalk,
-/turf/open/transparent/openspace,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/wasteland/city)
 "iI" = (
 /obj/item/f13/fusion_core,
@@ -1274,6 +1285,8 @@
 /area/f13/baltimore/brotherhood/doorms)
 "kv" = (
 /obj/structure/table/wood,
+/obj/structure/cable,
+/obj/machinery/f13/faction_generator/wastelander,
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "ky" = (
@@ -1337,10 +1350,7 @@
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building/center)
 "kS" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 9
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -1392,6 +1402,15 @@
 /obj/machinery/microwave,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/town/mayorial)
+"lo" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plating/f13/outside/roof/red,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "lq" = (
 /turf/open/floor/f13{
 	color = "#818181";
@@ -1544,10 +1563,7 @@
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/atlantic_cross/armory)
 "nf" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -1578,6 +1594,9 @@
 	name = "red light fixture";
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/brotherhood/vertibird)
 "no" = (
@@ -1600,10 +1619,7 @@
 /turf/open/floor/f13/rusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
 "nH" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 1
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -1614,10 +1630,7 @@
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "nK" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -1637,6 +1650,16 @@
 	icon_state = "rampuptop"
 	},
 /area/f13/baltimore/brotherhood/doorms)
+"nV" = (
+/obj/structure/rack/shelf_metal,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_x = 30
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "nY" = (
 /obj/effect/overlay/docks{
 	dir = 1
@@ -2181,21 +2204,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/brotherhood/doorms)
-"rZ" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/floor/plating/f13/outside/roof/wood,
-/area/f13/baltimore/wasteland/city/citycenter)
 "sa" = (
 /turf/open/floor/plating/rust,
 /area/f13/building/boat)
@@ -2331,6 +2339,14 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
+"tf" = (
+/obj/structure/table,
+/obj/item/hacking_device,
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/doorms)
 "th" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2466,10 +2482,6 @@
 "uk" = (
 /turf/closed/wall/rust,
 /area/f13/baltimore/brotherhood/lab)
-"un" = (
-/obj/structure/timeddoor,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "uq" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -2711,10 +2723,7 @@
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/town/mayorial)
 "wH" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -2729,10 +2738,7 @@
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
 /area/f13/building/center)
 "wO" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -2769,13 +2775,6 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/brotherhood/vertibird)
-"wW" = (
-/obj/structure/table,
-/obj/item/hacking_device,
-/turf/open/floor/f13{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/baltimore/brotherhood/doorms)
 "xa" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -2886,10 +2885,7 @@
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/town/appartment1)
 "xS" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -2906,17 +2902,8 @@
 /obj/structure/table/glass,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment1)
-"ye" = (
-/obj/machinery/mineral/wasteland_trader/special/brotherhood,
-/turf/open/floor/f13{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/baltimore/brotherhood/vertibird)
 "yh" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -3009,17 +2996,22 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/baltimore/building/town/mayorial)
+"yY" = (
+/obj/structure/table/wood,
+/obj/structure/barricade/bars{
+	max_integrity = 800;
+	name = "strong metal bars";
+	obj_integrity = 800
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "ze" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment2)
-"zg" = (
-/obj/structure/table,
-/obj/item/paper/fluff/brotherhood,
-/turf/open/floor/f13{
-	icon_state = "bluerustysolid"
-	},
-/area/f13/baltimore/brotherhood/doorms)
 "zo" = (
 /turf/closed/wall/rust,
 /area/f13/baltimore/building/town/mayorial)
@@ -3046,10 +3038,7 @@
 /turf/open/transparent/glass,
 /area/f13/baltimore/building/abandoned)
 "zA" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -3062,7 +3051,19 @@
 /area/f13/building/center)
 "zC" = (
 /obj/machinery/door/unpowered/secure_bos,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/brotherhood/vertibird)
+"zG" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
 /area/f13/baltimore/brotherhood/vertibird)
 "zM" = (
 /turf/open/floor/plating/f13/outside/roof/blue,
@@ -3216,6 +3217,15 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
+"AE" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/f13{
+	color = "#818181";
+	icon_state = "floorrustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "AT" = (
 /obj/structure/bed/wooden,
 /obj/structure/bed/wooden{
@@ -3390,10 +3400,7 @@
 	},
 /area/f13/baltimore/brotherhood/vertibird)
 "CI" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -3443,27 +3450,27 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/brotherhood/doorms)
+"Dc" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_x = -30
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "Dm" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment2)
 "Ds" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
-"Dt" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 9
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/floor/plating/f13/outside/roof/red,
-/area/f13/baltimore/wasteland/city/citycenter)
 "DB" = (
 /obj/structure/chair/folding{
 	dir = 1;
@@ -3521,10 +3528,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/baltimore/atlantic_cross/armory)
 "DV" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -3540,20 +3544,6 @@
 /obj/structure/rug/big/rug_rubber,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
-"DX" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
-/obj/structure/railing/tg{
-	color = "#A47449"
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 1
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "Ea" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -3589,6 +3579,17 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/brotherhood/kitchen)
+"Ev" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "Ez" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
 /area/f13/baltimore/building/abandoned)
@@ -3629,26 +3630,8 @@
 	sunlight_state = 1
 	},
 /area/f13/baltimore/building/town/mayorial)
-"EW" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 9
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/transparent/openspace,
-/area/f13/building/center)
 "Ff" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -3738,9 +3721,18 @@
 /turf/open/floor/plasteel/f13/vault_floor/darkerrusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
 "Ge" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/brotherhood/vertibird)
 "Gj" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_x = 30
+	},
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken5"
 	},
@@ -3753,6 +3745,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/brotherhood/doorms)
+"Gv" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/f13/sunset/brick_small/baltimore,
+/area/f13/baltimore/building/town/appartment1)
 "Gw" = (
 /turf/closed/wall/rust,
 /area/f13/citycaves)
@@ -3806,21 +3804,6 @@
 "Hi" = (
 /turf/open/floor/wood_common,
 /area/f13/baltimore/wasteland/city)
-"Hl" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 9
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city/citycenter)
 "Hp" = (
 /obj/structure/chair/comfy/bathtub,
 /obj/machinery/shower{
@@ -3838,6 +3821,9 @@
 "Hv" = (
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "120"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/brotherhood/vertibird)
@@ -3868,6 +3854,12 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/brotherhood/doorms)
+"HC" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/f13/outside/roof,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "HD" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4027,17 +4019,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/town/mayorial)
-"IR" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "IS" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/baltimore/building/town/mayorial)
@@ -4204,10 +4185,7 @@
 	},
 /area/f13/baltimore/building/town/mayorial)
 "Km" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -4480,11 +4458,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/brotherhood/kitchen)
-"Mn" = (
-/obj/structure/timeddoor,
-/obj/structure/timeddoor,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "Mq" = (
 /turf/closed/wall/r_wall/f13/vault,
 /area/f13/baltimore/brotherhood/kitchen)
@@ -4598,6 +4571,20 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/brotherhood/doorms)
+"Np" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/f13/outside/roof/red,
+/area/f13/baltimore/wasteland/citywasteland/town)
+"Nx" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/overlay/docks/rust,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/f13/outside/roof/red,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "Ny" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -4657,10 +4644,7 @@
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris,
 /area/f13/building/center)
 "Ow" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -4679,6 +4663,12 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
+"OJ" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "OP" = (
 /obj/effect/overlay/docks/fort,
 /turf/open/floor/plating/f13/outside/roof/metal,
@@ -4686,10 +4676,6 @@
 "OR" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/building/town/appartment2)
-"OY" = (
-/obj/structure/timeddoor,
-/turf/open/transparent/openspace,
-/area/f13/building/boat)
 "Pa" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -4709,26 +4695,8 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/brotherhood/doorms)
-"Pc" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 9
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "Pd" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -4787,6 +4755,9 @@
 /area/f13/baltimore/brotherhood/kitchen)
 "Pv" = (
 /obj/structure/rug/big/rug_rubber,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/brotherhood/vertibird)
 "Px" = (
@@ -4811,10 +4782,7 @@
 	},
 /area/f13/baltimore/brotherhood/vertibird)
 "PT" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -4840,6 +4808,12 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
+"Qd" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "Qe" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4871,20 +4845,6 @@
 "Qi" = (
 /turf/closed/indestructible/riveted,
 /area/f13/baltimore/wasteland/city)
-"Qj" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 1
-	},
-/obj/structure/railing/tg{
-	color = "#A47449"
-	},
-/obj/structure/railing/tg{
-	color = "#A47449";
-	dir = 1
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city/citycenter)
 "Qk" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4941,10 +4901,7 @@
 	},
 /area/f13/baltimore/wasteland/city)
 "QA" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -5073,13 +5030,13 @@
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "120"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
 "Rz" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449"
 	},
@@ -5204,6 +5161,13 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/brotherhood/doorms)
+"SA" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/f13/outside/roof/red,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "SE" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -5363,10 +5327,7 @@
 /turf/open/floor/f13/rusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
 "Ua" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 1
@@ -5593,10 +5554,7 @@
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/town/mayorial)
 "WK" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -5616,10 +5574,7 @@
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
 "WU" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -5732,10 +5687,7 @@
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "Yt" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
 	color = "#A47449";
 	dir = 8
@@ -11117,7 +11069,7 @@ sQ
 kU
 kU
 kU
-rt
+kU
 Yg
 rt
 kU
@@ -11467,9 +11419,9 @@ Sj
 vO
 kU
 vO
+Lp
+Lp
 mW
-kU
-kU
 Yg
 kU
 kU
@@ -11841,7 +11793,7 @@ ex
 ex
 ex
 ex
-ye
+ex
 cd
 RW
 lq
@@ -12211,7 +12163,7 @@ Ds
 Ds
 Ds
 Ik
-FX
+Dc
 DW
 FX
 Ik
@@ -12257,12 +12209,12 @@ nD
 nD
 nD
 nD
-rZ
-rZ
-rZ
-rZ
 kS
-rZ
+kS
+kS
+kS
+kS
+kS
 kS
 PT
 PT
@@ -12271,9 +12223,9 @@ WU
 WU
 WU
 WU
-Hl
 PT
-EW
+PT
+wO
 wO
 zA
 uh
@@ -12543,10 +12495,10 @@ Fg
 kB
 lq
 lq
-lq
-lq
-lq
-Yy
+AE
+Oh
+Oh
+gN
 nm
 Ge
 Ge
@@ -12563,7 +12515,7 @@ iF
 iF
 iF
 Rp
-FX
+Qd
 DW
 Hc
 Ik
@@ -12895,7 +12847,7 @@ LX
 VG
 lq
 lq
-lq
+zG
 lq
 sZ
 ts
@@ -12911,11 +12863,11 @@ qu
 fq
 ts
 ts
-Ds
+rE
 oR
-Ds
+rE
 Ik
-FX
+cI
 FX
 FX
 Ik
@@ -13214,8 +13166,8 @@ gK
 ZG
 ZG
 ZG
-mv
 JL
+mv
 mv
 mv
 ZG
@@ -13247,7 +13199,7 @@ oV
 UQ
 UQ
 UQ
-UQ
+Ev
 UQ
 lf
 ts
@@ -13264,7 +13216,7 @@ ts
 MC
 rE
 vJ
-Ds
+rE
 Vp
 Ik
 Ik
@@ -13569,7 +13521,7 @@ JL
 Ae
 Ae
 MQ
-wW
+yK
 ZG
 ED
 Ae
@@ -13914,7 +13866,7 @@ SW
 kn
 ZG
 Ae
-iz
+tf
 tp
 Ae
 ZG
@@ -14273,7 +14225,7 @@ ZG
 og
 Ae
 MQ
-zg
+yK
 ZG
 ED
 Ae
@@ -14291,7 +14243,7 @@ to
 zt
 ek
 TH
-BL
+cU
 Zk
 ip
 Mq
@@ -14751,7 +14703,7 @@ Tm
 Tm
 Tm
 Tm
-Qj
+CI
 Tm
 Tm
 Tm
@@ -20078,9 +20030,9 @@ Uf
 Uf
 Yt
 PT
-Hl
 PT
-Hl
+PT
+PT
 nK
 nK
 Kd
@@ -20453,9 +20405,9 @@ Kd
 Kd
 nK
 nK
-Hl
 PT
-Dt
+PT
+Yt
 Yt
 Uf
 Uf
@@ -22878,7 +22830,7 @@ Tm
 Tm
 Tm
 Tm
-Qj
+CI
 Tm
 Tm
 Tm
@@ -23934,7 +23886,7 @@ Tm
 Tm
 Tm
 Tm
-Qj
+CI
 Tm
 Tm
 Tm
@@ -25305,9 +25257,9 @@ yh
 PT
 PT
 PT
-Hl
 PT
-Hl
+PT
+PT
 PT
 nf
 uc
@@ -25374,9 +25326,9 @@ PT
 PT
 PT
 PT
-Hl
 PT
-Hl
+PT
+PT
 PT
 wH
 fp
@@ -28139,9 +28091,9 @@ WK
 PT
 PT
 PT
-Hl
 PT
-Hl
+PT
+PT
 PT
 Ff
 go
@@ -28571,7 +28523,7 @@ Tm
 Tm
 Tm
 Tm
-Qj
+CI
 Tm
 Tm
 Tm
@@ -29627,7 +29579,7 @@ Tm
 Tm
 Tm
 Tm
-Qj
+CI
 Tm
 Tm
 Tm
@@ -34437,9 +34389,9 @@ Mx
 Wx
 DV
 QA
-Pc
 QA
-Pc
+QA
+QA
 QA
 yh
 Ez
@@ -44476,7 +44428,7 @@ Ds
 Ds
 Ds
 Ds
-gM
+xS
 Ds
 Ds
 Ds
@@ -45884,7 +45836,7 @@ Ds
 Ds
 Ds
 Ds
-gM
+xS
 Ds
 Ds
 Ds
@@ -49289,43 +49241,43 @@ Ds
 Ds
 Ds
 Ds
-Mn
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-Mn
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
 Ds
 Ds
 VD
@@ -49641,7 +49593,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 Ds
 Ds
@@ -49677,7 +49629,7 @@ Cb
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 Ds
 VD
@@ -49993,7 +49945,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 Ds
 Ds
@@ -50029,7 +49981,7 @@ Cb
 Cb
 Cb
 Ds
-un
+Ds
 Ds
 VD
 VD
@@ -50345,7 +50297,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 sa
 sa
@@ -50381,7 +50333,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 VD
 VD
@@ -50697,7 +50649,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 mO
 mO
 mO
@@ -50733,7 +50685,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 Ds
 VD
@@ -51049,7 +51001,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 mO
 mO
 mO
@@ -51085,7 +51037,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 Ds
 Ds
@@ -51401,7 +51353,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 mO
 mO
 mO
@@ -51437,7 +51389,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 Ds
 Ds
@@ -51753,7 +51705,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 mO
 mO
 mO
@@ -51789,7 +51741,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 Ds
 Ds
@@ -52105,7 +52057,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 mO
 mO
 mO
@@ -52141,7 +52093,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 Ds
 Ds
@@ -52457,7 +52409,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 mO
 mO
@@ -52493,7 +52445,7 @@ Cb
 Cb
 Cb
 Cb
-un
+Ds
 Ds
 Ds
 Ds
@@ -52809,7 +52761,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 Ds
 Ds
@@ -52845,7 +52797,7 @@ Cb
 Cb
 Cb
 Ds
-un
+Ds
 Ds
 Ds
 Ds
@@ -53161,7 +53113,7 @@ Ds
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 Ds
 Ds
@@ -53197,7 +53149,7 @@ Cb
 Ds
 Ds
 Ds
-un
+Ds
 Ds
 Ds
 Ds
@@ -53513,43 +53465,43 @@ Ds
 Ds
 Ds
 Ds
-Mn
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-OY
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-un
-Mn
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+px
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
+Ds
 Ds
 Ds
 Ds
@@ -65887,7 +65839,7 @@ fc
 fc
 fc
 fc
-DX
+nH
 fc
 fc
 fc
@@ -66591,7 +66543,7 @@ fc
 fc
 fc
 fc
-DX
+nH
 fc
 fc
 fc
@@ -66943,7 +66895,7 @@ fc
 fc
 fc
 fc
-DX
+nH
 fc
 fc
 fc
@@ -67639,12 +67591,12 @@ fc
 fc
 fc
 cD
-IR
-IR
-IR
-IR
-IR
-IR
+ec
+ec
+ec
+ec
+ec
+ec
 ec
 ec
 KD
@@ -70090,7 +70042,7 @@ qc
 Ju
 zW
 fH
-fH
+Gv
 fH
 fH
 fH
@@ -70177,7 +70129,7 @@ Ds
 Ds
 Ds
 Ds
-gM
+xS
 Ds
 Ds
 Ds
@@ -70433,19 +70385,19 @@ pC
 sU
 BV
 Tb
-ea
-Dm
-hU
-UU
-aQ
-zW
-zW
-zW
-JV
-JV
-JV
-JV
-JV
+nV
+OJ
+yY
+HC
+Nx
+SA
+SA
+SA
+Np
+lo
+Np
+Np
+Np
 kv
 fH
 ia
@@ -71233,7 +71185,7 @@ Ds
 Ds
 Ds
 Ds
-gM
+xS
 Ds
 Ds
 Ds
@@ -71854,14 +71806,14 @@ fc
 fc
 fc
 sO
-IR
-IR
-IR
-IR
-IR
 ec
-IR
-IR
+ec
+ec
+ec
+ec
+ec
+ec
+ec
 UU
 LA
 DC

@@ -126,6 +126,15 @@
 /obj/machinery/vending/boozeomat,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building/center)
+"aip" = (
+/obj/effect/overlay/docks/fort{
+	density = 1
+	},
+/obj/effect/overlay/docks{
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "ajd" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -197,7 +206,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "alN" = (
 /obj/structure/chair/comfy/brown{
 	dir = 8
@@ -215,7 +224,7 @@
 /area/f13/baltimore/building/boat)
 "anQ" = (
 /obj/structure/lattice/catwalk,
-/obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded,
+/obj/mecha/working/normalvehicle/vertibird/brotherhood,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/brotherhood/vertibird)
 "aoB" = (
@@ -505,6 +514,12 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross)
+"aDS" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
+/area/f13/baltimore/building/town/appartment1)
 "aDZ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/broken{
@@ -522,11 +537,11 @@
 	dir = 8
 	},
 /turf/open/floor/wood/f13/housewoodbroken2,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "aHX" = (
 /obj/structure/table/optable/primitive,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "aIj" = (
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/baltimore/building/town/house2)
@@ -583,6 +598,26 @@
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/building/center)
+"aJT" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0;
+	pixel_y = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/f13/wood/outside,
+/area/f13/building)
 "aKz" = (
 /obj/machinery/shower{
 	pixel_y = 16
@@ -1029,9 +1064,6 @@
 	icon_state = "mosaic_dark1"
 	},
 /area/f13/building/center)
-"bgy" = (
-/turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
-/area/f13/baltimore/minutemen/east)
 "bgC" = (
 /obj/item/chair/wood,
 /turf/open/floor/wood_mosaic{
@@ -1088,6 +1120,13 @@
 "bjN" = (
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
+"bjQ" = (
+/obj/structure/railing/tg{
+	dir = 4
+	},
+/obj/structure/lattice,
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/vertibird)
 "bjT" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/wood_mosaic{
@@ -1122,7 +1161,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "blx" = (
 /obj/structure/table/wood,
 /obj/structure/rug/big/rug_blue_shag{
@@ -1132,7 +1171,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "blM" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/machinery/light/small{
@@ -1147,6 +1186,16 @@
 /obj/structure/stairs/west,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/baltimore/wasteland/city/citycenter)
+"bmd" = (
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 2
+	},
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/minutemen)
 "bmS" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1358,7 +1407,7 @@
 	pixel_x = 12
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "byk" = (
 /obj/machinery/autolathe/ammo/unlocked,
 /turf/open/floor/wood_mosaic{
@@ -1490,12 +1539,25 @@
 	dir = 8
 	},
 /area/f13/baltimore/building/abandoned/hospital)
+"bCQ" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/transparent/openspace,
+/area/f13/baltimore/building/abandoned)
 "bDc" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowbroken"
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/abandoned)
+"bDe" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "bDk" = (
 /obj/structure/window/fulltile/ruins{
 	icon_state = "ruinswindowvertical"
@@ -1555,6 +1617,12 @@
 	icon_state = "fancy_dark-broken5"
 	},
 /area/f13/baltimore/building/town/appartment2)
+"bHD" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
+/area/f13/baltimore/boatbar)
 "bJu" = (
 /obj/machinery/chem_master/advanced,
 /obj/item/kirbyplants{
@@ -1626,7 +1694,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "bNL" = (
 /obj/structure/flora/branch_broken,
 /turf/open/floor/wood_fancy,
@@ -1701,9 +1769,6 @@
 /area/f13/brotherhood)
 "bRU" = (
 /obj/structure/closet/locker/oldstyle,
-/obj/machinery/f13/junction_box/small{
-	pixel_y = 26
-	},
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken6"
 	},
@@ -1718,7 +1783,7 @@
 	dir = 1
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "bSt" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -2335,7 +2400,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "cvW" = (
 /obj/effect/landmark/start/f13/atlanticdoctor,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -2360,8 +2425,8 @@
 /obj/effect/overlay/docks/fortedge{
 	dir = 4
 	},
-/turf/open/floor/plating/f13/outside/roof/metal,
-/area/f13/baltimore/wasteland/city)
+/turf/open/transparent/openspace,
+/area/f13/baltimore/minutemen)
 "cxP" = (
 /obj/structure/barricade/wooden{
 	layer = 5
@@ -2622,7 +2687,7 @@
 "cKq" = (
 /obj/machinery/iv_drip/primitive,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "cKJ" = (
 /obj/structure/chair/office/dark,
 /obj/effect/landmark/start/f13/paladincommander,
@@ -2695,6 +2760,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken4"
 	},
@@ -2746,6 +2814,12 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"cQq" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "cSD" = (
 /obj/structure/wreck/trash/machinepile,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -2810,6 +2884,12 @@
 /obj/structure/fence,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/raider_mall)
+"cWO" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "cWP" = (
 /obj/structure/cargocrate{
 	layer = 3;
@@ -2984,6 +3064,9 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/baltimore/building/abandoned)
+"ded" = (
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "dek" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -3015,9 +3098,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/town/appartment3)
-"dfE" = (
+"dfD" = (
+/obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/building/town/appartment2)
 "dhg" = (
 /obj/structure/chair/booth{
 	dir = 1
@@ -3034,7 +3118,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/wood/f13/housewoodbroken,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "dhT" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -3092,10 +3176,23 @@
 "dlV" = (
 /obj/structure/destructible/tribal_torch/wall/lit,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
+"dlX" = (
+/obj/effect/spawner/lootdrop/trash,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "dmj" = (
 /obj/structure/chair/f13chair2{
 	dir = 8
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_y = 26
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/wood_common,
 /area/f13/baltimore/building/boat)
@@ -3105,6 +3202,12 @@
 	icon_state = "common_dark-broken6"
 	},
 /area/f13/building/center)
+"dnF" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/building)
 "dos" = (
 /obj/structure/chair/comfy/green,
 /turf/open/transparent/glass,
@@ -3179,9 +3282,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/Ocean)
-"dqB" = (
-/turf/open/floor/wood/f13/housewoodbroken2,
-/area/f13/baltimore/minutemen/north)
 "drl" = (
 /obj/effect/decal/cleanable/glass,
 /obj/structure/table,
@@ -3280,7 +3380,7 @@
 /obj/item/clothing/head/f13/army/beret/specialforces,
 /obj/item/clothing/head/helmet/f13/goner/officer/yellow,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "dxf" = (
 /obj/item/toy/figure/warden,
 /turf/open/floor/carpet/green,
@@ -3350,9 +3450,15 @@
 /area/f13/brotherhood)
 "dzj" = (
 /obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/open/indestructible/ground/outside/roof,
+/turf/open/floor/wood/f13/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "dzD" = (
 /obj/structure/rack/shelf_metal,
@@ -3708,6 +3814,9 @@
 /area/f13/baltimore/wasteland/city)
 "dOw" = (
 /obj/structure/wreck/trash/machinepiletwo,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
@@ -3727,6 +3836,12 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/building/center)
+"dPm" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/baltimore/boatvertibird)
 "dPx" = (
 /obj/structure/barricade/tentclothedge,
 /turf/open/floor/wood_fancy,
@@ -3776,7 +3891,7 @@
 /area/f13/baltimore/atlantic_cross)
 "dRh" = (
 /turf/open/floor/wood/f13/housewoodbroken3/lit,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "dRM" = (
 /obj/machinery/light/small/broken{
 	dir = 2
@@ -3785,6 +3900,13 @@
 	icon_state = "common_light1"
 	},
 /area/f13/baltimore/building/abandoned)
+"dSG" = (
+/obj/machinery/f13/power_relay/wasteland,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/wood/f13/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "dUd" = (
 /obj/machinery/light/small/broken{
 	dir = 4
@@ -3994,6 +4116,22 @@
 	icon_state = "wide_light-broken6"
 	},
 /area/f13/baltimore/wasteland/citywasteland/town)
+"eav" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0;
+	pixel_y = 4
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_y = -28
+	},
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment1)
 "eaD" = (
 /obj/structure/simple_door/tentflap_leather,
 /turf/open/indestructible/ground/outside/roof,
@@ -4276,7 +4414,7 @@
 	},
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "esh" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/wood_common{
@@ -4285,6 +4423,37 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/Ocean)
+"etf" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 2;
+	layer = 1;
+	can_be_z_moved = 0;
+	pixel_y = 4;
+	pixel_x = -4
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 1;
+	pixel_y = 5;
+	pixel_x = -5
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "etl" = (
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/town/house2)
@@ -4364,7 +4533,7 @@
 	pixel_y = 16
 	},
 /turf/open/floor/wood/f13/housewoodbroken4,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "exB" = (
 /obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -4486,7 +4655,7 @@
 /obj/structure/barricade/sandbags,
 /obj/effect/overlay/docks/fortedge,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "eCU" = (
 /obj/structure/junk/small/table,
 /obj/structure/junk/small/tv{
@@ -4714,7 +4883,7 @@
 	icon_state = "shrub_decals_2"
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "eJk" = (
 /turf/closed/wall/f13/ruins{
 	unbreakable = 1;
@@ -4738,7 +4907,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "eJU" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_fancy,
@@ -4920,7 +5089,7 @@
 /obj/item/clothing/suit/armor/medium/duster/minutemen,
 /obj/item/clothing/shoes/f13/minutemen,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "eRK" = (
 /obj/structure/curtain{
 	icon_state = "closed"
@@ -5049,7 +5218,6 @@
 	icon_state = "cargocrate3";
 	layer = 1
 	},
-/obj/structure/timeddoor,
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
 	name = "rusted Docks"
@@ -5155,6 +5323,13 @@
 	icon_state = "housewood2"
 	},
 /area/f13/brotherhood)
+"fdX" = (
+/obj/effect/spawner/lootdrop/trash,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/open/floor/wood_common,
+/area/f13/building/center)
 "fed" = (
 /obj/structure/reagent_dispensers/peppertank{
 	pixel_x = 27
@@ -5257,6 +5432,20 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/baltimore/building/abandoned)
+"fih" = (
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
+"fjh" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/obj/effect/overlay/docks/fortedge,
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "fkc" = (
 /turf/closed/wall/f13/store/constructed{
 	name = "cruise ship hull"
@@ -5301,7 +5490,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/machinery/f13/faction_generator/fusion,
+/obj/machinery/f13/faction_generator/diesel,
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "flC" = (
@@ -5338,10 +5527,6 @@
 /obj/effect/spawner/lootdrop/f13/traitbooks/low,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/baltimore/building/abandoned)
-"fnl" = (
-/obj/structure/timeddoor,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "fnm" = (
 /mob/living/simple_animal/hostile/raider/ranged/biker,
 /turf/open/floor/plating/f13/outside/road/baltimore{
@@ -5389,7 +5574,7 @@
 	layer = 1
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "fpZ" = (
 /obj/machinery/light/broken{
 	dir = 8
@@ -5443,13 +5628,6 @@
 /obj/structure/barricade/bars,
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/raider_mall)
-"fso" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "fsC" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -5507,12 +5685,6 @@
 	icon_state = "worn_light-broken1"
 	},
 /area/f13/building/center)
-"fwO" = (
-/obj/structure/window/fulltile/wood_window{
-	icon_state = "housewindowbrokenvertical"
-	},
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
 "fwT" = (
 /obj/machinery/light/broken{
 	dir = 4
@@ -5552,9 +5724,6 @@
 "fxL" = (
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/citywasteland/town)
-"fyg" = (
-/turf/open/floor/wood/f13/housewoodbroken3/lit,
-/area/f13/baltimore/minutemen/east)
 "fyF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/broken{
@@ -5653,7 +5822,6 @@
 	icon_state = "cargocrate3";
 	layer = 4.2
 	},
-/obj/structure/timeddoor,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
 "fFC" = (
@@ -5674,8 +5842,12 @@
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
 /turf/open/floor/plating/f13/outside/roof/metal,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "fFP" = (
 /obj/structure/shuttle/engine/large{
 	dir = 1
@@ -5737,6 +5909,9 @@
 "fHT" = (
 /obj/structure/barricade/tentclothedge,
 /obj/structure/barricade/wooden,
+/obj/structure/cable{
+	icon_state = "6-9"
+	},
 /turf/open/floor/wood_wide,
 /area/f13/baltimore/building/boat)
 "fIE" = (
@@ -5825,7 +6000,7 @@
 "fNl" = (
 /obj/item/flag/minutemen,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "fNG" = (
 /obj/item/electropack/shockcollar/explosive,
 /obj/item/electropack/shockcollar/explosive,
@@ -5923,7 +6098,7 @@
 	},
 /obj/effect/landmark/start/f13/minutemenmajor,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "fSt" = (
 /obj/structure/table/reinforced,
 /mob/living/simple_animal/hostile/handy/assaultron/playable/medical{
@@ -5946,6 +6121,16 @@
 /obj/structure/simple_door/metal/iron,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building/center)
+"fUQ" = (
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/white/line,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/wood,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "fVx" = (
 /obj/structure/bookcase/manuals/research_and_development,
 /turf/open/floor/wood_common/wood_common_light,
@@ -6063,7 +6248,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "gal" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -6229,6 +6414,13 @@
 	can_be_z_moved = 0;
 	pixel_y = 4
 	},
+/obj/machinery/f13/power_relay/wasteland,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment1)
 "gke" = (
@@ -6323,6 +6515,9 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/baltimore/building/abandoned)
+"gon" = (
+/turf/open/transparent/openspace,
+/area/f13/baltimore/minutemen)
 "gop" = (
 /obj/machinery/workbench/advanced,
 /obj/effect/spawner/lootdrop/ammo/shotgun,
@@ -6330,6 +6525,12 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier2,
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
+"goF" = (
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/minutemen)
 "goG" = (
 /obj/structure/window/fulltile/wood_window,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -6355,7 +6556,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/f13/housewoodbroken2,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "gqr" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/remains/human,
@@ -6441,10 +6642,16 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "gxT" = (
 /obj/structure/table,
 /obj/item/melee/coyote/harpoon,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_x = 31
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment2)
 "gyi" = (
@@ -6592,10 +6799,7 @@
 /turf/open/floor/wood_mosaic,
 /area/f13/building/center)
 "gFn" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "gFw" = (
@@ -6675,15 +6879,6 @@
 /obj/effect/spawner/lootdrop/f13/weapon/western,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"gKe" = (
-/obj/machinery/light/small{
-	dir = 8;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
-	},
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
 "gKu" = (
 /obj/item/chair/stool/retro,
 /turf/open/floor/wood_common{
@@ -6704,10 +6899,7 @@
 	},
 /area/f13/building/center)
 "gLG" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 5
-	},
+/obj/structure/lattice/catwalk,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -6813,6 +7005,13 @@
 /obj/structure/chair/wood/wings,
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/building/abandoned)
+"gPW" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/item/paper/f13/power_grid_guide/diesel,
+/turf/open/floor/wood_worn,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "gQk" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/f13Cash/random/ncr/med,
@@ -6858,6 +7057,9 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/building/boat)
+"gSo" = (
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/minutemen)
 "gSy" = (
 /obj/structure/window/fulltile/ruins/broken{
 	icon_state = "ruinswindowbrokenvertical"
@@ -6880,6 +7082,15 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/boat)
+"gTI" = (
+/obj/machinery/light/small{
+	light_color = "#FF0000";
+	color = "#FF0000";
+	name = "red light fixture";
+	dir = 1
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "gUz" = (
 /obj/item/book/manual/wiki/tcomms,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -6893,13 +7104,6 @@
 /obj/effect/spawner/lootdrop/f13/cash_random_high,
 /turf/open/floor/plasteel/vault,
 /area/f13/baltimore/building/abandoned)
-"gVj" = (
-/obj/mecha/working/normalvehicle/vertibird/brotherhood/loaded,
-/turf/open/floor/f13{
-	icon_state = "junc";
-	dir = 1
-	},
-/area/f13/baltimore/brotherhood/lab)
 "gVD" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/wood_common{
@@ -6934,9 +7138,18 @@
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/abandoned)
-"gWh" = (
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+"gWC" = (
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/machinery/f13/faction_generator/diesel,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/item/paper/f13/power_grid_guide/diesel,
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "gXp" = (
 /obj/effect/spawner/lootdrop/wmelee_high,
 /turf/open/floor/wood_mosaic{
@@ -7148,6 +7361,12 @@
 	color = "#669999";
 	dir = 8
 	},
+/obj/machinery/f13/junction_box/small{
+	pixel_x = -28
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
 	icon_state = "bluerustyfull"
 	},
@@ -7235,6 +7454,7 @@
 	},
 /area/f13/citycaves)
 "hii" = (
+/obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/town/appartment3)
 "hin" = (
@@ -7312,8 +7532,12 @@
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "hnZ" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -7414,13 +7638,6 @@
 	name = "solid ruins"
 	},
 /area/f13/citycaves)
-"hrz" = (
-/obj/structure/timeddoor,
-/turf/open/floor/plating/rust{
-	sunlight_state = 1;
-	name = "rusted Docks"
-	},
-/area/f13/baltimore/wasteland/city)
 "hrE" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark{
 	icon_state = "fancy_dark-broken2"
@@ -7556,7 +7773,7 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "huD" = (
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier3,
@@ -7588,9 +7805,6 @@
 /obj/structure/chair/comfy/throne,
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/baltimore/wasteland/city/citycenter)
-"hvB" = (
-/turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
-/area/f13/baltimore/minutemen/north)
 "hwi" = (
 /obj/structure/chair/f13chair2{
 	dir = 1
@@ -7623,6 +7837,15 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building/center)
+"hxS" = (
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
+/area/f13/baltimore/building/abandoned)
 "hym" = (
 /obj/structure/rack/shelf_wood,
 /obj/effect/spawner/lootdrop/f13/weapon/junk,
@@ -7662,7 +7885,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "hCu" = (
 /obj/effect/landmark/start/f13/f13baltimoremechanic,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -7812,10 +8035,6 @@
 "hIz" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/brotherhood)
-"hIY" = (
-/obj/structure/timeddoor,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "hJH" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -7889,7 +8108,13 @@
 "hNf" = (
 /obj/structure/chair/stool/retro,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
+"hNQ" = (
+/obj/structure/railing{
+	color = "#A47449"
+	},
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/vertibird)
 "hNT" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -7962,16 +8187,6 @@
 	icon_state = "housewood2"
 	},
 /area/f13/building/center)
-"hTB" = (
-/obj/structure/barricade/tentclothedge{
-	dir = 1;
-	pixel_y = -3
-	},
-/obj/structure/barricade/wooden,
-/turf/open/floor/wood_wide{
-	icon_state = "wide-broken1"
-	},
-/area/f13/baltimore/building/boat)
 "hUb" = (
 /obj/structure/table/reinforced,
 /obj/item/flashlight/lamp{
@@ -8064,6 +8279,9 @@
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "hYT" = (
@@ -8076,6 +8294,11 @@
 	icon_state = "mosaic-broken2"
 	},
 /area/f13/building/center)
+"hYV" = (
+/obj/structure/lattice/catwalk,
+/obj/mecha/working/normalvehicle/vertibird/brotherhood,
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/lab)
 "hZr" = (
 /turf/closed/wall/f13/wood/interior,
 /area/f13/baltimore/building/town/mayorial)
@@ -8202,12 +8425,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/baltimore/building/abandoned)
-"ifH" = (
-/obj/structure/railing/tg{
-	color = "#A47449"
-	},
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
 "ifO" = (
 /obj/structure/railing/corrugated/two{
 	pixel_y = 18
@@ -8381,9 +8598,6 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/building/boat)
-"ilx" = (
-/turf/open/floor/wood/f13/housewoodbroken,
-/area/f13/baltimore/minutemen/east)
 "ilU" = (
 /obj/structure/flora/ausbushes/grassybush,
 /obj/effect/decal/cleanable/greenglow,
@@ -8549,6 +8763,12 @@
 	},
 /turf/open/transparent/glass/reinforced,
 /area/f13/baltimore/brotherhood/vertibird)
+"irg" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/wasteland/city/citycenter)
 "irs" = (
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -8628,6 +8848,8 @@
 	dir = 4
 	},
 /obj/machinery/workbench,
+/obj/item/reagent_containers/jerrycan,
+/obj/item/reagent_containers/jerrycan,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "iut" = (
@@ -8638,7 +8860,13 @@
 /area/f13/outpost)
 "iuu" = (
 /turf/open/floor/wood/f13/housewoodbroken4,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
+"iuz" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "iuN" = (
 /obj/machinery/door/airlock/virology,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
@@ -8912,7 +9140,7 @@
 	pixel_y = 16
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "iFd" = (
 /turf/open/floor/f13{
 	color = "#818181";
@@ -9094,11 +9322,6 @@
 /obj/structure/wreck/trash/machinepiletwo,
 /turf/open/floor/plasteel/f13/vault_floor/misc/rarewhite,
 /area/f13/baltimore/building/abandoned/hospital)
-"iNz" = (
-/obj/effect/turf_decal/stripes/asteroid/line,
-/obj/structure/timeddoor/sixtyminute,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
-/area/f13/baltimore/wasteland/city)
 "iNN" = (
 /obj/structure/railing/corner{
 	icon_state = "straight";
@@ -9154,6 +9377,9 @@
 "iPq" = (
 /obj/structure/chair/comfy/shuttle{
 	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/baltimore/boatbar)
@@ -9228,11 +9454,6 @@
 	},
 /turf/open/floor/wood_wide,
 /area/f13/baltimore/building/abandoned)
-"iSU" = (
-/obj/structure/timeddoor/sixtyminute,
-/obj/structure/timeddoor/sixtyminute,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "iSV" = (
 /turf/open/floor/plasteel/f13/vault_floor/yellow/side{
 	dir = 1
@@ -9377,7 +9598,6 @@
 /obj/structure/cargocrate{
 	color = "#F2222F"
 	},
-/obj/structure/timeddoor,
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/wasteland/city)
 "iZR" = (
@@ -9396,6 +9616,12 @@
 	name = "Hospital ship hull"
 	},
 /area/f13/baltimore/atlantic_cross)
+"jbj" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/building/abandoned)
 "jbp" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/blood/radaway,
@@ -9531,7 +9757,7 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "jiH" = (
 /obj/machinery/modular_computer/console/buildable{
 	dir = 1
@@ -9579,7 +9805,7 @@
 "jku" = (
 /obj/structure/closet/cabinet/anchored,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "jkw" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/town/house1)
@@ -9683,6 +9909,12 @@
 	icon_state = "common1"
 	},
 /area/f13/building/center)
+"jnV" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "joi" = (
 /obj/structure/table/reinforced,
 /obj/effect/spawner/lootdrop/f13/cash_random_med,
@@ -9721,8 +9953,12 @@
 /obj/effect/overlay/docks{
 	dir = 4
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "jqY" = (
 /obj/item/chair,
 /obj/machinery/light/fo13colored/Aqua,
@@ -9757,7 +9993,6 @@
 	icon_state = "cargocrate5";
 	layer = 1
 	},
-/obj/structure/timeddoor,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
 "jsL" = (
@@ -9784,7 +10019,7 @@
 "jtI" = (
 /obj/effect/landmark/start/f13/minutemen,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "jvn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
@@ -10138,6 +10373,17 @@
 	},
 /turf/open/floor/carpet/red,
 /area/f13/baltimore/building/abandoned)
+"jLe" = (
+/obj/structure/window/fulltile/wood_window{
+	icon_state = "housewindowbrokenvertical"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	icon_state = "bluerustyfull"
+	},
+/area/f13/baltimore/boatbar)
 "jLA" = (
 /obj/structure/chalkboard,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -10418,13 +10664,6 @@
 /obj/structure/table,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
-"kau" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 4
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "kaX" = (
 /obj/structure/window/fulltile/wood/broken,
 /obj/effect/overlay/junk/curtain{
@@ -10448,6 +10687,19 @@
 	icon_state = "mosaic-broken2"
 	},
 /area/f13/baltimore/building/town/appartment1)
+"kbL" = (
+/obj/effect/overlay/docks/fort{
+	density = 1
+	},
+/obj/effect/overlay/docks{
+	dir = 8
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "kcG" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "common-broken6"
@@ -10466,6 +10718,13 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/building/center)
+"kdL" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 2
+	},
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/minutemen)
 "kee" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
 /area/f13/baltimore/wasteland/city)
@@ -10755,6 +11014,12 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
+"kwy" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "kwJ" = (
 /turf/open/floor/wood_common{
 	name = "wooden dock";
@@ -10929,6 +11194,15 @@
 	icon_state = "worn-broken6"
 	},
 /area/f13/baltimore/wasteland/city/citycenter)
+"kDo" = (
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "kDL" = (
 /obj/structure/chair/office/dark{
 	dir = 4
@@ -10986,7 +11260,7 @@
 	dir = 8
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "kFV" = (
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -11016,12 +11290,12 @@
 "kGv" = (
 /obj/effect/overlay/docks/fortedge,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "kGE" = (
 /obj/structure/bed/oldalt,
 /obj/item/bedsheet/brown,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "kGJ" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -11060,15 +11334,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
-"kIe" = (
-/obj/machinery/f13/junction_box/small{
-	pixel_y = 26
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
-/turf/open/floor/wood_worn,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "kIH" = (
 /obj/item/reagent_containers/glass/bucket,
 /turf/open/indestructible/ground/outside/ruins,
@@ -11114,13 +11379,17 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/building/abandoned)
+"kLr" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "kLD" = (
 /obj/structure/simple_door/room/dirty,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/wasteland/city/citycenter)
-"kMd" = (
-/turf/open/floor/wood/f13/housewoodbroken,
-/area/f13/baltimore/minutemen/north)
 "kMp" = (
 /obj/structure/window/reinforced/clockwork/unanchored{
 	dir = 4
@@ -11176,6 +11445,15 @@
 	sunlight_state = 1
 	},
 /area/f13/baltimore/wasteland/citywasteland/town)
+"kPs" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/wasteland/city/citycenter)
 "kPw" = (
 /obj/structure/stone_tile/slab{
 	pixel_y = -4;
@@ -11230,7 +11508,7 @@
 	icon_state = "housewindowbroken"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "kTk" = (
 /obj/structure/table,
 /obj/effect/spawner/lootdrop/wmelee_middle,
@@ -11242,10 +11520,6 @@
 	icon_state = "rubbleslab"
 	},
 /area/f13/brotherhood)
-"kTx" = (
-/obj/structure/timeddoor,
-/turf/closed/wall,
-/area/f13/building/boat)
 "kTH" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/effect/spawner/lootdrop/f13/alcoholspawner,
@@ -11572,6 +11846,10 @@
 	dir = 8;
 	pixel_y = 15
 	},
+/obj/machinery/f13/faction_generator/diesel,
+/obj/structure/cable{
+	icon_state = "0-4"
+	},
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "lhQ" = (
@@ -11812,6 +12090,9 @@
 /obj/item/mecha_parts/mecha_equipment/seat,
 /obj/item/mecha_parts/mecha_equipment/seat,
 /obj/item/mecha_parts/mecha_equipment/seat,
+/obj/machinery/f13/junction_box/small{
+	pixel_y = 26
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
@@ -11886,6 +12167,21 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/town/appartment3)
+"lrR" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/building/abandoned)
+"ltm" = (
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_worn,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "luc" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -11928,7 +12224,7 @@
 	},
 /obj/structure/chair/stool/retro/tan,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "lve" = (
 /obj/structure/railing/corner{
 	color = "#A47449";
@@ -11992,6 +12288,17 @@
 	icon_state = "bluerustyfull"
 	},
 /area/f13/baltimore/boatbar)
+"lAl" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_y = 26
+	},
+/turf/open/floor/wood_common{
+	icon_state = "common-broken2"
+	},
+/area/f13/building/center)
 "lAt" = (
 /turf/open/floor/plasteel/f13/vault_floor/green,
 /area/f13/baltimore/building/abandoned)
@@ -12051,13 +12358,20 @@
 	icon_state = "grass_4d"
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "lDh" = (
 /obj/effect/overlay/junk/toilet{
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor,
 /area/f13/baltimore/building/abandoned)
+"lDk" = (
+/obj/structure/table,
+/obj/item/package/brotherhood,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "lDE" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -12201,6 +12515,9 @@
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_y = 33
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/baltimore/building/town/appartment1)
 "lKb" = (
@@ -12214,10 +12531,7 @@
 	pixel_x = -5;
 	can_be_z_moved = 0
 	},
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "lKq" = (
@@ -12226,6 +12540,16 @@
 	},
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/building/boat)
+"lKw" = (
+/obj/structure/barricade/sandbags,
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/obj/effect/overlay/docks/fortedge{
+	dir = 1
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "lKx" = (
 /obj/structure/table,
 /turf/open/floor/plasteel/f13/vault_floor/blue,
@@ -12271,6 +12595,9 @@
 /obj/structure/chair/f13chair2{
 	dir = 8
 	},
+/obj/structure/cable{
+	icon_state = "1-6"
+	},
 /turf/open/floor/wood_wide,
 /area/f13/baltimore/building/boat)
 "lNP" = (
@@ -12284,6 +12611,16 @@
 	},
 /turf/open/indestructible/ground/outside/roof,
 /area/f13/raider_mall)
+"lOX" = (
+/obj/effect/overlay/docks/fortedge{
+	dir = 4
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 2
+	},
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/minutemen)
 "lPb" = (
 /obj/structure/stairs/east,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -12386,7 +12723,7 @@
 /obj/structure/barricade/sandbags,
 /obj/effect/overlay/docks/fortedge,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "lSp" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -12590,6 +12927,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
+"mbv" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/wasteland/city/citycenter)
 "mby" = (
 /obj/machinery/deepfryer,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -12610,11 +12953,6 @@
 /obj/structure/stairs/west,
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/wasteland/city)
-"mcH" = (
-/obj/structure/timeddoor,
-/obj/structure/timeddoor,
-/turf/closed/wall,
-/area/f13/building/boat)
 "mcP" = (
 /obj/structure/chair/stool/brass,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
@@ -12757,7 +13095,7 @@
 /obj/item/clothing/head/f13/army/beret/specialforces,
 /obj/item/clothing/head/helmet/f13/goner/officer/blue,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "miq" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -12886,7 +13224,7 @@
 	},
 /obj/effect/overlay/docks/fortedge,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "mmQ" = (
 /obj/structure/bed/old,
 /turf/open/floor/plasteel/f13/vault_floor/white,
@@ -12983,6 +13321,9 @@
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -13089,6 +13430,13 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
+"mtq" = (
+/obj/machinery/f13/faction_generator/diesel,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "mtE" = (
 /obj/structure/dresser,
 /obj/effect/decal/cleanable/dirt,
@@ -13210,7 +13558,7 @@
 	dir = 4
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "mzr" = (
 /obj/effect/overlay/docks/fort{
 	density = 1
@@ -13222,7 +13570,7 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "mzP" = (
 /obj/item/twohanded/sledgehammer/simple,
 /turf/open/floor/wood_wide/wood_wide_light,
@@ -13297,6 +13645,22 @@
 	icon_state = "common1"
 	},
 /area/f13/baltimore/building/town/minutemen)
+"mCu" = (
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0;
+	pixel_y = 4
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/f13/wood/outside,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "mCx" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/white/side{
 	dir = 4
@@ -13377,6 +13741,16 @@
 "mHq" = (
 /turf/closed/wall/f13/tentwall,
 /area/f13/building/boat)
+"mHE" = (
+/obj/structure/flora/roadplant{
+	icon_state = "grass_8d"
+	},
+/obj/structure/barricade/sandbags,
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "mHY" = (
 /obj/structure/chair/sofa/left,
 /turf/open/floor/wood_fancy,
@@ -13462,7 +13836,7 @@
 /obj/structure/cable{
 	icon_state = "1-8"
 	},
-/turf/open/indestructible/ground/outside/roof,
+/turf/open/floor/wood/f13/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "mMg" = (
 /turf/open/floor/wood_mosaic/wood_mosaic_dark{
@@ -13502,7 +13876,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "mNR" = (
 /obj/structure/railing/wood{
 	pixel_y = 7;
@@ -13544,11 +13918,9 @@
 	},
 /area/f13/baltimore/building/abandoned)
 "mOP" = (
-/obj/structure/barricade/tentclothedge{
-	dir = 8
-	},
-/obj/structure/barricade/wooden{
-	layer = 5
+/obj/machinery/f13/faction_generator/diesel,
+/obj/structure/cable{
+	icon_state = "0-4"
 	},
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -13586,6 +13958,14 @@
 "mTf" = (
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/wasteland/city/citycenter)
+"mTo" = (
+/obj/machinery/mineral/wasteland_trader/special/brotherhood{
+	icon_state = "generic_idle"
+	},
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "mTt" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /obj/effect/decal/cleanable/dirt/dust,
@@ -13932,7 +14312,7 @@
 	pixel_x = 11
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "nkp" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -13979,9 +14359,6 @@
 "nlL" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/town/house2)
-"nlM" = (
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
 "nlX" = (
 /obj/item/storage/firstaid/regular,
 /obj/machinery/light/fo13colored/Aqua{
@@ -13995,7 +14372,7 @@
 	},
 /obj/effect/overlay/docks/fortedge,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "nmh" = (
 /obj/structure/barricade/tentclothedge{
 	dir = 1;
@@ -14009,12 +14386,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
-"not" = (
-/obj/structure/rug/big/rug_blue_shag{
-	layer = 1
-	},
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
 "npI" = (
 /obj/structure/rug/big/rug_blue_shag{
 	layer = 1
@@ -14160,7 +14531,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood/f13/housewoodbroken2,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "nvo" = (
 /turf/closed/wall/mineral/wood,
 /area/f13/baltimore/boatbar)
@@ -14175,6 +14546,12 @@
 /obj/effect/spawner/lootdrop/wmelee_middle,
 /turf/open/floor/wood_wide/wood_wide_light,
 /area/f13/baltimore/building/abandoned)
+"nwf" = (
+/obj/effect/overlay/docks/fortedge{
+	dir = 8
+	},
+/turf/open/floor/plating/f13/outside/roof/metal/corrugated,
+/area/f13/baltimore/minutemen)
 "nwA" = (
 /obj/structure/window/reinforced/clockwork/unanchored{
 	dir = 4
@@ -14337,6 +14714,14 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/abandoned)
+"nAJ" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
+	icon_state = "bluerustyfull"
+	},
+/area/f13/baltimore/boatbar)
 "nBe" = (
 /obj/effect/overlay/junk/sink{
 	pixel_y = 17
@@ -14587,6 +14972,12 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
 /turf/open/floor/plating/rust,
 /area/f13/outpost)
+"nQt" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "nRm" = (
 /obj/structure/barricade/wooden{
 	layer = 5
@@ -14615,6 +15006,13 @@
 /obj/effect/landmark/start/f13/f13baltimorecouncil,
 /turf/open/floor/wood_worn/wood_worn_light,
 /area/f13/baltimore/building/town/mayorial)
+"nVs" = (
+/obj/machinery/f13/faction_generator/diesel,
+/obj/structure/cable{
+	icon_state = "0-9"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/boat)
 "nVQ" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_worn/wood_worn_dark,
@@ -14625,6 +15023,15 @@
 	icon_state = "housebase"
 	},
 /area/f13/building/center)
+"nVY" = (
+/obj/effect/overlay/docks/fort{
+	density = 1
+	},
+/obj/effect/overlay/docks{
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "nWA" = (
 /obj/structure/barricade/sandbags,
 /obj/machinery/light/small{
@@ -14668,7 +15075,7 @@
 	layer = 1
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "nYr" = (
 /obj/structure/table/wood,
 /turf/open/floor/plating/f13/outside/roof,
@@ -14795,15 +15202,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city/citycenter)
-"odk" = (
-/obj/effect/overlay/junk/oldpipes{
-	dir = 4;
-	layer = 1;
-	can_be_z_moved = 0;
-	pixel_y = 4
-	},
-/turf/open/floor/f13/wood/outside,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "odo" = (
 /obj/structure/simple_door/room,
 /turf/open/floor/wood_common/wood_common_dark,
@@ -14838,10 +15236,6 @@
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
 /area/f13/building/center)
-"ogB" = (
-/obj/structure/timeddoor/sixtyminute,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "ohJ" = (
 /obj/structure/junk/small/table,
 /obj/structure/junk/small/tv{
@@ -14856,7 +15250,7 @@
 	pixel_y = 14
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "ohT" = (
 /obj/structure/table/reinforced,
 /obj/structure/shuttle/engine/propulsion{
@@ -14926,6 +15320,19 @@
 /obj/effect/spawner/lootdrop/f13/armor/tier4,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
+"ojk" = (
+/turf/open/floor/plating/f13/outside/roof/metal/corrugated,
+/area/f13/baltimore/minutemen)
+"ojs" = (
+/obj/machinery/door/unpowered/securedoor{
+	req_access_txt = "52";
+	name = "Mechanic secure door"
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood_common,
+/area/f13/building/center)
 "ojY" = (
 /obj/structure/closet/fridge{
 	anchored = 1;
@@ -14966,7 +15373,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "olE" = (
 /obj/structure/window/fulltile/wood/broken,
 /turf/open/floor/wood_mosaic,
@@ -15016,6 +15423,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
+"ooj" = (
+/obj/effect/overlay/docks/fortedge{
+	dir = 4
+	},
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/minutemen)
 "ooA" = (
 /obj/structure/rack/large/shelf{
 	dir = 8;
@@ -15045,7 +15458,7 @@
 /obj/item/clothing/head/f13/army/beret/specialforces,
 /obj/item/clothing/head/helmet/f13/goner/officer/blue,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "opN" = (
 /obj/effect/mob_spawn/human/corpse/raidermelee,
 /obj/effect/decal/cleanable/glass,
@@ -15169,27 +15582,33 @@
 /obj/structure/bed/wooden{
 	layer = 2.7
 	},
-/obj/structure/railing/wood{
-	dir = 4;
-	icon = 'icons/fallout/structures/fences.dmi';
-	layer = 3;
-	pixel_x = 1;
-	color = "#C4897D";
-	desc = "A wooden bedpost.";
-	name = "bedpost"
+/obj/structure/curtain{
+	color = "#811313";
+	pixel_x = 32
 	},
 /obj/structure/railing/wood{
 	dir = 8;
-	icon = 'icons/fallout/structures/fences.dmi';
 	layer = 3;
 	pixel_x = -1;
 	color = "#C4897D";
 	desc = "A wooden bedpost.";
 	name = "bedpost"
 	},
-/obj/structure/curtain{
-	color = "#811313";
-	pixel_x = 32
+/obj/structure/railing/wood{
+	dir = 8;
+	layer = 3;
+	pixel_x = -1;
+	color = "#C4897D";
+	desc = "A wooden bedpost.";
+	name = "bedpost"
+	},
+/obj/structure/railing/wood{
+	dir = 4;
+	layer = 3;
+	pixel_x = 1;
+	color = "#C4897D";
+	desc = "A wooden bedpost.";
+	name = "bedpost"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/town/appartment3)
@@ -15272,6 +15691,13 @@
 "oya" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/baltimore/wasteland/city/citycenter)
+"oyM" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/simple_door/repaired,
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/baltimore/boatvertibird)
 "oyR" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/wasteland/city)
@@ -15372,7 +15798,7 @@
 	pixel_y = 29
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "oDr" = (
 /obj/machinery/light/broken{
 	dir = 4
@@ -15599,6 +16025,9 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
 "oMW" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood_wide/wood_wide_dark{
 	icon_state = "wide_dark-broken5"
 	},
@@ -15686,12 +16115,11 @@
 /area/f13/baltimore/atlantic_cross)
 "oSi" = (
 /obj/effect/decal/cleanable/oil,
-/obj/structure/lattice/catwalk,
-/turf/open/transparent/openspace,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/building)
-"oST" = (
-/turf/open/transparent/openspace,
-/area/f13/baltimore/minutemen/north)
 "oSU" = (
 /obj/structure/fence/end/wooden{
 	pixel_x = 13
@@ -15707,6 +16135,15 @@
 	dir = 1
 	},
 /area/f13/baltimore/brotherhood/lab)
+"oUf" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_y = 26
+	},
+/turf/open/floor/f13/wood,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "oUg" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -15780,14 +16217,6 @@
 	},
 /turf/open/floor/carpet/purple,
 /area/f13/building/center)
-"oWv" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 4
-	},
-/obj/structure/stairs/east,
-/turf/open/floor/f13/wood/outside,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "oWD" = (
 /turf/open/floor/wood_mosaic{
 	icon_state = "common_light-broken1"
@@ -16038,9 +16467,6 @@
 	},
 /turf/open/floor/wood_wide,
 /area/f13/building/center)
-"plx" = (
-/turf/open/transparent/openspace,
-/area/f13/baltimore/minutemen/west)
 "plV" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -16079,9 +16505,6 @@
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/town/appartment2)
-"pnR" = (
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/wasteland/city)
 "poG" = (
 /turf/open/floor/plasteel/f13/vault_floor/red/corner{
 	dir = 4
@@ -16125,13 +16548,6 @@
 	name = "Hospital ship hull"
 	},
 /area/f13/baltimore/atlantic_cross)
-"pst" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 8
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "psU" = (
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -16325,15 +16741,14 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/baltimore/building/abandoned)
 "pAK" = (
-/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
-	icon_state = "vat";
-	tank_volume = 1500;
-	name = "Gas Tank";
-	color = "#FF0000";
-	layer = 5
-	},
 /obj/structure/railing/tg{
 	dir = 1
+	},
+/obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	icon_state = "vat";
+	tank_volume = 5000;
+	name = "Gas Tank";
+	color = "#FFF000"
 	},
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
@@ -16361,7 +16776,7 @@
 /area/f13/baltimore/wasteland/city/citycenter)
 "pBJ" = (
 /turf/open/floor/wood/f13/housewoodbroken2,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "pBK" = (
 /obj/machinery/microwave/stove,
 /turf/open/floor/wood_common,
@@ -16432,6 +16847,12 @@
 /mob/living/simple_animal/hostile/raider/ranged/boss,
 /turf/open/floor/plating/rust,
 /area/f13/building/center)
+"pDr" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "pDt" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/citycaves)
@@ -16463,7 +16884,7 @@
 	icon_state = "housewindowvertical"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "pDZ" = (
 /obj/structure/closet/cabinet/anchored,
 /obj/item/clothing/under/f13/doctorm,
@@ -16566,7 +16987,7 @@
 	icon_state = "grass_decals"
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "pIj" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housebase"
@@ -16624,6 +17045,12 @@
 	icon_state = "fancy_light1"
 	},
 /area/f13/Ocean)
+"pJz" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood/f13/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "pJW" = (
 /obj/structure/closet/cabinet,
 /obj/item/clothing/under/civ/british_soldier,
@@ -16659,7 +17086,6 @@
 /obj/structure/cargocrate{
 	icon_state = "cargocrate2"
 	},
-/obj/structure/timeddoor,
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/wasteland/city)
 "pLQ" = (
@@ -16681,10 +17107,6 @@
 	icon_state = "worn-broken6"
 	},
 /area/f13/baltimore/wasteland/citywasteland/town)
-"pMj" = (
-/obj/structure/timeddoor,
-/turf/open/floor/plating/rust,
-/area/f13/baltimore/wasteland/city)
 "pMo" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -16720,10 +17142,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"pOS" = (
-/obj/structure/timeddoor,
-/turf/closed/wall/rust,
-/area/f13/building/boat)
 "pPb" = (
 /turf/closed/wall/rust,
 /area/f13/baltimore/boatbar)
@@ -16774,7 +17192,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "pRI" = (
 /obj/structure/chair/right,
 /obj/effect/landmark/start/f13/atlanticsailor,
@@ -16786,13 +17204,6 @@
 	},
 /turf/open/floor/wood_fancy/wood_fancy_light,
 /area/f13/baltimore/building/town/mayorial)
-"pRW" = (
-/obj/effect/turf_decal/stripes/asteroid/line{
-	dir = 1
-	},
-/obj/structure/timeddoor/sixtyminute,
-/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
-/area/f13/baltimore/wasteland/city)
 "pSo" = (
 /turf/open/floor/plating/rust{
 	sunlight_state = 1;
@@ -16873,7 +17284,7 @@
 "pVR" = (
 /obj/structure/curtain/stage,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "pVX" = (
 /obj/structure/chair/sofa/left,
 /turf/open/floor/wood_fancy,
@@ -16925,11 +17336,6 @@
 /obj/structure/closet/l3closet/janitor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
-"qaK" = (
-/turf/open/floor/wood_fancy/wood_fancy_dark{
-	icon_state = "fancy_dark-broken6"
-	},
-/area/f13/baltimore/building/town/appartment2)
 "qbl" = (
 /obj/machinery/f13/junction_box/small{
 	pixel_y = 26
@@ -17081,7 +17487,7 @@
 "qjk" = (
 /obj/machinery/chem_dispenser,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "qjy" = (
 /obj/structure/reagent_dispensers/cooking_oil{
 	name = "vat of fuel"
@@ -17310,9 +17716,14 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/abandoned)
+"qwu" = (
+/obj/structure/cable,
+/obj/machinery/f13/faction_generator/diesel,
+/turf/open/floor/f13/wood,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "qxa" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "qxl" = (
 /obj/structure/table/reinforced,
 /turf/open/floor/f13{
@@ -17320,10 +17731,6 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/building/abandoned/recruitement)
-"qxv" = (
-/obj/item/flag/minutemen,
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
 "qyN" = (
 /obj/structure/destructible/tribal_torch/lit{
 	pixel_x = -9;
@@ -17378,11 +17785,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/wasteland/city/citycenter)
-"qBX" = (
-/obj/structure/timeddoor/sixtyminute,
-/obj/structure/timeddoor/sixtyminute,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "qDu" = (
 /obj/structure/closet/crate/footlocker,
 /obj/effect/spawner/lootdrop/f13/armor/clothes,
@@ -17459,7 +17861,7 @@
 	},
 /obj/effect/overlay/docks/fortedge,
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "qFz" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -17479,6 +17881,12 @@
 "qGD" = (
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/brotherhood)
+"qGI" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood_common,
+/area/f13/building/center)
 "qGO" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp{
@@ -17813,6 +18221,9 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment2)
 "rde" = (
@@ -17878,7 +18289,7 @@
 /area/f13/building/center)
 "rfR" = (
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "rgy" = (
 /obj/structure/window/fulltile/wood,
 /turf/open/floor/wood_common,
@@ -18117,8 +18528,12 @@
 /obj/effect/overlay/docks{
 	dir = 8
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "rrg" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -18226,7 +18641,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "rwV" = (
 /turf/open/floor/wood_common{
 	icon_state = "mosaic2"
@@ -18344,6 +18759,12 @@
 	icon_state = "fancy_light-broken2"
 	},
 /area/f13/baltimore/building/abandoned)
+"rCR" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "rEn" = (
 /obj/effect/decal/riverbank{
 	dir = 1
@@ -18651,9 +19072,11 @@
 	},
 /area/f13/baltimore/brotherhood/lab)
 "rRT" = (
-/obj/structure/shuttle/engine/propulsion,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/f13/wood,
-/area/f13/baltimore/boatradio)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "rSz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -18706,7 +19129,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "rWY" = (
 /obj/structure/chair/sofa/corner{
 	dir = 4
@@ -18716,6 +19139,9 @@
 "rXa" = (
 /obj/machinery/f13/junction_box/small{
 	pixel_y = 26
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/wood_mosaic,
 /area/f13/baltimore/building/town/appartment1)
@@ -18816,6 +19242,9 @@
 "sbu" = (
 /obj/structure/barricade/tentclothcorner{
 	dir = 4
+	},
+/obj/structure/barricade/wooden{
+	layer = 5
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -19003,6 +19432,18 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/brotherhood/vertibird)
+"sim" = (
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/baltimore/building/town/appartment2)
 "sin" = (
 /obj/structure/bookcase/random,
 /obj/item/book,
@@ -19200,12 +19641,6 @@
 	icon_state = "common_light-broken1"
 	},
 /area/f13/building/center)
-"srY" = (
-/obj/structure/window/fulltile/wood_window{
-	icon_state = "housewindowvertical"
-	},
-/turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
 "sse" = (
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -19278,7 +19713,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/f13/baltimore/boatradio)
+/area/f13/baltimore/wasteland/citywasteland/town)
 "swT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -19527,7 +19962,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "sFN" = (
 /mob/living/simple_animal/hostile/ghoul/reaver,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -19553,7 +19988,7 @@
 	},
 /obj/structure/chair/stool/retro/backed,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "sGO" = (
 /turf/open/floor/wood_common{
 	icon_state = "worn-broken2"
@@ -19571,7 +20006,10 @@
 "sId" = (
 /obj/structure/table/reinforced,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/computer/terminal/baltimore/recruitementcenter/officer,
+/obj/machinery/computer/terminal/baltimore/recruitementcenter/officer{
+	linked_buttons = "navy2";
+	map_button_ids = "navy2"
+	},
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
@@ -19846,7 +20284,7 @@
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "sUJ" = (
 /obj/structure/window/fulltile/wood,
 /obj/structure/window/fulltile/wood,
@@ -19898,10 +20336,28 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
+"sWV" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_y = 30
+	},
+/turf/open/floor/wood_wide/wood_wide_dark,
+/area/f13/baltimore/boatvertibird)
 "sXp" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/abandoned)
 "sXu" = (
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/obj/machinery/f13/junction_box/small{
+	pixel_y = -28
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/town/appartment1)
 "sYF" = (
@@ -19913,6 +20369,12 @@
 /obj/structure/simple_door/bunker,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/abandoned)
+"sYX" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/closed/wall/f13/sunset/brick_small/baltimore,
+/area/f13/baltimore/building/town/appartment1)
 "sZR" = (
 /obj/item/chair,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -20024,6 +20486,9 @@
 /obj/effect/overlay/junk/oldpipes{
 	dir = 10;
 	pixel_y = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/baltimore/building/town/appartment1)
@@ -20285,7 +20750,13 @@
 	icon_state = "grass_3d"
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
+"trd" = (
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "trg" = (
 /turf/open/floor/wood_common{
 	name = "wooden dock";
@@ -20347,19 +20818,27 @@
 	color = "#ffd300";
 	pixel_y = 6
 	},
-/obj/structure/timeddoor,
 /turf/closed/wall/rust,
 /area/f13/baltimore/wasteland/city)
+"tte" = (
+/obj/machinery/f13/junction_box/small{
+	pixel_x = 31
+	},
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/turf/open/floor/wood_fancy/wood_fancy_dark,
+/area/f13/baltimore/building/town/appartment2)
 "tts" = (
 /obj/machinery/door/unpowered/secure_steeldoor,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "ttN" = (
 /obj/structure/bed/old,
 /obj/structure/bed/oldalt,
 /obj/item/bedsheet/brown,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "tuM" = (
 /turf/open/floor/wood_fancy{
 	icon_state = "fancy-broken1"
@@ -20410,7 +20889,7 @@
 	pixel_y = 12
 	},
 /turf/open/floor/wood/f13/housewoodbroken3,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "twZ" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -20869,7 +21348,7 @@
 /obj/item/reagent_containers/blood/OPlus,
 /obj/item/reagent_containers/blood/OMinus,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "tWL" = (
 /obj/structure/chair/wood{
 	dir = 8
@@ -21014,7 +21493,7 @@
 	pixel_x = 14
 	},
 /turf/open/floor/wood/f13/housewoodbroken,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "ugQ" = (
 /obj/structure/cargocrate{
 	layer = 4.0
@@ -21237,14 +21716,18 @@
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
 	},
-/turf/open/floor/plating/f13/outside/roof/metal,
-/area/f13/baltimore/wasteland/city)
+/turf/open/transparent/openspace,
+/area/f13/baltimore/minutemen)
 "utk" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 4
 	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "utu" = (
 /obj/structure/cable{
 	icon_state = "2-8"
@@ -21351,6 +21834,26 @@
 	icon_state = "common_light1"
 	},
 /area/f13/baltimore/wasteland/citywasteland/town)
+"uAE" = (
+/obj/structure/lattice/catwalk,
+/obj/effect/turf_decal/stripes/white/line,
+/obj/effect/turf_decal/stripes/white/line{
+	dir = 1
+	},
+/obj/effect/overlay/junk/oldpipes{
+	dir = 4;
+	layer = 1;
+	can_be_z_moved = 0;
+	pixel_y = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/turf/open/floor/f13/wood/outside,
+/area/f13/building)
 "uBw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small/broken{
@@ -21445,7 +21948,7 @@
 /obj/structure/bed/old,
 /obj/item/bedsheet/brown,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "uEp" = (
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/citycaves)
@@ -21524,7 +22027,7 @@
 	icon_state = "grass_8d"
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "uHP" = (
 /turf/open/floor/wood_common{
 	name = "wooden dock";
@@ -21571,6 +22074,9 @@
 /obj/effect/overlay/junk/oldpipes{
 	dir = 10;
 	pixel_y = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/wood_mosaic{
 	icon_state = "mosaic_dark-broken2"
@@ -21624,6 +22130,12 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/outpost)
+"uMp" = (
+/obj/structure/cable{
+	icon_state = "6-9"
+	},
+/turf/open/floor/wood_wide,
+/area/f13/baltimore/building/boat)
 "uMx" = (
 /obj/structure/table/wood/settler,
 /turf/open/floor/wood_fancy{
@@ -21698,7 +22210,7 @@
 	},
 /obj/item/reagent_containers/dropper,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "uPy" = (
 /obj/structure/bookcase/random,
 /obj/structure/railing/tg{
@@ -21715,7 +22227,7 @@
 	dir = 8
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "uQw" = (
 /obj/effect/overlay/junk/oldpipes{
 	dir = 8;
@@ -21834,9 +22346,6 @@
 /area/f13/baltimore/building/abandoned)
 "uVR" = (
 /obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
 	icon_state = "2-8"
 	},
 /turf/open/floor/wood_worn{
@@ -21877,10 +22386,6 @@
 /obj/structure/rack/shelf_wood,
 /turf/open/floor/engine,
 /area/f13/outpost)
-"uYa" = (
-/obj/structure/timeddoor/sixtyminute,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "uYh" = (
 /obj/structure/table,
 /obj/item/folder/syndicate,
@@ -22189,10 +22694,7 @@
 	can_be_z_moved = 0;
 	pixel_y = 4
 	},
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
+/obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "vkm" = (
@@ -22677,7 +23179,7 @@
 "vRN" = (
 /obj/effect/landmark/start/f13/minutemen,
 /turf/open/floor/wood/f13/housewoodbroken2,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
 "vRT" = (
 /obj/structure/curtain{
 	color = "#808080";
@@ -22696,6 +23198,15 @@
 	},
 /turf/open/floor/f13/wood/outside,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"vSO" = (
+/obj/structure/window/fulltile/wood,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "common1"
+	},
+/area/f13/baltimore/building/town/minutemen)
 "vSQ" = (
 /obj/structure/flora/roadplant{
 	icon_state = "grass_8d"
@@ -22704,7 +23215,20 @@
 	icon_state = "grass_4d"
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
+"vUA" = (
+/obj/effect/overlay/docks/fort{
+	density = 1
+	},
+/obj/effect/overlay/docks{
+	dir = 4
+	},
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 8
+	},
+/turf/open/indestructible/ground/outside/dirt,
+/area/f13/baltimore/minutemen)
 "vUS" = (
 /obj/machinery/smartfridge/bottlerack/drug_storage,
 /turf/open/floor/wood_common/wood_common_light,
@@ -22888,7 +23412,7 @@
 /area/f13/baltimore/building/abandoned/hospital)
 "wfG" = (
 /turf/open/floor/wood/f13/housewoodbroken,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "wgH" = (
 /turf/open/transparent/openspace,
 /area/f13/brotherhood)
@@ -23089,7 +23613,7 @@
 	pixel_y = 8
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "wqR" = (
 /obj/item/bedsheet/captain,
 /obj/structure/bed,
@@ -23121,11 +23645,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/town/mayorial)
-"wrZ" = (
-/obj/structure/timeddoor,
-/obj/structure/timeddoor,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "wsj" = (
 /obj/structure/table,
 /obj/machinery/reagentgrinder,
@@ -23247,6 +23766,13 @@
 /obj/structure/fluff/hedge,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/city)
+"wzD" = (
+/obj/structure/railing/tg{
+	dir = 8
+	},
+/obj/structure/lattice,
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/vertibird)
 "wzF" = (
 /obj/structure/dresser,
 /obj/structure/bed/dogbed{
@@ -23338,6 +23864,12 @@
 "wHF" = (
 /turf/open/floor/wood_wide,
 /area/f13/baltimore/wasteland/city)
+"wHK" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/wasteland/city/citycenter)
 "wIe" = (
 /turf/open/floor/f13{
 	color = "#A47449";
@@ -23415,6 +23947,15 @@
 	},
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross)
+"wMs" = (
+/obj/machinery/door/unpowered/secure_steeldoor,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/wood_mosaic{
+	icon_state = "common1"
+	},
+/area/f13/baltimore/building/town/minutemen)
 "wMy" = (
 /obj/structure/chair/booth,
 /turf/open/floor/plasteel/vault,
@@ -23466,14 +24007,10 @@
 	icon_state = "common1"
 	},
 /area/f13/building/center)
-"wPj" = (
-/obj/structure/window/fulltile/wood_window{
-	icon_state = "housewindowvertical"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
-	icon_state = "bluerustyfull"
-	},
-/area/f13/baltimore/boatbar)
+"wPg" = (
+/obj/structure/lattice/catwalk,
+/turf/open/transparent/openspace,
+/area/f13/building/center)
 "wPT" = (
 /turf/open/floor/plasteel/f13/vault_floor/red/white,
 /area/f13/building/center)
@@ -23486,13 +24023,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/abandoned)
-"wQA" = (
-/obj/structure/lattice/catwalk{
-	icon_state = "walkway";
-	dir = 6
-	},
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/citywasteland/town)
 "wQK" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -23505,7 +24035,7 @@
 /obj/structure/rack/shelf_metal,
 /obj/item/reagent_containers/blood/radaway,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "wRm" = (
 /obj/structure/barricade/sandbags,
 /turf/open/floor/wood_mosaic{
@@ -23548,7 +24078,7 @@
 	pixel_x = 4
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "wUN" = (
 /obj/structure/table,
 /obj/item/hacking_device,
@@ -23682,6 +24212,9 @@
 /area/f13/brotherhood)
 "xav" = (
 /obj/effect/decal/cleanable/oil,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/wood_mosaic/wood_mosaic_dark,
 /area/f13/baltimore/building/town/appartment1)
 "xaN" = (
@@ -23937,7 +24470,7 @@
 	dir = 4
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "xqY" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-22"
@@ -23998,10 +24531,6 @@
 	dir = 8
 	},
 /turf/open/floor/wood_fancy,
-/area/f13/baltimore/building/abandoned)
-"xvm" = (
-/obj/structure/ladder,
-/turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/baltimore/building/abandoned)
 "xvP" = (
 /obj/structure/table,
@@ -24229,6 +24758,18 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/building/center)
+"xHC" = (
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_y = 30
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/building/abandoned)
 "xIa" = (
 /obj/structure/chair/bench,
 /turf/open/floor/wood_common{
@@ -24259,7 +24800,7 @@
 "xJW" = (
 /obj/structure/bed/old,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "xJY" = (
 /obj/structure/stairs/north{
 	color = "#A47449"
@@ -24337,7 +24878,14 @@
 	icon_state = "housewindowbrokenvertical"
 	},
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/east)
+/area/f13/baltimore/minutemen)
+"xNq" = (
+/obj/structure/railing{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/transparent/openspace,
+/area/f13/baltimore/brotherhood/vertibird)
 "xNJ" = (
 /obj/structure/ladder{
 	pixel_y = 1
@@ -24499,6 +25047,7 @@
 	color = "#A47449";
 	dir = 5
 	},
+/obj/structure/lattice/catwalk,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/town/appartment3)
 "xVw" = (
@@ -24508,7 +25057,7 @@
 "xVB" = (
 /obj/structure/rug/mat/welcome,
 /turf/open/floor/wood/f13/housewoodbroken4,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "xWr" = (
 /obj/effect/spawner/lootdrop/maintenance,
 /obj/effect/decal/cleanable/dirt,
@@ -24547,7 +25096,7 @@
 "xYg" = (
 /obj/structure/chair/stool/retro/black,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/north)
+/area/f13/baltimore/minutemen)
 "xYj" = (
 /obj/structure/barricade/tentleatheredge{
 	dir = 8
@@ -24635,6 +25184,13 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"yal" = (
+/obj/machinery/f13/faction_generator/diesel,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
+/area/f13/baltimore/wasteland/city/citycenter)
 "yaF" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/plating,
@@ -24660,6 +25216,9 @@
 /area/f13/outpost)
 "ycn" = (
 /obj/structure/simple_door/repaired,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment2)
 "ydj" = (
@@ -24670,6 +25229,12 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/brotherhood/vertibird)
+"ydB" = (
+/obj/effect/overlay/docks/fortedge{
+	dir = 4
+	},
+/turf/open/floor/plating/f13/outside/roof/metal/corrugated,
+/area/f13/baltimore/minutemen)
 "ydZ" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
@@ -24759,7 +25324,7 @@
 /obj/item/card/id/dogtag/minutemen/officer,
 /obj/item/card/id/dogtag/minutemen/officer,
 /turf/open/floor/wood/f13/old,
-/area/f13/baltimore/minutemen/west)
+/area/f13/baltimore/minutemen)
 "yhC" = (
 /obj/effect/overlay/junk/toilet{
 	dir = 8
@@ -24868,7 +25433,7 @@
 	dir = 1
 	},
 /turf/open/indestructible/ground/outside/dirt,
-/area/f13/baltimore/wasteland/city)
+/area/f13/baltimore/minutemen)
 "ymd" = (
 /obj/structure/simple_door/repaired,
 /turf/open/floor/wood_common,
@@ -28003,11 +28568,11 @@ loq
 loq
 loq
 loq
-nyG
-nyG
-nyG
-nyG
-nyG
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -28339,12 +28904,12 @@ yaN
 fbJ
 fbJ
 gJa
+abL
 tyV
 tyV
 tyV
 tyV
 tyV
-tyV
 loq
 loq
 loq
@@ -28355,11 +28920,11 @@ loq
 loq
 loq
 loq
-nyG
-nyG
-nyG
-nyG
-nyG
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -28689,10 +29254,10 @@ tyV
 tyV
 abL
 ruO
-tyV
+abL
 abL
 ruO
-tyV
+abL
 tyV
 tyV
 tyV
@@ -28707,11 +29272,11 @@ loq
 loq
 loq
 loq
-nyG
-nyG
-nyG
-nyG
-nyG
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -29042,7 +29607,7 @@ tyV
 tyV
 abL
 ruO
-tyV
+abL
 abL
 ruO
 tyV
@@ -29059,11 +29624,11 @@ loq
 loq
 loq
 loq
-nyG
-nyG
-nyG
-nyG
-nyG
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -29402,11 +29967,11 @@ hOQ
 cok
 wek
 wek
-yle
+hNQ
 lkf
 cUZ
 lkf
-xwc
+xNq
 wek
 wek
 hOQ
@@ -29754,7 +30319,7 @@ hOQ
 qzk
 bjv
 qzk
-yle
+hNQ
 apy
 anQ
 apy
@@ -30104,14 +30669,14 @@ gVS
 yeW
 kOS
 wek
-wek
+qzk
 bjv
 yle
 fJR
 eME
 fJR
 upz
-wek
+qzk
 hOQ
 uEH
 hOQ
@@ -30440,7 +31005,7 @@ fhd
 fhd
 fhd
 fhd
-fhd
+fqh
 sgy
 gXF
 gXF
@@ -30457,7 +31022,7 @@ rRJ
 qfG
 hOQ
 pTL
-pTL
+bjQ
 iBI
 lkf
 cUZ
@@ -30470,7 +31035,7 @@ qfG
 wqR
 iFd
 oQh
-oJa
+lDk
 qfG
 nXU
 etu
@@ -30789,9 +31354,9 @@ tyV
 fhd
 cFP
 qlt
-kau
-kau
-kau
+qlt
+qlt
+qlt
 mrf
 fqh
 fqh
@@ -31195,7 +31760,7 @@ loq
 loq
 loq
 qrE
-vgl
+gTI
 tpc
 vgl
 qrE
@@ -31492,7 +32057,7 @@ tyV
 tyV
 fhd
 boQ
-xSo
+hYV
 xSo
 pNw
 laz
@@ -31844,7 +32409,7 @@ tyV
 tyV
 vsI
 oUe
-gVj
+vsI
 vsI
 xSo
 fQU
@@ -32197,9 +32762,9 @@ tyV
 fhd
 iff
 lQY
-pst
-pst
-pst
+lQY
+lQY
+lQY
 sTW
 fqh
 fqh
@@ -32552,7 +33117,7 @@ fhd
 fhd
 fhd
 fhd
-fhd
+fqh
 fhF
 gXF
 gXF
@@ -32569,7 +33134,7 @@ rXR
 qfG
 hOQ
 vjl
-vjl
+wzD
 raW
 lkf
 cUZ
@@ -32585,7 +33150,7 @@ qFz
 ydj
 qfG
 owB
-dai
+mTo
 dai
 dai
 dai
@@ -32920,14 +33485,14 @@ gVS
 xsK
 kOS
 wek
-wek
+qzk
 qpT
 yle
 rQn
 dxl
 rQn
 nZO
-wek
+qzk
 hOQ
 uEH
 hOQ
@@ -33274,7 +33839,7 @@ hOQ
 qzk
 qpT
 qzk
-yle
+hNQ
 apy
 cUZ
 apy
@@ -33626,11 +34191,11 @@ qfG
 bvc
 wek
 wek
-yle
+hNQ
 lkf
 anQ
 lkf
-xwc
+xNq
 wek
 wek
 hOQ
@@ -33970,10 +34535,10 @@ tyV
 tyV
 abL
 rdW
-tyV
+abL
 abL
 rdW
-tyV
+abL
 tyV
 tyV
 tyV
@@ -34321,10 +34886,10 @@ tyV
 tyV
 abL
 rdW
-tyV
+abL
 abL
 rdW
-tyV
+abL
 tyV
 tyV
 tyV
@@ -34675,7 +35240,7 @@ yaN
 fbJ
 fbJ
 msY
-tyV
+abL
 tyV
 tyV
 tyV
@@ -68630,34 +69195,34 @@ loq
 loq
 loq
 loq
-hIY
-hIY
-wrZ
+loq
+loq
+loq
 fEL
 eYO
-hrz
-hIY
-hrz
-hIY
-hIY
+why
+loq
+why
+loq
+loq
 tsZ
-pMj
-pMj
-pMj
+wKA
+wKA
+wKA
 pKn
-pMj
-pMj
+wKA
+wKA
 iZO
-pMj
-hrz
-fnl
-pOS
-pOS
-hIY
-pOS
-pOS
-pOS
-kTx
+wKA
+why
+tyV
+kmz
+kmz
+loq
+kmz
+kmz
+kmz
+icH
 loq
 loq
 loq
@@ -68977,12 +69542,12 @@ loq
 loq
 loq
 loq
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
+loq
+loq
+loq
+loq
+loq
+loq
 why
 uDv
 why
@@ -69009,9 +69574,9 @@ ans
 ddK
 nJr
 icH
-mcH
-kTx
-kTx
+icH
+icH
+icH
 loq
 loq
 loq
@@ -69329,8 +69894,8 @@ loq
 loq
 loq
 loq
-hIY
-hIY
+loq
+loq
 rKL
 gbB
 wKA
@@ -69363,8 +69928,8 @@ klK
 klK
 klK
 eYC
-kTx
-kTx
+icH
+icH
 loq
 loq
 kME
@@ -69716,7 +70281,7 @@ box
 mXt
 klK
 gJl
-kTx
+icH
 loq
 loq
 loq
@@ -70033,7 +70598,7 @@ loq
 loq
 loq
 loq
-hIY
+loq
 why
 why
 why
@@ -70068,7 +70633,7 @@ oiB
 mXt
 box
 eYC
-pOS
+kmz
 loq
 loq
 loq
@@ -70385,7 +70950,7 @@ loq
 loq
 loq
 loq
-hIY
+loq
 why
 why
 why
@@ -70420,7 +70985,7 @@ klK
 fPo
 mXt
 olY
-pOS
+kmz
 loq
 loq
 loq
@@ -70737,7 +71302,7 @@ loq
 loq
 loq
 loq
-hIY
+loq
 sUr
 why
 ugQ
@@ -70772,7 +71337,7 @@ klK
 klK
 hQr
 olY
-pOS
+kmz
 loq
 loq
 loq
@@ -71089,7 +71654,7 @@ loq
 loq
 loq
 loq
-hIY
+loq
 why
 tmQ
 why
@@ -71124,7 +71689,7 @@ klK
 kmz
 klK
 eYC
-pOS
+kmz
 loq
 loq
 loq
@@ -71441,8 +72006,8 @@ loq
 loq
 loq
 loq
-hIY
-hIY
+loq
+loq
 why
 why
 why
@@ -71476,7 +72041,7 @@ klK
 kmz
 kmz
 icH
-kTx
+icH
 loq
 loq
 loq
@@ -71793,12 +72358,12 @@ loq
 loq
 loq
 loq
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
+loq
+loq
+loq
+loq
+loq
+loq
 wKA
 wKA
 wKA
@@ -71828,7 +72393,7 @@ klK
 kmz
 kmz
 icH
-hIY
+loq
 loq
 loq
 loq
@@ -72150,10 +72715,10 @@ loq
 loq
 loq
 loq
-hIY
-hIY
-hIY
-hIY
+loq
+loq
+loq
+loq
 why
 why
 why
@@ -72178,8 +72743,8 @@ kmz
 kmz
 kmz
 icH
-hIY
-hIY
+loq
+loq
 loq
 loq
 loq
@@ -72505,31 +73070,31 @@ loq
 loq
 loq
 loq
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
-hIY
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -76874,7 +77439,7 @@ qJB
 qJB
 qJB
 qJB
-pHu
+qJB
 loq
 loq
 loq
@@ -77418,7 +77983,7 @@ hnZ
 hnZ
 hnZ
 aXk
-hTB
+fNd
 dmj
 lNO
 xKl
@@ -77773,7 +78338,7 @@ aXk
 ows
 xck
 sqj
-faM
+uMp
 bDO
 aXk
 hnZ
@@ -78263,8 +78828,8 @@ qst
 qst
 qst
 qst
-qst
-qst
+oHr
+oHr
 oHr
 qJB
 oHr
@@ -78479,7 +79044,7 @@ uEw
 faM
 uMQ
 dPx
-aXk
+nVs
 hnZ
 hnZ
 hnZ
@@ -78615,9 +79180,9 @@ loq
 loq
 loq
 loq
-loq
-loq
 oHr
+oHr
+lus
 krs
 iEt
 wwN
@@ -78967,10 +79532,10 @@ loq
 loq
 loq
 loq
-loq
-loq
 oHr
-xvm
+oHr
+wwN
+wwN
 wwN
 wwN
 oHr
@@ -79319,10 +79884,10 @@ loq
 loq
 loq
 loq
-loq
-loq
-qJB
-lus
+oHr
+pHu
+wwN
+wwN
 iKC
 wsj
 oHr
@@ -79671,10 +80236,10 @@ loq
 loq
 loq
 loq
-loq
-loq
-pHu
-qJB
+oHr
+hxS
+wwN
+wwN
 qJB
 oHr
 oHr
@@ -79690,7 +80255,7 @@ oHr
 bFG
 qJB
 qJB
-pHu
+qJB
 loq
 loq
 loq
@@ -80023,16 +80588,16 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+oHr
+oHr
+oHr
+oHr
+oHr
+oHr
+oHr
+oHr
+oHr
+oHr
 loq
 loq
 loq
@@ -80973,7 +81538,7 @@ hot
 ial
 ial
 ial
-wPj
+axt
 hao
 bBI
 bBI
@@ -81325,7 +81890,7 @@ vWB
 pqm
 qJd
 hfq
-gaS
+nAJ
 lzl
 qJd
 oEU
@@ -81765,7 +82330,7 @@ lRb
 lRb
 lRb
 oHr
-vgl
+kDo
 vgl
 vgl
 xgT
@@ -81984,14 +82549,14 @@ hnZ
 hnZ
 hnZ
 rOs
-lIB
-lIB
-lIB
-lIB
-lIB
-lIB
-ihh
-ihh
+kwy
+rCR
+rCR
+rCR
+rCR
+rCR
+cWO
+iuz
 ihh
 ihh
 ihh
@@ -82029,7 +82594,7 @@ kPb
 xVw
 ffP
 ndx
-jQB
+bHD
 lzl
 ial
 ayB
@@ -82117,7 +82682,7 @@ lRb
 lRb
 lRb
 oHr
-bOn
+dlX
 vgl
 xgT
 xgT
@@ -82336,14 +82901,14 @@ hnZ
 hnZ
 lIB
 cFY
-lGW
+oyM
 cFY
 gFw
 gFw
 sjT
 lIB
 ihh
-ihh
+pDr
 lQo
 ihh
 ihh
@@ -82381,7 +82946,7 @@ kPb
 xVw
 ffP
 ndx
-jQB
+bHD
 jQB
 ial
 bRU
@@ -82469,7 +83034,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 cgx
@@ -82688,14 +83253,14 @@ hnZ
 hnZ
 ihh
 cFY
-lGW
+dPm
 lGW
 vnh
 jiH
 sjT
 lIB
 ihh
-ihh
+pDr
 ihh
 ihh
 ihh
@@ -82766,8 +83331,8 @@ vPB
 gEn
 nmh
 cOy
-gfF
-gfF
+ltm
+gPW
 tiS
 vrT
 vrT
@@ -82821,7 +83386,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -83040,14 +83605,14 @@ hnZ
 hnZ
 hnZ
 cFY
-lGW
+sWV
 iCU
 upe
 upe
 sjT
 lIB
 lIB
-lIB
+nQt
 lIB
 lIB
 lIB
@@ -83173,7 +83738,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -83399,7 +83964,7 @@ gFw
 sjT
 itO
 eaK
-pEU
+gWC
 pEU
 pEU
 pEU
@@ -83437,7 +84002,7 @@ tJC
 ial
 bBI
 nvo
-axt
+jLe
 nvo
 ial
 pPb
@@ -83469,7 +84034,7 @@ nlL
 etS
 gEn
 jEp
-kIe
+gfF
 utu
 cut
 iwr
@@ -83525,7 +84090,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -83789,7 +84354,7 @@ enr
 enr
 hnZ
 hnZ
-hnZ
+fUQ
 hnZ
 hnZ
 hnZ
@@ -83877,7 +84442,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -84141,7 +84706,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-hnZ
+fUQ
 hnZ
 hnZ
 hnZ
@@ -84229,7 +84794,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -84493,7 +85058,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-hnZ
+fUQ
 hnZ
 hnZ
 hnZ
@@ -84539,7 +85104,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-hnZ
+dSG
 dzj
 mqQ
 mqQ
@@ -84581,7 +85146,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -84845,7 +85410,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-hnZ
+fUQ
 hnZ
 hnZ
 hnZ
@@ -84892,7 +85457,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-dzj
+pJz
 mqQ
 mqQ
 nUo
@@ -84933,7 +85498,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -85197,7 +85762,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-hnZ
+fUQ
 hnZ
 hnZ
 hnZ
@@ -85229,7 +85794,7 @@ hnZ
 hnZ
 hnZ
 cvk
-fso
+mxA
 dxM
 uQw
 aMt
@@ -85244,7 +85809,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-dzj
+pJz
 mqQ
 mqQ
 nUo
@@ -85285,7 +85850,7 @@ lRb
 lRb
 lRb
 oHr
-wVN
+bCQ
 wVN
 pHu
 pHu
@@ -85549,7 +86114,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-hnZ
+fUQ
 hnZ
 hnZ
 hnZ
@@ -85581,7 +86146,7 @@ hnZ
 hnZ
 hnZ
 cvk
-fso
+mxA
 dxM
 uQw
 xAd
@@ -85596,7 +86161,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-dzj
+pJz
 mqQ
 mqQ
 nUo
@@ -85637,7 +86202,7 @@ lRb
 lRb
 lRb
 qJB
-wVN
+bCQ
 wVN
 pHu
 vuC
@@ -85911,7 +86476,7 @@ iKH
 xZP
 cjv
 iKH
-xZP
+etf
 skn
 jkV
 jkV
@@ -85948,7 +86513,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-dzj
+pJz
 mqQ
 mqQ
 nUo
@@ -85989,7 +86554,7 @@ lRb
 lRb
 lRb
 qJB
-vgl
+jnV
 vgl
 vgl
 xgT
@@ -86242,51 +86807,51 @@ hnZ
 cvk
 vmG
 lKb
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
 dYo
-wQA
-wQA
-wQA
-wQA
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
+mxA
+mxA
+mxA
+mxA
 fHF
-wQA
-wQA
-odk
-wQA
+mxA
+mxA
+fHF
+mxA
 vjC
-wQA
-wQA
-wQA
-wQA
-vjC
-wQA
-wQA
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
+mxA
+fHF
+mxA
+mxA
+mxA
+mxA
+mxA
 cGN
 hLZ
 rLP
 dHJ
-wQA
-wQA
-wQA
-wQA
-wQA
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
+mxA
+mxA
+mxA
+mxA
+mxA
 dYo
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
 vmG
-wQA
+mxA
 ene
 hnZ
 hnZ
@@ -86300,7 +86865,7 @@ hnZ
 hnZ
 hnZ
 hnZ
-dzj
+pJz
 mqQ
 mqQ
 nUo
@@ -86341,7 +86906,7 @@ lRb
 lRb
 lRb
 qJB
-xgT
+jbj
 xgT
 xgT
 xgT
@@ -86608,23 +87173,23 @@ yjp
 iAC
 mxA
 mxA
-odk
-oWv
-lVh
-tYY
-tYY
-tYY
+fHF
 tYY
 lVh
 tYY
 tYY
 tYY
+tYY
+mCu
+tYY
+tYY
+tYY
 vmG
 vmG
-wQA
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
+mxA
 fxL
 vmG
 vmG
@@ -86693,8 +87258,8 @@ lRb
 lRb
 lRb
 oHr
-vgl
-xgT
+xHC
+lrR
 xgT
 xgT
 vgl
@@ -86967,17 +87532,17 @@ gPz
 vCL
 puR
 puR
-vCL
+sYX
 gPz
 vCL
 puR
 rBo
-fso
+mxA
 qyN
 wax
 enr
 oGM
-fso
+mxA
 qcy
 aSz
 sdH
@@ -87003,7 +87568,7 @@ mKu
 mKu
 teX
 mKu
-mKu
+vSO
 teX
 bxR
 bxR
@@ -87046,7 +87611,7 @@ lRb
 lRb
 oHr
 arn
-vgl
+jnV
 vgl
 bOn
 xgT
@@ -87309,10 +87874,10 @@ aMd
 mNo
 cXr
 yiA
-yjQ
-tjk
+uAE
+dnF
 oSi
-gjS
+eav
 vCL
 wYp
 jND
@@ -87324,12 +87889,12 @@ vLD
 qjy
 puR
 rBo
-fso
+mxA
 tsJ
 xAd
 hnZ
 mXE
-fso
+mxA
 qcy
 sdH
 fYm
@@ -87398,12 +87963,12 @@ lRb
 lRb
 oHr
 xgT
-vgl
-vgl
-vgl
-vgl
-qJB
-vgl
+fih
+cQq
+cQq
+cQq
+cQq
+trd
 vgl
 vgl
 vgl
@@ -87658,7 +88223,7 @@ yiA
 yiA
 bGA
 mcP
-mNo
+dfD
 ojY
 yiA
 yjQ
@@ -87676,12 +88241,12 @@ jkG
 kMp
 vCL
 rBo
-fso
+mxA
 mUo
 xAd
 hnZ
 ddF
-fso
+mxA
 qcy
 hsK
 ibX
@@ -87755,7 +88320,7 @@ pHu
 xgT
 nBv
 qJB
-vgl
+jnV
 vgl
 vgl
 vgl
@@ -88013,7 +88578,7 @@ gxT
 rcU
 oMW
 ycn
-yjQ
+aJT
 tjk
 tjk
 jrk
@@ -88028,12 +88593,12 @@ cfi
 sOS
 vCL
 rBo
-fso
+mxA
 jVH
 xAd
 hnZ
 iUc
-fso
+mxA
 qcy
 sdH
 hZr
@@ -88107,7 +88672,7 @@ pHu
 vgl
 nBv
 qJB
-vgl
+mtq
 vgl
 vgl
 vgl
@@ -88373,19 +88938,19 @@ vCL
 qfk
 vCL
 rXa
-cfi
+aDS
 lJG
 sXu
 cfi
 ocy
 puR
 rBo
-fso
+mxA
 tsJ
 xAd
 hnZ
 mXE
-fso
+mxA
 qcy
 tKj
 aoB
@@ -88732,12 +89297,12 @@ cfi
 lzz
 puR
 rBo
-fso
+mxA
 bTG
 xAd
 hnZ
 xHq
-fso
+mxA
 qcy
 sdH
 nPS
@@ -88763,7 +89328,7 @@ teX
 wgN
 teX
 teX
-wgN
+wMs
 teX
 bxR
 bxR
@@ -89066,7 +89631,7 @@ yiA
 yiA
 cZM
 uEC
-qaK
+dfD
 mJK
 yiA
 yjQ
@@ -89084,12 +89649,12 @@ uCW
 fvZ
 eUQ
 rBo
-fso
+mxA
 mUo
 xAd
 hnZ
 vuB
-fso
+mxA
 qcy
 tKj
 maf
@@ -89133,9 +89698,9 @@ lRb
 lRb
 lRb
 lRb
-its
-its
-its
+wHK
+kPs
+irg
 its
 lRb
 lRb
@@ -89417,11 +89982,11 @@ bpv
 yiA
 yiA
 aSg
-mNo
-aMd
-mNo
+tte
+sim
+bDe
 ycn
-yjQ
+aJT
 tjk
 tjk
 tLa
@@ -89436,12 +90001,12 @@ ocy
 ocy
 puR
 vmG
-fso
+mxA
 tsJ
 huy
 hnZ
 mXE
-fso
+mxA
 qcy
 sdH
 hZr
@@ -89485,9 +90050,9 @@ lRb
 lRb
 lRb
 lRb
-its
-its
-its
+yal
+yal
+mbv
 its
 lRb
 lRb
@@ -89788,12 +90353,12 @@ eUQ
 puR
 vCL
 vmG
-fso
+mxA
 fwY
 oAX
 oAX
 ouK
-fso
+mxA
 qcy
 tKj
 bou
@@ -89839,7 +90404,7 @@ lRb
 lRb
 kCu
 kCu
-kCu
+ojs
 kCu
 kCu
 kCu
@@ -90141,10 +90706,10 @@ hnZ
 vmG
 vmG
 vmG
-wQA
-wQA
-wQA
-wQA
+mxA
+mxA
+mxA
+mxA
 vmG
 vmG
 sdH
@@ -90191,7 +90756,7 @@ lRb
 lRb
 kCu
 kKP
-jje
+qGI
 vcx
 jje
 rhc
@@ -90542,8 +91107,8 @@ lRb
 lRb
 lRb
 kCu
-mGZ
-xTO
+lAl
+fdX
 hrT
 poI
 rhc
@@ -91599,7 +92164,7 @@ lRb
 lRb
 kCu
 jje
-jje
+wPg
 poI
 aVd
 jje
@@ -92913,9 +93478,9 @@ vtj
 kqw
 cLw
 rQr
-kqw
+oUf
 rRT
-rQr
+qwu
 hnZ
 hnZ
 hnZ
@@ -93266,8 +93831,8 @@ kqw
 kqw
 klF
 svq
-kqw
-rQr
+hnZ
+fxL
 hnZ
 hnZ
 hnZ
@@ -95116,7 +95681,7 @@ eOf
 eOf
 eOf
 eOf
-glU
+eOf
 kCu
 kCu
 kCu
@@ -95468,7 +96033,7 @@ eOf
 eOf
 eOf
 eOf
-glU
+eOf
 kCu
 wRZ
 hCu
@@ -95707,7 +96272,7 @@ hnZ
 hnZ
 hnZ
 aXk
-hTB
+fNd
 dmj
 lNO
 xKl
@@ -95820,7 +96385,7 @@ eOf
 eOf
 eOf
 eOf
-glU
+eOf
 kCu
 kRz
 eEY
@@ -96062,7 +96627,7 @@ aXk
 ows
 xck
 sqj
-faM
+uMp
 bDO
 aXk
 hnZ
@@ -96172,7 +96737,7 @@ eOf
 eOf
 eOf
 eOf
-glU
+eOf
 kCu
 loe
 eEY
@@ -96768,7 +97333,7 @@ uEw
 faM
 uMQ
 dPx
-aXk
+nVs
 hnZ
 hnZ
 hnZ
@@ -109016,6 +109581,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -109029,7 +109595,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -109115,18 +109680,6 @@ tyV
 tyV
 tyV
 tyV
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
 loq
 loq
 loq
@@ -109150,6 +109703,18 @@ loq
 loq
 loq
 loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -109368,6 +109933,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -109400,7 +109966,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -109498,10 +110063,10 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -109720,6 +110285,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -109752,7 +110318,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -109850,10 +110415,10 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -110072,6 +110637,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -110104,7 +110670,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -110202,17 +110767,17 @@ loq
 loq
 loq
 loq
+nyG
+nyG
+nyG
+nyG
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -110424,6 +110989,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -110456,7 +111022,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -110560,11 +111125,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -110776,6 +111341,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -110808,7 +111374,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -110912,11 +111477,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -111128,6 +111693,7 @@ xwF
 xwF
 xwF
 xwF
+xwF
 loq
 loq
 loq
@@ -111160,7 +111726,6 @@ loq
 loq
 loq
 loq
-loq
 tyV
 tyV
 tyV
@@ -111264,11 +111829,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -111607,20 +112172,20 @@ loq
 loq
 loq
 loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -111959,20 +112524,20 @@ loq
 loq
 loq
 loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -112311,20 +112876,20 @@ loq
 loq
 loq
 loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -112663,20 +113228,20 @@ loq
 loq
 loq
 loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 sgZ
 sgZ
 sgZ
@@ -113015,11 +113580,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -113367,11 +113932,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -113719,11 +114284,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -114071,11 +114636,11 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
+nyG
+nyG
+nyG
+nyG
+nyG
 loq
 loq
 loq
@@ -123597,42 +124162,42 @@ loq
 loq
 loq
 loq
-jYH
-nOE
+lKw
+kLr
 gxC
-nOE
-nOE
-nOE
-nOE
-nOE
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+kLr
+kLr
+kLr
+kLr
+kLr
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 uPI
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 eCF
 loq
 loq
@@ -123950,41 +124515,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 jiq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 uPI
-wwl
+ded
 uHn
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
 eCF
 loq
 loq
@@ -124302,40 +124867,40 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
 lCl
-wwl
+ded
 jiq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 uPI
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-wwl
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+ded
 uHn
 eCF
 loq
@@ -124654,41 +125219,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 jiq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 uPI
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-wwl
-wwl
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+ded
+ded
 eCF
 loq
 loq
@@ -125006,41 +125571,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
-nOE
-nOE
-nOE
-ekA
-nOE
-nOE
-nOE
-nOE
-nOE
+ded
+ded
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
+kLr
+kLr
+kLr
+mHE
+kLr
+kLr
+kLr
+kLr
+kLr
 huB
-nOE
-nOE
-nOE
-nOE
-wwl
+kLr
+kLr
+kLr
+kLr
+ded
 uHn
-wwl
+ded
 eJh
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 eCF
 loq
 loq
@@ -125358,41 +125923,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
+ded
 eJh
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 uHn
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
 eCF
 loq
 loq
@@ -125710,41 +126275,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
 uHn
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 rWQ
 loq
 loq
@@ -126063,17 +126628,17 @@ loq
 loq
 gab
 lCl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 qxa
 qxa
 qxa
@@ -126086,18 +126651,18 @@ qxa
 qxa
 qxa
 qxa
-loq
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 xpJ
-loq
+gon
 loq
 loq
 loq
@@ -126413,43 +126978,43 @@ loq
 loq
 loq
 loq
-loq
+gon
 olh
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 qxa
 ewV
 fSa
-not
+nXY
 qxa
-qxv
+fNl
 nuX
 rfR
 rfR
 sFB
 rfR
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 xpJ
-loq
-loq
+gon
+gon
 loq
 loq
 loq
@@ -126765,43 +127330,43 @@ loq
 loq
 loq
 loq
-loq
-loq
+gon
+gon
 alo
-wwl
-wwl
-wwl
-wwl
-pnR
-loq
-loq
-loq
-loq
-loq
+ded
+ded
+ded
+ded
+rfR
+gon
+gon
+gon
+gon
+gon
 qxa
 oCX
 blx
-not
+nXY
 tts
 xVB
 rfR
 dRh
 dRh
 rfR
-plx
+gon
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
 xpJ
-loq
-loq
-loq
+gon
+gon
+gon
 loq
 loq
 loq
@@ -127117,19 +127682,19 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
+gon
+gon
+gon
 olh
-wwl
-hvB
-hvB
-gWh
-hvB
-hvB
-loq
-loq
-loq
+ded
+qxa
+qxa
+rfR
+qxa
+qxa
+gon
+gon
+gon
 qxa
 aGk
 hCo
@@ -127142,18 +127707,18 @@ qxa
 tts
 qxa
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 kGv
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -127469,19 +128034,19 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 olh
-hvB
+qxa
 gpT
-gWh
+rfR
 cKq
-hvB
-loq
-loq
-loq
+qxa
+gon
+gon
+gon
 qxa
 rfR
 pBJ
@@ -127494,18 +128059,18 @@ qxa
 rfR
 ooE
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 nmg
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -127821,19 +128386,19 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-hvB
-kMd
-gWh
+gon
+gon
+gon
+gon
+gon
+qxa
+wfG
+rfR
 xJW
-hvB
-loq
-loq
-loq
+qxa
+gon
+gon
+gon
 qxa
 yhB
 rfR
@@ -127846,23 +128411,23 @@ qxa
 rfR
 fpw
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 kGv
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -128173,19 +128738,19 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-hvB
+gon
+gon
+gon
+gon
+gon
+qxa
 blq
-gWh
+rfR
 cKq
-hvB
-loq
-loq
-loq
+qxa
+gon
+gon
+gon
 qxa
 ugs
 rfR
@@ -128198,23 +128763,23 @@ qxa
 uDZ
 mNP
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-nOE
-nOE
-nAa
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+kLr
+kLr
+fjh
+gon
+gon
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -128525,48 +129090,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-hvB
-oST
+gon
+gon
+gon
+gon
+gon
+qxa
+gon
 bSs
 xJW
-hvB
-loq
-loq
-loq
+qxa
+gon
+gon
+gon
 qxa
 qxa
 pDV
 qxa
 qxa
 qxa
-fwO
+xNn
 qxa
 qxa
 pDV
 qxa
 qxa
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-nAa
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
+ded
+ded
+fjh
+gon
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -128877,48 +129442,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-hvB
-gWh
-gWh
-dqB
-hvB
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-hnJ
-hnJ
-hnJ
-hnJ
-hnJ
-hnJ
-rqK
-wwl
-wwl
-wwl
-nAa
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+qxa
+qxa
+rfR
+rfR
+pBJ
+qxa
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+nwf
+nwf
+nwf
+nwf
+nwf
+nwf
+nVY
+ded
+ded
+ded
+fjh
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -129229,48 +129794,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
+gon
+gon
+gon
+gon
+qxa
 dhx
-gWh
-gWh
-gWh
+rfR
+rfR
+rfR
 dlV
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-hnJ
-rqK
-wwl
-wwl
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+nwf
+nVY
+ded
+ded
 uHn
-nAa
-loq
-loq
-loq
+fjh
+gon
+gon
+gon
 loq
 loq
 loq
@@ -129581,48 +130146,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-gWh
+gon
+gon
+gon
+gon
+qxa
+rfR
 hNf
 wqQ
 xYg
-gWh
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-hnJ
-rqK
-wwl
-wwl
-wwl
-nAa
-loq
-loq
+rfR
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+nwf
+nVY
+ded
+ded
+ded
+fjh
+gon
+gon
 loq
 loq
 loq
@@ -129933,48 +130498,48 @@ qPz
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-gWh
+gon
+gon
+gon
+gon
+qxa
+rfR
 sGv
 nkm
 luI
-gWh
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
+rfR
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
 hnJ
-rqK
-wwl
-wwl
-wwl
-nAa
-loq
+kbL
+ded
+ded
+ded
+fjh
+gon
 loq
 loq
 loq
@@ -130285,48 +130850,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-ifH
-oST
-oST
-oST
+gon
+gon
+gon
+gon
+qxa
+pRt
+gon
+gon
+gon
 bSs
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-utg
-utg
-utg
-utg
-utg
-utg
-utg
-utg
-utg
-utg
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+goF
+goF
+goF
+goF
+goF
+goF
+goF
+goF
+goF
+bmd
 utg
 utg
 rqK
-wwl
-wwl
-wwl
-nAa
+ded
+ded
+ded
+fjh
 loq
 loq
 loq
@@ -130637,47 +131202,47 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 kTh
-ifH
-oST
-oST
-oST
+pRt
+gon
+gon
+gon
 bSs
 kTh
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
-xwF
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gSo
+gSo
+gSo
+gSo
+gSo
+gSo
+gSo
+gSo
+gSo
+kdL
+gon
+gon
 fFK
 mzr
-wwl
-wwl
+ded
+ded
 eCF
 loq
 loq
@@ -130989,47 +131554,47 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-ifH
-oST
-oST
-oST
+gon
+gon
+gon
+gon
+qxa
+pRt
+gon
+gon
+gon
 bSs
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-cxF
-cxF
-cxF
-cxF
-cxF
-cxF
-cxF
-cxF
-cxF
-cxF
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ooj
+ooj
+ooj
+ooj
+ooj
+ooj
+ooj
+ooj
+ooj
+lOX
 cxF
 cxF
 jpN
-wwl
+ded
 lCl
-wwl
+ded
 mmF
 loq
 loq
@@ -131341,48 +131906,48 @@ qPz
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-gWh
+gon
+gon
+gon
+gon
+qxa
+rfR
 kFS
 kFS
 kFS
-gWh
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
+rfR
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
 utk
-jpN
-wwl
-wwl
-wwl
+vUA
+ded
+ded
+ded
 mmF
-loq
+gon
 loq
 loq
 loq
@@ -131693,48 +132258,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
+gon
+gon
+gon
+gon
+qxa
 twX
-gWh
-gWh
-kMd
+rfR
+rfR
+wfG
 dlV
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-utk
-jpN
-wwl
-wwl
-wwl
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ydB
+aip
+ded
+ded
+ded
 mmF
-loq
-loq
+gon
+gon
 loq
 loq
 loq
@@ -132045,48 +132610,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-hvB
+gon
+gon
+gon
+gon
+qxa
+qxa
 pVR
 pVR
 pVR
-hvB
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-sgZ
-utk
-jpN
-wwl
-wwl
-wwl
+qxa
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ojk
+ydB
+aip
+ded
+ded
+ded
 mmF
-loq
-loq
-loq
+gon
+gon
+gon
 loq
 loq
 loq
@@ -132397,48 +132962,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-hvB
-hvB
-gWh
-gWh
+gon
+gon
+gon
+gon
+qxa
+qxa
+rfR
+rfR
 uPo
-hvB
-hvB
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-utk
-utk
-utk
-utk
-utk
-utk
-jpN
-wwl
+qxa
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ydB
+ydB
+ydB
+ydB
+ydB
+ydB
+aip
+ded
 vSQ
-wwl
+ded
 mmF
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -132749,48 +133314,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-hvB
+gon
+gon
+gon
+gon
+gon
+qxa
 bxT
-gWh
+rfR
 ohP
-hvB
-loq
-loq
-loq
-bgy
-bgy
-srY
-bgy
-srY
-bgy
+qxa
+gon
+gon
+gon
+qxa
+qxa
+pDV
+qxa
+pDV
+qxa
 xNn
-bgy
+qxa
 xNn
-bgy
-bgy
-bgy
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+qxa
+qxa
+qxa
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
+ded
+ded
 mmF
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -133101,48 +133666,48 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-hvB
+gon
+gon
+gon
+gon
+gon
+qxa
 aHX
-gWh
+rfR
 qjk
-hvB
-loq
-loq
-loq
-bgy
+qxa
+gon
+gon
+gon
+qxa
 iEP
-nlM
+rfR
 iEP
-nlM
+rfR
 iEP
-nlM
+rfR
 iEP
-nlM
-gKe
+rfR
+sFB
 jku
-bgy
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
+qxa
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
 rwO
 rwO
 mmF
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -133453,43 +134018,43 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-hvB
+gon
+gon
+gon
+gon
+gon
+qxa
 wTp
-dqB
+pBJ
 wQL
-hvB
-loq
-loq
-loq
-bgy
+qxa
+gon
+gon
+gon
+qxa
 bNF
 iuu
-nlM
-nlM
-nlM
-nlM
-nlM
-nlM
-nlM
+rfR
+rfR
+rfR
+rfR
+rfR
+rfR
+rfR
 jku
-bgy
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+qxa
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 kGv
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -133805,20 +134370,20 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 ylJ
-hvB
+qxa
 mza
-gWh
+rfR
 tWk
-hvB
-loq
-loq
-loq
-bgy
+qxa
+gon
+gon
+gon
+qxa
 eRm
 jtI
 jtI
@@ -133827,21 +134392,21 @@ jtI
 nXY
 vRN
 nXY
-nlM
+rfR
 esf
-bgy
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+qxa
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 kGv
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
 loq
 loq
 loq
@@ -134157,43 +134722,43 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
+gon
+gon
+gon
 ylJ
-wwl
-hvB
-hvB
+ded
+qxa
+qxa
 pVR
-hvB
-hvB
-loq
-loq
-loq
-bgy
+qxa
+qxa
+gon
+gon
+gon
+qxa
 eRm
 jtI
 jtI
-nlM
+rfR
 jtI
-nlM
+rfR
 jtI
-nlM
+rfR
 pRt
-dfE
-bgy
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
+gon
+qxa
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
 qFt
-loq
-loq
-loq
+gon
+gon
+gon
 loq
 loq
 loq
@@ -134509,43 +135074,43 @@ loq
 loq
 loq
 loq
-loq
-loq
+gon
+gon
 ylJ
-wwl
-wwl
-wwl
+ded
+ded
+ded
 lCl
-pnR
-loq
-loq
-loq
-loq
-loq
-bgy
+rfR
+gon
+gon
+gon
+gon
+gon
+qxa
 bNF
-nlM
-nlM
-nlM
-nlM
-fyg
-nlM
-nlM
-nlM
-nlM
-bgy
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+rfR
+rfR
+rfR
+rfR
+dRh
+rfR
+rfR
+rfR
+rfR
+qxa
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 qFt
-loq
-loq
+gon
+gon
 loq
 loq
 loq
@@ -134861,43 +135426,43 @@ loq
 loq
 loq
 loq
-loq
+gon
 ylJ
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-bgy
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+qxa
 iEP
 cvF
 iEP
-ilx
+wfG
 iEP
-nlM
+rfR
 iEP
-nlM
+rfR
 cvF
 fNl
-bgy
-loq
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 qFt
-loq
+gon
 loq
 loq
 loq
@@ -135213,43 +135778,43 @@ loq
 loq
 loq
 loq
-jYH
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-bgy
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+lKw
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+qxa
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 pHF
-wwl
-nAa
+ded
+fjh
 loq
 loq
 loq
@@ -135566,41 +136131,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 uHn
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 trc
-wwl
-loq
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
+ded
+gon
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
 eCF
 loq
 loq
@@ -135667,68 +136232,68 @@ tyV
 tyV
 tyV
 tyV
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -135918,41 +136483,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 trc
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 eCF
 loq
 loq
@@ -136019,7 +136584,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -136080,7 +136645,7 @@ loq
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -136271,15 +136836,15 @@ loq
 loq
 sUD
 lCl
-wwl
-loq
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+ded
+gon
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 rwO
 rwO
 rwO
@@ -136294,17 +136859,17 @@ rwO
 rwO
 rwO
 rwO
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-loq
-wwl
-wwl
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+gon
+ded
+ded
 eCF
 loq
 loq
@@ -136371,7 +136936,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -136432,7 +136997,7 @@ loq
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -136622,41 +137187,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-loq
-loq
-loq
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+gon
+gon
+gon
+ded
+ded
+ded
+ded
 eJK
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 olh
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-loq
-wwl
-wwl
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+gon
+ded
+ded
 eCF
 loq
 loq
@@ -136723,7 +137288,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -136784,7 +137349,7 @@ loq
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -136974,41 +137539,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 eJK
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 olh
-wwl
-wwl
-wwl
-wwl
-loq
-loq
-loq
-wwl
-wwl
+ded
+ded
+ded
+ded
+gon
+gon
+gon
+ded
+ded
 eCF
 loq
 loq
@@ -137075,7 +137640,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -137136,7 +137701,7 @@ loq
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -137326,41 +137891,41 @@ loq
 loq
 loq
 sUD
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 eJK
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 olh
 trc
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 eCF
 loq
 loq
@@ -137427,7 +137992,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 bKt
 bKt
@@ -137488,7 +138053,7 @@ loq
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -137685,34 +138250,34 @@ rwO
 rwO
 rwO
 rwO
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 olh
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
-wwl
+ded
+ded
+ded
+ded
+ded
+ded
+ded
 lRV
 loq
 loq
@@ -137779,7 +138344,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 bKt
 jYX
@@ -137840,7 +138405,7 @@ lIp
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -138029,35 +138594,35 @@ loq
 loq
 loq
 loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
-loq
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
+gon
 gab
 rwO
 rwO
@@ -138131,7 +138696,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 wSv
 eDd
@@ -138192,7 +138757,7 @@ lIp
 lIp
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -138483,7 +139048,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 pCq
 eDd
@@ -138544,7 +139109,7 @@ lIp
 vRD
 lIp
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -138835,7 +139400,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 neJ
 ycg
@@ -138896,7 +139461,7 @@ eGQ
 lIp
 lIp
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -139187,7 +139752,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 emO
 vaq
@@ -139248,7 +139813,7 @@ aCx
 dLX
 lIp
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -139539,7 +140104,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 uXB
 ycg
@@ -139600,7 +140165,7 @@ aCx
 aCx
 dLX
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -139891,7 +140456,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 wSv
 ycg
@@ -139952,7 +140517,7 @@ aCx
 aCx
 aCx
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -140243,7 +140808,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 bKt
 wSv
 ycg
@@ -140304,7 +140869,7 @@ vGh
 vGh
 vGh
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -140595,7 +141160,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 bKt
 bKt
@@ -140656,7 +141221,7 @@ gyv
 aCx
 aCx
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -140947,7 +141512,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -141008,7 +141573,7 @@ aCx
 aCx
 qdX
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -141299,7 +141864,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -141360,7 +141925,7 @@ aCx
 qdX
 lIp
 lIp
-ogB
+loq
 loq
 loq
 loq
@@ -141651,7 +142216,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -141712,7 +142277,7 @@ dsA
 lIp
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -142003,7 +142568,7 @@ tyV
 tyV
 tyV
 tyV
-uYa
+tyV
 tyV
 tyV
 tyV
@@ -142064,7 +142629,7 @@ lIp
 loq
 loq
 loq
-ogB
+loq
 loq
 loq
 loq
@@ -142355,68 +142920,68 @@ tyV
 tyV
 tyV
 tyV
-iSU
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-uYa
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-qBX
-ogB
-iNz
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-pRW
-ogB
-qBX
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-qBX
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+tyV
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+frI
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+uZD
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq
@@ -142745,7 +143310,6 @@ loq
 loq
 loq
 loq
-ogB
 loq
 loq
 loq
@@ -142757,7 +143321,8 @@ loq
 loq
 loq
 loq
-ogB
+loq
+loq
 loq
 loq
 loq
@@ -143097,7 +143662,6 @@ loq
 loq
 loq
 loq
-ogB
 loq
 loq
 loq
@@ -143109,7 +143673,8 @@ loq
 loq
 loq
 loq
-ogB
+loq
+loq
 loq
 loq
 loq
@@ -143449,7 +144014,6 @@ loq
 loq
 loq
 loq
-ogB
 loq
 loq
 loq
@@ -143461,7 +144025,8 @@ loq
 loq
 loq
 loq
-ogB
+loq
+loq
 loq
 loq
 loq
@@ -143801,7 +144366,6 @@ loq
 loq
 loq
 loq
-ogB
 loq
 loq
 loq
@@ -143813,7 +144377,8 @@ loq
 loq
 loq
 loq
-ogB
+loq
+loq
 loq
 loq
 loq
@@ -144153,7 +144718,6 @@ loq
 loq
 loq
 loq
-ogB
 loq
 loq
 loq
@@ -144165,7 +144729,8 @@ loq
 loq
 loq
 loq
-ogB
+loq
+loq
 loq
 loq
 loq
@@ -144505,19 +145070,19 @@ loq
 loq
 loq
 loq
-qBX
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-ogB
-qBX
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
+loq
 loq
 loq
 loq

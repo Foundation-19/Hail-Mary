@@ -1149,6 +1149,14 @@ obj/effect/landmark/start/f13/ncrlogisticsofficer
 
 //mercs
 
+/obj/effect/landmark/start/f13/f13mercenarysoldier
+	name = "Mercenary Soldier"
+	icon_state = "Banker"
+
+/obj/effect/landmark/start/f13/f13mercenarywarlord
+	name = "Mercenary Warlord"
+	icon_state = "Banker"
+
 // Holiday
 
 /obj/effect/landmark/start/f13/f13holidayf13holidaymayor

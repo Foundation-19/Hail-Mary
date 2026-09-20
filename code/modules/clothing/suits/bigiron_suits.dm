@@ -1152,8 +1152,8 @@
 	desc = "A coat made for the head of security of Vault 125, in order to assist in chaos operations."
 	icon = 'icons/onmob/clothes/armor_medium.dmi'
 	mob_overlay_icon = 'icons/onmob/clothes/armor_medium.dmi'
-	icon_state = "overseer"
-	item_state = "overseer"
+	icon_state = "overseer_commandcoat"
+	item_state = "overseer_commandcoat"
 	armor_tokens = list(ARMOR_MODIFIER_UP_LASER_T2, ARMOR_MODIFIER_UP_DT_T2)
 
 /obj/item/clothing/suit/armor/light/duster/marlowsuit //Raider armour reskin.

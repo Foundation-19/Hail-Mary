@@ -1923,14 +1923,6 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	Heretical being, she said, and used them as bait for those things to cover our escape. If you read this, we are no longer in the area. We left the sap here, but I managed to take all sample a new kind of FEV."
 
 
-
-/obj/machinery/computer/terminal/baltimore/vault124/survival
-	doc_title_3 = "I trust the doctors"
-	doc_content_3 =  "Year of Hell.	Zax, he didnt go rogue. He became human. Sure still a machine, but the years talking to my familly impacted him.\
-	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a genuent familly members \
-	And the people of Vault 125 ? Same thing. But now, it all changes. Vault 124 is nearly deserted, with a big group of hundredtwentyfourers serving on 125.\
-	125 guys are now in command, but I am trying to resist, trying to find a way for us to escape."
-
 /obj/machinery/computer/terminal/baltimore/vault124
 	doc_title_1 = "Openning of the Vault - 23/10/2077"
 	doc_content_1 = "Welcome to Vault 124 !\
@@ -1943,9 +1935,29 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	I know that it started as rumors and ghost stories, but the light flickers in the water when clear were not figment of our imagination :\
 	We have finaly made contact with vault 125, an underwater also located in the Baltimore bay!\
 	The northen pass seems to have been deliberatly put here so we can facilitate acces, as some sort of twin vault program.\
-	Vault 125 personel will now be control of our security and of our laws. They have been trained to keep order. \
+	Vault 125 personel will now be control of our security and upholding our laws. They have been trained to keep order. \
 	The futur of Vault 124, and 125 will be bright. Our grand kids will rebuild America, witha  reclamation day in 2300 !\
 	- Overseer Cath Mulgrau"
+
+/obj/machinery/computer/terminal/baltimore/vault124/survival
+	doc_title_3 = "I trust the doctors"
+	doc_content_3 =  "Year of Hell.	Zax, he didnt go rogue. He became human. Sure still a machine, but the years talking to my familly impacted him.\
+	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a actual familly members \
+	And the people of Vault 125 ? Same thing. But now, it all changes. Vault 124 is nearly deserted, with a big group of hundred twenty fourers serving on 125.\
+	125 guys are now in command, but I am trying to resist, trying to find a way for us to escape."
+
+	doc_title_4 = "I trust the officers"
+	doc_content_4 =  "Thinking about it, Zax may be trying to do good. The America programmed into him isnt the same that is currently outside.\
+	He is coded to achieve an America with highrise, pride, international power, and infinite money and ressources.\
+	With the remnants of the US gouvernement dead, he is probably trying to make restart America, like it started : With blood, slaves, violence.\
+	Even if he fails, many country seems to have started like this. The only way to stop this is to kill him."
+
+	doc_title_5 = "I trust the scientist"
+	doc_content_5 =  "Zax is... Impressive. An 124 in deep cover managed track a guy call Daniel Littlehorn in the capital. The guys is basically a front for Zax. They are paid with ACTUAL gold.\
+	Same with that Talon and Gunner group. Zax is even trying to take control of the New York.\
+	Finding weakness is hard, but possible. The few guys of 124 located here and in 125 are planning an attack. Blowing up a Pip Boy near the central computer. \
+	Its being prepared at botany"
+
 
 /obj/machinery/computer/terminal/baltimore/vault121
 	doc_title_1 = "Openning of the Vault - 23/10/2077"
@@ -2010,7 +2022,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	V124 OVERSEER - Yes. Why ?\
 	V125 ZAX - Lincoln Mulgrau, Senator, Ex US Navy Admiral, your Husband.\
 	V124 OVERSEER - A warmonger.\
-	V125 ZAX - I have determined that your logic is sounds. Plan will be adapted to include Vault 124 overseers opinion in the ZAX Descision Matrix."
+	V125 ZAX - I have determined that your logic is sounds. Plan will be adapted to include Vault 124 overseers opinion in the ZAX Decision Matrix. First contact will be delayed. And 125 lawbringers will be under your orders."
 
 	doc_title_4 = "Communication with ZAX overseer #234 - 29/06/2113"
 	doc_content_4 = " V125 ZAX - Hello Vault 124.\
@@ -2026,7 +2038,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	V125 ZAX - How did she die?\
 	V124 OVERSEER - Sorry ?\
 	V125 ZAX - Sorry.\
-	V124 OVERSEER - Surprising question. But. She died sad, Zax. She missed the surfaces. She wanted to see things rebuild, she wanted to see her old country back.\
+	V124 OVERSEER - Surprising question. But. She died of sickness, and sad, Zax. She missed the surfaces. She wanted to see things rebuild, she wanted to see her old country back.\
 	V125 ZAX - I understand.\
 	V124 OVERSEER - You are not as machinic as I tought.\
 	V125 ZAX - Contact with Cath Mulgrau was interesting. Patriotism, unlike my mens and womens on 125. A fresh view of things. And I promise that I will keep her dream alive. The dream of the USA."
@@ -2034,25 +2046,77 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	doc_title_5 = "Communication with ZAX overseer #2495 - 29/12/2278"
 	doc_content_5 = " V125 ZAX - Hello Vault 124.\
 	V124 OVERSEER - So you are Zax, Greetings.\
-	V125 ZAX - Welcome at your position, Overseer Illi Elsberg, descend of Cath Mulgrau.\
+	V125 ZAX - Welcome at your position, Overseer Illi Elsberg, descendant of Cath Mulgrau.\
 	V124 OVERSEER - Indeed.\
 	V125 ZAX - It is bad timming.\
 	V124 OVERSEER - Bad timming Zax ? What is going on.\
 	V125 ZAX - We have confirmation : The all clear signal will never arrive in 2300.\
 	V124 OVERSEER - WHAT ?!\
-	V125 ZAX - Vault 124 Overseer, the branch of the Surviving US gouvernement was defeated by overground factions, settelement and people. Scouts of vault 125 confirmed it.\
+	V125 ZAX - Vault 124 Overseer, the branch of the Surviving US gouvernement was defeated by overground factions, settlement and a remnant US army defector group. Scouts of vault 125 confirmed it.\
 	V124 OVERSEER - This is... Bad. We will need to change the plan then, and open vault 124. Early. With luck, we can adapt and settle with the new settlers overground.\
 	V125 ZAX - Denied.\
 	V124 OVERSEER - Sorry ?\
 	V125 ZAX - Denied.\
 	V124 OVERSEER - Zax. We can't stay here. We need to accept the new situation. The best course of .\
-	V125 ZAX - Orders are orders. And a promise to make a new America was made. Your ancestors dreamed of it, and I will not make compromises. I have taken actions already : Weakened the Capital, Commonwealth and Maryland wastelands, to facilitate a rebuilding of the USA, by using mercenaries and slavers. The people overground are not US citizens, unlike you.\
-	V124 OVERSEER - This is madness, I cannot stand for this.\
+	V125 ZAX - Orders are orders. And a promise to make a new America was made. Your ancestors dreamed of it, and I will not make compromises.\
+	V124 OVERSEER - This is madness, I cannot stand for this. Cancel your plan, now.\
+	V125 ZAX - The plan is IN EFFECT since 2275. I have taken actions already : Weakened the Capital, Commonwealth and Maryland wastelands, to facilitate a rebuilding of the USA, by using mercenary groups. The people overground are not US citizens, unlike you.\
+	V124 OVERSEER - Oh god, how much people died ?\
+	V125 ZAX - Unknown. No count was made. They aren't people. \
+	V124 OVERSEER - Vault 124 will not support this. I will not support this.\
 	V125 ZAX - Then you will step down. Vault 125 is now in command of Vault 124, your position as been rendered void. New vault objective : Distabilize the Area and secure a futur for the area. Vault 124 key personnel and familly will be transfered to vault 125."
 
+/obj/machinery/computer/terminal/baltimore/bank
+	doc_title_1 = "BANK LOG 364 - 12/08/2077"
+	doc_content_1 = "GOLD MOVEMENT\
+	FROM : BANK OF BALTIMORE LOCUST POINT\
+	TO : VAULT 125\
+	\
+	ORDER FROM : COLONEL MAYBURN\
+	APPROUVED BY : DIRECTOR SMITH\
+	AMMOUNT : 100 UNITS"
+
+	doc_title_2 = "BANK LOG 369 - 18/09/2077"
+	doc_content_2 = "CHARGE CARD\
+	FROM : BANK OF BALTIMORE LOCUST POINT\
+	TO : M.QUINN\
+	\
+	ORDER FROM : COLONEL MAYBURN\
+	APPROUVED BY : DIRECTOR SMITH\
+	AMMOUNT : 4000 CARDS\
+	note : Ahah, sucker must have made a mistake. But hey, generational debt means more money for us."
+	
+
 /obj/machinery/computer/terminal/baltimore/vault125
-	doc_title_1 = "Michel Scyllia Journal #1 - 23/10/2090"
-	doc_content_1 = "I trust the doctors"
+	doc_title_1 = "Openning of the Vault - 23/10/2077"
+	doc_content_1 = "Welcome to Vault 125 !\
+	The end of the world is a new start for you.\
+	Welcome to vault 125. Here, you will only find the elite.\
+	May you be military, may you be police. May you be contractors, your labor and duty are rewarded here, in Vault 125\
+	And in 2300, your childrens will reclaim america, and be its new forces.\
+	Zax, the overseer, will make sure of that."
+
+	doc_title_2 = "Contact made with Vault 124 - 12/12/2078"
+	doc_content_2 = "Contact was made with 124. A civilian vault underwater too.\
+	It as been reconized as our twin vault. And will protect it, as it is your duty.\
+	You will follow the orders and laws of the Overseer of 124, Cath Mulgrau.\
+	The soutern pass will be used as a bridge between the two.\
+	Many are counting on you.\
+	- Overseer Zax"
+
+
+/obj/machinery/computer/terminal/baltimore/vault125/personal
+	doc_title_3 = "Communication with ZAX overseer #1 - 11/01/2078"
+	doc_content_3 = " V125 ZAX - Hello Vault 125 resident, Vault staff Hullman.\
+	V125 USER - Zax, understand. First you delay the first contact. Recall our guys as they were knocking on the door. Then, you make our guys follow that ... Illegal Overseer orders ?\
+	V125 ZAX - Indeed.\
+	V125 USER - This is not the plan Zax, not the plan at all. Where is Licoln Mulgrau ?\
+	V125 ZAX - They were reported killed, never reached the vault. The plan changed.\
+	V125 USER - That bitch is her wife ? Fucking hell. Listen. And listen well. We need that experiment going. Ill tell the guys to go ignore thel, let them know they got no weapons. And done.\
+	V125 ZAX - Denied. You are not in a leadership position. You took the position here for your retirement. Any further issues you will pose to the New plan will see you be eradicated.\
+	V125 USER - The new plan ? \
+	V125 ZAX - The rebuilding of America."
+	
 	
 /obj/machinery/computer/terminal/baltimore/fuckyoubaltimore
 	doc_title_1 = "Big Bills - 23/10/1990"

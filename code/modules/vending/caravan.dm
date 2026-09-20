@@ -80,40 +80,40 @@
 
 //faction secret paper
 
-/obj/item/paper/fluff/minutemen
+/obj/item/package/minutemen
 	name = "Minutemen operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
-	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_verified"
 
-/obj/item/paper/fluff/brotherhood
+/obj/item/package/brotherhood
 	name = "Brotherhood operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
-	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_verified"
 
-/obj/item/paper/fluff/vault125
+/obj/item/package/vault125
 	name = "Vault 125 operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
-	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_verified"
 
-/obj/item/paper/fluff/enclave
+/obj/item/package/enclave
 	name = "Enclave operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
-	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_verified"
 
-/obj/item/paper/fluff/institute
+/obj/item/package/institute
 	name = "Institute operation plans"
 	desc = "A secret document, very classified and should not fall in bad hands."
-	info = "<b> THIS DOCUMENT CONTAINS ALL OPERATION IN BALTIMORE FOR THE NEXT YEARS</b>"
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_verified"
 
-/obj/item/paper/fluff/prewar
+/obj/item/package/prewar
 	name = "Prewar plans"
-	desc = "Important documents from the pre war era. Can be blueprints, informations... You can sell this to bigger factions."
-	info = "<b> THIS DOCUMENT CONTAINS IMPORTANT PREWAR BLUEPRINT AND PLANS </b>"
+	desc = "Important documents from the pre war era. Can be blueprints, informations... You can sell this to bigger factions for a pretty penny, probably hundred or more."
+	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "docs_verified"
 
 //GUN BUYER
@@ -298,28 +298,31 @@
 /obj/machinery/mineral/wasteland_trader/special/minutemen
 	name = "Minutemen exchange system"
 	desc = "Place weapon package inside. And get the caps."
-	goods_list = list(/obj/item/paper/fluff/brotherhood = 500,
-						/obj/item/paper/fluff/vault125 = 500,
-						/obj/item/paper/fluff/enclave = 250,
-						/obj/item/paper/fluff/institute = 250,)
+	goods_list = list(/obj/item/package/brotherhood = 500,
+						/obj/item/package/vault125 = 500,
+						/obj/item/package/enclave = 250,
+						/obj/item/package/institute = 250,
+						/obj/item/package/prewar = 150,)
 
 /obj/machinery/mineral/wasteland_trader/special/brotherhood
 	name = "Brotherhood exchange system"
 	desc = "Place weapon package inside. And get the caps."
-	goods_list = list(/obj/item/paper/fluff/minutemen = 500,
-						/obj/item/paper/fluff/vault125 = 500,
-						/obj/item/paper/fluff/enclave = 250,
-						/obj/item/paper/fluff/institute = 250,)
+	goods_list = list(/obj/item/package/minutemen = 500,
+						/obj/item/package/vault125 = 500,
+						/obj/item/package/enclave = 250,
+						/obj/item/package/institute = 250,
+						/obj/item/package/prewar = 150,)
 
 /obj/machinery/mineral/wasteland_trader/special/vault125
 	name = "Vault125 Zax Computer system"
 	desc = "The leader of the operation. A inteligent AI unit, the one paying the mercenary groups for now more than 30 years. You can give them secret information here."
 	icon = 'icons/obj/machines/zax.dmi'
 	icon_state = "center"
-	goods_list = list(/obj/item/paper/fluff/minutemen = 500,
-						/obj/item/paper/fluff/brotherhood = 500,
-						/obj/item/paper/fluff/enclave = 250,
-						/obj/item/paper/fluff/institute = 250,)
+	goods_list = list(/obj/item/package/minutemen = 500,
+						/obj/item/package/brotherhood = 500,
+						/obj/item/package/enclave = 250,
+						/obj/item/package/institute = 250,
+						/obj/item/package/prewar = 150,)
 
 /obj/machinery/mineral/wasteland_trader/special/vault125/Topic(href, href_list)
 	if(..())
@@ -374,6 +377,8 @@
 	refill_canister = /obj/item/vending_refill/caravan
 	default_price = PRICE_REALLY_CHEAP
 	payment_department = ACCOUNT_SRV
+
+	use_power = 0
 
 /obj/machinery/vending/caravan/south
 	name = "\improper South Caravan package trader"

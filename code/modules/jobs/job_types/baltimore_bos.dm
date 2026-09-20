@@ -175,6 +175,7 @@ Lancer Captain
 	ADD_TRAIT(H, TRAIT_CHEMWHIZ, src)
 	ADD_TRAIT(H, TRAIT_LIFEGIVER, src)
 	ADD_TRAIT(H, TRAIT_IRONFIST, src)
+	ADD_TRAIT(H, TRAIT_PILOT, src)
 	if(H.mind)
 		var/obj/effect/proc_holder/spell/terrifying_presence/S = new /obj/effect/proc_holder/spell/terrifying_presence
 		H.mind.AddSpell(S)
@@ -216,6 +217,19 @@ Lancer
 		/obj/item/clothing/head/helmet/f13/combat/brotherhood = 1
 		)
 
+/datum/outfit/job/baltimore_bos/f13lancer/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AER9)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_ca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_helm_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_rca_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_convert)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/bos_riot_helm_convert)
+	ADD_TRAIT(H, TRAIT_PILOT, src)
 
 /*
 Paladin Commander

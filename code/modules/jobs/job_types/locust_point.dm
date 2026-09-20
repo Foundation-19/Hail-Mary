@@ -853,6 +853,13 @@ Mayor
 		/obj/item/ammo_box/magazine/greasegun = 3
 	)
 
+/datum/outfit/job/locust/f13baltimorepilot/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	if(visualsOnly)
+		return
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/AEP7)
+	ADD_TRAIT(H, TRAIT_PILOT, src)
+
 /datum/job/locust/f13minutemen
 	title = "Minuteman"
 	flag = F13MINUTEMEN
@@ -861,6 +868,7 @@ Mayor
 	spawn_positions = 10
 	description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place."
 	supervisors = "The Castle Command, and the Town Dockmaster"
+	exp_type = EXP_TYPE_MINUTEMEN
 	
 	forbids = "The Minutemen forbids : Inhuman behavoir and execution of unarmed or otherwise subdued targets without authorisation."
 	enforces = "The Minutemens expects: Obeying the lawful orders of superiors. Proper treatment of prisoners. Wearing blue, no uniform was decided yet."
@@ -938,6 +946,8 @@ Mayor
 	spawn_positions = 2
 	description = "A team leader within the minutemen. Lead squad and are acting commander when there is no Major. They use heavy armor and weapons."
 	supervisors = "The Minutemen Major"
+	exp_requirements = list(EXP_TYPE_MINUTEMEN = 1600)
+	exp_type = EXP_TYPE_MINUTEMEN
 
 	outfit = /datum/outfit/job/locust/f13minutemen/captain
 
@@ -1001,6 +1011,8 @@ Mayor
 	min_required_special = list(
 		"special_c" = 4,
 		)
+	exp_requirements = list(EXP_TYPE_MINUTEMEN = 8000)
+	exp_type = EXP_TYPE_MINUTEMEN
 
 	outfit = /datum/outfit/job/locust/f13minutemen/vet
 
@@ -1044,6 +1056,8 @@ Mayor
 	min_required_special = list(
 		"special_c" = 5,
 		)
+	exp_requirements = list(EXP_TYPE_MINUTEMEN = 3600)
+	exp_type = EXP_TYPE_MINUTEMEN
 
 	outfit = /datum/outfit/job/locust/f13minutemen/major
 
