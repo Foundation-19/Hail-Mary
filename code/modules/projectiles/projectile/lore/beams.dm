@@ -355,11 +355,11 @@
 
 /obj/item/projectile/beam/laser/lasgun/hitscan/overclocked
 	name = "weak laser beam"
-	damage = 12.5 //half of the base 25 - traded for 2x cell capacity and full auto
+	damage = 10 // lowered from 12.5 now that its automatic fires at a realistic 800rpm instead of 300 - keeps sustained DPS (~133/s) below the Thompson-tier laser RCW instead of spiking past it
 
 /obj/item/projectile/beam/laser/gatling/hitscan //Gatling Laser
 	name = "laser beam"
-	damage = 26 // was 15 - should out-DPS the mundane 5mm minigun given the permit + backpack power source it requires
+	damage = 15 // comparable per-shot damage to the laser RCW's 13 - the gatling's real edge is its much higher 1800rpm rate, not per-shot damage
 	armour_penetration = 0.2
 	hitscan = TRUE
 	tracer_type = /obj/effect/projectile/tracer/laser
@@ -637,7 +637,7 @@
 /obj/item/projectile/beam/laser/rcw/hitscan //RCW
 	name = "rapidfire beam"
 	icon_state = "emitter"
-	damage = 20
+	damage = 13 // lowered from 20 now that its automatic fires at a realistic 1000rpm instead of 300 - lands sustained DPS (~217/s) in line with the Thompson SMG it's explicitly modeled after, instead of near-AR-tier
 	armour_penetration = 0.1
 	hitscan = TRUE
 	muzzle_type = /obj/effect/projectile/muzzle/laser/emitter

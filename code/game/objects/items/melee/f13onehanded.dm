@@ -4,8 +4,25 @@
 	attack_speed = CLICK_CD_MELEE
 	max_integrity = 200
 	armor = ARMOR_VALUE_GENERIC_ITEM
-	block_parry_data = /datum/block_parry_data/bokken
+	block_parry_data = /datum/block_parry_data/light_blade
 	item_flags = ITEM_CAN_PARRY
+
+/datum/block_parry_data/light_blade // fast, nimble one-handed blades - quick to bring up, quick to recover, but a weaker riposte
+	parry_time_windup = 1
+	parry_time_active = 8
+	parry_time_spindown = 2
+	parry_stamina_cost = 4
+	parry_time_perfect = 2
+	parry_time_perfect_leeway = 1.5
+	parry_imperfect_falloff_percent = 8
+	parry_efficiency_perfect = 110
+	parry_efficiency_considered_successful = 60
+	parry_efficiency_to_counterattack = 70
+	parry_data = list(
+		PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 1.2,
+	)
+	parry_failed_stagger_duration = 2 SECONDS
+
 
 /obj/item/melee/onehanded
 	name = "onehand melee template"

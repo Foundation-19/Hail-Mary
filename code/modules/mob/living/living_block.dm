@@ -28,8 +28,8 @@
 		return
 	var/list/obj/item/tocheck = get_blocking_items()
 	sortTim(tocheck, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
-	// i don't like this
-	var/block_chance_modifier = round(damage / -3)
+	// Capped so a genuinely dangerous hit doesn't just delete your block chance outright - see BLOCK_CHANCE_DAMAGE_PENALTY_MAX.
+	var/block_chance_modifier = clamp(round(damage / -BLOCK_CHANCE_DAMAGE_PENALTY_DIVISOR), -BLOCK_CHANCE_DAMAGE_PENALTY_MAX, 0)
 	if(real_attack)
 		for(var/obj/item/I in tocheck)
 			// i don't like this too
