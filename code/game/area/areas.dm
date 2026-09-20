@@ -2631,6 +2631,11 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 	outdoors = FALSE
 
+/area/f13/baltimore/building/rooftop
+	name = "Seaside Rooftop"
+	outdoors = TRUE
+	weather_tags = list(WEATHER_ALL)
+
 /area/f13/baltimore/building/town
 	name = "Locust point town Building"
 	icon_state = "building"
@@ -2639,6 +2644,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		)
 	weather_tags = null
 	outdoors = FALSE
+
+/area/f13/baltimore/building/town/rooftop
+	name = "Locust point town Rooftop"
+	outdoors = TRUE
 
 /area/f13/baltimore/building/town/house1
 	name = "Locust point town Building House 1"
@@ -2777,6 +2786,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 	outdoors = FALSE
 
+/area/f13/baltimore/building/citycenter/rooftop
+	name = "Ruined city center Rooftop"
+	outdoors = TRUE
+
 /area/f13/baltimore/building/boat
 	name = "Boat"
 	icon_state = "red"
@@ -2786,6 +2799,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 	outdoors = FALSE
 
+/area/f13/baltimore/building/boat/rooftop
+	name = "Boat Deck"
+	outdoors = TRUE
+
 /area/f13/baltimore/atlantic_cross
 	name = "ACHS Aegis"
 	icon_state = "red"
@@ -2794,6 +2811,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		)
 	weather_tags = null
 	outdoors = FALSE
+
+/area/f13/baltimore/atlantic_cross/rooftop
+	name = "ACHS Aegis Deck"
+	outdoors = TRUE
 
 /area/f13/baltimore/atlantic_cross/hospital
 	name = "ACHS Aegis Hospital rooms"
@@ -2889,6 +2910,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		)
 	weather_tags = null
 
+/area/f13/baltimore/building/abandoned/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/abandoned/rooftop
+	name = "Abandoned Rooftop"
+	outdoors = TRUE
+
 /area/f13/baltimore/building/cruiseship
 	name = "HMS Queen Ann"
 	icon_state = "red"
@@ -2898,6 +2926,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	weather_tags = null
 	outdoors = FALSE
 
+/area/f13/baltimore/building/cruiseship/rooftop
+	name = "HMS Queen Ann Deck"
+	outdoors = TRUE
+
 /area/f13/baltimore/building/carrier
 	name = "USS Pegasus"
 	icon_state = "outpost"
@@ -2906,6 +2938,10 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		)
 	weather_tags = null
 	outdoors = FALSE
+
+/area/f13/baltimore/building/carrier/rooftop
+	name = "USS Pegasus Deck"
+	outdoors = TRUE
 
 /area/f13/baltimore/building/abandoned/mchenrymuseum
 	name = "Fort Mc Henry Museum"
@@ -2924,6 +2960,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/woodcreak,
 		)
 
+/area/f13/baltimore/building/church/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/church/rooftop
+	name = "Church Rooftop"
+	outdoors = TRUE
+
 /area/f13/baltimore/building/tribal
 	name = "Tribal Building"
 	icon_state = "orange"
@@ -2932,6 +2975,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/woodcreak,
 		/datum/looping_sound/ambient/torch,
 		)
+
+/area/f13/baltimore/building/tribal/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/tribal/rooftop
+	name = "Tribal Rooftop"
+	outdoors = TRUE
 
 /area/f13/baltimore/building/tribal/cave
 	name = "Tribal Cave"
@@ -2945,6 +2995,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/critters/birds,
 		/datum/looping_sound/ambient/critters/birds/crow,
 		)
+
+/area/f13/baltimore/building/tribal/cave/powered
+	requires_power = FALSE
 
 /area/f13/baltimore/building/sewers
 	name = "Sewers"
@@ -2976,6 +3029,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	)
 	weather_tags = null
 
+/area/f13/baltimore/building/caves/powered
+	requires_power = FALSE
+
 /area/f13/baltimore/building/tunnel
 	name = "Tunnel"
 	icon_state = "tunnel"
@@ -2988,6 +3044,9 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	)
 	weather_tags = null
 
+/area/f13/baltimore/building/tunnel/powered
+	requires_power = FALSE
+
 /area/f13/baltimore/boatradio
 	name = "SS Rustbucket"
 	icon_state = "bar"
@@ -2997,6 +3056,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		///datum/looping_sound/ambient/djswampass,
 		/datum/looping_sound/ambient/woodcreak,
 	)
+	outdoors = FALSE
 	weather_tags = null
 
 /area/f13/baltimore/boatvertibird
@@ -3008,6 +3068,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		///datum/looping_sound/ambient/djswampass,
 		/datum/looping_sound/ambient/woodcreak,
 	)
+	outdoors = FALSE
 	weather_tags = null
 
 /area/f13/baltimore/boatbar
@@ -3019,6 +3080,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		///datum/looping_sound/ambient/djswampass,
 		/datum/looping_sound/ambient/woodcreak,
 	)
+	outdoors = FALSE
 	weather_tags = null
 
 /area/f13/baltimore/brotherhood
@@ -3032,31 +3094,31 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/f13/baltimore/brotherhood/doorms
 	name = "Brotherhood of Steel Airship Avalionian doorms"
-	icon_state = "brotherhood"
+	icon_state = "brotherhooddorms"
 
 /area/f13/baltimore/brotherhood/security
 	name = "Brotherhood of Steel Airship Avalionian Security"
-	icon_state = "brotherhood"
+	icon_state = "brotherhoodarmory"
 
 /area/f13/baltimore/brotherhood/lab
 	name = "Brotherhood of Steel Airship Avalionian Medical Lab"
-	icon_state = "brotherhood"
+	icon_state = "brotherhoodmedbay"
 
 /area/f13/baltimore/brotherhood/kitchen
 	name = "Brotherhood of Steel Airship Avalionian Messhall"
-	icon_state = "brotherhood"
+	icon_state = "brotherhoodleisure"
 
 /area/f13/baltimore/brotherhood/commandsection
 	name = "Brotherhood of Steel Airship Avalionian Medical cockpit"
-	icon_state = "brotherhood"
+	icon_state = "brotherhoodoperationsdepartment"
 
 /area/f13/baltimore/brotherhood/vertibird
 	name = "Brotherhood of Steel Airship Avalionian Vertibird Launch Bay"
-	icon_state = "brotherhood"
+	icon_state = "brotherhoodrnddepartment"
 
-/area/f13/baltimore/brotherhood/vertibird
+/area/f13/baltimore/brotherhood/vertibird/command
 	name = "Brotherhood of Steel Airship Avalionian Vertibird Commander Launch Bay"
-	icon_state = "brotherhood"
+	icon_state = "brotherhoodarchives" // was a duplicate of the vertibird type path above and silently overwrote it - now a proper subtype
 
 /area/f13/baltimore/minutemen
 	name = "Minutemen Fort McHenry"
@@ -3099,7 +3161,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/f13/baltimore/vault125
 	name = "Vault 125"
-	icon_state = "blue"
+	icon_state = "vaulttec"
 	ambientsounds = list(
 		AREA_SOUND('sound/f13ambience/ambigen_10.ogg', 10 SECONDS),
 		AREA_SOUND('sound/f13ambience/ambigen_11.ogg', 10 SECONDS),
@@ -3112,20 +3174,20 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 /area/f13/baltimore/vault125/entry
 	name = "Vault 125 Entry"
-	icon_state = "blue"
+	icon_state = "vault_atrium_upper"
 
 /area/f13/baltimore/vault125/casino
 	name = "Vault 125 Luxe Recreation Hall"
-	icon_state = "blue"
+	icon_state = "casino"
 
 /area/f13/baltimore/vault125/doorm
 	name = "Vault 125 doorms"
-	icon_state = "blue"
+	icon_state = "crew_quarters"
 
 /area/f13/baltimore/vault125/jail
-	name = "Vault 125 doorms"
-	icon_state = "blue"
+	name = "Vault 125 Jail"
+	icon_state = "brig"
 
-/area/f13/baltimore/vault125/jail
-	name = "Vault 125 doorms"
-	icon_state = "blue"
+/area/f13/baltimore/vault125/jail/checkpoint
+	name = "Vault 125 Jail Checkpoint"
+	icon_state = "checkpoint1" // was a duplicate of the jail type path above and silently overwrote it - now a proper subtype
