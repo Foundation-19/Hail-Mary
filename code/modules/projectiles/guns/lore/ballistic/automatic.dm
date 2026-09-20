@@ -927,6 +927,7 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto
 	)
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // dedicated semi-only, same treatment as the other dedicated-semi carbines
 	gun_tags = list(GUN_FA_MODDABLE)
 	fire_sound = 'sound/f13weapons/combatrifle.ogg'
 
@@ -1202,13 +1203,14 @@
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = RIFLE_RECOIL(1)
 	init_firemodes = list(
 		/datum/firemode/semi_auto/fast
 	)
+	gun_accuracy_zone_type = ZONE_WEIGHT_PRECISION // dedicated semi-only service rifle, shouldn't fall back to the generic semi-auto falloff every other dedicated-semi rifle avoids
 	can_bayonet = TRUE
 	bayonet_state = "bayonet"
 	knife_x_offset = 22
@@ -1228,7 +1230,7 @@
 	icon_state = "armalite-20"
 	item_state = "alr15"
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	can_bayonet = TRUE
 	bayonet_state = "bayonet"
@@ -1276,7 +1278,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(1.2)
 	init_firemodes = list(
@@ -1314,7 +1316,7 @@
 	icon_state = "rifle-police"
 	item_state = "assault_carbine"
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(1)
 	gun_tags = list(GUN_FA_MODDABLE, GUN_SCOPE)
@@ -2152,7 +2154,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
-	init_recoil = RIFLE_RECOIL(1.2)
+	init_recoil = RIFLE_RECOIL(1.5) // .308 select-fire battle rifles are famously hard to control on full-auto - matching a 5.56 PDW's handling coefficient undersold that
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm600, // real FN FAL full-auto cycles ~650-700rpm (and is famously hard to control at that rate, not slow)
 		/datum/firemode/semi_auto/slow
@@ -2175,10 +2177,10 @@
 	mag_type = /obj/item/ammo_box/magazine/m308
 	init_mag_type = /obj/item/ammo_box/magazine/m308
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // desc calls itself "heavy" - can't square that with one-hand fire when its FN FAL/L1A1 peers are two-hand
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	cock_delay = GUN_COCK_RIFLE_BASE
-	init_recoil = RIFLE_RECOIL(1.2)
+	init_recoil = RIFLE_RECOIL(1.5) // desc itself calls out heavy recoil - shouldn't share a handling coefficient with 5.56 carbines
 	init_firemodes = list(
 		/datum/firemode/automatic/rpm600, // the real AR-10 was sold and adopted as a select-fire battle rifle cycling ~600-700rpm, not semi-auto only at a slow rate
 		/datum/firemode/semi_auto/slow
