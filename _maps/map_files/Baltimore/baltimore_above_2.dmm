@@ -5667,6 +5667,10 @@
 /obj/item/stack/sheet/mineral/concrete/ten,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
+"Yf" = (
+/obj/machinery/telecomms/relay/preset/telecomms,
+/turf/open/indestructible,
+/area/f13/baltimore/wasteland/city)
 "Yg" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -128333,7 +128337,7 @@ Ds
 sA
 Qi
 hu
-hu
+Yf
 hu
 Qi
 "}
