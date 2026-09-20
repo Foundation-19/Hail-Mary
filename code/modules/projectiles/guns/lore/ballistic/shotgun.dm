@@ -34,6 +34,9 @@
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
 	)
+	// Single-round pump cycling is inherently self-limiting - a pump shotgun basically doesn't overheat or jam from heat
+	heat_capacity_mult = 5
+	jam_chance_mult = 0.3
 
 /obj/item/gun/ballistic/shotgun/blow_up(mob/user)
 	. = 0
@@ -500,7 +503,7 @@
 
 /obj/item/gun/ballistic/shotgun/automatic/combat/citykiller
 	name = "Winchester City-Killer shotgun"
-	desc = "A high capacity pump action shotgun with black tactical furniture made by Winchester Arms. This particular model uses a internal tube magazine."
+	desc = "A semi-automatic shotgun with black tactical furniture made by Winchester Arms. Unlike a pump gun, its self-cycling action feeds from a high-capacity internal tube magazine without needing to be racked between shots."
 	icon_state = "citykiller"
 	item_state = "shotguncity"
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/com/citykiller
@@ -508,6 +511,7 @@
 	weapon_weight = GUN_TWO_HAND_ONLY
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(2.8)
+	casing_ejector = TRUE // self-cycling semi-auto action -- doesn't need pumping like a trench gun
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
 	)

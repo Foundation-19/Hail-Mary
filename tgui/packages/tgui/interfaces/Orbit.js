@@ -54,11 +54,12 @@ const BasicSection = (props, context) => {
 
 const OrbitedButton = (props, context) => {
   const { act } = useBackend(context);
-  const { color, thing } = props;
+  const { color, selected, thing } = props;
 
   return (
     <Button
       color={color}
+      selected={selected}
       onClick={() => act("orbit", {
         ref: thing.ref,
       })}>
@@ -153,7 +154,7 @@ export const Orbit = (props, context) => {
                   .map(antag => (
                     <OrbitedButton
                       key={antag.name}
-                      color="bad"
+                      color="danger"
                       thing={antag}
                     />
                   ))}
@@ -169,7 +170,7 @@ export const Orbit = (props, context) => {
             .map(thing => (
               <OrbitedButton
                 key={thing.name}
-                color="good"
+                selected
                 thing={thing} />
             ))}
         </Section>

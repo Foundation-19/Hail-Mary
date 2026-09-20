@@ -66,6 +66,7 @@
 /obj/machinery/telecomms/relay/preset/telecomms
 	id = "Telecomms Relay"
 	autolinkers = list("relay")
+	use_power = NO_POWER_USE // this is the field relay placed outside the powered telecomms room (surface/dungeon/upper levels); those areas usually have no power grid at all
 
 /obj/machinery/telecomms/relay/preset/mining
 	id = "Mining Relay"

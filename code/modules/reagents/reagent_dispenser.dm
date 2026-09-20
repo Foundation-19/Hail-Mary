@@ -9,11 +9,13 @@
 	max_integrity = 300
 	var/tank_volume = 1000 //In units, how much the dispenser can hold
 	var/reagent_id = /datum/reagent/water //The ID of the reagent that the dispenser uses
+	/// If TRUE (default), any bullet/laser hit instantly ruptures the tank regardless of remaining integrity - realistic for small handheld/portable tanks. Sturdier tanks can set this FALSE to require depleting obj_integrity instead.
+	var/boom_on_any_hit = TRUE
 
 /obj/structure/reagent_dispensers/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir, armour_penetration = 0, atom/attacked_by)
 	. = ..()
 	if(. && obj_integrity > 0)
-		if(tank_volume && (damage_flag == "bullet" || damage_flag == "laser"))
+		if(tank_volume && boom_on_any_hit && (damage_flag == "bullet" || damage_flag == "laser"))
 			boom()
 
 /obj/structure/reagent_dispensers/attackby(obj/item/W, mob/user, params)

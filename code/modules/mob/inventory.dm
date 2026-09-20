@@ -351,14 +351,21 @@
 	if(!W.mob_can_equip(src, null, slot, disable_warning, bypass_equip_delay_self, clothing_check, warning))
 		var/failedequip = TRUE
 		if(displace_worn) // Loadouts will replace what's in that slot with what should be in there
-			var/atom/wornthing = get_item_by_slot(slot)
-			if(wornthing) // Something's in this slot, destroy it
+			var/obj/item/wornthing = get_item_by_slot(slot)
+			if(wornthing) // Something's in this slot, move it out of the way instead of destroying it (e.g. don't eat a job's hat)
 				dropItemToGround(wornthing, TRUE, FALSE)
 				if(LAZYLEN(wornthing.contents)) // If anything's in here, put it in the thing
 					for(var/atom/heldinside in wornthing.contents)
 						if(!SEND_SIGNAL(wornthing, COMSIG_TRY_STORAGE_INSERT, heldinside, null, TRUE, TRUE)) // Try and transfer whats in the thing to the new thing that'll be there
 							dropItemToGround(heldinside, TRUE, FALSE)
-				qdel(wornthing)
+				var/stashed = FALSE
+				if(iscarbon(src))
+					var/mob/living/carbon/C = src
+					var/obj/item/storage/backpack/B = C.back
+					if(B)
+						stashed = SEND_SIGNAL(B, COMSIG_TRY_STORAGE_INSERT, wornthing, null, TRUE, TRUE)
+				if(!stashed)
+					wornthing.forceMove(drop_location()) // Couldn't stash it, at least leave it on the ground instead of deleting it
 				failedequip = FALSE
 		if(failedequip)
 			if(qdel_on_fail)

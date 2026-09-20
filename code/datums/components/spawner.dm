@@ -225,6 +225,8 @@
 	var/chosen_mob
 	var/mob/living/simple_animal/L
 	for(var/i = 1 to swarm_size)
+		if(LAZYLEN(spawned_mobs) >= max_mobs) // dont let swarm bursts blow past our cap
+			break
 		if(infinite) // dont decrement the spawnlist
 			chosen_mob = pickweight(mob_types)
 		else

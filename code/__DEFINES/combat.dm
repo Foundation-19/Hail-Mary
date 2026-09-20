@@ -1063,6 +1063,9 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_EXTRA_DAMAGE_T4 1.35
 #define GUN_EXTRA_DAMAGE_T5 1.50
 
+/// Multiplies ALL NPC-dealt damage (simple_animal melee rolls + ranged projectile/casing damage).
+#define NPC_DAMAGE_REALISM_MULT 1.35
+
 /// Also multiplies the gun's projectile damage, but so it does less damage
 #define GUN_LESS_DAMAGE_T1 0.90
 #define GUN_LESS_DAMAGE_T2 0.85
@@ -1127,6 +1130,18 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define MAX_ACCURACY_OFFSET  45 //It's both how big gun recoil can build up, and how hard you can miss
 #define RECOIL_REDUCTION_TIME 1 SECONDS // unused
 
+/// How often, in world.time, recoil gets a chance to settle back down. Decay is caught up based on elapsed time, so this isn't skipped by rapid fire/movement anymore.
+/// Needs to be shorter than the fastest gun's per-shot delay (down to GUN_FIRE_RATE_1800 = 0.33) or high-RPM autofire never gets a decay chance between shots and all fast guns feel identically uncontrollable
+#define RECOIL_DECAY_TICK (0.01 SECONDS)
+/// Flat recoil shed per settle step (bumped from 0.08 -> 0.12 2026-09-17, faster tail-end settle to near-zero once recoil is already low)
+#define RECOIL_DECAY_FLAT 0.12
+/// Proportion of remaining recoil kept per settle step (lowered from 0.978 -> 0.955 2026-09-17: cuts the real-time-to-90%-decayed from ~1.0s to ~0.5s, per user feedback that recoil lingered too long between shots/bursts)
+#define RECOIL_DECAY_MULT 0.955
+/// Same idea as RECOIL_DECAY_MULT, but for the SPREAD_CONTROL trait's faster settle rate (kept at the same ~95.4% ratio to RECOIL_DECAY_MULT as before)
+#define RECOIL_DECAY_MULT_SPREAD_CONTROL 0.911
+/// Safety cap on how many settle steps we crunch through at once after a long gap with no recoil updates (scaled up 10x to keep the same real-time catch-up window)
+#define RECOIL_DECAY_MAX_CATCHUP 500
+
 #define EMBEDDED_RECOIL(x)     list(1.3 *x, 0  *x, 0  *x )
 #define HANDGUN_RECOIL(x)      list(1.15*x, 0.1*x, 0.6*x )
 #define SMG_RECOIL(x)          list(1   *x, 0.2*x, 1.2*x )
@@ -1168,10 +1183,12 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define GUN_FIRE_RATE_250 2.5
 #define GUN_FIRE_RATE_300 2
 #define GUN_FIRE_RATE_400 1.5
+#define GUN_FIRE_RATE_450 1.33
 #define GUN_FIRE_RATE_600 1
 #define GUN_FIRE_RATE_800 0.8
 #define GUN_FIRE_RATE_1000 0.6
 #define GUN_FIRE_RATE_1200 0.5
+#define GUN_FIRE_RATE_1800 0.33 // minigun-class belt/pack-fed weapons only, meant to clearly outpace anything handheld
 
 
 /// Gun fire delay Base
@@ -1315,6 +1332,67 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 
 /// cooldown for being spammed with messages that you shot the gun
 #define GUN_SHOOT_MESSAGE_ANTISPAM_TIME 0.5 SECONDS
+
+/// ==== Gun heat & malfunction system (ballistic guns) ====
+/// Heat added per round fired, before decay is applied for the shot
+#define GUN_HEAT_PER_SHOT 6
+/// How often, in real time, accumulated heat gets a chance to settle back down (same catch-up pattern as RECOIL_DECAY_TICK)
+#define GUN_HEAT_DECAY_TICK (0.1 SECONDS)
+/// Flat heat shed per settle step
+#define GUN_HEAT_DECAY_FLAT 0.5
+/// Proportion of remaining heat kept per settle step (the rest decays away)
+#define GUN_HEAT_DECAY_MULT 0.9
+/// Safety cap on how many settle steps get crunched at once after a long gap without firing
+#define GUN_HEAT_DECAY_MAX_CATCHUP 200
+/// Heat threshold below which sustained fire is safe (no jam chance at all)
+#define GUN_HEAT_JAM_THRESHOLD 60
+/// Heat threshold at which the chambered round can spontaneously cook off
+#define GUN_HEAT_COOKOFF_THRESHOLD 90
+/// Absolute cap on accumulated heat
+#define GUN_HEAT_MAX 100
+/// % jam chance added per point of heat above GUN_HEAT_JAM_THRESHOLD (scaled further by condition)
+#define GUN_HEAT_JAM_CHANCE_PER_POINT 0.6
+/// % cook-off chance added per point of heat above GUN_HEAT_COOKOFF_THRESHOLD
+#define GUN_HEAT_COOKOFF_CHANCE_PER_POINT 1.2
+
+/// Gun condition ceiling (0-100) - a well-maintained gun sits here
+#define GUN_CONDITION_MAX 100
+/// Condition lost from a jam
+#define GUN_CONDITION_LOSS_JAM 3
+/// Condition lost from a cook-off (worse than a plain jam)
+#define GUN_CONDITION_LOSS_COOKOFF 8
+/// Condition restored per successful wrench maintenance pass
+#define GUN_CONDITION_REPAIR_AMOUNT 15
+/// Below this condition, jam chance starts multiplying upward (up to 3x at 0 condition)
+#define GUN_CONDITION_DEGRADED_THRESHOLD 60
+
+/// Time it takes to clear a jam, interruptible like any other do_after
+#define GUN_JAM_CLEAR_TIME (3 SECONDS)
+
+/// Malfunction severity - a quick tap-rack, one continuous do_after
+#define GUN_MALFUNCTION_JAM 1
+/// Malfunction severity - a genuine double-feed, needs the full strip/clear/reseat/rack drill (still just one triggered action, chained internally)
+#define GUN_MALFUNCTION_DOUBLEFEED 2
+/// Time it takes to clear a double-feed, split across the strip and reseat stages of clear_double_feed()
+#define GUN_DOUBLEFEED_CLEAR_TIME (7 SECONDS)
+/// Condition lost from a double-feed - worse than a plain jam, on par with a cook-off
+#define GUN_CONDITION_LOSS_DOUBLEFEED 6
+/// Below this condition, a would-be simple jam has an escalating chance of choking into a full double-feed instead
+#define GUN_CONDITION_DOUBLEFEED_THRESHOLD 35
+
+/// ==== Melee weapon wear & condition system ====
+/// Melee condition ceiling (0-100) - a freshly-sharpened/maintained weapon sits here
+#define MELEE_CONDITION_MAX 100
+/// Condition lost per solid hit landed on a living target (small - a blade takes a long campaign of use to fully dull)
+#define MELEE_CONDITION_LOSS_PER_HIT 0.4
+/// Below this condition, a weapon is visibly "worn" (examine flavor + meaningful force penalty)
+#define MELEE_CONDITION_DEGRADED_THRESHOLD 40
+/// Max proportion of force lost at 0 condition (a fully dulled/worn weapon still hits, just noticeably softer)
+#define MELEE_CONDITION_FORCE_PENALTY_MAX 0.3
+/// Condition restored per successful sharpen/maintenance pass
+#define MELEE_CONDITION_REPAIR_AMOUNT 25
+/// Minimum force a weapon needs before wear is even tracked - skips throwaway/utility items (mirrors the existing force>=5 "real weapon" threshold used for combat traits)
+#define MELEE_CONDITION_MIN_FORCE 5
 
 /// Unarmed Damage Defines
 #define PUNCH_DAMAGE_LOW 1

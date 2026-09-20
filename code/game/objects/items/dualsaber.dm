@@ -13,6 +13,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_SMALL
 	item_flags = SLOWS_WHILE_IN_HAND
+	melee_wear_immune = TRUE // energy blade has no physical edge to dull
 	var/w_class_on = WEIGHT_CLASS_BULKY
 	hitsound = "swing_hit"
 	var/hitsound_on = 'sound/weapons/blade1.ogg'

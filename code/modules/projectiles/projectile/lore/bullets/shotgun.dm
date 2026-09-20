@@ -11,13 +11,14 @@
 	stamina = BULLET_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0.1 // round pellets are poor penetrators next to a full-caliber bullet
 
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 
@@ -29,13 +30,14 @@
 	stamina = BULLET_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0.05 // smaller/lighter than buckshot, penetrates even less
 
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 
@@ -52,13 +54,14 @@
 	stamina = RUBBERY_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = RUBBERY_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0 // rubber, shouldn't punch through armor at all
 
 	wound_bonus = RUBBERY_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 	
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 	sharpness = SHARP_NONE
@@ -76,13 +79,14 @@
 	stamina = BULLET_STAMINA_SHOTGUN_PELLET
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_SHOTGUN_PELLET
+	armour_penetration = 0.05 // crude scrap shot, worse than factory buckshot
 
 	wound_bonus = BULLET_WOUND_SHOTGUN_PELLET
 	bare_wound_bonus = BULLET_WOUND_SHOTGUN_PELLET_NAKED_MULT
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 
@@ -119,7 +123,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_SLUG
 
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 
@@ -166,7 +170,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_SLUG
 
 	zone_accuracy_type = ZONE_WEIGHT_PRECISION
 
@@ -189,7 +193,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_TRAIN
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 	sharpness = SHARP_NONE //crunch
@@ -220,7 +224,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_SLUG
 
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 	sharpness = SHARP_NONE
@@ -244,7 +248,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_PELLET
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 
 	sharpness = SHARP_NONE
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
@@ -285,7 +289,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_SLUG
 
 	zone_accuracy_type = ZONE_WEIGHT_PRECISION
 
@@ -332,7 +336,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_SLUG
 
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 	sharpness = SHARP_NONE
@@ -370,7 +374,7 @@
 	wound_falloff_tile = BULLET_WOUND_FALLOFF_PISTOL_LIGHT
 	
 	pixels_per_second = BULLET_SPEED_SHOTGUN_SLUG
-	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_SLUG
 
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 

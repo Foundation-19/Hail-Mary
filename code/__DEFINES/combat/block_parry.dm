@@ -38,6 +38,22 @@ GLOBAL_LIST_INIT(block_direction_names, list(
 /// If this is the value of active_block_starting it signals we want to interrupt the start
 #define ACTIVE_BLOCK_STARTING_INTERRUPT "INTERRUPT"
 
+/// Divisor for how much raw incoming damage eats into passive block_chance. Higher = gentler falloff against big hits.
+#define BLOCK_CHANCE_DAMAGE_PENALTY_DIVISOR 5
+/// Hard floor on how much passive block_chance can be knocked down by the damage penalty above, regardless of how big the hit is.
+#define BLOCK_CHANCE_DAMAGE_PENALTY_MAX 20
+
+/// Hard cap on stamina damage from a single active block, so one big hit can't half-stamcrit you in one go.
+#define BLOCK_STAMINA_COST_CAP 15
+
+/// How long after a successful active block the blocker gets a free, empowered counterattack window.
+#define BLOCK_COUNTER_WINDOW_DURATION (2 SECONDS)
+/// Bonus damage multiplier applied to the single attack that consumes a block counter window.
+#define BLOCK_COUNTER_DAMAGE_BONUS 0.5
+
+/// Global softener on failed-parry punishment (stagger + click-delay), so a missed parry isn't strictly worse than not parrying at all.
+#define PARRY_FAIL_PUNISHMENT_MULT 0.6
+
 /// ""types"" of parry "items"
 #define UNARMED_PARRY		"unarmed"
 #define MARTIAL_PARRY		"martial"

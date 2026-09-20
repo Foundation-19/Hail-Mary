@@ -4630,6 +4630,8 @@
 	var/turf/startloc = get_turf(targets_from)
 	if(casingtype)
 		var/obj/item/ammo_casing/casing = new casingtype(startloc)
+		if(casing.BB)
+			casing.BB.damage *= NPC_DAMAGE_REALISM_MULT
 		playsound(
 			src,
 			projectilesound,
@@ -4646,6 +4648,7 @@
 		qdel(casing)
 	else if(projectiletype)
 		var/obj/item/projectile/P = new projectiletype(startloc)
+		P.damage *= NPC_DAMAGE_REALISM_MULT
 		playsound(
 			src,
 			projectilesound,

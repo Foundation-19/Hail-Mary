@@ -52,17 +52,15 @@
 		"damage_threshold" = 0)
 
 /* Light armor values
- * High mobility
+ * High mobility, low bulk - leathers, dusters, light vests
  * Mild environmental resistances
- * Low defense
- * Low DT
- *
- * +20 effective HP
+ * ~29% bullet/melee/laser DR (linebullet 40), no real per-hit DT
+ * Rescaled up from 20% DR to keep raider/tribal-tier gear relevant against 600+ RPM autofire
  * * * * * * * * * * * */
 #define ARMOR_VALUE_LIGHT list(\
-		"linemelee" = 25, \
-		"linebullet" = 25, \
-		"linelaser" = 25, \
+		"linemelee" = 40, \
+		"linebullet" = 40, \
+		"linelaser" = 40, \
 		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 10, \
@@ -70,20 +68,18 @@
 		"fire" = 10, \
 		"acid" = 10, \
 		"wound" = 10, \
-		"damage_threshold" = 0)
+		"damage_threshold" = 2)
 
 /* Medium armor values
- * Decent mobility
+ * Decent mobility - vests, breastplates, riot gear
  * Decent environmental resistances
- * Decent defense
- * Decent DT
- *
- * +35 effective HP
+ * ~52% bullet/melee/laser DR (linebullet 110), DT 4 shrugs off the weakest pistol/SMG rounds outright
+ * Rescaled up from 43% DR / DT 2 - the mainline "soldier" tier needs to hold up against modern SMG/rifle fire
  * * * * * * * * * * * */
 #define ARMOR_VALUE_MEDIUM list(\
-		"linemelee" = 75, \
-		"linebullet" = 75, \
-		"linelaser" = 75, \
+		"linemelee" = 110, \
+		"linebullet" = 110, \
+		"linelaser" = 110, \
 		"energy" = 10, \
 		"bomb" = 10, \
 		"bio" = 25, \
@@ -91,20 +87,18 @@
 		"fire" = 25, \
 		"acid" = 25, \
 		"wound" = 20, \
-		"damage_threshold" = 2)
+		"damage_threshold" = 4)
 
 /* Heavy armor values
- * Low mobility
+ * Low mobility - plate, riot, dedicated combat armor
  * Decent environmental resistances
- * High defense
- * Lot of DT
- *
- * +45 effective HP
+ * ~64% bullet/melee/laser DR (linebullet 175), DT 8 eats most pistol/SMG rounds and blunts rifle hits
+ * Rescaled up from 56% DR / DT 5 so heavy armor is a real answer to autofire, not just melee
  * * * * * * * * * * * */
 #define ARMOR_VALUE_HEAVY list(\
-		"linemelee" = 125, \
-		"linebullet" = 125, \
-		"linelaser" = 125, \
+		"linemelee" = 175, \
+		"linebullet" = 175, \
+		"linelaser" = 175, \
 		"energy" = 15, \
 		"bomb" = 25, \
 		"bio" = 25, \
@@ -112,21 +106,18 @@
 		"fire" = 35, \
 		"acid" = 35, \
 		"wound" = 30, \
-		"damage_threshold" = 5)
+		"damage_threshold" = 8)
 
 /* Salvaged PA values
- * Next to no mobility
+ * Next to no mobility - scavenged/half-working power frames
  * Good environmental resistances
- * Great defense
- * Lots of DT
- *
- * +80 effective HP
- * +20 laser HP
+ * ~72% bullet/melee/laser DR (linebullet 260), DT 10 shrugs off nearly all small arms fire per hit
+ * Rescaled up from 67% DR / DT 6 to sit clearly above heavy armor and below true PA
  * * * * * * * * * * * */
 #define ARMOR_VALUE_SALVAGE list(\
-		"linemelee" = 200, \
-		"linebullet" = 200, \
-		"linelaser" = 200, \
+		"linemelee" = 260, \
+		"linebullet" = 260, \
+		"linelaser" = 260, \
 		"energy" = 30, \
 		"bomb" = 60, \
 		"bio" = 80, \
@@ -134,20 +125,18 @@
 		"fire" = 80, \
 		"acid" = 80, \
 		"wound" = 40, \
-		"damage_threshold" = 6)
+		"damage_threshold" = 10)
 
 /* Power armor values
- * High mobility
+ * High mobility for its weight class - powered exoskeleton, top of the food chain
  * Amazing environmental resistances
- * OP defense
- *
- * +125 effective HP
- * +25 laser HP
+ * ~80% bullet/melee/laser DR (linebullet 400), DT 14 makes small arms fire close to irrelevant per hit
+ * Rescaled up from 75% DR / DT 8 - true PA needs to feel like a categorical answer to 1000+ RPM miniguns/lasers
  * * * * * * * * * * * */
 #define ARMOR_VALUE_PA list(\
-		"linemelee" = 300, \
-		"linebullet" = 300, \
-		"linelaser" = 300, \
+		"linemelee" = 400, \
+		"linebullet" = 400, \
+		"linelaser" = 400, \
 		"energy" = 40, \
 		"bomb" = 90, \
 		"bio" = 100, \
@@ -155,7 +144,7 @@
 		"fire" = 95, \
 		"acid" = 95, \
 		"wound" = 50, \
-		"damage_threshold" = 8)
+		"damage_threshold" = 14)
 /* * * * * * * * * * * * * * *
  * MOB SPECIFIC ARMOR VALUES *
  * * * * * * * * * * * * * * */
