@@ -949,7 +949,7 @@ Weapons		Service Rifle, Grease Gun, 9mm pistol, all good.
 	selection_color = "#fff5cc"
 	display_order = JOB_DISPLAY_ORDER_TROOPER
 	outfit = /datum/outfit/job/ncr/f13conscript
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 360)
 
 	loadout_options = list(
 		/datum/outfit/loadout/conscriptvarmint, // Service Rifle, Bayonet
