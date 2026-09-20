@@ -516,14 +516,17 @@
 				continue
 			// Outdoor areas (e.g. wasteland) must NOT be stamped wholesale —
 			// F13_STAMP_AREA_POWER on a shared outdoor area datum lights up every
-			// light of that type across the entire map.  Toggle only lights
-			// within power_reach of this box instead.
+			// light of that type across the entire map.  Toggle only devices
+			// within power_reach of this box instead, machine by machine.
 			if(A.outdoors)
 				for(var/turf/T in RANGE_TURFS(power_reach, src))
 					if(get_area(T) != A)
 						continue
-					for(var/obj/machinery/light/L in T)
-						if(!QDELETED(L))
+					for(var/obj/machinery/M in T)
+						if(QDELETED(M))
+							continue
+						if(istype(M, /obj/machinery/light))
+							var/obj/machinery/light/L = M
 							if(state)
 								L.seton(L.status == LIGHT_OK)
 							else
@@ -531,6 +534,19 @@
 								L.emergency_mode = FALSE
 								L.set_light(0)
 								L.update_icon()
+							continue
+						// Grid devices manage their own power state via cable wiring,
+						// not area.power_equip — leave them alone here.
+						if(istype(M, /obj/machinery/f13))
+							continue
+						// Everything else (vendors, computers, farming gear, etc.) normally
+						// reads area.power_equip through powered(); since that flag is never
+						// set for a shared outdoor area, flip its NOPOWER stat bit directly.
+						if(state)
+							M.stat &= ~NOPOWER
+						else
+							M.stat |= NOPOWER
+						M.update_icon()
 				continue
 			if(A.power_equip == state)
 				continue
