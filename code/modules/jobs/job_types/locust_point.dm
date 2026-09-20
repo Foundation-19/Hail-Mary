@@ -946,7 +946,7 @@ Mayor
 	spawn_positions = 2
 	description = "A team leader within the minutemen. Lead squad and are acting commander when there is no Major. They use heavy armor and weapons."
 	supervisors = "The Minutemen Major"
-	exp_requirements = list(EXP_TYPE_MINUTEMEN = 1600)
+	exp_requirements = 1600
 	exp_type = EXP_TYPE_MINUTEMEN
 
 	outfit = /datum/outfit/job/locust/f13minutemen/captain
@@ -1011,7 +1011,7 @@ Mayor
 	min_required_special = list(
 		"special_c" = 4,
 		)
-	exp_requirements = list(EXP_TYPE_MINUTEMEN = 8000)
+	exp_requirements = 8000
 	exp_type = EXP_TYPE_MINUTEMEN
 
 	outfit = /datum/outfit/job/locust/f13minutemen/vet
@@ -1056,7 +1056,7 @@ Mayor
 	min_required_special = list(
 		"special_c" = 5,
 		)
-	exp_requirements = list(EXP_TYPE_MINUTEMEN = 3600)
+	exp_requirements = 3600
 	exp_type = EXP_TYPE_MINUTEMEN
 
 	outfit = /datum/outfit/job/locust/f13minutemen/major

@@ -951,7 +951,7 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	for(var/datum/job/job in sortList(SSjob.occupations, GLOBAL_PROC_REF(cmp_job_display_asc)))
 		if(job.total_positions == 0)
 			continue
-		if(job.faction == "None")
+		if(isnull(job.faction) || job.faction == "None")
 			continue
 		if(!faction_jobs[job.faction])
 			faction_jobs[job.faction] = list()

@@ -178,7 +178,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	// Resolve map_button_ids -> linked_buttons
 	// Accepts a comma-separated list of button id strings matching var/id on /obj/machinery/button/door
 	if(map_button_ids && length(map_button_ids))
-		if(!linked_buttons) linked_buttons = list()
+		if(!islist(linked_buttons)) linked_buttons = list()
 		var/list/ids = splittext(map_button_ids, ",")
 		for(var/raw_id in ids)
 			var/target_id = trim(raw_id)
@@ -191,7 +191,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	// Resolve map_turret_tags -> linked_turrets
 	// Accepts a comma-separated list of strings matching var/tag on porta_turret
 	if(map_turret_tags && length(map_turret_tags))
-		if(!linked_turrets) linked_turrets = list()
+		if(!islist(linked_turrets)) linked_turrets = list()
 		var/list/tags = splittext(map_turret_tags, ",")
 		for(var/raw_tag in tags)
 			var/target_tag = trim(raw_tag)
