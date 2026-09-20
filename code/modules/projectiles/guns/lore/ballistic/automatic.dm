@@ -132,7 +132,7 @@
 	mag_type = /obj/item/ammo_box/magazine/smg14
 	init_mag_type = /obj/item/ammo_box/magazine/smg14
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // desc calls it heavy-duty/anti-armor and its own header says two-handed
 	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_recoil = SMG_RECOIL(0.8)
 	init_firemodes = list(
@@ -434,7 +434,7 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // its own header says two-handed
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
@@ -462,7 +462,7 @@
 	mag_type = /obj/item/ammo_box/magazine/tommygunm45
 	init_mag_type = /obj/item/ammo_box/magazine/tommygunm45/stick
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // same base gun as tommygun above, whose header also says two-handed
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1)
 	init_firemodes = list(
@@ -562,7 +562,7 @@
 	mag_type = /obj/item/ammo_box/magazine/pps9mm
 	init_mag_type = /obj/item/ammo_box/magazine/pps9mm
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // its own header says two-handed - real PPSh-41s were fired off the shoulder/stock, not one-handed
 	damage_multiplier = GUN_LESS_DAMAGE_T1
 	init_recoil = SMG_RECOIL(1.1)
 	init_firemodes = list(
@@ -604,7 +604,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m9mm/doublestack
 	var/current_caliber = "9mm"
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // its own header says two-handed
 	added_spread = GUN_SPREAD_POOR
 	damage_multiplier = GUN_LESS_DAMAGE_T2
 	init_firemodes = list(
@@ -1034,7 +1034,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle/small
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_TWO_HAND_ONLY // desc calls it a bolt action rifle, not a pistol/SMG - shouldn't be dual-wieldable
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = RIFLE_RECOIL(0.8)
 	init_firemodes = list(
@@ -1080,7 +1080,7 @@
 	icon_state = "verminrifle"
 	item_state = "ratslayer"
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_TWO_HAND_ONLY // same varmint-rifle base, not a pistol/SMG
 	damage_multiplier = GUN_EXTRA_DAMAGE_T2
 	gun_tags = list()
 	silenced = TRUE
@@ -1105,7 +1105,7 @@
 	icon_state = "ratslayer"
 	item_state = "ratslayer"
 	weapon_class = WEAPON_CLASS_CARBINE
-	weapon_weight = GUN_ONE_HAND_AKIMBO
+	weapon_weight = GUN_TWO_HAND_ONLY // same varmint-rifle base, not a pistol/SMG
 	damage_multiplier = GUN_EXTRA_DAMAGE_T3 //some extra oomf
 	gun_tags = list()
 	silenced = TRUE
@@ -2379,7 +2379,7 @@
 	mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	init_mag_type = /obj/item/ammo_box/magazine/m556/rifle
 	weapon_class = WEAPON_CLASS_RIFLE
-	weapon_weight = GUN_ONE_HAND_ONLY
+	weapon_weight = GUN_TWO_HAND_ONLY // it's a squad support weapon/LMG like its R84/Bozar/Lewis/Bren/M1919 peers, "lighter" than those doesn't mean one-hand-fireable
 	damage_multiplier = GUN_EXTRA_DAMAGE_0
 	init_recoil = LMG_RECOIL(1)
 	slowdown = GUN_SLOWDOWN_RIFLE_LMG
