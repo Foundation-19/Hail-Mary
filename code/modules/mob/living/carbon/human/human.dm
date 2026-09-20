@@ -7,6 +7,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	icon = 'icons/mob/human.dmi'
 	icon_state = "caucasian_m"
 	appearance_flags = KEEP_TOGETHER|TILE_BOUND|PIXEL_SCALE|LONG_GLIDE
+	maxHealth = 150 // was the generic /mob/living default of 100 - too fragile against the RPM ranges guns now use, see special_e for the Endurance swing on top of this baseline
 	var/saved_underwear = "" //saves their underwear so it can be toggled later
 	var/saved_undershirt = ""
 	var/saved_socks = ""

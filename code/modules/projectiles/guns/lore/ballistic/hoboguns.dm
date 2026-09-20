@@ -18,6 +18,8 @@
 	lefthand_file = 'icons/onmob/weapons/guns_lefthand.dmi'
 	righthand_file = 'icons/onmob/weapons/guns_righthand.dmi'
 	use_casing_sounds = TRUE
+	// Crude homemade construction eats into the cylinder's normal reliability edge
+	jam_chance_mult = 1.2
 	misfire_possibilities = list(
 		GUN_MISFIRE_HURTS_USER(1, 5, 15, BRUTELOSS | FIRELOSS | OXYLOSS),
 		GUN_MISFIRE_THROWS_GUN(0.5),

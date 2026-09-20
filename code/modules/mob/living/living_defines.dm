@@ -165,5 +165,6 @@
 	//Used in living/recoil.dm
 	var/recoil = 0 //What our current recoil level is
 	var/recoil_reduction_timer
+	var/recoil_last_update = 0 //world.time recoil was last decayed up to
 
 	var/disconnect_time //how long have we been dc'd for

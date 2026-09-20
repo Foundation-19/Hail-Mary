@@ -454,8 +454,8 @@ $phosphor-dark: #030a03;
     .game-me    { color: rgba(160, 255, 160, 0.72); font-style: italic; }
     // Whisper
     .whisper    { color: rgba(160, 208, 160, 0.5); font-style: italic; }
-    // Radio
-    .radio      { color: $phosphor-text; }
+    // Radio (bright/glowing so it doesn't blend into .notice/.emote's muted phosphor-text)
+    .radio      { color: $phosphor; text-shadow: 0 0 4px rgba(76, 255, 76, 0.6); }
     // OOC / LOOC
     .ooc        { color: #a0a0ff; }
     .looc       { color: #b8b8f0; }

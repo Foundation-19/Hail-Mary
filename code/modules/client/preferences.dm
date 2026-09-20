@@ -256,7 +256,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	if(CONFIG_GET(flag/use_role_whitelist))
 		user.client.set_job_whitelist_from_db()
 
-	update_preview_icon(current_tab)
+	// Game Preferences/Keybindings never affect appearance, so skip the expensive
+	// mannequin re-equip + icon regen
+	if(current_tab != GAME_PREFERENCES_TAB && current_tab != KEYBINDINGS_TAB)
+		update_preview_icon(current_tab)
 	var/list/dat = list("<center>")
 
 	dat += "<a href='?_src_=prefs;preference=tab;tab=[SETTINGS_TAB]' [current_tab == SETTINGS_TAB ? "class='linkOn'" : ""]>Character Settings</a>"

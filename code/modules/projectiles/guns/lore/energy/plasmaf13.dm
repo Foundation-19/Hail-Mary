@@ -14,6 +14,10 @@
 	equipsound = 'sound/f13weapons/equipsounds/pistolplasequip.ogg'
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_ONLY
+	// small casting chamber runs hot fast and can't shed heat as well as a rifle-sized one
+	heat_per_shot_mult = 1.2
+	heat_capacity_mult = 0.85
+	jam_chance_mult = 1.1
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slow
 	)
@@ -29,6 +33,9 @@
 	equipsound = 'sound/f13weapons/equipsounds/pistolplasequip.ogg'
 	weapon_class = WEAPON_CLASS_SMALL
 	weapon_weight = GUN_ONE_HAND_ONLY
+	// meticulously serviced - runs cooler and far more reliably than the stock pistol
+	heat_capacity_mult = 1.15
+	jam_chance_mult = 0.6
 	init_firemodes = list(
 		/datum/firemode/semi_auto
 	)
@@ -53,6 +60,9 @@
 	desc = "A lightweight modification of the common REPCONN-built plasma pistol. Fires heavy low penetration plasma clots at a slower rate than the regular design due to reduced cooling."
 	weapon_class = WEAPON_CLASS_TINY
 	weapon_weight = GUN_ONE_HAND_ONLY
+	// explicitly reduced cooling per its description - overheats sooner and more often
+	heat_capacity_mult = 0.7
+	jam_chance_mult = 1.4
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slow
 	)
@@ -68,6 +78,8 @@
 	cell_type = /obj/item/stock_parts/cell/ammo/ec
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_ONLY
+	heat_per_shot_mult = 1.1
+	jam_chance_mult = 1.1
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slow
 	)
@@ -80,6 +92,9 @@
 	cell_type = /obj/item/stock_parts/cell/ammo/ec
 	weapon_class = WEAPON_CLASS_NORMAL
 	weapon_weight = GUN_ONE_HAND_ONLY
+	// realigned housing chamber runs cooler alongside its power efficiency gains
+	heat_capacity_mult = 1.1
+	jam_chance_mult = 0.9
 
 //Plasma Rifle
 /obj/item/gun/energy/laser/plasma
@@ -93,6 +108,9 @@
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
 	required_int_to_fire = 0
+	// plasma runs hotter and jankier than a comparable laser rifle
+	heat_per_shot_mult = 1.3
+	jam_chance_mult = 1.2
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
 	)
@@ -112,6 +130,9 @@
 	equipsound = 'sound/f13weapons/equipsounds/plasequip.ogg'
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_TWO_HAND_ONLY
+	// burst-fire piles on heat fast
+	heat_per_shot_mult = 1.4
+	jam_chance_mult = 1.2
 	init_firemodes = list(
 		/datum/firemode/burst/two
 	)
@@ -126,6 +147,9 @@
 	cell_type = /obj/item/stock_parts/cell/ammo/mfc
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
+	// multicasting kit is a bolted-on modification, not a factory design - runs hot and unreliable
+	heat_per_shot_mult = 1.5
+	jam_chance_mult = 1.3
 	init_firemodes = list(
 		/datum/firemode/semi_auto/slower
 	)
@@ -147,6 +171,10 @@
 	equipsound = 'sound/f13weapons/equipsounds/plasequip.ogg'
 	weapon_class = WEAPON_CLASS_RIFLE
 	weapon_weight = GUN_TWO_HAND_ONLY
+	melee_wear_immune = TRUE // plasma-edged blade ring, no physical dulling
+	// precision mining engineering - stable and well-cooled by design
+	heat_capacity_mult = 1.2
+	jam_chance_mult = 0.7
 	force_unwielded = GUN_MELEE_FORCE_RIFLE_LIGHT
 	force_wielded = GUN_MELEE_FORCE_RIFLE_LIGHT * 2
 	wielded_icon = "plasma2"

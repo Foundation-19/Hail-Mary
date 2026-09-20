@@ -450,6 +450,10 @@
 #define ACTIVE_BLOCK_TRAIT				"active_block"
 /// This trait is added by the parry system.
 #define ACTIVE_PARRY_TRAIT				"active_parry"
+/// Granted briefly after a successful active block - the next attack lands empowered.
+#define TRAIT_BLOCK_COUNTER_READY		"block_counter_ready"
+/// Trait source for TRAIT_BLOCK_COUNTER_READY.
+#define BLOCK_COUNTER_TRAIT				"block_counter"
 #define STICKY_NODROP "sticky-nodrop" //sticky nodrop sounds like a bad soundcloud rapper's name
 #define TRAIT_SPACEWALK "spacewalk"
 #define RADX_TRAIT "trait_from_rad-x"

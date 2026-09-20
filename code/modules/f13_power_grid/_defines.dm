@@ -19,6 +19,11 @@
 /// Fuel ticks added per 1 reagent-volume unit of diesel poured into a liquid-fuel generator.
 /// At 1:1 a full standard jerrycan (500 vol) = 500 ticks ≈ 16.7 min.
 #define DIESEL_TICKS_PER_VOLUME  1
+/// Litres drained per pump cycle when manually siphoning a liquid-fuel generator's tank —
+/// a gradual hand-pump action rather than instantly dumping the whole reservoir.
+#define GENERATOR_SYPHON_RATE        100
+/// Deciseconds between siphon pump cycles (1 second per pump stroke).
+#define GENERATOR_SYPHON_CYCLE_TIME  10
 /// SSobj ticks a generator can run after being serviced before wear starts accruing at all.
 /// 2700 ticks × 2 s = 5400 s ≈ 90 min.  A freshly-serviced unit is reliable until this passes.
 #define FGEN_WEAR_GRACE_PERIOD          2700

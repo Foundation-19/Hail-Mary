@@ -103,7 +103,7 @@
 	cock_delay = GUN_COCK_RIFLE_BASE
 	init_recoil = LMG_RECOIL(0.5)
 	init_firemodes = list(
-		/datum/firemode/automatic/rpm300
+		/datum/firemode/automatic/rpm1800 // a minigun firing at regular-rifle speed isn't "extreme rate of fire" like its own desc claims
 	)
 	
 	flags_1 = CONDUCT_1
@@ -114,6 +114,8 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/minigunbal5mm
 	casing_ejector = TRUE
 	item_flags = SLOWS_WHILE_IN_HAND
+	// Built for sustained fire - far more heat headroom before it starts jamming/cooking off
+	heat_capacity_mult = 2.5
 	var/obj/item/minigunpackbal5mm/ammo_pack
 
 /obj/item/gun/ballistic/minigunbal5mm/Initialize()

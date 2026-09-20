@@ -178,7 +178,8 @@
 		multiplier = data.attack_type_list_scan(data.block_resting_stamina_penalty_multiplier_override, attack_type)
 		if(isnull(multiplier))
 			multiplier = data.block_resting_stamina_penalty_multiplier
-	return (damage_blocked / efficiency) * multiplier
+	// Capped so no single blocked hit can chew through a huge chunk of stamina in one go - see BLOCK_STAMINA_COST_CAP.
+	return min((damage_blocked / efficiency) * multiplier, BLOCK_STAMINA_COST_CAP)
 
 /// Apply the stamina damage to our user, notice how damage argument is stamina_amount.
 /obj/item/proc/active_block_do_stamina_damage(mob/living/owner, atom/object, stamina_amount, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
@@ -237,12 +238,24 @@
 	if((final_damage <= 0) || (damage <= 0))
 		. |= BLOCK_SUCCESS			//full block
 		owner.visible_message(span_warning("[owner] blocks \the [attack_text] with [src]!"))
+		owner.grant_block_counter_window()
 	else
 		owner.visible_message(span_warning("[owner] dampens \the [attack_text] with [src]!"))
 	block_return[BLOCK_RETURN_PROJECTILE_BLOCK_PERCENTAGE] = data.block_projectile_mitigation
 	if(length(data.block_sounds))
 		playsound(loc, pickweight(data.block_sounds), 75, TRUE)
 	on_active_block(owner, object, damage, damage_blocked, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return, override_direction)
+
+/**
+ * Grants a short window where the owner's next landed attack is empowered, rewarding a clean full block instead of pure stalling.
+ */
+/mob/living/proc/grant_block_counter_window()
+	ADD_TRAIT(src, TRAIT_BLOCK_COUNTER_READY, BLOCK_COUNTER_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(clear_block_counter_window)), BLOCK_COUNTER_WINDOW_DURATION)
+
+/// Clears an unused block counter window once its time runs out.
+/mob/living/proc/clear_block_counter_window()
+	REMOVE_TRAIT(src, TRAIT_BLOCK_COUNTER_READY, BLOCK_COUNTER_TRAIT)
 
 /obj/item/proc/check_active_block(mob/living/owner, atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
 	if(!can_active_block())

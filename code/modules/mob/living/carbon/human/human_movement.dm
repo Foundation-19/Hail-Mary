@@ -223,8 +223,6 @@
 			adjust_thirst(-loss)
 
 /mob/living/carbon/human/handle_movement_recoil()
-	deltimer(recoil_reduction_timer)
-
 	var/base_recoil = 1
 
 	var/mob/living/carbon/human/H = src

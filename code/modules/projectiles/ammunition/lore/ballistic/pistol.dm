@@ -39,6 +39,18 @@
 	projectile_type = /obj/item/projectile/bullet/c10mm/incendiary
 	fire_power = CASING_POWER_MEDIUM_PISTOL * CASING_POWER_MOD_HANDLOAD
 
+/obj/item/ammo_casing/c10mm/ap
+	name = "10mm armor-piercing bullet casing"
+	desc = "A 10mm bullet casing loaded with a steel-core penetrator round."
+	projectile_type = /obj/item/projectile/bullet/c10mm/ap
+	fire_power = CASING_POWER_MEDIUM_PISTOL * CASING_POWER_MOD_SURPLUS
+
+/obj/item/ammo_casing/c10mm/hollowpoint
+	name = "10mm hollow-point bullet casing"
+	desc = "A 10mm bullet casing loaded with an expanding hollow-point round."
+	projectile_type = /obj/item/projectile/bullet/c10mm/hollowpoint
+	fire_power = CASING_POWER_MEDIUM_PISTOL * CASING_POWER_MOD_SURPLUS
+
 // 9mm
 /obj/item/ammo_casing/c9mm
 	name = "9mm FMJ bullet casing"
@@ -80,6 +92,18 @@
 	desc = "A 9mm incendiary bullet casing."
 	projectile_type = /obj/item/projectile/bullet/c9mm/incendiary
 	fire_power = CASING_POWER_LIGHT_PISTOL * CASING_POWER_MOD_HANDLOAD
+
+/obj/item/ammo_casing/c9mm/ap
+	name = "9mm armor-piercing bullet casing"
+	desc = "A 9mm bullet casing loaded with a steel-core penetrator round."
+	projectile_type = /obj/item/projectile/bullet/c9mm/ap
+	fire_power = CASING_POWER_LIGHT_PISTOL * CASING_POWER_MOD_SURPLUS
+
+/obj/item/ammo_casing/c9mm/hollowpoint
+	name = "9mm hollow-point bullet casing"
+	desc = "A 9mm bullet casing loaded with an expanding hollow-point round."
+	projectile_type = /obj/item/projectile/bullet/c9mm/hollowpoint
+	fire_power = CASING_POWER_LIGHT_PISTOL * CASING_POWER_MOD_SURPLUS
 
 //14mm
 /obj/item/ammo_casing/p14mm

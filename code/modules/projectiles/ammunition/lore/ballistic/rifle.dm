@@ -58,6 +58,20 @@
 		/datum/material/blackpowder = MATS_RIFLE_MEDIUM_POWDER * MATS_AMMO_POWDER_HANDLOAD_MULT)
 	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_HANDLOAD
 
+/obj/item/ammo_casing/a308/ap
+	name = ".308 armor-piercing bullet casing"
+	desc = "A .308 bullet casing loaded with a steel-core penetrator round."
+	projectile_type = /obj/item/projectile/bullet/a308/ap
+	material_class = BULLET_IS_MEDIUM_RIFLE
+	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_SURPLUS
+
+/obj/item/ammo_casing/a308/hollowpoint
+	name = ".308 hollow-point bullet casing"
+	desc = "A .308 bullet casing loaded with an expanding hollow-point round."
+	projectile_type = /obj/item/projectile/bullet/a308/hollowpoint
+	material_class = BULLET_IS_MEDIUM_RIFLE
+	fire_power = CASING_POWER_MEDIUM_RIFLE * CASING_POWER_MOD_SURPLUS
+
 // .30-06
 /obj/item/ammo_casing/a3006
 	name = ".30-06 FMJ bullet casing"
@@ -118,6 +132,18 @@
 	name = "5.56 uranium-tipped bullet casing"
 	desc = "Tax money well spent."
 	projectile_type = /obj/item/projectile/bullet/a556/uraniumtipped
+
+/obj/item/ammo_casing/a556/ap
+	name = "5.56mm armor-piercing bullet casing"
+	desc = "A 5.56mm bullet casing loaded with a steel-core penetrator round."
+	projectile_type = /obj/item/projectile/bullet/a556/ap
+	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_SURPLUS
+
+/obj/item/ammo_casing/a556/hollowpoint
+	name = "5.56mm hollow-point bullet casing"
+	desc = "A 5.56mm bullet casing loaded with an expanding hollow-point round."
+	projectile_type = /obj/item/projectile/bullet/a556/hollowpoint
+	fire_power = CASING_POWER_LIGHT_RIFLE * CASING_POWER_MOD_SURPLUS
 
 /*
 /obj/item/ammo_casing/a556/sport //.223
