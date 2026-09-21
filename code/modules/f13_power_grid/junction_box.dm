@@ -48,6 +48,8 @@
 //       /area/f13/brotherhood/armory and /brotherhood/dorms but
 //       stops the moment it reaches /area/f13/ncr or any other
 //       unrelated branch — even through an open door.
+//     • (Bridges, not stops: openspace gaps, stairs, and ladders all carry
+//       the fill across to the connected z-level.)
 //
 //   BOUNDARY WALL ABSORPTION:
 //   After interior zones are built a second pass scans every dense
@@ -185,6 +187,23 @@
 	if(istype(farea) && farea.f13_grid_immune)
 		return TRUE
 	return FALSE
+
+/// Shared validity/push check used by every z-level bridge (openspace, stairs, ladders):
+/// skips already-visited turfs, turfs with no area, immune areas, areas outside the
+/// flood's root type tree, and areas reserved for a different junction box.
+/obj/machinery/f13/junction_box/proc/_flood_try_push(turf/candidate, list/visited, list/stack, area/start, root_type, list/reserved_types)
+	if(!candidate || visited[candidate])
+		return
+	var/area/c_area = get_area(candidate)
+	if(!c_area || _area_is_immune(c_area))
+		return
+	var/area/f13/fC = c_area
+	var/area/check_c = (istype(fC) && fC.f13_jbox_zone) ? start : c_area
+	if(!istype(check_c, root_type))
+		return
+	if(reserved_types && reserved_types.len && (check_c.type in reserved_types))
+		return
+	stack += candidate
 
 
 /// Resolves the area to use as the flood-fill root.
@@ -476,6 +495,16 @@
 			if(reserved_types && reserved_types.len && (check_L.type in reserved_types))
 				continue
 			stack += landing
+
+		// ── Ladder Z-traversal ────────────────────────────────────────────
+		// A ladder's .up/.down refs point directly at the connected ladder object
+		// on the adjacent z-level, so no forward-step/landing math is needed here —
+		// just push both linked turfs the same way stairs push their landing.
+		for(var/obj/structure/ladder/L in T.contents)
+			if(L.up)
+				_flood_try_push(get_turf(L.up), visited, stack, start, root_type, reserved_types)
+			if(L.down)
+				_flood_try_push(get_turf(L.down), visited, stack, start, root_type, reserved_types)
 
 	return visited
 

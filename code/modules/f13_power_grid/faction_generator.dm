@@ -267,7 +267,9 @@
 	while(frontier.len)
 		var/list/next_frontier = list()
 		for(var/turf/T in frontier)
-			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+			for(var/dir in GLOB.f13_cable_dirs)
+				if(!f13_diagonal_open(T, dir))
+					continue
 				var/turf/N = get_step(T, dir)
 				if(!N || (N in visited))
 					continue
@@ -477,7 +479,7 @@
 	if(depleted_fuel_path && !skip_next_depletion_spawn && !has_tracked_cores)
 		new depleted_fuel_path(drop_location())
 	skip_next_depletion_spawn = FALSE
-	manually_shutdown = FALSE  // reset so inserting new fuel triggers normal auto-start
+	manually_shutdown = FALSE  // running dry isn't a deliberate shutdown -- allow the overload-retry loop to resume once refuelled
 
 /// Fills empty slots at round start with real cores matching the starting fuel amount,
 /// so players only ever see and manage physical cores — never a hidden fuel bucket.
@@ -508,7 +510,7 @@
 /// core that still has charge, so a depleted shell in an earlier slot doesn't block later slots.
 /obj/machinery/f13/faction_generator/proc/_drain_one_tick()
 	var/load_fraction = available_watts > 0 ? clamp(current_draw / available_watts, get_min_load_fraction(), 1) : 1
-	fuel -= load_fraction
+	fuel = max(0, fuel - load_fraction)
 	if(fuel_is_liquid)
 		return
 	if(!inserted_cores || !inserted_cores.len)
@@ -520,7 +522,7 @@
 			break
 	if(!core)
 		return
-	core:charge_ticks -= load_fraction
+	core:charge_ticks = max(0, core:charge_ticks - load_fraction)
 	if(core:charge_ticks <= 0 && !core:depleted)
 		_deplete_core(core)
 
@@ -1126,11 +1128,10 @@
 		available_watts = watts_per_fuel_unit * max(1, round(fuel / fuel_per_unit))
 		recalc_draw()
 
-		if(!powered)
-			set_power_state(TRUE)
-		else if(overloaded && !_is_over_budget())
+		// Inserting fuel never auto-starts the generator -- always requires an explicit
+		// START GENERATOR, whether it ran dry or was manually shut down.
+		if(overloaded && !_is_over_budget())
 			overloaded = FALSE
-			set_power_state(TRUE)
 
 		return
 
@@ -1727,11 +1728,10 @@
 		"[user] pours diesel fuel into [src].",
 		span_notice("You pour [round(transfer)] L of diesel into [src]. Tank: [fuel]/[max_fuel] L (+[fuel - old_fuel] L).")
 	)
-	if(!powered && fuel > 0)
-		set_power_state(TRUE)
-	else if(overloaded && !_is_over_budget())
+	// Refueling never auto-starts the generator -- always requires an explicit START GENERATOR,
+	// whether it ran dry or was manually shut down.
+	if(overloaded && !_is_over_budget())
 		overloaded = FALSE
-		set_power_state(TRUE)
 	return TRUE
 
 /// Explicit "fusion core" named variant of the base generator.
