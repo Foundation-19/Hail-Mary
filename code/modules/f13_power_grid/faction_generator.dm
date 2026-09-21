@@ -205,6 +205,11 @@
 
 /obj/machinery/f13/faction_generator/Initialize()
 	. = ..()
+	// Desync each generator's recalc_draw() tick from every other one -- otherwise every
+	// generator on the grid (all created within the same round-start tick or two) recomputes
+	// its relay-tree walk on the exact same SSmachines fire, producing a periodic cost spike
+	// instead of spreading the work evenly across FGEN_DRAW_RECALC_INTERVAL ticks.
+	draw_recalc_ticks = rand(0, FGEN_DRAW_RECALC_INTERVAL - 1)
 	// Liquid-fuel variants use their type-level var default; discrete-unit variants start
 	// with FGEN_DEFAULT_FUEL, capped to max_fuel — a tank can't hold more than it can hold,
 	// so ejecting it back out can never spawn more cores than would actually fit in a slot.
