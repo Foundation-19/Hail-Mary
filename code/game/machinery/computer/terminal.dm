@@ -679,12 +679,12 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 			if(istype(B.device, /obj/item/assembly/control/airlock))
 				var/obj/item/assembly/control/airlock/A = B.device
 				for(var/obj/machinery/door/airlock/D in world)
-					if(D.vars["id"] == A.id)
+					if(("id" in D.vars) && D.vars["id"] == A.id)
 						door_state = D.density ? "CLOSED" : "OPEN"
 						break
 				if(door_state == "UNKNOWN")
 					for(var/obj/machinery/door/firedoor/D in world)
-						if(D.vars["id"] == A.id)
+						if(("id" in D.vars) && D.vars["id"] == A.id)
 							door_state = D.density ? "CLOSED" : "OPEN"
 							break
 			dat += "&gt; [B.name] — <span class='[door_state == "OPEN" ? "good" : "dim"]'>[door_state]</span> "
@@ -715,7 +715,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	var/count = 0
 	for(var/obj/machinery/door/airlock/D in world)
 		var/atom/door_atom = D
-		if(door_atom.vars["id"] == id)
+		if(("id" in door_atom.vars) && door_atom.vars["id"] == id)
 			D.lock()
 			count++
 	to_chat(user, span_notice("Locked [count] door\s with id '[id]'."))
@@ -724,7 +724,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	var/count = 0
 	for(var/obj/machinery/door/airlock/D in world)
 		var/atom/door_atom = D
-		if(door_atom.vars["id"] == id)
+		if(("id" in door_atom.vars) && door_atom.vars["id"] == id)
 			D.unlock()
 			count++
 	to_chat(user, span_notice("Unlocked [count] door\s with id '[id]'."))
