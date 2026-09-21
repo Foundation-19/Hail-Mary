@@ -341,7 +341,7 @@
 
 	for(var/turf/T in turf_map)
 		var/area/orig = turf_map[T]          // original singleton this turf came from
-		if(!istype(orig, /area))             // openspace bridge sentinel — not an ownable tile
+		if(!istype(orig, /area))             // safety net — every visited turf should carry a real area now
 			continue
 		var/atype     = orig.type
 
@@ -411,11 +411,11 @@
 		var/area/f13/fT = T_area
 		var/area/origin = (istype(fT) && fT.f13_jbox_zone) ? start : T_area
 		// ── Openspace bridge (main-loop) ─────────────────────────────────
-		// Openspace tiles are z-transparent "holes" between floors — they
-		// are not ownable interior area.  Store T as a sentinel (truthy,
-		// non-area value) so revisit checks pass, then bridge DOWN.
+		// Openspace tiles are z-transparent "holes" between floors, but they can
+		// still carry equipment (e.g. a light fixture built on a catwalk over the
+		// hole) — claim the tile itself into the zone too, then bridge DOWN.
 		if(istype(T, /turf/open/transparent/openspace))
-			visited[T] = T   // sentinel: visited/bridged, not owned
+			visited[T] = origin
 			var/turf/os_below = get_step_multiz(T, DOWN)
 			if(os_below && !visited[os_below])
 				var/area/ob_area = get_area(os_below)
@@ -437,10 +437,11 @@
 			if(!N_area)
 				continue
 			// ── Openspace bridge (NSEW) ──────────────────────────────────
-			// Openspace is a z-transparent hole — push the tile below it
-			// instead of trying to own it.  Bypass the immune check since
-			// the openspace tile's own area is irrelevant.
+			// Openspace is a z-transparent hole — queue it so the main loop claims
+			// the tile itself (equipment built on it still needs zone power), then
+			// also push the tile below it.
 			if(istype(N, /turf/open/transparent/openspace))
+				_flood_try_push(N, visited, stack, start, root_type, reserved_types)
 				var/turf/ns_below = get_step_multiz(N, DOWN)
 				if(ns_below && !visited[ns_below])
 					var/area/nb_area = get_area(ns_below)
