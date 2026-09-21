@@ -331,7 +331,7 @@
 		"special_c" = 5,
 		)
 
-	outfit = /datum/outfit/job/baltimore_outlaw/warlord
+	outfit = /datum/outfit/job/warlord
 
 	access = list()
 	minimal_access = list()
@@ -357,9 +357,10 @@
 		/datum/outfit/loadout/slaverlord
 	)
 
-/datum/outfit/job/baltimore_outlaw/warlord
+/datum/outfit/job/warlord
 	name =	"Warlord"
 	jobtype = /datum/job/baltimore_outlaw/warlord
+	id = /obj/item/card/id/rusted
 	uniform =	/obj/item/clothing/under/f13/combat
 	ears = /obj/item/radio/headset/headset_vault
 	shoes =	/obj/item/clothing/shoes/jackboots
@@ -481,6 +482,7 @@
 	shoes =	/obj/item/clothing/shoes/jackboots
 	l_pocket = /obj/item/radio/outlaw
 	r_pocket = /obj/item/flashlight/flare
+	id = /obj/item/card/id/rusted
 	box = /obj/item/storage/survivalkit/outlaw
 	backpack_contents = list(
 		/obj/item/storage/firstaid/ancient = 1,

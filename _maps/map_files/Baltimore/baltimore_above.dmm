@@ -6580,6 +6580,7 @@
 /area/f13/baltimore/wasteland/city)
 "guc" = (
 /obj/structure/table/wood/fancy/royalblack,
+/obj/machinery/bounty_board/town,
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/town/mayorial)
 "gvf" = (
@@ -7857,6 +7858,13 @@
 	icon_state = "road_center_1"
 	},
 /area/f13/raider_mall)
+"hAb" = (
+/obj/structure/table,
+/obj/machinery/bounty_board/bos,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/vertibird)
 "hAV" = (
 /mob/living/simple_animal/hostile/handy/protectron,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -9442,6 +9450,9 @@
 	},
 /turf/open/floor/wood_common,
 /area/f13/baltimore/building/abandoned)
+"iSF" = (
+/turf/open/transparent/openspace,
+/area/f13/baltimore/boatradio)
 "iSJ" = (
 /obj/structure/chair/sofa/left,
 /turf/open/floor/wood_common,
@@ -16143,7 +16154,7 @@
 	pixel_y = 26
 	},
 /turf/open/floor/f13/wood,
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/boatradio)
 "oUg" = (
 /obj/structure/chair/comfy/green{
 	dir = 1
@@ -17720,7 +17731,7 @@
 /obj/structure/cable,
 /obj/machinery/f13/faction_generator/diesel,
 /turf/open/floor/f13/wood,
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/boatradio)
 "qxa" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
 /area/f13/baltimore/minutemen)
@@ -19076,7 +19087,7 @@
 	icon_state = "1-2"
 	},
 /turf/open/floor/f13/wood,
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/boatradio)
 "rSz" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -19713,7 +19724,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood4-broken"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/boatradio)
 "swT" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -30330,7 +30341,7 @@ uVS
 hOQ
 rGu
 pbi
-oJa
+hAb
 oJa
 hOQ
 hOQ
@@ -33851,7 +33862,7 @@ hOQ
 rGu
 nbU
 cKJ
-oJa
+hAb
 hOQ
 hOQ
 kvQ
@@ -93831,8 +93842,8 @@ kqw
 kqw
 klF
 svq
-hnZ
-fxL
+iSF
+kqw
 hnZ
 hnZ
 hnZ

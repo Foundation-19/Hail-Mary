@@ -2187,6 +2187,10 @@
 	icon_state = "plating"
 	},
 /area/f13/ruins)
+"buA" = (
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "buU" = (
 /obj/structure/table,
 /obj/item/flashlight/lamp/green,
@@ -2773,6 +2777,13 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
+"bMS" = (
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/turf/open/indestructible/ground/outside/ruins{
+	sunlight_state = 0;
+	name = "underground ruins"
+	},
+/area/f13/tunnel/sub)
 "bMZ" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -3035,7 +3046,6 @@
 /area/f13/ruins)
 "bWn" = (
 /obj/structure/chair/stool/retro/tan,
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "bWN" = (
@@ -4327,12 +4337,6 @@
 	},
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
-"cNH" = (
-/obj/structure/punching_bag{
-	color = "#292929"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/green,
-/area/f13/ruins)
 "cNN" = (
 /obj/structure/barricade/wooden,
 /turf/closed/wall/f13/tunnel{
@@ -4962,6 +4966,14 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"dpT" = (
+/obj/effect/landmark/start/f13/smutant_boss,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/ruins)
 "dpY" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /mob/living/simple_animal/hostile/supermutant/rangedmutant,
@@ -7061,7 +7073,6 @@
 /obj/structure/chair/f13chair1{
 	dir = 4
 	},
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "eEH" = (
@@ -7526,7 +7537,6 @@
 /obj/structure/chair/wood{
 	dir = 1
 	},
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "eXG" = (
@@ -7866,10 +7876,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
-"fle" = (
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
-/turf/open/floor/plating/rust,
-/area/f13/ruins)
 "flj" = (
 /obj/structure/table/wood/fancy/blackred,
 /obj/item/clothing/suit/armor/medium/duster/cloak_armored,
@@ -10623,6 +10629,14 @@
 	sunlight_state = 0
 	},
 /area/f13/tunnel)
+"gVm" = (
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/ruins)
 "gVn" = (
 /obj/structure/chair/bench{
 	dir = 8
@@ -10801,7 +10815,6 @@
 /obj/structure/chair/f13chair2{
 	dir = 8
 	},
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "hbB" = (
@@ -11522,7 +11535,6 @@
 /area/f13/ruins)
 "hxI" = (
 /obj/structure/chair/stool/retro/black,
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "hxO" = (
@@ -11677,6 +11689,15 @@
 	icon_state = "darkrustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
+"hEC" = (
+/obj/effect/decal/remains/human,
+/obj/effect/landmark/start/f13/smutant,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/ruins)
 "hEH" = (
 /obj/effect/mob_spawn/human/fev_pit,
 /turf/open/floor/f13{
@@ -11760,6 +11781,10 @@
 /obj/structure/rack/shelf_metal,
 /obj/effect/spawner/lootdrop/f13/blueprintHigh,
 /obj/effect/spawner/lootdrop/f13/blueprintLowMid,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
+"hHi" = (
+/obj/effect/landmark/start/f13/smutant,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "hHF" = (
@@ -12176,8 +12201,6 @@
 /obj/structure/chair/booth{
 	dir = 8
 	},
-/obj/effect/landmark/start/f13/smutant,
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "hRz" = (
@@ -12763,6 +12786,10 @@
 /obj/structure/debris/v4,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/citycaves)
+"iqn" = (
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/turf/open/floor/wood_wide,
+/area/f13/tunnel/sub)
 "iqu" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/stack/sheet/prewar/five,
@@ -13040,7 +13067,6 @@
 /area/f13/citycaves)
 "izs" = (
 /obj/structure/chair/wood/wings,
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/floor/plating/f13/inside/gravel,
 /area/f13/tunnel/sub)
 "izC" = (
@@ -14472,7 +14498,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/ruins)
 "jvi" = (
-/obj/structure/rack,
+/obj/structure/rack/shelf_wood,
+/obj/effect/spawner/lootdrop/wmelee_high,
+/obj/item/twohanded/fireaxe/bmprsword,
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier3,
 /turf/open/floor/plating/rust,
 /area/f13/ruins)
 "jvn" = (
@@ -14896,14 +14925,6 @@
 	},
 /turf/closed/indestructible/rock,
 /area/f13/citycaves)
-"jHU" = (
-/obj/structure/table,
-/turf/open/floor/f13{
-	color = "#ffe9de";
-	icon_state = "darkrusty";
-	name = "dirty floor"
-	},
-/area/f13/ruins)
 "jHY" = (
 /obj/structure/fluff/rails{
 	dir = 4
@@ -18456,6 +18477,16 @@
 /obj/effect/decal/cleanable/blood/drip,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
 /area/f13/ruins)
+"lJW" = (
+/obj/structure/rack/shelf_wood,
+/obj/item/twohanded/fireaxe/bmprsword,
+/obj/item/storage/toolbox/mechanical{
+	pixel_x = -2;
+	pixel_y = 20
+	},
+/obj/effect/spawner/lootdrop/f13/weapon/melee/tier3,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "lKB" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -18507,14 +18538,6 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
-/area/f13/ruins)
-"lMN" = (
-/obj/machinery/autolathe/constructionlathe,
-/turf/open/floor/f13{
-	color = "#ffe9de";
-	icon_state = "darkrusty";
-	name = "dirty floor"
-	},
 /area/f13/ruins)
 "lMZ" = (
 /obj/structure/bed/mattress{
@@ -18979,17 +19002,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
-"lZJ" = (
-/obj/machinery/light/broken{
-	dir = 1
-	},
-/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
-/turf/open/floor/f13{
-	color = "#ffe9de";
-	icon_state = "darkrusty";
-	name = "dirty floor"
-	},
-/area/f13/ruins)
 "lZL" = (
 /mob/living/simple_animal/hostile/ghoul,
 /turf/open/floor/wood_fancy,
@@ -19490,7 +19502,6 @@
 /obj/structure/chair/office/light{
 	dir = 4
 	},
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/floor/plating/f13/inside/gravel,
 /area/f13/tunnel/sub)
 "mso" = (
@@ -20312,7 +20323,6 @@
 /area/f13/ruins)
 "mTp" = (
 /obj/structure/chair/stool/retro/black,
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/floor/plating/f13/inside/gravel,
 /area/f13/tunnel/sub)
 "mTs" = (
@@ -20673,6 +20683,15 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/vault)
+"neH" = (
+/obj/structure/table/optable/primitive,
+/obj/machinery/defibrillator_mount/primitive,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/ruins)
 "nfi" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -21828,6 +21847,11 @@
 /obj/effect/decal/cleanable/greenglow,
 /turf/open/floor/wood_common,
 /area/f13/building/tunnel)
+"nNP" = (
+/obj/structure/fluff/rails,
+/mob/living/simple_animal/hostile/supermutant/meleemutant,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "nOv" = (
 /obj/structure/cargocrate{
 	icon_state = "cargocrate5"
@@ -21923,6 +21947,16 @@
 	},
 /turf/open/floor/plasteel/darkgreen/side{
 	dir = 1
+	},
+/area/f13/ruins)
+"nRt" = (
+/obj/machinery/autolathe,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/sheet/mineral/limestone/fifty,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
 	},
 /area/f13/ruins)
 "nRP" = (
@@ -22061,7 +22095,8 @@
 	},
 /area/f13/vault)
 "nUQ" = (
-/obj/structure/rack,
+/obj/structure/rack/shelf_wood,
+/obj/item/gun/ballistic/automatic/varmint,
 /turf/open/floor/f13{
 	color = "#ffe9de";
 	icon_state = "darkrusty";
@@ -24053,8 +24088,6 @@
 /area/f13/vault)
 "pfH" = (
 /obj/machinery/autolathe,
-/obj/item/stack/sheet/metal/fifty,
-/obj/item/stack/sheet/mineral/limestone/fifty,
 /turf/open/floor/wood_wide,
 /area/f13/tunnel/sub)
 "pfN" = (
@@ -25880,6 +25913,10 @@
 	icon_state = "redrustyfull"
 	},
 /area/f13/ruins)
+"qkm" = (
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/turf/open/floor/plating/f13/inside/gravel,
+/area/f13/tunnel/sub)
 "qkn" = (
 /obj/structure/spacevine,
 /turf/closed/wall/rust,
@@ -26106,7 +26143,6 @@
 /area/f13/ruins)
 "qoS" = (
 /obj/structure/chair/comfy,
-/obj/effect/landmark/start/f13/smutant_boss,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "qpx" = (
@@ -27494,7 +27530,6 @@
 /area/f13/ruins)
 "rfV" = (
 /obj/structure/chair/stool/bar,
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "rfZ" = (
@@ -28573,6 +28608,16 @@
 /obj/structure/simple_door/bunker/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/vault)
+"rOi" = (
+/obj/structure/rack/shelf_wood,
+/obj/item/gun/ballistic/automatic/varmint,
+/obj/effect/spawner/lootdrop/f13/weapon/gun/ballistic/highmid,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
+/area/f13/ruins)
 "rOj" = (
 /obj/structure/disposalpipe/trunk,
 /turf/open/floor/plating/rust,
@@ -32779,10 +32824,6 @@
 	},
 /turf/open/floor/wood_wide,
 /area/f13/building/tunnel)
-"uun" = (
-/obj/structure/table,
-/turf/open/floor/plasteel/f13/vault_floor/green,
-/area/f13/ruins)
 "uup" = (
 /obj/effect/decal/cleanable/chem_pile,
 /obj/effect/turf_decal/weather/dirt,
@@ -33254,6 +33295,15 @@
 /obj/structure/table/reinforced,
 /obj/item/reagent_containers/food/snacks/beans,
 /turf/open/floor/plasteel/f13/vault_floor/green/greenchess/greenchess2,
+/area/f13/ruins)
+"uKb" = (
+/obj/structure/table/wood,
+/obj/item/storage/backpack/duffelbag/med/surgery/primitive/anchored,
+/turf/open/floor/f13{
+	color = "#ffe9de";
+	icon_state = "darkrusty";
+	name = "dirty floor"
+	},
 /area/f13/ruins)
 "uKe" = (
 /obj/machinery/light{
@@ -33734,6 +33784,11 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/tunnel/sub)
+"uVO" = (
+/obj/structure/fluff/rails,
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint,
+/turf/open/indestructible/ground/inside/subway,
+/area/f13/tunnel/sub)
 "uVR" = (
 /obj/structure/table,
 /obj/effect/spawner/bundle/f13/m1911,
@@ -33941,12 +33996,7 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/citycaves)
 "vcC" = (
-/obj/structure/junk/small/bed{
-	pixel_y = 15
-	},
-/obj/item/blanket{
-	pixel_y = 15
-	},
+/obj/structure/destructible/tribal_torch/lit,
 /turf/open/floor/f13{
 	color = "#ffe9de";
 	icon_state = "darkrusty";
@@ -36559,6 +36609,12 @@
 /obj/item/bedsheet/blanket2,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/ruins)
+"wHY" = (
+/obj/machinery/autolathe/ammo/unlocked,
+/obj/item/stack/sheet/metal/fifty,
+/obj/item/stack/ore/blackpowder/fifty,
+/turf/open/floor/plating/rust,
+/area/f13/ruins)
 "wIr" = (
 /obj/structure/showcase/horrific_experiment{
 	desc = "Some sort of pod. Seems this one's maintanance panel is open, someone was working on this.";
@@ -38676,7 +38732,6 @@
 /obj/structure/chair/office{
 	dir = 8
 	},
-/obj/effect/landmark/start/f13/smutant,
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/tunnel/sub)
 "yeC" = (
@@ -39569,10 +39624,10 @@ bcX
 aCK
 dqu
 kkz
-uun
 rmP
-lMN
+nRt
 oxa
+tJH
 nUQ
 rmP
 rmP
@@ -39603,7 +39658,7 @@ xrA
 mQH
 rUo
 jgd
-jgd
+buA
 hpv
 mLH
 jgd
@@ -39918,14 +39973,14 @@ rmP
 xWw
 kkz
 fzy
-fle
+fzy
 fzy
 kkz
-uun
 rmP
-jHU
 tJH
-nUQ
+tJH
+tJH
+rOi
 rmP
 fzy
 ani
@@ -40273,8 +40328,8 @@ hHF
 kkz
 leQ
 pPg
-wPy
 fWs
+fzy
 fzy
 fzy
 fzy
@@ -40625,9 +40680,9 @@ fzy
 fzy
 kkz
 fzy
-cNH
 rmP
-gGb
+eoE
+tJH
 tJH
 jvi
 rmP
@@ -40658,14 +40713,14 @@ jFn
 alb
 mQH
 jgd
-rUo
+uVO
 jgd
 khC
 jgd
 hhm
 jgd
 hhm
-hhm
+iqn
 jgd
 hhm
 hpv
@@ -40977,11 +41032,11 @@ hHF
 kLC
 leQ
 kLC
-cNH
 rmP
-eoE
+wHY
 iZk
-jvi
+fzy
+lJW
 rmP
 rmP
 rmP
@@ -41357,7 +41412,7 @@ pLv
 pLv
 alb
 bCq
-bCq
+bMS
 civ
 civ
 lTa
@@ -42066,7 +42121,7 @@ pZs
 cMr
 kuF
 rUo
-rUo
+nNP
 jgd
 aGl
 jPu
@@ -43128,7 +43183,7 @@ rTG
 jqE
 jgd
 qZQ
-qZQ
+qkm
 qZQ
 tyJ
 vDw
@@ -43447,7 +43502,7 @@ fzy
 fzy
 uhi
 fzy
-fle
+fzy
 bwM
 qqa
 uta
@@ -43789,9 +43844,9 @@ uMF
 rmP
 fzy
 tJH
-fle
-fzy
-fzy
+hHi
+hHi
+hHi
 fzy
 rmP
 rmP
@@ -44136,7 +44191,7 @@ eSl
 eSl
 rmP
 fzy
-fle
+fzy
 dSd
 rmP
 krs
@@ -44492,7 +44547,7 @@ trA
 fzy
 uhk
 fzy
-tJH
+dpT
 tJH
 hEH
 tJH
@@ -44530,7 +44585,7 @@ yce
 cMr
 kuF
 jgd
-rUo
+uVO
 jgd
 jgd
 jgd
@@ -45197,9 +45252,9 @@ xRO
 rmP
 fzy
 tJH
-tJH
-nSZ
-tJH
+gVm
+hEC
+gVm
 tJH
 rmP
 rmP
@@ -45552,7 +45607,7 @@ fzy
 fzy
 tJH
 kvA
-fle
+fzy
 tJH
 vvy
 fzy
@@ -46957,7 +47012,7 @@ kkz
 aKB
 tJH
 hIZ
-nSZ
+neH
 tJH
 rmP
 nSZ
@@ -47307,10 +47362,10 @@ lbO
 qRq
 wBz
 rmP
-lZJ
+lUB
 rmP
 vcC
-edp
+uKb
 rmP
 qCj
 edp
@@ -49075,7 +49130,7 @@ lAZ
 lAZ
 fSW
 fSW
-fle
+fzy
 nFN
 rmP
 opw
