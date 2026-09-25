@@ -2822,8 +2822,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "ACHS Aegis Hospital rooms"
 	icon_state = "red"
 
-/area/f13/baltimore/atlantic_cross/doorms
-	name = "ACHS Aegis Hospital doorms"
+/area/f13/baltimore/atlantic_cross/dorms
+	name = "ACHS Aegis Hospital dorms"
 	icon_state = "red"
 
 /area/f13/baltimore/atlantic_cross/armory
@@ -3094,8 +3094,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 		/datum/looping_sound/ambient/airship,
 	)
 
-/area/f13/baltimore/brotherhood/doorms
-	name = "Brotherhood of Steel Airship Avalionian doorms"
+/area/f13/baltimore/brotherhood/dorms
+	name = "Brotherhood of Steel Airship Avalionian dorms"
 	icon_state = "brotherhooddorms"
 
 /area/f13/baltimore/brotherhood/security
@@ -3183,7 +3183,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	icon_state = "casino"
 
 /area/f13/baltimore/vault125/doorm
-	name = "Vault 125 doorms"
+	name = "Vault 125 dorms"
 	icon_state = "crew_quarters"
 
 /area/f13/baltimore/vault125/jail

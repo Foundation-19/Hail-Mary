@@ -99,7 +99,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "aQ" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/overlay/docks/rust,
@@ -138,13 +138,13 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "bk" = (
 /obj/structure/closet/crate/leftfootlocker,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "bl" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -186,7 +186,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "bz" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -236,7 +236,7 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "bL" = (
 /obj/structure/chair/comfy/shuttle,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -342,7 +342,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "cY" = (
 /obj/structure/noticeboard{
 	pixel_x = 31
@@ -361,7 +361,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "da" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -414,7 +414,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "dI" = (
 /obj/structure/closet/crate/medical,
 /obj/item/reagent_containers/blood/radaway,
@@ -434,7 +434,7 @@
 /turf/closed/wall/f13/tentwall{
 	name = "Airship envelop"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "dV" = (
 /obj/machinery/light/small{
 	dir = 4;
@@ -492,7 +492,7 @@
 	dir = 6
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "ek" = (
 /obj/machinery/microwave/stove,
 /obj/machinery/light/small{
@@ -530,7 +530,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "eD" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -549,7 +549,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "eI" = (
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -624,7 +624,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "fD" = (
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment1)
@@ -638,7 +638,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "fH" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/building/town/appartment1)
@@ -757,7 +757,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "gD" = (
 /obj/effect/overlay/docks{
 	dir = 8
@@ -790,7 +790,7 @@
 /area/f13/baltimore/brotherhood/kitchen)
 "gK" = (
 /turf/closed/wall/r_wall/f13/vault,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "gN" = (
 /obj/machinery/door/unpowered/secure_bos,
 /obj/structure/cable{
@@ -858,7 +858,7 @@
 "hi" = (
 /obj/machinery/door/unpowered/secure_bos,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "hl" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/storage/box/bowls,
@@ -982,7 +982,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "if" = (
 /obj/structure/bookshelf,
 /obj/item/kirbyplants{
@@ -1073,7 +1073,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "iD" = (
 /turf/open/floor/plating/f13/outside/roof/wood/old,
 /area/f13/baltimore/building/abandoned)
@@ -1101,7 +1101,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "iN" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/effect/overlay/docks/fortedge{
@@ -1122,7 +1122,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "iZ" = (
 /obj/structure/sacrificealtar{
 	density = 1;
@@ -1146,7 +1146,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "jn" = (
 /obj/structure/lattice/catwalk,
 /obj/effect/overlay/docks/rust,
@@ -1163,7 +1163,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "jx" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 4
@@ -1276,13 +1276,13 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "kn" = (
 /obj/structure/dresser,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "kv" = (
 /obj/structure/table/wood,
 /obj/structure/cable,
@@ -1452,7 +1452,7 @@
 	icon_state = "rampuptop";
 	dir = 1
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "ma" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1522,13 +1522,13 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "mv" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "mF" = (
 /obj/structure/railing/corner{
 	color = "#A47449"
@@ -1540,7 +1540,7 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "mM" = (
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross/armory)
@@ -1580,7 +1580,7 @@
 	dir = 5
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "nk" = (
 /obj/machinery/vending/snack/blue,
 /turf/open/floor/f13{
@@ -1649,7 +1649,7 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "nV" = (
 /obj/structure/rack/shelf_metal,
 /obj/structure/cable{
@@ -1683,7 +1683,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "oi" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -1695,7 +1695,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "oj" = (
 /obj/structure/simple_door/metal/fence,
 /turf/open/floor/plating/f13/outside/roof,
@@ -1764,7 +1764,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "oC" = (
 /obj/structure/rug/big/rug_rubber,
 /obj/structure/cable{
@@ -1801,7 +1801,7 @@
 	dir = 4
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "oN" = (
 /turf/open/floor/plating/f13/outside/roof/metal/verdigris,
 /area/f13/baltimore/building/abandoned)
@@ -1872,7 +1872,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "pg" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -1914,7 +1914,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "pq" = (
 /obj/structure/chair/wood,
 /turf/open/floor/wood_worn/wood_worn_light,
@@ -1956,7 +1956,7 @@
 /area/f13/baltimore/building/town/appartment2)
 "pF" = (
 /turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "pO" = (
 /obj/effect/overlay/docks/rust,
 /obj/structure/railing/tg{
@@ -2043,7 +2043,7 @@
 	dir = 2
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "qu" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -2174,7 +2174,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "rE" = (
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
@@ -2203,7 +2203,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "sa" = (
 /turf/open/floor/plating/rust,
 /area/f13/building/boat)
@@ -2241,7 +2241,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "ss" = (
 /obj/effect/overlay/docks/fortedge,
 /obj/effect/overlay/docks/fortedge{
@@ -2346,7 +2346,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "th" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2383,7 +2383,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "ts" = (
 /turf/closed/wall/rust,
 /area/f13/baltimore/brotherhood/vertibird)
@@ -2396,7 +2396,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "tC" = (
 /turf/open/floor/plating/f13/outside/roof/wood,
 /area/f13/building/boat)
@@ -2419,7 +2419,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "tI" = (
 /obj/structure/chair/pew/right{
 	dir = 8
@@ -2439,7 +2439,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "tT" = (
 /obj/machinery/light/small{
 	dir = 8;
@@ -2494,7 +2494,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "ur" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -2561,7 +2561,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "uQ" = (
 /obj/structure/table/wood/fancy/red,
 /turf/open/floor/wood_common/wood_common_light,
@@ -2598,7 +2598,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "vh" = (
 /turf/open/floor/wood_common/wood_common_light{
 	icon_state = "common_light-broken4"
@@ -2649,7 +2649,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "vO" = (
 /turf/closed/wall/r_wall/f13/vault,
 /area/f13/baltimore/brotherhood/lab)
@@ -2700,7 +2700,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "wv" = (
 /turf/open/floor/wood_common/wood_common_dark{
 	icon_state = "common_dark-broken4"
@@ -2856,7 +2856,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "xI" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/building/abandoned)
@@ -2950,7 +2950,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "yB" = (
 /obj/effect/overlay/shadow{
 	layer = 2
@@ -2985,7 +2985,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "yP" = (
 /obj/structure/railing/corner,
 /turf/open/floor/wood_wide/wood_wide_dark,
@@ -3081,7 +3081,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "zU" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -3120,7 +3120,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Af" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -3163,7 +3163,7 @@
 /turf/open/floor/f13{
 	icon_state = "rampuptop"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "An" = (
 /obj/structure/closet/crate/footlocker,
 /obj/item/clothing/under/f13/atlantic/sailor,
@@ -3449,7 +3449,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Dc" = (
 /obj/machinery/light/small{
 	light_color = "#FF0000";
@@ -3555,7 +3555,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Ei" = (
 /obj/structure/reagent_dispensers/rainwater_tank,
 /turf/open/floor/plating/f13/outside/roof,
@@ -3600,7 +3600,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "EE" = (
 /obj/effect/overlay/docks{
 	dir = 1
@@ -3675,7 +3675,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "FC" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
@@ -3714,7 +3714,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Gd" = (
 /turf/open/floor/plasteel/f13/vault_floor/darkerrusty/lit,
 /area/f13/baltimore/building/abandoned/hospital)
@@ -3742,7 +3742,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Gv" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3773,7 +3773,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "GL" = (
 /obj/structure/noticeboard{
 	pixel_x = -31
@@ -3786,7 +3786,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "GV" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/wasteland/city)
@@ -3851,7 +3851,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "HC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4069,7 +4069,7 @@
 	color = "#FFDDCC"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Ju" = (
 /obj/structure/railing/tg{
 	color = "#A47449";
@@ -4132,13 +4132,13 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "JL" = (
 /obj/machinery/door/unpowered/secure_bos,
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "JV" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -4412,7 +4412,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "LX" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/brotherhood/vertibird)
@@ -4477,7 +4477,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "MR" = (
 /obj/item/bedsheet/hos,
 /obj/structure/bed,
@@ -4485,7 +4485,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "MS" = (
 /obj/item/kirbyplants{
 	icon_state = "plant-10";
@@ -4569,7 +4569,7 @@
 	layer = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Np" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -4693,7 +4693,7 @@
 	dir = 5
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Pd" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/tg{
@@ -4856,7 +4856,7 @@
 	icon_state = "rampuptop";
 	dir = 1
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Qp" = (
 /turf/open/floor/f13{
 	color = "#818181";
@@ -4943,7 +4943,7 @@
 	dir = 9
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "QK" = (
 /obj/structure/rug/big/rug_yellow,
 /turf/open/floor/wood_common/wood_common_light,
@@ -5011,7 +5011,7 @@
 	dir = 1
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Rl" = (
 /obj/structure/barricade/wooden{
 	layer = 5
@@ -5024,7 +5024,7 @@
 	dir = 1
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Rp" = (
 /obj/machinery/door/airlock/vault{
 	req_access_txt = "120"
@@ -5146,7 +5146,7 @@
 	color = "#A47449"
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Ss" = (
 /turf/closed/indestructible/f13vaultrusted,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -5159,7 +5159,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "SA" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/cable{
@@ -5228,7 +5228,7 @@
 	dir = 10
 	},
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "SO" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -5264,7 +5264,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Tb" = (
 /turf/closed/wall/f13/sunset/brick_small/baltimore,
 /area/f13/baltimore/building/town/appartment2)
@@ -5383,7 +5383,7 @@
 /area/f13/baltimore/wasteland/citywasteland/town)
 "Vg" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Vn" = (
 /obj/machinery/light/small{
 	dir = 1;
@@ -5415,7 +5415,7 @@
 	dir = 9
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "VD" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/brotherhood)
@@ -5501,7 +5501,7 @@
 	color = "#818181";
 	icon_state = "floorrustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Ww" = (
 /obj/effect/spawner/structure/window/plastitanium,
 /turf/open/floor/f13{
@@ -5608,7 +5608,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Xn" = (
 /turf/closed/wall/f13/tentwall{
 	name = "Airship envelop"
@@ -5659,7 +5659,7 @@
 /turf/open/floor/f13{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "Yd" = (
 /obj/structure/rack/shelf_metal,
 /obj/structure/rack/shelf_metal,
@@ -5807,7 +5807,7 @@
 /area/f13/baltimore/brotherhood/vertibird)
 "ZG" = (
 /turf/closed/wall/rust,
-/area/f13/baltimore/brotherhood/doorms)
+/area/f13/baltimore/brotherhood/dorms)
 "ZI" = (
 /obj/effect/overlay/shadow{
 	layer = 2

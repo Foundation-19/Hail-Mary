@@ -9031,7 +9031,7 @@
 	sunlight_state = 1;
 	icon_state = "common_light1"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "cJB" = (
 /obj/structure/simple_door/metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
@@ -11333,6 +11333,20 @@
 /obj/structure/flora/tree/toppledpowerline,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/wasteland/city)
+"dra" = (
+/obj/structure/railing/wood{
+	pixel_y = -25;
+	name = "wooden docks";
+	color = "#669999"
+	},
+/obj/structure/railing/wood{
+	pixel_y = -21;
+	name = "wooden docks";
+	color = "#669999";
+	density = 0
+	},
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/f13/baltimore/building/boat)
 "drc" = (
 /turf/open/indestructible/ground/outside/sidewalkdirt,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -17740,6 +17754,13 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/baltimore/building)
+"fgB" = (
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "mosaic_light3"
+	},
+/area/f13/baltimore/building/boat)
 "fgE" = (
 /obj/item/cardboard_cutout,
 /obj/item/clothing/suit/det_suit/forensicsblue/long{
@@ -20956,7 +20977,7 @@
 	sunlight_state = 1;
 	icon_state = "common_light1"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "gcK" = (
 /obj/item/trash/f13/tin_large,
 /turf/open/indestructible/ground/outside/baltimore{
@@ -37149,10 +37170,6 @@
 	icon_state = "dirt_original"
 	},
 /area/f13/building/center)
-"lis" = (
-/obj/structure/closet/crate/bin/trashbin,
-/turf/open/indestructible/ground/outside/gravel,
-/area/f13/baltimore/wasteland/city/citycenter)
 "liD" = (
 /obj/machinery/door/airlock/medical{
 	req_access_txt = "280"
@@ -38824,6 +38841,9 @@
 	icon_state = "whitegreenrustychess"
 	},
 /area/f13/baltimore/building/abandoned)
+"lHW" = (
+/turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
+/area/f13/baltimore/building/boat)
 "lIk" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -41794,6 +41814,13 @@
 "myr" = (
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/building/abandoned/mchenrymuseum)
+"myt" = (
+/turf/open/floor/wood_common{
+	name = "wooden dock";
+	sunlight_state = 1;
+	icon_state = "common_light1"
+	},
+/area/f13/baltimore/building/boat)
 "myu" = (
 /turf/open/water/baltimore/deep,
 /area/f13/baltimore/building/boat)
@@ -43940,7 +43967,7 @@
 /obj/item/reagent_containers/glass/bucket/wood,
 /obj/item/cultivator/rake,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "nfr" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -46661,7 +46688,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "nWG" = (
 /obj/structure/table,
 /obj/item/reagent_containers/food/snacks/f13/canned/dog,
@@ -62394,7 +62421,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "sKj" = (
 /turf/open/indestructible/ground/outside/baltimore{
 	icon_state = "road_north"
@@ -65601,6 +65628,12 @@
 	},
 /turf/open/floor/wood_common/wood_common_light,
 /area/f13/baltimore/building/abandoned)
+"tGf" = (
+/obj/structure/closet/crate/bin/trashbin,
+/turf/open/indestructible/ground/outside/sidewalkdirt{
+	icon_state = "verticalrightborderright1"
+	},
+/area/f13/baltimore/wasteland/city/citycenter)
 "tGh" = (
 /obj/structure/debris/v4,
 /turf/open/indestructible/ground/outside/gravel,
@@ -65676,7 +65709,7 @@
 	sunlight_state = 1;
 	icon_state = "fancy_light1"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "tIh" = (
 /obj/structure/railing/wood{
 	pixel_y = 4;
@@ -68267,7 +68300,7 @@
 	sunlight_state = 1;
 	icon_state = "fancy_light1"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "uuD" = (
 /turf/open/indestructible/ground/outside/sidewalk{
 	icon_state = "verticalleftborderleft3"
@@ -72534,7 +72567,7 @@
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "vGc" = (
 /obj/structure/flora/junglebush/large,
 /turf/open/water/baltimore/deep,
@@ -80518,7 +80551,7 @@
 	sunlight_state = 1;
 	icon_state = "fancy_light1"
 	},
-/area/f13/baltimore/wasteland/citywasteland/town)
+/area/f13/baltimore/building/boat)
 "xZX" = (
 /obj/item/storage/toolbox/electrical{
 	pixel_y = 6
@@ -133138,13 +133171,13 @@ dSX
 dSX
 dSX
 rAX
-mIP
+dra
 tHU
 cJA
-jxn
-qug
+fgB
+myt
 xZJ
-mIP
+dra
 mVG
 dSX
 dSX
@@ -136406,8 +136439,8 @@ mvc
 rib
 rib
 drc
-lis
-nwa
+stx
+tGf
 rNP
 iWL
 pOl
@@ -136758,7 +136791,7 @@ iYp
 pkI
 pkI
 tqY
-stx
+tqY
 hUR
 stx
 stx
@@ -151433,7 +151466,7 @@ sJY
 nWB
 gcz
 uuA
-jRj
+lHW
 owf
 oxn
 vDd

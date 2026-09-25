@@ -1723,7 +1723,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	\
 	For this year, the AEGIS refit, now alone is too keep relation with town and brotherhood at a best.\
 	Remember to get paid from the people we heal. We also must protect our interess, and funds, so take down of concurence, by peacefull or lethal means have been authorised."
-	doc_title_2 = "Price suggestion - 01/01/2288 "
+	doc_title_2 = "Price suggestion - 01/01/2288"
 	doc_content_2 = "01/01/2288 - (FROM : Fleet Captain Annie Helo) (TO: ACHS Aegis).\
 	\
 	Medical Check up : 20 caps \
@@ -1946,7 +1946,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 /obj/machinery/computer/terminal/baltimore/vault124/survival
 	doc_title_3 = "I trust the doctors"
 	doc_content_3 =  "Year of Hell.	Zax, he didnt go rogue. He became human. Sure still a machine, but the years talking to my familly impacted him.\
-	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a actual familly members \
+	I recall my dad saying that Zax was relayable. A friend. Some had issues, some seen him as a actual familly members.\
 	And the people of Vault 125 ? Same thing. But now, it all changes. Vault 124 is nearly deserted, with a big group of hundred twenty fourers serving on 125.\
 	125 guys are now in command, but I am trying to resist, trying to find a way for us to escape."
 
@@ -1959,7 +1959,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	doc_title_5 = "I trust the scientist"
 	doc_content_5 =  "Zax is... Impressive. An 124 in deep cover managed track a guy call Daniel Littlehorn in the capital. The guys is basically a front for Zax. They are paid with ACTUAL gold.\
 	Same with that Talon and Gunner group. Zax is even trying to take control of the New York.\
-	Finding weakness is hard, but possible. The few guys of 124 located here and in 125 are planning an attack. Blowing up a Pip Boy near the central computer. \
+	Finding weakness is hard, but possible. The few guys of 124 located here and in 125 are planning an attack. Blowing up a Pip Boy near the central computer.\
 	Its being prepared at botany"
 
 
