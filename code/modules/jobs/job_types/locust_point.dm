@@ -863,7 +863,7 @@ Mayor
 /datum/job/locust/f13minutemen
 	title = "Minuteman"
 	flag = F13MINUTEMEN
-	faction = DEP_MINUTEMEN
+	faction = FACTION_MINUTEMEN
 	total_positions = 10
 	spawn_positions = 10
 	description = "A beacon of liberty and light in the wastes. The Minutemen are freedom-fighters that aim to keep the wastes a safer and more just place."
@@ -941,7 +941,7 @@ Mayor
 /datum/job/locust/f13minutemencaptain
 	title = "Minuteman Captain"
 	flag = F13MINUTEMENCAPTAIN
-	faction = DEP_MINUTEMEN
+	faction = FACTION_MINUTEMEN
 	total_positions = 2
 	spawn_positions = 2
 	description = "A team leader within the minutemen. Lead squad and are acting commander when there is no Major. They use heavy armor and weapons."
@@ -1003,7 +1003,7 @@ Mayor
 /datum/job/locust/f13minutemen/veteran
 	title = "Minuteman Veteran"
 	flag = F13MINUTEMENVET
-	faction = DEP_MINUTEMEN
+	faction = FACTION_MINUTEMEN
 	total_positions = 1
 	spawn_positions = 1
 	description = "Militian needs training and for someone to guide them into battle and victory. You are that man. May it be from past battles with the minutemens, or any kind of factions, you decided to give your knowledge in a good cause."
@@ -1048,7 +1048,7 @@ Mayor
 /datum/job/locust/f13minutemenmajor
 	title = "Minuteman Major"
 	flag = F13MINUTEMENMAJOR
-	faction = DEP_MINUTEMEN
+	faction = FACTION_MINUTEMEN
 	total_positions = 1
 	spawn_positions = 1
 	description = "The highest ranking Minutemen and the flagbearer of the organisation. You organise the squad, gives, orders, plan operations."
@@ -1101,7 +1101,7 @@ Mayor
 /datum/job/locust/f13minutemenltcolonel
 	title = "Minuteman Lieutenant Colonel"
 	flag = F13MINUTEMENLTCOLONEL
-	faction = DEP_MINUTEMEN
+	faction = FACTION_MINUTEMEN
 	total_positions = 0
 	spawn_positions = 0
 	description = "You are in charge... From affar."
