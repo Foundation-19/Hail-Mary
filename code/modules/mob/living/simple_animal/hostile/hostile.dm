@@ -2041,6 +2041,11 @@
 				if(D.density)
 					try_open_door(D)
 
+	// try_open_door() above can sleep (door Open()/Close()), during which the target
+	// may be qdel'd/lost asynchronously (handle_target_del nulls target mid-yield).
+	if(!target)
+		return 0
+
 	if(!Process_Spacemove())
 		walk(src, 0)
 		return 1
