@@ -2,6 +2,13 @@
 	. = ..()
 	update_turf_movespeed(loc)
 	update_pixel_shifting(TRUE)
+	// Passive fog-of-war reveal -- fires on every step regardless of whether the World Map
+	// UI is even open, so exploration isn't lost while the minimap is still baking or the
+	// player simply hasn't looked at the map yet. Player-controlled only, no point tracking
+	// exploration for NPCs/simple animals that never open the map.
+	if(client && stat != DEAD)
+		var/datum/minimap/M = SSminimaps.get_minimap_for_z(z)
+		M?.reveal_around(src, loc)
 
 /mob/living/setDir(newdir, ismousemovement)
 	. = ..()
