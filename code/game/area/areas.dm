@@ -3182,7 +3182,7 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	name = "Vault 125 Luxe Recreation Hall"
 	icon_state = "casino"
 
-/area/f13/baltimore/vault125/doorm
+/area/f13/baltimore/vault125/dorm
 	name = "Vault 125 dorms"
 	icon_state = "crew_quarters"
 

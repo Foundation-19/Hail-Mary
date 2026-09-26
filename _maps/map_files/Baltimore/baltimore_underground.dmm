@@ -541,7 +541,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "atU" = (
 /obj/structure/bonfire/prelit,
 /turf/open/indestructible/ground/inside/subway,
@@ -590,7 +590,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "avi" = (
 /obj/effect/spawner/lootdrop/f13/medical/wasteland/meds/drug,
 /mob/living/simple_animal/hostile/raider/ranged/boss,
@@ -658,7 +658,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "awO" = (
 /obj/structure/bed/old,
 /obj/structure/bed/old{
@@ -1882,7 +1882,7 @@
 /turf/closed/wall/f13/supermart{
 	name = "Concret wall"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "bkD" = (
 /obj/structure/sign/poster/prewar/vault_tec,
 /turf/closed/wall/f13/supermart{
@@ -2262,7 +2262,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "bwM" = (
 /obj/effect/turf_decal/stripes/line,
 /obj/structure/fence/handrail{
@@ -2583,7 +2583,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "bFZ" = (
 /mob/living/simple_animal/hostile/ghoul,
 /obj/effect/turf_decal/weather/dirt{
@@ -3255,7 +3255,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "cbE" = (
 /obj/structure/bookshelf{
 	icon_state = "book-5"
@@ -3301,7 +3301,7 @@
 	pixel_y = 31
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "ccP" = (
 /obj/structure/chair/right{
 	dir = 8
@@ -3707,7 +3707,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow{
 	icon_state = "yellowrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "cst" = (
 /turf/open/floor/f13{
 	color = "#A47449";
@@ -5715,7 +5715,7 @@
 /area/f13/ruins)
 "dLb" = (
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "dMC" = (
 /obj/structure/destructible/tribal_torch/wall/lit{
 	dir = 8
@@ -5824,7 +5824,7 @@
 /obj/item/vending_refill/boozeomat,
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "dPP" = (
 /obj/structure/junk/small/bed,
 /obj/machinery/light/dim,
@@ -6032,7 +6032,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "dUS" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/terminal/baltimore/ghoultown{
@@ -6629,7 +6629,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "enT" = (
 /obj/structure/rack/large/shelf_rust,
 /obj/item/trash/f13/borscht,
@@ -6751,7 +6751,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "etj" = (
 /obj/effect/decal/fakelattice,
 /obj/effect/decal/waste{
@@ -7167,7 +7167,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "eHi" = (
 /obj/structure/closet/radiation,
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
@@ -7258,7 +7258,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "eKy" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/junk/jukebox,
@@ -8018,7 +8018,7 @@
 /obj/item/circuitboard/machine/autolathe,
 /obj/item/circuitboard/machine/cyborgrecharger,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "fop" = (
 /obj/structure/chair/office/dark{
 	dir = 1
@@ -8229,7 +8229,7 @@
 /area/f13/tcoms)
 "fvb" = (
 /turf/open/floor/plating,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "fvz" = (
 /turf/open/indestructible/ground/outside/water/cavern,
 /area/f13/baltimore/building/abandoned)
@@ -8281,7 +8281,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "fxm" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
@@ -8883,7 +8883,7 @@
 /area/f13/ruins)
 "fOC" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "fPj" = (
 /obj/machinery/vending/sovietsoda,
 /turf/open/floor/plasteel/showroomfloor,
@@ -9642,7 +9642,7 @@
 /obj/item/tank/internals/emergency_oxygen,
 /obj/item/tank/internals/emergency_oxygen,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "gmS" = (
 /obj/effect/overlay/docks/rust,
 /obj/structure/railing/tg{
@@ -10823,7 +10823,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "hbo" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -11497,7 +11497,7 @@
 	},
 /obj/structure/decoration/vent/rusty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "hvH" = (
 /obj/machinery/vending/dinnerware{
 	color = "#c1b6a5"
@@ -11738,7 +11738,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "hFx" = (
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
 /area/f13/ruins)
@@ -12302,7 +12302,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "hUN" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/drip,
@@ -12948,7 +12948,7 @@
 	},
 /obj/machinery/mineral/wasteland_trader/special/vault125,
 /turf/open/floor/plating,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "ivz" = (
 /mob/living/simple_animal/hostile/ghoul,
 /obj/machinery/light/small/broken{
@@ -13837,7 +13837,7 @@
 	name = "underground gravel";
 	sunlight_state = 0
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "iZy" = (
 /obj/structure/table/reinforced{
 	color = "#c1b6a5"
@@ -16575,7 +16575,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "kzt" = (
 /obj/machinery/light/fo13colored/Red{
 	dir = 4
@@ -16645,7 +16645,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "kAQ" = (
 /obj/structure/flora/ausbushes/grassybush,
 /turf/open/floor/plating/f13/inside/gravel,
@@ -17155,7 +17155,7 @@
 	},
 /obj/machinery/light/floor,
 /turf/open/floor/plating,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "kPd" = (
 /obj/item/locked_box/misc/blueprints/tier2,
 /turf/open/floor/plating/rust,
@@ -17682,7 +17682,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "liS" = (
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds,
 /obj/structure/table,
@@ -17740,7 +17740,7 @@
 	},
 /obj/machinery/light/floor,
 /turf/open/floor/plating,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "lla" = (
 /obj/structure/table/wood/bar,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -17847,7 +17847,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "lpo" = (
 /obj/structure/dresser,
 /obj/item/kirbyplants{
@@ -17878,7 +17878,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "lpw" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/turf_decal/stripes/asteroid/line{
@@ -18286,7 +18286,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "lAP" = (
 /turf/closed/wall/f13/tunnel{
 	icon_state = "tunnel9"
@@ -19033,7 +19033,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "lZU" = (
 /obj/machinery/hydroponics/soil/pot{
 	pixel_y = -9
@@ -19132,7 +19132,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "mdo" = (
 /obj/item/stack/cable_coil/green,
 /obj/effect/overlay/water,
@@ -19326,7 +19326,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "mkg" = (
 /obj/structure/table/wood/fancy,
 /obj/item/reagent_containers/food/drinks/bottle/f13nukacola{
@@ -19559,7 +19559,7 @@
 /area/f13/vault)
 "msL" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "msW" = (
 /obj/effect/overlay/junk/curtain,
 /obj/structure/nest/zombieghoul,
@@ -20020,7 +20020,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "mJL" = (
 /obj/structure/sign/directions/security{
 	dir = 1;
@@ -20545,7 +20545,7 @@
 /obj/effect/spawner/lootdrop/breathing_tanks,
 /obj/effect/spawner/lootdrop/breathing_tanks,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "mYQ" = (
 /obj/structure/closetundense/locker/oldstyle,
 /obj/effect/overlay/docks,
@@ -20559,7 +20559,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "mZp" = (
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/floor/floorsolid,
@@ -21580,7 +21580,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "nDp" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/locked_box/misc/attachments,
@@ -21642,7 +21642,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "nFG" = (
 /obj/item/stack/cable_coil/green,
 /obj/structure/window/plastitanium/pirate{
@@ -22060,7 +22060,7 @@
 /obj/item/clothing/mask/breath,
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "nTq" = (
 /obj/structure/junk/machinery,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -22410,7 +22410,7 @@
 "ohm" = (
 /obj/machinery/recharge_station,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "ohK" = (
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -22661,7 +22661,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "onh" = (
 /obj/effect/decal/cleanable/generic,
 /obj/effect/spawner/lootdrop/f13/bomb/tier2,
@@ -22672,7 +22672,7 @@
 "onJ" = (
 /obj/structure/tank_dispenser/oxygen,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "ood" = (
 /obj/machinery/computer{
 	dir = 1;
@@ -23280,7 +23280,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "oFe" = (
 /obj/item/storage/trash_stack{
 	icon_state = "trash_2"
@@ -23771,7 +23771,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "oVj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/wreck/trash/four_barrels,
@@ -24462,7 +24462,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "poS" = (
 /obj/effect/overlay/junk/sink{
 	pixel_y = 15
@@ -25349,7 +25349,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "pTj" = (
 /obj/structure/rack,
 /obj/item/storage/crayons,
@@ -25648,7 +25648,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "redrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "qcb" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/ash,
@@ -26064,7 +26064,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "qnj" = (
 /obj/effect/overlay/docks/fortedge{
 	dir = 8
@@ -26118,7 +26118,7 @@
 /turf/closed/wall/f13/supermart{
 	name = "Concret wall"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "qof" = (
 /obj/structure/debris/v3,
 /obj/effect/overlay/water,
@@ -27236,7 +27236,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "qVN" = (
 /obj/item/twohanded/required/kirbyplants{
 	icon_state = "plant-22"
@@ -28031,7 +28031,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "rxA" = (
 /obj/structure/decoration/vent/rusty{
 	icon_state = "hatch"
@@ -32025,7 +32025,7 @@
 "tWG" = (
 /obj/structure/closet/l3closet/janitor,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "tWJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/flashlight,
@@ -32576,7 +32576,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "unO" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/f13/armor/costumes,
@@ -32980,7 +32980,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "uya" = (
 /obj/structure/table/wood/fancy/royalblack,
 /obj/machinery/computer/terminal/baltimore/vault125{
@@ -32989,7 +32989,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "uyt" = (
 /obj/structure/window/fulltile/store{
 	icon_state = "housewindowbroken"
@@ -33087,7 +33087,7 @@
 	},
 /obj/structure/decoration/vent/rusty,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "uDk" = (
 /obj/machinery/mineral/wasteland_trader/special/vault125{
 	icon_state = "right"
@@ -33095,7 +33095,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "uDA" = (
 /obj/machinery/conveyor/inverted{
 	dir = 1
@@ -34193,7 +34193,7 @@
 /obj/item/storage/box/lights/bulbs,
 /obj/item/storage/box/lights/bulbs,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "vhV" = (
 /obj/machinery/light/small,
 /obj/machinery/computer/shuttle/southbunkerelevator{
@@ -34479,7 +34479,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "vtK" = (
 /obj/structure/table/wood/crate,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
@@ -34531,7 +34531,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow{
 	icon_state = "yellowrustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "vva" = (
 /obj/structure/nest/molerat,
 /obj/effect/spawner/lootdrop/wrange_middle,
@@ -35318,7 +35318,7 @@
 "vTv" = (
 /obj/structure/closet/locker/oldstyle,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "vTB" = (
 /obj/machinery/light/broken{
 	dir = 1
@@ -35383,7 +35383,7 @@
 	},
 /obj/machinery/light/floor,
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "vWN" = (
 /obj/machinery/door/airlock/abandoned,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
@@ -36701,7 +36701,7 @@
 	dir = 8
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "wKG" = (
 /obj/effect/decal/cleanable/dirt{
 	color = "#363636"
@@ -36922,7 +36922,7 @@
 	},
 /obj/machinery/light/floor,
 /turf/open/floor/plating/rust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "wSB" = (
 /turf/open/indestructible/ground/outside/water/running{
 	sunlight_state = 0
@@ -37703,7 +37703,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustyfull"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xxj" = (
 /obj/structure/table,
 /obj/item/ammo_box/c10mm/fire,
@@ -37721,7 +37721,7 @@
 "xxN" = (
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xxS" = (
 /obj/machinery/door/airlock,
 /turf/open/floor/plasteel/darkred,
@@ -37885,7 +37885,7 @@
 "xDD" = (
 /obj/machinery/light,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xDI" = (
 /obj/effect/decal/cleanable/oil/slippery,
 /obj/effect/turf_decal/bot,
@@ -38006,7 +38006,7 @@
 	dir = 4
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xHS" = (
 /obj/structure/table,
 /obj/item/locked_box/misc/money/all/medium,
@@ -38231,7 +38231,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xPZ" = (
 /obj/structure/closet/crate/freezer/blood,
 /turf/open/floor/plating/rust,
@@ -38245,7 +38245,7 @@
 /obj/item/locked_box/misc/blueprints/tier2,
 /obj/item/locked_box/misc/blueprints/tier3,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xQI" = (
 /turf/open/water/baltimore/deep,
 /area/f13/tunnel/sub)
@@ -38505,7 +38505,7 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "bluerustysolid"
 	},
-/area/f13/baltimore/vault125/doorm)
+/area/f13/baltimore/vault125/dorm)
 "xZq" = (
 /obj/structure/chair{
 	dir = 1
@@ -92884,9 +92884,9 @@ ePc
 ePc
 ePc
 ePc
-ozB
-iBg
-ozB
+ePc
+auQ
+ePc
 ePc
 ePc
 ePc
@@ -93235,11 +93235,11 @@ ePc
 ePc
 ePc
 ePc
+ePc
 ozB
 iBg
-waO
-iBg
 ozB
+ePc
 ePc
 ePc
 ePc
@@ -93586,13 +93586,13 @@ ePc
 ePc
 ePc
 ePc
+ePc
 ozB
 iBg
-pve
-rkN
-tSG
+waO
 iBg
-jbS
+ozB
+ePc
 ePc
 ePc
 ePc
@@ -93940,11 +93940,11 @@ ePc
 ePc
 ozB
 iBg
-pup
-olQ
-sYx
+pve
+rkN
+tSG
 iBg
-auQ
+jbS
 ePc
 ePc
 ozB
@@ -94292,9 +94292,9 @@ ePc
 ePc
 ozB
 iBg
+pup
 olQ
-qdX
-qDs
+sYx
 iBg
 auQ
 ePc
@@ -94644,9 +94644,9 @@ ePc
 ePc
 ozB
 iBg
-iBg
-iBg
-ncI
+olQ
+qdX
+qDs
 iBg
 auQ
 ePc
@@ -94996,9 +94996,9 @@ ePc
 ePc
 ozB
 iBg
-tYm
-xtG
-vzv
+iBg
+iBg
+ncI
 iBg
 auQ
 ePc
@@ -95348,9 +95348,9 @@ ePc
 ePc
 ozB
 iBg
-oNd
-olQ
-rkN
+tYm
+xtG
+vzv
 iBg
 auQ
 ePc
@@ -95700,9 +95700,9 @@ ePc
 ePc
 ozB
 iBg
-vLp
-qDs
+oNd
 olQ
+rkN
 iBg
 auQ
 ePc
@@ -96052,9 +96052,9 @@ ePc
 ePc
 ozB
 iBg
-mDT
+vLp
+qDs
 olQ
-fyh
 iBg
 auQ
 ePc
@@ -96404,9 +96404,9 @@ ePc
 ePc
 ozB
 iBg
-cAz
-umE
-vlG
+mDT
+olQ
+fyh
 iBg
 auQ
 ePc
@@ -96754,13 +96754,13 @@ ePc
 ePc
 ePc
 ePc
-ePc
 ozB
 iBg
+cAz
+umE
+vlG
 iBg
-iBg
-ozB
-ePc
+auQ
 ePc
 ePc
 ozB
@@ -97107,11 +97107,11 @@ ePc
 ePc
 ePc
 ePc
-ePc
 ozB
+iBg
+iBg
+iBg
 ozB
-ozB
-ePc
 ePc
 ePc
 ePc
@@ -97460,9 +97460,9 @@ ePc
 ePc
 ePc
 ePc
-ePc
-ePc
-ePc
+ozB
+ozB
+ozB
 ePc
 ePc
 ePc
@@ -107301,9 +107301,9 @@ pGe
 pGe
 pGe
 pGe
+pGe
 ozB
-iBg
-ozB
+pGe
 pGe
 pGe
 pGe
@@ -107652,11 +107652,11 @@ pGe
 pGe
 pGe
 pGe
+pGe
 ozB
 iBg
-waO
-iBg
 ozB
+pGe
 pGe
 pGe
 pGe
@@ -108003,13 +108003,13 @@ pGe
 pGe
 pGe
 pGe
+pGe
 ozB
 iBg
-nSt
-rkN
-bhN
+waO
 iBg
 ozB
+pGe
 pGe
 pGe
 pGe
@@ -108357,9 +108357,9 @@ pGe
 pGe
 ozB
 iBg
-pup
-sTG
-sYx
+nSt
+rkN
+bhN
 iBg
 ozB
 pGe
@@ -108709,9 +108709,9 @@ pGe
 pGe
 ozB
 iBg
-sZq
-qdX
-qDs
+pup
+sTG
+sYx
 iBg
 ozB
 pGe
@@ -109061,9 +109061,9 @@ pGe
 pGe
 ozB
 iBg
-iBg
-iBg
-ncI
+sZq
+qdX
+qDs
 iBg
 ozB
 pGe
@@ -109413,9 +109413,9 @@ pGe
 pGe
 ozB
 iBg
-tYm
-xtG
-vzv
+iBg
+iBg
+ncI
 iBg
 ozB
 pGe
@@ -109765,9 +109765,9 @@ pGe
 pGe
 ozB
 iBg
-oNd
-olQ
-rkN
+tYm
+xtG
+vzv
 iBg
 ozB
 pGe
@@ -110117,9 +110117,9 @@ pGe
 pGe
 ozB
 iBg
-vLp
-qDs
+oNd
 olQ
+rkN
 iBg
 ozB
 pGe
@@ -110469,9 +110469,9 @@ pGe
 pGe
 ozB
 iBg
-mDT
+vLp
+qDs
 olQ
-fyh
 iBg
 ozB
 pGe
@@ -110821,9 +110821,9 @@ pGe
 pGe
 ozB
 iBg
-cAz
-umE
-vlG
+mDT
+olQ
+fyh
 iBg
 ozB
 pGe
@@ -111171,13 +111171,13 @@ pGe
 pGe
 pGe
 pGe
-mDC
 ozB
 iBg
-iBg
+cAz
+umE
+vlG
 iBg
 ozB
-mDC
 pGe
 pGe
 pGe
@@ -111524,11 +111524,11 @@ pGe
 pGe
 pGe
 mDC
-mDC
 ozB
+iBg
+iBg
+iBg
 ozB
-ozB
-mDC
 mDC
 pGe
 pGe
@@ -111875,12 +111875,12 @@ pGe
 pGe
 pGe
 pGe
-pGe
-pGe
-pGe
-pGe
-pGe
-pGe
+mDC
+mDC
+ozB
+ozB
+ozB
+mDC
 mDC
 pGe
 pGe

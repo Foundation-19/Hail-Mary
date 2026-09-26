@@ -1085,14 +1085,6 @@
 	icon_state = "fancy-broken1"
 	},
 /area/f13/baltimore/building/abandoned)
-"bjv" = (
-/obj/effect/overlay/rope{
-	icon_state = "6-9";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "bjw" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -1375,14 +1367,6 @@
 /obj/structure/simple_door/bunker,
 /turf/open/floor/plasteel/f13/vault_floor/dark/darksolid,
 /area/f13/baltimore/building/abandoned)
-"bvc" = (
-/obj/effect/overlay/rope{
-	icon_state = "1-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "bvZ" = (
 /turf/open/transparent/openspace,
 /area/f13/baltimore/building/abandoned/recruitement)
@@ -2226,13 +2210,6 @@
 /obj/structure/junk/cabinet,
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/abandoned)
-"cok" = (
-/obj/effect/overlay/rope{
-	icon_state = "1-6"
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "cow" = (
 /turf/open/floor/plasteel/f13/vault_floor/blue/side{
 	dir = 10;
@@ -4267,14 +4244,6 @@
 	},
 /turf/open/indestructible/ground/outside/dirt,
 /area/f13/baltimore/wasteland/city)
-"eln" = (
-/obj/effect/overlay/rope{
-	icon_state = "5-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "elN" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -5418,13 +5387,6 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/building/abandoned/recruitement)
-"fhF" = (
-/obj/effect/overlay/rope{
-	icon_state = "2-9"
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "fhH" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt{
@@ -6855,14 +6817,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/building/boat)
-"gJa" = (
-/obj/effect/overlay/rope{
-	icon_state = "1-6";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "gJl" = (
 /obj/structure/wreck/trash/machinepiletwo,
 /obj/structure/wreck/trash/machinepiletwo,
@@ -7157,13 +7111,6 @@
 	icon_state = "common1"
 	},
 /area/f13/building/center)
-"gXF" = (
-/obj/effect/overlay/rope{
-	icon_state = "1-2"
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "gYd" = (
 /obj/structure/closet/crate/footlocker,
 /turf/open/floor/wood_mosaic{
@@ -8769,6 +8716,7 @@
 	dir = 1;
 	icon_state = "computer"
 	},
+/obj/structure/table,
 /turf/open/transparent/glass/reinforced,
 /area/f13/baltimore/brotherhood/vertibird)
 "irg" = (
@@ -9012,10 +8960,6 @@
 	},
 /obj/structure/railing/tg{
 	dir = 4
-	},
-/obj/effect/overlay/rope{
-	icon_state = "6-9";
-	anchored = 1
 	},
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
@@ -13358,18 +13302,6 @@
 /obj/effect/decal/cleanable/blood,
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
 /area/f13/baltimore/wasteland/city)
-"mrf" = (
-/obj/effect/overlay/rope{
-	icon_state = "5-10";
-	anchored = 1
-	},
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 4
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "mrA" = (
 /turf/open/floor/plating/wooden,
 /area/f13/baltimore/building/town/appartment3)
@@ -13424,14 +13356,6 @@
 	icon_state = "wide_light-broken2"
 	},
 /area/f13/baltimore/building/town/mayorial)
-"msY" = (
-/obj/effect/overlay/rope{
-	icon_state = "1-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "mtf" = (
 /obj/structure/wreck/car/bike{
 	pixel_y = -6;
@@ -14350,6 +14274,7 @@
 /obj/machinery/computer/card/bos{
 	dir = 1
 	},
+/obj/structure/table,
 /turf/open/transparent/glass/reinforced,
 /area/f13/baltimore/brotherhood/vertibird)
 "nkX" = (
@@ -14889,14 +14814,6 @@
 /obj/effect/spawner/lootdrop/f13/traitbooks,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/boat)
-"nKo" = (
-/obj/effect/overlay/rope{
-	icon_state = "2-5";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "nKQ" = (
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/abandoned)
@@ -15076,6 +14993,7 @@
 	dir = 4;
 	pixel_x = -5
 	},
+/obj/structure/table,
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
@@ -15137,18 +15055,6 @@
 "nZv" = (
 /turf/closed/wall/mineral/concrete,
 /area/f13/baltimore/wasteland/city)
-"nZO" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 1
-	},
-/obj/effect/overlay/rope{
-	icon_state = "6-9";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "oaE" = (
 /obj/structure/chair/folding{
 	dir = 8
@@ -15646,6 +15552,7 @@
 	icon_state = "production_console_old";
 	pixel_x = 31
 	},
+/obj/structure/table,
 /turf/open/floor/f13{
 	color = "#818181";
 	icon_state = "floorrustysolid"
@@ -15716,14 +15623,6 @@
 /obj/structure/chair/wood,
 /turf/open/floor/wood_wide/wood_wide_dark,
 /area/f13/baltimore/atlantic_cross)
-"ozU" = (
-/obj/effect/overlay/rope{
-	icon_state = "2-9";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "ozZ" = (
 /obj/structure/railing/corner{
 	icon_state = "straight";
@@ -17595,14 +17494,6 @@
 	icon_state = "common_light1"
 	},
 /area/f13/baltimore/wasteland/citywasteland/town)
-"qpT" = (
-/obj/effect/overlay/rope{
-	icon_state = "5-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "qqj" = (
 /obj/structure/window/plasma/reinforced,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1{
@@ -18163,10 +18054,6 @@
 /obj/structure/railing/tg{
 	dir = 8
 	},
-/obj/effect/overlay/rope{
-	icon_state = "5-10";
-	anchored = 1
-	},
 /obj/structure/lattice,
 /turf/open/transparent/openspace,
 /area/f13/baltimore/brotherhood/vertibird)
@@ -18264,14 +18151,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
-"rdW" = (
-/obj/effect/overlay/rope{
-	icon_state = "5-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "reL" = (
 /obj/structure/chair/booth{
 	dir = 4
@@ -18625,14 +18504,6 @@
 "ruy" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
 /area/f13/baltimore/building/abandoned)
-"ruO" = (
-/obj/effect/overlay/rope{
-	icon_state = "6-9";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/Ocean)
 "rvz" = (
 /obj/effect/decal/cleanable/greenglow,
 /turf/closed/wall/f13/sunset/brick_small_light/baltimore,
@@ -19220,14 +19091,6 @@
 	},
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/building/center)
-"rZO" = (
-/obj/effect/overlay/rope{
-	icon_state = "6-9";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "sau" = (
 /obj/structure/junk/micro,
 /turf/open/floor/wood_mosaic{
@@ -19349,14 +19212,6 @@
 "sgg" = (
 /turf/closed/wall/f13/sunset/brick_small_dark/baltimore,
 /area/f13/building/center)
-"sgy" = (
-/obj/effect/overlay/rope{
-	icon_state = "2-5";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "sgD" = (
 /obj/structure/bookcase/manuals/medical{
 	pixel_y = -8
@@ -20267,18 +20122,6 @@
 /obj/structure/barricade/wooden/planks,
 /turf/open/floor/wood_worn/wood_worn_dark,
 /area/f13/building/center)
-"sTW" = (
-/obj/effect/overlay/rope{
-	icon_state = "6-9";
-	anchored = 1
-	},
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 8
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/lab)
 "sUr" = (
 /obj/structure/cargocrate{
 	layer = 3;
@@ -21687,18 +21530,6 @@
 "ups" = (
 /turf/open/transparent/openspace,
 /area/f13/outpost)
-"upz" = (
-/obj/structure/railing{
-	color = "#A47449";
-	dir = 1
-	},
-/obj/effect/overlay/rope{
-	icon_state = "5-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/brotherhood/vertibird)
 "upU" = (
 /obj/item/chair,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
@@ -28914,7 +28745,7 @@ tyV
 yaN
 fbJ
 fbJ
-gJa
+abL
 abL
 tyV
 tyV
@@ -29264,10 +29095,10 @@ tyV
 tyV
 tyV
 abL
-ruO
 abL
 abL
-ruO
+abL
+abL
 abL
 tyV
 tyV
@@ -29617,10 +29448,10 @@ tyV
 tyV
 tyV
 abL
-ruO
 abL
 abL
-ruO
+abL
+abL
 tyV
 tyV
 tyV
@@ -29970,12 +29801,12 @@ tyV
 tyV
 tyV
 abL
-rZO
+fqh
 tvR
 bVY
 fQU
 hOQ
-cok
+qzk
 wek
 wek
 hNQ
@@ -30328,14 +30159,14 @@ top
 erE
 hOQ
 qzk
-bjv
+qzk
 qzk
 hNQ
 apy
 anQ
 apy
 xwc
-nKo
+qzk
 hOQ
 uVS
 hOQ
@@ -30681,12 +30512,12 @@ yeW
 kOS
 wek
 qzk
-bjv
+qzk
 yle
 fJR
 eME
 fJR
-upz
+xwc
 qzk
 hOQ
 uEH
@@ -31017,12 +30848,12 @@ fhd
 fhd
 fhd
 fqh
-sgy
-gXF
-gXF
-gXF
-gXF
-gXF
+fqh
+fqh
+fqh
+fqh
+fqh
+fqh
 bVY
 bym
 lMd
@@ -31368,7 +31199,7 @@ qlt
 qlt
 qlt
 qlt
-mrf
+qlt
 fqh
 fqh
 fqh
@@ -32776,7 +32607,7 @@ lQY
 lQY
 lQY
 lQY
-sTW
+lQY
 fqh
 fqh
 fqh
@@ -33129,12 +32960,12 @@ fhd
 fhd
 fhd
 fqh
-fhF
-gXF
-gXF
-gXF
-gXF
-gXF
+fqh
+fqh
+fqh
+fqh
+fqh
+fqh
 bVY
 soh
 ciQ
@@ -33497,12 +33328,12 @@ xsK
 kOS
 wek
 qzk
-qpT
+qzk
 yle
 rQn
 dxl
 rQn
-nZO
+xwc
 qzk
 hOQ
 uEH
@@ -33848,14 +33679,14 @@ bcG
 ahc
 hOQ
 qzk
-qpT
+qzk
 qzk
 hNQ
 apy
 cUZ
 apy
 xwc
-ozU
+qzk
 hOQ
 uVS
 hOQ
@@ -34194,12 +34025,12 @@ tyV
 tyV
 tyV
 abL
-eln
+fqh
 fQU
 bVY
 tvR
 qfG
-bvc
+qzk
 wek
 wek
 hNQ
@@ -34545,10 +34376,10 @@ tyV
 tyV
 tyV
 abL
-rdW
 abL
 abL
-rdW
+abL
+abL
 abL
 tyV
 tyV
@@ -34896,10 +34727,10 @@ tyV
 tyV
 tyV
 abL
-rdW
 abL
 abL
-rdW
+abL
+abL
 abL
 tyV
 tyV
@@ -35250,7 +35081,7 @@ fFP
 yaN
 fbJ
 fbJ
-msY
+abL
 abL
 tyV
 tyV
@@ -74030,8 +73861,8 @@ pIA
 pIA
 xwF
 xwF
-loq
 xwF
+loq
 xwF
 wob
 wob
@@ -74381,8 +74212,8 @@ pIA
 (140,1,1) = {"
 pIA
 xwF
-loq
-loq
+xwF
+xwF
 loq
 xwF
 wob
@@ -74733,8 +74564,8 @@ pIA
 (141,1,1) = {"
 pIA
 xwF
-loq
-loq
+xwF
+xwF
 loq
 loq
 xwF
@@ -75085,8 +74916,8 @@ pIA
 (142,1,1) = {"
 pIA
 xwF
-loq
-loq
+xwF
+xwF
 loq
 loq
 xwF
@@ -75437,8 +75268,8 @@ pIA
 (143,1,1) = {"
 pIA
 xwF
-loq
-loq
+xwF
+xwF
 loq
 loq
 xwF
@@ -75789,7 +75620,7 @@ pIA
 (144,1,1) = {"
 pIA
 xwF
-loq
+xwF
 loq
 loq
 loq
@@ -76141,7 +75972,7 @@ pIA
 (145,1,1) = {"
 pIA
 xwF
-loq
+xwF
 loq
 loq
 loq
@@ -76493,7 +76324,7 @@ pIA
 (146,1,1) = {"
 pIA
 xwF
-loq
+xwF
 loq
 loq
 loq
@@ -76845,7 +76676,7 @@ pIA
 (147,1,1) = {"
 pIA
 xwF
-loq
+xwF
 loq
 loq
 loq
@@ -77197,7 +77028,7 @@ pIA
 (148,1,1) = {"
 pIA
 xwF
-loq
+xwF
 loq
 loq
 loq
@@ -77549,10 +77380,10 @@ pIA
 (149,1,1) = {"
 pIA
 xwF
-loq
-loq
-loq
 xwF
+loq
+loq
+loq
 xwF
 xwF
 xwF
@@ -77901,10 +77732,10 @@ pIA
 (150,1,1) = {"
 pIA
 xwF
-loq
-loq
-loq
 xwF
+xwF
+loq
+loq
 xwF
 xwF
 xwF
@@ -78256,7 +78087,7 @@ xwF
 xwF
 xwF
 xwF
-xwF
+loq
 xwF
 xwF
 xwF

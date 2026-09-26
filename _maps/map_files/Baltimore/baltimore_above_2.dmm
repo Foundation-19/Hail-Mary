@@ -923,14 +923,6 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/brotherhood/vertibird)
-"hE" = (
-/obj/effect/overlay/rope{
-	icon_state = "8-9";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "hI" = (
 /obj/structure/rug/big/rug_red{
 	layer = 1
@@ -1817,14 +1809,6 @@
 /obj/item/gun/energy/laser/complianceregulator,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/atlantic_cross/armory)
-"oR" = (
-/obj/effect/overlay/rope{
-	icon_state = "5-6";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "oT" = (
 /obj/structure/sink/greyscale{
 	dir = 8;
@@ -2635,14 +2619,6 @@
 	icon_state = "mosaic-broken3"
 	},
 /area/f13/building/center)
-"vJ" = (
-/obj/effect/overlay/rope{
-	icon_state = "9-10";
-	anchored = 1
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "vM" = (
 /obj/machinery/rnd/server/bos,
 /turf/open/floor/f13{
@@ -3250,6 +3226,16 @@
 "AU" = (
 /turf/open/floor/plating/f13/outside/roof/metal,
 /area/f13/baltimore/building/abandoned/recruitement)
+"AV" = (
+/obj/structure/closet/crate/leftfootlocker,
+/obj/item/clothing/under/f13/bosformsilver_f,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/suit/armor/light/duster/bos/knight,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/dorms)
 "Bb" = (
 /obj/structure/table/booth,
 /obj/structure/railing/tg{
@@ -4139,6 +4125,13 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/brotherhood/dorms)
+"JR" = (
+/obj/structure/table,
+/obj/item/storage/box/handcuffs,
+/turf/open/floor/f13/red{
+	icon_state = "redrustysolid"
+	},
+/area/f13/baltimore/brotherhood/lab)
 "JV" = (
 /turf/open/floor/plating/f13/outside/roof/red,
 /area/f13/baltimore/wasteland/citywasteland/town)
@@ -4200,6 +4193,15 @@
 /obj/structure/barricade/bars,
 /turf/open/floor/wood_common/wood_common_dark,
 /area/f13/baltimore/building/town/mayorial)
+"Ko" = (
+/obj/structure/closet/crate/leftfootlocker,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/obj/item/clothing/under/f13/bosformsilver_f,
+/obj/item/clothing/head/f13/boscap/lancerhelmet,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/dorms)
 "Kp" = (
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/wasteland/city/citycenter)
@@ -4424,6 +4426,10 @@
 	light_color = "#FFDDCC";
 	color = "#FFDDCC"
 	},
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
+/obj/item/clothing/under/rank/prisoner,
 /turf/open/floor/f13/red{
 	icon_state = "redrustysolid"
 	},
@@ -5177,6 +5183,16 @@
 /obj/structure/rack/shelf_metal,
 /turf/open/floor/wood_fancy/wood_fancy_dark,
 /area/f13/baltimore/building/town/appartment1)
+"SH" = (
+/obj/structure/closet/crate/leftfootlocker,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/under/f13/bosform_f,
+/obj/item/clothing/under/f13/bosform_m,
+/obj/item/clothing/suit/armor/light/duster/bos/initiate,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/dorms)
 "SL" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -5396,13 +5412,6 @@
 "Vo" = (
 /turf/closed/wall/f13/store/constructed,
 /area/f13/baltimore/building/abandoned)
-"Vp" = (
-/obj/effect/overlay/rope{
-	icon_state = "6-9"
-	},
-/obj/structure/lattice,
-/turf/open/transparent/openspace,
-/area/f13/baltimore/wasteland/city)
 "Vr" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated/red,
 /area/f13/baltimore/building/abandoned)
@@ -5479,6 +5488,16 @@
 	},
 /turf/open/transparent/openspace,
 /area/f13/baltimore/wasteland/citywasteland/town)
+"VX" = (
+/obj/structure/closet/crate/leftfootlocker,
+/obj/item/clothing/under/f13/bosformsilver_m,
+/obj/item/clothing/under/f13/bosformsilver_f,
+/obj/item/clothing/shoes/jackboots,
+/obj/item/clothing/suit/armor/light/duster/bos/squire,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/dorms)
 "Wc" = (
 /turf/open/floor/plating/f13/outside/roof/metal/corrugated/green,
 /area/f13/baltimore/building/abandoned)
@@ -5783,6 +5802,15 @@
 	},
 /turf/open/floor/plating/rust,
 /area/f13/baltimore/brotherhood/vertibird)
+"Zw" = (
+/obj/structure/closet/cabinet/anchored,
+/obj/item/clothing/under/f13/bosformgold_m,
+/obj/item/clothing/under/f13/bosformgold_f,
+/obj/item/clothing/suit/armor/light/duster/bos/officer,
+/turf/open/floor/f13{
+	icon_state = "bluerustysolid"
+	},
+/area/f13/baltimore/brotherhood/dorms)
 "Zz" = (
 /obj/structure/railing{
 	color = "#A47449";
@@ -10350,17 +10378,17 @@ dO
 ZG
 ZG
 gK
-eC
+Zw
 ZG
-bk
+Ko
 Ae
 qr
-bk
+VX
 Ae
 qr
-bk
+SH
 Ae
-bk
+SH
 QG
 No
 uk
@@ -11056,15 +11084,15 @@ tp
 iz
 yK
 ZG
-bk
+Ko
 Ae
 qr
-bk
+VX
 Ae
 qr
-bk
+SH
 Ae
-bk
+SH
 ic
 Sj
 vO
@@ -11422,7 +11450,7 @@ Sj
 vO
 kU
 vO
-Lp
+JR
 Lp
 mW
 Yg
@@ -11766,9 +11794,9 @@ wj
 ZG
 Ae
 wj
-bk
+SH
 Ae
-bk
+SH
 si
 ei
 vO
@@ -12867,7 +12895,7 @@ fq
 ts
 ts
 rE
-oR
+rE
 rE
 Ik
 cI
@@ -13174,9 +13202,9 @@ mv
 mv
 mv
 ZG
-bk
+AV
 Ae
-bk
+AV
 oX
 SM
 JE
@@ -13218,9 +13246,9 @@ XP
 ts
 MC
 rE
-vJ
 rE
-Vp
+rE
+rE
 Ik
 Ik
 Ik
@@ -13573,7 +13601,7 @@ Ds
 Ds
 Ds
 Ds
-hE
+rE
 Ds
 Ds
 Ds
@@ -13878,9 +13906,9 @@ Ae
 Ae
 Ae
 ZG
-bk
+AV
 Ae
-bk
+AV
 ic
 Sj
 Mq
@@ -14582,9 +14610,9 @@ Ae
 Ae
 Ae
 ZG
-bk
+AV
 Ae
-bk
+AV
 Pa
 bd
 Mq

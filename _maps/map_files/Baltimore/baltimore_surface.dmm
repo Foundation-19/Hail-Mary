@@ -11103,6 +11103,17 @@
 /obj/effect/spawner/lootdrop/grille_or_trash,
 /turf/open/floor/engine,
 /area/f13/outpost)
+"dnU" = (
+/obj/structure/bed/mattress{
+	icon_state = "mattress2";
+	pixel_y = 12;
+	layer = 2.8
+	},
+/obj/structure/bed/mattress{
+	icon_state = "mattress4"
+	},
+/turf/open/floor/wood_worn,
+/area/f13/baltimore/building/town/house3)
 "doe" = (
 /obj/effect/overlay/gravel/edge/north,
 /turf/open/indestructible/ground/outside/sidewalkdirt,
@@ -13167,12 +13178,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/building/boat)
 "dQj" = (
-/obj/machinery/light/small{
-	dir = 4;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
+/obj/machinery/light/small/broken{
+	dir = 4
 	},
+/obj/item/newspaper,
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/building/town/house3)
 "dQo" = (
@@ -29204,6 +29213,11 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/boat)
+"iET" = (
+/turf/open/floor/wood_worn{
+	icon_state = "worn-broken4"
+	},
+/area/f13/baltimore/building/town/house3)
 "iFp" = (
 /turf/closed/wall/f13/wood/house/broken,
 /area/f13/baltimore/wasteland/city)
@@ -32789,13 +32803,6 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust/lit,
 /area/f13/baltimore/wasteland/city/citycenter)
-"jOy" = (
-/obj/structure/table/wood/junk,
-/obj/machinery/microwave{
-	pixel_y = 6
-	},
-/turf/open/floor/wood_worn,
-/area/f13/baltimore/building/town/house3)
 "jOI" = (
 /obj/structure/stairs/west{
 	color = "#A47449"
@@ -41032,12 +41039,6 @@
 /area/f13/baltimore/wasteland/city/citycenter)
 "mnk" = (
 /obj/structure/chair/stool/bar,
-/obj/machinery/light/small{
-	dir = 8;
-	name = "tan light fixture";
-	light_color = "#FFDDCC";
-	color = "#FFDDCC"
-	},
 /turf/open/floor/wood_worn,
 /area/f13/baltimore/building/town/house3)
 "mns" = (
@@ -50118,6 +50119,12 @@
 /obj/effect/landmark/start/f13/f13baltimorebarkeep,
 /turf/open/floor/carpet/royalblack,
 /area/f13/baltimore/boatbar)
+"oYU" = (
+/obj/structure/campfire/barrel,
+/turf/open/floor/wood_worn{
+	icon_state = "worn-broken1"
+	},
+/area/f13/baltimore/building/town/house3)
 "oYX" = (
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust{
 	icon_state = "floorrustysolid"
@@ -55781,9 +55788,6 @@
 /area/f13/baltimore/building/abandoned/mchenrymuseum)
 "qMH" = (
 /obj/effect/decal/cleanable/blood,
-/obj/structure/stairs/north{
-	color = "#A47449"
-	},
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/abandoned)
 "qMK" = (
@@ -62265,6 +62269,10 @@
 	},
 /turf/open/indestructible/ground/outside/desert/harsh,
 /area/f13/baltimore/wasteland/city)
+"sGP" = (
+/obj/item/newspaper,
+/turf/open/floor/wood_worn,
+/area/f13/baltimore/building/town/house3)
 "sGW" = (
 /obj/structure/fence{
 	dir = 8
@@ -65804,10 +65812,14 @@
 	},
 /area/f13/baltimore/building/abandoned)
 "tJh" = (
-/obj/structure/bed/old{
-	pixel_y = 15
+/obj/structure/bed/mattress{
+	icon_state = "mattress1";
+	layer = 5.5;
+	pixel_y = 14
 	},
-/obj/structure/bed/old,
+/obj/structure/bed/mattress{
+	icon_state = "mattress5"
+	},
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken4"
 	},
@@ -67670,6 +67682,13 @@
 	name = "Weird machine Wreckage"
 	},
 /turf/open/floor/vault,
+/area/f13/baltimore/building/abandoned)
+"ukK" = (
+/obj/structure/stairs/south,
+/turf/open/floor/plating/rust{
+	sunlight_state = 1;
+	name = "rusted Docks"
+	},
 /area/f13/baltimore/building/abandoned)
 "ukP" = (
 /obj/structure/rack/shelf_metal,
@@ -70038,10 +70057,9 @@
 /turf/open/floor/f13/wood,
 /area/f13/baltimore/building/abandoned)
 "uTK" = (
-/obj/structure/bed/old{
-	pixel_y = 15
+/obj/structure/bed/mattress{
+	icon_state = "mattress5"
 	},
-/obj/structure/bed/old,
 /turf/open/floor/wood_worn{
 	icon_state = "worn-broken3"
 	},
@@ -77427,6 +77445,10 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/building/abandoned)
+"xci" = (
+/obj/structure/junk/micro,
+/turf/open/floor/wood_worn,
+/area/f13/baltimore/building/town/house3)
 "xcR" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/darkerrusty,
@@ -78686,10 +78708,6 @@
 	},
 /turf/open/floor/wood_fancy,
 /area/f13/baltimore/building/town/minutemen)
-"xwg" = (
-/obj/structure/stairs/north,
-/turf/open/indestructible/ground/outside/ruins,
-/area/f13/baltimore/building/citycenter)
 "xwi" = (
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/open/floor/grass,
@@ -82040,7 +82058,7 @@ cSr
 rsT
 twK
 twK
-xwg
+roP
 roP
 gUI
 twK
@@ -86995,7 +87013,7 @@ gUI
 gUI
 gUI
 gUI
-gAb
+gUI
 bie
 bie
 twK
@@ -87347,7 +87365,7 @@ gWK
 gWK
 dUB
 dUB
-gUI
+gAb
 gWK
 npX
 twK
@@ -112522,8 +112540,8 @@ jqr
 xDb
 suh
 gzJ
-gzJ
 bzN
+dWr
 dWr
 gzJ
 kaV
@@ -112874,8 +112892,8 @@ nEa
 xDb
 dWr
 gzJ
-pDO
-bzN
+ukK
+dWr
 dWr
 gzJ
 pDO
@@ -113226,7 +113244,7 @@ tnI
 xDb
 dWr
 tVE
-gzJ
+dWr
 dWr
 dWr
 fzC
@@ -138871,14 +138889,14 @@ rSD
 rRD
 yeL
 wmg
-wXt
-wXt
-wXt
-wXt
-wXt
-dSx
-wXt
-wXt
+lwr
+xci
+qrN
+fsn
+oJj
+rDn
+eGp
+oYU
 wmg
 rOq
 rOq
@@ -139222,16 +139240,16 @@ rSD
 frt
 cll
 yeL
+sGP
+iET
 ktU
-lwr
-jOy
-qrN
-fsn
-oJj
-rDn
+ktU
 eGp
-mnk
 ktU
+eGp
+ktU
+mnk
+sGP
 rOq
 qSs
 rOq
@@ -139574,16 +139592,16 @@ eeH
 ljP
 ljP
 yeL
-ktU
+iET
 qjD
 eGp
 wHo
 dQj
 ktU
-fsn
+iET
 eGp
 ktU
-ktU
+eGp
 rOq
 obK
 xlJ
@@ -139935,7 +139953,7 @@ tJh
 flG
 uTK
 imD
-ktU
+dnU
 rOq
 xlJ
 rOq
