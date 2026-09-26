@@ -431,6 +431,7 @@
 	set category = "IC"
 	if(src.incapacitated())
 		to_chat(src, span_warning("You can't look up right now!"))
+		return
 	if(client.eye != src && !ismecha(client.eye))
 		stop_looking()
 		return
@@ -465,6 +466,7 @@
 	set category = "IC"
 	if(src.incapacitated())
 		to_chat(src, "<span class='warning'>You can't look down right now!</span>")
+		return
 	if(client.eye != src && !ismecha(client.eye))
 		stop_looking()
 		return
@@ -494,7 +496,9 @@
 	if(isopenspaceturf(nl))
 		reset_perspective(nl)
 	else
-		reset_perspective(null)
+		// Walked out from under the opening -- fully unregister, not just reset_perspective(),
+		// so a later Look Up doesn't try to double-register the same peek signals.
+		stop_looking_up()
 
 /mob/living/proc/followcameradown()
 	var/turf/T = get_turf(src)
@@ -502,7 +506,9 @@
 	if(isopenspaceturf(T))
 		reset_perspective(nl)
 	else
-		reset_perspective(null)
+		// Walked off the hole -- fully unregister, not just reset_perspective(),
+		// so a later Look Down doesn't try to double-register the same peek signals.
+		stop_looking_down()
 
 // Shared stop/follow signal wiring for lookup()/lookdown() so both stay in sync when the cancel conditions change.
 /mob/living/proc/register_peek_signals(stop_proc, follow_proc)
