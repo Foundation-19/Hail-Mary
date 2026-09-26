@@ -622,17 +622,23 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 		if(LAZYLEN(ambientsounds) && !COOLDOWN_TIMELEFT(L.client, area_sound_effect_cooldown) && prob(35))
 			var/sounds_to_play = pick(ambientsounds)
+			// Most areas just list raw sound files; only some use the AREA_SOUND(file, length) list format.
+			var/sound_path = islist(sounds_to_play) ? sounds_to_play[SL_FILE_PATH] : sounds_to_play
+			var/sound_length = islist(sounds_to_play) ? sounds_to_play[SL_FILE_LENGTH] : 0
 			var/sound_delay = rand(1 SECONDS, 15 SECONDS)
-			var/sound/S = sound(sounds_to_play[SL_FILE_PATH], repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
+			var/sound/S = sound(sound_path, repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
-			COOLDOWN_START(L.client, area_sound_effect_cooldown, sounds_to_play[SL_FILE_LENGTH] + sound_delay)
+			COOLDOWN_START(L.client, area_sound_effect_cooldown, sound_length + sound_delay)
 
 		if(LAZYLEN(ambientmusic) && !COOLDOWN_TIMELEFT(L.client, area_music_cooldown) && prob(35)) //fortuna add. re-implements ambient music
 			var/music_to_play = pick(ambientmusic)
+			// Most areas just list raw sound files; only some use the AREA_MUSIC(file, length) list format.
+			var/music_path = islist(music_to_play) ? music_to_play[SL_FILE_PATH] : music_to_play
+			var/music_length = islist(music_to_play) ? music_to_play[SL_FILE_LENGTH] : 0
 			var/sound_delay = rand(1 SECONDS, 15 SECONDS)
-			var/sound/S = sound(music_to_play[SL_FILE_PATH], repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
+			var/sound/S = sound(music_path, repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
-			COOLDOWN_START(L.client, area_music_cooldown, music_to_play[SL_FILE_LENGTH] + sound_delay)
+			COOLDOWN_START(L.client, area_music_cooldown, music_length + sound_delay)
 
 /area/proc/play_ambient_sound_delayed(sound/to_play, mob/living/play_to)
 	SEND_SOUND(play_to, to_play)
