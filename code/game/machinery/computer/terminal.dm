@@ -874,6 +874,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		to_chat(user, span_warning("The target turret is no longer linked."))
 		pending_whitelist_tref = null
 		return
+	if(T.faction_locked)
+		to_chat(user, span_warning("[T.name]'s ownership has been locked down and can't be reassigned!"))
+		pending_whitelist_tref = null
+		return
 	var/person_name = card.registered_name
 	if(!person_name || !length(person_name))
 		to_chat(user, span_warning("This ID card has no registered name. Assign a name to it first."))
@@ -897,6 +901,9 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 	pending_faction_tref = null
 	if(!T)
 		to_chat(user, span_warning("Target turret no longer linked."))
+		return
+	if(T.faction_locked)
+		to_chat(user, span_warning("[T.name]'s faction assignment has been locked down and can't be reassigned!"))
 		return
 	// Map card assignment to faction tag using the Fallout 13 defines
 	var/faction_tag = get_faction_from_card(card)
