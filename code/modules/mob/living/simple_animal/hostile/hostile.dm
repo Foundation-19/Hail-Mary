@@ -5163,7 +5163,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
-	LoseTarget()
+	INVOKE_ASYNC(src, PROC_REF(LoseTarget)) // LoseTarget() can chain into door Open()/Close(), which can sleep; signal handlers must not
 
 // Ensure add_target properly cleans up old references
 /mob/living/simple_animal/hostile/proc/add_target(new_target)

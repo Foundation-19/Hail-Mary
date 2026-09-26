@@ -603,6 +603,14 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
 	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
+
+	// Ghosts don't count as living, but should still follow area ambience as they roam z-levels.
+	if(isobserver(M))
+		var/mob/dead/observer/O = M
+		if(O.client && (O.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && islist(ambience_area))
+			addremove_to_soundloop(O, TRUE)
+		return
+
 	if(!isliving(M))
 		return
 
@@ -643,13 +651,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /area/proc/play_ambient_sound_delayed(sound/to_play, mob/living/play_to)
 	SEND_SOUND(play_to, to_play)
 
-/area/proc/addremove_to_soundloop(mob/living/player, add = TRUE)
+/area/proc/addremove_to_soundloop(mob/player, add = TRUE)
 	if(!ambience_area)
 		return
 	if(!islist(ambience_area))
 		ambience_area = null
 		return
-	if(!isliving(player))
+	if(!isliving(player) && !isobserver(player))
 		return
 	for(var/loopy in ambience_area)
 		var/datum/looping_sound/our_loop = GLOB.area_sound_loops[loopy]
