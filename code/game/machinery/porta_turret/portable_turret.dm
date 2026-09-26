@@ -775,27 +775,6 @@
 	invisibility = 2
 	update_icon()
 
-/// Unused (would pretty much always return true, cus everyone's armed)
-/obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
-	var/threatcount = 0	//the integer returned
-
-	if(obj_flags & EMAGGED)
-		return 10	//if emagged, always return 10.
-
-	if((turret_flags & (TF_SHOOT_EVERYTHING | TF_SHOOT_REACTION)) && !allowed(perp))
-		//if the turret has been attacked or is angry, target all non-sec people
-		return 10
-
-	if(isnull(perp.wear_id) || istype(perp.wear_id.GetID(), /obj/item/card/id/syndicate))
-		if(allowed(perp)) //if the perp has security access, return 0
-			return 0
-		if(perp.is_holding_item_of_type(/obj/item/gun) ||  perp.is_holding_item_of_type(/obj/item/melee/baton))
-			threatcount += 4
-		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee/baton))
-			threatcount += 2
-
-	return threatcount
-
 /// Checks if the target is in the turret's faction
 /obj/machinery/porta_turret/proc/in_faction(mob/target)
 	for(var/faction1 in faction)
@@ -1067,9 +1046,6 @@
 /obj/machinery/porta_turret/syndicate/setup()
 	return
 
-/obj/machinery/porta_turret/syndicate/assess_perp(mob/living/carbon/human/perp)
-	return 10 //Syndicate turrets shoot everything not in their faction
-
 /obj/machinery/porta_turret/syndicate/energy
 	icon_state = "standard_stun"
 	base_icon_state = "standard"
@@ -1115,9 +1091,6 @@
 	faction = list("silicon")
 	turret_flags = TURRET_DEFAULT_TARGET_FLAGS | TURRET_DEFAULT_UTILITY | TF_IGNORE_FACTION
 
-/obj/machinery/porta_turret/ai/assess_perp(mob/living/carbon/human/perp)
-	return 10 //AI turrets shoot at everything not in their faction
-
 /obj/machinery/porta_turret/aux_base
 	name = "perimeter defense turret"
 	desc = "A plasma beam turret calibrated to defend outposts against non-humanoid fauna. It is more effective when exposed to the environment."
@@ -1126,9 +1099,6 @@
 	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	mode = TURRET_LETHAL //It would be useless in stun mode anyway
 	faction = list("neutral","silicon","turret") //Minebots, medibots, etc that should not be shot.
-
-/obj/machinery/porta_turret/aux_base/assess_perp(mob/living/carbon/human/perp)
-	return 0 //Never shoot humanoids. You are on your own if Ashwalkers or the like attack!
 
 /obj/machinery/porta_turret/aux_base/setup()
 	return
@@ -1160,9 +1130,6 @@
 /obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
-
-/obj/machinery/porta_turret/centcom_shuttle/assess_perp(mob/living/carbon/human/perp)
-	return 0
 
 /obj/machinery/porta_turret/centcom_shuttle/setup()
 	return
@@ -1206,9 +1173,6 @@
 
 /obj/machinery/porta_turret/xray/setup()
 	return
-
-/obj/machinery/porta_turret/xray/assess_perp(mob/living/carbon/human/perp)
-	return 10 //Syndicate turrets shoot everything not in their faction
 
 ////////////////////////
 //Turret Control Panel//
@@ -1452,26 +1416,6 @@
 	req_access = list(ACCESS_MAINT_TUNNELS, ACCESS_THEATRE)
 	turret_flags = TURRET_DEFAULT_TARGET_FLAGS | TURRET_DEFAULT_UTILITY
 	var/team_color
-
-/obj/machinery/porta_turret/lasertag/assess_perp(mob/living/carbon/human/perp)
-	. = 0
-	if(team_color == "blue")	//Lasertag turrets target the opposing team, how great is that? -Sieve
-		. = 0		//But does not target anyone else
-		if(istype(perp.wear_suit, /obj/item/clothing/suit/redtag))
-			. += 4
-		if(perp.is_holding_item_of_type(/obj/item/gun/energy/laser/redtag))
-			. += 4
-		if(istype(perp.belt, /obj/item/gun/energy/laser/redtag))
-			. += 2
-
-	if(team_color == "red")
-		. = 0
-		if(istype(perp.wear_suit, /obj/item/clothing/suit/bluetag))
-			. += 4
-		if(perp.is_holding_item_of_type(/obj/item/gun/energy/laser/bluetag))
-			. += 4
-		if(istype(perp.belt, /obj/item/gun/energy/laser/bluetag))
-			. += 2
 
 /obj/machinery/porta_turret/lasertag/setup(obj/item/gun/gun)
 	var/list/properties = ..()

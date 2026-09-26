@@ -69,19 +69,19 @@ export const PortableTurret = (props, context) => {
               <Button.Checkbox
                 fluid
                 checked={turret_shoot_players}
-                content="Target Civilians"
+                content="Target Wastelanders"
                 disabled={locked}
                 onClick={() => act('turret_return_shoot_players')} />
               <Button.Checkbox
                 fluid
                 checked={turret_shoot_raiders}
-                content="Target Possible Criminals"
+                content="Target Raiders"
                 disabled={locked}
                 onClick={() => act('turret_return_shoot_raiders')} />
               <Button.Checkbox
                 fluid
                 checked={turret_shoot_wildlife}
-                content="Target Pests"
+                content="Target Wildlife"
                 disabled={locked}
                 onClick={() => act('turret_return_shoot_wildlife')} />
               <Button.Checkbox
@@ -93,7 +93,7 @@ export const PortableTurret = (props, context) => {
               <Button.Checkbox
                 fluid
                 checked={turret_use_laser_pointer}
-                content="Use Targetting Laser"
+                content="Use Targeting Laser"
                 disabled={locked}
                 onClick={() => act('turret_return_use_laser_pointer')} />
               <Button.Checkbox
