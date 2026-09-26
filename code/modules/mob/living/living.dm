@@ -217,7 +217,7 @@
 		return TRUE
 	//anti-riot equipment is also anti-push
 	for(var/obj/item/I in M.held_items)
-		if(!istype(M, /obj/item/clothing))
+		if(!isclothing(I))
 			if(prob(I.block_chance*2))
 				return 1
 
@@ -431,24 +431,24 @@
 	set category = "IC"
 	if(src.incapacitated())
 		to_chat(src, span_warning("You can't look up right now!"))
-	if(client.eye != src && !istype(client.eye, /obj/mecha))
+		return
+	if(client.eye != src && !ismecha(client.eye))
 		stop_looking()
 		return
-	var/turf/T = SSmapping.get_turf_above(get_turf(src))
-	if(!istype(T, /turf/open/transparent/openspace))
-		if(istype(T, /turf/open) || istype(T, /turf/closed))
-			to_chat(src, span_notice("You look up at the ceiling. You can see ceiling."))
-		return
-	else
-		src.reset_perspective(T)
-		RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW, PROC_REF(stop_looking_up)) //no binos/scops
-		RegisterSignal(src, COMSIG_MOVABLE_MOVED,PROC_REF(followcameraup))
-		if(istype(loc, /obj/mecha))
-			RegisterSignal(loc, COMSIG_MOVABLE_MOVED,PROC_REF(followcameraup))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN, PROC_REF(stop_looking_up))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(stop_looking_up))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, PROC_REF(stop_looking_up))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(stop_looking_up))
+	var/turf/mypos = get_turf(src)
+	var/turf/T = SSmapping.get_turf_above(mypos)
+	if(!isopenspaceturf(T))
+		// Nothing overhead - see if there's an opening in the tile ahead we can peek up through instead.
+		var/turf/ahead = get_step(mypos, dir)
+		var/turf/ahead_above = ahead ? SSmapping.get_turf_above(ahead) : null
+		if(isopenspaceturf(ahead_above))
+			T = ahead_above
+		else
+			if(isopenturf(T) || isclosedturf(T))
+				to_chat(src, span_notice("You look up at the ceiling. You can see ceiling."))
+			return
+	src.reset_perspective(T)
+	register_peek_signals(PROC_REF(stop_looking_up), PROC_REF(followcameraup))
 
 /mob/living/verb/stop_looking()
 	set name = "Stop Looking"
@@ -456,7 +456,7 @@
 	src.stop_looking_up(null)
 
 /mob/living/proc/stop_looking_up()
-	if(istype(loc, /obj/mecha))
+	if(ismecha(loc))
 		UnregisterSignal(loc, COMSIG_MOVABLE_MOVED)
 	reset_perspective(null)
 	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
@@ -466,39 +466,25 @@
 	set category = "IC"
 	if(src.incapacitated())
 		to_chat(src, "<span class='warning'>You can't look down right now!</span>")
-	if(client.eye != src && !istype(client.eye, /obj/mecha))
+		return
+	if(client.eye != src && !ismecha(client.eye))
 		stop_looking()
 		return
 	UnregisterSignal(src, list(COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_MOVABLE_MOVED, COMSIG_MOB_CLIENT_CHANGE_VIEW))
 	var/turf/T = get_turf(src)
-	if(!istype(T, /turf/open/transparent/openspace))
-		var/turf/nt = get_step(T, dir)
-		if(!istype(nt, /turf/open/transparent/openspace))
-			if(istype(nt, /turf/open) || istype(nt, /turf/closed))
-				to_chat(src, "<span class='notice'>You look up at the floor. You can see floor.</span>")
-				return
+	// Mirror lookup(): check the turf you're standing on, not the tile ahead of you.
+	if(!isopenspaceturf(T))
+		// Not standing over a hole - see if there's one in the tile ahead we can peek down through instead.
+		var/turf/ahead = get_step(T, dir)
+		if(isopenspaceturf(ahead))
+			T = ahead
 		else
-			var/turf/nl = SSmapping.get_turf_below(nt)
-			src.reset_perspective(nl)
-			RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW,PROC_REF(stop_looking_down)) //no binos/scops
-			RegisterSignal(src, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
-			if(istype(loc, /obj/mecha))
-				RegisterSignal(loc, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
-			RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN,PROC_REF(stop_looking_down))
-			RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE,PROC_REF(stop_looking_down))
-			RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS,PROC_REF(stop_looking_down))
-			RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP,PROC_REF(stop_looking_down))
-	else
-		var/turf/nl = SSmapping.get_turf_below(T)
-		src.reset_perspective(nl)
-		RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW,PROC_REF(stop_looking_down)) //no binos/scops
-		RegisterSignal(src, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
-		if(istype(loc, /obj/mecha))
-			RegisterSignal(loc, COMSIG_MOVABLE_MOVED,PROC_REF(followcameradown))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN,PROC_REF(stop_looking_down))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE,PROC_REF(stop_looking_down))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS,PROC_REF(stop_looking_down))
-		RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP,PROC_REF(stop_looking_down))
+			if(isopenturf(T) || isclosedturf(T))
+				to_chat(src, "<span class='notice'>You look down at the floor. You can see floor.</span>")
+			return
+	var/turf/nl = SSmapping.get_turf_below(T)
+	src.reset_perspective(nl)
+	register_peek_signals(PROC_REF(stop_looking_down), PROC_REF(followcameradown))
 
 /mob/living/proc/stop_looking_down()
 	reset_perspective(null)
@@ -507,18 +493,33 @@
 /mob/living/proc/followcameraup()
 	var/turf/T = get_turf(src)
 	var/turf/nl = SSmapping.get_turf_above(T)
-	if(istype(nl, /turf/open/transparent/openspace))
+	if(isopenspaceturf(nl))
 		reset_perspective(nl)
 	else
-		reset_perspective(null)
+		// Walked out from under the opening -- fully unregister, not just reset_perspective(),
+		// so a later Look Up doesn't try to double-register the same peek signals.
+		stop_looking_up()
 
 /mob/living/proc/followcameradown()
 	var/turf/T = get_turf(src)
 	var/turf/nl = SSmapping.get_turf_below(T)
-	if(istype(T, /turf/open/transparent/openspace))
+	if(isopenspaceturf(T))
 		reset_perspective(nl)
 	else
-		reset_perspective(null)
+		// Walked off the hole -- fully unregister, not just reset_perspective(),
+		// so a later Look Down doesn't try to double-register the same peek signals.
+		stop_looking_down()
+
+// Shared stop/follow signal wiring for lookup()/lookdown() so both stay in sync when the cancel conditions change.
+/mob/living/proc/register_peek_signals(stop_proc, follow_proc)
+	RegisterSignal(src, COMSIG_MOB_CLIENT_CHANGE_VIEW, stop_proc) //no binos/scops
+	RegisterSignal(src, COMSIG_MOVABLE_MOVED, follow_proc)
+	if(ismecha(loc))
+		RegisterSignal(loc, COMSIG_MOVABLE_MOVED, follow_proc)
+	RegisterSignal(src, COMSIG_LIVING_STATUS_KNOCKDOWN, stop_proc)
+	RegisterSignal(src, COMSIG_LIVING_STATUS_PARALYZE, stop_proc)
+	RegisterSignal(src, COMSIG_LIVING_STATUS_UNCONSCIOUS, stop_proc)
+	RegisterSignal(src, COMSIG_LIVING_STATUS_SLEEP, stop_proc)
 
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = FALSE, check_immobilized = FALSE)
 	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (combat_flags & COMBAT_FLAG_HARD_STAMCRIT) || (check_immobilized && IsImmobilized()) || (!ignore_restraints && restrained(ignore_grab)))

@@ -48,6 +48,8 @@
 //       /area/f13/brotherhood/armory and /brotherhood/dorms but
 //       stops the moment it reaches /area/f13/ncr or any other
 //       unrelated branch — even through an open door.
+//     • (Bridges, not stops: openspace gaps, stairs, and ladders all carry
+//       the fill across to the connected z-level.)
 //
 //   BOUNDARY WALL ABSORPTION:
 //   After interior zones are built a second pass scans every dense
@@ -186,6 +188,23 @@
 		return TRUE
 	return FALSE
 
+/// Shared validity/push check used by every z-level bridge (openspace, stairs, ladders):
+/// skips already-visited turfs, turfs with no area, immune areas, areas outside the
+/// flood's root type tree, and areas reserved for a different junction box.
+/obj/machinery/f13/junction_box/proc/_flood_try_push(turf/candidate, list/visited, list/stack, area/start, root_type, list/reserved_types)
+	if(!candidate || visited[candidate])
+		return
+	var/area/c_area = get_area(candidate)
+	if(!c_area || _area_is_immune(c_area))
+		return
+	var/area/f13/fC = c_area
+	var/area/check_c = (istype(fC) && fC.f13_jbox_zone) ? start : c_area
+	if(!istype(check_c, root_type))
+		return
+	if(reserved_types && reserved_types.len && (check_c.type in reserved_types))
+		return
+	stack += candidate
+
 
 /// Resolves the area to use as the flood-fill root.
 /// If the box's own turf is dense (wall-mounted), its area is often whatever
@@ -322,7 +341,7 @@
 
 	for(var/turf/T in turf_map)
 		var/area/orig = turf_map[T]          // original singleton this turf came from
-		if(!istype(orig, /area))             // openspace bridge sentinel — not an ownable tile
+		if(!istype(orig, /area))             // safety net — every visited turf should carry a real area now
 			continue
 		var/atype     = orig.type
 
@@ -392,11 +411,11 @@
 		var/area/f13/fT = T_area
 		var/area/origin = (istype(fT) && fT.f13_jbox_zone) ? start : T_area
 		// ── Openspace bridge (main-loop) ─────────────────────────────────
-		// Openspace tiles are z-transparent "holes" between floors — they
-		// are not ownable interior area.  Store T as a sentinel (truthy,
-		// non-area value) so revisit checks pass, then bridge DOWN.
+		// Openspace tiles are z-transparent "holes" between floors, but they can
+		// still carry equipment (e.g. a light fixture built on a catwalk over the
+		// hole) — claim the tile itself into the zone too, then bridge DOWN.
 		if(istype(T, /turf/open/transparent/openspace))
-			visited[T] = T   // sentinel: visited/bridged, not owned
+			visited[T] = origin
 			var/turf/os_below = get_step_multiz(T, DOWN)
 			if(os_below && !visited[os_below])
 				var/area/ob_area = get_area(os_below)
@@ -418,10 +437,11 @@
 			if(!N_area)
 				continue
 			// ── Openspace bridge (NSEW) ──────────────────────────────────
-			// Openspace is a z-transparent hole — push the tile below it
-			// instead of trying to own it.  Bypass the immune check since
-			// the openspace tile's own area is irrelevant.
+			// Openspace is a z-transparent hole — queue it so the main loop claims
+			// the tile itself (equipment built on it still needs zone power), then
+			// also push the tile below it.
 			if(istype(N, /turf/open/transparent/openspace))
+				_flood_try_push(N, visited, stack, start, root_type, reserved_types)
 				var/turf/ns_below = get_step_multiz(N, DOWN)
 				if(ns_below && !visited[ns_below])
 					var/area/nb_area = get_area(ns_below)
@@ -476,6 +496,16 @@
 			if(reserved_types && reserved_types.len && (check_L.type in reserved_types))
 				continue
 			stack += landing
+
+		// ── Ladder Z-traversal ────────────────────────────────────────────
+		// A ladder's .up/.down refs point directly at the connected ladder object
+		// on the adjacent z-level, so no forward-step/landing math is needed here —
+		// just push both linked turfs the same way stairs push their landing.
+		for(var/obj/structure/ladder/L in T.contents)
+			if(L.up)
+				_flood_try_push(get_turf(L.up), visited, stack, start, root_type, reserved_types)
+			if(L.down)
+				_flood_try_push(get_turf(L.down), visited, stack, start, root_type, reserved_types)
 
 	return visited
 

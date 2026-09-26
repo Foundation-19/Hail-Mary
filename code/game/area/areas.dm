@@ -151,6 +151,8 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 /proc/process_teleport_locs()
 	for(var/V in GLOB.sortedAreas)
 		var/area/AR = V
+		if(!AR)
+			continue
 		if(istype(AR, /area/shuttle) || AR.noteleport)
 			continue
 		if(GLOB.teleportlocs[AR.name])
@@ -600,6 +602,14 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
 	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
+
+	// Ghosts don't count as living, but should still follow area ambience as they roam z-levels.
+	if(isobserver(M))
+		var/mob/dead/observer/O = M
+		if(O.client && (O.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && islist(ambience_area))
+			addremove_to_soundloop(O, TRUE)
+		return
+
 	if(!isliving(M))
 		return
 
@@ -619,28 +629,34 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 		if(LAZYLEN(ambientsounds) && !COOLDOWN_TIMELEFT(L.client, area_sound_effect_cooldown) && prob(35))
 			var/sounds_to_play = pick(ambientsounds)
+			// Most areas just list raw sound files; only some use the AREA_SOUND(file, length) list format.
+			var/sound_path = islist(sounds_to_play) ? sounds_to_play[SL_FILE_PATH] : sounds_to_play
+			var/sound_length = islist(sounds_to_play) ? sounds_to_play[SL_FILE_LENGTH] : 0
 			var/sound_delay = rand(1 SECONDS, 15 SECONDS)
-			var/sound/S = sound(sounds_to_play[SL_FILE_PATH], repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
+			var/sound/S = sound(sound_path, repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
-			COOLDOWN_START(L.client, area_sound_effect_cooldown, sounds_to_play[SL_FILE_LENGTH] + sound_delay)
+			COOLDOWN_START(L.client, area_sound_effect_cooldown, sound_length + sound_delay)
 
 		if(LAZYLEN(ambientmusic) && !COOLDOWN_TIMELEFT(L.client, area_music_cooldown) && prob(35)) //fortuna add. re-implements ambient music
 			var/music_to_play = pick(ambientmusic)
+			// Most areas just list raw sound files; only some use the AREA_MUSIC(file, length) list format.
+			var/music_path = islist(music_to_play) ? music_to_play[SL_FILE_PATH] : music_to_play
+			var/music_length = islist(music_to_play) ? music_to_play[SL_FILE_LENGTH] : 0
 			var/sound_delay = rand(1 SECONDS, 15 SECONDS)
-			var/sound/S = sound(music_to_play[SL_FILE_PATH], repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
+			var/sound/S = sound(music_path, repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
-			COOLDOWN_START(L.client, area_music_cooldown, music_to_play[SL_FILE_LENGTH] + sound_delay)
+			COOLDOWN_START(L.client, area_music_cooldown, music_length + sound_delay)
 
 /area/proc/play_ambient_sound_delayed(sound/to_play, mob/living/play_to)
 	SEND_SOUND(play_to, to_play)
 
-/area/proc/addremove_to_soundloop(mob/living/player, add = TRUE)
+/area/proc/addremove_to_soundloop(mob/player, add = TRUE)
 	if(!ambience_area)
 		return
 	if(!islist(ambience_area))
 		ambience_area = null
 		return
-	if(!isliving(player))
+	if(!isliving(player) && !isobserver(player))
 		return
 	for(var/loopy in ambience_area)
 		var/datum/looping_sound/our_loop = GLOB.area_sound_loops[loopy]
@@ -2531,3 +2547,662 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	blob_allowed = 0
 	environment = 15
 	grow_chance = 75
+
+//baltimore V2 Area
+
+/area/f13/baltimore
+	name = "Baltimore general area"
+	icon_state = "wasteland"
+
+/area/f13/baltimore/ocean
+	name = "Ocean"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ocean_b,
+		)
+	outdoors = 1
+	open_space = 1
+	blob_allowed = 0
+	environment = 0
+	grow_chance = 0
+	weather_tags = list(WEATHER_ALL)
+
+/area/f13/baltimore/wasteland
+	outdoors = 1
+	open_space = 1
+	blob_allowed = 0
+	environment = 19
+	grow_chance = 45
+	weather_tags = list(WEATHER_ALL)
+
+/area/f13/baltimore/wasteland/city
+	name = "Ruined City Coast"
+	icon_state = "city"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ocean_a,
+		)
+	ambientmusic = list(
+		AREA_MUSIC('sound/f13music/thecoastpart1fo4.ogg', 92.4 SECONDS))
+	grow_chance = 45
+	environment = 10
+
+/area/f13/baltimore/wasteland/city/citycenter
+	name = "Ruined Center City"
+	icon_state = "citycaves"
+	ambience_area = list(
+		/datum/looping_sound/ambient/critters,
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/critters/birds,
+		/datum/looping_sound/ambient/critters/birds/crow,
+		)
+	ambientmusic = list(
+		AREA_MUSIC('sound/f13music/nomoresailsfo4.ogg', 251.4 SECONDS))
+	grow_chance = 45
+	environment = 10
+
+/area/f13/baltimore/wasteland/citywasteland/town
+	name = "Locust point Town"
+	icon_state = "green"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_b,
+		)
+	ambientmusic = list(
+		AREA_MUSIC('sound/f13music/endlessoceanfo4.ogg', 319.8 SECONDS))
+	grow_chance = 5
+
+/area/f13/baltimore/wasteland/citywasteland/town/building
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/wasteland/citywasteland/town/building/houselot1
+	name = "Locust point House lot 1"
+
+/area/f13/baltimore/wasteland/citywasteland/town/building/houselot2
+	name = "Locust point House lot 2"
+
+/area/f13/baltimore/wasteland/citywasteland/town/building/houselot3
+	name = "Locust point House lot 3"
+
+/area/f13/baltimore/wasteland/citywasteland/minutemen
+	name = "Miutemen controled point"
+	icon_state = "green"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_b,
+		)
+	ambientmusic = list(
+		AREA_MUSIC('sound/f13music/endlessoceanfo4.ogg', 319.8 SECONDS))
+	grow_chance = 5
+
+/area/f13/baltimore/building
+	name = "Seaside Building"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/rooftop
+	name = "Seaside Rooftop"
+	outdoors = TRUE
+	weather_tags = list(WEATHER_ALL)
+
+/area/f13/baltimore/building/town
+	name = "Locust point town Building"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/rooftop
+	name = "Locust point town Rooftop"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/town/house1
+	name = "Locust point town Building House 1"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house2
+	name = "Locust point town Building House 2"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house3
+	name = "Locust point town Building House 3"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house4
+	name = "Locust point town Building House 4"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/house5
+	name = "Locust point town Building House 5"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment1
+	name = "Locust point town Building Appartment 1"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment2
+	name = "Locust point town Building Appartment 2"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment3
+	name = "Locust point town Building Appartment 3"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment4
+	name = "Locust point town Building Appartment 4"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment5
+	name = "Locust point town Building Appartment 5"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/appartment6
+	name = "Locust point town Building Appartment 6"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/minutemen
+	name = "Locust point town Minuteman Base"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/town/mayorial
+	name = "Locust point Town hall"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+
+/area/f13/baltimore/building/minutemen
+	name = "Locust point Town Minutemen HQ"
+	icon_state = "building"
+	ambience_area = list(
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/citycenter
+	name = "Ruined city center Building"
+	icon_state = "yellow"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/citycenter/rooftop
+	name = "Ruined city center Rooftop"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/boat
+	name = "Boat"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/boat/rooftop
+	name = "Boat Deck"
+	outdoors = TRUE
+
+/area/f13/baltimore/atlantic_cross
+	name = "ACHS Aegis"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/atlantic_cross/rooftop
+	name = "ACHS Aegis Deck"
+	outdoors = TRUE
+
+/area/f13/baltimore/atlantic_cross/hospital
+	name = "ACHS Aegis Hospital rooms"
+	icon_state = "red"
+
+/area/f13/baltimore/atlantic_cross/doorms
+	name = "ACHS Aegis Hospital doorms"
+	icon_state = "red"
+
+/area/f13/baltimore/atlantic_cross/armory
+	name = "ACHS Aegis Hospital armory"
+	icon_state = "red"
+
+/area/f13/baltimore/building/abandoned
+	name = "Abandoned Building"
+	icon_state = "blue"
+	requires_power = TRUE
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+
+/area/f13/baltimore/building/abandoned/recruitement
+	name = "Navy Reserve Building"
+	icon_state = "blue"
+	requires_power = TRUE
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/lightbulb,
+		)
+
+/area/f13/baltimore/building/abandoned/hospital
+	name = "University of Maryland Medical"
+	icon_state = "hospital"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/clinic
+	name = "Deserted Clinic"
+	icon_state = "hospital"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/hospital2
+	name = "MedStar Harbor Hospital"
+	icon_state = "hospital"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/washington
+	name = "Washington Monument"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/washington2
+	name = "New President Monument"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/library
+	name = "George Peabody Library"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/mall
+	name = "Cherry Hill Town Center"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/abandoned/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/abandoned/rooftop
+	name = "Abandoned Rooftop"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/cruiseship
+	name = "HMS Queen Ann"
+	icon_state = "red"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/cruiseship/rooftop
+	name = "HMS Queen Ann Deck"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/carrier
+	name = "USS Pegasus"
+	icon_state = "outpost"
+	ambience_area = list(
+		/datum/looping_sound/ambient/ship_interior,
+		)
+	weather_tags = null
+	outdoors = FALSE
+
+/area/f13/baltimore/building/carrier/rooftop
+	name = "USS Pegasus Deck"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/abandoned/mchenrymuseum
+	name = "Fort Mc Henry Museum"
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+	weather_tags = null
+
+/area/f13/baltimore/building/church
+	name = "Church Building"
+	icon_state = "green"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		)
+
+/area/f13/baltimore/building/church/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/church/rooftop
+	name = "Church Rooftop"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/tribal
+	name = "Tribal Building"
+	icon_state = "orange"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/torch,
+		)
+
+/area/f13/baltimore/building/tribal/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/tribal/rooftop
+	name = "Tribal Rooftop"
+	outdoors = TRUE
+
+/area/f13/baltimore/building/tribal/cave
+	name = "Tribal Cave"
+	icon_state = "purple"
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/torch,
+		/datum/looping_sound/ambient/cave,
+		/datum/looping_sound/ambient/swamp/quiet,
+		/datum/looping_sound/ambient/critters/birds,
+		/datum/looping_sound/ambient/critters/birds/crow,
+		)
+
+/area/f13/baltimore/building/tribal/cave/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/sewers
+	name = "Sewers"
+	requires_power = TRUE
+	icon_state = "blue"
+	ambience_area = list(
+		/datum/looping_sound/ambient/sewers,
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/steam,
+		)
+	ambientmusic = null
+	grow_chance = 5
+	weather_tags = null
+
+/area/f13/baltimore/building/sewers/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/caves
+	name = "Caves"
+	icon_state = "caves"
+	requires_power = TRUE
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/cave,
+		/datum/looping_sound/ambient/tunnel,
+	)
+	weather_tags = null
+
+/area/f13/baltimore/building/caves/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/building/tunnel
+	name = "Tunnel"
+	icon_state = "tunnel"
+	environment = 21
+	grow_chance = 25
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/cave,
+		/datum/looping_sound/ambient/tunnel,
+	)
+	weather_tags = null
+
+/area/f13/baltimore/building/tunnel/powered
+	requires_power = FALSE
+
+/area/f13/baltimore/boatradio
+	name = "SS Rustbucket"
+	icon_state = "bar"
+	ambience_area = list(
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
+		/datum/looping_sound/ambient/woodcreak,
+	)
+	outdoors = FALSE
+	weather_tags = null
+
+/area/f13/baltimore/boatvertibird
+	name = "Airpoint ship"
+	icon_state = "bar"
+	ambience_area = list(
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
+		/datum/looping_sound/ambient/woodcreak,
+	)
+	outdoors = FALSE
+	weather_tags = null
+
+/area/f13/baltimore/boatbar
+	name = "NCS Casablanca Bar"
+	icon_state = "bar"
+	ambience_area = list(
+		///datum/looping_sound/ambient/radiomusic,
+		///datum/looping_sound/ambient/radiostatic,
+		///datum/looping_sound/ambient/djswampass,
+		/datum/looping_sound/ambient/woodcreak,
+	)
+	outdoors = FALSE
+	weather_tags = null
+
+/area/f13/baltimore/brotherhood
+	name = "Brotherhood of Steel Airship Avalionian"
+	icon_state = "brotherhood"
+	ambientmusic = list(
+		AREA_MUSIC('sound/f13music/FOTV Chain of command Ramin Djawadi.ogg', 372.6 SECONDS))
+	ambience_area = list(
+		/datum/looping_sound/ambient/airship,
+	)
+
+/area/f13/baltimore/brotherhood/doorms
+	name = "Brotherhood of Steel Airship Avalionian doorms"
+	icon_state = "brotherhooddorms"
+
+/area/f13/baltimore/brotherhood/security
+	name = "Brotherhood of Steel Airship Avalionian Security"
+	icon_state = "brotherhoodarmory"
+
+/area/f13/baltimore/brotherhood/lab
+	name = "Brotherhood of Steel Airship Avalionian Medical Lab"
+	icon_state = "brotherhoodmedbay"
+
+/area/f13/baltimore/brotherhood/kitchen
+	name = "Brotherhood of Steel Airship Avalionian Messhall"
+	icon_state = "brotherhoodleisure"
+
+/area/f13/baltimore/brotherhood/commandsection
+	name = "Brotherhood of Steel Airship Avalionian Medical cockpit"
+	icon_state = "brotherhoodoperationsdepartment"
+
+/area/f13/baltimore/brotherhood/vertibird
+	name = "Brotherhood of Steel Airship Avalionian Vertibird Launch Bay"
+	icon_state = "brotherhoodrnddepartment"
+
+/area/f13/baltimore/brotherhood/vertibird/command
+	name = "Brotherhood of Steel Airship Avalionian Vertibird Commander Launch Bay"
+	icon_state = "brotherhoodarchives" // was a duplicate of the vertibird type path above and silently overwrote it - now a proper subtype
+
+/area/f13/baltimore/minutemen
+	name = "Minutemen Fort McHenry"
+	icon_state = "blue"
+	ambientmusic = list(
+		AREA_MUSIC('sound/f13music/FO4 libertylives.ogg', 190.8 SECONDS))
+	ambience_area = list(
+		/datum/looping_sound/ambient/general,
+		/datum/looping_sound/ambient/woodcreak,
+		/datum/looping_sound/ambient/harbor_interior,
+		)
+	weather_tags = null
+	outdoors = 1
+
+/area/f13/baltimore/minutemen/north
+	name = "Minutemen Fort McHenry North wing"
+	icon_state = "blue"
+	outdoors = 0
+
+/area/f13/baltimore/minutemen/south
+	name = "Minutemen Fort McHenry South wing"
+	icon_state = "blue"
+	outdoors = 0
+
+/area/f13/baltimore/minutemen/west
+	name = "Minutemen Fort McHenry West wing"
+	icon_state = "blue"
+	outdoors = 0
+
+/area/f13/baltimore/minutemen/east
+	name = "Minutemen Fort McHenry East wing"
+	icon_state = "blue"
+	outdoors = 0
+
+/area/f13/baltimore/minutemen/underground
+	name = "Minutemen Fort McHenry Underground"
+	icon_state = "blue"
+	outdoors = 0
+
+
+/area/f13/baltimore/vault125
+	name = "Vault 125"
+	icon_state = "vaulttec"
+	ambientsounds = list(
+		AREA_SOUND('sound/f13ambience/ambigen_10.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_11.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_12.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_13.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13ambience/ambigen_14.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13effects/steam_short.ogg', 10 SECONDS),
+		AREA_SOUND('sound/f13effects/steam_long.ogg', 10 SECONDS))
+
+
+/area/f13/baltimore/vault125/entry
+	name = "Vault 125 Entry"
+	icon_state = "vault_atrium_upper"
+
+/area/f13/baltimore/vault125/casino
+	name = "Vault 125 Luxe Recreation Hall"
+	icon_state = "casino"
+
+/area/f13/baltimore/vault125/doorm
+	name = "Vault 125 doorms"
+	icon_state = "crew_quarters"
+
+/area/f13/baltimore/vault125/jail
+	name = "Vault 125 Jail"
+	icon_state = "brig"
+
+/area/f13/baltimore/vault125/jail/checkpoint
+	name = "Vault 125 Jail Checkpoint"
+	icon_state = "checkpoint1" // was a duplicate of the jail type path above and silently overwrote it - now a proper subtype

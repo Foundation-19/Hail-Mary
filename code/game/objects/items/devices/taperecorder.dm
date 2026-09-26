@@ -228,11 +228,11 @@
 	starting_tape_type = null
 
 /obj/item/tape
-	name = "tape"
+	name = "Holotape"
 	desc = "A magnetic tape that can hold up to ten minutes of content."
 	icon_state = "tape_white"
 	icon = 'icons/obj/device.dmi'
-	item_state = "analyzer"
+	item_state = "tape_holo"
 	lefthand_file = 'icons/mob/inhands/equipment/tools_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/tools_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY

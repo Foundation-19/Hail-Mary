@@ -2041,6 +2041,11 @@
 				if(D.density)
 					try_open_door(D)
 
+	// try_open_door() above can sleep (door Open()/Close()), during which the target
+	// may be qdel'd/lost asynchronously (handle_target_del nulls target mid-yield).
+	if(!target)
+		return 0
+
 	if(!Process_Spacemove())
 		walk(src, 0)
 		return 1
@@ -5163,7 +5168,7 @@ mob/living/simple_animal/hostile/proc/DestroySurroundings() // for use with mega
 	SIGNAL_HANDLER
 	UnregisterSignal(target, COMSIG_PARENT_QDELETING)
 	target = null
-	LoseTarget()
+	INVOKE_ASYNC(src, PROC_REF(LoseTarget)) // LoseTarget() can chain into door Open()/Close(), which can sleep; signal handlers must not
 
 // Ensure add_target properly cleans up old references
 /mob/living/simple_animal/hostile/proc/add_target(new_target)

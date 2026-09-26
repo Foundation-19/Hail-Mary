@@ -277,10 +277,10 @@
 	switch(nextstate)
 		if(FIREDOOR_OPEN)
 			nextstate = null
-			open()
+			INVOKE_ASYNC(src, PROC_REF(open)) // open()/close() can sleep; power_change() -> Initialize() must not
 		if(FIREDOOR_CLOSED)
 			nextstate = null
-			close()
+			INVOKE_ASYNC(src, PROC_REF(close))
 
 /obj/machinery/door/firedoor/border_only
 	icon = 'icons/obj/doors/edge_Doorfire.dmi'

@@ -329,7 +329,9 @@
 	while(frontier.len)
 		var/list/next_frontier = list()
 		for(var/turf/T in frontier)
-			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+			for(var/dir in GLOB.f13_cable_dirs)
+				if(!f13_diagonal_open(T, dir))
+					continue
 				var/turf/N = get_step(T, dir)
 				if(!N || (N in visited))
 					continue

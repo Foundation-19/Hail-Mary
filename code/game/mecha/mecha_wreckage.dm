@@ -102,7 +102,7 @@
 
 
 /obj/structure/mecha_wreckage/gygax
-	name = "\improper Gygax wreckage"
+	name = "/improper Gygax wreckage"
 	icon_state = "gygax-broken"
 
 /obj/structure/mecha_wreckage/gygax/Initialize()
@@ -122,11 +122,11 @@
 
 
 /obj/structure/mecha_wreckage/gygax/dark
-	name = "\improper Dark Gygax wreckage"
+	name = "/improper Dark Gygax wreckage"
 	icon_state = "darkgygax-broken"
 
 /obj/structure/mecha_wreckage/medigax
-	name = "\improper Medical Gygax wreckage"
+	name = "/improper Medical Gygax wreckage"
 	icon_state = "medigax-broken"
 
 /obj/structure/mecha_wreckage/medigax/Initialize()
@@ -144,20 +144,20 @@
 			parts -= part
 
 /obj/structure/mecha_wreckage/marauder
-	name = "\improper Marauder wreckage"
+	name = "/improper Marauder wreckage"
 	icon_state = "marauder-broken"
 
 /obj/structure/mecha_wreckage/mauler
-	name = "\improper Mauler wreckage"
+	name = "/improper Mauler wreckage"
 	icon_state = "mauler-broken"
 	desc = "The syndicate won't be very happy about this..."
 
 /obj/structure/mecha_wreckage/seraph
-	name = "\improper Seraph wreckage"
+	name = "/improper Seraph wreckage"
 	icon_state = "seraph-broken"
 
 /obj/structure/mecha_wreckage/ripley
-	name = "\improper Ripley wreckage"
+	name = "/improper Ripley wreckage"
 	icon_state = "ripley-broken"
 
 /obj/structure/mecha_wreckage/ripley/Initialize()
@@ -175,7 +175,7 @@
 
 
 /obj/structure/mecha_wreckage/ripley/firefighter
-	name = "\improper Firefighter wreckage"
+	name = "/improper Firefighter wreckage"
 	icon_state = "firefighter-broken"
 
 /obj/structure/mecha_wreckage/ripley/firefighter/Initialize()
@@ -194,11 +194,11 @@
 
 
 /obj/structure/mecha_wreckage/ripley/deathripley
-	name = "\improper Death-Ripley wreckage"
+	name = "/improper Death-Ripley wreckage"
 	icon_state = "deathripley-broken"
 
 /obj/structure/mecha_wreckage/durand
-	name = "\improper Durand wreckage"
+	name = "/improper Durand wreckage"
 	icon_state = "durand-broken"
 
 /obj/structure/mecha_wreckage/durand/Initialize()
@@ -218,12 +218,12 @@
 
 
 /obj/structure/mecha_wreckage/phazon
-	name = "\improper Phazon wreckage"
+	name = "/improper Phazon wreckage"
 	icon_state = "phazon-broken"
 
 
 /obj/structure/mecha_wreckage/odysseus
-	name = "\improper Odysseus wreckage"
+	name = "/improper Odysseus wreckage"
 	icon_state = "odysseus-broken"
 
 /obj/structure/mecha_wreckage/odysseus/Initialize()
@@ -242,7 +242,7 @@
 			parts -= part
 
 /obj/structure/mecha_wreckage/clarke
-	name = "\improper Clarke wreckage"
+	name = "/improper Clarke wreckage"
 	icon_state = "clarke-broken"
 	var/list/parts = list(
 				/obj/item/mecha_parts/part/clarke_torso,
@@ -250,3 +250,34 @@
 				/obj/item/mecha_parts/part/clarke_left_arm,
 				/obj/item/mecha_parts/part/clarke_right_arm,
 				/obj/item/stack/conveyor)
+
+
+/obj/structure/mecha_wreckage/truck
+	name = "/improper Truck wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_rubish13"
+
+/obj/structure/mecha_wreckage/jeep
+	name = "/improper Jeep wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_rubish14"
+
+/obj/structure/mecha_wreckage/highwayman
+	name = "/improper Highwayman wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_rubish15"
+
+/obj/structure/mecha_wreckage/corvega
+	name = "/improper Corvega wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_rubish16"
+
+/obj/structure/mecha_wreckage/buggy
+	name = "/improper Buggy wreckage"
+	desc = "This can't be repaired."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_rubish17"
