@@ -101,6 +101,11 @@
 
 	var/list/weather_immunities = list()
 
+	// World Map fog-of-war: id -> list(chunk_key -> TRUE), chunks physically visited this
+	// round -- see /datum/minimap/proc/reveal_around()/get_revealed_colors().
+	var/list/minimap_explored_chunks = list()
+	var/list/minimap_waypoint //personal marker set via the World Map UI: list("mapIndex", "x", "y") or null
+
 	var/stun_absorption = null //converted to a list of stun absorption sources this mob has when one is added
 
 	var/blood_volume = 0 //how much blood the mob has
