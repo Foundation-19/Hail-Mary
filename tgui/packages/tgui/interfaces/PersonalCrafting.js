@@ -121,6 +121,7 @@ const CraftingList = (props, context) => {
   const { act, data } = useBackend(context);
   const {
     craftability = {},
+    missing = {},
     display_compact,
     display_craftable_only,
   } = data;
@@ -128,6 +129,8 @@ const CraftingList = (props, context) => {
     if (display_craftable_only && !craftability[craftable.ref]) {
       return null;
     }
+    const canCraft = !!craftability[craftable.ref];
+    const missingText = missing[craftable.ref];
     // Compact display
     if (display_compact) {
       return (
@@ -139,10 +142,10 @@ const CraftingList = (props, context) => {
             <Button
               icon="cog"
               content="Craft"
-              disabled={!craftability[craftable.ref]}
-              tooltip={craftable.tool_text && (
-                'Tools needed: ' + craftable.tool_text
-              )}
+              disabled={!canCraft}
+              tooltip={!canCraft
+                ? ('Missing: ' + missingText)
+                : (craftable.tool_text && 'Tools needed: ' + craftable.tool_text)}
               tooltipPosition="left"
               onClick={() => act('make', {
                 recipe: craftable.ref,
@@ -162,7 +165,9 @@ const CraftingList = (props, context) => {
           <Button
             icon="cog"
             content="Craft"
-            disabled={!craftability[craftable.ref]}
+            disabled={!canCraft}
+            tooltip={!canCraft && ('Missing: ' + missingText)}
+            tooltipPosition="left"
             onClick={() => act('make', {
               recipe: craftable.ref,
             })} />
@@ -181,6 +186,11 @@ const CraftingList = (props, context) => {
           {!!craftable.tool_text && (
             <LabeledList.Item label="Tools">
               {craftable.tool_text}
+            </LabeledList.Item>
+          )}
+          {!canCraft && !!missingText && (
+            <LabeledList.Item label="Missing">
+              {missingText}
             </LabeledList.Item>
           )}
         </LabeledList>
