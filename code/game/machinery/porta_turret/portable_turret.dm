@@ -768,7 +768,10 @@
 	if(cover)
 		cover.icon_state = "turretCover"
 	raised = 0
-	invisibility = 2
+	// Coverless turrets (e.g. player-deployed portables) have nothing to hide behind -- only
+	// turrets with a cover sprite standing in for them should go invisible while retracted.
+	if(has_cover)
+		invisibility = 2
 	update_icon()
 
 /// Unused (would pretty much always return true, cus everyone's armed)
