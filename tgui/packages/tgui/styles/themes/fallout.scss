@@ -39,6 +39,9 @@ $phosphor-text: #a8d8a8;
     'border-color': $phosphor-dim,
   ));
   @include meta.load-css('../components/Modal.scss');
+  @include meta.load-css('../components/NoticeBox.scss', $with: (
+    'background-color': #123018,
+  ));
   @include meta.load-css('../components/ProgressBar.scss', $with: (
     'background-color': rgba(0, 0, 0, 0.7),
     'color-default-fill': $phosphor-dim,
@@ -71,6 +74,20 @@ $phosphor-text: #a8d8a8;
     font-family: 'Courier New', Courier, monospace;
     background-color: #04100a;
     color: $phosphor;
+    border: base.em(1px) solid $phosphor-dim;
+  }
+
+  // The flat color/background-color rule above repaints every button the same bright green,
+  // which hid the disabled ($color-disabled) state entirely. Opacity dims disabled buttons
+  // regardless of the color overrides above, so "not ready to craft" is actually visible.
+  .Button--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  // Component's own default background (tan) never got overridden for this theme, and its
+  // auto-computed border was still the base component's default border-less flat look.
+  .NoticeBox {
     border: base.em(1px) solid $phosphor-dim;
   }
 

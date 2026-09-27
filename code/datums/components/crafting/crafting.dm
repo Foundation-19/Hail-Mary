@@ -205,6 +205,76 @@
 			return FALSE
 	return TRUE
 
+/**
+ * Describes which of R's item/reagent requirements are still short, for UI feedback.
+ * Mirrors check_contents()'s logic but collects shortfalls instead of early-returning.
+ */
+/datum/component/personal_crafting/proc/get_missing_text(datum/crafting_recipe/R, list/contents)
+	var/list/other = contents["other"]
+	var/list/missing = list()
+
+	for(var/requirement_path in R.reqs)
+		var/needed_amount = R.reqs[requirement_path]
+		for(var/content_item_path in other)
+			if(!ispath(content_item_path, requirement_path) || R.blacklist.Find(content_item_path))
+				continue
+			needed_amount -= other[content_item_path]
+			if(needed_amount <= 0)
+				break
+		if(needed_amount > 0)
+			var/atom/A = requirement_path
+			missing += "[needed_amount]x [initial(A.name)]"
+
+	for(var/requirement_path in R.chem_catalysts)
+		var/needed_amount = R.chem_catalysts[requirement_path] - other[requirement_path]
+		if(needed_amount > 0)
+			var/atom/A = requirement_path
+			missing += "[needed_amount]x [initial(A.name)]"
+
+	return missing.Join(", ")
+
+/**
+ * Describes which of R's tool requirements are still unmet, for UI feedback.
+ * Mirrors check_tools()'s logic but collects shortfalls instead of early-returning.
+ */
+/datum/component/personal_crafting/proc/get_missing_tool_text(atom/a, datum/crafting_recipe/R, list/contents)
+	if(!R.tools.len)
+		return ""
+	var/list/possible_tools = list()
+	var/list/present_qualities = list()
+	present_qualities |= contents["tool_behaviour"]
+	for(var/obj/item/I in a.contents)
+		if(istype(I, /obj/item/storage))
+			for(var/obj/item/SI in I.contents)
+				possible_tools += SI.type
+				if(SI.tool_behaviour)
+					present_qualities.Add(SI.tool_behaviour)
+
+		possible_tools += I.type
+
+		if(I.tool_behaviour)
+			present_qualities.Add(I.tool_behaviour)
+	for(var/obj/machinery/M in a.contents)
+		present_qualities.Add(M.machine_tool_behaviour)
+
+	possible_tools |= contents["other"]
+
+	var/list/missing = list()
+	main_loop:
+		for(var/A in R.tools)
+			if(A in present_qualities)
+				continue
+			else
+				for(var/I in possible_tools)
+					if(ispath(I, A))
+						continue main_loop
+			if(ispath(A, /obj/item))
+				var/obj/item/b = A
+				missing += initial(b.name)
+			else
+				missing += "[A]"
+	return missing.Join(", ")
+
 /datum/component/personal_crafting/proc/construct_item(atom/a, datum/crafting_recipe/R)
 	var/list/contents = get_surroundings(a)
 	var/send_feedback = 1
@@ -384,6 +454,7 @@
 
 	var/list/surroundings = get_surroundings(user)
 	var/list/craftability = list()
+	var/list/missing = list()
 	for(var/rec in GLOB.crafting_recipes)
 		var/datum/crafting_recipe/R = rec
 
@@ -393,9 +464,24 @@
 		if((R.category != cur_category) || (R.subcategory != cur_subcategory))
 			continue
 
-		craftability["[REF(R)]"] = check_contents(user, R, surroundings)
+		//Craftability must also account for tools (e.g. a nearby workbench), not just materials --
+		//otherwise the Craft button can show "ready" while missing a required tool, only to fail
+		//silently-looking later when actually clicked.
+		var/has_contents = check_contents(user, R, surroundings)
+		var/has_tools = check_tools(user, R, surroundings)
+		craftability["[REF(R)]"] = has_contents && has_tools
+
+		if(!has_contents || !has_tools)
+			var/list/reasons = list()
+			if(!has_contents)
+				reasons += get_missing_text(R, surroundings)
+			if(!has_tools)
+				reasons += get_missing_tool_text(user, R, surroundings)
+			reasons -= "" //Drop any empty entries (e.g. a custom check_requirements() failure with no missing item/tool)
+			missing["[REF(R)]"] = reasons.len ? reasons.Join(", ") : "requirements not met"
 
 	data["craftability"] = craftability
+	data["missing"] = missing
 	return data
 
 /datum/component/personal_crafting/ui_static_data(mob/user)
@@ -432,10 +518,27 @@
 		if("make")
 			var/mob/user = usr
 			var/datum/crafting_recipe/TR = locate(params["recipe"]) in GLOB.crafting_recipes
+			if(!TR)
+				//Stale recipe ref (e.g. UI was left open across a server restart/hotswap). Without this
+				//guard, construct_item() would dereference a null recipe and throw an uncaught runtime,
+				//aborting before busy is ever reset to FALSE -- leaving the crafting menu permanently
+				//"stuck" (busy) with no visible feedback to the player at all.
+				to_chat(user, span_warning("That recipe is no longer valid. Please close and reopen the crafting menu."))
+				busy = FALSE
+				return
 			busy = TRUE
 			CHECK_TICK
 			ui_interact(user)
-			var/atom/movable/result = construct_item(user, TR)
+			var/atom/movable/result
+			try
+				result = construct_item(user, TR)
+			catch(var/exception/e)
+				//Make absolutely sure a bug in construct_item()/check_contents()/del_reqs() can never
+				//permanently strand the menu in a "busy" (unresponsive, no-feedback) state again.
+				stack_trace("personal_crafting construct_item error: [e]")
+				to_chat(user, span_warning("Construction failed, something went wrong."))
+				busy = FALSE
+				return
 			if(!istext(result)) //We made an item and didn't get a fail message
 				if(ismob(user) && isitem(result)) //In case the user is actually possessing a non mob like a machine
 					user.put_in_hands(result)
