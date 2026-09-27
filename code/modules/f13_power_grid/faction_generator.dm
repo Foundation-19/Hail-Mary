@@ -931,6 +931,14 @@
 		do_sparks(3, FALSE, src)
 		to_chat(user, span_notice("You drive the grounding rod into the floor and bond it to [src]'s frame. The leakage risk clears."))
 		return
+	// ── Multitool — buffer this generator so it can be linked to a portable turret.
+	if(istype(W, /obj/item/multitool))
+		if(!multitool_check_buffer(user, W))
+			return
+		var/obj/item/multitool/M = W
+		M.buffer = src
+		to_chat(user, span_notice("You add [src] to multitool buffer."))
+		return
 	// ── Heat hazard — a lit welder or open flame held against the generator builds heat.
 	var/item_heat = W.get_temperature()
 	if(item_heat > 0 && isliving(user))

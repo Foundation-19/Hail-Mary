@@ -21,16 +21,31 @@ export const PortableTurret = (props, context) => {
     manual_control,
     allow_manual_control,
     lasertag_turret,
+    generator_linked,
+    generator_name,
+    generator_powered,
   } = data;
   return (
     <Window
       theme="fallout"
       width={310}
-      height={lasertag_turret ? 110 : 390}>
+      height={lasertag_turret ? 110 : 420}>
       <Window.Content>
         <NoticeBox>
-          Swipe an ID card to {locked ? 'unlock' : 'lock'} this interface.
+          {locked ? 'Unlock' : 'Lock'} this interface with an ID card.
+          <Button
+            ml={1}
+            icon={locked ? 'unlock' : 'lock'}
+            content={locked ? 'Unlock' : 'Lock'}
+            onClick={() => act('unlock')} />
         </NoticeBox>
+        {!lasertag_turret && (
+          <NoticeBox danger={!generator_linked} success={generator_linked && generator_powered}>
+            {!generator_linked && 'Not linked to a generator -- multitool a generator, then multitool this turret.'}
+            {generator_linked && generator_powered && `Linked to ${generator_name} -- running.`}
+            {generator_linked && !generator_powered && `Linked to ${generator_name} -- offline.`}
+          </NoticeBox>
+        )}
         <Fragment>
           <Section>
             <LabeledList>

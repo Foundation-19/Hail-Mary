@@ -258,7 +258,9 @@
 			else
 				icon_state = "[base_icon_state]_off"
 		else
-			icon_state = "[base_icon_state]_unpowered"
+			// No "_unpowered" state exists in turrets.dmi for any prefix -- setting icon_state to a
+			// nonexistent state renders completely blank, which looked like the turret "went invisible".
+			icon_state = "[base_icon_state]_off"
 
 /obj/machinery/porta_turret/proc/setup(obj/item/gun/turret_gun)
 	if(!stored_gun)
@@ -340,6 +342,13 @@
 		return
 
 	switch(action)
+		if("unlock")
+			if(allowed(usr))
+				locked = !locked
+				to_chat(usr, span_notice("Controls are now [locked ? "locked" : "unlocked"]."))
+			else
+				to_chat(usr, span_alert("Access denied."))
+			return TRUE
 		if("power")
 			if(anchored)
 				toggle_on()
@@ -714,7 +723,10 @@
 	clear_targets()
 	scan_pings_left = 0
 	awake = FALSE
-	popDown()
+	// always_up turrets (lore/fixed emplacements, player-deployed portables) never retract --
+	// they should stay visibly raised even when idle and scanning for new targets.
+	if(!always_up)
+		popDown()
 	if(turret_flags & TF_BE_REALLY_LOUD)
 		playsound(get_turf(src), sleep_sound, 100, FALSE, SOUND_DISTANCE(scan_range + 5), ignore_walls = TRUE)
 	visible_message(span_alert("[src] retracts its active sensors and goes into passive scanning mode!"))
@@ -1290,6 +1302,7 @@
 	data["enabled"] = enabled
 	data["lethal"] = lethal
 	//data["shootCyborgs"] = shoot_cyborgs
+	data["linked_turrets"] = length(turrets)
 	return data
 
 /obj/machinery/turretid/ui_act(action, list/params)
@@ -1485,14 +1498,17 @@
 	faction = null
 
 /// F13 turrets are powered only when the F13 power grid supplies their area (if they need power at all).
-/// Outdoor and grid-immune areas are always considered powered (no generator needed).
+/// Only grid-immune areas are always considered powered (no generator needed) -- outdoor areas are NOT
+/// auto-powered, since junction boxes/generators explicitly support outdoor coverage via their own
+/// single-tile shortpath (see junction_box.dm). A turret that should just always work regardless of
+/// wiring (e.g. a fixed lore turret) should have `needs_grid_power = FALSE` set instead.
 /obj/machinery/porta_turret/f13/powered()
 	if(!needs_grid_power)
 		return TRUE
 	var/area/A = get_area(src)
 	if(istype(A, /area/f13))
 		var/area/f13/FA = A
-		if(!FA.f13_grid_immune && !FA.outdoors)
+		if(!FA.f13_grid_immune)
 			return FA.f13_grid_power
 	return TRUE
 
@@ -1776,7 +1792,7 @@
 	faction = list("wastebot")
 
 /// Player-craftable portable sentry turret -- ammo-fed, not tied to any particular map/town.
-/// Still needs F13 grid power to fire when placed indoors on-grid, same as the fixed lore turrets.
+/// Must be multitool-linked to a specific generator to fire (see powered() and link_generator() below).
 /// needs ammo~
 /obj/machinery/porta_turret/f13/portable
 	name = "portable .22LR sentry turret"
@@ -1787,8 +1803,8 @@
 		a wide variety of wasteland annoyances with a spray of bullets and keep our lovely town safe! Keep away from dogs. \
 		<br><br>\
 		This turret comes unloaded and lacks an ammo-fab, so it will need to be fed <b>.22LR bullets</b> before it can fire. \
-		It also needs generator power to run indoors, just like any other automated defense. \
-		This is a 'portable' turret, in that it can be packaged back up into a handy carrying case if pulsed with a <b>multitool</b>.\
+		It needs to be linked to a generator to fire -- multitool the generator, then multitool this turret. \
+		This is a 'portable' turret, in that it can be packaged back up into a handy carrying case if pulsed with a plain, unbuffered <b>multitool</b>.\
 		It can be repaired with a <b>welder<b>."
 	density = TRUE
 	use_power = FALSE
@@ -1809,10 +1825,15 @@
 	burst_count = 2
 	burst_delay = GUN_BURSTFIRE_DELAY_SLOW
 	shot_spread = 3
-	faction = list("neutral")
-	needs_grid_power = FALSE // mapper default: works everywhere out of the box, override per-instance in the map if desired
+	// NOT "neutral" -- every player mob defaults to faction "neutral" too, so that would make the
+	// IFF check (in_faction()) silently protect all wastelanders regardless of "Target
+	// Wastelanders"/TF_SHOOT_PLAYERS, unless "Disable IFF" was also checked. Owner protection is
+	// handled separately and correctly via ID-card assign_owner()/id_whitelist below.
+	faction = list("turret")
 	/// This turret takes ammo!
 	var/obj/item/ammo_box/magazine/internal/our_mag = /obj/item/ammo_box/magazine/internal/turret
+	/// The specific generator this turret is wired to -- set by multitool linking, same as turretid. No link, no power.
+	var/obj/machinery/f13/faction_generator/assigned_generator = null
 	/// Ammunition loaded in the chamber
 	var/obj/item/ammo_casing/chambered
 	/// Gun dropped as scrap loot when this turret is destroyed
@@ -1826,17 +1847,42 @@
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
 
-/obj/machinery/porta_turret/f13/portable/Initialize(mapload)
+/// Ignores the area-based F13 grid entirely -- powered only if wired to a SPECIFIC generator
+/// (see attackby()'s multitool-link handling), same "assigned machinery" pattern as turretid.
+/obj/machinery/porta_turret/f13/portable/powered()
+	if(QDELETED(assigned_generator))
+		return FALSE
+	return assigned_generator.powered
+
+/// Surfaces the multitool-link state in the tgui panel -- otherwise a player has no way to
+/// tell an unpowered turret from a powered-but-switched-off one without examining it.
+/obj/machinery/porta_turret/f13/portable/ui_data(mob/user)
 	. = ..()
+	.["generator_linked"] = !QDELETED(assigned_generator)
+	.["generator_name"] = QDELETED(assigned_generator) ? null : assigned_generator.name
+	.["generator_powered"] = powered()
+
+/obj/machinery/porta_turret/f13/portable/Initialize(mapload)
 	setAnchored(TRUE) // deployed and combat-ready immediately -- players shouldn't need to re-wrench a freshly unpacked turret
-	if(!mapload)
-		needs_grid_power = TRUE // player-deployed base defense should need real generator power, unlike a mapper's default placement
+	// Must anchor BEFORE ..() -- the base Initialize() chain INVOKE_ASYNCs popUp() (which needs
+	// anchored to be TRUE or it silently no-ops), and nothing else ever calls popUp() again until
+	// the turret happens to find a target, so being unanchored here left it invisible forever.
+	. = ..()
+	// That inherited popUp() is still just a fire-and-forget INVOKE_ASYNC -- a player can click
+	// (and fail to reach) the turret before it resolves. Force the end state directly instead of
+	// racing it, so the turret (and its UI) are never gated behind waiting for a real target.
+	invisibility = 0
+	raised = TRUE
+	layer = MOB_LAYER
 	if(our_mag)
 		var/obj/item/ammo_box/magazine/internal/newmag = our_mag
 		our_mag = new newmag(src)
 	chamber_new_round(FALSE)
 
 /obj/machinery/porta_turret/f13/portable/Destroy()
+	if(!QDELETED(assigned_generator) && assigned_generator.linked_turrets)
+		assigned_generator.linked_turrets -= src
+	assigned_generator = null
 	. = ..()
 	if(istype(our_mag) && obj_integrity <= 0)
 		for(var/obj/item/ammo_casing/casing_to_eject in our_mag.stored_ammo)
@@ -1846,6 +1892,10 @@
 
 /obj/machinery/porta_turret/f13/portable/examine(mob/user)
 	. = ..()
+	if(QDELETED(assigned_generator))
+		. += span_warning("It isn't linked to a generator -- multitool a generator, then multitool this turret, to power it.")
+	else
+		. += "It's linked to [span_notice("[assigned_generator]")], which is currently [assigned_generator.powered ? span_nicegreen("running") : span_warning("offline")]."
 	if(istype(our_mag) && length(our_mag.caliber))
 		. += "It accepts [span_notice(english_list(our_mag.caliber))]"
 	. += "It has [span_notice("[our_mag.ammo_count() + (!!chambered)]")] / [span_notice("[our_mag.max_ammo]")] round\s remaining."
@@ -1896,12 +1946,49 @@
 		if(istype(our_mag))
 			dump_bag_in_turret(I, user)
 	if(I.tool_behaviour == TOOL_MULTITOOL)
+		var/obj/item/multitool/M = I
+		if(istype(M.buffer, /obj/machinery/f13/faction_generator))
+			link_generator(M.buffer, user)
+			return
 		undeploy_turret(I, user)
 		return
 	if(I.tool_behaviour == TOOL_WELDER)
 		heal_turret(I, user)
 		return
 	. = ..()
+
+/// Completes a multitool link started by buffering a generator -- swaps out any previous
+/// assignment so a turret is only ever wired to one generator at a time.
+/obj/machinery/porta_turret/f13/portable/proc/link_generator(obj/machinery/f13/faction_generator/G, mob/user)
+	if(G == assigned_generator)
+		to_chat(user, span_notice("[src] is already linked to [G]."))
+		return
+	if(!QDELETED(assigned_generator) && assigned_generator.linked_turrets)
+		assigned_generator.linked_turrets -= src
+	assigned_generator = G
+	if(!G.linked_turrets)
+		G.linked_turrets = list()
+	G.linked_turrets |= src
+	to_chat(user, span_notice("You link [src] to [G]'s power grid."))
+	update_icon()
+
+/// req_access is deliberately empty (list()) -- a field-deployed turret has no faction-wide
+/// access list, so the base allowed() (which auto-passes when req_access is empty) would let
+/// literally anyone lock/unlock it regardless of ID. Gate on ownership (id_whitelist) instead:
+/// once someone has scanned themselves in as an owner, only registered owners may (un)lock it,
+/// and (same as airlocks) that means actually holding/wearing the registered ID, not just
+/// matching mob names -- so pull the card via get_idcard() and check ITS registered_name.
+/obj/machinery/porta_turret/f13/portable/allowed(mob/M)
+	if(!whitelist_active || !LAZYLEN(id_whitelist))
+		return TRUE
+	if(!M)
+		return FALSE
+	if(hasSiliconAccessInArea(M) || IsAdminGhost(M))
+		return TRUE
+	var/obj/item/card/id/id_card = M.get_idcard(FALSE)
+	if(!id_card)
+		return FALSE
+	return (id_card.registered_name in id_whitelist)
 
 /// Scanning a dogtag/ID assigns (or unassigns) its holder as a protected owner -- the turret will never target them,
 /// regardless of faction or "shoot everything" settings. This is the field alternative to the console-linked

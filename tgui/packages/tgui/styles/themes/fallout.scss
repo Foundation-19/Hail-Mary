@@ -74,6 +74,14 @@ $phosphor-text: #a8d8a8;
     border: base.em(1px) solid $phosphor-dim;
   }
 
+  // The flat color/background-color rule above repaints every button the same bright green,
+  // which hid the disabled ($color-disabled) state entirely. Opacity dims disabled buttons
+  // regardless of the color overrides above, so "not ready to craft" is actually visible.
+  .Button--disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
   .NumberInput {
     color: $phosphor;
     border-color: $phosphor-dim;
