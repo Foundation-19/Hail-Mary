@@ -547,7 +547,8 @@
 		else if(lock_mode == GENERATOR_LOCK_FACTION)
 			dat += "<pre>  MODE: <span class='warn'>&#91;FACTION&#93;</span>  faction=[lock_faction_display]</pre>"
 		if(pending_personal_reg || pending_faction_reg || pending_authorized_reg)
-			dat += "<pre class='warn'>  !! AWAITING ID CARD SWIPE TO COMPLETE REGISTRATION !!</pre>"
+			dat += "<pre class='warn'>  !! AWAITING ID CARD SWIPE TO COMPLETE REGISTRATION !!  "
+			dat += "<a href='byond://?src=[REF(src)];choice=cancel_reg'>&#91;CANCEL&#93;</a></pre>"
 		dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=lock_none'>UNLOCK</a>  "
 		dat += "<a href='byond://?src=[REF(src)];choice=lock_personal'>PERSONAL LOCK</a>  "
 		dat += "<a href='byond://?src=[REF(src)];choice=lock_faction'>FACTION LOCK</a>  "
@@ -576,7 +577,7 @@
 	var/mob/living/U = usr
 	if(!U || !istype(U) || !Adjacent(U))
 		return
-	if(!can_access(U) && !(href_list["choice"] in list("lock_none","lock_personal","lock_faction")))
+	if(!can_access(U) && !(href_list["choice"] in list("lock_none","lock_personal","lock_faction","cancel_reg")))
 		to_chat(U, span_warning("Access denied."))
 		return
 
@@ -687,6 +688,11 @@
 			pending_personal_reg   = FALSE
 			pending_faction_reg    = FALSE
 			to_chat(U, span_notice("Ready to authorize a new user. Have them swipe their ID card on the fabricator."))
+		if("cancel_reg")
+			pending_personal_reg   = FALSE
+			pending_faction_reg    = FALSE
+			pending_authorized_reg = FALSE
+			to_chat(U, span_notice("Pending registration cancelled."))
 		if("unauth")
 			if(!is_owner(U))
 				to_chat(U, span_warning("Only the registered owner may modify the authorized list."))
