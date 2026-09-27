@@ -546,7 +546,7 @@
 	category = CAT_MISC
 
 /datum/crafting_recipe/portaturret
-	name = "portable sentry turret"
+	name = "portable sentry turret (.22LR)"
 	result = /obj/item/turret_box
 	reqs = list(/obj/item/stack/sheet/metal = 20,
 			/obj/item/stack/crafting/metalparts = 5,
@@ -555,27 +555,63 @@
 			/obj/item/stack/ore/blackpowder = 2,
 			/obj/item/assembly/prox_sensor = 2,
 			/obj/item/stack/cable_coil = 20,
-			/obj/item/gun/ballistic/automatic/sportcarbine = 1
+			TURRET_PORTABLE_GUN_22LR = 1
 	)
-	time = 5 SECONDS
+	tools = list(TOOL_WORKBENCH)
+	time = 20 SECONDS
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
 
-/* /datum/crafting_recipe/portaturret_nogun // todo: make a var on the box whether or not it was made with a gun
-	name = "portable sentry turret (from scrap)"
-	result = /obj/item/turret_box
+/datum/crafting_recipe/portaturret_9mm
+	name = "portable sentry turret (9mm)"
+	result = /obj/item/turret_box/nine
 	reqs = list(/obj/item/stack/sheet/metal = 25,
-			/obj/item/stack/crafting/metalparts = 8,
+			/obj/item/stack/crafting/metalparts = 6,
 			/obj/item/stack/crafting/goodparts = 4,
-			/obj/item/stack/crafting/electronicparts = 10,
+			/obj/item/stack/crafting/electronicparts = 12,
+			/obj/item/stack/ore/blackpowder = 3,
 			/obj/item/assembly/prox_sensor = 2,
-			/obj/item/stack/cable_coil = 20
+			/obj/item/stack/cable_coil = 20,
+			TURRET_PORTABLE_GUN_9MM = 1
 	)
 	tools = list(TOOL_WORKBENCH)
-	time = 5 SECONDS
+	time = 25 SECONDS
 	subcategory = CAT_MISCELLANEOUS
 	category = CAT_MISC
-	 */
+
+/datum/crafting_recipe/portaturret_556
+	name = "portable sentry turret (5.56mm)"
+	result = /obj/item/turret_box/rifle
+	reqs = list(/obj/item/stack/sheet/metal = 30,
+			/obj/item/stack/crafting/metalparts = 8,
+			/obj/item/stack/crafting/goodparts = 6,
+			/obj/item/stack/crafting/electronicparts = 15,
+			/obj/item/stack/ore/blackpowder = 4,
+			/obj/item/assembly/prox_sensor = 3,
+			/obj/item/stack/cable_coil = 25,
+			TURRET_PORTABLE_GUN_556 = 1
+	)
+	tools = list(TOOL_WORKBENCH)
+	time = 30 SECONDS
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
+
+/datum/crafting_recipe/portaturret_shotgun
+	name = "portable sentry turret (shotgun)"
+	result = /obj/item/turret_box/shotgun
+	reqs = list(/obj/item/stack/sheet/metal = 30,
+			/obj/item/stack/crafting/metalparts = 8,
+			/obj/item/stack/crafting/goodparts = 6,
+			/obj/item/stack/crafting/electronicparts = 15,
+			/obj/item/stack/ore/blackpowder = 4,
+			/obj/item/assembly/prox_sensor = 3,
+			/obj/item/stack/cable_coil = 25,
+			TURRET_PORTABLE_GUN_SHOTGUN = 1
+	)
+	tools = list(TOOL_WORKBENCH)
+	time = 30 SECONDS
+	subcategory = CAT_MISCELLANEOUS
+	category = CAT_MISC
 
 //Nests
 /datum/crafting_recipe/small_nest
