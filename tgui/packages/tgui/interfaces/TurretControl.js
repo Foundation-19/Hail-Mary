@@ -10,16 +10,20 @@ export const TurretControl = (props, context) => {
     enabled,
     lethal,
     shootCyborgs,
+    linked_turrets,
   } = data;
   return (
     <Window
       theme="fallout"
       width={305}
-      height={172}>
+      height={195}>
       <Window.Content>
         <InterfaceLockNoticeBox />
         <Section>
           <LabeledList>
+            <LabeledList.Item label="Linked Turrets">
+              {linked_turrets || 'None'}
+            </LabeledList.Item>
             <LabeledList.Item label="Turret Status">
               <Button
                 icon={enabled ? 'power-off' : 'times'}
