@@ -1843,6 +1843,9 @@
 	/// Armed via the tgui "Add Authorized Owner" button -- the next ID card swiped (by anyone,
 	/// so the friend can scan their own card) is force-registered as an owner.
 	var/pending_add_owner = FALSE
+	/// Throttles out_of_ammo_alert -- without this it re-beeps/re-shouts every refire attempt
+	/// (multiple times a second) as long as a target stays in view while its dry.
+	COOLDOWN_DECLARE(turret_out_of_ammo_alert)
 	/// Ammunition loaded in the chamber
 	var/obj/item/ammo_casing/chambered
 	/// Gun dropped as scrap loot when this turret is destroyed
@@ -1957,6 +1960,9 @@
 		. += "Scan a dogtag/ID on it to assign yourself as its owner, so it never targets you."
 
 /obj/machinery/porta_turret/f13/portable/proc/out_of_ammo_alert()
+	if(COOLDOWN_TIMELEFT(src, turret_out_of_ammo_alert))
+		return
+	COOLDOWN_START(src, turret_out_of_ammo_alert, 10 SECONDS)
 	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', 100, FALSE, 0, ignore_walls = TRUE)
 	say("OUT OF: AMMO! NEED: [span_notice(english_list(our_mag.caliber))]!")
 
