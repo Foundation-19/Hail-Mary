@@ -878,6 +878,8 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		to_chat(user, span_warning("The target turret is no longer linked."))
 		pending_whitelist_tref = null
 		return
+	// A faction lock only stops casual field ID-scanning -- reaching this point already required
+	// beating the terminal's hack, so a successful hack is the intended way to seize it.
 	var/person_name = card.registered_name
 	if(!person_name || !length(person_name))
 		to_chat(user, span_warning("This ID card has no registered name. Assign a name to it first."))
