@@ -1837,6 +1837,9 @@
 	var/obj/item/ammo_box/magazine/internal/our_mag = /obj/item/ammo_box/magazine/internal/turret
 	/// The specific generator this turret is wired to -- set by multitool linking, same as turretid. No link, no power.
 	var/obj/machinery/f13/faction_generator/assigned_generator = null
+	/// Armed via the tgui "Add Authorized Owner" button -- the next ID card swiped (by anyone,
+	/// so the friend can scan their own card) is force-registered as an owner.
+	var/pending_add_owner = FALSE
 	/// Ammunition loaded in the chamber
 	var/obj/item/ammo_casing/chambered
 	/// Gun dropped as scrap loot when this turret is destroyed
@@ -1864,6 +1867,48 @@
 	.["generator_linked"] = !QDELETED(assigned_generator)
 	.["generator_name"] = QDELETED(assigned_generator) ? null : assigned_generator.name
 	.["generator_powered"] = powered()
+	.["faction_locked"] = faction_locked
+	.["whitelist_active"] = whitelist_active
+	.["id_whitelist"] = whitelist_active ? id_whitelist : list()
+	// Same rule assign_owner()/allowed() already enforce: unclaimed = anyone can manage, claimed = owners only.
+	.["can_manage_owners"] = allowed(user)
+	.["pending_add_owner"] = pending_add_owner
+
+/// Lets an owner remove another registered owner straight from the UI, without needing to
+/// physically re-scan that person's ID card. Adding still requires scanning a card in person --
+/// there's no way to safely type in a name.
+/obj/machinery/porta_turret/f13/portable/ui_act(action, list/params)
+	. = ..()
+	if(.)
+		return
+	if(action == "remove_owner")
+		if(faction_locked)
+			to_chat(usr, span_warning("[src]'s ownership has been locked down and can't be reassigned!"))
+			return TRUE
+		if(!allowed(usr))
+			to_chat(usr, span_alert("Access denied."))
+			return TRUE
+		var/target_name = params["name"]
+		if(!target_name || !id_whitelist || !(target_name in id_whitelist))
+			return TRUE
+		id_whitelist -= target_name
+		to_chat(usr, span_notice("[target_name] is no longer a registered owner of [src]."))
+		if(!length(id_whitelist))
+			whitelist_active = FALSE
+		return TRUE
+	if(action == "start_add_owner")
+		if(faction_locked)
+			to_chat(usr, span_warning("[src]'s ownership has been locked down and can't be reassigned!"))
+			return TRUE
+		if(!allowed(usr))
+			to_chat(usr, span_alert("Access denied."))
+			return TRUE
+		pending_add_owner = TRUE
+		to_chat(usr, span_notice("Ready to authorize a new owner -- have them scan their ID card on [src]."))
+		return TRUE
+	if(action == "cancel_add_owner")
+		pending_add_owner = FALSE
+		return TRUE
 
 /obj/machinery/porta_turret/f13/portable/Initialize(mapload)
 	setAnchored(TRUE) // deployed and combat-ready immediately -- players shouldn't need to re-wrench a freshly unpacked turret
@@ -2006,6 +2051,16 @@
 		return
 	if(!id_whitelist)
 		id_whitelist = list()
+	// Armed via the tgui button -- an owner already vetted this, so let whoever's holding the
+	// card (usually the friend themselves) complete the registration with one scan.
+	if(pending_add_owner)
+		pending_add_owner = FALSE
+		if(!(registered_name in id_whitelist))
+			id_whitelist += registered_name
+		whitelist_active = TRUE
+		to_chat(user, span_nicegreen("You scan [id_card] and register [registered_name] as an owner of [src]."))
+		playsound(get_turf(src), 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE, 0, ignore_walls = TRUE)
+		return
 	// Anti-grief: once someone owns this turret, only an existing owner can add or remove entries --
 	// otherwise anyone (including a hostile) could just scan their own dogtag to make themselves immune to it.
 	var/user_name = ishuman(user) ? user.real_name : user.name

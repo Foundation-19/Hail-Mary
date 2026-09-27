@@ -68,6 +68,11 @@
 	var/pending_personal_reg = FALSE
 	/// When TRUE the next ID-card swipe registers a faction owner.
 	var/pending_faction_reg  = FALSE
+	/// When TRUE the next ID-card swipe (by someone other than the owner) adds them as an authorized user.
+	var/pending_authorized_reg = FALSE
+	/// ckey -> display name of extra users the PERSONAL owner has individually authorized. Only
+	/// meaningful under GENERATOR_LOCK_PERSONAL; reset whenever the lock changes hands or mode.
+	var/list/authorized_users = list()
 	/// Mobs currently viewing the UI — refreshed each process() tick while crafting.
 	var/list/ui_watchers = list()
 
@@ -220,10 +225,17 @@
 		if(GENERATOR_LOCK_NONE)
 			return TRUE
 		if(GENERATOR_LOCK_PERSONAL)
-			return (user.ckey == owner_ckey)
+			if(user.ckey == owner_ckey)
+				return TRUE
+			return (user.ckey in authorized_users)
 		if(GENERATOR_LOCK_FACTION)
 			return (owner_faction in user.faction)
 	return FALSE
+
+/// Only the registered PERSONAL owner may manage the authorized-user list -- authorized users
+/// themselves can use the fabricator but can't add/remove other authorized users.
+/obj/machinery/f13/core_fabricator/proc/is_owner(mob/living/user)
+	return (lock_mode == GENERATOR_LOCK_PERSONAL) && owner_ckey && (user.ckey == owner_ckey)
 
 
 // ============================================================
@@ -352,7 +364,7 @@
 
 /// Handle an ID card swipe for lock management.
 /obj/machinery/f13/core_fabricator/proc/handle_id_card(obj/item/card/id/card, mob/user)
-	if(!can_access(user) && !(pending_personal_reg || pending_faction_reg))
+	if(!can_access(user) && !(pending_personal_reg || pending_faction_reg || pending_authorized_reg))
 		to_chat(user, span_warning("Access denied."))
 		return
 
@@ -361,6 +373,7 @@
 		owner_ckey = user.ckey
 		owner_name = user.real_name
 		lock_mode  = GENERATOR_LOCK_PERSONAL
+		authorized_users = list() // new owner starts with a clean slate, no inherited friends
 		to_chat(user, span_notice("Personal lock registered to [user.real_name]."))
 		show_ui(user)
 		return
@@ -373,7 +386,24 @@
 			return
 		owner_faction = reg_faction
 		lock_mode     = GENERATOR_LOCK_FACTION
+		authorized_users = list() // authorized list only applies under personal lock
 		to_chat(user, span_notice("Faction lock registered to '[reg_faction]'."))
+		show_ui(user)
+		return
+
+	if(pending_authorized_reg)
+		pending_authorized_reg = FALSE
+		if(!(lock_mode == GENERATOR_LOCK_PERSONAL && owner_ckey))
+			to_chat(user, span_warning("No personal owner is registered -- set a personal lock first."))
+			return
+		if(user.ckey == owner_ckey)
+			to_chat(user, span_warning("You're already the owner."))
+			return
+		if(user.ckey in authorized_users)
+			to_chat(user, span_notice("[user.real_name] is already authorized."))
+			return
+		authorized_users[user.ckey] = user.real_name
+		to_chat(user, span_notice("[user.real_name] added as an authorized user of [src]."))
 		show_ui(user)
 		return
 
@@ -497,12 +527,26 @@
 		var/lock_faction_display = owner_faction ? owner_faction : "<span class='dim'>(not set)</span>"
 		dat += "<pre class='head'>  &#91;ACCESS CONTROL&#93;</pre>"
 		if(lock_mode == GENERATOR_LOCK_NONE)
-			dat += "<pre>  MODE: <span class='dim'>OPEN  (no restrictions)</span></pre>"
+			dat += "<pre>  MODE: <span class='good'>&#91;OPEN&#93;</span>  <span class='dim'>no restrictions</span></pre>"
 		else if(lock_mode == GENERATOR_LOCK_PERSONAL)
-			dat += "<pre>  MODE: PERSONAL  owner=[lock_owner_display]</pre>"
+			dat += "<pre>  MODE: <span class='warn'>&#91;PERSONAL&#93;</span>  owner=[lock_owner_display]</pre>"
+			if(LAZYLEN(authorized_users))
+				dat += "<pre class='dim'>  AUTHORIZED ([length(authorized_users)]):</pre>"
+				for(var/auth_ckey in authorized_users)
+					dat += "<pre>    - [authorized_users[auth_ckey]]"
+					if(is_owner(user))
+						dat += "  <a href='byond://?src=[REF(src)];choice=unauth;ckey=[auth_ckey]'><span class='warn'>&#91;REMOVE&#93;</span></a>"
+					dat += "</pre>"
+			else
+				dat += "<pre class='dim'>  AUTHORIZED: none</pre>"
+			if(is_owner(user))
+				dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=lock_authorized'>ADD AUTHORIZED USER</a>"
+				if(LAZYLEN(authorized_users))
+					dat += "  <a href='byond://?src=[REF(src)];choice=clear_authorized'><span class='warn'>CLEAR ALL</span></a>"
+				dat += "</pre>"
 		else if(lock_mode == GENERATOR_LOCK_FACTION)
-			dat += "<pre>  MODE: FACTION   faction=[lock_faction_display]</pre>"
-		if(pending_personal_reg || pending_faction_reg)
+			dat += "<pre>  MODE: <span class='warn'>&#91;FACTION&#93;</span>  faction=[lock_faction_display]</pre>"
+		if(pending_personal_reg || pending_faction_reg || pending_authorized_reg)
 			dat += "<pre class='warn'>  !! AWAITING ID CARD SWIPE TO COMPLETE REGISTRATION !!</pre>"
 		dat += "<pre>  &gt; <a href='byond://?src=[REF(src)];choice=lock_none'>UNLOCK</a>  "
 		dat += "<a href='byond://?src=[REF(src)];choice=lock_personal'>PERSONAL LOCK</a>  "
@@ -618,18 +662,45 @@
 			owner_ckey = null
 			owner_name = null
 			owner_faction = null
+			authorized_users = list()
 			pending_personal_reg = FALSE
 			pending_faction_reg  = FALSE
+			pending_authorized_reg = FALSE
 			to_chat(U, span_notice("Lock removed — fabricator is now open to all."))
 		if("lock_personal")
 			if(!can_access(U)) return
 			pending_personal_reg = TRUE
 			pending_faction_reg  = FALSE
+			pending_authorized_reg = FALSE
 			to_chat(U, span_notice("Ready to register personal owner. Swipe an ID card on the fabricator."))
 		if("lock_faction")
 			if(!can_access(U)) return
 			pending_faction_reg  = TRUE
 			pending_personal_reg = FALSE
+			pending_authorized_reg = FALSE
 			to_chat(U, span_notice("Ready to register faction lock. Swipe an ID card on the fabricator."))
+		if("lock_authorized")
+			if(!is_owner(U))
+				to_chat(U, span_warning("Only the registered owner may add authorized users."))
+				return
+			pending_authorized_reg = TRUE
+			pending_personal_reg   = FALSE
+			pending_faction_reg    = FALSE
+			to_chat(U, span_notice("Ready to authorize a new user. Have them swipe their ID card on the fabricator."))
+		if("unauth")
+			if(!is_owner(U))
+				to_chat(U, span_warning("Only the registered owner may modify the authorized list."))
+				return
+			var/target_ckey = href_list["ckey"]
+			if(target_ckey && (target_ckey in authorized_users))
+				var/removed_name = authorized_users[target_ckey]
+				authorized_users -= target_ckey
+				to_chat(U, span_notice("Removed [removed_name] from the authorized list."))
+		if("clear_authorized")
+			if(!is_owner(U))
+				to_chat(U, span_warning("Only the registered owner may modify the authorized list."))
+				return
+			authorized_users = list()
+			to_chat(U, span_notice("Cleared all authorized users."))
 
 	show_ui(U)

@@ -1,6 +1,12 @@
 import { Fragment } from 'inferno';
 import { useBackend } from '../backend';
-import { Button, LabeledList, NoticeBox, Section } from '../components';
+import {
+  Box,
+  Button,
+  LabeledList,
+  NoticeBox,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 export const PortableTurret = (props, context) => {
@@ -24,13 +30,18 @@ export const PortableTurret = (props, context) => {
     generator_linked,
     generator_name,
     generator_powered,
+    faction_locked,
+    whitelist_active,
+    id_whitelist = [],
+    can_manage_owners,
+    pending_add_owner,
   } = data;
   return (
     <Window
       theme="fallout"
       width={310}
-      height={lasertag_turret ? 110 : 420}>
-      <Window.Content>
+      height={lasertag_turret ? 110 : 460}>
+      <Window.Content scrollable>
         <NoticeBox>
           {locked ? 'Unlock' : 'Lock'} this interface with an ID card.
           <Button
@@ -53,10 +64,10 @@ export const PortableTurret = (props, context) => {
           </NoticeBox>
         )}
         <Fragment>
-          <Section>
+          <Section title="Status">
             <LabeledList>
               <LabeledList.Item
-                label="Status"
+                label="Power"
                 buttons={!lasertag_turret && (!!allow_manual_control
                   || (!!manual_control && !!silicon_user)) && (
                   <Button
@@ -123,6 +134,64 @@ export const PortableTurret = (props, context) => {
                 content="Use Internal Speakers"
                 disabled={locked}
                 onClick={() => act('turret_return_make_noise')} />
+            </Section>
+          )}
+          {!lasertag_turret && (
+            <Section title="Ownership">
+              {!!faction_locked && (
+                <NoticeBox>
+                  Ownership is locked down and cannot be reassigned.
+                </NoticeBox>
+              )}
+              {!faction_locked && (
+                <Fragment>
+                  {whitelist_active && id_whitelist.length > 0 ? (
+                    <LabeledList>
+                      {id_whitelist.map((ownerName) => (
+                        <LabeledList.Item key={ownerName} label={ownerName}>
+                          <Button
+                            icon="user-slash"
+                            content="Remove"
+                            color="danger"
+                            disabled={locked || !can_manage_owners}
+                            onClick={() => act('remove_owner', {
+                              name: ownerName,
+                            })} />
+                        </LabeledList.Item>
+                      ))}
+                    </LabeledList>
+                  ) : (
+                    <Box color="label" mb={1}>
+                      No registered owners -- this turret will target
+                      anyone its settings allow.
+                    </Box>
+                  )}
+                  <Box color="label">
+                    Scan an ID card directly on the turret to add or
+                    remove an owner (protected from targeting).
+                  </Box>
+                  {can_manage_owners && (
+                    pending_add_owner ? (
+                      <NoticeBox>
+                        Awaiting ID card scan to authorize a new owner...
+                        <Button
+                          ml={1}
+                          icon="times"
+                          content="Cancel"
+                          disabled={locked}
+                          onClick={() => act('cancel_add_owner')} />
+                      </NoticeBox>
+                    ) : (
+                      <Button
+                        fluid
+                        icon="user-plus"
+                        content="Add Authorized Owner"
+                        disabled={locked}
+                        onClick={() => act('start_add_owner')} />
+                    )
+                  )}
+                </Fragment>
+              )}
             </Section>
           )}
         </Fragment>
