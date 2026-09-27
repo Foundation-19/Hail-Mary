@@ -44,6 +44,14 @@
 	// Notify buttons on any turf (open or closed) WITHIN this area.
 	for(var/obj/machinery/button/B in src)
 		B.power_change()
+	// Portable turrets read the grid state live via their own powered() override, but nothing
+	// ever re-runs their update_icon()/check_should_process() when the grid flips -- F13 areas
+	// have no APC, so the normal machinery power-notification path never reaches them. Without
+	// this, a turret can get stuck showing/processing whatever state it had at deploy time
+	// (e.g. its unpowered icon_state, or scanning paused) until an unrelated event happens to
+	// re-check it.
+	for(var/obj/machinery/porta_turret/f13/T in src)
+		T.power_change()
 	// Sweep closed (wall) tiles adjacent to this area and notify buttons there.
 	// Wall tiles are frequently in /area/space or a parent f13 area type rather
 	// than the stamped subzone, so they are not reachable by the loop above.

@@ -58,6 +58,10 @@
 	var/on = TRUE
 	/// Same faction mobs will never be shot at, no matter the other settings
 	var/list/faction = list("turret")
+	/// Mapper-controllable: if TRUE, this turret's faction list and ID whitelist can't be changed by scanning
+	/// a dogtag/ID on it directly, or via a linked terminal's whitelist/faction registration. Set this on
+	/// turrets guarding a faction base that shouldn't be "claimed" by whoever walks up with a dogtag.
+	var/faction_locked = FALSE
 	/// The spark system, used for generating... sparks?
 	var/datum/effect_system/spark_spread/spark_system
 	/// Linked turret control panel of the turret
@@ -768,29 +772,11 @@
 	if(cover)
 		cover.icon_state = "turretCover"
 	raised = 0
-	invisibility = 2
+	// Coverless turrets (e.g. player-deployed portables) have nothing to hide behind -- only
+	// turrets with a cover sprite standing in for them should go invisible while retracted.
+	if(has_cover)
+		invisibility = 2
 	update_icon()
-
-/// Unused (would pretty much always return true, cus everyone's armed)
-/obj/machinery/porta_turret/proc/assess_perp(mob/living/carbon/human/perp)
-	var/threatcount = 0	//the integer returned
-
-	if(obj_flags & EMAGGED)
-		return 10	//if emagged, always return 10.
-
-	if((turret_flags & (TF_SHOOT_EVERYTHING | TF_SHOOT_REACTION)) && !allowed(perp))
-		//if the turret has been attacked or is angry, target all non-sec people
-		return 10
-
-	if(isnull(perp.wear_id) || istype(perp.wear_id.GetID(), /obj/item/card/id/syndicate))
-		if(allowed(perp)) //if the perp has security access, return 0
-			return 0
-		if(perp.is_holding_item_of_type(/obj/item/gun) ||  perp.is_holding_item_of_type(/obj/item/melee/baton))
-			threatcount += 4
-		if(istype(perp.belt, /obj/item/gun) || istype(perp.belt, /obj/item/melee/baton))
-			threatcount += 2
-
-	return threatcount
 
 /// Checks if the target is in the turret's faction
 /obj/machinery/porta_turret/proc/in_faction(mob/target)
@@ -1063,9 +1049,6 @@
 /obj/machinery/porta_turret/syndicate/setup()
 	return
 
-/obj/machinery/porta_turret/syndicate/assess_perp(mob/living/carbon/human/perp)
-	return 10 //Syndicate turrets shoot everything not in their faction
-
 /obj/machinery/porta_turret/syndicate/energy
 	icon_state = "standard_stun"
 	base_icon_state = "standard"
@@ -1111,9 +1094,6 @@
 	faction = list("silicon")
 	turret_flags = TURRET_DEFAULT_TARGET_FLAGS | TURRET_DEFAULT_UTILITY | TF_IGNORE_FACTION
 
-/obj/machinery/porta_turret/ai/assess_perp(mob/living/carbon/human/perp)
-	return 10 //AI turrets shoot at everything not in their faction
-
 /obj/machinery/porta_turret/aux_base
 	name = "perimeter defense turret"
 	desc = "A plasma beam turret calibrated to defend outposts against non-humanoid fauna. It is more effective when exposed to the environment."
@@ -1122,9 +1102,6 @@
 	lethal_projectile_sound = 'sound/weapons/plasma_cutter.ogg'
 	mode = TURRET_LETHAL //It would be useless in stun mode anyway
 	faction = list("neutral","silicon","turret") //Minebots, medibots, etc that should not be shot.
-
-/obj/machinery/porta_turret/aux_base/assess_perp(mob/living/carbon/human/perp)
-	return 0 //Never shoot humanoids. You are on your own if Ashwalkers or the like attack!
 
 /obj/machinery/porta_turret/aux_base/setup()
 	return
@@ -1156,9 +1133,6 @@
 /obj/machinery/porta_turret/centcom_shuttle/ComponentInitialize()
 	. = ..()
 	AddElement(/datum/element/empprotection, EMP_PROTECT_SELF | EMP_PROTECT_WIRES)
-
-/obj/machinery/porta_turret/centcom_shuttle/assess_perp(mob/living/carbon/human/perp)
-	return 0
 
 /obj/machinery/porta_turret/centcom_shuttle/setup()
 	return
@@ -1202,9 +1176,6 @@
 
 /obj/machinery/porta_turret/xray/setup()
 	return
-
-/obj/machinery/porta_turret/xray/assess_perp(mob/living/carbon/human/perp)
-	return 10 //Syndicate turrets shoot everything not in their faction
 
 ////////////////////////
 //Turret Control Panel//
@@ -1449,26 +1420,6 @@
 	turret_flags = TURRET_DEFAULT_TARGET_FLAGS | TURRET_DEFAULT_UTILITY
 	var/team_color
 
-/obj/machinery/porta_turret/lasertag/assess_perp(mob/living/carbon/human/perp)
-	. = 0
-	if(team_color == "blue")	//Lasertag turrets target the opposing team, how great is that? -Sieve
-		. = 0		//But does not target anyone else
-		if(istype(perp.wear_suit, /obj/item/clothing/suit/redtag))
-			. += 4
-		if(perp.is_holding_item_of_type(/obj/item/gun/energy/laser/redtag))
-			. += 4
-		if(istype(perp.belt, /obj/item/gun/energy/laser/redtag))
-			. += 2
-
-	if(team_color == "red")
-		. = 0
-		if(istype(perp.wear_suit, /obj/item/clothing/suit/bluetag))
-			. += 4
-		if(perp.is_holding_item_of_type(/obj/item/gun/energy/laser/bluetag))
-			. += 4
-		if(istype(perp.belt, /obj/item/gun/energy/laser/bluetag))
-			. += 2
-
 /obj/machinery/porta_turret/lasertag/setup(obj/item/gun/gun)
 	var/list/properties = ..()
 	if(properties["team_color"])
@@ -1514,6 +1465,9 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
+	/// Mapper-controllable: does this turret actually need F13 grid power to fire? If FALSE it always works
+	/// (self-contained); if TRUE it follows the area's f13_grid_power/outdoors/grid_immune rules.
+	var/needs_grid_power = TRUE
 	desc = "An old automatic gun turret chambered in 9mm. Would rather to be left alone to ponder how it's still shooting after all these years."
 	density = TRUE
 	use_power = FALSE
@@ -1533,9 +1487,11 @@
 	stun_projectile_sound = 'sound/f13weapons/9mm.ogg'
 	faction = null
 
-/// F13 turrets are powered only when the F13 power grid supplies their area.
+/// F13 turrets are powered only when the F13 power grid supplies their area (if they need power at all).
 /// Outdoor and grid-immune areas are always considered powered (no generator needed).
 /obj/machinery/porta_turret/f13/powered()
+	if(!needs_grid_power)
+		return TRUE
 	var/area/A = get_area(src)
 	if(istype(A, /area/f13))
 		var/area/f13/FA = A
@@ -1822,9 +1778,10 @@
 	turret_flags = TURRET_ROBOT_OWNED_FLAGS | TURRET_DEFAULT_UTILITY
 	faction = list("wastebot")
 
-/// Eastwood's Friendliest Autogun
+/// Player-craftable portable sentry turret -- ammo-fed, not tied to any particular map/town.
+/// Still needs F13 grid power to fire when placed indoors on-grid, same as the fixed lore turrets.
 /// needs ammo~
-/obj/machinery/porta_turret/f13/eastwood
+/obj/machinery/porta_turret/f13/portable
 	name = "portable .22LR sentry turret"
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndie_off"
@@ -1833,6 +1790,7 @@
 		a wide variety of wasteland annoyances with a spray of bullets and keep our lovely town safe! Keep away from dogs. \
 		<br><br>\
 		This turret comes unloaded and lacks an ammo-fab, so it will need to be fed <b>.22LR bullets</b> before it can fire. \
+		It also needs generator power to run indoors, just like any other automated defense. \
 		This is a 'portable' turret, in that it can be packaged back up into a handy carrying case if pulsed with a <b>multitool</b>.\
 		It can be repaired with a <b>welder<b>."
 	density = TRUE
@@ -1855,10 +1813,13 @@
 	burst_delay = GUN_BURSTFIRE_DELAY_SLOW
 	shot_spread = 3
 	faction = list("neutral")
+	needs_grid_power = FALSE // mapper default: works everywhere out of the box, override per-instance in the map if desired
 	/// This turret takes ammo!
 	var/obj/item/ammo_box/magazine/internal/our_mag = /obj/item/ammo_box/magazine/internal/turret
 	/// Ammunition loaded in the chamber
 	var/obj/item/ammo_casing/chambered
+	/// Gun dropped as scrap loot when this turret is destroyed
+	var/obj/item/gun/loot_gun_type = TURRET_PORTABLE_GUN_22LR
 	lethal_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),
@@ -1868,14 +1829,17 @@
 		SP_DISTANT_RANGE(PISTOL_LIGHT_RANGE_DISTANT)
 	)
 
-/obj/machinery/porta_turret/f13/eastwood/Initialize()
+/obj/machinery/porta_turret/f13/portable/Initialize(mapload)
 	. = ..()
+	setAnchored(TRUE) // deployed and combat-ready immediately -- players shouldn't need to re-wrench a freshly unpacked turret
+	if(!mapload)
+		needs_grid_power = TRUE // player-deployed base defense should need real generator power, unlike a mapper's default placement
 	if(our_mag)
 		var/obj/item/ammo_box/magazine/internal/newmag = our_mag
 		our_mag = new newmag(src)
 	chamber_new_round(FALSE)
 
-/obj/machinery/porta_turret/f13/eastwood/Destroy()
+/obj/machinery/porta_turret/f13/portable/Destroy()
 	. = ..()
 	if(istype(our_mag) && obj_integrity <= 0)
 		for(var/obj/item/ammo_casing/casing_to_eject in our_mag.stored_ammo)
@@ -1883,17 +1847,22 @@
 	QDEL_NULL(our_mag)
 	QDEL_NULL(chambered)
 
-/obj/machinery/porta_turret/f13/eastwood/examine(mob/user)
+/obj/machinery/porta_turret/f13/portable/examine(mob/user)
 	. = ..()
 	if(istype(our_mag) && length(our_mag.caliber))
 		. += "It accepts [span_notice(english_list(our_mag.caliber))]"
 	. += "It has [span_notice("[our_mag.ammo_count() + (!!chambered)]")] / [span_notice("[our_mag.max_ammo]")] round\s remaining."
+	if(whitelist_active && LAZYLEN(id_whitelist))
+		. += "Scan a dogtag/ID on it to assign or unassign the holder as a protected owner. \
+			Currently protecting: [span_notice(english_list(id_whitelist))]."
+	else
+		. += "Scan a dogtag/ID on it to assign yourself as its owner, so it never targets you."
 
-/obj/machinery/porta_turret/f13/eastwood/proc/out_of_ammo_alert()
+/obj/machinery/porta_turret/f13/portable/proc/out_of_ammo_alert()
 	playsound(get_turf(src), 'sound/machines/triple_beep.ogg', 100, FALSE, 0, ignore_walls = TRUE)
 	say("OUT OF: AMMO! NEED: [span_notice(english_list(our_mag.caliber))]!")
 
-/obj/machinery/porta_turret/f13/eastwood/proc/eject_chambered_round(keep_it)
+/obj/machinery/porta_turret/f13/portable/proc/eject_chambered_round(keep_it)
 	if(!istype(chambered))
 		return FALSE
 	if(keep_it && our_mag.give_round(chambered))
@@ -1903,7 +1872,7 @@
 	chambered = null
 	return TRUE
 
-/obj/machinery/porta_turret/f13/eastwood/proc/chamber_new_round(eject_current)
+/obj/machinery/porta_turret/f13/portable/proc/chamber_new_round(eject_current)
 	if(istype(chambered))
 		if(eject_current || !chambered.BB)
 			eject_chambered_round()
@@ -1913,7 +1882,10 @@
 		return TRUE
 	return FALSE
 
-/obj/machinery/porta_turret/f13/eastwood/attackby(obj/item/I, mob/user, params)
+/obj/machinery/porta_turret/f13/portable/attackby(obj/item/I, mob/user, params)
+	if(isidcard(I))
+		assign_owner(I, user)
+		return
 	if(istype(I, /obj/item/ammo_box))
 		if(istype(our_mag))
 			our_mag.attackby(I, user)
@@ -1934,7 +1906,37 @@
 		return
 	. = ..()
 
-/obj/machinery/porta_turret/f13/eastwood/proc/dump_bag_in_turret(obj/item/storage/bag/casings/saq, mob/user)
+/// Scanning a dogtag/ID assigns (or unassigns) its holder as a protected owner -- the turret will never target them,
+/// regardless of faction or "shoot everything" settings. This is the field alternative to the console-linked
+/// whitelist system, since a portable turret is deployed on its own with no terminal nearby.
+/obj/machinery/porta_turret/f13/portable/proc/assign_owner(obj/item/card/id/id_card, mob/user)
+	if(faction_locked)
+		to_chat(user, span_warning("[src]'s ownership has been locked down and can't be reassigned!"))
+		return
+	var/registered_name = id_card.registered_name
+	if(!registered_name || !length(registered_name))
+		to_chat(user, span_warning("[id_card] has no name registered to it!"))
+		return
+	if(!id_whitelist)
+		id_whitelist = list()
+	// Anti-grief: once someone owns this turret, only an existing owner can add or remove entries --
+	// otherwise anyone (including a hostile) could just scan their own dogtag to make themselves immune to it.
+	var/user_name = ishuman(user) ? user.real_name : user.name
+	if(length(id_whitelist) && !(user_name in id_whitelist))
+		to_chat(user, span_warning("[src] doesn't recognize you as one of its registered owners!"))
+		return
+	if(registered_name in id_whitelist)
+		id_whitelist -= registered_name
+		to_chat(user, span_notice("You scan [id_card] and remove [registered_name] as an owner of [src]."))
+		if(!length(id_whitelist))
+			whitelist_active = FALSE
+		return
+	id_whitelist += registered_name
+	whitelist_active = TRUE
+	to_chat(user, span_nicegreen("You scan [id_card] and assign [src] to [registered_name] -- it will never target them."))
+	playsound(get_turf(src), 'sound/machines/terminal_prompt_confirm.ogg', 50, FALSE, 0, ignore_walls = TRUE)
+
+/obj/machinery/porta_turret/f13/portable/proc/dump_bag_in_turret(obj/item/storage/bag/casings/saq, mob/user)
 	if(!istype(saq))
 		return
 	if(!istype(user))
@@ -1964,7 +1966,13 @@
 	else
 		to_chat(user, span_warning("You couldn't fit anything into [src]!"))
 
-/obj/machinery/porta_turret/f13/eastwood/proc/undeploy_turret(obj/item/m_tool, mob/user)
+/obj/machinery/porta_turret/f13/portable/proc/undeploy_turret(obj/item/m_tool, mob/user)
+	// Anti-grief: an owned turret can only be packed up (stolen/disabled) by one of its registered owners.
+	if(LAZYLEN(id_whitelist) && whitelist_active)
+		var/user_name = ishuman(user) ? user.real_name : user.name
+		if(!(user_name in id_whitelist))
+			to_chat(user, span_alert("[src] doesn't recognize you as one of its registered owners!"))
+			return
 	visible_message(span_notice("[user] starts packing up [src]!"),
 		span_notice("You starts packing up [src]!"))
 	if(!m_tool.use_tool(src, user, 3 SECONDS, 0, 100))
@@ -1977,9 +1985,12 @@
 	the_box.stored_mag = our_mag
 	our_mag.forceMove(the_box)
 	our_mag = null
+	if(LAZYLEN(id_whitelist))
+		the_box.stored_owner = id_whitelist.Copy()
+		the_box.stored_owner_active = whitelist_active
 	qdel(src)
 
-/obj/machinery/porta_turret/f13/eastwood/proc/heal_turret(obj/item/weldertool, mob/user)
+/obj/machinery/porta_turret/f13/portable/proc/heal_turret(obj/item/weldertool, mob/user)
 	if(stat & BROKEN)
 		user.show_message(span_alert("It's beyond repair!"))
 		return
@@ -1995,7 +2006,7 @@
 			span_green("You repaired [src]!"))
 
 /// modified to use our silly ammo system
-/obj/machinery/porta_turret/f13/eastwood/shoot_at_target(atom/movable/target, turf/our_turf)
+/obj/machinery/porta_turret/f13/portable/shoot_at_target(atom/movable/target, turf/our_turf)
 	if(!target || !our_turf)
 		return FALSE
 	if(!chambered || (chambered && !chambered.BB))
@@ -2040,9 +2051,60 @@
 	return TRUE
 
 /// dumps loot all over the place
-/obj/machinery/porta_turret/f13/eastwood/drop_loot(obj/item/I, mob/user)
-	new /obj/item/gun/ballistic/automatic/sportcarbine(get_turf(src))
+/obj/machinery/porta_turret/f13/portable/drop_loot(obj/item/I, mob/user)
+	new loot_gun_type(get_turf(src))
 	..()
+
+/// 9mm variant of the portable sentry turret
+/obj/machinery/porta_turret/f13/portable/nine
+	name = "portable 9mm sentry turret"
+	desc = "A crude, but effective, hand-made auto-turret, chambered in 9mm, with a 150 round hopper. Comes pre-programmed to gun down \
+		a wide variety of wasteland annoyances with a spray of bullets and keep our lovely town safe! Keep away from dogs. \
+		<br><br>\
+		This turret comes unloaded and lacks an ammo-fab, so it will need to be fed <b>9mm bullets</b> before it can fire. \
+		This is a 'portable' turret, in that it can be packaged back up into a handy carrying case if pulsed with a <b>multitool</b>.\
+		It can be repaired with a <b>welder<b>."
+	our_mag = /obj/item/ammo_box/magazine/internal/turret/nine
+	lethal_projectile_sound = 'sound/f13weapons/9mm.ogg'
+	stun_projectile_sound = 'sound/f13weapons/9mm.ogg'
+	burst_count = 3
+	burst_delay = GUN_BURSTFIRE_DELAY_FAST
+	shot_spread = 8
+	loot_gun_type = TURRET_PORTABLE_GUN_9MM
+
+/// 5.56mm variant of the portable sentry turret
+/obj/machinery/porta_turret/f13/portable/rifle
+	name = "portable 5.56mm sentry turret"
+	desc = "A crude, but effective, hand-made auto-turret, chambered in 5.56mm, with a 90 round hopper. Comes pre-programmed to gun down \
+		a wide variety of wasteland annoyances with a spray of bullets and keep our lovely town safe! Keep away from dogs. \
+		<br><br>\
+		This turret comes unloaded and lacks an ammo-fab, so it will need to be fed <b>5.56mm bullets</b> before it can fire. \
+		This is a 'portable' turret, in that it can be packaged back up into a handy carrying case if pulsed with a <b>multitool</b>.\
+		It can be repaired with a <b>welder<b>."
+	our_mag = /obj/item/ammo_box/magazine/internal/turret/rifle
+	lethal_projectile_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	stun_projectile_sound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	burst_count = 4
+	burst_delay = GUN_BURSTFIRE_DELAY_SLOW
+	shot_spread = 3
+	loot_gun_type = TURRET_PORTABLE_GUN_556
+
+/// Shotgun variant of the portable sentry turret
+/obj/machinery/porta_turret/f13/portable/shotgun
+	name = "portable shotgun sentry turret"
+	desc = "A crude, but effective, hand-made auto-turret, chambered in 12 gauge, with a 40 shell hopper. Comes pre-programmed to gun down \
+		a wide variety of wasteland annoyances with a spray of buckshot and keep our lovely town safe! Keep away from dogs. \
+		<br><br>\
+		This turret comes unloaded and lacks an ammo-fab, so it will need to be fed <b>12 gauge shells</b> before it can fire. \
+		This is a 'portable' turret, in that it can be packaged back up into a handy carrying case if pulsed with a <b>multitool</b>.\
+		It can be repaired with a <b>welder<b>."
+	our_mag = /obj/item/ammo_box/magazine/internal/turret/shotgun
+	lethal_projectile_sound = 'sound/f13weapons/shotgun.ogg'
+	stun_projectile_sound = 'sound/f13weapons/shotgun.ogg'
+	burst_count = 1
+	burst_delay = GUN_BURSTFIRE_DELAY_SLOWER
+	shot_spread = 15
+	loot_gun_type = TURRET_PORTABLE_GUN_SHOTGUN
 
 /obj/item/ammo_box/magazine/internal/turret
 	name = "turret ammo hopper"
@@ -2055,6 +2117,27 @@
 	start_ammo_count = 100
 	randomize_ammo_count = TRUE
 
+/obj/item/ammo_box/magazine/internal/turret/nine
+	name = "turret ammo hopper"
+	ammo_type = /obj/item/ammo_casing/c9mm
+	caliber = list(CALIBER_9MM)
+	max_ammo = 150
+	start_ammo_count = 50
+
+/obj/item/ammo_box/magazine/internal/turret/rifle
+	name = "turret ammo hopper"
+	ammo_type = /obj/item/ammo_casing/a556
+	caliber = list(CALIBER_556)
+	max_ammo = 90
+	start_ammo_count = 30
+
+/obj/item/ammo_box/magazine/internal/turret/shotgun
+	name = "turret ammo hopper"
+	ammo_type = /obj/item/ammo_casing/shotgun/buckshot
+	caliber = list(CALIBER_SHOTGUN)
+	max_ammo = 40
+	start_ammo_count = 15
+
 /// A packed up turrent
 /obj/item/turret_box
 	name = "packaged port-a-turret"
@@ -2063,13 +2146,23 @@
 	icon_state = "hivebot_fab_on"
 	w_class = WEIGHT_CLASS_GIGANTIC
 	/// type of turret to make
-	var/obj/machinery/porta_turret/f13/eastwood/turret_type = /obj/machinery/porta_turret/f13/eastwood
+	var/obj/machinery/porta_turret/f13/portable/turret_type = /obj/machinery/porta_turret/f13/portable
 	/// magazine inside the gun, if it was packed up after deploying
 	var/obj/item/ammo_box/magazine/stored_mag
+	/// owner whitelist carried over from the turret that was packed up, if any
+	var/list/stored_owner
+	/// whether stored_owner enforcement was active on the turret that was packed up
+	var/stored_owner_active = FALSE
 
-/obj/item/turret_box/Initialize()
-	. = ..()
-	
+/obj/item/turret_box/nine
+	turret_type = /obj/machinery/porta_turret/f13/portable/nine
+
+/obj/item/turret_box/rifle
+	turret_type = /obj/machinery/porta_turret/f13/portable/rifle
+
+/obj/item/turret_box/shotgun
+	turret_type = /obj/machinery/porta_turret/f13/portable/shotgun
+
 /obj/item/turret_box/Destroy()
 	. = ..()
 	QDEL_NULL(stored_mag)
@@ -2087,13 +2180,23 @@
 	if(!do_after(user, 3 SECONDS, FALSE, user))
 		user.show_message(span_alert("You were interrupted!"))
 		return
-	var/obj/machinery/porta_turret/f13/eastwood/turret_new = new turret_type(get_turf(src))
+	var/obj/machinery/porta_turret/f13/portable/turret_new = new turret_type(get_turf(src))
 	if(istype(stored_mag))
 		QDEL_NULL(turret_new.our_mag)
 		turret_new.our_mag = stored_mag
 		stored_mag.forceMove(turret_new)
 		turret_new.eject_chambered_round(TRUE)
 		turret_new.chamber_new_round()
+	// Restore prior ownership if this box remembers one, otherwise the deployer auto-claims it --
+	// nobody else gets a chance to scan themselves onto it first.
+	if(LAZYLEN(stored_owner))
+		turret_new.id_whitelist = stored_owner.Copy()
+		turret_new.whitelist_active = stored_owner_active
+	else
+		var/deployer_name = ishuman(user) ? user.real_name : user.name
+		if(deployer_name && length(deployer_name))
+			turret_new.id_whitelist = list(deployer_name)
+			turret_new.whitelist_active = TRUE
 	user.visible_message(span_notice("[user] unpacks [src], deploying [turret_new]."))
 	stored_mag = null
 	qdel(src)

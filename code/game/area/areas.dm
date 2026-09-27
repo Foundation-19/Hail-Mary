@@ -168,14 +168,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 // ===
 
 /area/New()
-	if(!minimap_color) // goes in New() because otherwise it doesn't fucking work
-		// generate one using the icon_state
-		if(icon_state && icon_state != "unknown")
-			var/icon/I = new(icon, icon_state, dir)
-			I.Scale(1,1)
-			minimap_color = I.GetPixel(1,1)
-		else // no icon state? use random.
-			minimap_color = rgb(rand(50,70),rand(50,70),rand(50,70))	// This interacts with the map loader, so it needs to be set immediately
+	if(!minimap_color)
+		// Areas rarely have a meaningful sprite of their own (most are invisible in-game), so
+		// sampling their icon_state tends to just pick up a blank/transparent pixel and read as
+		// solid black on the World Map. Turfs have real sprites and are sampled directly by
+		// /datum/minimap/proc/get_turf_minimap_color(), so this is only ever a last-resort
+		// distinguishing color for turfs that couldn't be sampled either.
+		minimap_color = rgb(rand(50,70),rand(50,70),rand(50,70))	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.
 	if (unique)
 		GLOB.areas_by_type[type] = src
@@ -603,6 +602,14 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	set waitfor = FALSE
 	SEND_SIGNAL(src, COMSIG_AREA_ENTERED, M)
 	SEND_SIGNAL(M, COMSIG_ENTER_AREA, src) //The atom that enters the area
+
+	// Ghosts don't count as living, but should still follow area ambience as they roam z-levels.
+	if(isobserver(M))
+		var/mob/dead/observer/O = M
+		if(O.client && (O.client.prefs.toggles & SOUND_SHIP_AMBIENCE) && islist(ambience_area))
+			addremove_to_soundloop(O, TRUE)
+		return
+
 	if(!isliving(M))
 		return
 
@@ -622,28 +629,34 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 
 		if(LAZYLEN(ambientsounds) && !COOLDOWN_TIMELEFT(L.client, area_sound_effect_cooldown) && prob(35))
 			var/sounds_to_play = pick(ambientsounds)
+			// Most areas just list raw sound files; only some use the AREA_SOUND(file, length) list format.
+			var/sound_path = islist(sounds_to_play) ? sounds_to_play[SL_FILE_PATH] : sounds_to_play
+			var/sound_length = islist(sounds_to_play) ? sounds_to_play[SL_FILE_LENGTH] : 0
 			var/sound_delay = rand(1 SECONDS, 15 SECONDS)
-			var/sound/S = sound(sounds_to_play[SL_FILE_PATH], repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
+			var/sound/S = sound(sound_path, repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
-			COOLDOWN_START(L.client, area_sound_effect_cooldown, sounds_to_play[SL_FILE_LENGTH] + sound_delay)
+			COOLDOWN_START(L.client, area_sound_effect_cooldown, sound_length + sound_delay)
 
 		if(LAZYLEN(ambientmusic) && !COOLDOWN_TIMELEFT(L.client, area_music_cooldown) && prob(35)) //fortuna add. re-implements ambient music
 			var/music_to_play = pick(ambientmusic)
+			// Most areas just list raw sound files; only some use the AREA_MUSIC(file, length) list format.
+			var/music_path = islist(music_to_play) ? music_to_play[SL_FILE_PATH] : music_to_play
+			var/music_length = islist(music_to_play) ? music_to_play[SL_FILE_LENGTH] : 0
 			var/sound_delay = rand(1 SECONDS, 15 SECONDS)
-			var/sound/S = sound(music_to_play[SL_FILE_PATH], repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
+			var/sound/S = sound(music_path, repeat = 0, wait = 0, volume = 25, channel = SSsounds.random_available_channel())
 			addtimer(CALLBACK(src, PROC_REF(play_ambient_sound_delayed), S, L), sound_delay, TIMER_STOPPABLE)
-			COOLDOWN_START(L.client, area_music_cooldown, music_to_play[SL_FILE_LENGTH] + sound_delay)
+			COOLDOWN_START(L.client, area_music_cooldown, music_length + sound_delay)
 
 /area/proc/play_ambient_sound_delayed(sound/to_play, mob/living/play_to)
 	SEND_SOUND(play_to, to_play)
 
-/area/proc/addremove_to_soundloop(mob/living/player, add = TRUE)
+/area/proc/addremove_to_soundloop(mob/player, add = TRUE)
 	if(!ambience_area)
 		return
 	if(!islist(ambience_area))
 		ambience_area = null
 		return
-	if(!isliving(player))
+	if(!isliving(player) && !isobserver(player))
 		return
 	for(var/loopy in ambience_area)
 		var/datum/looping_sound/our_loop = GLOB.area_sound_loops[loopy]
