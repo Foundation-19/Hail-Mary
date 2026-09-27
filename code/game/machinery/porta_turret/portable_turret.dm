@@ -1475,9 +1475,12 @@
 	icon = 'icons/obj/turrets.dmi'
 	icon_state = "syndie_off"
 	base_icon_state = "syndie"
-	/// Mapper-controllable: does this turret actually need F13 grid power to fire? If FALSE it always works
-	/// (self-contained); if TRUE it follows the area's f13_grid_power/outdoors/grid_immune rules.
-	var/needs_grid_power = TRUE
+	/// Mapper-controllable: does this turret actually need F13 grid power to fire? Defaults to FALSE
+	/// (self-contained) since every mapper-placed turret below (turret_22lr/9mm/556/shotgun and their
+	/// raider/robot/burstfire variants) needs to just work once placed, for mapping reasons. Set TRUE
+	/// per-instance for a mapped turret that should actually depend on grid wiring. Player-crafted
+	/// /portable ignores this var entirely -- it has its own generator-link-based powered() override.
+	var/needs_grid_power = FALSE
 	desc = "An old automatic gun turret chambered in 9mm. Would rather to be left alone to ponder how it's still shooting after all these years."
 	density = TRUE
 	use_power = FALSE
@@ -1497,11 +1500,11 @@
 	stun_projectile_sound = 'sound/f13weapons/9mm.ogg'
 	faction = null
 
-/// F13 turrets are powered only when the F13 power grid supplies their area (if they need power at all).
+/// F13 turrets are powered only when the F13 power grid supplies their area, and only if
+/// needs_grid_power was explicitly turned on for that instance (defaults FALSE -- see var above).
 /// Only grid-immune areas are always considered powered (no generator needed) -- outdoor areas are NOT
 /// auto-powered, since junction boxes/generators explicitly support outdoor coverage via their own
-/// single-tile shortpath (see junction_box.dm). A turret that should just always work regardless of
-/// wiring (e.g. a fixed lore turret) should have `needs_grid_power = FALSE` set instead.
+/// single-tile shortpath (see junction_box.dm).
 /obj/machinery/porta_turret/f13/powered()
 	if(!needs_grid_power)
 		return TRUE
