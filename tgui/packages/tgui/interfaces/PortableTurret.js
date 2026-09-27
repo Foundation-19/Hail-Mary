@@ -40,10 +40,16 @@ export const PortableTurret = (props, context) => {
             onClick={() => act('unlock')} />
         </NoticeBox>
         {!lasertag_turret && (
-          <NoticeBox danger={!generator_linked} success={generator_linked && generator_powered}>
-            {!generator_linked && 'Not linked to a generator -- multitool a generator, then multitool this turret.'}
-            {generator_linked && generator_powered && `Linked to ${generator_name} -- running.`}
-            {generator_linked && !generator_powered && `Linked to ${generator_name} -- offline.`}
+          <NoticeBox
+            danger={!generator_linked}
+            success={generator_linked && generator_powered}>
+            {!generator_linked
+              && 'Not linked to a generator -- multitool a generator, '
+              + 'then multitool this turret.'}
+            {generator_linked && generator_powered
+              && `Linked to ${generator_name} -- running.`}
+            {generator_linked && !generator_powered
+              && `Linked to ${generator_name} -- offline.`}
           </NoticeBox>
         )}
         <Fragment>
