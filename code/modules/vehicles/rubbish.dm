@@ -356,3 +356,6 @@
 
 /obj/structure/debris/hvac/rusted2
 	color = "#9b6435"
+
+/obj/structure/debris/hvac/rusted3
+	color = "#b67237"

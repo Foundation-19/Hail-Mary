@@ -2304,6 +2304,17 @@
 "sd" = (
 /turf/open/floor/plating/f13/outside/roof,
 /area/f13/baltimore/wasteland/city/citycenter)
+"se" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/plating/f13/outside/roof/metal,
+/area/f13/baltimore/wasteland/city)
 "sf" = (
 /obj/machinery/door/unpowered/securedoor{
 	name = "Town secure door"
@@ -4069,6 +4080,17 @@
 	icon_state = "floorrustysolid"
 	},
 /area/f13/baltimore/brotherhood/dorms)
+"Hz" = (
+/obj/structure/lattice/catwalk,
+/obj/structure/railing/tg{
+	color = "#A47449"
+	},
+/obj/structure/railing/tg{
+	color = "#A47449";
+	dir = 1
+	},
+/turf/open/floor/plating/f13/outside/roof/metal/verdigris,
+/area/f13/baltimore/wasteland/city)
 "HC" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -10806,11 +10828,11 @@ Tm
 Tm
 sy
 sy
+wN
 sy
 sy
 sy
-sy
-sy
+wN
 sy
 sy
 sy
@@ -11862,11 +11884,11 @@ Tm
 Tm
 sy
 sy
+wN
 sy
 sy
 sy
-sy
-sy
+wN
 sy
 sy
 sy
@@ -19707,7 +19729,7 @@ VO
 sy
 VO
 sy
-sy
+VO
 sy
 sy
 sy
@@ -20411,7 +20433,7 @@ VO
 sy
 VO
 sy
-sy
+VO
 sy
 sy
 sy
@@ -67928,8 +67950,8 @@ fc
 fc
 fc
 fc
-fc
 cD
+ec
 ec
 ec
 ec
@@ -68280,8 +68302,8 @@ tl
 fH
 fc
 fc
-fc
 Qg
+UU
 zo
 IS
 IS
@@ -68632,8 +68654,8 @@ Tu
 fH
 fc
 fc
-fc
 Qg
+UU
 IS
 Lm
 Lm
@@ -68984,8 +69006,8 @@ di
 fH
 fc
 fc
-fc
 Qg
+UU
 Ku
 EQ
 Lm
@@ -69336,8 +69358,8 @@ yI
 fH
 fc
 fc
-fc
 Qg
+UU
 IS
 uS
 Pm
@@ -69688,8 +69710,8 @@ Um
 fH
 fc
 fc
-fc
 Qg
+UU
 Ku
 pP
 Fr
@@ -69764,7 +69786,7 @@ oN
 oN
 oN
 oN
-oN
+Hz
 oN
 oN
 oN
@@ -70040,8 +70062,8 @@ fH
 fH
 fc
 fc
-fc
 Qg
+UU
 IS
 sX
 DC
@@ -70392,8 +70414,8 @@ jb
 fH
 fc
 fc
-fc
 Qg
+UU
 Ku
 pP
 Fr
@@ -70744,8 +70766,8 @@ Hp
 fH
 fc
 fc
-fc
 Qg
+UU
 IS
 Kk
 bp
@@ -71096,8 +71118,8 @@ fH
 fH
 fc
 fc
-fc
 Qg
+UU
 Nd
 pP
 QY
@@ -71448,8 +71470,8 @@ fc
 fc
 fc
 fc
-fc
 Qg
+UU
 IS
 uS
 sX
@@ -71800,8 +71822,8 @@ fc
 fc
 fc
 fc
-fc
 Qg
+UU
 Nd
 pP
 Fr
@@ -72152,7 +72174,7 @@ ec
 ec
 ec
 ec
-ec
+UU
 UU
 LA
 DC
@@ -72580,7 +72602,7 @@ RN
 RN
 RN
 RN
-RN
+se
 RN
 RN
 RN
