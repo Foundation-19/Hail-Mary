@@ -166,14 +166,13 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 // ===
 
 /area/New()
-	if(!minimap_color) // goes in New() because otherwise it doesn't fucking work
-		// generate one using the icon_state
-		if(icon_state && icon_state != "unknown")
-			var/icon/I = new(icon, icon_state, dir)
-			I.Scale(1,1)
-			minimap_color = I.GetPixel(1,1)
-		else // no icon state? use random.
-			minimap_color = rgb(rand(50,70),rand(50,70),rand(50,70))	// This interacts with the map loader, so it needs to be set immediately
+	if(!minimap_color)
+		// Areas rarely have a meaningful sprite of their own (most are invisible in-game), so
+		// sampling their icon_state tends to just pick up a blank/transparent pixel and read as
+		// solid black on the World Map. Turfs have real sprites and are sampled directly by
+		// /datum/minimap/proc/get_turf_minimap_color(), so this is only ever a last-resort
+		// distinguishing color for turfs that couldn't be sampled either.
+		minimap_color = rgb(rand(50,70),rand(50,70),rand(50,70))	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.
 	if (unique)
 		GLOB.areas_by_type[type] = src

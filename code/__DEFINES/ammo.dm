@@ -28,6 +28,13 @@
 #define CALIBER_MAGNETIC_HYPER "hypermagnetic rounds"
 #define CALIBER_MUSKET_BALL "musket balls"
 #define CALIBER_MUSKET_LASER "laser musket packs"
+
+/// Portable sentry turret reference guns: shared by the crafting recipe (sacrificed to build it)
+/// and the deployed turret's loot drop (dropped as scrap on death), so the two can't drift apart.
+#define TURRET_PORTABLE_GUN_22LR /obj/item/gun/ballistic/automatic/sportcarbine
+#define TURRET_PORTABLE_GUN_9MM /obj/item/gun/ballistic/automatic/pistol/ninemil
+#define TURRET_PORTABLE_GUN_556 /obj/item/gun/ballistic/automatic/sportcarbine
+#define TURRET_PORTABLE_GUN_SHOTGUN /obj/item/gun/ballistic/shotgun/hunting
 #define CALIBER_MUSKET_PLASMA "plasma musket packs"
 #define CALIBER_NEEDLE "needles"
 #define CALIBER_MININUKE "mininukes"
