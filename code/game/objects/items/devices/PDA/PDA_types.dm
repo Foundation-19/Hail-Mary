@@ -190,4 +190,28 @@
 	default_cartridge = /obj/item/cartridge/medical
 	icon_state = "pda-genetics"
 
+//Baltimore use
 
+/obj/item/pda/locust_town
+	name = "Locust Town Issued Pipboy"
+	desc = "A pip boy given to the town most valuable citizens. Has an direct acces to the town frequency."
+	saved_frequencies = list("Common" = FREQ_COMMON, 
+							"Town" = FREQ_TOWN)
+	
+
+/obj/item/pda/atlantic
+	name = "Atlantic cross Issued Pipboy"
+	desc = "A pip boy given to the town most valuable citizens. Has an direct acces to the town frequency."
+	saved_frequencies = list("Common" = FREQ_COMMON, 
+							"Town" = FREQ_TOWN,
+							"Atlantic Cross" = FREQ_MEDICAL)
+	default_cartridge = /obj/item/cartridge/medical
+	icon_state = "pda-medical"
+
+/obj/item/pda/minutemen
+	name = "Minutemen bought Pipboy"
+	desc = "A pip boy given to the Commander of the minutemens. Has an direct acces to the minutemen frequency."
+	saved_frequencies = list("Common" = FREQ_COMMON, 
+							"Town" = FREQ_TOWN,
+							"Minutemen" = FREQ_SECURITY)
+	default_cartridge = /obj/item/cartridge/detective

@@ -36,8 +36,10 @@ SUBSYSTEM_DEF(idlenpcpool)
 		var/mob/living/simple_animal/SA = currentrun[currentrun.len]
 		--currentrun.len
 		if (QDELETED(SA))
+			// Benign race: the mob was qdel'd (died, culled, etc) after this cycle's
+			// currentrun snapshot was taken but before we got around to processing it.
+			// Destroy() already removed it from the live GLOB list; just drop the stale ref.
 			GLOB.simple_animals[AI_IDLE] -= SA
-			stack_trace("Found a null in simple_animals deactive list [SA.type]!")
 			continue
 
 		if(!SA.ckey)

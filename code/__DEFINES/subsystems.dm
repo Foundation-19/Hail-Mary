@@ -1,7 +1,7 @@
 //Update this whenever the db schema changes
 //make sure you add an update to the schema_version stable in the db changelog
 #define DB_MAJOR_VERSION 4
-#define DB_MINOR_VERSION 7
+#define DB_MINOR_VERSION 9
 
 
 #define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)

@@ -178,44 +178,44 @@
 	channels = list(RADIO_CHANNEL_ENCLAVE = 1)
 
 /obj/item/encryptionkey/headset_town
-	name = "Eastwood Clinic radio encryption key"
+	name = "Town Clinic radio encryption key"
 	desc = "An encryption key for a radio headset.\
 		\nTo access the Town channel, use :f."
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1)
 
 /obj/item/encryptionkey/headset_town/lawman
-	name = "Eastwood Sheriff radio encryption key"
+	name = "Town Sheriff radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood sheriff channel, use :l"
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town sheriff channel, use :l"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_TOWN_PD = 1)
 
 /obj/item/encryptionkey/headset_town/commerce
-	name = "Eastwood commercial radio encryption key"
+	name = "Town commercial radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood commerce channel, use :j"
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town commerce channel, use :j"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_TOWN_COMMERCE = 1)
 
 /obj/item/encryptionkey/headset_town/medical
-	name = "Eastwood medical radio encryption key"
+	name = "Town medical radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood medical channel, use :m"
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town medical channel, use :m"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_MEDICAL = 1)
 
 /obj/item/encryptionkey/headset_town/mayor
-	name = "Eastwood mayor radio encryption key"
+	name = "Town mayor radio encryption key"
 	desc = "An encryption key for a radio headset.\
-		\nTo access the Eastwood channel, use :f.\
-		\nTo access the Eastwood mayor, use :y.\
-		\nTo access the Eastwood sheriff, use :l.\
-		\nTo access the Eastwood medical, use :m.\
-		\nTo access the Eastwood commerce channel, use :j"
+		\nTo access the Town channel, use :f.\
+		\nTo access the Town mayor, use :y.\
+		\nTo access the Town sheriff, use :l.\
+		\nTo access the Town medical, use :m.\
+		\nTo access the Town commerce channel, use :j"
 	icon_state = "cypherkey"
 	channels = list(RADIO_CHANNEL_TOWN = 1, RADIO_CHANNEL_TOWN_PD = 1, RADIO_CHANNEL_TOWN_COMMERCE = 1, RADIO_CHANNEL_TOWN_MAYOR = 1, RADIO_CHANNEL_MEDICAL = 1)
 

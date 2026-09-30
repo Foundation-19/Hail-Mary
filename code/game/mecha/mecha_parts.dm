@@ -11,7 +11,7 @@
 
 /obj/item/mecha_parts/proc/try_attach_part(mob/user, obj/mecha/M) //For attaching parts to a finished mech
 	if(!user.transferItemToLoc(src, M))
-		to_chat(user, span_warning("\The [src] is stuck to your hand, you cannot put it in \the [M]!"))
+		to_chat(user, span_warning("/The [src] is stuck to your hand, you cannot put it in /the [M]!"))
 		return FALSE
 	user.visible_message(span_notice("[user] attaches [src] to [M]."), span_notice("You attach [src] to [M]."))
 	return TRUE
@@ -30,277 +30,277 @@
 /////////// Ripley
 
 /obj/item/mecha_parts/chassis/ripley
-	name = "\improper Ripley chassis"
+	name = "/improper Ripley chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/ripley
 
 /obj/item/mecha_parts/part/ripley_torso
-	name = "\improper Ripley torso"
+	name = "/improper Ripley torso"
 	desc = "A torso part of Ripley APLU. Contains power unit, processing core and life support systems."
 	icon_state = "ripley_harness"
 
 /obj/item/mecha_parts/part/ripley_left_arm
-	name = "\improper Ripley left arm"
+	name = "/improper Ripley left arm"
 	desc = "A Ripley APLU left arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "ripley_l_arm"
 
 /obj/item/mecha_parts/part/ripley_right_arm
-	name = "\improper Ripley right arm"
+	name = "/improper Ripley right arm"
 	desc = "A Ripley APLU right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "ripley_r_arm"
 
 /obj/item/mecha_parts/part/ripley_left_leg
-	name = "\improper Ripley left leg"
+	name = "/improper Ripley left leg"
 	desc = "A Ripley APLU left leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "ripley_l_leg"
 
 /obj/item/mecha_parts/part/ripley_right_leg
-	name = "\improper Ripley right leg"
+	name = "/improper Ripley right leg"
 	desc = "A Ripley APLU right leg. Contains somewhat complex servodrives and balance maintaining systems."
 	icon_state = "ripley_r_leg"
 
 ///////// Odysseus
 
 /obj/item/mecha_parts/chassis/odysseus
-	name = "\improper Odysseus chassis"
+	name = "/improper Odysseus chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/odysseus
 
 /obj/item/mecha_parts/part/odysseus_head
-	name = "\improper Odysseus head"
+	name = "/improper Odysseus head"
 	desc = "An Odysseus head. Contains an integrated medical HUD scanner."
 	icon_state = "odysseus_head"
 
 /obj/item/mecha_parts/part/odysseus_torso
-	name = "\improper Odysseus torso"
+	name = "/improper Odysseus torso"
 	desc="A torso part of Odysseus. Contains power unit, processing core and life support systems along with an attachment port for a mounted sleeper."
 	icon_state = "odysseus_torso"
 
 /obj/item/mecha_parts/part/odysseus_left_arm
-	name = "\improper Odysseus left arm"
+	name = "/improper Odysseus left arm"
 	desc = "An Odysseus left arm. Data and power sockets are compatible with specialized medical equipment."
 	icon_state = "odysseus_l_arm"
 
 /obj/item/mecha_parts/part/odysseus_right_arm
-	name = "\improper Odysseus right arm"
+	name = "/improper Odysseus right arm"
 	desc = "An Odysseus right arm. Data and power sockets are compatible with specialized medical equipment."
 	icon_state = "odysseus_r_arm"
 
 /obj/item/mecha_parts/part/odysseus_left_leg
-	name = "\improper Odysseus left leg"
+	name = "/improper Odysseus left leg"
 	desc = "An Odysseus left leg. Contains complex servodrives and balance maintaining systems to maintain stability for critical patients."
 	icon_state = "odysseus_l_leg"
 
 /obj/item/mecha_parts/part/odysseus_right_leg
-	name = "\improper Odysseus right leg"
+	name = "/improper Odysseus right leg"
 	desc = "An odysseus right leg. Contains complex servodrives and balance maintaining systems to maintain stability for critical patients."
 	icon_state = "odysseus_r_leg"
 
 ///////// Gygax
 
 /obj/item/mecha_parts/chassis/gygax
-	name = "\improper Gygax chassis"
+	name = "/improper Gygax chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/gygax
 
 /obj/item/mecha_parts/part/gygax_torso
-	name = "\improper Gygax torso"
+	name = "/improper Gygax torso"
 	desc = "A torso part of Gygax. Contains power unit, processing core and life support systems."
 	icon_state = "gygax_harness"
 
 /obj/item/mecha_parts/part/gygax_head
-	name = "\improper Gygax head"
+	name = "/improper Gygax head"
 	desc = "A Gygax head. Houses advanced surveillance and targeting sensors."
 	icon_state = "gygax_head"
 
 /obj/item/mecha_parts/part/gygax_left_arm
-	name = "\improper Gygax left arm"
+	name = "/improper Gygax left arm"
 	desc = "A Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "gygax_l_arm"
 
 /obj/item/mecha_parts/part/gygax_right_arm
-	name = "\improper Gygax right arm"
+	name = "/improper Gygax right arm"
 	desc = "A Gygax right arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "gygax_r_arm"
 
 /obj/item/mecha_parts/part/gygax_left_leg
-	name = "\improper Gygax left leg"
+	name = "/improper Gygax left leg"
 	desc = "A Gygax left leg. Constructed with advanced servomechanisms and actuators to enable faster speed."
 	icon_state = "gygax_l_leg"
 
 /obj/item/mecha_parts/part/gygax_right_leg
-	name = "\improper Gygax right leg"
+	name = "/improper Gygax right leg"
 	desc = "A Gygax right leg. Constructed with advanced servomechanisms and actuators to enable faster speed."
 	icon_state = "gygax_r_leg"
 
 /obj/item/mecha_parts/part/gygax_armor
 	gender = PLURAL
-	name = "\improper Gygax armor plates"
+	name = "/improper Gygax armor plates"
 	desc = "A set of armor plates designed for the Gygax. Designed to effectively deflect damage with a lightweight construction."
 	icon_state = "gygax_armor"
 
 ///////// Medical Gygax
 
 /obj/item/mecha_parts/chassis/medigax
-	name = "\improper Medical Gygax chassis"
+	name = "/improper Medical Gygax chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/medigax
 
 /obj/item/mecha_parts/part/medigax_torso
-	name = "\improper Medical Gygax torso"
+	name = "/improper Medical Gygax torso"
 	desc = "A torso part of Gygax. Contains power unit, processing core and life support systems."
 	icon_state = "medigax_harness"
 
 /obj/item/mecha_parts/part/medigax_head
-	name = "\improper Medical Gygax head"
+	name = "/improper Medical Gygax head"
 	desc = "A Gygax head. Houses advanced surveillance and targeting sensors."
 	icon_state = "medigax_head"
 
 /obj/item/mecha_parts/part/medigax_left_arm
-	name = "\improper Medical Gygax left arm"
+	name = "/improper Medical Gygax left arm"
 	desc = "A Gygax left arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "medigax_l_arm"
 
 /obj/item/mecha_parts/part/medigax_right_arm
-	name = "\improper Medical Gygax right arm"
+	name = "/improper Medical Gygax right arm"
 	desc = "A Gygax right arm. Data and power sockets are compatible with most exosuit tools and weapons."
 	icon_state = "medigax_r_arm"
 
 /obj/item/mecha_parts/part/medigax_left_leg
-	name = "\improper Medical Gygax left leg"
+	name = "/improper Medical Gygax left leg"
 	desc = "A Gygax left leg. Constructed with advanced servomechanisms and actuators to enable faster speed."
 	icon_state = "medigax_l_leg"
 
 /obj/item/mecha_parts/part/medigax_right_leg
-	name = "\improper Medical Gygax right leg"
+	name = "/improper Medical Gygax right leg"
 	desc = "A Gygax right leg. Constructed with advanced servomechanisms and actuators to enable faster speed."
 	icon_state = "medigax_r_leg"
 
 /obj/item/mecha_parts/part/medigax_armor
 	gender = PLURAL
-	name = "\improper Medical Gygax armor plates"
+	name = "/improper Medical Gygax armor plates"
 	desc = "A set of armor plates designed for the Gygax. Designed to effectively deflect damage with a lightweight construction."
 	icon_state = "medigax_armor"
 
 //////////// Durand
 
 /obj/item/mecha_parts/chassis/durand
-	name = "\improper Durand chassis"
+	name = "/improper Durand chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/durand
 
 /obj/item/mecha_parts/part/durand_torso
-	name = "\improper Durand torso"
+	name = "/improper Durand torso"
 	desc = "A torso part of Durand. Contains power unit, processing core and life support systems within a robust protective frame."
 	icon_state = "durand_harness"
 
 /obj/item/mecha_parts/part/durand_head
-	name = "\improper Durand head"
+	name = "/improper Durand head"
 	desc = "A Durand head. Houses advanced surveillance and targeting sensors."
 	icon_state = "durand_head"
 
 /obj/item/mecha_parts/part/durand_left_arm
-	name = "\improper Durand left arm"
+	name = "/improper Durand left arm"
 	desc = "A Durand left arm. Data and power sockets are compatible with most exosuit tools and weapons. Packs a really mean punch as well."
 	icon_state = "durand_l_arm"
 
 /obj/item/mecha_parts/part/durand_right_arm
-	name = "\improper Durand right arm"
+	name = "/improper Durand right arm"
 	desc = "A Durand right arm. Data and power sockets are compatible with most exosuit tools and weapons. Packs a really mean punch as well."
 	icon_state = "durand_r_arm"
 
 /obj/item/mecha_parts/part/durand_left_leg
-	name = "\improper Durand left leg"
+	name = "/improper Durand left leg"
 	desc = "A Durand left leg. Built particularly sturdy to support the Durand's heavy weight and defensive needs."
 	icon_state = "durand_l_leg"
 
 /obj/item/mecha_parts/part/durand_right_leg
-	name = "\improper Durand right leg"
+	name = "/improper Durand right leg"
 	desc = "A Durand right leg. Built particularly sturdy to support the Durand's heavy weight and defensive needs."
 	icon_state = "durand_r_leg"
 
 /obj/item/mecha_parts/part/durand_armor
 	gender = PLURAL
-	name = "\improper Durand armor plates"
+	name = "/improper Durand armor plates"
 	desc = "A set of armor plates for the Durand. Built heavy to resist an incredible amount of brute force."
 	icon_state = "durand_armor"
 
 //////////// Marauder
 
 /obj/item/mecha_parts/chassis/marauder
-	name = "\improper Marauder chassis"
+	name = "/improper Marauder chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/marauder
 
 /obj/item/mecha_parts/part/marauder_torso
-	name = "\improper Marauder torso"
+	name = "/improper Marauder torso"
 	desc = "A torso part of Marauder. Contains power unit, processing core and life support systems within a robust protective frame."
 	icon_state = "marauder_harness"
 
 /obj/item/mecha_parts/part/marauder_head
-	name = "\improper Marauder head"
+	name = "/improper Marauder head"
 	desc = "A Marauder head. Houses advanced surveillance and targeting sensors."
 	icon_state = "marauder_head"
 
 /obj/item/mecha_parts/part/marauder_left_arm
-	name = "\improper Marauder left arm"
+	name = "/improper Marauder left arm"
 	desc = "A Marauder left arm. Data and power sockets are compatible with most exosuit tools and weapons. Packs a really mean punch as well."
 	icon_state = "marauder_l_arm"
 
 /obj/item/mecha_parts/part/marauder_right_arm
-	name = "\improper Marauder right arm"
+	name = "/improper Marauder right arm"
 	desc = "A Marauder right arm. Data and power sockets are compatible with most exosuit tools and weapons. Packs a really mean punch as well."
 	icon_state = "marauder_r_arm"
 
 /obj/item/mecha_parts/part/marauder_left_leg
-	name = "\improper Marauder left leg"
+	name = "/improper Marauder left leg"
 	desc = "A Marauder left leg. It's heavily armoured to ensure functionality in the most hostile warzones."
 	icon_state = "marauder_l_leg"
 
 /obj/item/mecha_parts/part/marauder_right_leg
-	name = "\improper Marauder right leg"
+	name = "/improper Marauder right leg"
 	desc = "A Marauder right leg. It's heavily armoured to ensure functionality in the most hostile warzones."
 	icon_state = "marauder_r_leg"
 
 /obj/item/mecha_parts/part/marauder_armor
 	gender = PLURAL
-	name = "\improper Marauder armor plates"
+	name = "/improper Marauder armor plates"
 	desc = "A set of armor plates for the Marauder. An encompassing plasteel-DU alloy designed to withstand extreme shock at the cost of mobility."
 	icon_state = "marauder_armour"
 
 ////////// Firefighter
 
 /obj/item/mecha_parts/chassis/firefighter
-	name = "\improper Firefighter chassis"
+	name = "/improper Firefighter chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/firefighter
 
 ////////// Phazon
 
 /obj/item/mecha_parts/chassis/phazon
-	name = "\improper Phazon chassis"
+	name = "/improper Phazon chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/phazon
 
 /obj/item/mecha_parts/part/phazon_torso
-	name="\improper Phazon torso"
+	name="/improper Phazon torso"
 	desc="A Phazon torso part. The socket for the bluespace core that powers the exosuit's unique phase drives is located in the middle."
 	icon_state = "phazon_harness"
 
 /obj/item/mecha_parts/part/phazon_head
-	name="\improper Phazon head"
+	name="/improper Phazon head"
 	desc="A Phazon head. Its sensors are carefully calibrated to provide vision and data even when the exosuit is phasing."
 	icon_state = "phazon_head"
 
 /obj/item/mecha_parts/part/phazon_left_arm
-	name="\improper Phazon left arm"
+	name="/improper Phazon left arm"
 	desc="A Phazon left arm. Several microtool arrays are located under the armor plating, which can be adjusted to the situation at hand."
 	icon_state = "phazon_l_arm"
 
 /obj/item/mecha_parts/part/phazon_right_arm
-	name="\improper Phazon right arm"
+	name="/improper Phazon right arm"
 	desc="A Phazon right arm. Several microtool arrays are located under the armor plating, which can be adjusted to the situation at hand."
 	icon_state = "phazon_r_arm"
 
 /obj/item/mecha_parts/part/phazon_left_leg
-	name="\improper Phazon left leg"
+	name="/improper Phazon left leg"
 	desc="A Phazon left leg. It contains the unique phase drives that allow the exosuit to phase through solid matter when engaged."
 	icon_state = "phazon_l_leg"
 
 /obj/item/mecha_parts/part/phazon_right_leg
-	name="\improper Phazon right leg"
+	name="/improper Phazon right leg"
 	desc="A Phazon right leg. It contains the unique phase drives that allow the exosuit to phase through solid matter when engaged."
 	icon_state = "phazon_r_leg"
 
@@ -308,6 +308,57 @@
 	name="Phazon armor"
 	desc="Phazon armor plates. They are layered with plasma to protect the pilot from the stress of phasing and have unusual properties."
 	icon_state = "phazon_armor"
+
+////////// Car
+/obj/item/mecha_parts/chassis/normalvehicle/pickuptruck
+	name = "/improper Car chassis"
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/pickuptruck
+	icon = 'icons/obj/structures/rubish.dmi'
+	icon_state = "car_rubish13"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/jeep
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/jeep
+	icon = 'icons/obj/structures/rubish.dmi'
+	icon_state = "car_rubish14"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/highwayman
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/highwayman
+	icon = 'icons/obj/structures/rubish.dmi'
+	icon_state = "car_rubish15"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/corvega
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/corvega
+	icon = 'icons/obj/structures/rubish.dmi'
+	icon_state = "car_rubish16"
+	bound_width = 64
+
+/obj/item/mecha_parts/chassis/normalvehicle/buggy
+	construct_type = /datum/component/construction/unordered/mecha_chassis/normalvehicle/buggy
+	icon = 'icons/obj/structures/rubish.dmi'
+	icon_state = "car_rubish17"
+	bound_width = 64
+
+/obj/item/mecha_parts/part/car_autoshaft
+	name="/improper Car Shaft"
+	desc="Used to give a vehicle torque, savaged from the wreckage of the wasteland."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_autoshaft"
+
+/obj/item/mecha_parts/part/car_tire
+	name="/improper Tire"
+	desc="from the caveman days, now covered in 100% recycled rubber, perfect for a post apocalyptic world."
+	var/number = 0
+	icon = 'icons/trash.dmi'
+	icon_state = "car_tires"
+
+/obj/item/mecha_parts/part/car_engine
+	name="Car Engine"
+	desc="A marvel of the pre-war world, with enough horse power to leave any tribal in the dust."
+	icon = 'icons/trash.dmi'
+	icon_state = "car_engine"
 
 
 ///////// Circuitboards
@@ -399,35 +450,35 @@
 	icon_state = "mainboard"
 
 /obj/item/mecha_parts/chassis/clarke
-	name = "\improper Clarke chassis"
+	name = "/improper Clarke chassis"
 	construct_type = /datum/component/construction/unordered/mecha_chassis/ripley/clarke
 
 /obj/item/mecha_parts/part/clarke_torso
-	name = "\improper Clarke torso"
+	name = "/improper Clarke torso"
 	desc = "A torso part of Clarke. Contains power unit, processing core and life support systems."
 	icon_state = "clarke_harness"
 
 /obj/item/mecha_parts/part/clarke_head
-	name = "\improper Clarke head"
+	name = "/improper Clarke head"
 	desc = "A Clarke head. Contains an integrated diagnostic HUD scanner."
 	icon_state = "clarke_head"
 
 /obj/item/mecha_parts/part/clarke_left_arm
-	name = "\improper Clarke left arm"
+	name = "/improper Clarke left arm"
 	desc = "A Clarke left arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "clarke_l_arm"
 
 /obj/item/mecha_parts/part/clarke_right_arm
-	name = "\improper Clarke right arm"
+	name = "/improper Clarke right arm"
 	desc = "A Clarke right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "clarke_r_arm"
 
 /obj/item/mecha_parts/part/clarke_left_tread
-	name = "\improper Clarke left tread"
+	name = "/improper Clarke left tread"
 	desc = "A Clarke right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "clarke_l_tread"
 
 /obj/item/mecha_parts/part/clarke_right_tread
-	name = "\improper Clarke right tread"
+	name = "/improper Clarke right tread"
 	desc = "A Clarke right arm. Data and power sockets are compatible with most exosuit tools."
 	icon_state = "clarke_r_tread"

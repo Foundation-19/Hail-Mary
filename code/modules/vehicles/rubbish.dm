@@ -342,3 +342,20 @@
 	density = 1
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = INDESTRUCTIBLE
+
+/obj/structure/debris/hvac
+	name = "HVAC Machine"
+	desc = "A machine that, once, worked as a heater and air conditioner from the roof ! Now ? Its just junk and debris, not even salvageable."
+	icon = 'icons/obj/chemical.dmi'
+	icon_state = "smoke0"
+	anchored = 1
+	density = 1
+
+/obj/structure/debris/hvac/rusted
+	color = "#A47449"
+
+/obj/structure/debris/hvac/rusted2
+	color = "#9b6435"
+
+/obj/structure/debris/hvac/rusted3
+	color = "#b67237"

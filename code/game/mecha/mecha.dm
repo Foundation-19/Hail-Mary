@@ -68,6 +68,9 @@
 	var/stepcooldown = 3
 	var/last_trigger = 0 //Last time step sounded.
 	var/canmove = TRUE
+	var/list/allowed_turf_typecache
+	var/list/forbid_turf_typecache
+	var/allow_one_away_from_valid_turf = TRUE		
 
 	var/bumpsmash = 0 //Whether or not the mech destroys walls by running into it.
 	//inner atmos
@@ -211,6 +214,13 @@
 
 /obj/mecha/proc/get_fuel_tank()
 	return fuel_holder
+
+/obj/mecha/proc/turf_check(turf/next, turf/current)
+	if(allowed_turf_typecache && !allowed_turf_typecache[next.type])
+		return (allow_one_away_from_valid_turf && allowed_turf_typecache[current.type])
+	else if(forbid_turf_typecache && forbid_turf_typecache[next.type])
+		return (allow_one_away_from_valid_turf && !forbid_turf_typecache[current.type])
+	return TRUE
 
 /obj/mecha/rust_heretic_act()
 	take_damage(50,  BRUTE)

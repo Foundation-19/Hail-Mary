@@ -35,11 +35,44 @@
 //   - The destination does NOT need a pre-existing cable node;
 //     the system finds the path to its turf directly.
 //   - Max path length: F13_WIRE_MAX_PATH tiles.
-//   - Only cardinal directions are checked (no diagonal routing).
+//   Diagonal routing is allowed, same as diagonal walking: a diagonal step is only
+//   permitted if at least one of its two flanking cardinal tiles is unblocked, so cable
+//   can't be routed through the solid corner of two walls.
 // ============================================================
 
 /// Maximum cable routing distance between two power grid machines.
 #define F13_WIRE_MAX_PATH 100
+
+/// All 8 movement directions cable may route through.
+GLOBAL_LIST_INIT(f13_cable_dirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+
+/// Returns TRUE if a diagonal step from T in the given dir isn't cutting through a solid
+/// wall corner (i.e. at least one of the two flanking cardinal tiles is unblocked).
+/// Always TRUE for pure cardinal directions.
+/proc/f13_diagonal_open(turf/T, dir)
+	if(!(dir & (dir - 1)))
+		return TRUE
+	var/turf/side1 = get_step(T, dir & (NORTH|SOUTH))
+	var/turf/side2 = get_step(T, dir & (EAST|WEST))
+	if(side1 && !is_blocked_turf(side1))
+		return TRUE
+	if(side2 && !is_blocked_turf(side2))
+		return TRUE
+	return FALSE
+
+/// Cable sprites only have icon_states for cardinal d1/d2 combos -- collapse any
+/// diagonal get_dir() result down to one cardinal component so the auto-spawned
+/// knot doesn't render as a broken/placeholder diagonal line.
+/proc/f13_nearest_cardinal(dir)
+	if(dir & NORTH)
+		return NORTH
+	if(dir & SOUTH)
+		return SOUTH
+	if(dir & EAST)
+		return EAST
+	if(dir & WEST)
+		return WEST
+	return dir
 
 // Key: "[REF(mob)]" string  →  Value: WEAKREF(source_machine)
 GLOBAL_LIST_EMPTY(f13_wire_sessions)
@@ -63,7 +96,7 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 		var/spawn_dir = get_dir(T, get_turf(user))
 		if(!spawn_dir)  // player is on same tile — use their facing direction
 			spawn_dir = user.dir
-		new /obj/structure/cable(T, null, 0, spawn_dir)
+		new /obj/structure/cable(T, null, 0, f13_nearest_cardinal(spawn_dir))
 
 	// Register the session.
 	GLOB.f13_wire_sessions["[REF(user)]"] = WEAKREF(machine_src)
@@ -90,9 +123,17 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 		to_chat(user, span_notice("Cable routing cancelled."))
 		return null
 
+	// Auto-spawn a destination knot too, same as the source got on session start —
+	// this only caps off the final tile, it doesn't substitute for the run in between.
+	var/turf/dst_turf = get_turf(machine_dst)
+	if(dst_turf && !dst_turf.get_cable_node())
+		var/spawn_dir = get_dir(dst_turf, get_turf(user))
+		if(!spawn_dir)
+			spawn_dir = user.dir
+		new /obj/structure/cable(dst_turf, null, 0, f13_nearest_cardinal(spawn_dir))
+
 	// BFS path check from source turf to destination turf.
 	var/turf/src_turf = get_turf(machine_src)
-	var/turf/dst_turf = get_turf(machine_dst)
 	if(!f13_cable_path_exists(src_turf, dst_turf))
 		to_chat(user, span_warning("No complete cable path found between [machine_src.name] and [machine_dst.name]. Ensure the cable route is unbroken and runs all the way to this machine's tile."))
 		return null
@@ -127,7 +168,9 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 			for(var/obj/machinery/f13/power_relay/R in T)
 				if(!QDELETED(R) && R.relay_powered)
 					return TRUE
-			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
+			for(var/dir in GLOB.f13_cable_dirs)
+				if(!f13_diagonal_open(T, dir))
+					continue
 				var/turf/N = get_step(T, dir)
 				if(!N || (N in visited))
 					continue
@@ -189,19 +232,22 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 			G.recalc_draw()
 
 /// Returns TRUE if a continuous cable path exists from start to end
-/// within F13_WIRE_MAX_PATH steps, checking only cardinal directions.
-/// A tile is traversable if it contains any /obj/structure/cable.
-/// The destination tile itself does not need to have cable — we check
-/// if the BFS frontier can reach any tile cardinally adjacent to end,
-/// OR if end itself has cable.
+/// within F13_WIRE_MAX_PATH steps, checking cardinal and (corner-guarded)
+/// diagonal directions. A tile is traversable if it contains any
+/// /obj/structure/cable. Both endpoints must already have cable laid on
+/// them -- adjacency to the destination is not enough on its own, or two
+/// nearby machines could "connect" off their auto-spawned knots alone
+/// without an actual wire run between them.
 /proc/f13_cable_path_exists(turf/start, turf/end, max_steps = F13_WIRE_MAX_PATH)
 	if(!start || !end)
 		return FALSE
 	if(start == end)
 		return TRUE
 
-	// The source tile must already have a cable (we auto-spawn it).
-	if(!locate(/obj/structure/cable) in start)
+	// Both endpoints need real laid cable -- a complete physical run, not just proximity.
+	if(!(locate(/obj/structure/cable) in start))
+		return FALSE
+	if(!(locate(/obj/structure/cable) in end))
 		return FALSE
 
 	var/list/visited = list(start)
@@ -211,7 +257,9 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 	while(frontier.len && steps < max_steps)
 		var/list/next_frontier = list()
 		for(var/turf/T in frontier)
-			for(var/check_dir in list(NORTH, SOUTH, EAST, WEST))
+			for(var/check_dir in GLOB.f13_cable_dirs)
+				if(!f13_diagonal_open(T, check_dir))
+					continue
 				var/turf/N = get_step(T, check_dir)
 				if(!N || (N in visited))
 					continue

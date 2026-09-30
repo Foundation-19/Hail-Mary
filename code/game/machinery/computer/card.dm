@@ -628,3 +628,17 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		"Dockmaster of Locust Point",
 		"Port Councelor",
 		)
+
+/obj/machinery/computer/card/town/minutemen
+	name = "\improper Minutemen identification console"
+	circuit = /obj/item/circuitboard/computer/card/town/locust
+	job_list = list(
+		"Minuteman",
+		"Minuteman Captain",
+		)
+	job_req = list(
+		"Minuteman Major",
+		"Minutemen Captain",
+		"Minutemen Veteran",
+		"Minuteman Lieutenant Colonel",
+		)

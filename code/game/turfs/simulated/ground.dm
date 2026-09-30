@@ -997,6 +997,13 @@ GLOBAL_LIST_EMPTY(desert_icons)
 	footstep = FOOTSTEP_ROAD
 	barefootstep = FOOTSTEP_HARD_BAREFOOT
 
+/turf/open/floor/f13/brick
+	icon = 'icons/turf/floors_f13.dmi'
+	icon_state = "brick"
+
+/turf/open/floor/f13/brick/lit
+	sunlight_state = SUNLIGHT_SOURCE
+
 //Obsolete but used in yucky Pahrump
 /turf/open/indestructible/ground/outside/graveldirt
 	name = "gravel"
@@ -2140,3 +2147,4 @@ GLOBAL_LIST_EMPTY(desert_icons)
 /turf/open/indestructible/ground/outside/lifelessdesert/gravdag/four
 	name = "desert"
 	dir = WEST
+

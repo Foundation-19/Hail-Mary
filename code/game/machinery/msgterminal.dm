@@ -442,12 +442,22 @@ GLOBAL_LIST_EMPTY(allTerminals)
 	terminalid = "brotherhood"
 	terminal = "Brotherhood Communcations Terminal"
 	terminalType = 2
+
 /obj/machinery/msgterminal/command
 	terminalid = "command"
 	terminal = "COMMAND"
 	terminalType = 3
 
+/obj/machinery/msgterminal/minutemen
+	terminalid = "minutement"
+	terminal = "Minutemen Communcations Terminal"
+	terminalType = 2
 
+
+/obj/machinery/msgterminal/vault125
+	terminalid = "vault125"
+	terminal = "Vault 125 Communcations Terminal"
+	terminalType = 2
 
 // so admins can easily jump-to-area
 /area/f13/commandconsole
