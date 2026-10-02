@@ -12,7 +12,6 @@
 	leader = starting_leader
 	members += starting_leader
 	starting_leader.party = src
-	add_verb(starting_leader, /mob/living/proc/invite_to_party)
 	add_verb(starting_leader, /mob/living/proc/kick_from_party)
 	add_verb(starting_leader, /mob/living/proc/leave_party)
 
@@ -35,11 +34,9 @@
 	member.remove_status_effect(STATUS_EFFECT_PARTY_RALLY)
 	remove_verb(member, /mob/living/proc/leave_party)
 	if(member == leader)
-		remove_verb(member, /mob/living/proc/invite_to_party)
 		remove_verb(member, /mob/living/proc/kick_from_party)
 		leader = length(members) ? members[1] : null
 		if(leader)
-			add_verb(leader, /mob/living/proc/invite_to_party)
 			add_verb(leader, /mob/living/proc/kick_from_party)
 			to_chat(leader, span_notice("You are now the leader of the party!"))
 	if(!silent)
@@ -47,7 +44,8 @@
 	if(!length(members))
 		qdel(src)
 
-/mob/living/proc/invite_to_party()
+// A real verb (not add_verb()'d) since it's the only entry point that creates a party in the first place - every mob needs it available from the start, not just existing leaders.
+/mob/living/verb/invite_to_party()
 	set name = "Invite To Party"
 	set desc = "Invite a nearby player to your party. Only the party leader can invite."
 	set category = "Party"

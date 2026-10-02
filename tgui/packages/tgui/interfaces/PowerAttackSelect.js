@@ -10,8 +10,9 @@ export const PowerAttackSelect = (props, context) => {
       <Window.Content scrollable>
         <Section title={item_name + ' \u2014 Power Attacks'}>
           <Box color="label" mb={1}>
-            Hold left click while wielding this weapon to charge the armed
+            Hold right click while wielding this weapon to charge the armed
             Power Attack below, then release on a target to unleash it.
+            Alt-click to reopen this menu and choose a different Power Attack.
           </Box>
           <Stack vertical>
             {power_attacks.map(power_attack => (
