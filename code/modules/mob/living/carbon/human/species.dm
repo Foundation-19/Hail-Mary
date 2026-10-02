@@ -1444,8 +1444,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		return FALSE
 
 	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		user.visible_message(span_warning("Critical fail! [user] tries to attack [target], but hits [user.p_them()]self instead!"))
-		target = user
+		user.visible_message(span_warning("[user] swings clumsily and completely misses [target]!"), span_warning("Your luck fails you and your swing goes wide, missing completely!"))
+		return FALSE
 
 	if(!(attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK))
 		if(HAS_TRAIT(user, TRAIT_PUGILIST))//CITADEL CHANGE - makes punching cause staminaloss but funny martial artist types get a discount
@@ -1685,8 +1685,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if("disarm")
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, attackchain_flags = NONE, damage_multiplier = 1)
-	var/totitemdamage = H.pre_attacked_by(I, user) * damage_multiplier
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, attackchain_flags = NONE, damage_multiplier = 1, damage_addition = 0)
+	var/totitemdamage = (H.pre_attacked_by(I, user) * damage_multiplier) + damage_addition
 
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
 		affecting = H.get_bodypart(BODY_ZONE_CHEST) //If the limb is missing, or something went terribly wrong, just hit the chest instead
@@ -1743,7 +1743,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)
 				if(!I.get_sharpness() && armor_block < 50 && !(He?.clothing_flags & CUSHIONED_ARMOR))
-					if(prob(I.force))
+					if(totitemdamage >= BLUNT_HEAD_TRAUMA_MIN_FORCE && prob(CLAMP((totitemdamage - BLUNT_HEAD_TRAUMA_MIN_FORCE) * BLUNT_HEAD_TRAUMA_CHANCE_PER_FORCE, 0, BLUNT_HEAD_TRAUMA_MAX_CHANCE)))
 						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
 						if(H.stat == CONSCIOUS)
 							H.visible_message(span_danger("[H] has been knocked senseless!"), \
@@ -1753,7 +1753,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 						if(prob(10))
 							H.gain_trauma(/datum/brain_trauma/mild/concussion)
 					else
-						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, I.force * 0.2)
+						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, totitemdamage * 0.2)
 
 					if(H.stat == CONSCIOUS && H != user && prob(I.force + ((100 - H.health) * 0.5))) // rev deconversion through blunt trauma.
 						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
@@ -1773,7 +1773,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 			if(BODY_ZONE_CHEST)
 				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && !(S?.clothing_flags & CUSHIONED_ARMOR))
-					if(prob(I.force))
+					if(prob(totitemdamage))
 						H.visible_message(span_danger("[H] has been knocked down!"), \
 									span_userdanger("[H] has been knocked down!"))
 						H.apply_effect(60, EFFECT_KNOCKDOWN, armor_block)
@@ -1785,6 +1785,29 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					if(H.w_uniform)
 						H.w_uniform.add_mob_blood(H)
 						H.update_inv_w_uniform()
+
+			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && totitemdamage >= BLUNT_LIMB_TRAUMA_MIN_FORCE)
+					if(prob(CLAMP((totitemdamage - BLUNT_LIMB_TRAUMA_MIN_FORCE) * BLUNT_LIMB_TRAUMA_CHANCE_PER_FORCE, 0, BLUNT_LIMB_TRAUMA_MAX_CHANCE)))
+						var/obj/item/held = H.get_item_for_held_index(affecting.held_index)
+						if(held && H.dropItemToGround(held))
+							H.visible_message(span_danger("[H]'s [affecting.name] goes numb from the blow and [H.p_they()] drop[H.p_s()] [held]!"), \
+											span_userdanger("Your [affecting.name] goes numb from the blow - you drop [held]!"))
+
+				if(bloody && H.gloves)
+					H.gloves.add_mob_blood(H)
+					H.update_inv_gloves()
+
+			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && totitemdamage >= BLUNT_LIMB_TRAUMA_MIN_FORCE)
+					if(prob(CLAMP((totitemdamage - BLUNT_LIMB_TRAUMA_MIN_FORCE) * BLUNT_LIMB_TRAUMA_CHANCE_PER_FORCE, 0, BLUNT_LIMB_TRAUMA_MAX_CHANCE)))
+						H.visible_message(span_danger("[H]'s leg buckles from the blow!"), \
+										span_userdanger("Your leg buckles from the blow!"))
+						H.apply_effect(BLUNT_LEG_TRAUMA_KNOCKDOWN_DURATION, EFFECT_KNOCKDOWN, armor_block)
+
+				if(bloody && H.shoes)
+					H.shoes.add_mob_blood(H)
+					H.update_inv_shoes()
 
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
 			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.

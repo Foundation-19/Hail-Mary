@@ -10,3 +10,7 @@
 
 /datum/movespeed_modifier/die_of_fate
 	multiplicative_slowdown = 1
+
+/// Applied while wearing/holding a storage item whose contents outweigh the carrier's Strength.
+/datum/movespeed_modifier/overloaded_storage
+	multiplicative_slowdown = 1.5

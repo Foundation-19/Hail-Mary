@@ -1,5 +1,49 @@
 //Largely beneficial effects go here, even if they have drawbacks. An example is provided in Shadow Mend.
 
+/// S.P.E.C.I.A.L. - granted to party members while they stay near their Charisma-leading party leader.
+/datum/status_effect/party_rally
+	id = "party_rally"
+	duration = -1
+	tick_interval = 2 SECONDS
+	alert_type = /obj/screen/alert/status_effect/party_rally
+	var/mob/living/source_leader
+	var/buffed = FALSE
+
+/obj/screen/alert/status_effect/party_rally
+	name = "Party Rally"
+	desc = "You're following a party leader. Stay close to benefit from their leadership."
+
+/datum/status_effect/party_rally/on_creation(mob/living/new_owner, mob/living/new_leader)
+	. = ..()
+	if(. && new_leader)
+		source_leader = new_leader
+
+/datum/status_effect/party_rally/tick()
+	var/mob/living/current_leader = owner?.party?.leader
+	if(!current_leader || owner.party.leader != current_leader)
+		qdel(src)
+		return
+	source_leader = current_leader
+
+	var/in_range = !QDELETED(source_leader) && !source_leader.stat && owner.z == source_leader.z && get_dist(owner, source_leader) <= 7
+	if(in_range && owner != source_leader)
+		var/tier = source_leader.get_special_charisma_party_buff_tier()
+		if(tier > 0)
+			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "party_rally", /datum/mood_event/party_rally)
+			owner.adjustStaminaLoss(-tier, FALSE)
+			if(!buffed)
+				owner.add_movespeed_modifier(/datum/movespeed_modifier/party_rally)
+				buffed = TRUE
+			return
+	if(buffed)
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/party_rally)
+		buffed = FALSE
+
+/datum/status_effect/party_rally/on_remove()
+	. = ..()
+	if(buffed)
+		owner.remove_movespeed_modifier(/datum/movespeed_modifier/party_rally)
+
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
 	duration = 30

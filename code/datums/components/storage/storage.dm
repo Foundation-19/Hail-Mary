@@ -88,6 +88,9 @@
 	var/limited_random_access_stack_position = 0					//If >0, can only access top <x> items
 	var/limited_random_access_stack_bottom_up = FALSE				//If TRUE, above becomes bottom <x> items
 
+	/// The mob currently suffering the overloaded_storage movespeed penalty because this storage's contents outweigh their Strength, if any.
+	var/mob/living/overloaded_wearer
+
 /datum/component/storage/Initialize(datum/component/storage/concrete/master)
 	if(!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -120,6 +123,8 @@
 	RegisterSignal(parent, COMSIG_ITEM_PRE_ATTACK, PROC_REF(preattack_intercept))
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK_SELF, PROC_REF(attack_self))
 	RegisterSignal(parent, COMSIG_ITEM_PICKUP, PROC_REF(signal_on_pickup))
+	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equipped_check_overload))
+	RegisterSignal(parent, COMSIG_ITEM_DROPPED, PROC_REF(on_dropped_clear_overload))
 
 	RegisterSignal(parent, COMSIG_MOVABLE_POST_THROW, PROC_REF(close_all))
 	RegisterSignal(parent, COMSIG_MOVABLE_MOVED, PROC_REF(check_views))
@@ -131,6 +136,7 @@
 	update_actions()
 
 /datum/component/storage/Destroy()
+	clear_overload()
 	close_all()
 	QDEL_NULL(ui_boxes)
 	QDEL_NULL(ui_close)
@@ -358,6 +364,8 @@
 		qdel(C)
 	_removal_reset(thing)		// THIS NEEDS TO HAPPEN AFTER SO LAYERING DOESN'T BREAK!
 	refresh_mob_views()
+	if(overloaded_wearer)
+		check_overload(overloaded_wearer)
 
 //Call this proc to handle the removal of an item from the storage item. The item will be moved to the new_location target, if that is null it's being deleted
 /datum/component/storage/proc/remove_from_storage(atom/movable/AM, atom/new_location)
@@ -521,7 +529,11 @@
 		var/sum_w_class = get_nested_w_class(I)
 		for(var/obj/item/_I in real_location)
 			sum_w_class += get_nested_w_class(_I) //Adds up the combined w_classes which will be in the storage item if the item is added to it, counting stuffed contents so boxes can't smuggle extra weight for free.
-		if(sum_w_class > max_combined_w_class)
+		var/effective_max_combined_w_class = max_combined_w_class
+		var/mob/living/wearer = recursive_loc_check(parent, /mob/living) //whoever is wearing/holding the storage, not necessarily whoever's stuffing it
+		if(wearer)
+			effective_max_combined_w_class *= wearer.get_strength_carry_capacity_multiplier()
+		if(sum_w_class > effective_max_combined_w_class)
 			if(!stop_messages)
 				to_chat(M, span_warning("[I] won't fit in [host], make some space!"))
 			return FALSE
@@ -707,6 +719,39 @@
 	for(var/mob/M in range(1, A))
 		if(M.active_storage == src)
 			close(M)
+
+/datum/component/storage/proc/on_equipped_check_overload(datum/source, mob/user, slot)
+	check_overload(user)
+
+/datum/component/storage/proc/on_dropped_clear_overload(datum/source, mob/user)
+	if(user == overloaded_wearer)
+		clear_overload()
+
+/// Re-evaluates whether the given mob is carrying more combined weight class than their Strength can bear, applying or clearing the overloaded_storage movespeed penalty accordingly.
+/datum/component/storage/proc/check_overload(mob/living/wearer)
+	if(!(storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS) || !isliving(wearer))
+		clear_overload()
+		return
+	var/atom/real_location = real_location()
+	var/sum_w_class = 0
+	for(var/obj/item/_I in real_location)
+		sum_w_class += get_nested_w_class(_I)
+	var/is_overloaded = sum_w_class > (max_combined_w_class * wearer.get_strength_carry_capacity_multiplier())
+	if(is_overloaded && overloaded_wearer != wearer)
+		clear_overload()
+		overloaded_wearer = wearer
+		wearer.add_movespeed_modifier(/datum/movespeed_modifier/overloaded_storage)
+		var/atom/host = parent
+		to_chat(wearer, span_warning("[host] is stuffed well past what your strength can bear - it's dragging you down!"))
+	else if(!is_overloaded && wearer == overloaded_wearer)
+		clear_overload()
+		to_chat(wearer, span_notice("[parent] feels manageable again."))
+
+/datum/component/storage/proc/clear_overload()
+	if(!overloaded_wearer)
+		return
+	overloaded_wearer.remove_movespeed_modifier(/datum/movespeed_modifier/overloaded_storage)
+	overloaded_wearer = null
 
 /datum/component/storage/proc/signal_take_obj(datum/source, atom/movable/AM, new_loc, force = FALSE)
 	if(!(AM in real_location()))

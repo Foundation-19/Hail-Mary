@@ -433,6 +433,12 @@
 		dropItemToGround(I)
 	drop_all_held_items()
 
+/// Initial roundstart dressing doesn't fire equipped(), so loadout storage never gets its overload check - call this once after dressing to catch anything spawned in already over capacity.
+/mob/living/proc/check_worn_storage_overload()
+	for(var/obj/item/I in get_equipped_items(TRUE))
+		var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
+		STR?.check_overload(src)
+
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_held_item())
 		to_chat(M, span_warning("You are not holding anything to equip!"))

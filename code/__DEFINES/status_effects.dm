@@ -42,6 +42,8 @@
 
 #define STATUS_EFFECT_GHOULHEAL /datum/status_effect/ghoul_heal //currently healing from radiation
 
+#define STATUS_EFFECT_PARTY_RALLY /datum/status_effect/party_rally //S.P.E.C.I.A.L. - Charisma leadership buff granted to party members near their leader
+
 /////////////
 // DEBUFFS //
 /////////////

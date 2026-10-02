@@ -30,6 +30,8 @@
 /mob/living/Destroy()
 	end_parry_sequence()
 	stop_active_blocking()
+	if(party)
+		party.remove_member(src, TRUE)
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -285,6 +287,12 @@
 		return FALSE
 	if(throwing || incapacitated())
 		return FALSE
+
+	if(isliving(AM) && AM != pulling) // S.P.E.C.I.A.L. - extending an existing pull line (not just grabbing a lone target) is capped by the leader's Charisma
+		var/mob/living/chain_leader = get_pull_chain_leader()
+		if(chain_leader.get_pull_chain_member_count() > chain_leader.get_special_charisma_pull_chain_cap())
+			to_chat(src, span_warning("The line's already too long to keep everyone following along!"))
+			return FALSE
 
 	AM.add_fingerprint(src)
 

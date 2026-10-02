@@ -12,7 +12,7 @@
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
 	attack_verb = list("whacked", "fisted", "power-punched")
-	force = 30 //needs more hefty damage to be worthwhile outside pvp. will have to test
+	force = 34 // bumped from 30, keeps pace with the rest of this pass's melee buffs
 	throwforce = 10
 	throw_range = 3
 	w_class = WEIGHT_CLASS_NORMAL

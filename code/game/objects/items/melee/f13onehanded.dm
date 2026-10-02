@@ -5,7 +5,15 @@
 	max_integrity = 200
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	block_parry_data = /datum/block_parry_data/light_blade
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
+	canMouseDown = TRUE
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge,
+	)
 
 /datum/block_parry_data/light_blade // fast, nimble one-handed blades - quick to bring up, quick to recover, but a weaker riposte
 	parry_time_windup = 1
@@ -33,7 +41,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	force = 30
+	force = 36 // bumped from 30 - baseline one-handed swing DPS was well under even weak-SMG tier at 150 HP
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
