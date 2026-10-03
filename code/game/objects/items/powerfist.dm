@@ -107,7 +107,8 @@
 
 	T.assume_air_moles(tank.air_contents, gasperfist * fisto_setting)
 	T.air_update_turf()
-	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, wound_bonus = -25*fisto_setting**2)
+	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
+	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
 
 	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
 		span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))

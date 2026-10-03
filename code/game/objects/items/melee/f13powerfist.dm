@@ -17,6 +17,7 @@
 	throw_range = 3
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES
+	armour_penetration = 1 // Full AP, as advertised - the piston-ram punches straight through heavy armor.
 	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
 	var/throw_distance = 1
 	attack_speed = CLICK_CD_MELEE
@@ -43,7 +44,9 @@
 	if(!T)
 		return FALSE
 	var/totalitemdamage = target.pre_attacked_by(src, user)
-	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, wound_bonus = -25*fisto_setting**2)
+	// Still routes through armor so "Full AP" means ignoring most armor via armour_penetration, not bypassing the damage pipeline outright.
+	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
+	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
 	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
 		span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)

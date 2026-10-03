@@ -90,9 +90,9 @@
 		var/turf/K = get_step(D, oppdir)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message(span_warning("[A] kicks [D] in the side, sliding them over!"), \
-						  span_userdanger("[A] kicks you in the side, forcing you to step away!"))
+						span_userdanger("[A] kicks you in the side, forcing you to step away!"))
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-		D.apply_damage(damage, BRUTE, BODY_ZONE_CHEST)
+		deal_damage(A, D, damage, BRUTE, BODY_ZONE_CHEST)
 		D.DefaultCombatKnockdown(60, override_hardstun = 1, override_stamdmg = damage)
 		var/L = !checkfordensity(H,D) ? (!checkfordensity(K,D) ? D.loc : K) : H
 		D.forceMove(L)
@@ -107,11 +107,11 @@
 	var/L = checkfordensity(H,D) ? H : A.loc
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	D.visible_message(span_warning("[A] flips [D] over their shoulder, slamming them into the ground!"), \
-					  span_userdanger("[A] flips you over their shoulder, slamming you into the ground!"))
+					span_userdanger("[A] flips you over their shoulder, slamming you into the ground!"))
 	playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	D.emote("scream")
-	D.apply_damage(damage + 10, BRUTE, BODY_ZONE_CHEST)
-	D.apply_damage(damage + 10, BRUTE, BODY_ZONE_HEAD)
+	deal_damage(A, D, damage + 10, BRUTE, BODY_ZONE_CHEST)
+	deal_damage(A, D, damage + 10, BRUTE, BODY_ZONE_HEAD)
 	if(damage >= stunthreshold)
 		D.Sleeping(60)
 	D.DefaultCombatKnockdown(300, override_hardstun = 1, override_stamdmg = 50)
@@ -125,11 +125,11 @@
 	if(CHECK_MOBILITY(D, MOBILITY_STAND) && repulsecool < world.time)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		D.visible_message(span_warning("[A] smashes [D] in the chest, throwing them away!"), \
-						  span_userdanger("[A] smashes you in the chest, repelling you away!"))
+						span_userdanger("[A] smashes you in the chest, repelling you away!"))
 		playsound(get_turf(A), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		var/atom/F = get_edge_target_turf(D, get_dir(A, get_step_away(D, A)))
 		D.throw_at(F, 10, 1)
-		D.apply_damage(damage, BRUTE, BODY_ZONE_CHEST)
+		deal_damage(A, D, damage, BRUTE, BODY_ZONE_CHEST)
 		D.DefaultCombatKnockdown(90, override_hardstun = 1, override_stamdmg = damage*2)
 		D.confused += min(damage, 20)
 		log_combat(A, D, "repulse punched (Rising Bass)")
@@ -142,9 +142,9 @@
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
 		D.visible_message(span_warning("[A] smashes their foot down on [D]'s foot!"), \
-						  span_userdanger("[A] smashes your foot!"))
+						span_userdanger("[A] smashes your foot!"))
 		playsound(get_turf(A), 'sound/weapons/punch1.ogg', 50, 1, -1)
-		D.apply_damage(damage, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
+		deal_damage(A, D, damage, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		D.dropItemToGround(D.get_active_held_item())
 		log_combat(A, D, "foot smashed (Rising Bass)")
 		return TRUE
@@ -181,7 +181,7 @@
 		D.visible_message(span_danger("[A] jabs [D] in the stomach!"), \
 					span_userdanger("You're jabbed in the stomach by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
 		to_chat(A, span_danger("You jab [D] in the stomach!"))
-		D.apply_damage(damage*2 + 10, STAMINA)
+		deal_damage(A, D, damage*2 + 10, STAMINA)
 		D.disgust = min(damage, 20)
 	playsound(D, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
 	return TRUE

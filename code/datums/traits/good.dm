@@ -1460,8 +1460,14 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/assassination_damage = base_damage + 40
 	var/secondary_damage = round(assassination_damage * 0.4)
 
-	target.apply_damage(assassination_damage, BRUTE, ran_zone())
-	target.apply_damage(secondary_damage, BRUTE, ran_zone())
+	// Routed through the weapon's own armour penetration instead of ignoring armor outright - a knife still shrugs off power armor far more than a sledgehammer would.
+	var/primary_zone = ran_zone()
+	var/primary_blocked = target.run_armor_check(primary_zone, "melee", "Your armor absorbs the assassination strike!", "Your armor softens the assassination strike!", weapon.armour_penetration, "Your armor is penetrated by the killing blow!")
+	target.apply_damage(assassination_damage, BRUTE, primary_zone, primary_blocked)
+
+	var/secondary_zone = ran_zone()
+	var/secondary_blocked = target.run_armor_check(secondary_zone, "melee", "Your armor absorbs the follow-through!", "Your armor softens the follow-through!", weapon.armour_penetration, "Your armor is penetrated by the follow-through!", silent = TRUE)
+	target.apply_damage(secondary_damage, BRUTE, secondary_zone, secondary_blocked)
 
 	shake_camera(H, 3, 1.5)
 

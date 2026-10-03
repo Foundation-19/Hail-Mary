@@ -35,7 +35,7 @@
 					if(A.a_intent == INTENT_GRAB)
 						log_combat(A, D, "grabbed", addition="aggressively")
 						D.visible_message(span_warning("[A] violently grabs [D]!"), \
-						  span_userdanger("[A] violently grabs you!"))
+						span_userdanger("[A] violently grabs you!"))
 						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
 						log_combat(A, D, "grabbed", addition="passively")
@@ -44,10 +44,10 @@
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = "headbutts"
 			D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
-					  span_userdanger("[A] [atk_verb] you!"))
+					span_userdanger("[A] [atk_verb] you!"))
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
-			D.apply_damage(damage*1.5, BRUTE, BODY_ZONE_HEAD)
-			A.apply_damage(damage, BRUTE, BODY_ZONE_HEAD)
+			deal_damage(A, D, damage*1.5, BRUTE, BODY_ZONE_HEAD)
+			deal_damage(A, A, damage, BRUTE, BODY_ZONE_HEAD)
 			if(!istype(D.head,/obj/item/clothing/head/helmet/) && !istype(D.head,/obj/item/clothing/head/hardhat))
 				D.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage)
 			A.Stun(rand(10,45))
@@ -56,8 +56,8 @@
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = pick("punches", "kicks", "hits", "slams into")
 			D.visible_message(span_danger("[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!"), \
-							  span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
-			D.apply_damage(damage*2, BRUTE)
+							span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
+			deal_damage(A, D, damage*2, BRUTE)
 			playsound(get_turf(D), 'sound/effects/meteorimpact.ogg', 25, 1, -1)
 			var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
 			D.throw_at(throwtarget, 4, 2, A)//So stuff gets tossed around at the same time.

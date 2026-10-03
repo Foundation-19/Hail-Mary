@@ -51,7 +51,7 @@
 	playsound(D.loc, 'sound/weapons/punch1.ogg', 50, 1, -1)
 	var/atom/throw_target = get_edge_target_turf(D, get_dir(D, get_step_away(D, A)))
 	D.throw_at(throw_target, 200, 4,A)
-	D.apply_damage(damage, BRUTE)
+	deal_damage(A, D, damage, BRUTE)
 	A.say("HYAH!", forced="plasma fist")
 	log_combat(A, D, "threw back (Plasma Fist)")
 	return
