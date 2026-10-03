@@ -88,6 +88,9 @@
 		return
 	if(!is_power_attack_wielded(user) || !CHECK_MOBILITY(user, MOBILITY_USE))
 		return
+	if(user.resting) // can't wind up/lunge from the floor - applies to every power attack, Lunge included
+		to_chat(user, span_warning("You can't perform a Power Attack while lying down!"))
+		return
 	var/datum/power_attack/power_attack = get_active_power_attack()
 	if(!power_attack)
 		return
@@ -117,7 +120,7 @@
 /obj/item/proc/power_attack_charge_loop(mob/living/user, datum/power_attack/power_attack)
 	var/required = power_attack_get_required_windup(user, power_attack)
 	while(charging_power_attack && power_attack_user == user)
-		if(QDELETED(src) || QDELETED(user) || !is_power_attack_wielded(user) || user.incapacitated())
+		if(QDELETED(src) || QDELETED(user) || !is_power_attack_wielded(user) || user.incapacitated() || user.resting)
 			power_attack_cancel(user, "cut short")
 			return
 		var/fraction = (world.time - power_attack_charge_start) / required
@@ -301,6 +304,33 @@
 	var/datum/power_attack/picked_attack = return_power_attack_datum(picked)
 	to_chat(user, span_notice("You ready [src] to perform a [picked_attack.name] on your next power attack."))
 
+/// Called from the (rebindable) per-attack power_attack_pick_* keybindings - resolves whatever the user is actually wielding (held item or worn glove_weapon, same two cases is_power_attack_wielded() checks) and arms `base_path` on it directly, without opening the radial menu. `base_path` matches subtypes too (e.g. picking Lunge arms a powerfist's /datum/power_attack/lunge/piston_punch), so the same keybind works across every weapon's own variant of that attack.
+/mob/living/proc/keybind_power_attack_pick(base_path)
+	var/obj/item/weapon = get_active_held_item()
+	if(istype(weapon, /obj/item/offhand))
+		weapon = null
+	if(!weapon && iscarbon(src))
+		var/mob/living/carbon/C = src
+		if(C.gloves?.glove_weapon)
+			weapon = C.gloves
+	if(!weapon || !LAZYLEN(weapon.power_attacks) || !(weapon.item_flags & ITEM_CAN_POWER_ATTACK))
+		to_chat(src, span_warning("You have nothing to select a Power Attack with!"))
+		return
+	var/picked
+	for(var/path in weapon.power_attacks)
+		if(ispath(path, base_path))
+			picked = path
+			break
+	if(!picked)
+		to_chat(src, span_warning("[weapon] can't perform that Power Attack!"))
+		return
+	var/datum/power_attack/power_attack = return_power_attack_datum(picked)
+	if(!power_attack.can_select(src, weapon))
+		to_chat(src, span_warning("[weapon] can't perform a [power_attack.name] right now!"))
+		return
+	weapon.active_power_attack_path = picked
+	to_chat(src, span_notice("You ready [weapon] to perform a [power_attack.name] on your next power attack."))
+
 /// A transient stand-in weapon for bare-handed Power Attacks - see /datum/component/unarmed_power_attack.
 /// HAND_ITEM/ABSTRACT/DROPDEL like code/game/objects/hand_items.dm's /obj/item/hand_item, but parented to
 /// /obj/item/melee instead so it gets the mouse-hold charge/release wiring and radial quick-select menu for free.
@@ -339,6 +369,9 @@
 
 /obj/item/melee/AltClick(mob/user)
 	. = ..()
+	if(is_active_glove_weapon(user))
+		toggle_glove_weapon_hand(user)
+		return
 	if(LAZYLEN(power_attacks) && (item_flags & ITEM_CAN_POWER_ATTACK) && (user.Adjacent(src) || (src in user.contents)))
 		power_attack_radial_select(user)
 
@@ -366,5 +399,8 @@
 
 /obj/item/twohanded/AltClick(mob/user)
 	. = ..()
+	if(is_active_glove_weapon(user))
+		toggle_glove_weapon_hand(user)
+		return
 	if(LAZYLEN(power_attacks) && (item_flags & ITEM_CAN_POWER_ATTACK) && (user.Adjacent(src) || (src in user.contents)))
 		power_attack_radial_select(user)

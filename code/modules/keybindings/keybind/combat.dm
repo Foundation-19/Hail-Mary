@@ -49,4 +49,64 @@
 	L.keybind_parry()
 	return TRUE
 
+/datum/keybinding/living/power_attack_pick_heavy_strike
+	hotkey_keys = list("Unbound")
+	name = "power_attack_pick_heavy_strike"
+	full_name = "Power Attack: Heavy Strike"
+	category = CATEGORY_COMBAT
+	description = "Arms Heavy Strike on your currently wielded weapon, if it can perform it - same as picking it from the Alt+Click/Alt+RMB radial menu, but instant."
+
+/datum/keybinding/living/power_attack_pick_heavy_strike/down(client/user)
+	var/mob/living/L = user.mob
+	L.keybind_power_attack_pick(/datum/power_attack/heavy_strike)
+	return TRUE
+
+/datum/keybinding/living/power_attack_pick_cleave
+	hotkey_keys = list("Unbound")
+	name = "power_attack_pick_cleave"
+	full_name = "Power Attack: Cleave"
+	category = CATEGORY_COMBAT
+	description = "Arms Cleave on your currently wielded weapon, if it can perform it - same as picking it from the Alt+Click/Alt+RMB radial menu, but instant."
+
+/datum/keybinding/living/power_attack_pick_cleave/down(client/user)
+	var/mob/living/L = user.mob
+	L.keybind_power_attack_pick(/datum/power_attack/cleave)
+	return TRUE
+
+/datum/keybinding/living/power_attack_pick_guard_break
+	hotkey_keys = list("Unbound")
+	name = "power_attack_pick_guard_break"
+	full_name = "Power Attack: Guard Break"
+	category = CATEGORY_COMBAT
+	description = "Arms Guard Break on your currently wielded weapon, if it can perform it - same as picking it from the Alt+Click/Alt+RMB radial menu, but instant."
+
+/datum/keybinding/living/power_attack_pick_guard_break/down(client/user)
+	var/mob/living/L = user.mob
+	L.keybind_power_attack_pick(/datum/power_attack/guard_break)
+	return TRUE
+
+/datum/keybinding/living/power_attack_pick_execute
+	hotkey_keys = list("Unbound")
+	name = "power_attack_pick_execute"
+	full_name = "Power Attack: Execute"
+	category = CATEGORY_COMBAT
+	description = "Arms Execute on your currently wielded weapon, if it can perform it - same as picking it from the Alt+Click/Alt+RMB radial menu, but instant."
+
+/datum/keybinding/living/power_attack_pick_execute/down(client/user)
+	var/mob/living/L = user.mob
+	L.keybind_power_attack_pick(/datum/power_attack/execute)
+	return TRUE
+
+/datum/keybinding/living/power_attack_pick_lunge
+	hotkey_keys = list("Unbound")
+	name = "power_attack_pick_lunge"
+	full_name = "Power Attack: Lunge"
+	category = CATEGORY_COMBAT
+	description = "Arms Lunge on your currently wielded weapon, if it can perform it - same as picking it from the Alt+Click/Alt+RMB radial menu, but instant."
+
+/datum/keybinding/living/power_attack_pick_lunge/down(client/user)
+	var/mob/living/L = user.mob
+	L.keybind_power_attack_pick(/datum/power_attack/lunge)
+	return TRUE
+
 

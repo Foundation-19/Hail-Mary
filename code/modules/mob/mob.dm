@@ -310,12 +310,16 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_held_item()
+	// An /obj/item/offhand (e.g. a glove_weapon's hand lock, or a two-handed weapon's offhand marker) isn't a
+	// real item the player is trying to equip somewhere else - treat it the same as an empty hand, otherwise
+	// clicking the slot just fails to equip the placeholder instead of unequipping the worn item underneath.
+	var/active_hand_is_offhand_marker = istype(W, /obj/item/offhand)
 
-	if(istype(W))
+	if(istype(W) && !active_hand_is_offhand_marker)
 		if(equip_to_slot_if_possible(W, slot, FALSE, FALSE, FALSE, FALSE, TRUE))
 			return TRUE
 
-	if(!W)
+	if(!W || active_hand_is_offhand_marker)
 		// Activate the item
 		var/obj/item/I = get_item_by_slot(slot)
 		if(istype(I))

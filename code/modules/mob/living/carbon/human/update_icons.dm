@@ -209,7 +209,15 @@ There are several things that need to be remembered:
 			if(hud_used.inventory_shown)
 				client.screen += gloves
 		update_observer_view(gloves,1)
-		overlays_standing[GLOVES_LAYER] = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = 'icons/mob/clothing/hands.dmi')
+		if(gloves.glove_weapon && (gloves.lefthand_file || gloves.righthand_file))
+			// No dedicated worn-icon state, only in-hand sprites - render it the same way update_inv_hands()
+			// renders a literally-held item (isinhands = TRUE), reusing whichever hand's sprite the wearer
+			// picked (see toggle_glove_weapon_hand()), instead of worn_x/y_dimension-based worn-icon handling
+			// the in-hand sprite was never authored for.
+			var/glove_weapon_file = (gloves.glove_weapon_worn_hand == "left" ? gloves.lefthand_file : gloves.righthand_file) || gloves.righthand_file || gloves.lefthand_file
+			overlays_standing[GLOVES_LAYER] = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = glove_weapon_file, isinhands = TRUE)
+		else
+			overlays_standing[GLOVES_LAYER] = gloves.build_worn_icon(default_layer = GLOVES_LAYER, default_icon_file = 'icons/mob/clothing/hands.dmi')
 		gloves_overlay = overlays_standing[GLOVES_LAYER]
 		if(OFFSET_GLOVES in dna.species.offset_features)
 			gloves_overlay.pixel_x += dna.species.offset_features[OFFSET_GLOVES][1]

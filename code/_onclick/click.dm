@@ -100,6 +100,12 @@
 		return
 
 	var/obj/item/W = get_active_held_item()
+	// An /obj/item/offhand (glove_weapon hand lock, two-handed weapon offhand marker) isn't a real weapon to
+	// swing - without this, clicking your own worn glove_weapon to unequip it (inventory UI redirects worn-slot
+	// clicks here, see /obj/screen/inventory/Click()) gets treated as "attack the glove with the lock in hand"
+	// (W.melee_attack_chain() below) instead of the unarmed/attack_hand() path that actually unequips it.
+	if(istype(W, /obj/item/offhand))
+		W = null
 
 	if(W == A)
 		W.attack_self(src)

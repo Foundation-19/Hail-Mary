@@ -169,10 +169,7 @@
 	var/obj/item/existing = held_items[hand_index]
 	if(existing && (existing.item_flags & HAND_ITEM)) // a pseudo "empty hand" placeholder (see /obj/item/melee/fists) - let real items displace it
 		return TRUE
-	if(existing)
-		return FALSE
-	var/obj/item/worn_gloves = get_item_by_slot(SLOT_GLOVES)
-	if(istype(worn_gloves) && worn_gloves.glove_weapon) // both hands are tied up wearing the glove weapon
+	if(existing) // includes the /obj/item/offhand placeholder a worn glove_weapon locks its shown hand with - see lock_glove_weapon_hand()
 		return FALSE
 	return TRUE
 
@@ -381,6 +378,12 @@
 			else if(!disable_warning)
 				to_chat(src, warning[1])
 			return FALSE
+	// A glove_weapon shows on whichever hand actually put it on (see toggle_glove_weapon_hand()) instead of always
+	// defaulting to the right - has to be captured here, before equip_to_slot() clears the item out of held_items.
+	if(W.glove_weapon && slot == SLOT_GLOVES && !W.glove_weapon_both_hands)
+		var/held_index = get_held_index_of_item(W)
+		if(held_index)
+			W.glove_weapon_worn_hand = (held_index % 2 == 0) ? "right" : "left"
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
 	return TRUE
 

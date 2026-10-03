@@ -317,3 +317,16 @@
 	if(wielded && !user.is_holding(src) && !QDELETED(src))
 		qdel(src)
 
+/**
+ * The offhand dummy item locking a hand occupied by a worn glove_weapon (e.g. a power fist) - see
+ * lock_glove_weapon_hand() in items.dm. NODROP since "dropping" a locked hand doesn't make sense and previously
+ * left a permanent, inert marker lying around on the ground - the only way to free the hand is to actually
+ * unequip the glove_weapon itself (see unlock_glove_weapon_hand()), which qdels this directly, bypassing NODROP.
+ */
+/obj/item/offhand/glove_weapon_lock
+	name = "glove weapon grip"
+
+/obj/item/offhand/glove_weapon_lock/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, GLOVE_TRAIT)
+

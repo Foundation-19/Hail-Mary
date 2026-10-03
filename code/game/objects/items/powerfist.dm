@@ -16,6 +16,11 @@
 	resistance_flags = FIRE_PROOF
 	attack_speed = CLICK_CD_MELEE * 1.5
 	glove_weapon = TRUE
+	// Worn glove weapons have no hand screen object to right-click (see canMobMousedown() in drag_drop.dm,
+	// which falls back to the worn gloves item itself only if canMouseDown is set) - without this, right-click
+	// hold/release never reaches power_attack_handle_right_mouse_down()/power_attack_release(), so Power Attacks
+	// could never actually be charged or released (and the release-only weapon-icon swing effect never showed).
+	canMouseDown = TRUE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES // was missing entirely - couldn't be equipped to any slot at all
 	power_attacks = list(
 		/datum/power_attack/heavy_strike,
