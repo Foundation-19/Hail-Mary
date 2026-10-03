@@ -517,7 +517,9 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			return
 	if(SEND_SIGNAL(src, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_ACTIVE))
 		return
-	adjustStaminaLoss(!CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL)
+	// Same Endurance multiplier the crit thresholds use - a sturdier build recovers faster too, not just a bigger buffer before crit.
+	var/recovery = !CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL
+	adjustStaminaLoss(recovery * get_special_endurance_stamina_mod())
 
 /// Buffered stamina (the "stamina shield") decays back to 0 for free over time once it's gone untouched for a bit - see STAMINA_BUFFER_DECAY_* defines.
 /mob/living/carbon/proc/handle_stamina_buffer_decay()

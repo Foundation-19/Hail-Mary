@@ -202,8 +202,9 @@
 	var/bad_trait
 
 	var/stamloss = user.getStaminaLoss()
-	if(stamloss > STAMINA_NEAR_SOFTCRIT) //The more tired you are, the less damage you do.
-		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT)/(STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT)*STAM_CRIT_ITEM_ATTACK_PENALTY
+	var/endurance_mod = user.get_special_endurance_stamina_mod()
+	if(stamloss > STAMINA_NEAR_SOFTCRIT * endurance_mod) //The more tired you are, the less damage you do.
+		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT * endurance_mod)/((STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT) * endurance_mod)*STAM_CRIT_ITEM_ATTACK_PENALTY
 		totitemdamage *= 1 - penalty
 
 	if(SEND_SIGNAL(user, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
@@ -256,8 +257,9 @@
 
 	var/stamloss = user.getStaminaLoss()
 	var/stam_mobility_mult = 1
-	if(stamloss > STAMINA_NEAR_SOFTCRIT) //The more tired you are, the less damage you do.
-		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT)/(STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT)*STAM_CRIT_ITEM_ATTACK_PENALTY
+	var/endurance_mod = user.get_special_endurance_stamina_mod()
+	if(stamloss > STAMINA_NEAR_SOFTCRIT * endurance_mod) //The more tired you are, the less damage you do.
+		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT * endurance_mod)/((STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT) * endurance_mod)*STAM_CRIT_ITEM_ATTACK_PENALTY
 		stam_mobility_mult -= penalty
 	if(stam_mobility_mult > LYING_DAMAGE_PENALTY && !CHECK_MOBILITY(user, MOBILITY_STAND)) //damage penalty for fighting prone, doesn't stack with the above.
 		stam_mobility_mult = LYING_DAMAGE_PENALTY
@@ -351,7 +353,7 @@
 	if(used_skills && user.mind)
 		. = user.mind.item_action_skills_mod(src, ., skill_difficulty, trait, bad_trait, FALSE)
 	var/total_health = user.getStaminaLoss()
-	. = clamp(., 0, STAMINA_NEAR_CRIT - total_health)
+	. = clamp(., 0, (STAMINA_NEAR_CRIT * user.get_special_endurance_stamina_mod()) - total_health)
 
 /// How long this staggers for. 0 and negatives supported.
 /obj/item/proc/melee_stagger_duration(force_override)

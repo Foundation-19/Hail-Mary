@@ -89,6 +89,8 @@
 #define STAMINA_SOFTCRIT_TRADITIONAL		0
 ///ditto, but for STAMINA_CRIT
 #define STAMINA_CRIT_TRADITIONAL			-40
+///Midpoint between STAMINA_SOFTCRIT and STAMINA_CRIT, scaled per-mob by Endurance - used by arrest bots to decide a stamcritted target has recovered enough to fight back again.
+#define STAMINA_ARREST_RECOVERY_THRESHOLD(mob)	((STAMINA_SOFTCRIT + STAMINA_CRIT) * 0.5 * mob.get_special_endurance_stamina_mod())
 
 #define CRAWLUNDER_DELAY							30 //Delay for crawling under a standing mob
 

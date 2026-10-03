@@ -129,7 +129,7 @@
 
 	var/list/mob/living/targets = list()
 	for(var/mob/living/target in oview(5, src))
-		if(target == src || target.stat || (party && target in party.members))
+		if(target == src || target.stat || (party && (target in party.members)))
 			continue
 		targets += target
 

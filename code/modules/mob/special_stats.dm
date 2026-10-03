@@ -158,6 +158,15 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return poison_resist_multiplier[clamped_e] || 1
 
+/// Single shared knob for Endurance's effect on the whole combat stamina system: every softcrit/hardcrit threshold check AND passive
+/// regen speed reads this same multiplier, so a sturdier build both shrugs off more exertion before buckling and bounces back faster -
+/// and any future stamina-gated check only has to multiply by this instead of growing its own bolted-on Endurance handling later.
+/mob/living/proc/get_special_endurance_stamina_mod()
+	// Index N corresponds directly to a special_e value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/endurance_stamina_mod = list(0.7, 0.78, 0.86, 0.93, 1, 1.08, 1.16, 1.24, 1.35, 1.5)
+	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return endurance_stamina_mod[clamped_e] || 1
+
 
 /// CHARISMA
 

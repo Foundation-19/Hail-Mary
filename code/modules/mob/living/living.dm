@@ -1574,25 +1574,4 @@
 		pixel_z = pseudo_z_axis
 		last_move_time = world.time // Track movement for sound detection
 
-/mob/living/carbon/update_stamina()
-	var/total_health = getStaminaLoss()
-	if(total_health >= STAMINA_SOFTCRIT)
-		if(!(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT))
-			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
-	else
-		if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
-			DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
-	if(total_health)
-		if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health >= STAMINA_CRIT && !stat)
-			to_chat(src, span_notice("You're too exhausted to keep going..."))
-			set_resting(TRUE, FALSE, FALSE)
-			SEND_SIGNAL(src, COMSIG_DISABLE_COMBAT_MODE)
-			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
-			filters += CIT_FILTER_STAMINACRIT
-			update_mobility()
-	if((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health <= STAMINA_SOFTCRIT)
-		to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
-		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT | COMBAT_FLAG_SOFT_STAMCRIT)
-		filters -= CIT_FILTER_STAMINACRIT
-		update_mobility()
-	update_health_hud()
+// Carbon's update_stamina() override (soft/hard stamcrit flags) lives in carbon.dm, not here.

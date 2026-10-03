@@ -684,13 +684,33 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION)
-		var/total_health = (maxHealth - stam)
-		if(total_health <= crit_threshold && !stat)
-			if(CHECK_MOBILITY(src, MOBILITY_STAND))
-				to_chat(src, span_notice("You're too exhausted to keep going..."))
-			KnockToFloor(TRUE)
-			update_health_hud()
+	// Endurance stretches or shrinks both thresholds together, keeping the softcrit->hardcrit "windup" gap proportional at any END value.
+	var/endurance_mod = get_special_endurance_stamina_mod()
+	var/softcrit_threshold = STAMINA_SOFTCRIT * endurance_mod
+	var/hardcrit_threshold = STAMINA_CRIT * endurance_mod
+
+	if(stam >= softcrit_threshold)
+		if(!(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT))
+			to_chat(src, span_warning("Your muscles are burning with fatigue..."))
+			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+	else if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
+		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+
+	if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && stam >= hardcrit_threshold && !stat)
+		to_chat(src, span_notice("You're too exhausted to keep going..."))
+		// Your legs buckle - you collapse and drop whatever you're holding/blocking with, same as any other knockdown.
+		KnockToFloor(TRUE, TRUE, FALSE)
+		SEND_SIGNAL(src, COMSIG_DISABLE_COMBAT_MODE)
+		ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
+		filters += CIT_FILTER_STAMINACRIT
+		update_mobility()
+	else if((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && stam <= softcrit_threshold)
+		to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
+		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
+		filters -= CIT_FILTER_STAMINACRIT
+		update_mobility()
+
+	update_health_hud()
 
 /mob/living/carbon/update_sight()
 	if(!client)
