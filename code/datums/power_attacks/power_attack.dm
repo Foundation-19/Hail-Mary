@@ -160,6 +160,13 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 /datum/power_attack/lunge/get_effective_damage_multiplier(mob/living/user, obj/item/weapon, atom/target, fraction = 1)
 	return 1 + (damage_multiplier - 1) * weapon.power_attack_lunge_fraction
 
+/// Arms a powerfist-style worn glove weapon with Lunge despite being blunt - the piston-ram is its own kind of penetrating strike, bypassing the normal bladed/piercing requirement.
+/datum/power_attack/lunge/piston_punch
+	desc = "A driving forward thrust that closes distance before striking - the piston-ram punches through regardless of edge. Overextending if you whiff leaves you staggered, and slamming into something solid mid-lunge knocks you down."
+
+/datum/power_attack/lunge/piston_punch/can_select(mob/living/user, obj/item/weapon)
+	return TRUE
+
 /datum/power_attack/lunge/on_approach(mob/living/user, obj/item/weapon, atom/target)
 	// target.loc is an /area (not a turf) when target IS a bare turf (whiff fallback) - get_turf() handles both cases.
 	var/turf/target_turf = get_turf(target)

@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
-	item_flags = NEEDS_PERMIT | NO_COMBAT_MODE_FORCE_MODIFIER //To avoid ambushing and oneshotting healthy crewmembers on force setting 3.
+	item_flags = NEEDS_PERMIT | NO_COMBAT_MODE_FORCE_MODIFIER | ITEM_CAN_POWER_ATTACK //To avoid ambushing and oneshotting healthy crewmembers on force setting 3.
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 14
 	throwforce = 10
@@ -16,6 +16,8 @@
 	resistance_flags = FIRE_PROOF
 	attack_speed = CLICK_CD_MELEE * 1.5
 	glove_weapon = TRUE
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES // was missing entirely - couldn't be equipped to any slot at all
+	power_attacks = list(/datum/power_attack/lunge/piston_punch)
 	var/fisto_setting = 1
 	var/gasperfist = 3
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.

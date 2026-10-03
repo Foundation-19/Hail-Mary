@@ -61,6 +61,11 @@
 	/// 0-1 scalar set by /datum/power_attack/lunge/on_approach() - how much of its max range the lunge actually closed before connecting. Redirects onto a blocker you barely moved to reach get a reduced bonus.
 	var/power_attack_lunge_fraction = 1
 
+/// A worn glove_weapon (e.g. a power fist) counts as "wielded" for Power Attack purposes too, not just actually held in a hand -
+/// lets the glove_power_attack keybinding charge/release it while worn, since it has no hand screen object to right-click.
+/obj/item/proc/is_power_attack_wielded(mob/living/user)
+	return user.is_holding(src) || is_active_glove_weapon(user)
+
 /// Returns (and lazily defaults) the currently armed power attack datum, or null if this item has none set up.
 /obj/item/proc/get_active_power_attack()
 	if(!LAZYLEN(power_attacks))
@@ -80,7 +85,7 @@
 /obj/item/proc/power_attack_begin(mob/living/user)
 	if(!istype(user) || !(item_flags & ITEM_CAN_POWER_ATTACK) || charging_power_attack)
 		return
-	if(!user.is_holding(src) || !CHECK_MOBILITY(user, MOBILITY_USE))
+	if(!is_power_attack_wielded(user) || !CHECK_MOBILITY(user, MOBILITY_USE))
 		return
 	var/datum/power_attack/power_attack = get_active_power_attack()
 	if(!power_attack)
@@ -111,7 +116,7 @@
 /obj/item/proc/power_attack_charge_loop(mob/living/user, datum/power_attack/power_attack)
 	var/required = power_attack_get_required_windup(user, power_attack)
 	while(charging_power_attack && power_attack_user == user)
-		if(QDELETED(src) || QDELETED(user) || !user.is_holding(src) || user.incapacitated())
+		if(QDELETED(src) || QDELETED(user) || !is_power_attack_wielded(user) || user.incapacitated())
 			power_attack_cancel(user, "cut short")
 			return
 		var/fraction = (world.time - power_attack_charge_start) / required
@@ -264,6 +269,46 @@
 		))
 	data["power_attacks"] = entries
 	return data
+
+/// Finds the item (if any) worn in this mob's glove slot that's set up to arm Power Attacks - what the glove_power_attack keybinding operates on.
+/mob/living/proc/get_worn_power_attack_glove()
+	if(!ishuman(src))
+		return null
+	var/mob/living/carbon/human/H = src
+	if(H.gloves?.glove_weapon && (H.gloves.item_flags & ITEM_CAN_POWER_ATTACK) && LAZYLEN(H.gloves.power_attacks))
+		return H.gloves
+	return null
+
+/// Keybind-driven charge start for a worn glove_weapon - mirrors right-click-hold on a held weapon.
+/mob/living/proc/keybind_start_glove_power_attack()
+	var/obj/item/I = get_worn_power_attack_glove()
+	if(!I)
+		to_chat(src, span_warning("You're not wearing anything that can Power Attack."))
+		return
+	I.power_attack_begin(src)
+
+/// Keybind-driven charge release for a worn glove_weapon - releases facing whatever direction you're looking, since there's no mouse cursor target to aim with.
+/mob/living/proc/keybind_stop_glove_power_attack()
+	var/obj/item/I = get_worn_power_attack_glove()
+	if(!I || !I.charging_power_attack)
+		return
+	var/datum/power_attack/power_attack = I.get_active_power_attack()
+	var/lunge_reach = (power_attack ? power_attack.get_lunge_range(I) : 0) + 1
+	// No mouse cursor to read a hovered target from - scan the tiles ahead of us for an actual mob instead,
+	// otherwise a real target standing exactly where the dash lands reads as a bare-turf whiff (see on_approach()'s
+	// blocker check, which only catches someone mid-step, not someone already on the final landing tile).
+	var/atom/target = get_ranged_target_turf(src, dir, lunge_reach)
+	var/turf/check_turf = get_turf(src)
+	for(var/i in 1 to lunge_reach)
+		check_turf = get_step(check_turf, dir)
+		if(!check_turf)
+			break
+		for(var/mob/living/potential in check_turf)
+			if(potential == src)
+				continue
+			target = potential
+			break
+	I.power_attack_release(src, target, "")
 
 /// A transient stand-in weapon for bare-handed Power Attacks - see /datum/component/unarmed_power_attack.
 /// HAND_ITEM/ABSTRACT/DROPDEL like code/game/objects/hand_items.dm's /obj/item/hand_item, but parented to

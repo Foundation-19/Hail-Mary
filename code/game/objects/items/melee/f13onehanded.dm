@@ -315,7 +315,6 @@
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	if(extended)
 		force = extended_force
-		w_class = WEIGHT_CLASS_NORMAL
 		throwforce = extended_throwforce
 		icon_state = extended_icon_state
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -323,7 +322,6 @@
 		sharpness = SHARP_EDGED
 	else
 		force = initial(force)
-		w_class = WEIGHT_CLASS_SMALL
 		throwforce = initial(throwforce)
 		icon_state = retracted_icon_state
 		attack_verb = list("stubbed", "poked")

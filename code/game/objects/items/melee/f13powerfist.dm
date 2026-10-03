@@ -34,9 +34,9 @@
 		. += span_notice("You'll need to get closer to see any more.")
 		return
 	if(cell)
-		. += span_notice("It has \a [cell] slotted in, reading [round(cell.percent())]% charge.")
+		. += span_notice("It has \a [cell] slotted in, reading [round(cell.percent())]% charge. Use a screwdriver on it to pop the cell back out.")
 	else
-		. += span_warning("It has no cell slotted in - the piston won't budge without one.")
+		. += span_warning("It has no cell slotted in - the piston won't budge without one. Slot a microfusion cell in by hitting it with one.")
 
 /obj/item/melee/powerfist/f13/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/stock_parts/cell/ammo/mfc))
