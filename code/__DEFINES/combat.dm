@@ -291,11 +291,16 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 /// Added delay when firing guns stam-softcritted. Summed with a hardset CLICK_CD_RANGE delay, similar to STAM_CRIT_DAMAGE_DELAY otherwise.
 #define STAM_CRIT_GUN_DELAY			2.75
 
-//stamina recovery defines. Blocked if combat mode is on.
+//stamina recovery defines. Paused while intentionally in combat mode, see /mob/living/carbon/proc/handle_stamina_regen().
 #define STAM_RECOVERY_STAM_CRIT		-7.5
 #define STAM_RECOVERY_RESTING		-6
 #define STAM_RECOVERY_NORMAL		-3
 #define STAM_RECOVERY_LIMB			4 //limbs recover stamina separately from handle_status_effects(), and aren't blocked by combat mode.
+
+/// Divisor in the buffered-stamina ("stamina shield") free decay formula, see /mob/living/carbon/proc/handle_stamina_buffer_decay().
+#define STAMINA_BUFFER_DECAY_DIVISOR 5
+/// Rate multiplier in the buffered-stamina free decay formula, see /mob/living/carbon/proc/handle_stamina_buffer_decay().
+#define STAMINA_BUFFER_DECAY_RATE 0.1
 
 /**
  * should the current-attack-damage be lower than the item force multiplied by this value,

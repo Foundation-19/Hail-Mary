@@ -85,9 +85,9 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 /datum/power_attack/cleave
 	name = "Cleave"
 	desc = "A wide, sweeping arc that also strikes every enemy adjacent to your target, at reduced effect. Needs an edged or heavy weapon."
-	windup_time = 8
+	windup_time = 6
 	stamina_cost = 26
-	damage_multiplier = 1.2
+	damage_multiplier = 1.0
 	wound_bonus_add = 5
 	/// Splash hits on bystanders (not your actual target) take this fraction of the main damage_multiplier - weaker than the direct hit, but not drastically so.
 	var/cleave_splash_multiplier = 0.75
@@ -149,14 +149,12 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 /datum/power_attack/lunge/can_select(mob/living/user, obj/item/weapon)
 	return weapon.sharpness != SHARP_NONE || istype(weapon, /obj/item/twohanded/spear)
 
-/// Lighter weapons are easier to dash forward with, heavier ones barely lunge at all. Value = actual tiles dashed, not target reach.
+/// Lighter weapons are easier to dash forward with, heavier ones still get a short hop - never zero. Value = actual tiles dashed, not target reach.
 /datum/power_attack/lunge/get_lunge_range(obj/item/weapon)
 	switch(weapon.w_class)
 		if(WEIGHT_CLASS_TINY, WEIGHT_CLASS_SMALL)
 			return 2
-		if(WEIGHT_CLASS_NORMAL, WEIGHT_CLASS_BULKY)
-			return 1
-	return 0 // huge/gigantic two-handers are too unwieldy to dash with
+	return 1 // normal weight and up still get a 1-tile lunge
 
 /// How much of the bonus damage a lunge keeps scales with how much of its max range it actually closed - see get_effective_damage_multiplier().
 /datum/power_attack/lunge/get_effective_damage_multiplier(mob/living/user, obj/item/weapon, atom/target, fraction = 1)

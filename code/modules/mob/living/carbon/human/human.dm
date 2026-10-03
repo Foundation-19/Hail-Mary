@@ -109,6 +109,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	. = ..()
 	. += "Intent: [a_intent]"
 	. += "Move Mode: [m_intent]"
+	var/obj/item/held_item = get_active_held_item()
+	if(held_item && LAZYLEN(held_item.power_attacks) && (held_item.item_flags & ITEM_CAN_POWER_ATTACK))
+		var/datum/power_attack/active = held_item.get_active_power_attack()
+		if(active)
+			. += "Power Attack: [active.name] (Alt-click to change)"
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)

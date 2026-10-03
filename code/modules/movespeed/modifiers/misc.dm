@@ -7,3 +7,6 @@
 
 /datum/movespeed_modifier/party_rally
 	multiplicative_slowdown = -0.3
+
+/datum/movespeed_modifier/intimidated
+	multiplicative_slowdown = 0.5

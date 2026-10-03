@@ -3,7 +3,8 @@
 // armed /datum/power_attack, then release (onMouseUp) to unleash it, hitting whatever's under the cursor
 // or, lacking that, whatever's directly ahead of you - a target under the cursor is never required. Bound
 // to right click specifically so charging/releasing never eats or delays normal left-click attacks. Which
-// Power Attack is armed is chosen via alt-click, which opens the PowerAttackSelect tgui (see power_attack_ui_interact()).
+// Power Attack is armed is chosen via Alt+Left-click or Alt+Right-click, both opening the PowerAttackSelect
+// tgui (see power_attack_ui_interact()/power_attack_handle_right_mouse_down()).
 //
 // Wired up on /obj/item/melee and /obj/item/twohanded (the two melee weapon base hierarchies) so every
 // melee weapon in the game gets this for free. Getting hit while charging interrupts the swing via
@@ -68,6 +69,14 @@
 		active_power_attack_path = power_attacks[1]
 	return return_power_attack_datum(active_power_attack_path)
 
+/// Shared right-mouse-down handler for melee/twohanded items: Alt+RMB opens the PowerAttackSelect menu (an alternative to Alt+LMB), plain RMB begins charging.
+/obj/item/proc/power_attack_handle_right_mouse_down(mob/living/user, params)
+	if(params2list(params)["alt"])
+		if(LAZYLEN(power_attacks) && (item_flags & ITEM_CAN_POWER_ATTACK) && (user.Adjacent(src) || (src in user.contents)))
+			power_attack_ui_interact(user)
+		return
+	power_attack_begin(user)
+
 /obj/item/proc/power_attack_begin(mob/living/user)
 	if(!istype(user) || !(item_flags & ITEM_CAN_POWER_ATTACK) || charging_power_attack)
 		return
@@ -75,6 +84,9 @@
 		return
 	var/datum/power_attack/power_attack = get_active_power_attack()
 	if(!power_attack)
+		return
+	if(user.alpha < 100) // Heavily cloaked (stealth boy, ninja suit, cloak of darkness, etc) - same threshold the rest of the codebase uses to mean "stealthed". Charging would both reveal the windup and let the stealth attack bonus stack with the power attack multiplier.
+		to_chat(user, span_warning("You can't focus on a Power Attack while cloaked!"))
 		return
 	if(!power_attack.can_select(user, src))
 		to_chat(user, span_warning("[src] can't perform a [power_attack.name] right now!"))
@@ -265,7 +277,7 @@
 		return ..()
 	if(!istype(user) || (object in user.contents) || object == user || !params2list(params)["right"])
 		return ..()
-	power_attack_begin(user)
+	power_attack_handle_right_mouse_down(user, params)
 	return ..()
 
 /obj/item/melee/get_attack_speed_multiplier(mob/living/user)
@@ -304,7 +316,7 @@
 		return ..()
 	if(!istype(user) || (object in user.contents) || object == user || !params2list(params)["right"])
 		return ..()
-	power_attack_begin(user)
+	power_attack_handle_right_mouse_down(user, params)
 	return ..()
 
 /obj/item/twohanded/get_attack_speed_multiplier(mob/living/user)

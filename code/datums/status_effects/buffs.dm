@@ -8,6 +8,12 @@
 	alert_type = /obj/screen/alert/status_effect/party_rally
 	var/mob/living/source_leader
 	var/buffed = FALSE
+	/// Whichever party_aura actually applied the buff last tick - kept independent of owner.party since remove_member() nulls that reference before this status effect is removed.
+	var/datum/party_aura/applied_aura
+	/// TRUE once owner's been told their own low Charisma is tuning out an otherwise-active leader buff - prevents the warning from repeating every tick.
+	var/skeptical = FALSE
+	/// The alert's original tooltip text, cached once so it can be restored when the buff lapses (linked_alert's declared type is the generic parent, so initial() on it wouldn't return the party_rally subtype's text).
+	var/default_alert_desc
 
 /obj/screen/alert/status_effect/party_rally
 	name = "Party Rally"
@@ -17,6 +23,8 @@
 	. = ..()
 	if(. && new_leader)
 		source_leader = new_leader
+		if(linked_alert)
+			default_alert_desc = linked_alert.desc
 
 /datum/status_effect/party_rally/tick()
 	var/mob/living/current_leader = owner?.party?.leader
@@ -27,22 +35,132 @@
 
 	var/in_range = !QDELETED(source_leader) && !source_leader.stat && owner.z == source_leader.z && get_dist(owner, source_leader) <= 7
 	if(in_range && owner != source_leader)
-		var/tier = source_leader.get_special_charisma_party_buff_tier()
-		if(tier > 0)
+		var/raw_tier = source_leader.get_special_charisma_party_buff_tier()
+		if(world.time < owner.party.rally_cry_pulse_until)
+			raw_tier += 2
+		// A follower's OWN Charisma decides how much of the leader's buff actually lands - skeptical, socially-closed-off followers tune it out, while sociable ones resonate with it even more.
+		var/tier = round(raw_tier * owner.get_special_charisma_buyin_multiplier())
+		var/datum/party_aura/current_aura = owner.party.aura
+		if(tier > 0 && current_aura)
+			if(buffed && applied_aura != current_aura)
+				applied_aura.remove(owner) // leader swapped auras mid-buff - undo the old one before the new one takes over
+				to_chat(owner, span_notice("Your leader's aura shifts - you now feel [current_aura.name]'s effect."))
 			SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "party_rally", /datum/mood_event/party_rally)
-			owner.adjustStaminaLoss(-tier, FALSE)
+			current_aura.apply_tick(owner, source_leader, tier)
 			if(!buffed)
-				owner.add_movespeed_modifier(/datum/movespeed_modifier/party_rally)
-				buffed = TRUE
+				to_chat(owner, span_notice(current_aura.gain_message))
+				if(!QDELETED(source_leader))
+					to_chat(source_leader, span_notice("[owner] is now benefiting from your [current_aura.name] aura."))
+			if(linked_alert)
+				linked_alert.desc = "You're following [source_leader] - currently benefiting from their [current_aura.name] aura. [current_aura.desc]"
+			applied_aura = current_aura
+			buffed = TRUE
+			skeptical = FALSE
 			return
+		if(raw_tier > 0 && !skeptical)
+			skeptical = TRUE
+			to_chat(owner, span_warning("[source_leader]'s leadership doesn't really land with you - you're too skeptical to feel [current_aura ? current_aura.name : "their"] effect."))
+		else if(raw_tier <= 0)
+			skeptical = FALSE
 	if(buffed)
-		owner.remove_movespeed_modifier(/datum/movespeed_modifier/party_rally)
+		to_chat(owner, span_warning(applied_aura.loss_message))
+		if(!QDELETED(source_leader))
+			to_chat(source_leader, span_warning("[owner] is no longer benefiting from your [applied_aura.name] aura."))
+		applied_aura.remove(owner)
 		buffed = FALSE
+		applied_aura = null
+		if(linked_alert)
+			linked_alert.desc = default_alert_desc
 
 /datum/status_effect/party_rally/on_remove()
 	. = ..()
 	if(buffed)
-		owner.remove_movespeed_modifier(/datum/movespeed_modifier/party_rally)
+		applied_aura?.remove(owner)
+
+/// S.P.E.C.I.A.L. - lives on the party leader for as long as they lead, re-evaluating every tick whether the in-range roster's clashing stats are causing friction. Two low-Charisma members together grate on everyone's mood; a wide Intelligence spread causes miscommunication that slows everyone's do-afters.
+/datum/status_effect/party_friction
+	id = "party_friction"
+	duration = -1
+	tick_interval = 2 SECONDS
+	alert_type = null
+	/// Members currently getting the party_bickering mood event from us - diffed each tick so the mood event only (re)fires on a real edge, not every tick.
+	var/list/mob/living/bickering_members = list()
+
+/datum/status_effect/party_friction/tick()
+	var/datum/party/P = owner?.party
+	if(!P || P.leader != owner)
+		qdel(src) // leadership changed hands or the party disbanded - remove_member()/New() handles re-attaching this to whoever leads now
+		return
+
+	var/list/mob/living/in_range = list()
+	for(var/mob/living/member as anything in P.members)
+		if(QDELETED(member) || member.stat)
+			continue
+		if(member.z != owner.z || get_dist(member, owner) > 7)
+			continue
+		in_range += member
+
+	// BICKERING - 2+ in-range members with low Charisma grind on everyone's nerves.
+	var/low_cha_count = 0
+	for(var/mob/living/member as anything in in_range)
+		if(member.special_c <= 3)
+			low_cha_count++
+	var/now_bickering = length(in_range) >= 2 && low_cha_count >= 2
+	var/list/mob/living/still_bickering = list()
+	if(now_bickering)
+		for(var/mob/living/member as anything in in_range)
+			if(!(member in bickering_members))
+				to_chat(member, span_warning("The low charisma in this group is grating on everyone's nerves."))
+			SEND_SIGNAL(member, COMSIG_ADD_MOOD_EVENT, "party_bickering", /datum/mood_event/party_bickering)
+			still_bickering += member
+	for(var/mob/living/member as anything in (bickering_members - still_bickering))
+		if(!QDELETED(member))
+			SEND_SIGNAL(member, COMSIG_CLEAR_MOOD_EVENT, "party_bickering")
+	bickering_members = still_bickering
+
+	// MISCOMMUNICATION - a wide Intelligence spread among in-range members means nobody's on the same page, slowing everyone's do-afters.
+	var/min_int = INFINITY
+	var/max_int = -INFINITY
+	for(var/mob/living/member as anything in in_range)
+		min_int = min(min_int, member.special_i)
+		max_int = max(max_int, member.special_i)
+	var/now_miscommunicating = length(in_range) >= 2 && (max_int - min_int) >= 6
+	for(var/mob/living/member as anything in P.members)
+		if(now_miscommunicating && (member in in_range))
+			apply_miscommunication(member)
+		else
+			remove_miscommunication(member)
+
+/datum/status_effect/party_friction/proc/apply_miscommunication(mob/living/member)
+	if(!ishuman(member))
+		return
+	var/mob/living/carbon/human/H = member
+	if(H.party_friction_applied_mod)
+		return
+	H.party_friction_applied_mod = 1.25
+	H.physiology.do_after_speed *= H.party_friction_applied_mod
+	SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "party_miscommunication", /datum/mood_event/party_miscommunication)
+	to_chat(H, span_warning("Nobody in the group is on the same page - your coordination is suffering."))
+
+/datum/status_effect/party_friction/proc/remove_miscommunication(mob/living/member)
+	if(!ishuman(member))
+		return
+	var/mob/living/carbon/human/H = member
+	if(!H.party_friction_applied_mod)
+		return
+	H.physiology.do_after_speed /= H.party_friction_applied_mod
+	H.party_friction_applied_mod = null
+	SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "party_miscommunication")
+	to_chat(H, span_notice("Your coordination returns to normal."))
+
+/datum/status_effect/party_friction/on_remove()
+	. = ..()
+	for(var/mob/living/member as anything in bickering_members)
+		if(!QDELETED(member))
+			SEND_SIGNAL(member, COMSIG_CLEAR_MOOD_EVENT, "party_bickering")
+	if(owner?.party)
+		for(var/mob/living/member as anything in owner.party.members)
+			remove_miscommunication(member)
 
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"

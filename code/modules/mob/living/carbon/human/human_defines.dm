@@ -84,6 +84,12 @@
 
 	var/datum/physiology/physiology
 
+	/// Multiplier last applied to physiology by the active party aura (Guardian/Operative) - tracked so it can be divided back out cleanly on removal or aura swap.
+	var/party_aura_applied_mod
+
+	/// Multiplier last applied to physiology by party_friction's Intelligence-mismatch miscommunication penalty - tracked the same way as party_aura_applied_mod so it divides back out cleanly.
+	var/party_friction_applied_mod
+
 	var/list/datum/bioware = list()
 
 	var/creamed = FALSE //to use with creampie overlays

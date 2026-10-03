@@ -2610,6 +2610,7 @@
 #include "code\modules\misc\gangtool.dm"
 #include "code\modules\misc\misc_patches.dm"
 #include "code\modules\misc\charisma_party_system.dm"
+#include "code\modules\misc\party_auras.dm"
 #include "code\modules\misc\staffchat.dm"
 #include "code\modules\misc\tribes.dm"
 #include "code\modules\mob\cit_emotes.dm"
