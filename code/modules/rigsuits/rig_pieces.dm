@@ -4,7 +4,7 @@
 
 /obj/item/clothing/head/helmet/space/new_rig
 	name = "helmet"
-	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL
+	clothing_flags = STOPSPRESSUREDAMAGE | THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT // sealed voidsuit helmet with its own internal air supply
 	flags_inv = HIDEMASK|HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR
 	//flags =  BLOCKHAIR | THICKMATERIAL | NODROP
 	//flags_inv = 		 HIDEEARS|HIDEEYES|HIDEFACE|HIDEMASK

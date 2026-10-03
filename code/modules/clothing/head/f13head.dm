@@ -201,7 +201,7 @@
 	slowdown = 0.05
 	flags_inv = HIDEEARS|HIDEEYES|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDEMASK|HIDEJUMPSUIT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
-	clothing_flags = THICKMATERIAL
+	clothing_flags = THICKMATERIAL | BLOCK_GAS_SMOKE_EFFECT // sealed helmet with its own air supply - smoke shouldn't reach the wearer's lungs
 	resistance_flags = LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	item_flags = SLOWS_WHILE_IN_HAND
 	flash_protect = 2
