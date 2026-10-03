@@ -87,8 +87,8 @@
 	/// Multiplier last applied to physiology by the active party aura (Guardian/Operative) - tracked so it can be divided back out cleanly on removal or aura swap.
 	var/party_aura_applied_mod
 
-	/// Multiplier last applied to physiology by party_friction's Intelligence-mismatch miscommunication penalty - tracked the same way as party_aura_applied_mod so it divides back out cleanly.
-	var/party_friction_applied_mod
+	/// Whether party_friction's Intelligence-mismatch miscommunication mood penalty is currently applied - mood-only, no longer touches do_after_speed.
+	var/party_friction_miscommunicating = FALSE
 
 	var/list/datum/bioware = list()
 

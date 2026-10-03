@@ -9,6 +9,8 @@
 	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to fumble/whiff an attack if it's 3 or below
 	/// world.time deadline before intimidating_presence() (low-Charisma's standalone ability) can be used again.
 	var/intimidate_cooldown_until = 0
+	/// world.time deadline before commanding_presence() (high-Charisma's standalone ability) can be used again.
+	var/command_cooldown_until = 0
 
 /// Canonical way to change Strength mid-round (chems, injuries, future debuffs, etc) - raw `special_s = X` assignment skips re-checking already-worn storage for overload, silently leaving bags stuck using whatever capacity multiplier applied when they were last equipped/filled.
 /mob/living/proc/set_special_s(new_value)
@@ -250,6 +252,13 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return charisma_intimidation_tier[clamped_c] || 0
 
+/// Scales commanding_presence()'s range/duration/cooldown - the high-Charisma mirror of get_special_low_charisma_intimidation_tier(), aimed at rallying nearby non-party people instead of unsettling them. Doesn't discriminate friend from foe any more than intimidation does - nearby hostiles get inspired too.
+/mob/living/proc/get_special_high_charisma_command_tier()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_command_tier = list(0, 0, 0, 0, 0, 1, 1, 2, 2, 3)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_command_tier[clamped_c] || 0
+
 /mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
 		return
@@ -278,7 +287,12 @@ proc/get_top_level_mob(mob/S)
 /datum/mood_event/special_good_looking_char
 	description = span_nicegreen("I've seen someone so good-looking that it made my day! ")
 	mood_change = 2
-	timeout = 5 MINUTES
+	timeout = 4 MINUTES
+
+/datum/mood_event/inspired_by_leader
+	description = span_nicegreen("Someone's commanding presence has bolstered my resolve. ")
+	mood_change = 2
+	timeout = 20 SECONDS
 
 /datum/mood_event/special_beautiful_char
 	description = span_nicegreen("I have gazed upon the visage of perfection given form! ")

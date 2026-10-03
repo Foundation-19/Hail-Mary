@@ -28,15 +28,26 @@
 	if(source.get_active_held_item())
 		return
 	// A worn powerfist-style glove throws its own punch via UnarmedAttack() directly (see other_mobs.dm) - no synthetic stand-in needed, and it has no power_attacks of its own to arm anyway.
+	var/obj/item/melee/unarmed/worn_glove_weapon
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		if(H.gloves?.glove_weapon)
 			return
+		if(istype(H.gloves, /obj/item/melee/unarmed))
+			worn_glove_weapon = H.gloves
 	var/obj/item/melee/fists/F = new(source)
 	if(ishuman(source))
 		var/mob/living/carbon/human/H = source
 		F.force = H.dna.species.punchdamagehigh
 		F.attack_verb = list(H.dna.species.attack_verb)
+	// A worn glove weapon (brass knuckles, tiger claws, etc) should arm the same Power Attacks it would held in a hand -
+	// copy the stats their can_select() gates and payoffs actually check, instead of leaving the stand-in as plain blunt fists.
+	if(worn_glove_weapon)
+		F.sharpness = worn_glove_weapon.sharpness
+		F.armour_penetration = worn_glove_weapon.armour_penetration
+		F.wound_bonus = worn_glove_weapon.wound_bonus
+		F.bare_wound_bonus = worn_glove_weapon.bare_wound_bonus
+		F.w_class = worn_glove_weapon.w_class
 	source.put_in_active_hand(F, forced = TRUE)
 
 /datum/component/unarmed_power_attack/proc/remove_fists(mob/living/source)

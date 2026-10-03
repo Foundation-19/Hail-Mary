@@ -179,12 +179,14 @@
 
 	// Only a genuine mob/object under the cursor (not bare ground, and within reach - the attack's dash range plus the final adjacent tile) earns the full payoff below.
 	var/lunge_reach = power_attack.get_lunge_range(src) + 1
-	var/has_real_target = istype(target) && !isturf(target) && get_dist(user, target) <= lunge_reach
+	var/atom/real_target = (istype(target) && !isturf(target)) ? target : null
+	var/has_real_target = real_target && get_dist(user, real_target) <= lunge_reach
 
 	// No (or an out-of-range) target under the cursor - still let the charge release as a swing/lunge at whatever's ahead of/under you, instead of wasting it.
 	// Pick a fallback tile at this attack's full reach (not just the adjacent tile) so Lunge still actually dashes you forward on a whiff.
+	// Aim at the real target's tile (not just our current facing) when it exists, so an out-of-reach dash still closes the gap in the right direction.
 	if(!has_real_target)
-		target = get_ranged_target_turf(user, user.dir, lunge_reach) || get_turf(user)
+		target = (real_target && get_turf(real_target)) || get_ranged_target_turf(user, user.dir, lunge_reach) || get_turf(user)
 
 	if(!user.Adjacent(target))
 		var/approach_handled = power_attack.on_approach(user, src, target)
@@ -197,6 +199,11 @@
 				user.visible_message(span_warning("[user] overextends and fails to close the distance!"), span_warning("You overextend and fail to close the distance!"))
 				user.Stagger(1 SECONDS)
 			return
+
+	// The dash still closed the gap onto the real target despite starting out of initial reach (e.g. it moved toward you too) - don't force a guaranteed whiff onto empty ground.
+	if(!has_real_target && real_target && user.Adjacent(real_target))
+		target = real_target
+		has_real_target = TRUE
 
 	if(prob(user.get_power_attack_fumble_chance()))
 		user.visible_message(span_danger("[user] fumbles [power_attack.name] with [src]!"), span_userdanger("You fumble your [power_attack.name]!"))

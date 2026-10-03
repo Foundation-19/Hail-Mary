@@ -1,5 +1,32 @@
 //Largely beneficial effects go here, even if they have drawbacks. An example is provided in Shadow Mend.
 
+/// S.P.E.C.I.A.L. - rallied and quickened by a high-Charisma mob's commanding_presence(). Mirrors /datum/status_effect/intimidated's structure, just a buff instead of a debuff.
+/datum/status_effect/inspired
+	id = "inspired"
+	tick_interval = 1 SECONDS
+	alert_type = /obj/screen/alert/status_effect/inspired
+	var/mob/living/source
+
+/obj/screen/alert/status_effect/inspired
+	name = "Inspired"
+	desc = "A commanding presence has bolstered your resolve, quickening your step."
+	icon_state = "party_rally"
+
+/datum/status_effect/inspired/on_creation(mob/living/new_owner, set_duration, mob/living/new_source)
+	if(isnum(set_duration))
+		duration = set_duration
+	source = new_source
+	. = ..()
+	if(.)
+		owner.add_movespeed_modifier(/datum/movespeed_modifier/inspired)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "inspired", /datum/mood_event/inspired_by_leader)
+
+/datum/status_effect/inspired/on_remove()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/inspired)
+	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "inspired")
+	to_chat(owner, span_notice("The bolstered feeling fades and your step returns to normal."))
+	return ..()
+
 /// S.P.E.C.I.A.L. - granted to party members while they stay near their Charisma-leading party leader.
 /datum/status_effect/party_rally
 	id = "party_rally"
@@ -77,7 +104,7 @@
 	if(buffed)
 		applied_aura?.remove(owner)
 
-/// S.P.E.C.I.A.L. - lives on the party leader for as long as they lead, re-evaluating every tick whether the in-range roster's clashing stats are causing friction. Two low-Charisma members together grate on everyone's mood; a wide Intelligence spread causes miscommunication that slows everyone's do-afters.
+/// S.P.E.C.I.A.L. - lives on the party leader for as long as they lead, re-evaluating every tick whether the in-range roster's clashing stats are causing friction. Two low-Charisma members together grate on everyone's mood; a wide Intelligence spread causes a miscommunication mood penalty - purely a mood hit, no mechanical do_after slowdown.
 /datum/status_effect/party_friction
 	id = "party_friction"
 	duration = -1
@@ -135,21 +162,19 @@
 	if(!ishuman(member))
 		return
 	var/mob/living/carbon/human/H = member
-	if(H.party_friction_applied_mod)
+	if(H.party_friction_miscommunicating)
 		return
-	H.party_friction_applied_mod = 1.25
-	H.physiology.do_after_speed *= H.party_friction_applied_mod
+	H.party_friction_miscommunicating = TRUE
 	SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "party_miscommunication", /datum/mood_event/party_miscommunication)
-	to_chat(H, span_warning("Nobody in the group is on the same page - your coordination is suffering."))
+	to_chat(H, span_warning("Nobody in the group is on the same page - it's grating on your mood."))
 
 /datum/status_effect/party_friction/proc/remove_miscommunication(mob/living/member)
 	if(!ishuman(member))
 		return
 	var/mob/living/carbon/human/H = member
-	if(!H.party_friction_applied_mod)
+	if(!H.party_friction_miscommunicating)
 		return
-	H.physiology.do_after_speed /= H.party_friction_applied_mod
-	H.party_friction_applied_mod = null
+	H.party_friction_miscommunicating = FALSE
 	SEND_SIGNAL(H, COMSIG_CLEAR_MOOD_EVENT, "party_miscommunication")
 	to_chat(H, span_notice("Your coordination returns to normal."))
 

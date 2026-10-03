@@ -46,6 +46,8 @@
 
 #define STATUS_EFFECT_INTIMIDATED /datum/status_effect/intimidated //S.P.E.C.I.A.L. - low-Charisma intimidating_presence() slowdown/rattled debuff
 
+#define STATUS_EFFECT_INSPIRED /datum/status_effect/inspired //S.P.E.C.I.A.L. - high-Charisma commanding_presence() speed/mood buff
+
 #define STATUS_EFFECT_PARTY_FRICTION /datum/status_effect/party_friction //S.P.E.C.I.A.L. - lives on the party leader, evaluates in-range member stat clashes (low-Charisma bickering, Intelligence miscommunication)
 
 /////////////

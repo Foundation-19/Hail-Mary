@@ -10,3 +10,6 @@
 
 /datum/movespeed_modifier/intimidated
 	multiplicative_slowdown = 0.5
+
+/datum/movespeed_modifier/inspired
+	multiplicative_slowdown = -0.3

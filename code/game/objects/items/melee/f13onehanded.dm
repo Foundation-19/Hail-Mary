@@ -292,7 +292,7 @@
 	armour_penetration = 0.1
 	custom_materials = null
 
-obj/item/melee/onehanded/knife/switchblade
+/obj/item/melee/onehanded/knife/switchblade
 	name = "switchblade"
 	desc = "A sharp, concealable, spring-loaded knife."
 	icon_state = "knife_switch"
@@ -700,6 +700,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "whip"
 	item_state = "chain"
 	force = 1
+	w_class = WEIGHT_CLASS_SMALL // corded leather, not a rigid one-handed weapon - was silently inheriting the onehanded template's NORMAL class
 	bare_wound_bonus = 5
 	sharpness = SHARP_EDGED
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
@@ -980,12 +981,13 @@ obj/item/melee/onehanded/knife/switchblade
 	attack_verb = list("stabbed", "sliced", "pierced", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-obj/item/melee/unarmed/punchdagger/cyborg
+/obj/item/melee/unarmed/punchdagger/cyborg
 	name = "assaultron claws"
 	desc = "Razor sharp blades embedded into the grippers of an assaultron. Sharp."
 	icon_state = "tiger_claw"
 	item_state = "tiger_claw"
 	force = 40 //Assaultron, so, makes sense.
+	w_class = WEIGHT_CLASS_BULKY // a severed robotic hand is not pocket-sized - was silently inheriting the human-sized punch dagger's SMALL class despite hitting hardest of any glove weapon here
 
 // Deathclaw Gauntlet	Keywords: Damage 35, AP 0.15
 /obj/item/melee/unarmed/deathclawgauntlet

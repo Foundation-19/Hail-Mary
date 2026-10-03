@@ -145,6 +145,38 @@
 		target.apply_status_effect(STATUS_EFFECT_INTIMIDATED, duration, src)
 	to_chat(src, span_notice("[length(targets)] nearby [length(targets) == 1 ? "person flinches" : "people flinch"] away from you."))
 
+// Real verb (not add_verb()'d), mirroring intimidating_presence() - innate to everyone, but only high-CHA mobs get anything out of it. Doesn't discriminate party from non-party, friend from foe, same as its low-CHA counterpart.
+/mob/living/verb/commanding_presence()
+	set name = "Commanding Presence"
+	set desc = "Let your natural authority wash over everyone nearby, rallying and quickening them for a while."
+	set category = "Party"
+
+	var/tier = get_special_high_charisma_command_tier()
+	if(tier <= 0)
+		to_chat(src, span_warning("You're not commanding enough for anyone to rally behind you."))
+		return
+	if(world.time < command_cooldown_until)
+		to_chat(src, span_warning("You need to wait [round((command_cooldown_until - world.time) / 10)] more seconds before rallying anyone again!"))
+		return
+
+	var/list/mob/living/targets = list()
+	for(var/mob/living/target in oview(5, src))
+		if(target == src || target.stat || (party && (target in party.members)))
+			continue
+		targets += target
+
+	if(!length(targets))
+		to_chat(src, span_warning("There's nobody nearby to rally."))
+		return
+
+	var/duration = 4 SECONDS + (tier * 2 SECONDS)
+	command_cooldown_until = world.time + (30 SECONDS - (tier * 5 SECONDS))
+	visible_message(span_notice("[src] carries [src.p_them()]self with unshakable authority!"), span_notice("You let your commanding presence wash over everyone nearby!"))
+	for(var/mob/living/target in targets)
+		to_chat(target, span_nicegreen("[src]'s presence bolsters you, quickening your step!"))
+		target.apply_status_effect(STATUS_EFFECT_INSPIRED, duration, src)
+	to_chat(src, span_notice("[length(targets)] nearby [length(targets) == 1 ? "person stands" : "people stand"] a little taller."))
+
 /mob/living/proc/leave_party()
 	set name = "Leave Party"
 	set desc = "Leave your current party."
