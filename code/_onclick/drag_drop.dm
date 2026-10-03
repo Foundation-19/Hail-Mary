@@ -85,7 +85,7 @@ GLOBAL_VAR_INIT(use_experimental_clickdrag_thing, TRUE)
 	if(H)
 		return H.canItemMouseDown(object, location, params)
 	// No held item - fall back to a worn glove_weapon (e.g. a power fist) so right-click-hold/release and
-	// alt-click's PowerAttackSelect work identically for it, same as an actually-held melee weapon.
+	// alt-click's radial quick-select work identically for it, same as an actually-held melee weapon.
 	if(gloves?.glove_weapon)
 		return gloves.canItemMouseDown(object, location, params)
 

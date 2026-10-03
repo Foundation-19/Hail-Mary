@@ -1,5 +1,5 @@
 // Power Attack system: hold your attack click to charge, pick which Power Attack is armed via
-// alt-click's PowerAttackSelect tgui, release on a target to unleash the armed attack.
+// alt-click's radial quick-select menu, release on a target to unleash the armed attack.
 // See code/game/objects/items/melee/power_attack_system.dm for the item-side hold/charge/release logic.
 GLOBAL_LIST_EMPTY(power_attack_data)
 
@@ -21,6 +21,12 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	var/name = "power attack"
 	/// Flavor/mechanical description shown in the selection UI.
 	var/desc = "A generic heavy strike."
+	/// Icon file the quick-select radial menu pulls `radial_icon_state` from (defaults to the generic radial button icons).
+	var/radial_icon = 'icons/mob/radial.dmi'
+	/// Icon state shown for this attack in the Alt-click quick-select radial menu - scaled to 32x32 if `radial_icon` isn't already that size.
+	var/radial_icon_state = "radial_use"
+	/// Short (~3 letter) label overlaid on the radial icon - the reused VFX icons alone don't read clearly at a glance, so this is the primary way to tell slices apart without hovering for the tooltip.
+	var/radial_label = "P.A."
 	/// Deciseconds of holding required to fully charge this attack (scaled by the user's agility, see special_stats.dm).
 	var/windup_time = 8
 	/// Stamina deducted the moment charging begins. Partially refunded if the charge is released too early/cancelled.
@@ -77,6 +83,9 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	damage_multiplier = 1.8
 	armor_pen_bonus = 0.15
 	wound_bonus_add = 15
+	radial_icon = 'icons/obj/projectiles_impact.dmi'
+	radial_icon_state = "impact_beam_heavy"
+	radial_label = "HVY"
 
 /// Barely-charged releases land as a plain hit; the full bonus only comes in at a full charge.
 /datum/power_attack/heavy_strike/get_effective_damage_multiplier(mob/living/user, obj/item/weapon, atom/target, fraction = 1)
@@ -89,6 +98,7 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	stamina_cost = 26
 	damage_multiplier = 1.0
 	wound_bonus_add = 5
+	radial_label = "CLV"
 	/// Splash hits on bystanders (not your actual target) take this fraction of the main damage_multiplier - weaker than the direct hit, but not drastically so.
 	var/cleave_splash_multiplier = 0.75
 
@@ -111,6 +121,7 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	stamina_cost = 15
 	damage_multiplier = 0.6
 	wound_bonus_add = 0
+	radial_label = "GRD"
 
 /// Barely-charged releases land as a plain hit (no raw-damage sacrifice, no stamina bonus yet); the full tradeoff only comes in at a full charge.
 /datum/power_attack/guard_break/get_effective_damage_multiplier(mob/living/user, obj/item/weapon, atom/target, fraction = 1)
@@ -128,6 +139,7 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	stamina_cost = 22
 	damage_multiplier = 1.1
 	wound_bonus_add = 20
+	radial_label = "EXE"
 
 /datum/power_attack/execute/get_effective_damage_multiplier(mob/living/user, obj/item/weapon, atom/target, fraction = 1)
 	var/base_multiplier = damage_multiplier * 0.5
@@ -145,6 +157,7 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	damage_multiplier = 1.3
 	armor_pen_bonus = 0.05
 	wound_bonus_add = 5
+	radial_label = "LNG"
 
 /datum/power_attack/lunge/can_select(mob/living/user, obj/item/weapon)
 	return weapon.sharpness != SHARP_NONE || istype(weapon, /obj/item/twohanded/spear)
