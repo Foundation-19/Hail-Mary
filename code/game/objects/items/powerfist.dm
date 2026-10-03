@@ -74,6 +74,9 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return FALSE
+	if(!is_active_glove_weapon(user))
+		to_chat(user, span_warning("\The [src] needs to be worn on your hand to throw a real punch - swinging it loose does nothing."))
+		return FALSE
 	if(!tank)
 		to_chat(user, span_warning("\The [src] can't operate without a source of gas!"))
 		return FALSE

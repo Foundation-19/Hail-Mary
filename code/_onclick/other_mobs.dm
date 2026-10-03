@@ -25,7 +25,7 @@
 		. |= G.Touch(A, TRUE)
 		if(. & INTERRUPT_UNARMED_ATTACK)
 			return
-		// Powerfist-style worn weapons throw their own punch (tank gas, knockback, the works) instead of a bare fist - holding one loose in a hand still works too via the normal attackby path.
+		// Powerfist-style worn weapons throw their own punch (tank/cell, knockback, the works) instead of a bare fist - they only work worn, not held loose in a hand.
 		if(G.glove_weapon && isliving(A))
 			return . | G.melee_attack_chain(src, A, null, .)
 

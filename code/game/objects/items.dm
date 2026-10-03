@@ -72,7 +72,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	var/current_equipped_slot
-	/// If TRUE and worn in the glove slot, this item throws the punch itself (full attack()/melee_attack_chain, not just a flat damage bonus) when its wearer fights unarmed - see /mob/living/carbon/human/UnarmedAttack(). Holding it loose in a hand instead still works too, as an ordinary held weapon.
+	/// If TRUE, this item only works as a weapon while actually worn in the glove slot (see /mob/living/carbon/human/UnarmedAttack() and is_active_glove_weapon()) - picking it up and holding it in a hand does nothing. Wearing one also ties up both hands, see equipped() below.
 	var/glove_weapon = FALSE
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
@@ -540,6 +540,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	SHOULD_CALL_PARENT(TRUE)
 	. = SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	current_equipped_slot = slot
+	if(glove_weapon && slot == SLOT_GLOVES)
+		user.drop_all_held_items() // both hands are tied up wearing the glove weapon now
 	if(!(. & COMPONENT_NO_GRANT_ACTIONS))
 		for(var/X in actions)
 			var/datum/action/A = X
@@ -549,6 +551,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	user.update_equipment_speed_mods()
 	if(user.get_active_held_item() != src && user.get_inactive_held_item() != src)
 		unwield(user)
+
+/// TRUE only when this glove_weapon item is actually worn in the user's glove slot, as opposed to just being held in a hand.
+/obj/item/proc/is_active_glove_weapon(mob/user)
+	if(!glove_weapon || !user)
+		return FALSE
+	return user.get_item_by_slot(SLOT_GLOVES) == src
 
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
