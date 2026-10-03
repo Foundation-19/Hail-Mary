@@ -32,11 +32,13 @@
 
 	var/living_flags = NONE
 	// Combat - Blocking/Parrying system
-	/// Our block_parry_data for unarmed blocks/parries. Currently only used for parrying, as unarmed block isn't implemented yet. YOU MUST RUN [get_block_parry_data(this)] INSTEAD OF DIRECTLY ACCESSING!
+	/// Our block_parry_data for unarmed blocks/parries. YOU MUST RUN [get_block_parry_data(this)] INSTEAD OF DIRECTLY ACCESSING!
 	var/datum/block_parry_data/block_parry_data = /datum/block_parry_data		// defaults to *something* because [combat_flags] dictates whether or not we can unarmed block/parry.
 	// Blocking
 	/// The item the user is actively blocking with if any.
 	var/obj/item/active_block_item
+	/// TRUE if actively blocking bare-handed (no item) - see COMBAT_FLAG_UNARMED_BLOCK.
+	var/active_block_unarmed = FALSE
 	// Parrying
 	/// Whether or not the user is in the middle of an active parry. Set to [UNARMED_PARRY], [ITEM_PARRY], [MARTIAL_PARRY] if parrying.
 	var/parrying = FALSE

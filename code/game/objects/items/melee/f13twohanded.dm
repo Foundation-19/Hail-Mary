@@ -408,6 +408,9 @@
 	attack_verb = list("beat", "smacked", "clubbed", "clobbered")
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = SHARP_NONE
+	// Was missing wounding power entirely despite swinging two-handed - same oversight as the base sledgehammer.
+	wound_bonus = 5
+	bare_wound_bonus = 10
 	wielded_icon = "baseball2"
 	force_unwielded = 25
 	force_wielded = 38
@@ -422,6 +425,7 @@
 	force = 26
 	throwforce = 15
 	wound_bonus = 5
+	bare_wound_bonus = 10
 	sharpness = SHARP_POINTY
 	wielded_icon = "baseballspike2"
 	force_unwielded = 26
@@ -483,6 +487,9 @@
 	force = 25
 	throwforce = 20 // Huge hammers aren't that great for throwing
 	sharpness = SHARP_NONE
+	// Was missing wounding power entirely (defaulted to 0/0) despite being one of the hardest-hitting blunt weapons in the game.
+	wound_bonus = 20
+	bare_wound_bonus = 15
 	attack_verb = list("bashed", "pounded", "bludgeoned", "pummeled", "thrashed")
 	force_unwielded = 25
 	attack_speed = CLICK_CD_MELEE * 1.8 //14.4

@@ -134,17 +134,21 @@
 
 		condition += " underneath a dressing of [bandage_condition] [limb.current_gauze.name]"
 	else
+		// Plain examine used to only describe infection visually - say what it actually needs so a scanner isn't mandatory to know what to do.
 		switch(infestation)
 			if(WOUND_INFECTION_MODERATE to WOUND_INFECTION_SEVERE)
-				condition += ", <span class='deadsay'>with small spots of discoloration along the nearby veins!</span>"
+				condition += ", <span class='deadsay'>with small spots of discoloration along the nearby veins! It could use some disinfectant.</span>"
 			if(WOUND_INFECTION_SEVERE to WOUND_INFECTION_CRITICAL)
-				condition += ", <span class='deadsay'>with dark clouds spreading outwards under the skin!</span>"
+				condition += ", <span class='deadsay'>with dark clouds spreading outwards under the skin! It urgently needs antibiotics or surgery.</span>"
 			if(WOUND_INFECTION_CRITICAL to WOUND_INFECTION_SEPTIC)
-				condition += ", <span class='deadsay'>with streaks of rotten infection pulsating outward!</span>"
+				condition += ", <span class='deadsay'>with streaks of rotten infection pulsating outward! It needs antibiotics or surgery immediately!</span>"
 			if(WOUND_INFECTION_SEPTIC to INFINITY)
 				return "<span class='deadsay'><B>[victim.p_their(TRUE)] [limb.name] is a mess of char and rot, skin literally dripping off the bone with infection!</B></span>"
 			else
 				condition += "!"
+
+	if(flesh_damage > flesh_healing)
+		condition += " <span class='notice'>It could use some ointment or regenerative mesh.</span>"
 
 	return "<B>[condition.Join()]</B>"
 

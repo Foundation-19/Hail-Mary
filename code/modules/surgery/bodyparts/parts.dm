@@ -10,6 +10,7 @@
 	stam_damage_coeff = 1
 	max_stamina_damage = 200
 	dismemberable = FALSE
+	max_harmful_embeds = 4 // the torso is the biggest, meatiest target on the body - plenty of room for shrapnel
 	var/obj/item/cavity_item
 
 /obj/item/bodypart/chest/can_dismember(obj/item/I)

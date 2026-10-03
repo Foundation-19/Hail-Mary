@@ -24,6 +24,8 @@
 	var/body_part = null //bitflag used to check which clothes cover this bodypart
 	var/use_digitigrade = NOT_DIGITIGRADE //Used for alternate legs, useless elsewhere
 	var/list/embedded_objects = list()
+	/// How many harmful (non-sticky) objects this limb can physically hold embedded at once before more just glance off - scaled to how much meat is actually here
+	var/max_harmful_embeds = MAX_HARMFUL_EMBEDS_PER_LIMB
 	var/held_index = 0 //are we a hand? if so, which one!
 	var/is_pseudopart = FALSE //For limbs that don't really exist, eg chainsaws
 
@@ -247,13 +249,11 @@
 		if(ALIEN_BODYPART,LARVA_BODYPART) //aliens take some additional burn //nothing can burn with so much snowflake code around
 			burn *= 1.2
 
-	// Sutures take damage if you get hurt at all. Slow down, man!
+	// Only the limb actually hit should wear down its own dressings - spreading this to every limb's gauze/sutures
+	// made bandages feel like they failed at random on parts that were never touched.
 	if(damage_coverings)
-		for(var/obj/item/bodypart/every_limb in owner.bodyparts)
-			every_limb.damage_suture(brute, burn)
-			if(every_limb != src && prob(50)) // every limb that isnt this one has a 50% chance of their bandage getting hurt
-				continue
-			every_limb.damage_gauze(brute, burn) // but if the limb with the bandage gets hit? it gets hurt
+		damage_suture(brute, burn)
+		damage_gauze(brute, burn)
 
 	/*
 	// START WOUND HANDLING

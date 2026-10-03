@@ -104,6 +104,10 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_strength_carry_capacity_multiplier()
 	return CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.5, 1.5)
 
+/// Attacker-side: how hard a grapple/takedown (unarmed knockdowns, stuns, chokeholds) bites, scaled off raw muscle.
+/mob/living/proc/get_strength_grapple_control_multiplier()
+	return CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.6, 1.6)
+
 /// PERCEPTION
 
 /obj/item/ammo_casing/proc/calc_bullet_spread_mod_from_special(mob/living/user)
@@ -166,6 +170,10 @@ proc/get_top_level_mob(mob/S)
 	var/static/list/endurance_stamina_mod = list(0.7, 0.78, 0.86, 0.93, 1, 1.08, 1.16, 1.24, 1.35, 1.5)
 	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return endurance_stamina_mod[clamped_e] || 1
+
+/// Defender-side counterpart to get_strength_grapple_control_multiplier() - a sturdier body shrugs off being grappled/choked/slammed faster.
+/mob/living/proc/get_endurance_grapple_resist_multiplier()
+	return CLAMP(1 - ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.08), 0.6, 1.4)
 
 
 /// CHARISMA
@@ -469,6 +477,13 @@ proc/get_top_level_mob(mob/S)
 /// Nimble fighters land basic melee swings faster too, not just Power Attacks. Multiplies the weapon's attack_speed.
 /mob/living/proc/get_agility_melee_speed_multiplier()
 	return CLAMP(1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.03), 0.8, 1.2)
+
+/// Bare-fisted equivalent of a weapon's attack_speed * get_agility_melee_speed_multiplier() - keeps unarmed swing speed on the same Agility curve as armed melee instead of a flat constant.
+/mob/proc/get_unarmed_melee_clickdelay()
+	return CLICK_CD_MELEE
+
+/mob/living/get_unarmed_melee_clickdelay()
+	return CLICK_CD_MELEE * get_agility_melee_speed_multiplier()
 
 /// Canonical way to change Agility mid-round - raw `special_a = X` leaves sprint_buffer_regen_ds stuck at whatever was computed at spawn/last recalc. Re-running initialize_special_agility() also tops up sprint_buffer to its max as a side effect, same as a fresh spawn.
 /mob/living/proc/set_special_a(new_value)

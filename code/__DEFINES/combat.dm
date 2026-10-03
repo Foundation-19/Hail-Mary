@@ -66,6 +66,8 @@
 #define COMBAT_FLAG_ACTIVE_BLOCKING			(1<<11)
 /// This mob is currently starting an active block
 #define COMBAT_FLAG_ACTIVE_BLOCK_STARTING	(1<<12)
+/// This mob is capable of unarmed active blocking (raising bare fists instead of needing an item)
+#define COMBAT_FLAG_UNARMED_BLOCK			(1<<13)
 
 // Helpers for getting someone's stamcrit state. Cast to living.
 #define NOT_STAMCRIT 0
@@ -186,6 +188,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EMBEDDED_JOSTLE_PAIN_MULTIPLIER			1	//Coefficient of multiplication for the damage the item does while
 #define EMBEDDED_PAIN_STAM_PCT					0.0	//This percentage of all pain will be dealt as stam damage rather than brute (0-1)
 #define EMBED_CHANCE_TURF_MOD					-15	//You are this many percentage points less likely to embed into a turf (good for things glass shards and spears vs walls)
+#define MAX_HARMFUL_EMBEDS_PER_LIMB				2	//Default per-limb cap on simultaneous harmful embeds - past this, more shrapnel/darts/etc just glance off instead of adding yet another indefinite damage-over-time source. Bigger limbs (chest) override this higher.
 
 #define EMBED_HARMLESS list("pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE)
 #define EMBED_HARMLESS_SUPERIOR list("pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE, "embed_chance" = 100, "fall_chance" = 0.1)

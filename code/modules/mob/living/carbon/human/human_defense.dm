@@ -65,11 +65,16 @@
 				return martial_art_result
 	return ..()
 
-/mob/living/carbon/human/proc/check_martial_melee_block()
-	if(mind)
-		if(mind.martial_art && prob(mind.martial_art.block_chance) && mind.martial_art.can_use(src) && in_throw_mode && !incapacitated(FALSE, TRUE))
-			return TRUE
-	return FALSE
+/// armour_penetration (0-1 scale) is the incoming hit's AP, if any - weapons cut through an unarmed block same as they would a weapon block, bare fists don't.
+/mob/living/carbon/human/proc/check_martial_melee_block(armour_penetration = 0)
+	if(!mind || !mind.martial_art || !mind.martial_art.block_chance)
+		return FALSE
+	if(!mind.martial_art.can_use(src) || !in_throw_mode || incapacitated(FALSE, TRUE) || IS_STAMCRIT(src))
+		return FALSE
+	if(!prob(mind.martial_art.block_chance * (1 - armour_penetration)))
+		return FALSE
+	adjustStaminaLossBuffered(5) //blocking isn't free, sustained pressure still wears you down
+	return TRUE
 
 /mob/living/carbon/human/hitby(atom/movable/AM, skipcatch = FALSE, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum)
 	return dna?.species?.spec_hitby(AM, src) || ..()

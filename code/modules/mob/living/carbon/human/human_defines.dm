@@ -22,7 +22,7 @@
 	buckle_lying = FALSE
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	/// Enable stamina combat
-	combat_flags = COMBAT_FLAGS_DEFAULT | COMBAT_FLAG_UNARMED_PARRY
+	combat_flags = COMBAT_FLAGS_DEFAULT | COMBAT_FLAG_UNARMED_PARRY | COMBAT_FLAG_UNARMED_BLOCK
 	status_flags = CANSTUN|CANKNOCKDOWN|CANUNCONSCIOUS|CANPUSH|CANSTAGGER
 	has_field_of_vision = FALSE //Handled by species.
 
@@ -102,7 +102,7 @@
 
 	var/thirst = THIRST_LEVEL_START
 
-/// Unarmed parry data for human
+/// Unarmed parry/block data for human
 /datum/block_parry_data/unarmed/human
 	parry_respect_clickdelay = TRUE
 	parry_stamina_cost = 4
@@ -123,6 +123,18 @@
 	parry_max_attacks = 3
 	parry_cooldown = 30
 	parry_failed_stagger_duration = 0
+
+	// Raised forearms are not a shield - whatever's left after this gets reduced again by worn armor in the normal
+	// run_armor_check() pass, so the two are meant to stack, not for this alone to carry the whole mitigation job.
+	block_damage_absorption = 3 // vs shield's 5, chair's 7, base 10 - bare arms barely take the edge off a hit
+	block_damage_multiplier = 0.85 // vs shield's 0.25, chair's 0.7 - most of the overrun still gets through
+	block_damage_limit = 25 // vs shield/base 80, chair's 20 - a real hit just blows through your guard entirely
+	block_stamina_efficiency = 1.25 // vs shield's 2.5, chair's 2, base 3 - eating it on your own arms costs way more stamina per point blocked
+	block_resting_stamina_penalty_multiplier = 2 // no leverage at all without an object while downed
+	block_projectile_mitigation = 5 // vs shield's 75, chair's 20 - your forearm does nothing against a bullet
+	block_slowdown = 0.5
+	block_start_delay = 1 // no gear to hoist, fists come up fast
+	block_sounds = list('sound/weapons/punch1.ogg' = 1, 'sound/weapons/punch2.ogg' = 1, 'sound/weapons/punch3.ogg' = 1, 'sound/weapons/punch4.ogg' = 1)
 	parry_failed_clickcd_duration = 0.4
 
 	parry_data = list(			// yeah it's snowflake

@@ -1447,6 +1447,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		user.visible_message(span_warning("[user] swings clumsily and completely misses [target]!"), span_warning("Your luck fails you and your swing goes wide, missing completely!"))
 		return FALSE
 
+	if(user.check_vision_impaired_miss()) //S.P.E.C.I.A.L. - Perception, same whiff weapons already roll in pre_attack()
+		return FALSE
+
 	if(!(attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK))
 		if(HAS_TRAIT(user, TRAIT_PUGILIST))//CITADEL CHANGE - makes punching cause staminaloss but funny martial artist types get a discount
 			user.adjustStaminaLossBuffered(1.5)
@@ -1697,7 +1700,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(H.mob_run_block(I, totitemdamage, "the [I.name]", ((attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK)? ATTACK_TYPE_PARRY_COUNTERATTACK : NONE) | ATTACK_TYPE_MELEE, I.armour_penetration, user, affecting.body_zone, block_return) & BLOCK_SUCCESS)
 			return 0
 		totitemdamage = block_calculate_resultant_damage(totitemdamage, block_return)
-	if(H.check_martial_melee_block())
+	if(H.check_martial_melee_block(I.armour_penetration))
 		H.visible_message(span_warning("[H] blocks [I]!"))
 		return 0
 

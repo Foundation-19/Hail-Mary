@@ -418,6 +418,9 @@ obj/item/melee/onehanded/knife/switchblade
 	throw_speed = 3
 	throw_range = 3
 	sharpness = SHARP_NONE
+	// Was missing wounding power entirely like the sledgehammer - blunt weapons still need some fracture chance.
+	wound_bonus = 5
+	bare_wound_bonus = 10
 	slot_flags = SLOT_BELT
 
 /obj/item/melee/onehanded/club/attack(mob/living/M, mob/living/user)
@@ -436,6 +439,8 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 30
 	throwforce = 25
 	block_chance = 5
+	wound_bonus = 5
+	bare_wound_bonus = 10
 
 /obj/item/melee/onehanded/club/warclub/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -451,6 +456,8 @@ obj/item/melee/onehanded/knife/switchblade
 	item_state = "tire"
 	force = 30
 	custom_materials = list(/datum/material/iron = 4000)
+	wound_bonus = 5
+	bare_wound_bonus = 10
 
 // NCR Flag			Keywords: NCR, Damage 26, Stamina damage, Block
 /obj/item/melee/onehanded/club/ncrflag
@@ -462,6 +469,8 @@ obj/item/melee/onehanded/knife/switchblade
 	slot_flags = null
 	force = 26
 	block_chance = 30
+	wound_bonus = 5
+	bare_wound_bonus = 10
 	attack_verb = list("smacked", "thwacked", "democratized", "freedomed")
 
 // Classic Baton
@@ -798,6 +807,8 @@ obj/item/melee/onehanded/knife/switchblade
 	sharpness = SHARP_POINTY
 	armour_penetration = 0.1
 	force = 28
+	wound_bonus = 8
+	bare_wound_bonus = 10
 
 // Sappers			Keywords: Damage 27
 /obj/item/melee/unarmed/sappers
@@ -852,6 +863,8 @@ obj/item/melee/onehanded/knife/switchblade
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	sharpness = SHARP_POINTY
 	force = 33
+	wound_bonus = 12
+	bare_wound_bonus = 12
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 // Dual Tiger claws		Keywords: Damage 33, Pointy, Fast
@@ -962,6 +975,8 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 24
 	armour_penetration = 0.1
 	sharpness = SHARP_POINTY
+	wound_bonus = 10
+	bare_wound_bonus = 15
 	attack_verb = list("stabbed", "sliced", "pierced", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
@@ -983,6 +998,8 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	force = 35
 	armour_penetration = 0.15
 	sharpness = SHARP_EDGED
+	wound_bonus = 15
+	bare_wound_bonus = 15
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 

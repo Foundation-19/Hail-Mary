@@ -69,6 +69,9 @@ for further reading, please see: https://github.com/tgstation/tgstation/pull/301
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	block_chance = 50
 	sharpness = SHARP_EDGED
+	// Was missing wounding power entirely despite being the premier blade in this file - every other high-tier sword has one.
+	wound_bonus = 25
+	bare_wound_bonus = 20
 	max_integrity = 200
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	resistance_flags = FIRE_PROOF

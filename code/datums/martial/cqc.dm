@@ -49,7 +49,7 @@
 							span_userdanger("[A] slams you into the ground!"))
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
 		deal_damage(A, D, damage, BRUTE)
-		D.DefaultCombatKnockdown(120)
+		D.DefaultCombatKnockdown(120 * A.get_strength_grapple_control_multiplier() * D.get_endurance_grapple_resist_multiplier())
 		log_combat(A, D, "slammed (CQC)")
 	return TRUE
 
@@ -62,11 +62,12 @@
 		D.visible_message(span_warning("[A] kicks [D]'s head, knocking [D.p_them()] out!"), \
 							span_userdanger("[A] kicks your head, knocking you out!"))
 		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		D.SetSleeping(300)
+		var/ko_control_mod = A.get_strength_grapple_control_multiplier() * D.get_endurance_grapple_resist_multiplier()
+		D.SetSleeping(300 * ko_control_mod)
 		deal_damage(A, D, damage + 5, BRUTE)
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
-		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage + 10, 150)
+		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, (damage + 10) * ko_control_mod, 150)
 	else
 		D.visible_message(span_warning("[A] kicks [D]!"), \
 							span_userdanger("[A] kicks you!"))
@@ -99,7 +100,7 @@
 		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
 							span_userdanger("[A] locks you into a restraining position!"))
 		deal_damage(A, D, damage, STAMINA)
-		D.Stun(100)
+		D.Stun(100 * A.get_strength_grapple_control_multiplier() * D.get_endurance_grapple_resist_multiplier())
 		restraining = TRUE
 		addtimer(VARSET_CALLBACK(src, restraining, FALSE), 50, TIMER_UNIQUE)
 	return TRUE

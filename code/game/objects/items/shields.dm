@@ -39,6 +39,9 @@
 	block_lock_attacking = TRUE
 	block_lock_sprinting = TRUE
 	block_start_delay = 1.5
+	// Dropping the shield to take a free shot/swing then immediately re-raising it shouldn't be free - you pay
+	// a real exposure window for un-blocking, same as the raise windup punishes committing to block in the first place.
+	block_end_click_cd_add = 10
 	block_damage_absorption = 5
 	block_resting_stamina_penalty_multiplier = 2
 	block_projectile_mitigation = 75
