@@ -30,6 +30,8 @@
 /mob/living/Destroy()
 	end_parry_sequence()
 	stop_active_blocking()
+	if(party)
+		party.remove_member(src, TRUE)
 	if(LAZYLEN(status_effects))
 		for(var/s in status_effects)
 			var/datum/status_effect/S = s
@@ -285,6 +287,12 @@
 		return FALSE
 	if(throwing || incapacitated())
 		return FALSE
+
+	if(isliving(AM) && AM != pulling) // S.P.E.C.I.A.L. - extending an existing pull line (not just grabbing a lone target) is capped by the leader's Charisma
+		var/mob/living/chain_leader = get_pull_chain_leader()
+		if(chain_leader.get_pull_chain_member_count() > chain_leader.get_special_charisma_pull_chain_cap())
+			to_chat(src, span_warning("The line's already too long to keep everyone following along!"))
+			return FALSE
 
 	AM.add_fingerprint(src)
 
@@ -1566,25 +1574,4 @@
 		pixel_z = pseudo_z_axis
 		last_move_time = world.time // Track movement for sound detection
 
-/mob/living/carbon/update_stamina()
-	var/total_health = getStaminaLoss()
-	if(total_health >= STAMINA_SOFTCRIT)
-		if(!(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT))
-			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
-	else
-		if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
-			DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
-	if(total_health)
-		if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health >= STAMINA_CRIT && !stat)
-			to_chat(src, span_notice("You're too exhausted to keep going..."))
-			set_resting(TRUE, FALSE, FALSE)
-			SEND_SIGNAL(src, COMSIG_DISABLE_COMBAT_MODE)
-			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
-			filters += CIT_FILTER_STAMINACRIT
-			update_mobility()
-	if((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && total_health <= STAMINA_SOFTCRIT)
-		to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
-		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT | COMBAT_FLAG_SOFT_STAMCRIT)
-		filters -= CIT_FILTER_STAMINACRIT
-		update_mobility()
-	update_health_hud()
+// Carbon's update_stamina() override (soft/hard stamcrit flags) lives in carbon.dm, not here.

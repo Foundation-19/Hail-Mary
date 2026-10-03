@@ -3,10 +3,26 @@
 	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-1.1 dmg in melee for each level above/below 5 ST, certain guns can be STR locked
 	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
 	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END
-	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets when they examine you
+	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets about your demeanor/appearance when they examine you; caps how many followers you can lead in a pull chain
 	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
 	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 tiles sprint buffer, +/- 10% sprint regen, +/- 0.05 sprint speed, +/- 10% sprint stamina usage per lvl below/above 5 AGI
-	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to hit yourself if it's 3 or below
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to fumble/whiff an attack if it's 3 or below
+	/// world.time deadline before intimidating_presence() (low-Charisma's standalone ability) can be used again.
+	var/intimidate_cooldown_until = 0
+	/// world.time deadline before commanding_presence() (high-Charisma's standalone ability) can be used again.
+	var/command_cooldown_until = 0
+
+/// Canonical way to change Strength mid-round (chems, injuries, future debuffs, etc) - raw `special_s = X` assignment skips re-checking already-worn storage for overload, silently leaving bags stuck using whatever capacity multiplier applied when they were last equipped/filled.
+/mob/living/proc/set_special_s(new_value)
+	new_value = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	if(new_value == special_s)
+		return
+	special_s = new_value
+	check_worn_storage_overload()
+
+/// Canonical way to change Perception mid-round. No cached/derived state currently keys off this one (all Perception formulas read special_p live), but kept consistent with the other six setters so future Perception-dependent caching has somewhere safe to hook in.
+/mob/living/proc/set_special_p(new_value)
+	special_p = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 
 /mob/proc/get_top_level_mob()
 	if(istype(src.loc,/mob)&&src.loc!=src)
@@ -55,7 +71,7 @@ proc/get_top_level_mob(mob/S)
 /// STRENGTH
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
+	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1) + user.get_special_low_charisma_intimidation_dam_bonus()
 
 /obj/item/gun/proc/gun_firing_str_check(mob/living/user)
 	if(user.special_s >= required_str_to_fire)
@@ -64,11 +80,35 @@ proc/get_top_level_mob(mob/S)
 	return FALSE
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1)
+	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1) + user.get_special_low_charisma_intimidation_dam_bonus()
+
+/// Blurry/blinded vision can make a melee swing whiff entirely before it ever reaches attackby(); keen Perception compensates, poor Perception compounds it.
+/mob/proc/check_vision_impaired_miss()
+	if(!eye_blurry && !eye_blind)
+		return FALSE
+	var/miss_chance = (eye_blurry * MELEE_BLUR_MISS_CHANCE_PER_LEVEL) + (eye_blind ? MELEE_BLIND_MISS_CHANCE : 0)
+	miss_chance += (SPECIAL_DEFAULT_ATTR_VALUE - special_p) * MELEE_MISS_CHANCE_PER_PERCEPTION_LEVEL
+	miss_chance = clamp(miss_chance, 0, MELEE_VISION_MISS_CHANCE_CAP)
+	if(!prob(miss_chance))
+		return FALSE
+	visible_message(span_danger("[src] swings wildly and misses!"), span_warning("Your vision fails you and you swing wildly, missing completely!"))
+	return TRUE
 
 /// Strong grip/control trims how badly a gun cook-off burns your hand
 /mob/proc/get_strength_cookoff_burn_multiplier()
 	return CLAMP(1 - ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.05), 0.5, 1.5)
+
+/// Brawnier fighters gas out less from winding up a Power Attack; weaklings pay more stamina for the same swing.
+/mob/living/proc/get_strength_power_attack_stamina_multiplier()
+	return CLAMP(1 - ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.06), 0.6, 1.6)
+
+/// Brawnier wasters can cram more combined weight class into their bags/pockets/belts before they're full.
+/mob/living/proc/get_strength_carry_capacity_multiplier()
+	return CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.5, 1.5)
+
+/// Attacker-side: how hard a grapple/takedown (unarmed knockdowns, stuns, chokeholds) bites, scaled off raw muscle.
+/mob/living/proc/get_strength_grapple_control_multiplier()
+	return CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.6, 1.6)
 
 /// PERCEPTION
 
@@ -81,9 +121,31 @@ proc/get_top_level_mob(mob/S)
 
 /// ENDURANCE
 
+/mob/living/carbon/human/var/applied_endurance_health_bonus = 0
+
 /mob/living/carbon/human/initialize_special_endurance()
-	maxHealth = initial(maxHealth) + get_special_endurance_health_bonus()
+	applied_endurance_health_bonus = get_special_endurance_health_bonus()
+	maxHealth = initial(maxHealth) + applied_endurance_health_bonus
 	health = maxHealth
+
+/// Canonical way to change Endurance mid-round - raw `special_e = X` leaves maxHealth stuck at whatever bonus applied at spawn/last recalc.
+/mob/living/proc/set_special_e(new_value)
+	new_value = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	if(new_value == special_e)
+		return
+	special_e = new_value
+	recalculate_special_endurance_health()
+
+/mob/living/proc/recalculate_special_endurance_health()
+	return
+
+/// Applies only the DELTA versus the previously-applied bonus, so other maxHealth modifiers (organs, traits, etc) aren't clobbered, and so this never force-heals/force-hurts by resetting health to the new max outright.
+/mob/living/carbon/human/recalculate_special_endurance_health()
+	var/new_bonus = get_special_endurance_health_bonus()
+	maxHealth += (new_bonus - applied_endurance_health_bonus)
+	applied_endurance_health_bonus = new_bonus
+	health = min(health, maxHealth)
+	updatehealth()
 
 /// Non-linear so low END stays genuinely fragile and high END pays off hard, instead of a flat +/-5 per level
 /// Keyed on SPECIAL_MIN/MAX_ATTR_VALUE and clamped, so a future stat-range change extends cleanly instead of silently returning 0
@@ -102,25 +164,100 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return poison_resist_multiplier[clamped_e] || 1
 
+/// Single shared knob for Endurance's effect on the whole combat stamina system: every softcrit/hardcrit threshold check AND passive
+/// regen speed reads this same multiplier, so a sturdier build both shrugs off more exertion before buckling and bounces back faster -
+/// and any future stamina-gated check only has to multiply by this instead of growing its own bolted-on Endurance handling later.
+/mob/living/proc/get_special_endurance_stamina_mod()
+	// Index N corresponds directly to a special_e value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/endurance_stamina_mod = list(0.7, 0.78, 0.86, 0.93, 1, 1.08, 1.16, 1.24, 1.35, 1.5)
+	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return endurance_stamina_mod[clamped_e] || 1
+
+/// Defender-side counterpart to get_strength_grapple_control_multiplier() - a sturdier body shrugs off being grappled/choked/slammed faster.
+/mob/living/proc/get_endurance_grapple_resist_multiplier()
+	return CLAMP(1 - ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.08), 0.6, 1.4)
+
 
 /// CHARISMA
 
+/// Canonical way to change Charisma mid-round. No cached/derived state currently keys off this one (pull-chain cap, party cap/buff tier and the examine moodlet are all read live), but kept consistent with the other six setters.
+/mob/living/proc/set_special_c(new_value)
+	special_c = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+
 /mob/living/carbon/human/initialize_special_charisma()
 	RegisterSignal(src, COMSIG_PARENT_EXAMINE, PROC_REF(handle_special_charisma_examine_moodlet), TRUE)
-	initialize_charisma_traits(src)
 
 /mob/living/carbon/human/Destroy()
 	UnregisterSignal(src, COMSIG_PARENT_EXAMINE)
 	return ..()
 
+/// Max number of living followers a charismatic leader can keep chained behind them in a pull line (conga line/marched prisoners/escorted squad).
+/// Does not block a bare single grab (every value allows at least 1 follower) - only caps extending the line further.
+/mob/living/proc/get_special_charisma_pull_chain_cap()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_pull_chain_cap = list(1, 1, 2, 2, 3, 3, 4, 4, 5, 6)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_pull_chain_cap[clamped_c] || 1
 
-/mob/proc/initialize_charisma_traits(mob/living/carbon/user)
-	REMOVE_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
-	REMOVE_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
-	if(special_c == 3 || special_c == 1)
-		ADD_TRAIT(user, TRAIT_SAY_STUTTERING, "charisma")
-	if(special_c <= 2)
-		ADD_TRAIT(user, TRAIT_SAY_LISPING, "charisma")
+/// Walks to the front of this mob's pull line and returns whoever's leading it (the mob nothing is pulling further up the chain).
+/mob/living/proc/get_pull_chain_leader()
+	var/mob/living/leader = src
+	while(isliving(leader.pulledby))
+		var/mob/living/next_leader = leader.pulledby
+		if(next_leader.pulling != leader)
+			break
+		leader = next_leader
+	return leader
+
+/// Counts how many living mobs (itself plus everyone trailing behind it) are currently chained in this mob's pull line.
+/mob/living/proc/get_pull_chain_member_count()
+	var/count = 1
+	var/mob/living/current = src
+	while(isliving(current.pulling))
+		count++
+		current = current.pulling
+	return count
+
+/// Max total members (including the leader) a charismatic leader can keep in their party.
+/mob/living/proc/get_special_charisma_party_cap()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_party_cap = list(1, 2, 2, 3, 3, 4, 4, 5, 5, 6)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_party_cap[clamped_c] || 1
+
+/// Scales how strong a party leader's leadership buff is for the members following them.
+/mob/living/proc/get_special_charisma_party_buff_tier()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_party_buff_tier = list(0, 0, 1, 1, 2, 2, 3, 3, 4, 5)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_party_buff_tier[clamped_c] || 0
+
+/// How readily THIS mob buys into someone ELSE's charismatic leadership while following them in a party - realistically, a skeptical/socially-closed-off low-Charisma follower reads the social cues less and gets proportionally less out of a leader's aura, while a sociable high-Charisma follower resonates with it and gets more. Multiplies against the leader's own get_special_charisma_party_buff_tier() result; it never substitutes for it.
+/mob/living/proc/get_special_charisma_buyin_multiplier()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_buyin_multiplier = list(0.5, 0.6, 0.7, 0.85, 1, 1.1, 1.2, 1.3, 1.4, 1.5)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_buyin_multiplier[clamped_c] || 1
+
+/// Low Charisma trades social grace for raw unsettling menace instead of being a pure dump stat - below-default Charisma adds bonus melee/unarmed damage, standalone from the party system entirely. Never a penalty for sociable high-CHA mobs; simply does nothing for them.
+/mob/living/proc/get_special_low_charisma_intimidation_dam_bonus()
+	if(special_c >= SPECIAL_DEFAULT_ATTR_VALUE)
+		return 0
+	return (SPECIAL_DEFAULT_ATTR_VALUE - special_c) * 0.9
+
+/// Scales intimidating_presence()'s range/duration/cooldown - a dedicated path for low-Charisma mobs mirroring the leadership tier a high-Charisma leader gets, just aimed at unsettling others instead of inspiring them.
+/mob/living/proc/get_special_low_charisma_intimidation_tier()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_intimidation_tier = list(3, 3, 2, 1, 1, 0, 0, 0, 0, 0)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_intimidation_tier[clamped_c] || 0
+
+/// Scales commanding_presence()'s range/duration/cooldown - the high-Charisma mirror of get_special_low_charisma_intimidation_tier(), aimed at rallying nearby non-party people instead of unsettling them. Doesn't discriminate friend from foe any more than intimidation does - nearby hostiles get inspired too.
+/mob/living/proc/get_special_high_charisma_command_tier()
+	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
+	var/static/list/charisma_command_tier = list(0, 0, 0, 0, 0, 1, 1, 2, 2, 3)
+	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	return charisma_command_tier[clamped_c] || 0
 
 /mob/proc/handle_special_charisma_examine_moodlet(mob/living/examinee, mob/living/examiner, text)
 	if(!istype(examiner))
@@ -150,12 +287,52 @@ proc/get_top_level_mob(mob/S)
 /datum/mood_event/special_good_looking_char
 	description = span_nicegreen("I've seen someone so good-looking that it made my day! ")
 	mood_change = 2
-	timeout = 5 MINUTES
+	timeout = 4 MINUTES
+
+/datum/mood_event/inspired_by_leader
+	description = span_nicegreen("Someone's commanding presence has bolstered my resolve. ")
+	mood_change = 2
+	timeout = 20 SECONDS
 
 /datum/mood_event/special_beautiful_char
 	description = span_nicegreen("I have gazed upon the visage of perfection given form! ")
 	mood_change = 5
 	timeout = 6 MINUTES
+
+/datum/mood_event/party_rally
+	description = span_nicegreen("Following a charismatic leader is keeping my spirits up! ")
+	mood_change = 2
+	timeout = 20 SECONDS
+
+/datum/mood_event/party_rally_guardian
+	description = span_nicegreen("My leader's watchful presence is toughening me up! ")
+	mood_change = 2
+	timeout = 20 SECONDS
+
+/datum/mood_event/party_rally_operative
+	description = span_nicegreen("My leader's guidance has my hands feeling quick and sure! ")
+	mood_change = 2
+	timeout = 20 SECONDS
+
+/datum/mood_event/party_bickering
+	description = span_boldwarning("Nobody in this group has any people skills - we're grating on each other's nerves. ")
+	mood_change = -2
+	timeout = 20 SECONDS
+
+/datum/mood_event/party_miscommunication
+	description = span_boldwarning("Nobody in this group is on the same page - it's throwing off my focus. ")
+	mood_change = -2
+	timeout = 20 SECONDS
+
+/datum/mood_event/intimidated
+	description = span_boldwarning("Someone's unnerving presence has rattled me. ")
+	mood_change = -2
+	timeout = 20 SECONDS
+
+/datum/mood_event/party_miscommunication
+	description = span_warning("Nobody in this group can get on the same page - we keep fumbling over each other. ")
+	mood_change = -1
+	timeout = 20 SECONDS
 
 /// INTELLIGENCE
 
@@ -182,6 +359,10 @@ proc/get_top_level_mob(mob/S)
 /// Smarter field repairs restore more gun condition per wrench pass
 /mob/proc/get_intelligence_gun_repair_multiplier()
 	return CLAMP(1 + ((special_i - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.5, 1.5)
+
+/// Canonical way to change Intelligence mid-round. No cached/derived state currently keys off this one (crafting/gun-lock checks and the repair multiplier are all read live), but kept consistent with the other six setters.
+/mob/living/proc/set_special_i(new_value)
+	special_i = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 
 /// AGILITY
 
@@ -303,6 +484,35 @@ proc/get_top_level_mob(mob/S)
 /mob/proc/get_agility_gun_speed_multiplier()
 	return CLAMP(1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.05), 0.5, 1.5)
 
+/// Quick hands commit to a Power Attack windup faster/slower. Multiplies the required windup time.
+/mob/living/proc/get_power_attack_windup_multiplier()
+	return CLAMP(1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.08), 0.5, 1.5)
+
+/// Nimble fighters land basic melee swings faster too, not just Power Attacks. Multiplies the weapon's attack_speed.
+/mob/living/proc/get_agility_melee_speed_multiplier()
+	return CLAMP(1 - ((special_a - SPECIAL_DEFAULT_ATTR_VALUE) * 0.03), 0.8, 1.2)
+
+/// Bare-fisted equivalent of a weapon's attack_speed * get_agility_melee_speed_multiplier() - keeps unarmed swing speed on the same Agility curve as armed melee instead of a flat constant.
+/mob/proc/get_unarmed_melee_clickdelay()
+	return CLICK_CD_MELEE
+
+/mob/living/get_unarmed_melee_clickdelay()
+	return CLICK_CD_MELEE * get_agility_melee_speed_multiplier()
+
+/// Canonical way to change Agility mid-round - raw `special_a = X` leaves sprint_buffer_regen_ds stuck at whatever was computed at spawn/last recalc. Re-running initialize_special_agility() also tops up sprint_buffer to its max as a side effect, same as a fresh spawn.
+/mob/living/proc/set_special_a(new_value)
+	new_value = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+	if(new_value == special_a)
+		return
+	special_a = new_value
+	initialize_special_agility()
+
+/// ENDURANCE (power attacks)
+
+/// Tougher mobs shrug off getting interrupted mid-swing faster.
+/mob/living/proc/get_power_attack_interrupt_stagger_duration()
+	return CLAMP(3 SECONDS - ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.3 SECONDS), 1 SECONDS, 5 SECONDS)
+
 /// LUCK
 
 /// Currently affects only money from trashpiles
@@ -312,7 +522,11 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return luck_loot_multiplier[clamped_l] || 1
 
-/// Chance to drop a gun or hit yourself in melee
+/// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
+/mob/living/proc/set_special_l(new_value)
+	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+
+/// Chance to fumble an attack entirely: a melee swing goes wide and misses, or a gun is fumbled and dropped before firing
 /mob/proc/get_luck_critfail_chance()
 	switch(special_l)
 		if(1)
@@ -321,6 +535,17 @@ proc/get_top_level_mob(mob/S)
 			return 3
 		if(3)
 			return 1
+	return 0
+
+/// Unlucky swingers risk fumbling (whiffing + a short self-stagger) on a Power Attack release.
+/mob/living/proc/get_power_attack_fumble_chance()
+	switch(special_l)
+		if(1)
+			return 15
+		if(2)
+			return 8
+		if(3)
+			return 3
 	return 0
 
 /// How much heat/condition-driven gun jam & cook-off chance gets scaled by luck - bad luck makes malfunctions more likely, good luck less

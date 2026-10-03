@@ -40,7 +40,7 @@
 			if(!AltUnarmedAttack(A, TRUE))
 				. = UnarmedAttack(A, TRUE, a_intent)
 				if(!(. & NO_AUTO_CLICKDELAY_HANDLING) && ismob(A))
-					DelayNextAction(CLICK_CD_MELEE)
+					DelayNextAction(get_unarmed_melee_clickdelay())
 				return
 			return
 
@@ -56,7 +56,7 @@
 			if(!AltUnarmedAttack(A, TRUE))
 				. = UnarmedAttack(A, TRUE, a_intent)
 				if(!(. & NO_AUTO_CLICKDELAY_HANDLING) && ismob(A))
-					DelayNextAction(CLICK_CD_MELEE)
+					DelayNextAction(get_unarmed_melee_clickdelay())
 				return
 			return
 	else

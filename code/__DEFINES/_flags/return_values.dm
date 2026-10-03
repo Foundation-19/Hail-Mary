@@ -16,6 +16,8 @@
 #define ATTACK_IGNORE_CLICKDELAY				(1<<5)
 /// This attack is from a parry counterattack
 #define ATTACK_IS_PARRY_COUNTERATTACK			(1<<6)
+/// This attack was released from a charged Power Attack windup, see code/game/objects/items/melee/power_attack_system.dm
+#define ATTACK_POWER_ATTACK					(1<<7)
 
 // obj/item/dropped()
 /// dropped() relocated this item, return FALSE for doUnEquip.

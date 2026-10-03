@@ -12,8 +12,8 @@
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	atk_verb = pick("punches", "smashes", "ruptures", "cracks")
 	D.visible_message(span_danger("[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!"), \
-					  span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
-	D.apply_damage(damage, BRUTE) //KAPOW
+					span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
+	deal_damage(A, D, damage, BRUTE) //KAPOW
 	playsound(D, 'sound/effects/meteorimpact.ogg', 25, 1, -1)
 	var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
 	D.throw_at(throwtarget, 4, 2, A)//So stuff gets tossed around at the same time.

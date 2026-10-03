@@ -122,11 +122,13 @@
 	return TRUE
 
 /datum/martial_art/krav_maga/proc/neck_chop(mob/living/carbon/human/A, mob/living/carbon/human/D)
+	var/obj/item/bodypart/affecting = D.get_bodypart(BODY_ZONE_HEAD)
+	var/armor_block = D.run_armor_check(affecting, "melee")
 	var/damage = (damage_roll(A,D)*0.5)
 	D.visible_message(span_warning("[A] karate chops [D]'s neck!"), \
 					span_userdanger("[A] karate chops your neck, rendering you unable to speak!"))
 	playsound(get_turf(A), 'sound/effects/hit_punch.ogg', 50, 1, -1)
-	D.apply_damage(damage, BRUTE)
+	D.apply_damage(damage, BRUTE, affecting, armor_block)
 	if(D.silent <= 10)
 		D.silent = clamp(D.silent + 10, 0, 10)
 	log_combat(A, D, "neck chopped")

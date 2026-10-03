@@ -66,6 +66,8 @@
 #define COMBAT_FLAG_ACTIVE_BLOCKING			(1<<11)
 /// This mob is currently starting an active block
 #define COMBAT_FLAG_ACTIVE_BLOCK_STARTING	(1<<12)
+/// This mob is capable of unarmed active blocking (raising bare fists instead of needing an item)
+#define COMBAT_FLAG_UNARMED_BLOCK			(1<<13)
 
 // Helpers for getting someone's stamcrit state. Cast to living.
 #define NOT_STAMCRIT 0
@@ -89,6 +91,8 @@
 #define STAMINA_SOFTCRIT_TRADITIONAL		0
 ///ditto, but for STAMINA_CRIT
 #define STAMINA_CRIT_TRADITIONAL			-40
+///Midpoint between STAMINA_SOFTCRIT and STAMINA_CRIT, scaled per-mob by Endurance - used by arrest bots to decide a stamcritted target has recovered enough to fight back again.
+#define STAMINA_ARREST_RECOVERY_THRESHOLD(mob)	((STAMINA_SOFTCRIT + STAMINA_CRIT) * 0.5 * mob.get_special_endurance_stamina_mod())
 
 #define CRAWLUNDER_DELAY							30 //Delay for crawling under a standing mob
 
@@ -109,7 +113,8 @@
 //Actual combat defines
 
 //click cooldowns, in tenths of a second, used for various combat actions
-#define CLICK_CD_MELEE 8
+// Tuned down from 8 so sustained melee DPS stays within realistic striking distance of automatic weapons' TTK.
+#define CLICK_CD_MELEE 6
 #define CLICK_CD_RANGE 5
 #define CLICK_CD_RAPID 2
 #define CLICK_CD_CLICK_ABILITY 6
@@ -183,6 +188,7 @@ GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 #define EMBEDDED_JOSTLE_PAIN_MULTIPLIER			1	//Coefficient of multiplication for the damage the item does while
 #define EMBEDDED_PAIN_STAM_PCT					0.0	//This percentage of all pain will be dealt as stam damage rather than brute (0-1)
 #define EMBED_CHANCE_TURF_MOD					-15	//You are this many percentage points less likely to embed into a turf (good for things glass shards and spears vs walls)
+#define MAX_HARMFUL_EMBEDS_PER_LIMB				2	//Default per-limb cap on simultaneous harmful embeds - past this, more shrapnel/darts/etc just glance off instead of adding yet another indefinite damage-over-time source. Bigger limbs (chest) override this higher.
 
 #define EMBED_HARMLESS list("pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE)
 #define EMBED_HARMLESS_SUPERIOR list("pain_mult" = 0, "jostle_pain_mult" = 0, "ignore_throwspeed_threshold" = TRUE, "embed_chance" = 100, "fall_chance" = 0.1)
@@ -290,11 +296,16 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 /// Added delay when firing guns stam-softcritted. Summed with a hardset CLICK_CD_RANGE delay, similar to STAM_CRIT_DAMAGE_DELAY otherwise.
 #define STAM_CRIT_GUN_DELAY			2.75
 
-//stamina recovery defines. Blocked if combat mode is on.
+//stamina recovery defines. Paused while intentionally in combat mode, see /mob/living/carbon/proc/handle_stamina_regen().
 #define STAM_RECOVERY_STAM_CRIT		-7.5
 #define STAM_RECOVERY_RESTING		-6
 #define STAM_RECOVERY_NORMAL		-3
 #define STAM_RECOVERY_LIMB			4 //limbs recover stamina separately from handle_status_effects(), and aren't blocked by combat mode.
+
+/// Divisor in the buffered-stamina ("stamina shield") free decay formula, see /mob/living/carbon/proc/handle_stamina_buffer_decay().
+#define STAMINA_BUFFER_DECAY_DIVISOR 5
+/// Rate multiplier in the buffered-stamina free decay formula, see /mob/living/carbon/proc/handle_stamina_buffer_decay().
+#define STAMINA_BUFFER_DECAY_RATE 0.1
 
 /**
  * should the current-attack-damage be lower than the item force multiplied by this value,

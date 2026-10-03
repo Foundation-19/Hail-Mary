@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
-	item_flags = NEEDS_PERMIT | NO_COMBAT_MODE_FORCE_MODIFIER //To avoid ambushing and oneshotting healthy crewmembers on force setting 3.
+	item_flags = NEEDS_PERMIT | NO_COMBAT_MODE_FORCE_MODIFIER | ITEM_CAN_POWER_ATTACK //To avoid ambushing and oneshotting healthy crewmembers on force setting 3.
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 14
 	throwforce = 10
@@ -15,6 +15,15 @@
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	resistance_flags = FIRE_PROOF
 	attack_speed = CLICK_CD_MELEE * 1.5
+	glove_weapon = TRUE
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES // was missing entirely - couldn't be equipped to any slot at all
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge/piston_punch,
+	)
 	var/fisto_setting = 1
 	var/gasperfist = 3
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
@@ -73,6 +82,9 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return FALSE
+	if(!is_active_glove_weapon(user))
+		to_chat(user, span_warning("\The [src] needs to be worn on your hand to throw a real punch - swinging it loose does nothing."))
+		return FALSE
 	if(!tank)
 		to_chat(user, span_warning("\The [src] can't operate without a source of gas!"))
 		return FALSE
@@ -107,7 +119,8 @@
 
 	T.assume_air_moles(tank.air_contents, gasperfist * fisto_setting)
 	T.air_update_turf()
-	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, wound_bonus = -25*fisto_setting**2)
+	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
+	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
 
 	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
 		span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))

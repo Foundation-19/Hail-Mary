@@ -22,7 +22,9 @@
 	else if(user.hal_screwyhud == 5)
 		icon_state = "stamina0"
 	else
-		icon_state = "stamina[clamp(FLOOR(user.getStaminaLoss() /20, 1), 0, 6)]"
+		// Scaled against this mob's own (Endurance-adjusted) crit threshold, so the bar always fills up right as they actually crit, not at a flat raw number.
+		var/personal_crit_threshold = STAMINA_CRIT * user.get_special_endurance_stamina_mod()
+		icon_state = "stamina[clamp(FLOOR((user.getStaminaLoss() / personal_crit_threshold) * 7, 1), 0, 6)]"
 
 //stam buffer
 /obj/screen/staminabuffer

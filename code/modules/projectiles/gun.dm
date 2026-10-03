@@ -338,7 +338,7 @@ ATTACHMENTS
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = FALSE, mob/pbtarget, message = 1, stam_cost = 0, obj/item/projectile/P, casing_sound)
 	if(stam_cost) //CIT CHANGE - makes gun recoil cause staminaloss
-		var/safe_cost = clamp(stam_cost, 0, STAMINA_NEAR_CRIT - user.getStaminaLoss())*(firing && burst_size >= 2 ? 1/burst_size : 1)
+		var/safe_cost = clamp(stam_cost, 0, (STAMINA_NEAR_CRIT * user.get_special_endurance_stamina_mod()) - user.getStaminaLoss())*(firing && burst_size >= 2 ? 1/burst_size : 1)
 		user.adjustStaminaLossBuffered(safe_cost) //CIT CHANGE - ditto
 
 	var/datum/ammo_sound_properties/soundies = GLOB.casing_sound_properties[casing_sound]

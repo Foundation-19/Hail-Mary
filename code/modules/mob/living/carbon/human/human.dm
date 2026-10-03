@@ -65,6 +65,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(!CONFIG_GET(flag/disable_human_mood))
 		AddComponent(/datum/component/mood)
 	AddComponent(/datum/component/combat_mode)
+	AddComponent(/datum/component/unarmed_power_attack)
 	AddElement(/datum/element/flavor_text/carbon, _name = "Flavor Text", _save_key = "flavor_text")
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
@@ -109,6 +110,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	. = ..()
 	. += "Intent: [a_intent]"
 	. += "Move Mode: [m_intent]"
+	var/obj/item/held_item = get_active_held_item()
+	if(held_item && LAZYLEN(held_item.power_attacks) && (held_item.item_flags & ITEM_CAN_POWER_ATTACK))
+		var/datum/power_attack/active = held_item.get_active_power_attack()
+		if(active)
+			. += "Power Attack: [active.name] (Alt-click to change)"
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
@@ -1185,7 +1191,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
 	if(!Adjacent(M) && (M.loc != src))
-		if((be_close == 0) || (!no_tk && (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
+		if((be_close == 0) || (!no_tk && (dna && dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
 			return TRUE
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE

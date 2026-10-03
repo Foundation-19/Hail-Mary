@@ -114,7 +114,7 @@
 		else
 			. = UnarmedAttack(A, TRUE, a_intent)
 			if(!(. & NO_AUTO_CLICKDELAY_HANDLING) && ismob(A))
-				DelayNextAction(CLICK_CD_MELEE)
+				DelayNextAction(get_unarmed_melee_clickdelay())
 			return
 
 	//Can't reach anything else in lockers or other weirdness
@@ -128,7 +128,7 @@
 		else
 			. = UnarmedAttack(A, TRUE, a_intent)
 			if(!(. & NO_AUTO_CLICKDELAY_HANDLING) && ismob(A))
-				DelayNextAction(CLICK_CD_MELEE)
+				DelayNextAction(get_unarmed_melee_clickdelay())
 			return
 	else
 		if(!isturf(A) && !isturf(A.loc))
@@ -261,7 +261,7 @@
 			return FALSE
 		var/mob/living/carbon/human/H = user
 		H.dna.species.grab(H, src, H.mind.martial_art)
-		H.DelayNextAction(CLICK_CD_MELEE)
+		H.DelayNextAction(H.get_unarmed_melee_clickdelay())
 		return TRUE
 	else
 		return ..()

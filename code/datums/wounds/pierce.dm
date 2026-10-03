@@ -4,10 +4,11 @@
 
 /// template, true values will override these
 /datum/wound/bleed/pierce
-	name = "Minor Puncture"
-	desc = "Patient's skin has been broken open, causing severe bruising and minor internal bleeding in affected area."
-	treat_text = "Treat affected site with bandaging or exposure to extreme cold. In dire cases, brief exposure to vacuum may suffice." // space is cold in ss13, so it's like an ice pack!
-	examine_desc = "has a small, circular hole, gently bleeding"
+	name = "Shallow Puncture"
+	desc = "Patient's skin has been nicked, causing a light trickle of blood but no real tissue damage."
+	treat_text = "Minor enough to close up on its own, though a bandage will speed things along."
+	examine_desc = "has a shallow nick, lightly bleeding"
+	occur_text = "is nicked, drawing a thin trickle of blood"
 	occur_text = "spurts out a thin stream of blood"
 	sound_effect = 'sound/weapons/slice.ogg'
 	wound_type = WOUND_PIERCE

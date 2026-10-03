@@ -172,6 +172,7 @@
 				if(!istype(canvas))
 					continue
 				canvas.add_tattoo(tattie, initial(tattie.default_spot))
+		H.check_worn_storage_overload()
 	H.update_body()
 	return TRUE
 

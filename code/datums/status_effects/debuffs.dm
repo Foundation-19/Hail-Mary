@@ -1,6 +1,33 @@
 #define TRAIT_STATUS_EFFECT(effect_id) "[effect_id]-trait"
 
 //Largely negative status effects go here, even if they have small benificial effects
+
+/// S.P.E.C.I.A.L. - rattled and slowed by a low-Charisma mob's intimidating_presence(). Carries a visible alert and removal message so the target actually notices/cares, not just a silent movespeed hit.
+/datum/status_effect/intimidated
+	id = "intimidated"
+	tick_interval = 1 SECONDS
+	alert_type = /obj/screen/alert/status_effect/intimidated
+	var/mob/living/source
+
+/obj/screen/alert/status_effect/intimidated
+	name = "Intimidated"
+	desc = "Someone's unnerving presence has you rattled, slowing your movements."
+
+/datum/status_effect/intimidated/on_creation(mob/living/new_owner, set_duration, mob/living/new_source)
+	if(isnum(set_duration))
+		duration = set_duration
+	source = new_source
+	. = ..()
+	if(.)
+		owner.add_movespeed_modifier(/datum/movespeed_modifier/intimidated)
+		SEND_SIGNAL(owner, COMSIG_ADD_MOOD_EVENT, "intimidated", /datum/mood_event/intimidated)
+
+/datum/status_effect/intimidated/on_remove()
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/intimidated)
+	SEND_SIGNAL(owner, COMSIG_CLEAR_MOOD_EVENT, "intimidated")
+	to_chat(owner, span_notice("The unsettling feeling fades and your movements loosen up again."))
+	return ..()
+
 //STUN EFFECTS
 /datum/status_effect/incapacitating
 	tick_interval = 0

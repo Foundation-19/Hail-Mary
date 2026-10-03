@@ -116,8 +116,11 @@
 	if(!gibbed)
 		visible_message(span_warning("[src]'s body ruptures, releasing a cloud of spores!"))
 		var/datum/effect_system/smoke_spread/chem/S = new
-		S.set_up(1, get_turf(src))
+		var/datum/reagents/spore_cloud = new(30)
+		spore_cloud.add_reagent(/datum/reagent/toxin/spore_toxin, 30)
+		S.set_up(spore_cloud, 1, get_turf(src))
 		S.start()
+		qdel(spore_cloud)
 	. = ..()
 
 ///////////////

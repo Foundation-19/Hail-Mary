@@ -12,8 +12,16 @@
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	var/icon_prefix = null
 	block_parry_data = /datum/block_parry_data/heavy_blade
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
+	canMouseDown = TRUE
 	block_chance = 5
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge,
+	)
 
 /datum/block_parry_data/heavy_blade // slow, committal two-handed weapons - big windup/recovery, but a devastating riposte if you land it
 	parry_time_windup = 4
@@ -60,7 +68,7 @@
 	desc = "Heavy axe, for chopping trees and people. Swings very slowly, but with deadly effect."
 	icon_state = "legionaxe"
 	icon_prefix = "legionaxe"
-	force = 30
+	force = 34
 	throwforce = 15
 	wound_bonus = 10
 	bare_wound_bonus = 10
@@ -69,9 +77,9 @@
 	attack_verb = list("axed", "chopped", "cleaved", "torn", "hacked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	wielded_icon = "legionaxe2"
-	force_unwielded = 30
-	force_wielded = 65
-	attack_speed = CLICK_CD_MELEE * 1.3  //10.4
+	force_unwielded = 34
+	force_wielded = 75 // bumped from 65 - slow two-handed swing needs to pay off harder per hit
+	attack_speed = CLICK_CD_MELEE * 1.3  //7.8
 
 /obj/item/twohanded/legionaxe/ComponentInitialize()
 	. = ..()
@@ -105,7 +113,7 @@
 	icon = 'icons/obj/melee/twohanded.dmi'
 	icon_state = "fireaxe"
 	icon_prefix = "fireaxe"
-	force = 28
+	force = 32
 	throwforce = 15
 	wound_bonus = 10
 	bare_wound_bonus = 10
@@ -114,9 +122,9 @@
 	attack_verb = list("axed", "chopped", "cleaved", "torn", "hacked")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	wielded_icon = "fireaxe2"
-	force_unwielded = 28
-	force_wielded = 55
-	attack_speed = CLICK_CD_MELEE * 1.25 //10
+	force_unwielded = 32
+	force_wielded = 63 // bumped from 55, matches the legion axe's proportional buff
+	attack_speed = CLICK_CD_MELEE * 1.25 //7.5
 
 /obj/item/twohanded/fireaxe/ComponentInitialize()
 	. = ..()
@@ -152,9 +160,9 @@
 	icon_prefix = "boneaxe"
 	resistance_flags = null
 	wielded_icon = "boneaxe2"
-	force_unwielded = 25
-	force_wielded = 40
-	attack_speed = CLICK_CD_MELEE * 1.1 //8.8
+	force_unwielded = 29
+	force_wielded = 46 // bumped from 40, keeps pace with the fireaxe family buff
+	attack_speed = CLICK_CD_MELEE * 1.1 //6.6
 
 /obj/item/twohanded/fireaxe/boneaxe/afterattack(atom/A, mob/living/user, proximity)
 	. = ..()
@@ -209,7 +217,7 @@
 	desc = "A simple spear with a metal head and wooden shaft."
 	icon_state = "spear-metal"
 	icon_prefix = "spear-metal"
-	force = 13
+	force = 15
 	throwforce = 30
 	throw_speed = 4
 	embedding = list("embed_chance" = 0)
@@ -222,8 +230,8 @@
 	wound_bonus = -15
 	bare_wound_bonus = 15
 	wielded_icon = "spear-metal2"
-	force_unwielded = 13
-	force_wielded = 32
+	force_unwielded = 15
+	force_wielded = 37 // bumped from 32, keeps pace with the axe family buff
 	var/obj/item/grenade/explosive = null
 	var/war_cry = "AAAAARGH!!!"
 
@@ -400,6 +408,9 @@
 	attack_verb = list("beat", "smacked", "clubbed", "clobbered")
 	w_class = WEIGHT_CLASS_NORMAL
 	sharpness = SHARP_NONE
+	// Was missing wounding power entirely despite swinging two-handed - same oversight as the base sledgehammer.
+	wound_bonus = 5
+	bare_wound_bonus = 10
 	wielded_icon = "baseball2"
 	force_unwielded = 25
 	force_wielded = 38
@@ -414,6 +425,7 @@
 	force = 26
 	throwforce = 15
 	wound_bonus = 5
+	bare_wound_bonus = 10
 	sharpness = SHARP_POINTY
 	wielded_icon = "baseballspike2"
 	force_unwielded = 26
@@ -475,6 +487,9 @@
 	force = 25
 	throwforce = 20 // Huge hammers aren't that great for throwing
 	sharpness = SHARP_NONE
+	// Was missing wounding power entirely (defaulted to 0/0) despite being one of the hardest-hitting blunt weapons in the game.
+	wound_bonus = 20
+	bare_wound_bonus = 15
 	attack_verb = list("bashed", "pounded", "bludgeoned", "pummeled", "thrashed")
 	force_unwielded = 25
 	attack_speed = CLICK_CD_MELEE * 1.8 //14.4

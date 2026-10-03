@@ -48,6 +48,8 @@
 		return STOP_ATTACK_PROC_CHAIN
 	if(!(attackchain_flags & ATTACK_IGNORE_CLICKDELAY) && !CheckAttackCooldown(user, A))
 		return STOP_ATTACK_PROC_CHAIN
+	if(isliving(A) && user.check_vision_impaired_miss())
+		return STOP_ATTACK_PROC_CHAIN
 
 /atom/proc/attackby(obj/item/W, mob/user, params)
 	if(SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, W, user, params) & COMPONENT_NO_AFTERATTACK)
@@ -138,10 +140,11 @@
 	user.do_attack_animation(target)
 
 	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		target = user
-		user.visible_message(span_warning("Critical fail! [user] tries to attack [M], but hits [user.p_them()]self instead!"))
+		user.visible_message(span_warning("[user] swings clumsily and completely misses [M]!"), span_warning("Your luck fails you and your swing goes wide, missing completely!"))
+		log_combat(user, M, "attempted to attack", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) (Critfail: missed entirely)")
+		return
 
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])[M != target ? "(Critfail: hit [target] instead)" : ""]")
+	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 
 	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier(), damage_addition = force_modifier)
 	add_fingerprint(user)
@@ -199,8 +202,9 @@
 	var/bad_trait
 
 	var/stamloss = user.getStaminaLoss()
-	if(stamloss > STAMINA_NEAR_SOFTCRIT) //The more tired you are, the less damage you do.
-		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT)/(STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT)*STAM_CRIT_ITEM_ATTACK_PENALTY
+	var/endurance_mod = user.get_special_endurance_stamina_mod()
+	if(stamloss > STAMINA_NEAR_SOFTCRIT * endurance_mod) //The more tired you are, the less damage you do.
+		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT * endurance_mod)/((STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT) * endurance_mod)*STAM_CRIT_ITEM_ATTACK_PENALTY
 		totitemdamage *= 1 - penalty
 
 	if(SEND_SIGNAL(user, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
@@ -253,8 +257,9 @@
 
 	var/stamloss = user.getStaminaLoss()
 	var/stam_mobility_mult = 1
-	if(stamloss > STAMINA_NEAR_SOFTCRIT) //The more tired you are, the less damage you do.
-		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT)/(STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT)*STAM_CRIT_ITEM_ATTACK_PENALTY
+	var/endurance_mod = user.get_special_endurance_stamina_mod()
+	if(stamloss > STAMINA_NEAR_SOFTCRIT * endurance_mod) //The more tired you are, the less damage you do.
+		var/penalty = (stamloss - STAMINA_NEAR_SOFTCRIT * endurance_mod)/((STAMINA_NEAR_CRIT - STAMINA_NEAR_SOFTCRIT) * endurance_mod)*STAM_CRIT_ITEM_ATTACK_PENALTY
 		stam_mobility_mult -= penalty
 	if(stam_mobility_mult > LYING_DAMAGE_PENALTY && !CHECK_MOBILITY(user, MOBILITY_STAND)) //damage penalty for fighting prone, doesn't stack with the above.
 		stam_mobility_mult = LYING_DAMAGE_PENALTY
@@ -348,7 +353,7 @@
 	if(used_skills && user.mind)
 		. = user.mind.item_action_skills_mod(src, ., skill_difficulty, trait, bad_trait, FALSE)
 	var/total_health = user.getStaminaLoss()
-	. = clamp(., 0, STAMINA_NEAR_CRIT - total_health)
+	. = clamp(., 0, (STAMINA_NEAR_CRIT * user.get_special_endurance_stamina_mod()) - total_health)
 
 /// How long this staggers for. 0 and negatives supported.
 /obj/item/proc/melee_stagger_duration(force_override)

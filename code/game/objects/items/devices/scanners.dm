@@ -268,6 +268,17 @@ GENETICS SCANNER
 			dmgreport += "</table>"
 			to_chat(user, dmgreport.Join())
 
+		// Wound treatment advice used to be hidden behind a separate SCANMODE_WOUND toggle - surface it on every normal scan instead.
+		var/list/wound_render = list()
+		for(var/i in C.get_wounded_bodyparts())
+			var/obj/item/bodypart/wounded_part = i
+			for(var/k in wounded_part.wounds)
+				var/datum/wound/W = k
+				wound_render += "<div class='ml-2'>[W.get_scanner_description()]</div>"
+		if(length(wound_render))
+			to_chat(user, "<span class='alert ml-1'><b>Wound treatment advisory:</b></span>")
+			to_chat(user, jointext(wound_render, "\n"))
+
 
 	//Organ damages report
 	var/heart_ded = FALSE
