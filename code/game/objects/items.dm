@@ -72,6 +72,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	var/current_equipped_slot
+	/// If TRUE and worn in the glove slot, this item throws the punch itself (full attack()/melee_attack_chain, not just a flat damage bonus) when its wearer fights unarmed - see /mob/living/carbon/human/UnarmedAttack(). Holding it loose in a hand instead still works too, as an ordinary held weapon.
+	var/glove_weapon = FALSE
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
 	var/obj/item/master = null

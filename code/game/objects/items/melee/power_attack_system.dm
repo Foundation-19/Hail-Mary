@@ -258,6 +258,20 @@
 	data["power_attacks"] = entries
 	return data
 
+/// A transient stand-in weapon for bare-handed Power Attacks - see /datum/component/unarmed_power_attack.
+/// HAND_ITEM/ABSTRACT/DROPDEL like code/game/objects/hand_items.dm's /obj/item/hand_item, but parented to
+/// /obj/item/melee instead so it gets the mouse-hold charge/release wiring and PowerAttackSelect UI for free.
+/obj/item/melee/fists
+	name = "your fists"
+	desc = "Your bare hands, raised to fight."
+	icon = null
+	icon_state = null
+	force = 3
+	w_class = WEIGHT_CLASS_SMALL
+	attack_verb = list("punched")
+	item_flags = ITEM_CAN_POWER_ATTACK | ABSTRACT | DROPDEL | HAND_ITEM
+	block_parry_data = null
+
 /obj/item/proc/power_attack_ui_act(action, list/params, mob/user)
 	switch(action)
 		if("select")

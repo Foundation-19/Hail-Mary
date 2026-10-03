@@ -1,6 +1,6 @@
 /////////////////
 // POWER FISTS //
-/////////////////		-Uses power (gas currently) for knockback. Heavy AP, specialized for attacking heavy armor
+/////////////////		-Draws from a microfusion cell for knockback. Heavy AP, specialized for attacking heavy armor
 
 // Power Fist			Throws targets. Max damage 52. Full AP.
 /obj/item/melee/powerfist/f13
@@ -21,30 +21,75 @@
 	var/transfer_prints = TRUE //prevents runtimes with forensics when held in glove slot
 	var/throw_distance = 1
 	attack_speed = CLICK_CD_MELEE
+	/// Microfusion cell feeding the piston - replaces the old SS13 plasma tank, F13 doesn't use plasma.
+	var/obj/item/stock_parts/cell/ammo/mfc/cell
+	/// Charge drained from the cell per punch at fisto_setting 1 - scales up with the setting.
+	var/charge_cost = 100
+	/// Strength needed to safely run the overdrive setting - below this, the kickback staggers you instead.
+	var/required_str_to_overdrive = 7
+
+/obj/item/melee/powerfist/f13/examine(mob/user)
+	. = ..()
+	if(!in_range(user, src))
+		. += span_notice("You'll need to get closer to see any more.")
+		return
+	if(cell)
+		. += span_notice("It has \a [cell] slotted in, reading [round(cell.percent())]% charge.")
+	else
+		. += span_warning("It has no cell slotted in - the piston won't budge without one.")
 
 /obj/item/melee/powerfist/f13/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/stock_parts/cell/ammo/mfc))
+		if(cell)
+			to_chat(user, span_warning("\The [src] already has a cell slotted in."))
+			return
+		if(!user.transferItemToLoc(W, src))
+			return
+		cell = W
+		to_chat(user, span_notice("You slot \the [W] into \the [src]."))
+		return
+	if(istype(W, /obj/item/screwdriver))
+		if(!cell)
+			to_chat(user, span_notice("\The [src] has no cell to remove."))
+			return
+		to_chat(user, span_notice("You pop \the [cell] out of \the [src]."))
+		cell.forceMove(drop_location())
+		user.put_in_hands(cell)
+		cell = null
+		return
 	if(istype(W, /obj/item/wrench))
 		switch(fisto_setting)
 			if(1)
 				fisto_setting = 1.5
+			if(1.5)
+				fisto_setting = 2
 			if(2)
 				fisto_setting = 1
 		W.play_tool_sound(src)
-		to_chat(user, span_notice("You tweak \the [src]'s piston valve to [fisto_setting]."))
+		to_chat(user, span_notice("You tweak \the [src]'s piston valve to [fisto_setting][fisto_setting == 2 ? " (overdrive)" : ""]."))
 		attack_speed = CLICK_CD_MELEE * fisto_setting
-
-/obj/item/melee/powerfist/f13/updateTank(obj/item/tank/internals/thetank, removing = 0, mob/living/carbon/human/user)
-	return
 
 /obj/item/melee/powerfist/f13/attack(mob/living/target, mob/living/user, attackchain_flags = NONE)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return FALSE
+	if(!cell)
+		to_chat(user, span_warning("\The [src] can't operate without a cell!"))
+		return FALSE
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
 	var/totalitemdamage = target.pre_attacked_by(src, user)
-	// Still routes through armor so "Full AP" means ignoring most armor via armour_penetration, not bypassing the damage pipeline outright.
+	var/charge_needed = charge_cost * fisto_setting
+	if(!cell.check_charge(charge_needed))
+		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, the cell's nearly dry!"))
+		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
+		target.attacked_by(src, user, attackchain_flags, fisto_setting*1.5)
+		target.visible_message(span_danger("[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
+			span_userdanger("[user]'s punch strikes with force!"))
+		return
+	cell.use(charge_needed)
+	// Full AP routes through armor so "Full AP" means ignoring most armor via armour_penetration, not bypassing the damage pipeline outright.
 	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
 	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
 	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
@@ -55,6 +100,12 @@
 	var/atom/throw_target = get_edge_target_turf(target, get_dir(src, get_step_away(target, src)))
 	target.throw_at(throw_target, 2 * throw_distance, 0.5 + (throw_distance / 2))
 	log_combat(user, target, "power fisted", src)
+	// Overdrive's kickback needs the frame to brace it - too weak, and the piston staggers you instead.
+	if(fisto_setting >= 2 && user.special_s < required_str_to_overdrive)
+		var/str_deficit = required_str_to_overdrive - user.special_s
+		to_chat(user, span_warning("\The [src]'s recoil nearly takes your arm off - you're not strong enough to brace it!"))
+		user.Stagger(str_deficit SECONDS)
+		user.adjustStaminaLossBuffered(5 * str_deficit)
 
 
 // Dual Powerfist			Powerfist with lowered attack delay and increased throw distance

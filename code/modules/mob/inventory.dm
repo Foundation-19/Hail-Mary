@@ -166,7 +166,10 @@
 		return FALSE
 	if(!has_hand_for_held_index(hand_index))
 		return FALSE
-	return !held_items[hand_index]
+	var/obj/item/existing = held_items[hand_index]
+	if(existing && (existing.item_flags & HAND_ITEM)) // a pseudo "empty hand" placeholder (see /obj/item/melee/fists) - let real items displace it
+		return TRUE
+	return !existing
 
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
 	if(forced || can_put_in_hand(I, hand_index))

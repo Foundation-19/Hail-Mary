@@ -65,6 +65,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(!CONFIG_GET(flag/disable_human_mood))
 		AddComponent(/datum/component/mood)
 	AddComponent(/datum/component/combat_mode)
+	AddComponent(/datum/component/unarmed_power_attack)
 	AddElement(/datum/element/flavor_text/carbon, _name = "Flavor Text", _save_key = "flavor_text")
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
