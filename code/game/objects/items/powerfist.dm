@@ -17,7 +17,13 @@
 	attack_speed = CLICK_CD_MELEE * 1.5
 	glove_weapon = TRUE
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES // was missing entirely - couldn't be equipped to any slot at all
-	power_attacks = list(/datum/power_attack/lunge/piston_punch)
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge/piston_punch,
+	)
 	var/fisto_setting = 1
 	var/gasperfist = 3
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.

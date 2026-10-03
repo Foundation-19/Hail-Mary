@@ -406,6 +406,11 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP)) //See if we're supposed to auto pickup.
 		return
 
+	var/obj/item/worn_gloves = user.get_item_by_slot(SLOT_GLOVES)
+	if(istype(worn_gloves) && worn_gloves.glove_weapon && loc != user)
+		to_chat(user, span_warning("You can't pick anything up with both hands tied up wearing [worn_gloves]!"))
+		return
+
 	//Heavy gravity makes picking up things very slow.
 	var/grav = user.has_gravity()
 	if(grav > STANDARD_GRAVITY)

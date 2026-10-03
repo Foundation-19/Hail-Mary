@@ -185,13 +185,37 @@
 	// Only a genuine mob/object under the cursor (not bare ground, and within reach - the attack's dash range plus the final adjacent tile) earns the full payoff below.
 	var/lunge_reach = power_attack.get_lunge_range(src) + 1
 	var/atom/real_target = (istype(target) && !isturf(target)) ? target : null
+	// A click near (but not pixel-exactly on) a mob at range resolves through the click_catcher overlay to a bare turf instead of the mob itself
+	// (see power_attack_resolve_target()) - a living mob is still genuinely standing right there, so promote it instead of conceding a guaranteed whiff.
+	if(!real_target && isturf(target))
+		for(var/mob/living/potential in target)
+			if(potential == user)
+				continue
+			real_target = potential
+			break
 	var/has_real_target = real_target && get_dist(user, real_target) <= lunge_reach
 
 	// No (or an out-of-range) target under the cursor - still let the charge release as a swing/lunge at whatever's ahead of/under you, instead of wasting it.
 	// Pick a fallback tile at this attack's full reach (not just the adjacent tile) so Lunge still actually dashes you forward on a whiff.
 	// Aim at the real target's tile (not just our current facing) when it exists, so an out-of-reach dash still closes the gap in the right direction.
 	if(!has_real_target)
-		target = (real_target && get_turf(real_target)) || get_ranged_target_turf(user, user.dir, lunge_reach) || get_turf(user)
+		var/turf/fallback_turf = (real_target && get_turf(real_target)) || get_ranged_target_turf(user, user.dir, lunge_reach) || get_turf(user)
+		// Cursor/click resolution can still lose track of a real target genuinely standing along the path we're about to swing/lunge through
+		// (e.g. a near-miss click, or an out-of-range hover) - scan for one before conceding a guaranteed whiff, same as the fallback_turf itself.
+		var/turf/scan_turf = get_turf(user)
+		for(var/i in 1 to lunge_reach)
+			scan_turf = get_step(scan_turf, get_dir(user, fallback_turf))
+			if(!scan_turf)
+				break
+			for(var/mob/living/potential in scan_turf)
+				if(potential == user)
+					continue
+				real_target = potential
+				has_real_target = TRUE
+				break
+			if(has_real_target)
+				break
+		target = has_real_target ? real_target : fallback_turf
 
 	if(!user.Adjacent(target))
 		var/approach_handled = power_attack.on_approach(user, src, target)
@@ -269,46 +293,6 @@
 		))
 	data["power_attacks"] = entries
 	return data
-
-/// Finds the item (if any) worn in this mob's glove slot that's set up to arm Power Attacks - what the glove_power_attack keybinding operates on.
-/mob/living/proc/get_worn_power_attack_glove()
-	if(!ishuman(src))
-		return null
-	var/mob/living/carbon/human/H = src
-	if(H.gloves?.glove_weapon && (H.gloves.item_flags & ITEM_CAN_POWER_ATTACK) && LAZYLEN(H.gloves.power_attacks))
-		return H.gloves
-	return null
-
-/// Keybind-driven charge start for a worn glove_weapon - mirrors right-click-hold on a held weapon.
-/mob/living/proc/keybind_start_glove_power_attack()
-	var/obj/item/I = get_worn_power_attack_glove()
-	if(!I)
-		to_chat(src, span_warning("You're not wearing anything that can Power Attack."))
-		return
-	I.power_attack_begin(src)
-
-/// Keybind-driven charge release for a worn glove_weapon - releases facing whatever direction you're looking, since there's no mouse cursor target to aim with.
-/mob/living/proc/keybind_stop_glove_power_attack()
-	var/obj/item/I = get_worn_power_attack_glove()
-	if(!I || !I.charging_power_attack)
-		return
-	var/datum/power_attack/power_attack = I.get_active_power_attack()
-	var/lunge_reach = (power_attack ? power_attack.get_lunge_range(I) : 0) + 1
-	// No mouse cursor to read a hovered target from - scan the tiles ahead of us for an actual mob instead,
-	// otherwise a real target standing exactly where the dash lands reads as a bare-turf whiff (see on_approach()'s
-	// blocker check, which only catches someone mid-step, not someone already on the final landing tile).
-	var/atom/target = get_ranged_target_turf(src, dir, lunge_reach)
-	var/turf/check_turf = get_turf(src)
-	for(var/i in 1 to lunge_reach)
-		check_turf = get_step(check_turf, dir)
-		if(!check_turf)
-			break
-		for(var/mob/living/potential in check_turf)
-			if(potential == src)
-				continue
-			target = potential
-			break
-	I.power_attack_release(src, target, "")
 
 /// A transient stand-in weapon for bare-handed Power Attacks - see /datum/component/unarmed_power_attack.
 /// HAND_ITEM/ABSTRACT/DROPDEL like code/game/objects/hand_items.dm's /obj/item/hand_item, but parented to

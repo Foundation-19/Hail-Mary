@@ -9,22 +9,6 @@
 	SEND_SIGNAL(user.mob, COMSIG_TOGGLE_COMBAT_MODE)
 	return TRUE
 
-/datum/keybinding/living/glove_power_attack
-	hotkey_keys = list("Unbound")
-	name = "glove_power_attack"
-	full_name = "Power Attack (Worn Glove Weapon)"
-	category = CATEGORY_COMBAT
-	description = "Hold to charge a Power Attack with a weapon worn in your glove slot (e.g. a power fist) - unlike a held weapon, there's no hand item to right-click, so this releases facing whatever direction you're looking instead of at your cursor."
-
-/datum/keybinding/living/glove_power_attack/down(client/user)
-	var/mob/living/L = user.mob
-	L.keybind_start_glove_power_attack()
-	return TRUE
-
-/datum/keybinding/living/glove_power_attack/up(client/user)
-	var/mob/living/L = user.mob
-	L.keybind_stop_glove_power_attack()
-
 /datum/keybinding/living/active_block
 	hotkey_keys = list("Northwest", "F") // HOME
 	name = "active_block"

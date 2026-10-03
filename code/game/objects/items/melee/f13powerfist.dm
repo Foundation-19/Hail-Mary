@@ -28,6 +28,10 @@
 	/// Strength needed to safely run the overdrive setting - below this, the kickback staggers you instead.
 	var/required_str_to_overdrive = 7
 
+/obj/item/melee/powerfist/f13/Initialize(mapload)
+	. = ..()
+	cell = new /obj/item/stock_parts/cell/ammo/mfc(src)
+
 /obj/item/melee/powerfist/f13/examine(mob/user)
 	. = ..()
 	if(!in_range(user, src))
