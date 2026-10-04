@@ -276,7 +276,7 @@
 	icon_state = "holster_leg"
 	item_state = "holster_leg"
 	component_type = /datum/component/storage/concrete/belt/specialized/gun
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK | ITEM_SLOT_POCKET // some jobs spawn this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del
 
 /obj/item/storage/belt/legholster/police/PopulateContents()
 	new /obj/item/gun/ballistic/revolver/police(src)
@@ -529,7 +529,7 @@
 	icon_state = "holster_shoulder"
 	item_state = "holster_shoulder"
 	alternate_worn_layer = UNDER_SUIT_LAYER
-	slot_flags = ITEM_SLOT_NECK
+	slot_flags = ITEM_SLOT_NECK | ITEM_SLOT_POCKET // some jobs spawn this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del
 	component_type = /datum/component/storage/concrete/neckpron/specialized/gun
 
 /obj/item/storage/belt/shoulderholster/full/PopulateContents()
@@ -776,7 +776,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	content_overlays = TRUE
 	onmob_overlays = TRUE
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_NECK | ITEM_SLOT_POCKET // BoS outfits spawn this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del
 	fitting_swords = list(
 	/obj/item/melee/smith/wakizashi,
 	/obj/item/twohanded/smithed/katana,

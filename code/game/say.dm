@@ -47,11 +47,18 @@ And the base of the send_speech() proc, which is the core of saycode.
 		var/mob/living/real_speaker = identity_obj
 		var/natural_voice = ishuman(real_speaker) ? real_speaker.get_visible_name() : null
 		if(raw_voice == natural_voice)
-			var/remembered = listener.knows_voice(real_speaker)
-			if(remembered)
-				namepart = "[remembered][speaker.get_alt_name()]"
-			else if(!real_speaker.auto_identifies_on_radio(radio_freq))
+			//Radio anonymity always wins: if the speaker hasn't chosen to auto-identify on this
+			//radio channel, they stay anonymous here even if the listener has remembered their voice
+			//from some other context (in person, a different channel, etc).
+			var/radio_anonymous = radio_freq && !real_speaker.auto_identifies_on_radio(radio_freq)
+			if(radio_anonymous)
 				namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[real_speaker.get_voice_tag()]</a>"
+			else
+				var/remembered = listener.knows_voice(real_speaker)
+				if(remembered)
+					namepart = "[remembered][speaker.get_alt_name()]"
+				else
+					namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[real_speaker.get_voice_tag()]</a>"
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
@@ -243,7 +250,11 @@ And the base of the send_speech() proc, which is the core of saycode.
 	if(href_list["remember_voice"])
 		var/atom/movable/speaker = locate(href_list["remember_voice"]) in GLOB.mob_list
 		if(speaker)
-			remember_voice(speaker, speaker.GetVoice())
+			var/existing = knows_voice(speaker)
+			var/display_name = stripped_input(src, "What do you call this voice?", "Remember Voice", existing, MAX_NAME_LEN)
+			if(!display_name)
+				return
+			remember_voice(speaker, display_name)
 		return
 	return ..()
 

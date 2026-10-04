@@ -233,6 +233,7 @@
 	throwforce = 25
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	toolspeed = 0.7
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKET // Wasteland outfits spawn this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del (inherited NORMAL w_class is too big for a plain pocket)
 
 /obj/item/melee/onehanded/knife/survival
 	name = "survival knife"
@@ -299,6 +300,7 @@
 	throwforce = 5
 	hitsound = 'sound/weapons/genhit.ogg'
 	attack_verb = list("stubbed", "poked")
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKET // Wasteland outfits spawn this directly into a pocket slot, and it's meant to be concealable anyway; without the flag it's silently deleted by equip_to_slot_or_del
 	var/extended = 0
 	var/extended_force = 21
 	var/extended_throwforce = 23

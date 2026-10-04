@@ -645,6 +645,7 @@ RLD
 	desc = "Highly compressed matter for the RCD. Has four times the matter packed into the same space as a normal cartridge."
 	custom_materials = list(/datum/material/iron=48000, /datum/material/glass=32000)
 	ammoamt = 160
+	slot_flags = ITEM_SLOT_POCKET // ERT outfit spawns this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del (default NORMAL w_class is too big for a plain pocket)
 
 
 /obj/item/construction/rcd/combat/admin

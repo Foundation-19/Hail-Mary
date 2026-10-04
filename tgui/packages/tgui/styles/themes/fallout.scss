@@ -33,6 +33,16 @@ $phosphor-text: #a8d8a8;
     'color-selected': color.scale($phosphor, $lightness: -40%),
     'color-caution': #6b8f00,
     'color-danger': #7a1a1a,
+    // Without this, colors outside default/caution/danger/selected/disabled (e.g. "good"/"bad"/
+    // "label"/"average", used all over tgui interfaces) have no generated .Button--color--X
+    // class under this theme at all - they fall back to the plain flat .theme-fallout .Button
+    // rule with no :hover state, making those buttons look and feel inert.
+    'bg-map': (
+      'good': color.scale($phosphor, $lightness: -30%),
+      'bad': #7a1a1a,
+      'average': #6b8f00,
+      'label': color.scale($phosphor, $lightness: -60%),
+    ),
   ));
   @include meta.load-css('../components/Dropdown.scss');
   @include meta.load-css('../components/Input.scss', $with: (

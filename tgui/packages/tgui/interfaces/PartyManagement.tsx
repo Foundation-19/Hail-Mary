@@ -101,7 +101,7 @@ export const PartyManagement = (props, context) => {
                           <Stack.Item grow>
                             <Box bold={member.is_leader}>
                               {member.name}
-                              {member.is_self && ' (You)'}
+                              {member.is_self ? ' (You)' : null}
                             </Box>
                           </Stack.Item>
                           {is_leader && !member.is_self && (
@@ -135,8 +135,9 @@ export const PartyManagement = (props, context) => {
                   <Button
                     fluid
                     icon="bullhorn"
-                    color={rally_ready ? 'good' : 'disabled'}
+                    color="good"
                     disabled={!rally_ready || rally_tier <= 0}
+                    tooltip="Temporarily boosts your party's aura for everyone nearby."
                     content={
                       rally_ready
                         ? 'Rally Cry'
