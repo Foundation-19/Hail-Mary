@@ -43,11 +43,11 @@
 
 /datum/quirk/snob
 	name = "Snob"
-	desc = "You care about the finer things, if a room doesn't look nice it's just not really worth it, is it?"
+	desc = "Even out here, you care about the finer things - if a room doesn't look nice, it's just not really worth it, is it? A rare taste for pre-war luxury in a world that's mostly rubble."
 	value = 0
 	gain_text = span_notice("You feel like you understand what things should look like.")
 	lose_text = span_notice("Well who cares about deco anyways?")
-	medical_record_text = "Patient seems to be rather stuck-up."
+	medical_record_text = "Patient seems to be rather stuck-up, with an inexplicable fondness for pre-war aesthetics."
 	mob_trait = TRAIT_SNOB
 
 /* Temporarily removed for reworking, god this thing is WAY too busy. ~TK
@@ -331,7 +331,7 @@
 
 /datum/quirk/photographer
 	name = "Photographer"
-	desc = "You carry your camera and personal photo album everywhere you go, and your scrapbooks are legendary among your coworkers."
+	desc = "You carry a salvaged pre-war camera and a personal photo album everywhere you go, and your scrapbooks are legendary among your fellow wastelanders."
 	value = 0
 	mob_trait = TRAIT_PHOTOGRAPHER
 	gain_text = span_notice("You know everything about photography.")
@@ -355,12 +355,12 @@
 			cam.forceMove(get_turf(cam))
 /datum/quirk/journalist
 	name = "Journalist"
-	desc = "You carry a pen and a personal folder around, you are known to be the one who records everything."
+	desc = "You carry a pen and a personal folder around, documenting the wasteland as you see it - some might call you the last real reporter left alive."
 	value = 0
 	mob_trait = TRAIT_JOURNALIST
-	gain_text = span_notice("You feel like you need to harrass politicians.")
+	gain_text = span_notice("You feel like you need to harass every merchant and faction leader for a quote.")
 	lose_text = span_danger("You forget how to be a journalist. :(")
-	medical_record_text = ""
+	medical_record_text = "Patient demonstrates an unusual compulsion toward documentation and record-keeping."
 
 /datum/quirk/journalist/on_spawn()
 	var/mob/living/carbon/human/human_holder = quirk_holder

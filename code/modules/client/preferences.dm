@@ -131,6 +131,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	//Quirk list
 	var/list/all_quirks = list()
 
+	//Chosen Family Heirloom item, stored as a 1-based index into GLOB.family_heirloom_choices; null/0 = random per job, legacy behavior
+	var/heirloom_choice = null
+
 	//Quirk category currently selected
 	var/quirk_category = QUIRK_POSITIVE
 
@@ -1195,9 +1198,29 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	if(quirk_conflict)
 		. += "<span class='perk-name' style='color:[font_color]'>[quirk_name]</span> <font color='red'><b>LOCKED: [lock_reason]</b></font><br>"
 	else
-		. += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>\[[has_quirk ? "DROP" : "ADOPT"] [action_label]\][cost_text]</a> <span class='perk-name' style='color:[font_color]'>[quirk_name]</span><br>"
+		. += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>\[[has_quirk ? "DROP" : "ADOPT"] [action_label]\][cost_text]</a> <span class='perk-name' style='color:[font_color]'>[quirk_name]</span>"
+		if(has_quirk && quirk_name == "Family Heirloom")
+			var/chosen_name = "random, based on your job"
+			if(heirloom_choice >= 1 && heirloom_choice <= length(GLOB.family_heirloom_choices))
+				chosen_name = initial(GLOB.family_heirloom_choices[heirloom_choice]:name)
+			. += " &nbsp; <a href='?_src_=prefs;preference=trait;task=choose_heirloom'>\[CHOOSE HEIRLOOM\]</a> (currently: [chosen_name])"
+		. += "<br>"
 	. += "<span class='perk-desc'>[initial(T.desc)]</span>"
 	. += "</div>"
+
+/datum/preferences/proc/ChooseHeirloom(mob/user)
+	var/list/dat = list()
+	dat += "<div class='crt-title'>CHOOSE YOUR FAMILY HEIRLOOM</div>"
+	dat += "<center><a href='?_src_=prefs;preference=trait;task=set_heirloom;heirloom_idx=0'>\[Leave unset - random, based on your job\]</a></center><br>"
+	for(var/i in 1 to length(GLOB.family_heirloom_choices))
+		var/obj/item/option = GLOB.family_heirloom_choices[i]
+		var/is_current = (heirloom_choice == i)
+		dat += "<a href='?_src_=prefs;preference=trait;task=set_heirloom;heirloom_idx=[i]'>\[[is_current ? "SELECTED" : "CHOOSE"]\]</a> [initial(option:name)]<br>"
+	dat += "<br><center><a href='?_src_=prefs;preference=trait;task=menu'>\[BACK\]</a></center>"
+
+	user << browse(null, "window=preferences")
+	user << browse(get_terminal_page(dat.Join(), "&#9654; FAMILY HEIRLOOM &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
+	return
 
 /datum/preferences/proc/SetQuirks(mob/user)
 	if(!SSquirks)
@@ -1435,6 +1458,21 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 				SetQuirks(user)
 			if("reset")
 				all_quirks = list()
+				SetQuirks(user)
+			if("choose_heirloom")
+				if(!("Family Heirloom" in all_quirks))
+					SetQuirks(user)
+					return
+				ChooseHeirloom(user)
+			if("set_heirloom")
+				if(!("Family Heirloom" in all_quirks))
+					SetQuirks(user)
+					return
+				var/idx = text2num(href_list["heirloom_idx"])
+				if(!idx || idx < 1 || idx > length(GLOB.family_heirloom_choices)) //0/invalid input clears it back to "random, based on your job"
+					heirloom_choice = null
+				else
+					heirloom_choice = idx
 				SetQuirks(user)
 			else
 				SetQuirks(user)

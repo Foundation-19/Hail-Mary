@@ -202,10 +202,10 @@ Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_
 
 /datum/quirk/apathetic
 	name = "Apathetic"
-	desc = "You just don't care as much as other people. That's nice to have in a place like this, I guess."
+	desc = "Between the bombs, the raiders, and the rads, you stopped letting things get to you a long time ago."
 	value = 1
 	mood_quirk = TRUE
-	medical_record_text = "Patient was administered the Apathy Evaluation Scale but did not bother to complete it."
+	medical_record_text = "Patient was administered a standard mental health evaluation but couldn't be bothered to finish it."
 
 /datum/quirk/apathetic/add()
 	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
@@ -264,13 +264,13 @@ Merged into the paired Wasteland Trait "Small Frame" (code/datums/traits/fallout
 
 /datum/quirk/friendly
 	name = "Friendly"
-	desc = "You give the best hugs. When you're in the right mood your squeezes can cheer up those around you. Unless they don't, but that's okay. :)"
+	desc = "Out here, a genuine hug is rarer than a stash of caps - and you give the best ones. When you're in the right mood your squeezes can cheer up those around you. Unless they don't, but that's okay. :)"
 	value = 1
 	mob_trait = TRAIT_FRIENDLY
 	gain_text = span_notice("You want to hug someone.")
 	lose_text = span_danger("You no longer feel compelled to hug others.")
 	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates low inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
+	medical_record_text = "Patient demonstrates low inhibitions for physical contact - a rare comfort to offer, out here."
 
 /*
 Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallout_traits.dm)
@@ -289,14 +289,19 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 
 /datum/quirk/optimist
 	name = "Mood - Optimist"
-	desc = "You sometimes just feel kind of happy, for no reason at all. Gives small mood buffs, occasionally."
+	desc = "No matter how bad the wasteland gets, you find a reason to keep smiling. Small mood buffs, occasionally - more often the worse off you are."
 	value = 1
 	mob_trait = TRAIT_OPTIMIST
 	mood_quirk = TRUE
-	medical_record_text = "Patient demonstrates occasional euthymia irregular for environment. Lucky them."
+	medical_record_text = "Patient demonstrates unusual resilience of spirit for someone living in the wasteland."
 
 /datum/quirk/optimist/on_process()
-	if(prob(0.05))
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	if(mood?.mood_events["optimist"])
+		return //already mid-episode, let it run its course instead of refreshing forever
+	//you find your silver linings most easily when things are at their worst
+	var/hurt_bonus = quirk_holder.maxHealth > 0 ? max(0, 1 - (quirk_holder.health / quirk_holder.maxHealth)) * 0.3 : 0
+	if(prob(0.05 + hurt_bonus))
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "optimist", /datum/mood_event/optimism)
 
 /*
@@ -312,7 +317,7 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 
 /datum/quirk/musician
 	name = "Musician"
-	desc = "You can tune instruments to play melodies that clear certain negative effects and soothe the soul - and even get one of your choice for free!"
+	desc = "You've kept old pre-war instruments alive, and can tune them to play melodies that clear certain negative effects and soothe the soul - and even get one of your choice for free!"
 	value = 1
 	mob_trait = TRAIT_MUSICIAN
 	gain_text = span_notice("You know everything about musical instruments.")
@@ -331,26 +336,26 @@ Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallo
 
 /datum/quirk/selfaware
 	name = "Self-Aware"
-	desc = "You know your body well, and can accurately assess the extent of your wounds. Sort of like being a medical scanner for yourself."
+	desc = "Years of patching yourself up in the field taught you your own body inside and out - you can accurately assess the extent of your wounds, sort of like being a medical scanner for yourself."
 	value = 1
 	mob_trait = TRAIT_SELF_AWARE
 	medical_record_text = "Patient demonstrates an uncanny knack for self-diagnosis."
 
 /datum/quirk/skittish
 	name = "Skittish"
-	desc = "You can conceal yourself in danger. Ctrl-shift-click a closed locker to jump into it, as long as you have access."
+	desc = "A lifetime in the wasteland taught you how to disappear when danger's close. Ctrl-shift-click a closed locker to jump into it, as long as you have access."
 	value = 1
 	mob_trait = TRAIT_SKITTISH
 	medical_record_text = "Patient demonstrates a high aversion to danger and has described hiding in containers out of fear."
 
 /datum/quirk/spiritual
 	name = "Spiritual"
-	desc = "You're in tune with the gods, and your prayers may be more likely to be heard. Or not."
+	desc = "You're in tune with whatever's left watching over this wasteland, and your prayers may be more likely to be heard. Or not."
 	value = 0
 	mob_trait = TRAIT_SPIRITUAL
-	gain_text = span_notice("You feel a little more faithful to the gods today.")
-	lose_text = span_danger("You feel less faithful in the gods.")
-	medical_record_text = "Patient reports a belief in a higher power."
+	gain_text = span_notice("You feel a little more faithful, even out here.")
+	lose_text = span_danger("Your faith wavers.")
+	medical_record_text = "Patient reports a belief in a higher power, undeterred by the state of the world."
 
 /datum/quirk/tagger
 	name = "Tagger"
