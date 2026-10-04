@@ -147,12 +147,12 @@
 	UnregisterSignal(quirk_holder, COMSIG_MOB_EYECONTACT)
 
 /datum/quirk/trait_overwhelmed_empath/on_process()
-	var/nearby_people = 3
+	var/nearby_people = 0
 	for(var/mob/living/carbon/human/H in oview(4, quirk_holder))
 		if(H.client)
 			nearby_people++
 	var/mob/living/carbon/human/H = quirk_holder
-	if(prob(3 + nearby_people))
+	if(!H.stuttering && prob(min(1 + nearby_people, 8)))
 		H.stuttering = max(3, H.stuttering)
 	else if(prob(0.5) && dumb_thing)
 		to_chat(H, span_userdanger("You think of a dumb thing you said a long time ago and scream internally."))

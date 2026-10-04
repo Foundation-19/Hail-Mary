@@ -333,7 +333,7 @@
 		message = derpspeech(message, stuttering)
 
 	if(stuttering || HAS_TRAIT(src, TRAIT_SAY_STUTTERING))
-		message = stutter(message)
+		message = stutter(message, max(stuttering, 12))
 
 	if(slurring)
 		message = slur(message,slurring)

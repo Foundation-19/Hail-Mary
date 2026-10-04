@@ -155,8 +155,9 @@
 
 #define CLOCK_CULT_SLUR(phrase) sanitize(text2ratvar(phrase))
 
-///Adds stuttering to the message passed in
-/proc/stutter(phrase)
+///Adds stuttering to the message passed in, scaling in intensity with strength (usually the mob's `stuttering` value) same as slur() does with slurring
+/proc/stutter(phrase, strength = 25)
+	strength = clamp(strength, 0, 30)
 	phrase = html_decode(phrase)
 	var/leng = length(phrase)
 	. = ""
@@ -164,13 +165,9 @@
 	var/rawchar
 	for(var/i = 1, i <= leng, i += length(rawchar))
 		rawchar = newletter = phrase[i]
-		if(prob(80) && !(lowertext(newletter) in list("a", "e", "i", "o", "u", " ")))
-			if(prob(10))
-				newletter = "[newletter]-[newletter]-[newletter]-[newletter]"
-			else if(prob(20))
+		if(prob(strength * 2) && !(lowertext(newletter) in list("a", "e", "i", "o", "u", " ")))
+			if(prob(strength))
 				newletter = "[newletter]-[newletter]-[newletter]"
-			else if (prob(5))
-				newletter = ""
 			else
 				newletter = "[newletter]-[newletter]"
 		. += newletter
