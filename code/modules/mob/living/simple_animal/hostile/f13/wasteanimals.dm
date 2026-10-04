@@ -12,9 +12,10 @@
 	icon_dead = "gekko_dead"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE // was unarmored - fix
 	
-	maxHealth = 35
-	health = 35
+	maxHealth = 46 // bumped - TTK vs melee was too short
+	health = 46
 	speed = 0
 	move_to_delay = 2.5
 	turns_per_move = 5
@@ -87,7 +88,7 @@
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
 		MOB_SPEED_LIST(1.5, 1.8, 2.0, 2.2, 2.6, 3.0, 3.3, 3.7),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
-		MOB_HEALTH_LIST(30, 35, 40, 45),
+		MOB_HEALTH_LIST(40, 46, 52, 58),
 	)
 
 /mob/living/simple_animal/hostile/gecko/Aggro()
@@ -114,8 +115,8 @@
 	name = "fire gecko"
 	desc = "A large mutated reptile with sharp teeth and a warm disposition. Sorta smells like sulphur."
 	
-	maxHealth = 30
-	health = 30
+	maxHealth = 40 // bumped - TTK vs melee was too short
+	health = 40
 	
 	// Mixed combat - fire spit + melee
 	combat_mode = COMBAT_MODE_MIXED
@@ -133,7 +134,7 @@
 		MOB_COLOR_VARIATION(200, 40, 40, 255, 45, 45),
 		MOB_SPEED_LIST(2.6, 3.0, 3.3, 3.7),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
-		MOB_HEALTH_LIST(28, 30, 32),
+		MOB_HEALTH_LIST(36, 40, 42),
 	)
 
 /mob/living/simple_animal/hostile/gecko/fire/Initialize()
@@ -179,7 +180,7 @@
 		MOB_COLOR_VARIATION(180, 255, 255, 255, 255, 255),
 		MOB_SPEED_LIST(1.8, 2.0, 2.2),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(80),
-		MOB_HEALTH_LIST(30, 35, 40),
+		MOB_HEALTH_LIST(40, 46, 52), // bumped - TTK vs melee was too short
 	)
 
 /mob/living/simple_animal/hostile/gecko/legacy/alpha/AttackingTarget()
@@ -193,8 +194,8 @@
 	name = "big gecko"
 	desc = "A large mutated reptile with sharp teeth. This one's pretty big, but its eyes seem clouded and it moves a bit clumsily."
 	
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	
 	melee_damage_lower = 12
 	melee_damage_upper = 24
@@ -216,7 +217,7 @@
 		MOB_COLOR_VARIATION(120, 80, 80, 250, 100, 100),
 		MOB_SPEED_LIST(2.5, 2.8, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(80),
-		MOB_HEALTH_LIST(100, 110, 120),
+		MOB_HEALTH_LIST(130, 145, 160),
 	)
 
 /mob/living/simple_animal/hostile/gecko/big/Initialize()
@@ -310,9 +311,10 @@
 	icon_gib = null
 	
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE // was unarmored - fix
 	
-	maxHealth = 80
-	health = 80
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	speed = 1
 	move_to_delay = 2.5
 	turns_per_move = 5
@@ -405,8 +407,8 @@
 
 // PLAYABLE NIGHTSTALKER
 /mob/living/simple_animal/hostile/stalker/playable
-	maxHealth = 80
-	health = 80
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	melee_damage_lower = 10
 	melee_damage_upper = 15
 	
@@ -434,9 +436,10 @@
 	icon_dead = "nightstalker_cub_dead"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE // was unarmored - fix
 	
-	maxHealth = 50
-	health = 50
+	maxHealth = 65 // bumped - TTK vs melee was too short
+	health = 65
 	speed = 1
 	turns_per_move = 5
 	
@@ -500,8 +503,8 @@
 		H.reagents.add_reagent(/datum/reagent/toxin/cazador_venom, 2)
 
 /mob/living/simple_animal/hostile/stalkeryoung/playable
-	maxHealth = 80
-	health = 80
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	melee_damage_lower = 5
 	melee_damage_upper = 10
 	
@@ -554,9 +557,10 @@
 	icon_dead = "molerat_dead"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE // was unarmored - fix
 	
-	maxHealth = 25
-	health = 25
+	maxHealth = 32 // bumped - TTK vs melee was too short
+	health = 32
 	speed = 2
 	turns_per_move = 5
 	
@@ -621,7 +625,7 @@
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
 		MOB_SPEED_LIST(2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(5),
-		MOB_HEALTH_LIST(15, 20, 25, 26),
+		MOB_HEALTH_LIST(20, 27, 32, 34),
 	)
 
 /mob/living/simple_animal/hostile/molerat/Aggro()
@@ -752,9 +756,10 @@
 	icon_dead = "bloodbird_dead"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE // was unarmored - fix
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	speed = 0
 	move_to_delay = 2.5
 	turns_per_move = 5
@@ -822,7 +827,7 @@
 		MOB_COLOR_VARIATION(50, 50, 50, 255, 255, 255),
 		MOB_SPEED_LIST(1.5, 1.8, 2.0, 2.2),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
-		MOB_HEALTH_LIST(80, 90, 100, 110),
+		MOB_HEALTH_LIST(105, 120, 130, 145),
 	)
 
 /mob/living/simple_animal/hostile/bloodbird/Aggro()

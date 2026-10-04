@@ -14,9 +14,10 @@
 	icon_dead = "trog_dead"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
+	mob_armor = ARMOR_VALUE_TRIBAL // was unarmored (defaulted to ARMOR_VALUE_ZERO) - fix
 	
-	maxHealth = 40
-	health = 40
+	maxHealth = 52 // bumped - TTK vs melee was too short
+	health = 52
 	speed = 2
 	move_to_delay = 3
 	turns_per_move = 5
@@ -90,8 +91,8 @@
 	icon_living = "spore_carrier"
 	icon_dead = "spore_dead"
 	
-	maxHealth = 80
-	health = 80
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	
 	melee_damage_lower = 10
 	melee_damage_upper = 25
@@ -137,8 +138,8 @@
 	
 	mob_armor = ARMOR_VALUE_TUNNELER
 	
-	maxHealth = 144
-	health = 144
+	maxHealth = 185 // bumped - TTK vs melee was too short
+	health = 185
 	speed = 1
 	
 	melee_damage_lower = 18
@@ -187,8 +188,8 @@
 	gender = FEMALE
 	alpha = 150  // Semi-transparent
 	
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 	speed = 1
 	
 	melee_damage_lower = 18

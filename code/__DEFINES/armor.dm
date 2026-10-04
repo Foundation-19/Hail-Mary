@@ -850,6 +850,24 @@
 		"wound" = 0, \
 		"damage_threshold" = 2)
 
+/* Beast hide armor
+ * Natural toughness for mutated wasteland fauna (geckos, nightstalkers, molerats, wolves, birds)
+ * Light all-around resistance - survivability comes from their health pool, not armor
+ * No DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_BEAST_HIDE list(\
+		"melee" = 15, \
+		"bullet" = 10, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 0)
+
 /* Tunneler armor
  * Deadly swarm creature with tough hide
  * Moderate melee/bullet resistance

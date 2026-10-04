@@ -17,8 +17,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_CENTAUR
 	
-	maxHealth = 80
-	health = 80
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	speed = 2
 	move_to_delay = 4  // Slower than average
 	turns_per_move = 5
@@ -124,8 +124,8 @@
 
 // STRONG CENTAUR - for FEV mutation event
 /mob/living/simple_animal/hostile/centaur/strong
-	maxHealth = 400
-	health = 400
+	maxHealth = 500 // bumped - TTK vs melee was too short
+	health = 500
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 35
@@ -174,8 +174,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_ABOMINATION
 	
-	maxHealth = 1000
-	health = 1000
+	maxHealth = 1250 // bumped - TTK vs melee was too short
+	health = 1250
 	speed = -0.5  // Fast
 	stat_attack = UNCONSCIOUS
 	
@@ -262,8 +262,8 @@
 /mob/living/simple_animal/hostile/abomination/weak
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES  // Can't break walls
 	
-	maxHealth = 500
-	health = 500
+	maxHealth = 625 // bumped - TTK vs melee was too short
+	health = 625
 	speed = 2  // Slower
 	
 	melee_damage_lower = 20
@@ -287,8 +287,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_HORROR
 	
-	maxHealth = 700
-	health = 700
+	maxHealth = 875 // bumped - TTK vs melee was too short
+	health = 875
 	speed = -0.5  // Fast
 	stat_attack = UNCONSCIOUS
 	

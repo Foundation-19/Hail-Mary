@@ -13,8 +13,8 @@
 	icon_gib = "deathclaw_gib"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_COMMON
 	sentience_type = SENTIENCE_BOSS
-	maxHealth = 500 // Reduced from 600
-	health = 500
+	maxHealth = 650 // raised - melee weapon damage pass hits much harder now, keep TTK consistent
+	health = 650
 	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = 1
