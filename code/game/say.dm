@@ -47,12 +47,10 @@ And the base of the send_speech() proc, which is the core of saycode.
 		var/mob/living/real_speaker = identity_obj
 		var/natural_voice = ishuman(real_speaker) ? real_speaker.get_visible_name() : null
 		if(raw_voice == natural_voice)
-			//Radio anonymity always wins: if the speaker hasn't chosen to auto-identify on this
-			//radio channel, they stay anonymous here even if the listener has remembered their voice
-			//from some other context (in person, a different channel, etc).
-			var/radio_anonymous = radio_freq && !real_speaker.auto_identifies_on_radio(radio_freq)
-			if(radio_anonymous)
-				namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[real_speaker.get_voice_tag()]</a>"
+			//A voice the listener has already made a mental note of stays recognizable
+			//regardless of radio auto-identify settings - that's the whole point of remembering it.
+			if(radio_freq && real_speaker.auto_identifies_on_radio(radio_freq))
+				namepart = "[raw_voice][speaker.get_alt_name()]" //opted to reveal their real name on this channel
 			else
 				var/remembered = listener.knows_voice(real_speaker)
 				if(remembered)
