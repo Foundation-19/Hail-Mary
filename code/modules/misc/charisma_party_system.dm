@@ -6,7 +6,7 @@
 /datum/party
 	var/mob/living/leader
 	var/list/mob/living/members = list()
-	/// Currently-radiated leadership aura. Swappable by the leader via set_party_aura() once they've unlocked more than the default Vanguard.
+	/// Currently-radiated leadership aura. Swappable by the leader via the party panel's "set_aura" action once they've unlocked more than the default Vanguard.
 	var/datum/party_aura/aura = new /datum/party_aura/vanguard()
 	/// world.time deadline until which Rally Cry's temporary tier boost applies to every in-range member.
 	var/rally_cry_pulse_until = 0
@@ -19,19 +19,113 @@
 	members += starting_leader
 	starting_leader.party = src
 	starting_leader.apply_status_effect(STATUS_EFFECT_PARTY_FRICTION)
-	add_verb(starting_leader, /mob/living/proc/kick_from_party)
-	add_verb(starting_leader, /mob/living/proc/leave_party)
-	add_verb(starting_leader, /mob/living/proc/set_party_aura)
-	add_verb(starting_leader, /mob/living/proc/party_rally_cry)
+	add_verb(starting_leader, /mob/living/proc/open_party_menu)
 
 /datum/party/proc/get_cap()
 	return leader.get_special_charisma_party_cap()
+
+/datum/party/ui_state(mob/user)
+	return GLOB.party_state
+
+/datum/party/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PartyManagement")
+		ui.open()
+
+/datum/party/ui_data(mob/user)
+	var/list/data = list()
+	var/is_leader = (leader == user)
+	data["is_leader"] = is_leader
+	data["cap"] = get_cap()
+	data["aura_name"] = aura?.name
+
+	var/list/member_list = list()
+	for(var/mob/living/member in members)
+		member_list += list(list(
+			"ref" = REF(member),
+			"name" = member.name,
+			"is_leader" = (member == leader),
+			"is_self" = (member == user),
+		))
+	data["members"] = member_list
+
+	if(is_leader)
+		var/tier = leader.get_special_charisma_party_buff_tier()
+		var/list/aura_list = list()
+		for(var/datum/party_aura/aura_type as anything in subtypesof(/datum/party_aura))
+			aura_list += list(list(
+				"type" = "[aura_type]",
+				"name" = initial(aura_type.name),
+				"desc" = initial(aura_type.desc),
+				"required_tier" = initial(aura_type.required_tier),
+				"unlocked" = (initial(aura_type.required_tier) <= tier),
+				"is_current" = (aura_type == aura.type),
+			))
+		data["auras"] = aura_list
+		data["rally_ready"] = (world.time >= rally_cry_cooldown_until)
+		data["rally_cooldown_seconds"] = max(0, round((rally_cry_cooldown_until - world.time) / 10))
+		data["rally_tier"] = tier
+	return data
+
+/datum/party/ui_act(action, list/params, datum/tgui/ui)
+	. = ..()
+	if(.)
+		return
+	var/mob/living/user = ui.user
+	switch(action)
+		if("kick")
+			if(leader != user)
+				return
+			var/mob/living/target = locate(params["ref"]) in (members - leader)
+			if(!target)
+				return
+			to_chat(target, span_warning("[user] has removed you from the party."))
+			remove_member(target, TRUE)
+			. = TRUE
+		if("leave")
+			if(!(user in members))
+				return
+			remove_member(user)
+			. = TRUE
+		if("set_aura")
+			if(leader != user)
+				return
+			var/datum/party_aura/new_aura_type = text2path(params["aura_type"])
+			if(!ispath(new_aura_type, /datum/party_aura))
+				return
+			if(initial(new_aura_type.required_tier) > user.get_special_charisma_party_buff_tier())
+				return
+			if(new_aura_type == aura.type)
+				return
+			for(var/mob/living/member in members)
+				aura.remove(member)
+			aura = new new_aura_type()
+			to_chat(user, span_notice("Your party now radiates the [aura.name] aura!"))
+			. = TRUE
+		if("rally_cry")
+			if(leader != user)
+				return
+			var/tier = user.get_special_charisma_party_buff_tier()
+			if(tier <= 0)
+				to_chat(user, span_warning("You don't have the charisma to rally anyone!"))
+				return
+			if(world.time < rally_cry_cooldown_until)
+				return
+			user.visible_message(span_notice("[user] rallies the party!"), span_notice("You rally your party, boosting the [aura.name] aura for everyone nearby!"))
+			rally_cry_pulse_until = world.time + (6 SECONDS + (tier * 1 SECONDS))
+			rally_cry_cooldown_until = world.time + (60 SECONDS - (tier * 4 SECONDS))
+			for(var/mob/living/member in (members - user))
+				var/datum/status_effect/party_rally/rally = member.has_status_effect(STATUS_EFFECT_PARTY_RALLY)
+				if(rally?.buffed)
+					to_chat(member, span_notice("You feel a surge of extra strength as [user] rallies the party!"))
+			. = TRUE
 
 /datum/party/proc/add_member(mob/living/new_member)
 	members += new_member
 	new_member.party = src
 	new_member.apply_status_effect(STATUS_EFFECT_PARTY_RALLY, leader)
-	add_verb(new_member, /mob/living/proc/leave_party)
+	add_verb(new_member, /mob/living/proc/open_party_menu)
 	to_chat(new_member, span_notice("You are now part of [leader]'s party. Stay near [leader.p_them()] to benefit from [leader.p_their()] leadership."))
 
 /// Removes a member from the party. If the leader leaves, leadership passes to the next member, or the party disbands if nobody's left.
@@ -41,17 +135,11 @@
 	members -= member
 	member.party = null
 	member.remove_status_effect(STATUS_EFFECT_PARTY_RALLY)
-	remove_verb(member, /mob/living/proc/leave_party)
+	remove_verb(member, /mob/living/proc/open_party_menu)
 	if(member == leader)
-		remove_verb(member, /mob/living/proc/kick_from_party)
-		remove_verb(member, /mob/living/proc/set_party_aura)
-		remove_verb(member, /mob/living/proc/party_rally_cry)
 		member.remove_status_effect(STATUS_EFFECT_PARTY_FRICTION)
 		leader = length(members) ? members[1] : null
 		if(leader)
-			add_verb(leader, /mob/living/proc/kick_from_party)
-			add_verb(leader, /mob/living/proc/set_party_aura)
-			add_verb(leader, /mob/living/proc/party_rally_cry)
 			leader.apply_status_effect(STATUS_EFFECT_PARTY_FRICTION)
 			to_chat(leader, span_notice("You are now the leader of the party!"))
 	if(!silent)
@@ -177,88 +265,16 @@
 		target.apply_status_effect(STATUS_EFFECT_INSPIRED, duration, src)
 	to_chat(src, span_notice("[length(targets)] nearby [length(targets) == 1 ? "person stands" : "people stand"] a little taller."))
 
-/mob/living/proc/leave_party()
-	set name = "Leave Party"
-	set desc = "Leave your current party."
+// Single party-tab entry point for all members (leader or not) - every other party action (kick/leave/aura/rally) lives inside the panel itself.
+/mob/living/proc/open_party_menu()
+	set name = "Party"
+	set desc = "Open your party roster and (if leading) manage members, aura, and Rally Cry."
 	set category = "Party"
 
 	if(!party)
+		to_chat(src, span_warning("You aren't part of a party!"))
 		return
-	party.remove_member(src)
-
-/mob/living/proc/kick_from_party()
-	set name = "Kick From Party"
-	set desc = "Remove a member from your party."
-	set category = "Party"
-
-	if(!party || party.leader != src)
-		to_chat(src, span_warning("You aren't leading a party!"))
-		return
-
-	var/list/kickable = party.members - src
-	if(!length(kickable))
-		to_chat(src, span_warning("Nobody else is in your party."))
-		return
-
-	var/mob/living/chosen = input(src, "Choose who to remove from your party!", "Kick member") as null|mob in kickable
-	if(!chosen || !party || !(chosen in party.members))
-		return
-
-	to_chat(chosen, span_warning("[src] has removed you from the party."))
-	party.remove_member(chosen, TRUE)
-
-/mob/living/proc/set_party_aura()
-	set name = "Set Party Aura"
-	set desc = "Choose which leadership aura your party radiates."
-	set category = "Party"
-
-	if(!party || party.leader != src)
-		to_chat(src, span_warning("You aren't leading a party!"))
-		return
-
-	var/tier = get_special_charisma_party_buff_tier()
-	var/list/unlocked = list()
-	for(var/datum/party_aura/aura_type as anything in subtypesof(/datum/party_aura))
-		if(initial(aura_type.required_tier) <= tier)
-			unlocked[initial(aura_type.name)] = aura_type
-
-	var/choice = input(src, "Choose your party's aura!", "Party Aura") as null|anything in unlocked
-	if(!choice || !party || party.leader != src)
-		return
-
-	var/datum/party_aura/new_aura_type = unlocked[choice]
-	if(new_aura_type == party.aura.type)
-		return
-
-	for(var/mob/living/member in party.members)
-		party.aura.remove(member)
-	party.aura = new new_aura_type()
-	to_chat(src, span_notice("Your party now radiates the [party.aura.name] aura!"))
-
-/mob/living/proc/party_rally_cry()
-	set name = "Rally Cry"
-	set desc = "Pulse a stronger version of your party aura to everyone nearby for a short time."
-	set category = "Party"
-
-	if(!party || party.leader != src)
-		to_chat(src, span_warning("You aren't leading a party!"))
-		return
-
-	var/tier = get_special_charisma_party_buff_tier()
-	if(tier <= 0)
-		to_chat(src, span_warning("You don't have the charisma to rally anyone!"))
-		return
-	if(world.time < party.rally_cry_cooldown_until)
-		to_chat(src, span_warning("You need to wait [round((party.rally_cry_cooldown_until - world.time) / 10)] more seconds before rallying again!"))
-		return
-
-	visible_message(span_notice("[src] rallies the party!"), span_notice("You rally your party, boosting the [party.aura.name] aura for everyone nearby!"))
-	party.rally_cry_pulse_until = world.time + (6 SECONDS + (tier * 1 SECONDS))
-	party.rally_cry_cooldown_until = world.time + (60 SECONDS - (tier * 4 SECONDS))
-	for(var/mob/living/member in (party.members - src))
-		var/datum/status_effect/party_rally/rally = member.has_status_effect(STATUS_EFFECT_PARTY_RALLY)
-		if(rally?.buffed)
-			to_chat(member, span_notice("You feel a surge of extra strength as [src] rallies the party!"))
+	party.ui_interact(src)
 
 /// Surfaces live party info in the statpanel: the leader sees every member's in-range status, members see whether they're currently in rally range and benefiting from the buff.
 /mob/living/get_status_tab_items()

@@ -81,6 +81,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/real_name						//our character's name
 	var/be_random_name = 0				//whether we'll have a random name every round
 	var/be_random_body = 0				//whether we'll have a random body every round
+	var/auto_identify_faction_radio = FALSE	//whether we automatically reveal our real name when speaking on our faction's secure radio channel
 	var/gender = MALE					//gender of character (well duh)
 	var/age = 30						//age of character
 	var/underwear = "Nude"				//underwear type
@@ -310,6 +311,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=name;task=random'>Random Name</A> "
 			dat += "<a style='display:block;width:150px' href='?_src_=prefs;preference=romanname;task=random'>Random Roman Name</A> "			
 			dat += "<b>Always Random Name:</b><a style='display:block;width:30px' href='?_src_=prefs;preference=name'>[be_random_name ? "Yes" : "No"]</a><BR>"
+			dat += "<b>Auto-identify on Faction Radio:</b><a style='display:block;width:30px' href='?_src_=prefs;preference=auto_identify_faction_radio'>[auto_identify_faction_radio ? "Yes" : "No"]</a><BR>"
+			dat += "<span class='linkOff'>If enabled, your real name is automatically shown to others when you speak on your faction's own secure radio channel, instead of staying anonymous.</span><BR>"
 
 			dat += "<b>Name:</b> "
 			dat += "<a href='?_src_=prefs;preference=name;task=input'>[real_name]</a><BR>"
@@ -2046,6 +2049,9 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 					if(isnewplayer(parent.mob)) // Update the player panel with the new name.
 						var/mob/dead/new_player/player_mob = parent.mob
 						player_mob.new_player_panel()
+
+				if("auto_identify_faction_radio")
+					auto_identify_faction_radio = !auto_identify_faction_radio
 
 				if("all")
 					be_random_body = !be_random_body

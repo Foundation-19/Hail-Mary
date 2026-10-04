@@ -311,7 +311,7 @@
 	flag = "energy"
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second = TILES_TO_PIXELS(50)
+	pixels_per_second = TILES_TO_PIXELS(70)
 
 //Securitrons Beam
 /obj/item/projectile/beam/laser/pistol/ultraweak
@@ -338,7 +338,7 @@
 	flag = "laser"
 	eyeblur = 0
 	is_reflectable = FALSE
-	pixels_per_second = TILES_TO_PIXELS(25)
+	pixels_per_second = TILES_TO_PIXELS(35)
 
 /obj/item/projectile/beam/laser/lasgun //AER9
 	name = "laser beam"
@@ -561,7 +561,7 @@
 	wound_bonus = 80 //being hit with plasma is horrific
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second =  TILES_TO_PIXELS(12) //same as 40mm grenade
+	pixels_per_second = TILES_TO_PIXELS(16.8)
 
 /obj/item/projectile/plasmacarbine //Plasma carbine
 	name = "plasma bolt"
@@ -574,7 +574,7 @@
 	wound_bonus = 50 //let's not make the carbine horrifying // nah lets make it horrifying
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second = TILES_TO_PIXELS(10)
+	pixels_per_second = TILES_TO_PIXELS(14)
 
 /obj/item/projectile/f13plasma/repeater //Plasma repeater
 	name = "plasma stream"
@@ -603,7 +603,7 @@
 /obj/item/projectile/f13plasma/pistol //Plasma pistol
 	damage = 35
 	wound_bonus = 70 //being hit with plasma is horrific
-	pixels_per_second = TILES_TO_PIXELS(12)
+	pixels_per_second = TILES_TO_PIXELS(16.8) //1.4x realistic plasma velocity
 
 /obj/item/projectile/f13plasma/pistol/eve //Eve
 	icon = 'icons/obj/guns/projectiles.dmi'
@@ -622,7 +622,7 @@
 /obj/item/projectile/f13plasma/pistol/glock //Glock (streamlined plasma pistol)
 	damage = 45
 	wound_bonus = 55 // cheapest e_cost in the family has to cost something - trades wounding potential for efficiency
-	pixels_per_second = TILES_TO_PIXELS(13)
+	pixels_per_second = TILES_TO_PIXELS(18.2)
 
 /obj/item/projectile/f13plasma/scatter //Multiplas, fires 3 shots, will melt you
 	damage = 30

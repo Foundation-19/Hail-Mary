@@ -37,7 +37,21 @@ And the base of the send_speech() proc, which is the core of saycode.
 	//Radio freq/name display
 	var/freqpart = radio_freq ? "\[[get_radio_name(radio_freq)]\] " : ""
 	//Speaker name
-	var/namepart = "[speaker.GetVoice()][speaker.get_alt_name()]"
+	var/raw_voice = speaker.GetVoice()
+	//The real mob behind a speaker - virtualspeakers (radio, AI) resolve back to whoever is actually talking.
+	var/atom/movable/identity_obj = speaker.GetSource() || speaker
+	var/namepart = "[raw_voice][speaker.get_alt_name()]"
+	//Anonymize natural (non-disguised) voices for living listeners who haven't remembered this speaker yet.
+	if(isliving(src) && isliving(identity_obj) && identity_obj != src)
+		var/mob/living/listener = src
+		var/mob/living/real_speaker = identity_obj
+		var/natural_voice = ishuman(real_speaker) ? real_speaker.get_visible_name() : null
+		if(raw_voice == natural_voice)
+			var/remembered = listener.knows_voice(real_speaker)
+			if(remembered)
+				namepart = "[remembered][speaker.get_alt_name()]"
+			else if(!real_speaker.auto_identifies_on_radio(radio_freq))
+				namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[real_speaker.get_voice_tag()]</a>"
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
@@ -183,6 +197,55 @@ And the base of the send_speech() proc, which is the core of saycode.
 	return 1
 
 /atom/movable/proc/get_alt_name()
+
+/*
+	Voice anonymity system.
+	Vars and procs both live here (instead of a separate mob/living file) because this
+	codebase's build requires a var/proc to be defined in the same file as, or an
+	earlier-included file than, any file that references it - and compose_message()
+	below is included very early.
+*/
+
+/mob/living
+	/// Stable anonymous tag shown to listeners who haven't remembered this mob's voice.
+	var/voice_tag
+	/// ref -> remembered display name, keyed by the speaking atom's real identity ref. Personal to this mob.
+	var/list/known_voices = list()
+
+/// Generates (once) and returns this mob's anonymous voice tag.
+/mob/living/proc/get_voice_tag()
+	if(!voice_tag)
+		voice_tag = "Unknown Voice ([uppertext(num2hex(rand(0, 65535), 4))])"
+	return voice_tag
+
+/// Non-human living mobs have no faction radio auto-identify preference by default.
+/mob/living/proc/auto_identifies_on_radio(radio_freq)
+	return FALSE
+
+/mob/living/carbon/human/auto_identifies_on_radio(radio_freq)
+	if(!radio_freq || !client?.prefs?.auto_identify_faction_radio)
+		return FALSE
+	var/channel_name = get_radio_name(radio_freq)
+	return (channel_name in faction)
+
+/// Returns the name this mob has previously remembered for the given speaker, if any.
+/mob/living/proc/knows_voice(atom/movable/speaker)
+	return known_voices[REF(speaker)]
+
+/// Permanently (for this mob only, this round) associates a speaker's voice with a display name.
+/mob/living/proc/remember_voice(atom/movable/speaker, display_name)
+	if(!speaker || !display_name)
+		return
+	known_voices[REF(speaker)] = display_name
+	to_chat(src, span_notice("You make a mental note of that voice - it's [display_name]."))
+
+/mob/living/Topic(href, href_list)
+	if(href_list["remember_voice"])
+		var/atom/movable/speaker = locate(href_list["remember_voice"]) in GLOB.mob_list
+		if(speaker)
+			remember_voice(speaker, speaker.GetVoice())
+		return
+	return ..()
 
 //HACKY VIRTUALSPEAKER STUFF BEYOND THIS POINT
 //these exist mostly to deal with the AIs hrefs and job stuff.
