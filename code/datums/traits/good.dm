@@ -2,15 +2,17 @@ GLOBAL_LIST_INIT(chemwhiz_recipes_basic, list(
 	/datum/crafting_recipe/cheap_stimpak,
 	/datum/crafting_recipe/medx/chemistry))
 
+GLOBAL_LIST_INIT(chemwhiz_recipes_mid, list(
+	/datum/crafting_recipe/turbo,
+	/datum/crafting_recipe/buffout,
+	/datum/crafting_recipe/steady))
+
 GLOBAL_LIST_INIT(chemwhiz_recipes_advanced, list(
 	/datum/crafting_recipe/jet,
-	/datum/crafting_recipe/turbo,
 	/datum/crafting_recipe/psycho,
 	/datum/crafting_recipe/medx,
 	/datum/crafting_recipe/stimpak/chemistry,
-	/datum/crafting_recipe/stimpak5/chemistry,
-	/datum/crafting_recipe/buffout,
-	/datum/crafting_recipe/steady))
+	/datum/crafting_recipe/stimpak5/chemistry))
 
 GLOBAL_LIST_INIT(basic_explosive_recipes, list(
 	/datum/crafting_recipe/frag_shrapnel,
@@ -23,9 +25,11 @@ GLOBAL_LIST_INIT(basic_explosive_recipes, list(
 GLOBAL_LIST_INIT(adv_explosive_recipes, list(
 	/datum/crafting_recipe/incendiary,
 	/datum/crafting_recipe/concussion,
+	/datum/crafting_recipe/incendiaryrocket))
+
+GLOBAL_LIST_INIT(exotic_explosive_recipes, list(
 	/datum/crafting_recipe/radgrenade,
 	/datum/crafting_recipe/empgrenade,
-	/datum/crafting_recipe/incendiaryrocket,
 	/datum/crafting_recipe/strongrocket))
 
 GLOBAL_LIST_INIT(tier_three_parts, list(
@@ -140,6 +144,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 //predominantly positive traits
 //this file is named weirdly so that positive traits are listed above negative ones
 
+/*
+Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/alcohol_tolerance
 	name = "Alcohol Tolerance"
 	desc = "You become drunk more slowly and suffer fewer drawbacks from alcohol."
@@ -148,6 +154,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel like you could drink a whole keg!")
 	lose_text = span_danger("You don't feel as resistant to alcohol anymore. Somehow.")
 	medical_record_text = "Patient demonstrates a high tolerance for alcohol."
+*/
 
 /datum/quirk/horrifying_tastes
 	name = "Cannibal"
@@ -220,6 +227,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You no longer feel like drinking would ease your pain.")
 	medical_record_text = "Patient has unusually efficient liver metabolism and can slowly regenerate wounds by drinking alcoholic beverages."
 
+/*
+Merged into the paired Wasteland Trait "Overwhelmed Empath" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/empath
 	name = "Empath"
 	desc = "Whether it's a sixth sense or careful study of body language, it only takes you a quick glance at someone to understand how they feel. This lets you see their mood, damage, and intent - as well as seeing if they're experiencing oxyloss/toxloss, and if they're in a high or low mood."
@@ -228,6 +237,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel in tune with those around you.")
 	lose_text = span_danger("You feel isolated from others.")
 	medical_record_text = "Patient is highly perceptive of and sensitive to social cues, or may possibly have ESP. Further testing needed."
+*/
 
 /*
 /datum/quirk/freerunning
@@ -240,6 +250,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	medical_record_text = "Patient scored highly on cardio tests."
 */
 
+/*
+Merged into the paired Wasteland Trait "Small Frame" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/freefaller
 	name = "Freefaller"
 	desc = "Long drops are nothing but a thrill to you! Take no damage from falling from high places."
@@ -248,6 +260,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You have the urge to jump from high places!")
 	lose_text = span_danger("Heights seem a bit more scary again.")
 	medical_record_text = "Patient seems to crave isolation on the rooftop, suggest therapy for their thrill-seeking behavior."
+*/
 
 /datum/quirk/friendly
 	name = "Friendly"
@@ -259,6 +272,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mood_quirk = TRUE
 	medical_record_text = "Patient demonstrates low inhibitions for physical contact and well-developed arms. Requesting another doctor take over this case."
 
+/*
+Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/jolly
 	name = "Mood - Sanguine"
 	desc = "You sometimes just feel happy, for no reason at all. Gives mood buffs, occasionally."
@@ -270,6 +285,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/jolly/on_process()
 	if(prob(0.05))
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "jolly", /datum/mood_event/jolly)
+*/
 
 /datum/quirk/optimist
 	name = "Mood - Optimist"
@@ -282,16 +298,6 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/optimist/on_process()
 	if(prob(0.05))
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "optimist", /datum/mood_event/optimism)
-
-
-/datum/quirk/light_step
-	name = "Light Step"
-	desc = "You walk with a gentle step; stepping on sharp objects is quieter & less painful, and you won't leave footprints behind you."
-	value = 1
-	mob_trait = TRAIT_LIGHT_STEP
-	gain_text = span_notice("You walk with a little more litheness.")
-	lose_text = span_danger("You start tromping around like a barbarian.")
-	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
 /*
 /datum/quirk/quick_step
@@ -362,11 +368,13 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	H.equip_to_slot(spraycan, SLOT_IN_BACKPACK)
 	H.regenerate_icons()
 
+/*
+Merged into ranked Wasteland Perk "Science!" (code/datums/traits/fallout_perks.dm)
 /datum/quirk/technophreak
 	name = "Technophreak"
 	desc = "You're skilled at breaking down old-war rubble more precisely, and therefore you gain more salvage from cars and piles than before. Your time with understanding complex technology also \
 	allows you to craft more complex machine parts."
-	value = 2
+	value = 4 //grants tier-3 parts, energy cell crafting, energy weapon crafting, AND power armor repair unconditionally - was priced the same as a single-category unlock
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
 	lose_text = span_danger("Old-War rubble suddenly seems less generous to you.")
@@ -391,11 +399,14 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.energyweapon_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
+*/
 
+/*
+Merged into ranked Wasteland Perk "Gun Nut" (code/datums/traits/fallout_perks.dm)
 /datum/quirk/gunsmith
 	name = "Weaponsmith"
 	desc = "You know how to make various weapons, protective vests, and gun mods. The list is too large to try and put here."
-	value = 2
+	value = 4 //unconditionally unlocks the entire weapon/mod/vest recipe list - was priced the same as Technophreak's old (also undervalued) single-tier unlock
 	mob_trait = TRAIT_WEAPONSMITH
 	gain_text = span_notice("You are adept at crafting makeshift weapons.")
 	lose_text = span_danger("You feel less adept at crafting makeshift weapons.")
@@ -414,6 +425,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 		if(!H.mind.learned_recipes)
 			H.mind.learned_recipes = list()
 		H.mind.learned_recipes -= GLOB.weaponcrafting_gun_recipes
+*/
 
 /datum/quirk/voracious
 	name = "Bottomless Stomach"
@@ -450,6 +462,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You are no longer able to use primitive technology.")
 	locked = TRUE
 
+/*
+Merged into the paired Wasteland Trait "Night Owl" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/night_vision
 	name = "Night Vision"
 	desc = "You can see slightly more clearly in full darkness than most people by one more whole tile."
@@ -461,6 +475,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/night_vision/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	H.update_sight()
+*/
 
 /datum/quirk/nukalover
 	name = "Nuka Fiend"
@@ -493,6 +508,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("You forget how to slaughter animals.")
 	locked = FALSE
 /*
+Merged into ranked Wasteland Perk "Big Leagues" (code/datums/traits/ranked_perks.dm)
 /datum/quirk/bigleagues
 	name = "Melee - Big Leagues"
 	desc = "Swing for the fences! You deal even more additional damage with melee weapons."
@@ -512,6 +528,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	locked = TRUE
 */
 
+/*
+Merged into ranked Wasteland Perk "Chemist" (code/datums/traits/fallout_perks.dm)
 /datum/quirk/chemwhiz
 	name = "Chem Whiz"
 	desc = "You've been playing around with chemicals all your life. You know how to use chemistry machinery. High intelligence unlocks advanced formulas."
@@ -537,8 +555,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	if(H)
 		H.mind.learned_recipes -= GLOB.chemwhiz_recipes_basic
 		H.mind.learned_recipes -= GLOB.chemwhiz_recipes_advanced
+*/
 
-// Call this wherever INT (special_i) changes
+// Call this wherever INT (special_i) changes - dead/unused, no current callers, kept for future wiring
 /mob/living/carbon/human/proc/update_chemwhiz_recipes()
 	if(!HAS_TRAIT(src, TRAIT_CHEMWHIZ) || !mind)
 		return
@@ -552,13 +571,14 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 /datum/quirk/pa_wear
 	name = "Power Armor Training"
 	desc = "You've been around the wastes and have learned the wonders of wearing high tech armor from somewhere or something."
-	value = 2
+	value = 3 //unlocks an entire iconic armor category, was priced below the other gear-category unlocks (gunsmith/technophreak at 4)
 	mob_trait = TRAIT_PA_WEAR
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")
 	locked = TRUE
 
 /*
+Merged into ranked Wasteland Perks "Wasteland Trekker" and "Life Giver" (code/datums/traits/ranked_perks.dm)
 /datum/quirk/hard_yards
 	name = "Mobility - Wasteland Trekker"
 	desc = "You've spent a lot of time wandering the wastes, and for your hard work you out pace most folks when travelling across them."
@@ -608,6 +628,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	H.health += 20
 */
 
+/*
+Merged into ranked Wasteland Perk "Iron Fist" (code/datums/traits/ranked_perks.dm); TRAIT_IRONFIST
+is also still granted for free by the paired Wasteland Trait "Heavy Handed" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/iron_fist
 	name = "Fists of Iron"
 	desc = "You have fists of kung-fury! Increases unarmed damage."
@@ -621,7 +644,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
 	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+*/
 /*
+Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_perks.dm)
 /datum/quirk/steel_fist
 	name = "Fists of Steel"
 	desc = "You have MASSIVE fists of kung-fury! Increases unarmed damage even MORE."
@@ -644,6 +669,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	mob_trait = TRAIT_LIGHT_STEP
 	gain_text = span_notice("You walk with a little more litheness.")
 	lose_text = span_danger("You start tromping around like a barbarian.")
+	medical_record_text = "Patient's dexterity belies a strong capacity for stealth."
 
 /datum/quirk/surgerylow
 	name = "Minor Surgery"
@@ -653,11 +679,16 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel yourself discovering the basics of the human body.")
 	lose_text = span_danger("You forget how to perform even the simplest surgery.")
 	locked = FALSE
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 3
 
+/*
+Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallout_perks.dm)
 /datum/quirk/explosive_crafting
 	name = "Explosives Crafting"
 	desc = "You have strong feelings about the future of industrial society."
-	value = 1
+	value = 3 //unconditionally grants both basic AND advanced explosive/rocket recipes - was priced as if it were a minor unlock
 	mob_trait = TRAIT_EXPLOSIVE_CRAFTING
 	gain_text = span_notice("You feel like you can make a bomb out of anything.")
 	lose_text = span_danger("You feel okay with the advancement of technology.")
@@ -676,6 +707,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	if(H)
 		H.mind.learned_recipes -= GLOB.basic_explosive_recipes
 		H.mind.learned_recipes -= GLOB.adv_explosive_recipes
+*/
 
 /*
 /datum/quirk/lick_heal
@@ -1043,6 +1075,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	locked = FALSE
 */
 
+/*
+Merged into the paired Wasteland Trait "Sure and Steady" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/quietstep
 	name = "Quiet Step"
 	desc = "Your steps just don't make any noise at all."
@@ -1051,7 +1085,7 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your footsteps fade away.")
 	lose_text = span_danger("You find yourself surprised by the sound of your own footsteps.")
 	locked = FALSE
-/*
+*/
 /datum/quirk/deadeye
 	name = "Dead Eye"
 	desc = "You hit the shots you aim. No ifs, ands, or buts."
@@ -1060,6 +1094,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your aim is legendary, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
 	locked = FALSE
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 8
 
 /datum/quirk/straightshooter
 	name = "Straight Shooter"
@@ -1069,7 +1106,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("Your aim is amazing, and you know it.")
 	lose_text = span_danger("Your aim could use some work...")
 	locked = TRUE
-*/
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 7
 
 /datum/quirk/bowtrained
 	name = "Bow Trained"
@@ -1125,6 +1164,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel like being a giant rat, that makes all of the rules!")
 	lose_text = span_danger("You've lost your rat crown...")
 	locked = FALSE
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 6
 	var/obj/effect/proc_holder/mob_common/taming_mobs/rat/tame
 	var/obj/effect/proc_holder/mob_common/summon_backup/beastmaster/rat/gather
 	var/obj/effect/proc_holder/mob_common/direct_mobs/beastmaster/rat/moveto
@@ -1178,6 +1220,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You've tapped into the potential of the critter horde!")
 	lose_text = span_danger("Small critters refuse to obey your commands now.")
 	locked = FALSE
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 7
 	var/obj/effect/proc_holder/mob_common/taming_mobs/small_critter/tame
 	var/obj/effect/proc_holder/mob_common/summon_backup/beastmaster/small_critter/gather
 	var/obj/effect/proc_holder/mob_common/direct_mobs/beastmaster/small_critter/moveto
@@ -1255,8 +1300,8 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	name = "Japanese Language Comprehension"
 	desc = "You are somehow capable of understanding and speaking the Japanese language."
 	value = 1
-	gain_text = span_notice("You remember how to speak like a cartoon character.")
-	lose_text = span_notice("You forget how to sound like a weeaboo.")
+	gain_text = span_notice("You remember the old tongue of Japan.")
+	lose_text = span_notice("You forget the old language of Japan.")
 
 /datum/quirk/japanesespeak/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -1266,6 +1311,19 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!QDELETED(H))
 		H.remove_language(/datum/language/japanese)
+
+/datum/quirk/adamantium_skeleton
+	name = "Adamantium Skeleton"
+	desc = "Years of hard living have toughened you up. Your limbs can no longer be crippled or severed in combat."
+	value = 5
+	mob_trait = TRAIT_NODISMEMBER
+	gain_text = span_notice("Your bones feel like they could shrug off anything.")
+	lose_text = span_danger("Your bones feel brittle again.")
+	medical_record_text = "Patient's skeletal structure shows unusual, near-unbreakable density."
+	locked = FALSE
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 8
 
 /datum/quirk/locksmith
 	name = "Locksmith"
@@ -1277,6 +1335,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	lose_text = span_danger("Your feel for tumblers fades — just another amateur with a bent wire.")
 	medical_record_text = "Patient demonstrates fine motor skill consistent with professional locksmithing experience."
 	locked = FALSE
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 6
 
 /datum/quirk/assassin
 	name = "Assassin"
@@ -1286,6 +1347,9 @@ GLOBAL_LIST_INIT(bone_dancer_recipes, list(
 	gain_text = span_notice("You feel like you could kill someone very quietly.")
 	lose_text = span_danger("You feel less lethal.")
 	locked = FALSE
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 7
 	var/datum/action/cooldown/assassinate/assassinate_action
 
 /datum/quirk/assassin/add()

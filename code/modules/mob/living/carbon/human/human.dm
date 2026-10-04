@@ -302,9 +302,15 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/armor_multiplier = 0.5 + (armor_slowdown * 2)
 	
 	var/sound_level = base_movement * armor_multiplier
-	
-	// Sneaking no longer reduces sound - it only shows vision cones
-	
+
+	// Sneaking no longer reduces sound by default - it only shows vision cones.
+	// The Sneak perk is a purchasable exception to that rule, not a baseline mechanic.
+	if(sneaking)
+		if(HAS_TRAIT(src, TRAIT_SNEAK_RANK2))
+			sound_level *= 0.25
+		else if(HAS_TRAIT(src, TRAIT_SNEAK_RANK1))
+			sound_level *= 0.5
+
 	return sound_level
 
 // Toggle sneak mode when K is pressed

@@ -102,9 +102,13 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_strength_power_attack_stamina_multiplier()
 	return CLAMP(1 - ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.06), 0.6, 1.6)
 
-/// Brawnier wasters can cram more combined weight class into their bags/pockets/belts before they're full.
+/// Brawnier wasters can cram more combined weight class into their bags/pockets/belts before they're full. Strong Back perk stacks a flat bonus on top of the raw Strength scaling.
 /mob/living/proc/get_strength_carry_capacity_multiplier()
-	return CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.1), 0.5, 1.5)
+	. = CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.15), 0.4, 1.75)
+	if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK2))
+		. += 0.45
+	else if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK1))
+		. += 0.2
 
 /// Attacker-side: how hard a grapple/takedown (unarmed knockdowns, stuns, chokeholds) bites, scaled off raw muscle.
 /mob/living/proc/get_strength_grapple_control_multiplier()
@@ -164,6 +168,9 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return poison_resist_multiplier[clamped_e] || 1
 
+/// Separate from raw Endurance - lets perks/traits (e.g. Life Giver) buff stamina-crit resilience without touching the special_e table.
+/mob/living/var/special_stamina_mod_bonus = 1
+
 /// Single shared knob for Endurance's effect on the whole combat stamina system: every softcrit/hardcrit threshold check AND passive
 /// regen speed reads this same multiplier, so a sturdier build both shrugs off more exertion before buckling and bounces back faster -
 /// and any future stamina-gated check only has to multiply by this instead of growing its own bolted-on Endurance handling later.
@@ -171,7 +178,7 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_e value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/endurance_stamina_mod = list(0.7, 0.78, 0.86, 0.93, 1, 1.08, 1.16, 1.24, 1.35, 1.5)
 	var/clamped_e = CLAMP(special_e, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return endurance_stamina_mod[clamped_e] || 1
+	return (endurance_stamina_mod[clamped_e] || 1) * special_stamina_mod_bonus
 
 /// Defender-side counterpart to get_strength_grapple_control_multiplier() - a sturdier body shrugs off being grappled/choked/slammed faster.
 /mob/living/proc/get_endurance_grapple_resist_multiplier()

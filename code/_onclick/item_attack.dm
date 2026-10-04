@@ -103,10 +103,11 @@
 
 	if(force >= 5)
 		if(HAS_TRAIT(user, TRAIT_BIG_LEAGUES))
-			force_modifier += 10
-
-		if(HAS_TRAIT(user, TRAIT_LITTLE_LEAGUES))
-			force_modifier += 5
+			force_modifier += force * 0.6
+		else if(HAS_TRAIT(user, TRAIT_BIG_LEAGUES_MID))
+			force_modifier += force * 0.4
+		else if(HAS_TRAIT(user, TRAIT_LITTLE_LEAGUES))
+			force_modifier += force * 0.2
 
 		if(HAS_TRAIT(user, TRAIT_GENTLE))
 			force_modifier += -5

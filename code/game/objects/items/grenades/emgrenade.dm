@@ -11,5 +11,7 @@
 	if(!empgrenade_turf)
 		return
 	playsound(empgrenade_turf, 'sound/f13weapons/pulsegrenade.ogg', 100, TRUE, 8, 0.9)
-	empulse_using_range(src, 7)
+	var/mob/living/igniter = lanced_by || primed_by
+	var/radius_mult = igniter ? igniter.get_demolition_expert_radius_mult() : 1
+	empulse_using_range(src, round(7 * radius_mult))
 	qdel(src)

@@ -117,7 +117,153 @@
 		"The last pin drops and something clicks. That\'s the feeling."
 	)
 
-///ACTION BUTTONS///
+///RANKED WASTELAND PERK SKILL BOOKS///
+//Each copy of one of these books bumps the reader's rank in a Wasteland Perk family (Gun Nut,
+//Science!, Chemist, Demolition Expert) up by exactly one, replacing their current rank quirk
+//with the next one via add_quirk()/remove_quirk() (bypassing the Perk Point economy entirely -
+//these are found/earned in the world, not bought at chargen). Reading one with no prior rank
+//grants Rank I for free. Reading one at the family's max rank says so and does nothing.
+
+/obj/item/book/granter/trait/rank
+	var/list/rank_quirks = list() //ordered low-to-high rank /datum/quirk typepaths
+
+/obj/item/book/granter/trait/rank/proc/get_current_rank(mob/living/user)
+	for(var/i in length(rank_quirks) to 1 step -1)
+		if(user.has_quirk(rank_quirks[i]))
+			return i
+	return 0
+
+/obj/item/book/granter/trait/rank/already_known(mob/user)
+	if(!isliving(user) || !length(rank_quirks))
+		return TRUE
+	var/mob/living/L = user
+	if(get_current_rank(L) >= length(rank_quirks))
+		to_chat(user, span_notice("You already know everything this book could teach you about [traitname]."))
+		return TRUE
+	return FALSE
+
+/obj/item/book/granter/trait/rank/on_reading_start(mob/user)
+	to_chat(user, span_notice("You start reading about [traitname]..."))
+
+/obj/item/book/granter/trait/rank/on_reading_finished(mob/user)
+	if(!isliving(user))
+		return
+	var/mob/living/L = user
+	var/current = get_current_rank(L)
+	var/next_rank = current + 1
+	if(current > 0)
+		L.remove_quirk(rank_quirks[current])
+	L.add_quirk(rank_quirks[next_rank], TRUE)
+	to_chat(user, span_notice("You feel like you've got a good handle on [traitname]! (Rank [next_rank]/[length(rank_quirks)])"))
+	onlearned(user)
+
+/obj/item/book/granter/trait/rank/gunnut
+	name = "Guns and Bullets"
+	desc = "A well-worn gun enthusiast magazine. Dog-eared pages cover everything from basic gunsmithing to advanced modifications."
+	oneuse = TRUE
+	traitname = "gunsmithing"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/gunsmith_rank1, /datum/quirk/gunsmith_rank2, /datum/quirk/gunsmith_rank3)
+	remarks = list("Headspace and timing...", "A good gunsmith never blames his tools, but checks them twice...", "Scrap steel makes for a fine receiver, if you know how to work it...", "Threading a barrel for a suppressor takes a steady hand...", "The breakdown diagrams in the back are worth the price alone.")
+
+/obj/item/book/granter/trait/rank/science
+	name = "Nikola Tesla and You"
+	desc = "A pre-war science comic, oddly engaging for something ostensibly about electrical engineering. Later chapters get surprisingly technical."
+	oneuse = TRUE
+	traitname = "pre-war technology"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/technophreak_rank1, /datum/quirk/technophreak_rank2, /datum/quirk/technophreak_rank3)
+	remarks = list("Tesla grins knowingly from every panel...", "Capacitor arrays explained in surprisingly plain terms...", "A full schematic of an energy cell, helpfully labeled...", "The appendix covers servo motor calibration in exhaustive detail...", "Somehow this comic book taught me more than four years of pre-war college.")
+
+/obj/item/book/granter/trait/rank/chemist
+	name = "The Chemist's Companion"
+	desc = "A battered chemistry reference, its cover held together with tape. Someone has scrawled extensive margin notes about makeshift lab equipment."
+	oneuse = TRUE
+	traitname = "chemistry"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/chemwhiz_rank1, /datum/quirk/chemwhiz_rank2, /datum/quirk/chemwhiz_rank3)
+	remarks = list("Stabilizing a compound is half the battle...", "Reagent purity matters more than people think...", "The margin notes argue passionately about reaction temperatures...", "A whole chapter on synthesizing stimulants from scrap chemicals...", "The last page just says 'measure twice, mix once.'")
+
+/obj/item/book/granter/trait/rank/demolitions
+	name = "Duck and Cover!"
+	desc = "A cheerfully illustrated civil defense pamphlet that, between the propaganda cartoons, contains an unsettling amount of real demolitions theory."
+	oneuse = TRUE
+	traitname = "demolitions"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/explosive_crafting_rank1, /datum/quirk/explosive_crafting_rank2, /datum/quirk/explosive_crafting_rank3)
+	remarks = list("Bertie the Turtle demonstrates proper blast radius awareness...", "A disturbingly detailed diagram of a frag charge...", "Timing fuses: an art, not a science, the pamphlet insists...", "The chapter on incendiary mixtures has clearly been read many times...", "Remember kids: duck, cover, and always account for shrapnel spread!")
+
+/obj/item/book/granter/trait/rank/bigleagues
+	name = "The Slugger's Digest"
+	desc = "A pulpy sports magazine devoted entirely to beating things with blunt objects. Surprisingly thorough on swing mechanics."
+	oneuse = TRUE
+	traitname = "hitting things with melee weapons"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/bigleagues_rank1, /datum/quirk/bigleagues_rank2, /datum/quirk/bigleagues_rank3)
+	remarks = list("Keep your eye on the target, not the bat...", "A full swing telegraphs - sometimes a short chop is smarter...", "Grip strength matters more than arm strength...", "The back pages are just advertisements for 'Grognak' serials.")
+
+/obj/item/book/granter/trait/rank/ironfist
+	name = "Brawler's Guide to Fisticuffs"
+	desc = "An advanced manual on fistfighting. It has pictures, too!"
+	oneuse = TRUE
+	traitname = "punching"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/ironfist_rank1, /datum/quirk/ironfist_rank2, /datum/quirk/ironfist_rank3)
+	remarks = list("Keep your fists up...", "Don't clench your thumb in your fist, or you might break it...", "Turn into your punch, and put your body weight behind it...", "Footwork is everything, make sure to step into your punches...", "Aim for their jaw for an easy K-O...")
+
+/obj/item/book/granter/trait/rank/lifegiver
+	name = "Vault-Tec Official Wellness Guide"
+	desc = "A cheerful pre-war pamphlet on healthy living. Several pages are stained, but the exercises still seem legible."
+	oneuse = TRUE
+	traitname = "wellness"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/lifegiver_rank1, /datum/quirk/lifegiver_rank2, /datum/quirk/lifegiver_rank3)
+	remarks = list("A balanced diet means more than just eating a balanced ration bar...", "Stretch every morning, even in a crater...", "The breathing exercises in chapter 3 are surprisingly effective...", "Vault-Tec: preparing you for the future, whether you like it or not!")
+
+/obj/item/book/granter/trait/rank/trekker
+	name = "The Long Walk: A Wanderer's Companion"
+	desc = "A hand-copied guide on surviving long treks across the wasteland, clearly passed between many owners."
+	oneuse = TRUE
+	traitname = "trekking"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/trekker_rank1, /datum/quirk/trekker_rank2)
+	remarks = list("Pace yourself - a wanderer who sprints everywhere burns out fast...", "Reading terrain saves more energy than any boot ever will...", "Rest before you're tired, not after...", "The last chapter is just a hand-drawn map, mostly worn away.")
+
+/obj/item/book/granter/trait/rank/radresist
+	name = "Atomic Health Monthly"
+	desc = "A pre-war pulp magazine about 'the miracle of the atom.' Most of the health claims are nonsense, but the chapters on shielding and decontamination hold up."
+	oneuse = TRUE
+	traitname = "radiation resistance"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/radresist_rank1, /datum/quirk/radresist_rank2, /datum/quirk/radresist_rank3)
+	remarks = list("A cheerful cartoon atom insists radiation is good for the complexion...", "The chapter on lead shielding thicknesses is oddly precise...", "Rotating stock in a well-sealed cellar can halve your exposure, the magazine claims...", "A full-page ad for 'Rad-Tox' tonic promises to cure anything...", "The last chapter is a surprisingly sober breakdown of decontamination procedure.")
+
+/obj/item/book/granter/trait/rank/sneak
+	name = "Quiet Company: A Scout's Handbook"
+	desc = "A handwritten scouting manual on moving unseen and unheard, its pages soft from handling."
+	oneuse = TRUE
+	traitname = "sneaking"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/sneak_rank1, /datum/quirk/sneak_rank2)
+	remarks = list("Roll your foot heel-to-toe, never flat...", "Watch the ground ahead, not your feet...", "A loose floorboard is worse than any guard dog...", "The last page is just a crude sketch of someone flattened against a wall.")
+
+/obj/item/book/granter/trait/rank/strongback
+	name = "Pack Mule's Pocket Guide"
+	desc = "A battered little pamphlet on load distribution and pack rigging, clearly written by someone who hauled a lot of scrap for a living."
+	oneuse = TRUE
+	traitname = "load bearing"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/strongback_rank1, /datum/quirk/strongback_rank2)
+	remarks = list("Cinch the straps high and tight, never let a bag swing loose...", "Heavy items go closest to your spine, not your hips...", "A well-packed bag is worth more than a stronger back, but both help...", "The last page is just a diagram of someone buried under scrap metal, with a caption reading 'DON'T'.")
+
+/obj/item/book/granter/trait/rank/nuclearphysicist
+	name = "Fission Theory for the Layman"
+	desc = "A dense pre-war textbook on fusion cell efficiency. Most of it is over your head, but a few chapters are annotated with surprisingly practical shortcuts."
+	oneuse = TRUE
+	traitname = "fusion core efficiency"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/nuclear_physicist_rank1, /datum/quirk/nuclear_physicist_rank2)
+	remarks = list("A margin note reads 'bleed the core slow, not fast'...", "The diagrams on cell regulation are hand-corrected in red pen...", "A whole chapter is devoted to why Vault-Tec's official figures are wrong...", "The last page is a crude hand-drawn chart comparing core lifespans.")
 
 /obj/item/book/granter/action
 	var/granted_action
@@ -1031,6 +1177,14 @@
 		return TRUE
 	return ..()
 
+/obj/item/book/granter/trait/highsurgery
+	name = "Trauma Surgery Compendium"
+	desc = "A rare, meticulously preserved pre-war surgical textbook covering the most advanced trauma and cybernetic procedures known to medicine."
+	oneuse = TRUE
+	granted_trait = TRAIT_SURGERY_HIGH
+	traitname = "advanced surgery"
+	remarks = list("Cybernetic interfaces require microscopic precision...", "Advanced trauma care means stabilizing three failures at once...", "A steady hand is nothing without a steadier mind...", "The old masters wrote notes in the margins that the textbook itself wouldn't dare print...", "Master this, and there's little the human body can hide from you.")
+
 /obj/item/book/granter/trait/techno
 	name = "Dean's Electronics"
 	desc = "A study book on the field of electronics. A note on the cover says that it is for the budding young electrician in everyone!"
@@ -1099,14 +1253,6 @@
 	granted_trait = TRAIT_NICE_SHOT
 	traitname = "gunslinging"
 	remarks = list("Engravings offer no tactical advantage whatsoever!", "I love to reload during battle.", "There's nothing like the feeling of slamming a long silver bullet into a well greased chamber.", "It doesn't feel right to shoot an unarmed man, but you get over it.", "He was pretty good, but I was better. At least, so I thought.", "The moment any truth is passed on, it starts turning into fiction. The problem is, fiction inspires people more than facts.")
-
-/obj/item/book/granter/trait/iron_fist
-	name = "Brawler's Guide to Fisticuffs"
-	desc = "An advanced manual on fistfighting. It has pictures, too!"
-	oneuse = TRUE
-	granted_trait = TRAIT_IRONFIST
-	traitname = "punching"
-	remarks = list("Keep your fists up...", "Don't clench your thumb in your fist, or you might break it...", "Turn into your punch, and put your body weight behind it...", "Footwork is everything, make sure to step into your punches...", "Aim for their jaw for an easy K-O...")
 
 /obj/item/book/granter/trait/medical
 	name = "Medical Booklet"

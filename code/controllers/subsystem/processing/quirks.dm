@@ -18,7 +18,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 	if(!quirks.len)
 		SetupQuirks()
 		quirk_blacklist = list(
-			list("Blind","Nearsighted"),
+			list("Blind","Nearsighted - Corrected","Nearsighted - No Glasses","Nearsighted - Trashed Vision"),
 			list("Mood - Sanguine","Mood - Optimist","Apathetic","Mood - Pessimist", "Mood - Depressive"),
 			list("Ageusia","Deviant Tastes"),
 			list("Ananas Affinity","Ananas Aversion"),
@@ -27,9 +27,9 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Nearsighted - Corrected","Nearsighted - No Glasses", "Nearsighted - Trashed Vision"),
 			list("Melee - Big Leagues", "Melee - Little Leagues", "Melee - Gentle", "Melee - Wimpy"),
 			list("Fists of Steel","Fists of Iron","Fists of Noodle"),
-			list("Health - Tough", "Health - Tougher", "Flimsy", "Very Flimsy"),
+			list("Health - Tough", "Health - Tougher", "Health - Flimsy", "Health - Very Flimsy"),
 			list("Mobility - Wasteland Trekker","Mobility - Wasteland Wanderer","Mobility - Wasteland Slug","Mobility - Wasteland Molasses"),
-			list("Cold Resistant", "Cold-Blooded"),
+			list("Cold Resistant", "Cold-blooded"),
 			list("Radiation - Immune","Radiation - Mostly Immune","Radiation - Sorta Immune"),
 			list("Vegetarian","Does not Eat"),
 			list("Cannibal","Does not Eat"),
@@ -47,7 +47,7 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Pacifist", "Fists of Noodle"),
 			list("Pacifist", "Melee - Gentle"),
 			list("Pacifist", "Melee - Wimpy"),
-			list("Pacifist", "Poor Aim"),
+			list("Pacifist", "Heavy Handed"),
 			list("Pacifist", "Fat-Fingered"),
 			list("Speed Walker", "Mobility - Can not Run")
 			)
@@ -86,6 +86,12 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 
 /datum/controller/subsystem/processing/quirks/proc/quirk_path_by_name(name)
 	return quirks[name]
+
+/datum/controller/subsystem/processing/quirks/proc/quirk_is_trait_by_name(name)
+	var/datum/quirk/path = quirks[name]
+	if(!path)
+		return FALSE
+	return initial(path.is_trait)
 
 /datum/controller/subsystem/processing/quirks/proc/quirk_points_by_name(name)
 	return quirk_points[name]

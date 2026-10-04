@@ -760,6 +760,9 @@
 		if(HAS_TRAIT(user, TRAIT_STEELFIST))
 			H.dna.species.punchdamagehigh = 12
 			H.dna.species.punchdamagelow = 6
+		if(HAS_TRAIT(user, TRAIT_TITANIUMFIST))
+			H.dna.species.punchdamagehigh = 16
+			H.dna.species.punchdamagelow = 9
 		if(HAS_TRAIT(user, TRAIT_FEV)) //Holy shit that Supermutant had a powerfist!
 			H.dna.species.punchdamagehigh = 16
 			H.dna.species.punchdamagelow = 10

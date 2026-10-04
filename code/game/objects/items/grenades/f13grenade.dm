@@ -78,9 +78,13 @@
 	// Store location before deletion
 	var/turf/epicenter = get_turf(src)
 
+	// Demolition Expert scales the radius of the queued explosion, since it bypasses the base proc's own explosion() call
+	var/mob/living/igniter = lanced_by || primed_by
+	var/radius_mult = igniter ? igniter.get_demolition_expert_radius_mult() : 1
+
 	// Queue the single explosion using saved values
 	if(saved_dev || saved_heavy || saved_light || saved_flame)
-		SSexplosion_spam.queue_explosion(epicenter, saved_dev, saved_heavy, saved_light, flash = 0, flame_range = saved_flame, source = null)
+		SSexplosion_spam.queue_explosion(epicenter, round(saved_dev * radius_mult), round(saved_heavy * radius_mult), round(saved_light * radius_mult), flash = 0, flame_range = round(saved_flame * radius_mult), source = null)
 
 	qdel(src)
 
@@ -188,13 +192,15 @@
 
 	// Store location for radiation effect before ..() qdels src
 	var/turf/epicenter = get_turf(src)
+	var/mob/living/igniter = lanced_by || primed_by
+	var/radius_mult = igniter ? igniter.get_demolition_expert_radius_mult() : 1
 
 	// ..() handles: update_mob(), spam counter decrement, qdel(src)
 	// (radiation has no ex_* values so no explosion is queued)
 	. = ..()
 
 	playsound(epicenter, 'sound/effects/empulse.ogg', 50, 1)
-	radiation_pulse(src, rad_damage)
+	radiation_pulse(src, round(rad_damage * radius_mult))
 
 /obj/item/grenade/f13/dynamite
 	name = "stick of dynamite"

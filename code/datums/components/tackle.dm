@@ -245,7 +245,9 @@
 	user.tackling = FALSE
 
 	var/tackle_damage = PUNCH_DAMAGE_AVERAGE
-	if(HAS_TRAIT(user, TRAIT_IRONFIST))
+	if(HAS_TRAIT(user, TRAIT_TITANIUMFIST))
+		tackle_damage = TITANIUM_FIST_PUNCH_DAMAGE_AVERAGE
+	else if(HAS_TRAIT(user, TRAIT_IRONFIST))
 		tackle_damage = IRON_FIST_PUNCH_DAMAGE_AVERAGE
 	else if(HAS_TRAIT(user, TRAIT_STEELFIST))
 		tackle_damage = STEEL_FIST_PUNCH_DAMAGE_AVERAGE

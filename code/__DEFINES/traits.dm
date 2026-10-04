@@ -200,6 +200,12 @@
 #define TRAIT_KI_VAMPIRE	"ki-vampire" //when someone with this trait rolls maximum damage on a punch and stuns the target, they regain some stamina and do clone damage
 #define TRAIT_LOCKPICKING	"lockpicking_skilled" // Professional muscle memory: wider zones, quieter work, more timer grace
 #define TRAIT_ASSASSIN	"assassin" //Can perform deadly assassination strikes on unaware enemies
+#define TRAIT_SNEAK_RANK1	"sneak_rank1" //Halves movement sound level (hostile mob detection) while in sneak mode
+#define TRAIT_SNEAK_RANK2	"sneak_rank2" //Quarters movement sound level while in sneak mode. Requires Sneak I
+#define TRAIT_STRONGBACK_RANK1	"strongback_rank1" //Extra flat bonus to Strength-based carry capacity multiplier, on top of raw Strength scaling
+#define TRAIT_STRONGBACK_RANK2	"strongback_rank2" //Larger extra flat bonus to carry capacity multiplier. Requires Strong Back I
+#define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
+#define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"
@@ -230,6 +236,7 @@
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_BIG_LEAGUES		"big_leagues"
+#define TRAIT_BIG_LEAGUES_MID	"big_leagues_mid"
 #define TRAIT_LITTLE_LEAGUES	"little_leagues"
 #define TRAIT_GENTLE			"gentle"
 #define TRAIT_WIMPY				"wimpy"
@@ -238,6 +245,7 @@
 #define TRAIT_TRAPPER			"trapper"
 #define TRAIT_IRONFIST			"iron_fist"
 #define TRAIT_STEELFIST			"steel_fist"
+#define TRAIT_TITANIUMFIST		"titanium_fist"
 #define TRAIT_NOODLEFIST			"noodle_fist"
 #define TRAIT_POWER_ARMOR		"power_armor"
 #define TRAIT_BARBEDWIRENODMG	"wire_monkey" //Ook dook.
@@ -329,6 +337,7 @@
 #define	TRAIT_SLOWAF			"slower" //Damn boi how'd you even get here, you're slow as SHIT off road
 #define	TRAIT_LIFEGIVER			"lifegiver" //boosts HP by 10
 #define	TRAIT_LIFEGIVERPLUS		"lifegiverplus" //boosts HP by 20
+#define	TRAIT_LIFEGIVERMAX		"lifegivermax" //boosts HP by 40 and grants passive regen
 #define	TRAIT_FLIMSY			"flimsy" //lowers HP by 10
 #define	TRAIT_VERYFLIMSY			"veryflimsy" //lowers HP by 20
 #define TRAIT_MARS_TEACH		"mars_teachings" //for legion unique functions

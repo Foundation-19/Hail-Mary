@@ -194,6 +194,8 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
 
+/*
+Merged into the paired Wasteland Trait "Night Owl" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/lightless
 	name = "Phobia - Bright Light"
 	desc = "Bright lights irritate you. Your eyes start to water, your skin feels itchy against the photon radiation, and your hair gets dry and frizzy. Maybe it's a medical condition."
@@ -209,6 +211,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "brightlight", /datum/mood_event/brightlight)
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "brightlight")
+*/
 
 /datum/quirk/nonviolent
 	name = "Pacifist"
@@ -258,12 +261,15 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 				if(I.fingerprintslast == quirk_holder.ckey)
 					quirk_holder.put_in_hands(I)
 
+/*
+Merged into the paired Wasteland Trait "Heavy Handed" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/poor_aim
 	name = "Poor Aim"
 	desc = "You're terrible with guns and can't line up a straight shot to save your life. Dual-wielding is right out."
 	value = -1
 	mob_trait = TRAIT_POOR_AIM
 	medical_record_text = "Patient possesses a strong tremor in both hands."
+*/
 
 /datum/quirk/prosopagnosia
 	name = "Prosopagnosia"
@@ -295,8 +301,10 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	if(!quirk_holder.mind || quirk_holder.mind.special_role)
 		return
 	to_chat(quirk_holder, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
-	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
+	the round. You are not an antagonist, and the rules will treat you the same as other wastelanders.</span>")
 
+/*
+Merged into the paired Wasteland Trait "Overwhelmed Empath" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
@@ -365,6 +373,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_eyecontact", /datum/mood_event/anxiety_eyecontact)
 	addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), quirk_holder, span_userdanger("[msg]")), 3) // so the examine signal has time to fire and this will print after
 	return COMSIG_BLOCK_EYECONTACT
+*/
 
 /datum/mood_event/anxiety_eyecontact
 	description = span_warning("Sometimes eye contact makes me so nervous...")
@@ -612,7 +621,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 /datum/quirk/mute
 	name = "Mute"
 	desc = "Due to some accident, a medical condition, or simply by choice, you are completely unable to speak."
-	value = 0 //HALP MAINTS
+	value = -3 //total loss of verbal communication - comparable in severity to Deaf, was incorrectly priced at 0
 	gain_text = span_danger("You find yourself unable to speak!")
 	lose_text = span_notice("You feel a growing strength in your vocal chords.")
 	medical_record_text = "Functionally mute, patient is unable to use their voice in any capacity."
@@ -676,6 +685,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = span_notice("You feel cold-blooded.")
 	lose_text = span_notice("You feel more warm-blooded.")
 
+/*
+Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/monophobia
 	name = "Monophobia"
 	desc = "You will become increasingly stressed when not in company of others, triggering panic reactions ranging from sickness to heart attacks."
@@ -694,11 +705,12 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	H?.cure_trauma_type(/datum/brain_trauma/severe/monophobia, TRAUMA_RESILIENCE_ABSOLUTE)
+*/
 
 /datum/quirk/no_guns
 	name = "Fat-Fingered"
 	desc = "Due to the shape of your hands, width of your fingers or just not having fingers at all, you're unable to fire guns without accommodation."
-	value = -1
+	value = -3 //losing all firearm use is a major combat handicap in this setting, not a minor one
 	mob_trait = TRAIT_CHUNKYFINGERS
 	gain_text = "<span class='notice'>Your fingers feel... thick.</span>"
 	lose_text = "<span class='notice'>Your fingers feel normal again.</span>"
@@ -792,6 +804,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	lose_text = "<span class='notice'>Your flesh feels more durable!</span>"
 	medical_record_text = "Patient suffers from weak flesh, resulting in them receiving cuts far more easily."
 
+/*
+Merged into the paired Wasteland Trait "Small Frame" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/glass_bones
 	name = "Glass Bones"
 	desc = "Your bones are far more brittle, and more vulnerable to breakage."
@@ -800,11 +814,12 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = "<span class='notice'>Your bones feel weak!</span>"
 	lose_text = "<span class='notice'>Your bones feel more durable!</span>"
 	medical_record_text = "Patient suffers from brittle bones, resulting in them receiving breakages far more easily."
+*/
 
 /datum/quirk/noodle_fist
 	name = "Fists of Noodle"
 	desc = "Your punching is legendary. Legendarily bad at doing anything to anyone."
-	value = -1
+	value = -2 //zero unarmed damage is a bigger loss than the -1 it was priced at; still below Wimpy since weapons are unaffected
 	mob_trait = TRAIT_NOODLEFIST
 	gain_text = span_notice("Your fists feel weak and worthless!")
 	lose_text = span_danger("Your fists feel strong again.")
@@ -842,6 +857,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	lose_text = span_danger("Your gait feels a little more sure!")
 	locked = FALSE
 
+/*
+Merged into the paired Wasteland Trait "Sure and Steady" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/slower
 	name = "Mobility - Wasteland Molasses"
 	desc = "You don't get around well off road. Like. At all."
@@ -850,6 +867,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = span_notice("You feel like staying at home.")
 	lose_text = span_danger("Wow! You feel like you could run around the whole WORLD!")
 	locked = FALSE
+*/
 
 /datum/quirk/clumsy
 	name = "Clumsy"
@@ -872,10 +890,10 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 /datum/quirk/primitive
 	name = "Primitive"
 	desc = "You were raised in a barn, by monkeys - or so it may seem to others. Lacking the ability to use guns or any sort of advanced tools, you've still managed to survive, and you're probably hot to boot."
-	value = -2
+	value = -4 //loses both guns AND advanced tools - broader than Fat-Fingered's gun-only restriction, priced accordingly
 	mob_trait = TRAIT_MONKEYLIKE
-	gain_text = span_notice("yOu reTurN tO MonKE!")
-	lose_text = span_danger("I think, there for... I am?")
+	gain_text = span_notice("Modern tools and machinery might as well be magic to you.")
+	lose_text = span_danger("The workings of advanced technology start to make sense again.")
 	locked = FALSE
 
 /datum/quirk/nosleep
@@ -914,6 +932,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	lose_text = span_danger("Maybe industrial society isn't so bad...")
 	locked =  FALSE
 
+/*
+Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/nodrugs
 	name = "Clean Veins"
 	desc = "Your body reacts violently to street drugs. Medicines work... for the most part."
@@ -922,3 +942,4 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = span_notice("You feel like a winner!")
 	lose_text = span_danger("You feel like a loser!")
 	locked =  FALSE
+*/
