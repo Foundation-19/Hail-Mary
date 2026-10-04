@@ -1415,6 +1415,11 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 				var/value = SSquirks.quirk_points[quirk]
 				var/balance = GetQuirkBalance()
 				if(quirk in all_quirks)
+					for(var/Q in all_quirks)
+						var/datum/quirk/owned_path = SSquirks.quirks[Q]
+						if(owned_path && initial(owned_path.requires_quirk) == quirk)
+							to_chat(user, span_warning("You must drop [Q] before you can drop [quirk]!"))
+							return
 					if(balance + value < 0)
 						to_chat(user, span_warning("Refunding this would cause you to go below your balance!"))
 						return
