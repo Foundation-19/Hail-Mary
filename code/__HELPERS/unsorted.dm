@@ -273,7 +273,7 @@ Turf and target are separate in case you want to teleport some distance from a t
 			continue
 		var/name = avoid_assoc_duplicate_keys(M.name, namecounts)
 
-		if(M.real_name && M.real_name != M.name)
+		if(M.real_name && M.real_name != M.name && M.name != "Unknown") // don't leak a masked/disfigured identity's real_name through Orbit
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
 			if(isobserver(M))
