@@ -234,7 +234,10 @@
 	send_item_attack_message(I, user, null, totitemdamage)
 	I.do_stagger_action(src, user, totitemdamage)
 	if(I.force)
-		apply_damage(totitemdamage, I.damtype)
+		// Was bypassing mob_armor entirely - melee weapons ignored a target's armor resistance/DT, unlike bullets or bare-handed attacks.
+		var/armor = run_armor_check(null, "melee", null, null, I.armour_penetration, null)
+		var/dt = max(run_armor_check(null, "damage_threshold", null, null, 0, null) - I.damage_threshold_penetration, 0)
+		apply_damage(totitemdamage, I.damtype, null, armor, damage_threshold = dt)
 		if(I.damtype == BRUTE)
 			if(prob(33))
 				I.add_mob_blood(src)

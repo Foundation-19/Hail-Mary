@@ -937,12 +937,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 		),
 		)
 
-/datum/outfit/job/CaesarsLegion/Legionnaire/f13legionary/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
-
 /datum/outfit/job/CaesarsLegion/Legionnaire/f13legionary
 	name = "Prime Legionnaire"
 	jobtype = /datum/job/CaesarsLegion/Legionnaire/f13legionary
@@ -1011,12 +1005,6 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 			/datum/job/CaesarsLegion,
 		),
 		)
-
-/datum/outfit/job/CaesarsLegion/Legionnaire/f13recleg/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
-	. = ..()
-	if(visualsOnly)
-		return
-	ADD_TRAIT(H, TRAIT_BIG_LEAGUES, src)
 
 /datum/outfit/job/CaesarsLegion/Legionnaire/f13recleg
 	name = "Recruit Legionnaire"
