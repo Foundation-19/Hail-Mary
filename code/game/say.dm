@@ -46,7 +46,10 @@ And the base of the send_speech() proc, which is the core of saycode.
 		var/mob/living/listener = src
 		var/mob/living/real_speaker = identity_obj
 		var/natural_voice = ishuman(real_speaker) ? real_speaker.get_visible_name() : null
-		if(raw_voice == natural_voice)
+		//Only go through voice-recognition when sight alone can't already identify them - i.e.
+		//they're heard over radio, or their face is actually concealed. Otherwise just show their
+		//visible name directly; a voice remembered from radio shouldn't override someone you can see.
+		if(raw_voice == natural_voice && (radio_freq || natural_voice == "Unknown"))
 			//A voice the listener has already made a mental note of stays recognizable
 			//regardless of radio auto-identify settings - that's the whole point of remembering it.
 			if(radio_freq && real_speaker.auto_identifies_on_radio(radio_freq))
