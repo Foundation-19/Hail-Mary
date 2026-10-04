@@ -1086,6 +1086,10 @@ Merged into the paired Wasteland Trait "Sure and Steady" (code/datums/traits/fal
 	lose_text = span_danger("You find yourself surprised by the sound of your own footsteps.")
 	locked = FALSE
 */
+/*
+Retired - "Dead Eye"/"Straight Shooter" were homebrew, not real Fallout perks (one granted a
+literal guaranteed hit, which no canon perk does), and were replaced outright by "Trigger
+Discipline" below instead of being rebalanced/kept in any form.
 /datum/quirk/deadeye
 	name = "Dead Eye"
 	desc = "You hit the shots you aim. No ifs, ands, or buts."
@@ -1109,6 +1113,19 @@ Merged into the paired Wasteland Trait "Sure and Steady" (code/datums/traits/fal
 	required_special_stat = "special_p"
 	required_special_name = "Perception"
 	required_special_value = 7
+*/
+
+/datum/quirk/trigger_discipline
+	name = "Trigger Discipline"
+	desc = "You squeeze the trigger instead of pulling it. Cuts your weapon spread/recoil by 25%, but costs you 20% rate of fire."
+	value = 3
+	mob_trait = TRAIT_TRIGGER_DISCIPLINE
+	gain_text = span_notice("You settle into a slower, more controlled rhythm with your trigger finger.")
+	lose_text = span_danger("Your trigger discipline slips.")
+	locked = FALSE
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 4
 
 /datum/quirk/bowtrained
 	name = "Bow Trained"

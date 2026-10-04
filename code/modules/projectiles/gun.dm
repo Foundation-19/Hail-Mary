@@ -1373,6 +1373,8 @@ ATTACHMENTS
 	if(CHECK_BITFIELD(cooldown_delay_mods, GUN_AUTO_PUMPED))
 		if(!HAS_TRAIT(user, TRAIT_FAST_PUMP))
 			. *= GUN_AUTOPUMP_REFIRE_DELAY_MULT
+	if(HAS_TRAIT(user, TRAIT_TRIGGER_DISCIPLINE)) // -20% rate of fire (the tradeoff for its -25% recoil)
+		. *= 1.25
 
 /obj/item/gun/proc/apply_cooldown_modifier(new_mod)
 	ENABLE_BITFIELD(cooldown_delay_mods, new_mod)

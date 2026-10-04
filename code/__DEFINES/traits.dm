@@ -179,6 +179,7 @@
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
 #define TRAIT_QUICK_CARRY		"quick-carry"
 #define TRAIT_QUICKER_CARRY		"quicker-carry"
+#define TRAIT_SLOW_CARRY		"slow-carry"
 #define TRAIT_QUICK_BUILD		"quick-build"
 #define TRAIT_STRONG_GRABBER	"strong_grabber"
 #define TRAIT_CALCIUM_HEALER	"calcium_healer"
@@ -265,6 +266,7 @@
 #define TRAIT_PLAY_DEAD "play_dead" // gives 10u ghoul powder every *deathgasp
 #define TRAIT_NO_PROCESS_FOOD	"no-process-food" // You don't get benefits from nutriment, nor nutrition from reagent consumables
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good...
+#define TRAIT_TRIGGER_DISCIPLINE	"trigger_discipline" //-25% recoil, -20% rate of fire.
 #define TRAIT_PERFECT_ATTACKER	"perfect_attacker"
 #define TRAIT_BUFFOUT_BUFF		"buffout_buff"
 #define TRAIT_UNARMED_WEAPON	"unarmed_weapon"

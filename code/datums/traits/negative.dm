@@ -943,3 +943,12 @@ Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_
 	lose_text = span_danger("You feel like a loser!")
 	locked =  FALSE
 */
+
+/datum/quirk/slowcarry
+	name = "Slow Carry"
+	desc = "You're pretty bad at just scooping people up. Fireman carrying someone takes much longer."
+	value = -1
+	mob_trait = TRAIT_SLOW_CARRY
+	gain_text = span_danger("Your ability to carry folk seems massively diminished.")
+	lose_text = span_notice("You feel like an ACCEPTABLE fireman again!")
+	locked = FALSE

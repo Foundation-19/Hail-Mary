@@ -25,6 +25,8 @@
 					max_spread += 1.5//This is cripplingly bad. Trust me.
 				if(HAS_TRAIT(user,TRAIT_NICE_SHOT)) // halves your inaccuracy!
 					max_spread *= 0.5 // Nice shot!
+				if(HAS_TRAIT(user,TRAIT_TRIGGER_DISCIPLINE)) // real FNV perk, -25% recoil
+					max_spread *= 0.75
 				max_spread = clamp(max_spread, 0, 90)
 				angle_out = clamp(rand(-max_spread, max_spread), -MAX_ACCURACY_OFFSET, MAX_ACCURACY_OFFSET)
 

@@ -1430,6 +1430,9 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
 		carrydelay = 40
 		skills_space = "quickly"
+	else if(HAS_TRAIT(src, TRAIT_SLOW_CARRY))
+		carrydelay = 70
+		skills_space = "clumsily"
 	if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE))
 		visible_message("<span class='notice'>[src] starts [skills_space] lifting [target] onto their back..</span>",
 		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
