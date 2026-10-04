@@ -259,13 +259,16 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank3
 	name = "Chemist III"
-	desc = "Decades of practice have taught you advanced chemical formulas. Requires Chemist II and a sharp mind (6 INT) to actually put the knowledge to use."
+	desc = "Decades of practice have taught you advanced chemical formulas. Requires Chemist II."
 	value = 4
 	requires_quirk = "Chemist II"
 	mob_trait = TRAIT_CHEMWHIZ
 	gain_text = span_notice("Advanced chemistry no longer holds any secrets from you.")
 	lose_text = span_danger("You forget how the periodic table works.")
 	locked = TRUE
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
 
 /datum/quirk/chemwhiz_rank3/add()
 	var/mob/living/carbon/human/H = quirk_holder
@@ -273,11 +276,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 		H.mind.learned_recipes = list()
 	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_basic
 	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_mid
-	if(H.special_i >= 6)
-		H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
-		to_chat(H, span_notice("Your sharp mind unlocks advanced chemical formulas."))
-	else
-		to_chat(H, span_notice("You can make combat chems, but advanced formulas are beyond you for now. (Requires 6 INT)"))
+	H.mind.learned_recipes |= GLOB.chemwhiz_recipes_advanced
 
 /datum/quirk/chemwhiz_rank3/remove()
 	var/mob/living/carbon/human/H = quirk_holder
