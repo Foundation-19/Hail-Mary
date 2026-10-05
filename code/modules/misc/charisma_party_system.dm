@@ -22,16 +22,7 @@
 	add_verb(starting_leader, /mob/living/proc/open_party_menu)
 
 /datum/party/proc/get_cap()
-	return leader.get_special_charisma_party_cap()
-
-/datum/party/ui_state(mob/user)
-	return GLOB.party_state
-
-/datum/party/ui_interact(mob/user, datum/tgui/ui)
-	ui = SStgui.try_update_ui(user, src, ui)
-	if(!ui)
-		ui = new(user, src, "PartyManagement")
-		ui.open()
+	return leader ? leader.get_special_charisma_party_cap() : 0 // can be briefly null between the leader leaving and the party qdel'ing itself
 
 /datum/party/ui_data(mob/user)
 	var/list/data = list()
@@ -53,9 +44,11 @@
 	if(is_leader)
 		var/tier = leader.get_special_charisma_party_buff_tier()
 		var/list/aura_list = list()
+		var/aura_index = 0
 		for(var/datum/party_aura/aura_type as anything in subtypesof(/datum/party_aura))
+			aura_index++
 			aura_list += list(list(
-				"type" = "[aura_type]",
+				"index" = aura_index,
 				"name" = initial(aura_type.name),
 				"desc" = initial(aura_type.desc),
 				"required_tier" = initial(aura_type.required_tier),
@@ -68,50 +61,52 @@
 		data["rally_tier"] = tier
 	return data
 
-/datum/party/ui_act(action, list/params, datum/tgui/ui)
-	. = ..()
-	if(.)
-		return
-	var/mob/living/user = ui.user
+/// Shared by the statbrowser Party tab's plain href actions - the single entry point for every party action now that there's no floating tgui panel.
+/datum/party/proc/do_action(mob/living/user, action, list/params)
 	switch(action)
 		if("kick")
 			if(leader != user)
-				return
+				return FALSE
 			var/mob/living/target = locate(params["ref"]) in (members - leader)
 			if(!target)
-				return
+				return FALSE
 			to_chat(target, span_warning("[user] has removed you from the party."))
 			remove_member(target, TRUE)
-			. = TRUE
+			return TRUE
 		if("leave")
 			if(!(user in members))
-				return
+				return FALSE
 			remove_member(user)
-			. = TRUE
+			return TRUE
 		if("set_aura")
 			if(leader != user)
-				return
-			var/datum/party_aura/new_aura_type = text2path(params["aura_type"])
-			if(!ispath(new_aura_type, /datum/party_aura))
-				return
+				return FALSE
+			var/list/aura_types = subtypesof(/datum/party_aura)
+			var/aura_index = text2num(params["aura_index"])
+			if(!aura_index || aura_index < 1 || aura_index > length(aura_types))
+				return FALSE
+			var/datum/party_aura/new_aura_type = aura_types[aura_index]
 			if(initial(new_aura_type.required_tier) > user.get_special_charisma_party_buff_tier())
-				return
+				return FALSE
 			if(new_aura_type == aura.type)
-				return
+				return FALSE
 			for(var/mob/living/member in members)
 				aura.remove(member)
 			aura = new new_aura_type()
 			to_chat(user, span_notice("Your party now radiates the [aura.name] aura!"))
-			. = TRUE
+			return TRUE
 		if("rally_cry")
 			if(leader != user)
-				return
+				return FALSE
+			if(length(members) <= 1)
+				to_chat(user, span_warning("There's nobody else in your party to rally!"))
+				return FALSE
 			var/tier = user.get_special_charisma_party_buff_tier()
 			if(tier <= 0)
 				to_chat(user, span_warning("You don't have the charisma to rally anyone!"))
-				return
+				return FALSE
 			if(world.time < rally_cry_cooldown_until)
-				return
+				return FALSE
 			user.visible_message(span_notice("[user] rallies the party!"), span_notice("You rally your party, boosting the [aura.name] aura for everyone nearby!"))
 			rally_cry_pulse_until = world.time + (6 SECONDS + (tier * 1 SECONDS))
 			rally_cry_cooldown_until = world.time + (60 SECONDS - (tier * 4 SECONDS))
@@ -119,7 +114,41 @@
 				var/datum/status_effect/party_rally/rally = member.has_status_effect(STATUS_EFFECT_PARTY_RALLY)
 				if(rally?.buffed)
 					to_chat(member, span_notice("You feel a surge of extra strength as [user] rallies the party!"))
-			. = TRUE
+			return TRUE
+	return FALSE
+
+/// Lets the statbrowser Party tab invoke kick/leave/aura/rally without going through an href Topic() navigation, which was unreliable in the embedded browser control.
+/mob/living/verb/party_kick(ref as text)
+	set name = "Party Kick"
+	set hidden = TRUE
+
+	if(!party)
+		return
+	party.do_action(src, "kick", list("ref" = ref))
+
+/mob/living/verb/party_leave()
+	set name = "Party Leave"
+	set hidden = TRUE
+
+	if(!party)
+		return
+	party.do_action(src, "leave", list())
+
+/mob/living/verb/party_set_aura(aura_index as text)
+	set name = "Party Set Aura"
+	set hidden = TRUE
+
+	if(!party)
+		return
+	party.do_action(src, "set_aura", list("aura_index" = aura_index))
+
+/mob/living/verb/party_rally_cry()
+	set name = "Party Rally Cry"
+	set hidden = TRUE
+
+	if(!party)
+		return
+	party.do_action(src, "rally_cry", list())
 
 /datum/party/proc/add_member(mob/living/new_member)
 	members += new_member
@@ -201,6 +230,18 @@
 	party.add_member(chosen)
 	to_chat(src, span_notice("[chosen] has joined your party!"))
 
+// Lets a solo player stand up a party of just themselves - handy for testing the Party stat tab's aura/rally UI without needing anyone else online, and a legitimate way to pre-set an aura before recruiting.
+/mob/living/verb/create_party()
+	set name = "Create Party"
+	set desc = "Start a party led by yourself. Invite others later, or just use it to set up your aura in advance."
+	set category = "Party"
+
+	if(party)
+		to_chat(src, span_warning("You're already in a party!"))
+		return
+	new /datum/party(src)
+	to_chat(src, span_notice("You've started a party! Check the Party tab in your stat panel."))
+
 // Real verb (not add_verb()'d) since it's an innate low-Charisma ability, not something tied to leading a party - everyone has access to it, but only low-CHA mobs get anything out of using it.
 /mob/living/verb/intimidating_presence()
 	set name = "Intimidating Presence"
@@ -265,18 +306,18 @@
 		target.apply_status_effect(STATUS_EFFECT_INSPIRED, duration, src)
 	to_chat(src, span_notice("[length(targets)] nearby [length(targets) == 1 ? "person stands" : "people stand"] a little taller."))
 
-// Single party-tab entry point for all members (leader or not) - every other party action (kick/leave/aura/rally) lives inside the panel itself.
+// Switches the stat panel to the Party tab, which is the sole UI for the party system now - no floating window, kick/leave/aura/rally all live there.
 /mob/living/proc/open_party_menu()
 	set name = "Party"
-	set desc = "Open your party roster and (if leading) manage members, aura, and Rally Cry."
+	set desc = "Jump to your party roster in the stat panel, where you can (if leading) manage members, aura, and Rally Cry."
 	set category = "Party"
 
 	if(!party)
 		to_chat(src, span_warning("You aren't part of a party!"))
 		return
-	party.ui_interact(src)
+	if(client)
+		client << output("", "statbrowser:focus_party")
 
-/// Surfaces live party info in the statpanel: the leader sees every member's in-range status, members see whether they're currently in rally range and benefiting from the buff.
 /mob/living/get_status_tab_items()
 	. = ..()
 	if(!party)

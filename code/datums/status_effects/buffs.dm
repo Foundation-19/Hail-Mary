@@ -64,7 +64,7 @@
 	if(in_range && owner != source_leader)
 		var/raw_tier = source_leader.get_special_charisma_party_buff_tier()
 		if(world.time < owner.party.rally_cry_pulse_until)
-			raw_tier += 2
+			raw_tier += min(2, length(owner.party.members) - 1) // scales with headcount so a near-empty party doesn't get the same pulse as a packed one
 		// A follower's OWN Charisma decides how much of the leader's buff actually lands - skeptical, socially-closed-off followers tune it out, while sociable ones resonate with it even more.
 		var/tier = round(raw_tier * owner.get_special_charisma_buyin_multiplier())
 		var/datum/party_aura/current_aura = owner.party.aura

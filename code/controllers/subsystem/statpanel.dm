@@ -40,7 +40,15 @@ SUBSYSTEM_DEF(statpanels)
 		var/ping_str = url_encode("Ping: [round(target.lastping, 1)]ms (Average: [round(target.avgping, 1)]ms)")
 		var/other_str = target.stat_tab == "Status" ? url_encode(json_encode(target.mob.get_status_tab_items())) : url_encode(json_encode(list()))
 		target << output("[encoded_global_data];[ping_str];[other_str]", "statbrowser:update")
-		
+
+		var/datum/party/party = target.mob?.party
+		if(!party && ("Party" in target.panel_tabs))
+			target << output("", "statbrowser:remove_party")
+		else if(party && (target.stat_tab == "Party" || !("Party" in target.panel_tabs)))
+			var/list/party_data = party.ui_data(target.mob)
+			party_data["ref"] = REF(party)
+			target << output("[url_encode(json_encode(party_data))];", "statbrowser:update_party")
+
 		if(!target.holder)
 			target << output("", "statbrowser:remove_admin_tabs")
 		else
