@@ -99,7 +99,9 @@
 	return 0
 
 /mob/living/carbon/human/get_alt_name()
-	if(name != GetVoice())
+	//Compare against the real identity resolution, not .name - .name is now the anonymized public tag
+	//(see get_public_name()), so it no longer doubles as "what GetVoice() returns when unmasked".
+	if(get_visible_name() != GetVoice())
 		return " (as [get_id_name("Unknown")])"
 
 /mob/living/carbon/human/proc/forcesay(list/append) //this proc is at the bottom of the file because quote fuckery makes notepad++ cri

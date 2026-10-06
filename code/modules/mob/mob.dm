@@ -191,7 +191,10 @@
 			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(target))
 				msg = anonymize_message_names(msg, target, name_actor, name_other)
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
-				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(src) && isliving(target)) ? src:get_display_name(target) : "[src]"
+				var/can_resolve_per_viewer = isliving(src) && isliving(target)
+				if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer)
+					log_identity_leak("PUT_NAME_IN fell back to raw name (target_message branch) - src=[src] ([REF(src)]) target=[target] ([REF(target)])")
+				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && can_resolve_per_viewer) ? src:get_display_name_linked(target) : "[src]"
 				msg = "<b>[name_text]</b> [msg]"
 			target.show_message(msg, MSG_VISUAL,blind_message, MSG_AUDIBLE)
 	if(self_message)
@@ -218,7 +221,10 @@
 			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(M))
 				msg = anonymize_message_names(msg, M, name_actor, name_other)
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
-				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(src) && isliving(M)) ? src:get_display_name(M) : "[src]"
+				var/can_resolve_per_viewer = isliving(src) && isliving(M)
+				if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer)
+					log_identity_leak("PUT_NAME_IN fell back to raw name (visible_message hearers loop) - src=[src] ([REF(src)]) viewer=[M] ([REF(M)])")
+				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && can_resolve_per_viewer) ? src:get_display_name_linked(M) : "[src]"
 				msg = "<b>[name_text]</b> [msg]"
 			M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
@@ -226,6 +232,10 @@
 ///%OTHER_NAME% (name_other, if given - a 3rd party mob neither src nor name_actor) in msg with how
 ///`viewer` would actually perceive those mobs - see /mob/living/proc/get_display_name() in code/game/say.dm.
 /atom/proc/anonymize_message_names(msg, mob/living/viewer, mob/living/name_actor, mob/living/name_other)
+	if(!findtext(msg, "%SELF_NAME%") && !findtext(msg, "%ACTOR_NAME%") && !findtext(msg, "%OTHER_NAME%"))
+		//ANONYMIZE_NAMES was requested but the message never uses a %...NAME% macro, so any raw
+		//[src]/[name_actor]/[name_other] in it bypasses recognition entirely (public tag or worse).
+		log_identity_leak("anonymize_message_names() called with no %...NAME% placeholder - msg=\"[msg]\" src=[src] ([REF(src)]) viewer=[viewer] ([REF(viewer)])")
 	if(isliving(src))
 		var/mob/living/self_mob = src
 		msg = replacetext(msg, "%SELF_NAME%", self_mob.get_display_name(viewer))
@@ -288,7 +298,10 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 			if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && isliving(M))
 				msg = anonymize_message_names(msg, M, name_actor, name_other)
 			if(CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
-				var/name_text = (CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && isliving(src) && isliving(M)) ? src:get_display_name(M) : "[src]"
+				var/can_resolve_per_viewer = isliving(src) && isliving(M)
+				if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer)
+					log_identity_leak("PUT_NAME_IN fell back to raw name (audible_message hearers loop) - src=[src] ([REF(src)]) viewer=[M] ([REF(M)])")
+				var/name_text = (CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && can_resolve_per_viewer) ? src:get_display_name_linked(M) : "[src]"
 				msg = "<b>[name_text]</b> [msg]"
 			M.show_message(msg, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 

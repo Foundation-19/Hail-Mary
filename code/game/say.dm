@@ -300,10 +300,21 @@ And the base of the send_speech() proc, which is the core of saycode.
 /// `viewer` would see this mob's name in a message (combat, emotes, etc.). No href attached, unlike
 /// get_identity_tag()'s use in examine(), since you don't want a "remember" link spamming into combat text.
 /mob/living/proc/get_display_name(mob/living/viewer)
+	//Viewing your own name should show your real identity, not .name's anonymized public tag.
 	if(!viewer || viewer == src)
-		return name
+		return get_visible_name()
 	var/remembered_name = viewer.knows_face(src)
 	return remembered_name ? remembered_name : get_identity_tag()
+
+/// Same as get_display_name(), but wraps an unrecognized name in the same clickable "remember_face" link
+/// compose_message() gives natural speech - used for PUT_NAME_IN messages (emotes) so emoting instead of
+/// talking can't be used to dodge ever being nameable.
+/mob/living/proc/get_display_name_linked(mob/living/viewer)
+	if(!viewer || viewer == src)
+		return get_visible_name()
+	var/remembered_name = viewer.knows_face(src)
+	var/label = remembered_name ? remembered_name : get_identity_tag()
+	return "<a href='?src=[REF(viewer)];remember_face=[REF(src)]'>[label]</a>"
 
 /mob/living/Topic(href, href_list)
 	if(href_list["remember_voice"])
