@@ -189,7 +189,7 @@
 			msg = blind_message
 		if(msg && !CHECK_BITFIELD(visible_message_flags, ONLY_OVERHEAD))
 			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(target))
-				msg = anonymize_message_names(msg, target, name_actor, name_other)
+				msg = anonymize_message_names(msg, target, name_actor, name_other, CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 				var/can_resolve_per_viewer = isliving(src) && isliving(target)
 				if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer)
@@ -219,7 +219,7 @@
 
 		if(msg && !CHECK_BITFIELD(visible_message_flags, ONLY_OVERHEAD))
 			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(M))
-				msg = anonymize_message_names(msg, M, name_actor, name_other)
+				msg = anonymize_message_names(msg, M, name_actor, name_other, CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 				var/can_resolve_per_viewer = isliving(src) && isliving(M)
 				if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer)
@@ -231,8 +231,11 @@
 ///Substitutes %SELF_NAME% (this atom, if a living mob), %ACTOR_NAME% (name_actor, if given), and
 ///%OTHER_NAME% (name_other, if given - a 3rd party mob neither src nor name_actor) in msg with how
 ///`viewer` would actually perceive those mobs - see /mob/living/proc/get_display_name() in code/game/say.dm.
-/atom/proc/anonymize_message_names(msg, mob/living/viewer, mob/living/name_actor, mob/living/name_other)
-	if(!findtext(msg, "%SELF_NAME%") && !findtext(msg, "%ACTOR_NAME%") && !findtext(msg, "%OTHER_NAME%"))
+///`named_via_prefix` is TRUE for emotes (PUT_NAME_IN prepends the name separately instead of via a macro).
+/atom/proc/anonymize_message_names(msg, mob/living/viewer, mob/living/name_actor, mob/living/name_other, named_via_prefix = FALSE)
+	//Self-view (self_message) conventionally writes "You" directly instead of %SELF_NAME%, and emotes name
+	//via PUT_NAME_IN's prefix instead of a macro - neither of those is a real leak, so don't flag them.
+	if(!named_via_prefix && viewer != src && !findtext(msg, "%SELF_NAME%") && !findtext(msg, "%ACTOR_NAME%") && !findtext(msg, "%OTHER_NAME%"))
 		//ANONYMIZE_NAMES was requested but the message never uses a %...NAME% macro, so any raw
 		//[src]/[name_actor]/[name_other] in it bypasses recognition entirely (public tag or worse).
 		log_identity_leak("anonymize_message_names() called with no %...NAME% placeholder - msg=\"[msg]\" src=[src] ([REF(src)]) viewer=[viewer] ([REF(viewer)])")
@@ -296,7 +299,7 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		if(!CHECK_BITFIELD(audible_message_flags, ONLY_OVERHEAD))
 			var/msg = message
 			if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && isliving(M))
-				msg = anonymize_message_names(msg, M, name_actor, name_other)
+				msg = anonymize_message_names(msg, M, name_actor, name_other, CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
 			if(CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
 				var/can_resolve_per_viewer = isliving(src) && isliving(M)
 				if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer)

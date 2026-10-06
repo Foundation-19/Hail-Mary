@@ -65,9 +65,14 @@ And the base of the send_speech() proc, which is the core of saycode.
 			else
 				//Face-to-face: only the badge/job id on their chest, unless the listener has specifically
 				//remembered this face before - real names aren't given away just because a face is visible.
-				var/remembered_face = listener.knows_face(real_speaker)
-				var/face_label = remembered_face ? "[remembered_face][speaker.get_alt_name()]" : real_speaker.get_identity_tag()
-				namepart = "<a href='?src=[REF(listener)];remember_face=[REF(real_speaker)]'>[face_label]</a>"
+				//A currently fully-masked speaker (no face or badge visible at all) overrides even an old
+				//remembered name - there's nothing to click on either, since there's no face to re-remember.
+				if(real_speaker.is_currently_unrecognizable())
+					namepart = "Unknown"
+				else
+					var/remembered_face = listener.knows_face(real_speaker)
+					var/face_label = remembered_face ? "[remembered_face][speaker.get_alt_name()]" : real_speaker.get_identity_tag()
+					namepart = "<a href='?src=[REF(listener)];remember_face=[REF(real_speaker)]'>[face_label]</a>"
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		var/natural_name = H.get_face_name()
@@ -245,8 +250,10 @@ And the base of the send_speech() proc, which is the core of saycode.
 /mob/living/carbon/human/auto_identifies_on_radio(radio_freq)
 	if(!radio_freq || !client?.prefs?.auto_identify_faction_radio)
 		return FALSE
-	var/channel_name = get_radio_name(radio_freq)
-	return (channel_name in faction)
+	//Looked up by frequency, not the channel's display name - several display names don't textually
+	//match their faction's tag (see GLOB.radio_channel_factions in code/__DEFINES/radio.dm).
+	var/channel_faction = GLOB.radio_channel_factions["[radio_freq]"]
+	return channel_faction && (channel_faction in faction)
 
 /// Returns the name this mob has previously remembered for the given speaker, if any.
 /mob/living/proc/knows_voice(atom/movable/speaker)
@@ -278,6 +285,11 @@ And the base of the send_speech() proc, which is the core of saycode.
 /mob/living/proc/get_badge_assignment()
 	return FACTION_WASTELAND
 
+/// Whether this mob currently shows no face or badge at all - i.e. get_public_name() would show "Unknown".
+/// Masking up should defeat recognition even for viewers who already remembered this mob's face/name earlier.
+/mob/living/proc/is_currently_unrecognizable()
+	return FALSE
+
 /// Generates (once) and returns this mob's anonymous visual identity tag - their badge's claimed job id, plus a
 /// stable random suffix so two strangers wearing the same job id aren't indistinguishable before being remembered.
 /mob/living/proc/get_identity_tag()
@@ -303,6 +315,8 @@ And the base of the send_speech() proc, which is the core of saycode.
 	//Viewing your own name should show your real identity, not .name's anonymized public tag.
 	if(!viewer || viewer == src)
 		return get_visible_name()
+	if(is_currently_unrecognizable())
+		return "Unknown"
 	var/remembered_name = viewer.knows_face(src)
 	return remembered_name ? remembered_name : get_identity_tag()
 
@@ -312,6 +326,8 @@ And the base of the send_speech() proc, which is the core of saycode.
 /mob/living/proc/get_display_name_linked(mob/living/viewer)
 	if(!viewer || viewer == src)
 		return get_visible_name()
+	if(is_currently_unrecognizable())
+		return "Unknown"
 	var/remembered_name = viewer.knows_face(src)
 	var/label = remembered_name ? remembered_name : get_identity_tag()
 	return "<a href='?src=[REF(viewer)];remember_face=[REF(src)]'>[label]</a>"

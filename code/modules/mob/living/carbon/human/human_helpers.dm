@@ -62,6 +62,9 @@
 		return get_identity_tag()
 	return "Unknown"
 
+/mob/living/carbon/human/is_currently_unrecognizable()
+	return !name_override && !get_face_name("") && !get_id_name("")
+
 //Returns the job id printed on whatever ID badge is currently worn, or the generic wasteland default if none -
 //this (not get_visible_name()) is what strangers perceive by default; see get_identity_tag() in say.dm.
 //Mirrors get_id_name()'s wear_id resolution (wallet/pda/id/tablet) rather than get_idcard(), which only

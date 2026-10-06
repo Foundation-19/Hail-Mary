@@ -341,6 +341,22 @@ GLOBAL_LIST_INIT(reverseradiochannels, list(
 	"[FREQ_EIGHTIESR]" = RADIO_CHANNEL_EIGHTIESR
 ))
 
+//Maps a faction radio's frequency straight to the FACTION_* tag that should auto-identify on it, for
+//auto_identifies_on_radio() (code/game/say.dm) - kept separate from reverseradiochannels above since several
+//RADIO_CHANNEL_* display names don't textually match their FACTION_* string (e.g. "Ranger" vs "Rangers",
+//"Khans" vs "Great Khans", "Eastwood"/"Town" swapped), which silently broke the auto-identify preference.
+GLOBAL_LIST_INIT(radio_channel_factions, list(
+	"[FREQ_NCR]" = FACTION_NCR,
+	"[FREQ_BOS]" = FACTION_BROTHERHOOD,
+	"[FREQ_ENCLAVE]" = FACTION_ENCLAVE,
+	"[FREQ_LEGION]" = FACTION_LEGION,
+	"[FREQ_KHANS]" = FACTION_KHAN,
+	"[FREQ_BIKER]" = FACTION_BIKER,
+	"[FREQ_RANGER]" = FACTION_RANGER,
+	"[FREQ_TOWN]" = FACTION_EASTWOOD,
+	"[FREQ_VAULT]" = FACTION_VAULT,
+))
+
 GLOBAL_LIST_INIT(freqtospan, list(
 	"[FREQ_SCIENCE]" = "sciradio",
 	"[FREQ_MEDICAL]" = "medradio",
