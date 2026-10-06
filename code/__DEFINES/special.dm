@@ -6,3 +6,7 @@
 #define SPECIAL_MAX_ATTR_VALUE 10
 
 #define SPECIAL_MIN_INT_CRAFTING_REQUIREMENT 3
+
+/// How long a target is safe from being challenged again (by anyone) after a verify_identity() attempt, win or lose.
+/// Long enough that a successful infiltrator has a real window to operate before anyone else can take a crack at them.
+#define IDENTITY_CHECK_COOLDOWN (45 MINUTES)

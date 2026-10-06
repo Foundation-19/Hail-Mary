@@ -41,25 +41,33 @@ And the base of the send_speech() proc, which is the core of saycode.
 	//The real mob behind a speaker - virtualspeakers (radio, AI) resolve back to whoever is actually talking.
 	var/atom/movable/identity_obj = speaker.GetSource() || speaker
 	var/namepart = "[raw_voice][speaker.get_alt_name()]"
-	//Anonymize natural (non-disguised) voices for living listeners who haven't remembered this speaker yet.
+	//Anonymize natural (non-disguised) voices/faces for living listeners who haven't remembered this speaker yet.
+	//Radio speech is gated by voice recognition (known_voices); face-to-face speech is gated by face/badge
+	//recognition (known_faces) instead - these are tracked independently, so recognizing someone's voice over
+	//the radio doesn't mean you'd recognize their face in person, and vice versa.
 	if(isliving(src) && isliving(identity_obj) && identity_obj != src)
 		var/mob/living/listener = src
 		var/mob/living/real_speaker = identity_obj
 		var/natural_voice = ishuman(real_speaker) ? real_speaker.get_visible_name() : null
-		//Only go through voice-recognition when sight alone can't already identify them - i.e.
-		//they're heard over radio, or their face is actually concealed. Otherwise just show their
-		//visible name directly; a voice remembered from radio shouldn't override someone you can see.
-		if(raw_voice == natural_voice && (radio_freq || natural_voice == "Unknown"))
-			//A voice the listener has already made a mental note of stays recognizable
-			//regardless of radio auto-identify settings - that's the whole point of remembering it.
-			if(radio_freq && real_speaker.auto_identifies_on_radio(radio_freq))
-				namepart = "[raw_voice][speaker.get_alt_name()]" //opted to reveal their real name on this channel
-			else
-				var/remembered = listener.knows_voice(real_speaker)
-				if(remembered)
-					namepart = "[remembered][speaker.get_alt_name()]"
+		//Only go through recognition for their own natural voice - a disguised/mimicked voice already set
+		//raw_voice to something else above and should never be touched here.
+		if(raw_voice == natural_voice)
+			if(radio_freq)
+				//A voice the listener has already made a mental note of stays recognizable
+				//regardless of radio auto-identify settings - that's the whole point of remembering it.
+				if(real_speaker.auto_identifies_on_radio(radio_freq))
+					namepart = "[raw_voice][speaker.get_alt_name()]" //opted to reveal their real name on this channel
 				else
-					namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[real_speaker.get_voice_tag()]</a>"
+					var/remembered = listener.knows_voice(real_speaker)
+					//Stays a clickable link even once remembered, so the listener can re-remember it under a different name later.
+					var/voice_label = remembered ? "[remembered][speaker.get_alt_name()]" : real_speaker.get_voice_tag()
+					namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[voice_label]</a>"
+			else
+				//Face-to-face: only the badge/job id on their chest, unless the listener has specifically
+				//remembered this face before - real names aren't given away just because a face is visible.
+				var/remembered_face = listener.knows_face(real_speaker)
+				var/face_label = remembered_face ? "[remembered_face][speaker.get_alt_name()]" : real_speaker.get_identity_tag()
+				namepart = "<a href='?src=[REF(listener)];remember_face=[REF(real_speaker)]'>[face_label]</a>"
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
@@ -207,7 +215,7 @@ And the base of the send_speech() proc, which is the core of saycode.
 /atom/movable/proc/get_alt_name()
 
 /*
-	Voice anonymity system.
+	Voice/face anonymity system.
 	Vars and procs both live here (instead of a separate mob/living file) because this
 	codebase's build requires a var/proc to be defined in the same file as, or an
 	earlier-included file than, any file that references it - and compose_message()
@@ -247,6 +255,41 @@ And the base of the send_speech() proc, which is the core of saycode.
 	known_voices[REF(speaker)] = display_name
 	to_chat(src, span_notice("You make a mental note of that voice - it's [display_name]."))
 
+/mob/living
+	/// Stable per-mob disambiguating suffix for the anonymous visual identity tag (e.g. "A1B2"). Persists even
+	/// if the mob later swaps badges, so a bystander who's noticed "that stranger (A1B2)" can tell if the same
+	/// person starts wearing a different badge.
+	var/identity_tag_suffix
+	/// ref -> remembered display name, keyed by the looked-at mob's real identity ref. Separate from known_voices -
+	/// recognizing someone's face doesn't mean you'd recognize their voice over radio, or vice versa.
+	var/list/known_faces = list()
+	/// world.time deadline before THIS mob (as a target) can be challenged with verify_identity() again. Set on
+	/// every attempt, win or lose, so a blown read can't just be immediately re-tried by someone else.
+	var/identity_check_cooldown_until = 0
+
+/// Returns the job id printed on whatever badge this mob is currently wearing, or the generic wasteland default
+/// if it has none. Non-human living mobs don't wear badges, so they default to the generic label.
+/mob/living/proc/get_badge_assignment()
+	return FACTION_WASTELAND
+
+/// Generates (once) and returns this mob's anonymous visual identity tag - their badge's claimed job id, plus a
+/// stable random suffix so two strangers wearing the same job id aren't indistinguishable before being remembered.
+/mob/living/proc/get_identity_tag()
+	if(!identity_tag_suffix)
+		identity_tag_suffix = uppertext(num2hex(rand(0, 65535), 4))
+	return "[get_badge_assignment()] ([identity_tag_suffix])"
+
+/// Returns the name this mob has previously remembered for the given target's face, if any.
+/mob/living/proc/knows_face(mob/living/target)
+	return known_faces[REF(target)]
+
+/// Permanently (for this mob only, this round) associates a target's face with a display name.
+/mob/living/proc/remember_face(mob/living/target, display_name)
+	if(!target || !display_name)
+		return
+	known_faces[REF(target)] = display_name
+	to_chat(src, span_notice("You commit that face to memory - it's [display_name]."))
+
 /mob/living/Topic(href, href_list)
 	if(href_list["remember_voice"])
 		var/atom/movable/speaker = locate(href_list["remember_voice"]) in GLOB.mob_list
@@ -257,7 +300,83 @@ And the base of the send_speech() proc, which is the core of saycode.
 				return
 			remember_voice(speaker, display_name)
 		return
+	if(href_list["remember_face"])
+		var/mob/living/target = locate(href_list["remember_face"]) in GLOB.mob_list
+		if(target)
+			var/existing = knows_face(target)
+			var/display_name = stripped_input(src, "Who is this?", "Remember Face", existing, MAX_NAME_LEN)
+			if(!display_name)
+				return
+			remember_face(target, display_name)
+		return
 	return ..()
+
+/// Lets a real faction member challenge a nearby person's claimed affiliation - do they actually belong to the
+/// faction their badge says they do, or is it stolen/forged? An opposed roll (verifier's Perception vs the
+/// target's Charisma), not a certain answer - a lucky impostor can bluff past it, same as a sharp-eyed verifier
+/// can see through a genuine member having an off day. Real membership is read from the target's actual faction
+/// standing (mob.faction, set by their job/species - not spoofable just by swapping badges), not from the badge
+/// itself; the roll only decides whether the verifier's read of that truth is accurate.
+/// This is a gut feeling, not a reveal: it never touches known_faces/remember_face, so the target's name (if
+/// remembered at all) stays whatever it already was. The verifier walks away personally convinced one way or
+/// the other, but has nothing provable to show anyone else - it's a roleplay hook for suspicion, not hard proof.
+/// Each target can only be challenged once per cooldown, win or lose - otherwise a failed read would just get
+/// immediately retried by the same or another member until someone rolls well enough to unmask them.
+/mob/living/verb/verify_identity()
+	set name = "Verify Identity"
+	set desc = "Get a read on whether a nearby person's credentials are genuine - a hunch, not proof."
+	set category = "IC"
+
+	var/list/my_factions = faction - list("neutral")
+	if(!length(my_factions))
+		to_chat(src, span_warning("You have no faction standing of your own to check anyone's credentials against."))
+		return
+
+	var/list/mob/living/possible_targets = list()
+	for(var/mob/living/target in oview(src))
+		if(target == src || target.stat == DEAD)
+			continue
+		possible_targets += target
+	if(!length(possible_targets))
+		to_chat(src, span_warning("There's nobody nearby to verify."))
+		return
+
+	var/mob/living/target = input(src, "Whose credentials do you want to check?", "Verify Identity") as null|mob in possible_targets
+	if(!target || QDELETED(target) || target == src)
+		return
+	if(get_dist(src, target) > 7)
+		to_chat(src, span_warning("They've wandered too far away!"))
+		return
+	if(world.time < target.identity_check_cooldown_until)
+		to_chat(src, span_warning("You've already given [target.get_identity_tag()]'s credentials a good look recently - pressing the issue again so soon would just tip them off."))
+		return
+
+	var/claimed_text = "[target.get_badge_assignment()]"
+	var/claimed_faction
+	for(var/my_faction in my_factions)
+		if(findtext(claimed_text, my_faction))
+			claimed_faction = my_faction
+			break
+	if(!claimed_faction)
+		to_chat(src, span_notice("[target.get_identity_tag()]'s badge doesn't claim any affiliation with [english_list(my_factions)]."))
+		return
+
+	// One shot at this target, whichever way it goes - keeps a failed read from just being instantly retried.
+	target.identity_check_cooldown_until = world.time + IDENTITY_CHECK_COOLDOWN
+
+	var/verifier_roll = rand(1, 20) + ((special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 2)
+	var/target_roll = rand(1, 20) + ((target.special_c - SPECIAL_DEFAULT_ATTR_VALUE) * 2)
+	var/really_genuine = (claimed_faction in target.faction)
+
+	if(verifier_roll <= target_roll)
+		// The read is wrong either way - a genuine member gets needlessly side-eyed, or (the interesting case)
+		// an impostor successfully bluffs their way past scrutiny and keeps their cover intact.
+		to_chat(src, span_notice("You look [target.get_identity_tag()] over and check their bearing against what you know of our own - nothing seems off. One of ours, you'd guess."))
+		return
+	if(really_genuine)
+		to_chat(src, span_notice("You get a read on [target.get_identity_tag()] - whatever's nagging at you settles. Your gut says they're one of ours."))
+	else
+		to_chat(src, span_warning("Something about [target.get_identity_tag()] doesn't sit right. Your gut says they aren't really one of ours - but it's just that, a gut feeling. Nothing you could prove."))
 
 //HACKY VIRTUALSPEAKER STUFF BEYOND THIS POINT
 //these exist mostly to deal with the AIs hrefs and job stuff.

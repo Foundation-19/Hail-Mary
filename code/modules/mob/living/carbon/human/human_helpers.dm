@@ -49,6 +49,12 @@
 		return id_name
 	return "Unknown"
 
+//Returns the job id printed on whatever ID badge is currently worn, or the generic wasteland default if none -
+//this (not get_visible_name()) is what strangers perceive by default; see get_identity_tag() in say.dm.
+/mob/living/carbon/human/get_badge_assignment()
+	var/obj/item/card/id/id = get_idcard(FALSE)
+	return id?.assignment || FACTION_WASTELAND
+
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")
 	if( wear_mask && (wear_mask.flags_inv&HIDEFACE) )	//Wearing a mask which hides our face, use id-name if possible

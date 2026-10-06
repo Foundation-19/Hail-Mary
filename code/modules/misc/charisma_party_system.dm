@@ -24,6 +24,26 @@
 /datum/party/proc/get_cap()
 	return leader ? leader.get_special_charisma_party_cap() : 0 // can be briefly null between the leader leaving and the party qdel'ing itself
 
+/// Picks the member with the highest Charisma (special_c), used for auto-succession when the leader leaves.
+/datum/party/proc/get_highest_charisma_member()
+	var/mob/living/best
+	for(var/mob/living/candidate in members)
+		if(!best || candidate.special_c > best.special_c)
+			best = candidate
+	return best
+
+/// Hands leadership to new_leader, moving the leadership status effect and announcing it. Used both for leader-leaving auto-succession and the leader manually promoting someone.
+/datum/party/proc/set_leader(mob/living/new_leader)
+	if(!new_leader || !(new_leader in members) || new_leader == leader)
+		return
+	if(leader)
+		leader.remove_status_effect(STATUS_EFFECT_PARTY_FRICTION)
+	leader = new_leader
+	leader.apply_status_effect(STATUS_EFFECT_PARTY_FRICTION)
+	to_chat(leader, span_notice("You are now the leader of the party!"))
+	for(var/mob/living/member in (members - leader))
+		to_chat(member, span_notice("[leader] is now the leader of the party."))
+
 /datum/party/ui_data(mob/user)
 	var/list/data = list()
 	var/is_leader = (leader == user)
@@ -72,6 +92,14 @@
 				return FALSE
 			to_chat(target, span_warning("[user] has removed you from the party."))
 			remove_member(target, TRUE)
+			return TRUE
+		if("promote")
+			if(leader != user)
+				return FALSE
+			var/mob/living/target = locate(params["ref"]) in (members - leader)
+			if(!target)
+				return FALSE
+			set_leader(target)
 			return TRUE
 		if("leave")
 			if(!(user in members))
@@ -134,6 +162,14 @@
 		return
 	party.do_action(src, "leave", list())
 
+/mob/living/verb/party_promote(ref as text)
+	set name = "Party Promote"
+	set hidden = TRUE
+
+	if(!party)
+		return
+	party.do_action(src, "promote", list("ref" = ref))
+
 /mob/living/verb/party_set_aura(aura_index as text)
 	set name = "Party Set Aura"
 	set hidden = TRUE
@@ -167,10 +203,9 @@
 	remove_verb(member, /mob/living/proc/open_party_menu)
 	if(member == leader)
 		member.remove_status_effect(STATUS_EFFECT_PARTY_FRICTION)
-		leader = length(members) ? members[1] : null
-		if(leader)
-			leader.apply_status_effect(STATUS_EFFECT_PARTY_FRICTION)
-			to_chat(leader, span_notice("You are now the leader of the party!"))
+		leader = null
+		if(length(members))
+			set_leader(get_highest_charisma_member())
 	if(!silent)
 		to_chat(member, span_warning("You are no longer part of the party."))
 	if(!length(members))
