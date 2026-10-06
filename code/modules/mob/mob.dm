@@ -178,6 +178,18 @@
 		return
 	hearers -= ignored_mobs
 
+	//Bakes a living mob's raw public name/tag straight into the message with no per-viewer recognition
+	//chance at all (the "[L] is hit by..." class of bug) - should be using %...NAME% + ANONYMIZE_NAMES instead.
+	//Checks name_actor/name_other too, not just src - a bystander's or an attacker's raw name baked into a
+	//message about someone else is just as much a leak as the message's own mob leaking itself.
+	if(!CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES))
+		if(isliving(src) && findtext(message, "[src]"))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's raw name - msg=\"[message]\" src=[src] ([REF(src)])")
+		if(name_actor && findtext(message, "[name_actor]"))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's raw name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
+		if(name_other && findtext(message, "[name_other]"))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_other's raw name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
+
 	if(target_message && target && istype(target) && target.client)
 		hearers -= target
 		//This entire if/else chain could be in two lines but isn't for readabilty's sake.
@@ -235,10 +247,15 @@
 /atom/proc/anonymize_message_names(msg, mob/living/viewer, mob/living/name_actor, mob/living/name_other, named_via_prefix = FALSE)
 	//Self-view (self_message) conventionally writes "You" directly instead of %SELF_NAME%, and emotes name
 	//via PUT_NAME_IN's prefix instead of a macro - neither of those is a real leak, so don't flag them.
-	if(!named_via_prefix && viewer != src && !findtext(msg, "%SELF_NAME%") && !findtext(msg, "%ACTOR_NAME%") && !findtext(msg, "%OTHER_NAME%"))
-		//ANONYMIZE_NAMES was requested but the message never uses a %...NAME% macro, so any raw
-		//[src]/[name_actor]/[name_other] in it bypasses recognition entirely (public tag or worse).
-		log_identity_leak("anonymize_message_names() called with no %...NAME% placeholder - msg=\"[msg]\" src=[src] ([REF(src)]) viewer=[viewer] ([REF(viewer)])")
+	//Checked per-mob (src/name_actor/name_other independently) so a message that macros %SELF_NAME% but still
+	//bakes in name_actor's/name_other's raw name literally still gets flagged - not just "no macro at all".
+	if(!named_via_prefix && viewer != src)
+		if(isliving(src) && !findtext(msg, "%SELF_NAME%") && findtext(msg, "[src]"))
+			log_identity_leak("anonymize_message_names() bakes in src's raw name with no %SELF_NAME% - msg=\"[msg]\" src=[src] ([REF(src)]) viewer=[viewer] ([REF(viewer)])")
+		if(name_actor && !findtext(msg, "%ACTOR_NAME%") && findtext(msg, "[name_actor]"))
+			log_identity_leak("anonymize_message_names() bakes in name_actor's raw name with no %ACTOR_NAME% - msg=\"[msg]\" name_actor=[name_actor] ([REF(name_actor)]) viewer=[viewer] ([REF(viewer)])")
+		if(name_other && !findtext(msg, "%OTHER_NAME%") && findtext(msg, "[name_other]"))
+			log_identity_leak("anonymize_message_names() bakes in name_other's raw name with no %OTHER_NAME% - msg=\"[msg]\" name_other=[name_other] ([REF(name_other)]) viewer=[viewer] ([REF(viewer)])")
 	if(isliving(src))
 		var/mob/living/self_mob = src
 		msg = replacetext(msg, "%SELF_NAME%", self_mob.get_display_name(viewer))
@@ -288,6 +305,16 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	hearers -= ignored_mobs
 	if(self_message)
 		hearers -= src
+
+	//Same raw-name check as visible_message() - see comment there.
+	if(!CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES))
+		if(isliving(src) && findtext(message, "[src]"))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's raw name - msg=\"[message]\" src=[src] ([REF(src)])")
+		if(name_actor && findtext(message, "[name_actor]"))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's raw name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
+		if(name_other && findtext(message, "[name_other]"))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_other's raw name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
+
 	var/raw_msg = message
 	//if(audible_message_flags & EMOTE_MESSAGE)
 	//	message = "<span class='emote'><b>[src]</b> [message]</span>"
