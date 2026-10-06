@@ -36,6 +36,8 @@
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
+//NOTE: this resolves the mob's real current identity (used for e.g. head-transplant/disguise game mechanics
+//and tests) - it is deliberately NOT used to set the globally-visible .name var anymore, see get_public_name().
 /mob/living/carbon/human/get_visible_name()
 	var/face_name = get_face_name("")
 	var/id_name = get_id_name("")
@@ -47,6 +49,17 @@
 		return face_name
 	if(id_name)
 		return id_name
+	return "Unknown"
+
+//The globally-visible .name - what BYOND's native right-click menu and mouse-hover status bar show to
+//literally everyone, since .name is a single var that can't be rendered differently per-viewer. Never
+//reveals real_name/registered ID name: real per-viewer recognition only happens through get_display_name()/
+//known_faces in actual messages (speech, examine, etc.), which already gate it correctly.
+/mob/living/carbon/human/proc/get_public_name()
+	if(name_override)
+		return name_override
+	if(get_face_name("") || get_id_name(""))
+		return get_identity_tag()
 	return "Unknown"
 
 //Returns the job id printed on whatever ID badge is currently worn, or the generic wasteland default if none -
