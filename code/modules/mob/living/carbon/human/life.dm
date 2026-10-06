@@ -33,6 +33,9 @@
 	//Update our name based on whether our face is obscured/disfigured - never the real name, .name is global
 	//and shown to literally everyone via right-click/hover, so it must stay anonymous (see get_public_name()).
 	name = get_public_name()
+	//Per-viewer hover/right-click override images for anyone who's remembered this mob's face - .name itself
+	//can't be per-viewer in BYOND, so this is the closest equivalent (see sync_identity_override_for()).
+	refresh_identity_overrides()
 
 /mob/living/carbon/human/calculate_affecting_pressure(pressure)
 	var/headless = !get_bodypart(BODY_ZONE_HEAD) //should the mob be perennially headless (see dullahans), we only take the suit into account, so they can into space.

@@ -31,6 +31,15 @@
 		for(var/M in observers)
 			var/mob/dead/observe = M
 			observe.reset_perspective(null)
+	// Identity-override /image cleanup (see code/game/say.dm) - this mob could be tracked as either a
+	// viewer (owns override images in a client's .images) or a target (tracked by other viewers), so tear
+	// down both directions to avoid leaking /image objects into other clients' screens.
+	if(isliving(src))
+		var/mob/living/L = src
+		for(var/mob/living/viewer in L.identity_override_viewers.Copy())
+			L.forget_identity_override_viewer(viewer)
+		for(var/mob/living/target in L.identity_override_images.Copy())
+			target.forget_identity_override_viewer(L)
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)

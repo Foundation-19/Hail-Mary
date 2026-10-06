@@ -274,6 +274,14 @@ And the base of the send_speech() proc, which is the core of saycode.
 	/// ref -> remembered display name, keyed by the looked-at mob's real identity ref. Separate from known_voices -
 	/// recognizing someone's face doesn't mean you'd recognize their voice over radio, or vice versa.
 	var/list/known_faces = list()
+	/// Per-viewer /image override images (keyed by target mob) currently shown to THIS mob's client, so the
+	/// native BYOND hover status bar + right-click menu title reflect a remembered nickname instead of the
+	/// single shared public .name everyone sees - see sync_identity_override_for() below.
+	var/list/identity_override_images = list()
+	/// Living mobs who have remembered THIS mob's face at some point (keyed by viewer mob) - periodically
+	/// re-synced (see /mob/living/carbon/human/PhysicalLife()) so masking up/down and appearance changes keep
+	/// each viewer's override image accurate without needing a dedicated hook at every change site.
+	var/list/identity_override_viewers = list()
 	/// world.time deadline before THIS mob (as a target) can be challenged with verify_identity() again. Set on
 	/// every attempt, win or lose, so a blown read can't just be immediately re-tried by someone else.
 	var/identity_check_cooldown_until = 0
@@ -306,7 +314,57 @@ And the base of the send_speech() proc, which is the core of saycode.
 	if(!target || !display_name)
 		return
 	known_faces[REF(target)] = display_name
+	target.identity_override_viewers[src] = TRUE
+	target.sync_identity_override_for(src)
 	to_chat(src, span_notice("You commit that face to memory - it's [display_name]."))
+
+/// Creates/refreshes/removes (as appropriate) the per-viewer /image override that makes the native BYOND
+/// hover status bar and right-click menu title show `viewer`'s remembered nickname for this mob, instead of
+/// the single shared public .name everyone else sees. `.name` itself can never be per-viewer in BYOND, so
+/// this fakes it with a client-specific override image, kept in sync every life tick (see refresh below).
+/mob/living/proc/sync_identity_override_for(mob/living/viewer)
+	if(!viewer || viewer == src || QDELETED(viewer) || !viewer.client)
+		return
+	if(is_currently_unrecognizable() || !viewer.knows_face(src))
+		var/image/stale = viewer.identity_override_images[src]
+		if(stale)
+			viewer.client.images -= stale
+			qdel(stale)
+			viewer.identity_override_images -= src
+		return
+	var/image/I = viewer.identity_override_images[src]
+	if(!I)
+		I = new()
+		I.loc = src
+		I.override = TRUE
+		viewer.identity_override_images[src] = I
+	viewer.client.images |= I //idempotent - also re-adds the image after the viewer reconnects with a new client
+	I.appearance = appearance
+	I.name = get_display_name(viewer)
+
+/// Fully stops tracking `viewer` (used by Destroy() cleanup on either side) - unlike the sync proc above,
+/// this also forgets the tracking entry so a destroyed mob can't linger as a dangling list key.
+/mob/living/proc/forget_identity_override_viewer(mob/living/viewer)
+	if(!viewer)
+		return
+	var/image/I = viewer.identity_override_images[src]
+	if(I)
+		if(viewer.client)
+			viewer.client.images -= I
+		qdel(I)
+		viewer.identity_override_images -= src
+	identity_override_viewers -= viewer
+
+/// Re-syncs every tracked viewer's override image - called once per life tick (see human PhysicalLife()) so
+/// masking up/down, appearance changes, and reconnects self-heal without needing a hook at every call site.
+/mob/living/proc/refresh_identity_overrides()
+	if(!length(identity_override_viewers))
+		return
+	for(var/mob/living/viewer in identity_override_viewers.Copy())
+		if(QDELETED(viewer))
+			identity_override_viewers -= viewer
+			continue
+		sync_identity_override_for(viewer)
 
 /// Plain-text (non-link) version of the face-recognition check used by examine()/compose_message() - how
 /// `viewer` would see this mob's name in a message (combat, emotes, etc.). No href attached, unlike
