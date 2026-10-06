@@ -70,7 +70,11 @@ And the base of the send_speech() proc, which is the core of saycode.
 				namepart = "<a href='?src=[REF(listener)];remember_face=[REF(real_speaker)]'>[face_label]</a>"
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
-		namepart = "[H.get_face_name()]" //So "fake" speaking like in hallucinations does not give the speaker away if disguised
+		var/natural_name = H.get_face_name()
+		//Still gate on the listener's own face recognition instead of unconditionally revealing the real name
+		//once unmasked - previously this branch (used by hallucinations faking nearby speech) leaked real_name
+		//straight to the hallucinating mob even if they'd never met/remembered that mob's face.
+		namepart = (natural_name == H.real_name && isliving(src)) ? "[H.get_display_name(src)]" : natural_name
 	//End name span.
 	var/endspanpart = "</span>"
 

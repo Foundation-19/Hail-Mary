@@ -268,8 +268,8 @@
 			power_throw++
 		if(pulling && grab_state >= GRAB_NECK)
 			power_throw++
-		visible_message(span_danger("[src] throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
-						span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"))
+		visible_message(span_danger("%SELF_NAME% throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
+						span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"), visible_message_flags = ANONYMIZE_NAMES)
 		log_message("has thrown [thrown_thing] [power_throw ? "really hard" : ""]", LOG_ATTACK)
 		do_attack_animation(target, no_effect = 1)
 		playsound(loc, 'sound/weapons/punchmiss.ogg', 50, 1, -1)

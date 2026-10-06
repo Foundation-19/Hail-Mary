@@ -191,7 +191,8 @@
 			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(target))
 				msg = anonymize_message_names(msg, target, name_actor, name_other)
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
-				msg = "<b>[src]</b> [msg]"
+				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(src) && isliving(target)) ? src:get_display_name(target) : "[src]"
+				msg = "<b>[name_text]</b> [msg]"
 			target.show_message(msg, MSG_VISUAL,blind_message, MSG_AUDIBLE)
 	if(self_message)
 		hearers -= src
@@ -217,7 +218,8 @@
 			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(M))
 				msg = anonymize_message_names(msg, M, name_actor, name_other)
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
-				msg = "<b>[src]</b> [msg]"
+				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(src) && isliving(M)) ? src:get_display_name(M) : "[src]"
+				msg = "<b>[name_text]</b> [msg]"
 			M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
 ///Substitutes %SELF_NAME% (this atom, if a living mob), %ACTOR_NAME% (name_actor, if given), and
@@ -274,8 +276,6 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	if(self_message)
 		hearers -= src
 	var/raw_msg = message
-	if(CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
-		message = "<b>[src]</b> [message]"
 	//if(audible_message_flags & EMOTE_MESSAGE)
 	//	message = "<span class='emote'><b>[src]</b> [message]</span>"
 	for(var/mob/M in hearers)
@@ -287,6 +287,9 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 			var/msg = message
 			if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && isliving(M))
 				msg = anonymize_message_names(msg, M, name_actor, name_other)
+			if(CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
+				var/name_text = (CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && isliving(src) && isliving(M)) ? src:get_display_name(M) : "[src]"
+				msg = "<b>[name_text]</b> [msg]"
 			M.show_message(msg, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 /**

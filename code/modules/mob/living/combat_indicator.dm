@@ -40,10 +40,10 @@
 			else
 				playsound(src, 'sound/combatintent/waawaa1.ogg', 50)
 			//flick_overlay(src, "combat", 20)
-			visible_message(span_warning("[src] gets ready for combat!"))
+			visible_message(span_warning("%SELF_NAME% gets ready for combat!"), visible_message_flags = ANONYMIZE_NAMES)
 		else if(!state)
 			playsound(src, 'sound/combatintent/waawaa3.ogg', 20)
-			visible_message(span_warning("[src] relaxes their stance, seemingly at ease."))
+			visible_message(span_warning("%SELF_NAME% relaxes their stance, seemingly at ease."), visible_message_flags = ANONYMIZE_NAMES)
 	set_combat_indicator(state)
 
 /mob/living/proc/disable_combat_mode(silent = TRUE, was_forced = FALSE, visible = FALSE, update_icon = TRUE)

@@ -588,8 +588,8 @@
 					remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
 				return
 			var/to_send = ""
-			visible_message("[src] examines [p_them()]self.", \
-				span_notice("You check yourself for injuries."))
+			visible_message("%SELF_NAME% examines [p_them()]self.", \
+				span_notice("You check yourself for injuries."), visible_message_flags = ANONYMIZE_NAMES)
 
 			var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 			for(var/X in bodyparts)
@@ -792,8 +792,8 @@
 	if(stat == DEAD || stat == UNCONSCIOUS)
 		return
 
-	visible_message(span_notice("[src] examines [p_them()]self."), \
-		span_notice("You check yourself for injuries."))
+	visible_message(span_notice("%SELF_NAME% examines [p_them()]self."), \
+		span_notice("You check yourself for injuries."), visible_message_flags = ANONYMIZE_NAMES)
 
 	var/list/missing = list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
@@ -947,7 +947,7 @@
 				burndamage += rand(30,40)
 
 		if(HAS_TRAIT(src, TRAIT_SELF_AWARE))// If whoever's beeing looked at has self-aware, you can see it too 
-			var/sa_msg = span_notice("[src]'s [LB.name]: ")
+			var/sa_msg = span_notice("[src.get_display_name(user)]'s [LB.name]: ")
 			if(brutedamage || burndamage || bleeddamage)
 				sa_msg += "<font color='red'>BRUTE: [brutedamage]</font>, \
 						<font color='orange'>BURN: [burndamage]</font>, \
@@ -959,7 +959,7 @@
 			. += sa_msg
 
 		else
-			var/msg = "[src]'s [LB.name] is "
+			var/msg = "[src.get_display_name(user)]'s [LB.name] is "
 			var/list/damage_words = list()
 			if(brutedamage || burndamage || bleeddamage)
 				if(brutedamage)

@@ -6,7 +6,7 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 
-	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src.get_display_name(user)]</EM>!")
 
 	if (handcuffed)
 		. += span_warning("[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!")
@@ -174,7 +174,7 @@
 	if(!visible_scars)
 		return ..()
 
-	var/msg = list("<span class='notice'><i>You examine [src] closer, and note the following...</i></span>")
+	var/msg = list("<span class='notice'><i>You examine [src.get_display_name(user)] closer, and note the following...</i></span>")
 	for(var/i in visible_scars)
 		var/datum/scar/S = i
 		var/scar_text = S.get_examine_description(user)

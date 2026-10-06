@@ -77,7 +77,7 @@
 			if(!buffed)
 				to_chat(owner, span_notice(current_aura.gain_message))
 				if(!QDELETED(source_leader))
-					to_chat(source_leader, span_notice("[owner] is now benefiting from your [current_aura.name] aura."))
+					to_chat(source_leader, span_notice("[owner.get_display_name(source_leader)] is now benefiting from your [current_aura.name] aura."))
 			if(linked_alert)
 				linked_alert.desc = "You're following [source_leader] - currently benefiting from their [current_aura.name] aura. [current_aura.desc]"
 			applied_aura = current_aura

@@ -85,6 +85,7 @@
 		user.emote_for_ghost_sight("<b>[user]</b> [msg]")
 
 	var/message_flags = (only_overhead ? (EMOTE_MESSAGE | ONLY_OVERHEAD) : (EMOTE_MESSAGE))
+	ENABLE_BITFIELD(message_flags, ANONYMIZE_NAMES) //so the PUT_NAME_IN prefix below respects face/voice recognition instead of always showing the real name
 
 	msg = "<span class='emote'>[msg]</span>"
 	if(!omit_left_name)

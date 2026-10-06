@@ -448,7 +448,8 @@
 	. = list()
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE_MORE, user, .)
 	if(!LAZYLEN(.)) // lol ..length
-		return list("<span class='notice'><i>You examine [src] closer, but find nothing of interest...</i></span>")
+		var/src_tok = (isliving(src) && isliving(user)) ? src:get_display_name(user) : "[src]"
+		return list("<span class='notice'><i>You examine [src_tok] closer, but find nothing of interest...</i></span>")
 
 /// Updates the icon of the atom
 /atom/proc/update_icon()
