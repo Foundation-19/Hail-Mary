@@ -108,8 +108,9 @@
 
 		//target.apply_damage((totalitemdamage / 5), BRUTE)
 		playsound(loc, 'sound/weapons/punch1.ogg', 50, 1)
-		target.visible_message(span_danger("[user]'s powerfist lets out a dull thunk as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-		span_userdanger("[user]'s punches you!"))
+		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a dull thunk as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+		span_userdanger("%ACTOR_NAME%'s punches you!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
 	if(tank.air_contents.total_moles() < moles_used)
 		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, it needs more gas!"))
@@ -118,8 +119,9 @@
 		target.attacked_by(src, user, attackchain_flags, fisto_setting*1.5)
 
 		//target.apply_damage((totalitemdamage / 2), BRUTE)
-		target.visible_message(span_danger("[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-			span_userdanger("[user]'s punch strikes with force!"))
+		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+			span_userdanger("%ACTOR_NAME%'s punch strikes with force!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
 
 	T.assume_air_moles(tank.air_contents, gasperfist * fisto_setting)
@@ -127,8 +129,9 @@
 	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
 	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
 
-	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-		span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))
+	target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+		span_userdanger("You cry out in pain as %ACTOR_NAME%'s punch flings you backwards!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
 	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)

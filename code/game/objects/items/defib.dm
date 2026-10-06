@@ -451,12 +451,12 @@
 		return
 	if(!req_defib && !combat)
 		return
-	M.visible_message(span_danger("[user] hastily places [src] on [M]'s chest!"), \
-			span_userdanger("[user] hastily places [src] on [M]'s chest!"))
+	M.visible_message(span_danger("%ACTOR_NAME% hastily places [src] on %SELF_NAME%'s chest!"), \
+			span_userdanger("%ACTOR_NAME% hastily places [src] on %SELF_NAME%'s chest!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	busy = TRUE
 	if(do_after(user, isnull(defib?.disarm_shock_time)? disarm_shock_time : defib.disarm_shock_time, target = M))
-		M.visible_message(span_danger("[user] zaps [M] with [src]!"), \
-				span_userdanger("[user] zaps [M] with [src]!"))
+		M.visible_message(span_danger("%ACTOR_NAME% zaps %SELF_NAME% with [src]!"), \
+				span_userdanger("%ACTOR_NAME% zaps %SELF_NAME% with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		M.DefaultCombatKnockdown(45)
 		M.updatehealth() //forces health update before next life tick
 		playsound(src,  'sound/machines/defib_zap.ogg', 50, 1, -1)
@@ -478,13 +478,13 @@
 		return
 	if(!req_defib && !combat)
 		return
-	user.visible_message(span_warning("[user] begins to place [src] on [H]'s chest."),
-		span_warning("You overcharge the paddles and begin to place them onto [H]'s chest..."))
+	user.visible_message(span_warning("%SELF_NAME% begins to place [src] on %ACTOR_NAME%'s chest."),
+		span_warning("You overcharge the paddles and begin to place them onto %ACTOR_NAME%'s chest..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = H)
 	busy = TRUE
 	update_icon()
 	if(do_after(user, 30, target = H))
-		user.visible_message(span_notice("[user] places [src] on [H]'s chest."),
-			span_warning("You place [src] on [H]'s chest and begin to charge them."))
+		user.visible_message(span_notice("%SELF_NAME% places [src] on %ACTOR_NAME%'s chest."),
+			span_warning("You place [src] on %ACTOR_NAME%'s chest and begin to charge them."), visible_message_flags = ANONYMIZE_NAMES, name_actor = H)
 		var/turf/T = get_turf(defib)
 		playsound(src, 'sound/machines/defib_charge.ogg', 50, 0)
 		if(req_defib)
@@ -497,20 +497,20 @@
 				update_icon()
 				return
 			if(H && H.stat == DEAD)
-				to_chat(user, span_warning("[H] is dead."))
+				to_chat(user, span_warning("[H.get_display_name(user)] is dead."))
 				playsound(src, 'sound/machines/defib_failed.ogg', 50, 0)
 				busy = FALSE
 				update_icon()
 				return
-			user.visible_message(span_boldannounce("<i>[user] shocks [H] with \the [src]!"), span_warning("You shock [H] with \the [src]!"))
+			user.visible_message(span_boldannounce("<i>%SELF_NAME% shocks %ACTOR_NAME% with \the [src]!"), span_warning("You shock %ACTOR_NAME% with \the [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = H)
 			playsound(src, 'sound/machines/defib_zap.ogg', 100, 1, -1)
 			playsound(src, 'sound/weapons/egloves.ogg', 100, 1, -1)
 			H.emote("scream")
 			shock_touching(45, H)
 			if(H.can_heartattack() && !H.undergoing_cardiac_arrest())
 				if(!H.stat)
-					H.visible_message(span_warning("[H] thrashes wildly, clutching at [H.p_their()] chest!"),
-						span_userdanger("You feel a horrible agony in your chest!"))
+					H.visible_message(span_warning("%SELF_NAME% thrashes wildly, clutching at [H.p_their()] chest!"),
+						span_userdanger("You feel a horrible agony in your chest!"), visible_message_flags = ANONYMIZE_NAMES)
 				H.set_heartattack(TRUE)
 			H.apply_damage(50, BURN, BODY_ZONE_CHEST)
 			log_combat(user, H, "overloaded the heart of", defib)
@@ -529,7 +529,7 @@
 	update_icon()
 
 /obj/item/shockpaddles/proc/do_help(mob/living/carbon/H, mob/living/user)
-	user.visible_message(span_warning("[user] begins to place [src] on [H]'s chest."), span_warning("You begin to place [src] on [H]'s chest..."))
+	user.visible_message(span_warning("%SELF_NAME% begins to place [src] on %ACTOR_NAME%'s chest."), span_warning("You begin to place [src] on %ACTOR_NAME%'s chest..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = H)
 	busy = TRUE
 	update_icon()
 

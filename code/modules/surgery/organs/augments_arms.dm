@@ -93,9 +93,9 @@
 	if(!holder || (holder in src))
 		return
 
-	owner.visible_message(span_notice("[owner] retracts [holder] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+	owner.visible_message(span_notice("%SELF_NAME% retracts [holder] back into [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_notice("[holder] snaps back into your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
-		span_italic("You hear a short mechanical noise."))
+		span_italic("You hear a short mechanical noise."), visible_message_flags = ANONYMIZE_NAMES)
 
 	owner.transferItemToLoc(holder, src, TRUE)
 	holder = null
@@ -128,9 +128,9 @@
 	// Activate the hand that now holds our item.
 	owner.swap_hand(result)//... or the 1st hand if the index gets lost somehow
 
-	owner.visible_message(span_notice("[owner] extends [holder] from [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
+	owner.visible_message(span_notice("%SELF_NAME% extends [holder] from [owner.p_their()] [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
 		span_notice("You extend [holder] from your [zone == BODY_ZONE_R_ARM ? "right" : "left"] arm."),
-		span_italic("You hear a short mechanical noise."))
+		span_italic("You hear a short mechanical noise."), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(get_turf(owner), 'sound/mecha/mechmove03.ogg', 50, 1)
 	return TRUE
 
@@ -350,7 +350,7 @@
 	to_chat(user, span_warning("There is no charge to draw from that APC."))
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
-	H.visible_message(span_notice("[H] inserts a power connector into the [A]."), span_notice("You begin to draw power from the [A]."))
+	H.visible_message(span_notice("%SELF_NAME% inserts a power connector into the [A]."), span_notice("You begin to draw power from the [A]."), visible_message_flags = ANONYMIZE_NAMES)
 	while(do_after(H, 10, target = A))
 		if(loc != H)
 			to_chat(H, span_warning("You must keep your connector out while charging!"))
@@ -372,4 +372,4 @@
 		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
 			to_chat(H, span_notice("You are now fully charged."))
 			break
-	H.visible_message(span_notice("[H] unplugs from the [A]."), span_notice("You unplug from the [A]."))
+	H.visible_message(span_notice("%SELF_NAME% unplugs from the [A]."), span_notice("You unplug from the [A]."), visible_message_flags = ANONYMIZE_NAMES)

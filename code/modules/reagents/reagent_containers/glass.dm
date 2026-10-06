@@ -27,8 +27,8 @@
 
 	if(istype(M))
 		if(user.a_intent == INTENT_HARM)
-			M.visible_message(span_danger("[user] splashes the contents of [src] onto [M]!"), \
-							span_userdanger("[user] splashes the contents of [src] onto [M]!"))
+			M.visible_message(span_danger("%ACTOR_NAME% splashes the contents of [src] onto %SELF_NAME%!"), \
+							span_userdanger("%ACTOR_NAME% splashes the contents of [src] onto %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			var/R = reagents?.log_list()
 			if(isturf(target) && reagents.reagent_list.len && thrownby)
 				log_combat(thrownby, target, "splashed (thrown) [english_list(reagents.reagent_list)]")
@@ -43,8 +43,8 @@
 		else
 			var/self_fed = M == user
 			if(!self_fed)
-				M.visible_message(span_danger("[user] attempts to feed something to [M]."), \
-							span_userdanger("[user] attempts to feed something to you."))
+				M.visible_message(span_danger("%ACTOR_NAME% attempts to feed something to %SELF_NAME%."), \
+							span_userdanger("%ACTOR_NAME% attempts to feed something to you."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				log_combat(user, M, "is attempting to feed", reagents.log_list())
 				if(!do_mob(user, M))
 					return
@@ -52,7 +52,7 @@
 					return // The drink might be empty after the delay, such as by spam-feeding
 				var/turf/UT = get_turf(user)		// telekenesis memes
 				var/turf/MT = get_turf(M)
-				M.visible_message(span_danger("[user] feeds something to [M]."), span_userdanger("[user] feeds something to you."))
+				M.visible_message(span_danger("%ACTOR_NAME% feeds something to %SELF_NAME%."), span_userdanger("%ACTOR_NAME% feeds something to you."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				log_combat(user, M, "fed", reagents.log_list())
 				log_reagent("INGESTION: FED BY: [key_name(user)] (loc [user.loc] at [AREACOORD(UT)]) -> [key_name(M)] (loc [M.loc] at [AREACOORD(MT)]) - [reagents.log_list()]")
 			else
@@ -95,8 +95,8 @@
 
 	else if(reagents.total_volume)
 		if(user.a_intent == INTENT_HARM)
-			user.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
-								span_notice("You splash the contents of [src] onto [target]."))
+			user.visible_message(span_danger("%SELF_NAME% splashes the contents of [src] onto [target]!"), \
+								span_notice("You splash the contents of [src] onto [target]."), visible_message_flags = ANONYMIZE_NAMES)
 			reagents.reaction(target, TOUCH)
 			reagents.clear_reagents()
 

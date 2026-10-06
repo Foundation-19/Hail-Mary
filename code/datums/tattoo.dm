@@ -596,7 +596,7 @@
 		abort()
 		return
 	if(!do_mob(user, victim, time_per_operation, allow_movement = TRUE)) // tattooing on the GO!
-		user.visible_message(span_alert("[user] messes up, their work disappearing instantly somehow."),span_alert("You mess up! Good thing jacked up tattoos arent implemented yet."))
+		user.visible_message(span_alert("%SELF_NAME% messes up, their work disappearing instantly somehow."),span_alert("You mess up! Good thing jacked up tattoos arent implemented yet."), visible_message_flags = ANONYMIZE_NAMES)
 		abort()
 		return
 	var/obj/item/bodypart/chunk = victim.get_bodypart(part)
@@ -630,7 +630,7 @@
 		return
 	if(!flash.use_charge())
 		eject_flash(TRUE)
-	user.visible_message(span_notice("[user] finishes up [user.p_their()] masterpiece on [victim]'s [lowertext(tat_loc)]!"))
+	user.visible_message(span_notice("%SELF_NAME% finishes up [user.p_their()] masterpiece on %ACTOR_NAME%'s [lowertext(tat_loc)]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	playsound(get_turf(src), 'sound/machines/ding.ogg', 50, 1)
 
 /obj/item/tattoo_gun/proc/make_noises_and_pain(mob/living/carbon/human/victim, mob/living/user, tat_loc, part)
@@ -659,11 +659,11 @@
 		if(1 to 2)
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
 			next_time = 0.5 SECONDS
-			user.visible_message(span_notice("[user] zaps a long line into [victim]'s [lowertext(tat_loc)]."))
+			user.visible_message(span_notice("%SELF_NAME% zaps a long line into %ACTOR_NAME%'s [lowertext(tat_loc)]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		if(2 to 3)
 			playsound(get_turf(src), 'sound/machines/mixer.ogg', 50, 1)
 			next_time = 0.7 SECONDS
-			user.visible_message(span_notice("[user] buzzes a nice bold mark into [victim]'s [lowertext(tat_loc)]."))
+			user.visible_message(span_notice("%SELF_NAME% buzzes a nice bold mark into %ACTOR_NAME%'s [lowertext(tat_loc)]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		if(4)
 			playsound(get_turf(src), 'sound/machines/juicer.ogg', 50, 1)
 			next_time = 2 SECONDS
@@ -671,7 +671,7 @@
 			bleed_d *= 4
 			stamina_d *= 2
 			scream_prob = 80
-			user.visible_message(span_notice("[user] adds a bunch of cool shading to [victim]'s [lowertext(tat_loc)]."))
+			user.visible_message(span_notice("%SELF_NAME% adds a bunch of cool shading to %ACTOR_NAME%'s [lowertext(tat_loc)]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		if(5)
 			playsound(get_turf(src), 'sound/weapons/chainsawhit.ogg', 50, 1)
 			next_time = 1.5 SECONDS
@@ -679,19 +679,19 @@
 			bleed_d *= 3
 			stamina_d *= 3
 			scream_prob = 80
-			user.visible_message(span_notice("[user] runs the needles over a patch of [victim]'s [lowertext(tat_loc)] several times."))
+			user.visible_message(span_notice("%SELF_NAME% runs the needles over a patch of %ACTOR_NAME%'s [lowertext(tat_loc)] several times."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		if(6)
 			playsound(get_turf(src), 'sound/weapons/handcuffs.ogg', 50, 1)
 			next_time = 0.5 SECONDS
-			user.visible_message(span_notice("[user] pokes a dot on [victim]'s flesh."))
+			user.visible_message(span_notice("%SELF_NAME% pokes a dot on %ACTOR_NAME%'s flesh."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		if(7 to 8)
 			playsound(get_turf(src), 'sound/weapons/drill.ogg', 50, 1)
 			next_time = 0.7 SECONDS
-			user.visible_message(span_notice("[user] dig in <i>reaaal</i> deep into [victim]'s [lowertext(tat_loc)]."))
+			user.visible_message(span_notice("%SELF_NAME% dig in <i>reaaal</i> deep into %ACTOR_NAME%'s [lowertext(tat_loc)]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		if(9 to 10)
 			playsound(get_turf(src), 'sound/weapons/fleshtear_1.ogg', 50, 1)
 			next_time = 0.5 SECONDS
-			user.visible_message(span_notice("[user] zips a quick mark into [victim]'s [lowertext(tat_loc)]."))
+			user.visible_message(span_notice("%SELF_NAME% zips a quick mark into %ACTOR_NAME%'s [lowertext(tat_loc)]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	if(prob(scream_prob))
 		victim.emote("scream")
 	owie.receive_damage(brute = owie.brute_dam < 30 ? brute_d : 0, stamina = stamina_d, wound_bonus = bleed_d, sharpness = SHARP_EDGED, damage_coverings = FALSE)

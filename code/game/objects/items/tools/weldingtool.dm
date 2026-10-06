@@ -87,7 +87,8 @@
 
 
 /obj/item/weldingtool/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] welds [user.p_their()] every orifice closed! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	return (FIRELOSS)
 
 
@@ -124,8 +125,9 @@
 			heal_amount = difference
 		if(src.use_tool(H, user, 0, volume=50, amount=1))
 			if(user == H)
-				user.visible_message(span_notice("[user] starts to fix some of the dents on [H]'s [affecting.name]."),
-					span_notice("You start fixing some of the dents on [H]'s [affecting.name]."))
+				var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+				user.visible_message(span_notice("[user_tok] starts to fix some of the dents on [H]'s [affecting.name]."),
+					span_notice("You start fixing some of the dents on [H]'s [affecting.name]."), visible_message_flags = ANONYMIZE_NAMES)
 				if(!do_mob(user, H, 50))
 					return
 			item_heal_robotic(H, user, heal_amount, 0)
@@ -147,15 +149,15 @@
 			return
 		
 		if(robot.stat == DEAD)
-			to_chat(user, span_warning("[robot] is too damaged to repair!"))
+			to_chat(user, span_warning("[robot.get_display_name(user)] is too damaged to repair!"))
 			return
 		
 		if(robot.health >= robot.maxHealth)
-			to_chat(user, span_notice("[robot] doesn't need repairs."))
+			to_chat(user, span_notice("[robot.get_display_name(user)] doesn't need repairs."))
 			return
 		
 		if(!isOn())
-			to_chat(user, span_warning("[src] needs to be on to repair [robot]!"))
+			to_chat(user, span_warning("[src] needs to be on to repair [robot.get_display_name(user)]!"))
 			return
 		
 		if(!use_tool(robot, user, 3 SECONDS, volume=50, amount=1))
@@ -165,9 +167,10 @@
 		robot.adjustBruteLoss(-heal_amount)
 		robot.updatehealth()
 		
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 		user.visible_message(
-			span_notice("[user] repairs some damage on [robot] with [src]."),
-			span_notice("You repair some damage on [robot] with [src]."))
+			span_notice("[user_tok] repairs some damage on %ACTOR_NAME% with [src]."),
+			span_notice("You repair some damage on %ACTOR_NAME% with [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = robot)
 		
 		return
 	
@@ -291,7 +294,8 @@
 		return FALSE
 	var/fill_this_much = max_fuel - amt_remaining
 	tank_reagents.trans_to(src, fill_this_much, log = TRUE)
-	user.visible_message(span_notice("[user] refills [user.p_their()] [name]."), span_notice("You refill [src]."))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_notice("[user_tok] refills [user.p_their()] [name]."), span_notice("You refill [src]."), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(src, 'sound/effects/refill.ogg', 50, 1)
 	update_icon()
 	O.update_icon()

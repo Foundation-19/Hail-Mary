@@ -121,9 +121,9 @@
 			hulk_verb_continous = "pummels"
 			hulk_verb_simple = "pummel"
 		playsound(loc, user.dna.species.attack_sound, 25, 1, -1)
-		visible_message(span_danger("[user] [hulk_verb_continous] [src]!"), \
-						span_userdanger("[user] [hulk_verb_continous] you!"), null, COMBAT_MESSAGE_RANGE, null, user,
-						span_danger("You [hulk_verb_simple] [src]!"))
+		visible_message(span_danger("%ACTOR_NAME% [hulk_verb_continous] %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% [hulk_verb_continous] you!"), null, COMBAT_MESSAGE_RANGE, null, user,
+						span_danger("You [hulk_verb_simple] %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		apply_damage(15, BRUTE, wound_bonus=10)
 		return 1
 
@@ -150,16 +150,16 @@
 		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-			visible_message(span_danger("[M] has disarmed [src]!"), \
-					span_userdanger("[M] has disarmed you!"), null, COMBAT_MESSAGE_RANGE, null, M,
-					span_danger("You have disarmed [src]!"))
+			visible_message(span_danger("%ACTOR_NAME% has disarmed %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% has disarmed you!"), null, COMBAT_MESSAGE_RANGE, null, M,
+					span_danger("You have disarmed %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 		else if(!M.client || prob(5)) // only natural monkeys get to stun reliably, (they only do it occasionaly)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			DefaultCombatKnockdown(100)
 			log_combat(M, src, "tackled")
-			visible_message(span_danger("[M] has tackled down [src]!"), \
-				span_userdanger("[M] has tackled you down!"), null, COMBAT_MESSAGE_RANGE, null, M,
-				span_danger("You have tackled [src] down!"))
+			visible_message(span_danger("%ACTOR_NAME% has tackled down %SELF_NAME%!"), \
+				span_userdanger("%ACTOR_NAME% has tackled you down!"), null, COMBAT_MESSAGE_RANGE, null, M,
+				span_danger("You have tackled %SELF_NAME% down!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 	if(M.limb_destroyer)
 		dismembering_strike(M, affecting.body_zone)
@@ -180,9 +180,9 @@
 		var/damage = prob(90) ? M.meleeSlashHumanPower : 0
 		if(!damage)
 			playsound(loc, 'sound/weapons/slashmiss.ogg', 50, 1, -1)
-			visible_message(span_danger("[M] has lunged at [src]!"), \
-				span_userdanger("[M] has lunged at you!"), target = M, \
-				target_message = span_danger("You have lunged at [src]!"))
+			visible_message(span_danger("%ACTOR_NAME% has lunged at %SELF_NAME%!"), \
+				span_userdanger("%ACTOR_NAME% has lunged at you!"), target = M, \
+				target_message = span_danger("You have lunged at %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 			return 0
 		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(M.zone_selected))
 		if(!affecting)
@@ -190,9 +190,9 @@
 		var/armor_block = run_armor_check(affecting, "melee", null, null,10)
 
 		playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
-		visible_message(span_danger("[M] has slashed at [src]!"), \
-			span_userdanger("[M] has slashed at you!"), target = M, \
-			target_message = span_danger("You have slashed at [src]!"))
+		visible_message(span_danger("%ACTOR_NAME% has slashed at %SELF_NAME%!"), \
+			span_userdanger("%ACTOR_NAME% has slashed at you!"), target = M, \
+			target_message = span_danger("You have slashed at %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 		log_combat(M, src, "attacked")
 		if(!dismembering_strike(M, M.zone_selected)) //Dismemberment successful
 			return 1
@@ -202,16 +202,16 @@
 		var/obj/item/I = get_active_held_item()
 		if(I && dropItemToGround(I))
 			playsound(loc, 'sound/weapons/slash.ogg', 25, 1, -1)
-			visible_message(span_danger("[M] has disarmed [src]!"), \
-					span_userdanger("[M] has disarmed you!"), target = M, \
-					target_message = span_danger("You have disarmed [src]!"))
+			visible_message(span_danger("%ACTOR_NAME% has disarmed %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% has disarmed you!"), target = M, \
+					target_message = span_danger("You have disarmed %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 		else
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, 1, -1)
 			DefaultCombatKnockdown(M.meleeKnockdownPower)
 			log_combat(M, src, "tackled")
-			visible_message(span_danger("[M] has tackled down [src]!"), \
-				span_userdanger("[M] has tackled you down!"), target = M, \
-				target_message = span_danger("You have tackled down [src]!"))
+			visible_message(span_danger("%ACTOR_NAME% has tackled down %SELF_NAME%!"), \
+				span_userdanger("%ACTOR_NAME% has tackled you down!"), target = M, \
+				target_message = span_danger("You have tackled down %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 /mob/living/carbon/human/attack_larva(mob/living/carbon/alien/larva/L)
 	. = ..()

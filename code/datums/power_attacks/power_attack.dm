@@ -198,11 +198,13 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 			if(blocker == user)
 				continue
 			weapon.power_attack_lunge_fraction = steps_taken / max_steps
-			user.visible_message(span_danger("[user] lunges into [blocker]!"), span_userdanger("You lunge into [blocker]!"))
+			user.visible_message(span_danger("%SELF_NAME% lunges into %ACTOR_NAME%!"), span_userdanger("You lunge into %ACTOR_NAME%!"), \
+				visible_message_flags = ANONYMIZE_NAMES, name_actor = blocker)
 			playsound(user, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 			return blocker
 		if(!step(user, approach_dir))
-			user.visible_message(span_danger("[user] slams into something and stumbles!"), span_userdanger("You slam into something solid and fall over!"))
+			user.visible_message(span_danger("%SELF_NAME% slams into something and stumbles!"), span_userdanger("You slam into something solid and fall over!"), \
+				visible_message_flags = ANONYMIZE_NAMES)
 			playsound(user, 'sound/effects/bang.ogg', 50, TRUE)
 			user.Knockdown(40)
 			user.adjustStaminaLoss(15)
@@ -211,5 +213,6 @@ GLOBAL_LIST_EMPTY(power_attack_data)
 	// Reached your actual intended target (not a redirect) - full bonus regardless of how many steps it took to get there.
 	weapon.power_attack_lunge_fraction = 1
 	if(steps_taken)
-		user.visible_message(span_danger("[user] lunges [isturf(target) ? "forward" : "at [target]"]!"), span_userdanger("You lunge [isturf(target) ? "forward" : "at [target]"]!"))
+		user.visible_message(span_danger("%SELF_NAME% lunges [isturf(target) ? "forward" : "at %ACTOR_NAME%"]!"), span_userdanger("You lunge [isturf(target) ? "forward" : "at [target]"]!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 		playsound(user, 'sound/weapons/thudswoosh.ogg', 50, TRUE)

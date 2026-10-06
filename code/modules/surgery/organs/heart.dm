@@ -41,8 +41,9 @@
 /obj/item/organ/heart/attack_self(mob/user)
 	..()
 	if(!beating)
-		user.visible_message("<span class='notice'>[user] squeezes [src] to \
-			make it beat again!</span>",span_notice("You squeeze [src] to make it beat again!"))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("<span class='notice'>[user_tok] squeezes [src] to \
+			make it beat again!</span>",span_notice("You squeeze [src] to make it beat again!"), visible_message_flags = ANONYMIZE_NAMES)
 		Restart()
 		addtimer(CALLBACK(src, PROC_REF(stop_if_unowned)), 80)
 
@@ -93,7 +94,7 @@
 
 	if(organ_flags & ORGAN_FAILING)	//heart broke, stopped beating, death imminent
 		if(owner.stat == CONSCIOUS)
-			owner.visible_message(span_userdanger("[owner] clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"))
+			owner.visible_message(span_userdanger("%SELF_NAME% clutches at [owner.p_their()] chest as if [owner.p_their()] heart is stopping!"), visible_message_flags = ANONYMIZE_NAMES)
 		owner.set_heartattack(TRUE)
 		failed = TRUE
 

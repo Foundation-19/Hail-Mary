@@ -19,7 +19,7 @@
 	var/damp_threshold = 0.5
 
 /obj/item/reagent_containers/rag/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("%SELF_NAME% is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	return (OXYLOSS)
 
 /obj/item/reagent_containers/rag/examine(mob/user)
@@ -36,31 +36,31 @@
 		var/reagentlist = pretty_string_from_reagent_list(reagents)
 		var/log_object = "a damp rag containing [reagentlist]"
 		if(user.a_intent == INTENT_HARM && !C.is_mouth_covered())
-			C.visible_message(span_danger("[user] is trying to smother \the [C] with \the [src]!"), span_userdanger("[user] is trying to smother you with \the [src]!"), span_italic("You hear some struggling and muffled cries of surprise."))
+			C.visible_message(span_danger("%ACTOR_NAME% is trying to smother the %SELF_NAME% with \the [src]!"), span_userdanger("%ACTOR_NAME% is trying to smother you with \the [src]!"), span_italic("You hear some struggling and muffled cries of surprise."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			if(do_after(user, 20, target = C))
 				reagents.reaction(C, INGEST)
 				reagents.trans_to(C, 5, log = TRUE)
-				C.visible_message(span_danger("[user] has smothered \the [C] with \the [src]!"), span_userdanger("[user] has smothered you with \the [src]!"), span_italic("You hear some struggling and a heavy breath taken."))
+				C.visible_message(span_danger("%ACTOR_NAME% has smothered the %SELF_NAME% with \the [src]!"), span_userdanger("%ACTOR_NAME% has smothered you with \the [src]!"), span_italic("You hear some struggling and a heavy breath taken."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				log_combat(user, C, "smothered", log_object)
 		else
-			C.visible_message(span_notice("[user] is trying to wipe \the [C] with \the [src]."))
+			C.visible_message(span_notice("%ACTOR_NAME% is trying to wipe the %SELF_NAME% with \the [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			if(do_after(user, 20, target = C))
 				reagents.reaction(C, TOUCH)
 				reagents.remove_all(5)
-				C.visible_message(span_notice("[user] has wiped \the [C] with \the [src]."))
+				C.visible_message(span_notice("%ACTOR_NAME% has wiped the %SELF_NAME% with \the [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				log_combat(user, C, "touched", log_object)
 
 	else if(istype(A) && (src in user))
-		user.visible_message("[user] starts to wipe down [A] with [src]!", span_notice("You start to wipe down [A] with [src]..."))
+		user.visible_message("%SELF_NAME% starts to wipe down [A] with [src]!", span_notice("You start to wipe down [A] with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(user, action_speed, target = A))
-			user.visible_message("[user] finishes wiping off [A]!", span_notice("You finish wiping off [A]."))
+			user.visible_message("%SELF_NAME% finishes wiping off [A]!", span_notice("You finish wiping off [A]."), visible_message_flags = ANONYMIZE_NAMES)
 			SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 
 /obj/item/reagent_containers/rag/alt_pre_attack(mob/living/M, mob/living/user, params)
 	if(istype(M) && user.a_intent == INTENT_HELP)
 		user.DelayNextAction(CLICK_CD_MELEE)
 		if(M.on_fire)
-			user.visible_message(span_warning("\The [user] uses \the [src] to pat out [M == user ? "[user.p_their()]" : "\the [M]'s"] flames!"))
+			user.visible_message(span_warning("The %SELF_NAME% uses \the [src] to pat out [M == user ? "[user.p_their()]" : "%ACTOR_NAME%'s"] flames!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 			if(hitsound)
 				playsound(M, hitsound, 25, 1)
 			M.adjust_fire_stacks(-min(extinguish_efficiency, M.fire_stacks))

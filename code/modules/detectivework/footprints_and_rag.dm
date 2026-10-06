@@ -23,7 +23,8 @@
 	var/damp_threshold = 0.5
 
 /obj/item/reagent_containers/glass/rag/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] is smothering [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	return (OXYLOSS)
 
 /obj/item/reagent_containers/glass/rag/afterattack(atom/A as obj|turf|area, mob/user,proximity)
@@ -33,10 +34,11 @@
 	if(iscarbon(A) && A.reagents && reagents.total_volume)
 		var/mob/living/carbon/C = A
 		var/reagentlist = pretty_string_from_reagent_list(reagents)
+		var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
 		if(user.a_intent == INTENT_HARM && !C.is_mouth_covered())
 			reagents.reaction(C, INGEST)
 			reagents.trans_to(C, reagents.total_volume)
-			C.visible_message(span_danger("[user] has smothered \the [C] with \the [src]!"), span_userdanger("[user] has smothered you with \the [src]!"), span_italic("You hear some struggling and muffled cries of surprise."))
+			C.visible_message(span_danger("[user_tok] has smothered %SELF_NAME% with \the [src]!"), span_userdanger("[user] has smothered you with \the [src]!"), span_italic("You hear some struggling and muffled cries of surprise."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 			log_game("[key_name(user)] smothered [key_name(A)] with a damp rag containing [reagentlist]")
 			log_attack("[key_name(user)] smothered [key_name(A)] with a damp rag containing [reagentlist]")
 		else
@@ -44,12 +46,13 @@
 			reagents.clear_reagents()
 			log_game("[key_name(user)] touched [key_name(A)] with a damp rag containing [reagentlist]")
 			log_attack("[key_name(user)] touched [key_name(A)] with a damp rag containing [reagentlist]")
-			C.visible_message(span_notice("[user] has touched \the [C] with \the [src]."))
+			C.visible_message(span_notice("[user_tok] has touched %SELF_NAME% with \the [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 
 	else if(istype(A) && (src in user))
-		user.visible_message("[user] starts to wipe down [A] with [src]!", span_notice("You start to wipe down [A] with [src]..."))
+		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok2] starts to wipe down [A] with [src]!", span_notice("You start to wipe down [A] with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(user,30, target = A))
-			user.visible_message("[user] finishes wiping off [A]!", span_notice("You finish wiping off [A]."))
+			user.visible_message("[user_tok2] finishes wiping off [A]!", span_notice("You finish wiping off [A]."), visible_message_flags = ANONYMIZE_NAMES)
 			SEND_SIGNAL(A, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_MEDIUM)
 	return
 

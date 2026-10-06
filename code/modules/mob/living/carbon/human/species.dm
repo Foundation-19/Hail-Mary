@@ -1422,8 +1422,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_martial_melee_block())
-		target.visible_message(span_warning("[target] blocks [user]'s grab attempt!"), target = user, \
-			target_message = span_warning("[target] blocks your grab attempt!"))
+		target.visible_message(span_warning("%SELF_NAME% blocks %ACTOR_NAME%'s grab attempt!"), target = user, \
+			target_message = span_warning("%SELF_NAME% blocks your grab attempt!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return 0
 	if(attacker_style && attacker_style.grab_act(user,target))
 		return 1
@@ -1439,12 +1439,14 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		to_chat(user, span_warning("You're too exhausted.")) //CITADEL CHANGE - ditto
 		return FALSE //CITADEL CHANGE - ditto
 	if(target.check_martial_melee_block())
-		target.visible_message(span_warning("[target] blocks [user]'s attack!"), target = user, \
-			target_message = span_warning("[target] blocks your attack!"))
+		target.visible_message(span_warning("%SELF_NAME% blocks %ACTOR_NAME%'s attack!"), target = user, \
+			target_message = span_warning("%SELF_NAME% blocks your attack!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return FALSE
 
 	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		user.visible_message(span_warning("[user] swings clumsily and completely misses [target]!"), span_warning("Your luck fails you and your swing goes wide, missing completely!"))
+		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
+			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 		return FALSE
 
 	if(user.check_vision_impaired_miss()) //S.P.E.C.I.A.L. - Perception, same whiff weapons already roll in pre_attack()
@@ -1498,9 +1500,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
-			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
-							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), \
-							vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_warning("Your [atk_verb] misses [target]!"))
+			target.visible_message(span_danger("%ACTOR_NAME%'s [atk_verb] misses %SELF_NAME%!"), \
+						span_danger("You avoid %ACTOR_NAME%'s [atk_verb]!"), span_hear("You hear a swoosh!"), \
+						vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_warning("Your [atk_verb] misses %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
@@ -1509,11 +1511,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
-		target.visible_message(span_danger("[user] [atk_verb]s [target]!"), \
-					span_userdanger("[user] [atk_verb]s you!"), null, \
-					vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_danger("You [atk_verb] [target]!"))
-
-		target.lastattacker = user.real_name
+		target.visible_message(span_danger("%ACTOR_NAME% [atk_verb]s %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% [atk_verb]s you!"), null, \
+					vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_danger("You [atk_verb] %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		target.lastattackerckey = user.ckey
 		user.dna.species.spec_unarmedattacked(user, target)
 
@@ -1532,10 +1532,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			if((punchedstam > 50) && prob(punchedstam*0.5)) //If our punch victim has been hit above the threshold, and they have more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage
 
-				target.visible_message(span_danger("[user] knocks [target] down!"), \
-								span_userdanger("You're knocked down by [user]!"),
+				target.visible_message(span_danger("%ACTOR_NAME% knocks %SELF_NAME% down!"), \
+								span_userdanger("You're knocked down by %ACTOR_NAME%!"),
 								span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, null,
-								user, span_danger("You knock [target] down!"))
+								user, span_danger("You knock %SELF_NAME% down!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 				var/knockdown_duration = 40 + (punchedstam + (punchedbrute*0.5))*0.8 - armor_block
 				target.DefaultCombatKnockdown(knockdown_duration)
@@ -1612,9 +1612,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		//var/randomized_zone = ran_zone(user.zone_selected) CIT CHANGE - comments out to prevent compiling errors
 		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.zone_selected)
 		if(target.pulling == user)
-			target.visible_message(span_warning("[user] wrestles out of [target]'s grip!"), \
-				span_warning("[user] wrestles out of your grip!"), target = user, \
-				target_message = span_warning("You wrestle out of [target]'s grip!"))
+			target.visible_message(span_warning("%ACTOR_NAME% wrestles out of %SELF_NAME%'s grip!"), \
+				span_warning("%ACTOR_NAME% wrestles out of your grip!"), target = user, \
+				target_message = span_warning("You wrestle out of %SELF_NAME%'s grip!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			target.stop_pulling()
 			playsound(target, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			log_combat(user, target, "disarmed out of grab from")
@@ -1636,16 +1636,16 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(randn <= 35)//CIT CHANGE - changes this back to a 35% chance to accomodate for the above being commented out in favor of right-click pushing
 			var/obj/item/I = null
 			if(target.pulling)
-				target.visible_message(span_warning("[user] has broken [target]'s grip on [target.pulling]!"), \
-					span_warning("[user] has broken your grip on [target.pulling]!"), target = user, \
-					target_message = span_warning("You have broken [target]'s grip on [target.pulling]!"))
+				target.visible_message(span_warning("%ACTOR_NAME% has broken %SELF_NAME%'s grip on [target.pulling]!"), \
+					span_warning("%ACTOR_NAME% has broken your grip on [target.pulling]!"), target = user, \
+					target_message = span_warning("You have broken %SELF_NAME%'s grip on [target.pulling]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				target.stop_pulling()
 			else
 				I = target.get_active_held_item()
 				if(target.dropItemToGround(I))
-					target.visible_message(span_danger("[user] has disarmed [target]!"), \
-						span_userdanger("[user] has disarmed you!"), null, COMBAT_MESSAGE_RANGE, null, \
-						user, span_danger("You have disarmed [target]!"))
+					target.visible_message(span_danger("%ACTOR_NAME% has disarmed %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% has disarmed you!"), null, COMBAT_MESSAGE_RANGE, null, \
+						user, span_danger("You have disarmed %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				else
 					I = null
 			playsound(target, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -1654,9 +1654,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 
 		playsound(target, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-		target.visible_message(span_danger("[user] attempted to disarm [target]!"), \
-						span_userdanger("[user] attemped to disarm [target]!"), null, COMBAT_MESSAGE_RANGE, null, \
-						user, span_danger("You attempted to disarm [target]!"))
+		target.visible_message(span_danger("%ACTOR_NAME% attempted to disarm %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% attemped to disarm %SELF_NAME%!"), null, COMBAT_MESSAGE_RANGE, null, \
+						user, span_danger("You attempted to disarm %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		log_combat(user, target, "attempted to disarm")
 
 

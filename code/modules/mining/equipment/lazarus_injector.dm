@@ -40,7 +40,7 @@
 					else
 						H.attack_same = 0
 				loaded = 0
-				user.visible_message(span_notice("[user] injects [M] with [src], reviving it."))
+				user.visible_message(span_notice("%SELF_NAME% injects %ACTOR_NAME% with [src], reviving it."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 				SSblackbox.record_feedback("tally", "lazarus_injector", 1, M.type)
 				playsound(src,'sound/effects/refill.ogg',50,1)
 				icon_state = "lazarus_empty"

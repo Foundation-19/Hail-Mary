@@ -62,8 +62,9 @@
 
 /obj/item/hot_potato/attack_self(mob/user)
 	if(activate(timer, user))
-		user.visible_message(span_boldwarning("[user] squeezes [src], which promptly starts to flash red-hot colors!"), span_boldwarning("You squeeze [src], activating its countdown and attachment mechanism!"),
-		span_boldwarning("You hear a mechanical click and a loud beeping!"))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_boldwarning("[user_tok] squeezes [src], which promptly starts to flash red-hot colors!"), span_boldwarning("You squeeze [src], activating its countdown and attachment mechanism!"),
+		span_boldwarning("You hear a mechanical click and a loud beeping!"), visible_message_flags = ANONYMIZE_NAMES)
 		return
 	return ..()
 
@@ -117,11 +118,13 @@
 		. = TRUE
 	if(.)
 		log_combat(user, victim, "forced a hot potato with explosive variables ([detonate_explosion]-[detonate_dev_range]/[detonate_heavy_range]/[detonate_light_range]/[detonate_flash_range]/[detonate_fire_range]) onto")
-		user.visible_message(span_userdanger("[user] forces [src] onto [victim]!"), span_userdanger("You force [src] onto [victim]!"), span_boldwarning("You hear a mechanical click and a beep."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_userdanger("[user_tok] forces [src] onto %ACTOR_NAME%!"), span_userdanger("You force [src] onto [victim]!"), span_boldwarning("You hear a mechanical click and a beep."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		colorize(null)
 	else
 		log_combat(user, victim, "tried to force a hot potato with explosive variables ([detonate_explosion]-[detonate_dev_range]/[detonate_heavy_range]/[detonate_light_range]/[detonate_flash_range]/[detonate_fire_range]) onto")
-		user.visible_message(span_boldwarning("[user] tried to force [src] onto [victim], but it could not attach!"), span_boldwarning("You try to force [src] onto [victim], but it is unable to attach!"), span_boldwarning("You hear a mechanical click and two buzzes."))
+		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_boldwarning("[user_tok2] tried to force [src] onto %ACTOR_NAME%, but it could not attach!"), span_boldwarning("You try to force [src] onto [victim], but it is unable to attach!"), span_boldwarning("You hear a mechanical click and two buzzes."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		user.put_in_hands(src)
 
 /obj/item/hot_potato/dropped(mob/user)

@@ -27,16 +27,16 @@
 		if(A.type in organ_types)
 			IC = A
 			break
-	user.visible_message("[user] starts to remove [target]'s organs.", span_notice("You start to remove [target]'s organs..."))
+	user.visible_message("%SELF_NAME% starts to remove %ACTOR_NAME%'s organs.", span_notice("You start to remove %ACTOR_NAME%'s organs..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 /datum/surgery_step/extract_organ/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(IC)
-		user.visible_message("[user] pulls [IC] out of [target]'s [target_zone]!", span_notice("You pull [IC] out of [target]'s [target_zone]."))
+		user.visible_message("%SELF_NAME% pulls [IC] out of %ACTOR_NAME%'s [target_zone]!", span_notice("You pull [IC] out of %ACTOR_NAME%'s [target_zone]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 		user.put_in_hands(IC)
 		IC.Remove()
 		return 1
 	else
-		to_chat(user, span_warning("You don't find anything in [target]'s [target_zone]!"))
+		to_chat(user, span_warning("You don't find anything in [target.get_display_name(user)]'s [target_zone]!"))
 		return 1
 
 /datum/surgery_step/gland_insert
@@ -45,10 +45,10 @@
 	time = 32
 
 /datum/surgery_step/gland_insert/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] starts to insert [tool] into [target].", "<span class ='notice'>You start to insert [tool] into [target]...</span>")
+	user.visible_message("%SELF_NAME% starts to insert [tool] into %ACTOR_NAME%.", "<span class ='notice'>You start to insert [tool] into %ACTOR_NAME%...</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 /datum/surgery_step/gland_insert/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] inserts [tool] into [target].", "<span class ='notice'>You insert [tool] into [target].</span>")
+	user.visible_message("%SELF_NAME% inserts [tool] into %ACTOR_NAME%.", "<span class ='notice'>You insert [tool] into %ACTOR_NAME%.</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	user.temporarilyRemoveItemFromInventory(tool, TRUE)
 	var/obj/item/organ/heart/gland/gland = tool
 	gland.Insert(target, 2)

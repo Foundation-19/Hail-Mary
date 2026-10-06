@@ -95,7 +95,7 @@
 	var/obj/effect/temp_visual/dir_setting/shield_bash/effect = new(user.loc, dir)
 	effect.pixel_x = user.pixel_x - 32		//96x96 effect, -32.
 	effect.pixel_y = user.pixel_y - 32
-	user.visible_message(span_warning("[user] [harmful? "charges forwards with" : "sweeps"] [src]!"))
+	user.visible_message(span_warning("%SELF_NAME% [harmful? "charges forwards with" : "sweeps"] [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 	animate(user, pixel_x = px, pixel_y = py, time = 3, easing = SINE_EASING | EASE_OUT, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 	animate(user, pixel_x = -px, pixel_y = -py, time = 3, flags = ANIMATION_RELATIVE)
 	animate(effect, alpha = 0, pixel_x = px * 1.5, pixel_y = py * 1.5, time = 3, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
@@ -103,23 +103,27 @@
 /obj/item/shield/proc/bash_target(mob/living/user, mob/living/target, bashdir, harmful)
 	if(!(target.status_flags & CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_STUNIMMUNE))	// should probably add stun absorption check at some point I guess..
 		// unified stun absorption system when lol
-		target.visible_message(span_warning("[user] slams [target] with [src], but [target] doesn't falter!"), span_userdanger("[user] slams you with [src], but it barely fazes you!"))
+		target.visible_message(span_warning("%ACTOR_NAME% slams %SELF_NAME% with [src], but %SELF_NAME% doesn't falter!"), span_userdanger("%ACTOR_NAME% slams you with [src], but it barely fazes you!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return FALSE
 	var/target_downed = !CHECK_MOBILITY(target, MOBILITY_STAND)
 	var/wallhit = FALSE
 	var/turf/target_current_turf = get_turf(target)
 	if(harmful)
-		target.visible_message(span_warning("[target_downed? "[user] slams [src] into [target]" : "[user] bashes [target] with [src]"]!"),
-		span_warning("[target_downed? "[user] slams [src] into you" : "[user] bashes you with [src]"]!"))
+		target.visible_message(span_warning("[target_downed? "%ACTOR_NAME% slams [src] into %SELF_NAME%" : "%ACTOR_NAME% bashes %SELF_NAME% with [src]"]!"),
+		span_warning("[target_downed? "%ACTOR_NAME% slams [src] into you" : "%ACTOR_NAME% bashes you with [src]"]!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else
-		target.visible_message(span_warning("[user] shoves [target] with [src]!"),
-		span_warning("[user] shoves you with [src]!"))
+		target.visible_message(span_warning("%ACTOR_NAME% shoves %SELF_NAME% with [src]!"),
+		span_warning("%ACTOR_NAME% shoves you with [src]!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	for(var/i in 1 to harmful? shieldbash_knockback : shieldbash_push_distance)
 		var/turf/new_turf = get_step(target, bashdir)
 		var/mob/living/carbon/human/H = locate() in (new_turf.contents - target)
 		if(H && harmful)
-			H.visible_message(span_warning("[target] is sent crashing into [H]!"),
-			span_userdanger("[target] is sent crashing into you!"))
+			H.visible_message(span_warning("%ACTOR_NAME% is sent crashing into %SELF_NAME%!"),
+			span_userdanger("%ACTOR_NAME% is sent crashing into you!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 			H.KnockToFloor()
 			wallhit = TRUE
 			break
@@ -133,8 +137,9 @@
 	var/disarming = (target_downed && (shield_flags & SHIELD_BASH_GROUND_SLAM_DISARM)) || (shield_flags & SHIELD_BASH_ALWAYS_DISARM) || (wallhit && (shield_flags & SHIELD_BASH_WALL_DISARM))
 	var/knockdown = !target_downed && ((shield_flags & SHIELD_BASH_ALWAYS_KNOCKDOWN) || (wallhit && (shield_flags & SHIELD_BASH_WALL_KNOCKDOWN)))
 	if(shieldbash_stagger_duration || knockdown)
-		target.visible_message(span_warning("[target] is knocked [knockdown? "to the floor" : "off balance"]!"),
-		span_userdanger("You are knocked [knockdown? "to the floor" : "off balance"]!"))
+		target.visible_message(span_warning("%SELF_NAME% is knocked [knockdown? "to the floor" : "off balance"]!"),
+		span_userdanger("You are knocked [knockdown? "to the floor" : "off balance"]!"), \
+		visible_message_flags = ANONYMIZE_NAMES)
 	if(knockdown)
 		target.KnockToFloor(disarming)
 	else if(disarming)
@@ -250,7 +255,7 @@
 			to_chat(user, span_notice("You repair [src] with [S]."))
 	else if(istype(W, /obj/item/melee))
 		if(cooldown < world.time - 25)
-			user.visible_message(span_warning("[user] bashes [src] with [W]!"))
+			user.visible_message(span_warning("%SELF_NAME% bashes [src] with [W]!"), visible_message_flags = ANONYMIZE_NAMES)
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else

@@ -32,7 +32,7 @@
 	. = ..()
 	if(strikes_to_lose_limb == 0)
 		if(prob(1))
-			victim.visible_message(span_danger("The infection on the remnants of [victim]'s [limb.name] shift and bubble nauseatingly!"), span_warning("You can feel the infection on the remnants of your [limb.name] coursing through your veins!"))
+			victim.visible_message(span_danger("The infection on the remnants of %SELF_NAME%'s [limb.name] shift and bubble nauseatingly!"), span_warning("You can feel the infection on the remnants of your [limb.name] coursing through your veins!"), visible_message_flags = ANONYMIZE_NAMES)
 		return
 
 	if(victim.reagents)
@@ -186,29 +186,29 @@
 
 /// if someone is using ointment on our burns
 /datum/wound/burn/proc/ointment(obj/item/stack/medical/ointment/I, mob/user)
-	user.visible_message(span_notice("[user] begins applying [I] to [victim]'s [limb.name]..."), span_notice("You begin applying [I] to [user == victim ? "your" : "[victim]'s"] [limb.name]..."))
+	user.visible_message(span_notice("%SELF_NAME% begins applying [I] to %ACTOR_NAME%'s [limb.name]..."), span_notice("You begin applying [I] to [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	if(!do_after(user, (user == victim ? I.self_delay : I.other_delay), extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 
 	limb.heal_damage(I.heal_brute, I.heal_burn)
-	user.visible_message(span_green("[user] applies [I] to [victim]."), span_green("You apply [I] to [user == victim ? "your" : "[victim]'s"] [limb.name]."))
+	user.visible_message(span_green("%SELF_NAME% applies [I] to %ACTOR_NAME%."), span_green("You apply [I] to [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	I.use(1)
 	sanitization += I.sanitization
 	flesh_healing += I.flesh_regeneration
 	infestation -= I.sanitization * 0.05
 
 	if((infestation <= 0 || sanitization >= infestation) && (flesh_damage <= 0 || flesh_healing > flesh_damage))
-		to_chat(user, span_notice("You've done all you can with [I], now you must wait for the flesh on [victim]'s [limb.name] to recover."))
+		to_chat(user, span_notice("You've done all you can with [I], now you must wait for the flesh on [victim.get_display_name(user)]'s [limb.name] to recover."))
 	else
 		try_treating(I, user)
 
 /// if someone is using mesh on our burns
 /datum/wound/burn/proc/mesh(obj/item/stack/medical/mesh/I, mob/user, just_treat)
-	user.visible_message(span_notice("[user] begins wrapping [victim]'s [limb.name] with [I]..."), span_notice("You begin wrapping [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]..."))
+	user.visible_message(span_notice("%SELF_NAME% begins wrapping %ACTOR_NAME%'s [limb.name] with [I]..."), span_notice("You begin wrapping [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name] with [I]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	if(!do_after(user, (user == victim ? I.self_delay : I.other_delay), target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 
-	user.visible_message(span_green("[user] applies [I] to [victim]."), span_green("You apply [I] to [user == victim ? "your" : "[victim]'s"] [limb.name]."))
+	user.visible_message(span_green("%SELF_NAME% applies [I] to %ACTOR_NAME%."), span_green("You apply [I] to [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	limb.heal_damage(I.heal_brute, I.heal_burn)
 	I.use(1)
 	sanitization += I.sanitization
@@ -216,7 +216,7 @@
 	infestation -= I.sanitization * 0.2
 
 	if(sanitization >= infestation && flesh_healing > flesh_damage)
-		to_chat(user, span_notice("You've done all you can with [I], now you must wait for the flesh on [victim]'s [limb.name] to recover."))
+		to_chat(user, span_notice("You've done all you can with [I], now you must wait for the flesh on [victim.get_display_name(user)]'s [limb.name] to recover."))
 	else
 		try_treating(I, user)
 
@@ -226,10 +226,10 @@
 		to_chat(user, span_notice("[I] is still recharging!"))
 		return
 	if(infestation <= 0 || infestation < sanitization)
-		to_chat(user, span_notice("There's no infection to treat on [victim]'s [limb.name]!"))
+		to_chat(user, span_notice("There's no infection to treat on [victim.get_display_name(user)]'s [limb.name]!"))
 		return
 
-	user.visible_message(span_notice("[user] flashes the burns on [victim]'s [limb] with [I]."), span_notice("You flash the burns on [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]."), vision_distance=COMBAT_MESSAGE_RANGE)
+	user.visible_message(span_notice("%SELF_NAME% flashes the burns on %ACTOR_NAME%'s [limb] with [I]."), span_notice("You flash the burns on [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name] with [I]."), vision_distance=COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	sanitization += I.uv_power
 	COOLDOWN_START(I, uv_cooldown, I.uv_cooldown_length)
 

@@ -50,8 +50,8 @@
 		if (BREAKER_SLAT_RAISED)
 			if (LAZYLEN(buckled_mobs))
 				if (user.a_intent == INTENT_HARM)
-					user.visible_message(span_warning("[user] begins to pull the lever!"),
-										span_warning("You begin to the pull the lever."))
+					user.visible_message(span_warning("%SELF_NAME% begins to pull the lever!"),
+										span_warning("You begin to the pull the lever."), visible_message_flags = ANONYMIZE_NAMES)
 					current_action = BREAKER_ACTION_INUSE
 
 					if (do_after(user, BREAKER_ACTIVATE_DELAY, target = src) && slat_status == BREAKER_SLAT_RAISED)

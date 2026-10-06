@@ -51,9 +51,24 @@
 
 //Returns the job id printed on whatever ID badge is currently worn, or the generic wasteland default if none -
 //this (not get_visible_name()) is what strangers perceive by default; see get_identity_tag() in say.dm.
+//Mirrors get_id_name()'s wear_id resolution (wallet/pda/id/tablet) rather than get_idcard(), which only
+//checks held items - a badge worn in the ID slot (the normal case) wouldn't resolve otherwise.
 /mob/living/carbon/human/get_badge_assignment()
-	var/obj/item/card/id/id = get_idcard(FALSE)
-	return id?.assignment || FACTION_WASTELAND
+	var/obj/item/storage/wallet/wallet = wear_id
+	var/obj/item/pda/pda = wear_id
+	var/obj/item/card/id/id = wear_id
+	var/obj/item/modular_computer/tablet/tablet = wear_id
+	if(istype(wallet))
+		id = wallet.front_id
+	if(istype(id))
+		return id.assignment || FACTION_WASTELAND
+	if(istype(pda))
+		return pda.ownjob || FACTION_WASTELAND
+	if(istype(tablet))
+		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
+		if(card_slot?.stored_card)
+			return card_slot.stored_card.assignment || FACTION_WASTELAND
+	return FACTION_WASTELAND
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")

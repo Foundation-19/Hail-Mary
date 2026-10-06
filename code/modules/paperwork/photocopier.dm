@@ -397,36 +397,41 @@
 	if(!istype(target) || target.anchored || target.buckled || !Adjacent(target) || !user.canUseTopic(src, BE_CLOSE) || target == ass || copier_blocked())
 		return
 	add_fingerprint(user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	var/target_tok = isliving(target) ? "%ACTOR_NAME%" : "[target]"
 	if(target == user)
-		user.visible_message("<span class='notice'>[user] starts climbing onto the photocopier!</span>", "<span class='notice'>You start climbing onto the photocopier...</span>")
+		user.visible_message("<span class='notice'>[user_tok] starts climbing onto the photocopier!</span>", "<span class='notice'>You start climbing onto the photocopier...</span>", visible_message_flags = ANONYMIZE_NAMES)
 	else
-		user.visible_message("<span class='warning'>[user] starts putting [target] onto the photocopier!</span>", "<span class='notice'>You start putting [target] onto the photocopier...</span>")
+		user.visible_message("<span class='warning'>[user_tok] starts putting [target_tok] onto the photocopier!</span>", "<span class='notice'>You start putting [target] onto the photocopier...</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 
 	if(do_after(user, 20, target = src))
 		if(!target || QDELETED(target) || QDELETED(src) || !Adjacent(target)) //check if the photocopier/target still exists.
 			return
 
 		if(target == user)
-			user.visible_message("<span class='notice'>[user] climbs onto the photocopier!</span>", "<span class='notice'>You climb onto the photocopier.</span>")
+			user.visible_message("<span class='notice'>[user_tok] climbs onto the photocopier!</span>", "<span class='notice'>You climb onto the photocopier.</span>", visible_message_flags = ANONYMIZE_NAMES)
 		else
-			user.visible_message("<span class='warning'>[user] puts [target] onto the photocopier!</span>", "<span class='notice'>You put [target] onto the photocopier.</span>")
+			user.visible_message("<span class='warning'>[user_tok] puts [target_tok] onto the photocopier!</span>", "<span class='notice'>You put [target] onto the photocopier.</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 
 		target.forceMove(drop_location())
 		ass = target
 
 		if(photo_copy)
 			photo_copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[photo_copy] is shoved out of the way by [ass]!</span>")
+			var/ass_tok = isliving(ass) ? "%ACTOR_NAME%" : "[ass]"
+			visible_message("<span class='warning'>[photo_copy] is shoved out of the way by [ass_tok]!</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(ass) ? ass : null)
 			photo_copy = null
 
 		else if(paper_copy)
 			paper_copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[paper_copy] is shoved out of the way by [ass]!</span>")
+			var/ass_tok2 = isliving(ass) ? "%ACTOR_NAME%" : "[ass]"
+			visible_message("<span class='warning'>[paper_copy] is shoved out of the way by [ass_tok2]!</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(ass) ? ass : null)
 			paper_copy = null
 
 		else if(document_copy)
 			document_copy.forceMove(drop_location())
-			visible_message("<span class='warning'>[document_copy] is shoved out of the way by [ass]!</span>")
+			var/ass_tok3 = isliving(ass) ? "%ACTOR_NAME%" : "[ass]"
+			visible_message("<span class='warning'>[document_copy] is shoved out of the way by [ass_tok3]!</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(ass) ? ass : null)
 			document_copy = null
 
 /obj/machinery/photocopier/Exited(atom/movable/AM, atom/newloc)

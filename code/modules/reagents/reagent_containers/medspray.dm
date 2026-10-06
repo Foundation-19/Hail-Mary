@@ -51,7 +51,8 @@
 			return
 
 	if(L == user)
-		L.visible_message(span_notice("[user] attempts to [apply_method] [src] on [user.p_them()]self."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		L.visible_message(span_notice("[user_tok] attempts to [apply_method] [src] on [user.p_them()]self."), visible_message_flags = ANONYMIZE_NAMES)
 		if(self_delay)
 			if(!do_mob(user, L, self_delay))
 				return
@@ -61,14 +62,15 @@
 
 	else
 		log_combat(user, L, "attempted to apply", src, reagents.log_list())
-		L.visible_message(span_danger("[user] attempts to [apply_method] [src] on [L]."), \
-							span_userdanger("[user] attempts to [apply_method] [src] on [L]."))
+		var/user_tok2 = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+		L.visible_message(span_danger("[user_tok2] attempts to [apply_method] [src] on %SELF_NAME%."), \
+							span_userdanger("[user_tok2] attempts to [apply_method] [src] on you."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 		if(!do_mob(user, L))
 			return
 		if(!reagents || !reagents.total_volume)
 			return
-		L.visible_message(span_danger("[user] [apply_method]s [L] down with [src]."), \
-							span_userdanger("[user] [apply_method]s [L] down with [src]."))
+		L.visible_message(span_danger("[user_tok2] [apply_method]s %SELF_NAME% down with [src]."), \
+							span_userdanger("[user_tok2] [apply_method]s you down with [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 
 	if(!reagents || !reagents.total_volume)
 		return

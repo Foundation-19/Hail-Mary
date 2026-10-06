@@ -155,7 +155,7 @@ Charged extracts:
 	if(!user.canUseTopic(src, BE_CLOSE))
 		return
 	H.set_species(racechoice, icon_update=1)
-	H.visible_message(span_warning("[H] suddenly shifts form as [src] dissolves into [H.p_their()] skin!"))
+	H.visible_message(span_warning("%SELF_NAME% suddenly shifts form as [src] dissolves into [H.p_their()] skin!"), visible_message_flags = ANONYMIZE_NAMES)
 	..()
 
 /obj/item/slimecross/charged/pink
@@ -267,7 +267,7 @@ Charged extracts:
 		to_chat(user, span_warning("The slime is too unstable to return!"))
 	M.revive(full_heal = 1)
 	M.set_stat(CONSCIOUS)
-	M.visible_message(span_notice("[M] is filled with renewed vigor and blinks awake!"))
+	M.visible_message(span_notice("%SELF_NAME% is filled with renewed vigor and blinks awake!"), visible_message_flags = ANONYMIZE_NAMES)
 	M.maxHealth -= 10 //Revival isn't healthy.
 	M.health -= 10
 	M.regenerate_icons()
@@ -384,8 +384,9 @@ Charged extracts:
 		to_chat(user, span_warning("[M] is already lovestruck!"))
 		return ..()
 
-	M.visible_message(span_danger("[user] starts to feed [M] a love potion!"),
-		span_userdanger("[user] starts to feed you a love potion!"))
+	var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+	M.visible_message(span_danger("[user_tok] starts to feed %SELF_NAME% a love potion!"),
+		span_userdanger("[user_tok] starts to feed you a love potion!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 
 	if(!do_after(user, 50, target = M))
 		return
@@ -408,11 +409,13 @@ Charged extracts:
 		to_chat(user, span_warning("The pacification potion only works on the living."))
 		return ..()
 	if(M != user)
-		M.visible_message(span_danger("[user] starts to feed [M] a pacification potion!"),
-			span_userdanger("[user] starts to feed you a love potion!"))
+		var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+		M.visible_message(span_danger("[user_tok] starts to feed %SELF_NAME% a pacification potion!"),
+			span_userdanger("[user_tok] starts to feed you a love potion!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 	else
-		M.visible_message(span_danger("[user] starts to drink the pacification potion!"),
-			span_danger("You start to drink the pacification potion!"))
+		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		M.visible_message(span_danger("[user_tok2] starts to drink the pacification potion!"),
+			span_danger("You start to drink the pacification potion!"), visible_message_flags = ANONYMIZE_NAMES)
 
 	if(!do_after(user, 100, target = M))
 		return

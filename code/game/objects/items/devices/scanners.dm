@@ -33,7 +33,7 @@ GENETICS SCANNER
 	custom_materials = list(/datum/material/iron=150)
 
 /obj/item/t_scanner/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] begins to emit terahertz-rays into [user.p_their()] brain with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("%SELF_NAME% begins to emit terahertz-rays into [user.p_their()] brain with [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	return TOXLOSS
 
 /obj/item/t_scanner/attack_self(mob/user)
@@ -92,7 +92,7 @@ GENETICS SCANNER
 	var/advanced = FALSE
 
 /obj/item/healthanalyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
+	user.visible_message(span_suicide("%SELF_NAME% begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"), visible_message_flags = ANONYMIZE_NAMES)
 	return BRUTELOSS
 
 /obj/item/healthanalyzer/attack_self(mob/user)
@@ -110,16 +110,16 @@ GENETICS SCANNER
 
 	// Clumsiness/brain damage check
 	if ((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
-		user.visible_message(span_warning("[user] analyzes the floor's vitals!"), \
-							span_notice("You stupidly try to analyze the floor's vitals!"))
+		user.visible_message(span_warning("%SELF_NAME% analyzes the floor's vitals!"), \
+							span_notice("You stupidly try to analyze the floor's vitals!"), visible_message_flags = ANONYMIZE_NAMES)
 		to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>\
 					\n<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>\
 					\n<span class='info'>\tDamage specifics: <font color='blue'>0</font>-<font color='green'>0</font>-<font color='#FF8000'>0</font>-<font color='red'>0</font></span>\
 					\n<span class='info'>Body temperature: ???</span>")
 		return
 
-	user.visible_message(span_notice("[user] analyzes [M]'s vitals."), \
-						span_notice("You analyze [M]'s vitals."))
+	user.visible_message(span_notice("%SELF_NAME% analyzes %ACTOR_NAME%'s vitals."), \
+						span_notice("You analyze [M]'s vitals."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 	if(scanmode == SCANMODE_HEALTH)
 		healthscan(user, M, mode, advanced)
@@ -162,16 +162,16 @@ GENETICS SCANNER
 
 		// Clumsiness/brain damage check
 		if ((HAS_TRAIT(user, TRAIT_CLUMSY) || HAS_TRAIT(user, TRAIT_DUMB)) && prob(50))
-			user.visible_message(span_warning("[user] analyzes the floor's vitals!"), \
-								span_notice("You stupidly try to analyze the floor's vitals!"))
+			user.visible_message(span_warning("%SELF_NAME% analyzes the floor's vitals!"), \
+								span_notice("You stupidly try to analyze the floor's vitals!"), visible_message_flags = ANONYMIZE_NAMES)
 			to_chat(user, "<span class='info'>Analyzing results for The floor:\n\tOverall status: <b>Healthy</b></span>\
 						\n<span class='info'>Key: <font color='blue'>Suffocation</font>/<font color='green'>Toxin</font>/<font color='#FF8000'>Burn</font>/<font color='red'>Brute</font></span>\
 						\n<span class='info'>\tDamage specifics: <font color='blue'>0</font>-<font color='green'>0</font>-<font color='#FF8000'>0</font>-<font color='red'>0</font></span>\
 						\n<span class='info'>Body temperature: ???</span>")
 			return
 
-		user.visible_message(span_notice("[user] analyzes [M]'s vitals."), \
-							span_notice("You analyze [M]'s vitals."))
+		user.visible_message(span_notice("%SELF_NAME% analyzes %ACTOR_NAME%'s vitals."), \
+							span_notice("You analyze [M]'s vitals."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 		if(scanmode == SCANMODE_HEALTH)
 			healthscan(user, M, mode, advanced)
@@ -674,7 +674,7 @@ GENETICS SCANNER
 
 /obj/item/healthanalyzer/wound/attack(mob/living/carbon/patient, mob/living/carbon/human/user)
 	add_fingerprint(user)
-	user.visible_message(span_notice("[user] scans [patient] for serious injuries."), span_notice("You scan [patient] for serious injuries."))
+	user.visible_message(span_notice("%SELF_NAME% scans %ACTOR_NAME% for serious injuries."), span_notice("You scan [patient] for serious injuries."), visible_message_flags = ANONYMIZE_NAMES, name_actor = patient)
 
 	if(!istype(patient))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 30, TRUE)
@@ -710,7 +710,7 @@ GENETICS SCANNER
 	. += span_notice("Alt-click [src] to activate the barometer function.")
 
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"))
+	user.visible_message(span_suicide("%SELF_NAME% begins to analyze [user.p_them()]self with [src]! The display shows that [user.p_theyre()] dead!"), visible_message_flags = ANONYMIZE_NAMES)
 	return BRUTELOSS
 
 /obj/item/analyzer/attack_self(mob/user)
@@ -792,7 +792,7 @@ GENETICS SCANNER
 /proc/atmosanalyzer_scan(mixture, mob/living/user, atom/target = src, visible = TRUE)
 	var/icon = target
 	if(visible)
-		user.visible_message("[user] has used the analyzer on [icon2html(icon, viewers(user))] [target].", span_notice("You use the analyzer on [icon2html(icon, user)] [target]."))
+		user.visible_message("%SELF_NAME% has used the analyzer on [icon2html(icon, viewers(user))] [target].", span_notice("You use the analyzer on [icon2html(icon, user)] [target]."), visible_message_flags = ANONYMIZE_NAMES)
 	to_chat(user, span_boldnotice("Results of analysis of [icon2html(icon, user)] [target]."))
 
 	var/list/airs = islist(mixture) ? mixture : list(mixture)
@@ -975,7 +975,7 @@ GENETICS SCANNER
 	custom_materials = list(/datum/material/iron=200)
 
 /obj/item/nanite_scanner/attack(mob/living/M, mob/living/carbon/human/user)
-	user.visible_message(span_notice("[user] has analyzed [M]'s nanites."))
+	user.visible_message(span_notice("%SELF_NAME% has analyzed %ACTOR_NAME%'s nanites."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 	add_fingerprint(user)
 
@@ -1007,13 +1007,12 @@ GENETICS SCANNER
 /obj/item/sequence_scanner/attack(mob/living/M, mob/living/carbon/human/user)
 	add_fingerprint(user)
 	if (!HAS_TRAIT_NOT_FROM(M, TRAIT_RADIMMUNE,BLOODSUCKER_TRAIT)) //no scanning if its a husk or DNA-less Species
-		user.visible_message(span_notice("[user] analyzes [M]'s genetic sequence."), \
-							span_notice("You analyze [M]'s genetic sequence."))
+		user.visible_message(span_notice("%SELF_NAME% analyzes %ACTOR_NAME%'s genetic sequence."), \
+						span_notice("You analyze [M]'s genetic sequence."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 		gene_scan(M, user)
 
 	else
-		user.visible_message(span_notice("[user] failed to analyse [M]'s genetic sequence."), span_warning("[M] has no readable genetic sequence!"))
-
+		user.visible_message(span_notice("%SELF_NAME% failed to analyse %ACTOR_NAME%'s genetic sequence."), span_warning("[M] has no readable genetic sequence!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 /obj/item/sequence_scanner/attack_self(mob/user)
 	display_sequence(user)
 

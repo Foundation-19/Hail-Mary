@@ -146,11 +146,11 @@
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
 			if(!H.get_bodypart(body_zone) && !animal_origin)
 				if(H == user)
-					H.visible_message(span_warning("[H] jams [src] into [H.p_their()] empty socket!"),\
-					span_notice("You force [src] into your empty socket, and it locks into place!"))
+					H.visible_message(span_warning("%SELF_NAME% jams [src] into [H.p_their()] empty socket!"),\
+					span_notice("You force [src] into your empty socket, and it locks into place!"), visible_message_flags = ANONYMIZE_NAMES)
 				else
-					H.visible_message(span_warning("[user] jams [src] into [H]'s empty socket!"),\
-					span_notice("[user] forces [src] into your empty socket, and it locks into place!"))
+					H.visible_message(span_warning("%ACTOR_NAME% jams [src] into %SELF_NAME%'s empty socket!"),\
+					span_notice("%ACTOR_NAME% forces [src] into your empty socket, and it locks into place!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				user.temporarilyRemoveItemFromInventory(src, TRUE)
 				attach_limb(C)
 				return
@@ -163,8 +163,8 @@
 			to_chat(user, span_warning("There is nothing left inside [src]!"))
 			return
 		playsound(loc, 'sound/weapons/slice.ogg', 50, 1, -1)
-		user.visible_message(span_warning("[user] begins to cut open [src]."),\
-			span_notice("You begin to cut open [src]..."))
+		user.visible_message(span_warning("%SELF_NAME% begins to cut open [src]."),\
+			span_notice("You begin to cut open [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(user, 54, target = src))
 			drop_organs(user)
 	else
@@ -1005,32 +1005,32 @@
 		if(intentionally_removed)
 			if(by_who && by_who == owner)
 				owner.visible_message(
-					span_notice("[by_who] removes the [current_gauze.name] on [owner]'s [name]."),
-					span_notice("You remove the [current_gauze.name] on [owner]'s [name]."))
+					span_notice("%SELF_NAME% removes the [current_gauze.name] on %SELF_NAME%'s [name]."),
+					span_notice("You remove the [current_gauze.name] on %SELF_NAME%'s [name]."), visible_message_flags = ANONYMIZE_NAMES)
 			else
 				owner.visible_message(
-					span_notice("[owner] removes the [current_gauze.name] on [owner.p_their()] [name]."),
-					span_notice("You remove the [current_gauze.name] on your [name]."))
+					span_notice("%SELF_NAME% removes the [current_gauze.name] on [owner.p_their()] [name]."),
+					span_notice("You remove the [current_gauze.name] on your [name]."), visible_message_flags = ANONYMIZE_NAMES)
 		else
 			owner.visible_message(
-				span_notice("\The [current_gauze] on [owner]'s [name] fall away, no longer needed."),
-				span_notice("\The [current_gauze] on your [name] fall away, no longer needed."))
+				span_notice("\The [current_gauze] on %SELF_NAME%'s [name] fall away, no longer needed."),
+				span_notice("\The [current_gauze] on your [name] fall away, no longer needed."), visible_message_flags = ANONYMIZE_NAMES)
 		QDEL_NULL(current_gauze)
 		. = TRUE
 	if(current_suture && (which_covering == "suture" || which_covering == "both"))
 		if(intentionally_removed)
 			if(by_who && by_who == owner)
 				owner.visible_message(
-					span_notice("[by_who] removes the [current_suture.name] on [owner]'s [name]."),
-					span_notice("You remove the [current_suture.name] on [owner]'s [name]."))
+					span_notice("%SELF_NAME% removes the [current_suture.name] on %SELF_NAME%'s [name]."),
+					span_notice("You remove the [current_suture.name] on %SELF_NAME%'s [name]."), visible_message_flags = ANONYMIZE_NAMES)
 			else
 				owner.visible_message(
-					span_notice("[owner] pops the [current_suture.name] on [owner.p_their()] [name]."),
-					span_notice("You pop the [current_suture.name] on your [name]."))
+					span_notice("%SELF_NAME% pops the [current_suture.name] on [owner.p_their()] [name]."),
+					span_notice("You pop the [current_suture.name] on your [name]."), visible_message_flags = ANONYMIZE_NAMES)
 		else
 			owner.visible_message(
-				span_notice("\The [current_suture] on [owner]'s [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."),
-				span_notice("\The [current_suture] on your [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."))
+				span_notice("\The [current_suture] on %SELF_NAME%'s [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."),
+				span_notice("\The [current_suture] on your [name] absorb into [owner.p_their()] skin as [owner.p_their()] wounds close."), visible_message_flags = ANONYMIZE_NAMES)
 		QDEL_NULL(current_suture)
 		. = TRUE
 
@@ -1120,9 +1120,9 @@
 		needs_processing = TRUE
 		return BANDAGE_STILL_INTACT
 	owner.visible_message(
-		span_warning("\The [current_gauze] on [owner]'s [name] become totally soaked, and fall off in a bloody heap."),
+		span_warning("\The [current_gauze] on %SELF_NAME%'s [name] become totally soaked, and fall off in a bloody heap."),
 		span_warning("\The [current_gauze] on your [name] become totally soaked, and fall off in a bloody heap."),
-		vision_distance=COMBAT_MESSAGE_RANGE)
+		vision_distance=COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES)
 	QDEL_NULL(current_gauze)
 	return BANDAGE_TIMED_OUT
 
@@ -1188,9 +1188,9 @@
 			vision_distance=COMBAT_MESSAGE_RANGE) */
 	if(current_gauze.covering_hitpoints <= 0)
 		owner.visible_message(
-			span_warning("\The [current_gauze] on [owner]'s [name] rip to shreds from the impact, falling away in a heap!"),
+			span_warning("\The [current_gauze] on %SELF_NAME%'s [name] rip to shreds from the impact, falling away in a heap!"),
 			span_danger("\The [current_gauze] on your [name] rip to shreds from the impact, falling away in a heap!"),
-			vision_distance=COMBAT_MESSAGE_RANGE)
+			vision_distance=COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES)
 		QDEL_NULL(current_gauze)
 		S_TIMER_COOLDOWN_RESET(src, BANDAGE_COOLDOWN_ID)
 	needs_processing = TRUE
@@ -1256,9 +1256,9 @@
 		needs_processing = TRUE
 		return SUTURE_STILL_INTACT
 	owner.visible_message(
-		span_warning("\The [current_suture] on [owner]'s [name] fray to the point of breaking!"),
+		span_warning("\The [current_suture] on %SELF_NAME%'s [name] fray to the point of breaking!"),
 		span_danger("\The [current_suture] on your [name] fray to the point of breaking!"),
-		vision_distance=COMBAT_MESSAGE_RANGE)
+		vision_distance=COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES)
 	QDEL_NULL(current_suture)
 	return SUTURE_TIMED_OUT
 
@@ -1310,9 +1310,9 @@
 	else */
 	if(current_suture.covering_hitpoints <= 0)
 		owner.visible_message(
-			span_warning("\The [current_suture] on [owner]'s [name] pops wide open, shredded to bloody fragments!"),
+			span_warning("\The [current_suture] on %SELF_NAME%'s [name] pops wide open, shredded to bloody fragments!"),
 			span_danger("\The [current_suture] on your [name] pops wide open, shredded to bloody fragments!"),
-			vision_distance=COMBAT_MESSAGE_RANGE)
+			vision_distance=COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES)
 		QDEL_NULL(current_suture)
 		S_TIMER_COOLDOWN_RESET(src, SUTURE_COOLDOWN_ID)
 	needs_processing = TRUE

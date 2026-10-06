@@ -116,15 +116,15 @@
 		return
 
 	if(M == user)
-		M.visible_message(span_notice("[user] attempts to inject themselves with the [src]."))
+		M.visible_message(span_notice("%SELF_NAME% attempts to inject themselves with the [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		if(syringe_self_delay)
 			if(!do_mob(user, M, syringe_self_delay))
 				return FALSE
 		to_chat(M, span_notice("You jab yourself with the [src]."))
 
 	else
-		M.visible_message(span_danger("[user] attempts to use [src] on [M]."), \
-							span_userdanger("[user] attempts to use [src] on [M]."))
+		M.visible_message(span_danger("%ACTOR_NAME% attempts to use [src] on %SELF_NAME%."), \
+							span_userdanger("%ACTOR_NAME% attempts to use [src] on %SELF_NAME%."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		if(!do_mob(user, M))
 			return 0
 

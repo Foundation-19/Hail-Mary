@@ -191,11 +191,11 @@
 	playsound(loc, "punch", 25, 1, -1)
 
 	if(M.stat == DEAD)
-		M.visible_message(span_danger("[user] smacks [M]'s lifeless corpse with [src]."), span_userdanger("[user] smacks your lifeless corpse with [src]."), span_italic("You hear smacking."))
+		M.visible_message(span_danger("%ACTOR_NAME% smacks %SELF_NAME%'s lifeless corpse with [src]."), span_userdanger("%ACTOR_NAME% smacks your lifeless corpse with [src]."), span_italic("You hear smacking."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else if(M.has_language(/datum/language/codespeak))
-		M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), span_userdanger("[user] beats you over the head with [src]!"), span_italic("You hear smacking."))
+		M.visible_message(span_danger("%ACTOR_NAME% beats %SELF_NAME% over the head with [src]!"), span_userdanger("%ACTOR_NAME% beats you over the head with [src]!"), span_italic("You hear smacking."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else
-		M.visible_message(span_notice("[user] teaches [M] by beating [M.p_them()] over the head with [src]!"), span_boldnotice("As [user] hits you with [src], codewords and responses flow through your mind."), span_italic("You hear smacking."))
+		M.visible_message(span_notice("%ACTOR_NAME% teaches %SELF_NAME% by beating [M.p_them()] over the head with [src]!"), span_boldnotice("As %ACTOR_NAME% hits you with [src], codewords and responses flow through your mind."), span_italic("You hear smacking."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		M.grant_language(/datum/language/codespeak, TRUE, TRUE, LANGUAGE_MIND)
 		use_charge(user)
 

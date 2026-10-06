@@ -166,7 +166,9 @@
 		mob/target,
 		target_message,
 		visible_message_flags = NONE,
-		pref_check
+		pref_check,
+		mob/living/name_actor,
+		mob/living/name_other
 		)
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -186,6 +188,8 @@
 		else if(T.lighting_object && T.lighting_object.invisibility <= target.see_invisible && T.is_softly_lit() && !in_range(T,target))
 			msg = blind_message
 		if(msg && !CHECK_BITFIELD(visible_message_flags, ONLY_OVERHEAD))
+			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(target))
+				msg = anonymize_message_names(msg, target, name_actor, name_other)
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 				msg = "<b>[src]</b> [msg]"
 			target.show_message(msg, MSG_VISUAL,blind_message, MSG_AUDIBLE)
@@ -210,15 +214,33 @@
 			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = visible_message_flags)
 
 		if(msg && !CHECK_BITFIELD(visible_message_flags, ONLY_OVERHEAD))
+			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(M))
+				msg = anonymize_message_names(msg, M, name_actor, name_other)
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 				msg = "<b>[src]</b> [msg]"
 			M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
+///Substitutes %SELF_NAME% (this atom, if a living mob), %ACTOR_NAME% (name_actor, if given), and
+///%OTHER_NAME% (name_other, if given - a 3rd party mob neither src nor name_actor) in msg with how
+///`viewer` would actually perceive those mobs - see /mob/living/proc/get_display_name() in code/game/say.dm.
+/atom/proc/anonymize_message_names(msg, mob/living/viewer, mob/living/name_actor, mob/living/name_other)
+	if(isliving(src))
+		var/mob/living/self_mob = src
+		msg = replacetext(msg, "%SELF_NAME%", self_mob.get_display_name(viewer))
+	if(name_actor)
+		msg = replacetext(msg, "%ACTOR_NAME%", name_actor.get_display_name(viewer))
+	if(name_other)
+		msg = replacetext(msg, "%OTHER_NAME%", name_other.get_display_name(viewer))
+	return msg
+
 ///Adds the functionality to self_message.
-mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, mob/target, target_message, visible_message_flags = NONE, pref_check)
+mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, mob/target, target_message, visible_message_flags = NONE, pref_check, mob/living/name_actor, mob/living/name_other)
 	. = ..()
 	if(self_message && target != src)
-		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE, pref_check)
+		var/msg = self_message
+		if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(src))
+			msg = anonymize_message_names(msg, src, name_actor, name_other)
+		show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, pref_check)
 
 /**
  * Show a message to all mobs in earshot of this atom
@@ -238,7 +260,9 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		self_message,
 		ignored_mobs,
 		audible_message_flags = NONE,
-		pref_check
+		pref_check,
+		mob/living/name_actor,
+		mob/living/name_other
 		)
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -260,7 +284,10 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, audible_message_flags) && M.can_hear())
 			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
 		if(!CHECK_BITFIELD(audible_message_flags, ONLY_OVERHEAD))
-			M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+			var/msg = message
+			if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && isliving(M))
+				msg = anonymize_message_names(msg, M, name_actor, name_other)
+			M.show_message(msg, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 /**
  * Show a message to all mobs in earshot of this one

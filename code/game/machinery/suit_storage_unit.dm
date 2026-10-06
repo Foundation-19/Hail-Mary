@@ -204,18 +204,20 @@
 		to_chat(user, span_warning("It's too cluttered inside to fit in!"))
 		return
 
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	var/user_tok_actor = isliving(user) ? "%ACTOR_NAME%" : "[user]"
 	if(target == user)
-		user.visible_message(span_warning("[user] starts squeezing into [src]!"), span_notice("You start working your way into [src]..."))
+		user.visible_message(span_warning("[user_tok] starts squeezing into [src]!"), span_notice("You start working your way into [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 	else
-		target.visible_message(span_warning("[user] starts shoving [target] into [src]!"), span_userdanger("[user] starts shoving you into [src]!"))
+		target.visible_message(span_warning("[user_tok_actor] starts shoving %SELF_NAME% into [src]!"), span_userdanger("[user] starts shoving you into [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 
 	if(do_mob(user, target, 30))
 		if(occupant || helmet || suit || storage)
 			return
 		if(target == user)
-			user.visible_message(span_warning("[user] slips into [src] and closes the door behind [user.p_them()]!"), "<span class=notice'>You slip into [src]'s cramped space and shut its door.</span>")
+			user.visible_message(span_warning("[user_tok] slips into [src] and closes the door behind [user.p_them()]!"), "<span class=notice'>You slip into [src]'s cramped space and shut its door.</span>", visible_message_flags = ANONYMIZE_NAMES)
 		else
-			target.visible_message("<span class='warning'>[user] pushes [target] into [src] and shuts its door!<span>", span_userdanger("[user] shoves you into [src] and shuts the door!"))
+			target.visible_message("<span class='warning'>[user_tok_actor] pushes %SELF_NAME% into [src] and shuts its door!<span>", span_userdanger("[user] shoves you into [src] and shuts the door!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 		close_machine(target)
 		add_fingerprint(user)
 
@@ -306,21 +308,21 @@
 		open_machine()
 		dump_contents()
 		return
-	user.visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
+	user.visible_message(span_notice("You see %SELF_NAME% kicking against the doors of [src]!"), \
 		span_notice("You start kicking against the doors... (this will take about [DisplayTimeText(breakout_time)].)"), \
-		span_italic("You hear a thump from [src]."))
+		span_italic("You hear a thump from [src]."), visible_message_flags = ANONYMIZE_NAMES)
 	if(do_after(user,(breakout_time), target = src))
 		if(!user || user.stat != CONSCIOUS || user.loc != src )
 			return
-		user.visible_message(span_warning("[user] successfully broke out of [src]!"), \
-			span_notice("You successfully break out of [src]!"))
+		user.visible_message(span_warning("%SELF_NAME% successfully broke out of [src]!"), \
+			span_notice("You successfully break out of [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 		open_machine()
 		dump_contents()
 
 	add_fingerprint(user)
 	if(locked)
-		visible_message(span_notice("You see [user] kicking against the doors of [src]!"), \
-			span_notice("You start kicking against the doors..."))
+		visible_message(span_notice("You see %ACTOR_NAME% kicking against the doors of [src]!"), \
+			span_notice("You start kicking against the doors..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		addtimer(CALLBACK(src, PROC_REF(resist_open), user), 300)
 	else
 		open_machine()
@@ -328,8 +330,8 @@
 
 /obj/machinery/suit_storage_unit/proc/resist_open(mob/user)
 	if(!state_open && occupant && (user in src) && user.stat == 0) // Check they're still here.
-		visible_message(span_notice("You see [user] burst out of [src]!"), \
-			span_notice("You escape the cramped confines of [src]!"))
+		visible_message(span_notice("You see %ACTOR_NAME% burst out of [src]!"), \
+			span_notice("You escape the cramped confines of [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		open_machine()
 
 /obj/machinery/suit_storage_unit/attackby(obj/item/I, mob/user, params)
@@ -366,7 +368,7 @@
 				return
 			storage = I
 
-		visible_message(span_notice("[user] inserts [I] into [src]"), span_notice("You load [I] into [src]."))
+		visible_message(span_notice("%ACTOR_NAME% inserts [I] into [src]"), span_notice("You load [I] into [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 		update_icon()
 		return
 

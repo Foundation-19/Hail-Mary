@@ -10,3 +10,8 @@
 /// How long a target is safe from being challenged again (by anyone) after a verify_identity() attempt, win or lose.
 /// Long enough that a successful infiltrator has a real window to operate before anyone else can take a crack at them.
 #define IDENTITY_CHECK_COOLDOWN (45 MINUTES)
+
+/// How long a VERIFIER has to wait between their own verify_identity() attempts, regardless of target.
+/// Stops one person from instantly hunch-checking everyone in a room back-to-back.
+#define IDENTITY_CHECK_VERIFIER_COOLDOWN (2 MINUTES)
+

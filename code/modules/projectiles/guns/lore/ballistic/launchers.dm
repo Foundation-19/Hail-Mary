@@ -204,8 +204,8 @@
 	icon_state = "[initial(icon_state)]-[chambered ? "1" : "0"]"
 
 /obj/item/gun/ballistic/rocketlauncher/suicide_act(mob/living/user)
-	user.visible_message(span_warning("[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!"), \
-		span_userdanger("You aim [src] at the ground to perform a bisnasty rocket jump..."))
+	user.visible_message(span_warning("%SELF_NAME% aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!"), \
+		span_userdanger("You aim [src] at the ground to perform a bisnasty rocket jump..."), visible_message_flags = ANONYMIZE_NAMES)
 	if(can_shoot())
 		user.mob_transforming = TRUE
 		playsound(src, 'sound/vehicles/rocketlaunch.ogg', 80, 1, 5)
@@ -222,8 +222,8 @@
 		sleep(5)
 		shoot_with_empty_chamber(user)
 		sleep(20)
-		user.visible_message(span_warning("[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!"), \
-			span_userdanger("You look around after realizing you're still here, then proceed to choke yourself to death with [src]!"))
+		user.visible_message(span_warning("%SELF_NAME% looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!"), \
+			span_userdanger("You look around after realizing you're still here, then proceed to choke yourself to death with [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 		sleep(20)
 		return OXYLOSS
 

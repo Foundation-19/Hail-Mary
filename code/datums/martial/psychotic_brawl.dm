@@ -34,8 +34,9 @@
 					D.stop_pulling()
 					if(A.a_intent == INTENT_GRAB)
 						log_combat(A, D, "grabbed", addition="aggressively")
-						D.visible_message(span_warning("[A] violently grabs [D]!"), \
-						span_userdanger("[A] violently grabs you!"))
+						D.visible_message(span_warning("%ACTOR_NAME% violently grabs %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% violently grabs you!"), \
+						visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 						A.setGrabState(GRAB_AGGRESSIVE) //Instant aggressive grab
 					else
 						log_combat(A, D, "grabbed", addition="passively")
@@ -43,8 +44,9 @@
 		if(4)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = "headbutts"
-			D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
-					span_userdanger("[A] [atk_verb] you!"))
+			D.visible_message(span_danger("%ACTOR_NAME% [atk_verb] %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% [atk_verb] you!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 			playsound(get_turf(D), 'sound/weapons/punch1.ogg', 40, 1, -1)
 			deal_damage(A, D, damage*1.5, BRUTE, BODY_ZONE_HEAD)
 			deal_damage(A, A, damage, BRUTE, BODY_ZONE_HEAD)
@@ -55,8 +57,9 @@
 		if(5,6)
 			A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 			atk_verb = pick("punches", "kicks", "hits", "slams into")
-			D.visible_message(span_danger("[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!"), \
-							span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
+			D.visible_message(span_danger("%ACTOR_NAME% [atk_verb] %SELF_NAME% with inhuman strength, sending [D.p_them()] flying backwards!"), \
+							span_userdanger("%ACTOR_NAME% [atk_verb] you with inhuman strength, sending you flying backwards!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 			deal_damage(A, D, damage*2, BRUTE)
 			playsound(get_turf(D), 'sound/effects/meteorimpact.ogg', 25, 1, -1)
 			var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))

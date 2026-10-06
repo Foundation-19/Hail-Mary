@@ -307,9 +307,11 @@
 
 	if(AM.pulledby)
 		if(!supress_message)
-			AM.pulledby.visible_message(span_danger("[src] has pulled [AM] from [AM.pulledby]'s grip."),
-				span_danger("[src] has pulled [AM] from your grip."), target = src,
-				target_message = span_danger("You have pulled [AM] from [AM.pulledby]'s grip."))
+			var/mob/living/AM_living = isliving(AM) ? AM : null
+			var/other_tok = AM_living ? "%OTHER_NAME%" : "[AM]"
+			AM.pulledby.visible_message(span_danger("%ACTOR_NAME% has pulled [other_tok] from %SELF_NAME%'s grip."),
+				span_danger("%ACTOR_NAME% has pulled [other_tok] from your grip."), target = src,
+				target_message = span_danger("You have pulled [other_tok] from %SELF_NAME%'s grip."), visible_message_flags = ANONYMIZE_NAMES, name_actor = src, name_other = AM_living)
 		log_combat(AM, AM.pulledby, "pulled from", src)
 		AM.pulledby.stop_pulling() //an object can't be pulled by two mobs at once.
 
@@ -324,9 +326,9 @@
 
 		log_combat(src, M, "grabbed", addition="passive grab")
 		if(!supress_message && !(iscarbon(AM) && HAS_TRAIT(src, TRAIT_STRONG_GRABBER)))
-			visible_message(span_warning("[src] has grabbed [M][(zone_selected == "l_arm" || zone_selected == "r_arm")? " by [M.p_their()] hands":" passively"]!"),
-				span_warning("You have grabbed [M][(zone_selected == "l_arm" || zone_selected == "r_arm")? " by [M.p_their()] hands":" passively"]!"), target = M,
-				target_message = span_warning("[src] has grabbed you[(zone_selected == "l_arm" || zone_selected == "r_arm")? " by your hands":" passively"]!"))
+			visible_message(span_warning("%SELF_NAME% has grabbed %ACTOR_NAME%[(zone_selected == "l_arm" || zone_selected == "r_arm")? " by [M.p_their()] hands":" passively"]!"),
+				span_warning("You have grabbed %ACTOR_NAME%[(zone_selected == "l_arm" || zone_selected == "r_arm")? " by [M.p_their()] hands":" passively"]!"), target = M,
+				target_message = span_warning("%SELF_NAME% has grabbed you[(zone_selected == "l_arm" || zone_selected == "r_arm")? " by your hands":" passively"]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(M) ? M : null)
 		if(!iscarbon(src))
 			M.LAssailant = null
 		else
@@ -899,16 +901,16 @@
 	. = ..()
 	if(pulledby.grab_state > GRAB_PASSIVE)
 		if(CHECK_MOBILITY(src, MOBILITY_RESIST) && prob(30/pulledby.grab_state))
-			pulledby.visible_message(span_danger("[src] has broken free of [pulledby]'s grip!"),
-				span_danger("[src] has broken free of your grip!"), target = src,
-				target_message = span_danger("You have broken free of [pulledby]'s grip!"))
+			pulledby.visible_message(span_danger("%ACTOR_NAME% has broken free of %SELF_NAME%'s grip!"),
+				span_danger("%ACTOR_NAME% has broken free of your grip!"), target = src,
+				target_message = span_danger("You have broken free of %SELF_NAME%'s grip!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 			pulledby.stop_pulling()
 			return TRUE
 		else if(moving_resist && client) //we resisted by trying to move // this is a horrible system and whoever thought using client instead of mob is okay is not an okay person
 			client.move_delay = world.time + 20
-		pulledby.visible_message(span_danger("[src] resists against [pulledby]'s grip!"),
-			span_danger("[src] resists against your grip!"), target = src,
-			target_message = span_danger("You resist against [pulledby]'s grip!"))
+		pulledby.visible_message(span_danger("%ACTOR_NAME% resists against %SELF_NAME%'s grip!"),
+			span_danger("%ACTOR_NAME% resists against your grip!"), target = src,
+			target_message = span_danger("You resist against %SELF_NAME%'s grip!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 	else
 		pulledby.stop_pulling()
 		return TRUE
@@ -972,9 +974,9 @@
 			strip_mod = g.strip_mod
 			strip_silence = g.strip_silence
 	if(!strip_silence)
-		who.visible_message(span_danger("[src] tries to remove [who]'s [what.name]."), \
-					span_userdanger("[src] tries to remove your [what.name]."), target = src,
-					target_message = span_danger("You try to remove [who]'s [what.name]."))
+		who.visible_message(span_danger("%ACTOR_NAME% tries to remove %SELF_NAME%'s [what.name]."), \
+					span_userdanger("%ACTOR_NAME% tries to remove your [what.name]."), target = src,
+					target_message = span_danger("You try to remove %SELF_NAME%'s [what.name]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 		what.add_fingerprint(src)
 		if(ishuman(who))
 			var/mob/living/carbon/human/victim_human = who

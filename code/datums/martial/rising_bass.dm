@@ -89,8 +89,9 @@
 		var/turf/H = get_step(D, dir)
 		var/turf/K = get_step(D, oppdir)
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.visible_message(span_warning("[A] kicks [D] in the side, sliding them over!"), \
-						span_userdanger("[A] kicks you in the side, forcing you to step away!"))
+		D.visible_message(span_warning("%ACTOR_NAME% kicks %SELF_NAME% in the side, sliding them over!"), \
+						span_userdanger("%ACTOR_NAME% kicks you in the side, forcing you to step away!"), \
+						visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		deal_damage(A, D, damage, BRUTE, BODY_ZONE_CHEST)
 		D.DefaultCombatKnockdown(60, override_hardstun = 1, override_stamdmg = damage)
@@ -106,8 +107,9 @@
 	var/turf/H = get_step(A, get_dir(D,A))
 	var/L = checkfordensity(H,D) ? H : A.loc
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-	D.visible_message(span_warning("[A] flips [D] over their shoulder, slamming them into the ground!"), \
-					span_userdanger("[A] flips you over their shoulder, slamming you into the ground!"))
+	D.visible_message(span_warning("%ACTOR_NAME% flips %SELF_NAME% over their shoulder, slamming them into the ground!"), \
+					span_userdanger("%ACTOR_NAME% flips you over their shoulder, slamming you into the ground!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 	playsound(get_turf(A), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 	D.emote("scream")
 	deal_damage(A, D, damage + 10, BRUTE, BODY_ZONE_CHEST)
@@ -124,8 +126,9 @@
 	var/damage = damage_roll(A,D)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND) && repulsecool < world.time)
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
-		D.visible_message(span_warning("[A] smashes [D] in the chest, throwing them away!"), \
-						span_userdanger("[A] smashes you in the chest, repelling you away!"))
+		D.visible_message(span_warning("%ACTOR_NAME% smashes %SELF_NAME% in the chest, throwing them away!"), \
+						span_userdanger("%ACTOR_NAME% smashes you in the chest, repelling you away!"), \
+						visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		var/atom/F = get_edge_target_turf(D, get_dir(A, get_step_away(D, A)))
 		D.throw_at(F, 10, 1)
@@ -141,8 +144,9 @@
 	var/damage = (damage_roll(A,D)*0.5)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
 		A.do_attack_animation(D, ATTACK_EFFECT_KICK)
-		D.visible_message(span_warning("[A] smashes their foot down on [D]'s foot!"), \
-						span_userdanger("[A] smashes your foot!"))
+		D.visible_message(span_warning("%ACTOR_NAME% smashes their foot down on %SELF_NAME%'s foot!"), \
+						span_userdanger("%ACTOR_NAME% smashes your foot!"), \
+						visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/weapons/punch1.ogg', 50, 1, -1)
 		deal_damage(A, D, damage, BRUTE, pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG))
 		D.dropItemToGround(D.get_active_held_item())
@@ -156,8 +160,9 @@
 			var/obj/item/G = D.get_active_held_item()
 			if (G && !(G.item_flags & (ABSTRACT|DROPDEL)) && D.temporarilyRemoveItemFromInventory(G))
 				A.put_in_hands(G)
-				D.visible_message(span_warning("[A] slaps [D]'s hands, taking [G] from them!"), \
-					span_userdanger("[A] slaps you, taking [G] from you!"))
+				D.visible_message(span_warning("%ACTOR_NAME% slaps %SELF_NAME%'s hands, taking [G] from them!"), \
+					span_userdanger("%ACTOR_NAME% slaps you, taking [G] from you!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 				log_combat(A, D, "deft switched (Rising Bass)")
 				return TRUE
 			else
@@ -172,14 +177,16 @@
 	var/stunthreshold = A.dna.species.punchstunthreshold
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND) && damage >= stunthreshold)
-		D.visible_message(span_danger("[A] trips [D]!"), \
-					span_userdanger("You're tripped by [A]!"), span_hear("You hear something thump against the floor!"), COMBAT_MESSAGE_RANGE, A)
+		D.visible_message(span_danger("%ACTOR_NAME% trips %SELF_NAME%!"), \
+					span_userdanger("You're tripped by %ACTOR_NAME%!"), span_hear("You hear something thump against the floor!"), COMBAT_MESSAGE_RANGE, A, \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		to_chat(A, span_danger("You trip [D]!"))
 		D.DefaultCombatKnockdown(10, override_hardstun = 0.01, override_stamdmg = damage)
 		D.Dizzy(damage)
 	else
-		D.visible_message(span_danger("[A] jabs [D] in the stomach!"), \
-					span_userdanger("You're jabbed in the stomach by [A]!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A)
+		D.visible_message(span_danger("%ACTOR_NAME% jabs %SELF_NAME% in the stomach!"), \
+					span_userdanger("You're jabbed in the stomach by %ACTOR_NAME%!"), span_hear("You hear a sickening sound of flesh hitting flesh!"), COMBAT_MESSAGE_RANGE, A, \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		to_chat(A, span_danger("You jab [D] in the stomach!"))
 		deal_damage(A, D, damage*2 + 10, STAMINA)
 		D.disgust = min(damage, 20)
@@ -213,7 +220,7 @@
 		return BULLET_ACT_HIT
 	if(!isturf(A.loc)) //NO MOTHERFLIPPIN MECHS!
 		return BULLET_ACT_HIT
-	A.visible_message(span_danger("[A] dodges the projectile cleanly, they're immune to ranged weapons!"), span_userdanger("You dodge out of the way of the projectile!"))
+	A.visible_message(span_danger("%SELF_NAME% dodges the projectile cleanly, they're immune to ranged weapons!"), span_userdanger("You dodge out of the way of the projectile!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(get_turf(A), pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 75, TRUE)
 
 	var/totalStamDam = (P.damage > P.stamina) ? P.damage * physdammod : P.stamina * stamdammod

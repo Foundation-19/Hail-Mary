@@ -11,11 +11,11 @@
 /datum/surgery_step/remove_object/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	L = surgery.operated_bodypart
 	if(L)
-		display_results(user, target, span_notice("You look for objects embedded in [target]'s [parse_zone(user.zone_selected)]..."),
-			"[user] looks for objects embedded in [target]'s [parse_zone(user.zone_selected)].",
-			"[user] looks for something in [target]'s [parse_zone(user.zone_selected)].")
+		display_results(user, target, span_notice("You look for objects embedded in %ACTOR_NAME%'s [parse_zone(user.zone_selected)]..."),
+			"%SELF_NAME% looks for objects embedded in %ACTOR_NAME%'s [parse_zone(user.zone_selected)].",
+			"%SELF_NAME% looks for something in %ACTOR_NAME%'s [parse_zone(user.zone_selected)].")
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", span_notice("You look for [target]'s [parse_zone(user.zone_selected)]..."))
+		user.visible_message("%SELF_NAME% looks for %ACTOR_NAME%'s [parse_zone(user.zone_selected)].", span_notice("You look for %ACTOR_NAME%'s [parse_zone(user.zone_selected)]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 /datum/surgery_step/remove_object/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(L)
@@ -27,12 +27,12 @@
 				H.remove_embedded_object(I)
 
 			if(objects > 0)
-				display_results(user, target, span_notice("You successfully remove [objects] objects from [H]'s [L.name]."),
-					"[user] successfully removes [objects] objects from [H]'s [L]!",
-					"[user] successfully removes [objects] objects from [H]'s [L]!")
+				display_results(user, target, span_notice("You successfully remove [objects] objects from %ACTOR_NAME%'s [L.name]."),
+					"%SELF_NAME% successfully removes [objects] objects from %ACTOR_NAME%'s [L]!",
+					"%SELF_NAME% successfully removes [objects] objects from %ACTOR_NAME%'s [L]!")
 			else
-				to_chat(user, span_warning("You find no objects embedded in [H]'s [L]!"))
+				to_chat(user, span_warning("You find no objects embedded in [H.get_display_name(user)]'s [L]!"))
 
 	else
-		to_chat(user, span_warning("You can't find [target]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!"))
+		to_chat(user, span_warning("You can't find [target.get_display_name(user)]'s [parse_zone(user.zone_selected)], let alone any objects embedded in it!"))
 	return 1

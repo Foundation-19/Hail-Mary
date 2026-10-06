@@ -105,9 +105,12 @@
 
 	var/leap_word = iscatperson(user) ? "pounce" : "leap" ///If cat, "pounce" instead of "leap".
 	if(can_see(user, A, 7))
-		user.visible_message(span_warning("[user] [leap_word]s at [A]!"), span_danger("You [leap_word] at [A]!"))
+		if(isliving(A))
+			user.visible_message(span_warning("%SELF_NAME% [leap_word]s at %ACTOR_NAME%!"), span_danger("You [leap_word] at [A]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
+		else
+			user.visible_message(span_warning("%SELF_NAME% [leap_word]s at [A]!"), span_danger("You [leap_word] at [A]!"), visible_message_flags = ANONYMIZE_NAMES)
 	else
-		user.visible_message(span_warning("[user] [leap_word]s!"), span_danger("You [leap_word]!"))
+		user.visible_message(span_warning("%SELF_NAME% [leap_word]s!"), span_danger("You [leap_word]!"), visible_message_flags = ANONYMIZE_NAMES)
 
 	if(get_dist(user, A) < min_distance)
 		A = get_ranged_target_turf(user, get_dir(user, A), min_distance) //TODO: this only works in cardinals/diagonals, make it work with in-betweens too!

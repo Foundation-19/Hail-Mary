@@ -23,8 +23,8 @@
 	M.DefaultCombatKnockdown(100)
 	M.apply_effect(EFFECT_STUTTER, 5)
 
-	M.visible_message(span_danger("[user] has prodded [M] with [src]!"), \
-					span_userdanger("[user] has prodded you with [src]!"))
+	M.visible_message(span_danger("%ACTOR_NAME% has prodded %SELF_NAME% with [src]!"), \
+				span_userdanger("%ACTOR_NAME% has prodded you with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 	playsound(loc, 'sound/weapons/egloves.ogg', 50, 1, -1)
 
@@ -69,57 +69,57 @@
 		if(0)
 			if(M.health >= 0)
 				if(user.zone_selected == BODY_ZONE_HEAD)
-					user.visible_message(span_notice("[user] playfully boops [M] on the head!"), \
-									span_notice("You playfully boop [M] on the head!"))
+					user.visible_message(span_notice("%SELF_NAME% playfully boops %ACTOR_NAME% on the head!"), \
+								span_notice("You playfully boop %ACTOR_NAME% on the head!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					user.do_attack_animation(M, ATTACK_EFFECT_BOOP)
 					playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
 				else if(ishuman(M))
 					if(M.lying)
-						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), \
-										span_notice("You shake [M] trying to get [M.p_them()] up!"))
+						user.visible_message(span_notice("%SELF_NAME% shakes %ACTOR_NAME% trying to get [M.p_them()] up!"), \
+									span_notice("You shake %ACTOR_NAME% trying to get [M.p_them()] up!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					else
-						user.visible_message(span_notice("[user] hugs [M] to make [M.p_them()] feel better!"), \
-								span_notice("You hug [M] to make [M.p_them()] feel better!"))
+						user.visible_message(span_notice("%SELF_NAME% hugs %ACTOR_NAME% to make [M.p_them()] feel better!"), \
+								span_notice("You hug %ACTOR_NAME% to make [M.p_them()] feel better!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					if(M.resting && !(M.combat_flags & COMBAT_FLAG_HARD_STAMCRIT))
 						M.set_resting(FALSE, TRUE)
 				else
-					user.visible_message(span_notice("[user] pets [M]!"), \
-							span_notice("You pet [M]!"))
+					user.visible_message(span_notice("%SELF_NAME% pets %ACTOR_NAME%!"), \
+							span_notice("You pet %ACTOR_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 		if(1)
 			if(M.health >= 0)
 				if(ishuman(M))
 					if(M.lying)
-						user.visible_message(span_notice("[user] shakes [M] trying to get [M.p_them()] up!"), \
-										span_notice("You shake [M] trying to get [M.p_them()] up!"))
+						user.visible_message(span_notice("%SELF_NAME% shakes %ACTOR_NAME% trying to get [M.p_them()] up!"), \
+									span_notice("You shake %ACTOR_NAME% trying to get [M.p_them()] up!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					else if(user.zone_selected == BODY_ZONE_HEAD)
-						user.visible_message(span_warning("[user] bops [M] on the head!"), \
-										span_warning("You bop [M] on the head!"))
+						user.visible_message(span_warning("%SELF_NAME% bops %ACTOR_NAME% on the head!"), \
+									span_warning("You bop %ACTOR_NAME% on the head!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 						user.do_attack_animation(M, ATTACK_EFFECT_PUNCH)
 					else
-						user.visible_message(span_warning("[user] hugs [M] in a firm bear-hug! [M] looks uncomfortable..."), \
-								span_warning("You hug [M] firmly to make [M.p_them()] feel better! [M] looks uncomfortable..."))
+						user.visible_message(span_warning("%SELF_NAME% hugs %ACTOR_NAME% in a firm bear-hug! %ACTOR_NAME% looks uncomfortable..."), \
+								span_warning("You hug %ACTOR_NAME% firmly to make [M.p_them()] feel better! %ACTOR_NAME% looks uncomfortable..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					if(!CHECK_MOBILITY(M, MOBILITY_STAND) && !(M.combat_flags & COMBAT_FLAG_HARD_STAMCRIT))
 						M.set_resting(FALSE, TRUE)
 				else
-					user.visible_message(span_warning("[user] bops [M] on the head!"), \
-							span_warning("You bop [M] on the head!"))
+					user.visible_message(span_warning("%SELF_NAME% bops %ACTOR_NAME% on the head!"), \
+							span_warning("You bop %ACTOR_NAME% on the head!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 				playsound(loc, 'sound/weapons/tap.ogg', 50, 1, -1)
 		if(2)
 			if(scooldown < world.time)
 				if(M.health >= 0)
 					if(ishuman(M)||ismonkey(M))
 						M.electrocute_act(5, "[user]", flags = SHOCK_NOGLOVES)
-						user.visible_message(span_userdanger("[user] electrocutes [M] with [user.p_their()] touch!"), \
-							span_danger("You electrocute [M] with your touch!"))
+						user.visible_message(span_userdanger("%SELF_NAME% electrocutes %ACTOR_NAME% with [user.p_their()] touch!"), \
+							span_danger("You electrocute %ACTOR_NAME% with your touch!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					else
 						if(!iscyborg(M))
 							M.adjustFireLoss(10)
-							user.visible_message(span_userdanger("[user] shocks [M]!"), \
-								span_danger("You shock [M]!"))
+							user.visible_message(span_userdanger("%SELF_NAME% shocks %ACTOR_NAME%!"), \
+								span_danger("You shock %ACTOR_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 						else
-							user.visible_message(span_userdanger("[user] shocks [M]. It does not seem to have an effect"), \
-								span_danger("You shock [M] to no effect."))
+							user.visible_message(span_userdanger("%SELF_NAME% shocks %ACTOR_NAME%. It does not seem to have an effect"), \
+								span_danger("You shock %ACTOR_NAME% to no effect."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					playsound(loc, 'sound/effects/sparks2.ogg', 50, 1, -1)
 					user.cell.charge -= 500
 					scooldown = world.time + 20
@@ -127,13 +127,11 @@
 			if(ccooldown < world.time)
 				if(M.health >= 0)
 					if(ishuman(M))
-						user.visible_message(span_userdanger("[user] crushes [M] in [user.p_their()] grip!"), \
-							span_danger("You crush [M] in your grip!"))
+						user.visible_message(span_userdanger("%SELF_NAME% crushes %ACTOR_NAME% in [user.p_their()] grip!"), \
+							span_danger("You crush %ACTOR_NAME% in your grip!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					else
-						user.visible_message(span_userdanger("[user] crushes [M]!"), \
-								span_danger("You crush [M]!"))
-					playsound(loc, 'sound/weapons/smash.ogg', 50, 1, -1)
-					M.adjustBruteLoss(15)
+						user.visible_message(span_userdanger("%SELF_NAME% crushes %ACTOR_NAME%!"), \
+								span_danger("You crush %ACTOR_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 					user.cell.charge -= 300
 					ccooldown = world.time + 10
 

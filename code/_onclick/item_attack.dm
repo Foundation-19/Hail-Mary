@@ -141,7 +141,9 @@
 	user.do_attack_animation(target)
 
 	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		user.visible_message(span_warning("[user] swings clumsily and completely misses [M]!"), span_warning("Your luck fails you and your swing goes wide, missing completely!"))
+		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
+			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
+			vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 		log_combat(user, M, "attempted to attack", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) (Critfail: missed entirely)")
 		return
 
@@ -221,7 +223,7 @@
 	if(!(attackchain_flags & NO_AUTO_CLICKDELAY_HANDLING))
 		I.ApplyAttackCooldown(user, src, attackchain_flags)
 	if(totitemdamage)
-		visible_message(span_danger("[user] has hit [src] with [I]!"), null, null, COMBAT_MESSAGE_RANGE)
+		visible_message(span_danger("%ACTOR_NAME% has hit [src] with [I]!"), null, null, COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		//only witnesses close by and the victim see a hit message.
 		log_combat(user, src, "attacked", I)
 	take_damage(totitemdamage, I.damtype, "melee", 1, attacked_by = user)
@@ -334,15 +336,16 @@
 	var/message_hit_area = ""
 	if(hit_area)
 		message_hit_area = " in the [hit_area]"
-	var/attack_message = "[src] is [message_verb][message_hit_area] with [I]!"
+	var/attack_message = "%SELF_NAME% is [message_verb][message_hit_area] with [I]!"
 	var/attack_message_local = "You're [message_verb][message_hit_area] with [I]!"
 	if(user in viewers(src, null))
-		attack_message = "[user] [message_verb] [src][message_hit_area] with [I]!"
-		attack_message_local = "[user] [message_verb] you[message_hit_area] with [I]!"
+		attack_message = "%ACTOR_NAME% [message_verb] %SELF_NAME%[message_hit_area] with [I]!"
+		attack_message_local = "%ACTOR_NAME% [message_verb] you[message_hit_area] with [I]!"
 	if(user == src)
 		attack_message_local = "You [message_verb] yourself[message_hit_area] with [I]"
 	visible_message(span_danger("[attack_message]"),\
-		span_userdanger("[attack_message_local]"), null, COMBAT_MESSAGE_RANGE)
+		span_userdanger("[attack_message_local]"), vision_distance = COMBAT_MESSAGE_RANGE, \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	return 1
 
 /// How much stamina this takes to swing this is not for realism purposes hecc off.

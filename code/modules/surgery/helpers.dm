@@ -70,12 +70,12 @@
 
 			if(S.ignore_clothes || get_location_accessible(M, selected_zone))
 				var/datum/surgery/procedure = new S.type(M, selected_zone, affecting)
-				user.visible_message("[user] drapes [I] over [M]'s [parse_zone(selected_zone)] to prepare for surgery.", \
-					span_notice("You drape [I] over [M]'s [parse_zone(selected_zone)] to prepare for \an [procedure.name]."))
+				user.visible_message("%SELF_NAME% drapes [I] over %ACTOR_NAME%'s [parse_zone(selected_zone)] to prepare for surgery.", \
+					span_notice("You drape [I] over %ACTOR_NAME%'s [parse_zone(selected_zone)] to prepare for \an [procedure.name]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 				log_combat(user, M, "operated on", null, "(OPERATION TYPE: [procedure.name]) (TARGET AREA: [selected_zone])")
 			else
-				to_chat(user, span_warning("You need to expose [M]'s [parse_zone(selected_zone)] first!"))
+				to_chat(user, span_warning("You need to expose [M.get_display_name(user)]'s [parse_zone(selected_zone)] first!"))
 
 	else if(!current_surgery.step_in_progress)
 		attempt_cancel_surgery(current_surgery, I, M, user)
@@ -86,8 +86,8 @@
 	var/selected_zone = user.zone_selected
 	if(S.status == 1)
 		M.surgeries -= S
-		user.visible_message("[user] removes [I] from [M]'s [parse_zone(selected_zone)].", \
-			span_notice("You remove [I] from [M]'s [parse_zone(selected_zone)]."))
+		user.visible_message("%SELF_NAME% removes [I] from %ACTOR_NAME%'s [parse_zone(selected_zone)].", \
+			span_notice("You remove [I] from %ACTOR_NAME%'s [parse_zone(selected_zone)]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 		qdel(S)
 	else if(S.can_cancel)
 		var/required_tool_type = TOOL_CAUTERY
@@ -98,10 +98,10 @@
 		if(iscyborg(user))
 			close_tool = locate(/obj/item/cautery) in user.held_items
 			if(!close_tool)
-				to_chat(user, span_warning("You need to equip a cautery in an inactive slot to stop [M]'s surgery!"))
+				to_chat(user, span_warning("You need to equip a cautery in an inactive slot to stop [M.get_display_name(user)]'s surgery!"))
 				return
 		else if(!close_tool || close_tool.tool_behaviour != required_tool_type)
-			to_chat(user, span_warning("You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M]'s surgery!"))
+			to_chat(user, span_warning("You need to hold a [is_robotic ? "screwdriver" : "cautery"] in your inactive hand to stop [M.get_display_name(user)]'s surgery!"))
 			return
 		M.surgeries -= S
 		user.visible_message(span_notice("[user] closes [M]'s [parse_zone(selected_zone)] with [close_tool] and removes [I]."), \

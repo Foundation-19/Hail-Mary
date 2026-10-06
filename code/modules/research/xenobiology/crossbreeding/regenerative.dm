@@ -24,11 +24,13 @@ Regenerative extracts:
 		to_chat(user, span_warning("[src] will not work on the dead!"))
 		return
 	if(H != user)
-		user.visible_message(span_notice("[user] crushes the [src] over [H], the milky goo quickly regenerating all of [H.p_their()] injuries!"),
-			span_notice("You squeeze the [src], and it bursts over [H], the milky goo regenerating [H.p_their()] injuries."))
+		var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+		user.visible_message(span_notice("[user_tok] crushes the [src] over %SELF_NAME%, the milky goo quickly regenerating all of [H.p_their()] injuries!"),
+			span_notice("You squeeze the [src], and it bursts over [H], the milky goo regenerating [H.p_their()] injuries."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 	else
-		user.visible_message(span_notice("[user] crushes the [src] over [user.p_them()]self, the milky goo quickly regenerating all of [user.p_their()] injuries!"),
-			span_notice("You squeeze the [src], and it bursts in your hand, splashing you with milky goo which quickly regenerates your injuries!"))
+		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_notice("[user_tok2] crushes the [src] over [user.p_them()]self, the milky goo quickly regenerating all of [user.p_their()] injuries!"),
+			span_notice("You squeeze the [src], and it bursts in your hand, splashing you with milky goo which quickly regenerates your injuries!"), visible_message_flags = ANONYMIZE_NAMES)
 	core_effect_before(H, user)
 	H.revive(full_heal = 1)
 	core_effect(H, user)
@@ -66,7 +68,7 @@ Regenerative extracts:
 	colour = "metal"
 
 /obj/item/slimecross/regenerative/metal/core_effect(mob/living/target, mob/user)
-	target.visible_message(span_warning("The milky goo hardens and reshapes itself, encasing [target]!"))
+	target.visible_message(span_warning("The milky goo hardens and reshapes itself, encasing %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES)
 	var/obj/structure/closet/C = new /obj/structure/closet(target.loc)
 	C.name = "slimy closet"
 	C.desc = "Looking closer, it seems to be made of a sort of solid, opaque, metal-like goo."
@@ -114,7 +116,7 @@ Regenerative extracts:
 		var/obj/item/clothing/C = H.get_item_by_slot(SLOT_HEAD)
 		fireproof(C)
 	if(fireproofed)
-		target.visible_message(span_notice("Some of [target]'s clothing gets coated in the goo, and turns blue!"))
+		target.visible_message(span_notice("Some of %SELF_NAME%'s clothing gets coated in the goo, and turns blue!"), visible_message_flags = ANONYMIZE_NAMES)
 
 /obj/item/slimecross/regenerative/darkblue/proc/fireproof(obj/item/clothing/C)
 	C.name = "fireproofed [C.name]"
@@ -167,7 +169,7 @@ Regenerative extracts:
 	colour = "pyrite"
 
 /obj/item/slimecross/regenerative/pyrite/core_effect(mob/living/target, mob/user)
-	target.visible_message(span_warning("The milky goo coating [target] leaves [target.p_them()] a different color!"))
+	target.visible_message(span_warning("The milky goo coating %SELF_NAME% leaves [target.p_them()] a different color!"), visible_message_flags = ANONYMIZE_NAMES)
 	target.add_atom_colour(rgb(rand(0,255),rand(0,255),rand(0,255)),WASHABLE_COLOUR_PRIORITY)
 
 /obj/item/slimecross/regenerative/red
@@ -182,7 +184,7 @@ Regenerative extracts:
 
 /obj/item/slimecross/regenerative/green/core_effect(mob/living/target, mob/user)
 	if(isslime(target))
-		target.visible_message(span_warning("The [target] suddenly changes color!"))
+		target.visible_message(span_warning("%SELF_NAME% suddenly changes color!"), visible_message_flags = ANONYMIZE_NAMES)
 		var/mob/living/simple_animal/slime/S = target
 		S.random_colour()
 	/* Fortuna edit: disabled slime mutation toxin

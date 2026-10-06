@@ -90,8 +90,8 @@
 			if(L) //living mob
 				var/drawn_amount = reagents.maximum_volume - reagents.total_volume
 				if(target != user)
-					target.visible_message(span_danger("[user] is trying to take a blood sample from [target]!"), \
-									span_userdanger("[user] is trying to take a blood sample from [target]!"))
+					target.visible_message(span_danger("%ACTOR_NAME% is trying to take a blood sample from %SELF_NAME%!"), \
+								span_userdanger("%ACTOR_NAME% is trying to take a blood sample from %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					busy = TRUE
 					if(!do_mob(user, target, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject),user,1)))
 						busy = FALSE
@@ -100,7 +100,7 @@
 						return
 				busy = FALSE
 				if(L.transfer_blood_to(src, drawn_amount))
-					user.visible_message("[user] takes a blood sample from [L].")
+					user.visible_message("%SELF_NAME% takes a blood sample from %ACTOR_NAME%.", visible_message_flags = ANONYMIZE_NAMES, name_actor = L)
 				else
 					to_chat(user, span_warning("You are unable to draw any blood from [L]!"))
 
@@ -141,8 +141,8 @@
 				if(!L.can_inject(user, TRUE))
 					return
 				if(L != user)
-					L.visible_message(span_danger("[user] is trying to inject [L]!"), \
-											span_userdanger("[user] is trying to inject [L]!"))
+					L.visible_message(span_danger("%ACTOR_NAME% is trying to inject %SELF_NAME%!"), \
+										span_userdanger("%ACTOR_NAME% is trying to inject %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					if(!do_mob(user, L, extra_checks=CALLBACK(L, TYPE_PROC_REF(/mob/living, can_inject),user,1)))
 						return
 					if(!reagents.total_volume)

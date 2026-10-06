@@ -77,7 +77,7 @@
 		if(!user.transferItemToLoc(I, src))
 			to_chat(user, span_warning("[I] is stuck to your hand!"))
 			return
-		user.visible_message(span_notice("[user] inserts [I] into [src]'s receptable."))
+		user.visible_message(span_notice("%SELF_NAME% inserts [I] into [src]'s receptable."), visible_message_flags = ANONYMIZE_NAMES)
 
 		inserted = I
 		update_icon()
@@ -90,7 +90,8 @@
 	if(inserted)
 		return
 	if(user)
-		visible_message(span_warning("[user] stuffs [victim] into [src]!"))
+		var/victim_tok = isliving(victim) ? "%ACTOR_NAME%" : "[victim]"
+		user.visible_message(span_warning("%SELF_NAME% stuffs [victim_tok] into [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(victim) ? victim : null)
 	RegisterSignal(victim, COMSIG_LIVING_RESIST, PROC_REF(free_me))
 	inserted = victim
 	inserted.forceMove(src)

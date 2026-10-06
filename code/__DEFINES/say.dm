@@ -64,3 +64,5 @@
 #define ONLY_OVERHEAD (1<<1)
 // Append the player's name to the front
 #define PUT_NAME_IN (1<<2)
+// Substitute %SELF_NAME%/%ACTOR_NAME% tokens in the message per-hearer via get_display_name(), instead of a flat string - see visible_message()/audible_message()'s name_actor arg.
+#define ANONYMIZE_NAMES (1<<3)

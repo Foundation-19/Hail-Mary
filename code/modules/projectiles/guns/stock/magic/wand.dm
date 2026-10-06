@@ -50,7 +50,7 @@
 
 
 /obj/item/gun/magic/wand/proc/zap_self(mob/living/user)
-	user.visible_message(span_danger("[user] zaps [user.p_them()]self with [src]."))
+	user.visible_message(span_danger("%SELF_NAME% zaps [user.p_them()]self with [src]."), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(user, fire_sound, 50, 1)
 	user.log_message("zapped [user.p_them()]self with a <b>[src]</b>", LOG_ATTACK)
 
@@ -98,7 +98,7 @@
 	..()
 	charges--
 	if(user.anti_magic_check())
-		user.visible_message(span_warning("[src] has no effect on [user]!"))
+		user.visible_message(span_warning("[src] has no effect on %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES)
 		return
 	user.revive(full_heal = 1)
 	if(iscarbon(user))

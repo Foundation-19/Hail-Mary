@@ -121,18 +121,18 @@
 				M.confused += min(power, diff)
 			if(user)
 				terrible_conversion_proc(M, user)
-				visible_message(span_disarm("[user] blinds [M] with the flash!"))
-				to_chat(user, span_danger("You blind [M] with the flash!"))
-				to_chat(M, span_userdanger("[user] blinds you with the flash!"))
+				M.visible_message(span_disarm("%ACTOR_NAME% blinds %SELF_NAME% with the flash!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
+				to_chat(user, span_danger("You blind [M.get_display_name(user)] with the flash!"))
+				to_chat(M, span_userdanger("[user:get_display_name(M)] blinds you with the flash!"))
 			else
 				to_chat(M, span_userdanger("You are blinded by [src]!"))
 			var/toblur = 20 - M.eye_blurry
 			if(toblur > 0)
 				M.blur_eyes(toblur)
 		else if(user)
-			visible_message(span_disarm("[user] fails to blind [M] with the flash!"))
-			to_chat(user, span_warning("You fail to blind [M] with the flash!"))
-			to_chat(M, span_danger("[user] fails to blind you with the flash!"))
+			M.visible_message(span_disarm("%ACTOR_NAME% fails to blind %SELF_NAME% with the flash!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
+			to_chat(user, span_warning("You fail to blind [M.get_display_name(user)] with the flash!"))
+			to_chat(M, span_danger("[user:get_display_name(M)] fails to blind you with the flash!"))
 		else
 			to_chat(M, span_danger("[src] fails to blind you!"))
 	else
@@ -154,10 +154,10 @@
 		var/diff = 5 * CONFUSION_STACK_MAX_MULTIPLIER - M.confused
 		R.confused += min(5, diff)
 		R.flash_act(affect_silicon = 1)
-		user.visible_message(span_disarm("[user] overloads [R]'s sensors with the flash!"), span_danger("You overload [R]'s sensors with the flash!"))
+		user.visible_message(span_disarm("%SELF_NAME% overloads %ACTOR_NAME%'s sensors with the flash!"), span_danger("You overload %ACTOR_NAME%'s sensors with the flash!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = R)
 		return TRUE
 
-	user.visible_message(span_disarm("[user] fails to blind [M] with the flash!"), span_warning("You fail to blind [M] with the flash!"))
+	user.visible_message(span_disarm("%SELF_NAME% fails to blind %ACTOR_NAME% with the flash!"), span_warning("You fail to blind %ACTOR_NAME% with the flash!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 /obj/item/assembly/flash/attack_self(mob/living/carbon/user, flag = 0, emp = 0)
 	if(holder)
@@ -348,7 +348,7 @@
 			if(M.hypnosis_vulnerable())
 				hypnosis = TRUE
 			if(user)
-				user.visible_message(span_disarm("[user] blinds [M] with the flash!"), span_danger("You hypno-flash [M]!"))
+				user.visible_message(span_disarm("%SELF_NAME% blinds %ACTOR_NAME% with the flash!"), span_danger("You hypno-flash %ACTOR_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 			if(!hypnosis)
 				to_chat(M, span_notice("The light makes you feel oddly relaxed..."))

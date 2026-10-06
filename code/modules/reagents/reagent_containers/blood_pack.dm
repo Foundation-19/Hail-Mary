@@ -110,8 +110,8 @@
 			to_chat(user, span_notice("You cant drink from the [src] while your mouth is covered."))
 			return
 		if(user != C)
-			user.visible_message(span_danger("[user] forces [C] to drink from the [src]."), \
-			span_notice("You force [C] to drink from the [src]"))
+			user.visible_message(span_danger("%SELF_NAME% forces %ACTOR_NAME% to drink from the [src]."), \
+			span_notice("You force %ACTOR_NAME% to drink from the [src]"), visible_message_flags = ANONYMIZE_NAMES, name_actor = C)
 			if(!do_mob(user, C, 50))
 				return
 		else
@@ -119,7 +119,7 @@
 				return
 
 			to_chat(user, span_notice("You take a sip from the [src]."))
-			user.visible_message(span_notice("[user] puts the [src] up to their mouth."))
+			user.visible_message(span_notice("%SELF_NAME% puts the [src] up to their mouth."), visible_message_flags = ANONYMIZE_NAMES)
 		if(reagents.total_volume <= 0) // Safety: In case you spam clicked the blood bag on yourself, and it is now empty (below will divide by zero)
 			return
 		var/gulp_size = 3

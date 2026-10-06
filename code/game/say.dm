@@ -266,6 +266,8 @@ And the base of the send_speech() proc, which is the core of saycode.
 	/// world.time deadline before THIS mob (as a target) can be challenged with verify_identity() again. Set on
 	/// every attempt, win or lose, so a blown read can't just be immediately re-tried by someone else.
 	var/identity_check_cooldown_until = 0
+	/// world.time deadline before THIS mob (as a verifier) can use verify_identity() again, regardless of target.
+	var/identity_check_verifier_cooldown_until = 0
 
 /// Returns the job id printed on whatever badge this mob is currently wearing, or the generic wasteland default
 /// if it has none. Non-human living mobs don't wear badges, so they default to the generic label.
@@ -290,6 +292,15 @@ And the base of the send_speech() proc, which is the core of saycode.
 	known_faces[REF(target)] = display_name
 	to_chat(src, span_notice("You commit that face to memory - it's [display_name]."))
 
+/// Plain-text (non-link) version of the face-recognition check used by examine()/compose_message() - how
+/// `viewer` would see this mob's name in a message (combat, emotes, etc.). No href attached, unlike
+/// get_identity_tag()'s use in examine(), since you don't want a "remember" link spamming into combat text.
+/mob/living/proc/get_display_name(mob/living/viewer)
+	if(!viewer || viewer == src)
+		return name
+	var/remembered_name = viewer.knows_face(src)
+	return remembered_name ? remembered_name : get_identity_tag()
+
 /mob/living/Topic(href, href_list)
 	if(href_list["remember_voice"])
 		var/atom/movable/speaker = locate(href_list["remember_voice"]) in GLOB.mob_list
@@ -311,6 +322,54 @@ And the base of the send_speech() proc, which is the core of saycode.
 		return
 	return ..()
 
+/// Maps a badge/ID assignment string to a canonical Fallout faction define via job-title keywords, since most
+/// job titles ("Sentinel", "Paladin Commander", "NCR Trooper") don't literally contain their faction's define
+/// text ("BOS", "NCR"). Shared by verify_identity() below and the turret faction-registration terminal
+/// (register_id_faction() in terminal.dm) so both read affiliation the same way. Returns null if unrecognised.
+/proc/get_faction_from_assignment(assignment)
+	if(!assignment)
+		return null
+	var/assign = lowertext(trim(assignment))
+	// NCR / Rangers
+	if(findtext(assign, "veteran ranger") || findtext(assign, "vet ranger"))
+		return FACTION_RANGER
+	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger"))
+		return FACTION_NCR
+	// Legion
+	if(findtext(assign, "legion") || findtext(assign, "centurion") || findtext(assign, "prime") || findtext(assign, "recruit medallion") || findtext(assign, "veteran medallion") || findtext(assign, "auxilia"))
+		return FACTION_LEGION
+	// Brotherhood of Steel
+	if(findtext(assign, "brotherhood") || findtext(assign, "bos") || findtext(assign, "paladin") || findtext(assign, "knight") || findtext(assign, "scribe") || findtext(assign, "elder") || findtext(assign, "sentinel"))
+		return FACTION_BROTHERHOOD
+	// Enclave
+	if(findtext(assign, "enclave") || findtext(assign, "us officer") || findtext(assign, "us dogtag") || findtext(assign, "american"))
+		return FACTION_ENCLAVE
+	// Town / Eastwood
+	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff"))
+		return FACTION_EASTWOOD
+	// Raiders
+	if(findtext(assign, "raider") || findtext(assign, "outlaw") || findtext(assign, "bandit"))
+		return FACTION_RAIDERS
+	// Great Khans
+	if(findtext(assign, "khan"))
+		return FACTION_KHAN
+	// Super Mutants
+	if(findtext(assign, "mutant"))
+		return FACTION_SMUTANT
+	// Vault
+	if(findtext(assign, "vault") || findtext(assign, "overseer") || findtext(assign, "dweller"))
+		return FACTION_VAULT
+	// Followers
+	if(findtext(assign, "follower"))
+		return FACTION_FOLLOWERS
+	// Tribe
+	if(findtext(assign, "tribe") || findtext(assign, "tribal") || findtext(assign, "talisman"))
+		return FACTION_TRIBE
+	// Wastelander catch-all
+	if(findtext(assign, "waster") || findtext(assign, "wastelander") || findtext(assign, "survivor") || findtext(assign, "scavenger"))
+		return FACTION_WASTELAND
+	return null
+
 /// Lets a real faction member challenge a nearby person's claimed affiliation - do they actually belong to the
 /// faction their badge says they do, or is it stolen/forged? An opposed roll (verifier's Perception vs the
 /// target's Charisma), not a certain answer - a lucky impostor can bluff past it, same as a sharp-eyed verifier
@@ -330,6 +389,9 @@ And the base of the send_speech() proc, which is the core of saycode.
 	var/list/my_factions = faction - list("neutral")
 	if(!length(my_factions))
 		to_chat(src, span_warning("You have no faction standing of your own to check anyone's credentials against."))
+		return
+	if(world.time < identity_check_verifier_cooldown_until)
+		to_chat(src, span_warning("You just gave someone's credentials a good look - give it a moment before pressing another."))
 		return
 
 	var/list/mob/living/possible_targets = list()
@@ -351,24 +413,25 @@ And the base of the send_speech() proc, which is the core of saycode.
 		to_chat(src, span_warning("You've already given [target.get_identity_tag()]'s credentials a good look recently - pressing the issue again so soon would just tip them off."))
 		return
 
-	var/claimed_text = "[target.get_badge_assignment()]"
-	var/claimed_faction
-	for(var/my_faction in my_factions)
-		if(findtext(claimed_text, my_faction))
-			claimed_faction = my_faction
-			break
-	if(!claimed_faction)
+	var/claimed_faction = get_faction_from_assignment(target.get_badge_assignment())
+	if(!claimed_faction || !(claimed_faction in my_factions))
 		to_chat(src, span_notice("[target.get_identity_tag()]'s badge doesn't claim any affiliation with [english_list(my_factions)]."))
 		return
 
 	// One shot at this target, whichever way it goes - keeps a failed read from just being instantly retried.
 	target.identity_check_cooldown_until = world.time + IDENTITY_CHECK_COOLDOWN
+	identity_check_verifier_cooldown_until = world.time + IDENTITY_CHECK_VERIFIER_COOLDOWN
 
 	var/verifier_roll = rand(1, 20) + ((special_p - SPECIAL_DEFAULT_ATTR_VALUE) * 2)
 	var/target_roll = rand(1, 20) + ((target.special_c - SPECIAL_DEFAULT_ATTR_VALUE) * 2)
 	var/really_genuine = (claimed_faction in target.faction)
+	var/read_succeeded = (verifier_roll > target_roll)
 
-	if(verifier_roll <= target_roll)
+	// Logged for admins only - the target is never told they were checked, win or lose; disguises live or die
+	// purely on the verifier's own skill, not on any out-of-character tell.
+	log_game("[key_name(src)] used Verify Identity on [key_name(target)] (claimed [claimed_faction], really genuine: [really_genuine ? "yes" : "no"], read succeeded: [read_succeeded ? "yes" : "no"]).")
+
+	if(!read_succeeded)
 		// The read is wrong either way - a genuine member gets needlessly side-eyed, or (the interesting case)
 		// an impostor successfully bluffs their way past scrutiny and keeps their cover intact.
 		to_chat(src, span_notice("You look [target.get_identity_tag()] over and check their bearing against what you know of our own - nothing seems off. One of ours, you'd guess."))

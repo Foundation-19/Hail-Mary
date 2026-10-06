@@ -16,10 +16,10 @@
 	require_all_chems = FALSE
 
 /datum/surgery_step/embalming/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] starts to embalm [target]'s body.", span_notice("You start embalming [target]'s body."))
+	user.visible_message("%SELF_NAME% starts to embalm %ACTOR_NAME%'s body.", span_notice("You start embalming %ACTOR_NAME%'s body."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 /datum/surgery_step/embalming/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] embalms [target]'s body.", span_notice("You succeed in embalming [target]'s body."))
+	user.visible_message("%SELF_NAME% embalms %ACTOR_NAME%'s body.", span_notice("You succeed in embalming %ACTOR_NAME%'s body."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	ADD_TRAIT(target, TRAIT_HUSK, MAGIC_TRAIT) //Husk's prevent body smell
 	return TRUE
 

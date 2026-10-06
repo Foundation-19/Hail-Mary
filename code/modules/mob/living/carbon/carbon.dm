@@ -83,8 +83,9 @@
 				var/obj/item/bodypart/BP = get_bodypart(BODY_ZONE_CHEST)
 				if(BP.receive_damage(d, 0))
 					update_damage_overlays()
-				visible_message(span_danger("[user] attacks [src]'s stomach wall with the [I.name]!"), \
-									span_userdanger("[user] attacks your stomach wall with the [I.name]!"))
+				visible_message(span_danger("%ACTOR_NAME% attacks %SELF_NAME%'s stomach wall with the [I.name]!"), \
+									span_userdanger("%ACTOR_NAME% attacks your stomach wall with the [I.name]!"), \
+									visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(src.getBruteLoss() - 50))
@@ -176,8 +177,9 @@
 			take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
 			victim.DefaultCombatKnockdown(20)
 			DefaultCombatKnockdown(20)
-			visible_message(span_danger("[src] crashes into [victim] [extra_speed ? "really hard" : ""], knocking them both over!"),\
-				span_userdanger("You violently crash into [victim] [extra_speed ? "extra hard" : ""]!"))
+			visible_message(span_danger("%SELF_NAME% crashes into %ACTOR_NAME% [extra_speed ? "really hard" : ""], knocking them both over!"),\
+				span_userdanger("You violently crash into %ACTOR_NAME% [extra_speed ? "extra hard" : ""]!"), \
+				visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 
@@ -1068,13 +1070,15 @@
 
 
 /mob/living/carbon/proc/devour_mob(mob/living/carbon/C, devour_time = 130)
-	C.visible_message(span_danger("[src] is attempting to devour [C]!"), \
-					span_userdanger("[src] is attempting to devour you!"))
+	C.visible_message(span_danger("%ACTOR_NAME% is attempting to devour %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% is attempting to devour you!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 	if(!do_mob(src, C, devour_time))
 		return
 	if(pulling && pulling == C && grab_state >= GRAB_AGGRESSIVE && a_intent == INTENT_GRAB)
-		C.visible_message(span_danger("[src] devours [C]!"), \
-						span_userdanger("[src] devours you!"))
+		C.visible_message(span_danger("%ACTOR_NAME% devours %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% devours you!"), \
+						visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 		C.forceMove(src)
 		stomach_contents.Add(C)
 		log_combat(src, C, "devoured")

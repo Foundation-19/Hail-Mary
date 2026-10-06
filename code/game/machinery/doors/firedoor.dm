@@ -87,8 +87,9 @@
 	if(operating || !density)
 		return
 
-	user.visible_message("[user] bangs on \the [src].",
-						"You bang on \the [src].")
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message("[user_tok] bangs on \the [src].",
+						"You bang on \the [src].", visible_message_flags = ANONYMIZE_NAMES)
 	playsound(loc, 'sound/effects/glassknock.ogg', 10, FALSE, frequency = 32000)
 
 /obj/machinery/door/firedoor/attackby(obj/item/C, mob/user, params)
@@ -96,24 +97,25 @@
 	if(operating)
 		return
 
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 	if(welded)
 		if(C.tool_behaviour == TOOL_WRENCH)
 			if(boltslocked)
 				to_chat(user, span_notice("There are screws locking the bolts in place!"))
 				return
 			C.play_tool_sound(src)
-			user.visible_message(span_notice("[user] starts undoing [src]'s bolts..."), \
-								span_notice("You start unfastening [src]'s floor bolts..."))
+			user.visible_message(span_notice("[user_tok] starts undoing [src]'s bolts..."), \
+								span_notice("You start unfastening [src]'s floor bolts..."), visible_message_flags = ANONYMIZE_NAMES)
 			if(!C.use_tool(src, user, 50))
 				return
 			playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-			user.visible_message(span_notice("[user] unfastens [src]'s bolts."), \
-								span_notice("You undo [src]'s floor bolts."))
+			user.visible_message(span_notice("[user_tok] unfastens [src]'s bolts."), \
+								span_notice("You undo [src]'s floor bolts."), visible_message_flags = ANONYMIZE_NAMES)
 			deconstruct(TRUE)
 			return
 		if(C.tool_behaviour == TOOL_SCREWDRIVER)
-			user.visible_message(span_notice("[user] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."), \
-								span_notice("You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts."))
+			user.visible_message(span_notice("[user_tok] [boltslocked ? "unlocks" : "locks"] [src]'s bolts."), \
+								span_notice("You [boltslocked ? "unlock" : "lock"] [src]'s floor bolts."), visible_message_flags = ANONYMIZE_NAMES)
 			C.play_tool_sound(src)
 			boltslocked = !boltslocked
 			return
@@ -126,7 +128,8 @@
 /obj/machinery/door/firedoor/try_to_weld(obj/item/weldingtool/W, mob/user)
 	if(!W.tool_start_check(user, amount=0))
 		return
-	user.visible_message(span_notice("[user] starts [welded ? "unwelding" : "welding"] [src]."), span_notice("You start welding [src]."))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_notice("[user_tok] starts [welded ? "unwelding" : "welding"] [src]."), span_notice("You start welding [src]."), visible_message_flags = ANONYMIZE_NAMES)
 	if(W.use_tool(src, user, 40, volume=50))
 		welded = !welded
 		to_chat(user, span_danger("[user] [welded?"welds":"unwelds"] [src]."), span_notice("You [welded ? "weld" : "unweld"] [src]."))
@@ -424,19 +427,20 @@
 	icon_state = "frame[constructionStep]"
 
 /obj/structure/firelock_frame/attackby(obj/item/C, mob/user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 	switch(constructionStep)
 		if(CONSTRUCTION_PANEL_OPEN)
 			if(C.tool_behaviour == TOOL_CROWBAR)
 				C.play_tool_sound(src)
-				user.visible_message(span_notice("[user] starts prying something out from [src]..."), \
-									span_notice("You begin prying out the wire cover..."))
+				user.visible_message(span_notice("[user_tok] starts prying something out from [src]..."), \
+									span_notice("You begin prying out the wire cover..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(!C.use_tool(src, user, 50))
 					return
 				if(constructionStep != CONSTRUCTION_PANEL_OPEN)
 					return
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				user.visible_message(span_notice("[user] pries out a metal plate from [src], exposing the wires."), \
-									span_notice("You remove the cover plate from [src], exposing the wires."))
+				user.visible_message(span_notice("[user_tok] pries out a metal plate from [src], exposing the wires."), \
+									span_notice("You remove the cover plate from [src], exposing the wires."), visible_message_flags = ANONYMIZE_NAMES)
 				constructionStep = CONSTRUCTION_WIRES_EXPOSED
 				update_icon()
 				return
@@ -445,14 +449,14 @@
 					to_chat(user, span_warning("There's already a firelock there."))
 					return
 				C.play_tool_sound(src)
-				user.visible_message(span_notice("[user] starts bolting down [src]..."), \
-									span_notice("You begin bolting [src]..."))
+				user.visible_message(span_notice("[user_tok] starts bolting down [src]..."), \
+									span_notice("You begin bolting [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(!C.use_tool(src, user, 30))
 					return
 				if(locate(/obj/machinery/door/firedoor) in get_turf(src))
 					return
-				user.visible_message(span_notice("[user] finishes the firelock."), \
-									span_notice("You finish the firelock."))
+				user.visible_message(span_notice("[user_tok] finishes the firelock."), \
+									span_notice("You finish the firelock."), visible_message_flags = ANONYMIZE_NAMES)
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(reinforced)
 					new /obj/machinery/door/firedoor/heavy(get_turf(src))
@@ -468,14 +472,14 @@
 				if(P.get_amount() < 2)
 					to_chat(user, span_warning("You need more plasteel to reinforce [src]."))
 					return
-				user.visible_message(span_notice("[user] begins reinforcing [src]..."), \
-									span_notice("You begin reinforcing [src]..."))
+				user.visible_message(span_notice("[user_tok] begins reinforcing [src]..."), \
+									span_notice("You begin reinforcing [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(do_after(user, 60, target = src))
 					if(constructionStep != CONSTRUCTION_PANEL_OPEN || reinforced || P.get_amount() < 2 || !P)
 						return
-					user.visible_message(span_notice("[user] reinforces [src]."), \
-										span_notice("You reinforce [src]."))
+					user.visible_message(span_notice("[user_tok] reinforces [src]."), \
+										span_notice("You reinforce [src]."), visible_message_flags = ANONYMIZE_NAMES)
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					P.use(2)
 					reinforced = 1
@@ -484,42 +488,42 @@
 		if(CONSTRUCTION_WIRES_EXPOSED)
 			if(C.tool_behaviour == TOOL_WIRECUTTER)
 				C.play_tool_sound(src)
-				user.visible_message(span_notice("[user] starts cutting the wires from [src]..."), \
-									span_notice("You begin removing [src]'s wires..."))
+				user.visible_message(span_notice("[user_tok] starts cutting the wires from [src]..."), \
+									span_notice("You begin removing [src]'s wires..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(!C.use_tool(src, user, 60))
 					return
 				if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 					return
-				user.visible_message(span_notice("[user] removes the wires from [src]."), \
-									span_notice("You remove the wiring from [src], exposing the circuit board."))
+				user.visible_message(span_notice("[user_tok] removes the wires from [src]."), \
+									span_notice("You remove the wiring from [src], exposing the circuit board."), visible_message_flags = ANONYMIZE_NAMES)
 				new/obj/item/stack/cable_coil(get_turf(src), 5)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
 				return
 			if(C.tool_behaviour == TOOL_CROWBAR)
 				C.play_tool_sound(src)
-				user.visible_message(span_notice("[user] starts prying a metal plate into [src]..."), \
-									span_notice("You begin prying the cover plate back onto [src]..."))
+				user.visible_message(span_notice("[user_tok] starts prying a metal plate into [src]..."), \
+									span_notice("You begin prying the cover plate back onto [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(!C.use_tool(src, user, 80))
 					return
 				if(constructionStep != CONSTRUCTION_WIRES_EXPOSED)
 					return
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
-				user.visible_message(span_notice("[user] pries the metal plate into [src]."), \
-									span_notice("You pry [src]'s cover plate into place, hiding the wires."))
+				user.visible_message(span_notice("[user_tok] pries the metal plate into [src]."), \
+									span_notice("You pry [src]'s cover plate into place, hiding the wires."), visible_message_flags = ANONYMIZE_NAMES)
 				constructionStep = CONSTRUCTION_PANEL_OPEN
 				update_icon()
 				return
 		if(CONSTRUCTION_GUTTED)
 			if(C.tool_behaviour == TOOL_CROWBAR)
-				user.visible_message(span_notice("[user] begins removing the circuit board from [src]..."), \
-									span_notice("You begin prying out the circuit board from [src]..."))
+				user.visible_message(span_notice("[user_tok] begins removing the circuit board from [src]..."), \
+									span_notice("You begin prying out the circuit board from [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(!C.use_tool(src, user, 50, volume=50))
 					return
 				if(constructionStep != CONSTRUCTION_GUTTED)
 					return
-				user.visible_message(span_notice("[user] removes [src]'s circuit board."), \
-									span_notice("You remove the circuit board from [src]."))
+				user.visible_message(span_notice("[user_tok] removes [src]'s circuit board."), \
+									span_notice("You remove the circuit board from [src]."), visible_message_flags = ANONYMIZE_NAMES)
 				new /obj/item/electronics/firelock(drop_location())
 				constructionStep = CONSTRUCTION_NOCIRCUIT
 				update_icon()
@@ -529,14 +533,14 @@
 				if(B.get_amount() < 5)
 					to_chat(user, span_warning("You need more wires to add wiring to [src]."))
 					return
-				user.visible_message(span_notice("[user] begins wiring [src]..."), \
-									span_notice("You begin adding wires to [src]..."))
+				user.visible_message(span_notice("[user_tok] begins wiring [src]..."), \
+									span_notice("You begin adding wires to [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(do_after(user, 60, target = src))
 					if(constructionStep != CONSTRUCTION_GUTTED || B.get_amount() < 5 || !B)
 						return
-					user.visible_message(span_notice("[user] adds wires to [src]."), \
-										span_notice("You wire [src]."))
+					user.visible_message(span_notice("[user_tok] adds wires to [src]."), \
+										span_notice("You wire [src]."), visible_message_flags = ANONYMIZE_NAMES)
 					playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 					constructionStep = CONSTRUCTION_WIRES_EXPOSED
 					update_icon()
@@ -545,14 +549,14 @@
 			if(C.tool_behaviour == TOOL_WELDER)
 				if(!C.tool_start_check(user, amount=1))
 					return
-				user.visible_message(span_notice("[user] begins cutting apart [src]'s frame..."), \
-									span_notice("You begin slicing [src] apart..."))
+				user.visible_message(span_notice("[user_tok] begins cutting apart [src]'s frame..."), \
+									span_notice("You begin slicing [src] apart..."), visible_message_flags = ANONYMIZE_NAMES)
 
 				if(C.use_tool(src, user, 40, volume=50, amount=1))
 					if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 						return
-					user.visible_message(span_notice("[user] cuts apart [src]!"), \
-										span_notice("You cut [src] into metal."))
+					user.visible_message(span_notice("[user_tok] cuts apart [src]!"), \
+										span_notice("You cut [src] into metal."), visible_message_flags = ANONYMIZE_NAMES)
 					var/turf/T = get_turf(src)
 					new /obj/item/stack/sheet/metal(T, 3)
 					if(reinforced)
@@ -560,16 +564,16 @@
 					qdel(src)
 				return
 			if(istype(C, /obj/item/electronics/firelock))
-				user.visible_message(span_notice("[user] starts adding [C] to [src]..."), \
-									span_notice("You begin adding a circuit board to [src]..."))
+				user.visible_message(span_notice("[user_tok] starts adding [C] to [src]..."), \
+									span_notice("You begin adding a circuit board to [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				if(!do_after(user, 40, target = src))
 					return
 				if(constructionStep != CONSTRUCTION_NOCIRCUIT)
 					return
 				qdel(C)
-				user.visible_message(span_notice("[user] adds a circuit to [src]."), \
-									span_notice("You insert and secure [C]."))
+				user.visible_message(span_notice("[user_tok] adds a circuit to [src]."), \
+									span_notice("You insert and secure [C]."), visible_message_flags = ANONYMIZE_NAMES)
 				playsound(get_turf(src), 'sound/items/deconstruct.ogg', 50, 1)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
@@ -578,8 +582,8 @@
 				var/obj/item/electroadaptive_pseudocircuit/P = C
 				if(!P.adapt_circuit(user, 30))
 					return
-				user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
-				span_notice("You adapt a firelock circuit and slot it into the assembly."))
+				user.visible_message(span_notice("[user_tok] fabricates a circuit and places it into [src]."), \
+				span_notice("You adapt a firelock circuit and slot it into the assembly."), visible_message_flags = ANONYMIZE_NAMES)
 				constructionStep = CONSTRUCTION_GUTTED
 				update_icon()
 				return
@@ -593,8 +597,9 @@
 /obj/structure/firelock_frame/rcd_act(mob/user, obj/item/construction/rcd/the_rcd, passed_mode)
 	switch(passed_mode)
 		if(RCD_UPGRADE_SIMPLE_CIRCUITS)
-			user.visible_message(span_notice("[user] fabricates a circuit and places it into [src]."), \
-			span_notice("You adapt a firelock circuit and slot it into the assembly."))
+			var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_notice("[user_tok2] fabricates a circuit and places it into [src]."), \
+			span_notice("You adapt a firelock circuit and slot it into the assembly."), visible_message_flags = ANONYMIZE_NAMES)
 			constructionStep = CONSTRUCTION_GUTTED
 			update_icon()
 			return TRUE

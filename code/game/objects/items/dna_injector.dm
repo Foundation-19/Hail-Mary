@@ -60,11 +60,12 @@
 	log_combat(user, target, "attempted to inject", src)
 
 	if(target != user)
-		target.visible_message(span_danger("[user] is trying to inject [target] with [src]!"), span_userdanger("[user] is trying to inject [target] with [src]!"))
+		var/target_tok = isliving(target) ? "%SELF_NAME%" : "[target]"
+		target.visible_message(span_danger("%ACTOR_NAME% is trying to inject [target_tok] with [src]!"), span_userdanger("%ACTOR_NAME% is trying to inject [target_tok] with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		if(!do_mob(user, target) || used)
 			return
-		target.visible_message("<span class='danger'>[user] injects [target] with the syringe with [src]!", \
-						span_userdanger("[user] injects [target] with the syringe with [src]!"))
+		target.visible_message("<span class='danger'>%ACTOR_NAME% injects [target_tok] with the syringe with [src]!", \
+						span_userdanger("%ACTOR_NAME% injects [target_tok] with the syringe with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 	else
 		to_chat(user, span_notice("You inject yourself with [src]."))

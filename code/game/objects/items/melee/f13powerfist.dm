@@ -92,15 +92,17 @@
 		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, the cell's nearly dry!"))
 		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
 		target.attacked_by(src, user, attackchain_flags, fisto_setting*1.5)
-		target.visible_message(span_danger("[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-			span_userdanger("[user]'s punch strikes with force!"))
+		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+			span_userdanger("%ACTOR_NAME%'s punch strikes with force!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
 	cell.use(charge_needed)
 	// Full AP routes through armor so "Full AP" means ignoring most armor via armour_penetration, not bypassing the damage pipeline outright.
 	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
 	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
-	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-		span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))
+	target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+		span_userdanger("You cry out in pain as %ACTOR_NAME%'s punch flings you backwards!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
 	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)

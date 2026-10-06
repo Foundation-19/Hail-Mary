@@ -7,7 +7,7 @@
 
 /obj/item/toy/xmas_cracker/attack(mob/target, mob/user)
 	if( !cracked && ishuman(target) && (target.stat == CONSCIOUS) && !target.get_active_held_item() )
-		target.visible_message("[user] and [target] pop \an [src]! *pop*", span_notice("You pull \an [src] with [target]! *pop*"), span_italic("You hear a pop."))
+		target.visible_message("%ACTOR_NAME% and %SELF_NAME% pop \an [src]! *pop*", span_notice("You pull \an [src] with %ACTOR_NAME%! *pop*"), span_italic("You hear a pop."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		var/obj/item/paper/Joke = new /obj/item/paper(user.loc)
 		Joke.name = "[pick("awful","terrible","unfunny")] joke"
 		Joke.info = pick("What did one snowman say to the other?\n\n<i>'Is it me or can you smell carrots?'</i>",

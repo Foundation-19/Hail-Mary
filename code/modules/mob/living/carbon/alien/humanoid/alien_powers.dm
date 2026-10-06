@@ -156,7 +156,7 @@ Doesn't work on other aliens/AI.*/
 /obj/effect/proc_holder/alien/acid/proc/corrode(atom/target,mob/living/carbon/user = usr)
 	if(target in oview(1,user))
 		if(target.acid_act(200, 100))
-			user.visible_message(span_alertalien("[user] vomits globs of vile stuff all over [target]. It begins to sizzle and melt under the bubbling mess of acid!"))
+			user.visible_message(span_alertalien("%SELF_NAME% vomits globs of vile stuff all over [isliving(target) ? "%ACTOR_NAME%" : "[target]"]. It begins to sizzle and melt under the bubbling mess of acid!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 			return 1
 		else
 			to_chat(user, span_noticealien("You cannot dissolve this object."))

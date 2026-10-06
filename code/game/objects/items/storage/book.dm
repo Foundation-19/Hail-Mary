@@ -44,7 +44,8 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 	AddComponent(/datum/component/anti_magic, FALSE, TRUE)
 
 /obj/item/storage/book/bible/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] is offering [user.p_them()]self to [deity_name]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	return (BRUTELOSS)
 
 /obj/item/storage/book/bible/attack_self(mob/living/carbon/human/user)
@@ -109,7 +110,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 			var/obj/item/bodypart/affecting = X
 			if(affecting.heal_damage(heal_amt, heal_amt))
 				H.update_damage_overlays()
-		H.visible_message(span_notice("[user] heals [H] with the power of [deity_name]!"))
+		H.visible_message(span_notice("%ACTOR_NAME% heals %SELF_NAME% with the power of [deity_name]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		to_chat(H, span_boldnotice("May the power of [deity_name] compel you to be healed!"))
 		playsound(src.loc, "punch", 25, 1, -1)
 		SEND_SIGNAL(H, COMSIG_ADD_MOOD_EVENT, "blessing", /datum/mood_event/blessing)
@@ -155,13 +156,13 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 				to_chat(C, span_danger("You feel dumber."))
 
 		if(smack)
-			M.visible_message(span_danger("[user] beats [M] over the head with [src]!"), \
-					span_userdanger("[user] beats [M] over the head with [src]!"))
+			M.visible_message(span_danger("%ACTOR_NAME% beats %SELF_NAME% over the head with [src]!"), \
+					span_userdanger("[user] beats [M] over the head with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			playsound(src.loc, "punch", 25, 1, -1)
 			log_combat(user, M, "attacked", src)
 
 	else
-		M.visible_message(span_danger("[user] smacks [M]'s lifeless corpse with [src]."))
+		M.visible_message(span_danger("%ACTOR_NAME% smacks %SELF_NAME%'s lifeless corpse with [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		playsound(src.loc, "punch", 25, 1, -1)
 
 /obj/item/storage/book/bible/afterattack(atom/A, mob/user, proximity)
@@ -201,7 +202,8 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 				new /obj/item/nullrod/claymore(get_turf(A))
 			else
 				new /obj/item/claymore(get_turf(A))
-			user.visible_message(span_notice("[user] has purified [A]!"))
+			var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_notice("[user_tok] has purified [A]!"), visible_message_flags = ANONYMIZE_NAMES)
 			qdel(A)
 
 	else if(istype(A, /obj/item/soulstone) && !iscultist(user))
@@ -216,7 +218,8 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 				EX.icon_state = "ghost1"
 				EX.name = "Purified [EX.name]"
 				SS.release_shades(user)
-			user.visible_message(span_notice("[user] has purified the [SS]!"))
+			var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_notice("[user_tok2] has purified the [SS]!"), visible_message_flags = ANONYMIZE_NAMES)
 			qdel(SS)
 
 /obj/item/storage/book/bible/booze

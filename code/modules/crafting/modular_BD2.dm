@@ -679,9 +679,10 @@ to the below
 
 /obj/item/reagent_containers/spray/empty/attackby(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/crafting/abraxo))
-		user.visible_message("[user] begins filling the[src] with Abraxo solution.", \
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok] begins filling the[src] with Abraxo solution.", \
 				span_notice("You begin filling he [src] with Abraxo. Smells nice."), \
-				span_italic("You hear faint bubbling sounds."))
+				span_italic("You hear faint bubbling sounds."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(get_turf(src), 'sound/effects/abraxo.ogg', 100, TRUE)
 		if(!do_after(user, 40, TRUE, src))
 			return
@@ -755,9 +756,10 @@ to the below
 
 /obj/item/clothing/suit/armor/light/kit/attackby(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/crafting/duct_tape))
-		user.visible_message("[user] begins taping on some punky bits to the the [src].", \
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok] begins taping on some punky bits to the the [src].", \
 				span_notice("You begin taping some punkish item on the [src]."), \
-				span_italic("You hear someone tape stuff together."))
+				span_italic("You hear someone tape stuff together."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, 'sound/f13items/craft_2.ogg', 100, TRUE)
 		if(!do_after(user, 40, TRUE, src))
 			return
@@ -766,9 +768,10 @@ to the below
 		qdel(C)
 		return
 	if(istype(C, /obj/item/stack/sheet/metal))
-		user.visible_message("[user] begins adding metal sheet to the the [src].", \
+		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok2] begins adding metal sheet to the the [src].", \
 				span_notice("You begin attaching some metal sheet on the [src]."), \
-				span_italic("You hear grunts as someone tries to bend metal with their hands."))
+				span_italic("You hear grunts as someone tries to bend metal with their hands."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, 'sound/f13items/craft_2.ogg', 100, TRUE)
 		if(!do_after(user, 40, TRUE, src))
 			return
@@ -777,9 +780,10 @@ to the below
 		C.use(1)
 		return
 	if(C.tool_behaviour == TOOL_WIRECUTTER)
-		user.visible_message("[user] begins cutting new straps to wear [src] differently.", \
+		var/user_tok3 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok3] begins cutting new straps to wear [src] differently.", \
 				span_notice("You begin cutting straps and readjusting the [src]."), \
-				span_italic("You hear the snips of a wirecutter on fabric."))
+				span_italic("You hear the snips of a wirecutter on fabric."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, 'sound/weapons/slice.ogg', 50, TRUE)
 		if(!do_after(user, 40, TRUE, src))
 			return
@@ -851,22 +855,24 @@ hair_face.dm
 				return
 
 			if(H == user) //shaving yourself
+				var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
-				user.visible_message("[user] starts to shave [user.p_their()] facial hair with [src].", \
-									span_notice("You take a moment to shave your facial hair with [src]..."))
+				user.visible_message("[user_tok] starts to shave [user.p_their()] facial hair with [src].", \
+									span_notice("You take a moment to shave your facial hair with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(do_after(user, 150, target = H))
-					user.visible_message("[user] shaves [user.p_their()] facial hair clean with [src].", \
-										span_notice("You finish shaving with [src]. Fast and clean!"))
+					user.visible_message("[user_tok] shaves [user.p_their()] facial hair clean with [src].", \
+										span_notice("You finish shaving with [src]. Fast and clean!"), visible_message_flags = ANONYMIZE_NAMES)
 					manual_shave(H, location)
 			else
 				var/turf/H_loc = H.loc
+				var/user_tok2 = isliving(user) ? "%ACTOR_NAME%" : "[user]"
 				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
-				user.visible_message(span_warning("[user] tries to shave [H]'s facial hair with [src]."), \
-									span_notice("You start shaving [H]'s facial hair..."))
+				user.visible_message(span_warning("[user_tok2] tries to shave %SELF_NAME%'s facial hair with [src]."), \
+									span_notice("You start shaving [H]'s facial hair..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 				if(do_after(user, 100, target = H))
 					if(H_loc == H.loc)
-						user.visible_message(span_warning("[user] shaves off [H]'s facial hair with [src]."), \
-											span_notice("You shave [H]'s facial hair clean off."))
+						user.visible_message(span_warning("[user_tok2] shaves off %SELF_NAME%'s facial hair with [src]."), \
+											span_notice("You shave [H]'s facial hair clean off."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 						manual_shave(H, location)
 
 		else if(location == BODY_ZONE_HEAD)
@@ -881,22 +887,24 @@ hair_face.dm
 				return
 
 			if(H == user) //shaving yourself
+				var/user_tok3 = isliving(user) ? "%SELF_NAME%" : "[user]"
 				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
-				user.visible_message("[user] starts to shave [user.p_their()] head with [src].", \
-									span_notice("You start to shave your head with [src]..."))
+				user.visible_message("[user_tok3] starts to shave [user.p_their()] head with [src].", \
+									span_notice("You start to shave your head with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 				if(do_after(user, 150, target = H)) //edited time
-					user.visible_message("[user] shaves [user.p_their()] head with [src].", \
-										span_notice("You finish shaving with [src]."))
+					user.visible_message("[user_tok3] shaves [user.p_their()] head with [src].", \
+										span_notice("You finish shaving with [src]."), visible_message_flags = ANONYMIZE_NAMES)
 					manual_shave(H, location)
 			else
 				var/turf/H_loc = H.loc
+				var/user_tok4 = isliving(user) ? "%ACTOR_NAME%" : "[user]"
 				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
-				user.visible_message(span_warning("[user] tries to shave [H]'s head with [src]!"), \
-									span_notice("You start shaving [H]'s head..."))
+				user.visible_message(span_warning("[user_tok4] tries to shave %SELF_NAME%'s head with [src]!"), \
+									span_notice("You start shaving [H]'s head..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 				if(do_after(user, 150, target = H)) //edited time
 					if(H_loc == H.loc)
-						user.visible_message(span_warning("[user] shaves [H]'s head bald with [src]!"), \
-											span_notice("You shave [H]'s head bald."))
+						user.visible_message(span_warning("[user_tok4] shaves %SELF_NAME%'s head bald with [src]!"), \
+											span_notice("You shave [H]'s head bald."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 						manual_shave(H, location)
 		else
 			..()

@@ -70,8 +70,8 @@
 		// Knockdown!
 		var/powerlevel = min(5, 1 + level_current)
 		if(rand(5 + powerlevel) >= 5)
-			target.visible_message(span_danger("[user] lands a vicious punch, sending [target] away!"), \
-							  span_userdanger("[user] has landed a horrifying punch on you, sending you flying!!"), null, COMBAT_MESSAGE_RANGE)
+			target.visible_message(span_danger("%ACTOR_NAME% lands a vicious punch, sending %SELF_NAME% away!"), \
+							  span_userdanger("%ACTOR_NAME% has landed a horrifying punch on you, sending you flying!!"), null, COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			target.DefaultCombatKnockdown(min(5, rand(10, 10 * powerlevel)) )
 		// Attack!
 		playsound(get_turf(target), 'sound/weapons/punch4.ogg', 60, 1, -1)

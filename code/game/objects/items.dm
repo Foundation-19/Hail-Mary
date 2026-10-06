@@ -747,12 +747,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	user.adjustStaminaLossBuffered(10)//CIT CHANGE - makes eyestabbing cost stamina
 
 	if(M != user)
-		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
-							span_userdanger("[user] stabs you in the eye with [src]!"))
+		M.visible_message(span_danger("%ACTOR_NAME% has stabbed %SELF_NAME% in the eye with [src]!"), \
+							span_userdanger("%ACTOR_NAME% stabs you in the eye with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else
 		user.visible_message( \
-			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
-			span_userdanger("You stab yourself in the eyes with [src]!") \
+			span_danger("%SELF_NAME% has stabbed [user.p_them()]self in the eyes with [src]!"), \
+			span_userdanger("You stab yourself in the eyes with [src]!"), visible_message_flags = ANONYMIZE_NAMES \
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
