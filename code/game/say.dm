@@ -41,47 +41,52 @@ And the base of the send_speech() proc, which is the core of saycode.
 	//The real mob behind a speaker - virtualspeakers (radio, AI) resolve back to whoever is actually talking.
 	var/atom/movable/identity_obj = speaker.GetSource() || speaker
 	var/namepart = "[raw_voice][speaker.get_alt_name()]"
-	//Anonymize natural (non-disguised) voices/faces for living listeners who haven't remembered this speaker yet.
+	//Anonymize natural (non-disguised) voices/faces for listeners who haven't remembered this speaker yet.
 	//Radio speech is gated by voice recognition (known_voices); face-to-face speech is gated by face/badge
 	//recognition (known_faces) instead - these are tracked independently, so recognizing someone's voice over
 	//the radio doesn't mean you'd recognize their face in person, and vice versa.
-	if(isliving(src) && isliving(identity_obj) && identity_obj != src)
-		var/mob/living/listener = src
+	if(isliving(identity_obj) && identity_obj != src)
 		var/mob/living/real_speaker = identity_obj
 		var/natural_voice = ishuman(real_speaker) ? real_speaker.get_visible_name() : null
 		//Only go through recognition for their own natural voice - a disguised/mimicked voice already set
 		//raw_voice to something else above and should never be touched here.
 		if(raw_voice == natural_voice)
-			if(radio_freq)
-				//A voice the listener has already made a mental note of stays recognizable
-				//regardless of radio auto-identify settings - that's the whole point of remembering it.
-				if(real_speaker.auto_identifies_on_radio(radio_freq))
-					//Opted in to reveal their own real name on this channel - deliberately real_speaker.real_name,
-					//not raw_voice/get_visible_name(): the latter can render as "RealName (as OtherRegisteredName)"
-					//when wearing a mismatched ID/nametag, which would leak a totally different person's
-					//registered name here instead of the speaker's own identity.
-					namepart = "[real_speaker.real_name][speaker.get_alt_name()]"
-				else
+			if(radio_freq && real_speaker.auto_identifies_on_radio(radio_freq))
+				//Opted in to reveal their own real name on this channel - deliberately real_speaker.real_name,
+				//not raw_voice/get_visible_name(): the latter can render as "RealName (as OtherRegisteredName)"
+				//when wearing a mismatched ID/nametag, which would leak a totally different person's
+				//registered name here instead of the speaker's own identity. A universal broadcast choice,
+				//not per-listener recognition, so it applies to every listener including ghosts below.
+				namepart = "[real_speaker.real_name][speaker.get_alt_name()]"
+			else if(isliving(src))
+				var/mob/living/listener = src
+				if(radio_freq)
+					//A voice the listener has already made a mental note of stays recognizable
+					//regardless of radio auto-identify settings - that's the whole point of remembering it.
 					var/remembered = listener.knows_voice(real_speaker)
 					//Stays a clickable link even once remembered, so the listener can re-remember it under a different name later.
 					var/voice_label = remembered ? "[remembered][speaker.get_alt_name()]" : real_speaker.get_voice_tag()
 					namepart = "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[voice_label]</a>"
-			else
-				//Face-to-face: only the badge/job id on their chest, unless the listener has specifically
-				//remembered this face before - real names aren't given away just because a face is visible.
-				//A currently fully-masked speaker (no face or badge visible at all) overrides even an old
-				//remembered name - there's nothing to click on either, since there's no face to re-remember.
-				if(real_speaker.is_currently_unrecognizable())
-					//No face/badge to click-remember here, but voice recognition isn't radio-exclusive - a
-					//voice already remembered (from an earlier radio chat or prior in-person encounter) still
-					//works, and an unrecognized masked speaker can still be remembered by voice right here.
-					var/remembered_voice = listener.knows_voice(real_speaker)
-					var/voice_label = remembered_voice ? "[remembered_voice][speaker.get_alt_name()]" : real_speaker.get_voice_tag()
-					namepart = remembered_voice ? "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[voice_label]</a>" : "Unknown"
 				else
-					var/remembered_face = listener.knows_face(real_speaker)
-					var/face_label = remembered_face ? "[remembered_face][speaker.get_alt_name()]" : real_speaker.get_identity_tag()
-					namepart = "<a href='?src=[REF(listener)];remember_face=[REF(real_speaker)]'>[face_label]</a>"
+					//Face-to-face: only the badge/job id on their chest, unless the listener has specifically
+					//remembered this face before - real names aren't given away just because a face is visible.
+					//A currently fully-masked speaker (no face or badge visible at all) overrides even an old
+					//remembered name - there's nothing to click on either, since there's no face to re-remember.
+					if(real_speaker.is_currently_unrecognizable())
+						//No face/badge to click-remember here, but voice recognition isn't radio-exclusive - a
+						//voice already remembered (from an earlier radio chat or prior in-person encounter) still
+						//works, and an unrecognized masked speaker can still be remembered by voice right here.
+						var/remembered_voice = listener.knows_voice(real_speaker)
+						var/voice_label = remembered_voice ? "[remembered_voice][speaker.get_alt_name()]" : real_speaker.get_voice_tag()
+						namepart = remembered_voice ? "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[voice_label]</a>" : "Unknown"
+					else
+						var/remembered_face = listener.knows_face(real_speaker)
+						var/face_label = remembered_face ? "[remembered_face][speaker.get_alt_name()]" : real_speaker.get_identity_tag()
+						namepart = "<a href='?src=[REF(listener)];remember_face=[REF(real_speaker)]'>[face_label]</a>"
+			else
+				//Non-living (ghost) listeners have no known_faces/known_voices memory to recognize by - show
+				//the same safe public tag a living listener who's never remembered this speaker would see.
+				namepart = real_speaker.is_currently_unrecognizable() ? "Unknown" : real_speaker.get_identity_tag()
 	if(face_name && ishuman(speaker))
 		var/mob/living/carbon/human/H = speaker
 		var/natural_name = H.get_face_name()
