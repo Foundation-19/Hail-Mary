@@ -56,7 +56,11 @@ And the base of the send_speech() proc, which is the core of saycode.
 				//A voice the listener has already made a mental note of stays recognizable
 				//regardless of radio auto-identify settings - that's the whole point of remembering it.
 				if(real_speaker.auto_identifies_on_radio(radio_freq))
-					namepart = "[raw_voice][speaker.get_alt_name()]" //opted to reveal their real name on this channel
+					//Opted in to reveal their own real name on this channel - deliberately real_speaker.real_name,
+					//not raw_voice/get_visible_name(): the latter can render as "RealName (as OtherRegisteredName)"
+					//when wearing a mismatched ID/nametag, which would leak a totally different person's
+					//registered name here instead of the speaker's own identity.
+					namepart = "[real_speaker.real_name][speaker.get_alt_name()]"
 				else
 					var/remembered = listener.knows_voice(real_speaker)
 					//Stays a clickable link even once remembered, so the listener can re-remember it under a different name later.
@@ -68,7 +72,12 @@ And the base of the send_speech() proc, which is the core of saycode.
 				//A currently fully-masked speaker (no face or badge visible at all) overrides even an old
 				//remembered name - there's nothing to click on either, since there's no face to re-remember.
 				if(real_speaker.is_currently_unrecognizable())
-					namepart = "Unknown"
+					//No face/badge to click-remember here, but voice recognition isn't radio-exclusive - a
+					//voice already remembered (from an earlier radio chat or prior in-person encounter) still
+					//works, and an unrecognized masked speaker can still be remembered by voice right here.
+					var/remembered_voice = listener.knows_voice(real_speaker)
+					var/voice_label = remembered_voice ? "[remembered_voice][speaker.get_alt_name()]" : real_speaker.get_voice_tag()
+					namepart = remembered_voice ? "<a href='?src=[REF(listener)];remember_voice=[REF(real_speaker)]'>[voice_label]</a>" : "Unknown"
 				else
 					var/remembered_face = listener.knows_face(real_speaker)
 					var/face_label = remembered_face ? "[remembered_face][speaker.get_alt_name()]" : real_speaker.get_identity_tag()
@@ -264,6 +273,12 @@ And the base of the send_speech() proc, which is the core of saycode.
 	if(!speaker || !display_name)
 		return
 	known_voices[REF(speaker)] = display_name
+	//Voice recognition unlocks the hover/right-click override too - recognizing a masked speaker's
+	//voice is still recognizing them, even with their face never having been seen.
+	if(isliving(speaker))
+		var/mob/living/target = speaker
+		target.identity_override_viewers[src] = TRUE
+		target.sync_identity_override_for(src)
 	to_chat(src, span_notice("You make a mental note of that voice - it's [display_name]."))
 
 /mob/living
@@ -325,7 +340,7 @@ And the base of the send_speech() proc, which is the core of saycode.
 /mob/living/proc/sync_identity_override_for(mob/living/viewer)
 	if(!viewer || viewer == src || QDELETED(viewer) || !viewer.client)
 		return
-	if(is_currently_unrecognizable() || !viewer.knows_face(src))
+	if(!viewer.knows_face(src) && !viewer.knows_voice(src))
 		var/image/stale = viewer.identity_override_images[src]
 		if(stale)
 			viewer.client.images -= stale
@@ -374,8 +389,11 @@ And the base of the send_speech() proc, which is the core of saycode.
 	if(!viewer || viewer == src)
 		return get_visible_name()
 	if(is_currently_unrecognizable())
-		return "Unknown"
-	var/remembered_name = viewer.knows_face(src)
+		//Masking defeats face recognition, but not a voice already remembered - you can still tell who's
+		//under the mask by how they sound, even if you can't see their face right now.
+		var/remembered_voice = viewer.knows_voice(src)
+		return remembered_voice ? remembered_voice : "Unknown"
+	var/remembered_name = viewer.knows_face(src) || viewer.knows_voice(src)
 	return remembered_name ? remembered_name : get_identity_tag()
 
 /// Same as get_display_name(), but wraps an unrecognized name in the same clickable "remember_face" link
@@ -385,8 +403,9 @@ And the base of the send_speech() proc, which is the core of saycode.
 	if(!viewer || viewer == src)
 		return get_visible_name()
 	if(is_currently_unrecognizable())
-		return "Unknown"
-	var/remembered_name = viewer.knows_face(src)
+		var/remembered_voice = viewer.knows_voice(src)
+		return remembered_voice ? remembered_voice : "Unknown"
+	var/remembered_name = viewer.knows_face(src) || viewer.knows_voice(src)
 	var/label = remembered_name ? remembered_name : get_identity_tag()
 	return "<a href='?src=[REF(viewer)];remember_face=[REF(src)]'>[label]</a>"
 
