@@ -91,7 +91,20 @@
 	if(foundrecord)
 		foundrecord.fields["rank"] = assignment
 
-/datum/datacore/proc/get_manifest_dr(monochrome, OOC)
+/// Resolves what a given viewer should see for a manifest record's registered name - the record
+/// itself always stores the character's true real_name (baked in once at spawn), but the manifest
+/// display should reflect current in-round recognition (face/voice) for viewers who can act on what
+/// they read, same as compose_message()/examine(). Pass no viewer (e.g. for ghost/lobby/admin views)
+/// to get the raw registered name.
+/datum/datacore/proc/get_manifest_record_display_name(real_name, mob/living/viewer)
+	if(!viewer)
+		return real_name
+	for(var/mob/living/carbon/human/H in GLOB.human_list)
+		if(H.real_name == real_name)
+			return H.get_display_name(viewer)
+	return real_name
+
+/datum/datacore/proc/get_manifest_dr(monochrome, OOC, mob/living/viewer)
 	var/list/command = list()
 	var/list/bos = list()
 	var/list/enclave = list()
@@ -178,88 +191,88 @@
 	if(length(command))
 		dat += "<tr><th colspan=3>Leaders</th></tr>"
 		for(var/name in command)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[command[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[command[name]]</td></tr>"
 			even = !even
 	if(length(bos))
 		dat += "<tr><th colspan=3>Brotherhood of Steel</th></tr>"
 		for(var/name in bos)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[bos[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[bos[name]]</td></tr>"
 			even = !even
 	if(length(enclave))
 		dat += "<tr><th colspan=3>Enclave</th></tr>"
 		for(var/name in enclave)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[enclave[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[enclave[name]]</td></tr>"
 			even = !even
 	if(length(eastwood))
 		dat += "<tr><th colspan=3>Eastwood</th></tr>"
 		for(var/name in eastwood)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[eastwood[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[eastwood[name]]</td></tr>"
 			even = !even
 	if(length(leg))
 		dat += "<tr><th colspan=3>Caesar's Legion</th></tr>"
 		for(var/name in leg)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[leg[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[leg[name]]</td></tr>"
 			even = !even
 	if(length(ncr))
 		dat += "<tr><th colspan=3>New California Republic</th></tr>"
 		for(var/name in ncr)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ncr[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[ncr[name]]</td></tr>"
 			even = !even
 	if(length(ranger))
 		dat += "<tr><th colspan=3>New California Republic Rangers</th></tr>"
 		for(var/name in ranger)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[ranger[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[ranger[name]]</td></tr>"
 			even = !even
 	if(length(whitelegs))
 		dat += "<tr><th colspan=3>White Legs</th></tr>"
 		for(var/name in whitelegs)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[whitelegs[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[whitelegs[name]]</td></tr>"
 			even = !even
 	if(length(eighties))
 		dat += "<tr><th colspan=3>80s</th></tr>"
 		for(var/name in eighties)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[eighties[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[eighties[name]]</td></tr>"
 			even = !even
 	if(length(lds))
 		dat += "<tr><th colspan=3>New Canaanites</th></tr>"
 		for(var/name in lds)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[lds[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[lds[name]]</td></tr>"
 			even = !even
 	if(length(usps))
 		dat += "<tr><th colspan=3>USPS</th></tr>"
 		for(var/name in usps)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[usps[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[usps[name]]</td></tr>"
 			even = !even
 	if(length(flw))
 		dat += "<tr><th colspan=3>Eastwood Clinic</th></tr>"
 		for(var/name in flw)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[flw[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[flw[name]]</td></tr>"
 			even = !even
 	if(length(tribe))
 		dat += "<tr><th colspan=3>Sulphur-Bottom Tribe</th></tr>"
 		for(var/name in tribe)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[tribe[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[tribe[name]]</td></tr>"
 			even = !even
 	if(length(vault))
 		dat += "<tr><th colspan=3>Vault</th></tr>"
 		for(var/name in vault)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[vault[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[vault[name]]</td></tr>"
 			even = !even
 	if(length(eighties))
 		dat += "<tr><th colspan=3>Vault</th></tr>"
 		for(var/name in vault)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[vault[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[vault[name]]</td></tr>"
 			even = !even
 	if(length(was))
 		dat += "<tr><th colspan=3>Wasteland</th></tr>"
 		for(var/name in was)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[was[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[was[name]]</td></tr>"
 			even = !even
 	// misc guys
 	if(length(misc))
 		dat += "<tr><th colspan=3>Miscellaneous</th></tr>"
 		for(var/name in misc)
-			dat += "<tr[even ? " class='alt'" : ""]><td>[name]</td><td>[misc[name]]</td></tr>"
+			dat += "<tr[even ? " class='alt'" : ""]><td>[get_manifest_record_display_name(name, viewer)]</td><td>[misc[name]]</td></tr>"
 			even = !even
 
 	dat += "</table>"
