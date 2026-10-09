@@ -209,7 +209,7 @@
 	if(target == user)
 		user.visible_message(span_warning("[user_tok] starts squeezing into [src]!"), span_notice("You start working your way into [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 	else
-		target.visible_message(span_warning("[user_tok_actor] starts shoving %SELF_NAME% into [src]!"), span_userdanger("[user] starts shoving you into [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
+		target.visible_message(span_warning("[user_tok_actor] starts shoving %SELF_NAME% into [src]!"), span_userdanger("[user_tok_actor] starts shoving you into [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 
 	if(do_mob(user, target, 30))
 		if(occupant || helmet || suit || storage)
@@ -217,7 +217,7 @@
 		if(target == user)
 			user.visible_message(span_warning("[user_tok] slips into [src] and closes the door behind [user.p_them()]!"), "<span class=notice'>You slip into [src]'s cramped space and shut its door.</span>", visible_message_flags = ANONYMIZE_NAMES)
 		else
-			target.visible_message("<span class='warning'>[user_tok_actor] pushes %SELF_NAME% into [src] and shuts its door!<span>", span_userdanger("[user] shoves you into [src] and shuts the door!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
+			target.visible_message("<span class='warning'>[user_tok_actor] pushes %SELF_NAME% into [src] and shuts its door!<span>", span_userdanger("[user_tok_actor] shoves you into [src] and shuts the door!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 		close_machine(target)
 		add_fingerprint(user)
 

@@ -193,13 +193,17 @@
 	//message about someone else is just as much a leak as the message's own mob leaking itself.
 	//Gated on ishuman(), not isliving(): non-human simple_animal mobs (protectrons, deathclaws, etc.) have no
 	//anonymity system at all (always-public names, no masks/badges) and were flooding the log with false positives.
+	//get_public_name() never reveals real_name, so a baked-in `[src]`/`.name` is always already safe - only
+	//flag when the mob's actual real_name leaked while they're currently showing an anonymized public name.
 	if(!CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES))
-		if(ishuman(src) && findtext(message, "[src]"))
-			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's raw name - msg=\"[message]\" src=[src] ([REF(src)])")
-		if(name_actor && ishuman(name_actor) && findtext(message, "[name_actor]"))
-			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's raw name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
-		if(name_other && ishuman(name_other) && findtext(message, "[name_other]"))
-			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_other's raw name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
+		if(ishuman(src))
+			var/mob/living/carbon/human/self_human = src
+			if(self_human.real_name && self_human.real_name != self_human.name && findtext(message, self_human.real_name))
+				log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's real name - msg=\"[message]\" src=[src] ([REF(src)])")
+		if(name_actor && ishuman(name_actor) && name_actor.real_name && name_actor.real_name != name_actor.name && findtext(message, name_actor.real_name))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's real name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
+		if(name_other && ishuman(name_other) && name_other.real_name && name_other.real_name != name_other.name && findtext(message, name_other.real_name))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_other's real name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
 
 	if(target_message && target && istype(target) && target.client)
 		hearers -= target
@@ -326,14 +330,16 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	if(self_message)
 		hearers -= src
 
-	//Same raw-name check as visible_message() - see comment there (gated on ishuman(), not isliving()).
+	//Same real-name check as visible_message() - see comment there (gated on ishuman(), not isliving()).
 	if(!CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES))
-		if(ishuman(src) && findtext(message, "[src]"))
-			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's raw name - msg=\"[message]\" src=[src] ([REF(src)])")
-		if(name_actor && ishuman(name_actor) && findtext(message, "[name_actor]"))
-			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's raw name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
-		if(name_other && ishuman(name_other) && findtext(message, "[name_other]"))
-			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_other's raw name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
+		if(ishuman(src))
+			var/mob/living/carbon/human/self_human = src
+			if(self_human.real_name && self_human.real_name != self_human.name && findtext(message, self_human.real_name))
+				log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's real name - msg=\"[message]\" src=[src] ([REF(src)])")
+		if(name_actor && ishuman(name_actor) && name_actor.real_name && name_actor.real_name != name_actor.name && findtext(message, name_actor.real_name))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's real name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
+		if(name_other && ishuman(name_other) && name_other.real_name && name_other.real_name != name_other.name && findtext(message, name_other.real_name))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_other's real name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
 
 	var/raw_msg = message
 	//if(audible_message_flags & EMOTE_MESSAGE)

@@ -1233,8 +1233,8 @@
 /mob/living/proc/IgniteMob()
 	if(fire_stacks > 0 && !on_fire)
 		on_fire = 1
-		visible_message(span_warning("[src] catches fire!"), \
-						span_userdanger("You're set on fire!"))
+		visible_message(span_warning("%SELF_NAME% catches fire!"), \
+						span_userdanger("You're set on fire!"), visible_message_flags = ANONYMIZE_NAMES)
 		new/obj/effect/dummy/lighting_obj/moblight/fire(src)
 		throw_alert("fire", /obj/screen/alert/fire)
 		update_fire()

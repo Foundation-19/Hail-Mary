@@ -179,12 +179,12 @@
 	if(user.a_intent == INTENT_HELP)
 		if(!(obj_flags & EMAGGED))
 			var/target_tok = isliving(target) ? "%ACTOR_NAME%" : "[target]"
-			user.visible_message(span_notice("%SELF_NAME% scans [target_tok] with [src]."), span_notice("You scan [target]'s radiation levels with [src]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
+			user.visible_message(span_notice("%SELF_NAME% scans [target_tok] with [src]."), span_notice("You scan [target_tok]'s radiation levels with [src]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 			scan(target, user)
 			//addtimer(CALLBACK(src, PROC_REF(scan), target, user), 20, TIMER_UNIQUE) // Let's not have spamming GetAllContents
 		else
 			var/target_tok2 = isliving(target) ? "%ACTOR_NAME%" : "[target]"
-			user.visible_message(span_notice("%SELF_NAME% scans [target_tok2] with [src]."), span_danger("You project [src]'s stored radiation into [target]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
+			user.visible_message(span_notice("%SELF_NAME% scans [target_tok2] with [src]."), span_danger("You project [src]'s stored radiation into [target_tok2]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 			target.rad_act(radiation_count)
 			radiation_count = 0
 		return TRUE

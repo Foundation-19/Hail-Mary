@@ -188,16 +188,16 @@
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
 	user.visible_message(span_notice("%SELF_NAME% starts loading %ACTOR_NAME% into [src]."), \
-		span_notice("You start loading [target] into [src]..."), null, null, target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
-	to_chat(target, span_userdanger("[user] starts loading you into [user.p_their()] [name]!"))
+		span_notice("You start loading %ACTOR_NAME% into [src]..."), null, null, target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+	to_chat(target, span_userdanger("[user.get_display_name(target)] starts loading you into [user.p_their()] [name]!"))
 	if(!do_mob(user, target, load_time))
 		return FALSE
 	if(target in occupants || pet_carrier_full(src))
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
 	user.visible_message(span_notice("%SELF_NAME% loads %ACTOR_NAME% into [src]!"), \
-		span_notice("You load [target] into [src]."), null, null, target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
-	to_chat(target, span_userdanger("[user] loads you into [user.p_their()] [name]!"))
+		span_notice("You load %ACTOR_NAME% into [src]."), null, null, target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+	to_chat(target, span_userdanger("[user.get_display_name(target)] loads you into [user.p_their()] [name]!"))
 	add_occupant(target)
 	return TRUE
 

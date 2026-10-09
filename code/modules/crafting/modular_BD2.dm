@@ -866,15 +866,14 @@ hair_face.dm
 			else
 				var/turf/H_loc = H.loc
 				var/user_tok2 = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+				var/other_tok2 = isliving(H) ? "%OTHER_NAME%" : "[H]"
 				playsound(loc, 'sound/items/shaving.ogg', 100, 1) // added
-				user.visible_message(span_warning("[user_tok2] tries to shave %SELF_NAME%'s facial hair with [src]."), \
-									span_notice("You start shaving [H]'s facial hair..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
+				user.visible_message(span_warning("[user_tok2] tries to shave [other_tok2]'s facial hair with [src]."), \
+									span_notice("You start shaving [other_tok2]'s facial hair..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null, name_other = isliving(H) ? H : null)
 				if(do_after(user, 100, target = H))
 					if(H_loc == H.loc)
-						user.visible_message(span_warning("[user_tok2] shaves off %SELF_NAME%'s facial hair with [src]."), \
-											span_notice("You shave [H]'s facial hair clean off."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
-						manual_shave(H, location)
-
+						user.visible_message(span_warning("[user_tok2] shaves off [other_tok2]'s facial hair with [src]."), \
+										span_notice("You shave [other_tok2]'s facial hair clean off."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null, name_other = isliving(H) ? H : null)
 		else if(location == BODY_ZONE_HEAD)
 			if(!(HAIR in H.dna.species.species_traits))
 				to_chat(user, span_warning("There is no hair to shave!"))

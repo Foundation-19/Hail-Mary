@@ -119,7 +119,7 @@ GENETICS SCANNER
 		return
 
 	user.visible_message(span_notice("%SELF_NAME% analyzes %ACTOR_NAME%'s vitals."), \
-						span_notice("You analyze [M]'s vitals."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
+						span_notice("You analyze %ACTOR_NAME%'s vitals."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 	if(scanmode == SCANMODE_HEALTH)
 		healthscan(user, M, mode, advanced)
@@ -171,7 +171,7 @@ GENETICS SCANNER
 			return
 
 		user.visible_message(span_notice("%SELF_NAME% analyzes %ACTOR_NAME%'s vitals."), \
-							span_notice("You analyze [M]'s vitals."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
+							span_notice("You analyze %ACTOR_NAME%'s vitals."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 		if(scanmode == SCANMODE_HEALTH)
 			healthscan(user, M, mode, advanced)

@@ -25,8 +25,9 @@ Regenerative extracts:
 		return
 	if(H != user)
 		var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
-		user.visible_message(span_notice("[user_tok] crushes the [src] over %SELF_NAME%, the milky goo quickly regenerating all of [H.p_their()] injuries!"),
-			span_notice("You squeeze the [src], and it bursts over [H], the milky goo regenerating [H.p_their()] injuries."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
+		var/other_tok = isliving(H) ? "%OTHER_NAME%" : "[H]"
+		user.visible_message(span_notice("[user_tok] crushes the [src] over [other_tok], the milky goo quickly regenerating all of [H.p_their()] injuries!"),
+			span_notice("You squeeze the [src], and it bursts over [other_tok], the milky goo regenerating [H.p_their()] injuries."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null, name_other = isliving(H) ? H : null)
 	else
 		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
 		user.visible_message(span_notice("[user_tok2] crushes the [src] over [user.p_them()]self, the milky goo quickly regenerating all of [user.p_their()] injuries!"),

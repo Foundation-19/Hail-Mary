@@ -157,7 +157,7 @@ GLOBAL_LIST_INIT(bibleitemstates, list("bible", "koran", "scrapbook", "bible",  
 
 		if(smack)
 			M.visible_message(span_danger("%ACTOR_NAME% beats %SELF_NAME% over the head with [src]!"), \
-					span_userdanger("[user] beats [M] over the head with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
+					span_userdanger("%ACTOR_NAME% beats you over the head with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			playsound(src.loc, "punch", 25, 1, -1)
 			log_combat(user, M, "attacked", src)
 

@@ -123,7 +123,7 @@
 
 	//ID
 	if(wear_id)
-		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user)]."
+		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user, indirect = TRUE)]."
 
 	//Status effects
 	var/effects_exam = status_effect_examines()

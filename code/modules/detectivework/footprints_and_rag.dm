@@ -38,7 +38,7 @@
 		if(user.a_intent == INTENT_HARM && !C.is_mouth_covered())
 			reagents.reaction(C, INGEST)
 			reagents.trans_to(C, reagents.total_volume)
-			C.visible_message(span_danger("[user_tok] has smothered %SELF_NAME% with \the [src]!"), span_userdanger("[user] has smothered you with \the [src]!"), span_italic("You hear some struggling and muffled cries of surprise."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
+			C.visible_message(span_danger("[user_tok] has smothered %SELF_NAME% with \the [src]!"), span_userdanger("[user_tok] has smothered you with \the [src]!"), span_italic("You hear some struggling and muffled cries of surprise."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 			log_game("[key_name(user)] smothered [key_name(A)] with a damp rag containing [reagentlist]")
 			log_attack("[key_name(user)] smothered [key_name(A)] with a damp rag containing [reagentlist]")
 		else

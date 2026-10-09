@@ -50,7 +50,7 @@
 	add_fingerprint(user)
 
 /obj/item/assembly/igniter/ignition_effect(atom/A, mob/user)
-	. = "<span class='notice'>[user] fiddles with [src], and manages to \
+	. = "<span class='notice'>%ACTOR_NAME% fiddles with [src], and manages to \
 		light [A].</span>"
 	activate()
 	add_fingerprint(user)

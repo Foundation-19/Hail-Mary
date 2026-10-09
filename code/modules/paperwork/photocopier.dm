@@ -402,7 +402,7 @@
 	if(target == user)
 		user.visible_message("<span class='notice'>[user_tok] starts climbing onto the photocopier!</span>", "<span class='notice'>You start climbing onto the photocopier...</span>", visible_message_flags = ANONYMIZE_NAMES)
 	else
-		user.visible_message("<span class='warning'>[user_tok] starts putting [target_tok] onto the photocopier!</span>", "<span class='notice'>You start putting [target] onto the photocopier...</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
+		user.visible_message("<span class='warning'>[user_tok] starts putting [target_tok] onto the photocopier!</span>", "<span class='notice'>You start putting [target_tok] onto the photocopier...</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 
 	if(do_after(user, 20, target = src))
 		if(!target || QDELETED(target) || QDELETED(src) || !Adjacent(target)) //check if the photocopier/target still exists.
@@ -411,7 +411,7 @@
 		if(target == user)
 			user.visible_message("<span class='notice'>[user_tok] climbs onto the photocopier!</span>", "<span class='notice'>You climb onto the photocopier.</span>", visible_message_flags = ANONYMIZE_NAMES)
 		else
-			user.visible_message("<span class='warning'>[user_tok] puts [target_tok] onto the photocopier!</span>", "<span class='notice'>You put [target] onto the photocopier.</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
+			user.visible_message("<span class='warning'>[user_tok] puts [target_tok] onto the photocopier!</span>", "<span class='notice'>You put [target_tok] onto the photocopier.</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 
 		target.forceMove(drop_location())
 		ass = target

@@ -395,7 +395,18 @@
 	return cached_flat_icon
 
 
-/obj/item/card/id/get_examine_string(mob/user, thats = FALSE)
+/obj/item/card/id/get_examine_string(mob/user, thats = FALSE, indirect = FALSE)
+	//Only reveal the registered name here when the card itself is examined directly - glancing at a worn
+	//ID as part of someone else's body-examine shouldn't out them unless their face/voice is recognized.
+	if(indirect && isliving(loc))
+		var/mob/living/wearer = loc
+		var/recognized = FALSE
+		if(isliving(user))
+			var/mob/living/living_user = user
+			recognized = living_user.knows_face(wearer) || living_user.knows_voice(wearer)
+		if(!recognized)
+			var/icon_part = uses_overlays ? icon2html(get_cached_flat_icon(), user) : icon2html(src, user)
+			return "[icon_part] [thats ? "That's " : ""]\a identification card[assignment ? " ([assignment])" : ""]"
 	if(uses_overlays)
 		return "[icon2html(get_cached_flat_icon(), user)] [thats? "That's ":""][get_examine_name(user)]" //displays all overlays in chat
 	return ..()

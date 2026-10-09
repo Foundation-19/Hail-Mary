@@ -30,7 +30,7 @@
 /obj/item/candle/attackby(obj/item/W, mob/user, params)
 	var/msg = W.ignition_effect(src, user)
 	if(msg)
-		light(msg)
+		light(msg, user)
 	else
 		return ..()
 
@@ -42,11 +42,11 @@
 /obj/item/candle/get_temperature()
 	return lit * heat * heats_space
 
-/obj/item/candle/proc/light(show_message)
+/obj/item/candle/proc/light(show_message, mob/user)
 	if(!lit)
 		lit = TRUE
-		if(show_message)
-			usr.visible_message(show_message)
+		if(show_message && user)
+			user.visible_message(show_message, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		set_light_on(TRUE)
 		START_PROCESSING(SSobj, src)
 		update_icon()
@@ -101,7 +101,7 @@
 	..()
 	var/msg = W.ignition_effect(src, user)
 	if(msg)
-		light(msg)
+		light(msg, user)
 
 /obj/item/candle/tribal_torch/fire_act(exposed_temperature, exposed_volume)
 	if(!src.lit)

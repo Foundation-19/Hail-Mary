@@ -421,13 +421,13 @@
 	fire_stacks -= 5
 	DefaultCombatKnockdown(60, TRUE, TRUE)
 	spin(32,2)
-	visible_message(span_danger("[src] rolls on the floor, trying to put [p_them()]self out!"), \
-		span_notice("You stop, drop, and roll!"))
+	visible_message(span_danger("%SELF_NAME% rolls on the floor, trying to put [p_them()]self out!"), \
+		span_notice("You stop, drop, and roll!"), visible_message_flags = ANONYMIZE_NAMES)
 	MarkResistTime(30)
 	sleep(30)
 	if(fire_stacks <= 0)
-		visible_message(span_danger("[src] has successfully extinguished [p_them()]self!"), \
-			span_notice("You extinguish yourself."))
+		visible_message(span_danger("%SELF_NAME% has successfully extinguished [p_them()]self!"), \
+			span_notice("You extinguish yourself."), visible_message_flags = ANONYMIZE_NAMES)
 		ExtinguishMob()
 
 /mob/living/carbon/resist_restraints()
