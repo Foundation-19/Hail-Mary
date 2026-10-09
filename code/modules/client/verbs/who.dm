@@ -149,7 +149,7 @@
 		var/key = C.key
 		if(C.holder && C.holder.fakekey)
 			key = C.holder.fakekey
-		assembled += "\t [key][admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
+		assembled += "\t [key][admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)[length(C.statusMessage) ? " @ [C.statusMessage]" : ""]"
 	Lines += sortList(assembled)
 	
 	for(var/line in Lines)
@@ -185,6 +185,40 @@
 			entry += " - <b><font color='red'>Antagonist</font></b>"
 	entry += " (<A HREF='?_src_=holder;[HrefToken()];adminmoreinfo=\ref[C.mob]'>?</A>)"
 	return entry
+
+#define MAX_STATUS_LEN 86
+
+/client
+	var/statusMessage = null
+
+/mob
+	var/statusMessage = null // Backup copy of the client's status so it survives a reconnect/mob change.
+
+/mob/Login()
+	. = ..()
+	if(client)
+		if(length(statusMessage))
+			client.statusMessage = statusMessage
+		else if(length(client.statusMessage))
+			statusMessage = client.statusMessage
+
+/mob/verb/SetStatusMsg()
+	set name = "Set Status"
+	set category = "OOC"
+
+	if(!client)
+		return
+
+	statusMessage = null
+	client.statusMessage = null
+
+	var/input = stripped_input(usr, "This adds a short message on the end of your record in who. Useful for informing if you're in the mood to RP. (Char Limit: [MAX_STATUS_LEN])", max_length = MAX_STATUS_LEN)
+	if(length(input))
+		statusMessage = input
+		client.statusMessage = input
+		to_chat(usr, "Your status message is now: [input]")
+
+#undef MAX_STATUS_LEN
 
 /client/verb/adminwho()
 	set category = "Admin"
