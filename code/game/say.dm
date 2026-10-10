@@ -358,9 +358,16 @@ And the base of the send_speech() proc, which is the core of saycode.
 		I.loc = src
 		I.override = TRUE
 		viewer.identity_override_images[src] = I
-	viewer.client.images |= I //idempotent - also re-adds the image after the viewer reconnects with a new client
+	//Set every var BEFORE (re-)adding to client.images, then force a remove+re-add even if it was already
+	//present - some BYOND versions snapshot/cache an override image's rendered appearance at insertion time,
+	//so just mutating .appearance/.dir/.name on an image that's already in client.images doesn't reliably
+	//force a redraw (this is what caused the "sprite stuck facing south forever" bug: the override froze at
+	//whatever direction the target happened to be facing the moment they were first remembered).
 	I.appearance = appearance
+	I.dir = dir //appearance alone doesn't reliably carry facing through to an override image, so set it explicitly
 	I.name = get_display_name(viewer)
+	viewer.client.images -= I
+	viewer.client.images |= I
 
 /// Fully stops tracking `viewer` (used by Destroy() cleanup on either side) - unlike the sync proc above,
 /// this also forgets the tracking entry so a destroyed mob can't linger as a dangling list key.
@@ -386,6 +393,16 @@ And the base of the send_speech() proc, which is the core of saycode.
 			continue
 		sync_identity_override_for(viewer)
 
+/// Flags a get_display_name()/get_display_name_linked() fallback to the public identity tag that looks
+/// suspicious: `viewer` has remembered SOME face/voice this round already, but the lookup for THIS specific
+/// `target` still missed. A viewer who's never remembered anyone falling back to the public tag is completely
+/// normal and not logged - this exists specifically to catch the "macro fires and resolves, but to the wrong
+/// value" bug class that log_identity_leak() (raw name baked in with no macro at all) can't see.
+/proc/log_display_name_miss(mob/living/viewer, mob/living/target)
+	if(!length(viewer.known_faces) && !length(viewer.known_voices))
+		return
+	log_identity_leak("get_display_name() fell back to get_identity_tag() despite viewer having remembered other faces/voices - target=[target] ([REF(target)]) viewer=[viewer] ([REF(viewer)]) viewer.known_faces=[json_encode(viewer.known_faces)] viewer.known_voices=[json_encode(viewer.known_voices)]")
+
 /// Plain-text (non-link) version of the face-recognition check used by examine()/compose_message() - how
 /// `viewer` would see this mob's name in a message (combat, emotes, etc.). No href attached, unlike
 /// get_identity_tag()'s use in examine(), since you don't want a "remember" link spamming into combat text.
@@ -399,6 +416,8 @@ And the base of the send_speech() proc, which is the core of saycode.
 		var/remembered_voice = viewer.knows_voice(src)
 		return remembered_voice ? remembered_voice : "Unknown"
 	var/remembered_name = viewer.knows_face(src) || viewer.knows_voice(src)
+	if(!remembered_name)
+		log_display_name_miss(viewer, src)
 	return remembered_name ? remembered_name : get_identity_tag()
 
 /// Same as get_display_name(), but wraps an unrecognized name in the same clickable "remember_face" link
@@ -411,6 +430,8 @@ And the base of the send_speech() proc, which is the core of saycode.
 		var/remembered_voice = viewer.knows_voice(src)
 		return remembered_voice ? remembered_voice : "Unknown"
 	var/remembered_name = viewer.knows_face(src) || viewer.knows_voice(src)
+	if(!remembered_name)
+		log_display_name_miss(viewer, src)
 	var/label = remembered_name ? remembered_name : get_identity_tag()
 	return "<a href='?src=[REF(viewer)];remember_face=[REF(src)]'>[label]</a>"
 

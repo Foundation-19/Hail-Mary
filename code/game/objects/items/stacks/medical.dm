@@ -522,15 +522,15 @@
 			to_chat(user, span_warning("You need at least two gauzes to do this!"))
 			return
 		new /obj/item/stack/sheet/cloth(user.drop_location())
-		user.visible_message("[user] cuts [src] into pieces of cloth with [I].", \
+		user.visible_message("%SELF_NAME% cuts [src] into pieces of cloth with [I].", \
 					span_notice("You cut [src] into pieces of cloth with [I]."), \
-					"You hear cutting.")
+					"You hear cutting.", visible_message_flags = ANONYMIZE_NAMES)
 		use(2)
 	else if(I.is_drainable() && I.reagents.has_reagent(/datum/reagent/abraxo_cleaner/sterilizine))
 		if(!I.reagents.has_reagent(/datum/reagent/abraxo_cleaner/sterilizine, 10))
 			to_chat(user, span_warning("There's not enough sterilizine in [I] to sterilize [src]!"))
 			return
-		user.visible_message(span_notice("[user] pours the contents of [I] onto [src], sterilizing it."), span_notice("You pour the contents of [I] onto [src], sterilizing it."))
+		user.visible_message(span_notice("%SELF_NAME% pours the contents of [I] onto [src], sterilizing it."), span_notice("You pour the contents of [I] onto [src], sterilizing it."), visible_message_flags = ANONYMIZE_NAMES)
 		I.reagents.remove_reagent(/datum/reagent/abraxo_cleaner/sterilizine, 10)
 		new /obj/item/stack/medical/gauze/adv/one(user.drop_location())
 		use(1)
@@ -538,7 +538,7 @@
 		return ..()
 
 /obj/item/stack/medical/gauze/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] begins tightening \the [src] around [user.p_their()] neck! It looks like [user.p_they()] forgot how to use medical supplies!"))
+	user.visible_message(span_suicide("%SELF_NAME% begins tightening \the [src] around [user.p_their()] neck! It looks like [user.p_they()] forgot how to use medical supplies!"), visible_message_flags = ANONYMIZE_NAMES)
 	return OXYLOSS
 
 /// Low tier bandage

@@ -789,11 +789,12 @@
 			return NO_REMOVE_FROM_STORAGE
 		A.add_fingerprint(user)
 		remove_from_storage(I, get_turf(user))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 		if(!user.put_in_hands(I))
-			user.visible_message(span_warning("[user] fumbles with the [parent], letting [I] fall on the floor."), \
-								span_notice("You fumble with [parent], letting [I] fall on the floor."))
+			user.visible_message(span_warning("[user_tok] fumbles with the [parent], letting [I] fall on the floor."), \
+								span_notice("You fumble with [parent], letting [I] fall on the floor."), visible_message_flags = ANONYMIZE_NAMES)
 			return TRUE
-		user.visible_message(span_warning("[user] draws [I] from [parent]!"), span_notice("You draw [I] from [parent]."))
+		user.visible_message(span_warning("[user_tok] draws [I] from [parent]!"), span_notice("You draw [I] from [parent]."), visible_message_flags = ANONYMIZE_NAMES)
 		return TRUE
 
 /datum/component/storage/proc/action_trigger(datum/action/source, obj/target)
