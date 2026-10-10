@@ -35,7 +35,8 @@
 				standupwarning = "%SELF_NAME% struggles to stand up."
 		var/usernotice = automatic ? span_notice("You are now getting up. (Auto)") : span_notice("You are now getting up.")
 		visible_message(span_notice("[standupwarning]"), usernotice, vision_distance = 5, visible_message_flags = ANONYMIZE_NAMES)
-		if(do_after(src, totaldelay, target = src, required_mobility_flags = MOBILITY_RESIST))
+		//resting blocks MOBILITY_MOVE, so any loc change here is external (zero-g drift/bumps, being dragged) - don't let that spuriously restart the attempt
+		if(do_after(src, totaldelay, target = src, required_mobility_flags = MOBILITY_RESIST, allow_movement = TRUE))
 			set_resting(FALSE, TRUE)
 
 			combat_flags &= ~COMBAT_FLAG_RESISTING_REST
