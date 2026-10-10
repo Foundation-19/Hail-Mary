@@ -20,7 +20,7 @@
 		var/health_deficiency = max((maxHealth - (health - getStaminaLoss()))*0.5, 0)
 		if(!has_gravity())
 			health_deficiency = health_deficiency*0.2
-		totaldelay += health_deficiency
+		totaldelay += min(health_deficiency, GETUP_DELAY_CAP) // capped - see GETUP_DELAY_CAP
 		var/standupwarning = "%SELF_NAME% and everyone around them should probably yell at the dev team"
 		switch(health_deficiency)
 			if(-INFINITY to 10)
