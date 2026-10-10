@@ -256,9 +256,9 @@
 		if(user.grab_state) //only the first upgrade is instantaneous
 			var/old_grab_state = user.grab_state
 			var/grab_upgrade_time = instant ? 0 : 30
-			visible_message(span_danger("[user] starts to tighten [user.p_their()] grip on [src]!"), \
-				span_userdanger("[user] starts to tighten [user.p_their()] grip on you!"), target = user,
-				target_message = span_danger("You start to tighten your grip on [src]!"))
+			visible_message(span_danger("%ACTOR_NAME% starts to tighten [user.p_their()] grip on %SELF_NAME%!"), \
+				span_userdanger("%ACTOR_NAME% starts to tighten [user.p_their()] grip on you!"), target = user,
+				target_message = span_danger("You start to tighten your grip on %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			switch(user.grab_state)
 				if(GRAB_AGGRESSIVE)
 					log_combat(user, src, "attempted to neck grab", addition="neck grab")
@@ -273,30 +273,30 @@
 			if(GRAB_AGGRESSIVE)
 				var/add_log = ""
 				if(HAS_TRAIT(user, TRAIT_PACIFISM))
-					visible_message(span_danger("[user] has firmly gripped [src]!"),
-						span_danger("[user] has firmly gripped you!"), target = user,
-						target_message = span_danger("You have firmly gripped [src]!"))
+					visible_message(span_danger("%ACTOR_NAME% has firmly gripped %SELF_NAME%!"),
+						span_danger("%ACTOR_NAME% has firmly gripped you!"), target = user,
+						target_message = span_danger("You have firmly gripped %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					add_log = " (pacifist)"
 				else
-					visible_message(span_danger("[user] has grabbed [src] aggressively!"), \
-									span_userdanger("[user] has grabbed you aggressively!"), target = user, \
-									target_message = span_danger("You have grabbed [src] aggressively!"))
+					visible_message(span_danger("%ACTOR_NAME% has grabbed %SELF_NAME% aggressively!"), \
+									span_userdanger("%ACTOR_NAME% has grabbed you aggressively!"), target = user, \
+									target_message = span_danger("You have grabbed %SELF_NAME% aggressively!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					update_mobility()
 				stop_pulling()
 				log_combat(user, src, "grabbed", addition="aggressive grab[add_log]")
 			if(GRAB_NECK)
 				log_combat(user, src, "grabbed", addition="neck grab")
-				visible_message(span_danger("[user] has grabbed [src] by the neck!"),\
-								span_userdanger("[user] has grabbed you by the neck!"), target = user, \
-								target_message = span_danger("You have grabbed [src] by the neck!"))
+				visible_message(span_danger("%ACTOR_NAME% has grabbed %SELF_NAME% by the neck!"),\
+								span_userdanger("%ACTOR_NAME% has grabbed you by the neck!"), target = user, \
+								target_message = span_danger("You have grabbed %SELF_NAME% by the neck!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
 			if(GRAB_KILL)
 				log_combat(user, src, "strangled", addition="kill grab")
-				visible_message(span_danger("[user] is strangling [src]!"), \
-								span_userdanger("[user] is strangling you!"), target = user, \
-								target_message = span_danger("You are strangling [src]!"))
+				visible_message(span_danger("%ACTOR_NAME% is strangling %SELF_NAME%!"), \
+								span_userdanger("%ACTOR_NAME% is strangling you!"), target = user, \
+								target_message = span_danger("You are strangling %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				update_mobility() //we fall down
 				if(!buckled && !density)
 					Move(user.loc)
@@ -308,9 +308,9 @@
 	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_HAND, user)
 	if((user != src) && act_intent != INTENT_HELP && (mob_run_block(user, 0, user.name, ATTACK_TYPE_UNARMED | ATTACK_TYPE_MELEE | ((attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK)? ATTACK_TYPE_PARRY_COUNTERATTACK : NONE), null, user, check_zone(user.zone_selected), null) & BLOCK_SUCCESS))
 		log_combat(user, src, "attempted to touch")
-		visible_message(span_warning("[user] attempted to touch [src]!"),
-			span_warning("[user] attempted to touch you!"), target = user,
-			target_message = span_warning("You attempted to touch [src]!"))
+		visible_message(span_warning("%ACTOR_NAME% attempted to touch %SELF_NAME%!"),
+			span_warning("%ACTOR_NAME% attempted to touch you!"), target = user,
+			target_message = span_warning("You attempted to touch %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return TRUE
 
 /mob/living/attack_hulk(mob/living/carbon/human/user, does_attack_animation = FALSE)

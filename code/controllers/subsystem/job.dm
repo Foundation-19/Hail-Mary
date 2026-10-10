@@ -750,6 +750,10 @@ SUBSYSTEM_DEF(job)
 			if(i[LOADOUT_CUSTOM_DESCRIPTION])
 				var/custom_description = i[LOADOUT_CUSTOM_DESCRIPTION]
 				I.desc = custom_description
+			// Pocket-sized "hands" loadout picks (cards, lighters, wallets, etc.) try pockets first instead of eating a hand slot and overflowing to the backpack/floor.
+			if(G.slot == SLOT_HANDS && I.w_class <= WEIGHT_CLASS_SMALL && !(I.slot_flags & ITEM_SLOT_DENYPOCKET))
+				if(M.equip_to_slot_if_possible(I, SLOT_L_STORE, disable_warning = TRUE, bypass_equip_delay_self = TRUE) || M.equip_to_slot_if_possible(I, SLOT_R_STORE, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
+					continue
 			if(!M.equip_to_slot_if_possible(I, G.slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE, displace_worn = (G.slot in DISPLACEABLE_SLOTS))) // If the job's dresscode compliant, try to put it in its slot, first. Destroy whatever's in there if you must.
 				if(iscarbon(M))
 					var/mob/living/carbon/C = M

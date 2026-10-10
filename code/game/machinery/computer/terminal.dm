@@ -916,47 +916,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 /// Maps a card's assignment string to a canonical Fallout 13 faction tag.
 /// Returns null if the assignment doesn't match any known faction.
 /obj/machinery/computer/terminal/proc/get_faction_from_card(obj/item/card/id/card)
-	if(!card.assignment) return null
-	var/assign = lowertext(trim(card.assignment))
-	// NCR / Rangers
-	if(findtext(assign, "ncr") || findtext(assign, "republic") || findtext(assign, "trooper") || findtext(assign, "ranger") && !findtext(assign, "veteran"))
-		return FACTION_NCR
-	if(findtext(assign, "veteran ranger") || findtext(assign, "vet ranger"))
-		return FACTION_RANGER
-	// Legion
-	if(findtext(assign, "legion") || findtext(assign, "centurion") || findtext(assign, "prime") || findtext(assign, "recruit medallion") || findtext(assign, "veteran medallion") || findtext(assign, "auxilia"))
-		return FACTION_LEGION
-	// Brotherhood of Steel
-	if(findtext(assign, "brotherhood") || findtext(assign, "bos") || findtext(assign, "paladin") || findtext(assign, "knight") || findtext(assign, "scribe") || findtext(assign, "elder"))
-		return FACTION_BROTHERHOOD
-	// Enclave
-	if(findtext(assign, "enclave") || findtext(assign, "us officer") || findtext(assign, "us dogtag") || findtext(assign, "american"))
-		return FACTION_ENCLAVE
-	// Town / Eastwood
-	if(findtext(assign, "citizen") || findtext(assign, "settler") || findtext(assign, "mayor") || findtext(assign, "deputy") || findtext(assign, "sheriff") || findtext(assign, "deputy"))
-		return FACTION_EASTWOOD
-	// Raiders
-	if(findtext(assign, "raider") || findtext(assign, "outlaw") || findtext(assign, "bandit"))
-		return FACTION_RAIDERS
-	// Great Khans
-	if(findtext(assign, "khan"))
-		return FACTION_KHAN
-	// Super Mutants
-	if(findtext(assign, "mutant"))
-		return FACTION_SMUTANT
-	// Vault
-	if(findtext(assign, "vault") || findtext(assign, "overseer") || findtext(assign, "dweller"))
-		return FACTION_VAULT
-	// Followers
-	if(findtext(assign, "follower"))
-		return FACTION_FOLLOWERS
-	// Tribe
-	if(findtext(assign, "tribe") || findtext(assign, "tribal") || findtext(assign, "talisman"))
-		return FACTION_TRIBE
-	// Wastelander catch-all
-	if(findtext(assign, "waster") || findtext(assign, "wastelander") || findtext(assign, "survivor") || findtext(assign, "scavenger"))
-		return FACTION_WASTELAND
-	return null
+	return get_faction_from_assignment(card?.assignment)
 
 /// Remove a name from a turret's whitelist.
 /obj/machinery/computer/terminal/proc/turret_whitelist_remove(obj/machinery/porta_turret/T, entry, mob/user)

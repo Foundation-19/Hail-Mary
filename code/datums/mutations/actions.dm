@@ -178,15 +178,15 @@
 			C.dropItemToGround(C.get_active_held_item())
 			C.dropItemToGround(C.get_inactive_held_item())
 			C.confused += 10
-			C.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
+			C.visible_message(span_danger("%ACTOR_NAME% electrocutes %SELF_NAME%!"),span_userdanger("%ACTOR_NAME% electrocutes you!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			return ..()
 		else
-			user.visible_message(span_warning("[user] fails to electrocute [target]!"))
+			user.visible_message(span_warning("%SELF_NAME% fails to electrocute %ACTOR_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 			return ..()
 	else if(isliving(target))
 		var/mob/living/L = target
 		L.electrocute_act(15, user, 1, SHOCK_NOSTUN)
-		L.visible_message(span_danger("[user] electrocutes [target]!"),span_userdanger("[user] electrocutes you!"))
+		L.visible_message(span_danger("%ACTOR_NAME% electrocutes %SELF_NAME%!"),span_userdanger("%ACTOR_NAME% electrocutes you!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return ..()
 	else
 		to_chat(user,span_warning("The electricity doesn't seem to affect [target]..."))

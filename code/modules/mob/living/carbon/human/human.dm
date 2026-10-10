@@ -65,6 +65,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(!CONFIG_GET(flag/disable_human_mood))
 		AddComponent(/datum/component/mood)
 	AddComponent(/datum/component/combat_mode)
+	AddComponent(/datum/component/unarmed_power_attack)
 	AddElement(/datum/element/flavor_text/carbon, _name = "Flavor Text", _save_key = "flavor_text")
 	AddElement(/datum/element/flavor_text, "", "Set Pose/Leave OOC Message", "This should be used only for things pertaining to the current round!")
 
@@ -109,6 +110,11 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	. = ..()
 	. += "Intent: [a_intent]"
 	. += "Move Mode: [m_intent]"
+	var/obj/item/held_item = get_active_held_item()
+	if(held_item && LAZYLEN(held_item.power_attacks) && (held_item.item_flags & ITEM_CAN_POWER_ATTACK))
+		var/datum/power_attack/active = held_item.get_active_power_attack()
+		if(active)
+			. += "Power Attack: [active.name] (Alt-click to change)"
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
@@ -296,9 +302,15 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	var/armor_multiplier = 0.5 + (armor_slowdown * 2)
 	
 	var/sound_level = base_movement * armor_multiplier
-	
-	// Sneaking no longer reduces sound - it only shows vision cones
-	
+
+	// Sneaking no longer reduces sound by default - it only shows vision cones.
+	// The Sneak perk is a purchasable exception to that rule, not a baseline mechanic.
+	if(sneaking)
+		if(HAS_TRAIT(src, TRAIT_SNEAK_RANK2))
+			sound_level *= 0.25
+		else if(HAS_TRAIT(src, TRAIT_SNEAK_RANK1))
+			sound_level *= 0.5
+
 	return sound_level
 
 // Toggle sneak mode when K is pressed
@@ -1185,7 +1197,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		to_chat(src, "<span class='warning'>You can't do that right now!</span>")
 		return FALSE
 	if(!Adjacent(M) && (M.loc != src))
-		if((be_close == 0) || (!no_tk && (dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
+		if((be_close == 0) || (!no_tk && (dna && dna.check_mutation(TK) && tkMaxRangeCheck(src, M))))
 			return TRUE
 		to_chat(src, "<span class='warning'>You are too far away!</span>")
 		return FALSE
@@ -1418,6 +1430,9 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	else if(HAS_TRAIT(src, TRAIT_QUICK_CARRY))
 		carrydelay = 40
 		skills_space = "quickly"
+	else if(HAS_TRAIT(src, TRAIT_SLOW_CARRY))
+		carrydelay = 70
+		skills_space = "clumsily"
 	if(can_be_firemanned(target) && !incapacitated(FALSE, TRUE))
 		visible_message("<span class='notice'>[src] starts [skills_space] lifting [target] onto their back..</span>",
 		//Joe Medic starts quickly/expertly lifting Grey Tider onto their back..
@@ -1758,7 +1773,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	I.unembedded()
 	user.put_in_hands(I)
 	user.emote("scream")
-	user.visible_message("[user] rips [I] out of [user.p_their()] [L.name]!",span_notice("You remove [I] from your [L.name]."))
+	user.visible_message("%SELF_NAME% rips [I] out of [user.p_their()] [L.name]!",span_notice("You remove [I] from your [L.name]."), visible_message_flags = ANONYMIZE_NAMES)
 	if(!has_embedded_objects())
 		clear_alert("embeddedobject")
 		SEND_SIGNAL(user, COMSIG_CLEAR_MOOD_EVENT, "embedded")

@@ -22,7 +22,7 @@
 			to_chat(user, span_danger("You don't know how to use this thing!")) // It needs a valid team to work, if you aren't an antag don't use this thing
 			return FALSE
 		if(TO)
-			to_chat(user, span_notice("[target.name] woke up already, the implant would be ineffective against him!"))
+			to_chat(user, span_notice("[target.get_display_name(user)] woke up already, the implant would be ineffective against him!"))
 			return FALSE
 		target_mind.add_antag_datum(/datum/antagonist/overthrow, UO.team)
 		log_combat(user, target, "implanted", "\a [name]")
@@ -40,14 +40,14 @@
 	if(HAS_TRAIT(M, TRAIT_MINDSHIELD))
 		to_chat(user, span_danger("This mind is too strong to convert, try to remove whatever is protecting it first!"))
 		return
-	M.visible_message(span_warning("[user] is attempting to implant [M]."))
+	M.visible_message(span_warning("%ACTOR_NAME% is attempting to implant %SELF_NAME%."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	if(do_mob(user, M, 50))
 		if(convert(M,user))
-			M.visible_message("[user] has implanted [M].", span_notice("[user] implants you."))
+			M.visible_message("%ACTOR_NAME% has implanted %SELF_NAME%.", span_notice("%ACTOR_NAME% implants you."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			uses--
 			update_icon()
 		else
-			to_chat(user, span_warning("[user] fails to implant [M]."))
+			to_chat(user, span_warning("[user] fails to implant [M.get_display_name(user)]."))
 
 /obj/item/overthrow_converter/update_icon_state()
 	if(uses)

@@ -53,12 +53,12 @@
 	//	damage *= 0.8
 	return damage
 
-/// lets actually check armor, aight?
-/datum/martial_art/proc/deal_damage(mob/living/carbon/human/attacker, mob/living/defender, damage, damage_type = BRUTE, zone = BODY_ZONE_CHEST, armor_type = "melee", woundbonus = 0)
+/// Checks target armor (melee armor penetration optional, for weapon-assisted styles) before applying damage - shared by every martial art so no style can silently no-sell armor by forgetting to check it.
+/datum/martial_art/proc/deal_damage(mob/living/carbon/human/attacker, mob/living/defender, damage, damage_type = BRUTE, zone = null, armor_type = "melee", woundbonus = 0, armour_penetration = 0)
 	if(!isliving(defender))
 		return
-	var/armormult = clamp(defender.getarmor(zone, armor_type), 0, 1)
-	defender.apply_damage(damage, damage_type, BODY_ZONE_CHEST, blocked = armormult, wound_bonus = woundbonus)
+	var/armormult = defender.run_armor_check(zone, armor_type, armour_penetration = armour_penetration)
+	defender.apply_damage(damage, damage_type, zone, blocked = armormult, wound_bonus = woundbonus)
 	log_combat(attacker, defender, "martial art ([src])")
 
 /datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)

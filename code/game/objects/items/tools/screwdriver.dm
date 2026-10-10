@@ -78,7 +78,9 @@
 		return ..()
 	if(user.zone_selected != BODY_ZONE_PRECISE_EYES && user.zone_selected != BODY_ZONE_HEAD)
 		return ..()
-	return eyestab(M,user)
+	if(eyestab(M,user))
+		return TRUE
+	return ..()
 
 /obj/item/screwdriver/brass
 	name = "brass screwdriver"

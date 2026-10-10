@@ -88,7 +88,8 @@
 				heart_strength = span_boldannounce("a faint, fluttery")
 
 			var/diagnosis = (body_part == BODY_ZONE_CHEST ? "You hear [heart_strength] pulse and [lung_strength] respiration." : "You faintly hear [heart_strength] pulse.")
-			user.visible_message("[user] places [src] against [M]'s [body_part] and listens attentively.", span_notice("You place [src] against [M]'s [body_part]. [diagnosis]"))
+			user.visible_message("%SELF_NAME% places [src] against %OTHER_NAME%'s [body_part] and listens attentively.", \
+				span_notice("You place [src] against %OTHER_NAME%'s [body_part]. [diagnosis]"), visible_message_flags = ANONYMIZE_NAMES, name_other = M)
 			return
 	return ..(M,user)
 

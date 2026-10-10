@@ -206,7 +206,7 @@
 
 /obj/item/gun/ballistic/proc/pump(mob/living/M, visible = TRUE)
 	if(visible)
-		M.visible_message(span_warning("[M] [cock_wording]\s \the [src]."), span_warning("You [cock_wording] \the [src]."))
+		M.visible_message(span_warning("%SELF_NAME% [cock_wording]\s \the [src]."), span_warning("You [cock_wording] \the [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(M, cock_sound, 60, 1)
 	pump_unload(M)
 	pump_reload(M)
@@ -364,12 +364,12 @@
 /obj/item/gun/ballistic/suicide_act(mob/living/user)
 	var/obj/item/organ/brain/B = user.getorganslot(ORGAN_SLOT_BRAIN)
 	if (B && chambered && chambered.BB && can_trigger_gun(user) && !chambered.BB.nodamage)
-		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message(span_suicide("%SELF_NAME% is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 		sleep(25)
 		if(user.is_holding(src))
 			var/turf/T = get_turf(user)
 			process_fire(user, user, FALSE, null, BODY_ZONE_HEAD)
-			user.visible_message(span_suicide("[user] blows [user.p_their()] brain[user.p_s()] out with [src]!"))
+			user.visible_message(span_suicide("%SELF_NAME% blows [user.p_their()] brain[user.p_s()] out with [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 			playsound(src, 'sound/weapons/dink.ogg', 30, 1)
 			var/turf/target = get_ranged_target_turf(user, turn(user.dir, 180), BRAINS_BLOWN_THROW_RANGE)
 			B.Remove()
@@ -381,10 +381,10 @@
 			B.throw_at(target, BRAINS_BLOWN_THROW_RANGE, BRAINS_BLOWN_THROW_SPEED, callback=gibspawner)
 			return(BRUTELOSS)
 		else
-			user.visible_message(span_suicide("[user] panics and starts choking to death!"))
+			user.visible_message(span_suicide("%SELF_NAME% panics and starts choking to death!"), visible_message_flags = ANONYMIZE_NAMES)
 			return(OXYLOSS)
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to blow [user.p_their()] brain[user.p_s()] out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>%SELF_NAME% is pretending to blow [user.p_their()] brain[user.p_s()] out with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>", visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, "gun_dry_fire", 30, 1)
 		return (OXYLOSS)
 #undef BRAINS_BLOWN_THROW_SPEED
@@ -395,7 +395,7 @@
 		to_chat(user, span_warning("\The [src] is already shortened!"))
 		return
 	user.DelayNextAction(CLICK_CD_MELEE)
-	user.visible_message("[user] begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."))
+	user.visible_message("%SELF_NAME% begins to shorten \the [src].", span_notice("You begin to shorten \the [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 
 	//if there's any live ammo inside the gun, makes it go off
 	if(blow_up(user))
@@ -405,7 +405,7 @@
 	if(do_after(user, 30, target = src))
 		if(sawn_off)
 			return
-		user.visible_message("[user] shortens \the [src]!", span_notice("You shorten \the [src]."))
+		user.visible_message("%SELF_NAME% shortens \the [src]!", span_notice("You shorten \the [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		name = "sawn-off [src.name]"
 		desc = sawn_desc
 		w_class = WEIGHT_CLASS_NORMAL

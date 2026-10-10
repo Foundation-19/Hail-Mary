@@ -50,8 +50,8 @@
 		icon_state = "fork"
 		forkload = null
 
-	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-		return eyestab(M,user)
+	else if(user.zone_selected == BODY_ZONE_PRECISE_EYES && eyestab(M,user))
+		return TRUE
 	else
 		return ..()
 
@@ -83,10 +83,9 @@
 	AddComponent(/datum/component/butchering, 80 - force, 100, force - 10) //bonus chance increases depending on force
 
 /obj/item/kitchen/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-		return eyestab(M,user)
-	else
-		return ..()
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES && eyestab(M,user))
+		return TRUE
+	return ..()
 
 /obj/item/kitchen/knife/suicide_act(mob/user)
 	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \

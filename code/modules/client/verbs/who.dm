@@ -118,19 +118,22 @@
 	set name = "Who"
 	set category = "OOC"
 
-	var/msg = ""
+	if(!check_rights_for(src, R_ADMIN))
+		to_chat(src, get_wasteland_census())
+		return
 
+	log_admin("[key_name(usr)] checked advanced who in-round")
+	var/msg = ""
 	var/list/Lines = list()
 	var/list/assembled = list()
-	var/admin_mode = check_rights_for(src, R_ADMIN) && isobserver(mob)
-	if(admin_mode)
-		log_admin("[key_name(usr)] checked advanced who in-round")
+	var/ghosted_admin = isobserver(mob) //ghosted admins get the full IC reveal, live ones just get ckeys
+
 	if(length(GLOB.admins))
 		Lines += "<b>Admins:</b>"
 		for(var/X in GLOB.admins)
 			var/client/C = X
 			if(C && C.holder && !C.holder.fakekey)
-				assembled += "\t <font color='#FF0000'>[C.key]</font>[admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
+				assembled += "\t <font color='#FF0000'>[C.key]</font>[ghosted_admin? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
 		Lines += sortList(assembled)
 	assembled.len = 0
 	if(length(GLOB.mentors))
@@ -138,7 +141,7 @@
 		for(var/X in GLOB.mentors)
 			var/client/C = X
 			if(C && (!C.holder || (C.holder && !C.holder.fakekey)))			//>using stuff this complex instead of just using if/else lmao
-				assembled += "\t <font color='#0033CC'>[C.key]</font>[admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
+				assembled += "\t <font color='#0033CC'>[C.key]</font>[ghosted_admin? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
 		Lines += sortList(assembled)
 	assembled.len = 0
 	Lines += "<b>Players:</b>"
@@ -149,7 +152,7 @@
 		var/key = C.key
 		if(C.holder && C.holder.fakekey)
 			key = C.holder.fakekey
-		assembled += "\t [key][admin_mode? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)"
+		assembled += "\t [key][ghosted_admin? "[show_admin_info(C)]":""] ([round(C.avgping, 1)]ms)[length(C.statusMessage) ? " @ [C.statusMessage]" : ""]"
 	Lines += sortList(assembled)
 	
 	for(var/line in Lines)
@@ -157,6 +160,35 @@
 
 	msg += "<b>Total Players: [length(GLOB.clients)]</b>"
 	to_chat(src, msg)
+
+///Non-admin Who view - no ckeys, just a population headcount so OOC can't be used to scout who's still breathing.
+/client/proc/get_wasteland_census()
+	var/alive_count = 0
+	var/dead_count = 0
+	var/observing_count = 0
+	for(var/X in GLOB.clients)
+		var/client/C = X
+		if(!C || !C.mob)
+			continue
+		if(isnewplayer(C.mob))
+			observing_count++
+		else if(isobserver(C.mob))
+			var/mob/dead/observer/O = C.mob
+			if(O.started_as_observer)
+				observing_count++
+			else
+				dead_count++
+		else if(C.mob.stat == DEAD)
+			dead_count++
+		else
+			alive_count++
+
+	var/msg = "<b>Wasteland Census:</b>\n"
+	msg += "\tAlive: [alive_count]\n"
+	msg += "\tDead: [dead_count]\n"
+	msg += "\tObserving/Lobby: [observing_count]\n"
+	msg += "<b>Total Players: [length(GLOB.clients)]</b>"
+	return msg
 
 /client/proc/show_admin_info(client/C)
 	if(!C)
@@ -185,6 +217,40 @@
 			entry += " - <b><font color='red'>Antagonist</font></b>"
 	entry += " (<A HREF='?_src_=holder;[HrefToken()];adminmoreinfo=\ref[C.mob]'>?</A>)"
 	return entry
+
+#define MAX_STATUS_LEN 86
+
+/client
+	var/statusMessage = null
+
+/mob
+	var/statusMessage = null // Backup copy of the client's status so it survives a reconnect/mob change.
+
+/mob/Login()
+	. = ..()
+	if(client)
+		if(length(statusMessage))
+			client.statusMessage = statusMessage
+		else if(length(client.statusMessage))
+			statusMessage = client.statusMessage
+
+/mob/verb/SetStatusMsg()
+	set name = "Set Status"
+	set category = "OOC"
+
+	if(!client)
+		return
+
+	statusMessage = null
+	client.statusMessage = null
+
+	var/input = stripped_input(usr, "This adds a short message on the end of your record in who. Useful for informing if you're in the mood to RP. (Char Limit: [MAX_STATUS_LEN])", max_length = MAX_STATUS_LEN)
+	if(length(input))
+		statusMessage = input
+		client.statusMessage = input
+		to_chat(usr, "Your status message is now: [input]")
+
+#undef MAX_STATUS_LEN
 
 /client/verb/adminwho()
 	set category = "Admin"

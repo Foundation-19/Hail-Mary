@@ -15,9 +15,10 @@
 	icon_gib = "gib"
 	
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE // was unarmored - fix
 	
-	maxHealth = 50
-	health = 50
+	maxHealth = 65 // bumped - TTK vs melee was too short
+	health = 65
 	move_to_delay = 2.5
 	turns_per_move = 1
 	
@@ -126,8 +127,8 @@
 	icon_living = "dog_alpha"
 	icon_dead = "dog_alpha_dead"
 	
-	maxHealth = 70
-	health = 70
+	maxHealth = 90 // bumped - TTK vs melee was too short
+	health = 90
 	
 	melee_damage_lower = 12
 	melee_damage_upper = 28
@@ -170,8 +171,8 @@
 	icon_living = "wolf"
 	icon_dead = "wolf_dead"
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	
 	melee_damage_lower = 20
 	melee_damage_upper = 28

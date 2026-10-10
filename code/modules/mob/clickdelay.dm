@@ -187,7 +187,7 @@
  * Checks if a user's clickdelay is met for a standard attack, this is called before an attack happens.
  */
 /obj/item/proc/CheckAttackCooldown(mob/user, atom/target)
-	return user.CheckActionCooldown(attack_speed, clickdelay_from_next_action, clickdelay_mod_bypass, clickdelay_ignores_next_action)
+	return user.CheckActionCooldown(attack_speed * get_attack_speed_multiplier(user), clickdelay_from_next_action, clickdelay_mod_bypass, clickdelay_ignores_next_action)
 
 /**
  * Called after a successful attack to set a mob's clickdelay.
@@ -198,5 +198,9 @@
 /**
  * Get estimated time that a user has to not attack for to use us
  */
-/obj/item/proc/GetEstimatedAttackSpeed()
-	return attack_speed
+/obj/item/proc/GetEstimatedAttackSpeed(mob/user)
+	return attack_speed * get_attack_speed_multiplier(user)
+
+/// Multiplier on attack_speed for CheckAttackCooldown/GetEstimatedAttackSpeed. No-op by default; overridden on melee weapon bases to scale with the attacker's Agility.
+/obj/item/proc/get_attack_speed_multiplier(mob/user)
+	return 1

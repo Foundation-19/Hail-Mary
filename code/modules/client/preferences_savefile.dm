@@ -429,6 +429,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["custom_species"]			>> custom_species
 	S["name_is_always_random"]	>> be_random_name
 	S["body_is_always_random"]	>> be_random_body
+	S["auto_identify_faction_radio"]	>> auto_identify_faction_radio
 	S["gender"]					>> gender
 	S["body_model"]				>> features["body_model"]
 	S["body_size"]				>> features["body_size"]
@@ -486,6 +487,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	S["all_quirks"]			>> all_quirks
+	S["heirloom_choice"]		>> heirloom_choice
 
 	//Records
 	S["security_records"]			>>			security_records
@@ -558,6 +560,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	be_random_name	= sanitize_integer(be_random_name, 0, 1, initial(be_random_name))
 	be_random_body	= sanitize_integer(be_random_body, 0, 1, initial(be_random_body))
+	auto_identify_faction_radio	= sanitize_integer(auto_identify_faction_radio, 0, 1, initial(auto_identify_faction_radio))
 
 	hair_style					= sanitize_inlist(hair_style, GLOB.hair_styles_list)
 	facial_hair_style			= sanitize_inlist(facial_hair_style, GLOB.facial_hair_styles_list)
@@ -673,6 +676,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["custom_species"]			, custom_species)
 	WRITE_FILE(S["name_is_always_random"]	, be_random_name)
 	WRITE_FILE(S["body_is_always_random"]	, be_random_body)
+	WRITE_FILE(S["auto_identify_faction_radio"]	, auto_identify_faction_radio)
 	WRITE_FILE(S["gender"]					, gender)
 	WRITE_FILE(S["body_model"]				, features["body_model"])
 	WRITE_FILE(S["body_size"]				, features["body_size"])
@@ -761,6 +765,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	//Quirks
 	WRITE_FILE(S["all_quirks"]			, all_quirks)
+	WRITE_FILE(S["heirloom_choice"]		, heirloom_choice)
 
 	WRITE_FILE(S["persistent_scars"]			, persistent_scars)
 	WRITE_FILE(S["scars1"]						, scars_list["1"])

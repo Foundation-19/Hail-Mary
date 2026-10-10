@@ -11,9 +11,10 @@
 		return TRUE //martial art code was a mistake
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	atk_verb = pick("punches", "smashes", "ruptures", "cracks")
-	D.visible_message(span_danger("[A] [atk_verb] [D] with inhuman strength, sending [D.p_them()] flying backwards!"), \
-					  span_userdanger("[A] [atk_verb] you with inhuman strength, sending you flying backwards!"))
-	D.apply_damage(damage, BRUTE) //KAPOW
+	D.visible_message(span_danger("%ACTOR_NAME% [atk_verb] %SELF_NAME% with inhuman strength, sending [D.p_them()] flying backwards!"), \
+					span_userdanger("%ACTOR_NAME% [atk_verb] you with inhuman strength, sending you flying backwards!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
+	deal_damage(A, D, damage, BRUTE) //KAPOW
 	playsound(D, 'sound/effects/meteorimpact.ogg', 25, 1, -1)
 	var/throwtarget = get_edge_target_turf(A, get_dir(A, get_step_away(D, A)))
 	D.throw_at(throwtarget, 4, 2, A)//So stuff gets tossed around at the same time.
@@ -36,4 +37,4 @@
 	var/datum/martial_art/mushpunch/mush = new(null)
 	mush.teach(user)
 	qdel(src)
-	visible_message(span_warning("[user] devours [src]."))
+	visible_message(span_warning("%ACTOR_NAME% devours [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)

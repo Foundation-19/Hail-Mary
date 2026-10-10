@@ -166,7 +166,12 @@
 		return FALSE
 	if(!has_hand_for_held_index(hand_index))
 		return FALSE
-	return !held_items[hand_index]
+	var/obj/item/existing = held_items[hand_index]
+	if(existing && (existing.item_flags & HAND_ITEM)) // a pseudo "empty hand" placeholder (see /obj/item/melee/fists) - let real items displace it
+		return TRUE
+	if(existing) // includes the /obj/item/offhand placeholder a worn glove_weapon locks its shown hand with - see lock_glove_weapon_hand()
+		return FALSE
+	return TRUE
 
 /mob/proc/put_in_hand(obj/item/I, hand_index, forced = FALSE, ignore_anim = TRUE)
 	if(forced || can_put_in_hand(I, hand_index))
@@ -373,6 +378,12 @@
 			else if(!disable_warning)
 				to_chat(src, warning[1])
 			return FALSE
+	// A glove_weapon shows on whichever hand actually put it on (see toggle_glove_weapon_hand()) instead of always
+	// defaulting to the right - has to be captured here, before equip_to_slot() clears the item out of held_items.
+	if(W.glove_weapon && slot == SLOT_GLOVES && !W.glove_weapon_both_hands)
+		var/held_index = get_held_index_of_item(W)
+		if(held_index)
+			W.glove_weapon_worn_hand = (held_index % 2 == 0) ? "right" : "left"
 	equip_to_slot(W, slot, redraw_mob) //This proc should not ever fail.
 	return TRUE
 
@@ -432,6 +443,12 @@
 	for(var/I in items)
 		dropItemToGround(I)
 	drop_all_held_items()
+
+/// Initial roundstart dressing doesn't fire equipped(), so loadout storage never gets its overload check - call this once after dressing to catch anything spawned in already over capacity.
+/mob/living/proc/check_worn_storage_overload()
+	for(var/obj/item/I in get_equipped_items(TRUE))
+		var/datum/component/storage/STR = I.GetComponent(/datum/component/storage)
+		STR?.check_overload(src)
 
 /obj/item/proc/equip_to_best_slot(mob/M)
 	if(src != M.get_active_held_item())

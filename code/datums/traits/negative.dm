@@ -2,52 +2,60 @@
 
 /datum/quirk/blooddeficiency
 	name = "Acute Blood Deficiency"
-	desc = "Your body can't produce enough blood to sustain itself."
+	desc = "Years of poor nutrition and radiation exposure have left your body unable to produce enough blood to sustain itself. The more irradiated you are, the worse it gets."
 	value = -1
 	gain_text = span_danger("You feel your vigor slowly fading away.")
 	lose_text = span_notice("You feel vigorous again.")
 	antag_removal_text = "Your antagonistic nature has removed your blood deficiency."
-	medical_record_text = "Patient requires regular treatment for blood loss due to low production of blood."
+	medical_record_text = "Patient requires regular treatment for blood loss due to low production of blood, likely radiation-related."
 
 /datum/quirk/blooddeficiency/on_process()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(NOBLOOD in H.dna.species.species_traits) //can't lose blood if your species doesn't have any
 		return
 	else
-		quirk_holder.blood_volume -= 0.2
+		//radiation damage makes the deficiency worse, same as it would for a healthy wastelander
+		quirk_holder.blood_volume -= 0.15 + (quirk_holder.radiation / 5000)
 
 /datum/quirk/depression
 	name = "Mood - Depressive"
-	desc = "You sometimes just hate life, and get a mood debuff for it."
+	desc = "The wasteland has a way of grinding people down, and some days you just can't climb back out of the pit. Mood debuff, triggers more often the more irradiated you are."
 	mob_trait = TRAIT_DEPRESSION
 	value = -2
-	gain_text = span_danger("You start feeling depressed.")
-	lose_text = span_notice("You no longer feel depressed.") //if only it were that easy!
-	medical_record_text = "Patient has a severe mood disorder, causing them to experience acute episodes of depression."
+	gain_text = span_danger("The weight of everything you've lost settles over you.")
+	lose_text = span_notice("The weight on your chest eases, for now.")
+	medical_record_text = "Patient has a severe mood disorder consistent with prolonged exposure to wasteland hardship."
 	mood_quirk = TRUE
 
 /datum/quirk/depression/on_process()
-	if(prob(0.15))
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	if(mood?.mood_events["depression"])
+		return //already mid-episode, let it run its course instead of refreshing forever
+	//higher accumulated radiation means more frequent depressive episodes
+	if(prob(0.15 + (quirk_holder.radiation / 1500)))
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "depression", /datum/mood_event/depression)
 
 /datum/quirk/pessimist
 	name = "Mood - Pessimist"
-	desc = "You sometimes just sort of hate life, and get a mood debuff for it."
+	desc = "You've learned the hard way to expect the worst out here. Mood debuff, a bit more common the more irradiated you are."
 	mob_trait = TRAIT_PESSIMIST
 	value = -1
-	gain_text = span_danger("You start feeling depressed.")
-	lose_text = span_notice("You no longer feel depressed.") //if only it were that easy!
-	medical_record_text = "Patient has a mood disorder, causing them to experience extreme episodes of depression."
+	gain_text = span_danger("You brace yourself for things to go wrong, like they always do.")
+	lose_text = span_notice("You let yourself hope, just a little.")
+	medical_record_text = "Patient has a mood disorder consistent with chronic wasteland hardship."
 	mood_quirk = TRUE
 
 /datum/quirk/pessimist/on_process()
-	if(prob(0.15))
+	var/datum/component/mood/mood = quirk_holder.GetComponent(/datum/component/mood)
+	if(mood?.mood_events["pessimist"])
+		return //already mid-episode, let it run its course instead of refreshing forever
+	if(prob(0.08 + (quirk_holder.radiation / 3000)))
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "pessimist", /datum/mood_event/pessimism)
 
 
 /datum/quirk/family_heirloom
 	name = "Family Heirloom"
-	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe!"
+	desc = "You are the current owner of an heirloom, passed down for generations. You have to keep it safe! Pick a specific heirloom in the Perks menu, or leave it unset to be assigned one at random based on your job."
 	value = -1
 	mood_quirk = TRUE
 	medical_record_text = "Patient demonstrates an unnatural attachment to a family heirloom."
@@ -56,18 +64,60 @@
 
 GLOBAL_LIST_EMPTY(family_heirlooms)
 
+//Cosmetic-only prayer beads for Family Heirloom. Deliberately NOT a /obj/item/nullrod/rosary
+//subtype - the real one carries an anti_magic component and force=18, too strong to hand out
+//for free through a -1 value quirk.
+/obj/item/clothing/neck/heirloom_rosary
+	name = "prayer beads"
+	desc = "A worn set of prayer beads, passed down through the family. Threadbare, but still held together."
+	icon_state = "rosary"
+	item_state = "rosary"
+	w_class = WEIGHT_CLASS_TINY
+	slot_flags = ITEM_SLOT_NECK
+
+//Every pickable option for the Family Heirloom quirk's chargen picker (preferences.dm). Picker only ever
+//sends back an index into this list, never a raw client-supplied typepath - keep it in sync with the
+//job-specific and generic pools below if you add/remove an option.
+GLOBAL_LIST_INIT(family_heirloom_choices, list(
+	/obj/item/card/id/rusted/brokenholodog,
+	/obj/item/trash/f13/electronic/toaster,
+	/obj/item/melee/onehanded/knife/bayonet,
+	/obj/item/lighter,
+	/obj/item/toy/cards/deck,
+	/obj/item/card/id/rusted,
+	/obj/item/melee/onehanded/machete,
+	/obj/item/melee/onehanded/club/warclub,
+	/obj/item/card/id/rusted/rustedmedallion,
+	/obj/item/clothing/accessory/talisman,
+	/obj/item/clothing/accessory/skullcodpiece/fake,
+	/obj/item/warpaint_bowl,
+	/obj/item/pen/charcoal,
+	/obj/item/healthanalyzer/tribal,
+	/obj/item/clothing/neck/stethoscope,
+	/obj/item/card/id/rusted/fadedvaultid,
+	/obj/item/card/id/rusted/brokenholodog/enclave,
+	/obj/item/clothing/gloves/ring/silver,
+	/obj/item/pen/fountain,
+	/obj/item/card/id/rusted/legion_exile,
+	/obj/item/clothing/gloves/ring/heirloom,
+	/obj/item/clothing/neck/heirloom_rosary,
+))
+
 /datum/quirk/family_heirloom/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
 	var/obj/item/heirloom_type
-	if(quirk_holder.mind.assigned_role)
+	var/chosen_idx = quirk_holder.client?.prefs.heirloom_choice
+	if(chosen_idx >= 1 && chosen_idx <= length(GLOB.family_heirloom_choices))
+		heirloom_type = GLOB.family_heirloom_choices[chosen_idx]
+	if(!heirloom_type && quirk_holder.mind.assigned_role)
 		if(quirk_holder.mind.assigned_role in list("Paladin Commander", "Paladin", "Head Knight", "Senior Knight", "Knight Sergeant", "Knight", "Senior Scribe", "Scribe", "Initiate"))
-			heirloom_type = pick(/obj/item/card/id/rusted/brokenholodog, /obj/item/trash/f13/electronic/toaster)	
+			heirloom_type = pick(/obj/item/card/id/rusted/brokenholodog, /obj/item/trash/f13/electronic/toaster, /obj/item/pen/fountain)	
 		if(quirk_holder.mind.assigned_role in list("NCR Captain", "NCR Lieutenant", "NCR Veteran Ranger", "NCR Brahmin Baron", "NCR Ranger", "NCR Heavy Trooper", "NCR Sergeant", "NCR Corporal", "NCR Conscript ", "NCR Trooper", "NCR Military Police", "NCR Rear Echelon"))
-			heirloom_type = pick(/obj/item/melee/onehanded/knife/bayonet, /obj/item/lighter, /obj/item/toy/cards/deck, /obj/item/card/id/rusted)
+			heirloom_type = pick(/obj/item/melee/onehanded/knife/bayonet, /obj/item/lighter, /obj/item/toy/cards/deck, /obj/item/card/id/rusted, /obj/item/clothing/gloves/ring/heirloom)
 		if(quirk_holder.mind.assigned_role in list("Legion Centurion", "Legion Orator", "Legion Veteran Decanus", "Legion Prime Decanus", "Legion Recruit Decanus", "Legion Vexillarius", "Legion Explorer", "Veteran Legionnaire", "Prime Legionnaire", "Recruit Legionnaire", "Legion Slavemaster"))
-			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/card/id/rusted/rustedmedallion, /obj/item/clothing/accessory/talisman, /obj/item/clothing/accessory/skullcodpiece/fake, /obj/item/warpaint_bowl)
+			heirloom_type = pick(/obj/item/melee/onehanded/machete, /obj/item/melee/onehanded/club/warclub, /obj/item/card/id/rusted/rustedmedallion, /obj/item/clothing/accessory/talisman, /obj/item/clothing/accessory/skullcodpiece/fake, /obj/item/warpaint_bowl, /obj/item/card/id/rusted/legion_exile)
 		if(quirk_holder.mind.assigned_role in list("Legion Slave", "Legion Auxilia"))
-			heirloom_type = pick(/obj/item/clothing/accessory/talisman, /obj/item/pen/charcoal, /obj/item/healthanalyzer/tribal, /obj/item/clothing/neck/stethoscope)
+			heirloom_type = pick(/obj/item/clothing/accessory/talisman, /obj/item/pen/charcoal, /obj/item/healthanalyzer/tribal, /obj/item/clothing/neck/stethoscope, /obj/item/clothing/neck/heirloom_rosary)
 	if(!heirloom_type)
 		heirloom_type = pick(
 		/obj/item/toy/cards/deck,
@@ -78,6 +128,9 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 		/obj/item/card/id/rusted/brokenholodog,
 		/obj/item/card/id/rusted/brokenholodog/enclave,
 		/obj/item/clothing/gloves/ring/silver,
+		/obj/item/clothing/gloves/ring/heirloom,
+		/obj/item/pen/fountain,
+		/obj/item/clothing/neck/heirloom_rosary,
 		)
 	heirloom = new heirloom_type(get_turf(quirk_holder))
 	GLOB.family_heirlooms += heirloom
@@ -113,7 +166,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 
 /datum/quirk/heavy_sleeper
 	name = "Heavy Sleeper" //hard consider redesigning, since this is a flat update. ~TK
-	desc = "You sleep like a rock! Whenever you're put to sleep, you sleep for a little bit longer."
+	desc = "Years of sleeping rough in the wasteland taught you to sleep like a rock no matter what - but that same habit means you're slower to snap awake when someone puts you down."
 	value = -1
 	mob_trait = TRAIT_HEAVY_SLEEPER
 	gain_text = span_danger("You feel sleepy.")
@@ -122,14 +175,15 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 
 /datum/quirk/brainproblems
 	name = "Brain Tumor"
-	desc = "You have a little friend in your brain that is slowly destroying it. Better bring some mannitol!"
+	desc = "Too many years under an irradiated sky left something growing in your skull - it's slowly destroying your mind, faster the more irradiated you are. Better bring some mannitol!"
 	value = -1
 	gain_text = span_danger("You feel smooth.")
 	lose_text = span_notice("You feel wrinkled again.")
-	medical_record_text = "Patient has a tumor in their brain that is slowly driving them to brain death."
+	medical_record_text = "Patient has a radiation-induced tumor in their brain that is slowly driving them to brain death."
 
 /datum/quirk/brainproblems/on_process()
-	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.2)
+	//the tumor feeds on radiation exposure, same as the rest of the wasteland's horrors
+	quirk_holder.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.15 + (quirk_holder.radiation / 4000))
 
 /datum/quirk/nearsighted //t. errorage
 	name = "Nearsighted - Corrected"
@@ -194,6 +248,8 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "nyctophobia")
 
+/*
+Merged into the paired Wasteland Trait "Night Owl" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/lightless
 	name = "Phobia - Bright Light"
 	desc = "Bright lights irritate you. Your eyes start to water, your skin feels itchy against the photon radiation, and your hair gets dry and frizzy. Maybe it's a medical condition."
@@ -209,6 +265,7 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 		SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "brightlight", /datum/mood_event/brightlight)
 	else
 		SEND_SIGNAL(quirk_holder, COMSIG_CLEAR_MOOD_EVENT, "brightlight")
+*/
 
 /datum/quirk/nonviolent
 	name = "Pacifist"
@@ -258,12 +315,15 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 				if(I.fingerprintslast == quirk_holder.ckey)
 					quirk_holder.put_in_hands(I)
 
+/*
+Merged into the paired Wasteland Trait "Heavy Handed" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/poor_aim
 	name = "Poor Aim"
 	desc = "You're terrible with guns and can't line up a straight shot to save your life. Dual-wielding is right out."
 	value = -1
 	mob_trait = TRAIT_POOR_AIM
 	medical_record_text = "Patient possesses a strong tremor in both hands."
+*/
 
 /datum/quirk/prosopagnosia
 	name = "Prosopagnosia"
@@ -295,8 +355,10 @@ GLOBAL_LIST_EMPTY(family_heirlooms)
 	if(!quirk_holder.mind || quirk_holder.mind.special_role)
 		return
 	to_chat(quirk_holder, "<span class='big bold info'>Please note that your dissociation syndrome does NOT give you the right to attack people or otherwise cause any interference to \
-	the round. You are not an antagonist, and the rules will treat you the same as other crewmembers.</span>")
+	the round. You are not an antagonist, and the rules will treat you the same as other wastelanders.</span>")
 
+/*
+Merged into the paired Wasteland Trait "Overwhelmed Empath" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/social_anxiety
 	name = "Social Anxiety"
 	desc = "Talking to people is very difficult for you, and you often stutter or even lock up."
@@ -365,6 +427,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	SEND_SIGNAL(quirk_holder, COMSIG_ADD_MOOD_EVENT, "anxiety_eyecontact", /datum/mood_event/anxiety_eyecontact)
 	addtimer(CALLBACK(GLOBAL_PROC,GLOBAL_PROC_REF(to_chat), quirk_holder, span_userdanger("[msg]")), 3) // so the examine signal has time to fire and this will print after
 	return COMSIG_BLOCK_EYECONTACT
+*/
 
 /datum/mood_event/anxiety_eyecontact
 	description = span_warning("Sometimes eye contact makes me so nervous...")
@@ -612,7 +675,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 /datum/quirk/mute
 	name = "Mute"
 	desc = "Due to some accident, a medical condition, or simply by choice, you are completely unable to speak."
-	value = 0 //HALP MAINTS
+	value = -3 //total loss of verbal communication - comparable in severity to Deaf, was incorrectly priced at 0
 	gain_text = span_danger("You find yourself unable to speak!")
 	lose_text = span_notice("You feel a growing strength in your vocal chords.")
 	medical_record_text = "Functionally mute, patient is unable to use their voice in any capacity."
@@ -676,6 +739,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = span_notice("You feel cold-blooded.")
 	lose_text = span_notice("You feel more warm-blooded.")
 
+/*
+Merged into the paired Wasteland Trait "People Person" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/monophobia
 	name = "Monophobia"
 	desc = "You will become increasingly stressed when not in company of others, triggering panic reactions ranging from sickness to heart attacks."
@@ -694,11 +759,12 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	. = ..()
 	var/mob/living/carbon/human/H = quirk_holder
 	H?.cure_trauma_type(/datum/brain_trauma/severe/monophobia, TRAUMA_RESILIENCE_ABSOLUTE)
+*/
 
 /datum/quirk/no_guns
 	name = "Fat-Fingered"
 	desc = "Due to the shape of your hands, width of your fingers or just not having fingers at all, you're unable to fire guns without accommodation."
-	value = -1
+	value = -3 //losing all firearm use is a major combat handicap in this setting, not a minor one
 	mob_trait = TRAIT_CHUNKYFINGERS
 	gain_text = "<span class='notice'>Your fingers feel... thick.</span>"
 	lose_text = "<span class='notice'>Your fingers feel normal again.</span>"
@@ -792,6 +858,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	lose_text = "<span class='notice'>Your flesh feels more durable!</span>"
 	medical_record_text = "Patient suffers from weak flesh, resulting in them receiving cuts far more easily."
 
+/*
+Merged into the paired Wasteland Trait "Small Frame" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/glass_bones
 	name = "Glass Bones"
 	desc = "Your bones are far more brittle, and more vulnerable to breakage."
@@ -800,11 +868,12 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = "<span class='notice'>Your bones feel weak!</span>"
 	lose_text = "<span class='notice'>Your bones feel more durable!</span>"
 	medical_record_text = "Patient suffers from brittle bones, resulting in them receiving breakages far more easily."
+*/
 
 /datum/quirk/noodle_fist
 	name = "Fists of Noodle"
 	desc = "Your punching is legendary. Legendarily bad at doing anything to anyone."
-	value = -1
+	value = -2 //zero unarmed damage is a bigger loss than the -1 it was priced at; still below Wimpy since weapons are unaffected
 	mob_trait = TRAIT_NOODLEFIST
 	gain_text = span_notice("Your fists feel weak and worthless!")
 	lose_text = span_danger("Your fists feel strong again.")
@@ -842,6 +911,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	lose_text = span_danger("Your gait feels a little more sure!")
 	locked = FALSE
 
+/*
+Merged into the paired Wasteland Trait "Sure and Steady" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/slower
 	name = "Mobility - Wasteland Molasses"
 	desc = "You don't get around well off road. Like. At all."
@@ -850,6 +921,7 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = span_notice("You feel like staying at home.")
 	lose_text = span_danger("Wow! You feel like you could run around the whole WORLD!")
 	locked = FALSE
+*/
 
 /datum/quirk/clumsy
 	name = "Clumsy"
@@ -872,10 +944,10 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 /datum/quirk/primitive
 	name = "Primitive"
 	desc = "You were raised in a barn, by monkeys - or so it may seem to others. Lacking the ability to use guns or any sort of advanced tools, you've still managed to survive, and you're probably hot to boot."
-	value = -2
+	value = -4 //loses both guns AND advanced tools - broader than Fat-Fingered's gun-only restriction, priced accordingly
 	mob_trait = TRAIT_MONKEYLIKE
-	gain_text = span_notice("yOu reTurN tO MonKE!")
-	lose_text = span_danger("I think, there for... I am?")
+	gain_text = span_notice("Modern tools and machinery might as well be magic to you.")
+	lose_text = span_danger("The workings of advanced technology start to make sense again.")
 	locked = FALSE
 
 /datum/quirk/nosleep
@@ -914,6 +986,8 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	lose_text = span_danger("Maybe industrial society isn't so bad...")
 	locked =  FALSE
 
+/*
+Merged into the paired Wasteland Trait "Iron Liver" (code/datums/traits/fallout_traits.dm)
 /datum/quirk/nodrugs
 	name = "Clean Veins"
 	desc = "Your body reacts violently to street drugs. Medicines work... for the most part."
@@ -922,3 +996,13 @@ Edit: TK~  This is the dumbest fucking shit I've ever seen in my life.  This isn
 	gain_text = span_notice("You feel like a winner!")
 	lose_text = span_danger("You feel like a loser!")
 	locked =  FALSE
+*/
+
+/datum/quirk/slowcarry
+	name = "Slow Carry"
+	desc = "You're pretty bad at just scooping people up. Fireman carrying someone takes much longer."
+	value = -1
+	mob_trait = TRAIT_SLOW_CARRY
+	gain_text = span_danger("Your ability to carry folk seems massively diminished.")
+	lose_text = span_notice("You feel like an ACCEPTABLE fireman again!")
+	locked = FALSE

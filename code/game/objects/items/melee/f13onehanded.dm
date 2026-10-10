@@ -5,7 +5,15 @@
 	max_integrity = 200
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	block_parry_data = /datum/block_parry_data/light_blade
-	item_flags = ITEM_CAN_PARRY
+	item_flags = ITEM_CAN_PARRY | ITEM_CAN_POWER_ATTACK
+	canMouseDown = TRUE
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge,
+	)
 
 /datum/block_parry_data/light_blade // fast, nimble one-handed blades - quick to bring up, quick to recover, but a weaker riposte
 	parry_time_windup = 1
@@ -33,7 +41,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	flags_1 = CONDUCT_1
 	slot_flags = ITEM_SLOT_BELT
-	force = 30
+	force = 36 // bumped from 30 - baseline one-handed swing DPS was well under even weak-SMG tier at 150 HP
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -205,10 +213,9 @@
 	AddComponent(/datum/component/butchering, 80 - force, 100, force - 10) //bonus chance increases depending on force
 
 /obj/item/melee/onehanded/knife/attack(mob/living/carbon/M, mob/living/carbon/user)
-	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
-		return eyestab(M,user)
-	else
-		return ..()
+	if(user.zone_selected == BODY_ZONE_PRECISE_EYES && eyestab(M,user))
+		return TRUE
+	return ..()
 
 /obj/item/melee/onehanded/knife/suicide_act(mob/user)
 	user.visible_message(pick(span_suicide("[user] is slitting [user.p_their()] wrists with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."), \
@@ -226,6 +233,7 @@
 	throwforce = 25
 	attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "cut")
 	toolspeed = 0.7
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKET // Wasteland outfits spawn this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del (inherited NORMAL w_class is too big for a plain pocket)
 
 /obj/item/melee/onehanded/knife/survival
 	name = "survival knife"
@@ -284,7 +292,7 @@
 	armour_penetration = 0.1
 	custom_materials = null
 
-obj/item/melee/onehanded/knife/switchblade
+/obj/item/melee/onehanded/knife/switchblade
 	name = "switchblade"
 	desc = "A sharp, concealable, spring-loaded knife."
 	icon_state = "knife_switch"
@@ -292,6 +300,7 @@ obj/item/melee/onehanded/knife/switchblade
 	throwforce = 5
 	hitsound = 'sound/weapons/genhit.ogg'
 	attack_verb = list("stubbed", "poked")
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_POCKET // Wasteland outfits spawn this directly into a pocket slot, and it's meant to be concealable anyway; without the flag it's silently deleted by equip_to_slot_or_del
 	var/extended = 0
 	var/extended_force = 21
 	var/extended_throwforce = 23
@@ -307,7 +316,6 @@ obj/item/melee/onehanded/knife/switchblade
 	playsound(src.loc, 'sound/weapons/batonextend.ogg', 50, 1)
 	if(extended)
 		force = extended_force
-		w_class = WEIGHT_CLASS_NORMAL
 		throwforce = extended_throwforce
 		icon_state = extended_icon_state
 		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
@@ -315,7 +323,6 @@ obj/item/melee/onehanded/knife/switchblade
 		sharpness = SHARP_EDGED
 	else
 		force = initial(force)
-		w_class = WEIGHT_CLASS_SMALL
 		throwforce = initial(throwforce)
 		icon_state = retracted_icon_state
 		attack_verb = list("stubbed", "poked")
@@ -410,6 +417,9 @@ obj/item/melee/onehanded/knife/switchblade
 	throw_speed = 3
 	throw_range = 3
 	sharpness = SHARP_NONE
+	// Was missing wounding power entirely like the sledgehammer - blunt weapons still need some fracture chance.
+	wound_bonus = 5
+	bare_wound_bonus = 10
 	slot_flags = SLOT_BELT
 
 /obj/item/melee/onehanded/club/attack(mob/living/M, mob/living/user)
@@ -428,6 +438,8 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 30
 	throwforce = 25
 	block_chance = 5
+	wound_bonus = 5
+	bare_wound_bonus = 10
 
 /obj/item/melee/onehanded/club/warclub/attack(mob/living/M, mob/living/user)
 	. = ..()
@@ -443,6 +455,8 @@ obj/item/melee/onehanded/knife/switchblade
 	item_state = "tire"
 	force = 30
 	custom_materials = list(/datum/material/iron = 4000)
+	wound_bonus = 5
+	bare_wound_bonus = 10
 
 // NCR Flag			Keywords: NCR, Damage 26, Stamina damage, Block
 /obj/item/melee/onehanded/club/ncrflag
@@ -454,6 +468,8 @@ obj/item/melee/onehanded/knife/switchblade
 	slot_flags = null
 	force = 26
 	block_chance = 30
+	wound_bonus = 5
+	bare_wound_bonus = 10
 	attack_verb = list("smacked", "thwacked", "democratized", "freedomed")
 
 // Classic Baton
@@ -683,6 +699,7 @@ obj/item/melee/onehanded/knife/switchblade
 	icon_state = "whip"
 	item_state = "chain"
 	force = 1
+	w_class = WEIGHT_CLASS_SMALL // corded leather, not a rigid one-handed weapon - was silently inheriting the onehanded template's NORMAL class
 	bare_wound_bonus = 5
 	sharpness = SHARP_EDGED
 	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
@@ -745,6 +762,9 @@ obj/item/melee/onehanded/knife/switchblade
 		if(HAS_TRAIT(user, TRAIT_STEELFIST))
 			H.dna.species.punchdamagehigh = 12
 			H.dna.species.punchdamagelow = 6
+		if(HAS_TRAIT(user, TRAIT_TITANIUMFIST))
+			H.dna.species.punchdamagehigh = 16
+			H.dna.species.punchdamagelow = 9
 		if(HAS_TRAIT(user, TRAIT_FEV)) //Holy shit that Supermutant had a powerfist!
 			H.dna.species.punchdamagehigh = 16
 			H.dna.species.punchdamagelow = 10
@@ -790,6 +810,8 @@ obj/item/melee/onehanded/knife/switchblade
 	sharpness = SHARP_POINTY
 	armour_penetration = 0.1
 	force = 28
+	wound_bonus = 8
+	bare_wound_bonus = 10
 
 // Sappers			Keywords: Damage 27
 /obj/item/melee/unarmed/sappers
@@ -844,6 +866,8 @@ obj/item/melee/onehanded/knife/switchblade
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	sharpness = SHARP_POINTY
 	force = 33
+	wound_bonus = 12
+	bare_wound_bonus = 12
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 // Dual Tiger claws		Keywords: Damage 33, Pointy, Fast
@@ -954,15 +978,18 @@ obj/item/melee/onehanded/knife/switchblade
 	force = 24
 	armour_penetration = 0.1
 	sharpness = SHARP_POINTY
+	wound_bonus = 10
+	bare_wound_bonus = 15
 	attack_verb = list("stabbed", "sliced", "pierced", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
-obj/item/melee/unarmed/punchdagger/cyborg
+/obj/item/melee/unarmed/punchdagger/cyborg
 	name = "assaultron claws"
 	desc = "Razor sharp blades embedded into the grippers of an assaultron. Sharp."
 	icon_state = "tiger_claw"
 	item_state = "tiger_claw"
 	force = 40 //Assaultron, so, makes sense.
+	w_class = WEIGHT_CLASS_BULKY // a severed robotic hand is not pocket-sized - was silently inheriting the human-sized punch dagger's SMALL class despite hitting hardest of any glove weapon here
 
 // Deathclaw Gauntlet	Keywords: Damage 35, AP 0.15
 /obj/item/melee/unarmed/deathclawgauntlet
@@ -975,6 +1002,8 @@ obj/item/melee/unarmed/punchdagger/cyborg
 	force = 35
 	armour_penetration = 0.15
 	sharpness = SHARP_EDGED
+	wound_bonus = 15
+	bare_wound_bonus = 15
 	attack_verb = list("slashed", "sliced", "torn", "ripped", "diced", "cut")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 

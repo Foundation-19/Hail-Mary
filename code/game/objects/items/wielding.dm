@@ -68,7 +68,8 @@
 	update_icon()//Legacy
 	if(user)
 		user.update_inv_hands()
-	user.visible_message(span_warning("[user] grabs \the [original_name] with both hands."))
+	user.visible_message(span_warning("%SELF_NAME% grabs \the [original_name] with both hands."), \
+		span_notice("You grab \the [original_name] with both hands."), visible_message_flags = ANONYMIZE_NAMES)
 	if(wieldsound)
 		playsound(loc, wieldsound, 50, 1)
 	var/obj/item/twohanded/offhand/O = new(user) ////Let's reserve his other hand~

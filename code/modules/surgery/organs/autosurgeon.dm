@@ -31,7 +31,8 @@
 		to_chat(user, span_notice("[src] currently has no implant stored."))
 		return
 	storedorgan.Insert(user)//insert stored organ into the user
-	user.visible_message(span_notice("[user] presses a button on [src], and you hear a short mechanical noise."), span_notice("You feel a sharp sting as [src] plunges into your body."))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_notice("[user_tok] presses a button on [src], and you hear a short mechanical noise."), span_notice("You feel a sharp sting as [src] plunges into your body."), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(get_turf(user), 'sound/weapons/circsawhit.ogg', 50, 1)
 	storedorgan = null
 	name = initial(name)

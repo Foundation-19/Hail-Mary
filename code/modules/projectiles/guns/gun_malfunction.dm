@@ -68,14 +68,14 @@
 	malfunction_type = malfunction
 	gun_condition = max(0, gun_condition - (malfunction == GUN_MALFUNCTION_DOUBLEFEED ? GUN_CONDITION_LOSS_DOUBLEFEED : GUN_CONDITION_LOSS_JAM))
 	if(user)
-		user.visible_message(span_warning("[user]'s [src] jams!"), span_userdanger(custom_message || "[src] jams!"))
+		user.visible_message(span_warning("%SELF_NAME%'s [src] jams!"), span_userdanger(custom_message || "[src] jams!"), visible_message_flags = ANONYMIZE_NAMES)
 	do_sparks(1, FALSE, src)
 
 /// A round cooking off from excess heat - vents the chambered round on its own, no aiming/targeting involved
 /obj/item/gun/ballistic/proc/cook_off(mob/living/user)
 	gun_condition = max(0, gun_condition - GUN_CONDITION_LOSS_COOKOFF)
 	if(user)
-		user.visible_message(span_userdanger("[src] cooks off in [user]'s hands!"), span_userdanger("[src] cooks off from the heat!"))
+		user.visible_message(span_userdanger("[src] cooks off in %SELF_NAME%'s hands!"), span_userdanger("[src] cooks off from the heat!"), visible_message_flags = ANONYMIZE_NAMES)
 		if(prob(40))
 			user.apply_damage(rand(2, 6) * user.get_strength_cookoff_burn_multiplier(), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 	do_sparks(3, TRUE, src)

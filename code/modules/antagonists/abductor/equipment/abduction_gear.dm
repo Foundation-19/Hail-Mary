@@ -560,8 +560,8 @@
 	if(!C.handcuffed)
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
 			playsound(src, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-			C.visible_message(span_danger("[user] begins restraining [C] with [src]!"), \
-									span_userdanger("[user] begins shaping an energy field around your hands!"))
+			C.visible_message(span_danger("%ACTOR_NAME% begins restraining %SELF_NAME% with [src]!"), \
+									span_userdanger("%ACTOR_NAME% begins shaping an energy field around your hands!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			if(do_mob(user, C, 30) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))
 				if(!C.handcuffed)
 					C.handcuffed = new /obj/item/restraints/handcuffs/energy/used(C)

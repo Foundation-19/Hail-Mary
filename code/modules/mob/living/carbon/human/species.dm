@@ -1422,8 +1422,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 /datum/species/proc/grab(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(target.check_martial_melee_block())
-		target.visible_message(span_warning("[target] blocks [user]'s grab attempt!"), target = user, \
-			target_message = span_warning("[target] blocks your grab attempt!"))
+		target.visible_message(span_warning("%SELF_NAME% blocks %ACTOR_NAME%'s grab attempt!"), target = user, \
+			target_message = span_warning("%SELF_NAME% blocks your grab attempt!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return 0
 	if(attacker_style && attacker_style.grab_act(user,target))
 		return 1
@@ -1439,13 +1439,18 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		to_chat(user, span_warning("You're too exhausted.")) //CITADEL CHANGE - ditto
 		return FALSE //CITADEL CHANGE - ditto
 	if(target.check_martial_melee_block())
-		target.visible_message(span_warning("[target] blocks [user]'s attack!"), target = user, \
-			target_message = span_warning("[target] blocks your attack!"))
+		target.visible_message(span_warning("%SELF_NAME% blocks %ACTOR_NAME%'s attack!"), target = user, \
+			target_message = span_warning("%SELF_NAME% blocks your attack!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return FALSE
 
 	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		user.visible_message(span_warning("Critical fail! [user] tries to attack [target], but hits [user.p_them()]self instead!"))
-		target = user
+		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
+			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+		return FALSE
+
+	if(user.check_vision_impaired_miss()) //S.P.E.C.I.A.L. - Perception, same whiff weapons already roll in pre_attack()
+		return FALSE
 
 	if(!(attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK))
 		if(HAS_TRAIT(user, TRAIT_PUGILIST))//CITADEL CHANGE - makes punching cause staminaloss but funny martial artist types get a discount
@@ -1495,9 +1500,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 		if(!damage || !affecting)//future-proofing for species that have 0 damage/weird cases where no zone is targeted
 			playsound(target.loc, user.dna.species.miss_sound, 25, TRUE, -1)
-			target.visible_message(span_danger("[user]'s [atk_verb] misses [target]!"), \
-							span_danger("You avoid [user]'s [atk_verb]!"), span_hear("You hear a swoosh!"), \
-							vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_warning("Your [atk_verb] misses [target]!"))
+			target.visible_message(span_danger("%ACTOR_NAME%'s [atk_verb] misses %SELF_NAME%!"), \
+						span_danger("You avoid %ACTOR_NAME%'s [atk_verb]!"), span_hear("You hear a swoosh!"), \
+						vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_warning("Your [atk_verb] misses %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			log_combat(user, target, "attempted to punch")
 			return FALSE
 
@@ -1506,11 +1511,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
-		target.visible_message(span_danger("[user] [atk_verb]s [target]!"), \
-					span_userdanger("[user] [atk_verb]s you!"), null, \
-					vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_danger("You [atk_verb] [target]!"))
-
-		target.lastattacker = user.real_name
+		target.visible_message(span_danger("%ACTOR_NAME% [atk_verb]s %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% [atk_verb]s you!"), null, \
+					vision_distance = COMBAT_MESSAGE_RANGE, target = user, target_message = span_danger("You [atk_verb] %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		target.lastattackerckey = user.ckey
 		user.dna.species.spec_unarmedattacked(user, target)
 
@@ -1529,10 +1532,10 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if((target.stat != DEAD) && damage >= user.dna.species.punchstunthreshold)
 			if((punchedstam > 50) && prob(punchedstam*0.5)) //If our punch victim has been hit above the threshold, and they have more than 50 stamina damage, roll for stun, probability of 1% per 2 stamina damage
 
-				target.visible_message(span_danger("[user] knocks [target] down!"), \
-								span_userdanger("You're knocked down by [user]!"),
+				target.visible_message(span_danger("%ACTOR_NAME% knocks %SELF_NAME% down!"), \
+								span_userdanger("You're knocked down by %ACTOR_NAME%!"),
 								span_hear("You hear aggressive shuffling followed by a loud thud!"), COMBAT_MESSAGE_RANGE, null,
-								user, span_danger("You knock [target] down!"))
+								user, span_danger("You knock %SELF_NAME% down!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 				var/knockdown_duration = 40 + (punchedstam + (punchedbrute*0.5))*0.8 - armor_block
 				target.DefaultCombatKnockdown(knockdown_duration)
@@ -1609,9 +1612,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		//var/randomized_zone = ran_zone(user.zone_selected) CIT CHANGE - comments out to prevent compiling errors
 		SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, user.zone_selected)
 		if(target.pulling == user)
-			target.visible_message(span_warning("[user] wrestles out of [target]'s grip!"), \
-				span_warning("[user] wrestles out of your grip!"), target = user, \
-				target_message = span_warning("You wrestle out of [target]'s grip!"))
+			target.visible_message(span_warning("%ACTOR_NAME% wrestles out of %SELF_NAME%'s grip!"), \
+				span_warning("%ACTOR_NAME% wrestles out of your grip!"), target = user, \
+				target_message = span_warning("You wrestle out of %SELF_NAME%'s grip!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			target.stop_pulling()
 			playsound(target, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			log_combat(user, target, "disarmed out of grab from")
@@ -1633,16 +1636,16 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(randn <= 35)//CIT CHANGE - changes this back to a 35% chance to accomodate for the above being commented out in favor of right-click pushing
 			var/obj/item/I = null
 			if(target.pulling)
-				target.visible_message(span_warning("[user] has broken [target]'s grip on [target.pulling]!"), \
-					span_warning("[user] has broken your grip on [target.pulling]!"), target = user, \
-					target_message = span_warning("You have broken [target]'s grip on [target.pulling]!"))
+				target.visible_message(span_warning("%ACTOR_NAME% has broken %SELF_NAME%'s grip on [target.pulling]!"), \
+					span_warning("%ACTOR_NAME% has broken your grip on [target.pulling]!"), target = user, \
+					target_message = span_warning("You have broken %SELF_NAME%'s grip on [target.pulling]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				target.stop_pulling()
 			else
 				I = target.get_active_held_item()
 				if(target.dropItemToGround(I))
-					target.visible_message(span_danger("[user] has disarmed [target]!"), \
-						span_userdanger("[user] has disarmed you!"), null, COMBAT_MESSAGE_RANGE, null, \
-						user, span_danger("You have disarmed [target]!"))
+					target.visible_message(span_danger("%ACTOR_NAME% has disarmed %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% has disarmed you!"), null, COMBAT_MESSAGE_RANGE, null, \
+						user, span_danger("You have disarmed %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				else
 					I = null
 			playsound(target, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
@@ -1651,9 +1654,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 
 		playsound(target, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-		target.visible_message(span_danger("[user] attempted to disarm [target]!"), \
-						span_userdanger("[user] attemped to disarm [target]!"), null, COMBAT_MESSAGE_RANGE, null, \
-						user, span_danger("You attempted to disarm [target]!"))
+		target.visible_message(span_danger("%ACTOR_NAME% attempted to disarm %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% attemped to disarm %SELF_NAME%!"), null, COMBAT_MESSAGE_RANGE, null, \
+						user, span_danger("You attempted to disarm %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		log_combat(user, target, "attempted to disarm")
 
 
@@ -1685,8 +1688,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if("disarm")
 			disarm(M, H, attacker_style)
 
-/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, attackchain_flags = NONE, damage_multiplier = 1)
-	var/totitemdamage = H.pre_attacked_by(I, user) * damage_multiplier
+/datum/species/proc/spec_attacked_by(obj/item/I, mob/living/user, obj/item/bodypart/affecting, intent, mob/living/carbon/human/H, attackchain_flags = NONE, damage_multiplier = 1, damage_addition = 0)
+	var/totitemdamage = (H.pre_attacked_by(I, user) * damage_multiplier) + damage_addition
 
 	if(!affecting) //Something went wrong. Maybe the limb is missing?
 		affecting = H.get_bodypart(BODY_ZONE_CHEST) //If the limb is missing, or something went terribly wrong, just hit the chest instead
@@ -1697,7 +1700,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(H.mob_run_block(I, totitemdamage, "the [I.name]", ((attackchain_flags & ATTACK_IS_PARRY_COUNTERATTACK)? ATTACK_TYPE_PARRY_COUNTERATTACK : NONE) | ATTACK_TYPE_MELEE, I.armour_penetration, user, affecting.body_zone, block_return) & BLOCK_SUCCESS)
 			return 0
 		totitemdamage = block_calculate_resultant_damage(totitemdamage, block_return)
-	if(H.check_martial_melee_block())
+	if(H.check_martial_melee_block(I.armour_penetration))
 		H.visible_message(span_warning("[H] blocks [I]!"))
 		return 0
 
@@ -1743,7 +1746,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		switch(hit_area)
 			if(BODY_ZONE_HEAD)
 				if(!I.get_sharpness() && armor_block < 50 && !(He?.clothing_flags & CUSHIONED_ARMOR))
-					if(prob(I.force))
+					if(totitemdamage >= BLUNT_HEAD_TRAUMA_MIN_FORCE && prob(CLAMP((totitemdamage - BLUNT_HEAD_TRAUMA_MIN_FORCE) * BLUNT_HEAD_TRAUMA_CHANCE_PER_FORCE, 0, BLUNT_HEAD_TRAUMA_MAX_CHANCE)))
 						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, 20)
 						if(H.stat == CONSCIOUS)
 							H.visible_message(span_danger("[H] has been knocked senseless!"), \
@@ -1753,7 +1756,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 						if(prob(10))
 							H.gain_trauma(/datum/brain_trauma/mild/concussion)
 					else
-						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, I.force * 0.2)
+						H.adjustOrganLoss(ORGAN_SLOT_BRAIN, totitemdamage * 0.2)
 
 					if(H.stat == CONSCIOUS && H != user && prob(I.force + ((100 - H.health) * 0.5))) // rev deconversion through blunt trauma.
 						var/datum/antagonist/rev/rev = H.mind.has_antag_datum(/datum/antagonist/rev)
@@ -1773,7 +1776,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 			if(BODY_ZONE_CHEST)
 				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && !(S?.clothing_flags & CUSHIONED_ARMOR))
-					if(prob(I.force))
+					if(prob(totitemdamage))
 						H.visible_message(span_danger("[H] has been knocked down!"), \
 									span_userdanger("[H] has been knocked down!"))
 						H.apply_effect(60, EFFECT_KNOCKDOWN, armor_block)
@@ -1785,6 +1788,29 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 					if(H.w_uniform)
 						H.w_uniform.add_mob_blood(H)
 						H.update_inv_w_uniform()
+
+			if(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)
+				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && totitemdamage >= BLUNT_LIMB_TRAUMA_MIN_FORCE)
+					if(prob(CLAMP((totitemdamage - BLUNT_LIMB_TRAUMA_MIN_FORCE) * BLUNT_LIMB_TRAUMA_CHANCE_PER_FORCE, 0, BLUNT_LIMB_TRAUMA_MAX_CHANCE)))
+						var/obj/item/held = H.get_item_for_held_index(affecting.held_index)
+						if(held && H.dropItemToGround(held))
+							H.visible_message(span_danger("[H]'s [affecting.name] goes numb from the blow and [H.p_they()] drop[H.p_s()] [held]!"), \
+											span_userdanger("Your [affecting.name] goes numb from the blow - you drop [held]!"))
+
+				if(bloody && H.gloves)
+					H.gloves.add_mob_blood(H)
+					H.update_inv_gloves()
+
+			if(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+				if(H.stat == CONSCIOUS && !I.get_sharpness() && armor_block < 50 && totitemdamage >= BLUNT_LIMB_TRAUMA_MIN_FORCE)
+					if(prob(CLAMP((totitemdamage - BLUNT_LIMB_TRAUMA_MIN_FORCE) * BLUNT_LIMB_TRAUMA_CHANCE_PER_FORCE, 0, BLUNT_LIMB_TRAUMA_MAX_CHANCE)))
+						H.visible_message(span_danger("[H]'s leg buckles from the blow!"), \
+										span_userdanger("Your leg buckles from the blow!"))
+						H.apply_effect(BLUNT_LEG_TRAUMA_KNOCKDOWN_DURATION, EFFECT_KNOCKDOWN, armor_block)
+
+				if(bloody && H.shoes)
+					H.shoes.add_mob_blood(H)
+					H.update_inv_shoes()
 
 		if(Iforce > 10 || Iforce >= 5 && prob(33))
 			H.forcesay(GLOB.hit_appends)	//forcesay checks stat already.

@@ -5,7 +5,7 @@
 	icon = 'icons/obj/melee/shields.dmi'
 	lefthand_file = 'icons/onmob/weapons/shields_lefthand.dmi'
 	righthand_file = 'icons/onmob/weapons/shields_righthand.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
+	item_flags = ITEM_CAN_BLOCK | ITEM_CAN_PARRY | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	block_parry_data = /datum/block_parry_data/shield
 	armor = list("melee" = 60, "bullet" = 60, "laser" = 60, "energy" = 0, "bomb" = 30, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 70) //this is how much armor the SHIELD has. how much it PROTECTS is defined by block_parry_data. look at riot/bulletproof shield for implementation and living_blocking_parrying.dm for more info re:block
@@ -33,12 +33,36 @@
 	block_stamina_efficiency = 2.5
 	block_stamina_cost_per_second = 2.5
 	block_slowdown = 0.4
-	block_lock_attacking = FALSE
+	// Shields used to be the only block tool that let you keep attacking while holding a sustained block -
+	// every other blocking weapon (eswords, electrostaff) locks you out of attacking while blocking. Brought in line:
+	// shields now trade offense for defense like everything else while the block is actively held.
+	block_lock_attacking = TRUE
 	block_lock_sprinting = TRUE
 	block_start_delay = 1.5
+	// Dropping the shield to take a free shot/swing then immediately re-raising it shouldn't be free - you pay
+	// a real exposure window for un-blocking, same as the raise windup punishes committing to block in the first place.
+	block_end_click_cd_add = 10
 	block_damage_absorption = 5
 	block_resting_stamina_penalty_multiplier = 2
 	block_projectile_mitigation = 75
+	// Shields get a real parry option to make up for losing "block and swing" - a forgiving, low-skill-ceiling
+	// deflect-and-shove rather than a sword's high-reward riposte. Wide perfect window, gentle falloff, but
+	// the payoff is a stagger/shove rather than a big damage counter.
+	parry_stamina_cost = 4
+	parry_time_windup = 3
+	parry_time_active = 6
+	parry_time_spindown = 3
+	parry_time_perfect = 3
+	parry_time_perfect_leeway = 1.5
+	parry_imperfect_falloff_percent = 10
+	parry_efficiency_perfect = 90
+	parry_efficiency_considered_successful = 15
+	parry_efficiency_to_counterattack = 20
+	parry_cooldown = 1.5 SECONDS
+	parry_data = list(
+		PARRY_COUNTERATTACK_MELEE_ATTACK_CHAIN = 0.5,
+		PARRY_STAGGER_ATTACKER = 1.5 SECONDS
+		)
 
 /obj/item/shield/examine(mob/user)
 	. = ..()
@@ -71,7 +95,7 @@
 	var/obj/effect/temp_visual/dir_setting/shield_bash/effect = new(user.loc, dir)
 	effect.pixel_x = user.pixel_x - 32		//96x96 effect, -32.
 	effect.pixel_y = user.pixel_y - 32
-	user.visible_message(span_warning("[user] [harmful? "charges forwards with" : "sweeps"] [src]!"))
+	user.visible_message(span_warning("%SELF_NAME% [harmful? "charges forwards with" : "sweeps"] [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 	animate(user, pixel_x = px, pixel_y = py, time = 3, easing = SINE_EASING | EASE_OUT, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
 	animate(user, pixel_x = -px, pixel_y = -py, time = 3, flags = ANIMATION_RELATIVE)
 	animate(effect, alpha = 0, pixel_x = px * 1.5, pixel_y = py * 1.5, time = 3, flags = ANIMATION_PARALLEL | ANIMATION_RELATIVE)
@@ -79,23 +103,27 @@
 /obj/item/shield/proc/bash_target(mob/living/user, mob/living/target, bashdir, harmful)
 	if(!(target.status_flags & CANKNOCKDOWN) || HAS_TRAIT(src, TRAIT_STUNIMMUNE))	// should probably add stun absorption check at some point I guess..
 		// unified stun absorption system when lol
-		target.visible_message(span_warning("[user] slams [target] with [src], but [target] doesn't falter!"), span_userdanger("[user] slams you with [src], but it barely fazes you!"))
+		target.visible_message(span_warning("%ACTOR_NAME% slams %SELF_NAME% with [src], but %SELF_NAME% doesn't falter!"), span_userdanger("%ACTOR_NAME% slams you with [src], but it barely fazes you!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return FALSE
 	var/target_downed = !CHECK_MOBILITY(target, MOBILITY_STAND)
 	var/wallhit = FALSE
 	var/turf/target_current_turf = get_turf(target)
 	if(harmful)
-		target.visible_message(span_warning("[target_downed? "[user] slams [src] into [target]" : "[user] bashes [target] with [src]"]!"),
-		span_warning("[target_downed? "[user] slams [src] into you" : "[user] bashes you with [src]"]!"))
+		target.visible_message(span_warning("[target_downed? "%ACTOR_NAME% slams [src] into %SELF_NAME%" : "%ACTOR_NAME% bashes %SELF_NAME% with [src]"]!"),
+		span_warning("[target_downed? "%ACTOR_NAME% slams [src] into you" : "%ACTOR_NAME% bashes you with [src]"]!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else
-		target.visible_message(span_warning("[user] shoves [target] with [src]!"),
-		span_warning("[user] shoves you with [src]!"))
+		target.visible_message(span_warning("%ACTOR_NAME% shoves %SELF_NAME% with [src]!"),
+		span_warning("%ACTOR_NAME% shoves you with [src]!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	for(var/i in 1 to harmful? shieldbash_knockback : shieldbash_push_distance)
 		var/turf/new_turf = get_step(target, bashdir)
 		var/mob/living/carbon/human/H = locate() in (new_turf.contents - target)
 		if(H && harmful)
-			H.visible_message(span_warning("[target] is sent crashing into [H]!"),
-			span_userdanger("[target] is sent crashing into you!"))
+			H.visible_message(span_warning("%ACTOR_NAME% is sent crashing into %SELF_NAME%!"),
+			span_userdanger("%ACTOR_NAME% is sent crashing into you!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 			H.KnockToFloor()
 			wallhit = TRUE
 			break
@@ -109,8 +137,9 @@
 	var/disarming = (target_downed && (shield_flags & SHIELD_BASH_GROUND_SLAM_DISARM)) || (shield_flags & SHIELD_BASH_ALWAYS_DISARM) || (wallhit && (shield_flags & SHIELD_BASH_WALL_DISARM))
 	var/knockdown = !target_downed && ((shield_flags & SHIELD_BASH_ALWAYS_KNOCKDOWN) || (wallhit && (shield_flags & SHIELD_BASH_WALL_KNOCKDOWN)))
 	if(shieldbash_stagger_duration || knockdown)
-		target.visible_message(span_warning("[target] is knocked [knockdown? "to the floor" : "off balance"]!"),
-		span_userdanger("You are knocked [knockdown? "to the floor" : "off balance"]!"))
+		target.visible_message(span_warning("%SELF_NAME% is knocked [knockdown? "to the floor" : "off balance"]!"),
+		span_userdanger("You are knocked [knockdown? "to the floor" : "off balance"]!"), \
+		visible_message_flags = ANONYMIZE_NAMES)
 	if(knockdown)
 		target.KnockToFloor(disarming)
 	else if(disarming)
@@ -226,7 +255,7 @@
 			to_chat(user, span_notice("You repair [src] with [S]."))
 	else if(istype(W, /obj/item/melee))
 		if(cooldown < world.time - 25)
-			user.visible_message(span_warning("[user] bashes [src] with [W]!"))
+			user.visible_message(span_warning("%SELF_NAME% bashes [src] with [W]!"), visible_message_flags = ANONYMIZE_NAMES)
 			playsound(user.loc, 'sound/effects/shieldbash.ogg', 50, 1)
 			cooldown = world.time
 	else
@@ -258,7 +287,7 @@
 	return ..()
 
 //Bulletproof riot shield
-obj/item/shield/riot/bullet_proof
+/obj/item/shield/riot/bullet_proof
 	name = "bullet resistant shield"
 	desc = "Kevlar coated surface makes this riot shield a lot better for blocking projectiles."
 	icon_state = "shield_bulletproof"
@@ -270,11 +299,14 @@ obj/item/shield/riot/bullet_proof
 	repair_material = /obj/item/stack/sheet/mineral/titanium
 
 /datum/block_parry_data/shield/bulletproof
-	block_damage_multiplier_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 0.65)
-	block_damage_absorption_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 12.5)
+	// Was 0.65/12.5/100 - low-damage-per-shot autofire (the exact thing it's meant to counter) has its raw
+	// damage per hit fully eaten by absorption before the multiplier even applies, so none of it ever reaches
+	// health - just capped, sustainable stamina loss. Still a strong reduction, but no longer a full negation.
+	block_damage_multiplier_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 0.8)
+	block_damage_absorption_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 6)
 	block_resting_stamina_penalty_multiplier = 2
-	block_projectile_mitigation = 90
-	block_damage_limit = 100
+	block_projectile_mitigation = 60
+	block_damage_limit = 65
 
 //Buckler. Cheapest shield, also the worst.
 /obj/item/shield/riot/buckler
@@ -527,7 +559,7 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 	icon = 'icons/obj/weapons.dmi'
 	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
 	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
+	item_flags = ITEM_CAN_BLOCK | ITEM_CAN_PARRY | SLOWS_WHILE_IN_HAND
 	slowdown = 0
 	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	desc = "Yep, that's a shield. Good for not getting whacked."
@@ -536,292 +568,112 @@ The telescopic shields are legacy and don't fit, but the code might be of intere
 	max_integrity = -1
 	resistance_flags = null
 
+// Pure cosmetic reskins below - all inherit the coyote template's stats, only name/icon/desc differ.
 /obj/item/shield/coyote/redbuckler
 	name = "Red Buckler"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "red_buckler"
 	item_state = "red_buckler"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/bluebuckler
 	name = "Blue Buckler"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "blue_buckler"
 	item_state = "blue_buckler"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/steelshield
 	name = "Steel Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "steel_shield"
 	item_state = "steel_shield"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/ironshield
 	name = "Iron Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "iron_shield"
 	item_state = "iron_shield"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/bronzeshield
 	name = "Bronze Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "bronze_shield"
 	item_state = "bronze_shield"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/ironshieldtwo
 	name = "Iron Shield - Tall"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "ironshield2"
 	item_state = "semioval_shield_blue"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/ironshieldthree
 	name = "Iron Shield - Red"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "ironshield3"
 	item_state = "semioval_shield_blue"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/ironshieldfour
 	name = "Iron Shield - Checkered"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "ironshield4"
 	item_state = "semioval_shield_blue"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/romanbuckler
 	name = "Skirmishers Buckler"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "roman_buckler"
 	item_state = "roman_buckler"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/semioval
 	name = "Semioval Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "semioval_shield_blue"
 	item_state = "semioval_shield_blue"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/egyptianshield
 	name = "Dusty Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "egyptian_shield"
 	item_state = "egyptian_shield"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/bucklertwo
 	name = "Oak Buckler"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "buckler2"
 	item_state = "buckler2"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/kiteshield
 	name = "Kite Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "imperial_kite"
 	item_state = "imperial_kite"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/pegasusshield
 	name = "Pegasus Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "pegasus_shield"
 	item_state = "pegasus_shield"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/owlshield
 	name = "Owl Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "owl_shield"
 	item_state = "owl_shield"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/chimalli
 	name = "Chimalli"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "chimalli"
 	item_state = "chimalli"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/scutum
 	name = "Scutum"
 	desc = "Scutum, not scrotum. You goblin."
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "scutum"
 	item_state = "scutum"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/roughshield
 	name = "Rough Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "orc_shield"
 	item_state = "orc_shield"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/brahminleathershield
 	name = "Brahmin Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "nguni_shield"
 	item_state = "nguni_shield"
-	max_integrity = -1
-	resistance_flags = null
 
 /obj/item/shield/coyote/chitinshield
 	name = "Fire Ant Shield"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "chitin_shield"
 	item_state = "chitin_shield"
-	max_integrity = -1
-	resistance_flags = null
-
 
 /obj/item/shield/coyote/chitinbuckler
 	name = "Fire Ant Buckler"
-	icon = 'icons/obj/weapons.dmi'
-	lefthand_file = 'icons/obj/lefthand_weapons.dmi'
-	righthand_file = 'icons/obj/righthand_weapons.dmi'
-	item_flags = ITEM_CAN_BLOCK | SLOWS_WHILE_IN_HAND
-	slowdown = 0
-	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_BACK
 	icon_state = "chitin_buckler"
 	item_state = "chitin_buckler"
-	max_integrity = -1
-	resistance_flags = null
 
 
 

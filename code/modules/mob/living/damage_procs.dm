@@ -313,5 +313,6 @@
 
 
 // ==================== Merged from fallout (code\modules\fallout\code\modules\mob\living\damage_procs.dm) ====================
+/// No-op base: the stamina buffer ("stamina shield") is a carbon-only concept, see /mob/living/carbon/adjustStaminaLossBuffered().
 /mob/living/proc/adjustStaminaLossBuffered(amount, updating_health = TRUE, forced = FALSE)
 	return

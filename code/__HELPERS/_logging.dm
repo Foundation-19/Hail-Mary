@@ -26,6 +26,12 @@
 	msg = "## NOTICE: [msg]"
 	log_world(msg)
 
+//flags a spot where the face/voice anonymity system may have been bypassed (a real name shown
+//instead of a recognized/generic tag, or an ANONYMIZE_NAMES message missing its %...NAME% macro)
+//so these can be grepped out of runtime.log and fixed later instead of relying on playtester reports.
+/proc/log_identity_leak(msg)
+	log_world("## IDENTITY LEAK: [msg]")
+
 //print a testing-mode debug message to world.log and world
 #ifdef TESTING
 #define testing(msg) log_world("## TESTING: [msg]"); to_chat(world, "## TESTING: [msg]")

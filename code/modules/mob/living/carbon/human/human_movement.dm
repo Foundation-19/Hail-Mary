@@ -36,7 +36,8 @@
 				. += 0.5
 				is_penalized = TRUE
 				
-		else if(armor.slowdown == ARMOR_SLOWDOWN_PA)
+		// Checked via TRAIT_POWER_ARMOR (not slowdown) - real power armor's slowdown is numerically identical to ARMOR_SLOWDOWN_HEAVY, which used to make every heavy (non-PA) armor misreport as "power armor frame" too.
+		else if(HAS_TRAIT(src, TRAIT_POWER_ARMOR))
 			str_requirement = 4
 			armor_type = "power armor frame"
 			if(special_s < 4)

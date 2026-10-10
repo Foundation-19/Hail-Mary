@@ -96,6 +96,18 @@
 		return
 
 	var/obj/item/bodypart/limb = victim.get_bodypart(hit_zone) || pick(victim.bodyparts)
+
+	// Frag/shrapnel-style attacks can land a dozen+ hits in one blast - stop that from turning into a dozen+ stacked
+	// indefinite damage-over-time sources on the same small patch of meat. Harmless stickies (tape, etc.) are exempt.
+	if(!weapon.isEmbedHarmless())
+		var/harmful_embed_count = 0
+		for(var/obj/item/existing in limb.embedded_objects)
+			if(!existing.isEmbedHarmless())
+				harmful_embed_count++
+		if(harmful_embed_count >= limb.max_harmful_embeds)
+			victim.visible_message(span_danger("[weapon] glances off [victim]'s [limb.name], already riddled with shrapnel!"), span_notice("[weapon] glances off your [limb.name], already riddled with shrapnel!"), vision_distance = COMBAT_MESSAGE_RANGE)
+			return
+
 	victim.AddComponent(/datum/component/embedded,\
 		weapon,\
 		throwingdatum,\

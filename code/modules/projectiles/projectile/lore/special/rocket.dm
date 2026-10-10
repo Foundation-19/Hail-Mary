@@ -40,11 +40,12 @@
 
 /obj/item/projectile/bullet/a84mm_incend/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, -1, -1, -1, -1, 4, flame_range = 5)
+	var/radius_mult = isliving(firer) ? firer:get_demolition_expert_radius_mult() : 1
+	explosion(target, -1, -1, -1, -1, 4, flame_range = round(5 * radius_mult))
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.adjustFireLoss(20)
-	for(var/mob/living/carbon/C in view(5,target))
+	for(var/mob/living/carbon/C in view(round(5 * radius_mult), target))
 		if(istype(C))
 			C.adjust_fire_stacks(fire_stacks)
 			C.IgniteMob()
@@ -92,7 +93,8 @@
 
 /obj/item/projectile/bullet/a84mm_he/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, 0, 0, 2, 4)
+	var/radius_mult = isliving(firer) ? firer:get_demolition_expert_radius_mult() : 1
+	explosion(target, 0, 0, round(2 * radius_mult), 4)
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT
 
@@ -105,7 +107,8 @@
 
 /obj/item/projectile/bullet/a84mm_he_big/on_hit(atom/target, blocked=0)
 	..()
-	explosion(target, 0, 3, 5, 5)
+	var/radius_mult = isliving(firer) ? firer:get_demolition_expert_radius_mult() : 1
+	explosion(target, 0, round(3 * radius_mult), round(5 * radius_mult), 5)
 	new /obj/effect/temp_visual/explosion(get_turf(target))
 	return BULLET_ACT_HIT
 

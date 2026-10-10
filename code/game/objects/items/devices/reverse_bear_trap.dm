@@ -85,14 +85,14 @@
 	if(target.get_item_by_slot(SLOT_HEAD))
 		to_chat(user, span_warning("Remove [target.p_their()] headgear first!"))
 		return
-	target.visible_message(span_warning("[user] starts forcing [src] onto [target]'s head!"), \
-	span_userdanger("[target] starts forcing [src] onto your head!"), "<i>You hear clanking.</i>")
-	to_chat(user, span_danger("You start forcing [src] onto [target]'s head..."))
+	target.visible_message(span_warning("%SELF_NAME% starts forcing [src] onto %ACTOR_NAME%'s head!"), \
+	span_userdanger("%SELF_NAME% starts forcing [src] onto your head!"), "<i>You hear clanking.</i>", visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
+	to_chat(user, span_danger("You start forcing [src] onto [target.get_display_name(user)]'s head..."))
 	if(!do_after(user, 30, target = target) || target.get_item_by_slot(SLOT_HEAD))
 		return
-	target.visible_message(span_warning("[user] forces and locks [src] onto [target]'s head!"), \
-	span_userdanger("[target] locks [src] onto your head!"), "<i>You hear a click, and then a timer ticking down.</i>")
-	to_chat(user, span_danger("You force [src] onto [target]'s head and click the padlock shut."))
+	target.visible_message(span_warning("%SELF_NAME% forces and locks [src] onto %ACTOR_NAME%'s head!"), \
+	span_userdanger("%SELF_NAME% locks [src] onto your head!"), "<i>You hear a click, and then a timer ticking down.</i>", visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
+	to_chat(user, span_danger("You force [src] onto [target.get_display_name(user)]'s head and click the padlock shut."))
 	user.dropItemToGround(src)
 	target.equip_to_slot_if_possible(src, SLOT_HEAD)
 	arm()

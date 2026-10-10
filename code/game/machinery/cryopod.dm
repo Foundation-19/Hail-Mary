@@ -260,8 +260,9 @@
 
 /obj/machinery/cryopod/container_resist(mob/living/user)
 	investigate_log("Cryogenics machine container resisted by [key_name(user)] with occupant [key_name(occupant)].", INVESTIGATE_CRYOGENICS)
-	visible_message(span_notice("[occupant] emerges from [src]!"),
-		span_notice("You climb out of [src]!"))
+	var/occupant_tok = isliving(occupant) ? "%ACTOR_NAME%" : "[occupant]"
+	visible_message(span_notice("[occupant_tok] emerges from [src]!"),
+		span_notice("You climb out of [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(occupant) ? occupant : null)
 	open_machine()
 
 /obj/machinery/cryopod/relaymove(mob/user)
@@ -475,9 +476,11 @@
 		//rerun the checks in case of shenanigans
 
 	if(target == user)
-		visible_message("[user] starts climbing into the cryo pod.")
+		var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+		visible_message(span_notice("[user_tok] starts climbing into the cryo pod."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 	else
-		visible_message("[user] starts putting [target] into the cryo pod.")
+		var/user_tok2 = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+		target.visible_message(span_notice("[user_tok2] starts putting %SELF_NAME% into the cryo pod."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 
 	if(occupant)
 		to_chat(user, span_boldnotice("\The [src] is in use."))

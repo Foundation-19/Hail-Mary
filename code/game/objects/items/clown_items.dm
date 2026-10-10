@@ -52,7 +52,8 @@
 
 /obj/item/soap/suicide_act(mob/user)
 	user.say(";FFFFFFFFFFFFFFFFUUUUUUUDGE!!", forced="soap suicide")
-	user.visible_message(span_suicide("[user] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] lifts [src] to [user.p_their()] mouth and gnaws on it furiously, producing a thick froth! [user.p_they(TRUE)]'ll never get that BB gun now!"), visible_message_flags = ANONYMIZE_NAMES)
 	new /obj/effect/particle_effect/foam(loc)
 	return (TOXLOSS)
 
@@ -65,24 +66,24 @@
 	if(user.client && ((target in user.client.screen) && !user.is_holding(target)))
 		to_chat(user, span_warning("You need to take that [target.name] off before cleaning it!"))
 	else if(istype(target, /obj/effect/decal/cleanable))
-		user.visible_message("[user] begins to scrub \the [target.name] out with [src].", span_warning("You begin to scrub \the [target.name] out with [src]..."))
+		user.visible_message("%SELF_NAME% begins to scrub \the [target.name] out with [src].", span_warning("You begin to scrub \the [target.name] out with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, span_notice("You scrub \the [target.name] out."))
 			qdel(target)
 	else if(ishuman(target) && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		var/mob/living/carbon/human/H = user
-		user.visible_message(span_warning("\the [user] washes \the [target]'s mouth out with [src.name]!"), span_notice("You wash \the [target]'s mouth out with [src.name]!")) //washes mouth out with soap sounds better than 'the soap' here
+		user.visible_message(span_warning("the %SELF_NAME% washes the %ACTOR_NAME%'s mouth out with [src.name]!"), span_notice("You wash the %ACTOR_NAME%'s mouth out with [src.name]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = target) //washes mouth out with soap sounds better than 'the soap' here
 		H.lip_style = null //removes lipstick
 		H.update_body()
 		return
 	else if(istype(target, /obj/structure/window))
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
+		user.visible_message("%SELF_NAME% begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, span_notice("You clean \the [target.name]."))
 			target.remove_atom_colour(WASHABLE_COLOUR_PRIORITY)
 			target.set_opacity(initial(target.opacity))
 	else
-		user.visible_message("[user] begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."))
+		user.visible_message("%SELF_NAME% begins to clean \the [target.name] with [src]...", span_notice("You begin to clean \the [target.name] with [src]..."), visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(user, src.cleanspeed, target = target))
 			to_chat(user, span_notice("You clean \the [target.name]."))
 			var/obj/effect/decal/cleanable/C = locate() in target
@@ -120,7 +121,8 @@
 	return ..()
 
 /obj/item/bikehorn/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] solemnly points the horn at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] solemnly points the horn at [user.p_their()] temple! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(src, pickweight(honksounds), 50, 1)
 	return (BRUTELOSS)
 

@@ -25,6 +25,9 @@
 		. |= G.Touch(A, TRUE)
 		if(. & INTERRUPT_UNARMED_ATTACK)
 			return
+		// Powerfist-style worn weapons throw their own punch (tank/cell, knockback, the works) instead of a bare fist - they only work worn, not held loose in a hand.
+		if(G.glove_weapon && isliving(A))
+			return . | G.melee_attack_chain(src, A, null, .)
 
 	for(var/datum/mutation/human/HM in dna.mutations)
 		. |= HM.on_attack_hand(A, proximity, intent, .)

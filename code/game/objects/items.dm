@@ -72,6 +72,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	var/slot_flags = 0		//This is used to determine on which slots an item can fit.
 	var/current_equipped_slot
+	/// If TRUE, this item only works as a weapon while actually worn in the glove slot (see /mob/living/carbon/human/UnarmedAttack() and is_active_glove_weapon()) - picking it up and holding it in a hand does nothing. Wearing one also locks the hand it's shown on (see lock_glove_weapon_hand() below), leaving the other hand free to use - unless glove_weapon_both_hands is set.
+	var/glove_weapon = FALSE
+	/// If TRUE, this glove_weapon occupies BOTH hands (e.g. Dual Powerfists) instead of just glove_weapon_worn_hand - neither hand is left free, and Alt+Click side-toggling is disabled.
+	var/glove_weapon_both_hands = FALSE
+	/// Which hand's inhand sprite (lefthand_file/righthand_file) to show when this is worn in the glove slot - toggled via Alt+Click, see toggle_glove_weapon_hand(). Ignored if glove_weapon_both_hands is set.
+	var/glove_weapon_worn_hand = "right"
+	/// The /obj/item/offhand placeholder(s) locking the occupied hand(s) while this is worn - see lock_glove_weapon_hand().
+	var/list/obj/item/offhand/glove_weapon_hand_locks
 	pass_flags = PASSTABLE
 	pressure_resistance = 4
 	var/obj/item/master = null
@@ -404,6 +412,14 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	if(!(interaction_flags_item & INTERACT_ITEM_ATTACK_HAND_PICKUP)) //See if we're supposed to auto pickup.
 		return
 
+	var/obj/item/worn_gloves = user.get_item_by_slot(SLOT_GLOVES)
+	if(istype(worn_gloves) && worn_gloves.glove_weapon && loc != user)
+		// Only block if the hand that'd actually receive the pickup (the active one) is one of the tied-up hands -
+		// a single-hand glove_weapon leaves the other hand genuinely free to pick things up with.
+		if(LAZYACCESS(worn_gloves.glove_weapon_hand_locks, "[user.active_hand_index]"))
+			to_chat(user, span_warning("You can't pick anything up with [worn_gloves.glove_weapon_both_hands ? "both hands" : "that hand"] tied up wearing [worn_gloves]!"))
+			return
+
 	//Heavy gravity makes picking up things very slow.
 	var/grav = user.has_gravity()
 	if(grav > STANDARD_GRAVITY)
@@ -490,6 +506,8 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	for(var/X in actions)
 		var/datum/action/A = X
 		A.Remove(user)
+	if(glove_weapon)
+		unlock_glove_weapon_hand() // free up the hand it had tied up
 	if(item_flags & DROPDEL)
 		qdel(src)
 	item_flags &= ~IN_INVENTORY
@@ -538,6 +556,9 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	SHOULD_CALL_PARENT(TRUE)
 	. = SEND_SIGNAL(src, COMSIG_ITEM_EQUIPPED, user, slot)
 	current_equipped_slot = slot
+	if(glove_weapon && slot == SLOT_GLOVES)
+		lock_glove_weapon_hand(user) // only the shown hand is tied up - the other stays free to use
+		user.update_inv_gloves() // re-render in case glove_weapon_worn_hand changed just above (equip_to_slot_if_possible()) after the first render
 	if(!(. & COMPONENT_NO_GRANT_ACTIONS))
 		for(var/X in actions)
 			var/datum/action/A = X
@@ -547,6 +568,64 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	user.update_equipment_speed_mods()
 	if(user.get_active_held_item() != src && user.get_inactive_held_item() != src)
 		unwield(user)
+
+/// TRUE only when this glove_weapon item is actually worn in the user's glove slot, as opposed to just being held in a hand.
+/obj/item/proc/is_active_glove_weapon(mob/user)
+	if(!glove_weapon || !user)
+		return FALSE
+	return user.get_item_by_slot(SLOT_GLOVES) == src
+
+/// Flips which hand's inhand sprite (lefthand_file/righthand_file) is shown when this glove_weapon is worn - mirrors /obj/item/clothing/under's rolldown()/toggle_jumpsuit_adjust(). No-op for glove_weapon_both_hands items, there's no single side to flip.
+/obj/item/proc/toggle_glove_weapon_hand(mob/user)
+	if(glove_weapon_both_hands)
+		to_chat(user, span_warning("\The [src] is already worn on both hands!"))
+		return
+	glove_weapon_worn_hand = (glove_weapon_worn_hand == "left") ? "right" : "left"
+	to_chat(user, span_notice("You adjust \the [src] to show on your [glove_weapon_worn_hand] hand."))
+	if(is_active_glove_weapon(user))
+		lock_glove_weapon_hand(user) // move the hand lock over to match
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		H.update_inv_gloves()
+
+/// Ties up the hand(s) this glove_weapon occupies (via placeholder /obj/item/offhand(s), same trick two-handed weapons use for their offhand) - just glove_weapon_worn_hand normally, or both hands if glove_weapon_both_hands is set. Whatever's already there (if anything) gets forced to the ground.
+/obj/item/proc/lock_glove_weapon_hand(mob/user)
+	if(!user)
+		return
+	var/list/hand_indexes = glove_weapon_both_hands ? list(1, 2) : list((glove_weapon_worn_hand == "left") ? 1 : 2)
+	LAZYINITLIST(glove_weapon_hand_locks)
+	// Free any hand this glove_weapon no longer occupies (e.g. toggle_glove_weapon_hand() switching sides) - otherwise
+	// the old hand's lock is left behind stuck in that hand forever, since the loop below only visits hand_indexes.
+	var/list/stale_indexes = list()
+	for(var/existing_index in glove_weapon_hand_locks)
+		if(!(text2num(existing_index) in hand_indexes))
+			stale_indexes += existing_index
+	for(var/existing_index in stale_indexes)
+		var/obj/item/offhand/stale = glove_weapon_hand_locks[existing_index]
+		glove_weapon_hand_locks -= existing_index
+		if(!QDELETED(stale))
+			qdel(stale)
+	for(var/hand_index in hand_indexes)
+		if(hand_index > user.held_items.len)
+			continue
+		var/obj/item/offhand/lock = glove_weapon_hand_locks["[hand_index]"]
+		if(QDELETED(lock))
+			lock = new /obj/item/offhand/glove_weapon_lock(user)
+			lock.name = "[name] grip"
+			lock.desc = "Your hand is locked into \the [name] - you can't hold anything else here while it's worn."
+			glove_weapon_hand_locks["[hand_index]"] = lock
+		user.put_in_hand(lock, hand_index, forced = TRUE) // forced bumps whatever's already in that hand to the ground
+
+/// Frees up the locked hand(s) (see lock_glove_weapon_hand()) - called when this glove_weapon leaves the mob entirely, see dropped() below.
+/obj/item/proc/unlock_glove_weapon_hand()
+	if(!LAZYLEN(glove_weapon_hand_locks))
+		return
+	var/list/locks = glove_weapon_hand_locks
+	glove_weapon_hand_locks = null
+	for(var/hand_index in locks)
+		var/obj/item/offhand/marker = locks[hand_index]
+		if(!QDELETED(marker))
+			qdel(marker)
 
 //Overlays for the worn overlay so you can overlay while you overlay
 //eg: ammo counters, primed grenade flashing, etc.
@@ -614,44 +693,50 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		var/obj/item/action = A
 		action.update_icon()
 
+/**
+ * Attempts a precision eye-stab. Returns TRUE if the attack was fully handled (stab landed, or user/target
+ * state means no attack should happen at all - pacifism, stamina crit) - the caller should stop there.
+ * Returns FALSE if the eye-stab itself couldn't be attempted (covered eyes, no eyes, no head) - the caller
+ * should fall through to a normal attack instead of wasting the swing entirely.
+ */
 /obj/item/proc/eyestab(mob/living/carbon/M, mob/living/carbon/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm [M]!"))
-		return
+		return TRUE
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		M = user
 	var/is_human_victim = 0
 	var/obj/item/bodypart/affecting = M.get_bodypart(BODY_ZONE_HEAD)
 	if(ishuman(M))
 		if(!affecting) //no head!
-			return
+			return FALSE
 		is_human_victim = 1
 		var/mob/living/carbon/human/H = M
 		if((H.head && H.head.flags_cover & HEADCOVERSEYES) || \
 			(H.wear_mask && H.wear_mask.flags_cover & MASKCOVERSEYES) || \
 			(H.glasses && H.glasses.flags_cover & GLASSESCOVERSEYES))
-			// you can't stab someone in the eyes wearing a mask!
+			// you can't stab someone in the eyes wearing a mask - let the caller land a normal hit instead
 			to_chat(user, span_danger("You're going to need to remove that mask/helmet/glasses first!"))
-			return
+			return FALSE
 
 	if(ismonkey(M))
 		var/mob/living/carbon/monkey/Mo = M
 		if(Mo.wear_mask && Mo.wear_mask.flags_cover & MASKCOVERSEYES)
-			// you can't stab someone in the eyes wearing a mask!
+			// you can't stab someone in the eyes wearing a mask - let the caller land a normal hit instead
 			to_chat(user, span_danger("You're going to need to remove that mask/helmet/glasses first!"))
-			return
+			return FALSE
 
 	if(isalien(M))//Aliens don't have eyes./N     slimes also don't have eyes!
 		to_chat(user, span_warning("You cannot locate any eyes on this creature!"))
-		return
+		return FALSE
 
 	if(isbrain(M))
 		to_chat(user, span_danger("You cannot locate any organic eyes on this brain!"))
-		return
+		return FALSE
 
 	if(IS_STAMCRIT(user))//CIT CHANGE - makes eyestabbing impossible if you're in stamina softcrit
 		to_chat(user, span_danger("You're too exhausted for that."))//CIT CHANGE - ditto
-		return //CIT CHANGE - ditto
+		return TRUE //CIT CHANGE - ditto
 
 	src.add_fingerprint(user)
 
@@ -662,12 +747,12 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 	user.adjustStaminaLossBuffered(10)//CIT CHANGE - makes eyestabbing cost stamina
 
 	if(M != user)
-		M.visible_message(span_danger("[user] has stabbed [M] in the eye with [src]!"), \
-							span_userdanger("[user] stabs you in the eye with [src]!"))
+		M.visible_message(span_danger("%ACTOR_NAME% has stabbed %SELF_NAME% in the eye with [src]!"), \
+							span_userdanger("%ACTOR_NAME% stabs you in the eye with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else
 		user.visible_message( \
-			span_danger("[user] has stabbed [user.p_them()]self in the eyes with [src]!"), \
-			span_userdanger("You stab yourself in the eyes with [src]!") \
+			span_danger("%SELF_NAME% has stabbed [user.p_them()]self in the eyes with [src]!"), \
+			span_userdanger("You stab yourself in the eyes with [src]!"), visible_message_flags = ANONYMIZE_NAMES \
 		)
 	if(is_human_victim)
 		var/mob/living/carbon/human/U = M
@@ -682,7 +767,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
 	if (!eyes)
-		return
+		return TRUE
 	M.adjust_blurriness(3)
 	eyes.applyOrganDamage(rand(2,4))
 	if(eyes.damage >= 10)
@@ -702,6 +787,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 		if (prob(eyes.damage - 10 + 1))
 			M.become_blind(EYE_DAMAGE)
 			to_chat(M, span_danger("You go blind!"))
+	return TRUE
 
 /obj/item/clean_blood()
 	. = ..()
@@ -845,7 +931,7 @@ GLOBAL_VAR_INIT(embedpocalypse, FALSE) // if true, all items will be able to emb
 
 /obj/item/proc/ignition_effect(atom/A, mob/user)
 	if(get_temperature())
-		. = span_notice("[user] lights [A] with [src].")
+		. = span_notice("%ACTOR_NAME% lights [A] with [src].")
 	else
 		. = ""
 

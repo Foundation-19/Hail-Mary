@@ -50,6 +50,8 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	attack_verb = list("attacked", "impaled", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
 	sharpness = SHARP_EDGED
+	wound_bonus = 10
+	bare_wound_bonus = 10
 	total_mass = TOTAL_MASS_HAND_REPLACEMENT
 
 /obj/item/melee/synthetic_arm_blade/Initialize()
@@ -70,6 +72,8 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 0.95
 	sharpness = SHARP_EDGED
+	wound_bonus = 20
+	bare_wound_bonus = 15
 	attack_verb = list("slashed", "cut")
 	hitsound = 'sound/weapons/rapierhit.ogg'
 	custom_materials = list(/datum/material/iron = 1000)

@@ -177,7 +177,7 @@
 
 /datum/component/item_upgrade/proc/apply(obj/item/A, mob/living/user)
 	if(user)
-		user.visible_message(span_notice("[user] starts applying [parent] to [A]"), span_notice("You start applying \the [parent] to \the [A]"))
+		user.visible_message(span_notice("%SELF_NAME% starts applying [parent] to [A]"), span_notice("You start applying \the [parent] to \the [A]"), visible_message_flags = ANONYMIZE_NAMES)
 		var/obj/item/I = parent
 		if(!I.use_tool(user = user, target =  A, delay = WORKTIME_FAST))
 			return FALSE

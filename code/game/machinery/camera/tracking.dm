@@ -84,7 +84,7 @@
 		U.cameraFollow = null
 		return
 
-	to_chat(U, span_notice("Now tracking [target.get_visible_name()] on camera."))
+	to_chat(U, span_notice("Now tracking [target.name] on camera."))
 
 	var/cameraticks = 0
 	spawn(0)

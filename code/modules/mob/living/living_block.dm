@@ -26,6 +26,12 @@
 	if((. & BLOCK_SUCCESS) && !(. & BLOCK_CONTINUE_CHAIN))
 		return_list[BLOCK_RETURN_PROJECTILE_BLOCK_PERCENTAGE] = 100
 		return
+	if(real_attack && active_block_unarmed)
+		var/results = active_block(object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, 0, return_list, attack_direction)
+		. |= results
+		if((results & BLOCK_SUCCESS) && !(results & BLOCK_CONTINUE_CHAIN))
+			return_list[BLOCK_RETURN_PROJECTILE_BLOCK_PERCENTAGE] = 100
+			return
 	var/list/obj/item/tocheck = get_blocking_items()
 	sortTim(tocheck, GLOBAL_PROC_REF(cmp_numeric_dsc), TRUE)
 	// Capped so a genuinely dangerous hit doesn't just delete your block chance outright - see BLOCK_CHANCE_DAMAGE_PENALTY_MAX.

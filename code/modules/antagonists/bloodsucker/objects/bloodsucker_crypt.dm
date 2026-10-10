@@ -166,8 +166,8 @@
 	if(!buckle_mob(M)) // force=TRUE))
 		return
 	// Attempt Buckle
-	user.visible_message(span_notice("[user] straps [M] into the rack, immobilizing them."), \
-					span_boldnotice("You secure [M] tightly in place. They won't escape you now."))
+	user.visible_message(span_notice("%SELF_NAME% straps %ACTOR_NAME% into the rack, immobilizing them."), \
+					span_boldnotice("You secure %ACTOR_NAME% tightly in place. They won't escape you now."), visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 
 	playsound(src.loc, 'sound/effects/pop_expl.ogg', 25, 1)
 	//M.forceMove(drop_location()) <--- CANT DO! This cancels the buckle_mob() we JUST did (even if we foced the move)
@@ -187,11 +187,11 @@
 	// Attempt Unbuckle
 	if(!AmBloodsucker(user))
 		if(M == user)
-			M.visible_message(span_danger("[user] tries to release themself from the rack!"),\
-							span_danger("You attempt to release yourself from the rack!")) //  For sound if not seen -->  span_italic("You hear a squishy wet noise."))
+			M.visible_message(span_danger("%SELF_NAME% tries to release themself from the rack!"),\
+							span_danger("You attempt to release yourself from the rack!"), visible_message_flags = ANONYMIZE_NAMES) //  For sound if not seen -->  span_italic("You hear a squishy wet noise."))
 		else
-			M.visible_message(span_danger("[user] tries to pull [M] rack!"),\
-							span_danger("[user] attempts to release you from the rack!")) //  For sound if not seen -->  span_italic("You hear a squishy wet noise."))
+			M.visible_message(span_danger("%ACTOR_NAME% tries to pull %SELF_NAME% rack!"),\
+							span_danger("%ACTOR_NAME% attempts to release you from the rack!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user) //  For sound if not seen -->  span_italic("You hear a squishy wet noise."))
 		if(!do_mob(user, M, 200))
 			return
 	// Did the time. Now try to do it.
@@ -315,8 +315,8 @@
 	B.AddBloodVolume(-CONVERT_COST)
 	target.add_mob_blood(user, span_danger("Youve used [CONVERT_COST] amount of blood to gain a new vassal!"))
 	to_chat(user, )
-	user.visible_message(span_notice("[user] marks a bloody smear on [target]'s forehead and puts a wrist up to [target.p_their()] mouth!"), \
-					  span_notice("You paint a bloody marking across [target]'s forehead, place your wrist to [target.p_their()] mouth, and subject [target.p_them()] to the Dark Communion."))
+	user.visible_message(span_notice("%SELF_NAME% marks a bloody smear on %ACTOR_NAME%'s forehead and puts a wrist up to [target.p_their()] mouth!"), \
+					  span_notice("You paint a bloody marking across %ACTOR_NAME%'s forehead, place your wrist to [target.p_their()] mouth, and subject [target.p_them()] to the Dark Communion."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	if(!do_mob(user, src, 50))
 		to_chat(user, "<span class='danger'><i>The ritual has been interrupted!</i></span>")
 		useLock = FALSE

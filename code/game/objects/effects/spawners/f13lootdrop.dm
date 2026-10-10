@@ -902,7 +902,8 @@
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/superhigh
 	name = "superhigh tier energy gun"
 	loot = list(/obj/effect/spawner/bundle/f13/multiplas = 25,
-				/obj/effect/spawner/bundle/f13/tribeam = 25
+				/obj/effect/spawner/bundle/f13/tribeam = 25,
+				/obj/effect/spawner/bundle/f13/pulserifle = 15 // lowest odds of the tier - rarer than multiplas/tribeam, per player feedback
 				)
 
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/unique
@@ -1598,6 +1599,13 @@
 	name = "multiplas and ammo spawner"
 	items = list(
 				/obj/item/gun/energy/laser/plasma/scatter,
+				/obj/item/stock_parts/cell/ammo/mfc
+	)
+
+/obj/effect/spawner/bundle/f13/pulserifle
+	name = "pulse rifle and ammo spawner"
+	items = list(
+				/obj/item/gun/energy/laser/pulserifle,
 				/obj/item/stock_parts/cell/ammo/mfc
 	)
 

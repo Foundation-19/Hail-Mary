@@ -8,10 +8,10 @@
 <link id="goonStyle" rel="stylesheet" type="text/css" href="browserOutput.css" media="all" />
 <style>
 	/* ── Universal webkit scrollbars ──────────────────────────
-	   Applied unconditionally so they work before any theme
-	   class is set. scrollbar-color MUST NOT be set on these
-	   elements — in Chrome 121+ it replaces webkit scrollbars
-	   entirely and ignores all ::-webkit-scrollbar rules. */
+		Applied unconditionally so they work before any theme
+		class is set. scrollbar-color MUST NOT be set on these
+		elements — in Chrome 121+ it replaces webkit scrollbars
+		entirely and ignores all ::-webkit-scrollbar rules. */
 	* { box-sizing: border-box; }
 	*::-webkit-scrollbar { width: 8px; height: 8px; background: #030a03; }
 	*::-webkit-scrollbar-track { background: #030a03; border-left: 1px solid rgba(76,255,76,.08); }
@@ -590,9 +590,9 @@
 	}
 
 	/* Webkit scrollbar styling — target html AND body (both with class), AND all descendants.
-	   NOTE: scrollbar-width:thin DISABLES ::-webkit-scrollbar in Chromium/WebView2
-	   so we do NOT set that property on body.fallout.
-	   In Chromium the document-level scrollbar lives on <html>, not <body>. */
+		NOTE: scrollbar-width:thin DISABLES ::-webkit-scrollbar in Chromium/WebView2
+		so we do NOT set that property on body.fallout.
+		In Chromium the document-level scrollbar lives on <html>, not <body>. */
 	html.fallout::-webkit-scrollbar,
 	body.fallout::-webkit-scrollbar,
 	.fallout ::-webkit-scrollbar {
@@ -703,6 +703,19 @@
 var decoder = decodeURIComponent || unescape;
 var addEventListenerKey = (document.addEventListener ? 'addEventListener' : 'attachEvent'); // IE8 handling for Wine users
 var textContentKey = (typeof document.body.textContent != 'undefined') ? 'textContent' : 'innerText';
+// Assigning node[textContentKey] always destroys and recreates the element's text node, even
+// when the string value is unchanged elsewhere in the tree -- on hot per-tick patch paths
+// (MC/Status tabs) this constantly destroys the exact text node the cursor may be resting over,
+// which old Trident-style engines can lose hover/hit-test tracking of. Mutate the existing text
+// node's data in place instead so the node identity under the cursor never changes.
+function setText(node, text) {
+	if(node.childNodes.length === 1 && node.firstChild.nodeType === 3) {
+		if(node.firstChild.data !== text)
+			node.firstChild.data = text;
+	} else if(node[textContentKey] !== text) {
+		node[textContentKey] = text;
+	}
+}
 if(!Array.prototype.includes) {
 	Array.prototype.includes = function(thing) {
 		for(var i = 0; i < this.length; i++) {
@@ -731,34 +744,34 @@ if (!String.prototype.trim) {
 |*|
 \*/
 (function() {
-  setTimeout(function(arg1) {
-    if (arg1 === 'test') {
-      // feature test is passed, no need for polyfill
-      return;
-    }
-    var __nativeST__ = window.setTimeout;
-    window.setTimeout = function(vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */ ) {
-      var aArgs = Array.prototype.slice.call(arguments, 2);
-      return __nativeST__(vCallback instanceof Function ? function() {
-        vCallback.apply(null, aArgs);
-      } : vCallback, nDelay);
-    };
-  }, 0, 'test');
+	setTimeout(function(arg1) {
+		if (arg1 === 'test') {
+			// feature test is passed, no need for polyfill
+			return;
+		}
+		var __nativeST__ = window.setTimeout;
+		window.setTimeout = function(vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */ ) {
+			var aArgs = Array.prototype.slice.call(arguments, 2);
+			return __nativeST__(vCallback instanceof Function ? function() {
+				vCallback.apply(null, aArgs);
+			} : vCallback, nDelay);
+		};
+	}, 0, 'test');
 
-  var interval = setInterval(function(arg1) {
-    clearInterval(interval);
-    if (arg1 === 'test') {
-      // feature test is passed, no need for polyfill
-      return;
-    }
-    var __nativeSI__ = window.setInterval;
-    window.setInterval = function(vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */ ) {
-      var aArgs = Array.prototype.slice.call(arguments, 2);
-      return __nativeSI__(vCallback instanceof Function ? function() {
-        vCallback.apply(null, aArgs);
-      } : vCallback, nDelay);
-    };
-  }, 0, 'test');
+	var interval = setInterval(function(arg1) {
+		clearInterval(interval);
+		if (arg1 === 'test') {
+			// feature test is passed, no need for polyfill
+			return;
+		}
+		var __nativeSI__ = window.setInterval;
+		window.setInterval = function(vCallback, nDelay /*, argumentToPass1, argumentToPass2, etc. */ ) {
+			var aArgs = Array.prototype.slice.call(arguments, 2);
+			return __nativeSI__(vCallback instanceof Function ? function() {
+				vCallback.apply(null, aArgs);
+			} : vCallback, nDelay);
+		};
+	}, 0, 'test');
 }())
 
 // Status panel implementation ------------------------------------------------
@@ -773,6 +786,7 @@ var verbs = [["", ""]]; // list with a list inside
 var tickets = [];
 var interviewManager = {status: "", interviews: []};
 var sdql2 = [];
+var party = null;
 var permanent_tabs = []; // tabs that won't be cleared by wipes
 var turfcontents = [];
 var turfname = "";
@@ -789,6 +803,40 @@ var under_menu = document.getElementById('under_menu');
 var statcontentdiv = document.getElementById('statcontent');
 var storedimages = [];
 var split_admin_tabs = false;
+
+// BYOND's embedded browser control doesn't reliably re-evaluate CSS :hover/cursor after a DOM
+// mutation elsewhere on the page, so hovering a button can get visually stuck (wrong cursor icon,
+// unresponsive-looking button) until the mouse physically moves again. SSstatpanels mutates the
+// page every tick regardless of how little changed, so this desync happens constantly while the
+// mouse sits still. Work around it by replaying a synthetic mousemove at the last known pointer
+// position once mutations settle, forcing a hover/cursor recompute without real mouse movement.
+var lastMouseX = 0, lastMouseY = 0, haveMousePos = false;
+document[addEventListenerKey]("mousemove", function(e) {
+	e = e || window.event;
+	lastMouseX = e.clientX;
+	lastMouseY = e.clientY;
+	haveMousePos = true;
+});
+var hoverRefreshPending = false;
+function scheduleHoverRefresh() {
+	if(!haveMousePos || hoverRefreshPending)
+		return;
+	hoverRefreshPending = true;
+	setTimeout(function() {
+		hoverRefreshPending = false;
+		var ev;
+		try {
+			ev = new MouseEvent('mousemove', {bubbles: true, cancelable: true, clientX: lastMouseX, clientY: lastMouseY});
+		} catch(ignored) {
+			ev = document.createEvent('MouseEvents');
+			ev.initMouseEvent('mousemove', true, true, window, 0, 0, 0, lastMouseX, lastMouseY, false, false, false, false, 0, null);
+		}
+		var target = (document.elementFromPoint ? document.elementFromPoint(lastMouseX, lastMouseY) : null) || document;
+		target.dispatchEvent(ev);
+	}, 0);
+}
+var hoverFixObserver = new MutationObserver(scheduleHoverRefresh);
+hoverFixObserver.observe(document.body, {childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style"]});
 
 var connected = false;
 var commandQueue = [];
@@ -851,8 +899,16 @@ function createStatusTab(name) {
 		else
 			name = splitName[0];
 	}
-	if(document.getElementById(name) || name.trim() == "")
+	if(name.trim() == "")
 		return;
+	if(document.getElementById(name)) {
+		// Button already exists (e.g. survived a soft reconnect where the DM-side
+		// /client was recreated with empty panel_tabs but this page's DOM wasn't).
+		// Tell the server anyway, or it'll conclude we're missing this tab and
+		// keep re-pushing it (e.g. add_admin_tabs) every single tick forever.
+		SendTabToByond(name);
+		return;
+	}
 	if(!verb_tabs.includes(name) && !permanent_tabs.includes(name))
 		return;
 	var B = document.createElement("BUTTON");
@@ -915,7 +971,12 @@ function removePermanentTab(name) {
 			permanent_tabs.splice(i, 1);
 		}
 	}
-	removeStatusTab(name);
+	// Some permanent tabs (e.g. "Party") share their id with a standing verb category
+	// (Create Party/Invite To Party/etc. are always-present verbs categorized "Party").
+	// Only tear down the DOM button/DM-side registration if no verb category still needs it,
+	// otherwise the tab can never come back until a full reconnect re-syncs the verb list.
+	if(!verb_tabs.includes(name))
+		removeStatusTab(name);
 }
 
 function checkStatusTab() {
@@ -1110,23 +1171,34 @@ function update(global_data, ping_entry, other_entries) {
 	for(var i = 0; i < parsed.length; i++) if(parsed[i] != null) status_tab_parts.push(parsed[i]);
 	if(connected && verb_tabs.length == 0)
 		send_byond_command("Fix-Stat-Panel");
+	// Status/Debug have no interactive elements, so they're safe to redraw unconditionally
+	// (unlike Party/MC/Tickets/SDQL2 below, which gate on actual data changes since their
+	// buttons/links would otherwise get yanked out from under an in-progress click every tick).
 	if(current_tab == "Status")
 		draw_status();
 	else if(current_tab == "Debug Stat Panel")
 		draw_debug();
 }
 
+
+var last_mc_raw = null;
 function update_mc(global_mc_data, coords_entry) {
+	if(!verb_tabs.includes("MC")) {
+		verb_tabs.push("MC");
+		createStatusTab("MC");
+	}
+	var raw = global_mc_data + coords_entry;
+	if(raw === last_mc_raw)
+		return;
+	last_mc_raw = raw;
 	mc_tab_parts = JSON.parse(global_mc_data);
 	mc_tab_parts.splice(0,0,["Location:",coords_entry]);
-	if(!verb_tabs.includes("MC"))
-		verb_tabs.push("MC");
-	createStatusTab("MC");
 	if(current_tab == "MC")
 		draw_mc();
 }
 
 function remove_mc() {
+	last_mc_raw = null;
 	removeStatusTab("MC");
 	if(current_tab == "MC")
 		tab_change("Status");
@@ -1141,7 +1213,9 @@ function init_spells() {
 	var cat = "";
 	for(var i = 0; i < spell_tabs.length; i++) {
 		cat = spell_tabs[i];
-		if(cat.length > 0) {
+		// This runs every SSstatpanels tick; without this check verb_tabs grows an unbounded
+		// number of duplicate entries and createStatusTab() re-sends Send-Tabs every tick forever.
+		if(cat.length > 0 && !verb_tabs.includes(cat)) {
 			verb_tabs.push(cat);
 			createStatusTab(cat);
 		}
@@ -1166,7 +1240,12 @@ function spell_cat_check(cat) {
 		removeStatusTab(cat);
 	}
 }
+var last_spells_raw = null;
 function update_spells(t, s) {
+	var raw = t + (s || "");
+	if(raw === last_spells_raw)
+		return;
+	last_spells_raw = raw;
 	spell_tabs = JSON.parse(t);
 	var do_update = false;
 	if(spell_tabs.includes(current_tab)) {
@@ -1193,14 +1272,12 @@ function tab_change(tab) {
 		document.getElementById(tab).className = "button active"; // make current button active
 	var spell_tabs_thingy = (spell_tabs.includes(tab));
 	var verb_tabs_thingy = (verb_tabs.includes(tab));
+	// Named tabs are checked before the generic spell/verb fallbacks so a same-named verb category
+	// (e.g. the "Party" verbs) can never hijack a custom-rendered tab's content.
 	if(tab == "Status") {
 		draw_status();
 	} else if(tab == "MC") {
 		draw_mc();
-	} else if(spell_tabs_thingy) {
-		draw_spells(tab);
-	} else if(verb_tabs_thingy){
-		draw_verbs(tab);
 	} else if(tab == "Debug Stat Panel") {
 		draw_debug();
 	} else if(tab == "Tickets") {
@@ -1208,8 +1285,14 @@ function tab_change(tab) {
 		draw_interviews();
 	} else if(tab == "SDQL2") {
 		draw_sdql2();
-	}else if(tab == turfname) {
+	} else if(tab == "Party") {
+		draw_party();
+	} else if(tab == turfname) {
 		draw_listedturf();
+	} else if(spell_tabs_thingy) {
+		draw_spells(tab);
+	} else if(verb_tabs_thingy){
+		draw_verbs(tab);
 	} else {
 		statcontentdiv[textContentKey] = "Loading...";
 	}
@@ -1316,30 +1399,44 @@ function draw_status() {
 		createStatusTab("Status");
 		current_tab = "Status";
 	}
-	statcontentdiv[textContentKey] = '';
 	var isFallout = document.body.className === 'fallout';
-	if(isFallout) {
-		var hdr = document.createElement('div');
-		hdr.className = 'term-section-hdr';
-		hdr[textContentKey] = '[ SYSTEM STATUS ]';
-		document.getElementById('statcontent').appendChild(hdr);
+	// Ping/time/subsystem lines here tick every SSstatpanels cycle while this tab is open, so a
+	// naive full rebuild would churn the DOM every ~0.4s. Patch existing line nodes in place by
+	// position instead (the entry order is fixed: ping, then global data, then mob status items),
+	// and only rebuild from scratch the first time this tab is drawn after being wiped.
+	var lines = document.getElementById("status-lines");
+	if(!lines) {
+		statcontentdiv[textContentKey] = '';
+		if(isFallout) {
+			var hdr = document.createElement('div');
+			hdr.className = 'term-section-hdr';
+			hdr[textContentKey] = '[ SYSTEM STATUS ]';
+			document.getElementById('statcontent').appendChild(hdr);
+		}
+		lines = document.createElement("div");
+		lines.id = "status-lines";
+		document.getElementById('statcontent').appendChild(lines);
 	}
 	for(var i = 0; i < status_tab_parts.length; i++) {
-		if(status_tab_parts[i].trim() == "") {
-			if(isFallout) {
-				var sep = document.createElement("div");
-				sep.className = "term-sep";
-				document.getElementById("statcontent").appendChild(sep);
-			} else {
-				document.getElementById("statcontent").appendChild(document.createElement("br"));
-			}
-		} else {
-			var div = document.createElement("div");
-			if(isFallout) div.className = getTermEntryClass(status_tab_parts[i]);
-			div[textContentKey] = status_tab_parts[i];
-			document.getElementById("statcontent").appendChild(div);
+		var isSep = status_tab_parts[i].trim() == "";
+		var expectedTag = isSep ? (isFallout ? "DIV" : "BR") : "DIV";
+		var expectedClass = isSep ? (isFallout ? "term-sep" : "") : (isFallout ? getTermEntryClass(status_tab_parts[i]) : "");
+		var node = lines.children[i];
+		if(!node || node.tagName != expectedTag) {
+			var fresh = document.createElement(expectedTag);
+			if(node)
+				lines.replaceChild(fresh, node);
+			else
+				lines.appendChild(fresh);
+			node = fresh;
 		}
+		var text = isSep ? "" : status_tab_parts[i];
+		setText(node, text);
+		if(node.className !== expectedClass)
+			node.className = expectedClass;
 	}
+	while(lines.children.length > status_tab_parts.length)
+		lines.removeChild(lines.lastChild);
 	if(verb_tabs.length == 0 || !verbs)
 	{
 		send_byond_command("Fix-Stat-Panel");
@@ -1347,50 +1444,106 @@ function draw_status() {
 }
 
 function draw_mc() {
-	statcontentdiv[textContentKey] = "";
-	if(document.body.className === 'fallout') {
-		var mchdr = document.createElement('div');
-		mchdr.className = 'term-section-hdr';
-		mchdr[textContentKey] = '[ MASTER CONTROLLER ]';
-		document.getElementById('statcontent').appendChild(mchdr);
+	// Round Time/Server Time/Time Dilation/per-subsystem stats tick every SSstatpanels cycle
+	// while this tab is open, so a naive full rebuild here would churn the DOM every ~0.4s.
+	// Master.subsystems is also re-sorted by live priority on nearly every fire, so tracking
+	// that order visually would move most rows every tick. Key rows by label and leave each
+	// row pinned wherever it was first created; only brand-new rows get appended.
+	var table = document.getElementById("mc-table");
+	if(!table) {
+		statcontentdiv[textContentKey] = "";
+		if(document.body.className === 'fallout') {
+			var mchdr = document.createElement('div');
+			mchdr.className = 'term-section-hdr';
+			mchdr[textContentKey] = '[ MASTER CONTROLLER ]';
+			document.getElementById('statcontent').appendChild(mchdr);
+		}
+		table = document.createElement("table");
+		table.id = "mc-table";
+		table.className = "term-table";
+		table.mcRowsByKey = {};
+		document.getElementById('statcontent').appendChild(table);
 	}
-	var table = document.createElement("table");
-	table.className = "term-table";
+	var rowsByKey = table.mcRowsByKey;
+	var seenCounts = {};
+	var seenKeys = {};
 	for(var i = 0; i < mc_tab_parts.length; i++) {
 		var part = mc_tab_parts[i];
-		var tr = document.createElement("tr");
-		var td1 = document.createElement("td");
-		td1[textContentKey] = part[0];
-		var td2 = document.createElement("td");
+		var label = part[0];
+		// Subsystem row labels embed a live state letter (e.g. "[R]SSfoo") that changes every
+		// tick, so they can't be used as a stable key. Use the \ref token instead when present;
+		// only the fixed top rows (CPU/Instances/etc, whose labels truly never change) lack one.
+		var key;
 		if(part[2]) {
-			var a = document.createElement("a");
-			a.href = "?_src_=vars;admin_token=" + href_token + ";Vars=" + part[2];
-			a[textContentKey] = part[1];
-			td2.appendChild(a);
+			key = "ref:" + part[2];
 		} else {
-			td2[textContentKey] = part[1];
+			seenCounts[label] = (seenCounts[label] || 0) + 1;
+			key = "label:" + label + "#" + seenCounts[label];
 		}
-		tr.appendChild(td1);
-		tr.appendChild(td2);
-		table.appendChild(tr);
+		seenKeys[key] = true;
+		var tr = rowsByKey[key];
+		if(!tr) {
+			tr = document.createElement("tr");
+			tr.appendChild(document.createElement("td"));
+			tr.appendChild(document.createElement("td"));
+			rowsByKey[key] = tr;
+			table.appendChild(tr);
+		}
+		var td1 = tr.children[0];
+		var td2 = tr.children[1];
+		setText(td1, label);
+		if(part[2]) {
+			var href = "?_src_=vars;admin_token=" + href_token + ";Vars=" + part[2];
+			var a = td2.firstChild;
+			if(!a || a.tagName != "A") {
+				td2[textContentKey] = "";
+				a = document.createElement("a");
+				td2.appendChild(a);
+			}
+			if(a.href !== href)
+				a.href = href;
+			setText(a, part[1]);
+		} else if(td2.children.length) {
+			td2[textContentKey] = part[1];
+		} else {
+			setText(td2, part[1]);
+		}
 	}
-	document.getElementById("statcontent").appendChild(table);
+	for(var k in rowsByKey) {
+		if(!seenKeys[k]) {
+			if(rowsByKey[k].parentNode === table)
+				table.removeChild(rowsByKey[k]);
+			delete rowsByKey[k];
+		}
+	}
 }
+var last_tickets_raw = null;
+var last_interviews_raw = null;
 function update_tickets(T){
-	tickets = JSON.parse(T);
 	if(!verb_tabs.includes("Tickets")) {
 		verb_tabs.push("Tickets");
 		addPermanentTab("Tickets");
 	}
+	if(T === last_tickets_raw)
+		return;
+	last_tickets_raw = T;
+	tickets = JSON.parse(T);
 	if(current_tab == "Tickets")
 		draw_tickets();
 }
 function update_interviews(I){
+	if(I === last_interviews_raw)
+		return;
+	last_interviews_raw = I;
 	interviewManager = JSON.parse(I);
 	if(current_tab == "Tickets")
 		draw_interviews();
 }
+var last_sdql2_raw = null;
 function update_sdql2(S) {
+	if(S === last_sdql2_raw)
+		return;
+	last_sdql2_raw = S;
 	sdql2 = JSON.parse(S);
 	if(sdql2.length > 0 && !verb_tabs.includes("SDQL2")) {
 		verb_tabs.push("SDQL2");
@@ -1403,27 +1556,257 @@ function update_sdql2(S) {
 function remove_sdql2() {
 	if(sdql2) {
 		sdql2 = [];
+		last_sdql2_raw = null;
 		removePermanentTab("SDQL2");
 		if(current_tab == "SDQL2")
 			tab_change("Status");
+		checkStatusTab();
 	}
-	checkStatusTab();
+}
+
+var last_party_raw = null;
+var last_party_comparable = null;
+// rally_cooldown_seconds ticks down once a second while recharging, which would otherwise force
+// a full tab rebuild every second even though nothing else changed; strip it before comparing.
+function party_comparable_key(p) {
+	if(!p)
+		return null;
+	var copy = JSON.parse(JSON.stringify(p));
+	delete copy.rally_cooldown_seconds;
+	return JSON.stringify(copy);
+}
+function update_party(P) {
+	if(P === last_party_raw)
+		return;
+	last_party_raw = P;
+	var parsed = JSON.parse(P);
+	var comparable = party_comparable_key(parsed);
+	var onlyCountdownChanged = (party && comparable === last_party_comparable);
+	party = parsed;
+	last_party_comparable = comparable;
+	if(party)
+		addPermanentTab("Party");
+	if(current_tab != "Party")
+		return;
+	var countdownSpan = onlyCountdownChanged && document.getElementById("party-rally-countdown");
+	if(countdownSpan)
+		countdownSpan[textContentKey] = "Rally Cry (" + party.rally_cooldown_seconds + "s)";
+	else
+		draw_party();
+}
+
+function remove_party() {
+	if(party) {
+		party = null;
+		last_party_raw = null;
+		last_party_comparable = null;
+		removePermanentTab("Party");
+		if(current_tab == "Party")
+			tab_change("Status");
+		checkStatusTab();
+	}
+}
+
+// Called directly from the "Party" verb so clicking it jumps straight to the tab instead of opening a floating window.
+function focus_party() {
+	tab_change("Party");
+}
+
+function party_cap_dots(filled, total) {
+	var dots = "";
+	for(var i = 0; i < total; i++)
+		dots += i < filled ? "\u25CF" : "\u25CB";
+	return dots;
+}
+
+function draw_party_charisma_abilities() {
+	var hdr = document.createElement("h3");
+	hdr[textContentKey] = "Charisma Abilities";
+	document.getElementById("statcontent").appendChild(hdr);
+
+	var intimidateLink = document.createElement("a");
+	intimidateLink.className = "button";
+	intimidateLink.href = "#";
+	intimidateLink.onclick = make_verb_onclick("Intimidating-Presence");
+	intimidateLink[textContentKey] = "Intimidating Presence";
+	document.getElementById("statcontent").appendChild(intimidateLink);
+
+	var commandLink = document.createElement("a");
+	commandLink.className = "button";
+	commandLink.href = "#";
+	commandLink.onclick = make_verb_onclick("Commanding-Presence");
+	commandLink[textContentKey] = "Commanding Presence";
+	document.getElementById("statcontent").appendChild(commandLink);
+}
+
+function draw_party() {
+	statcontentdiv[textContentKey] = "";
+	if(!party) {
+		var msg = document.createElement("div");
+		msg[textContentKey] = "You aren't part of a party.";
+		document.getElementById("statcontent").appendChild(msg);
+		var createLink = document.createElement("a");
+		createLink.className = "button";
+		createLink.href = "#";
+		createLink.style.marginTop = "6px";
+		createLink.onclick = make_verb_onclick("Create-Party");
+		createLink[textContentKey] = "Create Party";
+		document.getElementById("statcontent").appendChild(createLink);
+		draw_party_charisma_abilities();
+		return;
+	}
+	if(document.body.className === 'fallout') {
+		var hdr = document.createElement('div');
+		hdr.className = 'term-section-hdr';
+		hdr[textContentKey] = '[ PARTY ROSTER ]';
+		document.getElementById('statcontent').appendChild(hdr);
+	}
+
+	var summary = document.createElement("table");
+	summary.className = "term-table";
+	var trAura = document.createElement("tr");
+	var tdAuraLabel = document.createElement("td");
+	tdAuraLabel[textContentKey] = "Aura:";
+	var tdAuraValue = document.createElement("td");
+	tdAuraValue[textContentKey] = party.aura_name || "None";
+	trAura.appendChild(tdAuraLabel);
+	trAura.appendChild(tdAuraValue);
+	summary.appendChild(trAura);
+	var trMembers = document.createElement("tr");
+	var tdMembersLabel = document.createElement("td");
+	tdMembersLabel[textContentKey] = "Members:";
+	var tdMembersValue = document.createElement("td");
+	tdMembersValue[textContentKey] = party_cap_dots(party.members.length, party.cap) + " " + party.members.length + " / " + party.cap;
+	trMembers.appendChild(tdMembersLabel);
+	trMembers.appendChild(tdMembersValue);
+	summary.appendChild(trMembers);
+	document.getElementById("statcontent").appendChild(summary);
+
+	var rosterHdr = document.createElement("h3");
+	rosterHdr[textContentKey] = "Roster";
+	document.getElementById("statcontent").appendChild(rosterHdr);
+
+	var table = document.createElement("table");
+	table.className = "term-table";
+	var headRow = document.createElement("tr");
+	var headName = document.createElement("td");
+	headName.innerHTML = "<strong>Member</strong>";
+	var headAction = document.createElement("td");
+	headAction.innerHTML = "<strong>Action</strong>";
+	headRow.appendChild(headName);
+	headRow.appendChild(headAction);
+	table.appendChild(headRow);
+	for(var i = 0; i < party.members.length; i++) {
+		var member = party.members[i];
+		var tr = document.createElement("tr");
+		var td1 = document.createElement("td");
+		td1[textContentKey] = (member.is_leader ? "\u2726 " : "") + member.name + (member.is_self ? " (You)" : "");
+		var td2 = document.createElement("td");
+		if(party.is_leader && !member.is_self) {
+			var promote = document.createElement("a");
+			promote.className = "link";
+			promote.href = "#";
+			promote.style.marginRight = "6px";
+			promote.onclick = make_party_promote_onclick(member.ref);
+			promote[textContentKey] = "[Promote]";
+			td2.appendChild(promote);
+
+			var kick = document.createElement("a");
+			kick.className = "link";
+			kick.href = "#";
+			kick.onclick = make_party_kick_onclick(member.ref);
+			kick[textContentKey] = "[Kick]";
+			td2.appendChild(kick);
+		}
+		tr.appendChild(td1);
+		tr.appendChild(td2);
+		table.appendChild(tr);
+	}
+	document.getElementById("statcontent").appendChild(table);
+
+	if(party.is_leader) {
+		var leadHdr = document.createElement("h3");
+		leadHdr[textContentKey] = "Leadership";
+		document.getElementById("statcontent").appendChild(leadHdr);
+
+		var inviteLink = document.createElement("a");
+		inviteLink.className = "button";
+		inviteLink.href = "#";
+		inviteLink.onclick = make_verb_onclick("Invite-To-Party");
+		inviteLink[textContentKey] = "Invite To Party";
+		document.getElementById("statcontent").appendChild(inviteLink);
+
+		var rally = document.createElement("div");
+		if(party.rally_ready && party.rally_tier > 0) {
+			var rallyLink = document.createElement("a");
+			rallyLink.className = "button";
+			rallyLink.href = "#";
+			rallyLink.onclick = make_verb_onclick("Party-Rally-Cry");
+			rallyLink[textContentKey] = "Rally Cry";
+			rally.appendChild(rallyLink);
+		} else {
+			var rallySpan = document.createElement("span");
+			rallySpan.id = "party-rally-countdown";
+			rallySpan[textContentKey] = party.rally_tier <= 0 ? "Rally Cry (unavailable)" : "Rally Cry (" + party.rally_cooldown_seconds + "s)";
+			rally.appendChild(rallySpan);
+		}
+		document.getElementById("statcontent").appendChild(rally);
+
+		var auraHdr = document.createElement("div");
+		auraHdr.style.marginTop = "6px";
+		auraHdr[textContentKey] = "Choose Aura:";
+		document.getElementById("statcontent").appendChild(auraHdr);
+
+		for(var j = 0; j < party.auras.length; j++) {
+			var aura = party.auras[j];
+			var row = document.createElement("div");
+			if(aura.unlocked) {
+				var auraLink = document.createElement("a");
+				auraLink.className = "link";
+				auraLink.title = aura.desc;
+				auraLink.href = "#";
+				auraLink.onclick = make_party_aura_onclick(aura.index);
+				auraLink[textContentKey] = (aura.is_current ? "> " : "") + aura.name;
+				row.appendChild(auraLink);
+			} else {
+				var auraSpan = document.createElement("span");
+				auraSpan.title = aura.desc;
+				auraSpan[textContentKey] = aura.name + " (locked, tier " + aura.required_tier + ")";
+				row.appendChild(auraSpan);
+			}
+			document.getElementById("statcontent").appendChild(row);
+		}
+	}
+
+	var leaveDiv = document.createElement("div");
+	leaveDiv.style.marginTop = "8px";
+	var leaveLink = document.createElement("a");
+	leaveLink.className = "link";
+	leaveLink.href = "#";
+	leaveLink.onclick = make_verb_onclick("Party-Leave");
+	leaveLink[textContentKey] = "Leave Party";
+	leaveDiv.appendChild(leaveLink);
+	document.getElementById("statcontent").appendChild(leaveDiv);
+
+	draw_party_charisma_abilities();
 }
 
 function remove_tickets() {
 	if(tickets) {
 		tickets = [];
+		last_tickets_raw = null;
 		removePermanentTab("Tickets");
 		if(current_tab == "Tickets")
 			tab_change("Status");
+		checkStatusTab();
 	}
-	checkStatusTab();
 }
 
 function remove_interviews() {
 	if(tickets) {
 		tickets = [];
 	}
+	last_interviews_raw = null;
 	checkStatusTab();
 }
 
@@ -1660,6 +2043,31 @@ function make_verb_onclick(command) {
 	return function() {
 		run_after_focus(function() {
 			send_byond_command(command);
+		});
+	};
+}
+
+// Like make_verb_onclick(), but appends a dynamic arg instead of using a fixed command string.
+function make_party_aura_onclick(index) {
+	return function() {
+		run_after_focus(function() {
+			send_byond_command("Party-Set-Aura " + index);
+		});
+	};
+}
+
+function make_party_kick_onclick(ref) {
+	return function() {
+		run_after_focus(function() {
+			send_byond_command("Party-Kick " + ref);
+		});
+	};
+}
+
+function make_party_promote_onclick(ref) {
+	return function() {
+		run_after_focus(function() {
+			send_byond_command("Party-Promote " + ref);
 		});
 	};
 }

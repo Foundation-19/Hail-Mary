@@ -49,7 +49,7 @@
 			if(user.pulling != L)
 				return
 			playsound(src.loc, "sound/effects/crossed.ogg", 20, 1) // thanks hippie
-			L.visible_message(span_danger("[user] ties [L] to the cross!"), span_userdanger("[user] ties you to the cross!"))
+			L.visible_message(span_danger("%ACTOR_NAME% ties %SELF_NAME% to the cross!"), span_userdanger("%ACTOR_NAME% ties you to the cross!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			L.forceMove(drop_location())
 			L.emote("scream")
 			if(iscarbon(L))

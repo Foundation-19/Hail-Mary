@@ -13,14 +13,15 @@
 	icon_gib = "deathclaw_gib"
 	mob_armor = ARMOR_VALUE_DEATHCLAW_COMMON
 	sentience_type = SENTIENCE_BOSS
-	maxHealth = 500 // Reduced from 600
-	health = 500
+	maxHealth = 650 // raised - melee weapon damage pass hits much harder now, keep TTK consistent
+	health = 650
 	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = 1
 	obj_damage = 200
 	melee_damage_lower = 30
 	melee_damage_upper = 40
+	armour_penetration = 0.2 // razor claws shrug off some of a target's armor even before it rages
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	move_to_delay = 2.75
 	gender = MALE
@@ -113,35 +114,56 @@
 			return FALSE
 	return ..()
 
-/// RAGE MODE - when going from high health to low health
-/mob/living/simple_animal/hostile/deathclaw/mother/make_low_health()
+/// RAGE MODE - when going from high health to low health. Lives on the base type so every
+/// deathclaw variant (common, mother, legendary, power armor) actually enrages, not just mother -
+/// previously this was only implemented on /mother and even then did nothing but call the no-op parent.
+/mob/living/simple_animal/hostile/deathclaw/make_low_health()
 	if(!target)
 		return
 	..()
+	visible_message(span_danger("[src] roars in uncontrollable rage!"))
+	if(length(aggrosound))
+		playsound(src, pick(aggrosound), 100, 1, SOUND_DISTANCE(15))
+	color = color_mad
+	reach = initial(reach) + 1
+	speed = initial(speed) * 0.7
+	obj_damage = initial(obj_damage) * 1.5
+	melee_damage_lower = round(initial(melee_damage_lower) * 1.3)
+	melee_damage_upper = round(initial(melee_damage_upper) * 1.3)
+	armour_penetration = initial(armour_penetration) + 0.15 // bypasses a chunk of even heavy armor like riot gear once enraged
+	see_in_dark = initial(see_in_dark) + 4
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_WALLS // enraged, it'll smash straight through a wall to reach you
+	wound_bonus = initial(wound_bonus) + 20
+	bare_wound_bonus = initial(bare_wound_bonus) + 25
+	alternate_attack_prob = 40 // starts actually throwing people around instead of never doing it (was 0 by default)
+	sound_pitch = -20
+	is_low_health = TRUE
+	// Guarantee the rage is actually seen - immediately try to close the distance instead of waiting on the next shot landing.
+	if(!charging && world.time > charge_cooldown)
+		addtimer(CALLBACK(src, PROC_REF(Charge)), 0.3 SECONDS)
 
-/// Calming down when going from low health to high health
-/mob/living/simple_animal/hostile/deathclaw/mother/make_high_health()
-	if(!target)
-		// If we somehow have rage active without a target, clean it up
-		if(is_low_health)
-			color = initial(color)
-			reach = initial(reach)
-			speed = initial(speed)
-			obj_damage = initial(obj_damage)
-			melee_damage_lower = initial(melee_damage_lower)
-			melee_damage_upper = initial(melee_damage_upper)
-			see_in_dark = initial(see_in_dark)
-			environment_smash = initial(environment_smash)
-			wound_bonus = initial(wound_bonus)
-			bare_wound_bonus = initial(bare_wound_bonus)
-			alternate_attack_prob = initial(alternate_attack_prob)
-			sound_pitch = initial(sound_pitch)
-			is_low_health = FALSE
+/// Calming down when going from low health to high health (in practice, almost always via LoseTarget() below,
+/// since deathclaws don't regenerate health mid-fight).
+/mob/living/simple_animal/hostile/deathclaw/make_high_health()
+	if(!is_low_health)
 		return
-	..()
+	color = initial(color)
+	reach = initial(reach)
+	speed = initial(speed)
+	obj_damage = initial(obj_damage)
+	melee_damage_lower = initial(melee_damage_lower)
+	melee_damage_upper = initial(melee_damage_upper)
+	armour_penetration = initial(armour_penetration)
+	see_in_dark = initial(see_in_dark)
+	environment_smash = initial(environment_smash)
+	wound_bonus = initial(wound_bonus)
+	bare_wound_bonus = initial(bare_wound_bonus)
+	alternate_attack_prob = initial(alternate_attack_prob)
+	sound_pitch = initial(sound_pitch)
+	is_low_health = FALSE
 
 // Deactivate rage when target is lost
-/mob/living/simple_animal/hostile/deathclaw/mother/LoseTarget()
+/mob/living/simple_animal/hostile/deathclaw/LoseTarget()
 	..()
 	if(is_low_health)
 		make_high_health()
@@ -157,13 +179,14 @@
 	playsound(get_turf(throwee), 'sound/effects/Flesh_Break_1.ogg', 50, 1)
 	visible_message(span_danger("[src] hurls [the_target] across the room!"))
 
-// CHARGE MECHANIC - trigger on getting shot
+// CHARGE MECHANIC - trigger on getting shot. Enraged deathclaws are much more likely to close the gap
+// instead of just tanking ranged fire forever - this is what punishes kiting it with a high-RPM gun.
 /mob/living/simple_animal/hostile/deathclaw/bullet_act(obj/item/projectile/Proj)
 	if(!Proj)
 		return
 	
 	// Chance to charge when shot, if not on cooldown
-	if(!charging && world.time > charge_cooldown && prob(30))
+	if(!charging && world.time > charge_cooldown && prob(is_low_health ? 60 : 30))
 		visible_message(span_danger("\The [src] roars in rage!"))
 		addtimer(CALLBACK(src, PROC_REF(Charge)), 0.3 SECONDS)
 	
@@ -191,6 +214,8 @@
 		DestroySurroundings()
 
 /mob/living/simple_animal/hostile/deathclaw/proc/Charge()
+	if(stat == DEAD || QDELETED(src)) // killed between the roar and the lunge actually starting - don't charge a corpse
+		return
 	if(!target)
 		return
 	
@@ -199,7 +224,7 @@
 		return
 	
 	charging = TRUE
-	charge_cooldown = world.time + charge_cooldown_time
+	charge_cooldown = world.time + (is_low_health ? (charge_cooldown_time * 0.5) : charge_cooldown_time) // enraged, it can lunge again much sooner
 	
 	visible_message(span_danger("[src] charges with terrifying speed!"))
 	DestroySurroundings()

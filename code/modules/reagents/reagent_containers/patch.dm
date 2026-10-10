@@ -180,17 +180,18 @@
 			to_chat(user, span_warning("[SA] is already at full health!"))
 			return
 		
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 		user.visible_message(
-			span_notice("[user] starts applying [src] to [SA]..."),
-			span_notice("You start applying [src] to [SA]..."))
+			span_notice("[user_tok] starts applying [src] to [SA]..."),
+			span_notice("You start applying [src] to [SA]..."), visible_message_flags = ANONYMIZE_NAMES)
 		
 		if(!do_after(user, 2 SECONDS, target = M))
 			to_chat(user, span_warning("You stop applying the medicine."))
 			return
 		
 		user.visible_message(
-			span_notice("[user] applies [src] to [SA], sealing its wounds!"),
-			span_notice("You apply [src] to [SA], sealing its wounds!"))
+			span_notice("[user_tok] applies [src] to [SA], sealing its wounds!"),
+			span_notice("You apply [src] to [SA], sealing its wounds!"), visible_message_flags = ANONYMIZE_NAMES)
 		
 		// INSTANT HEALING - 33% of total
 		var/instant_heal_brute = 13
@@ -257,8 +258,8 @@
 		
 		// Visual feedback every few ticks, but NOT on the last tick
 		if(i % 3 == 0 && i < ticks)
-			target.visible_message(span_notice("[target]'s wounds continue to close..."))
+			target.visible_message(span_notice("%SELF_NAME%'s wounds continue to close..."), visible_message_flags = ANONYMIZE_NAMES)
 	
 	// Final message when healing is complete
 	if(target && !QDELETED(target) && target.stat != DEAD)
-		target.visible_message(span_notice("The salve on [target] has finished its work."))
+		target.visible_message(span_notice("The salve on %SELF_NAME% has finished its work."), visible_message_flags = ANONYMIZE_NAMES)

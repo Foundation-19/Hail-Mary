@@ -15,8 +15,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
 	sentience_type = SENTIENCE_BOSS
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	stat_attack = CONSCIOUS
 	robust_searching = 1
 	check_friendly_fire = FALSE
@@ -155,8 +155,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/playable
-	maxHealth = 110
-	health = 110
+	maxHealth = 145
+	health = 145
 	emote_taunt_sound = null
 	emote_taunt = null
 	aggrosound = null
@@ -224,8 +224,8 @@
 	icon_living = "hulk_melee_s"
 	icon_dead = "hulk_melee_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_MELEE
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	mob_armor_tokens = list(
 		ARMOR_MODIFIER_UP_MELEE_T1,
 		ARMOR_MODIFIER_DOWN_LASER_T2,
@@ -247,8 +247,8 @@
 	icon_living = "hulk_ranged_s"
 	icon_dead = "hulk_ranged_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_RANGER
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 
 	combat_mode = COMBAT_MODE_MIXED
 	ranged = TRUE
@@ -303,8 +303,8 @@
 	color = "#FFFF00"
 	color_rage = "#ffcc66"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_LEGEND
-	maxHealth = 130
-	health = 130
+	maxHealth = 170 // bumped - TTK vs melee was too short
+	health = 170
 	icon_state = "hulk_113_s"
 	icon_living = "hulk_113_s"
 	icon_dead = "hulk_113_s"
@@ -324,8 +324,8 @@
 	icon_living = "night_s"
 	icon_dead = "night_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_MELEE
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	alpha = 80
 	force_threshold = 15
 	melee_damage_lower = 27
@@ -351,8 +351,8 @@
 	icon_living = "night_ranged_s"
 	icon_dead = "night_ranged_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_RANGER
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	alpha = 80
 	force_threshold = 15
 	melee_damage_lower = 25
@@ -395,8 +395,8 @@
 	icon_living = "night_boss_s"
 	icon_dead = "night_boss_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_LEGEND
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	alpha = 80
 	force_threshold = 15
 	melee_damage_lower = 20

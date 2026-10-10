@@ -596,6 +596,16 @@
 			return TRUE
 	return FALSE
 
+/// Explosion radius scaling for Demolition Expert ranks (FO4-style +30%/+60%/+90% explosive power)
+/mob/living/proc/get_demolition_expert_radius_mult()
+	if(has_quirk(/datum/quirk/explosive_crafting_rank3))
+		return 1.9
+	if(has_quirk(/datum/quirk/explosive_crafting_rank2))
+		return 1.6
+	if(has_quirk(/datum/quirk/explosive_crafting_rank1))
+		return 1.3
+	return 1
+
 /////////////////////////////////// TRAIT PROCS ////////////////////////////////////
 
 /mob/living/proc/cure_blind(source)

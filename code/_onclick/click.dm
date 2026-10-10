@@ -100,6 +100,12 @@
 		return
 
 	var/obj/item/W = get_active_held_item()
+	// An /obj/item/offhand (glove_weapon hand lock, two-handed weapon offhand marker) isn't a real weapon to
+	// swing - without this, clicking your own worn glove_weapon to unequip it (inventory UI redirects worn-slot
+	// clicks here, see /obj/screen/inventory/Click()) gets treated as "attack the glove with the lock in hand"
+	// (W.melee_attack_chain() below) instead of the unarmed/attack_hand() path that actually unequips it.
+	if(istype(W, /obj/item/offhand))
+		W = null
 
 	if(W == A)
 		W.attack_self(src)
@@ -114,7 +120,7 @@
 		else
 			. = UnarmedAttack(A, TRUE, a_intent)
 			if(!(. & NO_AUTO_CLICKDELAY_HANDLING) && ismob(A))
-				DelayNextAction(CLICK_CD_MELEE)
+				DelayNextAction(get_unarmed_melee_clickdelay())
 			return
 
 	//Can't reach anything else in lockers or other weirdness
@@ -128,7 +134,7 @@
 		else
 			. = UnarmedAttack(A, TRUE, a_intent)
 			if(!(. & NO_AUTO_CLICKDELAY_HANDLING) && ismob(A))
-				DelayNextAction(CLICK_CD_MELEE)
+				DelayNextAction(get_unarmed_melee_clickdelay())
 			return
 	else
 		if(!isturf(A) && !isturf(A.loc))
@@ -261,7 +267,7 @@
 			return FALSE
 		var/mob/living/carbon/human/H = user
 		H.dna.species.grab(H, src, H.mind.martial_art)
-		H.DelayNextAction(CLICK_CD_MELEE)
+		H.DelayNextAction(H.get_unarmed_melee_clickdelay())
 		return TRUE
 	else
 		return ..()

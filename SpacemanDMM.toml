@@ -1,3 +1,5 @@
+environment = "hailmary.dme"
+
 [langserver]
 dreamchecker = true
 

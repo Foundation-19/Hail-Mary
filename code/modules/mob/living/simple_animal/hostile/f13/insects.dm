@@ -17,8 +17,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_ANTS
 	
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	speed = 1
 	move_to_delay = 3
 	turns_per_move = 5
@@ -110,8 +110,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_ANTS
 	
-	maxHealth = 90
-	health = 90
+	maxHealth = 120 // bumped - TTK vs melee was too short
+	health = 120
 	speed = 1
 	turns_per_move = 5
 	
@@ -206,8 +206,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_ANTS_QUEEN
 	
-	maxHealth = 350  // Reduced from 560
-	health = 350
+	maxHealth = 450  // bumped - TTK vs melee was too short
+	health = 450
 	speed = 5  // Slow
 	turns_per_move = 5
 	stat_attack = UNCONSCIOUS
@@ -339,8 +339,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_RADSCORPION
 	
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	speed = 1.25
 	move_to_delay = 3
 	turns_per_move = 5
@@ -451,8 +451,8 @@
 	
 	mob_armor = ARMOR_VALUE_RADSCORPION_BLACK
 	
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	speed = 1.2
 	
 	melee_damage_lower = 10
@@ -467,8 +467,8 @@
 	icon_dead = "radscorpion_blue_d"
 	icon_gib = "radscorpion_blue_gib"
 	
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	speed = 1.35
 
 /////////////

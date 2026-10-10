@@ -16,8 +16,8 @@
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	
-	maxHealth = 40
-	health = 40
+	maxHealth = 52 // bumped - TTK vs melee was too short
+	health = 52
 	move_to_delay = 2.75
 	turns_per_move = 6
 	stamcrit_threshold = SIMPLEMOB_NO_STAMCRIT
@@ -151,8 +151,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_SECURITY
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10

@@ -34,21 +34,21 @@
 		return
 	if(swirlie)
 		playsound(src.loc, "swing_hit", 25, 1)
-		swirlie.visible_message(span_danger("[user] slams the toilet seat onto [swirlie]'s head!"), span_userdanger("[user] slams the toilet seat onto your head!"), span_italic("You hear reverberating porcelain."))
+		swirlie.visible_message(span_danger("%ACTOR_NAME% slams the toilet seat onto %SELF_NAME%'s head!"), span_userdanger("%ACTOR_NAME% slams the toilet seat onto your head!"), span_italic("You hear reverberating porcelain."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		swirlie.adjustBruteLoss(5)
 
 	else if(user.pulling && user.a_intent == INTENT_GRAB && isliving(user.pulling))
 		var/mob/living/GM = user.pulling
 		if(user.grab_state >= GRAB_AGGRESSIVE)
 			if(GM.loc != get_turf(src))
-				to_chat(user, span_warning("[GM] needs to be on [src]!"))
+				to_chat(user, span_warning("[GM.get_display_name(user)] needs to be on [src]!"))
 				return
 			if(!swirlie)
 				if(open)
-					GM.visible_message(span_danger("[user] starts to give [GM] a swirlie!"), span_userdanger("[user] starts to give you a swirlie..."))
+					GM.visible_message(span_danger("%ACTOR_NAME% starts to give %SELF_NAME% a swirlie!"), span_userdanger("%ACTOR_NAME% starts to give you a swirlie..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					swirlie = GM
 					if(do_after(user, 30, 0, target = src))
-						GM.visible_message(span_danger("[user] gives [GM] a swirlie!"), span_userdanger("[user] gives you a swirlie!"), span_italic("You hear a toilet flushing."))
+						GM.visible_message(span_danger("%ACTOR_NAME% gives %SELF_NAME% a swirlie!"), span_userdanger("%ACTOR_NAME% gives you a swirlie!"), span_italic("You hear a toilet flushing."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 						if(iscarbon(GM))
 							var/mob/living/carbon/C = GM
 							if(!C.internal)

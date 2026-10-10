@@ -47,10 +47,10 @@
 		Butcher(user, M)
 
 /datum/component/butchering/proc/startNeckSlice(obj/item/source, mob/living/carbon/human/H, mob/living/user)
-	user.visible_message(span_danger("[user] is slitting [H]'s throat!"), \
-					span_danger("You start slicing [H]'s throat!"), \
-					span_notice("You hear a cutting noise!"), ignored_mobs = H)
-	H.show_message(span_userdanger("Your throat is being slit by [user]!"), 1, \
+	user.visible_message(span_danger("%SELF_NAME% is slitting %ACTOR_NAME%'s throat!"), \
+					span_danger("You start slicing %ACTOR_NAME%'s throat!"), \
+					span_notice("You hear a cutting noise!"), ignored_mobs = H, visible_message_flags = ANONYMIZE_NAMES, name_actor = H)
+	H.show_message(span_userdanger("Your throat is being slit by [user.get_display_name(H)]!"), 1, \
 					"<span class = 'userdanger'>Something is cutting into your neck!</span>", NONE)
 	log_combat(user, H, "starts slicing the throat of")
 

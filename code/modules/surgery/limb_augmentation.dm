@@ -18,11 +18,11 @@
 		return -1
 	L = surgery.operated_bodypart
 	if(L)
-		display_results(user, target, "<span class ='notice'>You begin to augment [target]'s [parse_zone(user.zone_selected)]...</span>",
-			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)] with [aug].",
-			"[user] begins to augment [target]'s [parse_zone(user.zone_selected)].")
+		display_results(user, target, "<span class ='notice'>You begin to augment %ACTOR_NAME%'s [parse_zone(user.zone_selected)]...</span>",
+			"%SELF_NAME% begins to augment %ACTOR_NAME%'s [parse_zone(user.zone_selected)] with [aug].",
+			"%SELF_NAME% begins to augment %ACTOR_NAME%'s [parse_zone(user.zone_selected)].")
 	else
-		user.visible_message("[user] looks for [target]'s [parse_zone(user.zone_selected)].", "<span class ='notice'>You look for [target]'s [parse_zone(user.zone_selected)]...</span>")
+		user.visible_message("%SELF_NAME% looks for %ACTOR_NAME%'s [parse_zone(user.zone_selected)].", "<span class ='notice'>You look for %ACTOR_NAME%'s [parse_zone(user.zone_selected)]...</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 //ACTUAL SURGERIES
 /datum/surgery/augmentation
@@ -43,10 +43,10 @@
 			tool = tool.contents[1]
 		if(istype(tool) && user.temporarilyRemoveItemFromInventory(tool))
 			tool.replace_limb(target, TRUE)
-		display_results(user, target, span_notice("You successfully augment [target]'s [parse_zone(target_zone)]."),
-			"[user] successfully augments [target]'s [parse_zone(target_zone)] with [tool]!",
-			"[user] successfully augments [target]'s [parse_zone(target_zone)]!")
+		display_results(user, target, span_notice("You successfully augment %ACTOR_NAME%'s [parse_zone(target_zone)]."),
+			"%SELF_NAME% successfully augments %ACTOR_NAME%'s [parse_zone(target_zone)] with [tool]!",
+			"%SELF_NAME% successfully augments %ACTOR_NAME%'s [parse_zone(target_zone)]!")
 		log_combat(user, target, "augmented", addition="by giving him new [parse_zone(target_zone)] INTENT: [uppertext(user.a_intent)]")
 	else
-		to_chat(user, span_warning("[target] has no organic [parse_zone(target_zone)] there!"))
+		to_chat(user, span_warning("[target.get_display_name(user)] has no organic [parse_zone(target_zone)] there!"))
 	return TRUE

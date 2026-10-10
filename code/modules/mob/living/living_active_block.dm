@@ -3,15 +3,16 @@
 	if(!(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING)))
 		return FALSE
 	var/obj/item/I = active_block_item
-	if(!I)
+	if(!I && !active_block_unarmed)
 		return FALSE
 	combat_flags &= ~(COMBAT_FLAG_ACTIVE_BLOCKING | COMBAT_FLAG_ACTIVE_BLOCK_STARTING)
 	active_block_effect_end()
+	var/datum/block_parry_data/data = I? I.get_block_parry_data() : get_active_block_data()
 	active_block_item = null
+	active_block_unarmed = FALSE
 	REMOVE_TRAIT(src, TRAIT_MOBILITY_NOUSE, ACTIVE_BLOCK_TRAIT)
 	REMOVE_TRAIT(src, TRAIT_SPRINT_LOCKED, ACTIVE_BLOCK_TRAIT)
 	remove_movespeed_modifier(/datum/movespeed_modifier/active_block)
-	var/datum/block_parry_data/data = I.get_block_parry_data()
 	DelayNextAction(data.block_end_click_cd_add)
 	return TRUE
 
@@ -33,14 +34,35 @@
 	active_block_effect_start()
 	return TRUE
 
+/// Bare-handed equivalent of active_block_start() - no item, uses our own block_parry_data.
+/mob/living/proc/active_block_start_unarmed()
+	if(combat_flags & (COMBAT_FLAG_ACTIVE_BLOCK_STARTING | COMBAT_FLAG_ACTIVE_BLOCKING))
+		return FALSE
+	var/datum/block_parry_data/data = get_active_block_data()
+	combat_flags |= COMBAT_FLAG_ACTIVE_BLOCKING
+	active_block_unarmed = TRUE
+	if(data.block_lock_attacking)
+		ADD_TRAIT(src, TRAIT_MOBILITY_NOUSE, ACTIVE_BLOCK_TRAIT)
+	if(data.block_lock_sprinting)
+		ADD_TRAIT(src, TRAIT_SPRINT_LOCKED, ACTIVE_BLOCK_TRAIT)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/active_block, multiplicative_slowdown = data.block_slowdown)
+	active_block_effect_start()
+	return TRUE
+
 /// Visual effect setup for starting a directional block
 /mob/living/proc/active_block_effect_start()
-	visible_message(span_warning("[src] raises their [active_block_item], dropping into a defensive stance!"))
+	if(active_block_unarmed)
+		visible_message(span_warning("[src] raises their fists, dropping into a defensive stance!"))
+	else
+		visible_message(span_warning("[src] raises their [active_block_item], dropping into a defensive stance!"))
 	animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2.5, FALSE, SINE_EASING | EASE_OUT)
 
 /// Visual effect cleanup for starting a directional block
 /mob/living/proc/active_block_effect_end()
-	visible_message(span_warning("[src] lowers their [active_block_item]."))
+	if(active_block_unarmed)
+		visible_message(span_warning("[src] lowers their fists."))
+	else
+		visible_message(span_warning("[src] lowers their [active_block_item]."))
 	animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2.5, FALSE, SINE_EASING | EASE_IN)
 
 /mob/living/proc/continue_starting_active_block()
@@ -88,11 +110,13 @@
 	if(SEND_SIGNAL(src, COMSIG_LIVING_ACTIVE_BLOCK_START, I, other_items) & COMPONENT_PREVENT_BLOCK_START)
 		to_chat(src, span_warning("Something is preventing you from blocking!"))
 		return
+	if(!I && length(other_items))
+		I = other_items[1]
 	if(!I)
-		if(!length(other_items))
+		if(!(combat_flags & COMBAT_FLAG_UNARMED_BLOCK))
 			to_chat(src, span_warning("You can't block with your bare hands!"))
 			return
-		I = other_items[1]
+		return start_unarmed_active_block()
 	if(!I.can_active_block())
 		to_chat(src, span_warning("[I] is either not capable of being used to actively block, or is not currently in a state that can! (Try wielding it if it's twohanded, for example.)"))
 		return
@@ -112,6 +136,25 @@
 		return
 	combat_flags &= ~(COMBAT_FLAG_ACTIVE_BLOCK_STARTING)
 	active_block_start(I)
+
+/// Bare-handed branch of keybind_start_active_blocking() - same windup/combat-mode gating, no item involved.
+/mob/living/proc/start_unarmed_active_block()
+	// QOL: Attempt to toggle on combat mode if it isn't already
+	SEND_SIGNAL(src, COMSIG_ENABLE_COMBAT_MODE)
+	if(SEND_SIGNAL(src, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
+		to_chat(src, span_warning("You must be in combat mode to actively block!"))
+		return FALSE
+	var/datum/block_parry_data/data = get_active_block_data()
+	var/delay = data.block_start_delay
+	combat_flags |= COMBAT_FLAG_ACTIVE_BLOCK_STARTING
+	animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = delay, FALSE, SINE_EASING | EASE_IN)
+	if(!do_after_advanced(src, delay, src, DO_AFTER_REQUIRES_USER_ON_TURF|DO_AFTER_NO_COEFFICIENT, CALLBACK(src, PROC_REF(continue_starting_active_block)), MOBILITY_USE))
+		to_chat(src, span_warning("You fail to raise your fists."))
+		combat_flags &= ~(COMBAT_FLAG_ACTIVE_BLOCK_STARTING)
+		animate(src, pixel_x = get_standard_pixel_x_offset(), pixel_y = get_standard_pixel_y_offset(), time = 2.5, FALSE, SINE_EASING | EASE_IN, ANIMATION_END_NOW)
+		return
+	combat_flags &= ~(COMBAT_FLAG_ACTIVE_BLOCK_STARTING)
+	active_block_start_unarmed()
 
 /**
  * Gets the first item we can that can block, but if that fails, default to active held item.COMSIG_ENABLE_COMBAT_MODE
@@ -300,3 +343,94 @@
 	. = FALSE
 	for(var/i in their_dirs)
 		. |= can_block_direction(our_dir, i)
+
+// Unarmed active block - no item, same formulas as item blocking but reading our own block_parry_data. See living_active_parry.dm's UNARMED_PARRY branch for the equivalent pattern.
+
+/// Gets the datum/block_parry_data we're going to use to actively block bare-handed.
+/mob/living/proc/get_active_block_data()
+	return return_block_parry_datum(block_parry_data)
+
+/mob/living/proc/active_block_calculate_final_damage(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+	var/datum/block_parry_data/data = get_active_block_data()
+	var/absorption = data.attack_type_list_scan(data.block_damage_absorption_override, attack_type)
+	var/efficiency = data.attack_type_list_scan(data.block_damage_multiplier_override, attack_type)
+	var/limit = data.attack_type_list_scan(data.block_damage_limit_override, attack_type)
+	if(isnull(absorption))
+		absorption = data.block_damage_absorption
+	if(isnull(efficiency))
+		efficiency = data.block_damage_multiplier
+	if(isnull(limit))
+		limit = data.block_damage_limit
+	var/final_damage = 0
+	if(damage > limit)
+		final_damage += (damage - limit)
+		damage = limit
+	damage -= min(absorption, damage)
+	final_damage += (damage * efficiency)
+	return final_damage
+
+/// Amount of stamina from damage blocked. Note that the damage argument is damage_blocked.
+/mob/living/proc/active_block_stamina_cost(atom/object, damage_blocked, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+	var/datum/block_parry_data/data = get_active_block_data()
+	var/efficiency = data.attack_type_list_scan(data.block_stamina_efficiency_override, attack_type)
+	if(isnull(efficiency))
+		efficiency = data.block_stamina_efficiency
+	var/multiplier = 1
+	if(!CHECK_MOBILITY(src, MOBILITY_STAND))
+		multiplier = data.attack_type_list_scan(data.block_resting_stamina_penalty_multiplier_override, attack_type)
+		if(isnull(multiplier))
+			multiplier = data.block_resting_stamina_penalty_multiplier
+	return min((damage_blocked / efficiency) * multiplier, BLOCK_STAMINA_COST_CAP)
+
+/mob/living/proc/active_block_do_stamina_damage(atom/object, stamina_amount, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return)
+	adjustStaminaLossBuffered(stamina_amount)
+
+/mob/living/proc/on_active_block(atom/object, damage, damage_blocked, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return, override_direction)
+	return
+
+/mob/living/proc/active_block(atom/object, damage, attack_text, attack_type, armour_penetration, mob/attacker, def_zone, final_block_chance, list/block_return, override_direction)
+	var/datum/block_parry_data/data = get_active_block_data()
+	if(attack_type && !(attack_type & data.can_block_attack_types))
+		return BLOCK_NONE
+	var/incoming_direction
+	if(isnull(override_direction))
+		if(istype(object, /obj/item/projectile))
+			var/obj/item/projectile/P = object
+			incoming_direction = angle2dir(P.Angle)
+		else
+			incoming_direction = get_dir(get_turf(attacker) || get_turf(object), src)
+	if(!CHECK_MOBILITY(src, MOBILITY_STAND) && !(data.block_resting_attack_types_anydir & attack_type) && (!(data.block_resting_attack_types_directional & attack_type) || !can_block_direction(dir, incoming_direction)))
+		return BLOCK_NONE
+	else if(!can_block_direction(dir, incoming_direction))
+		return BLOCK_NONE
+	block_return[BLOCK_RETURN_ACTIVE_BLOCK] = TRUE
+	var/final_damage = active_block_calculate_final_damage(object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return)
+	var/damage_blocked = damage - final_damage
+	var/stamina_cost = active_block_stamina_cost(object, damage_blocked, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return)
+	active_block_do_stamina_damage(object, stamina_cost, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return)
+	block_return[BLOCK_RETURN_ACTIVE_BLOCK_DAMAGE_MITIGATED] = damage - final_damage
+	block_return[BLOCK_RETURN_SET_DAMAGE_TO] = final_damage
+	. = BLOCK_SHOULD_CHANGE_DAMAGE
+	if((final_damage <= 0) || (damage <= 0))
+		. |= BLOCK_SUCCESS
+		visible_message(span_warning("[src] blocks \the [attack_text] with their bare hands!"))
+		grant_block_counter_window()
+	else
+		visible_message(span_warning("[src] dampens \the [attack_text] with their bare hands!"))
+	block_return[BLOCK_RETURN_PROJECTILE_BLOCK_PERCENTAGE] = data.block_projectile_mitigation
+	if(length(data.block_sounds))
+		playsound(loc, pickweight(data.block_sounds), 75, TRUE)
+	on_active_block(object, damage, damage_blocked, attack_text, attack_type, armour_penetration, attacker, def_zone, final_block_chance, block_return, override_direction)
+
+/// Gets the block direction bitflags of what we can block bare-handed.
+/mob/living/proc/blockable_directions()
+	var/datum/block_parry_data/data = get_active_block_data()
+	return data.can_block_directions
+
+/// can_block_direction but bare-handed, see /obj/item/proc/can_block_direction() for the item equivalent.
+/mob/living/proc/can_block_direction(our_dir, their_dir)
+	their_dir = turn(their_dir, 180)
+	if(our_dir != NORTH)
+		var/turn_angle = dir2angle(our_dir)
+		their_dir = turn(their_dir, turn_angle)
+	return (DIR2BLOCKDIR(their_dir) & blockable_directions())

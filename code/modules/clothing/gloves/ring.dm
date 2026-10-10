@@ -58,3 +58,11 @@
 	icon_state = "ringbluespace"
 	item_state = "bring"
 	mood_event_on_equip = /datum/mood_event/equipped_ring/bluespace
+
+//No mood buff on equip - a Family Heirloom (negative.dm) should be a keepsake, not a free wearable buff.
+/obj/item/clothing/gloves/ring/heirloom
+	name = "worn wedding ring"
+	desc = "A plain band ring, its shine long faded from generations of wear. It's been handed down through the family."
+	icon_state = "ringsilver"
+	item_state = "sring"
+	mood_event_on_equip = null

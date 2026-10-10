@@ -64,6 +64,7 @@
 	pixel_y = -32
 	opacity = 0
 	layer = FLY_LAYER
+	plane = MOB_PLANE // mobs/items sit on their own higher planes, so without this smoke would render behind them instead of covering them
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = 2
 	/// How long the smoke will last

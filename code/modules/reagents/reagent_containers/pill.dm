@@ -36,18 +36,18 @@
 		return FALSE
 
 	if(M == user)
-		M.visible_message(span_notice("[user] attempts to [apply_method] [src]."))
+		M.visible_message(span_notice("%SELF_NAME% attempts to [apply_method] [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		if(self_delay)
 			if(!do_mob(user, M, self_delay))
 				return FALSE
 		to_chat(M, span_notice("You [apply_method] [src]."))
 	else
-		M.visible_message(span_danger("[user] attempts to force [M] to [apply_method] [src]."), \
-							span_userdanger("[user] attempts to force [M] to [apply_method] [src]."))
+		M.visible_message(span_danger("%ACTOR_NAME% attempts to force %SELF_NAME% to [apply_method] [src]."), \
+							span_userdanger("%ACTOR_NAME% attempts to force %SELF_NAME% to [apply_method] [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		if(!do_mob(user, M))
 			return FALSE
-		M.visible_message(span_danger("[user] forces [M] to [apply_method] [src]."), \
-							span_userdanger("[user] forces [M] to [apply_method] [src]."))
+		M.visible_message(span_danger("%ACTOR_NAME% forces %SELF_NAME% to [apply_method] [src]."), \
+							span_userdanger("%ACTOR_NAME% forces %SELF_NAME% to [apply_method] [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 	var/makes_me_think = pick(strings("redpill.json", "redpill_questions"))
 	if(icon_state == "pill4" && prob(5)) //you take the red pill - you stay in Wonderland, and I show you how deep the rabbit hole goes

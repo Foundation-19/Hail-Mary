@@ -6,7 +6,10 @@
 	var/t_has = p_have()
 	var/t_is = p_are()
 
-	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[src]</EM>!")
+	//get_display_name() reaches into viewer.knows_face()/knows_voice(), which only exist on /mob/living -
+	//a non-living (ghost) examiner falls back to the plain public name instead.
+	var/examine_name = isliving(user) ? src.get_display_name(user) : "[src]"
+	. = list("<span class='info'>*---------*\nThis is [icon2html(src, user)] \a <EM>[examine_name]</EM>!")
 
 	if (handcuffed)
 		. += span_warning("[t_He] [t_is] [icon2html(handcuffed, user)] handcuffed!")
@@ -174,7 +177,8 @@
 	if(!visible_scars)
 		return ..()
 
-	var/msg = list("<span class='notice'><i>You examine [src] closer, and note the following...</i></span>")
+	var/scars_examine_name = isliving(user) ? src.get_display_name(user) : "[src]"
+	var/msg = list("<span class='notice'><i>You examine [scars_examine_name] closer, and note the following...</i></span>")
 	for(var/i in visible_scars)
 		var/datum/scar/S = i
 		var/scar_text = S.get_examine_description(user)

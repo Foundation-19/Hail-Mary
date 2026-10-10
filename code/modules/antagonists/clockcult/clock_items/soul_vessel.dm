@@ -100,8 +100,8 @@
 	picked_name = "Slave"
 	braintype = picked_name
 	brainmob.timeofhostdeath = H.timeofdeath
-	user.visible_message(span_warning("[user] presses [src] to [H]'s head, ripping through the skull and carefully extracting the brain!"), \
-	span_brass("You extract [H]'s consciousness from [H.p_their()] body, trapping it in the soul vessel."))
+	user.visible_message(span_warning("%SELF_NAME% presses [src] to %ACTOR_NAME%'s head, ripping through the skull and carefully extracting the brain!"), \
+	span_brass("You extract %ACTOR_NAME%'s consciousness from [H.p_their()] body, trapping it in the soul vessel."), visible_message_flags = ANONYMIZE_NAMES, name_actor = H)
 	transfer_personality(H)
 	brainmob.fully_replace_character_name(null, "[braintype] [H.real_name]")
 	name = "[initial(name)] ([brainmob.name])"

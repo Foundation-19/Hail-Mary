@@ -115,13 +115,13 @@
 
 /obj/item/pet_carrier/relaymove(mob/living/user, direction)
 	if(open)
-		loc.visible_message(span_notice("[user] climbs out of [src]!"), \
-			span_warning("[user] jumps out of [src]!"))
+		loc.visible_message(span_notice("%ACTOR_NAME% climbs out of [src]!"), \
+			span_warning("%ACTOR_NAME% jumps out of [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		remove_occupant(user)
 		return
 	else if(!locked)
-		loc.visible_message(span_notice("[user] pushes open the [entrance_name] to [src]!"), \
-			span_warning("[user] pushes open the [entrance_name] of [src]!"))
+		loc.visible_message(span_notice("%ACTOR_NAME% pushes open the [entrance_name] to [src]!"), \
+			span_warning("%ACTOR_NAME% pushes open the [entrance_name] of [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		open = TRUE
 		update_icon()
 		return
@@ -133,11 +133,11 @@
 		if(alternate_escape_time > 0)
 			loc.visible_message(span_notice("The [src] begins to shake!"))
 			if(do_after(user, alternate_escape_time, target = user))
-				loc.visible_message(span_notice("[user] jumps out of [src]"))
+				loc.visible_message(span_notice("%ACTOR_NAME% jumps out of [src]"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				remove_occupant(user)
 		else
-			loc.visible_message(span_notice("[user] climbs out of [src]!"), \
-				span_warning("[user] jumps out of [src]!"))
+			loc.visible_message(span_notice("%ACTOR_NAME% climbs out of [src]!"), \
+				span_warning("%ACTOR_NAME% jumps out of [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			remove_occupant(user)
 		return
 
@@ -146,7 +146,7 @@
 		to_chat(loc, span_warning("You see [user] attempting to unlock the [src]!"))
 		if(!do_after(user, rand(escape_time * 1.5, escape_time * 2), target = user) || open || !locked || !(user in occupants))
 			return
-		loc.visible_message(span_warning("[user] flips the lock switch on [src] by reaching through!"), null, null, null, user)
+		loc.visible_message(span_warning("%ACTOR_NAME% flips the lock switch on [src] by reaching through!"), null, null, null, user, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		to_chat(user, span_boldannounce("Bingo! The lock pops open!"))
 		locked = FALSE
 		playsound(src, 'sound/machines/boltsup.ogg', 30, TRUE)
@@ -156,7 +156,7 @@
 		to_chat(user, span_notice("You start pushing out of [src]... (This will take about [escape_time/10] seconds.)"))
 		if(!do_after(user, escape_time, target = user) || open || !locked || !(user in occupants))
 			return
-		loc.visible_message(span_warning("[user] shoves out of [src]!"), null, null, null, user)
+		loc.visible_message(span_warning("%ACTOR_NAME% shoves out of [src]!"), null, null, null, user, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		to_chat(user, span_notice("You shove open [src]'s [entrance_name] against the lock's resistance and fall out!"))
 		locked = FALSE
 		open = TRUE
@@ -176,8 +176,8 @@
 
 /obj/item/pet_carrier/MouseDrop(atom/over_atom)
 	if(isopenturf(over_atom) && usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)) && usr.Adjacent(over_atom) && open && occupants.len)
-		usr.visible_message(span_notice("[usr] unloads [src]."), \
-			span_notice("You unload [src] onto [over_atom]."))
+		usr.visible_message(span_notice("%SELF_NAME% unloads [src]."), \
+			span_notice("You unload [src] onto [over_atom]."), visible_message_flags = ANONYMIZE_NAMES)
 		for(var/V in occupants)
 			remove_occupant(V, over_atom)
 	else
@@ -187,17 +187,17 @@
 	if(pet_carrier_full(src))
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
-	user.visible_message(span_notice("[user] starts loading [target] into [src]."), \
-		span_notice("You start loading [target] into [src]..."), null, null, target)
-	to_chat(target, span_userdanger("[user] starts loading you into [user.p_their()] [name]!"))
+	user.visible_message(span_notice("%SELF_NAME% starts loading %ACTOR_NAME% into [src]."), \
+		span_notice("You start loading %ACTOR_NAME% into [src]..."), null, null, target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+	to_chat(target, span_userdanger("[user.get_display_name(target)] starts loading you into [user.p_their()] [name]!"))
 	if(!do_mob(user, target, load_time))
 		return FALSE
 	if(target in occupants || pet_carrier_full(src))
 		to_chat(user, span_warning("[src] is already carrying too much!"))
 		return FALSE
-	user.visible_message(span_notice("[user] loads [target] into [src]!"), \
-		span_notice("You load [target] into [src]."), null, null, target)
-	to_chat(target, span_userdanger("[user] loads you into [user.p_their()] [name]!"))
+	user.visible_message(span_notice("%SELF_NAME% loads %ACTOR_NAME% into [src]!"), \
+		span_notice("You load %ACTOR_NAME% into [src]."), null, null, target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+	to_chat(target, span_userdanger("[user.get_display_name(target)] loads you into [user.p_their()] [name]!"))
 	add_occupant(target)
 	return TRUE
 
@@ -260,14 +260,17 @@
 /obj/item/pet_carrier/bluespace/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(occupants.len)
-		loc.visible_message(span_warning("The bluespace jar smashes, releasing [occupants[1]]!"))
+		var/mob/living/occ1 = occupants[1]
+		var/occ1_tok = isliving(occ1) ? "%ACTOR_NAME%" : "[occ1]"
+		loc.visible_message(span_warning("The bluespace jar smashes, releasing [occ1_tok]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(occ1) ? occ1 : null)
 
 	if(reagents?.total_volume && ismob(hit_atom) && hit_atom.reagents)
 		reagents.total_volume *= rand(5,10) * 0.1
 		var/mob/M = hit_atom
 		var/R = reagents.log_list()
-		hit_atom.visible_message(span_danger("[M] has been splashed with something!"), \
-			span_userdanger("[M] has been splashed with something!"))
+		var/hit_tok = isliving(M) ? "%SELF_NAME%" : "[M]"
+		hit_atom.visible_message(span_danger("[hit_tok] has been splashed with something!"), \
+			span_userdanger("[hit_tok] has been splashed with something!"), visible_message_flags = ANONYMIZE_NAMES)
 		var/turf/TT = get_turf(hit_atom)
 		var/throwerstring
 		if(thrownby)

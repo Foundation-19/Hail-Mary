@@ -142,5 +142,5 @@
 			H.dna.transfer_identity(user, transfer_SE=1)
 			user.updateappearance(mutcolor_update=1)
 			user.domutcheck()
-			user.visible_message(span_warning("[user]'s appearance shifts into [H]'s!"), \
-			"<span class='boldannounce'>[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't.</span>")
+			user.visible_message(span_warning("%SELF_NAME%'s appearance shifts into %ACTOR_NAME%'s!"), \
+			"<span class='boldannounce'>[H.p_they(TRUE)] think[H.p_s()] [H.p_theyre()] <i>sooo</i> much better than you. Not anymore, [H.p_they()] won't.</span>", visible_message_flags = ANONYMIZE_NAMES, name_actor = H)

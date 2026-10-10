@@ -311,7 +311,7 @@
 	flag = "energy"
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second = TILES_TO_PIXELS(50)
+	pixels_per_second = TILES_TO_PIXELS(70)
 
 //Securitrons Beam
 /obj/item/projectile/beam/laser/pistol/ultraweak
@@ -338,7 +338,7 @@
 	flag = "laser"
 	eyeblur = 0
 	is_reflectable = FALSE
-	pixels_per_second = TILES_TO_PIXELS(25)
+	pixels_per_second = TILES_TO_PIXELS(35)
 
 /obj/item/projectile/beam/laser/lasgun //AER9
 	name = "laser beam"
@@ -561,7 +561,7 @@
 	wound_bonus = 80 //being hit with plasma is horrific
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second =  TILES_TO_PIXELS(12) //same as 40mm grenade
+	pixels_per_second = TILES_TO_PIXELS(16.8)
 
 /obj/item/projectile/plasmacarbine //Plasma carbine
 	name = "plasma bolt"
@@ -574,7 +574,7 @@
 	wound_bonus = 50 //let's not make the carbine horrifying // nah lets make it horrifying
 	eyeblur = 0
 	is_reflectable = TRUE
-	pixels_per_second = TILES_TO_PIXELS(10)
+	pixels_per_second = TILES_TO_PIXELS(14)
 
 /obj/item/projectile/f13plasma/repeater //Plasma repeater
 	name = "plasma stream"
@@ -603,7 +603,7 @@
 /obj/item/projectile/f13plasma/pistol //Plasma pistol
 	damage = 35
 	wound_bonus = 70 //being hit with plasma is horrific
-	pixels_per_second = TILES_TO_PIXELS(12)
+	pixels_per_second = TILES_TO_PIXELS(16.8) //1.4x realistic plasma velocity
 
 /obj/item/projectile/f13plasma/pistol/eve //Eve
 	icon = 'icons/obj/guns/projectiles.dmi'
@@ -622,7 +622,7 @@
 /obj/item/projectile/f13plasma/pistol/glock //Glock (streamlined plasma pistol)
 	damage = 45
 	wound_bonus = 55 // cheapest e_cost in the family has to cost something - trades wounding potential for efficiency
-	pixels_per_second = TILES_TO_PIXELS(13)
+	pixels_per_second = TILES_TO_PIXELS(18.2)
 
 /obj/item/projectile/f13plasma/scatter //Multiplas, fires 3 shots, will melt you
 	damage = 30
@@ -660,6 +660,29 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_range = 2
 	light_color = LIGHT_COLOR_BLUE
+
+//YK32 pulse rifle's bolt - deliberately NOT a /obj/item/projectile/beam/... subtype, unlike every other
+//top-tier energy weapon here: the whole point of the rework was a genuine travelling projectile. Reuses the
+//alien pistol's "ion" icon_state above rather than guessing a new one (BYOND renders an unknown state blank).
+/obj/item/projectile/pulse_bolt
+	name = "pulse bolt"
+	icon_state = "ion"
+	damage_type = BURN
+	damage = 85 //comparable to multiplas's up-to-90 (3x30 pellets) but landed in one hit instead of a spread
+	armour_penetration = 0.15
+	flag = "energy" //checks vs. energy protection
+	eyeblur = 0
+	is_reflectable = TRUE
+	pixels_per_second = TILES_TO_PIXELS(12) //slower, heavier globe of energy than a laser bolt or plasma clot
+	light_range = 2
+	light_color = LIGHT_COLOR_BLUE
+
+//Shorts out power armor batteries and fries MFCs on impact - single-target emp_act(), mirroring the proton
+//axe's precedent, rather than a full-radius empulse() that'd punish bystanders who didn't get hit.
+/obj/item/projectile/pulse_bolt/on_hit(atom/target, blocked)
+	. = ..()
+	if(target)
+		target.emp_act(70)
 
 /obj/item/projectile/beam/laser/laer //Elder's/Unique LAER
 	name = "advanced laser beam"

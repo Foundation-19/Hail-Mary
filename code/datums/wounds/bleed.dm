@@ -188,14 +188,14 @@
 
 /datum/wound/bleed/proc/do_splortch(renewing = FALSE)
 	var/verbiage = renewing ? "[renew_text]" : "[occur_text]"
-	var/msg = span_danger("[victim]'s [limb.name] [verbiage]!")
+	var/msg = span_danger("%SELF_NAME%'s [limb.name] [verbiage]!")
 	var/vis_dist = COMBAT_MESSAGE_RANGE
 
 	if(severity != WOUND_SEVERITY_MODERATE)
 		msg = "<b>[msg]</b>"
 		vis_dist = DEFAULT_MESSAGE_RANGE
 
-	victim.visible_message(msg, span_userdanger("Your [limb.name] [verbiage]!"), vision_distance = vis_dist)
+	victim.visible_message(msg, span_userdanger("Your [limb.name] [verbiage]!"), vision_distance = vis_dist, visible_message_flags = ANONYMIZE_NAMES)
 	if(sound_effect)
 		playsound(limb.owner, sound_effect, 70 + 20 * severity, TRUE, ignore_walls = TRUE)
 // Supposedly? Wound messages generate a lot of lag. My sorrow is unknown to all.
@@ -341,7 +341,7 @@
 /// Someone is trying to cauterize a wound with a fucking lasergun - unused for now, doesnt work
 /datum/wound/bleed/proc/las_cauterize(obj/item/gun/energy/laser/lasgun, mob/user)
 	var/self_penalty_mult = (user == victim ? 1.25 : 1)
-	user.visible_message(span_warning("[user] begins aiming [lasgun] directly at [victim]'s [limb.name]..."), span_userdanger("You begin aiming [lasgun] directly at [user == victim ? "your" : "[victim]'s"] [limb.name]..."))
+	user.visible_message(span_warning("%SELF_NAME% begins aiming [lasgun] directly at %ACTOR_NAME%'s [limb.name]..."), span_userdanger("You begin aiming [lasgun] directly at [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	if(!do_after(user, base_treat_time  * self_penalty_mult, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 	var/damage = lasgun.chambered.BB.damage
@@ -351,16 +351,16 @@
 		return
 	victim.emote("scream")
 	blood_flow -= damage / (5 * self_penalty_mult) // 20 / 5 = 4 bloodflow removed, p good
-	victim.visible_message(span_warning("The cuts on [victim]'s [limb.name] scar over!"))
+	victim.visible_message(span_warning("The cuts on %SELF_NAME%'s [limb.name] scar over!"), visible_message_flags = ANONYMIZE_NAMES)
 
 /// If someone is using a suture to close this cut - unused for now, handled by various other mechanics
 /datum/wound/bleed/proc/suture(obj/item/stack/medical/suture/I, mob/user)
 	var/self_penalty_mult = (user == victim ? 1.2 : 1)
-	user.visible_message(span_notice("[user] begins stitching [victim]'s [limb.name] with [I]..."), span_notice("You begin stitching [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]..."))
+	user.visible_message(span_notice("%SELF_NAME% begins stitching %ACTOR_NAME%'s [limb.name] with [I]..."), span_notice("You begin stitching [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name] with [I]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 
 	if(!do_after(user, base_treat_time * self_penalty_mult, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
-	user.visible_message(span_green("[user] stitches up some of the bleeding on [victim]."), span_green("You stitch up some of the bleeding on [user == victim ? "yourself" : "[victim]"]."))
+	user.visible_message(span_green("%SELF_NAME% stitches up some of the bleeding on %ACTOR_NAME%."), span_green("You stitch up some of the bleeding on [user == victim ? "yourself" : "%ACTOR_NAME%"]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	var/blood_sutured = I.is_bandage / self_penalty_mult
 	blood_flow -= blood_sutured
 	limb.heal_damage(I.heal_brute, I.heal_burn)
@@ -377,11 +377,11 @@
 		to_chat(user, span_danger("You can't cauterize [limb.name] any further, use a bandage and/or a suture!"))
 		return
 	var/self_penalty_mult = (user == victim ? 1.5 : 1)
-	user.visible_message(span_danger("[user] begins cauterizing [victim]'s [limb.name] with [I]..."), span_danger("You begin cauterizing [user == victim ? "your" : "[victim]'s"] [limb.name] with [I]..."))
+	user.visible_message(span_danger("%SELF_NAME% begins cauterizing %ACTOR_NAME%'s [limb.name] with [I]..."), span_danger("You begin cauterizing [user == victim ? "your" : "%ACTOR_NAME%'s"] [limb.name] with [I]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	if(!do_after(user, base_treat_time * self_penalty_mult, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 
-	user.visible_message(span_green("[user] cauterizes some of the bleeding on [victim]."), span_green("You cauterize some of the bleeding on [victim]."))
+	user.visible_message(span_green("%SELF_NAME% cauterizes some of the bleeding on %ACTOR_NAME%."), span_green("You cauterize some of the bleeding on %ACTOR_NAME%."), visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 	limb.receive_damage(burn = 2 + severity, wound_bonus = CANT_WOUND)
 	if(prob(30))
 		victim.emote("scream")
@@ -411,13 +411,13 @@
 	for(var/datum/disease/D in victim.diseases)
 		user.ForceContractDisease(D)
 
-	user.visible_message(span_notice("[user] begins licking the wounds on [victim]'s [limb.name]."), span_notice("You begin licking the wounds on [victim]'s [limb.name]..."), ignored_mobs=victim)
-	to_chat(victim, "<span class='notice'>[user] begins to lick the wounds on your [limb.name].</span")
+	user.visible_message(span_notice("%SELF_NAME% begins licking the wounds on %ACTOR_NAME%'s [limb.name]."), span_notice("You begin licking the wounds on %ACTOR_NAME%'s [limb.name]..."), ignored_mobs=victim, visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
+	to_chat(victim, "<span class='notice'>[user.get_display_name(victim)] begins to lick the wounds on your [limb.name].</span")
 	if(!do_after(user, base_treat_time, target=victim, extra_checks = CALLBACK(src, PROC_REF(still_exists))))
 		return
 
-	user.visible_message(span_notice("[user] licks the wounds on [victim]'s [limb.name]."), span_notice("You lick some of the wounds on [victim]'s [limb.name]"), ignored_mobs=victim)
-	to_chat(victim, "<span class='green'>[user] licks the wounds on your [limb.name]!</span")
+	user.visible_message(span_notice("%SELF_NAME% licks the wounds on %ACTOR_NAME%'s [limb.name]."), span_notice("You lick some of the wounds on %ACTOR_NAME%'s [limb.name]"), ignored_mobs=victim, visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
+	to_chat(victim, "<span class='green'>[user.get_display_name(victim)] licks the wounds on your [limb.name]!</span")
 	blood_flow -= 0.05
 	if(isinsect(victim) || iscatperson(victim) || ismammal(victim) || isdwarf(victim) || ismonkey(victim)) // Yep you can lick monkeys.
 		user.reagents.add_reagent(/datum/reagent/hairball, 2)

@@ -273,7 +273,9 @@ Turf and target are separate in case you want to teleport some distance from a t
 			continue
 		var/name = avoid_assoc_duplicate_keys(M.name, namecounts)
 
-		if(M.real_name && M.real_name != M.name)
+		//Admin-only debug convenience - every non-admin ghost using Orbit must see the same anonymized public
+		//name as everyone else, same as examine()/visible_message()/compose_message().
+		if(M.client?.holder && M.real_name && M.real_name != M.name && M.name != "Unknown")
 			name += " \[[M.real_name]\]"
 		if(M.stat == DEAD)
 			if(isobserver(M))

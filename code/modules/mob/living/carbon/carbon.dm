@@ -83,8 +83,9 @@
 				var/obj/item/bodypart/BP = get_bodypart(BODY_ZONE_CHEST)
 				if(BP.receive_damage(d, 0))
 					update_damage_overlays()
-				visible_message(span_danger("[user] attacks [src]'s stomach wall with the [I.name]!"), \
-									span_userdanger("[user] attacks your stomach wall with the [I.name]!"))
+				visible_message(span_danger("%ACTOR_NAME% attacks %SELF_NAME%'s stomach wall with the [I.name]!"), \
+									span_userdanger("%ACTOR_NAME% attacks your stomach wall with the [I.name]!"), \
+									visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 				playsound(user.loc, 'sound/effects/attackblob.ogg', 50, 1)
 
 				if(prob(src.getBruteLoss() - 50))
@@ -176,8 +177,9 @@
 			take_bodypart_damage(10 + 5 * extra_speed, check_armor = TRUE, wound_bonus = extra_speed * 5)
 			victim.DefaultCombatKnockdown(20)
 			DefaultCombatKnockdown(20)
-			visible_message(span_danger("[src] crashes into [victim] [extra_speed ? "really hard" : ""], knocking them both over!"),\
-				span_userdanger("You violently crash into [victim] [extra_speed ? "extra hard" : ""]!"))
+			visible_message(span_danger("%SELF_NAME% crashes into %ACTOR_NAME% [extra_speed ? "really hard" : ""], knocking them both over!"),\
+				span_userdanger("You violently crash into %ACTOR_NAME% [extra_speed ? "extra hard" : ""]!"), \
+				visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
 		playsound(src,'sound/weapons/punch1.ogg',50,1)
 
 
@@ -266,8 +268,8 @@
 			power_throw++
 		if(pulling && grab_state >= GRAB_NECK)
 			power_throw++
-		visible_message(span_danger("[src] throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
-						span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"))
+		visible_message(span_danger("%SELF_NAME% throws [thrown_thing][power_throw ? " really hard!" : "."]"), \
+						span_danger("You throw [thrown_thing][power_throw ? " really hard!" : "."]"), visible_message_flags = ANONYMIZE_NAMES)
 		log_message("has thrown [thrown_thing] [power_throw ? "really hard" : ""]", LOG_ATTACK)
 		do_attack_animation(target, no_effect = 1)
 		playsound(loc, 'sound/weapons/punchmiss.ogg', 50, 1, -1)
@@ -419,13 +421,13 @@
 	fire_stacks -= 5
 	DefaultCombatKnockdown(60, TRUE, TRUE)
 	spin(32,2)
-	visible_message(span_danger("[src] rolls on the floor, trying to put [p_them()]self out!"), \
-		span_notice("You stop, drop, and roll!"))
+	visible_message(span_danger("%SELF_NAME% rolls on the floor, trying to put [p_them()]self out!"), \
+		span_notice("You stop, drop, and roll!"), visible_message_flags = ANONYMIZE_NAMES)
 	MarkResistTime(30)
 	sleep(30)
 	if(fire_stacks <= 0)
-		visible_message(span_danger("[src] has successfully extinguished [p_them()]self!"), \
-			span_notice("You extinguish yourself."))
+		visible_message(span_danger("%SELF_NAME% has successfully extinguished [p_them()]self!"), \
+			span_notice("You extinguish yourself."), visible_message_flags = ANONYMIZE_NAMES)
 		ExtinguishMob()
 
 /mob/living/carbon/resist_restraints()
@@ -684,13 +686,33 @@
 
 /mob/living/carbon/update_stamina()
 	var/stam = getStaminaLoss()
-	if(stam > DAMAGE_PRECISION)
-		var/total_health = (maxHealth - stam)
-		if(total_health <= crit_threshold && !stat)
-			if(CHECK_MOBILITY(src, MOBILITY_STAND))
-				to_chat(src, span_notice("You're too exhausted to keep going..."))
-			KnockToFloor(TRUE)
-			update_health_hud()
+	// Endurance stretches or shrinks both thresholds together, keeping the softcrit->hardcrit "windup" gap proportional at any END value.
+	var/endurance_mod = get_special_endurance_stamina_mod()
+	var/softcrit_threshold = STAMINA_SOFTCRIT * endurance_mod
+	var/hardcrit_threshold = STAMINA_CRIT * endurance_mod
+
+	if(stam >= softcrit_threshold)
+		if(!(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT))
+			to_chat(src, span_warning("Your muscles are burning with fatigue..."))
+			ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+	else if(combat_flags & COMBAT_FLAG_SOFT_STAMCRIT)
+		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_SOFT_STAMCRIT)
+
+	if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && stam >= hardcrit_threshold && !stat)
+		to_chat(src, span_notice("You're too exhausted to keep going..."))
+		// Your legs buckle - you collapse and drop whatever you're holding/blocking with, same as any other knockdown.
+		KnockToFloor(TRUE, TRUE, FALSE)
+		SEND_SIGNAL(src, COMSIG_DISABLE_COMBAT_MODE)
+		ENABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
+		filters += CIT_FILTER_STAMINACRIT
+		update_mobility()
+	else if((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && stam <= softcrit_threshold)
+		to_chat(src, span_notice("You don't feel nearly as exhausted anymore."))
+		DISABLE_BITFIELD(combat_flags, COMBAT_FLAG_HARD_STAMCRIT)
+		filters -= CIT_FILTER_STAMINACRIT
+		update_mobility()
+
+	update_health_hud()
 
 /mob/living/carbon/update_sight()
 	if(!client)
@@ -1048,13 +1070,15 @@
 
 
 /mob/living/carbon/proc/devour_mob(mob/living/carbon/C, devour_time = 130)
-	C.visible_message(span_danger("[src] is attempting to devour [C]!"), \
-					span_userdanger("[src] is attempting to devour you!"))
+	C.visible_message(span_danger("%ACTOR_NAME% is attempting to devour %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% is attempting to devour you!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 	if(!do_mob(src, C, devour_time))
 		return
 	if(pulling && pulling == C && grab_state >= GRAB_AGGRESSIVE && a_intent == INTENT_GRAB)
-		C.visible_message(span_danger("[src] devours [C]!"), \
-						span_userdanger("[src] devours you!"))
+		C.visible_message(span_danger("%ACTOR_NAME% devours %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% devours you!"), \
+						visible_message_flags = ANONYMIZE_NAMES, name_actor = src)
 		C.forceMove(src)
 		stomach_contents.Add(C)
 		log_combat(src, C, "devoured")
