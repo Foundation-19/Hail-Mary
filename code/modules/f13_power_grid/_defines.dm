@@ -51,6 +51,11 @@
 /// the live map). 5 ticks × 2 s = 10 s, so a cable severed by an explosion (or anything else)
 /// stops being powered shortly after, without needing a manual rescan.
 #define FGEN_LINK_PRUNE_INTERVAL 5
+/// SSobj ticks between recalc_draw() relay-tree walks. This recursively sums every downstream
+/// relay/client's watt draw, so with many generators/relays live it's one of the costliest
+/// things SSobj does every tick -- throttled instead of running every 2 s. 5 ticks x 2 s = 10 s
+/// of staleness on current_draw/overload detection, same tradeoff as FGEN_LINK_PRUNE_INTERVAL.
+#define FGEN_DRAW_RECALC_INTERVAL 5
 /// SSobj ticks between automatic retry attempts for a generator tripped from overload (not
 /// out of fuel, not manually shut down). Retries are fully silent on failure — only a success
 /// is announced — so this can stay short: 10 ticks × 2 s = 20 s.

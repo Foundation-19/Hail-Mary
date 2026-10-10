@@ -6,6 +6,7 @@ GLOBAL_LIST_EMPTY(ncr_radios)
 GLOBAL_LIST_EMPTY(legion_radios)
 GLOBAL_LIST_EMPTY(bos_radios)
 GLOBAL_LIST_EMPTY(enclave_radios)
+GLOBAL_LIST_EMPTY(minutemen_radios)
 
 /obj/machinery/radioterminal
 	name = "radio control"
@@ -58,6 +59,10 @@ GLOBAL_LIST_EMPTY(enclave_radios)
 			for(var/obj/item/radio/radio in GLOB.enclave_radios)
 				if(radio.linked_mob)
 					dat += "<a href='?src=[REF(src)];terminate=[REF(radio)]'> [radio.name] linked to [radio.linked_mob]<br>"
+		if(FACTION_MINUTEMEN)
+			for(var/obj/item/radio/radio in GLOB.minutemen_radios)
+				if(radio.linked_mob)
+					dat += "<a href='?src=[REF(src)];terminate=[REF(radio)]'> [radio.name] linked to [radio.linked_mob]<br>"
 	var/datum/browser/popup = new(user, "radio_console", "Radio Terminal")
 	popup.set_content(dat)
 	popup.open()
@@ -83,6 +88,8 @@ GLOBAL_LIST_EMPTY(enclave_radios)
 					LAZYREMOVE(GLOB.bos_radios, terminate)
 				if(FACTION_ENCLAVE)
 					LAZYREMOVE(GLOB.enclave_radios, terminate)
+				if(FACTION_MINUTEMEN)
+					LAZYREMOVE(GLOB.minutemen_radios, terminate)
 	updateUsrDialog()
 	return
 
@@ -134,3 +141,8 @@ GLOBAL_LIST_EMPTY(enclave_radios)
 	name = "Enclave radio control"
 	assigned_faction = FACTION_ENCLAVE
 	req_one_access = list(ACCESS_ENCLAVE)
+
+/obj/machinery/radioterminal/minutemen
+	name = "Minutemen radio control"
+	assigned_faction = FACTION_MINUTEMEN
+	req_one_access = list(ACCESS_MINUTEMEN)

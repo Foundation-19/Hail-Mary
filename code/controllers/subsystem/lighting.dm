@@ -17,6 +17,8 @@ SUBSYSTEM_DEF(lighting)
 		if (CONFIG_GET(flag/starlight))
 			for(var/I in GLOB.sortedAreas)
 				var/area/A = I
+				if (!A)
+					continue
 				if (A.dynamic_lighting == DYNAMIC_LIGHTING_IFSTARLIGHT)
 					A.luminosity = 0
 
