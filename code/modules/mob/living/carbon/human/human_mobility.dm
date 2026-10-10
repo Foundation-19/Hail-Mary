@@ -1,5 +1,7 @@
 /mob/living/carbon/human/resist_a_rest(automatic = FALSE, ignoretimer = FALSE)
 	if(!resting || stat || (combat_flags & COMBAT_FLAG_RESISTING_REST))
+		if(!automatic && resting && !stat && (combat_flags & COMBAT_FLAG_RESISTING_REST))
+			to_chat(src, span_notice("You're already trying to get up!"))
 		return FALSE
 	if(ignoretimer)
 		set_resting(FALSE, FALSE)
