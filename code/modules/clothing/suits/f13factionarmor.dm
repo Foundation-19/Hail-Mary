@@ -192,10 +192,12 @@
 	allowed = list(/obj/item/gun, /obj/item/melee/onehanded, /obj/item/throwing_star/spear, /obj/item/restraints/legcuffs/bola, /obj/item/twohanded, /obj/item/melee/powered, /obj/item/melee/smith, /obj/item/twohanded/smithed)
 	armor = list("melee" = 30, "bullet" = 30, "laser" = 10, "energy" = 10, "bomb" = 15, "bio" = 20, "rad" = 20, "fire" = 25, "acid" = 0, "wound" = 40)
 	slowdown = 0.05
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/tiny/legion
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small/legion
 	salvage_loot = list(/obj/item/stack/crafting/armor_plate = 2) // Because shit armor
 
-/datum/component/storage/concrete/pockets/tiny/legion
+// Was pockets/tiny (max_w_class TINY) - every other faction's armor pocket allows at least SMALL,
+// which rejected even a basic pill bottle.
+/datum/component/storage/concrete/pockets/small/legion
 	max_items = 3
 
 /obj/item/clothing/suit/armor/legion/Initialize()
