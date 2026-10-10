@@ -573,17 +573,17 @@
 		if(!I.tool_start_check(user, amount=0)) //this seems to be called everywhere, so for consistency's sake
 			inuse = FALSE
 			return //the tool fails this check, so stop
-		user.visible_message("[user] starts disassembling [src].")
+		user.visible_message("%SELF_NAME% starts disassembling [src].", visible_message_flags = ANONYMIZE_NAMES)
 		if(!I.use_tool(src, user, 0, volume=100)) //here is the dilemma, use_tool doesn't work like do_after, so moving away screws it(?)
 			inuse = FALSE
 			return //you can't use the tool, so stop
 		for(var/i1 in 1 to 2) //so, I hate waiting
 			if(!do_after(user, 1 SECONDS*W.toolspeed, target = src)) //this is my work around, because do_After does have a move away
-				user.visible_message("[user] stops disassembling [src].")
+				user.visible_message("%SELF_NAME% stops disassembling [src].", visible_message_flags = ANONYMIZE_NAMES)
 				inuse = FALSE
 				return //you did something, like moving, so stop
 			var/fake_dismantle = pick("plating", "rod", "rim", "part of the frame")
-			user.visible_message("[user] slices through a [fake_dismantle].")
+			user.visible_message("%SELF_NAME% slices through a [fake_dismantle].", visible_message_flags = ANONYMIZE_NAMES)
 			I.play_tool_sound(src, 100)
 		var/turf/usr_turf = get_turf(user)
 		var/modifier = 0
@@ -619,17 +619,17 @@
 		if(!I.tool_start_check(user, amount=0)) //this seems to be called everywhere, so for consistency's sake
 			inuse = FALSE
 			return //the tool fails this check, so stop
-		user.visible_message("[user] starts disassembling [src].")
+		user.visible_message("%SELF_NAME% starts disassembling [src].", visible_message_flags = ANONYMIZE_NAMES)
 		if(!I.use_tool(src, user, 0, volume=100)) //here is the dilemma, use_tool doesn't work like do_after, so moving away screws it(?)
 			inuse = FALSE
 			return //you can't use the tool, so stop
 		for(var/i1 in 1 to 2) //so, I hate waiting
 			if(!do_after(user, 1 SECONDS, target = src)) //this is my work around, because do_After does have a move away
-				user.visible_message("[user] stops disassembling [src].")
+				user.visible_message("%SELF_NAME% stops disassembling [src].", visible_message_flags = ANONYMIZE_NAMES)
 				inuse = FALSE
 				return //you did something, like moving, so stop
 			var/fake_dismantle = pick("plating", "rod", "rim", "part of the frame")
-			user.visible_message("[user] slices through a [fake_dismantle].")
+			user.visible_message("%SELF_NAME% slices through a [fake_dismantle].", visible_message_flags = ANONYMIZE_NAMES)
 			I.play_tool_sound(src, 100)
 		var/turf/usr_turf = get_turf(user)
 		var/modifier = 0

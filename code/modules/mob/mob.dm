@@ -31,6 +31,15 @@
 		for(var/M in observers)
 			var/mob/dead/observe = M
 			observe.reset_perspective(null)
+	// Identity-override /image cleanup (see code/game/say.dm) - this mob could be tracked as either a
+	// viewer (owns override images in a client's .images) or a target (tracked by other viewers), so tear
+	// down both directions to avoid leaking /image objects into other clients' screens.
+	if(isliving(src))
+		var/mob/living/L = src
+		for(var/mob/living/viewer in L.identity_override_viewers.Copy())
+			L.forget_identity_override_viewer(viewer)
+		for(var/mob/living/target in L.identity_override_images.Copy())
+			target.forget_identity_override_viewer(L)
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
@@ -166,7 +175,9 @@
 		mob/target,
 		target_message,
 		visible_message_flags = NONE,
-		pref_check
+		pref_check,
+		mob/living/name_actor,
+		mob/living/name_other
 		)
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -175,6 +186,24 @@
 	if(!length(hearers)) // yes, hearers is correct
 		return
 	hearers -= ignored_mobs
+
+	//Bakes a living mob's raw public name/tag straight into the message with no per-viewer recognition
+	//chance at all (the "[L] is hit by..." class of bug) - should be using %...NAME% + ANONYMIZE_NAMES instead.
+	//Checks name_actor/name_other too, not just src - a bystander's or an attacker's raw name baked into a
+	//message about someone else is just as much a leak as the message's own mob leaking itself.
+	//Gated on ishuman(), not isliving(): non-human simple_animal mobs (protectrons, deathclaws, etc.) have no
+	//anonymity system at all (always-public names, no masks/badges) and were flooding the log with false positives.
+	//get_public_name() never reveals real_name, so a baked-in `[src]`/`.name` is always already safe - only
+	//flag when the mob's actual real_name leaked while they're currently showing an anonymized public name.
+	if(!CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES))
+		if(ishuman(src))
+			var/mob/living/carbon/human/self_human = src
+			if(self_human.real_name && self_human.real_name != self_human.name && findtext(message, self_human.real_name))
+				log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's real name - msg=\"[message]\" src=[src] ([REF(src)])")
+		if(name_actor && ishuman(name_actor) && name_actor.real_name && name_actor.real_name != name_actor.name && findtext(message, name_actor.real_name))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's real name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
+		if(name_other && ishuman(name_other) && name_other.real_name && name_other.real_name != name_other.name && findtext(message, name_other.real_name))
+			log_identity_leak("visible_message() sent without ANONYMIZE_NAMES but bakes in name_other's real name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
 
 	if(target_message && target && istype(target) && target.client)
 		hearers -= target
@@ -186,8 +215,18 @@
 		else if(T.lighting_object && T.lighting_object.invisibility <= target.see_invisible && T.is_softly_lit() && !in_range(T,target))
 			msg = blind_message
 		if(msg && !CHECK_BITFIELD(visible_message_flags, ONLY_OVERHEAD))
+			//Still runs for non-living (e.g. ghost) targets - anonymize_message_names() falls back to the
+			//plain public name for them instead of leaving %SELF_NAME%/%ACTOR_NAME%/%OTHER_NAME% unresolved.
+			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES))
+				msg = anonymize_message_names(msg, target, name_actor, name_other, CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
-				msg = "<b>[src]</b> [msg]"
+				var/can_resolve_per_viewer = isliving(src) && isliving(target)
+				//A non-living viewer (ghost) not resolving per-viewer isn't a leak - ghosts are meant to see
+				//the raw public name, so only flag this when the viewer actually IS living and still couldn't.
+				if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer && isliving(target))
+					log_identity_leak("PUT_NAME_IN fell back to raw name (target_message branch) - src=[src] ([REF(src)]) target=[target] ([REF(target)])")
+				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && can_resolve_per_viewer) ? src:get_display_name_linked(target) : "[src]"
+				msg = "<b>[name_text]</b> [msg]"
 			target.show_message(msg, MSG_VISUAL,blind_message, MSG_AUDIBLE)
 	if(self_message)
 		hearers -= src
@@ -210,15 +249,54 @@
 			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = visible_message_flags)
 
 		if(msg && !CHECK_BITFIELD(visible_message_flags, ONLY_OVERHEAD))
+			//Still runs for non-living (e.g. ghost) hearers - see the matching comment in the target_message branch above.
+			if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES))
+				msg = anonymize_message_names(msg, M, name_actor, name_other, CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
 			if(CHECK_BITFIELD(visible_message_flags, PUT_NAME_IN))
-				msg = "<b>[src]</b> [msg]"
+				var/can_resolve_per_viewer = isliving(src) && isliving(M)
+				if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer && isliving(M))
+					log_identity_leak("PUT_NAME_IN fell back to raw name (visible_message hearers loop) - src=[src] ([REF(src)]) viewer=[M] ([REF(M)])")
+				var/name_text = (CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && can_resolve_per_viewer) ? src:get_display_name_linked(M) : "[src]"
+				msg = "<b>[name_text]</b> [msg]"
 			M.show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE)
 
+///Substitutes %SELF_NAME% (this atom, if a living mob), %ACTOR_NAME% (name_actor, if given), and
+///%OTHER_NAME% (name_other, if given - a 3rd party mob neither src nor name_actor) in msg with how
+///`viewer` would actually perceive those mobs - see /mob/living/proc/get_display_name() in code/game/say.dm.
+///`named_via_prefix` is TRUE for emotes (PUT_NAME_IN prepends the name separately instead of via a macro).
+///`viewer` isn't necessarily living (e.g. a ghost observer) - non-living viewers can't know_face()/know_voice(),
+///so they just get the plain public name instead of per-viewer resolution.
+/atom/proc/anonymize_message_names(msg, mob/viewer, mob/living/name_actor, mob/living/name_other, named_via_prefix = FALSE)
+	//Self-view (self_message) conventionally writes "You" directly instead of %SELF_NAME%, and emotes name
+	//via PUT_NAME_IN's prefix instead of a macro - neither of those is a real leak, so don't flag them.
+	//Checked per-mob (src/name_actor/name_other independently) so a message that macros %SELF_NAME% but still
+	//bakes in name_actor's/name_other's raw name literally still gets flagged - not just "no macro at all".
+	//Gated on ishuman(), not isliving() - see the matching comment in visible_message() above.
+	if(!named_via_prefix && viewer != src)
+		if(ishuman(src) && !findtext(msg, "%SELF_NAME%") && findtext(msg, "[src]"))
+			log_identity_leak("anonymize_message_names() bakes in src's raw name with no %SELF_NAME% - msg=\"[msg]\" src=[src] ([REF(src)]) viewer=[viewer] ([REF(viewer)])")
+		if(name_actor && ishuman(name_actor) && !findtext(msg, "%ACTOR_NAME%") && findtext(msg, "[name_actor]"))
+			log_identity_leak("anonymize_message_names() bakes in name_actor's raw name with no %ACTOR_NAME% - msg=\"[msg]\" name_actor=[name_actor] ([REF(name_actor)]) viewer=[viewer] ([REF(viewer)])")
+		if(name_other && ishuman(name_other) && !findtext(msg, "%OTHER_NAME%") && findtext(msg, "[name_other]"))
+			log_identity_leak("anonymize_message_names() bakes in name_other's raw name with no %OTHER_NAME% - msg=\"[msg]\" name_other=[name_other] ([REF(name_other)]) viewer=[viewer] ([REF(viewer)])")
+	var/mob/living/living_viewer = isliving(viewer) ? viewer : null
+	if(isliving(src))
+		var/mob/living/self_mob = src
+		msg = replacetext(msg, "%SELF_NAME%", living_viewer ? self_mob.get_display_name(living_viewer) : "[self_mob]")
+	if(name_actor)
+		msg = replacetext(msg, "%ACTOR_NAME%", living_viewer ? name_actor.get_display_name(living_viewer) : "[name_actor]")
+	if(name_other)
+		msg = replacetext(msg, "%OTHER_NAME%", living_viewer ? name_other.get_display_name(living_viewer) : "[name_other]")
+	return msg
+
 ///Adds the functionality to self_message.
-mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, mob/target, target_message, visible_message_flags = NONE, pref_check)
+mob/visible_message(message, self_message, blind_message, vision_distance = DEFAULT_MESSAGE_RANGE, list/ignored_mobs, mob/target, target_message, visible_message_flags = NONE, pref_check, mob/living/name_actor, mob/living/name_other)
 	. = ..()
 	if(self_message && target != src)
-		show_message(self_message, MSG_VISUAL, blind_message, MSG_AUDIBLE, pref_check)
+		var/msg = self_message
+		if(CHECK_BITFIELD(visible_message_flags, ANONYMIZE_NAMES) && isliving(src))
+			msg = anonymize_message_names(msg, src, name_actor, name_other)
+		show_message(msg, MSG_VISUAL, blind_message, MSG_AUDIBLE, pref_check)
 
 /**
  * Show a message to all mobs in earshot of this atom
@@ -238,7 +316,9 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		self_message,
 		ignored_mobs,
 		audible_message_flags = NONE,
-		pref_check
+		pref_check,
+		mob/living/name_actor,
+		mob/living/name_other
 		)
 	var/turf/T = get_turf(src)
 	if(!T)
@@ -249,9 +329,19 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 	hearers -= ignored_mobs
 	if(self_message)
 		hearers -= src
+
+	//Same real-name check as visible_message() - see comment there (gated on ishuman(), not isliving()).
+	if(!CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES))
+		if(ishuman(src))
+			var/mob/living/carbon/human/self_human = src
+			if(self_human.real_name && self_human.real_name != self_human.name && findtext(message, self_human.real_name))
+				log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in this living mob's real name - msg=\"[message]\" src=[src] ([REF(src)])")
+		if(name_actor && ishuman(name_actor) && name_actor.real_name && name_actor.real_name != name_actor.name && findtext(message, name_actor.real_name))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_actor's real name - msg=\"[message]\" name_actor=[name_actor] ([REF(name_actor)]) src=[src] ([REF(src)])")
+		if(name_other && ishuman(name_other) && name_other.real_name && name_other.real_name != name_other.name && findtext(message, name_other.real_name))
+			log_identity_leak("audible_message() sent without ANONYMIZE_NAMES but bakes in name_other's real name - msg=\"[message]\" name_other=[name_other] ([REF(name_other)]) src=[src] ([REF(src)])")
+
 	var/raw_msg = message
-	if(CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
-		message = "<b>[src]</b> [message]"
 	//if(audible_message_flags & EMOTE_MESSAGE)
 	//	message = "<span class='emote'><b>[src]</b> [message]</span>"
 	for(var/mob/M in hearers)
@@ -260,7 +350,17 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 		if(audible_message_flags & EMOTE_MESSAGE && runechat_prefs_check(M, audible_message_flags) && M.can_hear())
 			M.create_chat_message(src, raw_message = raw_msg, runechat_flags = audible_message_flags)
 		if(!CHECK_BITFIELD(audible_message_flags, ONLY_OVERHEAD))
-			M.show_message(message, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
+			var/msg = message
+			//Still runs for non-living (e.g. ghost) hearers - see the matching comment in visible_message() above.
+			if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES))
+				msg = anonymize_message_names(msg, M, name_actor, name_other, CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
+			if(CHECK_BITFIELD(audible_message_flags, PUT_NAME_IN))
+				var/can_resolve_per_viewer = isliving(src) && isliving(M)
+				if(CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && !can_resolve_per_viewer && isliving(M))
+					log_identity_leak("PUT_NAME_IN fell back to raw name (audible_message hearers loop) - src=[src] ([REF(src)]) viewer=[M] ([REF(M)])")
+				var/name_text = (CHECK_BITFIELD(audible_message_flags, ANONYMIZE_NAMES) && can_resolve_per_viewer) ? src:get_display_name_linked(M) : "[src]"
+				msg = "<b>[name_text]</b> [msg]"
+			M.show_message(msg, MSG_AUDIBLE, deaf_message, MSG_VISUAL)
 
 /**
  * Show a message to all mobs in earshot of this one
@@ -310,12 +410,16 @@ mob/visible_message(message, self_message, blind_message, vision_distance = DEFA
 //This proc is called whenever someone clicks an inventory ui slot.
 /mob/proc/attack_ui(slot)
 	var/obj/item/W = get_active_held_item()
+	// An /obj/item/offhand (e.g. a glove_weapon's hand lock, or a two-handed weapon's offhand marker) isn't a
+	// real item the player is trying to equip somewhere else - treat it the same as an empty hand, otherwise
+	// clicking the slot just fails to equip the placeholder instead of unequipping the worn item underneath.
+	var/active_hand_is_offhand_marker = istype(W, /obj/item/offhand)
 
-	if(istype(W))
+	if(istype(W) && !active_hand_is_offhand_marker)
 		if(equip_to_slot_if_possible(W, slot, FALSE, FALSE, FALSE, FALSE, TRUE))
 			return TRUE
 
-	if(!W)
+	if(!W || active_hand_is_offhand_marker)
 		// Activate the item
 		var/obj/item/I = get_item_by_slot(slot)
 		if(istype(I))

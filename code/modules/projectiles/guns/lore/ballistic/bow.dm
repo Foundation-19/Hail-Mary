@@ -72,7 +72,7 @@
 	if(!draw_load(M))
 		return TRUE
 	if(visible)
-		M.visible_message(span_warning("[M] draws the [draw_noun] on [src]!"), span_warning("You draw the [draw_noun] on [src]!"))
+		M.visible_message(span_warning("%SELF_NAME% draws the [draw_noun] on [src]!"), span_warning("You draw the [draw_noun] on [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(M, draw_sound, 60, 1)
 	draw_load(M)
 	update_icon()
@@ -172,7 +172,7 @@
 /obj/item/gun/ballistic/bow/do_fire(atom/target, mob/living/user, message = TRUE, params, zone_override = "", bonus_spread = 0, stam_cost = 0)
 	..()
 	if(HAS_TRAIT(user, TRAIT_AUTO_DRAW) && !chambered && get_ammo(FALSE))
-		user.visible_message(span_warning("[user] instinctively draws the string on [src]!"), span_warning("You instinctively draw the string on [src]!"))
+		user.visible_message(span_warning("%SELF_NAME% instinctively draws the string on [src]!"), span_warning("You instinctively draw the string on [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 		draw(user, FALSE)
 		recentdraw = world.time + 2
 

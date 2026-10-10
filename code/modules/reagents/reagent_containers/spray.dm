@@ -165,22 +165,24 @@
 	stream_amount = 5
 
 /obj/item/reagent_containers/spray/cleaner/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] is putting the nozzle of \the [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	if(do_mob(user,user,30))
 		if(reagents.total_volume >= amount_per_transfer_from_this)//if not empty
-			user.visible_message(span_suicide("[user] pulls the trigger!"))
+			user.visible_message(span_suicide("[user_tok] pulls the trigger!"), visible_message_flags = ANONYMIZE_NAMES)
 			src.spray(user)
 			return BRUTELOSS
 		else
-			user.visible_message(span_suicide("[user] pulls the trigger...but \the [src] is empty!"))
+			user.visible_message(span_suicide("[user_tok] pulls the trigger...but \the [src] is empty!"), visible_message_flags = ANONYMIZE_NAMES)
 			return SHAME
 	else
-		user.visible_message(span_suicide("[user] decided life was worth living."))
+		user.visible_message(span_suicide("[user_tok] decided life was worth living."), visible_message_flags = ANONYMIZE_NAMES)
 		return
 
 /obj/item/reagent_containers/spray/cleaner/attackby(obj/item/C, mob/user, params)
 	if(istype(C, /obj/item/crafting/abraxo))
-		user.visible_message("[user] begins filling container of the [src].")
+		var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok2] begins filling container of the [src].", visible_message_flags = ANONYMIZE_NAMES)
 		volume = 100
 		return
 	return ..()
@@ -222,7 +224,7 @@
 	list_reagents = null
 
 /obj/item/reagent_containers/spray/pepper/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!"))
+	user.visible_message(span_suicide("%SELF_NAME% begins huffing \the [src]! It looks like [user.p_theyre()] getting a dirty high!"), visible_message_flags = ANONYMIZE_NAMES)
 	return OXYLOSS
 
 // Fix pepperspraying yourself

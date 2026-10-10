@@ -291,10 +291,10 @@
 
 /obj/item/gun/energy/suicide_act(mob/living/user)
 	if (istype(user) && can_shoot() && can_trigger_gun(user) && user.get_bodypart(BODY_ZONE_HEAD))
-		user.visible_message(span_suicide("[user] is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message(span_suicide("%SELF_NAME% is putting the barrel of [src] in [user.p_their()] mouth.  It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 		sleep(25)
 		if(user.is_holding(src))
-			user.visible_message(span_suicide("[user] melts [user.p_their()] face off with [src]!"))
+			user.visible_message(span_suicide("%SELF_NAME% melts [user.p_their()] face off with [src]!"), visible_message_flags = ANONYMIZE_NAMES)
 			playsound(loc, fire_sound, 50, 1, -1)
 			playsound(src, 'sound/weapons/dink.ogg', 30, 1)
 			var/obj/item/ammo_casing/energy/shot = ammo_type[current_firemode_index]
@@ -302,10 +302,10 @@
 			update_icon()
 			return(FIRELOSS)
 		else
-			user.visible_message(span_suicide("[user] panics and starts choking to death!"))
+			user.visible_message(span_suicide("%SELF_NAME% panics and starts choking to death!"), visible_message_flags = ANONYMIZE_NAMES)
 			return(OXYLOSS)
 	else
-		user.visible_message("<span class='suicide'>[user] is pretending to melt [user.p_their()] face off with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+		user.visible_message("<span class='suicide'>%SELF_NAME% is pretending to melt [user.p_their()] face off with [src]! It looks like [user.p_theyre()] trying to commit suicide!</b></span>", visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, "gun_dry_fire", 30, 1)
 		return (OXYLOSS)
 
@@ -329,13 +329,13 @@
 		if(!BB)
 			. = ""
 		else if(BB.nodamage || !BB.damage || BB.damage_type == STAMINA)
-			user.visible_message(span_danger("[user] tries to light [user.p_their()] [A.name] with [src], but it doesn't do anything. Dumbass."))
+			user.visible_message(span_danger("%SELF_NAME% tries to light [user.p_their()] [A.name] with [src], but it doesn't do anything. Dumbass."), visible_message_flags = ANONYMIZE_NAMES)
 			playsound(user, E.fire_sound, 50, 1)
 			playsound(user, BB.hitsound, 50, 1)
 			cell.use(E.e_cost * charge_cost_multiplier)
 			. = ""
 		else if(BB.damage_type != BURN)
-			user.visible_message(span_danger("[user] tries to light [user.p_their()] [A.name] with [src], but only succeeds in utterly destroying it. Dumbass."))
+			user.visible_message(span_danger("%SELF_NAME% tries to light [user.p_their()] [A.name] with [src], but only succeeds in utterly destroying it. Dumbass."), visible_message_flags = ANONYMIZE_NAMES)
 			playsound(user, E.fire_sound, 50, 1)
 			playsound(user, BB.hitsound, 50, 1)
 			cell.use(E.e_cost * charge_cost_multiplier)
@@ -345,7 +345,7 @@
 			playsound(user, E.fire_sound, 50, 1)
 			playsound(user, BB.hitsound, 50, 1)
 			cell.use(E.e_cost * charge_cost_multiplier)
-			. = span_danger("[user] casually lights their [A.name] with [src]. Damn.")
+			. = span_danger("%ACTOR_NAME% casually lights their [A.name] with [src]. Damn.")
 
 /obj/item/gun/energy/altafterattack(atom/target, mob/user, proximity_flags, params)
 	if(!right_click_overridden)

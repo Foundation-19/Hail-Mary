@@ -315,6 +315,13 @@ also: most hitscan weapons have more charge than their normal projectile counter
 	fire_sound = 'sound/f13weapons/aer9fire.ogg'
 	damage_threshold_penetration = 6 //Upgraded gun lets more damage through than a typical rifle.
 
+//Less ammo-hungry than the multiplas (200/shot) despite hitting almost as hard in one bolt.
+/obj/item/ammo_casing/energy/pulse_bolt
+	projectile_type = /obj/item/projectile/pulse_bolt
+	select_name = "pulse bolt"
+	e_cost = 150 //13 shots
+	fire_sound = 'sound/f13weapons/laerfire.ogg'
+
 /obj/item/ammo_casing/energy/gammagun
 	projectile_type = /obj/item/projectile/beam/gamma
 	e_cost = 75

@@ -164,7 +164,7 @@ Nothing else in the console has ID requirements.
 				logname = "Cyborg: [user.name]"
 			else if(isliving(user))
 				var/mob/living/L = user
-				logname = L.get_visible_name()
+				logname = L.name //baked into a log re-shown to any future console user, so use the public (non-leaking) name, not get_visible_name()'s real identity
 			stored_research.research_logs += "[logname] researched node id [id] with cost [json_encode(price)] at [COORD(src)]."
 			return TRUE
 		else

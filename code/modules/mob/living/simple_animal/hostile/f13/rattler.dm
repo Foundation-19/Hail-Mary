@@ -17,8 +17,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_ANTS  // Lightly armored - speed is the threat
 	
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 	speed = -1  // Very fast
 	move_to_delay = 2.5
 	stat_attack = UNCONSCIOUS

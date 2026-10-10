@@ -69,8 +69,8 @@
 		if (GUILLOTINE_BLADE_RAISED)
 			if (LAZYLEN(buckled_mobs))
 				if (user.a_intent == INTENT_HARM)
-					user.visible_message(span_warning("[user] begins to pull the lever!"),
-										span_warning("You begin to the pull the lever."))
+					user.visible_message(span_warning("%SELF_NAME% begins to pull the lever!"),
+										span_warning("You begin to the pull the lever."), visible_message_flags = ANONYMIZE_NAMES)
 					current_action = GUILLOTINE_ACTION_INUSE
 
 					if (do_after(user, GUILLOTINE_ACTIVATE_DELAY, target = src) && blade_status == GUILLOTINE_BLADE_RAISED)

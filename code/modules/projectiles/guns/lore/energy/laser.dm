@@ -732,6 +732,23 @@
 		/datum/firemode/semi_auto/slow
 	)
 
+//YK32 pulse rifle - lore-accurate rework per player feedback: a genuine travelling projectile (not a beam
+//like every other weapon in this family) that shorts power armor batteries/MFCs on impact. Deliberately NOT
+//a subtype of /obj/item/gun/energy/pulse - that's the unrelated vanilla admin-prize "pulse rifle".
+/obj/item/gun/energy/laser/pulserifle
+	name = "YK32 pulse rifle"
+	desc = "A pre-War prototype built to put down powered armor and robotics - rather than a focused beam or a bolt of plasma, it hurls a slow, crackling globe of raw electromagnetic energy that overloads circuitry and cooks fusion cells on contact. Overkill against an unarmored target, but that's rather the point."
+	icon_state = "laer"
+	item_state = "laer"
+	ammo_type = list(/obj/item/ammo_casing/energy/pulse_bolt)
+	cell_type = /obj/item/stock_parts/cell/ammo/mfc
+	equipsound = 'sound/f13weapons/equipsounds/laerequip.ogg'
+	weapon_class = WEAPON_CLASS_RIFLE
+	weapon_weight = GUN_TWO_HAND_ONLY
+	init_firemodes = list(
+		/datum/firemode/semi_auto/slower
+	)
+
 //Fallout 4 laser tommy gun.
 /obj/item/gun/energy/laser/rcw
 	name = "laser RCW"

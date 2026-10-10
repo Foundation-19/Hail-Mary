@@ -13,6 +13,42 @@
 #define MARTIALART_RAGINGBOAR "rising bass"
 #define MARTIALART_RANGERTAKEDOWN "ranger takedown"
 
+/// Power attack defines
+/// Minimum charge fraction (vs the armed attack's required windup) needed for a release to not be treated as an early cancel.
+#define POWER_ATTACK_MIN_CHARGE_FRACTION 0.35
+/// How often (deciseconds) the charge loop ticks to fire on_charge_tick()/check for cancellation.
+#define POWER_ATTACK_TICK_RATE 2
+/// Fraction of the stamina cost refunded if a charge is released/cancelled before POWER_ATTACK_MIN_CHARGE_FRACTION.
+#define POWER_ATTACK_CANCEL_REFUND 0.6
+
+/// Blunt zone trauma defines - direct, deterministic-ish body-part consequences from a hard blunt hit (see check_blunt_zone_trauma()), separate from and on top of the normal RNG wound system.
+/// Post-armor effective force a blunt head hit needs before any concussion chance applies.
+#define BLUNT_HEAD_TRAUMA_MIN_FORCE 12
+/// Percent concussion chance added per point of force above BLUNT_HEAD_TRAUMA_MIN_FORCE.
+#define BLUNT_HEAD_TRAUMA_CHANCE_PER_FORCE 3
+/// Hard cap on concussion chance, so a one-shot guarantee is never possible.
+#define BLUNT_HEAD_TRAUMA_MAX_CHANCE 65
+/// How long (deciseconds) a blunt head concussion knocks the target down for.
+#define BLUNT_HEAD_TRAUMA_KNOCKDOWN_DURATION 40
+/// Post-armor effective force a blunt limb (arm/leg) hit needs before any stagger/disarm chance applies.
+#define BLUNT_LIMB_TRAUMA_MIN_FORCE 14
+/// Percent stagger/disarm chance added per point of force above BLUNT_LIMB_TRAUMA_MIN_FORCE.
+#define BLUNT_LIMB_TRAUMA_CHANCE_PER_FORCE 4
+/// Hard cap on limb stagger/disarm chance.
+#define BLUNT_LIMB_TRAUMA_MAX_CHANCE 50
+/// How long (deciseconds) a blunt leg hit buckles/knocks the target down for.
+#define BLUNT_LEG_TRAUMA_KNOCKDOWN_DURATION 30
+
+/// Vision-impairment melee miss chance (see /mob/proc/check_vision_impaired_miss) - blurry/blinded eyes can make you whiff a swing entirely, tempered by Perception.
+/// Flat miss chance percent added while eye_blind is active at all (on top of the per-level blur chance below).
+#define MELEE_BLIND_MISS_CHANCE 25
+/// Miss chance percent added per point of eye_blurry.
+#define MELEE_BLUR_MISS_CHANCE_PER_LEVEL 3
+/// Miss chance percent added/removed per point below/above the default (5) Perception.
+#define MELEE_MISS_CHANCE_PER_PERCEPTION_LEVEL 3
+/// Hard cap on vision-impaired miss chance, so you're never guaranteed to whiff.
+#define MELEE_VISION_MISS_CHANCE_CAP 60
+
 /// Melee item defines
 /// Base forces!
 #define FALLBACK_FORCE 1.15

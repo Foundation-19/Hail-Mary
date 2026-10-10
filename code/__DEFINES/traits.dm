@@ -179,6 +179,7 @@
 #define TRAIT_LAW_ENFORCEMENT_METABOLISM "law-enforcement-metabolism"
 #define TRAIT_QUICK_CARRY		"quick-carry"
 #define TRAIT_QUICKER_CARRY		"quicker-carry"
+#define TRAIT_SLOW_CARRY		"slow-carry"
 #define TRAIT_QUICK_BUILD		"quick-build"
 #define TRAIT_STRONG_GRABBER	"strong_grabber"
 #define TRAIT_CALCIUM_HEALER	"calcium_healer"
@@ -200,6 +201,12 @@
 #define TRAIT_KI_VAMPIRE	"ki-vampire" //when someone with this trait rolls maximum damage on a punch and stuns the target, they regain some stamina and do clone damage
 #define TRAIT_LOCKPICKING	"lockpicking_skilled" // Professional muscle memory: wider zones, quieter work, more timer grace
 #define TRAIT_ASSASSIN	"assassin" //Can perform deadly assassination strikes on unaware enemies
+#define TRAIT_SNEAK_RANK1	"sneak_rank1" //Halves movement sound level (hostile mob detection) while in sneak mode
+#define TRAIT_SNEAK_RANK2	"sneak_rank2" //Quarters movement sound level while in sneak mode. Requires Sneak I
+#define TRAIT_STRONGBACK_RANK1	"strongback_rank1" //Extra flat bonus to Strength-based carry capacity multiplier, on top of raw Strength scaling
+#define TRAIT_STRONGBACK_RANK2	"strongback_rank2" //Larger extra flat bonus to carry capacity multiplier. Requires Strong Back I
+#define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
+#define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"
@@ -230,6 +237,7 @@
 #define TRAIT_EMPATH			"empath"
 #define TRAIT_FRIENDLY			"friendly"
 #define TRAIT_BIG_LEAGUES		"big_leagues"
+#define TRAIT_BIG_LEAGUES_MID	"big_leagues_mid"
 #define TRAIT_LITTLE_LEAGUES	"little_leagues"
 #define TRAIT_GENTLE			"gentle"
 #define TRAIT_WIMPY				"wimpy"
@@ -238,6 +246,7 @@
 #define TRAIT_TRAPPER			"trapper"
 #define TRAIT_IRONFIST			"iron_fist"
 #define TRAIT_STEELFIST			"steel_fist"
+#define TRAIT_TITANIUMFIST		"titanium_fist"
 #define TRAIT_NOODLEFIST			"noodle_fist"
 #define TRAIT_POWER_ARMOR		"power_armor"
 #define TRAIT_BARBEDWIRENODMG	"wire_monkey" //Ook dook.
@@ -257,6 +266,7 @@
 #define TRAIT_PLAY_DEAD "play_dead" // gives 10u ghoul powder every *deathgasp
 #define TRAIT_NO_PROCESS_FOOD	"no-process-food" // You don't get benefits from nutriment, nor nutrition from reagent consumables
 #define TRAIT_NICE_SHOT			"nice_shot" //hnnnnnnnggggg..... you're pretty good...
+#define TRAIT_TRIGGER_DISCIPLINE	"trigger_discipline" //-25% recoil, -20% rate of fire.
 #define TRAIT_PERFECT_ATTACKER	"perfect_attacker"
 #define TRAIT_BUFFOUT_BUFF		"buffout_buff"
 #define TRAIT_UNARMED_WEAPON	"unarmed_weapon"
@@ -329,6 +339,7 @@
 #define	TRAIT_SLOWAF			"slower" //Damn boi how'd you even get here, you're slow as SHIT off road
 #define	TRAIT_LIFEGIVER			"lifegiver" //boosts HP by 10
 #define	TRAIT_LIFEGIVERPLUS		"lifegiverplus" //boosts HP by 20
+#define	TRAIT_LIFEGIVERMAX		"lifegivermax" //boosts HP by 40 and grants passive regen
 #define	TRAIT_FLIMSY			"flimsy" //lowers HP by 10
 #define	TRAIT_VERYFLIMSY			"veryflimsy" //lowers HP by 20
 #define TRAIT_MARS_TEACH		"mars_teachings" //for legion unique functions

@@ -27,10 +27,10 @@
 	time = 25
 
 /datum/surgery_step/reconstruct/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] starts knitting some of [target]'s flesh back together.", span_notice("You start knitting some of [target]'s flesh back together."))
+	user.visible_message("%SELF_NAME% starts knitting some of %ACTOR_NAME%'s flesh back together.", span_notice("You start knitting some of %ACTOR_NAME%'s flesh back together."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 /datum/surgery_step/reconstruct/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] fixes some of [target]'s wounds.", span_notice("You succeed in fixing some of [target]'s wounds."))
+	user.visible_message("%SELF_NAME% fixes some of %ACTOR_NAME%'s wounds.", span_notice("You succeed in fixing some of %ACTOR_NAME%'s wounds."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	target.heal_bodypart_damage(10,10)
 	return TRUE
 

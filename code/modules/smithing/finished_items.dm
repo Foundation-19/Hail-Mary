@@ -368,7 +368,9 @@
 	if(user.zone_selected == BODY_ZONE_PRECISE_EYES)
 		M.apply_damage(7, BRUTE, BODY_ZONE_HEAD)
 		playsound(M, 'code/modules/smithing/sound/meatslap.ogg', 80, 1)
-		return eyestab(M,user)
+		if(eyestab(M,user))
+			return TRUE
+		return ..()
 	else
 		return ..()
 

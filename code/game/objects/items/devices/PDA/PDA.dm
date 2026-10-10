@@ -109,7 +109,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/deathMessage = msg_input(user)
 	if (!deathMessage)
 		deathMessage = "i ded"
-	user.visible_message(span_suicide("[user] is sending a message to the Grim Reaper! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("%SELF_NAME% is sending a message to the Grim Reaper! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	tnote += "<i><b>&rarr; To The Grim Reaper:</b></i><br>[deathMessage]<br>"//records a message in their PDA as being sent to the grim reaper
 	return BRUTELOSS
 
@@ -1193,12 +1193,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 		switch(scanmode)
 
 			if(PDA_SCANNER_MEDICAL)
-				C.visible_message(span_alert("[user] has analyzed [C]'s vitals!"))
+				C.visible_message(span_alert("%SELF_NAME% has analyzed %ACTOR_NAME%'s vitals!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 				healthscan(user, C, 1)
 				add_fingerprint(user)
 
 			if(PDA_SCANNER_HALOGEN)
-				C.visible_message(span_warning("[user] has analyzed [C]'s radiation levels!"))
+				C.visible_message(span_warning("%SELF_NAME% has analyzed %ACTOR_NAME%'s radiation levels!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 				user.show_message(span_notice("Analyzing Results for [C]:"))
 				if(C.radiation)

@@ -59,8 +59,8 @@
 
 	if(!C.handcuffed)
 		if(C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore())
-			C.visible_message(span_danger("[user] is trying to put [src.name] on [C]!"), \
-								span_userdanger("[user] is trying to put [src.name] on [C]!"))
+			C.visible_message(span_danger("%ACTOR_NAME% is trying to put [src.name] on %SELF_NAME%!"), \
+								span_userdanger("%ACTOR_NAME% is trying to put [src.name] on %SELF_NAME%!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 			playsound(loc, cuffsound, 30, 1, -2)
 			if(do_mob(user, C, 30) && (C.get_num_arms(FALSE) >= 2 || C.get_arm_ignore()))

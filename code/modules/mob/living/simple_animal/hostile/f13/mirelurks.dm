@@ -16,8 +16,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_MIRELURK  // Hard shell - resistant to bullets
 	
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	speed = 1
 	move_to_delay = 3
 	turns_per_move = 5
@@ -84,7 +84,7 @@
 		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
 		MOB_SPEED_LIST(3.3, 3.4, 3.5),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(110, 115, 120, 130),
+		MOB_HEALTH_LIST(145, 150, 155, 165),
 	)
 
 /mob/living/simple_animal/hostile/mirelurk/Aggro()
@@ -112,8 +112,8 @@
 	
 	mob_armor = ARMOR_VALUE_MIRELURK_HUNTER  // Even tougher shell
 	
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	speed = 1
 	
 	melee_damage_lower = 15
@@ -134,7 +134,7 @@
 		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
 		MOB_SPEED_LIST(3.0, 3.1, 3.2),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(140, 150, 160, 170),
+		MOB_HEALTH_LIST(180, 195, 205, 220),
 	)
 
 // MIRELURK BABY - small, weak, calls for help
@@ -148,8 +148,8 @@
 	
 	mob_armor = ARMOR_VALUE_MIRELURK_BABY  // Softer shell
 	
-	maxHealth = 40
-	health = 40
+	maxHealth = 50 // bumped - TTK vs melee was too short
+	health = 50
 	speed = 1
 	
 	melee_damage_lower = 5
@@ -174,7 +174,7 @@
 		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
 		MOB_SPEED_LIST(2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(100),
-		MOB_HEALTH_LIST(35, 39, 40, 41),
+		MOB_HEALTH_LIST(45, 48, 50, 52),
 	)
 
 /mob/living/simple_animal/hostile/mirelurk/baby/Aggro()
@@ -194,8 +194,8 @@
 	
 	mob_armor = ARMOR_VALUE_MIRELURK_QUEEN  // Nearly impenetrable
 	
-	maxHealth = 400
-	health = 400
+	maxHealth = 500 // bumped - TTK vs melee was too short
+	health = 500
 	speed = 2.5  // Slower but tankier
 	stat_attack = UNCONSCIOUS
 	

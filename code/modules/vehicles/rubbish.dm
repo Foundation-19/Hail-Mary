@@ -41,13 +41,13 @@
 	if(!I.tool_start_check(user, amount=0)) //this seems to be called everywhere, so for consistency's sake
 		inuse = FALSE
 		return //the tool fails this check, so stop
-	user.visible_message("[user] starts disassembling [src].")
+	user.visible_message("%SELF_NAME% starts disassembling [src].", visible_message_flags = ANONYMIZE_NAMES)
 	if(!I.use_tool(src, user, 10 SECONDS, volume=100))
-		user.visible_message("[user] stops disassembling [src].")
+		user.visible_message("%SELF_NAME% stops disassembling [src].", visible_message_flags = ANONYMIZE_NAMES)
 		inuse = FALSE
 		return //you did something, like moving, so stop
 	var/fake_dismantle = pick("plating", "rod", "rim", "part of the frame")
-	user.visible_message("[user] slices through a [fake_dismantle].")
+	user.visible_message("%SELF_NAME% slices through a [fake_dismantle].", visible_message_flags = ANONYMIZE_NAMES)
 
 	var/turf/usr_turf = get_turf(user) //Bellow are the changes made by PR#256
 	var/modifier = 0

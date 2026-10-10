@@ -26,7 +26,8 @@
 
 /obj/item/toy/tennis/altafterattack(atom/target, mob/living/carbon/user, proximity_flag, click_parameters)	//does right click memes
 	if(istype(user))
-		user.visible_message(span_notice("[user] waggles [src] at [target]."), span_notice("You waggle [src] at [target]."))
+		var/target_tok = isliving(target) ? "%ACTOR_NAME%" : "[target]"
+		user.visible_message(span_notice("%SELF_NAME% waggles [src] at [target_tok]."), span_notice("You waggle [src] at [target_tok]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 	return TRUE
 
 /obj/item/toy/tennis/rainbow

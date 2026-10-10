@@ -25,7 +25,7 @@
 		return
 	if(user && imp)
 		if(M != user)
-			M.visible_message(span_warning("[user] is attempting to implant [M]."))
+			M.visible_message(span_warning("%ACTOR_NAME% is attempting to implant %SELF_NAME%."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 		var/turf/T = get_turf(M)
 		if(T && (M == user || do_mob(user, M, 50)))
@@ -34,11 +34,11 @@
 					if (M == user)
 						to_chat(user, span_notice("You implant yourself."))
 					else
-						M.visible_message("[user] has implanted [M].", span_notice("[user] implants you."))
+						M.visible_message("%ACTOR_NAME% has implanted %SELF_NAME%.", span_notice("%ACTOR_NAME% implants you."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					imp = null
 					update_icon()
 				else
-					to_chat(user, span_warning("[src] fails to implant [M]."))
+					to_chat(user, span_warning("[src] fails to implant [M.get_display_name(user)]."))
 
 /obj/item/implanter/attackby(obj/item/W, mob/user, params)
 	if(istype(W, /obj/item/pen))

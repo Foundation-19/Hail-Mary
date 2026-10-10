@@ -777,12 +777,13 @@
 		if((HAS_TRAIT(H, TRAIT_DUMB)) && Adjacent(user))
 			playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
-				H.visible_message(span_danger("[user] headbutts the airlock."), \
-									span_userdanger("You headbutt the airlock!"))
+				H.visible_message(span_danger("%SELF_NAME% headbutts the airlock."), \
+									span_userdanger("You headbutt the airlock!"), visible_message_flags = ANONYMIZE_NAMES)
 				H.DefaultCombatKnockdown(100)
 				H.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 			else
-				visible_message(span_danger("[user] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."))
+				var/user_tok = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+				visible_message(span_danger("[user_tok] headbutts the airlock. Good thing [user.p_theyre()] wearing a helmet."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 	else
 		return ..()
 
@@ -832,6 +833,7 @@
 			if(shock(user, 75))
 				return
 	add_fingerprint(user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 
 	if(panel_open)
 		switch(security_level)
@@ -845,8 +847,8 @@
 					if(do_after(user, 20, TRUE, target = src))
 						if(!panel_open || !S.use(2))
 							return
-						user.visible_message(span_notice("[user] reinforces \the [src] with metal."),
-											span_notice("You reinforce \the [src] with metal."))
+						user.visible_message(span_notice("[user_tok] reinforces \the [src] with metal."),
+											span_notice("You reinforce \the [src] with metal."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_METAL
 						if(damage_deflection < AIRLOCK_DAMAGE_DEFLECTION_R)
 							damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_R
@@ -861,8 +863,8 @@
 					if(do_after(user, 20, 1, target = src))
 						if(!panel_open || !S.use(2))
 							return
-						user.visible_message(span_notice("[user] reinforces \the [src] with plasteel."),
-											span_notice("You reinforce \the [src] with plasteel."))
+						user.visible_message(span_notice("[user_tok] reinforces \the [src] with plasteel."),
+											span_notice("You reinforce \the [src] with plasteel."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_PLASTEEL
 						modify_max_integrity(normal_integrity * AIRLOCK_INTEGRITY_MULTIPLIER)
 						if(damage_deflection < AIRLOCK_DAMAGE_DEFLECTION_SR)
@@ -877,9 +879,9 @@
 					if(C.use_tool(src, user, 40, volume=50, amount = 2))
 						if(!panel_open)
 							return
-						user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
+						user.visible_message(span_notice("[user_tok] cuts through \the [src]'s shielding."),
 										span_notice("You cut through \the [src]'s shielding."),
-										span_italic("You hear welding."))
+										span_italic("You hear welding."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_NONE
 						spawn_atom_to_turf(/obj/item/stack/sheet/metal, user.loc, 2)
 						update_icon()
@@ -893,8 +895,8 @@
 							return
 						if(security_level != AIRLOCK_SECURITY_PLASTEEL_I_S)
 							return
-						user.visible_message(span_notice("[user] remove \the [src]'s shielding."),
-											span_notice("You remove \the [src]'s inner shielding."))
+						user.visible_message(span_notice("[user_tok] remove \the [src]'s shielding."),
+											span_notice("You remove \the [src]'s inner shielding."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_NONE
 						modify_max_integrity(normal_integrity)
 						damage_deflection = AIRLOCK_DAMAGE_DEFLECTION_N
@@ -909,9 +911,9 @@
 					if(C.use_tool(src, user, 40, volume=50, amount=2))
 						if(!panel_open)
 							return
-						user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
+						user.visible_message(span_notice("[user_tok] cuts through \the [src]'s shielding."),
 										span_notice("You cut through \the [src]'s shielding."),
-										span_italic("You hear welding."))
+										span_italic("You hear welding."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_PLASTEEL_I_S
 					return
 			if(AIRLOCK_SECURITY_PLASTEEL_O_S)
@@ -922,8 +924,8 @@
 							return
 						if(security_level != AIRLOCK_SECURITY_PLASTEEL_O_S)
 							return
-						user.visible_message(span_notice("[user] remove \the [src]'s shielding."),
-											span_notice("You remove \the [src]'s shielding."))
+						user.visible_message(span_notice("[user_tok] remove \the [src]'s shielding."),
+											span_notice("You remove \the [src]'s shielding."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_PLASTEEL_I
 						spawn_atom_to_turf(/obj/item/stack/sheet/plasteel, user.loc, 1)
 					return
@@ -935,9 +937,9 @@
 					if(C.use_tool(src, user, 40, volume=50, amount=2))
 						if(!panel_open)
 							return
-						user.visible_message(span_notice("[user] cuts through \the [src]'s shielding."),
+						user.visible_message(span_notice("[user_tok] cuts through \the [src]'s shielding."),
 										span_notice("You cut through \the [src]'s shielding."),
-										span_italic("You hear welding."))
+										span_italic("You hear welding."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_PLASTEEL_O_S
 					return
 			if(AIRLOCK_SECURITY_PLASTEEL)
@@ -948,8 +950,8 @@
 					if(C.use_tool(src, user, 10, volume=100))
 						if(!panel_open)
 							return
-						user.visible_message(span_notice("[user] cut through \the [src]'s outer grille."),
-											span_notice("You cut through \the [src]'s outer grille."))
+						user.visible_message(span_notice("[user_tok] cut through \the [src]'s outer grille."),
+											span_notice("You cut through \the [src]'s outer grille."), visible_message_flags = ANONYMIZE_NAMES)
 						security_level = AIRLOCK_SECURITY_PLASTEEL_O
 					return
 	if(istype(C, /obj/item/screwdriver))
@@ -961,7 +963,7 @@
 		C.play_tool_sound(src)
 		src.update_icon()
 	else if(istype(C, /obj/item/wirecutters) && note)
-		user.visible_message(span_notice("[user] cuts down [note] from [src]."), span_notice("You remove [note] from [src]."))
+		user.visible_message(span_notice("[user_tok] cuts down [note] from [src]."), span_notice("You remove [note] from [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		C.play_tool_sound(src)
 		note.forceMove(get_turf(user))
 		note = null
@@ -998,7 +1000,7 @@
 		if(!user.transferItemToLoc(C, src))
 			to_chat(user, span_warning("For some reason, you can't attach [C]!"))
 			return
-		user.visible_message(span_notice("[user] pins [C] to [src]."), span_notice("You pin [C] to [src]."))
+		user.visible_message(span_notice("[user_tok] pins [C] to [src]."), span_notice("You pin [C] to [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		note = C
 		update_icon()
 	else
@@ -1006,31 +1008,31 @@
 
 
 /obj/machinery/door/airlock/try_to_weld(obj/item/weldingtool/W, mob/user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 	if(!operating && density)
 		if(user.a_intent != INTENT_HELP)
 			if(!W.tool_start_check(user, amount=0))
 				return
-			user.visible_message("[user] is [welded ? "unwelding":"welding"] the airlock.", \
+			user.visible_message("[user_tok] is [welded ? "unwelding":"welding"] the airlock.", \
 							span_notice("You begin [welded ? "unwelding":"welding"] the airlock..."), \
-							span_italic("You hear welding."))
+							span_italic("You hear welding."), visible_message_flags = ANONYMIZE_NAMES)
 			if(W.use_tool(src, user, 40, volume=50, extra_checks = CALLBACK(src, PROC_REF(weld_checks), W, user)))
 				welded = !welded
-				user.visible_message("[user.name] has [welded? "welded shut":"unwelded"] [src].", \
-									span_notice("You [welded ? "weld the airlock shut":"unweld the airlock"]."))
+				user.visible_message("[user_tok] has [welded? "welded shut":"unwelded"] [src].", \
+									span_notice("You [welded ? "weld the airlock shut":"unweld the airlock"]."), visible_message_flags = ANONYMIZE_NAMES)
 				update_icon()
 		else
 			if(obj_integrity < max_integrity)
 				if(!W.tool_start_check(user, amount=0))
 					return
-				user.visible_message("[user] is welding the airlock.", \
-								span_notice("You begin repairing the airlock..."), \
-								span_italic("You hear welding."))
+				user.visible_message("[user_tok] is welding the airlock.", \
+							span_notice("You begin repairing the airlock..."), \
+							span_italic("You hear welding."), visible_message_flags = ANONYMIZE_NAMES)
 				if(W.use_tool(src, user, 40, volume=50, extra_checks = CALLBACK(src, PROC_REF(weld_checks), W, user)))
 					obj_integrity = max_integrity
 					stat &= ~BROKEN
-					user.visible_message("[user.name] has repaired [src].", \
-										span_notice("You finish repairing the airlock."))
-					update_icon()
+					user.visible_message("[user_tok] has repaired [src].", \
+									span_notice("You finish repairing the airlock."), visible_message_flags = ANONYMIZE_NAMES)
 			else
 				to_chat(user, span_notice("The airlock doesn't need repairing."))
 

@@ -535,8 +535,8 @@
 /obj/item/melee/blood_magic/shackles/proc/CuffAttack(mob/living/carbon/C, mob/living/user)
 	if(!C.handcuffed)
 		playsound(loc, 'sound/weapons/cablecuff.ogg', 30, 1, -2)
-		C.visible_message(span_danger("[user] begins restraining [C] with dark magic!"), \
-								span_userdanger("[user] begins shaping a dark magic around your wrists!"))
+		C.visible_message(span_danger("%ACTOR_NAME% begins restraining %SELF_NAME% with dark magic!"), \
+								span_userdanger("%ACTOR_NAME% begins shaping a dark magic around your wrists!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		if(do_mob(user, C, 30))
 			if(!C.handcuffed)
 				C.handcuffed = new /obj/item/restraints/handcuffs/energy/cult/used(C)
@@ -736,7 +736,7 @@
 					uses += 50
 					user.Beam(H,icon_state="drainbeam",time=10)
 					playsound(get_turf(H), 'sound/magic/enter_blood.ogg', 50)
-					H.visible_message(span_danger("[user] has drained some of [H]'s blood!"))
+					H.visible_message(span_danger("%ACTOR_NAME% has drained some of %SELF_NAME%'s blood!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 					to_chat(user,span_cultitalic("Your blood rite gains 50 charges from draining [H]'s blood."))
 					new /obj/effect/temp_visual/cult/sparks(get_turf(H))
 				else

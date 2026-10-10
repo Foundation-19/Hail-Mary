@@ -117,3 +117,4 @@
 #define QUIRK_POSITIVE	"Positive"
 #define QUIRK_NEGATIVE	"Negative"
 #define QUIRK_NEUTRAL	"Neutral"
+#define QUIRK_TRAIT	"Trait" //Fallout-style paired traits: free picks that bundle a buff and a drawback, bypassing the point economy

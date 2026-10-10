@@ -78,11 +78,11 @@
 			combatmessagecooldown = world.time + 10 SECONDS
 			if(!forced)
 				if(source.a_intent != INTENT_HELP)
-					source.visible_message(span_warning("[source] [source.resting ? "tenses up" : "drops into a combative stance"]."), self_message)
+					source.visible_message(span_warning("%SELF_NAME% [source.resting ? "tenses up" : "drops into a combative stance"]."), self_message, visible_message_flags = ANONYMIZE_NAMES)
 				else
-					source.visible_message(span_notice("[source] [pick("looks","seems","goes")] [pick("alert","attentive","vigilant")]."))
+					source.visible_message(span_notice("%SELF_NAME% [pick("looks","seems","goes")] [pick("alert","attentive","vigilant")]."), visible_message_flags = ANONYMIZE_NAMES)
 			else
-				source.visible_message(span_warning("[source] drops into a combative stance!"), self_message)
+				source.visible_message(span_warning("%SELF_NAME% drops into a combative stance!"), self_message, visible_message_flags = ANONYMIZE_NAMES)
 		else
 			to_chat(source, self_message)
 		if(playsound)

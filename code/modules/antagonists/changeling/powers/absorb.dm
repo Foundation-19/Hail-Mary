@@ -38,9 +38,9 @@
 			if(1)
 				to_chat(user, span_notice("This creature is compatible. We must hold still..."))
 			if(2)
-				user.visible_message(span_warning("[user] extends a proboscis!"), span_notice("We extend a proboscis."))
+				user.visible_message(span_warning("%SELF_NAME% extends a proboscis!"), span_notice("We extend a proboscis."), visible_message_flags = ANONYMIZE_NAMES)
 			if(3)
-				user.visible_message(span_danger("[user] stabs [target] with the proboscis!"), span_notice("We stab [target] with the proboscis."))
+				user.visible_message(span_danger("%SELF_NAME% stabs %ACTOR_NAME% with the proboscis!"), span_notice("We stab %ACTOR_NAME% with the proboscis."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 				to_chat(target, span_userdanger("You feel a sharp stabbing pain!"))
 				target.take_overall_damage(40)
 
@@ -51,7 +51,7 @@
 			return
 
 	SSblackbox.record_feedback("nested tally", "changeling_powers", 1, list("Absorb DNA", "4"))
-	user.visible_message(span_danger("[user] sucks the fluids from [target]!"), span_notice("We have absorbed [target]."))
+	user.visible_message(span_danger("%SELF_NAME% sucks the fluids from %ACTOR_NAME%!"), span_notice("We have absorbed %ACTOR_NAME%."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	to_chat(target, span_userdanger("You are absorbed by the changeling!"))
 
 	if(!changeling.has_dna(target.dna))

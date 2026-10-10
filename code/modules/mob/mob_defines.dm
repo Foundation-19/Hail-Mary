@@ -67,6 +67,8 @@
 
 	var/gang = null // A gang a mob is in
 
+	var/datum/party/party = null // A social party this mob is in, for the Charisma leadership buff system
+
 	var/name_archive //For admin things like possession
 
 	var/bodytemperature = BODYTEMP_NORMAL	//310.15K / 98.6F

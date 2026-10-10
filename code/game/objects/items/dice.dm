@@ -3,6 +3,7 @@
 	desc = "Contains all the luck you'll ever need."
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "dicebag"
+	w_class = WEIGHT_CLASS_SMALL // a drawstring pouch, not a full box - was inheriting NORMAL and getting stuck in a hand slot instead of a pocket
 
 /obj/item/storage/box/dice/Initialize()
 	. = ..()

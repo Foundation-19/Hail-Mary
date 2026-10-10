@@ -13,8 +13,8 @@
 	icon_dead = "raider_dead"
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_RAIDER_LEATHER_JACKET
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	melee_damage_lower = 5
 	melee_damage_upper = 14
 	attack_verb_simple = "clobbers"
@@ -124,8 +124,8 @@
 /mob/living/simple_animal/hostile/raider/ranged
 	icon_state = "raider_ranged"
 	icon_living = "raider_ranged"
-	maxHealth = 85
-	health = 85
+	maxHealth = 110 // bumped - TTK vs melee was too short
+	health = 110
 
 	loot = list(/obj/effect/spawner/lootdrop/f13/npc_raider, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
@@ -165,8 +165,8 @@
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes - this one seems a bit faster than the average..."
 	color = "#FFFF00"
-	maxHealth = 225
-	health = 225
+	maxHealth = 290 // bumped - TTK vs melee was too short
+	health = 290
 	stat_attack = UNCONSCIOUS
 	speed = 1.2
 	obj_damage = 300
@@ -181,8 +181,8 @@
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes, wielding a decent pistol and looking very strong"
 	color = "#FFFF00"
-	maxHealth = 180
-	health = 180
+	maxHealth = 230 // bumped - TTK vs melee was too short
+	health = 230
 	stat_attack = UNCONSCIOUS
 
 	ranged_cooldown_time = 2 SECONDS
@@ -218,8 +218,8 @@
 	icon_living = "raiderboss"
 	icon_dead = "raiderboss_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 	stat_attack = UNCONSCIOUS
 
 	extra_projectiles = 2
@@ -275,8 +275,8 @@
 	icon_state = "mango_matt"
 	icon_living = "mango_matt"
 	icon_dead = "mango_matt_dead"
-	maxHealth = 165
-	health = 165
+	maxHealth = 215 // bumped - TTK vs melee was too short
+	health = 215
 	extra_projectiles = 2
 	ranged_cooldown_time = 1 SECONDS
 	sight_shoot_delay_time = 0 SECONDS
@@ -300,8 +300,8 @@
 	icon_state = "blueberry_bates"
 	icon_living = "blueberry_bates"
 	icon_dead = "blueberry_bates_dead"
-	maxHealth = 200
-	health = 200
+	maxHealth = 260 // bumped - TTK vs melee was too short
+	health = 260
 
 	sight_shoot_delay_time = 0 SECONDS
 	ranged_cooldown_time = 1 SECONDS
@@ -335,8 +335,8 @@
 	icon_living = "metal_raider"
 	icon_dead = "metal_raider_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_METAL_ARMOR
-	maxHealth = 60
-	health = 60
+	maxHealth = 80 // bumped - TTK vs melee was too short
+	health = 80
 
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/c45/simple
@@ -361,8 +361,8 @@
 	icon_living = "firefighter_raider"
 	icon_dead = "firefighter_raider_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_ARMOR
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	rapid_melee = 1
 	loot = list(/obj/item/twohanded/fireaxe, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
@@ -374,8 +374,8 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 20
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
-	maxHealth = 125
-	health = 125
+	maxHealth = 160 // bumped - TTK vs melee was too short
+	health = 160
 
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
@@ -403,8 +403,8 @@
 	melee_damage_lower = 15
 	melee_damage_upper = 33
 	mob_armor = ARMOR_VALUE_RAIDER_ARMOR
-	maxHealth = 125
-	health = 125
+	maxHealth = 160 // bumped - TTK vs melee was too short
+	health = 160
 	rapid_melee = 1
 	loot = list(/obj/item/twohanded/baseball, /obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 3
@@ -418,8 +418,8 @@
 	icon_living = "tribal_raider"
 	icon_dead = "tribal_raider_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_ARMOR
-	maxHealth = 125
-	health = 125
+	maxHealth = 160 // bumped - TTK vs melee was too short
+	health = 160
 	melee_damage_lower = 12
 	melee_damage_upper = 37
 	rapid_melee = 1
@@ -447,8 +447,8 @@
 	icon_living = "sulphite"
 	icon_dead = "sulphite_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
-	maxHealth = 135
-	health = 135
+	maxHealth = 175 // bumped - TTK vs melee was too short
+	health = 175
 	rapid_melee = 1
 	melee_damage_lower = 15
 	melee_damage_upper = 37
@@ -467,8 +467,8 @@
 	icon_living = "junker_hijacker"
 	icon_dead = "junker_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 	rapid_melee = 1
 	melee_damage_lower = 18
 	melee_damage_upper = 42
@@ -481,8 +481,8 @@
 	icon_dead = "junker_dead"
 	faction = list("raider", "wastebot")
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
-	maxHealth = 165
-	health = 165
+	maxHealth = 215 // bumped - TTK vs melee was too short
+	health = 215
 	damage_coeff = list(BRUTE = 1, BURN = 0.75, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	rapid_melee = 1
 	melee_damage_lower = 20
@@ -496,8 +496,8 @@
 	icon_living = "junker"
 	icon_dead = "junker_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
@@ -537,8 +537,8 @@
 	icon_living = "junker_boss"
 	icon_dead = "junker_dead"
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_BOSS
-	maxHealth = 165
-	health = 165
+	maxHealth = 215 // bumped - TTK vs melee was too short
+	health = 215
 	stat_attack = UNCONSCIOUS
 
 	combat_mode = COMBAT_MODE_RANGED
@@ -571,8 +571,8 @@
 	icon_state = "cult_axeghoul"
 	icon_living = "cult_axeghoul"
 	icon_dead = "cult_dead"
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	melee_damage_lower = 10
 	melee_damage_upper = 24
 	loot = list(/obj/item/melee/onehanded/knife/survival, /obj/item/stack/f13Cash/random/med)
@@ -583,8 +583,8 @@
 	icon_state = "cultist_pistol"
 	icon_living = "cultist_pistol"
 	icon_dead = "cultist_dead"
-	maxHealth = 85
-	health = 85
+	maxHealth = 110 // bumped - TTK vs melee was too short
+	health = 110
 
 	combat_mode = COMBAT_MODE_RANGED
 	ranged = TRUE
@@ -658,8 +658,8 @@
 	icon_state = "cultist3_tesla"
 	icon_living = "cultist3_tesla"
 	icon_dead = "cultist3_dead"
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
@@ -677,8 +677,8 @@
 	icon_state = "cultist3_tesla"
 	icon_living = "cultist3_tesla"
 	icon_dead = "cultist3_dead"
-	maxHealth = 150
-	health = 150
+	maxHealth = 195 // bumped - TTK vs melee was too short
+	health = 195
 
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST

@@ -348,7 +348,8 @@
 	if(!fusedactive && fused)
 		var/lighting_text = W.ignition_effect(src, user)
 		if(lighting_text)
-			user.visible_message(span_warning("[user] ignites [src]'s fuse!"), span_userdanger("You ignite the [src]'s fuse!"))
+			var/self_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_warning("[self_tok] ignites [src]'s fuse!"), span_userdanger("You ignite the [src]'s fuse!"), visible_message_flags = ANONYMIZE_NAMES)
 			fusedactive = TRUE
 			defused = FALSE
 			playsound(src, 'sound/effects/fuse.ogg', 100, 0)

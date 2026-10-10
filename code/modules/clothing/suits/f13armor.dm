@@ -1165,14 +1165,14 @@ obj/item/clothing/suit/armor/exile/cust0m
 /obj/item/clothing/suit/armor/light/tribal/whitelegs
 	name = "White Legs armour"
 	desc = "A series of tan and khaki armour plates, held in place with a considerable amount of strapping. Commonly worn by members of the White Legs tribe."
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/tiny
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small // was pockets/tiny, rejected even a pill bottle; matches the Rustwalkers armor's pocket size
 	icon_state = "white_legs_armour"
 	item_state = "white_legs_armour"
 
 /obj/item/clothing/suit/armor/medium/tribal/whitelegs
 	name = "White Legs heavy armour"
 	desc = "A series of tan and khaki armour plates, held in place with a considerable amount of strapping and possibly duct tape. Commonly worn by members of the White Legs tribe."
-	pocket_storage_component_path = /datum/component/storage/concrete/pockets/tiny
+	pocket_storage_component_path = /datum/component/storage/concrete/pockets/small // was pockets/tiny, rejected even a pill bottle; matches the Rustwalkers heavy armor's pocket size
 	icon_state = "white_legs_armour_heavy"
 	item_state = "white_legs_armour_heavy"
 

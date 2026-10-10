@@ -21,20 +21,20 @@
 		if(!has_gravity())
 			health_deficiency = health_deficiency*0.2
 		totaldelay += health_deficiency
-		var/standupwarning = "[src] and everyone around them should probably yell at the dev team"
+		var/standupwarning = "%SELF_NAME% and everyone around them should probably yell at the dev team"
 		switch(health_deficiency)
 			if(-INFINITY to 10)
-				standupwarning = "[src] stands right up!"
+				standupwarning = "%SELF_NAME% stands right up!"
 			if(10 to 35)
-				standupwarning = "[src] tries to stand up."
+				standupwarning = "%SELF_NAME% tries to stand up."
 			if(35 to 60)
-				standupwarning = "[src] slowly pushes [p_them()]self upright."
+				standupwarning = "%SELF_NAME% slowly pushes [p_them()]self upright."
 			if(60 to 80)
-				standupwarning = "[src] weakly attempts to stand up."
+				standupwarning = "%SELF_NAME% weakly attempts to stand up."
 			if(80 to INFINITY)
-				standupwarning = "[src] struggles to stand up."
+				standupwarning = "%SELF_NAME% struggles to stand up."
 		var/usernotice = automatic ? span_notice("You are now getting up. (Auto)") : span_notice("You are now getting up.")
-		visible_message(span_notice("[standupwarning]"), usernotice, vision_distance = 5)
+		visible_message(span_notice("[standupwarning]"), usernotice, vision_distance = 5, visible_message_flags = ANONYMIZE_NAMES)
 		if(do_after(src, totaldelay, target = src, required_mobility_flags = MOBILITY_RESIST))
 			set_resting(FALSE, TRUE)
 

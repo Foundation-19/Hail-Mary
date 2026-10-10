@@ -158,7 +158,8 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(istype(W, /obj/item/wirecutters))
 		if (shock(user, 50))
 			return
-		user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok] cuts the cable.", span_notice("You cut the cable."), visible_message_flags = ANONYMIZE_NAMES)
 		stored.add_fingerprint(user)
 		investigate_log("was cut by [key_name(usr)] in [AREACOORD(src)]", INVESTIGATE_WIRES)
 		deconstruct()
@@ -531,10 +532,11 @@ By design, d1 is the smallest direction and d2 is the highest
 	update_icon()
 
 /obj/item/stack/cable_coil/suicide_act(mob/user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 	if(locate(/obj/structure/chair/stool) in get_turf(user))
-		user.visible_message(span_suicide("[user] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message(span_suicide("[user_tok] is making a noose with [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	else
-		user.visible_message(span_suicide("[user] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+		user.visible_message(span_suicide("[user_tok] is strangling [user.p_them()]self with [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	return(OXYLOSS)
 
 /obj/item/stack/cable_coil/Initialize(mapload, new_amount = null)
@@ -561,7 +563,8 @@ By design, d1 is the smallest direction and d2 is the highest
 		if(difference >= 0)
 			heal_amount = difference
 		if(user == H)
-			user.visible_message(span_notice("[user] starts to fix some of the wires in [H]'s [affecting.name]."), span_notice("You start fixing some of the wires in [H]'s [affecting.name]."))
+			var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_notice("[user_tok] starts to fix some of the wires in [H]'s [affecting.name]."), span_notice("You start fixing some of the wires in [H]'s [affecting.name]."), visible_message_flags = ANONYMIZE_NAMES)
 			if(!do_mob(user, H, 50))
 				return
 		if(item_heal_robotic(H, user, 0, heal_amount))

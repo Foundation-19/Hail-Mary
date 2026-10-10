@@ -23,10 +23,10 @@
 	time = 25
 
 /datum/surgery_step/toxichealing/preop(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] starts rejuvenating some of [target]'s flesh back to life.", span_notice("You start knitting some of [target]'s flesh back to life."))
+	user.visible_message("%SELF_NAME% starts rejuvenating some of %ACTOR_NAME%'s flesh back to life.", span_notice("You start knitting some of %ACTOR_NAME%'s flesh back to life."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 /datum/surgery_step/toxichealing/success(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] fixes some of [target]'s wounds.", span_notice("You succeed in fixing some of [target]'s wounds."))
+	user.visible_message("%SELF_NAME% fixes some of %ACTOR_NAME%'s wounds.", span_notice("You succeed in fixing some of %ACTOR_NAME%'s wounds."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	target.heal_bodypart_damage(0,0,30) //Heals stam
 	target.adjustToxLoss(-15, 0, TRUE)
 	target.adjustOxyLoss(-20, 0)

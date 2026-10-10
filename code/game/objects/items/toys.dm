@@ -190,9 +190,11 @@
 		return
 	playsound(user, 'sound/weapons/gunshot.ogg', 100, 1)
 	src.bullets--
-	user.visible_message(span_danger("[user] fires [src] at [target]!"), \
-						span_danger("You fire [src] at [target]!"), \
-						span_italic("You hear a gunshot!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	var/target_tok = isliving(target) ? "%ACTOR_NAME%" : "[target]"
+	user.visible_message(span_danger("[user_tok] fires [src] at [target_tok]!"), \
+						span_danger("You fire [src] at [target_tok]!"), \
+						span_italic("You hear a gunshot!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 
 /obj/item/toy/ammo/gun
 	name = "capgun ammo"
@@ -496,7 +498,7 @@
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/toy/katana/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"))
+	user.visible_message(span_suicide("%SELF_NAME% is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(src, 'sound/weapons/bladeslice.ogg', 50, 1)
 	return(BRUTELOSS)
 
@@ -671,10 +673,11 @@
 	..()
 
 /obj/item/toy/talking/proc/activation_message(mob/user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 	user.visible_message(
-		span_notice("[user] pulls the string on \the [src]."),
+		span_notice("[user_tok] pulls the string on \the [src]."),
 		span_notice("You pull the string on \the [src]."),
-		span_notice("You hear a string being pulled."))
+		span_notice("You hear a string being pulled."), visible_message_flags = ANONYMIZE_NAMES)
 
 /obj/item/toy/talking/proc/generate_messages()
 	return list(pick(messages))
@@ -706,10 +709,11 @@
 	recharge_time = 60
 
 /obj/item/toy/talking/codex_gigas/activation_message(mob/user)
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
 	user.visible_message(
-		span_notice("[user] presses the button on \the [src]."),
+		span_notice("[user_tok] presses the button on \the [src]."),
 		span_notice("You press the button on \the [src]."),
-		span_notice("You hear a soft click."))
+		span_notice("You hear a soft click."), visible_message_flags = ANONYMIZE_NAMES)
 
 /obj/item/toy/talking/codex_gigas/generate_messages()
 	var/datum/fakeDevil/devil = new
@@ -756,7 +760,7 @@
 	var/list/card_attack_verb = list("attacked")
 
 /obj/item/toy/cards/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!"))
+	user.visible_message(span_suicide("%SELF_NAME% is slitting [user.p_their()] wrists with \the [src]! It looks like [user.p_they()] [user.p_have()] a crummy hand!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(src, 'sound/items/cardshuffle.ogg', 50, 1)
 	return BRUTELOSS
 
@@ -825,7 +829,8 @@
 	H.apply_card_vars(H,O)
 	H.pickup(user)
 	user.put_in_hands(H)
-	user.visible_message("[user] draws a card from the deck.", span_notice("You draw a card from the deck."))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message("[user_tok] draws a card from the deck.", span_notice("You draw a card from the deck."), visible_message_flags = ANONYMIZE_NAMES)
 	update_icon()
 
 /obj/item/toy/cards/deck/update_icon_state()
@@ -842,7 +847,8 @@
 	if(cooldown < world.time - 50)
 		cards = shuffle(cards)
 		playsound(src, 'sound/items/cardshuffle.ogg', 50, 1)
-		user.visible_message("[user] shuffles the deck.", span_notice("You shuffle the deck."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("[user_tok] shuffles the deck.", span_notice("You shuffle the deck."), visible_message_flags = ANONYMIZE_NAMES)
 		cooldown = world.time
 
 /obj/item/toy/cards/deck/attackby(obj/item/I, mob/living/user, params)
@@ -853,7 +859,7 @@
 				to_chat(user, span_warning("The card is stuck to your hand, you can't add it to the deck!"))
 				return
 			cards += SC.cardname
-			user.visible_message("[user] adds a card to the bottom of the deck.",span_notice("You add the card to the bottom of the deck."))
+			user.visible_message("%SELF_NAME% adds a card to the bottom of the deck.",span_notice("You add the card to the bottom of the deck."), visible_message_flags = ANONYMIZE_NAMES)
 			qdel(SC)
 		else
 			to_chat(user, span_warning("You can't mix cards from other decks!"))
@@ -865,7 +871,7 @@
 				to_chat(user, span_warning("The hand of cards is stuck to your hand, you can't add it to the deck!"))
 				return
 			cards += CH.currenthand
-			user.visible_message("[user] puts [user.p_their()] hand of cards in the deck.", span_notice("You put the hand of cards in the deck."))
+			user.visible_message("%SELF_NAME% puts [user.p_their()] hand of cards in the deck.", span_notice("You put the hand of cards in the deck."), visible_message_flags = ANONYMIZE_NAMES)
 			qdel(CH)
 		else
 			to_chat(user, span_warning("You can't mix cards from other decks!"))
@@ -926,7 +932,7 @@
 	C.apply_card_vars(C,O)
 	C.pickup(cardUser)
 	cardUser.put_in_hands(C)
-	cardUser.visible_message(span_notice("[cardUser] draws a card from [cardUser.p_their()] hand."), span_notice("You take the [C.cardname] from your hand."))
+	cardUser.visible_message(span_notice("%SELF_NAME% draws a card from [cardUser.p_their()] hand."), span_notice("You take the [C.cardname] from your hand."), visible_message_flags = ANONYMIZE_NAMES)
 
 	interact(cardUser)
 	update_sprite()
@@ -944,7 +950,7 @@
 	if(istype(C))
 		if(C.parentdeck == src.parentdeck)
 			src.currenthand += C.cardname
-			user.visible_message(span_notice("[user] adds a card to [user.p_their()] hand."), span_notice("You add the [C.cardname] to your hand."))
+			user.visible_message(span_notice("%SELF_NAME% adds a card to [user.p_their()] hand."), span_notice("You add the [C.cardname] to your hand."), visible_message_flags = ANONYMIZE_NAMES)
 			qdel(C)
 			interact(user)
 			update_sprite(src)
@@ -1010,7 +1016,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/cardUser = user
 		if(cardUser.is_holding(src))
-			cardUser.visible_message("[cardUser] checks [cardUser.p_their()] card.", span_notice("The card reads: [cardname]."))
+			cardUser.visible_message("%SELF_NAME% checks [cardUser.p_their()] card.", span_notice("The card reads: [cardname]."), visible_message_flags = ANONYMIZE_NAMES)
 		else
 			. += span_warning("You need to have the card in your hand to check it!")
 
@@ -1056,7 +1062,7 @@
 		var/obj/item/toy/cards/cardhand/H = I
 		if(H.parentdeck == parentdeck)
 			H.currenthand += cardname
-			user.visible_message("[user] adds a card to [user.p_their()] hand.", span_notice("You add the [cardname] to your hand."))
+			user.visible_message("%SELF_NAME% adds a card to [user.p_their()] hand.", span_notice("You add the [cardname] to your hand."), visible_message_flags = ANONYMIZE_NAMES)
 			qdel(src)
 			H.interact(user)
 			if(H.currenthand.len > 4)
@@ -1129,7 +1135,8 @@
 /obj/item/toy/nuke/attack_self(mob/user)
 	if (cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
-		user.visible_message(span_warning("[user] presses a button on [src]."), span_notice("You activate [src], it plays a loud noise!"), span_italic("You hear the click of a button."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_warning("[user_tok] presses a button on [src]."), span_notice("You activate [src], it plays a loud noise!"), span_italic("You hear the click of a button."), visible_message_flags = ANONYMIZE_NAMES)
 		sleep(5)
 		icon_state = "nuketoy"
 		playsound(src, 'sound/machines/alarm.ogg', 100, 0)
@@ -1174,7 +1181,8 @@
 /obj/item/toy/redbutton/attack_self(mob/user)
 	if (cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
-		user.visible_message(span_warning("[user] presses the big red button."), span_notice("You press the button, it plays a loud noise!"), span_italic("The button clicks loudly."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_warning("[user_tok] presses the big red button."), span_notice("You press the button, it plays a loud noise!"), span_italic("The button clicks loudly."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0)
 		for(var/mob/M in urange(10, src)) // Checks range
 			if(!M.stat && !isAI(M)) // Checks to make sure whoever's getting shaken is alive/not the AI
@@ -1237,7 +1245,8 @@
 /obj/item/toy/clockwork_watch/attack_self(mob/user)
 	if (cooldown < world.time)
 		cooldown = world.time + 1800 //3 minutes
-		user.visible_message(span_warning("[user] rotates a cogwheel on [src]."), span_notice("You rotate a cogwheel on [src], it plays a loud noise!"), span_italic("You hear cogwheels turning."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_warning("[user_tok] rotates a cogwheel on [src]."), span_notice("You rotate a cogwheel on [src], it plays a loud noise!"), span_italic("You hear cogwheels turning."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, 'sound/magic/clockwork/ark_activation.ogg', 50, 0)
 	else
 		to_chat(user, span_alert("The cogwheels are already turning!"))
@@ -1275,7 +1284,8 @@
 /obj/item/toy/toy_xeno/attack_self(mob/user)
 	if(cooldown <= world.time)
 		cooldown = (world.time + 50) //5 second cooldown
-		user.visible_message(span_notice("[user] pulls back the string on [src]."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_notice("[user_tok] pulls back the string on [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		icon_state = "[initial(icon_state)]_used"
 		sleep(5)
 		audible_message(span_danger("[icon2html(src, viewers(src))] Hiss!"))
@@ -1553,11 +1563,12 @@
 	
 /obj/item/toy/tragicthegarnering/attack_self(mob/user)
 	if(Adjacent(user))
-		user.visible_message("<span class='notice'>[user] resists the urge to play with his deck of Tragic", \
-					span_notice("Your hand is moving on its own! But you cannot allow yourself to get hooked to the game."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message("<span class='notice'>[user_tok] resists the urge to play with his deck of Tragic", \
+					span_notice("Your hand is moving on its own! But you cannot allow yourself to get hooked to the game."), visible_message_flags = ANONYMIZE_NAMES)
 		add_fingerprint(user)
 
 /obj/item/toy/tragicthegarnering/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] reaches zero life points! It looks like [user.p_they()] [user.p_have()] are about to enter the graveyard!"))
+	user.visible_message(span_suicide("%SELF_NAME% reaches zero life points! It looks like [user.p_they()] [user.p_have()] are about to enter the graveyard!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(src, 'sound/items/cardshuffle.ogg', 50, 1)
 	return BRUTELOSS

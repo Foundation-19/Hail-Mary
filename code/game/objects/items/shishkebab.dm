@@ -101,8 +101,9 @@
 	w_class = WEIGHT_CLASS_BULKY
 	item_flags = ABSTRACT  // don't put in storage
 	slot_flags = 0
-	force = 55
+	force = 38 // lowered from 55 - was hitting harder than any wielded two-handed axe while swinging at one-handed speed
 	damtype = "fire"
+	attack_speed = CLICK_CD_MELEE * 1.15 // bulky flaming sword, same swing penalty as the two-handed template
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 0.3
 

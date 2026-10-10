@@ -21,7 +21,7 @@
 		painting = C
 		C.forceMove(get_turf(src))
 		C.layer = layer+0.1
-		user.visible_message(span_notice("[user] puts \the [C] on \the [src]."),span_notice("You place \the [C] on \the [src]."))
+		user.visible_message(span_notice("%SELF_NAME% puts \the [C] on \the [src]."),span_notice("You place \the [C] on \the [src]."), visible_message_flags = ANONYMIZE_NAMES)
 	else
 		return ..()
 

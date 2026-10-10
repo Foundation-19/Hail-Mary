@@ -301,7 +301,8 @@
 					to_chat(user, span_notice("[F] is Full!"))
 					dispensing = FALSE
 					return TRUE
-				user.visible_message("[user] starts pumping Fuel into [F] with [src].",span_notice("You start pumping fuel into [F] with [src]."))
+				var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+				user.visible_message("[user_tok] starts pumping Fuel into [F] with [src].",span_notice("You start pumping fuel into [F] with [src]."), visible_message_flags = ANONYMIZE_NAMES)
 				while(F.reagents.total_volume < F.volume)
 					if(do_after(user, 10, target = user))
 						done_any = TRUE
@@ -310,7 +311,7 @@
 					else
 						break
 				if(done_any) // Only show a message if we succeeded at least once
-					user.visible_message("[user] pumped gas into [F]!",span_notice("You pumped gas into [F]!"))
+					user.visible_message("[user_tok] pumped gas into [F]!",span_notice("You pumped gas into [F]!"), visible_message_flags = ANONYMIZE_NAMES)
 				dispensing = FALSE
 				return TRUE
 		else
@@ -333,7 +334,8 @@
 					to_chat(user, span_notice("[output] is Full!"))
 					dispensing = FALSE
 					return TRUE
-				user.visible_message("[user] starts pumping Fuel into [output] with [src].",span_notice("You start pumping fuel into [output] with [src]."))
+				var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+				user.visible_message("[user_tok] starts pumping Fuel into [output] with [src].",span_notice("You start pumping fuel into [output] with [src]."), visible_message_flags = ANONYMIZE_NAMES)
 				while(output.reagents.total_volume < output.volume)
 					if(do_after(user, 10, target = user))
 						done_any = TRUE
@@ -342,7 +344,7 @@
 					else
 						break
 				if(done_any) // Only show a message if we succeeded at least once
-					user.visible_message("[user] pumped gas into [target]!",span_notice("You pumped gas into [target]!"))
+					user.visible_message("[user_tok] pumped gas into [target]!",span_notice("You pumped gas into [target]!"), visible_message_flags = ANONYMIZE_NAMES)
 				dispensing = FALSE
 				return TRUE
 		else

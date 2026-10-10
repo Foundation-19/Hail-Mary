@@ -97,7 +97,7 @@
 	var/heavy = power * 0.25
 	var/medium = power * 0.5
 	var/light = power
-	user.visible_message(span_danger("[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!"),span_danger("You open [bomb] on your [name] and fire a blast wave at [target]!"))
+	user.visible_message(span_danger("%SELF_NAME% opens [bomb] on [user.p_their()] [name] and fires a blast wave at [isliving(target) ? "%ACTOR_NAME%" : "[target]"]!"),span_danger("You open [bomb] on your [name] and fire a blast wave at [isliving(target) ? "%ACTOR_NAME%" : "[target]"]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 	playsound(user, "explosion", 100, 1)
 	var/turf/starting = get_turf(user)
 	var/turf/targturf = get_turf(target)

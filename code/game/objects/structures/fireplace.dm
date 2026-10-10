@@ -36,7 +36,7 @@
 		return FALSE
 	var/msg = O.ignition_effect(src, user)
 	if(msg)
-		visible_message(msg)
+		visible_message(msg, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		ignite()
 		return TRUE
 

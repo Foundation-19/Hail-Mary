@@ -36,6 +36,8 @@
 	return if_no_id
 
 //repurposed proc. Now it combines get_id_name() and get_face_name() to determine a mob's name variable. Made into a separate proc as it'll be useful elsewhere
+//NOTE: this resolves the mob's real current identity (used for e.g. head-transplant/disguise game mechanics
+//and tests) - it is deliberately NOT used to set the globally-visible .name var anymore, see get_public_name().
 /mob/living/carbon/human/get_visible_name()
 	var/face_name = get_face_name("")
 	var/id_name = get_id_name("")
@@ -48,6 +50,41 @@
 	if(id_name)
 		return id_name
 	return "Unknown"
+
+//The globally-visible .name - what BYOND's native right-click menu and mouse-hover status bar show to
+//literally everyone, since .name is a single var that can't be rendered differently per-viewer. Never
+//reveals real_name/registered ID name: real per-viewer recognition only happens through get_display_name()/
+//known_faces in actual messages (speech, examine, etc.), which already gate it correctly.
+/mob/living/carbon/human/proc/get_public_name()
+	if(name_override)
+		return name_override
+	if(get_face_name("") || get_id_name(""))
+		return get_identity_tag()
+	return "Unknown"
+
+/mob/living/carbon/human/is_currently_unrecognizable()
+	return !name_override && !get_face_name("") && !get_id_name("")
+
+//Returns the job id printed on whatever ID badge is currently worn, or the generic wasteland default if none -
+//this (not get_visible_name()) is what strangers perceive by default; see get_identity_tag() in say.dm.
+//Mirrors get_id_name()'s wear_id resolution (wallet/pda/id/tablet) rather than get_idcard(), which only
+//checks held items - a badge worn in the ID slot (the normal case) wouldn't resolve otherwise.
+/mob/living/carbon/human/get_badge_assignment()
+	var/obj/item/storage/wallet/wallet = wear_id
+	var/obj/item/pda/pda = wear_id
+	var/obj/item/card/id/id = wear_id
+	var/obj/item/modular_computer/tablet/tablet = wear_id
+	if(istype(wallet))
+		id = wallet.front_id
+	if(istype(id))
+		return id.assignment || FACTION_WASTELAND
+	if(istype(pda))
+		return pda.ownjob || FACTION_WASTELAND
+	if(istype(tablet))
+		var/obj/item/computer_hardware/card_slot/card_slot = tablet.all_components[MC_CARD]
+		if(card_slot?.stored_card)
+			return card_slot.stored_card.assignment || FACTION_WASTELAND
+	return FACTION_WASTELAND
 
 //Returns "Unknown" if facially disfigured and real_name if not. Useful for setting name when Fluacided or when updating a human's name variable
 /mob/living/carbon/human/proc/get_face_name(if_no_face="Unknown")

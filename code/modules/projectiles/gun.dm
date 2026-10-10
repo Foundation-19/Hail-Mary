@@ -338,7 +338,7 @@ ATTACHMENTS
 
 /obj/item/gun/proc/shoot_live_shot(mob/living/user, pointblank = FALSE, mob/pbtarget, message = 1, stam_cost = 0, obj/item/projectile/P, casing_sound)
 	if(stam_cost) //CIT CHANGE - makes gun recoil cause staminaloss
-		var/safe_cost = clamp(stam_cost, 0, STAMINA_NEAR_CRIT - user.getStaminaLoss())*(firing && burst_size >= 2 ? 1/burst_size : 1)
+		var/safe_cost = clamp(stam_cost, 0, (STAMINA_NEAR_CRIT * user.get_special_endurance_stamina_mod()) - user.getStaminaLoss())*(firing && burst_size >= 2 ? 1/burst_size : 1)
 		user.adjustStaminaLossBuffered(safe_cost) //CIT CHANGE - ditto
 
 	var/datum/ammo_sound_properties/soundies = GLOB.casing_sound_properties[casing_sound]
@@ -370,9 +370,11 @@ ATTACHMENTS
 	if(!silenced && message && COOLDOWN_FINISHED(src, shoot_message_antispam))
 		COOLDOWN_START(src, shoot_message_antispam, GUN_SHOOT_MESSAGE_ANTISPAM_TIME)
 		if(pointblank)
-			user.visible_message(span_danger("[user] fires [src] point blank at [pbtarget]!"), null, null, COMBAT_MESSAGE_RANGE)
+			user.visible_message(span_danger("%SELF_NAME% fires [src] point blank at %ACTOR_NAME%!"), \
+				vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(pbtarget) ? pbtarget : null)
 		else
-			user.visible_message(span_danger("[user] fires [src]!"), null, null, COMBAT_MESSAGE_RANGE)
+			user.visible_message(span_danger("%SELF_NAME% fires [src]!"), \
+				vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES)
 	
 	kickback(user, P)
 
@@ -597,7 +599,7 @@ ATTACHMENTS
 		return
 	if(prob(user.get_luck_critfail_chance()))
 		user.drop_all_held_items()
-		user.visible_message(span_warning("Critical fail! [user] accidentally drops [p_their()] gun!"))
+		user.visible_message(span_warning("Critical fail! %SELF_NAME% accidentally drops [p_their()] gun!"), visible_message_flags = ANONYMIZE_NAMES)
 		return
 	if(pre_fire(user, target, params, zone_override, stam_cost))
 		return TRUE // pre_fire will handle what comes next~ (like firing at your mouse cursor after a delay)
@@ -841,11 +843,11 @@ ATTACHMENTS
 		return
 
 	if(user == target)
-		target.visible_message(span_warning("[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger..."), \
-			span_userdanger("You stick [src] in your mouth, ready to pull the trigger..."))
+		target.visible_message(span_warning("%SELF_NAME% sticks [src] in [user.p_their()] mouth, ready to pull the trigger..."), \
+			span_userdanger("You stick [src] in your mouth, ready to pull the trigger..."), visible_message_flags = ANONYMIZE_NAMES)
 	else
-		target.visible_message(span_warning("[user] points [src] at [target]'s head, ready to pull the trigger..."), \
-			span_userdanger("[user] points [src] at your head, ready to pull the trigger..."))
+		target.visible_message(span_warning("%SELF_NAME% points [src] at %ACTOR_NAME%'s head, ready to pull the trigger..."), \
+			span_userdanger("%ACTOR_NAME% points [src] at your head, ready to pull the trigger..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 	busy_action = TRUE
 
@@ -1373,6 +1375,8 @@ ATTACHMENTS
 	if(CHECK_BITFIELD(cooldown_delay_mods, GUN_AUTO_PUMPED))
 		if(!HAS_TRAIT(user, TRAIT_FAST_PUMP))
 			. *= GUN_AUTOPUMP_REFIRE_DELAY_MULT
+	if(HAS_TRAIT(user, TRAIT_TRIGGER_DISCIPLINE)) // -20% rate of fire (the tradeoff for its -25% recoil)
+		. *= 1.25
 
 /obj/item/gun/proc/apply_cooldown_modifier(new_mod)
 	ENABLE_BITFIELD(cooldown_delay_mods, new_mod)

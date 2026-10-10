@@ -80,9 +80,6 @@ Suits. 0-10 in its primary value, slowdown 0, various utility
 	. = ..()
 	AddComponent(/datum/component/armor_plate)
 
-/datum/component/storage/concrete/pockets/tiny/legion
-	max_items = 3
-
 /obj/item/clothing/suit/armor/legion/recruit
 	name = "legion recruit armor"
 	desc = "Well, it's better than nothing."

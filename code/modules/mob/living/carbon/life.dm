@@ -507,26 +507,37 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 											"We're NANOtrasen but we need to unlock nano parts, what's the deal with that?"
 											))
 
+/// Passive stamina regen - paused while sneaking, and while intentionally squared up in combat mode (see __DEFINES/combat.dm STAM_RECOVERY_* for the rates).
+/mob/living/carbon/proc/handle_stamina_regen()
+	if(!getStaminaLoss())
+		return
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.sneaking)
+			return
+	if(SEND_SIGNAL(src, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_ACTIVE))
+		return
+	// Same Endurance multiplier the crit thresholds use - a sturdier build recovers faster too, not just a bigger buffer before crit.
+	var/recovery = !CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL
+	adjustStaminaLoss(recovery * get_special_endurance_stamina_mod())
+
+/// Buffered stamina (the "stamina shield") decays back to 0 for free over time once it's gone untouched for a bit - see STAMINA_BUFFER_DECAY_* defines.
+/mob/living/carbon/proc/handle_stamina_buffer_decay()
+	if(!bufferedstam || world.time <= stambufferregentime)
+		return
+	var/drainrate = max((bufferedstam * (bufferedstam / STAMINA_BUFFER_DECAY_DIVISOR)) * STAMINA_BUFFER_DECAY_RATE, 1)
+	bufferedstam = max(bufferedstam - drainrate, 0)
+
 //this updates all special effects: stun, sleeping, knockdown, druggy, stuttering, etc..
 /mob/living/carbon/handle_status_effects()
 	..()
-	// Don't regenerate stamina while sneaking
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(!H.sneaking && getStaminaLoss())
-			adjustStaminaLoss(!CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL)
-	else if(getStaminaLoss())		//CIT CHANGE - prevents stamina regen while combat mode is active (Stam regen is currently enabled)
-		adjustStaminaLoss(!CHECK_MOBILITY(src, MOBILITY_STAND) ? ((combat_flags & COMBAT_FLAG_HARD_STAMCRIT) ? STAM_RECOVERY_STAM_CRIT : STAM_RECOVERY_RESTING) : STAM_RECOVERY_NORMAL)
+	handle_stamina_regen()
 
 	if(!(combat_flags & COMBAT_FLAG_HARD_STAMCRIT) && incomingstammult != 1)
 		incomingstammult = max(0.01, incomingstammult)
 		incomingstammult = min(1, incomingstammult*2)
 
-	//CIT CHANGES START HERE. STAMINA BUFFER STUFF
-	if(bufferedstam && world.time > stambufferregentime)
-		var/drainrate = max((bufferedstam*(bufferedstam/(5)))*0.1,1)
-		bufferedstam = max(bufferedstam - drainrate, 0)
-	//END OF CIT CHANGES
+	handle_stamina_buffer_decay()
 
 	var/restingpwr = 1 + 4 * !CHECK_MOBILITY(src, MOBILITY_STAND)
 

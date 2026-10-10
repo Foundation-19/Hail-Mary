@@ -22,6 +22,7 @@
 	name = "engineering PDA"
 	default_cartridge = /obj/item/cartridge/engineering
 	icon_state = "pda-engineer"
+	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_GLOVES | ITEM_SLOT_POCKET // engineering outfits spawn this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del
 
 /obj/item/pda/security
 	name = "security PDA"
@@ -68,6 +69,7 @@
 	name = "chief engineer PDA"
 	default_cartridge = /obj/item/cartridge/ce
 	icon_state = "pda-ce"
+	slot_flags = ITEM_SLOT_ID | ITEM_SLOT_GLOVES | ITEM_SLOT_POCKET // CE outfit spawns this directly into a pocket slot; without the flag it's silently deleted by equip_to_slot_or_del
 
 /obj/item/pda/heads/cmo
 	name = "chief medical officer PDA"

@@ -293,8 +293,8 @@
 				playsound(loc, hitsound, volume, 1, -1)
 			if(COOLDOWN_FINISHED(L, projectile_message_antispam))
 				COOLDOWN_START(L, projectile_message_antispam, ATTACK_MESSAGE_ANTISPAM_TIME)
-				L.visible_message(span_danger("[L] is hit by \a [src][organ_hit_text]!"), \
-						span_userdanger("[L] is hit by \a [src][organ_hit_text]!"), null, COMBAT_MESSAGE_RANGE)
+				L.visible_message(span_danger("%SELF_NAME% is hit by \a [src][organ_hit_text]!"), \
+						span_userdanger("You are hit by \a [src][organ_hit_text]!"), null, COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES)
 		if(candink && def_zone == BODY_ZONE_HEAD) //fortuna edit
 			var/playdink = rand(1, 10)
 			if(playdink <= 3)

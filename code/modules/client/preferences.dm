@@ -81,6 +81,7 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 	var/real_name						//our character's name
 	var/be_random_name = 0				//whether we'll have a random name every round
 	var/be_random_body = 0				//whether we'll have a random body every round
+	var/auto_identify_faction_radio = FALSE	//whether we automatically reveal our real name when speaking on our faction's secure radio channel
 	var/gender = MALE					//gender of character (well duh)
 	var/age = 30						//age of character
 	var/underwear = "Nude"				//underwear type
@@ -129,6 +130,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//Quirk list
 	var/list/all_quirks = list()
+
+	//Chosen Family Heirloom item, stored as a 1-based index into GLOB.family_heirloom_choices; null/0 = random per job, legacy behavior
+	var/heirloom_choice = null
 
 	//Quirk category currently selected
 	var/quirk_category = QUIRK_POSITIVE
@@ -298,9 +302,9 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<center><h2>Occupation Choices</h2>"
 			dat += "<a href='?_src_=prefs;preference=job;task=menu'>Set Occupation Preferences</a><br></center>"
 			if(CONFIG_GET(flag/roundstart_traits))
-				dat += "<center><h2>Quirk Setup</h2>"
-				dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Quirks</a><br></center>"
-				dat += "<center><b>Current Quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
+				dat += "<center><h2>Traits &amp; Perks</h2>"
+				dat += "<a href='?_src_=prefs;preference=trait;task=menu'>Configure Traits &amp; Perks</a><br></center>"
+				dat += "<center><b>On File:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
 			dat += "<center><h2>S.P.E.C.I.A.L</h2>"
 			dat += "<a href='?_src_=prefs;preference=special;task=menu'>Allocate Points</a><br></center>"
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
@@ -310,6 +314,8 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 			dat += "<a style='display:block;width:100px' href='?_src_=prefs;preference=name;task=random'>Random Name</A> "
 			dat += "<a style='display:block;width:150px' href='?_src_=prefs;preference=romanname;task=random'>Random Roman Name</A> "			
 			dat += "<b>Always Random Name:</b><a style='display:block;width:30px' href='?_src_=prefs;preference=name'>[be_random_name ? "Yes" : "No"]</a><BR>"
+			dat += "<b>Auto-identify on Faction Radio:</b><a style='display:block;width:30px' href='?_src_=prefs;preference=auto_identify_faction_radio'>[auto_identify_faction_radio ? "Yes" : "No"]</a><BR>"
+			dat += "<span class='linkOff'>If enabled, your real name is automatically shown to others when you speak on your faction's own secure radio channel, instead of staying anonymous.</span><BR>"
 
 			dat += "<b>Name:</b> "
 			dat += "<a href='?_src_=prefs;preference=name;task=input'>[real_name]</a><BR>"
@@ -905,6 +911,11 @@ span.bindname { display: inline-block; position: absolute; width: 20%; left: 5px
 span.bindings { display: inline-block; position: relative; left: 20%; width: auto; right: 20%; padding: 5px; }
 span.independent { display: inline-block; position: absolute; width: 20%; right: 5px; padding: 5px; }
 .crt-title { text-align: center; font-size: 14px; letter-spacing: 2px; color: #4aed92; border-bottom: 1px solid #1a5e38; padding: 6px 0 8px; margin-bottom: 8px; }
+.perk-row { padding: 5px 6px; margin: 2px 0; border-bottom: 1px solid #123a24; }
+.perk-row:last-of-type { border-bottom: none; }
+.perk-name { font-weight: bold; }
+.perk-desc { display: block; color: #6fbf90; font-size: 12px; margin-top: 2px; }
+.perk-section { margin: 10px 0 4px; font-size: 13px; letter-spacing: 1px; border-bottom: 1px solid #1a5e38; padding-bottom: 4px; }
 .content { position: relative; z-index: 100; }
 .crt-scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px); }
 .crt-vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 51; background: radial-gradient(ellipse at center, transparent 50%, rgba(2,10,6,0.7) 100%); }
@@ -1160,75 +1171,108 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 /datum/preferences/proc/ResetJobs()
 	job_preferences = list()
 
+/datum/preferences/proc/RenderQuirkRow(datum/quirk/T, is_trait_row = FALSE)
+	var/quirk_name = initial(T.name)
+	var/value = initial(T.value)
+	var/has_quirk = (quirk_name in all_quirks)
+	var/quirk_cost = value * -1
+	var/lock_reason = "Entry restricted - Overseer clearance required."
+	var/quirk_conflict = FALSE
+	if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
+		lock_reason = "Mood is disabled."
+		quirk_conflict = TRUE
+	if(initial(T.required_special_stat) && (vars[initial(T.required_special_stat)] < initial(T.required_special_value)))
+		lock_reason = "Requires [initial(T.required_special_name)] [initial(T.required_special_value)]+."
+		quirk_conflict = TRUE
+	if(has_quirk && quirk_conflict)
+		all_quirks -= quirk_name
+		has_quirk = FALSE
+	else if(has_quirk)
+		quirk_cost *= -1 //invert it back, since we'd be regaining this amount
+	var/font_color = "#AAAAFF"
+	if(value != 0)
+		font_color = value > 0 ? "#AAFFAA" : "#FFAAAA"
+	var/action_label = is_trait_row ? "TRAIT" : "PERK"
+	var/cost_text = is_trait_row ? "" : " ([quirk_cost > 0 ? "+" : ""][quirk_cost] TP)"
+	. = "<div class='perk-row'>"
+	if(quirk_conflict)
+		. += "<span class='perk-name' style='color:[font_color]'>[quirk_name]</span> <font color='red'><b>LOCKED: [lock_reason]</b></font><br>"
+	else
+		. += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>\[[has_quirk ? "DROP" : "ADOPT"] [action_label]\][cost_text]</a> <span class='perk-name' style='color:[font_color]'>[quirk_name]</span>"
+		if(has_quirk && quirk_name == "Family Heirloom")
+			var/chosen_name = "random, based on your job"
+			if(heirloom_choice >= 1 && heirloom_choice <= length(GLOB.family_heirloom_choices))
+				chosen_name = initial(GLOB.family_heirloom_choices[heirloom_choice]:name)
+			. += " &nbsp; <a href='?_src_=prefs;preference=trait;task=choose_heirloom'>\[CHOOSE HEIRLOOM\]</a> (currently: [chosen_name])"
+		. += "<br>"
+	. += "<span class='perk-desc'>[initial(T.desc)]</span>"
+	. += "</div>"
+
+/datum/preferences/proc/ChooseHeirloom(mob/user)
+	var/list/dat = list()
+	dat += "<div class='crt-title'>CHOOSE YOUR FAMILY HEIRLOOM</div>"
+	dat += "<center><a href='?_src_=prefs;preference=trait;task=set_heirloom;heirloom_idx=0'>\[Leave unset - random, based on your job\]</a></center><br>"
+	for(var/i in 1 to length(GLOB.family_heirloom_choices))
+		var/obj/item/option = GLOB.family_heirloom_choices[i]
+		var/is_current = (heirloom_choice == i)
+		dat += "<a href='?_src_=prefs;preference=trait;task=set_heirloom;heirloom_idx=[i]'>\[[is_current ? "SELECTED" : "CHOOSE"]\]</a> [initial(option:name)]<br>"
+	dat += "<br><center><a href='?_src_=prefs;preference=trait;task=menu'>\[BACK\]</a></center>"
+
+	user << browse(null, "window=preferences")
+	user << browse(get_terminal_page(dat.Join(), "&#9654; FAMILY HEIRLOOM &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
+	return
+
 /datum/preferences/proc/SetQuirks(mob/user)
 	if(!SSquirks)
-		to_chat(user, span_danger("The quirk subsystem is still initializing! Try again in a minute."))
+		to_chat(user, span_danger("The perk/trait subsystem is still initializing! Try again in a minute."))
 		return
 
 	var/list/dat = list()
 	if(!SSquirks.quirks.len)
-		dat += "The quirk subsystem hasn't finished initializing, please hold..."
-		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>Done</a></center><br>"
+		dat += "ERROR: PERSONNEL DATABASE OFFLINE. Please hold while the archive re-indexes..."
+		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>\[RETURN\]</a></center><br>"
 
 	else
-		dat += "<center><b>Choose quirk setup</b></center><br>"
-		dat += "<div align='center'>Left-click to add or remove quirks. You need negative quirks to have positive ones.<br>\
-		Quirks are applied at roundstart and cannot normally be removed.</div>"
-		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>Done</a></center>"
+		dat += "<div class='crt-title'>VAULT-TEC PERSONALITY ASSESSMENT: TRAITS &amp; PERKS</div>"
+		dat += "<div align='center'>Wasteland Traits are etched in young and free of charge, always cutting both ways.<br>\
+		Perks are earned: spend Perk Points on beneficial Perks by taking on liabilities elsewhere. Once your file is stamped at roundstart, it's final.</div>"
+		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>\[CONFIRM &amp; RETURN\]</a> &nbsp; <a href='?_src_=prefs;preference=trait;task=reset'>\[CLEAR ALL ENTRIES\]</a></center>"
 		dat += "<hr>"
-		dat += "<center><b>Current quirks:</b> [all_quirks.len ? all_quirks.Join(", ") : "None"]</center>"
-		dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS] max positive quirks<br>\
-		<b>Quirk balance remaining:</b> [GetQuirkBalance()]<br>"
-		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_POSITIVE]' [quirk_category == QUIRK_POSITIVE ? "class='linkOn'" : ""]>[QUIRK_POSITIVE]</a> "
-		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEUTRAL]' [quirk_category == QUIRK_NEUTRAL ? "class='linkOn'" : ""]>[QUIRK_NEUTRAL]</a> "
-		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEGATIVE]' [quirk_category == QUIRK_NEGATIVE ? "class='linkOn'" : ""]>[QUIRK_NEGATIVE]</a> "
+		dat += "<center><b>On File:</b> [all_quirks.len ? all_quirks.Join(", ") : "None on file"]</center>"
+		dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS] beneficial perks logged<br>\
+		<b>Perk Points available:</b> [GetQuirkBalance()]<br>"
+		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_POSITIVE]' [quirk_category == QUIRK_POSITIVE ? "class='linkOn'" : ""]>BENEFICIAL</a> "
+		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEGATIVE]' [quirk_category == QUIRK_NEGATIVE ? "class='linkOn'" : ""]>LIABILITY</a> "
+		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_TRAIT]' [quirk_category == QUIRK_TRAIT ? "class='linkOn'" : ""]>TRAITS &amp; COSMETIC</a> "
 		dat += "</center><br>"
-		for(var/V in SSquirks.quirks)
-			var/datum/quirk/T = SSquirks.quirks[V]
-			var/value = initial(T.value)
-			if(value > 0 && quirk_category != QUIRK_POSITIVE)
-				continue
-			if(value < 0 && quirk_category != QUIRK_NEGATIVE)
-				continue
-			if(value == 0 && quirk_category != QUIRK_NEUTRAL)
-				continue
-
-			var/quirk_name = initial(T.name)
-			var/has_quirk
-			var/quirk_cost = initial(T.value) * -1
-			var/lock_reason = "This trait is unavailable."
-			var/quirk_conflict = FALSE
-			for(var/_V in all_quirks)
-				if(_V == quirk_name)
-					has_quirk = TRUE
-			if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
-				lock_reason = "Mood is disabled."
-				quirk_conflict = TRUE
-			if(has_quirk)
-				if(quirk_conflict)
-					all_quirks -= quirk_name
-					has_quirk = FALSE
-				else
-					quirk_cost *= -1 //invert it back, since we'd be regaining this amount
-			if(quirk_cost > 0)
-				quirk_cost = "+[quirk_cost]"
-			var/font_color = "#AAAAFF"
-			if(initial(T.value) != 0)
-				font_color = value > 0 ? "#AAFFAA" : "#FFAAAA"
-			if(quirk_conflict)
-				dat += "<font color='[font_color]'>[quirk_name]</font> - [initial(T.desc)] \
-				<font color='red'><b>LOCKED: [lock_reason]</b></font><br>"
-			else
-				if(has_quirk)
-					dat += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>[has_quirk ? "Remove" : "Take"] ([quirk_cost] pts.)</a> \
-					<b><font color='[font_color]'>[quirk_name]</font></b> - [initial(T.desc)]<br>"
-				else
-					dat += "<a href='?_src_=prefs;preference=trait;task=update;trait=[quirk_name]'>[has_quirk ? "Remove" : "Take"] ([quirk_cost] pts.)</a> \
-					<font color='[font_color]'>[quirk_name]</font> - [initial(T.desc)]<br>"
-		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset Quirks</a></center>"
+		if(quirk_category == QUIRK_TRAIT)
+			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [MAX_TRAITS] recorded)</div>"
+			for(var/V in SSquirks.quirks)
+				var/datum/quirk/T = SSquirks.quirks[V]
+				if(!initial(T.is_trait))
+					continue
+				dat += RenderQuirkRow(T, is_trait_row = TRUE)
+			dat += "<div class='perk-section'>COSMETIC - free flavor picks, no Perk Point cost, no slot limit</div>"
+			for(var/V in SSquirks.quirks)
+				var/datum/quirk/T = SSquirks.quirks[V]
+				if(initial(T.is_trait) || initial(T.value) != 0)
+					continue
+				dat += RenderQuirkRow(T)
+		else
+			for(var/V in SSquirks.quirks)
+				var/datum/quirk/T = SSquirks.quirks[V]
+				if(initial(T.is_trait) || initial(T.value) == 0) //Wasteland Traits and Cosmetic picks live in the combined free-pick tab, not here
+					continue
+				var/value = initial(T.value)
+				if(value > 0 && quirk_category != QUIRK_POSITIVE)
+					continue
+				if(value < 0 && quirk_category != QUIRK_NEGATIVE)
+					continue
+				dat += RenderQuirkRow(T)
+		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset All</a></center>"
 
 	user << browse(null, "window=preferences")
-	user << browse(get_terminal_page(dat.Join(), "&#9654; QUIRK SETUP &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
+	user << browse(get_terminal_page(dat.Join(), "&#9654; TRAITS &amp; PERKS &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
 
@@ -1246,21 +1290,21 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay.</center><br>"
 	dat += "<center>[total] out of [SPECIAL_MAX_POINT_SUM_CAP] possible</center><br>"
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
-	dat += "<font size='1'><i>Strength affects the amount of melee damage you dish out and your ability to carry some heavy weapons.</i></font><br>"
+	dat += "<font size='1'><i>Strength boosts your melee and unarmed damage, raises how much weight your bags/pockets/belt can carry, cuts Power Attack stamina costs, eases heavy armor's movement penalty, and gates some of the heaviest weapons.</i></font><br>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
-	dat += "<font size='1'><i>Perception affects your accuracy with ranged weapons.</i></font><br>"
+	dat += "<font size='1'><i>Perception tightens your gun accuracy, reduces jams, and keeps your melee swings true even while blinded or blurry.</i></font><br>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
-	dat += "<font size='1'>Endurance affects your maximum health & resistance to radiation and poisons.<i></i></font><br>"
+	dat += "<font size='1'><i>Endurance raises your maximum health, resists radiation and poison, and lets you shake off an interrupted Power Attack faster.</i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
-	dat += "<font size='1'><i>Charisma determines your character's examine text and ability to speak coherently.</i></font><br>"
+	dat += "<font size='1'><i>Charisma colors how others perceive you on examine, and sets how many people you can escort in a pull chain or lead in a party.</i></font><br>"
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
-	dat += "<font size='1'><i>Intelligence is necessary for being able to craft various recipes, as well as the operation of some energy weapons.</i></font><br>"
+	dat += "<font size='1'><i>Intelligence is required to craft at all, unlocks higher-tier recipes and some energy weapons, and speeds up field repairs.</i></font><br>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
-	dat += "<font size='1'><i>Agility determines your move speed and how much stamina you use while sprinting.</i></font><br>"
+	dat += "<font size='1'><i>Agility quickens your sprinting, reloading/jam-clearing, melee swings, and Power Attack windups.</i></font><br>"
 	dat += "<b>Luck        :</b> <a href='?_src_=prefs;preference=special_l;task=input'>[special_l]</a><BR>"
-	dat += "<font size='1'><i>Luck affects the amount of caps you find in trash piles and prevents unlucky mishaps.</i></font><br>"
+	dat += "<font size='1'><i>Luck boosts caps found in trash piles and lowers your chance to jam a weapon or fumble an attack - at 3 or below, fumbles become a real risk.</i></font><br>"
 	if (total > SPECIAL_MAX_POINT_SUM_CAP)
-		dat += "<center>Maximum exceeded, please change until your total is at or below 35<center>"
+		dat += "<center>Maximum exceeded, please change until your total is at or below [SPECIAL_MAX_POINT_SUM_CAP]<center>"
 	else
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
 
@@ -1269,8 +1313,10 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	return
 
 /datum/preferences/proc/GetQuirkBalance()
-	var/bal = 5
+	var/bal = CONFIG_GET(number/quirk_points) //server-configurable base Trait Point budget, was hardcoded to 5 and ignoring the config entry entirely
 	for(var/V in all_quirks)
+		if(SSquirks.quirk_is_trait_by_name(V)) //free Fallout-style paired Traits never touch the point economy
+			continue
 		var/datum/quirk/T = SSquirks.quirks[V]
 		bal -= initial(T.value)
 	for(var/modification in modified_limbs)
@@ -1282,6 +1328,12 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	. = 0
 	for(var/q in all_quirks)
 		if(SSquirks.quirk_points[q] > 0)
+			.++
+
+/datum/preferences/proc/GetTraitCount()
+	. = 0
+	for(var/q in all_quirks)
+		if(SSquirks.quirk_is_trait_by_name(q))
 			.++
 
 /datum/preferences/Topic(href, href_list, hsrc)			//yeah, gotta do this I guess..
@@ -1356,24 +1408,71 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
 							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return
+				if(SSquirks.quirk_is_trait_by_name(quirk)) //free Wasteland Trait: no point cost, just a separate headcount cap
+					if(quirk in all_quirks)
+						all_quirks -= quirk
+					else
+						if(GetTraitCount() >= MAX_TRAITS)
+							to_chat(user, span_warning("You can't have more than [MAX_TRAITS] Wasteland Traits!"))
+							return
+						all_quirks += quirk
+					SetQuirks(user)
+					return TRUE
+				var/datum/quirk/want_path = SSquirks.quirks[quirk]
+				var/requires = initial(want_path.requires_quirk)
+				if(requires && !(quirk in all_quirks)) //adopting a higher rank of a ranked Wasteland Perk: auto-replace the prerequisite rank
+					if(!(requires in all_quirks))
+						to_chat(user, span_warning("You need to learn [requires] before you can learn [quirk]!"))
+						return
+					var/old_value = SSquirks.quirk_points[requires]
+					var/new_value = SSquirks.quirk_points[quirk]
+					var/delta = new_value - old_value
+					var/rank_balance = GetQuirkBalance()
+					if(delta > 0 && rank_balance - delta < 0)
+						to_chat(user, span_warning("You don't have enough Perk Points to advance to [quirk]!"))
+						return
+					all_quirks -= requires
+					all_quirks += quirk
+					SetQuirks(user)
+					return TRUE
 				var/value = SSquirks.quirk_points[quirk]
 				var/balance = GetQuirkBalance()
 				if(quirk in all_quirks)
+					for(var/Q in all_quirks)
+						var/datum/quirk/owned_path = SSquirks.quirks[Q]
+						if(owned_path && initial(owned_path.requires_quirk) == quirk)
+							to_chat(user, span_warning("You must drop [Q] before you can drop [quirk]!"))
+							return
 					if(balance + value < 0)
 						to_chat(user, span_warning("Refunding this would cause you to go below your balance!"))
 						return
 					all_quirks -= quirk
 				else
 					if(value != 0 && (GetPositiveQuirkCount() >= MAX_QUIRKS))
-						to_chat(user, span_warning("You can't have more than [MAX_QUIRKS] positive quirks!"))
+						to_chat(user, span_warning("You can't have more than [MAX_QUIRKS] beneficial Perks!"))
 						return
 					if(balance - value < 0)
-						to_chat(user, span_warning("You don't have enough balance to gain this quirk!"))
+						to_chat(user, span_warning("You don't have enough Perk Points to gain this Perk!"))
 						return
 					all_quirks += quirk
 				SetQuirks(user)
 			if("reset")
 				all_quirks = list()
+				SetQuirks(user)
+			if("choose_heirloom")
+				if(!("Family Heirloom" in all_quirks))
+					SetQuirks(user)
+					return
+				ChooseHeirloom(user)
+			if("set_heirloom")
+				if(!("Family Heirloom" in all_quirks))
+					SetQuirks(user)
+					return
+				var/idx = text2num(href_list["heirloom_idx"])
+				if(!idx || idx < 1 || idx > length(GLOB.family_heirloom_choices)) //0/invalid input clears it back to "random, based on your job"
+					heirloom_choice = null
+				else
+					heirloom_choice = idx
 				SetQuirks(user)
 			else
 				SetQuirks(user)
@@ -1381,7 +1480,7 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 
 	else if(href_list["quirk_category"])
 		var/temp_quirk_category = href_list["quirk_category"]
-		if(temp_quirk_category == QUIRK_POSITIVE || temp_quirk_category == QUIRK_NEUTRAL || temp_quirk_category == QUIRK_NEGATIVE)
+		if(temp_quirk_category == QUIRK_POSITIVE || temp_quirk_category == QUIRK_NEUTRAL || temp_quirk_category == QUIRK_NEGATIVE || temp_quirk_category == QUIRK_TRAIT)
 			quirk_category = temp_quirk_category
 			SetQuirks(user)
 
@@ -2047,6 +2146,9 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 						var/mob/dead/new_player/player_mob = parent.mob
 						player_mob.new_player_panel()
 
+				if("auto_identify_faction_radio")
+					auto_identify_faction_radio = !auto_identify_faction_radio
+
 				if("all")
 					be_random_body = !be_random_body
 
@@ -2454,11 +2556,11 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	if(istype(parent))
 		switch(why)
 			if("balance")
-				to_chat(parent, span_userdanger("Your quirk balance was invalid! Your quirks have been reset, and you'll need to set up your quirks again."))
+				to_chat(parent, span_userdanger("Your Perk Point balance was invalid! Your Traits and Perks have been reset, and you'll need to set them up again."))
 			if("max")
-				to_chat(parent, span_userdanger("Your character had too many positive quirks, likely due to a bug! Your quirks have been reset, and you'll need to set up your quirks again."))
+				to_chat(parent, span_userdanger("Your character had too many beneficial Perks, likely due to a bug! Your Traits and Perks have been reset, and you'll need to set them up again."))
 			else
-				to_chat(parent, span_userdanger("Something went wrong! Your quirks have been reset, and you'll need to set up your quirks again."))
+				to_chat(parent, span_userdanger("Something went wrong! Your Traits and Perks have been reset, and you'll need to set them up again."))
 
 /datum/preferences/proc/clamp_special_values() // S.P.E.C.I.A.L.
 	special_s = clamp(special_s, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)

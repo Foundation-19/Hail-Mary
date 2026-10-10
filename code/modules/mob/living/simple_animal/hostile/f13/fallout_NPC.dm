@@ -15,8 +15,8 @@
 	
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	speed = 1
 	turns_per_move = 5
 	
@@ -128,8 +128,8 @@
 	icon_living = "vault_dweller_sec"
 	icon_dead = "vault_dweller_sec"
 	
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	
 	loot = list(/obj/effect/mob_spawn/human/corpse/vault/security)
 	healable = TRUE
@@ -192,8 +192,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_ENCLAVE
 	
-	maxHealth = 200
-	health = 200
+	maxHealth = 260 // bumped - TTK vs melee was too short
+	health = 260
 	speed = 0
 	turns_per_move = 5
 	
@@ -286,8 +286,8 @@
 	icon_living = "enclave_scientist"
 	icon_dead = "enclave_scientist"
 	
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 15
@@ -327,8 +327,8 @@
 	
 	mob_armor = ARMOR_VALUE_ENCLAVE_APA
 	
-	maxHealth = 560
-	health = 560
+	maxHealth = 650 // bumped - TTK vs melee was too short
+	health = 650
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 20
@@ -397,8 +397,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_BOS
 	
-	maxHealth = 200
-	health = 200
+	maxHealth = 260 // bumped - TTK vs melee was too short
+	health = 260
 	speed = 1
 	turns_per_move = 5
 	
@@ -505,8 +505,8 @@
 	
 	mob_armor = ARMOR_VALUE_BOS_PALADIN
 	
-	maxHealth = 480
-	health = 480
+	maxHealth = 600 // bumped - TTK vs melee was too short
+	health = 600
 	stat_attack = UNCONSCIOUS
 	
 	loot = list(/obj/effect/mob_spawn/human/corpse/bs/paladin)
@@ -569,8 +569,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_NCR
 	
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	speed = 1
 	turns_per_move = 5
 	
@@ -678,8 +678,8 @@
 	
 	mob_armor = ARMOR_VALUE_NCR_RANGER
 	
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	
 	loot = list(/obj/effect/mob_spawn/human/corpse/ncr/ranger)
 	healable = TRUE
@@ -738,8 +738,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_LEGION
 	
-	maxHealth = 120
-	health = 120
+	maxHealth = 155 // bumped - TTK vs melee was too short
+	health = 155
 	speed = 1
 	turns_per_move = 5
 	
@@ -848,8 +848,8 @@
 	
 	mob_armor = ARMOR_VALUE_LEGION_VETERAN
 	
-	maxHealth = 180
-	health = 180
+	maxHealth = 230 // bumped - TTK vs melee was too short
+	health = 230
 	
 	loot = list(/obj/effect/mob_spawn/human/corpse/legion/decan)
 	healable = TRUE
@@ -906,8 +906,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_TRIBAL
 	
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	speed = 1
 	turns_per_move = 5
 	

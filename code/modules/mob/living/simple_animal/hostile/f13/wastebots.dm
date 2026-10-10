@@ -23,8 +23,8 @@
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	speed = 2
 	stamcrit_threshold = SIMPLEMOB_NO_STAMCRIT
 	
@@ -170,8 +170,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 18
@@ -285,8 +285,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_SECURITY
 	
-	maxHealth = 50
-	health = 50
+	maxHealth = 65 // bumped - TTK vs melee was too short
+	health = 65
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10
@@ -351,8 +351,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_SECURITY
 	
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 15
@@ -422,8 +422,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	speed = 4  // Noticeably slow
 	move_to_delay = 4
 	stat_attack = CONSCIOUS
@@ -587,8 +587,8 @@
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 130 // bumped - TTK vs melee was too short
+	health = 130
 	speed = 1  // Fast for a robot
 	stat_attack = UNCONSCIOUS
 	gender = FEMALE

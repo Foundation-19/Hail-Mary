@@ -203,8 +203,8 @@
 	var/stunforce = block_calculate_resultant_damage(stun_stamdmg, block_return)
 	if(!no_charge_and_force)
 		if(!on)
-			target.visible_message(span_warning("[user] has bapped [target] with [src]. Luckily it was off."), \
-							span_warning("[user] has bapped you with [src]. Luckily it was off"))
+			target.visible_message(span_warning("%ACTOR_NAME% has bapped %SELF_NAME% with [src]. Luckily it was off."), \
+						span_warning("%ACTOR_NAME% has bapped you with [src]. Luckily it was off"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			turn_off()			//if it wasn't already off
 			return FALSE
 		var/obj/item/stock_parts/cell/C = get_cell()
@@ -220,8 +220,8 @@
 	if(user)
 		target.lastattacker = user.real_name
 		target.lastattackerckey = user.ckey
-		target.visible_message(span_danger("[user] has shocked [target] with [src]!"), \
-								span_userdanger("[user] has shocked you with [src]!"))
+		target.visible_message(span_danger("%ACTOR_NAME% has shocked %SELF_NAME% with [src]!"), \
+								span_userdanger("%ACTOR_NAME% has shocked you with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		log_combat(user, target, "stunned with an electrostaff")
 	playsound(src, 'sound/weapons/staff.ogg', 50, 1, -1)
 	target.apply_status_effect(stun_status_effect, stun_status_duration)

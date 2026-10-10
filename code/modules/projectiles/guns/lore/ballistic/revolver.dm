@@ -88,7 +88,7 @@
 		return
 
 	if(do_spin())
-		usr.visible_message("[usr] spins [src]'s chamber.", span_notice("You spin [src]'s chamber."))
+		usr.visible_message("%SELF_NAME% spins [src]'s chamber.", span_notice("You spin [src]'s chamber."), visible_message_flags = ANONYMIZE_NAMES)
 		playsound(src, 'sound/f13weapons/revolverspin.ogg', 30, 1)
 	else
 		verbs -= /obj/item/gun/ballistic/revolver/verb/spin
@@ -755,7 +755,7 @@
 				if(zone == BODY_ZONE_HEAD || zone == BODY_ZONE_PRECISE_EYES || zone == BODY_ZONE_PRECISE_MOUTH)
 					shoot_self(user, affecting)
 				else
-					user.visible_message(span_danger("[user.name] cowardly fires [src] at [user.p_their()] [affecting.name]!"), span_userdanger("You cowardly fire [src] at your [affecting.name]!"), span_italic("You hear a gunshot!"))
+					user.visible_message(span_danger("%SELF_NAME% cowardly fires [src] at [user.p_their()] [affecting.name]!"), span_userdanger("You cowardly fire [src] at your [affecting.name]!"), span_italic("You hear a gunshot!"), visible_message_flags = ANONYMIZE_NAMES)
 				chambered = null
 				return
 
@@ -765,11 +765,11 @@
 /obj/item/gun/ballistic/revolver/russian/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0, stam_cost = 0)
 	add_fingerprint(user)
 	playsound(src, "gun_dry_fire", 30, TRUE)
-	user.visible_message(span_danger("[user.name] tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"))
+	user.visible_message(span_danger("%SELF_NAME% tries to fire \the [src] at the same time, but only succeeds at looking like an idiot."), span_danger("\The [src]'s anti-combat mechanism prevents you from firing it at the same time!"), visible_message_flags = ANONYMIZE_NAMES)
 
 /obj/item/gun/ballistic/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italic("You hear a gunshot!"))
+	user.visible_message(span_danger("%SELF_NAME% fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italic("You hear a gunshot!"), visible_message_flags = ANONYMIZE_NAMES)
 
 /obj/item/gun/ballistic/revolver/russian/soul
 	name = "cursed Russian revolver"
@@ -781,7 +781,7 @@
 	if(!SS.transfer_soul("FORCE", user)) //Something went wrong
 		qdel(SS)
 		return
-	user.visible_message(span_danger("[user.name]'s soul is captured by \the [src]!"), span_userdanger("You've lost the gamble! Your soul is forfeit!"))
+	user.visible_message(span_danger("%SELF_NAME%'s soul is captured by \the [src]!"), span_userdanger("You've lost the gamble! Your soul is forfeit!"), visible_message_flags = ANONYMIZE_NAMES)
 
 
 //////////////////

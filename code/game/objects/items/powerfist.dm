@@ -6,7 +6,7 @@
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	flags_1 = CONDUCT_1
-	item_flags = NEEDS_PERMIT | NO_COMBAT_MODE_FORCE_MODIFIER //To avoid ambushing and oneshotting healthy crewmembers on force setting 3.
+	item_flags = NEEDS_PERMIT | NO_COMBAT_MODE_FORCE_MODIFIER | ITEM_CAN_POWER_ATTACK //To avoid ambushing and oneshotting healthy crewmembers on force setting 3.
 	attack_verb = list("whacked", "fisted", "power-punched")
 	force = 14
 	throwforce = 10
@@ -15,6 +15,20 @@
 	armor = ARMOR_VALUE_GENERIC_ITEM
 	resistance_flags = FIRE_PROOF
 	attack_speed = CLICK_CD_MELEE * 1.5
+	glove_weapon = TRUE
+	// Worn glove weapons have no hand screen object to right-click (see canMobMousedown() in drag_drop.dm,
+	// which falls back to the worn gloves item itself only if canMouseDown is set) - without this, right-click
+	// hold/release never reaches power_attack_handle_right_mouse_down()/power_attack_release(), so Power Attacks
+	// could never actually be charged or released (and the release-only weapon-icon swing effect never showed).
+	canMouseDown = TRUE
+	slot_flags = ITEM_SLOT_BELT | ITEM_SLOT_GLOVES // was missing entirely - couldn't be equipped to any slot at all
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge/piston_punch,
+	)
 	var/fisto_setting = 1
 	var/gasperfist = 3
 	var/obj/item/tank/internals/tank = null //Tank used for the gauntlet's piston-ram.
@@ -73,6 +87,9 @@
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return FALSE
+	if(!is_active_glove_weapon(user))
+		to_chat(user, span_warning("\The [src] needs to be worn on your hand to throw a real punch - swinging it loose does nothing."))
+		return FALSE
 	if(!tank)
 		to_chat(user, span_warning("\The [src] can't operate without a source of gas!"))
 		return FALSE
@@ -91,8 +108,9 @@
 
 		//target.apply_damage((totalitemdamage / 5), BRUTE)
 		playsound(loc, 'sound/weapons/punch1.ogg', 50, 1)
-		target.visible_message(span_danger("[user]'s powerfist lets out a dull thunk as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-		span_userdanger("[user]'s punches you!"))
+		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a dull thunk as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+		span_userdanger("%ACTOR_NAME%'s punches you!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
 	if(tank.air_contents.total_moles() < moles_used)
 		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, it needs more gas!"))
@@ -101,16 +119,19 @@
 		target.attacked_by(src, user, attackchain_flags, fisto_setting*1.5)
 
 		//target.apply_damage((totalitemdamage / 2), BRUTE)
-		target.visible_message(span_danger("[user]'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-			span_userdanger("[user]'s punch strikes with force!"))
+		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+			span_userdanger("%ACTOR_NAME%'s punch strikes with force!"), \
+			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
 
 	T.assume_air_moles(tank.air_contents, gasperfist * fisto_setting)
 	T.air_update_turf()
-	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, wound_bonus = -25*fisto_setting**2)
+	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
+	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
 
-	target.visible_message(span_danger("[user]'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] [target.name]!"), \
-		span_userdanger("You cry out in pain as [user]'s punch flings you backwards!"))
+	target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
+		span_userdanger("You cry out in pain as %ACTOR_NAME%'s punch flings you backwards!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	new /obj/effect/temp_visual/kinetic_blast(target.loc)
 	playsound(loc, 'sound/weapons/resonator_blast.ogg', 50, 1)
 	playsound(loc, 'sound/weapons/genhit2.ogg', 50, 1)

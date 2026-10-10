@@ -62,13 +62,15 @@ Consuming extracts:
 /obj/item/slime_cookie/attack(mob/living/M, mob/user)
 	var/fed = FALSE
 	if(M == user)
-		M.visible_message(span_notice("[user] eats [src]!"), span_notice("You eat [src]."))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		M.visible_message(span_notice("[user_tok] eats [src]!"), span_notice("You eat [src]."), visible_message_flags = ANONYMIZE_NAMES)
 		fed = TRUE
 	else
-		M.visible_message(span_danger("[user] tries to force [M] to eat [src]!"), span_userdanger("[user] tries to force you to eat [src]!"))
+		var/user_tok2 = isliving(user) ? "%ACTOR_NAME%" : "[user]"
+		M.visible_message(span_danger("[user_tok2] tries to force %SELF_NAME% to eat [src]!"), span_userdanger("[user_tok2] tries to force you to eat [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 		if(do_after(user, 20, target = M))
 			fed = TRUE
-			M.visible_message(span_danger("[user] forces [M] to eat [src]!"), span_warning("[user] forces you to eat [src]."))
+			M.visible_message(span_danger("[user_tok2] forces %SELF_NAME% to eat [src]!"), span_warning("[user_tok2] forces you to eat [src]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(user) ? user : null)
 	if(fed)
 		to_chat(M, "Tastes like [taste].")
 		playsound(get_turf(M), 'sound/items/eatfood.ogg', 20, 1)

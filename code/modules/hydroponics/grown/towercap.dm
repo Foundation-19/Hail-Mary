@@ -242,7 +242,7 @@
 	//IGNITE. Use a hot object to light the bonfire.
 	var/ignition = W.ignition_effect(src, user)
 	if(ignition)
-		visible_message(ignition)
+		visible_message(ignition, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		StartBurning()
 		return
 

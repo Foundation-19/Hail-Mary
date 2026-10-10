@@ -40,7 +40,7 @@
 	merge_type = /obj/item/stack/packageWrap
 
 /obj/item/stack/packageWrap/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	user.visible_message(span_suicide("%SELF_NAME% begins wrapping [user.p_them()]self in \the [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	if(use(3))
 		var/obj/structure/bigDelivery/P = new /obj/structure/bigDelivery(get_turf(user.loc))
 		P.icon_state = "deliverypackage5"
@@ -114,7 +114,8 @@
 		to_chat(user, span_warning("The object you are trying to wrap is unsuitable for the sorting machinery!"))
 		return
 
-	user.visible_message(span_notice("[user] wraps [target]."))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_notice("[user_tok] wraps [target]."), visible_message_flags = ANONYMIZE_NAMES)
 	user.log_message("has used [name] on [key_name(target)]", LOG_ATTACK, color="blue")
 
 /obj/item/stack/packageWrap/use(used, transfer = FALSE, check = TRUE)

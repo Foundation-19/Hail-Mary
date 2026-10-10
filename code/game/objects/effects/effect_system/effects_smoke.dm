@@ -10,6 +10,7 @@
 	pixel_y = -32
 	opacity = 0
 	layer = FLY_LAYER
+	plane = MOB_PLANE // mobs/items sit on their own higher planes, so without this smoke would render behind them instead of covering them
 	anchored = TRUE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	animate_movement = 0
@@ -34,6 +35,10 @@
 	. = ..()
 	create_reagents(500, NONE, NO_REAGENTS_VALUE)
 	START_PROCESSING(SSobj, src)
+	// Smoke billows into existence instead of popping in at full density.
+	var/target_alpha = alpha
+	alpha = 0
+	animate(src, alpha = target_alpha, time = 3)
 
 
 /obj/effect/particle_effect/smoke/Destroy()
@@ -94,9 +99,11 @@
 			newsmokes.Add(S)
 
 	if(newsmokes.len)
-		spawn(1) //the smoke spreads rapidly but not instantly
-			for(var/obj/effect/particle_effect/smoke/SM in newsmokes)
-				SM.spread_smoke()
+		addtimer(CALLBACK(src, PROC_REF(continue_spread), newsmokes), 1) //the smoke spreads rapidly but not instantly
+
+/obj/effect/particle_effect/smoke/proc/continue_spread(list/smokes)
+	for(var/obj/effect/particle_effect/smoke/SM in smokes)
+		SM.spread_smoke()
 
 
 /datum/effect_system/smoke_spread
@@ -115,6 +122,8 @@
 		location = get_turf(holder)
 	var/obj/effect/particle_effect/smoke/S = new effect_type(location)
 	S.amount = amount
+	if(S.amount && S.opaque) // the epicenter tile needs to block sight too, not just the tiles it spreads to
+		S.set_opacity(TRUE)
 	if(S.amount)
 		S.spread_smoke()
 
@@ -128,9 +137,12 @@
 
 /obj/effect/particle_effect/smoke/bad/smoke_mob(mob/living/carbon/M)
 	if(..())
-		M.drop_all_held_items()
 		M.adjustOxyLoss(1)
 		M.emote("cough")
+		M.blur_eyes(4) // stinging/watering eyes, same mechanic pepperspray uses - decays once you're out of the cloud
+		M.Dizzy(4)
+		if(prob(20))
+			M.blind_eyes(2) // eyes sting bad enough to go briefly blind
 		return 1
 
 /obj/effect/particle_effect/smoke/bad/CanAllowThrough(atom/movable/mover, border_dir)
@@ -314,6 +326,8 @@
 	if(mixcolor)
 		S.add_atom_colour(mixcolor, FIXED_COLOUR_PRIORITY) // give the smoke color, if it has any to begin with
 	S.amount = amount
+	if(S.amount && S.opaque) // the epicenter tile needs to block sight too, not just the tiles it spreads to
+		S.set_opacity(TRUE)
 	if(S.amount)
 		S.spread_smoke() //calling process right now so the smoke immediately attacks mobs.
 

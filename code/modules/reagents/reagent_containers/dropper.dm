@@ -50,8 +50,8 @@
 					reagents.reaction(safe_thing, TOUCH, fraction)
 					trans = reagents.trans_to(safe_thing, amount_per_transfer_from_this, log = TRUE)
 
-					target.visible_message(span_danger("[user] tries to squirt something into [target]'s eyes, but fails!"), \
-											span_userdanger("[user] tries to squirt something into [target]'s eyes, but fails!"))
+					target.visible_message(span_danger("%ACTOR_NAME% tries to squirt something into %SELF_NAME%'s eyes, but fails!"), \
+											span_userdanger("%ACTOR_NAME% tries to squirt something into %SELF_NAME%'s eyes, but fails!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 					to_chat(user, span_notice("You transfer [trans] unit\s of the solution."))
 					update_icon()
@@ -60,8 +60,8 @@
 				to_chat(target, span_danger("[target] does not seem to have any eyes!"))
 				return
 
-			target.visible_message(span_danger("[user] squirts something into [target]'s eyes!"), \
-									span_userdanger("[user] squirts something into [target]'s eyes!"))
+			target.visible_message(span_danger("%ACTOR_NAME% squirts something into %SELF_NAME%'s eyes!"), \
+									span_userdanger("%ACTOR_NAME% squirts something into %SELF_NAME%'s eyes!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 
 			reagents.reaction(target, TOUCH, fraction)
 			var/mob/M = target

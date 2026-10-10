@@ -1532,7 +1532,9 @@
 	lethal_projectile = /obj/item/projectile/bullet/c22
 	lethal_projectile_sound = 'sound/f13weapons/servicerifle.ogg'
 	stun_projectile_sound = 'sound/f13weapons/servicerifle.ogg'
-	shot_spread = 5
+	// Turrets fire the bare projectile with no gun damage_multiplier, so .22LR hits exactly as hard per-shot as 9mm here -
+	// it shouldn't also out-accuracy the pricier 9mm turret (was 5, tighter than 9mm's 10).
+	shot_spread = 12
 
 /// .22LR turret - raider
 /obj/machinery/porta_turret/f13/turret_22lr/raider
@@ -1561,9 +1563,11 @@
 		Countless sentry guns like these were in use before the war, valued for their ease of setup and surprising ammo efficiency. \
 		Enthusiasts could drop-in a bump-roller cam that would both boost its rate of fire and make the feds <i>very</i> interested in your location. \
 		This one is chambered in .22LR and maintained by raccoons, apparently."
-	burst_count = 6
-	burst_delay = GUN_BURSTFIRE_DELAY_FASTER
-	shot_spread = 10
+	// Was burst_count=6 @ FASTER delay @ spread=10 - strictly outclassed the pricier-to-craft 9mm burst turret
+	// (burst_count=3 @ FAST @ spread=15) in volume, rate of fire, AND accuracy despite dealing identical per-shot damage.
+	burst_count = 3
+	burst_delay = GUN_BURSTFIRE_DELAY_FAST
+	shot_spread = 18
 
 /// .22LR burst turret - raider
 /obj/machinery/porta_turret/f13/turret_22lr/burstfire/raider

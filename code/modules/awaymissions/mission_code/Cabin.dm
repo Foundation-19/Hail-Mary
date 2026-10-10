@@ -57,7 +57,7 @@
 		var/msg = W.ignition_effect(src, user)
 		if(msg)
 			active = TRUE
-			visible_message(msg)
+			visible_message(msg, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 			toggleFirepit()
 		else
 			return ..()

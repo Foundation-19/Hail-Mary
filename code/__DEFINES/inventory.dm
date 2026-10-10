@@ -198,7 +198,8 @@ GLOBAL_LIST_INIT(small_ammo_types, typecacheof(list(
 
 /// Not so little bitty ammo thingies
 GLOBAL_LIST_INIT(holster_disallowed, typecacheof(list(
-	/obj/item/ammo_box/magazine/m22/extended
+	/obj/item/ammo_box/magazine/m22/extended,
+	/obj/item/ammo_box/magazine/m10mm/adv/drum // 48-round drum, swept into small_ammo_types by its m10mm parent path but too bulky for a holster/secbelt pouch
 	)))
 
 GLOBAL_LIST_INIT(typical_reagent_containers, typecacheof(list(

@@ -45,11 +45,12 @@
 		return FALSE
 	var/damage = (damage_roll(A,D) + 5)
 	if(CHECK_MOBILITY(D, MOBILITY_STAND))
-		D.visible_message(span_warning("[A] slams [D] into the ground!"), \
-							span_userdanger("[A] slams you into the ground!"))
+		D.visible_message(span_warning("%ACTOR_NAME% slams %SELF_NAME% into the ground!"), \
+							span_userdanger("%ACTOR_NAME% slams you into the ground!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/weapons/slam.ogg', 50, 1, -1)
-		D.apply_damage(damage, BRUTE)
-		D.DefaultCombatKnockdown(120)
+		deal_damage(A, D, damage, BRUTE)
+		D.DefaultCombatKnockdown(120 * A.get_strength_grapple_control_multiplier() * D.get_endurance_grapple_resist_multiplier())
 		log_combat(A, D, "slammed (CQC)")
 	return TRUE
 
@@ -59,20 +60,23 @@
 	var/damage = damage_roll(A,D)
 	if(!CHECK_MOBILITY(D, MOBILITY_STAND) && CHECK_MOBILITY(D, MOBILITY_USE))
 		log_combat(A, D, "knocked out (Head kick)(CQC)")
-		D.visible_message(span_warning("[A] kicks [D]'s head, knocking [D.p_them()] out!"), \
-							span_userdanger("[A] kicks your head, knocking you out!"))
+		D.visible_message(span_warning("%ACTOR_NAME% kicks %SELF_NAME%'s head, knocking [D.p_them()] out!"), \
+							span_userdanger("%ACTOR_NAME% kicks your head, knocking you out!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/weapons/genhit1.ogg', 50, 1, -1)
-		D.SetSleeping(300)
-		D.apply_damage(damage + 5, BRUTE)
+		var/ko_control_mod = A.get_strength_grapple_control_multiplier() * D.get_endurance_grapple_resist_multiplier()
+		D.SetSleeping(300 * ko_control_mod)
+		deal_damage(A, D, damage + 5, BRUTE)
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
-		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, damage + 10, 150)
+		D.adjustOrganLoss(ORGAN_SLOT_BRAIN, (damage + 10) * ko_control_mod, 150)
 	else
-		D.visible_message(span_warning("[A] kicks [D]!"), \
-							span_userdanger("[A] kicks you!"))
+		D.visible_message(span_warning("%ACTOR_NAME% kicks %SELF_NAME%!"), \
+							span_userdanger("%ACTOR_NAME% kicks you!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 		D.Dizzy(damage)
-		D.apply_damage(damage + 15, BRUTE)
+		deal_damage(A, D, damage + 15, BRUTE)
 		var/atom/throw_target = get_edge_target_turf(D, A.dir)
 		D.throw_at(throw_target, 1, 14, A)
 		log_combat(A, D, "kicked (CQC)")
@@ -83,8 +87,9 @@
 		return FALSE
 	var/damage = (damage_roll(A,D) + 55)
 	log_combat(A, D, "pressured (CQC)")
-	D.visible_message(span_warning("[A] punches [D]'s neck!"))
-	D.apply_damage(damage, STAMINA)
+	D.visible_message(span_warning("%ACTOR_NAME% punches %SELF_NAME%'s neck!"), \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
+	deal_damage(A, D, damage, STAMINA)
 	playsound(get_turf(A), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 	return TRUE
 
@@ -96,10 +101,11 @@
 	var/damage = (damage_roll(A,D) + 15)
 	if(!D.stat)
 		log_combat(A, D, "restrained (CQC)")
-		D.visible_message(span_warning("[A] locks [D] into a restraining position!"), \
-							span_userdanger("[A] locks you into a restraining position!"))
-		D.apply_damage(damage, STAMINA)
-		D.Stun(100)
+		D.visible_message(span_warning("%ACTOR_NAME% locks %SELF_NAME% into a restraining position!"), \
+							span_userdanger("%ACTOR_NAME% locks you into a restraining position!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
+		deal_damage(A, D, damage, STAMINA)
+		D.Stun(100 * A.get_strength_grapple_control_multiplier() * D.get_endurance_grapple_resist_multiplier())
 		restraining = TRUE
 		addtimer(VARSET_CALLBACK(src, restraining, FALSE), 50, TIMER_UNIQUE)
 	return TRUE
@@ -110,14 +116,15 @@
 	var/damage = damage_roll(A,D)
 	if(!D.stat)
 		log_combat(A, D, "consecutive CQC'd (CQC)")
-		D.visible_message(span_warning("[A] strikes [D]'s abdomen, neck and back consecutively"), \
-							span_userdanger("[A] strikes your abdomen, neck and back consecutively!"))
+		D.visible_message(span_warning("%ACTOR_NAME% strikes %SELF_NAME%'s abdomen, neck and back consecutively"), \
+							span_userdanger("%ACTOR_NAME% strikes your abdomen, neck and back consecutively!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 		var/obj/item/I = D.get_active_held_item()
 		if(I && D.temporarilyRemoveItemFromInventory(I))
 			A.put_in_hands(I)
-		D.apply_damage(damage + 45, STAMINA)
-		D.apply_damage(damage + 20, BRUTE)
+		deal_damage(A, D, damage + 45, STAMINA)
+		deal_damage(A, D, damage + 20, BRUTE)
 	return TRUE
 
 /datum/martial_art/cqc/grab_act(mob/living/carbon/human/A, mob/living/carbon/human/D)
@@ -143,19 +150,21 @@
 	if(!CHECK_MOBILITY(D, MOBILITY_STAND))
 		bonus_damage += 5
 		picked_hit_type = "stomps on"
-	D.apply_damage(bonus_damage, BRUTE)
+	deal_damage(A, D, bonus_damage, BRUTE)
 	if(picked_hit_type == "kicks" || picked_hit_type == "stomps on")
 		playsound(get_turf(D), 'sound/weapons/cqchit2.ogg', 50, 1, -1)
 	else
 		playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
-	D.visible_message(span_danger("[A] [picked_hit_type] [D]!"), \
-					  span_userdanger("[A] [picked_hit_type] you!"))
+	D.visible_message(span_danger("%ACTOR_NAME% [picked_hit_type] %SELF_NAME%!"), \
+					span_userdanger("%ACTOR_NAME% [picked_hit_type] you!"), \
+					visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 	log_combat(A, D, "[picked_hit_type] (CQC)")
 	if(!CHECK_MOBILITY(A, MOBILITY_STAND) && !D.stat && CHECK_MOBILITY(D, MOBILITY_STAND))
-		D.visible_message("<span class='warning'>[A] leg sweeps [D]!", \
-							span_userdanger("[A] leg sweeps you!"))
+		D.visible_message("<span class='warning'>%ACTOR_NAME% leg sweeps %SELF_NAME%!", \
+							span_userdanger("%ACTOR_NAME% leg sweeps you!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		playsound(get_turf(A), 'sound/effects/hit_kick.ogg', 50, 1, -1)
-		D.apply_damage(bonus_damage, BRUTE)
+		deal_damage(A, D, bonus_damage, BRUTE)
 		D.DefaultCombatKnockdown(60)
 		log_combat(A, D, "sweeped (CQC)")
 	return TRUE
@@ -173,25 +182,28 @@
 		A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 		if(damage >= stunthreshold)	
 			I = D.get_active_held_item()
-			D.visible_message(span_warning("[A] strikes [D]'s jaw with their hand!"), \
-							span_userdanger("[A] strikes your jaw, disorienting you!"))
+			D.visible_message(span_warning("%ACTOR_NAME% strikes %SELF_NAME%'s jaw with their hand!"), \
+							span_userdanger("%ACTOR_NAME% strikes your jaw, disorienting you!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 			playsound(get_turf(D), 'sound/weapons/cqchit1.ogg', 50, 1, -1)
 			D.drop_all_held_items()
 			D.Jitter(2)
 			D.Dizzy(damage)
-			D.apply_damage(damage*2 + 20, STAMINA)
-			D.apply_damage(damage*0.5, BRUTE)
+			deal_damage(A, D, damage*2 + 20, STAMINA)
+			deal_damage(A, D, damage*0.5, BRUTE)
 		else
-			D.visible_message(span_danger("[A] strikes [D] in the chest!"), \
-							span_userdanger("[A] strikes you in the chest!"))
+			D.visible_message(span_danger("%ACTOR_NAME% strikes %SELF_NAME% in the chest!"), \
+							span_userdanger("%ACTOR_NAME% strikes you in the chest!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 			playsound(D, 'sound/weapons/cqchit1.ogg', 25, 1, -1)
-			D.apply_damage(damage + 15, STAMINA)
-			D.apply_damage(damage*0.5, BRUTE)
+			deal_damage(A, D, damage + 15, STAMINA)
+			deal_damage(A, D, damage*0.5, BRUTE)
 		log_combat(A, D, "disarmed (CQC)", "[I ? " grabbing \the [I]" : ""]")
 	if(restraining && A.pulling == D)
 		log_combat(A, D, "knocked out (Chokehold)(CQC)")
-		D.visible_message(span_danger("[A] puts [D] into a chokehold!"), \
-							span_userdanger("[A] puts you into a chokehold!"))
+		D.visible_message(span_danger("%ACTOR_NAME% puts %SELF_NAME% into a chokehold!"), \
+							span_userdanger("%ACTOR_NAME% puts you into a chokehold!"), \
+							visible_message_flags = ANONYMIZE_NAMES, name_actor = A)
 		restraining = FALSE
 		if(A.grab_state < GRAB_NECK)
 			A.setGrabState(GRAB_NECK)

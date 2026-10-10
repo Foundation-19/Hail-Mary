@@ -122,7 +122,7 @@
 		return
 	cocked = TRUE
 	playsound(get_turf(src), 'sound/weapons/hammer_cock.ogg', 80, TRUE)
-	user.visible_message(span_alert("[user] pulls back [src]'s hammer!"))
+	user.visible_message(span_alert("%SELF_NAME% pulls back [src]'s hammer!"), visible_message_flags = ANONYMIZE_NAMES)
 	update_icon()
 
 /// Sets cocked to FALSE, and plays a ka-ta-click noise
@@ -134,7 +134,7 @@
 		return
 	cocked = FALSE
 	playsound(get_turf(src), 'sound/weapons/hammer_click2.ogg', 90, 1)
-	user.visible_message(span_notice("[user] gently releases [src]'s hammer back down."))
+	user.visible_message(span_notice("%SELF_NAME% gently releases [src]'s hammer back down."), visible_message_flags = ANONYMIZE_NAMES)
 	update_icon()
 
 /// Plays a click-sound, then a half-second later, shoots whatever's under the user's cursor. or the mob's direction if the cursor's params are null

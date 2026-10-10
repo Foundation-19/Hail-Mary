@@ -947,7 +947,7 @@
 	init_mag_type = /obj/item/ammo_box/magazine/m22/extended
 	weapon_class = WEAPON_CLASS_CARBINE
 	weapon_weight = GUN_ONE_HAND_AKIMBO
-	damage_multiplier = GUN_EXTRA_DAMAGE_T3 // its a weakass cartridge
+	damage_multiplier = GUN_LESS_DAMAGE_T3 // its a weakass cartridge - was accidentally set to an EXTRA damage multiplier, directly contradicting this comment and the desc
 	init_recoil = CARBINE_RECOIL(0.5)
 	init_firemodes = list(
 		/datum/firemode/semi_auto/faster

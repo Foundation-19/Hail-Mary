@@ -110,30 +110,30 @@
 		if(!silent)
 			var/atom/A = fabrication_values["new_obj_type"]
 			if(A)
-				user.visible_message(span_warning("[user]'s [name] starts ripping [target] apart!"), \
-				span_brass("You start fabricating \a [initial(A.name)] from [target]..."))
+				user.visible_message(span_warning("%SELF_NAME%'s [name] starts ripping [isliving(target) ? "%ACTOR_NAME%" : "[target]"] apart!"), \
+				span_brass("You start fabricating \a [initial(A.name)] from [isliving(target) ? "%ACTOR_NAME%" : "[target]"]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 			else
-				user.visible_message(span_warning("[user]'s [name] starts consuming [target]!"), \
-				span_brass("Your [name] starts consuming [target]..."))
+				user.visible_message(span_warning("%SELF_NAME%'s [name] starts consuming [isliving(target) ? "%ACTOR_NAME%" : "[target]"]!"), \
+				span_brass("Your [name] starts consuming [isliving(target) ? "%ACTOR_NAME%" : "[target]"]..."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 		if(!do_after(user, fabrication_values["operation_time"], target = target, extra_checks = CALLBACK(src, PROC_REF(fabricate_checks), fabrication_values, target, target_type, user, TRUE)))
 			return FALSE
 		if(!silent)
 			var/atom/A = fabrication_values["new_obj_type"]
 			if(A)
-				user.visible_message(span_warning("[user]'s [name] replaces [target] with \a [initial(A.name)]!"), \
-				span_brass("You fabricate \a [initial(A.name)] from [target]."))
+				user.visible_message(span_warning("%SELF_NAME%'s [name] replaces [isliving(target) ? "%ACTOR_NAME%" : "[target]"] with \a [initial(A.name)]!"), \
+				span_brass("You fabricate \a [initial(A.name)] from [isliving(target) ? "%ACTOR_NAME%" : "[target]"]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 			else
-				user.visible_message(span_warning("[user]'s [name] consumes [target]!"), \
-				span_brass("Your [name] consumes [target]."))
+				user.visible_message(span_warning("%SELF_NAME%'s [name] consumes [isliving(target) ? "%ACTOR_NAME%" : "[target]"]!"), \
+				span_brass("Your [name] consumes [isliving(target) ? "%ACTOR_NAME%" : "[target]"]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 	else
 		if(!silent)
 			var/atom/A = fabrication_values["new_obj_type"]
 			if(A)
-				user.visible_message(span_warning("[user]'s [name] rips apart [target], replacing it with \a [initial(A.name)]!"), \
-				span_brass("You fabricate \a [initial(A.name)] from [target]."))
+				user.visible_message(span_warning("%SELF_NAME%'s [name] rips apart [isliving(target) ? "%ACTOR_NAME%" : "[target]"], replacing it with \a [initial(A.name)]!"), \
+				span_brass("You fabricate \a [initial(A.name)] from [isliving(target) ? "%ACTOR_NAME%" : "[target]"]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 			else
-				user.visible_message(span_warning("[user]'s [name] rapidly consumes [target]!"), \
-				span_brass("Your [name] consumes [target]."))
+				user.visible_message(span_warning("%SELF_NAME%'s [name] rapidly consumes [isliving(target) ? "%ACTOR_NAME%" : "[target]"]!"), \
+				span_brass("Your [name] consumes [isliving(target) ? "%ACTOR_NAME%" : "[target]"]."), visible_message_flags = ANONYMIZE_NAMES, name_actor = isliving(target) ? target : null)
 
 	playsound(target, 'sound/items/deconstruct.ogg', 50, 1)
 	var/new_thing_type = fabrication_values["new_obj_type"]

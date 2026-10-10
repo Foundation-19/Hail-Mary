@@ -50,14 +50,16 @@
 
 /obj/item/wirecutters/attack(mob/living/carbon/C, mob/user)
 	if(istype(C) && C.handcuffed && istype(C.handcuffed, /obj/item/restraints/handcuffs/cable))
-		user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
+		var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+		user.visible_message(span_notice("[user_tok] cuts %ACTOR_NAME%'s restraints with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = C)
 		qdel(C.handcuffed)
 		return
 	else
 		..()
 
 /obj/item/wirecutters/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(loc, usesound, 50, 1, -1)
 	return (BRUTELOSS)
 
@@ -104,7 +106,8 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"))
+	var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+	user.visible_message(span_suicide("[user_tok] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"), visible_message_flags = ANONYMIZE_NAMES)
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
@@ -125,18 +128,18 @@
 /obj/item/wirecutters/power/attack(mob/living/carbon/C, mob/user)
 	if(istype(C))
 		if(C.handcuffed)
-			user.visible_message(span_notice("[user] cuts [C]'s restraints with [src]!"))
+			var/user_tok = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_notice("[user_tok] cuts %ACTOR_NAME%'s restraints with [src]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = C)
 			qdel(C.handcuffed)
 			return
 		else if(C.has_status_effect(STATUS_EFFECT_CHOKINGSTRAND))
-			var/man = C == user ? "your" : "[C]'\s"
-			user.visible_message(span_notice("[user] attempts to remove the durathread strand from around [man] neck."), \
-								span_notice("You attempt to remove the durathread strand from around [man] neck."))
+			var/man = C == user ? "your" : "%ACTOR_NAME%'s"
+			var/user_tok2 = isliving(user) ? "%SELF_NAME%" : "[user]"
+			user.visible_message(span_notice("[user_tok2] attempts to remove the durathread strand from around [man] neck."), \
+								span_notice("You attempt to remove the durathread strand from around [man] neck."), visible_message_flags = ANONYMIZE_NAMES, name_actor = (C == user) ? null : C)
 			if(do_after(user, 15, null, C))
-				user.visible_message(span_notice("[user] succesfuly removes the durathread strand."),
-									span_notice("You succesfuly remove the durathread strand."))
-				C.remove_status_effect(STATUS_EFFECT_CHOKINGSTRAND)
-			return
+				user.visible_message(span_notice("[user_tok2] succesfuly removes the durathread strand."),
+								span_notice("You succesfuly remove the durathread strand."), visible_message_flags = ANONYMIZE_NAMES, name_actor = (C == user) ? null : C)
 	..()
 
 /obj/item/wirecutters/advanced

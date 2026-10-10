@@ -170,9 +170,9 @@
 		//					 	 vision_distance = 2, ignored_mobs=target) // Only people who AREN'T the target will notice this action.
 		//else
 		var/deadmessage = target.stat == DEAD ? "" : " <i>[target.p_they(TRUE)] looks dazed, and will not remember this.</i>"
-		user.visible_message(span_notice("[user] puts [target]'s wrist up to [user.p_their()] mouth."), \
-							span_notice("You secretly slip your fangs into [target]'s wrist.[deadmessage]"), \
-							vision_distance = notice_range, ignored_mobs = target) // Only people who AREN'T the target will notice this action.
+		user.visible_message(span_notice("%SELF_NAME% puts %ACTOR_NAME%'s wrist up to [user.p_their()] mouth."), \
+							span_notice("You secretly slip your fangs into %ACTOR_NAME%'s wrist.[deadmessage]"), \
+							vision_distance = notice_range, ignored_mobs = target, visible_message_flags = ANONYMIZE_NAMES, name_actor = target) // Only people who AREN'T the target will notice this action.
 		// Warn Feeder about Witnesses...
 		var/was_unnoticed = TRUE
 		for(var/mob/living/M in fov_viewers(notice_range, owner) - owner - target)
@@ -185,8 +185,8 @@
 			to_chat(user, span_warning("Someone may have noticed..."))
 
 	else						 // /atom/proc/visible_message(message, self_message, blind_message, vision_distance, ignored_mobs)
-		user.visible_message(span_warning("[user] closes [user.p_their()] mouth around [target]'s neck!"), \
-						span_warning("You sink your fangs into [target]'s neck."))
+		user.visible_message(span_warning("%SELF_NAME% closes [user.p_their()] mouth around %ACTOR_NAME%'s neck!"), \
+					span_warning("You sink your fangs into %ACTOR_NAME%'s neck."), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 	// My mouth is full!
 	ADD_TRAIT(user, TRAIT_MUTE, "bloodsucker_feed")
 
@@ -216,8 +216,8 @@
 				to_chat(user, "<span class='warning'>Your feeding has been interrupted...but [target.p_they()] didn't seem to notice you.<span>")
 			else
 				to_chat(user, span_warning("Your feeding has been interrupted!"))
-				user.visible_message(span_danger("[user] is ripped from [target]'s throat. [target.p_their(TRUE)] blood sprays everywhere!"), \
-									span_userdanger("Your teeth are ripped from [target]'s throat. [target.p_their(TRUE)] blood sprays everywhere!"))
+				user.visible_message(span_danger("%SELF_NAME% is ripped from %ACTOR_NAME%'s throat. [target.p_their(TRUE)] blood sprays everywhere!"), \
+									span_userdanger("Your teeth are ripped from %ACTOR_NAME%'s throat. [target.p_their(TRUE)] blood sprays everywhere!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 
 				// Deal Damage to Target (should have been more careful!)
 				if(iscarbon(target))

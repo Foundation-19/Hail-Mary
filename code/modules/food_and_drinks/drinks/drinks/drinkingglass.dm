@@ -164,8 +164,8 @@ obj/item/reagent_containers/food/drinks/drinkingglass/filled/nuka_float
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/attack(obj/target, mob/user)
 	if(user.a_intent == INTENT_HARM && ismob(target) && target.reagents && reagents.total_volume)
-		target.visible_message(span_danger("[user] splashes the contents of [src] onto [target]!"), \
-						span_userdanger("[user] splashes the contents of [src] onto [target]!"))
+		target.visible_message(span_danger("%ACTOR_NAME% splashes the contents of [src] onto %SELF_NAME%!"), \
+						span_userdanger("%ACTOR_NAME% splashes the contents of [src] onto you!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		log_combat(user, target, "splashed", src)
 		reagents.reaction(target, TOUCH)
 		reagents.clear_reagents()

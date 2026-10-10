@@ -168,8 +168,8 @@
 			user.do_attack_animation(M)
 			user.adjustStaminaLossBuffered(getweight(user, STAM_COST_BATON_MOB_MULT))
 	else if(user.a_intent != INTENT_HARM)			//they'll try to bash in the last proc.
-		M.visible_message(span_warning("[user] has prodded [M] with [src]. Luckily it was off."), \
-						span_warning("[user] has prodded you with [src]. Luckily it was off"))
+		M.visible_message(span_warning("%ACTOR_NAME% has prodded %SELF_NAME% with [src]. Luckily it was off."), \
+						span_warning("%ACTOR_NAME% has prodded you with [src]. Luckily it was off"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	return disarming || (user.a_intent != INTENT_HARM)
 
 /obj/item/melee/baton/proc/baton_stun(mob/living/L, mob/user, disarming = FALSE)

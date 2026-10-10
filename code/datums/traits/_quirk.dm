@@ -12,6 +12,11 @@
 	var/antag_removal_text // Text will be given to the quirk holder if they get an antag that has it blacklisted.
 	var/mood_quirk = FALSE //if true, this quirk affects mood and is unavailable if moodlets are disabled
 	var/mob_trait //if applicable, apply and remove this mob trait
+	var/is_trait = FALSE //TRUE for Fallout-style paired Traits: a free pick bundling one buff and one drawback together, shown in its own UI tab and exempt from the quirk point economy entirely (see MAX_TRAITS)
+	var/requires_quirk //name string of a lower-rank quirk this one replaces/upgrades from (see ranked Wasteland Perks in fallout_perks.dm)
+	var/required_special_stat //S.P.E.C.I.A.L. var name string (e.g. "special_p") this quirk is gated behind, if any - too strong to be pickable without a matching stat investment
+	var/required_special_name //display name of required_special_stat (e.g. "Perception"), shown in the chargen lock message
+	var/required_special_value = 0 //minimum value required_special_stat must be at to unlock this quirk in chargen
 	var/mob/living/quirk_holder
 
 /datum/quirk/New(mob/living/quirk_mob, spawn_effects)

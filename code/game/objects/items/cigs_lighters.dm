@@ -140,7 +140,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	if(!lit && smoketime > 0)
 		var/lighting_text = W.ignition_effect(src, user)
 		if(lighting_text)
-			light(lighting_text)
+			light(lighting_text, user)
 	else
 		return ..()
 
@@ -157,7 +157,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 			else
 				to_chat(user, span_notice("[src] is full."))
 
-/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
+/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null, mob/user = null)
 	if(lit)
 		return
 	if(!(flags_1 & INITIALIZED_1))
@@ -190,7 +190,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	item_state = icon_on
 	if(flavor_text)
 		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
+		T.visible_message(flavor_text, visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	START_PROCESSING(SSobj, src)
 
 	//can't think of any other way to update the overlays :<
@@ -473,7 +473,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 		var/lighting_text = O.ignition_effect(src,user)
 		if(lighting_text)
 			if(smoketime > 0)
-				light(lighting_text)
+				light(lighting_text, user)
 			else
 				to_chat(user, span_warning("There is nothing to smoke!"))
 		else
@@ -563,7 +563,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/lighter/ignition_effect(atom/A, mob/user)
 	if(get_temperature())
-		. = span_rose("With a single flick of [user.p_their()] wrist, [user] smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.")
+		. = span_rose("With a single flick of [user.p_their()] wrist, %ACTOR_NAME% smoothly lights [A] with [src]. Damn [user.p_theyre()] cool.")
 
 /obj/item/lighter/proc/set_lit(new_lit)
 	lit = new_lit
@@ -689,7 +689,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/lighter/greyscale/ignition_effect(atom/A, mob/user)
 	if(get_temperature())
-		. = span_notice("After some fiddling, [user] manages to light [A] with [src].")
+		. = span_notice("After some fiddling, %ACTOR_NAME% manages to light [A] with [src].")
 
 
 /obj/item/lighter/slime
@@ -1105,7 +1105,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 
 /obj/item/bong/ignition_effect(atom/A, mob/user)
 	if(firecharges)
-		. = span_notice("[user] lights [A] off of the [src].")
+		. = span_notice("%ACTOR_NAME% lights [A] off of the [src].")
 	else
 		. = ""
 

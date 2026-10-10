@@ -16,8 +16,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_CHINESE_REMNANT
 	
-	maxHealth = 80
-	health = 80
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	speed = 1
 	move_to_delay = 3
 	turns_per_move = 5
@@ -97,8 +97,8 @@
 	icon_state = "chinesepistol"
 	icon_living = "chinesepistol"
 	
-	maxHealth = 110
-	health = 110
+	maxHealth = 145 // bumped - TTK vs melee was too short
+	health = 145
 	
 	loot = list(
 		/obj/effect/mob_spawn/human/corpse/chineseremnant/pistol,
@@ -131,8 +131,8 @@
 	icon_state = "chineseassault"
 	icon_living = "chineseassault"
 	
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	extra_projectiles = 2
 	
 	loot = list(

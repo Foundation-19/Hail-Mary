@@ -20,9 +20,6 @@
 // NOTE: armor/gun tiers roll nested /obj/effect/spawner/bundle spawners, which always use
 // get_turf() regardless of spawn_on_turf - those items land on the same tile as the crate
 // (not inside its storage) but are otherwise unaffected, so it's still fine to use them here.
-/obj/effect/spawner/lootdrop/f13/weapon/melee/tier1/incrate
-	spawn_on_turf = FALSE
-
 /obj/effect/spawner/lootdrop/f13/weapon/melee/tier2/incrate
 	spawn_on_turf = FALSE
 
@@ -44,6 +41,25 @@
 /obj/effect/spawner/lootdrop/f13/medical/vault/meds/incrate
 	spawn_on_turf = FALSE
 
+/// Dedicated tool pool for the supplies crate - the generic tier1 melee weapon spawner it used
+/// to reuse was contaminated with joke/irrelevant rolls (a guitar, an oar, a surgical drill, a
+/// rolling pin) that felt like an insult after turning in 200 caps or 40-50 metal. Curated down
+/// to actual tools so every roll is at least a usable item.
+/obj/effect/spawner/lootdrop/f13/bounty_supplies/incrate
+	name = "bounty supply tool spawner"
+	icon_state = "debug_loot"
+	spawn_on_turf = FALSE
+	lootcount = 1
+	loot = list(/obj/item/crowbar,
+				/obj/item/extinguisher,
+				/obj/item/hatchet,
+				/obj/item/pickaxe/mini,
+				/obj/item/wrench,
+				/obj/item/weldingtool,
+				/obj/item/pickaxe,
+				/obj/item/shovel
+				)
+
 /// "Low tier melee loot-crate" reward - reuses the existing tier 2 melee lootdrop pool.
 /obj/structure/closet/crate/bounty/melee_low
 	name = "melee weapon bounty crate"
@@ -57,10 +73,22 @@
 	loot_spawner_type = /obj/effect/spawner/lootdrop/f13/weapon/melee/tier5/incrate
 
 /// Generic materials/supplies reward for non-combat contracts (BoS tech turn-ins, Town trade goods, etc).
+/// Also the most commonly assigned crate across all factions, spanning contracts from trivial to
+/// genuinely costly (e.g. handing over 200 caps or 40-50 metal). The rolled tool is basically
+/// flavor, not real reward value - every tool in its pool is autolathe-printable for cheap scrap,
+/// so caps_bonus (matched to the dedicated /caps crate's baseline payout) is what actually has to
+/// make the turn-in worth it.
 /obj/structure/closet/crate/bounty/supplies
 	name = "supply bounty crate"
 	desc = "A supply crate stamped with a bounty board seal. Feels heavy with tools and scrap."
-	loot_spawner_type = /obj/effect/spawner/lootdrop/f13/weapon/melee/tier1/incrate
+	loot_spawner_type = /obj/effect/spawner/lootdrop/f13/bounty_supplies/incrate
+	var/caps_bonus = 100
+
+/obj/structure/closet/crate/bounty/supplies/PopulateContents()
+	. = ..()
+	var/obj/item/stack/f13Cash/caps/payout = new(src)
+	payout.amount = caps_bonus
+	payout.use(0) // refreshes the stack sprite/name for the new amount
 
 /// Combat armor set reward for the harder military-flavored contracts.
 /obj/structure/closet/crate/bounty/armor

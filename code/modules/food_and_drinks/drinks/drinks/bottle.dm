@@ -54,11 +54,11 @@
 
 	//Display an attack message.
 	if(target != user)
-		target.visible_message(span_danger("[user] has hit [target][head_attack_message] with a bottle of [src.name]!"), \
-				span_userdanger("[user] has hit [target][head_attack_message] with a bottle of [src.name]!"))
+		target.visible_message(span_danger("%ACTOR_NAME% has hit %SELF_NAME%[head_attack_message] with a bottle of [src.name]!"), \
+				span_userdanger("%ACTOR_NAME% has hit %SELF_NAME%[head_attack_message] with a bottle of [src.name]!"), visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	else
-		user.visible_message(span_danger("[target] hits [target.p_them()]self with a bottle of [src.name][head_attack_message]!"), \
-				span_userdanger("[target] hits [target.p_them()]self with a bottle of [src.name][head_attack_message]!"))
+		user.visible_message(span_danger("%SELF_NAME% hits [target.p_them()]self with a bottle of [src.name][head_attack_message]!"), \
+				span_userdanger("%SELF_NAME% hits [target.p_them()]self with a bottle of [src.name][head_attack_message]!"), visible_message_flags = ANONYMIZE_NAMES)
 
 	//Attack logs
 	log_combat(user, target, "attacked", src)

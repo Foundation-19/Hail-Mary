@@ -725,20 +725,21 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	var/list/message_pool = list()
 	if(other)
+		var/other_name = other.get_display_name(target) //must respect target's own face recognition of other, this is fake/hallucinated
 		if(close_other) //increase the odds
 			for(var/i in 1 to 5)
 				message_pool.Add(span_warning("You feel a tiny prick!"))
 		var/obj/item/storage/equipped_backpack = other.get_item_by_slot(SLOT_BACK)
 		if(istype(equipped_backpack))
 			for(var/i in 1 to 5) //increase the odds
-				message_pool.Add("<span class='notice'>[other] puts the [pick(\
+				message_pool.Add("<span class='notice'>[other_name] puts the [pick(\
 					"revolver","energy sword","cryptographic sequencer","power sink","energy bow",\
 					"hybrid taser","stun baton","flash","syringe gun","circular saw","tank transfer valve",\
 					"ritual dagger","clockwork slab","spellbook",\
 					"pulse rifle","captain's spare ID","hand teleporter","hypospray","antique laser gun","X-01 MultiPhase Energy Gun","station's blueprints"\
 					)] into [equipped_backpack].</span>")
 
-		message_pool.Add("<B>[other]</B> [pick("sneezes","coughs")].")
+		message_pool.Add("<B>[other_name]</B> [pick("sneezes","coughs")].")
 
 	message_pool.Add(span_notice("You hear something squeezing through the ducts..."), \
 		span_notice("Your [pick("arm", "leg", "back", "head")] itches."),\
@@ -1326,14 +1327,15 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		qdel(src)
 		return
 	var/mob/living/carbon/G = pick(mobsyup)
+	var/g_name = G.get_display_name(C) //C never actually meets G, so this must respect C's own face recognition of G
 	if (prob(50))
 		C.visible_message(span_warning("[C] falls to the ground screaming and clutching [C.p_their()] wrist!"), \
-						  span_userdanger("[G] grabs your wrist and violently wrenches it to the side!"))
+						span_userdanger("[g_name] grabs your wrist and violently wrenches it to the side!"))
 		C.emote("scream")
 		C.dropItemToGround(C.get_active_held_item())
 		C.DefaultCombatKnockdown(60)
 	else
-		to_chat(C,span_userdanger("[G] violently grabs you!"))
+		to_chat(C,span_userdanger("[g_name] violently grabs you!"))
 	qdel(src)
 
 /datum/hallucination/naked

@@ -13,7 +13,19 @@
 		if(HAS_TRAIT(L, TRAIT_PROSOPAGNOSIA))
 			obscure_name = TRUE
 
-	. = list("<span class='info'>*---------*\nThis is <EM>[!obscure_name ? name : "Unknown"]</EM>!")
+	//Strangers only ever see the job id on your badge (or "Wastelander" if you have none), regardless of
+	//whether your actual face is visible - until the viewer has specifically remembered your face before.
+	var/display_name
+	if(obscure_name)
+		display_name = "Unknown"
+	else if(isliving(user) && user != src)
+		var/mob/living/viewer = user
+		var/remembered_name = viewer.knows_face(src)
+		display_name = remembered_name ? remembered_name : "<a href='?src=[REF(viewer)];remember_face=[REF(src)]'>[get_identity_tag()]</a>"
+	else
+		display_name = name
+
+	. = list("<span class='info'>*---------*\nThis is <EM>[display_name]</EM>!")
 
 	if (profilePicture)
 		. += "<a href='?src=[REF(src)];enlargeImage=1'><img src='[DiscordLink(profilePicture)]' width='125' height='auto' max-height='300'></a>"
@@ -111,7 +123,7 @@
 
 	//ID
 	if(wear_id)
-		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user)]."
+		. += "[t_He] [t_is] wearing [wear_id.get_examine_string(user, indirect = TRUE)]."
 
 	//Status effects
 	var/effects_exam = status_effect_examines()

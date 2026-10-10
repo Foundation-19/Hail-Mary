@@ -16,8 +16,8 @@
 	can_ghost_into = TRUE
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_GHOUL_NAKED
-	maxHealth = 40
-	health = 40
+	maxHealth = 55 // bumped - TTK vs melee was too short
+	health = 55
 	robust_searching = 1
 	move_to_delay = 3
 	turns_per_move = 5
@@ -82,7 +82,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(30, 35, 40, 40, 40, 40, 41),
+		MOB_HEALTH_LIST(40, 48, 55, 55, 55, 55, 56),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -147,8 +147,8 @@
 	icon_dead = "ghoulreaver_dead"
 	speed = 2
 	mob_armor = ARMOR_VALUE_GHOUL_REAVER
-	maxHealth = 50
-	health = 50
+	maxHealth = 65 // bumped - TTK vs melee was too short
+	health = 65
 	rapid_melee = 2
 	move_to_delay = 2.5
 
@@ -165,7 +165,7 @@
 		MOB_COLOR_VARIATION(200, 200, 200, 255, 255, 255),
 		MOB_SPEED_LIST(2.5, 2.6, 2.7, 2.8, 2.9),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(41, 45, 50, 50, 50, 50, 51),
+		MOB_HEALTH_LIST(55, 60, 65, 65, 65, 65, 66),
 		MOB_RETREAT_DISTANCE_LIST(0, 1, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(1, 2),
@@ -196,22 +196,22 @@
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr
 	name = "feral ghoul soldier"
 	desc = "A former US Army combatant, now ghoulified and insane. The armor that failed it in life still packs some good defense."
-	maxHealth = 60
-	health = 60
+	maxHealth = 80 // bumped - TTK vs melee was too short
+	health = 80
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr_helmet
 	name = "plated feral ghoul soldier"
 	desc = "A former US Army combatant, now ghoulified and insane. The armor that failed it in life still packs some good defense."
-	maxHealth = 60
-	health = 60
+	maxHealth = 80 // bumped - TTK vs melee was too short
+	health = 80
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr_officer
 	name = "feral ghoul officer"
 	desc = "A former US Army officer, now ghoulified and insane. The armor that failed it in life still packs some good defense."
-	maxHealth = 60
-	health = 60
+	maxHealth = 80 // bumped - TTK vs melee was too short
+	health = 80
 	speed = 3
 	can_ghost_into = FALSE
 
@@ -260,8 +260,8 @@
 	color = "#FFFF00"
 	mob_armor = ARMOR_VALUE_GHOUL_LEGEND
 	can_ghost_into = FALSE
-	maxHealth = 160
-	health = 160
+	maxHealth = 205 // bumped - TTK vs melee was too short
+	health = 205
 	stat_attack = UNCONSCIOUS // Can attack downed players
 	speed = 2.5
 	harm_intent_damage = 8
@@ -329,8 +329,8 @@
 	icon_living = "glowinghoul"
 	icon_dead = "glowinghoul_dead"
 	mob_armor = ARMOR_VALUE_GHOUL_GLOWING
-	maxHealth = 40
-	health = 40
+	maxHealth = 52 // bumped - TTK vs melee was too short
+	health = 52
 	speed = 2
 	harm_intent_damage = 8
 	melee_damage_lower = 10
@@ -399,8 +399,8 @@
 	icon_living = "soldier_ghoul"
 	icon_dead = "soldier_ghoul_d"
 	icon_gib = "syndicate_gib"
-	maxHealth = 60
-	health = 60
+	maxHealth = 78 // bumped - TTK vs melee was too short
+	health = 78
 	loot = list(/obj/item/stack/f13Cash/random/low/medchance)
 	loot_drop_amount = 2
 	can_ghost_into = FALSE
@@ -412,8 +412,9 @@
 	icon_living = "soldier_ghoul_a"
 	icon_dead = "soldier_ghoul_a_d"
 	icon_gib = "syndicate_gib"
-	maxHealth = 80
-	health = 80
+	mob_armor = ARMOR_VALUE_LIGHT // was unarmored despite the name - fix
+	maxHealth = 105 // bumped - TTK vs melee was too short
+	health = 105
 	loot_drop_amount = 3
 
 // ============================================================
@@ -480,8 +481,9 @@
 	turns_per_move = 5
 	speak_emote = list("wheezes")
 	emote_see = list("stares")
-	maxHealth = 140
-	health = 140
+	mob_armor = ARMOR_VALUE_MEDIUM // was unarmored despite being "clad in armor sealed to their skin" - fix
+	maxHealth = 180 // bumped - TTK vs melee was too short
+	health = 180
 	speed = 2
 	harm_intent_damage = 8
 	melee_damage_lower = 15
