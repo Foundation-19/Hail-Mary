@@ -299,11 +299,14 @@
 	repair_material = /obj/item/stack/sheet/mineral/titanium
 
 /datum/block_parry_data/shield/bulletproof
-	block_damage_multiplier_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 0.65)
-	block_damage_absorption_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 12.5)
+	// Was 0.65/12.5/100 - low-damage-per-shot autofire (the exact thing it's meant to counter) has its raw
+	// damage per hit fully eaten by absorption before the multiplier even applies, so none of it ever reaches
+	// health - just capped, sustainable stamina loss. Still a strong reduction, but no longer a full negation.
+	block_damage_multiplier_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 0.8)
+	block_damage_absorption_override = list(ATTACK_TYPE_PROJECTILE_TEXT = 6)
 	block_resting_stamina_penalty_multiplier = 2
-	block_projectile_mitigation = 90
-	block_damage_limit = 100
+	block_projectile_mitigation = 60
+	block_damage_limit = 65
 
 //Buckler. Cheapest shield, also the worst.
 /obj/item/shield/riot/buckler

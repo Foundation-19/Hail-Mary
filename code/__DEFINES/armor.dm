@@ -385,9 +385,9 @@
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_COMMON list(\
-		"melee" = 0, \
-		"bullet" = 0, \
-		"laser" = 0, \
+		"melee" = 15, \
+		"bullet" = 60, \
+		"laser" = 20, \
 		"energy" = 0, \
 		"bomb" = 0, \
 		"bio" = 0, \
@@ -405,9 +405,9 @@
  * Lot of DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_DEATHCLAW_MOTHER list(\
-		"melee" = 0, \
-		"bullet" = 0, \
-		"laser" = 0, \
+		"melee" = 20, \
+		"bullet" = 65, \
+		"laser" = 35, \
 		"energy" = 0, \
 		"bomb" = 0, \
 		"bio" = 0, \
@@ -415,7 +415,7 @@
 		"fire" = 0, \
 		"acid" = 0, \
 		"wound" = 0, \
-		"damage_threshold" = 15)
+		"damage_threshold" = 18)
 
 /* Deathclaw power armor - basically a suer boss fight
  * Power armor + deathclaw = yeah youre not killing this
