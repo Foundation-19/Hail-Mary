@@ -565,7 +565,7 @@
 	else if(istype(A, /turf/closed))
 		playsound(loc, hitsound, 70, TRUE)
 
-// Proton axe			Keywords: Damage 28/55 fire axe but with a twist, if this works. I've either given it a cool gimmick, or broken everything
+// Proton axe			Keywords: Damage 34/72, EMP on hit vs synthetics - tier 5 bounty reward, bring it up to the axe family's buffed baseline
 /obj/item/melee/transforming/energy/axe/protonaxe
 	name = "proton axe"
 	desc = "The experimental proton axe resembles a futuristic war-axe with a glowing blue blade of electrical energy at its head."
@@ -578,11 +578,19 @@
 	w_class_on = WEIGHT_CLASS_HUGE
 	slot_flags = ITEM_SLOT_BACK
 	slot_flags_on = null
-	force = 28
-	force_on = 55
+	force = 34 // was 28, below even the fireaxe family's buffed 32 despite being a rarer tier 5 reward
+	force_on = 72 // was 55, now sits near the top of the tier 5 melee pool alongside the supersledge (68)
+	wound_bonus = 10
+	bare_wound_bonus = 10
 	throwforce = 15
 	throwforce_on = 30
 	attack_speed = CLICK_CD_MELEE * 1.25
+
+/obj/item/melee/transforming/energy/axe/protonaxe/attack(mob/living/target, mob/living/carbon/human/user)
+	. = ..()
+	if(active && issilicon(target))
+		target.emp_act(60)
+		target.visible_message(span_danger("[src] crackles with energy as it connects, frying [target]'s circuits!"))
 
 //dan kelly is a nerd NO YOU ARE!!!
 
@@ -610,7 +618,7 @@
 	else if(istype(A, /turf/closed))
 		playsound(loc, hitsound, 80, TRUE)
 
-// Rocket-assisted Sledgehammer			Keywords: Damage 20/56, Mining  Issues left: mining only when dual wielded, sound to play always on hit
+// Rocket-assisted Sledgehammer			Keywords: Damage 20/66, Mining  Issues left: mining only when dual wielded, sound to play always on hit
 /obj/item/twohanded/sledgehammer/rockethammer
 	name = "rocket-assisted sledgehammer"
 	desc = "This pre-War model was originally used by construction crews for demolition. Fitted with a rocket booster at the head, \
@@ -628,7 +636,7 @@
 	var/sound = "sound/f13effects/explosion_distant_2.ogg"
 	wielded_icon = "hammer-rocket2"
 	force_unwielded = 20
-	force_wielded = 56
+	force_wielded = 66 // was 56, a tier 5 reward shouldn't hit softer than the tier 4 sledgehammer/simple (65)
 
 /obj/item/twohanded/sledgehammer/rockethammer/ComponentInitialize()
 	. = ..()
