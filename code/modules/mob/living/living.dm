@@ -423,7 +423,10 @@
 		return FALSE
 	if(!..())
 		return FALSE
-	visible_message("<b>[src]</b> points at [A].", span_notice("You point at [A]."))
+	//Items (e.g. a worn ID card) can bake a living mob's real name straight into their .name - broadcast
+	//the masked/indirect examine string instead of raw [A] so pointing at one doesn't out a disguised wearer.
+	var/pointed_name = isitem(A) ? A.get_examine_string(null, indirect = TRUE) : "[A]"
+	visible_message("<b>[src]</b> points at [pointed_name].", span_notice("You point at [pointed_name]."))
 	return TRUE
 
 /mob/living/verb/succumb()

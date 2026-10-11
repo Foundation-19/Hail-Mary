@@ -315,7 +315,7 @@
 			break
 
 		if(!QDELETED(Tloc) && (QDELETED(target) || Tloc != target.loc))
-			if((Uloc != Tloc || Tloc != user) && (!drifting || !allow_movement))
+			if((Uloc != Tloc || Tloc != user) && (!drifting && !allow_movement)) // was `||` - broke self-targeted (target == user) allow_movement do_afters on any turf change, since Tloc != user is always true
 				. = 0
 				break
 

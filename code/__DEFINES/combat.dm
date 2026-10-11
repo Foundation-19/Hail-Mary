@@ -121,6 +121,10 @@
 #define CLICK_CD_HANDCUFFED 10
 #define CLICK_CD_RESIST 20
 #define CLICK_CD_GRABBING 10
+//Cap on how much extra delay (on top of the 3-decisecond baseline) low health/high stamina loss can add
+//to pushing yourself upright - without this, a near-death + near-stamcrit getup could stretch past a full
+//second, turning every knockdown in a firefight into a near-unrecoverable soft-lock.
+#define GETUP_DELAY_CAP 40
 
 //Cuff resist speeds
 #define FAST_CUFFBREAK 1
@@ -297,8 +301,9 @@ GLOBAL_LIST_INIT(main_body_parts, list(
 #define STAM_CRIT_GUN_DELAY			2.75
 
 //stamina recovery defines. Paused while intentionally in combat mode, see /mob/living/carbon/proc/handle_stamina_regen().
-#define STAM_RECOVERY_STAM_CRIT		-7.5
-#define STAM_RECOVERY_RESTING		-6
+//Resting/stam-crit rates bumped ~50% over standing recovery - faster recovery while down means less stamina-driven getup delay (see health_deficiency in resist_a_rest()), on top of the Endurance multiplier both already scale with.
+#define STAM_RECOVERY_STAM_CRIT		-11
+#define STAM_RECOVERY_RESTING		-9
 #define STAM_RECOVERY_NORMAL		-3
 #define STAM_RECOVERY_LIMB			4 //limbs recover stamina separately from handle_status_effects(), and aren't blocked by combat mode.
 
