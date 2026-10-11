@@ -43,14 +43,16 @@
 	set category = "IC"
 	if(client?.prefs?.autostand)
 		TOGGLE_BITFIELD(combat_flags, COMBAT_FLAG_INTENTIONALLY_RESTING)
-		to_chat(src, span_notice("You are now attempting to [(combat_flags & COMBAT_FLAG_INTENTIONALLY_RESTING) ? "[!resting ? "lay down and ": ""]stay down" : "[resting ? "get up and ": ""]stay up"]."))
 		if((combat_flags & COMBAT_FLAG_INTENTIONALLY_RESTING) && !resting)
+			to_chat(src, span_notice("You are now attempting to lay down and stay down."))
 			if(istype(src.get_item_by_slot(SLOT_WEAR_SUIT),/obj/item/clothing/suit/armor/power_armor))
 				to_chat(src, span_notice("You cannot lie down in that heavy armor!"))
 				return
 			set_resting(TRUE, FALSE)
 		else
-			resist_a_rest()
+			//toggling the flag while already down doesn't change that we're trying to get up right now - don't claim we're staying down
+			to_chat(src, span_notice("You are now attempting to[resting ? " get up and stay up" : " stay up"]."))
+			resist_a_rest() // prints its own "already trying to get up!" if an attempt (manual or auto) is already in progress
 	else
 		if(!resting)
 			set_resting(TRUE, FALSE)

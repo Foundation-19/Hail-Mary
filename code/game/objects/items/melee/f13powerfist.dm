@@ -372,7 +372,7 @@
 	toggle_shishkebab(usr)
 
 /obj/item/shishkebabpack/proc/make_sword()
-	return new /obj/item/weapon/melee/shishkebab(src)
+	return new /obj/item/melee/shishkebab(src)
 
 /obj/item/shishkebabpack/equipped(mob/user, slot)
 	..()
@@ -380,16 +380,11 @@
 		remove_sword()
 
 /obj/item/shishkebabpack/proc/remove_sword()
-	// Check if sword exists before trying to access it
 	if(!sword || QDELETED(sword))
 		return
-	
-	// Check if sword is in a mob's inventory
 	if(ismob(sword.loc))
 		var/mob/M = sword.loc
 		M.temporarilyRemoveItemFromInventory(sword, TRUE)
-	
-	// Move sword back to backpack
 	sword.forceMove(src)
 
 /obj/item/shishkebabpack/Destroy()
@@ -418,12 +413,11 @@
 
 /obj/item/shishkebabpack/dropped(mob/user)
 	. = ..()
-	// Only try to remove sword if we're not being deleted
 	if(!QDELETED(src))
 		remove_sword()
 
-// Shishkebab sword				Keywords: Damage 55 (fire), Tool welder
-/obj/item/weapon/melee/shishkebab //This should never exist without the backpack.
+// Shishkebab sword				Keywords: Damage 38 (fire), Tool welder, Power Attack
+/obj/item/melee/shishkebab //This should never exist without the backpack.
 	name = "shishkebab"
 	desc = "A deadly flaming sword covered in fuel. You're not sure this is entirely safe."
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -432,25 +426,34 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	w_class = WEIGHT_CLASS_BULKY
-	item_flags = ABSTRACT  // don't put in storage
+	item_flags = ABSTRACT | ITEM_CAN_POWER_ATTACK  // don't put in storage
 	slot_flags = 0
-	force = 55
+	force = 38 // lowered from 55 - was hitting harder than any wielded two-handed axe while swinging at one-handed speed
 	damtype = "fire"
+	attack_speed = CLICK_CD_MELEE * 1.15 // bulky flaming sword, same swing penalty as the two-handed template
 	tool_behaviour = TOOL_WELDER
 	toolspeed = 0.3
+	canMouseDown = TRUE // required for the power attack charge/release mouse hooks to fire
+	power_attacks = list(
+		/datum/power_attack/heavy_strike,
+		/datum/power_attack/cleave,
+		/datum/power_attack/guard_break,
+		/datum/power_attack/execute,
+		/datum/power_attack/lunge,
+	)
 
 	var/obj/item/shishkebabpack/tank
 
-/obj/item/weapon/melee/shishkebab/Initialize()
+/obj/item/melee/shishkebab/Initialize()
 	. = ..()
 	tank = loc
 	if(!istype(tank))
 		return INITIALIZE_HINT_QDEL
 
-/obj/item/weapon/melee/shishkebab/attack_self()
+/obj/item/melee/shishkebab/attack_self()
 	return
 
-/obj/item/weapon/melee/shishkebab/doMove(atom/destination)
+/obj/item/melee/shishkebab/doMove(atom/destination)
 	if(destination && (destination != tank.loc || !ismob(destination)))
 		if (loc != tank)
 			to_chat(tank.loc, span_notice("The shishkebab slides back into the backpack tank."))

@@ -186,8 +186,10 @@
 		to_chat(user, span_warning("You have nothing to release your [power_attack.name] into!"))
 		return
 
-	// Only a genuine mob/object under the cursor (not bare ground, and within reach - the attack's dash range plus the final adjacent tile) earns the full payoff below.
-	var/lunge_reach = power_attack.get_lunge_range(src) + 1
+	// Reach weapons (e.g. spears) can already strike this far without needing to close distance - don't force them down to melee-adjacent-only for non-Lunge power attacks.
+	var/weapon_reach = max(max_reach, 1)
+	// Only a genuine mob/object under the cursor (not bare ground, and within reach - the attack's dash range plus the weapon's own reach) earns the full payoff below.
+	var/lunge_reach = power_attack.get_lunge_range(src) + weapon_reach
 	var/atom/real_target = (istype(target) && !isturf(target)) ? target : null
 	// A click near (but not pixel-exactly on) a mob at range resolves through the click_catcher overlay to a bare turf instead of the mob itself
 	// (see power_attack_resolve_target()) - a living mob is still genuinely standing right there, so promote it instead of conceding a guaranteed whiff.
@@ -221,20 +223,20 @@
 				break
 		target = has_real_target ? real_target : fallback_turf
 
-	if(!user.Adjacent(target))
+	if(!user.Adjacent(target) && get_dist(user, target) > weapon_reach)
 		var/approach_handled = power_attack.on_approach(user, src, target)
 		// on_approach can return an atom (e.g. something blocking the path) instead of TRUE/FALSE - redirect the hit onto it as a genuine target.
 		if(isatom(approach_handled))
 			target = approach_handled
 			has_real_target = TRUE
-		if(!user.Adjacent(target))
+		if(!user.Adjacent(target) && get_dist(user, target) > weapon_reach)
 			if(!approach_handled)
 				user.visible_message(span_warning("[user] overextends and fails to close the distance!"), span_warning("You overextend and fail to close the distance!"))
 				user.Stagger(1 SECONDS)
 			return
 
 	// The dash still closed the gap onto the real target despite starting out of initial reach (e.g. it moved toward you too) - don't force a guaranteed whiff onto empty ground.
-	if(!has_real_target && real_target && user.Adjacent(real_target))
+	if(!has_real_target && real_target && (user.Adjacent(real_target) || get_dist(user, real_target) <= weapon_reach))
 		target = real_target
 		has_real_target = TRUE
 
