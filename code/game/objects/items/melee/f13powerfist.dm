@@ -372,7 +372,7 @@
 	toggle_shishkebab(usr)
 
 /obj/item/shishkebabpack/proc/make_sword()
-	return new /obj/item/weapon/melee/shishkebab(src)
+	return new /obj/item/melee/shishkebab(src)
 
 /obj/item/shishkebabpack/equipped(mob/user, slot)
 	..()
@@ -417,7 +417,7 @@
 		remove_sword()
 
 // Shishkebab sword				Keywords: Damage 38 (fire), Tool welder, Power Attack
-/obj/item/weapon/melee/shishkebab //This should never exist without the backpack.
+/obj/item/melee/shishkebab //This should never exist without the backpack.
 	name = "shishkebab"
 	desc = "A deadly flaming sword covered in fuel. You're not sure this is entirely safe."
 	icon = 'icons/obj/items_and_weapons.dmi'
@@ -444,16 +444,16 @@
 
 	var/obj/item/shishkebabpack/tank
 
-/obj/item/weapon/melee/shishkebab/Initialize()
+/obj/item/melee/shishkebab/Initialize()
 	. = ..()
 	tank = loc
 	if(!istype(tank))
 		return INITIALIZE_HINT_QDEL
 
-/obj/item/weapon/melee/shishkebab/attack_self()
+/obj/item/melee/shishkebab/attack_self()
 	return
 
-/obj/item/weapon/melee/shishkebab/doMove(atom/destination)
+/obj/item/melee/shishkebab/doMove(atom/destination)
 	if(destination && (destination != tank.loc || !ismob(destination)))
 		if (loc != tank)
 			to_chat(tank.loc, span_notice("The shishkebab slides back into the backpack tank."))

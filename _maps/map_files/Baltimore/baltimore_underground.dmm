@@ -13609,7 +13609,7 @@
 /area/f13/building/tunnel)
 "tyn" = (
 /obj/structure/closet/locker/oldstyle,
-/obj/item/weapon/melee/shishkebab,
+/obj/item/melee/shishkebab,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/citycaves)
 "tyX" = (
