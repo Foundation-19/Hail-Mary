@@ -179,6 +179,26 @@
 	playsound(get_turf(throwee), 'sound/effects/Flesh_Break_1.ogg', 50, 1)
 	visible_message(span_danger("[src] hurls [the_target] across the room!"))
 
+// Intelligent deathclaw, for the Baltimore map. NOT TO BE USED UNLESS EVENT. Use the INFLICTED version for maps.
+/mob/living/simple_animal/hostile/deathclaw/inteligent
+	name = "inteligent deathclaw"
+	desc = "A very rare kind of deathclaw, with inteligence and able of speech."
+	icon = 'icons/mob/monsters/deathclaw.dmi' 
+	icon_state = "inteligent"
+	icon_living = "inteligent"
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
+	name = "inflicted deathclaw"
+	desc = "There was a time where this deathclaw was inteligent, able to thinking, with a mind and reason. You can still hear it, lamentation. Its trying to resist, and save you from what ever is controling him."
+	icon_state = "inflicted"
+	icon_living = "inflicted"
+	color_mad = rgb(255, 125, 85)
+	maxHealth = 100
+	health = 100
+	stat_attack = UNCONSCIOUS
+	reach = 2
+	speed = 1.8
+
 // CHARGE MECHANIC - trigger on getting shot. Enraged deathclaws are much more likely to close the gap
 // instead of just tanking ranged fire forever - this is what punishes kiting it with a high-RPM gun.
 /mob/living/simple_animal/hostile/deathclaw/bullet_act(obj/item/projectile/Proj)

@@ -508,6 +508,16 @@
 		if(ACCESS_TOWN_SEC)
 			return "Police access"
 
+/* MINUTEMEN */
+/proc/get_all_minutemen_access()
+	return list(ACCESS_MINUTEMEN)
+
+/proc/get_minutemen_access_desc(A)
+	switch(A)
+		if(ACCESS_MINUTEMEN)
+			return "Minutemen acces"
+
+
 /* Sheriff */
 /proc/get_all_sheriff_access()
 	return list(

@@ -405,3 +405,16 @@
 		SOUND_LOOP_ENTRY('sound/f13ambience/baltimore-Ship-Interior.ogg', 171 SECONDS, 1),
 	)
 
+
+/datum/looping_sound/ambient/airship
+	chance = 100
+	vary = FALSE
+	vary_direction = TRUE
+	volume = SOUND_LOOP_VOL_RANGE(20, 20)
+	direct = TRUE
+	loop_delay = 0 SECONDS
+	mid_sounds = list(
+		SOUND_LOOP_ENTRY('sound/f13ambience/airship.ogg', 171 SECONDS, 1),
+	)
+
+
