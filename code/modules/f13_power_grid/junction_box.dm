@@ -747,6 +747,11 @@
 /obj/machinery/f13/junction_box/attack_hand(mob/living/user, list/modifiers)
 	if(!user || !isliving(user))
 		return ..()
+	// A loose box has no territory and nothing to configure yet — its panel only
+	// becomes useful once it is bolted down and has claimed a room.
+	if(!anchored)
+		to_chat(user, span_notice("[src] isn't mounted yet. Drag it into place and bolt it down with a wrench to use its panel."))
+		return
 	show_ui(user)
 
 /obj/machinery/f13/junction_box/proc/show_ui(mob/living/user)
@@ -880,6 +885,9 @@
 	if(!usr || !isliving(usr))
 		return
 	if(!in_range(src, usr) && !isobserver(usr))
+		return
+	// Ignore clicks from a panel that was left open while the box got unbolted.
+	if(!anchored)
 		return
 
 	if(href_list["toggle_breaker"])
