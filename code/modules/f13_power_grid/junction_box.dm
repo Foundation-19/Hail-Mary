@@ -141,6 +141,8 @@
 	/// One entry per distinct area subtype discovered during the flood fill.
 	/// Null when using the legacy powered_area_types path.
 	var/list/owned_zones = null
+	/// Scratch: areas (by datum) that another bolted box sits in; filled by build_zones().
+	var/list/_other_box_areas = null
 	/// Wall-tile origin registry.  Assoc: turf → /area original singleton.
 	/// Wall tiles bordering interior zones are absorbed so objects on them
 	/// (wall lights, etc.) receive area power.  Their real origin area may
@@ -216,7 +218,24 @@
 /obj/machinery/f13/junction_box/proc/_area_in_scope(area/A, root_type, area/custom_root)
 	var/area/f13/fA = A
 	if(istype(fA) && fA.f13_custom)
-		return A == custom_root
+		// Walk up the carve-out chain (create_area sets f13_parent_area), so a room split
+		// off a box's area is still in that box's scope.
+		// A carved-out room (or any room between it and us) that has its own bolted
+		// junction box belongs to that box, not to the box covering the parent room.
+		var/area/f13/cur = fA
+		var/blocked = FALSE
+		for(var/i in 1 to 8)
+			if(!cur || QDELETED(cur))
+				break
+			if(custom_root)
+				if(cur == custom_root)
+					return !blocked
+			else if(!cur.f13_custom && istype(cur, root_type))
+				return !blocked
+			if(_other_box_areas && _other_box_areas[cur])
+				blocked = TRUE
+			cur = cur.f13_parent_area
+		return FALSE
 	if(custom_root)
 		return FALSE
 	return istype(A, root_type)
@@ -310,22 +329,29 @@
 				switch(wall_dir)
 					if(NORTH)
 						pixel_x = 0
-						pixel_y = 28
+						pixel_y = 23
 					if(SOUTH)
 						pixel_x = 0
-						pixel_y = -28
+						pixel_y = -23
 					if(EAST)
 						pixel_y = 0
-						pixel_x = 28
+						pixel_x = 24
 					if(WEST)
 						pixel_y = 0
-						pixel_x = -28
+						pixel_x = -25
 				to_chat(user, span_notice("You bolt [src] flush to the wall."))
 			else
 				pixel_x = 0
 				pixel_y = 0
 				to_chat(user, span_notice("You bolt [src] to the floor."))
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+			// If another box has claimed this room's tiles, make it let go first so the
+			// box that is physically inside the room can take it over.
+			var/area/f13/claimed_here = get_area(src)
+			if(istype(claimed_here) && claimed_here.f13_jbox_zone)
+				var/list/hand_over = list()
+				hand_over[claimed_here] = TRUE
+				f13_rescan_boxes_for_areas(hand_over)
 			// Now that the box is in its final spot, claim the room it's actually in
 			// (a box crafted elsewhere has no territory until it's bolted down here).
 			rebuild_zones()
@@ -387,6 +413,7 @@
 		// (correct icons/overlays), instead of us hand-toggling stat bits per-machine.
 		var/area/f13/Z = new here.type()
 		Z.f13_jbox_zone = TRUE
+		Z.f13_origin = here
 		GLOB.sortedAreas -= Z
 		var/local_tiles = 0
 		for(var/turf/T in RANGE_TURFS(power_reach, src))
@@ -429,6 +456,18 @@
 			continue  // shares our exact home type — ambiguous, don't self-exclude
 		reserved_home_types += JB.home_area_type
 
+	// Which areas already have their own bolted box? (see _area_in_scope)
+	_other_box_areas = list()
+	for(var/obj/machinery/f13/junction_box/OB in world)
+		if(OB == src || QDELETED(OB) || !OB.anchored)
+			continue
+		var/area/oa = OB._resolve_root_area()
+		var/area/f13/ofa = oa
+		if(istype(ofa) && ofa.f13_jbox_zone && ofa.f13_origin)
+			oa = ofa.f13_origin
+		if(oa)
+			_other_box_areas[oa] = TRUE
+
 	// Runtime-made (area_edit) rooms all share one typepath, so scope the fill to this
 	// exact area datum instead of the type tree.
 	var/area/f13/fhere = here
@@ -462,6 +501,7 @@
 			if(istype(forig) && forig.f13_custom)
 				Z.name         = orig.name  // keep the player-chosen name in the UI
 			Z.f13_jbox_zone    = TRUE
+			Z.f13_origin       = forig
 			GLOB.sortedAreas   -= Z  // Keep zone datums out of the global area registry
 			type_to_zone[atype]   = Z
 			type_to_origin[atype] = orig
@@ -677,13 +717,51 @@
 	grid_powered = FALSE
 	update_icon()
 
+/// Rebuilds every bolted-down junction box that owns (or directly powers) any of the
+/// given areas. Called after blueprints create_area() moves tiles between areas, so boxes
+/// notice the change instead of silently losing the tiles they were powering.
+/proc/f13_rescan_boxes_for_areas(list/touched)
+	if(!touched || !touched.len)
+		return
+	for(var/obj/machinery/f13/junction_box/JB in world)
+		if(QDELETED(JB) || !JB.anchored)
+			continue
+		var/hit = FALSE
+		if(JB.owned_zones)
+			for(var/area/Z in JB.owned_zones)
+				if(touched[Z] || touched[JB.owned_zones[Z]])
+					hit = TRUE
+					break
+		if(!hit && JB.powered_area_instances)
+			for(var/area/A in JB.powered_area_instances)
+				if(touched[A])
+					hit = TRUE
+					break
+		if(hit)
+			JB.rebuild_zones()
+
 /// Drops and re-claims territory from scratch.  Call after the box is moved/bolted down
 /// or after the surrounding area was repainted with area_edit.
 /obj/machinery/f13/junction_box/proc/rebuild_zones()
+	// Remember which zone breakers were tripped (keyed by the original area, since the
+	// zone datums themselves are recreated) so a rescan doesn't silently re-close them.
+	var/list/tripped = list()
+	if(owned_zones && zone_breakers)
+		for(var/area/Z in owned_zones)
+			if(zone_breakers[Z] == FALSE && owned_zones[Z])
+				tripped[owned_zones[Z]] = TRUE
 	teardown_zones()
 	var/area/home = _resolve_root_area()
 	home_area_type = home ? home.type : null
 	build_zones()
+	if(tripped.len && owned_zones && zone_breakers)
+		var/restored = FALSE
+		for(var/area/Z in owned_zones)
+			if(tripped[owned_zones[Z]])
+				zone_breakers[Z] = FALSE
+				restored = TRUE
+		if(restored && grid_powered && breaker_closed)
+			_stamp_areas(TRUE)  // re-apply so tripped zones go back dark
 
 /obj/machinery/f13/junction_box/Destroy()
 	teardown_zones()

@@ -762,6 +762,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	/// Every runtime area shares one typepath, so junction boxes scope and group these
 	/// by area DATUM instead of by type.  Set automatically by area_edit.
 	var/f13_custom = FALSE
+	/// For custom areas carved out of another area at runtime (blueprints create_area):
+	/// the area it was split from. Junction boxes treat a custom area as in scope when
+	/// any ancestor in this chain is in scope, so a carved-out room stays on its box.
+	var/area/f13/f13_parent_area = null
+	/// For junction-box zone datums: the original area these tiles were taken from.
+	var/area/f13/f13_origin = null
 
 /// Keep f13_grid_power in sync with the actual SS13 equip-channel state.
 /// Also explicitly notify any door/access buttons inside or adjacent to this area.
