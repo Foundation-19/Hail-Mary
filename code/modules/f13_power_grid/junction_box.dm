@@ -253,7 +253,8 @@
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
 			// Pulling a live box off its feed arcs, same as wiring a live relay does.
-			var/was_live = grid_powered
+			// An open master breaker isolates the box, so that's the safe way to unbolt it.
+			var/was_live = grid_powered && breaker_closed
 			if(was_live && isliving(user))
 				to_chat(user, span_danger("You unbolt [src] while it's still live — electricity arcs across your hand!"))
 				var/mob/living/UL = user
