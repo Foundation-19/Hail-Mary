@@ -329,16 +329,16 @@
 				switch(wall_dir)
 					if(NORTH)
 						pixel_x = 0
-						pixel_y = 23
+						pixel_y = 28
 					if(SOUTH)
 						pixel_x = 0
-						pixel_y = -23
+						pixel_y = -28
 					if(EAST)
 						pixel_y = 0
-						pixel_x = 24
+						pixel_x = 28
 					if(WEST)
 						pixel_y = 0
-						pixel_x = -25
+						pixel_x = -28
 				to_chat(user, span_notice("You bolt [src] flush to the wall."))
 			else
 				pixel_x = 0
