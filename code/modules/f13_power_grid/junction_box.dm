@@ -208,6 +208,19 @@
 	// No walkable neighbour found — fall back to our own (wall) area.
 	return get_area(T)
 
+/// Is A inside the territory this flood fill is allowed to walk?
+/// Runtime-made (f13_custom) areas all share one typepath, so they are matched by exact
+/// datum: a box inside one custom room never crosses into another custom room or into a
+/// mapped area, and a box in a mapped area never leaks into a custom room.
+/// Everything else is matched by area type tree (root_type and its subtypes).
+/obj/machinery/f13/junction_box/proc/_area_in_scope(area/A, root_type, area/custom_root)
+	var/area/f13/fA = A
+	if(istype(fA) && fA.f13_custom)
+		return A == custom_root
+	if(custom_root)
+		return FALSE
+	return istype(A, root_type)
+
 // ============================================================
 // LIFE CYCLE
 // ============================================================
@@ -239,6 +252,8 @@
 /obj/machinery/f13/junction_box/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
+			// Release claimed territory before the box can be carried off.
+			teardown_zones()
 			anchored = FALSE
 			setDir(SOUTH)
 			pixel_x = 0
@@ -275,12 +290,25 @@
 				pixel_y = 0
 				to_chat(user, span_notice("You bolt [src] to the floor."))
 			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+			// Now that the box is in its final spot, claim the room it's actually in
+			// (a box crafted elsewhere has no territory until it's bolted down here).
+			rebuild_zones()
+			update_icon()
 		return
 	return ..()
 
 
 /obj/machinery/f13/junction_box/LateInitialize()
 	. = ..()
+	build_zones()
+
+/// Claims territory (legacy list / outdoor carve-out / flood fill) and stamps it.
+/// Split out of LateInitialize() so it can be re-run: a box crafted elsewhere and
+/// bolted down mid-round, or a room repainted with area_edit, rebuilds its zones.
+/// Does nothing while the box is unbolted — a loose box owns no territory.
+/obj/machinery/f13/junction_box/proc/build_zones()
+	if(!anchored)
+		return
 	if(powered_area_types && powered_area_types.len)
 		// ── Legacy explicit-area path ───────────────────────────────────
 		// Resolve type paths to live datums; skip flood fill entirely.
@@ -360,13 +388,19 @@
 			continue  // shares our exact home type — ambiguous, don't self-exclude
 		reserved_home_types += JB.home_area_type
 
-	var/list/turf_map = _flood_fill_turfs(here.type, reserved_home_types)
+	// Runtime-made (area_edit) rooms all share one typepath, so scope the fill to this
+	// exact area datum instead of the type tree.
+	var/area/f13/fhere = here
+	var/area/custom_root = (istype(fhere) && fhere.f13_custom) ? here : null
+	var/list/turf_map = _flood_fill_turfs(here.type, reserved_home_types, custom_root)
 	if(!turf_map || !turf_map.len)
 		return
 
-	// ── Group turfs by their original area type ──────────────────────────
-	// type_to_zone: area TYPE PATH → private zone datum  (used during grouping)
-	// type_to_origin: area TYPE PATH → original singleton datum  (for repatriation)
+	// ── Group turfs by their original area ───────────────────────────────
+	// type_to_zone: grouping key → private zone datum  (used during grouping)
+	// type_to_origin: grouping key → original singleton datum  (for repatriation)
+	// The key is the area TYPE PATH for mapped areas, but the area DATUM itself for
+	// custom areas (they share one typepath, so type alone would merge separate rooms).
 	var/list/type_to_zone   = list()
 	var/list/type_to_origin = list()
 
@@ -374,11 +408,14 @@
 		var/area/orig = turf_map[T]          // original singleton this turf came from
 		if(!istype(orig, /area))             // openspace bridge sentinel — not an ownable tile
 			continue
-		var/atype     = orig.type
+		var/area/f13/forig = orig
+		var/atype = (istype(forig) && forig.f13_custom) ? orig : orig.type
 
 		if(!type_to_zone[atype])
-			// First turf of this type — spawn a private zone datum.
-			var/area/f13/Z = new atype()
+			// First turf of this kind — spawn a private zone datum.
+			var/area/f13/Z = new orig.type()
+			if(istype(forig) && forig.f13_custom)
+				Z.name         = orig.name  // keep the player-chosen name in the UI
 			Z.f13_jbox_zone    = TRUE
 			GLOB.sortedAreas   -= Z  // Keep zone datums out of the global area registry
 			type_to_zone[atype]   = Z
@@ -424,10 +461,24 @@
 /// junction boxes' home areas; the fill will never cross into a turf whose
 /// original area matches one of these, regardless of claim/init order.
 /// Returns an assoc list: turf → original area datum it belonged to at walk time.
-/obj/machinery/f13/junction_box/proc/_flood_fill_turfs(root_type, list/reserved_types)
+/// custom_root — when the box sits in a runtime-made (f13_custom) area, the exact area
+/// datum to stay inside (see _area_in_scope); null for normal mapped areas.
+/obj/machinery/f13/junction_box/proc/_flood_fill_turfs(root_type, list/reserved_types, area/custom_root)
 	var/list/visited = list()   // turf → original area datum
-	var/list/stack   = list(get_turf(src))
+	var/turf/start_turf = get_turf(src)
+	var/list/stack   = list(start_turf)
 	var/area/start   = get_area(src)
+	if(custom_root)
+		// A wall-mounted box sits on a dense turf that belongs to whatever area the wall
+		// was painted into, not the room it serves.  Seed from the walkable neighbours
+		// instead so the wall tile never becomes a stray one-tile zone.
+		start = custom_root
+		if(start_turf && start_turf.density)
+			stack = list()
+			for(var/seed_dir in list(NORTH, SOUTH, EAST, WEST))
+				var/turf/seed = get_step(start_turf, seed_dir)
+				if(seed && !seed.density)
+					stack += seed
 	while(stack.len)
 		var/turf/T = stack[stack.len]
 		stack.len--
@@ -435,6 +486,8 @@
 			continue
 		var/area/T_area = get_area(T)
 		if(!T_area)
+			continue
+		if(custom_root && T_area != custom_root)
 			continue
 		// Record the ORIGINAL area — before any zone datum could overwrite it.
 		// If T already sits in a jbox zone from a prior Initialize run,
@@ -453,7 +506,7 @@
 				if(ob_area && !_area_is_immune(ob_area))
 					var/area/f13/fob = ob_area
 					var/check_ob = (istype(fob) && fob.f13_jbox_zone) ? start : ob_area
-					if(istype(check_ob, root_type))
+					if(_area_in_scope(check_ob, root_type, custom_root))
 						stack += os_below
 			continue
 		visited[T] = origin
@@ -478,7 +531,7 @@
 					if(nb_area && !_area_is_immune(nb_area))
 						var/area/f13/fnb = nb_area
 						var/check_nb = (istype(fnb) && fnb.f13_jbox_zone) ? start : nb_area
-						if(istype(check_nb, root_type))
+						if(_area_in_scope(check_nb, root_type, custom_root))
 							stack += ns_below
 				continue
 			// Outdoor or explicitly immune — never cross.
@@ -493,7 +546,7 @@
 			// get the real underlying type for the check.
 			var/area/f13/fN = N_area
 			var/area/check_area = (istype(fN) && fN.f13_jbox_zone) ? start : N_area
-			if(!istype(check_area, root_type))
+			if(!_area_in_scope(check_area, root_type, custom_root))
 				continue
 			// Already claimed by a different junction box — respect its boundary.
 			if(istype(fN) && fN.f13_jbox_zone)
@@ -521,7 +574,7 @@
 				continue
 			var/area/f13/fL = L_area
 			var/area/check_L = (istype(fL) && fL.f13_jbox_zone) ? start : L_area
-			if(!istype(check_L, root_type))
+			if(!_area_in_scope(check_L, root_type, custom_root))
 				continue
 			if(reserved_types && reserved_types.len && (check_L.type in reserved_types))
 				continue
@@ -530,12 +583,15 @@
 	return visited
 
 
-/obj/machinery/f13/junction_box/Destroy()
-	// Power off before we vanish — stamp all zones dark.
+/// Releases every claimed zone: stamps them dark, repatriates their turfs to the original
+/// area datums, and clears the registries.  Used by Destroy(), by unbolting, and by
+/// rebuild_zones().
+/obj/machinery/f13/junction_box/proc/teardown_zones()
+	// Power off before we let go — stamp all zones dark.
 	_stamp_areas(FALSE)
 
 	// Repatriate flood-fill turfs back to their original singletons
-	// so the world never has orphaned tiles after this box is removed.
+	// so the world never has orphaned tiles after this box releases them.
 	if(owned_zones)
 		for(var/area/f13/Z in owned_zones)
 			var/area/orig = owned_zones[Z]
@@ -549,6 +605,18 @@
 	owned_zones            = null
 	zone_breakers          = null
 	powered_area_instances = null
+	grid_watt_draw         = grid_watt_draw_base
+
+/// Drops and re-claims territory from scratch.  Call after the box is moved/bolted down
+/// or after the surrounding area was repainted with area_edit.
+/obj/machinery/f13/junction_box/proc/rebuild_zones()
+	teardown_zones()
+	var/area/home = _resolve_root_area()
+	home_area_type = home ? home.type : null
+	build_zones()
+
+/obj/machinery/f13/junction_box/Destroy()
+	teardown_zones()
 	return ..()
 
 
@@ -784,7 +852,9 @@
 			dat += "<pre class='bad'>    &#91;!&#93; Placed outdoors ([here2.name]) — cannot power this area.</pre>"
 			dat += "<pre class='bad'>    Mount inside a building wall.</pre>"
 		else
-			dat += "<pre class='dim'>    No zones established — check placement.</pre>"
+			dat += "<pre class='dim'>    [anchored ? "No zones established — check placement." : "Not bolted down — wrench it into place to claim a room."]</pre>"
+	if(anchored)
+		dat += "<pre>    <a href='byond://?src=[REF(src)];rebuild_zones=1'>&#91; RESCAN ZONES &#93;</a>  <span class='dim'>(re-detect rooms after area changes)</span></pre>"
 	dat += "<pre class='sep'>  ================================================================</pre>"
 
 	var/datum/browser/popup = new(user, "f13_jbox_[REF(src)]", null, 560, 400)
@@ -815,6 +885,15 @@
 		update_icon()
 		var/msg = breaker_closed ? "You close the master breaker — all circuits restored." : "You trip the master breaker — all building power cut."
 		to_chat(usr, span_notice(msg))
+		show_ui(usr)
+
+	if(href_list["rebuild_zones"])
+		// ── Re-detect rooms (e.g. after the area was repainted with area_edit) ──
+		if(!anchored)
+			return
+		rebuild_zones()
+		update_icon()
+		to_chat(usr, span_notice("Zone scan complete."))
 		show_ui(usr)
 
 	if(href_list["toggle_relay"])
