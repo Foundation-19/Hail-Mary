@@ -228,6 +228,56 @@
 	home_area_type = home ? home.type : null
 	return INITIALIZE_HINT_LATELOAD
 
+// ============================================================
+// WRENCH — ANCHOR / WALL MOUNT
+// ============================================================
+// Crafted boxes spawn unanchored (see crafting_recipes.dm) so they can be carried
+// to the install site. Wrenching an unanchored box bolts it down; if it's sitting
+// against a wall it mounts flush to that wall (offset sprite, same tile — same
+// trick /obj/machinery/power/apc uses) instead of sitting in the middle of the
+// floor. Wrenching an anchored box frees it again so it can be moved.
+/obj/machinery/f13/junction_box/attackby(obj/item/W, mob/user, params)
+	if(W.tool_behaviour == TOOL_WRENCH)
+		if(anchored)
+			anchored = FALSE
+			setDir(SOUTH)
+			pixel_x = 0
+			pixel_y = 0
+			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+			to_chat(user, span_notice("You unbolt [src] — it can be moved again."))
+		else
+			var/turf/T = get_turf(src)
+			var/mount_dir = 0
+			for(var/d in GLOB.cardinals)
+				var/turf/N = get_step(T, d)
+				if(N && N.density)
+					mount_dir = get_dir(N, T)
+					break
+			anchored = TRUE
+			if(mount_dir)
+				setDir(mount_dir)
+				switch(mount_dir)
+					if(NORTH)
+						pixel_x = 0
+						pixel_y = 23
+					if(SOUTH)
+						pixel_x = 0
+						pixel_y = -23
+					if(EAST)
+						pixel_y = 0
+						pixel_x = 24
+					if(WEST)
+						pixel_y = 0
+						pixel_x = -25
+				to_chat(user, span_notice("You bolt [src] flush to the wall."))
+			else
+				pixel_x = 0
+				pixel_y = 0
+				to_chat(user, span_notice("You bolt [src] to the floor."))
+			playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
+		return
+	return ..()
+
 
 /obj/machinery/f13/junction_box/LateInitialize()
 	. = ..()
