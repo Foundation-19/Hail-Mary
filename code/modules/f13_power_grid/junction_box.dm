@@ -360,7 +360,10 @@
 			Z.contents += T
 			local_tiles++
 		powered_area_instances = list(Z)
-		owned_zones = list(Z = here)  // so Destroy() repatriates these tiles like any other zone
+		// NOTE: list(Z = here) would key the list by the TEXT "Z", not the zone datum, so
+		// teardown could never find the zone and the carved tiles would never be handed back.
+		owned_zones = list()
+		owned_zones[Z] = here  // so teardown repatriates these tiles like any other zone
 		grid_watt_draw = grid_watt_draw_base + (grid_watt_draw_per_tile * local_tiles)
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)
@@ -382,7 +385,9 @@
 	// finishes before any LateInitialize() runs, so this is always safe to read.)
 	var/list/reserved_home_types = list()
 	for(var/obj/machinery/f13/junction_box/JB in GLOB.machines)
-		if(JB == src || QDELETED(JB) || !JB.home_area_type)
+		// Loose (unbolted) boxes own nothing, and their home_area_type is just wherever
+		// they happened to be crafted/dropped - never let that block another box's fill.
+		if(JB == src || QDELETED(JB) || !JB.home_area_type || !JB.anchored)
 			continue
 		if(JB.home_area_type == here.type)
 			continue  // shares our exact home type — ambiguous, don't self-exclude
@@ -392,6 +397,10 @@
 	// exact area datum instead of the type tree.
 	var/area/f13/fhere = here
 	var/area/custom_root = (istype(fhere) && fhere.f13_custom) ? here : null
+	if(custom_root && fhere.f13_jbox_zone)
+		// This box sits inside a room another junction box has already claimed.
+		// Leave it alone instead of stealing tiles back from that box's zone.
+		return
 	var/list/turf_map = _flood_fill_turfs(here.type, reserved_home_types, custom_root)
 	if(!turf_map || !turf_map.len)
 		return
@@ -852,7 +861,13 @@
 			dat += "<pre class='bad'>    &#91;!&#93; Placed outdoors ([here2.name]) — cannot power this area.</pre>"
 			dat += "<pre class='bad'>    Mount inside a building wall.</pre>"
 		else
-			dat += "<pre class='dim'>    [anchored ? "No zones established — check placement." : "Not bolted down — wrench it into place to claim a room."]</pre>"
+			var/area/f13/claimed_check = here2
+			if(!anchored)
+				dat += "<pre class='dim'>    Not bolted down — wrench it into place to claim a room.</pre>"
+			else if(istype(claimed_check) && claimed_check.f13_jbox_zone)
+				dat += "<pre class='dim'>    This room is already powered by another junction box.</pre>"
+			else
+				dat += "<pre class='dim'>    No zones established — check placement.</pre>"
 	if(anchored)
 		dat += "<pre>    <a href='byond://?src=[REF(src)];rebuild_zones=1'>&#91; RESCAN ZONES &#93;</a>  <span class='dim'>(re-detect rooms after area changes)</span></pre>"
 	dat += "<pre class='sep'>  ================================================================</pre>"
