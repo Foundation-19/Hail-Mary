@@ -252,8 +252,17 @@
 /obj/machinery/f13/junction_box/attackby(obj/item/W, mob/user, params)
 	if(W.tool_behaviour == TOOL_WRENCH)
 		if(anchored)
+			// Pulling a live box off its feed arcs, same as wiring a live relay does.
+			var/was_live = grid_powered
+			if(was_live && isliving(user))
+				to_chat(user, span_danger("You unbolt [src] while it's still live — electricity arcs across your hand!"))
+				var/mob/living/UL = user
+				UL.electrocute_act(20, src, flags = SHOCK_NOGLOVES)
 			// Release claimed territory before the box can be carried off.
 			teardown_zones()
+			// Unbolting pulls it off its cable run: drop the upstream link so it can't
+			// keep drawing power from wherever it used to be wired.
+			_sever_upstream()
 			anchored = FALSE
 			setDir(SOUTH)
 			pixel_x = 0
@@ -262,28 +271,54 @@
 			to_chat(user, span_notice("You unbolt [src] — it can be moved again."))
 		else
 			var/turf/T = get_turf(src)
-			var/mount_dir = 0
+			// wall_dir = direction FROM the box TOWARD the wall (APC convention).
+			// Collect every adjacent wall; only a corner/corridor is ambiguous.
+			var/list/wall_dirs = list()
 			for(var/d in GLOB.cardinals)
 				var/turf/N = get_step(T, d)
 				if(N && N.density)
-					mount_dir = get_dir(N, T)
-					break
+					wall_dirs += d
+			var/wall_dir = 0
+			if(wall_dirs.len == 1)
+				wall_dir = wall_dirs[1]
+			else if(wall_dirs.len > 1)
+				// Narrow by where the installer is: standing across the box from a wall
+				// (or facing it) means that's the wall they want.
+				var/list/preferred = list()
+				var/user_dir = get_dir(user, src)
+				if((user_dir in wall_dirs))
+					preferred += user_dir
+				else if((user.dir in wall_dirs) && get_dist(user, src) <= 1)
+					preferred += user.dir
+				if(preferred.len == 1)
+					wall_dir = preferred[1]
+				else
+					// Still ambiguous (corner, or standing diagonally): just ask.
+					var/list/choices = list()
+					for(var/d in wall_dirs)
+						choices["[dir2text(d)] wall"] = d
+					var/pick = input(user, "Which wall should [src] be mounted on?", "Mount Junction Box") as null|anything in choices
+					if(!pick || !user.Adjacent(src))
+						return
+					wall_dir = choices[pick]
 			anchored = TRUE
-			if(mount_dir)
-				setDir(mount_dir)
-				switch(mount_dir)
+			if(wall_dir)
+				// Face into the room. If the sprite looks wrong, change to setDir(wall_dir)
+				// (APC itself just uses setDir(SOUTH) and offsets the pixels).
+				setDir(turn(wall_dir, 180))
+				switch(wall_dir)
 					if(NORTH)
 						pixel_x = 0
-						pixel_y = 23
+						pixel_y = 28
 					if(SOUTH)
 						pixel_x = 0
-						pixel_y = -23
+						pixel_y = -28
 					if(EAST)
 						pixel_y = 0
-						pixel_x = 24
+						pixel_x = 28
 					if(WEST)
 						pixel_y = 0
-						pixel_x = -25
+						pixel_x = -28
 				to_chat(user, span_notice("You bolt [src] flush to the wall."))
 			else
 				pixel_x = 0
@@ -615,6 +650,31 @@
 	zone_breakers          = null
 	powered_area_instances = null
 	grid_watt_draw         = grid_watt_draw_base
+
+/// Detaches this box from every generator/relay feeding it (the logical equivalent of
+/// cutting its cable) and marks it unpowered. Used when unbolting: wire links are
+/// stored as references, not physical paths, so a moved box would otherwise stay
+/// powered by its old connection.
+/obj/machinery/f13/junction_box/proc/_sever_upstream()
+	if(upstream_refs)
+		for(var/datum/weakref/WC in upstream_refs)
+			var/obj/upstream = WC.resolve()
+			if(!upstream || QDELETED(upstream))
+				continue
+			if(istype(upstream, /obj/machinery/f13/faction_generator))
+				var/obj/machinery/f13/faction_generator/G = upstream
+				if(G.linked_clients) G.linked_clients -= src
+				if(G.shed_clients) G.shed_clients -= src
+				G.recalc_draw()
+			else if(istype(upstream, /obj/machinery/f13/power_relay))
+				var/obj/machinery/f13/power_relay/R = upstream
+				if(R.linked_clients) R.linked_clients -= src
+		upstream_refs = null
+		// Relay-fed boxes don't trigger a generator recalc themselves; do it so the
+		// source stops budgeting for a load that's no longer attached.
+		f13_recalc_all_generators()
+	grid_powered = FALSE
+	update_icon()
 
 /// Drops and re-claims territory from scratch.  Call after the box is moved/bolted down
 /// or after the surrounding area was repainted with area_edit.
