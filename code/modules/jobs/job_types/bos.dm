@@ -78,7 +78,7 @@ Elder Envoy
 	spawn_positions = 0
 	selection_color = "#7f8c8d"
 	outfit = /datum/outfit/job/bos/f13envoy
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 4500)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_BOS = 3300)
 
 	min_required_special = list(
 		"special_c" = 7,
@@ -300,7 +300,7 @@ Proctor
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_HEADSCRIBE
 	outfit = /datum/outfit/job/bos/f13headscribe
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3300)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3000)
 
 	loadout_options = list(
 	/datum/outfit/loadout/hsstand,
@@ -381,7 +381,7 @@ Knight-Captain
 	selection_color = "#7f8c8d"
 	display_order = JOB_DISPLAY_ORDER_KNIGHTCAPTAIN
 	outfit = /datum/outfit/job/bos/f13knightcap
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3300)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1500, EXP_TYPE_BOS = 3000)
 
 	access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
 	minimal_access = list(ACCESS_BROTHERHOOD_COMMAND, ACCESS_ROBOTICS, ACCESS_BOS, ACCESS_ENGINE_EQUIP, ACCESS_ENGINE, ACCESS_HYDROPONICS, ACCESS_KITCHEN, ACCESS_BAR, ACCESS_SEC_DOORS, ACCESS_ARMORY, ACCESS_BRIG, ACCESS_CHANGE_IDS)
