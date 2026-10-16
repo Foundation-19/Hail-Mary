@@ -166,28 +166,49 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		if(length(str) > 50)
 			to_chat(creator, span_warning("The given name is too long. The area remains undefined."))
 			return
-		newA = new area_choice
+		var/area_type = area_choice
+		// Rooms carved out of an F13 area must stay F13 areas, or the power grid can't see them.
+		if(istype(oldA, /area/f13))
+			area_type = /area/f13/custom
+		newA = new area_type
 		newA.setup(str)
+		var/area/f13/new_f13 = newA
+		if(istype(new_f13))
+			new_f13.f13_custom = TRUE
+			var/area/f13/old_f13 = oldA
+			// If the old room was a live junction-box zone, inherit from the area the zone
+			// was taken from, so the box (or any box covering that area) keeps this room.
+			new_f13.f13_parent_area = (old_f13.f13_jbox_zone && old_f13.f13_origin) ? old_f13.f13_origin : old_f13
 		newA.set_dynamic_lighting()
 		newA.has_gravity = oldA.has_gravity
 		newA.noteleport = oldA.noteleport
 	else
 		newA = area_choice
 
+	var/list/touched = list()
+	touched[newA] = TRUE
 	for(var/i in 1 to turfs.len)
 		var/turf/thing = turfs[i]
 		var/area/old_area = thing.loc
+		touched[old_area] = TRUE
 		newA.contents += thing
 		thing.change_area(old_area, newA)
 
 	newA.reg_in_areas_in_z()
+
+	// Let F13 junction boxes re-claim whatever moved (tiles leaving a powered zone
+	// would otherwise just go dark).
+	f13_rescan_boxes_for_areas(touched)
 
 	var/list/firedoors = oldA.firedoors
 	for(var/door in firedoors)
 		var/obj/machinery/door/firedoor/FD = door
 		FD.CalculateAffectingAreas()
 
-	to_chat(creator, span_notice("You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered."))
+	if(istype(newA, /area/f13))
+		to_chat(creator, span_notice("You have created a new area, named [newA.name]. It is now weather proof. A junction box covering the original room keeps it powered; otherwise, bolt a junction box down inside it."))
+	else
+		to_chat(creator, span_notice("You have created a new area, named [newA.name]. It is now weather proof, and constructing an APC will allow it to be powered."))
 	return TRUE
 
 
