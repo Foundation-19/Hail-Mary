@@ -41,11 +41,15 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		var/list/cache = typecacheof(areatype)
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
+			if(!A)
+				continue
 			if(cache[A.type])
 				areas += V
 	else
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
+			if(!A)
+				continue
 			if(A.type == areatype)
 				areas += V
 	return areas
@@ -71,6 +75,8 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 		var/list/cache = typecacheof(areatype)
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
+			if(!A)
+				continue
 			if(!cache[A.type])
 				continue
 			for(var/turf/T in A)
@@ -79,6 +85,8 @@ GLOBAL_LIST_INIT(typecache_powerfailure_safe_areas, typecacheof(/area/engine/eng
 	else
 		for(var/V in GLOB.sortedAreas)
 			var/area/A = V
+			if(!A)
+				continue
 			if(A.type != areatype)
 				continue
 			for(var/turf/T in A)

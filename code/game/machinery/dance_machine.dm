@@ -29,6 +29,13 @@
 	var/list/spotlights = list()
 	var/list/sparkles = list()
 
+/obj/machinery/jukebox/radio
+	name = "Music Radio"
+	desc = "A holotape player combine with a radio. But the radio doesn't work anymore, so I hope you enjoy music"
+	icon = 'icons/machines/radio.dmi'
+	icon_state = "large_radio_turn_on"
+
+
 //BIG IRON EDIT -start
 /obj/machinery/jukebox/Initialize() //BIG IRON EDIT -start
 	. = ..()
@@ -708,7 +715,7 @@
 	if(inuse)
 		to_chat(user, "<span class ='warning'>A disk is currently being burned!</span>")
 		return
-	var/choice = input(user, "Disk: [R] \nChoose an option", "[src] menu") as null|anything in menu_options
+	var/choice = input(user, "Disk: [R] /nChoose an option", "[src] menu") as null|anything in menu_options
 	if(!user.Adjacent(src))
 		to_chat(user, "<span class='warning'>You are too far away!")
 		return

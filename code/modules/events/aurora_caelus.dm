@@ -29,6 +29,8 @@
 /datum/round_event/aurora_caelus/start()
 	for(var/area in GLOB.sortedAreas)
 		var/area/A = area
+		if(!A)
+			continue
 		if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
 			for(var/turf/open/space/S in A)
 				S.set_light(S.light_range * 3, S.light_power * 0.5)
@@ -39,6 +41,8 @@
 		var/aurora_color = aurora_colors[aurora_progress]
 		for(var/area in GLOB.sortedAreas)
 			var/area/A = area
+			if(!A)
+				continue
 			if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
 				for(var/turf/open/space/S in A)
 					S.set_light(l_color = aurora_color)
@@ -46,6 +50,8 @@
 /datum/round_event/aurora_caelus/end()
 	for(var/area in GLOB.sortedAreas)
 		var/area/A = area
+		if(!A)
+			continue
 		if(initial(A.dynamic_lighting) == DYNAMIC_LIGHTING_IFSTARLIGHT)
 			for(var/turf/open/space/S in A)
 				fade_to_black(S)
