@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "resolutions": {
+    "tar": "7.5.22"
+  },
   "dependencies": {
     "@babel/core": "^7.29.6",
     "@babel/eslint-parser": "^7.19.1",
