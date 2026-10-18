@@ -6,7 +6,12 @@
     "packages/*"
   ],
   "resolutions": {
-    "tar": "7.5.22"
+    "tar": "7.5.22",
+    "uuid": "11.1.1",
+    "micromatch": "4.0.8",
+    "braces": "3.0.3",
+    "socks": "2.8.10",
+    "@tootallnate/once": "2.0.1"
   },
   "dependencies": {
     "@babel/core": "^7.29.6",
