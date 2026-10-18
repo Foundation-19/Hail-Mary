@@ -8772,6 +8772,9 @@
 /obj/structure/fluff/hedge/opaque{
 	opacity = 0
 	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "cEK" = (
@@ -16543,6 +16546,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
+/obj/structure/cable,
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "eOC" = (
@@ -17835,6 +17839,9 @@
 /area/f13/baltimore/wasteland/city/citycenter)
 "fhh" = (
 /obj/structure/wreck/trash/machinepiletwo,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "fhq" = (
@@ -19838,6 +19845,17 @@
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/baltimore/building/abandoned)
+"fKF" = (
+/obj/structure/fluff/hedge/opaque{
+	opacity = 0
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "fKG" = (
 /obj/effect/decal/cleanable/blood/gibs,
 /obj/structure/reagent_dispensers/barrel/explosive{
@@ -31753,6 +31771,9 @@
 	dir = 8
 	},
 /obj/structure/barricade/wooden,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1/lit,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "jxb" = (
@@ -49386,7 +49407,14 @@
 	color = "#A47449";
 	dir = 8
 	},
-/obj/structure/barricade/wooden,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/f13/faction_generator/wastelander,
+/obj/structure/cable,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/indestructible/ground/outside/gravel,
 /area/f13/baltimore/wasteland/citywasteland/town)
 "oMI" = (
@@ -50784,6 +50812,14 @@
 	icon_state = "common_light1"
 	},
 /area/f13/baltimore/building/abandoned)
+"pjG" = (
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
+/turf/open/floor/plating/dirt/dirt_maryland{
+	icon_state = "dirt_original"
+	},
+/area/f13/baltimore/wasteland/citywasteland/town)
 "pjM" = (
 /obj/structure/rack/shelf_metal,
 /obj/item/folder/blue,
@@ -58073,6 +58109,9 @@
 /area/f13/baltimore/building/abandoned)
 "rvH" = (
 /obj/structure/flora/tree/tall,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plating/dirt/dirt_maryland{
 	icon_state = "dirt_original"
 	},
@@ -60258,6 +60297,15 @@
 	icon_state = "common-broken1"
 	},
 /area/f13/building/center)
+"scP" = (
+/obj/machinery/f13/junction_box/large{
+	pixel_y = -30
+	},
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/building)
 "sdc" = (
 /obj/structure/fence/corner/wooden,
 /obj/structure/fence/corner/wooden{
@@ -65276,7 +65324,6 @@
 	dir = 8
 	},
 /obj/effect/spawner/lootdrop/f13/weapon/gun/ammo/tier4,
-/obj/effect/spawner/lootdrop/f13/weapon/police,
 /turf/open/floor/wood_common,
 /area/f13/building/center)
 "tAA" = (
@@ -78298,11 +78345,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/baltimore/building/abandoned)
-"xpJ" = (
-/obj/structure/bookcase/random,
-/obj/item/book/granter/trait/iron_fist,
-/turf/open/floor/wood_fancy/wood_fancy_light,
-/area/f13/baltimore/building/abandoned)
 "xpN" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/wood_fancy/wood_fancy_light,
@@ -80371,6 +80413,15 @@
 	icon_state = "verticaloutermain1"
 	},
 /area/f13/baltimore/wasteland/city)
+"xVW" = (
+/obj/structure/fluff/hedge/opaque{
+	opacity = 0
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/turf/open/indestructible/ground/outside/gravel,
+/area/f13/baltimore/wasteland/citywasteland/town)
 "xWg" = (
 /mob/living/simple_animal/hostile/radroach,
 /turf/open/floor/plating/rust,
@@ -83573,7 +83624,7 @@ fxz
 meC
 mAN
 tAz
-mAN
+meC
 jJl
 ovk
 erW
@@ -101830,7 +101881,7 @@ oUw
 cOu
 cHE
 hBh
-xpJ
+pak
 bEy
 bEy
 pye
@@ -105350,7 +105401,7 @@ cOu
 pak
 jCv
 jCv
-xpJ
+pak
 bEy
 bEy
 bEy
@@ -143112,11 +143163,11 @@ pIV
 fNR
 jii
 lHu
-xPL
+pjG
 fhh
 rvH
-dKZ
-wgd
+xVW
+fKF
 cEE
 jxa
 oMC
@@ -143464,7 +143515,7 @@ bHL
 wwx
 aSt
 wBK
-hBB
+scP
 bHL
 ldI
 rsm

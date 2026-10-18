@@ -1000,7 +1000,7 @@ Mayor
 	)
 
 
-/datum/job/locust/f13minutemen/veteran
+/datum/job/locust/f13minutemenveteran
 	title = "Minuteman Veteran"
 	flag = F13MINUTEMENVET
 	faction = FACTION_MINUTEMEN

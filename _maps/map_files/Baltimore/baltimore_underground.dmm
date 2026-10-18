@@ -9680,6 +9680,15 @@
 	icon_state = "bluerustysolid"
 	},
 /area/f13/baltimore/vault125/casino)
+"gmU" = (
+/obj/machinery/light/small{
+	dir = 4;
+	name = "tan light fixture";
+	light_color = "#FFDDCC";
+	color = "#FFDDCC"
+	},
+/turf/open/floor/plating/rust,
+/area/f13/baltimore/building/town/appartment3)
 "gmW" = (
 /obj/structure/window/fulltile/house{
 	dir = 2;
@@ -21226,7 +21235,9 @@
 	},
 /area/f13/citycaves)
 "npU" = (
-/obj/structure/stairs/south,
+/obj/structure/stairs/north{
+	color = "#669999"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vault1,
 /area/f13/baltimore/building/town/appartment3)
 "npX" = (
@@ -106952,9 +106963,9 @@ wgK
 qFK
 qUg
 hfT
-bUl
+gmU
 eMm
-emc
+eas
 eas
 ayh
 eas
@@ -107304,9 +107315,9 @@ wgK
 wgK
 qFK
 qFK
-ayh
-npU
 qFK
+npU
+emc
 xlt
 xlt
 ayh
