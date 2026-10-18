@@ -774,6 +774,16 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	/// flood-fill zone datums.  Never set by mappers.  Checked during flood fill
 	/// to prevent two boxes from merging each other's physical zones.
 	var/f13_jbox_zone = FALSE
+	/// TRUE for areas created at runtime (buildmode area_edit) rather than mapped.
+	/// Every runtime area shares one typepath, so junction boxes scope and group these
+	/// by area DATUM instead of by type.  Set automatically by area_edit.
+	var/f13_custom = FALSE
+	/// For custom areas carved out of another area at runtime (blueprints create_area):
+	/// the area it was split from. Junction boxes treat a custom area as in scope when
+	/// any ancestor in this chain is in scope, so a carved-out room stays on its box.
+	var/area/f13/f13_parent_area = null
+	/// For junction-box zone datums: the original area these tiles were taken from.
+	var/area/f13/f13_origin = null
 
 /// Keep f13_grid_power in sync with the actual SS13 equip-channel state.
 /// Also explicitly notify any door/access buttons inside or adjacent to this area.
@@ -817,6 +827,18 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 					for(var/obj/machinery/button/B in W)
 						B.power_change()
 	return ..()
+
+/// Player/admin-made room (buildmode area_edit).  Indoor and dead until a junction box
+/// claims it.  Not unique: every one made at runtime shares this typepath, so junction
+/// boxes tell them apart by datum (see f13_custom) rather than by type.
+/area/f13/custom
+	name = "Custom Area"
+	icon_state = "yellow"
+	requires_power = TRUE
+	outdoors = FALSE
+	weather_tags = null
+	unique = FALSE
+	f13_custom = TRUE
 
 //Wasteland generic areas
 

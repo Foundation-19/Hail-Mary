@@ -207,7 +207,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	req_admin_notify = 1
 	display_order = JOB_DISPLAY_ORDER_CENTURION
 	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13centurion
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_LEGION = 3600)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 1800, EXP_TYPE_LEGION = 3300)
 
 	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND, ACCESS_LEGION_CENTURION)
@@ -383,7 +383,7 @@ Weapons		Lever shotgun, Grease gun, Repeater carbines, Revolvers, simple guns al
 	supervisors = "the Centurion"
 	display_order = JOB_DISPLAY_ORDER_DECANVET
 	outfit = /datum/outfit/job/CaesarsLegion/Legionnaire/f13decanvet
-	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_LEGION = 3000)
+	multi_exp_requirements = list(EXP_TYPE_WASTELAND = 720, EXP_TYPE_LEGION = 2400)
 
 	access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
 	minimal_access = list(ACCESS_LEGION, ACCESS_CHANGE_IDS, ACCESS_LEGION_COMMAND)
