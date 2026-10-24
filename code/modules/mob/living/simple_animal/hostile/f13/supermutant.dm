@@ -637,3 +637,327 @@
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/glow_heal, chosen_targets = /mob/living/simple_animal/hostile/supermutant, allow_revival = FALSE, restrict_faction = null, type_healing = BRUTELOSS | FIRELOSS)
+
+// ============================================================
+// SUPER MUTANT GUNNER - SMG, short bursts, stays close
+// Glass-cannon-ish: lower HP, more rounds, weaker per-round damage.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/smg
+	name = "super mutant gunner"
+	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
+		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
+		If that wasn't bad enough, this monstrous critter is spraying an automatic weapon from the hip. Lovely."
+	maxHealth = 130
+	health = 130
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = 2
+	minimum_distance = 2
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/c10mm/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	sound_after_shooting = null
+	extra_projectiles = 3 // 4-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 2 SECONDS
+
+	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
+		SP_VOLUME_SILENCED(PISTOL_MEDIUM_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(PISTOL_MEDIUM_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(PISTOL_MEDIUM_DISTANT_SOUND),
+		SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
+	)
+
+// ============================================================
+// SUPER MUTANT RIFLEMAN - assault rifle, longer bursts, keeps distance
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/rifleman
+	name = "super mutant rifleman"
+	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
+		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
+		If that wasn't bad enough, this monstrous critter is gripping a military assault rifle. Lovely."
+	maxHealth = 145
+	health = 145
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = 3
+	minimum_distance = 3
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	sound_after_shooting = null
+	extra_projectiles = 2 // 3-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	ranged_cooldown_time = 3 SECONDS
+
+	loot = list(/obj/item/ammo_box/magazine/m556/rifle)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+// ============================================================
+// SUPER MUTANT SUPPRESSOR - machine gun, long slow bursts
+// Slow, tanky, and telegraphed (sight_shoot_delay_time) so players can break line of sight.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/suppressor
+	name = "super mutant suppressor"
+	desc = "A hulking green brute hauling a belt-fed machine gun, welded plates bolted over its chest. \
+		It does not aim so much as point and hold the trigger. Find cover."
+	maxHealth = 200
+	health = 200
+	move_to_delay = 6 // slower than the standard 4
+	mob_armor = ARMOR_VALUE_SUPERMUTANT_HEAVY
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 0
+	minimum_distance = 5
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	sound_after_shooting = null
+	sight_shoot_delay_time = 1 SECONDS // wind-up before the first burst
+	extra_projectiles = 5 // 6-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 5 SECONDS
+
+	// Swap for your LMG / ammo-belt drops if you have them.
+	loot = list(/obj/item/stack/f13Cash/random/high)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+// ============================================================
+// NIGHTKIN INFILTRATOR - stealth SMG
+// Inherits nightkin/rangedmutant Aggro (summon_backup + cloak drops on aggro).
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/infiltrator
+	name = "nightkin infiltrator"
+	desc = "A blue variant of the standard Super Mutant, equipped with stealth boys. This one is holding a submachine gun and moves like it wants to flank you."
+	maxHealth = 150
+	health = 150
+
+	retreat_distance = 2
+	minimum_distance = 2
+
+	projectiletype = /obj/item/projectile/bullet/c10mm/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	extra_projectiles = 2 // 3-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 2 SECONDS
+
+	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
+		SP_VOLUME_SILENCED(PISTOL_MEDIUM_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(PISTOL_MEDIUM_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(PISTOL_MEDIUM_DISTANT_SOUND),
+		SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
+	)
+
+// ============================================================
+// SUICIDER
+// Lore: super mutants hauling a live mini-nuke, rushing their target.
+// Lights its fuse on first contact. Also detonates if killed, so shoot it before it arrives.
+// Explosion scale copied from sentrybot/suicide (1, 2, 4, 4). A mini-nuke may deserve more.
+// SPRITE: reuses the base hulk sprite with a tint.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/suicider
+	name = "suicider super mutant"
+	desc = "A super mutant lashed to a live mini-nuke with scavenged chain. It is not carrying that thing to defend itself."
+	color = "#c9a24a"
+	color_rage = "#ff7733"
+	maxHealth = 110
+	health = 110
+	move_to_delay = 3 // faster than the standard 4, it wants to arrive
+	can_ghost_into = FALSE
+	loot = list()
+	speak = list("BOOM! BOOM!", "GO BANG!", "MASTER WILL BE PROUD!", "BIG BANG, BIG BANG!")
+
+	// Rushes target
+	retreat_distance = null
+	minimum_distance = 1
+
+	var/fuse_lit = FALSE
+	var/detonated = FALSE
+	var/fuse_time = 1.5 SECONDS
+
+/mob/living/simple_animal/hostile/supermutant/suicider/AttackingTarget()
+	. = ..()
+	if(!fuse_lit && isliving(target))
+		light_fuse()
+
+/mob/living/simple_animal/hostile/supermutant/suicider/proc/light_fuse()
+	fuse_lit = TRUE
+	playsound(src, 'sound/machines/triple_beep.ogg', 75, TRUE)
+	visible_message(span_danger("[src] slams a fist onto the mini-nuke's detonator!"), span_danger("You hear an ominous beep!"))
+	addtimer(CALLBACK(src, PROC_REF(fuse_blow)), fuse_time)
+
+/mob/living/simple_animal/hostile/supermutant/suicider/proc/fuse_blow()
+	if(QDELETED(src) || stat == DEAD)
+		return
+	death(TRUE) // death() handles the detonation
+
+/mob/living/simple_animal/hostile/supermutant/suicider/proc/detonate()
+	if(detonated)
+		return
+	detonated = TRUE
+	explosion(src, 1, 2, 4, 4)
+
+/mob/living/simple_animal/hostile/supermutant/suicider/death(gibbed)
+	detonate()
+	. = ..()
+
+// ============================================================
+// FLAMER
+// Lore: mutants armed with flamethrowers. Slow, short-range, fuel tank ruptures on death.
+// Friendly fire is ON, like the fire gecko, so it does not melt its own packmates for free.
+// SPRITE: reuses the ranged mutant sprite from the parent.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/flamer
+	name = "super mutant flamer"
+	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
+		A rusted fuel tank is lashed to its back and the nozzle in its fist is already hissing. Lovely."
+	mob_armor = ARMOR_VALUE_SUPERMUTANT_FLAMER
+	maxHealth = 160
+	health = 160
+	move_to_delay = 5 // slow
+	check_friendly_fire = TRUE
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = null
+	minimum_distance = 1
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/incendiary/shotgun
+	projectilesound = 'sound/magic/fireball.ogg'
+	sound_after_shooting = null
+	ranged_message = "unleashes a burst of flame"
+	extra_projectiles = 2 // 3-shot burst
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 3 SECONDS
+
+	loot = list(/obj/item/ammo_box/shotgun/incendiary)
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/flamer/death(gibbed)
+	var/turf/T = get_turf(src)
+	. = ..()
+	if(!T)
+		return
+	visible_message(span_danger("[src]'s fuel tank ruptures in a burst of flame!"))
+	for(var/turf/F in range(1, T))
+		new /obj/effect/hotspot(F)
+		F.hotspot_expose(500, 500, 1)
+
+// ============================================================
+// OVERLORD
+// Lore: the largest and toughest mutants, leading other mutants in battle.
+// Calls a wider backup radius on aggro, and every 20 seconds in combat
+// bellows a war cry that reduces damage taken by nearby super mutants for 10 seconds.
+// SPRITE: reuses the base hulk sprite with a tint and MOB_SIZE_HUGE.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/overlord
+	name = "super mutant overlord"
+	desc = "Even among super mutants this one is enormous. Scars crosshatch its hide and the others fall in around it without being told. \
+		It is leading them."
+	color = "#4f7a3a"
+	color_rage = "#cc3333"
+	mob_armor = ARMOR_VALUE_SUPERMUTANT_OVERLORD
+	mob_size = MOB_SIZE_HUGE
+	maxHealth = 220
+	health = 220
+	melee_damage_lower = 25
+	melee_damage_upper = 55
+	attack_verb_simple = "pulverizes"
+	attack_sound = "hit_swing"
+	can_ghost_into = FALSE
+	despawns_when_lonely = FALSE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	loot = list(/obj/item/stack/f13Cash/random/high)
+	loot_drop_amount = 5
+	speak = list("FOLLOW ME!", "CRUSH THEM!", "NO MERCY!", "FOR THE MASTER!")
+
+	var/warcry_cooldown = 0
+	var/warcry_cooldown_time = 20 SECONDS
+	var/warcry_range = 7
+	var/warcry_duration = 10 SECONDS
+	var/warcry_damage_coeff = 0.85 // 15% less brute/burn damage taken
+	var/list/warcried = list()
+
+/mob/living/simple_animal/hostile/supermutant/overlord/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(14)
+
+/mob/living/simple_animal/hostile/supermutant/overlord/Life()
+	. = ..()
+	if(!ckey && target && stat != DEAD && world.time > warcry_cooldown)
+		warcry()
+
+/mob/living/simple_animal/hostile/supermutant/overlord/proc/warcry()
+	warcry_cooldown = world.time + warcry_cooldown_time
+	visible_message(span_danger("[src] bellows a thunderous war cry!"))
+	if(aggrosound)
+		playsound(src, pick(aggrosound), 100, 1, SOUND_DISTANCE(15))
+	for(var/mob/living/simple_animal/hostile/supermutant/M in oview(warcry_range, src))
+		if(M.stat == DEAD || (M in warcried))
+			continue
+		warcried += M
+		M.damage_coeff = M.damage_coeff.Copy() // do not edit a shared list
+		M.damage_coeff[BRUTE] *= warcry_damage_coeff
+		M.damage_coeff[BURN] *= warcry_damage_coeff
+		// Global proc so the buff still ends if the overlord dies first.
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_supermutant_warcry), M, warcry_damage_coeff, src), warcry_duration)
+
+/mob/living/simple_animal/hostile/supermutant/overlord/death(gibbed)
+	warcried.Cut()
+	. = ..()
+
+/proc/end_supermutant_warcry(mob/living/simple_animal/hostile/supermutant/M, coeff, mob/living/simple_animal/hostile/supermutant/overlord/source)
+	if(source && !QDELETED(source))
+		source.warcried -= M
+	if(QDELETED(M))
+		return
+	M.damage_coeff = M.damage_coeff.Copy()
+	M.damage_coeff[BRUTE] /= coeff
+	M.damage_coeff[BURN] /= coeff

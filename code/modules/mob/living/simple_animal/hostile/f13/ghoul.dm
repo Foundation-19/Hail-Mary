@@ -595,3 +595,236 @@
 	wound_bonus = 0
 	bare_wound_bonus = 0
 	can_ghost_into = FALSE
+
+// ============================================================
+// FERAL GHOUL ROAMER
+// Tougher and quicker than a standard feral, but unarmored and without ranged attacks.
+// Sits between the base feral and the reaver.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ghoul/roamer
+	name = "feral ghoul roamer"
+	desc = "A ghoul that has lost its mind and become aggressive. This one is lean, sinewy, and covers ground fast."
+	maxHealth = 70
+	health = 70
+	move_to_delay = 2.5
+	melee_damage_lower = 8
+	melee_damage_upper = 15
+	loot = list(/obj/item/stack/f13Cash/random/low/medchance)
+	loot_drop_amount = 2
+	desc_short = "A lean creature that may or may not be a reanimated corpse."
+
+	variation_list = list(
+		MOB_SPEED_LIST(1.9, 2.0, 2.2, 2.3),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(62, 68, 70, 70, 72),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
+
+// ============================================================
+// CHARRED FERAL GHOUL
+// Burnt and brittle. Fast and fragile, and fire hurts it more than a normal ghoul (fire -30 armor).
+// SPRITE: base feral sprite, darkened.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ghoul/charred
+	name = "charred feral ghoul"
+	desc = "A ghoul that has lost its mind and become aggressive. Its skin is blackened and split, and it moves as if the pain no longer registers."
+	color = "#4a4a4a"
+	mob_armor = ARMOR_VALUE_GHOUL_CHARRED
+	maxHealth = 42
+	health = 42
+	move_to_delay = 2
+	melee_damage_lower = 6
+	melee_damage_upper = 13
+	desc_short = "A burnt creature that may or may not be a reanimated corpse."
+
+	variation_list = list(
+		MOB_SPEED_LIST(1.7, 1.8, 2.0, 2.1),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(15),
+		MOB_HEALTH_LIST(36, 40, 42, 42, 44),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
+
+// ============================================================
+// GANGRENOUS FERAL GHOUL
+// Rotting through. Slow, durable, and its bites carry infection (toxin).
+// SPRITE: base feral sprite, sickly green tint.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ghoul/gangrenous
+	name = "gangrenous feral ghoul"
+	desc = "A ghoul that has lost its mind and become aggressive. Its flesh is weeping and green-black. Do not let it bite you."
+	color = "#9bb58a"
+	mob_armor = ARMOR_VALUE_GHOUL_GANGRENOUS
+	maxHealth = 95
+	health = 95
+	move_to_delay = 3.5
+	melee_damage_lower = 8
+	melee_damage_upper = 14
+	loot = list(/obj/item/stack/f13Cash/random/low/medchance)
+	loot_drop_amount = 2
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	desc_short = "A rotting creature that may or may not be a reanimated corpse."
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.9, 3.1, 3.3),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(88, 92, 95, 95, 98),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
+
+/mob/living/simple_animal/hostile/ghoul/gangrenous/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.reagents.add_reagent(/datum/reagent/toxin, 10)
+
+// ============================================================
+// BLOATED GLOWING ONE
+// A glowing ghoul swollen with radiation. Same ranged radiation attack and healing aura
+// as the glowing ghoul (inherited), but tougher and slower, and bursts into a radiation
+// cloud on death, so killing it at close range has a cost.
+// SPRITE: glowing ghoul sprite, scaled up.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ghoul/glowing/bloated
+	name = "bloated glowing one"
+	desc = "A feral ghoul swollen far beyond its natural size, its skin stretched taut and shining with absorbed radiation. It looks ready to burst."
+	mob_armor = ARMOR_VALUE_GHOUL_BLOATED
+	maxHealth = 120
+	health = 120
+	melee_damage_lower = 12
+	melee_damage_upper = 24
+	loot_drop_amount = 3
+	can_ghost_into = FALSE
+	desc_short = "A swollen, glowing creature that may or may not be a reanimated corpse."
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.8, 3.0, 3.2),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(110, 118, 120, 120, 124),
+		MOB_RETREAT_DISTANCE_LIST(0, 1, 2),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(40),
+		MOB_MINIMUM_DISTANCE_LIST(1, 2, 3),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(40)
+	)
+
+/mob/living/simple_animal/hostile/ghoul/glowing/bloated/Initialize(mapload)
+	. = ..()
+	resize = 1.2
+	update_transform()
+
+/mob/living/simple_animal/hostile/ghoul/glowing/bloated/death(gibbed)
+	var/turf/T = get_turf(src)
+	. = ..()
+	if(!T)
+		return
+	visible_message(span_danger("[src] bursts in a flash of irradiated gore!"))
+	playsound(T, 'sound/effects/splat.ogg', 75, TRUE)
+	for(var/mob/living/carbon/human/H in view(2, T))
+		H.apply_effect(30, EFFECT_IRRADIATE, 0)
+
+// ============================================================
+// GHOUL SOLDIER RIFLEMAN
+// Single aimed shots from range. Fragile if caught close. Holds distance.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ghoul/soldier/rifleman
+	name = "ghoul rifleman"
+	desc = "Have you ever seen a living ghoul before?<br>Ghouls are necrotic post-humans - decrepit, rotting, zombie-like mutants. \
+		This one wears the rags of a pre-war army uniform and still holds a rifle steady."
+	mob_armor = ARMOR_VALUE_GHOUL_SOLDIER
+	maxHealth = 70
+	health = 70
+	loot = list(/obj/item/stack/f13Cash/random/low/medchance)
+	loot_drop_amount = 3
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 5
+	minimum_distance = 3
+
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	ranged_message = "fires a rifle"
+	ranged_cooldown_time = 3 SECONDS
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.4, 2.6, 2.8),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(64, 68, 70, 70, 72),
+		MOB_RETREAT_DISTANCE_LIST(4, 5, 6),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(40),
+		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(40)
+	)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+// ============================================================
+// GHOUL SOLDIER GUNNER
+// Automatic rifle bursts. Sturdier than the rifleman and closes in a bit more.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ghoul/soldier/gunner
+	name = "ghoul gunner"
+	desc = "Have you ever seen a living ghoul before?<br>Ghouls are necrotic post-humans - decrepit, rotting, zombie-like mutants. \
+		This one wears a tattered army uniform and fires its assault rifle in short, disciplined bursts."
+	mob_armor = ARMOR_VALUE_GHOUL_SOLDIER
+	maxHealth = 80
+	health = 80
+	loot = list(/obj/item/ammo_box/magazine/m556/rifle)
+	loot_drop_amount = 3
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 3
+	minimum_distance = 2
+
+	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	ranged_message = "fires a burst"
+	extra_projectiles = 2 // 3-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	ranged_cooldown_time = 3 SECONDS
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.4, 2.6, 2.8),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(74, 78, 80, 80, 82),
+		MOB_RETREAT_DISTANCE_LIST(2, 3, 4),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(40),
+		MOB_MINIMUM_DISTANCE_LIST(1, 2, 3),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(40)
+	)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+

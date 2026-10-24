@@ -225,6 +225,81 @@
 		"wound" = 0, \
 		"damage_threshold" = 11)
 
+/* Charred feral ghoul
+ * Burnt skin - nothing protecting it
+ * Resists laser and plasma like other ghouls
+ * Burns badly (fire -30)
+ * No DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_CHARRED list(\
+		"melee" = 0, \
+		"bullet" = 0, \
+		"laser" = 15, \
+		"energy" = 20, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = -30, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
+/* Gangrenous feral ghoul
+ * Thick, rotted tissue soaks up some melee and bullets
+ * Resists laser and plasma like other ghouls
+ * Very low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_GANGRENOUS list(\
+		"melee" = 15, \
+		"bullet" = 10, \
+		"laser" = 15, \
+		"energy" = 20, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 1)
+
+/* Bloated glowing one
+ * Swollen with radiation - tougher than a glowing ghoul but still weak to melee
+ * Very resistant to laser and plasma
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_BLOATED list(\
+		"melee" = -25, \
+		"bullet" = 10, \
+		"laser" = 25, \
+		"energy" = 40, \
+		"bomb" = -25, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 4)
+
+/* Ghoul soldier (former US Army, living)
+ * Worn military kit gives some bullet resistance
+ * Resists laser and plasma like other ghouls
+ * Weak to melee from age and decay
+ * Low DT
+ * Modeled on ARMOR_VALUE_CHINESE_REMNANT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GHOUL_SOLDIER list(\
+		"melee" = -15, \
+		"bullet" = 25, \
+		"laser" = 20, \
+		"energy" = 25, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 5, \
+		"acid" = 5, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
 /* Supermutant jumpsuit
  * Thicc skin resists melee
  * Green skin weak to lasers and plasma
@@ -300,6 +375,61 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 11)
+
+/* Supermutant heavy gunner (suppressor)
+ * Welded plates over the torso, thick skin underneath
+ * Resists bullet best, melee a bit less than the sledgehammer mutant
+ * Plates conduct, so lasers and plasma hurt
+ * Medium DT, between melee mutant and legendary
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SUPERMUTANT_HEAVY list(\
+		"melee" = 35, \
+		"bullet" = 40, \
+		"laser" = -15, \
+		"energy" = -30, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 6)
+
+/* Supermutant flamer
+ * Ranger-tier padding, but the fuel handling gear is heat-resistant
+ * Takes extra damage from explosions (the tank on its back)
+ * Low DT, it is a slow priority target
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SUPERMUTANT_FLAMER list(\
+		"melee" = 35, \
+		"bullet" = 20, \
+		"laser" = -5, \
+		"energy" = -10, \
+		"bomb" = -15, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 50, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Supermutant overlord
+ * Biggest and toughest of the mutants
+ * A little above legendary on melee/bullet DR, higher DT
+ * Still weak to lasers and plasma
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SUPERMUTANT_OVERLORD list(\
+		"melee" = 45, \
+		"bullet" = 45, \
+		"laser" = 0, \
+		"energy" = -5, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 13)
 
 /* Robot Civvy
  * Low DR across the board
@@ -660,9 +790,9 @@
  * Low DT
  * * * * * * * * * * * */
 #define ARMOR_VALUE_CATSLUG list(\
-		"linemelee" = 35, \
-		"linebullet" = -10, \
-		"linelaser" = -10, \
+		"melee" = 35, \
+		"bullet" = -10, \
+		"laser" = -10, \
 		"energy" = -50, \
 		"bomb" = 0, \
 		"bio" = 100, \
