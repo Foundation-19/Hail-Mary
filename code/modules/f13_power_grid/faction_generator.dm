@@ -212,7 +212,7 @@
 // LIFE CYCLE
 // ============================================================
 
-/obj/machinery/f13/faction_generator/Initialize()
+/obj/machinery/f13/faction_generator/Initialize(mapload)
 	. = ..()
 	GLOB.f13_generators += src
 	// Desync each generator's recalc_draw() tick from every other one -- otherwise every
@@ -315,7 +315,7 @@
 					break
 				if(blocked)
 					continue
-				if(locate(/obj/structure/cable) in N)
+				if(f13_cable_can_step(T, N, dir))
 					next_frontier += N
 		frontier = next_frontier
 
@@ -719,60 +719,89 @@
 
 /// Called when the generator is over budget on either true or apparent power.
 /// Returns TRUE if shedding resolved the overload, FALSE if a hard trip is still needed.
+/// Picks the next load to shed. If any candidate alone clears the remaining overload (both watts
+/// and VA), take the smallest such one, so we cut as little as possible. Otherwise take the biggest
+/// and go again, so we cut as few devices as possible. w/va map candidate -> its draw.
+/obj/machinery/f13/faction_generator/proc/_pick_shed_candidate(list/cands, list/w, list/va)
+	var/ex_w = max(0, current_draw - available_watts)
+	var/ex_va = max(0, current_va_draw - get_available_va())
+	var/best_ok = null
+	var/best_ok_w = 1e9
+	var/biggest = null
+	var/biggest_w = -1
+	for(var/c in cands)
+		var/cw = w[c]
+		var/cva = va[c]
+		if(cw >= ex_w && cva >= ex_va && cw < best_ok_w)
+			best_ok = c
+			best_ok_w = cw
+		if(cw > biggest_w)
+			biggest = c
+			biggest_w = cw
+	return best_ok ? best_ok : biggest
+
+/// Called when the generator is over budget on either true or apparent power.
+/// Returns TRUE if shedding resolved the overload, FALSE if a hard trip is still needed.
 /obj/machinery/f13/faction_generator/proc/_do_load_shed()
-	// PRIORITY 1: high-priority grid clients (e.g. fabricators, grid_shed_priority > 0).
-	// Shed active crafting machines first (highest per-unit watt saving),
-	// then idle high-priority units.
+	// PRIORITY 1: grid clients. Pass 1 = high-priority (grid_shed_priority > 0, e.g. fabricators),
+	// pass 2 = everything else. Each pass sheds the fewest/smallest loads that fix the overload.
 	if(_is_over_budget() && linked_clients)
 		for(var/pass in 1 to 2)
+			var/list/cands = list()
+			var/list/cw = list()
+			var/list/cva = list()
 			for(var/obj/machinery/f13/grid_client/C in linked_clients)
-				if(!_is_over_budget())
-					break
 				if(QDELETED(C))
 					continue
 				if(shed_clients && (C in shed_clients))
 					continue  // already shed
 				if(pass == 1 && C.grid_shed_priority == 0)
-					continue  // skip low-priority on first pass
+					continue
 				if(pass == 2 && C.grid_shed_priority > 0)
-					continue  // skip high-priority on second pass
+					continue
+				// Same split rule recalc_draw() uses, so what we subtract is what was added.
+				var/ups = max(1, C.get_live_upstream_count())
+				cands += C
+				cw[C] = C.get_effective_watt_draw() / ups
+				cva[C] = C.get_effective_va_draw() / ups
+			while(cands.len && _is_over_budget())
+				var/obj/machinery/f13/grid_client/C = _pick_shed_candidate(cands, cw, cva)
+				if(!C)
+					break
+				cands -= C
 				C.on_load_shed()
 				if(!shed_clients)
 					shed_clients = list()
 				shed_clients += C
-				current_draw -= C.get_effective_watt_draw()
-				current_va_draw -= C.get_effective_va_draw()
+				current_draw -= cw[C]
+				current_va_draw -= cva[C]
 
-	// PRIORITY 2: relay subtrees — cut lowest-draw relays first to preserve
-	// turret-heavy nodes as long as possible.
+	// PRIORITY 2: relay subtrees, same "smallest that fixes it, else biggest" rule.
 	if(_is_over_budget() && linked_relays)
 		var/list/relay_cands = list()
+		var/list/rw = list()
+		var/list/rva = list()
 		for(var/obj/machinery/f13/power_relay/R in linked_relays)
 			if(QDELETED(R) || !R.relay_powered)
 				continue
 			if(shed_relays && (R in shed_relays))
 				continue
+			var/rups = max(1, R.get_live_upstream_count())
 			relay_cands += R
-		// Each pass: cut the relay with the smallest subtree draw first.
+			rw[R] = R.get_subtree_draw() / rups
+			rva[R] = R.get_subtree_va_draw() / rups
 		while(relay_cands.len > 0 && _is_over_budget())
-			var/obj/machinery/f13/power_relay/pick = null
-			var/pick_draw = 999999
-			for(var/obj/machinery/f13/power_relay/RC in relay_cands)
-				var/d = RC.get_subtree_draw()
-				if(d < pick_draw)
-					pick_draw = d
-					pick = RC
+			var/obj/machinery/f13/power_relay/pick = _pick_shed_candidate(relay_cands, rw, rva)
 			if(!pick)
 				break
-			var/pick_va_draw = pick.get_subtree_va_draw()
 			relay_cands -= pick
 			pick.load_shed = TRUE
 			pick.set_relay_power(FALSE)
 			if(!shed_relays)
 				shed_relays = list()
 			shed_relays += pick
-			current_draw -= pick_draw
-			current_va_draw -= pick_va_draw
+			current_draw -= rw[pick]
+			current_va_draw -= rva[pick]
 
 	return !_is_over_budget()
 

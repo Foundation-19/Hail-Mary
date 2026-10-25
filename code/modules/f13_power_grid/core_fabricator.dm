@@ -662,17 +662,15 @@
 			if(fab_state != FAB_STATE_IDLE)
 				to_chat(U, span_warning("Cannot eject while fabricating."))
 				return
+			// One stack per material instead of N single-item stacks.
 			if(stocked_uranium > 0)
-				for(var/i in 1 to stocked_uranium)
-					new /obj/item/stack/ore/uranium(loc)
+				new /obj/item/stack/ore/uranium(loc, stocked_uranium)
 				stocked_uranium = 0
 			if(stocked_metalparts > 0)
-				for(var/i in 1 to stocked_metalparts)
-					new /obj/item/stack/crafting/metalparts(loc)
+				new /obj/item/stack/crafting/metalparts(loc, stocked_metalparts)
 				stocked_metalparts = 0
 			if(stocked_electronicparts > 0)
-				for(var/i in 1 to stocked_electronicparts)
-					new /obj/item/stack/crafting/electronicparts(loc)
+				new /obj/item/stack/crafting/electronicparts(loc, stocked_electronicparts)
 				stocked_electronicparts = 0
 			if(has_depleted_core)
 				new /obj/item/f13/fusion_core/depleted(loc)

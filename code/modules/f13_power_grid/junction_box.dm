@@ -277,7 +277,7 @@
 // LIFE CYCLE
 // ============================================================
 
-/obj/machinery/f13/junction_box/Initialize()
+/obj/machinery/f13/junction_box/Initialize(mapload)
 	// Zone creation is deferred to LateInitialize() so all turfs
 	// and area datums are fully settled before we read or reassign them.
 	// INITIALIZE_HINT_LATELOAD ensures LateInitialize() is scheduled even
@@ -352,7 +352,8 @@
 					for(var/d in wall_dirs)
 						choices["[dir2text(d)] wall"] = d
 					var/pick = input(user, "Which wall should [src] be mounted on?", "Mount Junction Box") as null|anything in choices
-					if(!pick || !user.Adjacent(src))
+					// input() blocks: re-validate everything that could have changed while the prompt was open.
+					if(!pick || QDELETED(src) || anchored || !user.Adjacent(src) || user.incapacitated())
 						return
 					wall_dir = choices[pick]
 			anchored = TRUE

@@ -89,7 +89,7 @@
 // LIFECYCLE
 // ============================================================
 
-/obj/machinery/f13/power_relay/Initialize()
+/obj/machinery/f13/power_relay/Initialize(mapload)
 	. = ..()
 	GLOB.f13_relays += src
 	resolve_map_links()
@@ -189,14 +189,25 @@
 				// A client fed by more than one live upstream splits its draw evenly between them.
 				draw += C.get_effective_watt_draw() / max(1, C.get_live_upstream_count())
 	if(downstream_relays)
+		// visited maps relay -> its subtree draw, so a relay reachable by two paths inside this tree
+		// is computed once but every parent is still charged its share. A plain visited list let the
+		// second parent's share fall on the floor (diamond undercount).
 		if(!visited)
-			visited = list(src)
+			visited = list()
+			visited[src] = 0
+		if(isnull(visited[src]))
+			visited[src] = 0  // we are mid-computation; a loop back to us counts as zero
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
-			if(!QDELETED(R) && !(R in visited))
-				visited += R
-				// Same split rule applies recursively — a relay with two live parents only
-				// owes each parent half of its own subtree draw.
-				draw += R.get_subtree_draw(visited, nominal) / max(1, R.get_live_upstream_count())
+			if(QDELETED(R))
+				continue
+			// Callers may hand in a plain list (R added with +=); an entry with no value counts as unseen.
+			var/sub = visited[R]
+			if(isnull(sub))
+				visited[R] = 0  // cycle guard while computing
+				sub = R.get_subtree_draw(visited, nominal)
+				visited[R] = sub
+			// A relay with several live parents owes each parent an even share of its own subtree.
+			draw += sub / max(1, R.get_live_upstream_count())
 	return draw
 
 /// Same walk as get_subtree_draw(), but in apparent power (VA) — self base draw plus
@@ -217,11 +228,20 @@
 				draw += C.get_effective_va_draw() / max(1, C.get_live_upstream_count())
 	if(downstream_relays)
 		if(!visited)
-			visited = list(src)
+			visited = list()
+			visited[src] = 0
+		if(isnull(visited[src]))
+			visited[src] = 0  // we are mid-computation; a loop back to us counts as zero
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
-			if(!QDELETED(R) && !(R in visited))
-				visited += R
-				draw += R.get_subtree_va_draw(visited, nominal) / max(1, R.get_live_upstream_count())
+			if(QDELETED(R))
+				continue
+			// Callers may hand in a plain list (R added with +=); an entry with no value counts as unseen.
+			var/sub = visited[R]
+			if(isnull(sub))
+				visited[R] = 0  // cycle guard while computing
+				sub = R.get_subtree_va_draw(visited, nominal)
+				visited[R] = sub
+			draw += sub / max(1, R.get_live_upstream_count())
 	return draw
 
 /// TRUE if something other than a dead feed is holding this relay off (manual isolation).
@@ -391,7 +411,7 @@
 						break
 				if(blocked)
 					continue
-				if(locate(/obj/structure/cable) in N)
+				if(f13_cable_can_step(T, N, dir))
 					next_frontier += N
 		frontier = next_frontier
 

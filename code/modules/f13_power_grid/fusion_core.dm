@@ -61,7 +61,7 @@
 	icon_state = "fusion_core-dead"
 	depleted = TRUE
 
-/obj/item/f13/atomic_cell/depleted/Initialize()
+/obj/item/f13/atomic_cell/depleted/Initialize(mapload)
 	. = ..()
 	// Residual radiation from the spent cell — brief low-level pulse on the tile it lands on.
 	radiation_pulse(src, 15, 1)
