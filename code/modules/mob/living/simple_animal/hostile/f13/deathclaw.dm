@@ -22,6 +22,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	armour_penetration = 0.2 // razor claws shrug off some of a target's armor even before it rages
+	damage_threshold_penetration_mob = 6
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	move_to_delay = 2.75
 	gender = MALE
@@ -99,6 +100,8 @@
 	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/deathclaw/playable
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 0
 	emote_taunt_sound = null
 	emote_taunt = null
 	aggrosound = null
@@ -131,6 +134,8 @@
 	melee_damage_lower = round(initial(melee_damage_lower) * 1.3)
 	melee_damage_upper = round(initial(melee_damage_upper) * 1.3)
 	armour_penetration = initial(armour_penetration) + 0.15 // bypasses a chunk of even heavy armor like riot gear once enraged
+	if(!ckey)
+		damage_threshold_penetration_mob = initial(damage_threshold_penetration_mob) + 4 // enraged claws punch through more flat DT too
 	see_in_dark = initial(see_in_dark) + 4
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_WALLS // enraged, it'll smash straight through a wall to reach you
 	wound_bonus = initial(wound_bonus) + 20
@@ -154,6 +159,7 @@
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
+	damage_threshold_penetration_mob = initial(damage_threshold_penetration_mob)
 	see_in_dark = initial(see_in_dark)
 	environment_smash = initial(environment_smash)
 	wound_bonus = initial(wound_bonus)
@@ -188,6 +194,8 @@
 	icon_living = "inteligent"
 
 /mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "inflicted deathclaw"
 	desc = "There was a time where this deathclaw was inteligent, able to thinking, with a mind and reason. You can still hear it, lamentation. Its trying to resist, and save you from what ever is controling him."
 	icon_state = "inflicted"
@@ -261,16 +269,6 @@
 	if(target)
 		Goto(target, move_to_delay, minimum_distance)
 
-// Shared helper so young-deathclaw deaths can set other deathclaws lunging.
-// Lives on the base type because Charge() is defined there.
-/mob/living/simple_animal/hostile/deathclaw/proc/fury_lunge()
-	if(stat == DEAD || QDELETED(src) || charging || !target)
-		return
-	if(world.time < charge_cooldown)
-		return
-	visible_message(span_danger("\The [src] roars and lunges!"))
-	addtimer(CALLBACK(src, PROC_REF(Charge)), 0.3 SECONDS)
-
 /mob/living/simple_animal/hostile/deathclaw/Bump(atom/A)
 	if(charging)
 		if((isturf(A) || isobj(A)) && A.density)
@@ -304,6 +302,8 @@
 
 // Mother deathclaw
 /mob/living/simple_animal/hostile/deathclaw/mother
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "mother deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is an angry mother."
 	gender = FEMALE
@@ -334,6 +334,8 @@
 
 //Legendary Deathclaw
 /mob/living/simple_animal/hostile/deathclaw/legendary
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
 	name = "legendary deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is a legendary enemy."
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
@@ -353,6 +355,8 @@
 
 //Power Armor Deathclaw - the tankiest deathclaw
 /mob/living/simple_animal/hostile/deathclaw/power_armor
+	armour_penetration = 0.4
+	damage_threshold_penetration_mob = 12
 	name = "power armored deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. Someone had managed to put power armor on him."
 	icon_state = "combatclaw"
@@ -364,12 +368,6 @@
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60
-
-// ============================================================
-// YOUNG DEATHCLAW
-// Smaller, faster, much weaker. Cannot reach as far and barely charges.
-// Killing one sends nearby deathclaws that are already fighting into a lunge.
-// ============================================================
 
 /mob/living/simple_animal/hostile/deathclaw/young
 	name = "young deathclaw"
@@ -383,6 +381,7 @@
 	melee_damage_lower = 12
 	melee_damage_upper = 20
 	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	charge_cooldown_time = 30 SECONDS // rarely lunges
 	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
@@ -420,6 +419,8 @@
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 30
 	melee_damage_upper = 48
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 8
 	charge_cooldown_time = 7 SECONDS
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 	guaranteed_butcher_results = list(
@@ -448,6 +449,8 @@
 	move_to_delay = 2.5
 	melee_damage_lower = 28
 	melee_damage_upper = 38
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 	var/cloak_alpha = 60
 
@@ -480,6 +483,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/deathclaw/mother/nesting
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "nesting mother deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is curled protectively around a nest, and small clawed shapes shift in the shadows beside her."
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS

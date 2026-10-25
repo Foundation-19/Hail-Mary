@@ -25,6 +25,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	
 	aggro_vision_range = 7
@@ -191,6 +193,8 @@
 	
 	melee_damage_lower = 24
 	melee_damage_upper = 55
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	attack_verb_simple = "pulverizes"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	
@@ -282,6 +286,8 @@
 
 // PLAYABLE SENTRY BOT
 /mob/living/simple_animal/hostile/securitron/sentrybot/playable
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 50
 	health = 50
 	speed = 1
@@ -301,6 +307,8 @@
 
 // Chinese Counterfeit Securitron
 /mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
 	name = "Chinese Counterfeit Sentrybot"
 	desc = "A sentrybot copy made by China. This one has the markings of the submarine 'Hui'."
 	extra_projectiles = 2
@@ -353,6 +361,8 @@
 
 // LIL' CHEW-CHEW - unique named boss
 /mob/living/simple_animal/hostile/securitron/sentrybot/chew
+	armour_penetration = 0.35
+	damage_threshold_penetration_mob = 10
 	name = "lil' chew-chew"
 	desc = "An oddly scorched pre-war military robot armed with a deadly gatling laser and covered in thick, oddly blue armor plating, the name Lil' Chew-Chew scratched onto its front armour crudely, highlighted by small bits of white paint. There seems to be an odd pack on the monstrosity's back with a chute at the bottom - there's the most scorch-marks on the robot here, so it's safe to assume this robot is capable of explosions. Better watch out!"
 	
@@ -389,6 +399,7 @@
 	health = 1500
 	extra_projectiles = 4  // Fires a bit less than lil chew-chew
 	armour_penetration = 1
+	damage_threshold_penetration_mob = 0
 	move_to_delay = 2.75
 	rapid_melee = 2
 	
@@ -401,6 +412,8 @@
 
 // SUICIDE SENTRY - rushes in and explodes
 /mob/living/simple_animal/hostile/securitron/sentrybot/suicide
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "explosive sentry bot"
 	desc = "A pre-war military robot armed with a deadly gatling laser and covered in thick armor plating. Don't get too close to this one, it looks like it's rigged to blow!"
 	

@@ -5,6 +5,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "super mutant"
 	desc = "A gigantic, green, angry-looking humanoid wrapped in a jumpsuit that may have fit him... her? at some point. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. Have fun!"
@@ -155,6 +157,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/playable
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 145
 	health = 145
 	emote_taunt_sound = null
@@ -216,6 +220,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/meleemutant
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "sledgehammer supermutant"
 	desc = "An enormous, green tank of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
@@ -298,6 +304,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/legendary
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "legendary super mutant"
 	desc = "A huge and ugly mutant humanoid. He has a faint yellow glow to him, scars adorn his body. This super mutant is a grizzled veteran of combat. Look out!"
 	color = "#FFFF00"
@@ -318,6 +326,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/nightkin
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "nightkin"
 	desc = "A blue variant of the standard Super Mutant, equipped with stealth boys."
 	icon_state = "night_s"
@@ -389,6 +399,8 @@
 	alpha = 255
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "nightkin elite"
 	desc = "A blue variant of the standard Super Mutant, and a remnant of the Masters Army."
 	icon_state = "night_boss_s"
@@ -436,6 +448,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/meleemutant/rain
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "super mutant rain cultist"
 	desc = "A super mutant covered in blue markings that has been indoctrinated into the Cult Of Rain. This one wields a sledgehammer blessed by the rain gods."
 	color = "#6B87C0"
@@ -463,6 +477,8 @@
 
 // Berserker nightkin - charges when shot, leaves destruction in its wake
 /mob/living/simple_animal/hostile/supermutant/nightkin/rain
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "nightkin berserker rain priest"
 	desc = "A nightkin that spreads the word of the Cult Of Rain. They are covered in dark blue markings, indicating that they have been blessed by the rain god Odile."
 	color = "#6666FF"
@@ -621,6 +637,8 @@
 
 // Rain lord nightkin - most powerful, dual resistance, healing aura
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "nightkin rain lord"
 	desc = "A nightkin that writes the word of the Cult Of Rain. They are covered in dark blue markings and are adorned in pieces of bone armor, indicating that they are blessed by the rain god Hyacinth."
 	color = "#6666FF"
@@ -644,6 +662,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/smg
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "super mutant gunner"
 	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
@@ -682,6 +702,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/rifleman
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "super mutant rifleman"
 	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
@@ -695,7 +717,7 @@
 	minimum_distance = 3
 
 	casingtype = null
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	sound_after_shooting = null
 	extra_projectiles = 2 // 3-round bursts
@@ -721,6 +743,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/suppressor
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "super mutant suppressor"
 	desc = "A hulking green brute hauling a belt-fed machine gun, welded plates bolted over its chest. \
 		It does not aim so much as point and hold the trigger. Find cover."
@@ -736,7 +760,7 @@
 	minimum_distance = 5
 
 	casingtype = null
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	sound_after_shooting = null
 	sight_shoot_delay_time = 1 SECONDS // wind-up before the first burst
@@ -764,6 +788,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/infiltrator
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "nightkin infiltrator"
 	desc = "A blue variant of the standard Super Mutant, equipped with stealth boys. This one is holding a submachine gun and moves like it wants to flank you."
 	maxHealth = 150
@@ -800,6 +826,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/suicider
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "suicider super mutant"
 	desc = "A super mutant lashed to a live mini-nuke with scavenged chain. It is not carrying that thing to defend itself."
 	color = "#c9a24a"
@@ -853,6 +881,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/flamer
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "super mutant flamer"
 	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		A rusted fuel tank is lashed to its back and the nozzle in its fist is already hissing. Lovely."
@@ -908,6 +938,8 @@
 	health = 220
 	melee_damage_lower = 25
 	melee_damage_upper = 55
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
 	attack_verb_simple = "pulverizes"
 	attack_sound = "hit_swing"
 	can_ghost_into = FALSE

@@ -191,6 +191,8 @@
 
 // BIG GECKO - slow, heavy hitter, poor vision
 /mob/living/simple_animal/hostile/gecko/big
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 2
 	name = "big gecko"
 	desc = "A large mutated reptile with sharp teeth. This one's pretty big, but its eyes seem clouded and it moves a bit clumsily."
 	
@@ -227,6 +229,8 @@
 
 // PLAYABLE GECKO - for ghost roles
 /mob/living/simple_animal/hostile/gecko/playable
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 40
 	health = 40
 	melee_damage_lower = 8
@@ -859,6 +863,8 @@
 	health = 85
 	melee_damage_lower = 8
 	melee_damage_upper = 18
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
 	desc_short = "A larger, tougher gecko with golden scales and a valuable hide."
 	guaranteed_butcher_results = list(
@@ -893,6 +899,8 @@
 	move_to_delay = 2.2
 	melee_damage_lower = 5
 	melee_damage_upper = 11
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
 	guaranteed_butcher_results = list(
 		/obj/item/stack/sheet/animalhide/wolf = 1,
@@ -928,6 +936,8 @@
 
 	melee_damage_lower = 3
 	melee_damage_upper = 7
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	obj_damage = 10
 

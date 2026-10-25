@@ -22,6 +22,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -122,6 +124,8 @@
 
 // VAULT SECURITY - armed guards
 /mob/living/simple_animal/hostile/vault/security
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Vault Security"
 	desc = "Just a Vault Security officer."
 	icon_state = "vault_dweller_sec"
@@ -199,6 +203,8 @@
 	
 	melee_damage_lower = 15
 	melee_damage_upper = 35
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -291,6 +297,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 15
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	
@@ -333,6 +341,8 @@
 	
 	melee_damage_lower = 20
 	melee_damage_upper = 47
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	
 	loot = list(/obj/effect/mob_spawn/human/corpse/enclave/soldier)
 	
@@ -404,6 +414,8 @@
 	
 	melee_damage_lower = 7
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -497,6 +509,8 @@
 
 // BROTHERHOOD PALADIN - laser rifle + power armor
 /mob/living/simple_animal/hostile/bs/paladin
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "Brotherhood Paladin"
 	desc = "A Paladin equipped with an AER9 and T-51b power armor. The Brotherhood has arrived."
 	icon_state = "bs_paladin"
@@ -576,6 +590,8 @@
 	
 	melee_damage_lower = 8
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -654,7 +670,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/varmint_rifle.ogg'
 	casingtype = /obj/item/ammo_casing/a556
 	projectile_sound_properties = list(
@@ -670,6 +686,8 @@
 
 // NCR RANGER - revolver
 /mob/living/simple_animal/hostile/ncr/ranger
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "NCR Ranger"
 	desc = "A Ranger of the NCRA, wielding a big iron on his hip and equipped with a ranger patrol vest."
 	icon_state = "ncr_sergeant"
@@ -745,6 +763,8 @@
 	
 	melee_damage_lower = 8
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -823,7 +843,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/pen
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
 	casingtype = /obj/item/ammo_casing/a308
 	projectile_sound_properties = list(
@@ -839,6 +859,8 @@
 
 // LEGION DECANUS - veteran officer
 /mob/living/simple_animal/hostile/legion/decan
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "Legion Decanus"
 	desc = "A Prime Decanus, equipped with a hunting rifle."
 	icon_state = "legion_decan"
@@ -861,7 +883,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
 	casingtype = /obj/item/ammo_casing/a308
 	projectile_sound_properties = list(
@@ -913,6 +935,8 @@
 	
 	melee_damage_lower = 22
 	melee_damage_upper = 47
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE

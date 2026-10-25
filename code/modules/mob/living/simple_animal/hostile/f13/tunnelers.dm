@@ -85,6 +85,8 @@
 
 // SPORE CARRIER - fungal zombie
 /mob/living/simple_animal/hostile/trog/sporecarrier
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "spore carrier"
 	desc = "A victim of the beauveria mordicana fungus. This corpse's sole purpose is to spread its spores."
 	icon_state = "spore_carrier"
@@ -145,6 +147,7 @@
 	melee_damage_lower = 18
 	melee_damage_upper = 32
 	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 6
 	obj_damage = 150
 	
 	see_in_dark = 8
@@ -240,6 +243,7 @@
 	melee_damage_lower = round(melee_damage_lower * 1.3)
 	melee_damage_upper = round(melee_damage_upper * 1.3)
 	armour_penetration = 0.35  // Increased from 0.25
+	damage_threshold_penetration_mob = initial(damage_threshold_penetration_mob) + 4
 	is_low_health = TRUE
 
 /mob/living/simple_animal/hostile/trog/tunneler/blindone/make_high_health()
@@ -249,6 +253,7 @@
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
+	damage_threshold_penetration_mob = initial(damage_threshold_penetration_mob)
 	is_low_health = FALSE
 
 // TUNNELER SWARM - weak but numerous

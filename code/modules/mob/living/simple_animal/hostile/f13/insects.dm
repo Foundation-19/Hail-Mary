@@ -6,6 +6,8 @@
 
 // BASE GIANT ANT
 /mob/living/simple_animal/hostile/giantant
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "giant ant"
 	desc = "A giant ant with twitching, darting antennae. Its outsides are a mixture of crusted, unrotting rock and chitin that bounce off bullets and melee weapons. Hardened insides compact once valueless sand and dirt to gemstones. Can be butchered down the thorax for minerals and shinies."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -99,6 +101,8 @@
 
 // FIRE ANT - applies burning reagent
 /mob/living/simple_animal/hostile/fireant
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "fire ant"
 	desc = "A large reddish ant. The furnace it holds inside itself blasts intruders and the dirt it chews with flaming heat. Its insides contain more gemstones than its unremarkable kin."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -195,6 +199,8 @@
 
 // ANT QUEEN - boss variant, spawns ants
 /mob/living/simple_animal/hostile/giantantqueen
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "giant ant queen"
 	desc = "The queen of a giant ant colony. Butchering it seems like a good way to make a pretty penny."
 	icon = 'icons/mob/animals/antqueen.dmi'
@@ -329,6 +335,8 @@
 
 // BASE RADSCORPION
 /mob/living/simple_animal/hostile/radscorpion
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	name = "giant radscorpion"
 	desc = "A mutated arthropod with an armored carapace and a powerful sting."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -443,6 +451,8 @@
 
 // BLACK RADSCORPION - tougher, slower
 /mob/living/simple_animal/hostile/radscorpion/black
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "black radscorpion"
 	desc = "A giant irradiated scorpion with a black exoskeleton. Its appearance makes you shudder in fear. This one has giant pincers."
 	icon_state = "radscorpion_black"
@@ -888,6 +898,8 @@
 	harm_intent_damage = 8
 	obj_damage = 20
 	sharpness = SHARP_EDGED
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	wound_bonus = 15
 	bare_wound_bonus = 20
 
@@ -977,6 +989,8 @@
 
 	melee_damage_lower = 4
 	melee_damage_upper = 9
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	obj_damage = 15
 	rapid_melee = 2
@@ -1085,6 +1099,8 @@
 
 	melee_damage_lower = 4
 	melee_damage_upper = 8
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	obj_damage = 15
 
@@ -1175,6 +1191,8 @@
 	health = 30
 	melee_damage_lower = 5
 	melee_damage_upper = 9
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	light_range = 2
 	light_color = "#99ff66"
 	desc_short = "A glowing, irradiated bug. Its bite is radioactive."

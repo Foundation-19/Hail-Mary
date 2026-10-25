@@ -140,6 +140,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/reaver
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "feral ghoul reaver"
 	desc = "A ghoul that has lost its mind and become aggressive. This one is strapped with metal armor, and appears far stronger."
 	icon_state = "ghoulreaver"
@@ -223,6 +225,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/coldferal
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "cold ghoul feral"
 	desc = "A ghoul that has lost its mind and become aggressive. This one is strapped with metal armor, and appears far stronger."
 	icon_state = "cold_feral"
@@ -252,6 +256,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/legendary
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "legendary ghoul"
 	desc = "A ghoul that has lost its mind and become aggressive. This one has exceptionally large, bulging muscles. It looks quite strong."
 	icon_state = "glowinghoul"
@@ -387,6 +393,7 @@
 	melee_damage_lower = 25
 	melee_damage_upper = 30
 	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 
 // ============================================================
 // SOLDIER GHOULS (living/allied)
@@ -515,6 +522,8 @@
 		try_to_ghoul_zombie_infect(H) // Defined in disease/infection code
 
 /mob/living/simple_animal/hostile/ghoul/zombie/reaver
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "ravenous feral ghoul reaver"
 	desc = "A ferocious feral ghoul, hungry for human meat. This one is strapped with metal armor, and appears far stronger."
 	icon_state = "ghoulreaver"
@@ -538,6 +547,8 @@
 	projectilesound = 'sound/weapons/punchmiss.ogg'
 
 /mob/living/simple_animal/hostile/ghoul/zombie/glowing
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "ravenous glowing feral ghoul"
 	desc = "A ferocious feral ghoul, hungry for human meat. This one has absorbed massive amounts of radiation, causing them to glow in the dark and radiate constantly."
 	icon_state = "glowinghoul"
@@ -579,6 +590,8 @@
 		H.apply_effect(20, EFFECT_IRRADIATE, 0)
 
 /mob/living/simple_animal/hostile/ghoul/zombie/legendary
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "legendary ravenous ghoul"
 	desc = "A ferocious feral ghoul, hungry for human meat. This one has exceptionally large, bulging muscles. It looks quite strong."
 	icon_state = "glowinghoul"
@@ -610,6 +623,8 @@
 	move_to_delay = 2.5
 	melee_damage_lower = 8
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	loot = list(/obj/item/stack/f13Cash/random/low/medchance)
 	loot_drop_amount = 2
 	desc_short = "A lean creature that may or may not be a reanimated corpse."
@@ -640,6 +655,8 @@
 	move_to_delay = 2
 	melee_damage_lower = 6
 	melee_damage_upper = 13
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	desc_short = "A burnt creature that may or may not be a reanimated corpse."
 
 	variation_list = list(
@@ -668,6 +685,8 @@
 	move_to_delay = 3.5
 	melee_damage_lower = 8
 	melee_damage_upper = 14
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	loot = list(/obj/item/stack/f13Cash/random/low/medchance)
 	loot_drop_amount = 2
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
@@ -705,6 +724,8 @@
 	health = 120
 	melee_damage_lower = 12
 	melee_damage_upper = 24
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	loot_drop_amount = 3
 	can_ghost_into = FALSE
 	desc_short = "A swollen, glowing creature that may or may not be a reanimated corpse."
@@ -740,6 +761,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/soldier/rifleman
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "ghoul rifleman"
 	desc = "Have you ever seen a living ghoul before?<br>Ghouls are necrotic post-humans - decrepit, rotting, zombie-like mutants. \
 		This one wears the rags of a pre-war army uniform and still holds a rifle steady."
@@ -754,7 +777,7 @@
 	retreat_distance = 5
 	minimum_distance = 3
 
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/pen
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
 	ranged_message = "fires a rifle"
 	ranged_cooldown_time = 3 SECONDS
@@ -786,6 +809,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/soldier/gunner
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "ghoul gunner"
 	desc = "Have you ever seen a living ghoul before?<br>Ghouls are necrotic post-humans - decrepit, rotting, zombie-like mutants. \
 		This one wears a tattered army uniform and fires its assault rifle in short, disciplined bursts."
@@ -800,7 +825,7 @@
 	retreat_distance = 3
 	minimum_distance = 2
 
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	ranged_message = "fires a burst"
 	extra_projectiles = 2 // 3-round bursts

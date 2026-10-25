@@ -24,6 +24,8 @@
 	
 	melee_damage_lower = 20
 	melee_damage_upper = 38
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -93,6 +95,8 @@
 
 // PISTOL SOLDIER - ranged variant
 /mob/living/simple_animal/hostile/chinese/ranged
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "chinese remnant soldier"
 	icon_state = "chinesepistol"
 	icon_living = "chinesepistol"
@@ -127,6 +131,8 @@
 
 // ASSAULT SOLDIER - burst fire rifle
 /mob/living/simple_animal/hostile/chinese/ranged/assault
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "chinese remnant assault soldier"
 	icon_state = "chineseassault"
 	icon_living = "chineseassault"
@@ -143,7 +149,7 @@
 	
 	// Pure ranged - assault rifle
 	ranged_cooldown_time = 15
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
@@ -163,6 +169,8 @@
 	summon_backup(10)
 
 /mob/living/simple_animal/hostile/chinese/ranged/stealth
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "chinese remnant infiltrator"
 	icon_state = "chinesestealth"
 	icon_living = "chinesestealth"
@@ -170,7 +178,7 @@
 	health = 100
 	extra_projectiles = 4
 	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/assault, /obj/item/gun/ballistic/automatic/type93, /obj/item/ammo_box/magazine/m556/rifle/assault,/obj/item/clothing/under/f13/chinasuitcosmetic,/obj/item/clothing/head/f13/chinahelmetcosmetic)
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),

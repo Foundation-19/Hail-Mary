@@ -751,6 +751,20 @@
 	60 base damage
 */
 
+/obj/item/projectile/bullet/a556/simple/pen
+	name = "5.56 bullet"
+	damage_threshold_penetration = 2
+
+/obj/item/projectile/bullet/a762/sport/simple/pen
+	name = ".308 bullet"
+	damage_threshold_penetration = 2
+
+/obj/item/projectile/bullet/a762/sport/simple/heavy
+	name = ".308 bullet"
+	armour_penetration = 0.4
+	damage_threshold_penetration = 4
+
+
 /obj/item/projectile/bullet/a3006
 	name = ".30-06 bullet"
 	damage = BULLET_DAMAGE_RIFLE_3006

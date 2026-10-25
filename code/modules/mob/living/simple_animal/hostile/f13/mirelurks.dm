@@ -6,6 +6,8 @@
 
 // BASE MIRELURK - shared properties
 /mob/living/simple_animal/hostile/mirelurk
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "mirelurk"
 	desc = "A giant mutated crustacean, with a hardened exo-skeleton."
 	icon = 'icons/mob/animals/mirelurks.dmi'
@@ -103,6 +105,8 @@
 
 // MIRELURK HUNTER - bigger, meaner, faster
 /mob/living/simple_animal/hostile/mirelurk/hunter
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	name = "mirelurk hunter"
 	desc = "A giant mutated crustacean, with a hardened exoskeleton. Its appearance makes you shudder in fear. This one has giant, razor-sharp claw pincers."
 	icon_state = "mirelurkhunter"
@@ -139,6 +143,8 @@
 
 // MIRELURK BABY - small, weak, calls for help
 /mob/living/simple_animal/hostile/mirelurk/baby
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "mirelurk baby"
 	desc = "A neophyte mirelurk baby, mostly harmless. Adults respond to their chittering if distressed."
 	icon_state = "mirelurkbaby"
@@ -185,6 +191,8 @@
 
 // MIRELURK QUEEN - rare, powerful, spawns babies
 /mob/living/simple_animal/hostile/mirelurk/queen
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "mirelurk queen"
 	desc = "A massive mirelurk matriarch. Her hardened carapace glistens with toxic secretions, and she guards her brood fiercely."
 	icon_state = "mirelurk"
@@ -265,6 +273,8 @@
 
 // SOFTSHELL MIRELURK - weaker variant, less armor
 /mob/living/simple_animal/hostile/mirelurk/softshell
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "softshell mirelurk"
 	desc = "A mirelurk that hasn't fully hardened its shell yet. Still dangerous, but more vulnerable."
 	icon_state = "mirelurk"
@@ -295,6 +305,8 @@
 
 // KING MIRELURK - rare boss variant
 /mob/living/simple_animal/hostile/mirelurk/king
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 8
 	name = "mirelurk king"
 	desc = "A towering humanoid mirelurk with a distinctive crown-like crest. Highly intelligent and extremely dangerous."
 	icon_state = "mirelurkhunter"
