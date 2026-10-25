@@ -564,6 +564,60 @@
 		"wound" = 0, \
 		"damage_threshold" = 25)
 
+/* Young deathclaw
+ * Not fully grown - thin hide, light bones
+ * Bullets still bounce off a bit, but nowhere near an adult
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_YOUNG list(\
+		"melee" = 5, \
+		"bullet" = 25, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 4)
+
+/* Alpha male deathclaw
+ * Scarred, heavier hide than a common deathclaw, a bit under the mother
+ * Bullets mostly bounce, lasers a bit better
+ * Plasma still works
+ * Lot of DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_ALPHA list(\
+		"melee" = 20, \
+		"bullet" = 62, \
+		"laser" = 30, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 16)
+
+/* Chameleon deathclaw
+ * Lighter build than a common deathclaw - relies on not being seen
+ * Moderate bullet resistance, lower DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_CHAMELEON list(\
+		"melee" = 10, \
+		"bullet" = 50, \
+		"laser" = 15, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 11)
+
 /* Raider leather jacket
  * Basically a leather jacket
  * Melee resistant
@@ -997,6 +1051,42 @@
 		"acid" = 0, \
 		"wound" = 5, \
 		"damage_threshold" = 0)
+
+/* Golden gecko
+ * Thicker scales than a common gecko (BEAST_HIDE 15/10) but still just a big lizard
+ * Slightly better melee and bullet resistance, a point of DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_GECKO_GOLDEN list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 1)
+
+
+/* Giant mantis
+ * Hard chitin plates on the forelegs and thorax, soft abdomen
+ * Light all around - it is a fast ambusher, not a tank
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MANTIS list(\
+		"melee" = 15, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 3)
 
 /* Tunneler armor
  * Deadly swarm creature with tough hide

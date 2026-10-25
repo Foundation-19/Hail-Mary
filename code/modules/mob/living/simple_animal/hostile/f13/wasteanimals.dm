@@ -842,3 +842,156 @@
 		if(L.stat >= UNCONSCIOUS)
 			return FALSE
 	return ..()
+
+// ============================================================
+// GOLDEN GECKO
+// Tougher, larger gecko with valuable hide. Inherits gecko aggro (summon_backup),
+// CanAttack and become_the_mob. Defines its own variation_list because the base list has
+// color variation (would erase the gold tint) and 40-58 HP (would erase these numbers).
+// ============================================================
+
+/mob/living/simple_animal/hostile/gecko/golden
+	name = "golden gecko"
+	desc = "A large mutated reptile with sharp teeth and glittering golden scales. It is bigger and meaner than its common cousins."
+	color = "#e0b53a"
+	mob_armor = ARMOR_VALUE_GECKO_GOLDEN
+	maxHealth = 85
+	health = 85
+	melee_damage_lower = 8
+	melee_damage_upper = 18
+	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+	desc_short = "A larger, tougher gecko with golden scales and a valuable hide."
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/gecko = 3,
+		/obj/item/stack/sheet/animalhide/gecko = 2, // swap for a golden gecko hide item if you have one
+		/obj/item/stack/sheet/bone = 1
+	)
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.0, 2.3, 2.6),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
+		MOB_HEALTH_LIST(78, 85, 92)
+	)
+
+/mob/living/simple_animal/hostile/gecko/golden/Initialize(mapload)
+	. = ..()
+	resize = 1.15
+	update_transform()
+
+// ============================================================
+// COYOTE
+// Smaller, faster, weaker than a feral dog, still hunts in packs.
+// Inherits wolf aggro (summon_backup 8), CanAttack, faction (hostile + wolf), armor, sounds.
+// ============================================================
+
+/mob/living/simple_animal/hostile/wolf/coyote
+	name = "coyote"
+	desc = "A lean, mangy wild canine with a hungry look. It travels in packs and does not scare easily."
+	color = "#c9a46a"
+	maxHealth = 40
+	health = 40
+	move_to_delay = 2.2
+	melee_damage_lower = 5
+	melee_damage_upper = 11
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+	guaranteed_butcher_results = list(
+		/obj/item/stack/sheet/animalhide/wolf = 1,
+		/obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1
+	)
+
+/mob/living/simple_animal/hostile/wolf/coyote/Initialize(mapload)
+	. = ..()
+	resize = 0.85
+	update_transform()
+
+// ============================================================
+// GIANT RAT
+// Cheap pest that comes in swarms. Weak alone, annoying in numbers.
+// ============================================================
+
+/mob/living/simple_animal/hostile/giantrat
+	name = "giant rat"
+	desc = "A rat the size of a cat, with matted fur and yellow teeth. Rarely alone."
+	icon = 'icons/mob/animals/wasteanimals.dmi'
+	icon_state = "molerat" // placeholder
+	icon_living = "molerat"
+	icon_dead = "molerat_dead"
+	color = "#8a8178"
+
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+
+	maxHealth = 15
+	health = 15
+	speed = 1
+	turns_per_move = 5
+
+	melee_damage_lower = 3
+	melee_damage_upper = 7
+	harm_intent_damage = 8
+	obj_damage = 10
+
+	aggro_vision_range = 7
+	vision_range = 8
+
+	butcher_difficulty = 1
+	pass_flags = PASSTABLE
+
+	speak_emote = list("squeaks")
+	attack_verb_simple = "bites"
+	attack_sound = 'sound/creatures/molerat_attack.ogg'
+	emote_taunt = list("hisses")
+	emote_taunt_sound = list('sound/f13npc/molerat/taunt.ogg')
+	taunt_chance = 30
+	aggrosound = list('sound/f13npc/molerat/aggro1.ogg', 'sound/f13npc/molerat/aggro2.ogg')
+	idlesound = list('sound/f13npc/molerat/idle.ogg')
+	death_sound = 'sound/f13npc/molerat/death.ogg'
+
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+
+	faction = list("hostile", "gecko")
+	a_intent = INTENT_HARM
+	gold_core_spawnable = HOSTILE_SPAWN
+	decompose = FALSE
+	footstep_type = FOOTSTEP_MOB_CLAW
+
+	can_ghost_into = TRUE
+	desc_short = "A vermin that comes in swarms."
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+
+	variation_list = list(
+		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
+		MOB_SPEED_LIST(2.0, 2.2, 2.4, 2.6),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
+		MOB_HEALTH_LIST(10, 15, 18)
+	)
+
+/mob/living/simple_animal/hostile/giantrat/Initialize(mapload)
+	. = ..()
+	resize = 0.6
+	update_transform()
+
+/mob/living/simple_animal/hostile/giantrat/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(8)
+
+/mob/living/simple_animal/hostile/giantrat/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/giantrat/become_the_mob(mob/user)
+	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
+	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/small_critter
+	. = ..()

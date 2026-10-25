@@ -261,6 +261,16 @@
 	if(target)
 		Goto(target, move_to_delay, minimum_distance)
 
+// Shared helper so young-deathclaw deaths can set other deathclaws lunging.
+// Lives on the base type because Charge() is defined there.
+/mob/living/simple_animal/hostile/deathclaw/proc/fury_lunge()
+	if(stat == DEAD || QDELETED(src) || charging || !target)
+		return
+	if(world.time < charge_cooldown)
+		return
+	visible_message(span_danger("\The [src] roars and lunges!"))
+	addtimer(CALLBACK(src, PROC_REF(Charge)), 0.3 SECONDS)
+
 /mob/living/simple_animal/hostile/deathclaw/Bump(atom/A)
 	if(charging)
 		if((isturf(A) || isobj(A)) && A.density)
@@ -354,3 +364,138 @@
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60
+
+// ============================================================
+// YOUNG DEATHCLAW
+// Smaller, faster, much weaker. Cannot reach as far and barely charges.
+// Killing one sends nearby deathclaws that are already fighting into a lunge.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/young
+	name = "young deathclaw"
+	desc = "A reptilian predator that has not finished growing. Its claws are already sharp, and its elders are rarely far away."
+	mob_armor = ARMOR_VALUE_DEATHCLAW_YOUNG
+	maxHealth = 200
+	health = 200
+	move_to_delay = 2
+	reach = 1
+	obj_damage = 60
+	melee_damage_lower = 12
+	melee_damage_upper = 20
+	armour_penetration = 0.05
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	charge_cooldown_time = 30 SECONDS // rarely lunges
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/deathclaw = 2,
+		/obj/item/stack/sheet/animalhide/deathclaw = 1,
+		/obj/item/stack/sheet/bone = 2
+	)
+
+/mob/living/simple_animal/hostile/deathclaw/young/Initialize(mapload)
+	. = ..()
+	resize = 0.65
+	update_transform()
+
+/mob/living/simple_animal/hostile/deathclaw/young/death(gibbed)
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/deathclaw/D in oview(7, src))
+		if(D != src)
+			D.fury_lunge()
+
+// ============================================================
+// ALPHA MALE DEATHCLAW
+// Pack leader. Tougher and hits harder than a common deathclaw, charges more often,
+// and calls other deathclaws when it aggros.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/alpha
+	name = "alpha male deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is larger than the rest, scarred from many fights, and others of its kind follow its lead."
+	color = "#8a7a6a"
+	color_mad = "#d9b8a5"
+	mob_armor = ARMOR_VALUE_DEATHCLAW_ALPHA
+	maxHealth = 850
+	health = 850
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 30
+	melee_damage_upper = 48
+	charge_cooldown_time = 7 SECONDS
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/deathclaw = 6,
+		/obj/item/stack/sheet/animalhide/deathclaw = 3,
+		/obj/item/stack/sheet/bone = 4
+	)
+
+/mob/living/simple_animal/hostile/deathclaw/alpha/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(12)
+
+// ============================================================
+// CHAMELEON DEATHCLAW
+// Ambush predator. Nearly invisible while idle, reveals itself when it attacks,
+// and fades back after losing its target. A bit lighter than a common deathclaw.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon
+	name = "chameleon deathclaw"
+	desc = "A deathclaw with skin that shifts to match its surroundings. If you can see it, it wants you to."
+	mob_armor = ARMOR_VALUE_DEATHCLAW_CHAMELEON
+	maxHealth = 520
+	health = 520
+	move_to_delay = 2.5
+	melee_damage_lower = 28
+	melee_damage_upper = 38
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/cloak_alpha = 60
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/Initialize(mapload)
+	. = ..()
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/Aggro()
+	. = ..()
+	alpha = 255
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/LoseTarget()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(recloak)), 4 SECONDS)
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/proc/recloak()
+	if(QDELETED(src) || stat == DEAD || target)
+		return
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/death(gibbed)
+	alpha = 255
+	. = ..()
+
+// ============================================================
+// NESTING MOTHER
+// A mother guarding her nest. Periodically spawns young deathclaws nearby
+// (same spawner component the mirelurk queen uses). Stops spawning when she dies.
+// EVENT / NEST USE ONLY - this is a lot of deathclaws. Tune spawn_time / max_babies.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting
+	name = "nesting mother deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is curled protectively around a nest, and small clawed shapes shift in the shadows beside her."
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/max_babies = 2
+	var/baby_types = list(/mob/living/simple_animal/hostile/deathclaw/young)
+	var/spawn_time = 40 SECONDS
+	var/spawn_text = "scrambles out from beside"
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spawner, baby_types, spawn_time, faction, spawn_text, max_babies, _range = 5)
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting/death(gibbed)
+	RemoveComponentByType(/datum/component/spawner)
+	. = ..()
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting/Destroy()
+	RemoveComponentByType(/datum/component/spawner)
+	. = ..()
