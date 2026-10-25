@@ -264,6 +264,14 @@
 	
 	throw_at(T, get_dist(src, T), 2, src, FALSE, callback = CALLBACK(src, PROC_REF(charge_end)))
 
+/mob/living/simple_animal/hostile/deathclaw/proc/fury_lunge()
+	if(stat == DEAD || QDELETED(src) || charging || !target)
+		return
+	if(world.time < charge_cooldown)
+		return
+	visible_message(span_danger("\The [src] roars and lunges!"))
+	addtimer(CALLBACK(src, PROC_REF(Charge)), 0.3 SECONDS)
+
 /mob/living/simple_animal/hostile/deathclaw/proc/charge_end(list/effects_to_destroy)
 	charging = FALSE
 	if(target)
