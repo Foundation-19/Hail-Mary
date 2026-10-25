@@ -70,6 +70,9 @@
 	var/pending_faction_reg  = FALSE
 	/// When TRUE the next ID-card swipe (by someone other than the owner) adds them as an authorized user.
 	var/pending_authorized_reg = FALSE
+	/// ckey of the player who armed the pending registration; expires after F13_LOCK_REG_TIMEOUT.
+	var/pending_reg_ckey = null
+	var/pending_reg_time = 0
 	/// ckey -> display name of extra users the PERSONAL owner has individually authorized. Only
 	/// meaningful under GENERATOR_LOCK_PERSONAL; reset whenever the lock changes hands or mode.
 	var/list/authorized_users = list()
@@ -314,6 +317,23 @@
 	return ..()
 
 
+/// Player-facing reason this fabricator can't start a job right now, or null if it can.
+/// Starting while load-shed ran 300 W the generator never counted, and starting without headroom
+/// just got the job shed (and its materials lost) a moment later.
+/obj/machinery/f13/core_fabricator/proc/_start_blocked_reason()
+	if(!grid_powered)
+		return "[src] has no power — wire it to a running generator first."
+	var/obj/machinery/f13/faction_generator/G = get_linked_generator()
+	if(!G)
+		return null
+	if(G.shed_clients && (src in G.shed_clients))
+		return "[src] is load-shed — the generator is over capacity. Reduce the load first."
+	var/delta_w = FAB_WATT_DRAW_ACTIVE - FAB_WATT_DRAW_IDLE
+	var/delta_va = delta_w / max(0.05, power_factor)
+	if(G.current_draw + delta_w > G.available_watts || G.current_va_draw + delta_va > G.get_available_va())
+		return "The generator doesn't have the headroom for a fabrication job (+[delta_w]W). Reduce the load or add fuel."
+	return null
+
 /// Simple stack-item material loader. Takes as many from S as needed (up to cap). Returns TRUE if any amount was accepted.
 /obj/machinery/f13/core_fabricator/proc/load_stack(obj/item/stack/S, mob/user, type)
 	if(!S || S.amount < 1)
@@ -364,11 +384,22 @@
 
 /// Handle an ID card swipe for lock management.
 /obj/machinery/f13/core_fabricator/proc/handle_id_card(obj/item/card/id/card, mob/user)
-	if(!can_access(user) && !(pending_personal_reg || pending_faction_reg || pending_authorized_reg))
+	if((pending_personal_reg || pending_faction_reg || pending_authorized_reg) && (world.time - pending_reg_time > F13_LOCK_REG_TIMEOUT))
+		pending_personal_reg = FALSE
+		pending_faction_reg = FALSE
+		pending_authorized_reg = FALSE
+	// Personal / faction registration may only be completed by whoever armed it.
+	var/my_pending = (pending_personal_reg || pending_faction_reg) && (user.ckey == pending_reg_ckey)
+	// Authorizing someone is swiped by that someone, but only while the owner who armed it is still standing here.
+	var/authorizing = FALSE
+	if(pending_authorized_reg)
+		var/mob/armer = get_mob_by_ckey(pending_reg_ckey)
+		authorizing = (armer && Adjacent(armer)) ? TRUE : FALSE
+	if(!can_access(user) && !my_pending && !authorizing)
 		to_chat(user, span_warning("Access denied."))
 		return
 
-	if(pending_personal_reg)
+	if(pending_personal_reg && my_pending)
 		pending_personal_reg = FALSE
 		owner_ckey = user.ckey
 		owner_name = user.real_name
@@ -378,7 +409,7 @@
 		show_ui(user)
 		return
 
-	if(pending_faction_reg)
+	if(pending_faction_reg && my_pending)
 		pending_faction_reg = FALSE
 		var/reg_faction = get_faction_from_card(card)
 		if(!reg_faction)
@@ -391,7 +422,7 @@
 		show_ui(user)
 		return
 
-	if(pending_authorized_reg)
+	if(pending_authorized_reg && authorizing)
 		pending_authorized_reg = FALSE
 		if(!(lock_mode == GENERATOR_LOCK_PERSONAL && owner_ckey))
 			to_chat(user, span_warning("No personal owner is registered -- set a personal lock first."))
@@ -577,7 +608,7 @@
 	var/mob/living/U = usr
 	if(!U || !istype(U) || !Adjacent(U))
 		return
-	if(!can_access(U) && !(href_list["choice"] in list("lock_none","lock_personal","lock_faction","cancel_reg")))
+	if(!can_access(U))
 		to_chat(U, span_warning("Access denied."))
 		return
 
@@ -586,8 +617,9 @@
 			if(fab_state != FAB_STATE_IDLE)
 				to_chat(U, span_warning("Already working."))
 				return
-			if(!grid_powered)
-				to_chat(U, span_warning("[src] has no power — wire it to a running generator first."))
+			var/block_reason = _start_blocked_reason()
+			if(block_reason)
+				to_chat(U, span_warning(block_reason))
 				return
 			if(stocked_uranium < FAB_REQ_URANIUM || stocked_metalparts < FAB_REQ_METALPARTS || stocked_electronicparts < FAB_REQ_ELECTRONICPARTS)
 				to_chat(U, span_warning("Insufficient materials for a new core."))
@@ -607,8 +639,9 @@
 			if(fab_state != FAB_STATE_IDLE)
 				to_chat(U, span_warning("Already working."))
 				return
-			if(!grid_powered)
-				to_chat(U, span_warning("[src] has no power — wire it to a running generator first."))
+			var/block_reason = _start_blocked_reason()
+			if(block_reason)
+				to_chat(U, span_warning(block_reason))
 				return
 			if(!has_depleted_core || stocked_uranium < FAB_REQ_URANIUM_RECYCLE || stocked_metalparts < FAB_REQ_METALPARTS_RECYCLE || stocked_electronicparts < FAB_REQ_ELECTRONICPARTS_RECYCLE)
 				to_chat(U, span_warning("Insufficient materials or no depleted core loaded."))
@@ -671,12 +704,16 @@
 		if("lock_personal")
 			if(!can_access(U)) return
 			pending_personal_reg = TRUE
+			pending_reg_ckey = U.ckey
+			pending_reg_time = world.time
 			pending_faction_reg  = FALSE
 			pending_authorized_reg = FALSE
 			to_chat(U, span_notice("Ready to register personal owner. Swipe an ID card on the fabricator."))
 		if("lock_faction")
 			if(!can_access(U)) return
 			pending_faction_reg  = TRUE
+			pending_reg_ckey = U.ckey
+			pending_reg_time = world.time
 			pending_personal_reg = FALSE
 			pending_authorized_reg = FALSE
 			to_chat(U, span_notice("Ready to register faction lock. Swipe an ID card on the fabricator."))
@@ -685,6 +722,8 @@
 				to_chat(U, span_warning("Only the registered owner may add authorized users."))
 				return
 			pending_authorized_reg = TRUE
+			pending_reg_ckey = U.ckey
+			pending_reg_time = world.time
 			pending_personal_reg   = FALSE
 			pending_faction_reg    = FALSE
 			to_chat(U, span_notice("Ready to authorize a new user. Have them swipe their ID card on the fabricator."))

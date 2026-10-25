@@ -91,10 +91,12 @@
 
 /obj/machinery/f13/power_relay/Initialize()
 	. = ..()
+	GLOB.f13_relays += src
 	resolve_map_links()
 	// Relay starts unpowered; the upstream must wire in and send power.
 
 /obj/machinery/f13/power_relay/Destroy()
+	GLOB.f13_relays -= src
 	// Sever all upstream links cleanly.
 	_sever_upstream()
 
@@ -147,7 +149,7 @@
 			if(!length(target_tag))
 				continue
 			for(var/obj/machinery/f13/power_relay/R in world)
-				if(R.tag == target_tag && !(R in downstream_relays) && !src._has_upstream(R))
+				if(R.tag == target_tag && !(R in downstream_relays) && !src._has_upstream(R) && !R._subtree_contains(src))
 					downstream_relays += R
 					if(!R.upstream_refs) R.upstream_refs = list()
 					R.upstream_refs += WEAKREF(src)
@@ -170,8 +172,11 @@
 /// Walk this relay's subtree and return total watt draw (self + downstream).
 /// Self draw = RELAY_WATT_DRAW + owned turrets + any wired fabricators if this relay has them.
 // visited guards against cycles in downstream_relays (e.g. two relays each wired to the other).
-/obj/machinery/f13/power_relay/proc/get_subtree_draw(list/visited)
-	if(!relay_powered)
+/obj/machinery/f13/power_relay/proc/get_subtree_draw(list/visited, nominal = FALSE)
+	// nominal = TRUE: what this subtree WOULD draw if it were energised (ignores relay_powered, but
+	// still respects manual isolation/open breakers). Load-shed restore and the overload retry
+	// need this -- an offline relay otherwise reports 0 W and always "fits".
+	if(!relay_powered && !(nominal && !_nominal_blocked()))
 		return 0
 	var/draw = RELAY_WATT_DRAW
 	if(linked_turrets)
@@ -191,15 +196,15 @@
 				visited += R
 				// Same split rule applies recursively — a relay with two live parents only
 				// owes each parent half of its own subtree draw.
-				draw += R.get_subtree_draw(visited) / max(1, R.get_live_upstream_count())
+				draw += R.get_subtree_draw(visited, nominal) / max(1, R.get_live_upstream_count())
 	return draw
 
 /// Same walk as get_subtree_draw(), but in apparent power (VA) — self base draw plus
 /// every client/relay's own VA draw (which already reflects its power factor). This is
 /// what generator/relay capacity should actually be checked against for overload, since
 /// apparent power (current) is what stresses wiring and breakers, not true power alone.
-/obj/machinery/f13/power_relay/proc/get_subtree_va_draw(list/visited)
-	if(!relay_powered)
+/obj/machinery/f13/power_relay/proc/get_subtree_va_draw(list/visited, nominal = FALSE)
+	if(!relay_powered && !(nominal && !_nominal_blocked()))
 		return 0
 	var/draw = RELAY_WATT_DRAW / max(0.05, power_factor)
 	if(linked_turrets)
@@ -216,8 +221,34 @@
 		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
 			if(!QDELETED(R) && !(R in visited))
 				visited += R
-				draw += R.get_subtree_va_draw(visited) / max(1, R.get_live_upstream_count())
+				draw += R.get_subtree_va_draw(visited, nominal) / max(1, R.get_live_upstream_count())
 	return draw
+
+/// TRUE if something other than a dead feed is holding this relay off (manual isolation).
+/// Breaker boxes also report an open breaker. Used by nominal-draw calculations.
+/obj/machinery/f13/power_relay/proc/_nominal_blocked()
+	return relay_isolated
+
+/// TRUE if `target` is this relay or sits anywhere in this relay's downstream tree.
+/// Used to refuse links that would form a power loop (A feeds B feeds A).
+/obj/machinery/f13/power_relay/proc/_subtree_contains(obj/machinery/f13/power_relay/target, list/visited)
+	if(target == src)
+		return TRUE
+	if(!visited)
+		visited = list()
+	if(visited[src])
+		return FALSE
+	visited[src] = TRUE
+	if(downstream_relays)
+		for(var/obj/machinery/f13/power_relay/R in downstream_relays)
+			if(!QDELETED(R) && R._subtree_contains(target, visited))
+				return TRUE
+	return FALSE
+
+/// Whether this relay can take another upstream feed. Plain relays always can; logic gates
+/// override this to enforce their input cap on every wiring path (not just relay-to-gate).
+/obj/machinery/f13/power_relay/proc/can_accept_upstream(obj/new_up)
+	return TRUE
 
 /// Recalculate this relay's power state from all registered upstream nodes.
 /// Uses OR logic: relay is powered if ANY upstream is live AND relay_isolated is FALSE.
@@ -340,7 +371,7 @@
 				for(var/obj/machinery/f13/power_relay/R in N)
 					if(!QDELETED(R) && R != src)
 						// Skip if R is already our upstream — wiring it downstream too would form a cycle.
-						if(!(R in downstream_relays) && !src._has_upstream(R))
+						if(!(R in downstream_relays) && !src._has_upstream(R) && !R._subtree_contains(src) && R.can_accept_upstream(src))
 							if(!downstream_relays) downstream_relays = list()
 							downstream_relays += R
 							if(!R.upstream_refs) R.upstream_refs = list()
@@ -367,7 +398,7 @@
 /// Validate every existing logical connection from this relay against the current cable layout.
 /// Any downstream relay or client whose cable path is gone gets unpowered and unlinked.
 /// Returns the number of connections removed.
-/obj/machinery/f13/power_relay/proc/_prune_dead_links()
+/obj/machinery/f13/power_relay/proc/_prune_dead_links(recurse = FALSE, list/visited)
 	var/turf/src_turf = get_turf(src)
 	if(!src_turf)
 		return 0
@@ -392,6 +423,13 @@
 			C.on_upstream_changed()
 			linked_clients -= C
 			removed++
+	if(recurse && downstream_relays)
+		if(!visited)
+			visited = list()
+		visited[src] = TRUE
+		for(var/obj/machinery/f13/power_relay/DR in downstream_relays)
+			if(!QDELETED(DR) && !visited[DR])
+				removed += DR._prune_dead_links(TRUE, visited)
 	return removed
 
 /obj/machinery/f13/power_relay/attackby(obj/item/W, mob/user, params)
@@ -404,6 +442,8 @@
 		else
 			// Repair damaged relay while offline.
 			if(obj_integrity < max_integrity)
+				if(!W.use_tool(src, user, 20, volume=50))
+					return
 				obj_integrity = min(obj_integrity + RELAY_REPAIR_AMOUNT, max_integrity)
 				playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 				to_chat(user, span_notice("You repair [src]. ([obj_integrity]/[max_integrity] HP)"))
@@ -498,6 +538,11 @@
 	// Already wired to this parent — confirm to the player (use wirecutters to disconnect).
 	if(_has_upstream(parent))
 		to_chat(user, span_notice("[name] is already wired to [parent.name]. Use wirecutters to disconnect."))
+		return
+	// Refuse loops: two relays feeding each other satisfy each other's "any upstream live" test
+	// and would stay powered forever after the real source died.
+	if(_subtree_contains(parent))
+		to_chat(user, span_warning("Wiring [name] to [parent.name] would create a power loop: [parent.name] is already fed through [name]."))
 		return
 
 	if(!parent.downstream_relays)
@@ -823,6 +868,10 @@
 		return
 	return ..()
 
+/// An open breaker holds the subtree off, same as isolation does.
+/obj/machinery/f13/power_relay/breaker_box/_nominal_blocked()
+	return relay_isolated || manually_tripped
+
 /// Override: amber tint when manually tripped so the panel is visually distinct
 /// from a relay that is simply offline due to a dead upstream.
 /obj/machinery/f13/power_relay/breaker_box/update_icon_state()
@@ -943,11 +992,16 @@
 	if(href_list["breaker_toggle"])
 		var/new_state = !relay_powered
 		manually_tripped = !new_state   // opening = tripped; closing = cleared
-		set_relay_power(new_state)
+		if(new_state)
+			// Closing only removes the manual hold. The upstream decides whether we're really live;
+			// forcing relay_powered on here let a breaker wired to a dead generator power a whole base.
+			on_upstream_changed()
+		else
+			set_relay_power(FALSE)
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 		U.visible_message(
 			"[U] [new_state ? "closes" : "opens"] the main breaker on [src].",
-			span_notice("You [new_state ? "close the main breaker — power restored to downstream circuits." : "open the main breaker — everything downstream is now dead."]")
+			span_notice("You [new_state ? (relay_powered ? "close the main breaker — power restored to downstream circuits." : "close the main breaker, but the upstream feed is dead — nothing is energised yet.") : "open the main breaker — everything downstream is now dead."]")
 		)
 		// Notify the upstream generator immediately so watt accounting stays current.
 		f13_recalc_all_generators()
