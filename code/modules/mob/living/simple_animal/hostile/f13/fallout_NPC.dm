@@ -709,7 +709,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/m44/simple
+	projectiletype = /obj/item/projectile/bullet/m44/simple/pen
 	projectilesound = 'sound/f13weapons/44mag.ogg'
 	casingtype = /obj/item/ammo_casing/m44
 	projectile_sound_properties = list(
