@@ -23,9 +23,6 @@
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 
 
-/obj/item/projectile/bullet/pellet/shotgun_buckshot/pen
-	damage_threshold_penetration = 3
-
 //ratshot pellet: 6 damage instead of 8, fewer pellets. would make many tiny damage pellets but performance
 /obj/item/projectile/bullet/pellet/shotgun_ratshot
 	name = "ratshot pellet"

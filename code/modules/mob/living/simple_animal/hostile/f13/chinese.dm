@@ -116,7 +116,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/c9mm/simple/pen
+	projectiletype = /obj/item/projectile/bullet/c9mm/simple
 	projectilesound = 'sound/f13weapons/ninemil.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),

@@ -469,7 +469,7 @@
 	retreat_distance = 5
 	minimum_distance = 1
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/c9mm/simple/pen
+	projectiletype = /obj/item/projectile/bullet/c9mm/simple
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
 
 // ============================================================
