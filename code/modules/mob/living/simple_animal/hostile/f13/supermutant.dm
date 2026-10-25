@@ -677,7 +677,7 @@
 	minimum_distance = 2
 
 	casingtype = null
-	projectiletype = /obj/item/projectile/bullet/c10mm/simple/pen
+	projectiletype = /obj/item/projectile/bullet/c10mm/simple
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	sound_after_shooting = null
 	extra_projectiles = 3 // 4-round bursts
@@ -798,7 +798,7 @@
 	retreat_distance = 2
 	minimum_distance = 2
 
-	projectiletype = /obj/item/projectile/bullet/c10mm/simple/pen
+	projectiletype = /obj/item/projectile/bullet/c10mm/simple
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	extra_projectiles = 2 // 3-round bursts
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
@@ -821,7 +821,7 @@
 // SUICIDER
 // Lore: super mutants hauling a live mini-nuke, rushing their target.
 // Lights its fuse on first contact. Also detonates if killed, so shoot it before it arrives.
-// Explosion is queued through SSexplosion_spam like the F13 grenades, sized just above a plasma grenade.
+// Explosion scale copied from sentrybot/suicide (1, 2, 4, 4). A mini-nuke may deserve more.
 // SPRITE: reuses the base hulk sprite with a tint.
 // ============================================================
 
@@ -867,11 +867,7 @@
 	if(detonated)
 		return
 	detonated = TRUE
-	// Same queued-explosion call the F13 grenades use (avoids lag with several suiciders).
-	// For scale: frag 0/0/2/0, dynamite 0/0/3/0, plasma grenade 0/1/4/flame 4. This sits above plasma.
-	var/turf/T = get_turf(src)
-	if(T)
-		SSexplosion_spam.queue_explosion(T, 0, 2, 5, flash = 0, flame_range = 3, source = null)
+	explosion(src, 1, 2, 4, 4)
 
 /mob/living/simple_animal/hostile/supermutant/suicider/death(gibbed)
 	detonate()

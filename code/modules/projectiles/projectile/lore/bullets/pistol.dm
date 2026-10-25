@@ -1071,21 +1071,6 @@
 		M.adjust_fire_stacks(fire_stacks)
 		M.IgniteMob()
 
-/obj/item/projectile/bullet/c9mm/simple/pen
-	damage_threshold_penetration = 2
-
-/obj/item/projectile/bullet/c10mm/simple/pen
-	damage_threshold_penetration = 2
-
-/obj/item/projectile/bullet/c45/simple/pen
-	damage_threshold_penetration = 2
-
-/obj/item/projectile/bullet/c45/op/pen
-	damage_threshold_penetration = 3
-
-/obj/item/projectile/bullet/m44/simple/pen
-	damage_threshold_penetration = 3
-
 ///////////
 // 14 MM //
 ///////////
