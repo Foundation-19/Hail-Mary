@@ -161,6 +161,8 @@
 	/// Assoc: zone datum -> real turf count, taken once when the zone is built. area.contents also
 	/// holds every object and mob on those turfs, so contents.len made the load swing with clutter.
 	var/list/zone_tile_counts = null
+	/// ID lock for the panel (master/zone breakers, relay cut, rescan). Unlocked by default.
+	var/datum/f13_box_lock/box_lock = new
 
 
 /// A tripped master breaker draws nothing from upstream — none of the building's
@@ -1087,6 +1089,7 @@
 				dat += "<pre class='dim'>    No zones established — check placement.</pre>"
 	if(anchored)
 		dat += "<pre>    <a href='byond://?src=[REF(src)];rebuild_zones=1'>&#91; RESCAN ZONES &#93;</a>  <span class='dim'>(re-detect rooms after area changes)</span></pre>"
+	dat += f13_box_lock_ui(src, box_lock, user)
 	dat += "<pre class='sep'>  ================================================================</pre>"
 
 	var/datum/browser/popup = new(user, "f13_jbox_[REF(src)]", null, 560, 400)
@@ -1100,6 +1103,14 @@
 		return
 	// Ignore clicks from a panel that was left open while the box got unbolted.
 	if(!anchored)
+		return
+
+	// Lock actions first; then every other action needs access.
+	if(f13_box_lock_topic(src, box_lock, usr, href_list))
+		show_ui(usr)
+		return
+	if(!box_lock.can_access(usr))
+		to_chat(usr, span_warning("Access denied. The panel is locked."))
 		return
 
 	if(href_list["toggle_breaker"])
@@ -1203,3 +1214,89 @@
 	grid_watt_draw_per_tile = 0.1
 	grid_watt_draw_base     = 150
 	grid_watt_draw          = 150  // pre-LateInit estimate; real value depends on claimed tiles
+
+
+// ============================================================
+// SHARED PANEL ID LOCK (junction boxes and breaker boxes)
+// ============================================================
+// One-click locking: no pending registration state, so there is nothing to hijack.
+// A locked panel refuses every action except UNLOCK, and UNLOCK needs access.
+// Locks only guard the controls; they do not stop wrenching or cable cutting.
+
+/datum/f13_box_lock
+	var/mode = GENERATOR_LOCK_NONE
+	var/owner_ckey = null
+	var/owner_name = null
+	var/owner_faction = null
+
+/datum/f13_box_lock/proc/can_access(mob/living/user)
+	switch(mode)
+		if(GENERATOR_LOCK_NONE)
+			return TRUE
+		if(GENERATOR_LOCK_PERSONAL)
+			return (user.ckey && user.ckey == owner_ckey)
+		if(GENERATOR_LOCK_FACTION)
+			return (owner_faction in user.faction)
+	return FALSE
+
+/// Faction of the job on an ID card, or null.
+/proc/f13_faction_from_card(obj/item/card/id/card)
+	if(!card || !card.assignment)
+		return null
+	var/datum/job/J = SSjob.GetJob(card.assignment)
+	if(!J || !J.faction || J.faction == "None")
+		return null
+	return J.faction
+
+/// Handles ?box_lock=personal|faction|unlock. Returns TRUE if the href was a lock action
+/// (the caller should refresh its UI and stop), FALSE otherwise.
+/proc/f13_box_lock_topic(obj/machinery/box, datum/f13_box_lock/L, mob/living/user, list/href_list)
+	if(!href_list["box_lock"] || !L)
+		return FALSE
+	switch(href_list["box_lock"])
+		if("personal")
+			if(L.mode != GENERATOR_LOCK_NONE)
+				to_chat(user, span_warning("Already locked."))
+				return TRUE
+			L.mode = GENERATOR_LOCK_PERSONAL
+			L.owner_ckey = user.ckey
+			L.owner_name = user.real_name
+			to_chat(user, span_notice("Panel locked to [user.real_name]."))
+		if("faction")
+			if(L.mode != GENERATOR_LOCK_NONE)
+				to_chat(user, span_warning("Already locked."))
+				return TRUE
+			var/fac = f13_faction_from_card(user.get_idcard(TRUE))
+			if(!fac)
+				to_chat(user, span_warning("You need to be wearing or holding an ID with a recognised faction."))
+				return TRUE
+			L.mode = GENERATOR_LOCK_FACTION
+			L.owner_faction = fac
+			to_chat(user, span_notice("Panel locked to faction '[fac]'."))
+		if("unlock")
+			if(!L.can_access(user))
+				to_chat(user, span_warning("Access denied."))
+				return TRUE
+			L.mode = GENERATOR_LOCK_NONE
+			L.owner_ckey = null
+			L.owner_name = null
+			L.owner_faction = null
+			to_chat(user, span_notice("Panel unlocked."))
+		else
+			return FALSE
+	playsound(box, 'sound/items/deconstruct.ogg', 30, TRUE)
+	return TRUE
+
+/// One HTML row for the panel UI showing lock state and the relevant links.
+/proc/f13_box_lock_ui(obj/machinery/box, datum/f13_box_lock/L, mob/living/user)
+	if(!L)
+		return ""
+	var/ref = REF(box)
+	switch(L.mode)
+		if(GENERATOR_LOCK_NONE)
+			return "<pre>  LOCK : <span class='dim'>none</span>  <a href='byond://?src=[ref];box_lock=personal'>&#91; LOCK: ME &#93;</a> <a href='byond://?src=[ref];box_lock=faction'>&#91; LOCK: MY FACTION &#93;</a></pre>"
+		if(GENERATOR_LOCK_PERSONAL)
+			return "<pre>  LOCK : <span class='warn'>PERSONAL</span> ([L.owner_name])  <a href='byond://?src=[ref];box_lock=unlock'>&#91; UNLOCK &#93;</a></pre>"
+		if(GENERATOR_LOCK_FACTION)
+			return "<pre>  LOCK : <span class='warn'>FACTION</span> ([L.owner_faction])  <a href='byond://?src=[ref];box_lock=unlock'>&#91; UNLOCK &#93;</a></pre>"
+	return ""

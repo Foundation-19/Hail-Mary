@@ -285,6 +285,10 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 				// Only continue through tiles that have cable.
 				if(locate(/obj/structure/cable) in N)
 					visited[N] = TRUE
+					// A machine is an endpoint, not a conductor: a run may not pass through another
+					// F13 machine's tile, or a breaker box / relay on a chain could be tunnelled through.
+					if(locate(/obj/machinery/f13) in N)
+						continue
 					next_frontier += N
 		frontier = next_frontier
 		steps++

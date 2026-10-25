@@ -846,6 +846,8 @@
 	/// While set, upstream power-restore cascades are ignored — only a direct
 	/// hand interaction via the panel UI can bring it back online.
 	var/manually_tripped = FALSE
+	/// ID lock for the lever and panel. Unlocked by default.
+	var/datum/f13_box_lock/box_lock = new
 
 /// Override: honour manually_tripped so upstream cascades don't silently restore
 /// a breaker the player deliberately opened.  When the grid tries to turn us ON
@@ -975,6 +977,7 @@
 				dat += "<pre>  DEV  : [C.name]  [cstate]  [C.get_effective_watt_draw()]W</pre>"
 	if(!found_any)
 		dat += "<pre class='dim'>    No downstream devices wired.</pre>"
+	dat += f13_box_lock_ui(src, box_lock, user)
 	dat += "<pre class='sep'>  ================================================================</pre>"
 
 	var/datum/browser/popup = new(user, "f13_breaker_[REF(src)]", null, 560, 460)
@@ -987,6 +990,13 @@
 	if(!U || !istype(U))
 		return
 	if(!in_range(src, U) && !isobserver(U))
+		return
+
+	if(f13_box_lock_topic(src, box_lock, U, href_list))
+		show_ui(U)
+		return
+	if(!box_lock.can_access(U))
+		to_chat(U, span_warning("Access denied. The panel is locked."))
 		return
 
 	if(href_list["breaker_toggle"])
