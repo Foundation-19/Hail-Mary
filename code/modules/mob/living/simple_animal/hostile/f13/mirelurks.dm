@@ -6,6 +6,8 @@
 
 // BASE MIRELURK - shared properties
 /mob/living/simple_animal/hostile/mirelurk
+	affix_pool_type = "beast"
+	affix_chance = 5
 	armour_penetration = 0.05
 	damage_threshold_penetration_mob = 2
 	name = "mirelurk"
@@ -143,6 +145,7 @@
 
 // MIRELURK BABY - small, weak, calls for help
 /mob/living/simple_animal/hostile/mirelurk/baby
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "mirelurk baby"
@@ -191,6 +194,7 @@
 
 // MIRELURK QUEEN - rare, powerful, spawns babies
 /mob/living/simple_animal/hostile/mirelurk/queen
+	affix_chance = 0
 	armour_penetration = 0.25
 	damage_threshold_penetration_mob = 8
 	name = "mirelurk queen"
@@ -305,6 +309,7 @@
 
 // KING MIRELURK - rare boss variant
 /mob/living/simple_animal/hostile/mirelurk/king
+	affix_chance = 0
 	armour_penetration = 0.3
 	damage_threshold_penetration_mob = 8
 	name = "mirelurk king"

@@ -6,6 +6,8 @@
 
 // BASE - melee ghoul soldier
 /mob/living/simple_animal/hostile/chinese
+	affix_pool_type = "human"
+	affix_chance = 6
 	name = "chinese remnant soldier"
 	desc = "Chinese soldiers who survived the Great War via ghoulification, and now shoot anything that isn't their own on sight."
 	icon = 'icons/mob/humans/ghouls.dmi'

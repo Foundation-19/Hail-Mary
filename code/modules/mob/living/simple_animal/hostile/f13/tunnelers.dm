@@ -6,6 +6,8 @@
 
 // BASE TROG
 /mob/living/simple_animal/hostile/trog
+	affix_pool_type = "mutant"
+	affix_chance = 4
 	name = "trog"
 	desc = "A human who has mutated and regressed back to a primal, cannibalistic state. Rumor says they're poisonous as well. Want to find out?"
 	icon = 'icons/mob/monsters/tunnelers.dmi'

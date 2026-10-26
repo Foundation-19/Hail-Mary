@@ -4,6 +4,8 @@
 
 //Base Deathclaw
 /mob/living/simple_animal/hostile/deathclaw
+	affix_pool_type = "beast"
+	affix_chance = 6
 	name = "deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match."
 	icon = 'icons/mob/monsters/deathclaw.dmi'
@@ -100,6 +102,7 @@
 	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/deathclaw/playable
+	affix_chance = 0
 	armour_penetration = 0.2
 	damage_threshold_penetration_mob = 0
 	emote_taunt_sound = null
@@ -187,6 +190,7 @@
 
 // Intelligent deathclaw, for the Baltimore map. NOT TO BE USED UNLESS EVENT. Use the INFLICTED version for maps.
 /mob/living/simple_animal/hostile/deathclaw/inteligent
+	affix_chance = 0
 	name = "inteligent deathclaw"
 	desc = "A very rare kind of deathclaw, with inteligence and able of speech."
 	icon = 'icons/mob/monsters/deathclaw.dmi' 
@@ -310,6 +314,7 @@
 
 // Mother deathclaw
 /mob/living/simple_animal/hostile/deathclaw/mother
+	affix_chance = 0
 	armour_penetration = 0.25
 	damage_threshold_penetration_mob = 8
 	name = "mother deathclaw"
@@ -342,6 +347,7 @@
 
 //Legendary Deathclaw
 /mob/living/simple_animal/hostile/deathclaw/legendary
+	affix_chance = 0
 	armour_penetration = 0.3
 	damage_threshold_penetration_mob = 10
 	name = "legendary deathclaw"
@@ -363,6 +369,7 @@
 
 //Power Armor Deathclaw - the tankiest deathclaw
 /mob/living/simple_animal/hostile/deathclaw/power_armor
+	affix_chance = 0
 	armour_penetration = 0.4
 	damage_threshold_penetration_mob = 12
 	name = "power armored deathclaw"

@@ -6,6 +6,8 @@
 
 // BASE CENTAUR - FEV mutation, ranged poison spitter
 /mob/living/simple_animal/hostile/centaur
+	affix_pool_type = "mutant"
+	affix_chance = 5
 	name = "centaur"
 	desc = "The result of infection by FEV gone horribly wrong."
 	icon = 'icons/mob/monsters/freaks.dmi'
@@ -165,6 +167,8 @@
 
 // BASE ABOMINATION - FEV nightmare, wall smasher
 /mob/living/simple_animal/hostile/abomination
+	affix_pool_type = "mutant"
+	affix_chance = 5
 	name = "abomination"
 	desc = "A horrible fusion of man, animal, and something entirely different. It quakes and shudders, looking to be in an immense amount of pain. Blood and other fluids oo ze from various gashes and lacerations on its body, punctuated by mouths that gnash and scream."
 	icon = 'icons/mob/monsters/freaks.dmi'

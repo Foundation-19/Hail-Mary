@@ -6,6 +6,8 @@
 
 // BASE FERAL DOG
 /mob/living/simple_animal/hostile/wolf
+	affix_pool_type = "beast"
+	affix_chance = 4
 	armour_penetration = 0.05
 	damage_threshold_penetration_mob = 2
 	name = "feral dog"
@@ -109,6 +111,7 @@
 
 // PLAYABLE FERAL DOG
 /mob/living/simple_animal/hostile/wolf/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	maxHealth = 150
@@ -155,6 +158,7 @@
 
 // PLAYABLE ALPHA DOG
 /mob/living/simple_animal/hostile/wolf/alpha/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	see_in_dark = 8

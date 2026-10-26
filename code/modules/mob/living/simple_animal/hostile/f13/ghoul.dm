@@ -7,6 +7,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul
+	affix_pool_type = "ghoul"
+	affix_chance = 5
 	name = "feral ghoul"
 	desc = "A ghoul that has lost its mind and become aggressive."
 	icon = 'icons/mob/humans/ghouls.dmi'
@@ -256,6 +258,7 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/legendary
+	affix_chance = 0
 	armour_penetration = 0.2
 	damage_threshold_penetration_mob = 6
 	name = "legendary ghoul"
@@ -590,6 +593,7 @@
 		H.apply_effect(20, EFFECT_IRRADIATE, 0)
 
 /mob/living/simple_animal/hostile/ghoul/zombie/legendary
+	affix_chance = 0
 	armour_penetration = 0.15
 	damage_threshold_penetration_mob = 6
 	name = "legendary ravenous ghoul"

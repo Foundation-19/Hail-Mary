@@ -23,6 +23,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 */
 
 /mob/living/simple_animal/hostile/ghoulrotter
+	affix_pool_type = "ghoul"
+	affix_chance = 4
 	mob_armor = ARMOR_VALUE_GHOUL_NAKED
 	name = "rotting ghoul"
 	desc = "A bloated ghoul that has lost its mind and become aggressive."
@@ -64,6 +66,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 
 
 /mob/living/simple_animal/hostile/skolf
+	affix_pool_type = "beast"
+	affix_chance = 4
 	mob_armor = ARMOR_VALUE_BEAST_HIDE
 	name = "skull wolf"
 	desc = "Half rotted by radiation, blind, hunting by smell and sound."
@@ -97,6 +101,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 // Uncommon beasts
 
 /mob/living/simple_animal/hostile/yaoguai
+	affix_pool_type = "beast"
+	affix_chance = 5
 	mob_armor = ARMOR_VALUE_YAOGUAI
 	name = "Yao Guai"
 	desc = "Radiation has caused the brown bear to lose its pelt, grow large with ulcers and a rage fueled by agony. The chinese name for them has stuck."
@@ -131,6 +137,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 
 //Want to make these cause like 100 rads or so per bite plus their damage, maybe a little less. Instead of toxins. Remove comment if able to solve it.
 /mob/living/simple_animal/hostile/aradnid
+	affix_pool_type = "venomous"
+	affix_chance = 4
 	mob_armor = ARMOR_VALUE_ARADNID
 	name = "aradnid"
 	desc = "Deeply disturbing creature, they can only consume radiated meat and drag their prey to contaminated areas to tenderize them."
@@ -177,6 +185,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 
 
 /mob/living/simple_animal/hostile/scolopendra
+	affix_pool_type = "venomous"
+	affix_chance = 4
 	move_to_delay = 2
 	mob_armor = ARMOR_VALUE_SCOLOPENDRA
 	name = "Scolopendra"

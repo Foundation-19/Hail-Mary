@@ -6,6 +6,8 @@
 
 // BASE GIANT ANT
 /mob/living/simple_animal/hostile/giantant
+	affix_pool_type = "insect"
+	affix_chance = 4
 	armour_penetration = 0.05
 	damage_threshold_penetration_mob = 2
 	name = "giant ant"
@@ -101,6 +103,8 @@
 
 // FIRE ANT - applies burning reagent
 /mob/living/simple_animal/hostile/fireant
+	affix_pool_type = "insect"
+	affix_chance = 4
 	armour_penetration = 0.05
 	damage_threshold_penetration_mob = 2
 	name = "fire ant"
@@ -335,6 +339,8 @@
 
 // BASE RADSCORPION
 /mob/living/simple_animal/hostile/radscorpion
+	affix_pool_type = "venomous"
+	affix_chance = 5
 	armour_penetration = 0.15
 	damage_threshold_penetration_mob = 4
 	name = "giant radscorpion"
@@ -875,6 +881,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/mantis
+	affix_pool_type = "insect"
+	affix_chance = 4
 	name = "giant mantis"
 	desc = "A mutated predatory insect the size of a person, folded forelegs lined with serrated spines. It watches your every move and waits for you to come within reach."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -970,6 +978,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/bloodbug
+	affix_pool_type = "bloodsucker"
+	affix_chance = 4
 	name = "bloodbug"
 	desc = "A mutated mosquito the size of a dog, its swollen abdomen red with its last meal. It wants more."
 	icon = 'icons/mob/animals/insects.dmi'

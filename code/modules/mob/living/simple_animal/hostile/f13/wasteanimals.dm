@@ -4,6 +4,8 @@
 
 // BASE GECKO - all shared properties
 /mob/living/simple_animal/hostile/gecko
+	affix_pool_type = "beast"
+	affix_chance = 4
 	name = "gecko"
 	desc = "A large mutated reptile with sharp teeth."
 	icon = 'icons/mob/animals/wasteanimals.dmi'
@@ -229,6 +231,7 @@
 
 // PLAYABLE GECKO - for ghost roles
 /mob/living/simple_animal/hostile/gecko/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	maxHealth = 40
@@ -245,6 +248,7 @@
 
 // DEBUG GECKOS - for testing
 /mob/living/simple_animal/hostile/gecko/debug
+	affix_chance = 0
 	sound_pitch = 100
 	vary_pitches = list(-200, 200)
 	variation_list = list(
@@ -306,6 +310,8 @@
 
 // BASE NIGHTSTALKER
 /mob/living/simple_animal/hostile/stalker
+	affix_pool_type = "venomous"
+	affix_chance = 4
 	name = "nightstalker"
 	desc = "A crazed genetic hybrid of rattlesnake and coyote DNA."
 	icon = 'icons/mob/animals/nightstalker.dmi'
@@ -411,6 +417,7 @@
 
 // PLAYABLE NIGHTSTALKER
 /mob/living/simple_animal/hostile/stalker/playable
+	affix_chance = 0
 	maxHealth = 105 // bumped - TTK vs melee was too short
 	health = 105
 	melee_damage_lower = 10
@@ -432,6 +439,7 @@
 
 // NIGHTSTALKER CUB
 /mob/living/simple_animal/hostile/stalkeryoung
+	affix_chance = 0
 	name = "young nightstalker"
 	desc = "A juvenile crazed genetic hybrid of rattlesnake and coyote DNA."
 	icon = 'icons/mob/animals/wasteanimals.dmi'

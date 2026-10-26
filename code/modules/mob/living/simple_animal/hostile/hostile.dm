@@ -397,6 +397,7 @@
 
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
+	roll_affix()
 
 	if(!targets_from)
 		targets_from = src
@@ -4429,6 +4430,7 @@
 
 /mob/living/simple_animal/hostile/death(gibbed)
 	LoseTarget()
+	affix_death()
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)

@@ -13,6 +13,8 @@
 
 // BASE HANDY - melee saw bot
 /mob/living/simple_animal/hostile/handy
+	affix_pool_type = "robot"
+	affix_chance = 4
 	name = "mr. handy"
 	desc = "A crazed pre-war household assistant robot, armed with a cutting saw."
 	icon = 'icons/mob/robots/wasterobots.dmi'
@@ -135,6 +137,7 @@
 
 // PLAYABLE HANDY
 /mob/living/simple_animal/hostile/handy/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	maxHealth = 300
@@ -240,6 +243,7 @@
 
 // PLAYABLE GUTSY
 /mob/living/simple_animal/hostile/handy/gutsy/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	speed = 1
@@ -518,6 +522,7 @@
 
 // PLAYABLE PROTECTRON
 /mob/living/simple_animal/hostile/handy/protectron/playable
+	affix_chance = 0
 	melee_damage_lower = 25
 	melee_damage_upper = 38
 	armour_penetration = 0
@@ -653,6 +658,7 @@
 
 // MARTHA - unique named assaultron
 /mob/living/simple_animal/hostile/handy/assaultron/martha
+	affix_chance = 0
 	armour_penetration = 0.3
 	damage_threshold_penetration_mob = 10
 	name = "lil martha"
@@ -673,6 +679,7 @@
 
 
 /mob/living/simple_animal/hostile/handy/assaultron/ensign
+	affix_chance = 0
 	armour_penetration = 0.2
 	damage_threshold_penetration_mob = 8
 	name = "Ensign DEADLOCK"
@@ -693,6 +700,7 @@
 
 // PLAYABLE ASSAULTRON
 /mob/living/simple_animal/hostile/handy/assaultron/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	see_in_dark = 8
@@ -707,6 +715,7 @@
 
 // SA-S-E - medical assaultron
 /mob/living/simple_animal/hostile/handy/assaultron/playable/medical
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "SA-S-E"

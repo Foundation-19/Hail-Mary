@@ -186,6 +186,8 @@
 
 // BASE ENCLAVE
 /mob/living/simple_animal/hostile/enclave
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "enclave specialist"
 	desc = "An Enclave soldier with combat armor and a G-11 rifle."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -397,6 +399,8 @@
 
 // BASE BROTHERHOOD
 /mob/living/simple_animal/hostile/bs
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "Brotherhood Knight"
 	desc = "The brotherhood never fails."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -573,6 +577,8 @@
 
 // BASE NCR
 /mob/living/simple_animal/hostile/ncr
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "NCR Trooper"
 	desc = "For the Republic!"
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -746,6 +752,8 @@
 
 // BASE LEGION
 /mob/living/simple_animal/hostile/legion
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "Legion Prime"
 	desc = "True to Caesar."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -918,6 +926,8 @@
 ////////////////
 
 /mob/living/simple_animal/hostile/tribe
+	affix_pool_type = "human"
+	affix_chance = 5
 	name = "Wayfarer Hunter"
 	desc = "A hunter of the wayfarer tribe, wielding a glaive."
 	icon = 'icons/mob/humans/fallout_npc.dmi'

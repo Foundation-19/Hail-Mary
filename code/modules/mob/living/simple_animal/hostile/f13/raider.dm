@@ -5,6 +5,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider
+	affix_pool_type = "human"
+	affix_chance = 5
 	name = "Raider"
 	desc = "Another murderer churned out by the wastes."
 	icon = 'icons/mob/humans/raider.dmi'
@@ -166,6 +168,7 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider/legendary
+	affix_chance = 0
 	armour_penetration = 0.15
 	damage_threshold_penetration_mob = 4
 	name = "Legendary Raider"
@@ -184,6 +187,7 @@
 	random_trash_loot = FALSE
 
 /mob/living/simple_animal/hostile/raider/ranged/legendary
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "Legendary Raider"
@@ -221,6 +225,7 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider/ranged/boss
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "Raider Boss"
@@ -559,6 +564,7 @@
 	summon_backup(8)
 
 /mob/living/simple_animal/hostile/raider/junker/boss
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "Junker Boss"

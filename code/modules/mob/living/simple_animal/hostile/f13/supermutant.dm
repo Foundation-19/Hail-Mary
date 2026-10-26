@@ -5,6 +5,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant
+	affix_pool_type = "mutant"
+	affix_chance = 6
 	armour_penetration = 0.05
 	damage_threshold_penetration_mob = 2
 	name = "super mutant"
@@ -157,6 +159,7 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	maxHealth = 145
@@ -304,6 +307,7 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/legendary
+	affix_chance = 0
 	armour_penetration = 0.25
 	damage_threshold_penetration_mob = 8
 	name = "legendary super mutant"

@@ -178,6 +178,8 @@
 
 // BASE SENTRY BOT - heavy gatling laser platform
 /mob/living/simple_animal/hostile/securitron/sentrybot
+	affix_pool_type = "robot"
+	affix_chance = 4
 	name = "sentry bot"
 	desc = "A pre-war military robot armed with a deadly gatling laser and covered in thick armor plating."
 	icon_state = "sentrybot"
@@ -286,6 +288,7 @@
 
 // PLAYABLE SENTRY BOT
 /mob/living/simple_animal/hostile/securitron/sentrybot/playable
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	maxHealth = 50
@@ -307,6 +310,7 @@
 
 // Chinese Counterfeit Securitron
 /mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit
+	affix_chance = 0
 	armour_penetration = 0.3
 	damage_threshold_penetration_mob = 10
 	name = "Chinese Counterfeit Sentrybot"
@@ -361,6 +365,7 @@
 
 // LIL' CHEW-CHEW - unique named boss
 /mob/living/simple_animal/hostile/securitron/sentrybot/chew
+	affix_chance = 0
 	armour_penetration = 0.35
 	damage_threshold_penetration_mob = 10
 	name = "lil' chew-chew"
@@ -412,6 +417,7 @@
 
 // SUICIDE SENTRY - rushes in and explodes
 /mob/living/simple_animal/hostile/securitron/sentrybot/suicide
+	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "explosive sentry bot"
