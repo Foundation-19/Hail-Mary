@@ -2913,6 +2913,7 @@
 #include "code\modules\mob\living\simple_animal\guardian\types\support.dm"
 #include "code\modules\mob\living\simple_animal\hostile\abilities_common.dm"
 #include "code\modules\mob\living\simple_animal\hostile\alien.dm"
+#include "code\modules\mob\living\simple_animal\hostile\animalhostile.dm"
 #include "code\modules\mob\living\simple_animal\hostile\banana_spider.dm"
 #include "code\modules\mob\living\simple_animal\hostile\bear.dm"
 #include "code\modules\mob\living\simple_animal\hostile\bees.dm"
