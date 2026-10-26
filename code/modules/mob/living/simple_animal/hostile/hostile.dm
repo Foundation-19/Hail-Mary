@@ -2526,14 +2526,19 @@
 		end_light_patrol()
 		return
 	
-	// Pick furthest turf
-	var/turf/furthest = null
-	var/furthest_dist = 0
+	// Pick a random turf from the furthest ring (within 1 tile of the max distance).
+	// The old loop kept the first turf found at the max distance, which is always the same turf because
+	// range() iterates in a fixed order, so every patrol went the same direction.
+	var/max_dist = 0
 	for(var/turf/T in candidate_turfs)
-		var/dist = get_dist(patrol_home, T)
-		if(dist > furthest_dist)
-			furthest_dist = dist
-			furthest = T
+		max_dist = max(max_dist, get_dist(patrol_home, T))
+	var/list/far_turfs = list()
+	for(var/turf/T in candidate_turfs)
+		if(get_dist(patrol_home, T) >= max_dist - 1)
+			far_turfs += T
+	var/turf/furthest = null
+	if(far_turfs.len)
+		furthest = pick(far_turfs)
 	
 	if(!furthest)
 		end_light_patrol()

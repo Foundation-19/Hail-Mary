@@ -1831,7 +1831,7 @@
 				continue
 			if(ishuman(L) || istype(L, /mob/living/simple_animal/hostile))
 				flee_from(L, rand(8, 12))
-				break	
+				break
 
 /mob/living/simple_animal/radstag/rudostag
 	name = "Rudo the Rednosed Stag"
@@ -1981,6 +1981,16 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	faction = list("neutral")
+	// Players are in the "neutral" faction too, and hostile CanAttack() refuses same-faction targets
+	// unless attack_same is set (that is why goats set it). Retaliate() below keeps it to humans only.
+	attack_same = 1
+
+/mob/living/simple_animal/hostile/retaliate/radstag_buck/Retaliate()
+	// Only people count as enemies, not the other farm animals standing nearby.
+	for(var/mob/living/carbon/human/H in view(src, vision_range))
+		if(H.stat != DEAD)
+			enemies |= H
+	return 0
 
 /mob/living/simple_animal/hostile/retaliate/radstag_buck/AttackingTarget()
 	. = ..()
@@ -2098,9 +2108,18 @@
 	gold_core_spawnable = FRIENDLY_SPAWN
 	blood_volume = BLOOD_VOLUME_NORMAL
 	faction = list("neutral")
+	// Same reasoning as the radstag buck: players share the "neutral" faction, so attack_same is
+	// needed for CanAttack() to allow them as targets. Retaliate() keeps it to humans only.
+	attack_same = 1
 	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
 	var/lunging = FALSE
 	var/lunge_cooldown = 0
+
+/mob/living/simple_animal/hostile/retaliate/brahmin_bull/Retaliate()
+	for(var/mob/living/carbon/human/H in view(src, vision_range))
+		if(H.stat != DEAD)
+			enemies |= H
+	return 0
 
 /mob/living/simple_animal/hostile/retaliate/brahmin_bull/BiologicalLife(seconds, times_fired)
 	if(!(. = ..()))

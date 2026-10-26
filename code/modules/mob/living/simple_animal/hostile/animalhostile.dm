@@ -23,6 +23,7 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 */
 
 /mob/living/simple_animal/hostile/ghoulrotter
+	mob_armor = ARMOR_VALUE_GHOUL_NAKED
 	name = "rotting ghoul"
 	desc = "A bloated ghoul that has lost its mind and become aggressive."
 	icon = 'icons/mob/humans/ghouls.dmi'
@@ -41,6 +42,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 	harm_intent_damage = 8
 	melee_damage_lower = 15
 	melee_damage_upper = 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	attack_verb_simple = "claw"
 	attack_sound = 'sound/hallucinations/growl1.ogg'
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
@@ -61,6 +64,7 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 
 
 /mob/living/simple_animal/hostile/skolf
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
 	name = "skull wolf"
 	desc = "Half rotted by radiation, blind, hunting by smell and sound."
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
@@ -75,6 +79,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 	guaranteed_butcher_results = list(/obj/item/stack/sheet/animalhide/wolf = 1, /obj/item/reagent_containers/food/snacks/meat/slab/wolf = 1,/obj/item/stack/sheet/bone = 1)
 	melee_damage_lower = 20
 	melee_damage_upper = 25
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	aggro_vision_range = 15
 	attack_verb_simple = "bites"
 	attack_sound = 'sound/weapons/bite.ogg'
@@ -91,6 +97,7 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 // Uncommon beasts
 
 /mob/living/simple_animal/hostile/yaoguai
+	mob_armor = ARMOR_VALUE_YAOGUAI
 	name = "Yao Guai"
 	desc = "Radiation has caused the brown bear to lose its pelt, grow large with ulcers and a rage fueled by agony. The chinese name for them has stuck."
 	icon_gib = null
@@ -112,16 +119,19 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 	obj_damage = 15
 	melee_damage_lower = 20
 	melee_damage_upper = 45
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	attack_verb_simple = "bites"
 	attack_sound = 'sound/creatures/nightstalker_bite.ogg'
 	speak_emote = list("growls")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("gecko")
+	faction = list("yaoguai") // was list("gecko")
 	gold_core_spawnable = HOSTILE_SPAWN
 	a_intent = INTENT_HARM
 
 //Want to make these cause like 100 rads or so per bite plus their damage, maybe a little less. Instead of toxins. Remove comment if able to solve it.
 /mob/living/simple_animal/hostile/aradnid
+	mob_armor = ARMOR_VALUE_ARADNID
 	name = "aradnid"
 	desc = "Deeply disturbing creature, they can only consume radiated meat and drag their prey to contaminated areas to tenderize them."
 	mob_biotypes = MOB_ORGANIC|MOB_BUG
@@ -141,6 +151,8 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 	obj_damage = 60
 	melee_damage_lower = 15
 	melee_damage_upper = 25
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	faction = list("spiders")
 	pass_flags = PASSTABLE
 	move_to_delay = 6
@@ -159,12 +171,14 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 	. = ..()
 	if(. && ishuman(target))
 		var/mob/living/carbon/human/H = target
-		H.reagents.add_reagent(/datum/reagent/toxin/polonium, 20) //irradiates as pebbles wanted it to do
+		H.apply_effect(20, EFFECT_IRRADIATE, 0) // was polonium; real radiation, as the design note asked
 
 
 
 
 /mob/living/simple_animal/hostile/scolopendra
+	move_to_delay = 2
+	mob_armor = ARMOR_VALUE_SCOLOPENDRA
 	name = "Scolopendra"
 	desc = "The clicking of chitin and multitudes of legs is all you hear before the huge centipede rushes in to catch its prey."
 	icon_gib = null
@@ -179,18 +193,20 @@ to produce smoke or slow down victims? Stuff like that added to a couple would b
 	response_harm_simple = "bites"
 	emote_taunt = list("growls")
 	taunt_chance = 30
-	speed = 4
+	speed = 2 // was 4
 	maxHealth = 300
 	health = 300
 	harm_intent_damage = 8
 	obj_damage = 15
 	melee_damage_lower = 15
 	melee_damage_upper = 25
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	attack_verb_simple = "bites"
 	attack_sound = 'sound/creatures/nightstalker_bite.ogg'
 	speak_emote = list("growls")
 	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
-	faction = list("gecko")
+	faction = list("scolopendra") // was list("gecko")
 	gold_core_spawnable = HOSTILE_SPAWN
 	a_intent = INTENT_HARM
 
