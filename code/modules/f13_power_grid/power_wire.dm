@@ -48,9 +48,13 @@
 
 /// 1 = adjacent cable tiles only connect when their d1/d2 ends actually face each other
 /// (like tg cable), so separate runs laid side by side no longer merge into one network.
+/// DEFAULT 0: maps with pre-laid cable (where the cable was placed visually, not to tg's d1/d2
+/// rules) get their links found by _scan_cable_connections() and then re-validated by
+/// _prune_dead_links(); strict mode can fail both and leave boxes NOT WIRED. Turn on only once
+/// your map cable is known-good.
 /// 0 = legacy behaviour: any cable tile touches all 8 neighbours. Set to 0 if your coil
 /// placement doesn't populate d1/d2 the way tg's does.
-#define F13_CABLE_STRICT_DIRS 1
+#define F13_CABLE_STRICT_DIRS 0
 
 /// All 8 movement directions cable may route through.
 GLOBAL_LIST_INIT(f13_cable_dirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
