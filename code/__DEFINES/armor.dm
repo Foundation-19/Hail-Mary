@@ -980,6 +980,93 @@
 		"wound" = 0, \
 		"damage_threshold" = 8)
 
+/* Yao guai (East Coast)
+ * Tough, ulcerated hide, lots of bulk
+ * Per animalhostile.dm: must be dangerous to PA, so DT is moderate, not huge
+ * Half protected from radiation (it lives in it)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_YAOGUAI list(\
+		"melee" = 25, \
+		"bullet" = 30, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 6)
+
+/* Yao guai matriarch
+ * Heavier hide and more DT than the standard yao guai
+ * Still takes laser/plasma fine
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_YAOGUAI_MATRIARCH list(\
+		"melee" = 30, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 10, \
+		"damage_threshold" = 10)
+
+/* Scarred yao guai
+ * Plates of scar tissue: high bullet resistance and DT
+ * Meant to make AP / heavy rounds matter (design note: "Armor so AP is useful")
+ * Melee is a little lower than the matriarch
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_YAOGUAI_SCARRED list(\
+		"melee" = 25, \
+		"bullet" = 55, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 10, \
+		"damage_threshold" = 12)
+
+/* Aradnid (East Coast)
+ * Light chitin, immune to radiation (it feeds on it), some bio resistance
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ARADNID list(\
+		"melee" = 15, \
+		"bullet" = 20, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 50, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 2)
+
+/* Scolopendra (East Coast)
+ * "Decently tough": chitin plates, some acid resistance
+ * Moderate DT so tunnel fights do not become pure DPS races
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SCOLOPENDRA list(\
+		"melee" = 20, \
+		"bullet" = 25, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 20, \
+		"wound" = 0, \
+		"damage_threshold" = 4)
+
 /* Radscorpion armor
  * Armored carapace - good all-around protection
  * Strong melee/bullet resistance

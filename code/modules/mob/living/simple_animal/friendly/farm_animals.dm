@@ -1787,6 +1787,52 @@
 	blood_volume = BLOOD_VOLUME_NORMAL
 	faction = list("neutral")
 
+// ============================================================
+// RADSTAG - flee behavior
+// The description says it "will run at the first sight of danger", but the base type had no flee
+// code and no attack. It now bolts when hurt, and when a human or a hostile creature gets close.
+// ============================================================
+
+/mob/living/simple_animal/radstag/var/fleeing = FALSE
+
+/mob/living/simple_animal/radstag/proc/flee_from(atom/threat, steps = 10)
+	if(fleeing || stat || QDELETED(src))
+		return
+	fleeing = TRUE
+	flee_step(threat, steps)
+
+/mob/living/simple_animal/radstag/proc/flee_step(atom/threat, steps_left)
+	if(QDELETED(src) || stat || steps_left <= 0 || QDELETED(threat))
+		fleeing = FALSE
+		return
+	step_away(src, threat, 15)
+	addtimer(CALLBACK(src, PROC_REF(flee_step), threat, steps_left - 1), 3)
+
+/mob/living/simple_animal/radstag/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
+	. = ..()
+	if(amount > 0 && !stat)
+		var/mob/living/nearest
+		for(var/mob/living/L in oview(7, src))
+			if(L.stat == DEAD)
+				continue
+			if(!nearest || get_dist(src, L) < get_dist(src, nearest))
+				nearest = L
+		if(nearest)
+			flee_from(nearest, rand(10, 14))
+
+/mob/living/simple_animal/radstag/BiologicalLife(seconds, times_fired)
+	if(!(. = ..()))
+		return
+	if(stat != CONSCIOUS || fleeing)
+		return
+	if(prob(35))
+		for(var/mob/living/L in oview(4, src))
+			if(L.stat == DEAD)
+				continue
+			if(ishuman(L) || istype(L, /mob/living/simple_animal/hostile))
+				flee_from(L, rand(8, 12))
+				break	
+
 /mob/living/simple_animal/radstag/rudostag
 	name = "Rudo the Rednosed Stag"
 	desc = "An almost normal looking radstag. Apart from both of it's noses was a bright, glowing red."
@@ -1881,6 +1927,253 @@
 	. = ..()
 	resize = 0.7
 	update_transform()
+
+// ============================================================
+// RADSTAG FAWN
+// Small and defenseless. Flees like the adults, drops very little.
+// ============================================================
+
+/mob/living/simple_animal/radstag/fawn
+	name = "radstag fawn"
+	desc = "A small two-headed deer on spindly legs. It is already looking for the nearest way out."
+	health = 20
+	maxHealth = 20
+	resize = 0.6
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 1, /obj/item/stack/sheet/bone = 1)
+
+/mob/living/simple_animal/radstag/fawn/Initialize()
+	. = ..()
+	resize = 0.6
+	update_transform()
+
+// ============================================================
+// RADSTAG BUCK
+// Cornered prey bites back. Retaliate type: calm until hit, then gores. Separate type from the
+// radstag (a plain simple_animal that cannot attack). Calms down on its own like the goats do.
+// ============================================================
+
+/mob/living/simple_animal/hostile/retaliate/radstag_buck
+	name = "radstag buck"
+	desc = "A big two-headed stag with a rack of antlers on each head. Leave it alone and it will leave you alone."
+	icon = 'icons/mob/animals/farmanimals.dmi'
+	icon_state = "radstag"
+	icon_living = "radstag"
+	icon_dead = "radstag_dead"
+	icon_gib = "radstag_gib"
+	color = "#d9c7a3"
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+	turns_per_move = 5
+	see_in_dark = 6
+	guaranteed_butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 4, /obj/item/stack/sheet/sinew = 2, /obj/item/stack/sheet/animalhide/radstag = 2, /obj/item/stack/sheet/bone = 2)
+	butcher_difficulty = 1
+	response_help_simple = "pets"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "kicks"
+	attack_verb_simple = "gores"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	maxHealth = 90
+	health = 90
+	melee_damage_lower = 12
+	melee_damage_upper = 24
+	wound_bonus = 10
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	gold_core_spawnable = FRIENDLY_SPAWN
+	blood_volume = BLOOD_VOLUME_NORMAL
+	faction = list("neutral")
+
+/mob/living/simple_animal/hostile/retaliate/radstag_buck/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target) && prob(25))
+		var/mob/living/carbon/human/H = target
+		H.Knockdown(15)
+		H.visible_message(span_danger("\The [src] tosses [H] with its antlers!"), span_userdanger("\The [src] tosses you with its antlers!"))
+
+/mob/living/simple_animal/hostile/retaliate/radstag_buck/BiologicalLife(seconds, times_fired)
+	if(!(. = ..()))
+		return
+	if(stat == CONSCIOUS && enemies.len && prob(10))
+		enemies.Cut()
+		LoseTarget()
+		visible_message(span_notice("\The [src] calms down."))
+
+// ============================================================
+// BRAHMIN - herd panic
+// Defined on cow so any brahmin can react. Only the wild brahmin sets it off.
+// ============================================================
+
+/mob/living/simple_animal/cow/var/stampeding = FALSE
+
+/mob/living/simple_animal/cow/proc/herd_panic(atom/source)
+	if(stat || stampeding || current_rider || QDELETED(src))
+		return
+	stampeding = TRUE
+	visible_message(span_warning("\The [src] bolts in a panic!"))
+	stampede_step(source, rand(8, 12))
+
+/mob/living/simple_animal/cow/proc/stampede_step(atom/source, steps_left)
+	if(QDELETED(src) || stat || steps_left <= 0)
+		stampeding = FALSE
+		return
+	if(source && !QDELETED(source))
+		step_away(src, source, 15)
+	else
+		step(src, pick(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+	addtimer(CALLBACK(src, PROC_REF(stampede_step), source, steps_left - 1), 3)
+
+// ============================================================
+// WILD BRAHMIN
+// A skittish wild herd animal. When one is badly hurt, every brahmin in 7 tiles bolts,
+// ridden ones excepted. Taming is not blocked here, it relies on your existing saddle/bridle items.
+// ============================================================
+
+/mob/living/simple_animal/cow/brahmin/wild
+	name = "wild brahmin"
+	desc = "A two-headed brahmin with a rough coat and no brand. It watches you warily and keeps its herd close."
+	color = "#c9b79a"
+
+/mob/living/simple_animal/cow/brahmin/wild/adjustBruteLoss(amount, updating_health = TRUE, forced = FALSE, include_roboparts = FALSE)
+	. = ..()
+	if(amount >= 5 && stat != DEAD)
+		for(var/mob/living/simple_animal/cow/C in oview(7, src))
+			C.herd_panic(src)
+
+// ============================================================
+// GLOWING BRAHMIN
+// Irradiated herd animal. Glows faintly and its milk is radioactive (uses the existing
+// milk_reagent hook the same way cow/wisdom does). DO NOT drink the milk.
+// ============================================================
+
+/mob/living/simple_animal/cow/brahmin/glowing
+	name = "glowing brahmin"
+	desc = "A two-headed brahmin that has wandered through too much fallout. It glows a faint, sickly green. The milk is not safe to drink."
+	color = "#b8ffb0"
+	light_range = 2
+	light_color = "#99ff66"
+	milk_reagent = /datum/reagent/toxin/polonium
+
+// ============================================================
+// BRAHMIN BULL
+// An angry bull is a hazard, not a mount. Retaliate type (separate from the cow tree, which cannot
+// attack): calm until hit, then it lunges and rams. Not rideable or tameable.
+// ============================================================
+
+/mob/living/simple_animal/hostile/retaliate/brahmin_bull
+	name = "brahmin bull"
+	desc = "A huge, heavy-shouldered brahmin bull with a head on each end of its thick neck. Do not make it angry."
+	icon = 'icons/mob/animals/farmanimals.dmi'
+	icon_state = "brahmin"
+	icon_living = "brahmin"
+	icon_dead = "brahmin_dead"
+	icon_gib = "brahmin_gib"
+	color = "#8a6a55"
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+	turns_per_move = 5
+	see_in_dark = 6
+	speak = list("MOOOOO!", "moo?")
+	speak_emote = list("bellows")
+	speak_chance = 1
+	waddle_amount = 3
+	waddle_up_time = 1
+	waddle_side_time = 2
+	footstep_type = FOOTSTEP_MOB_HOOF
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab = 6,
+		/obj/item/stack/sheet/animalhide/brahmin = 3,
+		/obj/item/stack/sheet/bone = 3
+	)
+	butcher_difficulty = 1
+	response_help_simple = "pets"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "kicks"
+	attack_verb_simple = "rams"
+	attack_sound = 'sound/weapons/punch1.ogg'
+	maxHealth = 180
+	health = 180
+	melee_damage_lower = 14
+	melee_damage_upper = 28
+	obj_damage = 30
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	gold_core_spawnable = FRIENDLY_SPAWN
+	blood_volume = BLOOD_VOLUME_NORMAL
+	faction = list("neutral")
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+	var/lunging = FALSE
+	var/lunge_cooldown = 0
+
+/mob/living/simple_animal/hostile/retaliate/brahmin_bull/BiologicalLife(seconds, times_fired)
+	if(!(. = ..()))
+		return
+	if(stat != CONSCIOUS)
+		return
+	if(enemies.len && prob(10))
+		enemies.Cut()
+		LoseTarget()
+		visible_message(span_notice("\The [src] calms down."))
+		return
+	if(target && !lunging && world.time >= lunge_cooldown && prob(60))
+		var/dist = get_dist(src, target)
+		if(dist >= 3 && dist <= 6)
+			bull_lunge()
+
+/mob/living/simple_animal/hostile/retaliate/brahmin_bull/proc/bull_lunge()
+	lunging = TRUE
+	lunge_cooldown = world.time + 8 SECONDS
+	visible_message(span_danger("\The [src] lowers its heads and charges!"))
+	throw_at(get_turf(target), get_dist(src, target), 2, src, FALSE, callback = CALLBACK(src, PROC_REF(lunge_end)))
+
+/mob/living/simple_animal/hostile/retaliate/brahmin_bull/proc/lunge_end()
+	lunging = FALSE
+
+// ============================================================
+// BIGHORNER RAM
+// Herd leader. Hits harder, butts people off their feet, and when it gets angry it calls
+// nearby bighorners (anything in its faction) to join in. 10 second cooldown on the call.
+// ============================================================
+
+/mob/living/simple_animal/hostile/retaliate/goat/bighorn/ram
+	name = "bighorner ram"
+	desc = "A heavily built bighorner with massive curled horns and a scarred face. The rest of the herd follows its lead."
+	color = "#a89478"
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+	maxHealth = 200
+	health = 200
+	melee_damage_lower = 20
+	melee_damage_upper = 32
+	var/herd_call_cooldown = 0
+
+/mob/living/simple_animal/hostile/retaliate/goat/bighorn/ram/Initialize()
+	. = ..()
+	resize = 1.2
+	update_transform()
+
+/mob/living/simple_animal/hostile/retaliate/goat/bighorn/ram/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target) && prob(30))
+		var/mob/living/carbon/human/H = target
+		H.Knockdown(15)
+		H.visible_message(span_danger("\The [src] butts [H] off their feet!"), span_userdanger("\The [src] butts you off your feet!"))
+
+/mob/living/simple_animal/hostile/retaliate/goat/bighorn/ram/Retaliate()
+	. = ..()
+	if(world.time >= herd_call_cooldown)
+		herd_call_cooldown = world.time + 10 SECONDS
+		summon_backup(8)
+
+// ============================================================
+// MOUNTAIN BIGHORNER
+// Biome variant. Thicker hide, a bit slower. Same temperament as the standard bighorner.
+// ============================================================
+
+/mob/living/simple_animal/hostile/retaliate/goat/bighorn/mountain
+	name = "mountain bighorner"
+	desc = "A bighorner from the high country, with a thick, shaggy coat and a build like a boulder."
+	color = "#9a9a8f"
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+	speed = 1.5
+	maxHealth = 160
+	health = 160
 
 /* Seems obsolete with Daves Brahmin packs, marked for death?
 	if(inventory_back && inventory_back.brahmin_fashion)
