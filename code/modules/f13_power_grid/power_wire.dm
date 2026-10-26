@@ -46,15 +46,19 @@
 /// Lengths of cable consumed from the player's coil when a link is completed.
 #define F13_WIRE_LINK_COST 2
 
-/// 1 = adjacent cable tiles only connect when their d1/d2 ends actually face each other
-/// (like tg cable), so separate runs laid side by side no longer merge into one network.
-/// DEFAULT 0: maps with pre-laid cable (where the cable was placed visually, not to tg's d1/d2
-/// rules) get their links found by _scan_cable_connections() and then re-validated by
-/// _prune_dead_links(); strict mode can fail both and leave boxes NOT WIRED. Turn on only once
-/// your map cable is known-good.
-/// 0 = legacy behaviour: any cable tile touches all 8 neighbours. Set to 0 if your coil
-/// placement doesn't populate d1/d2 the way tg's does.
-#define F13_CABLE_STRICT_DIRS 0
+// ── CABLE RUNS ──────────────────────────────────────────────────────────────
+// A cable tile belongs to a RUN, named by /obj/structure/cable/var/f13_run_id.
+// Adjacent cable tiles connect only if they share the same run id. Cable with no run id
+// (all existing map cable) forms one shared legacy run, so old maps behave exactly as before.
+// Tiles holding an F13 machine join every run that touches them: the machine is the junction.
+// Mappers: set f13_run_id on the cable in the map editor. Players: laid cable is tagged
+// automatically (see f13_run_for()).
+
+/// Run id for cable a player lays: the run of their active wiring session, else a personal one.
+/proc/f13_run_for(mob/living/user)
+	if(!user)
+		return null
+	return GLOB.f13_wire_session_runs["[REF(user)]"] || "free_[REF(user)]"
 
 /// All 8 movement directions cable may route through.
 GLOBAL_LIST_INIT(f13_cable_dirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
@@ -73,31 +77,40 @@ GLOBAL_LIST_INIT(f13_cable_dirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTH
 		return TRUE
 	return FALSE
 
-/// TRUE if cable at turf T and cable at its neighbour N (N = get_step(T, dir)) form one connection.
-/// N must hold cable. Under F13_CABLE_STRICT_DIRS both tiles' cable must have an end facing the
-/// other. A tile holding an F13 machine is a wildcard: the machine itself is the connection point
-/// and a laid run often ends in a stub that points back along the run, not at the machine.
+/// Runs a tile belongs to: the run id of every cable on it ("legacy" for cable with no id), plus
+/// every run a machine on it has been wired through. A machine tile with no cable at all also
+/// counts as "legacy" so map cable laid next to a generator/relay still finds it.
+/proc/f13_tile_runs(turf/X)
+	var/list/runs = list()
+	var/has_cable = FALSE
+	for(var/obj/structure/cable/C in X)
+		has_cable = TRUE
+		var/rid = C.f13_run_id ? C.f13_run_id : "legacy"
+		if(!(rid in runs))
+			runs += rid
+	var/has_machine = FALSE
+	for(var/obj/machinery/f13/M in X)
+		has_machine = TRUE
+		if(M.f13_wire_runs)
+			for(var/rr in M.f13_wire_runs)
+				if(!(rr in runs))
+					runs += rr
+	if(has_machine && !has_cable && !("legacy" in runs))
+		runs += "legacy"
+	return runs
+
+/// TRUE if cable at turf T and cable at its neighbour N (N = get_step(T, dir)) form one connection:
+/// N must hold cable, and the two tiles must share a run. A machine is the junction between runs
+/// because it carries every run that was wired to it.
 /proc/f13_cable_can_step(turf/T, turf/N, dir)
 	if(!(locate(/obj/structure/cable) in N))
 		return FALSE
-#if F13_CABLE_STRICT_DIRS
-	if((locate(/obj/machinery/f13) in T) || (locate(/obj/machinery/f13) in N))
-		return TRUE
-	var/back = turn(dir, 180)
-	var/faces_out = FALSE
-	for(var/obj/structure/cable/C in T)
-		if(C.d1 == dir || C.d2 == dir)
-			faces_out = TRUE
-			break
-	if(!faces_out)
-		return FALSE
-	for(var/obj/structure/cable/C in N)
-		if(C.d1 == back || C.d2 == back)
+	var/list/ta = f13_tile_runs(T)
+	var/list/tb = f13_tile_runs(N)
+	for(var/k in ta)
+		if(k in tb)
 			return TRUE
 	return FALSE
-#else
-	return TRUE
-#endif
 
 /// Cable sprites only have icon_states for cardinal d1/d2 combos -- collapse any
 /// diagonal get_dir() result down to one cardinal component so the auto-spawned
@@ -116,6 +129,25 @@ GLOBAL_LIST_INIT(f13_cable_dirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTH
 // Key: "[REF(mob)]" string  →  Value: WEAKREF(source_machine)
 GLOBAL_LIST_EMPTY(f13_wire_sessions)
 
+/// Key -> run id for that player's active wiring session. A machine's runs are named after the
+/// machine, so resuming from the same machine later continues the same run.
+GLOBAL_LIST_EMPTY(f13_wire_session_runs)
+
+/// Runs this machine has been wired through (see f13_tile_runs). Map machines start with none.
+/obj/machinery/f13/var/list/f13_wire_runs = null
+
+/// Record that a run touches this machine.
+/proc/f13_machine_add_run(obj/machinery/f13/M, run_id)
+	if(!istype(M) || !run_id)
+		return
+	if(!M.f13_wire_runs)
+		M.f13_wire_runs = list()
+	if(!(run_id in M.f13_wire_runs))
+		M.f13_wire_runs += run_id
+
+/// Which run a cable tile belongs to. null = the shared legacy run (all pre-existing map cable).
+/obj/structure/cable/var/f13_run_id = null
+
 /// Key -> world.time the session was started. Sessions older than this many deciseconds are dead.
 GLOBAL_LIST_EMPTY(f13_wire_session_times)
 #define F13_WIRE_SESSION_TIMEOUT 3000
@@ -127,6 +159,7 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 		if(world.time - GLOB.f13_wire_session_times[key] > F13_WIRE_SESSION_TIMEOUT)
 			GLOB.f13_wire_sessions -= key
 			GLOB.f13_wire_session_times -= key
+			GLOB.f13_wire_session_runs -= key
 
 
 // ============================================================
@@ -139,6 +172,12 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 /proc/f13_start_wire_session(obj/machinery/machine_src, mob/living/user)
 	// Cancel any existing session first.
 	f13_cancel_wire_session(user)
+
+	// Cable laid from this machine belongs to the machine's own run, so resuming later (or a
+	// second player working from the same machine) continues the same run. Registered BEFORE the
+	// knot spawns so the knot is tagged too (cable Initialize reads f13_run_for()).
+	GLOB.f13_wire_session_runs["[REF(user)]"] = "m_[REF(machine_src)]"
+	f13_machine_add_run(machine_src, "m_[REF(machine_src)]")
 
 	// Auto-spawn a directional cable stub on the machine's turf pointing
 	// toward the player, so it flows naturally toward where they're standing.
@@ -170,6 +209,7 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 	if(!machine_src || QDELETED(machine_src))
 		GLOB.f13_wire_sessions -= "[REF(user)]"
 		GLOB.f13_wire_session_times -= "[REF(user)]"
+		GLOB.f13_wire_session_runs -= "[REF(user)]"
 		return null
 
 	// Player clicked the source machine again — treat as cancel.
@@ -187,6 +227,9 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 			spawn_dir = user.dir
 		new /obj/structure/cable(dst_turf, null, 0, f13_nearest_cardinal(spawn_dir))
 
+	// The destination machine joins this session's run (a machine is the junction between runs).
+	f13_machine_add_run(machine_dst, GLOB.f13_wire_session_runs["[REF(user)]"])
+
 	// BFS path check from source turf to destination turf.
 	var/turf/src_turf = get_turf(machine_src)
 	if(!f13_cable_path_exists(src_turf, dst_turf))
@@ -203,6 +246,7 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 	// Clear session, return source.
 	GLOB.f13_wire_sessions -= "[REF(user)]"
 	GLOB.f13_wire_session_times -= "[REF(user)]"
+	GLOB.f13_wire_session_runs -= "[REF(user)]"
 	return machine_src
 
 
@@ -210,6 +254,7 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 /proc/f13_cancel_wire_session(mob/living/user)
 	GLOB.f13_wire_sessions -= "[REF(user)]"
 	GLOB.f13_wire_session_times -= "[REF(user)]"
+	GLOB.f13_wire_session_runs -= "[REF(user)]"
 
 
 // ============================================================
@@ -250,6 +295,9 @@ GLOBAL_LIST_EMPTY(f13_wire_session_times)
 /// Fires on every new cable placed outside of map-load (player-placed tiles only).
 /obj/structure/cable/Initialize(mapload, param_color, _d1, _d2)
 	. = ..()
+	// Player-laid cable joins the player's run (map cable keeps whatever f13_run_id the mapper set).
+	if(!mapload && !f13_run_id && isliving(usr))
+		f13_run_id = f13_run_for(usr)
 	if(!mapload && isliving(usr))
 		var/turf/T = get_turf(src)
 		if(T && f13_cable_is_live(T))

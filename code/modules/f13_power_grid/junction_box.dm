@@ -582,6 +582,77 @@
 				_stamp_areas(FALSE)
 
 
+/// 1 = when several bolted boxes share one home area type, each tile goes to the box with the
+/// shortest 4-way walking path to it (ties: earlier registered box) instead of whichever box
+/// happens to build first and flood the whole connected region, so two boxes in rooms joined by a
+/// doorway each keep their own side. Rescanning or bolting a box rebalances every box of that type.
+/// 0 = original first-come behaviour.
+#define F13_JBOX_NEAREST_WINS 1
+
+/// Walking distance (4-way, same z, through non-dense turfs) from this box to every tile it could
+/// claim under root_type. A wall-mounted box starts from its walkable neighbours at distance 1.
+/// Ignores existing zone claims (it asks "who is closest", not "who got there first").
+/obj/machinery/f13/junction_box/proc/_partition_dist(root_type, area/custom_root)
+	var/list/dist = list()
+	var/turf/s = get_turf(src)
+	if(!s)
+		return dist
+	var/list/frontier = list()
+	if(s.density)
+		for(var/d0 in list(NORTH, SOUTH, EAST, WEST))
+			var/turf/n0 = get_step(s, d0)
+			if(n0 && !n0.density)
+				dist[n0] = 1
+				frontier += n0
+	else
+		dist[s] = 0
+		frontier += s
+	var/head = 1
+	while(head <= frontier.len)
+		var/turf/T = frontier[head]
+		head++
+		var/dcur = dist[T]
+		for(var/d in list(NORTH, SOUTH, EAST, WEST))
+			var/turf/n = get_step(T, d)
+			if(!n || n.density || !isnull(dist[n]))
+				continue
+			var/area/na = get_area(n)
+			if(!na || _area_is_immune(na))
+				continue
+			var/area/f13/fna = na
+			var/area/chk = (istype(fna) && fna.f13_jbox_zone && fna.f13_origin) ? fna.f13_origin : na
+			if(!_area_in_scope(chk, root_type, custom_root))
+				continue
+			dist[n] = dcur + 1
+			frontier += n
+	return dist
+
+/// Tiles that another bolted box with the same home area type is closer to than we are.
+/// Returns an assoc list turf -> TRUE, or null when nothing is contested.
+/obj/machinery/f13/junction_box/proc/_tiles_lost_to_rivals(root_type)
+	var/list/rivals = list()
+	var/my_index = GLOB.f13_jboxes.Find(src)
+	for(var/obj/machinery/f13/junction_box/JB in GLOB.f13_jboxes)
+		if(JB == src || QDELETED(JB) || !JB.anchored || JB.home_area_type != root_type)
+			continue
+		rivals += JB
+	if(!rivals.len)
+		return null
+	var/list/mine = _partition_dist(root_type, null)
+	if(!mine.len)
+		return null
+	var/list/lost = list()
+	for(var/obj/machinery/f13/junction_box/RB in rivals)
+		var/list/theirs = RB._partition_dist(root_type, null)
+		var/ties_win = (GLOB.f13_jboxes.Find(RB) < my_index)
+		for(var/turf/T in mine)
+			var/rd = theirs[T]
+			if(isnull(rd))
+				continue
+			if(rd < mine[T] || (rd == mine[T] && ties_win))
+				lost[T] = TRUE
+	return lost.len ? lost : null
+
 /// Depth-first walk from the junction box's turf.
 /// root_type — the area type the box is placed in; only tiles whose area is
 /// a subtype (or the exact type) of root_type will be visited.
@@ -607,6 +678,11 @@
 				var/turf/seed = get_step(start_turf, seed_dir)
 				if(seed && !seed.density)
 					stack += seed
+	var/list/lost_to_rivals = null
+#if F13_JBOX_NEAREST_WINS
+	if(!custom_root)
+		lost_to_rivals = _tiles_lost_to_rivals(root_type)
+#endif
 	while(stack.len)
 		var/turf/T = stack[stack.len]
 		stack.len--
@@ -682,6 +758,9 @@
 				continue
 			// Reserved for a different box's home area (order-independent boundary).
 			if(reserved_types && reserved_types.len && (check_area.type in reserved_types))
+				continue
+			// A box with the same home area type that is closer to this tile owns it.
+			if(lost_to_rivals && lost_to_rivals[N])
 				continue
 			stack += N
 
@@ -815,19 +894,52 @@
 
 /// Drops and re-claims territory from scratch.  Call after the box is moved/bolted down
 /// or after the surrounding area was repainted with area_edit.
-/obj/machinery/f13/junction_box/proc/rebuild_zones()
-	// Remember which zone breakers were tripped (keyed by the original area, since the
-	// zone datums themselves are recreated) so a rescan doesn't silently re-close them.
+/obj/machinery/f13/junction_box/proc/rebuild_zones(group_pass = FALSE)
+	// Which zone breakers were tripped (keyed by the original area, since the zone datums
+	// themselves are recreated) so a rescan doesn't silently re-close them.
+	var/list/tripped = _save_tripped_zones()
+#if F13_JBOX_NEAREST_WINS
+	if(!group_pass)
+		// Boxes sharing a home area type split their tiles by distance, and a tile held by one
+		// box can't be taken by another, so rebalance the whole group: release everything first,
+		// then let each box claim its nearest tiles.
+		var/area/h0 = _resolve_root_area()
+		home_area_type = h0 ? h0.type : null
+		var/list/group = list()
+		for(var/obj/machinery/f13/junction_box/JB in GLOB.f13_jboxes)
+			if(JB != src && !QDELETED(JB) && JB.anchored && home_area_type && JB.home_area_type == home_area_type)
+				group += JB
+		if(group.len)
+			var/list/saved = list()
+			saved[src] = tripped
+			for(var/obj/machinery/f13/junction_box/GB in group)
+				saved[GB] = GB._save_tripped_zones()
+			teardown_zones()
+			for(var/obj/machinery/f13/junction_box/GB in group)
+				GB.teardown_zones()
+			group += src
+			for(var/obj/machinery/f13/junction_box/GB in group)
+				GB.build_zones()
+				GB._restore_tripped_zones(saved[GB])
+			return
+#endif
+	teardown_zones()
+	var/area/home = _resolve_root_area()
+	home_area_type = home ? home.type : null
+	build_zones()
+	_restore_tripped_zones(tripped)
+
+/// Zone breakers currently tripped, keyed by the zone's original area.
+/obj/machinery/f13/junction_box/proc/_save_tripped_zones()
 	var/list/tripped = list()
 	if(owned_zones && zone_breakers)
 		for(var/area/Z in owned_zones)
 			if(zone_breakers[Z] == FALSE && owned_zones[Z])
 				tripped[owned_zones[Z]] = TRUE
-	teardown_zones()
-	var/area/home = _resolve_root_area()
-	home_area_type = home ? home.type : null
-	build_zones()
-	if(tripped.len && owned_zones && zone_breakers)
+	return tripped
+
+/obj/machinery/f13/junction_box/proc/_restore_tripped_zones(list/tripped)
+	if(tripped && tripped.len && owned_zones && zone_breakers)
 		var/restored = FALSE
 		for(var/area/Z in owned_zones)
 			if(tripped[owned_zones[Z]])

@@ -805,6 +805,38 @@
 
 	return !_is_over_budget()
 
+/// Plain-language reason the smallest shed device can't come back yet: what it needs vs the room
+/// left, in both true watts and VA (either one can be the limit). Null if nothing is shed.
+/obj/machinery/f13/faction_generator/proc/_shed_restore_hint()
+	var/need_w = null
+	var/need_va = null
+	var/best = null
+	if(shed_clients)
+		for(var/obj/machinery/f13/grid_client/C in shed_clients)
+			if(QDELETED(C))
+				continue
+			var/ups = max(1, C.get_live_upstream_count())
+			var/w = C.get_effective_watt_draw() / ups
+			if(isnull(best) || w < best)
+				best = w
+				need_w = w
+				need_va = C.get_effective_va_draw() / ups
+	if(shed_relays)
+		for(var/obj/machinery/f13/power_relay/R in shed_relays)
+			if(QDELETED(R))
+				continue
+			var/rups = max(1, R.get_live_upstream_count())
+			var/rw = R.get_subtree_draw(null, TRUE) / rups
+			if(isnull(best) || rw < best)
+				best = rw
+				need_w = rw
+				need_va = R.get_subtree_va_draw(null, TRUE) / rups
+	if(isnull(best))
+		return null
+	var/room_w = round(available_watts - current_draw, 1)
+	var/room_va = round(get_available_va() - current_va_draw, 1)
+	return "Smallest suspended device needs [round(need_w, 1)]W / [round(need_va, 1)]VA; room left is [room_w]W / [room_va]VA"
+
 // ── Restore shed loads when the generator has headroom again.
 /// Called each process() tick before the overload check (only when under budget).
 /obj/machinery/f13/faction_generator/proc/_try_restore_shed()
@@ -1391,6 +1423,9 @@
 		diag += list(list("bad", "Emergency shutdown latched — explosive damage sustained"))
 	if(shed_total > 0)
 		diag += list(list("warn", "[shed_total] device[shed_total != 1 ? "s" : ""] load-shed to stay under capacity"))
+		var/shed_hint = _shed_restore_hint()
+		if(shed_hint)
+			diag += list(list("warn", shed_hint))
 	for(var/entry in diag)
 		var/lvl = entry[1]
 		var/lbl = entry[2]
