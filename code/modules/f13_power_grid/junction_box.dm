@@ -737,16 +737,14 @@
 				continue
 			var/area/orig = owned_zones[Z]
 			if(!orig || QDELETED(orig))
-				// The origin can itself have been another box's private zone that is already gone
-				// (overlapping outdoor boxes removed in the "wrong" order). Fall back to the zone's
-				// own origin, then to any live area of the same type, instead of abandoning the tiles.
+				// The recorded origin was another box's private zone that is already gone. Only fall
+				// back to the zone's own recorded origin, and only if that is a live REAL area.
+				// Never guess by area type: zones are instances of their original type, so a
+				// type match would hand these turfs to some other box's zone or another building.
 				orig = Z.f13_origin
-				if(!orig || QDELETED(orig))
+				var/area/f13/orig_f = orig
+				if(!orig || QDELETED(orig) || (istype(orig_f) && orig_f.f13_jbox_zone))
 					orig = null
-					for(var/area/A in GLOB.sortedAreas)
-						if(A != Z && A.type == Z.type && !QDELETED(A))
-							orig = A
-							break
 			if(orig)
 				for(var/turf/T in Z.contents.Copy())
 					Z.contents    -= T
