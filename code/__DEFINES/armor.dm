@@ -1419,6 +1419,107 @@
 		"wound" = 45, \
 		"damage_threshold" = 12)
 
+/* Legion Centurion
+ * Officer in layered plate: between the Legion veteran (40/30/DT 5) and the Praetorian
+ * Strong against blades and fists, a little better than the veteran against bullets
+ * Still weak to lasers and plasma like all Legion kit
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_LEGION_CENTURION list(\
+		"melee" = 48, \
+		"bullet" = 35, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 5, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 10, \
+		"acid" = 0, \
+		"wound" = 20, \
+		"damage_threshold" = 6)
+
+/* Legion Praetorian
+ * Caesar's guard: the heaviest Legion armor
+ * Very strong against melee, decent against bullets, still weak to lasers and plasma
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_LEGION_PRAETORIAN list(\
+		"melee" = 55, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 10, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 15, \
+		"acid" = 0, \
+		"wound" = 25, \
+		"damage_threshold" = 8)
+
+/* NCR Heavy Trooper
+ * Reinforced armor between the standard NCR kit (30/35/DT 4) and the Ranger kit (50/55/DT 8)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_NCR_HEAVY list(\
+		"melee" = 40, \
+		"bullet" = 50, \
+		"laser" = 35, \
+		"energy" = 15, \
+		"bomb" = 20, \
+		"bio" = 10, \
+		"rad" = 10, \
+		"fire" = 20, \
+		"acid" = 20, \
+		"wound" = 20, \
+		"damage_threshold" = 7)
+
+/* Brotherhood Scribe
+ * Robes with a light plate vest: far below a knight (70/75/DT 10), built to stay behind the line
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_BOS_SCRIBE list(\
+		"melee" = 40, \
+		"bullet" = 45, \
+		"laser" = 40, \
+		"energy" = 10, \
+		"bomb" = 20, \
+		"bio" = 40, \
+		"rad" = 20, \
+		"fire" = 40, \
+		"acid" = 40, \
+		"wound" = 20, \
+		"damage_threshold" = 4)
+
+/* Brotherhood Knight-Captain
+ * Between the knight (70/75/DT 10) and the paladin in T-51b (85/90/DT 12)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_BOS_CAPTAIN list(\
+		"melee" = 78, \
+		"bullet" = 82, \
+		"laser" = 78, \
+		"energy" = 35, \
+		"bomb" = 60, \
+		"bio" = 85, \
+		"rad" = 45, \
+		"fire" = 78, \
+		"acid" = 78, \
+		"wound" = 42, \
+		"damage_threshold" = 11)
+
+/* Enclave Hellfire trooper
+ * Above the APA armored infantry (95/100/DT 14): Hellfire plating, the best armor in the game for mobs
+ * Plasma and energy still get through better than anything else (energy 55)
+ * Bullet / laser / fire 100 matches ENCLAVE_APA, which already uses 100; whether the system caps mob DR at 95 is unverified
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ENCLAVE_HELLFIRE list(\
+		"melee" = 95, \
+		"bullet" = 100, \
+		"laser" = 100, \
+		"energy" = 55, \
+		"bomb" = 85, \
+		"bio" = 100, \
+		"rad" = 60, \
+		"fire" = 100, \
+		"acid" = 95, \
+		"wound" = 55, \
+		"damage_threshold" = 16)
+
 /* Enclave soldier armor
  * Advanced Combat Armor or X-01 Power Armor
  * Excellent protection

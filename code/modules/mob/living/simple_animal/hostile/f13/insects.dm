@@ -431,10 +431,14 @@
 	update_icons()
 
 /mob/living/simple_animal/hostile/radscorpion/proc/scorpion_randomify()
+	// Black and blue radscorpions are their own types with their own sprites: leave them alone.
+	if(type != /mob/living/simple_animal/hostile/radscorpion)
+		return
 	scorpion_color = pick(icon_sets)
 	icon_state = "[scorpion_color]"
 	icon_living = "[scorpion_color]"
-	icon_dead = "[scorpion_color]_dead"
+	// the plain sprite uses _dead, the black and blue ones use _d
+	icon_dead = (scorpion_color == "radscorpion") ? "radscorpion_dead" : "[scorpion_color]_d"
 
 /mob/living/simple_animal/hostile/radscorpion/Aggro()
 	. = ..()

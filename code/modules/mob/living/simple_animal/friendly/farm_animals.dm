@@ -43,10 +43,8 @@
 
 	footstep_type = FOOTSTEP_MOB_SHOE
 
-/mob/living/simple_animal/hostile/retaliate/goat/Initialize(/datum/reagent/milk_reagent)
-	if(milk_reagent)
-		src.milk_reagent = milk_reagent
-	udder = new (null, src.milk_reagent)
+/mob/living/simple_animal/hostile/retaliate/goat/Initialize()
+	udder = new (null, milk_reagent)
 	. = ..()
 
 /mob/living/simple_animal/hostile/retaliate/goat/Destroy()
@@ -1870,8 +1868,10 @@
 	attack_sound = 'sound/weapons/punch1.ogg'
 	health = 120
 	maxHealth = 120
-	melee_damage_lower = 25
-	melee_damage_upper = 20
+	melee_damage_lower = 20 // was 25
+	melee_damage_upper = 25 // was 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	stop_automated_movement_when_pulled = 1
 	var/is_calf = 0
@@ -1887,7 +1887,7 @@
 		if(is_calf)
 			visible_message(span_alertalien("[src] adorably chews the [O]."))
 			qdel(O)
-		if(!has_calf && !is_calf)
+		else if(!has_calf)
 			has_calf = 1
 			visible_message(span_alertalien("[src] hungrily consumes the [O]."))
 			qdel(O)
@@ -1910,17 +1910,27 @@
 		if(is_calf)
 			if((prob(3)))
 				is_calf = 0
-				udder = new()
-				if(name == "bighorn lamb")
-					name = "bighorn"
-				else
-					name = "bighorn"
+				udder = new(null, milk_reagent)
+				name = "bighorner"
+				maxHealth = 120
+				health = 120
+				melee_damage_lower = 20
+				melee_damage_upper = 25
+				resize = 1
+				update_transform()
 				visible_message(span_alertalien("[src] has fully grown."))
 		else
 			udder?.generateMilk(milk_reagent)
 
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf
-	name = "bighoner calf"
+	melee_damage_upper = 6
+	melee_damage_lower = 3
+	health = 40
+	maxHealth = 40
+	is_calf = 1
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	name = "bighorn lamb" // was "bighoner calf"
 	resize = 0.7
 
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/calf/Initialize()
@@ -1976,6 +1986,8 @@
 	health = 90
 	melee_damage_lower = 12
 	melee_damage_upper = 24
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	wound_bonus = 10
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -2103,6 +2115,8 @@
 	health = 180
 	melee_damage_lower = 14
 	melee_damage_upper = 28
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -2160,6 +2174,8 @@
 	health = 200
 	melee_damage_lower = 20
 	melee_damage_upper = 32
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	var/herd_call_cooldown = 0
 
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/ram/Initialize()
@@ -2186,6 +2202,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/retaliate/goat/bighorn/mountain
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "mountain bighorner"
 	desc = "A bighorner from the high country, with a thick, shaggy coat and a build like a boulder."
 	color = "#9a9a8f"
