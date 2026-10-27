@@ -1155,7 +1155,7 @@
 	speed = 1
 	move_to_delay = 4
 	turns_per_move = 0
-	anchored = TRUE
+	move_resist = MOVE_FORCE_OVERPOWERING
 	density = TRUE
 
 	melee_damage_lower = 10
