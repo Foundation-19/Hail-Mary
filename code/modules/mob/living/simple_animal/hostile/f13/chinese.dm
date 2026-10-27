@@ -192,4 +192,41 @@
 		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
-	
+
+// ============================================================
+// CHINESE REMNANT SNIPER - frail, patient, drops no gun
+// ============================================================
+
+/mob/living/simple_animal/hostile/chinese/ranged/sniper
+	name = "chinese remnant sniper"
+	desc = "A Chinese remnant soldier in a tattered coat with a long rifle across its arms. The old doctrine said to wait; this one has had decades of practice."
+	maxHealth = 95
+	health = 95
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/pistol)
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 9
+	minimum_distance = 6
+	vision_range = 11
+	aggro_vision_range = 11
+
+	sight_shoot_delay_time = 1.5 SECONDS
+	ranged_cooldown_time = 6 SECONDS
+	extra_projectiles = 0
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/sniper
+	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	ranged_message = "takes a careful shot"
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)

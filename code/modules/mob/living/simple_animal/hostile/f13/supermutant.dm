@@ -772,7 +772,7 @@
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	ranged_cooldown_time = 5 SECONDS
 
-	// Swap for your LMG / ammo-belt drops if you have them.
+	// Swap for your LMG / ammo-belt drops after balancing.
 	loot = list(/obj/item/stack/f13Cash/random/high)
 
 	projectile_sound_properties = list(

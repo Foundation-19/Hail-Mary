@@ -764,6 +764,14 @@
 	armour_penetration = 0.4
 	damage_threshold_penetration = 4
 
+// Sniper round for the raider / NCR Ranger / Chinese remnant snipers (sniper_variants.dm).
+// One heavy, armor-piercing shot per 6 seconds instead of a stream that flat DT would erase.
+// Damage is about 80% of a .30-06 hit; AP 0.5 and DTP 6 are meant to hurt even armored targets.
+/obj/item/projectile/bullet/a762/sport/simple/sniper
+	name = ".30-06 bullet"
+	damage = BULLET_DAMAGE_RIFLE_3006 * 0.8
+	armour_penetration = 0.5
+	damage_threshold_penetration = 6
 
 /obj/item/projectile/bullet/a3006
 	name = ".30-06 bullet"

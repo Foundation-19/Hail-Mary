@@ -767,3 +767,43 @@
 	shoes = /obj/item/clothing/shoes/f13/rag
 	mask = /obj/item/clothing/mask/facewrap
 	head = /obj/item/clothing/head/helmet/f13/fiend
+
+// ============================================================
+// RAIDER SNIPER - cheap, fragile, mean
+// ============================================================
+
+/mob/living/simple_animal/hostile/raider/ranged/sniper
+	name = "raider sniper"
+	desc = "A raider lying in wait with a scoped hunting rifle and a lot of patience. You will hear the shot after it hits you."
+	maxHealth = 85
+	health = 85
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	// raider/ranged randomizes its name from a global list on spawn; an empty list keeps "raider sniper"
+	// (same trick mangomatt uses).
+	variation_list = list()
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 9
+	minimum_distance = 6
+	vision_range = 11
+	aggro_vision_range = 11
+
+	sight_shoot_delay_time = 1.5 SECONDS
+	ranged_cooldown_time = 6 SECONDS
+	extra_projectiles = 0
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/sniper
+	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	ranged_message = "takes a careful shot"
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)

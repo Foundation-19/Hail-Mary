@@ -470,3 +470,86 @@
 	icon_state = "egg"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 3)
 	foodtype = MEAT
+
+// ============================================================
+// FOG CRAWLER
+// Mirelurk-adjacent armored ambusher. Moves through thick mist: nearly invisible while idle,
+// reveals itself when it aggros, and fades back after losing its target.
+// Child of mirelurk so it keeps the mirelurk sprite, sounds and pack call.
+// ============================================================
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler
+	affix_pool_type = "beast"
+	affix_chance = 4
+	name = "fog crawler"
+	desc = "A mirelurk-like crustacean with a mottled grey-blue shell that blends into the mist. It lies still until you are close, then comes at you fast."
+	color = "#8fa3ad"
+	mob_armor = ARMOR_VALUE_FOG_CRAWLER
+	maxHealth = 260
+	health = 260
+	melee_damage_lower = 18
+	melee_damage_upper = 30
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/cloak_alpha = 80
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.4, 2.6, 2.8),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(40),
+		MOB_HEALTH_LIST(240, 260, 280)
+	)
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/Initialize(mapload)
+	. = ..()
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/Aggro()
+	. = ..()
+	alpha = 255
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/LoseTarget()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(recloak)), 5 SECONDS)
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/proc/recloak()
+	if(QDELETED(src) || stat == DEAD || target)
+		return
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/death(gibbed)
+	alpha = 255
+	. = ..()
+
+// ============================================================
+// GLOWING MIRELURK
+// Irradiated mirelurk. Tougher, glows, and each bite adds radiation. A middle tier between the
+// standard mirelurk and the hunter.
+// ============================================================
+
+/mob/living/simple_animal/hostile/mirelurk/glowing
+	affix_pool_type = "beast"
+	affix_chance = 4
+	name = "glowing mirelurk"
+	desc = "A mirelurk that has soaked up far too much radiation. Its shell gives off a sickly green light and its bite burns."
+	color = "#99ff99"
+	light_range = 2
+	light_color = "#99ff66"
+	maxHealth = 190
+	health = 190
+	melee_damage_lower = 8
+	melee_damage_upper = 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.6, 2.8, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(40),
+		MOB_HEALTH_LIST(180, 190, 200)
+	)
+
+/mob/living/simple_animal/hostile/mirelurk/glowing/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.apply_effect(15, EFFECT_IRRADIATE, 0)

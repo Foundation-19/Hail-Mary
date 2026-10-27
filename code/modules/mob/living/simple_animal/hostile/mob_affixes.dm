@@ -23,6 +23,8 @@
 	var/affix = null
 	/// Which affix pool this family draws from (see get_affix_pool). Set per family by the script.
 	var/affix_pool_type = "beast"
+	/// How many seconds a "volatile" mob keeps ticking after it dies before it goes off.
+	var/affix_fuse_seconds = 3
 
 // Affix pools by family, so a mob only rolls things that fit what it is:
 //   human       - people: faster, harder hitting, tougher. No poison, no blood drinking, no bursting.
@@ -37,13 +39,13 @@
 /mob/living/simple_animal/hostile/proc/get_affix_pool()
 	var/static/list/pools = list(
 		"human" = list("swift" = 30, "brutal" = 40, "hardy" = 30),
-		"ghoul" = list("swift" = 15, "brutal" = 20, "hardy" = 20, "regenerating" = 30, "toxic" = 15, "volatile" = 10),
-		"mutant" = list("hardy" = 30, "brutal" = 30, "regenerating" = 30, "volatile" = 10),
+		"ghoul" = list("swift" = 15, "brutal" = 20, "hardy" = 20, "regenerating" = 30, "toxic" = 15, "volatile" = 5),
+		"mutant" = list("hardy" = 30, "brutal" = 30, "regenerating" = 30, "volatile" = 5),
 		"beast" = list("swift" = 30, "brutal" = 30, "hardy" = 30, "regenerating" = 10),
 		"venomous" = list("swift" = 20, "brutal" = 15, "hardy" = 20, "toxic" = 45),
 		"insect" = list("swift" = 35, "brutal" = 30, "hardy" = 35),
 		"bloodsucker" = list("swift" = 25, "brutal" = 25, "vampiric" = 50),
-		"robot" = list("swift" = 20, "brutal" = 25, "hardy" = 30, "regenerating" = 15, "volatile" = 10)
+		"robot" = list("swift" = 20, "brutal" = 25, "hardy" = 30, "regenerating" = 15, "volatile" = 5)
 	)
 	var/list/pool = pools[affix_pool_type]
 	if(!pool)
@@ -55,12 +57,12 @@
 	var/static/list/labels = list(
 		"human" = list("swift" = "quick", "brutal" = "vicious", "hardy" = "hardened"),
 		"ghoul" = list("swift" = "quick", "brutal" = "savage", "hardy" = "tough", "regenerating" = "rad-fed", "toxic" = "rotting", "volatile" = "bloated"),
-		"mutant" = list("hardy" = "hulking", "brutal" = "savage", "regenerating" = "regenerating", "volatile" = "unstable"),
+		"mutant" = list("hardy" = "hulking", "brutal" = "savage", "regenerating" = "regenerating", "volatile" = "ticking"),
 		"beast" = list("swift" = "swift", "brutal" = "savage", "hardy" = "massive", "regenerating" = "relentless"),
 		"venomous" = list("swift" = "swift", "brutal" = "savage", "hardy" = "armored", "toxic" = "venomous"),
 		"insect" = list("swift" = "swift", "brutal" = "savage", "hardy" = "armored"),
 		"bloodsucker" = list("swift" = "swift", "brutal" = "savage", "vampiric" = "blood-gorged"),
-		"robot" = list("swift" = "tuned", "brutal" = "overcharged", "hardy" = "plated", "regenerating" = "self-repairing", "volatile" = "unstable")
+		"robot" = list("swift" = "tuned", "brutal" = "overcharged", "hardy" = "plated", "regenerating" = "self-repairing", "volatile" = "ticking")
 	)
 	var/list/set_labels = labels[affix_pool_type]
 	if(set_labels && set_labels[affix_id])
@@ -74,7 +76,7 @@
 		"brutal" = "Its actuators are running overcharged, and every blow lands like a piston.",
 		"hardy" = "Extra plating has been bolted over its chassis.",
 		"regenerating" = "Its repair routines patch damage almost as fast as you cause it.",
-		"volatile" = "Its power cell is unstable. Kill it from a distance."
+		"volatile" = "Its power cell is unstable. When it dies it keeps ticking for a few seconds, then goes off. Back away from the wreck."
 	)
 	var/static/list/generic_blurbs = list(
 		"swift" = "It moves faster than others of its kind.",
@@ -83,7 +85,7 @@
 		"regenerating" = "Its wounds close up almost as fast as you make them.",
 		"vampiric" = "It heals itself when it bites into prey.",
 		"toxic" = "Its attacks leave poison behind.",
-		"volatile" = "It looks unstable. Kill it from a distance."
+		"volatile" = "When it dies it keeps ticking for a few seconds, then goes off. Back away from the body."
 	)
 	if(affix_pool_type == "robot" && robot_blurbs[affix_id])
 		return robot_blurbs[affix_id]
@@ -157,12 +159,45 @@
 				H.reagents.add_reagent(/datum/reagent/toxin, 5)
 
 /// Called from /hostile/death() by the hook the script injects.
+/// "Volatile" is a martyrdom timer, not an instant blast: the body keeps ticking for a few seconds
+/// (beeps and a message every second) and only then goes off with a small light blast. Anyone who
+/// backs away when it dies is never hit. Leave "volatile" out of the pools in get_affix_pool() to
+/// turn the affix off entirely.
 /mob/living/simple_animal/hostile/proc/affix_death()
 	if(affix != "volatile")
 		return
 	var/turf/T = get_turf(src)
 	if(!T)
 		return
-	visible_message(span_danger("\The [src] bursts in a small, violent blast!"))
-	// Light blast only: hurts what is standing next to it, does not breach walls.
+	visible_message(span_danger("\The [src] starts to tick! Back away!"))
+	new /obj/effect/affix_fuse(T, affix_fuse_seconds)
+
+/// Invisible fuse left where a volatile mob died. Separate object so the countdown still runs even if
+/// the mob deletes itself on death. Blast is light only: it hurts what is standing next to it and does
+/// not breach walls.
+/obj/effect/affix_fuse
+	name = "ticking"
+	anchored = TRUE
+	var/seconds_left = 3
+
+/obj/effect/affix_fuse/Initialize(mapload, fuse_seconds = 3)
+	. = ..()
+	seconds_left = max(1, fuse_seconds)
+	addtimer(CALLBACK(src, PROC_REF(tick)), 1 SECONDS)
+
+/obj/effect/affix_fuse/proc/tick()
+	if(QDELETED(src))
+		return
+	var/turf/T = get_turf(src)
+	if(!T)
+		qdel(src)
+		return
+	seconds_left--
+	if(seconds_left > 0)
+		playsound(T, 'sound/machines/triple_beep.ogg', 60, TRUE)
+		T.visible_message(span_warning("The body ticks louder..."))
+		addtimer(CALLBACK(src, PROC_REF(tick)), 1 SECONDS)
+		return
+	T.visible_message(span_danger("The body goes off in a small, violent blast!"))
 	SSexplosion_spam.queue_explosion(T, 0, 0, 2, flash = 0, flame_range = 1, source = null)
+	qdel(src)

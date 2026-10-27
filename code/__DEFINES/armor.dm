@@ -1067,6 +1067,40 @@
 		"wound" = 0, \
 		"damage_threshold" = 4)
 
+/* Fog crawler
+ * Thick mirelurk-style shell, a step above the standard mirelurk
+ * Moderate DT so it is not a pure DPS race, plenty of melee and bullet resistance
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_FOG_CRAWLER list(\
+		"melee" = 35, \
+		"bullet" = 35, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 6)
+
+/* Spore plant
+ * Soft plant tissue: bullets and blades do not matter much against it, but fire does
+ * Immune to bio and radiation
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPORE_PLANT list(\
+		"melee" = 0, \
+		"bullet" = 10, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = -40, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
+
 /* Radscorpion armor
  * Armored carapace - good all-around protection
  * Strong melee/bullet resistance

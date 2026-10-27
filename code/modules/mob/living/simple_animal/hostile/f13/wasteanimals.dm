@@ -1013,3 +1013,327 @@
 	call_backup = /obj/effect/proc_holder/mob_common/summon_backup/small_critter
 	send_mobs = /obj/effect/proc_holder/mob_common/direct_mobs/small_critter
 	. = ..()
+
+// ============================================================
+// FLOATER
+// FEV-mutated gas bag drifting through the air. Slow and fragile, spits poison from a distance,
+// and ruptures into toxic gas when killed. Same flying set-up as the stingwing.
+// ============================================================
+
+/mob/living/simple_animal/hostile/floater
+	affix_pool_type = "mutant"
+	affix_chance = 4
+	name = "floater"
+	desc = "A swollen, drifting mass of pale flesh with a ring of tentacles hanging beneath it. It floats just out of reach and spits poison."
+	icon = 'icons/mob/animals/insects.dmi'
+	icon_state = "bloatfly" // placeholder
+	icon_living = "bloatfly"
+	icon_dead = "bloatfly_dead"
+	icon_gib = null
+	color = "#c9d98a"
+
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_ZERO
+
+	maxHealth = 90
+	health = 90
+	speed = 1
+	move_to_delay = 4
+	turns_per_move = 5
+
+	melee_damage_lower = 6
+	melee_damage_upper = 12
+	harm_intent_damage = 8
+	obj_damage = 15
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+
+	aggro_vision_range = 8
+	vision_range = 9
+
+	butcher_difficulty = 1.5
+
+	response_help_simple = "pets"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "hits"
+
+	speak_emote = list("burbles", "wheezes")
+	attack_verb_simple = "lashes"
+	attack_sound = 'sound/creatures/bloatfly_attack.ogg'
+	idlesound = list('sound/f13npc/bloatfly/fly.ogg')
+
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+
+	faction = list("floater")
+	a_intent = INTENT_HARM
+	gold_core_spawnable = HOSTILE_SPAWN
+	decompose = FALSE
+	blood_volume = 0
+
+	movement_type = FLYING
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
+
+	can_ghost_into = TRUE
+	desc_short = "A drifting FEV mutant that spits poison and bursts into gas when killed."
+	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+
+	// Z-movement - flies
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 20
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
+	// Mixed combat - keeps its distance and spits
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 3
+	minimum_distance = 2
+
+	ranged_message = "spits poison"
+	ranged_cooldown_time = 4 SECONDS
+	projectiletype = /obj/item/projectile/bile
+	projectilesound = 'sound/f13npc/centaur/spit.ogg'
+
+/mob/living/simple_animal/hostile/floater/Initialize(mapload)
+	. = ..()
+	resize = 1.4
+	update_transform()
+
+/mob/living/simple_animal/hostile/floater/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(8)
+
+/mob/living/simple_animal/hostile/floater/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/floater/death(gibbed)
+	var/turf/T = get_turf(src)
+	. = ..()
+	if(!T)
+		return
+	visible_message(span_danger("\The [src] bursts, releasing a cloud of poisonous gas!"))
+	playsound(T, 'sound/effects/splat.ogg', 75, TRUE)
+	for(var/mob/living/carbon/human/H in view(2, T))
+		H.reagents.add_reagent(/datum/reagent/toxin, 10)
+
+// ============================================================
+// SPORE PLANT
+// Rooted plant. Cannot move; spits poisonous spores at anything in range and lashes at anything
+// adjacent. Burns badly (fire -40 armor). Pairs with the spore carrier trogs.
+// ============================================================
+
+/obj/item/projectile/bile/spore
+	name = "spore cloud"
+	damage = 12
+
+/mob/living/simple_animal/hostile/sporeplant
+	affix_chance = 0
+	name = "spore plant"
+	desc = "A fat, mottled bulb on a thick stalk, ringed with heavy leaves. Whenever something comes near, it swells and puffs out a cloud of spores."
+	icon = 'icons/mob/animals/insects.dmi'
+	icon_state = "bloatfly" // placeholder, needs a real plant sprite
+	icon_living = "bloatfly"
+	icon_dead = "bloatfly_dead"
+	icon_gib = null
+	color = "#6f9a4a"
+
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_SPORE_PLANT
+
+	maxHealth = 70
+	health = 70
+	speed = 1
+	move_to_delay = 4
+	turns_per_move = 0
+	anchored = TRUE
+	density = TRUE
+
+	melee_damage_lower = 10
+	melee_damage_upper = 20
+	obj_damage = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+
+	aggro_vision_range = 8
+	vision_range = 8
+
+	response_help_simple = "pokes"
+	response_disarm_simple = "pushes"
+	response_harm_simple = "hits"
+
+	speak_emote = list("rustles")
+	attack_verb_simple = "lashes"
+	attack_sound = 'sound/weapons/punch1.ogg'
+
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
+
+	faction = list("plants")
+	a_intent = INTENT_HARM
+	gold_core_spawnable = HOSTILE_SPAWN
+	decompose = FALSE
+	blood_volume = 0
+
+	can_ghost_into = FALSE
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+	can_z_move = FALSE
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = null
+	minimum_distance = 0
+
+	ranged_message = "puffs out spores"
+	ranged_cooldown_time = 3 SECONDS
+	projectiletype = /obj/item/projectile/bile/spore
+	projectilesound = 'sound/f13npc/centaur/spit.ogg'
+
+// Rooted: it never walks, patrols, or retreats.
+/mob/living/simple_animal/hostile/sporeplant/Goto(target, delay, minimum_distance)
+	return
+
+/mob/living/simple_animal/hostile/sporeplant/Move()
+	return FALSE
+
+/mob/living/simple_animal/hostile/sporeplant/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/sporeplant/death(gibbed)
+	var/turf/T = get_turf(src)
+	. = ..()
+	if(!T)
+		return
+	visible_message(span_danger("\The [src] deflates in a burst of spores!"))
+	for(var/mob/living/carbon/human/H in view(1, T))
+		H.reagents.add_reagent(/datum/reagent/toxin, 8)
+
+// ============================================================
+// GULPER
+// Huge, mostly-mouth swamp amphibian. Hidden until it aggros, spits acid at medium range,
+// and bites hard up close. Child of the big gecko so it keeps that sprite and behavior.
+// ============================================================
+
+/mob/living/simple_animal/hostile/gecko/big/gulper
+	affix_pool_type = "beast"
+	affix_chance = 4
+	name = "gulper"
+	desc = "A huge, pale swamp amphibian that is almost entirely mouth. It lies half-submerged and half-hidden, spits acid at anything that wanders close, and bites down hard when it gets there."
+	color = "#b7a98a"
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+	maxHealth = 280
+	health = 280
+	melee_damage_lower = 16
+	melee_damage_upper = 28
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/cloak_alpha = 110
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = null
+	minimum_distance = 1
+	ranged_message = "spits acid"
+	ranged_cooldown_time = 5 SECONDS
+	casingtype = null
+	projectiletype = /obj/item/projectile/bile
+	projectilesound = 'sound/f13npc/centaur/spit.ogg'
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.6, 2.8, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
+		MOB_HEALTH_LIST(260, 280, 300)
+	)
+
+/mob/living/simple_animal/hostile/gecko/big/gulper/Initialize(mapload)
+	. = ..()
+	alpha = cloak_alpha
+	resize = 1.25
+	update_transform()
+
+/mob/living/simple_animal/hostile/gecko/big/gulper/Aggro()
+	. = ..()
+	alpha = 255
+
+/mob/living/simple_animal/hostile/gecko/big/gulper/LoseTarget()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(recloak)), 5 SECONDS)
+
+/mob/living/simple_animal/hostile/gecko/big/gulper/proc/recloak()
+	if(QDELETED(src) || stat == DEAD || target)
+		return
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/gecko/big/gulper/death(gibbed)
+	alpha = 255
+	. = ..()
+
+// ============================================================
+// ANGLER
+// Ambush predator with a glowing lure. The light draws you in; it lunges when you are 3-6 tiles away.
+// Child of the big gecko for the sprite and behavior. Visible by design (the lure gives it away),
+// which is the trade for the lunge.
+// ============================================================
+
+/mob/living/simple_animal/hostile/gecko/big/angler
+	affix_pool_type = "beast"
+	affix_chance = 4
+	name = "angler"
+	desc = "A hulking, flat-headed swamp predator with a stalk of glowing flesh dangling over its jaws. The pale blue light is hard to look away from."
+	color = "#5f7a8a"
+	mob_armor = ARMOR_VALUE_BEAST_HIDE
+	light_range = 3
+	light_color = "#7fd1ff"
+	maxHealth = 200
+	health = 200
+	melee_damage_lower = 20
+	melee_damage_upper = 34
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/lunging = FALSE
+	var/lunge_cooldown = 0
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.6, 2.8, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(50),
+		MOB_HEALTH_LIST(190, 200, 215)
+	)
+
+/mob/living/simple_animal/hostile/gecko/big/angler/Initialize(mapload)
+	. = ..()
+	resize = 1.1
+	update_transform()
+
+/mob/living/simple_animal/hostile/gecko/big/angler/BiologicalLife(seconds, times_fired)
+	if(!(. = ..()))
+		return
+	if(stat != CONSCIOUS || !target || lunging || world.time < lunge_cooldown)
+		return
+	var/dist = get_dist(src, target)
+	if(dist >= 3 && dist <= 6 && prob(60))
+		angler_lunge()
+
+/mob/living/simple_animal/hostile/gecko/big/angler/proc/angler_lunge()
+	lunging = TRUE
+	lunge_cooldown = world.time + 7 SECONDS
+	visible_message(span_danger("\The [src] lunges out of the dark!"))
+	throw_at(get_turf(target), get_dist(src, target), 2, src, FALSE, callback = CALLBACK(src, PROC_REF(lunge_end)))
+
+/mob/living/simple_animal/hostile/gecko/big/angler/proc/lunge_end()
+	lunging = FALSE
