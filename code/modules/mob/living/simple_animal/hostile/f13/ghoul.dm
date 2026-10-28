@@ -227,6 +227,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/coldferal
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(58, 70, 80, 80, 80, 80, 81),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	armour_penetration = 0.05
 	damage_threshold_penetration_mob = 2
 	name = "cold ghoul feral"
@@ -258,6 +268,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/legendary
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(149, 179, 205, 205, 205, 205, 209),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	affix_chance = 0
 	armour_penetration = 0.2
 	damage_threshold_penetration_mob = 6
@@ -389,6 +409,16 @@
 
 // FEV-mutated glowing ghoul - much tougher
 /mob/living/simple_animal/hostile/ghoul/glowing/strong
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.6, 2.7, 2.8, 2.9),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(163, 171, 180, 189),
+		MOB_RETREAT_DISTANCE_LIST(0, 2, 4),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(50),
+		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(50)
+	)
 	maxHealth = 180
 	health = 180
 	speed = 1.4
@@ -403,6 +433,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/soldier
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(57, 68, 78, 78, 78, 78, 79),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	name = "ghoul soldier"
 	desc = "Have you ever seen a living ghoul before?<br>Ghouls are necrotic post-humans - decrepit, rotting, zombie-like mutants."
 	icon_state = "soldier_ghoul"
@@ -416,6 +456,16 @@
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/soldier/armored
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(76, 92, 105, 105, 105, 105, 107),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	name = "armored ghoul soldier"
 	desc = "Have you ever seen a living ghoul before?<br>Ghouls are necrotic post-humans - decrepit, rotting, zombie-like mutants."
 	icon_state = "soldier_ghoul_a"
@@ -482,6 +532,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/wyomingghost
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(131, 157, 180, 180, 180, 180, 183),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	name = "ghost soldier"
 	desc = "A figure clad in armor that stands silent except for the slight wheezing coming from them, a dark orange and black liquid pumps through a clear tube into the gas mask. The armor they wear seems to be sealed to their skin."
 	icon_state = "wyomingghost"
@@ -510,6 +570,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/ghoul/zombie
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(124, 148, 170, 170, 170, 170, 173),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	name = "ravenous feral ghoul"
 	desc = "A ferocious feral ghoul, hungry for human meat."
 	faction = list("ghoul")
@@ -525,6 +595,16 @@
 		try_to_ghoul_zombie_infect(H) // Defined in disease/infection code
 
 /mob/living/simple_animal/hostile/ghoul/zombie/reaver
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(95, 113, 130, 130, 130, 130, 132),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	armour_penetration = 0.1
 	damage_threshold_penetration_mob = 4
 	name = "ravenous feral ghoul reaver"
@@ -550,6 +630,16 @@
 	projectilesound = 'sound/weapons/punchmiss.ogg'
 
 /mob/living/simple_animal/hostile/ghoul/zombie/glowing
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(87, 105, 120, 120, 120, 120, 122),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	armour_penetration = 0.1
 	damage_threshold_penetration_mob = 4
 	name = "ravenous glowing feral ghoul"
@@ -593,6 +683,16 @@
 		H.apply_effect(20, EFFECT_IRRADIATE, 0)
 
 /mob/living/simple_animal/hostile/ghoul/zombie/legendary
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(124, 148, 170, 170, 170, 170, 173),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
 	affix_chance = 0
 	armour_penetration = 0.15
 	damage_threshold_penetration_mob = 6

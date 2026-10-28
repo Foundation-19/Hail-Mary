@@ -194,6 +194,12 @@
 
 // MIRELURK QUEEN - rare, powerful, spawns babies
 /mob/living/simple_animal/hostile/mirelurk/queen
+	variation_list = list(
+		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
+		MOB_SPEED_LIST(3.3, 3.4, 3.5),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(468, 484, 500, 532),
+	)
 	affix_chance = 0
 	armour_penetration = 0.25
 	damage_threshold_penetration_mob = 8
@@ -309,6 +315,12 @@
 
 // KING MIRELURK - rare boss variant
 /mob/living/simple_animal/hostile/mirelurk/king
+	variation_list = list(
+		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
+		MOB_SPEED_LIST(3.3, 3.4, 3.5),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(327, 339, 350, 373),
+	)
 	affix_chance = 0
 	armour_penetration = 0.3
 	damage_threshold_penetration_mob = 8
