@@ -353,8 +353,8 @@
 	name = "legendary deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is a legendary enemy."
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 1800 // Reduced from 2400
-	health = 1800
+	maxHealth = 1500 // Reduced from 2400
+	health = 1500
 	color = "#FFFF00"
 	color_mad = rgb(133, 98, 87)
 	stat_attack = CONSCIOUS
@@ -388,8 +388,8 @@
 	name = "young deathclaw"
 	desc = "A reptilian predator that has not finished growing. Its claws are already sharp, and its elders are rarely far away."
 	mob_armor = ARMOR_VALUE_DEATHCLAW_YOUNG
-	maxHealth = 200
-	health = 200
+	maxHealth = 330
+	health = 330
 	move_to_delay = 2
 	reach = 1
 	obj_damage = 60

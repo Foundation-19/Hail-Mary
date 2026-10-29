@@ -471,8 +471,8 @@
 	
 	mob_armor = ARMOR_VALUE_RADSCORPION_BLACK
 	
-	maxHealth = 205 // bumped - TTK vs melee was too short
-	health = 205
+	maxHealth = 240 // bumped - TTK vs melee was too short
+	health = 240
 	speed = 1.2
 	
 	melee_damage_lower = 10
@@ -507,8 +507,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_CAZADOR
 	
-	maxHealth = 24
-	health = 24
+	maxHealth = 60
+	health = 60
 	speed = 1
 	move_to_delay = 2.5
 	turns_per_move = 5
@@ -613,8 +613,8 @@
 	name = "young cazador"
 	desc = "A mutated insect known for its fast speed, deadly sting, and being huge bastards. This one's little."
 	
-	maxHealth = 20
-	health = 20
+	maxHealth = 35
+	health = 35
 	speed = 1
 	
 	melee_damage_lower = 5

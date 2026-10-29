@@ -177,8 +177,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 130 // bumped - TTK vs melee was too short
-	health = 130
+	maxHealth = 230 // bumped - TTK vs melee was too short
+	health = 230
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 18
@@ -243,6 +243,8 @@
 
 // PLAYABLE GUTSY
 /mob/living/simple_animal/hostile/handy/gutsy/playable
+	maxHealth = 130
+	health = 130
 	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
@@ -365,8 +367,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_SECURITY
 	
-	maxHealth = 145 // bumped - TTK vs melee was too short
-	health = 145
+	maxHealth = 180 // bumped - TTK vs melee was too short
+	health = 180
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 15
@@ -438,8 +440,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	
-	maxHealth = 130 // bumped - TTK vs melee was too short
-	health = 130
+	maxHealth = 90 // bumped - TTK vs melee was too short
+	health = 90
 	speed = 4  // Noticeably slow
 	move_to_delay = 4
 	stat_attack = CONSCIOUS
@@ -522,6 +524,8 @@
 
 // PLAYABLE PROTECTRON
 /mob/living/simple_animal/hostile/handy/protectron/playable
+	maxHealth = 130
+	health = 130
 	affix_chance = 0
 	melee_damage_lower = 25
 	melee_damage_upper = 38
@@ -608,8 +612,8 @@
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 130 // bumped - TTK vs melee was too short
-	health = 130
+	maxHealth = 200 // bumped - TTK vs melee was too short
+	health = 200
 	speed = 1  // Fast for a robot
 	stat_attack = UNCONSCIOUS
 	gender = FEMALE
@@ -700,6 +704,8 @@
 
 // PLAYABLE ASSAULTRON
 /mob/living/simple_animal/hostile/handy/assaultron/playable
+	maxHealth = 130
+	health = 130
 	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
@@ -715,6 +721,8 @@
 
 // SA-S-E - medical assaultron
 /mob/living/simple_animal/hostile/handy/assaultron/playable/medical
+	maxHealth = 130
+	health = 130
 	affix_chance = 0
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0

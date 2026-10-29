@@ -151,8 +151,8 @@
 	icon_dead = "ghoulreaver_dead"
 	speed = 2
 	mob_armor = ARMOR_VALUE_GHOUL_REAVER
-	maxHealth = 65 // bumped - TTK vs melee was too short
-	health = 65
+	maxHealth = 160 // bumped - TTK vs melee was too short
+	health = 160
 	rapid_melee = 2
 	move_to_delay = 2.5
 
@@ -169,7 +169,7 @@
 		MOB_COLOR_VARIATION(200, 200, 200, 255, 255, 255),
 		MOB_SPEED_LIST(2.5, 2.6, 2.7, 2.8, 2.9),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(55, 60, 65, 65, 65, 65, 66),
+		MOB_HEALTH_LIST(135, 148, 160, 160, 160, 160, 162),
 		MOB_RETREAT_DISTANCE_LIST(0, 1, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(1, 2),
@@ -200,22 +200,22 @@
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr
 	name = "feral ghoul soldier"
 	desc = "A former US Army combatant, now ghoulified and insane. The armor that failed it in life still packs some good defense."
-	maxHealth = 80 // bumped - TTK vs melee was too short
-	health = 80
+	maxHealth = 165 // bumped - TTK vs melee was too short
+	health = 165
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr_helmet
 	name = "plated feral ghoul soldier"
 	desc = "A former US Army combatant, now ghoulified and insane. The armor that failed it in life still packs some good defense."
-	maxHealth = 80 // bumped - TTK vs melee was too short
-	health = 80
+	maxHealth = 170 // bumped - TTK vs melee was too short
+	health = 170
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr_officer
 	name = "feral ghoul officer"
 	desc = "A former US Army officer, now ghoulified and insane. The armor that failed it in life still packs some good defense."
-	maxHealth = 80 // bumped - TTK vs melee was too short
-	health = 80
+	maxHealth = 185 // bumped - TTK vs melee was too short
+	health = 185
 	speed = 3
 	can_ghost_into = FALSE
 
@@ -255,6 +255,18 @@
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/coldferal/frozenreaver
+	variation_list = list(
+		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
+		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(109, 131, 150, 150, 150, 150, 152),
+		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(0, 1),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10)
+	)
+	maxHealth = 150
+	health = 150
 	name = "frozen ghoul reaver"
 	desc = "A ghoul that has lost its mind and become aggressive. This one is strapped with metal armor, and appears far stronger."
 	icon_state = "frozen_reaver"
@@ -272,7 +284,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(149, 179, 205, 205, 205, 205, 209),
+		MOB_HEALTH_LIST(218, 262, 300, 300, 300, 300, 306),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -289,8 +301,8 @@
 	color = "#FFFF00"
 	mob_armor = ARMOR_VALUE_GHOUL_LEGEND
 	can_ghost_into = FALSE
-	maxHealth = 205 // bumped - TTK vs melee was too short
-	health = 205
+	maxHealth = 300 // bumped - TTK vs melee was too short
+	health = 300
 	stat_attack = UNCONSCIOUS // Can attack downed players
 	speed = 2.5
 	harm_intent_damage = 8
@@ -358,8 +370,8 @@
 	icon_living = "glowinghoul"
 	icon_dead = "glowinghoul_dead"
 	mob_armor = ARMOR_VALUE_GHOUL_GLOWING
-	maxHealth = 52 // bumped - TTK vs melee was too short
-	health = 52
+	maxHealth = 140 // bumped - TTK vs melee was too short
+	health = 140
 	speed = 2
 	harm_intent_damage = 8
 	melee_damage_lower = 10
@@ -374,7 +386,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.6, 2.7, 2.8, 2.9),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(38, 40, 42, 44),
+		MOB_HEALTH_LIST(127, 133, 140, 147),
 		MOB_RETREAT_DISTANCE_LIST(0, 2, 4),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(50),
 		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4),
@@ -413,14 +425,14 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.6, 2.7, 2.8, 2.9),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(163, 171, 180, 189),
+		MOB_HEALTH_LIST(204, 214, 225, 236),
 		MOB_RETREAT_DISTANCE_LIST(0, 2, 4),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(50),
 		MOB_MINIMUM_DISTANCE_LIST(2, 3, 4),
 		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(50)
 	)
-	maxHealth = 180
-	health = 180
+	maxHealth = 225
+	health = 225
 	speed = 1.4
 	can_ghost_into = FALSE
 	melee_damage_lower = 25
@@ -599,7 +611,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(95, 113, 130, 130, 130, 130, 132),
+		MOB_HEALTH_LIST(139, 165, 190, 190, 190, 190, 193),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -613,8 +625,8 @@
 	icon_living = "ghoulreaver"
 	icon_dead = "ghoulreaver_dead"
 	speed = 2
-	maxHealth = 130
-	health = 130
+	maxHealth = 190
+	health = 190
 	harm_intent_damage = 8
 	melee_damage_lower = 30
 	melee_damage_upper = 30
@@ -634,7 +646,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(87, 105, 120, 120, 120, 120, 122),
+		MOB_HEALTH_LIST(152, 184, 210, 210, 210, 210, 214),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -647,8 +659,8 @@
 	icon_state = "glowinghoul"
 	icon_living = "glowinghoul"
 	icon_dead = "glowinghoul_dead"
-	maxHealth = 120
-	health = 120
+	maxHealth = 210
+	health = 210
 	speed = 2
 	harm_intent_damage = 8
 	melee_damage_lower = 30
@@ -687,7 +699,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(124, 148, 170, 170, 170, 170, 173),
+		MOB_HEALTH_LIST(233, 279, 320, 320, 320, 320, 326),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -702,8 +714,8 @@
 	icon_living = "glowinghoul"
 	icon_dead = "glowinghoul_dead"
 	color = "#FFFF00"
-	maxHealth = 170
-	health = 170
+	maxHealth = 320
+	health = 320
 	speed = 2.5
 	harm_intent_damage = 8
 	melee_damage_lower = 30
@@ -722,8 +734,8 @@
 /mob/living/simple_animal/hostile/ghoul/roamer
 	name = "feral ghoul roamer"
 	desc = "A ghoul that has lost its mind and become aggressive. This one is lean, sinewy, and covers ground fast."
-	maxHealth = 70
-	health = 70
+	maxHealth = 105
+	health = 105
 	move_to_delay = 2.5
 	melee_damage_lower = 8
 	melee_damage_upper = 15
@@ -736,7 +748,7 @@
 	variation_list = list(
 		MOB_SPEED_LIST(1.9, 2.0, 2.2, 2.3),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(62, 68, 70, 70, 72),
+		MOB_HEALTH_LIST(93, 102, 105, 105, 108),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -824,8 +836,8 @@
 	name = "bloated glowing one"
 	desc = "A feral ghoul swollen far beyond its natural size, its skin stretched taut and shining with absorbed radiation. It looks ready to burst."
 	mob_armor = ARMOR_VALUE_GHOUL_BLOATED
-	maxHealth = 120
-	health = 120
+	maxHealth = 200
+	health = 200
 	melee_damage_lower = 12
 	melee_damage_upper = 24
 	armour_penetration = 0.05
@@ -837,7 +849,7 @@
 	variation_list = list(
 		MOB_SPEED_LIST(2.8, 3.0, 3.2),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(110, 118, 120, 120, 124),
+		MOB_HEALTH_LIST(183, 197, 200, 200, 207),
 		MOB_RETREAT_DISTANCE_LIST(0, 1, 2),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(40),
 		MOB_MINIMUM_DISTANCE_LIST(1, 2, 3),

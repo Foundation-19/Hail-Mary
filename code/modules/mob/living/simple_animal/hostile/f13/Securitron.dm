@@ -188,8 +188,8 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 195 // bumped - TTK vs melee was too short
-	health = 195
+	maxHealth = 330 // bumped - TTK vs melee was too short
+	health = 330
 	stat_attack = UNCONSCIOUS
 	del_on_death = FALSE  // Explodes instead
 	
