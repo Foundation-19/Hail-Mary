@@ -212,6 +212,21 @@
 	can_ghost_into = FALSE
 
 /mob/living/simple_animal/hostile/ghoul/reaver/ncr_officer
+	variation_list = list(
+		MOB_COLOR_VARIATION(200, 200, 200, 255, 255, 255),
+		MOB_SPEED_LIST(2.5, 2.6, 2.7, 2.8, 2.9),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(156, 171, 185, 185, 185, 185, 187),
+		MOB_RETREAT_DISTANCE_LIST(0, 1, 1),
+		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
+		MOB_MINIMUM_DISTANCE_LIST(1, 2),
+		MOB_MINIMUM_DISTANCE_CHANGE_PER_TURN_CHANCE(10),
+		MOB_PROJECTILE_LIST(\
+			MOB_PROJECTILE_ENTRY(/obj/item/projectile/bullet/ghoul_rock, 10),\
+			MOB_PROJECTILE_ENTRY(/obj/item/projectile/bullet/ghoul_rock/blunt_rock, 10),\
+			MOB_PROJECTILE_ENTRY(/obj/item/projectile/bullet/ghoul_rock/jagged_scrap, 1)\
+		)
+	)
 	name = "feral ghoul officer"
 	desc = "A former US Army officer, now ghoulified and insane. The armor that failed it in life still packs some good defense."
 	maxHealth = 185 // bumped - TTK vs melee was too short
@@ -284,7 +299,7 @@
 		MOB_COLOR_VARIATION(150, 150, 150, 255, 255, 255),
 		MOB_SPEED_LIST(2.3, 2.5, 2.8, 2.9, 3.0),
 		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
-		MOB_HEALTH_LIST(218, 262, 300, 300, 300, 300, 306),
+		MOB_HEALTH_LIST(196, 236, 270, 270, 270, 270, 275),
 		MOB_RETREAT_DISTANCE_LIST(0, 0, 1),
 		MOB_RETREAT_DISTANCE_CHANGE_PER_TURN_CHANCE(5),
 		MOB_MINIMUM_DISTANCE_LIST(0, 1),
@@ -301,8 +316,8 @@
 	color = "#FFFF00"
 	mob_armor = ARMOR_VALUE_GHOUL_LEGEND
 	can_ghost_into = FALSE
-	maxHealth = 300 // bumped - TTK vs melee was too short
-	health = 300
+	maxHealth = 270 // bumped - TTK vs melee was too short
+	health = 270
 	stat_attack = UNCONSCIOUS // Can attack downed players
 	speed = 2.5
 	harm_intent_damage = 8

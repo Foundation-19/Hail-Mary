@@ -384,6 +384,12 @@
 	melee_damage_lower = 40
 	melee_damage_upper = 60
 
+// ============================================================
+// YOUNG DEATHCLAW
+// Smaller, faster, much weaker. Cannot reach as far and barely charges.
+// Killing one sends nearby deathclaws that are already fighting into a lunge.
+// ============================================================
+
 /mob/living/simple_animal/hostile/deathclaw/young
 	name = "young deathclaw"
 	desc = "A reptilian predator that has not finished growing. Its claws are already sharp, and its elders are rarely far away."
