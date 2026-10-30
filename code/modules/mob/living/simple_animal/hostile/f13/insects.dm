@@ -507,8 +507,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_CAZADOR
 	
-	maxHealth = 100
-	health = 100
+	maxHealth = 200
+	health = 200
 	speed = 1
 	move_to_delay = 2.5
 	turns_per_move = 5
@@ -613,8 +613,8 @@
 	name = "young cazador"
 	desc = "A mutated insect known for its fast speed, deadly sting, and being huge bastards. This one's little."
 	
-	maxHealth = 60
-	health = 60
+	maxHealth = 100
+	health = 100
 	speed = 1
 	
 	melee_damage_lower = 5
