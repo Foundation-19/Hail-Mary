@@ -618,6 +618,58 @@
 		"wound" = 0, \
 		"damage_threshold" = 11)
 
+/* Inflicted deathclaw (smart stage)
+ * Bark patches and saplings over a body weakened by the sap
+ * Far below a healthy deathclaw (melee 5 / bullet 20 / DT 3, versus the common deathclaw's tough hide)
+ * Wood burns: fire -20
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_INFLICTED list(\
+		"melee" = 5, \
+		"bullet" = 20, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -20, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 3)
+
+/* Overgrown deathclaw (reverted beast)
+ * Bark across the back and shoulders on top of deathclaw hide
+ * Still below a healthy deathclaw, and fire hurts it more (fire -30)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_REVERTED list(\
+		"melee" = 15, \
+		"bullet" = 35, \
+		"laser" = 5, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -30, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 7)
+
+/* Oak Mother deathclaw
+ * A fully matured oak grown through the body: heavy bark, a lot of DT
+ * The one real weakness is fire (-50): it is a tree
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_OAK_MOTHER list(\
+		"melee" = 30, \
+		"bullet" = 55, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 20, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = -50, \
+		"acid" = 0, \
+		"wound" = 10, \
+		"damage_threshold" = 12)
+
 /* Raider leather jacket
  * Basically a leather jacket
  * Melee resistant

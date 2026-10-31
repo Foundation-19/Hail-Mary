@@ -198,18 +198,51 @@
 	icon_living = "inteligent"
 
 /mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
+	speak = list("...run...", "Not... me...", "The sap... it burns...")
+	charge_cooldown_time = 45 SECONDS
+	move_to_delay = 3.8
+	melee_damage_upper = 22
+	melee_damage_lower = 12
+	mob_armor = ARMOR_VALUE_DEATHCLAW_INFLICTED
 	armour_penetration = 0
 	damage_threshold_penetration_mob = 0
 	name = "inflicted deathclaw"
-	desc = "There was a time where this deathclaw was inteligent, able to thinking, with a mind and reason. You can still hear it, lamentation. Its trying to resist, and save you from what ever is controling him."
+	desc = "A deathclaw whose mind survived the tree minders' sap, but not its body. Saplings have taken root along its spine, and it moves slowly and painfully. You can still hear it trying to speak."
 	icon_state = "inflicted"
 	icon_living = "inflicted"
 	color_mad = rgb(255, 125, 85)
-	maxHealth = 100
-	health = 100
+	maxHealth = 160
+	health = 160
 	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = 1.8
+
+// ============================================================
+// OVERGROWN DEATHCLAW - the reverted beast
+// The sap's mind-clearing wore off. This is a deathclaw again, only slower and weaker than a healthy one,
+// with a tree grown across its back. Beasts do charge, but not often.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted/reverted
+	name = "overgrown deathclaw"
+	desc = "A deathclaw that has gone back to being a beast, and a tree has grown over its back and shoulders. Whatever the sap once gave it is gone. It is slow, and it is still a deathclaw."
+	color = "#9fb08a"
+	mob_armor = ARMOR_VALUE_DEATHCLAW_REVERTED
+	maxHealth = 330
+	health = 330
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 22
+	melee_damage_upper = 36
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
+	move_to_delay = 3.3
+	charge_cooldown_time = 20 SECONDS
+	speak = list("GRRRR...", "RRRAAAH!", "...")
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted/reverted/Initialize(mapload)
+	. = ..()
+	resize = 1.05
+	update_transform()
 
 // CHARGE MECHANIC - trigger on getting shot. Enraged deathclaws are much more likely to close the gap
 // instead of just tanking ranged fire forever - this is what punishes kiting it with a high-RPM gun.
