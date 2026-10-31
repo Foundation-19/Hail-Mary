@@ -4,6 +4,8 @@
 
 //Base Deathclaw
 /mob/living/simple_animal/hostile/deathclaw
+	affix_pool_type = "beast"
+	affix_chance = 6
 	name = "deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match."
 	icon = 'icons/mob/monsters/deathclaw.dmi'
@@ -22,6 +24,7 @@
 	melee_damage_lower = 30
 	melee_damage_upper = 40
 	armour_penetration = 0.2 // razor claws shrug off some of a target's armor even before it rages
+	damage_threshold_penetration_mob = 6
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	move_to_delay = 2.75
 	gender = MALE
@@ -99,6 +102,9 @@
 	minimum_distance = 1
 
 /mob/living/simple_animal/hostile/deathclaw/playable
+	affix_chance = 0
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 0
 	emote_taunt_sound = null
 	emote_taunt = null
 	aggrosound = null
@@ -131,6 +137,8 @@
 	melee_damage_lower = round(initial(melee_damage_lower) * 1.3)
 	melee_damage_upper = round(initial(melee_damage_upper) * 1.3)
 	armour_penetration = initial(armour_penetration) + 0.15 // bypasses a chunk of even heavy armor like riot gear once enraged
+	if(!ckey)
+		damage_threshold_penetration_mob = initial(damage_threshold_penetration_mob) + 4 // enraged claws punch through more flat DT too
 	see_in_dark = initial(see_in_dark) + 4
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES | ENVIRONMENT_SMASH_WALLS // enraged, it'll smash straight through a wall to reach you
 	wound_bonus = initial(wound_bonus) + 20
@@ -154,6 +162,7 @@
 	melee_damage_lower = initial(melee_damage_lower)
 	melee_damage_upper = initial(melee_damage_upper)
 	armour_penetration = initial(armour_penetration)
+	damage_threshold_penetration_mob = initial(damage_threshold_penetration_mob)
 	see_in_dark = initial(see_in_dark)
 	environment_smash = initial(environment_smash)
 	wound_bonus = initial(wound_bonus)
@@ -181,6 +190,7 @@
 
 // Intelligent deathclaw, for the Baltimore map. NOT TO BE USED UNLESS EVENT. Use the INFLICTED version for maps.
 /mob/living/simple_animal/hostile/deathclaw/inteligent
+	affix_chance = 0
 	name = "inteligent deathclaw"
 	desc = "A very rare kind of deathclaw, with inteligence and able of speech."
 	icon = 'icons/mob/monsters/deathclaw.dmi' 
@@ -188,16 +198,51 @@
 	icon_living = "inteligent"
 
 /mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted
+	speak = list("...run...", "Not... me...", "The sap... it burns...")
+	charge_cooldown_time = 45 SECONDS
+	move_to_delay = 3.8
+	melee_damage_upper = 22
+	melee_damage_lower = 12
+	mob_armor = ARMOR_VALUE_DEATHCLAW_INFLICTED
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "inflicted deathclaw"
-	desc = "There was a time where this deathclaw was inteligent, able to thinking, with a mind and reason. You can still hear it, lamentation. Its trying to resist, and save you from what ever is controling him."
+	desc = "A deathclaw whose mind survived the tree minders' sap, but not its body. Saplings have taken root along its spine, and it moves slowly and painfully. You can still hear it trying to speak."
 	icon_state = "inflicted"
 	icon_living = "inflicted"
 	color_mad = rgb(255, 125, 85)
-	maxHealth = 100
-	health = 100
+	maxHealth = 160
+	health = 160
 	stat_attack = UNCONSCIOUS
 	reach = 2
 	speed = 1.8
+
+// ============================================================
+// OVERGROWN DEATHCLAW - the reverted beast
+// The sap's mind-clearing wore off. This is a deathclaw again, only slower and weaker than a healthy one,
+// with a tree grown across its back. Beasts do charge, but not often.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted/reverted
+	name = "overgrown deathclaw"
+	desc = "A deathclaw that has gone back to being a beast, and a tree has grown over its back and shoulders. Whatever the sap once gave it is gone. It is slow, and it is still a deathclaw."
+	color = "#9fb08a"
+	mob_armor = ARMOR_VALUE_DEATHCLAW_REVERTED
+	maxHealth = 330
+	health = 330
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 22
+	melee_damage_upper = 36
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
+	move_to_delay = 3.3
+	charge_cooldown_time = 20 SECONDS
+	speak = list("GRRRR...", "RRRAAAH!", "...")
+
+/mob/living/simple_animal/hostile/deathclaw/inteligent/inflicted/reverted/Initialize(mapload)
+	. = ..()
+	resize = 1.05
+	update_transform()
 
 // CHARGE MECHANIC - trigger on getting shot. Enraged deathclaws are much more likely to close the gap
 // instead of just tanking ranged fire forever - this is what punishes kiting it with a high-RPM gun.
@@ -256,6 +301,14 @@
 	
 	throw_at(T, get_dist(src, T), 2, src, FALSE, callback = CALLBACK(src, PROC_REF(charge_end)))
 
+/mob/living/simple_animal/hostile/deathclaw/proc/fury_lunge()
+	if(stat == DEAD || QDELETED(src) || charging || !target)
+		return
+	if(world.time < charge_cooldown)
+		return
+	visible_message(span_danger("\The [src] roars and lunges!"))
+	addtimer(CALLBACK(src, PROC_REF(Charge)), 0.3 SECONDS)
+
 /mob/living/simple_animal/hostile/deathclaw/proc/charge_end(list/effects_to_destroy)
 	charging = FALSE
 	if(target)
@@ -294,6 +347,9 @@
 
 // Mother deathclaw
 /mob/living/simple_animal/hostile/deathclaw/mother
+	affix_chance = 0
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "mother deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is an angry mother."
 	gender = FEMALE
@@ -324,11 +380,14 @@
 
 //Legendary Deathclaw
 /mob/living/simple_animal/hostile/deathclaw/legendary
+	affix_chance = 0
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
 	name = "legendary deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is a legendary enemy."
 	mob_armor = ARMOR_VALUE_DEATHCLAW_MOTHER
-	maxHealth = 1800 // Reduced from 2400
-	health = 1800
+	maxHealth = 1500 // Reduced from 2400
+	health = 1500
 	color = "#FFFF00"
 	color_mad = rgb(133, 98, 87)
 	stat_attack = CONSCIOUS
@@ -343,6 +402,9 @@
 
 //Power Armor Deathclaw - the tankiest deathclaw
 /mob/living/simple_animal/hostile/deathclaw/power_armor
+	affix_chance = 0
+	armour_penetration = 0.4
+	damage_threshold_penetration_mob = 12
 	name = "power armored deathclaw"
 	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. Someone had managed to put power armor on him."
 	icon_state = "combatclaw"
@@ -354,3 +416,145 @@
 	stat_attack = CONSCIOUS
 	melee_damage_lower = 40
 	melee_damage_upper = 60
+
+// ============================================================
+// YOUNG DEATHCLAW
+// Smaller, faster, much weaker. Cannot reach as far and barely charges.
+// Killing one sends nearby deathclaws that are already fighting into a lunge.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/young
+	name = "young deathclaw"
+	desc = "A reptilian predator that has not finished growing. Its claws are already sharp, and its elders are rarely far away."
+	mob_armor = ARMOR_VALUE_DEATHCLAW_YOUNG
+	maxHealth = 330
+	health = 330
+	move_to_delay = 2
+	reach = 1
+	obj_damage = 60
+	melee_damage_lower = 12
+	melee_damage_upper = 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 0
+	environment_smash = ENVIRONMENT_SMASH_NONE
+	charge_cooldown_time = 30 SECONDS // rarely lunges
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/deathclaw = 2,
+		/obj/item/stack/sheet/animalhide/deathclaw = 1,
+		/obj/item/stack/sheet/bone = 2
+	)
+
+/mob/living/simple_animal/hostile/deathclaw/young/Initialize(mapload)
+	. = ..()
+	resize = 0.65
+	update_transform()
+
+/mob/living/simple_animal/hostile/deathclaw/young/death(gibbed)
+	. = ..()
+	for(var/mob/living/simple_animal/hostile/deathclaw/D in oview(7, src))
+		if(D != src)
+			D.fury_lunge()
+
+// ============================================================
+// ALPHA MALE DEATHCLAW
+// Pack leader. Tougher and hits harder than a common deathclaw, charges more often,
+// and calls other deathclaws when it aggros.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/alpha
+	name = "alpha male deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is larger than the rest, scarred from many fights, and others of its kind follow its lead."
+	color = "#8a7a6a"
+	color_mad = "#d9b8a5"
+	mob_armor = ARMOR_VALUE_DEATHCLAW_ALPHA
+	maxHealth = 850
+	health = 850
+	stat_attack = CONSCIOUS
+	melee_damage_lower = 30
+	melee_damage_upper = 48
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 8
+	charge_cooldown_time = 7 SECONDS
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	guaranteed_butcher_results = list(
+		/obj/item/reagent_containers/food/snacks/meat/slab/deathclaw = 6,
+		/obj/item/stack/sheet/animalhide/deathclaw = 3,
+		/obj/item/stack/sheet/bone = 4
+	)
+
+/mob/living/simple_animal/hostile/deathclaw/alpha/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(12)
+
+// ============================================================
+// CHAMELEON DEATHCLAW
+// Ambush predator. Nearly invisible while idle, reveals itself when it attacks,
+// and fades back after losing its target. A bit lighter than a common deathclaw.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon
+	name = "chameleon deathclaw"
+	desc = "A deathclaw with skin that shifts to match its surroundings. If you can see it, it wants you to."
+	mob_armor = ARMOR_VALUE_DEATHCLAW_CHAMELEON
+	maxHealth = 520
+	health = 520
+	move_to_delay = 2.5
+	melee_damage_lower = 28
+	melee_damage_upper = 38
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/cloak_alpha = 60
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/Initialize(mapload)
+	. = ..()
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/Aggro()
+	. = ..()
+	alpha = 255
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/LoseTarget()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(recloak)), 4 SECONDS)
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/proc/recloak()
+	if(QDELETED(src) || stat == DEAD || target)
+		return
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/deathclaw/chameleon/death(gibbed)
+	alpha = 255
+	. = ..()
+
+// ============================================================
+// NESTING MOTHER
+// A mother guarding her nest. Periodically spawns young deathclaws nearby
+// (same spawner component the mirelurk queen uses). Stops spawning when she dies.
+// EVENT / NEST USE ONLY - this is a lot of deathclaws. Tune spawn_time / max_babies.
+// ============================================================
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
+	name = "nesting mother deathclaw"
+	desc = "A massive, reptilian creature with powerful muscles, razor-sharp claws, and aggression to match. This one is curled protectively around a nest, and small clawed shapes shift in the shadows beside her."
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/max_babies = 2
+	var/baby_types = list(/mob/living/simple_animal/hostile/deathclaw/young)
+	var/spawn_time = 40 SECONDS
+	var/spawn_text = "scrambles out from beside"
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/spawner, baby_types, spawn_time, faction, spawn_text, max_babies, _range = 5)
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting/death(gibbed)
+	RemoveComponentByType(/datum/component/spawner)
+	. = ..()
+
+/mob/living/simple_animal/hostile/deathclaw/mother/nesting/Destroy()
+	RemoveComponentByType(/datum/component/spawner)
+	. = ..()

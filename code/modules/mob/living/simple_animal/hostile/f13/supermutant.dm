@@ -5,6 +5,10 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant
+	affix_pool_type = "mutant"
+	affix_chance = 6
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "super mutant"
 	desc = "A gigantic, green, angry-looking humanoid wrapped in a jumpsuit that may have fit him... her? at some point. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. Have fun!"
@@ -15,8 +19,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_HUMANOID
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_BASE
 	sentience_type = SENTIENCE_BOSS
-	maxHealth = 145 // bumped - TTK vs melee was too short
-	health = 145
+	maxHealth = 250 // bumped - TTK vs melee was too short
+	health = 250
 	stat_attack = CONSCIOUS
 	robust_searching = 1
 	check_friendly_fire = FALSE
@@ -155,6 +159,9 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/playable
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 145
 	health = 145
 	emote_taunt_sound = null
@@ -216,6 +223,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/meleemutant
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "sledgehammer supermutant"
 	desc = "An enormous, green tank of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
@@ -224,8 +233,8 @@
 	icon_living = "hulk_melee_s"
 	icon_dead = "hulk_melee_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_MELEE
-	maxHealth = 145 // bumped - TTK vs melee was too short
-	health = 145
+	maxHealth = 260 // bumped - TTK vs melee was too short
+	health = 260
 	mob_armor_tokens = list(
 		ARMOR_MODIFIER_UP_MELEE_T1,
 		ARMOR_MODIFIER_DOWN_LASER_T2,
@@ -247,8 +256,8 @@
 	icon_living = "hulk_ranged_s"
 	icon_dead = "hulk_ranged_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_RANGER
-	maxHealth = 145 // bumped - TTK vs melee was too short
-	health = 145
+	maxHealth = 230 // bumped - TTK vs melee was too short
+	health = 230
 
 	combat_mode = COMBAT_MODE_MIXED
 	ranged = TRUE
@@ -282,6 +291,8 @@
 
 // Varmint rifle variant
 /mob/living/simple_animal/hostile/supermutant/rangedmutant/varmint
+	maxHealth = 230
+	health = 230
 	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
 		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
 		If that wasn't bad enough, this monstrous critter is wielding some kind of rifle. Lovely."
@@ -298,13 +309,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/legendary
+	affix_chance = 0
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "legendary super mutant"
 	desc = "A huge and ugly mutant humanoid. He has a faint yellow glow to him, scars adorn his body. This super mutant is a grizzled veteran of combat. Look out!"
 	color = "#FFFF00"
 	color_rage = "#ffcc66"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_LEGEND
-	maxHealth = 170 // bumped - TTK vs melee was too short
-	health = 170
+	maxHealth = 450 // bumped - TTK vs melee was too short
+	health = 450
 	icon_state = "hulk_113_s"
 	icon_living = "hulk_113_s"
 	icon_dead = "hulk_113_s"
@@ -318,14 +332,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/nightkin
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "nightkin"
 	desc = "A blue variant of the standard Super Mutant, equipped with stealth boys."
 	icon_state = "night_s"
 	icon_living = "night_s"
 	icon_dead = "night_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_MELEE
-	maxHealth = 155 // bumped - TTK vs melee was too short
-	health = 155
+	maxHealth = 300 // bumped - TTK vs melee was too short
+	health = 300
 	alpha = 80
 	force_threshold = 15
 	melee_damage_lower = 27
@@ -351,8 +367,8 @@
 	icon_living = "night_ranged_s"
 	icon_dead = "night_ranged_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_RANGER
-	maxHealth = 155 // bumped - TTK vs melee was too short
-	health = 155
+	maxHealth = 280 // bumped - TTK vs melee was too short
+	health = 280
 	alpha = 80
 	force_threshold = 15
 	melee_damage_lower = 25
@@ -389,14 +405,16 @@
 	alpha = 255
 
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "nightkin elite"
 	desc = "A blue variant of the standard Super Mutant, and a remnant of the Masters Army."
 	icon_state = "night_boss_s"
 	icon_living = "night_boss_s"
 	icon_dead = "night_boss_s"
 	mob_armor = ARMOR_VALUE_SUPERMUTANT_LEGEND
-	maxHealth = 145 // bumped - TTK vs melee was too short
-	health = 145
+	maxHealth = 320 // bumped - TTK vs melee was too short
+	health = 320
 	alpha = 80
 	force_threshold = 15
 	melee_damage_lower = 20
@@ -436,14 +454,16 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/supermutant/meleemutant/rain
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "super mutant rain cultist"
 	desc = "A super mutant covered in blue markings that has been indoctrinated into the Cult Of Rain. This one wields a sledgehammer blessed by the rain gods."
 	color = "#6B87C0"
 	color_rage = "#4488cc"
 	speak_chance = 10
 	speak = list("The rain cleanses!", "Sacrifices for the rain gods!", "The thunder guides my fury!", "I am become the storm, destroyer of all heretics!", "The priests will be pleased with my sacrifices!")
-	maxHealth = 140
-	health = 140
+	maxHealth = 250
+	health = 250
 	damage_coeff = list(BRUTE = 0.9, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	melee_damage_lower = 24
 	melee_damage_upper = 48
@@ -455,22 +475,24 @@
 	color_rage = "#4488cc"
 	speak_chance = 10
 	speak = list("The rain cleanses!", "Sacrifices for the rain gods!", "The thunder guides my fury!", "I am become the storm, destroyer of all heretics!", "The priests will be pleased with my sacrifices!")
-	maxHealth = 140
-	health = 140
+	maxHealth = 220
+	health = 220
 	damage_coeff = list(BRUTE = 1, BURN = 0.9, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	melee_damage_lower = 24
 	melee_damage_upper = 48
 
 // Berserker nightkin - charges when shot, leaves destruction in its wake
 /mob/living/simple_animal/hostile/supermutant/nightkin/rain
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "nightkin berserker rain priest"
 	desc = "A nightkin that spreads the word of the Cult Of Rain. They are covered in dark blue markings, indicating that they have been blessed by the rain god Odile."
 	color = "#6666FF"
 	color_rage = "#3333ff"
 	speak_chance = 10
 	speak = list("The rain speaks through me!", "Witness the gifts of rain!", "The great flood will come upon us! Do not fear it!", "My life for the rain gods!", "The rain gods can always use more sacrifices!")
-	maxHealth = 180
-	health = 180
+	maxHealth = 320
+	health = 320
 	damage_coeff = list(BRUTE = 0.8, BURN = 1, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	melee_damage_lower = 24
 	melee_damage_upper = 48
@@ -568,8 +590,8 @@
 	color_rage = "#3333ff"
 	speak_chance = 10
 	speak = list("The rain speaks through me!", "Witness the gifts of rain!", "The great flood will come upon us! Do not fear it!", "My life for the rain gods!", "The rain gods can always use more sacrifices!")
-	maxHealth = 160
-	health = 160
+	maxHealth = 280
+	health = 280
 	damage_coeff = list(BRUTE = 1, BURN = 0.8, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	melee_damage_lower = 35
 	melee_damage_upper = 60
@@ -621,14 +643,16 @@
 
 // Rain lord nightkin - most powerful, dual resistance, healing aura
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "nightkin rain lord"
 	desc = "A nightkin that writes the word of the Cult Of Rain. They are covered in dark blue markings and are adorned in pieces of bone armor, indicating that they are blessed by the rain god Hyacinth."
 	color = "#6666FF"
 	color_rage = "#3333ff"
 	speak_chance = 10
 	speak = list("The great flood will come, I will make sure of it!", "Rain god Odile, I call upon you for wrath!", "Rain god Hyacinth, I call upon you for a tranquil mind!", "Rain god Ignacio, I call upon you for protection!", "The storm rages within!")
-	maxHealth = 200
-	health = 200
+	maxHealth = 360
+	health = 360
 	damage_coeff = list(BRUTE = 0.8, BURN = 0.8, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	melee_damage_lower = 28
 	melee_damage_upper = 62
@@ -637,3 +661,345 @@
 /mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant/rain/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/glow_heal, chosen_targets = /mob/living/simple_animal/hostile/supermutant, allow_revival = FALSE, restrict_faction = null, type_healing = BRUTELOSS | FIRELOSS)
+
+// ============================================================
+// SUPER MUTANT GUNNER - SMG, short bursts, stays close
+// Glass-cannon-ish: lower HP, more rounds, weaker per-round damage.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/smg
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+	name = "super mutant gunner"
+	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
+		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
+		If that wasn't bad enough, this monstrous critter is spraying an automatic weapon from the hip. Lovely."
+	maxHealth = 200
+	health = 200
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = 2
+	minimum_distance = 2
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/c10mm/simple/pen
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	sound_after_shooting = null
+	extra_projectiles = 3 // 4-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 2 SECONDS
+
+	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
+		SP_VOLUME_SILENCED(PISTOL_MEDIUM_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(PISTOL_MEDIUM_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(PISTOL_MEDIUM_DISTANT_SOUND),
+		SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
+	)
+
+// ============================================================
+// SUPER MUTANT RIFLEMAN - assault rifle, longer bursts, keeps distance
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/rifleman
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+	name = "super mutant rifleman"
+	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
+		They're a mountain of furry muscle, and their fists look like they could punch through solid steel. \
+		If that wasn't bad enough, this monstrous critter is gripping a military assault rifle. Lovely."
+	maxHealth = 230
+	health = 230
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = 3
+	minimum_distance = 3
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	sound_after_shooting = null
+	extra_projectiles = 2 // 3-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
+	ranged_cooldown_time = 3 SECONDS
+
+	loot = list(/obj/item/ammo_box/magazine/m556/rifle)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+// ============================================================
+// SUPER MUTANT SUPPRESSOR - machine gun, long slow bursts
+// Slow, tanky, and telegraphed (sight_shoot_delay_time) so players can break line of sight.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/suppressor
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
+	name = "super mutant suppressor"
+	desc = "A hulking green brute hauling a belt-fed machine gun, welded plates bolted over its chest. \
+		It does not aim so much as point and hold the trigger. Find cover."
+	maxHealth = 340
+	health = 340
+	move_to_delay = 6 // slower than the standard 4
+	mob_armor = ARMOR_VALUE_SUPERMUTANT_HEAVY
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 0
+	minimum_distance = 5
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	sound_after_shooting = null
+	sight_shoot_delay_time = 1 SECONDS // wind-up before the first burst
+	extra_projectiles = 5 // 6-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 5 SECONDS
+
+	// Swap for your LMG / ammo-belt drops after balancing.
+	loot = list(/obj/item/stack/f13Cash/random/high)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+// ============================================================
+// NIGHTKIN INFILTRATOR - stealth SMG
+// Inherits nightkin/rangedmutant Aggro (summon_backup + cloak drops on aggro).
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant/infiltrator
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
+	name = "nightkin infiltrator"
+	desc = "A blue variant of the standard Super Mutant, equipped with stealth boys. This one is holding a submachine gun and moves like it wants to flank you."
+	maxHealth = 260
+	health = 260
+
+	retreat_distance = 2
+	minimum_distance = 2
+
+	projectiletype = /obj/item/projectile/bullet/c10mm/simple/pen
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	extra_projectiles = 2 // 3-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 2 SECONDS
+
+	loot = list(/obj/item/gun/ballistic/automatic/smg/smg10mm)
+
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(PISTOL_MEDIUM_VOLUME),
+		SP_VOLUME_SILENCED(PISTOL_MEDIUM_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(PISTOL_MEDIUM_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(PISTOL_MEDIUM_DISTANT_SOUND),
+		SP_DISTANT_RANGE(PISTOL_MEDIUM_RANGE_DISTANT)
+	)
+
+// ============================================================
+// SUICIDER
+// Lore: super mutants hauling a live mini-nuke, rushing their target.
+// Lights its fuse on first contact. Also detonates if killed, so shoot it before it arrives.
+// Explosion is queued through SSexplosion_spam like the F13 grenades, sized just above a plasma grenade.
+// SPRITE: reuses the base hulk sprite with a tint.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/suicider
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	name = "suicider super mutant"
+	desc = "A super mutant lashed to a live mini-nuke with scavenged chain. It is not carrying that thing to defend itself."
+	color = "#c9a24a"
+	color_rage = "#ff7733"
+	maxHealth = 170
+	health = 170
+	move_to_delay = 3 // faster than the standard 4, it wants to arrive
+	can_ghost_into = FALSE
+	loot = list()
+	speak = list("BOOM! BOOM!", "GO BANG!", "MASTER WILL BE PROUD!", "BIG BANG, BIG BANG!")
+
+	// Rushes target
+	retreat_distance = null
+	minimum_distance = 1
+
+	var/fuse_lit = FALSE
+	var/detonated = FALSE
+	var/fuse_time = 1.5 SECONDS
+
+/mob/living/simple_animal/hostile/supermutant/suicider/AttackingTarget()
+	. = ..()
+	if(!fuse_lit && isliving(target))
+		light_fuse()
+
+/mob/living/simple_animal/hostile/supermutant/suicider/proc/light_fuse()
+	fuse_lit = TRUE
+	playsound(src, 'sound/machines/triple_beep.ogg', 75, TRUE)
+	visible_message(span_danger("[src] slams a fist onto the mini-nuke's detonator!"), span_danger("You hear an ominous beep!"))
+	addtimer(CALLBACK(src, PROC_REF(fuse_blow)), fuse_time)
+
+/mob/living/simple_animal/hostile/supermutant/suicider/proc/fuse_blow()
+	if(QDELETED(src) || stat == DEAD)
+		return
+	death(TRUE) // death() handles the detonation
+
+/mob/living/simple_animal/hostile/supermutant/suicider/proc/detonate()
+	if(detonated)
+		return
+	detonated = TRUE
+	// Same queued-explosion call the F13 grenades use (avoids lag with several suiciders).
+	// For scale: frag 0/0/2/0, dynamite 0/0/3/0, plasma grenade 0/1/4/flame 4. This sits above plasma.
+	var/turf/T = get_turf(src)
+	if(T)
+		SSexplosion_spam.queue_explosion(T, 0, 2, 5, flash = 0, flame_range = 3, source = null)
+
+/mob/living/simple_animal/hostile/supermutant/suicider/death(gibbed)
+	detonate()
+	. = ..()
+
+// ============================================================
+// FLAMER
+// Lore: mutants armed with flamethrowers. Slow, short-range, fuel tank ruptures on death.
+// Friendly fire is ON, like the fire gecko, so it does not melt its own packmates for free.
+// SPRITE: reuses the ranged mutant sprite from the parent.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/flamer
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+	name = "super mutant flamer"
+	desc = "An enormous green mass of a humanoid wrapped in thick sheets of metal and boiled leather from hopefully a brahmin or two. \
+		A rusted fuel tank is lashed to its back and the nozzle in its fist is already hissing. Lovely."
+	mob_armor = ARMOR_VALUE_SUPERMUTANT_FLAMER
+	maxHealth = 260
+	health = 260
+	move_to_delay = 5 // slow
+	check_friendly_fire = TRUE
+
+	combat_mode = COMBAT_MODE_MIXED
+	ranged = TRUE
+	retreat_distance = null
+	minimum_distance = 1
+
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/incendiary/shotgun
+	projectilesound = 'sound/magic/fireball.ogg'
+	sound_after_shooting = null
+	ranged_message = "unleashes a burst of flame"
+	extra_projectiles = 2 // 3-shot burst
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 3 SECONDS
+
+	loot = list(/obj/item/ammo_box/shotgun/incendiary)
+
+/mob/living/simple_animal/hostile/supermutant/rangedmutant/flamer/death(gibbed)
+	var/turf/T = get_turf(src)
+	. = ..()
+	if(!T)
+		return
+	visible_message(span_danger("[src]'s fuel tank ruptures in a burst of flame!"))
+	for(var/turf/F in range(1, T))
+		new /obj/effect/hotspot(F)
+		F.hotspot_expose(500, 500, 1)
+
+// ============================================================
+// OVERLORD
+// Lore: the largest and toughest mutants, leading other mutants in battle.
+// Calls a wider backup radius on aggro, and every 20 seconds in combat
+// bellows a war cry that reduces damage taken by nearby super mutants for 10 seconds.
+// SPRITE: reuses the base hulk sprite with a tint and MOB_SIZE_HUGE.
+// ============================================================
+
+/mob/living/simple_animal/hostile/supermutant/overlord
+	name = "super mutant overlord"
+	desc = "Even among super mutants this one is enormous. Scars crosshatch its hide and the others fall in around it without being told. \
+		It is leading them."
+	color = "#4f7a3a"
+	color_rage = "#cc3333"
+	mob_armor = ARMOR_VALUE_SUPERMUTANT_OVERLORD
+	mob_size = MOB_SIZE_HUGE
+	maxHealth = 520
+	health = 520
+	melee_damage_lower = 25
+	melee_damage_upper = 55
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
+	attack_verb_simple = "pulverizes"
+	attack_sound = "hit_swing"
+	can_ghost_into = FALSE
+	despawns_when_lonely = FALSE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	loot = list(/obj/item/stack/f13Cash/random/high)
+	loot_drop_amount = 5
+	speak = list("FOLLOW ME!", "CRUSH THEM!", "NO MERCY!", "FOR THE MASTER!")
+
+	var/warcry_cooldown = 0
+	var/warcry_cooldown_time = 20 SECONDS
+	var/warcry_range = 7
+	var/warcry_duration = 10 SECONDS
+	var/warcry_damage_coeff = 0.85 // 15% less brute/burn damage taken
+	var/list/warcried = list()
+
+/mob/living/simple_animal/hostile/supermutant/overlord/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(14)
+
+/mob/living/simple_animal/hostile/supermutant/overlord/Life()
+	. = ..()
+	if(!ckey && target && stat != DEAD && world.time > warcry_cooldown)
+		warcry()
+
+/mob/living/simple_animal/hostile/supermutant/overlord/proc/warcry()
+	warcry_cooldown = world.time + warcry_cooldown_time
+	visible_message(span_danger("[src] bellows a thunderous war cry!"))
+	if(aggrosound)
+		playsound(src, pick(aggrosound), 100, 1, SOUND_DISTANCE(15))
+	for(var/mob/living/simple_animal/hostile/supermutant/M in oview(warcry_range, src))
+		if(M.stat == DEAD || (M in warcried))
+			continue
+		warcried += M
+		M.damage_coeff = M.damage_coeff.Copy() // do not edit a shared list
+		M.damage_coeff[BRUTE] *= warcry_damage_coeff
+		M.damage_coeff[BURN] *= warcry_damage_coeff
+		// Global proc so the buff still ends if the overlord dies first.
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(end_supermutant_warcry), M, warcry_damage_coeff, src), warcry_duration)
+
+/mob/living/simple_animal/hostile/supermutant/overlord/death(gibbed)
+	warcried.Cut()
+	. = ..()
+
+/proc/end_supermutant_warcry(mob/living/simple_animal/hostile/supermutant/M, coeff, mob/living/simple_animal/hostile/supermutant/overlord/source)
+	if(source && !QDELETED(source))
+		source.warcried -= M
+	if(QDELETED(M))
+		return
+	M.damage_coeff = M.damage_coeff.Copy()
+	M.damage_coeff[BRUTE] /= coeff
+	M.damage_coeff[BURN] /= coeff

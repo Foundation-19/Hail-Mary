@@ -6,6 +6,10 @@
 
 // BASE FERAL DOG
 /mob/living/simple_animal/hostile/wolf
+	affix_pool_type = "beast"
+	affix_chance = 4
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "feral dog"
 	desc = "The dogs that survived the Great War are a larger, and tougher breed, size of a wolf.<br>This one seems to be severely malnourished and its eyes are bloody red."
 	icon = 'icons/mob/animals/dogs.dmi'
@@ -107,6 +111,9 @@
 
 // PLAYABLE FERAL DOG
 /mob/living/simple_animal/hostile/wolf/playable
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 150
 	health = 150
 	see_in_dark = 8
@@ -121,6 +128,8 @@
 
 // ALPHA DOG - pack leader
 /mob/living/simple_animal/hostile/wolf/alpha
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "alpha feral dog"
 	desc = "The dogs that survived the Great War are a larger, and tougher breed, size of a wolf.<br>Wait... This one's a wolf!"
 	icon_state = "dog_alpha"
@@ -149,6 +158,9 @@
 
 // PLAYABLE ALPHA DOG
 /mob/living/simple_animal/hostile/wolf/alpha/playable
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	see_in_dark = 8
 	wander = FALSE
 	anchored = FALSE
@@ -165,6 +177,8 @@
 
 // WOLF - proper wolf, tougher than a feral dog
 /mob/living/simple_animal/hostile/wolf/cold
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "wolf"
 	desc = "A mangy wolf."
 	icon_state = "wolf"

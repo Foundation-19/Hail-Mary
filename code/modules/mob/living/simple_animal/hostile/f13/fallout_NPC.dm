@@ -22,6 +22,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -122,6 +124,8 @@
 
 // VAULT SECURITY - armed guards
 /mob/living/simple_animal/hostile/vault/security
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Vault Security"
 	desc = "Just a Vault Security officer."
 	icon_state = "vault_dweller_sec"
@@ -182,6 +186,8 @@
 
 // BASE ENCLAVE
 /mob/living/simple_animal/hostile/enclave
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "enclave specialist"
 	desc = "An Enclave soldier with combat armor and a G-11 rifle."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -199,6 +205,8 @@
 	
 	melee_damage_lower = 15
 	melee_damage_upper = 35
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -291,6 +299,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 15
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	
@@ -333,6 +343,8 @@
 	
 	melee_damage_lower = 20
 	melee_damage_upper = 47
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	
 	loot = list(/obj/effect/mob_spawn/human/corpse/enclave/soldier)
 	
@@ -356,6 +368,79 @@
 		SP_DISTANT_SOUND(PLASMA_DISTANT_SOUND),
 		SP_DISTANT_RANGE(PLASMA_RANGE_DISTANT)
 	)
+
+// ============================================================
+// ENCLAVE OFFICER - squad leader
+// Plasma pistol, 2-shot bursts, stays behind the line, and calls the rest of the squad on aggro.
+// ============================================================
+
+/mob/living/simple_animal/hostile/enclave/officer
+	affix_chance = 0
+	name = "Enclave Officer"
+	desc = "An Enclave Officer in a pressed uniform and a gas mask, a plasma pistol in a perfectly steady hand. Everyone else on this patrol is looking to him."
+	color = "#c9ced6"
+	maxHealth = 380
+	health = 380
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	loot = list(/obj/effect/mob_spawn/human/corpse/enclave)
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 7
+	minimum_distance = 1
+	ranged_cooldown_time = 20
+	extra_projectiles = 1
+	projectiletype = /obj/item/projectile/f13plasma/pistol/adam
+	projectilesound = 'sound/weapons/wave.ogg'
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(PLASMA_VOLUME),
+		SP_VOLUME_SILENCED(PLASMA_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(PLASMA_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(PLASMA_DISTANT_SOUND),
+		SP_DISTANT_RANGE(PLASMA_RANGE_DISTANT)
+	)
+
+/mob/living/simple_animal/hostile/enclave/officer/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(14)
+
+// ============================================================
+// ENCLAVE HELLFIRE TROOPER - top tier, event / boss use
+// Hellfire power armor (it exists in your suit files): heavier than the APA armored infantry, with
+// a plasma repeater firing longer bursts. Meant to be rare, not a standard patrol member.
+// Affix chance is 0 (set by the script), and it needs a full squad to be fair.
+// ============================================================
+
+/mob/living/simple_animal/hostile/enclave/soldier/hellfire
+	affix_chance = 0
+	name = "Enclave Hellfire Trooper"
+	desc = "An Enclave soldier sealed inside Hellfire power armor, a heavy plasma repeater braced against its shoulder. The Enclave sends these when a problem needs to stop existing."
+	color = "#8a8a99"
+	mob_armor = ARMOR_VALUE_ENCLAVE_HELLFIRE
+	maxHealth = 900
+	health = 900
+	move_to_delay = 4
+	melee_damage_lower = 25
+	melee_damage_upper = 52
+	armour_penetration = 0.35
+	damage_threshold_penetration_mob = 10
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+	retreat_distance = 2
+	minimum_distance = 1
+	ranged_cooldown_time = 14
+	extra_projectiles = 3 // 4-shot bursts
+
+/mob/living/simple_animal/hostile/enclave/soldier/hellfire/Initialize(mapload)
+	. = ..()
+	resize = 1.1
+	update_transform()
 
 // ENCLAVE CORPSES
 /obj/effect/mob_spawn/human/corpse/enclavescientist
@@ -387,6 +472,8 @@
 
 // BASE BROTHERHOOD
 /mob/living/simple_animal/hostile/bs
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "Brotherhood Knight"
 	desc = "The brotherhood never fails."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -404,6 +491,8 @@
 	
 	melee_damage_lower = 7
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -497,6 +586,8 @@
 
 // BROTHERHOOD PALADIN - laser rifle + power armor
 /mob/living/simple_animal/hostile/bs/paladin
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "Brotherhood Paladin"
 	desc = "A Paladin equipped with an AER9 and T-51b power armor. The Brotherhood has arrived."
 	icon_state = "bs_paladin"
@@ -532,6 +623,72 @@
 		SP_DISTANT_RANGE(LASER_RANGE_DISTANT)
 	)
 
+// ============================================================
+// BROTHERHOOD SCRIBE - field medic
+// Weak, lightly armored, keeps well back, and patches up nearby Brotherhood every 6 seconds
+// (5% of their max health). A priority target: kill it first or the knights outlast you.
+// ============================================================
+
+/mob/living/simple_animal/hostile/bs/knight/scribe
+	name = "Brotherhood Scribe"
+	desc = "A Scribe of the Brotherhood in a field-worn robe, with a laser pistol on one hip and a medical kit on the other. Scribes keep the Brotherhood running, and that includes keeping its knights alive."
+	color = "#cfd6dc"
+	mob_armor = ARMOR_VALUE_BOS_SCRIBE
+	maxHealth = 150
+	health = 150
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	retreat_distance = 8
+	minimum_distance = 3
+	ranged_cooldown_time = 3 SECONDS
+	var/heal_cooldown = 0
+	var/heal_cooldown_time = 6 SECONDS
+	var/heal_range = 5
+	var/heal_fraction = 0.05
+
+/mob/living/simple_animal/hostile/bs/knight/scribe/BiologicalLife(seconds, times_fired)
+	if(!(. = ..()))
+		return
+	if(stat != CONSCIOUS || ckey || world.time < heal_cooldown)
+		return
+	var/healed = FALSE
+	for(var/mob/living/simple_animal/hostile/bs/B in view(heal_range, src))
+		if(B == src || B.stat == DEAD || B.health >= B.maxHealth)
+			continue
+		B.adjustBruteLoss(-(B.maxHealth * heal_fraction))
+		healed = TRUE
+	if(healed)
+		heal_cooldown = world.time + heal_cooldown_time
+		visible_message(span_notice("\The [src] applies a field dressing to a nearby Brotherhood member."))
+
+// ============================================================
+// BROTHERHOOD KNIGHT-CAPTAIN - the rank above the knight
+// Not power armor, but the heaviest armor a knight can wear. Carries a laser rifle (the same hitscan
+// lasgun the paladin uses), a lot more HP, and calls the rest of the squad on aggro.
+// ============================================================
+
+/mob/living/simple_animal/hostile/bs/knight/captain
+	affix_chance = 0
+	name = "Brotherhood Knight-Captain"
+	desc = "A Knight-Captain of the Brotherhood in reinforced combat armor, with a laser rifle and the calm of someone who gives orders for a living."
+	color = "#aebfd4"
+	mob_armor = ARMOR_VALUE_BOS_CAPTAIN
+	maxHealth = 380
+	health = 380
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	retreat_distance = 5
+	minimum_distance = 1
+	ranged_cooldown_time = 2 SECONDS
+	projectiletype = /obj/item/projectile/beam/laser/lasgun/hitscan
+	projectilesound = 'sound/f13weapons/aer9fire.ogg'
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+
+/mob/living/simple_animal/hostile/bs/knight/captain/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(14)
+
 // BROTHERHOOD CORPSES
 /obj/effect/mob_spawn/human/corpse/bs
 	name = "Brotherhood Knight"
@@ -559,6 +716,8 @@
 
 // BASE NCR
 /mob/living/simple_animal/hostile/ncr
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "NCR Trooper"
 	desc = "For the Republic!"
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -576,6 +735,8 @@
 	
 	melee_damage_lower = 8
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -654,7 +815,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/varmint_rifle.ogg'
 	casingtype = /obj/item/ammo_casing/a556
 	projectile_sound_properties = list(
@@ -670,6 +831,8 @@
 
 // NCR RANGER - revolver
 /mob/living/simple_animal/hostile/ncr/ranger
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "NCR Ranger"
 	desc = "A Ranger of the NCRA, wielding a big iron on his hip and equipped with a ranger patrol vest."
 	icon_state = "ncr_sergeant"
@@ -691,7 +854,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/m44/simple
+	projectiletype = /obj/item/projectile/bullet/m44/simple/pen
 	projectilesound = 'sound/f13weapons/44mag.ogg'
 	casingtype = /obj/item/ammo_casing/m44
 	projectile_sound_properties = list(
@@ -703,6 +866,87 @@
 		SP_IGNORE_WALLS(TRUE),
 		SP_DISTANT_SOUND(PISTOL_HEAVY_DISTANT_SOUND),
 		SP_DISTANT_RANGE(PISTOL_HEAVY_RANGE_DISTANT)
+	)
+
+// ============================================================
+// NCR RANGER SNIPER - disciplined, tougher, same tell
+// ============================================================
+
+/mob/living/simple_animal/hostile/ncr/ranger/sniper
+	name = "NCR Ranger sniper"
+	desc = "A Ranger of the NCRA with a scoped long rifle and a ghillie-style scarf. Rangers are trained to take one good shot and move."
+	maxHealth = 140
+	health = 140
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 9
+	minimum_distance = 6
+	vision_range = 11
+	aggro_vision_range = 11
+
+	sight_shoot_delay_time = 1.5 SECONDS
+	ranged_cooldown_time = 6 SECONDS
+	extra_projectiles = 0
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/sniper
+	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	ranged_message = "takes a careful shot"
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
+
+// ============================================================
+// NCR HEAVY TROOPER - machine gunner
+// Slow, sturdy, plants itself and suppresses. 5-round bursts of heavy 7.62 (AP 0.4, DTP 4) with a
+// 1-second wind-up so players can break line of sight. Never retreats. Uses the same DT-penetrating
+// round as the super mutant suppressor.
+// ============================================================
+
+/mob/living/simple_animal/hostile/ncr/heavy
+	name = "NCR Heavy Trooper"
+	desc = "An NCR Heavy Trooper hauling a belt-fed machine gun and wearing reinforced armor. The Republic sends these when it wants an area held."
+	color = "#c9c0a8"
+	mob_armor = ARMOR_VALUE_NCR_HEAVY
+	maxHealth = 240
+	health = 240
+	move_to_delay = 4
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	healable = TRUE
+	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = null
+	minimum_distance = 4
+
+	sight_shoot_delay_time = 1 SECONDS
+	extra_projectiles = 4 // 5-round bursts
+	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
+	ranged_cooldown_time = 4 SECONDS
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
+	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
+	ranged_message = "opens fire with a machine gun"
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
 
 // NCR CORPSES
@@ -728,6 +972,8 @@
 
 // BASE LEGION
 /mob/living/simple_animal/hostile/legion
+	affix_pool_type = "human"
+	affix_chance = 4
 	name = "Legion Prime"
 	desc = "True to Caesar."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -745,6 +991,8 @@
 	
 	melee_damage_lower = 8
 	melee_damage_upper = 15
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -823,7 +1071,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/pen
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
 	casingtype = /obj/item/ammo_casing/a308
 	projectile_sound_properties = list(
@@ -839,6 +1087,8 @@
 
 // LEGION DECANUS - veteran officer
 /mob/living/simple_animal/hostile/legion/decan
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	name = "Legion Decanus"
 	desc = "A Prime Decanus, equipped with a hunting rifle."
 	icon_state = "legion_decan"
@@ -861,7 +1111,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
 	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
 	casingtype = /obj/item/ammo_casing/a308
 	projectile_sound_properties = list(
@@ -874,6 +1124,143 @@
 		SP_DISTANT_SOUND(RIFLE_MEDIUM_DISTANT_SOUND),
 		SP_DISTANT_RANGE(RIFLE_MEDIUM_RANGE_DISTANT)
 	)
+
+// ============================================================
+// LEGION VETERAN - the rank-and-file killer between prime and decanus
+// ============================================================
+
+/mob/living/simple_animal/hostile/legion/veteran
+	name = "Legion Veteran"
+	desc = "A veteran Legionary with a heavy blade and a hard stare. He has done this before, and he is going to do it to you."
+	icon_state = "legion_decan"
+	icon_living = "legion_decan"
+	icon_dead = "legion_decan"
+	color = "#b89a7a"
+	mob_armor = ARMOR_VALUE_LEGION_VETERAN
+	maxHealth = 210
+	health = 210
+	melee_damage_lower = 20
+	melee_damage_upper = 36
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
+	healable = TRUE
+	loot = list(/obj/effect/mob_spawn/human/corpse/legion/decan)
+
+// ============================================================
+// LEGION FRUMENTARIUS - scout and skirmisher
+// Fast and lightly armored. Partly hidden while idle, shows itself when it aggros, fades back
+// after losing its target. Cuts for wounds instead of raw damage.
+// ============================================================
+
+/mob/living/simple_animal/hostile/legion/frumentarius
+	name = "Legion Frumentarius"
+	desc = "A Legion scout in dusty, unmarked clothes. The Frumentarii are Caesar's eyes and knives, and this one has been watching you for a while."
+	icon_state = "legion_prime"
+	icon_living = "legion_prime"
+	icon_dead = "legion_prime"
+	color = "#9a8a6a"
+	mob_armor = ARMOR_VALUE_LEGION
+	maxHealth = 130
+	health = 130
+	move_to_delay = 2
+	speed = 1
+	melee_damage_lower = 12
+	melee_damage_upper = 22
+	sharpness = SHARP_EDGED
+	wound_bonus = 15
+	bare_wound_bonus = 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+	healable = TRUE
+	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+	var/cloak_alpha = 140
+
+/mob/living/simple_animal/hostile/legion/frumentarius/Initialize(mapload)
+	. = ..()
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/legion/frumentarius/Aggro()
+	. = ..()
+	alpha = 255
+
+/mob/living/simple_animal/hostile/legion/frumentarius/LoseTarget()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(recloak)), 5 SECONDS)
+
+/mob/living/simple_animal/hostile/legion/frumentarius/proc/recloak()
+	if(QDELETED(src) || stat == DEAD || target)
+		return
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/legion/frumentarius/death(gibbed)
+	alpha = 255
+	. = ..()
+
+// ============================================================
+// LEGION CENTURION - officer
+// Big, heavily armored melee leader. Calls his legionaries on aggro with a wider radius than the usual.
+// ============================================================
+
+/mob/living/simple_animal/hostile/legion/centurion
+	affix_chance = 0
+	name = "Legion Centurion"
+	desc = "A Centurion of Caesar's Legion, scarred and armored in layers of plate, a blade the length of your arm in his hand. The legionaries around him move as he moves."
+	icon_state = "legion_decan"
+	icon_living = "legion_decan"
+	icon_dead = "legion_decan"
+	color = "#c9b08a"
+	mob_armor = ARMOR_VALUE_LEGION_CENTURION
+	maxHealth = 380
+	health = 380
+	melee_damage_lower = 25
+	melee_damage_upper = 45
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
+	healable = TRUE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	loot = list(/obj/effect/mob_spawn/human/corpse/legion/decan)
+
+/mob/living/simple_animal/hostile/legion/centurion/Initialize(mapload)
+	. = ..()
+	resize = 1.1
+	update_transform()
+
+/mob/living/simple_animal/hostile/legion/centurion/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(14)
+
+// ============================================================
+// LEGION PRAETORIAN - Caesar's bodyguard
+// The toughest legionary: heavy plate, fast reactions, hits like a falling wall. Not a boss, but it
+// is the answer to "how do I make melee enemies matter against a power armor player".
+// ============================================================
+
+/mob/living/simple_animal/hostile/legion/praetorian
+	affix_chance = 0
+	name = "Legion Praetorian"
+	desc = "A Praetorian Guard in red and black plate, the Legion's best. They are chosen for size, for loyalty, and for how little they feel."
+	icon_state = "legion_decan"
+	icon_living = "legion_decan"
+	icon_dead = "legion_decan"
+	color = "#c9a0a0"
+	mob_armor = ARMOR_VALUE_LEGION_PRAETORIAN
+	maxHealth = 320
+	health = 320
+	move_to_delay = 3
+	melee_damage_lower = 30
+	melee_damage_upper = 52
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
+	healable = TRUE
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	loot = list(/obj/effect/mob_spawn/human/corpse/legion/decan)
+
+/mob/living/simple_animal/hostile/legion/praetorian/Initialize(mapload)
+	. = ..()
+	resize = 1.1
+	update_transform()
+
 
 // LEGION CORPSES
 /obj/effect/mob_spawn/human/corpse/legion
@@ -896,6 +1283,8 @@
 ////////////////
 
 /mob/living/simple_animal/hostile/tribe
+	affix_pool_type = "human"
+	affix_chance = 5
 	name = "Wayfarer Hunter"
 	desc = "A hunter of the wayfarer tribe, wielding a glaive."
 	icon = 'icons/mob/humans/fallout_npc.dmi'
@@ -913,6 +1302,8 @@
 	
 	melee_damage_lower = 22
 	melee_damage_upper = 47
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE

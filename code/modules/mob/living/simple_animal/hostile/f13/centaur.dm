@@ -6,6 +6,8 @@
 
 // BASE CENTAUR - FEV mutation, ranged poison spitter
 /mob/living/simple_animal/hostile/centaur
+	affix_pool_type = "mutant"
+	affix_chance = 5
 	name = "centaur"
 	desc = "The result of infection by FEV gone horribly wrong."
 	icon = 'icons/mob/monsters/freaks.dmi'
@@ -131,6 +133,7 @@
 	melee_damage_lower = 35
 	melee_damage_upper = 35
 	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	
 	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
 
@@ -164,6 +167,8 @@
 
 // BASE ABOMINATION - FEV nightmare, wall smasher
 /mob/living/simple_animal/hostile/abomination
+	affix_pool_type = "mutant"
+	affix_chance = 5
 	name = "abomination"
 	desc = "A horrible fusion of man, animal, and something entirely different. It quakes and shudders, looking to be in an immense amount of pain. Blood and other fluids oo ze from various gashes and lacerations on its body, punctuated by mouths that gnash and scream."
 	icon = 'icons/mob/monsters/freaks.dmi'
@@ -183,6 +188,7 @@
 	melee_damage_upper = 40
 	harm_intent_damage = 8
 	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 6
 	
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	robust_searching = TRUE
@@ -260,6 +266,8 @@
 
 // WEAK ABOMINATION - for FEV mutation event
 /mob/living/simple_animal/hostile/abomination/weak
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES  // Can't break walls
 	
 	maxHealth = 625 // bumped - TTK vs melee was too short
@@ -277,6 +285,8 @@
 
 // BASE HORROR - weaker FEV fusion
 /mob/living/simple_animal/hostile/abomhorror
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 6
 	name = "failed experiment"
 	desc = "A terrible fusion of man, animal, and something else entirely. It looks to be in great pain."
 	icon = 'icons/mob/monsters/freaks.dmi'
@@ -342,6 +352,8 @@
 
 // NSB HORROR - bunker variant, bulletsponge
 /mob/living/simple_animal/hostile/abomhorror/nsb
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 8
 	desc = "A terrible fusion of man, animal, and something else entirely. It looks to be in great pain, constantly shuddering violently and seeming relatively docile to the robots and raiders of the bunker. Huh."
 	
 	maxHealth = 1000

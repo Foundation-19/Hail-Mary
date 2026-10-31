@@ -5,6 +5,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider
+	affix_pool_type = "human"
+	affix_chance = 5
 	name = "Raider"
 	desc = "Another murderer churned out by the wastes."
 	icon = 'icons/mob/humans/raider.dmi'
@@ -17,6 +19,8 @@
 	health = 130
 	melee_damage_lower = 5
 	melee_damage_upper = 14
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	attack_verb_simple = "clobbers"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	a_intent = INTENT_HARM
@@ -122,6 +126,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider/ranged
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	icon_state = "raider_ranged"
 	icon_living = "raider_ranged"
 	maxHealth = 110 // bumped - TTK vs melee was too short
@@ -137,7 +143,7 @@
 
 	ranged_cooldown_time = 2 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_NORMAL
-	projectiletype = /obj/item/projectile/bullet/c9mm/simple
+	projectiletype = /obj/item/projectile/bullet/c9mm/simple/pen
 	projectilesound = 'sound/f13weapons/ninemil.ogg'
 
 	variation_list = list(
@@ -162,6 +168,9 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider/legendary
+	affix_chance = 0
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes - this one seems a bit faster than the average..."
 	color = "#FFFF00"
@@ -178,6 +187,9 @@
 	random_trash_loot = FALSE
 
 /mob/living/simple_animal/hostile/raider/ranged/legendary
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Legendary Raider"
 	desc = "Another murderer churned out by the wastes, wielding a decent pistol and looking very strong"
 	color = "#FFFF00"
@@ -187,7 +199,7 @@
 
 	ranged_cooldown_time = 2 SECONDS
 	sight_shoot_delay_time = 0 SECONDS
-	projectiletype = /obj/item/projectile/bullet/m44/simple
+	projectiletype = /obj/item/projectile/bullet/m44/simple/pen
 	projectilesound = 'sound/f13weapons/44mag.ogg'
 	extra_projectiles = 1
 	obj_damage = 300
@@ -213,6 +225,9 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider/ranged/boss
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Raider Boss"
 	icon_state = "raiderboss"
 	icon_living = "raiderboss"
@@ -331,6 +346,8 @@
 // ============================================================
 
 /mob/living/simple_animal/hostile/raider/ranged/sulphiteranged
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	icon_state = "metal_raider"
 	icon_living = "metal_raider"
 	icon_dead = "metal_raider_dead"
@@ -339,7 +356,7 @@
 	health = 80
 
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/c45/simple
+	projectiletype = /obj/item/projectile/bullet/c45/simple/pen
 	projectilesound = 'sound/weapons/gunshot.ogg'
 
 	loot = list(/obj/item/gun/ballistic/automatic/pistol/m1911/custom, /obj/item/clothing/suit/armor/heavy/metal/reinforced, /obj/item/clothing/head/helmet/f13/metalmask/mk2, /obj/item/stack/f13Cash/random/med)
@@ -357,6 +374,8 @@
 	)
 
 /mob/living/simple_animal/hostile/raider/firefighter
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	icon_state = "firefighter_raider"
 	icon_living = "firefighter_raider"
 	icon_dead = "firefighter_raider_dead"
@@ -373,12 +392,14 @@
 	icon_dead = "biker_raider_dead"
 	melee_damage_lower = 10
 	melee_damage_upper = 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	mob_armor = ARMOR_VALUE_RAIDER_COMBAT_ARMOR_RUSTY
 	maxHealth = 160 // bumped - TTK vs melee was too short
 	health = 160
 
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/pen
 	projectilesound = 'sound/f13weapons/magnum_fire.ogg'
 
 	loot = list(/obj/item/gun/ballistic/revolver/thatgun, /obj/item/clothing/suit/armor/medium/combat/rusted, /obj/item/clothing/head/helmet/f13/raidercombathelmet, /obj/item/stack/f13Cash/random/med)
@@ -402,6 +423,8 @@
 	icon_dead = "baseball_raider_dead"
 	melee_damage_lower = 15
 	melee_damage_upper = 33
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	mob_armor = ARMOR_VALUE_RAIDER_ARMOR
 	maxHealth = 160 // bumped - TTK vs melee was too short
 	health = 160
@@ -422,6 +445,8 @@
 	health = 160
 	melee_damage_lower = 12
 	melee_damage_upper = 37
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	rapid_melee = 1
 	loot = list(/obj/item/twohanded/spear)
 	loot_drop_amount = 3
@@ -452,6 +477,8 @@
 	rapid_melee = 1
 	melee_damage_lower = 15
 	melee_damage_upper = 37
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	loot = list(/obj/item/stack/f13Cash/random/med)
 	loot_drop_amount = 5
 
@@ -472,6 +499,8 @@
 	rapid_melee = 1
 	melee_damage_lower = 18
 	melee_damage_upper = 42
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 
 /mob/living/simple_animal/hostile/raider/ranged/boss/junker
 	name = "Junker Footman"
@@ -487,9 +516,13 @@
 	rapid_melee = 1
 	melee_damage_lower = 20
 	melee_damage_upper = 38
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	loot_drop_amount = 5
 
 /mob/living/simple_animal/hostile/raider/junker/creator
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Junker Field Creator"
 	desc = "A Junker raider, specialized in spitting out eyebots on the fly with any scrap they can find."
 	icon_state = "junker"
@@ -506,7 +539,7 @@
 
 	rapid_melee = 1
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/c45/op
+	projectiletype = /obj/item/projectile/bullet/c45/op/pen
 	projectilesound = 'sound/weapons/gunshot.ogg'
 
 	var/list/spawned_mobs = list()
@@ -531,6 +564,9 @@
 	summon_backup(8)
 
 /mob/living/simple_animal/hostile/raider/junker/boss
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Junker Boss"
 	desc = "A Junker boss, clad in hotrod power armor, and wielding a deadly rapid-fire shrapnel cannon."
 	icon_state = "junker_boss"
@@ -575,9 +611,13 @@
 	health = 130
 	melee_damage_lower = 10
 	melee_damage_upper = 24
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	loot = list(/obj/item/melee/onehanded/knife/survival, /obj/item/stack/f13Cash/random/med)
 
 /mob/living/simple_animal/hostile/raider/cultist/ranged
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Cultist Gunner"
 	desc = "A nightmare in a robe. Now with 100% less conversion!"
 	icon_state = "cultist_pistol"
@@ -618,7 +658,7 @@
 
 	ranged_cooldown_time = 4 SECONDS
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOW
-	projectiletype = /obj/item/projectile/bullet/pellet/shotgun_buckshot
+	projectiletype = /obj/item/projectile/bullet/pellet/shotgun_buckshot/pen
 	projectilesound = 'sound/f13weapons/shotgun.ogg'
 	sound_after_shooting = 'sound/weapons/shotguninsert.ogg'
 	extra_projectiles = 1
@@ -654,6 +694,8 @@
 	loot_drop_amount = 8
 
 /mob/living/simple_animal/hostile/raider/cultist/ranged/tesla
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Cultist Lasermage"
 	icon_state = "cultist3_tesla"
 	icon_living = "cultist3_tesla"
@@ -672,6 +714,8 @@
 	loot_drop_amount = 8
 
 /mob/living/simple_animal/hostile/raider/cultist/ranged/radiation
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "Cultist Converter"
 	desc = "A nightmare in a robe. Now with 69% more conversion!"
 	icon_state = "cultist3_tesla"
@@ -723,3 +767,43 @@
 	shoes = /obj/item/clothing/shoes/f13/rag
 	mask = /obj/item/clothing/mask/facewrap
 	head = /obj/item/clothing/head/helmet/f13/fiend
+
+// ============================================================
+// RAIDER SNIPER - cheap, fragile, mean
+// ============================================================
+
+/mob/living/simple_animal/hostile/raider/ranged/sniper
+	name = "raider sniper"
+	desc = "A raider lying in wait with a scoped hunting rifle and a lot of patience. You will hear the shot after it hits you."
+	maxHealth = 85
+	health = 85
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	// raider/ranged randomizes its name from a global list on spawn; an empty list keeps "raider sniper"
+	// (same trick mangomatt uses).
+	variation_list = list()
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 9
+	minimum_distance = 6
+	vision_range = 11
+	aggro_vision_range = 11
+
+	sight_shoot_delay_time = 1.5 SECONDS
+	ranged_cooldown_time = 6 SECONDS
+	extra_projectiles = 0
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/sniper
+	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	ranged_message = "takes a careful shot"
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)
