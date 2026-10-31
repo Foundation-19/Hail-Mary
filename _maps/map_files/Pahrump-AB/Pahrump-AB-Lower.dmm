@@ -353,10 +353,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/bunker)
 "aoM" = (
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/structure/spider/stickyweb,
 /turf/open/floor/plasteel,
 /area/f13/bunker)
@@ -373,9 +369,6 @@
 /area/f13/bunker)
 "aoY" = (
 /obj/machinery/vending/engineering,
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/effect/decal/cleanable/glass,
 /obj/effect/decal/waste{
 	icon_state = "goo12"
@@ -503,9 +496,8 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/building/sewers/powered)
 "atN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 1
-	},
+/obj/structure/closet/crate/trashcart,
+/obj/item/grenade/chem_grenade/teargas,
 /turf/open/floor/plasteel/caution{
 	dir = 1
 	},
@@ -810,6 +802,12 @@
 /obj/structure/lattice{
 	layer = 3
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/bunker)
 "aHf" = (
@@ -882,9 +880,6 @@
 	dir = 8;
 	name = "Reactor APC";
 	pixel_x = -28
-	},
-/obj/structure/cable{
-	icon_state = "0-4"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
@@ -977,6 +972,10 @@
 /area/f13/building/sewers/powered)
 "aOY" = (
 /obj/effect/decal/cleanable/glass,
+/obj/structure/wreck/trash/machinepiletwo{
+	pixel_x = 3;
+	pixel_y = -27
+	},
 /turf/open/floor/f13{
 	icon_state = "damaged4"
 	},
@@ -4444,6 +4443,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -4747,9 +4749,6 @@
 "bVb" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /obj/effect/decal/cleanable/blood/tracks,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -5127,11 +5126,9 @@
 /area/f13/sewer/powered)
 "ceA" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
+/obj/structure/cable,
+/obj/machinery/f13/junction_box/large{
+	pixel_y = -32
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
@@ -5762,8 +5759,9 @@
 /obj/structure/lattice{
 	layer = 3
 	},
-/obj/item/grenade/chem_grenade/teargas,
-/obj/structure/closet/crate/trashcart,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/bunker)
 "cov" = (
@@ -5955,6 +5953,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -6015,7 +6016,9 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/tunnel)
 "cvQ" = (
-/obj/effect/turf_decal/stripes/corner,
+/obj/structure/wreck/trash/machinepile{
+	pixel_x = -17
+	},
 /turf/open/floor/plasteel/caution{
 	dir = 1
 	},
@@ -6205,10 +6208,11 @@
 /turf/closed/wall/f13/wood,
 /area/f13/sewer/powered)
 "cDg" = (
-/obj/machinery/teleport/station{
-	name = "power unit"
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "cDz" = (
@@ -6647,8 +6651,8 @@
 	},
 /area/f13/building/sewers/powered)
 "deK" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelrusty"
@@ -7114,6 +7118,9 @@
 /obj/effect/decal/cleanable/generic,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
@@ -7691,6 +7698,9 @@
 "ebV" = (
 /obj/item/storage/box/lights/tubes,
 /mob/living/simple_animal/hostile/radroach,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
 "ecc" = (
@@ -8118,6 +8128,9 @@
 	pixel_y = -7
 	},
 /obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "0-2"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -8550,9 +8563,6 @@
 /area/f13/building/massfusion)
 "eOm" = (
 /obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
 	icon_state = "1-4"
 	},
 /turf/open/floor/plasteel/f13{
@@ -8923,9 +8933,6 @@
 "fkG" = (
 /obj/machinery/light,
 /obj/effect/turf_decal/bot,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
 "flz" = (
@@ -9090,13 +9097,13 @@
 	},
 /area/f13/building/massfusion)
 "fsA" = (
-/obj/structure/cable{
-	icon_state = "0-2"
-	},
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/structure/nest/supermutant,
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
 "fuG" = (
@@ -9329,6 +9336,9 @@
 	},
 /obj/effect/decal/cleanable/blood/tracks,
 /obj/effect/decal/cleanable/blood/drip,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -9809,11 +9819,21 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/radiation)
 "gkt" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/structure/lattice{
 	layer = 3
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "0-2"
 	},
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelrusty"
@@ -10091,12 +10111,7 @@
 /turf/open/water,
 /area/f13/radiation)
 "gxF" = (
-/obj/structure/cable{
-	icon_state = "1-4"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
 "gxO" = (
@@ -10395,7 +10410,6 @@
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
-/obj/machinery/vending/engineering,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
@@ -10744,9 +10758,9 @@
 /area/f13/bunker)
 "haC" = (
 /mob/living/simple_animal/hostile/raider/junker/boss{
-	name = "Tumbler Rumbler";
 	desc = "A wiry but dangerous raider boss, this one seems to be wearing unique armour, and still armed with a strong cannon. The ammunition appears to be... Key shaped?";
-	health = 555
+	health = 555;
+	name = "Tumbler Rumbler"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/caves)
@@ -11660,7 +11674,10 @@
 /area/f13/bunker)
 "hWS" = (
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "0-8"
+	},
+/obj/machinery/f13/junction_box/large{
+	pixel_x = 32
 	},
 /turf/open/floor/plasteel/caution{
 	dir = 4
@@ -11971,14 +11988,12 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "ilT" = (
-/obj/structure/cable{
-	icon_state = "0-2"
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable,
+/turf/open/floor/plasteel/f13{
+	icon_state = "darkrustysolid"
 	},
-/obj/machinery/f13/junction_box/small,
-/turf/closed/wall/r_wall/f13vault{
-	icon_state = "2-i"
-	},
-/area/f13/building/museum)
+/area/f13/radiation)
 "ima" = (
 /obj/structure/closet/cabinet,
 /obj/machinery/light{
@@ -12055,11 +12070,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/sewers/powered)
 "ipN" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 4
-	},
 /obj/effect/decal/waste{
 	icon_state = "goo12"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelrusty"
@@ -12165,9 +12180,11 @@
 /area/f13/radiation)
 "itA" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 4
 	},
-/obj/structure/bonfire/prelit,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "itK" = (
@@ -12824,14 +12841,15 @@
 "iYn" = (
 /obj/effect/spawner/lootdrop/low_tools,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "0-2"
 	},
+/obj/machinery/f13/junction_box/large,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
 "iYp" = (
 /obj/structure/girder/reinforced,
 /turf/open/water,
-/area/f13/caves)
+/area/f13/building/sewers/powered)
 "iYN" = (
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
@@ -13077,9 +13095,9 @@
 /area/f13/bunker)
 "jmm" = (
 /mob/living/simple_animal/hostile/raider/junker/creator{
-	name = "Smith Lock";
 	desc = "A Junker raider, specialized in spitting out eyebots on the fly with oddly lock-related design.";
-	health = 375
+	health = 375;
+	name = "Smith Lock"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/caves)
@@ -13173,15 +13191,15 @@
 	},
 /area/f13/tunnel)
 "jpB" = (
+/obj/effect/decal/cleanable/blood/drip,
+/obj/machinery/f13/faction_generator/atomic,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "0-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
+/turf/open/floor/plasteel/f13{
+	icon_state = "darkrustysolid"
 	},
-/obj/effect/decal/cleanable/glass,
-/turf/open/floor/plating/tunnel,
-/area/f13/bunker)
+/area/f13/radiation)
 "jqi" = (
 /turf/open/floor/plasteel/f13/vault_floor/neutral/side{
 	icon_state = "neutralrusty"
@@ -13299,12 +13317,13 @@
 /turf/open/floor/plasteel/f13/vault_floor/red,
 /area/f13/bunker)
 "jxp" = (
-/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "0-2"
+	icon_state = "4-8"
 	},
-/turf/open/floor/plating/tunnel,
-/area/f13/bunker)
+/turf/open/floor/plasteel/f13{
+	icon_state = "darkrustysolid"
+	},
+/area/f13/radiation)
 "jxI" = (
 /obj/machinery/biogenerator,
 /obj/effect/decal/cleanable/dirt,
@@ -13364,8 +13383,15 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "jBq" = (
-/obj/effect/turf_decal/stripes/line,
-/turf/open/floor/plating/tunnel,
+/obj/effect/decal/cleanable/glass,
+/obj/structure/lattice{
+	layer = 3
+	},
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
+/turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/bunker)
 "jBs" = (
 /obj/effect/decal/cleanable/blood/drip,
@@ -13774,20 +13800,16 @@
 	},
 /area/f13/building)
 "jTu" = (
-/obj/structure/cable{
-	icon_state = "4-8"
+/obj/machinery/teleport/station{
+	name = "power unit"
 	},
-/obj/effect/decal/cleanable/glass,
-/turf/open/indestructible/ground/outside/ruins,
+/turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "jTC" = (
 /obj/effect/turf_decal/stripes/asteroid/line{
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/bunker)
 "jTH" = (
@@ -14455,6 +14477,12 @@
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
 "kzN" = (
@@ -14930,19 +14958,18 @@
 /turf/open/floor/f13/wood,
 /area/f13/tunnel)
 "kWO" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 4
-	},
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable,
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "kWY" = (
-/obj/structure/cable,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
+/obj/item/wrench,
 /turf/open/floor/f13{
 	icon_state = "damaged3"
 	},
@@ -15123,6 +15150,9 @@
 /area/f13/building/sewers/powered)
 "lht" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
 "lhO" = (
@@ -15454,7 +15484,7 @@
 	layer = 3
 	},
 /obj/structure/cable{
-	icon_state = "0-4"
+	icon_state = "4-8"
 	},
 /turf/open/floor/plating/tunnel{
 	icon_state = "tunnelrusty"
@@ -16022,6 +16052,10 @@
 /area/f13/building/museum)
 "lVa" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
 "lVM" = (
@@ -16210,9 +16244,9 @@
 /area/f13/building/sewers/powered)
 "mep" = (
 /mob/living/simple_animal/hostile/raider/ranged/legendary{
+	desc = "An oddly colored raider looking to be covered in golden keys. He appears to be stronger than the rest!";
 	health = 750;
-	name = "Legendary Locksmith";
-	desc = "An oddly colored raider looking to be covered in golden keys. He appears to be stronger than the rest!"
+	name = "Legendary Locksmith"
 	},
 /turf/open/floor/f13/wood,
 /area/f13/caves)
@@ -16508,7 +16542,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/generic,
 /turf/open/water,
-/area/f13/caves)
+/area/f13/building/sewers/powered)
 "muO" = (
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /turf/open/floor/plasteel/f13/vault_floor/blue/whitebluefull,
@@ -16545,8 +16579,8 @@
 	pixel_y = -3
 	},
 /obj/structure/ladder/unbreakable{
-	id = "CHI1";
-	height = 1
+	height = 1;
+	id = "CHI1"
 	},
 /turf/open/floor/f13{
 	icon_state = "greendirtyfull"
@@ -17097,9 +17131,9 @@
 	pixel_y = 11
 	},
 /obj/item/flashlight/lantern{
-	on = 1;
-	light_on = 1;
 	icon_state = "lantern-on";
+	light_on = 1;
+	on = 1;
 	pixel_x = 5;
 	pixel_y = 13
 	},
@@ -17298,7 +17332,13 @@
 /turf/open/floor/plasteel/freezer,
 /area/f13/building/sewers/powered)
 "nlA" = (
-/obj/structure/wreck/trash/three_barrels,
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "nlL" = (
@@ -17449,6 +17489,12 @@
 	},
 /obj/effect/decal/waste{
 	icon_state = "goo10"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
@@ -17645,14 +17691,8 @@
 /turf/closed/wall/r_wall/rust,
 /area/f13/radiation)
 "nCD" = (
-/obj/machinery/door/airlock/engineering{
-	name = "Generator Room";
-	req_access_txt = "31"
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
-/turf/open/floor/plasteel/f13/vault_floor/floor,
+/obj/machinery/vending/engineering,
+/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
 "nDw" = (
 /obj/effect/decal/cleanable/cobweb,
@@ -17685,7 +17725,10 @@
 /area/f13/caves)
 "nEH" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 8
+	dir = 4
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 1
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
@@ -18259,7 +18302,7 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/spawner/lootdrop/f13/junkspawners,
 /obj/structure/cable{
-	icon_state = "1-2"
+	icon_state = "2-8"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/bunker)
@@ -19050,13 +19093,10 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/yellowchess/yellowchess2,
 /area/f13/bunker)
 "oRB" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /obj/effect/decal/waste{
 	icon_state = "goo8"
 	},
+/obj/effect/turf_decal/stripes/line,
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
 "oSc" = (
@@ -19587,6 +19627,8 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/caves)
 "pqy" = (
+/obj/structure/rack/shelf_metal,
+/obj/effect/spawner/lootdrop/low_tools,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
 "pqz" = (
@@ -20004,9 +20046,6 @@
 /turf/open/indestructible/ground/inside/subway,
 /area/f13/sewer/powered)
 "pLh" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
 /obj/structure/lattice{
 	layer = 3
 	},
@@ -20198,7 +20237,6 @@
 "pTL" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/vending/tool,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
 "pUS" = (
@@ -20678,9 +20716,6 @@
 /obj/effect/decal/cleanable/blood/gibs/down{
 	icon_state = "gibup1"
 	},
-/obj/structure/cable{
-	icon_state = "0-4"
-	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -20844,9 +20879,7 @@
 	},
 /area/f13/sewer/powered)
 "qvR" = (
-/obj/item/wrench,
 /obj/effect/decal/cleanable/glass,
-/obj/structure/reagent_dispensers/barrel/dangerous,
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},
@@ -20855,6 +20888,10 @@
 	},
 /obj/effect/decal/waste{
 	icon_state = "goo12"
+	},
+/obj/effect/turf_decal/stripes/line,
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
@@ -21465,7 +21502,7 @@
 	name = "Door Control"
 	},
 /turf/closed/indestructible/f13vaultrusted,
-/area/f13/caves)
+/area/f13/building/sewers/powered)
 "raU" = (
 /obj/effect/turf_decal/weather/dirt{
 	dir = 8
@@ -21672,6 +21709,9 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/bunker)
 "rkJ" = (
@@ -22842,6 +22882,13 @@
 /obj/structure/table/wood,
 /turf/open/floor/plasteel/f13/vault_floor/dark,
 /area/f13/ncr/barracks)
+"sxi" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/open/floor/plating,
+/area/f13/building/museum)
 "sxA" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/f13{
@@ -22910,12 +22957,8 @@
 /obj/structure/lattice{
 	layer = 3
 	},
-/obj/structure/wreck/trash/machinepile{
-	pixel_x = -17
-	},
-/obj/structure/wreck/trash/machinepiletwo{
-	pixel_x = 3;
-	pixel_y = -27
+/obj/structure/cable{
+	icon_state = "4-8"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/plating,
 /area/f13/bunker)
@@ -23072,7 +23115,7 @@
 	dir = 4
 	},
 /turf/open/water,
-/area/f13/caves)
+/area/f13/building/sewers/powered)
 "sIE" = (
 /obj/machinery/light/small{
 	dir = 1
@@ -23343,13 +23386,14 @@
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/bunker)
 "sUf" = (
-/obj/machinery/f13/junction_box/large,
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "0-8"
+	icon_state = "2-4"
 	},
-/turf/closed/wall/r_wall/f13vault{
-	icon_state = "2-i"
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
+/turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/bunker)
 "sUF" = (
 /turf/closed/indestructible/rock,
@@ -23605,6 +23649,9 @@
 "tfE" = (
 /obj/effect/turf_decal/stripes/asteroid/line,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
 /turf/open/floor/plasteel/f13/vault_floor/yellow{
 	icon_state = "yellowdirtyfull"
 	},
@@ -24249,6 +24296,7 @@
 	icon_state = "goo5"
 	},
 /obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable,
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -24349,7 +24397,6 @@
 	pixel_y = 30
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/f13/faction_generator/atomic,
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "tSL" = (
@@ -24492,10 +24539,11 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/building/sewers/powered)
 "tZn" = (
+/obj/effect/decal/cleanable/dirt,
 /obj/structure/cable{
-	icon_state = "1-8"
+	icon_state = "4-8"
 	},
-/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
+/turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/bunker)
 "tZo" = (
 /obj/structure/nest/supermutant,
@@ -24700,9 +24748,8 @@
 	},
 /area/f13/tunnel)
 "uhS" = (
-/obj/structure/cable,
-/obj/machinery/f13/junction_box/small,
-/turf/closed/wall/r_wall/rust,
+/obj/machinery/vending/tool,
+/turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
 "uhX" = (
 /obj/effect/decal/remains/human,
@@ -24796,9 +24843,7 @@
 	},
 /area/f13/building/massfusion)
 "unY" = (
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/bonfire/prelit,
 /turf/open/floor/plasteel/caution,
 /area/f13/bunker)
 "unZ" = (
@@ -25090,12 +25135,15 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/bunker)
 "uBY" = (
-/obj/effect/turf_decal/stripes/corner{
-	dir = 8
-	},
 /obj/item/multitool/uplink,
 /obj/effect/decal/waste{
 	icon_state = "goo12"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
@@ -25349,6 +25397,12 @@
 /area/f13/city/buildingparent/store)
 "uOV" = (
 /obj/effect/decal/cleanable/blood/drip,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -25706,8 +25760,6 @@
 	},
 /area/f13/radiation)
 "vgq" = (
-/obj/structure/rack/shelf_metal,
-/obj/effect/spawner/lootdrop/low_tools,
 /obj/effect/decal/cleanable/dirt,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
 /area/f13/building/museum)
@@ -25772,6 +25824,9 @@
 /area/f13/building/sewers/powered)
 "vii" = (
 /obj/effect/spawner/lootdrop/f13/weapon/gun/energy/low,
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -25904,12 +25959,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/red/whiteredfull,
 /area/f13/bunker)
 "vom" = (
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/effect/decal/waste{
 	pixel_x = 20;
 	pixel_y = 1
@@ -26351,11 +26400,11 @@
 	},
 /area/f13/bunker)
 "vNy" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/glass,
 /obj/structure/reagent_dispensers/barrel/dangerous,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "vND" = (
@@ -26397,8 +26446,8 @@
 /area/f13/caves)
 "vPx" = (
 /obj/structure/ladder/unbreakable{
-	id = "robodungeon";
-	height = 2
+	height = 2;
+	id = "robodungeon"
 	},
 /turf/open/floor/plating/tunnel,
 /area/f13/sewer/powered)
@@ -26522,7 +26571,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/bunker)
 "vWd" = (
-/obj/effect/turf_decal/stripes/line,
 /turf/open/floor/plasteel/caution{
 	dir = 1
 	},
@@ -26670,6 +26718,9 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
 /turf/open/floor/plasteel/f13{
 	icon_state = "darkrustysolid"
 	},
@@ -26797,12 +26848,6 @@
 /turf/open/floor/plasteel/f13/vault_floor/misc/cmo,
 /area/f13/building/museum)
 "wjH" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-4"
-	},
 /obj/structure/sign/poster/official/safety_eye_protection{
 	pixel_y = 32
 	},
@@ -27113,9 +27158,6 @@
 "wzB" = (
 /obj/effect/decal/cleanable/blood/drip,
 /obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
 	icon_state = "1-4"
 	},
 /obj/structure/cable{
@@ -27190,6 +27232,12 @@
 	},
 /turf/open/indestructible/ground/inside/mountain,
 /area/f13/building)
+"wBI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable,
+/turf/open/floor/plating/tunnel,
+/area/f13/bunker)
 "wCh" = (
 /mob/living/simple_animal/hostile/ghoul,
 /obj/effect/decal/cleanable/dirt,
@@ -27441,6 +27489,7 @@
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},
+/obj/structure/reagent_dispensers/barrel/dangerous,
 /turf/open/floor/plasteel/caution{
 	dir = 4
 	},
@@ -27691,7 +27740,15 @@
 /obj/structure/lattice{
 	layer = 3
 	},
-/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/open/floor/plating/tunnel,
 /area/f13/bunker)
 "xeh" = (
@@ -27931,9 +27988,6 @@
 /turf/closed/wall/r_wall/rust,
 /area/f13/caves)
 "xqn" = (
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /obj/structure/closet/toolcloset,
 /obj/effect/decal/cleanable/glass,
 /turf/open/floor/plasteel/f13/vault_floor/yellow/whiteyellowfull,
@@ -28034,14 +28088,14 @@
 /turf/open/floor/plasteel/f13/vault_floor/yellow,
 /area/f13/tunnel)
 "xwf" = (
-/obj/effect/turf_decal/stripes/line{
-	dir = 8
-	},
 /obj/effect/decal/waste{
 	icon_state = "goo10"
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/effect/turf_decal/stripes/line{
+	dir = 4
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
@@ -28570,13 +28624,12 @@
 	},
 /area/f13/bunker)
 "xSw" = (
-/obj/machinery/power/terminal,
-/obj/structure/cable{
-	icon_state = "0-8"
-	},
 /obj/effect/decal/waste{
 	icon_state = "goo12"
 	},
+/obj/effect/turf_decal/stripes/line,
+/obj/machinery/f13/faction_generator/atomic,
+/obj/structure/cable,
 /turf/open/floor/plasteel,
 /area/f13/bunker)
 "xSA" = (
@@ -28665,7 +28718,13 @@
 /area/f13/building/massfusion)
 "xWb" = (
 /obj/effect/turf_decal/stripes/line{
-	dir = 4
+	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
 	},
 /turf/open/indestructible/ground/outside/ruins,
 /area/f13/bunker)
@@ -65228,7 +65287,7 @@ sib
 bEi
 djZ
 qqW
-wtX
+sxi
 pqy
 vgq
 djZ
@@ -65483,7 +65542,7 @@ azk
 bpL
 sib
 bEi
-ilT
+djZ
 iYn
 dDM
 uFu
@@ -67866,10 +67925,10 @@ hjz
 lgf
 pZp
 aaa
-aak
-aak
-aak
-aaa
+abM
+abM
+abM
+agO
 aaa
 aak
 aae
@@ -68123,10 +68182,10 @@ cVw
 fBw
 apd
 aaa
-aak
-aak
-tQC
-tQC
+abM
+abM
+apd
+apd
 aaa
 aak
 aae
@@ -68380,10 +68439,10 @@ apg
 apg
 abM
 aaa
-aak
+abM
 sHX
-gGV
-aaa
+aqn
+agO
 aaa
 xwF
 xwF
@@ -68639,7 +68698,7 @@ aaA
 aaa
 iYp
 muB
-gGV
+aqn
 raS
 aaa
 xwF
@@ -72907,9 +72966,9 @@ mMU
 hkk
 qTv
 aaD
-aaD
+nCD
 qgq
-aaD
+uhS
 aaD
 aaD
 aak
@@ -73163,11 +73222,11 @@ aaD
 aaD
 aaD
 aaD
-aaD
+jTu
 gJE
 dnL
 pTL
-aaD
+jTu
 aaD
 aae
 aaa
@@ -73422,9 +73481,9 @@ aaD
 aaD
 cDg
 rkA
-dnL
+sUf
 tfE
-cDg
+wBI
 aaD
 aae
 aaa
@@ -73679,7 +73738,7 @@ aaD
 aaD
 tSG
 kSc
-dnL
+tZn
 acP
 eXn
 aaD
@@ -73934,12 +73993,12 @@ eFt
 aaD
 aaD
 aaD
-jxp
+aEl
 jTC
 oeV
 qlF
 ceA
-uhS
+aaD
 aae
 aaa
 aae
@@ -79151,7 +79210,7 @@ pua
 kkd
 exe
 uOV
-taP
+ilT
 vii
 tKG
 eht
@@ -79409,7 +79468,7 @@ twv
 bVb
 fKL
 erg
-taP
+jxp
 qpK
 xDO
 pua
@@ -79922,7 +79981,7 @@ pua
 swo
 bXx
 taP
-uOV
+jpB
 taP
 bXx
 aEH
@@ -91805,8 +91864,8 @@ xFw
 bHT
 wjH
 pLh
-jpB
-nCD
+cat
+kjk
 mHk
 nOC
 eAl
@@ -92566,7 +92625,7 @@ aak
 xwF
 xwF
 bHT
-jBq
+vDJ
 cot
 sAi
 vCG
@@ -92574,7 +92633,7 @@ vNy
 oRB
 kWY
 vsj
-jTu
+etm
 buw
 iDs
 bHT
@@ -92823,7 +92882,7 @@ xwF
 xwF
 xwF
 bHT
-jBq
+vDJ
 nrR
 xdH
 aGY
@@ -92831,7 +92890,7 @@ fsA
 gxF
 vom
 unY
-tZn
+qgq
 vDJ
 lpE
 lpE
@@ -93083,7 +93142,7 @@ bHT
 vWd
 nlA
 lzE
-aGY
+jBq
 deK
 xSw
 aoM
@@ -93853,7 +93912,7 @@ xwF
 bHT
 bHT
 bHT
-sUf
+bHT
 bHT
 bHT
 bHT

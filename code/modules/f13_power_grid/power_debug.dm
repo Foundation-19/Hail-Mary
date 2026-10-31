@@ -349,7 +349,7 @@ potentially interesting radiation levels.
 <br>&nbsp;&nbsp; Core fabricator (idle):&nbsp;&nbsp;&nbsp; 50 W
 <br>&nbsp;&nbsp; Core fabricator (active):&nbsp; 300 W
 <br>&nbsp;&nbsp; Turret (each):&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 100 W
-<br>&nbsp;&nbsp; Junction box (standard):&nbsp;&nbsp; 150 W
+<br>&nbsp;&nbsp; Junction box (standard):&nbsp;&nbsp; 60 W + 0.18 W per tile
 <br>&nbsp;&nbsp; Generic client (default):&nbsp; 100 W
 <br>
 <br><b>3.3 &nbsp; FUEL ASSEMBLY -" FUSION CORE</b>
@@ -371,7 +371,7 @@ potentially interesting radiation levels.
 <br><b>3.5 &nbsp; JUNCTION BOX</b>
 <br>
 <br>&nbsp;&nbsp; Function:&nbsp; Connects a building's internal lighting and outlet circuit to the grid.
-<br>&nbsp;&nbsp; Draw:&nbsp; 150 W (standard).  Small variant: 75 W.  Large: 250 W.
+<br>&nbsp;&nbsp; Draw:&nbsp; 60 W + 0.18 W per tile (standard).  Small: 25 W + 0.3 W per tile.  Large: 150 W + 0.1 W per tile.
 <br>&nbsp;&nbsp; Coverage:&nbsp; On activation, flood-fills all rooms accessible from its installed turf
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; to discover the internal circuit.
 <br>
@@ -412,7 +412,7 @@ potentially interesting radiation levels.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; result is logical 1.  Gate type is set via the integrated UI.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OR: passes if any upstream is live (standard relay behaviour).
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AND: requires all upstreams live simultaneously.
-<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOT: inverts the single upstream state.
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; NOT: cannot energise on its own.  A gate needs at least one live input, so a dead input never lights it.
 <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; XOR / XNOR: require exactly two upstream inputs.
 <br>&nbsp;&nbsp; Use case:&nbsp; Automated conditional power routing, alarm logic, deadman circuits.
 <br>
@@ -494,7 +494,7 @@ potentially interesting radiation levels.
 Capacity scales with loaded cores: 1,500 W per core, maximum 2 cores (3,000 W).
 When draw exceeds capacity, the Unit attempts the following in sequence:
 <br>
-<br>&nbsp;&nbsp; 1. LOAD SHED -" suspend lowest-priority clients and relays until within budget.
+<br>&nbsp;&nbsp; 1. LOAD SHED -" suspend the fewest and smallest clients and relays needed to get within budget.
 <br>&nbsp;&nbsp; 2. HARD TRIP -" if shedding alone cannot resolve the overload, the grid shuts down.
 <br>
 <br>Non-essential loads should be wired via relays so they can be shed as a subtree.
