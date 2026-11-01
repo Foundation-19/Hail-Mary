@@ -17,6 +17,8 @@
 	var/debug = FALSE //debugging only
 	var/working = TRUE
 	var/fueluse = 1
+	var/fuel_heat_stage = SMITH_HEAT_BRIGHT
+	var/fuel_cleanliness = 0
 	var/datum/looping_sound/furnace/soundloop
 
 /obj/structure/blacksmith/furnace/Initialize()
@@ -52,9 +54,13 @@
 		if(working)
 			if(do_after(user, 1.75 SECONDS, target = src))
 				to_chat(user, "You heat the [workpiece] in the [src].")
-				workpiece.heat_up()
+				workpiece.heat_up(fuel_heat_stage, fuel_cleanliness)
 				workpiece.icon_state = "hot_ingot"
 				workpiece.set_light_on(TRUE)
+				if(fuel_cleanliness > 0)
+					to_chat(user, span_notice("The coke gives the metal a clean, bright heat."))
+				else if(fuel_cleanliness < 0)
+					to_chat(user, span_warning("The smoky wood fire leaves the metal less clean."))
 				I.on_attack_hand(user)
 				return
 		else
@@ -70,14 +76,26 @@
 		else
 			to_chat(user, "The furnace isn't working!.")
 			return
-	if(I.reagents)
-		I.reagents.trans_to(src, 250)
+	if(istype(I, /obj/item/stack/sheet/mineral/wood))
+		var/obj/item/stack/sheet/mineral/wood/woodfuel = I
+		reagents.add_reagent(/datum/reagent/fuel, 4)
+		woodfuel.use(1)
+		fuel_heat_stage = SMITH_HEAT_WORKING
+		fuel_cleanliness = -1
+		to_chat(user, "You feed a plank into the furnace. It burns quickly with a smoky, modest heat.")
 		return
 	if(istype(I, /obj/item/stack/sheet/coke/))
 		var/obj/item/stack/sheet/coke/C = I
 		src.reagents.add_reagent(/datum/reagent/fuel, 8)
 		C.use(1)
+		fuel_heat_stage = SMITH_HEAT_BRIGHT
+		fuel_cleanliness = 1
 		to_chat(user, "You add some lumps of coke to the furnace.")
+		return
+	if(I.reagents)
+		fuel_heat_stage = SMITH_HEAT_BRIGHT
+		fuel_cleanliness = 0
+		I.reagents.trans_to(src, 250)
 		return
 	else
 		return ..()

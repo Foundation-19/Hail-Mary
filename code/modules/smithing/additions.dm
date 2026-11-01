@@ -188,11 +188,11 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 				<ol>
 				<li>Forging mittens: Only very thick mittens are really reliable enough for touching red-hot metal. Make some from leather if you need to.</li>
 				<li>Metal ingots: Take the metal stack you want to work in your hand and fashion ingots from it. (inhand crafting) </li>
-				<li>Furnace: Needs fuel, welding fuel most commonly. Five measures of fuel burns fast but is enough to heat a couple ingots if you are fast.</li>
+				<li>Furnace: Needs fuel. Wood burns quickly with a smoky working heat; coke lasts longer and gives clean, bright heat. Welding fuel also works as a general fuel.</li>
 				<li>Wooden bits: Cut down planks to rods with something sharp. Then cut leather to strips and wrap it around the rod for making a sword handle, or directly on the workpiece for some tools. </li>
 				<li>Metal bits: On occasion you might need some chain to complete your work, if so, take a metal sheet in your hand and make a length of chain from it. (inhand crafting) </li>
 				<li>Anvil: A solid anvil makes things easier. (crafting menu forging & blacksmithing)</li>
-				<li>Quenching trough: Use water for most metals, but titanium and pre-war steel take oil better. The wrong medium harms the quality. You can also let a piece cool in air for two minutes, though that costs quality. </li>
+				<li>Quenching trough: Use water for most metals, but pieces containing titanium or pre-war steel take oil better. The wrong medium harms the quality. You can also let a piece cool in air for two minutes, though that costs quality. </li>
 				<li>Hammer: A sledgehammer gives heavy blows more force but adds risk. A well-made smithing hammer works faster and more carefully. Craft one to get going. (crafting menu forging & blacksmithing) </li>
 				</ol>
 				<p>
@@ -204,8 +204,13 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 				<li>Heat the ingot, move it to the anvil. Metal cools as you work: bright metal is quicker to shape but riskier, and cold metal can't be worked. Click the anvil with an empty hand to lift a piece off and reheat it, its progress is kept. Overheating (heating metal that is still bright) gives the biggest gains and the biggest risk. </li>
 				<li>Forge flux (crafting menu), sprinkled on hot metal on the anvil, reduces strain for the next few hits. </li>
 				<li>Prepare the metal with light taps, medium strikes and heavy blows. Every blow builds up strain in the metal: if it starts groaning, ease off. Push too far and it cracks (still workable, but worse, or you can salvage it) and then turns to slag. Slag still teaches you something. </li>
-				<li>Follow the secret smithing recipe for the item you want to make, the end result will depend on how much experience you have smithing, and the quality of your tools and preparations. </li>
-				<li>Quenching: once shaping is done, quench the hot piece before adding fittings such as a wooden rod, sword handle, chain or leather strips. This locks its quality; a wrong quench or air cooling lowers it. </li>
+				<li>When strain is high or the piece has cracked, anneal it at working heat or hotter. The slow cooling eases most strain and can mend a crack, but costs some of the work already done. </li>
+				<li>For pattern welding, flux a workpiece at bright heat or hotter, then use a different, equally hot ingot on the anvil. The weld improves the workpiece but adds strain, and can only be done once per piece. </li>
+				<li>Follow the secret smithing recipe for the item you want to make, then choose a finishing step. The result depends on your experience and the quality of your tools and preparations. </li>
+				<li>For differential hardening, use refractory clay coating on a suitable hot blade before quenching. The correct quench gives the edge a small improvement. </li>
+				<li>Quench the hot piece before adding fittings such as a wooden rod, sword handle, chain or leather strips. This locks its quality; a wrong quench or air cooling lowers it. </li>
+				<li>Excellent work can become Masterwork, High Masterwork, Peak Masterwork or, rarely, Legendary. Careful bright-heat work, flux, the correct quench and controlled strain build smithing mastery when the piece is finished. </li>
+				<li>After finishing and cooling a piece, a skilled blacksmith can hold it and use it on a maker's branding iron to add a permanent mark. A mark can only be applied once. </li>
 				<li>The first item you make should be a good hammer, you might need to repeat the process and replace the previous hammer with a new one in steps. Try to have at least a masterworked iron hammer before moving on to other items to save you headache. </li>
 				</ol>
 				<p>
@@ -216,8 +221,8 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 				These are some of the items that can be made with hot iron and a steady hand. Results are not always the same depending on the anvil used.
 				<p>
 				<ol>
-				<li>Hammer: (BPP) Bend the metal, then punch it like you would a profligates face until the hammerhead is done. Add a rod.</li>
-				<li>Shovel: (BUU) Bend the metal, then upset. Add a rod.</li>
+				<li>Hammer: (BPP) Bend the metal, then punch it twice to form the hammerhead. Add a rod.</li>
+				<li>Shovel: (BUU) Bend the metal, then upset it twice. Add a rod.</li>
 				<li>Crowbar: (BBB) Bend the metal until you got the crowbar done, then wrap it in leather strips. Better than the usual crowbars folks use nowadays.</li>
 				<li>Pickaxe: (BFF) Bend the metal, then fold it into shape twice, then add a wooden rod.</li>
 				<li>Prospecting pick: (BFS) Bend the metal, then fold it into shape and shrink it, then add a wooden rod. Useful for finding mineral deposits.</li>
@@ -235,29 +240,29 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 				<li>Machete: (FDF) Fold the metal, draw it, fold it more. Add handle.</li>
 				<li>Lawnmower machete: (FUF) Fold the metal, upset it and ugh..yeah, fold it more. Add handle.</li>
 
-				<li>Sword: (FFDF) You must fold the metal some, then draw it and fold it again. Add a handle and you got a fine blade! </li>
-				<li>Sabre: (FFDD) You must fold the metal some, then draw it into a proper thin shape. Add a handle and you got a curved blade. </li>
+				<li>Sword: (FFDF) Fold the metal twice, draw it and fold it again. Add a handle and you got a fine blade! </li>
+				<li>Sabre: (FFDD) Fold the metal twice, then draw it twice into a proper thin shape. Add a handle and you got a curved blade. </li>
 
 				<li>Longsword: (FFFDD) Fold, fold, fold then draw twice.. Done right, you get a proper sharp sword, after adding a sword handle.</li>
 				<li>Katana: (FFFFF) Fold, fold, then FOLD SOME MORE. These curved swords look weird but are reasonably sharp I guess.</li>
 				<li>Wakizashi: (FFFS) Fold thrice and shrink it, add a handle and you got a small dinky blade. </li>
 
-				<li>Mace: (UPU) Fold, draw, and fold twice, add a handle and you got a small dinky blade. </li>
-				<li>Scrap blade: (UDPP) Fold, draw, and fold twice, add a handle and you got a small dinky blade. </li>
+				<li>Mace: (UPU) Upset the metal, punch it and upset it again. Add a wooden rod. </li>
+				<li>Scrap blade: (UDPP) Upset, draw and punch the metal twice. Wrap it in leather strips. </li>
 
 				<li>Heavy axe: (UDSP) Upset the hot metal, draw it, shrink it, punch holes in it. Add a wooden rod, then go chop down some wood or enemies. Easy. </li>
-				<li>Crusher: (UUPP) Upset the hot metal, then use the puncher to make holes for the fittings. Add a wooden rod and crush those disgusting ghouls like twigs. </li>
+				<li>Crusher: (UUPP) Upset the hot metal twice, then punch it twice for the fittings. Add a wooden rod and crush those disgusting ghouls like twigs. </li>
 
 				<li>Spear: (DDDF) Draw the metal thrice then fold it. Add a rod, and enjoy a simple but effective weapon.</li>
-				<li>Trident: (DDBF) Draw the metal thrice then fold it. Add a rod, and enjoy a simple but effective weapon.</li>
+				<li>Trident: (DDBF) Draw the metal twice, bend it and fold it. Add a rod, and enjoy a simple but effective weapon.</li>
 
 				<li>Javelin: (SDU) Shrink, draw, upset, add a wooden rod and throw it in someones face.</li>
 				<li>Throwing knife: (SDD) Shrink and draw the metal twice, then add leather strips and there you go.</li>
 				<li>Bola: (SUU) Shrink then upset twice, add a chain and you got a nice slavecatcher.</li>
 
 				<li>For forgemasters trained in the east, you of course also know the ways to make our own weapons, that outsiders are unfit to touch, unless its tasting its edge. </li>
-				<li>Legion Spatha: (FFBF) You must fold the metal some, then bend it and fold some more. Add a handle and marvel at the beauty of the Legions finest blade! </li>
-				<li>Legion Lance: (DBDF) Draw the metal thrice then fold it. Add a rod, and enjoy a simple but effective weapon.</li>
+				<li>Legion Spatha: (FFBF) Fold the metal twice, bend it and fold it again. Add a handle and marvel at the beauty of the Legions finest blade! </li>
+				<li>Legion Lance: (DBDF) Draw the metal, bend it, draw it again and fold it. Add a rod, and enjoy a simple but effective weapon.</li>
 				<li>Legion Waraxe: (UDUP) Upset the hot metal, draw, upset, and punch it. Add a wooden rod, and behold the perfection of a Legion war axe. </li>
 				<li>Legion Gladius: (FBF) Fold the metal, bend it and ugh..yeah, fold it more. Add handle.</li>
 
@@ -269,6 +274,46 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 				</body>
 				</html>
 				"}
+
+/obj/item/book/manual/smithing_journal
+	name = "Smithing Field Journal"
+	desc = "A smith's notebook that records hard-won techniques and material guidance."
+	icon = 'icons/obj/blacksmith_bd2.dmi'
+	icon_state = "advice_smithing"
+	author = "The Forgemasters"
+	title = "Smithing Field Journal"
+
+/obj/item/book/manual/smithing_journal/attack_self(mob/user)
+	var/html = "<html><head><meta charset='UTF-8'><style>body{font-family:Verdana;} h2{margin-bottom:4px;} li{margin:4px 0;}</style></head><body><h1>Smithing Field Journal</h1>"
+	if(!user.mind)
+		html += "<p>The notes only make sense to a living smith.</p>"
+	else
+		var/skill = 0
+		if(user.mind.skill_holder)
+			skill = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)
+		var/list/techniques = list(
+			"Bright forging" = "bright forging",
+			"Flux and correct quenching" = "flux and quench",
+			"Masterwork control" = "masterwork control",
+			"Differential hardening" = "differential hardening",
+			"Pattern welding" = "pattern welding",
+		)
+		html += "<h2>Practice</h2><ul>"
+		for(var/technique_name in techniques)
+			var/mastery_count = user.mind.smithing_mastery[techniques[technique_name]]
+			if(mastery_count)
+				html += "<li>[technique_name]: [mastery_count] successful finishes recorded.</li>"
+			else
+				html += "<li>[technique_name]: not yet recorded.</li>"
+		html += "</ul><p>Distinct designs completed: [length(user.mind.smithed_recipes)].</p><h2>Material notes</h2>"
+		if(skill >= 3)
+			html += "<p>Most common metals take water quenching. Air cooling preserves neither time nor quality as well as a proper quench.</p>"
+		else
+			html += "<p>Your notes on metal-specific heat treatment are still incomplete.</p>"
+		if(skill >= 6)
+			html += "<p>Titanium- and adamantine-bearing pieces respond better to oil. In a layered piece, use the medium preferred by any metal that requires oil.</p>"
+	html += "</body></html>"
+	user << browse(html, "window=smithing_journal;size=500x560")
 
 /* COPIED TO BASE CODE
 // ------------ METALWORKING BENCH ------------------ Part of the module, for metalworking that doesnt need a whole forge setup
@@ -354,6 +399,13 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 /obj/item/blacksmith/flux/examine(mob/user)
 	. = ..()
 	. += span_notice("It looks like there is enough for about [uses] applications.")
+
+/obj/item/blacksmith/clay_coating
+	name = "refractory clay coating"
+	desc = "A heat-resistant wash for coating the spine of a blade before a differential quench."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "Glass ore"
+	w_class = WEIGHT_CLASS_TINY
 
 /turf/closed/mineral/coal
 	mineralType = /obj/item/stack/ore/coal

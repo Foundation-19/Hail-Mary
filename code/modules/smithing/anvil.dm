@@ -111,22 +111,26 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	light_on = FALSE
 	var/busy = FALSE //If someone is already interacting with this anvil
 	var/workpiece_state = FALSE
-	var/datum/material/workpiece_material
+	var/list/workpiece_material
 	var/workpiece_type = /obj/item/blacksmith/ingot/iron //Ingot type the workpiece came from, returned when lifted off
 	var/anvilquality = 0
 	var/work_score = 0 //Potential final quality of the workpiece
 	var/stress = 0 //Risk of failure. Cracks the piece at SMITH_STRESS_CRACK, slags it at SMITH_STRESS_SLAG
 	var/steps_taken = 0 //Total actions performed on this workpiece
+	var/bright_hits = 0 //Actions completed at bright heat or above
+	var/flux_used = FALSE //Whether flux benefited any shaping action
 	var/heavy_blows = 0 //Heavy blows struck, used for slag feedback
 	var/peak_stress = 0 //Highest stress reached, rewards recovering from near-failure
 	var/cracked = FALSE //Recoverable damage state, caps quality
 	var/stepsdone = "" //Recipe string of shaping steps
 	var/heat_peak = SMITH_HEAT_COLD //Heat stage of the workpiece at heat_time, it cools from there
 	var/heat_time = 0
+	var/forge_cleanliness = 0 //Small quality modifier from the fuel used to heat the workpiece
 	var/flux_hits = 0 //Remaining hits that benefit from flux
+	var/pattern_welded = FALSE
 	var/fallible = TRUE
 	var/guaranteed_artifact = FALSE //vv this if you want an artifact
-	var/itemqualitymax = 15
+	var/itemqualitymax = 25
 
 /obj/structure/blacksmith/anvil/Initialize(mapload)
 	. = ..()
@@ -184,13 +188,17 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	work_score = 0
 	stress = 0
 	steps_taken = 0
+	bright_hits = 0
+	flux_used = FALSE
 	heavy_blows = 0
 	peak_stress = 0
 	cracked = FALSE
 	stepsdone = ""
 	heat_peak = SMITH_HEAT_COLD
 	heat_time = 0
+	forge_cleanliness = 0
 	flux_hits = 0
+	pattern_welded = FALSE
 	workpiece_state = FALSE
 	cut_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
 	set_busy(FALSE, null)
@@ -246,7 +254,8 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 		return
 	var/obj/item/blacksmith/ingot/workpiece = new workpiece_type(get_turf(src))
 	workpiece.set_custom_materials(workpiece_material)
-	workpiece.progress = list(work_score, stress, steps_taken, heavy_blows, peak_stress, cracked, stepsdone)
+	workpiece.progress = list(work_score, stress, steps_taken, heavy_blows, peak_stress, cracked, stepsdone, forge_cleanliness, bright_hits, flux_used, pattern_welded)
+	workpiece.forge_cleanliness = forge_cleanliness
 	if(get_heat_stage() > SMITH_HEAT_COLD)
 		workpiece.workability = "shapeable"
 		workpiece.heat_peak = heat_peak
@@ -258,14 +267,14 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 
 /obj/structure/blacksmith/anvil/proc/HandleIngot(obj/item/blacksmith/ingot/workpiece, mob/user)
 	if(workpiece_state)
-		to_chat(user, "There's already a workpiece! Finish it or take it off.")
-		return FALSE
+		return forge_weld(workpiece, user)
 	if(workpiece.get_heat_stage() > SMITH_HEAT_COLD)
 		workpiece_state = WORKPIECE_PRESENT
 		workpiece_material = workpiece.custom_materials
 		workpiece_type = workpiece.type
 		heat_peak = workpiece.heat_peak
 		heat_time = workpiece.heat_time
+		forge_cleanliness = workpiece.forge_cleanliness
 		if(workpiece.progress)
 			var/list/saved = workpiece.progress
 			work_score = saved[1]
@@ -275,6 +284,14 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 			peak_stress = saved[5]
 			cracked = saved[6]
 			stepsdone = saved[7]
+			if(length(saved) >= 8)
+				forge_cleanliness = saved[8]
+			if(length(saved) >= 9)
+				bright_hits = saved[9]
+			if(length(saved) >= 10)
+				flux_used = saved[10]
+			if(length(saved) >= 11)
+				pattern_welded = saved[11]
 		to_chat(user, "You place the [workpiece] on the [src].")
 
 		add_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
@@ -284,6 +301,58 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	else
 		to_chat(user, "The ingot isn't workable yet!")
 		return FALSE
+
+/obj/structure/blacksmith/anvil/proc/forge_weld(obj/item/blacksmith/ingot/second_ingot, mob/user)
+	if(!ishuman(user) || CheckBusy(user))
+		to_chat(user, span_warning("You cannot forge-weld another ingot right now."))
+		return FALSE
+	if(pattern_welded || cracked)
+		to_chat(user, span_warning("This workpiece cannot take another forge weld."))
+		return FALSE
+	if(get_heat_stage() < SMITH_HEAT_BRIGHT || second_ingot.get_heat_stage() < SMITH_HEAT_BRIGHT)
+		to_chat(user, span_warning("Both pieces must be at bright heat to forge-weld them."))
+		return FALSE
+	if(!flux_hits)
+		to_chat(user, span_warning("The joint needs a fresh layer of flux before it can be forge-welded."))
+		return FALSE
+	if(!islist(workpiece_material) || !islist(second_ingot.custom_materials))
+		to_chat(user, span_warning("The materials cannot be joined safely."))
+		return FALSE
+
+	var/list/combined_materials = workpiece_material.Copy()
+	var/has_dissimilar_material = FALSE
+	for(var/material_path in second_ingot.custom_materials)
+		var/material_amount = combined_materials[material_path]
+		if(isnull(material_amount))
+			has_dissimilar_material = TRUE
+			material_amount = 0
+		combined_materials[material_path] = material_amount + second_ingot.custom_materials[material_path]
+	if(!has_dissimilar_material)
+		to_chat(user, span_warning("Pattern welding needs two different metals."))
+		return FALSE
+
+	set_busy(TRUE, user)
+	to_chat(user, "You bring the hot ingots together and begin forge-welding their layers.")
+	if(!do_after(user, 50, target = src))
+		return set_busy(FALSE, user)
+	if(get_heat_stage() < SMITH_HEAT_BRIGHT || second_ingot.get_heat_stage() < SMITH_HEAT_BRIGHT || !flux_hits)
+		to_chat(user, span_warning("The joint cools before the weld can take."))
+		return set_busy(FALSE, user)
+
+	workpiece_material = combined_materials
+	pattern_welded = TRUE
+	work_score += 3
+	stress += 10
+	peak_stress = max(peak_stress, stress)
+	steps_taken++
+	bright_hits++
+	flux_hits--
+	flux_used = TRUE
+	qdel(second_ingot)
+	to_chat(user, span_notice("The metals weld together in a layered pattern."))
+	check_stress(user)
+	set_busy(FALSE, user)
+	return TRUE
 
 /obj/structure/blacksmith/anvil/proc/do_shaping(mob/user, hammer_speed, hammer_work_bonus, hammer_stress_modifier, heavy_work_bonus, heavy_stress_modifier)
 	if(!iscarbon(user))
@@ -307,6 +376,8 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 			break
 	if(cracked)
 		all_steps += "salvage"
+	if(cracked || stress >= SMITH_STRESS_WARNING)
+		all_steps += "anneal"
 	var/stepdone = input(user, "How would you like to work the metal?") in all_steps
 
 	// if user is not in range, remove business.
@@ -316,6 +387,21 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	if(stepdone == "salvage")
 		set_busy(FALSE, user)
 		return salvage(user)
+
+	if(stepdone == "anneal")
+		if(get_heat_stage() < SMITH_HEAT_WORKING)
+			to_chat(user, span_warning("The metal must be at working heat or hotter before it can be annealed."))
+			return set_busy(FALSE, user)
+		to_chat(user, "You bank the hot metal and begin a slow anneal.")
+		if(!do_after(user, 20 SECONDS, target = src))
+			return set_busy(FALSE, user)
+		stress = round(stress * 0.25)
+		work_score = round(work_score * 0.8)
+		cracked = FALSE
+		heat_peak = SMITH_HEAT_WARM
+		heat_time = world.time
+		to_chat(user, span_notice("The metal cools slowly. It has lost some shape, but much of its strain is relieved."))
+		return set_busy(FALSE, user)
 
 	do_shaping_feedback(user, stepdone)
 
@@ -396,7 +482,10 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	if(stage >= SMITH_HEAT_BRIGHT && (stepdone in list("heavy blow", "fold", "upset")))
 		work_mult *= 1.15
 		stress_mult *= 1.15
+	if(stage >= SMITH_HEAT_BRIGHT)
+		bright_hits++
 	if(flux_hits > 0)
+		flux_used = TRUE
 		work_mult *= 1.1
 		stress_mult *= 0.75
 		flux_hits--
@@ -452,7 +541,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 /obj/structure/blacksmith/anvil/proc/get_final_quality(mob/user)
 	var/skill_bonus = get_skill(user) / 2.5
 	var/stress_penalty = max(0, stress - 30) / 3
-	var/quality = work_score + skill_bonus + anvilquality - stress_penalty
+	var/quality = work_score + skill_bonus + anvilquality + forge_cleanliness - stress_penalty
 	if(cracked)
 		quality = min(quality - 3, 9)
 	return clamp(quality, -10, 25)
@@ -470,32 +559,23 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 
 	to_chat(user, "You finish your [finisheditem]! Quench it while it's still hot.")
 
+	finisheditem.quality = min(final_quality, itemqualitymax)
 	if(artifact)
 		to_chat(user, "It is an artifact, a creation whose legacy shall live on forevermore.") //todo: SSblackbox
 		finisheditem.artifact = TRUE
-	else
-		finisheditem.quality = min(final_quality, itemqualitymax)
 
 	finisheditem.set_custom_materials(workpiece_material)
 	finisheditem.finishing_touch = finishing_touch
+	finisheditem.recipe_string = recipe_string
+	finisheditem.forging_steps = steps_taken
+	finisheditem.bright_forging_steps = bright_hits
+	finisheditem.final_forging_stress = stress
+	finisheditem.peak_forging_stress = peak_stress
+	finisheditem.cracked_during_forging = cracked
+	finisheditem.forging_used_flux = flux_used
+	finisheditem.pattern_welded = pattern_welded
 
-	give_finish_xp(user, recipe_string, final_quality)
 	ResetAnvil()
-
-/obj/structure/blacksmith/anvil/proc/give_finish_xp(mob/user, recipe_string, quality)
-	if(!user.mind?.skill_holder)
-		return
-	// Complexity and quality drive XP, so spamming simple items is a poor deal.
-	var/xp = 50 * length(recipe_string) * clamp(0.5 + quality / 10, 0.5, 2.5)
-	if(peak_stress >= SMITH_STRESS_WARNING && !cracked) // learning from pushing close to the limit
-		xp *= 1.25
-	if(cracked)
-		xp *= 0.7
-	if(!(recipe_string in user.mind.smithed_recipes))
-		user.mind.smithed_recipes += recipe_string
-		xp += 150 // first time completing this recipe
-		to_chat(user, span_notice("You feel you've learned something new by making this for the first time."))
-	user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, round(xp), 500000, silent = FALSE)
 
 /obj/structure/blacksmith/anvil/proc/do_shaping_feedback(mob/user, stepdone)
 	switch(stepdone)

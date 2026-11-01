@@ -68,6 +68,7 @@
 	/// Our skill holder.
 	var/datum/skill_holder/skill_holder
 	var/list/smithed_recipes = list() //recipe strings this mind has completed at an anvil, for the first-time XP bonus
+	var/list/smithing_mastery = list() //Technique name to successful finished-piece count
 
 	///What character we spawned in as- either at roundstart or latejoin, so we know for persistent scars if we ended as the same person or not
 	var/mob/original_character

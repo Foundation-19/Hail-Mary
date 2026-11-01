@@ -32,13 +32,23 @@
 	var/quality_locked = FALSE
 	var/quench_started_at = 0
 	var/quench_medium = null
+	var/forging_steps = 0
+	var/bright_forging_steps = 0
+	var/final_forging_stress = 0
+	var/peak_forging_stress = 0
+	var/cracked_during_forging = FALSE
+	var/recipe_string
+	var/forging_used_flux = FALSE
+	var/differential_hardening = FALSE
+	var/differential_hardening_allowed = FALSE
+	var/pattern_welded = FALSE
 
 /obj/item/smithing/proc/get_preferred_quench()
-	var/material_type = custom_materials?[1]
-	if(!ispath(material_type, /datum/material))
+	if(!islist(custom_materials))
 		return "water"
-	if(ispath(material_type, /datum/material/adamantine) || ispath(material_type, /datum/material/titanium))
-		return "oil"
+	for(var/material_type in custom_materials)
+		if(ispath(material_type, /datum/material/adamantine) || ispath(material_type, /datum/material/titanium))
+			return "oil"
 	return "water"
 
 /obj/item/smithing/proc/apply_quench(medium)
@@ -51,6 +61,8 @@
 		quality = min(quality + 1, 25)
 	else
 		quality = max(quality - 2, -10)
+	if(differential_hardening && differential_hardening_allowed && medium == get_preferred_quench())
+		quality = min(quality + 1, 25)
 	istempered()
 	return TRUE
 
@@ -107,6 +119,22 @@
 
 
 /obj/item/smithing/attackby(obj/item/I, mob/user)
+	if(istype(I, /obj/item/blacksmith/clay_coating))
+		if(!differential_hardening_allowed)
+			to_chat(user, span_warning("This piece is not suited to differential hardening."))
+			return
+		if(!toohot || quality_locked || world.time >= quench_started_at + 2 MINUTES)
+			to_chat(user, span_warning("The coating must be applied to a hot, unquenched piece."))
+			return
+		if(differential_hardening)
+			to_chat(user, span_warning("This piece is already coated for differential hardening."))
+			return
+		if(!do_after(user, 20, TRUE, src))
+			return
+		differential_hardening = TRUE
+		qdel(I)
+		to_chat(user, span_notice("You coat the spine, leaving the edge exposed for a differential quench."))
+		return
 	if(toohot == TRUE)
 		if(world.time >= quench_started_at + 2 MINUTES)
 			air_cool()
@@ -144,31 +172,33 @@
 			finalitem.wound_bonus += 15
 			finalitem.force *= 0.9
 
+#define SMITH_STRESS_REWARD_THRESHOLD 60
+
 /obj/item/smithing/proc/startfinish(mob/user)
 	dofinish(user)
 
 /obj/item/smithing/proc/dofinish(mob/user)
 	finishing_touches()
+	if(differential_hardening && differential_hardening_allowed && quench_medium == get_preferred_quench() && finalitem.sharpness == SHARP_EDGED)
+		finalitem.armour_penetration += 0.05
 	var/qualname
-	switch(quality)
-		if(-1000 to -5)
-			qualname = "awful"
-		if(-1000 to -2)
-			qualname = "shoddy"
-		if(-1000 to -1)
-			qualname =  "poor"
-		if(-1 to 1)
-			qualname = "normal"
-		if(13 to INFINITY)
-			qualname = "legendary"
-		if(11 to 13)
-			qualname = "masterwork"
-		if(8 to 11)
-			qualname = "excellent"
-		if(5 to 8)
+	switch(round(quality))
+		if(-INFINITY to -1)
+			qualname = "poor"
+		if(0 to 4)
+			qualname = "average"
+		if(5 to 9)
 			qualname = "good"
-		if(0 to 5)
-			qualname = "above-average"
+		if(10 to 14)
+			qualname = "excellent"
+		if(15 to 16)
+			qualname = "masterwork"
+		if(17 to 18)
+			qualname = "high masterwork"
+		if(19)
+			qualname = "peak masterwork"
+		if(20 to INFINITY)
+			qualname = "legendary"
 	var/datum/material/mat = custom_materials[1]
 	finalitem.set_custom_materials(custom_materials)
 	mat = mat.name
@@ -185,8 +215,84 @@
 			finalitem.name = artifact_name
 	else
 		finalitem.name = "[touch_name][qualname] [mat] [initial(finalitem.name)]"
+	if(pattern_welded)
+		finalitem.desc += " Its layered construction forms a distinctive pattern."
+	finalitem.AddComponent(/datum/component/smithing_maker_mark)
 	finalitem.forceMove(get_turf(src))
+	if(forging_steps && final_forging_stress < SMITH_STRESS_REWARD_THRESHOLD && bright_forging_steps * 2 >= forging_steps)
+		record_mastery(user, "bright forging")
+	if(forging_used_flux && quench_medium == get_preferred_quench())
+		record_mastery(user, "flux and quench")
+	if(quality >= 15 && final_forging_stress < SMITH_STRESS_REWARD_THRESHOLD)
+		record_mastery(user, "masterwork control")
+	if(differential_hardening && differential_hardening_allowed && quench_medium == get_preferred_quench() && finalitem.sharpness == SHARP_EDGED)
+		record_mastery(user, "differential hardening")
+	if(pattern_welded && quench_medium == get_preferred_quench())
+		record_mastery(user, "pattern welding")
+	give_finish_xp(user)
 	qdel(src)
+
+/obj/item/smithing/proc/give_finish_xp(mob/user)
+	if(!user?.mind?.skill_holder)
+		return
+	var/xp = 50 * length(recipe_string) * clamp(0.5 + quality / 10, 0.5, 2.5)
+	if(peak_forging_stress >= SMITH_STRESS_REWARD_THRESHOLD && !cracked_during_forging)
+		xp *= 1.25
+	if(cracked_during_forging)
+		xp *= 0.7
+	if(!(recipe_string in user.mind.smithed_recipes))
+		user.mind.smithed_recipes += recipe_string
+		xp += 150
+		to_chat(user, span_notice("You feel you've learned something new by making this for the first time."))
+	user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, round(xp), 500000, silent = FALSE)
+
+/obj/item/smithing/proc/record_mastery(mob/user, technique)
+	if(!user?.mind)
+		return
+	var/previous_count = 0
+	if(user.mind.smithing_mastery[technique])
+		previous_count = user.mind.smithing_mastery[technique]
+	user.mind.smithing_mastery[technique] = previous_count + 1
+	if(!previous_count)
+		to_chat(user, span_notice("You have begun mastering [technique]."))
+#undef SMITH_STRESS_REWARD_THRESHOLD
+
+/datum/component/smithing_maker_mark
+	var/marked = FALSE
+
+/datum/component/smithing_maker_mark/proc/apply_mark(mob/user, mark_text)
+	if(marked)
+		return FALSE
+	var/obj/item/marked_item = parent
+	marked_item.desc += " It bears the maker's mark '[mark_text]', applied by [user.real_name]."
+	marked = TRUE
+	return TRUE
+
+/obj/item/blacksmith/branding_iron
+	name = "maker's branding iron"
+	desc = "A fine tool for adding a permanent maker's mark to a finished, cooled piece."
+	icon_state = "hammer"
+
+/obj/item/blacksmith/branding_iron/attackby(obj/item/I, mob/user, params)
+	if(!user.mind || user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing) < 6)
+		to_chat(user, span_warning("You need more blacksmithing experience to apply a maker's mark."))
+		return
+	var/datum/component/smithing_maker_mark/mark_component = I.GetComponent(/datum/component/smithing_maker_mark)
+	if(!mark_component)
+		to_chat(user, span_warning("That item is not a finished piece of smithing."))
+		return
+	if(mark_component.marked)
+		to_chat(user, span_warning("A maker's mark has already been applied to that piece."))
+		return
+	var/mark_text = stripped_input(user, "Enter the maker's mark")
+	if(!mark_text)
+		return
+	if(!do_after(user, 30, TRUE, I))
+		return
+	if(!mark_component.apply_mark(user, mark_text))
+		to_chat(user, span_warning("The maker's mark could not be applied."))
+		return
+	to_chat(user, span_notice("You apply your maker's mark to [I]."))
 
 /*
 // Artifcats. Still a Frankenstein uncurated mutated TG remnant with memery but whatever.
@@ -235,6 +341,7 @@
 	var/workability = FALSE
 	var/heat_peak = SMITH_HEAT_COLD //Hottest stage reached at heat_time
 	var/heat_time = 0
+	var/forge_cleanliness = 0
 	/// Progress kept when a partly worked piece is lifted off the anvil
 	var/list/progress
 
@@ -250,12 +357,13 @@
 		cool_down()
 	return stage
 
-/obj/item/blacksmith/ingot/proc/heat_up()
+/obj/item/blacksmith/ingot/proc/heat_up(heat_stage = SMITH_HEAT_BRIGHT, cleanliness = 0)
 	if(get_heat_stage() >= SMITH_HEAT_BRIGHT)
 		heat_peak = SMITH_HEAT_OVERHEATED
 	else
-		heat_peak = SMITH_HEAT_BRIGHT
+		heat_peak = heat_stage
 	heat_time = world.time
+	forge_cleanliness = clamp(cleanliness, -1, 1)
 	workability = "shapeable"
 
 /obj/item/blacksmith/ingot/proc/cool_down()
@@ -491,6 +599,7 @@
 	finishingitem = SWORD_HANDLE
 	finalitem = /obj/item/kitchen/knife/smithed
 	quality_to_force_coeff = 3
+	differential_hardening_allowed = TRUE
 
 //////////////////////////////////////////////////
 //												//
@@ -543,6 +652,7 @@
 	throwforce = 15
 	throw_range = 2
 	quality_to_force_coeff = 2
+	differential_hardening_allowed = FALSE
 
 // ------------ ARMOR PIECES ------------ //  - Obviously meant to be included in recipes to build metal armor instead of generic metal parts, at least for the less "scrap metal salvage" styled metal armors. Make it inherit material would be amusing.
 /obj/item/smithing/armor_piece
@@ -566,6 +676,7 @@
 	finalitem = /obj/item/melee/smith/dagger
 	quality_to_force_coeff = 1
 	quality_to_pen_coeff = 0.01
+	differential_hardening_allowed = TRUE
 
 // ------------ BOWIE KNIFE ------------ //
 /obj/item/smithing/weapon/daggerblade/bowieblade
@@ -582,6 +693,7 @@
 	finishingitem = SWORD_HANDLE
 	finalitem = /obj/item/melee/smith/machete
 	quality_to_force_coeff = 1
+	differential_hardening_allowed = TRUE
 
 // ------------ GLADIUS ------------ //
 /obj/item/smithing/weapon/macheteblade/gladiusblade
@@ -609,6 +721,7 @@
 	finishingitem = LEATHER_STRIP
 	finalitem = /obj/item/melee/smith/wakizashi/scrapsaw
 	quality_to_force_coeff = 1
+	differential_hardening_allowed = FALSE
 
 // ------------ MACE ------------ //
 /obj/item/smithing/weapon/macehead
@@ -617,6 +730,7 @@
 	finalitem = /obj/item/melee/smith/mace
 	quality_to_force_coeff = 1
 	quality_to_pen_coeff = 0.01
+	differential_hardening_allowed = FALSE
 
 // ------------ SWORD ------------ //
 /obj/item/smithing/weapon/swordblade
@@ -627,6 +741,7 @@
 	finalitem = /obj/item/melee/smith/sword
 	quality_to_force_coeff = 1
 	quality_to_pen_coeff = 0.01
+	differential_hardening_allowed = TRUE
 
 // ------------ SPATHA ------------ //
 /obj/item/smithing/weapon/swordblade/spathablade
@@ -653,6 +768,7 @@
 	icon_state = "katana_smith"
 	finishingitem = SWORD_HANDLE
 	finalitem = /obj/item/twohanded/smithed/katana
+	differential_hardening_allowed = TRUE
 
 /obj/item/smithing/katanablade/startfinish(mob/user)
 	var/obj/item/twohanded/smithed/katana/finalforreal = new /obj/item/twohanded/smithed/katana(src)
@@ -670,6 +786,7 @@
 	icon_state = "longsword_smith"
 	finishingitem = SWORD_HANDLE
 	finalitem = /obj/item/twohanded/smithed/katana/longsword
+	differential_hardening_allowed = TRUE
 
 /obj/item/smithing/longswordblade/startfinish(mob/user)
 	var/obj/item/twohanded/smithed/katana/longsword/finalforreal = new /obj/item/twohanded/smithed/katana/longsword(src)
@@ -688,6 +805,7 @@
 	icon_state = "zwei_smith"
 	finishingitem = SWORD_HANDLE
 	finalitem = /obj/item/twohanded/smithed/zweihander
+	differential_hardening_allowed = TRUE
 
 /obj/item/smithing/zweiblade/startfinish(mob/user)
 	var/obj/item/twohanded/smithed/zweihander/finalforreal = new /obj/item/twohanded/smithed/zweihander(src)
@@ -706,6 +824,7 @@
 	icon_state = "scrap_smith"
 	finishingitem = LEATHER_STRIP
 	finalitem = /obj/item/twohanded/smithed/katana/scrapblade
+	differential_hardening_allowed = TRUE
 
 /obj/item/smithing/scrapblade/startfinish(mob/user)
 	var/obj/item/twohanded/smithed/katana/scrapblade/finalforreal = new /obj/item/twohanded/smithed/katana/scrapblade(src)
