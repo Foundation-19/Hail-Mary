@@ -243,6 +243,21 @@
 	fire_stacks = 6
 	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
 
+/obj/item/projectile/bullet/incendiary/shotgun/flamer/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(isliving(target) && blocked < 100)
+		var/mob/living/L = target
+		L.apply_status_effect(/datum/status_effect/flame_afterburn)
+
+/* 12g pellet fire
+ * DAMAGE: 5
+ * STAMIN: 5
+ * RECOIL: 2
+ * WOUNDS: 0
+ * WNAKED: 0
+ */
+/obj/item/projectile/bullet/incendiary/shotgun/dragonsbreath
+
 /* 12g pellet fire
  * DAMAGE: 5
  * STAMIN: 5

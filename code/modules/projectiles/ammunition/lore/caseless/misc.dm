@@ -48,12 +48,30 @@
 	light_color = LIGHT_COLOR_FIRE
 	light_range = LIGHT_RANGE_FIRE
 
+//afterburn, like the pyro's: a flat burn that keeps ticking for a few seconds after you leave the stream and is refreshed on every new contact.
+//goes through "fire" armor only (no DT) and works on every living mob, because burning damage from fire stacks alone is slow and skips simple mobs
+/datum/status_effect/flame_afterburn
+	id = "flame_afterburn"
+	duration = 40
+	tick_interval = 5
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = null
+	var/tick_damage = 2
+
+/datum/status_effect/flame_afterburn/tick()
+	if(owner.stat == DEAD || owner.fire_stacks < 0 || HAS_TRAIT(owner, TRAIT_NOFIRE))
+		qdel(src)
+		return
+	var/blocked = owner.run_armor_check(null, "fire")
+	owner.apply_damage(tick_damage, BURN, null, blocked)
+
 //spawns the fire effect on a tile and burns/ignites everyone standing on it - shared by both the traced line and its widening tiles
 /obj/item/ammo_casing/caseless/flamethrower/proc/ignite_turf(turf/T)
 	new /obj/effect/hotspot(T, flame_volume, flame_temperature, FALSE) //burn_objects FALSE: the stream hurts people, it does not ash loot and furniture. turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
 	for(var/mob/living/L in T)
 		L.adjust_fire_stacks(ignite_fire_stacks)
 		L.IgniteMob()
+		L.apply_status_effect(/datum/status_effect/flame_afterburn)
 		//run through "fire" armor like any other damage source, instead of a flat adjustFireLoss() bypass - so fire-rated suits (hazmat, power armor) give real counterplay against being hosed
 		var/blocked = L.run_armor_check(null, "fire")
 		L.apply_damage(direct_burn_damage, BURN, null, blocked)
