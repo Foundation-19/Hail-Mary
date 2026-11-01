@@ -93,7 +93,7 @@
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOW
 	extra_projectiles = 2
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
-	projectilesound = 'sound/f13weapons/varmint_rifle.ogg'
+	projectilesound = 'sound/f13weapons/ninemil.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),

@@ -550,7 +550,7 @@
 	minimum_distance = 1
 	ranged_cooldown_time = 2 SECONDS
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple/pen
-	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	projectilesound = 'sound/f13weapons/ninemil.ogg'
 
 // ============================================================
 // WYOMING GHOST SOLDIER

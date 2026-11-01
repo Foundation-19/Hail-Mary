@@ -136,6 +136,9 @@
 		if(kin.len >= kin_max_alive)
 			break
 		var/mob/living/simple_animal/hostile/K = new kin_type(pick(spots))
+		K.faction = faction.Copy()
+		K.faction |= "oakclaw_kin"
+		faction |= "oakclaw_kin"
 		kin += K
 		K.visible_message(span_danger("\The [K] tears itself loose from the roots around \the [src]!"))
 
@@ -243,7 +246,7 @@
 			for(var/mob/living/L in T)
 				var/obj/item/bodypart/affecting = L.get_bodypart(BODY_ZONE_CHEST)
 				var/armor_block = L.run_armor_check(affecting, "melee")
-				if(L == src || L.throwing)
+				if(L == src || L.throwing || (L in kin))
 					continue
 				to_chat(L, span_userdanger("[src]'s ground slam shockwave sends you flying!"))
 				var/turf/thrownat = get_ranged_target_turf_direct(src, L, 8, rand(-10, 10))
@@ -323,7 +326,7 @@
 		playsound(T, 'sound/effects/bamf.ogg', 300, TRUE, 10)
 		new /obj/effect/temp_visual/small_smoke/halfsecond(T)
 		for(var/mob/living/L in T)
-			if(L == src || L.stat == DEAD)
+			if(L == src || L.stat == DEAD || (L in kin))
 				continue
 			var/obj/item/bodypart/affecting = L.get_bodypart(BODY_ZONE_CHEST)
 			var/armor_block = L.run_armor_check(affecting, "melee")

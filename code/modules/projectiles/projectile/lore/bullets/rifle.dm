@@ -755,6 +755,12 @@
 	name = "5.56 bullet"
 	damage_threshold_penetration = 2
 
+// 5.56 belt round for suppressors / heavy troopers: between /pen and the .308 /heavy.
+/obj/item/projectile/bullet/a556/simple/heavy
+	name = "5.56 bullet"
+	armour_penetration = 0.2
+	damage_threshold_penetration = 3
+
 /obj/item/projectile/bullet/a762/sport/simple/pen
 	name = ".308 bullet"
 	damage_threshold_penetration = 2

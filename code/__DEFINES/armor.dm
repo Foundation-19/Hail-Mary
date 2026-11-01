@@ -357,25 +357,6 @@
 		"wound" = 0, \
 		"damage_threshold" = 0)
 
-/* Supermutant legendary
- * Thicc skin resists melee super hard
- * Legendary status armor resists bullet too, a lot
- * Green skin weak to lasers and plasma, leather burns too
- * High DT (cus legends never die)
- * * * * * * * * * * * */
-#define ARMOR_VALUE_SUPERMUTANT_LEGEND list(\
-		"melee" = 40, \
-		"bullet" = 40, \
-		"laser" = -5, \
-		"energy" = -5, \
-		"bomb" = 0, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 11)
-
 /* Supermutant heavy gunner (suppressor)
  * Welded plates over the torso, thick skin underneath
  * Resists bullet best, melee a bit less than the sledgehammer mutant
@@ -412,6 +393,25 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 2)
+
+/* Supermutant legendary
+ * Thicc skin resists melee super hard
+ * Legendary status armor resists bullet too, a lot
+ * Green skin weak to lasers and plasma, leather burns too
+ * High DT (cus legends never die)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SUPERMUTANT_LEGEND list(\
+		"melee" = 40, \
+		"bullet" = 40, \
+		"laser" = -5, \
+		"energy" = -5, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 11)
 
 /* Supermutant overlord
  * Biggest and toughest of the mutants
@@ -507,6 +507,24 @@
 		"wound" = 0, \
 		"damage_threshold" = 15)
 
+/* Young deathclaw
+ * Not fully grown - thin hide, light bones
+ * Bullets still bounce off a bit, but nowhere near an adult
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_YOUNG list(\
+		"melee" = 5, \
+		"bullet" = 25, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 4)
+
 /* Deathclaw Commonboy
  * Just about impervious to bullets
  * Melee is... okay ish
@@ -527,6 +545,25 @@
 		"wound" = 0, \
 		"damage_threshold" = 15)
 
+/* Alpha male deathclaw
+ * Scarred, heavier hide than a common deathclaw, a bit under the mother
+ * Bullets mostly bounce, lasers a bit better
+ * Plasma still works
+ * Lot of DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_ALPHA list(\
+		"melee" = 20, \
+		"bullet" = 62, \
+		"laser" = 30, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 16)
+
 /* Deathclaw Mommy
  * Just about impervious to bullets
  * Melee is... okay ish
@@ -546,60 +583,6 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 18)
-
-/* Deathclaw power armor - basically a suer boss fight
- * Power armor + deathclaw = yeah youre not killing this
- * Lot of DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_DEATHCLAW_PA list(\
-		"melee" = 85, \
-		"bullet" = 85, \
-		"laser" = 95, \
-		"energy" = 10, \
-		"bomb" = 0, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 25)
-
-/* Young deathclaw
- * Not fully grown - thin hide, light bones
- * Bullets still bounce off a bit, but nowhere near an adult
- * Low DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_DEATHCLAW_YOUNG list(\
-		"melee" = 5, \
-		"bullet" = 25, \
-		"laser" = 10, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 4)
-
-/* Alpha male deathclaw
- * Scarred, heavier hide than a common deathclaw, a bit under the mother
- * Bullets mostly bounce, lasers a bit better
- * Plasma still works
- * Lot of DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_DEATHCLAW_ALPHA list(\
-		"melee" = 20, \
-		"bullet" = 62, \
-		"laser" = 30, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 16)
 
 /* Chameleon deathclaw
  * Lighter build than a common deathclaw - relies on not being seen
@@ -653,6 +636,23 @@
 		"wound" = 0, \
 		"damage_threshold" = 7)
 
+/* Deathclaw power armor - basically a suer boss fight
+ * Power armor + deathclaw = yeah youre not killing this
+ * Lot of DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_DEATHCLAW_PA list(\
+		"melee" = 85, \
+		"bullet" = 85, \
+		"laser" = 95, \
+		"energy" = 10, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 25)
+
 /* Oak Mother deathclaw
  * A fully matured oak grown through the body: heavy bark, a lot of DT
  * The one real weakness is fire (-50): it is a tree
@@ -688,6 +688,46 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 1)
+
+/* Raider raider armor
+ * raider armor
+ * leather armor, but less laser weak
+ * Also resists plasma
+ *
+ * Lowish DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RAIDER_ARMOR list(\
+		"melee" = 25, \
+		"bullet" = 5, \
+		"laser" = 20, \
+		"energy" = 35, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 3)
+
+/* Raider metal armor
+ * Reinforced metal armor
+ * Heavy melee and laser resist
+ * less good bullet resist
+ *
+ * high DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_RAIDER_METAL_ARMOR list(\
+		"melee" = 55, \
+		"bullet" = 35, \
+		"laser" = 75, \
+		"energy" = -40, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 7)
 
 /* Raider combat armor (rusty)
  * Resistant to bullet and laser
@@ -726,46 +766,6 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 4)
-
-/* Raider metal armor
- * Reinforced metal armor
- * Heavy melee and laser resist
- * less good bullet resist
- *
- * high DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_RAIDER_METAL_ARMOR list(\
-		"melee" = 55, \
-		"bullet" = 35, \
-		"laser" = 75, \
-		"energy" = -40, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 7)
-
-/* Raider raider armor
- * raider armor
- * leather armor, but less laser weak
- * Also resists plasma
- *
- * Lowish DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_RAIDER_ARMOR list(\
-		"melee" = 25, \
-		"bullet" = 5, \
-		"laser" = 20, \
-		"energy" = 35, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 3)
 
 /* Renegade combat armor
  * Resistant to bullet and laser
@@ -866,7 +866,6 @@
 		"wound" = 0, \
 		"damage_threshold" = 15)
 
-
 /* Ant
  * Good melee / bullet resist
  * meh laser / plas
@@ -884,135 +883,6 @@
 		"acid" = 0, \
 		"wound" = 0, \
 		"damage_threshold" = 5)
-
-/* Catslug armor
- * Fairly low
- * Decent mob protection
- * Squooshy hide doesnt help with bullets
- * Lasers
- * Mainly so they can survive mobs a bit more
- * But arent too tricky for players to kill
- * Just in case they get annoying
- * Low DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_CATSLUG list(\
-		"melee" = 35, \
-		"bullet" = -10, \
-		"laser" = -10, \
-		"energy" = -50, \
-		"bomb" = 0, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 5, \
-		"damage_threshold" = 3)
-
-/* Mirelurk armor
- * Hard shell - resistant to bullets and melee
- * Weak to energy weapons
- * Water creature - good vs bio/rad
- * Medium DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_MIRELURK list(\
-		"melee" = 35, \
-		"bullet" = 40, \
-		"laser" = 10, \
-		"energy" = 10, \
-		"bomb" = 15, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 5, \
-		"acid" = 50, \
-		"wound" = 10, \
-		"damage_threshold" = 8)
-
-/* Mirelurk Hunter armor
- * Tougher shell - even better defense
- * Higher DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_MIRELURK_HUNTER list(\
-		"melee" = 45, \
-		"bullet" = 50, \
-		"laser" = 15, \
-		"energy" = 15, \
-		"bomb" = 20, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 10, \
-		"acid" = 60, \
-		"wound" = 15, \
-		"damage_threshold" = 12)
-
-/* Mirelurk Baby armor
- * Soft shell - much weaker
- * Low DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_MIRELURK_BABY list(\
-		"melee" = 15, \
-		"bullet" = 20, \
-		"laser" = 5, \
-		"energy" = 5, \
-		"bomb" = 5, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 0, \
-		"acid" = 25, \
-		"wound" = 5, \
-		"damage_threshold" = 3)
-
-/* Mirelurk Queen armor
- * Massive armored carapace
- * Very high DT
- * Boss-tier
- * * * * * * * * * * * */
-#define ARMOR_VALUE_MIRELURK_QUEEN list(\
-		"melee" = 60, \
-		"bullet" = 65, \
-		"laser" = 25, \
-		"energy" = 25, \
-		"bomb" = 35, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 20, \
-		"acid" = 80, \
-		"wound" = 25, \
-		"damage_threshold" = 18)
-
-/* Mirelurk Softshell armor
- * Weak variant - hasn't hardened yet
- * Low DT
- * * * * * * * * * * * */
-#define ARMOR_VALUE_MIRELURK_SOFT list(\
-		"melee" = 20, \
-		"bullet" = 15, \
-		"laser" = 5, \
-		"energy" = 5, \
-		"bomb" = 5, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 0, \
-		"acid" = 30, \
-		"wound" = 5, \
-		"damage_threshold" = 4)
-
-/* Mirelurk King armor
- * Humanoid variant - different armor profile
- * More balanced, less bullet resistance
- * High DT, boss-tier
- * * * * * * * * * * * */
-#define ARMOR_VALUE_MIRELURK_KING list(\
-		"melee" = 50, \
-		"bullet" = 45, \
-		"laser" = 35, \
-		"energy" = 35, \
-		"bomb" = 30, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = 25, \
-		"acid" = 70, \
-		"wound" = 20, \
-		"damage_threshold" = 15)
 
 /* Ant Queen armor
  * Boss variant - heavily armored matriarch
@@ -1032,126 +902,41 @@
 		"wound" = 0, \
 		"damage_threshold" = 8)
 
-/* Yao guai (East Coast)
- * Tough, ulcerated hide, lots of bulk
- * Per animalhostile.dm: must be dangerous to PA, so DT is moderate, not huge
- * Half protected from radiation (it lives in it)
- * * * * * * * * * * * */
-#define ARMOR_VALUE_YAOGUAI list(\
-		"melee" = 25, \
-		"bullet" = 30, \
-		"laser" = 0, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 50, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 5, \
-		"damage_threshold" = 6)
-
-/* Yao guai matriarch
- * Heavier hide and more DT than the standard yao guai
- * Still takes laser/plasma fine
- * * * * * * * * * * * */
-#define ARMOR_VALUE_YAOGUAI_MATRIARCH list(\
-		"melee" = 30, \
-		"bullet" = 40, \
-		"laser" = 10, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 50, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 10, \
-		"damage_threshold" = 10)
-
-/* Scarred yao guai
- * Plates of scar tissue: high bullet resistance and DT
- * Meant to make AP / heavy rounds matter (design note: "Armor so AP is useful")
- * Melee is a little lower than the matriarch
- * * * * * * * * * * * */
-#define ARMOR_VALUE_YAOGUAI_SCARRED list(\
-		"melee" = 25, \
-		"bullet" = 55, \
-		"laser" = 10, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 50, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 10, \
-		"damage_threshold" = 12)
-
-/* Aradnid (East Coast)
- * Light chitin, immune to radiation (it feeds on it), some bio resistance
+/* Giant mantis
+ * Hard chitin plates on the forelegs and thorax, soft abdomen
+ * Light all around - it is a fast ambusher, not a tank
  * Low DT
  * * * * * * * * * * * */
-#define ARMOR_VALUE_ARADNID list(\
+#define ARMOR_VALUE_MANTIS list(\
 		"melee" = 15, \
-		"bullet" = 20, \
-		"laser" = 0, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 50, \
-		"rad" = 100, \
-		"fire" = 0, \
-		"acid" = 10, \
-		"wound" = 0, \
-		"damage_threshold" = 2)
-
-/* Scolopendra (East Coast)
- * "Decently tough": chitin plates, some acid resistance
- * Moderate DT so tunnel fights do not become pure DPS races
- * * * * * * * * * * * */
-#define ARMOR_VALUE_SCOLOPENDRA list(\
-		"melee" = 20, \
-		"bullet" = 25, \
-		"laser" = 0, \
-		"energy" = 0, \
+		"bullet" = 10, \
+		"laser" = 5, \
+		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 0, \
 		"rad" = 0, \
 		"fire" = 0, \
-		"acid" = 20, \
+		"acid" = 0, \
 		"wound" = 0, \
-		"damage_threshold" = 4)
+		"damage_threshold" = 3)
 
-/* Fog crawler
- * Thick mirelurk-style shell, a step above the standard mirelurk
- * Moderate DT so it is not a pure DPS race, plenty of melee and bullet resistance
+/* Cazador armor
+ * Flying insect - weak armor, relies on speed
+ * Low protection overall
+ * Very low DT
  * * * * * * * * * * * */
-#define ARMOR_VALUE_FOG_CRAWLER list(\
-		"melee" = 35, \
-		"bullet" = 35, \
-		"laser" = 0, \
-		"energy" = 0, \
+#define ARMOR_VALUE_CAZADOR list(\
+		"melee" = 10, \
+		"bullet" = 5, \
+		"laser" = 5, \
+		"energy" = 5, \
 		"bomb" = 0, \
 		"bio" = 0, \
-		"rad" = 50, \
+		"rad" = 0, \
 		"fire" = 0, \
 		"acid" = 10, \
 		"wound" = 0, \
-		"damage_threshold" = 6)
-
-/* Spore plant
- * Soft plant tissue: bullets and blades do not matter much against it, but fire does
- * Immune to bio and radiation
- * * * * * * * * * * * */
-#define ARMOR_VALUE_SPORE_PLANT list(\
-		"melee" = 0, \
-		"bullet" = 10, \
-		"laser" = 0, \
-		"energy" = 0, \
-		"bomb" = 0, \
-		"bio" = 100, \
-		"rad" = 100, \
-		"fire" = -40, \
-		"acid" = 0, \
-		"wound" = 0, \
-		"damage_threshold" = 0)
+		"damage_threshold" = 2)
 
 /* Radscorpion armor
  * Armored carapace - good all-around protection
@@ -1189,23 +974,221 @@
 		"wound" = 10, \
 		"damage_threshold" = 10)
 
-/* Cazador armor
- * Flying insect - weak armor, relies on speed
- * Low protection overall
- * Very low DT
+/* Aradnid (East Coast)
+ * Light chitin, immune to radiation (it feeds on it), some bio resistance
+ * Low DT
  * * * * * * * * * * * */
-#define ARMOR_VALUE_CAZADOR list(\
-		"melee" = 10, \
-		"bullet" = 5, \
-		"laser" = 5, \
-		"energy" = 5, \
+#define ARMOR_VALUE_ARADNID list(\
+		"melee" = 15, \
+		"bullet" = 20, \
+		"laser" = 0, \
+		"energy" = 0, \
 		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 0, \
+		"bio" = 50, \
+		"rad" = 100, \
 		"fire" = 0, \
 		"acid" = 10, \
 		"wound" = 0, \
 		"damage_threshold" = 2)
+
+/* Scolopendra (East Coast)
+ * "Decently tough": chitin plates, some acid resistance
+ * Moderate DT so tunnel fights do not become pure DPS races
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SCOLOPENDRA list(\
+		"melee" = 20, \
+		"bullet" = 25, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 0, \
+		"acid" = 20, \
+		"wound" = 0, \
+		"damage_threshold" = 4)
+
+/* Mirelurk Baby armor
+ * Soft shell - much weaker
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_BABY list(\
+		"melee" = 15, \
+		"bullet" = 20, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 25, \
+		"wound" = 5, \
+		"damage_threshold" = 3)
+
+/* Mirelurk armor
+ * Hard shell - resistant to bullets and melee
+ * Weak to energy weapons
+ * Water creature - good vs bio/rad
+ * Medium DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK list(\
+		"melee" = 35, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 15, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 5, \
+		"acid" = 50, \
+		"wound" = 10, \
+		"damage_threshold" = 8)
+
+/* Mirelurk Softshell armor
+ * Weak variant - hasn't hardened yet
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_SOFT list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 5, \
+		"energy" = 5, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 30, \
+		"wound" = 5, \
+		"damage_threshold" = 4)
+
+/* Mirelurk Hunter armor
+ * Tougher shell - even better defense
+ * Higher DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_HUNTER list(\
+		"melee" = 45, \
+		"bullet" = 50, \
+		"laser" = 15, \
+		"energy" = 15, \
+		"bomb" = 20, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 60, \
+		"wound" = 15, \
+		"damage_threshold" = 12)
+
+/* Mirelurk Queen armor
+ * Massive armored carapace
+ * Very high DT
+ * Boss-tier
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_QUEEN list(\
+		"melee" = 60, \
+		"bullet" = 65, \
+		"laser" = 25, \
+		"energy" = 25, \
+		"bomb" = 35, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 20, \
+		"acid" = 80, \
+		"wound" = 25, \
+		"damage_threshold" = 18)
+
+/* Mirelurk King armor
+ * Humanoid variant - different armor profile
+ * More balanced, less bullet resistance
+ * High DT, boss-tier
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_MIRELURK_KING list(\
+		"melee" = 50, \
+		"bullet" = 45, \
+		"laser" = 35, \
+		"energy" = 35, \
+		"bomb" = 30, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 25, \
+		"acid" = 70, \
+		"wound" = 20, \
+		"damage_threshold" = 15)
+
+/* Yao guai (East Coast)
+ * Tough, ulcerated hide, lots of bulk
+ * Per animalhostile.dm: must be dangerous to PA, so DT is moderate, not huge
+ * Half protected from radiation (it lives in it)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_YAOGUAI list(\
+		"melee" = 25, \
+		"bullet" = 30, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 6)
+
+/* Scarred yao guai
+ * Plates of scar tissue: high bullet resistance and DT
+ * Meant to make AP / heavy rounds matter (design note: "Armor so AP is useful")
+ * Melee is a little lower than the matriarch
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_YAOGUAI_SCARRED list(\
+		"melee" = 25, \
+		"bullet" = 55, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 10, \
+		"damage_threshold" = 12)
+
+/* Yao guai matriarch
+ * Heavier hide and more DT than the standard yao guai
+ * Still takes laser/plasma fine
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_YAOGUAI_MATRIARCH list(\
+		"melee" = 30, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 10, \
+		"damage_threshold" = 10)
+
+/* Catslug armor
+ * Fairly low
+ * Decent mob protection
+ * Squooshy hide doesnt help with bullets
+ * Lasers
+ * Mainly so they can survive mobs a bit more
+ * But arent too tricky for players to kill
+ * Just in case they get annoying
+ * Low DT
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_CATSLUG list(\
+		"melee" = 35, \
+		"bullet" = -10, \
+		"laser" = -10, \
+		"energy" = -50, \
+		"bomb" = 0, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 0, \
+		"acid" = 0, \
+		"wound" = 5, \
+		"damage_threshold" = 3)
 
 /* Beast hide armor
  * Natural toughness for mutated wasteland fauna (geckos, nightstalkers, molerats, wolves, birds)
@@ -1242,23 +1225,22 @@
 		"wound" = 5, \
 		"damage_threshold" = 1)
 
-
-/* Giant mantis
- * Hard chitin plates on the forelegs and thorax, soft abdomen
- * Light all around - it is a fast ambusher, not a tank
- * Low DT
+/* Centaur armor
+ * FEV mutant, ranged spitter
+ * Light armor coverage
+ * Low DT, relies on poison attacks
  * * * * * * * * * * * */
-#define ARMOR_VALUE_MANTIS list(\
-		"melee" = 15, \
-		"bullet" = 10, \
-		"laser" = 5, \
-		"energy" = 5, \
-		"bomb" = 0, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 0, \
-		"acid" = 0, \
-		"wound" = 0, \
+#define ARMOR_VALUE_CENTAUR list(\
+		"melee" = 20, \
+		"bullet" = 15, \
+		"laser" = 10, \
+		"energy" = 10, \
+		"bomb" = 5, \
+		"bio" = 100, \
+		"rad" = 100, \
+		"fire" = 10, \
+		"acid" = 30, \
+		"wound" = 5, \
 		"damage_threshold" = 3)
 
 /* Tunneler armor
@@ -1279,23 +1261,39 @@
 		"wound" = 10, \
 		"damage_threshold" = 6)
 
-/* Centaur armor
- * FEV mutant, ranged spitter
- * Light armor coverage
- * Low DT, relies on poison attacks
+/* Fog crawler
+ * Thick mirelurk-style shell, a step above the standard mirelurk
+ * Moderate DT so it is not a pure DPS race, plenty of melee and bullet resistance
  * * * * * * * * * * * */
-#define ARMOR_VALUE_CENTAUR list(\
-		"melee" = 20, \
-		"bullet" = 15, \
-		"laser" = 10, \
-		"energy" = 10, \
-		"bomb" = 5, \
+#define ARMOR_VALUE_FOG_CRAWLER list(\
+		"melee" = 35, \
+		"bullet" = 35, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
+		"bio" = 0, \
+		"rad" = 50, \
+		"fire" = 0, \
+		"acid" = 10, \
+		"wound" = 0, \
+		"damage_threshold" = 6)
+
+/* Spore plant
+ * Soft plant tissue: bullets and blades do not matter much against it, but fire does
+ * Immune to bio and radiation
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_SPORE_PLANT list(\
+		"melee" = 0, \
+		"bullet" = 10, \
+		"laser" = 0, \
+		"energy" = 0, \
+		"bomb" = 0, \
 		"bio" = 100, \
 		"rad" = 100, \
-		"fire" = 10, \
-		"acid" = 30, \
-		"wound" = 5, \
-		"damage_threshold" = 3)
+		"fire" = -40, \
+		"acid" = 0, \
+		"wound" = 0, \
+		"damage_threshold" = 0)
 
 /* Abomination armor
  * Massive FEV horror
@@ -1395,6 +1393,41 @@
 		"wound" = 15, \
 		"damage_threshold" = 5)
 
+/* Legion Centurion
+ * Officer in layered plate: between the Legion veteran (40/30/DT 5) and the Praetorian
+ * Strong against blades and fists, a little better than the veteran against bullets
+ * Still weak to lasers and plasma like all Legion kit
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_LEGION_CENTURION list(\
+		"melee" = 48, \
+		"bullet" = 35, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 5, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 10, \
+		"acid" = 0, \
+		"wound" = 20, \
+		"damage_threshold" = 6)
+
+/* Legion Praetorian
+ * Caesar's guard: the heaviest Legion armor
+ * Very strong against melee, decent against bullets, still weak to lasers and plasma
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_LEGION_PRAETORIAN list(\
+		"melee" = 55, \
+		"bullet" = 40, \
+		"laser" = 10, \
+		"energy" = 0, \
+		"bomb" = 10, \
+		"bio" = 0, \
+		"rad" = 0, \
+		"fire" = 15, \
+		"acid" = 0, \
+		"wound" = 25, \
+		"damage_threshold" = 8)
+
 /* NCR trooper armor
  * Standard combat armor
  * Balanced protection
@@ -1433,6 +1466,22 @@
 		"wound" = 25, \
 		"damage_threshold" = 8)
 
+/* NCR Heavy Trooper
+ * Reinforced armor between the standard NCR kit (30/35/DT 4) and the Ranger kit (50/55/DT 8)
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_NCR_HEAVY list(\
+		"melee" = 40, \
+		"bullet" = 50, \
+		"laser" = 35, \
+		"energy" = 15, \
+		"bomb" = 20, \
+		"bio" = 10, \
+		"rad" = 10, \
+		"fire" = 20, \
+		"acid" = 20, \
+		"wound" = 20, \
+		"damage_threshold" = 7)
+
 /* Brotherhood of Steel armor
  * T-45d or T-51b Power Armor
  * Strong protection
@@ -1451,6 +1500,22 @@
 		"acid" = 70, \
 		"wound" = 40, \
 		"damage_threshold" = 10)
+
+/* Brotherhood Scribe
+ * Robes with a light plate vest: far below a knight (70/75/DT 10), built to stay behind the line
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_BOS_SCRIBE list(\
+		"melee" = 40, \
+		"bullet" = 45, \
+		"laser" = 40, \
+		"energy" = 10, \
+		"bomb" = 20, \
+		"bio" = 40, \
+		"rad" = 20, \
+		"fire" = 40, \
+		"acid" = 40, \
+		"wound" = 20, \
+		"damage_threshold" = 4)
 
 /* Brotherhood Paladin armor
  * Superior Power Armor (T-51b or T-60)
@@ -1471,73 +1536,6 @@
 		"wound" = 45, \
 		"damage_threshold" = 12)
 
-/* Legion Centurion
- * Officer in layered plate: between the Legion veteran (40/30/DT 5) and the Praetorian
- * Strong against blades and fists, a little better than the veteran against bullets
- * Still weak to lasers and plasma like all Legion kit
- * * * * * * * * * * * */
-#define ARMOR_VALUE_LEGION_CENTURION list(\
-		"melee" = 48, \
-		"bullet" = 35, \
-		"laser" = 10, \
-		"energy" = 0, \
-		"bomb" = 5, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 10, \
-		"acid" = 0, \
-		"wound" = 20, \
-		"damage_threshold" = 6)
-
-/* Legion Praetorian
- * Caesar's guard: the heaviest Legion armor
- * Very strong against melee, decent against bullets, still weak to lasers and plasma
- * * * * * * * * * * * */
-#define ARMOR_VALUE_LEGION_PRAETORIAN list(\
-		"melee" = 55, \
-		"bullet" = 40, \
-		"laser" = 10, \
-		"energy" = 0, \
-		"bomb" = 10, \
-		"bio" = 0, \
-		"rad" = 0, \
-		"fire" = 15, \
-		"acid" = 0, \
-		"wound" = 25, \
-		"damage_threshold" = 8)
-
-/* NCR Heavy Trooper
- * Reinforced armor between the standard NCR kit (30/35/DT 4) and the Ranger kit (50/55/DT 8)
- * * * * * * * * * * * */
-#define ARMOR_VALUE_NCR_HEAVY list(\
-		"melee" = 40, \
-		"bullet" = 50, \
-		"laser" = 35, \
-		"energy" = 15, \
-		"bomb" = 20, \
-		"bio" = 10, \
-		"rad" = 10, \
-		"fire" = 20, \
-		"acid" = 20, \
-		"wound" = 20, \
-		"damage_threshold" = 7)
-
-/* Brotherhood Scribe
- * Robes with a light plate vest: far below a knight (70/75/DT 10), built to stay behind the line
- * * * * * * * * * * * */
-#define ARMOR_VALUE_BOS_SCRIBE list(\
-		"melee" = 40, \
-		"bullet" = 45, \
-		"laser" = 40, \
-		"energy" = 10, \
-		"bomb" = 20, \
-		"bio" = 40, \
-		"rad" = 20, \
-		"fire" = 40, \
-		"acid" = 40, \
-		"wound" = 20, \
-		"damage_threshold" = 4)
-
 /* Brotherhood Knight-Captain
  * Between the knight (70/75/DT 10) and the paladin in T-51b (85/90/DT 12)
  * * * * * * * * * * * */
@@ -1553,24 +1551,6 @@
 		"acid" = 78, \
 		"wound" = 42, \
 		"damage_threshold" = 11)
-
-/* Enclave Hellfire trooper
- * Above the APA armored infantry (95/100/DT 14): Hellfire plating, the best armor in the game for mobs
- * Plasma and energy still get through better than anything else (energy 55)
- * Bullet / laser / fire 100 matches ENCLAVE_APA, which already uses 100; whether the system caps mob DR at 95 is unverified
- * * * * * * * * * * * */
-#define ARMOR_VALUE_ENCLAVE_HELLFIRE list(\
-		"melee" = 95, \
-		"bullet" = 100, \
-		"laser" = 100, \
-		"energy" = 55, \
-		"bomb" = 85, \
-		"bio" = 100, \
-		"rad" = 60, \
-		"fire" = 100, \
-		"acid" = 95, \
-		"wound" = 55, \
-		"damage_threshold" = 16)
 
 /* Enclave soldier armor
  * Advanced Combat Armor or X-01 Power Armor
@@ -1590,6 +1570,24 @@
 		"acid" = 80, \
 		"wound" = 40, \
 		"damage_threshold" = 11)
+
+/* Enclave Hellfire trooper
+ * Above the APA armored infantry (95/100/DT 14): Hellfire plating, the best armor in the game for mobs
+ * Plasma and energy still get through better than anything else (energy 55)
+ * Bullet / laser / fire 100 matches ENCLAVE_APA, which already uses 100; whether the system caps mob DR at 95 is unverified
+ * * * * * * * * * * * */
+#define ARMOR_VALUE_ENCLAVE_HELLFIRE list(\
+		"melee" = 95, \
+		"bullet" = 100, \
+		"laser" = 100, \
+		"energy" = 55, \
+		"bomb" = 85, \
+		"bio" = 100, \
+		"rad" = 60, \
+		"fire" = 100, \
+		"acid" = 95, \
+		"wound" = 55, \
+		"damage_threshold" = 16)
 
 /* Enclave Advanced Power Armor
  * Top-tier X-02 Advanced Power Armor

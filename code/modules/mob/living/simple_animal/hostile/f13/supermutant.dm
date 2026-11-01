@@ -766,7 +766,7 @@
 	minimum_distance = 5
 
 	casingtype = null
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
+	projectiletype = /obj/item/projectile/bullet/a556/simple/heavy // 5.56 belt, same as the R84 LMG
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	sound_after_shooting = null
 	sight_shoot_delay_time = 1 SECONDS // wind-up before the first burst

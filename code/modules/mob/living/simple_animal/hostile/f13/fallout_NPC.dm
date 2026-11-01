@@ -935,7 +935,7 @@
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_FAST
 	ranged_cooldown_time = 4 SECONDS
 	casingtype = null
-	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/heavy
+	projectiletype = /obj/item/projectile/bullet/a556/simple/heavy // 5.56 belt, same as the R84 LMG
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	ranged_message = "opens fire with a machine gun"
 	projectile_sound_properties = list(
