@@ -298,6 +298,8 @@
 #define TRAIT_BIG_LEAGUES		"big_leagues"
 #define TRAIT_BIG_LEAGUES_MID	"big_leagues_mid"
 #define TRAIT_LITTLE_LEAGUES	"little_leagues"
+#define TRAIT_BREAKER			"breaker" // Fully charged, blunt power attacks gain DT penetration
+#define TRAIT_IRON_GRIP			"iron_grip" // Once per cooldown, withstand a light hit during a power-attack windup
 #define TRAIT_GENTLE			"gentle"
 #define TRAIT_WIMPY				"wimpy"
 #define TRAIT_FEV				"FEV_MUT" //OH BOY

@@ -402,14 +402,12 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_value = 7
 
 /* --------------------------------- Big Leagues --------------------------------- */
-//Real Fallout 4 "Big Leagues" melee perk (5 in-game ranks, +20% melee damage/rank), compressed
-//to 3 ranks here (+20%/+40%/+60%) to fit this codebase's quirk-point economy. Percentage-based
-//force bonus is applied directly in code/_onclick/item_attack.dm's force_modifier elif chain -
-//only the TOP held rank applies (no stacking), mirroring FO4's single always-replaced perk rank.
+//Only the top held rank applies (+20%/+40%/+60%). Combined melee bonuses above +50%
+//of weapon force have diminishing returns in item_attack.dm, rather than a hard cap.
 
 /datum/quirk/bigleagues_rank1
 	name = "Little Leagues"
-	desc = "Swing for the outfield! You deal 20% additional damage with melee weapons."
+	desc = "Swing for the outfield! You gain a 20% melee weapon damage bonus. Combined melee bonuses above 50% have diminishing returns."
 	value = 1
 	mob_trait = TRAIT_LITTLE_LEAGUES
 	gain_text = span_notice("You feel like swinging for the outfield!")
@@ -421,7 +419,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/bigleagues_rank2
 	name = "Big Leagues"
-	desc = "Swing away! You deal 40% additional damage with melee weapons. Requires Little Leagues."
+	desc = "Swing away! You gain a 40% melee weapon damage bonus. Combined melee bonuses above 50% have diminishing returns. Requires Little Leagues."
 	value = 3
 	requires_quirk = "Little Leagues"
 	mob_trait = TRAIT_BIG_LEAGUES_MID
@@ -434,7 +432,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/bigleagues_rank3
 	name = "Big Leagues II"
-	desc = "Swing for the fences! You deal 60% additional damage with melee weapons. Requires Big Leagues."
+	desc = "Swing for the fences! You gain a 60% melee weapon damage bonus. Combined melee bonuses above 50% have diminishing returns. Requires Big Leagues."
 	value = 5
 	requires_quirk = "Big Leagues"
 	mob_trait = TRAIT_BIG_LEAGUES
@@ -444,6 +442,32 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 7
+
+/* ---------------------------- High Strength Perks ---------------------------- */
+
+/datum/quirk/breaker
+	name = "Breaker"
+	desc = "Fully charged low-AP blunt-weapon Power Attacks gain 2 additional damage-threshold penetration. Requires Strength 9."
+	value = 3
+	mob_trait = TRAIT_BREAKER
+	gain_text = span_notice("You know how to put your full weight behind a crushing blow.")
+	lose_text = span_danger("You lose your knack for breaking through heavy defenses.")
+	locked = TRUE
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 9
+
+/datum/quirk/iron_grip
+	name = "Iron Grip"
+	desc = "Once every 30 seconds, a hit dealing 10 or less damage after armor and damage threshold will not interrupt your Power Attack windup. The hit still deals damage; heavier hits still interrupt. Requires Strength 9."
+	value = 3
+	mob_trait = TRAIT_IRON_GRIP
+	gain_text = span_notice("You feel able to power through glancing blows.")
+	lose_text = span_danger("You can no longer hold your ground through a glancing blow.")
+	locked = TRUE
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 9
 
 /* ---------------------------------- Iron Fist ---------------------------------- */
 //Real Fallout "Iron Fist" unarmed perk, expanded to 3 ranks on this codebase's existing punch
@@ -775,4 +799,3 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_stat = "special_i"
 	required_special_name = "Intelligence"
 	required_special_value = 7
-

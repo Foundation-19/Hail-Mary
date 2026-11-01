@@ -1,6 +1,6 @@
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-1.1 dmg in melee for each level above/below 5 ST, certain guns can be STR locked
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // Strength modifies melee damage; certain guns can be STR locked
 	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
 	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets about your demeanor/appearance when they examine you; caps how many followers you can lead in a pull chain
@@ -70,8 +70,16 @@ proc/get_top_level_mob(mob/S)
 
 /// STRENGTH
 
+/mob/living/proc/get_special_melee_damage_bonus()
+	var/strength_difference = special_s - SPECIAL_DEFAULT_ATTR_VALUE
+	var/strength_bonus = strength_difference * 1.1
+	if(strength_difference > 3)
+		// Keep full gains through Strength 8, then taper to +0.8 at 9 and +0.6 at 10.
+		strength_bonus = (3 * 1.1) + (min(strength_difference - 3, 1) * 0.8) + (max(strength_difference - 4, 0) * 0.6)
+	return strength_bonus + get_special_low_charisma_intimidation_dam_bonus()
+
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1) + user.get_special_low_charisma_intimidation_dam_bonus()
+	return user.get_special_melee_damage_bonus()
 
 /obj/item/gun/proc/gun_firing_str_check(mob/living/user)
 	if(user.special_s >= required_str_to_fire)
@@ -80,7 +88,7 @@ proc/get_top_level_mob(mob/S)
 	return FALSE
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1) + user.get_special_low_charisma_intimidation_dam_bonus()
+	return user.get_special_melee_damage_bonus()
 
 /// Blurry/blinded vision can make a melee swing whiff entirely before it ever reaches attackby(); keen Perception compensates, poor Perception compounds it.
 /mob/proc/check_vision_impaired_miss()
@@ -101,6 +109,15 @@ proc/get_top_level_mob(mob/S)
 /// Brawnier fighters gas out less from winding up a Power Attack; weaklings pay more stamina for the same swing.
 /mob/living/proc/get_strength_power_attack_stamina_multiplier()
 	return CLAMP(1 - ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.06), 0.6, 1.6)
+
+/// Strength 9+ makes charging a Power Attack less restrictive to move through.
+/mob/living/proc/get_strength_power_attack_windup_slowdown()
+	var/slowdown_reduction = 0
+	if(special_s >= 10)
+		slowdown_reduction = POWER_ATTACK_STRENGTH_10_SLOWDOWN_REDUCTION
+	else if(special_s >= 9)
+		slowdown_reduction = POWER_ATTACK_STRENGTH_9_SLOWDOWN_REDUCTION
+	return POWER_ATTACK_WINDUP_SLOWDOWN * (1 - slowdown_reduction)
 
 /// Brawnier wasters can cram more combined weight class into their bags/pockets/belts before they're full. Strong Back perk stacks a flat bonus on top of the raw Strength scaling.
 /mob/living/proc/get_strength_carry_capacity_multiplier()

@@ -91,7 +91,7 @@
 	if(I.force)
 		// Was bypassing clothing/species armor entirely - melee weapons ignored worn armor, unlike bullets.
 		var/armor = run_armor_check(affecting, "melee", null, null, I.armour_penetration, null)
-		var/dt = max(run_armor_check(affecting, "damage_threshold", null, null, 0, null) - I.damage_threshold_penetration, 0)
+		var/dt = max(run_armor_check(affecting, "damage_threshold", null, null, 0, null) - I.get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
 		apply_damage(totitemdamage, I.damtype, affecting, armor, wound_bonus = I.wound_bonus, bare_wound_bonus = I.bare_wound_bonus, sharpness = I.get_sharpness(), damage_threshold = dt) //CIT CHANGE - replaces I.force with totitemdamage
 		if(I.damtype == BRUTE && affecting.status == BODYPART_ORGANIC)
 			var/basebloodychance = affecting.brute_dam + totitemdamage

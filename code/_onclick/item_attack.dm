@@ -159,6 +159,11 @@
 		if(sharpness == SHARP_EDGED)
 			force_modifier += force * 0.1 * user.get_perk_rank("blademaster")
 
+	// Keep every investment useful: bonuses past the threshold taper rather than stop.
+	var/bonus_soft_threshold = force * MELEE_DAMAGE_BONUS_SOFT_THRESHOLD
+	if(bonus_soft_threshold > 0 && force_modifier > bonus_soft_threshold)
+		force_modifier = bonus_soft_threshold * sqrt(force_modifier / bonus_soft_threshold)
+
 	return force_modifier
 
 /**
@@ -248,7 +253,7 @@
 	if(I.force)
 		// Was bypassing mob_armor entirely - melee weapons ignored a target's armor resistance/DT, unlike bullets or bare-handed attacks.
 		var/armor = run_armor_check(null, "melee", null, null, I.armour_penetration, null)
-		var/dt = max(run_armor_check(null, "damage_threshold", null, null, 0, null) - I.damage_threshold_penetration, 0)
+		var/dt = max(run_armor_check(null, "damage_threshold", null, null, 0, null) - I.get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
 		apply_damage(totitemdamage, I.damtype, null, armor, damage_threshold = dt)
 		if(I.damtype == BRUTE)
 			if(prob(33))

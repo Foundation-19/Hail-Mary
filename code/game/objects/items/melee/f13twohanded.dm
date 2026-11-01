@@ -696,7 +696,7 @@
 	M.apply_effect(300, EFFECT_IRRADIATE, 0)
 
 
-// War Mace			Keywords: TRIBAL, Damage 25/45, AP 0.2
+// War Mace			Keywords: TRIBAL, Damage 25/45, AP 0.05, DT penetration
 /obj/item/twohanded/sledgehammer/warmace
 	name = "war mace"
 	desc = "A heavy wooden club with a turquoise head. Meant to be used in two hands, but capable without it."
@@ -704,7 +704,7 @@
 	icon_prefix = "hammer-war"
 	force = 25
 	throwforce = 20
-	armour_penetration = 0.2
+	armour_penetration = 0.05
 	attack_verb = list("bashed", "pounded", "bludgeoned", "pummeled", "thrashed")
 	wielded_icon = "hammer-war2"
 	force_unwielded = 34

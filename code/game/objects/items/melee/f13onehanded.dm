@@ -15,6 +15,15 @@
 		/datum/power_attack/lunge,
 	)
 
+/obj/item/proc/get_melee_damage_threshold_penetration(mob/living/user, attackchain_flags = NONE)
+	var/is_blunt = damtype == BRUTE && sharpness == SHARP_NONE && armour_penetration <= MELEE_BLUNT_MAX_ARMOUR_PENETRATION
+	var/melee_dt_penetration = damage_threshold_penetration
+	if(is_blunt)
+		melee_dt_penetration = max(melee_dt_penetration, MELEE_BLUNT_DT_PENETRATION)
+		if(user && HAS_TRAIT(user, TRAIT_BREAKER) && (attackchain_flags & ATTACK_POWER_ATTACK_FULLY_CHARGED))
+			melee_dt_penetration += MELEE_BREAKER_DT_PENETRATION
+	return melee_dt_penetration
+
 /datum/block_parry_data/light_blade // fast, nimble one-handed blades - quick to bring up, quick to recover, but a weaker riposte
 	parry_time_windup = 1
 	parry_time_active = 8
