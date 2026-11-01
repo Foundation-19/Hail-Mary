@@ -211,6 +211,17 @@
 #define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
 #define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
 #define TRAIT_PA_TRAINED_RANK2	"pa_trained_rank2" //Power Armor Training II: Power Armor fusion cells drain 15% slower
+#define TRAIT_FORTUNE_FINDER_RANK1	"fortune_finder_rank1" //Scavenging and trash piles reroll toward rarer loot
+#define TRAIT_FORTUNE_FINDER_RANK2	"fortune_finder_rank2"
+#define TRAIT_FORTUNE_FINDER_RANK3	"fortune_finder_rank3"
+#define TRAIT_SCROUNGER_RANK1	"scrounger_rank1" //Chance for extra junk/ammo from scavenging and trash piles
+#define TRAIT_SCROUNGER_RANK2	"scrounger_rank2"
+#define TRAIT_SCROUNGER_RANK3	"scrounger_rank3"
+#define TRAIT_TRADER_RANK1	"trader_rank1" //Discount at vending machines
+#define TRAIT_TRADER_RANK2	"trader_rank2"
+#define TRAIT_SCAVENGERS_EYE	"scavengers_eye" //Scavenging takes less time
+#define TRAIT_JUNK_RATTLER	"junk_rattler" //Chance of extra salvage and disassembly loot
+#define TRAIT_AMMO_SMITH	"ammo_smith" //Reloading benches use less material
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"

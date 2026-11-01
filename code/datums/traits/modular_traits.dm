@@ -513,6 +513,134 @@
 	gain_text = span_notice("Your gut is made of iron.")
 	lose_text = span_danger("Your stomach feels delicate again.")
 
+/* ------------------------------ Loot & Economy (Batch A) ------------------------------ */
+
+/datum/quirk/modular/fortune_finder_rank1
+	name = "Fortune Finder I"
+	desc = "Fortune favours you. Scavenging and trash piles have a 15% chance to reroll toward rarer loot."
+	value = 2
+	trait_flags = list(TRAIT_FORTUNE_FINDER_RANK1)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 4
+	gain_text = span_notice("You've got a feeling about the next pile of junk.")
+	lose_text = span_danger("Your luck with scavenging runs dry.")
+
+/datum/quirk/modular/fortune_finder_rank2
+	name = "Fortune Finder II"
+	desc = "30% chance to reroll toward rarer loot. Requires Fortune Finder I."
+	value = 4
+	requires_quirk = "Fortune Finder I"
+	trait_flags = list(TRAIT_FORTUNE_FINDER_RANK2)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 6
+	gain_text = span_notice("Good stuff just seems to find you.")
+	lose_text = span_danger("Your luck with scavenging runs dry.")
+
+/datum/quirk/modular/fortune_finder_rank3
+	name = "Fortune Finder III"
+	desc = "45% chance to reroll toward rarer loot. Requires Fortune Finder II."
+	value = 6
+	requires_quirk = "Fortune Finder II"
+	trait_flags = list(TRAIT_FORTUNE_FINDER_RANK3)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 8
+	gain_text = span_notice("You could find treasure in a landfill fire.")
+	lose_text = span_danger("Your luck with scavenging runs dry.")
+
+/datum/quirk/modular/scrounger_rank1
+	name = "Scrounger I"
+	desc = "Scavenging has a 10% chance, and trash piles a 15% chance, to turn up extra ammo or parts."
+	value = 2
+	trait_flags = list(TRAIT_SCROUNGER_RANK1)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 4
+	gain_text = span_notice("You never leave a pile without checking the corners.")
+	lose_text = span_danger("You stop checking the corners.")
+
+/datum/quirk/modular/scrounger_rank2
+	name = "Scrounger II"
+	desc = "20% scavenging chance, 30% trash pile chance for extras. Requires Scrounger I."
+	value = 4
+	requires_quirk = "Scrounger I"
+	trait_flags = list(TRAIT_SCROUNGER_RANK2)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 6
+	gain_text = span_notice("Nothing goes to waste around you.")
+	lose_text = span_danger("You stop checking the corners.")
+
+/datum/quirk/modular/scrounger_rank3
+	name = "Scrounger III"
+	desc = "30% scavenging chance, 45% trash pile chance for extras. Requires Scrounger II."
+	value = 6
+	requires_quirk = "Scrounger II"
+	trait_flags = list(TRAIT_SCROUNGER_RANK3)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 7
+	gain_text = span_notice("You could strip a vault of its bolts.")
+	lose_text = span_danger("You stop checking the corners.")
+
+/datum/quirk/modular/trader_rank1
+	name = "Trader I"
+	desc = "You haggle well. Vending machine prices are 8% lower."
+	value = 2
+	trait_flags = list(TRAIT_TRADER_RANK1)
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 5
+	gain_text = span_notice("You know exactly how much to push on a price.")
+	lose_text = span_danger("Your haggling instincts fade.")
+
+/datum/quirk/modular/trader_rank2
+	name = "Trader II"
+	desc = "Vending machine prices are 15% lower. Requires Trader I."
+	value = 4
+	requires_quirk = "Trader I"
+	trait_flags = list(TRAIT_TRADER_RANK2)
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 7
+	gain_text = span_notice("Merchants dread seeing you coming.")
+	lose_text = span_danger("Your haggling instincts fade.")
+
+/datum/quirk/modular/scavengers_eye
+	name = "Scavenger's Eye"
+	desc = "You spot the good stuff fast. Scavenging takes 20% less time."
+	value = 2
+	trait_flags = list(TRAIT_SCAVENGERS_EYE)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
+	gain_text = span_notice("Your eyes pick out salvage like it's glowing.")
+	lose_text = span_danger("Salvage blends back into the clutter.")
+
+/datum/quirk/modular/junk_rattler
+	name = "Junk Rattler"
+	desc = "35% chance of extra components when salvaging or disassembling items."
+	value = 2
+	trait_flags = list(TRAIT_JUNK_RATTLER)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
+	gain_text = span_notice("You know where every spare part hides.")
+	lose_text = span_danger("You forget where the spare parts hide.")
+
+/datum/quirk/modular/ammo_smith
+	name = "Ammo Smith"
+	desc = "Reloading benches use 10% less material for your work."
+	value = 2
+	trait_flags = list(TRAIT_AMMO_SMITH)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You can make every grain of powder count.")
+	lose_text = span_danger("You waste powder again.")
+
 /* ------------------------------ Power Armor Training II ------------------------------ */
 //Rank 1 is /datum/quirk/pa_wear (good.dm). Rank 2 needs both Strength and Intelligence 6.
 

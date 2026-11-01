@@ -533,6 +533,42 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/set_special_l(new_value)
 	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 
+/// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
+/mob/living/proc/set_special_l(new_value)
+	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+
+/// Fortune Finder rank (0-3) from the perk's mob traits.
+/mob/proc/get_fortune_finder_rank()
+	if(HAS_TRAIT(src, TRAIT_FORTUNE_FINDER_RANK3))
+		return 3
+	if(HAS_TRAIT(src, TRAIT_FORTUNE_FINDER_RANK2))
+		return 2
+	return HAS_TRAIT(src, TRAIT_FORTUNE_FINDER_RANK1) ? 1 : 0
+
+/// Scrounger rank (0-3) from the perk's mob traits.
+/mob/proc/get_scrounger_rank()
+	if(HAS_TRAIT(src, TRAIT_SCROUNGER_RANK3))
+		return 3
+	if(HAS_TRAIT(src, TRAIT_SCROUNGER_RANK2))
+		return 2
+	return HAS_TRAIT(src, TRAIT_SCROUNGER_RANK1) ? 1 : 0
+
+/// Fraction knocked off vending machine prices by the Trader perk.
+/mob/proc/get_trader_discount()
+	if(HAS_TRAIT(src, TRAIT_TRADER_RANK2))
+		return 0.15
+	return HAS_TRAIT(src, TRAIT_TRADER_RANK1) ? 0.08 : 0
+
+/// pickweight() that lets Fortune Finder reroll once (15% per rank) and keep whichever result is rarer.
+/proc/pick_loot_with_fortune(list/table, mob/user)
+	var/picked = pickweight(table)
+	var/rank = user?.get_fortune_finder_rank()
+	if(rank && prob(rank * 15))
+		var/alt = pickweight(table)
+		if(alt && (!picked || table[alt] < table[picked]))
+			picked = alt
+	return picked
+
 /// Chance to fumble an attack entirely: a melee swing goes wide and misses, or a gun is fumbled and dropped before firing
 /mob/proc/get_luck_critfail_chance()
 	switch(special_l)

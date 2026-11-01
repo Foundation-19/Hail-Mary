@@ -34,7 +34,7 @@
 		to_chat(user, span_notice("You already have looted [src]."))
 		return
 	for(var/i=0, i<rand(1,4), i++)
-		var/itemtype= pickweight(lootable_trash)
+		var/itemtype= pick_loot_with_fortune(lootable_trash, user)
 		//var/itemtypebonus= pickweight(lootable_trash)
 		if(itemtype)
 			to_chat(user, span_notice("You scavenge through [src]."))
@@ -63,6 +63,13 @@
 								break
 							QDEL_NULL(trash_mod)
 						prob_trash -= 40
+	var/scrounger_rank = user.get_scrounger_rank()
+	if(scrounger_rank && prob(scrounger_rank * 15))
+		var/list/scrounge_table = GLOB.trash_ammo + GLOB.trash_part
+		var/scrounged = pickweight(scrounge_table)
+		if(ispath(scrounged, /obj/item))
+			new scrounged(ST)
+			to_chat(user, span_notice("Your knack for scrounging turns up a little extra."))
 	loot_players += user
 
 

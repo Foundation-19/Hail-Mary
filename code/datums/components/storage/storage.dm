@@ -582,7 +582,8 @@
 		if(already_inside || I.loc == ancestor_contents) // already counted there, moving it deeper adds nothing
 			already_inside = TRUE
 			current = ancestor
-			continue		if(AS.storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
+			continue
+		if(AS.storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
 			var/sum_w_class = get_nested_w_class(I)
 			for(var/obj/item/_I in ancestor_contents)
 				sum_w_class += get_nested_w_class(_I)

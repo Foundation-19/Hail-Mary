@@ -786,6 +786,11 @@ GLOBAL_LIST_EMPTY(vending_products)
 			if(coin_records.Find(R) || hidden_records.Find(R))
 				price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 			
+			//Trader perk haggles the price down a little.
+			var/trader_discount = usr.get_trader_discount()
+			if(trader_discount && price_to_use > 1)
+				price_to_use = max(1, round(price_to_use * (1 - trader_discount)))
+
 			//Make sure we actually have the item.
 			if(R in hidden_records)
 				if(!extended_inventory)

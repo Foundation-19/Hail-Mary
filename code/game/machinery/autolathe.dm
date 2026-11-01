@@ -192,6 +192,8 @@
 			/////////////////
 
 			var/coeff = (is_stack ? 1 : prod_coeff) //stacks are unaffected by production coefficient
+			if(!is_stack && istype(src, /obj/machinery/autolathe/ammo) && HAS_TRAIT(usr, TRAIT_AMMO_SMITH))
+				coeff *= 0.9 //Ammo Smith: reloading benches waste less material
 			var/total_amount = 0
 
 			for(var/MAT in being_built.materials)

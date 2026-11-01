@@ -338,6 +338,33 @@
 	rank_quirks = list(/datum/quirk/modular/leadbelly_rank1, /datum/quirk/modular/leadbelly_rank2, /datum/quirk/modular/leadbelly_rank3)
 	remarks = list("Boil it twice, then boil it again...", "If the can bulges, the can wins...", "Small bites, big grudges...", "The last chapter is a recipe for something that should not be a recipe.")
 
+/obj/item/book/granter/trait/rank/fortunefinder
+	name = "Lucky Breaks and How to Make Them"
+	desc = "A scavenger's memoir about always showing up just before someone else got there."
+	oneuse = TRUE
+	traitname = "finding fortune"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/fortune_finder_rank1, /datum/quirk/modular/fortune_finder_rank2, /datum/quirk/modular/fortune_finder_rank3)
+	remarks = list("Always check the bottom of the pile...", "Luck is mostly showing up...", "The shiny thing is usually the trap...", "A folded page marks someone's very lucky find.")
+
+/obj/item/book/granter/trait/rank/scrounger
+	name = "Waste Not: A Scrounger's Handbook"
+	desc = "Practical advice on getting a second helping out of every pile of junk."
+	oneuse = TRUE
+	traitname = "scrounging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/scrounger_rank1, /datum/quirk/modular/scrounger_rank2, /datum/quirk/modular/scrounger_rank3)
+	remarks = list("Dig past the first layer...", "Every pile has a hidden second layer...", "Cartridges roll, look under things...", "The back cover lists dozens of places to look.")
+
+/obj/item/book/granter/trait/rank/trader
+	name = "The Art of the Haggle"
+	desc = "A worn merchant's guide to talking prices down."
+	oneuse = TRUE
+	traitname = "haggling"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/trader_rank1, /datum/quirk/modular/trader_rank2)
+	remarks = list("Never accept the first price...", "Act uninterested, always...", "Silence is the best counteroffer...", "Someone has scribbled 'works on vending machines too' in the margin.")
+
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
 	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."
