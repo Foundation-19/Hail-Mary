@@ -1,3 +1,23 @@
+// OAK MOTHER DEATHCLAW - dungeon boss (megafauna)
+// Lore (from Delta Dav): the tree minders' sap grew trees on the deathclaws, which made them smart but
+// slow and weak, and over time they grew back into beasts. The Oak Mother is the one exception: slower
+// than the rest but much stronger, with a fully matured tree. She is the sole strong one, so the dungeon
+// leading up to her is built from the weak inflicted line (inflicted -> overgrown deathclaw).
+//
+// Features:
+//   - Three phases by health: whole / below 50% / below 25%. Each phase is a little less slow and hits
+//     more often, but she is always slower than a normal deathclaw (2.75).
+//   - Root Burst: roots erupt under the nearest targets after a telegraph, so it can be dodged.
+//   - Kin: at 50% and again at 25% she tears loose overgrown deathclaws from her roots (max 4 alive).
+//     Kin share her faction and are ignored by her stomps and roots.
+//   - Sap regeneration, only when she is out of combat for 15 seconds.
+//   - Bark armor (ARMOR_VALUE_OAK_MOTHER, fire -50: it is a tree) and 10 DT penetration.
+//   - The scream is attack 2 and Root Burst is attack 3.
+//
+// Needs: ARMOR_VALUE_OAK_MOTHER and the overgrown deathclaw from inflicted_deathclaws.dm
+// (/inflicted/reverted). To use a different kin, change kin_type.
+// SPRITE: uses the existing oakclaw sprite.
+
 /mob/living/simple_animal/hostile/megafauna/motheroakclaw
 	name = "Oak Mother deathclaw"
 	desc = "A deathclaw so overrun by the tree minders' sap that it is more tree than beast: a full oak has grown through its back and shoulders, with roots dragging behind it. Whatever mind the sap once gave it is long gone. It moves slowly. Nothing else about it is weak."
@@ -54,7 +74,7 @@
 	/// How many targets Root Burst picks per phase
 	var/list/phase_root_targets = list(1, 2, 3)
 	/// Root Burst wind-up in deciseconds per phase: the time players have to step out
-	var/list/phase_root_delay = list(14, 11, 8)
+	var/list/phase_root_delay = list(14, 12, 10)
 	var/root_damage = 30
 	var/last_attack = 0
 
@@ -216,6 +236,7 @@
 		return
 	if(target)
 		last_combat = world.time
+		update_phase()
 		return
 	if(world.time < last_combat + 15 SECONDS || health >= maxHealth)
 		return
@@ -281,7 +302,7 @@
 	return
 
 /// Roots erupt under the nearest targets. Telegraphed: smoke on the ground and a warning for the
-/// wind-up time (14 / 11 / 8 deciseconds by phase), then the marked tiles hit whoever is still standing on them.
+/// wind-up time (14 / 12 / 10 deciseconds by phase), then the marked tiles hit whoever is still standing on them.
 /// She stands still while she casts.
 /mob/living/simple_animal/hostile/megafauna/motheroakclaw/proc/root_burst()
 	var/list/candidates = list()
