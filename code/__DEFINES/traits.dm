@@ -252,6 +252,9 @@
 #define TRAIT_FIELD_MEDIC	"field_medic" //Faster and stronger bandages and sutures
 #define TRAIT_WEAPON_MAINTENANCE	"weapon_maintenance" //Guns wear out slower and are serviced better
 #define TRAIT_STEADY_HANDS	"steady_hands" //Tighter spread
+#define TRAIT_WATER_WISE	"water_wise" //Thirst builds more slowly
+#define TRAIT_CAMPER	"camper" //Campfires burn longer and cook faster
+#define TRAIT_QUICK_CLEAN	"quick_clean" //Soap cleans faster
 #define TRAIT_DODGER_RANK1	"dodger_rank1" //Chance to fully avoid melee attacks
 #define TRAIT_DODGER_RANK2	"dodger_rank2"
 #define TRAIT_AWARENESS_RANK1	"awareness_rank1" //Chance to notice landmines in time, and sneak vision cones show from further away

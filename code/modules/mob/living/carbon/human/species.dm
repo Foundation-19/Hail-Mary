@@ -1269,7 +1269,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		H.adjust_nutrition(-hunger_rate)
 
 	if(H.stat != DEAD)
-		H.adjust_thirst(-THIRST_FACTOR)
+		H.adjust_thirst(-THIRST_FACTOR * (HAS_TRAIT(H, TRAIT_WATER_WISE) ? 0.75 : 1))
 		handle_thirst(H)
 		handle_hunger_damage(H)
 

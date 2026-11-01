@@ -1115,6 +1115,39 @@
 	gain_text = span_notice("Your hands stop shaking.")
 	lose_text = span_danger("Your hands begin to tremble.")
 
+/datum/quirk/modular/water_wise
+	name = "Water Wise"
+	desc = "You get thirsty 25% more slowly."
+	value = 2
+	trait_flags = list(TRAIT_WATER_WISE)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
+	gain_text = span_notice("You've learned to make every sip count.")
+	lose_text = span_danger("You start to feel thirsty more often.")
+
+/datum/quirk/modular/camper
+	name = "Camper"
+	desc = "Wood adds 50% more fuel to campfires, and you cook over them faster."
+	value = 2
+	trait_flags = list(TRAIT_CAMPER)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
+	gain_text = span_notice("A good fire is second nature to you.")
+	lose_text = span_danger("Your campcraft fades.")
+
+/datum/quirk/modular/quick_clean
+	name = "Quick Clean"
+	desc = "Soap cleans 40% faster."
+	value = 1
+	trait_flags = list(TRAIT_QUICK_CLEAN)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("You scrub with practiced efficiency.")
+	lose_text = span_danger("Your scrubbing slows down.")
+
 /* ------------------------------ Power Armor Training II ------------------------------ */
 //Rank 1 is /datum/quirk/pa_wear (good.dm). Rank 2 needs both Strength and Intelligence 6.
 
