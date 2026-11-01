@@ -46,14 +46,18 @@
 	var/temperature = FIRE_MINIMUM_TEMPERATURE_TO_EXIST
 	var/bypassing = FALSE
 	var/visual_update_tick = 0
+	/// FALSE for weapon fire: it still burns mobs but never ignites or destroys loot, structures and dropped items
+	var/burn_objects = TRUE
 
-/obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature)
+/obj/effect/hotspot/Initialize(mapload, starting_volume, starting_temperature, starting_burn_objects)
 	. = ..()
 	// SSair.hotspots += src
 	if(!isnull(starting_volume))
 		volume = starting_volume
 	if(!isnull(starting_temperature))
 		temperature = starting_temperature
+	if(!isnull(starting_burn_objects))
+		burn_objects = starting_burn_objects
 	perform_exposure()
 	setDir(pick(GLOB.cardinals))
 	// air_update_turf()
@@ -85,6 +89,8 @@
 
 	for(var/A in location)
 		var/atom/AT = A
+		if(!burn_objects && !isliving(AT))
+			continue
 		if(!QDELETED(AT) && AT != src) // It's possible that the item is deleted in temperature_expose
 			AT.fire_act(temperature, volume)
 	return

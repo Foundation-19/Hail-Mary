@@ -6,6 +6,10 @@
 
 // BASE MIRELURK - shared properties
 /mob/living/simple_animal/hostile/mirelurk
+	affix_pool_type = "beast"
+	affix_chance = 5
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "mirelurk"
 	desc = "A giant mutated crustacean, with a hardened exo-skeleton."
 	icon = 'icons/mob/animals/mirelurks.dmi'
@@ -103,6 +107,8 @@
 
 // MIRELURK HUNTER - bigger, meaner, faster
 /mob/living/simple_animal/hostile/mirelurk/hunter
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	name = "mirelurk hunter"
 	desc = "A giant mutated crustacean, with a hardened exoskeleton. Its appearance makes you shudder in fear. This one has giant, razor-sharp claw pincers."
 	icon_state = "mirelurkhunter"
@@ -139,6 +145,9 @@
 
 // MIRELURK BABY - small, weak, calls for help
 /mob/living/simple_animal/hostile/mirelurk/baby
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "mirelurk baby"
 	desc = "A neophyte mirelurk baby, mostly harmless. Adults respond to their chittering if distressed."
 	icon_state = "mirelurkbaby"
@@ -185,6 +194,15 @@
 
 // MIRELURK QUEEN - rare, powerful, spawns babies
 /mob/living/simple_animal/hostile/mirelurk/queen
+	variation_list = list(
+		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
+		MOB_SPEED_LIST(3.3, 3.4, 3.5),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(468, 484, 500, 532),
+	)
+	affix_chance = 0
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	name = "mirelurk queen"
 	desc = "A massive mirelurk matriarch. Her hardened carapace glistens with toxic secretions, and she guards her brood fiercely."
 	icon_state = "mirelurk"
@@ -265,6 +283,8 @@
 
 // SOFTSHELL MIRELURK - weaker variant, less armor
 /mob/living/simple_animal/hostile/mirelurk/softshell
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "softshell mirelurk"
 	desc = "A mirelurk that hasn't fully hardened its shell yet. Still dangerous, but more vulnerable."
 	icon_state = "mirelurk"
@@ -295,6 +315,15 @@
 
 // KING MIRELURK - rare boss variant
 /mob/living/simple_animal/hostile/mirelurk/king
+	variation_list = list(
+		MOB_COLOR_VARIATION(100, 100, 100, 255, 255, 255),
+		MOB_SPEED_LIST(3.3, 3.4, 3.5),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(10),
+		MOB_HEALTH_LIST(327, 339, 350, 373),
+	)
+	affix_chance = 0
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 8
 	name = "mirelurk king"
 	desc = "A towering humanoid mirelurk with a distinctive crown-like crest. Highly intelligent and extremely dangerous."
 	icon_state = "mirelurkhunter"
@@ -453,3 +482,86 @@
 	icon_state = "egg"
 	list_reagents = list(/datum/reagent/consumable/nutriment = 10, /datum/reagent/consumable/nutriment/vitamin = 3)
 	foodtype = MEAT
+
+// ============================================================
+// FOG CRAWLER
+// Mirelurk-adjacent armored ambusher. Moves through thick mist: nearly invisible while idle,
+// reveals itself when it aggros, and fades back after losing its target.
+// Child of mirelurk so it keeps the mirelurk sprite, sounds and pack call.
+// ============================================================
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler
+	affix_pool_type = "beast"
+	affix_chance = 4
+	name = "fog crawler"
+	desc = "A mirelurk-like crustacean with a mottled grey-blue shell that blends into the mist. It lies still until you are close, then comes at you fast."
+	color = "#8fa3ad"
+	mob_armor = ARMOR_VALUE_FOG_CRAWLER
+	maxHealth = 260
+	health = 260
+	melee_damage_lower = 18
+	melee_damage_upper = 30
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
+	pop_required_to_jump_into = BIG_MOB_MIN_PLAYERS
+	var/cloak_alpha = 80
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.4, 2.6, 2.8),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(40),
+		MOB_HEALTH_LIST(240, 260, 280)
+	)
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/Initialize(mapload)
+	. = ..()
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/Aggro()
+	. = ..()
+	alpha = 255
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/LoseTarget()
+	. = ..()
+	addtimer(CALLBACK(src, PROC_REF(recloak)), 5 SECONDS)
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/proc/recloak()
+	if(QDELETED(src) || stat == DEAD || target)
+		return
+	alpha = cloak_alpha
+
+/mob/living/simple_animal/hostile/mirelurk/fogcrawler/death(gibbed)
+	alpha = 255
+	. = ..()
+
+// ============================================================
+// GLOWING MIRELURK
+// Irradiated mirelurk. Tougher, glows, and each bite adds radiation. A middle tier between the
+// standard mirelurk and the hunter.
+// ============================================================
+
+/mob/living/simple_animal/hostile/mirelurk/glowing
+	affix_pool_type = "beast"
+	affix_chance = 4
+	name = "glowing mirelurk"
+	desc = "A mirelurk that has soaked up far too much radiation. Its shell gives off a sickly green light and its bite burns."
+	color = "#99ff99"
+	light_range = 2
+	light_color = "#99ff66"
+	maxHealth = 190
+	health = 190
+	melee_damage_lower = 8
+	melee_damage_upper = 20
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.6, 2.8, 3.0),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(40),
+		MOB_HEALTH_LIST(180, 190, 200)
+	)
+
+/mob/living/simple_animal/hostile/mirelurk/glowing/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.apply_effect(15, EFFECT_IRRADIATE, 0)

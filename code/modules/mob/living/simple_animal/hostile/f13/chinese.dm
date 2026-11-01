@@ -6,6 +6,8 @@
 
 // BASE - melee ghoul soldier
 /mob/living/simple_animal/hostile/chinese
+	affix_pool_type = "human"
+	affix_chance = 6
 	name = "chinese remnant soldier"
 	desc = "Chinese soldiers who survived the Great War via ghoulification, and now shoot anything that isn't their own on sight."
 	icon = 'icons/mob/humans/ghouls.dmi'
@@ -24,6 +26,8 @@
 	
 	melee_damage_lower = 20
 	melee_damage_upper = 38
+	armour_penetration = 0.1
+	damage_threshold_penetration_mob = 4
 	harm_intent_damage = 8
 	
 	robust_searching = TRUE
@@ -93,6 +97,8 @@
 
 // PISTOL SOLDIER - ranged variant
 /mob/living/simple_animal/hostile/chinese/ranged
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "chinese remnant soldier"
 	icon_state = "chinesepistol"
 	icon_living = "chinesepistol"
@@ -112,7 +118,7 @@
 	minimum_distance = 1
 	
 	ranged_cooldown_time = 2 SECONDS
-	projectiletype = /obj/item/projectile/bullet/c9mm/simple
+	projectiletype = /obj/item/projectile/bullet/c9mm/simple/pen
 	projectilesound = 'sound/f13weapons/ninemil.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
@@ -127,6 +133,8 @@
 
 // ASSAULT SOLDIER - burst fire rifle
 /mob/living/simple_animal/hostile/chinese/ranged/assault
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "chinese remnant assault soldier"
 	icon_state = "chineseassault"
 	icon_living = "chineseassault"
@@ -143,7 +151,7 @@
 	
 	// Pure ranged - assault rifle
 	ranged_cooldown_time = 15
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
@@ -163,6 +171,8 @@
 	summon_backup(10)
 
 /mob/living/simple_animal/hostile/chinese/ranged/stealth
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "chinese remnant infiltrator"
 	icon_state = "chinesestealth"
 	icon_living = "chinesestealth"
@@ -170,7 +180,7 @@
 	health = 100
 	extra_projectiles = 4
 	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/assault, /obj/item/gun/ballistic/automatic/type93, /obj/item/ammo_box/magazine/m556/rifle/assault,/obj/item/clothing/under/f13/chinasuitcosmetic,/obj/item/clothing/head/f13/chinahelmetcosmetic)
-	projectiletype = /obj/item/projectile/bullet/a556/simple
+	projectiletype = /obj/item/projectile/bullet/a556/simple/pen
 	projectilesound = 'sound/f13weapons/assaultrifle_fire.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
@@ -182,4 +192,41 @@
 		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
 		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
 	)
-	
+
+// ============================================================
+// CHINESE REMNANT SNIPER - frail, patient, drops no gun
+// ============================================================
+
+/mob/living/simple_animal/hostile/chinese/ranged/sniper
+	name = "chinese remnant sniper"
+	desc = "A Chinese remnant soldier in a tattered coat with a long rifle across its arms. The old doctrine said to wait; this one has had decades of practice."
+	maxHealth = 95
+	health = 95
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	loot = list(/obj/effect/mob_spawn/human/corpse/chineseremnant/pistol)
+
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 9
+	minimum_distance = 6
+	vision_range = 11
+	aggro_vision_range = 11
+
+	sight_shoot_delay_time = 1.5 SECONDS
+	ranged_cooldown_time = 6 SECONDS
+	extra_projectiles = 0
+	casingtype = null
+	projectiletype = /obj/item/projectile/bullet/a762/sport/simple/sniper
+	projectilesound = 'sound/f13weapons/hunting_rifle.ogg'
+	ranged_message = "takes a careful shot"
+	projectile_sound_properties = list(
+		SP_VARY(FALSE),
+		SP_VOLUME(RIFLE_LIGHT_VOLUME),
+		SP_VOLUME_SILENCED(RIFLE_LIGHT_VOLUME * SILENCED_VOLUME_MULTIPLIER),
+		SP_NORMAL_RANGE(RIFLE_LIGHT_RANGE),
+		SP_NORMAL_RANGE_SILENCED(SILENCED_GUN_RANGE),
+		SP_IGNORE_WALLS(TRUE),
+		SP_DISTANT_SOUND(RIFLE_LIGHT_DISTANT_SOUND),
+		SP_DISTANT_RANGE(RIFLE_LIGHT_RANGE_DISTANT)
+	)

@@ -13,6 +13,8 @@
 
 // BASE HANDY - melee saw bot
 /mob/living/simple_animal/hostile/handy
+	affix_pool_type = "robot"
+	affix_chance = 4
 	name = "mr. handy"
 	desc = "A crazed pre-war household assistant robot, armed with a cutting saw."
 	icon = 'icons/mob/robots/wasterobots.dmi'
@@ -30,6 +32,8 @@
 	
 	melee_damage_lower = 12
 	melee_damage_upper = 24
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	
 	robust_searching = TRUE
 	stat_attack = CONSCIOUS
@@ -133,6 +137,9 @@
 
 // PLAYABLE HANDY
 /mob/living/simple_animal/hostile/handy/playable
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 300
 	health = 300
 	attack_verb_simple = "shoots a burst of flame at"
@@ -170,12 +177,14 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 130 // bumped - TTK vs melee was too short
-	health = 130
+	maxHealth = 230 // bumped - TTK vs melee was too short
+	health = 230
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 18
 	melee_damage_upper = 64
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	attack_sound = 'sound/items/welder.ogg'
 	attack_verb_simple = "shoots a burst of flame at"
 	
@@ -234,6 +243,11 @@
 
 // PLAYABLE GUTSY
 /mob/living/simple_animal/hostile/handy/gutsy/playable
+	maxHealth = 130
+	health = 130
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	speed = 1
 	attack_verb_simple = "shoots a burst of flame at"
 	see_in_dark = 8
@@ -290,6 +304,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	attack_verb_simple = "slaps"
 	
 	can_ghost_into = FALSE
@@ -351,12 +367,14 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_SECURITY
 	
-	maxHealth = 145 // bumped - TTK vs melee was too short
-	health = 145
+	maxHealth = 180 // bumped - TTK vs melee was too short
+	health = 180
 	stat_attack = UNCONSCIOUS
 	
 	melee_damage_lower = 15
 	melee_damage_upper = 37
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	attack_verb_simple = "slaps"
 	
 	can_ghost_into = FALSE
@@ -422,14 +440,16 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_CIVILIAN
 	
-	maxHealth = 130 // bumped - TTK vs melee was too short
-	health = 130
+	maxHealth = 90 // bumped - TTK vs melee was too short
+	health = 90
 	speed = 4  // Noticeably slow
 	move_to_delay = 4
 	stat_attack = CONSCIOUS
 	
 	melee_damage_lower = 5  // Weak melee - it's a ranged bot
 	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	
 	aggro_vision_range = 7
 	vision_range = 8
@@ -504,8 +524,13 @@
 
 // PLAYABLE PROTECTRON
 /mob/living/simple_animal/hostile/handy/protectron/playable
+	maxHealth = 130
+	health = 130
+	affix_chance = 0
 	melee_damage_lower = 25
 	melee_damage_upper = 38
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	speed = 2
 	attack_verb_simple = "clamps"
 	see_in_dark = 8
@@ -587,14 +612,16 @@
 	mob_biotypes = MOB_ROBOTIC|MOB_INORGANIC
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 130 // bumped - TTK vs melee was too short
-	health = 130
+	maxHealth = 200 // bumped - TTK vs melee was too short
+	health = 200
 	speed = 1  // Fast for a robot
 	stat_attack = UNCONSCIOUS
 	gender = FEMALE
 	
 	melee_damage_lower = 18
 	melee_damage_upper = 45
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	attack_verb_simple = "grinds their claws on"
 	
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES
@@ -635,6 +662,9 @@
 
 // MARTHA - unique named assaultron
 /mob/living/simple_animal/hostile/handy/assaultron/martha
+	affix_chance = 0
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
 	name = "lil martha"
 	desc = "A deadly close combat robot developed by RobCo and covered in thick, dark blue armor plating, the name 'lil martha' scratched onto it."
 	
@@ -653,6 +683,9 @@
 
 
 /mob/living/simple_animal/hostile/handy/assaultron/ensign
+	affix_chance = 0
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 8
 	name = "Ensign DEADLOCK"
 	desc = "Guadrian of the USS Iron Shadow, this assaultron is a heavely armored assaultron."
 	
@@ -671,6 +704,11 @@
 
 // PLAYABLE ASSAULTRON
 /mob/living/simple_animal/hostile/handy/assaultron/playable
+	maxHealth = 130
+	health = 130
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	see_in_dark = 8
 	force_threshold = 15
 	wander = FALSE
@@ -683,6 +721,11 @@
 
 // SA-S-E - medical assaultron
 /mob/living/simple_animal/hostile/handy/assaultron/playable/medical
+	maxHealth = 130
+	health = 130
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "SA-S-E"
 	desc = "An Assaultron modified for the Medical field, SA-S-E forgoes the weaponry and deadliness of her military counterparts to save lives. Painted white with blue highlights, and a blue cross on the front of her visor, this robot comes equipped with what looks like modified medical gear. Her head has no eye-laser, instead a gently pulsing blue eye that scans people to analyze their health, a defibrillator on her back, and articulated hands to be able to use the myriad medical tools strapped to parts of her body under protective cases all show this model is meant to save lives."
 	icon_state = "assaultron_sase"
