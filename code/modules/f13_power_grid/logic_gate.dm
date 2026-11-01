@@ -102,12 +102,25 @@
 				states += up:powered ? TRUE : FALSE
 			else if(istype(up, /obj/machinery/f13/power_relay))
 				states += up:relay_powered ? TRUE : FALSE
-	set_relay_power(_compute(states))
+	// A gate only passes power that actually exists: something upstream must be live. Without this,
+	// NOT / NAND / NOR output TRUE from dead inputs and conjured power from nothing (and no
+	// generator ever budgeted the load).
+	var/any_live = FALSE
+	for(var/s in states)
+		if(s)
+			any_live = TRUE
+			break
+	set_relay_power(any_live && _compute(states))
 
 
 // ============================================================
 // INPUT CAPPING — enforce max_inputs when wiring relay→gate
 // ============================================================
+
+/// Input cap on every wiring path (generator links and cable scans included, not just relay-to-gate).
+/obj/machinery/f13/logic_gate/can_accept_upstream(obj/new_up)
+	var/cur = upstream_refs ? upstream_refs.len : 0
+	return cur < gate_max_inputs()
 
 /obj/machinery/f13/logic_gate/set_upstream_relay(obj/machinery/f13/power_relay/parent, mob/user)
 	var/cur = upstream_refs ? upstream_refs.len : 0

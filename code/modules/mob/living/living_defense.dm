@@ -180,7 +180,7 @@
 				if(!I.throwforce)
 					return
 				var/armor = run_armor_check(impacting_zone, "melee", "Your armor has protected your [parse_zone(impacting_zone)].", "Your armor has softened hit to your [parse_zone(impacting_zone)].",I.armour_penetration)
-				var/dt = max(run_armor_check("damage_threshold", "melee", null, null, 0, null) - I.damage_threshold_penetration, 0)
+				var/dt = max(run_armor_check(impacting_zone, "damage_threshold", null, null, 0, null) - I.damage_threshold_penetration, 0)
 				apply_damage(I.throwforce, dtype, impacting_zone, armor, sharpness=I.get_sharpness(), wound_bonus=(nosell_hit * CANT_WOUND), damage_threshold = dt)
 		else
 			return 1

@@ -1038,6 +1038,22 @@
 	pixels_per_second = BULLET_SPEED_PISTOL_44_HANDLOAD
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_HEAVY
 
+
+/obj/item/projectile/bullet/c9mm/simple/pen
+	damage_threshold_penetration = 2
+
+/obj/item/projectile/bullet/c10mm/simple/pen
+	damage_threshold_penetration = 2
+
+/obj/item/projectile/bullet/c45/simple/pen
+	damage_threshold_penetration = 2
+
+/obj/item/projectile/bullet/c45/op/pen
+	damage_threshold_penetration = 3
+
+/obj/item/projectile/bullet/m44/simple/pen
+	damage_threshold_penetration = 3
+
 /* 44 fire
  * DAMAGE: 22
  * STAMIN: 26

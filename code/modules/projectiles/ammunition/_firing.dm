@@ -106,7 +106,8 @@
 		if(target) //if the target is right on our location we'll skip the travelling code in the proj's fire()
 			direct_target = target
 	if(!direct_target)
-		BB.preparePixelProjectile(target, user, params, spread)
+		// Earlier pellets can destroy the target; keep firing at its last known turf.
+		BB.preparePixelProjectile(get_turf(target) ? target : targloc, user, params, spread)
 	BB.fire(null, direct_target, spread)
 	BB = null
 	deduct_powder_and_bullet_mats()

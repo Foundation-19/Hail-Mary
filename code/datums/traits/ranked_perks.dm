@@ -34,6 +34,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_mods, list(
 	/datum/crafting_recipe/heatsink,
 	/datum/crafting_recipe/laserguide,
 	/datum/crafting_recipe/gigalens,
+	/datum/crafting_recipe/focusing_lens,
 	/datum/crafting_recipe/gun/flintlock))
 
 GLOBAL_LIST_INIT(gunsmith_recipes_master, list(

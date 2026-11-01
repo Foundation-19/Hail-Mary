@@ -6,6 +6,10 @@
 
 // BASE GIANT ANT
 /mob/living/simple_animal/hostile/giantant
+	affix_pool_type = "insect"
+	affix_chance = 4
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "giant ant"
 	desc = "A giant ant with twitching, darting antennae. Its outsides are a mixture of crusted, unrotting rock and chitin that bounce off bullets and melee weapons. Hardened insides compact once valueless sand and dirt to gemstones. Can be butchered down the thorax for minerals and shinies."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -99,6 +103,10 @@
 
 // FIRE ANT - applies burning reagent
 /mob/living/simple_animal/hostile/fireant
+	affix_pool_type = "insect"
+	affix_chance = 4
+	armour_penetration = 0.05
+	damage_threshold_penetration_mob = 2
 	name = "fire ant"
 	desc = "A large reddish ant. The furnace it holds inside itself blasts intruders and the dirt it chews with flaming heat. Its insides contain more gemstones than its unremarkable kin."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -195,6 +203,8 @@
 
 // ANT QUEEN - boss variant, spawns ants
 /mob/living/simple_animal/hostile/giantantqueen
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "giant ant queen"
 	desc = "The queen of a giant ant colony. Butchering it seems like a good way to make a pretty penny."
 	icon = 'icons/mob/animals/antqueen.dmi'
@@ -329,6 +339,10 @@
 
 // BASE RADSCORPION
 /mob/living/simple_animal/hostile/radscorpion
+	affix_pool_type = "venomous"
+	affix_chance = 5
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
 	name = "giant radscorpion"
 	desc = "A mutated arthropod with an armored carapace and a powerful sting."
 	icon = 'icons/mob/animals/insects.dmi'
@@ -417,10 +431,14 @@
 	update_icons()
 
 /mob/living/simple_animal/hostile/radscorpion/proc/scorpion_randomify()
+	// Black and blue radscorpions are their own types with their own sprites: leave them alone.
+	if(type != /mob/living/simple_animal/hostile/radscorpion)
+		return
 	scorpion_color = pick(icon_sets)
 	icon_state = "[scorpion_color]"
 	icon_living = "[scorpion_color]"
-	icon_dead = "[scorpion_color]_dead"
+	// the plain sprite uses _dead, the black and blue ones use _d
+	icon_dead = (scorpion_color == "radscorpion") ? "radscorpion_dead" : "[scorpion_color]_d"
 
 /mob/living/simple_animal/hostile/radscorpion/Aggro()
 	. = ..()
@@ -443,6 +461,8 @@
 
 // BLACK RADSCORPION - tougher, slower
 /mob/living/simple_animal/hostile/radscorpion/black
+	armour_penetration = 0.2
+	damage_threshold_penetration_mob = 6
 	name = "black radscorpion"
 	desc = "A giant irradiated scorpion with a black exoskeleton. Its appearance makes you shudder in fear. This one has giant pincers."
 	icon_state = "radscorpion_black"
@@ -451,8 +471,8 @@
 	
 	mob_armor = ARMOR_VALUE_RADSCORPION_BLACK
 	
-	maxHealth = 205 // bumped - TTK vs melee was too short
-	health = 205
+	maxHealth = 240 // bumped - TTK vs melee was too short
+	health = 240
 	speed = 1.2
 	
 	melee_damage_lower = 10
@@ -487,8 +507,8 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	mob_armor = ARMOR_VALUE_CAZADOR
 	
-	maxHealth = 24
-	health = 24
+	maxHealth = 200
+	health = 200
 	speed = 1
 	move_to_delay = 2.5
 	turns_per_move = 5
@@ -593,8 +613,8 @@
 	name = "young cazador"
 	desc = "A mutated insect known for its fast speed, deadly sting, and being huge bastards. This one's little."
 	
-	maxHealth = 20
-	health = 20
+	maxHealth = 100
+	health = 100
 	speed = 1
 	
 	melee_damage_lower = 5
@@ -858,3 +878,348 @@
 // JUNGLE RADROACH - friendly variant
 /mob/living/simple_animal/hostile/radroach/jungle
 	faction = list("gecko", "critter-friend", "jungle")
+
+// ============================================================
+// GIANT MANTIS
+// Fast ambusher with razor forelegs. Medium HP, low armor, wounds easily.
+// ============================================================
+
+/mob/living/simple_animal/hostile/mantis
+	affix_pool_type = "insect"
+	affix_chance = 4
+	name = "giant mantis"
+	desc = "A mutated predatory insect the size of a person, folded forelegs lined with serrated spines. It watches your every move and waits for you to come within reach."
+	icon = 'icons/mob/animals/insects.dmi'
+	icon_state = "GiantAnt" // placeholder
+	icon_living = "GiantAnt"
+	icon_dead = "GiantAnt_dead"
+	icon_gib = "GiantAnt_gib"
+	color = "#7fb069"
+
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+	mob_armor = ARMOR_VALUE_MANTIS
+
+	maxHealth = 110
+	health = 110
+	speed = 1
+	move_to_delay = 2.5
+	turns_per_move = 5
+
+	melee_damage_lower = 10
+	melee_damage_upper = 22
+	harm_intent_damage = 8
+	obj_damage = 20
+	sharpness = SHARP_EDGED
+	armour_penetration = 0.15
+	damage_threshold_penetration_mob = 4
+	wound_bonus = 15
+	bare_wound_bonus = 20
+
+	aggro_vision_range = 5
+	vision_range = 6
+
+	guaranteed_butcher_results = list(
+		/obj/item/stack/sheet/sinew = 1,
+		/obj/item/stack/sheet/animalhide/chitin = 2,
+		/obj/item/stack/sheet/bone = 1
+	)
+	butcher_difficulty = 1.5
+
+	response_help_simple = "pets"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "hits"
+
+	speak_emote = list("clicks", "chitters")
+	attack_verb_simple = list("slashes", "skewers")
+	attack_sound = 'sound/creatures/radroach_attack.ogg'
+
+	emote_taunt = list("clicks its mandibles")
+	emote_taunt_sound = 'sound/creatures/radroach_chitter.ogg'
+	taunt_chance = 30
+
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+
+	faction = list("mantis")
+	a_intent = INTENT_HARM
+	gold_core_spawnable = HOSTILE_SPAWN
+	decompose = FALSE
+	blood_volume = 0
+
+	can_ghost_into = TRUE
+	pop_required_to_jump_into = MED_MOB_MIN_PLAYERS
+
+	// Z-movement
+	can_z_move = TRUE
+	can_climb_ladders = FALSE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 40
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
+	// Pure melee
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+
+/mob/living/simple_animal/hostile/mantis/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(6)
+
+/mob/living/simple_animal/hostile/mantis/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+// ============================================================
+// BLOODBUG
+// Flying blood-drinker. Each bite drains blood and heals the bug.
+// Fragile, so it dies fast if you can hit it.
+// ============================================================
+
+/mob/living/simple_animal/hostile/bloodbug
+	affix_pool_type = "bloodsucker"
+	affix_chance = 4
+	name = "bloodbug"
+	desc = "A mutated mosquito the size of a dog, its swollen abdomen red with its last meal. It wants more."
+	icon = 'icons/mob/animals/insects.dmi'
+	icon_state = "bloatfly" // placeholder
+	icon_living = "bloatfly"
+	icon_dead = "bloatfly_dead"
+	icon_gib = null
+	color = "#b03a3a"
+
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+
+	maxHealth = 35
+	health = 35
+	speed = 1
+	move_to_delay = 2.5
+	turns_per_move = 5
+
+	melee_damage_lower = 4
+	melee_damage_upper = 9
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	harm_intent_damage = 8
+	obj_damage = 15
+	rapid_melee = 2
+
+	aggro_vision_range = 6
+	vision_range = 7
+	has_low_light_vision = TRUE
+
+	guaranteed_butcher_results = list(
+		/obj/item/stack/sheet/sinew = 1,
+		/obj/item/stack/sheet/animalhide/chitin = 1
+	)
+	butcher_difficulty = 1.5
+
+	response_help_simple = "pets"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "hits"
+
+	speak_emote = list("buzzes")
+	attack_verb_simple = "bites"
+	attack_sound = 'sound/creatures/bloatfly_attack.ogg'
+	idlesound = list('sound/f13npc/bloatfly/fly.ogg')
+
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+
+	faction = list("gecko", "critter-friend")
+	a_intent = INTENT_HARM
+	gold_core_spawnable = HOSTILE_SPAWN
+	decompose = FALSE
+	blood_volume = 0
+
+	movement_type = FLYING
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
+
+	can_ghost_into = TRUE
+	desc_short = "A giant mosquito that drains blood. Fragile, but heals when it bites."
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
+	// Z-movement - flies
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 20
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
+	// Pure melee - flying harasser
+	combat_mode = COMBAT_MODE_MELEE
+	retreat_distance = null
+	minimum_distance = 1
+
+	var/blood_drain = 15 // blood_volume taken per bite
+	var/bite_heal = 4 // HP restored per bite
+
+/mob/living/simple_animal/hostile/bloodbug/Initialize(mapload)
+	. = ..()
+	resize = 0.8
+	update_transform()
+
+/mob/living/simple_animal/hostile/bloodbug/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(6)
+
+/mob/living/simple_animal/hostile/bloodbug/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+/mob/living/simple_animal/hostile/bloodbug/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		if(H.blood_volume > 0)
+			H.blood_volume = max(0, H.blood_volume - blood_drain)
+			adjustBruteLoss(-bite_heal)
+
+// ============================================================
+// STINGWING
+// Flying ranged harasser. Spits venom from a distance and keeps its distance.
+// Reuses /obj/item/projectile/bile from the ant queen (damage 20, adds toxin).
+// ============================================================
+
+/mob/living/simple_animal/hostile/stingwing
+	name = "stingwing"
+	desc = "A mutated flying insect with a long barbed tail and a ruff of venomous spines. It hovers just out of reach, spitting."
+	icon = 'icons/mob/animals/insects.dmi'
+	icon_state = "bloatfly" // placeholder
+	icon_living = "bloatfly"
+	icon_dead = "bloatfly_dead"
+	icon_gib = null
+	color = "#d9b347"
+
+	mob_biotypes = MOB_ORGANIC|MOB_BEAST
+
+	maxHealth = 45
+	health = 45
+	speed = 1
+	move_to_delay = 3
+	turns_per_move = 5
+
+	melee_damage_lower = 4
+	melee_damage_upper = 8
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	harm_intent_damage = 8
+	obj_damage = 15
+
+	aggro_vision_range = 7
+	vision_range = 8
+
+	guaranteed_butcher_results = list(
+		/obj/item/stack/sheet/sinew = 1,
+		/obj/item/stack/sheet/animalhide/chitin = 1
+	)
+	butcher_difficulty = 1.5
+
+	response_help_simple = "pets"
+	response_disarm_simple = "gently pushes aside"
+	response_harm_simple = "hits"
+
+	speak_emote = list("buzzes", "whines")
+	attack_verb_simple = "stings"
+	attack_sound = 'sound/creatures/bloatfly_attack.ogg'
+	idlesound = list('sound/f13npc/bloatfly/fly.ogg')
+
+	atmos_requirements = list("min_oxy" = 5, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 1, "min_co2" = 0, "max_co2" = 5, "min_n2" = 0, "max_n2" = 0)
+
+	faction = list("gecko", "critter-friend")
+	a_intent = INTENT_HARM
+	gold_core_spawnable = HOSTILE_SPAWN
+	decompose = FALSE
+	blood_volume = 0
+
+	movement_type = FLYING
+	pass_flags = PASSTABLE | PASSMOB
+	density = FALSE
+
+	can_ghost_into = TRUE
+	desc_short = "A flying insect that spits venom from a distance."
+	pop_required_to_jump_into = SMALL_MOB_MIN_PLAYERS
+
+	// Z-movement - flies
+	can_z_move = TRUE
+	can_climb_ladders = TRUE
+	can_climb_stairs = TRUE
+	can_jump_down = TRUE
+	z_move_delay = 20
+
+	can_open_doors = FALSE
+	can_open_airlocks = FALSE
+
+	// Mixed combat - keeps distance and spits
+	combat_mode = COMBAT_MODE_RANGED
+	ranged = TRUE
+	retreat_distance = 4
+	minimum_distance = 2
+
+	ranged_message = "spits venom"
+	ranged_cooldown_time = 4 SECONDS
+	projectiletype = /obj/item/projectile/bile
+	projectilesound = 'sound/f13npc/centaur/spit.ogg'
+
+/mob/living/simple_animal/hostile/stingwing/Initialize(mapload)
+	. = ..()
+	resize = 0.9
+	update_transform()
+
+/mob/living/simple_animal/hostile/stingwing/Aggro()
+	. = ..()
+	if(!ckey)
+		summon_backup(6)
+
+/mob/living/simple_animal/hostile/stingwing/CanAttack(atom/the_target)
+	if(isliving(the_target))
+		var/mob/living/L = the_target
+		if(L.stat >= UNCONSCIOUS)
+			return FALSE
+	return ..()
+
+// ============================================================
+// GLOWING RADROACH
+// An irradiated radroach. Slightly tougher, glows, and each bite adds radiation.
+// Inherits radroach aggro/CanAttack/faction. Defines its own variation_list because the
+// radroach list (5-20 HP, color variation) would otherwise override these numbers and tint.
+// ============================================================
+
+/mob/living/simple_animal/hostile/radroach/glowing
+	name = "glowing radroach"
+	desc = "A radroach that has soaked up far too much radiation. It glows a sickly green and leaves a faint trail behind it."
+	color = "#99ff66"
+	maxHealth = 30
+	health = 30
+	melee_damage_lower = 5
+	melee_damage_upper = 9
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
+	light_range = 2
+	light_color = "#99ff66"
+	desc_short = "A glowing, irradiated bug. Its bite is radioactive."
+
+	variation_list = list(
+		MOB_SPEED_LIST(2.0, 2.2, 2.4),
+		MOB_SPEED_CHANGE_PER_TURN_CHANCE(100),
+		MOB_HEALTH_LIST(26, 30, 34)
+	)
+
+/mob/living/simple_animal/hostile/radroach/glowing/AttackingTarget()
+	. = ..()
+	if(. && ishuman(target))
+		var/mob/living/carbon/human/H = target
+		H.apply_effect(10, EFFECT_IRRADIATE, 0)
+

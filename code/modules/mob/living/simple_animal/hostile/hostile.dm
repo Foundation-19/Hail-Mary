@@ -397,6 +397,7 @@
 
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
+	roll_affix()
 
 	if(!targets_from)
 		targets_from = src
@@ -2069,6 +2070,9 @@
 		
 		if(can_shoot)
 			var/fired = OpenFire(target)
+			// OpenFire can sleep while an attack runs, allowing the target to be lost.
+			if(QDELETED(src) || QDELETED(target))
+				return 0
 			if(!fired || is_shot_blocked(target))
 				if(retreat_distance != null && abs(target_distance - retreat_distance) <= 2)
 					var/turf/better_position = find_firing_position(target)
@@ -2526,14 +2530,19 @@
 		end_light_patrol()
 		return
 	
-	// Pick furthest turf
-	var/turf/furthest = null
-	var/furthest_dist = 0
+	// Pick a random turf from the furthest ring (within 1 tile of the max distance).
+	// The old loop kept the first turf found at the max distance, which is always the same turf because
+	// range() iterates in a fixed order, so every patrol went the same direction.
+	var/max_dist = 0
 	for(var/turf/T in candidate_turfs)
-		var/dist = get_dist(patrol_home, T)
-		if(dist > furthest_dist)
-			furthest_dist = dist
-			furthest = T
+		max_dist = max(max_dist, get_dist(patrol_home, T))
+	var/list/far_turfs = list()
+	for(var/turf/T in candidate_turfs)
+		if(get_dist(patrol_home, T) >= max_dist - 1)
+			far_turfs += T
+	var/turf/furthest = null
+	if(far_turfs.len)
+		furthest = pick(far_turfs)
 	
 	if(!furthest)
 		end_light_patrol()
@@ -4424,6 +4433,7 @@
 
 /mob/living/simple_animal/hostile/death(gibbed)
 	LoseTarget()
+	affix_death()
 	..(gibbed)
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance, exact_faction_match)
@@ -4617,6 +4627,8 @@
 			addtimer(cb, (i - 1)*rapid_fire_delay, TIMER_DELETE_ME)
 	else
 		Shoot(A)
+		if(QDELETED(src)) // firing can delete the shooter (e.g. a despawning or self-destructing mob)
+			return
 		for(var/i in 1 to extra_projectiles)
 			addtimer(CALLBACK(src, PROC_REF(Shoot), A), i * auto_fire_delay, TIMER_DELETE_ME)
 	ranged_cooldown = world.time + ranged_cooldown_time

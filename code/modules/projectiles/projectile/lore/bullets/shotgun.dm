@@ -23,6 +23,9 @@
 	zone_accuracy_type = ZONE_WEIGHT_SHOTGUN
 
 
+/obj/item/projectile/bullet/pellet/shotgun_buckshot/pen
+	damage_threshold_penetration = 3
+
 //ratshot pellet: 6 damage instead of 8, fewer pellets. would make many tiny damage pellets but performance
 /obj/item/projectile/bullet/pellet/shotgun_ratshot
 	name = "ratshot pellet"
@@ -228,6 +231,32 @@
 
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 	sharpness = SHARP_NONE
+
+/* Flamer mutant burst: three short gouts per volley. Armor and DT do not stop the burn, so it
+ * trades slug damage for DT penetration and heavier ignition (fire stacks carry the real damage).
+ */
+/obj/item/projectile/bullet/incendiary/shotgun/flamer
+	name = "gout of flame"
+	damage = 9
+	armour_penetration = 0.1
+	damage_threshold_penetration = 6
+	fire_stacks = 6
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
+
+/obj/item/projectile/bullet/incendiary/shotgun/flamer/on_hit(atom/target, blocked = FALSE)
+	. = ..()
+	if(isliving(target) && blocked < 100)
+		var/mob/living/L = target
+		L.apply_status_effect(/datum/status_effect/flame_afterburn)
+
+/* 12g pellet fire
+ * DAMAGE: 5
+ * STAMIN: 5
+ * RECOIL: 2
+ * WOUNDS: 0
+ * WNAKED: 0
+ */
+/obj/item/projectile/bullet/incendiary/shotgun/dragonsbreath
 
 /* 12g pellet fire
  * DAMAGE: 5
