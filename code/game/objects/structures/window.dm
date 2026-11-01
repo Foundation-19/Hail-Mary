@@ -150,7 +150,7 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 	if(fulltile)
 		return FALSE
 
-	if(border_dir == dir)
+	if(border_dir & dir) //bitwise so diagonal entries (projectiles step diagonally) can't slip past the blocked side
 		return FALSE
 
 	if(istype(mover, /obj/structure/window))
@@ -174,7 +174,7 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 	if (fulltile)
 		return
 
-	if(direction == dir && density)
+	if((direction & dir) && density)
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 

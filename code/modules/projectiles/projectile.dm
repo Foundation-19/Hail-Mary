@@ -732,6 +732,10 @@
 					if(!T)
 						break  // Target turf became null, stop moving
 					CRASH("[type] took too long (allowed: [CEILING(pixel_increment_amount/world.icon_size,1)*10] moves) to get to its location.")
+				var/atom/corner_blocker = diagonal_corner_blocker(T)
+				if(corner_blocker)
+					Bump(corner_blocker)
+					break
 				if(!step_towards(src, T))
 					break  // Projectile blocked or can't move, stop trying
 				if(QDELETED(src) || pixel_move_interrupted)		// this doesn't take into account with pixel_move_interrupted the portion of the move cut off by any forcemoves, but we're opting to ignore that for now
@@ -754,6 +758,32 @@
 		else
 			pixel_x = traj_px
 			pixel_y = traj_py
+
+/// A diagonal step only checks the destination tile, so a shot could slip between two blocked corner tiles (e.g. window/wall lines). Returns the blocker to hit if both corners are blocked.
+/obj/item/projectile/proc/diagonal_corner_blocker(turf/dest)
+	var/move_dir = get_dir(loc, dest)
+	if(!(move_dir & (move_dir - 1)) || CHECK_BITFIELD(movement_type, UNSTOPPABLE) || (pass_flags & PASSCLOSEDTURF))
+		return null
+	var/atom/first_blocker
+	for(var/corner_dir in list(move_dir & (NORTH|SOUTH), move_dir & (EAST|WEST)))
+		var/turf/corner = get_step(loc, corner_dir)
+		if(!corner)
+			return null
+		var/atom/blocker
+		if(corner.density)
+			blocker = corner
+		else
+			for(var/atom/movable/AM in corner)
+				if(ismob(AM))
+					continue
+				if(AM.density && !(AM in permutated) && !AM.CanPass(src, get_dir(AM, src)))
+					blocker = AM
+					break
+		if(!blocker)
+			return null
+		if(!first_blocker)
+			first_blocker = blocker
+	return first_blocker
 
 /obj/item/projectile/proc/set_homing_target(atom/A)
 	if(!A || (!isturf(A) && !isturf(A.loc)))
