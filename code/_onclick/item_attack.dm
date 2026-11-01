@@ -16,7 +16,7 @@
 		if(min_reach && GET_DIST_EUCLIDEAN(user, target) < min_reach)
 			return
 	. = attackchain_flags
-	if(tool_behaviour && ((. = target.tool_act(user, src, tool_behaviour)) & STOP_ATTACK_PROC_CHAIN))
+	if(tool_behaviour && ((. |= target.tool_act(user, src, tool_behaviour)) & STOP_ATTACK_PROC_CHAIN))
 		return
 	if((. |= pre_attack(target, user, params, ., damage_multiplier)) & STOP_ATTACK_PROC_CHAIN)
 		return

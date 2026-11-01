@@ -1712,7 +1712,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	var/armor_block = H.run_armor_check(affecting, "melee", span_notice("Your armor has protected your [hit_area]."), span_notice("Your armor has softened a hit to your [hit_area]."),I.armour_penetration)
 	armor_block = min(90,armor_block) //cap damage reduction at 90%
-	var/dt = max(H.run_armor_check(def_zone, "damage_threshold") - I.damage_threshold_penetration, 0)
+	var/dt = max(H.run_armor_check(def_zone, "damage_threshold") - I.get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/Iwound_bonus = I.wound_bonus
 

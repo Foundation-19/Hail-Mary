@@ -16,7 +16,10 @@
 	)
 
 /obj/item/proc/get_melee_damage_threshold_penetration(mob/living/user, attackchain_flags = NONE)
-	var/is_blunt = damtype == BRUTE && sharpness == SHARP_NONE && armour_penetration <= MELEE_BLUNT_MAX_ARMOUR_PENETRATION
+	var/base_armour_penetration = armour_penetration
+	if((attackchain_flags & ATTACK_POWER_ATTACK) && !isnull(power_attack_base_armour_penetration))
+		base_armour_penetration = power_attack_base_armour_penetration
+	var/is_blunt = damtype == BRUTE && sharpness == SHARP_NONE && base_armour_penetration <= MELEE_BLUNT_MAX_ARMOUR_PENETRATION
 	var/melee_dt_penetration = damage_threshold_penetration
 	if(is_blunt)
 		melee_dt_penetration = max(melee_dt_penetration, MELEE_BLUNT_DT_PENETRATION)

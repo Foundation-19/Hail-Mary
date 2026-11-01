@@ -106,7 +106,7 @@
 		return FALSE
 	// Full AP routes through armor so "Full AP" means ignoring most armor via armour_penetration, not bypassing the damage pipeline outright.
 	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
-	var/dt = max(target.run_armor_check(null, "damage_threshold", null, null, 0, null) - damage_threshold_penetration, 0)
+	var/dt = max(target.run_armor_check(null, "damage_threshold", null, null, 0, null) - get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
 	target.apply_damage(dealt, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2, damage_threshold = dt)
 	target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
 		span_userdanger("You cry out in pain as %ACTOR_NAME%'s punch flings you backwards!"), \

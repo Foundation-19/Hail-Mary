@@ -62,6 +62,8 @@
 	var/datum/progressbar/power_attack_progressbar
 	/// 0-1 scalar set by /datum/power_attack/lunge/on_approach() - how much of its max range the lunge actually closed before connecting. Redirects onto a blocker you barely moved to reach get a reduced bonus.
 	var/power_attack_lunge_fraction = 1
+	/// The weapon's AP before the current Power Attack's temporary bonus, or null outside its release.
+	var/tmp/power_attack_base_armour_penetration
 
 /mob/living
 	/// world.time deadline before Iron Grip can prevent another light-hit interruption.
@@ -277,8 +279,10 @@
 
 	var/old_wound_bonus = wound_bonus
 	var/old_armour_pen = armour_penetration
+	var/old_power_attack_base_armour_penetration = power_attack_base_armour_penetration
 	var/old_verb = attack_verb
 	wound_bonus += power_attack.wound_bonus_add
+	power_attack_base_armour_penetration = old_armour_pen
 	armour_penetration += power_attack.armor_pen_bonus
 	if(power_attack.attack_verb_override)
 		attack_verb = power_attack.attack_verb_override
@@ -292,6 +296,7 @@
 
 	wound_bonus = old_wound_bonus
 	armour_penetration = old_armour_pen
+	power_attack_base_armour_penetration = old_power_attack_base_armour_penetration
 	attack_verb = old_verb
 
 /// Alt-click/Alt-RMB quick-select radial menu for which Power Attack is armed - same style/flow as other machines'
