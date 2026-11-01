@@ -52,7 +52,7 @@
 		if(working)
 			if(do_after(user, 1.75 SECONDS, target = src))
 				to_chat(user, "You heat the [workpiece] in the [src].")
-				workpiece.workability = "shapeable"
+				workpiece.heat_up()
 				workpiece.icon_state = "hot_ingot"
 				workpiece.set_light_on(TRUE)
 				I.on_attack_hand(user)

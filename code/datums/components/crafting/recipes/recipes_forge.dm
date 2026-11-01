@@ -85,13 +85,36 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 
+/datum/crafting_recipe/forge_flux
+	name = "Forge Flux"
+	result = /obj/item/blacksmith/flux
+	time = 50
+	reqs = list(
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/ore/coal = 1,
+		)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
 /datum/crafting_recipe/quenching
-	name = "Quenching Throught"
+	name = "Water Quenching Trough"
 	result = /obj/structure/blacksmith/quenching
 	time = 100
 	reqs = list(
 		/obj/item/stack/sheet/mineral/wood = 15,
 		/datum/reagent/water = 300,
+		)
+	tools = list(TOOL_CROWBAR)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
+/datum/crafting_recipe/quenching_oil
+	name = "Oil Quenching Trough"
+	result = /obj/structure/blacksmith/quenching/oil
+	time = 100
+	reqs = list(
+		/obj/item/stack/sheet/mineral/wood = 15,
+		/datum/reagent/oil = 100,
 		)
 	tools = list(TOOL_CROWBAR)
 	category = CAT_CRAFTING

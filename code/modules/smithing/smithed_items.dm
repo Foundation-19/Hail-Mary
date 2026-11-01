@@ -29,12 +29,48 @@
 	var/artifact = FALSE
 	var/toohot = TRUE // Too hot to touch with bare hands, not tempered yet
 	var/finishing_touch // The final step when this item was created
+	var/quality_locked = FALSE
+	var/quench_started_at = 0
+	var/quench_medium = null
+
+/obj/item/smithing/proc/get_preferred_quench()
+	var/material_type = custom_materials?[1]
+	if(!ispath(material_type, /datum/material))
+		return "water"
+	if(ispath(material_type, /datum/material/adamantine) || ispath(material_type, /datum/material/titanium))
+		return "oil"
+	return "water"
+
+/obj/item/smithing/proc/apply_quench(medium)
+	if(quality_locked || !toohot)
+		return FALSE
+	quench_medium = medium
+	quality_locked = TRUE
+	toohot = FALSE
+	if(medium == get_preferred_quench())
+		quality = min(quality + 1, 25)
+	else
+		quality = max(quality - 2, -10)
+	istempered()
+	return TRUE
+
+/obj/item/smithing/proc/air_cool()
+	if(quality_locked || !toohot)
+		return FALSE
+	quality_locked = TRUE
+	quench_medium = "air"
+	toohot = FALSE
+	quality = max(quality - 2, -10)
+	istempered()
+	return TRUE
 
 /obj/item/smithing/Initialize()
+	. = ..()
+	quench_started_at = world.time
 	add_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="[icon_state]_hot"))
 	set_light_on(TRUE)
 	update_icon()
-	return ..()
+	return .
 
 /obj/item/smithing/proc/istempered()
 	cut_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="[icon_state]_hot"))
@@ -72,7 +108,14 @@
 
 /obj/item/smithing/attackby(obj/item/I, mob/user)
 	if(toohot == TRUE)
-		to_chat(user, "<span class='warning'>You need to quench the [src] before finishing it!</span>")
+		if(world.time >= quench_started_at + 2 MINUTES)
+			air_cool()
+			to_chat(user, span_notice("The [src] has cooled in the air. Its quality is now locked in."))
+		else
+			to_chat(user, span_warning("You need to quench the [src] or let it cool in the air for two minutes before finishing it."))
+			return
+	if(!quality_locked)
+		to_chat(user, span_warning("The quality of [src] has not been locked by heat treatment yet."))
 		return
 	if(istype(I, finishingitem))
 		if(finishingitem == LEATHER_STRIP)
@@ -190,11 +233,48 @@
 	light_color = LIGHT_COLOR_FIRE
 	light_on = FALSE
 	var/workability = FALSE
+	var/heat_peak = SMITH_HEAT_COLD //Hottest stage reached at heat_time
+	var/heat_time = 0
+	/// Progress kept when a partly worked piece is lifted off the anvil
+	var/list/progress
 
+/// Current temperature stage, cooling over time since the last heating.
+/obj/item/blacksmith/ingot/proc/get_heat_stage()
+	if(!workability)
+		return SMITH_HEAT_COLD
+	if(!heat_time) // heated by something that doesn't track heat (e.g. cult forge)
+		heat_peak = SMITH_HEAT_WORKING
+		heat_time = world.time
+	var/stage = calc_smith_heat(heat_peak, heat_time)
+	if(stage == SMITH_HEAT_COLD)
+		cool_down()
+	return stage
+
+/obj/item/blacksmith/ingot/proc/heat_up()
+	if(get_heat_stage() >= SMITH_HEAT_BRIGHT)
+		heat_peak = SMITH_HEAT_OVERHEATED
+	else
+		heat_peak = SMITH_HEAT_BRIGHT
+	heat_time = world.time
+	workability = "shapeable"
+
+/obj/item/blacksmith/ingot/proc/cool_down()
+	workability = FALSE
+	heat_peak = SMITH_HEAT_COLD
+	heat_time = 0
+	icon_state = "ingot"
+	set_light_on(FALSE)
+
+/obj/item/blacksmith/ingot/examine(mob/user)
+	. = ..()
+	if(progress)
+		. += span_notice("It has been partly worked on an anvil.")
+		if(progress[6])
+			. += span_warning("It is visibly cracked.")
 
 /obj/item/blacksmith/ingot/on_attack_hand(mob/user)
 	var/mob/living/carbon/human/H
-	if(workability != "shapeable")
+	if(get_heat_stage() == SMITH_HEAT_COLD)
 		return ..()
 	var/prot = 0
 	if(ishuman(user))
@@ -311,6 +391,8 @@
 	var/obj/item/melee/smith/hammer/finalforreal = new /obj/item/melee/smith/hammer(src)
 	finalforreal.force += quality/4
 	finalforreal.smithing_speed = quality
+	finalforreal.smithing_quality_bonus = max(0, quality) / 40
+	finalforreal.smithing_stress_modifier = clamp(1 - (quality * 0.02), 0.7, 1.3)
 	finalitem = finalforreal
 	..()
 

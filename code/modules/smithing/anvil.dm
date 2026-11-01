@@ -3,6 +3,11 @@
 #define WORKPIECE_FINISHED 3
 #define WORKPIECE_SLAG 5
 
+#define SMITH_STRESS_WARNING 60
+#define SMITH_STRESS_CRITICAL 80
+#define SMITH_STRESS_CRACK 100
+#define SMITH_STRESS_SLAG 130
+
 #define RECIPE_HAMMER "bpp" //bend punch punch
 #define RECIPE_SHOVEL "buu" //bend upset upset
 #define RECIPE_PICKAXE "bff" //bend fold fold
@@ -107,11 +112,18 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	var/busy = FALSE //If someone is already interacting with this anvil
 	var/workpiece_state = FALSE
 	var/datum/material/workpiece_material
+	var/workpiece_type = /obj/item/blacksmith/ingot/iron //Ingot type the workpiece came from, returned when lifted off
 	var/anvilquality = 0
-	var/currentquality = 0 //lolman? what the fuck do these vars do?
-	var/currentsteps = 0 //even i don't know
-	var/outrightfailchance = 0 //todo: document this shit
-	var/stepsdone = ""
+	var/work_score = 0 //Potential final quality of the workpiece
+	var/stress = 0 //Risk of failure. Cracks the piece at SMITH_STRESS_CRACK, slags it at SMITH_STRESS_SLAG
+	var/steps_taken = 0 //Total actions performed on this workpiece
+	var/heavy_blows = 0 //Heavy blows struck, used for slag feedback
+	var/peak_stress = 0 //Highest stress reached, rewards recovering from near-failure
+	var/cracked = FALSE //Recoverable damage state, caps quality
+	var/stepsdone = "" //Recipe string of shaping steps
+	var/heat_peak = SMITH_HEAT_COLD //Heat stage of the workpiece at heat_time, it cools from there
+	var/heat_time = 0
+	var/flux_hits = 0 //Remaining hits that benefit from flux
 	var/fallible = TRUE
 	var/guaranteed_artifact = FALSE //vv this if you want an artifact
 	var/itemqualitymax = 15
@@ -119,19 +131,32 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 /obj/structure/blacksmith/anvil/Initialize(mapload)
 	. = ..()
 	RegisterSignal(src, COMSIG_CLICK_ALT, PROC_REF(ResetAnvil)) // emergency way to reset the anvil incase something goes wrong.
-	currentquality = anvilquality
 
 /obj/structure/blacksmith/anvil/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/blacksmith/ingot)) // That's it we're refactoring this code because I can't im literally crying rn ; _;
 		return HandleIngot(I, user)
 
+	if(istype(I, /obj/item/blacksmith/flux))
+		return apply_flux(I, user)
+
 	var/hammer_speed = 0
+	var/hammer_work_bonus = 0
+	var/hammer_stress_modifier = 1
+	var/heavy_work_bonus = 0
+	var/heavy_stress_modifier = 1
 	if(!istype(I, /obj/item/twohanded/sledgehammer/simple)) // Hammer interactions:
 		if(istype(I, /obj/item/melee/smith/hammer))
-			var/obj/item/melee/smith/hammer/hammertime = I // Even though they are two seperate object paths, I believe because we're only accessing qualitymod, it casts accordingly.
+			var/obj/item/melee/smith/hammer/hammertime = I
 			hammer_speed = hammertime.smithing_speed
+			hammer_work_bonus = hammertime.smithing_quality_bonus
+			hammer_stress_modifier = hammertime.smithing_stress_modifier
 		else
 			return ..()
+	else
+		// The sledgehammer is slow and forceful: best for heavy blows, poor for careful work.
+		hammer_speed = -1
+		heavy_work_bonus = 2
+		heavy_stress_modifier = 1.35
 	// if there is nothing present or something in progress.
 	if(!(workpiece_state == WORKPIECE_PRESENT || workpiece_state == WORKPIECE_INPROGRESS))
 		to_chat(user, "You can't work an empty anvil!")
@@ -142,7 +167,7 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 		to_chat(user, "This anvil is already being worked or you're already working on another one!")
 		return FALSE
 
-	return do_shaping(user, hammer_speed) // The actual progression part.
+	return do_shaping(user, hammer_speed, hammer_work_bonus, hammer_stress_modifier, heavy_work_bonus, heavy_stress_modifier) // The actual progression part.
 
 /obj/structure/blacksmith/anvil/proc/CheckBusy(mob/user)
 	var/mob/living/carbon/human/F = user
@@ -156,55 +181,141 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 
 /obj/structure/blacksmith/anvil/proc/ResetAnvil()
 	set_light_on(FALSE)
-	currentquality = initial(currentquality)
+	work_score = 0
+	stress = 0
+	steps_taken = 0
+	heavy_blows = 0
+	peak_stress = 0
+	cracked = FALSE
 	stepsdone = ""
-	currentsteps = 0
-	outrightfailchance = initial(outrightfailchance)
+	heat_peak = SMITH_HEAT_COLD
+	heat_time = 0
+	flux_hits = 0
 	workpiece_state = FALSE
 	cut_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
 	set_busy(FALSE, null)
+
+/obj/structure/blacksmith/anvil/proc/get_heat_stage()
+	if(!workpiece_state)
+		return SMITH_HEAT_COLD
+	var/stage = calc_smith_heat(heat_peak, heat_time)
+	if(stage < SMITH_HEAT_WORKING)
+		flux_hits = 0 // flux burns off once the metal is too cool
+	return stage
+
+/obj/structure/blacksmith/anvil/proc/describe_heat(stage)
+	switch(stage)
+		if(SMITH_HEAT_COLD)
+			return "cold and dark, it needs reheating"
+		if(SMITH_HEAT_WARM)
+			return "a dull red, barely workable"
+		if(SMITH_HEAT_WORKING)
+			return "a good working orange"
+		if(SMITH_HEAT_BRIGHT)
+			return "a bright yellow-orange"
+	return "glaring white-hot and sparking"
+
+/obj/structure/blacksmith/anvil/examine(mob/user)
+	. = ..()
+	if(workpiece_state)
+		. += span_notice("The workpiece is [describe_heat(get_heat_stage())].")
+		if(cracked)
+			. += span_warning("It is visibly cracked.")
+		if(flux_hits)
+			. += span_notice("A layer of flux is melted over its surface.")
+
+/obj/structure/blacksmith/anvil/proc/apply_flux(obj/item/blacksmith/flux/flux, mob/user)
+	if(!workpiece_state)
+		to_chat(user, "There is nothing on the anvil to flux.")
+		return FALSE
+	if(get_heat_stage() < SMITH_HEAT_WORKING)
+		to_chat(user, "The metal is too cool for the flux to melt.")
+		return FALSE
+	flux_hits = 4
+	to_chat(user, "You sprinkle flux over the hot metal. It melts into a glossy layer.")
+	flux.uses--
+	if(flux.uses <= 0)
+		to_chat(user, "You use up the last of the [flux].")
+		qdel(flux)
+	return TRUE
+
+/obj/structure/blacksmith/anvil/on_attack_hand(mob/living/user, act_intent = user.a_intent, unarmed_attack_flags)
+	if(!workpiece_state)
+		return ..()
+	if(CheckBusy(user))
+		return
+	var/obj/item/blacksmith/ingot/workpiece = new workpiece_type(get_turf(src))
+	workpiece.set_custom_materials(workpiece_material)
+	workpiece.progress = list(work_score, stress, steps_taken, heavy_blows, peak_stress, cracked, stepsdone)
+	if(get_heat_stage() > SMITH_HEAT_COLD)
+		workpiece.workability = "shapeable"
+		workpiece.heat_peak = heat_peak
+		workpiece.heat_time = heat_time
+		workpiece.icon_state = "hot_ingot"
+		workpiece.set_light_on(TRUE)
+	to_chat(user, "You lift the workpiece off the [src] with your tongs.")
+	ResetAnvil()
 
 /obj/structure/blacksmith/anvil/proc/HandleIngot(obj/item/blacksmith/ingot/workpiece, mob/user)
 	if(workpiece_state)
 		to_chat(user, "There's already a workpiece! Finish it or take it off.")
 		return FALSE
-	if(workpiece.workability == "shapeable")
+	if(workpiece.get_heat_stage() > SMITH_HEAT_COLD)
 		workpiece_state = WORKPIECE_PRESENT
 		workpiece_material = workpiece.custom_materials
+		workpiece_type = workpiece.type
+		heat_peak = workpiece.heat_peak
+		heat_time = workpiece.heat_time
+		if(workpiece.progress)
+			var/list/saved = workpiece.progress
+			work_score = saved[1]
+			stress = saved[2]
+			steps_taken = saved[3]
+			heavy_blows = saved[4]
+			peak_stress = saved[5]
+			cracked = saved[6]
+			stepsdone = saved[7]
 		to_chat(user, "You place the [workpiece] on the [src].")
 
-		currentquality = initial(currentquality)
-
-		if(workpiece_state == WORKPIECE_PRESENT)
-			add_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
-			set_light_on(TRUE)
+		add_overlay(image(icon= 'icons/obj/blacksmith_bd2.dmi',icon_state="workpiece"))
+		set_light_on(TRUE)
 
 		qdel(workpiece)
 	else
 		to_chat(user, "The ingot isn't workable yet!")
 		return FALSE
 
-/obj/structure/blacksmith/anvil/proc/do_shaping(mob/user, hammer_speed)
+/obj/structure/blacksmith/anvil/proc/do_shaping(mob/user, hammer_speed, hammer_work_bonus, hammer_stress_modifier, heavy_work_bonus, heavy_stress_modifier)
 	if(!iscarbon(user))
 		return
 
 	set_busy(TRUE, user)
 	workpiece_state = WORKPIECE_INPROGRESS // set it so we're working on it.
 
+	if(get_heat_stage() == SMITH_HEAT_COLD)
+		to_chat(user, span_warning("The metal has gone cold. Lift it off the anvil and reheat it in the furnace."))
+		return set_busy(FALSE, user)
+
 	// Present choice selection.
-	var/list/working_steps = list("weak hit", "strong hit", "heavy hit")
-	var/shaping_steps = list("fold", "draw", "shrink", "bend", "punch", "upset") //weak/strong/heavy hit affect strength. All the other steps shape.
+	var/list/working_steps = list("light tap", "medium strike", "heavy blow")
+	var/shaping_steps = list("fold", "draw", "shrink", "bend", "punch", "upset") //hits affect work/stress. All the other steps shape.
 	var/finishing_steps = list("finish (strong)", "finish (sharp)", "finish (jagged)")
 	var/all_steps = working_steps + shaping_steps
 	for(var/i in GLOB.anvil_recipes) // for each recipes.
 		if(i == stepsdone)
 			all_steps += finishing_steps
 			break
+	if(cracked)
+		all_steps += "salvage"
 	var/stepdone = input(user, "How would you like to work the metal?") in all_steps
 
 	// if user is not in range, remove business.
 	if(!locate(src) in range(1, user))
 		return set_busy(FALSE, user)
+
+	if(stepdone == "salvage")
+		set_busy(FALSE, user)
+		return salvage(user)
 
 	do_shaping_feedback(user, stepdone)
 
@@ -222,98 +333,182 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	if(stepdone in finishing_steps)
 		try_finish(user, stepdone)
 	else
-		if(stepdone in working_steps)
-			var/magnitude = working_steps.Find(stepdone)
-			currentsteps += magnitude
-			outrightfailchance += magnitude * 4
-			currentquality += magnitude
-		else if(stepdone in shaping_steps)
-			stepsdone += stepdone[1]
-			currentsteps += 1
+		var/extra_work = hammer_work_bonus
+		var/extra_stress_mult = hammer_stress_modifier
+		if(stepdone == "heavy blow")
+			extra_work += heavy_work_bonus
+			extra_stress_mult *= heavy_stress_modifier
+		apply_work(user, stepdone, extra_work, extra_stress_mult)
+		do_smithing_sparks(1, TRUE, src) // sparkles~
+		steps_taken++
+		check_stress(user)
+		if(workpiece_state && get_heat_stage() < SMITH_HEAT_WORKING)
+			to_chat(user, span_notice("The metal is [describe_heat(get_heat_stage())]."))
 
-		// sparkles~
-		do_smithing_sparks(1, TRUE, src)
-
-		if(length(stepsdone) >= 3)
-			try_fail(user)
-	
 	set_busy(FALSE, user) // Set it to false, cause we're done now.
 
-/obj/structure/blacksmith/anvil/proc/try_fail(mob/user)
+/// Returns work score / stress for an action as list(work, stress)
+/obj/structure/blacksmith/anvil/proc/get_action_values(stepdone)
+	switch(stepdone)
+		if("light tap")
+			return list(1, 2)
+		if("medium strike")
+			return list(3, 6)
+		if("heavy blow")
+			return list(6, 14)
+		if("fold")
+			return list(3, 9)
+		if("draw")
+			return list(2, 7)
+		if("shrink")
+			return list(2, 5)
+		if("bend")
+			return list(2, 6)
+		if("punch")
+			return list(3, 10)
+		if("upset")
+			return list(3, 12)
+	return list(0, 0)
 
-	var/skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)
-	skillmod = 0.9 ^ (skillmod-1)
-	var/finalfailchance = max(0, outrightfailchance * skillmod) //lv 2 gives 10% less to fail, 3 is 10% less than that, etc 
-	
-	if((currentsteps > 10 || (fallible && prob(finalfailchance))))
+/obj/structure/blacksmith/anvil/proc/get_skill(mob/user)
+	if(user.mind?.skill_holder)
+		return user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)
+	return 0
 
-		to_chat(user, span_warning("You overwork the metal, causing it to turn into useless slag!"))
+/obj/structure/blacksmith/anvil/proc/apply_work(mob/user, stepdone, extra_work = 0, extra_stress_mult = 1)
+	var/list/values = get_action_values(stepdone)
+	var/skill = get_skill(user)
+	// Skill and a good anvil make the metal more forgiving, a poor anvil less so.
+	var/stress_mult = (0.92 ** skill) * 1.2 * clamp(1 - 0.04 * anvilquality, 0.6, 1.4) * extra_stress_mult
+	var/work_mult = 1
+	var/stage = get_heat_stage()
+	switch(stage)
+		if(SMITH_HEAT_WARM)
+			work_mult = 0.75
+			stress_mult *= 2
+		if(SMITH_HEAT_BRIGHT)
+			work_mult = 1.2
+			stress_mult *= 1.2
+		if(SMITH_HEAT_OVERHEATED)
+			work_mult = 1.5
+			stress_mult *= 1.8
+	// Aggressive actions gain more from, and risk more at, high heat
+	if(stage >= SMITH_HEAT_BRIGHT && (stepdone in list("heavy blow", "fold", "upset")))
+		work_mult *= 1.15
+		stress_mult *= 1.15
+	if(flux_hits > 0)
+		work_mult *= 1.1
+		stress_mult *= 0.75
+		flux_hits--
+		if(!flux_hits)
+			to_chat(user, span_notice("The last of the flux burns away."))
+	if(!(stepdone in list("light tap", "medium strike", "heavy blow")))
+		stepsdone += stepdone[1]
+	if(stepdone == "heavy blow")
+		heavy_blows++
+	work_score += (values[1] + extra_work) * work_mult
+	stress += values[2] * stress_mult
+	peak_stress = max(peak_stress, stress)
 
-		new /obj/item/stack/ore/slag(get_turf(src)) // Spawn some slag
+/obj/structure/blacksmith/anvil/proc/check_stress(mob/user)
+	if(!fallible)
+		return
+	if(stress >= SMITH_STRESS_SLAG || (cracked && stress >= SMITH_STRESS_CRACK))
+		return slag_workpiece(user)
+	if(stress >= SMITH_STRESS_CRACK)
+		cracked = TRUE
+		work_score = round(work_score * 0.6)
+		stress = SMITH_STRESS_CRITICAL - 15
+		to_chat(user, span_warning("The metal cracks! It can still be worked, but it will never be the same. You could also salvage it."))
+		return
+	if(stress >= SMITH_STRESS_CRITICAL)
+		to_chat(user, span_warning("Fractures spread through the metal. One more careless blow and it will give way!"))
+	else if(stress >= SMITH_STRESS_WARNING)
+		to_chat(user, span_warning("The metal groans under the hammer. It is under a lot of strain."))
 
-		ResetAnvil() // Resets it to be default.
+/obj/structure/blacksmith/anvil/proc/slag_workpiece(mob/user)
+	to_chat(user, span_warning("You overwork the metal, causing it to turn into useless slag!"))
+	if(heavy_blows >= 3)
+		to_chat(user, span_notice("Lesson: too many heavy blows built up more strain than the metal could take."))
+	else if(cracked)
+		to_chat(user, span_notice("Lesson: you kept hammering after the metal had already cracked."))
+	else
+		to_chat(user, span_notice("Lesson: you pushed the metal too hard for too long without easing off."))
+	new /obj/item/stack/ore/slag(get_turf(src)) // Spawn some slag
+	give_failure_xp(user)
+	ResetAnvil() // Resets it to be default.
 
-		if(user.mind.skill_holder) // give them some experience
-			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 50, 500000, silent = FALSE) //This shouldn't give you a full level until 3+
+/obj/structure/blacksmith/anvil/proc/give_failure_xp(mob/user)
+	if(user.mind?.skill_holder) // learning XP scaled by how far the player got
+		var/xp = clamp(25 + 12 * steps_taken, 30, 200)
+		user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, xp, 500000, silent = FALSE)
+
+/obj/structure/blacksmith/anvil/proc/salvage(mob/user)
+	to_chat(user, "You give up on the cracked piece and scrape what is left into slag.")
+	new /obj/item/stack/ore/slag(get_turf(src))
+	give_failure_xp(user)
+	ResetAnvil()
+
+/obj/structure/blacksmith/anvil/proc/get_final_quality(mob/user)
+	var/skill_bonus = get_skill(user) / 2.5
+	var/stress_penalty = max(0, stress - 30) / 3
+	var/quality = work_score + skill_bonus + anvilquality - stress_penalty
+	if(cracked)
+		quality = min(quality - 3, 9)
+	return clamp(quality, -10, 25)
 
 /obj/structure/blacksmith/anvil/proc/try_finish(mob/user, finishing_touch)
-
+	var/final_quality = get_final_quality(user)
 	var/artifactchance = 0
-	var/skillmod = 0
-	if(user.mind.skill_holder)
-		skillmod = user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing)/2.5
-		currentquality += skillmod
+	if(final_quality >= 10)
+		artifactchance = final_quality / 2000 //Artifacts are silly, fun on occasion but not meant be a balance crutch.
+	var/artifact = (prob(artifactchance) || guaranteed_artifact)
+	var/recipe_string = stepsdone
 
-	if(currentquality >= 10) // if there has not been a roll chance, do it now..?
-		artifactchance = (currentquality)/2000 //Reduced. Artifacts are silly, fun on occasion but not meant be a balance crutch. Adjust base values until sweet spot instead ffs.
-
-	var/artifact = (prob(artifactchance) || guaranteed_artifact) // If there is an artifact..?
-
-	var/obj/item/smithing/finisheditem = GLOB.anvil_recipes[stepsdone]
+	var/obj/item/smithing/finisheditem = GLOB.anvil_recipes[recipe_string]
 	finisheditem = new finisheditem(get_turf(src)) // Lets just spawn the item in immediately!
 
-	to_chat(user, "You finish your [finisheditem]!")
+	to_chat(user, "You finish your [finisheditem]! Quench it while it's still hot.")
 
-	// math to make quality better if its an artifact.
 	if(artifact)
 		to_chat(user, "It is an artifact, a creation whose legacy shall live on forevermore.") //todo: SSblackbox
-		currentquality = max(currentquality, 15)
-		currentquality += 7
 		finisheditem.artifact = TRUE
 	else
-		finisheditem.quality = min(currentquality, itemqualitymax)
+		finisheditem.quality = min(final_quality, itemqualitymax)
 
 	finisheditem.set_custom_materials(workpiece_material)
-	var/stepexperience = currentsteps + finisheditem.quality
-	var/finalexperience = clamp(stepexperience * 20, 300, 2000) //Makes powerlevelling late-game harder as it gives more bonuses here
-	if(user.mind.skill_holder) // give them some experience!
-		if(currentquality <= 1)
-			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, 300, 500000, silent = FALSE) //Incentivises not spamming Slag
-		else
-			user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, finalexperience, 500000, silent = FALSE) //Made more forgiving for lower levels and terrible anvils.
-
 	finisheditem.finishing_touch = finishing_touch
 
-	workpiece_state = FALSE
-	finisheditem.set_custom_materials(workpiece_material)
-	currentquality = anvilquality
-	stepsdone = ""
-	currentsteps = 0
-	outrightfailchance = 1
-	ResetAnvil() // Worse Case something might break if we dont do this. soo.... yeah!
+	give_finish_xp(user, recipe_string, final_quality)
+	ResetAnvil()
+
+/obj/structure/blacksmith/anvil/proc/give_finish_xp(mob/user, recipe_string, quality)
+	if(!user.mind?.skill_holder)
+		return
+	// Complexity and quality drive XP, so spamming simple items is a poor deal.
+	var/xp = 50 * length(recipe_string) * clamp(0.5 + quality / 10, 0.5, 2.5)
+	if(peak_stress >= SMITH_STRESS_WARNING && !cracked) // learning from pushing close to the limit
+		xp *= 1.25
+	if(cracked)
+		xp *= 0.7
+	if(!(recipe_string in user.mind.smithed_recipes))
+		user.mind.smithed_recipes += recipe_string
+		xp += 150 // first time completing this recipe
+		to_chat(user, span_notice("You feel you've learned something new by making this for the first time."))
+	user.mind.auto_gain_experience(/datum/skill/level/dwarfy/blacksmithing, round(xp), 500000, silent = FALSE)
 
 /obj/structure/blacksmith/anvil/proc/do_shaping_feedback(mob/user, stepdone)
 	switch(stepdone)
-		if("weak hit")
+		if("light tap")
 			playsound(src, 'code/modules/smithing/sound/anvil_weak.ogg',100)
 			user.visible_message("<span class='notice'>[user] carefully hammers out imperfections in the metal.</span>", \
 						"<span class='notice'>You carefully hammer out imperfections in the metal.</span>")
-		if("strong hit")
+		if("medium strike")
 			playsound(src, 'code/modules/smithing/sound/anvil_strong.ogg',100)
 			do_smithing_sparks(1, TRUE, src)
 			user.visible_message("<span class='notice'>[user] hammers out imperfections in the metal.</span>", \
 						"<span class='notice'>You hammer out imperfections in the metal.</span>")
-		if("heavy hit")
+		if("heavy blow")
 			playsound(src, 'code/modules/smithing/sound/anvil_heavy.ogg',100)
 			do_smithing_sparks(2, TRUE, src)
 			user.visible_message("<span class='notice'>[user] forcefully hammers out imperfections in the metal.</span>", \
@@ -411,10 +606,13 @@ GLOBAL_LIST_INIT(anvil_recipes, list(
 	icon_state = "anvil"
 	anvilquality = 10
 	itemqualitymax = 9001
-	outrightfailchance = 0
 	fallible = FALSE
 
 #undef WORKPIECE_PRESENT
 #undef WORKPIECE_INPROGRESS
 #undef WORKPIECE_FINISHED
 #undef WORKPIECE_SLAG
+#undef SMITH_STRESS_WARNING
+#undef SMITH_STRESS_CRITICAL
+#undef SMITH_STRESS_CRACK
+#undef SMITH_STRESS_SLAG
