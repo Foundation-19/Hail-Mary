@@ -546,6 +546,9 @@
 				to_chat(M, span_warning("[I] is too spacious to fit in [host], make some space!"))
 			return FALSE
 	/////////////////
+	// Whatever is going in also takes up room in every storage item that already holds this one (e.g. a box inside a backpack).
+	if(!ancestors_can_fit(I, stop_messages, M))
+		return FALSE
 	if(isitem(host))
 		var/obj/item/IP = host
 		var/datum/component/storage/STR_I = I.GetComponent(/datum/component/storage)
@@ -564,6 +567,43 @@
 		to_chat(M, span_warning("[host] only allows [tally] in this!"))
 		return FALSE
 	return master.slave_can_insert_object(src, I, stop_messages, M)
+
+/// Checks that stuffing I into our parent doesn't overfill any storage item our parent is nested inside of.
+/datum/component/storage/proc/ancestors_can_fit(obj/item/I, stop_messages = FALSE, mob/M)
+	var/atom/ancestor = parent
+	var/atom/movable/current = parent
+	var/already_inside = FALSE
+	while(current && isitem(current.loc))
+		ancestor = current.loc
+		var/datum/component/storage/AS = ancestor.GetComponent(/datum/component/storage)
+		if(!AS)
+			return TRUE
+		var/atom/ancestor_contents = AS.real_location()
+		if(already_inside || I.loc == ancestor_contents) // already counted there, moving it deeper adds nothing
+			already_inside = TRUE
+			current = ancestor
+			continue		if(AS.storage_flags & STORAGE_LIMIT_COMBINED_W_CLASS)
+			var/sum_w_class = get_nested_w_class(I)
+			for(var/obj/item/_I in ancestor_contents)
+				sum_w_class += get_nested_w_class(_I)
+			var/effective_max = AS.max_combined_w_class
+			var/mob/living/wearer = recursive_loc_check(ancestor, /mob/living)
+			if(wearer)
+				effective_max *= wearer.get_strength_carry_capacity_multiplier()
+			if(sum_w_class > effective_max)
+				if(!stop_messages)
+					to_chat(M, span_warning("[I] won't fit in [parent] without overfilling [ancestor]!"))
+				return FALSE
+		if(AS.storage_flags & STORAGE_LIMIT_VOLUME)
+			var/sum_volume = get_nested_w_volume(I)
+			for(var/obj/item/_I in ancestor_contents)
+				sum_volume += get_nested_w_volume(_I)
+			if(sum_volume > AS.get_max_volume())
+				if(!stop_messages)
+					to_chat(M, span_warning("[I] is too spacious to fit in [parent] without overfilling [ancestor]!"))
+				return FALSE
+		current = ancestor
+	return TRUE
 
 /// Weight of an item plus whatever is stuffed inside it, so nesting storage items can't be used to smuggle free capacity.
 /datum/component/storage/proc/get_nested_w_class(obj/item/I)

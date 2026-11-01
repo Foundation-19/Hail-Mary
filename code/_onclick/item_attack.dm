@@ -94,6 +94,35 @@
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
+	var/force_modifier = get_attack_force_modifier(user)
+
+	var/force_out = (force + force_modifier) * get_melee_condition_force_multiplier()
+	if(force_out <= 0)
+		playsound(loc, pokesound, get_clamped_volume(), 1, -1)
+	else if(hitsound)
+		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+
+	apply_melee_wear()
+
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
+
+	user.do_attack_animation(target)
+
+	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
+		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
+			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
+			vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
+		log_combat(user, M, "attempted to attack", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) (Critfail: missed entirely)")
+		return
+
+	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+
+	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier(), damage_addition = force_modifier)
+	add_fingerprint(user)
+
+/// Flat damage added to this item's force by the wielder's S.P.E.C.I.A.L., perks and traits. Consumes a ready block counter. Shared by attack() and glove weapons that override it.
+/obj/item/proc/get_attack_force_modifier(mob/living/user)
 	var/force_modifier = calc_melee_dam_mod_from_special(user) // S.P.E.C.I.A.L.
 
 	if(HAS_TRAIT(user, TRAIT_BLOCK_COUNTER_READY))
@@ -127,30 +156,7 @@
 		if(HAS_TRAIT(user, TRAIT_GHOULMELEE)) //negative trait
 			force_modifier += (-force * 0.25)
 
-	var/force_out = (force + force_modifier) * get_melee_condition_force_multiplier()
-	if(force_out <= 0)
-		playsound(loc, pokesound, get_clamped_volume(), 1, -1)
-	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
-
-	apply_melee_wear()
-
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
-
-	user.do_attack_animation(target)
-
-	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
-			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
-			vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
-		log_combat(user, M, "attempted to attack", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) (Critfail: missed entirely)")
-		return
-
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
-
-	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier(), damage_addition = force_modifier)
-	add_fingerprint(user)
+	return force_modifier
 
 /**
  * Returns a 0-1 multiplier applied to this item's force based on its accumulated melee wear.
