@@ -504,13 +504,14 @@
 	var/message_hit_area = ""
 	if(hit_area)
 		message_hit_area = " in the [hit_area]"
-	var/attack_message = "[src] is [message_verb][message_hit_area] with [I][extra_wound_details]!"
+	var/attack_message = "%SELF_NAME% is [message_verb][message_hit_area] with [I][extra_wound_details]!"
 	var/attack_message_local = "You're [message_verb][message_hit_area] with [I][extra_wound_details]!"
 	if(user in viewers(src, null))
-		attack_message = "[user] [message_verb] [src][message_hit_area] with [I][extra_wound_details]!"
-		attack_message_local = "[user] [message_verb] you[message_hit_area] with [I][extra_wound_details]!"
+		attack_message = "%ACTOR_NAME% [message_verb] %SELF_NAME%[message_hit_area] with [I][extra_wound_details]!"
+		attack_message_local = "%ACTOR_NAME% [message_verb] you[message_hit_area] with [I][extra_wound_details]!"
 	if(user == src)
 		attack_message_local = "You [message_verb] yourself[message_hit_area] with [I][extra_wound_details]"
 	visible_message(span_danger("[attack_message]"),\
-		span_userdanger("[attack_message_local]"), null, COMBAT_MESSAGE_RANGE)
+		span_userdanger("[attack_message_local]"), null, COMBAT_MESSAGE_RANGE, \
+		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 	return TRUE
