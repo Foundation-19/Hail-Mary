@@ -408,6 +408,129 @@
 	gain_text = span_notice("The Wasteland holds no surprises for you.")
 	lose_text = span_danger("You feel less prepared for the Wasteland.")
 
+/datum/quirk/modular/silentrun_rank1
+	name = "Silent Running I"
+	desc = "You've learned to run without pounding the ground. While running, hostile mobs hear you 25% less."
+	value = 2
+	trait_flags = list(TRAIT_SILENT_RUN_RANK1)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 4
+	gain_text = span_notice("You run on the balls of your feet.")
+	lose_text = span_danger("Your running gets noisy again.")
+
+/datum/quirk/modular/silentrun_rank2
+	name = "Silent Running II"
+	desc = "While running, hostile mobs hear you 45% less. Requires Silent Running I."
+	value = 4
+	requires_quirk = "Silent Running I"
+	trait_flags = list(TRAIT_SILENT_RUN_RANK2)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 6
+	gain_text = span_notice("You run almost silently.")
+	lose_text = span_danger("Your running gets noisy again.")
+
+/datum/quirk/modular/silentrun_rank3
+	name = "Silent Running III"
+	desc = "While running, hostile mobs hear you 60% less. Requires Silent Running II."
+	value = 6
+	requires_quirk = "Silent Running II"
+	trait_flags = list(TRAIT_SILENT_RUN_RANK3)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 8
+	gain_text = span_notice("You run like a ghost.")
+	lose_text = span_danger("Your running gets noisy again.")
+
+/datum/quirk/modular/fixit_rank1
+	name = "Mr. Fixit I"
+	desc = "You work with your hands. Timed actions (repairs, building, crafting) finish 10% faster."
+	value = 2
+	physio_mult = list("do_after_speed" = 0.9)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("Your hands know what to do.")
+	lose_text = span_danger("Your hands feel less sure.")
+
+/datum/quirk/modular/fixit_rank2
+	name = "Mr. Fixit II"
+	desc = "Timed actions finish 20% faster. Requires Mr. Fixit I."
+	value = 4
+	requires_quirk = "Mr. Fixit I"
+	physio_mult = list("do_after_speed" = 0.8)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 7
+	gain_text = span_notice("You fix things on instinct.")
+	lose_text = span_danger("Your hands feel less sure.")
+
+/datum/quirk/modular/fixit_rank3
+	name = "Mr. Fixit III"
+	desc = "Timed actions finish 30% faster. Requires Mr. Fixit II."
+	value = 6
+	requires_quirk = "Mr. Fixit II"
+	physio_mult = list("do_after_speed" = 0.7)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 8
+	gain_text = span_notice("Nothing stays broken around you.")
+	lose_text = span_danger("Your hands feel less sure.")
+
+/datum/quirk/modular/leadbelly_rank1
+	name = "Lead Belly I"
+	desc = "Your stomach has seen worse. Toxin damage (including from bad food and water) reduced by 10%."
+	value = 2
+	physio_mult = list("tox_mod" = 0.9)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
+	gain_text = span_notice("Your stomach feels like lead.")
+	lose_text = span_danger("Your stomach feels delicate again.")
+
+/datum/quirk/modular/leadbelly_rank2
+	name = "Lead Belly II"
+	desc = "Toxin damage reduced by 20%. Requires Lead Belly I."
+	value = 4
+	requires_quirk = "Lead Belly I"
+	physio_mult = list("tox_mod" = 0.8)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("You could eat rust and ask for seconds.")
+	lose_text = span_danger("Your stomach feels delicate again.")
+
+/datum/quirk/modular/leadbelly_rank3
+	name = "Lead Belly III"
+	desc = "Toxin damage reduced by 30%. Requires Lead Belly II."
+	value = 6
+	requires_quirk = "Lead Belly II"
+	physio_mult = list("tox_mod" = 0.7)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 8
+	gain_text = span_notice("Your gut is made of iron.")
+	lose_text = span_danger("Your stomach feels delicate again.")
+
+/* ------------------------------ Power Armor Training II ------------------------------ */
+//Rank 1 is /datum/quirk/pa_wear (good.dm). Rank 2 needs both Strength and Intelligence 6.
+
+/datum/quirk/modular/pa_wear_rank2
+	name = "Power Armor Training II"
+	desc = "You've mastered your suit's power systems. Power Armor fusion cells drain 15% slower. Requires Power Armor Training."
+	value = 5
+	requires_quirk = "Power Armor Training"
+	trait_flags = list(TRAIT_PA_WEAR, TRAIT_PA_TRAINED_RANK2)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 6
+	required_special_stat_2 = "special_i"
+	required_special_name_2 = "Intelligence"
+	required_special_value_2 = 6
+	gain_text = span_notice("You've got the suit's power systems down cold.")
+	lose_text = span_danger("You forget the finer points of Power Armor operation.")
+
 /* ------------------------------ Flat Positives (point-buy, all SPECIAL-locked) ------------------------------ */
 
 /datum/quirk/modular/thick_skinned

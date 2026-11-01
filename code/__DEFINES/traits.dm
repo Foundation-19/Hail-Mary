@@ -203,10 +203,14 @@
 #define TRAIT_ASSASSIN	"assassin" //Can perform deadly assassination strikes on unaware enemies
 #define TRAIT_SNEAK_RANK1	"sneak_rank1" //Halves movement sound level (hostile mob detection) while in sneak mode
 #define TRAIT_SNEAK_RANK2	"sneak_rank2" //Quarters movement sound level while in sneak mode. Requires Sneak I
+#define TRAIT_SILENT_RUN_RANK1	"silent_run_rank1" //Reduces movement sound level while running
+#define TRAIT_SILENT_RUN_RANK2	"silent_run_rank2"
+#define TRAIT_SILENT_RUN_RANK3	"silent_run_rank3"
 #define TRAIT_STRONGBACK_RANK1	"strongback_rank1" //Extra flat bonus to Strength-based carry capacity multiplier, on top of raw Strength scaling
 #define TRAIT_STRONGBACK_RANK2	"strongback_rank2" //Larger extra flat bonus to carry capacity multiplier. Requires Strong Back I
 #define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
 #define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
+#define TRAIT_PA_TRAINED_RANK2	"pa_trained_rank2" //Power Armor Training II: Power Armor fusion cells drain 15% slower
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"

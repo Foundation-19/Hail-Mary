@@ -139,9 +139,13 @@
 		return TRUE
 	var/datum/quirk/next_path = rank_quirks[next_rank]
 	var/stat_name = initial(next_path.required_special_stat)
-	if(!stat_name || user.vars[stat_name] >= initial(next_path.required_special_value))
+	var/stat_name_2 = initial(next_path.required_special_stat_2)
+	if((!stat_name || user.vars[stat_name] >= initial(next_path.required_special_value)) && (!stat_name_2 || user.vars[stat_name_2] >= initial(next_path.required_special_value_2)))
 		return TRUE
-	to_chat(user, span_warning("You can't make sense of this - you'd need [initial(next_path.required_special_name)] [initial(next_path.required_special_value)] or better to learn the next level of [traitname]."))
+	var/req_text = "[initial(next_path.required_special_name)] [initial(next_path.required_special_value)]"
+	if(stat_name_2)
+		req_text += " and [initial(next_path.required_special_name_2)] [initial(next_path.required_special_value_2)]"
+	to_chat(user, span_warning("You can't make sense of this - you'd need [req_text] or better to learn the next level of [traitname]."))
 	return FALSE
 
 /obj/item/book/granter/trait/rank/already_known(mob/user)
@@ -306,6 +310,54 @@
 	icon_state = "book1"
 	rank_quirks = list(/datum/quirk/modular/survivalist_rank1, /datum/quirk/modular/survivalist_rank2, /datum/quirk/modular/survivalist_rank3)
 	remarks = list("Eat before you're hungry, drink before you're thirsty...", "Layers, always layers...", "Never trust a puddle...", "A hand-drawn map marks every shady spot in the region.")
+
+/obj/item/book/granter/trait/rank/silentrun
+	name = "Light on Your Feet"
+	desc = "A grubby courier's pamphlet on running without announcing yourself to the whole wasteland."
+	oneuse = TRUE
+	traitname = "quiet running"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/modular/silentrun_rank1, /datum/quirk/modular/silentrun_rank2, /datum/quirk/modular/silentrun_rank3)
+	remarks = list("Land on the ball of the foot, not the heel...", "Keep your gear tied down so it doesn't rattle...", "Short strides, long breaths...", "The last page is a sketch of a courier outrunning a very annoyed dog.")
+
+/obj/item/book/granter/trait/rank/fixit
+	name = "Handyman's Almanac"
+	desc = "A grease-stained almanac of shortcuts for fixing, building and jury-rigging nearly anything."
+	oneuse = TRUE
+	traitname = "fixing things"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/fixit_rank1, /datum/quirk/modular/fixit_rank2, /datum/quirk/modular/fixit_rank3)
+	remarks = list("Right tool, right job, half the time...", "Label every screw bin, thank yourself later...", "Duct tape solves everything except bad planning...", "The margins are full of someone's cheerful repair notes.")
+
+/obj/item/book/granter/trait/rank/leadbelly
+	name = "Eating Rust and Other Survival Tips"
+	desc = "A dog-eared guide to what you can safely eat and drink out in the wastes, and what you can't but will anyway."
+	oneuse = TRUE
+	traitname = "iron stomachs"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/leadbelly_rank1, /datum/quirk/modular/leadbelly_rank2, /datum/quirk/modular/leadbelly_rank3)
+	remarks = list("Boil it twice, then boil it again...", "If the can bulges, the can wins...", "Small bites, big grudges...", "The last chapter is a recipe for something that should not be a recipe.")
+
+/obj/item/book/granter/trait/rank/pa_advanced
+	name = "US Army: Advanced Mechanized Systems Manual"
+	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."
+	oneuse = TRUE
+	traitname = "Power Armor systems"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/pa_wear, /datum/quirk/modular/pa_wear_rank2)
+	remarks = list("Never run a fusion cell below ten percent, the core hates it...", "Idle your servos between engagements...", "Reactor load scales with how hard you push the actuators...", "The appendix is a wiring diagram nobody could possibly memorize.")
+
+//Rank 1 can come from a job, the basic handbook or a quirk, so training is judged by the trait, not the quirk
+/obj/item/book/granter/trait/rank/pa_advanced/get_current_rank(mob/living/user)
+	if(user.has_quirk(/datum/quirk/modular/pa_wear_rank2))
+		return 2
+	return HAS_TRAIT(user, TRAIT_PA_WEAR) ? 1 : 0
+
+/obj/item/book/granter/trait/rank/pa_advanced/already_known(mob/user)
+	if(isliving(user) && !HAS_TRAIT(user, TRAIT_PA_WEAR))
+		to_chat(user, span_warning("You can't follow any of this without basic Power Armor training."))
+		return TRUE
+	return ..()
 
 /obj/item/book/granter/action
 	var/granted_action

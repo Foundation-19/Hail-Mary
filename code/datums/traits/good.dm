@@ -622,6 +622,9 @@ Merged into ranked Wasteland Perk "Chemist" (code/datums/traits/fallout_perks.dm
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 5
+	required_special_stat_2 = "special_i"
+	required_special_name_2 = "Intelligence"
+	required_special_value_2 = 5
 	mob_trait = TRAIT_PA_WEAR
 	gain_text = span_notice("You realize how to use Power Armor.")
 	lose_text = span_danger("You forget how Power Armor works.")

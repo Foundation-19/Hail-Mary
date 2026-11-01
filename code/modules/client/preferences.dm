@@ -1193,8 +1193,8 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
 		lock_reason = "Mood is disabled."
 		quirk_conflict = TRUE
-	if(initial(T.required_special_stat) && (vars[initial(T.required_special_stat)] < initial(T.required_special_value)))
-		lock_reason = "Requires [initial(T.required_special_name)] [initial(T.required_special_value)]+."
+	if(!MeetsQuirkSpecial(T))
+		lock_reason = "Requires [QuirkSpecialReqText(T)]."
 		quirk_conflict = TRUE
 	if(has_quirk && quirk_conflict)
 		all_quirks -= quirk_name
@@ -1274,12 +1274,12 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			. += " <a href='?_src_=prefs;preference=trait;task=rankdown;trait=[initial(shown.name)]'>\[RANK DOWN\]</a>"
 		. += "<br>"
 	if(next)
-		var/stat_ok = !initial(next.required_special_stat) || (vars[initial(next.required_special_stat)] >= initial(next.required_special_value))
+		var/stat_ok = MeetsQuirkSpecial(next)
 		var/label = owned ? "RANK UP" : "ADOPT"
 		if(chain.len == 1)
 			label = "ADOPT"
 		if(!stat_ok)
-			. += "<font color='#ff6a6a'><b>LOCKED</b></font> [label]: [initial(next.name)]<br><span class='perk-lock'>Requires [initial(next.required_special_name)] [initial(next.required_special_value)]+</span>"
+			. += "<font color='#ff6a6a'><b>LOCKED</b></font> [label]: [initial(next.name)]<br><span class='perk-lock'>Requires [QuirkSpecialReqText(next)]</span>"
 		else
 			. += "<a href='?_src_=prefs;preference=trait;task=update;trait=[initial(next.name)]'>\[[label]\]</a> ([initial(next.value) * -1] TP)<br><span class='perk-small'>[initial(next.name)]</span>"
 	else if(owned)
@@ -1458,7 +1458,18 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 //Returns TRUE if our SPECIAL meets the lock of the given quirk typepath
 /datum/preferences/proc/MeetsQuirkSpecial(datum/quirk/T)
 	var/stat_name = initial(T.required_special_stat)
-	return !stat_name || vars[stat_name] >= initial(T.required_special_value)
+	if(stat_name && vars[stat_name] < initial(T.required_special_value))
+		return FALSE
+	var/stat_name_2 = initial(T.required_special_stat_2)
+	if(stat_name_2 && vars[stat_name_2] < initial(T.required_special_value_2))
+		return FALSE
+	return TRUE
+
+//Display text for a quirk's SPECIAL lock(s), e.g. "Strength 5+ and Intelligence 5+"
+/datum/preferences/proc/QuirkSpecialReqText(datum/quirk/T)
+	. = "[initial(T.required_special_name)] [initial(T.required_special_value)]+"
+	if(initial(T.required_special_stat_2))
+		. += " and [initial(T.required_special_name_2)] [initial(T.required_special_value_2)]+"
 
 //Drops every quirk whose SPECIAL lock is unmet (e.g. after SPECIAL was lowered), then any picks beyond the SPECIAL-scaled caps
 /datum/preferences/proc/EnforceQuirkLimits()
@@ -1596,7 +1607,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 							return
 				var/datum/quirk/lock_path = SSquirks.quirks[quirk]
 				if(!(quirk in all_quirks) && !MeetsQuirkSpecial(lock_path))
-					to_chat(user, span_warning("You don't meet the S.P.E.C.I.A.L. requirement for [quirk]: [initial(lock_path.required_special_name)] [initial(lock_path.required_special_value)]+."))
+					to_chat(user, span_warning("You don't meet the S.P.E.C.I.A.L. requirement for [quirk]: [QuirkSpecialReqText(lock_path)]."))
 					return
 				if(SSquirks.quirk_is_trait_by_name(quirk)) //free Wasteland Trait: no point cost, just a separate headcount cap
 					if(quirk in all_quirks)

@@ -18,6 +18,9 @@
 	var/required_special_stat //S.P.E.C.I.A.L. var name string (e.g. "special_p") this quirk is gated behind, if any - too strong to be pickable without a matching stat investment
 	var/required_special_name //display name of required_special_stat (e.g. "Perception"), shown in the chargen lock message
 	var/required_special_value = 0 //minimum value required_special_stat must be at to unlock this quirk in chargen
+	var/required_special_stat_2 //optional second S.P.E.C.I.A.L. gate, same format as required_special_stat
+	var/required_special_name_2
+	var/required_special_value_2 = 0
 	var/mob/living/quirk_holder
 
 /datum/quirk/New(mob/living/quirk_mob, spawn_effects)
