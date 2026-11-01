@@ -1483,6 +1483,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		var/punchedbrute = target.getBruteLoss()
 
 		damage += calc_unarmed_dam_mod_from_special(user) // S.P.E.C.I.A.L.
+		damage *= 1 + (0.1 * user.get_perk_rank("brawler"))
 
 		//CITADEL CHANGES - makes resting and disabled combat mode reduce punch damage, makes being out of combat mode result in you taking more damage
 		//if(!SEND_SIGNAL(target, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))

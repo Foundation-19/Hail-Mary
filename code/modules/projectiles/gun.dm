@@ -954,6 +954,8 @@ ATTACHMENTS
 /obj/item/gun/proc/weapondraw(obj/item/gun/G, mob/living/user) // Eventually, this will be /obj/item/weapon and guns will be /obj/item/weapon/gun/etc. SOON.tm
 	user.visible_message(span_danger("[user] grabs \a [G]!")) // probably could code in differences as to where you're picking it up from and so forth. later.
 	var/time_till_gun_is_ready = max(draw_time,(user.AmountWeaponDrawDelay()))
+	if(HAS_TRAIT(user, TRAIT_QUICK_DRAW))
+		time_till_gun_is_ready *= 0.6
 	user.SetWeaponDrawDelay(time_till_gun_is_ready)
 	if(safety && user.a_intent == INTENT_HARM)
 		toggle_safety(user, ignore_held = TRUE)
@@ -1377,6 +1379,8 @@ ATTACHMENTS
 			. *= GUN_AUTOPUMP_REFIRE_DELAY_MULT
 	if(HAS_TRAIT(user, TRAIT_TRIGGER_DISCIPLINE)) // -20% rate of fire (the tradeoff for its -25% recoil)
 		. *= 1.25
+	if(weapon_weight < GUN_TWO_HAND_ONLY && w_class <= WEIGHT_CLASS_NORMAL)
+		. *= 1 - (0.08 * user?.get_perk_rank("gunslinger"))
 
 /obj/item/gun/proc/apply_cooldown_modifier(new_mod)
 	ENABLE_BITFIELD(cooldown_delay_mods, new_mod)

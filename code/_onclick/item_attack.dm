@@ -156,6 +156,9 @@
 		if(HAS_TRAIT(user, TRAIT_GHOULMELEE)) //negative trait
 			force_modifier += (-force * 0.25)
 
+		if(sharpness == SHARP_EDGED)
+			force_modifier += force * 0.1 * user.get_perk_rank("blademaster")
+
 	return force_modifier
 
 /**

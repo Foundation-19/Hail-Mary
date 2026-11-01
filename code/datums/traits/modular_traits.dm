@@ -641,6 +641,214 @@
 	gain_text = span_notice("You can make every grain of powder count.")
 	lose_text = span_danger("You waste powder again.")
 
+/* ------------------------------ Combat Modifiers (Batch B) ------------------------------ */
+
+/datum/quirk/modular/sniper_rank1
+	name = "Sniper I"
+	desc = "Scoped or zoomed guns have 15% less spread."
+	value = 3
+	trait_flags = list(TRAIT_SNIPER_RANK1)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 6
+	gain_text = span_notice("You steady your breathing and the crosshairs settle.")
+	lose_text = span_danger("Your scoped shots feel less certain.")
+
+/datum/quirk/modular/sniper_rank2
+	name = "Sniper II"
+	desc = "Scoped or zoomed guns have 30% less spread. Requires Sniper I."
+	value = 5
+	requires_quirk = "Sniper I"
+	trait_flags = list(TRAIT_SNIPER_RANK2)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 8
+	gain_text = span_notice("One shot, one kill.")
+	lose_text = span_danger("Your scoped shots feel less certain.")
+
+/datum/quirk/modular/commando_rank1
+	name = "Commando I"
+	desc = "Automatic and burst-fire guns have 12% less spread."
+	value = 3
+	trait_flags = list(TRAIT_COMMANDO_RANK1)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("Full-auto feels like second nature.")
+	lose_text = span_danger("Your hip-fire control fades.")
+
+/datum/quirk/modular/commando_rank2
+	name = "Commando II"
+	desc = "Automatic and burst-fire guns have 24% less spread. Requires Commando I."
+	value = 5
+	requires_quirk = "Commando I"
+	trait_flags = list(TRAIT_COMMANDO_RANK2)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 7
+	gain_text = span_notice("You ride the recoil like a wave.")
+	lose_text = span_danger("Your hip-fire control fades.")
+
+/datum/quirk/modular/gunslinger_rank1
+	name = "Gunslinger I"
+	desc = "One-handed guns have 12% less spread and a 8% shorter delay between shots."
+	value = 3
+	trait_flags = list(TRAIT_GUNSLINGER_RANK1)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("Your sidearm feels like part of your hand.")
+	lose_text = span_danger("Your sidearm feels clumsy again.")
+
+/datum/quirk/modular/gunslinger_rank2
+	name = "Gunslinger II"
+	desc = "One-handed guns have 24% less spread and a 16% shorter delay between shots. Requires Gunslinger I."
+	value = 5
+	requires_quirk = "Gunslinger I"
+	trait_flags = list(TRAIT_GUNSLINGER_RANK2)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 7
+	gain_text = span_notice("Fast on the draw, faster on the trigger.")
+	lose_text = span_danger("Your sidearm feels clumsy again.")
+
+/datum/quirk/modular/heavy_gunner_rank1
+	name = "Heavy Gunner I"
+	desc = "Bulky and heavy guns have 12% less spread."
+	value = 3
+	trait_flags = list(TRAIT_HEAVY_GUNNER_RANK1)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 6
+	gain_text = span_notice("Heavy weapons feel lighter in your hands.")
+	lose_text = span_danger("Heavy weapons feel unwieldy again.")
+
+/datum/quirk/modular/heavy_gunner_rank2
+	name = "Heavy Gunner II"
+	desc = "Bulky and heavy guns have 24% less spread. Requires Heavy Gunner I."
+	value = 5
+	requires_quirk = "Heavy Gunner I"
+	trait_flags = list(TRAIT_HEAVY_GUNNER_RANK2)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 8
+	gain_text = span_notice("You could fire a minigun from the hip all day.")
+	lose_text = span_danger("Heavy weapons feel unwieldy again.")
+
+/datum/quirk/modular/blademaster_rank1
+	name = "Blademaster I"
+	desc = "Edged melee weapons deal 10% more damage."
+	value = 2
+	trait_flags = list(TRAIT_BLADEMASTER_RANK1)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("You know where a blade bites best.")
+	lose_text = span_danger("Your blade technique dulls.")
+
+/datum/quirk/modular/blademaster_rank2
+	name = "Blademaster II"
+	desc = "Edged melee weapons deal 20% more damage. Requires Blademaster I."
+	value = 4
+	requires_quirk = "Blademaster I"
+	trait_flags = list(TRAIT_BLADEMASTER_RANK2)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 7
+	gain_text = span_notice("Your cuts flow without effort.")
+	lose_text = span_danger("Your blade technique dulls.")
+
+/datum/quirk/modular/blademaster_rank3
+	name = "Blademaster III"
+	desc = "Edged melee weapons deal 30% more damage. Requires Blademaster II."
+	value = 6
+	requires_quirk = "Blademaster II"
+	trait_flags = list(TRAIT_BLADEMASTER_RANK3)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 8
+	gain_text = span_notice("The blade is an extension of your will.")
+	lose_text = span_danger("Your blade technique dulls.")
+
+/datum/quirk/modular/brawler_rank1
+	name = "Brawler I"
+	desc = "Unarmed punches deal 10% more damage."
+	value = 2
+	trait_flags = list(TRAIT_BRAWLER_RANK1)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 5
+	gain_text = span_notice("You've learned how to put your weight behind a punch.")
+	lose_text = span_danger("Your punches lose their snap.")
+
+/datum/quirk/modular/brawler_rank2
+	name = "Brawler II"
+	desc = "Unarmed punches deal 20% more damage. Requires Brawler I."
+	value = 4
+	requires_quirk = "Brawler I"
+	trait_flags = list(TRAIT_BRAWLER_RANK2)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 7
+	gain_text = span_notice("Your fists hit like hammers.")
+	lose_text = span_danger("Your punches lose their snap.")
+
+/datum/quirk/modular/brawler_rank3
+	name = "Brawler III"
+	desc = "Unarmed punches deal 30% more damage. Requires Brawler II."
+	value = 6
+	requires_quirk = "Brawler II"
+	trait_flags = list(TRAIT_BRAWLER_RANK3)
+	required_special_stat = "special_s"
+	required_special_name = "Strength"
+	required_special_value = 8
+	gain_text = span_notice("You could crack a wall with a straight right.")
+	lose_text = span_danger("Your punches lose their snap.")
+
+/datum/quirk/modular/steady_aim
+	name = "Steady Aim"
+	desc = "Guns have 15% less spread while you're standing still."
+	value = 2
+	trait_flags = list(TRAIT_STEADY_AIM)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
+	gain_text = span_notice("You plant your feet and the barrel stops swaying.")
+	lose_text = span_danger("Your aim wavers when you stop.")
+
+/datum/quirk/modular/quick_draw
+	name = "Quick Draw"
+	desc = "Guns are ready to fire 40% faster after being drawn."
+	value = 2
+	trait_flags = list(TRAIT_QUICK_DRAW)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("Your hand finds your gun before you think about it.")
+	lose_text = span_danger("Your draw slows down.")
+
+/datum/quirk/modular/concentrated_fire
+	name = "Concentrated Fire"
+	desc = "Shots at the same target in quick succession deal up to 20% more damage (4% per consecutive shot)."
+	value = 3
+	trait_flags = list(TRAIT_CONCENTRATED_FIRE)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 6
+	gain_text = span_notice("You focus on one target and the rounds find the same spot.")
+	lose_text = span_danger("Your focus scatters.")
+
+/datum/quirk/modular/follow_through
+	name = "Follow Through"
+	desc = "Gunshots fired within a second of moving deal 10% more damage."
+	value = 2
+	trait_flags = list(TRAIT_FOLLOW_THROUGH)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 6
+	gain_text = span_notice("You learn to fire with your momentum instead of against it.")
+	lose_text = span_danger("Your shots stop carrying your momentum.")
+
 /* ------------------------------ Power Armor Training II ------------------------------ */
 //Rank 1 is /datum/quirk/pa_wear (good.dm). Rank 2 needs both Strength and Intelligence 6.
 

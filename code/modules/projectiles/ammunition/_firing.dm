@@ -27,6 +27,7 @@
 					max_spread *= 0.5 // Nice shot!
 				if(HAS_TRAIT(user,TRAIT_TRIGGER_DISCIPLINE)) // real FNV perk, -25% recoil
 					max_spread *= 0.75
+				max_spread *= user.get_gun_perk_spread_mult(fired_from)
 				max_spread = clamp(max_spread, 0, 90)
 				angle_out = clamp(rand(-max_spread, max_spread), -MAX_ACCURACY_OFFSET, MAX_ACCURACY_OFFSET)
 
@@ -61,7 +62,7 @@
 		BB.def_zone = user.zone_selected
 	BB.suppressed = quiet
 	BB.damage_threshold_penetration = damage_threshold_penetration
-
+	BB.damage *= user.get_shot_perk_damage_mult(target)
 	if(isgun(fired_from))
 		var/obj/item/gun/G = fired_from
 		G.post_modify_projectile(BB)

@@ -365,6 +365,60 @@
 	rank_quirks = list(/datum/quirk/modular/trader_rank1, /datum/quirk/modular/trader_rank2)
 	remarks = list("Never accept the first price...", "Act uninterested, always...", "Silence is the best counteroffer...", "Someone has scribbled 'works on vending machines too' in the margin.")
 
+/obj/item/book/granter/trait/rank/sniper
+	name = "Long Shots: A Marksman's Primer"
+	desc = "A field manual on breath control, windage and patience."
+	oneuse = TRUE
+	traitname = "sniping"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/sniper_rank1, /datum/quirk/modular/sniper_rank2)
+	remarks = list("Exhale halfway, then hold...", "Never chase the wobble...", "Squeeze, don't pull...", "The last page is a hand-drawn range card.")
+
+/obj/item/book/granter/trait/rank/commando
+	name = "Controlled Bursts"
+	desc = "An infantry pamphlet on keeping automatic fire on target."
+	oneuse = TRUE
+	traitname = "automatic fire"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/commando_rank1, /datum/quirk/modular/commando_rank2)
+	remarks = list("Short bursts, always...", "Lean into the gun...", "Walk the rounds on target...", "Someone has underlined 'ammo is not infinite'.")
+
+/obj/item/book/granter/trait/rank/gunslinger
+	name = "Fast Hands, Faster Triggers"
+	desc = "A dime-novel gunfighter's guide to one-handed shooting."
+	oneuse = TRUE
+	traitname = "gunslinging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/gunslinger_rank1, /datum/quirk/modular/gunslinger_rank2)
+	remarks = list("Never look at the gun, look at the man...", "Smooth is fast...", "Thumb the hammer, ease the trigger...", "The cover shows a duel at high noon.")
+
+/obj/item/book/granter/trait/rank/heavygunner
+	name = "Heavy Weapons Handling"
+	desc = "A grimy army manual on carrying and firing the big guns."
+	oneuse = TRUE
+	traitname = "heavy weapons"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/heavy_gunner_rank1, /datum/quirk/modular/heavy_gunner_rank2)
+	remarks = list("Brace the weight, don't fight it...", "Let the gun do the work...", "Feed the belt clean...", "Grease stains cover half the diagrams.")
+
+/obj/item/book/granter/trait/rank/blademaster
+	name = "The Edge and the Hand"
+	desc = "A treatise on cutting weapons, from machetes to katanas."
+	oneuse = TRUE
+	traitname = "bladework"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/blademaster_rank1, /datum/quirk/modular/blademaster_rank2, /datum/quirk/modular/blademaster_rank3)
+	remarks = list("Cut through, don't chop...", "The edge does the work...", "Keep your wrist loose...", "Sketches of stances fill the margins.")
+
+/obj/item/book/granter/trait/rank/brawler
+	name = "Knuckles and Elbows"
+	desc = "A battered guide to dirty, effective unarmed fighting."
+	oneuse = TRUE
+	traitname = "brawling"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/brawler_rank1, /datum/quirk/modular/brawler_rank2, /datum/quirk/modular/brawler_rank3)
+	remarks = list("Hit with your hips, not your arm...", "Aim past the target...", "Protect your jaw...", "A ring of old blood stains the cover.")
+
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
 	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."

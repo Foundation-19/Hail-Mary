@@ -222,6 +222,24 @@
 #define TRAIT_SCAVENGERS_EYE	"scavengers_eye" //Scavenging takes less time
 #define TRAIT_JUNK_RATTLER	"junk_rattler" //Chance of extra salvage and disassembly loot
 #define TRAIT_AMMO_SMITH	"ammo_smith" //Reloading benches use less material
+#define TRAIT_SNIPER_RANK1	"sniper_rank1" //Tighter spread with scoped/zoomed guns
+#define TRAIT_SNIPER_RANK2	"sniper_rank2"
+#define TRAIT_COMMANDO_RANK1	"commando_rank1" //Tighter spread with automatic/burst guns
+#define TRAIT_COMMANDO_RANK2	"commando_rank2"
+#define TRAIT_GUNSLINGER_RANK1	"gunslinger_rank1" //Tighter spread and faster refire with one-handed guns
+#define TRAIT_GUNSLINGER_RANK2	"gunslinger_rank2"
+#define TRAIT_HEAVY_GUNNER_RANK1	"heavy_gunner_rank1" //Tighter spread with heavy guns
+#define TRAIT_HEAVY_GUNNER_RANK2	"heavy_gunner_rank2"
+#define TRAIT_BLADEMASTER_RANK1	"blademaster_rank1" //Bonus damage with edged melee weapons
+#define TRAIT_BLADEMASTER_RANK2	"blademaster_rank2"
+#define TRAIT_BLADEMASTER_RANK3	"blademaster_rank3"
+#define TRAIT_BRAWLER_RANK1	"brawler_rank1" //Bonus unarmed punch damage
+#define TRAIT_BRAWLER_RANK2	"brawler_rank2"
+#define TRAIT_BRAWLER_RANK3	"brawler_rank3"
+#define TRAIT_STEADY_AIM	"steady_aim" //Tighter spread when standing still
+#define TRAIT_QUICK_DRAW	"quick_draw" //Guns are ready faster when drawn
+#define TRAIT_CONCENTRATED_FIRE	"concentrated_fire" //Bonus damage on repeated shots at one target
+#define TRAIT_FOLLOW_THROUGH	"follow_through" //Bonus projectile damage shortly after moving
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"

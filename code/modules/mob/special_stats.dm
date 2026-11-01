@@ -529,9 +529,51 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return luck_loot_multiplier[clamped_l] || 1
 
-/// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
-/mob/living/proc/set_special_l(new_value)
-	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
+/// Rank (0-3) of a ranked perk whose traits are named "<base>_rank1".."<base>_rank3".
+/mob/proc/get_perk_rank(base)
+	for(var/i = 3, i >= 1, i--)
+		if(HAS_TRAIT(src, "[base]_rank[i]"))
+			return i
+	return 0
+
+/// True if the shooter hasn't moved in the last second.
+/mob/proc/is_standing_still()
+	return !client || (world.time - client.last_move) >= 10
+
+/// Combined spread multiplier from the gun-handling perks for the gun being fired.
+/mob/proc/get_gun_perk_spread_mult(obj/item/gun/G)
+	. = 1
+	if(!istype(G))
+		return
+	if(G.zoomed || G.zoom_factor > 0)
+		. *= 1 - (0.15 * get_perk_rank("sniper"))
+	if(G.automatic || G.burst_size > 1)
+		. *= 1 - (0.12 * get_perk_rank("commando"))
+	if(G.weapon_weight < GUN_TWO_HAND_ONLY && G.w_class <= WEIGHT_CLASS_NORMAL)
+		. *= 1 - (0.12 * get_perk_rank("gunslinger"))
+	if(G.w_class >= WEIGHT_CLASS_BULKY)
+		. *= 1 - (0.12 * get_perk_rank("heavy_gunner"))
+	if(HAS_TRAIT(src, TRAIT_STEADY_AIM) && is_standing_still())
+		. *= 0.85
+
+/mob/living/var/cf_target_ref
+/mob/living/var/cf_stacks = 0
+/mob/living/var/cf_last_time = 0
+
+/// Projectile damage multiplier from Concentrated Fire (+4% per consecutive shot at the same target, max 5 stacks) and Follow Through (+10% shortly after moving).
+/mob/living/proc/get_shot_perk_damage_mult(atom/target)
+	. = 1
+	if(HAS_TRAIT(src, TRAIT_CONCENTRATED_FIRE))
+		var/target_ref = REF(target)
+		if(cf_target_ref == target_ref && world.time - cf_last_time <= 40)
+			cf_stacks = min(cf_stacks + 1, 5)
+		else
+			cf_stacks = 0
+			cf_target_ref = target_ref
+		cf_last_time = world.time
+		. += 0.04 * cf_stacks
+	if(HAS_TRAIT(src, TRAIT_FOLLOW_THROUGH) && client && (world.time - client.last_move) <= 10)
+		. += 0.1
 
 /// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
 /mob/living/proc/set_special_l(new_value)
