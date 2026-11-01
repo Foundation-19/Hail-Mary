@@ -62,7 +62,9 @@
 		BB.def_zone = user.zone_selected
 	BB.suppressed = quiet
 	BB.damage_threshold_penetration = damage_threshold_penetration
-	BB.damage *= user.get_shot_perk_damage_mult(target)
+	if(isliving(user))
+		var/mob/living/shooter = user
+		BB.damage *= shooter.get_shot_perk_damage_mult(target)
 	if(isgun(fired_from))
 		var/obj/item/gun/G = fired_from
 		G.post_modify_projectile(BB)
