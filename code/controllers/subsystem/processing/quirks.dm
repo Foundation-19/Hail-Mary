@@ -49,7 +49,15 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Pacifist", "Melee - Wimpy"),
 			list("Pacifist", "Heavy Handed"),
 			list("Pacifist", "Fat-Fingered"),
-			list("Speed Walker", "Mobility - Can not Run")
+			list("Speed Walker", "Mobility - Can not Run"),
+			list("Hot Blooded", "Cold Blooded"),
+			list("Hot Blooded", "Cold Intolerant", "Cold-blooded"),
+			list("Cold Blooded", "Heat Intolerant"),
+			list("Loner", "Pack Mentality"),
+			list("Four Eyes", "Blind","Nearsighted - Corrected","Nearsighted - No Glasses","Nearsighted - Trashed Vision"),
+			list("Kamikaze", "Fragile"),
+			list("Cool Under Fire", "Glass Jaw"),
+			list("Steady Breather", "Chronic Pain")
 			)
 	return ..()
 
@@ -59,6 +67,8 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 
 	for(var/V in quirk_list)
 		var/datum/quirk/T = V
+		if(initial(T.abstract_type) == T)
+			continue
 		quirks[initial(T.name)] = T
 		quirk_points[initial(T.name)] = initial(T.value)
 		quirk_names_by_path[T] = initial(T.name)

@@ -280,6 +280,33 @@
 	rank_quirks = list(/datum/quirk/nuclear_physicist_rank1, /datum/quirk/nuclear_physicist_rank2)
 	remarks = list("A margin note reads 'bleed the core slow, not fast'...", "The diagrams on cell regulation are hand-corrected in red pen...", "A whole chapter is devoted to why Vault-Tec's official figures are wrong...", "The last page is a crude hand-drawn chart comparing core lifespans.")
 
+/obj/item/book/granter/trait/rank/toughness
+	name = "Taking It on the Chin"
+	desc = "A battered self-help pamphlet for brawlers and bounty hunters on how to absorb punishment."
+	oneuse = TRUE
+	traitname = "toughness"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/toughness_rank1, /datum/quirk/modular/toughness_rank2, /datum/quirk/modular/toughness_rank3)
+	remarks = list("Tense the abs before impact...", "Roll with the hit, don't fight it...", "Scar tissue is just armor you grew yourself...", "A diagram shows exactly where not to get stabbed.")
+
+/obj/item/book/granter/trait/rank/actionboy
+	name = "Pep Talk Weekly"
+	desc = "A stack of pre-war fitness magazines full of tips for stamina and quick recovery."
+	oneuse = TRUE
+	traitname = "stamina and recovery"
+	icon_state = "book2"
+	rank_quirks = list(/datum/quirk/modular/actionboy_rank1, /datum/quirk/modular/actionboy_rank2, /datum/quirk/modular/actionboy_rank3)
+	remarks = list("Breathe in for four, out for six...", "Never stop moving between sets...", "Hydration is half the battle...", "The interval-training charts are surprisingly detailed.")
+
+/obj/item/book/granter/trait/rank/survivalist
+	name = "Wasteland Survival Guide"
+	desc = "A thumbed-through field guide to rationing food, reading the weather, and not dying out in the sticks."
+	oneuse = TRUE
+	traitname = "wasteland survival"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/survivalist_rank1, /datum/quirk/modular/survivalist_rank2, /datum/quirk/modular/survivalist_rank3)
+	remarks = list("Eat before you're hungry, drink before you're thirsty...", "Layers, always layers...", "Never trust a puddle...", "A hand-drawn map marks every shady spot in the region.")
+
 /obj/item/book/granter/action
 	var/granted_action
 	var/actionname = "catching bugs" //might not seem needed but this makes it so you can safely name action buttons toggle this or that without it fucking up the granter, also caps
