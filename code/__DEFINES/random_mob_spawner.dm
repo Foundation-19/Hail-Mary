@@ -484,6 +484,8 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_respawn_time_easy = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_easy = list(
 		/mob/living/simple_animal/hostile/ghoul = 10,
+		/mob/living/simple_animal/hostile/ghoul/charred = 4,
+		/mob/living/simple_animal/hostile/ghoul/gangrenous = 3,
 		/mob/living/simple_animal/hostile/ghoul/reaver = 1,
 		/mob/living/simple_animal/hostile/ghoul/glowing = 1
 		)
@@ -491,6 +493,7 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_respawn_time_medium = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_medium = list(
 		/mob/living/simple_animal/hostile/ghoul = 10,
+		/mob/living/simple_animal/hostile/ghoul/gangrenous = 3,
 		/mob/living/simple_animal/hostile/ghoul/reaver = 3,
 		/mob/living/simple_animal/hostile/ghoul/glowing = 1
 		)
@@ -499,7 +502,8 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_list_hard = list(
 		/mob/living/simple_animal/hostile/ghoul = 5,
 		/mob/living/simple_animal/hostile/ghoul/reaver = 10,
-		/mob/living/simple_animal/hostile/ghoul/glowing = 5
+		/mob/living/simple_animal/hostile/ghoul/glowing = 5,
+		/mob/living/simple_animal/hostile/ghoul/glowing/bloated = 2
 		)
 
 /// Mirelurks
@@ -515,6 +519,7 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_list_easy = list(
 		/mob/living/simple_animal/hostile/mirelurk = 1,
 		/mob/living/simple_animal/hostile/mirelurk/hunter = 1,
+		/mob/living/simple_animal/hostile/mirelurk/softshell = 4,
 		/mob/living/simple_animal/hostile/mirelurk/baby = 10
 		)
 	num_mobs_to_spawn_medium = 2
@@ -522,6 +527,7 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_list_medium = list(
 		/mob/living/simple_animal/hostile/mirelurk = 4,
 		/mob/living/simple_animal/hostile/mirelurk/hunter = 2,
+		/mob/living/simple_animal/hostile/mirelurk/softshell = 3,
 		/mob/living/simple_animal/hostile/mirelurk/baby = 10
 		)
 	num_mobs_to_spawn_hard = 3
@@ -529,7 +535,10 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_list_hard = list(
 		/mob/living/simple_animal/hostile/mirelurk = 10,
 		/mob/living/simple_animal/hostile/mirelurk/hunter = 6,
-		/mob/living/simple_animal/hostile/mirelurk/baby = 5
+		/mob/living/simple_animal/hostile/mirelurk/glowing = 3,
+		/mob/living/simple_animal/hostile/mirelurk/baby = 5,
+		/mob/living/simple_animal/hostile/mirelurk/queen = 1,
+		/mob/living/simple_animal/hostile/mirelurk/king = 1
 		)
 
 /// Deathclaws
@@ -542,20 +551,27 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 
 	num_mobs_to_spawn_easy = 1
 	mob_respawn_time_easy = MOB_SPAWNER_TIME_LONGEST
+	// Easy: young only, so a low-tier zone never rolls a full-grown deathclaw
 	mob_list_easy = list(
-		/mob/living/simple_animal/hostile/deathclaw = 1
+		/mob/living/simple_animal/hostile/deathclaw/young = 1
 		)
 	num_mobs_to_spawn_medium = 2
 	mob_respawn_time_medium = MOB_SPAWNER_TIME_LONGEST
 	mob_list_medium = list(
-		/mob/living/simple_animal/hostile/deathclaw/mother = 1,
-		/mob/living/simple_animal/hostile/deathclaw = 1
+		/mob/living/simple_animal/hostile/deathclaw/young = 4,
+		/mob/living/simple_animal/hostile/deathclaw = 3,
+		/mob/living/simple_animal/hostile/deathclaw/chameleon = 1
 		)
+	// Hard: the strong variants live here only. Nesting mother is nest/event use (she spawns her own young), so keep her rare.
 	num_mobs_to_spawn_hard = 2
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_LONGEST
 	mob_list_hard = list(
-		/mob/living/simple_animal/hostile/deathclaw/mother = 1,
-		/mob/living/simple_animal/hostile/deathclaw/legendary = 1
+		/mob/living/simple_animal/hostile/deathclaw = 4,
+		/mob/living/simple_animal/hostile/deathclaw/chameleon = 3,
+		/mob/living/simple_animal/hostile/deathclaw/alpha = 2,
+		/mob/living/simple_animal/hostile/deathclaw/mother = 2,
+		/mob/living/simple_animal/hostile/deathclaw/legendary = 1,
+		/mob/living/simple_animal/hostile/deathclaw/mother/nesting = 1
 		)
 
 /// Hellpigs my love
@@ -795,7 +811,8 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_QUICKER
 	mob_list_hard = list(
 		/mob/living/simple_animal/hostile/giantant = 10,
-		/mob/living/simple_animal/hostile/fireant = 10
+		/mob/living/simple_animal/hostile/fireant = 10,
+		/mob/living/simple_animal/hostile/giantantqueen = 1
 		)
 
 /// Nightstalker hissawoo
@@ -941,7 +958,11 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	mob_list_hard = list(
 		/mob/living/simple_animal/hostile/supermutant/nightkin = 5,
 		/mob/living/simple_animal/hostile/supermutant/nightkin/rangedmutant = 5,
-		/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant = 1
+		/mob/living/simple_animal/hostile/supermutant/nightkin/elitemutant = 1,
+		/mob/living/simple_animal/hostile/supermutant/rangedmutant/flamer = 2,
+		/mob/living/simple_animal/hostile/supermutant/rangedmutant/suppressor = 2,
+		/mob/living/simple_animal/hostile/supermutant/legendary = 1,
+		/mob/living/simple_animal/hostile/supermutant/overlord = 1
 		)
 
 /// supermutants and centaurs (the gruesome twosome)
@@ -1129,7 +1150,8 @@ GLOBAL_LIST_EMPTY(random_mob_nest_spawner_datums)
 	num_mobs_to_spawn_hard = 3
 	mob_respawn_time_hard = MOB_SPAWNER_TIME_DEFAULT
 	mob_list_hard = list(
-		/mob/living/simple_animal/hostile/trog/tunneler = 5
+		/mob/living/simple_animal/hostile/trog/tunneler = 5,
+		/mob/living/simple_animal/hostile/trog/tunneler/blindone = 2
 		)
 
 /// spore carriers

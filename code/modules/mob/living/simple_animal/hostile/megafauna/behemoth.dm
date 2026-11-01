@@ -32,7 +32,7 @@
 	weather_immunities = list("snow")
 	speak_emote = list("roars")
 	attack_action_types = list(/datum/action/innate/megafauna_attack/heavy_stomp,
-							   /datum/action/innate/megafauna_attack/disorienting_scream)
+								/datum/action/innate/megafauna_attack/disorienting_scream)
 	/// Saves the turf the megafauna was created at (spawns exit portal here)
 	var/turf/starting
 	/// Range for behemoth stomping when it moves

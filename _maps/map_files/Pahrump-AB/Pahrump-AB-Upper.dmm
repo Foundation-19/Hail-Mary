@@ -281,8 +281,8 @@
 /area/f13/ncr/entrance)
 "awt" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "281";
-	name = "security checkpoint"
+	name = "security checkpoint";
+	req_access_txt = "281"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/floor,
 /area/f13/city/buildingparent/building)
@@ -542,7 +542,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland)
+/area/f13/building)
 "aZc" = (
 /turf/open/floor/f13{
 	icon_state = "darkrusty"
@@ -2042,7 +2042,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland)
+/area/f13/building)
 "dLq" = (
 /obj/structure/railing/corner{
 	dir = 8
@@ -2331,8 +2331,8 @@
 /area/f13/building/hospital)
 "egu" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "281";
-	name = "security checkpoint"
+	name = "security checkpoint";
+	req_access_txt = "281"
 	},
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -3728,7 +3728,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland)
+/area/f13/building)
 "gMv" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt{
@@ -4953,8 +4953,8 @@
 /area/f13/building/powered)
 "jed" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "281";
-	name = "police station door"
+	name = "police station door";
+	req_access_txt = "281"
 	},
 /turf/open/floor/f13{
 	icon_state = "redmark"
@@ -6561,7 +6561,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland)
+/area/f13/building)
 "lPf" = (
 /obj/structure/barricade/bars,
 /obj/machinery/door/poddoor/shutters/preopen{
@@ -8219,10 +8219,10 @@
 "ooO" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/reagent_dispensers/fueltank/vehicle_gas_station{
+	color = "#FF0000";
 	icon_state = "vat";
-	tank_volume = 1500;
 	name = "Gas Tank";
-	color = "#FF0000"
+	tank_volume = 1500
 	},
 /turf/open/transparent/openspace,
 /area/f13/ncr/rooftop)
@@ -8766,6 +8766,12 @@
 	},
 /turf/open/floor/f13/wood,
 /area/f13/radiation)
+"psC" = (
+/turf/open/transparent/openspace{
+	name = "air";
+	sunlight_state = 1
+	},
+/area/f13/building)
 "psY" = (
 /obj/structure/table,
 /obj/effect/decal/cleanable/dirt,
@@ -10376,7 +10382,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland)
+/area/f13/building)
 "ssR" = (
 /turf/open/floor/f13/wood{
 	icon_state = "housewood1-broken"
@@ -11345,8 +11351,8 @@
 /area/f13/building/rooftop)
 "tTN" = (
 /obj/machinery/door/unpowered/secure_steeldoor{
-	req_access_txt = "281";
-	name = "police station door"
+	name = "police station door";
+	req_access_txt = "281"
 	},
 /turf/open/floor/plasteel/f13/vault_floor/misc/vaultrust,
 /area/f13/city/buildingparent/jail)
@@ -11737,7 +11743,7 @@
 /turf/open/floor/f13/wood{
 	icon_state = "housewood2"
 	},
-/area/f13/wasteland)
+/area/f13/building)
 "uHz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/chair/stool/f13stool{
@@ -56793,7 +56799,7 @@ dJS
 dJS
 dJS
 dJS
-vqz
+psC
 dJS
 vqz
 uMb
@@ -57049,8 +57055,8 @@ dJS
 dJS
 dJS
 dJS
-vqz
-vqz
+psC
+psC
 dJS
 vqz
 bhm
@@ -57306,7 +57312,7 @@ dJS
 dJS
 dJS
 dJS
-vqz
+psC
 dJS
 dJS
 vqz
@@ -57558,8 +57564,8 @@ oez
 oez
 dJS
 dJS
-vqz
-vqz
+psC
+psC
 dJS
 dJS
 dJS
@@ -57815,14 +57821,14 @@ oez
 oez
 dJS
 dJS
-vqz
+psC
 dJS
 dJS
 dJS
 dJS
 dJS
 dJS
-vqz
+psC
 vqz
 bhm
 gLr
@@ -58076,10 +58082,10 @@ dJS
 dJS
 dJS
 dJS
-vqz
-vqz
+psC
+psC
 dJS
-vqz
+psC
 vqz
 bhm
 bEH
@@ -58332,11 +58338,11 @@ dJS
 dJS
 dJS
 dJS
-vqz
-vqz
+psC
+psC
 dJS
 dJS
-vqz
+psC
 vqz
 bhm
 gLr
@@ -58593,7 +58599,7 @@ dJS
 dJS
 dJS
 dJS
-vqz
+psC
 vqz
 bhm
 jdU
@@ -58850,7 +58856,7 @@ dJS
 dJS
 dJS
 dJS
-vqz
+psC
 vqz
 bhm
 lLE
