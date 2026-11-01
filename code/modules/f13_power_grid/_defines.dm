@@ -60,6 +60,11 @@
 /// out of fuel, not manually shut down). Retries are fully silent on failure — only a success
 /// is announced — so this can stay short: 10 ticks × 2 s = 20 s.
 #define FGEN_OVERLOAD_RETRY_INTERVAL 10
+/// Ceiling for the overload-retry backoff (the interval doubles after each failed attempt):
+/// 30 ticks x 2 s = 60 s.
+#define FGEN_OVERLOAD_RETRY_MAX 30
+/// Deciseconds a pending ID-card lock registration stays open before it expires (60 s).
+#define F13_LOCK_REG_TIMEOUT 600
 /// Minimum fraction of rated fuel burn a running generator always pays per powered area it
 /// owns, even at 0 tracked watts of draw — accounts for the vanilla area equipment (lights/
 /// doors/APCs) that stamp_zone() powers directly and isn't metered through current_draw.
@@ -156,6 +161,11 @@
 // ============================================================
 
 GLOBAL_LIST_EMPTY(f13_trace_log)
+
+/// Live registries of every grid machine, so hot paths never have to scan `world`.
+GLOBAL_LIST_EMPTY(f13_generators)
+GLOBAL_LIST_EMPTY(f13_relays)
+GLOBAL_LIST_EMPTY(f13_jboxes)
 
 /// Append a timestamped message to the rolling trace log AND to
 /// game/log so it also shows up in the log files on disk.
