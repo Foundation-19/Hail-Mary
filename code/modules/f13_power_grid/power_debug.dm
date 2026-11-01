@@ -174,7 +174,7 @@ GLOBAL_VAR_INIT(f13_magic_power, FALSE)
 			if(QDELETED(Z))
 				continue
 			var/pstate  = Z.power_equip ? "<span class='good'>on </span>" : "<span class='bad'>off</span>"
-			var/bstate  = JB.zone_breakers[Z] ? "" : " <span class='warn'>\[BREAKER TRIPPED\]</span>"
+			var/bstate  = (!JB.zone_breakers || JB.zone_breakers[Z]) ? "" : " <span class='warn'>\[BREAKER TRIPPED\]</span>"
 			dat += "<pre>    &gt; [pstate][bstate]  [Z.name]  <a href='byond://?src=[REF(src)];choice=toggle_area;target=[REF(Z)]'>Toggle</a></pre>"
 		dat += "<pre class='dim'>  ---</pre>"
 	if(!jbox_count)

@@ -1020,7 +1020,7 @@
 	for(var/area/f13/Z in owned_zones)
 		// On power loss: always kill zone regardless of zone breaker.
 		// On power restore: only bring up zones whose individual breaker is closed.
-		var/target = state && zone_breakers[Z]
+		var/target = state && (!zone_breakers || zone_breakers[Z])
 		_stamp_zone(Z, target)
 
 
@@ -1178,7 +1178,7 @@
 			if(QDELETED(Z))
 				continue
 			var/z_live   = Z.power_equip
-			var/z_closed = zone_breakers[Z]
+			var/z_closed = zone_breakers ? zone_breakers[Z] : TRUE
 			var/pstate   = z_live ? "<span class='good'>LIVE  </span>" : "<span class='bad'>DEAD  </span>"
 			var/bstate   = z_closed ? "<span class='good'>&#91;CLOSED&#93;</span>" : "<span class='warn'>&#91;TRIPPED&#93;</span>"
 			var/tile_count = _zone_tiles(Z)

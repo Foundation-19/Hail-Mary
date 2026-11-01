@@ -2114,7 +2114,7 @@
 	icon = 'icons/machines/power.dmi'
 	icon_state = "diesel-off"
 	name = "jury-rigged generator"
-	desc = "A rattling heap of salvaged parts: an old Chryslus engine block, hydraulic hose, and what might once have been a refrigerator compressor, held together with electrical tape and misplaced optimism. Pour diesel in, run your wiring close, and stand back. Powers lights and devices within 10 tiles; each relay post extends that range by another 10 tiles."
+	desc = "A rattling heap of salvaged parts: an old Chryslus engine block, hydraulic hose, and what might once have been a refrigerator compressor, held together with electrical tape and misplaced optimism. Run wiring to a junction box to light nearby lamps; each relay post extends the generator's reach by another 10 tiles."
 	accepted_fuel_path   = null   // liquid-fuel pathway — uses try_liquid_refuel() instead
 	depleted_fuel_path   = null
 	fuel_is_liquid       = TRUE
@@ -2148,6 +2148,10 @@
 /// Does NOT call ..() so base area-stamp logic is bypassed entirely.
 /// Cache is built once on the first call (generator is anchored — position never changes).
 /obj/machinery/f13/faction_generator/wastelander/stamp_zone(state)
+	// Lights are only energised through a junction box (generator -> wire/relay -> junction box).
+	// The generator itself may only force lights dark, never light them.
+	if(state)
+		return
 	var/area/own_area = get_area(src)
 	if(range_light_cache == null)
 		range_light_cache = list()
@@ -2158,18 +2162,12 @@
 				range_light_cache += L
 	for(var/obj/machinery/light/L in range_light_cache)
 		if(!QDELETED(L))
-			if(state)
-				// Don't restore lights in a zone held dark by a tripped breaker.
-				if(_area_in_tripped_jbox(get_area(L)))
-					continue
-				L.seton(L.status == LIGHT_OK)
-			else
-				// seton(FALSE) triggers update() which re-enables emergency_mode.
-				// Kill the light directly so it goes dark instead of red.
-				L.on = FALSE
-				L.emergency_mode = FALSE
-				L.set_light(0)
-				L.update_icon()
+			// seton(FALSE) triggers update() which re-enables emergency_mode.
+			// Kill the light directly so it goes dark instead of red.
+			L.on = FALSE
+			L.emergency_mode = FALSE
+			L.set_light(0)
+			L.update_icon()
 
 // set_power_state: inherited from base — all wired relays/clients are powered unconditionally.
 // power_reach only controls stamp_zone (ambient lighting), not cable-wired devices.
