@@ -281,7 +281,11 @@
 	if(check_contents(a, R, contents))
 		if(check_tools(a, R, contents))
 			//If we're a mob we'll try a do_after; non mobs will instead instantly construct the item
-			if(ismob(a) && !do_after(a, R.time, target = a))
+			var/craft_time = R.time
+			if(ishuman(a))
+				var/mob/living/carbon/human/crafter = a
+				craft_time *= max(0.5, 1 - 0.15 * crafter.get_perk_rank("mad_scientist"))
+			if(ismob(a) && !do_after(a, craft_time, target = a))
 				return "."
 			contents = get_surroundings(a)
 			if(!check_contents(a, R, contents))

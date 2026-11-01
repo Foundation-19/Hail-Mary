@@ -978,6 +978,143 @@
 	gain_text = span_notice("Distant things sharpen into focus.")
 	lose_text = span_danger("Distant things blur again.")
 
+/datum/quirk/modular/medic_rank1
+	name = "Medic I"
+	desc = "Medical items heal 10% more and apply 12% faster."
+	value = 3
+	trait_flags = list(TRAIT_MEDIC_RANK1)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 4
+	gain_text = span_notice("You know your way around a wound.")
+	lose_text = span_danger("Your medical know-how fades.")
+
+/datum/quirk/modular/medic_rank2
+	name = "Medic II"
+	desc = "Medical items heal 20% more and apply 24% faster. Requires Medic I."
+	value = 4
+	requires_quirk = "Medic I"
+	trait_flags = list(TRAIT_MEDIC_RANK2)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
+	gain_text = span_notice("Your hands move with practiced certainty.")
+	lose_text = span_danger("Your medical know-how fades.")
+
+/datum/quirk/modular/medic_rank3
+	name = "Medic III"
+	desc = "Medical items heal 30% more and apply 36% faster. Requires Medic II."
+	value = 5
+	requires_quirk = "Medic II"
+	trait_flags = list(TRAIT_MEDIC_RANK3)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 8
+	gain_text = span_notice("You could patch up a corpse and make it complain.")
+	lose_text = span_danger("Your medical know-how fades.")
+
+/datum/quirk/modular/healer_rank1
+	name = "Healer I"
+	desc = "You perform surgery 12% faster."
+	value = 3
+	trait_flags = list(TRAIT_HEALER_RANK1)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("Surgical steps come easier to you.")
+	lose_text = span_danger("Your surgical fluency fades.")
+
+/datum/quirk/modular/healer_rank2
+	name = "Healer II"
+	desc = "You perform surgery 24% faster. Requires Healer I."
+	value = 4
+	requires_quirk = "Healer I"
+	trait_flags = list(TRAIT_HEALER_RANK2)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 7
+	gain_text = span_notice("You operate with calm precision.")
+	lose_text = span_danger("Your surgical fluency fades.")
+
+/datum/quirk/modular/mad_scientist_rank1
+	name = "Mad Scientist I"
+	desc = "Crafting takes 15% less time."
+	value = 3
+	trait_flags = list(TRAIT_MAD_SCIENTIST_RANK1)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
+	gain_text = span_notice("Contraptions practically assemble themselves.")
+	lose_text = span_danger("Your tinkering instincts fade.")
+
+/datum/quirk/modular/mad_scientist_rank2
+	name = "Mad Scientist II"
+	desc = "Crafting takes 30% less time. Requires Mad Scientist I."
+	value = 4
+	requires_quirk = "Mad Scientist I"
+	trait_flags = list(TRAIT_MAD_SCIENTIST_RANK2)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 8
+	gain_text = span_notice("Genius and madness, in the right proportions.")
+	lose_text = span_danger("Your tinkering instincts fade.")
+
+/datum/quirk/modular/robotics_expert_rank1
+	name = "Robotics Expert I"
+	desc = "Salvaging machinery has a 20% chance of an extra drop."
+	value = 3
+	trait_flags = list(TRAIT_ROBOTICS_EXPERT_RANK1)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
+	gain_text = span_notice("You can read a circuit board like a book.")
+	lose_text = span_danger("Your robotics knowledge fades.")
+
+/datum/quirk/modular/robotics_expert_rank2
+	name = "Robotics Expert II"
+	desc = "Salvaging machinery has a 40% chance of an extra drop. Requires Robotics Expert I."
+	value = 4
+	requires_quirk = "Robotics Expert I"
+	trait_flags = list(TRAIT_ROBOTICS_EXPERT_RANK2)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 8
+	gain_text = span_notice("Machines surrender their secrets to you.")
+	lose_text = span_danger("Your robotics knowledge fades.")
+
+/datum/quirk/modular/field_medic
+	name = "Field Medic"
+	desc = "Medical items apply 15% faster and heal 10% more."
+	value = 3
+	trait_flags = list(TRAIT_FIELD_MEDIC)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You can patch a wound under fire.")
+	lose_text = span_danger("Your field medicine fades.")
+
+/datum/quirk/modular/weapon_maintenance
+	name = "Weapon Maintenance"
+	desc = "Jams wear your guns 40% less, and servicing a gun restores 30% more condition."
+	value = 2
+	trait_flags = list(TRAIT_WEAPON_MAINTENANCE)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("You treat your weapons with care.")
+	lose_text = span_danger("You get sloppy with your weapons.")
+
+/datum/quirk/modular/steady_hands
+	name = "Steady Hands"
+	desc = "Your gun spread is 10% tighter."
+	value = 2
+	trait_flags = list(TRAIT_STEADY_HANDS)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("Your hands stop shaking.")
+	lose_text = span_danger("Your hands begin to tremble.")
+
 /* ------------------------------ Power Armor Training II ------------------------------ */
 //Rank 1 is /datum/quirk/pa_wear (good.dm). Rank 2 needs both Strength and Intelligence 6.
 

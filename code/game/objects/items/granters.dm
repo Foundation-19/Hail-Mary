@@ -455,6 +455,42 @@
 	rank_quirks = list(/datum/quirk/modular/shadow_rank1, /datum/quirk/modular/shadow_rank2)
 	remarks = list("Heel to toe, always...", "Stay where the light isn't...", "Breathe with the wind...", "The last page is blank except for a single word: patience.")
 
+/obj/item/book/granter/trait/rank/medic
+	name = "Wasteland Field Medicine"
+	desc = "A battered handbook on treating wounds with whatever is on hand."
+	oneuse = TRUE
+	traitname = "medicine"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/medic_rank1, /datum/quirk/modular/medic_rank2, /datum/quirk/modular/medic_rank3)
+	remarks = list("Pressure first, then cleanliness...", "Keep the patient talking...", "Don't pull the shrapnel yet...", "Coffee rings and dried blood mark the pages.")
+
+/obj/item/book/granter/trait/rank/healer
+	name = "Principles of Surgical Practice"
+	desc = "A pre-war surgical textbook, remarkably intact."
+	oneuse = TRUE
+	traitname = "surgery"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/healer_rank1, /datum/quirk/modular/healer_rank2)
+	remarks = list("Cut once, cut clean...", "Know the anatomy before the incision...", "Sterility is half the surgery...", "Diagrams of organs fill the margins.")
+
+/obj/item/book/granter/trait/rank/mad_scientist
+	name = "Mad Science Weekly"
+	desc = "A stack of lurid pulp issues full of improbable gadgets."
+	oneuse = TRUE
+	traitname = "mad science"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/mad_scientist_rank1, /datum/quirk/modular/mad_scientist_rank2)
+	remarks = list("It will work if you believe...", "More power, always more power...", "Never label the green bottle...", "Scorch marks run along the spine.")
+
+/obj/item/book/granter/trait/rank/robotics_expert
+	name = "Robotics Maintenance Compendium"
+	desc = "A technical manual on robot internals and salvage."
+	oneuse = TRUE
+	traitname = "robotics"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/robotics_expert_rank1, /datum/quirk/modular/robotics_expert_rank2)
+	remarks = list("The motivator is rarely the problem...", "Mind the capacitors...", "Salvage the servos first...", "Greasy fingerprints cover every page.")
+
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
 	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."

@@ -280,7 +280,8 @@
 				C.emote("scream") // a
 			C.update_damage_overlays()
 	if(heal_operations & DO_HEAL_DAMAGE)
-		if(affected_bodypart.heal_damage(heal_brute, heal_burn, (heal_brute + heal_burn), updating_health = TRUE))
+		var/medic_mult = get_medic_heal_mult(user)
+		if(affected_bodypart.heal_damage(heal_brute * medic_mult, heal_burn * medic_mult, (heal_brute + heal_burn) * medic_mult, updating_health = TRUE))
 			C.update_damage_overlays()
 	/* if(heal_operations & DO_UNBLEED_WOUND)
 		for(var/datum/wound/wounds_to_unbleed in affected_bodypart.wounds)
@@ -337,6 +338,16 @@
 		. = self_delay
 	if(!is_skilled)
 		. *= unskilled_speed_mult
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		. *= max(0.4, 1 - 0.12 * H.get_perk_rank("medic") - (HAS_TRAIT(H, TRAIT_FIELD_MEDIC) ? 0.15 : 0))
+
+/// Healing multiplier from Medic and Field Medic
+/obj/item/stack/medical/proc/get_medic_heal_mult(mob/user)
+	if(!ishuman(user))
+		return 1
+	var/mob/living/carbon/human/H = user
+	return 1 + 0.1 * H.get_perk_rank("medic") + (HAS_TRAIT(H, TRAIT_FIELD_MEDIC) ? 0.1 : 0)
 
 /* * * * * * * * * * * * * * * * * * *
  * Outputs a message at the start or end of use

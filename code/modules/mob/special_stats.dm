@@ -555,6 +555,8 @@ proc/get_top_level_mob(mob/S)
 		. *= 1 - (0.12 * get_perk_rank("heavy_gunner"))
 	if(HAS_TRAIT(src, TRAIT_STEADY_AIM) && is_standing_still())
 		. *= 0.85
+	if(HAS_TRAIT(src, TRAIT_STEADY_HANDS))
+		. *= 0.9
 
 /mob/living/var/cf_target_ref
 /mob/living/var/cf_stacks = 0

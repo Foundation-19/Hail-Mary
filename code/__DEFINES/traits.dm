@@ -240,6 +240,18 @@
 #define TRAIT_QUICK_DRAW	"quick_draw" //Guns are ready faster when drawn
 #define TRAIT_CONCENTRATED_FIRE	"concentrated_fire" //Bonus damage on repeated shots at one target
 #define TRAIT_FOLLOW_THROUGH	"follow_through" //Bonus projectile damage shortly after moving
+#define TRAIT_MEDIC_RANK1	"medic_rank1" //Medical stacks heal more and apply faster
+#define TRAIT_MEDIC_RANK2	"medic_rank2"
+#define TRAIT_MEDIC_RANK3	"medic_rank3"
+#define TRAIT_HEALER_RANK1	"healer_rank1" //Surgery steps are performed faster
+#define TRAIT_HEALER_RANK2	"healer_rank2"
+#define TRAIT_MAD_SCIENTIST_RANK1	"mad_scientist_rank1" //Crafting takes less time
+#define TRAIT_MAD_SCIENTIST_RANK2	"mad_scientist_rank2"
+#define TRAIT_ROBOTICS_EXPERT_RANK1	"robotics_expert_rank1" //Extra salvage from machinery wrecks
+#define TRAIT_ROBOTICS_EXPERT_RANK2	"robotics_expert_rank2"
+#define TRAIT_FIELD_MEDIC	"field_medic" //Faster and stronger bandages and sutures
+#define TRAIT_WEAPON_MAINTENANCE	"weapon_maintenance" //Guns wear out slower and are serviced better
+#define TRAIT_STEADY_HANDS	"steady_hands" //Tighter spread
 #define TRAIT_DODGER_RANK1	"dodger_rank1" //Chance to fully avoid melee attacks
 #define TRAIT_DODGER_RANK2	"dodger_rank2"
 #define TRAIT_AWARENESS_RANK1	"awareness_rank1" //Chance to notice landmines in time, and sneak vision cones show from further away
