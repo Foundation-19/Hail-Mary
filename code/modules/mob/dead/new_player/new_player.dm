@@ -38,10 +38,9 @@
 		mind.current = null
 		mind = null
 
-	// Clean up client screen objects to prevent orphaned UI elements
+	// Screen objects such as the click catcher are shared across mob transfers.
 	if(client)
-		QDEL_LIST(client.screen)
-		client.screen = null
+		client.screen.Cut()
 
 	return ..()
 

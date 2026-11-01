@@ -809,7 +809,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/whitelegstraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.white_legs_recipes
 
 /datum/quirk/deadhorsestraditions
@@ -829,7 +829,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/deadhorsestraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.dead_horses_recipes
 
 /datum/quirk/rustwalkerstraditions
@@ -849,7 +849,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/rustwalkerstraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.rustwalkers_recipes
 
 /datum/quirk/eightiestraditions
@@ -869,7 +869,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/eightiestraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.eighties_recipes
 
 /datum/quirk/sorrowstraditions
@@ -889,7 +889,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/sorrowstraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.sorrows_recipes
 
 /datum/quirk/wayfarertraditions
@@ -909,7 +909,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/wayfarertraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.wayfarer_recipes
 
 /datum/quirk/bonedancertraditions
@@ -929,7 +929,7 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/bonedancertraditions/remove()
 	var/mob/living/carbon/human/H = quirk_holder
-	if(H)
+	if(H && H.mind)
 		H.mind.learned_recipes -= GLOB.bone_dancer_recipes
 
 /datum/quirk/brickwall
