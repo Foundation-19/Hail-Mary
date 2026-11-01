@@ -240,6 +240,17 @@
 #define TRAIT_QUICK_DRAW	"quick_draw" //Guns are ready faster when drawn
 #define TRAIT_CONCENTRATED_FIRE	"concentrated_fire" //Bonus damage on repeated shots at one target
 #define TRAIT_FOLLOW_THROUGH	"follow_through" //Bonus projectile damage shortly after moving
+#define TRAIT_DODGER_RANK1	"dodger_rank1" //Chance to fully avoid melee attacks
+#define TRAIT_DODGER_RANK2	"dodger_rank2"
+#define TRAIT_AWARENESS_RANK1	"awareness_rank1" //Chance to notice landmines in time, and sneak vision cones show from further away
+#define TRAIT_AWARENESS_RANK2	"awareness_rank2"
+#define TRAIT_AWARENESS_RANK3	"awareness_rank3"
+#define TRAIT_SCOUT_RANK1	"scout_rank1" //Sneak vision cones show from much further away
+#define TRAIT_SCOUT_RANK2	"scout_rank2"
+#define TRAIT_SCOUT_RANK3	"scout_rank3"
+#define TRAIT_SHADOW_RANK1	"shadow_rank1" //Sneaking makes even less noise
+#define TRAIT_SHADOW_RANK2	"shadow_rank2"
+#define TRAIT_EAGLE_EYE	"eagle_eye" //Scopes show further ahead
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"

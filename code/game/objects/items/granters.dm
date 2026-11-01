@@ -419,6 +419,42 @@
 	rank_quirks = list(/datum/quirk/modular/brawler_rank1, /datum/quirk/modular/brawler_rank2, /datum/quirk/modular/brawler_rank3)
 	remarks = list("Hit with your hips, not your arm...", "Aim past the target...", "Protect your jaw...", "A ring of old blood stains the cover.")
 
+/obj/item/book/granter/trait/rank/dodger
+	name = "Not Where You Aimed"
+	desc = "A street fighter's notes on slipping blows."
+	oneuse = TRUE
+	traitname = "dodging"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/dodger_rank1, /datum/quirk/modular/dodger_rank2)
+	remarks = list("Watch the shoulders, not the fist...", "Move off the line...", "Stay light on your feet...", "Several pages are stained with someone's blood.")
+
+/obj/item/book/granter/trait/rank/awareness
+	name = "Eyes Open, Mouth Shut"
+	desc = "A survival guide to noticing what's wrong before it goes wrong."
+	oneuse = TRUE
+	traitname = "awareness"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/awareness_rank1, /datum/quirk/modular/awareness_rank2, /datum/quirk/modular/awareness_rank3)
+	remarks = list("Look for the thing that doesn't belong...", "Disturbed dirt means something below...", "Trust the hairs on your neck...", "A pressed flower marks a page on tripwires.")
+
+/obj/item/book/granter/trait/rank/scout
+	name = "Reading the Wastes"
+	desc = "A ranger's field notes on watching and tracking from afar."
+	oneuse = TRUE
+	traitname = "scouting"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/scout_rank1, /datum/quirk/modular/scout_rank2, /datum/quirk/modular/scout_rank3)
+	remarks = list("Take the high ground first...", "Tracks tell you everything...", "Watch the horizon, not the road...", "Hand-drawn maps fill the endpapers.")
+
+/obj/item/book/granter/trait/rank/shadow
+	name = "Walk in Shadow"
+	desc = "A thin pamphlet on moving unseen and unheard."
+	oneuse = TRUE
+	traitname = "shadow work"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/shadow_rank1, /datum/quirk/modular/shadow_rank2)
+	remarks = list("Heel to toe, always...", "Stay where the light isn't...", "Breathe with the wind...", "The last page is blank except for a single word: patience.")
+
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
 	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."

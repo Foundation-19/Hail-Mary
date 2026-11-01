@@ -849,6 +849,135 @@
 	gain_text = span_notice("You learn to fire with your momentum instead of against it.")
 	lose_text = span_danger("Your shots stop carrying your momentum.")
 
+/* ------------------------------ Defense & Detection (Batch C) ------------------------------ */
+
+/datum/quirk/modular/dodger_rank1
+	name = "Dodger I"
+	desc = "6% chance to completely avoid a melee attack."
+	value = 3
+	trait_flags = list(TRAIT_DODGER_RANK1)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 5
+	gain_text = span_notice("You start moving before the blow lands.")
+	lose_text = span_danger("Your reflexes dull.")
+
+/datum/quirk/modular/dodger_rank2
+	name = "Dodger II"
+	desc = "12% chance to completely avoid a melee attack. Requires Dodger I."
+	value = 5
+	requires_quirk = "Dodger I"
+	trait_flags = list(TRAIT_DODGER_RANK2)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 7
+	gain_text = span_notice("Blows seem to slow down around you.")
+	lose_text = span_danger("Your reflexes dull.")
+
+/datum/quirk/modular/awareness_rank1
+	name = "Awareness I"
+	desc = "10% chance to spot a landmine in time to step around it, and sneak vision cones appear 1 tile further out."
+	value = 2
+	trait_flags = list(TRAIT_AWARENESS_RANK1)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
+	gain_text = span_notice("You notice small details others walk past.")
+	lose_text = span_danger("You stop noticing the little things.")
+
+/datum/quirk/modular/awareness_rank2
+	name = "Awareness II"
+	desc = "20% chance to spot a landmine, and cones appear 2 tiles further out. Requires Awareness I."
+	value = 4
+	requires_quirk = "Awareness I"
+	trait_flags = list(TRAIT_AWARENESS_RANK2)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 7
+	gain_text = span_notice("Nothing escapes your attention.")
+	lose_text = span_danger("You stop noticing the little things.")
+
+/datum/quirk/modular/awareness_rank3
+	name = "Awareness III"
+	desc = "30% chance to spot a landmine, and cones appear 3 tiles further out. Requires Awareness II."
+	value = 6
+	requires_quirk = "Awareness II"
+	trait_flags = list(TRAIT_AWARENESS_RANK3)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 8
+	gain_text = span_notice("You feel the whole room at once.")
+	lose_text = span_danger("You stop noticing the little things.")
+
+/datum/quirk/modular/scout_rank1
+	name = "Scout I"
+	desc = "Sneak vision cones of hostile creatures appear 3 tiles further out."
+	value = 2
+	trait_flags = list(TRAIT_SCOUT_RANK1)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 5
+	gain_text = span_notice("You read the land ahead of you.")
+	lose_text = span_danger("Your long-range scouting skills fade.")
+
+/datum/quirk/modular/scout_rank2
+	name = "Scout II"
+	desc = "Sneak vision cones appear 5 tiles further out. Requires Scout I."
+	value = 4
+	requires_quirk = "Scout I"
+	trait_flags = list(TRAIT_SCOUT_RANK2)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 7
+	gain_text = span_notice("You can feel trouble before you see it.")
+	lose_text = span_danger("Your long-range scouting skills fade.")
+
+/datum/quirk/modular/scout_rank3
+	name = "Scout III"
+	desc = "Sneak vision cones appear 7 tiles further out. Requires Scout II."
+	value = 6
+	requires_quirk = "Scout II"
+	trait_flags = list(TRAIT_SCOUT_RANK3)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 8
+	gain_text = span_notice("The wasteland holds no secrets from you.")
+	lose_text = span_danger("Your long-range scouting skills fade.")
+
+/datum/quirk/modular/shadow_rank1
+	name = "Shadow I"
+	desc = "Your movement noise is a further 15% lower while sneaking."
+	value = 3
+	trait_flags = list(TRAIT_SHADOW_RANK1)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 6
+	gain_text = span_notice("You move like a whisper.")
+	lose_text = span_danger("Your footsteps get louder.")
+
+/datum/quirk/modular/shadow_rank2
+	name = "Shadow II"
+	desc = "Your movement noise is a further 30% lower while sneaking. Requires Shadow I."
+	value = 5
+	requires_quirk = "Shadow I"
+	trait_flags = list(TRAIT_SHADOW_RANK2)
+	required_special_stat = "special_a"
+	required_special_name = "Agility"
+	required_special_value = 8
+	gain_text = span_notice("You are the dark between the lights.")
+	lose_text = span_danger("Your footsteps get louder.")
+
+/datum/quirk/modular/eagle_eye
+	name = "Eagle Eye"
+	desc = "Looking down a scope shows you one tile further ahead."
+	value = 2
+	trait_flags = list(TRAIT_EAGLE_EYE)
+	required_special_stat = "special_p"
+	required_special_name = "Perception"
+	required_special_value = 6
+	gain_text = span_notice("Distant things sharpen into focus.")
+	lose_text = span_danger("Distant things blur again.")
+
 /* ------------------------------ Power Armor Training II ------------------------------ */
 //Rank 1 is /datum/quirk/pa_wear (good.dm). Rank 2 needs both Strength and Intelligence 6.
 

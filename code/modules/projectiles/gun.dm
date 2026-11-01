@@ -910,8 +910,8 @@ ATTACHMENTS
 				_x = -zoom_amt
 
 		user.client.change_view(zoom_out_amt)
-		user.client.pixel_x = world.icon_size*_x
-		user.client.pixel_y = world.icon_size*_y
+		user.client.pixel_x = world.icon_size*(_x + (HAS_TRAIT(user, TRAIT_EAGLE_EYE) ? SIGN(_x) : 0))
+		user.client.pixel_y = world.icon_size*(_y + (HAS_TRAIT(user, TRAIT_EAGLE_EYE) ? SIGN(_y) : 0))
 		RegisterSignal(user, COMSIG_ATOM_DIR_CHANGE, PROC_REF(rotate))
 		UnregisterSignal(user, COMSIG_MOVABLE_MOVED) //pls don't conflict with anything else using this signal
 		user.visible_message(span_notice("[user] looks down the scope of [src]."), span_notice("You look down the scope of [src]."))
@@ -943,8 +943,8 @@ ATTACHMENTS
 		if(WEST)
 			_x = -zoom_amt
 	user.client.change_view(zoom_out_amt)
-	user.client.pixel_x = world.icon_size*_x
-	user.client.pixel_y = world.icon_size*_y
+	user.client.pixel_x = world.icon_size*(_x + (HAS_TRAIT(user, TRAIT_EAGLE_EYE) ? SIGN(_x) : 0))
+	user.client.pixel_y = world.icon_size*(_y + (HAS_TRAIT(user, TRAIT_EAGLE_EYE) ? SIGN(_y) : 0))
 
 /obj/item/gun/proc/getstamcost(mob/living/carbon/user)
 	. = 0 //get_per_shot_recoil()
