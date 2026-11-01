@@ -523,6 +523,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Life Giver"
 	desc = "You embody wellness! Instantly gain +10 maximum Health, and shrug off fatigue a little better."
 	value = 1
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_LIFEGIVER
 	gain_text = span_notice("You feel more healthy than usual.")
 	lose_text = span_danger("You feel less healthy than usual.")
@@ -546,6 +549,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Life Giver II"
 	desc = "You embody wellness to the MAX! Instantly gain +20 maximum Health (+30 total), and shrug off fatigue even better. Requires Life Giver."
 	value = 3
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
 	requires_quirk = "Life Giver"
 	mob_trait = TRAIT_LIFEGIVERPLUS
 	gain_text = span_notice("You feel much more healthy than usual.")
@@ -570,6 +576,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Life Giver III"
 	desc = "You embody wellness perfected! Instantly gain +40 maximum Health (+70 total), slowly regenerate health over time, and are much harder to exhaust into a stagger. Requires Life Giver II."
 	value = 5
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 8
 	requires_quirk = "Life Giver II"
 	mob_trait = TRAIT_LIFEGIVERMAX
 	gain_text = span_notice("You feel like you could heal from almost anything.")
@@ -640,6 +649,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Rad Resistant I"
 	desc = "The wasteland's radiation doesn't bother you as much as most people. Grants 50% innate radiation resistance."
 	value = 3
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 4
 	mob_trait = TRAIT_50_RAD_RESIST
 	gain_text = span_notice("You've decided radiation only kind of matters.")
 	lose_text = span_danger("You no longer think you should hang out next to rad puddles.")
@@ -649,6 +661,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Rad Resistant II"
 	desc = "Geiger counters are for suckers, mostly. Grants 75% innate radiation resistance. Requires Rad Resistant I."
 	value = 4
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
 	requires_quirk = "Rad Resistant I"
 	mob_trait = TRAIT_75_RAD_RESIST
 	gain_text = span_notice("You've decided radiation just doesn't matter much.")
@@ -659,6 +674,9 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	name = "Rad Resistant III"
 	desc = "Geiger counters are for suckers. You are entirely immune to radiation. Requires Rad Resistant II."
 	value = 6
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 8
 	requires_quirk = "Rad Resistant II"
 	mob_trait = TRAIT_RADIMMUNE
 	gain_text = span_notice("You've decided radiation just doesn't matter.")

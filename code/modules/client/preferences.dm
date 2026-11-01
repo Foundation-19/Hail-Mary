@@ -1239,14 +1239,14 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>\[CONFIRM &amp; RETURN\]</a> &nbsp; <a href='?_src_=prefs;preference=trait;task=reset'>\[CLEAR ALL ENTRIES\]</a></center>"
 		dat += "<hr>"
 		dat += "<center><b>On File:</b> [all_quirks.len ? all_quirks.Join(", ") : "None on file"]</center>"
-		dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS] beneficial perks logged<br>\
+		dat += "<center>[GetPositiveQuirkCount()] / [GetMaxQuirks()] beneficial perks logged<br>\
 		<b>Perk Points available:</b> [GetQuirkBalance()]<br>"
 		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_POSITIVE]' [quirk_category == QUIRK_POSITIVE ? "class='linkOn'" : ""]>BENEFICIAL</a> "
 		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEGATIVE]' [quirk_category == QUIRK_NEGATIVE ? "class='linkOn'" : ""]>LIABILITY</a> "
 		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_TRAIT]' [quirk_category == QUIRK_TRAIT ? "class='linkOn'" : ""]>TRAITS &amp; COSMETIC</a> "
 		dat += "</center><br>"
 		if(quirk_category == QUIRK_TRAIT)
-			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [MAX_TRAITS] recorded)</div>"
+			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [GetMaxTraits()] recorded)</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
 				if(!initial(T.is_trait))
@@ -1312,8 +1312,39 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=400x550;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
+/datum/preferences/proc/GetMaxTraits()
+	return MAX_TRAITS + ((special_i >= SPECIAL_BONUS_THRESHOLD || special_l >= SPECIAL_BONUS_THRESHOLD) ? 1 : 0)
+
+/datum/preferences/proc/GetMaxQuirks()
+	return MAX_QUIRKS + (special_i >= SPECIAL_BONUS_THRESHOLD ? 1 : 0) + (special_l >= SPECIAL_BONUS_THRESHOLD ? 1 : 0)
+
+/datum/preferences/proc/GetBonusQuirkPoints()
+	return (special_i >= SPECIAL_POINT_BONUS_THRESHOLD || special_l >= SPECIAL_POINT_BONUS_THRESHOLD) ? 1 : 0
+
+//Returns TRUE if our SPECIAL meets the lock of the given quirk typepath
+/datum/preferences/proc/MeetsQuirkSpecial(datum/quirk/T)
+	var/stat_name = initial(T.required_special_stat)
+	return !stat_name || vars[stat_name] >= initial(T.required_special_value)
+
+//Drops every quirk whose SPECIAL lock is unmet (e.g. after SPECIAL was lowered), then any picks beyond the SPECIAL-scaled caps
+/datum/preferences/proc/EnforceQuirkLimits()
+	for(var/V in all_quirks.Copy())
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(T && !MeetsQuirkSpecial(T))
+			all_quirks -= V
+	while(GetTraitCount() > GetMaxTraits())
+		for(var/i in length(all_quirks) to 1 step -1)
+			if(SSquirks.quirk_is_trait_by_name(all_quirks[i]))
+				all_quirks.Cut(i, i + 1)
+				break
+	while(GetPositiveQuirkCount() > GetMaxQuirks())
+		for(var/i in length(all_quirks) to 1 step -1)
+			if(SSquirks.quirk_points[all_quirks[i]] > 0)
+				all_quirks.Cut(i, i + 1)
+				break
+
 /datum/preferences/proc/GetQuirkBalance()
-	var/bal = CONFIG_GET(number/quirk_points) //server-configurable base Trait Point budget, was hardcoded to 5 and ignoring the config entry entirely
+	var/bal = CONFIG_GET(number/quirk_points) + GetBonusQuirkPoints() //server-configurable base Trait Point budget (SPECIAL can add one)
 	for(var/V in all_quirks)
 		if(SSquirks.quirk_is_trait_by_name(V)) //free Fallout-style paired Traits never touch the point economy
 			continue
@@ -1408,12 +1439,16 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
 							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return
+				var/datum/quirk/lock_path = SSquirks.quirks[quirk]
+				if(!(quirk in all_quirks) && !MeetsQuirkSpecial(lock_path))
+					to_chat(user, span_warning("You don't meet the S.P.E.C.I.A.L. requirement for [quirk]: [initial(lock_path.required_special_name)] [initial(lock_path.required_special_value)]+."))
+					return
 				if(SSquirks.quirk_is_trait_by_name(quirk)) //free Wasteland Trait: no point cost, just a separate headcount cap
 					if(quirk in all_quirks)
 						all_quirks -= quirk
 					else
-						if(GetTraitCount() >= MAX_TRAITS)
-							to_chat(user, span_warning("You can't have more than [MAX_TRAITS] Wasteland Traits!"))
+						if(GetTraitCount() >= GetMaxTraits())
+							to_chat(user, span_warning("You can't have more than [GetMaxTraits()] Wasteland Traits!"))
 							return
 						all_quirks += quirk
 					SetQuirks(user)
@@ -1448,8 +1483,8 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 						return
 					all_quirks -= quirk
 				else
-					if(value != 0 && (GetPositiveQuirkCount() >= MAX_QUIRKS))
-						to_chat(user, span_warning("You can't have more than [MAX_QUIRKS] beneficial Perks!"))
+					if(value != 0 && (GetPositiveQuirkCount() >= GetMaxQuirks()))
+						to_chat(user, span_warning("You can't have more than [GetMaxQuirks()] beneficial Perks!"))
 						return
 					if(balance - value < 0)
 						to_chat(user, span_warning("You don't have enough Perk Points to gain this Perk!"))
@@ -1487,6 +1522,7 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	else if(href_list["preference"] == "special")
 		switch(href_list["task"])
 			if("close")
+				EnforceQuirkLimits() //lowering SPECIAL can invalidate locked picks and shrink the SPECIAL-scaled caps
 				user << browse(null, "window=mob_occupation")
 				ShowChoices(user)
 			if("update")

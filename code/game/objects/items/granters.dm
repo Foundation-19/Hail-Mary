@@ -133,12 +133,25 @@
 			return i
 	return 0
 
+/obj/item/book/granter/trait/rank/proc/meets_next_rank_special(mob/living/user)
+	var/next_rank = get_current_rank(user) + 1
+	if(next_rank > length(rank_quirks))
+		return TRUE
+	var/datum/quirk/next_path = rank_quirks[next_rank]
+	var/stat_name = initial(next_path.required_special_stat)
+	if(!stat_name || user.vars[stat_name] >= initial(next_path.required_special_value))
+		return TRUE
+	to_chat(user, span_warning("You can't make sense of this - you'd need [initial(next_path.required_special_name)] [initial(next_path.required_special_value)] or better to learn the next level of [traitname]."))
+	return FALSE
+
 /obj/item/book/granter/trait/rank/already_known(mob/user)
 	if(!isliving(user) || !length(rank_quirks))
 		return TRUE
 	var/mob/living/L = user
 	if(get_current_rank(L) >= length(rank_quirks))
 		to_chat(user, span_notice("You already know everything this book could teach you about [traitname]."))
+		return TRUE
+	if(!meets_next_rank_special(L))
 		return TRUE
 	return FALSE
 
@@ -149,6 +162,8 @@
 	if(!isliving(user))
 		return
 	var/mob/living/L = user
+	if(!meets_next_rank_special(L))
+		return
 	var/current = get_current_rank(L)
 	var/next_rank = current + 1
 	if(current > 0)
