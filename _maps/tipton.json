@@ -69,7 +69,6 @@
 	"minetype": "none",
 
 	"added_jobs":[
-		"bos.dm",
 		"rangers.dm",
 		"legion.dm",
 		"eastwood.dm",
@@ -83,6 +82,7 @@
 		"locust_point.dm",
 		"mutants.dm",
 		"ncra.dm",
+		"bos.dm",
 		"lds.dm",
 		"eighties.dm",
 		"whitelegs.dm",
