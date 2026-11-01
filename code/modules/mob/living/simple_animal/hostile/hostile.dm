@@ -2070,6 +2070,8 @@
 		
 		if(can_shoot)
 			var/fired = OpenFire(target)
+			if(QDELETED(src) || !target) // firing can kill or delete the shooter, or drop its target
+				return 0
 			if(!fired || is_shot_blocked(target))
 				if(retreat_distance != null && abs(target_distance - retreat_distance) <= 2)
 					var/turf/better_position = find_firing_position(target)
@@ -4624,6 +4626,8 @@
 			addtimer(cb, (i - 1)*rapid_fire_delay, TIMER_DELETE_ME)
 	else
 		Shoot(A)
+		if(QDELETED(src)) // firing can delete the shooter (e.g. a despawning or self-destructing mob)
+			return
 		for(var/i in 1 to extra_projectiles)
 			addtimer(CALLBACK(src, PROC_REF(Shoot), A), i * auto_fire_delay, TIMER_DELETE_ME)
 	ranged_cooldown = world.time + ranged_cooldown_time
