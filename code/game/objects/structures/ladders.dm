@@ -116,6 +116,11 @@
 	RegisterSignal(peeker, COMSIG_MOVABLE_MOVED, PROC_REF(on_peeker_move))
 	// This is the closest thing this codebase has to an incapacitation signal.
 	RegisterSignal(peeker, COMSIG_DISABLE_COMBAT_MODE, PROC_REF(stop_peeking))
+	RegisterSignal(peeker, COMSIG_MOB_CLIENT_CHANGE_VIEW, PROC_REF(stop_peeking)) //no binos/scops
+	RegisterSignal(peeker, COMSIG_LIVING_STATUS_KNOCKDOWN, PROC_REF(stop_peeking))
+	RegisterSignal(peeker, COMSIG_LIVING_STATUS_PARALYZE, PROC_REF(stop_peeking))
+	RegisterSignal(peeker, COMSIG_LIVING_STATUS_UNCONSCIOUS, PROC_REF(stop_peeking))
+	RegisterSignal(peeker, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(stop_peeking))
 
 
 /obj/structure/ladder/proc/on_peeker_move(mob/source)
@@ -127,7 +132,7 @@
 
 /obj/structure/ladder/proc/stop_peeking(mob/source)
 	SIGNAL_HANDLER
-	UnregisterSignal(source, list(COMSIG_MOVABLE_MOVED, COMSIG_DISABLE_COMBAT_MODE))
+	UnregisterSignal(source, list(COMSIG_MOVABLE_MOVED, COMSIG_DISABLE_COMBAT_MODE, COMSIG_MOB_CLIENT_CHANGE_VIEW, COMSIG_LIVING_STATUS_KNOCKDOWN, COMSIG_LIVING_STATUS_PARALYZE, COMSIG_LIVING_STATUS_UNCONSCIOUS, COMSIG_LIVING_STATUS_SLEEP))
 	if(source in (LAZYACCESS(ladder_watchers, "[UP]")))
 		LAZYREMOVEASSOC(ladder_watchers, "[UP]", source)
 		if(!LAZYACCESS(ladder_watchers, "[UP]"))

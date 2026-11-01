@@ -35,14 +35,88 @@
 //   - The destination does NOT need a pre-existing cable node;
 //     the system finds the path to its turf directly.
 //   - Max path length: F13_WIRE_MAX_PATH tiles.
-//   - Only cardinal directions are checked (no diagonal routing).
+//   Diagonal routing is allowed, same as diagonal walking: a diagonal step is only
+//   permitted if at least one of its two flanking cardinal tiles is unblocked, so cable
+//   can't be routed through the solid corner of two walls.
 // ============================================================
 
 /// Maximum cable routing distance between two power grid machines.
 #define F13_WIRE_MAX_PATH 100
 
+/// Lengths of cable consumed from the player's coil when a link is completed.
+#define F13_WIRE_LINK_COST 2
+
+// ── CABLE RUNS (mapper tool) ────────────────────────────────────────────────
+// Cable tiles may carry /obj/structure/cable/var/f13_run_id. Adjacent cable connects regardless of
+// which way it points, but only if the two tiles share a run id. Cable with no id (all existing map
+// cable and ALL player-laid cable) is the shared "legacy" run, so it connects as it always did.
+// A tile holding an F13 machine connects to any cable next to it: the machine's node is the
+// junction, whatever the cable's direction or run. Mappers can use f13_run_id to keep map wiring
+// that touches apart; players never need to think about it.
+
+/// All 8 movement directions cable may route through.
+GLOBAL_LIST_INIT(f13_cable_dirs, list(NORTH, SOUTH, EAST, WEST, NORTHEAST, NORTHWEST, SOUTHEAST, SOUTHWEST))
+
+/// Returns TRUE if a diagonal step from T in the given dir isn't cutting through a solid
+/// wall corner (i.e. at least one of the two flanking cardinal tiles is unblocked).
+/// Always TRUE for pure cardinal directions.
+/proc/f13_diagonal_open(turf/T, dir)
+	if(!(dir & (dir - 1)))
+		return TRUE
+	var/turf/side1 = get_step(T, dir & (NORTH|SOUTH))
+	var/turf/side2 = get_step(T, dir & (EAST|WEST))
+	if(side1 && !is_blocked_turf(side1))
+		return TRUE
+	if(side2 && !is_blocked_turf(side2))
+		return TRUE
+	return FALSE
+
+/// TRUE if cable at turf T and cable at its neighbour N (N = get_step(T, dir)) form one connection.
+/// N must hold cable. A tile with an F13 machine on it connects to any adjacent cable (the machine's
+/// node is the junction). Otherwise some cable on T and some cable on N must share a run id; cable
+/// without an id counts as the one shared legacy run.
+/proc/f13_cable_can_step(turf/T, turf/N, dir)
+	if(!(locate(/obj/structure/cable) in N))
+		return FALSE
+	if((locate(/obj/machinery/f13) in T) || (locate(/obj/machinery/f13) in N))
+		return TRUE
+	for(var/obj/structure/cable/C1 in T)
+		for(var/obj/structure/cable/C2 in N)
+			if(C1.f13_run_id == C2.f13_run_id)
+				return TRUE
+	return FALSE
+
+/// Cable sprites only have icon_states for cardinal d1/d2 combos -- collapse any
+/// diagonal get_dir() result down to one cardinal component so the auto-spawned
+/// knot doesn't render as a broken/placeholder diagonal line.
+/proc/f13_nearest_cardinal(dir)
+	if(dir & NORTH)
+		return NORTH
+	if(dir & SOUTH)
+		return SOUTH
+	if(dir & EAST)
+		return EAST
+	if(dir & WEST)
+		return WEST
+	return dir
+
 // Key: "[REF(mob)]" string  →  Value: WEAKREF(source_machine)
 GLOBAL_LIST_EMPTY(f13_wire_sessions)
+
+/// Which run a cable tile belongs to. null = the shared legacy run (map cable without an id, and all player-laid cable).
+/obj/structure/cable/var/f13_run_id = null
+
+/// Key -> world.time the session was started. Sessions older than this many deciseconds are dead.
+GLOBAL_LIST_EMPTY(f13_wire_session_times)
+#define F13_WIRE_SESSION_TIMEOUT 3000
+
+/// Drop every wire session that has outlived F13_WIRE_SESSION_TIMEOUT (logged-off / wandered-off
+/// players would otherwise leave a session, and its direction indicators, behind forever).
+/proc/f13_purge_stale_wire_sessions()
+	for(var/key in GLOB.f13_wire_session_times)
+		if(world.time - GLOB.f13_wire_session_times[key] > F13_WIRE_SESSION_TIMEOUT)
+			GLOB.f13_wire_sessions -= key
+			GLOB.f13_wire_session_times -= key
 
 
 // ============================================================
@@ -63,10 +137,12 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 		var/spawn_dir = get_dir(T, get_turf(user))
 		if(!spawn_dir)  // player is on same tile — use their facing direction
 			spawn_dir = user.dir
-		new /obj/structure/cable(T, null, 0, spawn_dir)
+		new /obj/structure/cable(T, null, 0, f13_nearest_cardinal(spawn_dir))
 
 	// Register the session.
+	f13_purge_stale_wire_sessions()
 	GLOB.f13_wire_sessions["[REF(user)]"] = WEAKREF(machine_src)
+	GLOB.f13_wire_session_times["[REF(user)]"] = world.time
 
 	to_chat(user, span_notice("Cable routing started at [machine_src.name]. Run cable from the node here to your destination, then click the destination machine to complete. Click [machine_src.name] again to cancel."))
 
@@ -75,6 +151,7 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 /// Returns the source machine if a valid cable path was found, null otherwise.
 /// On success the session is cleared. On failure the session persists.
 /proc/f13_try_complete_wire(obj/machinery/machine_dst, mob/living/user)
+	f13_purge_stale_wire_sessions()
 	var/datum/weakref/src_ref = GLOB.f13_wire_sessions["[REF(user)]"]
 	if(!src_ref)
 		return null
@@ -82,6 +159,7 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 	var/obj/machinery/machine_src = src_ref.resolve()
 	if(!machine_src || QDELETED(machine_src))
 		GLOB.f13_wire_sessions -= "[REF(user)]"
+		GLOB.f13_wire_session_times -= "[REF(user)]"
 		return null
 
 	// Player clicked the source machine again — treat as cancel.
@@ -90,21 +168,38 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 		to_chat(user, span_notice("Cable routing cancelled."))
 		return null
 
+	// Auto-spawn a destination knot too, same as the source got on session start —
+	// this only caps off the final tile, it doesn't substitute for the run in between.
+	var/turf/dst_turf = get_turf(machine_dst)
+	if(dst_turf && !dst_turf.get_cable_node())
+		var/spawn_dir = get_dir(dst_turf, get_turf(user))
+		if(!spawn_dir)
+			spawn_dir = user.dir
+		new /obj/structure/cable(dst_turf, null, 0, f13_nearest_cardinal(spawn_dir))
+
 	// BFS path check from source turf to destination turf.
 	var/turf/src_turf = get_turf(machine_src)
-	var/turf/dst_turf = get_turf(machine_dst)
 	if(!f13_cable_path_exists(src_turf, dst_turf))
 		to_chat(user, span_warning("No complete cable path found between [machine_src.name] and [machine_dst.name]. Ensure the cable route is unbroken and runs all the way to this machine's tile."))
 		return null
 
-	// Path confirmed — clear session, return source.
+	// Path confirmed. Completing the link costs cable from the coil in the player's active hand
+	// (the headers always said "consumes 2 cable", but nothing ever took it).
+	var/obj/item/stack/cable_coil/link_coil = user.get_active_held_item()
+	if(!istype(link_coil) || !link_coil.use(F13_WIRE_LINK_COST))
+		to_chat(user, span_warning("You need at least [F13_WIRE_LINK_COST] lengths of cable in your hand to finish this connection."))
+		return null
+
+	// Clear session, return source.
 	GLOB.f13_wire_sessions -= "[REF(user)]"
+	GLOB.f13_wire_session_times -= "[REF(user)]"
 	return machine_src
 
 
 /// Cancel the routing session for a player.
 /proc/f13_cancel_wire_session(mob/living/user)
 	GLOB.f13_wire_sessions -= "[REF(user)]"
+	GLOB.f13_wire_session_times -= "[REF(user)]"
 
 
 // ============================================================
@@ -115,7 +210,8 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 /proc/f13_cable_is_live(turf/start, max_steps = 8)
 	if(!start)
 		return FALSE
-	var/list/visited = list(start)
+	var/list/visited = list()
+	visited[start] = TRUE
 	var/list/frontier = list(start)
 	var/steps = 0
 	while(frontier.len && steps < max_steps)
@@ -127,12 +223,14 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 			for(var/obj/machinery/f13/power_relay/R in T)
 				if(!QDELETED(R) && R.relay_powered)
 					return TRUE
-			for(var/dir in list(NORTH, SOUTH, EAST, WEST))
-				var/turf/N = get_step(T, dir)
-				if(!N || (N in visited))
+			for(var/dir in GLOB.f13_cable_dirs)
+				if(!f13_diagonal_open(T, dir))
 					continue
-				if(locate(/obj/structure/cable) in N)
-					visited += N
+				var/turf/N = get_step(T, dir)
+				if(!N || visited[N])
+					continue
+				if(f13_cable_can_step(T, N, dir))
+					visited[N] = TRUE
 					next_frontier += N
 		frontier = next_frontier
 		steps++
@@ -150,26 +248,30 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 			L.electrocute_act(15, src, flags = SHOCK_NOGLOVES)
 
 /obj/structure/cable/attackby(obj/item/W, mob/user, params)
+	// Sample liveness BEFORE the parent handler runs: cutting deletes the cable, and a deleted
+	// cable has no turf left to check (the old post-..() version could never fire).
+	var/was_live = FALSE
+	if(W.tool_behaviour == TOOL_WIRECUTTER)
+		was_live = f13_cable_is_live(get_turf(src))
 	. = ..()
-	if(istype(W, /obj/item/wirecutters) && !QDELETED(src))
-		if(f13_cable_is_live(get_turf(src)) && isliving(user))
-			var/mob/living/L = user
-			L.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
-		var/turf/cut_turf = get_turf(src)
-		if(cut_turf)
-			f13_notify_cable_cut(cut_turf)
+	if(was_live && QDELETED(src) && isliving(user))
+		var/mob/living/L = user
+		L.electrocute_act(25, src, flags = SHOCK_NOGLOVES)
+
+/// ANY removal of a cable (wirecutters, explosion, deconstruction, admin) re-validates the grid.
+/// Debounced so a blast that deletes dozens of tiles triggers one prune, not dozens.
+/obj/structure/cable/Destroy()
+	. = ..()
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(f13_notify_cable_cut)), 20, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /// Notify all F13 generators and relays that a cable was removed at turf T so they
 /// can prune any logical connections that no longer have a physical cable path.
 /proc/f13_notify_cable_cut(turf/T)
-	if(!T)
-		return
-	for(var/obj/machinery/f13/faction_generator/G in world)
+	// Each generator prunes its whole downstream tree (relays recurse), so one pass per
+	// generator covers every link; no need to walk the relay registry separately.
+	for(var/obj/machinery/f13/faction_generator/G in GLOB.f13_generators)
 		if(!QDELETED(G))
 			G._prune_dead_links()
-	for(var/obj/machinery/f13/power_relay/R in world)
-		if(!QDELETED(R))
-			R._prune_dead_links()
 
 /// Remove the first WEAKREF in /list/refs whose resolved value equals /obj/target.
 /// Safe to call even if refs is null or target is not in the list.
@@ -184,43 +286,55 @@ GLOBAL_LIST_EMPTY(f13_wire_sessions)
 /// Trigger recalc_draw() on every live faction generator.
 /// Cheap because there are very few generators per map.
 /proc/f13_recalc_all_generators()
-	for(var/obj/machinery/f13/faction_generator/G in world)
+	for(var/obj/machinery/f13/faction_generator/G in GLOB.f13_generators)
 		if(!QDELETED(G))
 			G.recalc_draw()
 
 /// Returns TRUE if a continuous cable path exists from start to end
-/// within F13_WIRE_MAX_PATH steps, checking only cardinal directions.
-/// A tile is traversable if it contains any /obj/structure/cable.
-/// The destination tile itself does not need to have cable — we check
-/// if the BFS frontier can reach any tile cardinally adjacent to end,
-/// OR if end itself has cable.
+/// within F13_WIRE_MAX_PATH steps, checking cardinal and (corner-guarded)
+/// diagonal directions. A tile is traversable if it contains any
+/// /obj/structure/cable. Both endpoints must already have cable laid on
+/// them -- adjacency to the destination is not enough on its own, or two
+/// nearby machines could "connect" off their auto-spawned knots alone
+/// without an actual wire run between them.
 /proc/f13_cable_path_exists(turf/start, turf/end, max_steps = F13_WIRE_MAX_PATH)
 	if(!start || !end)
 		return FALSE
 	if(start == end)
 		return TRUE
 
-	// The source tile must already have a cable (we auto-spawn it).
-	if(!locate(/obj/structure/cable) in start)
+	// Both endpoints need real laid cable -- a complete physical run, not just proximity.
+	if(!(locate(/obj/structure/cable) in start))
+		return FALSE
+	if(!(locate(/obj/structure/cable) in end))
 		return FALSE
 
-	var/list/visited = list(start)
+	var/list/visited = list()
+	visited[start] = TRUE
 	var/list/frontier = list(start)
 	var/steps = 0
 
 	while(frontier.len && steps < max_steps)
 		var/list/next_frontier = list()
 		for(var/turf/T in frontier)
-			for(var/check_dir in list(NORTH, SOUTH, EAST, WEST))
-				var/turf/N = get_step(T, check_dir)
-				if(!N || (N in visited))
+			for(var/check_dir in GLOB.f13_cable_dirs)
+				if(!f13_diagonal_open(T, check_dir))
 					continue
-				// Reached destination?
+				var/turf/N = get_step(T, check_dir)
+				if(!N || visited[N])
+					continue
+				// Reached destination? (the last hop must connect like any other)
 				if(N == end)
-					return TRUE
-				// Only continue through tiles that have cable.
-				if(locate(/obj/structure/cable) in N)
-					visited += N
+					if(f13_cable_can_step(T, N, check_dir))
+						return TRUE
+					continue
+				// Only continue through tiles whose cable actually connects to this one.
+				if(f13_cable_can_step(T, N, check_dir))
+					visited[N] = TRUE
+					// A machine is an endpoint, not a conductor: a run may not pass through another
+					// F13 machine's tile, or a breaker box / relay on a chain could be tunnelled through.
+					if(locate(/obj/machinery/f13) in N)
+						continue
 					next_frontier += N
 		frontier = next_frontier
 		steps++

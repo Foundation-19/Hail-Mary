@@ -121,6 +121,12 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	..()
 	update_z(new_z)
 
+/mob/dead/on_changed_z_level(turf/old_turf, turf/new_turf, notify_contents = TRUE)
+	. = ..()
+	// Roaming/flying across z-levels (unlike shuttle-driven onTransitZ) only fires this hook,
+	// so without this playsound() keeps bucketing us under our old z-level (dead_players_by_zlevel).
+	update_z(new_turf?.z)
+
 /mob/dead/abstract_move(atom/destination)
 	var/turf/old_turf = get_turf(src)
 	var/turf/new_turf = get_turf(destination)

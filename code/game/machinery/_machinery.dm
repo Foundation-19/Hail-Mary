@@ -189,7 +189,7 @@ Class Procs:
 	if(drop)
 		dropContents()
 	update_icon()
-	updateUsrDialog()
+	INVOKE_ASYNC(src, PROC_REF(updateUsrDialog)) // ui_interact()/tgui can sleep; callers of open_machine() (e.g. power_change()) must not
 
 /obj/machinery/proc/createmessage(source, title, message, priority)
 

@@ -86,6 +86,7 @@
 #define EXP_TYPE_DECANUS            "Decanus"
 #define EXP_TYPE_TRIBALCOMMAND      "Tribal Command"
 #define EXP_TYPE_FOLLOWERSCOMMAND   "Followers Command"
+#define EXP_TYPE_MINUTEMEN			"Minuteman"
 
 /// Tier names used as the right-hand side of "Faction/Tier" compound exemption keys.
 #define EXP_TIER_COMMANDER   "Commander"

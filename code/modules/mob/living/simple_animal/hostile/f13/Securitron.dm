@@ -25,6 +25,8 @@
 	
 	melee_damage_lower = 5
 	melee_damage_upper = 10
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	harm_intent_damage = 8
 	
 	aggro_vision_range = 7
@@ -91,7 +93,7 @@
 	auto_fire_delay = GUN_AUTOFIRE_DELAY_SLOW
 	extra_projectiles = 2
 	projectiletype = /obj/item/projectile/bullet/c9mm/simple
-	projectilesound = 'sound/f13weapons/varmint_rifle.ogg'
+	projectilesound = 'sound/f13weapons/ninemil.ogg'
 	projectile_sound_properties = list(
 		SP_VARY(FALSE),
 		SP_VOLUME(PISTOL_LIGHT_VOLUME),
@@ -176,6 +178,8 @@
 
 // BASE SENTRY BOT - heavy gatling laser platform
 /mob/living/simple_animal/hostile/securitron/sentrybot
+	affix_pool_type = "robot"
+	affix_chance = 4
 	name = "sentry bot"
 	desc = "A pre-war military robot armed with a deadly gatling laser and covered in thick armor plating."
 	icon_state = "sentrybot"
@@ -184,13 +188,15 @@
 	
 	mob_armor = ARMOR_VALUE_ROBOT_MILITARY
 	
-	maxHealth = 195 // bumped - TTK vs melee was too short
-	health = 195
+	maxHealth = 330 // bumped - TTK vs melee was too short
+	health = 330
 	stat_attack = UNCONSCIOUS
 	del_on_death = FALSE  // Explodes instead
 	
 	melee_damage_lower = 24
 	melee_damage_upper = 55
+	armour_penetration = 0.25
+	damage_threshold_penetration_mob = 8
 	attack_verb_simple = "pulverizes"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	
@@ -282,6 +288,9 @@
 
 // PLAYABLE SENTRY BOT
 /mob/living/simple_animal/hostile/securitron/sentrybot/playable
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	maxHealth = 50
 	health = 50
 	speed = 1
@@ -298,8 +307,67 @@
 	aggrosound = null
 	idlesound = null
 
+
+// Chinese Counterfeit Securitron
+/mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit
+	affix_chance = 0
+	armour_penetration = 0.3
+	damage_threshold_penetration_mob = 10
+	name = "Chinese Counterfeit Sentrybot"
+	desc = "A sentrybot copy made by China. This one has the markings of the submarine 'Hui'."
+	extra_projectiles = 2
+	health = 900
+	maxHealth = 900 //CHONK
+	obj_damage = 300
+	retreat_distance = 0
+	environment_smash = ENVIRONMENT_SMASH_RWALLS //wall-obliterator. perish.
+	color = "#780000"
+	aggro_vision_range = 8
+	flags_1 = PREVENT_CONTENTS_EXPLOSION_1 //cannot self-harm with it's explosion spam
+	faction = list("china")
+	emote_taunt_sound = list(
+		'sound/f13npc/sentry/tauntc1.ogg',
+		'sound/f13npc/sentry/tauntc2.ogg'
+		)
+	emote_taunt = list("spins its barrels")
+	aggrosound = list(
+		'sound/f13npc/sentry/aggroc1.ogg',
+		'sound/f13npc/sentry/aggroc2.ogg'
+		)
+	idlesound = list(
+		'sound/f13npc/sentry/idlec1.ogg',
+		'sound/f13npc/sentry/idlec2.ogg',
+		'sound/f13npc/sentry/idlec3.ogg',
+		'sound/f13npc/sentry/idlec4.ogg'
+		)
+
+/mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit/bullet_act(obj/item/projectile/Proj)
+	if(!Proj)
+		CRASH("[src] sentrybot invoked bullet_act() without a projectile")
+	if(prob(10) && health > 1)
+		visible_message(span_danger("\The [src] releases a defensive explosive!"))
+		explosion(get_turf(src),-1,-1,2, flame_range = 4) //perish, mortal - explosion size identical to craftable IED
+	..()
+
+/mob/living/simple_animal/hostile/securitron/counterfeit/proc/do_death_beep_chinese()
+	playsound(src, 'sound/machines/triple_beep.ogg', 75, TRUE)
+	visible_message(span_warning("You hear an ominous beep coming from [src]!"), span_warning("You hear an ominous beep!"))
+
+/mob/living/simple_animal/hostile/securitron/counterfeit/proc/self_destruct_chinese()
+	explosion(src,1,1,2,2)
+
+/mob/living/simple_animal/hostile/securitron/sentrybot/counterfeit/Life()
+	..()
+	if (!warned)
+		if (health <= 50)
+			warned = TRUE
+			playsound(src, 'sound/f13npc/sentry/systemfailurec2.ogg', 100, FALSE)
+
 // LIL' CHEW-CHEW - unique named boss
 /mob/living/simple_animal/hostile/securitron/sentrybot/chew
+	affix_chance = 0
+	armour_penetration = 0.35
+	damage_threshold_penetration_mob = 10
 	name = "lil' chew-chew"
 	desc = "An oddly scorched pre-war military robot armed with a deadly gatling laser and covered in thick, oddly blue armor plating, the name Lil' Chew-Chew scratched onto its front armour crudely, highlighted by small bits of white paint. There seems to be an odd pack on the monstrosity's back with a chute at the bottom - there's the most scorch-marks on the robot here, so it's safe to assume this robot is capable of explosions. Better watch out!"
 	
@@ -336,6 +404,7 @@
 	health = 1500
 	extra_projectiles = 4  // Fires a bit less than lil chew-chew
 	armour_penetration = 1
+	damage_threshold_penetration_mob = 0
 	move_to_delay = 2.75
 	rapid_melee = 2
 	
@@ -348,6 +417,9 @@
 
 // SUICIDE SENTRY - rushes in and explodes
 /mob/living/simple_animal/hostile/securitron/sentrybot/suicide
+	affix_chance = 0
+	armour_penetration = 0
+	damage_threshold_penetration_mob = 0
 	name = "explosive sentry bot"
 	desc = "A pre-war military robot armed with a deadly gatling laser and covered in thick armor plating. Don't get too close to this one, it looks like it's rigged to blow!"
 	

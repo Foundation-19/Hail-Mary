@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(block_parry_data)
  */
 /mob/living/proc/handle_block_parry(seconds = 1)
 	if(combat_flags & COMBAT_FLAG_ACTIVE_BLOCKING)
-		var/datum/block_parry_data/data = return_block_parry_datum(active_block_item.block_parry_data)
+		var/datum/block_parry_data/data = active_block_unarmed ? get_active_block_data() : active_block_item.get_block_parry_data()
 		adjustStaminaLossBuffered(data.block_stamina_cost_per_second * seconds)
 
 /mob/living/on_item_dropped(obj/item/I)

@@ -2,9 +2,10 @@
 	"map_name": "Baltimore",
 	"map_path": "map_files/Baltimore",
 	"map_file": [
-		"baltimore_surface.dmm",
 		"baltimore_underground.dmm",
-		"baltimore_upperlevel.dmm"
+		"baltimore_surface.dmm",
+		"baltimore_above.dmm",
+		"baltimore_above_2.dmm"
 	],
 	"station_ruin_budget":0,
 	"space_ruin_levels":0,
@@ -15,32 +16,30 @@
 		"ferry": "ferry_fancy"
 	},
 	"traits":[
-
 		{
 			"Gravity": true,
 			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
 			"Up": 1,
-			"Down": -1,
-			"No Parallax": true,
-			"Linkage" : "Cross",
-			"Name": "Surface",
-			"Force X": 2,
-			"Force Y": 2,
-			"Force Z": 1
-		},
-
-		{
-			"Gravity": true,
-			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
-			"Station": 1,
-			"Up": 1,
-			"Down": -1,
 			"No Parallax": true,
 			"Linkage" : "Cross",
 			"Name": "Baltimore Underground",
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 0
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/indestructible/ground/inside/mountain",
+			"Up": 1,
+			"Down": -1,
+			"Station": 1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Name": "Baltimore Surface",
+			"Force X": 2,
+			"Force Y": 2,
+			"Force Z": 1
 		},
 
 		{
@@ -55,21 +54,47 @@
 			"Force X": 2,
 			"Force Y": 2,
 			"Force Z": 2
+		},
+
+		{
+			"Gravity": true,
+			"Baseturf": "/turf/open/transparent/openspace",
+			"Down": -1,
+			"No Parallax": true,
+			"Linkage" : "Cross",
+			"Above": true,
+			"Name": "Baltimore Upper 2",
+			"Force X": 2,
+			"Force Y": 2,
+			"Force Z": 3
 		}
 
 	],
 	"minetype": "none",
 	"added_jobs": [
-		"enclave.dm",
 		"atlantic_cross.dm",
-		"locust_point.dm"
+		"locust_point.dm",
+		"baltimore_outlaws.dm",
+		"baltimore_bos.dm"
 	],
 	"removed_jobs": [
+		"enclave.dm",
+		"bos.dm",
 		"eastwood.dm",
-		"ncr.dm",
+		"ncra.dm",
 		"legion.dm",
 		"vault.dm",
 		"outlaws.dm",
-		"khan.dm"
+		"khan.dm",
+		"rangers.dm",
+		"whitelegs.dm",
+		"tribals.dm",
+		"lds.dm",
+		"khan.dm",
+		"outlaws.dm",
+		"usps.dm",
+		"eighties.dm",
+		"followers.dm",
+		"mutants.dm"
 	]
 }

@@ -8,3 +8,6 @@
 	icon_state = "road_end_decal_1"
 	icon = 'icons/turf/road_and_dirt_decal_road_end.dmi'
 	
+/obj/effect/turf_decal/dirt
+	icon_state = "dirt"
+	icon = 'icons/turf/road_and_dirt_decal_road_end.dmi'

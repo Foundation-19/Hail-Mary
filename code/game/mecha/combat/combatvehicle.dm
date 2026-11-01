@@ -1,3 +1,23 @@
+
+/obj/mecha/combat/combatvehicle
+	name = "not supposed to be here"
+	desc = "not supposed to be here.Delete please."
+	anchored = FALSE
+	pixel_x = -32
+	obj_integrity = 600
+	max_integrity = 600
+	max_buckled_mobs = 2 // this does nothing and max occupants allows more mobs to buckle but breaks movement
+	move_force = MOVE_FORCE_VERY_STRONG
+	move_resist = MOVE_FORCE_VERY_STRONG
+	pull_force = MOVE_FORCE_VERY_STRONG
+	var/crash_all = FALSE //CHAOS
+	var/car_traits = NONE //Bitflag for special behavior such as kidnapping
+	var/engine_sound_length = 20 //Set this to the length of the engine sound
+
+/obj/mecha/combat/combatvehicle/Initialize()
+	. = ..()
+	forbid_turf_typecache = typecacheof(/turf/open/water)
+
 // VERTIBIRD 
 
 /obj/mecha/combat/combatvehicle/vertibird

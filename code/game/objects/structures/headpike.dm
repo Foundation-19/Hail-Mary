@@ -16,17 +16,14 @@
 
 /obj/structure/headpike/CheckParts(list/parts_list)
 	..()
-	victim = locate(/obj/item/bodypart/head) in parts_list
+	victim = locate(/obj/item/bodypart/head) in contents
 	if(victim)
 		name = "[victim.name] on a spear"
-	else
-		var/obj/item/bodypart/head/H = locate() in contents //failsafe from nulls
-		name = "[H.name] on a spear"
 	update_icon()
 	if(bonespear)
-		spear = locate(/obj/item/twohanded/spear/bonespear) in parts_list
+		spear = locate(/obj/item/twohanded/spear/bonespear) in contents
 	else
-		spear = locate(/obj/item/twohanded/spear) in parts_list
+		spear = locate(/obj/item/twohanded/spear) in contents
 
 /obj/structure/headpike/Initialize()
 	. = ..()
@@ -45,11 +42,12 @@
 /obj/structure/headpike/on_attack_hand(mob/user, act_intent = user.a_intent, unarmed_attack_flags)
 	to_chat(user, span_notice("You take down [src]."))
 	var/obj/item/bodypart/head/H = locate() in contents
-	var/obj/item/twohanded/spear/spear = locate() in contents //i dont know why byond needs to be told this twice maybe it needs to call the superclass idk
+	spear = locate(/obj/item/twohanded/spear) in contents
 	if(H)
 		H.forceMove(drop_location())
 		victim = null
-	spear.forceMove(drop_location())
+	if(spear)
+		spear.forceMove(drop_location())
 	spear = null
 	update_icon()
 	qdel(src)

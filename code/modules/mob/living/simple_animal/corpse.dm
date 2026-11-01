@@ -280,3 +280,45 @@ obj/effect/mob_spawn/human/corpse/raiderbossalt
 	name = "Chinese Remnant Assault Corpse"
 	suit = /obj/item/clothing/suit/armor/medium/combat/chinese
 	belt = /obj/item/storage/belt/military/alt
+
+obj/effect/mob_spawn/human/corpse/wastelander1
+	name = "Wastelander Corpse"
+	uniform = /obj/item/clothing/under/f13/sleazeball
+	shoes = /obj/item/clothing/shoes/f13/diesel
+	gloves = /obj/item/clothing/gloves/color/black
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+
+obj/effect/mob_spawn/human/corpse/wastelander2
+	name = "Wastelander Corpse"
+	uniform = /obj/item/clothing/under/f13/settler
+	shoes = /obj/item/clothing/shoes/f13/diesel
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+
+obj/effect/mob_spawn/human/corpse/wastelander3
+	name = "Wastelander Corpse"
+	uniform = /obj/item/clothing/under/f13/worn
+	shoes = /obj/item/clothing/shoes/f13/diesel
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+
+obj/effect/mob_spawn/human/corpse/wastelander3
+	name = "Wastelander Corpse"
+	uniform = /obj/item/clothing/under/f13/ranger/modif_ranger
+	shoes = /obj/item/clothing/shoes/f13/diesel
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+
+obj/effect/mob_spawn/human/corpse/wastelander4
+	name = "Wastelander Corpse"
+	uniform = /obj/item/clothing/under/f13/ranger/modif_ranger
+	shoes = /obj/item/clothing/shoes/f13/diesel
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"
+
+obj/effect/mob_spawn/human/corpse/wastelander5
+	name = "Wastelander Corpse"
+	uniform = /obj/item/clothing/under/f13/pinkdress
+	hair_style = "Bald"
+	facial_hair_style = "Shaved"

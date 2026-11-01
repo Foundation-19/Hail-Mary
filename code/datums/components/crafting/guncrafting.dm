@@ -367,7 +367,6 @@
 					salvage_thingy.make_loot(user, get_turf(src))
 				else
 					break
-					baggy.in_use = FALSE
 			baggy.in_use = FALSE
 
 /obj/machinery/workbench/advanced

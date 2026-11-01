@@ -546,7 +546,7 @@ GLOBAL_LIST_INIT(warning_ckeys, list())
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 	if(mentor_datum)
-		qdel(mentor_datum)
+		mentor_datum.owner = null // keep the mentor datum alive in GLOB.mentor_datums so perms survive a reconnect
 		mentor_datum = null
 	GLOB.mentors -= src
 	// seen_messages = null
