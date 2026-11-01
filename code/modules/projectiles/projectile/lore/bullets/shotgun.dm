@@ -232,6 +232,17 @@
 	zone_accuracy_type = ZONE_WEIGHT_SEMI_AUTO
 	sharpness = SHARP_NONE
 
+/* Flamer mutant burst: three short gouts per volley. Armor and DT do not stop the burn, so it
+ * trades slug damage for DT penetration and heavier ignition (fire stacks carry the real damage).
+ */
+/obj/item/projectile/bullet/incendiary/shotgun/flamer
+	name = "gout of flame"
+	damage = 9
+	armour_penetration = 0.1
+	damage_threshold_penetration = 6
+	fire_stacks = 6
+	damage_falloff = BULLET_FALLOFF_DEFAULT_SHOTGUN_PELLET
+
 /* 12g pellet fire
  * DAMAGE: 5
  * STAMIN: 5

@@ -908,7 +908,7 @@
 	minimum_distance = 1
 
 	casingtype = null
-	projectiletype = /obj/item/projectile/bullet/incendiary/shotgun
+	projectiletype = /obj/item/projectile/bullet/incendiary/shotgun/flamer
 	projectilesound = 'sound/magic/fireball.ogg'
 	sound_after_shooting = null
 	ranged_message = "unleashes a burst of flame"
@@ -925,7 +925,7 @@
 		return
 	visible_message(span_danger("[src]'s fuel tank ruptures in a burst of flame!"))
 	for(var/turf/F in range(1, T))
-		new /obj/effect/hotspot(F)
+		new /obj/effect/hotspot(F, null, null, FALSE)
 		F.hotspot_expose(500, 500, 1)
 
 // ============================================================

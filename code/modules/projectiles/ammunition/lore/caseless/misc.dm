@@ -35,8 +35,9 @@
 	var/flame_range = 6 //tiles the stream reaches before fizzling out
 	var/flame_temperature = 700
 	var/flame_volume = 50
-	var/direct_burn_damage = 8 //instant burn damage applied per tick you're standing in the stream, on top of the lingering fire - a flamethrower should hurt the second it touches you, not just eventually
-	var/ignite_fire_stacks = 5
+	var/direct_burn_damage = 3 //instant burn damage per tick in the stream - kept low because the stream ticks every shot; the lingering fire (ignite_fire_stacks) is the real damage
+	var/stream_step_delay = 0.5 //deciseconds between each tile the jet reaches
+	var/ignite_fire_stacks = 6 //hotspot fire_act adds 3 more on top; stacks drive the burning damage, so they are applied up front instead of ramping up over several ticks
 
 //tinted copy of the stock beam effect so the flame stream reads as fire instead of a generic sci-fi beam
 /obj/effect/ebeam/flamethrower
@@ -49,7 +50,7 @@
 
 //spawns the fire effect on a tile and burns/ignites everyone standing on it - shared by both the traced line and its widening tiles
 /obj/item/ammo_casing/caseless/flamethrower/proc/ignite_turf(turf/T)
-	new /obj/effect/hotspot(T, flame_volume, flame_temperature) //turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
+	new /obj/effect/hotspot(T, flame_volume, flame_temperature, FALSE) //burn_objects FALSE: the stream hurts people, it does not ash loot and furniture. turf/hotspot_expose() is stubbed out in this codebase, spawn the fire effect directly
 	for(var/mob/living/L in T)
 		L.adjust_fire_stacks(ignite_fire_stacks)
 		L.IgniteMob()
@@ -77,15 +78,14 @@
 	//sample the exact same trigonometric centerline /datum/beam/proc/Draw() uses below, instead of a separate getline() Bresenham guess -
 	//that way the tiles that actually burn are always the tiles the beam graphic is actually drawn over, angle for angle
 	var/Angle = round(Get_Angle(userloc, targloc))
-	var/DX = (32 * targloc.x + targloc.pixel_x) - (32 * userloc.x + userloc.pixel_x)
-	var/DY = (32 * targloc.y + targloc.pixel_y) - (32 * userloc.y + userloc.pixel_y)
-	var/beam_length = round(sqrt(DX ** 2 + DY ** 2))
-	var/turf/previous = userloc
+	//the stream always extends its full reach along the aimed angle, like a real flamethrower, instead of stopping at the cursor
+	var/beam_length = flame_range * 32 + 16
 	var/turf/last_turf = userloc
 	var/tiles_burned = 0
+	var/list/turf/stream_turfs = list()
 	for(var/N = 0, N < beam_length, N += 32)
-		var/Pixel_x = DX ? round(sin(Angle) + 32 * sin(Angle) * (N + 16) / 32) : 0
-		var/Pixel_y = DY ? round(cos(Angle) + 32 * cos(Angle) * (N + 16) / 32) : 0
+		var/Pixel_x = round(sin(Angle) + 32 * sin(Angle) * (N + 16) / 32)
+		var/Pixel_y = round(cos(Angle) + 32 * cos(Angle) * (N + 16) / 32)
 		var/turf/T = locate(userloc.x + round(Pixel_x / 32), userloc.y + round(Pixel_y / 32), userloc.z)
 		if(!istype(T) || T == last_turf)
 			continue
@@ -96,13 +96,8 @@
 		//exclude_mobs = TRUE - mobs are dense too, but a flamethrower should wash over a person and keep going, not treat them as a wall
 		if(is_blocked_turf(T, TRUE))
 			break //flame doesn't pass through walls
-		ignite_turf(T)
-		previous = T
+		stream_turfs += T
 		tiles_burned++
-
-	//the turf-by-turf hotspots handle the actual game logic (ignite/damage), but on their own they look like disconnected blobs, especially off-angle - draw a real free-angle beam over them so the stream visually arcs to exactly where it stopped
-	if(previous != userloc)
-		user.Beam(previous, icon_state = "b_beam", time = 4, maxdistance = flame_range + 1, beam_type = /obj/effect/ebeam/flamethrower, beam_sleep_time = 1)
 
 	if(istype(user))
 		user.DelayNextAction(considered_action = TRUE, immediate = FALSE)
@@ -116,8 +111,20 @@
 		if(gonne.chambered == src)
 			gonne.chambered = null
 			gonne.update_icon()
-	qdel(src)
+	INVOKE_ASYNC(src, PROC_REF(run_stream), user, stream_turfs)
 	return TRUE
+
+//the jet shoots outward tile by tile instead of appearing at full length: each step ignites the next tile and redraws the beam one tile longer
+/obj/item/ammo_casing/caseless/flamethrower/proc/run_stream(mob/living/user, list/turf/stream_turfs)
+	var/datum/beam/stream_beam
+	for(var/turf/T as anything in stream_turfs)
+		ignite_turf(T)
+		if(!QDELETED(user))
+			QDEL_NULL(stream_beam)
+			//the turf-by-turf hotspots handle the game logic but look like disconnected blobs off-angle - a free-angle beam to the newest tile ties them together
+			stream_beam = user.Beam(T, icon_state = "medbeam", time = 4, maxdistance = flame_range + 1, beam_type = /obj/effect/ebeam/flamethrower, beam_sleep_time = 1)
+		sleep(stream_step_delay)
+	qdel(src)
 
 //throwin' rock, for throwin'. obtained via *rocks
 /obj/item/ammo_casing/caseless/rock
