@@ -100,8 +100,8 @@
 
 				<p>
 				<ol>
-				<li>Heat the ingot, move it to the anvil.</li>
-				<li>Prepare the metal, weak, strong and heavy hits enhance the quality but overworking the metal will produce slag and you have to start over. Try a couple hits then move on to making the item if you have no other ideas. </li>
+				<li>Heat the ingot, move it to the anvil. Metal cools as you work: bright metal is quicker to shape but riskier, and cold metal can't be worked. Click the anvil with an empty hand to lift a piece off and reheat it, its progress is kept. </li>
+				<li>Prepare the metal with light taps, medium strikes and heavy blows. Every blow builds up strain in the metal: if it starts groaning, ease off. Push too far and it cracks (still workable, but worse, or you can salvage it) and then turns to slag. Forge flux reduces strain for a few hits. </li>
 				<li>Follow the secret smithing recipe for the item you want to make, the end result will depend on how much experience you have smithing, and the quality of your tools and preparations. </li>
 				<li>The first item you make should be a good hammer, you might need to repeat the process and replace the previous hammer with a new one in steps. Try to have at least a masterworked iron hammer before moving on to other items to save you headache. </li>
 				</ol>
