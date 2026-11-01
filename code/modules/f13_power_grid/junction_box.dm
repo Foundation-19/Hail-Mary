@@ -462,6 +462,10 @@
 		// teardown could never find the zone and the carved tiles would never be handed back.
 		owned_zones = list()
 		owned_zones[Z] = here  // so teardown repatriates these tiles like any other zone
+		zone_breakers = list()
+		zone_breakers[Z] = TRUE
+		zone_tile_counts = list()
+		zone_tile_counts[Z] = local_tiles
 		grid_watt_draw = grid_watt_draw_base + (grid_watt_draw_per_tile * local_tiles)
 		if(grid_powered && breaker_closed)
 			_stamp_areas(TRUE)

@@ -393,7 +393,8 @@
 	var/obj/item/pda/PDA = H.get_item_by_slot(pda_slot)
 	if(istype(PDA))
 		PDA.owner = H.real_name
-		PDA.ownjob = J.title
+		if(J)
+			PDA.ownjob = J.title
 		PDA.update_label()
 		if(preference_source && !PDA.equipped) //PDA's screen color, font style and look depend on client preferences.
 			PDA.update_style(preference_source)

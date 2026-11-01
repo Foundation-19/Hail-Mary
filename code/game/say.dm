@@ -406,32 +406,38 @@ And the base of the send_speech() proc, which is the core of saycode.
 /// Plain-text (non-link) version of the face-recognition check used by examine()/compose_message() - how
 /// `viewer` would see this mob's name in a message (combat, emotes, etc.). No href attached, unlike
 /// get_identity_tag()'s use in examine(), since you don't want a "remember" link spamming into combat text.
-/mob/living/proc/get_display_name(mob/living/viewer)
+/mob/living/proc/get_display_name(mob/viewer)
 	//Viewing your own name should show your real identity, not .name's anonymized public tag.
 	if(!viewer || viewer == src)
 		return get_visible_name()
+	if(!isliving(viewer))
+		return is_currently_unrecognizable() ? "Unknown" : get_identity_tag()
+	var/mob/living/living_viewer = viewer
 	if(is_currently_unrecognizable())
 		//Masking defeats face recognition, but not a voice already remembered - you can still tell who's
 		//under the mask by how they sound, even if you can't see their face right now.
-		var/remembered_voice = viewer.knows_voice(src)
+		var/remembered_voice = living_viewer.knows_voice(src)
 		return remembered_voice ? remembered_voice : "Unknown"
-	var/remembered_name = viewer.knows_face(src) || viewer.knows_voice(src)
+	var/remembered_name = living_viewer.knows_face(src) || living_viewer.knows_voice(src)
 	if(!remembered_name)
-		log_display_name_miss(viewer, src)
+		log_display_name_miss(living_viewer, src)
 	return remembered_name ? remembered_name : get_identity_tag()
 
 /// Same as get_display_name(), but wraps an unrecognized name in the same clickable "remember_face" link
 /// compose_message() gives natural speech - used for PUT_NAME_IN messages (emotes) so emoting instead of
 /// talking can't be used to dodge ever being nameable.
-/mob/living/proc/get_display_name_linked(mob/living/viewer)
+/mob/living/proc/get_display_name_linked(mob/viewer)
 	if(!viewer || viewer == src)
 		return get_visible_name()
+	if(!isliving(viewer))
+		return is_currently_unrecognizable() ? "Unknown" : get_identity_tag()
+	var/mob/living/living_viewer = viewer
 	if(is_currently_unrecognizable())
-		var/remembered_voice = viewer.knows_voice(src)
+		var/remembered_voice = living_viewer.knows_voice(src)
 		return remembered_voice ? remembered_voice : "Unknown"
-	var/remembered_name = viewer.knows_face(src) || viewer.knows_voice(src)
+	var/remembered_name = living_viewer.knows_face(src) || living_viewer.knows_voice(src)
 	if(!remembered_name)
-		log_display_name_miss(viewer, src)
+		log_display_name_miss(living_viewer, src)
 	var/label = remembered_name ? remembered_name : get_identity_tag()
 	return "<a href='?src=[REF(viewer)];remember_face=[REF(src)]'>[label]</a>"
 

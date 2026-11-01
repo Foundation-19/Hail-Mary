@@ -2069,6 +2069,9 @@
 		
 		if(can_shoot)
 			var/fired = OpenFire(target)
+			// OpenFire can sleep while an attack runs, allowing the target to be lost.
+			if(QDELETED(src) || QDELETED(target))
+				return 0
 			if(!fired || is_shot_blocked(target))
 				if(retreat_distance != null && abs(target_distance - retreat_distance) <= 2)
 					var/turf/better_position = find_firing_position(target)

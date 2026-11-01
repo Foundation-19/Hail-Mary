@@ -1107,7 +1107,7 @@
 			return
 		anchored = !anchored
 		playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
-		to_chat(user, span_notice(anchored ? "You secure [src] to the floor." : "You unbolt [src] from the floor."))
+		to_chat(user, span_notice((anchored ? "You secure [src] to the floor." : "You unbolt [src] from the floor.")))
 		return
 
 	// ── Screwdriver — eject remaining fuel units.
