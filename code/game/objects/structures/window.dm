@@ -143,6 +143,12 @@ GLOBAL_LIST_EMPTY(electrochromatic_window_lookup)
 		..(FULLTILE_WINDOW_DIR)
 
 /obj/structure/window/CanAllowThrough(atom/movable/mover, border_dir)
+	// /obj/structure treats projectiles as "cover" (proj_pass_rate chance, and always when the shooter is adjacent). Glass is not cover, it blocks.
+	if(istype(mover, /obj/item/projectile))
+		if(fulltile)
+			return FALSE
+		return !(border_dir & dir)
+
 	. = ..()
 	if(.)
 		return

@@ -1113,8 +1113,9 @@ Merged into ranked Wasteland Perk "Demolition Expert" (code/datums/traits/fallou
 
 /datum/quirk/quickercarry
 	name = "Quicker Carry"
-	desc = "You're real good at just scooping people up."
+	desc = "You're real good at just scooping people up. Requires Quick Carry."
 	value = 2
+	requires_quirk = "Quick Carry"
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 5
