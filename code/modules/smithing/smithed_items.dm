@@ -46,8 +46,10 @@
 /obj/item/smithing/proc/get_preferred_quench()
 	if(!islist(custom_materials))
 		return "water"
-	for(var/material_type in custom_materials)
-		if(ispath(material_type, /datum/material/adamantine) || ispath(material_type, /datum/material/titanium))
+	// custom_materials keys are material datum refs once set_custom_materials() runs, not type paths.
+	for(var/material_key in custom_materials)
+		var/datum/material/material = SSmaterials.GetMaterialRef(material_key)
+		if(istype(material, /datum/material/adamantine) || istype(material, /datum/material/titanium))
 			return "oil"
 	return "water"
 

@@ -311,7 +311,7 @@ GLOBAL_LIST_INIT(smith_heat_durations, list(0, 30 SECONDS, 90 SECONDS, 50 SECOND
 		else
 			html += "<p>Your notes on metal-specific heat treatment are still incomplete.</p>"
 		if(skill >= 6)
-			html += "<p>Titanium- and adamantine-bearing pieces respond better to oil. In a layered piece, use the medium preferred by any metal that requires oil.</p>"
+			html += "<p>Titanium- and pre-war steel-bearing pieces respond better to oil. In a layered piece, use the medium preferred by any metal that requires oil.</p>"
 	html += "</body></html>"
 	user << browse(html, "window=smithing_journal;size=500x560")
 

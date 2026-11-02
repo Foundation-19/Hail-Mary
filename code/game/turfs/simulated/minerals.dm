@@ -144,7 +144,7 @@
 
 /turf/closed/mineral/random
 	var/list/mineralSpawnChanceList = list(/turf/closed/mineral/uranium = 5, /turf/closed/mineral/diamond = 1, /turf/closed/mineral/gold = 10,
-		/turf/closed/mineral/silver = 12, /turf/closed/mineral/plasma = 20, /turf/closed/mineral/iron = 40, /turf/closed/mineral/titanium = 11,
+		/turf/closed/mineral/silver = 12, 		/turf/closed/mineral/plasma = 20, /turf/closed/mineral/iron = 40, /turf/closed/mineral/titanium = 11, /turf/closed/mineral/coal = 15,
 		/*/turf/closed/mineral/gibtonite = 4, *//turf/open/floor/plating/asteroid/airless/cave = 2, /turf/closed/mineral/bscrystal = 1)
 		//Currently, Adamantine won't spawn as it has no uses. -Durandan
 	var/mineralChance = 13
@@ -196,7 +196,7 @@
 	mineralChance = 25
 	mineralSpawnChanceList = list(
 		/turf/closed/mineral/uranium = 35, /turf/closed/mineral/diamond = 30, /turf/closed/mineral/gold = 45, /turf/closed/mineral/titanium = 45,
-		/turf/closed/mineral/silver = 50, /turf/closed/mineral/plasma = 50, /turf/closed/mineral/bscrystal = 20)
+		/turf/closed/mineral/silver = 50, /turf/closed/mineral/plasma = 50, /turf/closed/mineral/coal = 40, /turf/closed/mineral/bscrystal = 20)
 
 /turf/closed/mineral/random/high_chance/volcanic
 	environment_type = "basalt"
@@ -241,13 +241,13 @@
 	mineralChance = 6
 	mineralSpawnChanceList = list(
 		/turf/closed/mineral/uranium = 2, /turf/closed/mineral/diamond = 1, /turf/closed/mineral/gold = 4, /turf/closed/mineral/titanium = 4,
-		/turf/closed/mineral/silver = 6, /turf/closed/mineral/plasma = 15, /turf/closed/mineral/iron = 40, /turf/closed/mineral/lead = 30, /turf/closed/mineral/limestone = 20,
+		/turf/closed/mineral/silver = 6, /turf/closed/mineral/plasma = 15, /turf/closed/mineral/iron = 40, 		/turf/closed/mineral/lead = 30, /turf/closed/mineral/limestone = 20, /turf/closed/mineral/coal = 25,
 		/*/turf/closed/mineral/gibtonite = 2, *//turf/closed/mineral/bscrystal = 1) //indestructable chance moved to child, /underground
 
 /turf/closed/mineral/random/low_chance/underground
 	mineralSpawnChanceList = list(
 		/turf/closed/mineral/uranium = 2, /turf/closed/mineral/diamond = 1, /turf/closed/mineral/gold = 4, /turf/closed/mineral/titanium = 4,
-		/turf/closed/mineral/silver = 6, /turf/closed/mineral/plasma = 15, /turf/closed/mineral/iron = 40, /turf/closed/mineral/lead = 30, /turf/closed/mineral/limestone = 20,
+		/turf/closed/mineral/silver = 6, /turf/closed/mineral/plasma = 15, /turf/closed/mineral/iron = 40, 		/turf/closed/mineral/lead = 30, /turf/closed/mineral/limestone = 20, /turf/closed/mineral/coal = 25,
 		/*/turf/closed/mineral/gibtonite = 2, *//turf/closed/mineral/bscrystal = 1, /turf/closed/mineral/indestructible = 50) //fortuna edit, indestructible rocks added to chance list
 
 /turf/closed/mineral/random/low_chance/underground/abovemob

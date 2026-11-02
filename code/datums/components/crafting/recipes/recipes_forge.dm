@@ -96,6 +96,20 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 
+/datum/crafting_recipe/forge_flux/coke
+	name = "Forge Flux (Coke)"
+	reqs = list(
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/sheet/coke = 1,
+		)
+
+/datum/crafting_recipe/forge_flux/charcoal
+	name = "Forge Flux (Charcoal)"
+	reqs = list(
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/sheet/mineral/coal = 1,
+		)
+
 /datum/crafting_recipe/blacksmithing/clay_coating
 	name = "Refractory Clay Coating"
 	result = /obj/item/blacksmith/clay_coating
