@@ -59,7 +59,12 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Kamikaze", "Fragile"),
 			list("Cool Under Fire", "Glass Jaw"),
 			list("Steady Breather", "Chronic Pain"),
-			list("Finesse", "Built to Destroy")
+			list("Finesse", "Built to Destroy"),
+			list("Weak Back", "Strong Back I", "Strong Back II", "Hoarder"),
+			list("Pushover", "Finesse"),
+			list("Haggler's Curse", "Trader I", "Trader II"),
+			list("Unlucky", "Lucky Break", "Built to Destroy"),
+			list("Shaky Aim", "Steady Aim", "Steady Hands")
 			)
 	return ..()
 

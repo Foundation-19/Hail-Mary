@@ -880,5 +880,5 @@
 /datum/component/storage/proc/get_max_items()
 	. = max_items
 	var/mob/living/wearer = recursive_loc_check(parent, /mob/living)
-	if(wearer)
-		. += round(max_items * wearer.get_carry_perk_bonus())
+	if(wearer && max_items > 1)
+		. = max(1, . + round(max_items * wearer.get_carry_perk_bonus()))

@@ -281,6 +281,8 @@
 			C.update_damage_overlays()
 	if(heal_operations & DO_HEAL_DAMAGE)
 		var/medic_mult = get_medic_heal_mult(user)
+		if(HAS_TRAIT(C, TRAIT_SLOW_HEALER))
+			medic_mult *= 0.8
 		if(affected_bodypart.heal_damage(heal_brute * medic_mult, heal_burn * medic_mult, (heal_brute + heal_burn) * medic_mult, updating_health = TRUE))
 			C.update_damage_overlays()
 	/* if(heal_operations & DO_UNBLEED_WOUND)

@@ -213,6 +213,12 @@
 #define TRAIT_BUILT_TO_DESTROY	"built_to_destroy" //Wasteland Trait: more critical hits, guns jam more
 #define TRAIT_JINXED	"jinxed" //Wasteland Trait: everyone nearby (including you) fumbles more
 #define TRAIT_BLOODY_MESS	"bloody_mess" //Wasteland Trait: critical hits are gorier and hit slightly harder
+#define TRAIT_WEAK_BACK	"weak_back" //Liability: smaller carry capacity and fewer item slots
+#define TRAIT_PUSHOVER	"pushover" //Liability: deal less melee and projectile damage
+#define TRAIT_HAGGLERS_CURSE	"hagglers_curse" //Liability: vending machines charge more
+#define TRAIT_UNLUCKY	"unlucky" //Liability: guns jam more and crits are rarer
+#define TRAIT_SHAKY_AIM	"shaky_aim" //Liability: worse gun spread while moving
+#define TRAIT_SLOW_HEALER	"slow_healer" //Liability: medical stacks heal you less
 #define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
 #define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
 #define TRAIT_PA_TRAINED_RANK2	"pa_trained_rank2" //Power Armor Training II: Power Armor fusion cells drain 15% slower

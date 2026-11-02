@@ -78,6 +78,8 @@ proc/get_top_level_mob(mob/S)
 		strength_bonus = (3 * 1.1) + (min(strength_difference - 3, 1) * 0.8) + (max(strength_difference - 4, 0) * 0.6)
 	if(HAS_TRAIT(src, TRAIT_FINESSE))
 		strength_bonus -= 2
+	if(HAS_TRAIT(src, TRAIT_PUSHOVER))
+		strength_bonus -= 2
 	return strength_bonus + get_special_low_charisma_intimidation_dam_bonus()
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
@@ -126,7 +128,7 @@ proc/get_top_level_mob(mob/S)
 	. = CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.15), 0.85, 1.75)
 	. += get_carry_perk_bonus()
 
-/// Flat carry bonus from Strong Back and Hoarder. Also stretches the volume and item slots of worn backpacks, belts and pouches, which Strength alone doesn't touch.
+/// Flat carry bonus from Strong Back and Hoarder, minus Weak Back. Also stretches the volume and item slots of worn backpacks, belts and pouches, which Strength alone doesn't touch.
 /mob/living/proc/get_carry_perk_bonus()
 	. = 0
 	if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK2))
@@ -135,6 +137,8 @@ proc/get_top_level_mob(mob/S)
 		. += 0.2
 	if(HAS_TRAIT(src, TRAIT_HOARDER))
 		. += 0.2
+	if(HAS_TRAIT(src, TRAIT_WEAK_BACK))
+		. -= 0.15
 
 /// Call after gaining or losing a carry perk. Waits a tick so the trait is really gone, then re-evaluates every worn container's overload slowdown.
 /mob/living/proc/queue_storage_overload_check()
@@ -592,6 +596,8 @@ proc/get_top_level_mob(mob/S)
 		. *= 0.85
 	if(HAS_TRAIT(src, TRAIT_STEADY_HANDS))
 		. *= 0.9
+	if(HAS_TRAIT(src, TRAIT_SHAKY_AIM) && !is_standing_still())
+		. *= 1.25
 
 /mob/living/var/cf_target_ref
 /mob/living/var/cf_stacks = 0
@@ -601,6 +607,8 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_shot_perk_damage_mult(atom/target)
 	. = 1
 	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		. -= 0.1
+	if(HAS_TRAIT(src, TRAIT_PUSHOVER))
 		. -= 0.1
 	if(HAS_TRAIT(src, TRAIT_CONCENTRATED_FIRE))
 		var/target_ref = REF(target)
@@ -621,6 +629,8 @@ proc/get_top_level_mob(mob/S)
 		. += 10
 	if(HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY))
 		. += 6
+	if(HAS_TRAIT(src, TRAIT_UNLUCKY))
+		. = max(0, . - 5)
 
 /// Damage multiplier for a critical hit, x1.5 normally and x2 with Better Criticals, +0.15 with Bloody Mess.
 /mob/proc/get_critical_hit_multiplier()
@@ -714,8 +724,10 @@ proc/get_top_level_mob(mob/S)
 		return 2
 	return HAS_TRAIT(src, TRAIT_SCROUNGER_RANK1) ? 1 : 0
 
-/// Fraction knocked off vending machine prices by the Trader perk.
+/// Fraction knocked off vending machine prices by the Trader perk. Negative for Haggler's Curse (a surcharge).
 /mob/proc/get_trader_discount()
+	if(HAS_TRAIT(src, TRAIT_HAGGLERS_CURSE))
+		return -0.1
 	if(HAS_TRAIT(src, TRAIT_TRADER_RANK2))
 		return 0.15
 	return HAS_TRAIT(src, TRAIT_TRADER_RANK1) ? 0.08 : 0
@@ -767,7 +779,7 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_l value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/luck_jam_multiplier = list(1.8, 1.6, 1.4, 1.2, 1, 0.9, 0.8, 0.7, 0.6, 0.5)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return (luck_jam_multiplier[clamped_l] || 1) * (HAS_TRAIT(src, TRAIT_LUCKY_BREAK) ? 0.6 : 1) * (HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY) ? 1.4 : 1)
+	return (luck_jam_multiplier[clamped_l] || 1) * (HAS_TRAIT(src, TRAIT_LUCKY_BREAK) ? 0.6 : 1) * (HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY) ? 1.4 : 1) * (HAS_TRAIT(src, TRAIT_UNLUCKY) ? 1.4 : 1)
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()

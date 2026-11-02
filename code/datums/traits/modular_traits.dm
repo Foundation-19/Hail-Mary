@@ -1612,3 +1612,65 @@
 	special_mods = list("e" = -1, "l" = -1)
 	gain_text = span_danger("The Wasteland feels bigger than you thought.")
 	lose_text = span_notice("You feel more at home in the Wasteland.")
+
+/datum/quirk/modular/weak_back
+	name = "Weak Back"
+	desc = "You can't haul much: -15% carry capacity and item slots on your bags, belts and pockets. Can't be taken with Strong Back or Hoarder."
+	value = -1
+	trait_flags = list(TRAIT_WEAK_BACK)
+	gain_text = span_danger("Your pack suddenly feels heavier.")
+	lose_text = span_notice("Your pack feels lighter.")
+	medical_record_text = "Patient has a weak lower back and shouldn't carry heavy loads."
+
+/datum/quirk/modular/weak_back/add()
+	..()
+	quirk_holder.queue_storage_overload_check()
+
+/datum/quirk/modular/weak_back/remove()
+	..()
+	quirk_holder?.queue_storage_overload_check()
+
+/datum/quirk/modular/pushover
+	name = "Pushover"
+	desc = "You pull your punches: -2 melee damage and -10% projectile damage. Can't be taken with Finesse."
+	value = -2
+	trait_flags = list(TRAIT_PUSHOVER)
+	gain_text = span_danger("You hesitate to really hurt anyone.")
+	lose_text = span_notice("You stop holding back.")
+	medical_record_text = "Patient is reluctant to use force."
+
+/datum/quirk/modular/haggler_curse
+	name = "Haggler's Curse"
+	desc = "Merchants can smell a mark: vending machines charge you 10% more. Can't be taken with Trader."
+	value = -1
+	trait_flags = list(TRAIT_HAGGLERS_CURSE)
+	gain_text = span_danger("You get the feeling you're about to be ripped off.")
+	lose_text = span_notice("You feel a little less gullible.")
+	medical_record_text = "Patient is a notoriously bad negotiator."
+
+/datum/quirk/modular/unlucky
+	name = "Unlucky"
+	desc = "Things just break around you: your guns jam 40% more often and your critical hit chance is 5% lower. Can't be taken with Lucky Break or Built to Destroy."
+	value = -2
+	trait_flags = list(TRAIT_UNLUCKY)
+	gain_text = span_danger("You feel like the odds are stacked against you.")
+	lose_text = span_notice("The odds feel fairer again.")
+	medical_record_text = "Patient reports a long history of bad breaks."
+
+/datum/quirk/modular/shaky_aim
+	name = "Shaky Aim"
+	desc = "You can't shoot straight on the move: your guns have 25% more spread while you're moving. Can't be taken with Steady Aim or Steady Hands."
+	value = -1
+	trait_flags = list(TRAIT_SHAKY_AIM)
+	gain_text = span_danger("Your hands won't stay still.")
+	lose_text = span_notice("Your hands steady.")
+	medical_record_text = "Patient has a mild tremor when active."
+
+/datum/quirk/modular/slow_healer
+	name = "Slow Healer"
+	desc = "Your body doesn't respond well to treatment: medical stacks heal you 20% less."
+	value = -2
+	trait_flags = list(TRAIT_SLOW_HEALER)
+	gain_text = span_danger("Your wounds feel stubborn.")
+	lose_text = span_notice("Your body feels ready to heal again.")
+	medical_record_text = "Patient responds poorly to treatment."
