@@ -1347,27 +1347,77 @@
 	gain_text = span_notice("Your skin feels a little tougher.")
 	lose_text = span_danger("Your skin feels normal again.")
 
-/datum/quirk/modular/pack_rat
-	name = "Pack Rat"
-	desc = "Small flat carry capacity bonus."
-	value = 1
-	trait_flags = list(TRAIT_STRONGBACK_RANK1)
-	required_special_stat = "special_s"
-	required_special_name = "Strength"
-	required_special_value = 4
-	gain_text = span_notice("Your pack feels lighter.")
-	lose_text = span_danger("Your pack feels heavier.")
+/* ------------------------------ More Wasteland Traits ------------------------------ */
 
-/datum/quirk/modular/pack_mule
-	name = "Pack Mule"
-	desc = "Larger flat carry capacity bonus."
-	value = 2
-	trait_flags = list(TRAIT_STRONGBACK_RANK2)
-	required_special_stat = "special_s"
-	required_special_name = "Strength"
-	required_special_value = 6
-	gain_text = span_notice("Your pack feels much lighter.")
-	lose_text = span_danger("Your pack feels heavier.")
+/datum/quirk/modular/trait_hoarder
+	name = "Hoarder"
+	desc = "You never leave anything behind: +20% carry capacity and item slots in your bags, belts and pockets. But all that stuff weighs on you: -1 Agility."
+	value = 0
+	is_trait = TRUE
+	trait_flags = list(TRAIT_HOARDER)
+	special_mods = list("a" = -1)
+	gain_text = span_notice("You start eyeing everything as something you might need later.")
+	lose_text = span_danger("You feel ready to let things go.")
+	medical_record_text = "Patient compulsively collects and carries supplies."
+
+/datum/quirk/modular/trait_hoarder/add()
+	..()
+	quirk_holder.queue_storage_overload_check()
+
+/datum/quirk/modular/trait_hoarder/remove()
+	..()
+	quirk_holder?.queue_storage_overload_check()
+
+/datum/quirk/modular/trait_finesse
+	name = "Finesse"
+	desc = "You aim for the weak points: +10% critical hit chance. But you lack the force to follow through: -2 melee damage and -10% projectile damage. Can't be taken with Built to Destroy."
+	value = 0
+	is_trait = TRUE
+	trait_flags = list(TRAIT_FINESSE)
+	gain_text = span_notice("You start spotting the gaps in everything.")
+	lose_text = span_danger("You stop seeing the gaps.")
+	medical_record_text = "Patient demonstrates precise but light-handed combat habits."
+
+/datum/quirk/modular/trait_built_to_destroy
+	name = "Built to Destroy"
+	desc = "You put everything you've got into every shot: +6% critical hit chance. But you're hard on your gear: your guns jam 40% more often. Can't be taken with Finesse."
+	value = 0
+	is_trait = TRUE
+	trait_flags = list(TRAIT_BUILT_TO_DESTROY)
+	gain_text = span_notice("You feel like breaking something.")
+	lose_text = span_danger("You feel gentler with your gear.")
+	medical_record_text = "Patient is hard on equipment."
+
+/datum/quirk/modular/trait_jinxed
+	name = "Jinxed"
+	desc = "Bad luck follows you around, and it doesn't care who it lands on. You and everyone within a few tiles of you fumble attacks and shots more often."
+	value = 0
+	is_trait = TRUE
+	trait_flags = list(TRAIT_JINXED)
+	gain_text = span_danger("You get the distinct feeling something is about to go wrong.")
+	lose_text = span_notice("The bad feeling lifts.")
+	medical_record_text = "Patient is convinced they're cursed. Statistics are inconclusive."
+
+/datum/quirk/modular/trait_bloody_mess
+	name = "Bloody Mess"
+	desc = "Violence around you is always gory: your critical hits spray blood and hit 15% harder than normal. People don't like being around that: -1 Charisma."
+	value = 0
+	is_trait = TRUE
+	trait_flags = list(TRAIT_BLOODY_MESS)
+	special_mods = list("c" = -1)
+	gain_text = span_notice("You've got a talent for making a scene.")
+	lose_text = span_danger("Your violence feels tidier again.")
+	medical_record_text = "Patient has an unsettling fixation on gore."
+
+/datum/quirk/modular/trait_skilled
+	name = "Skilled"
+	desc = "You work quickly with your hands: everything that takes a moment to do, from crafting to salvaging, goes 15% faster. But you burn out quickly: stamina damage hits you 10% harder."
+	value = 0
+	is_trait = TRUE
+	physio_mult = list("do_after_speed" = 0.85, "stamina_mod" = 1.1)
+	gain_text = span_notice("Your hands know exactly what to do.")
+	lose_text = span_danger("Your hands feel clumsier.")
+	medical_record_text = "Patient has well-developed fine motor skills and a weak constitution."
 
 /datum/quirk/modular/steady_breather
 	name = "Steady Breather"

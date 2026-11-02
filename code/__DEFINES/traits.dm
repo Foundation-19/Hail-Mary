@@ -208,6 +208,11 @@
 #define TRAIT_SILENT_RUN_RANK3	"silent_run_rank3"
 #define TRAIT_STRONGBACK_RANK1	"strongback_rank1" //Extra flat bonus to Strength-based carry capacity multiplier, on top of raw Strength scaling
 #define TRAIT_STRONGBACK_RANK2	"strongback_rank2" //Larger extra flat bonus to carry capacity multiplier. Requires Strong Back I
+#define TRAIT_HOARDER	"hoarder" //Wasteland Trait: flat carry capacity bonus, same scale as Strong Back
+#define TRAIT_FINESSE	"finesse" //Wasteland Trait: more critical hits, less damage on everything else
+#define TRAIT_BUILT_TO_DESTROY	"built_to_destroy" //Wasteland Trait: more critical hits, guns jam more
+#define TRAIT_JINXED	"jinxed" //Wasteland Trait: everyone nearby (including you) fumbles more
+#define TRAIT_BLOODY_MESS	"bloody_mess" //Wasteland Trait: critical hits are gorier and hit slightly harder
 #define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
 #define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
 #define TRAIT_PA_TRAINED_RANK2	"pa_trained_rank2" //Power Armor Training II: Power Armor fusion cells drain 15% slower

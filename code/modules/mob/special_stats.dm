@@ -76,6 +76,8 @@ proc/get_top_level_mob(mob/S)
 	if(strength_difference > 3)
 		// Keep full gains through Strength 8, then taper to +0.8 at 9 and +0.6 at 10.
 		strength_bonus = (3 * 1.1) + (min(strength_difference - 3, 1) * 0.8) + (max(strength_difference - 4, 0) * 0.6)
+	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		strength_bonus -= 2
 	return strength_bonus + get_special_low_charisma_intimidation_dam_bonus()
 
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
@@ -121,11 +123,27 @@ proc/get_top_level_mob(mob/S)
 
 /// Brawnier wasters can cram more combined weight class into their bags/pockets/belts before they're full. Strong Back perk stacks a flat bonus on top of the raw Strength scaling.
 /mob/living/proc/get_strength_carry_capacity_multiplier()
-	. = CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.15), 0.4, 1.75)
+	. = CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.15), 0.85, 1.75)
+	. += get_carry_perk_bonus()
+
+/// Flat carry bonus from Strong Back and Hoarder. Also stretches the volume and item slots of worn backpacks, belts and pouches, which Strength alone doesn't touch.
+/mob/living/proc/get_carry_perk_bonus()
+	. = 0
 	if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK2))
 		. += 0.45
 	else if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK1))
 		. += 0.2
+	if(HAS_TRAIT(src, TRAIT_HOARDER))
+		. += 0.2
+
+/// Call after gaining or losing a carry perk. Waits a tick so the trait is really gone, then re-evaluates every worn container's overload slowdown.
+/mob/living/proc/queue_storage_overload_check()
+	addtimer(CALLBACK(src, PROC_REF(refresh_storage_overload)), 1)
+
+/mob/living/proc/refresh_storage_overload()
+	if(QDELETED(src))
+		return
+	check_worn_storage_overload()
 
 /// Attacker-side: how hard a grapple/takedown (unarmed knockdowns, stuns, chokeholds) bites, scaled off raw muscle.
 /mob/living/proc/get_strength_grapple_control_multiplier()
@@ -582,6 +600,8 @@ proc/get_top_level_mob(mob/S)
 /// Projectile damage multiplier from Concentrated Fire (+4% per consecutive shot at the same target, max 5 stacks) and Follow Through (+10% shortly after moving).
 /mob/living/proc/get_shot_perk_damage_mult(atom/target)
 	. = 1
+	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		. -= 0.1
 	if(HAS_TRAIT(src, TRAIT_CONCENTRATED_FIRE))
 		var/target_ref = REF(target)
 		if(cf_target_ref == target_ref && world.time - cf_last_time <= 40)
@@ -594,13 +614,26 @@ proc/get_top_level_mob(mob/S)
 	if(HAS_TRAIT(src, TRAIT_FOLLOW_THROUGH) && client && (world.time - client.last_move) <= 10)
 		. += 0.1
 
-/// Critical hit chance in percent: 1% per point of Luck, plus 3% per More Criticals rank.
+/// Critical hit chance in percent: 1% per point of Luck, plus 3% per More Criticals rank, +10% for Finesse or +6% for Built to Destroy.
 /mob/proc/get_critical_hit_chance()
-	return clamp(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE) + (3 * get_perk_rank("more_criticals"))
+	. = clamp(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE) + (3 * get_perk_rank("more_criticals"))
+	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		. += 10
+	if(HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY))
+		. += 6
 
-/// Damage multiplier for a critical hit, x1.5 normally and x2 with Better Criticals.
+/// Damage multiplier for a critical hit, x1.5 normally and x2 with Better Criticals, +0.15 with Bloody Mess.
 /mob/proc/get_critical_hit_multiplier()
-	return HAS_TRAIT(src, TRAIT_BETTER_CRITICALS) ? 2 : 1.5
+	. = HAS_TRAIT(src, TRAIT_BETTER_CRITICALS) ? 2 : 1.5
+	if(HAS_TRAIT(src, TRAIT_BLOODY_MESS))
+		. += 0.15
+
+/// Everything that happens on top of a critical hit landing. Called once per crit from the melee, unarmed, power fist and projectile paths.
+/mob/proc/on_critical_hit(mob/living/target)
+	wild_card_crit(target)
+	if(HAS_TRAIT(src, TRAIT_BLOODY_MESS) && istype(target))
+		target.add_splatter_floor(get_turf(target))
+		target.visible_message(span_danger("[target] sprays blood across the ground!"), vision_distance = COMBAT_MESSAGE_RANGE)
 
 /// Rolls for a critical hit. Returns the damage multiplier on a crit, or 1 if no crit.
 /mob/proc/roll_critical_hit()
@@ -699,13 +732,23 @@ proc/get_top_level_mob(mob/S)
 
 /// Chance to fumble an attack entirely: a melee swing goes wide and misses, or a gun is fumbled and dropped before firing
 /mob/proc/get_luck_critfail_chance()
+	var/chance = 0
 	switch(special_l)
 		if(1)
-			return 6
+			chance = 6
 		if(2)
-			return 3
+			chance = 3
 		if(3)
-			return 1
+			chance = 1
+	return chance + get_jinxed_critfail_bonus()
+
+/// Jinxed: whoever has the trait fumbles a lot more, and so does everyone within a few tiles of them.
+/mob/proc/get_jinxed_critfail_bonus()
+	if(HAS_TRAIT(src, TRAIT_JINXED))
+		return 6
+	for(var/mob/living/M in oview(5, src))
+		if(HAS_TRAIT(M, TRAIT_JINXED))
+			return 4
 	return 0
 
 /// Unlucky swingers risk fumbling (whiffing + a short self-stagger) on a Power Attack release.
@@ -724,7 +767,7 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_l value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/luck_jam_multiplier = list(1.8, 1.6, 1.4, 1.2, 1, 0.9, 0.8, 0.7, 0.6, 0.5)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return (luck_jam_multiplier[clamped_l] || 1) * (HAS_TRAIT(src, TRAIT_LUCKY_BREAK) ? 0.6 : 1)
+	return (luck_jam_multiplier[clamped_l] || 1) * (HAS_TRAIT(src, TRAIT_LUCKY_BREAK) ? 0.6 : 1) * (HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY) ? 1.4 : 1)
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()

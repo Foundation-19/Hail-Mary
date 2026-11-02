@@ -58,7 +58,8 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Four Eyes", "Blind","Nearsighted - Corrected","Nearsighted - No Glasses","Nearsighted - Trashed Vision"),
 			list("Kamikaze", "Fragile"),
 			list("Cool Under Fire", "Glass Jaw"),
-			list("Steady Breather", "Chronic Pain")
+			list("Steady Breather", "Chronic Pain"),
+			list("Finesse", "Built to Destroy")
 			)
 	return ..()
 

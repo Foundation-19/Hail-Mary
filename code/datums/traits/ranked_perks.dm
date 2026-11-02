@@ -747,7 +747,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/strongback_rank1
 	name = "Strong Back I"
-	desc = "Years of hauling scrap and salvage have taught you how to pack a bag properly. +20% carry capacity on top of whatever your Strength provides."
+	desc = "Years of hauling scrap and salvage have taught you how to pack a bag properly. +20% carry capacity and item slots on top of whatever your Strength provides."
 	value = 2
 	mob_trait = TRAIT_STRONGBACK_RANK1
 	gain_text = span_notice("You feel like you could stuff a lot more into your bags.")
@@ -757,9 +757,15 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_name = "Strength"
 	required_special_value = 4
 
+/datum/quirk/strongback_rank1/add()
+	quirk_holder.queue_storage_overload_check()
+
+/datum/quirk/strongback_rank1/remove()
+	quirk_holder?.queue_storage_overload_check()
+
 /datum/quirk/strongback_rank2
 	name = "Strong Back II"
-	desc = "You've got the frame and the know-how to turn yourself into a pack mule. +45% carry capacity on top of whatever your Strength provides. Requires Strong Back I."
+	desc = "You've got the frame and the know-how to turn yourself into a pack mule. +45% carry capacity and item slots on top of whatever your Strength provides. Requires Strong Back I."
 	value = 4
 	requires_quirk = "Strong Back I"
 	mob_trait = TRAIT_STRONGBACK_RANK2
@@ -769,6 +775,12 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	required_special_stat = "special_s"
 	required_special_name = "Strength"
 	required_special_value = 6
+
+/datum/quirk/strongback_rank2/add()
+	quirk_holder.queue_storage_overload_check()
+
+/datum/quirk/strongback_rank2/remove()
+	quirk_holder?.queue_storage_overload_check()
 
 /* ------------------------------- Nuclear Physicist ------------------------------ */
 //Reduces how fast a worn Power Armor suit's installed cell drains (usage_cost in

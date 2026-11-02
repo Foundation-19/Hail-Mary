@@ -125,7 +125,7 @@
 			user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
 				span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
 			log_combat(user, M, "critically hit", src.name, "(x[crit_mult])")
-			user.wild_card_crit(M)
+			user.on_critical_hit(M)
 
 	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier() * crit_mult, damage_addition = force_modifier * crit_mult)
 	add_fingerprint(user)
