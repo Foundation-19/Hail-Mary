@@ -114,6 +114,8 @@
 
 /datum/emote/living/carbon/lick/run_emote(mob/user)
 	. = ..()
+	if(!.)
+		return
 	if(user.get_active_held_item())
 		to_chat(user, span_warning("Your active hand is full, and therefore you can't lick anything! Don't ask why!"))
 		return
@@ -123,50 +125,17 @@
 	else
 		qdel(licky)
 
-//Biter//
-/datum/emote/living/carbon/bite
-	key = "bite"
-	key_third_person = "bites"
-	restraint_check = TRUE
-
-/datum/emote/living/carbon/bite/run_emote(mob/user)
-	. = ..()
-	if(user.get_active_held_item())
-		to_chat(user, span_warning("Your hands are too full to properly bite!  Don't ask!"))
-		return
-	var/obj/item/hand_item/biter/bite = new(user)
-	if(user.put_in_active_hand(bite))
-		to_chat(user, span_notice("You show your fangs and prepare to bite the mess out of something or someone!"))
-	else
-		qdel(bite)
-
-
-//Clawer//
-/datum/emote/living/carbon/claw
-	key = "claw"
-	key_third_person = "claws"
-	restraint_check = TRUE
-
-/datum/emote/living/carbon/claw/run_emote(mob/user)
-	. = ..()
-	if(user.get_active_held_item())
-		to_chat(user, span_warning("Your hands are too full to use your claws!"))
-		return
-	var/obj/item/hand_item/clawer/claw = new(user)
-	if(user.put_in_active_hand(claw))
-		to_chat(user, span_notice("You get your claws ready to slice!"))
-	else
-		qdel(claw)
-
-
 //Shover//
 /datum/emote/living/carbon/shover
 	key = "shove"
 	key_third_person = "shoves"
 	restraint_check = TRUE
+	cooldown = 2 SECONDS
 
 /datum/emote/living/carbon/shover/run_emote(mob/user)
 	. = ..()
+	if(!.)
+		return
 	if(user.get_active_held_item())
 		to_chat(user, span_warning("Your hands are too full to really shove someone!"))
 		return
@@ -181,78 +150,19 @@
 	key = "rocks"
 	key_third_person = "rocks"
 	restraint_check = TRUE
-	COOLDOWN_DECLARE(rock_cooldown)
-	var/damageMult
-	var/hasPickedUp = FALSE
-	var/timerEnabled
-	var/damageNerf = 2.2
+	cooldown = 10 SECONDS
 
 
 /datum/emote/living/carbon/rocker/run_emote(mob/user)
 	. = ..()
-	if(!COOLDOWN_FINISHED(src, rock_cooldown) && !HAS_TRAIT(user, TRAIT_MONKEYLIKE))
-		to_chat(user, span_warning("You cant find any rocks yet!"))
+	if(!.)
 		return
 	if(user.get_active_held_item())
 		to_chat(user, span_warning("Your hands are too full to go looking for rocks!"))
 		return
 	var/obj/item/ammo_casing/caseless/rock/rock = new(user)
-
-	if(hasPickedUp)
-		rock.throwforce = damageMult / damageNerf
-
 	if(user.put_in_active_hand(rock))
-		hasPickedUp = TRUE
-		damageMult = rock.throwforce
-		if(!timerEnabled)
-			addtimer(CALLBACK(src, PROC_REF(reset_damage)), 2.5 SECONDS)
-			timerEnabled = TRUE
-		COOLDOWN_START(src, rock_cooldown, 2.5 SECONDS)
+		QDEL_IN(rock, 60 SECONDS) //emote-made rocks crumble so they can't be stockpiled or loaded as free ammo
 		to_chat(user, span_notice("You find a nice hefty throwing rock!"))
 	else
 		qdel(rock)
-
-/datum/emote/living/carbon/rocker/proc/reset_damage()
-	hasPickedUp = FALSE
-	timerEnabled = FALSE
-	damageMult = initial(damageMult)
-
-//brick//
-/datum/emote/living/carbon/bricker
-	key = "brick"
-	key_third_person = "bricks"
-	restraint_check = TRUE
-	COOLDOWN_DECLARE(brick_cooldown)
-	var/damageMult
-	var/hasPickedUp = FALSE
-	var/timerEnabled
-	var/damageNerf = 2.2
-
-/datum/emote/living/carbon/bricker/run_emote(mob/user)
-	. = ..()
-	if(!COOLDOWN_FINISHED(src, brick_cooldown) && !HAS_TRAIT(user, TRAIT_QUICK_BUILD))
-		to_chat(user, span_warning("You cant find any bricks yet!"))
-		return
-	if(user.get_active_held_item())
-		to_chat(user, span_warning("Your hands are too full to go looking for bricks!"))
-		return
-	var/obj/item/ammo_casing/caseless/brick/brick = new(user)
-
-	if(hasPickedUp)
-		brick.throwforce = damageMult / damageNerf
-
-	if(user.put_in_active_hand(brick))
-		hasPickedUp = TRUE
-		damageMult = brick.throwforce
-		if(!timerEnabled)
-			addtimer(CALLBACK(src, PROC_REF(reset_damage)), 2.5 SECONDS)
-			timerEnabled = TRUE
-		COOLDOWN_START(src, brick_cooldown, 2.5 SECONDS)
-		to_chat(user, span_notice("You find a nice weighty brick!"))
-	else
-		qdel(brick)
-
-/datum/emote/living/carbon/bricker/proc/reset_damage()
-	hasPickedUp = FALSE
-	timerEnabled = FALSE
-	damageMult = initial(damageMult)
