@@ -594,6 +594,20 @@ proc/get_top_level_mob(mob/S)
 	if(HAS_TRAIT(src, TRAIT_FOLLOW_THROUGH) && client && (world.time - client.last_move) <= 10)
 		. += 0.1
 
+/// Critical hit chance in percent: 1% per point of Luck, plus 3% per More Criticals rank.
+/mob/proc/get_critical_hit_chance()
+	return clamp(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE) + (3 * get_perk_rank("more_criticals"))
+
+/// Damage multiplier for a critical hit, x1.5 normally and x2 with Better Criticals.
+/mob/proc/get_critical_hit_multiplier()
+	return HAS_TRAIT(src, TRAIT_BETTER_CRITICALS) ? 2 : 1.5
+
+/// Rolls for a critical hit. Returns the damage multiplier on a crit, or 1 if no crit.
+/mob/proc/roll_critical_hit()
+	if(prob(get_critical_hit_chance()))
+		return get_critical_hit_multiplier()
+	return 1
+
 /// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
 /mob/living/proc/set_special_l(new_value)
 	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)

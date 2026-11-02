@@ -127,6 +127,8 @@
 	var/decayedRange			//stores original range
 	var/reflect_range_decrease = 5			//amount of original range that falls off when reflecting, so it doesn't go forever
 	var/is_reflectable = FALSE // Can it be reflected or not?
+	/// Set when the shooter rolled a critical hit; damage is already multiplied.
+	var/is_critical = FALSE
 
 		//Effects
 	var/stun = 0

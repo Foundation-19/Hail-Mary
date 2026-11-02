@@ -1115,6 +1115,52 @@
 	gain_text = span_notice("Your hands stop shaking.")
 	lose_text = span_danger("Your hands begin to tremble.")
 
+/datum/quirk/modular/more_criticals_rank1
+	name = "More Criticals I"
+	desc = "+3% critical hit chance with guns and melee."
+	value = 3
+	trait_flags = list(TRAIT_MORE_CRITICALS_RANK1)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 5
+	gain_text = span_notice("You start spotting the soft spots.")
+	lose_text = span_danger("You lose your eye for weak points.")
+
+/datum/quirk/modular/more_criticals_rank2
+	name = "More Criticals II"
+	desc = "+6% critical hit chance with guns and melee. Requires More Criticals I."
+	value = 4
+	requires_quirk = "More Criticals I"
+	trait_flags = list(TRAIT_MORE_CRITICALS_RANK2)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 7
+	gain_text = span_notice("Openings in a fight seem to find you.")
+	lose_text = span_danger("You lose your eye for weak points.")
+
+/datum/quirk/modular/more_criticals_rank3
+	name = "More Criticals III"
+	desc = "+9% critical hit chance with guns and melee. Requires More Criticals II."
+	value = 5
+	requires_quirk = "More Criticals II"
+	trait_flags = list(TRAIT_MORE_CRITICALS_RANK3)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 9
+	gain_text = span_notice("Every shot and swing looks for the kill.")
+	lose_text = span_danger("You lose your eye for weak points.")
+
+/datum/quirk/modular/better_criticals
+	name = "Better Criticals"
+	desc = "Your critical hits deal x2 damage instead of x1.5."
+	value = 4
+	trait_flags = list(TRAIT_BETTER_CRITICALS)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 7
+	gain_text = span_notice("When you land a good hit, you make it count.")
+	lose_text = span_danger("Your good hits lose their sting.")
+
 /datum/quirk/modular/water_wise
 	name = "Water Wise"
 	desc = "You get thirsty 25% more slowly."

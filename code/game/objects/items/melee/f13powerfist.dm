@@ -94,12 +94,12 @@
 	if(!cell.check_charge(charge_needed))
 		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, the cell's nearly dry!"))
 		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
-		target.attacked_by(src, user, attackchain_flags, damage_multiplier * condition_mult * fisto_setting * 1.5, damage_addition = force_modifier)
+		target.attacked_by(src, user, attackchain_flags, damage_multiplier * condition_mult * fisto_setting * 1.5 * punch_crit_mult, damage_addition = force_modifier * punch_crit_mult)
 		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
 			span_userdanger("%ACTOR_NAME%'s punch strikes with force!"), \
 			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
-	var/totalitemdamage = max((target.pre_attacked_by(src, user) + force_modifier) * condition_mult * damage_multiplier, 0)
+	var/totalitemdamage = max((target.pre_attacked_by(src, user) + force_modifier) * condition_mult * damage_multiplier * punch_crit_mult, 0)
 	cell.use(charge_needed)
 	var/dealt = resolve_punch_damage(target, user, totalitemdamage * fisto_setting)
 	if(isnull(dealt))

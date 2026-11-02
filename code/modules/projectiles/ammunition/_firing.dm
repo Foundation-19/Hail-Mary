@@ -65,6 +65,10 @@
 	if(isliving(user))
 		var/mob/living/shooter = user
 		BB.damage *= shooter.get_shot_perk_damage_mult(target)
+		var/crit_mult = shooter.roll_critical_hit()
+		if(crit_mult > 1)
+			BB.damage *= crit_mult
+			BB.is_critical = TRUE
 	if(isgun(fired_from))
 		var/obj/item/gun/G = fired_from
 		G.post_modify_projectile(BB)

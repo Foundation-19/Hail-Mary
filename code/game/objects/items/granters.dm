@@ -491,6 +491,15 @@
 	rank_quirks = list(/datum/quirk/modular/robotics_expert_rank1, /datum/quirk/modular/robotics_expert_rank2)
 	remarks = list("The motivator is rarely the problem...", "Mind the capacitors...", "Salvage the servos first...", "Greasy fingerprints cover every page.")
 
+/obj/item/book/granter/trait/rank/more_criticals
+	name = "Anatomy for the Armed"
+	desc = "A grim field guide to where a bullet or blade does the most harm."
+	oneuse = TRUE
+	traitname = "finding weak points"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/more_criticals_rank1, /datum/quirk/modular/more_criticals_rank2, /datum/quirk/modular/more_criticals_rank3)
+	remarks = list("The throat, the eye, the gap in the plate...", "Everyone drops their guard when they think they've won...", "Don't aim for the center, aim for what's behind it...", "Dark stains cover the diagrams.")
+
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
 	desc = "A thick, restricted-access manual on power armor reactor management. Assumes you already know how to wear the stuff."

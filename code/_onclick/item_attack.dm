@@ -118,7 +118,15 @@
 
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
 
-	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier(), damage_addition = force_modifier)
+	var/crit_mult = 1
+	if(force_out > 0 && damtype != STAMINA)
+		crit_mult = user.roll_critical_hit()
+		if(crit_mult > 1)
+			user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
+				span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
+			log_combat(user, M, "critically hit", src.name, "(x[crit_mult])")
+
+	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier() * crit_mult, damage_addition = force_modifier * crit_mult)
 	add_fingerprint(user)
 
 /// Flat damage added to this item's force by the wielder's S.P.E.C.I.A.L., perks and traits. Consumes a ready block counter. Shared by attack() and glove weapons that override it.

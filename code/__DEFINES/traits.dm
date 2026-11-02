@@ -266,6 +266,10 @@
 #define TRAIT_SHADOW_RANK1	"shadow_rank1" //Sneaking makes even less noise
 #define TRAIT_SHADOW_RANK2	"shadow_rank2"
 #define TRAIT_EAGLE_EYE	"eagle_eye" //Scopes show further ahead
+#define TRAIT_MORE_CRITICALS_RANK1	"more_criticals_rank1" //Higher critical hit chance
+#define TRAIT_MORE_CRITICALS_RANK2	"more_criticals_rank2"
+#define TRAIT_MORE_CRITICALS_RANK3	"more_criticals_rank3"
+#define TRAIT_BETTER_CRITICALS	"better_criticals" //Critical hits deal more damage
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"

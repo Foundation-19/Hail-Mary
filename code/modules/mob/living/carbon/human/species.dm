@@ -1484,7 +1484,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 		damage += calc_unarmed_dam_mod_from_special(user) // S.P.E.C.I.A.L.
 		damage *= 1 + (0.1 * user.get_perk_rank("brawler"))
-
+		var/crit_mult = user.roll_critical_hit()
+		damage *= crit_mult
 		//CITADEL CHANGES - makes resting and disabled combat mode reduce punch damage, makes being out of combat mode result in you taking more damage
 		//if(!SEND_SIGNAL(target, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
 		//	damage *= 1.2
@@ -1509,6 +1510,11 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 
 		var/armor_block = target.run_armor_check(affecting, "melee")
+
+		if(crit_mult > 1)
+			user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
+				span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+			log_combat(user, target, "critically punched", null, "(x[crit_mult])")
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
