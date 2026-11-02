@@ -1674,3 +1674,55 @@
 	gain_text = span_danger("Your wounds feel stubborn.")
 	lose_text = span_notice("Your body feels ready to heal again.")
 	medical_record_text = "Patient responds poorly to treatment."
+
+/datum/quirk/modular/big_appetite
+	name = "Big Appetite"
+	desc = "You're always hungry: hunger builds 30% faster. Can't be taken with Fast Metabolism or Survivalist."
+	value = -1
+	physio_mult = list("hunger_mod" = 1.3)
+	gain_text = span_danger("Your stomach is already growling.")
+	lose_text = span_notice("Your appetite settles.")
+	medical_record_text = "Patient has an unusually large appetite."
+
+/datum/quirk/modular/dehydrated
+	name = "Dehydrated"
+	desc = "You're always parched: thirst builds 35% faster. Can't be taken with Water Wise."
+	value = -1
+	trait_flags = list(TRAIT_DEHYDRATED)
+	gain_text = span_danger("Your mouth feels dry.")
+	lose_text = span_notice("Your mouth feels normal again.")
+	medical_record_text = "Patient is chronically dehydrated."
+
+/datum/quirk/modular/slow_poke
+	name = "Slow Poke"
+	desc = "You just aren't fast: you move a little slower than everyone else. Can't be taken with Speed Walker or the Mobility traits."
+	value = -2
+	gain_text = span_danger("Your legs feel like lead.")
+	lose_text = span_notice("Your legs feel light again.")
+	medical_record_text = "Patient has a slow, shuffling gait."
+
+/datum/quirk/modular/slow_poke/add()
+	..()
+	quirk_holder.add_movespeed_modifier(/datum/movespeed_modifier/slow_poke)
+
+/datum/quirk/modular/slow_poke/remove()
+	..()
+	quirk_holder?.remove_movespeed_modifier(/datum/movespeed_modifier/slow_poke)
+
+/datum/quirk/modular/squeamish
+	name = "Squeamish"
+	desc = "You can't stomach death: standing near a corpse can make you retch and lose your lunch."
+	value = -1
+	gain_text = span_danger("You feel queasy just thinking about it.")
+	lose_text = span_notice("Your stomach feels stronger.")
+	medical_record_text = "Patient is extremely squeamish."
+
+/datum/quirk/modular/squeamish/on_process()
+	var/mob/living/carbon/human/H = quirk_holder
+	if(H.stat != CONSCIOUS || !prob(5))
+		return
+	for(var/mob/living/carbon/human/corpse in view(3, H))
+		if(corpse != H && corpse.stat == DEAD)
+			to_chat(H, span_warning("The sight of [corpse] turns your stomach."))
+			H.vomit(5, FALSE, FALSE, 1, TRUE)
+			return

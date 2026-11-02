@@ -219,6 +219,7 @@
 #define TRAIT_UNLUCKY	"unlucky" //Liability: guns jam more and crits are rarer
 #define TRAIT_SHAKY_AIM	"shaky_aim" //Liability: worse gun spread while moving
 #define TRAIT_SLOW_HEALER	"slow_healer" //Liability: medical stacks heal you less
+#define TRAIT_DEHYDRATED	"dehydrated" //Liability: thirst builds faster
 #define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
 #define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
 #define TRAIT_PA_TRAINED_RANK2	"pa_trained_rank2" //Power Armor Training II: Power Armor fusion cells drain 15% slower

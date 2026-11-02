@@ -64,7 +64,10 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Pushover", "Finesse"),
 			list("Haggler's Curse", "Trader I", "Trader II"),
 			list("Unlucky", "Lucky Break", "Built to Destroy"),
-			list("Shaky Aim", "Steady Aim", "Steady Hands")
+			list("Shaky Aim", "Steady Aim", "Steady Hands"),
+			list("Big Appetite", "Fast Metabolism", "Survivalist I", "Survivalist II", "Survivalist III"),
+			list("Dehydrated", "Water Wise"),
+			list("Slow Poke", "Speed Walker", "Mobility - Wasteland Trekker", "Mobility - Wasteland Wanderer", "Mobility - Wasteland Slug", "Mobility - Wasteland Molasses")
 			)
 	return ..()
 
