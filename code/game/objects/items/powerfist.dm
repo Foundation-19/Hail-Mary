@@ -101,6 +101,7 @@
 		user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
 			span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 		log_combat(user, target, "critically power fisted", src, "(x[punch_crit_mult])")
+		user.wild_card_crit(target)
 	add_fingerprint(user)
 	return TRUE
 

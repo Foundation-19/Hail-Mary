@@ -219,6 +219,8 @@
 #define TRAIT_SCROUNGER_RANK3	"scrounger_rank3"
 #define TRAIT_TRADER_RANK1	"trader_rank1" //Discount at vending machines
 #define TRAIT_TRADER_RANK2	"trader_rank2"
+#define TRAIT_LEADER_RANK1	"leader_rank1" //Stronger party aura while leading a party
+#define TRAIT_LEADER_RANK2	"leader_rank2"
 #define TRAIT_SCAVENGERS_EYE	"scavengers_eye" //Scavenging takes less time
 #define TRAIT_JUNK_RATTLER	"junk_rattler" //Chance of extra salvage and disassembly loot
 #define TRAIT_AMMO_SMITH	"ammo_smith" //Reloading benches use less material
@@ -270,6 +272,17 @@
 #define TRAIT_MORE_CRITICALS_RANK2	"more_criticals_rank2"
 #define TRAIT_MORE_CRITICALS_RANK3	"more_criticals_rank3"
 #define TRAIT_BETTER_CRITICALS	"better_criticals" //Critical hits deal more damage
+#define TRAIT_LUCKY_PINS	"lucky_pins" //Lockpicks break less and the lock gives one extra attempt
+#define TRAIT_JACKPOT	"jackpot" //Slot machine wins pay more, and losing spins sometimes refund
+#define TRAIT_HOT_STREAK	"hot_streak" //Terminal hacks sometimes refund a wrong guess and lucky breaks are likelier
+#define TRAIT_LUCKY_BREAK	"lucky_break" //Guns jam and cook off less often
+#define TRAIT_SECOND_WIND	"second_wind" //A chance to survive a killing blow, on a long cooldown
+#define TRAIT_LUCKY_CATCH	"lucky_catch" //Better odds at fishing, and sometimes a second fish
+#define TRAIT_VEIN_FINDER	"vein_finder" //Mining sometimes turns up extra ore
+#define TRAIT_WILD_CARD	"wild_card" //Critical hits sometimes knock the target down or disarm them
+#define TRAIT_GAMBLERS_EYE	"gamblers_eye" //Dice you roll land on the better of two rolls
+/// How long Second Wind keeps its holder from being finished off after it triggers
+#define SECOND_WIND_GRACE (5 SECONDS)
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"

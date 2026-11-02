@@ -247,14 +247,14 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/charisma_party_cap = list(1, 2, 2, 3, 3, 4, 4, 5, 5, 6)
 	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return charisma_party_cap[clamped_c] || 1
+	return (charisma_party_cap[clamped_c] || 1) + (get_perk_rank("leader") >= 2 ? 1 : 0)
 
 /// Scales how strong a party leader's leadership buff is for the members following them.
 /mob/living/proc/get_special_charisma_party_buff_tier()
 	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/charisma_party_buff_tier = list(0, 0, 1, 1, 2, 2, 3, 3, 4, 5)
 	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return charisma_party_buff_tier[clamped_c] || 0
+	return min((charisma_party_buff_tier[clamped_c] || 0) + get_perk_rank("leader"), 5)
 
 /// How readily THIS mob buys into someone ELSE's charismatic leadership while following them in a party - realistically, a skeptical/socially-closed-off low-Charisma follower reads the social cues less and gets proportionally less out of a leader's aura, while a sociable high-Charisma follower resonates with it and gets more. Multiplies against the leader's own get_special_charisma_party_buff_tier() result; it never substitutes for it.
 /mob/living/proc/get_special_charisma_buyin_multiplier()
@@ -608,6 +608,59 @@ proc/get_top_level_mob(mob/S)
 		return get_critical_hit_multiplier()
 	return 1
 
+/// Gametime (world.time) when Second Wind can save this mob again.
+/mob/living/var/second_wind_ready_at = 0
+/// While world.time is below this, Second Wind's grace window keeps this mob from dying outright.
+/mob/living/var/second_wind_protected_until = 0
+
+/mob/living/proc/is_second_wind_protected()
+	return world.time < second_wind_protected_until
+
+/// Second Wind: when a killing blow lands, Luck may let the mob cling on in critical condition instead. Heals just enough to climb back above the death threshold, grants a short window where follow-up hits can't kill them, and goes on a long cooldown. Returns TRUE if it saved the mob.
+/mob/living/proc/try_second_wind()
+	if(!HAS_TRAIT(src, TRAIT_SECOND_WIND) || world.time < second_wind_ready_at)
+		return FALSE
+	second_wind_ready_at = world.time + 10 MINUTES
+	if(!prob(10 + (3 * special_l)))
+		return FALSE
+	second_wind_protected_until = world.time + SECOND_WIND_GRACE
+	addtimer(CALLBACK(src, PROC_REF(end_second_wind)), SECOND_WIND_GRACE)
+	var/remaining = max(0, HEALTH_THRESHOLD_DEAD - health) + 30
+	var/amount = min(remaining, getBruteLoss())
+	adjustBruteLoss(-amount, FALSE)
+	remaining -= amount
+	amount = min(remaining, getFireLoss())
+	adjustFireLoss(-amount, FALSE)
+	remaining -= amount
+	amount = min(remaining, getOxyLoss())
+	adjustOxyLoss(-amount, FALSE)
+	remaining -= amount
+	amount = min(remaining, getToxLoss())
+	adjustToxLoss(-amount, FALSE)
+	updatehealth()
+	to_chat(src, span_userdanger("Against all odds, you cling to life! You can't be finished off for a few seconds."))
+	visible_message(span_danger("[src] refuses to go down, dragging themselves back from the brink!"), ignored_mobs = list(src))
+	return TRUE
+
+/// The grace window is over, so anything still past the death threshold now actually kills.
+/mob/living/proc/end_second_wind()
+	if(QDELETED(src))
+		return
+	second_wind_protected_until = 0
+	updatehealth()
+
+/// Wild Card: a critical hit sometimes does something extra, either knocking the target off their feet or knocking what they're holding out of their hands.
+/mob/proc/wild_card_crit(mob/living/target)
+	if(!HAS_TRAIT(src, TRAIT_WILD_CARD) || !istype(target) || !prob(30))
+		return
+	var/obj/item/held = target.get_active_held_item()
+	if(held && prob(50))
+		target.dropItemToGround(held)
+		to_chat(src, span_notice("Wild Card! You knock [held] out of [target]'s hands!"))
+	else
+		target.DefaultCombatKnockdown(30)
+		to_chat(src, span_notice("Wild Card! You knock [target] off their feet!"))
+
 /// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
 /mob/living/proc/set_special_l(new_value)
 	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
@@ -671,7 +724,7 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_l value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/luck_jam_multiplier = list(1.8, 1.6, 1.4, 1.2, 1, 0.9, 0.8, 0.7, 0.6, 0.5)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return luck_jam_multiplier[clamped_l] || 1
+	return (luck_jam_multiplier[clamped_l] || 1) * (HAS_TRAIT(src, TRAIT_LUCKY_BREAK) ? 0.6 : 1)
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()

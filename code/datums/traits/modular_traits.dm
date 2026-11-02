@@ -608,6 +608,29 @@
 	gain_text = span_notice("Merchants dread seeing you coming.")
 	lose_text = span_danger("Your haggling instincts fade.")
 
+/datum/quirk/modular/leader_rank1
+	name = "Leader I"
+	desc = "Your party aura is one tier stronger while you lead a party, which also unlocks stronger auras sooner."
+	value = 3
+	trait_flags = list(TRAIT_LEADER_RANK1)
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 6
+	gain_text = span_notice("People instinctively look to you for direction.")
+	lose_text = span_danger("Your commanding presence wanes.")
+
+/datum/quirk/modular/leader_rank2
+	name = "Leader II"
+	desc = "Your party aura is two tiers stronger, and you can lead one more member. Requires Leader I."
+	value = 5
+	requires_quirk = "Leader I"
+	trait_flags = list(TRAIT_LEADER_RANK2)
+	required_special_stat = "special_c"
+	required_special_name = "Charisma"
+	required_special_value = 8
+	gain_text = span_notice("Others follow you without being asked.")
+	lose_text = span_danger("Your commanding presence wanes.")
+
 /datum/quirk/modular/scavengers_eye
 	name = "Scavenger's Eye"
 	desc = "You spot the good stuff fast. Scavenging takes 20% less time."
@@ -1160,6 +1183,105 @@
 	required_special_value = 7
 	gain_text = span_notice("When you land a good hit, you make it count.")
 	lose_text = span_danger("Your good hits lose their sting.")
+
+/datum/quirk/modular/lucky_pins
+	name = "Lucky Pins"
+	desc = "Bobby pins snap half as often and every lock gives you one extra attempt."
+	value = 2
+	trait_flags = list(TRAIT_LUCKY_PINS)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 6
+	gain_text = span_notice("Locks just seem to give way for you.")
+	lose_text = span_danger("Locks start to feel stubborn again.")
+
+/datum/quirk/modular/jackpot
+	name = "Jackpot"
+	desc = "Slot machine wins pay 25% more, and a losing spin sometimes refunds its price."
+	value = 1
+	trait_flags = list(TRAIT_JACKPOT)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 7
+	gain_text = span_notice("You feel the odds tilt in your favour.")
+	lose_text = span_danger("Your winning streak dries up.")
+
+/datum/quirk/modular/hot_streak
+	name = "Hot Streak"
+	desc = "A wrong terminal hack guess has a 25% chance to cost no attempt, and lucky breaks on hacks are 4% likelier."
+	value = 3
+	trait_flags = list(TRAIT_HOT_STREAK)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 8
+	gain_text = span_notice("You can't seem to lose today.")
+	lose_text = span_danger("Your hot streak goes cold.")
+
+/datum/quirk/modular/lucky_break
+	name = "Lucky Break"
+	desc = "Your guns jam and cook off 40% less often."
+	value = 3
+	trait_flags = list(TRAIT_LUCKY_BREAK)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 6
+	gain_text = span_notice("Your weapons never quite let you down.")
+	lose_text = span_danger("Your weapons feel less reliable.")
+
+/datum/quirk/modular/second_wind
+	name = "Second Wind"
+	desc = "When a blow would kill you, Luck gives you a chance to cling to life in critical condition instead, and nothing can finish you off for 5 seconds. The chance rises with your Luck, and it can only happen once every 10 minutes."
+	value = 5
+	trait_flags = list(TRAIT_SECOND_WIND)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 8
+	gain_text = span_notice("Something has your back, even at the very end.")
+	lose_text = span_danger("Your lucky streak with death runs out.")
+
+/datum/quirk/modular/lucky_catch
+	name = "Lucky Catch"
+	desc = "Fish bite 15% more often, and a catch has a 20% chance to bring in a second fish."
+	value = 2
+	trait_flags = list(TRAIT_LUCKY_CATCH)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 5
+	gain_text = span_notice("The fish seem eager to find your hook.")
+	lose_text = span_danger("The fish get pickier again.")
+
+/datum/quirk/modular/vein_finder
+	name = "Vein Finder"
+	desc = "Mining a rock has a 40% chance to turn up one extra ore."
+	value = 2
+	trait_flags = list(TRAIT_VEIN_FINDER)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 6
+	gain_text = span_notice("You can feel where the good ore hides in the rock.")
+	lose_text = span_danger("Rocks go back to keeping their secrets.")
+
+/datum/quirk/modular/gamblers_eye
+	name = "Gambler's Eye"
+	desc = "When you roll dice, they land on the better of two rolls."
+	value = 1
+	trait_flags = list(TRAIT_GAMBLERS_EYE)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 6
+	gain_text = span_notice("The dice just seem to know what you want.")
+	lose_text = span_danger("The dice stop listening to you.")
+
+/datum/quirk/modular/wild_card
+	name = "Wild Card"
+	desc = "A critical hit has a 30% chance to do something extra: knock the target off their feet or knock the item out of their hands."
+	value = 3
+	trait_flags = list(TRAIT_WILD_CARD)
+	required_special_stat = "special_l"
+	required_special_name = "Luck"
+	required_special_value = 9
+	gain_text = span_notice("You never know what you'll do next, and neither do they.")
+	lose_text = span_danger("Your hits get predictable again.")
 
 /datum/quirk/modular/water_wise
 	name = "Water Wise"

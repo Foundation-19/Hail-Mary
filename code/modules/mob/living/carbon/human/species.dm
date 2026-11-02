@@ -1515,6 +1515,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
 				span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
 			log_combat(user, target, "critically punched", null, "(x[crit_mult])")
+			user.wild_card_crit(target)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 

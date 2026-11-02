@@ -112,6 +112,7 @@
 			visible_message(span_danger("[crit_firer] lands a critical hit on [src]!"), span_userdanger("You take a critical hit from [crit_firer]!"), vision_distance = COMBAT_MESSAGE_RANGE, ignored_mobs = list(crit_firer))
 			to_chat(crit_firer, span_danger("Critical hit!"))
 			log_combat(crit_firer, src, "critically shot", P)
+			crit_firer.wild_card_crit(src)
 		apply_damage(totaldamage, P.damage_type, def_zone, armor, wound_bonus = P.wound_bonus, bare_wound_bonus = P.bare_wound_bonus, sharpness = P.sharpness, damage_threshold = dt)
 		if(staminadamage)
 			apply_damage(staminadamage, STAMINA, def_zone, armor, wound_bonus = P.wound_bonus, bare_wound_bonus = P.bare_wound_bonus, sharpness = SHARP_NONE, damage_threshold = dt)

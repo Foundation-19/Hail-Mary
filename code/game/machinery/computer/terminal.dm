@@ -1052,7 +1052,7 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 
 /obj/machinery/computer/terminal/proc/check_luck_critsuccess(mob/living/user)
 	if(!istype(user) || !user.special_l || user.special_l < 8) return FALSE
-	return prob(user.special_l - 7)
+	return prob(user.special_l - 7 + (HAS_TRAIT(user, TRAIT_HOT_STREAK) ? 4 : 0))
 
 /obj/machinery/computer/terminal/proc/get_cha_flavour_text(mob/living/user)
 	if(!istype(user) || !user.special_c) return null
@@ -1413,7 +1413,10 @@ MAPPER EXAMPLE: DO NOT DELETE FOR FUTURE MAPPERS
 		hack_attempts--
 		hack_history += "<span class='bad'>&gt;System spike! Lost an additional attempt.</span>"
 
-	hack_attempts--
+	if(HAS_TRAIT(user, TRAIT_HOT_STREAK) && prob(25))
+		hack_history += "<span class='good'>&gt;Lucky streak! Attempt refunded.</span>"
+	else
+		hack_attempts--
 
 	if(hack_attempts <= 0)
 		hack_locked_out = TRUE

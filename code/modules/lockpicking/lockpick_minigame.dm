@@ -382,7 +382,7 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 	var/zone_size = clamp(base_zone_size + luck_bonus + locksmith_bonus + pick_bonus + dark_mod, 1, 7)
 
 	// Attempts: base 7, minus tier, plus luck/pick bonuses; minimum 2
-	max_attempts  = max(7 - lock_tier + luck_bonus + (pick_bonus * 2), 2)
+	max_attempts  = max(7 - lock_tier + luck_bonus + (pick_bonus * 2) + (user && HAS_TRAIT(user, TRAIT_LUCKY_PINS) ? 1 : 0), 2)
 	attempts_left = max_attempts
 
 	pins = list()
@@ -1007,8 +1007,8 @@ GLOBAL_LIST_EMPTY(lockpick_partial_states)
 						feedback += " The serrated pin catches — pin [reset_idx] jolts loose!"
 						playsound(get_turf(target), pick('sound/items/screwdriver.ogg', 'sound/items/screwdriver2.ogg'), sneaking ? 30 : 60, TRUE, -12)
 
-				// Bobby pin breakage: 25% chance to snap on each failed attempt
-				if(is_bobby_pin && prob(25))
+				// Bobby pin breakage: 25% chance to snap on each failed attempt (12% with Lucky Pins)
+				if(is_bobby_pin && prob((user && HAS_TRAIT(user, TRAIT_LUCKY_PINS)) ? 12 : 25))
 					feedback += " The bobby pin snaps!"
 					phase  = "failed"
 					result = FALSE

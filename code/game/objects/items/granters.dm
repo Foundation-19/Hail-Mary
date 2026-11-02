@@ -365,6 +365,15 @@
 	rank_quirks = list(/datum/quirk/modular/trader_rank1, /datum/quirk/modular/trader_rank2)
 	remarks = list("Never accept the first price...", "Act uninterested, always...", "Silence is the best counteroffer...", "Someone has scribbled 'works on vending machines too' in the margin.")
 
+/obj/item/book/granter/trait/rank/leader
+	name = "Lead from the Front"
+	desc = "A dog-eared field guide on keeping a group together when things go bad."
+	oneuse = TRUE
+	traitname = "leadership"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/leader_rank1, /datum/quirk/modular/leader_rank2)
+	remarks = list("Say where you're going before you go...", "Never ask anyone to do what you won't...", "Know who is tired before they say it...", "A margin note reads 'works best with a party aura'.")
+
 /obj/item/book/granter/trait/rank/sniper
 	name = "Long Shots: A Marksman's Primer"
 	desc = "A field manual on breath control, windage and patience."
@@ -499,6 +508,88 @@
 	icon_state = "book1"
 	rank_quirks = list(/datum/quirk/modular/more_criticals_rank1, /datum/quirk/modular/more_criticals_rank2, /datum/quirk/modular/more_criticals_rank3)
 	remarks = list("The throat, the eye, the gap in the plate...", "Everyone drops their guard when they think they've won...", "Don't aim for the center, aim for what's behind it...", "Dark stains cover the diagrams.")
+
+//Single-perk Luck books: the same rank-book machinery with a one-entry rank list, so the SPECIAL lock still applies.
+/obj/item/book/granter/trait/rank/lucky_pins
+	name = "Pins and Needles"
+	desc = "A locksmith's pocket notebook, with a lot of notes on not snapping your pins."
+	oneuse = TRUE
+	traitname = "careful lockpicking"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/lucky_pins)
+	remarks = list("Light touch, slow turn...", "A pin bends before it breaks, listen for it...", "Never force a stubborn lock, ask it nicely...", "A few bent pins are taped to the back cover.")
+
+/obj/item/book/granter/trait/rank/jackpot
+	name = "House Always Wins (Except When It Doesn't)"
+	desc = "A casino regular's tell-all about the one-armed bandits."
+	oneuse = TRUE
+	traitname = "slot machines"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/jackpot)
+	remarks = list("Never walk away from a machine that's warming up...", "Quit while you're ahead, and then don't...", "Three of a kind is a promise, not a guarantee...", "Coffee rings circle a list of lucky numbers.")
+
+/obj/item/book/granter/trait/rank/hot_streak
+	name = "Riding the Streak"
+	desc = "A gambler's journal on pushing your luck without losing your shirt."
+	oneuse = TRUE
+	traitname = "hot streaks"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/hot_streak)
+	remarks = list("When the terminal blinks, you blink back...", "A wrong guess is only wrong if you let it be...", "Confidence is a currency...", "The last page just says 'again'.")
+
+/obj/item/book/granter/trait/rank/lucky_break
+	name = "Reliable Arms"
+	desc = "A rumpled armorer's pamphlet on why some guns never let their owners down."
+	oneuse = TRUE
+	traitname = "reliable weapons"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/lucky_break)
+	remarks = list("Clean it, then trust it...", "A jam is a conversation you didn't want to have...", "Every gun has a mood...", "Oil stains cover half the diagrams.")
+
+/obj/item/book/granter/trait/rank/second_wind
+	name = "Nine Lives, More or Less"
+	desc = "A collection of survivors' stories that all end the same way: against all odds."
+	oneuse = TRUE
+	traitname = "cheating death"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/second_wind)
+	remarks = list("They said he was gone, he disagreed...", "One more breath, always one more...", "Fortune favours those who refuse to quit...", "Someone has written 'don't push it' in the margin.")
+
+/obj/item/book/granter/trait/rank/lucky_catch
+	name = "The Patient Angler"
+	desc = "A fisherman's diary, mostly about the one that didn't get away."
+	oneuse = TRUE
+	traitname = "lucky fishing"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/lucky_catch)
+	remarks = list("The fish bite when they're ready...", "Still water, still hands...", "Sometimes two for the price of one...", "A fish scale is pressed between the pages.")
+
+/obj/item/book/granter/trait/rank/vein_finder
+	name = "Reading the Rock"
+	desc = "A prospector's handbook on spotting where the good ore hides."
+	oneuse = TRUE
+	traitname = "finding ore veins"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/vein_finder)
+	remarks = list("A crack in the stone is a door...", "Ore likes company, look around it...", "Strike once, strike true...", "Dust coats every page.")
+
+/obj/item/book/granter/trait/rank/gamblers_eye
+	name = "Loaded Odds"
+	desc = "A dice-hustler's guide to making the numbers behave."
+	oneuse = TRUE
+	traitname = "dice"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/gamblers_eye)
+	remarks = list("Watch the hand, never the dice...", "Roll like you mean it...", "Every table has a rhythm...", "A pair of worn dice are taped inside the cover.")
+
+/obj/item/book/granter/trait/rank/wild_card
+	name = "The Unexpected Move"
+	desc = "A brawler's treatise on doing the one thing nobody saw coming."
+	oneuse = TRUE
+	traitname = "wild cards"
+	icon_state = "book1"
+	rank_quirks = list(/datum/quirk/modular/wild_card)
+	remarks = list("Never fight the same way twice...", "A good hit makes room for a better one...", "When they're reeling, improvise...", "The margins are full of scribbled diagrams.")
 
 /obj/item/book/granter/trait/rank/pa_advanced
 	name = "US Army: Advanced Mechanized Systems Manual"
