@@ -1552,9 +1552,19 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 /mob/living/carbon/human/proc/set_thirst(change)
 	thirst = max(0, change)
 
+///Robots and species that don't process food have no use for water
+/mob/living/carbon/human/proc/needs_hydration()
+	if(HAS_TRAIT(src, TRAIT_NO_PROCESS_FOOD))
+		return FALSE
+	if(mob_biotypes & MOB_ROBOTIC)
+		return FALSE
+	return TRUE
+
 ///Queue water into the stomach; it absorbs into thirst over time
 /mob/living/carbon/human/proc/add_stomach_water(amount)
-	stomach_water = clamp(stomach_water + amount, 0, HYDRATION_STOMACH_MAX)
+	if(!needs_hydration())
+		return
+	stomach_water = clamp(stomach_water + amount, 0, HYDRATION_STOMACH_MAX * (dna?.species ? dna.species.stomach_water_mod : 1))
 
 ///Moves water from the stomach into thirst
 /mob/living/carbon/human/proc/absorb_stomach_water()
@@ -1566,7 +1576,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 ///Total multiplier applied to the basal thirst drain
 /mob/living/carbon/human/proc/get_hydration_loss_multiplier()
-	var/mult = 1
+	var/mult = dna?.species ? dna.species.thirst_rate_mod : 1
 	if(client && world.time - client.last_move <= HYDRATION_ACTIVE_WINDOW)
 		mult *= (m_intent == MOVE_INTENT_RUN) ? HYDRATION_MULT_RUNNING : HYDRATION_MULT_WALKING
 	if(bodytemperature > HYDRATION_HOT_BODYTEMP)
@@ -1583,9 +1593,13 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 
 ///Applies the lasting effects of drinking contaminated water. Rads are immediate, illness is a delayed roll
 /mob/living/carbon/human/proc/apply_water_contamination(volume, rad_per_unit, pathogen_chance)
-	if(rad_per_unit > 0)
+	if(!needs_hydration())
+		return
+	// Rad-immune species ignore the dose, except ghouls, who feed on it
+	if(rad_per_unit > 0 && (!HAS_TRAIT(src, TRAIT_RADIMMUNE) || isghoul(src)))
 		radiation += rad_per_unit * volume
-	if(pathogen_chance > 0 && !waterborne_ill)
+	// Virus-immune species and those that can't vomit (ghouls, super mutants, androids) don't get sick
+	if(pathogen_chance > 0 && !waterborne_ill && !HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !HAS_TRAIT(src, TRAIT_NOHUNGER))
 		var/illness_chance = 1 - ((1 - pathogen_chance) ** volume)
 		if(prob(illness_chance * 100 * waterborne_resistance))
 			waterborne_ill = TRUE

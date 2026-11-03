@@ -6,7 +6,7 @@
 	say_mod = "beeps"
 	default_color = "00FF00"
 	blacklisted = 0
-	speedmod = 2 //very slower than humans
+	speedmod = 0.6 // heavy and deliberate but steady; they can't sprint, so this is their whole pace (human jog ~2.3 delay, C-27 ~2.6)
 	sexes = 0
 	species_traits = list(
 		MUTCOLORS,
@@ -88,11 +88,78 @@
 	H.dna.features["ipc_screen"] = new_ipc_screen
 	H.update_body()
 */
+/datum/movespeed_modifier/c27_low_power
+	multiplicative_slowdown = C27_LOW_POWER_SLOWDOWN
+
+/datum/movespeed_modifier/c27_servo_burst
+	multiplicative_slowdown = C27_BURST_SLOWDOWN
+
+/datum/species/c27
+	var/datum/action/innate/c27_servo_burst/burst_action
+
+/datum/species/c27/on_species_gain(mob/living/carbon/human/C, datum/species/old_species)
+	. = ..()
+	C.nutrition = NUTRITION_LEVEL_FED
+	C.physiology.siemens_coeff *= C27_SHOCK_COEFF
+	burst_action = new
+	burst_action.Grant(C)
+
+/datum/species/c27/on_species_loss(mob/living/carbon/human/C)
+	C.physiology.siemens_coeff /= C27_SHOCK_COEFF
+	C.remove_movespeed_modifier(/datum/movespeed_modifier/c27_low_power)
+	C.remove_movespeed_modifier(/datum/movespeed_modifier/c27_servo_burst)
+	if(burst_action)
+		burst_action.Remove(C)
+		QDEL_NULL(burst_action)
+	return ..()
+
+// Charge is a real resource: it drains with activity (see handle_digestion) and is refilled at APCs with the power cord.
 /datum/species/c27/spec_life(mob/living/carbon/human/H)
-	if(H.nutrition < NUTRITION_LEVEL_FED)
-		H.nutrition = NUTRITION_LEVEL_FED
-	if(H.nutrition > NUTRITION_LEVEL_FED)
-		H.nutrition = NUTRITION_LEVEL_FED
+	if(H.stat == DEAD)
+		return
+	if(H.nutrition < NUTRITION_LEVEL_STARVING)
+		if(!H.has_movespeed_modifier(/datum/movespeed_modifier/c27_low_power))
+			to_chat(H, span_userdanger("Warning: power reserves critical. Actuators throttled."))
+			H.add_movespeed_modifier(/datum/movespeed_modifier/c27_low_power)
+		if(H.nutrition < C27_SHUTDOWN_LEVEL && prob(5))
+			to_chat(H, span_userdanger("Power failure! Systems rebooting..."))
+			H.Paralyze(30)
+	else
+		H.remove_movespeed_modifier(/datum/movespeed_modifier/c27_low_power)
+		// Maintenance nanites patch up damage, but only while there is power to spare
+		if(H.nutrition >= NUTRITION_LEVEL_FED && (H.getBruteLoss() || H.getFireLoss()))
+			H.adjustBruteLoss(-C27_REPAIR_RATE, FALSE, include_roboparts = TRUE)
+			H.adjustFireLoss(-C27_REPAIR_RATE, FALSE, include_roboparts = TRUE)
+			H.adjust_nutrition(-C27_REPAIR_RATE)
+
+/// Short burst of speed that replaces the locked sprint
+/datum/action/innate/c27_servo_burst
+	name = "Servo Burst"
+	desc = "Overdrive your leg servos for a few seconds. Costs charge and needs time to cool down."
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
+	button_icon_state = "drone_vision"
+	var/next_use = 0
+
+/datum/action/innate/c27_servo_burst/Activate()
+	var/mob/living/carbon/human/H = owner
+	if(world.time < next_use)
+		to_chat(H, span_warning("Servos are still cooling down."))
+		return
+	if(H.nutrition < NUTRITION_LEVEL_HUNGRY)
+		to_chat(H, span_warning("Not enough charge for a servo burst."))
+		return
+	next_use = world.time + C27_BURST_COOLDOWN
+	H.adjust_nutrition(-C27_BURST_COST)
+	H.add_movespeed_modifier(/datum/movespeed_modifier/c27_servo_burst)
+	to_chat(H, span_notice("Your leg servos whine as they overdrive."))
+	addtimer(CALLBACK(src, .proc/end_burst), C27_BURST_DURATION)
+
+/datum/action/innate/c27_servo_burst/proc/end_burst()
+	if(!owner)
+		return
+	owner.remove_movespeed_modifier(/datum/movespeed_modifier/c27_servo_burst)
+	to_chat(owner, span_warning("Servos throttle back down."))
 
 /datum/species/c27/handle_mutations_and_radiation(mob/living/carbon/human/H)
 	return FALSE

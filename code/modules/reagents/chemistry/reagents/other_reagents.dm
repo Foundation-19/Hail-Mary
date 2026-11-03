@@ -411,6 +411,13 @@
 	value = REAGENT_VALUE_UNCOMMON
 	can_synth = FALSE
 
+/datum/reagent/water_filter_media
+	name = "Charcoal Filter Medium"
+	description = "Powdered charcoal and cloth fibre used to strain water. Add to water in proportions of 1:5."
+	color = "#2b2b2b"
+	taste_description = "ash"
+	can_synth = FALSE
+
 /datum/reagent/water/hollowwater
 	name = "Hollow Water"
 	description = "An ubiquitous chemical substance that is composed of hydrogen and oxygen, but it looks kinda hollow."

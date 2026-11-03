@@ -44,6 +44,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/list/gib_types = list(/obj/effect/gibspawner/human, /obj/effect/gibspawner/human/bodypartless)
 	var/skinned_type
 	var/liked_food = NONE
+	/// Multiplier on thirst drain and on stomach water capacity, for species with unusual bodies
+	var/thirst_rate_mod = 1
+	var/stomach_water_mod = 1
 	var/disliked_food = GROSS
 	var/toxic_food = TOXIC
 	var/list/no_equip = list()	// slots the race can't equip stuff to
@@ -1270,9 +1273,15 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		H.adjust_nutrition(-hunger_rate)
 
 	if(H.stat != DEAD)
-		H.absorb_stomach_water()
-		H.adjust_thirst(-THIRST_FACTOR * H.get_hydration_loss_multiplier())
-		handle_thirst(H)
+		if(H.needs_hydration())
+			H.absorb_stomach_water()
+			H.adjust_thirst(-THIRST_FACTOR * H.get_hydration_loss_multiplier())
+			handle_thirst(H)
+		else if(H.hydration_tier != HYDRATION_TIER_HYDRATED)
+			H.set_thirst(THIRST_LEVEL_START)
+			H.stomach_water = 0
+			H.hydration_tier = HYDRATION_TIER_HYDRATED
+			H.clear_alert("thirst")
 		handle_hunger_damage(H)
 
 	if (H.nutrition > NUTRITION_LEVEL_FULL)

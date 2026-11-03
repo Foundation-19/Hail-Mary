@@ -40,7 +40,7 @@
 	name = "Filtered Water"
 	id = "filteredwater"
 	results = list(/datum/reagent/water/filtered = 5)
-	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/carbon = 1)
+	required_reagents = list(/datum/reagent/water = 5, /datum/reagent/water_filter_media = 1)
 
 /datum/chemical_reaction/metalgen_imprint/on_reaction(datum/reagents/holder, created_volume)
 	var/datum/reagent/metalgen/MM = holder.get_reagent(/datum/reagent/metalgen)

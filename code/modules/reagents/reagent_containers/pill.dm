@@ -87,6 +87,12 @@
 	icon_state = "pill8"
 	list_reagents = list(/datum/reagent/water_tablet = 5)
 
+/obj/item/reagent_containers/pill/water_filter
+	name = "charcoal filter pouch"
+	desc = "A cloth pouch of powdered charcoal. Stir into dirty water (about 25 units per pouch) to strain out sludge and some germs. Not for swallowing."
+	icon_state = "pill9"
+	list_reagents = list(/datum/reagent/water_filter_media = 5)
+
 /obj/item/reagent_containers/pill/tox
 	name = "toxins pill"
 	desc = "Highly toxic."

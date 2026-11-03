@@ -53,3 +53,16 @@
 
 // Hunger shares the activity multiplier, scaled down: 0 = ignore activity, 1 = same as thirst
 #define HUNGER_ACTIVITY_SCALE 0.5
+#define SMUTANT_HUNGER_MOD 1.25
+#define SMUTANT_THIRST_MOD 1.25
+#define SMUTANT_STOMACH_MOD 2
+
+// C-27 power, servo burst and repair. Charge is stored as nutrition.
+#define C27_SHOCK_COEFF 1.25
+#define C27_LOW_POWER_SLOWDOWN 1
+#define C27_SHUTDOWN_LEVEL 25
+#define C27_BURST_COST 40
+#define C27_BURST_DURATION 50
+#define C27_BURST_COOLDOWN 450
+#define C27_BURST_SLOWDOWN -0.8
+#define C27_REPAIR_RATE 0.1
