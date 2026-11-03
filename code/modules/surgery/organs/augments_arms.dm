@@ -329,6 +329,10 @@
 	icon_state = "wire1"
 
 /obj/item/apc_powercord/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
+	if(istype(target, /obj/machinery/f13/junction_box) && ishuman(user) && proximity_flag)
+		user.DelayNextAction(CLICK_CD_MELEE)
+		junction_draw(target, user)
+		return
 	if(!istype(target, /obj/machinery/power/apc) || !ishuman(user) || !proximity_flag)
 		return ..()
 	user.DelayNextAction(CLICK_CD_MELEE)
@@ -348,6 +352,32 @@
 			return
 
 	to_chat(user, span_warning("There is no charge to draw from that APC."))
+
+/// Junction boxes have no cell to drain, so charging just needs the box to be live
+/obj/item/apc_powercord/proc/junction_draw(obj/machinery/f13/junction_box/JB, mob/living/carbon/human/H)
+	if(!locate(/obj/item/organ/stomach/ipc) in H.internal_organs)
+		to_chat(H, span_warning("You try to siphon energy from [JB], but your power cell is gone!"))
+		return
+	if(H.nutrition >= NUTRITION_LEVEL_WELL_FED)
+		to_chat(H, span_warning("You are already fully charged!"))
+		return
+	if(!JB.grid_powered || !JB.breaker_closed)
+		to_chat(H, span_warning("[JB] is dead. There is nothing to draw."))
+		return
+	H.visible_message(span_notice("%SELF_NAME% inserts a power connector into [JB]."), span_notice("You begin to draw power from [JB]."), visible_message_flags = ANONYMIZE_NAMES)
+	while(do_after(H, 10, target = JB))
+		if(loc != H)
+			to_chat(H, span_warning("You must keep your connector out while charging!"))
+			break
+		if(!JB.grid_powered || !JB.breaker_closed)
+			to_chat(H, span_warning("[JB] loses power."))
+			break
+		do_sparks(1, FALSE, JB)
+		H.nutrition += 50
+		if(H.nutrition > NUTRITION_LEVEL_WELL_FED)
+			to_chat(H, span_notice("You are now fully charged."))
+			break
+	H.visible_message(span_notice("%SELF_NAME% unplugs from [JB]."), span_notice("You unplug from [JB]."), visible_message_flags = ANONYMIZE_NAMES)
 
 /obj/item/apc_powercord/proc/powerdraw_loop(obj/machinery/power/apc/A, mob/living/carbon/human/H)
 	H.visible_message(span_notice("%SELF_NAME% inserts a power connector into the [A]."), span_notice("You begin to draw power from the [A]."), visible_message_flags = ANONYMIZE_NAMES)

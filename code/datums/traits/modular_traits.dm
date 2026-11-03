@@ -1285,7 +1285,7 @@
 
 /datum/quirk/modular/water_wise
 	name = "Water Wise"
-	desc = "You get thirsty 25% more slowly."
+	desc = "You get thirsty 25% more slowly, and your stomach holds 50% more water at once."
 	value = 2
 	trait_flags = list(TRAIT_WATER_WISE)
 	required_special_stat = "special_e"
@@ -1293,6 +1293,27 @@
 	required_special_value = 5
 	gain_text = span_notice("You've learned to make every sip count.")
 	lose_text = span_danger("You start to feel thirsty more often.")
+
+/datum/quirk/modular/iron_stomach
+	name = "Iron Stomach"
+	desc = "Years of drinking whatever the Wasteland offers have toughened your gut: dirty water makes you sick 60% less often. It's still not good for you, and the rads are still rads."
+	value = 2
+	trait_flags = list(TRAIT_IRON_STOMACH)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("Your gut has seen worse than a muddy canteen.")
+	lose_text = span_danger("Your stomach goes soft again.")
+	medical_record_text = "Patient tolerates contaminated water unusually well."
+
+/datum/quirk/modular/delicate_stomach
+	name = "Delicate Stomach"
+	desc = "Your gut never got used to the Wasteland: dirty water makes you sick 60% more often. Boil it, tablet it, or filter it."
+	value = -1
+	trait_flags = list(TRAIT_DELICATE_STOMACH)
+	gain_text = span_danger("Your stomach turns at the thought of unclean water.")
+	lose_text = span_notice("Your stomach settles.")
+	medical_record_text = "Patient is highly prone to waterborne illness."
 
 /datum/quirk/modular/camper
 	name = "Camper"
@@ -1470,7 +1491,7 @@
 
 /datum/quirk/modular/heat_intolerant
 	name = "Heat Intolerant"
-	desc = "Heat and fire hurt you 40% more."
+	desc = "Heat and fire hurt you 40% more, and you sweat out water 40% faster in the heat."
 	value = -1
 	physio_mult = list("heat_mod" = 1.4)
 	gain_text = span_danger("You feel the heat more than most.")

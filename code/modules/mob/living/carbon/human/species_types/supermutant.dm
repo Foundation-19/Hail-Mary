@@ -13,9 +13,14 @@
 	use_skintones = 0
 	sexes = 0
 	liked_food = JUNKFOOD | FRIED | RAW 
+	thirst_rate_mod = SMUTANT_THIRST_MOD // big bodies need more water, but they hold more of it
+	stomach_water_mod = SMUTANT_STOMACH_MOD
 
 /datum/species/smutant/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	..()
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		H.physiology.hunger_mod *= SMUTANT_HUNGER_MOD
 	for(var/obj/item/bodypart/b in C.bodyparts)
 		b.max_damage += 80
 	if(!istype(C, /mob/living/carbon/human/dummy))
@@ -24,6 +29,9 @@
 
 /datum/species/smutant/on_species_loss(mob/living/carbon/C)
 	..()
+	if(ishuman(C))
+		var/mob/living/carbon/human/H = C
+		H.physiology.hunger_mod /= SMUTANT_HUNGER_MOD
 	for(var/obj/item/bodypart/b in C.bodyparts)
 		b.max_damage = initial(b.max_damage)
 	if(!istype(C, /mob/living/carbon/human/dummy))

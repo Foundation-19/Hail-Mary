@@ -92,7 +92,11 @@
 	if(special_a >= 7)
 		fatigue_cap = 0.5
 
-	if(current_time - last_move_time < 10)
+	// Servo gait: machines hold a constant pace instead of tiring as they keep moving
+	if(HAS_TRAIT(src, TRAIT_C27))
+		movement_fatigue = 0
+		last_move_time = current_time
+	else if(current_time - last_move_time < 10)
 		movement_fatigue = min(movement_fatigue + 0.05, fatigue_cap)
 		last_move_time = current_time
 	else

@@ -1564,6 +1564,80 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 /mob/living/carbon/human/proc/set_thirst(change)
 	thirst = max(0, change)
 
+///Robots and species that don't process food have no use for water
+/mob/living/carbon/human/proc/needs_hydration()
+	if(HAS_TRAIT(src, TRAIT_NO_PROCESS_FOOD))
+		return FALSE
+	if(mob_biotypes & MOB_ROBOTIC)
+		return FALSE
+	return TRUE
+
+///Queue water into the stomach; it absorbs into thirst over time
+/mob/living/carbon/human/proc/add_stomach_water(amount)
+	if(!needs_hydration())
+		return
+	stomach_water = clamp(stomach_water + amount, 0, HYDRATION_STOMACH_MAX * (dna?.species ? dna.species.stomach_water_mod : 1) * (HAS_TRAIT(src, TRAIT_WATER_WISE) ? HYDRATION_WATER_WISE_STOMACH_MULT : 1))
+
+///Moves water from the stomach into thirst
+/mob/living/carbon/human/proc/absorb_stomach_water()
+	if(stomach_water <= 0)
+		return
+	var/absorbed = min(stomach_water, HYDRATION_ABSORB_RATE)
+	stomach_water -= absorbed
+	adjust_thirst(absorbed)
+
+///Total multiplier applied to the basal thirst drain
+/mob/living/carbon/human/proc/get_hydration_loss_multiplier()
+	var/mult = dna?.species ? dna.species.thirst_rate_mod : 1
+	if(client && world.time - client.last_move <= HYDRATION_ACTIVE_WINDOW)
+		mult *= (m_intent == MOVE_INTENT_RUN) ? HYDRATION_MULT_RUNNING : HYDRATION_MULT_WALKING
+	if(bodytemperature > HYDRATION_HOT_BODYTEMP)
+		// Heat sensitivity (Heat Intolerant, Survivalist, etc.) scales only the extra heat loss
+		mult *= 1 + (HYDRATION_MULT_HOT - 1) * physiology.heat_mod
+	if(HAS_TRAIT(src, TRAIT_POWER_ARMOR))
+		mult *= HYDRATION_MULT_POWER_ARMOR
+	if(get_total_bleed_rate() > 0)
+		mult *= HYDRATION_MULT_BLEEDING
+	if(radiation > HYDRATION_RADIATION_THRESHOLD)
+		mult *= HYDRATION_MULT_IRRADIATED
+	if(drunkenness > HYDRATION_DRUNK_THRESHOLD)
+		mult *= HYDRATION_MULT_DRUNK
+	return mult
+
+///Applies the lasting effects of drinking contaminated water. Rads are immediate, illness is a delayed roll
+/mob/living/carbon/human/proc/apply_water_contamination(volume, rad_per_unit, pathogen_chance)
+	if(!needs_hydration())
+		return
+	// Rad-immune species ignore the dose, except ghouls, who feed on it
+	if(rad_per_unit > 0 && (!HAS_TRAIT(src, TRAIT_RADIMMUNE) || isghoul(src)))
+		radiation += rad_per_unit * volume
+	// Virus-immune species and those that can't vomit (ghouls, super mutants, androids) don't get sick
+	if(pathogen_chance > 0 && !waterborne_ill && !HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !HAS_TRAIT(src, TRAIT_NOHUNGER))
+		var/illness_chance = 1 - ((1 - pathogen_chance) ** volume)
+		var/resistance = waterborne_resistance
+		if(HAS_TRAIT(src, TRAIT_IRON_STOMACH))
+			resistance *= HYDRATION_IRON_STOMACH_MULT
+		if(HAS_TRAIT(src, TRAIT_DELICATE_STOMACH))
+			resistance *= HYDRATION_DELICATE_STOMACH_MULT
+		if(prob(illness_chance * 100 * resistance))
+			waterborne_ill = TRUE
+			addtimer(CALLBACK(src, .proc/waterborne_illness, HYDRATION_ILLNESS_EPISODES), rand(HYDRATION_ILLNESS_DELAY_MIN, HYDRATION_ILLNESS_DELAY_MAX))
+
+///Vomiting episodes that drain hydration. Self-limiting, so it is always survivable
+/mob/living/carbon/human/proc/waterborne_illness(episodes)
+	if(QDELETED(src) || stat == DEAD)
+		waterborne_ill = FALSE
+		return
+	to_chat(src, span_warning("Your stomach cramps. Something you drank didn't agree with you."))
+	vomit(10, FALSE, FALSE, 1, FALSE)
+	stomach_water = 0
+	adjust_thirst(-HYDRATION_ILLNESS_LOSS)
+	if(episodes > 1)
+		addtimer(CALLBACK(src, .proc/waterborne_illness, episodes - 1), HYDRATION_ILLNESS_EPISODE_INTERVAL)
+	else
+		waterborne_ill = FALSE
+		to_chat(src, span_notice("The cramping finally passes."))
+
 /mob/living/carbon/human/species
 	var/race = null
 

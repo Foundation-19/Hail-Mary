@@ -44,6 +44,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	var/list/gib_types = list(/obj/effect/gibspawner/human, /obj/effect/gibspawner/human/bodypartless)
 	var/skinned_type
 	var/liked_food = NONE
+	/// Multiplier on thirst drain and on stomach water capacity, for species with unusual bodies
+	var/thirst_rate_mod = 1
+	var/stomach_water_mod = 1
 	var/disliked_food = GROSS
 	var/toxic_food = TOXIC
 	var/list/no_equip = list()	// slots the race can't equip stuff to
@@ -1266,16 +1269,24 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				H.Jitter(5)
 			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= H.physiology.hunger_mod
+		hunger_rate *= 1 + (H.get_hydration_loss_multiplier() - 1) * HUNGER_ACTIVITY_SCALE
 		H.adjust_nutrition(-hunger_rate)
 
 	if(H.stat != DEAD)
-		var/thirst_rate = THIRST_FACTOR
-		if(HAS_TRAIT(H, TRAIT_WATER_WISE))
-			thirst_rate *= 0.75
-		if(HAS_TRAIT(H, TRAIT_DEHYDRATED))
-			thirst_rate *= 1.35
-		H.adjust_thirst(-thirst_rate)
-		handle_thirst(H)
+		if(H.needs_hydration())
+			var/thirst_rate = THIRST_FACTOR * H.get_hydration_loss_multiplier()
+			if(HAS_TRAIT(H, TRAIT_WATER_WISE))
+				thirst_rate *= HYDRATION_WATER_WISE_MULT
+			if(HAS_TRAIT(H, TRAIT_DEHYDRATED))
+				thirst_rate *= HYDRATION_DEHYDRATED_MULT
+			H.absorb_stomach_water()
+			H.adjust_thirst(-thirst_rate)
+			handle_thirst(H)
+		else if(H.hydration_tier != HYDRATION_TIER_HYDRATED)
+			H.set_thirst(THIRST_LEVEL_START)
+			H.stomach_water = 0
+			H.hydration_tier = HYDRATION_TIER_HYDRATED
+			H.clear_alert("thirst")
 		handle_hunger_damage(H)
 
 	if (H.nutrition > NUTRITION_LEVEL_FULL)
@@ -1328,27 +1339,52 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(0 to NUTRITION_LEVEL_STARVING)
 			H.throw_alert("nutrition", /obj/screen/alert/starving)
 
+/// Returns the hydration tier for the current thirst, applying hysteresis against the previous tier
+/datum/species/proc/get_hydration_tier(mob/living/carbon/human/H)
+	var/fraction = H.thirst / THIRST_LEVEL_FULL
+	var/list/thresholds = list(HYDRATION_THRESHOLD_FINE, HYDRATION_THRESHOLD_THIRSTY, HYDRATION_THRESHOLD_PARCHED, HYDRATION_THRESHOLD_CRITICAL)
+	var/tier = HYDRATION_TIER_HYDRATED
+	for(var/i in 1 to length(thresholds))
+		var/threshold = thresholds[i]
+		// Already at or below this tier: stay in it until we climb past threshold + hysteresis
+		if(H.hydration_tier > i)
+			threshold += HYDRATION_HYSTERESIS
+		if(fraction < threshold)
+			tier = i + 1
+	return tier
+
 /datum/species/proc/handle_thirst(mob/living/carbon/human/H)
 	if(!H.client || (H.client && (H.client.inactivity / 600 > 5)))
 		return
 
-	switch(H.thirst)
-		if(THIRST_LEVEL_NORMAL to THIRST_LEVEL_FULL)
-			H.clear_alert("thirst")
-		if(THIRST_LEVEL_THIRSTY to THIRST_LEVEL_NORMAL)
-			H.throw_alert("thirst", /obj/screen/alert/slightly_thirsty)
-		if(THIRST_LEVEL_DEADLY_THIRSTY to THIRST_LEVEL_THIRSTY)
-			H.throw_alert("thirst", /obj/screen/alert/thirsty)
-			if((H.getStaminaLoss() <= 50) && prob(5))
-				to_chat(H, "<span class='warning'>You need some water...</span>")
-				H.adjustStaminaLoss(20, 0)
-		if(0 to THIRST_LEVEL_DEADLY_THIRSTY)
-			H.throw_alert("thirst", /obj/screen/alert/deadly_thirsty)
-			if((H.getStaminaLoss() <= 90) && prob(12))
-				to_chat(H, "<span class='warning'>You feel weak...</span>")
-				H.adjustStaminaLoss(30, 0)
-			if(prob(33))
-				H.adjustToxLoss(2, 0)
+	var/tier = get_hydration_tier(H)
+	if(tier != H.hydration_tier)
+		var/worsened = tier > H.hydration_tier
+		H.hydration_tier = tier
+		SSblackbox.record_feedback("tally", "hydration_tier_entered", 1, "tier_[tier]")
+		switch(tier)
+			if(HYDRATION_TIER_HYDRATED)
+				H.clear_alert("thirst")
+			if(HYDRATION_TIER_FINE)
+				H.throw_alert("thirst", /obj/screen/alert/slightly_thirsty)
+				if(worsened)
+					to_chat(H, span_notice("Your mouth feels a little dry."))
+			if(HYDRATION_TIER_THIRSTY, HYDRATION_TIER_PARCHED)
+				H.throw_alert("thirst", /obj/screen/alert/thirsty)
+				if(worsened)
+					to_chat(H, span_warning(tier == HYDRATION_TIER_THIRSTY ? "You are getting thirsty." : "Your throat is parched and your head is starting to pound."))
+			if(HYDRATION_TIER_CRITICAL)
+				H.throw_alert("thirst", /obj/screen/alert/deadly_thirsty)
+				to_chat(H, span_userdanger("You are severely dehydrated. You need water now."))
+
+	switch(tier)
+		if(HYDRATION_TIER_PARCHED)
+			if(H.getStaminaLoss() <= 50 && prob(HYDRATION_PARCHED_STAMINA_PROB))
+				H.adjustStaminaLoss(HYDRATION_PARCHED_STAMINA_DAMAGE, 0)
+		if(HYDRATION_TIER_CRITICAL)
+			if(prob(HYDRATION_CRITICAL_DAMAGE_PROB))
+				H.adjustStaminaLoss(HYDRATION_PARCHED_STAMINA_DAMAGE, 0)
+				H.adjustToxLoss(HYDRATION_CRITICAL_TOX_DAMAGE, 0)
 	return
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
