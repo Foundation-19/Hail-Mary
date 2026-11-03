@@ -267,6 +267,8 @@
 #define TRAIT_WEAPON_MAINTENANCE	"weapon_maintenance" //Guns wear out slower and are serviced better
 #define TRAIT_STEADY_HANDS	"steady_hands" //Tighter spread
 #define TRAIT_WATER_WISE	"water_wise" //Thirst builds more slowly
+#define TRAIT_IRON_STOMACH	"iron_stomach" //Dirty water rarely makes you sick
+#define TRAIT_DELICATE_STOMACH	"delicate_stomach" //Liability: dirty water makes you sick more often
 #define TRAIT_CAMPER	"camper" //Campfires burn longer and cook faster
 #define TRAIT_QUICK_CLEAN	"quick_clean" //Soap cleans faster
 #define TRAIT_DODGER_RANK1	"dodger_rank1" //Chance to fully avoid melee attacks

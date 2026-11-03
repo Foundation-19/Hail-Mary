@@ -1576,7 +1576,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 /mob/living/carbon/human/proc/add_stomach_water(amount)
 	if(!needs_hydration())
 		return
-	stomach_water = clamp(stomach_water + amount, 0, HYDRATION_STOMACH_MAX * (dna?.species ? dna.species.stomach_water_mod : 1))
+	stomach_water = clamp(stomach_water + amount, 0, HYDRATION_STOMACH_MAX * (dna?.species ? dna.species.stomach_water_mod : 1) * (HAS_TRAIT(src, TRAIT_WATER_WISE) ? HYDRATION_WATER_WISE_STOMACH_MULT : 1))
 
 ///Moves water from the stomach into thirst
 /mob/living/carbon/human/proc/absorb_stomach_water()
@@ -1592,7 +1592,8 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	if(client && world.time - client.last_move <= HYDRATION_ACTIVE_WINDOW)
 		mult *= (m_intent == MOVE_INTENT_RUN) ? HYDRATION_MULT_RUNNING : HYDRATION_MULT_WALKING
 	if(bodytemperature > HYDRATION_HOT_BODYTEMP)
-		mult *= HYDRATION_MULT_HOT
+		// Heat sensitivity (Heat Intolerant, Survivalist, etc.) scales only the extra heat loss
+		mult *= 1 + (HYDRATION_MULT_HOT - 1) * physiology.heat_mod
 	if(HAS_TRAIT(src, TRAIT_POWER_ARMOR))
 		mult *= HYDRATION_MULT_POWER_ARMOR
 	if(get_total_bleed_rate() > 0)
@@ -1613,7 +1614,12 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	// Virus-immune species and those that can't vomit (ghouls, super mutants, androids) don't get sick
 	if(pathogen_chance > 0 && !waterborne_ill && !HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !HAS_TRAIT(src, TRAIT_NOHUNGER))
 		var/illness_chance = 1 - ((1 - pathogen_chance) ** volume)
-		if(prob(illness_chance * 100 * waterborne_resistance))
+		var/resistance = waterborne_resistance
+		if(HAS_TRAIT(src, TRAIT_IRON_STOMACH))
+			resistance *= HYDRATION_IRON_STOMACH_MULT
+		if(HAS_TRAIT(src, TRAIT_DELICATE_STOMACH))
+			resistance *= HYDRATION_DELICATE_STOMACH_MULT
+		if(prob(illness_chance * 100 * resistance))
 			waterborne_ill = TRUE
 			addtimer(CALLBACK(src, .proc/waterborne_illness, HYDRATION_ILLNESS_EPISODES), rand(HYDRATION_ILLNESS_DELAY_MIN, HYDRATION_ILLNESS_DELAY_MAX))
 

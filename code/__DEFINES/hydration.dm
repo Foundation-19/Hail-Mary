@@ -57,6 +57,13 @@
 #define SMUTANT_THIRST_MOD 1.25
 #define SMUTANT_STOMACH_MOD 2
 
+// Quirk modifiers
+#define HYDRATION_WATER_WISE_MULT 0.75
+#define HYDRATION_WATER_WISE_STOMACH_MULT 1.5
+#define HYDRATION_DEHYDRATED_MULT 1.35
+#define HYDRATION_IRON_STOMACH_MULT 0.4
+#define HYDRATION_DELICATE_STOMACH_MULT 1.6
+
 // C-27 power, servo burst and repair. Charge is stored as nutrition.
 #define C27_SHOCK_COEFF 1.25
 #define C27_LOW_POWER_SLOWDOWN 1

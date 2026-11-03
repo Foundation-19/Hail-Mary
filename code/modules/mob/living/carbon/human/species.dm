@@ -1276,9 +1276,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		if(H.needs_hydration())
 			var/thirst_rate = THIRST_FACTOR * H.get_hydration_loss_multiplier()
 			if(HAS_TRAIT(H, TRAIT_WATER_WISE))
-				thirst_rate *= 0.75
+				thirst_rate *= HYDRATION_WATER_WISE_MULT
 			if(HAS_TRAIT(H, TRAIT_DEHYDRATED))
-				thirst_rate *= 1.35
+				thirst_rate *= HYDRATION_DEHYDRATED_MULT
 			H.absorb_stomach_water()
 			H.adjust_thirst(-thirst_rate)
 			handle_thirst(H)
