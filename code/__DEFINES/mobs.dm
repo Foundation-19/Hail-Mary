@@ -466,8 +466,10 @@
 
 // Roundstart trait system
 
-#define MAX_QUIRKS 6 //The maximum amount of quirks one character can have at roundstart
-#define MAX_TRAITS 3 //The maximum amount of free Fallout-style paired Traits one character can have at roundstart, separate from MAX_QUIRKS
+#define MAX_QUIRKS 6 //Baseline amount of beneficial perk slots at roundstart; INT 7+ and LCK 7+ each add one (see /datum/preferences/proc/GetMaxQuirks)
+#define MAX_TRAITS 3 //Baseline amount of free Fallout-style paired Traits at roundstart, separate from MAX_QUIRKS; INT 7+ or LCK 7+ adds one (see GetMaxTraits)
+#define SPECIAL_BONUS_THRESHOLD 7 //INT/LCK needed for the extra Trait and the extra perk slot(s)
+#define SPECIAL_POINT_BONUS_THRESHOLD 8 //INT/LCK needed for the extra Perk Point
 
 #define MAX_REVIVE_FIRE_DAMAGE 180
 #define MAX_REVIVE_BRUTE_DAMAGE 180

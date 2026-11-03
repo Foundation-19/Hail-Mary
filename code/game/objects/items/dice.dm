@@ -170,6 +170,8 @@
 
 /obj/item/dice/proc/diceroll(mob/user)
 	result = roll(sides)
+	if(user && HAS_TRAIT(user, TRAIT_GAMBLERS_EYE))
+		result = max(result, roll(sides))
 	if(rigged && result != rigged)
 		if(prob(clamp(1/(sides - 1) * 100, 25, 80)))
 			result = rigged

@@ -303,9 +303,17 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	var/sound_level = base_movement * armor_multiplier
 
+	if(m_intent == MOVE_INTENT_RUN)
+		if(HAS_TRAIT(src, TRAIT_SILENT_RUN_RANK3))
+			sound_level *= 0.4
+		else if(HAS_TRAIT(src, TRAIT_SILENT_RUN_RANK2))
+			sound_level *= 0.55
+		else if(HAS_TRAIT(src, TRAIT_SILENT_RUN_RANK1))
+			sound_level *= 0.75
 	// Sneaking no longer reduces sound by default - it only shows vision cones.
 	// The Sneak perk is a purchasable exception to that rule, not a baseline mechanic.
 	if(sneaking)
+		sound_level *= 1 - (0.15 * get_perk_rank("shadow"))
 		if(HAS_TRAIT(src, TRAIT_SNEAK_RANK2))
 			sound_level *= 0.25
 		else if(HAS_TRAIT(src, TRAIT_SNEAK_RANK1))
@@ -426,10 +434,14 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 	
 	// Clear old cones
 	clear_vision_cones()
+
+	// Awareness (+1/+2/+3) and Scout (+3/+5/+7) let you see cones from further away
+	var/static/list/scout_bonus = list(0, 3, 5, 7)
+	var/cone_bonus = get_perk_rank("awareness") + scout_bonus[get_perk_rank("scout") + 1]
 	
 	// ACTIVATION RANGE: Find all hostile mobs within their BASE vision range
 	// This ignores YOUR darkness penalties - it's based on THEIR potential awareness
-	for(var/mob/living/simple_animal/hostile/H in view(15, src)) // Extended view to catch edge cases
+	for(var/mob/living/simple_animal/hostile/H in view(15 + cone_bonus, src)) // Extended view to catch edge cases
 		if(H.stat == DEAD || H.ckey)
 			continue
 		
@@ -446,7 +458,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		// ACTIVATION TRIGGER: Use mob's BASE vision_range (9 tiles typically)
 		// This is their "awareness bubble" - you can see their cone when you're in it
 		// EVEN IF they can't see you yet due to darkness
-		var/activation_range = H.vision_range // Base range, no penalties
+		var/activation_range = H.vision_range + cone_bonus // Base range plus perk bonus, no penalties
 		
 		// Also activate if we're within sound detection range
 		// Use the LARGER center range (3x multiplier) for activation

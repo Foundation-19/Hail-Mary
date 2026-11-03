@@ -21,6 +21,13 @@
 		. = run_parry(object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, return_list)			//Parry - Highest priority!
 		if((. & BLOCK_SUCCESS) && !(. & BLOCK_CONTINUE_CHAIN))
 			return
+	// Real attacks only: a dodge is a free full avoidance of melee/unarmed hits for conscious, mobile defenders
+	if(real_attack && (attack_type & (ATTACK_TYPE_MELEE | ATTACK_TYPE_UNARMED)) && stat == CONSCIOUS && CHECK_MOBILITY(src, MOBILITY_MOVE))
+		var/dodger_rank = get_perk_rank("dodger")
+		if(dodger_rank && prob(dodger_rank * 6))
+			visible_message(span_danger("[src] dodges [attack_text]!"), span_userdanger("You dodge [attack_text]!"))
+			return_list[BLOCK_RETURN_PROJECTILE_BLOCK_PERCENTAGE] = 100
+			return BLOCK_SUCCESS | BLOCK_TARGET_DODGED
 	// Component signal block runs have highest priority.. for now.
 	. = SEND_SIGNAL(src, COMSIG_LIVING_RUN_BLOCK, real_attack, object, damage, attack_text, attack_type, armour_penetration, attacker, def_zone, return_list, attack_direction)
 	if((. & BLOCK_SUCCESS) && !(. & BLOCK_CONTINUE_CHAIN))

@@ -136,6 +136,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 	//Quirk category currently selected
 	var/quirk_category = QUIRK_POSITIVE
+	//S.P.E.C.I.A.L. stat tab currently shown in the Beneficial perk screen (a "special_x" var name)
+	var/perk_stat_tab = "special_s"
+	//Scroll offset of the Traits & Perks window, so a click does not jump back to the top
+	var/perk_scroll = 0
 
 	//Job preferences 2.0 - indexed by job title , no key or value implies never
 	var/list/job_preferences = list()
@@ -880,7 +884,10 @@ GLOBAL_LIST_EMPTY(preferences_datums)
 
 // Returns a complete Fallout terminal HTML page with CRT scanlines, vignette and film grain effects.
 // All preference sub-panels use this so the aesthetic is consistent and defined in one place.
-/datum/preferences/proc/get_terminal_page(content, title)
+/datum/preferences/proc/get_terminal_page(content, title, keep_scroll = FALSE, scroll_pos = 0)
+	var/scroll_script = ""
+	if(keep_scroll) //links carry the current scroll offset; the reloaded page scrolls back to it
+		scroll_script = "<script>document.addEventListener('click',function(e){var a=e.target;while(a&&a.tagName!='A'){a=a.parentNode;}if(a&&a.href&&a.href.indexOf('_src_=prefs')>-1){var y=window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;a.href=a.href+';scroll='+y;}},true);window.addEventListener('load',function(){window.scrollTo(0,[round(scroll_pos)]);});</script>"
 	return {"<!DOCTYPE html>
 <html><head><meta charset='UTF-8'><style>
 * { box-sizing: border-box; }
@@ -913,16 +920,21 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 .crt-title { text-align: center; font-size: 14px; letter-spacing: 2px; color: #4aed92; border-bottom: 1px solid #1a5e38; padding: 6px 0 8px; margin-bottom: 8px; }
 .perk-row { padding: 5px 6px; margin: 2px 0; border-bottom: 1px solid #123a24; }
 .perk-row:last-of-type { border-bottom: none; }
-.perk-name { font-weight: bold; }
-.perk-desc { display: block; color: #6fbf90; font-size: 12px; margin-top: 2px; }
-.perk-section { margin: 10px 0 4px; font-size: 13px; letter-spacing: 1px; border-bottom: 1px solid #1a5e38; padding-bottom: 4px; }
+.perk-card { border: 1px solid #1a5e38; background: #0a2d1a; margin: 6px 0; padding: 6px; }
+.perk-pips { color: #4aed92; font-size: 20px; letter-spacing: 2px; }
+.perk-name { font-weight: bold; font-size: 17px; }
+.perk-desc { display: block; color: #8fd4ab; font-size: 15px; margin-top: 2px; }
+.perk-small { font-size: 14px; }
+.perk-lock { font-size: 14px; color: #ff6a6a; }
+.perk-selected { border: 2px solid #4aed92; background: #0d3a22; padding: 4px 8px 8px; margin: 8px 0 14px; }
+.perk-section { margin: 10px 0 4px; font-size: 16px; letter-spacing: 1px; border-bottom: 1px solid #1a5e38; padding-bottom: 4px; }
 .content { position: relative; z-index: 100; }
 .crt-scanlines { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; background: repeating-linear-gradient(0deg, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 2px, rgba(0,0,0,0.12) 2px, rgba(0,0,0,0.12) 4px); }
 .crt-vignette { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 51; background: radial-gradient(ellipse at center, transparent 50%, rgba(2,10,6,0.7) 100%); }
 .crt-grain { position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; opacity: 0.03; pointer-events: none; z-index: 52; animation: grain 0.35s steps(1) infinite; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 @keyframes grain { 0%{transform:translate(0,0)} 10%{transform:translate(-3%,-4%)} 20%{transform:translate(-7%,2%)} 30%{transform:translate(5%,-1%)} 40%{transform:translate(-4%,6%)} 50%{transform:translate(-6%,-7%)} 60%{transform:translate(3%,4%)} 70%{transform:translate(7%,-3%)} 80%{transform:translate(-5%,5%)} 90%{transform:translate(4%,-6%)} 100%{transform:translate(0,0)} }
 @keyframes flicker { 0%,94%,96%,98%,100%{opacity:1} 95%{opacity:0.97} 97%{opacity:0.95} 99%{opacity:0.98} }
-</style></head><body>
+</style>[scroll_script]</head><body>
 <div class='crt-scanlines'></div>
 <div class='crt-vignette'></div>
 <div class='crt-grain'></div>
@@ -1181,8 +1193,8 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
 		lock_reason = "Mood is disabled."
 		quirk_conflict = TRUE
-	if(initial(T.required_special_stat) && (vars[initial(T.required_special_stat)] < initial(T.required_special_value)))
-		lock_reason = "Requires [initial(T.required_special_name)] [initial(T.required_special_value)]+."
+	if(!MeetsQuirkSpecial(T))
+		lock_reason = "Requires [QuirkSpecialReqText(T)]."
 		quirk_conflict = TRUE
 	if(has_quirk && quirk_conflict)
 		all_quirks -= quirk_name
@@ -1222,6 +1234,131 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	user << browse(get_terminal_page(dat.Join(), "&#9654; FAMILY HEIRLOOM &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
+GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", "special_e" = "END", "special_c" = "CHA", "special_i" = "INT", "special_a" = "AGI", "special_l" = "LCK", "other" = "OTHER"))
+
+/datum/preferences/proc/PerkChainFor(datum/quirk/root)
+	. = list(root)
+	var/datum/quirk/cur = root
+	for(var/i in 1 to 8)
+		var/datum/quirk/next
+		for(var/V in SSquirks.quirks)
+			var/datum/quirk/C = SSquirks.quirks[V]
+			if(initial(C.requires_quirk) == initial(cur.name) && !initial(C.is_trait))
+				next = C
+				break
+		if(!next)
+			break
+		. += next
+		cur = next
+
+/datum/preferences/proc/RenderPerkCard(list/chain)
+	var/datum/quirk/root = chain[1]
+	var/owned = 0
+	for(var/i in 1 to chain.len)
+		var/datum/quirk/T = chain[i]
+		if(initial(T.name) in all_quirks)
+			owned = i
+	var/datum/quirk/shown = owned ? chain[owned] : root
+	var/datum/quirk/next = (owned < chain.len) ? chain[owned + 1] : null
+	. = "<div class='perk-card'><table width='100%'><tr><td width='110' valign='top' class='perk-pips'>"
+	for(var/i in 1 to chain.len)
+		. += (i <= owned) ? "&#9608;" : "&#9617;"
+	. += "<br><span class='perk-small'>RANK [owned]/[chain.len]</span></td><td valign='top'>"
+	. += "<span class='perk-name'>[initial(shown.name)]</span><br><span class='perk-desc'>[initial(shown.desc)]</span>"
+	if(owned && initial(shown.name) == "Family Heirloom")
+		. += "<br><a href='?_src_=prefs;preference=trait;task=choose_heirloom'>\[CHOOSE HEIRLOOM\]</a>"
+	. += "</td><td width='210' valign='top' align='right'>"
+	if(owned)
+		. += "<a href='?_src_=prefs;preference=trait;task=update;trait=[initial(shown.name)]'>\[DROP\]</a>"
+		if(owned > 1)
+			. += " <a href='?_src_=prefs;preference=trait;task=rankdown;trait=[initial(shown.name)]'>\[RANK DOWN\]</a>"
+		. += "<br>"
+	if(next)
+		var/stat_ok = MeetsQuirkSpecial(next)
+		var/label = owned ? "RANK UP" : "ADOPT"
+		if(chain.len == 1)
+			label = "ADOPT"
+		if(!stat_ok)
+			. += "<font color='#ff6a6a'><b>LOCKED</b></font> [label]: [initial(next.name)]<br><span class='perk-lock'>Requires [QuirkSpecialReqText(next)]</span>"
+		else
+			. += "<a href='?_src_=prefs;preference=trait;task=update;trait=[initial(next.name)]'>\[[label]\]</a> ([initial(next.value) * -1] TP)<br><span class='perk-small'>[initial(next.name)]</span>"
+	else if(owned)
+		. += "<span class='perk-small'>MAX RANK</span>"
+	. += "</td></tr></table></div>"
+
+/datum/preferences/proc/PerkChainOwned(list/chain)
+	for(var/datum/quirk/T as anything in chain)
+		if(initial(T.name) in all_quirks)
+			return TRUE
+	return FALSE
+
+//Everything the player has taken so far, grouped, shown above the browsing tabs
+/datum/preferences/proc/RenderSelectedSection()
+	var/list/perks = list()
+	var/list/liabs = list()
+	var/list/traits = list()
+	var/list/cosmetic = list()
+	for(var/V in SSquirks.quirks)
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(!(initial(T.name) in all_quirks))
+			continue
+		if(initial(T.is_trait))
+			traits += RenderQuirkRow(T, is_trait_row = TRUE)
+		else if(initial(T.value) < 0)
+			liabs += RenderQuirkRow(T)
+		else if(initial(T.value) == 0)
+			cosmetic += RenderQuirkRow(T)
+	for(var/V in SSquirks.quirks)
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(initial(T.is_trait) || initial(T.value) <= 0 || initial(T.requires_quirk))
+			continue
+		var/list/chain = PerkChainFor(T)
+		if(PerkChainOwned(chain))
+			perks += RenderPerkCard(chain)
+	. = "<div class='perk-selected'><div class='perk-section'>YOUR SELECTIONS</div>"
+	if(!(perks.len + liabs.len + traits.len + cosmetic.len))
+		. += "<center>Nothing selected yet. Adopt something below and it will appear here.</center>"
+	if(perks.len)
+		. += "<div class='perk-section'>PERKS ([GetPositiveQuirkCount()] / [GetMaxQuirks()])</div>[perks.Join()]"
+	if(liabs.len)
+		. += "<div class='perk-section'>LIABILITIES</div>[liabs.Join()]"
+	if(traits.len)
+		. += "<div class='perk-section'>WASTELAND TRAITS ([GetTraitCount()] / [GetMaxTraits()])</div>[traits.Join()]"
+	if(cosmetic.len)
+		. += "<div class='perk-section'>COSMETIC</div>[cosmetic.Join()]"
+	. += "</div>"
+
+/datum/preferences/proc/RenderPerkScreen()
+	var/list/by_stat = list()
+	for(var/k in GLOB.perk_stat_tabs)
+		by_stat[k] = list()
+	for(var/V in SSquirks.quirks)
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(initial(T.is_trait) || initial(T.value) <= 0 || initial(T.requires_quirk))
+			continue
+		if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
+			continue
+		var/list/chain = PerkChainFor(T)
+		if(PerkChainOwned(chain)) //already taken: shown in the selections area instead
+			continue
+		var/key = initial(T.required_special_stat)
+		if(!(key in by_stat))
+			key = "other"
+		var/list/L = by_stat[key]
+		L += list(chain)
+	. = "<center>"
+	for(var/k in GLOB.perk_stat_tabs)
+		var/list/L = by_stat[k]
+		. += " <a href='?_src_=prefs;perk_stat=[k]' [perk_stat_tab == k ? "class='linkOn'" : ""]>[GLOB.perk_stat_tabs[k]][k == "other" ? "" : " [vars[k]]"] ([L.len])</a> "
+	. += "</center><br>"
+	var/list/shown = by_stat[perk_stat_tab]
+	if(!shown)
+		return
+	if(!shown.len)
+		. += "<center>No perks in this category.</center>"
+	for(var/list/chain in shown)
+		. += RenderPerkCard(chain)
+
 /datum/preferences/proc/SetQuirks(mob/user)
 	if(!SSquirks)
 		to_chat(user, span_danger("The perk/trait subsystem is still initializing! Try again in a minute."))
@@ -1238,41 +1375,38 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 		Perks are earned: spend Perk Points on beneficial Perks by taking on liabilities elsewhere. Once your file is stamped at roundstart, it's final.</div>"
 		dat += "<center><a href='?_src_=prefs;preference=trait;task=close'>\[CONFIRM &amp; RETURN\]</a> &nbsp; <a href='?_src_=prefs;preference=trait;task=reset'>\[CLEAR ALL ENTRIES\]</a></center>"
 		dat += "<hr>"
-		dat += "<center><b>On File:</b> [all_quirks.len ? all_quirks.Join(", ") : "None on file"]</center>"
-		dat += "<center>[GetPositiveQuirkCount()] / [MAX_QUIRKS] beneficial perks logged<br>\
-		<b>Perk Points available:</b> [GetQuirkBalance()]<br>"
+		dat += "<center><b>Perk Points available: [GetQuirkBalance()]</b> &nbsp;|&nbsp; Perks: [GetPositiveQuirkCount()] / [GetMaxQuirks()] &nbsp;|&nbsp; Traits: [GetTraitCount()] / [GetMaxTraits()]</center>"
+		dat += RenderSelectedSection()
+		dat += "<center><b>BROWSE AVAILABLE</b><br>"
 		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_POSITIVE]' [quirk_category == QUIRK_POSITIVE ? "class='linkOn'" : ""]>BENEFICIAL</a> "
 		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_NEGATIVE]' [quirk_category == QUIRK_NEGATIVE ? "class='linkOn'" : ""]>LIABILITY</a> "
 		dat += " <a href='?_src_=prefs;quirk_category=[QUIRK_TRAIT]' [quirk_category == QUIRK_TRAIT ? "class='linkOn'" : ""]>TRAITS &amp; COSMETIC</a> "
 		dat += "</center><br>"
 		if(quirk_category == QUIRK_TRAIT)
-			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [MAX_TRAITS] recorded)</div>"
+			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [GetMaxTraits()] recorded)</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(!initial(T.is_trait))
+				if(!initial(T.is_trait) || (initial(T.name) in all_quirks))
 					continue
 				dat += RenderQuirkRow(T, is_trait_row = TRUE)
 			dat += "<div class='perk-section'>COSMETIC - free flavor picks, no Perk Point cost, no slot limit</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(initial(T.is_trait) || initial(T.value) != 0)
+				if(initial(T.is_trait) || initial(T.value) != 0 || (initial(T.name) in all_quirks))
 					continue
 				dat += RenderQuirkRow(T)
+		else if(quirk_category == QUIRK_POSITIVE)
+			dat += RenderPerkScreen()
 		else
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(initial(T.is_trait) || initial(T.value) == 0) //Wasteland Traits and Cosmetic picks live in the combined free-pick tab, not here
-					continue
-				var/value = initial(T.value)
-				if(value > 0 && quirk_category != QUIRK_POSITIVE)
-					continue
-				if(value < 0 && quirk_category != QUIRK_NEGATIVE)
+				if(initial(T.is_trait) || initial(T.value) >= 0 || (initial(T.name) in all_quirks))
 					continue
 				dat += RenderQuirkRow(T)
 		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset All</a></center>"
 
 	user << browse(null, "window=preferences")
-	user << browse(get_terminal_page(dat.Join(), "&#9654; TRAITS &amp; PERKS &#9664;"), "window=mob_occupation;size=900x600;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
+	user << browse(get_terminal_page("<div style='font-size:15px'>[dat.Join()]</div>", "&#9654; TRAITS &amp; PERKS &#9664;", TRUE, perk_scroll), "window=mob_occupation;size=900x700;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
 
@@ -1312,8 +1446,69 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=400x550;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
+/datum/preferences/proc/GetMaxTraits()
+	return MAX_TRAITS + ((special_i >= SPECIAL_BONUS_THRESHOLD || special_l >= SPECIAL_BONUS_THRESHOLD) ? 1 : 0)
+
+/datum/preferences/proc/GetMaxQuirks()
+	return MAX_QUIRKS + (special_i >= SPECIAL_BONUS_THRESHOLD ? 1 : 0) + (special_l >= SPECIAL_BONUS_THRESHOLD ? 1 : 0)
+
+/datum/preferences/proc/GetBonusQuirkPoints()
+	return (special_i >= SPECIAL_POINT_BONUS_THRESHOLD || special_l >= SPECIAL_POINT_BONUS_THRESHOLD) ? 1 : 0
+
+//Returns TRUE if our SPECIAL meets the lock of the given quirk typepath
+/datum/preferences/proc/MeetsQuirkSpecial(datum/quirk/T)
+	var/stat_name = initial(T.required_special_stat)
+	if(stat_name && vars[stat_name] < initial(T.required_special_value))
+		return FALSE
+	var/stat_name_2 = initial(T.required_special_stat_2)
+	if(stat_name_2 && vars[stat_name_2] < initial(T.required_special_value_2))
+		return FALSE
+	return TRUE
+
+//Display text for a quirk's SPECIAL lock(s), e.g. "Strength 5+ and Intelligence 5+"
+/datum/preferences/proc/QuirkSpecialReqText(datum/quirk/T)
+	. = "[initial(T.required_special_name)] [initial(T.required_special_value)]+"
+	if(initial(T.required_special_stat_2))
+		. += " and [initial(T.required_special_name_2)] [initial(T.required_special_value_2)]+"
+
+//Drops every quirk whose SPECIAL lock is unmet (e.g. after SPECIAL was lowered), then any picks beyond the SPECIAL-scaled caps
+/datum/preferences/proc/EnforceQuirkLimits()
+	for(var/V in all_quirks.Copy())
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(!T || MeetsQuirkSpecial(T))
+			continue
+		//a ranked perk whose SPECIAL lock fails steps down to the highest rank still allowed
+		var/cur = V
+		while(T && !MeetsQuirkSpecial(T))
+			cur = initial(T.requires_quirk)
+			T = cur ? SSquirks.quirks[cur] : null
+		all_quirks -= V
+		if(T && !(cur in all_quirks))
+			all_quirks += cur
+	//a ranked perk is a scale: only the highest owned rank of a family may be kept
+	for(var/V in all_quirks.Copy())
+		var/datum/quirk/T = SSquirks.quirks[V]
+		var/lower = T ? initial(T.requires_quirk) : null
+		var/guard = 0
+		while(lower && guard++ < 10)
+			all_quirks -= lower
+			var/datum/quirk/L = SSquirks.quirks[lower]
+			lower = L ? initial(L.requires_quirk) : null
+	while(GetTraitCount() > GetMaxTraits())
+		for(var/i in length(all_quirks) to 1 step -1)
+			if(SSquirks.quirk_is_trait_by_name(all_quirks[i]))
+				all_quirks.Cut(i, i + 1)
+				break
+	while(GetPositiveQuirkCount() > GetMaxQuirks())
+		for(var/i in length(all_quirks) to 1 step -1)
+			if(SSquirks.quirk_points[all_quirks[i]] > 0)
+				all_quirks.Cut(i, i + 1)
+				break
+
 /datum/preferences/proc/GetQuirkBalance()
-	var/bal = CONFIG_GET(number/quirk_points) //server-configurable base Trait Point budget, was hardcoded to 5 and ignoring the config entry entirely
+	var/bal = CONFIG_GET(number/quirk_points) + GetBonusQuirkPoints() //server-configurable base Trait Point budget (SPECIAL can add one)
+	if("Gifted" in all_quirks)
+		bal -= 1 //Gifted's burden: one fewer Perk Point
 	for(var/V in all_quirks)
 		if(SSquirks.quirk_is_trait_by_name(V)) //free Fallout-style paired Traits never touch the point economy
 			continue
@@ -1344,6 +1539,8 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 			C.clear_character_previews()
 
 /datum/preferences/proc/process_link(mob/user, list/href_list)
+	if(href_list["preference"] == "trait" || href_list["quirk_category"] || href_list["perk_stat"])
+		perk_scroll = clamp(text2num(href_list["scroll"]) || 0, 0, 100000)
 	if(href_list["jobbancheck"])
 		var/datum/db_query/query_get_jobban = SSdbcore.NewQuery(
 			"SELECT reason, bantime, duration, expiration_time, IFNULL((SELECT byond_key FROM [format_table_name("player")] WHERE [format_table_name("player")].ckey = [format_table_name("ban")].a_ckey), a_ckey) FROM [format_table_name("ban")] WHERE ckey = :ckey AND (bantype = 'JOB_PERMABAN'  OR (bantype = 'JOB_TEMPBAN' AND expiration_time > Now())) AND isnull(unbanned) AND job = :job",
@@ -1408,12 +1605,19 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
 							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return
+				var/datum/quirk/lock_path = SSquirks.quirks[quirk]
+				if(!(quirk in all_quirks) && !MeetsQuirkSpecial(lock_path))
+					to_chat(user, span_warning("You don't meet the S.P.E.C.I.A.L. requirement for [quirk]: [QuirkSpecialReqText(lock_path)]."))
+					return
 				if(SSquirks.quirk_is_trait_by_name(quirk)) //free Wasteland Trait: no point cost, just a separate headcount cap
 					if(quirk in all_quirks)
 						all_quirks -= quirk
 					else
-						if(GetTraitCount() >= MAX_TRAITS)
-							to_chat(user, span_warning("You can't have more than [MAX_TRAITS] Wasteland Traits!"))
+						if(GetTraitCount() >= GetMaxTraits())
+							to_chat(user, span_warning("You can't have more than [GetMaxTraits()] Wasteland Traits!"))
+							return
+						if(quirk == "Gifted" && GetQuirkBalance() < 1)
+							to_chat(user, span_warning("Gifted costs one Perk Point - drop a Perk first!"))
 							return
 						all_quirks += quirk
 					SetQuirks(user)
@@ -1437,6 +1641,17 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 					return TRUE
 				var/value = SSquirks.quirk_points[quirk]
 				var/balance = GetQuirkBalance()
+				if(!(quirk in all_quirks))
+					for(var/Q in all_quirks) //a lower rank can't be taken alongside a higher rank of its own family
+						var/datum/quirk/held = SSquirks.quirks[Q]
+						var/anc = held ? initial(held.requires_quirk) : null
+						var/guard = 0
+						while(anc && guard++ < 10)
+							if(anc == quirk)
+								to_chat(user, span_warning("You already hold [Q], which supersedes [quirk]."))
+								return
+							var/datum/quirk/A = SSquirks.quirks[anc]
+							anc = A ? initial(A.requires_quirk) : null
 				if(quirk in all_quirks)
 					for(var/Q in all_quirks)
 						var/datum/quirk/owned_path = SSquirks.quirks[Q]
@@ -1448,13 +1663,23 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 						return
 					all_quirks -= quirk
 				else
-					if(value != 0 && (GetPositiveQuirkCount() >= MAX_QUIRKS))
-						to_chat(user, span_warning("You can't have more than [MAX_QUIRKS] beneficial Perks!"))
+					if(value != 0 && (GetPositiveQuirkCount() >= GetMaxQuirks()))
+						to_chat(user, span_warning("You can't have more than [GetMaxQuirks()] beneficial Perks!"))
 						return
 					if(balance - value < 0)
 						to_chat(user, span_warning("You don't have enough Perk Points to gain this Perk!"))
 						return
 					all_quirks += quirk
+				SetQuirks(user)
+			if("rankdown")
+				var/owned_name = href_list["trait"]
+				var/datum/quirk/cur_path = SSquirks.quirks[owned_name]
+				if(cur_path && (owned_name in all_quirks))
+					var/lower_name = initial(cur_path.requires_quirk)
+					var/datum/quirk/lower_path = lower_name ? SSquirks.quirks[lower_name] : null
+					if(lower_path && MeetsQuirkSpecial(lower_path))
+						all_quirks -= owned_name
+						all_quirks += lower_name
 				SetQuirks(user)
 			if("reset")
 				all_quirks = list()
@@ -1484,9 +1709,16 @@ span.independent { display: inline-block; position: absolute; width: 20%; right:
 			quirk_category = temp_quirk_category
 			SetQuirks(user)
 
+	else if(href_list["perk_stat"])
+		if(href_list["perk_stat"] in GLOB.perk_stat_tabs)
+			perk_stat_tab = href_list["perk_stat"]
+			quirk_category = QUIRK_POSITIVE
+			SetQuirks(user)
+
 	else if(href_list["preference"] == "special")
 		switch(href_list["task"])
 			if("close")
+				EnforceQuirkLimits() //lowering SPECIAL can invalidate locked picks and shrink the SPECIAL-scaled caps
 				user << browse(null, "window=mob_occupation")
 				ShowChoices(user)
 			if("update")

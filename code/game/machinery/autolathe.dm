@@ -191,7 +191,7 @@
 
 			/////////////////
 
-			var/coeff = (is_stack ? 1 : prod_coeff) //stacks are unaffected by production coefficient
+			var/coeff = get_build_coeff(being_built, usr)
 			var/total_amount = 0
 
 			for(var/MAT in being_built.materials)
@@ -321,7 +321,7 @@
 		if(!(selected_category in D.category))
 			continue
 
-		if(disabled || !can_build(D))
+		if(disabled || !can_build(D, 1, user))
 			dat += span_linkOff("[D.name]")
 		else
 			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
@@ -338,12 +338,12 @@
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
 		else
-			if(!disabled && can_build(D, 5))
+			if(!disabled && can_build(D, 5, user))
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=5'>x5</a>"
-			if(!disabled && can_build(D, 10))
+			if(!disabled && can_build(D, 10, user))
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=10'>x10</a>"
 
-		dat += "[get_design_cost(D)]<br>"
+		dat += "[get_design_cost(D, user)]<br>"
 
 	dat += "</div>"
 	return dat
@@ -358,7 +358,7 @@
 		if(!D || !D.id)  // Skip if design is null or has no ID
 			continue
 		
-		if(disabled || !can_build(D))
+		if(disabled || !can_build(D, 1, user))
 			dat += span_linkOff("[D.name]")
 		else
 			dat += "<a href='?src=[REF(src)];make=[D.id];multiplier=1'>[D.name]</a>"
@@ -375,7 +375,7 @@
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=25'>x25</a>"
 			if(max_multiplier > 0 && !disabled)
 				dat += " <a href='?src=[REF(src)];make=[D.id];multiplier=[max_multiplier]'>x[max_multiplier]</a>"
-		dat += "[get_design_cost(D)]<br>"
+		dat += "[get_design_cost(D, user)]<br>"
 
 	dat += "</div>"
 	return dat
@@ -389,13 +389,17 @@
 			dat += "<b>[M.name] amount:</b> [mineral_amount] cm<sup>3</sup><br>"
 	return dat
 
-/obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1)
+/// Material multiplier for building a design; stacks are unaffected by the production coefficient.
+/obj/machinery/autolathe/proc/get_build_coeff(datum/design/D, mob/user)
+	return ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff
+
+/obj/machinery/autolathe/proc/can_build(datum/design/D, amount = 1, mob/user)
 	if(!D)
 		return FALSE
 	if(D.make_reagents && D.make_reagents.len)
 		return FALSE
 
-	var/coeff = (ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff)
+	var/coeff = get_build_coeff(D, user)
 
 	var/list/required_materials = list()
 
@@ -406,8 +410,8 @@
 
 	return materials.has_materials(required_materials)
 
-/obj/machinery/autolathe/proc/get_design_cost(datum/design/D)
-	var/coeff = (ispath(D.build_path, /obj/item/stack) ? 1 : prod_coeff)
+/obj/machinery/autolathe/proc/get_design_cost(datum/design/D, mob/user)
+	var/coeff = get_build_coeff(D, user)
 	var/dat
 	for(var/i in D.materials)
 		if(istext(i)) //Category handling
@@ -559,7 +563,7 @@
 		return TRUE
 
 
-/obj/machinery/autolathe/constructionlathe/can_build(datum/design/D, amount = 1)
+/obj/machinery/autolathe/constructionlathe/can_build(datum/design/D, amount = 1, mob/user)
 	if("Security" in D.category)
 		if(DRM == 1)
 			return FALSE
@@ -758,18 +762,24 @@
 	else
 		to_chat(user, span_warning("There aren't any casings in \the [O] to recycle!"))
 
-/// no discounts for sticky fingers!
-/obj/machinery/autolathe/ammo/get_design_cost(datum/design/D)
+/obj/machinery/autolathe/ammo/get_build_coeff(datum/design/D, mob/user)
+	. = ..()
+	if(user && !ispath(D.build_path, /obj/item/stack) && HAS_TRAIT(user, TRAIT_AMMO_SMITH))
+		. *= 0.9 //Ammo Smith: reloading benches waste less material
+
+/// no discounts for sticky fingers! (only the Ammo Smith perk shows up here)
+/obj/machinery/autolathe/ammo/get_design_cost(datum/design/D, mob/user)
+	var/smith_coeff = (user && !ispath(D.build_path, /obj/item/stack) && HAS_TRAIT(user, TRAIT_AMMO_SMITH)) ? 0.9 : 1
 	var/dat
 	for(var/i in D.materials)
 		if(istext(i)) //Category handling
-			dat += "[D.materials[i]] [i]"
+			dat += "[D.materials[i] * smith_coeff] [i]"
 		else
 			var/datum/material/M = i
-			dat += "[D.materials[i]] [M.name] "
+			dat += "[D.materials[i] * smith_coeff] [M.name] "
 	return dat
 
-/obj/machinery/autolathe/ammo/can_build(datum/design/D, amount = 1)
+/obj/machinery/autolathe/ammo/can_build(datum/design/D, amount = 1, mob/user)
 	if(!D)
 		return FALSE
 	// Check the highest tier tag present first, so a design that's ALSO tagged

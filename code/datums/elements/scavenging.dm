@@ -88,6 +88,8 @@
 
 	if(players_busy_scavenging[user])
 		return
+	if(HAS_TRAIT(user, TRAIT_SCAVENGERS_EYE))
+		speed_multi *= 0.8
 	players_busy_scavenging[user] = TRUE
 	var/progress_done = progress_per_atom[source]
 	var/len_messages = length(search_texts)
@@ -109,7 +111,7 @@
 /datum/element/scavenging/proc/spawn_loot(atom/source, mob/user)
 	progress_per_atom -= source
 
-	var/loot = pickweight(loot_table)
+	var/loot = pick_loot_with_fortune(loot_table, user)
 	var/special = TRUE
 	var/free = FALSE
 	if(!loot_left_per_atom[source])
@@ -176,6 +178,12 @@
 			if(20 to 50)
 				rarity_append = ". Not bad."
 		to_chat(user, "You found something in [source]... it's \a [A][rarity_append]")
+		var/scrounger_rank = user.get_scrounger_rank()
+		if(scrounger_rank && prob(scrounger_rank * 10))
+			var/extra_loot = pickweight(loot_table)
+			if(ispath(extra_loot, /obj/item))
+				var/obj/item/extra_item = new extra_loot(source.loc)
+				to_chat(user, span_notice("Your knack for scrounging turns up \a [extra_item] as well."))
 
 	if(unique_loot[loot])
 		var/loot_left = --unique_loot[loot]

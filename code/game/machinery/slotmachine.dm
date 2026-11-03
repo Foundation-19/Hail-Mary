@@ -212,6 +212,9 @@
 
 /obj/machinery/computer/slot_machine/proc/give_prizes(mob/user)
 	var/linelength = get_lines()
+	// Jackpot: wins pay a quarter more, and a losing spin sometimes refunds its price
+	var/lucky = isliving(user) && HAS_TRAIT(user, TRAIT_JACKPOT)
+	var/prize_mult = lucky ? 1.25 : 1
 
 	if(reels[1][2] + reels[2][2] + reels[3][2] + reels[4][2] + reels[5][2] == "[SEVEN][SEVEN][SEVEN][SEVEN][SEVEN]")
 		visible_message("<b>[src]</b> says, 'JACKPOT! You win [money] caps!'")
@@ -220,17 +223,22 @@
 		money = 0
 
 	else if(linelength == 5)
-		visible_message("<b>[src]</b> says, 'Big Winner! You win [BIG_PRIZE] caps!'")
-		give_money(BIG_PRIZE)
+		visible_message("<b>[src]</b> says, 'Big Winner! You win [round(BIG_PRIZE * prize_mult)] caps!'")
+		give_money(round(BIG_PRIZE * prize_mult))
 
 	else if(linelength == 4)
-		visible_message("<b>[src]</b> says, 'Winner! You win [SMALL_PRIZE] caps!'")
-		give_money(SMALL_PRIZE)
+		visible_message("<b>[src]</b> says, 'Winner! You win [round(SMALL_PRIZE * prize_mult)] caps!'")
+		give_money(round(SMALL_PRIZE * prize_mult))
 
 	else if(linelength == 3)
 		to_chat(user, span_notice("You win three free games!"))
 		give_money(SPIN_PRICE * 4)
 		money = max(money - SPIN_PRICE * 4, money)
+
+	else if(lucky && prob(12))
+		to_chat(user, span_notice("Lady Luck smiles - the machine spits your spin back out!"))
+		give_money(SPIN_PRICE)
+		money = max(money - SPIN_PRICE, 0)
 
 	else
 		to_chat(user, span_warning("No luck!"))

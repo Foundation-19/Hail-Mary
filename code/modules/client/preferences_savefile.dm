@@ -642,6 +642,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 			job_preferences -= j
 
 	all_quirks = SANITIZE_LIST(all_quirks)
+	EnforceQuirkLimits()
 
 	if(GetQuirkBalance() < 0)
 		reset_quirks()
@@ -659,9 +660,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		if(istype(parent))
 			to_chat(parent, span_warning("You're attempting to save your character a little too fast. Wait half a second, then try again."))
 		return 0
+	EnforceQuirkLimits()
 	if(GetQuirkBalance() < 0)
 		reset_quirks("balance")
-	if(GetPositiveQuirkCount() > MAX_QUIRKS)
+	if(GetPositiveQuirkCount() > GetMaxQuirks())
 		reset_quirks("max")
 	savecharcooldown = world.time + PREF_SAVELOAD_COOLDOWN
 	var/savefile/S = new /savefile(path)

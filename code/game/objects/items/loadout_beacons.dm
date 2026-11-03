@@ -935,7 +935,8 @@ GLOBAL_LIST_EMPTY(loadout_boxes)
 
 /obj/item/storage/box/gun/hobo/brick/PopulateContents()
 	new /obj/item/gun/ballistic/revolver/brick(src)
-
+	for(var/i in 1 to 5) //finite ammo: the *brick emote is gone, so this case is the only source
+		new /obj/item/ammo_casing/caseless/brick(src)
 /obj/item/storage/box/gun/hobo/pepperbox
 	name = "pepperbox gun case"
 	w_class = WEIGHT_CLASS_BULKY

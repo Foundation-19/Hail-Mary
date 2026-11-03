@@ -153,7 +153,7 @@
 	var/hitscan_mode = FALSE
 	var/list/projectile_vars = list()
 
-/obj/item/ammo_casing/energy/chameleon/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
+/obj/item/ammo_casing/energy/chameleon/ready_proj(atom/target, mob/living/user, quiet, zone_override = "", damage_multiplier = 1, penetration_multiplier = 1, projectile_speed_multiplier = 1, fired_from, damage_threshold_penetration = 0)
 	. = ..()
 	if(!BB)
 		newshot()

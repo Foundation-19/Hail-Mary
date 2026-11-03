@@ -691,6 +691,13 @@ GLOBAL_LIST_EMPTY(vending_products)
 		ui = new(user, src, "Vending")
 		ui.open()
 
+/// Price after the buyer's Trader perk discount. The UI and the purchase both use this so the shown price is the charged price.
+/obj/machinery/vending/proc/get_discounted_price(price, mob/user)
+	var/trader_discount = user ? user.get_trader_discount() : 0
+	if(trader_discount && price > 1)
+		return max(1, round(price * (1 - trader_discount)))
+	return price
+
 /obj/machinery/vending/ui_static_data(mob/user)
 	. = list()
 	.["onstation"] = onstation
@@ -700,7 +707,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		var/list/data = list(
 			asset = get_spritesheet_icon_key_from_type(R.product_path),
 			name = R.name,
-			price = R.custom_price || default_price,
+			price = get_discounted_price(R.custom_price || default_price, user),
 			max_amount = R.max_amount,
 			ref = REF(R)
 		)
@@ -710,7 +717,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		var/list/data = list(
 			asset = get_spritesheet_icon_key_from_type(R.product_path),
 			name = R.name,
-			price = R.custom_premium_price || extra_price,
+			price = get_discounted_price(R.custom_premium_price || extra_price, user),
 			max_amount = R.max_amount,
 			ref = REF(R),
 			premium = TRUE
@@ -721,7 +728,7 @@ GLOBAL_LIST_EMPTY(vending_products)
 		var/list/data = list(
 			asset = get_spritesheet_icon_key_from_type(R.product_path),
 			name = R.name,
-			price = R.custom_premium_price || extra_price, //may cause breakage. please note
+			price = get_discounted_price(R.custom_premium_price || extra_price, user), //may cause breakage. please note
 			max_amount = R.max_amount,
 			ref = REF(R),
 			premium = TRUE
@@ -786,6 +793,9 @@ GLOBAL_LIST_EMPTY(vending_products)
 			if(coin_records.Find(R) || hidden_records.Find(R))
 				price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price
 			
+			//Trader perk haggles the price down a little.
+			price_to_use = get_discounted_price(price_to_use, usr)
+
 			//Make sure we actually have the item.
 			if(R in hidden_records)
 				if(!extended_inventory)

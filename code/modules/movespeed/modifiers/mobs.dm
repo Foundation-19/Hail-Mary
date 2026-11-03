@@ -72,6 +72,11 @@
 /datum/movespeed_modifier/special_speed//SPECIAL Integration
 	variable = TRUE
 
+/// Slow Poke liability: a small flat slowdown (config walk/run slowdowns are around 1).
+/datum/movespeed_modifier/slow_poke
+	multiplicative_slowdown = 0.15
+	blacklisted_movetypes = FLOATING
+
 /datum/movespeed_modifier/turf_slowdown
 	movetypes = GROUND
 	blacklisted_movetypes = (FLYING|FLOATING)

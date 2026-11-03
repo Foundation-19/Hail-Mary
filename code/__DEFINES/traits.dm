@@ -203,10 +203,98 @@
 #define TRAIT_ASSASSIN	"assassin" //Can perform deadly assassination strikes on unaware enemies
 #define TRAIT_SNEAK_RANK1	"sneak_rank1" //Halves movement sound level (hostile mob detection) while in sneak mode
 #define TRAIT_SNEAK_RANK2	"sneak_rank2" //Quarters movement sound level while in sneak mode. Requires Sneak I
+#define TRAIT_SILENT_RUN_RANK1	"silent_run_rank1" //Reduces movement sound level while running
+#define TRAIT_SILENT_RUN_RANK2	"silent_run_rank2"
+#define TRAIT_SILENT_RUN_RANK3	"silent_run_rank3"
 #define TRAIT_STRONGBACK_RANK1	"strongback_rank1" //Extra flat bonus to Strength-based carry capacity multiplier, on top of raw Strength scaling
 #define TRAIT_STRONGBACK_RANK2	"strongback_rank2" //Larger extra flat bonus to carry capacity multiplier. Requires Strong Back I
+#define TRAIT_HOARDER	"hoarder" //Wasteland Trait: flat carry capacity bonus, same scale as Strong Back
+#define TRAIT_FINESSE	"finesse" //Wasteland Trait: more critical hits, less damage on everything else
+#define TRAIT_BUILT_TO_DESTROY	"built_to_destroy" //Wasteland Trait: more critical hits, guns jam more
+#define TRAIT_JINXED	"jinxed" //Wasteland Trait: everyone nearby (including you) fumbles more
+#define TRAIT_BLOODY_MESS	"bloody_mess" //Wasteland Trait: critical hits are gorier and hit slightly harder
+#define TRAIT_WEAK_BACK	"weak_back" //Liability: smaller carry capacity and fewer item slots
+#define TRAIT_PUSHOVER	"pushover" //Liability: deal less melee and projectile damage
+#define TRAIT_HAGGLERS_CURSE	"hagglers_curse" //Liability: vending machines charge more
+#define TRAIT_UNLUCKY	"unlucky" //Liability: guns jam more and crits are rarer
+#define TRAIT_SHAKY_AIM	"shaky_aim" //Liability: worse gun spread while moving
+#define TRAIT_SLOW_HEALER	"slow_healer" //Liability: medical stacks heal you less
+#define TRAIT_DEHYDRATED	"dehydrated" //Liability: thirst builds faster
 #define TRAIT_NUCLEAR_PHYSICIST_RANK1	"nuclear_physicist_rank1" //Power Armor fusion cells drain slower
 #define TRAIT_NUCLEAR_PHYSICIST_RANK2	"nuclear_physicist_rank2" //Power Armor fusion cells drain even slower. Requires Nuclear Physicist I
+#define TRAIT_PA_TRAINED_RANK2	"pa_trained_rank2" //Power Armor Training II: Power Armor fusion cells drain 15% slower
+#define TRAIT_FORTUNE_FINDER_RANK1	"fortune_finder_rank1" //Scavenging and trash piles reroll toward rarer loot
+#define TRAIT_FORTUNE_FINDER_RANK2	"fortune_finder_rank2"
+#define TRAIT_FORTUNE_FINDER_RANK3	"fortune_finder_rank3"
+#define TRAIT_SCROUNGER_RANK1	"scrounger_rank1" //Chance for extra junk/ammo from scavenging and trash piles
+#define TRAIT_SCROUNGER_RANK2	"scrounger_rank2"
+#define TRAIT_SCROUNGER_RANK3	"scrounger_rank3"
+#define TRAIT_TRADER_RANK1	"trader_rank1" //Discount at vending machines
+#define TRAIT_TRADER_RANK2	"trader_rank2"
+#define TRAIT_LEADER_RANK1	"leader_rank1" //Stronger party aura while leading a party
+#define TRAIT_LEADER_RANK2	"leader_rank2"
+#define TRAIT_SCAVENGERS_EYE	"scavengers_eye" //Scavenging takes less time
+#define TRAIT_JUNK_RATTLER	"junk_rattler" //Chance of extra salvage and disassembly loot
+#define TRAIT_AMMO_SMITH	"ammo_smith" //Reloading benches use less material
+#define TRAIT_SNIPER_RANK1	"sniper_rank1" //Tighter spread with scoped/zoomed guns
+#define TRAIT_SNIPER_RANK2	"sniper_rank2"
+#define TRAIT_COMMANDO_RANK1	"commando_rank1" //Tighter spread with automatic/burst guns
+#define TRAIT_COMMANDO_RANK2	"commando_rank2"
+#define TRAIT_GUNSLINGER_RANK1	"gunslinger_rank1" //Tighter spread and faster refire with one-handed guns
+#define TRAIT_GUNSLINGER_RANK2	"gunslinger_rank2"
+#define TRAIT_HEAVY_GUNNER_RANK1	"heavy_gunner_rank1" //Tighter spread with heavy guns
+#define TRAIT_HEAVY_GUNNER_RANK2	"heavy_gunner_rank2"
+#define TRAIT_BLADEMASTER_RANK1	"blademaster_rank1" //Bonus damage with edged melee weapons
+#define TRAIT_BLADEMASTER_RANK2	"blademaster_rank2"
+#define TRAIT_BLADEMASTER_RANK3	"blademaster_rank3"
+#define TRAIT_BRAWLER_RANK1	"brawler_rank1" //Bonus unarmed punch damage
+#define TRAIT_BRAWLER_RANK2	"brawler_rank2"
+#define TRAIT_BRAWLER_RANK3	"brawler_rank3"
+#define TRAIT_STEADY_AIM	"steady_aim" //Tighter spread when standing still
+#define TRAIT_QUICK_DRAW	"quick_draw" //Guns are ready faster when drawn
+#define TRAIT_CONCENTRATED_FIRE	"concentrated_fire" //Bonus damage on repeated shots at one target
+#define TRAIT_FOLLOW_THROUGH	"follow_through" //Bonus projectile damage shortly after moving
+#define TRAIT_MEDIC_RANK1	"medic_rank1" //Medical stacks heal more and apply faster
+#define TRAIT_MEDIC_RANK2	"medic_rank2"
+#define TRAIT_MEDIC_RANK3	"medic_rank3"
+#define TRAIT_HEALER_RANK1	"healer_rank1" //Surgery steps are performed faster
+#define TRAIT_HEALER_RANK2	"healer_rank2"
+#define TRAIT_MAD_SCIENTIST_RANK1	"mad_scientist_rank1" //Crafting takes less time
+#define TRAIT_MAD_SCIENTIST_RANK2	"mad_scientist_rank2"
+#define TRAIT_ROBOTICS_EXPERT_RANK1	"robotics_expert_rank1" //Extra salvage from machinery wrecks
+#define TRAIT_ROBOTICS_EXPERT_RANK2	"robotics_expert_rank2"
+#define TRAIT_FIELD_MEDIC	"field_medic" //Faster and stronger bandages and sutures
+#define TRAIT_WEAPON_MAINTENANCE	"weapon_maintenance" //Guns wear out slower and are serviced better
+#define TRAIT_STEADY_HANDS	"steady_hands" //Tighter spread
+#define TRAIT_WATER_WISE	"water_wise" //Thirst builds more slowly
+#define TRAIT_CAMPER	"camper" //Campfires burn longer and cook faster
+#define TRAIT_QUICK_CLEAN	"quick_clean" //Soap cleans faster
+#define TRAIT_DODGER_RANK1	"dodger_rank1" //Chance to fully avoid melee attacks
+#define TRAIT_DODGER_RANK2	"dodger_rank2"
+#define TRAIT_AWARENESS_RANK1	"awareness_rank1" //Chance to notice landmines in time, and sneak vision cones show from further away
+#define TRAIT_AWARENESS_RANK2	"awareness_rank2"
+#define TRAIT_AWARENESS_RANK3	"awareness_rank3"
+#define TRAIT_SCOUT_RANK1	"scout_rank1" //Sneak vision cones show from much further away
+#define TRAIT_SCOUT_RANK2	"scout_rank2"
+#define TRAIT_SCOUT_RANK3	"scout_rank3"
+#define TRAIT_SHADOW_RANK1	"shadow_rank1" //Sneaking makes even less noise
+#define TRAIT_SHADOW_RANK2	"shadow_rank2"
+#define TRAIT_EAGLE_EYE	"eagle_eye" //Scopes show further ahead
+#define TRAIT_MORE_CRITICALS_RANK1	"more_criticals_rank1" //Higher critical hit chance
+#define TRAIT_MORE_CRITICALS_RANK2	"more_criticals_rank2"
+#define TRAIT_MORE_CRITICALS_RANK3	"more_criticals_rank3"
+#define TRAIT_BETTER_CRITICALS	"better_criticals" //Critical hits deal more damage
+#define TRAIT_LUCKY_PINS	"lucky_pins" //Lockpicks break less and the lock gives one extra attempt
+#define TRAIT_JACKPOT	"jackpot" //Slot machine wins pay more, and losing spins sometimes refund
+#define TRAIT_HOT_STREAK	"hot_streak" //Terminal hacks sometimes refund a wrong guess and lucky breaks are likelier
+#define TRAIT_LUCKY_BREAK	"lucky_break" //Guns jam and cook off less often
+#define TRAIT_SECOND_WIND	"second_wind" //A chance to survive a killing blow, on a long cooldown
+#define TRAIT_LUCKY_CATCH	"lucky_catch" //Better odds at fishing, and sometimes a second fish
+#define TRAIT_VEIN_FINDER	"vein_finder" //Mining sometimes turns up extra ore
+#define TRAIT_WILD_CARD	"wild_card" //Critical hits sometimes knock the target down or disarm them
+#define TRAIT_GAMBLERS_EYE	"gamblers_eye" //Dice you roll land on the better of two rolls
+/// How long Second Wind keeps its holder from being finished off after it triggers
+#define SECOND_WIND_GRACE (5 SECONDS)
 #define TRAIT_PASSTABLE			"passtable"
 #define TRAIT_GIANT				"giant"
 #define TRAIT_DWARF				"dwarf"
@@ -239,6 +327,8 @@
 #define TRAIT_BIG_LEAGUES		"big_leagues"
 #define TRAIT_BIG_LEAGUES_MID	"big_leagues_mid"
 #define TRAIT_LITTLE_LEAGUES	"little_leagues"
+#define TRAIT_BREAKER			"breaker" // Fully charged, blunt power attacks gain DT penetration
+#define TRAIT_IRON_GRIP			"iron_grip" // Once per cooldown, withstand a light hit during a power-attack windup
 #define TRAIT_GENTLE			"gentle"
 #define TRAIT_WIMPY				"wimpy"
 #define TRAIT_FEV				"FEV_MUT" //OH BOY

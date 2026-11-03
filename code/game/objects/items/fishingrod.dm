@@ -86,7 +86,7 @@ GLOBAL_LIST_INIT(fish_rates, list(
 		to_chat(current_user,"You've got something...")
 
 /obj/item/fishingrod/proc/complete_fishing()
-	var/fish_got = prob(trash_chance)
+	var/fish_got = prob(trash_chance + ((current_user && HAS_TRAIT(current_user, TRAIT_LUCKY_CATCH)) ? 15 : 0))
 	switch(fish_got)
 		if(FALSE)
 			if(prob(trash_chance))
@@ -102,6 +102,10 @@ GLOBAL_LIST_INIT(fish_rates, list(
 		if(TRUE)
 			var/pick_fish = pickweight(GLOB.fish_rates) //add your in the global list
 			new pick_fish(current_turf)
+			if(current_user && HAS_TRAIT(current_user, TRAIT_LUCKY_CATCH) && prob(20))
+				var/bonus_fish = pickweight(GLOB.fish_rates)
+				new bonus_fish(current_turf)
+				to_chat(current_user, span_green("Lucky you - there's a second fish on the line!"))
 			return 3
 
 // craftable/obtainable fishing rods
