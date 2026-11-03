@@ -135,7 +135,7 @@
 /// Short burst of speed that replaces the locked sprint
 /datum/action/innate/c27_servo_burst
 	name = "Servo Burst"
-	desc = "Overdrive your leg servos for a few seconds. Costs charge and needs time to cool down."
+	desc = "Overdrive your leg servos for 5 seconds. Costs 40 charge, with a 45 second cooldown."
 	check_flags = AB_CHECK_CONSCIOUS
 	icon_icon = 'icons/mob/actions/actions_silicon.dmi'
 	button_icon_state = "drone_vision"
@@ -144,7 +144,7 @@
 /datum/action/innate/c27_servo_burst/Activate()
 	var/mob/living/carbon/human/H = owner
 	if(world.time < next_use)
-		to_chat(H, span_warning("Servos are still cooling down."))
+		to_chat(H, span_warning("Servos are still cooling down: [DisplayTimeText(next_use - world.time)] remaining."))
 		return
 	if(H.nutrition < NUTRITION_LEVEL_HUNGRY)
 		to_chat(H, span_warning("Not enough charge for a servo burst."))
@@ -152,7 +152,7 @@
 	next_use = world.time + C27_BURST_COOLDOWN
 	H.adjust_nutrition(-C27_BURST_COST)
 	H.add_movespeed_modifier(/datum/movespeed_modifier/c27_servo_burst)
-	to_chat(H, span_notice("Your leg servos whine as they overdrive."))
+	to_chat(H, span_notice("Your leg servos whine as they overdrive for [DisplayTimeText(C27_BURST_DURATION)]. Cooldown: [DisplayTimeText(C27_BURST_COOLDOWN)]."))
 	addtimer(CALLBACK(src, .proc/end_burst), C27_BURST_DURATION)
 
 /datum/action/innate/c27_servo_burst/proc/end_burst()
