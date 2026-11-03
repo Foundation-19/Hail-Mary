@@ -81,6 +81,12 @@
 	qdel(src)
 	return STOP_ATTACK_PROC_CHAIN
 
+/obj/item/reagent_containers/pill/water_purification
+	name = "water purification tablet"
+	desc = "Drop into a canteen or bottle of dirty water (about 50 units) and wait. Cuts down on germs and some radiation. Not for swallowing."
+	icon_state = "pill8"
+	list_reagents = list(/datum/reagent/water_tablet = 5)
+
 /obj/item/reagent_containers/pill/tox
 	name = "toxins pill"
 	desc = "Highly toxic."

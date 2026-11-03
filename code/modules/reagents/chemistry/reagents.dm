@@ -90,7 +90,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 				M.reagents.add_reagent(type, amount)
 	if((method == INGEST) && ishuman(M) && thirst_factor != null)
 		var/mob/living/carbon/human/H = M
-		H.adjust_thirst(thirst_factor * reac_volume)
+		H.add_stomach_water(thirst_factor * reac_volume)
 	return 1
 
 /datum/reagent/proc/reaction_synth(mob/living/M, method=TOUCH, reac_volume, show_message = 1, touch_protection = 0)
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
 	if(ishuman(M) && thirst_factor > 0)
 		var/mob/living/carbon/human/H = M
-		H.adjust_thirst(thirst_factor)
+		H.add_stomach_water(thirst_factor)
 
 /datum/reagent/proc/on_mob_life_synth(mob/living/carbon/M)
 	current_cycle++
