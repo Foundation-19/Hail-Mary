@@ -66,7 +66,8 @@
 /obj/item/gun/ballistic/proc/become_jammed(mob/living/user, custom_message, malfunction = GUN_MALFUNCTION_JAM)
 	jammed = TRUE
 	malfunction_type = malfunction
-	gun_condition = max(0, gun_condition - (malfunction == GUN_MALFUNCTION_DOUBLEFEED ? GUN_CONDITION_LOSS_DOUBLEFEED : GUN_CONDITION_LOSS_JAM))
+	var/wear_mult = (user && HAS_TRAIT(user, TRAIT_WEAPON_MAINTENANCE)) ? 0.6 : 1
+	gun_condition = max(0, gun_condition - (malfunction == GUN_MALFUNCTION_DOUBLEFEED ? GUN_CONDITION_LOSS_DOUBLEFEED : GUN_CONDITION_LOSS_JAM) * wear_mult)
 	if(user)
 		user.visible_message(span_warning("%SELF_NAME%'s [src] jams!"), span_userdanger(custom_message || "[src] jams!"), visible_message_flags = ANONYMIZE_NAMES)
 	do_sparks(1, FALSE, src)
@@ -92,7 +93,7 @@
 		return TRUE
 	if(!I.use_tool(src, user, 40, volume = 50))
 		return TRUE
-	gun_condition = min(GUN_CONDITION_MAX, gun_condition + (GUN_CONDITION_REPAIR_AMOUNT * user.get_intelligence_gun_repair_multiplier()))
+	gun_condition = min(GUN_CONDITION_MAX, gun_condition + (GUN_CONDITION_REPAIR_AMOUNT * user.get_intelligence_gun_repair_multiplier() * (HAS_TRAIT(user, TRAIT_WEAPON_MAINTENANCE) ? 1.3 : 1)))
 	to_chat(user, span_notice("You service [src], improving its condition."))
 	return TRUE
 

@@ -16,6 +16,9 @@
 
 #define NO_REMOVE_FROM_STORAGE (1<<10)
 
+/// What a storage item's own shell costs when it's nested inside another storage; its contents are always counted in full on top of this.
+#define STORAGE_NESTED_SHELL_COST 1
+
 // UI defines
 /// Size of volumetric box icon
 #define VOLUMETRIC_STORAGE_BOX_ICON_SIZE 32

@@ -164,6 +164,12 @@
 	if(arrived.movement_type & FLYING)
 		return
 
+	// Awareness: 10% per rank to spot the mine in time and step over it
+	if(ismob(arrived))
+		var/mob/M = arrived
+		if(prob(M.get_perk_rank("awareness") * 10))
+			to_chat(M, span_notice("You spot [src] just in time and step around it."))
+			return
 	INVOKE_ASYNC(src, PROC_REF(triggermine), arrived)
 
 /obj/item/mine/proc/triggermine(mob/victim)

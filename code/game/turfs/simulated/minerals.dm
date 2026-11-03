@@ -86,12 +86,16 @@
 	else
 		return attack_hand(user)
 
-/turf/closed/mineral/proc/gets_drilled()
+/turf/closed/mineral/proc/gets_drilled(mob/user)
 	if(indestructible) //fortuna edit. RNG rocks that dont budge
 		return
 	if (mineralType && (mineralAmt > 0))
-		new mineralType(src, mineralAmt)
-		SSblackbox.record_feedback("tally", "ore_mined", mineralAmt, mineralType)
+		var/ore_amount = mineralAmt
+		if(ismob(user) && HAS_TRAIT(user, TRAIT_VEIN_FINDER) && prob(40))
+			ore_amount++
+			to_chat(user, span_notice("You spot a little extra ore in the rock!"))
+		new mineralType(src, ore_amount)
+		SSblackbox.record_feedback("tally", "ore_mined", ore_amount, mineralType)
 	for(var/obj/effect/temp_visual/mining_overlay/M in src)
 		qdel(M)
 	var/flags = NONE

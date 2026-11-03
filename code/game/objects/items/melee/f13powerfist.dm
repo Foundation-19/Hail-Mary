@@ -73,7 +73,7 @@
 		to_chat(user, span_notice("You tweak \the [src]'s piston valve to [fisto_setting][fisto_setting == 2 ? " (overdrive)" : ""]."))
 		attack_speed = CLICK_CD_MELEE * fisto_setting
 
-/obj/item/melee/powerfist/f13/attack(mob/living/target, mob/living/user, attackchain_flags = NONE)
+/obj/item/melee/powerfist/f13/attack(mob/living/target, mob/living/user, attackchain_flags = NONE, damage_multiplier = 1)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return FALSE
@@ -86,20 +86,28 @@
 	var/turf/T = get_turf(src)
 	if(!T)
 		return FALSE
-	var/totalitemdamage = target.pre_attacked_by(src, user)
+	if(!punch_prelude(target, user))
+		return FALSE
+	var/force_modifier = get_attack_force_modifier(user)
+	var/condition_mult = get_melee_condition_force_multiplier()
 	var/charge_needed = charge_cost * fisto_setting
 	if(!cell.check_charge(charge_needed))
 		to_chat(user, span_warning("\The [src]'s piston-ram lets out a weak hiss, the cell's nearly dry!"))
 		playsound(loc, 'sound/weapons/punch4.ogg', 50, 1)
-		target.attacked_by(src, user, attackchain_flags, fisto_setting*1.5)
+		target.attacked_by(src, user, attackchain_flags, damage_multiplier * condition_mult * fisto_setting * 1.5 * punch_crit_mult, damage_addition = force_modifier * punch_crit_mult)
 		target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a weak hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
 			span_userdanger("%ACTOR_NAME%'s punch strikes with force!"), \
 			visible_message_flags = ANONYMIZE_NAMES, name_actor = user)
 		return
+	var/totalitemdamage = max((target.pre_attacked_by(src, user) + force_modifier) * condition_mult * damage_multiplier * punch_crit_mult, 0)
 	cell.use(charge_needed)
+	var/dealt = resolve_punch_damage(target, user, totalitemdamage * fisto_setting)
+	if(isnull(dealt))
+		return FALSE
 	// Full AP routes through armor so "Full AP" means ignoring most armor via armour_penetration, not bypassing the damage pipeline outright.
 	var/blocked = target.run_armor_check(null, "melee", "Their armor absorbs the powerfist's punch!", "Their armor softens the powerfist's punch!", armour_penetration, "Their armor is punched clean through!")
-	target.apply_damage(totalitemdamage * fisto_setting, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2)
+	var/dt = max(target.run_armor_check(null, "damage_threshold", null, null, 0, null) - get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
+	target.apply_damage(dealt, BRUTE, null, blocked, wound_bonus = -25*fisto_setting**2, damage_threshold = dt)
 	target.visible_message(span_danger("%ACTOR_NAME%'s powerfist lets out a loud hiss as [user.p_they()] punch[user.p_es()] %SELF_NAME%!"), \
 		span_userdanger("You cry out in pain as %ACTOR_NAME%'s punch flings you backwards!"), \
 		visible_message_flags = ANONYMIZE_NAMES, name_actor = user)

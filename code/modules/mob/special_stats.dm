@@ -1,6 +1,6 @@
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
-	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // +/-1.1 dmg in melee for each level above/below 5 ST, certain guns can be STR locked
+	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // Strength modifies melee damage; certain guns can be STR locked
 	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
 	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets about your demeanor/appearance when they examine you; caps how many followers you can lead in a pull chain
@@ -70,8 +70,20 @@ proc/get_top_level_mob(mob/S)
 
 /// STRENGTH
 
+/mob/living/proc/get_special_melee_damage_bonus()
+	var/strength_difference = special_s - SPECIAL_DEFAULT_ATTR_VALUE
+	var/strength_bonus = strength_difference * 1.1
+	if(strength_difference > 3)
+		// Keep full gains through Strength 8, then taper to +0.8 at 9 and +0.6 at 10.
+		strength_bonus = (3 * 1.1) + (min(strength_difference - 3, 1) * 0.8) + (max(strength_difference - 4, 0) * 0.6)
+	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		strength_bonus -= 2
+	if(HAS_TRAIT(src, TRAIT_PUSHOVER))
+		strength_bonus -= 2
+	return strength_bonus + get_special_low_charisma_intimidation_dam_bonus()
+
 /obj/item/proc/calc_melee_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1) + user.get_special_low_charisma_intimidation_dam_bonus()
+	return user.get_special_melee_damage_bonus()
 
 /obj/item/gun/proc/gun_firing_str_check(mob/living/user)
 	if(user.special_s >= required_str_to_fire)
@@ -80,7 +92,7 @@ proc/get_top_level_mob(mob/S)
 	return FALSE
 
 /datum/species/proc/calc_unarmed_dam_mod_from_special(mob/living/user)
-	return ((user.special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 1.1) + user.get_special_low_charisma_intimidation_dam_bonus()
+	return user.get_special_melee_damage_bonus()
 
 /// Blurry/blinded vision can make a melee swing whiff entirely before it ever reaches attackby(); keen Perception compensates, poor Perception compounds it.
 /mob/proc/check_vision_impaired_miss()
@@ -102,13 +114,40 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_strength_power_attack_stamina_multiplier()
 	return CLAMP(1 - ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.06), 0.6, 1.6)
 
+/// Strength 9+ makes charging a Power Attack less restrictive to move through.
+/mob/living/proc/get_strength_power_attack_windup_slowdown()
+	var/slowdown_reduction = 0
+	if(special_s >= 10)
+		slowdown_reduction = POWER_ATTACK_STRENGTH_10_SLOWDOWN_REDUCTION
+	else if(special_s >= 9)
+		slowdown_reduction = POWER_ATTACK_STRENGTH_9_SLOWDOWN_REDUCTION
+	return POWER_ATTACK_WINDUP_SLOWDOWN * (1 - slowdown_reduction)
+
 /// Brawnier wasters can cram more combined weight class into their bags/pockets/belts before they're full. Strong Back perk stacks a flat bonus on top of the raw Strength scaling.
 /mob/living/proc/get_strength_carry_capacity_multiplier()
-	. = CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.15), 0.4, 1.75)
+	. = CLAMP(1 + ((special_s - SPECIAL_DEFAULT_ATTR_VALUE) * 0.15), 0.85, 1.75)
+	. += get_carry_perk_bonus()
+
+/// Flat carry bonus from Strong Back and Hoarder, minus Weak Back. Also stretches the volume and item slots of worn backpacks, belts and pouches, which Strength alone doesn't touch.
+/mob/living/proc/get_carry_perk_bonus()
+	. = 0
 	if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK2))
 		. += 0.45
 	else if(HAS_TRAIT(src, TRAIT_STRONGBACK_RANK1))
 		. += 0.2
+	if(HAS_TRAIT(src, TRAIT_HOARDER))
+		. += 0.2
+	if(HAS_TRAIT(src, TRAIT_WEAK_BACK))
+		. -= 0.15
+
+/// Call after gaining or losing a carry perk. Waits a tick so the trait is really gone, then re-evaluates every worn container's overload slowdown.
+/mob/living/proc/queue_storage_overload_check()
+	addtimer(CALLBACK(src, PROC_REF(refresh_storage_overload)), 1)
+
+/mob/living/proc/refresh_storage_overload()
+	if(QDELETED(src))
+		return
+	check_worn_storage_overload()
 
 /// Attacker-side: how hard a grapple/takedown (unarmed knockdowns, stuns, chokeholds) bites, scaled off raw muscle.
 /mob/living/proc/get_strength_grapple_control_multiplier()
@@ -230,14 +269,14 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/charisma_party_cap = list(1, 2, 2, 3, 3, 4, 4, 5, 5, 6)
 	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return charisma_party_cap[clamped_c] || 1
+	return (charisma_party_cap[clamped_c] || 1) + (get_perk_rank("leader") >= 2 ? 1 : 0)
 
 /// Scales how strong a party leader's leadership buff is for the members following them.
 /mob/living/proc/get_special_charisma_party_buff_tier()
 	// Index N corresponds directly to a special_c value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/charisma_party_buff_tier = list(0, 0, 1, 1, 2, 2, 3, 3, 4, 5)
 	var/clamped_c = CLAMP(special_c, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return charisma_party_buff_tier[clamped_c] || 0
+	return min((charisma_party_buff_tier[clamped_c] || 0) + get_perk_rank("leader"), 5)
 
 /// How readily THIS mob buys into someone ELSE's charismatic leadership while following them in a party - realistically, a skeptical/socially-closed-off low-Charisma follower reads the social cues less and gets proportionally less out of a leader's aura, while a sociable high-Charisma follower resonates with it and gets more. Multiplies against the leader's own get_special_charisma_party_buff_tier() result; it never substitutes for it.
 /mob/living/proc/get_special_charisma_buyin_multiplier()
@@ -529,19 +568,199 @@ proc/get_top_level_mob(mob/S)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 	return luck_loot_multiplier[clamped_l] || 1
 
+/// Rank (0-3) of a ranked perk whose traits are named "<base>_rank1".."<base>_rank3".
+/mob/proc/get_perk_rank(base)
+	for(var/i = 3, i >= 1, i--)
+		if(HAS_TRAIT(src, "[base]_rank[i]"))
+			return i
+	return 0
+
+/// True if the shooter hasn't moved in the last second.
+/mob/proc/is_standing_still()
+	return !client || (world.time - client.last_move) >= 10
+
+/// Combined spread multiplier from the gun-handling perks for the gun being fired.
+/mob/proc/get_gun_perk_spread_mult(obj/item/gun/G)
+	. = 1
+	if(!istype(G))
+		return
+	if(G.zoomed || G.zoom_factor > 0)
+		. *= 1 - (0.15 * get_perk_rank("sniper"))
+	if(G.automatic || G.burst_size > 1)
+		. *= 1 - (0.12 * get_perk_rank("commando"))
+	if(G.weapon_weight < GUN_TWO_HAND_ONLY && G.w_class <= WEIGHT_CLASS_NORMAL)
+		. *= 1 - (0.12 * get_perk_rank("gunslinger"))
+	if(G.w_class >= WEIGHT_CLASS_BULKY)
+		. *= 1 - (0.12 * get_perk_rank("heavy_gunner"))
+	if(HAS_TRAIT(src, TRAIT_STEADY_AIM) && is_standing_still())
+		. *= 0.85
+	if(HAS_TRAIT(src, TRAIT_STEADY_HANDS))
+		. *= 0.9
+	if(HAS_TRAIT(src, TRAIT_SHAKY_AIM) && !is_standing_still())
+		. *= 1.25
+
+/mob/living/var/cf_target_ref
+/mob/living/var/cf_stacks = 0
+/mob/living/var/cf_last_time = 0
+
+/// Projectile damage multiplier from Concentrated Fire (+4% per consecutive shot at the same target, max 5 stacks) and Follow Through (+10% shortly after moving).
+/mob/living/proc/get_shot_perk_damage_mult(atom/target)
+	. = 1
+	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		. -= 0.1
+	if(HAS_TRAIT(src, TRAIT_PUSHOVER))
+		. -= 0.1
+	if(HAS_TRAIT(src, TRAIT_CONCENTRATED_FIRE))
+		var/target_ref = REF(target)
+		if(cf_target_ref == target_ref && world.time - cf_last_time <= 40)
+			cf_stacks = min(cf_stacks + 1, 5)
+		else
+			cf_stacks = 0
+			cf_target_ref = target_ref
+		cf_last_time = world.time
+		. += 0.04 * cf_stacks
+	if(HAS_TRAIT(src, TRAIT_FOLLOW_THROUGH) && client && (world.time - client.last_move) <= 10)
+		. += 0.1
+
+/// Critical hit chance in percent: 1% per point of Luck, plus 3% per More Criticals rank, +10% for Finesse or +6% for Built to Destroy.
+/mob/proc/get_critical_hit_chance()
+	. = clamp(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE) + (3 * get_perk_rank("more_criticals"))
+	if(HAS_TRAIT(src, TRAIT_FINESSE))
+		. += 10
+	if(HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY))
+		. += 6
+	if(HAS_TRAIT(src, TRAIT_UNLUCKY))
+		. = max(0, . - 5)
+
+/// Damage multiplier for a critical hit, x1.5 normally and x2 with Better Criticals, +0.15 with Bloody Mess.
+/mob/proc/get_critical_hit_multiplier()
+	. = HAS_TRAIT(src, TRAIT_BETTER_CRITICALS) ? 2 : 1.5
+	if(HAS_TRAIT(src, TRAIT_BLOODY_MESS))
+		. += 0.15
+
+/// Everything that happens on top of a critical hit landing. Called once per crit from the melee, unarmed, power fist and projectile paths.
+/mob/proc/on_critical_hit(mob/living/target)
+	wild_card_crit(target)
+	if(HAS_TRAIT(src, TRAIT_BLOODY_MESS) && istype(target))
+		target.add_splatter_floor(get_turf(target))
+		target.visible_message(span_danger("[target] sprays blood across the ground!"), vision_distance = COMBAT_MESSAGE_RANGE)
+
+/// Rolls for a critical hit. Returns the damage multiplier on a crit, or 1 if no crit.
+/mob/proc/roll_critical_hit()
+	if(prob(get_critical_hit_chance()))
+		return get_critical_hit_multiplier()
+	return 1
+
+/// Gametime (world.time) when Second Wind can save this mob again.
+/mob/living/var/second_wind_ready_at = 0
+/// While world.time is below this, Second Wind's grace window keeps this mob from dying outright.
+/mob/living/var/second_wind_protected_until = 0
+
+/mob/living/proc/is_second_wind_protected()
+	return world.time < second_wind_protected_until
+
+/// Second Wind: when a killing blow lands, Luck may let the mob cling on in critical condition instead. Heals just enough to climb back above the death threshold, grants a short window where follow-up hits can't kill them, and goes on a long cooldown. Returns TRUE if it saved the mob.
+/mob/living/proc/try_second_wind()
+	if(!HAS_TRAIT(src, TRAIT_SECOND_WIND) || world.time < second_wind_ready_at)
+		return FALSE
+	second_wind_ready_at = world.time + 10 MINUTES
+	if(!prob(10 + (3 * special_l)))
+		return FALSE
+	second_wind_protected_until = world.time + SECOND_WIND_GRACE
+	addtimer(CALLBACK(src, PROC_REF(end_second_wind)), SECOND_WIND_GRACE)
+	var/remaining = max(0, HEALTH_THRESHOLD_DEAD - health) + 30
+	var/amount = min(remaining, getBruteLoss())
+	adjustBruteLoss(-amount, FALSE)
+	remaining -= amount
+	amount = min(remaining, getFireLoss())
+	adjustFireLoss(-amount, FALSE)
+	remaining -= amount
+	amount = min(remaining, getOxyLoss())
+	adjustOxyLoss(-amount, FALSE)
+	remaining -= amount
+	amount = min(remaining, getToxLoss())
+	adjustToxLoss(-amount, FALSE)
+	updatehealth()
+	to_chat(src, span_userdanger("Against all odds, you cling to life! You can't be finished off for a few seconds."))
+	visible_message(span_danger("[src] refuses to go down, dragging themselves back from the brink!"), ignored_mobs = list(src))
+	return TRUE
+
+/// The grace window is over, so anything still past the death threshold now actually kills.
+/mob/living/proc/end_second_wind()
+	if(QDELETED(src))
+		return
+	second_wind_protected_until = 0
+	updatehealth()
+
+/// Wild Card: a critical hit sometimes does something extra, either knocking the target off their feet or knocking what they're holding out of their hands.
+/mob/proc/wild_card_crit(mob/living/target)
+	if(!HAS_TRAIT(src, TRAIT_WILD_CARD) || !istype(target) || !prob(30))
+		return
+	var/obj/item/held = target.get_active_held_item()
+	if(held && prob(50))
+		target.dropItemToGround(held)
+		to_chat(src, span_notice("Wild Card! You knock [held] out of [target]'s hands!"))
+	else
+		target.DefaultCombatKnockdown(30)
+		to_chat(src, span_notice("Wild Card! You knock [target] off their feet!"))
+
 /// Canonical way to change Luck mid-round. No cached/derived state currently keys off this one (loot multiplier and critfail/fumble chances are all read live), but kept consistent with the other six setters.
 /mob/living/proc/set_special_l(new_value)
 	special_l = clamp(new_value, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
 
+/// Fortune Finder rank (0-3) from the perk's mob traits.
+/mob/proc/get_fortune_finder_rank()
+	if(HAS_TRAIT(src, TRAIT_FORTUNE_FINDER_RANK3))
+		return 3
+	if(HAS_TRAIT(src, TRAIT_FORTUNE_FINDER_RANK2))
+		return 2
+	return HAS_TRAIT(src, TRAIT_FORTUNE_FINDER_RANK1) ? 1 : 0
+
+/// Scrounger rank (0-3) from the perk's mob traits.
+/mob/proc/get_scrounger_rank()
+	if(HAS_TRAIT(src, TRAIT_SCROUNGER_RANK3))
+		return 3
+	if(HAS_TRAIT(src, TRAIT_SCROUNGER_RANK2))
+		return 2
+	return HAS_TRAIT(src, TRAIT_SCROUNGER_RANK1) ? 1 : 0
+
+/// Fraction knocked off vending machine prices by the Trader perk. Negative for Haggler's Curse (a surcharge).
+/mob/proc/get_trader_discount()
+	if(HAS_TRAIT(src, TRAIT_HAGGLERS_CURSE))
+		return -0.1
+	if(HAS_TRAIT(src, TRAIT_TRADER_RANK2))
+		return 0.15
+	return HAS_TRAIT(src, TRAIT_TRADER_RANK1) ? 0.08 : 0
+
+/// pickweight() that lets Fortune Finder reroll once (15% per rank) and keep whichever result is rarer.
+/proc/pick_loot_with_fortune(list/table, mob/user)
+	var/picked = pickweight(table)
+	var/rank = user?.get_fortune_finder_rank()
+	if(rank && prob(rank * 15))
+		var/alt = pickweight(table)
+		if(alt && (!picked || table[alt] < table[picked]))
+			picked = alt
+	return picked
+
 /// Chance to fumble an attack entirely: a melee swing goes wide and misses, or a gun is fumbled and dropped before firing
 /mob/proc/get_luck_critfail_chance()
+	var/chance = 0
 	switch(special_l)
 		if(1)
-			return 6
+			chance = 6
 		if(2)
-			return 3
+			chance = 3
 		if(3)
-			return 1
+			chance = 1
+	return chance + get_jinxed_critfail_bonus()
+
+/// Jinxed: whoever has the trait fumbles a lot more, and so does everyone within a few tiles of them.
+/mob/proc/get_jinxed_critfail_bonus()
+	if(HAS_TRAIT(src, TRAIT_JINXED))
+		return 6
+	for(var/mob/living/M in oview(5, src))
+		if(HAS_TRAIT(M, TRAIT_JINXED))
+			return 4
 	return 0
 
 /// Unlucky swingers risk fumbling (whiffing + a short self-stagger) on a Power Attack release.
@@ -560,7 +779,7 @@ proc/get_top_level_mob(mob/S)
 	// Index N corresponds directly to a special_l value of N (SPECIAL_MIN_ATTR_VALUE starts at 1)
 	var/static/list/luck_jam_multiplier = list(1.8, 1.6, 1.4, 1.2, 1, 0.9, 0.8, 0.7, 0.6, 0.5)
 	var/clamped_l = CLAMP(special_l, SPECIAL_MIN_ATTR_VALUE, SPECIAL_MAX_ATTR_VALUE)
-	return luck_jam_multiplier[clamped_l] || 1
+	return (luck_jam_multiplier[clamped_l] || 1) * (HAS_TRAIT(src, TRAIT_LUCKY_BREAK) ? 0.6 : 1) * (HAS_TRAIT(src, TRAIT_BUILT_TO_DESTROY) ? 1.4 : 1) * (HAS_TRAIT(src, TRAIT_UNLUCKY) ? 1.4 : 1)
 
 /// misc examine procs
 /mob/proc/generate_special_examine_text()

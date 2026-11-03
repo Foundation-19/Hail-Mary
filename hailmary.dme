@@ -748,6 +748,7 @@
 #include "code\datums\traits\_quirk.dm"
 #include "code\datums\traits\ranked_perks.dm"
 #include "code\datums\traits\fallout_traits.dm"
+#include "code\datums\traits\modular_traits.dm"
 #include "code\datums\traits\good.dm"
 #include "code\datums\traits\negative.dm"
 #include "code\datums\traits\neutral.dm"

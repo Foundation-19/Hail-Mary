@@ -1274,8 +1274,13 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	if(H.stat != DEAD)
 		if(H.needs_hydration())
+			var/thirst_rate = THIRST_FACTOR * H.get_hydration_loss_multiplier()
+			if(HAS_TRAIT(H, TRAIT_WATER_WISE))
+				thirst_rate *= 0.75
+			if(HAS_TRAIT(H, TRAIT_DEHYDRATED))
+				thirst_rate *= 1.35
 			H.absorb_stomach_water()
-			H.adjust_thirst(-THIRST_FACTOR * H.get_hydration_loss_multiplier())
+			H.adjust_thirst(-thirst_rate)
 			handle_thirst(H)
 		else if(H.hydration_tier != HYDRATION_TIER_HYDRATED)
 			H.set_thirst(THIRST_LEVEL_START)
@@ -1519,7 +1524,9 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 		var/punchedbrute = target.getBruteLoss()
 
 		damage += calc_unarmed_dam_mod_from_special(user) // S.P.E.C.I.A.L.
-
+		damage *= 1 + (0.1 * user.get_perk_rank("brawler"))
+		var/crit_mult = user.roll_critical_hit()
+		damage *= crit_mult
 		//CITADEL CHANGES - makes resting and disabled combat mode reduce punch damage, makes being out of combat mode result in you taking more damage
 		//if(!SEND_SIGNAL(target, COMSIG_COMBAT_MODE_CHECK, COMBAT_MODE_INACTIVE))
 		//	damage *= 1.2
@@ -1544,6 +1551,12 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 
 		var/armor_block = target.run_armor_check(affecting, "melee")
+
+		if(crit_mult > 1)
+			user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
+				span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = target)
+			log_combat(user, target, "critically punched", null, "(x[crit_mult])")
+			user.on_critical_hit(target)
 
 		playsound(target.loc, user.dna.species.attack_sound, 25, 1, -1)
 
@@ -1747,7 +1760,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 
 	var/armor_block = H.run_armor_check(affecting, "melee", span_notice("Your armor has protected your [hit_area]."), span_notice("Your armor has softened a hit to your [hit_area]."),I.armour_penetration)
 	armor_block = min(90,armor_block) //cap damage reduction at 90%
-	var/dt = max(H.run_armor_check(def_zone, "damage_threshold") - I.damage_threshold_penetration, 0)
+	var/dt = max(H.run_armor_check(def_zone, "damage_threshold") - I.get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
 	var/Iforce = I.force //to avoid runtimes on the forcesay checks at the bottom. Some items might delete themselves if you drop them. (stunning yourself, ninja swords)
 	var/Iwound_bonus = I.wound_bonus
 

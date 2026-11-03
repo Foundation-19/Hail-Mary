@@ -644,6 +644,8 @@
 
 /datum/emote/living/circle/run_emote(mob/user, params)
 	. = ..()
+	if(!.)
+		return
 	var/obj/item/circlegame/N = new(user)
 	if(user.put_in_hands(N))
 		to_chat(user, span_notice("You make a circle with your hand."))
@@ -1124,6 +1126,8 @@ GLOBAL_LIST_INIT(special_phrases, list(
 
 /datum/emote/living/special/run_emote(mob/user, params, type_override, intentional = FALSE)
 	if(!can_run_emote(user, TRUE, intentional))
+		return FALSE
+	if(is_on_use_cooldown(user, intentional))
 		return FALSE
 	if(jobban_isbanned(user, "emote"))	// emote ban
 		to_chat(user, "You cannot send emotes (banned).")

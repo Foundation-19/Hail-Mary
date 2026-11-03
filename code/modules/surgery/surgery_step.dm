@@ -65,6 +65,7 @@
 		var/mob/living/carbon/human/human_user = user
 		var/user_skill = human_user.get_surgery_skill()
 		delay /= (1 + user_skill/10)
+		delay /= (1 + 0.12 * human_user.get_perk_rank("healer"))
 	if(do_after(user, delay, target = target))
 		var/prob_chance = 100
 		if(implement_type)	//this means it isn't a require hand or any item step.

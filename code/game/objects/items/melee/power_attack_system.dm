@@ -13,7 +13,8 @@
 // interrupt stagger duration, fumble chance, power attack stamina cost, and base swing speed.
 
 /datum/movespeed_modifier/power_attack_windup
-	multiplicative_slowdown = 2
+	variable = TRUE
+	multiplicative_slowdown = POWER_ATTACK_WINDUP_SLOWDOWN
 	blacklisted_movetypes = (FLYING|FLOATING)
 
 /// A heavier, more exaggerated version of do_attack_animation()'s lean, to sell the weight of a released Power Attack.
@@ -61,6 +62,12 @@
 	var/datum/progressbar/power_attack_progressbar
 	/// 0-1 scalar set by /datum/power_attack/lunge/on_approach() - how much of its max range the lunge actually closed before connecting. Redirects onto a blocker you barely moved to reach get a reduced bonus.
 	var/power_attack_lunge_fraction = 1
+	/// The weapon's AP before the current Power Attack's temporary bonus, or null outside its release.
+	var/tmp/power_attack_base_armour_penetration
+
+/mob/living
+	/// world.time deadline before Iron Grip can prevent another light-hit interruption.
+	var/power_attack_iron_grip_cooldown_until = 0
 
 /// A worn glove_weapon (e.g. a power fist) counts as "wielded" for Power Attack purposes too, not just actually held in a hand -
 /// lets the glove_power_attack keybinding charge/release it while worn, since it has no hand screen object to right-click.
@@ -106,7 +113,7 @@
 	power_attack_user = user
 	power_attack_stamina_paid = power_attack.stamina_cost * user.get_strength_power_attack_stamina_multiplier()
 	user.adjustStaminaLoss(power_attack_stamina_paid)
-	user.add_movespeed_modifier(/datum/movespeed_modifier/power_attack_windup)
+	user.add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/power_attack_windup, multiplicative_slowdown = user.get_strength_power_attack_windup_slowdown())
 	RegisterSignal(user, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(power_attack_on_damaged))
 	power_attack.on_windup_start(user, src)
 	to_chat(user, span_danger("You begin winding up a [power_attack.name] with [src]..."))
@@ -131,10 +138,22 @@
 			to_chat(user, span_boldnotice("Your [power_attack.name] is fully charged - release to strike!"))
 		stoplag(POWER_ATTACK_TICK_RATE)
 
-/obj/item/proc/power_attack_on_damaged(mob/living/user, damage, damagetype)
+/obj/item/proc/power_attack_on_damaged(mob/living/user, damage, damagetype, def_zone, blocked, forced, spread_damage, wound_bonus, bare_wound_bonus, sharpness, damage_threshold)
 	SIGNAL_HANDLER
 	if(!charging_power_attack || damagetype == STAMINA || damage <= 0)
 		return
+	if(HAS_TRAIT(user, TRAIT_IRON_GRIP) && user.power_attack_iron_grip_cooldown_until <= world.time)
+		var/effective_damage = damage
+		if(!forced && damage_threshold && (damagetype in GLOB.damage_threshold_valid_types))
+			effective_damage = max(effective_damage - min(damage_threshold, ARMOR_CAP_DT), 1)
+		if(!forced)
+			effective_damage *= (100 - min(blocked, ARMOR_CAP_DR)) / 100
+		if(effective_damage > 0 && effective_damage <= POWER_ATTACK_IRON_GRIP_DAMAGE_THRESHOLD)
+			user.power_attack_iron_grip_cooldown_until = world.time + POWER_ATTACK_IRON_GRIP_COOLDOWN
+			var/datum/power_attack/power_attack = get_active_power_attack()
+			var/power_attack_name = power_attack ? power_attack.name : "power attack"
+			to_chat(user, span_notice("You power through the hit and keep charging your [power_attack_name]!"))
+			return
 	power_attack_cancel(user, "interrupted", TRUE)
 
 /obj/item/proc/power_attack_cancel(mob/living/user, reason, stagger_user = FALSE)
@@ -260,18 +279,24 @@
 
 	var/old_wound_bonus = wound_bonus
 	var/old_armour_pen = armour_penetration
+	var/old_power_attack_base_armour_penetration = power_attack_base_armour_penetration
 	var/old_verb = attack_verb
 	wound_bonus += power_attack.wound_bonus_add
+	power_attack_base_armour_penetration = old_armour_pen
 	armour_penetration += power_attack.armor_pen_bonus
 	if(power_attack.attack_verb_override)
 		attack_verb = power_attack.attack_verb_override
 
 	var/effective_multiplier = power_attack.get_effective_damage_multiplier(user, src, target, min(fraction, 1))
-	melee_attack_chain(user, target, params, ATTACK_POWER_ATTACK, effective_multiplier)
+	var/attackchain_flags = ATTACK_POWER_ATTACK
+	if(fraction >= 1)
+		attackchain_flags |= ATTACK_POWER_ATTACK_FULLY_CHARGED
+	melee_attack_chain(user, target, params, attackchain_flags, effective_multiplier)
 	power_attack.on_release(user, src, target, min(fraction, 1))
 
 	wound_bonus = old_wound_bonus
 	armour_penetration = old_armour_pen
+	power_attack_base_armour_penetration = old_power_attack_base_armour_penetration
 	attack_verb = old_verb
 
 /// Alt-click/Alt-RMB quick-select radial menu for which Power Attack is armed - same style/flow as other machines'

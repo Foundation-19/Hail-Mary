@@ -216,39 +216,8 @@
 #undef LICK_CANCEL
 
 ////////
-//Bite//
+//Shove//
 ////////
-/obj/item/hand_item/biter
-	name = "Biter"
-	desc = "Talk shit, get bit."
-	icon = 'icons/obj/in_hands.dmi'
-	icon_state = "biter"
-	attack_verb = list("chomped", "gnawed", "bit", "crunched", "nommed")
-	hitsound = "sound/weapons/bite.ogg"
-	siemens_coefficient = 5 
-	force = 6
-	force_wielded = 10
-	throwforce = 0
-	wound_bonus = 5
-	sharpness = SHARP_EDGED
-	attack_speed = 4
-	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
-
-/obj/item/hand_item/clawer
-	name = "Clawer"
-	desc = "Thems some claws."
-	icon = 'icons/obj/in_hands.dmi'
-	icon_state = "clawer"
-	attack_verb = list("clawed", "swiped", "raked")
-	hitsound = "sound/weapons/bladeslice.ogg"
-	force = 5
-	force_wielded = 8
-	throwforce = 0
-	wound_bonus = 4
-	sharpness = SHARP_EDGED
-	attack_speed = 2
-	item_flags = DROPDEL | ABSTRACT | HAND_ITEM
-
 /obj/item/hand_item/shover
 	name = "shover"
 	desc = "Stay back!"

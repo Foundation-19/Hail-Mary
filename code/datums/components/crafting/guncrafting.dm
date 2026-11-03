@@ -323,6 +323,10 @@
 		for(var/path in disassembly_loot)
 			if(prob(50))
 				new path(T)
+	if(HAS_TRAIT(user, TRAIT_JUNK_RATTLER))
+		for(var/path in disassembly_loot)
+			if(prob(35))
+				new path(T)
 	qdel(src)
 
 /obj/machinery/workbench/can_be_unfasten_wrench(mob/user, silent)

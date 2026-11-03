@@ -16,7 +16,7 @@
 		if(min_reach && GET_DIST_EUCLIDEAN(user, target) < min_reach)
 			return
 	. = attackchain_flags
-	if(tool_behaviour && ((. = target.tool_act(user, src, tool_behaviour)) & STOP_ATTACK_PROC_CHAIN))
+	if(tool_behaviour && ((. |= target.tool_act(user, src, tool_behaviour)) & STOP_ATTACK_PROC_CHAIN))
 		return
 	if((. |= pre_attack(target, user, params, ., damage_multiplier)) & STOP_ATTACK_PROC_CHAIN)
 		return
@@ -94,6 +94,44 @@
 		to_chat(user, span_warning("You don't want to harm other living beings!"))
 		return
 
+	var/force_modifier = get_attack_force_modifier(user)
+
+	var/force_out = (force + force_modifier) * get_melee_condition_force_multiplier()
+	if(force_out <= 0)
+		playsound(loc, pokesound, get_clamped_volume(), 1, -1)
+	else if(hitsound)
+		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+
+	apply_melee_wear()
+
+	target.lastattacker = user.real_name
+	target.lastattackerckey = user.ckey
+
+	user.do_attack_animation(target)
+
+	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
+		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
+			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
+			vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
+		log_combat(user, M, "attempted to attack", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) (Critfail: missed entirely)")
+		return
+
+	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
+
+	var/crit_mult = 1
+	if(force_out > 0 && damtype != STAMINA)
+		crit_mult = user.roll_critical_hit()
+		if(crit_mult > 1)
+			user.visible_message(span_danger("%SELF_NAME% lands a critical hit on %ACTOR_NAME%!"), \
+				span_danger("Critical hit!"), vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
+			log_combat(user, M, "critically hit", src.name, "(x[crit_mult])")
+			user.on_critical_hit(M)
+
+	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier() * crit_mult, damage_addition = force_modifier * crit_mult)
+	add_fingerprint(user)
+
+/// Flat damage added to this item's force by the wielder's S.P.E.C.I.A.L., perks and traits. Consumes a ready block counter. Shared by attack() and glove weapons that override it.
+/obj/item/proc/get_attack_force_modifier(mob/living/user)
 	var/force_modifier = calc_melee_dam_mod_from_special(user) // S.P.E.C.I.A.L.
 
 	if(HAS_TRAIT(user, TRAIT_BLOCK_COUNTER_READY))
@@ -127,30 +165,15 @@
 		if(HAS_TRAIT(user, TRAIT_GHOULMELEE)) //negative trait
 			force_modifier += (-force * 0.25)
 
-	var/force_out = (force + force_modifier) * get_melee_condition_force_multiplier()
-	if(force_out <= 0)
-		playsound(loc, pokesound, get_clamped_volume(), 1, -1)
-	else if(hitsound)
-		playsound(loc, hitsound, get_clamped_volume(), 1, -1)
+		if(sharpness == SHARP_EDGED)
+			force_modifier += force * 0.1 * user.get_perk_rank("blademaster")
 
-	apply_melee_wear()
+	// Keep every investment useful: bonuses past the threshold taper rather than stop.
+	var/bonus_soft_threshold = force * MELEE_DAMAGE_BONUS_SOFT_THRESHOLD
+	if(bonus_soft_threshold > 0 && force_modifier > bonus_soft_threshold)
+		force_modifier = bonus_soft_threshold * sqrt(force_modifier / bonus_soft_threshold)
 
-	target.lastattacker = user.real_name
-	target.lastattackerckey = user.ckey
-
-	user.do_attack_animation(target)
-
-	if(prob(user.get_luck_critfail_chance())) //S.P.E.C.I.A.L.
-		user.visible_message(span_warning("%SELF_NAME% swings clumsily and completely misses %ACTOR_NAME%!"), \
-			span_warning("Your luck fails you and your swing goes wide, missing completely!"), \
-			vision_distance = COMBAT_MESSAGE_RANGE, visible_message_flags = ANONYMIZE_NAMES, name_actor = M)
-		log_combat(user, M, "attempted to attack", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)]) (Critfail: missed entirely)")
-		return
-
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.a_intent)]) (DAMTYPE: [uppertext(damtype)])")
-
-	target.attacked_by(src, user, attackchain_flags, damage_multiplier * get_melee_condition_force_multiplier(), damage_addition = force_modifier)
-	add_fingerprint(user)
+	return force_modifier
 
 /**
  * Returns a 0-1 multiplier applied to this item's force based on its accumulated melee wear.
@@ -239,7 +262,7 @@
 	if(I.force)
 		// Was bypassing mob_armor entirely - melee weapons ignored a target's armor resistance/DT, unlike bullets or bare-handed attacks.
 		var/armor = run_armor_check(null, "melee", null, null, I.armour_penetration, null)
-		var/dt = max(run_armor_check(null, "damage_threshold", null, null, 0, null) - I.damage_threshold_penetration, 0)
+		var/dt = max(run_armor_check(null, "damage_threshold", null, null, 0, null) - I.get_melee_damage_threshold_penetration(user, attackchain_flags), 0)
 		apply_damage(totitemdamage, I.damtype, null, armor, damage_threshold = dt)
 		if(I.damtype == BRUTE)
 			if(prob(33))

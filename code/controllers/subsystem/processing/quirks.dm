@@ -36,7 +36,8 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Deviant Tastes","Does not Eat"),
 			list("Vegetarian","Cannibal"),
 			list("Unintelligible Speech","Mute"),
-			list("Quicker Carry","Quick Carry","Slow Carry"),
+			list("Quick Carry","Slow Carry"),
+			list("Quicker Carry","Slow Carry"),
 			list("Master Martial Artist", "Fists of Noodle"),
 			list("Master Martial Artist", "Sure Strike"),
 			list("Heavy Sleeper","Can Not Sleep"),
@@ -49,7 +50,24 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 			list("Pacifist", "Melee - Wimpy"),
 			list("Pacifist", "Heavy Handed"),
 			list("Pacifist", "Fat-Fingered"),
-			list("Speed Walker", "Mobility - Can not Run")
+			list("Speed Walker", "Mobility - Can not Run"),
+			list("Hot Blooded", "Cold Blooded"),
+			list("Hot Blooded", "Cold Intolerant", "Cold-blooded"),
+			list("Cold Blooded", "Heat Intolerant"),
+			list("Loner", "Pack Mentality"),
+			list("Four Eyes", "Blind","Nearsighted - Corrected","Nearsighted - No Glasses","Nearsighted - Trashed Vision"),
+			list("Kamikaze", "Fragile"),
+			list("Cool Under Fire", "Glass Jaw"),
+			list("Steady Breather", "Chronic Pain"),
+			list("Finesse", "Built to Destroy"),
+			list("Weak Back", "Strong Back I", "Strong Back II", "Hoarder"),
+			list("Pushover", "Finesse"),
+			list("Haggler's Curse", "Trader I", "Trader II"),
+			list("Unlucky", "Lucky Break", "Built to Destroy"),
+			list("Shaky Aim", "Steady Aim", "Steady Hands"),
+			list("Big Appetite", "Fast Metabolism", "Survivalist I", "Survivalist II", "Survivalist III"),
+			list("Dehydrated", "Water Wise"),
+			list("Slow Poke", "Speed Walker", "Mobility - Wasteland Trekker", "Mobility - Wasteland Wanderer", "Mobility - Wasteland Slug", "Mobility - Wasteland Molasses")
 			)
 	return ..()
 
@@ -59,6 +77,8 @@ PROCESSING_SUBSYSTEM_DEF(quirks)
 
 	for(var/V in quirk_list)
 		var/datum/quirk/T = V
+		if(initial(T.abstract_type) == T)
+			continue
 		quirks[initial(T.name)] = T
 		quirk_points[initial(T.name)] = initial(T.value)
 		quirk_names_by_path[T] = initial(T.name)
