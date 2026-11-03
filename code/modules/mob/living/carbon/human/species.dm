@@ -1280,6 +1280,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			if(HAS_TRAIT(H, TRAIT_DEHYDRATED))
 				thirst_rate *= HYDRATION_DEHYDRATED_MULT
 			H.absorb_stomach_water()
+			H.process_waterborne_load()
 			H.adjust_thirst(-thirst_rate)
 			handle_thirst(H)
 		else if(H.hydration_tier != HYDRATION_TIER_HYDRATED)

@@ -15,8 +15,12 @@
 	volume = 50
 	resistance_flags = NONE
 	var/isGlass = TRUE //Whether the 'bottle' is made of glass or not so that milk cartons dont shatter when someone gets hit by it
+	/// Per-unit pathogen chance from old stock (Pre-War bottles, machine reservoirs). Cleared once the container is emptied
+	var/aged_pathogen_chance = 0
 
 /obj/item/reagent_containers/food/drinks/on_reagent_change(changetype)
+	if(!reagents.total_volume)
+		aged_pathogen_chance = 0
 	if (gulp_size < 5)
 		gulp_size = 5
 	else
@@ -55,6 +59,9 @@
 	var/fraction = min(gulp_size/reagents.total_volume, 1)
 	checkLiked(fraction, M)
 	reagents.reaction(M, INGEST, fraction)
+	if(aged_pathogen_chance > 0 && ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.apply_water_contamination(min(gulp_size, reagents.total_volume), 0, aged_pathogen_chance)
 	reagents.trans_to(M, gulp_size, log = TRUE)
 	if(!silent)
 		playsound(M.loc,'sound/items/drink.ogg', rand(10,50), 1)

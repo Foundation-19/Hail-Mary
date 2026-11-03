@@ -354,6 +354,7 @@
 	thirst_factor = THIRST_FACTOR * 10
 
 /datum/reagent/consumable/tea/on_mob_life(mob/living/carbon/M)
+	M.treat_waterborne(HYDRATION_TREAT_TEA)
 	M.dizziness = max(0,M.dizziness-2)
 	M.drowsyness = max(0,M.drowsyness-1)
 	M.jitteriness = max(0,M.jitteriness-3)
@@ -376,6 +377,7 @@
 	thirst_factor = THIRST_FACTOR * 10
 
 /datum/reagent/consumable/tea/red/on_mob_life(mob/living/carbon/M)
+	M.treat_waterborne(HYDRATION_TREAT_TEA)
 	if(M.nutrition > NUTRITION_LEVEL_HUNGRY)
 		M.adjust_nutrition(-3)
 	M.dizziness = max(0,M.dizziness-2)
@@ -397,6 +399,7 @@
 	thirst_factor = THIRST_FACTOR * 10
 
 /datum/reagent/consumable/tea/green/on_mob_life(mob/living/carbon/M)
+	M.treat_waterborne(HYDRATION_TREAT_TEA)
 	M.adjustOrganLoss(ORGAN_SLOT_LIVER, -0.5) //Detox!
 	M.dizziness = max(0,M.dizziness-2)
 	M.drowsyness = max(0,M.drowsyness-1)
@@ -418,6 +421,7 @@
 	thirst_factor = THIRST_FACTOR * 10
 
 /datum/reagent/consumable/tea/forest/on_mob_life(mob/living/carbon/M)
+	M.treat_waterborne(HYDRATION_TREAT_TEA * 2) // honey and herbs: the best of the teas
 	if(M.getToxLoss() && prob(40))//Two anti-toxins working here
 		M.adjustToxLoss(-1, 0, TRUE) //heals TOXINLOVERs
 		//Reminder that honey heals toxin lovers
@@ -1042,6 +1046,7 @@
 
 /datum/reagent/consumable/menthol/on_mob_life(mob/living/L)
 	L.apply_status_effect(/datum/status_effect/throat_soothed)
+	L.treat_waterborne(HYDRATION_TREAT_TEA)
 	..()
 
 /datum/reagent/consumable/grenadine
@@ -1441,6 +1446,7 @@
 
 /datum/reagent/consumable/nuka_cola/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = 0
+	M.treat_waterborne(HYDRATION_TREAT_FIZZY)
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
 	if(HAS_TRAIT(M, TRAIT_NUKA_LOVER))
@@ -1466,6 +1472,7 @@
 
 /datum/reagent/consumable/sunset/on_mob_life(mob/living/carbon/M)
 	M.drowsyness = 0
+	M.treat_waterborne(HYDRATION_TREAT_FIZZY)
 	M.AdjustSleeping(-40, FALSE)
 	M.adjust_bodytemperature(-5 * TEMPERATURE_DAMAGE_COEFFICIENT, BODYTEMP_NORMAL)
 	..()

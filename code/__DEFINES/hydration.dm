@@ -35,16 +35,31 @@
 #define HYDRATION_CRITICAL_DAMAGE_PROB 20
 #define HYDRATION_CRITICAL_TOX_DAMAGE 1
 
-// Waterborne illness
-#define HYDRATION_ILLNESS_DELAY_MIN (2 MINUTES)
-#define HYDRATION_ILLNESS_DELAY_MAX (5 MINUTES)
+// Waterborne illness. Raw water builds up a hidden "contamination load" that slowly decays.
+// Each unit of dirty water adds pathogen_chance * HYDRATION_LOAD_SCALE.
+#define HYDRATION_LOAD_SCALE 100
+#define HYDRATION_LOAD_DECAY 0.05 // per life tick
+#define HYDRATION_LOAD_QUEASY 20 // mild nausea and a warning
+#define HYDRATION_LOAD_SICK 40 // triggers the illness
+#define HYDRATION_LOAD_AFTER_ILLNESS 10 // what is left once the body purges itself
+#define HYDRATION_ILLNESS_TOX 2 // toxin damage per vomiting episode
+#define HYDRATION_ILLNESS_DELAY_MIN (1 MINUTES)
+#define HYDRATION_ILLNESS_DELAY_MAX (3 MINUTES)
 #define HYDRATION_ILLNESS_EPISODES 3
 #define HYDRATION_ILLNESS_EPISODE_INTERVAL (25 SECONDS)
 #define HYDRATION_ILLNESS_LOSS 40 // thirst lost per vomiting episode
+// Treatments. Amounts are contamination load removed per life tick while the reagent is metabolising
+#define HYDRATION_REST_DECAY_MULT 3 // load decays this much faster while lying down or asleep
+#define HYDRATION_TREAT_CHARCOAL 1.5 // purges the gut but does not stop an infection that has already started
+#define HYDRATION_TREAT_TEA 0.3 // mild, herbal and hot drinks settle the stomach
+#define HYDRATION_TREAT_FIZZY 0.15 // sweet fizzy pop (Nuka-Cola, Sunset Sarsaparilla)
+#define HYDRATION_TREAT_ANTIBIOTIC 5 // antibiotics also end an active illness
 
 // Default contamination of untreated water, per unit drunk
 #define WATER_IMPURE_RAD_PER_UNIT 0.25
 #define WATER_IMPURE_PATHOGEN_CHANCE 0.005
+// Pre-War or machine-stored drinks: a few units of bad stock still add up
+#define DRINK_AGED_PATHOGEN_CHANCE 0.003
 
 // Treatment effects, as multipliers on the untreated values
 #define WATER_TABLET_RAD_MULT 0.5

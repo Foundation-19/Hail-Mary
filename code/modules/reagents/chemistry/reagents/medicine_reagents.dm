@@ -311,6 +311,12 @@
 	pH = 8.1
 	ghoulfriendly = TRUE
 
+/datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/carbon/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.treat_waterborne(HYDRATION_TREAT_ANTIBIOTIC, TRUE)
+	..()
+
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -584,6 +590,9 @@
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-2*REM, 0)
 	. = 1
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.treat_waterborne(HYDRATION_TREAT_CHARCOAL)
 	for(var/A in M.reagents.reagent_list)
 		var/datum/reagent/R = A
 		if(R != src)
