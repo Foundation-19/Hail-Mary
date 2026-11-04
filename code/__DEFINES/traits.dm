@@ -366,6 +366,7 @@
 #define TRAIT_TRIGGER_DISCIPLINE	"trigger_discipline" //-25% recoil, -20% rate of fire.
 #define TRAIT_PERFECT_ATTACKER	"perfect_attacker"
 #define TRAIT_BUFFOUT_BUFF		"buffout_buff"
+#define TRAIT_PSYCHO_BUFF		"psycho_buff"
 #define TRAIT_UNARMED_WEAPON	"unarmed_weapon"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"

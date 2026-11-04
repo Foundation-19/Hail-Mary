@@ -38,8 +38,50 @@
 		var/mob/living/carbon/C = L
 		C.heal_tolerance = min(C.get_heal_tolerance() + 1, HEAL_TOLERANCE_MAX)
 
-GLOBAL_LIST_INIT(chem_stimulants, typecacheof(list(/datum/reagent/drug/jet, /datum/reagent/drug/turbo, /datum/reagent/drug/psycho, /datum/reagent/drug/buffout, /datum/reagent/medicine/ephedrine)))
+GLOBAL_LIST_INIT(chem_stimulants, typecacheof(list(/datum/reagent/drug/jet, /datum/reagent/drug/turbo, /datum/reagent/drug/psycho, /datum/reagent/drug/buffout, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/stimulants)))
 GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx, /datum/reagent/medicine/morphine)))
+
+/// Combat chems run hot. Each tick they are active adds adrenal debt, and the last one wearing off collects it.
+/mob/living/carbon/var/combat_debt = 0
+/mob/living/carbon/var/combat_stun_stamp = -1
+
+/// Call once per tick from a combat chem that is actually working on the mob
+/datum/reagent/proc/combat_tick(mob/living/carbon/M)
+	if(!iscarbon(M) || !M.reagents)
+		return
+	var/load = combat_load
+	if(load && !istype(src, /datum/reagent/medicine/medx) && M.reagents.has_reagent(/datum/reagent/medicine/medx))
+		load *= COMBAT_MEDX_SMOOTHING
+	M.combat_debt = min(M.combat_debt + load, COMBAT_DEBT_MAX)
+	if(combat_stun_resist)
+		M.apply_combat_stun_resist()
+
+/mob/living/carbon/proc/apply_combat_stun_resist()
+	if(combat_stun_stamp == world.time || !reagents)
+		return
+	combat_stun_stamp = world.time
+	var/best = 0
+	for(var/datum/reagent/R in reagents.reagent_list)
+		best = max(best, R.combat_stun_resist)
+	if(best)
+		AdjustAllImmobility(-best, FALSE)
+		AdjustUnconscious(-best, FALSE)
+
+/mob/living/carbon/proc/combat_crash(datum/reagent/ending)
+	if(!reagents)
+		return
+	for(var/datum/reagent/R in reagents.reagent_list)
+		if(R != ending && R.combat_load)
+			return
+	var/debt = combat_debt
+	combat_debt = 0
+	if(debt < COMBAT_CRASH_MIN || stat == DEAD)
+		return
+	adjustStaminaLoss(min(debt * COMBAT_CRASH_STAMINA_PER_DEBT, COMBAT_CRASH_STAMINA_MAX))
+	Jitter(10)
+	to_chat(src, span_warning("The chems let go all at once. Your legs go heavy and every muscle reminds you what you just put it through."))
+	add_movespeed_modifier(/datum/movespeed_modifier/combat_crash)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/combat_crash), min(debt * COMBAT_CRASH_SLOW_SECONDS_PER_DEBT, COMBAT_CRASH_SLOW_SECONDS_MAX) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /**
  * Chems that interact outside their own effects, run once per tick on the bloodstream.
@@ -73,6 +115,11 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 		drowsyness = max(drowsyness, 4)
 		if(prob(20))
 			to_chat(src, span_warning("Your breathing slows and your head swims. The drink and the painkiller are working against you."))
+	if(reagents.has_reagent(/datum/reagent/drug/buffout) && (reagents.has_reagent(/datum/reagent/drug/jet) || reagents.has_reagent(/datum/reagent/drug/turbo) || reagents.has_reagent(/datum/reagent/medicine/stimulants)) && prob(INTERACTION_STEROID_STIM_PROB * resist))
+		adjustOrganLoss(ORGAN_SLOT_HEART, 1)
+		Jitter(5)
+		if(prob(25))
+			to_chat(src, span_danger("Your heart hammers. Steroids and stimulants together are a lot for one chest to carry."))
 
 /**
  * Healing is limited by what the body can actually repair, not by the drug alone.
@@ -1328,12 +1375,14 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
-	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
+	description = "Shortens stuns and boosts movement speed in addition to restoring minor damage and weakness. Running on it costs you a crash afterwards. Overdose causes weakness and toxin damage."
 	color = "#78008C"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	pH = 8.7
 	value = REAGENT_VALUE_RARE
+	combat_load = 1
+	combat_stun_resist = COMBAT_STUN_RESIST_STIMULANTS
 
 /datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/L)
 	..()
@@ -1351,9 +1400,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 		M.adjustToxLoss(-1*REM, FALSE)
 		M.adjustBruteLoss(-1*REM, FALSE)
 		M.adjustFireLoss(-1*REM, FALSE)
-	M.AdjustAllImmobility(-60, FALSE)
-	M.AdjustUnconscious(-60, FALSE)
 	M.adjustStaminaLoss(-20*REM, FALSE)
+	combat_tick(M)
 	..()
 	. = 1
 
@@ -2409,12 +2457,13 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 /datum/reagent/medicine/medx
 	name = "Med-X"
 
-	description = "Med-X is a potent painkiller, allowing users to withstand high amounts of pain and continue functioning. Addictive. Prolonged presence in the body can cause seizures and organ damage."
+	description = "Med-X is a potent painkiller, allowing users to withstand high amounts of pain and continue functioning. It only masks injuries, it does not heal them, and the pain returns when it wears off. Addictive. Prolonged presence in the body can cause seizures and organ damage."
 	reagent_state = LIQUID
 	color = "#6D6374"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	addiction_threshold = 15
+	combat_load = 0.5
 	var/od_strikes = 0 // So we dont get roflstomped by a sudden massive dose of medx
 	var/od_next_strike = 0 // there's a cool down between strikes, to give the user time to purge this stuff
 	var/od_strike_cooldown = 6 SECONDS
@@ -2435,19 +2484,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	..()
 
 /datum/reagent/medicine/medx/on_mob_life(mob/living/carbon/M)
-	if(M.health < 0)
-		M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
-		M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
-		M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
-	if(M.oxyloss > 35)
-		M.setOxyLoss(35, 0)
-	if(M.losebreath >= 4)
-		M.losebreath = max(M.losebreath - 2, 0)
 	M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, 0)
 	. = 1
 	if(prob(20))
 		M.AdjustAllImmobility(-20, 0)
 		M.AdjustUnconscious(-20, 0)
+	combat_tick(M)
 	..()
 	if(M.mind)
 		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
@@ -2561,37 +2603,43 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 /datum/reagent/medicine/mentat
 	name = "Mentat Powder"
 
-	description = "A powerful drug that heals and increases the perception and intelligence of the user."
+	description = "A pre-War nootropic that sharpens perception and intelligence for a short time. Leaves the user tired and unfocused afterwards, and withdrawal brings migraines."
 	color = "#C8A5DC"
 	taste_mult = 0.2 //lets me flavor it with other stuff
 	reagent_state = SOLID
 	overdose_threshold = 25
 	addiction_threshold = 15
 	ghoulfriendly = TRUE
+	var/special_delta_p = 0
+	var/special_delta_i = 0
+
+/datum/reagent/medicine/mentat/on_mob_add(mob/living/L)
+	..()
+	if(!isliving(L) || special_delta_p || special_delta_i)
+		return
+	var/old_p = L.special_p
+	var/old_i = L.special_i
+	L.set_special_p(old_p + MENTAT_SPECIAL_BONUS)
+	L.set_special_i(old_i + MENTAT_SPECIAL_BONUS)
+	special_delta_p = L.special_p - old_p
+	special_delta_i = L.special_i - old_i
+
+/datum/reagent/medicine/mentat/on_mob_delete(mob/living/L)
+	if(isliving(L))
+		if(special_delta_p)
+			L.set_special_p(L.special_p - special_delta_p)
+		if(special_delta_i)
+			L.set_special_i(L.special_i - special_delta_i)
+		special_delta_p = 0
+		special_delta_i = 0
+		if(iscarbon(L) && L.stat != DEAD)
+			var/mob/living/carbon/C = L
+			C.drowsyness = max(C.drowsyness, MENTAT_CRASH_DROWSY)
+			C.blur_eyes(MENTAT_CRASH_BLUR)
+			to_chat(C, span_warning("The mental clarity fades, leaving you tired and unfocused."))
+	..()
 
 /datum/reagent/medicine/mentat/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-3*REAGENTS_EFFECT_MULTIPLIER)
-	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
-		return
-	if(M.getOrganLoss(ORGAN_SLOT_BRAIN) == 0)
-		M.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
-/*	if(HAS_TRAIT(M, TRAIT_BLIND, TRAIT_GENERIC))
-		if(prob(20))
-			to_chat(M, span_warning("Your vision slowly returns..."))
-			M.cure_blind(EYE_DAMAGE)
-			M.cure_nearsighted(EYE_DAMAGE)
-			M.blur_eyes(35)
-	else if(HAS_TRAIT(M, TRAIT_NEARSIGHT, TRAIT_GENERIC))
-		to_chat(M, span_warning("The blackness in your peripheral vision fades."))
-		M.cure_nearsighted(EYE_DAMAGE)
-		M.blur_eyes(10)*/
-	if(M.eye_blind || M.eye_blurry)
-		M.set_blindness(0)
-		M.set_blurriness(0)
-		to_chat(M, span_warning("Your vision slowly returns to normal..."))
-	M.adjustOrganLoss(ORGAN_SLOT_EYES, -1)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1)
 	if (prob(5))
 		to_chat(M, span_notice("You feel a strange mental fortitude!"))
 	..()
@@ -2619,9 +2667,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /datum/reagent/medicine/mentat/addiction_act_stage3(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-//		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-//		. = TRUE
+		M.blur_eyes(3)
 		M.Dizzy(4)
 		M.Jitter(4)
 	..()
@@ -2629,9 +2675,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 /datum/reagent/medicine/mentat/addiction_act_stage4(mob/living/M)
 	if(prob(33))
 		M.drop_all_held_items()
-		M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)
-//		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4)
-//		. = TRUE
+		M.blur_eyes(5)
 		M.Dizzy(5)
 		M.Jitter(5)
 	..()
@@ -2642,20 +2686,24 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 /datum/reagent/medicine/fixer
 	name = "Fixer Powder"
 
-	description = "Treats addictions while also purging other chemicals from the body. Side effects include nausea."
+	description = "Temporarily suppresses chemical dependence. Side effects include nausea and woozy, blurred vision, and the addiction can return with further use."
 	reagent_state = SOLID
 	color = "#C8A5DC"
 	ghoulfriendly = TRUE
 	synth_metabolism_use_human = TRUE
 
 /datum/reagent/medicine/fixer/on_mob_life(mob/living/carbon/M)
-//	for(var/datum/reagent/R in M.reagents.reagent_list)
-//		if(R != src)
-//			M.reagents.remove_reagent(R.id,2)
-	for(var/datum/reagent/R in M.reagents.addiction_list)
-		M.reagents.addiction_list.Remove(R)
+	var/datum/reagents/holder = M.reagents
+	for(var/datum/reagent/R in holder.addiction_list.Copy())
+		holder.addiction_list -= R
 		to_chat(M, span_notice("You feel like you've gotten over your need for [R.name]."))
+	for(var/dep in holder.dependence.Copy())
+		holder.dependence -= dep
 	M.confused = max(M.confused, 4)
+	if(prob(FIXER_WOOZY_PROB))
+		M.blur_eyes(4)
+		M.Dizzy(3)
+		to_chat(M, span_warning("You feel woozy."))
 	if(ishuman(M) && prob(5))
 		var/mob/living/carbon/human/H = M
 		H.vomit(10)

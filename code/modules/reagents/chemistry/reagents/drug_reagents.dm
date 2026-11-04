@@ -23,6 +23,18 @@
 				M.emote("scrungy")
 		return TRUE
 
+/// Faction-flavoured mood from using drugs, shared by the combat drugs
+/datum/reagent/drug/proc/apply_drug_moods(mob/living/carbon/M)
+	if(M.mind)
+		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
+		if(istype(job))
+			switch(job.faction)
+				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
+				if(FACTION_LEGION)
+					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
+	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
+
 /datum/reagent/drug/space_drugs
 	name = "Space drugs"
 	value = REAGENT_VALUE_VERY_COMMON
@@ -690,11 +702,12 @@
 // ==================== Merged from fallout (code\modules\fallout\reagents\drugs.dm) ====================
 /datum/reagent/drug/jet
 	name = "Jet Inhalant"
-	description = "A chemical used to induce a euphoric high derived from brahmin dung. Fast-acting, powerful, and highly addictive."
+	description = "A chemical derived from brahmin dung and cooked into a short, intense euphoric rush that clears fatigue fast. Highly addictive, and the comedown is hard if you keep dosing."
 	color = "#60A584" // rgb: 96, 165, 132
 	overdose_threshold = 20
 	addiction_threshold = 12.5
 	ghoulfriendly = TRUE
+	combat_load = 1
 
 /datum/reagent/drug/jet/on_mob_add(mob/living/carbon/human/M)
 	..()
@@ -706,6 +719,7 @@
 
 /datum/reagent/drug/jet/on_mob_delete(mob/living/carbon/human/M)
 	..()
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/jet)
 	if(isliving(M) && !NODRUGS(M))
 		to_chat(M, span_notice("You come down from your high. The wild ride is unfortunately over..."))
 		M.confused += 2
@@ -715,21 +729,19 @@
 		. = TRUE
 		..()
 		return
-	M.adjustStaminaLoss(-20, 0)
+	var/potency = isghoul(M) ? JET_GHOUL_EFFECT_MULT : 1
+	M.adjustStaminaLoss(-JET_STAMINA_RECOVERY * potency, 0)
 	M.set_drugginess(20)
+	// Time seems to slow: quicker reflexes, and faster recovery from being floored
+	if(potency >= 1)
+		M.add_movespeed_modifier(/datum/movespeed_modifier/reagent/jet)
+		M.AdjustAllImmobility(-2)
 	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !isspaceturf(M.loc) && prob(10))
 		step(M, pick(GLOB.cardinals))
 	if(prob(12))
 		M.emote(pick("twitch","drool","moan","giggle"))
-	if(M.mind)
-		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
-		if(istype(job))
-			switch(job.faction)
-				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
-				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
+	combat_tick(M)
+	apply_drug_moods(M)
 	..()
 	. = TRUE
 
@@ -781,13 +793,15 @@
 
 /datum/reagent/drug/turbo
 	name = "Turbo Inhalant"
-	description = "A chemical compound that, when inhaled, vastly increases the user's reflexes and slows their perception of time. Carries a risk of addiction, as well as extreme toxin damage & nausea, if overdosed."
+	description = "A refined Jet derivative that sharpens the user's reflexes and makes the world seem to slow down. Carries a risk of addiction, a heavy crash, and extreme toxin damage & nausea if overdosed."
 	reagent_state = LIQUID
 	color = "#FAFAFA"
 	overdose_threshold = 14
 	addiction_threshold = 9
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	ghoulfriendly = TRUE
+	combat_load = 1.5
+	combat_stun_resist = COMBAT_STUN_RESIST_TURBO
 
 /datum/reagent/drug/turbo/on_mob_add(mob/M)
 	..()
@@ -795,9 +809,11 @@
 		to_chat(M, span_userdanger("What a horrible feeling!"))
 		return
 	ADD_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN, "[type]")
+	M.add_movespeed_modifier(/datum/movespeed_modifier/reagent/turbo)
 
 /datum/reagent/drug/turbo/on_mob_delete(mob/M)
 	REMOVE_TRAIT(M, TRAIT_IGNOREDAMAGESLOWDOWN, "[type]")
+	M.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/turbo)
 	..()
 
 /datum/reagent/drug/turbo/on_mob_life(mob/living/carbon/M)
@@ -811,15 +827,8 @@
 	M.Jitter(2)
 	if(prob(5))
 		M.emote(pick("twitch", "shiver"))
-	if(M.mind)
-		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
-		if(istype(job))
-			switch(job.faction)
-				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
-				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
+	combat_tick(M)
+	apply_drug_moods(M)
 	..()
 	. = TRUE
 
@@ -873,14 +882,17 @@
 
 /datum/reagent/drug/psycho
 	name = "Psycho Fluid"
-	description = "Makes the user hit harder and shrug off slight stuns, but causes slight brain damage and carries a risk of addiction."
+	description = "Floods the user with aggression and a high pain threshold. They hit harder, take less damage and shrug off stuns, but it causes brain damage and carries a risk of addiction."
 	reagent_state = LIQUID
 	color = "#FF0000"
 	overdose_threshold = 15
 	addiction_threshold = 12.5
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
+	var/psycho_buffed = FALSE
 	ghoulfriendly = TRUE
+	combat_load = 1.5
+	combat_stun_resist = COMBAT_STUN_RESIST_PSYCHO
 
 
 /datum/reagent/drug/psycho/on_mob_life(mob/living/carbon/M)
@@ -891,38 +903,41 @@
 	var/high_message = pick("<br><font color='#FF0000'><b>FUCKING KILL!</b></font>", "<br><font color='#FF0000'><b>RAAAAR!</b></font>", "<br><font color='#FF0000'><b>BRING IT!</b></font>")
 	if(prob(20))
 		to_chat(M, span_notice("[high_message]"))
-	M.AdjustStun(-25, 0)
-	M.AdjustKnockdown(-25, 0)
-	M.AdjustUnconscious(-25, 0)
 	M.adjustStaminaLoss(-5, 0)
 	M.Jitter(2)
-	if(M.mind)
-		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
-		if(istype(job))
-			switch(job.faction)
-				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
-				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
+	combat_tick(M)
+	apply_drug_moods(M)
 	..()
 	. = TRUE
 
 /datum/reagent/drug/psycho/on_mob_add(mob/living/L)
 	..()
+	if(NODRUGS(L))
+		return
 	ADD_TRAIT(L, TRAIT_SLEEPIMMUNE, "[type]")
-	if(iscarbon(L))
-		var/mob/living/carbon/C = L
-		rage = new()
-		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
+	ADD_TRAIT(L, TRAIT_PSYCHO_BUFF, "[type]")
+	if(ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.brute_mod *= PSYCHO_DAMAGE_REDUCTION
+		H.physiology.burn_mod *= PSYCHO_DAMAGE_REDUCTION
+		psycho_buffed = TRUE
 
 /datum/reagent/drug/psycho/on_mob_delete(mob/living/L)
 	REMOVE_TRAIT(L, TRAIT_SLEEPIMMUNE, "[type]")
+	REMOVE_TRAIT(L, TRAIT_PSYCHO_BUFF, "[type]")
+	if(psycho_buffed && ishuman(L))
+		var/mob/living/carbon/human/H = L
+		H.physiology.brute_mod /= PSYCHO_DAMAGE_REDUCTION
+		H.physiology.burn_mod /= PSYCHO_DAMAGE_REDUCTION
+		psycho_buffed = FALSE
 	if(rage)
 		QDEL_NULL(rage)
 	..()
 
 /datum/reagent/drug/psycho/overdose_process(mob/living/carbon/human/M)
+	if(!rage && prob(PSYCHO_OVERDOSE_RAGE_PROB))
+		rage = new()
+		M.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
 	M.hallucination += 20
 	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc) && prob(40))
 		step(M, pick(GLOB.cardinals))
@@ -979,14 +994,17 @@
 
 /datum/reagent/drug/buffout
 	name = "Buffout Powder"
-	description = "A powerful steroid which increases the user's strength and endurance."
+	description = "A powerful steroid which increases the user's strength and endurance. The comedown leaves the muscles shaking and the heart racing."
 	color = "#FF9900"
 	reagent_state = SOLID
 	overdose_threshold = 20
 	addiction_threshold = 11
 	metabolization_rate = 1.25 * REAGENTS_METABOLISM
 	var/datum/brain_trauma/special/psychotic_brawling/bath_salts/rage
+	var/buffed = FALSE
 	ghoulfriendly = TRUE
+	combat_load = 1
+	combat_stun_resist = COMBAT_STUN_RESIST_BUFFOUT
 
 /datum/reagent/drug/buffout/on_mob_add(mob/living/carbon/human/M)
 	..()
@@ -996,35 +1014,27 @@
 			return
 		to_chat(M, span_notice("You feel stronger, and like you're able to endure more."))
 		ADD_TRAIT(M, TRAIT_BUFFOUT_BUFF, "buffout")
-		ADD_TRAIT(M, TRAIT_PERFECT_ATTACKER, "buffout")
-		M.maxHealth += 25
-		M.health += 25
+		M.maxHealth += BUFFOUT_MAX_HEALTH_BONUS
+		M.health += BUFFOUT_MAX_HEALTH_BONUS
+		buffed = TRUE
 
 /datum/reagent/drug/buffout/on_mob_delete(mob/living/carbon/human/M)
 	..()
-	if(isliving(M) && !NODRUGS(M))
-		to_chat(M, span_notice("You feel weaker."))
+	if(isliving(M) && buffed)
+		to_chat(M, span_notice("You feel weaker, and your heart is still racing."))
 		REMOVE_TRAIT(M, TRAIT_BUFFOUT_BUFF, "buffout")
-		REMOVE_TRAIT(M, TRAIT_PERFECT_ATTACKER, "buffout")
-		M.maxHealth -= 25
-		M.health -= 25
+		M.maxHealth -= BUFFOUT_MAX_HEALTH_BONUS
+		M.health -= BUFFOUT_MAX_HEALTH_BONUS
+		M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
+		buffed = FALSE
 
 /datum/reagent/drug/buffout/on_mob_life(mob/living/carbon/M)
 	if(dont_do_drugs(M))
 		. = TRUE
 		..()
 		return
-	M.AdjustStun(-10*REAGENTS_EFFECT_MULTIPLIER, 0)
-	M.AdjustKnockdown(-10*REAGENTS_EFFECT_MULTIPLIER, 0)
-	if(M.mind)
-		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
-		if(istype(job))
-			switch(job.faction)
-				if(FACTION_NCR, FACTION_ENCLAVE, FACTION_BROTHERHOOD)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "used drugs", /datum/mood_event/used_drugs, name)
-				if(FACTION_LEGION)
-					SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "betrayed Caesar", /datum/mood_event/betrayed_caesar, name)
-	SEND_SIGNAL(M, COMSIG_ADD_MOOD_EVENT, "jet euphoria", /datum/mood_event/jet_euphoria, name)
+	combat_tick(M)
+	apply_drug_moods(M)
 	..()
 	. = TRUE
 

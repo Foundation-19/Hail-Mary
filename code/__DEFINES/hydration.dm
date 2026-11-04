@@ -121,6 +121,35 @@
 #define HEAL_ALCOHOL_FACTOR 0.85 // drunk bodies repair slower
 #define INTERACTION_STIM_MEDX_PROB 25 // chance per tick that stimulants on top of Med-X strain the heart and lungs
 #define INTERACTION_ALCOHOL_DEPRESSANT_PROB 30 // chance per tick that alcohol on top of Med-X or morphine suppresses breathing
+#define INTERACTION_STEROID_STIM_PROB 15 // chance per tick that Buffout on top of Jet, Turbo or combat stimulants strains the heart
+
+// Combat chems: shortened stuns instead of immunity, and an adrenal debt that is paid when the last one wears off.
+#define COMBAT_DEBT_MAX 150
+#define COMBAT_CRASH_MIN 15 // debt below this causes no crash
+#define COMBAT_CRASH_STAMINA_PER_DEBT 0.4
+#define COMBAT_CRASH_STAMINA_MAX 50
+#define COMBAT_CRASH_SLOW_SECONDS_PER_DEBT 0.3
+#define COMBAT_CRASH_SLOW_SECONDS_MAX 30
+#define COMBAT_MEDX_SMOOTHING 0.6 // Med-X numbs the comedown, so other combat chems build less debt while it is active
+#define COMBAT_STUN_RESIST_PSYCHO 8 // deciseconds shaved off stuns per tick, the best one applies and they do not stack
+#define COMBAT_STUN_RESIST_STIMULANTS 7
+#define COMBAT_STUN_RESIST_BUFFOUT 4
+#define COMBAT_STUN_RESIST_TURBO 4
+#define PSYCHO_DAMAGE_REDUCTION 0.85 // multiplier on brute and burn damage taken
+#define PSYCHO_OVERDOSE_RAGE_PROB 25 // chance per tick while overdosing that the rage trauma sets in
+#define BUFFOUT_MAX_HEALTH_BONUS 15
+
+// Jet: time seems to slow. Ghouls are barely affected by ordinary Jet.
+#define JET_STAMINA_RECOVERY 20
+#define JET_GHOUL_EFFECT_MULT 0.25
+
+// Mentats: sharper perception and thinking while active, tired and unfocused afterwards.
+#define MENTAT_SPECIAL_BONUS 2
+#define MENTAT_CRASH_DROWSY 6
+#define MENTAT_CRASH_BLUR 4
+
+// Fixer: clears dependence and addiction, but leaves the user woozy.
+#define FIXER_WOOZY_PROB 8
 
 // C-27 power, servo burst and repair. Charge is stored as nutrition.
 #define C27_SHOCK_COEFF 1.25
