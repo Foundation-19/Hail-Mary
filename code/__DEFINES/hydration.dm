@@ -67,7 +67,10 @@
 #define WATER_FILTER_PATHOGEN_MULT 0.5
 
 // Hunger shares the activity multiplier, scaled down: 0 = ignore activity, 1 = same as thirst
-#define HUNGER_ACTIVITY_SCALE 0.5
+#define HUNGER_ACTIVITY_SCALE 0.3
+// Wastelanders live on small, irregular meals and the body adapts, while heavy labour burns at most about half again as much as resting
+#define HUNGER_BASAL_MULT 0.85
+#define HUNGER_ACTIVITY_MAX 1.5
 #define SMUTANT_HUNGER_MOD 1.25
 #define SMUTANT_THIRST_MOD 1.25
 #define SMUTANT_STOMACH_MOD 2
@@ -82,8 +85,10 @@
 // Healing is limited by what the body can repair, and repair costs water and food.
 #define HEAL_CAPACITY_HEADROOM 1.25 // total healing per tick the body can use, relative to the strongest healer present
 #define HEAL_STRAIN_TOX 0.15 // toxin per wasted HP when healers are stacked past that capacity
-#define HEAL_COST_THIRST 1 // thirst lost per HP restored
-#define HEAL_COST_NUTRITION 1.5 // nutrition lost per HP restored
+#define HEAL_COST_THIRST 0.6 // thirst lost per HP restored
+#define HEAL_COST_NUTRITION 0.8 // nutrition lost per HP restored
+#define HEAL_COST_CAP 3 // HP worth of cost charged per tick, so major meds drain no more than minor ones
+#define HEAL_HERBAL_COST_MULT 0.5 // herbal remedies heal less, so they also cost less food and water
 #define HEAL_FACTOR_THIRSTY 0.9
 #define HEAL_FACTOR_PARCHED 0.75
 #define HEAL_FACTOR_DEHYDRATED 0.5
@@ -92,14 +97,14 @@
 #define HEAL_FACTOR_MIN 0.4
 #define HEAL_TOLERANCE_DECAY (5 MINUTES) // one dose of tolerance fades per this long
 #define HEAL_TOLERANCE_MAX 5
-#define HEAL_TOLERANCE_PENALTY 0.1 // healing lost per dose of tolerance beyond the first
-#define HEAL_TOLERANCE_MIN 0.6
+#define HEAL_TOLERANCE_PENALTY 0.07 // healing lost per dose of tolerance beyond the first
+#define HEAL_TOLERANCE_MIN 0.7
 
 // Herbal remedies come from tribal tradition, so tribals know how to prepare and use them. Modern chems are unfamiliar to them.
 #define HEAL_ORIGIN_HERBAL 1
 #define HEAL_ORIGIN_MODERN 2
 #define HEAL_HERBAL_TRIBAL_MULT 1.25
-#define HEAL_HERBAL_OUTSIDER_MULT 0.9
+#define HEAL_HERBAL_OUTSIDER_MULT 1
 #define HEAL_MODERN_TRIBAL_MULT 0.9
 #define HEAL_OUTSIDER_HERBAL_HALLUCINATE_PROB 10 // chance per tick that bitter drink gives an outsider a mild hallucination
 
@@ -129,7 +134,7 @@
 #define WOUND_MALUNION_RESET_TIME_MULT 2 // re-breaking takes this many times the base treat time, and 1.5x more on yourself
 
 // Onset and taper: slow-acting healers ramp up over their first ticks and fade out over their last.
-#define HEAL_TAPER_FACTOR 2 // healing fades once less than this many ticks of the chem are left
+#define HEAL_TAPER_FACTOR 1 // healing fades once less than this many ticks of the chem are left
 
 // Interactions between chems
 #define HEAL_ALCOHOL_FACTOR 0.85 // drunk bodies repair slower

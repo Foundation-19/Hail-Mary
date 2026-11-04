@@ -1269,7 +1269,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				H.Jitter(5)
 			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= H.physiology.hunger_mod
-		hunger_rate *= 1 + (H.get_hydration_loss_multiplier() - 1) * HUNGER_ACTIVITY_SCALE
+		hunger_rate *= HUNGER_BASAL_MULT
+		hunger_rate *= min(1 + (H.get_hydration_loss_multiplier() - 1) * HUNGER_ACTIVITY_SCALE, HUNGER_ACTIVITY_MAX)
 		H.adjust_nutrition(-hunger_rate)
 
 	if(H.stat != DEAD)

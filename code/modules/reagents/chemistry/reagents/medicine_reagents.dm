@@ -279,6 +279,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	return max(factor, HEAL_FACTOR_MIN)
 
 /datum/reagent/medicine/proc/pay_repair_cost(mob/living/carbon/M, healed)
+	// Nothing to repair costs nothing, and big healers are charged no more per tick than small ones
+	if(M.getBruteLoss() + M.getFireLoss() <= 0)
+		return
+	healed = min(healed, HEAL_COST_CAP)
+	if(heal_origin == HEAL_ORIGIN_HERBAL)
+		healed *= HEAL_HERBAL_COST_MULT
 	if(HAS_TRAIT(M, TRAIT_HARDY_METABOLISM))
 		healed *= 0.5
 	if(ishuman(M))
