@@ -568,7 +568,7 @@
 	reagent_state = LIQUID
 	color = "#F3E0F9"
 	taste_description = "moonshine and the feeling of a successful heist"
-	addiction_threshold = 1
+	addiction_threshold = 3 // highly addictive: two doses
 	addiction_stage3_end = 40
 	addiction_stage4_end = 240
 	pH = 12.5
@@ -740,8 +740,8 @@
 /datum/reagent/drug/jet/overdose_process(mob/living/M)
 	if(M.hallucination < volume && prob(20))
 		M.hallucination += 10
-		M.adjustToxLoss(10, 0)
-		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 60)
+		M.adjustToxLoss(2, 0)
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
 	..()
 
 /datum/reagent/drug/jet/addiction_act_stage1(mob/living/M)
@@ -751,30 +751,28 @@
 
 /datum/reagent/drug/jet/addiction_act_stage2(mob/living/M)
 	M.Dizzy(5)
-	M.adjustToxLoss(1, 0)
+	M.adjustToxLoss(0.5, 0)
 	if(prob(30))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
 /datum/reagent/drug/jet/addiction_act_stage3(mob/living/M)
-	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc))
-		for(var/i = 0, i < 4, i++)
-			step(M, pick(GLOB.cardinals))
-	M.adjustToxLoss(3, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 5)
-	M.set_disgust(60)
+	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc) && prob(40))
+		step(M, pick(GLOB.cardinals))
+	M.adjustToxLoss(1, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 1)
+	M.set_disgust(30)
 	M.Dizzy(10)
 	if(prob(40))
 		M.emote(pick("twitch","drool","moan"))
 	..()
 
 /datum/reagent/drug/jet/addiction_act_stage4(mob/living/carbon/human/M)
-	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(GLOB.cardinals))
-	M.adjustToxLoss(5, 0)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
-	M.set_disgust(100)
+	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc) && prob(60))
+		step(M, pick(GLOB.cardinals))
+	M.adjustToxLoss(2, 0)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
+	M.set_disgust(50)
 	M.Dizzy(15)
 	if(prob(50))
 		M.emote(pick("twitch","drool","moan"))
@@ -863,11 +861,11 @@
 
 /datum/reagent/drug/turbo/addiction_act_stage4(mob/living/carbon/human/M)
 	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc))
-		for(var/i = 0, i < 8, i++)
+		for(var/i = 0, i < 3, i++)
 			step(M, pick(GLOB.cardinals))
 	M.Jitter(20)
 	M.Dizzy(20)
-	M.adjustToxLoss(6, 0)
+	M.adjustToxLoss(1.5, 0)
 	if(prob(50))
 		M.emote(pick("twitch","drool","moan"))
 	..()
@@ -926,15 +924,15 @@
 
 /datum/reagent/drug/psycho/overdose_process(mob/living/carbon/human/M)
 	M.hallucination += 20
-	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc))
-		for(var/i = 0, i < 8, i++)
-			step(M, pick(GLOB.cardinals))
+	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc) && prob(40))
+		step(M, pick(GLOB.cardinals))
 	if(prob(20))
 		M.emote(pick("twitch","scream","laugh"))
 	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-	M.set_heartattack(TRUE)
-	M.visible_message(span_userdanger("[M] clutches at their chest as if their heart stopped!"))
-	to_chat(M, span_danger("Your vision goes black and your heart stops beating as the amount of drugs in your system shuts down your organs one by one. Say hello to Elvis in the afterlife. "))
+	if(prob(4) && !M.undergoing_cardiac_arrest())
+		M.set_heartattack(TRUE)
+		M.visible_message(span_userdanger("[M] clutches at their chest as if their heart stopped!"))
+		to_chat(M, span_danger("Your vision goes black and your heart stops beating as the amount of drugs in your system shuts down your organs one by one. Say hello to Elvis in the afterlife. "))
 	..()
 	return TRUE
 
@@ -957,25 +955,23 @@
 	return
 /datum/reagent/drug/psycho/addiction_act_stage3(mob/living/M)
 	M.hallucination += 30
-	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc))
-		for(var/i = 0, i < 2, i++)
-			step(M, pick(GLOB.cardinals))
+	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc) && prob(40))
+		step(M, pick(GLOB.cardinals))
 	M.Jitter(15)
 	M.Dizzy(15)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(prob(40))
 		M.emote(pick("twitch","scream","laugh"))
 	..()
 	return
 /datum/reagent/drug/psycho/addiction_act_stage4(mob/living/carbon/human/M)
 	M.hallucination += 40
-	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc))
-		for(var/i = 0, i < 4, i++)
-			step(M, pick(GLOB.cardinals))
+	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !ismovableatom(M.loc) && !isspaceturf(M.loc) && prob(60))
+		step(M, pick(GLOB.cardinals))
 	M.Jitter(50)
 	M.Dizzy(50)
-	M.adjustToxLoss(5)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15)
+	M.adjustToxLoss(2)
+	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4)
 	if(prob(50))
 		M.emote(pick("twitch","scream","laugh"))
 	..()
@@ -1033,12 +1029,13 @@
 	. = TRUE
 
 /datum/reagent/drug/buffout/overdose_process(mob/living/carbon/human/M)
-	if(iscarbon(M))
+	if(iscarbon(M) && !rage && prob(10))
 		var/mob/living/carbon/C = M
 		rage = new()
 		C.gain_trauma(rage, TRAUMA_RESILIENCE_ABSOLUTE)
-	var/datum/disease/D = new /datum/disease/heart_failure
-	M.ForceContractDisease(D)
+	if(prob(5))
+		var/datum/disease/D = new /datum/disease/heart_failure
+		M.ForceContractDisease(D)
 	if(prob(33))
 		M.visible_message(span_danger("[M]'s muscles spasm, making them drop what they were holding!"))
 		M.drop_all_held_items()
@@ -1055,8 +1052,8 @@
 
 /datum/reagent/drug/buffout/addiction_act_stage2(mob/living/M)
 	to_chat(M, span_notice("Your muscles feel incredibly sore."))
-	M.adjustBruteLoss(4)
-	if(prob(30))
+	M.adjustBruteLoss(2)
+	if(prob(15))
 		to_chat(M, span_notice("Your muscles spasm, making you drop what you were holding."))
 		M.drop_all_held_items()
 		M.emote(pick("twitch"))
@@ -1065,10 +1062,8 @@
 
 /datum/reagent/drug/buffout/addiction_act_stage3(mob/living/M)
 	to_chat(M, span_notice("Your muscles start to hurt badly, and everything feels like it hurts more."))
-	M.adjustBruteLoss(7.5)
-	M.maxHealth -= 1.5
-	M.health -= 1.5
-	if(prob(50))
+	M.adjustBruteLoss(3)
+	if(prob(25))
 		to_chat(M, span_notice("Your muscles spasm, making you drop what you were holding. You're not even sure if you can control your arms!"))
 		M.drop_all_held_items()
 		M.emote(pick("twitch"))
@@ -1077,16 +1072,14 @@
 
 /datum/reagent/drug/buffout/addiction_act_stage4(mob/living/M)
 	to_chat(M, span_danger("Your muscles are in incredible pain! When will it stop!?"))
-	M.adjustBruteLoss(12.5)
-	M.maxHealth -= 5
-	M.health -= 5
-	if(prob(90))
+	M.adjustBruteLoss(5)
+	if(prob(40))
 		to_chat(M, span_danger("You can't even keep control of your muscles anymore!"))
 		M.drop_all_held_items()
 		M.emote(pick("twitch"))
 	if(CHECK_MOBILITY(M, MOBILITY_MOVE) && !isspaceturf(M.loc) && prob(25))
 		step(M, pick(GLOB.cardinals))
-	M.adjustOrganLoss(ORGAN_SLOT_HEART, 20)
+	M.adjustOrganLoss(ORGAN_SLOT_HEART, 2)
 	..()
 	return
 
@@ -1096,7 +1089,7 @@
 	color = "#E0D532"
 	reagent_state = LIQUID
 	overdose_threshold = 20
-	addiction_threshold = 9 //Addicted on the first dose
+	addiction_threshold = 9 // one normal dose, see addiction.dm
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
 	ghoulfriendly = TRUE
 

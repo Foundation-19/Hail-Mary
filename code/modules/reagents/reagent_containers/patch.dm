@@ -72,7 +72,7 @@
 // ---------------------------------
 // HEALING POWDER
 
-/obj/item/reagent_containers/pill/healingpowder // 50hp over 50 seconds.
+/obj/item/reagent_containers/pill/healingpowder // about 20hp over 20 seconds.
 	name = "Healing powder"
 	desc = "A powder used to heal physical wounds derived from ground broc flowers and xander roots, commonly used by tribals."
 	icon = 'icons/obj/medicine/drugs.dmi'
@@ -108,23 +108,23 @@
 // ---------------------------------
 // HEALING POULTICE
 
-/obj/item/reagent_containers/pill/patch/healpoultice // 100hp over 50 seconds. a bit more potent than just bitters.
+/obj/item/reagent_containers/pill/patch/healpoultice // about 40hp over 20 seconds, stronger than plain powder.
 	name = "Healing poultice"
 	desc = "A concoction of broc flower, cave fungus, agrave fruit and xander root."
 	icon = 'icons/obj/medicine/drugs.dmi'
-	list_reagents = list(/datum/reagent/medicine/healing_powder/poultice = 10, /datum/reagent/medicine/healing_powder = 10, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5)
+	list_reagents = list(/datum/reagent/medicine/healing_powder/poultice = 10)
 	icon_state = "patch_healingpoultice"
 	self_delay = 5
 
 // ---------------------------------
 // BITTER DRINK
 
-/obj/item/reagent_containers/pill/bitterdrink // 50hp over 25 seconds
+/obj/item/reagent_containers/pill/bitterdrink // about 25hp over 12 seconds
 	name = "Bitter drink"
 	desc = "A strong herbal healing concoction invented and created by the Twin Mothers tribe."
 	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "patch_bitterdrink"
-	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5, /datum/reagent/medicine/bicaridine = 5, /datum/reagent/medicine/kelotane = 5) 
+	list_reagents = list(/datum/reagent/medicine/bitter_drink = 5)
 	self_delay = 5
 
 /obj/item/reagent_containers/pill/patch/random

@@ -79,6 +79,22 @@
 #define HYDRATION_IRON_STOMACH_MULT 0.4
 #define HYDRATION_DELICATE_STOMACH_MULT 1.6
 
+// Healing is limited by what the body can repair, and repair costs water and food.
+#define HEAL_CAPACITY_HEADROOM 1.25 // total healing per tick the body can use, relative to the strongest healer present
+#define HEAL_STRAIN_TOX 0.15 // toxin per wasted HP when healers are stacked past that capacity
+#define HEAL_COST_THIRST 1 // thirst lost per HP restored
+#define HEAL_COST_NUTRITION 1.5 // nutrition lost per HP restored
+#define HEAL_FACTOR_THIRSTY 0.9
+#define HEAL_FACTOR_PARCHED 0.75
+#define HEAL_FACTOR_DEHYDRATED 0.5
+#define HEAL_FACTOR_HUNGRY 0.9
+#define HEAL_FACTOR_STARVING 0.7
+#define HEAL_FACTOR_MIN 0.4
+#define HEAL_TOLERANCE_DECAY (5 MINUTES) // one dose of tolerance fades per this long
+#define HEAL_TOLERANCE_MAX 5
+#define HEAL_TOLERANCE_PENALTY 0.1 // healing lost per dose of tolerance beyond the first
+#define HEAL_TOLERANCE_MIN 0.6
+
 // C-27 power, servo burst and repair. Charge is stored as nutrition.
 #define C27_SHOCK_COEFF 1.25
 #define C27_LOW_POWER_SLOWDOWN 1
