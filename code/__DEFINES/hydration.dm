@@ -95,6 +95,33 @@
 #define HEAL_TOLERANCE_PENALTY 0.1 // healing lost per dose of tolerance beyond the first
 #define HEAL_TOLERANCE_MIN 0.6
 
+// Herbal remedies come from tribal tradition, so tribals know how to prepare and use them. Modern chems are unfamiliar to them.
+#define HEAL_ORIGIN_HERBAL 1
+#define HEAL_ORIGIN_MODERN 2
+#define HEAL_HERBAL_TRIBAL_MULT 1.25
+#define HEAL_HERBAL_OUTSIDER_MULT 0.9
+#define HEAL_MODERN_TRIBAL_MULT 0.9
+#define HEAL_OUTSIDER_HERBAL_HALLUCINATE_PROB 10 // chance per tick that bitter drink gives an outsider a mild hallucination
+
+// Liability quirks
+#define HEAL_FRAIL_MULT 0.85
+#define HEAL_FRAIL_TOLERANCE_MULT 0.5
+#define HEAL_NEEDLE_PHOBIA_ONSET 3 // ticks injected healers take to take effect on someone with a fear of needles
+
+// Rushed healing: fast-acting healers can seal embedded objects in and knit unset bones crooked.
+#define HEAL_RUSH_EMBED_DAMAGE 3
+#define HEAL_RUSH_EMBED_TOX 2
+#define WOUND_MALUNION_LIMP 0.8 // extra limp on a leg that knit crooked
+#define WOUND_MALUNION_ARM_PENALTY 0.25 // extra interaction penalty on an arm that knit crooked
+
+// Onset and taper: slow-acting healers ramp up over their first ticks and fade out over their last.
+#define HEAL_TAPER_FACTOR 2 // healing fades once less than this many ticks of the chem are left
+
+// Interactions between chems
+#define HEAL_ALCOHOL_FACTOR 0.85 // drunk bodies repair slower
+#define INTERACTION_STIM_MEDX_PROB 25 // chance per tick that stimulants on top of Med-X strain the heart and lungs
+#define INTERACTION_ALCOHOL_DEPRESSANT_PROB 30 // chance per tick that alcohol on top of Med-X or morphine suppresses breathing
+
 // C-27 power, servo burst and repair. Charge is stored as nutrition.
 #define C27_SHOCK_COEFF 1.25
 #define C27_LOW_POWER_SLOWDOWN 1

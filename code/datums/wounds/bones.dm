@@ -27,6 +27,8 @@
 	var/next_trauma_cycle
 	/// How long do we wait +/- 20% for the next trauma?
 	var/trauma_cycle_cooldown
+	/// Set if fast-acting healing chems knit the bone before it was set or splinted
+	var/malunion = FALSE
 	/// If this is a chest wound and this is set, we have this chance to cough up blood when hit in the chest
 	var/internal_bleeding_chance = 0
 
@@ -173,6 +175,8 @@
 			limp_slowdown = initial(limp_slowdown) * limb.current_gauze.splint_factor
 		else
 			limp_slowdown = initial(limp_slowdown)
+		if(malunion)
+			limp_slowdown += WOUND_MALUNION_LIMP
 		victim.apply_status_effect(STATUS_EFFECT_LIMP)
 	else if(limb.body_zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 		if(limb.current_gauze)
@@ -184,6 +188,17 @@
 		disabling = !limb.current_gauze
 
 	limb.update_wounds()
+
+/// A bone that is knit by a fast-acting healer before it is set, splinted or gelled heals crooked, worsening the wound until it is treated properly
+/datum/wound/blunt/proc/set_malunion()
+	if(malunion || !victim || !limb)
+		return FALSE
+	malunion = TRUE
+	if(limb.body_zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		interaction_efficiency_penalty += WOUND_MALUNION_ARM_PENALTY
+	else
+		update_inefficiencies()
+	return TRUE
 
 /*
 	Moderate (Joint Dislocation)

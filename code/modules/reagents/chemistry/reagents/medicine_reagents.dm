@@ -14,7 +14,14 @@
 	var/heal_strain_notified = FALSE
 	var/heal_scale_stamp = -1
 	var/heal_scale_cache = 1
-
+	/// Ticks a slow-acting healer takes to reach full effect. It also fades out over its last ticks. 0 means instant, like an injection.
+	var/heal_onset = 0
+	/// Percent chance per tick that this healer causes rushed-healing complications
+	var/heal_rush = 0
+	/// HEAL_ORIGIN_HERBAL or HEAL_ORIGIN_MODERN, if tribal background changes how well it works
+	var/heal_origin = 0
+	/// Delivered by needle, so a fear of needles slows it down
+	var/heal_injected = FALSE
 /// Repeated doses in a short window work worse. Tolerance fades over time and is only worked out when read.
 /mob/living/carbon/var/heal_tolerance = 0
 /mob/living/carbon/var/heal_tolerance_stamp = 0
@@ -30,6 +37,43 @@
 	if(heal_nominal && iscarbon(L))
 		var/mob/living/carbon/C = L
 		C.heal_tolerance = min(C.get_heal_tolerance() + 1, HEAL_TOLERANCE_MAX)
+
+GLOBAL_LIST_INIT(chem_stimulants, typecacheof(list(/datum/reagent/drug/jet, /datum/reagent/drug/turbo, /datum/reagent/drug/psycho, /datum/reagent/drug/buffout, /datum/reagent/medicine/ephedrine)))
+GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx, /datum/reagent/medicine/morphine)))
+
+/**
+ * Chems that interact outside their own effects, run once per tick on the bloodstream.
+ * - Stimulants on top of Med-X: the painkiller hides the strain, so the heart and lungs take it. Mentat steadies you and halves it.
+ * - Alcohol on top of Med-X or morphine: both depress breathing.
+ */
+/mob/living/carbon/proc/process_chem_interactions()
+	if(!reagents || stat == DEAD)
+		return
+	var/stimulated = FALSE
+	var/depressed = FALSE
+	var/drunk = FALSE
+	for(var/datum/reagent/R in reagents.reagent_list)
+		if(GLOB.chem_stimulants[R.type])
+			stimulated = TRUE
+		else if(GLOB.chem_depressants[R.type])
+			depressed = TRUE
+		else if(istype(R, /datum/reagent/consumable/ethanol))
+			drunk = TRUE
+	var/resist = HAS_TRAIT(src, TRAIT_CAST_IRON_CONSTITUTION) ? 0.25 : 1
+	if(stimulated && reagents.has_reagent(/datum/reagent/medicine/medx))
+		var/prob_mult = (reagents.has_reagent(/datum/reagent/medicine/mentat) ? 0.5 : 1) * resist
+		if(prob(INTERACTION_STIM_MEDX_PROB * prob_mult))
+			adjustOxyLoss(2, FALSE)
+			adjustOrganLoss(ORGAN_SLOT_HEART, 1)
+			Jitter(5)
+			if(prob(25))
+				to_chat(src, span_danger("Your heart pounds against the numbness. The stimulants are pushing you harder than the Med-X lets you feel."))
+	if(depressed && drunk && prob(INTERACTION_ALCOHOL_DEPRESSANT_PROB * resist))
+		adjustOxyLoss(1.5, FALSE)
+		drowsyness = max(drowsyness, 4)
+		if(prob(20))
+			to_chat(src, span_warning("Your breathing slows and your head swims. The drink and the painkiller are working against you."))
+
 /**
  * Healing is limited by what the body can actually repair, not by the drug alone.
  * - The body can only knit about HEAL_CAPACITY_HEADROOM times the strongest healer's output, so stacking healers wastes
@@ -60,12 +104,56 @@
 			heal_strain_notified = TRUE
 	else
 		heal_strain_notified = FALSE
-	var/scale = stack_scale * get_repair_resource_factor(M)
+	var/scale = stack_scale * get_repair_resource_factor(M) * get_cultural_factor(M)
+	if(HAS_TRAIT(M, TRAIT_FRAIL_CONSTITUTION))
+		scale *= HEAL_FRAIL_MULT
+	var/onset = heal_onset
+	if(heal_injected && HAS_TRAIT(M, TRAIT_NEEDLE_PHOBIA))
+		onset = max(onset, HEAL_NEEDLE_PHOBIA_ONSET)
+	if(onset)
+		var/ramp = min(1, (current_cycle + 1) / onset)
+		var/taper = min(1, volume / (metabolization_rate * HEAL_TAPER_FACTOR))
+		scale *= min(ramp, taper)
 	// The first dose is always full strength
-	scale *= max(HEAL_TOLERANCE_MIN, 1 - HEAL_TOLERANCE_PENALTY * max(0, M.get_heal_tolerance() - 1))
+	var/tolerance_penalty = HEAL_TOLERANCE_PENALTY
+	if(HAS_TRAIT(M, TRAIT_SEASONED_USER))
+		tolerance_penalty *= 0.5
+	if(HAS_TRAIT(M, TRAIT_FRAIL_CONSTITUTION))
+		tolerance_penalty *= HEAL_FRAIL_TOLERANCE_MULT
+	scale *= max(HEAL_TOLERANCE_MIN, 1 - tolerance_penalty * max(0, M.get_heal_tolerance() - 1))
 	heal_scale_cache = scale
 	pay_repair_cost(M, heal_nominal * scale)
+	if(heal_rush && scale > 0)
+		rush_complications(M)
 	return scale
+
+/// Healing fast enough to outrun the doctor: embedded objects get sealed in, and unset fractures knit crooked
+/datum/reagent/medicine/proc/rush_complications(mob/living/carbon/M)
+	if(!prob(heal_rush * (HAS_TRAIT(M, TRAIT_FIELD_MEDIC) ? 0.5 : 1)))
+		return
+	for(var/obj/item/bodypart/BP in M.bodyparts)
+		if(BP.embedded_objects.len && prob(50))
+			var/obj/item/stuck = pick(BP.embedded_objects)
+			to_chat(M, span_danger("The [name] closes the flesh over [stuck] in your [BP.name], sealing it in!"))
+			BP.receive_damage(HEAL_RUSH_EMBED_DAMAGE, wound_bonus = CANT_WOUND)
+			M.adjustToxLoss(HEAL_RUSH_EMBED_TOX, FALSE)
+			return
+	for(var/datum/wound/blunt/W in M.all_wounds)
+		if(W.malunion || W.severity < WOUND_SEVERITY_SEVERE || W.taped || W.gelled || W.limb.current_gauze)
+			continue
+		if(W.set_malunion())
+			to_chat(M, span_danger("The [name] knits your broken [W.limb.name] together before it was set. It heals crooked."))
+			return
+
+/// Herbal remedies work best for those raised on them, and modern chems are unfamiliar to tribals
+/datum/reagent/medicine/proc/get_cultural_factor(mob/living/carbon/M)
+	var/tribal = HAS_TRAIT(M, TRAIT_TRIBAL)
+	switch(heal_origin)
+		if(HEAL_ORIGIN_HERBAL)
+			return tribal ? HEAL_HERBAL_TRIBAL_MULT : HEAL_HERBAL_OUTSIDER_MULT
+		if(HEAL_ORIGIN_MODERN)
+			return tribal ? HEAL_MODERN_TRIBAL_MULT : 1
+	return 1
 
 /datum/reagent/medicine/proc/get_repair_resource_factor(mob/living/carbon/M)
 	var/factor = 1
@@ -84,9 +172,15 @@
 			factor *= HEAL_FACTOR_STARVING
 		else if(M.nutrition < NUTRITION_LEVEL_HUNGRY)
 			factor *= HEAL_FACTOR_HUNGRY
+	if(HAS_TRAIT(M, TRAIT_HARDY_METABOLISM))
+		factor = 1 - (1 - factor) * 0.5
+	if(M.drunkenness > HYDRATION_DRUNK_THRESHOLD && !HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+		factor *= HEAL_ALCOHOL_FACTOR
 	return max(factor, HEAL_FACTOR_MIN)
 
 /datum/reagent/medicine/proc/pay_repair_cost(mob/living/carbon/M, healed)
+	if(HAS_TRAIT(M, TRAIT_HARDY_METABOLISM))
+		healed *= 0.5
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.needs_hydration())
@@ -1295,6 +1389,7 @@
 	overdose_threshold = 30
 	pH = 5
 	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -1333,6 +1428,7 @@
 	overdose_threshold = 30
 	pH = 9
 	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -1355,6 +1451,7 @@
 	pH = 10
 	synth_metabolism_use_human = TRUE
 	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -1394,6 +1491,7 @@
 	overdose_threshold = 30
 	taste_description = "grossness"
 	heal_nominal = 3.2
+	heal_onset = 2
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -1927,6 +2025,9 @@
 	var/damage_offset = 3	//Value to offset damage by
 	var/clot_rate = 0.9	
 	heal_nominal = 5.25	// 3 brute + 2.25 burn
+	heal_rush = 4
+	heal_origin = HEAL_ORIGIN_MODERN
+	heal_injected = TRUE
 
 /datum/reagent/medicine/stimpak/reaction_mob(mob/living/carbon/M, method, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -2019,6 +2120,9 @@
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
 	var/clot_rate = 0.45	
 	heal_nominal = 23	// 11.5 brute + 11.5 burn
+	heal_rush = 8
+	heal_origin = HEAL_ORIGIN_MODERN
+	heal_injected = TRUE
 
 /datum/reagent/medicine/super_stimpak/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -2113,6 +2217,8 @@
 	overdose_threshold = 30
 	ghoulfriendly = TRUE
 	heal_nominal = 2
+	heal_onset = 2
+	heal_origin = HEAL_ORIGIN_HERBAL
 
 /datum/reagent/medicine/healing_powder/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -2142,6 +2248,8 @@
 	color = "#C8A5DC"
 	overdose_threshold = 12
 	heal_nominal = 4	// the powder's 2 plus 1 brute and 1 burn
+	heal_onset = 3
+	heal_rush = 3
 	var/clot_rate = 0.10
 	var/clot_coeff_per_wound = 0.7
 
@@ -2185,23 +2293,22 @@
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 2.25 * REAGENTS_METABOLISM //5u heals about 25 HP split across brute, burn and toxin, more with the tribal perk
+	metabolization_rate = 2.25 * REAGENTS_METABOLISM //5u heals about 25 HP split across brute, burn and toxin, more for tribals and a little less for outsiders
 	overdose_threshold = 31
-	var/heal_factor = -1.5 //Subtractive multiplier if you do not have the perk.
-	var/heal_factor_perk = -2.6 //Multiplier if you have the right perk.
+	var/heal_factor = -1.5
 	ghoulfriendly = TRUE
 	heal_nominal = 4.5
+	heal_onset = 3
+	heal_origin = HEAL_ORIGIN_HERBAL
 
 /datum/reagent/medicine/bitter_drink/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
-	var/is_tribal = FALSE
-	if(HAS_TRAIT(M, TRAIT_TRIBAL))
-		is_tribal = TRUE
-	var/heal_rate = (is_tribal ? heal_factor_perk : heal_factor) * REAGENTS_EFFECT_MULTIPLIER * heal_mult
+	var/heal_rate = heal_factor * REAGENTS_EFFECT_MULTIPLIER * heal_mult
 	M.adjustFireLoss(heal_rate)
 	M.adjustBruteLoss(heal_rate)
 	M.adjustToxLoss(heal_rate)
-	M.hallucination = max(M.hallucination, is_tribal ? 0 : 5)
+	if(!HAS_TRAIT(M, TRAIT_TRIBAL) && prob(HEAL_OUTSIDER_HERBAL_HALLUCINATE_PROB))
+		M.hallucination = max(M.hallucination, 5)
 	M.radiation -= min(M.radiation, 1)
 	. = TRUE
 	..()

@@ -1315,6 +1315,60 @@
 	lose_text = span_notice("Your stomach settles.")
 	medical_record_text = "Patient is highly prone to waterborne illness."
 
+/datum/quirk/modular/hardy_metabolism
+	name = "Hardy Metabolism"
+	desc = "Your body wastes little when it mends: healing costs you half the water and food, and thirst and hunger slow your recovery half as much."
+	value = 2
+	trait_flags = list(TRAIT_HARDY_METABOLISM)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("Your body knows how to make a little go a long way.")
+	lose_text = span_danger("Your body goes back to burning through everything it's given.")
+	medical_record_text = "Patient's recovery is unusually economical."
+
+/datum/quirk/modular/seasoned_user
+	name = "Seasoned Chem-User"
+	desc = "Your body is used to being patched up: repeated healing chems lose only half as much strength to tolerance."
+	value = 2
+	trait_flags = list(TRAIT_SEASONED_USER)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
+	gain_text = span_notice("Another dose, another day. Your body barely notices.")
+	lose_text = span_danger("Your body starts to notice every dose again.")
+	medical_record_text = "Patient shows high tolerance to repeated medication."
+
+/datum/quirk/modular/cast_iron_constitution
+	name = "Cast-Iron Constitution"
+	desc = "Mixing chems rarely hurts you: stimulants on Med-X, and alcohol on painkillers, hit you 75% less often."
+	value = 2
+	trait_flags = list(TRAIT_CAST_IRON_CONSTITUTION)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 7
+	gain_text = span_notice("Whatever you put in it, your body takes it in stride.")
+	lose_text = span_danger("Your body starts to take your cocktails personally.")
+	medical_record_text = "Patient tolerates drug interactions unusually well."
+
+/datum/quirk/modular/frail_constitution
+	name = "Frail Constitution"
+	desc = "Your body doesn't respond well to medicine: healing chems work 15% worse, though you build tolerance to them half as fast."
+	value = -1
+	trait_flags = list(TRAIT_FRAIL_CONSTITUTION)
+	gain_text = span_danger("You've never recovered quite as quickly as everyone else.")
+	lose_text = span_notice("Your body starts to respond to medicine again.")
+	medical_record_text = "Patient responds poorly to medication."
+
+/datum/quirk/modular/needle_phobia
+	name = "Needle Phobia"
+	desc = "You can't relax with a needle in you: injected healers like stimpaks take a few seconds to take effect."
+	value = -1
+	trait_flags = list(TRAIT_NEEDLE_PHOBIA)
+	gain_text = span_danger("Just the thought of a needle makes your skin crawl.")
+	lose_text = span_notice("Needles don't bother you as much anymore.")
+	medical_record_text = "Patient tenses badly when injected, delaying the effect of the drug."
+
 /datum/quirk/modular/camper
 	name = "Camper"
 	desc = "Wood adds 50% more fuel to campfires, and you cook over them faster."

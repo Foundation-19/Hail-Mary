@@ -292,6 +292,8 @@
 	var/list/cached_addictions = addiction_list
 	if(C)
 		expose_temperature(C.bodytemperature, 0.25)
+		if(src == C.reagents)
+			C.process_chem_interactions()
 	var/need_mob_update = 0
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
