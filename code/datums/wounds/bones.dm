@@ -200,6 +200,38 @@
 		update_inefficiencies()
 	return TRUE
 
+/// A crooked bone can be broken again and reset with a bonesetter, which puts the wound back to a normal fracture
+/datum/wound/blunt/proc/clear_malunion()
+	if(!malunion)
+		return
+	malunion = FALSE
+	if(limb.body_zone in list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+		interaction_efficiency_penalty -= WOUND_MALUNION_ARM_PENALTY
+	else
+		update_inefficiencies()
+
+/datum/wound/blunt/proc/reset_malunion(obj/item/I, mob/user)
+	var/self_applied = (user == victim)
+	if(self_applied)
+		victim.visible_message(span_danger("%SELF_NAME% braces [victim.p_their()] crooked [limb.name] and prepares to break it again with [I]!"), span_warning("You brace your crooked [limb.name] and prepare to break it again with [I]..."), visible_message_flags = ANONYMIZE_NAMES)
+	else
+		user.visible_message(span_danger("%SELF_NAME% braces %ACTOR_NAME%'s crooked [limb.name] and prepares to break it again with [I]!"), span_notice("You brace %ACTOR_NAME%'s crooked [limb.name] and prepare to break it again with [I]..."), ignored_mobs=victim, visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
+		to_chat(victim, span_userdanger("[user:get_display_name(victim)] braces your crooked [limb.name] to break it again!"))
+
+	if(!do_after(user, base_treat_time * WOUND_MALUNION_RESET_TIME_MULT * (self_applied ? 1.5 : 1), target = victim, extra_checks=CALLBACK(src, PROC_REF(still_exists))))
+		return
+
+	if(!malunion)
+		return
+	limb.receive_damage(brute=WOUND_MALUNION_RESET_DAMAGE, wound_bonus=CANT_WOUND)
+	victim.emote("scream")
+	clear_malunion()
+	if(self_applied)
+		victim.visible_message(span_danger("%SELF_NAME% breaks and resets [victim.p_their()] [limb.name]!"), span_userdanger("You break your [limb.name] again and reset it properly!"), visible_message_flags = ANONYMIZE_NAMES)
+	else
+		user.visible_message(span_danger("%SELF_NAME% breaks and resets %ACTOR_NAME%'s [limb.name]!"), span_nicegreen("You break and reset %ACTOR_NAME%'s [limb.name], and it sits straight now."), ignored_mobs=victim, visible_message_flags = ANONYMIZE_NAMES, name_actor = victim)
+		to_chat(victim, span_userdanger("[user:get_display_name(victim)] breaks and resets your [limb.name]!"))
+
 /*
 	Moderate (Joint Dislocation)
 */
@@ -318,6 +350,7 @@
 	threshold_minimum = 70
 	threshold_penalty = 30
 	treatable_by = list(/obj/item/stack/sticky_tape/surgical, /obj/item/stack/medical/bone_gel)
+	treatable_tool = TOOL_BONESET
 	status_effect_type = /datum/status_effect/wound/blunt/severe
 	scar_keyword = "bluntsevere"
 	brain_trauma_group = BRAIN_TRAUMA_MILD
@@ -340,6 +373,7 @@
 	threshold_penalty = 50
 	disabling = TRUE
 	treatable_by = list(/obj/item/stack/sticky_tape/surgical, /obj/item/stack/medical/bone_gel)
+	treatable_tool = TOOL_BONESET
 	status_effect_type = /datum/status_effect/wound/blunt/critical
 	scar_keyword = "bluntcritical"
 	brain_trauma_group = BRAIN_TRAUMA_SEVERE
@@ -415,8 +449,16 @@
 	taped = TRUE
 	processes = TRUE
 
+/// Only claim a bonesetter on a severe or worse fracture when there is a crooked bone to reset, so surgery keeps using it otherwise
+/datum/wound/blunt/try_treating(obj/item/I, mob/user)
+	if(I?.tool_behaviour == TOOL_BONESET && severity > WOUND_SEVERITY_MODERATE && !malunion)
+		return FALSE
+	return ..()
+
 /datum/wound/blunt/treat(obj/item/I, mob/user)
-	if(istype(I, /obj/item/stack/medical/bone_gel))
+	if(I.tool_behaviour == TOOL_BONESET && malunion)
+		reset_malunion(I, user)
+	else if(istype(I, /obj/item/stack/medical/bone_gel))
 		gel(I, user)
 	else if(istype(I, /obj/item/stack/sticky_tape/surgical))
 		tape(I, user)

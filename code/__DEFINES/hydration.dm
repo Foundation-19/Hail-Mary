@@ -106,6 +106,18 @@
 // Liability quirks
 #define HEAL_FRAIL_MULT 0.85
 #define HEAL_FRAIL_TOLERANCE_MULT 0.5
+// Healing skill comes from the applier's Perception + Intelligence, as Doctor and First Aid do in Fallout. 10 combined is average
+#define HEAL_SPECIAL_STEP 0.015 // healing per point of Perception + Intelligence above or below 10
+#define HEAL_SKILL_MIN 0.85
+#define HEAL_SKILL_MAX 1.2
+#define HEAL_SELF_BONUS_MULT 0.5 // only half of a positive bonus applies when treating yourself, penalties always apply
+#define HEAL_TRAIT_BONUS_FIELD_MEDIC 0.1 // trained medics use the better of their trait or SPECIAL bonus on other people
+#define HEAL_TRAIT_BONUS_GRADUATE 0.15
+#define HEAL_TRAIT_BONUS_SURGEON 0.2
+#define HEAL_MAXHP_MIN 0.8 // healing scales with max HP (Endurance), clamped so it can't swing too far either way
+#define HEAL_MAXHP_MAX 1.3
+#define HEAL_SCALE_CAP 1.3 // ceiling on skill and max HP scaling combined
+#define HEAL_INT_RUSH_STEP 0.06 // each point of the applier's Intelligence above 5 cuts rushed-healing chance by this much
 #define HEAL_NEEDLE_PHOBIA_ONSET 3 // ticks injected healers take to take effect on someone with a fear of needles
 
 // Rushed healing: fast-acting healers can seal embedded objects in and knit unset bones crooked.
@@ -113,6 +125,8 @@
 #define HEAL_RUSH_EMBED_TOX 2
 #define WOUND_MALUNION_LIMP 0.8 // extra limp on a leg that knit crooked
 #define WOUND_MALUNION_ARM_PENALTY 0.25 // extra interaction penalty on an arm that knit crooked
+#define WOUND_MALUNION_RESET_DAMAGE 20 // brute dealt to the limb when a bonesetter re-breaks and resets a crooked bone
+#define WOUND_MALUNION_RESET_TIME_MULT 2 // re-breaking takes this many times the base treat time, and 1.5x more on yourself
 
 // Onset and taper: slow-acting healers ramp up over their first ticks and fade out over their last.
 #define HEAL_TAPER_FACTOR 2 // healing fades once less than this many ticks of the chem are left

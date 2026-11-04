@@ -39,6 +39,7 @@
 		to_chat(user, span_notice("You inject [M] with [src]."))
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
+		note_healer(M, user)
 		reagents.reaction(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = 0
@@ -574,6 +575,7 @@
 		L.log_message("<font color='orange'>applied [src] to themselves ([contained]).</font>", INDIVIDUAL_ATTACK_LOG)
 
 	var/fraction = min(vial.amount_per_transfer_from_this/vial.reagents.total_volume, 1)
+	note_healer(L, user)
 	vial.reagents.reaction(L, method, fraction)
 	vial.reagents.trans_to(target, vial.amount_per_transfer_from_this, log = TRUE)
 	var/long_sound = vial.amount_per_transfer_from_this >= 15

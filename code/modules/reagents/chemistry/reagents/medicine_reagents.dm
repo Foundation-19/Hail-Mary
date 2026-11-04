@@ -22,6 +22,32 @@
 	var/heal_origin = 0
 	/// Delivered by needle, so a fear of needles slows it down
 	var/heal_injected = FALSE
+	/// Worked out from whoever applied the dose when it entered the body
+	var/heal_skill_mult = 1
+	var/heal_rush_mult = 1
+/// Records who is applying a dose so the healer chem can scale with their Perception, Intelligence and training
+/proc/note_healer(mob/living/target, mob/living/healer)
+	if(!iscarbon(target) || !istype(healer))
+		return
+	var/mob/living/carbon/C = target
+	C.healer_stamp = world.time
+	C.healer_self = (healer == target)
+	C.healer_per_int = healer.special_p + healer.special_i
+	C.healer_int = healer.special_i
+	var/trait_bonus = 0
+	if(HAS_TRAIT(healer, TRAIT_FIELD_MEDIC))
+		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_FIELD_MEDIC)
+	if(HAS_TRAIT(healer, TRAIT_MEDICALGRADUATE))
+		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_GRADUATE)
+	if(HAS_TRAIT(healer, TRAIT_SURGEON))
+		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_SURGEON)
+	C.healer_trait_bonus = trait_bonus
+
+/mob/living/carbon/var/healer_stamp = -1
+/mob/living/carbon/var/healer_self = TRUE
+/mob/living/carbon/var/healer_per_int = 10
+/mob/living/carbon/var/healer_int = 5
+/mob/living/carbon/var/healer_trait_bonus = 0
 /// Repeated doses in a short window work worse. Tolerance fades over time and is only worked out when read.
 /mob/living/carbon/var/heal_tolerance = 0
 /mob/living/carbon/var/heal_tolerance_stamp = 0
@@ -37,6 +63,27 @@
 	if(heal_nominal && iscarbon(L))
 		var/mob/living/carbon/C = L
 		C.heal_tolerance = min(C.get_heal_tolerance() + 1, HEAL_TOLERANCE_MAX)
+		set_applier_factors(C)
+
+/// Works out how well this dose heals from whoever applied it. Anything not applied by another person counts as self-applied
+/datum/reagent/medicine/proc/set_applier_factors(mob/living/carbon/C)
+	var/self_applied = TRUE
+	var/per_int = C.special_p + C.special_i
+	var/intelligence = C.special_i
+	var/trait_bonus = 0
+	if(C.healer_stamp == world.time)
+		self_applied = C.healer_self
+		per_int = C.healer_per_int
+		intelligence = C.healer_int
+		trait_bonus = C.healer_trait_bonus
+	var/bonus = (per_int - 10) * HEAL_SPECIAL_STEP
+	if(self_applied)
+		if(bonus > 0)
+			bonus *= HEAL_SELF_BONUS_MULT
+	else
+		bonus = max(bonus, trait_bonus)
+	heal_skill_mult = clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX)
+	heal_rush_mult = clamp(1 - (intelligence - 5) * HEAL_INT_RUSH_STEP, 0.6, 1.3)
 
 GLOBAL_LIST_INIT(chem_stimulants, typecacheof(list(/datum/reagent/drug/jet, /datum/reagent/drug/turbo, /datum/reagent/drug/psycho, /datum/reagent/drug/buffout, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/stimulants)))
 GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx, /datum/reagent/medicine/morphine)))
@@ -157,6 +204,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	else
 		heal_strain_notified = FALSE
 	var/scale = stack_scale * get_repair_resource_factor(M) * get_cultural_factor(M)
+	scale *= min(heal_skill_mult * clamp(M.maxHealth / 100, HEAL_MAXHP_MIN, HEAL_MAXHP_MAX), HEAL_SCALE_CAP)
 	if(HAS_TRAIT(M, TRAIT_FRAIL_CONSTITUTION))
 		scale *= HEAL_FRAIL_MULT
 	var/onset = heal_onset
@@ -181,7 +229,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 
 /// Healing fast enough to outrun the doctor: embedded objects get sealed in, and unset fractures knit crooked
 /datum/reagent/medicine/proc/rush_complications(mob/living/carbon/M)
-	if(!prob(heal_rush * (HAS_TRAIT(M, TRAIT_FIELD_MEDIC) ? 0.5 : 1)))
+	if(!prob(heal_rush * heal_rush_mult * (HAS_TRAIT(M, TRAIT_FIELD_MEDIC) ? 0.5 : 1)))
 		return
 	for(var/obj/item/bodypart/BP in M.bodyparts)
 		if(BP.embedded_objects.len && prob(50))

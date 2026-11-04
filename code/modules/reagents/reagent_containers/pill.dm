@@ -55,6 +55,7 @@
 
 	log_combat(user, M, "fed", reagents.log_list())
 	if(reagents.total_volume)
+		note_healer(M, user)
 		reagents.reaction(M, apply_type)
 		reagents.trans_to(M, reagents.total_volume, log = TRUE)
 	qdel(src)
