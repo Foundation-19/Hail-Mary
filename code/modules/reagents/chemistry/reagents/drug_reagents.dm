@@ -708,6 +708,26 @@
 	addiction_threshold = 12.5
 	ghoulfriendly = TRUE
 	combat_load = 1
+	var/ghoul_potency = JET_GHOUL_EFFECT_MULT
+	var/rush_mult = 1
+
+/// Ghoul-strength Jet, made with Sugar Bombs. Twice as potent, and it actually works on ghouls.
+/datum/reagent/drug/jet/ultrajet
+	name = "Ultrajet"
+	description = "Jet cooked up with Sugar Bombs for ghouls, whom ordinary Jet barely touches. Twice as potent, and just as hard to quit."
+	color = "#3FBF8F"
+	overdose_threshold = 15
+	addiction_threshold = 10
+	combat_load = 1.5
+	ghoul_potency = 1
+	rush_mult = 2
+
+/// A more addictive Jet variant, cooked in the back rooms of Vegas.
+/datum/reagent/drug/jet/jet_stream
+	name = "Jet Stream"
+	description = "A cut of Jet that hits smoother and hooks much harder."
+	color = "#7FD0B0"
+	addiction_threshold = 6
 
 /datum/reagent/drug/jet/on_mob_add(mob/living/carbon/human/M)
 	..()
@@ -729,8 +749,8 @@
 		. = TRUE
 		..()
 		return
-	var/potency = isghoul(M) ? JET_GHOUL_EFFECT_MULT : 1
-	M.adjustStaminaLoss(-JET_STAMINA_RECOVERY * potency, 0)
+	var/potency = isghoul(M) ? ghoul_potency : 1
+	M.adjustStaminaLoss(-JET_STAMINA_RECOVERY * potency * rush_mult, 0)
 	M.set_drugginess(20)
 	// Time seems to slow: quicker reflexes, and faster recovery from being floored
 	if(potency >= 1)
@@ -790,6 +810,45 @@
 		M.emote(pick("twitch","drool","moan"))
 	..()
 	. = TRUE
+
+// Cateye: night vision that washes out in bright light
+/datum/reagent/drug/cateye
+	name = "Cateye"
+	description = "A mild stimulant that lets the eyes gather light, giving the user night vision. In bright daylight it washes out colour and stings the eyes."
+	color = "#C9B44A"
+	metabolization_rate = 0.4 * REAGENTS_METABOLISM
+	overdose_threshold = 20
+	addiction_threshold = 30
+	ghoulfriendly = TRUE
+
+/datum/reagent/drug/cateye/on_mob_add(mob/living/L)
+	..()
+	if(!iscarbon(L))
+		return
+	ADD_TRAIT(L, TRAIT_NIGHT_VISION, type)
+	var/mob/living/carbon/C = L
+	C.update_sight()
+	to_chat(C, span_notice("The shadows seem to thin out around you."))
+
+/datum/reagent/drug/cateye/on_mob_delete(mob/living/L)
+	if(iscarbon(L))
+		REMOVE_TRAIT(L, TRAIT_NIGHT_VISION, type)
+		var/mob/living/carbon/C = L
+		C.update_sight()
+	..()
+
+/datum/reagent/drug/cateye/on_mob_life(mob/living/carbon/M)
+	var/turf/T = get_turf(M)
+	if(T && T.get_lumcount() > 0.8 && prob(25))
+		M.blur_eyes(2)
+	..()
+	. = TRUE
+
+/datum/reagent/drug/cateye/overdose_process(mob/living/M)
+	if(prob(25))
+		M.blur_eyes(5)
+		M.adjustOrganLoss(ORGAN_SLOT_EYES, 1)
+	..()
 
 /datum/reagent/drug/turbo
 	name = "Turbo Inhalant"

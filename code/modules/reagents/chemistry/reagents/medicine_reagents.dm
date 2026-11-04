@@ -52,6 +52,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	var/load = combat_load
 	if(load && !istype(src, /datum/reagent/medicine/medx) && M.reagents.has_reagent(/datum/reagent/medicine/medx))
 		load *= COMBAT_MEDX_SMOOTHING
+	if(HAS_TRAIT(M, TRAIT_ADRENALINE_MANAGEMENT))
+		load *= 0.6
 	M.combat_debt = min(M.combat_debt + load, COMBAT_DEBT_MAX)
 	if(combat_stun_resist)
 		M.apply_combat_stun_resist()
@@ -81,7 +83,10 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	Jitter(10)
 	to_chat(src, span_warning("The chems let go all at once. Your legs go heavy and every muscle reminds you what you just put it through."))
 	add_movespeed_modifier(/datum/movespeed_modifier/combat_crash)
-	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/combat_crash), min(debt * COMBAT_CRASH_SLOW_SECONDS_PER_DEBT, COMBAT_CRASH_SLOW_SECONDS_MAX) SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+	var/slow_seconds = min(debt * COMBAT_CRASH_SLOW_SECONDS_PER_DEBT, COMBAT_CRASH_SLOW_SECONDS_MAX)
+	if(HAS_TRAIT(src, TRAIT_ADRENALINE_MANAGEMENT))
+		slow_seconds *= 0.5
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/combat_crash), slow_seconds SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /**
  * Chems that interact outside their own effects, run once per tick on the bloodstream.
@@ -2699,14 +2704,76 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 		to_chat(M, span_notice("You feel like you've gotten over your need for [R.name]."))
 	for(var/dep in holder.dependence.Copy())
 		holder.dependence -= dep
-	M.confused = max(M.confused, 4)
-	if(prob(FIXER_WOOZY_PROB))
+	var/detox_mult = HAS_TRAIT(M, TRAIT_DETOX_SPECIALIST) ? 0.25 : 1
+	M.confused = max(M.confused, 4 * detox_mult)
+	if(prob(FIXER_WOOZY_PROB * detox_mult))
 		M.blur_eyes(4)
 		M.Dizzy(3)
 		to_chat(M, span_warning("You feel woozy."))
 	if(ishuman(M) && prob(5))
 		var/mob/living/carbon/human/H = M
 		H.vomit(10)
+	..()
+	. = TRUE
+
+// ---------------------------
+// JET ANTIDOTE REAGENT
+
+/datum/reagent/medicine/jet_antidote
+	name = "Jet Antidote"
+	description = "An endorphin blocker that flushes Jet from the system and cures Jet addiction, at the price of cramps and nausea."
+	color = "#B8D8E0"
+	ghoulfriendly = TRUE
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/jet_antidote/on_mob_life(mob/living/carbon/M)
+	var/datum/reagents/holder = M.reagents
+	for(var/datum/reagent/R in holder.reagent_list.Copy())
+		if(istype(R, /datum/reagent/drug/jet))
+			holder.remove_reagent(R.type, 2)
+	for(var/datum/reagent/R in holder.addiction_list.Copy())
+		if(istype(R, /datum/reagent/drug/jet))
+			holder.addiction_list -= R
+			to_chat(M, span_notice("The craving for Jet finally lets go of you."))
+	for(var/dep in holder.dependence.Copy())
+		if(ispath(dep, /datum/reagent/drug/jet))
+			holder.dependence -= dep
+	var/detox_mult = HAS_TRAIT(M, TRAIT_DETOX_SPECIALIST) ? 0.25 : 1
+	if(prob(10 * detox_mult))
+		M.adjustStaminaLoss(5)
+		to_chat(M, span_warning("Your stomach cramps."))
+	if(ishuman(M) && prob(3 * detox_mult))
+		var/mob/living/carbon/human/H = M
+		H.vomit(10)
+	..()
+	. = TRUE
+
+// ---------------------------
+// RUSHING WATER REAGENT
+
+/datum/reagent/medicine/rushing_water
+	name = "Rushing Water"
+	description = "A Sorrows-tribe concoction that quickens the blood, rapidly closing wounds for a short time. The body pays for it in thirst."
+	color = "#7FC8F0"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	overdose_threshold = 15
+	ghoulfriendly = TRUE
+
+/datum/reagent/medicine/rushing_water/on_mob_life(mob/living/carbon/M)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustBruteLoss(-1.5 * heal_mult, FALSE)
+	M.adjustFireLoss(-1.5 * heal_mult, FALSE)
+	pay_repair_cost(M, 3 * heal_mult)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.needs_hydration())
+			H.adjust_thirst(-RUSHING_WATER_THIRST)
+	..()
+	. = TRUE
+
+/datum/reagent/medicine/rushing_water/overdose_process(mob/living/M)
+	M.adjustToxLoss(1, FALSE)
+	M.Jitter(3)
 	..()
 	. = TRUE
 

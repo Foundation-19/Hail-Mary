@@ -384,6 +384,18 @@ datum/chemical_reaction/rezadone
 	required_reagents = list(/datum/reagent/medicine/neurine = 1, /datum/reagent/cellulose = 1)
 	required_temp = 451
 
+/datum/chemical_reaction/jet_antidote
+	name = "Jet Antidote"
+	id = /datum/reagent/medicine/jet_antidote
+	results = list(/datum/reagent/medicine/jet_antidote = 3)
+	required_reagents = list(/datum/reagent/medicine/fixer = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/water/purified = 1)
+
+/datum/chemical_reaction/rushing_water
+	name = "Rushing Water"
+	id = /datum/reagent/medicine/rushing_water
+	results = list(/datum/reagent/medicine/rushing_water = 3)
+	required_reagents = list(/datum/reagent/water/purified = 2, /datum/reagent/medicine/healing_powder = 1)
+
 /datum/chemical_reaction/stimfluid
 	name = "stimfluid"
 	id = /datum/reagent/medicine/stimpak

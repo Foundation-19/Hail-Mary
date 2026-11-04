@@ -313,14 +313,15 @@
 			if(C.reagent_check(R) != 1)
 				if(can_overdose && (!isrobotic(C) || (isrobotic(C) && R.synth_can_overdose_and_be_addicted)))
 					if(R.overdose_threshold)
-						if(R.volume > R.overdose_threshold && !R.overdosed)
+						var/od_threshold = R.overdose_threshold * (HAS_TRAIT(C, TRAIT_CAREFUL_DOSING) ? 1.25 : 1)
+						if(R.volume > od_threshold && !R.overdosed)
 							R.overdosed = 1
 							var/turf/CT = get_turf(C)
 							log_reagent("OVERDOSE START: [key_name(C)] at [AREACOORD(CT)] started overdosing on [R.volume] units of [R].")
 							need_mob_update += R.overdose_start(C)
 					if(R.addiction_threshold)
 						var/old_dependence = dependence[R.type] || 0
-						var/new_dependence = old_dependence + R.metabolization_rate / R.addiction_threshold
+						var/new_dependence = old_dependence + R.metabolization_rate / R.addiction_threshold * (HAS_TRAIT(C, TRAIT_CLEAN_LIVING) ? 0.6 : 1)
 						dependence[R.type] = new_dependence
 						if(!is_type_in_list(R, cached_addictions))
 							if(new_dependence >= ADDICTION_LIMIT)

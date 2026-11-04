@@ -272,6 +272,10 @@
 #define TRAIT_HARDY_METABOLISM	"hardy_metabolism" //Healing costs less water and food, and hunger and thirst slow it less
 #define TRAIT_SEASONED_USER	"seasoned_user" //Healing chem tolerance builds more slowly
 #define TRAIT_CAST_IRON_CONSTITUTION	"cast_iron_constitution" //Chem interactions hit much less hard
+#define TRAIT_CLEAN_LIVING	"clean_living" //Addiction builds more slowly
+#define TRAIT_CAREFUL_DOSING	"careful_dosing" //Overdose threshold is higher
+#define TRAIT_DETOX_SPECIALIST	"detox_specialist" //Fixer and Jet Antidote have milder side effects
+#define TRAIT_ADRENALINE_MANAGEMENT	"adrenaline_management" //Combat chems build less debt, and the crash is shorter
 #define TRAIT_FRAIL_CONSTITUTION	"frail_constitution" //Liability: healing chems work worse, but tolerance builds more slowly
 #define TRAIT_NEEDLE_PHOBIA	"needle_phobia" //Liability: injected healers are slow to take effect
 #define TRAIT_CAMPER	"camper" //Campfires burn longer and cook faster

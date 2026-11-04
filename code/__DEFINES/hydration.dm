@@ -148,6 +148,9 @@
 #define MENTAT_CRASH_DROWSY 6
 #define MENTAT_CRASH_BLUR 4
 
+// Rushing Water: extra thirst per tick on top of the repair cost
+#define RUSHING_WATER_THIRST 1.5
+
 // Fixer: clears dependence and addiction, but leaves the user woozy.
 #define FIXER_WOOZY_PROB 8
 

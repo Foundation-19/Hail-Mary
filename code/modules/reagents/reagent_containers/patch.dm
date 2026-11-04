@@ -58,6 +58,22 @@
 	icon_state = "patch_jet"
 
 
+/obj/item/reagent_containers/pill/patch/ultrajet
+	name = "Ultrajet"
+	desc = "Jet cooked with Sugar Bombs for ghouls. Twice as strong as the regular kind, and just as habit-forming."
+	list_reagents = list(/datum/reagent/drug/jet/ultrajet = 10)
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "patch_jet"
+	color = "#9FFFD0"
+
+/obj/item/reagent_containers/pill/patch/jet_stream
+	name = "Jet Stream"
+	desc = "A smoother, far more addictive cut of Jet."
+	list_reagents = list(/datum/reagent/drug/jet/jet_stream = 10)
+	icon = 'icons/obj/medicine/drugs.dmi'
+	icon_state = "patch_jet"
+	color = "#B0E0FF"
+
 // ---------------------------------
 // TURBO
 

@@ -1369,6 +1369,54 @@
 	lose_text = span_notice("Needles don't bother you as much anymore.")
 	medical_record_text = "Patient tenses badly when injected, delaying the effect of the drug."
 
+/datum/quirk/modular/clean_living
+	name = "Clean Living"
+	desc = "You've never taken to chems: addiction builds up 40% more slowly."
+	value = 2
+	trait_flags = list(TRAIT_CLEAN_LIVING)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
+	gain_text = span_notice("Your body shrugs off the pull of a quick fix.")
+	lose_text = span_danger("The cravings start to find a foothold again.")
+	medical_record_text = "Patient shows unusual resistance to chemical dependence."
+
+/datum/quirk/modular/careful_dosing
+	name = "Careful Dosing"
+	desc = "You know exactly how much is too much: you can take 25% more of any chem before it overdoses you."
+	value = 2
+	trait_flags = list(TRAIT_CAREFUL_DOSING)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
+	gain_text = span_notice("You've got a feel for where the safe limit is.")
+	lose_text = span_danger("You lose your feel for dosages.")
+	medical_record_text = "Patient is careful and precise with dosages."
+
+/datum/quirk/modular/detox_specialist
+	name = "Detox Specialist"
+	desc = "You know how to ease people off chems: Fixer and Jet Antidote leave you with far milder nausea and cramps."
+	value = 1
+	trait_flags = list(TRAIT_DETOX_SPECIALIST)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("Detox treatments sit easier with you.")
+	lose_text = span_danger("Detox treatments hit you hard again.")
+	medical_record_text = "Patient tolerates detoxification treatment well."
+
+/datum/quirk/modular/adrenaline_management
+	name = "Adrenaline Management"
+	desc = "Combat chems take less out of you: they build 40% less adrenal debt, and the crash slowdown lasts half as long."
+	value = 2
+	trait_flags = list(TRAIT_ADRENALINE_MANAGEMENT)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("You know how to ride the rush without burning out.")
+	lose_text = span_danger("The comedowns start to hit you hard again.")
+	medical_record_text = "Patient recovers unusually well from stimulant use."
+
 /datum/quirk/modular/camper
 	name = "Camper"
 	desc = "Wood adds 50% more fuel to campfires, and you cook over them faster."
