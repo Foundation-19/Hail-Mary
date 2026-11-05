@@ -275,9 +275,21 @@
 	desc = "A fine tool for adding a permanent maker's mark to a finished, cooled piece."
 	icon_state = "hammer"
 
+// Works both ways: hold the iron and click the piece, or use the piece on the iron.
+/obj/item/blacksmith/branding_iron/afterattack(atom/target, mob/user, proximity, params)
+	. = ..()
+	if(!proximity || !isitem(target))
+		return
+	apply_maker_mark(target, user)
+	return TRUE
+
 /obj/item/blacksmith/branding_iron/attackby(obj/item/I, mob/user, params)
+	apply_maker_mark(I, user)
+	return TRUE
+
+/obj/item/blacksmith/branding_iron/proc/apply_maker_mark(obj/item/I, mob/user)
 	if(!user.mind || user.mind.get_skill_level(/datum/skill/level/dwarfy/blacksmithing) < 6)
-		to_chat(user, span_warning("You need more blacksmithing experience to apply a maker's mark."))
+		to_chat(user, span_warning("You need more blacksmithing experience (level 6) to apply a maker's mark."))
 		return
 	var/datum/component/smithing_maker_mark/mark_component = I.GetComponent(/datum/component/smithing_maker_mark)
 	if(!mark_component)
