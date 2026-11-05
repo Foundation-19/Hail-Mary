@@ -112,16 +112,21 @@
 #define HEAL_FRAIL_MULT 0.85
 #define HEAL_FRAIL_TOLERANCE_MULT 0.5
 // Healing skill comes from the applier's Perception + Intelligence, as Doctor and First Aid do in Fallout. 10 combined is average
-#define HEAL_SPECIAL_STEP 0.015 // healing per point of Perception + Intelligence above or below 10
-#define HEAL_SKILL_MIN 0.85
-#define HEAL_SKILL_MAX 1.2
+#define HEAL_SPECIAL_STEP 0.05 // healing per point of Perception + Intelligence above or below 10; New Vegas Medicine skill takes a stimpak from 1.2x to 3x
+#define HEAL_SKILL_MIN 0.8
+#define HEAL_SKILL_MAX 1.6
 #define HEAL_SELF_BONUS_MULT 0.5 // only half of a positive bonus applies when treating yourself, penalties always apply
-#define HEAL_TRAIT_BONUS_FIELD_MEDIC 0.1 // trained medics use the better of their trait or SPECIAL bonus on other people
-#define HEAL_TRAIT_BONUS_GRADUATE 0.15
-#define HEAL_TRAIT_BONUS_SURGEON 0.2
+#define HEAL_TRAIT_BONUS_FIELD_MEDIC 0.2 // trained medics use the better of their trait or SPECIAL bonus on other people
+#define HEAL_TRAIT_BONUS_GRADUATE 0.3
+#define HEAL_TRAIT_BONUS_SURGEON 0.4
 #define HEAL_MAXHP_MIN 0.8 // healing scales with max HP (Endurance), clamped so it can't swing too far either way
 #define HEAL_MAXHP_MAX 1.3
-#define HEAL_SCALE_CAP 1.3 // ceiling on skill and max HP scaling combined
+#define HEAL_SCALE_CAP 1.75 // ceiling on skill and max HP scaling combined
+// Lore side effects: powder dulls Perception, poultice Agility, and super stimpaks cause "stimpak sickness"
+#define HEAL_POWDER_DEBUFF 1
+#define HEAL_POWDER_DEBUFF_TIME (18 SECONDS)
+#define HEAL_SUPER_STIM_DEBUFF 1
+#define HEAL_SUPER_STIM_DEBUFF_TIME (120 SECONDS)
 #define HEAL_INT_RUSH_STEP 0.06 // each point of the applier's Intelligence above 5 cuts rushed-healing chance by this much
 #define HEAL_NEEDLE_PHOBIA_ONSET 3 // ticks injected healers take to take effect on someone with a fear of needles
 

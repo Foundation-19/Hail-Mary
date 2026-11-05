@@ -1317,7 +1317,7 @@
 
 /datum/quirk/modular/hardy_metabolism
 	name = "Hardy Metabolism"
-	desc = "Your body wastes little when it mends: healing costs you half the water and food, and thirst and hunger slow your recovery half as much."
+	desc = "Your body wastes little when it mends: healing costs you half the water and food, thirst and hunger slow your recovery half as much, and the side effects of healers wear off twice as fast."
 	value = 2
 	trait_flags = list(TRAIT_HARDY_METABOLISM)
 	required_special_stat = "special_e"

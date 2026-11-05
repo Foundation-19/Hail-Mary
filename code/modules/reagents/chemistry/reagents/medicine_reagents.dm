@@ -85,6 +85,43 @@
 	heal_skill_mult = clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX)
 	heal_rush_mult = clamp(1 - (intelligence - 5) * HEAL_INT_RUSH_STEP, 0.6, 1.3)
 
+/// Temporarily lowers a SPECIAL stat ("s", "p" or "a") and restores exactly what was removed, so stacked debuffs and stat floors stay consistent
+/proc/special_debuff(mob/living/L, stat, amount, duration)
+	if(!isliving(L))
+		return
+	if(HAS_TRAIT(L, TRAIT_HARDY_METABOLISM))
+		duration *= 0.5
+	var/old_value
+	switch(stat)
+		if("s")
+			old_value = L.special_s
+			L.set_special_s(old_value - amount)
+			old_value -= L.special_s
+		if("p")
+			old_value = L.special_p
+			L.set_special_p(old_value - amount)
+			old_value -= L.special_p
+		if("a")
+			old_value = L.special_a
+			L.set_special_a(old_value - amount)
+			old_value -= L.special_a
+		else
+			return
+	if(old_value)
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(special_debuff_end), WEAKREF(L), stat, old_value), duration)
+
+/proc/special_debuff_end(datum/weakref/ref, stat, amount)
+	var/mob/living/L = ref?.resolve()
+	if(!istype(L))
+		return
+	switch(stat)
+		if("s")
+			L.set_special_s(L.special_s + amount)
+		if("p")
+			L.set_special_p(L.special_p + amount)
+		if("a")
+			L.set_special_a(L.special_a + amount)
+
 GLOBAL_LIST_INIT(chem_stimulants, typecacheof(list(/datum/reagent/drug/jet, /datum/reagent/drug/turbo, /datum/reagent/drug/psycho, /datum/reagent/drug/buffout, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/stimulants)))
 GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx, /datum/reagent/medicine/morphine)))
 
@@ -2231,6 +2268,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	heal_origin = HEAL_ORIGIN_MODERN
 	heal_injected = TRUE
 
+/datum/reagent/medicine/super_stimpak/on_mob_add(mob/living/L, amount)
+	. = ..()
+	special_debuff(L, "s", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME)
+	special_debuff(L, "a", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME)
+	to_chat(L, span_warning("The super stimpak leaves you weak and clumsy."))
+
 /datum/reagent/medicine/super_stimpak/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
 	. = ..()
@@ -2326,6 +2369,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	heal_nominal = 2
 	heal_onset = 2
 	heal_origin = HEAL_ORIGIN_HERBAL
+	/// The SPECIAL stat this remedy dulls for a short time, as in New Vegas
+	var/debuff_stat = "p"
+
+/datum/reagent/medicine/healing_powder/on_mob_add(mob/living/L, amount)
+	. = ..()
+	special_debuff(L, debuff_stat, HEAL_POWDER_DEBUFF, HEAL_POWDER_DEBUFF_TIME)
 
 /datum/reagent/medicine/healing_powder/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
@@ -2354,7 +2403,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	description = "Potent, stinging herbs that swiftly aid in the recovery of grevious wounds."
 	color = "#C8A5DC"
 	overdose_threshold = 12
-	heal_nominal = 4	// the powder's 2 plus 1 brute and 1 burn
+	heal_nominal = 6	// the powder's 2 plus 2 brute and 2 burn, about 60 HP from 10u
+	debuff_stat = "a"
 	heal_onset = 3
 	heal_rush = 3
 	var/clot_rate = 0.10
@@ -2373,8 +2423,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 /datum/reagent/medicine/healing_powder/poultice/on_mob_life(mob/living/carbon/M)
 	var/heal_mult = get_heal_scale(M)
 	. = ..()
-	M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
-	M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
+	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
+	M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
 	. = TRUE
 	..()
