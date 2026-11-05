@@ -85,13 +85,84 @@
 	category = CAT_CRAFTING
 	subcategory = CAT_FORGING
 
+/datum/crafting_recipe/forge_flux
+	name = "Forge Flux"
+	result = /obj/item/blacksmith/flux
+	time = 50
+	reqs = list(
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/ore/coal = 1,
+		)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
+/datum/crafting_recipe/forge_flux/coke
+	name = "Forge Flux (Coke)"
+	reqs = list(
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/sheet/coke = 1,
+		)
+
+/datum/crafting_recipe/forge_flux/charcoal
+	name = "Forge Flux (Charcoal)"
+	reqs = list(
+		/obj/item/stack/ore/glass = 2,
+		/obj/item/stack/sheet/mineral/coal = 1,
+		)
+
+/datum/crafting_recipe/blacksmithing/clay_coating
+	name = "Refractory Clay Coating"
+	result = /obj/item/blacksmith/clay_coating
+	time = 50
+	reqs = list(
+		/obj/item/stack/sheet/mineral/sandstone = 2,
+		/datum/reagent/water = 50,
+		)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
+/datum/crafting_recipe/blacksmithing/branding_iron
+	name = "Maker's Branding Iron"
+	result = /obj/item/blacksmith/branding_iron
+	time = 100
+	reqs = list(
+		/obj/item/stack/sheet/metal = 2,
+		/obj/item/stack/rods = 1,
+		)
+	tools = list(TOOL_WELDER)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
+/datum/crafting_recipe/blacksmithing/smithing_journal
+	name = "Smithing Field Journal"
+	result = /obj/item/book/manual/smithing_journal
+	time = 100
+	reqs = list(
+		/obj/item/paper = 5,
+		/obj/item/stack/sheet/leather = 2,
+		)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
 /datum/crafting_recipe/quenching
-	name = "Quenching Throught"
+	name = "Water Quenching Trough"
 	result = /obj/structure/blacksmith/quenching
 	time = 100
 	reqs = list(
 		/obj/item/stack/sheet/mineral/wood = 15,
 		/datum/reagent/water = 300,
+		)
+	tools = list(TOOL_CROWBAR)
+	category = CAT_CRAFTING
+	subcategory = CAT_FORGING
+
+/datum/crafting_recipe/quenching_oil
+	name = "Oil Quenching Trough"
+	result = /obj/structure/blacksmith/quenching/oil
+	time = 100
+	reqs = list(
+		/obj/item/stack/sheet/mineral/wood = 15,
+		/datum/reagent/oil = 100,
 		)
 	tools = list(TOOL_CROWBAR)
 	category = CAT_CRAFTING
