@@ -826,6 +826,83 @@
 	build_path = /obj/item/ammo_box/a357box/ricochet
 	category = list("initial", "Advanced Ammo")
 
+/datum/design/ammolathe/c9mm_ap
+	name = "9mm armor-piercing ammo box"
+	id = "c9mm_ap"
+	materials = list(/datum/material/iron = 15000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/c9mm/ap
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/c9mm_hp
+	name = "9mm hollow-point ammo box"
+	id = "c9mm_hp"
+	materials = list(/datum/material/iron = 15000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/c9mm/hollowpoint
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/c10mm_ap
+	name = "10mm armor-piercing ammo box"
+	id = "c10mm_ap"
+	materials = list(/datum/material/iron = 10000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/c10mm/ap
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/c10mm_hp
+	name = "10mm hollow-point ammo box"
+	id = "c10mm_hp"
+	materials = list(/datum/material/iron = 10000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/c10mm/hollowpoint
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/c45_ap
+	name = ".45 ACP armor-piercing ammo box"
+	id = "c45_ap"
+	materials = list(/datum/material/iron = 10000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/c45/ap
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/c45_hp
+	name = ".45 ACP hollow-point ammo box"
+	id = "c45_hp"
+	materials = list(/datum/material/iron = 10000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/c45/hollowpoint
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/a556_ap
+	name = "5.56mm armor-piercing ammo box"
+	id = "a556_ap"
+	materials = list(/datum/material/iron = 20000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/a556/ap
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/a556_hp
+	name = "5.56mm hollow-point ammo box"
+	id = "a556_hp"
+	materials = list(/datum/material/iron = 20000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/a556/hollowpoint
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/a308_ap
+	name = ".308 armor-piercing ammo box"
+	id = "a308_ap"
+	materials = list(/datum/material/iron = 14000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/a308box/ap
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/a308_hp
+	name = ".308 hollow-point ammo box"
+	id = "a308_hp"
+	materials = list(/datum/material/iron = 14000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/a308box/hollowpoint
+	category = list("initial", "Advanced Ammo")
+
+/datum/design/ammolathe/mm195x129_ap
+	name = "1.95x129mm armor-piercing box magazine"
+	id = "mm195x129_ap"
+	materials = list(/datum/material/iron = 20000, /datum/material/blackpowder = 2000)
+	build_path = /obj/item/ammo_box/magazine/mm195x129/ap
+	category = list("initial", "Advanced Ammo")
+
 /////////////////////
 /// Improvised stuff
 //////////
