@@ -1315,6 +1315,108 @@
 	lose_text = span_notice("Your stomach settles.")
 	medical_record_text = "Patient is highly prone to waterborne illness."
 
+/datum/quirk/modular/hardy_metabolism
+	name = "Hardy Metabolism"
+	desc = "Your body wastes little when it mends: healing costs you half the water and food, thirst and hunger slow your recovery half as much, and the side effects of healers wear off twice as fast."
+	value = 2
+	trait_flags = list(TRAIT_HARDY_METABOLISM)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("Your body knows how to make a little go a long way.")
+	lose_text = span_danger("Your body goes back to burning through everything it's given.")
+	medical_record_text = "Patient's recovery is unusually economical."
+
+/datum/quirk/modular/seasoned_user
+	name = "Seasoned Chem-User"
+	desc = "Your body is used to being patched up: repeated healing chems lose only half as much strength to tolerance."
+	value = 2
+	trait_flags = list(TRAIT_SEASONED_USER)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
+	gain_text = span_notice("Another dose, another day. Your body barely notices.")
+	lose_text = span_danger("Your body starts to notice every dose again.")
+	medical_record_text = "Patient shows high tolerance to repeated medication."
+
+/datum/quirk/modular/cast_iron_constitution
+	name = "Cast-Iron Constitution"
+	desc = "Mixing chems rarely hurts you: stimulants on Med-X, and alcohol on painkillers, hit you 75% less often."
+	value = 2
+	trait_flags = list(TRAIT_CAST_IRON_CONSTITUTION)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 7
+	gain_text = span_notice("Whatever you put in it, your body takes it in stride.")
+	lose_text = span_danger("Your body starts to take your cocktails personally.")
+	medical_record_text = "Patient tolerates drug interactions unusually well."
+
+/datum/quirk/modular/frail_constitution
+	name = "Frail Constitution"
+	desc = "Your body doesn't respond well to medicine: healing chems work 15% worse, though you build tolerance to them half as fast."
+	value = -1
+	trait_flags = list(TRAIT_FRAIL_CONSTITUTION)
+	gain_text = span_danger("You've never recovered quite as quickly as everyone else.")
+	lose_text = span_notice("Your body starts to respond to medicine again.")
+	medical_record_text = "Patient responds poorly to medication."
+
+/datum/quirk/modular/needle_phobia
+	name = "Needle Phobia"
+	desc = "You can't relax with a needle in you: injected healers like stimpaks take a few seconds to take effect."
+	value = -1
+	trait_flags = list(TRAIT_NEEDLE_PHOBIA)
+	gain_text = span_danger("Just the thought of a needle makes your skin crawl.")
+	lose_text = span_notice("Needles don't bother you as much anymore.")
+	medical_record_text = "Patient tenses badly when injected, delaying the effect of the drug."
+
+/datum/quirk/modular/clean_living
+	name = "Clean Living"
+	desc = "You've never taken to chems: addiction builds up 40% more slowly."
+	value = 2
+	trait_flags = list(TRAIT_CLEAN_LIVING)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 5
+	gain_text = span_notice("Your body shrugs off the pull of a quick fix.")
+	lose_text = span_danger("The cravings start to find a foothold again.")
+	medical_record_text = "Patient shows unusual resistance to chemical dependence."
+
+/datum/quirk/modular/careful_dosing
+	name = "Careful Dosing"
+	desc = "You know exactly how much is too much: you can take 25% more of any chem before it overdoses you."
+	value = 2
+	trait_flags = list(TRAIT_CAREFUL_DOSING)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 6
+	gain_text = span_notice("You've got a feel for where the safe limit is.")
+	lose_text = span_danger("You lose your feel for dosages.")
+	medical_record_text = "Patient is careful and precise with dosages."
+
+/datum/quirk/modular/detox_specialist
+	name = "Detox Specialist"
+	desc = "You know how to ease people off chems: Fixer and Jet Antidote leave you with far milder nausea and cramps."
+	value = 1
+	trait_flags = list(TRAIT_DETOX_SPECIALIST)
+	required_special_stat = "special_i"
+	required_special_name = "Intelligence"
+	required_special_value = 5
+	gain_text = span_notice("Detox treatments sit easier with you.")
+	lose_text = span_danger("Detox treatments hit you hard again.")
+	medical_record_text = "Patient tolerates detoxification treatment well."
+
+/datum/quirk/modular/adrenaline_management
+	name = "Adrenaline Management"
+	desc = "Combat chems take less out of you: they build 40% less adrenal debt, and the crash slowdown lasts half as long."
+	value = 2
+	trait_flags = list(TRAIT_ADRENALINE_MANAGEMENT)
+	required_special_stat = "special_e"
+	required_special_name = "Endurance"
+	required_special_value = 6
+	gain_text = span_notice("You know how to ride the rush without burning out.")
+	lose_text = span_danger("The comedowns start to hit you hard again.")
+	medical_record_text = "Patient recovers unusually well from stimulant use."
+
 /datum/quirk/modular/camper
 	name = "Camper"
 	desc = "Wood adds 50% more fuel to campfires, and you cook over them faster."

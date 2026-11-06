@@ -155,13 +155,13 @@
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
 
 /* 5.56 hollow-point
- * DAMAGE: 46 (expands on impact, useless vs armor)
+ * DAMAGE: ~50 (expands on impact, weak vs hard armor)
  * RECOIL: 1
  */
 /obj/item/projectile/bullet/a556/hollowpoint
 	name = "5.56 hollow-point bullet"
-	damage = BULLET_DAMAGE_RIFLE_223 * 1.25
-	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	damage = BULLET_DAMAGE_RIFLE_223 * 1.35
+	armour_penetration = -0.25 // expanding round, poor against hard armor but still bites soft armor
 	stamina = BULLET_STAMINA_RIFLE_223
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_223
@@ -686,13 +686,13 @@
 	damage_falloff = BULLET_FALLOFF_DEFAULT_RIFLE_MEDIUM
 
 /* .308 hollow-point
- * DAMAGE: expands on impact, useless vs armor
+ * DAMAGE: expands on impact, weak vs hard armor
  * RECOIL: 2
  */
 /obj/item/projectile/bullet/a308/hollowpoint
 	name = ".308 hollow-point bullet"
-	damage = BULLET_DAMAGE_RIFLE_308 * 1.25
-	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	damage = BULLET_DAMAGE_RIFLE_308 * 1.35
+	armour_penetration = -0.25 // expanding round, poor against hard armor but still bites soft armor
 	stamina = BULLET_STAMINA_RIFLE_308
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_RIFLE_308

@@ -89,6 +89,27 @@
 	RateUpLim 			= 10
 	FermiChem 			= TRUE
 
+/datum/chemical_reaction/ultrajet
+	name = "Ultrajet"
+	id = /datum/reagent/drug/jet/ultrajet
+	results = list(/datum/reagent/drug/jet/ultrajet = 4)
+	required_reagents = list(/datum/reagent/drug/jet = 3, /datum/reagent/consumable/sugar = 2, /datum/reagent/uranium = 1)
+	required_temp = 450
+
+/datum/chemical_reaction/jet_stream
+	name = "Jet Stream"
+	id = /datum/reagent/drug/jet/jet_stream
+	results = list(/datum/reagent/drug/jet/jet_stream = 4)
+	required_reagents = list(/datum/reagent/drug/jet = 3, /datum/reagent/drug/methamphetamine = 1)
+	required_temp = 400
+
+/datum/chemical_reaction/cateye
+	name = "Cateye"
+	id = /datum/reagent/drug/cateye
+	results = list(/datum/reagent/drug/cateye = 3)
+	required_reagents = list(/datum/reagent/consumable/carrotjuice = 2, /datum/reagent/medicine/oculine = 1)
+	required_temp = 330
+
 /datum/chemical_reaction/turbo
 	name = "Turbo"
 	id = /datum/reagent/drug/turbo

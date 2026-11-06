@@ -51,6 +51,7 @@ GLOBAL_LIST_INIT(tribal_job_recipes, list(
 	/datum/crafting_recipe/bitterdrink5,
 	/datum/crafting_recipe/healpoultice,
 	/datum/crafting_recipe/healpoultice5,
+	/datum/crafting_recipe/rushing_water,
 	//datum/crafting_recipe/redpotion,
 	//datum/crafting_recipe/bluepotion,
 	//datum/crafting_recipe/greenpotion,

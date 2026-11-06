@@ -5,14 +5,34 @@ GLOBAL_LIST_INIT(chemwhiz_recipes_basic, list(
 GLOBAL_LIST_INIT(chemwhiz_recipes_mid, list(
 	/datum/crafting_recipe/turbo,
 	/datum/crafting_recipe/buffout,
-	/datum/crafting_recipe/steady))
+	/datum/crafting_recipe/steady,
+	/datum/crafting_recipe/stimpak/herbal,
+	/datum/crafting_recipe/mentat,
+	/datum/crafting_recipe/party_time_mentat,
+	/datum/crafting_recipe/fixer,
+	/datum/crafting_recipe/cateye))
 
 GLOBAL_LIST_INIT(chemwhiz_recipes_advanced, list(
+	// Advanced chemists also know everything from the mid tier, which matters for jobs that are handed only the basic and advanced lists
+	/datum/crafting_recipe/turbo,
+	/datum/crafting_recipe/buffout,
+	/datum/crafting_recipe/steady,
+	/datum/crafting_recipe/stimpak/herbal,
+	/datum/crafting_recipe/mentat,
+	/datum/crafting_recipe/party_time_mentat,
+	/datum/crafting_recipe/fixer,
+	/datum/crafting_recipe/cateye,
 	/datum/crafting_recipe/jet,
 	/datum/crafting_recipe/psycho,
 	/datum/crafting_recipe/medx,
 	/datum/crafting_recipe/stimpak/chemistry,
-	/datum/crafting_recipe/stimpak5/chemistry))
+	/datum/crafting_recipe/stimpak5/chemistry,
+	/datum/crafting_recipe/superstimpak,
+	/datum/crafting_recipe/superstimpak5,
+	/datum/crafting_recipe/ultrajet,
+	/datum/crafting_recipe/jet_stream,
+	/datum/crafting_recipe/jet_antidote,
+	/datum/crafting_recipe/rushing_water))
 
 GLOBAL_LIST_INIT(basic_explosive_recipes, list(
 	/datum/crafting_recipe/frag_shrapnel,
@@ -80,6 +100,7 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
 	/datum/crafting_recipe/bitterdrink5,
 	/datum/crafting_recipe/healpoultice,
 	/datum/crafting_recipe/healpoultice5,
+	/datum/crafting_recipe/rushing_water,
 	//datum/crafting_recipe/redpotion,
 	//datum/crafting_recipe/bluepotion,
 	//datum/crafting_recipe/greenpotion,

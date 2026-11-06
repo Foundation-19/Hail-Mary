@@ -36,7 +36,8 @@
 	var/max_items = 7
 	/// Max volume we can hold. Applies to [STORAGE_LIMIT_VOLUME]. Auto scaled on New() if unset.
 	var/max_volume
-
+	/// Fraction of our contents' cost that counts when we are nested inside another storage. Only for compact packs that can hold nothing but tiny items (matches, cigarettes).
+	var/content_cost_mult = 1
 	var/emp_shielded = FALSE
 
 	var/silent = FALSE								//whether this makes a message when things are put in.
@@ -608,14 +609,16 @@
 		current = ancestor
 	return TRUE
 
-/// Weight of an item plus whatever is stuffed inside it. A storage item's own shell only costs STORAGE_NESTED_SHELL_COST, so organizing things in boxes/pouches is cheap, but the contents always count in full and nesting can never create free space.
+/// Weight of an item plus whatever is stuffed inside it. A storage item's own shell only costs STORAGE_NESTED_SHELL_COST, so organizing things in boxes/pouches is cheap, but the contents count in full (unless the container is a compact pack, see content_cost_mult) and nesting can never create free space.
 /datum/component/storage/proc/get_nested_w_class(obj/item/I)
 	. = I.w_class
 	var/datum/component/storage/nested = I.GetComponent(/datum/component/storage)
 	if(nested)
 		. = min(., STORAGE_NESTED_SHELL_COST)
+		var/contents_cost = 0
 		for(var/obj/item/inner in I)
-			. += nested.get_nested_w_class(inner)
+			contents_cost += nested.get_nested_w_class(inner)
+		. += contents_cost * nested.content_cost_mult
 
 /// Volume of an item plus whatever is stuffed inside it. See get_nested_w_class for how the shell is charged.
 /datum/component/storage/proc/get_nested_w_volume(obj/item/I)
@@ -623,8 +626,10 @@
 	var/datum/component/storage/nested = I.GetComponent(/datum/component/storage)
 	if(nested)
 		. = min(., STORAGE_NESTED_SHELL_COST)
+		var/contents_cost = 0
 		for(var/obj/item/inner in I)
-			. += nested.get_nested_w_volume(inner)
+			contents_cost += nested.get_nested_w_volume(inner)
+		. += contents_cost * nested.content_cost_mult
 
 /// Has our quota been met?
 /datum/component/storage/proc/check_quota(obj/item/I)

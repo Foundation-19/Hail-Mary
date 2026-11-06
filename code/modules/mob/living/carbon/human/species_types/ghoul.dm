@@ -278,8 +278,10 @@
 
 /datum/species/ghoul/handle_chemicals(datum/reagent/chem, mob/living/carbon/human/H)
 	if(istype(chem) && !chem.ghoulfriendly)
-		H.reagents.remove_reagent(chem.type, REAGENTS_METABOLISM * 1000)
-		return TRUE
+		// Leave one normal tick behind so a small dose still gets its effect before it is gone
+		var/extra_burn = min(chem.metabolization_rate * GHOUL_CHEM_BURN_MULT, chem.volume - chem.metabolization_rate)
+		if(extra_burn > 0)
+			H.reagents.remove_reagent(chem.type, extra_burn)
 	
 	// RADAWAY - Just damages, cleansing happens automatically in spec_life
 	if(chem.type == /datum/reagent/medicine/radaway)

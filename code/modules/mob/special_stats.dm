@@ -1,12 +1,12 @@
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
 	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // Strength modifies melee damage; certain guns can be STR locked
-	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
-	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER; with INT it is the Medicine skill that scales healing
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END; also slows waterborne illness buildup, shortens the combat chem crash, and improves how well healing takes
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets about your demeanor/appearance when they examine you; caps how many followers you can lead in a pull chain
-	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
+	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked; with PER it scales healing and each point above 5 lowers the rushed-healing chance
 	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 tiles sprint buffer, +/- 10% sprint regen, +/- 0.05 sprint speed, +/- 10% sprint stamina usage per lvl below/above 5 AGI
-	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to fumble/whiff an attack if it's 3 or below
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to fumble/whiff an attack if it's 3 or below; a lucky healer is also less likely to botch a rushed heal
 	/// world.time deadline before intimidating_presence() (low-Charisma's standalone ability) can be used again.
 	var/intimidate_cooldown_until = 0
 	/// world.time deadline before commanding_presence() (high-Charisma's standalone ability) can be used again.

@@ -378,6 +378,15 @@
 	for(var/i in 1 to 5)
 		new /obj/item/reagent_containers/pill/healingpowder(src)
 
+/obj/item/storage/box/medicine/water_filters
+	name = "box of four filter pouches"
+	desc = "A box of charcoal filter pouches for straining dirty water."
+	icon_state = "medicinebox_simple"
+
+/obj/item/storage/box/medicine/water_filters/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/pill/water_filter(src)
+
 // -----------------------------------
 // POULTICE BOX
 

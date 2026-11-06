@@ -163,7 +163,7 @@
 
 /obj/item/ammo_box/c9mm/hollowpoint
 	name = "ammo box (9mm hollow-point)"
-	desc = "A box of 9mm expanding rounds. Devastating against unarmored targets, useless against armor."
+	desc = "A box of 9mm expanding rounds. Devastating against unarmored targets, poor against heavy armor."
 	ammo_type = /obj/item/ammo_casing/c9mm/hollowpoint
 /*
 /obj/item/ammo_box/c38box
@@ -233,7 +233,7 @@
 
 /obj/item/ammo_box/c10mm/hollowpoint
 	name = "ammo box (10mm hollow-point)"
-	desc = "A box of 10mm expanding rounds. Devastating against unarmored targets, useless against armor."
+	desc = "A box of 10mm expanding rounds. Devastating against unarmored targets, poor against heavy armor."
 	ammo_type = /obj/item/ammo_casing/c10mm/hollowpoint
 
 //.357 Magnum
@@ -250,7 +250,7 @@
 
 /obj/item/ammo_box/a357box/ratshot
 	name = "ammo box (.357 Magnum Ratshot)"
-	desc = ".357 shotshells, meant for shooting tiny critters. Nigh useless against armor."
+	desc = ".357 shotshells, meant for shooting tiny critters. Nigh poor against heavy armor."
 	ammo_type = /obj/item/ammo_casing/a357/ratshot
 
 /obj/item/ammo_box/a357box/ricochet
@@ -351,7 +351,7 @@
 
 /obj/item/ammo_box/c45/hollowpoint
 	name = "ammo box (.45 hollow-point)"
-	desc = "A box of .45 expanding rounds. Devastating against unarmored targets, useless against armor."
+	desc = "A box of .45 expanding rounds. Devastating against unarmored targets, poor against heavy armor."
 	ammo_type = /obj/item/ammo_casing/c45/hollowpoint
 
 
@@ -369,7 +369,7 @@
 
 /obj/item/ammo_box/c4570box/ratshot
 	name = "ammo box (.45-70 Forager)"
-	desc = ".45-70 shotshells, meant for shooting tiny critters. Nigh useless against armor."
+	desc = ".45-70 shotshells, meant for shooting tiny critters. Nigh poor against heavy armor."
 	ammo_type = /obj/item/ammo_casing/c4570/ratshot
 
 /obj/item/ammo_box/c4570box/explosive
@@ -465,7 +465,7 @@
 
 /obj/item/ammo_box/a556/hollowpoint
 	name = "ammo box (5.56 hollow-point)"
-	desc = "A box of 5.56 expanding rounds. Devastating against unarmored targets, useless against armor."
+	desc = "A box of 5.56 expanding rounds. Devastating against unarmored targets, poor against heavy armor."
 	ammo_type = /obj/item/ammo_casing/a556/hollowpoint
 
 /obj/item/ammo_box/a556/improvised
@@ -573,7 +573,7 @@
 
 /obj/item/ammo_box/a308box/hollowpoint
 	name = "ammo box (.308 hollow-point)"
-	desc = "A box of .308 expanding rounds. Devastating against unarmored targets, useless against armor."
+	desc = "A box of .308 expanding rounds. Devastating against unarmored targets, poor against heavy armor."
 	icon = 'icons/obj/guns/ammo.dmi'
 	icon_state = "762box"
 	multiple_sprites = 2

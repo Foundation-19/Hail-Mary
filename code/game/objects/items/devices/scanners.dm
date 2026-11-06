@@ -424,6 +424,17 @@ GENETICS SCANNER
 			msg += "\t<span class='alert'>Subject is irradiated.</span>\n"
 			msg += "\t<span class='info'>Radiation Level: [M.radiation] rad</span>\n"
 
+		if(ishuman(M))
+			var/mob/living/carbon/human/waterborne_patient = M
+			if(waterborne_patient.waterborne_ill)
+				msg += "\t<span class='alert'>Subject has a waterborne gut infection.</span>\n"
+			else if(waterborne_patient.waterborne_load >= HYDRATION_LOAD_SICK * 0.75)
+				msg += "\t<span class='alert'>Subject's gut shows heavy bacterial contamination.</span>\n"
+			else if(waterborne_patient.waterborne_load >= HYDRATION_LOAD_QUEASY)
+				msg += "\t<span class='info'>Subject's gut shows moderate bacterial contamination.</span>\n"
+			else if(waterborne_patient.waterborne_load >= 5)
+				msg += "\t<span class='info'>Subject's gut shows traces of bacterial contamination.</span>\n"
+
 
 
 	// Species and body temperature

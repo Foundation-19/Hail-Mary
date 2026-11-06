@@ -251,12 +251,12 @@
 	armour_penetration = 0.35 // steel-core penetrator, big jump over the 0.05 FMJ baseline
 
 /* 9mm hollow-point
- * DAMAGE: 19 (expands on impact, more damage/wounding, shreds unarmored targets, useless vs armor)
+ * DAMAGE: ~20 (expands on impact, more damage/wounding, shreds unarmored targets, weak vs hard armor)
  * RECOIL: 0.5
  */
 /obj/item/projectile/bullet/c9mm/hollowpoint
 	name = "9mm hollow-point bullet"
-	damage = BULLET_DAMAGE_PISTOL_9MM * 1.25
+	damage = BULLET_DAMAGE_PISTOL_9MM * 1.35
 	stamina = BULLET_STAMINA_PISTOL_9MM
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_9MM
@@ -267,7 +267,7 @@
 
 	pixels_per_second = BULLET_SPEED_PISTOL_9MM
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_LIGHT
-	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	armour_penetration = -0.25 // expanding round, poor against hard armor but still bites soft armor
 	sharpness = SHARP_EDGED
 
 /* 9mm op
@@ -625,13 +625,13 @@
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /* 10mm hollow-point
- * DAMAGE: 37.5 (expands on impact, useless vs armor)
+ * DAMAGE: ~40 (expands on impact, weak vs hard armor)
  * RECOIL: 1
  */
 /obj/item/projectile/bullet/c10mm/hollowpoint
 	name = "10mm hollow-point bullet"
-	damage = BULLET_DAMAGE_PISTOL_10MM * 1.25
-	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	damage = BULLET_DAMAGE_PISTOL_10MM * 1.35
+	armour_penetration = -0.25 // expanding round, poor against hard armor but still bites soft armor
 	stamina = BULLET_STAMINA_PISTOL_10MM
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_10MM
@@ -736,13 +736,13 @@
 	damage_falloff = BULLET_FALLOFF_DEFAULT_PISTOL_MEDIUM
 
 /* 45 hollow-point
- * DAMAGE: 37.5 (expands on impact, useless vs armor)
+ * DAMAGE: ~40 (expands on impact, weak vs hard armor)
  * RECOIL: 3
  */
 /obj/item/projectile/bullet/c45/hollowpoint
 	name = ".45 hollow-point bullet"
-	damage = BULLET_DAMAGE_PISTOL_45ACP * 1.25
-	armour_penetration = -1 // expanding round, actively worse than FMJ against any armor
+	damage = BULLET_DAMAGE_PISTOL_45ACP * 1.35
+	armour_penetration = -0.25 // expanding round, poor against hard armor but still bites soft armor
 	stamina = BULLET_STAMINA_PISTOL_45ACP
 	spread = BULLET_SPREAD_SURPLUS
 	recoil = BULLET_RECOIL_PISTOL_45ACP
