@@ -1572,6 +1572,16 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		return FALSE
 	return TRUE
 
+///Nutrition including food still being digested, so a full stomach doesn't read as hunger
+/mob/living/proc/get_effective_nutrition()
+	. = nutrition
+	if(!reagents || nutrition >= NUTRITION_LEVEL_FULL)
+		return
+	for(var/datum/reagent/consumable/C in reagents.reagent_list)
+		if(C.metabolization_rate > 0)
+			. += C.nutriment_factor * C.volume / C.metabolization_rate
+	. = min(., NUTRITION_LEVEL_FULL - 1) //pending food only ends hunger, it never counts as being fat
+
 ///Queue water into the stomach; it absorbs into thirst over time
 /mob/living/carbon/human/proc/add_stomach_water(amount)
 	if(!needs_hydration())

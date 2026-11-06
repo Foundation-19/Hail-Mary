@@ -339,7 +339,7 @@
 		HandleCharge(L)
 	if(HAS_TRAIT(L, TRAIT_NOHUNGER))
 		return FALSE //no mood events for nutrition
-	switch(L.nutrition)
+	switch(L.get_effective_nutrition())
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			if(HAS_TRAIT(L, TRAIT_VORACIOUS))
 				add_event(null, "nutrition", /datum/mood_event/fat/voracious)

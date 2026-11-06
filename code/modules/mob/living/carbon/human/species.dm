@@ -1331,7 +1331,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	if(!H.client || (H.client && (H.client.inactivity / 600 > 5))) // Let's not kill AFK mobs
 		return
 
-	switch(H.nutrition)
+	switch(H.get_effective_nutrition())
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			H.throw_alert("nutrition", /obj/screen/alert/fat)
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
