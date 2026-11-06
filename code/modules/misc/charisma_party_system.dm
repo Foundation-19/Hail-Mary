@@ -140,7 +140,7 @@
 			rally_cry_cooldown_until = world.time + (60 SECONDS - (tier * 4 SECONDS))
 			for(var/mob/living/member in (members - user))
 				var/datum/status_effect/party_rally/rally = member.has_status_effect(STATUS_EFFECT_PARTY_RALLY)
-				if(rally?.buffed)
+				if(rally && rally.buffed)
 					to_chat(member, span_notice("You feel a surge of extra strength as [user] rallies the party!"))
 			return TRUE
 	return FALSE
@@ -370,6 +370,6 @@
 		var/datum/status_effect/party_rally/rally = has_status_effect(STATUS_EFFECT_PARTY_RALLY)
 		var/rally_state = "out of range!"
 		if(in_range)
-			rally_state = (rally?.buffed) ? "buffed ([party.aura.name])" : "in range"
+			rally_state = (rally && rally.buffed) ? "buffed ([party.aura.name])" : "in range"
 		. += "Party: Following [leader.name] ([rally_state])"
 
