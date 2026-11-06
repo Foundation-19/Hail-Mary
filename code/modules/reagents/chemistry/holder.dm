@@ -295,6 +295,13 @@
 		if(src == C.reagents)
 			C.process_chem_interactions()
 	var/need_mob_update = 0
+	// Running several healers or chems at once leans harder on the body, so dependence builds faster
+	var/active_chems = 0
+	for(var/datum/reagent/active in cached_reagents)
+		var/datum/reagent/medicine/healer_chem = active
+		if(active.addiction_threshold || (istype(healer_chem) && healer_chem.heal_nominal))
+			active_chems++
+	var/stack_mult = min(1 + ADDICTION_STACK_STEP * max(0, active_chems - 1), ADDICTION_STACK_MAX)
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
@@ -321,7 +328,7 @@
 							need_mob_update += R.overdose_start(C)
 					if(R.addiction_threshold)
 						var/old_dependence = dependence[R.type] || 0
-						var/new_dependence = old_dependence + R.metabolization_rate / R.addiction_threshold * (HAS_TRAIT(C, TRAIT_CLEAN_LIVING) ? 0.6 : 1)
+						var/new_dependence = old_dependence + R.metabolization_rate / R.addiction_threshold * 						(HAS_TRAIT(C, TRAIT_CLEAN_LIVING) ? 0.6 : 1) * stack_mult
 						dependence[R.type] = new_dependence
 						if(!is_type_in_list(R, cached_addictions))
 							if(new_dependence >= ADDICTION_LIMIT)
