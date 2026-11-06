@@ -11,7 +11,6 @@
 	value = REAGENT_VALUE_VERY_COMMON //Low prices, spess medical companies are cheapstakes and products are taxed honk...
 	/// HP per tick this chem heals at full effect. 0 means it takes no part in the body's repair budget.
 	var/heal_nominal = 0
-	var/heal_strain_notified = FALSE
 	var/heal_scale_stamp = -1
 	var/heal_scale_cache = 1
 	/// Ticks a slow-acting healer takes to reach full effect. It also fades out over its last ticks. 0 means instant, like an injection.
@@ -235,9 +234,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 			to_chat(src, span_danger("Your heart hammers. Steroids and stimulants together are a lot for one chest to carry."))
 
 /**
- * Healing is limited by what the body can actually repair, not by the drug alone.
- * - The body can only knit about HEAL_CAPACITY_HEADROOM times the strongest healer's output, so stacking healers wastes
- *   the excess and strains the body instead of adding up.
+ * Healing is limited by what the body can actually repair, not by the drug alone. Healers stack freely.
  * - Repair needs water and food: dehydration and hunger slow it, and every HP restored costs some of both.
  * Returns the multiplier to apply to this tick's healing. Cached per tick so chained on_mob_life procs agree.
  */
@@ -247,24 +244,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	if(heal_scale_stamp == world.time)
 		return heal_scale_cache
 	heal_scale_stamp = world.time
-	var/total = 0
-	var/strongest = 0
-	for(var/datum/reagent/medicine/other in holder.reagent_list)
-		if(!other.heal_nominal)
-			continue
-		total += other.heal_nominal
-		strongest = max(strongest, other.heal_nominal)
-	var/stack_scale = 1
-	var/capacity = strongest * HEAL_CAPACITY_HEADROOM
-	if(total > capacity)
-		stack_scale = capacity / total
-		M.adjustToxLoss(heal_nominal * (1 - stack_scale) * HEAL_STRAIN_TOX, FALSE)
-		if(!heal_strain_notified)
-			to_chat(M, span_warning("Your body can only mend so fast. Part of the [name] goes to waste and leaves you feeling queasy."))
-			heal_strain_notified = TRUE
-	else
-		heal_strain_notified = FALSE
-	var/scale = stack_scale * get_repair_resource_factor(M) * get_cultural_factor(M)
+	var/scale = get_repair_resource_factor(M) * get_cultural_factor(M)
 	scale *= min(heal_skill_mult * clamp(M.maxHealth / 100, HEAL_MAXHP_MIN, HEAL_MAXHP_MAX), HEAL_SCALE_CAP)
 	if(HAS_TRAIT(M, TRAIT_FRAIL_CONSTITUTION))
 		scale *= HEAL_FRAIL_MULT

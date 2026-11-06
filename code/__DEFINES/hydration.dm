@@ -84,8 +84,6 @@
 #define HYDRATION_ENDURANCE_STEP 0.05 // each point of Endurance above/below 5 changes how fast contamination builds up by this much
 
 // Healing is limited by what the body can repair, and repair costs water and food.
-#define HEAL_CAPACITY_HEADROOM 1.25 // total healing per tick the body can use, relative to the strongest healer present
-#define HEAL_STRAIN_TOX 0.15 // toxin per wasted HP when healers are stacked past that capacity
 #define HEAL_COST_THIRST 0.6 // thirst lost per HP restored
 #define HEAL_COST_NUTRITION 0.8 // nutrition lost per HP restored
 #define HEAL_COST_CAP 3 // HP worth of cost charged per tick, so major meds drain no more than minor ones
