@@ -1610,7 +1610,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 		return
 	// Rad-immune species ignore the dose, except ghouls, who feed on it
 	if(rad_per_unit > 0 && (!HAS_TRAIT(src, TRAIT_RADIMMUNE) || isghoul(src)))
-		radiation += rad_per_unit * volume
+		radiation += rad_per_unit * volume * get_special_rad_resist_multiplier()
 	// Virus-immune species and those that can't vomit (ghouls, super mutants, androids) don't get sick
 	if(pathogen_chance > 0 && !HAS_TRAIT(src, TRAIT_VIRUSIMMUNE) && !HAS_TRAIT(src, TRAIT_NOHUNGER))
 		var/resistance = waterborne_resistance
@@ -1618,6 +1618,7 @@ GLOBAL_VAR_INIT(crotch_call_cooldown, 0)
 			resistance *= HYDRATION_IRON_STOMACH_MULT
 		if(HAS_TRAIT(src, TRAIT_DELICATE_STOMACH))
 			resistance *= HYDRATION_DELICATE_STOMACH_MULT
+		resistance *= clamp(1 - (special_e - SPECIAL_DEFAULT_ATTR_VALUE) * HYDRATION_ENDURANCE_STEP, 0.6, 1.4)
 		waterborne_load += volume * pathogen_chance * HYDRATION_LOAD_SCALE * resistance
 
 ///Decays the contamination load each tick and applies the symptoms it causes: queasiness first, then illness

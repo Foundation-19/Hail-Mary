@@ -34,6 +34,7 @@
 	C.healer_self = (healer == target)
 	C.healer_per_int = healer.special_p + healer.special_i
 	C.healer_int = healer.special_i
+	C.healer_luck = healer.special_l
 	var/trait_bonus = 0
 	if(HAS_TRAIT(healer, TRAIT_FIELD_MEDIC))
 		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_FIELD_MEDIC)
@@ -47,6 +48,7 @@
 /mob/living/carbon/var/healer_self = TRUE
 /mob/living/carbon/var/healer_per_int = 10
 /mob/living/carbon/var/healer_int = 5
+/mob/living/carbon/var/healer_luck = 5
 /mob/living/carbon/var/healer_trait_bonus = 0
 /// Repeated doses in a short window work worse. Tolerance fades over time and is only worked out when read.
 /mob/living/carbon/var/heal_tolerance = 0
@@ -70,11 +72,13 @@
 	var/self_applied = TRUE
 	var/per_int = C.special_p + C.special_i
 	var/intelligence = C.special_i
+	var/luck = C.special_l
 	var/trait_bonus = 0
 	if(C.healer_stamp == world.time)
 		self_applied = C.healer_self
 		per_int = C.healer_per_int
 		intelligence = C.healer_int
+		luck = C.healer_luck
 		trait_bonus = C.healer_trait_bonus
 	var/bonus = (per_int - 10) * HEAL_SPECIAL_STEP
 	if(self_applied)
@@ -82,8 +86,8 @@
 			bonus *= HEAL_SELF_BONUS_MULT
 	else
 		bonus = max(bonus, trait_bonus)
-	heal_skill_mult = clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX)
-	heal_rush_mult = clamp(1 - (intelligence - 5) * HEAL_INT_RUSH_STEP, 0.6, 1.3)
+	heal_skill_mult = clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX) * clamp(1 + (C.special_e - SPECIAL_DEFAULT_ATTR_VALUE) * HEAL_ENDURANCE_STEP, 0.85, 1.15)
+	heal_rush_mult = clamp(1 - (intelligence - 5) * HEAL_INT_RUSH_STEP - (luck - 5) * HEAL_LUCK_RUSH_STEP, 0.5, 1.3)
 
 /// Temporarily lowers a SPECIAL stat ("s", "p" or "a") and restores exactly what was removed, so stacked debuffs and stat floors stay consistent
 /proc/special_debuff(mob/living/L, stat, amount, duration)
@@ -163,11 +167,12 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	combat_debt = 0
 	if(debt < COMBAT_CRASH_MIN || stat == DEAD)
 		return
-	adjustStaminaLoss(min(debt * COMBAT_CRASH_STAMINA_PER_DEBT, COMBAT_CRASH_STAMINA_MAX))
+	var/crash_mult = clamp(1 - (special_e - SPECIAL_DEFAULT_ATTR_VALUE) * COMBAT_CRASH_ENDURANCE_STEP, 0.7, 1.3)
+	adjustStaminaLoss(min(debt * COMBAT_CRASH_STAMINA_PER_DEBT, COMBAT_CRASH_STAMINA_MAX) * crash_mult)
 	Jitter(10)
 	to_chat(src, span_warning("The chems let go all at once. Your legs go heavy and every muscle reminds you what you just put it through."))
 	add_movespeed_modifier(/datum/movespeed_modifier/combat_crash)
-	var/slow_seconds = min(debt * COMBAT_CRASH_SLOW_SECONDS_PER_DEBT, COMBAT_CRASH_SLOW_SECONDS_MAX)
+	var/slow_seconds = min(debt * COMBAT_CRASH_SLOW_SECONDS_PER_DEBT, COMBAT_CRASH_SLOW_SECONDS_MAX) * crash_mult
 	if(HAS_TRAIT(src, TRAIT_ADRENALINE_MANAGEMENT))
 		slow_seconds *= 0.5
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/combat_crash), slow_seconds SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)

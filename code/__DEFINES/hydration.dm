@@ -81,6 +81,7 @@
 #define HYDRATION_DEHYDRATED_MULT 1.35
 #define HYDRATION_IRON_STOMACH_MULT 0.4
 #define HYDRATION_DELICATE_STOMACH_MULT 1.6
+#define HYDRATION_ENDURANCE_STEP 0.05 // each point of Endurance above/below 5 changes how fast contamination builds up by this much
 
 // Healing is limited by what the body can repair, and repair costs water and food.
 #define HEAL_CAPACITY_HEADROOM 1.25 // total healing per tick the body can use, relative to the strongest healer present
@@ -129,6 +130,8 @@
 #define HEAL_SUPER_STIM_DEBUFF 1
 #define HEAL_SUPER_STIM_DEBUFF_TIME (120 SECONDS)
 #define HEAL_INT_RUSH_STEP 0.06 // each point of the applier's Intelligence above 5 cuts rushed-healing chance by this much
+#define HEAL_LUCK_RUSH_STEP 0.03 // each point of the applier's Luck above 5 cuts rushed-healing chance by this much
+#define HEAL_ENDURANCE_STEP 0.03 // each point of the patient's Endurance above/below 5 changes how well they take healing
 #define HEAL_NEEDLE_PHOBIA_ONSET 3 // ticks injected healers take to take effect on someone with a fear of needles
 
 // Rushed healing: fast-acting healers can seal embedded objects in and knit unset bones crooked.
@@ -155,6 +158,7 @@
 #define COMBAT_CRASH_STAMINA_MAX 50
 #define COMBAT_CRASH_SLOW_SECONDS_PER_DEBT 0.3
 #define COMBAT_CRASH_SLOW_SECONDS_MAX 30
+#define COMBAT_CRASH_ENDURANCE_STEP 0.06 // each point of Endurance above/below 5 shortens/lengthens the crash by this much
 #define COMBAT_MEDX_SMOOTHING 0.6 // Med-X numbs the comedown, so other combat chems build less debt while it is active
 #define COMBAT_STUN_RESIST_PSYCHO 8 // deciseconds shaved off stuns per tick, the best one applies and they do not stack
 #define COMBAT_STUN_RESIST_STIMULANTS 7

@@ -1424,26 +1424,26 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay.</center><br>"
 	dat += "<center>[total] out of [SPECIAL_MAX_POINT_SUM_CAP] possible</center><br>"
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
-	dat += "<font size='1'><i>Strength boosts your melee and unarmed damage, raises how much weight your bags/pockets/belt can carry, cuts Power Attack stamina costs, eases heavy armor's movement penalty, and gates some of the heaviest weapons.</i></font><br>"
+	dat += "<font size='3'><i>Strength boosts your melee and unarmed damage, raises how much weight your bags/pockets/belt can carry, cuts Power Attack stamina costs, eases heavy armor's movement penalty, and gates some of the heaviest weapons.</i></font><br>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
-	dat += "<font size='1'><i>Perception tightens your gun accuracy, reduces jams, and keeps your melee swings true even while blinded or blurry.</i></font><br>"
+	dat += "<font size='3'><i>Perception is a steady eye and a steady hand: straighter shots, fewer jams, and swings that land even when you can't see well. A sharp eye also makes you a better medic, and Mentats sharpen it for a while.</i></font><br>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
-	dat += "<font size='1'><i>Endurance raises your maximum health, resists radiation and poison, and lets you shake off an interrupted Power Attack faster.</i></font><br>"
+	dat += "<font size='3'><i>Endurance is how much punishment you can take: more health, tougher against rads, poison, and bad water, quicker to bounce back from chems and stimpaks, and quicker to shake off a hit.</i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
-	dat += "<font size='1'><i>Charisma colors how others perceive you on examine, and sets how many people you can escort in a pull chain or lead in a party.</i></font><br>"
+	dat += "<font size='3'><i>Charisma colors how others perceive you on examine, and sets how many people you can escort in a pull chain or lead in a party.</i></font><br>"
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
-	dat += "<font size='1'><i>Intelligence is required to craft at all, unlocks higher-tier recipes and some energy weapons, and speeds up field repairs.</i></font><br>"
+	dat += "<font size='3'><i>Intelligence is book smarts: you need it to craft at all, it unlocks better recipes and some energy weapons, and it speeds up repairs. Paired with Perception it is your Medicine skill, so stimpaks, poultices and bandages do more good in your hands and are less likely to go wrong.</i></font><br>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
-	dat += "<font size='1'><i>Agility quickens your sprinting, reloading/jam-clearing, melee swings, and Power Attack windups.</i></font><br>"
+	dat += "<font size='3'><i>Agility quickens your sprinting, reloading/jam-clearing, melee swings, and Power Attack windups.</i></font><br>"
 	dat += "<b>Luck        :</b> <a href='?_src_=prefs;preference=special_l;task=input'>[special_l]</a><BR>"
-	dat += "<font size='1'><i>Luck boosts caps found in trash piles and lowers your chance to jam a weapon or fumble an attack - at 3 or below, fumbles become a real risk.</i></font><br>"
+	dat += "<font size='3'><i>Luck is the wasteland's pity: more caps in the trash, fewer jams, and fewer botched swings, and a lucky medic is less likely to botch a rushed patch-up. At 3 or below, fumbles become a real risk.</i></font><br>"
 	if (total > SPECIAL_MAX_POINT_SUM_CAP)
 		dat += "<center>Maximum exceeded, please change until your total is at or below [SPECIAL_MAX_POINT_SUM_CAP]<center>"
 	else
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
 
 	user << browse(null, "window=preferences")
-	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=400x550;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
+	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=550x800;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
 /datum/preferences/proc/GetMaxTraits()
