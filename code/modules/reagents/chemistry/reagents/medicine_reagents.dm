@@ -44,6 +44,25 @@
 		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_SURGEON)
 	C.healer_trait_bonus = trait_bonus
 
+/// The Perception + Intelligence healing multiplier for hands-on healing (dressings, surgery), worked out the same way as for chems
+/proc/get_special_heal_mult(mob/living/healer, mob/living/target)
+	if(!istype(healer))
+		return 1
+	var/bonus = (healer.special_p + healer.special_i - 10) * HEAL_SPECIAL_STEP
+	if(healer == target)
+		if(bonus > 0)
+			bonus *= HEAL_SELF_BONUS_MULT
+	else
+		var/trait_bonus = 0
+		if(HAS_TRAIT(healer, TRAIT_FIELD_MEDIC))
+			trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_FIELD_MEDIC)
+		if(HAS_TRAIT(healer, TRAIT_MEDICALGRADUATE))
+			trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_GRADUATE)
+		if(HAS_TRAIT(healer, TRAIT_SURGEON))
+			trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_SURGEON)
+		bonus = max(bonus, trait_bonus)
+	return clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX)
+
 /mob/living/carbon/var/healer_stamp = -1
 /mob/living/carbon/var/healer_self = TRUE
 /mob/living/carbon/var/healer_per_int = 10
@@ -2479,7 +2498,7 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 2.25 * REAGENTS_METABOLISM //5u heals about 25 HP split across brute, burn and toxin, more for tribals and a little less for outsiders
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 37 HP over ~17s split across brute, burn and toxin, slightly more than a stimpak but much slower. More for tribals and a little less for outsiders
 	overdose_threshold = 31
 	var/heal_factor = -1.5
 	ghoulfriendly = TRUE

@@ -282,7 +282,7 @@
 				C.emote("scream") // a
 			C.update_damage_overlays()
 	if(heal_operations & DO_HEAL_DAMAGE)
-		var/medic_mult = get_medic_heal_mult(user)
+		var/medic_mult = get_medic_heal_mult(user) * get_special_heal_mult(user, C)
 		if(HAS_TRAIT(C, TRAIT_SLOW_HEALER))
 			medic_mult *= 0.8
 		// Dressings only help the body mend itself, so they need food and water and use them up like any other healing

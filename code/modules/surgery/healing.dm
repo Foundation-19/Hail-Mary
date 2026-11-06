@@ -94,7 +94,7 @@
 				tmsg = "[user] crudely stabilizes [target]"
 
 	// Surgery only tidies up the damage. The body still has to do the mending, so it needs food and water like any other healing
-	var/repair_factor = target.get_repair_resource_factor()
+	var/repair_factor = target.get_repair_resource_factor() * get_special_heal_mult(user, target)
 	urhealedamt_brute *= repair_factor
 	urhealedamt_burn *= repair_factor
 	urhealedamt_bleed *= repair_factor
