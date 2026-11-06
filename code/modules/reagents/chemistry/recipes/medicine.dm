@@ -12,11 +12,12 @@ datum/chemical_reaction/rezadone
 	results = list(/datum/reagent/medicine/rezadone = 3)
 	required_reagents = list(/datum/reagent/toxin/carpotoxin = 1, /datum/reagent/cryptobiolin = 1, /datum/reagent/copper = 1)
 
+// Penicillin is a mold product, so it is cultured from cave fungus on a sugar medium.
 /datum/chemical_reaction/spaceacillin
 	name = "Penicillin"
 	id = /datum/reagent/medicine/spaceacillin
-	results = list(/datum/reagent/medicine/spaceacillin = 2)
-	required_reagents = list(/datum/reagent/cryptobiolin = 1, /datum/reagent/medicine/epinephrine = 1)
+	results = list(/datum/reagent/medicine/spaceacillin = 3)
+	required_reagents = list(/datum/reagent/consumable/cavefungusjuice = 1, /datum/reagent/consumable/sugar = 1, /datum/reagent/water = 1)
 
 /datum/chemical_reaction/inacusiate
 	name = "inacusiate"
@@ -369,11 +370,12 @@ datum/chemical_reaction/rezadone
 	for(var/i = 1, i <= created_volume, i++)
 		new /obj/item/stack/medical/mesh/(location)
 
+// Med-X is a morphine-based painkiller. A stimulant like epinephrine works against it.
 /datum/chemical_reaction/medx
 	name = "Med-X"
 	id = /datum/reagent/medicine/medx
 	results = list(/datum/reagent/medicine/medx = 4)
-	required_reagents = list(/datum/reagent/medicine/epinephrine = 1, /datum/reagent/medicine/morphine = 1, /datum/reagent/consumable/daturajuice = 2)
+	required_reagents = list(/datum/reagent/medicine/morphine = 2, /datum/reagent/consumable/daturajuice = 2)
 	required_temp = 451
 
 
@@ -388,36 +390,34 @@ datum/chemical_reaction/rezadone
 	name = "Jet Antidote"
 	id = /datum/reagent/medicine/jet_antidote
 	results = list(/datum/reagent/medicine/jet_antidote = 3)
-	required_reagents = list(/datum/reagent/medicine/fixer = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/water/purified = 1)
+	required_reagents = list(/datum/reagent/medicine/fixer = 1, /datum/reagent/medicine/charcoal = 1, /datum/reagent/water = 1)
 
 /datum/chemical_reaction/rushing_water
 	name = "Rushing Water"
 	id = /datum/reagent/medicine/rushing_water
 	results = list(/datum/reagent/medicine/rushing_water = 3)
-	required_reagents = list(/datum/reagent/water/purified = 2, /datum/reagent/medicine/healing_powder = 1)
+	required_reagents = list(/datum/reagent/water = 2, /datum/reagent/medicine/healing_powder = 1)
 
+// Stimpak fluid is broc and xander extract bound with healing powder, the same herbs the handmade stimpak uses, so plants and chemistry make the same drug.
 /datum/chemical_reaction/stimfluid
 	name = "stimfluid"
 	id = /datum/reagent/medicine/stimpak
 	results = list(/datum/reagent/medicine/stimpak = 25)
 	required_reagents = list(
-		/datum/reagent/medicine/bicaridine = 5,
-		/datum/reagent/medicine/kelotane = 5,
-		/datum/reagent/medicine/styptic_powder = 5,
-		/datum/reagent/medicine/silver_sulfadiazine = 5,
-		/datum/reagent/medicine/morphine = 5,
+		/datum/reagent/consumable/brocjuice = 10,
+		/datum/reagent/consumable/xanderjuice = 10,
+		/datum/reagent/medicine/healing_powder = 5
 		)
 	required_temp = 451
 
-// Herb route: plants already carry bicaridine and kelotane, so a chemist working from broc and xander extracts needs only healing powder on top. Smaller yield than the full lab recipe.
-/datum/chemical_reaction/stimfluid_herbal
-	name = "stimfluid (herbal)"
-	id = "stimfluid_herbal"
-	results = list(/datum/reagent/medicine/stimpak = 15)
+// The second vial of a super stimpak is a stimulant, so the super fluid is stimfluid cut with epinephrine.
+/datum/chemical_reaction/super_stimfluid
+	name = "super stimfluid"
+	id = /datum/reagent/medicine/super_stimpak
+	results = list(/datum/reagent/medicine/super_stimpak = 10)
 	required_reagents = list(
-		/datum/reagent/medicine/healing_powder = 5,
-		/datum/reagent/medicine/bicaridine = 5,
-		/datum/reagent/medicine/kelotane = 5
+		/datum/reagent/medicine/stimpak = 10,
+		/datum/reagent/medicine/epinephrine = 5
 		)
 	required_temp = 451
 

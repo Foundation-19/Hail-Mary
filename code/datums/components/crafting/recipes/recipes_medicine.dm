@@ -93,6 +93,22 @@
 	time = 10
 	category = CAT_MEDICAL
 
+/datum/crafting_recipe/water_filter
+	name = "Charcoal filter pouch"
+	result = /obj/item/reagent_containers/pill/water_filter
+	reqs = list(/obj/item/stack/sheet/cloth = 1,
+				/obj/item/stack/sheet/mineral/coal = 1)
+	time = 5
+	category = CAT_MEDICAL
+
+/datum/crafting_recipe/water_filter5
+	name = "Charcoal filter pouches (x4)"
+	result = /obj/item/storage/box/medicine/water_filters
+	reqs = list(/obj/item/stack/sheet/cloth = 3,
+				/obj/item/stack/sheet/mineral/coal = 3)
+	time = 10
+	category = CAT_MEDICAL
+
 /datum/crafting_recipe/bloodleaf
 	name = "Bloodleaf salve"
 	result = /obj/item/stack/medical/gauze/bloodleaf/three
@@ -211,7 +227,7 @@
 	name = "Stimpak (from herbs)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
 	reqs = list(/obj/item/reagent_containers/pill/healingpowder = 2,
-				/datum/reagent/water/purified = 5,
+				/datum/reagent/water = 5,
 				/obj/item/reagent_containers/syringe = 1)
 	tools = list(TOOL_WORKBENCH)
 	time = 20
@@ -254,9 +270,7 @@
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/super // Not terribly hard to make once you secure an advanced workbench. a dangerous chem to rely on completely though.
 	reqs = list(/obj/item/reagent_containers/hypospray/medipen/stimpak = 1,
 				/obj/item/stack/sheet/leather = 1,
-				/obj/item/reagent_containers/food/snacks/grown/mutfruit = 1,
-				/datum/reagent/consumable/nuka_cola = 25,
-				/datum/reagent/radium = 5) // Nuka-Cola bottles have 5u radium in them.
+				/datum/reagent/medicine/epinephrine = 5) // The second vial in a super stimpak is a stimulant, and the leather is the belt that straps it to the limb.
 	blacklist = list(/obj/item/reagent_containers/hypospray/medipen/stimpak/cheap,
 				/obj/item/reagent_containers/hypospray/medipen/stimpak/epipak,
 				/obj/item/reagent_containers/hypospray/medipen/stimpak/random,
@@ -272,9 +286,7 @@
 	result = /obj/item/storage/box/medicine/stimpaks/superstimpaks5
 	reqs = list(/obj/item/reagent_containers/hypospray/medipen/stimpak = 5,
 				/obj/item/stack/sheet/leather = 5,
-				/obj/item/reagent_containers/food/snacks/grown/mutfruit = 5,
-				/datum/reagent/consumable/nuka_cola = 125,
-				/datum/reagent/radium = 25)
+				/datum/reagent/medicine/epinephrine = 25)
 	blacklist = list(/obj/item/reagent_containers/hypospray/medipen/stimpak/cheap,
 				/obj/item/reagent_containers/hypospray/medipen/stimpak/epipak,
 				/obj/item/reagent_containers/hypospray/medipen/stimpak/random,
