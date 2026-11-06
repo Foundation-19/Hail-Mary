@@ -1426,7 +1426,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
 	dat += "<font size='3'><i>Raw muscle. Hit harder in a fight, haul more in your bags and pockets, wear heavy armor without being slowed, swing power attacks with less effort, and win a grapple. Some of the heaviest weapons need it just to fire.</i></font><br>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
-	dat += "<font size='3'><i>A sharp eye and a steady aim. Shots fly straighter, guns jam less, and your swings still land when your vision is bad. Together with Intelligence it makes you a better medic. Mentats sharpen it for a while.</i></font><br>"
+	dat += "<font size='3'><i>A sharp eye and a steady aim. Shots fly straighter, guns jam less, and your swings still land when your vision is bad. Together with Intelligence it makes you a better medic.</i></font><br>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
 	dat += "<font size='3'><i>How much punishment you can take. More health, more stamina and quicker recovery, and a tougher body against rads, poison, bad water and chem crashes. You get taken down by grapples and shaken by hits less easily, and you take healing better.</i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
