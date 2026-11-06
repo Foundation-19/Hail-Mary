@@ -25,7 +25,7 @@
 	name = "repair body"
 	implements = list(TOOL_HEMOSTAT = 100, TOOL_SCREWDRIVER = 65, /obj/item/pen = 55)
 	repeatable = TRUE
-	time = 15
+	time = 30
 	var/brutehealing = 0
 	var/burnhealing = 0
 	var/woundhealing = 5
@@ -93,6 +93,12 @@
 				umsg = "You crudely stabilize [target] — they'll need proper medical care to fully recover"
 				tmsg = "[user] crudely stabilizes [target]"
 
+	// Surgery only tidies up the damage. The body still has to do the mending, so it needs food and water like any other healing
+	var/repair_factor = target.get_repair_resource_factor()
+	urhealedamt_brute *= repair_factor
+	urhealedamt_burn *= repair_factor
+	urhealedamt_bleed *= repair_factor
+	target.pay_repair_cost(min(urhealedamt_brute + urhealedamt_burn, target.getBruteLoss() + target.getFireLoss()))
 	target.heal_bodypart_damage(urhealedamt_brute, urhealedamt_burn, bleed = urhealedamt_bleed)
 	display_results(user, target, span_notice("[umsg]."),
 		"[tmsg].",
@@ -225,7 +231,7 @@
 	brutehealing = 6
 	burnhealing = 6
 	missinghpbonus = 15
-	time = 6
+	time = 20
 
 /datum/surgery_step/heal/combo/upgraded
 	brutehealing = 6

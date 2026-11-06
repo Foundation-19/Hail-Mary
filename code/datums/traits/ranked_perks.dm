@@ -234,7 +234,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank2
 	name = "Chemist II"
-	desc = "You've branched out into combat and performance chems. Requires Chemist I."
+	desc = "You've branched out into combat and performance chems: Turbo, Buffout, Steady, Mentats, Fixer and Cateye. Requires Chemist I."
 	value = 2
 	requires_quirk = "Chemist I"
 	mob_trait = TRAIT_CHEMWHIZ
@@ -260,7 +260,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank3
 	name = "Chemist III"
-	desc = "Decades of practice have taught you advanced chemical formulas. Requires Chemist II."
+	desc = "Decades of practice have taught you advanced chemical formulas: Jet and its variants, Psycho, Med-X, Rushing Water, Jet Antidote and Super Stimpaks. Requires Chemist II."
 	value = 4
 	requires_quirk = "Chemist II"
 	mob_trait = TRAIT_CHEMWHIZ

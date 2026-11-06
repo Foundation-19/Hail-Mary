@@ -173,7 +173,6 @@
 	tools = list(TOOL_WORKBENCH)
 	category = CAT_MEDICAL
 
-/*
 /datum/crafting_recipe/stimpak
 	name = "Stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
@@ -184,7 +183,7 @@
 	time = 10
 	category = CAT_MEDICAL
 	always_available = FALSE
-*/
+
 /*
 /datum/crafting_recipe/fake_stimpak
 	name = "Fake stimpak"
@@ -208,6 +207,17 @@
 	category = CAT_MEDICAL
 	always_available = FALSE
 
+/datum/crafting_recipe/stimpak/herbal // Plants are the ingredient, the stimpak is just the delivery system. Two powders' worth of herbs gives a full-strength dose, so it sits between the cheap pen and the chem-lab batch
+	name = "Stimpak (from herbs)"
+	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
+	reqs = list(/obj/item/reagent_containers/pill/healingpowder = 2,
+				/datum/reagent/water/purified = 5,
+				/obj/item/reagent_containers/syringe = 1)
+	tools = list(TOOL_WORKBENCH)
+	time = 20
+	category = CAT_MEDICAL
+	always_available = FALSE
+
 /datum/crafting_recipe/stimpak/chemistry // Purely chemistry recipe
 	name = "Stimpak (from chems)"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak
@@ -217,7 +227,7 @@
 	time = 10
 	category = CAT_MEDICAL
 	always_available = FALSE
-/*
+
 /datum/crafting_recipe/stimpak5
 	name = "Stimpak x5"
 	result = /obj/item/storage/box/medicine/stimpaks/stimpaks5
@@ -228,7 +238,7 @@
 	time = 20
 	category = CAT_MEDICAL
 	always_available = FALSE
-*/
+
 /datum/crafting_recipe/stimpak5/chemistry // Purely chemistry recipe
 	name = "Stimpak x5 (from chems)"
 	result = /obj/item/storage/box/medicine/stimpaks/stimpaks5
@@ -238,7 +248,7 @@
 	time = 20
 	category = CAT_MEDICAL
 	always_available = FALSE
-/*
+
 /datum/crafting_recipe/superstimpak
 	name = "Super Stimpak"
 	result = /obj/item/reagent_containers/hypospray/medipen/stimpak/super // Not terribly hard to make once you secure an advanced workbench. a dangerous chem to rely on completely though.
@@ -247,6 +257,11 @@
 				/obj/item/reagent_containers/food/snacks/grown/mutfruit = 1,
 				/datum/reagent/consumable/nuka_cola = 25,
 				/datum/reagent/radium = 5) // Nuka-Cola bottles have 5u radium in them.
+	blacklist = list(/obj/item/reagent_containers/hypospray/medipen/stimpak/cheap,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/epipak,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/random,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/super,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/custom)
 	tools = list(TOOL_AWORKBENCH)
 	time = 10
 	category = CAT_MEDICAL
@@ -260,11 +275,16 @@
 				/obj/item/reagent_containers/food/snacks/grown/mutfruit = 5,
 				/datum/reagent/consumable/nuka_cola = 125,
 				/datum/reagent/radium = 25)
+	blacklist = list(/obj/item/reagent_containers/hypospray/medipen/stimpak/cheap,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/epipak,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/random,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/super,
+				/obj/item/reagent_containers/hypospray/medipen/stimpak/custom)
 	tools = list(TOOL_AWORKBENCH)
 	time = 20
 	category = CAT_MEDICAL
 	always_available = FALSE
-*/
+
 /datum/crafting_recipe/salvage_stimpak
 	name = "Salvage injector"
 	result = /obj/item/reagent_containers/syringe
@@ -368,6 +388,82 @@
 				/obj/item/reagent_containers/food/snacks/grown/coyotetobacco = 1)
 	time = 35
 	tools = list(TOOL_WORKBENCH)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+// Pressing already-brewed chems into their proper pill or patch. Chemist ranks unlock these, so brewed chems are not stuck as loose reagents.
+/datum/crafting_recipe/mentat
+	name = "Mentat"
+	result = /obj/item/reagent_containers/pill/mentat
+	reqs = list(/datum/reagent/medicine/mentat = 10)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/party_time_mentat
+	name = "Party Time Mentat"
+	result = /obj/item/reagent_containers/pill/mentat/party_time
+	reqs = list(/datum/reagent/medicine/mentat = 10,
+				/datum/reagent/consumable/grapejuice = 3,
+				/datum/reagent/consumable/orangejuice = 3,
+				/datum/reagent/consumable/berryjuice = 3)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/fixer
+	name = "Fixer"
+	result = /obj/item/reagent_containers/pill/fixer
+	reqs = list(/datum/reagent/medicine/fixer = 10)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/jet_antidote
+	name = "Jet Antidote"
+	result = /obj/item/reagent_containers/pill/jet_antidote
+	reqs = list(/datum/reagent/medicine/jet_antidote = 10)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/cateye
+	name = "Cateye"
+	result = /obj/item/reagent_containers/pill/cateye
+	reqs = list(/datum/reagent/drug/cateye = 10)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/rushing_water
+	name = "Rushing Water"
+	result = /obj/item/reagent_containers/pill/rushing_water
+	reqs = list(/datum/reagent/medicine/rushing_water = 10)
+	time = 10
+	tools = list(TOOL_ALCHEMY_TABLE) // Sorrows tribal brew, bottled on an alchemy table rather than pressed by a chem master
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/ultrajet
+	name = "Ultrajet"
+	result = /obj/item/reagent_containers/pill/patch/ultrajet
+	reqs = list(/datum/reagent/drug/jet/ultrajet = 10)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
+	category = CAT_MEDICAL
+	always_available = FALSE
+
+/datum/crafting_recipe/jet_stream
+	name = "Jet Stream"
+	result = /obj/item/reagent_containers/pill/patch/jet_stream
+	reqs = list(/datum/reagent/drug/jet/jet_stream = 10)
+	time = 10
+	tools = list(TOOL_CHEMMASTER)
 	category = CAT_MEDICAL
 	always_available = FALSE
 

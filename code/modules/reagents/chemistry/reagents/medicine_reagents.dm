@@ -293,9 +293,13 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	return 1
 
 /datum/reagent/medicine/proc/get_repair_resource_factor(mob/living/carbon/M)
+	return M.get_repair_resource_factor()
+
+/// Tissue repair needs water and food however the healing is delivered, so chems, dressings and surgery all share this
+/mob/living/carbon/proc/get_repair_resource_factor()
 	var/factor = 1
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
 		if(H.needs_hydration())
 			switch(H.hydration_tier)
 				if(HYDRATION_TIER_THIRSTY)
@@ -304,32 +308,35 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 					factor *= HEAL_FACTOR_PARCHED
 				if(HYDRATION_TIER_CRITICAL)
 					factor *= HEAL_FACTOR_DEHYDRATED
-	if(!HAS_TRAIT(M, TRAIT_NOHUNGER))
-		if(M.nutrition < NUTRITION_LEVEL_STARVING)
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		if(nutrition < NUTRITION_LEVEL_STARVING)
 			factor *= HEAL_FACTOR_STARVING
-		else if(M.nutrition < NUTRITION_LEVEL_HUNGRY)
+		else if(nutrition < NUTRITION_LEVEL_HUNGRY)
 			factor *= HEAL_FACTOR_HUNGRY
-	if(HAS_TRAIT(M, TRAIT_HARDY_METABOLISM))
+	if(HAS_TRAIT(src, TRAIT_HARDY_METABOLISM))
 		factor = 1 - (1 - factor) * 0.5
-	if(M.drunkenness > HYDRATION_DRUNK_THRESHOLD && !HAS_TRAIT(M, TRAIT_ALCOHOL_TOLERANCE))
+	if(drunkenness > HYDRATION_DRUNK_THRESHOLD && !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE))
 		factor *= HEAL_ALCOHOL_FACTOR
 	return max(factor, HEAL_FACTOR_MIN)
 
 /datum/reagent/medicine/proc/pay_repair_cost(mob/living/carbon/M, healed)
-	// Nothing to repair costs nothing, and big healers are charged no more per tick than small ones
-	if(M.getBruteLoss() + M.getFireLoss() <= 0)
-		return
+	// Big healers are charged no more per tick than small ones
 	healed = min(healed, HEAL_COST_CAP)
-	if(heal_origin == HEAL_ORIGIN_HERBAL)
-		healed *= HEAL_HERBAL_COST_MULT
-	if(HAS_TRAIT(M, TRAIT_HARDY_METABOLISM))
+	M.pay_repair_cost(healed, heal_origin == HEAL_ORIGIN_HERBAL ? HEAL_HERBAL_COST_MULT : 1)
+
+/// Charges thirst and nutrition for healing, but only while there is something to repair
+/mob/living/carbon/proc/pay_repair_cost(healed, cost_mult = 1)
+	if(getBruteLoss() + getFireLoss() <= 0)
+		return
+	healed *= cost_mult
+	if(HAS_TRAIT(src, TRAIT_HARDY_METABOLISM))
 		healed *= 0.5
-	if(ishuman(M))
-		var/mob/living/carbon/human/H = M
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
 		if(H.needs_hydration())
 			H.adjust_thirst(-healed * HEAL_COST_THIRST)
-	if(!HAS_TRAIT(M, TRAIT_NOHUNGER))
-		M.adjust_nutrition(-healed * HEAL_COST_NUTRITION)
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		adjust_nutrition(-healed * HEAL_COST_NUTRITION)
 
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
 	current_cycle++
@@ -647,6 +654,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	color = "#ffeac9"
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 50
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/item/stack/medical/gauze))
@@ -668,7 +677,10 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 			if(show_message)
 				to_chat(M, span_warning("You don't feel so good..."))
 		else if(M.getFireLoss())
-			M.adjustFireLoss(-reac_volume)
+			var/mob/living/carbon/topical_target = M
+			var/topical = reac_volume * HEAL_TOPICAL_MULT * topical_target.get_repair_resource_factor()
+			M.adjustFireLoss(-topical)
+			topical_target.pay_repair_cost(min(topical, HEAL_COST_CAP * 4))
 			if(show_message)
 				to_chat(M, span_danger("You feel your burns healing! It stings like hell!"))
 			M.emote("scream")
@@ -676,7 +688,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustFireLoss(-2*REM*heal_mult, 0)
 	..()
 	. = 1
 
@@ -725,6 +738,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	pH = 6.7
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 50
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -739,7 +754,10 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 			if(show_message)
 				to_chat(M, span_warning("You don't feel so good..."))
 		else if(M.getBruteLoss())
-			M.adjustBruteLoss(-reac_volume)
+			var/mob/living/carbon/topical_target = M
+			var/topical = reac_volume * HEAL_TOPICAL_MULT * topical_target.get_repair_resource_factor()
+			M.adjustBruteLoss(-topical)
+			topical_target.pay_repair_cost(min(topical, HEAL_COST_CAP * 4))
 			if(show_message)
 				to_chat(M, span_danger("You feel your bruises healing! It stings like hell!"))
 			M.emote("scream")
@@ -754,7 +772,8 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 		G.use(reac_volume)
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustBruteLoss(-2*REM*heal_mult, 0)
 	..()
 	. = 1
 
@@ -879,8 +898,10 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 		else if(method == INJECT)
 			return
 		else if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1 * reac_volume, include_roboparts = isrobotic(M))
-			M.adjustFireLoss(-1 * reac_volume, include_roboparts = isrobotic(M))
+			var/topical = reac_volume * HEAL_TOPICAL_MULT * C.get_repair_resource_factor()
+			M.adjustBruteLoss(-topical, include_roboparts = isrobotic(M))
+			M.adjustFireLoss(-topical, include_roboparts = isrobotic(M))
+			C.pay_repair_cost(min(topical * 2, HEAL_COST_CAP * 4))
 			for(var/i in C.all_wounds)
 				var/datum/wound/iter_wound = i
 				iter_wound.on_synthflesh(reac_volume)
@@ -931,12 +952,15 @@ GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx
 	value = REAGENT_VALUE_UNCOMMON
 	var/healing = 0.5
 	ghoulfriendly = TRUE
+	heal_nominal = 1
+	heal_onset = 3
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-healing*REM, 0)
-	M.adjustOxyLoss(-healing*REM, 0)
-	M.adjustBruteLoss(-healing*REM, 0)
-	M.adjustFireLoss(-healing*REM, 0)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustToxLoss(-healing*REM*heal_mult, 0)
+	M.adjustOxyLoss(-healing*REM*heal_mult, 0)
+	M.adjustBruteLoss(-healing*REM*heal_mult, 0)
+	M.adjustFireLoss(-healing*REM*heal_mult, 0)
 	..()
 	. = 1
 

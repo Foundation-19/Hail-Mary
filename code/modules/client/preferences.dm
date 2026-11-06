@@ -1599,9 +1599,13 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 				var/quirk = href_list["trait"]
 				if(!SSquirks.quirks[quirk])
 					return
+				var/datum/quirk/rank_path = SSquirks.quirks[quirk]
+				var/replaced_rank = (quirk in all_quirks) ? null : initial(rank_path.requires_quirk) //a rank-up swaps out the lower rank, so it can't conflict with it
 				for(var/V in SSquirks.quirk_blacklist) //V is a list
 					var/list/L = V
 					for(var/Q in all_quirks)
+						if(Q == replaced_rank)
+							continue
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
 							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return

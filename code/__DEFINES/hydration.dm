@@ -89,6 +89,7 @@
 #define HEAL_COST_NUTRITION 0.8 // nutrition lost per HP restored
 #define HEAL_COST_CAP 3 // HP worth of cost charged per tick, so major meds drain no more than minor ones
 #define HEAL_HERBAL_COST_MULT 0.5 // herbal remedies heal less, so they also cost less food and water
+#define HEAL_TOPICAL_MULT 0.5 // sprays and patches heal the surface only, so they work at half strength and use the same repair budget as everything else
 #define HEAL_FACTOR_THIRSTY 0.9
 #define HEAL_FACTOR_PARCHED 0.75
 #define HEAL_FACTOR_DEHYDRATED 0.5

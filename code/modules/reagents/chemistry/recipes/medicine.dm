@@ -409,6 +409,18 @@ datum/chemical_reaction/rezadone
 		)
 	required_temp = 451
 
+// Herb route: plants already carry bicaridine and kelotane, so a chemist working from broc and xander extracts needs only healing powder on top. Smaller yield than the full lab recipe.
+/datum/chemical_reaction/stimfluid_herbal
+	name = "stimfluid (herbal)"
+	id = "stimfluid_herbal"
+	results = list(/datum/reagent/medicine/stimpak = 15)
+	required_reagents = list(
+		/datum/reagent/medicine/healing_powder = 5,
+		/datum/reagent/medicine/bicaridine = 5,
+		/datum/reagent/medicine/kelotane = 5
+		)
+	required_temp = 451
+
 /datum/chemical_reaction/bitterdrink
 	name = "Bitter drink"
 	id = /datum/reagent/medicine/bitter_drink
