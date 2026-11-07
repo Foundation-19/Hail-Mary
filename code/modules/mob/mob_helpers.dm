@@ -399,6 +399,12 @@ It's fairly easy to fix if dealing with single letters but not so much with comp
 					A.add_overlay(alert_overlay)
 
 /proc/item_heal_robotic(mob/living/carbon/human/H, mob/user, brute_heal, burn_heal)
+	if(HAS_TRAIT(user, TRAIT_ROBOTICS_EXPERT_RANK2))
+		brute_heal *= 1.5
+		burn_heal *= 1.5
+	else if(HAS_TRAIT(user, TRAIT_ROBOTICS_EXPERT_RANK1))
+		brute_heal *= 1.25
+		burn_heal *= 1.25
 	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
 	if(affecting && affecting.status == BODYPART_ROBOTIC)
 		var/dam //changes repair text based on how much brute/burn was supplied

@@ -5,14 +5,36 @@ GLOBAL_LIST_INIT(chemwhiz_recipes_basic, list(
 GLOBAL_LIST_INIT(chemwhiz_recipes_mid, list(
 	/datum/crafting_recipe/turbo,
 	/datum/crafting_recipe/buffout,
-	/datum/crafting_recipe/steady))
+	/datum/crafting_recipe/steady,
+	/datum/crafting_recipe/stimpak/herbal,
+	/datum/crafting_recipe/mentat,
+	/datum/crafting_recipe/party_time_mentat,
+	/datum/crafting_recipe/fixer,
+	/datum/crafting_recipe/cateye))
 
 GLOBAL_LIST_INIT(chemwhiz_recipes_advanced, list(
+	// Advanced chemists also know everything from the mid tier, which matters for jobs that are handed only the basic and advanced lists
+	/datum/crafting_recipe/turbo,
+	/datum/crafting_recipe/buffout,
+	/datum/crafting_recipe/steady,
+	/datum/crafting_recipe/stimpak/herbal,
+	/datum/crafting_recipe/mentat,
+	/datum/crafting_recipe/party_time_mentat,
+	/datum/crafting_recipe/fixer,
+	/datum/crafting_recipe/cateye,
 	/datum/crafting_recipe/jet,
 	/datum/crafting_recipe/psycho,
 	/datum/crafting_recipe/medx,
 	/datum/crafting_recipe/stimpak/chemistry,
-	/datum/crafting_recipe/stimpak5/chemistry))
+	/datum/crafting_recipe/stimpak5/chemistry,
+	/datum/crafting_recipe/superstimpak,
+	/datum/crafting_recipe/superstimpak5,
+	/datum/crafting_recipe/superstimpak/chemistry,
+	/datum/crafting_recipe/superstimpak5/chemistry,
+	/datum/crafting_recipe/ultrajet,
+	/datum/crafting_recipe/jet_stream,
+	/datum/crafting_recipe/jet_antidote,
+	/datum/crafting_recipe/rushing_water))
 
 GLOBAL_LIST_INIT(basic_explosive_recipes, list(
 	/datum/crafting_recipe/frag_shrapnel,
@@ -38,6 +60,11 @@ GLOBAL_LIST_INIT(tier_three_parts, list(
 	/datum/crafting_recipe/phasic_scanning,
 	/datum/crafting_recipe/super_capacitor,
 	/datum/crafting_recipe/ultra_micro_laser))
+
+GLOBAL_LIST_INIT(energyweapon_cell_basic, list(
+	/datum/crafting_recipe/ecbad,
+	/datum/crafting_recipe/mfcbad,
+	/datum/crafting_recipe/ecpbad))
 
 GLOBAL_LIST_INIT(energyweapon_cell_crafting, list(
 	/datum/crafting_recipe/enhancedenergycell,
@@ -67,9 +94,6 @@ GLOBAL_LIST_INIT(weaponcrafting_gun_recipes, list(
 	/datum/crafting_recipe/heatsink,
 	/datum/crafting_recipe/laserguide,
 	/datum/crafting_recipe/gigalens,
-	/datum/crafting_recipe/ecpbad,
-	/datum/crafting_recipe/mfcbad,
-	/datum/crafting_recipe/ecbad,
 	/datum/crafting_recipe/gun/flintlock,
 	/datum/crafting_recipe/gun/flintlock_laser))
 
@@ -80,6 +104,7 @@ GLOBAL_LIST_INIT(former_tribal_recipes, list(
 	/datum/crafting_recipe/bitterdrink5,
 	/datum/crafting_recipe/healpoultice,
 	/datum/crafting_recipe/healpoultice5,
+	/datum/crafting_recipe/rushing_water,
 	//datum/crafting_recipe/redpotion,
 	//datum/crafting_recipe/bluepotion,
 	//datum/crafting_recipe/greenpotion,
@@ -695,8 +720,8 @@ is also still granted for free by the paired Wasteland Trait "Heavy Handed" (cod
 
 /datum/quirk/iron_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, IRON_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, IRON_FIST_PUNCH_DAMAGE_MAX)
 */
 /*
 Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_perks.dm)
@@ -711,8 +736,8 @@ Merged into ranked Wasteland Perk "Iron Fist" Rank 2 (code/datums/traits/ranked_
 
 /datum/quirk/steel_fist/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, STEEL_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, STEEL_FIST_PUNCH_DAMAGE_MAX)
 */
 
 /datum/quirk/light_step

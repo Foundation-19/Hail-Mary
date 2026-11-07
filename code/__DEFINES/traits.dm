@@ -269,6 +269,15 @@
 #define TRAIT_WATER_WISE	"water_wise" //Thirst builds more slowly
 #define TRAIT_IRON_STOMACH	"iron_stomach" //Dirty water rarely makes you sick
 #define TRAIT_DELICATE_STOMACH	"delicate_stomach" //Liability: dirty water makes you sick more often
+#define TRAIT_HARDY_METABOLISM	"hardy_metabolism" //Healing costs less water and food, and hunger and thirst slow it less
+#define TRAIT_SEASONED_USER	"seasoned_user" //Healing chem tolerance builds more slowly
+#define TRAIT_CAST_IRON_CONSTITUTION	"cast_iron_constitution" //Chem interactions hit much less hard
+#define TRAIT_CLEAN_LIVING	"clean_living" //Addiction builds more slowly
+#define TRAIT_CAREFUL_DOSING	"careful_dosing" //Overdose threshold is higher
+#define TRAIT_DETOX_SPECIALIST	"detox_specialist" //Fixer and Jet Antidote have milder side effects
+#define TRAIT_ADRENALINE_MANAGEMENT	"adrenaline_management" //Combat chems build less debt, and the crash is shorter
+#define TRAIT_FRAIL_CONSTITUTION	"frail_constitution" //Liability: healing chems work worse, but tolerance builds more slowly
+#define TRAIT_NEEDLE_PHOBIA	"needle_phobia" //Liability: injected healers are slow to take effect
 #define TRAIT_CAMPER	"camper" //Campfires burn longer and cook faster
 #define TRAIT_QUICK_CLEAN	"quick_clean" //Soap cleans faster
 #define TRAIT_DODGER_RANK1	"dodger_rank1" //Chance to fully avoid melee attacks
@@ -361,6 +370,7 @@
 #define TRAIT_TRIGGER_DISCIPLINE	"trigger_discipline" //-25% recoil, -20% rate of fire.
 #define TRAIT_PERFECT_ATTACKER	"perfect_attacker"
 #define TRAIT_BUFFOUT_BUFF		"buffout_buff"
+#define TRAIT_PSYCHO_BUFF		"psycho_buff"
 #define TRAIT_UNARMED_WEAPON	"unarmed_weapon"
 /// Prevents usage of manipulation appendages (picking, holding or using items, manipulating storage).
 #define TRAIT_HANDS_BLOCKED "handsblocked"

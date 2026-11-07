@@ -126,7 +126,11 @@
 		update_icon()
 
 /obj/item/gun/energy/can_shoot()
+	if(!islist(ammo_type) || !ammo_type.len)
+		return FALSE
 	var/obj/item/ammo_casing/energy/shot = ammo_type[current_firemode_index]
+	if(!shot)
+		return FALSE
 	return !QDELETED(cell) ? (cell.charge >= shot.e_cost) : FALSE
 
 /obj/item/gun/energy/recharge_newshot(no_cyborg_drain)

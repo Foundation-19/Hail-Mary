@@ -1338,6 +1338,8 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			continue
 		if(initial(T.mood_quirk) && CONFIG_GET(flag/disable_human_mood))
 			continue
+		if(!MeetsQuirkSpecies(T))
+			continue
 		var/list/chain = PerkChainFor(T)
 		if(PerkChainOwned(chain)) //already taken: shown in the selections area instead
 			continue
@@ -1386,13 +1388,13 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			dat += "<div class='perk-section'>WASTELAND TRAITS - free, every one bundles a boon with a burden &nbsp; ([GetTraitCount()] / [GetMaxTraits()] recorded)</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(!initial(T.is_trait) || (initial(T.name) in all_quirks))
+				if(!initial(T.is_trait) || (initial(T.name) in all_quirks) || !MeetsQuirkSpecies(T))
 					continue
 				dat += RenderQuirkRow(T, is_trait_row = TRUE)
 			dat += "<div class='perk-section'>COSMETIC - free flavor picks, no Perk Point cost, no slot limit</div>"
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(initial(T.is_trait) || initial(T.value) != 0 || (initial(T.name) in all_quirks))
+				if(initial(T.is_trait) || initial(T.value) != 0 || (initial(T.name) in all_quirks) || !MeetsQuirkSpecies(T))
 					continue
 				dat += RenderQuirkRow(T)
 		else if(quirk_category == QUIRK_POSITIVE)
@@ -1400,7 +1402,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 		else
 			for(var/V in SSquirks.quirks)
 				var/datum/quirk/T = SSquirks.quirks[V]
-				if(initial(T.is_trait) || initial(T.value) >= 0 || (initial(T.name) in all_quirks))
+				if(initial(T.is_trait) || initial(T.value) >= 0 || (initial(T.name) in all_quirks) || !MeetsQuirkSpecies(T))
 					continue
 				dat += RenderQuirkRow(T)
 		dat += "<br><center><a href='?_src_=prefs;preference=trait;task=reset'>Reset All</a></center>"
@@ -1421,29 +1423,29 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 	var/total = special_s + special_p + special_e + special_c + special_i + special_a + special_l
 
 	dat += "<center><b>Allocate points</b></center>"
-	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay.</center><br>"
+	dat += "<center>Note: SPECIAL is functional here. These points have an effect on gameplay. Perks and quirks build on them.</center><br>"
 	dat += "<center>[total] out of [SPECIAL_MAX_POINT_SUM_CAP] possible</center><br>"
 	dat += "<b>Strength	   :</b> <a href='?_src_=prefs;preference=special_s;task=input'>[special_s]</a><BR>"
-	dat += "<font size='1'><i>Strength boosts your melee and unarmed damage, raises how much weight your bags/pockets/belt can carry, cuts Power Attack stamina costs, eases heavy armor's movement penalty, and gates some of the heaviest weapons.</i></font><br>"
+	dat += "<font size='3'><i>Raw muscle. Hit harder in a fight, haul more in your bags and pockets, wear heavy armor without being slowed, swing power attacks with less effort, and win a grapple. Some of the heaviest weapons need it just to fire.</i></font><br>"
 	dat += "<b>Perception  :</b> <a href='?_src_=prefs;preference=special_p;task=input'>[special_p]</a><BR>"
-	dat += "<font size='1'><i>Perception tightens your gun accuracy, reduces jams, and keeps your melee swings true even while blinded or blurry.</i></font><br>"
+	dat += "<font size='3'><i>A sharp eye and a steady aim. Shots fly straighter, guns jam less, and your swings still land when your vision is bad. Together with Intelligence it makes you a better medic.</i></font><br>"
 	dat += "<b>Endurance   :</b> <a href='?_src_=prefs;preference=special_e;task=input'>[special_e]</a><BR>"
-	dat += "<font size='1'><i>Endurance raises your maximum health, resists radiation and poison, and lets you shake off an interrupted Power Attack faster.</i></font><br>"
+	dat += "<font size='3'><i>How much punishment you can take. More health, more stamina and quicker recovery, and a tougher body against rads, poison, bad water and chem crashes. You get taken down by grapples and shaken by hits less easily, and you take healing better.</i></font><br>"
 	dat += "<b>Charisma    :</b> <a href='?_src_=prefs;preference=special_c;task=input'>[special_c]</a><BR>"
-	dat += "<font size='1'><i>Charisma colors how others perceive you on examine, and sets how many people you can escort in a pull chain or lead in a party.</i></font><br>"
+	dat += "<font size='3'><i>How people take to you. It shapes what they think when they look you over, how many people you can lead in a party or drag along, and how much your leadership inspires them. A high score rallies the people around you. A very low score makes you downright menacing, and hits a bit harder.</i></font><br>"
 	dat += "<b>Intelligence:</b> <a href='?_src_=prefs;preference=special_i;task=input'>[special_i]</a><BR>"
-	dat += "<font size='1'><i>Intelligence is required to craft at all, unlocks higher-tier recipes and some energy weapons, and speeds up field repairs.</i></font><br>"
+	dat += "<font size='3'><i>Book smarts. You need it to craft at all, and better recipes and some high-tech weapons need more of it. You repair guns better. With Perception it is your Medicine skill, so stimpaks, poultices and bandages do more good in your hands and are less likely to go wrong. 7 or more (Intelligence or Luck) earns an extra perk and quirk slot, and 8 or more an extra point to spend.</i></font><br>"
 	dat += "<b>Agility     :</b> <a href='?_src_=prefs;preference=special_a;task=input'>[special_a]</a><BR>"
-	dat += "<font size='1'><i>Agility quickens your sprinting, reloading/jam-clearing, melee swings, and Power Attack windups.</i></font><br>"
+	dat += "<font size='3'><i>Quick feet and quick hands. You sprint faster and farther, reload and clear jams sooner, and swing and wind up power attacks faster. Heavy armor drags your sprint down.</i></font><br>"
 	dat += "<b>Luck        :</b> <a href='?_src_=prefs;preference=special_l;task=input'>[special_l]</a><BR>"
-	dat += "<font size='1'><i>Luck boosts caps found in trash piles and lowers your chance to jam a weapon or fumble an attack - at 3 or below, fumbles become a real risk.</i></font><br>"
+	dat += "<font size='3'><i>The wasteland's pity. More caps in the trash, more critical hits, fewer jams, and a lucky medic is less likely to botch a rushed patch-up. Perks like Second Wind lean on it too. At 3 or below, fumbles and dropped guns become a real risk.</i></font><br>"
 	if (total > SPECIAL_MAX_POINT_SUM_CAP)
 		dat += "<center>Maximum exceeded, please change until your total is at or below [SPECIAL_MAX_POINT_SUM_CAP]<center>"
 	else
 		dat += "<center><a href='?_src_=prefs;preference=special;task=close'>Done</a></center>"
 
 	user << browse(null, "window=preferences")
-	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=400x550;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
+	user << browse(get_terminal_page(dat.Join(), "&#9654; S.P.E.C.I.A.L &#9664;"), "window=mob_occupation;size=550x800;can_close=0;can_minimize=1;can_maximize=0;can_resize=1;titlebar=1;")
 	return
 
 /datum/preferences/proc/GetMaxTraits()
@@ -1454,6 +1456,10 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 
 /datum/preferences/proc/GetBonusQuirkPoints()
 	return (special_i >= SPECIAL_POINT_BONUS_THRESHOLD || special_l >= SPECIAL_POINT_BONUS_THRESHOLD) ? 1 : 0
+
+//Returns TRUE if our species may take the given quirk typepath (see code/datums/traits/species_perks.dm)
+/datum/preferences/proc/MeetsQuirkSpecies(datum/quirk/T)
+	return quirk_allowed_for_species(T, pref_species.id)
 
 //Returns TRUE if our SPECIAL meets the lock of the given quirk typepath
 /datum/preferences/proc/MeetsQuirkSpecial(datum/quirk/T)
@@ -1473,6 +1479,11 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 
 //Drops every quirk whose SPECIAL lock is unmet (e.g. after SPECIAL was lowered), then any picks beyond the SPECIAL-scaled caps
 /datum/preferences/proc/EnforceQuirkLimits()
+	//perks that don't fit our species are dropped outright, whatever rank they are
+	for(var/V in all_quirks.Copy())
+		var/datum/quirk/T = SSquirks.quirks[V]
+		if(T && !MeetsQuirkSpecies(T))
+			all_quirks -= V
 	for(var/V in all_quirks.Copy())
 		var/datum/quirk/T = SSquirks.quirks[V]
 		if(!T || MeetsQuirkSpecial(T))
@@ -1504,6 +1515,16 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 			if(SSquirks.quirk_points[all_quirks[i]] > 0)
 				all_quirks.Cut(i, i + 1)
 				break
+	//dropping a liability refunds nothing, so a species swap can leave the point budget overspent
+	while(GetQuirkBalance() < 0)
+		var/dropped = FALSE
+		for(var/i in length(all_quirks) to 1 step -1)
+			if(SSquirks.quirk_points[all_quirks[i]] > 0 && !SSquirks.quirk_is_trait_by_name(all_quirks[i]))
+				all_quirks.Cut(i, i + 1)
+				dropped = TRUE
+				break
+		if(!dropped)
+			break
 
 /datum/preferences/proc/GetQuirkBalance()
 	var/bal = CONFIG_GET(number/quirk_points) + GetBonusQuirkPoints() //server-configurable base Trait Point budget (SPECIAL can add one)
@@ -1599,13 +1620,20 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 				var/quirk = href_list["trait"]
 				if(!SSquirks.quirks[quirk])
 					return
+				var/datum/quirk/rank_path = SSquirks.quirks[quirk]
+				var/replaced_rank = (quirk in all_quirks) ? null : initial(rank_path.requires_quirk) //a rank-up swaps out the lower rank, so it can't conflict with it
 				for(var/V in SSquirks.quirk_blacklist) //V is a list
 					var/list/L = V
 					for(var/Q in all_quirks)
+						if(Q == replaced_rank)
+							continue
 						if((quirk in L) && (Q in L) && !(Q == quirk)) //two quirks have lined up in the list of the list of quirks that conflict with each other, so return (see quirks.dm for more details)
 							to_chat(user, span_danger("[quirk] is incompatible with [Q]."))
 							return
 				var/datum/quirk/lock_path = SSquirks.quirks[quirk]
+				if(!(quirk in all_quirks) && !MeetsQuirkSpecies(lock_path))
+					to_chat(user, span_warning("[quirk] isn't available to a [pref_species.name]."))
+					return
 				if(!(quirk in all_quirks) && !MeetsQuirkSpecial(lock_path))
 					to_chat(user, span_warning("You don't meet the S.P.E.C.I.A.L. requirement for [quirk]: [QuirkSpecialReqText(lock_path)]."))
 					return
@@ -2021,6 +2049,7 @@ GLOBAL_LIST_INIT(perk_stat_tabs, list("special_s" = "STR", "special_p" = "PER", 
 					if(result)
 						var/newtype = GLOB.species_list[GLOB.roundstart_race_names[result]]
 						pref_species = new newtype()
+						EnforceQuirkLimits() //perks that don't suit the new species are dropped
 						//let's ensure that no weird shit happens on species swapping.
 						custom_species = null
 						if(!parent.can_have_part("mam_body_markings"))

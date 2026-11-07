@@ -38,9 +38,6 @@ GLOBAL_LIST_INIT(gunsmith_recipes_mods, list(
 	/datum/crafting_recipe/gun/flintlock))
 
 GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
-	/datum/crafting_recipe/ecpbad,
-	/datum/crafting_recipe/mfcbad,
-	/datum/crafting_recipe/ecbad,
 	/datum/crafting_recipe/gun/flintlock_laser))
 
 /* ---------------------------------- Gun Nut ---------------------------------- */
@@ -96,7 +93,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/gunsmith_rank3
 	name = "Gun Nut III"
-	desc = "You've gone from gunsmith to weapons master, fabricating the finest energy-weapon-grade components in the Wasteland. Requires Gun Nut II."
+	desc = "You've gone from gunsmith to weapons master, able to build even the strangest custom firearms, like a laser-wired flintlock. Requires Gun Nut II."
 	value = 6
 	requires_quirk = "Gun Nut II"
 	mob_trait = TRAIT_WEAPONSMITH
@@ -126,7 +123,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/technophreak_rank1
 	name = "Science! I"
-	desc = "You're skilled at breaking down old-war rubble more precisely, gaining more salvage from cars and piles. Unlocks energy weapon cell crafting and power armor repair."
+	desc = "You're skilled at breaking down old-war rubble more precisely, gaining more salvage from cars and piles. Unlocks crafting of small energy cells, microfusion cells and electron charge packs, and power armor repair."
 	value = 2
 	mob_trait = TRAIT_TECHNOPHREAK
 	gain_text = span_notice("Old-War rubble seems considerably more generous to you.")
@@ -140,18 +137,18 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
-	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.pa_repair
 
 /datum/quirk/technophreak_rank1/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
-		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.pa_repair
 
 /datum/quirk/technophreak_rank2
 	name = "Science! II"
-	desc = "Your mastery of complex pre-war technology lets you craft top-tier machine parts. Requires Science! I."
+	desc = "Your mastery of complex pre-war technology lets you craft top-tier machine parts and enhanced energy cells. Requires Science! I."
 	value = 4
 	requires_quirk = "Science! I"
 	mob_trait = TRAIT_TECHNOPHREAK
@@ -166,6 +163,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 	H.mind.learned_recipes |= GLOB.tier_three_parts
@@ -173,6 +171,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 /datum/quirk/technophreak_rank2/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 		H.mind.learned_recipes -= GLOB.tier_three_parts
@@ -194,6 +193,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	var/mob/living/carbon/human/H = quirk_holder
 	if(!H.mind.learned_recipes)
 		H.mind.learned_recipes = list()
+	H.mind.learned_recipes |= GLOB.energyweapon_cell_basic
 	H.mind.learned_recipes |= GLOB.energyweapon_cell_crafting
 	H.mind.learned_recipes |= GLOB.pa_repair
 	H.mind.learned_recipes |= GLOB.tier_three_parts
@@ -202,6 +202,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 /datum/quirk/technophreak_rank3/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H && H.mind)
+		H.mind.learned_recipes -= GLOB.energyweapon_cell_basic
 		H.mind.learned_recipes -= GLOB.energyweapon_cell_crafting
 		H.mind.learned_recipes -= GLOB.pa_repair
 		H.mind.learned_recipes -= GLOB.tier_three_parts
@@ -234,7 +235,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank2
 	name = "Chemist II"
-	desc = "You've branched out into combat and performance chems. Requires Chemist I."
+	desc = "You've branched out into combat and performance chems: Turbo, Buffout, Steady, Mentats, Fixer and Cateye. Requires Chemist I."
 	value = 2
 	requires_quirk = "Chemist I"
 	mob_trait = TRAIT_CHEMWHIZ
@@ -260,7 +261,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/chemwhiz_rank3
 	name = "Chemist III"
-	desc = "Decades of practice have taught you advanced chemical formulas. Requires Chemist II."
+	desc = "Decades of practice have taught you advanced chemical formulas: Jet and its variants, Psycho, Med-X, Rushing Water, Jet Antidote and Super Stimpaks. Requires Chemist II."
 	value = 4
 	requires_quirk = "Chemist II"
 	mob_trait = TRAIT_CHEMWHIZ
@@ -494,8 +495,8 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/ironfist_rank1/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = IRON_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = IRON_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, IRON_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, IRON_FIST_PUNCH_DAMAGE_MAX)
 
 /datum/quirk/ironfist_rank2
 	name = "Steel Fist"
@@ -512,8 +513,8 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/ironfist_rank2/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = STEEL_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = STEEL_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, STEEL_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, STEEL_FIST_PUNCH_DAMAGE_MAX)
 
 /datum/quirk/ironfist_rank3
 	name = "Titanium Fist"
@@ -530,8 +531,8 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/ironfist_rank3/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.dna.species.punchdamagelow = TITANIUM_FIST_PUNCH_DAMAGE_LOW
-	H.dna.species.punchdamagehigh = TITANIUM_FIST_PUNCH_DAMAGE_MAX
+	H.dna.species.punchdamagelow = max(H.dna.species.punchdamagelow, TITANIUM_FIST_PUNCH_DAMAGE_LOW)
+	H.dna.species.punchdamagehigh = max(H.dna.species.punchdamagehigh, TITANIUM_FIST_PUNCH_DAMAGE_MAX)
 
 /* --------------------------------- Life Giver --------------------------------- */
 //Real Fallout 4 "Life Giver" HP perk (3 ranks: +HP at ranks 1-2, HP regen unlocked at rank 3).
@@ -546,7 +547,7 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 
 /datum/quirk/lifegiver_rank1
 	name = "Life Giver"
-	desc = "You embody wellness! Instantly gain +10 maximum Health, and shrug off fatigue a little better."
+	desc = "You embody wellness! Instantly gain +10 maximum Health, and shrug off fatigue a little better. Super Mutants gain 50% more and C-27s 25% more."
 	value = 1
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
@@ -556,23 +557,26 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	lose_text = span_danger("You feel less healthy than usual.")
 	medical_record_text = "Patient has higher capacity for injury."
 	locked = TRUE
+	species_mults = list("smutant" = 1.5, "c27" = 1.25)
+	var/hp_applied = 0
 
 /datum/quirk/lifegiver_rank1/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.maxHealth += 10
-	H.health += 10
+	hp_applied = round(10 * species_mult())
+	H.maxHealth += hp_applied
+	H.health += hp_applied
 	H.special_stamina_mod_bonus += 0.1
 
 /datum/quirk/lifegiver_rank1/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.maxHealth -= 10
+		H.maxHealth -= hp_applied
 		H.health = min(H.health, H.maxHealth)
 		H.special_stamina_mod_bonus -= 0.1
 
 /datum/quirk/lifegiver_rank2
 	name = "Life Giver II"
-	desc = "You embody wellness to the MAX! Instantly gain +20 maximum Health (+30 total), and shrug off fatigue even better. Requires Life Giver."
+	desc = "You embody wellness to the MAX! Instantly gain +20 maximum Health (+30 total), and shrug off fatigue even better. Super Mutants gain 50% more and C-27s 25% more. Requires Life Giver."
 	value = 3
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
@@ -583,23 +587,26 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	lose_text = span_danger("You feel much less healthy than usual.")
 	medical_record_text = "Patient has much higher capacity for injury."
 	locked = TRUE
+	species_mults = list("smutant" = 1.5, "c27" = 1.25)
+	var/hp_applied = 0
 
 /datum/quirk/lifegiver_rank2/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.maxHealth += 20
-	H.health += 20
+	hp_applied = round(20 * species_mult())
+	H.maxHealth += hp_applied
+	H.health += hp_applied
 	H.special_stamina_mod_bonus += 0.2
 
 /datum/quirk/lifegiver_rank2/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.maxHealth -= 20
+		H.maxHealth -= hp_applied
 		H.health = min(H.health, H.maxHealth)
 		H.special_stamina_mod_bonus -= 0.2
 
 /datum/quirk/lifegiver_rank3
 	name = "Life Giver III"
-	desc = "You embody wellness perfected! Instantly gain +40 maximum Health (+70 total), slowly regenerate health over time, and are much harder to exhaust into a stagger. Requires Life Giver II."
+	desc = "You embody wellness perfected! Instantly gain +40 maximum Health (+70 total), slowly regenerate health over time, and are much harder to exhaust into a stagger. Super Mutants gain 50% more and C-27s 25% more. Requires Life Giver II."
 	value = 5
 	required_special_stat = "special_e"
 	required_special_name = "Endurance"
@@ -610,17 +617,20 @@ GLOBAL_LIST_INIT(gunsmith_recipes_master, list(
 	lose_text = span_danger("You feel like your body has lost its resilience.")
 	medical_record_text = "Patient shows a remarkable, near-supernatural rate of recovery."
 	locked = TRUE
+	species_mults = list("smutant" = 1.5, "c27" = 1.25)
+	var/hp_applied = 0
 
 /datum/quirk/lifegiver_rank3/on_spawn()
 	var/mob/living/carbon/human/H = quirk_holder
-	H.maxHealth += 40
-	H.health += 40
+	hp_applied = round(40 * species_mult())
+	H.maxHealth += hp_applied
+	H.health += hp_applied
 	H.special_stamina_mod_bonus += 0.35
 
 /datum/quirk/lifegiver_rank3/remove()
 	var/mob/living/carbon/human/H = quirk_holder
 	if(H)
-		H.maxHealth -= 40
+		H.maxHealth -= hp_applied
 		H.health = min(H.health, H.maxHealth)
 		H.special_stamina_mod_bonus -= 0.35
 

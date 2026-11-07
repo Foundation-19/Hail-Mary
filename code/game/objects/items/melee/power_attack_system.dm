@@ -58,6 +58,8 @@
 	var/mob/living/power_attack_user
 	/// Stamina actually deducted at power_attack_begin() (post-Strength scaling) - cached so an early-release refund matches what was really paid.
 	var/power_attack_stamina_paid = 0
+	/// Light hits already gritted through during the current charge (see get_power_attack_flinch_threshold()).
+	var/power_attack_shrugged_hits = 0
 	/// The floating do_after-style bar shown over the user while charging, filling up toward full windup.
 	var/datum/progressbar/power_attack_progressbar
 	/// 0-1 scalar set by /datum/power_attack/lunge/on_approach() - how much of its max range the lunge actually closed before connecting. Redirects onto a blocker you barely moved to reach get a reduced bonus.
@@ -110,6 +112,7 @@
 	charging_power_attack = TRUE
 	power_attack_fully_charged = FALSE
 	power_attack_charge_start = world.time
+	power_attack_shrugged_hits = 0
 	power_attack_user = user
 	power_attack_stamina_paid = power_attack.stamina_cost * user.get_strength_power_attack_stamina_multiplier()
 	user.adjustStaminaLoss(power_attack_stamina_paid)
@@ -142,12 +145,18 @@
 	SIGNAL_HANDLER
 	if(!charging_power_attack || damagetype == STAMINA || damage <= 0)
 		return
+	var/effective_damage = damage
+	if(!forced && damage_threshold && (damagetype in GLOB.damage_threshold_valid_types))
+		effective_damage = max(effective_damage - min(damage_threshold, ARMOR_CAP_DT), 1)
+	if(!forced)
+		effective_damage *= (100 - min(blocked, ARMOR_CAP_DR)) / 100
+	// A tough fighter grits through light hits; a few of them in one charge, anyway.
+	if(effective_damage <= user.get_power_attack_flinch_threshold() && power_attack_shrugged_hits < POWER_ATTACK_MAX_SHRUGS)
+		power_attack_shrugged_hits++
+		if(power_attack_shrugged_hits == 1)
+			to_chat(user, span_notice("You grit your teeth and hold your swing through the hit!"))
+		return
 	if(HAS_TRAIT(user, TRAIT_IRON_GRIP) && user.power_attack_iron_grip_cooldown_until <= world.time)
-		var/effective_damage = damage
-		if(!forced && damage_threshold && (damagetype in GLOB.damage_threshold_valid_types))
-			effective_damage = max(effective_damage - min(damage_threshold, ARMOR_CAP_DT), 1)
-		if(!forced)
-			effective_damage *= (100 - min(blocked, ARMOR_CAP_DR)) / 100
 		if(effective_damage > 0 && effective_damage <= POWER_ATTACK_IRON_GRIP_DAMAGE_THRESHOLD)
 			user.power_attack_iron_grip_cooldown_until = world.time + POWER_ATTACK_IRON_GRIP_COOLDOWN
 			var/datum/power_attack/power_attack = get_active_power_attack()
@@ -240,6 +249,15 @@
 				break
 			if(has_real_target)
 				break
+		// Last resort: anything alive right in front of us within weapon reach - the target usually just shuffled a step during the windup.
+		if(!has_real_target)
+			var/list/front_dirs = list(user.dir, turn(user.dir, 45), turn(user.dir, -45))
+			for(var/mob/living/potential in view(weapon_reach, user))
+				if(potential == user || potential.stat == DEAD || !(get_dir(user, potential) in front_dirs))
+					continue
+				real_target = potential
+				has_real_target = TRUE
+				break
 		target = has_real_target ? real_target : fallback_turf
 
 	if(!user.Adjacent(target) && get_dist(user, target) > weapon_reach)
@@ -270,11 +288,11 @@
 	playsound(user, 'sound/weapons/thudswoosh.ogg', 50, TRUE)
 
 	// Whiffed - the swing/lunge still actually happens (real attack chain, full animation/sound) against whatever's ahead of you,
-	// you just get none of the power attack's bonus payoff, and eat a stagger for overcommitting into nothing.
+		// you just get none of the power attack's bonus payoff and only part of the stamina back.
 	if(!has_real_target)
 		melee_attack_chain(user, target, params, ATTACK_POWER_ATTACK, 1)
+		user.adjustStaminaLoss(-(power_attack_stamina_paid * POWER_ATTACK_WHIFF_REFUND))
 		user.visible_message(span_warning("[user] commits to a [power_attack.name] with [src], hitting nothing but air!"), span_warning("You commit to your [power_attack.name], striking nothing but air!"))
-		user.Stagger(0.5 SECONDS)
 		return
 
 	var/old_wound_bonus = wound_bonus

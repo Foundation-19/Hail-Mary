@@ -17,6 +17,7 @@
 /// Cigpacks
 /datum/component/storage/concrete/box/cigarette
 	quickdraw = TRUE
+	content_cost_mult = 0.25
 
 /datum/component/storage/concrete/box/cigarette/Initialize()
 	. = ..()
@@ -42,6 +43,7 @@
 /// snap pops!
 /datum/component/storage/concrete/box/big/snap_pop
 	quickdraw = TRUE
+	content_cost_mult = 0.25
 
 /datum/component/storage/concrete/box/big/snap_pop/Initialize()
 	. = ..()
@@ -50,6 +52,7 @@
 /// Matches!
 /datum/component/storage/concrete/box/big/match
 	quickdraw = TRUE
+	content_cost_mult = 0.25
 
 /datum/component/storage/concrete/box/big/match/Initialize()
 	. = ..()

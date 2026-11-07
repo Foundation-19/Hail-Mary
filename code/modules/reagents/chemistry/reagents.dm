@@ -33,6 +33,10 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	var/can_synth = TRUE // can this reagent be synthesized? (for example: odysseus syringe gun)
 	var/metabolization_rate = REAGENTS_METABOLISM //how fast the reagent is metabolized by the mob
 	var/ghoulfriendly = FALSE //can ghouls metabolize this chemical
+	/// Adrenal debt this chem adds per tick while it is active. Non-zero makes it a combat chem.
+	var/combat_load = 0
+	/// Deciseconds of stun shaved off per tick. Only the best active combat chem applies.
+	var/combat_stun_resist = 0
 	/// If metabolized by a synth, just use the normal human effects, calling the default on_life, etc instead of the synth-specific ones
 	var/synth_metabolism_use_human = FALSE
 	/// can synths OD and get addictged on this?
@@ -124,6 +128,8 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 	current_cycle++
 	if(holder)
 		holder.remove_reagent(type, metabolization_rate * M.metabolism_efficiency) //By default it slowly disappears.
+	if(combat_load && current_cycle == 1)
+		to_chat(M, "<span class='warning'>Your systems can't make use of the [name]. It does nothing for a machine.</span>")
 	return TRUE
 
 //called when a mob processes chems when dead.
@@ -168,6 +174,9 @@ GLOBAL_LIST_INIT(name2reagent, build_name2reagent())
 
 // Called when this reagent is removed while inside a mob
 /datum/reagent/proc/on_mob_delete(mob/living/L)
+	if(combat_load && iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.combat_crash(src)
 	var/turf/T = get_turf(L)
 	log_reagent("MOB DELETE: on_mob_delete: [key_name(L)] at [AREACOORD(T)] - [type]")
 

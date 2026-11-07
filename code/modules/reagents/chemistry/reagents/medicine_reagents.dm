@@ -9,6 +9,348 @@
 	name = "Medicine"
 	taste_description = "bitterness"
 	value = REAGENT_VALUE_VERY_COMMON //Low prices, spess medical companies are cheapstakes and products are taxed honk...
+	/// HP per tick this chem heals at full effect. 0 means it takes no part in the body's repair budget.
+	var/heal_nominal = 0
+	var/heal_scale_stamp = -1
+	var/heal_scale_cache = 1
+	/// Ticks a slow-acting healer takes to reach full effect. It also fades out over its last ticks. 0 means instant, like an injection.
+	var/heal_onset = 0
+	/// Percent chance per tick that this healer causes rushed-healing complications
+	var/heal_rush = 0
+	/// HEAL_ORIGIN_HERBAL or HEAL_ORIGIN_MODERN, if tribal background changes how well it works
+	var/heal_origin = 0
+	/// Delivered by needle, so a fear of needles slows it down
+	var/heal_injected = FALSE
+	/// Worked out from whoever applied the dose when it entered the body
+	var/heal_skill_mult = 1
+	var/heal_rush_mult = 1
+/datum/reagent/medicine/on_mob_life_synth(mob/living/carbon/M)
+	. = ..()
+	if(!combat_load && current_cycle == 1)
+		to_chat(M, "<span class='warning'>Your systems can't make use of the [name]. A machine needs a welder or cable to be repaired.</span>")
+
+/// Records who is applying a dose so the healer chem can scale with their Perception, Intelligence and training
+/proc/note_healer(mob/living/target, mob/living/healer)
+	if(!iscarbon(target) || !istype(healer))
+		return
+	var/mob/living/carbon/C = target
+	C.healer_stamp = world.time
+	C.healer_self = (healer == target)
+	C.healer_per_int = healer.special_p + healer.special_i
+	C.healer_int = healer.special_i
+	C.healer_luck = healer.special_l
+	var/trait_bonus = 0
+	if(HAS_TRAIT(healer, TRAIT_FIELD_MEDIC))
+		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_FIELD_MEDIC)
+	if(HAS_TRAIT(healer, TRAIT_MEDICALGRADUATE))
+		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_GRADUATE)
+	if(HAS_TRAIT(healer, TRAIT_SURGEON))
+		trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_SURGEON)
+	C.healer_trait_bonus = trait_bonus
+
+/// The Perception + Intelligence healing multiplier for hands-on healing (dressings, surgery), worked out the same way as for chems
+/proc/get_special_heal_mult(mob/living/healer, mob/living/target)
+	if(!istype(healer))
+		return 1
+	var/bonus = (healer.special_p + healer.special_i - 10) * HEAL_SPECIAL_STEP
+	if(healer == target)
+		if(bonus > 0)
+			bonus *= HEAL_SELF_BONUS_MULT
+	else
+		var/trait_bonus = 0
+		if(HAS_TRAIT(healer, TRAIT_FIELD_MEDIC))
+			trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_FIELD_MEDIC)
+		if(HAS_TRAIT(healer, TRAIT_MEDICALGRADUATE))
+			trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_GRADUATE)
+		if(HAS_TRAIT(healer, TRAIT_SURGEON))
+			trait_bonus = max(trait_bonus, HEAL_TRAIT_BONUS_SURGEON)
+		bonus = max(bonus, trait_bonus)
+	return clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX)
+
+/mob/living/carbon/var/healer_stamp = -1
+/mob/living/carbon/var/healer_self = TRUE
+/mob/living/carbon/var/healer_per_int = 10
+/mob/living/carbon/var/healer_int = 5
+/mob/living/carbon/var/healer_luck = 5
+/mob/living/carbon/var/healer_trait_bonus = 0
+/// Repeated doses in a short window work worse. Tolerance fades over time and is only worked out when read.
+/mob/living/carbon/var/heal_tolerance = 0
+/mob/living/carbon/var/heal_tolerance_stamp = 0
+
+/mob/living/carbon/proc/get_heal_tolerance()
+	if(heal_tolerance > 0)
+		heal_tolerance = max(0, heal_tolerance - (world.time - heal_tolerance_stamp) / HEAL_TOLERANCE_DECAY)
+	heal_tolerance_stamp = world.time
+	return heal_tolerance
+
+/datum/reagent/medicine/on_mob_add(mob/living/L, amount)
+	. = ..()
+	if(heal_nominal && iscarbon(L))
+		var/mob/living/carbon/C = L
+		C.heal_tolerance = min(C.get_heal_tolerance() + 1, HEAL_TOLERANCE_MAX)
+		set_applier_factors(C)
+
+/// Works out how well this dose heals from whoever applied it. Anything not applied by another person counts as self-applied
+/datum/reagent/medicine/proc/set_applier_factors(mob/living/carbon/C)
+	var/self_applied = TRUE
+	var/per_int = C.special_p + C.special_i
+	var/intelligence = C.special_i
+	var/luck = C.special_l
+	var/trait_bonus = 0
+	if(C.healer_stamp == world.time)
+		self_applied = C.healer_self
+		per_int = C.healer_per_int
+		intelligence = C.healer_int
+		luck = C.healer_luck
+		trait_bonus = C.healer_trait_bonus
+	var/bonus = (per_int - 10) * HEAL_SPECIAL_STEP
+	if(self_applied)
+		if(bonus > 0)
+			bonus *= HEAL_SELF_BONUS_MULT
+	else
+		bonus = max(bonus, trait_bonus)
+	heal_skill_mult = clamp(1 + bonus, HEAL_SKILL_MIN, HEAL_SKILL_MAX) * clamp(1 + (C.special_e - SPECIAL_DEFAULT_ATTR_VALUE) * HEAL_ENDURANCE_STEP, 0.85, 1.15)
+	heal_rush_mult = clamp(1 - (intelligence - 5) * HEAL_INT_RUSH_STEP - (luck - 5) * HEAL_LUCK_RUSH_STEP, 0.5, 1.3)
+
+/// Temporarily lowers a SPECIAL stat ("s", "p" or "a") and restores exactly what was removed. Repeat doses of the same healer don't stack its own side effect, but different healers each apply theirs.
+/proc/special_debuff(mob/living/L, stat, amount, duration, source)
+	if(!isliving(L))
+		return
+	var/debuff_trait = "heal_debuff_[stat]_[source]"
+	if(HAS_TRAIT(L, debuff_trait))
+		return
+	if(HAS_TRAIT(L, TRAIT_HARDY_METABOLISM))
+		duration *= 0.5
+	var/old_value
+	switch(stat)
+		if("s")
+			old_value = L.special_s
+			L.set_special_s(old_value - amount)
+			old_value -= L.special_s
+		if("p")
+			old_value = L.special_p
+			L.set_special_p(old_value - amount)
+			old_value -= L.special_p
+		if("a")
+			old_value = L.special_a
+			L.set_special_a(old_value - amount)
+			old_value -= L.special_a
+		else
+			return
+	if(old_value)
+		ADD_TRAIT(L, debuff_trait, "healer_side_effect")
+		addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(special_debuff_end), WEAKREF(L), stat, old_value, debuff_trait), duration)
+
+/proc/special_debuff_end(datum/weakref/ref, stat, amount, debuff_trait)
+	var/mob/living/L = ref?.resolve()
+	if(!istype(L))
+		return
+	REMOVE_TRAIT(L, debuff_trait, "healer_side_effect")
+	switch(stat)
+		if("s")
+			L.set_special_s(L.special_s + amount)
+		if("p")
+			L.set_special_p(L.special_p + amount)
+		if("a")
+			L.set_special_a(L.special_a + amount)
+
+GLOBAL_LIST_INIT(chem_stimulants, typecacheof(list(/datum/reagent/drug/jet, /datum/reagent/drug/turbo, /datum/reagent/drug/psycho, /datum/reagent/drug/buffout, /datum/reagent/medicine/ephedrine, /datum/reagent/medicine/stimulants)))
+GLOBAL_LIST_INIT(chem_depressants, typecacheof(list(/datum/reagent/medicine/medx, /datum/reagent/medicine/morphine)))
+
+/// Combat chems run hot. Each tick they are active adds adrenal debt, and the last one wearing off collects it.
+/mob/living/carbon/var/combat_debt = 0
+/mob/living/carbon/var/combat_stun_stamp = -1
+
+/// Call once per tick from a combat chem that is actually working on the mob
+/datum/reagent/proc/combat_tick(mob/living/carbon/M)
+	if(!iscarbon(M) || !M.reagents)
+		return
+	var/load = combat_load
+	if(load && !istype(src, /datum/reagent/medicine/medx) && M.reagents.has_reagent(/datum/reagent/medicine/medx))
+		load *= COMBAT_MEDX_SMOOTHING
+	if(HAS_TRAIT(M, TRAIT_ADRENALINE_MANAGEMENT))
+		load *= 0.6
+	M.combat_debt = min(M.combat_debt + load, COMBAT_DEBT_MAX)
+	if(combat_stun_resist)
+		M.apply_combat_stun_resist()
+
+/mob/living/carbon/proc/apply_combat_stun_resist()
+	if(combat_stun_stamp == world.time || !reagents)
+		return
+	combat_stun_stamp = world.time
+	var/best = 0
+	for(var/datum/reagent/R in reagents.reagent_list)
+		best = max(best, R.combat_stun_resist)
+	if(best)
+		AdjustAllImmobility(-best, FALSE)
+		AdjustUnconscious(-best, FALSE)
+
+/mob/living/carbon/proc/combat_crash(datum/reagent/ending)
+	if(!reagents)
+		return
+	for(var/datum/reagent/R in reagents.reagent_list)
+		if(R != ending && R.combat_load)
+			return
+	var/debt = combat_debt
+	combat_debt = 0
+	if(debt < COMBAT_CRASH_MIN || stat == DEAD)
+		return
+	var/crash_mult = clamp(1 - (special_e - SPECIAL_DEFAULT_ATTR_VALUE) * COMBAT_CRASH_ENDURANCE_STEP, 0.7, 1.3)
+	adjustStaminaLoss(min(debt * COMBAT_CRASH_STAMINA_PER_DEBT, COMBAT_CRASH_STAMINA_MAX) * crash_mult)
+	Jitter(10)
+	to_chat(src, span_warning("The chems let go all at once. Your legs go heavy and every muscle reminds you what you just put it through."))
+	add_movespeed_modifier(/datum/movespeed_modifier/combat_crash)
+	var/slow_seconds = min(debt * COMBAT_CRASH_SLOW_SECONDS_PER_DEBT, COMBAT_CRASH_SLOW_SECONDS_MAX) * crash_mult
+	if(HAS_TRAIT(src, TRAIT_ADRENALINE_MANAGEMENT))
+		slow_seconds *= 0.5
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/combat_crash), slow_seconds SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
+
+/**
+ * Chems that interact outside their own effects, run once per tick on the bloodstream.
+ * - Stimulants on top of Med-X: the painkiller hides the strain, so the heart and lungs take it. Mentat steadies you and halves it.
+ * - Alcohol on top of Med-X or morphine: both depress breathing.
+ */
+/mob/living/carbon/proc/process_chem_interactions()
+	if(!reagents || stat == DEAD)
+		return
+	var/stimulated = FALSE
+	var/depressed = FALSE
+	var/drunk = FALSE
+	for(var/datum/reagent/R in reagents.reagent_list)
+		if(GLOB.chem_stimulants[R.type])
+			stimulated = TRUE
+		else if(GLOB.chem_depressants[R.type])
+			depressed = TRUE
+		else if(istype(R, /datum/reagent/consumable/ethanol))
+			drunk = TRUE
+	var/resist = HAS_TRAIT(src, TRAIT_CAST_IRON_CONSTITUTION) ? 0.25 : 1
+	if(stimulated && reagents.has_reagent(/datum/reagent/medicine/medx))
+		var/prob_mult = (reagents.has_reagent(/datum/reagent/medicine/mentat) ? 0.5 : 1) * resist
+		if(prob(INTERACTION_STIM_MEDX_PROB * prob_mult))
+			adjustOxyLoss(2, FALSE)
+			adjustOrganLoss(ORGAN_SLOT_HEART, 1)
+			Jitter(5)
+			if(prob(25))
+				to_chat(src, span_danger("Your heart pounds against the numbness. The stimulants are pushing you harder than the Med-X lets you feel."))
+	if(depressed && drunk && prob(INTERACTION_ALCOHOL_DEPRESSANT_PROB * resist))
+		adjustOxyLoss(1.5, FALSE)
+		drowsyness = max(drowsyness, 4)
+		if(prob(20))
+			to_chat(src, span_warning("Your breathing slows and your head swims. The drink and the painkiller are working against you."))
+	if(reagents.has_reagent(/datum/reagent/drug/buffout) && (reagents.has_reagent(/datum/reagent/drug/jet) || reagents.has_reagent(/datum/reagent/drug/turbo) || reagents.has_reagent(/datum/reagent/medicine/stimulants)) && prob(INTERACTION_STEROID_STIM_PROB * resist))
+		adjustOrganLoss(ORGAN_SLOT_HEART, 1)
+		Jitter(5)
+		if(prob(25))
+			to_chat(src, span_danger("Your heart hammers. Steroids and stimulants together are a lot for one chest to carry."))
+
+/**
+ * Healing is limited by what the body can actually repair, not by the drug alone. Healers stack freely.
+ * - Repair needs water and food: dehydration and hunger slow it, and every HP restored costs some of both.
+ * Returns the multiplier to apply to this tick's healing. Cached per tick so chained on_mob_life procs agree.
+ */
+/datum/reagent/medicine/proc/get_heal_scale(mob/living/carbon/M)
+	if(!heal_nominal || !holder || !iscarbon(M))
+		return 1
+	if(heal_scale_stamp == world.time)
+		return heal_scale_cache
+	heal_scale_stamp = world.time
+	var/scale = get_repair_resource_factor(M) * get_cultural_factor(M)
+	scale *= min(heal_skill_mult * clamp(M.maxHealth / 100, HEAL_MAXHP_MIN, HEAL_MAXHP_MAX), HEAL_SCALE_CAP)
+	if(HAS_TRAIT(M, TRAIT_FRAIL_CONSTITUTION))
+		scale *= HEAL_FRAIL_MULT
+	var/onset = heal_onset
+	if(heal_injected && HAS_TRAIT(M, TRAIT_NEEDLE_PHOBIA))
+		onset = max(onset, HEAL_NEEDLE_PHOBIA_ONSET)
+	if(onset)
+		var/ramp = min(1, (current_cycle + 1) / onset)
+		var/taper = min(1, volume / (metabolization_rate * HEAL_TAPER_FACTOR))
+		scale *= min(ramp, taper)
+	// The first dose is always full strength
+	var/tolerance_penalty = HEAL_TOLERANCE_PENALTY
+	if(HAS_TRAIT(M, TRAIT_SEASONED_USER))
+		tolerance_penalty *= 0.5
+	if(HAS_TRAIT(M, TRAIT_FRAIL_CONSTITUTION))
+		tolerance_penalty *= HEAL_FRAIL_TOLERANCE_MULT
+	scale *= max(HEAL_TOLERANCE_MIN, 1 - tolerance_penalty * max(0, M.get_heal_tolerance() - 1))
+	heal_scale_cache = scale
+	pay_repair_cost(M, heal_nominal * scale)
+	if(heal_rush && scale > 0)
+		rush_complications(M)
+	return scale
+
+/// Healing fast enough to outrun the doctor: embedded objects get sealed in, and unset fractures knit crooked
+/datum/reagent/medicine/proc/rush_complications(mob/living/carbon/M)
+	if(!prob(heal_rush * heal_rush_mult * (HAS_TRAIT(M, TRAIT_FIELD_MEDIC) ? 0.5 : 1)))
+		return
+	for(var/obj/item/bodypart/BP in M.bodyparts)
+		if(BP.embedded_objects.len && prob(50))
+			var/obj/item/stuck = pick(BP.embedded_objects)
+			to_chat(M, span_danger("The [name] closes the flesh over [stuck] in your [BP.name], sealing it in!"))
+			BP.receive_damage(HEAL_RUSH_EMBED_DAMAGE, wound_bonus = CANT_WOUND)
+			M.adjustToxLoss(HEAL_RUSH_EMBED_TOX, FALSE)
+			return
+	for(var/datum/wound/blunt/W in M.all_wounds)
+		if(W.malunion || W.severity < WOUND_SEVERITY_SEVERE || W.taped || W.gelled || W.limb.current_gauze)
+			continue
+		if(W.set_malunion())
+			to_chat(M, span_danger("The [name] knits your broken [W.limb.name] together before it was set. It heals crooked."))
+			return
+
+/// Herbal remedies work best for those raised on them, and modern chems are unfamiliar to tribals
+/datum/reagent/medicine/proc/get_cultural_factor(mob/living/carbon/M)
+	var/tribal = HAS_TRAIT(M, TRAIT_TRIBAL)
+	switch(heal_origin)
+		if(HEAL_ORIGIN_HERBAL)
+			return tribal ? HEAL_HERBAL_TRIBAL_MULT : HEAL_HERBAL_OUTSIDER_MULT
+		if(HEAL_ORIGIN_MODERN)
+			return tribal ? HEAL_MODERN_TRIBAL_MULT : 1
+	return 1
+
+/datum/reagent/medicine/proc/get_repair_resource_factor(mob/living/carbon/M)
+	return M.get_repair_resource_factor()
+
+/// Tissue repair needs water and food however the healing is delivered, so chems, dressings and surgery all share this
+/mob/living/carbon/proc/get_repair_resource_factor()
+	var/factor = 1
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.needs_hydration())
+			switch(H.hydration_tier)
+				if(HYDRATION_TIER_THIRSTY)
+					factor *= HEAL_FACTOR_THIRSTY
+				if(HYDRATION_TIER_PARCHED)
+					factor *= HEAL_FACTOR_PARCHED
+				if(HYDRATION_TIER_CRITICAL)
+					factor *= HEAL_FACTOR_DEHYDRATED
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		if(nutrition < NUTRITION_LEVEL_STARVING)
+			factor *= HEAL_FACTOR_STARVING
+		else if(nutrition < NUTRITION_LEVEL_HUNGRY)
+			factor *= HEAL_FACTOR_HUNGRY
+	if(HAS_TRAIT(src, TRAIT_HARDY_METABOLISM))
+		factor = 1 - (1 - factor) * 0.5
+	if(drunkenness > HYDRATION_DRUNK_THRESHOLD && !HAS_TRAIT(src, TRAIT_ALCOHOL_TOLERANCE))
+		factor *= HEAL_ALCOHOL_FACTOR
+	return max(factor, HEAL_FACTOR_MIN)
+
+/datum/reagent/medicine/proc/pay_repair_cost(mob/living/carbon/M, healed)
+	// Big healers are charged no more per tick than small ones
+	healed = min(healed, HEAL_COST_CAP)
+	M.pay_repair_cost(healed, heal_origin == HEAL_ORIGIN_HERBAL ? HEAL_HERBAL_COST_MULT : 1)
+
+/// Charges thirst and nutrition for healing, but only while there is something to repair
+/mob/living/carbon/proc/pay_repair_cost(healed, cost_mult = 1)
+	if(getBruteLoss() + getFireLoss() <= 0)
+		return
+	healed *= cost_mult
+	if(HAS_TRAIT(src, TRAIT_HARDY_METABOLISM))
+		healed *= 0.5
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		if(H.needs_hydration())
+			H.adjust_thirst(-healed * HEAL_COST_THIRST)
+	if(!HAS_TRAIT(src, TRAIT_NOHUNGER))
+		adjust_nutrition(-healed * HEAL_COST_NUTRITION)
 
 /datum/reagent/medicine/on_mob_life(mob/living/carbon/M)
 	current_cycle++
@@ -311,6 +653,12 @@
 	pH = 8.1
 	ghoulfriendly = TRUE
 
+/datum/reagent/medicine/spaceacillin/on_mob_life(mob/living/carbon/M)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.treat_waterborne(HYDRATION_TREAT_ANTIBIOTIC, TRUE)
+	..()
+
 //Goon Chems. Ported mainly from Goonstation. Easily mixable (or not so easily) and provide a variety of effects.
 /datum/reagent/medicine/silver_sulfadiazine
 	name = "Silver Sulfadiazine"
@@ -320,6 +668,8 @@
 	color = "#ffeac9"
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 50
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/silver_sulfadiazine/reaction_obj(obj/O, reac_volume)
 	if(istype(O, /obj/item/stack/medical/gauze))
@@ -341,7 +691,10 @@
 			if(show_message)
 				to_chat(M, span_warning("You don't feel so good..."))
 		else if(M.getFireLoss())
-			M.adjustFireLoss(-reac_volume)
+			var/mob/living/carbon/topical_target = M
+			var/topical = reac_volume * HEAL_TOPICAL_MULT * topical_target.get_repair_resource_factor()
+			M.adjustFireLoss(-topical)
+			topical_target.pay_repair_cost(min(topical, HEAL_COST_CAP * 4))
 			if(show_message)
 				to_chat(M, span_danger("You feel your burns healing! It stings like hell!"))
 			M.emote("scream")
@@ -349,7 +702,8 @@
 	..()
 
 /datum/reagent/medicine/silver_sulfadiazine/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, 0)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustFireLoss(-2*REM*heal_mult, 0)
 	..()
 	. = 1
 
@@ -398,6 +752,8 @@
 	pH = 6.7
 	metabolization_rate = 5 * REAGENTS_METABOLISM
 	overdose_threshold = 50
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/styptic_powder/reaction_mob(mob/living/M, method=TOUCH, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -412,7 +768,10 @@
 			if(show_message)
 				to_chat(M, span_warning("You don't feel so good..."))
 		else if(M.getBruteLoss())
-			M.adjustBruteLoss(-reac_volume)
+			var/mob/living/carbon/topical_target = M
+			var/topical = reac_volume * HEAL_TOPICAL_MULT * topical_target.get_repair_resource_factor()
+			M.adjustBruteLoss(-topical)
+			topical_target.pay_repair_cost(min(topical, HEAL_COST_CAP * 4))
 			if(show_message)
 				to_chat(M, span_danger("You feel your bruises healing! It stings like hell!"))
 			M.emote("scream")
@@ -427,7 +786,8 @@
 		G.use(reac_volume)
 
 /datum/reagent/medicine/styptic_powder/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, 0)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustBruteLoss(-2*REM*heal_mult, 0)
 	..()
 	. = 1
 
@@ -552,8 +912,10 @@
 		else if(method == INJECT)
 			return
 		else if(method in list(PATCH, TOUCH))
-			M.adjustBruteLoss(-1 * reac_volume, include_roboparts = isrobotic(M))
-			M.adjustFireLoss(-1 * reac_volume, include_roboparts = isrobotic(M))
+			var/topical = reac_volume * HEAL_TOPICAL_MULT * C.get_repair_resource_factor()
+			M.adjustBruteLoss(-topical, include_roboparts = isrobotic(M))
+			M.adjustFireLoss(-topical, include_roboparts = isrobotic(M))
+			C.pay_repair_cost(min(topical * 2, HEAL_COST_CAP * 4))
 			for(var/i in C.all_wounds)
 				var/datum/wound/iter_wound = i
 				iter_wound.on_synthflesh(reac_volume)
@@ -584,6 +946,9 @@
 /datum/reagent/medicine/charcoal/on_mob_life(mob/living/carbon/M)
 	M.adjustToxLoss(-2*REM, 0)
 	. = 1
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		H.treat_waterborne(HYDRATION_TREAT_CHARCOAL)
 	for(var/A in M.reagents.reagent_list)
 		var/datum/reagent/R = A
 		if(R != src)
@@ -601,12 +966,15 @@
 	value = REAGENT_VALUE_UNCOMMON
 	var/healing = 0.5
 	ghoulfriendly = TRUE
+	heal_nominal = 1
+	heal_onset = 3
 
 /datum/reagent/medicine/omnizine/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-healing*REM, 0)
-	M.adjustOxyLoss(-healing*REM, 0)
-	M.adjustBruteLoss(-healing*REM, 0)
-	M.adjustFireLoss(-healing*REM, 0)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustToxLoss(-healing*REM*heal_mult, 0)
+	M.adjustOxyLoss(-healing*REM*heal_mult, 0)
+	M.adjustBruteLoss(-healing*REM*heal_mult, 0)
+	M.adjustFireLoss(-healing*REM*heal_mult, 0)
 	..()
 	. = 1
 
@@ -794,29 +1162,29 @@
 
 /datum/reagent/medicine/ephedrine/addiction_act_stage1(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(2*REM, 0)
-		M.losebreath += 2
+		M.adjustToxLoss(0.5*REM, 0)
+		M.losebreath += 1
 		. = 1
 	..()
 
 /datum/reagent/medicine/ephedrine/addiction_act_stage2(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(3*REM, 0)
-		M.losebreath += 3
+		M.adjustToxLoss(1*REM, 0)
+		M.losebreath += 1
 		. = 1
 	..()
 
 /datum/reagent/medicine/ephedrine/addiction_act_stage3(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(4*REM, 0)
-		M.losebreath += 4
+		M.adjustToxLoss(1.5*REM, 0)
+		M.losebreath += 2
 		. = 1
 	..()
 
 /datum/reagent/medicine/ephedrine/addiction_act_stage4(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(5*REM, 0)
-		M.losebreath += 5
+		M.adjustToxLoss(2*REM, 0)
+		M.losebreath += 2
 		. = 1
 	..()
 
@@ -1141,12 +1509,14 @@
 
 /datum/reagent/medicine/stimulants
 	name = "Stimulants"
-	description = "Increases stun resistance and movement speed in addition to restoring minor damage and weakness. Overdose causes weakness and toxin damage."
+	description = "Shortens stuns and boosts movement speed in addition to restoring minor damage and weakness. Running on it costs you a crash afterwards. Overdose causes weakness and toxin damage."
 	color = "#78008C"
 	metabolization_rate = 0.5 * REAGENTS_METABOLISM
 	overdose_threshold = 60
 	pH = 8.7
 	value = REAGENT_VALUE_RARE
+	combat_load = 1
+	combat_stun_resist = COMBAT_STUN_RESIST_STIMULANTS
 
 /datum/reagent/medicine/stimulants/on_mob_metabolize(mob/living/L)
 	..()
@@ -1164,9 +1534,8 @@
 		M.adjustToxLoss(-1*REM, FALSE)
 		M.adjustBruteLoss(-1*REM, FALSE)
 		M.adjustFireLoss(-1*REM, FALSE)
-	M.AdjustAllImmobility(-60, FALSE)
-	M.AdjustUnconscious(-60, FALSE)
 	M.adjustStaminaLoss(-20*REM, FALSE)
+	combat_tick(M)
 	..()
 	. = 1
 
@@ -1201,9 +1570,12 @@
 	color = "#fc2626"
 	overdose_threshold = 30
 	pH = 5
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/bicaridine/on_mob_life(mob/living/carbon/M)
-	M.adjustBruteLoss(-2*REM, FALSE)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustBruteLoss(-2*REM*heal_mult, FALSE)
 	..()
 	. = 1
 
@@ -1237,9 +1609,12 @@
 	color = "#ffc400"
 	overdose_threshold = 30
 	pH = 9
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/kelotane/on_mob_life(mob/living/carbon/M)
-	M.adjustFireLoss(-2*REM, FALSE)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustFireLoss(-2*REM*heal_mult, FALSE)
 	..()
 	. = 1
 
@@ -1257,9 +1632,12 @@
 	taste_description = "a roll of gauze"
 	pH = 10
 	synth_metabolism_use_human = TRUE
+	heal_nominal = 2
+	heal_onset = 2
 
 /datum/reagent/medicine/antitoxin/on_mob_life(mob/living/carbon/M)
-	M.adjustToxLoss(-2*REM, FALSE)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustToxLoss(-2*REM*heal_mult, FALSE)
 	for(var/datum/reagent/toxin/R in M.reagents.reagent_list)
 		M.reagents.remove_reagent(R.type,1)
 	..()
@@ -1294,13 +1672,16 @@
 	color = "#e650c0"
 	overdose_threshold = 30
 	taste_description = "grossness"
+	heal_nominal = 3.2
+	heal_onset = 2
 
 /datum/reagent/medicine/tricordrazine/on_mob_life(mob/living/carbon/M)
+	var/heal_mult = get_heal_scale(M)
 	if(prob(80))
-		M.adjustBruteLoss(-1*REM, FALSE)
-		M.adjustFireLoss(-1*REM, FALSE)
-		M.adjustOxyLoss(-1*REM, FALSE)
-		M.adjustToxLoss(-1*REM, FALSE)
+		M.adjustBruteLoss(-1*REM*heal_mult, FALSE)
+		M.adjustFireLoss(-1*REM*heal_mult, FALSE)
+		M.adjustOxyLoss(-1*REM*heal_mult, FALSE)
+		M.adjustToxLoss(-1*REM*heal_mult, FALSE)
 		. = 1
 	..()
 
@@ -1819,12 +2200,16 @@
 	reagent_state = LIQUID
 	color = "#eb0000"
 	taste_description = "numbness"
-	metabolization_rate = 1 * REAGENTS_METABOLISM
+	metabolization_rate = 8 * REAGENTS_METABOLISM	// 20u at 3 brute/2.25 burn per tick is about 30 HP of healing, delivered in roughly 12 seconds
 	overdose_threshold = 60
 	value = REAGENT_VALUE_COMMON
 	ghoulfriendly = TRUE
 	var/damage_offset = 3	//Value to offset damage by
-	var/clot_rate = 0.35	
+	var/clot_rate = 0.9	
+	heal_nominal = 5.25	// 3 brute + 2.25 burn
+	heal_rush = 4
+	heal_origin = HEAL_ORIGIN_MODERN
+	heal_injected = TRUE
 
 /datum/reagent/medicine/stimpak/reaction_mob(mob/living/carbon/M, method, reac_volume, show_message = 1)
 	if(iscarbon(M) && M.stat != DEAD)
@@ -1843,11 +2228,12 @@
 	..()
 
 /datum/reagent/medicine/stimpak/on_mob_life(mob/living/carbon/M)
+	var/heal_mult = get_heal_scale(M)
 	. = ..()
 	var/is_blocked = FALSE
 	if(!is_blocked)
 		//Clotting properties for pierce/slash wounds
-		if(current_cycle > 0 && current_cycle % 6 == 0 && M.all_wounds && M.all_wounds.len >= 2)	//Every 6th cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
+		if(current_cycle > 0 && current_cycle % 2 == 0 && M.all_wounds && M.all_wounds.len >= 2)	//Every 2nd cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
 			for(var/datum/wound/iter_wound in M.all_wounds)
 				var/affected_limb_name = iter_wound.limb.name
 				switch(iter_wound.severity)
@@ -1855,31 +2241,31 @@
 						if (iter_wound.wound_type == WOUND_PIERCE)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The bleeding hole in [M]'s [affected_limb_name] fills with fresh tissue!</span>", \
-											  "<span class='notice'>You feel the cavity in your [affected_limb_name] weaving back together.</span>")
+												"<span class='notice'>You feel the cavity in your [affected_limb_name] weaving back together.</span>")
 						else if (iter_wound.wound_type == WOUND_SLASH)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The deep gashes on [M]'s [affected_limb_name] close up!</span>", \
-											  "<span class='notice'>You feel the deep gashes on your [affected_limb_name] close up.</span>")
+												"<span class='notice'>You feel the deep gashes on your [affected_limb_name] close up.</span>")
 					if (WOUND_SEVERITY_SEVERE)
 						if (iter_wound.wound_type == WOUND_PIERCE)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The puncture wound on [M]'s [affected_limb_name] shrinks!</span>", \
-											  "<span class='notice'>You feel the puncture wound on your [affected_limb_name] shrinking.</span>")
+												"<span class='notice'>You feel the puncture wound on your [affected_limb_name] shrinking.</span>")
 						else if (iter_wound.wound_type == WOUND_SLASH)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The large cuts on [M]'s [affected_limb_name] mend!</span>", \
-											  "<span class='notice'>You feel the large cuts on your [affected_limb_name] mending.</span>")
+											"<span class='notice'>You feel the large cuts on your [affected_limb_name] mending.</span>")
 					if (WOUND_SEVERITY_MODERATE)
 						if (iter_wound.wound_type == WOUND_PIERCE || iter_wound.wound_type == WOUND_SLASH)
 							iter_wound.blood_flow -= clot_rate
 
 		//Actual healing part starts here
-		M.adjustBruteLoss(-damage_offset * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//100% of damage_offset (3)
-		M.adjustFireLoss(-damage_offset * 0.75 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//75% of damage_offset (2.25)
+		M.adjustBruteLoss(-damage_offset * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	//100% of damage_offset (3)
+		M.adjustFireLoss(-damage_offset * 0.75 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	//75% of damage_offset (2.25)
 		M.AdjustStun(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
 		M.AdjustKnockdown(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
 		M.adjustStaminaLoss(-damage_offset * 0.66 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	//66% of damage_offset (2)
-		M.heal_bodypart_damage(damage_offset, damage_offset * 0.75, only_robotic = TRUE, only_organic = FALSE)	//100% / 75% damage_offset (3/2.25)
+		M.heal_bodypart_damage(damage_offset * heal_mult, damage_offset * 0.75 * heal_mult, only_robotic = TRUE, only_organic = FALSE)	//100% / 75% damage_offset (3/2.25)
 		. = TRUE
 
 /datum/reagent/medicine/stimpak/overdose_process(mob/living/carbon/M)
@@ -1910,19 +2296,29 @@
 	reagent_state = LIQUID
 	color = "#e50d0d"
 	taste_description = "numbness"
-	metabolization_rate = 1.5 * REAGENTS_METABOLISM
+	metabolization_rate = 7.5 * REAGENTS_METABOLISM	// 10u at 11.5 brute and burn per tick is about 75 HP of healing in under 7 seconds
 	overdose_threshold = 40	// you can risk a second dose
 	ghoulfriendly = TRUE
 	var/damage_offset = 6.75	//How much damage will be offset in one tick
-	var/clot_rate = 0.65	
+	var/clot_rate = 0.45	
+	heal_nominal = 23	// 11.5 brute + 11.5 burn
+	heal_rush = 8
+	heal_origin = HEAL_ORIGIN_MODERN
+	heal_injected = TRUE
+
+/datum/reagent/medicine/super_stimpak/on_mob_add(mob/living/L, amount)
+	. = ..()
+	special_debuff(L, "s", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME, type)
+	special_debuff(L, "a", HEAL_SUPER_STIM_DEBUFF, HEAL_SUPER_STIM_DEBUFF_TIME, type)
+	to_chat(L, span_warning("The super stimpak leaves you weak and clumsy."))
 
 /datum/reagent/medicine/super_stimpak/on_mob_life(mob/living/carbon/M)
-
+	var/heal_mult = get_heal_scale(M)
 	. = ..()
 	var/is_blocked = FALSE
 	if(!is_blocked)
 		//Clotting properties for pierce/slash wounds
-		if(current_cycle > 0 && current_cycle % 6 == 0 && M.all_wounds && M.all_wounds.len >= 1)	//Every 6th cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
+		if(current_cycle > 0 && M.all_wounds && M.all_wounds.len >= 1)	//Every cycle, reduce blood_flow for all pierce/slash wounds by clot_rate.
 			for(var/datum/wound/iter_wound in M.all_wounds)
 				var/affected_limb_name = iter_wound.limb.name
 				switch(iter_wound.severity)
@@ -1930,31 +2326,31 @@
 						if (iter_wound.wound_type == WOUND_PIERCE)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The bleeding hole in [M]'s [affected_limb_name] fills with fresh tissue!</span>", \
-											  "<span class='notice'>You feel the cavity in your [affected_limb_name] weaving back together.</span>")
+												"<span class='notice'>You feel the cavity in your [affected_limb_name] weaving back together.</span>")
 						else if (iter_wound.wound_type == WOUND_SLASH)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The deep gashes on [M]'s [affected_limb_name] close up!</span>", \
-											  "<span class='notice'>You feel the deep gashes on your [affected_limb_name] close up.</span>")
+												"<span class='notice'>You feel the deep gashes on your [affected_limb_name] close up.</span>")
 					if (WOUND_SEVERITY_SEVERE)
 						if (iter_wound.wound_type == WOUND_PIERCE)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The puncture wound on [M]'s [affected_limb_name] shrinks!</span>", \
-											  "<span class='notice'>You feel the puncture wound on your [affected_limb_name] shrinking.</span>")
+												"<span class='notice'>You feel the puncture wound on your [affected_limb_name] shrinking.</span>")
 						else if (iter_wound.wound_type == WOUND_SLASH)
 							iter_wound.blood_flow -= clot_rate
 							M.visible_message("<span class='notice'>The large cuts on [M]'s [affected_limb_name] mend!</span>", \
-											  "<span class='notice'>You feel the large cuts on your [affected_limb_name] mending.</span>")
+												"<span class='notice'>You feel the large cuts on your [affected_limb_name] mending.</span>")
 					if (WOUND_SEVERITY_MODERATE)
 						if (iter_wound.wound_type == WOUND_PIERCE || iter_wound.wound_type == WOUND_SLASH)
 							iter_wound.blood_flow -= clot_rate
 
 		//Actual healing part starts here
-		M.adjustBruteLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
-		M.adjustFireLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
+		M.adjustBruteLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	
+		M.adjustFireLoss(-damage_offset * 1.7 * REAGENTS_EFFECT_MULTIPLIER * heal_mult, FALSE)	
 		M.AdjustStun(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.AdjustKnockdown(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
 		M.adjustStaminaLoss(-damage_offset * 0.90 * REAGENTS_EFFECT_MULTIPLIER, FALSE)	
-		M.heal_bodypart_damage(damage_offset, damage_offset * 3, only_robotic = TRUE, only_organic = FALSE)	
+		M.heal_bodypart_damage(damage_offset * heal_mult, damage_offset * 3 * heal_mult, only_robotic = TRUE, only_organic = FALSE)	
 		. = TRUE
 
 // ---------------------------
@@ -2005,15 +2401,25 @@
 	reagent_state = SOLID
 	color = "#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 1 * REAGENTS_METABOLISM	// same as bicaridine
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM	// 10u at 2 per tick heals about 20 HP, the weakest of the herbal remedies
 	overdose_threshold = 30
 	ghoulfriendly = TRUE
+	heal_nominal = 2
+	heal_onset = 2
+	heal_origin = HEAL_ORIGIN_HERBAL
+	/// The SPECIAL stat this remedy dulls for a short time, as in New Vegas
+	var/debuff_stat = "p"
+
+/datum/reagent/medicine/healing_powder/on_mob_add(mob/living/L, amount)
+	. = ..()
+	special_debuff(L, debuff_stat, HEAL_POWDER_DEBUFF, HEAL_POWDER_DEBUFF_TIME, type)
 
 /datum/reagent/medicine/healing_powder/on_mob_life(mob/living/carbon/M)
+	var/heal_mult = get_heal_scale(M)
 	if(M.getBruteLoss() > M.getFireLoss())	//Less effective at healing mixed damage types.
-		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	else
-		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER)
+		M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	. = TRUE
 	..()
 
@@ -2035,6 +2441,10 @@
 	description = "Potent, stinging herbs that swiftly aid in the recovery of grevious wounds."
 	color = "#C8A5DC"
 	overdose_threshold = 12
+	heal_nominal = 6	// the powder's 2 plus 2 brute and 2 burn, about 60 HP from 10u
+	debuff_stat = "a"
+	heal_onset = 3
+	heal_rush = 3
 	var/clot_rate = 0.10
 	var/clot_coeff_per_wound = 0.7
 
@@ -2049,9 +2459,10 @@
 	to_chat(M, span_notice("The poultice's burning subsides."))
 
 /datum/reagent/medicine/healing_powder/poultice/on_mob_life(mob/living/carbon/M)
+	var/heal_mult = get_heal_scale(M)
 	. = ..()
-	M.adjustBruteLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
-	M.adjustFireLoss(-1*REAGENTS_EFFECT_MULTIPLIER)
+	M.adjustBruteLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
+	M.adjustFireLoss(-2*REAGENTS_EFFECT_MULTIPLIER*heal_mult)
 	clot_bleed_wounds(user = M, bleed_reduction_rate = clot_rate, coefficient_per_wound = clot_coeff_per_wound, single_wound_full_effect = FALSE)
 	. = TRUE
 	..()
@@ -2077,24 +2488,24 @@
 	reagent_state = LIQUID
 	color ="#A9FBFB"
 	taste_description = "bitterness"
-	metabolization_rate = 0.5 * REAGENTS_METABOLISM //in between powder/stimpaks and poultice/superstims?
+	metabolization_rate = 1.5 * REAGENTS_METABOLISM //5u heals about 37 HP over ~17s split across brute, burn and toxin, slightly more than a stimpak but much slower. More for tribals and a little less for outsiders
 	overdose_threshold = 31
-	var/heal_factor = -3 //Subtractive multiplier if you do not have the perk.
-	var/heal_factor_perk = -5.2 //Multiplier if you have the right perk.
+	var/heal_factor = -1.5
 	ghoulfriendly = TRUE
+	heal_nominal = 4.5
+	heal_onset = 3
+	heal_origin = HEAL_ORIGIN_HERBAL
 
 /datum/reagent/medicine/bitter_drink/on_mob_life(mob/living/carbon/M)
-	var/is_tribal = FALSE
-	if(HAS_TRAIT(M, TRAIT_TRIBAL))
-		is_tribal = TRUE
-	var/heal_rate = (is_tribal ? heal_factor_perk : heal_factor) * REAGENTS_EFFECT_MULTIPLIER
-	if(!M.reagents.has_reagent(/datum/reagent/medicine/stimpak) && !M.reagents.has_reagent(/datum/reagent/medicine/healing_powder)&& !M.reagents.has_reagent(/datum/reagent/medicine/super_stimpak))
-		M.adjustFireLoss(heal_rate)
-		M.adjustBruteLoss(heal_rate)
-		M.adjustToxLoss(heal_rate)
-		M.hallucination = max(M.hallucination, is_tribal ? 0 : 5)
-		M.radiation -= min(M.radiation, 8)
-		. = TRUE
+	var/heal_mult = get_heal_scale(M)
+	var/heal_rate = heal_factor * REAGENTS_EFFECT_MULTIPLIER * heal_mult
+	M.adjustFireLoss(heal_rate)
+	M.adjustBruteLoss(heal_rate)
+	M.adjustToxLoss(heal_rate)
+	if(!HAS_TRAIT(M, TRAIT_TRIBAL) && prob(HEAL_OUTSIDER_HERBAL_HALLUCINATE_PROB))
+		M.hallucination = max(M.hallucination, 5)
+	M.radiation -= min(M.radiation, 1)
+	. = TRUE
 	..()
 
 /datum/reagent/medicine/bitter_drink/overdose_process(mob/living/M)
@@ -2166,7 +2577,7 @@
 
 /datum/reagent/medicine/radaway
 	name = "Radaway"
-	description = "A potent anti-toxin drug."
+	description = "Flushes radiation out of the body. Works best injected, and gives a smaller benefit when taken orally."
 	reagent_state = LIQUID
 	color = "#ff7200"
 	metabolization_rate = 2.5 * REAGENTS_METABOLISM //1u per tick. quite weak per single unit, but bloodbags have 200u. IV stands should inject twice as fast if using a bloodbag.
@@ -2193,12 +2604,13 @@
 /datum/reagent/medicine/medx
 	name = "Med-X"
 
-	description = "Med-X is a potent painkiller, allowing users to withstand high amounts of pain and continue functioning. Addictive. Prolonged presence in the body can cause seizures and organ damage."
+	description = "Med-X is a potent painkiller, allowing users to withstand high amounts of pain and continue functioning. It only masks injuries, it does not heal them, and the pain returns when it wears off. Addictive. Prolonged presence in the body can cause seizures and organ damage."
 	reagent_state = LIQUID
 	color = "#6D6374"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	overdose_threshold = 25
 	addiction_threshold = 15
+	combat_load = 0.5
 	var/od_strikes = 0 // So we dont get roflstomped by a sudden massive dose of medx
 	var/od_next_strike = 0 // there's a cool down between strikes, to give the user time to purge this stuff
 	var/od_strike_cooldown = 6 SECONDS
@@ -2219,19 +2631,12 @@
 	..()
 
 /datum/reagent/medicine/medx/on_mob_life(mob/living/carbon/M)
-	if(M.health < 0)
-		M.adjustToxLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
-		M.adjustBruteLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
-		M.adjustFireLoss(-0.5*REAGENTS_EFFECT_MULTIPLIER, 0)
-	if(M.oxyloss > 35)
-		M.setOxyLoss(35, 0)
-	if(M.losebreath >= 4)
-		M.losebreath = max(M.losebreath - 2, 0)
 	M.adjustStaminaLoss(-1*REAGENTS_EFFECT_MULTIPLIER, 0)
 	. = 1
 	if(prob(20))
 		M.AdjustAllImmobility(-20, 0)
 		M.AdjustUnconscious(-20, 0)
+	combat_tick(M)
 	..()
 	if(M.mind)
 		var/datum/job/job = SSjob.GetJob(M.mind.assigned_role)
@@ -2345,44 +2750,51 @@
 /datum/reagent/medicine/mentat
 	name = "Mentat Powder"
 
-	description = "A powerful drug that heals and increases the perception and intelligence of the user."
+	description = "A pre-War nootropic that sharpens perception and intelligence for a short time. Leaves the user tired and unfocused afterwards, and withdrawal brings migraines."
 	color = "#C8A5DC"
 	taste_mult = 0.2 //lets me flavor it with other stuff
 	reagent_state = SOLID
 	overdose_threshold = 25
 	addiction_threshold = 15
 	ghoulfriendly = TRUE
+	var/special_delta_p = 0
+	var/special_delta_i = 0
+
+/datum/reagent/medicine/mentat/on_mob_add(mob/living/L)
+	..()
+	if(!isliving(L) || special_delta_p || special_delta_i)
+		return
+	var/old_p = L.special_p
+	var/old_i = L.special_i
+	L.set_special_p(old_p + MENTAT_SPECIAL_BONUS)
+	L.set_special_i(old_i + MENTAT_SPECIAL_BONUS)
+	special_delta_p = L.special_p - old_p
+	special_delta_i = L.special_i - old_i
+
+/datum/reagent/medicine/mentat/on_mob_delete(mob/living/L)
+	if(isliving(L))
+		if(special_delta_p)
+			L.set_special_p(L.special_p - special_delta_p)
+		if(special_delta_i)
+			L.set_special_i(L.special_i - special_delta_i)
+		special_delta_p = 0
+		special_delta_i = 0
+		if(iscarbon(L) && L.stat != DEAD)
+			var/mob/living/carbon/C = L
+			C.drowsyness = max(C.drowsyness, MENTAT_CRASH_DROWSY)
+			C.blur_eyes(MENTAT_CRASH_BLUR)
+			to_chat(C, span_warning("The mental clarity fades, leaving you tired and unfocused."))
+	..()
 
 /datum/reagent/medicine/mentat/on_mob_life(mob/living/carbon/M)
-	M.adjustOxyLoss(-3*REAGENTS_EFFECT_MULTIPLIER)
-	var/obj/item/organ/eyes/eyes = M.getorganslot(ORGAN_SLOT_EYES)
-	if (!eyes)
-		return
-	if(M.getOrganLoss(ORGAN_SLOT_BRAIN) == 0)
-		M.cure_all_traumas(TRAUMA_RESILIENCE_SURGERY)
-/*	if(HAS_TRAIT(M, TRAIT_BLIND, TRAIT_GENERIC))
-		if(prob(20))
-			to_chat(M, span_warning("Your vision slowly returns..."))
-			M.cure_blind(EYE_DAMAGE)
-			M.cure_nearsighted(EYE_DAMAGE)
-			M.blur_eyes(35)
-	else if(HAS_TRAIT(M, TRAIT_NEARSIGHT, TRAIT_GENERIC))
-		to_chat(M, span_warning("The blackness in your peripheral vision fades."))
-		M.cure_nearsighted(EYE_DAMAGE)
-		M.blur_eyes(10)*/
-	if(M.eye_blind || M.eye_blurry)
-		M.set_blindness(0)
-		M.set_blurriness(0)
-		to_chat(M, span_warning("Your vision slowly returns to normal..."))
-	M.adjustOrganLoss(ORGAN_SLOT_EYES, -1)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, -1)
 	if (prob(5))
 		to_chat(M, span_notice("You feel a strange mental fortitude!"))
 	..()
 	. = TRUE
 
 /datum/reagent/medicine/mentat/overdose_process(mob/living/M)
-	M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15)
+	if(prob(50))
+		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
 	if(prob(33))
 		M.Dizzy(2)
 		M.Jitter(2)
@@ -2402,9 +2814,7 @@
 
 /datum/reagent/medicine/mentat/addiction_act_stage3(mob/living/M)
 	if(prob(33))
-		M.adjustToxLoss(1*REAGENTS_EFFECT_MULTIPLIER)
-//		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 2)
-//		. = TRUE
+		M.blur_eyes(3)
 		M.Dizzy(4)
 		M.Jitter(4)
 	..()
@@ -2412,9 +2822,7 @@
 /datum/reagent/medicine/mentat/addiction_act_stage4(mob/living/M)
 	if(prob(33))
 		M.drop_all_held_items()
-		M.adjustToxLoss(2*REAGENTS_EFFECT_MULTIPLIER)
-//		M.adjustOrganLoss(ORGAN_SLOT_BRAIN, 4)
-//		. = TRUE
+		M.blur_eyes(5)
 		M.Dizzy(5)
 		M.Jitter(5)
 	..()
@@ -2425,23 +2833,88 @@
 /datum/reagent/medicine/fixer
 	name = "Fixer Powder"
 
-	description = "Treats addictions while also purging other chemicals from the body. Side effects include nausea."
+	description = "Temporarily suppresses chemical dependence. Side effects include nausea and woozy, blurred vision, and the addiction can return with further use."
 	reagent_state = SOLID
 	color = "#C8A5DC"
 	ghoulfriendly = TRUE
-	synth_metabolism_use_human = TRUE
 
 /datum/reagent/medicine/fixer/on_mob_life(mob/living/carbon/M)
-//	for(var/datum/reagent/R in M.reagents.reagent_list)
-//		if(R != src)
-//			M.reagents.remove_reagent(R.id,2)
-	for(var/datum/reagent/R in M.reagents.addiction_list)
-		M.reagents.addiction_list.Remove(R)
+	var/datum/reagents/holder = M.reagents
+	for(var/datum/reagent/R in holder.addiction_list.Copy())
+		holder.addiction_list -= R
 		to_chat(M, span_notice("You feel like you've gotten over your need for [R.name]."))
-	M.confused = max(M.confused, 4)
+	for(var/dep in holder.dependence.Copy())
+		holder.dependence -= dep
+	var/detox_mult = HAS_TRAIT(M, TRAIT_DETOX_SPECIALIST) ? 0.25 : 1
+	M.confused = max(M.confused, 4 * detox_mult)
+	if(prob(FIXER_WOOZY_PROB * detox_mult))
+		M.blur_eyes(4)
+		M.Dizzy(3)
+		to_chat(M, span_warning("You feel woozy."))
 	if(ishuman(M) && prob(5))
 		var/mob/living/carbon/human/H = M
 		H.vomit(10)
+	..()
+	. = TRUE
+
+// ---------------------------
+// JET ANTIDOTE REAGENT
+
+/datum/reagent/medicine/jet_antidote
+	name = "Jet Antidote"
+	description = "An endorphin blocker that flushes Jet from the system and cures Jet addiction, at the price of cramps and nausea."
+	color = "#B8D8E0"
+	ghoulfriendly = TRUE
+	metabolization_rate = 0.5 * REAGENTS_METABOLISM
+
+/datum/reagent/medicine/jet_antidote/on_mob_life(mob/living/carbon/M)
+	var/datum/reagents/holder = M.reagents
+	for(var/datum/reagent/R in holder.reagent_list.Copy())
+		if(istype(R, /datum/reagent/drug/jet))
+			holder.remove_reagent(R.type, 2)
+	for(var/datum/reagent/R in holder.addiction_list.Copy())
+		if(istype(R, /datum/reagent/drug/jet))
+			holder.addiction_list -= R
+			to_chat(M, span_notice("The craving for Jet finally lets go of you."))
+	for(var/dep in holder.dependence.Copy())
+		if(ispath(dep, /datum/reagent/drug/jet))
+			holder.dependence -= dep
+	var/detox_mult = HAS_TRAIT(M, TRAIT_DETOX_SPECIALIST) ? 0.25 : 1
+	if(prob(10 * detox_mult))
+		M.adjustStaminaLoss(5)
+		to_chat(M, span_warning("Your stomach cramps."))
+	if(ishuman(M) && prob(3 * detox_mult))
+		var/mob/living/carbon/human/H = M
+		H.vomit(10)
+	..()
+	. = TRUE
+
+// ---------------------------
+// RUSHING WATER REAGENT
+
+/datum/reagent/medicine/rushing_water
+	name = "Rushing Water"
+	description = "A Sorrows-tribe concoction that quickens the blood, rapidly closing wounds for a short time. The body pays for it in thirst."
+	color = "#7FC8F0"
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	overdose_threshold = 15
+	ghoulfriendly = TRUE
+
+/datum/reagent/medicine/rushing_water/on_mob_life(mob/living/carbon/M)
+	var/heal_mult = get_heal_scale(M)
+	M.adjustBruteLoss(-1.5 * heal_mult, FALSE)
+	M.adjustFireLoss(-1.5 * heal_mult, FALSE)
+	pay_repair_cost(M, 3 * heal_mult)
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		if(H.needs_hydration())
+			H.adjust_thirst(-RUSHING_WATER_THIRST)
+	..()
+	. = TRUE
+
+/datum/reagent/medicine/rushing_water/overdose_process(mob/living/M)
+	M.adjustToxLoss(1, FALSE)
+	M.Jitter(3)
 	..()
 	. = TRUE
 

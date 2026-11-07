@@ -1269,7 +1269,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 				H.Jitter(5)
 			hunger_rate = 3 * HUNGER_FACTOR
 		hunger_rate *= H.physiology.hunger_mod
-		hunger_rate *= 1 + (H.get_hydration_loss_multiplier() - 1) * HUNGER_ACTIVITY_SCALE
+		hunger_rate *= HUNGER_BASAL_MULT
+		hunger_rate *= min(1 + (H.get_hydration_loss_multiplier() - 1) * HUNGER_ACTIVITY_SCALE, HUNGER_ACTIVITY_MAX)
 		H.adjust_nutrition(-hunger_rate)
 
 	if(H.stat != DEAD)
@@ -1280,6 +1281,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			if(HAS_TRAIT(H, TRAIT_DEHYDRATED))
 				thirst_rate *= HYDRATION_DEHYDRATED_MULT
 			H.absorb_stomach_water()
+			H.process_waterborne_load()
 			H.adjust_thirst(-thirst_rate)
 			handle_thirst(H)
 		else if(H.hydration_tier != HYDRATION_TIER_HYDRATED)
@@ -1329,7 +1331,7 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 	if(!H.client || (H.client && (H.client.inactivity / 600 > 5))) // Let's not kill AFK mobs
 		return
 
-	switch(H.nutrition)
+	switch(H.get_effective_nutrition())
 		if(NUTRITION_LEVEL_FULL to INFINITY)
 			H.throw_alert("nutrition", /obj/screen/alert/fat)
 		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FULL)
@@ -1372,7 +1374,8 @@ GLOBAL_LIST_EMPTY(roundstart_race_names)
 			if(HYDRATION_TIER_THIRSTY, HYDRATION_TIER_PARCHED)
 				H.throw_alert("thirst", /obj/screen/alert/thirsty)
 				if(worsened)
-					to_chat(H, span_warning(tier == HYDRATION_TIER_THIRSTY ? "You are getting thirsty." : "Your throat is parched and your head is starting to pound."))
+					var/thirst_message = (tier == HYDRATION_TIER_THIRSTY) ? "You are getting thirsty." : "Your throat is parched and your head is starting to pound."
+					to_chat(H, span_warning(thirst_message))
 			if(HYDRATION_TIER_CRITICAL)
 				H.throw_alert("thirst", /obj/screen/alert/deadly_thirsty)
 				to_chat(H, span_userdanger("You are severely dehydrated. You need water now."))

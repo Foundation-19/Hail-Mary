@@ -39,6 +39,7 @@
 		to_chat(user, span_notice("You inject [M] with [src]."))
 
 		var/fraction = min(amount_per_transfer_from_this/reagents.total_volume, 1)
+		note_healer(M, user)
 		reagents.reaction(M, INJECT, fraction)
 		if(M.reagents)
 			var/trans = 0
@@ -169,17 +170,17 @@
 // FALLOUT HYPOS //
 ///////////////////
 
-/obj/item/reagent_containers/hypospray/medipen/stimpak // 20hp instantly, plus 30hp over 20 seconds. stims in fallout contain a whole cocktail of chems, and this mix prevents them from stacking with healing powder and bitter drink.
+/obj/item/reagent_containers/hypospray/medipen/stimpak // about 30hp within seconds. The stimfluid blocks bitter drink from stacking with it.
 	name = "stimpak"
 	desc = "A handheld delivery system for medicine, used to rapidly heal physical damage to the body."
 	icon = 'icons/obj/medicine/drugs.dmi'
 	icon_state = "hypo_stimpak"
 	syringe_self_delay = 5 //Used to be double the time of powder at 10
 	custom_price = PRICE_STIMPAK
-	volume = 26
-	amount_per_transfer_from_this = 26
+	volume = 20
+	amount_per_transfer_from_this = 20
 	reagent_flags = DRAWABLE
-	list_reagents = list(/datum/reagent/medicine/stimpak = 20, /datum/reagent/medicine/healing_powder = 2, /datum/reagent/medicine/bicaridine = 2, /datum/reagent/medicine/kelotane = 2)
+	list_reagents = list(/datum/reagent/medicine/stimpak = 20)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/on_reagent_change(changetype)
 	update_icon()
@@ -215,7 +216,7 @@
 	desc = "A handheld delivery system for medicine made of broc flower & xander root, used to heal minor physical damage to the body."
 	amount_per_transfer_from_this = 9
 	volume = 9
-	list_reagents = list(/datum/reagent/medicine/stimpak = 4, /datum/reagent/medicine/healing_powder = 2, /datum/reagent/medicine/bicaridine = 2, /datum/reagent/medicine/kelotane = 1)
+	list_reagents = list(/datum/reagent/medicine/stimpak = 4, /datum/reagent/medicine/healing_powder = 5)
 
 /obj/item/reagent_containers/hypospray/medipen/stimpak/epipak
 	name = "epipak"
@@ -237,7 +238,7 @@
 // ---------------------------------
 // SUPER STIMPAK
 
-/obj/item/reagent_containers/hypospray/medipen/stimpak/super // 50hp instantly, plus 50hp over 20 seconds.
+/obj/item/reagent_containers/hypospray/medipen/stimpak/super // about 75hp in a few seconds.
 	name = "super stimpak"
 	desc = "The super version comes in a hypodermic, but with an additional vial containing more powerful drugs than the basic model and a leather belt to strap the needle to the injured limb."
 	icon_state = "hypo_superstimpak"
@@ -574,6 +575,7 @@
 		L.log_message("<font color='orange'>applied [src] to themselves ([contained]).</font>", INDIVIDUAL_ATTACK_LOG)
 
 	var/fraction = min(vial.amount_per_transfer_from_this/vial.reagents.total_volume, 1)
+	note_healer(L, user)
 	vial.reagents.reaction(L, method, fraction)
 	vial.reagents.trans_to(target, vial.amount_per_transfer_from_this, log = TRUE)
 	var/long_sound = vial.amount_per_transfer_from_this >= 15

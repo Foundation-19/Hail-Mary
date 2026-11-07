@@ -56,6 +56,8 @@
 	var/last_tick = 1
 	var/addiction_tick = 1
 	var/list/datum/reagent/addiction_list = new/list()
+	/// Hidden dependence per reagent type, see addiction.dm
+	var/list/dependence = list()
 	var/reagents_holder_flags
 	var/targetVol = 0 //the target volume, i.e. the total amount that can be created during a fermichem reaction.
 	var/reactedVol = 0 //how much of the reagent is reacted during a fermireaction
@@ -290,7 +292,16 @@
 	var/list/cached_addictions = addiction_list
 	if(C)
 		expose_temperature(C.bodytemperature, 0.25)
+		if(src == C.reagents)
+			C.process_chem_interactions()
 	var/need_mob_update = 0
+	// Running several healers or chems at once leans harder on the body, so dependence builds faster
+	var/active_chems = 0
+	for(var/datum/reagent/active in cached_reagents)
+		var/datum/reagent/medicine/healer_chem = active
+		if(active.addiction_threshold || (istype(healer_chem) && healer_chem.heal_nominal))
+			active_chems++
+	var/stack_mult = min(1 + ADDICTION_STACK_STEP * max(0, active_chems - 1), ADDICTION_STACK_MAX)
 	for(var/reagent in cached_reagents)
 		var/datum/reagent/R = reagent
 		if(QDELETED(R.holder))
@@ -309,16 +320,23 @@
 			if(C.reagent_check(R) != 1)
 				if(can_overdose && (!isrobotic(C) || (isrobotic(C) && R.synth_can_overdose_and_be_addicted)))
 					if(R.overdose_threshold)
-						if(R.volume > R.overdose_threshold && !R.overdosed)
+						var/od_threshold = R.overdose_threshold * (HAS_TRAIT(C, TRAIT_CAREFUL_DOSING) ? 1.25 : 1)
+						if(R.volume > od_threshold && !R.overdosed)
 							R.overdosed = 1
 							var/turf/CT = get_turf(C)
 							log_reagent("OVERDOSE START: [key_name(C)] at [AREACOORD(CT)] started overdosing on [R.volume] units of [R].")
 							need_mob_update += R.overdose_start(C)
 					if(R.addiction_threshold)
-						if(R.volume > R.addiction_threshold && !is_type_in_list(R, cached_addictions))
-							var/datum/reagent/new_reagent = new R.type()
-							R.on_addiction_start(my_atom)
-							cached_addictions.Add(new_reagent)
+						var/old_dependence = dependence[R.type] || 0
+						var/new_dependence = old_dependence + R.metabolization_rate / R.addiction_threshold * 						(HAS_TRAIT(C, TRAIT_CLEAN_LIVING) ? 0.6 : 1) * stack_mult
+						dependence[R.type] = new_dependence
+						if(!is_type_in_list(R, cached_addictions))
+							if(new_dependence >= ADDICTION_LIMIT)
+								var/datum/reagent/new_reagent = new R.type()
+								R.on_addiction_start(my_atom)
+								cached_addictions.Add(new_reagent)
+							else if(old_dependence < ADDICTION_LIMIT * ADDICTION_WARN_FRACTION && new_dependence >= ADDICTION_LIMIT * ADDICTION_WARN_FRACTION)
+								to_chat(C, span_warning("Your body is getting used to [R.name]. Maybe ease off."))
 					if(R.overdosed)
 						need_mob_update += R.overdose_process(C)
 					if(is_type_in_list(R,cached_addictions))
@@ -332,6 +350,12 @@
 					need_mob_update += R.on_mob_life(C)
 
 	if(can_overdose)
+		for(var/dependence_type in dependence)
+			var/faded = dependence[dependence_type] - ADDICTION_DECAY
+			if(faded > 0)
+				dependence[dependence_type] = faded
+			else
+				dependence -= dependence_type
 		if(addiction_tick == 6)
 			addiction_tick = 1
 			for(var/addiction in cached_addictions)
@@ -365,6 +389,7 @@
 		var/turf/T = get_turf(my_atom)
 		log_reagent("OVERDOSE STOP: [key_name(my_atom)] at [AREACOORD(T)] got over their need for [R].")
 	addiction_list.Remove(R)
+	dependence -= R.type
 	qdel(R)
 
 //Signals that metabolization has stopped, triggering the end of trait-based effects

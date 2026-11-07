@@ -35,6 +35,8 @@
 	//var/cell_type = /obj/item/stock_parts/cell/high
 	var/has_panel_overlay = TRUE
 	var/obj/item/reagent_containers/beaker = null
+	/// Reagents in this machine's reservoir that are 200-year-old stock and carry a pathogen risk
+	var/list/aged_stock
 	var/list/dispensable_reagents = list(
 		/datum/reagent/hydrogen,
 		/datum/reagent/lithium,
@@ -283,6 +285,9 @@
 						say("Not enough chemicals in storage to complete operation!")
 						return
 					R.add_reagent(reagent, actual)
+					if(aged_stock && (reagent in aged_stock) && istype(beaker, /obj/item/reagent_containers/food/drinks))
+						var/obj/item/reagent_containers/food/drinks/old_cup = beaker
+						old_cup.aged_pathogen_chance = max(old_cup.aged_pathogen_chance, DRINK_AGED_PATHOGEN_CHANCE)
 					log_reagent("DISPENSER: ([COORD(src)]) ([REF(src)]) [key_name(usr)] dispensed [actual] of [reagent] to [beaker] ([REF(beaker)]).")
 
 					work_animation()
@@ -512,6 +517,25 @@
 
 /obj/machinery/chem_dispenser/drinks/Initialize()
 	. = ..()
+	aged_stock = list(
+		/datum/reagent/consumable/cream,
+		/datum/reagent/consumable/pineapplejuice,
+		/datum/reagent/consumable/orangejuice,
+		/datum/reagent/consumable/limejuice,
+		/datum/reagent/consumable/tomatojuice,
+		/datum/reagent/consumable/lemonjuice,
+		/datum/reagent/consumable/grapejuice,
+		/datum/reagent/consumable/berryjuice,
+		/datum/reagent/consumable/strawberryjuice,
+		/datum/reagent/consumable/applejuice,
+		/datum/reagent/consumable/carrotjuice,
+		/datum/reagent/consumable/pumpkinjuice,
+		/datum/reagent/consumable/watermelonjuice,
+		/datum/reagent/consumable/parsnipjuice,
+		/datum/reagent/consumable/bungojuice,
+		/datum/reagent/consumable/aloejuice,
+		/datum/reagent/consumable/peachjuice,
+		/datum/reagent/consumable/blumpkinjuice)
 	AddComponent(/datum/component/simple_rotation, ROTATION_ALTCLICK | ROTATION_CLOCKWISE)
 
 /obj/machinery/chem_dispenser/drinks/setDir()

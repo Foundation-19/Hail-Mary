@@ -1,12 +1,12 @@
 /mob
 	var/flavor_text = "" //tired of fucking double checking this
 	var/special_s = SPECIAL_DEFAULT_ATTR_VALUE // Strength modifies melee damage; certain guns can be STR locked
-	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER
-	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END
+	var/special_p = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 degrees of innate gun spread for each level below/above 5 PER; with INT it is the Medicine skill that scales healing
+	var/special_e = SPECIAL_DEFAULT_ATTR_VALUE // -50 to +130 maxHealth (non-linear, see get_special_endurance_health_bonus) plus increased poison and rad resistance for each level above/below 5 END; also slows waterborne illness buildup, shortens the combat chem crash, and improves how well healing takes
 	var/special_c = SPECIAL_DEFAULT_ATTR_VALUE // Desc message + other people get moodlets about your demeanor/appearance when they examine you; caps how many followers you can lead in a pull chain
-	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked
+	var/special_i = SPECIAL_DEFAULT_ATTR_VALUE // Can't craft with INT under SPECIAL_MIN_INT_CRAFTING_REQUIREMENT, certain recipes can be INT locked, certain guns can be INT locked; with PER it scales healing and each point above 5 lowers the rushed-healing chance
 	var/special_a = SPECIAL_DEFAULT_ATTR_VALUE // +/- 5 tiles sprint buffer, +/- 10% sprint regen, +/- 0.05 sprint speed, +/- 10% sprint stamina usage per lvl below/above 5 AGI
-	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to fumble/whiff an attack if it's 3 or below
+	var/special_l = SPECIAL_DEFAULT_ATTR_VALUE // Money from trash piles and chance to fumble/whiff an attack if it's 3 or below; a lucky healer is also less likely to botch a rushed heal
 	/// world.time deadline before intimidating_presence() (low-Charisma's standalone ability) can be used again.
 	var/intimidate_cooldown_until = 0
 	/// world.time deadline before commanding_presence() (high-Charisma's standalone ability) can be used again.
@@ -559,6 +559,10 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_power_attack_interrupt_stagger_duration()
 	return CLAMP(3 SECONDS - ((special_e - SPECIAL_DEFAULT_ATTR_VALUE) * 0.3 SECONDS), 1 SECONDS, 5 SECONDS)
 
+/// Damage (after armor) a hit must exceed to break a Power Attack windup. Endurance mostly, Strength a little.
+/mob/living/proc/get_power_attack_flinch_threshold()
+	return 3 + (2 * special_e) + (0.5 * max(0, special_s - SPECIAL_DEFAULT_ATTR_VALUE))
+
 /// LUCK
 
 /// Currently affects only money from trashpiles
@@ -767,11 +771,11 @@ proc/get_top_level_mob(mob/S)
 /mob/living/proc/get_power_attack_fumble_chance()
 	switch(special_l)
 		if(1)
-			return 15
-		if(2)
 			return 8
+		if(2)
+			return 4
 		if(3)
-			return 3
+			return 2
 	return 0
 
 /// How much heat/condition-driven gun jam & cook-off chance gets scaled by luck - bad luck makes malfunctions more likely, good luck less

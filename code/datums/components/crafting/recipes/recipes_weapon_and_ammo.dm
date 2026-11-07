@@ -1830,6 +1830,7 @@
 	time = 30
 	category = CAT_WEAPONRY
 	subcategory = CAT_PARTS
+	always_available = FALSE
 
 /datum/crafting_recipe/focusing_lens
 	name = "Focusing Lens"

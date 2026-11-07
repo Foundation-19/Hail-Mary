@@ -13,7 +13,7 @@
 	/// The beaker/container currently in the machine
 	var/obj/item/reagent_containers/output = null
 	/// How many units it adds per tick
-	var/speed = 5
+	var/speed = 10
 	/// What reagent it adds?
 	var/datum/reagent/reagent_type = /datum/reagent/water/purified
 
@@ -25,10 +25,25 @@
 	if(!is_operational())
 		return
 
-	if(!output || output.reagents.total_volume >= output.reagents.maximum_volume)
+	if(!output)
 		return
 
-	output.reagents.add_reagent(reagent_type, speed)
+	if(output.reagents.total_volume >= output.reagents.maximum_volume)
+		finish_filling()
+		return
+
+	output.reagents.add_reagent(reagent_type, min(speed, output.reagents.maximum_volume - output.reagents.total_volume))
+	update_icon()
+	if(output.reagents.total_volume >= output.reagents.maximum_volume)
+		finish_filling()
+
+/// Pops the full container out of the slot so nobody has to babysit the machine.
+/obj/machinery/water_purifier/proc/finish_filling()
+	var/obj/item/reagent_containers/done = output
+	output = null
+	done.forceMove(drop_location())
+	playsound(src, 'sound/machines/ping.ogg', 50, TRUE)
+	visible_message(span_notice("[src] pings and pushes out a full [done]."))
 	update_icon()
 
 /obj/machinery/water_purifier/attackby(obj/item/O, mob/user, params)
@@ -39,6 +54,9 @@
 		. = TRUE //no afterattack
 		if(output)
 			to_chat(user, span_warning("Remove [output] from the machine first."))
+			return
+		if(O.reagents.total_volume >= O.reagents.maximum_volume)
+			to_chat(user, span_warning("[O] is already full."))
 			return
 		if(!user.transferItemToLoc(O, src))
 			return
